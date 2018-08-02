@@ -2,7 +2,6 @@ const async = require('async')
 const config = require('config')
 const uuid = require('uuid')
 
-require('../../../lib/db.js')
 const Street = require('../../models/street.js')
 const User = require('../../models/user.js')
 const Sequence = require('../../models/sequence.js')

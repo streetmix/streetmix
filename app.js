@@ -21,10 +21,12 @@ const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
 const middleware = require('./lib/middleware')
-const exec = require('child_process').exec
 const initRedisClient = require('./lib/redis')
+const initMongoDB = require('./lib/db')
+const exec = require('child_process').exec
 
 const client = initRedisClient()
+initMongoDB()
 
 const app = module.exports = express()
 
