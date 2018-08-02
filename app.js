@@ -57,6 +57,7 @@ const csp = {
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],
     childSrc: ['platform.twitter.com'],
+    frameSrc: ['streetmix.github.io'],
     imgSrc: [
       "'self'",
       'data:',
@@ -143,6 +144,9 @@ app.get('/help/about', function (req, res) {
 app.get('/map', function (req, res) {
   res.redirect('https://streetmix.github.io/map/')
 })
+
+app.get('/privacy-policy', express.static(path.join(__dirname, '/public/pages'), { fallthrough: false }))
+app.get('/terms-of-service', express.static(path.join(__dirname, '/public/pages'), { fallthrough: false }))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
