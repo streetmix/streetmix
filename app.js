@@ -22,6 +22,9 @@ const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
 const middleware = require('./lib/middleware')
 const exec = require('child_process').exec
+const initRedisClient = require('./lib/redis')
+
+const client = initRedisClient()
 
 const app = module.exports = express()
 
@@ -115,6 +118,12 @@ app.use(function (req, res, next) {
     google_analytics: uuid(),
     mixpanel: uuid()
   }
+  next()
+})
+
+// Set Redis client for when requesting the geoip
+app.use('/services/geoip', function (req, res, next) {
+  req.redisClient = client
   next()
 })
 
@@ -250,5 +259,6 @@ process.on('SIGINT', function () {
     console.log('Stopping Streetmix!')
     exec('npm stop')
   }
+
   process.exit()
 })
