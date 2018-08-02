@@ -2,7 +2,6 @@ const request = require('request')
 const redis = require('redis')
 const config = require('config')
 const logger = require('../../../lib/logger.js')()
-const client = require('../../../lib/redis.js')
 
 const IP_GEOLOCATION_TIMEOUT = 500
 
@@ -41,6 +40,7 @@ exports.get = function (req, res) {
   }
 
   const ip = requestIp(req)
+  const client = req.redisClient
 
   // If Redis is connected and Streetmix is not being run locally, check
   // to see if there is a matching key in Redis to the current IP address.
