@@ -32,7 +32,13 @@ process.on('uncaughtException', function (error) {
   console.log(error)
   console.trace()
 
-  client.on('end', () => { process.exit(1) })
+  if (client.connected) {
+    client.on('end', function () {
+      process.exit(1)
+    })
+  } else {
+    process.exit(1)
+  }
 })
 
 // Provide a message after a Ctrl-C
@@ -43,7 +49,11 @@ process.on('SIGINT', function () {
     exec('npm stop')
   }
 
-  client.on('end', process.exit)
+  if (client.connected) {
+    client.on('end', process.exit)
+  } else {
+    process.exit()
+  }
 })
 
 app.locals.config = config
