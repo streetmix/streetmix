@@ -28,6 +28,24 @@ const client = initRedisClient()
 
 const app = module.exports = express()
 
+process.on('uncaughtException', function (error) {
+  console.log(error)
+  console.trace()
+
+  client.on('end', () => { process.exit(1) })
+})
+
+// Provide a message after a Ctrl-C
+// Note: various sources tell us that this does not work on Windows
+process.on('SIGINT', function () {
+  if (app.locals.config.env === 'development') {
+    console.log('Stopping Streetmix!')
+    exec('npm stop')
+  }
+
+  client.on('end', process.exit)
+})
+
 app.locals.config = config
 
 // Not all headers from `helmet` are on by default. These turns on specific
@@ -251,14 +269,3 @@ if (config.env === 'development') {
     compileStyles()
   })
 }
-
-// Provide a message after a Ctrl-C
-// Note: various sources tell us that this does not work on Windows
-process.on('SIGINT', function () {
-  if (app.locals.config.env === 'development') {
-    console.log('Stopping Streetmix!')
-    exec('npm stop')
-  }
-
-  process.exit()
-})
