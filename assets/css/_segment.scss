@@ -195,6 +195,7 @@ body.segment-resize-dragging * {
 
 .drag-handle.floating {
   background-color: darken($ui-colour, 30%);
+  opacity: 1;
 }
 
 body.segment-resize-dragging .drag-handle.floating,

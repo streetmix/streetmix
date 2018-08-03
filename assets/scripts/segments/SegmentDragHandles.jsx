@@ -9,7 +9,6 @@ import { DragTypes } from './constants'
 
 const dragSpec = {
   beginDrag (props, monitor, component) {
-    console.log('hi drag start')
     return {
       position: props.position
     }

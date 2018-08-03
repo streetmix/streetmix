@@ -9,10 +9,13 @@ const MAX_DRAG_DEGREE = 20
 
 class SegmentDragLayer extends React.PureComponent {
   static propTypes = {
-    isDragging: PropTypes.bool.isRequired,
-    currentOffset: PropTypes.object,
     item: PropTypes.object,
-    type: PropTypes.string
+    type: PropTypes.string,
+    currentOffset: PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired
+    }),
+    isDragging: PropTypes.bool.isRequired
   }
 
   getSnapshotBeforeUpdate (prevProps) {
@@ -57,15 +60,29 @@ class SegmentDragLayer extends React.PureComponent {
   render () {
     const { isDragging, item, type } = this.props
 
-    if (!isDragging || type === DragTypes.SEGMENT_DRAG_HANDLE) return null
+    if (!isDragging) return null
 
-    return (
-      <div className="segment-drag-layer">
-        <div className="floating segment" ref={(ref) => { this.floatingEl = ref }}>
-          <SegmentCanvas {...item} />
-        </div>
-      </div>
-    )
+    switch (type) {
+      case DragTypes.SEGMENT:
+      case DragTypes.PALETTE_SEGMENT:
+        return (
+          <div className="segment-drag-layer">
+            <div className="floating segment" ref={(ref) => { this.floatingEl = ref }}>
+              <SegmentCanvas {...item} />
+            </div>
+          </div>
+        )
+      case DragTypes.SEGMENT_DRAG_HANDLE:
+        if (!this.props.currentOffset) return null
+
+        return (
+          <div className="drag-handle floating" style={{
+            left: `${this.props.currentOffset.x}px`
+          }} />
+        )
+      default:
+        return null
+    }
   }
 }
 
