@@ -3,8 +3,6 @@ import { loseAnyFocus } from '../util/focus'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
-import { setIgnoreStreetChanges } from '../streets/data_model'
-import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import {
   SegmentTypes,
@@ -25,24 +23,13 @@ import {
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
 import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DragTypes } from './constants'
-import { segmentsChanged, getSegmentEl } from './view'
+import { segmentsChanged } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { updateDraggingState, clearDraggingState, setActiveSegment } from '../store/actions/ui'
 
-export const DRAGGING_TYPE_NONE = 0
-const DRAGGING_TYPE_CLICK_OR_MOVE = 1
-const DRAGGING_TYPE_MOVE = 2
-const DRAGGING_TYPE_RESIZE = 3
-
-var _draggingType = DRAGGING_TYPE_NONE
-
-export function draggingType () {
-  return _draggingType
-}
-
-export var draggingResize = {
+var draggingResize = {
   segmentEl: null,
   floatingEl: null,
   mouseX: null,
@@ -55,106 +42,27 @@ export var draggingResize = {
   right: false
 }
 
-export function changeDraggingType (newDraggingType) {
-  _draggingType = newDraggingType
-
-  document.body.classList.remove('segment-move-dragging')
-  document.body.classList.remove('segment-resize-dragging')
-
-  switch (_draggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      document.body.classList.add('segment-resize-dragging')
-      break
-    case DRAGGING_TYPE_MOVE:
-      document.body.classList.add('segment-move-dragging')
-      break
-  }
-}
-
-export function handleSegmentResizeStart (event) {
-  let x, y
-
-  if (event.touches && event.touches[0]) {
-    x = event.touches[0].pageX
-    y = event.touches[0].pageY
-  } else {
-    x = event.pageX
-    y = event.pageY
-  }
-
-  setIgnoreStreetChanges(true)
-
-  var el = event.target
-
-  changeDraggingType(DRAGGING_TYPE_RESIZE)
-
-  var pos = getElAbsolutePos(el)
-
-  draggingResize.right = el.classList.contains('drag-handle-right')
-
-  // draggingResize.floatingEl = document.createElement('div')
-  // draggingResize.floatingEl.classList.add('drag-handle')
-  // draggingResize.floatingEl.classList.add('floating')
-
-  // if (el.classList.contains('drag-handle-left')) {
-  //   draggingResize.floatingEl.classList.add('drag-handle-left')
+export function handleSegmentResizeMove (event) {
+  let resizeType
+  // if (event.touches && event.touches[0]) {
+  //   x = event.touches[0].pageX
+  //   y = event.touches[0].pageY
   // } else {
-  //   draggingResize.floatingEl.classList.add('drag-handle-right')
+  //   x = event.pageX
+  //   y = event.pageY
   // }
 
-  // draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
-  // draggingResize.floatingEl.style.top = pos[1] + 'px'
-  // document.body.appendChild(draggingResize.floatingEl)
+  // var deltaX = x - draggingResize.mouseX
 
-  draggingResize.mouseX = x
-  draggingResize.mouseY = y
+  // var deltaFromOriginal = draggingResize.elX - draggingResize.originalX
+  // if (!draggingResize.right) {
+  //   deltaFromOriginal = -deltaFromOriginal
+  // }
 
-  draggingResize.elX = pos[0]
-  draggingResize.elY = pos[1]
+  // draggingResize.elX += deltaX
+  // draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
 
-  draggingResize.originalX = draggingResize.elX
-  draggingResize.originalWidth = parseFloat(el.parentNode.getAttribute('data-width'))
-
-  // Read the active segment element by looking at redux state, rather than event target
-  const activeSegment = store.getState().ui.activeSegment
-  if (typeof activeSegment !== 'number') return
-  const activeSegmentEl = getSegmentEl(activeSegment)
-
-  draggingResize.segmentEl = activeSegmentEl
-
-  draggingResize.segmentEl.classList.add('hover')
-
-  infoBubble.hide()
-  infoBubble.hideSegment(true)
-  cancelFadeoutControls()
-  hideControls()
-
-  window.setTimeout(function () {
-    draggingResize.segmentEl.classList.add('hover')
-  }, 0)
-}
-
-function handleSegmentResizeMove (event) {
-  let x, y, resizeType
-  if (event.touches && event.touches[0]) {
-    x = event.touches[0].pageX
-    y = event.touches[0].pageY
-  } else {
-    x = event.pageX
-    y = event.pageY
-  }
-
-  var deltaX = x - draggingResize.mouseX
-
-  var deltaFromOriginal = draggingResize.elX - draggingResize.originalX
-  if (!draggingResize.right) {
-    deltaFromOriginal = -deltaFromOriginal
-  }
-
-  draggingResize.elX += deltaX
-  draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
-
-  draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
+  // draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
   var precise = event.shiftKey
 
   if (precise) {
@@ -165,8 +73,8 @@ function handleSegmentResizeMove (event) {
 
   resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width)
 
-  draggingResize.mouseX = x
-  draggingResize.mouseY = y
+  // draggingResize.mouseX = x
+  // draggingResize.mouseY = y
 }
 
 // TODO: This is no longer used anywhere (the keydown button that used to call this is no longer
@@ -185,14 +93,12 @@ export function suppressMouseEnter () {
 }
 
 export function handleSegmentResizeEnd (event) {
-  setIgnoreStreetChanges(false)
+  // setIgnoreStreetChanges(false)
 
   segmentsChanged(false)
 
-  changeDraggingType(DRAGGING_TYPE_NONE)
-
-  var el = draggingResize.floatingEl
-  el.remove()
+  // var el = draggingResize.floatingEl
+  // el.remove()
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)
@@ -204,10 +110,6 @@ export function handleSegmentResizeEnd (event) {
   window.setTimeout(function () {
     _suppressMouseEnter = false
   }, 50)
-
-  if (draggingResize.width && (draggingResize.originalWidth !== draggingResize.width)) {
-    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
-  }
 }
 
 export function onBodyMouseDown (event) {
@@ -249,20 +151,6 @@ export function onBodyMouseDown (event) {
   }
 
   store.dispatch(clearMenus())
-}
-
-export function onBodyMouseMove (event) {
-  if (_draggingType === DRAGGING_TYPE_NONE) {
-    return
-  }
-
-  switch (_draggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      handleSegmentResizeMove(event)
-      break
-  }
-
-  event.preventDefault()
 }
 
 function doDropHeuristics (draggedItem, draggedItemType) {
@@ -395,22 +283,6 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   draggedItem.variantString = getVariantString(variant)
 }
 
-export function onBodyMouseUp (event) {
-  switch (_draggingType) {
-    case DRAGGING_TYPE_NONE:
-      return
-    case DRAGGING_TYPE_CLICK_OR_MOVE:
-      changeDraggingType(DRAGGING_TYPE_NONE)
-      setIgnoreStreetChanges(false)
-      break
-    case DRAGGING_TYPE_RESIZE:
-      handleSegmentResizeEnd(event)
-      break
-  }
-
-  event.preventDefault()
-}
-
 function handleSegmentDragStart () {
   document.body.classList.add('segment-move-dragging')
   infoBubble.hide()
@@ -431,8 +303,6 @@ export function handleSegmentMoveCancel () {
 
   // draggingMove.floatingEl.remove()
   // document.querySelector('.palette-trashcan').classList.remove('visible')
-
-  // changeDraggingType(DRAGGING_TYPE_NONE)
 }
 
 export const segmentSource = {

@@ -6,9 +6,21 @@ import { DragTypes } from './constants'
 import store from '../store'
 import { updateResizeDragState } from '../store/actions/ui'
 
+import { setIgnoreStreetChanges } from '../streets/data_model'
+import { infoBubble } from '../info_bubble/info_bubble'
+import {
+  cancelFadeoutControls
+} from './resizing'
+
 const dragSpec = {
   beginDrag (props, monitor, component) {
     store.dispatch(updateResizeDragState(true))
+
+    setIgnoreStreetChanges(true)
+    document.body.classList.add('segment-resize-dragging')
+
+    infoBubble.hide()
+    cancelFadeoutControls()
 
     return {
       position: props.position
@@ -17,6 +29,9 @@ const dragSpec = {
 
   endDrag (props, monitor, component) {
     store.dispatch(updateResizeDragState(false))
+
+    setIgnoreStreetChanges(false)
+    document.body.classList.remove('segment-resize-dragging')
   }
 }
 

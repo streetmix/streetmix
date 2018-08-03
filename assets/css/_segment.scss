@@ -85,15 +85,6 @@ body.immediate-segment-resize .segment {
   pointer-events: none;
 }
 
-body.segment-resize-dragging .segment.hover {
-  button.remove,
-  button.increment,
-  button.decrement,
-  button.info {
-    opacity: 0;
-  }
-}
-
 body:not(.read-only) .segment {
   cursor: grab;
 }
@@ -198,7 +189,6 @@ body.segment-resize-dragging * {
   opacity: 1;
 }
 
-body.segment-resize-dragging .drag-handle.floating,
 .drag-handle.drag-handle-show {
   pointer-events: auto;
   opacity: 1;

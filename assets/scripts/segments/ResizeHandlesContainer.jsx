@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ResizeHandle from './ResizeHandle'
-// import { handleSegmentResizeStart } from './drag_and_drop'
 
 export class ResizeHandlesContainer extends React.Component {
   static propTypes = {
@@ -45,10 +44,6 @@ export class ResizeHandlesContainer extends React.Component {
     //     }
     //   }, 0)
     // }
-  }
-
-  handleMouseDown = (event) => {
-    // handleSegmentResizeStart(event)
   }
 
   render () {

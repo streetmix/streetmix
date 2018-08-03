@@ -29,7 +29,7 @@ export class ResizeGuides extends React.Component {
   }
 
   render () {
-    if (!this.props.isResizing) return null
+    if (!this.props.isResizing || !this.props.segment) return null
 
     const segment = this.props.segment
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)

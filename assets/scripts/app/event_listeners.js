@@ -1,8 +1,4 @@
-import {
-  onBodyMouseDown,
-  onBodyMouseMove,
-  onBodyMouseUp
-} from '../segments/drag_and_drop'
+import { onBodyMouseDown } from '../segments/drag_and_drop'
 import { onStorageChange } from '../users/authentication'
 import { onResize } from './window_resize'
 import { addPageVisibilityChangeListeners } from './focus'
@@ -12,8 +8,6 @@ export function addEventListeners () {
   window.addEventListener('storage', onStorageChange)
   window.addEventListener('resize', onResize)
   window.addEventListener('pointerdown', onBodyMouseDown)
-  window.addEventListener('pointermove', onBodyMouseMove)
-  window.addEventListener('pointerup', onBodyMouseUp)
 
   window.addEventListener('beforeunload', onWindowBeforeUnload)
 

@@ -1,6 +1,5 @@
 import { app } from '../preinit/app_settings'
 import { INFO_BUBBLE_TYPE_LEFT_BUILDING, INFO_BUBBLE_TYPE_RIGHT_BUILDING } from './constants'
-import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
 import { showInfoBubble, hideInfoBubble } from '../store/actions/infoBubble'
@@ -104,10 +103,6 @@ export const infoBubble = {
   show: function (force) {
     if (infoBubble.suppressed) {
       window.setTimeout(infoBubble.show, 100)
-      return
-    }
-
-    if (draggingType() !== DRAGGING_TYPE_NONE) {
       return
     }
 
