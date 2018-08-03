@@ -4,7 +4,8 @@ import {
   SET_UNIT_SETTINGS,
   SET_ACTIVE_SEGMENT,
   UPDATE_DRAGGING_STATE,
-  CLEAR_DRAGGING_STATE
+  CLEAR_DRAGGING_STATE,
+  RESIZE_DRAG_STATE
 } from '../actions'
 import * as constants from '../../users/constants'
 
@@ -16,7 +17,8 @@ const initialState = {
     clickIncrement: constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
   },
   activeSegment: null,
-  draggingState: null
+  draggingState: null,
+  resizeDragState: false
 }
 
 const ui = (state = initialState, action) => {
@@ -59,6 +61,11 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         draggingState: null
+      }
+    case RESIZE_DRAG_STATE:
+      return {
+        ...state,
+        resizeDragState: action.isDragging
       }
     default:
       return state

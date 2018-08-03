@@ -4,12 +4,11 @@ import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { DragTypes } from './constants'
 import store from '../store'
+import { updateResizeDragState } from '../store/actions/ui'
 
 const dragSpec = {
   beginDrag (props, monitor, component) {
-    // todo: refactor
-    const activeSegment = store.getState().ui.activeSegment
-    window.dispatchEvent(new window.CustomEvent('stmx:show_segment_guides', { detail: { dataNo: Number.parseInt(activeSegment, 10) } }))
+    store.dispatch(updateResizeDragState(true))
 
     return {
       position: props.position
@@ -17,8 +16,7 @@ const dragSpec = {
   },
 
   endDrag (props, monitor, component) {
-    // todo: refactor
-    window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
+    store.dispatch(updateResizeDragState(false))
   }
 }
 
