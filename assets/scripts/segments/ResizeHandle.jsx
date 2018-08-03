@@ -84,8 +84,10 @@ export class ResizeHandle extends React.Component {
     }
 
     // If suppressed by other UI, instantly hide this from view, no transition.
+    // We remove opacity instead of display: 'none' because changing the
+    // display in the middle of a drag will stop the drag action.
     if (this.props.suppress) {
-      styles.display = 'none'
+      styles.opacity = 0
     }
 
     return this.props.connectDragSource(

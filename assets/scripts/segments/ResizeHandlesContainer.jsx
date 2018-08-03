@@ -11,9 +11,14 @@ export class ResizeHandlesContainer extends React.Component {
     position: PropTypes.number,
 
     // Provided by store
+    isDragging: PropTypes.bool,
     activeSegment: PropTypes.number,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool
+  }
+
+  static defaultProps = {
+    isDragging: false
   }
 
   constructor (props) {
@@ -48,9 +53,7 @@ export class ResizeHandlesContainer extends React.Component {
 
   render () {
     const show = (this.props.activeSegment === this.props.position)
-
-    // TODO: also hide drag handles immediately when drag motion starts.
-    const suppress = (this.props.infoBubbleHovered || this.props.descriptionVisible)
+    const suppress = (this.props.infoBubbleHovered || this.props.descriptionVisible || this.props.isDragging)
 
     return (
       <React.Fragment>
@@ -63,6 +66,7 @@ export class ResizeHandlesContainer extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    isDragging: state.ui.resizeDragState,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible
