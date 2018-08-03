@@ -6,20 +6,13 @@ const Street = require('../../models/street.js')
 const User = require('../../models/user.js')
 const Sequence = require('../../models/sequence.js')
 const logger = require('../../../lib/logger.js')()
+const util = require('../../../lib/util.js')
 
 exports.post = function (req, res) {
   const street = new Street()
   let body
 
   street.id = uuid.v1()
-
-  const requestIp = function (req) {
-    if (req.headers['x-forwarded-for'] !== undefined) {
-      return req.headers['x-forwarded-for'].split(', ')[0]
-    } else {
-      return req.connection.remoteAddress
-    }
-  }
 
   if (req.body && (req.body.length > 0)) {
     try {
@@ -31,7 +24,7 @@ exports.post = function (req, res) {
     // TODO: Validation
     street.name = body.name
     street.data = body.data
-    street.creator_ip = requestIp(req)
+    street.creator_ip = util.requestIp(req)
   }
 
   const handleCreateStreet = function (err, s) {

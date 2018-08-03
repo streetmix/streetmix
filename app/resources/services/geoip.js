@@ -2,6 +2,7 @@ const request = require('request')
 const redis = require('redis')
 const config = require('config')
 const logger = require('../../../lib/logger.js')()
+const util = require('../../../lib/util.js')
 
 const IP_GEOLOCATION_TIMEOUT = 500
 
@@ -9,14 +10,6 @@ exports.get = function (req, res) {
   if (req.headers.host !== config.app_host_port) {
     res.status(403).json({ status: 403, error: 'Not allowed to access API' })
     return
-  }
-
-  const requestIp = function (req) {
-    if (req.headers['x-forwarded-for'] !== undefined) {
-      return req.headers['x-forwarded-for'].split(', ')[0]
-    } else {
-      return req.connection.remoteAddress
-    }
   }
 
   const requestGeolocation = function (isRedisConnected = true) {
@@ -39,7 +32,7 @@ exports.get = function (req, res) {
     })
   }
 
-  const ip = requestIp(req)
+  const ip = util.requestIp(req)
   const client = req.redisClient
 
   // If Redis is connected and Streetmix is not being run locally, check
