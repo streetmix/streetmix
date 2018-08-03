@@ -3,12 +3,22 @@ import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { DragTypes } from './constants'
+import store from '../store'
 
 const dragSpec = {
   beginDrag (props, monitor, component) {
+    // todo: refactor
+    const activeSegment = store.getState().ui.activeSegment
+    window.dispatchEvent(new window.CustomEvent('stmx:show_segment_guides', { detail: { dataNo: Number.parseInt(activeSegment, 10) } }))
+
     return {
       position: props.position
     }
+  },
+
+  endDrag (props, monitor, component) {
+    // todo: refactor
+    window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
   }
 }
 

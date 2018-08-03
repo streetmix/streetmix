@@ -124,9 +124,6 @@ export function handleSegmentResizeStart (event) {
 
   draggingResize.segmentEl.classList.add('hover')
 
-  // todo: refactor
-  window.dispatchEvent(new window.CustomEvent('stmx:show_segment_guides', { detail: { dataNo: window.parseInt(draggingResize.segmentEl.dataNo, 10) } }))
-
   infoBubble.hide()
   infoBubble.hideSegment(true)
   cancelFadeoutControls()
@@ -196,9 +193,6 @@ export function handleSegmentResizeEnd (event) {
 
   var el = draggingResize.floatingEl
   el.remove()
-
-  // todo: refactor
-  window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)
