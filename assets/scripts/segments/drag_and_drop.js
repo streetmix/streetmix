@@ -92,19 +92,19 @@ export function handleSegmentResizeStart (event) {
 
   draggingResize.right = el.classList.contains('drag-handle-right')
 
-  draggingResize.floatingEl = document.createElement('div')
-  draggingResize.floatingEl.classList.add('drag-handle')
-  draggingResize.floatingEl.classList.add('floating')
+  // draggingResize.floatingEl = document.createElement('div')
+  // draggingResize.floatingEl.classList.add('drag-handle')
+  // draggingResize.floatingEl.classList.add('floating')
 
-  if (el.classList.contains('drag-handle-left')) {
-    draggingResize.floatingEl.classList.add('drag-handle-left')
-  } else {
-    draggingResize.floatingEl.classList.add('drag-handle-right')
-  }
+  // if (el.classList.contains('drag-handle-left')) {
+  //   draggingResize.floatingEl.classList.add('drag-handle-left')
+  // } else {
+  //   draggingResize.floatingEl.classList.add('drag-handle-right')
+  // }
 
-  draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
-  draggingResize.floatingEl.style.top = pos[1] + 'px'
-  document.body.appendChild(draggingResize.floatingEl)
+  // draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
+  // draggingResize.floatingEl.style.top = pos[1] + 'px'
+  // document.body.appendChild(draggingResize.floatingEl)
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y

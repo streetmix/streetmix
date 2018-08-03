@@ -11,6 +11,10 @@ class SegmentDragLayer extends React.PureComponent {
   static propTypes = {
     item: PropTypes.object,
     type: PropTypes.string,
+    initialOffset: PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired
+    }),
     currentOffset: PropTypes.shape({
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired
@@ -77,7 +81,8 @@ class SegmentDragLayer extends React.PureComponent {
 
         return (
           <div className="drag-handle floating" style={{
-            left: `${this.props.currentOffset.x}px`
+            left: `${this.props.currentOffset.x}px`,
+            top: `${this.props.initialOffset.y}px`
           }} />
         )
       default:
@@ -90,6 +95,7 @@ function collect (monitor) {
   return {
     item: monitor.getItem(),
     type: monitor.getItemType(),
+    initialOffset: monitor.getInitialSourceClientOffset(),
     currentOffset: monitor.getSourceClientOffset(),
     isDragging: monitor.isDragging()
   }

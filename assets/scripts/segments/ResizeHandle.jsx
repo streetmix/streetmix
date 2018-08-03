@@ -15,8 +15,7 @@ const dragSpec = {
 function dragCollect (connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging()
+    connectDragPreview: connect.dragPreview()
   }
 }
 
@@ -31,7 +30,6 @@ export class ResizeHandle extends React.Component {
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
     connectDragPreview: PropTypes.func
-    // isDragging: PropTypes.bool
   }
 
   static defaultProps = {
