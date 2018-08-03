@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ResizeHandle from './ResizeHandle'
 // import { handleSegmentResizeStart } from './drag_and_drop'
 
-export class SegmentDragHandles extends React.Component {
+export class ResizeHandlesContainer extends React.Component {
   static propTypes = {
     // Provided by parent
     width: PropTypes.number,
@@ -69,4 +69,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(SegmentDragHandles)
+export default connect(mapStateToProps)(ResizeHandlesContainer)

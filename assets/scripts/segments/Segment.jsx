@@ -7,7 +7,7 @@ import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
 
 import SegmentCanvas from './SegmentCanvas'
-import SegmentDragHandles from './SegmentDragHandles'
+import ResizeHandlesContainer from './ResizeHandlesContainer'
 import MeasurementText from '../ui/MeasurementText'
 
 import {
@@ -280,7 +280,7 @@ class Segment extends React.Component {
           <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
         </span>
         <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
-        <SegmentDragHandles width={elementWidth} position={this.props.dataNo} />
+        <ResizeHandlesContainer width={elementWidth} position={this.props.dataNo} />
         <CSSTransition
           key="old-variant"
           in={!this.state.switchSegments}
