@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Ingresar",
       "sign-in-link": "{signInLink} para enlaces mejores a tus calles y a tu galería de calles personal",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Ingresar a Twitter</a> para tener mejores enlaces a tus calles y a tu galería de calles",
+      "sign-in": "<a href='#'>Ingresar</a> para tener mejores enlaces a tus calles y a tu galería de calles",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir usando Twitter",
       "facebook": "Compartir usando Facebook",
@@ -106,10 +106,8 @@
     "please-reload": "Por favor, recarga esta página antes de continuar.",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
-    "twitter-access-denied-title": "No estás ingresado.",
-    "twitter-access-denied-description": "Cancelaste el proceso de ingresar a Twitter.",
-    "email-access-denied-title": "No estás ingresado.",
-    "email-access-denied-description": "Cancelaste el proceso de ingresar con correo electrónico.",
+    "access-denied-title": "No estás ingresado.",
+    "access-denied-description": "Cancelaste el proceso de ingresar.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
     "auth-api-problem-description": "Hubo un problema con la autenticación.",
     "please-try-again": "Por favor, intenta de nuevo más tarde o cuéntanos via <a target='_blank' rel='noopener noreferrer' href='{email}'>correo electrónico</a> o <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
@@ -309,9 +307,10 @@
       "ja": "Japonés",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
-      "ru": "",
+      "ru": "Ruso",
       "sv": "Sueco",
-      "zh-hant": "Chino (Tradicional)"
+      "zh-hans": "Chino simplificado",
+      "zh-hant": "Chino tradicional"
     }
   }
 }

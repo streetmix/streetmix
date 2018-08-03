@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "サインイン",
       "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Twitterアカウントでサインイン</a>すると、作成したストリートと個人用ストリートギャラリー用にリンクが生成されます",
+      "sign-in": "",
       "link": "共有用リンク:",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
@@ -106,10 +106,8 @@
     "please-reload": "編集を続けるにはページを再読込してください。",
     "street-deleted-elsewhere-title": "このストリートは削除されました。",
     "street-deleted-elsewhere-description": "このストリートは別のブラウザで削除されました。",
-    "twitter-access-denied-title": "サインインしていません。",
-    "twitter-access-denied-description": "Twitterを使ったサインイン処理を中断します。",
-    "email-access-denied-title": "サインインしていません。",
-    "email-access-denied-description": "",
+    "access-denied-title": "サインインしていません。",
+    "access-denied-description": "",
     "auth-api-problem-title": "サインインに失敗しました。",
     "auth-api-problem-description": "",
     "please-try-again": "時間をおいて再度試すか、<a target='_blank' rel='noopener noreferrer' href='{email}'>メール</a> や <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>でご連絡ください。",
@@ -311,7 +309,8 @@
       "pt-br": "ポルトガル語（ブラジル）",
       "ru": "",
       "sv": "スェーデン語",
-      "zh-hant": "繁体字"
+      "zh-hans": "",
+      "zh-hant": ""
     }
   }
 }

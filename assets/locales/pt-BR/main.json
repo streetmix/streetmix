@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Entrar",
       "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Faça o login com o Twitter</a> para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
+      "sign-in": "<a href='#'>Faça o login</a> para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "link": "Copiar e colar este link para compartilhar:",
       "twitter": "Compartilhar usando Twitter",
       "facebook": "Compartilhar usando Facebook",
@@ -106,10 +106,8 @@
     "please-reload": "Por favor recarregue esta página antes de continuar.",
     "street-deleted-elsewhere-title": "Esta rua foi removida em outro lugar.",
     "street-deleted-elsewhere-description": "Esta rua foi removida em outro navegador.",
-    "twitter-access-denied-title": "Você não está conectado.",
-    "twitter-access-denied-description": "Você cancelou o processo de login com Twitter.",
-    "email-access-denied-title": "Você não está conectado.",
-    "email-access-denied-description": "Você cancelou o processo de login com e-mail.",
+    "access-denied-title": "Você não está conectado.",
+    "access-denied-description": "Você cancelou o processo de login.",
     "auth-api-problem-title": "Houve um problema com o seu login.",
     "auth-api-problem-description": "Houve um problema com a autenticação.",
     "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <a target='_blank' rel='noopener noreferrer' href='{email}'>e-mail</a> ou <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
@@ -309,9 +307,10 @@
       "ja": "Japonês",
       "pl": "Polonês",
       "pt-br": "Português (Brasil)",
-      "ru": "",
+      "ru": "Russo",
       "sv": "Sueco",
-      "zh-hant": "Chinês (Tradicional)"
+      "zh-hans": "Chinês simplificado",
+      "zh-hant": "Chinês tradicional"
     }
   }
 }

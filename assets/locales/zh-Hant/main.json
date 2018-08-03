@@ -22,10 +22,10 @@
     "share": {
       "sign-in-twitter-link": "登錄",
       "sign-in-link": "{signInLink}你所創建的街道和個人街道集的鏈接",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>登錄推特</a>，會有你所創建的街道和個人街道集的鏈接",
+      "sign-in": "<a href='#'>登陸</a>之後獲取你的街道和個人街道集的鏈接",
       "link": "複製和粘貼這個鏈接來分享：",
-      "twitter": "用推特來分享",
-      "facebook": "用臉書來分享",
+      "twitter": "分享到推特",
+      "facebook": "分享到臉書",
       "print": "打印",
       "save": "存為圖片",
       "save-byline": "將連接內嵌在報告，博客等等",
@@ -106,10 +106,8 @@
     "please-reload": "請刷新此頁再繼續。",
     "street-deleted-elsewhere-title": "這條街道已在別處被刪除。",
     "street-deleted-elsewhere-description": "這條街道已在別的瀏覽器中被刪除。",
-    "twitter-access-denied-title": "你還沒有登錄。",
-    "twitter-access-denied-description": "你已取消登錄推特。",
-    "email-access-denied-title": "你還沒有登錄。",
-    "email-access-denied-description": "你已取消用電郵登錄。",
+    "access-denied-title": "你還沒有登錄。",
+    "access-denied-description": "你取消了這次登錄。",
     "auth-api-problem-title": "在你登錄的過程中出了點小問題。",
     "auth-api-problem-description": "在確認你身份的過程中出了點小問題。",
     "please-try-again": "請稍後再試，或通過<a target='_blank' rel='noopener noreferrer' href='{email}'>電郵</a>或<a target='_blank' rel='noopener noreferrer' href='{tweet}'>推特</a>聯繫我們。",
@@ -287,7 +285,7 @@
     "street-count": "{count, plural, other {# 街道}}",
     "no-streets": "暫時沒有道路",
     "sign-in": "登入Twitter 帳戶查看你的個人街道集",
-    "sign-in-prompt": ""
+    "sign-in-prompt": "登陸之後查看你的個人街道集"
   },
   "users": {
     "anonymous": "匿名",
@@ -309,9 +307,10 @@
       "ja": "日文",
       "pl": "波蘭語",
       "pt-br": "葡文 (巴西)",
-      "ru": "",
+      "ru": "俄語",
       "sv": "瑞典語",
-      "zh-hant": "中文（繁體）"
+      "zh-hans": "簡體中文",
+      "zh-hant": "繁體中文"
     }
   }
 }
