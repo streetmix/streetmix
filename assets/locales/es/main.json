@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Acceder",
       "sign-in-link": "{signInLink} para mejores enlaces a tus calles y a tu galería de calles personal",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Ingresa a tu cuenta con Twitter</a>para mejores enlaces a tus calles y a tu galería de calles personal",
+      "sign-in": "",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
@@ -106,10 +106,8 @@
     "please-reload": "",
     "street-deleted-elsewhere-title": "",
     "street-deleted-elsewhere-description": "",
-    "twitter-access-denied-title": "",
-    "twitter-access-denied-description": "",
-    "email-access-denied-title": "",
-    "email-access-denied-description": "",
+    "access-denied-title": "",
+    "access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "",
@@ -311,6 +309,7 @@
       "pt-br": "Portugués (Brasil)",
       "ru": "",
       "sv": "",
+      "zh-hans": "",
       "zh-hant": ""
     }
   }

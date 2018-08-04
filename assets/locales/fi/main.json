@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Kirjaudu sisään",
       "sign-in-link": "{signInLink}: voit jakaa kadut ja oman katugalleriasi näppärämmin",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa",
+      "sign-in": "",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
@@ -106,10 +106,8 @@
     "please-reload": "Päivitä sivu ennen jatkamista.",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
-    "twitter-access-denied-title": "Et ole kirjautunut sisään.",
-    "twitter-access-denied-description": "Keskeytit Twitter-tunnistautumisen.",
-    "email-access-denied-title": "Et ole kirjautunut sisään.",
-    "email-access-denied-description": "",
+    "access-denied-title": "Et ole kirjautunut sisään.",
+    "access-denied-description": "",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
     "auth-api-problem-description": "",
     "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' rel='noopener noreferrer' href='{email}'>sähköpostitse</a> tai <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitterissä</a>.",
@@ -311,7 +309,8 @@
       "pt-br": "Portugali (Brasilia)",
       "ru": "",
       "sv": "Ruotsi",
-      "zh-hant": "Kiina (perinteinen)"
+      "zh-hans": "",
+      "zh-hant": ""
     }
   }
 }

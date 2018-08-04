@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "تسجيل الدخول",
       "sign-in-link": "{signInLink} للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>تسجيل الدخول باستخدام حساب تويتر</a> للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
+      "sign-in": "",
       "link": "نسخ ولصق هذا الرابط لمشاركته:",
       "twitter": "مشاركة باستخدام تويتر",
       "facebook": "مشاركة باستخدام الفيسبوك",
@@ -106,10 +106,8 @@
     "please-reload": "",
     "street-deleted-elsewhere-title": "",
     "street-deleted-elsewhere-description": "",
-    "twitter-access-denied-title": "",
-    "twitter-access-denied-description": "",
-    "email-access-denied-title": "",
-    "email-access-denied-description": "",
+    "access-denied-title": "",
+    "access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "",
@@ -311,7 +309,8 @@
       "pt-br": "لغة برتغالية",
       "ru": "",
       "sv": "لغة سويدية",
-      "zh-hant": "حروف صينية تقليدية"
+      "zh-hans": "",
+      "zh-hant": ""
     }
   }
 }

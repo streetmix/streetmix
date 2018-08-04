@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Zaloguj się",
       "sign-in-link": "{signInLink} dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Zarejestruj się przez Twittera</a> dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
+      "sign-in": "<a href='#'>Zarejestruj się</a> dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
       "link": "Skopiuj i wklej ten link, aby go udostępnić:",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
@@ -106,10 +106,8 @@
     "please-reload": "Odśwież stronę, zanim będziesz kontynuować. ",
     "street-deleted-elsewhere-title": "Ta ulica została usunięta w innym miejscu. ",
     "street-deleted-elsewhere-description": "Ta ulica została usunięta w innej przeglądarce.",
-    "twitter-access-denied-title": "Użytkownik nie jest zalogowany.",
-    "twitter-access-denied-description": "Proces rejestracji poprzez konto na Twitterze został przerwany.",
-    "email-access-denied-title": "Użytkownik nie jest zalogowany.",
-    "email-access-denied-description": "Proces rejestracji został przerwany.",
+    "access-denied-title": "Użytkownik nie jest zalogowany.",
+    "access-denied-description": "",
     "auth-api-problem-title": "Wystąpił problem podczas próby zalogowania użytkownika.",
     "auth-api-problem-description": "Wystąpił problem z uwierzytelnianiem. ",
     "please-try-again": "Spróbuj ponownie później lub daj nam znać poprzez <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> lub <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twittera</a>.",
@@ -311,7 +309,8 @@
       "pt-br": "Portugalski (Brazylia)",
       "ru": "",
       "sv": "Szwedzki",
-      "zh-hant": "Chiński (tradycyjny)"
+      "zh-hans": "",
+      "zh-hant": ""
     }
   }
 }
