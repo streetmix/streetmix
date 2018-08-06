@@ -3,35 +3,25 @@ import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { DragTypes } from './constants'
+import { beginSegmentResize, endSegmentResize } from './resize_drag'
 import store from '../store'
 import { updateResizeDragState } from '../store/actions/ui'
-
-import { setIgnoreStreetChanges } from '../streets/data_model'
-import { infoBubble } from '../info_bubble/info_bubble'
-import {
-  cancelFadeoutControls
-} from './resizing'
 
 const dragSpec = {
   beginDrag (props, monitor, component) {
     store.dispatch(updateResizeDragState(true))
 
-    setIgnoreStreetChanges(true)
-    document.body.classList.add('segment-resize-dragging')
-
-    infoBubble.hide()
-    cancelFadeoutControls()
+    beginSegmentResize()
 
     return {
-      position: props.position
+      side: props.side
     }
   },
 
   endDrag (props, monitor, component) {
     store.dispatch(updateResizeDragState(false))
 
-    setIgnoreStreetChanges(false)
-    document.body.classList.remove('segment-resize-dragging')
+    endSegmentResize()
   }
 }
 
@@ -61,7 +51,7 @@ export class ResizeHandle extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
+    this.props.connectDragPreview(getEmptyImage())
   }
 
   render () {
@@ -113,4 +103,4 @@ export class ResizeHandle extends React.Component {
   }
 }
 
-export default DragSource(DragTypes.SEGMENT_DRAG_HANDLE, dragSpec, dragCollect)(ResizeHandle)
+export default DragSource(DragTypes.SEGMENT_RESIZE, dragSpec, dragCollect)(ResizeHandle)

@@ -11,10 +11,7 @@ import {
 } from './info'
 import {
   RESIZE_TYPE_INITIAL,
-  RESIZE_TYPE_DRAGGING,
-  RESIZE_TYPE_PRECISE_DRAGGING,
   MIN_SEGMENT_WIDTH,
-  resizeSegment,
   normalizeSegmentWidth,
   scheduleControlsFadeout,
   cancelFadeoutControls,
@@ -23,67 +20,11 @@ import {
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
 import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DragTypes } from './constants'
-import { segmentsChanged } from './view'
+import { segmentsChanged, getSegmentEl } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import { updateDraggingState, clearDraggingState, setActiveSegment } from '../store/actions/ui'
-
-var draggingResize = {
-  segmentEl: null,
-  floatingEl: null,
-  mouseX: null,
-  mouseY: null,
-  elX: null,
-  elY: null,
-  width: null,
-  originalX: null,
-  originalWidth: null,
-  right: false
-}
-
-export function handleSegmentResizeMove (event) {
-  let resizeType
-  // if (event.touches && event.touches[0]) {
-  //   x = event.touches[0].pageX
-  //   y = event.touches[0].pageY
-  // } else {
-  //   x = event.pageX
-  //   y = event.pageY
-  // }
-
-  // var deltaX = x - draggingResize.mouseX
-
-  // var deltaFromOriginal = draggingResize.elX - draggingResize.originalX
-  // if (!draggingResize.right) {
-  //   deltaFromOriginal = -deltaFromOriginal
-  // }
-
-  // draggingResize.elX += deltaX
-  // draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
-
-  // draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
-  var precise = event.shiftKey
-
-  if (precise) {
-    resizeType = RESIZE_TYPE_PRECISE_DRAGGING
-  } else {
-    resizeType = RESIZE_TYPE_DRAGGING
-  }
-
-  resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width)
-
-  // draggingResize.mouseX = x
-  // draggingResize.mouseY = y
-}
-
-// TODO: This is no longer used anywhere (the keydown button that used to call this is no longer
-// set), but we should consider making it possible to cancel resizing again.
-export function handleSegmentResizeCancel () {
-  // resizeSegment(draggingResize.segmentEl, RESIZE_TYPE_INITIAL, draggingResize.originalWidth, true, false)
-
-  // handleSegmentResizeEnd()
-}
 
 // TODO: use suppressMouseEnter on <StreetEditable /> state
 let _suppressMouseEnter = false
@@ -93,20 +34,16 @@ export function suppressMouseEnter () {
 }
 
 export function handleSegmentResizeEnd (event) {
-  // setIgnoreStreetChanges(false)
+  const activeSegment = store.getState().ui.activeSegment
+  const el = getSegmentEl(activeSegment)
 
-  segmentsChanged(false)
-
-  // var el = draggingResize.floatingEl
-  // el.remove()
-
-  infoBubble.considerSegmentEl = draggingResize.segmentEl
+  infoBubble.considerSegmentEl = el
   infoBubble.show(false)
 
-  scheduleControlsFadeout(draggingResize.segmentEl)
+  scheduleControlsFadeout()
 
   _suppressMouseEnter = true
-  infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT)
+  infoBubble.considerShowing(event, el, INFO_BUBBLE_TYPE_SEGMENT)
   window.setTimeout(function () {
     _suppressMouseEnter = false
   }, 50)

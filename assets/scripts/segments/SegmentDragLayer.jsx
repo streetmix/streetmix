@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DragLayer } from 'react-dnd'
+import { throttle } from 'lodash'
 import SegmentCanvas from './SegmentCanvas'
 import { DragTypes } from './constants'
+import { duringSegmentResize } from './resize_drag'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 const MAX_DRAG_DEGREE = 20
+const SEGMENT_RESIZE_THROTTLE = 20 // in milliseconds
 
 class SegmentDragLayer extends React.PureComponent {
   static propTypes = {
@@ -16,6 +19,10 @@ class SegmentDragLayer extends React.PureComponent {
       y: PropTypes.number.isRequired
     }),
     currentOffset: PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired
+    }),
+    diffOffset: PropTypes.shape({
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired
     }),
@@ -39,8 +46,18 @@ class SegmentDragLayer extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    if (this.props.isDragging && this.floatingEl) {
-      this.getSegmentStyle(snapshot)
+    if (this.props.isDragging) {
+      switch (this.props.type) {
+        case DragTypes.SEGMENT:
+        case DragTypes.PALETTE_SEGMENT:
+          this.getSegmentStyle(snapshot)
+          break
+        case DragTypes.SEGMENT_RESIZE:
+          this.handleResize()
+          break
+        default:
+          break
+      }
     }
   }
 
@@ -61,6 +78,19 @@ class SegmentDragLayer extends React.PureComponent {
     this.floatingEl.style['-webkit-transform'] = transform
   }
 
+  unthrottledHandleResize = () => {
+    // Get the difference between the dragged position and the original position
+    // in order to calculate the resized width of the segment.
+    // Flip the sign of the delta if the handle is on the left.
+    const delta = (this.props.item.side === 'left')
+      ? -this.props.diffOffset.x
+      : this.props.diffOffset.x
+
+    duringSegmentResize(delta)
+  }
+
+  handleResize = throttle(this.unthrottledHandleResize, SEGMENT_RESIZE_THROTTLE)
+
   render () {
     const { isDragging, item, type } = this.props
 
@@ -76,7 +106,7 @@ class SegmentDragLayer extends React.PureComponent {
             </div>
           </div>
         )
-      case DragTypes.SEGMENT_DRAG_HANDLE:
+      case DragTypes.SEGMENT_RESIZE:
         if (!this.props.currentOffset) return null
 
         return (
@@ -97,6 +127,7 @@ function collect (monitor) {
     type: monitor.getItemType(),
     initialOffset: monitor.getInitialSourceClientOffset(),
     currentOffset: monitor.getSourceClientOffset(),
+    diffOffset: monitor.getDifferenceFromInitialOffset(),
     isDragging: monitor.isDragging()
   }
 }
