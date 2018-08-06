@@ -4,20 +4,12 @@ module.exports = {
     return queryInterface.createTable('Sequences', {
       id: {
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
+        primaryKey: true
       },
       seq: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.INTEGER,
+        defaultValue: 1
       }
     })
   },
