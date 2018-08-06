@@ -4,7 +4,7 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
 }
 
 process.title = 'streetmix'
-
+require('dotenv').config()
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
@@ -151,20 +151,20 @@ app.get(config.auth0.twitter_callback_uri, controllers.twitter_auth0_sign_in_cal
 // Email
 app.get(config.auth0.email_callback_uri, controllers.email_sign_in.get)
 
-app.post('/api/v1/users', resources.v1.users.post)
-app.get('/api/v1/users/:user_id', resources.v1.users.get)
-app.put('/api/v1/users/:user_id', resources.v1.users.put)
-app.delete('/api/v1/users/:user_id/login-token', resources.v1.users.delete)
-app.get('/api/v1/users/:user_id/streets', resources.v1.users_streets.get)
+app.post('/api/v1/users', resources.v1.users_pg.post)
+app.get('/api/v1/users/:user_id', resources.v1.users_pg.get)
+app.put('/api/v1/users/:user_id', resources.v1.users_pg.put)
+app.delete('/api/v1/users/:user_id/login-token', resources.v1.users_pg.delete)
+app.get('/api/v1/users/:user_id/streets', resources.v1.users_streets_pg.get)
 
-app.post('/api/v1/streets', resources.v1.streets.post)
-app.get('/api/v1/streets', resources.v1.streets.find)
-app.head('/api/v1/streets', resources.v1.streets.find)
+app.post('/api/v1/streets', resources.v1.streets_pg.post)
+app.get('/api/v1/streets', resources.v1.streets_pg.find)
+app.head('/api/v1/streets', resources.v1.streets_pg.find)
 
-app.delete('/api/v1/streets/:street_id', resources.v1.streets.delete)
-app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
-app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
-app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
+app.delete('/api/v1/streets/:street_id', resources.v1.streets_pg.delete)
+app.head('/api/v1/streets/:street_id', resources.v1.streets_pg.get)
+app.get('/api/v1/streets/:street_id', resources.v1.streets_pg.get)
+app.put('/api/v1/streets/:street_id', resources.v1.streets_pg.put)
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
