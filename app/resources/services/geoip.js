@@ -1,15 +1,14 @@
 const request = require('request')
 const redis = require('redis')
 const config = require('config')
+const url = require('url')
 const logger = require('../../../lib/logger.js')()
 const util = require('../../../lib/util.js')
 
 const IP_GEOLOCATION_TIMEOUT = 500
 
 exports.get = function (req, res) {
-  console.log(req.headers.referer, req.headers.host)
-
-  if (req.headers.host !== config.app_host_port || req.headers.referer === undefined) {
+  if (req.headers.referer === undefined || url.parse(req.headers.referer).host !== config.app_host_port) {
     res.status(403).json({ status: 403, error: 'Not allowed to access API' })
     return
   }
