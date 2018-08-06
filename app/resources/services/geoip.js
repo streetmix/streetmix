@@ -7,6 +7,8 @@ const util = require('../../../lib/util.js')
 const IP_GEOLOCATION_TIMEOUT = 500
 
 exports.get = function (req, res) {
+  console.log(req.headers.referer, req.headers.host)
+
   if (req.headers.host !== config.app_host_port || req.headers.referer === undefined) {
     res.status(403).json({ status: 403, error: 'Not allowed to access API' })
     return
