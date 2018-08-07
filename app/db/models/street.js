@@ -30,6 +30,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'creator_id',
       targetKey: 'id'
     })
+
+    models.Street.belongsTo(models.Street, {
+      foreignKey: 'original_street_id',
+      targetKey: 'id'
+    })
   }
   return Street
 }

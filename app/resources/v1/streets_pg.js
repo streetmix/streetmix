@@ -1,7 +1,7 @@
 const config = require('config')
 const uuid = require('uuid')
 const { isArray } = require('lodash')
-const { ERRORS } = require('../../../lib/util')
+const { ERRORS, asStreetJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
 const { User, Sequelize, Street, Sequence } = require('../../db/models')
 
@@ -129,6 +129,7 @@ exports.post = async function (req, res) {
   }
 
   const handleCreatedStreet = (s) => {
+    s = asStreetJson(s)
     logger.info({ street: s }, 'New street created.')
     res.header('Location', config.restapi.baseuri + '/v1/streets/' + s.id)
     res.status(201).send(s)
@@ -268,6 +269,7 @@ exports.get = async function (req, res) {
     res.status(204).end()
     return
   }
+  street = asStreetJson(street)
   res.set('Access-Control-Allow-Origin', '*')
   res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
   res.status(200).send(street)
@@ -334,6 +336,7 @@ exports.find = async function (req, res) {
   } // END function - handleErrors
 
   const handleFindStreet = function (street) {
+    street = asStreetJson(street)
     if (!street) {
       handleErrors(ERRORS.STREET_NOT_FOUND)
     }
@@ -341,7 +344,6 @@ exports.find = async function (req, res) {
     if (street.status === 'DELETED') {
       handleErrors(ERRORS.STREET_DELETED)
     }
-
     res.set('Access-Control-Allow-Origin', '*')
     res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
     res.set('Content-Length', 0)
@@ -448,11 +450,9 @@ exports.put = async function (req, res) {
     street.name = body.name || street.name
     street.data = body.data || street.data
     if (body.originalStreetId) {
-      console.log('I came here')
       let origStreet
       try {
         origStreet = await Street.findById(body.originalStreetId)
-        console.log(origStreet)
       } catch (err) {
         logger.error(err)
         handleErrors(ERRORS.CANNOT_UPDATE_STREET)
@@ -463,6 +463,7 @@ exports.put = async function (req, res) {
       }
 
       street.original_street_id = origStreet.id
+      console.log(JSON.stringify(street))
       return street.save({returning: true})
     } else {
       return street.save({returning: true})
