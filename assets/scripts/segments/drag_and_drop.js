@@ -231,11 +231,12 @@ export function isSegmentWithinCanvas (event, canvasEl) {
     y = event.y
   }
 
+  const prevWithinCanvas = (oldDraggingState && oldDraggingState.withinCanvas)
   // For some reason, the last drag event of a palette segment causes x and
   // y to be reset to 0 despite the last mouse position not being (0,0). The
   // code below returns true if the second to last drag event was within canvas.
   // TODO - find reason why last drag event resets x, y
-  if (x === 0 && y === 0 && oldDraggingState.withinCanvas) return true
+  if (x === 0 && y === 0 && prevWithinCanvas) return true
 
   const { top, bottom, left, right } = canvasEl.getBoundingClientRect()
 
