@@ -487,6 +487,9 @@ export const paletteSegmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+    // Initialize an empty draggingState object in Redux for palette segments in order to
+    // add event listener in StreetEditable once dragging begins.
+    store.dispatch(updateDraggingState())
 
     const segmentInfo = getSegmentInfo(props.type)
 
