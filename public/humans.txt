@@ -76,6 +76,7 @@
     Translators
 
     Diana M. Alhaj, Arabic
+    Zakaria Shekhreet, Arabic
     Crystal Xing, Chinese (Traditional)
     Ricky Tsui, Chinese (Traditional)
     Summer Pan, Chinese (Traditional)
@@ -96,6 +97,7 @@
     Paulo Franco (Urb-i), Portuguese (Brazil)
     Stephan Garcia, Portuguese (Brazil)
     Yuval Fogelson (Urb-i), Portuguese (Brazil)
+    Artem Savin, Russian
     Paco Marquez, Spanish (Mexico)
     Patricio M. Ruiz Abrín, Spanish (Mexico)
     Jakob Fahlstedt, Swedish
