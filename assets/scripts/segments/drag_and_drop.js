@@ -11,7 +11,6 @@ import {
 } from './info'
 import {
   RESIZE_TYPE_INITIAL,
-  MIN_SEGMENT_WIDTH,
   normalizeSegmentWidth,
   scheduleControlsFadeout,
   cancelFadeoutControls,
@@ -19,7 +18,12 @@ import {
   cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
-import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DragTypes } from './constants'
+import {
+  TILE_SIZE,
+  MIN_SEGMENT_WIDTH,
+  DRAGGING_MOVE_HOLE_WIDTH,
+  DragTypes
+} from './constants'
 import { segmentsChanged, getSegmentEl } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'

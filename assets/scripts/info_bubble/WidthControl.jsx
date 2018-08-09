@@ -7,9 +7,8 @@ import { debounce } from 'lodash'
 import { trackEvent } from '../app/event_tracking'
 import { KEYS } from '../app/keyboard_commands'
 import { loseAnyFocus } from '../util/focus'
+import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '../segments/constants'
 import {
-  MIN_SEGMENT_WIDTH,
-  MAX_SEGMENT_WIDTH,
   RESIZE_TYPE_TYPING,
   resizeSegment,
   incrementSegmentWidth,

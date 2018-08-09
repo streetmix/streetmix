@@ -2,10 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { TILE_SIZE } from './constants'
-import { getSegmentVariantInfo } from '../segments/info'
-import { getSegmentEl } from '../segments/view'
-import { MIN_SEGMENT_WIDTH } from '../segments/resizing'
+import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
+import { getSegmentVariantInfo } from './info'
+import { getSegmentEl } from './view'
 
 export class ResizeGuides extends React.Component {
   static propTypes = {

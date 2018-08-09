@@ -1,5 +1,6 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
+import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from './constants'
 import { segmentsChanged, getSegmentEl } from './view'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
@@ -11,9 +12,6 @@ const RESIZE_TYPE_INCREMENT = 1
 export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
-
-export const MIN_SEGMENT_WIDTH = (1 / 0.3) * 0.25 // This is equal to 0.25m in our conversion rate
-export const MAX_SEGMENT_WIDTH = 400
 
 const TOUCH_CONTROLS_FADEOUT_TIME = 3000
 const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
