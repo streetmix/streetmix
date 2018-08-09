@@ -41,6 +41,32 @@ export class ResizeGuides extends React.Component {
     }
   }
 
+  renderMinGuides = (width) => {
+    return (
+      <div className="segment-guide segment-guide-min" style={this.getStyle(width)}>
+        <div className="segment-guide-min-before">
+          « <FormattedMessage id="segment.resize.min" defaultMessage="Min" />
+        </div>
+        <div className="segment-guide-min-after">
+          <FormattedMessage id="segment.resize.min" defaultMessage="Min" /> »
+        </div>
+      </div>
+    )
+  }
+
+  renderMaxGuides = (width) => {
+    return (
+      <div className="segment-guide segment-guide-max" style={this.getStyle(width)}>
+        <div className="segment-guide-max-before">
+          <FormattedMessage id="segment.resize.max" defaultMessage="Max" /> »
+        </div>
+        <div className="segment-guide-max-after">
+          « <FormattedMessage id="segment.resize.max" defaultMessage="Max" />
+        </div>
+      </div>
+    )
+  }
+
   render () {
     if (!this.props.isResizing || !this.props.segment) return null
 
@@ -48,33 +74,26 @@ export class ResizeGuides extends React.Component {
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
     let minGuide, maxGuide
 
+    // Render minimum-width guides if minimum widths are recommended by the
+    // segment variant
     if (variantInfo.minWidth) {
-      minGuide = (
-        <div className="segment-guide segment-guide-min" style={this.getStyle(variantInfo.minWidth)}>
-          <div className="segment-guide-min-before">« <FormattedMessage id="segment.resize.min" defaultMessage="Min" /></div>
-          <div className="segment-guide-min-after"><FormattedMessage id="segment.resize.min" defaultMessage="Min" /> »</div>
-        </div>
-      )
+      minGuide = this.renderMinGuides(variantInfo.minWidth)
     }
 
+    // Maximum-width guides are displayed based on recommended maximum widths
+    // of the segment variant, if provided, but this is also limited by the
+    // remaining space of the street. If no maximum-width recommendations
+    // are provided, the maximum width would be the entire remaining width,
+    // if any.
     const remainingWidth = this.props.remainingWidth + segment.width
-
-    if (remainingWidth &&
+    const shouldUseRemainingWidth = remainingWidth &&
       (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&
-      ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))) {
-      maxGuide = (
-        <div className="segment-guide segment-guide-max" style={this.getStyle(remainingWidth)}>
-          <div className="segment-guide-max-before"><FormattedMessage id="segment.resize.max" defaultMessage="Max" /> »</div>
-          <div className="segment-guide-max-after">« <FormattedMessage id="segment.resize.max" defaultMessage="Max" /></div>
-        </div>
-      )
+      ((!variantInfo.maxWidth) || (remainingWidth <= variantInfo.maxWidth))
+
+    if (shouldUseRemainingWidth) {
+      maxGuide = this.renderMaxGuides(remainingWidth)
     } else if (variantInfo.maxWidth) {
-      maxGuide = (
-        <div className="segment-guide segment-guide-max" style={this.getStyle(variantInfo.maxWidth)}>
-          <div className="segment-guide-max-before"><FormattedMessage id="segment.resize.max" defaultMessage="Max" /> »</div>
-          <div className="segment-guide-max-after">« <FormattedMessage id="segment.resize.max" defaultMessage="Max" /></div>
-        </div>
-      )
+      maxGuide = this.renderMaxGuides(variantInfo.maxWidth)
     }
 
     // Calculate the centerline of the segment (its left offset plus half its width)
