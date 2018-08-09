@@ -107,6 +107,10 @@ body.windows .street-name-text {
   }
 }
 
+body.segment-move-dragging #street-name {
+  pointer-events: none;
+}
+
 #street-name {
   @include tap-highlight-color(transparent);
 
