@@ -19,6 +19,19 @@ export class ResizeGuides extends React.Component {
     isResizing: false
   }
 
+  /**
+   * Only updates on a change in value of the `isResizing` prop (which
+   * shows/hides the guides), to prevent continuous re-renders during a
+   * resize drag input. Its appearance should remain the same throughout the
+   * entire drag action.
+   *
+   * The `segment` and `remainingWidth` props may change during the resizing,
+   * so we can't rely on PureComponent.
+   */
+  shouldComponentUpdate = (nextProps) => {
+    return (this.props.isResizing !== nextProps.isResizing)
+  }
+
   getStyle (width) {
     const pixelWidth = width * TILE_SIZE
 
