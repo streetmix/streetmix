@@ -51,7 +51,7 @@ class StreetEditable extends React.Component {
       cancelSegmentResizeTransitions()
     }
 
-    const dragEvents = ['drag', 'touchmove']
+    const dragEvents = ['dragover', 'touchmove']
     if (!prevProps.draggingState && draggingState) {
       dragEvents.map((type) => { window.addEventListener(type, this.updateWithinCanvas) })
     } else if (prevProps.draggingState && !draggingState) {
