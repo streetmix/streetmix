@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { processWidthInput } from '../width_units'
+import { processWidthInput, prettifyWidth } from '../width_units'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../../users/constants'
 
 // Use this when it doesn't matter what the unit is.
@@ -348,5 +348,77 @@ describe('processWidthInput()', () => {
     // as metric units
     const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
     expect(input2).toEqual(10)
+  })
+})
+
+describe('prettifyWidth()', () => {
+  it('formats a metric width in English', () => {
+    const width = prettifyWidth(10, SETTINGS_UNITS_METRIC, 'en')
+    expect(width).toBe('3 m')
+  })
+
+  // Test passes if output uses Western Arabic numerals
+  // If it outputs Eastern Arabic numerals, it fails
+  it('formats a metric width in Arabic', () => {
+    const width = prettifyWidth(10, SETTINGS_UNITS_METRIC, 'ar')
+    expect(width).toBe('3 m')
+  })
+
+  // Test passes if output uses the Cyrillic character for meter
+  it('formats a metric width in Russian', () => {
+    const width = prettifyWidth(10, SETTINGS_UNITS_METRIC, 'ru')
+    expect(width).toBe('3 м')
+  })
+
+  it('formats a decimal metric width', () => {
+    const width = prettifyWidth(9, SETTINGS_UNITS_METRIC, 'en')
+    expect(width).toBe('2.7 m')
+  })
+
+  it('formats an imperial unit width', () => {
+    const width = prettifyWidth(3, SETTINGS_UNITS_IMPERIAL, 'en')
+    expect(width).toBe('3\'')
+  })
+
+  describe('imperial units with vulgar fractions', () => {
+    it('formats .125 as ⅛', () => {
+      const width = prettifyWidth(3.125, SETTINGS_UNITS_IMPERIAL, 'en')
+      expect(width).toBe('3⅛\'')
+    })
+
+    it('formats .25 as ¼', () => {
+      const width = prettifyWidth(3.25, SETTINGS_UNITS_IMPERIAL, 'en')
+      expect(width).toBe('3¼\'')
+    })
+
+    it('formats .375 as ⅜', () => {
+      const width = prettifyWidth(3.375, SETTINGS_UNITS_IMPERIAL, 'en')
+      expect(width).toBe('3⅜\'')
+    })
+
+    it('formats .5 as ½', () => {
+      const width = prettifyWidth(3.5, SETTINGS_UNITS_IMPERIAL, 'en')
+      expect(width).toBe('3½\'')
+    })
+
+    it('formats .625 as ⅝', () => {
+      const width = prettifyWidth(3.625, SETTINGS_UNITS_IMPERIAL, 'en')
+      expect(width).toBe('3⅝\'')
+    })
+
+    it('formats .75 as ¾', () => {
+      const width = prettifyWidth(3.75, SETTINGS_UNITS_IMPERIAL, 'en')
+      expect(width).toBe('3¾\'')
+    })
+
+    it('formats .875 as ⅞', () => {
+      const width = prettifyWidth(3.875, SETTINGS_UNITS_IMPERIAL, 'en')
+      expect(width).toBe('3⅞\'')
+    })
+  })
+
+  it('formats an imperial unit with decimals', () => {
+    const width = prettifyWidth(3.65, SETTINGS_UNITS_IMPERIAL, 'en')
+    expect(width).toBe('3.65\'')
   })
 })
