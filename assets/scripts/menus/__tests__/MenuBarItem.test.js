@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { MenuBarItem } from '../MenuBarItem'
+import MenuBarItem from '../MenuBarItem'
 
 function FormattedMessage () {
   return <span />
@@ -13,10 +13,17 @@ describe('MenuBarItem', () => {
     expect(wrapper.children().length).toEqual(1)
   })
 
-  it('handles the click', () => {
+  it('handles the click on a button', () => {
     const handleClick = jest.fn()
     const wrapper = shallow(<MenuBarItem onClick={handleClick} />)
     wrapper.find('button').simulate('click')
+    expect(handleClick).toBeCalled()
+  })
+
+  it('handles the click on a link', () => {
+    const handleClick = jest.fn()
+    const wrapper = shallow(<MenuBarItem url="#" onClick={handleClick} />)
+    wrapper.find('a').simulate('click')
     expect(handleClick).toBeCalled()
   })
 
@@ -35,22 +42,5 @@ describe('MenuBarItem', () => {
   it('passes unhandled props to child elements', () => {
     const wrapper = shallow(<MenuBarItem className="foo" />)
     expect(wrapper.find('.foo').exists()).toEqual(true)
-  })
-
-  describe('internet connectivity behavior', () => {
-    it('does not render if it requires Internet access, and there is no Internet', () => {
-      const wrapper = shallow(<MenuBarItem requireInternet noInternet />)
-      expect(wrapper.children().length).toEqual(0)
-    })
-
-    it('renders if it requires Internet access, and there is Internet', () => {
-      const wrapper = shallow(<MenuBarItem requireInternet noInternet={false} />)
-      expect(wrapper.children().length).toEqual(1)
-    })
-
-    it('renders if it does not require Internet access, and there is no Internet', () => {
-      const wrapper = shallow(<MenuBarItem noInternet />)
-      expect(wrapper.children().length).toEqual(1)
-    })
   })
 })

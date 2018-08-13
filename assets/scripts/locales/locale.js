@@ -23,6 +23,7 @@ import fr from 'react-intl/locale-data/fr'
 import ja from 'react-intl/locale-data/ja'
 import pl from 'react-intl/locale-data/pl'
 import pt from 'react-intl/locale-data/pt'
+import ru from 'react-intl/locale-data/ru'
 import sv from 'react-intl/locale-data/sv'
 import zh from 'react-intl/locale-data/zh'
 
@@ -31,7 +32,7 @@ import zh from 'react-intl/locale-data/zh'
  */
 export async function initLocale () {
   // Add react-intl locale data
-  addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...sv, ...zh])
+  addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...ru, ...sv, ...zh])
 
   // Default language is set by browser, or is English if undetermined
   const defaultLocale = navigator.language || DEFAULT_LOCALE

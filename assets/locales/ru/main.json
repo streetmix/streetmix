@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Войти",
       "sign-in-link": "{signInLink} для красивых ссылок на улицы и персональной галереи улиц",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Войти через Twitter</a> для красивых ссылок на улицы и персональной галереи улиц",
+      "sign-in": "<a href='#'>Войти через</a> для красивых ссылок на улицы и персональной галереи улиц",
       "link": "Скопируйте и вставьте эту ссылку, чтобы поделиться:",
       "twitter": "Поделиться через Twitter",
       "facebook": "Поделиться через Facebook",
@@ -106,10 +106,8 @@
     "please-reload": "Пожалуйста, перезагрузите эту страницу, прежде чем продолжить.",
     "street-deleted-elsewhere-title": "Эта улица была удалена в другом месте.",
     "street-deleted-elsewhere-description": "Эта улица была удалена в другом браузере.",
-    "twitter-access-denied-title": "Вы не вошли.",
-    "twitter-access-denied-description": "Вы отменили процесс входа в Twitter.",
-    "email-access-denied-title": "Вы не вошли.",
-    "email-access-denied-description": "Вы отменили процесс входа через почту.",
+    "access-denied-title": "",
+    "access-denied-description": "",
     "auth-api-problem-title": "Возникла проблема со входом в систему.",
     "auth-api-problem-description": "Возникла проблема с аутентификацией.",
     "please-try-again": "Пожалуйста, повторите попытку позже или сообщите нам через <a target='_blank' rel='noopener noreferrer' href='{email}'>почта</a> or <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
@@ -256,7 +254,7 @@
     "rename": "Нажмите для переименования"
   },
   "building": {
-    "floors-count": "{количество, совокупность, один {# floor} другие {# floors}}"
+    "floors-count": "{count, plural, one {} few {} many {} other {}}"
   },
   "segments": {
     "warnings": {
@@ -284,9 +282,10 @@
     "all": "Все улицы",
     "twitter-link": "Провиль Twitter",
     "delete-street-tooltip": "Удалить улицу",
-    "street-count": "{количество, совокупность, один {# street} другие {# streets}}",
+    "street-count": "{count, plural, one {} few {} many {} other {}}",
     "no-streets": "Пока что нет улиц",
-    "sign-in": "Войти через Twitter для персоальной галереи улиц"
+    "sign-in": "Войти через Twitter для персоальной галереи улиц",
+    "sign-in-prompt": ""
   },
   "users": {
     "anonymous": "Аноним",
@@ -308,8 +307,10 @@
       "ja": "Японский",
       "pl": "Польский",
       "pt-br": "Португальский (Бразилия)",
+      "ru": "Русский",
       "sv": "Шведский",
-      "zh-hant": "Китайский (Традиционный)"
+      "zh-hans": "",
+      "zh-hant": ""
     }
   }
 }

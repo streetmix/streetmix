@@ -28,7 +28,11 @@ import { segmentsChanged, getSegmentEl } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
-import { updateDraggingState, clearDraggingState, setActiveSegment } from '../store/actions/ui'
+import {
+  updateDraggingState,
+  clearDraggingState,
+  setActiveSegment
+} from '../store/actions/ui'
 
 // TODO: use suppressMouseEnter on <StreetEditable /> state
 let _suppressMouseEnter = false
@@ -92,6 +96,40 @@ export function onBodyMouseDown (event) {
   }
 
   store.dispatch(clearMenus())
+}
+
+export function isSegmentWithinCanvas (event, canvasEl) {
+  const { remainingWidth } = store.getState().street
+
+  let x, y
+  if (event.touches && event.touches[0]) {
+    x = event.touches[0].pageX
+    y = event.touches[0].pageY
+  } else {
+    x = event.x
+    y = event.y
+  }
+
+  const { top, bottom, left, right } = canvasEl.getBoundingClientRect()
+
+  const withinCanvasY = (y >= top && y <= bottom)
+  let withinCanvasX = (x >= left && x <= right)
+
+  if (!withinCanvasX && remainingWidth < 0) {
+    const margin = (remainingWidth * TILE_SIZE / 2)
+    const newLeft = left + margin - DRAGGING_MOVE_HOLE_WIDTH
+    const newRight = right - margin + DRAGGING_MOVE_HOLE_WIDTH
+
+    withinCanvasX = (x >= newLeft && x <= newRight)
+  }
+
+  const withinCanvas = (withinCanvasX && withinCanvasY)
+
+  if (oldDraggingState) {
+    oldDraggingState.withinCanvas = withinCanvas
+  }
+
+  return withinCanvas
 }
 
 function doDropHeuristics (draggedItem, draggedItemType) {
@@ -246,13 +284,21 @@ export function handleSegmentMoveCancel () {
   // document.querySelector('.palette-trashcan').classList.remove('visible')
 }
 
+function handleSegmentDragEnd () {
+  oldDraggingState = null
+  cancelSegmentResizeTransitions()
+  segmentsChanged(false)
+  document.body.classList.remove('segment-move-dragging')
+  document.body.classList.remove('not-within-canvas')
+}
+
 export const segmentSource = {
   canDrag (props) {
     return !store.getState().app.readOnly
   },
 
   isDragging (props, monitor) {
-    return monitor.getItem().dataNo === props.dataNo
+    return monitor.getItem().id === props.segment.id
   },
 
   beginDrag (props, monitor, component) {
@@ -263,27 +309,27 @@ export const segmentSource = {
       variantString: props.segment.variantString,
       type: props.segment.type,
       randSeed: props.segment.randSeed,
-      actualWidth: props.segment.width
+      actualWidth: props.segment.width,
+      id: props.segment.id
     }
   },
 
   endDrag (props, monitor, component) {
     store.dispatch(clearDraggingState())
-    oldDraggingState = null
 
     if (!monitor.didDrop()) {
-      // if no object returned by a drop handler, it is not within the canvas
-      if (monitor.getItemType() === DragTypes.SEGMENT) {
+      // if no object returned by a drop handler, check if it is still within the canvas
+      const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
+      if (withinCanvas) {
+        handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
+      } else if (monitor.getItemType() === DragTypes.SEGMENT) {
         // if existing segment is dropped outside canvas, delete it
         store.dispatch(removeSegment(props.dataNo))
         trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
       }
     }
 
-    cancelSegmentResizeTransitions()
-    segmentsChanged(false)
-    document.body.classList.remove('segment-move-dragging')
-    document.body.classList.remove('not-within-canvas')
+    handleSegmentDragEnd()
   }
 }
 
@@ -294,6 +340,9 @@ export const paletteSegmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+    // Initialize an empty draggingState object in Redux for palette segments in order to
+    // add event listener in StreetEditable once dragging begins.
+    store.dispatch(updateDraggingState())
 
     const segmentInfo = getSegmentInfo(props.type)
 
@@ -307,12 +356,13 @@ export const paletteSegmentSource = {
 
   endDrag (props, monitor, component) {
     store.dispatch(clearDraggingState())
-    oldDraggingState = null
 
-    cancelSegmentResizeTransitions()
-    segmentsChanged(false)
-    document.body.classList.remove('segment-move-dragging')
-    document.body.classList.remove('not-within-canvas')
+    const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
+    if (!monitor.didDrop() && withinCanvas) {
+      handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
+    }
+
+    handleSegmentDragEnd()
   }
 }
 
@@ -430,7 +480,7 @@ export const segmentTarget = {
 }
 
 function handleSegmentCanvasDrop (draggedItem, type) {
-  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = store.getState().ui.draggingState
+  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
   store.dispatch(clearDraggingState())
   // If dropped in same position as dragged segment was before, return
@@ -443,7 +493,8 @@ function handleSegmentCanvasDrop (draggedItem, type) {
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     type: draggedItem.type,
-    randSeed: draggedItem.randSeed
+    randSeed: draggedItem.randSeed,
+    id: draggedItem.id
   }
 
   let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl
@@ -504,8 +555,6 @@ export const canvasTarget = {
 
 export function collectDropTarget (connect, monitor) {
   return {
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({ shallow: true })
+    connectDropTarget: connect.dropTarget()
   }
 }

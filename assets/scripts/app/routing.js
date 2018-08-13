@@ -43,7 +43,8 @@ export const RESERVED_URLS = [
   URL_SIGN_IN, TWITTER_URL_SIGN_IN_CALLBACK,
   URL_NEW_STREET, URL_NEW_STREET_COPY_LAST,
   URL_JUST_SIGNED_IN,
-  URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets'
+  URL_HELP, URL_GLOBAL_GALLERY, URL_ERROR, 'streets',
+  'terms-of-service', 'privacy-policy', 'map'
 ]
 export const URL_RESERVED_PREFIX = '~'
 

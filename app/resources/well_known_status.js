@@ -1,6 +1,5 @@
 var async = require('async')
 
-require('../../lib/db.js')
 var Street = require('../models/street.js')
 
 exports.get = function (req, res) {

@@ -17,6 +17,7 @@ addons:
 
 services:
   - mongodb
+  - redis-server
 
 before_install:
   # Install dependencies for node `canvas` package

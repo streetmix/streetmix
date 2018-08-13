@@ -7,6 +7,7 @@ const IMPERIAL_PRECISION = 3
 
 const WIDTH_INPUT_CONVERSION = [
   { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
+  { text: 'м', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
   { text: 'cm', multiplier: 1 / 100 / IMPERIAL_METRIC_MULTIPLIER },
   { text: '"', multiplier: 1 / 12 },
   { text: 'in', multiplier: 1 / 12 },
@@ -78,12 +79,16 @@ export function processWidthInput (widthInput, units) {
  * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
  *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
  *            assume metric.
- * @todo pass locale code to this function
+ * @param {Number} locale - string
  * @returns {string}
  */
-export function prettifyWidth (width, units) {
+export function prettifyWidth (width, units, locale) {
   let widthText = ''
-  const locale = store.getState().locale.locale
+
+  // LEGACY: Not all uses of this function pass in locale
+  if (!locale) {
+    locale = store.getState().locale.locale
+  }
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
@@ -93,7 +98,13 @@ export function prettifyWidth (width, units) {
     case SETTINGS_UNITS_METRIC:
     default:
       widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC, locale)
-      widthText += ' m'
+      // In Russian, the Cyrillic м is common in vernacular usage.
+      // This is in defiance of SI, but should be friendlier.
+      if (locale === 'ru') {
+        widthText += ' м'
+      } else {
+        widthText += ' m'
+      }
       break
   }
 
@@ -115,6 +126,11 @@ export function stringifyMeasurementValue (value, units, locale) {
   let string = ''
 
   if (!value) return '0'
+
+  // Force the use of Western Arabic numerals in Arabic locale
+  if (locale === 'ar') {
+    locale += '-u-nu-latn'
+  }
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:

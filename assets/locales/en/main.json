@@ -309,7 +309,8 @@
       "pt-br": "Portuguese (Brazil)",
       "ru": "Russian",
       "sv": "Swedish",
-      "zh-hant": "Chinese (Traditional)"
+      "zh-hans": "Simplified Chinese",
+      "zh-hant": "Traditional Chinese"
     }
   }
 }
