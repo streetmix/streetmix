@@ -17,12 +17,12 @@
       "keyboard-label": "اختصارات لوحة المفاتيح:",
       "remove": "إزالة الجزء الذي تُشير إليه<br />(إضغط مفتاح <kbd class='key'>Shift</kbd> لإزالة الكل)",
       "move": "جولة حول الشارع<br />(اضغط على مفتاح <kbd class='key'>Shift</kbd> للانتقال إلى الحواف)",
-      "change": "تغيير عرض الجزء الذي تُشير إليه<br />(لمزيد من الدقة إضغط على المفتاح Shift<kbd class='key'>)"
+      "change": "تغيير عرض الجزء الذي تُشير إليه<br />(لمزيد من الدقة إضغط على المفتاح <kbd class='key'>Shift</kbd>)"
     },
     "share": {
       "sign-in-twitter-link": "تسجيل الدخول",
       "sign-in-link": "{signInLink} للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
-      "sign-in": "",
+      "sign-in": "<a href='#'>سجّل الدخول</a> للحصول على روابط أجمل إلى شوارعك الخاصة ومعرض صور شارعك الخاص",
       "link": "نسخ ولصق هذا الرابط لمشاركته:",
       "twitter": "مشاركة باستخدام تويتر",
       "facebook": "مشاركة باستخدام الفيسبوك",
@@ -30,12 +30,12 @@
       "save": "حفظ كصورة…",
       "save-byline": "لإدراجها في تقرير أو مدونة وما إلى ذلك.",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "تحقق من شارعي، {streetName}، في Streetmix!",
+        "my-street-unnamed": "تحقق من شارعي في Streetmix!",
+        "someone-elses-street": "تحقق من شارعي، {streetName} بواسطة {streetCreator} في Streetmix!",
+        "someone-elses-street-unnamed": "تحقق من هذا الشارع، {streetCreator}، في Streetmix!",
+        "anonymous-creator-street": "تحقق من {streetName} في Streetmix!",
+        "anonymous-creator-street-unnamed": "تحقق من هذا الشارع في Streetmix!"
       }
     },
     "contact": {
@@ -65,9 +65,9 @@
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "الوحدات",
+      "metric": "الوحدات المترية (بالمتر)",
+      "imperial": "الوحدات الإمبريالية (بالقدم)"
     },
     "language": {
       "label": "اللغة"
@@ -86,40 +86,40 @@
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
-      "reload": "",
+      "home": "الانتقال إلى الصفحة الرئيسية",
+      "sign-in": "تسجيل الدخول من جديد",
+      "reload": "إعادة تحميل الصفحة",
       "try-again": "حاول من جديد",
-      "view-example": ""
+      "view-example": "عرض شارع كمثال"
     },
-    "page-not-found-title": "",
-    "page-not-found-description": "",
-    "street-not-found-title": "",
-    "street-not-found-description": "",
-    "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
-    "street-deleted-description": "",
-    "sign-out-title": "",
-    "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
-    "reload-sign-in-title": "",
-    "please-reload": "",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
-    "access-denied-title": "",
-    "access-denied-description": "",
-    "auth-api-problem-title": "",
-    "auth-api-problem-description": "",
-    "please-try-again": "",
-    "unsupported-browser-title": "",
-    "unsupported-browser-description": "",
-    "unsupported-browser-internet-explorer": "",
-    "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "",
-    "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
-    "error-code": ""
+    "page-not-found-title": "الصفحة غير موجودة.",
+    "page-not-found-description": "يا إلهي. لا توجد صفحة لهذا العنوان!",
+    "street-not-found-title": "الشارع غير موجود.",
+    "street-not-found-description": "يا إلهي. لا يوجد شارع لهذا العنوان!",
+    "street-not-found-but-user-description": "لا يوجد شارع لهذا العنوان! ولكن يمكنك البحث عن شوارع أخرى بواسطة {user}",
+    "street-deleted-title": "هذا الشارع تم حذفه.",
+    "street-deleted-description": "لا يوجد هناك شارع لهذا الرابط بعد الآن، ولكن يمكنك البحث عن شوارع أخرى بواسطة {user}",
+    "sign-out-title": "لقد تم تسجيل خروجك.",
+    "reload-sign-out-title": "لقد قمت بتسجيل الخروج من نافذة أخرى.",
+    "gallery-street-failure-description": "حدثت مشكلة أثناء تحميل هذا الشارع.",
+    "reload-sign-in-title": "لقد قمت بتسجيل الدخول من نافذة أخرى.",
+    "please-reload": "يُرجى إعادة تحميل هذه الصفحة قبل الاستمرار.",
+    "street-deleted-elsewhere-title": "تم حذف هذا الشارع من مكان آخر.",
+    "street-deleted-elsewhere-description": "تم حذف هذا الشارع من متصفح آخر.",
+    "access-denied-title": "لم تقم بتسجيل الدخول.",
+    "access-denied-description": "لقد قمت بإلغاء عملية تسجيل الدخول.",
+    "auth-api-problem-title": "حدث خلل أثناء عملية تسجيل الدخول.",
+    "auth-api-problem-description": "حدث خلل أثناء المصادقة.",
+    "please-try-again": "يُرجى المحاولة لاحقاً، أو إبلاغنا من خلال البريد <a target='_blank' rel='noopener noreferrer' href='{email}'>الإلكتروني</a> أو <a target='_blank' rel='noopener noreferrer' href='{tweet}'>تويتر</a>.",
+    "unsupported-browser-title": "Streetmix لا يعمل على المتصفح الخاص بك.",
+    "unsupported-browser-description": "آسف بشأن ذلك. ربما ترغب في تجربة متصفح <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>كروم</a>، <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>فايرفوكس</a>، <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>ميكروسوفت ايدج</a>، أو سافاري.",
+    "unsupported-browser-internet-explorer": "هل تستخدم متصفح انترنت اكسبلورر الآن؟ <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>يمكنك العثور على المزيد من النتائج.</a>",
+    "unsupported-browser-contact-us": "إذا كنت تعتقد أن متصفحك يجب أن يكون مدعومًا، فالرجاء الاتصال بنا عبر البريد <a target='_blank' rel='noopener noreferrer' href='{email}'>الإلكتروني</a>.",
+    "cannot-create-new-street-on-phone-title": "لا يعمل Streetmix إلا على الأجهزة اللوحية وأجهزة الكمبيوتر.",
+    "cannot-create-new-street-on-phone-description": "إذا كنت تتبع رابطًا آخر إلى شارع معين، فيمكنك عرضه على هاتفك -ولكن لا يمكنك بعد إنشاء شوارع جديدة.",
+    "generic-error-title": "هناك خطأ ما.",
+    "generic-error-description": "نعتذر – هناك خطأ ما.",
+    "error-code": "(خطأ {code}.)"
   },
   "btn": {
     "reload": "إعادة التحميل",
@@ -149,8 +149,8 @@
       "existing": {
         "intro": "هذا شارع  {streetName} تم تخطيطه من قبل {creator}.",
         "intro-without-creator": "هذا شارع {streetName}.",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "instruct": "قم بالتعديل عن طريق نقل بعض المقاطع، أو {startYourOwnStreet}.",
+        "instruct-start-own-street": "ابدأ بإنشاء شارعك الخاص"
       }
     },
     "new-street": {
@@ -236,7 +236,7 @@
   },
   "key": {
     "backspace": "مسافة للخلف",
-    "shift": "انتقال"
+    "shift": "Shift"
   },
   "tooltip": {
     "remove-segment": "إزالة الجزء",
@@ -254,7 +254,7 @@
     "rename": "أنقر لإعادة التسمية"
   },
   "building": {
-    "floors-count": "{count, plural, zero {} one {} two {} few {} many {} other {}}"
+    "floors-count": "{count, plural, zero { # طَبَقة} one {طابِق} two {طابقين} few {# طوابق} many {# طوابق} other {# طوابق}}"
   },
   "segments": {
     "warnings": {
@@ -267,11 +267,11 @@
       "label": "غير معروف"
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "صورة:"
     },
     "resize": {
-      "min": "",
-      "max": ""
+      "min": "حد أدنى",
+      "max": "حد أقصى"
     }
   },
   "section": {
@@ -285,7 +285,7 @@
     "street-count": "{count, plural, zero {شوارع} one {شارع} two {شارعين} few {# شوارع} many {# شوارع} other {# شوارع}}",
     "no-streets": "لا وجود للشوارع إلى الآن",
     "sign-in": "تسجيل الدخول باستخدام حساب تويتر من أجل معرض الصور الشخصية للشارع",
-    "sign-in-prompt": ""
+    "sign-in-prompt": "قم بتسجيل الدخول لمشاهدة معرض صور شارعك الخاص"
   },
   "users": {
     "anonymous": "مجهول",
@@ -293,7 +293,7 @@
   },
   "meta": {
     "description": "قم بتصميم وإعادة توزيع شارع الحي ومشاركته - كل ذلك من خلال متصفحك! أضف أشجار أو مسارات الدراجات، قم بتوسيع الأرصفة أو الممرات المرورية، تعلم كيف يمكن لقراراتك التأثير في مجتمعك.",
-    "page-title": ""
+    "page-title": "{streetName} (بواسطة {author})"
   },
   "i18n": {
     "lang": {
@@ -307,10 +307,10 @@
       "ja": "لغة يابانية",
       "pl": "لغة بولندية",
       "pt-br": "لغة برتغالية",
-      "ru": "",
+      "ru": "الروسية",
       "sv": "لغة سويدية",
-      "zh-hans": "",
-      "zh-hant": ""
+      "zh-hans": "الصينية المبسطة",
+      "zh-hant": "الصينية التقليدية"
     }
   }
 }
