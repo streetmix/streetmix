@@ -116,6 +116,11 @@ export function stringifyMeasurementValue (value, units, locale) {
 
   if (!value) return '0'
 
+  // Force the use of Western Arabic numerals in Arabic locale
+  if (locale === 'ar') {
+    locale += '-u-nu-latn'
+  }
+
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
       string = new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: IMPERIAL_PRECISION }).format(value)
