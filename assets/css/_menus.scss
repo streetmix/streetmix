@@ -67,7 +67,7 @@
     width: 16px;
     height: 16px;
 
-    [dir='rtl'] {
+    [dir='rtl'] & {
       left: auto;
       right: 0.75em;
     }
