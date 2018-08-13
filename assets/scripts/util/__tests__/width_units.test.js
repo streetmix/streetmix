@@ -35,7 +35,7 @@ describe('processWidthInput()', () => {
   it('parses a value with a prime symbol (3\')', () => {
     const value = '3\''
 
-    // Even in metric mode, the prime symbol causes the value to be interpreted as imperial units
+    // Even in metric mode, the prime symbol should cause the value to be interpreted as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3)
 
@@ -46,7 +46,7 @@ describe('processWidthInput()', () => {
   it('parses a value with a double-prime symbol (3")', () => {
     const value = '3"'
 
-    // Even in metric mode, the double-prime symbol causes the value to be interpreted as imperial units
+    // Even in metric mode, the double-prime symbol should cause the value to be interpreted as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(0.25)
 
@@ -77,7 +77,8 @@ describe('processWidthInput()', () => {
   it('parses a decimal with prime symbol (3.75\')', () => {
     const value = '3.75\''
 
-    // Even in metric mode, the prime symbol causes the value to be interpreted as imperial units
+    // Even in metric mode, the prime symbol should cause the value to be
+    // interpreted as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -88,7 +89,8 @@ describe('processWidthInput()', () => {
   it('parses a decimal with `ft` unit (3.75 ft)', () => {
     const value = '3.75 ft'
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -99,7 +101,8 @@ describe('processWidthInput()', () => {
   it('parses a decimal with `ft.` unit (3.75 ft.)', () => {
     const value = '3.75 ft.'
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -110,7 +113,8 @@ describe('processWidthInput()', () => {
   it('parses a decimal with `ft` unit and no space (3.75ft)', () => {
     const value = '3.75ft'
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -121,7 +125,8 @@ describe('processWidthInput()', () => {
   it('parses `feet` unit (3 feet)', () => {
     const value = '3 feet'
 
-    // Even in metric mode, the `feet` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `feet` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3)
 
@@ -132,7 +137,8 @@ describe('processWidthInput()', () => {
   it('parses `in` unit', () => {
     const value = '12 in'
 
-    // Even in metric mode, the `in` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `in` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(1)
 
@@ -143,7 +149,8 @@ describe('processWidthInput()', () => {
   it('parses `in.` unit', () => {
     const value = '24 in.'
 
-    // Even in metric mode, the `in.` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `in.` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(2)
 
@@ -154,7 +161,8 @@ describe('processWidthInput()', () => {
   it('parses `inch` unit', () => {
     const value = '36 inches'
 
-    // Even in metric mode, the `inch` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `inch` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3)
 
@@ -165,7 +173,8 @@ describe('processWidthInput()', () => {
   it('parses `inches` unit', () => {
     const value = '6 inches'
 
-    // Even in metric mode, the `inches` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `inches` should cause the value to be
+    // interpreted as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(0.5)
 
@@ -176,7 +185,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with prime and double-prime symbols (3\'9")', () => {
     const value = "3'9\""
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -187,7 +197,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with prime symbol, lacking a final double-prime symbol (3\'9)', () => {
     const value = "3'9"
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -198,7 +209,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with prime and double-prime symbols and hyphen separator (3\'-9")', () => {
     const value = "3'-9\""
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -209,7 +221,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with prime and hyphen separator, lacking a final double-prime symbol (3\'-9)', () => {
     const value = "3'-9"
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -220,7 +233,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with prime and double-prime symbols and space separator (3\' 9")', () => {
     const value = "3' 9\""
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -231,7 +245,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with prime and space separator, lacking a final double-prime symbol (3\' 9)', () => {
     const value = "3' 9"
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(3.75)
 
@@ -242,7 +257,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with support for leading zero (0\'6")', () => {
     const value = "0'6"
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(0.5)
 
@@ -253,7 +269,8 @@ describe('processWidthInput()', () => {
   it('parses feet and inches with support for leading zero (0\'-3")', () => {
     const value = "0'-3"
 
-    // Even in metric mode, the `ft` causes the value to be interpreted as imperial units
+    // Even in metric mode, the `ft` should cause the value to be interpreted
+    // as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(0.25)
 
@@ -267,7 +284,8 @@ describe('processWidthInput()', () => {
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(10)
 
-    // Even in imperial mode, the `m` causes the value to be interpreted as metric units
+    // Even in imperial mode, the `m` should cause the value to be interpreted
+    // as metric units
     const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
     expect(input2).toEqual(10)
   })
@@ -278,7 +296,8 @@ describe('processWidthInput()', () => {
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(10)
 
-    // Even in imperial mode, the `m` causes the value to be interpreted as metric units
+    // Even in imperial mode, the `m` should cause the value to be interpreted
+    // as metric units
     const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
     expect(input2).toEqual(10)
   })
@@ -289,7 +308,8 @@ describe('processWidthInput()', () => {
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(10)
 
-    // Even in imperial mode, the `m` causes the value to be interpreted as metric units
+    // Even in imperial mode, the `m` should cause the value to be interpreted
+    // as metric units
     const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
     expect(input2).toEqual(10)
   })
@@ -300,7 +320,8 @@ describe('processWidthInput()', () => {
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(10)
 
-    // Even in imperial mode, the `m` causes the value to be interpreted as metric units
+    // Even in imperial mode, the `m` should cause the value to be interpreted
+    // as metric units
     const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
     expect(input2).toEqual(10)
   })
@@ -311,8 +332,21 @@ describe('processWidthInput()', () => {
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(5) // 150cm => 1.5m => 5ft
 
-    // Even in imperial mode, the `cm` causes the value to be interpreted as metric units
+    // Even in imperial mode, the `cm` should cause the value to be interpreted
+    // as metric units
     const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
     expect(input2).toEqual(5)
+  })
+
+  it('parses a value with the Cyrillic meters unit (3 м)', () => {
+    const value = '3 м'
+
+    const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
+    expect(input1).toEqual(10)
+
+    // Even in imperial mode, the `м` should cause the value to be interpreted
+    // as metric units
+    const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
+    expect(input2).toEqual(10)
   })
 })
