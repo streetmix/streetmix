@@ -77,10 +77,11 @@
 
     Diana M. Alhaj, Arabic
     Zakaria Shekhreet, Arabic
-    Crystal Xing, Chinese (Traditional)
-    Ricky Tsui, Chinese (Traditional)
-    Summer Pan, Chinese (Traditional)
-    Wen Jing Jiang, Chinese (Traditional)
+    Crystal Xing, Chinese
+    Maggie Dong, Chinese
+    Ricky Tsui, Chinese
+    Summer Pan, Chinese
+    Wen Jing Jiang, Chinese
     Aleksi Kinnunen, Finnish
     Denis Devillé, French
     Jean-Louis Stanus, French
