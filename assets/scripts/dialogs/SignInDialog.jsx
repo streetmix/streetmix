@@ -163,11 +163,13 @@ export default class SignInDialog extends React.Component {
 
     return (
       <div className="sign-in-dialog">
-        <h1><FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in to Streetmix" /></h1>
+        <h1>
+          <FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in / Sign up" />
+        </h1>
         <p>
           <FormattedMessage
             id="dialogs.sign-in.description"
-            defaultMessage="Create your free Streetmix account to save your street designs, or return to an existing account and street collection."
+            defaultMessage="Save your first design or sign in to access your past designs."
           />
         </p>
 
