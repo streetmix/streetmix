@@ -201,35 +201,77 @@ export default class SignInDialog extends React.Component {
           </p>
 
           <button type="submit" className="sign-in-button sign-in-email-button">
-            <FormattedMessage id="dialogs.sign-in.button.email" defaultMessage="Continue with email" />
+            <FormattedMessage
+              id="dialogs.sign-in.button.email"
+              defaultMessage="Continue with email"
+            />
           </button>
         </form>
 
         <div className="sign-in-social-heading">
           <hr />
-          <FormattedMessage id="dialogs.sign-in.social-heading" defaultMessage="or" />
+          <FormattedMessage
+            id="dialogs.sign-in.social-heading"
+            defaultMessage="or"
+          />
         </div>
 
-        <button className="sign-in-button sign-in-social-button sign-in-twitter-button" onClick={this.handleTwitterSignIn}>
+        <button
+          className="sign-in-button sign-in-social-button sign-in-twitter-button"
+          onClick={this.handleTwitterSignIn}
+        >
           <Icon icon="twitter" />
-          <FormattedMessage id="dialogs.sign-in.button.twitter" defaultMessage="Continue with Twitter" />
+          <FormattedMessage
+            id="dialogs.sign-in.button.twitter"
+            defaultMessage="Continue with Twitter"
+          />
         </button>
 
-        <button className="sign-in-button sign-in-social-button sign-in-google-button" onClick={this.handleGoogleSignIn}>
+        <button
+          className="sign-in-button sign-in-social-button sign-in-google-button"
+          onClick={this.handleGoogleSignIn}
+        >
           <Icon icon="google" />
-          <FormattedMessage id="dialogs.sign-in.button.google" defaultMessage="Continue with Google" />
+          <FormattedMessage
+            id="dialogs.sign-in.button.google"
+            defaultMessage="Continue with Google"
+          />
         </button>
 
-        <button className="sign-in-button sign-in-social-button sign-in-facebook-button" onClick={this.handleFacebookSignIn}>
+        <button
+          className="sign-in-button sign-in-social-button sign-in-facebook-button"
+          onClick={this.handleFacebookSignIn}
+        >
           <Icon icon="facebook" />
-          <FormattedMessage id="dialogs.sign-in.button.facebook" defaultMessage="Continue with Facebook" />
+          <FormattedMessage
+            id="dialogs.sign-in.button.facebook"
+            defaultMessage="Continue with Facebook"
+          />
         </button>
 
         <p className="sign-in-disclaimer">
-          <FormattedMessage id="dialogs.sign-in.tos" defaultMessage="By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}." values={{
-            tosLink: <a href="/terms-of-service" target="_blank">terms of service</a>,
-            privacyLink: <a href="/privacy-policy" target="_blank">privacy policy</a>
-          }} />
+          <FormattedMessage
+            id="dialogs.sign-in.tos"
+            defaultMessage="By clicking one of these buttons, I agree to the
+              {tosLink} and {privacyLink}."
+            values={{
+              tosLink: (
+                <a href="/terms-of-service" target="_blank">
+                  <FormattedMessage
+                    id="dialogs.sign-in.tos-link-label"
+                    defaultMessage="terms of service"
+                  />
+                </a>
+              ),
+              privacyLink: (
+                <a href="/privacy-policy" target="_blank">
+                  <FormattedMessage
+                    id="dialogs.sign-in.privacy-link-label"
+                    defaultMessage="privacy policy"
+                  />
+                </a>
+              )
+            }} />
         </p>
       </div>
     )
