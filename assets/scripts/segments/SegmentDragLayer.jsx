@@ -8,7 +8,7 @@ import { duringSegmentResize } from './resize_drag'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 const MAX_DRAG_DEGREE = 20
-const SEGMENT_RESIZE_THROTTLE = 20 // in milliseconds
+const SEGMENT_RESIZE_THROTTLE = 80 // in milliseconds
 
 class SegmentDragLayer extends React.PureComponent {
   static propTypes = {
