@@ -1,7 +1,6 @@
 import { infoBubble } from '../info_bubble/info_bubble'
-import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from './constants'
-import { segmentsChanged, getSegmentEl } from './view'
+import { segmentsChanged } from './view'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
@@ -88,15 +87,6 @@ export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
 
 let controlsFadeoutDelayTimer = -1
 let controlsFadeoutHideTimer = -1
-
-export function scheduleControlsFadeout () {
-  const activeSegment = store.getState().ui.activeSegment
-  const el = getSegmentEl(activeSegment)
-
-  infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT)
-
-  resumeFadeoutControls()
-}
 
 export function resumeFadeoutControls () {
   const system = store.getState().system

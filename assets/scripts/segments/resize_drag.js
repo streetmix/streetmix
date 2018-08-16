@@ -5,7 +5,6 @@ import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_PRECISE_DRAGGING,
   resizeSegment,
-  scheduleControlsFadeout,
   cancelFadeoutControls
 } from './resizing'
 import { segmentsChanged, getSegmentEl } from './view'
@@ -89,8 +88,6 @@ function handleSegmentResizeEnd (activeSegment) {
 
   infoBubble.considerSegmentEl = el
   infoBubble.show(false)
-
-  scheduleControlsFadeout()
 
   _suppressMouseEnter = true
   infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT)

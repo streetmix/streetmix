@@ -79,6 +79,9 @@ class SegmentDragLayer extends React.PureComponent {
   }
 
   unthrottledHandleResize = () => {
+    // Bail if this called at a time with `props.item` is null
+    if (!this.props.item) return
+
     // Get the difference between the dragged position and the original position
     // in order to calculate the resized width of the segment.
     // Flip the sign of the delta if the handle is on the left.
