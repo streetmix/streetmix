@@ -238,7 +238,6 @@ class StreetView extends React.Component {
         </section>
         <SkyBackground
           scrollPos={this.state.scrollPos}
-          stopStreetScroll={this.stopStreetScroll}
           streetSectionSkyTop={this.state.streetSectionSkyTop}
           skyTop={this.state.skyTop}
         />
