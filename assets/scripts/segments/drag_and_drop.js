@@ -1,6 +1,5 @@
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../util/focus'
-import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { generateRandSeed } from '../util/random'
@@ -12,7 +11,6 @@ import {
 import {
   RESIZE_TYPE_INITIAL,
   normalizeSegmentWidth,
-  scheduleControlsFadeout,
   cancelFadeoutControls,
   hideControls,
   cancelSegmentResizeTransitions
@@ -24,7 +22,7 @@ import {
   DRAGGING_MOVE_HOLE_WIDTH,
   DragTypes
 } from './constants'
-import { segmentsChanged, getSegmentEl } from './view'
+import { segmentsChanged } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
@@ -33,29 +31,6 @@ import {
   clearDraggingState,
   setActiveSegment
 } from '../store/actions/ui'
-
-// TODO: use suppressMouseEnter on <StreetEditable /> state
-let _suppressMouseEnter = false
-
-export function suppressMouseEnter () {
-  return _suppressMouseEnter
-}
-
-export function handleSegmentResizeEnd (event) {
-  const activeSegment = store.getState().ui.activeSegment
-  const el = getSegmentEl(activeSegment)
-
-  infoBubble.considerSegmentEl = el
-  infoBubble.show(false)
-
-  scheduleControlsFadeout()
-
-  _suppressMouseEnter = true
-  infoBubble.considerShowing(event, el, INFO_BUBBLE_TYPE_SEGMENT)
-  window.setTimeout(function () {
-    _suppressMouseEnter = false
-  }, 50)
-}
 
 export function onBodyMouseDown (event) {
   let topEl, withinMenu

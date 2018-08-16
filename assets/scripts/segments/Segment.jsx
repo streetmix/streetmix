@@ -18,12 +18,12 @@ import {
   DragTypes
 } from './constants'
 import {
-  suppressMouseEnter,
   segmentSource,
   collectDragSource,
   segmentTarget,
   collectDropTarget
 } from './drag_and_drop'
+import { suppressMouseEnter } from './resize_drag'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, incrementSegmentWidth } from './resizing'
 import { removeSegment, removeAllSegments } from './remove'

@@ -1,14 +1,14 @@
 import { setIgnoreStreetChanges } from '../streets/data_model'
+import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_PRECISE_DRAGGING,
   resizeSegment,
-  // scheduleControlsFadeout,
+  scheduleControlsFadeout,
   cancelFadeoutControls
 } from './resizing'
-import { segmentsChanged } from './view'
-import { handleSegmentResizeEnd } from './drag_and_drop'
+import { segmentsChanged, getSegmentEl } from './view'
 import { TILE_SIZE } from './constants'
 import store from '../store'
 
@@ -49,13 +49,13 @@ export function duringSegmentResize (delta) {
 
 export function endSegmentResize () {
   originalWidth = undefined
+  const activeSegment = store.getState().ui.activeSegment
 
   setIgnoreStreetChanges(false)
   segmentsChanged()
   document.body.classList.remove('segment-resize-dragging')
 
-  // TODO: fix
-  handleSegmentResizeEnd()
+  handleSegmentResizeEnd(activeSegment)
 }
 
 // TODO: This is no longer used anywhere (the keydown button that used to call this is no longer
@@ -65,5 +65,27 @@ export function cancelSegmentResize () {
 
   resizeSegment(activeSegment, RESIZE_TYPE_INITIAL, originalWidth, true, false)
 
-  handleSegmentResizeEnd()
+  handleSegmentResizeEnd(activeSegment)
+}
+
+// TODO: use suppressMouseEnter on <StreetEditable /> state
+let _suppressMouseEnter = false
+
+export function suppressMouseEnter () {
+  return _suppressMouseEnter
+}
+
+function handleSegmentResizeEnd (activeSegment) {
+  const el = getSegmentEl(activeSegment)
+
+  infoBubble.considerSegmentEl = el
+  infoBubble.show(false)
+
+  scheduleControlsFadeout()
+
+  _suppressMouseEnter = true
+  infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT)
+  window.setTimeout(function () {
+    _suppressMouseEnter = false
+  }, 50)
 }
