@@ -48,13 +48,7 @@ export function duringSegmentResize (delta) {
 }
 
 export function endSegmentResize () {
-  originalWidth = undefined
   const activeSegment = store.getState().ui.activeSegment
-
-  setIgnoreStreetChanges(false)
-  segmentsChanged()
-  document.body.classList.remove('segment-resize-dragging')
-
   handleSegmentResizeEnd(activeSegment)
 }
 
@@ -63,6 +57,7 @@ export function endSegmentResize () {
 export function cancelSegmentResize () {
   const activeSegment = store.getState().ui.activeSegment
 
+  // Resize segment back to original width
   resizeSegment(activeSegment, RESIZE_TYPE_INITIAL, originalWidth, true, false)
 
   handleSegmentResizeEnd(activeSegment)
@@ -76,6 +71,20 @@ export function suppressMouseEnter () {
 }
 
 function handleSegmentResizeEnd (activeSegment) {
+  setIgnoreStreetChanges(false)
+
+  // If width has changed changed, register this
+  if (getActiveSegmentWidth() === originalWidth) {
+    segmentsChanged()
+  }
+
+  // Reset cached variable
+  originalWidth = undefined
+
+  // Reset application state
+  document.body.classList.remove('segment-resize-dragging')
+
+  // Show infobubble
   const el = getSegmentEl(activeSegment)
 
   infoBubble.considerSegmentEl = el
