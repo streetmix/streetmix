@@ -44,9 +44,14 @@ const ui = (state = initialState, action) => {
         }
       }
     case SET_ACTIVE_SEGMENT:
-      return {
-        ...state,
-        activeSegment: action.position
+      // If we're in the middle of a resize drag state, do not allow setting a new active segment.
+      if (state.resizeDragState === true) {
+        return { ...state }
+      } else {
+        return {
+          ...state,
+          activeSegment: action.position
+        }
       }
     case UPDATE_DRAGGING_STATE:
       return {
