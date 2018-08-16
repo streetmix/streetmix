@@ -67,7 +67,8 @@ export const infoBubble = {
    */
   considerShowing: function (event, segmentEl, type) {
     // Bail under UI conditions where we shouldn't show the info bubble
-    if (Boolean(store.getState().menus.activeMenu) === true || app.readOnly) {
+    const state = store.getState()
+    if (Boolean(state.menus.activeMenu) === true || app.readOnly || state.ui.resizeDragState) {
       return
     }
 
