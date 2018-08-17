@@ -1,4 +1,4 @@
-import { setIgnoreStreetChanges } from '../streets/data_model'
+import { setIgnoreStreetChanges, saveStreetToServerIfNecessary } from '../streets/data_model'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import {
@@ -7,7 +7,7 @@ import {
   resizeSegment,
   cancelFadeoutControls
 } from './resizing'
-import { segmentsChanged, getSegmentEl } from './view'
+import { getSegmentEl } from './view'
 import { TILE_SIZE } from './constants'
 import store from '../store'
 
@@ -72,9 +72,9 @@ export function suppressMouseEnter () {
 function handleSegmentResizeEnd (activeSegment) {
   setIgnoreStreetChanges(false)
 
-  // If width has changed changed, register this
-  if (getActiveSegmentWidth() === originalWidth) {
-    segmentsChanged()
+  // If width has changed, save data
+  if (getActiveSegmentWidth() !== originalWidth) {
+    saveStreetToServerIfNecessary()
   }
 
   // Reset cached variable
