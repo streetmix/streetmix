@@ -74,11 +74,11 @@ class MenuBar extends React.PureComponent {
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
-        <li className="menu-item-dividerless">
+        <li>
           <AvatarMenu userId={userId} onClick={this.onClickMenuButton('identity')} />
         </li>
       ) : (
-        <li className="menu-item-dividerless">
+        <li>
           <SignInButton onClick={this.handleSignIn} />
         </li>
       )

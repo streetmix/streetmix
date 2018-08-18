@@ -14,7 +14,6 @@ $top-menu-active-text: darken($ui-colour, 40%);
   left: $left-right-inset - 20px; // 30px
   right: $left-right-inset - 20px; // 30px
   top: -150px;
-  padding: 0;
   border-top: 150px solid $menu-bar-background;
   border-bottom: 3px solid darken($ui-colour, 20%);
   background: $menu-bar-background;
@@ -43,14 +42,15 @@ $top-menu-active-text: darken($ui-colour, 40%);
   }
 
   li + li {
-    margin-left: 1.25em;
+    margin-left: 0.25em;
   }
 
   a {
     @include tap-highlight-color(transparent);
 
-    display: inline-block;
-    height: 22px;
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
     outline: none;
     text-decoration: none;
     text-rendering: optimizeLegibility;
@@ -70,13 +70,13 @@ $top-menu-active-text: darken($ui-colour, 40%);
     @include tap-highlight-color(transparent);
 
     border: 0;
-    padding: 0;
     font-size: inherit;
     font-weight: inherit;
     text-rendering: optimizeLegibility;
     background-color: transparent;
     color: inherit;
     cursor: pointer;
+    line-height: 24px;
 
     &::after {
       content: ' ▼';
@@ -104,8 +104,9 @@ $top-menu-active-text: darken($ui-colour, 40%);
 
 button.menu-sign-in {
   background-color: #61a1bd;
-  border-radius: 2px;
-  padding: 0.25em 0.75em;
+  border-radius: 3px;
+  margin-left: 0.5em;
+  padding: 0.25em 1em;
   color: #fff;
 
   /* Remove down arrow applied by .menu-bar */
@@ -124,15 +125,15 @@ button.menu-sign-in {
 
 .menu-bar-right {
   float: right;
+  padding-right: 0.25em;
 }
 
 .menu-bar-title {
-  margin-left: 0.25em;
+  margin-right: 0.25em;
 
   h1 {
     padding: 0;
     margin: 0;
-    margin-left: 0.25em;
     font-size: 100%;
     text-transform: uppercase;
     letter-spacing: 5px;
@@ -145,8 +146,8 @@ button.menu-sign-in {
   z-index: $z-02-menu-bar;
   display: none;
   position: absolute;
-  left: 16px;
-  bottom: -10px;
+  left: 14px;
+  bottom: -12px;
   padding: 2px 7px;
   text-align: center;
   text-transform: uppercase;
