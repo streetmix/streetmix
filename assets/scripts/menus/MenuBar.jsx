@@ -98,7 +98,13 @@ class MenuBar extends React.PureComponent {
           {!this.props.noInternet && (
             <React.Fragment>
               <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.onClickMenuButton('contact')} />
-              <MenuBarItem label="Contribute" translation="menu.item.contribute" onClick={this.onClickMenuButton('contribute')} />
+              <MenuBarItem
+                label="Donate"
+                translation="menu.contribute.donate"
+                url="https://opencollective.com/streetmix/"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
             </React.Fragment>
           )}
         </ul>
