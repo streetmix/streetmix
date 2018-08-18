@@ -38,6 +38,11 @@ body:not(.safari).gallery-visible .street-section-sky {
     right: 0;
     top: 1px;
     height: $gallery-height;
+
+    [dir='rtl'] & {
+      right: 120px;
+      left: 0;
+    }
   }
 
   .gallery-streets-container-full .streets-scrollable-container {
