@@ -11,13 +11,13 @@ $top-menu-active-text: darken($ui-colour, 40%);
   z-index: $z-02-menu-bar;
   display: block;
   position: absolute;
-  left: $left-right-inset;
-  right: $left-right-inset;
+  left: $left-right-inset - 20px; // 30px
+  right: $left-right-inset - 20px; // 30px
   top: -150px;
   padding: 0;
-  border-top: 150px solid $header-footer-background;
+  border-top: 150px solid $menu-bar-background;
   border-bottom: 3px solid darken($ui-colour, 20%);
-  background: $header-footer-background;
+  background: $menu-bar-background;
   background-clip: padding-box;
   font-family: $font-family;
   font-size: 13px;
@@ -31,9 +31,9 @@ $top-menu-active-text: darken($ui-colour, 40%);
   ul {
     display: inline-block;
     list-style: none;
-    padding: 3px 10px;
+    padding: 3px 1em;
     margin: 0;
-    line-height: 22px;
+    line-height: 32px;
     color: $top-menu-text;
   }
 
@@ -42,13 +42,8 @@ $top-menu-active-text: darken($ui-colour, 40%);
     white-space: nowrap;
   }
 
-  // Dot separator between menu items
-  li + li:not(.menu-item-dividerless) {
-    &::before {
-      content: '·';
-      margin-left: 0.5em;
-      margin-right: 0.5em;
-    }
+  li + li {
+    margin-left: 1.25em;
   }
 
   a {
@@ -108,7 +103,6 @@ $top-menu-active-text: darken($ui-colour, 40%);
 }
 
 button.menu-sign-in {
-  margin-left: 1em;
   background-color: #61a1bd;
   border-radius: 2px;
   padding: 0.25em 0.75em;
@@ -125,16 +119,6 @@ button.menu-sign-in {
     opacity: 0.8;
     background-color: #61a1bd;
     color: #fff;
-  }
-}
-
-button.menu-avatar {
-  margin-left: 10px;
-
-  &::before {
-    content: '';
-    padding: 0;
-    font-size: 0;
   }
 }
 
@@ -161,8 +145,8 @@ button.menu-avatar {
   z-index: $z-02-menu-bar;
   display: none;
   position: absolute;
-  left: 14px;
-  top: 23px;
+  left: 16px;
+  bottom: -10px;
   padding: 2px 7px;
   text-align: center;
   text-transform: uppercase;
@@ -198,7 +182,7 @@ button.menu-avatar {
   }
 
   .environment-badge {
-    right: 14px;
+    right: 16px;
     left: auto;
   }
 }

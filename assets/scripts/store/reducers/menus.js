@@ -1,4 +1,9 @@
-import { SHOW_MENU, CLEAR_MENUS, SHOW_DIALOG, START_PRINTING } from '../actions'
+import {
+  SHOW_MENU,
+  CLEAR_MENUS,
+  SHOW_DIALOG,
+  START_PRINTING
+} from '../actions'
 
 const initialState = {
   activeMenu: null

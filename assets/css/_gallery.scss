@@ -14,8 +14,8 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 #gallery {
   position: absolute;
-  left: $left-right-inset + 20px;
-  right: $left-right-inset + 20px;
+  left: $left-right-inset;
+  right: $left-right-inset;
   top: 0;
   height: $gallery-height;
   z-index: $z-09-gallery;

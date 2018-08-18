@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
 import { goTwitterSignIn } from '../app/routing'
-import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import AvatarMenu from './AvatarMenu'
@@ -56,19 +55,6 @@ class MenuBar extends React.PureComponent {
     }
   }
 
-  onClickMyStreets = (event) => {
-    event.preventDefault()
-    if (event.shiftKey || event.ctrlKey || event.metaKey) {
-      return
-    }
-
-    if (this.props.userId) {
-      showGallery(this.props.userId, false)
-    } else {
-      showGallery(null, false, true)
-    }
-  }
-
   onResize = () => {
     // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
     window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
@@ -100,7 +86,6 @@ class MenuBar extends React.PureComponent {
 
   render () {
     const userId = this.props.userId
-    const myStreetsLink = userId ? `/${userId}` : ''
 
     return (
       <nav className="menu-bar">
@@ -124,14 +109,6 @@ class MenuBar extends React.PureComponent {
             url="/new"
             target="_blank"
           />
-          {!this.props.noInternet &&
-            <MenuBarItem
-              label="My streets"
-              translation="menu.item.my-streets"
-              url={myStreetsLink}
-              onClick={this.onClickMyStreets}
-            />
-          }
           <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.onClickMenuButton('settings')} />
           <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
           {!this.props.noInternet && this.renderUserAvatar(userId)}
