@@ -6,7 +6,7 @@ import Menu from './Menu'
 import { showGallery } from '../gallery/view'
 import { onSignOutClick } from '../users/authentication'
 
-class IdentityMenu extends React.PureComponent {
+export class IdentityMenu extends React.PureComponent {
   static propTypes = {
     userId: PropTypes.string,
     noInternet: PropTypes.bool
