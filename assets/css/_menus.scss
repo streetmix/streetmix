@@ -19,7 +19,7 @@
   z-index: $z-04-menu;
 
   /* Allows scrolling if the menu length is longer than height of viewport */
-  max-height: calc(100% - 60px);
+  max-height: calc(100% - 100px);
   overflow-x: hidden;
   overflow-y: auto;
 
