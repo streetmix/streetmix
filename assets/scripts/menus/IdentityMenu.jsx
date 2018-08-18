@@ -19,20 +19,19 @@ export class IdentityMenu extends React.PureComponent {
   }
 
   render () {
+    const { userId } = this.props
+    const myStreetsLink = userId ? `/${userId}` : ''
+
     return (
       <Menu {...this.props}>
-        <ul className="menu-item-group">
-          {!this.props.noInternet &&
-            <li className="menu-item" onClick={this.onClickMyStreets}>
-              <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
-            </li>
-          }
-        </ul>
-        <ul className="menu-item-group">
-          <li className="menu-item" onClick={onSignOutClick}>
-            <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
-          </li>
-        </ul>
+        {!this.props.noInternet &&
+          <a href={myStreetsLink} onClick={this.onClickMyStreets}>
+            <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
+          </a>
+        }
+        <a className="menu-item" onClick={onSignOutClick}>
+          <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
+        </a>
       </Menu>
     )
   }
