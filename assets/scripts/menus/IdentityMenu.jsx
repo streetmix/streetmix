@@ -15,11 +15,7 @@ class IdentityMenu extends React.PureComponent {
   onClickMyStreets = (event) => {
     event.preventDefault()
 
-    if (this.props.userId) {
-      showGallery(this.props.userId, false)
-    } else {
-      showGallery(null, false, true)
-    }
+    showGallery(this.props.userId)
   }
 
   render () {

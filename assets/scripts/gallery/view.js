@@ -25,7 +25,7 @@ const galleryState = {
   noStreetSelected: false
 }
 
-export function showGallery (userId, instant, signInPromo = false) {
+export function showGallery (userId, instant = false) {
   if (app.readOnly) {
     return
   }
@@ -33,8 +33,7 @@ export function showGallery (userId, instant, signInPromo = false) {
   trackEvent('INTERACTION', 'OPEN_GALLERY', userId, null, false)
 
   // TODO: Handle modes better.
-  const mode = (signInPromo) ? 'SIGN_IN_PROMO' : 'NONE'
-  store.dispatch(showGalleryAction(userId, mode))
+  store.dispatch(showGalleryAction(userId, 'NONE'))
 
   hideControls()
   hideStatusMessage()
@@ -56,10 +55,8 @@ export function showGallery (userId, instant, signInPromo = false) {
     showError(ERRORS.NO_STREET, false)
   }
 
-  if (!signInPromo) {
-    loadGalleryContents()
-    updatePageUrl(true)
-  }
+  loadGalleryContents()
+  updatePageUrl(true)
 }
 
 export function hideGallery (instant) {
