@@ -43,6 +43,11 @@ $top-menu-active-text: darken($ui-colour, 40%);
 
   li + li {
     margin-left: 0.25em;
+
+    [dir='rtl'] & {
+      margin-right: 0.25em;
+      margin-left: 0;
+    }
   }
 
   a {
@@ -85,6 +90,11 @@ $top-menu-active-text: darken($ui-colour, 40%);
       font-family: 'Verdana', sans-serif;
       font-size: 9px;
       transform: scaleY(0.75);
+
+      [dir='rtl'] & {
+        padding-right: 5px;
+        padding-left: 0;
+      }
     }
 
     &:hover {
@@ -106,6 +116,7 @@ button.menu-sign-in {
   background-color: #61a1bd;
   border-radius: 3px;
   margin-left: 0.5em;
+  margin-right: 0.5em;
   padding: 0.25em 1em;
   color: #fff;
 
@@ -125,7 +136,12 @@ button.menu-sign-in {
 
 .menu-bar-right {
   float: right;
-  padding-right: 0.25em;
+  padding-right: 0.25em !important;
+  padding-left: 0.25em !important;
+
+  [dir='rtl'] & {
+    float: left;
+  }
 }
 
 .menu-bar-title {
@@ -178,10 +194,6 @@ button.menu-sign-in {
 }
 
 [dir='rtl'] {
-  .menu-bar-right {
-    float: left;
-  }
-
   .environment-badge {
     right: 16px;
     left: auto;
