@@ -19,7 +19,7 @@ export default class ContactMenu extends React.PureComponent {
           <Icon icon="slack" />
           <FormattedMessage id="menu.contact.slack" defaultMessage="Join Slack chat" />
         </a>
-        <a href="http://blog.streetmix.net" target="_blank">
+        <a href="https://medium.com/streetmixology" target="_blank" rel="noopener noreferrer">
           <FormattedMessage id="menu.contact.blog" defaultMessage="Visit Streetmix blog" />
         </a>
       </Menu>
