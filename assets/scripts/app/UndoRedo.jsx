@@ -12,9 +12,12 @@ export class UndoRedo extends React.Component {
   constructor (props) {
     super(props)
 
+    // Undo/redo availability is always checked. This makes sure that
+    // component is always in the correct state even after re-mounting,
+    // e.g. when locale has changed.
     this.state = {
-      undoAvailable: false,
-      redoAvailable: false
+      undoAvailable: isUndoAvailable(),
+      redoAvailable: isRedoAvailable()
     }
   }
 
