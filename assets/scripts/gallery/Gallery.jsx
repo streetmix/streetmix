@@ -95,6 +95,8 @@ class Gallery extends React.Component {
     let childElements
 
     switch (this.props.mode) {
+      // This is currently deprecated; the galley is only accessible only for
+      // a defined user or as a global gallery.
       case 'SIGN_IN_PROMO':
         childElements = (
           <div className="gallery-sign-in-promo">

@@ -11,7 +11,7 @@ const initialState = {
 
   // Available modes:
   // NONE - null state
-  // SIGN_IN_PROMO - user is not signed in, show a message promoting it
+  // SIGN_IN_PROMO - user is not signed in, show a message promoting it (deprecated)
   // LOADING - loading streets from server
   // ERROR - there is an error loading streets from server
   // GALLERY - displaying street gallery
@@ -24,7 +24,9 @@ const gallery = (state = initialState, action) => {
     case SHOW_GALLERY:
       return {
         ...state,
-        visible: true
+        visible: true,
+        userId: action.userId,
+        mode: action.mode
       }
     case HIDE_GALLERY:
       return {
@@ -34,6 +36,7 @@ const gallery = (state = initialState, action) => {
     case RECEIVE_GALLERY_STREETS:
       return {
         ...state,
+        mode: 'GALLERY',
         streets: action.streets
       }
     case DELETE_GALLERY_STREET:

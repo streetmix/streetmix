@@ -7,7 +7,7 @@
   right: $left-right-inset;
   height: $palette-height - 30px;
   bottom: 0;
-  background: $header-footer-background;
+  background: $palette-background;
   border-top: 3px solid darken($bottom-background, 5%);
   text-align: center;
   z-index: $z-02-palette;
