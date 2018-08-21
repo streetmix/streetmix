@@ -42,7 +42,7 @@ class WidthControl extends React.Component {
 
     this.state = {
       isEditing: false,
-      displayValue: prettifyWidth(props.value, props.units)
+      displayValue: null
     }
   }
 
@@ -52,12 +52,14 @@ class WidthControl extends React.Component {
    *
    * @param {Object} nextProps
    */
-  componentWillReceiveProps (nextProps) {
-    if (!this.state.isEditing) {
-      this.setState({
+  static getDerivedStateFromProps (nextProps, prevState) {
+    if (!prevState.isEditing) {
+      return {
         displayValue: prettifyWidth(nextProps.value, nextProps.units)
-      })
+      }
     }
+
+    return null
   }
 
   /**
