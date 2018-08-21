@@ -28,26 +28,12 @@ class Variants extends React.Component {
     flags: PropTypes.object.isRequired
   }
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      variantSets: this.getVariantSets(props) // should be an array or undefined
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      variantSets: this.getVariantSets(nextProps)
-    })
-  }
-
-  getVariantSets = (props) => {
+  static getDerivedStateFromProps (nextProps, prevState) {
     let variantSets = []
 
-    switch (props.type) {
+    switch (nextProps.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        const segmentInfo = getSegmentInfo(props.segmentType)
+        const segmentInfo = getSegmentInfo(nextProps.segmentType)
         if (segmentInfo) {
           variantSets = segmentInfo.variants
         }
@@ -61,7 +47,9 @@ class Variants extends React.Component {
     }
 
     // Return the array, removing any empty entries
-    return variantSets.filter((x) => x !== (undefined || null || ''))
+    return {
+      variantSets: variantSets.filter((x) => x !== (undefined || null || ''))
+    }
   }
 
   isVariantCurrentlySelected = (set, selection) => {
