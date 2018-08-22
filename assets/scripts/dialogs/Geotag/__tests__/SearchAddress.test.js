@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { mount } from 'enzyme'
 import module, { SearchAddress } from '../SearchAddress'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
+import { mockIntl } from '../../../../../test/__mocks__/react-intl'
 
 import autocompleteResponse from './fixtures/autocomplete.json'
 import searchResponse from './fixtures/search.json'
