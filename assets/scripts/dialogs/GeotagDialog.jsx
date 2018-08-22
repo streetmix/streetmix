@@ -3,11 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
-import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import SearchAddress from '../streets/SearchAddress'
+import LocationPopup from './Geotag/LocationPopup'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
@@ -231,21 +232,6 @@ export class GeotagDialog extends React.Component {
     this.props.closeDialog()
   }
 
-  renderLocationButton = () => {
-    if (!this.canEditLocation()) return
-    const isConfirmButton = (!this.canClearLocation())
-
-    return (isConfirmButton) ? (
-      <button className="geotag-location-button" onClick={this.handleConfirm}>
-        {this.props.intl.formatMessage({ id: 'dialogs.geotag.confirm-location', defaultMessage: 'Confirm location' })}
-      </button>
-    ) : (
-      <button className="geotag-location-button" onClick={this.handleClear}>
-        {this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-location', defaultMessage: 'Clear location' })}
-      </button>
-    )
-  }
-
   render () {
     const tileUrl = (this.props.dpi > 1) ? MAP_TILES_2X : MAP_TILES
 
@@ -271,19 +257,15 @@ export class GeotagDialog extends React.Component {
             zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
           />
 
-          {(this.props.markerLocation && this.state.renderPopup) &&
-            <Popup
+          {this.state.renderPopup &&
+            <LocationPopup
               position={this.props.markerLocation}
-              maxWidth={300}
-              closeOnClick={false}
-              closeButton={false}
-              offset={[0, -30]}
-            >
-              <span>
-                {this.props.addressInformationLabel} <br />
-                {this.renderLocationButton()}
-              </span>
-            </Popup>
+              label={this.props.addressInformationLabel}
+              isEditable={this.canEditLocation()}
+              isClearable={this.canClearLocation()}
+              handleConfirm={this.handleConfirm}
+              handleClear={this.handleClear}
+            />
           }
 
           {this.props.markerLocation &&
