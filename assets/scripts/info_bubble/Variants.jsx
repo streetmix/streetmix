@@ -28,6 +28,14 @@ class Variants extends React.Component {
     flags: PropTypes.object.isRequired
   }
 
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      variantSets: null
+    }
+  }
+
   static getDerivedStateFromProps (nextProps, prevState) {
     let variantSets = []
 
