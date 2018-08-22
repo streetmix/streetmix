@@ -1,4 +1,4 @@
-import { SET_MAP_STATE } from '../actions'
+import { SET_MAP_STATE, CLEAR_LOCATION } from '../actions'
 
 const initialState = {
   markerLocation: null,
@@ -13,6 +13,14 @@ const map = (state = initialState, action) => {
       const obj = Object.assign({}, state, action)
       delete obj.type // Do not save action type.
       return obj
+    case CLEAR_LOCATION:
+      return {
+        ...state,
+        markerLocation: null,
+        addressInformation: {},
+        addressInformationLabel: null,
+        rawInputString: null
+      }
     default:
       return state
   }
