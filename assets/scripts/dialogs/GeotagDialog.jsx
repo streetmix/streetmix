@@ -7,7 +7,7 @@ import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
-import SearchAddress from '../streets/SearchAddress'
+import SearchAddress from './Geotag/SearchAddress'
 import LocationPopup from './Geotag/LocationPopup'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
@@ -27,6 +27,12 @@ L.Icon.Default.mergeOptions({
   iconUrl: '/images/marker-icon.png',
   shadowUrl: '/images/marker-shadow.png'
 })
+
+// Default location if geo IP not detected; this hovers over Brooklyn
+const DEFAULT_MAP_LOCATION = {
+  lat: 40.645,
+  lng: -73.975
+}
 
 export class GeotagDialog extends React.Component {
   static propTypes = {
@@ -57,34 +63,33 @@ export class GeotagDialog extends React.Component {
   constructor (props) {
     super(props)
 
+    // Determine initial map center
+    let mapCenter
+    if (props.markerLocation) {
+      mapCenter = props.markerLocation
+    } else if (props.userLocation) {
+      mapCenter = {
+        lat: props.userLocation.latitude,
+        lng: props.userLocation.longitude
+      }
+    } else {
+      mapCenter = DEFAULT_MAP_LOCATION
+    }
+
     this.state = {
       bbox: null,
       renderPopup: !!props.markerLocation,
-      // Default location if geo IP not detected; this hovers over Brooklyn
-      mapCenter: {
-        lat: 40.645,
-        lng: -73.975
-      }
+      mapCenter: mapCenter
     }
   }
 
   componentDidMount () {
-    const { markerLocation, userLocation, street } = this.props
+    const { street, addressInformation } = this.props
 
-    const updateMarker = this.shouldUpdateMarker(street.location)
+    const updateMarker = this.shouldUpdateMarker(street.location, addressInformation)
+
     if (updateMarker) {
       this.updateMapToStreetLocation(street.location)
-    } else if (markerLocation) {
-      this.setState({
-        mapCenter: markerLocation
-      })
-    } else if (userLocation) {
-      this.setState({
-        mapCenter: {
-          lat: userLocation.latitude,
-          lng: userLocation.longitude
-        }
-      })
     }
   }
 
@@ -92,14 +97,13 @@ export class GeotagDialog extends React.Component {
   // If there is no marker but has a street, return true
   // If there is a marker and street, check
   // If there is no marker and no street, return false
-  shouldUpdateMarker = (location) => {
-    const { addressInformation } = this.props
-    let updateMarkerToStreet = (!addressInformation && location)
+  shouldUpdateMarker = (location, addressInformation) => {
     if (addressInformation && location) {
-      // Checking if WOF ids match to see if need to update
+      // Check if WOF ids match to see if we need to update
       return (addressInformation.id !== location.wofId)
     }
-    return updateMarkerToStreet
+
+    return (!addressInformation && location)
   }
 
   updateMapToStreetLocation = (location) => {
