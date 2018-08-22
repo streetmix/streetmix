@@ -18,7 +18,14 @@ const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KE
 const MAP_TILES = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-const MAP_INITIAL_ZOOM = 12
+const MAP_LOCATION_ZOOM = 12
+
+// Default location if geo IP not detected; this hovers over the Atlantic Ocean
+const DEFAULT_MAP_ZOOM = 2
+const DEFAULT_MAP_LOCATION = {
+  lat: 30.450,
+  lng: -10.780
+}
 
 /* Override icon paths in stock Leaflet's stylesheet */
 delete L.Icon.Default.prototype._getIconUrl
@@ -27,12 +34,6 @@ L.Icon.Default.mergeOptions({
   iconUrl: '/images/marker-icon.png',
   shadowUrl: '/images/marker-shadow.png'
 })
-
-// Default location if geo IP not detected; this hovers over Brooklyn
-const DEFAULT_MAP_LOCATION = {
-  lat: 40.645,
-  lng: -73.975
-}
 
 export class GeotagDialog extends React.Component {
   static propTypes = {
@@ -64,22 +65,26 @@ export class GeotagDialog extends React.Component {
     super(props)
 
     // Determine initial map center
-    let mapCenter
+    let mapCenter, zoom
     if (props.markerLocation) {
       mapCenter = props.markerLocation
+      zoom = MAP_LOCATION_ZOOM
     } else if (props.userLocation) {
       mapCenter = {
         lat: props.userLocation.latitude,
         lng: props.userLocation.longitude
       }
+      zoom = MAP_LOCATION_ZOOM
     } else {
       mapCenter = DEFAULT_MAP_LOCATION
+      zoom = DEFAULT_MAP_ZOOM
     }
 
     this.state = {
       bbox: null,
       renderPopup: !!props.markerLocation,
-      mapCenter: mapCenter
+      mapCenter: mapCenter,
+      zoom: zoom
     }
   }
 
@@ -247,7 +252,7 @@ export class GeotagDialog extends React.Component {
         <Map
           center={this.state.mapCenter}
           zoomControl={false}
-          zoom={MAP_INITIAL_ZOOM}
+          zoom={this.state.zoom}
           onClick={this.onClickMap}
           useFlyTo
           ref={(ref) => { this.map = ref }}
