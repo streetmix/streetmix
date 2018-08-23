@@ -19,7 +19,7 @@ describe('LocationPopup', () => {
       />
     )
 
-    expect(wrapper.find('span').text()).toEqual('foo')
+    expect(wrapper.find('div').first().text()).toEqual('foo')
   })
 
   it('renders a confirm button if location is editable', () => {

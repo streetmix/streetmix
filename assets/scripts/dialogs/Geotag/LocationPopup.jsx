@@ -49,8 +49,8 @@ export default class LocationPopup extends React.Component {
         closeButton={false}
         closeOnClick={false}
       >
-        <span>{this.props.label}</span>
-        {this.renderLocationButton()}
+        <div>{this.props.label}</div>
+        <div>{this.renderLocationButton()}</div>
       </Popup>
     )
   }
