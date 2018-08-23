@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
 import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
-import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
-import { setMapState } from '../store/actions/map'
+import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
+import { setMapState } from '../../store/actions/map'
 
 const AUTOCOMPLETE_API = `https://${PELIAS_HOST_NAME}/v1/autocomplete`
 const AUTOCOMPLETE_ENDPOINT = `${AUTOCOMPLETE_API}?api_key=${PELIAS_API_KEY}`
@@ -157,7 +157,6 @@ export class SearchAddress extends React.Component {
     })
 
     this.props.setMapState({
-      addressInformationLabel: suggestionValue,
       addressInformation: suggestion.properties,
       markerLocation: {
         lat: suggestion.geometry.coordinates[1],
@@ -241,8 +240,7 @@ export class SearchAddress extends React.Component {
 function mapStateToProps (state) {
   return {
     markerLocation: state.map.markerLocation,
-    addressInformation: state.map.addressInformation,
-    addressInformationLabel: state.map.addressInformationLabel
+    addressInformation: state.map.addressInformation
   }
 }
 

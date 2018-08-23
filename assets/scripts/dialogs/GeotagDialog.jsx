@@ -3,11 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
-import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
-import SearchAddress from '../streets/SearchAddress'
+import SearchAddress from './Geotag/SearchAddress'
+import LocationPopup from './Geotag/LocationPopup'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
@@ -17,9 +18,16 @@ const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KE
 const MAP_TILES = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
 const MAP_TILES_2X = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-const MAP_INITIAL_ZOOM = 12
+const MAP_LOCATION_ZOOM = 12
 
-/* Override icon paths in stock Leaflet's stylesheet */
+// Default location if geo IP not detected; this hovers over the Atlantic Ocean
+const DEFAULT_MAP_ZOOM = 2
+const DEFAULT_MAP_LOCATION = {
+  lat: 30.450,
+  lng: -10.780
+}
+
+// Override icon paths in stock Leaflet's stylesheet
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: '/images/marker-icon-2x.png',
@@ -29,24 +37,30 @@ L.Icon.Default.mergeOptions({
 
 export class GeotagDialog extends React.Component {
   static propTypes = {
+    // Provided by react-intl higher-order component
     intl: intlShape.isRequired,
+
+    // Provided by parent
+    closeDialog: PropTypes.func,
+
+    // Provided by Redux store
+    street: PropTypes.object,
     markerLocation: PropTypes.shape({
       lat: PropTypes.number,
       lng: PropTypes.number
     }),
+    addressInformation: PropTypes.object,
     userLocation: PropTypes.shape({
       latitude: PropTypes.number,
       longitude: PropTypes.number
     }),
-    addressInformation: PropTypes.object,
+    dpi: PropTypes.number,
+
+    // Provided by Redux action dispatchers
+    setMapState: PropTypes.func,
     addLocation: PropTypes.func,
     clearLocation: PropTypes.func,
-    setMapState: PropTypes.func,
-    addressInformationLabel: PropTypes.string,
-    street: PropTypes.object,
-    saveStreetName: PropTypes.func,
-    closeDialog: PropTypes.func,
-    dpi: PropTypes.number
+    saveStreetName: PropTypes.func
   }
 
   static defaultProps = {
@@ -56,130 +70,101 @@ export class GeotagDialog extends React.Component {
   constructor (props) {
     super(props)
 
+    // Determine initial map center, and what to display
+    let mapCenter, zoom, markerLocation, label
+
+    // If street has a location object, use its position and data
+    if (props.street.location) {
+      mapCenter = props.street.location.latlng
+      zoom = MAP_LOCATION_ZOOM
+      markerLocation = props.street.location.latlng
+      label = props.street.location.label
+    // If we've previously saved marker position, re-use that information
+    } else if (props.markerLocation) {
+      mapCenter = props.markerLocation
+      zoom = MAP_LOCATION_ZOOM
+      markerLocation = props.markerLocation
+      label = props.addressInformation.label
+    // If there's no prior location data, use the user's location, if available
+    // In this case, display the map view, but no marker or popup
+    } else if (props.userLocation) {
+      mapCenter = {
+        lat: props.userLocation.latitude,
+        lng: props.userLocation.longitude
+      }
+      zoom = MAP_LOCATION_ZOOM
+    // As a last resort, show an overview of the world.
+    } else {
+      mapCenter = DEFAULT_MAP_LOCATION
+      zoom = DEFAULT_MAP_ZOOM
+    }
+
     this.state = {
-      bbox: null,
-      renderPopup: !!props.markerLocation,
-      // Default location if geo IP not detected; this hovers over Brooklyn
-      mapCenter: {
-        lat: 40.645,
-        lng: -73.975
-      }
+      mapCenter: mapCenter,
+      zoom: zoom,
+      renderPopup: !!markerLocation,
+      markerLocation: markerLocation,
+      label: label,
+      bbox: null
     }
   }
 
-  componentDidMount () {
-    const { markerLocation, userLocation, street } = this.props
-
-    const updateMarker = this.shouldUpdateMarker(street.location)
-    if (updateMarker) {
-      this.updateMapToStreetLocation(street.location)
-    } else if (markerLocation) {
-      this.setState({
-        mapCenter: markerLocation
-      })
-    } else if (userLocation) {
-      this.setState({
-        mapCenter: {
-          lat: userLocation.latitude,
-          lng: userLocation.longitude
-        }
-      })
-    }
-  }
-
-  // If there is a marker but no street, return false
-  // If there is no marker but has a street, return true
-  // If there is a marker and street, check
-  // If there is no marker and no street, return false
-  shouldUpdateMarker = (location) => {
-    const { addressInformation } = this.props
-    let updateMarkerToStreet = (!addressInformation && location)
-    if (addressInformation && location) {
-      // Checking if WOF ids match to see if need to update
-      return (addressInformation.id !== location.wofId)
-    }
-    return updateMarkerToStreet
-  }
-
-  updateMapToStreetLocation = (location) => {
-    this.reverseGeocode(location.latlng)
-      .then(this.displayAddressData)
-  }
-
-  reverseGeocode = (latlng) => {
-    const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
-
-    return window.fetch(url)
-      .then(response => response.json())
-  }
-
-  displayAddressData = (res) => {
-    this.props.setMapState({
-      addressInformation: res.features[0].properties,
-      addressInformationLabel: res.features[0].properties.label,
-      markerLocation: {
-        lat: res.features[0].geometry.coordinates[1],
-        lng: res.features[0].geometry.coordinates[0]
-      }
-    })
-
-    this.setState({
-      bbox: res.bbox || null,
-      renderPopup: true,
-      mapCenter: this.props.markerLocation
-    })
-  }
-
-  onClickMap = (event) => {
-    const options = {
+  handleMapClick = (event) => {
+    const latlng = {
       lat: event.latlng.lat,
       lng: event.latlng.lng
     }
-
-    this.reverseGeocode(options)
-      .then(this.displayAddressData)
-  }
-
-  onDragEndMarker = (event) => {
-    const latlng = event.target.getLatLng()
-    const handleResponse = (res) => {
-      this.setState({
-        renderPopup: true,
-        bbox: res.bbox || null
-      })
-
-      this.props.setMapState({
-        addressInformation: res.features[0].properties,
-        addressInformationLabel: res.features[0].properties.label,
-        markerLocation: latlng
-      })
-    }
+    const zoom = event.target.getZoom()
 
     this.reverseGeocode(latlng)
-      .then(handleResponse)
+      .then((res) => {
+        const latlng = {
+          lat: res.features[0].geometry.coordinates[1],
+          lng: res.features[0].geometry.coordinates[0]
+        }
+
+        this.setState({
+          mapCenter: latlng,
+          zoom: zoom,
+          renderPopup: true,
+          markerLocation: latlng,
+          label: res.features[0].properties.label,
+          bbox: res.bbox || null
+        })
+
+        this.props.setMapState({
+          markerLocation: latlng,
+          addressInformation: res.features[0].properties
+        })
+      })
   }
 
-  setSearchResults = (point, label, bbox) => {
-    const latlng = {
-      lat: point[0],
-      lng: point[1]
-    }
+  handleMarkerDragEnd = (event) => {
+    const latlng = event.target.getLatLng()
 
-    this.setState({
-      addressName: label,
-      mapCenter: latlng,
-      markerLocation: latlng,
-      bbox: bbox || null
-    })
+    this.reverseGeocode(latlng)
+      .then((res) => {
+        this.setState({
+          renderPopup: true,
+          markerLocation: latlng,
+          label: res.features[0].properties.label,
+          bbox: res.bbox || null
+        })
+
+        this.props.setMapState({
+          markerLocation: latlng,
+          addressInformation: res.features[0].properties
+        })
+      })
   }
 
-  hidePopup = (e) => {
+  handleMarkerDragStart = (event) => {
     this.setState({
       renderPopup: false
     })
   }
 
-  handleConfirm = (e) => {
+  handleConfirmLocation = (event) => {
     const { markerLocation, addressInformation } = this.props
     const { bbox } = this.state
     const point = [markerLocation.lng, markerLocation.lat]
@@ -204,46 +189,62 @@ export class GeotagDialog extends React.Component {
     }
 
     trackEvent('Interaction', 'Geotag dialog: confirm chosen location', null, null, true)
+
     this.props.addLocation(location)
     this.props.saveStreetName(location.hierarchy.street, false)
     this.props.closeDialog()
   }
 
-  // If addressInformation does not have a street, return false
-  // If there is no street owner, return true
-  // If there is the street owner is equal to the current user, return true
-  // If there is no street location, return true
-  canEditLocation = () => {
-    const { street, addressInformation } = this.props
-    if (!addressInformation.street) return false
-    return (!street.creatorId || !getRemixOnFirstEdit() || !street.location)
-  }
-
-  canClearLocation = () => {
-    const { street, addressInformation } = this.props
-    if (!street.location) return false
-    return (street.location.wofId === addressInformation.id)
-  }
-
-  handleClear = (e) => {
+  handleClearLocation = (event) => {
     trackEvent('Interaction', 'Geotag dialog: cleared existing location', null, null, true)
     this.props.clearLocation()
     this.props.closeDialog()
   }
 
-  renderLocationButton = () => {
-    if (!this.canEditLocation()) return
-    const isConfirmButton = (!this.canClearLocation())
+  reverseGeocode = (latlng) => {
+    const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
 
-    return (isConfirmButton) ? (
-      <button className="geotag-location-button" onClick={this.handleConfirm}>
-        {this.props.intl.formatMessage({ id: 'dialogs.geotag.confirm-location', defaultMessage: 'Confirm location' })}
-      </button>
-    ) : (
-      <button className="geotag-location-button" onClick={this.handleClear}>
-        {this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-location', defaultMessage: 'Clear location' })}
-      </button>
-    )
+    return window.fetch(url)
+      .then(response => response.json())
+  }
+
+  setSearchResults = (point, label, bbox) => {
+    const latlng = {
+      lat: point[0],
+      lng: point[1]
+    }
+
+    this.setState({
+      mapCenter: latlng,
+      renderPopup: true,
+      markerLocation: latlng,
+      label: label,
+      bbox: bbox || null
+    })
+  }
+
+  /**
+   * Determines if the street location can be saved or edited.
+   */
+  canEditLocation = () => {
+    const { street } = this.props
+    // The street is editable if either of the following conditions are true:
+    //  - If there is no street owner
+    //  - If there is a street owner, and it's equal to the current user
+    //  - If there is no street location saved.
+    return (!street.creatorId || !getRemixOnFirstEdit() || !street.location)
+  }
+
+  /**
+   * Location can be cleared from a street that has a saved location, and
+   * if that location is equal to the current marker position.
+   * This does not check for street ownership. See `canEditLocation()` for that.
+   */
+  canClearLocation = () => {
+    const { location } = this.props.street
+    const { markerLocation } = this.state
+
+    return location && (location.latlng.lat === markerLocation.lat && location.latlng.lng === markerLocation.lng)
   }
 
   render () {
@@ -257,10 +258,8 @@ export class GeotagDialog extends React.Component {
         <Map
           center={this.state.mapCenter}
           zoomControl={false}
-          zoom={MAP_INITIAL_ZOOM}
-          onClick={this.onClickMap}
-          useFlyTo
-          ref={(ref) => { this.map = ref }}
+          zoom={this.state.zoom}
+          onClick={this.handleMapClick}
         >
           <TileLayer
             attribution={MAP_ATTRIBUTION}
@@ -271,26 +270,22 @@ export class GeotagDialog extends React.Component {
             zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
           />
 
-          {(this.props.markerLocation && this.state.renderPopup) &&
-            <Popup
-              position={this.props.markerLocation}
-              maxWidth={300}
-              closeOnClick={false}
-              closeButton={false}
-              offset={[0, -30]}
-            >
-              <span>
-                {this.props.addressInformationLabel} <br />
-                {this.renderLocationButton()}
-              </span>
-            </Popup>
+          {this.state.renderPopup &&
+            <LocationPopup
+              position={this.state.markerLocation}
+              label={this.state.label}
+              isEditable={this.canEditLocation()}
+              isClearable={this.canClearLocation()}
+              handleConfirm={this.handleConfirmLocation}
+              handleClear={this.handleClearLocation}
+            />
           }
 
-          {this.props.markerLocation &&
+          {this.state.markerLocation &&
             <Marker
-              position={this.props.markerLocation}
-              onDragEnd={this.onDragEndMarker}
-              onDragStart={this.hidePopup}
+              position={this.state.markerLocation}
+              onDragEnd={this.handleMarkerDragEnd}
+              onDragStart={this.handleMarkerDragStart}
               draggable
             />
           }
@@ -302,11 +297,10 @@ export class GeotagDialog extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    street: state.street,
     markerLocation: state.map.markerLocation,
-    addressInformationLabel: state.map.addressInformationLabel,
     addressInformation: state.map.addressInformation,
     userLocation: state.user.geolocation.data,
-    street: state.street,
     dpi: state.system.devicePixelRatio
   }
 }
