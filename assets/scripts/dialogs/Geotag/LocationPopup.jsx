@@ -28,13 +28,17 @@ export default class LocationPopup extends React.Component {
     if (!this.props.isEditable) return null
 
     return (this.props.isClearable) ? (
-      <button className="geotag-location-button" onClick={this.props.handleClear}>
-        <FormattedMessage id="dialogs.geotag.clear-location" defaultMessage="Clear location" />
-      </button>
+      <div>
+        <button className="geotag-location-button" onClick={this.props.handleClear}>
+          <FormattedMessage id="dialogs.geotag.clear-location" defaultMessage="Clear location" />
+        </button>
+      </div>
     ) : (
-      <button className="geotag-location-button" onClick={this.props.handleConfirm}>
-        <FormattedMessage id="dialogs.geotag.confirm-location" defaultMessage="Confirm location" />
-      </button>
+      <div>
+        <button className="geotag-location-button" onClick={this.props.handleConfirm}>
+          <FormattedMessage id="dialogs.geotag.confirm-location" defaultMessage="Confirm location" />
+        </button>
+      </div>
     )
   }
 
@@ -50,7 +54,7 @@ export default class LocationPopup extends React.Component {
         closeOnClick={false}
       >
         <div>{this.props.label}</div>
-        <div>{this.renderLocationButton()}</div>
+        {this.renderLocationButton()}
       </Popup>
     )
   }
