@@ -3,7 +3,6 @@ import { SET_MAP_STATE, RESET_MAP_STATE, CLEAR_LOCATION } from '../actions'
 const initialState = {
   markerLocation: null,
   addressInformation: {},
-  addressInformationLabel: null,
   rawInputString: null
 }
 
