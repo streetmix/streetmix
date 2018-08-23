@@ -26,13 +26,11 @@
   },
   "LOCALES_LEVEL_1": {
     "label": "Locales — level 1+ (in progress)",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": false
   },
   "LOCALES_LEVEL_2": {
     "label": "Locales — level 2+ (complete, in testing)",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": false
   },
   "LOCALES_LEVEL_3": {
     "label": "Locales — level 3 (complete, final)",
@@ -40,13 +38,11 @@
   },
   "SEGMENT_FLEX_ZONE": {
     "label": "Segment — flex zone",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": true
   },
   "SEGMENT_INCEPTION_TRAIN": {
     "label": "Segment — the train from “Inception”",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": false
   },
   "SEGMENT_ANGLED_PARKING": {
     "label": "Segment — angled parking",
