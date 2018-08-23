@@ -36,17 +36,9 @@
     "label": "Locales — level 3 (complete, final)",
     "defaultValue": true
   },
-  "SEGMENT_FLEX_ZONE": {
-    "label": "Segment — flex zone",
-    "defaultValue": true
-  },
   "SEGMENT_INCEPTION_TRAIN": {
     "label": "Segment — the train from “Inception”",
     "defaultValue": false
-  },
-  "SEGMENT_ANGLED_PARKING": {
-    "label": "Segment — angled parking",
-    "defaultValue": true
   },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
