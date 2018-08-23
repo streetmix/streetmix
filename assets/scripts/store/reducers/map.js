@@ -1,4 +1,4 @@
-import { SET_MAP_STATE, CLEAR_LOCATION } from '../actions'
+import { SET_MAP_STATE, RESET_MAP_STATE, CLEAR_LOCATION } from '../actions'
 
 const initialState = {
   markerLocation: null,
@@ -13,14 +13,9 @@ const map = (state = initialState, action) => {
       const obj = Object.assign({}, state, action)
       delete obj.type // Do not save action type.
       return obj
-    case CLEAR_LOCATION:
-      return {
-        ...state,
-        markerLocation: null,
-        addressInformation: {},
-        addressInformationLabel: null,
-        rawInputString: null
-      }
+    case RESET_MAP_STATE:
+    case CLEAR_LOCATION: // If location is cleared from the street, also reset map state.
+      return initialState
     default:
       return state
   }
