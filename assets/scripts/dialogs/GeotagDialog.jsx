@@ -136,7 +136,8 @@ export class GeotagDialog extends React.Component {
     this.setState({
       bbox: res.bbox || null,
       renderPopup: true,
-      mapCenter: this.props.markerLocation
+      mapCenter: this.props.markerLocation,
+      zoom: MAP_LOCATION_ZOOM
     })
   }
 
@@ -254,7 +255,6 @@ export class GeotagDialog extends React.Component {
           zoomControl={false}
           zoom={this.state.zoom}
           onClick={this.onClickMap}
-          useFlyTo
           ref={(ref) => { this.map = ref }}
         >
           <TileLayer
