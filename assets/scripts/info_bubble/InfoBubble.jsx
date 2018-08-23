@@ -213,7 +213,8 @@ class InfoBubble extends React.Component {
       return hoverPolygon
     }
 
-    if (!this.el || !this.el.current) return
+    // Bail if any reference to an element no longer exists
+    if (!this.el || !this.el.current || !this.segmentEl) return
 
     const bubbleWidth = this.el.current.offsetWidth
     const bubbleHeight = this.el.current.offsetHeight
