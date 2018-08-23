@@ -25,12 +25,14 @@ exports.get = function (req, res) {
         return
       }
 
+      const data = JSON.parse(body)
+
       // If ipstack returns an error, catch it and return a generic error.
       // Log the error so we can examine it later.
       // Do not use a falsy check here. A succesful response from ipstack does
       // not contain the `success` property. It is only present when it fails.
-      if (body.success === false) {
-        logger.error(body)
+      if (data.success === false) {
+        logger.error(data)
         res.status(500).json({ status: 500, error: 'Geoip service error' })
         return
       }
@@ -39,7 +41,7 @@ exports.get = function (req, res) {
         client.set(ip, body, redis.print)
       }
 
-      res.status(200).json(JSON.parse(body))
+      res.status(200).json(data)
     })
   }
 
