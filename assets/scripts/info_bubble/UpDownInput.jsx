@@ -1,36 +1,63 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { debounce } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { KEYS } from '../app/keyboard_commands'
 
+const EDIT_INPUT_DELAY = 200
+
 export default class UpDownInput extends React.Component {
   static propTypes = {
+    // Raw input value must always be a number type which can be
+    // compared with the minValue and maxValue.
     value: PropTypes.number,
     minValue: PropTypes.number,
     maxValue: PropTypes.number,
+
+    // Optionally, formatters may be used for display values.
+    // These are functions that can return numbers or strings.
+
+    // `inputValueFormatter` returns a value that is displayed in
+    // the input box when a user has focused or hovered it, and may
+    // be ready to edit the value. If a function is not provided,
+    // the default displays unformatted `props.value`.
+    inputValueFormatter: PropTypes.func,
+
+    // `displayValueFormatter` returns a value that is displayed in
+    // the input box when the user is not editing the input box.
+    // If a function is not provided, the default displays
+    // unformatted `props.value`.
     displayValueFormatter: PropTypes.func,
 
+    // Handler functions from the parent. The handlers should be
+    // responsible for validating inputs and updating data stores.
     onClickUp: PropTypes.func,
     onClickDown: PropTypes.func,
     onUpdatedValue: PropTypes.func,
 
+    // When `true`, the input box and buttons are disabled
     disabled: PropTypes.bool,
+
+    // When `true`, displays a non-editable <span> instead of an <input>
     touch: PropTypes.bool,
-    inputLabel: PropTypes.string,
-    upLabel: PropTypes.string,
-    downLabel: PropTypes.string
+
+    // Tooltip text
+    inputTooltip: PropTypes.string,
+    upTooltip: PropTypes.string,
+    downTooltip: PropTypes.string
   }
 
   static defaultProps = {
+    inputValueFormatter: (value) => value,
     displayValueFormatter: (value) => value,
     onClickUp: () => {},
     onClickDown: () => {},
     onUpdatedValue: () => {},
     disabled: false,
     touch: false,
-    inputLabel: 'Change value',
-    upLabel: 'Increment',
-    downLabel: 'Decrement'
+    inputTooltip: 'Change value',
+    upTooltip: 'Increment',
+    downTooltip: 'Decrement'
   }
 
   constructor (props) {
@@ -44,6 +71,9 @@ export default class UpDownInput extends React.Component {
       isHovered: false,
       displayValue: null
     }
+
+    // Debounce `props.onUpdatedValue` to prevent rapid input changes from thrashing data
+    this.debounceUpdateValue = debounce(props.onUpdatedValue, EDIT_INPUT_DELAY)
   }
 
   /**
@@ -95,7 +125,8 @@ export default class UpDownInput extends React.Component {
     })
 
     // Send the value to the parent's handler function
-    this.props.onUpdatedValue(value)
+    // using the debounced version of `props.onUpdatedValue`
+    this.debounceUpdateValue(value)
   }
 
   handleInputClick = (event) => {
@@ -103,7 +134,7 @@ export default class UpDownInput extends React.Component {
 
     this.setState({
       isEditing: true,
-      displayValue: this.props.value
+      displayValue: this.props.inputValueFormatter(this.props.value)
     })
 
     if (document.activeElement !== el) {
@@ -140,7 +171,7 @@ export default class UpDownInput extends React.Component {
   handleInputMouseDown = (event) => {
     this.setState({
       isEditing: true,
-      displayValue: this.props.value
+      displayValue: this.props.inputValueFormatter(this.props.value)
     })
   }
 
@@ -153,7 +184,7 @@ export default class UpDownInput extends React.Component {
 
     this.setState({
       isHovered: true,
-      displayValue: this.props.value
+      displayValue: this.props.inputValueFormatter(this.props.value)
     })
 
     // Automatically select the value on hover so that it's easy to start typing new values.
@@ -214,12 +245,14 @@ export default class UpDownInput extends React.Component {
 
   renderInputEl = () => {
     return (this.props.touch) ? (
-      <span className="height-non-editable">{this.state.displayValue}</span>
+      <span className="height-non-editable">
+        {this.state.displayValue}
+      </span>
     ) : (
       <input
         type="text"
         className="height"
-        title={this.props.inputLabel}
+        title={this.props.inputTooltip}
         disabled={this.props.disabled}
         value={this.props.disabled ? '' : this.state.displayValue}
         onChange={this.handleInputChange}
@@ -241,7 +274,7 @@ export default class UpDownInput extends React.Component {
       <React.Fragment>
         <button
           className="increment"
-          title={this.props.upLabel}
+          title={this.props.upTooltip}
           tabIndex={-1}
           onClick={this.handleClickIncrement}
           disabled={this.props.disabled || (this.props.value >= this.props.maxValue)}
@@ -253,7 +286,7 @@ export default class UpDownInput extends React.Component {
 
         <button
           className="decrement"
-          title={this.props.downLabel}
+          title={this.props.downTooltip}
           tabIndex={-1}
           onClick={this.handleClickDecrement}
           disabled={this.props.disabled || (this.props.value <= this.props.minValue)}

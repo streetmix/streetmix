@@ -2,12 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
-import { debounce } from 'lodash'
 import UpDownInput from './UpDownInput'
 import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
-
-const WIDTH_EDIT_INPUT_DELAY = 200
 
 class BuildingHeightControl extends React.Component {
   static propTypes = {
@@ -42,12 +39,6 @@ class BuildingHeightControl extends React.Component {
   }
 
   /**
-   * Debounced version of this.updateModel(). Call this instead of the
-   * undebounced function to prevent thrashing of model and layout.
-   */
-  debouncedUpdateModel = debounce(this.updateModel, WIDTH_EDIT_INPUT_DELAY)
-
-  /**
    * Given a raw numerical value, format it and return a decorated string.
    *
    * @param {Number} value - raw value
@@ -64,22 +55,22 @@ class BuildingHeightControl extends React.Component {
       <div className="non-variant building-height">
         <UpDownInput
           disabled={isNotFloored}
-          value={isNotFloored ? 1 : this.props.value}
+          value={isNotFloored ? '' : this.props.value}
           minValue={1}
           maxValue={MAX_BUILDING_HEIGHT}
           displayValueFormatter={this.displayValueFormatter}
           onClickUp={this.onClickIncrement}
           onClickDown={this.onClickDecrement}
-          onUpdatedValue={this.debouncedUpdateModel}
-          inputLabel={this.props.intl.formatMessage({
+          onUpdatedValue={this.updateModel}
+          inputTooltip={this.props.intl.formatMessage({
             id: 'tooltip.building-height',
             defaultMessage: 'Change the number of floors'
           })}
-          upLabel={this.props.intl.formatMessage({
+          upTooltip={this.props.intl.formatMessage({
             id: 'tooltip.add-floor',
             defaultMessage: 'Add floor'
           })}
-          downLabel={this.props.intl.formatMessage({
+          downTooltip={this.props.intl.formatMessage({
             id: 'tooltip.remove-floor',
             defaultMessage: 'Remove floor'
           })}
