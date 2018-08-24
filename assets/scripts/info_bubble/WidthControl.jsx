@@ -42,6 +42,7 @@ class WidthControl extends React.Component {
 
     this.state = {
       isEditing: false,
+      isHovered: false,
       displayValue: null
     }
   }
@@ -53,7 +54,7 @@ class WidthControl extends React.Component {
    * @param {Object} nextProps
    */
   static getDerivedStateFromProps (nextProps, prevState) {
-    if (!prevState.isEditing) {
+    if (!prevState.isEditing && !prevState.isHovered) {
       return {
         displayValue: prettifyWidth(nextProps.value, nextProps.units)
       }
@@ -160,6 +161,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
+      isHovered: true,
       displayValue: stringifyMeasurementValue(this.props.value, this.props.units, this.props.locale)
     })
 
@@ -183,6 +185,7 @@ class WidthControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
+      isHovered: false,
       displayValue: prettifyWidth(this.props.value, this.props.units)
     })
 

@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { injectIntl, intlShape } from 'react-intl'
 import { debounce } from 'lodash'
-import { MAX_BUILDING_HEIGHT, BUILDINGS, calculateRealHeightNumber } from '../segments/buildings'
+import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
-import { prettifyWidth } from '../util/width_units'
 import { KEYS } from '../app/keyboard_commands'
 import { loseAnyFocus } from '../util/focus'
 
@@ -33,7 +32,8 @@ class BuildingHeightControl extends React.Component {
 
     this.state = {
       isEditing: false,
-      displayValue: this.prettifyHeight(props.variant, props.position, props.value)
+      isHovered: false,
+      displayValue: null
     }
   }
 
@@ -43,12 +43,14 @@ class BuildingHeightControl extends React.Component {
    *
    * @param {Object} nextProps
    */
-  componentWillReceiveProps (nextProps) {
-    if (!this.state.isEditing) {
-      this.setState({
-        displayValue: this.prettifyHeight(nextProps.variant, nextProps.position, nextProps.value)
-      })
+  static getDerivedStateFromProps (nextProps, prevState) {
+    if (!prevState.isEditing && !prevState.isHovered) {
+      return {
+        displayValue: prettifyHeight(nextProps.variant, nextProps.position, nextProps.value, nextProps.units, nextProps.intl.formatMessage)
+      }
     }
+
+    return null
   }
 
   /**
@@ -117,7 +119,7 @@ class BuildingHeightControl extends React.Component {
   onBlurInput = (event) => {
     this.setState({
       isEditing: false,
-      displayValue: this.prettifyHeight(this.props.variant, this.props.position, this.props.value)
+      displayValue: prettifyHeight(this.props.variant, this.props.position, this.props.value, this.props.units, this.props.intl.formatMessage)
     })
   }
 
@@ -139,6 +141,7 @@ class BuildingHeightControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
+      isHovered: true,
       displayValue: this.props.value
     })
 
@@ -162,7 +165,8 @@ class BuildingHeightControl extends React.Component {
     if (this.state.isEditing) return
 
     this.setState({
-      displayValue: this.prettifyHeight(this.props.variant, this.props.position, this.props.value)
+      isHovered: false,
+      displayValue: prettifyHeight(this.props.variant, this.props.position, this.props.value, this.props.units, this.props.intl.formatMessage)
     })
 
     event.target.blur()
@@ -204,33 +208,6 @@ class BuildingHeightControl extends React.Component {
    * undebounced function to prevent thrashing of model and layout.
    */
   debouncedUpdateModel = debounce(this.updateModel, WIDTH_EDIT_INPUT_DELAY)
-
-  /**
-   * Given a building, return a string showing number of floors and actual height measurement
-   * e.g. when height value is `4` return a string that looks like this:
-   *    "4 floors (45m)"
-   *
-   * @todo Localize return value
-   * @param {string} variant - what type of building is it
-   * @param {string} position - what side is it on (left or right)
-   * @param {Number} floors - number of floors
-   * @param {string} text - text string to display
-   */
-  prettifyHeight = (variant, position, floors) => {
-    let text = this.props.intl.formatMessage({
-      id: 'building.floors-count',
-      defaultMessage: '{count, plural, one {# floor} other {# floors}}'
-    }, {
-      count: floors
-    })
-
-    const realHeight = calculateRealHeightNumber(variant, position, floors)
-    const prettifiedHeight = prettifyWidth(realHeight, this.props.units)
-
-    text += ` (${prettifiedHeight})`
-
-    return text
-  }
 
   render () {
     const isNotFloored = !BUILDINGS[this.props.variant].hasFloors
