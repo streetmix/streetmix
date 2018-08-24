@@ -19,11 +19,11 @@ class BuildingHeightControl extends React.Component {
     setBuildingFloorValue: PropTypes.func
   }
 
-  onClickIncrement = () => {
+  handleIncrement = () => {
     this.props.addBuildingFloor(this.props.position)
   }
 
-  onClickDecrement = () => {
+  handleDecrement = () => {
     this.props.removeBuildingFloor(this.props.position)
   }
 
@@ -59,8 +59,8 @@ class BuildingHeightControl extends React.Component {
           minValue={1}
           maxValue={MAX_BUILDING_HEIGHT}
           displayValueFormatter={this.displayValueFormatter}
-          onClickUp={this.onClickIncrement}
-          onClickDown={this.onClickDecrement}
+          onClickUp={this.handleIncrement}
+          onClickDown={this.handleDecrement}
           onUpdatedValue={this.updateModel}
           inputTooltip={this.props.intl.formatMessage({
             id: 'tooltip.building-height',

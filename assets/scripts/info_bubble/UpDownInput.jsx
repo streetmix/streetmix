@@ -245,13 +245,13 @@ export default class UpDownInput extends React.Component {
 
   renderInputEl = () => {
     return (this.props.touch) ? (
-      <span className="height-non-editable">
+      <span className="up-down-input-element up-down-input-uneditable">
         {this.state.displayValue}
       </span>
     ) : (
       <input
         type="text"
-        className="height"
+        className="up-down-input-element"
         title={this.props.inputTooltip}
         disabled={this.props.disabled}
         value={this.props.disabled ? '' : this.state.displayValue}
@@ -273,25 +273,25 @@ export default class UpDownInput extends React.Component {
     return (
       <React.Fragment>
         <button
-          className="increment"
-          title={this.props.upTooltip}
-          tabIndex={-1}
-          onClick={this.handleClickIncrement}
-          disabled={this.props.disabled || (this.props.value >= this.props.maxValue)}
-        >
-          <FontAwesomeIcon icon="plus" />
-        </button>
-
-        {this.renderInputEl()}
-
-        <button
-          className="decrement"
+          className="up-down-input-decrement"
           title={this.props.downTooltip}
           tabIndex={-1}
           onClick={this.handleClickDecrement}
           disabled={this.props.disabled || (this.props.value <= this.props.minValue)}
         >
           <FontAwesomeIcon icon="minus" />
+        </button>
+
+        {this.renderInputEl()}
+
+        <button
+          className="up-down-input-increment"
+          title={this.props.upTooltip}
+          tabIndex={-1}
+          onClick={this.handleClickIncrement}
+          disabled={this.props.disabled || (this.props.value >= this.props.maxValue)}
+        >
+          <FontAwesomeIcon icon="plus" />
         </button>
       </React.Fragment>
     )

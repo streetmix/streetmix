@@ -29,7 +29,7 @@ class WidthControl extends React.Component {
     locale: PropTypes.string
   }
 
-  onClickIncrement = (event) => {
+  handleIncrement = (event) => {
     const precise = event.shiftKey
 
     incrementSegmentWidth(this.props.position, true, precise, this.props.value)
@@ -37,7 +37,7 @@ class WidthControl extends React.Component {
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
 
-  onClickDecrement = (event) => {
+  handleDecrement = (event) => {
     const precise = event.shiftKey
 
     incrementSegmentWidth(this.props.position, false, precise, this.props.value)
@@ -85,7 +85,6 @@ class WidthControl extends React.Component {
     return prettifyWidth(value, this.props.units)
   }
 
-  //   <span className="width-non-editable">
   render () {
     return (
       <div className="non-variant">
@@ -95,8 +94,8 @@ class WidthControl extends React.Component {
           maxValue={MAX_SEGMENT_WIDTH}
           inputValueFormatter={this.inputValueFormatter}
           displayValueFormatter={this.displayValueFormatter}
-          onClickUp={this.onClickIncrement}
-          onClickDown={this.onClickDecrement}
+          onClickUp={this.handleIncrement}
+          onClickDown={this.handleDecrement}
           onUpdatedValue={this.updateModel}
           inputTooltip={this.props.intl.formatMessage({
             id: 'tooltip.segment-width',
