@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { KEYS } from '../app/keyboard_commands'
+import { KEYS } from '../app/keys'
 
 const EDIT_INPUT_DELAY = 200
 
