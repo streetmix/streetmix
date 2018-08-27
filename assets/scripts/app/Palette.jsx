@@ -70,7 +70,7 @@ class Palette extends React.Component {
    * @param {string} label - text to display inside the tooltip
    * @param {Object} rect - result of getBoundingClientRect() on segment element
    */
-  handleHover = (event, label, rect) => {
+  handlePointerOver = (event, label, rect) => {
     // x is the position right above the middle of the segment element to point at
     const x = rect.x + (rect.width / 2)
 
@@ -78,6 +78,12 @@ class Palette extends React.Component {
       tooltipLabel: label,
       tooltipVisible: true,
       tooltipPosition: { x }
+    })
+  }
+
+  handlePointerOut = (event) => {
+    this.setState({
+      tooltipVisible: false
     })
   }
 
@@ -101,7 +107,14 @@ class Palette extends React.Component {
         ? segment.paletteIcon
         : Object.keys(segment.details).shift()
 
-      return <SegmentForPalette key={segment.id} type={segment.id} variantString={variant} onHover={this.handleHover} />
+      return (
+        <SegmentForPalette
+          key={segment.id}
+          type={segment.id}
+          variantString={variant}
+          onPointerOver={this.handlePointerOver}
+        />
+      )
     })
   }
 
@@ -116,14 +129,16 @@ class Palette extends React.Component {
         <div className="palette-commands" ref={this.commandsEl}>
           <UndoRedo />
         </div>
-        <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable}>
-          <IntlProvider
-            locale={this.props.locale.locale}
-            messages={this.props.locale.segmentInfo}
-          >
-            <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
-          </IntlProvider>
-        </Scrollable>
+        <div onPointerOut={this.handlePointerOut}>
+          <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable}>
+            <IntlProvider
+              locale={this.props.locale.locale}
+              messages={this.props.locale.segmentInfo}
+            >
+              <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+            </IntlProvider>
+          </Scrollable>
+        </div>
         <PaletteTooltips
           label={this.state.tooltipLabel}
           visible={this.state.tooltipVisible}

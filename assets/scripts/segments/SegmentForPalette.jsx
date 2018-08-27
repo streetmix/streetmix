@@ -26,7 +26,7 @@ class SegmentForPalette extends React.Component {
     // Provided by parent
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
-    onHover: PropTypes.func
+    onPointerOver: PropTypes.func
   }
 
   componentDidMount = () => {
@@ -36,7 +36,7 @@ class SegmentForPalette extends React.Component {
   handlePointerOver = (event) => {
     const label = this.getLabel()
     const rect = event.target.getBoundingClientRect()
-    this.props.onHover(event, label, rect)
+    this.props.onPointerOver(event, label, rect)
   }
 
   getInfo = () => {
