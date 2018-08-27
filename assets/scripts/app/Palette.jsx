@@ -81,7 +81,19 @@ class Palette extends React.Component {
     })
   }
 
+  /**
+   * When the pointer leaves the segment area, hide tooltip.
+   */
   handlePointerOut = (event) => {
+    this.setState({
+      tooltipVisible: false
+    })
+  }
+
+  /**
+   * When the segment area is being scrolled, hide tooltip.
+   */
+  handleScroll = (event) => {
     this.setState({
       tooltipVisible: false
     })
@@ -130,7 +142,7 @@ class Palette extends React.Component {
           <UndoRedo />
         </div>
         <div onPointerOut={this.handlePointerOut}>
-          <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable}>
+          <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable} onScroll={this.handleScroll}>
             <IntlProvider
               locale={this.props.locale.locale}
               messages={this.props.locale.segmentInfo}
