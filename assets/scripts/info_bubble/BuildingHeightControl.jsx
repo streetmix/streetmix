@@ -55,7 +55,7 @@ class BuildingHeightControl extends React.Component {
       <div className="non-variant building-height">
         <UpDownInput
           disabled={isNotFloored}
-          value={isNotFloored ? '' : this.props.value}
+          value={isNotFloored ? null : this.props.value}
           minValue={1}
           maxValue={MAX_BUILDING_HEIGHT}
           displayValueFormatter={this.displayValueFormatter}
