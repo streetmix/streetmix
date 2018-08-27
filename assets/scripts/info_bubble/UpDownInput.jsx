@@ -269,6 +269,9 @@ export default class UpDownInput extends React.Component {
     )
   }
 
+  /**
+   * @todo make minValue and maxValue optional
+   */
   render () {
     return (
       <React.Fragment>
