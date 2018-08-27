@@ -1,14 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-export default class PaletteTooltips extends React.Component {
+export class PaletteTooltips extends React.Component {
   static propTypes = {
     label: PropTypes.string,
     visible: PropTypes.bool,
     pointAt: PropTypes.shape({
       x: PropTypes.number,
-      y: PropTypes.number
-    })
+      y: PropTypes.number // Not used right now
+    }),
+
+    // Provided by Redux state
+    isDragging: PropTypes.bool
   }
 
   static defaultProps = {
@@ -31,7 +35,7 @@ export default class PaletteTooltips extends React.Component {
   render () {
     const classNames = ['palette-tooltip']
 
-    if (this.props.visible) {
+    if (this.props.visible && !this.props.isDragging) {
       classNames.push('palette-tooltip-show')
     }
 
@@ -49,3 +53,11 @@ export default class PaletteTooltips extends React.Component {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    isDragging: !!state.ui.draggingState // Coerce to boolean
+  }
+}
+
+export default connect(mapStateToProps)(PaletteTooltips)
