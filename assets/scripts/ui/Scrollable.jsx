@@ -12,11 +12,13 @@ export default class Scrollable extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
     children: PropTypes.node,
-    setRef: PropTypes.func
+    setRef: PropTypes.func,
+    onScroll: PropTypes.func
   }
 
   static defaultProps = {
-    setRef: function noop () {}
+    setRef: () => {},
+    onScroll: () => {}
   }
 
   constructor (props) {
@@ -57,6 +59,9 @@ export default class Scrollable extends React.PureComponent {
 
   onScrollContainer = (event) => {
     this.checkButtonVisibilityState()
+
+    // If parent has provided its own onScroll handler function, call that now.
+    this.props.onScroll(event)
   }
 
   // Allows parent component to obtain a ref to the wrapping element created here.

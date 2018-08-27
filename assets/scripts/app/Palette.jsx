@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import UndoRedo from './UndoRedo'
+import PaletteTooltips from '../palette/PaletteTooltips'
 import { getAllSegmentInfoArray } from '../segments/info'
 
 class Palette extends React.Component {
@@ -20,6 +21,12 @@ class Palette extends React.Component {
 
     this.commandsEl = React.createRef()
     this.scrollable = React.createRef()
+
+    this.state = {
+      tooltipLabel: null,
+      tooltipVisible: false,
+      tooltipPosition: {}
+    }
   }
 
   componentDidMount () {
@@ -55,6 +62,43 @@ class Palette extends React.Component {
     this.scrollable.current.checkButtonVisibilityState()
   }
 
+  /**
+   * Each segment in palette calls this function when the pointer hovers over it so we know
+   * what to display in the tooltip
+   *
+   * @param {Object} event - event handler object
+   * @param {string} label - text to display inside the tooltip
+   * @param {Object} rect - result of getBoundingClientRect() on segment element
+   */
+  handlePointerOver = (event, label, rect) => {
+    // x is the position right above the middle of the segment element to point at
+    const x = rect.x + (rect.width / 2)
+
+    this.setState({
+      tooltipLabel: label,
+      tooltipVisible: true,
+      tooltipPosition: { x }
+    })
+  }
+
+  /**
+   * When the pointer leaves the segment area, hide tooltip.
+   */
+  handlePointerOut = (event) => {
+    this.setState({
+      tooltipVisible: false
+    })
+  }
+
+  /**
+   * When the segment area is being scrolled, hide tooltip.
+   */
+  handleScroll = (event) => {
+    this.setState({
+      tooltipVisible: false
+    })
+  }
+
   renderPaletteItems = () => {
     const segments = getAllSegmentInfoArray()
 
@@ -75,7 +119,14 @@ class Palette extends React.Component {
         ? segment.paletteIcon
         : Object.keys(segment.details).shift()
 
-      return <SegmentForPalette key={segment.id} type={segment.id} variantString={variant} />
+      return (
+        <SegmentForPalette
+          key={segment.id}
+          type={segment.id}
+          variantString={variant}
+          onPointerOver={this.handlePointerOver}
+        />
+      )
     })
   }
 
@@ -90,14 +141,21 @@ class Palette extends React.Component {
         <div className="palette-commands" ref={this.commandsEl}>
           <UndoRedo />
         </div>
-        <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable}>
-          <IntlProvider
-            locale={this.props.locale.locale}
-            messages={this.props.locale.segmentInfo}
-          >
-            <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
-          </IntlProvider>
-        </Scrollable>
+        <div onPointerOut={this.handlePointerOut}>
+          <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable} onScroll={this.handleScroll}>
+            <IntlProvider
+              locale={this.props.locale.locale}
+              messages={this.props.locale.segmentInfo}
+            >
+              <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+            </IntlProvider>
+          </Scrollable>
+        </div>
+        <PaletteTooltips
+          label={this.state.tooltipLabel}
+          visible={this.state.tooltipVisible}
+          pointAt={this.state.tooltipPosition}
+        />
       </div>
     )
   }
