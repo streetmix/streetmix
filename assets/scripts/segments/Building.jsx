@@ -9,7 +9,7 @@ import {
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { resumeFadeoutControls } from './resizing'
-import { KEYS } from '../app/keyboard_commands'
+import { KEYS } from '../app/keys'
 import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
 
 class Building extends React.Component {

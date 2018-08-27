@@ -1,15 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { injectIntl, intlShape } from 'react-intl'
-import { debounce } from 'lodash'
+import UpDownInput from './UpDownInput'
 import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
-import { KEYS } from '../app/keyboard_commands'
-import { loseAnyFocus } from '../util/focus'
-
-const WIDTH_EDIT_INPUT_DELAY = 200
 
 class BuildingHeightControl extends React.Component {
   static propTypes = {
@@ -24,172 +19,12 @@ class BuildingHeightControl extends React.Component {
     setBuildingFloorValue: PropTypes.func
   }
 
-  constructor (props) {
-    super(props)
-
-    this.oldValue = null
-    this.inputEl = null
-
-    this.state = {
-      isEditing: false,
-      isHovered: false,
-      displayValue: null
-    }
-  }
-
-  /**
-   * If UI is not in user-editing mode, update the display
-   * when the value in store changes
-   *
-   * @param {Object} nextProps
-   */
-  static getDerivedStateFromProps (nextProps, prevState) {
-    if (!prevState.isEditing && !prevState.isHovered) {
-      return {
-        displayValue: prettifyHeight(nextProps.variant, nextProps.position, nextProps.value, nextProps.units, nextProps.intl.formatMessage)
-      }
-    }
-
-    return null
-  }
-
-  /**
-   * If UI is going to enter user-editing mode, immediately
-   * save the previous value in case editing is cancelled
-   *
-   * @param {Object} prevProps
-   * @param {Object} prevState
-   */
-  componentDidUpdate (prevProps, prevState) {
-    if (!prevState.isEditing && this.state.isEditing) {
-      this.oldValue = this.props.value
-    }
-  }
-
-  onClickIncrement = () => {
+  handleIncrement = () => {
     this.props.addBuildingFloor(this.props.position)
   }
 
-  onClickDecrement = () => {
+  handleDecrement = () => {
     this.props.removeBuildingFloor(this.props.position)
-  }
-
-  onInput = (event) => {
-    const value = event.target.value
-
-    // Update the input element to display user input
-    this.setState({
-      isEditing: true,
-      displayValue: value
-    })
-
-    // Update the model, but debounce inputs to prevent thrashing
-    this.debouncedUpdateModel(value)
-  }
-
-  onClickInput = (event) => {
-    const el = event.target
-
-    this.setState({
-      isEditing: true,
-      displayValue: this.props.value
-    })
-
-    if (document.activeElement !== el) {
-      el.select()
-    }
-  }
-
-  onDoubleClickInput = (event) => {
-    const el = event.target
-    el.select()
-  }
-
-  onFocusInput = (event) => {
-    const el = event.target
-
-    if (document.activeElement !== el) {
-      el.select()
-    }
-  }
-
-  /**
-   * On blur, input shows prettified value.
-   */
-  onBlurInput = (event) => {
-    this.setState({
-      isEditing: false,
-      displayValue: prettifyHeight(this.props.variant, this.props.position, this.props.value, this.props.units, this.props.intl.formatMessage)
-    })
-  }
-
-  /**
-   * Prevent mousedown event from resetting the input view.
-   */
-  onMouseDownInput = (event) => {
-    this.setState({
-      isEditing: true,
-      displayValue: this.props.value
-    })
-  }
-
-  /**
-   * On mouse over, UI assumes user is ready to edit.
-   */
-  onMouseOverInput = (event) => {
-    // Bail if already in editing mode.
-    if (this.state.isEditing) return
-
-    this.setState({
-      isHovered: true,
-      displayValue: this.props.value
-    })
-
-    // Automatically select the value on hover so that it's easy to start typing new values.
-    // In React, this only works if the .select() is called at the end of the execution
-    // stack, so we put it inside a setTimeout() with a timeout of zero. We also must
-    // store the reference to the event target because the React synthetic event will
-    // not persist into the setTimeout function.
-    const target = event.target
-    window.setTimeout(() => {
-      target.focus()
-      target.select()
-    }, 0)
-  }
-
-  /**
-   * On mouse out, if user is not editing, UI returns to default view.
-   */
-  onMouseOutInput = (event) => {
-    // Bail if already in editing mode.
-    if (this.state.isEditing) return
-
-    this.setState({
-      isHovered: false,
-      displayValue: prettifyHeight(this.props.variant, this.props.position, this.props.value, this.props.units, this.props.intl.formatMessage)
-    })
-
-    event.target.blur()
-  }
-
-  onKeyDownInput = (event) => {
-    switch (event.keyCode) {
-      case KEYS.ENTER:
-        this.updateModel(event.target.value)
-        this.setState({
-          isEditing: false
-        })
-
-        this.inputEl.focus()
-        this.inputEl.select()
-
-        break
-      // TODO: this is bugged; escape key is not firing currently
-      case KEYS.ESC:
-        this.updateModel(this.oldValue)
-        loseAnyFocus()
-        break
-    }
   }
 
   /**
@@ -204,57 +39,43 @@ class BuildingHeightControl extends React.Component {
   }
 
   /**
-   * Debounced version of this.updateModel(). Call this instead of the
-   * undebounced function to prevent thrashing of model and layout.
+   * Given a raw numerical value, format it and return a decorated string.
+   *
+   * @param {Number} value - raw value
+   * @returns {string} - a decorated value
    */
-  debouncedUpdateModel = debounce(this.updateModel, WIDTH_EDIT_INPUT_DELAY)
+  displayValueFormatter = (value) => {
+    return prettifyHeight(this.props.variant, this.props.position, value, this.props.units, this.props.intl.formatMessage)
+  }
 
   render () {
     const isNotFloored = !BUILDINGS[this.props.variant].hasFloors
 
-    const inputEl = (this.props.touch) ? (
-      <span className="height-non-editable">{this.state.displayValue}</span>
-    ) : (
-      <input
-        type="text"
-        className="height"
-        title={this.props.intl.formatMessage({ id: 'tooltip.building-height', defaultMessage: 'Change the number of floors' })}
-        disabled={isNotFloored}
-        value={isNotFloored ? '' : this.state.displayValue}
-        onChange={this.onInput}
-        onClick={this.onClickInput}
-        onDoubleClick={this.onDoubleClickInput}
-        onFocus={this.onFocusInput}
-        onBlur={this.onBlurInput}
-        onMouseDown={this.onMouseDownInput}
-        onMouseOver={this.onMouseOverInput}
-        onMouseOut={this.onMouseOutInput}
-        onKeyDown={this.onKeyDownInput}
-        ref={(ref) => { this.inputEl = ref }}
-      />
-    )
-
     return (
       <div className="non-variant building-height">
-        <button
-          className="increment"
-          title={this.props.intl.formatMessage({ id: 'tooltip.add-floor', defaultMessage: 'Add floor' })}
-          tabIndex={-1}
-          onClick={this.onClickIncrement}
-          disabled={isNotFloored || (this.props.value >= MAX_BUILDING_HEIGHT)}
-        >
-          <FontAwesomeIcon icon="plus" />
-        </button>
-        {inputEl}
-        <button
-          className="decrement"
-          title={this.props.intl.formatMessage({ id: 'tooltip.remove-floor', defaultMessage: 'Remove floor' })}
-          tabIndex={-1}
-          onClick={this.onClickDecrement}
-          disabled={isNotFloored || (this.props.value <= 1)}
-        >
-          <FontAwesomeIcon icon="minus" />
-        </button>
+        <UpDownInput
+          disabled={isNotFloored}
+          value={isNotFloored ? null : this.props.value}
+          minValue={1}
+          maxValue={MAX_BUILDING_HEIGHT}
+          displayValueFormatter={this.displayValueFormatter}
+          onClickUp={this.handleIncrement}
+          onClickDown={this.handleDecrement}
+          onUpdatedValue={this.updateModel}
+          inputTooltip={this.props.intl.formatMessage({
+            id: 'tooltip.building-height',
+            defaultMessage: 'Change the number of floors'
+          })}
+          upTooltip={this.props.intl.formatMessage({
+            id: 'tooltip.add-floor',
+            defaultMessage: 'Add floor'
+          })}
+          downTooltip={this.props.intl.formatMessage({
+            id: 'tooltip.remove-floor',
+            defaultMessage: 'Remove floor'
+          })}
+          touch={this.props.touch}
+        />
       </div>
     )
   }
