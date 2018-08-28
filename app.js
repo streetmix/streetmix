@@ -30,6 +30,10 @@ initMongoDB()
 
 const app = module.exports = express()
 
+// Get the timestamp of this server's start time to use as a cachebusting filename.
+const cacheTimestamp = Date.now()
+app.locals.cacheTimestamp = cacheTimestamp
+
 process.on('uncaughtException', function (error) {
   console.log(error)
   console.trace()
@@ -159,6 +163,12 @@ app.use('/services/geoip', function (req, res, next) {
 
 // Set CSP directives
 app.use(helmet.contentSecurityPolicy(csp))
+
+// Rewrite requests with timestamp
+app.use(function (req, res, next) {
+  req.url = req.url.replace(/\/([^/]+)\.[0-9a-f]+\.(css|js|jpg|png|gif|svg)$/, '/$1.$2')
+  next()
+})
 
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
