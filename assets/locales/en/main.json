@@ -214,6 +214,9 @@
       "tos": "By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}.",
       "tos-link-label": "terms of service",
       "privacy-link-label": "privacy policy"
+    },
+    "whatsnew": {
+      "heading": "What’s new in Streetmix?"
     }
   },
   "prompt": {

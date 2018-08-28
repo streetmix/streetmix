@@ -12,14 +12,14 @@ export default class WhatsNewDialog extends React.PureComponent {
       <div className="whats-new-dialog">
         <header>
           <h1>
-            <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new at Streetmix" />
+            <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix?" />
           </h1>
         </header>
         <div className="dialog-content">
           <iframe src="/pages/whats-new/" />
         </div>
         <footer onClick={this.props.closeDialog}>
-          Close
+          <FormattedMessage id="btn.close" defaultMessage="Close" />
         </footer>
       </div>
     )
