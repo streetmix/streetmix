@@ -90,7 +90,7 @@ const csp = {
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],
     childSrc: ['platform.twitter.com'],
-    frameSrc: ['streetmix.github.io'],
+    frameSrc: ["'self'", 'streetmix.github.io'],
     imgSrc: [
       "'self'",
       'data:',

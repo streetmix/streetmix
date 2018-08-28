@@ -157,7 +157,9 @@ function onEverythingLoaded () {
     let welcomeDismissed
     let donateDismissed
     const twoWeeksAgo = Date.now() - 12096e5
-    const flag = store.getState().flags.DONATE_NAG_SCREEN.value
+    const donateFlag = store.getState().flags.DONATE_NAG_SCREEN.value
+    const whatsNewFlag = store.getState().flags.ALWAYS_DISPLAY_WHATS_NEW.value
+
     if (window.localStorage['settings-welcome-dismissed']) {
       welcomeDismissed = JSON.parse(window.localStorage['settings-welcome-dismissed'])
     }
@@ -174,9 +176,13 @@ function onEverythingLoaded () {
 
     const delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
 
-    if (welcomeDismissed && !donateDismissed && flag &&
+    if (welcomeDismissed && !donateDismissed && donateFlag && !whatsNewFlag &&
        (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
+    }
+
+    if (whatsNewFlag) {
+      store.dispatch(showDialog('WHATS_NEW'))
     }
   }
 }
