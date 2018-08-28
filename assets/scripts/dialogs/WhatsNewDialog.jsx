@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 
 export default class WhatsNewDialog extends React.PureComponent {
   static propTypes = {
-    closeDialog: PropTypes.func.isRequired
+    closeDialog: PropTypes.func
   }
 
   render () {
