@@ -8,7 +8,6 @@ import ContributeMenu from './ContributeMenu'
 import IdentityMenu from './IdentityMenu'
 import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
-import SignInMenu from './SignInMenu'
 import { registerKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/actions/menus'
 
@@ -106,7 +105,6 @@ class MenusContainer extends React.PureComponent {
         <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} />
         <SettingsMenu isActive={activeMenu === 'settings'} position={activeMenuPos} />
         <ShareMenu isActive={activeMenu === 'share'} position={activeMenuPos} />
-        <SignInMenu isActive={activeMenu === 'signin'} position={activeMenuPos} />
       </React.Fragment>
     )
   }

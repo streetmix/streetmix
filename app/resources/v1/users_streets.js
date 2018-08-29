@@ -1,6 +1,5 @@
 const async = require('async')
 
-require('../../../lib/db.js')
 const User = require('../../models/user.js')
 const Street = require('../../models/street.js')
 const logger = require('../../../lib/logger.js')()

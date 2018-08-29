@@ -1,4 +1,5 @@
 import { RandomGenerator } from '../util/random'
+import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from '../segments/constants'
 import { drawSegmentImage } from './view'
@@ -152,6 +153,38 @@ export function getBuildingImageHeight (variant, position, floors = 1) {
 export function calculateRealHeightNumber (variant, position, floors) {
   const CURB_HEIGHT = 6
   return (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) / TILE_SIZE
+}
+
+/**
+ * Given a building, return a string showing number of floors and actual height measurement
+ * e.g. when height value is `4` return a string that looks like this:
+ *    "4 floors (45m)"
+ *
+ * This is only used in <BuildingHeightControl /> component, but moved here because of
+ * it's similar to width functionality, and its use in the component's static method
+ * `getDerivedStateFromProps()` means it cannot live on the component instance.
+ *
+ * @todo Localize return value
+ * @param {string} variant - what type of building is it
+ * @param {string} position - what side is it on (left or right)
+ * @param {Number} floors - number of floors
+ * @param {Number} units - units, either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
+ * @param {Function} formatMessage - pass in intl.formatMessage()
+ */
+export function prettifyHeight (variant, position, floors, units, formatMessage) {
+  let text = formatMessage({
+    id: 'building.floors-count',
+    defaultMessage: '{count, plural, one {# floor} other {# floors}}'
+  }, {
+    count: floors
+  })
+
+  const realHeight = calculateRealHeightNumber(variant, position, floors)
+  const prettifiedHeight = prettifyWidth(realHeight, units)
+
+  text += ` (${prettifiedHeight})`
+
+  return text
 }
 
 export function drawBuilding (ctx, destination, street, left, totalWidth, totalHeight, offsetLeft, multiplier, dpi) {

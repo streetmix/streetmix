@@ -21,9 +21,46 @@ const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
 const middleware = require('./lib/middleware')
+const initRedisClient = require('./lib/redis')
+const initMongoDB = require('./lib/db')
 const exec = require('child_process').exec
 
+const client = initRedisClient()
+initMongoDB()
+
 const app = module.exports = express()
+
+// Get the timestamp of this server's start time to use as a cachebusting filename.
+const cacheTimestamp = Date.now()
+app.locals.cacheTimestamp = cacheTimestamp
+
+process.on('uncaughtException', function (error) {
+  console.log(error)
+  console.trace()
+
+  if (client.connected) {
+    client.on('end', function () {
+      process.exit(1)
+    })
+  } else {
+    process.exit(1)
+  }
+})
+
+// Provide a message after a Ctrl-C
+// Note: various sources tell us that this does not work on Windows
+process.on('SIGINT', function () {
+  if (app.locals.config.env === 'development') {
+    console.log('Stopping Streetmix!')
+    exec('npm stop')
+  }
+
+  if (client.connected) {
+    client.on('end', process.exit)
+  } else {
+    process.exit()
+  }
+})
 
 app.locals.config = config
 
@@ -57,6 +94,7 @@ const csp = {
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],
     childSrc: ['platform.twitter.com'],
+    frameSrc: ["'self'", 'streetmix.github.io'],
     imgSrc: [
       "'self'",
       'data:',
@@ -68,7 +106,6 @@ const csp = {
     ],
     fontSrc: ["'self'", 'fonts.gstatic.com'],
     connectSrc: ["'self'",
-      'freegeoip.net',
       'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',
@@ -118,8 +155,20 @@ app.use(function (req, res, next) {
   next()
 })
 
+// Set Redis client for when requesting the geoip
+app.use('/services/geoip', function (req, res, next) {
+  req.redisClient = client
+  next()
+})
+
 // Set CSP directives
 app.use(helmet.contentSecurityPolicy(csp))
+
+// Rewrite requests with timestamp
+app.use(function (req, res, next) {
+  req.url = req.url.replace(/\/([^/]+)\.[0-9a-f]+\.(css|js|jpg|png|gif|svg)$/, '/$1.$2')
+  next()
+})
 
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
@@ -144,12 +193,13 @@ app.get('/map', function (req, res) {
   res.redirect('https://streetmix.github.io/map/')
 })
 
+app.get('/privacy-policy', express.static(path.join(__dirname, '/public/pages'), { fallthrough: false }))
+app.get('/terms-of-service', express.static(path.join(__dirname, '/public/pages'), { fallthrough: false }))
+
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
-// Auth0 - twitter auth
-app.get(config.auth0.twitter_callback_uri, controllers.twitter_auth0_sign_in_callback.get)
-// Email
-app.get(config.auth0.email_callback_uri, controllers.email_sign_in.get)
+// Auth0
+app.get(config.auth0.callback_uri, controllers.auth0_sign_in_callback.get)
 
 app.post('/api/v1/users', resources.v1.users.post)
 app.get('/api/v1/users/:user_id', resources.v1.users.get)
@@ -167,6 +217,8 @@ app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
+
+app.get('/services/geoip', resources.services.geoip.get)
 
 app.post('/api/v1/feedback', resources.v1.feedback.post)
 
@@ -190,8 +242,7 @@ app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scri
     PELIAS_HOST_NAME: config.get('geocode.pelias.host'),
     PELIAS_API_KEY: config.get('geocode.pelias.api_key'),
     TWITTER_CALLBACK_URI: config.get('twitter.oauth_callback_uri'),
-    AUTH0_TWITTER_CALLBACK_URI: config.get('auth0.twitter_callback_uri'),
-    AUTH0_EMAIL_CALLBACK_URI: config.get('auth0.email_callback_uri'),
+    AUTH0_CALLBACK_URI: config.get('auth0.callback_uri'),
     AUTH0_DOMAIN: config.get('auth0.domain'),
     AUTH0_CLIENT_ID: config.get('auth0.client_id'),
     USE_AUTH0: config.get('auth0.use_auth0'),
@@ -240,13 +291,3 @@ if (config.env === 'development') {
     compileStyles()
   })
 }
-
-// Provide a message after a Ctrl-C
-// Note: various sources tell us that this does not work on Windows
-process.on('SIGINT', function () {
-  if (app.locals.config.env === 'development') {
-    console.log('Stopping Streetmix!')
-    exec('npm stop')
-  }
-  process.exit()
-})

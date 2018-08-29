@@ -29,7 +29,7 @@ import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { KEYS } from '../app/keyboard_commands'
+import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
@@ -71,6 +71,7 @@ class Segment extends React.Component {
 
     this.oldSegmentCanvas = React.createRef()
     this.newSegmentCanvas = React.createRef()
+    this.initialRender = true
 
     this.state = {
       switchSegments: false,
@@ -90,7 +91,12 @@ class Segment extends React.Component {
     // the active segment should be shown. The following IF statement checks to see if a removal
     // or drag action occurred previously to this segment and displays the infoBubble for the
     // segment if it is equal to the activeSegment and no infoBubble was shown already.
-    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter && this.props.activeSegment === this.props.dataNo) {
+    const wasDragging = (prevProps.isDragging && !this.props.isDragging) ||
+      (this.initialRender && (this.props.activeSegment || this.props.activeSegment === 0))
+    const mouseEnterSuppressed = (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter)
+    this.initialRender = false
+
+    if ((wasDragging || mouseEnterSuppressed) && this.props.activeSegment === this.props.dataNo) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 

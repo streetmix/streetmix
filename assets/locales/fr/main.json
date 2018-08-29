@@ -22,7 +22,7 @@
     "share": {
       "sign-in-twitter-link": "Se connecter",
       "sign-in-link": "{signInLink} pour accéder plus facilement à vos rues et à votre galerie personnelle de rues",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'> Connectez-vous à Twitter</a> pour une obtenir un lien vers les rues et gallerie de rues vous concernant ",
+      "sign-in": "<a href='#'>Connectez-vous</a> pour une obtenir un lien vers les rues et galerie de rues vous concernant",
       "link": "Copier et coller ce lien pour le partager :",
       "twitter": "Partager en utilisant Twitter",
       "facebook": "Partager par Facebook",
@@ -106,12 +106,10 @@
     "please-reload": "Veuillez recharger cette page avant de continuer.",
     "street-deleted-elsewhere-title": "Cette rue a été supprimée ailleurs.",
     "street-deleted-elsewhere-description": "Cette rue a été supprimée dans un autre navigateur.",
-    "twitter-access-denied-title": "Vous n'êtes pas connecté.",
-    "twitter-access-denied-description": "Vous avez annulé le processus de connexion Twitter.",
-    "email-access-denied-title": "Vous n'êtes pas connecté.",
-    "email-access-denied-description": "",
+    "access-denied-title": "Vous n'êtes pas connecté.",
+    "access-denied-description": "",
     "auth-api-problem-title": "Il y a eu un problème avec votre identification.",
-    "auth-api-problem-description": "",
+    "auth-api-problem-description": "Il y a eu un problème avec l'authentification.",
     "please-try-again": "Veuillez réessayer plus tard ou nous le signaler via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> ou <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
     "unsupported-browser-title": "Streetmix ne fonctionne pas sur votre navigateur.",
     "unsupported-browser-description": "Nous sommes désolés. Vous pouvez essayer <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, ou Safari.",
@@ -286,7 +284,8 @@
     "delete-street-tooltip": "Supprimer la rue",
     "street-count": "{count, plural, one {# rue} other {# rues}}",
     "no-streets": "Aucune rue pour le moment",
-    "sign-in": "Se connecter à Twitter pour avoir accès à votre galerie de rues personnelles"
+    "sign-in": "Se connecter à Twitter pour avoir accès à votre galerie de rues personnelles",
+    "sign-in-prompt": ""
   },
   "users": {
     "anonymous": "Anonyme",
@@ -308,8 +307,10 @@
       "ja": "Japonais",
       "pl": "Polonais",
       "pt-br": "Portugais (Brésil)",
+      "ru": "",
       "sv": "Suédois",
-      "zh-hant": "Chinois (traditionnel)"
+      "zh-hans": "",
+      "zh-hant": ""
     }
   }
 }

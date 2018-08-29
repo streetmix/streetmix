@@ -17,10 +17,13 @@ $sky-colour:                rgb(169, 204, 219);
 $ui-colour:                 lighten($sky-colour, 10%);
 $form-element-background:   lighten($ui-colour, 10%);
 $form-element-border:       $ui-colour;
+$button-border-colour:      darken($ui-colour, 10%);
+$button-border:             1px solid $button-border-colour;
 $alert-background:          rgb(255, 230, 150);
 $alert-border:              darken($alert-background, 20%);
 $off-white:                 rgb(240, 240, 240);
-$header-footer-background:  rgb(240, 240, 240);
+$palette-background:        $off-white;
+$menu-bar-background:       rgb(247, 247, 247);
 $bottom-background:         rgb(216, 211, 203);
 $warning-colour:            rgb(220, 20, 20);
 $segment-text:              rgb(40, 35, 30);
@@ -33,6 +36,7 @@ $info-bubble-background:    white;
 $segment-width-rule:        rgb(160, 160, 160);
 $street-name-text:          black;
 $street-name-background:    white;
+$hr-colour:                 darken($ui-colour, 10%);
 
 // Design
 $street-name-gallery-size:  0.5;

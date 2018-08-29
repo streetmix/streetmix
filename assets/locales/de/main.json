@@ -106,10 +106,8 @@
     "please-reload": "",
     "street-deleted-elsewhere-title": "",
     "street-deleted-elsewhere-description": "",
-    "twitter-access-denied-title": "",
-    "twitter-access-denied-description": "",
-    "email-access-denied-title": "",
-    "email-access-denied-description": "",
+    "access-denied-title": "",
+    "access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "",
@@ -286,7 +284,8 @@
     "delete-street-tooltip": "",
     "street-count": "{count, plural, one {} other {}}",
     "no-streets": "",
-    "sign-in": ""
+    "sign-in": "",
+    "sign-in-prompt": ""
   },
   "users": {
     "anonymous": "",
@@ -308,7 +307,9 @@
       "ja": "",
       "pl": "",
       "pt-br": "",
+      "ru": "",
       "sv": "",
+      "zh-hans": "",
       "zh-hant": ""
     }
   }

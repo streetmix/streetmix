@@ -12,6 +12,7 @@ import { resizeStreetWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
+import { resetMapState } from '../store/actions/map'
 
 let lastRequestedStreetId = null
 
@@ -67,4 +68,6 @@ function receiveGalleryStreet (transmission) {
 
   setIgnoreStreetChanges(false)
   setLastStreet(trimStreetData(store.getState().street))
+
+  store.dispatch(resetMapState())
 }

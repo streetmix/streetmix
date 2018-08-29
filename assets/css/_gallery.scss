@@ -14,8 +14,8 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 #gallery {
   position: absolute;
-  left: $left-right-inset + 20px;
-  right: $left-right-inset + 20px;
+  left: $left-right-inset;
+  right: $left-right-inset;
   top: 0;
   height: $gallery-height;
   z-index: $z-09-gallery;
@@ -38,6 +38,11 @@ body:not(.safari).gallery-visible .street-section-sky {
     right: 0;
     top: 1px;
     height: $gallery-height;
+
+    [dir='rtl'] & {
+      right: 120px;
+      left: 0;
+    }
   }
 
   .gallery-streets-container-full .streets-scrollable-container {

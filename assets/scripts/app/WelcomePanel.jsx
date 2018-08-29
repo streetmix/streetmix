@@ -157,8 +157,14 @@ export class WelcomePanel extends React.Component {
   }
 
   setSettingsWelcomeDismissed (value = true) {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] =
-      JSON.stringify(value)
+    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] = JSON.stringify(value)
+
+    // When dismissed, set what's new timestamp to now so that the what's new
+    // dialog doesn't get shown until it's actually new for this user.
+    // TODO: use constants for localStorage keys.
+    if (value === true) {
+      window.localStorage['whatsnew-last-timestamp'] = Date.now()
+    }
   }
 
   onClickGoNewStreet = (event) => {

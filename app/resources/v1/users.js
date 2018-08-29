@@ -1,9 +1,8 @@
 const config = require('config')
 const uuid = require('uuid')
 const Twitter = require('twitter')
-const { random } = require('lodash')
-const { ERRORS } = require('../../../lib/util')
 const User = require('../../models/user.js')
+const { ERRORS } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
@@ -98,12 +97,20 @@ exports.post = function (req, res) {
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
 
-  const handleEmailSignIn = async function (credentials) {
-    function generateId (nickname) {
-      // TODO - Check if the Id generated is not existing
-      return nickname + '-' + random(0, 999)
-    }
+  /**
+   * Returns a randomly-generated 4-digit string of a number between 0000 and 9999
+   *
+   * @returns {string}
+   */
+  const generateRandomId = () => Math.floor(Math.random() * 10000).toString().padStart(4, '0')
 
+  const generateId = function (nickname) {
+    // TODO - Check if the Id generated is not existing
+    const id = generateRandomId()
+    return nickname + '-' + id
+  }
+
+  const handleAuth0SignIn = async function (credentials) {
     try {
       const user = await User.findOne({ auth0_id: credentials.auth0_id })
       loginToken = uuid.v1()
@@ -142,7 +149,7 @@ exports.post = function (req, res) {
       console.log(err)
       res.status(500).send('Error finding user with Auth0 ID.')
     }
-  } // END function - handleAuth0TwitterSignIn
+  } // END function - handleAuth0SignIn
 
   let body
   try {
@@ -153,12 +160,11 @@ exports.post = function (req, res) {
   }
 
   if (body.hasOwnProperty('twitter')) {
-    // TODO: Validation
     handleTwitterSignIn(body.twitter)
   } else if (body.hasOwnProperty('auth0_twitter')) {
     handleAuth0TwitterSignIn(body.auth0_twitter)
-  } else if (body.hasOwnProperty('auth0_email')) {
-    handleEmailSignIn(body.auth0_email)
+  } else if (body.hasOwnProperty('auth0')) {
+    handleAuth0SignIn(body.auth0)
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }
@@ -204,6 +210,7 @@ exports.get = async function (req, res) {
 
   const handleFindUser = function (user) {
     let twitterApiClient
+
     try {
       twitterApiClient = new Twitter({
         consumer_key: config.twitter.oauth_consumer_key,
@@ -211,9 +218,8 @@ exports.get = async function (req, res) {
         access_token_key: user.twitter_credentials.access_token_key,
         access_token_secret: user.twitter_credentials.access_token_secret
       })
-    } catch (e) {
-      logger.error('Could not initialize Twitter API client. Error:')
-      logger.error(e)
+    } catch (error) {
+      logger.error('Could not initialize Twitter API client: ' + error)
     }
 
     const sendUserJson = function (data) {

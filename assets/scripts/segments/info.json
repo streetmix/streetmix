@@ -517,7 +517,6 @@
     "variants": [
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "left": {
         "minWidth": 7,
@@ -554,7 +553,6 @@
     "variants": [
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "left": {
         "minWidth": 10,
@@ -583,7 +581,6 @@
       "direction",
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "taxi|inbound|left": {
         "name": "Taxi loading zone",
@@ -685,7 +682,6 @@
       "waiting-area",
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "sparse|left": {
         "graphics": {

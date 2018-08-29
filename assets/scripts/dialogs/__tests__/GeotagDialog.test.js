@@ -68,14 +68,14 @@ describe('GeotagDialog', () => {
     const wrapper = shallow(getTestComponent())
     getRemixOnFirstEdit.mockReturnValueOnce(false)
     updateProps(wrapper)
-    expect(wrapper.find('button').text()).toEqual('Confirm location')
+    expect(wrapper.instance().canEditLocation()).toEqual(true)
   })
 
   it('allows a location to be confirmed when the current anonymous user started this street', () => {
     const wrapper = shallow(getTestComponent())
     getRemixOnFirstEdit.mockReturnValueOnce(false)
     updateProps(wrapper)
-    expect(wrapper.find('button').text()).toEqual('Confirm location')
+    expect(wrapper.instance().canEditLocation()).toEqual(true)
   })
 
   it('does not allow a location to be confirmed when the current signed-in user is not the street owner', () => {
@@ -100,6 +100,6 @@ describe('GeotagDialog', () => {
     const wrapper = shallow(getTestComponent(null, testStreet))
     getRemixOnFirstEdit.mockReturnValueOnce(true)
     updateProps(wrapper)
-    expect(wrapper.find('button').text()).toEqual('Confirm location')
+    expect(wrapper.instance().canEditLocation()).toEqual(true)
   })
 })

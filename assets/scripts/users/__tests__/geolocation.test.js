@@ -33,9 +33,6 @@ const failResponse = jest.fn(url =>
   }))
 )
 
-// Mocks a response that never resolves
-const timeoutResponse = jest.fn(url => Promise.race([]))
-
 describe('geolocation', () => {
   it('on request success, response contains lat/lng properties', (done) => {
     window.fetch = successResponse
@@ -61,33 +58,6 @@ describe('geolocation', () => {
 
   it('on request failure, records geolocation service contact was attempted', (done) => {
     window.fetch = failResponse
-
-    return detectGeolocation()
-      .then(() => {
-        const state = wasGeolocationAttempted()
-        expect(state).toEqual(true)
-        done()
-      })
-  })
-
-  it('on request timeout, returns timeout object', (done) => {
-    window.fetch = timeoutResponse
-
-    // Mutes console warning
-    console.warn = jest.fn()
-
-    return detectGeolocation()
-      .then(response => {
-        expect(response.timeout).toEqual(true)
-        done()
-      })
-  })
-
-  it('on request timeout, records geolocation service contact was attempted', (done) => {
-    window.fetch = timeoutResponse
-
-    // Mutes console warning
-    console.warn = jest.fn()
 
     return detectGeolocation()
       .then(() => {

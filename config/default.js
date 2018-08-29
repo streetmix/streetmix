@@ -35,8 +35,7 @@ module.exports = {
     audience: 'https://streetmix.auth0.com/api/v2/',
     screen_name_custom_claim: 'https://twitter.com/screen_name',
     management_scope: 'read:users write:users',
-    twitter_callback_uri: '/auth0-twitter-sign-in-callback',
-    email_callback_uri: '/email-sign-in-callback'
+    callback_uri: '/sign-in-callback'
   },
   facebook_app_id: '204327799717656',
   cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
@@ -70,5 +69,15 @@ module.exports = {
       host: 'api.geocode.earth',
       api_key: process.env.PELIAS_API_KEY || null
     }
+  },
+  geoip: {
+    host: 'api.ipstack.com/',
+    api_key: process.env.IPSTACK_API_KEY || null,
+    protocol: 'http://'
+  },
+  redis: {
+    port: process.env.REDIS_PORT,
+    password: process.env.REDIS_PASSWORD || '',
+    url: process.env.REDIS_URL || null
   }
 }

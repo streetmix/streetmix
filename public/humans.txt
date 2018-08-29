@@ -76,10 +76,12 @@
     Translators
 
     Diana M. Alhaj, Arabic
-    Crystal Xing, Chinese (Traditional)
-    Ricky Tsui, Chinese (Traditional)
-    Summer Pan, Chinese (Traditional)
-    Wen Jing Jiang, Chinese (Traditional)
+    Zakaria Shekhreet, Arabic
+    Crystal Xing, Chinese
+    Maggie Dong, Chinese
+    Ricky Tsui, Chinese
+    Summer Pan, Chinese
+    Wen Jing Jiang, Chinese
     Aleksi Kinnunen, Finnish
     Denis Devillé, French
     Jean-Louis Stanus, French
@@ -96,6 +98,7 @@
     Paulo Franco (Urb-i), Portuguese (Brazil)
     Stephan Garcia, Portuguese (Brazil)
     Yuval Fogelson (Urb-i), Portuguese (Brazil)
+    Artem Savin, Russian
     Paco Marquez, Spanish (Mexico)
     Patricio M. Ruiz Abrín, Spanish (Mexico)
     Jakob Fahlstedt, Swedish

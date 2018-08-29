@@ -2,25 +2,17 @@ const async = require('async')
 const config = require('config')
 const uuid = require('uuid')
 
-require('../../../lib/db.js')
 const Street = require('../../models/street.js')
 const User = require('../../models/user.js')
 const Sequence = require('../../models/sequence.js')
 const logger = require('../../../lib/logger.js')()
-const { ERRORS } = require('../../../lib/util')
+const { ERRORS, requestIp } = require('../../../lib/util')
 
 exports.post = async function (req, res) {
   const street = new Street()
   let body
 
   street.id = uuid.v1()
-  const requestIp = function (req) {
-    if (req.headers['x-forwarded-for'] !== undefined) {
-      return req.headers['x-forwarded-for'].split(', ')[0]
-    } else {
-      return req.connection.remoteAddress
-    }
-  }
 
   if (req.body && (req.body.length > 0)) {
     try {
