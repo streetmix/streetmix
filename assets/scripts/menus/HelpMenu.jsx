@@ -9,8 +9,8 @@ import { showDialog } from '../store/actions/dialogs'
 
 export class HelpMenu extends React.PureComponent {
   static propTypes = {
-    showAboutDialog: PropTypes.func.isRequired,
-    showWhatsNewDialog: PropTypes.func.isRequired
+    showAboutDialog: PropTypes.func,
+    showWhatsNewDialog: PropTypes.func
   }
 
   componentDidMount () {
