@@ -9,12 +9,13 @@ import { showDialog } from '../store/actions/dialogs'
 
 export class HelpMenu extends React.PureComponent {
   static propTypes = {
-    showDialog: PropTypes.func.isRequired
+    showAboutDialog: PropTypes.func.isRequired,
+    showWhatsNewDialog: PropTypes.func.isRequired
   }
 
   componentDidMount () {
     // Set up keyboard shortcuts
-    registerKeypress('?', { shiftKey: 'optional' }, this.props.showDialog)
+    registerKeypress('?', { shiftKey: 'optional' }, this.props.showAboutDialog)
   }
 
   onShow () {
@@ -26,11 +27,16 @@ export class HelpMenu extends React.PureComponent {
       <Menu onShow={this.onShow} {...this.props}>
         <a
           href="#"
-          onClick={this.props.showDialog}
+          onClick={this.props.showAboutDialog}
         >
           <FormattedMessage id="menu.item.about" defaultMessage="About Streetmix…" />
         </a>
-
+        <a
+          href="#"
+          onClick={this.props.showWhatsNewDialog}
+        >
+          <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]" />
+        </a>
         <div className="form non-touch-only help-menu-shortcuts">
           <p>
             <FormattedMessage id="menu.help.keyboard-label" defaultMessage="Keyboard shortcuts:" />
@@ -82,7 +88,8 @@ export class HelpMenu extends React.PureComponent {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDialog: () => { dispatch(showDialog('ABOUT')) }
+    showAboutDialog: () => { dispatch(showDialog('ABOUT')) },
+    showWhatsNewDialog: () => { dispatch(showDialog('WHATS_NEW')) }
   }
 }
 
