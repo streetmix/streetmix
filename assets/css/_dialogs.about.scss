@@ -1,0 +1,43 @@
+// Content of #about dialog box
+.about-dialog {
+  // Used by team list and external links
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.about-dialog-left {
+  width: 340px;
+  margin-right: 30px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.about-dialog-right {
+  width: 340px;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 15px;
+}
+
+.about-dialog-description {
+  font-size: 16px;
+  margin: 1em 0;
+}
+
+.about-dialog-team {
+  a {
+    color: black;
+  }
+
+  li {
+    margin-top: 5px;
+  }
+}
+
+.about-dialog-sponsors li {
+  display: inline-block;
+  margin-right: 1em;
+}

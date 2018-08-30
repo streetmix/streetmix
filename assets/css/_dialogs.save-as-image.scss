@@ -1,0 +1,52 @@
+// Content of Save as Image dialog box
+.save-as-image-dialog {
+  width: 700px;
+
+  p {
+    text-align: center;
+  }
+
+  input[type='checkbox'] {
+    margin-left: 20px;
+    font-size: 25px;
+    user-select: none;
+  }
+
+  label {
+    font-size: 16px;
+    padding-left: 1px;
+    user-select: none;
+  }
+
+  footer {
+    text-align: center;
+  }
+}
+
+.save-as-image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 300px;
+}
+
+.save-as-image-preview-loading {
+  font-size: 16px;
+  text-align: center;
+}
+
+.save-as-image-preview-image {
+  @include touch-callout(default);
+
+  text-align: center;
+  font-size: 0;
+
+  img {
+    max-width: 700px;
+    max-height: 300px;
+    cursor: move; // IE
+    cursor: grab;
+    border-top: 3px dashed $ui-colour;
+    border-bottom: 3px dashed $ui-colour;
+  }
+}
