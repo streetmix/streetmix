@@ -115,22 +115,28 @@ export default class SignInDialog extends React.Component {
 
   renderSignInWaiting = () => {
     return (
-      <div className="sign-in-dialog">
-        <p className="sign-in-loading-message">
-          <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
-        </p>
-        <div className="loading-spinner" />
+      <div className="dialog-type-2 sign-in-dialog">
+        <header>
+          <h1 className="sign-in-loading-message">
+            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
+          </h1>
+        </header>
+        <div className="dialog-content">
+          <div className="loading-spinner" />
+        </div>
       </div>
     )
   }
 
   renderEmailSent = () => {
     return (
-      <div className="sign-in-dialog">
-        <p className="sign-in-loading-message">
-          <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
-        </p>
-        <div className="sign-in-email-sent">
+      <div className="dialog-type-2 sign-in-dialog">
+        <header>
+          <h1 className="sign-in-loading-message">
+            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
+          </h1>
+        </header>
+        <div className="dialog-content sign-in-email-sent">
           <p>
             <FormattedMessage
               id="dialogs.sign-in.sent-message-with-email"
@@ -162,117 +168,123 @@ export default class SignInDialog extends React.Component {
     }
 
     return (
-      <div className="sign-in-dialog">
-        <h1>
-          <FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in / Sign up" />
-        </h1>
-        <p>
-          <FormattedMessage
-            id="dialogs.sign-in.description"
-            defaultMessage="Save your first design or sign in to access your past designs."
-          />
-        </p>
-
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="sign-in-email-input" className="sign-in-email-label">
-            <FormattedMessage id="dialogs.sign-in.email-label" defaultMessage="Email" />
-          </label>
-
-          <input
-            type="email"
-            id="sign-in-email-input"
-            ref={this.emailInputEl}
-            value={this.state.email}
-            className={'sign-in-input ' + (this.state.error ? 'sign-in-input-error' : '')}
-            name="email"
-            onChange={this.handleChange}
-            placeholder="test@test.com"
-          />
-
-          {this.state.error && this.renderErrorMessage()}
-
-          <p className="sign-in-email-password-note">
-            <small>
-              <FormattedMessage
-                id="dialogs.sign-in.email-description"
-                defaultMessage="We’ll send you a link to sign in. No password is required."
-              />
-            </small>
+      <div className="dialog-type-2 sign-in-dialog">
+        <header>
+          <h1>
+            <FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in / Sign up" />
+          </h1>
+        </header>
+        <div className="dialog-content">
+          <p>
+            <FormattedMessage
+              id="dialogs.sign-in.description"
+              defaultMessage="Save your first design or sign in to access your past designs."
+            />
           </p>
 
-          <button type="submit" className="sign-in-button sign-in-email-button">
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="sign-in-email-input" className="sign-in-email-label">
+              <FormattedMessage id="dialogs.sign-in.email-label" defaultMessage="Email" />
+            </label>
+
+            <input
+              type="email"
+              id="sign-in-email-input"
+              ref={this.emailInputEl}
+              value={this.state.email}
+              className={'sign-in-input ' + (this.state.error ? 'sign-in-input-error' : '')}
+              name="email"
+              onChange={this.handleChange}
+              placeholder="test@test.com"
+            />
+
+            {this.state.error && this.renderErrorMessage()}
+
+            <p className="sign-in-email-password-note">
+              <small>
+                <FormattedMessage
+                  id="dialogs.sign-in.email-description"
+                  defaultMessage="We’ll send you a link to sign in. No password is required."
+                />
+              </small>
+            </p>
+
+            <button type="submit" className="sign-in-button sign-in-email-button">
+              <FormattedMessage
+                id="dialogs.sign-in.button.email"
+                defaultMessage="Continue with email"
+              />
+            </button>
+          </form>
+
+          <div className="sign-in-social-heading">
+            <hr />
             <FormattedMessage
-              id="dialogs.sign-in.button.email"
-              defaultMessage="Continue with email"
+              id="dialogs.sign-in.social-heading"
+              defaultMessage="or"
+            />
+          </div>
+
+          <button
+            className="sign-in-button sign-in-social-button sign-in-twitter-button"
+            onClick={this.handleTwitterSignIn}
+          >
+            <Icon icon="twitter" />
+            <FormattedMessage
+              id="dialogs.sign-in.button.twitter"
+              defaultMessage="Continue with Twitter"
             />
           </button>
-        </form>
 
-        <div className="sign-in-social-heading">
-          <hr />
-          <FormattedMessage
-            id="dialogs.sign-in.social-heading"
-            defaultMessage="or"
-          />
+          <button
+            className="sign-in-button sign-in-social-button sign-in-google-button"
+            onClick={this.handleGoogleSignIn}
+          >
+            <Icon icon="google" />
+            <FormattedMessage
+              id="dialogs.sign-in.button.google"
+              defaultMessage="Continue with Google"
+            />
+          </button>
+
+          <button
+            className="sign-in-button sign-in-social-button sign-in-facebook-button"
+            onClick={this.handleFacebookSignIn}
+          >
+            <Icon icon="facebook" />
+            <FormattedMessage
+              id="dialogs.sign-in.button.facebook"
+              defaultMessage="Continue with Facebook"
+            />
+          </button>
         </div>
 
-        <button
-          className="sign-in-button sign-in-social-button sign-in-twitter-button"
-          onClick={this.handleTwitterSignIn}
-        >
-          <Icon icon="twitter" />
-          <FormattedMessage
-            id="dialogs.sign-in.button.twitter"
-            defaultMessage="Continue with Twitter"
-          />
-        </button>
-
-        <button
-          className="sign-in-button sign-in-social-button sign-in-google-button"
-          onClick={this.handleGoogleSignIn}
-        >
-          <Icon icon="google" />
-          <FormattedMessage
-            id="dialogs.sign-in.button.google"
-            defaultMessage="Continue with Google"
-          />
-        </button>
-
-        <button
-          className="sign-in-button sign-in-social-button sign-in-facebook-button"
-          onClick={this.handleFacebookSignIn}
-        >
-          <Icon icon="facebook" />
-          <FormattedMessage
-            id="dialogs.sign-in.button.facebook"
-            defaultMessage="Continue with Facebook"
-          />
-        </button>
-
-        <p className="sign-in-disclaimer">
-          <FormattedMessage
-            id="dialogs.sign-in.tos"
-            defaultMessage="By clicking one of these buttons, I agree to the
-              {tosLink} and {privacyLink}."
-            values={{
-              tosLink: (
-                <a href="/terms-of-service" target="_blank">
-                  <FormattedMessage
-                    id="dialogs.sign-in.tos-link-label"
-                    defaultMessage="terms of service"
-                  />
-                </a>
-              ),
-              privacyLink: (
-                <a href="/privacy-policy" target="_blank">
-                  <FormattedMessage
-                    id="dialogs.sign-in.privacy-link-label"
-                    defaultMessage="privacy policy"
-                  />
-                </a>
-              )
-            }} />
-        </p>
+        <footer>
+          <p className="sign-in-disclaimer">
+            <FormattedMessage
+              id="dialogs.sign-in.tos"
+              defaultMessage="By clicking one of these buttons, I agree to the
+                {tosLink} and {privacyLink}."
+              values={{
+                tosLink: (
+                  <a href="/terms-of-service" target="_blank">
+                    <FormattedMessage
+                      id="dialogs.sign-in.tos-link-label"
+                      defaultMessage="terms of service"
+                    />
+                  </a>
+                ),
+                privacyLink: (
+                  <a href="/privacy-policy" target="_blank">
+                    <FormattedMessage
+                      id="dialogs.sign-in.privacy-link-label"
+                      defaultMessage="privacy policy"
+                    />
+                  </a>
+                )
+              }} />
+          </p>
+        </footer>
       </div>
     )
   }

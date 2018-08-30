@@ -86,6 +86,44 @@
   max-width: 400px;
 }
 
+// Type 2 dialog, currently used for What's New and Sign in/Sign up
+.dialog-type-2 {
+  // Removes internal margins so that certain content can bleed to edges.
+  margin: -1rem -2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    padding: 1rem 2rem;
+    padding-top: 2rem;
+    text-align: center;
+    background-color: #e6f0f5;
+  }
+
+  footer {
+    padding: 1rem 2rem;
+    margin-top: 0;
+
+    > p:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.dialog-content {
+  flex-grow: 1;
+  position: relative;
+
+  &:not(.dialog-content-bleed) {
+    padding: 1rem 2rem;
+  }
+
+  > p:first-child {
+    margin-top: 0;
+  }
+}
+
 // Content of #about dialog box
 .about-dialog {
   // Used by team list and external links
