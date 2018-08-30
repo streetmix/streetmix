@@ -226,6 +226,11 @@ app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.
 
 app.get('/api/v1/flags', resources.v1.flags.get)
 
+// Catch all for all broken api paths, direct to 404 response.
+app.get('/api/*', function (req, res) {
+  res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
+})
+
 app.get('/.well-known/status', resources.well_known_status.get)
 
 // Process stylesheets via Sass and PostCSS / Autoprefixer
