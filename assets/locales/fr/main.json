@@ -107,7 +107,7 @@
     "street-deleted-elsewhere-title": "Cette rue a été supprimée ailleurs.",
     "street-deleted-elsewhere-description": "Cette rue a été supprimée dans un autre navigateur.",
     "access-denied-title": "Vous n'êtes pas connecté.",
-    "access-denied-description": "",
+    "access-denied-description": "Vous avez annulé le processus de connexion.",
     "auth-api-problem-title": "Il y a eu un problème avec votre identification.",
     "auth-api-problem-description": "Il y a eu un problème avec l'authentification.",
     "please-try-again": "Veuillez réessayer plus tard ou nous le signaler via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> ou <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
@@ -198,6 +198,25 @@
       "text": "Nous vous demandons de bien vouloir nous soutenir par une contribution unique ou récurrente. Votre don financera nos serveurs et notre infrastructure de cloud, en soutenant d'autres organisations à but non lucratif, des groupes de défense et des étudiants œuvrant pour l’amélioration de nos rues. Des revenus complémentaires seront investis dans le développement de nouvelles fonctionnalités. Nos dépenses sont totalement transparentes, vous pouvez ainsi voir exactement de quelle manière vos contributions sont utilisées par l'équipe de Streetmix.",
       "button": "Donner à Streetmix",
       "cancel": "Non merci"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -270,8 +289,8 @@
       "photo-credit": "Photo :"
     },
     "resize": {
-      "min": "",
-      "max": ""
+      "min": "Min",
+      "max": "Max"
     }
   },
   "section": {
@@ -285,7 +304,7 @@
     "street-count": "{count, plural, one {# rue} other {# rues}}",
     "no-streets": "Aucune rue pour le moment",
     "sign-in": "Se connecter à Twitter pour avoir accès à votre galerie de rues personnelles",
-    "sign-in-prompt": ""
+    "sign-in-prompt": "Connectez-vous pour voir votre galerie de rues personnelle"
   },
   "users": {
     "anonymous": "Anonyme",
@@ -307,10 +326,10 @@
       "ja": "Japonais",
       "pl": "Polonais",
       "pt-br": "Portugais (Brésil)",
-      "ru": "",
+      "ru": "Russe",
       "sv": "Suédois",
-      "zh-hans": "",
-      "zh-hant": ""
+      "zh-hans": "Chinois simplifié",
+      "zh-hant": "Chinois traditionnel"
     }
   }
 }

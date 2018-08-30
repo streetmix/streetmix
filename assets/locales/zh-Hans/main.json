@@ -198,6 +198,25 @@
       "text": "希望大家能够以单次或定期的方式资助我们。你的捐助会帮助我们支付服务器和云端的储存设施，支持其他非盈利组织、倡导团体、以及致力于改善社区和街道环境的学生群体。余下的捐助收入会被用于研发新功能。我们的支出完全公开透明，因此你可以准确了解你的捐款具体是如何被Streetmix团队使用的。",
       "button": "捐助Streetmix",
       "cancel": "不用了，谢谢"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {

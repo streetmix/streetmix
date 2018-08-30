@@ -198,6 +198,25 @@
       "text": "Por favor, considera apoyarnos con una contribución única o recurrente. Tu donación pagará nuestros servidores y la infraestructura en la nube, ayudando así a otras organizaciones sin fines de lucro, grupos de defensa, y estudiantes que trabajan para mejorar nuestras calles. Los ingresos adicionales se invertirán en el desarrollo de nuevas herramientas. Nuestros gastos son completamente transparentes así que puedes ver exactamente cómo tus contribuciones son utilizadas por el equipo de Streetmix.",
       "button": "Donar a Streemix",
       "cancel": "No, gracias"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {

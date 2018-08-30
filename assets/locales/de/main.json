@@ -1,9 +1,9 @@
 {
   "menu": {
     "item": {
-      "help": "",
+      "help": "Hilfe",
       "about": "",
-      "contact": "",
+      "contact": "Kontakt",
       "community": "",
       "contribute": "",
       "sign-in": "",
@@ -198,6 +198,25 @@
       "text": "",
       "button": "",
       "cancel": ""
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
