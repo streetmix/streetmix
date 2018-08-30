@@ -54,7 +54,8 @@ body.phone #loading {
     white-space: nowrap;
   }
 
-  button {
+  button,
+  a.button-like {
     margin-top: 1em;
     padding: 0.5em 1em;
     font-size: 1em;
