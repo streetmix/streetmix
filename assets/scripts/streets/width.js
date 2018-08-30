@@ -1,8 +1,5 @@
-import { onResize } from '../app/window_resize'
-import { BUILDING_SPACE } from '../segments/buildings'
 import { getSegmentVariantInfo } from '../segments/info'
 import {
-  TILE_SIZE,
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
@@ -15,19 +12,6 @@ const MIN_CUSTOM_STREET_WIDTH = 10
 export const MAX_CUSTOM_STREET_WIDTH = 400
 
 const WIDTH_ROUNDING = 0.01
-
-export function resizeStreetWidth (dontScroll) {
-  var width = store.getState().street.width * TILE_SIZE
-  const viewportWidth = store.getState().system.viewportWidth
-
-  document.querySelector('#street-section-canvas').style.width = width + 'px'
-  if (!dontScroll) {
-    document.querySelector('#street-section-outer').scrollLeft =
-      (width + (BUILDING_SPACE * 2) - viewportWidth) / 2
-  }
-
-  onResize()
-}
 
 export function normalizeStreetWidth (width) {
   const { resolution } = store.getState().ui.unitSettings

@@ -8,7 +8,6 @@ import {
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { unpackServerStreetData } from '../streets/xhr'
-import { resizeStreetWidth } from '../streets/width'
 import { getAuthHeader } from '../users/authentication'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
@@ -62,7 +61,6 @@ function receiveGalleryStreet (transmission) {
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
 
-  resizeStreetWidth()
   updateStreetName(store.getState().street)
   segmentsChanged()
 

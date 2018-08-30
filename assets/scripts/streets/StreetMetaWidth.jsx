@@ -7,7 +7,6 @@ import { loseAnyFocus } from '../util/focus'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import { updateUnits } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
-import { resizeStreetWidth } from './width'
 import { updateStreetWidth } from '../store/actions/street'
 
 const STREET_WIDTH_CUSTOM = -1
@@ -244,7 +243,6 @@ class StreetMetaWidth extends React.Component {
     }
 
     this.props.updateStreetWidth(this.normalizeStreetWidth(newStreetWidth))
-    resizeStreetWidth()
 
     segmentsChanged()
 

@@ -47,18 +47,30 @@ class StreetView extends React.Component {
       skyTop: 0,
 
       onResized: false,
-      buildingWidth: 0
+      buildingWidth: BUILDING_SPACE
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps, prevState) {
     const { viewportWidth, viewportHeight } = this.props.system
     if (prevProps.system.viewportWidth !== viewportWidth ||
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       this.onResize()
-      this.calculateStreetIndicatorsPositions()
     }
+
+    if (!prevState.onResized && this.state.onResized) {
+      this.updateScrollLeft()
+    }
+  }
+
+  updateScrollLeft = () => {
+    const { viewportWidth } = this.props.system
+    const streetWidth = (this.props.street.width * TILE_SIZE)
+    const scrollLeft = (streetWidth + (BUILDING_SPACE * 2) - viewportWidth) / 2
+
+    this.streetSectionOuter.scrollLeft = scrollLeft
+    this.calculateStreetIndicatorsPositions()
   }
 
   onResize = () => {
@@ -84,19 +96,22 @@ class StreetView extends React.Component {
       skyTop = 0
     }
 
+    const streetWidth = (this.props.street.width * TILE_SIZE)
     let streetSectionCanvasLeft =
-      ((viewportWidth - (this.props.street.width * TILE_SIZE)) / 2) - BUILDING_SPACE
+      ((viewportWidth - streetWidth) / 2) - BUILDING_SPACE
     if (streetSectionCanvasLeft < 0) {
       streetSectionCanvasLeft = 0
     }
 
+    this.streetSectionCanvas.style.width = streetWidth + 'px'
     this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
     this.setState({
       streetSectionSkyTop,
       scrollTop,
-      skyTop
+      skyTop,
+      onResized: true
     })
   }
 
@@ -140,8 +155,7 @@ class StreetView extends React.Component {
 
     this.setState({
       posLeft: posLeft,
-      posRight: posRight,
-      onResized: true
+      posRight: posRight
     })
   }
 
@@ -174,6 +188,7 @@ class StreetView extends React.Component {
       width = 0
     }
 
+    console.log(width)
     this.setState({
       buildingWidth: width,
       onResized: false

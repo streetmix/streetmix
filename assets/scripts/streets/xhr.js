@@ -55,7 +55,6 @@ import {
   getUndoStack,
   unifyUndoStack
 } from './undo_stack'
-import { resizeStreetWidth } from './width'
 import { resetUndoStack, replaceUndoStack } from '../store/actions/undo'
 import store from '../store'
 import {
@@ -447,7 +446,6 @@ function receiveLastStreet (transmission) {
   // now have to update again to change edit count - how to fix?
   unifyUndoStack()
 
-  resizeStreetWidth()
   updateStreetName(store.getState().street)
   segmentsChanged()
 
