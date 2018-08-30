@@ -63,8 +63,9 @@ class MenuBar extends React.PureComponent {
   }
 
   handleSignIn = (event) => {
-    // Currently, the sign in dialog is only limited to users in English.
-    if (this.props.newAuthEnabled && this.props.locale === 'en') {
+    // The sign in dialog is only limited to users where the UI has been
+    // localized. Currently's thats English and Finnish.
+    if (this.props.newAuthEnabled && (this.props.locale === 'en' || this.props.locale === 'fi')) {
       this.props.showSignInDialog()
     } else {
       goTwitterSignIn()
