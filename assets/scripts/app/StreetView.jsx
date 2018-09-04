@@ -47,7 +47,7 @@ class StreetView extends React.Component {
       skyTop: 0,
 
       onResized: false,
-      buildingWidth: BUILDING_SPACE
+      buildingWidth: 0
     }
   }
 
@@ -57,17 +57,49 @@ class StreetView extends React.Component {
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       this.onResize()
+      this.updateScrollLeft()
     }
 
-    if (!prevState.onResized && this.state.onResized) {
-      this.updateScrollLeft()
+    if (prevProps.street.remainingWidth !== this.props.street.remainingWidth) {
+      const prevMargin = (this.state.buildingWidth || BUILDING_SPACE)
+      const currMargin = this.calculateStreetMargins(this.props.street.remainingWidth)
+
+      if (prevMargin !== currMargin) {
+        const deltaX = currMargin - prevMargin
+
+        // When occupiedWidth is decreased on either ends of the street,
+        // decreasing the margins of streetSectionCanvas causes the buildings
+        // to move. Hide movement from user by updating margins next time
+        // user increases margin.
+        if ((this.state.posLeft === 0 || this.state.posRight === 0) && deltaX < 0) {
+          console.log(deltaX, prevMargin, currMargin)
+          return
+        }
+
+        this.streetSectionCanvas.style.marginLeft = currMargin + 'px'
+        this.streetSectionCanvas.style.marginRight = currMargin + 'px'
+
+        this.updateScrollLeft(deltaX)
+      }
     }
   }
 
-  updateScrollLeft = () => {
-    const { viewportWidth } = this.props.system
-    const streetWidth = (this.props.street.width * TILE_SIZE)
-    const scrollLeft = (streetWidth + (BUILDING_SPACE * 2) - viewportWidth) / 2
+  calculateStreetMargins = (remainingWidth) => {
+    const streetMargin = (-remainingWidth * TILE_SIZE) / 2
+    return (streetMargin > BUILDING_SPACE) ? streetMargin : BUILDING_SPACE
+  }
+
+  updateScrollLeft = (deltaX) => {
+    let scrollLeft
+
+    if (deltaX) {
+      scrollLeft = this.streetSectionOuter.scrollLeft + deltaX
+    } else {
+      const { viewportWidth } = this.props.system
+      const streetWidth = (this.props.street.width * TILE_SIZE)
+      const streetMargin = this.calculateStreetMargins(this.props.street.remainingWidth)
+      scrollLeft = (streetWidth + (streetMargin * 2) - viewportWidth) / 2
+    }
 
     this.streetSectionOuter.scrollLeft = scrollLeft
     this.calculateStreetIndicatorsPositions()
@@ -110,8 +142,7 @@ class StreetView extends React.Component {
     this.setState({
       streetSectionSkyTop,
       scrollTop,
-      skyTop,
-      onResized: true
+      skyTop
     })
   }
 
@@ -155,7 +186,8 @@ class StreetView extends React.Component {
 
     this.setState({
       posLeft: posLeft,
-      posRight: posRight
+      posRight: posRight,
+      onResized: true
     })
   }
 
@@ -188,7 +220,6 @@ class StreetView extends React.Component {
       width = 0
     }
 
-    console.log(width)
     this.setState({
       buildingWidth: width,
       onResized: false
