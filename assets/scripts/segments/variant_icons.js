@@ -216,6 +216,10 @@ export const VARIANT_ICONS = {
       'id': 'asphalt',
       'color': '#9b1f22',
       'title': 'Red lane'
+    },
+    'grass': {
+      'id': 'grass',
+      'title': 'Grass'
     }
   },
   'bus-asphalt': {

@@ -159,6 +159,7 @@
     "car-type|truck": "Truck",
     "public-transit-asphalt|regular": "Asphalt",
     "public-transit-asphalt|colored": "Red lane",
+    "public-transit-asphalt|grass": "Grass",
     "bus-asphalt|regular": "Asphalt",
     "bus-asphalt|colored": "Red lane",
     "bus-asphalt|shared": "Shared bus/bike lane",
