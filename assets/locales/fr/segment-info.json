@@ -159,6 +159,7 @@
     "car-type|truck": "Camion",
     "public-transit-asphalt|regular": "Asphalte",
     "public-transit-asphalt|colored": "Voie colorée rouge",
+    "public-transit-asphalt|grass": "Gazon",
     "bus-asphalt|regular": "Asphalte",
     "bus-asphalt|colored": "Voie colorée rouge",
     "bus-asphalt|shared": "Voie partagée bus/vélo",

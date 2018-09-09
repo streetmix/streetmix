@@ -159,6 +159,7 @@
     "car-type|truck": "Грузовик",
     "public-transit-asphalt|regular": "Асфальт",
     "public-transit-asphalt|colored": "Красная полоса",
+    "public-transit-asphalt|grass": "Трава",
     "bus-asphalt|regular": "Асфальт",
     "bus-asphalt|colored": "Красная полоса",
     "bus-asphalt|shared": "Общая  автобусная/велосипедная полоса",

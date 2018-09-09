@@ -159,6 +159,7 @@
     "car-type|truck": "",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
+    "public-transit-asphalt|grass": "",
     "bus-asphalt|regular": "",
     "bus-asphalt|colored": "",
     "bus-asphalt|shared": "",
