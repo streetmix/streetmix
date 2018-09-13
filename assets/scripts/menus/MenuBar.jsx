@@ -12,7 +12,7 @@ import { showDialog } from '../store/actions/dialogs'
 class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
-    locale: PropTypes.string,
+    // locale: PropTypes.string,
     newAuthEnabled: PropTypes.bool,
     userId: PropTypes.string,
     clearMenus: PropTypes.func,
@@ -64,8 +64,9 @@ class MenuBar extends React.PureComponent {
 
   handleSignIn = (event) => {
     // The sign in dialog is only limited to users where the UI has been
-    // localized. Currently's thats English and Finnish.
-    if (this.props.newAuthEnabled && (this.props.locale === 'en' || this.props.locale === 'fi')) {
+    // localized. Currently's thats English and Finnish. ACTUALLY: for
+    // testing purposes, it should be enabled for anything that has the flag on.
+    if (this.props.newAuthEnabled) { // && (this.props.locale === 'en' || this.props.locale === 'fi')) {
       this.props.showSignInDialog()
     } else {
       goTwitterSignIn()
@@ -128,7 +129,7 @@ class MenuBar extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    locale: state.locale.locale,
+    // locale: state.locale.locale,
     newAuthEnabled: state.flags.AUTHENTICATION_V2.value,
     userId: state.user.signInData && state.user.signInData.userId,
     noInternet: state.system.noInternet
