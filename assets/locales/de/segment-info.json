@@ -1,14 +1,14 @@
 {
   "segments": {
-    "sidewalk": "",
-    "sidewalk-tree": "",
+    "sidewalk": "Gehweg",
+    "sidewalk-tree": "Gehweg mit Baum",
     "bike-rack": "",
-    "bench": "",
-    "wayfinding-sign": "",
-    "sidewalk-lamp": "",
-    "parklet": "",
+    "bench": "Bank",
+    "wayfinding-sign": "Wegweiser",
+    "sidewalk-lamp": "Gehweg mit Beleuchtung",
+    "parklet": "Parklet",
     "divider": "",
-    "planting-strip": "",
+    "planting-strip": "Grünstreifen",
     "planter-box": "",
     "median": "",
     "bollard": "",
@@ -23,9 +23,9 @@
     "bikeshare-station": "",
     "foodtruck": "",
     "flex-zone-curb": "",
-    "drive-lane": "",
+    "drive-lane": "Fahrstreifen",
     "sharrow": "",
-    "turn-lane": "",
+    "turn-lane": "Abbiegestreifen",
     "turn-lane-straight": "",
     "turn-lane-center": "",
     "bus-lane": "",
@@ -65,7 +65,7 @@
     },
     "colored-bike-lane": {
       "prompt": "",
-      "lede": "",
+      "lede": "Eingefärbte Radstreifen sind besser sichtbar und sicherer für Radfahrende",
       "text": [
         "",
         "",
@@ -73,7 +73,7 @@
       ]
     },
     "sharrow": {
-      "prompt": "",
+      "prompt": "Mehr über Sharrows",
       "lede": "",
       "text": [
         "",
@@ -102,39 +102,39 @@
       "name": ""
     },
     "grass": {
-      "name": ""
+      "name": "Rasen"
     },
     "fence": {
       "name": ""
     },
     "parking-lot": {
-      "name": ""
+      "name": "Parkplatz"
     },
     "residential": {
-      "name": ""
+      "name": "Wohnhaus"
     },
     "narrow": {
-      "name": ""
+      "name": "Gebäude"
     },
     "wide": {
-      "name": ""
+      "name": "Gebäude"
     }
   },
   "variant-icons": {
-    "orientation|left": "",
-    "orientation|right": "",
-    "turn-lane-orientation|left": "",
-    "turn-lane-orientation|left-straight": "",
-    "turn-lane-orientation|straight": "",
-    "turn-lane-orientation|right-straight": "",
-    "turn-lane-orientation|right": "",
+    "orientation|left": "Links",
+    "orientation|right": "Rechts",
+    "turn-lane-orientation|left": "Links",
+    "turn-lane-orientation|left-straight": "Links und Geradeaus",
+    "turn-lane-orientation|straight": "Geradeaus",
+    "turn-lane-orientation|right-straight": "Geradeaus / Rechts",
+    "turn-lane-orientation|right": "Rechts",
     "turn-lane-orientation|both": "",
     "turn-lane-orientation|shared": "",
-    "bench-orientation|left": "",
-    "bench-orientation|right": "",
+    "bench-orientation|left": "Links",
+    "bench-orientation|right": "Rechts",
     "bench-orientation|center": "",
-    "parking-lane-orientation|left": "",
-    "parking-lane-orientation|right": "",
+    "parking-lane-orientation|left": "Links",
+    "parking-lane-orientation|right": "Rechts",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
     "parking-lane-direction|sideways": "",
@@ -148,9 +148,9 @@
     "sidewalk-density|sparse": "",
     "sidewalk-density|normal": "",
     "sidewalk-density|dense": "",
-    "lamp-orientation|left": "",
+    "lamp-orientation|left": "Links",
     "lamp-orientation|both": "",
-    "lamp-orientation|right": "",
+    "lamp-orientation|right": "Rechts",
     "lamp-type|traditional": "",
     "lamp-type|modern": "",
     "lamp-type|pride": "",
@@ -159,7 +159,7 @@
     "car-type|truck": "",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
-    "public-transit-asphalt|grass": "",
+    "public-transit-asphalt|grass": "Rasen",
     "bus-asphalt|regular": "",
     "bus-asphalt|colored": "",
     "bus-asphalt|shared": "",
@@ -170,7 +170,7 @@
     "tree-type|palm-tree": "",
     "divider-type|median": "",
     "divider-type|striped-buffer": "",
-    "divider-type|planting-strip": "",
+    "divider-type|planting-strip": "Grünstreifen",
     "divider-type|planter-box": "",
     "divider-type|bush": "",
     "divider-type|flowers": "",
@@ -184,10 +184,10 @@
     "bike-rack-elevation|sidewalk": "",
     "bike-rack-elevation|road": "",
     "building|waterfront": "",
-    "building|grass": "",
+    "building|grass": "Rasen",
     "building|fence": "",
-    "building|parking-lot": "",
-    "building|residential": "",
+    "building|parking-lot": "Parkplatz",
+    "building|residential": "Wohnhaus",
     "building|narrow": "",
     "building|wide": "",
     "wayfinding-type|large": "",
