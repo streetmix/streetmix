@@ -45,7 +45,7 @@ class App extends React.PureComponent {
             <BlockingShield />
             <BlockingError />
             <Gallery />
-            <NotificationBar notification={NOTIFICATION} />
+            <NotificationBar locale={this.props.locale.locale} notification={NOTIFICATION} />
           </React.Fragment>
         </IntlProvider>
         <div className="main-screen">
