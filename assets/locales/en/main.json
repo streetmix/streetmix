@@ -168,7 +168,9 @@
       "view-source": "View source code",
       "sponsored-by": "Streetmix is generously sponsored by:",
       "donate-link": "Support us financially",
-      "github-link": "Contribute to open source"
+      "github-link": "Contribute to open source",
+      "tos-link": "Terms of service",
+      "privacy-link": "Privacy policy"
     },
     "save": {
       "heading": "Save as image",

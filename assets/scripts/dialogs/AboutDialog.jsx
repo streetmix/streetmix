@@ -22,6 +22,15 @@ export default class AboutDialog extends React.PureComponent {
           <p className="about-dialog-description">
             <FormattedMessage id="dialogs.about.description" defaultMessage="Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community." />
           </p>
+          <p>
+            <a href="https://streetmix.net/terms-of-service/" target="_blank" rel="noopener noreferrer">
+              <FormattedMessage id="dialogs.about.tos-link" defaultMessage="Terms of service" />
+            </a>
+            <br />
+            <a href="https://streetmix.net/privacy-policy/" target="_blank" rel="noopener noreferrer">
+              <FormattedMessage id="dialogs.about.privacy-link" defaultMessage="Privacy policy" />
+            </a>
+          </p>
           <p className="about-dialog-description">
             <FormattedMessage id="dialogs.about.sponsored-by" defaultMessage="Streetmix is generously sponsored by:" />
           </p>
