@@ -164,7 +164,7 @@ function onEverythingLoaded () {
     const LSKEY_WHATSNEW_LAST_TIMESTAMP = 'whatsnew-last-timestamp'
 
     const twoWeeksAgo = Date.now() - 12096e5
-    const whatsNewTimestamp = 1535475478648 // Hard-coded value
+    const whatsNewTimestamp = 1537222458620 // Hard-coded value
 
     const state = store.getState()
     const donateFlag = state.flags.DONATE_NAG_SCREEN.value
