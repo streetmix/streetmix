@@ -34,6 +34,12 @@ button.close {
   cursor: pointer;
   user-select: none;
 
+  // Override font-awesome sizing
+  > .svg-inline--fa {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
+
   &:hover {
     color: black;
   }
