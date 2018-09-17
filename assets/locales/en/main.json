@@ -257,7 +257,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "Plus",
+    "minus": "Minus",
+    "left-arrow": "Left arrow",
+    "right-arrow": "Right arrow"
   },
   "tooltip": {
     "remove-segment": "Remove segment",

@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
@@ -9,6 +10,7 @@ import { showDialog } from '../store/actions/dialogs'
 
 export class HelpMenu extends React.PureComponent {
   static propTypes = {
+    intl: intlShape.isRequired,
     showAboutDialog: PropTypes.func,
     showWhatsNewDialog: PropTypes.func
   }
@@ -56,8 +58,18 @@ export class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd className="key">-</kbd>
-                  <kbd className="key">+</kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.minus', defaultMessage: 'Minus' })}
+                  >
+                    <FontAwesomeIcon icon="minus" />
+                  </kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.plus', defaultMessage: 'Plus' })}
+                  >
+                    <FontAwesomeIcon icon="plus" />
+                  </kbd>
                 </td>
                 <td>
                   <FormattedHTMLMessage
@@ -68,8 +80,18 @@ export class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd className="key">&larr;</kbd>
-                  <kbd className="key">&rarr;</kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.left-arrow', defaultMessage: 'Left arrow' })}
+                  >
+                    <FontAwesomeIcon icon="arrow-left" />
+                  </kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.right-arrow', defaultMessage: 'Right arrow' })}
+                  >
+                    <FontAwesomeIcon icon="arrow-right" />
+                  </kbd>
                 </td>
                 <td>
                   <FormattedHTMLMessage
@@ -93,4 +115,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(HelpMenu)
+export default injectIntl(connect(null, mapDispatchToProps)(HelpMenu))
