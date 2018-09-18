@@ -58,46 +58,66 @@ class StreetView extends React.Component {
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       this.onResize()
-      this.updateStreetMargins(viewportWidth)
+      this.updateStreetMargins(true)
+      // this.updateScrollLeft(streetMargin)
     }
 
     if (prevProps.street.remainingWidth !== this.props.street.remainingWidth) {
-      const deltaX = (this.props.street.remainingWidth - prevProps.street.remainingWidth)
-      this.updateStreetMargins(viewportWidth, deltaX)
+      this.updateStreetMargins(false)
+      // const deltaX = (streetMargin + 25) - this.state.buildingWidth
+      // this.streetSectionOuter.scrollLeft += deltaX
     }
   }
 
-  updateStreetMargins = (viewportWidth, deltaX) => {
-    if (!this.props.street.remainingWidth || !this.props.street.occupiedWidth) return
+  // Cut off street extents occur when (-remainingWidth * TILE_SIZE / 2), otherwise known as streetMargin,
+  // is greater in value than marginLeft and marginRight of streetSectionCanvas.
+  // In order to fix this problem, we have to:
+  // 1) Update streetSectionCanvas' marginLeft and marginRight to equal new streetMargin
+  // 2) Update buildingWidth so that dirt position is extended along with it
 
+  // Errors that occur due to the above changes are:
+  // 1) Scroll position streetSectionOuter needs to be updated to keep original segments in view
+  // 2) After a viewport resize, streetSectionOuter scroll position should always be centered again
+
+  updateStreetMargins = (viewportResized) => {
+    if (!this.props.street.remainingWidth || !this.props.street.occupiedWidth) {
+      return BUILDING_SPACE
+    }
+
+    const { viewportWidth } = this.props.system
     const occupiedWidth = (this.props.street.occupiedWidth * TILE_SIZE)
-    const defaultStreetExtent = (this.props.street.width * TILE_SIZE) + (2 * BUILDING_SPACE)
+    const defaultStreetExtent = (this.props.street.width * TILE_SIZE) + (2 * this.state.buildingWidth)
 
     const isOverflowing = (occupiedWidth > viewportWidth && occupiedWidth > defaultStreetExtent)
     const streetMargin = (isOverflowing) ? (-this.props.street.remainingWidth * TILE_SIZE / 2) : BUILDING_SPACE
+    console.log(isOverflowing)
+    const deltaX = (streetMargin + 25) - this.state.buildingWidth
+
+    if (deltaX < 0 && (!this.state.posLeft || !this.state.posRight)) {
+      console.log('here')
+      return
+    }
 
     this.streetSectionCanvas.style.marginLeft = (streetMargin) + 'px'
     this.streetSectionCanvas.style.marginRight = (streetMargin) + 'px'
 
-    this.updateScrollLeft(deltaX)
-
     this.setState({
       onResized: true
     })
+
+    if (viewportResized) {
+      this.updateScrollLeft(streetMargin)
+    } else {
+      this.streetSectionOuter.scrollLeft += deltaX
+      // console.log(this.streetSectionOuter.scrollLeft)
+    }
   }
 
-  updateScrollLeft = (deltaX) => {
-    let scrollLeft
-
-    if (deltaX) {
-      scrollLeft = this.streetSectionOuter.scrollLeft + deltaX
-    } else {
-      const { viewportWidth } = this.props.system
-      const streetWidth = (this.props.street.width * TILE_SIZE)
-      scrollLeft = (streetWidth + (BUILDING_SPACE * 2) - viewportWidth) / 2
-    }
-
-    this.streetSectionOuter.scrollLeft = scrollLeft
+  updateScrollLeft = (streetMargin) => {
+    const { viewportWidth } = this.props.system
+    const streetWidth = (this.props.street.width * TILE_SIZE)
+    const scrollLeft = (streetWidth + (streetMargin * 2) - viewportWidth) / 2
+    this.streetSectionOuter.scrollLeft = Math.round(scrollLeft)
     this.calculateStreetIndicatorsPositions()
   }
 
@@ -217,11 +237,9 @@ class StreetView extends React.Component {
       width = 0
     }
 
-    const streetExtent = (this.props.street.width * TILE_SIZE) + (2 * pos[0])
     this.setState({
       buildingWidth: width,
-      onResized: false,
-      streetExtent
+      onResized: false
     })
   }
 
