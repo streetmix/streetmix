@@ -1,7 +1,7 @@
 {
-  "display": false,
-  "lede": "We’ve added a new Terms of Service and Privacy Policy!",
-  "text": "By continuing to use Streetmix, you agree to these terms.",
+  "display": true,
+  "lede": "We’ve added a brand-new Terms of Service and Privacy Policy!",
+  "text": "By using Streetmix, you agree to these terms.",
   "link": "https://streetmix.net/terms-of-service/",
-  "linkText": "Click here to view."
+  "linkText": "Click here to read."
 }
