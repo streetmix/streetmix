@@ -20,7 +20,7 @@ import {
 class StreetEditable extends React.Component {
   static propTypes = {
     // Provided by parent
-    onResized: PropTypes.bool.isRequired,
+    resizeType: PropTypes.string,
     setBuildingWidth: PropTypes.func.isRequired,
     updatePerspective: PropTypes.func.isRequired,
 
@@ -41,9 +41,9 @@ class StreetEditable extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { onResized, draggingState } = this.props
+    const { resizeType, draggingState } = this.props
 
-    if (onResized && prevProps.onResized !== onResized) {
+    if (resizeType && !prevProps.resizeType) {
       this.props.setBuildingWidth(this.streetSectionEditable)
     }
 
