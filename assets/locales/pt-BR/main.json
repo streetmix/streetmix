@@ -168,7 +168,9 @@
       "view-source": "Ver código fonte",
       "sponsored-by": "Streetmix é generosamente patrocinado por:",
       "donate-link": "Apoie-nos financeiramente",
-      "github-link": "Contribua para o código aberto"
+      "github-link": "Contribua para o código aberto",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Salvar como imagem",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Apagar",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Remover segmento",

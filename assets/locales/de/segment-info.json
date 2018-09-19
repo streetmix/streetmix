@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Gehweg",
-    "sidewalk-tree": "Gehweg mit einem Baum",
+    "sidewalk-tree": "Baum",
     "bike-rack": "Fahrradständer",
     "bench": "Sitzbank",
-    "wayfinding-sign": "Wegweiser-Schild",
-    "sidewalk-lamp": "Gehweg mit Straßenlaterne",
+    "wayfinding-sign": "Wegweiser",
+    "sidewalk-lamp": "Straßenlaterne",
     "parklet": "Parklet",
     "divider": "Sperrfläche",
     "planting-strip": "Grünstreifen",
@@ -13,7 +13,7 @@
     "median": "Mittelstreifen",
     "bollard": "Poller",
     "dome": "Leitschwelle",
-    "bike-lane": "Radspur",
+    "bike-lane": "Radstreifen",
     "parking-lane": "Parkstreifen",
     "perpendicular-parking": "Senkrechtparken",
     "angled-parking": "Schrägparken",
@@ -27,17 +27,17 @@
     "sharrow": "Sharrow",
     "turn-lane": "Abbiegestreifen",
     "turn-lane-straight": "Geradeausfahrstreifen",
-    "turn-lane-center": "Linksabbiegestreifen",
-    "bus-lane": "Busspur",
-    "bus-lane-shared": "Gemeinsame Spur für Bus und Fahrrad",
+    "turn-lane-center": "Abbiegestreifen",
+    "bus-lane": "Busfahrstreifen",
+    "bus-lane-shared": "Gemeinsamer Fahrstreifen Bus / Fahrrad",
     "streetcar": "Straßenbahn",
     "light-rail": "Stadtbahn",
-    "transit-shelter": "Bushäuschen",
+    "transit-shelter": "Wartehäuschen",
     "inception-train": "Bahn aus dem Film \"Inception\""
   },
   "descriptions": {
     "wayfinding-sign": {
-      "prompt": "Erfahre mehr über Wegweiser.",
+      "prompt": "Erfahre mehr über Wegweiser",
       "lede": "Wegweiser helfen Fußgängern dabei, zu wichtigen Zielen zu gelangen.",
       "text": [
         "StadtplanerInnen und ArchitektInnen haben einige Jahrzehnte damit verbracht herauszufinden, was im Gehirn passiert, wenn Menschen darüber nachdenken, wie sie von A nach B kommen - oder wenn sie überhaupt wissen, wo \"A\" ist. Schon 1960 hat der Stadtplaner Kevin Lynch in seinem Buch <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em> über die \"Lesbarkeit\" der Stadt geschrieben und das Finden eines Weges als \"konsistente Nutzung und Organisation von bestimmten sensorischen Hinweisen aus der externen Umwelt\"*. Diese können immateriell sein - Geruch, Berührung, das Fühlen der Erdanziehung oder sogar von elektrischen und magnetischen Feldern. Oder sie können eben sehr viel greifbarer sein durch dafür entworfene \"Hilfsmittel zur Orientierung\" wie Karten, Straßennamen und Wegweiser-Schilder.\n *deutsche Übersetzung der Verfasserin",
@@ -55,30 +55,30 @@
       ]
     },
     "bike-lane": {
-      "prompt": "Erfahre mehr über Radspuren.",
-      "lede": "Radspuren führen Radfahrer sicher abgetrennt vom Autoverkehr.",
+      "prompt": "Erfahre mehr über Radstreifen.",
+      "lede": "Radstreifen führen Radfahrende sicher abgetrennt vom Autoverkehr.",
       "text": [
         "Auf dem Zeitstrahl der Personentransportfahrzeuge - Pferde am einen und, sagen wir, Segways am anderen Ende - sind Autos und Fahrräder seit fast einem Jahrhundert die dominanten und verfeindeten Stämme auf öffentlichen Straßen. Obwohl die Autos so viel Platz beanspruchen, gibt es mehr Fahrräder als irgendetwas anderes auf der Welt: mehr als eine Milliarde nach Schätzungen von Worldometers. In Beijing sind es laut Folk-Sängerin <a href=\"http://en.wikipedia.org/wiki/Nine_Million_Bicycles\">Katie Melua</a> neun Millionen und 32% aller Wege werden dort mit dem Fahrrad zurückgelegt.",
         "Obwohl die Rechtsprechung es RadfahrerInnen meistens erlaubt, die Straße zusammen mit motorisierten Fahrzeugen zu benutzen, muss wohl nicht gesagt werden, dass die meisten RadfahrerInnen es bevorzugen, auf ihrer eigenen Spur zu fahren. Es ist einfach sicherer. Und weil es sicherer ist, motiviert es tatsächlich Menschen zum Radfahren. Und mehr RadfahrerInnen bedeutet für die Stadt wiederum gesündere BewohnerInnen, reduzierte CO2-Emissionen, größeren Verkehrsdurchfluss und Vermeidung von Staus. Die <a href=\"https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf\">wirtschaftlichen Vorteile kommen obendrauf</a>: Weniger Geld muss für Kfz-Infrastruktur (wie Brücken, Straßen und Parkplätze) ausgegeben werden, und wenn man mehr Personen auf der Straße unterbringen kann, führt das zu mehr Umsatz in Geschäftsstraßen.",
-        "Radspur-Entwürfe können extrem unterschiedlich sein. Die Benutzung von Mittelstreifen, Blumenkübeln, Pollern oder sogar Parkbuchten sorgt für einen besseren Schutz von Fahrrädern vor den Autos. Wenn Spuren eingefärbt sind, zeigt das den Einsatz der Stadt für durchgängige Radspuren. Synchron geschaltete Signalzeiten bei Ampeln, um Fahrradstops zu reduzieren, heißen \"Grüne Welle\". Für weitere Informationen, sieh dir den <a href=\"http://nacto.org/cities-for-cycling/design-guide/\">NACTO Urban Bikeway Design Guide</a> an."
+        "Radstreifen-Entwürfe können extrem unterschiedlich sein. Die Benutzung von Mittelstreifen, Blumenkübeln, Pollern oder sogar Parkbuchten sorgt für einen besseren Schutz von Fahrrädern vor den Autos. Wenn Radstreifen eingefärbt sind, zeigt das den Einsatz der Stadt für durchgängige Radstreifen. Synchron geschaltete Signalzeiten bei Ampeln, um Fahrradstops zu reduzieren, heißen \"Grüne Welle\". Für weitere Informationen, sieh dir den <a href=\"http://nacto.org/cities-for-cycling/design-guide/\">NACTO Urban Bikeway Design Guide</a> an."
       ]
     },
     "colored-bike-lane": {
-      "prompt": "Erfahre mehr über eingefärbte Radspuren.",
+      "prompt": "Erfahre mehr über eingefärbte Radstreifen.",
       "lede": "Eingefärbte Radstreifen sind besser sichtbar und sicherer für Radfahrende",
       "text": [
-        "Da Fahrradfahren für die tägliche Fortbewegung immer weitere Verbreitung findet, müssen PlanerInnen die Sicherheit von RadfahrerInnen sicherstellen, Kollisionen zwischen Fahrrädern und Autos reduzieren und Autos davon abbringen, für Fahrräder reservierte Flächen zu blockieren. Das Problem: AutofahrerInnen sind sich nicht immer vollständig bewusst, dass RadfahrerInnen da sind. Die Lösung: RadfahrerInnen so sichtbar wie möglich machen. Eine Strategie dafür kann es sein, Radspuren in völlig anderen Farben zu gestalten als den Rest des Asphalts. ",
-        "Obwohl die Sicherheitszuwächse durch eingefärbte Radspuren in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">vielen Studien</a> nachgewiesen wurden, hat jeder eine Meinung dazu, <em>welche</em> Farbe es denn sein sollte: die Niederlande benutzen rote Spuren, Dänemark nutzt blaue und Frankreich grüne. Im Vereinigten Königreich gibt es sowohl rote als auch grüne und die meisten Städte in den Vereinigten Staaten haben sich irgendwann (zufällig, weil sie sich gegenseitig kopiert haben) auf grün geeinigt. Portland, eine der fahrradfreundlichsten Städte in den USA, benutzt jedoch <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blaue Radspuren schon seit den 1990ern</a>.",
-        "Es ist egal, welche Farbe du am liebsten magst. Die Faustregel ist, etwas zu wählen, das auffällt und nicht wie andere Spurmarkierungen in deiner Umgebung aussieht. Abgesehen davon bedeutet die Erhaltung der Markierung für die meisten Städte eine große finanzielle Belastung. Die üblicherweise verwendeten Farben sind relativ schnell verblasst und abgenutzt, obwohl neure Entwicklungen die Farben gerade dauerhafter machen. Aber auch wenn dir wiederkehrende Kosten Sorgen bereiten, lass dich dadurch nicht von einer an Sicherheit orientierten Planung abbringen: du könntest stattdessen über größere Anschaffungskosten z.B. für <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">Schutzbarrieren</a> nachdenken."
+        "Da Radfahren für die tägliche Fortbewegung immer weitere Verbreitung findet, müssen Planende die Sicherheit von Radfahrerenden sicherstellen, Kollisionen zwischen Fahrrädern und Autos reduzieren und Autos davon abbringen, für Fahrräder reservierte Flächen zu blockieren. Das Problem: Autofahrende sind sich nicht immer vollständig bewusst, dass RadfahrerInnen da sind. Die Lösung: RadfahrerInnen so sichtbar wie möglich machen. Eine Strategie dafür kann es sein, Radstreifen in völlig anderen Farben zu gestalten als den Rest des Asphalts. ",
+        "Obwohl die Sicherheitszuwächse durch eingefärbte Radstreifen in <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">vielen Studien</a> nachgewiesen wurden, hat jeder eine Meinung dazu, <em>welche</em> Farbe es denn sein sollte: die Niederlande benutzen rote Spuren, Dänemark nutzt blaue und Frankreich grüne. Im Vereinigten Königreich gibt es sowohl rote als auch grüne und die meisten Städte in den Vereinigten Staaten haben sich irgendwann (zufällig, weil sie sich gegenseitig kopiert haben) auf grün geeinigt. Portland, eine der fahrradfreundlichsten Städte in den USA, benutzt jedoch <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">blaue Radspuren schon seit den 1990ern</a>.",
+        "Es ist egal, welche Farbe du am liebsten magst. Die Faustregel ist, etwas zu wählen, das auffällt und nicht wie andere Straßenmarkierungen in deiner Umgebung aussieht. Abgesehen davon bedeutet die Erhaltung der Markierung für die meisten Städte eine große finanzielle Belastung. Die üblicherweise verwendeten Farben sind relativ schnell verblasst und abgenutzt, obwohl neure Entwicklungen die Farben gerade dauerhafter machen. Aber auch wenn dir wiederkehrende Kosten Sorgen bereiten, lass dich dadurch nicht von einer an Sicherheit orientierten Planung abbringen: du könntest stattdessen über größere Anschaffungskosten z.B. für <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">Schutzbarrieren</a> nachdenken."
       ]
     },
     "sharrow": {
       "prompt": "Erfahre mehr über \"Sharrows\"",
-      "lede": "Bei \"Sharrows\" handelt es sich um Fahrspuren, die von Autos und Fahrrädern gemeinsam genutzt werden. Ein Fahrrad-Piktogramm auf der Fahrbahn macht auf die gemeinsame Nutzung aufmerksam.",
+      "lede": "Bei Sharrows handelt es sich um Fahrstreifen, die von Autos und Fahrrädern gemeinsam genutzt werden. Ein Fahrrad-Piktogramm auf der Fahrbahn macht auf die gemeinsame Nutzung aufmerksam.",
       "text": [
-        "Der Begriff \"Sharrows\" (eine Wortneuschöpfung aus \"shared\" für \"geteilt\" und \"arrow\" für \"Pfeil\") steht in der Verkehrsplanung für die Markierung von gemeinsamen Fahrspuren und bezieht sich auf die Markierung der Richtungspfeile, ist aber eigentlich kein eigener <em>Typ</em> von Fahrspur. Vielerorts dürfen Fahrräder ohnehin auf jeder Fahrbahn gemeinsam mit den Autos fahren und sind dabei an die gleichen Gesetze gebunden.",
-        "Man muss also keine Raketenforscherin sein, um zu sehen, dass Autos und Fahrräder sich sehr unterschiedlich verhalten und daher abgetrennte Radspuren zur Sicherheit der RadfahrerInnen und zur Vernunft der AutofahrerInnen <a href=\"http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/\">zu bevorzugen sind</a>. Viele RadfahrerInnen argumentieren, dass Sharrows zumindest besser sind als gar nichts, wenn es für Radspuren nicht genügend Platz auf der Fahrbahn gibt. Überzeugte AutofahrerInnen tendieren dazu, zu vergessen, dass es andere Fahrzeugtypen auf der Straße gibt, und RadfahrerInnen sind froh über jede Gelegenheit, Autofahrer daran zu erinnern, dass sie existieren und friedlich miteinander koexistieren möchten. RadfahrerInnen mehr Bewegungsraum zur Verfügung zu stellen, um die volle Breite der Spur nutzen zu können, könnte sie auch vor jenen Unfällen schützen, bei denen sie gegen sich gerade öffnende Türen von parkenden Autos fahren.",
-        "Die Markierung von Sharrows ist ein einfacher Weg, RadfahrerInnen mehr Sichtbarkeit zu verleihen. Denn ein bisschen Farbe für Piktogramme ist günstiger als eine eigene Radspur zu bauen und auch politisch einfacher umzusetzen. Jedoch haben einige Forschungsergebnisse zu Sicherheit (z.B. eine <a href=\"http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf\">BMJ-Studie von 2012</a> über Verletzungen von Radfahrern in Vancouver und Toronto) gezeigt, dass es für Sharrows im Vergleich zu Radspuren eine leicht erhöhte Wahrscheinlichkeit gibt sich zu verletzen. Die Moral von der Geschicht' ist folgende: achte auf Radfahrer, indem du immer zuerst eine normale Radspur in Betracht ziehst, bevor du auf Sharrows zurückgreifst."
+        "Der Begriff \"Sharrows\" (eine Wortneuschöpfung aus \"shared\" für \"geteilt\" und \"arrow\" für \"Pfeil\") steht in der Verkehrsplanung für die Markierung von gemeinsamen Fahrstreifen und bezieht sich auf die Markierung der Richtungspfeile, ist aber eigentlich kein eigener <em>Typ</em> von Fahrspur. Vielerorts dürfen Fahrräder ohnehin auf jeder Fahrbahn gemeinsam mit den Autos fahren und sind dabei an die gleichen Gesetze gebunden.",
+        "Man muss also keine RaketenforscherIn sein, um zu sehen, dass Autos und Fahrräder sich sehr unterschiedlich verhalten und daher abgetrennte Radstreifen zur Sicherheit der Radfahrenden und zur Vernunft der Autofahrenden <a href=\"http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/\">zu bevorzugen sind</a>. Viele Radfahrende argumentieren, dass Sharrows zumindest besser sind als gar nichts, wenn es für Radstreifen nicht genügend Platz auf der Fahrbahn gibt. Überzeugte AutofahrerInnen tendieren dazu, zu vergessen, dass es andere Fahrzeugtypen auf der Straße gibt, und RadfahrerInnen sind froh über jede Gelegenheit, Autofahrer daran zu erinnern, dass sie existieren und friedlich miteinander koexistieren möchten. RadfahrerInnen mehr Bewegungsraum zur Verfügung zu stellen, um die volle Breite des Fahrstreifens nutzen zu können, könnte sie auch vor jenen Unfällen schützen, bei denen sie gegen sich gerade öffnende Türen von parkenden Autos fahren.",
+        "Die Markierung von Sharrows ist ein einfacher Weg, Radfahrenden mehr Sichtbarkeit zu verleihen. Denn ein bisschen Farbe für Piktogramme ist günstiger als einen eigenen Radstreifen zu bauen und auch politisch einfacher umzusetzen. Jedoch haben einige Forschungsergebnisse zu Sicherheit (z.B. eine <a href=\"http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf\">BMJ-Studie von 2012</a> über Verletzungen von Radfahrern in Vancouver und Toronto) gezeigt, dass es für Sharrows im Vergleich zu Radstreifen eine leicht erhöhte Wahrscheinlichkeit gibt sich zu verletzen. Die Moral von der Geschicht' ist folgende: achte auf Radfahrer, indem du immer zuerst eine normale Radspur in Betracht ziehst, bevor du auf Sharrows zurückgreifst."
       ]
     },
     "transit-shelter-elevated": {
@@ -86,7 +86,7 @@
       "lede": "Erhöhte Haltestellen gibt es bei Stadtbahnen und Hochleistungsbussystemen.",
       "text": [
         "Für einige hochleistungsfähige Stadtbahn- und Bus Rapid Transit (BRT)-Systeme, die vor allem schnell operieren sollen, sind erhöhte Haltestellen sinnvoll. Sie ermöglichen den Passagieren ein höhengleiches Einsteigen, wodurch dieser Prozess sehr viel schneller abgewickelt wird (besonders für RollstuhlfahrerInnen und andere mit einem Bedarf an Barrierefreiheit). Das spart einige Sekunden der Fahrzeit ein, die sich über die Gesamtzeit summieren.",
-        "Durch den Fokus auf Effizienz sind Nahverkehrsfahrzeuge, die mit erhöhten Haltestellen operieren, in der Regel auch in eigenen Spuren geführt. Die Haltestellen sind dort angeordnet, wo sie gut erreicht werden können. Werden sie (im Regelfall) zwischen Spuren auf dem Mittelstreifen angeordnet, die in unterschiedliche Richtungen führen, können von beiden Seiten Passagiere bedient werden (und du solltest dann auch zwei Spuren in Streetmix anordnen).",
+        "Durch den Fokus auf Effizienz sind Nahverkehrsfahrzeuge, die mit erhöhten Haltestellen operieren, in der Regel auch auf einer eigenen Trasse geführt. Die Haltestellen sind dort angeordnet, wo sie gut erreicht werden können. Werden sie (im Regelfall) zwischen Fahrstreifen auf dem Mittelstreifen angeordnet, die in unterschiedliche Richtungen führen, können von beiden Seiten Passagiere bedient werden (und du solltest dann auch zwei Trassenelemente in Streetmix anordnen).",
         "Erhöhte Haltestellen werden manchmal mit einer Hülle oder überdacht angelegt, um Passagiere vor der Witterung zu schützen. Damit sind sie gut sichtbare Signale des öffentlichen Nahverkehrs auf belebten Boulevards. Verglichen mit Haltestellen auf Straßenniveau sind sie jedoch eher teure Bestandteile der Infrastruktur und brauchen durch Rampen mehr Fläche. Damit können BRT-Systeme nicht so flexibel hergestellt werden wie normale Bussysteme. Außerdem wird der Bedarf an erhöhten Haltestellen geringer, weil Niederflurbusse immer verbreiteter werden."
       ]
     },
@@ -128,7 +128,7 @@
     "turn-lane-orientation|straight": "Geradeaus",
     "turn-lane-orientation|right-straight": "Geradeaus / Rechts",
     "turn-lane-orientation|right": "Rechts",
-    "turn-lane-orientation|both": "Beide",
+    "turn-lane-orientation|both": "Links / Rechts",
     "turn-lane-orientation|shared": "Gemeinsam genutzt",
     "bench-orientation|left": "Links",
     "bench-orientation|right": "Rechts",
@@ -141,7 +141,7 @@
     "parking-lane-direction|angled-front-left": "Schräg",
     "parking-lane-direction|angled-front-right": "Schräg",
     "parking-lane-direction|angled-rear-left": "Schräg",
-    "parking-lane-direction|angled-rear-right": "Abgewinkelt",
+    "parking-lane-direction|angled-rear-right": "Schräg",
     "direction|inbound": "Hinführend",
     "direction|outbound": "Wegführend",
     "sidewalk-density|empty": "Leer",
@@ -149,7 +149,7 @@
     "sidewalk-density|normal": "Normal",
     "sidewalk-density|dense": "Viele Passanten",
     "lamp-orientation|left": "Links",
-    "lamp-orientation|both": "Beide",
+    "lamp-orientation|both": "Links / Rechts",
     "lamp-orientation|right": "Rechts",
     "lamp-type|traditional": "Traditionell",
     "lamp-type|modern": "Modern",
@@ -158,14 +158,14 @@
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Lkw",
     "public-transit-asphalt|regular": "Asphalt",
-    "public-transit-asphalt|colored": "rot eingefärbter Fahrstreifen",
+    "public-transit-asphalt|colored": "Rot eingefärbt",
     "public-transit-asphalt|grass": "Rasen",
     "bus-asphalt|regular": "Asphalt",
-    "bus-asphalt|colored": "rot eingefärbter Fahrstreifen",
-    "bus-asphalt|shared": "Gemeinsame Spur für Bus und Fahrrad",
+    "bus-asphalt|colored": "Rot eingefärbt",
+    "bus-asphalt|shared": "Gemeinsamer Fahrstreifen Bus / Fahrrad",
     "bike-asphalt|regular": "Asphalt",
-    "bike-asphalt|green": "grün eingefärbter Fahrstreifen",
-    "bike-asphalt|red": "rot eingefärbte Fahrstreifen",
+    "bike-asphalt|green": "Grün eingefärbt",
+    "bike-asphalt|red": "Rot eingefärbt",
     "tree-type|big": "Baum",
     "tree-type|palm-tree": "Palme",
     "divider-type|median": "Mittelstreifen",
@@ -188,7 +188,7 @@
     "building|fence": "Leeres Grundstück",
     "building|parking-lot": "Parkplatz",
     "building|residential": "Wohnhaus",
-    "building|narrow": "Niedriges Gebäude",
+    "building|narrow": "Schmales Gebäude",
     "building|wide": "Breites Gebäude",
     "wayfinding-type|large": "Groß",
     "wayfinding-type|medium": "Mittel",

@@ -168,7 +168,9 @@
       "view-source": "Посмотреть исходный код",
       "sponsored-by": "Streetmix щедро спонсируется:",
       "donate-link": "Поддержите нас финансово",
-      "github-link": "Внести вклад в open source"
+      "github-link": "Внести вклад в open source",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Сохранить как избражение",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Удалить сегмент",

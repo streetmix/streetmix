@@ -168,7 +168,9 @@
       "view-source": "Visa källkod",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": ""
+      "github-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Spara som bild",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Backsteg",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Ta bort segment",

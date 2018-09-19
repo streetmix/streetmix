@@ -168,7 +168,9 @@
       "view-source": "إظهار شيفرة المصدر",
       "sponsored-by": "مشروع Streetmix برعاية سخيّة من:",
       "donate-link": "إدعمنا مالياً",
-      "github-link": "مساهمة في فتح شيفرة المصدر"
+      "github-link": "مساهمة في فتح شيفرة المصدر",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "حفظ كصورة",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "مسافة للخلف",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "إزالة الجزء",

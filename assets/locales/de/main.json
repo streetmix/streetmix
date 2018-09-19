@@ -21,14 +21,14 @@
     },
     "share": {
       "sign-in-twitter-link": "Anmelden",
-      "sign-in-link": "{signInLink}für schönere Links zu deinen Straßen und deiner persönlichen Straßen-Gallerie",
+      "sign-in-link": "{signInLink} für schönere Links zu deinen Straßen und deiner persönlichen Straßen-Galerie",
       "sign-in": "<a href='#'>Anmelden</a> für schönere Links zu deinen Straßen und deiner persönlichn Straßen-Gallerie",
       "link": "Diesen Link zum Teilen kopieren und einfügen",
       "twitter": "Über Twitter teilen",
       "facebook": "Über Facebook teilen",
       "print": "Drucken...",
       "save": "Als Bild speichern…",
-      "save-byline": "Um das in einem Bericht, Blog etc. zu verwenden",
+      "save-byline": "Um deine Straße in einem Bericht, Blog etc. zu verwenden",
       "messages": {
         "my-street": "Sieh dir meine Straße {streetName} auf Streetmix an!",
         "my-street-unnamed": "Sieh dir meine Straße auf Streetmix an!",
@@ -127,8 +127,8 @@
     "redo": "Wiederherstellen",
     "try-again": "Noch einmal versuchen",
     "cancel": "Abbrechen",
-    "create": "Eine neue Straße erstellen",
-    "copy": "Eine Kopie erstellen",
+    "create": "Neue Straße erstellen",
+    "copy": "Kopie erstellen",
     "remove": "Entfernen",
     "close": "Schließen",
     "dismiss": "Verwerfen"
@@ -136,12 +136,12 @@
   "dialogs": {
     "error": {
       "heading": "Hoppla!",
-      "text": "Etwas Unerwartetes ist passiert 😢. Wir haben den Fehler aufgezeichnet, aber wenn du dich erinnern kannst, was auf dem Weg hierher passiert ist, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">erzähl uns bitte davon</a>. Es könnte sich auch um ein temporäres Problem handeln, also probiere es noch einmal."
+      "text": "Etwas Unerwartetes ist passiert 😢. Wir haben den Fehler aufgezeichnet, aber wenn du dich erinnern kannst, was auf dem Weg hierher passiert ist, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">erzähl uns bitte davon</a>. Es könnte sich auch um ein temporäres Problem handeln, also bitte probiere es noch einmal."
     },
     "welcome": {
       "heading": "Willkommen bei Streetmix.",
       "new": {
-        "intro": "Gestalte, remixe und teile die Straßen in deiner Nachbarschaft. Füge Bäume oder Radwege hinzu, verbreitere die Gehwege oder Fahrspuren, und erfahre, wie deine Entscheidungen deine Gemeinde beeinflussen können.",
+        "intro": "Gestalte, remixe und teile die Straßen in deiner Nachbarschaft. Füge Bäume oder Radwege hinzu, verbreitere die Gehwege oder Fahrstreifen, und erfahre, wie deine Entscheidungen deine Gemeinde beeinflussen können.",
         "instruct": "Beginne, indem du Elemente der Straße mit {pointer} bewegst.",
         "instruct-pointer-finger": "deinem Finger",
         "instruct-pointer-mouse": "deiner Maus"
@@ -155,20 +155,22 @@
     },
     "new-street": {
       "heading": "Hier ist deine neue Straße.",
-      "default": "Beginne mit einer Beispiel-Straße",
+      "default": "Beginne mit einer Beispielstraße",
       "empty": "Beginne mit einer leeren Straße",
       "last": "Beginne mit einer Kopie der letzten Straße"
     },
     "about": {
       "heading": "Über Streetmix.",
-      "description": "Entwerfe, remixe und teile deine Straße. Füge Radwege hinzu, verbreitere Gehwege und Fahrstreifen und finde heraus, wie das deine Gemeinde beeinflusst.",
+      "description": "Entwerfe, remixe und teile deine Straße. Füge Radwege hinzu, verbreitere Gehwege oder Fahrstreifen und finde heraus, wie das deine Gemeinde beeinflusst.",
       "thanks": "Vielen Dank an unsere MitarbeiterInnen und die CfA-Mitglieder 2013 für ihre Unterstützung und Geduld, an das Blockee-Team für das Ebnen des Weges und an alle unsere TesterInnen für ihre Zeit und ihr Feedback!",
       "credits": "Ein Nebenprojekt der {cfaLink}-Mitglieder 2013.",
       "team-heading": "Projektteam und UnterstützerInnen",
       "view-source": "Quellcode ansehen",
       "sponsored-by": "Streetmix wird großzügigerweise gesponsert von:",
       "donate-link": "Unterstütze uns finanziell",
-      "github-link": "Trage zu Open Source bei"
+      "github-link": "Trage zu Open Source bei",
+      "tos-link": "Geschäftsbedingungen",
+      "privacy-link": "Datenschutzrichtlinie"
     },
     "save": {
       "heading": "Als Bild speichern",
@@ -216,7 +218,7 @@
       "privacy-link-label": "Datenschutzrichtlinie"
     },
     "whatsnew": {
-      "heading": "Was ist neu an Streetmix?"
+      "heading": "Was gibt es Neues bei Streetmix?"
     }
   },
   "prompt": {
@@ -231,7 +233,7 @@
     "no-redo": "Es gibt nichts, was wiederhergestellt werden könnte.",
     "no-save": "Von Hand speichern ist nicht erforderlich; Streetmix speichert deine Straßen automatisch!",
     "remixing": "Du bearbeitest eine frische Kopie der ursprünglichen Straße. Die Kopie wurde in deiner Gallerie abgelegt.",
-    "remixing-sign-in": "Du bearbeitest eine frische Kopie der ursprünglichen Straße. Melde dich an, um deine eigene Straßengallerie zu erstellen.",
+    "remixing-sign-in": "Du bearbeitest eine frische Kopie der ursprünglichen Straße. Melde dich an, um deine eigene Straßengalerie zu erstellen.",
     "reloaded": "Deine Straße wurde so vom Server geladen, wie sie an anderer Stelle verändert wurde."
   },
   "palette": {
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "Plus",
+    "minus": "Minus",
+    "left-arrow": "Linkspfeil",
+    "right-arrow": "Rechtspfeil"
   },
   "tooltip": {
     "remove-segment": "Element entfernen",
@@ -269,11 +275,11 @@
     "remove-floor": "Stockwerk entfernen"
   },
   "street": {
-    "default-name": "Straße ohne Namen",
+    "default-name": "Beispielstraße",
     "rename": "Klicken zum Umbenennen"
   },
   "building": {
-    "floors-count": "{count, plural, one {# Stock} other {# Stockwerke}}"
+    "floors-count": "{count, plural, one {# Stock} other {# Stöcke}}"
   },
   "segments": {
     "warnings": {
@@ -297,21 +303,21 @@
     "empty": "Leerer Raum"
   },
   "gallery": {
-    "fail": "Gallerie konnte nicht geladen werden.",
+    "fail": "Galerie konnte nicht geladen werden.",
     "all": "Alle Straßen",
     "twitter-link": "Twitter-Profil",
     "delete-street-tooltip": "Straße löschen",
     "street-count": "{count, plural, one {# Straße} other {# Straßen}}",
     "no-streets": "Noch keine Straßen",
-    "sign-in": "Melde dich für deine persönliche Straßengallerie über Twitter an",
-    "sign-in-prompt": "Melde dich für deine persönliche Straßengallerie an"
+    "sign-in": "Melde dich für deine persönliche Straßengalerie über Twitter an",
+    "sign-in-prompt": "Melde dich für deine persönliche Straßengalerie an"
   },
   "users": {
     "anonymous": "Anonym",
     "byline": "erstellt von {user}"
   },
   "meta": {
-    "description": "Gestalte, remixe und teile die Straßen in deiner Nachbarschaft - einfach in deinem Browser! Füge Bäume oder Radwege hinzu, verbreitere Gehwege oder Fahrspuren, und erfahre, wie deine Entscheidungen deine Gemeinde beeinflussen können.",
+    "description": "Gestalte, remixe und teile die Straßen in deiner Nachbarschaft - einfach in deinem Browser! Füge Bäume oder Radwege hinzu, verbreitere Gehwege oder Fahrstreifen, und erfahre, wie deine Entscheidungen deine Gemeinde beeinflussen können.",
     "page-title": "{streetName} (von {author})"
   },
   "i18n": {

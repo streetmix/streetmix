@@ -168,7 +168,9 @@
       "view-source": "ソースコードを表示",
       "sponsored-by": "Streetmixスポンサー:",
       "donate-link": "財務支援",
-      "github-link": "オープンなソースで貢献"
+      "github-link": "オープンなソースで貢献",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "画像として保存",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "セグメント削除",

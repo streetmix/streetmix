@@ -168,7 +168,9 @@
       "view-source": "Voir le code source",
       "sponsored-by": "Streetmix est généreusement sponsorisé par :",
       "donate-link": "Aider nous financièrement",
-      "github-link": "Contribuer à l'open source"
+      "github-link": "Contribuer à l'open source",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Sauver en tant qu'image",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Touche majuscule"
+    "shift": "Touche majuscule",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Enlever les éléments de voirie",

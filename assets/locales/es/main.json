@@ -168,7 +168,9 @@
       "view-source": "Ver codigo fuente",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": ""
+      "github-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Guardar como imagen",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Retrocerder",
-    "shift": "Mover"
+    "shift": "Mover",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Retire el segmento",

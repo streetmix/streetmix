@@ -168,7 +168,9 @@
       "view-source": "查看源代码",
       "sponsored-by": "Streetmix由以下组织及公司慷慨赞助：",
       "donate-link": "赞助我们",
-      "github-link": "贡献源代码"
+      "github-link": "贡献源代码",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "另存为图片",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "退格键",
-    "shift": "Shift键"
+    "shift": "Shift键",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "移除街道元素",

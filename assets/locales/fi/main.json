@@ -168,7 +168,9 @@
       "view-source": "Tutustu lähdekoodiin",
       "sponsored-by": "Streetmixin avokätinen sponsori:",
       "donate-link": "Tue meitä taloudellisesti",
-      "github-link": "Osallistu avoimen lähdekoodin kehittämiseen"
+      "github-link": "Osallistu avoimen lähdekoodin kehittämiseen",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Tallenna kuvana",
@@ -255,7 +257,11 @@
   },
   "key": {
     "backspace": "Askelpalautin",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Poista elementti",
