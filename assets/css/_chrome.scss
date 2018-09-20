@@ -54,7 +54,8 @@ body.phone #loading {
     white-space: nowrap;
   }
 
-  button {
+  button,
+  a.button-like {
     margin-top: 1em;
     padding: 0.5em 1em;
     font-size: 1em;
@@ -135,6 +136,7 @@ body.controls-fade-out .segment.hover .hover-bk {
 
 // Keyboard button
 .key {
+  position: relative;
   display: inline-block;
   padding: 0.2em 0.75em;
   margin: 0 0.25em;
@@ -149,4 +151,24 @@ body.controls-fade-out .segment.hover .hover-bk {
   text-shadow: #fff 0 1px 0;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 0 #fff inset;
   white-space: nowrap;
+}
+
+.key-icon {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+
+  /* Highly specific overrides on the nonspecific `.menu .svg-inline--fa` selector */
+  > svg.svg-inline--fa {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 9px;
+    height: 9px;
+    margin-left: 0.5px; /* adjust off-centering */
+    margin-top: 1px; /* adjust off-centering */
+  }
 }

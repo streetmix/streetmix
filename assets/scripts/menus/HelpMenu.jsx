@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
@@ -9,12 +10,14 @@ import { showDialog } from '../store/actions/dialogs'
 
 export class HelpMenu extends React.PureComponent {
   static propTypes = {
-    showDialog: PropTypes.func.isRequired
+    intl: intlShape.isRequired,
+    showAboutDialog: PropTypes.func,
+    showWhatsNewDialog: PropTypes.func
   }
 
   componentDidMount () {
     // Set up keyboard shortcuts
-    registerKeypress('?', { shiftKey: 'optional' }, this.props.showDialog)
+    registerKeypress('?', { shiftKey: 'optional' }, this.props.showAboutDialog)
   }
 
   onShow () {
@@ -26,11 +29,16 @@ export class HelpMenu extends React.PureComponent {
       <Menu onShow={this.onShow} {...this.props}>
         <a
           href="#"
-          onClick={this.props.showDialog}
+          onClick={this.props.showAboutDialog}
         >
           <FormattedMessage id="menu.item.about" defaultMessage="About Streetmix…" />
         </a>
-
+        <a
+          href="#"
+          onClick={this.props.showWhatsNewDialog}
+        >
+          <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]" />
+        </a>
         <div className="form non-touch-only help-menu-shortcuts">
           <p>
             <FormattedMessage id="menu.help.keyboard-label" defaultMessage="Keyboard shortcuts:" />
@@ -50,8 +58,18 @@ export class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd className="key">-</kbd>
-                  <kbd className="key">+</kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.minus', defaultMessage: 'Minus' })}
+                  >
+                    <FontAwesomeIcon icon="minus" />
+                  </kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.plus', defaultMessage: 'Plus' })}
+                  >
+                    <FontAwesomeIcon icon="plus" />
+                  </kbd>
                 </td>
                 <td>
                   <FormattedHTMLMessage
@@ -62,8 +80,18 @@ export class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd className="key">&larr;</kbd>
-                  <kbd className="key">&rarr;</kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.left-arrow', defaultMessage: 'Left arrow' })}
+                  >
+                    <FontAwesomeIcon icon="arrow-left" />
+                  </kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.right-arrow', defaultMessage: 'Right arrow' })}
+                  >
+                    <FontAwesomeIcon icon="arrow-right" />
+                  </kbd>
                 </td>
                 <td>
                   <FormattedHTMLMessage
@@ -82,8 +110,9 @@ export class HelpMenu extends React.PureComponent {
 
 function mapDispatchToProps (dispatch) {
   return {
-    showDialog: () => { dispatch(showDialog('ABOUT')) }
+    showAboutDialog: () => { dispatch(showDialog('ABOUT')) },
+    showWhatsNewDialog: () => { dispatch(showDialog('WHATS_NEW')) }
   }
 }
 
-export default connect(null, mapDispatchToProps)(HelpMenu)
+export default injectIntl(connect(null, mapDispatchToProps)(HelpMenu))

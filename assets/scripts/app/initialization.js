@@ -156,25 +156,59 @@ function onEverythingLoaded () {
   if (mode === MODES.EXISTING_STREET || mode === MODES.CONTINUE) {
     let welcomeDismissed
     let donateDismissed
+    let canDisplayWhatsNew = false
+
+    const LSKEY_WELCOME_DISMISSED = 'settings-welcome-dismissed'
+    const LSKEY_DONATE_DISMISSED = 'settings-donate-dismissed'
+    const LSKEY_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'
+    const LSKEY_WHATSNEW_LAST_TIMESTAMP = 'whatsnew-last-timestamp'
+
     const twoWeeksAgo = Date.now() - 12096e5
-    const flag = store.getState().flags.DONATE_NAG_SCREEN.value
-    if (window.localStorage['settings-welcome-dismissed']) {
-      welcomeDismissed = JSON.parse(window.localStorage['settings-welcome-dismissed'])
+    const whatsNewTimestamp = 1537222458620 // Hard-coded value
+
+    const state = store.getState()
+    const donateFlag = state.flags.DONATE_NAG_SCREEN.value
+    const whatsNewFlag = state.flags.ALWAYS_DISPLAY_WHATS_NEW.value
+    const locale = state.locale.locale
+
+    if (window.localStorage[LSKEY_WELCOME_DISMISSED]) {
+      welcomeDismissed = JSON.parse(window.localStorage[LSKEY_WELCOME_DISMISSED])
     }
-    if (window.localStorage['settings-donate-dismissed']) {
-      donateDismissed = JSON.parse(window.localStorage['settings-donate-dismissed'])
+    if (window.localStorage[LSKEY_DONATE_DISMISSED]) {
+      donateDismissed = JSON.parse(window.localStorage[LSKEY_DONATE_DISMISSED])
+    }
+    if (window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP]) {
+      if (whatsNewTimestamp > window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP]) {
+        canDisplayWhatsNew = true
+      }
+    } else {
+      canDisplayWhatsNew = true
     }
 
     // if there's no delayed timestamp, immediately set one
     // This means the user should not see the donate nag until
     // they have returned after 2 weeks.
-    if (!window.localStorage['settings-donate-delayed-timestamp']) {
-      window.localStorage['settings-donate-delayed-timestamp'] = Date.now().toString()
+    if (!window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP]) {
+      window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP] = Date.now().toString()
     }
 
-    const delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
+    const delayedTimestamp = JSON.parse(window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP])
 
-    if (welcomeDismissed && !donateDismissed && flag &&
+    // When to display the What's new dialog?
+    // - Store a hardcoded timestamp value here for the what's new dialog.
+    // - When we display the what's new dialog, store that timestamp on user's localstorage.
+    // On each load, check to see if that timestamp is there, and if so, compare
+    // with the hardcoded value.
+    // - If we are showing the welcome message, do not show What's New.
+    // - If locale is not English, do not show What's New. (We haven't localized it.)
+    // - If LocalStorage has no What's New timestamp, display What's New.
+    // - If LocalStorage has a timestamp value older than current, display What's New.
+    // If What's New is displayed, do not display the donate box.
+
+    if ((welcomeDismissed && canDisplayWhatsNew && locale === 'en') || whatsNewFlag) {
+      store.dispatch(showDialog('WHATS_NEW'))
+      window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP] = whatsNewTimestamp
+    } else if (welcomeDismissed && !donateDismissed && donateFlag &&
        (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
     }

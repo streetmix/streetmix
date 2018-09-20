@@ -30,6 +30,10 @@ initMongoDB()
 
 const app = module.exports = express()
 
+// Get the timestamp of this server's start time to use as a cachebusting filename.
+const cacheTimestamp = Date.now()
+app.locals.cacheTimestamp = cacheTimestamp
+
 process.on('uncaughtException', function (error) {
   console.log(error)
   console.trace()
@@ -90,7 +94,7 @@ const csp = {
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],
     childSrc: ['platform.twitter.com'],
-    frameSrc: ['streetmix.github.io'],
+    frameSrc: ["'self'", 'streetmix.github.io'],
     imgSrc: [
       "'self'",
       'data:',
@@ -160,6 +164,12 @@ app.use('/services/geoip', function (req, res, next) {
 // Set CSP directives
 app.use(helmet.contentSecurityPolicy(csp))
 
+// Rewrite requests with timestamp
+app.use(function (req, res, next) {
+  req.url = req.url.replace(/\/([^/]+)\.[0-9a-f]+\.(css|js|jpg|png|gif|svg)$/, '/$1.$2')
+  next()
+})
+
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
 
@@ -215,6 +225,11 @@ app.post('/api/v1/feedback', resources.v1.feedback.post)
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
 
 app.get('/api/v1/flags', resources.v1.flags.get)
+
+// Catch all for all broken api paths, direct to 404 response.
+app.get('/api/*', function (req, res) {
+  res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
+})
 
 app.get('/.well-known/status', resources.well_known_status.get)
 

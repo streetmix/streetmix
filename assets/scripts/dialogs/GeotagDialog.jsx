@@ -251,7 +251,7 @@ export class GeotagDialog extends React.Component {
     const tileUrl = (this.props.dpi > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <div className="geotag-dialog">
+      <div className="dialog-type-2 geotag-dialog">
         <div className="geotag-input-container">
           <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
         </div>

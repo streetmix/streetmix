@@ -159,6 +159,7 @@
     "car-type|truck": "Kuorma-auto",
     "public-transit-asphalt|regular": "Asfaltti",
     "public-transit-asphalt|colored": "Punainen asfaltti",
+    "public-transit-asphalt|grass": "Ruohokenttä",
     "bus-asphalt|regular": "Asfaltti",
     "bus-asphalt|colored": "Punainen asfaltti",
     "bus-asphalt|shared": "Linja-auto-pyöräkaista",

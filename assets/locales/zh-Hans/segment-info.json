@@ -159,6 +159,7 @@
     "car-type|truck": "货车",
     "public-transit-asphalt|regular": "沥青路面",
     "public-transit-asphalt|colored": "红色车道",
+    "public-transit-asphalt|grass": "草",
     "bus-asphalt|regular": "沥青路面",
     "bus-asphalt|colored": "红色车道",
     "bus-asphalt|shared": "公交车/自行车公用车道",

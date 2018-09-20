@@ -11,6 +11,7 @@ const TRANSITION_BASE_STYLE = {
 
 export default class NotificationBar extends React.Component {
   static propTypes = {
+    locale: PropTypes.string,
     notification: PropTypes.shape({
       display: PropTypes.bool,
       lede: PropTypes.string,
@@ -49,6 +50,9 @@ export default class NotificationBar extends React.Component {
 
     // If no one turns this on explicitly, don't display anything
     if (!display || (!lede && !text && !link)) return null
+
+    // If locale isn't English, don't display; we don't localize these messages
+    if (this.props.locale !== 'en') return null
 
     return (
       <Transition in={display} timeout={TRANSITION_DURATION} unmountOnExit>

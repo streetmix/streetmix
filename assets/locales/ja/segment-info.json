@@ -159,6 +159,7 @@
     "car-type|truck": "トラック",
     "public-transit-asphalt|regular": "アスファルト",
     "public-transit-asphalt|colored": "赤レーン",
+    "public-transit-asphalt|grass": "芝生",
     "bus-asphalt|regular": "アスファルト",
     "bus-asphalt|colored": "赤レーン",
     "bus-asphalt|shared": "バス/自転車共用レーン",

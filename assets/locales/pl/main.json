@@ -107,7 +107,7 @@
     "street-deleted-elsewhere-title": "Ta ulica została usunięta w innym miejscu. ",
     "street-deleted-elsewhere-description": "Ta ulica została usunięta w innej przeglądarce.",
     "access-denied-title": "Użytkownik nie jest zalogowany.",
-    "access-denied-description": "",
+    "access-denied-description": "Proces rejestracji został anulowany.",
     "auth-api-problem-title": "Wystąpił problem podczas próby zalogowania użytkownika.",
     "auth-api-problem-description": "Wystąpił problem z uwierzytelnianiem. ",
     "please-try-again": "Spróbuj ponownie później lub daj nam znać poprzez <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> lub <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twittera</a>.",
@@ -168,7 +168,9 @@
       "view-source": "Zobacz kod źródłowy",
       "sponsored-by": "Streetmix jest hojnie wspierany przez:",
       "donate-link": "Wesprzyj nas finansowo",
-      "github-link": "Współtwórz otwarte oprogramowanie"
+      "github-link": "Współtwórz otwarte oprogramowanie",
+      "tos-link": "Warunki korzystania z usługi",
+      "privacy-link": "Polityka prywatności"
     },
     "save": {
       "heading": "Zapisz jako obrazek",
@@ -198,6 +200,25 @@
       "text": "Rozważ proszę jednorazowe lub cykliczne wspieranie nas. Twoja darowizna pomoże nam na opłaty serwerowe oraz infrastruktury w chmurze, inne wydatki non-profit, grupy interesariuszy oraz studentów wspierających nasze ulice. Dodatkowo przychód będzie inwestowany w tworzenie dodatkowych funkcji. Nasze wydatki są w pełni transparentne, dlatego możesz sprawdzić, jak Twoja darowizna jest wykorzystywana przez zespół Streetmix.",
       "button": "Przekaż darowiznę na Streetmix",
       "cancel": "Nie, dziękuję"
+    },
+    "sign-in": {
+      "heading": "Logowanie / Rejestracja",
+      "description": "Zapisz swój pierwszy projekt lub zaloguj się, by mieć dostęp do poprzednich projektów.",
+      "email-label": "Email",
+      "email-description": "Wyślemy Ci link do logowania. Hasło nie jest wymagane.",
+      "social-heading": "lub",
+      "button": {
+        "email": "Kontynuuj z: email",
+        "twitter": "Kontynuuj z: Twitter",
+        "google": "Kontynuuj z: Google",
+        "facebook": "Kontynuuj z: Facebook"
+      },
+      "tos": "Klikając jeden z tych przycisków, zgadzasz się na {tosLink} i {privacyLink}.",
+      "tos-link-label": "warunki korzystania z usługi",
+      "privacy-link-label": "politykę prywatności"
+    },
+    "whatsnew": {
+      "heading": "Co nowego w Streetmiksie?"
     }
   },
   "prompt": {
@@ -236,7 +257,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Przesuń"
+    "shift": "Przesuń",
+    "plus": "Plus",
+    "minus": "Minus",
+    "left-arrow": "Strzałka w lewo",
+    "right-arrow": "Strzałka w prawo"
   },
   "tooltip": {
     "remove-segment": "Usuń segment",
@@ -285,7 +310,7 @@
     "street-count": "{count, plural, one {# ulica} few {# ulice} many {# ulic} other {# ulic}}",
     "no-streets": "Jak dotąd brak ulic",
     "sign-in": "Zaloguj się przez Twittera, by posiadać własną galerię ulic",
-    "sign-in-prompt": ""
+    "sign-in-prompt": "Zaloguj się, by zobaczyć własną galerie ulic"
   },
   "users": {
     "anonymous": "Anonim",
@@ -307,10 +332,10 @@
       "ja": "Japoński",
       "pl": "Polski",
       "pt-br": "Portugalski (Brazylia)",
-      "ru": "",
+      "ru": "Rosyjski",
       "sv": "Szwedzki",
-      "zh-hans": "",
-      "zh-hant": ""
+      "zh-hans": "Chiński uproszczony",
+      "zh-hant": "Chiński tradycyjny"
     }
   }
 }

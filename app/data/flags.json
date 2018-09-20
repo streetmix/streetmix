@@ -48,12 +48,16 @@
     "label": "Save images at custom DPI",
     "defaultValue": false
   },
+  "ALWAYS_DISPLAY_WHATS_NEW": {
+    "label": "Always display the What’s New dialog",
+    "defaultValue": false
+  },
   "DONATE_NAG_SCREEN": {
     "label": "Donation nag screen",
     "defaultValue": true
   },
   "AUTHENTICATION_V2": {
     "label": "Authentication v2",
-    "defaultValue": false
+    "defaultValue": true
   }
 }

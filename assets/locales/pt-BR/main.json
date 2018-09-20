@@ -168,7 +168,9 @@
       "view-source": "Ver código fonte",
       "sponsored-by": "Streetmix é generosamente patrocinado por:",
       "donate-link": "Apoie-nos financeiramente",
-      "github-link": "Contribua para o código aberto"
+      "github-link": "Contribua para o código aberto",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Salvar como imagem",
@@ -198,6 +200,25 @@
       "text": "Por favor, considere apoiar-nos com uma contribuição única ou recorrente. Sua doação pagará por nossos servidores e infraestrutura de nuvem, apoiando outras organizações sem fins lucrativos, grupos de defesa e estudantes que trabalham para melhorar nossas ruas. A receita adicional será investida no desenvolvimento de novos recursos. Nossas despesas são completamente transparentes, para que você possa ver exatamente como suas contribuições são usadas pela equipe Streetmix.",
       "button": "Doar para Streetmix",
       "cancel": "Não, obrigado"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -236,7 +257,11 @@
   },
   "key": {
     "backspace": "Apagar",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Remover segmento",

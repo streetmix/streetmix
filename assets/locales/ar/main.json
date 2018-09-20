@@ -168,7 +168,9 @@
       "view-source": "إظهار شيفرة المصدر",
       "sponsored-by": "مشروع Streetmix برعاية سخيّة من:",
       "donate-link": "إدعمنا مالياً",
-      "github-link": "مساهمة في فتح شيفرة المصدر"
+      "github-link": "مساهمة في فتح شيفرة المصدر",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "حفظ كصورة",
@@ -198,6 +200,25 @@
       "text": "يرجى النظر في دعمنا بمساهمة متكررة أو لمرة واحدة. سيتم دفع تبرعاتك إلى خدماتنا والبنية التحتية ولدعم المؤسسات الغير ربحية الأخرى والمجموعات المناصرة والطلاب الذين يعملون على تحسين شوارعنا. سيتم استثمار الأرباح الزائدة في تطوير المزيد من القطاعات الجديدة. نفقاتنا واضحة بالكامل، بحيث يمكنك أن ترى بالضبط كيفية استخدام مساهماتك من قبل فريق Streetmix.",
       "button": "تبرع إلى Streetmix",
       "cancel": "لا، شكراً"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -236,7 +257,11 @@
   },
   "key": {
     "backspace": "مسافة للخلف",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "إزالة الجزء",

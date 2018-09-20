@@ -15,7 +15,7 @@
     },
     "help": {
       "keyboard-label": "Сочетания клавиш:",
-      "remove": "Удалить сегмент, на котором вы указываете<br />(зажмите <kbd class='key'>Shift</kbd> для удаления всех сегментов)",
+      "remove": "Удалить сегмент, на который вы указываете<br />(зажмите <kbd class='key'>Shift</kbd> для удаления всех сегментов)",
       "move": "Передвинуться по улице<br />(зажмите <kbd class='key'>Shift</kbd> для перехода на грани)",
       "change": "Изменить ширину сегмента, на который вы указываете<br />(зажмите <kbd class='key'>Shift</kbd> для более точного изменения)"
     },
@@ -41,10 +41,10 @@
     "contact": {
       "forums": "Обсудить на форумах",
       "twitter": "Послать твит к @streetmix",
-      "email": "Послать email команде Streetmix",
+      "email": "Отправить письмо команде Streetmix",
       "github": "Посмотреть исходники на GitHub",
       "blog": "Посетить блог Streetmix",
-      "slack": "Присоедениться к чату Slack"
+      "slack": "Присоединиться к чату Slack"
     },
     "contribute": {
       "donate": "Пожертвовать",
@@ -52,15 +52,15 @@
       "opensource": "Сделать вклад в open source"
     },
     "feedback": {
-      "prompt": "Послатьнам сообщение:",
+      "prompt": "Послать нам сообщение:",
       "message-placeholder": "Что вы думаете о Streetmix?",
-      "email-placeholder": "Ваш email (опционально)",
+      "email-placeholder": "Ваш электронный адрес (опционально)",
       "send": "Послать сообщение",
       "confirm": "Мы получили ваш отзыв. Спасибо!",
       "error": " К сожалению возникла проблема при отправке отзыва. Попробуйте повторить отправку позже."
     },
     "sign-in": {
-      "twitter": "Войти через Twitter"
+      "twitter": "Войти в Twitter"
     }
   },
   "settings": {
@@ -79,9 +79,9 @@
     "having-trouble": "Возникли проблемы…",
     "no-street": "Не выбрано улицы.",
     "trouble-loading": "Проблемы при загрузке Streetmix.",
-    "slow-connection-1": "Streetmix испытывает проблемы с подключением к Интернету на текущий момент.",
-    "slow-connection-2": "Может потребоваться перезагрузить страницу и повторить попытку. Обратите внимание, что вы можете потерять Последнее изменение на улице. Приносим извенения!",
-    "no-connection": "Streetmix испытывает проблемы с подключением к Интернету.",
+    "slow-connection-1": "Streetmix не смог подключиться к Интернету на текущий момент.",
+    "slow-connection-2": "Может потребоваться перезагрузить страницу и повторить попытку. Обратите внимание, что вы можете потерять Последнее изменение на улице. Приносим извинения!",
+    "no-connection": "Streetmix не смог подключиться к Интернету.",
     "more-info": "Более подробная информация"
   },
   "error": {
@@ -106,20 +106,20 @@
     "please-reload": "Пожалуйста, перезагрузите эту страницу, прежде чем продолжить.",
     "street-deleted-elsewhere-title": "Эта улица была удалена в другом месте.",
     "street-deleted-elsewhere-description": "Эта улица была удалена в другом браузере.",
-    "access-denied-title": "",
-    "access-denied-description": "",
+    "access-denied-title": "Вы не вошли.",
+    "access-denied-description": "Вы отменили процесс входа.",
     "auth-api-problem-title": "Возникла проблема со входом в систему.",
     "auth-api-problem-description": "Возникла проблема с аутентификацией.",
     "please-try-again": "Пожалуйста, повторите попытку позже или сообщите нам через <a target='_blank' rel='noopener noreferrer' href='{email}'>почта</a> or <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
     "unsupported-browser-title": "Streetmix не поддерживает ваш браузер.",
-    "unsupported-browser-description": "ПРиносим извенения. Возможно, вы захотите попробовать <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, или Safari.",
+    "unsupported-browser-description": "Приносим извинения. Возможно, вы захотите попробовать <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, или Safari.",
     "unsupported-browser-internet-explorer": "Вы используете Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Узнайте больше.</a>",
     "unsupported-browser-contact-us": "Если вы считаете, что ваш браузер должен поддерживаться, свяжитесь с нами через <a target='_blank' rel='noopener noreferrer' href='{email}'>почту</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix поддерживает только планшеты и десктоп.",
     "cannot-create-new-street-on-phone-description": "Если вы перейдете по другой ссылке на определенную улицу, вы сможете просмотреть ее на своем телефоне, но пока не сможете создать новые улицы.",
     "generic-error-title": "Что-то пошло не так.",
-    "generic-error-description": "Приносим извенение – что-то пошло не так.",
-    "error-code": "(Error {code}.)"
+    "generic-error-description": "Приносим извинение – что-то пошло не так.",
+    "error-code": "(Ошибка {code}.)"
   },
   "btn": {
     "reload": "Перезагрузить",
@@ -163,12 +163,14 @@
       "heading": "Всё о Streetmix.",
       "description": "Проектируйте, перемещайте, и делитесь вашими соседними улицами. Добавьте деревья или велосипедные дорожки, расширьте тротуары или полосы движения, узнайте, как ваши решения могут повлиять на ваше сообщество.",
       "thanks": "Большое спасибо сотрудникам и стипендиатам CfA 2013 за их поддержку и терпение, команде Blockee за прокладку пути и всем нашим тестировщикам за их время и отзывы!",
-      "credits": "Сайд проект {cfaLink} 2013 fellows:",
+      "credits": "Сайд проект стипендиатов {cfaLink} 2013 года:",
       "team-heading": "Проектная группа и сопровождающие",
       "view-source": "Посмотреть исходный код",
       "sponsored-by": "Streetmix щедро спонсируется:",
       "donate-link": "Поддержите нас финансово",
-      "github-link": "Внести вклад в open source"
+      "github-link": "Внести вклад в open source",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Сохранить как избражение",
@@ -198,6 +200,25 @@
       "text": "Пожалуйста, поддержите нас единовременным или повторяющимся взносом. Ваше пожертвование будет платить за наши серверы и облачную инфраструктуру, поддержку других некоммерческих организаций, групп поддержки и студентов, работающих над улучшением наших улиц. Дополнительный доход будет инвестирован в дальнейшее развитие новых функций. Наши расходы полностью прозрачны, так что вы можете увидеть, как именно ваши взносы используются командой Streetmix.",
       "button": "Пожертвовать Streetmix",
       "cancel": "Нет, спасибо"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -236,7 +257,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Удалить сегмент",
@@ -254,7 +279,7 @@
     "rename": "Нажмите для переименования"
   },
   "building": {
-    "floors-count": "{count, plural, one {} few {} many {} other {}}"
+    "floors-count": "{count, plural, one {этаж} few {этажей} many {этажей} other {этажи}}"
   },
   "segments": {
     "warnings": {
@@ -280,12 +305,12 @@
   "gallery": {
     "fail": "Ошибка при загрузке галереи.",
     "all": "Все улицы",
-    "twitter-link": "Провиль Twitter",
+    "twitter-link": "Профиль Twitter",
     "delete-street-tooltip": "Удалить улицу",
-    "street-count": "{count, plural, one {} few {} many {} other {}}",
+    "street-count": "{count, plural, one {улица} few {улиц} many {улиц} other {улиц}}",
     "no-streets": "Пока что нет улиц",
     "sign-in": "Войти через Twitter для персоальной галереи улиц",
-    "sign-in-prompt": ""
+    "sign-in-prompt": "Войти для персональной галереи улиц"
   },
   "users": {
     "anonymous": "Аноним",
@@ -309,8 +334,8 @@
       "pt-br": "Португальский (Бразилия)",
       "ru": "Русский",
       "sv": "Шведский",
-      "zh-hans": "",
-      "zh-hant": ""
+      "zh-hans": "Упрощенный Китайский",
+      "zh-hant": "Традиционный Китайский"
     }
   }
 }
