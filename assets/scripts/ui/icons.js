@@ -8,7 +8,9 @@ import {
   faChevronLeft,
   faArrowRight,
   faArrowLeft,
-  faTimes
+  faTimes,
+  faUndo,
+  faRedo
 } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -19,6 +21,7 @@ export function initIcons () {
     faCheck, faMinus, faPlus,
     faChevronRight, faChevronLeft,
     faArrowRight, faArrowLeft,
-    faTimes, faTimesCircle, fab
+    faTimes, faTimesCircle, fab,
+    faUndo, faRedo
   )
 }

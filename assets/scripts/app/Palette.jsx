@@ -19,47 +19,11 @@ class Palette extends React.Component {
   constructor (props) {
     super(props)
 
-    this.commandsEl = React.createRef()
-    this.scrollable = React.createRef()
-
     this.state = {
       tooltipLabel: null,
       tooltipVisible: false,
       tooltipPosition: {}
     }
-  }
-
-  componentDidMount () {
-    this.adjustPaletteLayout()
-  }
-
-  componentDidUpdate () {
-    this.adjustPaletteLayout()
-  }
-
-  setScrollableRef = (ref) => {
-    this.paletteEl = ref
-  }
-
-  adjustPaletteLayout = () => {
-    const commandsWidth = this.commandsEl.current.getBoundingClientRect().width
-
-    // Only do work if palette commands has increased in width
-    // TODO: don't hardcode magic number
-    const delta = commandsWidth - 105 // 105 is approx what default width is
-
-    // Reset palette right position
-    this.paletteEl.style.right = ''
-
-    if (delta > 0) {
-      const paletteRightPos = Number.parseInt(window.getComputedStyle(this.paletteEl).right, 10)
-      const newPaletteRightPos = paletteRightPos + delta
-      this.paletteEl.style.right = newPaletteRightPos + 'px'
-    }
-
-    // Check button visibility state by calling this method on the Scrollable
-    // component directly.
-    this.scrollable.current.checkButtonVisibilityState()
   }
 
   /**
@@ -138,11 +102,11 @@ class Palette extends React.Component {
         <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
           <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
         </div>
-        <div className="palette-commands" ref={this.commandsEl}>
+        <div className="palette-commands">
           <UndoRedo />
         </div>
         <div onPointerOut={this.handlePointerOut}>
-          <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable} onScroll={this.handleScroll}>
+          <Scrollable className="palette" onScroll={this.handleScroll}>
             <IntlProvider
               locale={this.props.locale.locale}
               messages={this.props.locale.segmentInfo}

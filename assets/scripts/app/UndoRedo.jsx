@@ -2,12 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { FormattedMessage } from 'react-intl'
+import { injectIntl, intlShape } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { undo, redo } from '../store/actions/undo'
 import { isUndoAvailable, isRedoAvailable } from '../streets/undo_stack'
 
 export class UndoRedo extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     undoPosition: PropTypes.number,
     undoStack: PropTypes.array,
     undo: PropTypes.func,
@@ -39,11 +41,19 @@ export class UndoRedo extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <button onClick={this.props.undo} disabled={!this.state.undoAvailable}>
-          <FormattedMessage id="btn.undo" defaultMessage="Undo" />
+        <button
+          onClick={this.props.undo}
+          disabled={!this.state.undoAvailable}
+          title={this.props.intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
+        >
+          <FontAwesomeIcon icon="undo" />
         </button>
-        <button onClick={this.props.redo} disabled={!this.state.redoAvailable}>
-          <FormattedMessage id="btn.redo" defaultMessage="Redo" />
+        <button
+          onClick={this.props.redo}
+          disabled={!this.state.redoAvailable}
+          title={this.props.intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
+        >
+          <FontAwesomeIcon icon="redo" />
         </button>
       </React.Fragment>
     )
@@ -61,4 +71,4 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({ undo, redo }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UndoRedo)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(UndoRedo))
