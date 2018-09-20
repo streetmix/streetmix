@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { undo, redo } from '../store/actions/undo'
 import { isUndoAvailable, isRedoAvailable } from '../streets/undo_stack'
 
-export class UndoRedo extends React.Component {
+class UndoRedo extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     undoPosition: PropTypes.number,
@@ -60,6 +60,10 @@ export class UndoRedo extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const UndoRedoWithIntl = injectIntl(UndoRedo)
+
 function mapStateToProps (state) {
   return {
     undoPosition: state.undo.position,
@@ -71,4 +75,4 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({ undo, redo }, dispatch)
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(UndoRedo))
+export default connect(mapStateToProps, mapDispatchToProps)(UndoRedoWithIntl)

@@ -8,7 +8,7 @@ import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
 
-export class HelpMenu extends React.PureComponent {
+class HelpMenu extends React.PureComponent {
   static propTypes = {
     intl: intlShape.isRequired,
     showAboutDialog: PropTypes.func,
@@ -108,6 +108,10 @@ export class HelpMenu extends React.PureComponent {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const HelpMenuWithIntl = injectIntl(HelpMenu)
+
 function mapDispatchToProps (dispatch) {
   return {
     showAboutDialog: () => { dispatch(showDialog('ABOUT')) },
@@ -115,4 +119,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(null, mapDispatchToProps)(HelpMenu))
+export default connect(null, mapDispatchToProps)(HelpMenuWithIntl)
