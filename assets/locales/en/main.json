@@ -206,6 +206,7 @@
       "description": "Save your first design or sign in to access your past designs.",
       "email-label": "Email",
       "email-description": "We’ll send you a link to sign in. No password is required.",
+      "email-invalid": "Oops! That didn’t look like a valid email address. Please try again.",
       "social-heading": "or",
       "button": {
         "email": "Continue with email",
@@ -215,7 +216,11 @@
       },
       "tos": "By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}.",
       "tos-link-label": "terms of service",
-      "privacy-link-label": "privacy policy"
+      "privacy-link-label": "privacy policy",
+      "loading-message": "Signing you in…",
+      "sent-message-with-email": "We’ve sent an email to {email}. Please follow the instructions there to continue signing in!",
+      "email-unreceived": "Didn’t receive it?",
+      "resend-email": "Resend email"
     },
     "whatsnew": {
       "heading": "What’s new in Streetmix?"

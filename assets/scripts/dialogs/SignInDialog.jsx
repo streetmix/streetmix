@@ -118,7 +118,7 @@ export default class SignInDialog extends React.Component {
       <div className="dialog-type-2 sign-in-dialog">
         <header>
           <h1 className="sign-in-loading-message">
-            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
+            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in…" />
           </h1>
         </header>
         <div className="dialog-content">
@@ -133,7 +133,7 @@ export default class SignInDialog extends React.Component {
       <div className="dialog-type-2 sign-in-dialog">
         <header>
           <h1 className="sign-in-loading-message">
-            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in..." />
+            <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in…" />
           </h1>
         </header>
         <div className="dialog-content sign-in-email-sent">
