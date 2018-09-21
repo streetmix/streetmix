@@ -29,6 +29,19 @@ class Palette extends React.Component {
   }
 
   /**
+   * Prevent tooltips from displaying during a drag action
+   *
+   * @param {object} props - incoming props
+   */
+  static getDerivedStateFromProps (props) {
+    if (props.draggingState) {
+      return {
+        tooltipVisible: false
+      }
+    }
+  }
+
+  /**
    * When locale changes, <Palette /> is remounted. This lifecycle function
    * forces the scrollable container to display scroll buttons, if needed.
    */
