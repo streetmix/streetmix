@@ -47,7 +47,7 @@ class StreetView extends React.Component {
       skyTop: 0,
 
       resizeType: null,
-      buildingWidth: BUILDING_SPACE
+      buildingWidth: 0
     }
   }
 
@@ -58,58 +58,46 @@ class StreetView extends React.Component {
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       this.onResize()
-      this.updateStreetMargin('viewport')
+    }
+
+    if (prevState.resizeType && !this.state.resizeType) {
+      const deltaX = (prevState.resizeType === 'segment' && this.state.buildingWidth - prevState.buildingWidth)
+      this.updateScrollLeft(deltaX)
     }
 
     if (prevProps.street.occupiedWidth !== this.props.street.occupiedWidth) {
-      this.updateStreetMargin('segment')
+      this.updateStreetMargin()
     }
   }
 
-  // Cut off street extents occur when (-remainingWidth * TILE_SIZE / 2), otherwise known as streetMargin,
-  // is greater in value than marginLeft and marginRight of streetSectionCanvas as well as having
-  // (occupiedWidth * TILE_SIZE) greater than viewportWidth.
-  // In order to fix this problem, we have to:
-  // 1) Update streetSectionCanvas' marginLeft and marginRight to equal new streetMargin
-  // 2) Update buildingWidth so that dirt position is extended along with it
+  updateStreetMargin = () => {
+    const occupiedWidth = this.props.street.occupiedWidth * TILE_SIZE || 0
+    const streetWidth = this.props.street.width * TILE_SIZE
+    const currBuildingSpace = (this.state.buildingWidth - 25)
 
-  // Errors that occur due to the above changes are:
-  // 1) Scroll position streetSectionOuter needs to be updated to keep original segments in view
-  // 2) After a viewport resize, streetSectionOuter scroll position should always be centered again
-  // 3) When drag resizing, the resize handles are not rendering in correct position due to changes in scrollLeft
+    const streetExtent = streetWidth + (currBuildingSpace * 2)
+    const isOverflowing = (occupiedWidth > streetExtent)
 
-  updateStreetMargin = (resizeType) => {
-    const { remainingWidth, occupiedWidth, width } = this.props.street
-    const { viewportWidth } = this.props.system
-    const defaultStreetExtent = (width * TILE_SIZE) + (2 * BUILDING_SPACE)
+    if (isOverflowing) {
+      const streetMargin = (-this.props.street.remainingWidth * TILE_SIZE / 2)
+      this.streetSectionCanvas.style.marginLeft = streetMargin + 'px'
+      this.streetSectionCanvas.style.marginRight = streetMargin + 'px'
 
-    let streetMargin = Math.round(-remainingWidth * TILE_SIZE / 2)
-    if (!streetMargin || streetMargin < BUILDING_SPACE ||
-        occupiedWidth * TILE_SIZE < viewportWidth ||
-        defaultStreetExtent < viewportWidth) {
-      streetMargin = BUILDING_SPACE
+      this.setState({
+        resizeType: 'segment'
+      })
     }
-
-    const deltaX = (streetMargin + 25) - this.state.buildingWidth
-    if (resizeType !== 'viewport' && deltaX < 0 &&
-        (this.streetSectionOuter.scrollLeft + deltaX < 0 || !this.state.posRight)) return
-
-    this.streetSectionCanvas.style.marginLeft = (streetMargin) + 'px'
-    this.streetSectionCanvas.style.marginRight = (streetMargin) + 'px'
-
-    this.setState({ resizeType })
-    this.updateScrollLeft(streetMargin, resizeType)
   }
 
-  updateScrollLeft = (streetMargin, resizeType) => {
+  updateScrollLeft = (deltaX) => {
     let scrollLeft = this.streetSectionOuter.scrollLeft
 
-    if (resizeType === 'segment') {
-      const deltaX = (streetMargin + 25) - this.state.buildingWidth
+    if (deltaX) {
       scrollLeft += deltaX
-    } else if (resizeType === 'viewport') {
-      const streetWidth = (this.props.street.width * TILE_SIZE)
-      scrollLeft = (streetWidth + (streetMargin * 2) - this.props.system.viewportWidth) / 2
+    } else {
+      const streetWidth = this.props.street.width * TILE_SIZE
+      const currBuildingSpace = (this.state.buildingWidth) ? (this.state.buildingWidth - 25) : BUILDING_SPACE
+      scrollLeft = (streetWidth + (currBuildingSpace * 2) - this.props.system.viewportWidth) / 2
     }
 
     this.streetSectionOuter.scrollLeft = scrollLeft
