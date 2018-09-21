@@ -19,10 +19,36 @@ class Palette extends React.Component {
   constructor (props) {
     super(props)
 
+    this.scrollable = React.createRef()
+
     this.state = {
       tooltipLabel: null,
       tooltipVisible: false,
       tooltipPosition: {}
+    }
+  }
+
+  /**
+   * When locale changes, <Palette /> is remounted. This lifecycle function
+   * forces the scrollable container to display scroll buttons, if needed.
+   */
+  componentDidMount () {
+    if (this.scrollable.current) {
+      window.setTimeout(this.scrollable.current.checkButtonVisibilityState, 0)
+    }
+  }
+
+  /**
+   * When the app is first started, we need to wait for assets to load and the
+   * palette items to be rendered. This lifecycle function forces the scrollable
+   * scrollable container to display scroll buttons, if needed. It only runs
+   * once (when `everythingLoaded` is flipped to true) and not on every update.
+   */
+  componentDidUpdate (prevProps) {
+    if (!prevProps.everythingLoaded && this.props.everythingLoaded) {
+      if (this.scrollable.current) {
+        window.setTimeout(this.scrollable.current.checkButtonVisibilityState, 0)
+      }
     }
   }
 
@@ -97,6 +123,14 @@ class Palette extends React.Component {
   render () {
     const { draggingState } = this.props
 
+    // Render an empty container before assets for palette items have loaded.
+    // (Another part of the app depends on this element for layout calculation.)
+    if (!this.props.everythingLoaded) {
+      return (
+        <div className="palette-container" />
+      )
+    }
+
     return (
       <div className="palette-container">
         <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
@@ -106,12 +140,12 @@ class Palette extends React.Component {
           <UndoRedo />
         </div>
         <div onPointerOut={this.handlePointerOut}>
-          <Scrollable className="palette" onScroll={this.handleScroll}>
+          <Scrollable className="palette" ref={this.scrollable} onScroll={this.handleScroll}>
             <IntlProvider
               locale={this.props.locale.locale}
               messages={this.props.locale.segmentInfo}
             >
-              <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+              <React.Fragment>{this.renderPaletteItems()}</React.Fragment>
             </IntlProvider>
           </Scrollable>
         </div>
