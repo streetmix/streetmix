@@ -1,28 +1,30 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { UndoRedo } from '../UndoRedo'
+import { shallowWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { UndoRedoWithIntl as UndoRedo } from '../UndoRedo'
 import { isUndoAvailable, isRedoAvailable } from '../../streets/undo_stack'
 
 jest.mock('../../streets/undo_stack')
+jest.mock('../../store/actions/undo', () => ({
+  undo: jest.fn(),
+  redo: jest.fn()
+}))
 
 describe('UndoRedo', () => {
   it('renders two buttons', () => {
-    const wrapper = shallow(<UndoRedo locale={{}} />)
+    const wrapper = shallowWithIntl(<UndoRedo locale={{}} />).dive()
     expect(wrapper.find('button').length).toEqual(2)
   })
 
   it('checks if undo or redo is available when undo position changes', () => {
     // `<UndoRedo>` is mounted with initial props
-    const wrapper = shallow(<UndoRedo undo={{ position: 0, stack: [] }} />)
+    const wrapper = shallowWithIntl(<UndoRedo undoPosition={0} undoStack={[]} />).dive()
 
     // Send new props to `<UndoRedo>`
     // It doesn't really matter what we set props to.
     wrapper.setProps({
-      undo: {
-        position: 1,
-        stack: []
-      }
+      undoPosition: 1,
+      undoStack: []
     })
 
     expect(isUndoAvailable).toBeCalled()
@@ -35,15 +37,13 @@ describe('UndoRedo', () => {
 
   it('checks if undo or redo is available when undo stack changes', () => {
     // `<UndoRedo>` is mounted with initial props
-    const wrapper = shallow(<UndoRedo undo={{ position: 0, stack: [] }} />)
+    const wrapper = shallowWithIntl(<UndoRedo undoPosition={0} undoStack={[]} />).dive()
 
     // Send new props to `<UndoRedo>`
     // It doesn't really matter what we set props to.
     wrapper.setProps({
-      undo: {
-        position: 0,
-        stack: [{ foo: 'bar' }]
-      }
+      undoPosition: 0,
+      undoStack: [{ foo: 'bar' }]
     })
 
     expect(isUndoAvailable).toBeCalled()
@@ -56,7 +56,7 @@ describe('UndoRedo', () => {
 
   it('renders undo button enabled', () => {
     // `<UndoRedo>` is mounted with initial props
-    const wrapper = shallow(<UndoRedo undo={{ position: 0, stack: [] }} />)
+    const wrapper = shallowWithIntl(<UndoRedo undoPosition={0} undoStack={[]} />).dive()
 
     // Initial button state at mount time is disabled
     const disabled1 = wrapper.find('button').last().prop('disabled')
@@ -66,10 +66,8 @@ describe('UndoRedo', () => {
     // It doesn't really matter what we set props to. The mock implementation
     // of `isUndoAvailable` currently only returns `true`
     wrapper.setProps({
-      undo: {
-        position: 1,
-        stack: [{ foo: 'bar' }]
-      }
+      undoPosition: 1,
+      undoStack: [{ foo: 'bar' }]
     })
 
     // Button state should become enabled
@@ -79,7 +77,7 @@ describe('UndoRedo', () => {
 
   it('renders redo button disabled', () => {
     // `<UndoRedo>` is mounted with initial props
-    const wrapper = shallow(<UndoRedo undo={{ position: 0, stack: [] }} />)
+    const wrapper = shallowWithIntl(<UndoRedo undoPosition={0} undoStack={[]} />).dive()
 
     // Initial button state at mount time is disabled
     const disabled1 = wrapper.find('button').last().prop('disabled')
@@ -89,10 +87,8 @@ describe('UndoRedo', () => {
     // It doesn't really matter what we set props to. The mock implementation
     // of `isRedoAvailable` currently only returns `false`
     wrapper.setProps({
-      undo: {
-        position: 0,
-        stack: []
-      }
+      undoPosition: 0,
+      undoStack: []
     })
 
     // Button state should remain disabled

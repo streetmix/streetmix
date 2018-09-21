@@ -29,7 +29,7 @@ export function shallowWithIntl (node, { context, ...additionalOptions } = {}) {
   return shallow(
     nodeWithIntlProp(node),
     {
-      context: Object.assign({}, context, {intl}),
+      context: Object.assign({}, context, { intl }),
       ...additionalOptions
     }
   )
@@ -39,7 +39,7 @@ export function mountWithIntl (node, { context, childContextTypes, ...additional
   return mount(
     nodeWithIntlProp(node),
     {
-      context: Object.assign({}, context, {intl}),
+      context: Object.assign({}, context, { intl }),
       childContextTypes: Object.assign({}, { intl: intlShape }, childContextTypes),
       ...additionalOptions
     }
