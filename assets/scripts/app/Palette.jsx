@@ -39,6 +39,8 @@ class Palette extends React.Component {
         tooltipVisible: false
       }
     }
+
+    return null
   }
 
   /**
