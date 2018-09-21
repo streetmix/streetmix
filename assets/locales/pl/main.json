@@ -206,6 +206,7 @@
       "description": "Zapisz swój pierwszy projekt lub zaloguj się, by mieć dostęp do poprzednich projektów.",
       "email-label": "Email",
       "email-description": "Wyślemy Ci link do logowania. Hasło nie jest wymagane.",
+      "email-invalid": "",
       "social-heading": "lub",
       "button": {
         "email": "Kontynuuj z: email",
@@ -215,7 +216,11 @@
       },
       "tos": "Klikając jeden z tych przycisków, zgadzasz się na {tosLink} i {privacyLink}.",
       "tos-link-label": "warunki korzystania z usługi",
-      "privacy-link-label": "politykę prywatności"
+      "privacy-link-label": "politykę prywatności",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
     },
     "whatsnew": {
       "heading": "Co nowego w Streetmiksie?"

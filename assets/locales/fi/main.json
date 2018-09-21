@@ -206,6 +206,7 @@
       "description": "Tallenna ensimmäinen työsi tai näytä aiemmat suunnittelutyöt kirjautumalla sisään",
       "email-label": "Sähköpostiosoite",
       "email-description": "Saat sähköpostitse sisäänkirjautumislinkin, salasanaa ei tarvita.",
+      "email-invalid": "",
       "social-heading": "tai",
       "button": {
         "email": "Jatka sähköpostiosoitteella",
@@ -215,7 +216,11 @@
       },
       "tos": "Jatkamalla hyväksyn {tosLink} ja {privacyLink}.",
       "tos-link-label": "käyttöehdot",
-      "privacy-link-label": "tietosuojakäytännön"
+      "privacy-link-label": "tietosuojakäytännön",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
     },
     "whatsnew": {
       "heading": "Streetmixin uudet ominaisuudet"

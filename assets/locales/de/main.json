@@ -123,7 +123,7 @@
   },
   "btn": {
     "reload": "Neu laden",
-    "undo": "Rückgängig machen",
+    "undo": "Rückgängig",
     "redo": "Wiederherstellen",
     "try-again": "Noch einmal versuchen",
     "cancel": "Abbrechen",
@@ -206,6 +206,7 @@
       "description": "Speichere deinen ersten Entwurf oder melde dich an, um auf ältere Entwürfe zuzugreifen.",
       "email-label": "E-Mail",
       "email-description": "Wir senden dir einen Anmeldelink zu. Du benötigst kein Passwort.",
+      "email-invalid": "Oh je! Das sieht nicht wie eine korrekte E-Mail-Adresse aus. Bitte probier es nochmal.",
       "social-heading": "oder",
       "button": {
         "email": "Mit E-Mail fortfahren",
@@ -215,7 +216,11 @@
       },
       "tos": "Indem ich auf einen dieser Buttons klicke, stimme ich den {tosLink} und der {privacyLink} zu.",
       "tos-link-label": "Geschäftsbedingungen",
-      "privacy-link-label": "Datenschutzrichtlinie"
+      "privacy-link-label": "Datenschutzrichtlinie",
+      "loading-message": "Anmeldung läuft...",
+      "sent-message-with-email": "Wir haben ein E-Mail an {email} gesendet. Bitte folge der Anleitung darin, um dich anzumelden!",
+      "email-unreceived": "Nicht bekommen?",
+      "resend-email": "E-Mail nochmal senden"
     },
     "whatsnew": {
       "heading": "Was gibt es Neues bei Streetmix?"
@@ -275,7 +280,7 @@
     "remove-floor": "Stockwerk entfernen"
   },
   "street": {
-    "default-name": "Beispielstraße",
+    "default-name": "Unbenannte Straße",
     "rename": "Klicken zum Umbenennen"
   },
   "building": {

@@ -206,6 +206,7 @@
       "description": "",
       "email-label": "",
       "email-description": "",
+      "email-invalid": "",
       "social-heading": "",
       "button": {
         "email": "",
@@ -215,7 +216,11 @@
       },
       "tos": "",
       "tos-link-label": "",
-      "privacy-link-label": ""
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
     },
     "whatsnew": {
       "heading": ""
