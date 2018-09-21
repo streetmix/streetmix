@@ -175,6 +175,7 @@ export class ShareMenu extends React.Component {
             value={this.state.shareUrl}
             spellCheck="false"
             ref={(ref) => { this.shareViaLinkInput = ref }}
+            readOnly
           />
         </div>
         <a
