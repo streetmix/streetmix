@@ -63,6 +63,10 @@ class StreetView extends React.Component {
     if (prevState.resizeType && !this.state.resizeType) {
       const deltaX = (prevState.resizeType === 'segment' && this.state.buildingWidth - prevState.buildingWidth)
       this.updateScrollLeft(deltaX)
+
+      if (prevState.resizeType === 'viewport') {
+        this.updateStreetMargin()
+      }
     }
 
     if (prevProps.street.occupiedWidth !== this.props.street.occupiedWidth) {
@@ -71,15 +75,22 @@ class StreetView extends React.Component {
   }
 
   updateStreetMargin = () => {
-    const occupiedWidth = this.props.street.occupiedWidth * TILE_SIZE || 0
-    const streetWidth = this.props.street.width * TILE_SIZE
-    const currBuildingSpace = (this.state.buildingWidth - 25)
+    const prevStreetMargin = (this.state.buildingWidth - 25)
+    let streetMargin = Math.round(-this.props.street.remainingWidth * TILE_SIZE / 2)
+    if (streetMargin < BUILDING_SPACE) {
+      streetMargin = BUILDING_SPACE
+    }
 
-    const streetExtent = streetWidth + (currBuildingSpace * 2)
-    const isOverflowing = (occupiedWidth > streetExtent)
+    if (prevStreetMargin !== streetMargin) {
+      const deltaX = (streetMargin - prevStreetMargin)
+      // When scrolled all the way to right and decreasing occupiedWidth, an empty strip
+      // of space is shown briefly before being scrolled if updating streetMargin.
+      // When scrolled all the way to left and decreasing occupiedWidth, cannot update
+      // scrollLeft to keep current segments in view (scrollLeft = 0)
+      // Current solution is to delay updating margin until street is not scrolled all
+      // the way to right or all the way to left or viewport was resized.
+      if (deltaX < 0 && (!this.state.posRight || Math.abs(deltaX) > this.streetSectionOuter.scrollLeft)) return
 
-    if (isOverflowing) {
-      const streetMargin = (-this.props.street.remainingWidth * TILE_SIZE / 2)
       this.streetSectionCanvas.style.marginLeft = streetMargin + 'px'
       this.streetSectionCanvas.style.marginRight = streetMargin + 'px'
 
