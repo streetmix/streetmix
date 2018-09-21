@@ -79,7 +79,7 @@ describe('street reducer', () => {
 
     // Removes a segment at index 1 from an existing street
     expect(
-      reducer({...existingStreet}, actions.removeSegment(1))
+      reducer({ ...existingStreet }, actions.removeSegment(1))
     ).toEqual({
       immediateRemoval: true,
       segments: [
@@ -91,7 +91,7 @@ describe('street reducer', () => {
 
     // Removes a segment at index 0 from an existing street
     expect(
-      reducer({...existingStreet}, actions.removeSegment(0))
+      reducer({ ...existingStreet }, actions.removeSegment(0))
     ).toEqual({
       immediateRemoval: true,
       segments: [
@@ -103,7 +103,7 @@ describe('street reducer', () => {
 
     // Returns existing street if a removed segment is out of bounds
     expect(
-      reducer({...existingStreet}, actions.removeSegment(8))
+      reducer({ ...existingStreet }, actions.removeSegment(8))
     ).toEqual(existingStreet)
   })
 
@@ -118,7 +118,7 @@ describe('street reducer', () => {
 
     // Moves a segment at index 0 to index 1 on an existing street
     expect(
-      reducer({...existingStreet}, actions.moveSegment(0, 1))
+      reducer({ ...existingStreet }, actions.moveSegment(0, 1))
     ).toEqual({
       segments: [
         { type: 'bar' },
@@ -129,7 +129,7 @@ describe('street reducer', () => {
 
     // Moves a segment at index 2 to index 0 on an existing street
     expect(
-      reducer({...existingStreet}, actions.moveSegment(2, 0))
+      reducer({ ...existingStreet }, actions.moveSegment(2, 0))
     ).toEqual({
       segments: [
         { type: 'baz' },
@@ -140,7 +140,7 @@ describe('street reducer', () => {
 
     // moves a segment to the end if desired index is out of bounds
     expect(
-      reducer({...existingStreet}, actions.moveSegment(1, 8))
+      reducer({ ...existingStreet }, actions.moveSegment(1, 8))
     ).toEqual({
       segments: [
         { type: 'foo' },
@@ -161,7 +161,7 @@ describe('street reducer', () => {
 
     // Changes a segment width
     expect(
-      reducer({...existingStreet}, actions.changeSegmentWidth(0, 20))
+      reducer({ ...existingStreet }, actions.changeSegmentWidth(0, 20))
     ).toEqual({
       segments: [
         { type: 'foo', width: 20 },
@@ -188,7 +188,7 @@ describe('street reducer', () => {
     }
 
     expect(
-      reducer({...existingStreet}, actions.changeSegmentVariant(2, 'direction', 'outbound'))
+      reducer({ ...existingStreet }, actions.changeSegmentVariant(2, 'direction', 'outbound'))
     ).toEqual({
       segments: [
         { type: 'foo' },
@@ -246,7 +246,7 @@ describe('street reducer', () => {
       }
 
       expect(
-        reducer({...existingStreet}, actions.clearLocation())
+        reducer({ ...existingStreet }, actions.clearLocation())
       ).toEqual({
         name: null,
         userUpdated: false,
@@ -263,7 +263,7 @@ describe('street reducer', () => {
       }
 
       expect(
-        reducer({...existingStreet}, actions.saveStreetName('new street name', true))
+        reducer({ ...existingStreet }, actions.saveStreetName('new street name', true))
       ).toEqual({
         name: 'new street name',
         userUpdated: true
@@ -277,7 +277,7 @@ describe('street reducer', () => {
       }
 
       expect(
-        reducer({...existingStreet}, actions.saveStreetName('new street name', false))
+        reducer({ ...existingStreet }, actions.saveStreetName('new street name', false))
       ).toEqual({
         name: 'street name',
         userUpdated: true
@@ -291,7 +291,7 @@ describe('street reducer', () => {
       }
 
       expect(
-        reducer({...existingStreet}, actions.saveStreetName('new street name', false))
+        reducer({ ...existingStreet }, actions.saveStreetName('new street name', false))
       ).toEqual({
         name: 'new street name',
         userUpdated: false
@@ -307,7 +307,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.addBuildingFloor('left'))
+          reducer({ ...existingStreet }, actions.addBuildingFloor('left'))
         ).toEqual({
           leftBuildingHeight: 2
         })
@@ -319,7 +319,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.addBuildingFloor('right'))
+          reducer({ ...existingStreet }, actions.addBuildingFloor('right'))
         ).toEqual({
           rightBuildingHeight: 20
         })
@@ -331,7 +331,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.addBuildingFloor('right'))
+          reducer({ ...existingStreet }, actions.addBuildingFloor('right'))
         ).toEqual({
           rightBuildingHeight: 20
         })
@@ -344,7 +344,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.addBuildingFloor())
+          reducer({ ...existingStreet }, actions.addBuildingFloor())
         ).toEqual(existingStreet)
       })
 
@@ -355,7 +355,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.addBuildingFloor('middle'))
+          reducer({ ...existingStreet }, actions.addBuildingFloor('middle'))
         ).toEqual(existingStreet)
       })
     })
@@ -367,7 +367,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.removeBuildingFloor('left'))
+          reducer({ ...existingStreet }, actions.removeBuildingFloor('left'))
         ).toEqual({
           leftBuildingHeight: 1
         })
@@ -379,7 +379,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.removeBuildingFloor('right'))
+          reducer({ ...existingStreet }, actions.removeBuildingFloor('right'))
         ).toEqual({
           rightBuildingHeight: 18
         })
@@ -391,7 +391,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.removeBuildingFloor('left'))
+          reducer({ ...existingStreet }, actions.removeBuildingFloor('left'))
         ).toEqual({
           leftBuildingHeight: 1
         })
@@ -404,7 +404,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.removeBuildingFloor())
+          reducer({ ...existingStreet }, actions.removeBuildingFloor())
         ).toEqual(existingStreet)
       })
 
@@ -415,7 +415,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.removeBuildingFloor('middle'))
+          reducer({ ...existingStreet }, actions.removeBuildingFloor('middle'))
         ).toEqual(existingStreet)
       })
     })
@@ -427,7 +427,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('left', 3))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('left', 3))
         ).toEqual({
           leftBuildingHeight: 3
         })
@@ -439,7 +439,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('right', 1))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('right', 1))
         ).toEqual({
           rightBuildingHeight: 1
         })
@@ -451,7 +451,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('left', 0))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('left', 0))
         ).toEqual({
           leftBuildingHeight: 1
         })
@@ -463,7 +463,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('right', 1000))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('right', 1000))
         ).toEqual({
           rightBuildingHeight: 20
         })
@@ -475,7 +475,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('right', NaN))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('right', NaN))
         ).toEqual({
           rightBuildingHeight: 5
         })
@@ -487,25 +487,25 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('left', null))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('left', null))
         ).toEqual({
           leftBuildingHeight: 5
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('left', false))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('left', false))
         ).toEqual({
           leftBuildingHeight: 5
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('left', ''))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('left', ''))
         ).toEqual({
           leftBuildingHeight: 5
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('left'))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('left'))
         ).toEqual({
           leftBuildingHeight: 5
         })
@@ -517,19 +517,19 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('right', 4.5))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('right', 4.5))
         ).toEqual({
           rightBuildingHeight: 4
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('right', '9'))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('right', '9'))
         ).toEqual({
           rightBuildingHeight: 9
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('right', '6 floors'))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('right', '6 floors'))
         ).toEqual({
           rightBuildingHeight: 6
         })
@@ -541,7 +541,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('right', 'foo'))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('right', 'foo'))
         ).toEqual({
           leftBuildingHeight: 5
         })
@@ -554,7 +554,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue())
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue())
         ).toEqual(existingStreet)
       })
 
@@ -565,7 +565,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingFloorValue('middle'))
+          reducer({ ...existingStreet }, actions.setBuildingFloorValue('middle'))
         ).toEqual(existingStreet)
       })
     })
@@ -577,7 +577,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant('left', 'narrow'))
+          reducer({ ...existingStreet }, actions.setBuildingVariant('left', 'narrow'))
         ).toEqual({
           leftBuildingVariant: 'narrow'
         })
@@ -589,7 +589,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant('right', 'wide'))
+          reducer({ ...existingStreet }, actions.setBuildingVariant('right', 'wide'))
         ).toEqual({
           rightBuildingVariant: 'wide'
         })
@@ -601,25 +601,25 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant('left', null))
+          reducer({ ...existingStreet }, actions.setBuildingVariant('left', null))
         ).toEqual({
           leftBuildingVariant: 'waterfront'
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant('left', false))
+          reducer({ ...existingStreet }, actions.setBuildingVariant('left', false))
         ).toEqual({
           leftBuildingVariant: 'waterfront'
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant('left', ''))
+          reducer({ ...existingStreet }, actions.setBuildingVariant('left', ''))
         ).toEqual({
           leftBuildingVariant: 'waterfront'
         })
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant('left'))
+          reducer({ ...existingStreet }, actions.setBuildingVariant('left'))
         ).toEqual({
           leftBuildingVariant: 'waterfront'
         })
@@ -632,7 +632,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant())
+          reducer({ ...existingStreet }, actions.setBuildingVariant())
         ).toEqual(existingStreet)
       })
 
@@ -643,7 +643,7 @@ describe('street reducer', () => {
         }
 
         expect(
-          reducer({...existingStreet}, actions.setBuildingVariant('middle'))
+          reducer({ ...existingStreet }, actions.setBuildingVariant('middle'))
         ).toEqual(existingStreet)
       })
     })

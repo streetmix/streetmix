@@ -251,10 +251,10 @@ export class SaveAsImageDialog extends React.Component {
         <div className="save-as-image-preview">
           {!this.state.errorMessage && (
             <React.Fragment>
-              <div className="save-as-image-preview-loading" style={{display: this.state.isLoading ? 'block' : 'none'}}>
+              <div className="save-as-image-preview-loading" style={{ display: this.state.isLoading ? 'block' : 'none' }}>
                 <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
               </div>
-              <div className="save-as-image-preview-image" style={{display: this.state.isLoading ? 'none' : 'block'}}>
+              <div className="save-as-image-preview-image" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                 <img
                   src={this.state.download.dataUrl}
                   onLoad={this.onPreviewLoaded}
