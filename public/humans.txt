@@ -86,9 +86,11 @@
     Denis Devillé, French
     Jean-Louis Stanus, French
     Philippe Provost, French
+    Julia Tahedl, German
+    Martin Niegl, German
     Max Maaß, German
     Hitomi Narakawa, Japanese
-    Satoshi IIDA, Japanese
+    Satoshi Iida, Japanese
     Honorata Grzesikowska, Polish
     Tomasz Magulski, Polish
     Weronika Grzejszczak, Polish
