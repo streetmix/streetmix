@@ -35,11 +35,6 @@ const CORE_PEEPS = [
     title: 'fullstack engineer'
   },
   {
-    name: 'Oluwaseun Omoyajowo',
-    mugshotFile: 'oluwaseun.jpg',
-    title: 'fullstack engineer'
-  },
-  {
     name: 'Ryder Ross',
     mugshotFile: 'ryder.jpg',
     title: 'fullstack engineer'
@@ -47,7 +42,8 @@ const CORE_PEEPS = [
   {
     name: 'Trey Hahn',
     mugshotFile: 'trey.jpg',
-    title: 'localization project manager'
+    title: 'localization project manager',
+    url: 'https://www.linkedin.com/in/treyhahn/'
   }
 ]
 
@@ -56,39 +52,43 @@ const PAST_PEEPS = [
   {
     name: 'Anselm Bradford',
     title: 'media production',
+    mugshotFile: 'anselm.jpg',
     url: 'https://twitter.com/anselmbradford'
   },
   {
     name: 'Drew Dara-Abrams',
+    title: 'fullstack engineer',
     mugshotFile: 'drew.jpg',
-    title: 'fullstack engineer'
+    url: 'https://drew.dara-abrams.com'
   },
   {
     name: 'Ezra Spier',
-    title: 'engineer, spokesperson',
+    title: 'engineer, marketing',
     mugshotFile: 'ezra.jpg',
     url: 'http://ahhrrr.com'
   },
   {
     name: 'Marc Hébert',
     title: 'design anthropologist',
+    mugshotFile: 'marc.jpg',
     url: 'https://www.linkedin.com/pub/marc-hebert/1/2bb/66'
   },
   {
     name: 'Marcin Wichary',
-    title: 'UI engineer, project manager',
+    title: 'designer, project manager',
     mugshotFile: 'marcin.jpg',
     url: 'https://aresluna.org'
+  },
+  {
+    name: 'Oluwaseun Omoyajowo',
+    mugshotFile: 'oluwaseun.jpg',
+    title: 'fullstack engineer'
   },
   {
     name: 'Shaunak Kashyap',
     title: 'backend engineer',
     mugshotFile: 'shaunak.jpg',
     url: 'https://twitter.com/shaunak'
-  },
-  {
-    name: 'Shemar Dacosta',
-    title: 'frontend engineer'
   },
   {
     name: 'Tomasz Magulski',
@@ -113,12 +113,14 @@ export default class AboutDialog extends React.PureComponent {
       style.backgroundImage = `url('/images/team/${deets.mugshotFile}')`
     }
 
+    const name = (deets.url) ? (
+      <a target="_blank" rel="noopener noreferrer" href={deets.url}>{deets.name}</a>
+    ) : deets.name
+
     return (
       <div className="about-dialog-team-member" key={deets.name}>
-        <a target="_blank" rel="noopener noreferrer" href={deets.url}>
-          <div className="about-dialog-team-mugshot" style={style} />
-          <span className="about-team-name">{deets.name}</span>
-        </a>
+        <div className="about-dialog-team-mugshot" style={style} />
+        <span className="about-team-name">{name}</span>
         <span className="about-team-title">{deets.title}</span>
       </div>
     )
@@ -237,6 +239,7 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Kieran Farr</li>
                     <li>Maciej Kus</li>
                     <li>Radosław Miernik</li>
+                    <li>Shemar Dacosta</li>
                     <li>Tommi Vainikainen</li>
                   </ul>
 
@@ -246,7 +249,6 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Aline Reynolds, <i>storytelling</i></li>
                     <li>Amir Reavis-Bey, <i>database migration</i></li>
                     <li>Patrick McDonnell, <i>styleguide</i></li>
-                    <li>Dave Guarino, <i>database admininistration</i></li>
                     <li>Jeremy Lechtzin, <i>law</i></li>
                     <li>Lisa Ratner, <i>user experience</i></li>
                     <li>Mebrak Tareke, <i>communications strategy</i></li>
@@ -268,6 +270,7 @@ export default class AboutDialog extends React.PureComponent {
                       <ul>
                         <li>Alex Tran</li>
                         <li>Andrew Hyder</li>
+                        <li>Dave Guarino</li>
                         <li>Mike Migurski</li>
                         <li>SaraT Mayer</li>
                       </ul>
