@@ -54,7 +54,7 @@
   },
   "DONATE_NAG_SCREEN": {
     "label": "Donation nag screen",
-    "defaultValue": true
+    "defaultValue": false
   },
   "AUTHENTICATION_V2": {
     "label": "Authentication v2",
