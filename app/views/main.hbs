@@ -67,5 +67,10 @@
 
     <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/scripts/main.js"></script>
+
+    {{! Allows hot-module reloading of stylesheets }}
+    {{#unless production}}
+      <script src="/assets/styles.js"></script>
+    {{/unless}}
   </body>
 </html>

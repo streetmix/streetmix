@@ -17,14 +17,13 @@ const babelify = require('babelify')
 const config = require('config')
 const path = require('path')
 const uuid = require('uuid/v4')
+const Bundler = require('parcel-bundler')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
 const initRedisClient = require('./lib/redis')
 const initMongoDB = require('./lib/db')
 const exec = require('child_process').exec
-
-require('./lib/middleware/styles')
 
 const client = initRedisClient()
 initMongoDB()
@@ -130,6 +129,8 @@ const csp = {
 // Allow arbitrary injected code (e.g. Redux dispatches from dev tools) in development
 if (app.locals.config.env === 'development') {
   csp.directives.scriptSrc.push("'unsafe-eval'")
+  // Allows websockets for hot-module reloading (note: ports are assigned randomly by Parcel)
+  csp.directives.connectSrc.push('ws:')
 }
 
 app.use(helmet(helmetConfig))
@@ -157,14 +158,37 @@ app.use(function (req, res, next) {
   }
 })
 
-// Generate nonces for inline scripts
+// Create variables accessible by view templates
 app.use(function (req, res, next) {
+  // Generate nonces for inline scripts
   res.locals.nonce = {
     google_analytics: uuid(),
     mixpanel: uuid()
   }
+
+  // Set to true if site is production
+  res.locals.production = (app.locals.config.env === 'production')
+
   next()
 })
+
+// Bundle stylesheets with Parcel
+const STYLE_SOURCE = '/assets/css/styles.scss'
+const bundler = new Bundler(path.join(process.cwd(), STYLE_SOURCE), {
+  outDir: './build'
+})
+
+async function bundleStyles () {
+  if (config.env === 'production') {
+    await bundler.bundle()
+  } else {
+    // Allow hot-module reloading (HMR) in non-production environments
+    // This also runs .bundle()
+    await bundler.serve()
+  }
+}
+
+bundleStyles()
 
 // Set Redis client for when requesting the geoip
 app.use('/services/geoip', function (req, res, next) {
@@ -177,7 +201,9 @@ app.use(helmet.contentSecurityPolicy(csp))
 
 // Rewrite requests with timestamp
 app.use(function (req, res, next) {
-  req.url = req.url.replace(/\/([^/]+)\.[0-9]+\.(css|js)$/, '/$1.$2')
+  // Matches a filename like styles.2395934243.css
+  // Accepts optional `?29090424` query string used by Parcel's hot-module reloader
+  req.url = req.url.replace(/\/([^/]+)\.[0-9]+\.(css|js)(\?[0-9]+)?$/, '/$1.$2')
   next()
 })
 
@@ -278,6 +304,8 @@ app.use(express.static(path.join(__dirname, '/public')))
 app.get('/assets/*', function (req, res) {
   res.status(404).render('404', {})
 })
+
+app.use(bundler.middleware())
 
 // Catch-all
 app.use(function (req, res) {
