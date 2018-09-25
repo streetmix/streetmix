@@ -18,7 +18,8 @@ npm-debug.log*
 *.css
 
 # Ignore built assets
-builtAssets
+build
+.cache
 
 .env
 

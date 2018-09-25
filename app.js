@@ -20,10 +20,11 @@ const uuid = require('uuid/v4')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
-const middleware = require('./lib/middleware')
 const initRedisClient = require('./lib/redis')
 const initMongoDB = require('./lib/db')
 const exec = require('child_process').exec
+
+require('./lib/middleware/styles')
 
 const client = initRedisClient()
 initMongoDB()
@@ -85,7 +86,8 @@ const csp = {
       "'self'",
       "'unsafe-inline'",
       'fonts.googleapis.com',
-      '*.typekit.net'
+      '*.typekit.net',
+      'cdnjs.cloudflare.com'
     ],
     scriptSrc: [
       "'self'",
@@ -175,7 +177,7 @@ app.use(helmet.contentSecurityPolicy(csp))
 
 // Rewrite requests with timestamp
 app.use(function (req, res, next) {
-  req.url = req.url.replace(/\/([^/]+)\.[0-9a-f]+\.(css|js|jpg|png|gif|svg)$/, '/$1.$2')
+  req.url = req.url.replace(/\/([^/]+)\.[0-9]+\.(css|js)$/, '/$1.$2')
   next()
 })
 
@@ -240,9 +242,6 @@ app.get('/api/*', function (req, res) {
   res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
 })
 
-// Process stylesheets via Sass and PostCSS / Autoprefixer
-app.use('/assets/css/styles.css', middleware.styles.get)
-
 app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
   cache: true,
   precompile: true,
@@ -272,27 +271,15 @@ app.get('/assets/images/images.svg', function (req, res) {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
 })
 
-app.get('/assets/*', function (req, res) {
-  res.render('404', {})
-})
-
+app.use('/assets', express.static(path.join(__dirname, '/build')))
 app.use(express.static(path.join(__dirname, '/public')))
+
+// Catch all for all broken assets, direct to 404 response.
+app.get('/assets/*', function (req, res) {
+  res.status(404).render('404', {})
+})
 
 // Catch-all
 app.use(function (req, res) {
   res.render('main', {})
 })
-
-// Set up file watcher in development
-if (config.env === 'development') {
-  const chokidar = require('chokidar')
-  const compileStyles = require('./lib/middleware/styles').compile
-
-  // Watch SCSS files
-  const cssWatcher = chokidar.watch('assets/css/*.scss')
-
-  cssWatcher.on('change', path => {
-    console.log(`File ${path} has been changed`)
-    compileStyles()
-  })
-}
