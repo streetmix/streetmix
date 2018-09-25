@@ -231,8 +231,6 @@ app.get('/api/*', function (req, res) {
   res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
 })
 
-app.get('/.well-known/status', resources.well_known_status.get)
-
 // Process stylesheets via Sass and PostCSS / Autoprefixer
 app.use('/assets/css/styles.css', middleware.styles.get)
 
