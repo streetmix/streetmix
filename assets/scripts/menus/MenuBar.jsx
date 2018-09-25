@@ -59,7 +59,7 @@ class MenuBar extends React.PureComponent {
     // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
     window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
       rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
-    }}))
+    } }))
   }
 
   handleSignIn = (event) => {
