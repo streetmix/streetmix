@@ -269,13 +269,6 @@ app.get('/assets/*', function (req, res) {
   res.render('404', {})
 })
 
-// Post-deploy hook handler
-app.post(
-  '/services/post-deploy',
-  express.urlencoded({ extended: false }),
-  resources.services.post_deploy.post
-)
-
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Catch-all

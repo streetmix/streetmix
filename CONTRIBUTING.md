@@ -204,9 +204,6 @@ You may additionally specify the name of the directory to install to, if you wis
 | `PELIAS_API_KEY`                | Geocoding (Pelias) API key    | Yes                  |
 | `TRANSIFEX_API_TOKEN`           | Your Transifex API token      | No                   |
 | `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | No                   |
-| `CLOUDFLARE_ZONE`               | Cloudflare zone ID            | No                   |
-| `CLOUDFLARE_USER`               | Cloudflare user e-mail        | No                   |
-| `CLOUDFLARE_API_KEY`            | Cloudflare API key            | No                   |
 | `SENDGRID_API_KEY`              | Your SendGrid API key         | No                   |
 
 A sample `.env` file will look like this:
