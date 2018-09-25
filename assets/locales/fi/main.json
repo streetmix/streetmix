@@ -169,8 +169,8 @@
       "sponsored-by": "Streetmixin avokätinen sponsori:",
       "donate-link": "Tue meitä taloudellisesti",
       "github-link": "Osallistu avoimen lähdekoodin kehittämiseen",
-      "tos-link": "",
-      "privacy-link": ""
+      "tos-link": "Käyttöehdot",
+      "privacy-link": "Tietosuojakäytäntö"
     },
     "save": {
       "heading": "Tallenna kuvana",
@@ -206,7 +206,7 @@
       "description": "Tallenna ensimmäinen työsi tai näytä aiemmat suunnittelutyöt kirjautumalla sisään",
       "email-label": "Sähköpostiosoite",
       "email-description": "Saat sähköpostitse sisäänkirjautumislinkin, salasanaa ei tarvita.",
-      "email-invalid": "",
+      "email-invalid": "Hups! Tuo ei kyllä ollut sähköpostiosoite, yritä uudelleen.",
       "social-heading": "tai",
       "button": {
         "email": "Jatka sähköpostiosoitteella",
@@ -217,10 +217,10 @@
       "tos": "Jatkamalla hyväksyn {tosLink} ja {privacyLink}.",
       "tos-link-label": "käyttöehdot",
       "privacy-link-label": "tietosuojakäytännön",
-      "loading-message": "",
-      "sent-message-with-email": "",
-      "email-unreceived": "",
-      "resend-email": ""
+      "loading-message": "Kirjaudutaan sisään...",
+      "sent-message-with-email": "Olet saanut sähköpostia osoitteeseen {email}. Jatka kirjautumista seuraamalla viestin ohjeita.",
+      "email-unreceived": "Eikö tullut perille?",
+      "resend-email": "Lähetä uudelleen"
     },
     "whatsnew": {
       "heading": "Streetmixin uudet ominaisuudet"
@@ -263,10 +263,10 @@
   "key": {
     "backspace": "Askelpalautin",
     "shift": "Shift",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "plus": "Plus",
+    "minus": "Miinus",
+    "left-arrow": "Nuoli vasemmalle",
+    "right-arrow": "Nuoli oikealle"
   },
   "tooltip": {
     "remove-segment": "Poista elementti",

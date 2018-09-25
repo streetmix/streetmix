@@ -169,8 +169,8 @@
       "sponsored-by": "Streetmix est généreusement sponsorisé par :",
       "donate-link": "Aider nous financièrement",
       "github-link": "Contribuer à l'open source",
-      "tos-link": "",
-      "privacy-link": ""
+      "tos-link": "Conditions d'utilisation",
+      "privacy-link": "Politique de confidentialité"
     },
     "save": {
       "heading": "Sauver en tant qu'image",
@@ -202,28 +202,28 @@
       "cancel": "Non merci"
     },
     "sign-in": {
-      "heading": "",
-      "description": "",
-      "email-label": "",
-      "email-description": "",
-      "email-invalid": "",
-      "social-heading": "",
+      "heading": "Se connecter / S'inscrire",
+      "description": "Sauvegarder votre premier concept ou connectez-vous pour accéder à vos concepts précédents",
+      "email-label": "Courriel",
+      "email-description": "Nous vous enverrons un lien pour vous connecter. Aucun mot de passe n'est nécessaire.",
+      "email-invalid": "Oops! Il semblerait que ce ne soit pas une adresse courriel valide. Veuillez essayer de nouveau.",
+      "social-heading": "ou",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "Continuer avec votre courriel",
+        "twitter": "Continuer avec Twitter",
+        "google": "Continuer avec Google",
+        "facebook": "Continuer avec Facebook"
       },
-      "tos": "",
-      "tos-link-label": "",
-      "privacy-link-label": "",
-      "loading-message": "",
-      "sent-message-with-email": "",
-      "email-unreceived": "",
-      "resend-email": ""
+      "tos": "En cliquant sur l'un de ces boutons, j'accepte les {tosLink}et la {privacyLink}.",
+      "tos-link-label": "conditions d'utilisation (en)",
+      "privacy-link-label": "politique de confidentialité (en)",
+      "loading-message": "Connexion en cours ...",
+      "sent-message-with-email": "Nous vous avons envoyer un courriel à {email}. Veuillez y suivre les instructions pour vous connecter !",
+      "email-unreceived": "Vous n'avez pas reçu le courriel ?",
+      "resend-email": "Renvoyer le courriel"
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "Qu'est-ce qu'il y a de nouveau dans Streetmix ?"
     }
   },
   "prompt": {
@@ -263,10 +263,10 @@
   "key": {
     "backspace": "Backspace",
     "shift": "Touche majuscule",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "plus": "Plus",
+    "minus": "Moins",
+    "left-arrow": "Flèche de gauche",
+    "right-arrow": "Flèche de droite"
   },
   "tooltip": {
     "remove-segment": "Enlever les éléments de voirie",
