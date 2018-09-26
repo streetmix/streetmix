@@ -2,26 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { goTwitterSignIn } from '../app/routing'
 import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import AvatarMenu from './AvatarMenu'
+import { doSignIn } from '../users/authentication'
 import { clearMenus } from '../store/actions/menus'
-import { showDialog } from '../store/actions/dialogs'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
-    locale: PropTypes.string,
-    newAuthEnabled: PropTypes.bool,
     userId: PropTypes.string,
     clearMenus: PropTypes.func,
-    showSignInDialog: PropTypes.func,
     noInternet: PropTypes.bool
   }
 
   static defaultProps = {
-    newAuthEnabled: false,
     userId: ''
   }
 
@@ -62,15 +57,6 @@ class MenuBar extends React.PureComponent {
     } }))
   }
 
-  handleSignIn = (event) => {
-    // The sign in dialog is only limited to users where the UI has been localized
-    if (this.props.newAuthEnabled && ['en', 'fi', 'fr', 'de', 'pl'].indexOf(this.props.locale) >= 0) {
-      this.props.showSignInDialog()
-    } else {
-      goTwitterSignIn()
-    }
-  }
-
   renderUserAvatar = (userId) => {
     return (userId)
       ? (
@@ -79,7 +65,7 @@ class MenuBar extends React.PureComponent {
         </li>
       ) : (
         <li>
-          <SignInButton onClick={this.handleSignIn} />
+          <SignInButton onClick={doSignIn} />
         </li>
       )
   }
@@ -127,8 +113,6 @@ class MenuBar extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    locale: state.locale.locale,
-    newAuthEnabled: state.flags.AUTHENTICATION_V2.value,
     userId: state.user.signInData && state.user.signInData.userId,
     noInternet: state.system.noInternet
   }
@@ -136,8 +120,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    clearMenus: () => dispatch(clearMenus()),
-    showSignInDialog: () => dispatch(showDialog('SIGN_IN'))
+    clearMenus: () => dispatch(clearMenus())
   }
 }
 

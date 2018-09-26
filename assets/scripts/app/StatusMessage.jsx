@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FormattedMessage } from 'react-intl'
 
+import { doSignIn } from '../users/authentication'
 import { hideStatusMessage } from '../store/actions/status'
 import { undo as doUndo } from '../store/actions/undo'
 import { registerKeypress, deregisterKeypress } from './keypress'
-import { URL_SIGN_IN_REDIRECT } from './routing'
 import { loseAnyFocus } from '../util/focus'
 import CloseButton from '../ui/CloseButton'
 
@@ -91,9 +91,9 @@ class StatusMessage extends React.PureComponent {
     // Create a sign-in button if requested.
     // Translation of "sign in" is reused from the menu bar.
     const SignInButton = (signIn) && (
-      <a href={`/${URL_SIGN_IN_REDIRECT}`} className="button-like">
+      <button onClick={doSignIn}>
         <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
-      </a>
+      </button>
     )
 
     return (
