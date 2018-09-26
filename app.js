@@ -8,12 +8,9 @@ process.title = 'streetmix'
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
-const envify = require('envify/custom')
 const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
-const browserify = require('browserify-middleware')
-const babelify = require('babelify')
 const config = require('config')
 const path = require('path')
 const uuid = require('uuid/v4')
@@ -85,8 +82,7 @@ const csp = {
       "'self'",
       "'unsafe-inline'",
       'fonts.googleapis.com',
-      '*.typekit.net',
-      'cdnjs.cloudflare.com'
+      '*.typekit.net'
     ],
     scriptSrc: [
       "'self'",
@@ -158,27 +154,36 @@ app.use(function (req, res, next) {
   }
 })
 
-// Create variables accessible by view templates
+// Generate nonces for inline scripts
 app.use(function (req, res, next) {
-  // Generate nonces for inline scripts
   res.locals.nonce = {
     google_analytics: uuid(),
     mixpanel: uuid()
   }
-
-  // Set to true if site is production
-  res.locals.production = (app.locals.config.env === 'production')
-
   next()
 })
 
-// Bundle stylesheets with Parcel
-const STYLE_SOURCE = '/assets/css/styles.scss'
-const bundler = new Bundler(path.join(process.cwd(), STYLE_SOURCE), {
+// Add config variables to process.env which get injected into JS bundle
+process.env.APP_HOST_PORT = config.get('app_host_port')
+process.env.FACEBOOK_APP_ID = config.get('facebook_app_id')
+process.env.API_URL = config.get('restapi_proxy_baseuri_rel')
+process.env.PELIAS_HOST_NAME = config.get('geocode.pelias.host')
+process.env.PELIAS_API_KEY = config.get('geocode.pelias.api_key')
+process.env.TWITTER_CALLBACK_URI = config.get('twitter.oauth_callback_uri')
+process.env.AUTH0_CALLBACK_URI = config.get('auth0.callback_uri')
+process.env.AUTH0_DOMAIN = config.get('auth0.domain')
+process.env.AUTH0_CLIENT_ID = config.get('auth0.client_id')
+process.env.USE_AUTH0 = config.get('auth0.use_auth0')
+process.env.ENV = config.get('env')
+process.env.NO_INTERNET_MODE = config.get('no_internet_mode')
+
+// Bundle stylesheets and JS with Parcel
+const bundler = new Bundler(path.join(process.cwd(), '/assets/scripts/main.js'), {
   outDir: './build'
+  // scopeHoist: true // Turns on experimental tree-shaking (broken)
 })
 
-async function bundleStyles () {
+async function runBundle () {
   if (config.env === 'production') {
     await bundler.bundle()
   } else {
@@ -188,7 +193,7 @@ async function bundleStyles () {
   }
 }
 
-bundleStyles()
+runBundle()
 
 // Set Redis client for when requesting the geoip
 app.use('/services/geoip', function (req, res, next) {
@@ -267,26 +272,6 @@ app.get('/api/v1/flags', resources.v1.flags.get)
 app.get('/api/*', function (req, res) {
   res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
 })
-
-app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
-  cache: true,
-  precompile: true,
-  extensions: [ '.jsx' ],
-  transform: [babelify, envify({
-    APP_HOST_PORT: config.get('app_host_port'),
-    FACEBOOK_APP_ID: config.get('facebook_app_id'),
-    API_URL: config.get('restapi_proxy_baseuri_rel'),
-    PELIAS_HOST_NAME: config.get('geocode.pelias.host'),
-    PELIAS_API_KEY: config.get('geocode.pelias.api_key'),
-    TWITTER_CALLBACK_URI: config.get('twitter.oauth_callback_uri'),
-    AUTH0_CALLBACK_URI: config.get('auth0.callback_uri'),
-    AUTH0_DOMAIN: config.get('auth0.domain'),
-    AUTH0_CLIENT_ID: config.get('auth0.client_id'),
-    USE_AUTH0: config.get('auth0.use_auth0'),
-    ENV: config.get('env'),
-    NO_INTERNET_MODE: config.get('no_internet_mode')
-  })]
-}))
 
 // SVG bundled images served directly from packages
 app.get('/assets/images/icons.svg', function (req, res) {
