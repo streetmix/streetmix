@@ -116,7 +116,7 @@
     "node-sass": "4.9.3",
     "oauth": "0.9.15",
     "parcel-bundler": "1.10.0",
-    "postcss": "6.0.23",
+    "postcss": "7.0.3",
     "prop-types": "15.6.2",
     "raven-js": "3.27.0",
     "react": "16.5.2",
