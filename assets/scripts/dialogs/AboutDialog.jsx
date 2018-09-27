@@ -197,13 +197,13 @@ export default class AboutDialog extends React.PureComponent {
             </div>
             <div className="about-dialog-right">
               <h2>
-                <FormattedMessage id="dialogs.about.core-team-heading" defaultMessage="Project team" />
+                <FormattedMessage id="credits.core-team-heading" defaultMessage="Project team" />
               </h2>
 
               {this.renderCoreTeamList(CORE_PEEPS)}
 
               <h2>
-                <FormattedMessage id="dialogs.about.past-team-heading" defaultMessage="Past team members" />
+                <FormattedMessage id="credits.past-team-heading" defaultMessage="Past team members" />
               </h2>
 
               {/* experiment with smaller images for past team? */}
@@ -212,7 +212,7 @@ export default class AboutDialog extends React.PureComponent {
 
               <div className="about-dialog-credits-container">
                 <div className="about-dialog-credits-left">
-                  <h3>Advisors</h3>
+                  <h3><FormattedMessage id="credits.advisors" defaultMessage="Advisors" /></h3>
 
                   <ul>
                     <li>Adrian Mak</li>
@@ -220,7 +220,7 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Molly King</li>
                   </ul>
 
-                  <h3>Additional illustrations</h3>
+                  <h3><FormattedMessage id="credits.additional-illustrations" defaultMessage="Additional illustrations" /></h3>
 
                   <ul>
                     <li>Doneliza Joaquin</li>
@@ -228,7 +228,7 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Peter Welte</li>
                   </ul>
 
-                  <h3>Additional code</h3>
+                  <h3><FormattedMessage id="credits.additional-code" defaultMessage="Additional code" /></h3>
 
                   <ul>
                     <li>Alex Ellis</li>
@@ -243,7 +243,7 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Tommi Vainikainen</li>
                   </ul>
 
-                  <h3>Additional contributors</h3>
+                  <h3><FormattedMessage id="credits.additional-contributors" defaultMessage="Additional contributors" /></h3>
 
                   <ul>
                     <li>Aline Reynolds, <i>storytelling</i></li>
@@ -255,8 +255,9 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Nick Doiron, <i>right-to-left localization</i></li>
                   </ul>
 
-                  <h3>Special thanks to</h3> {/* Don't alphabetize */}
+                  <h3><FormattedMessage id="credits.special-thanks" defaultMessage="Special thanks to" /></h3>
 
+                  {/* Don't alphabetize */}
                   <ul>
                     <li>Jen Pahlka, <i>for believing in us</i></li>
                     <li>Billy Riggs, <i>for the next most obvious thing</i></li>
@@ -296,18 +297,18 @@ export default class AboutDialog extends React.PureComponent {
 
                 </div>
                 <div className="about-dialog-credits-right">
-                  <h3>Translators</h3>
+                  <h3><FormattedMessage id="credits.translators" defaultMessage="Translators" /></h3>
 
                   <ul>
                     <li>
-                      <h4>Arabic</h4>
+                      <h4><FormattedMessage id="i18n.lang.ar" defaultMessage="Arabic" /></h4>
                       <ul>
                         <li>Diana M. Alhaj</li>
                         <li>Zakaria Shekhreet</li>
                       </ul>
                     </li>
                     <li>
-                      <h4>Chinese</h4>
+                      <h4><FormattedMessage id="i18n.lang.zh" defaultMessage="Chinese" /></h4>
                       <ul>
                         <li>Crystal Xing</li>
                         <li>Maggie Dong</li>
@@ -317,13 +318,13 @@ export default class AboutDialog extends React.PureComponent {
                       </ul>
                     </li>
                     <li>
-                      <h4>Finnish</h4>
+                      <h4><FormattedMessage id="i18n.lang.fi" defaultMessage="Finnish" /></h4>
                       <ul>
                         <li>Aleksi Kinnunen</li>
                       </ul>
                     </li>
                     <li>
-                      <h4>French</h4>
+                      <h4><FormattedMessage id="i18n.lang.fr" defaultMessage="French" /></h4>
                       <ul>
                         <li>Denis Devillé</li>
                         <li>Jean-Louis Stanus</li>
@@ -331,7 +332,7 @@ export default class AboutDialog extends React.PureComponent {
                       </ul>
                     </li>
                     <li>
-                      <h4>German</h4>
+                      <h4><FormattedMessage id="i18n.lang.de" defaultMessage="German" /></h4>
                       <ul>
                         <li>Julia Tahedl</li>
                         <li>Martin Niegl</li>
@@ -339,14 +340,14 @@ export default class AboutDialog extends React.PureComponent {
                       </ul>
                     </li>
                     <li>
-                      <h4>Japanese</h4>
+                      <h4><FormattedMessage id="i18n.lang.ja" defaultMessage="Japanese" /></h4>
                       <ul>
                         <li>Hitomi Narakawa</li>
                         <li>Satoshi Iida</li>
                       </ul>
                     </li>
                     <li>
-                      <h4>Polish</h4>
+                      <h4><FormattedMessage id="i18n.lang.pl" defaultMessage="Polish" /></h4>
                       <ul>
                         <li>Honorata Grzesikowska</li>
                         <li>Tomasz Magulski</li>
@@ -355,7 +356,7 @@ export default class AboutDialog extends React.PureComponent {
                       </ul>
                     </li>
                     <li>
-                      <h4>Portuguese (Brazil)</h4>
+                      <h4><FormattedMessage id="i18n.lang.pt-br" defaultMessage="Portuguese (Brazil)" /></h4>
                       <ul>
                         <li>Carlos Jimenez</li>
                         <li>Carolina Guido <i>(Urb-i)</i></li>
@@ -365,20 +366,20 @@ export default class AboutDialog extends React.PureComponent {
                       </ul>
                     </li>
                     <li>
-                      <h4>Russian</h4>
+                      <h4><FormattedMessage id="i18n.lang.ru" defaultMessage="Russian" /></h4>
                       <ul>
                         <li>Artem Savin</li>
                       </ul>
                     </li>
                     <li>
-                      <h4>Spanish (Mexico)</h4>
+                      <h4><FormattedMessage id="i18n.lang.es-mx" defaultMessage="Spanish (Mexico)" /></h4>
                       <ul>
                         <li>Paco Marquez</li>
                         <li>Patricio M. Ruiz Abrín</li>
                       </ul>
                     </li>
                     <li>
-                      <h4>Swedish</h4>
+                      <h4><FormattedMessage id="i18n.lang.sv" defaultMessage="Swedish" /></h4>
                       <ul>
                         <li>Jakob Fahlstedt</li>
                       </ul>
