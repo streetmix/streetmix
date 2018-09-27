@@ -145,9 +145,11 @@
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  height: 158px; /* hardcoded for now, is there a way to make this responsive? */
 }
 
-.about-dialog-team-past .about-dialog-team-mugshot {
-  height: 114px; /* hardcoded for now, is there a way to make this responsive? */
+/* Forces the mugshot div height to be a perfect square, no matter its width */
+.about-dialog-team-mugshot::after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
 }
