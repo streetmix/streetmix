@@ -59,20 +59,20 @@ class FeatureFlagDialog extends React.Component {
 
   render () {
     return (
-      <div className="feature-flag-dialog">
-        <h1>Feature flags</h1>
-
-        <table>
-          <tbody>
-            {this.renderFlagList()}
-          </tbody>
-        </table>
-
-        <p>
-          <button onClick={this.props.closeDialog}>
-            Close
-          </button>
-        </p>
+      <div className="dialog-type-2 feature-flag-dialog">
+        <header>
+          <h1>Feature flags</h1>
+        </header>
+        <div className="dialog-content">
+          <table>
+            <tbody>
+              {this.renderFlagList()}
+            </tbody>
+          </table>
+        </div>
+        <footer onClick={this.props.closeDialog}>
+          Close
+        </footer>
       </div>
     )
   }

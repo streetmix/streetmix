@@ -1,43 +1,155 @@
 // Content of #about dialog box
 .about-dialog {
+  width: 900px;
+  min-height: 660px;
+  max-height: 75vh;
+
   // Used by team list and external links
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
+  header {
+    background-color: white;
+    padding: 0;
+    text-align: left;
+  }
+
+  header h1 {
+    display: none;
+  }
+
+  .streetmix-logo {
+    margin-left: 12px;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    background-position: 0;
+  }
+
+  .dialog-content {
+    overflow: hidden;
+    overflow-y: scroll;
+  }
 }
 
 .about-dialog-left {
-  width: 340px;
-  margin-right: 30px;
-  display: inline-block;
-  vertical-align: top;
+  flex-basis: 240px;
+  margin-right: 40px;
+  border-right: 1px solid #cde1ea;
+  padding-right: 40px;
+  position: fixed;
+  width: 240px;
+
+  p:first-child {
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 2em;
+  }
 }
 
 .about-dialog-right {
-  width: 340px;
-  display: inline-block;
-  vertical-align: top;
+  flex: 1;
   margin-bottom: 15px;
-}
+  margin-left: 320px;
 
-.about-dialog-description {
-  font-size: 16px;
-  margin: 1em 0;
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > h2 {
+    margin-top: 1.5em;
+  }
 }
 
 .about-dialog-team {
-  a {
-    color: black;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-flow: row;
+  grid-gap: 1.5em;
+}
 
-  li {
-    margin-top: 5px;
-  }
+.about-dialog-team-past {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.about-dialog-team-member {
+  text-align: center;
+}
+
+.about-dialog-sponsors {
+  margin-top: 1.5em !important;
 }
 
 .about-dialog-sponsors li {
   display: inline-block;
-  margin-right: 1em;
+  margin-right: 1.5em;
+}
+
+.about-dialog-content {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+.about-team-name {
+  display: block;
+  margin-top: 0.5em;
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1.2;
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.about-team-title {
+  display: block;
+  color: gray;
+  font-style: italic;
+}
+
+.about-dialog-credits-container {
+  display: flex;
+  margin-top: 1.5em;
+}
+
+.about-dialog-credits-container > div {
+  flex-grow: 1;
+}
+
+.about-dialog-credits-container h4 {
+  margin-top: 1em;
+  margin-bottom: 0.25em;
+  color: gray;
+  font-style: italic;
+}
+
+.about-dialog-credits-container i {
+  color: gray;
+}
+
+.about-dialog-team img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.about-dialog-team-mugshot {
+  max-width: 100%;
+  border-radius: 6px;
+  background-image: url('/images/avatar.png');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+/* Forces the mugshot div height to be a perfect square, no matter its width */
+.about-dialog-team-mugshot::after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
 }

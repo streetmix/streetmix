@@ -10,18 +10,3 @@
   height: 100%;
   border: 0;
 }
-
-.whats-new-dialog footer {
-  border-top: 1px solid #cde1ea;
-
-  /* because the whole footer is a close button */
-  text-align: center;
-  font-size: 13px;
-  cursor: pointer;
-  color: darken($ui-colour, 30%);
-
-  &:hover {
-    background-color: #f1f7f9;
-    color: darken($ui-colour, 50%);
-  }
-}
