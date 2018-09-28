@@ -81,7 +81,12 @@ const helmetConfig = {
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'fonts.googleapis.com',
+      '*.typekit.net'
+    ],
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
@@ -104,7 +109,11 @@ const csp = {
       'https://www.google-analytics.com',
       '*.basemaps.cartocdn.com'
     ],
-    fontSrc: ["'self'", 'fonts.gstatic.com'],
+    fontSrc: [
+      "'self'",
+      'fonts.gstatic.com',
+      '*.typekit.net'
+    ],
     connectSrc: ["'self'",
       'api.mixpanel.com',
       'api.geocode.earth',

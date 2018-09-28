@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import { needsUnicodeFont } from '../util/unicode'
 
 const MAX_STREET_NAME_WIDTH = 50
 
@@ -66,7 +65,6 @@ export default class StreetName extends React.PureComponent {
   }
 
   render () {
-    const streetNameClass = 'street-name-text ' + (!needsUnicodeFont(this.props.name) ? '' : 'fallback-unicode-font')
     const displayName = StreetName.normalizeStreetName(this.props.name) || <FormattedMessage id="street.default-name" defaultMessage="Unnamed St" />
 
     return (
@@ -79,7 +77,7 @@ export default class StreetName extends React.PureComponent {
         id={this.props.id}
       >
         {this.renderHoverPrompt()}
-        <div className={streetNameClass}>{displayName}</div>
+        <div className="street-name-text">{displayName}</div>
       </div>
     )
   }
