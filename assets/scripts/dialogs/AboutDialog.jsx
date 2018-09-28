@@ -82,13 +82,19 @@ const PAST_PEEPS = [
   {
     name: 'Oluwaseun Omoyajowo',
     mugshotFile: 'oluwaseun.jpg',
-    title: 'fullstack engineer'
+    title: 'fullstack engineer',
+    url: 'https://twitter.com/oluwaseunOmoya'
   },
   {
     name: 'Shaunak Kashyap',
     title: 'backend engineer',
     mugshotFile: 'shaunak.jpg',
     url: 'https://twitter.com/shaunak'
+  },
+  {
+    name: 'Shemar Dacosta',
+    mugshotFile: 'shemar.jpg',
+    title: 'frontend engineer'
   },
   {
     name: 'Tomasz Magulski',
@@ -239,7 +245,6 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Kieran Farr</li>
                     <li>Maciej Kus</li>
                     <li>Radosław Miernik</li>
-                    <li>Shemar Dacosta</li>
                     <li>Tommi Vainikainen</li>
                   </ul>
 
