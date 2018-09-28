@@ -37,7 +37,7 @@ class HelpMenu extends React.PureComponent {
           href="#"
           onClick={this.props.showWhatsNewDialog}
         >
-          <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]" />
+          <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]&lrm;" />
         </a>
         <div className="form non-touch-only help-menu-shortcuts">
           <p>

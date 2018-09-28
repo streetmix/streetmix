@@ -82,13 +82,19 @@ const PAST_PEEPS = [
   {
     name: 'Oluwaseun Omoyajowo',
     mugshotFile: 'oluwaseun.jpg',
-    title: 'fullstack engineer'
+    title: 'fullstack engineer',
+    url: 'https://twitter.com/oluwaseunOmoya'
   },
   {
     name: 'Shaunak Kashyap',
     title: 'backend engineer',
     mugshotFile: 'shaunak.jpg',
     url: 'https://twitter.com/shaunak'
+  },
+  {
+    name: 'Shemar Dacosta',
+    mugshotFile: 'shemar.jpg',
+    title: 'frontend engineer'
   },
   {
     name: 'Tomasz Magulski',
@@ -178,7 +184,7 @@ export default class AboutDialog extends React.PureComponent {
                 </a>
                 <br />
                 <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">
-                  <FormattedMessage id="dialogs.about.open-source-link" defaultMessage="We’re open source!" />
+                  <FormattedMessage id="dialogs.about.open-source-link" defaultMessage="We’re open source!&lrm;" />
                 </a>
                 <br />
                 <a href="https://streetmix.readme.io/" target="_blank" rel="noopener noreferrer">
@@ -239,7 +245,6 @@ export default class AboutDialog extends React.PureComponent {
                     <li>Kieran Farr</li>
                     <li>Maciej Kus</li>
                     <li>Radosław Miernik</li>
-                    <li>Shemar Dacosta</li>
                     <li>Tommi Vainikainen</li>
                   </ul>
 
@@ -359,10 +364,10 @@ export default class AboutDialog extends React.PureComponent {
                       <h4><FormattedMessage id="i18n.lang.pt-br" defaultMessage="Portuguese (Brazil)" /></h4>
                       <ul>
                         <li>Carlos Jimenez</li>
-                        <li>Carolina Guido <i>(Urb-i)</i></li>
-                        <li>Paulo Franco <i>(Urb-i)</i></li>
+                        <li>Carolina Guido <i>(Urb-i)&lrm;</i></li>
+                        <li>Paulo Franco <i>(Urb-i)&lrm;</i></li>
                         <li>Stephan Garcia</li>
-                        <li>Yuval Fogelson <i>(Urb-i)</i></li>
+                        <li>Yuval Fogelson <i>(Urb-i)&lrm;</i></li>
                       </ul>
                     </li>
                     <li>
