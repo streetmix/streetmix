@@ -2,7 +2,6 @@ import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
-import { needsUnicodeFont } from '../util/unicode'
 import {
   BUILDING_DESTINATION_THUMBNAIL,
   GROUND_BASELINE_HEIGHT,
@@ -218,16 +217,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
-
-    let fallbackUnicodeFont
-
-    if (needsUnicodeFont(text)) {
-      fallbackUnicodeFont = true
-      ctx.font = 'normal 400 140px sans-serif'
-    } else {
-      fallbackUnicodeFont = false
-      ctx.font = 'normal 400 160px Roadgeek'
-    }
+    ctx.font = 'normal 700 140px interstate-condensed,sans-serif'
 
     var measurement = ctx.measureText(text)
 
@@ -242,8 +232,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     }
 
     ctx.fillStyle = 'white'
-    const x1 = (thumbnailWidth * dpi / 2) - ((measurement.width / 2) + (75 * dpi))
-    const x2 = (thumbnailWidth * dpi / 2) + ((measurement.width / 2) + (75 * dpi))
+    const x1 = (thumbnailWidth * dpi / 2) - ((measurement.width / 2) + (45 * dpi))
+    const x2 = (thumbnailWidth * dpi / 2) + ((measurement.width / 2) + (45 * dpi))
     const y1 = (75 - 60) * dpi
     const y2 = (75 + 60) * dpi
     ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
@@ -254,14 +244,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     const x = thumbnailWidth * dpi / 2
 
-    let baselineCorrection
-
-    if (fallbackUnicodeFont) {
-      baselineCorrection = 24
-    } else {
-      baselineCorrection = 27
-    }
-
+    const baselineCorrection = 27
     const y = (75 + baselineCorrection) * dpi
 
     ctx.strokeStyle = 'transparent'
