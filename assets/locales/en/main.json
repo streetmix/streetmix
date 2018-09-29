@@ -194,7 +194,8 @@
       "add-location": "Add location",
       "confirm-location": "Confirm location",
       "clear-location": "Clear location",
-      "unknown-location": "Unknown location"
+      "unknown-location": "Unknown location",
+      "geotag-unavailable": "Geocoding services are currently unavailable. You can view the map, but you won’t be able to change this street’s location."
     },
     "donate": {
       "heading": "Streetmix needs your help!",

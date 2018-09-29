@@ -199,12 +199,13 @@ You may additionally specify the name of the directory to install to, if you wis
 | ------------------------------- | ----------------------------- | -------------------- |
 | `AUTH0_CLIENT_ID`               | Auth0 client ID               | Yes                  |
 | `AUTH0_CLIENT_SECRET`           | Auth0 client secret           | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | Yes                  |
-| `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | Yes                  |
-| `PELIAS_API_KEY`                | Geocoding (Pelias) API key    | Yes                  |
+| `PELIAS_API_KEY`                | Geocoding (Pelias) API key    | No                   |
+| `IPSTACK_API_KEY`               | Geolocation (IPStack) API key | No                   |
 | `TRANSIFEX_API_TOKEN`           | Your Transifex API token      | No                   |
-| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | No                   |
-| `SENDGRID_API_KEY`              | Your SendGrid API key         | No                   |
+| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | (deprecated)         |
+| `SENDGRID_API_KEY`              | Your SendGrid API key         | (deprecated)         |
+| `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | (deprecated)         |
+| `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | (deprecated)         |
 
 A sample `.env` file will look like this:
 
@@ -213,8 +214,6 @@ AUTH0_CLIENT_ID=1234567890
 AUTH0_CLIENT_SECRET=abcdefghij
 PELIAS_API_KEY=a2c4e6g8i
 ```
-
-*Note:* Auth0 is currently phasing out Twitter credential access. If you provide Auth0 credentials, you do not need to provide Twitter credentials.
 
 
 #### Setup in a no-internet environment
