@@ -169,12 +169,12 @@ export default class AboutDialog extends React.PureComponent {
               <ul className="about-dialog-sponsors">
                 <li>
                   <a href="https://codeforamerica.org/" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/sponsors/codeforamerica.png" alt="Code for America" height="48" />
+                    <img src="/images/sponsors/codeforamerica.png" alt="Code for America" />
                   </a>
                 </li>
                 <li>
                   <a href="https://lyft.com/" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/sponsors/lyft.svg" alt="Lyft" height="48" />
+                    <img src="/images/sponsors/lyft.svg" alt="Lyft" />
                   </a>
                 </li>
               </ul>
