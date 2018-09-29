@@ -202,8 +202,6 @@ You may additionally specify the name of the directory to install to, if you wis
 | `PELIAS_API_KEY`                | Geocoding (Pelias) API key    | No                   |
 | `IPSTACK_API_KEY`               | Geolocation (IPStack) API key | No                   |
 | `TRANSIFEX_API_TOKEN`           | Your Transifex API token      | No                   |
-| `EMAIL_FEEDBACK_RECIPIENT`      | Your e-mail address           | (deprecated)         |
-| `SENDGRID_API_KEY`              | Your SendGrid API key         | (deprecated)         |
 | `TWITTER_OAUTH_CONSUMER_KEY`    | Twitter OAuth consumer key    | (deprecated)         |
 | `TWITTER_OAUTH_CONSUMER_SECRET` | Twitter OAuth consumer secret | (deprecated)         |
 

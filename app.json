@@ -28,7 +28,6 @@
     }
   },
   "addons": [
-    "sendgrid",
     "mongohq",
     "papertrail"
   ],

@@ -229,8 +229,6 @@ app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
 app.get('/services/geoip', resources.services.geoip.get)
 
-app.post('/api/v1/feedback', resources.v1.feedback.post)
-
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
 
 app.get('/api/v1/flags', resources.v1.flags.get)
