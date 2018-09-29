@@ -27,4 +27,6 @@ describe('get api/v1/translate', function () {
         expect(response.body.dialogs.welcome.heading).toEqual('Welcome to Streetmix.')
       })
   })
+
+  it.skip('falls back to local files if API token is not provided', () => {})
 })
