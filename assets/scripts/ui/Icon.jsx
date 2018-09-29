@@ -15,6 +15,8 @@ export default class Icon extends React.Component {
         return <FontAwesomeIcon icon={['fab', 'facebook-square']} />
       case 'github':
         return <FontAwesomeIcon icon={['fab', 'github']} />
+      case 'discord':
+        return <FontAwesomeIcon icon={['fab', 'discord']} />
       case 'slack':
         // TODO: Use Webpack SVG loader to import './icons/slack.svg' instead
         // This would make the original SVG easier to edit; plus Webpack takes
