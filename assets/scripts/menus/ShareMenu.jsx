@@ -231,4 +231,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShareMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(ShareMenuWithIntl)
