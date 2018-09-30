@@ -14,8 +14,7 @@ const CORE_PEEPS = [
   {
     name: 'Elizabeth Ferrao',
     title: 'product manager',
-    mugshotFile: 'elizabeth.jpg',
-    url: 'https://twitter.com/musingmurmurs'
+    mugshotFile: 'elizabeth.jpg'
   },
   {
     name: 'Katie Lewis',
