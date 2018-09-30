@@ -8,7 +8,7 @@ describe('Streetmix smoke test', function () {
 
     browser.wait(function () {
       const test1 = browser.isElementPresent(by.css('.first-time-new-street'))
-      const test1 = browser.isElementPresent(by.css('.menu-bar'))
+      const test2 = browser.isElementPresent(by.css('.menu-bar'))
       return test1 && test2
     }, 20000)
 
