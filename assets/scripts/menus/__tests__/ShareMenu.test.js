@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { ShareMenu } from '../ShareMenu'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
+import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { ShareMenuWithIntl as ShareMenu } from '../ShareMenu'
 
 jest.mock('../../app/page_title', () => {
   return {
@@ -18,18 +17,18 @@ jest.mock('../../app/config', () => {
 
 describe('ShareMenu', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<ShareMenu signedIn street={{}} intl={mockIntl} />)
+    const wrapper = shallow(<ShareMenu signedIn street={{}} />)
     expect(wrapper.exists()).toEqual(true)
   })
 
   describe('sign-in promo', () => {
     it('shows the sign-in promo if user is not signed in', () => {
-      const wrapper = shallow(<ShareMenu signedIn={false} street={{}} intl={mockIntl} />)
+      const wrapper = shallow(<ShareMenu signedIn={false} street={{}} />)
       expect(wrapper.find('.share-sign-in-promo').length).toEqual(1)
     })
 
     it('does not show the sign-in promo if user is signed in', () => {
-      const wrapper = shallow(<ShareMenu signedIn street={{}} intl={mockIntl} />)
+      const wrapper = shallow(<ShareMenu signedIn street={{}} />)
       expect(wrapper.find('.share-sign-in-promo').length).toEqual(0)
     })
   })

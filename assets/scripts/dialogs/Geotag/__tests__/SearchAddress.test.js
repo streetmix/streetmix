@@ -1,9 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { mount } from 'enzyme'
-import module, { SearchAddress } from '../SearchAddress'
-import { mockIntl } from '../../../../../test/__mocks__/react-intl'
+import { mountWithIntl as mount } from '../../../../../test/helpers/intl-enzyme-test-helper.js'
+import module, { SearchAddressWithIntl as SearchAddress } from '../SearchAddress'
 
 import autocompleteResponse from './fixtures/autocomplete.json'
 import searchResponse from './fixtures/search.json'
@@ -32,22 +30,15 @@ const mapzenSearchMock = jest.fn(url => {
 })
 
 describe('SearchAddress', () => {
-  // This is a good "smoke test" to make sure the component doesn't
-  // import other modules with side effects.
-  it('renders without crashing', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(<SearchAddress intl={mockIntl} />, div)
-  })
-
   it('focuses the input after mounting', () => {
-    const component = mount(<SearchAddress intl={mockIntl} />)
+    const component = mount(<SearchAddress />)
 
     // Not referential equality
     expect(component.find('input').instance().className).toEqual('react-autosuggest__input')
   })
 
   it('displays a "clear search" button when there is input', () => {
-    const component = mount(<SearchAddress intl={mockIntl} />)
+    const component = mount(<SearchAddress />)
     const input = component.find('input')
 
     // The close button should not render when the input is empty
@@ -72,7 +63,7 @@ describe('SearchAddress', () => {
   it('puts a title attribute on the "clear search" button', () => {
     window.fetch = mapzenSearchMock
 
-    const component = mount(<SearchAddress intl={mockIntl} />)
+    const component = mount(<SearchAddress />)
     component.find('input').simulate('change', { target: { value: 'foo' } })
 
     const el = component.find('.geotag-input-clear')
@@ -82,7 +73,7 @@ describe('SearchAddress', () => {
   it('clears and focuses input when "clear search" button is clicked', () => {
     window.fetch = mapzenSearchMock
 
-    const component = mount(<SearchAddress intl={mockIntl} />)
+    const component = mount(<SearchAddress />)
     const input = component.find('input')
 
     // Simulates input
@@ -107,7 +98,7 @@ describe('SearchAddress', () => {
     // Access a non-exported variable
     const MINIMUM_QUERY_LENGTH = module.__get__('MINIMUM_QUERY_LENGTH')
 
-    const component = mount(<SearchAddress intl={mockIntl} />)
+    const component = mount(<SearchAddress />).childAt(0)
     const input = component.find('input')
 
     // Spy on search
@@ -131,14 +122,10 @@ describe('SearchAddress', () => {
   it('makes a search request when the enter key is pressed', () => {
     window.fetch = mapzenSearchMock
 
-    const component = mount(<SearchAddress intl={mockIntl} />)
+    const component = mount(<SearchAddress />).childAt(0)
 
     // Spy on search
     component.instance().search = jest.fn(component.instance().search)
-    component.instance().autocomplete = jest.fn(component.instance().autocomplete)
-
-    // Set value of input
-    component.setState({ value: 'baz' })
 
     // The `.simulate()` method does not actually create and fire events.
     // It runs event handlers directly, and we do not actually perform a search
@@ -146,16 +133,15 @@ describe('SearchAddress', () => {
     // key we simulate the form submittal instead. (This isn't ideal because
     // we may change the implementation in the future, which is also why
     // we are not calling the `.onSubmit()` directly either.)
+    component.find('input').simulate('change', { target: { value: 'foo' } })
     component.find('form').simulate('submit')
 
-    // Search should be called, but autocomplete should not
     expect(component.instance().search).toHaveBeenCalledTimes(1)
-    expect(component.instance().autocomplete).toHaveBeenCalledTimes(0)
   })
 
   describe('react-autosuggest integration', () => {
     it('returns feature label for getSuggestionValue()', () => {
-      const component = mount(<SearchAddress intl={mockIntl} />)
+      const component = mount(<SearchAddress />).childAt(0)
       const value = component.instance().getSuggestionValue({ properties: { label: 'foo' } })
       expect(value).toEqual('foo')
     })

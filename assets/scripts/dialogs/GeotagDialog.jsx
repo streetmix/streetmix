@@ -35,7 +35,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png'
 })
 
-export class GeotagDialog extends React.Component {
+class GeotagDialog extends React.Component {
   static propTypes = {
     // Provided by react-intl higher-order component
     intl: intlShape.isRequired,
@@ -311,6 +311,10 @@ export class GeotagDialog extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const GeotagDialogWithIntl = injectIntl(GeotagDialog)
+
 function mapStateToProps (state) {
   return {
     street: state.street,
@@ -330,4 +334,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GeotagDialog))
+export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialogWithIntl)

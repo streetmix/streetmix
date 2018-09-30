@@ -14,7 +14,7 @@ const SEARCH_ENDPOINT = `${SEARCH_API}?api_key=${PELIAS_API_KEY}`
 const REQUEST_THROTTLE = 300
 const MINIMUM_QUERY_LENGTH = 3
 
-export class SearchAddress extends React.Component {
+class SearchAddress extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     setMapState: PropTypes.func,
@@ -237,6 +237,10 @@ export class SearchAddress extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const SearchAddressWithIntl = injectIntl(SearchAddress)
+
 function mapStateToProps (state) {
   return {
     markerLocation: state.map.markerLocation,
@@ -250,4 +254,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SearchAddress))
+export default connect(mapStateToProps, mapDispatchToProps)(SearchAddressWithIntl)

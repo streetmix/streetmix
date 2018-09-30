@@ -13,7 +13,7 @@ import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/actions/dialogs'
 import { startPrinting } from '../store/actions/app'
 
-export class ShareMenu extends React.Component {
+class ShareMenu extends React.Component {
   static propTypes = {
     intl: intlShape,
     showDialog: PropTypes.func,
@@ -212,6 +212,10 @@ export class ShareMenu extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const ShareMenuWithIntl = injectIntl(ShareMenu)
+
 function mapStateToProps (state) {
   return {
     signedIn: state.user.signedIn,
@@ -227,4 +231,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ShareMenu))
+export default connect(mapStateToProps, mapDispatchToProps)(ShareMenu)

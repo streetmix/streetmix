@@ -1,9 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
-import { GeotagDialog } from '../GeotagDialog'
-import { shallow } from 'enzyme'
+import { GeotagDialogWithIntl as GeotagDialog } from '../GeotagDialog'
+import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
 import { getRemixOnFirstEdit } from '../../streets/remix'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
 
 // Mock dependencies that could break tests
 jest.mock('../../streets/remix', () => ({
@@ -29,7 +28,6 @@ function getTestComponent (addressInformation, street) {
       street={testStreet}
       addressInformation={testAddressInfo}
       markerLocation={testMarker}
-      intl={mockIntl}
     />
   )
 }
@@ -50,7 +48,6 @@ describe('GeotagDialog', () => {
       <GeotagDialog
         street={{}}
         addressInformation={{}}
-        intl={mockIntl}
       />
     )
     expect(wrapper.exists()).toEqual(true)
