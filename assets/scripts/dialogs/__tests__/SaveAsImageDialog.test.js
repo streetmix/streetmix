@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { SaveAsImageDialog } from '../SaveAsImageDialog'
-import { shallow } from 'enzyme'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
+import { SaveAsImageDialogWithIntl as SaveAsImageDialog } from '../SaveAsImageDialog'
+import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
 
 // Mock dependencies that could break tests
 jest.mock('../../streets/image', () => {
@@ -20,7 +19,6 @@ describe('SaveAsImageDialog', () => {
         segmentNames={false}
         streetName={false}
         street={{}}
-        intl={mockIntl}
       />
     )
     expect(wrapper.exists()).toEqual(true)

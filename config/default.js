@@ -48,14 +48,6 @@ module.exports = {
   db: {
     url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
   },
-  email: {
-    sendgrid: {
-      api_key: process.env.SENGRID_API_KEY
-    },
-    feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || 'hello@streetmix.net',
-    feedback_subject: 'Streetmix feedback',
-    feedback_sender_default: 'noreply@streetmix.net'
-  },
   log_level: 'debug',
   no_internet_mode: false,
   l10n: {

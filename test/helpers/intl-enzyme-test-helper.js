@@ -32,7 +32,7 @@ export function shallowWithIntl (node, { context, ...additionalOptions } = {}) {
       context: Object.assign({}, context, { intl }),
       ...additionalOptions
     }
-  )
+  ).dive() // Returns the wrapped node, not the intl wrapper
 }
 
 export function mountWithIntl (node, { context, childContextTypes, ...additionalOptions } = {}) {

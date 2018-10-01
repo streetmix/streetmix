@@ -152,8 +152,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // TODO const
     ctx.strokeStyle = 'black'
-    ctx.lineWidth = 0.5
-    ctx.font = 'normal 300 26px Lato'
+    ctx.lineWidth = 0.25 * dpi
+    ctx.font = `normal 300 ${13 * dpi}px Lato`
     ctx.fillStyle = 'black'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
@@ -168,32 +168,37 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
         left--
       }
 
+      // Left line
       drawLine(ctx,
         left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
         left, (groundLevel + (125 * multiplier)), dpi)
 
       const x = (offsetLeft + (availableWidth / 2)) * dpi
 
+      // Width label
       let text = prettifyWidth(segment.width, street.units)
-      let textWidth = ctx.measureText(text).width / 2
+      let textWidth = ctx.measureText(text).width / dpi
+
       while ((textWidth > availableWidth - (10 * multiplier)) && (text.indexOf(' ') !== -1)) {
         text = text.substr(0, text.lastIndexOf(' '))
-        textWidth = ctx.measureText(text).width / 2
+        textWidth = ctx.measureText(text).width / dpi
       }
-      ctx.fillText(text, x,
-        (groundLevel + (60 * multiplier)) * dpi)
 
+      ctx.fillText(text, x, (groundLevel + (60 * multiplier)) * dpi)
+
+      // Segment name label
       const name = getLocaleSegmentName(segment.type, segment.variantString)
-      const nameWidth = ctx.measureText(name).width / 2
+      const nameWidth = ctx.measureText(name).width / dpi
+
       if (nameWidth <= availableWidth - (10 * multiplier)) {
-        ctx.fillText(name, x,
-          (groundLevel + (83 * multiplier)) * dpi)
+        ctx.fillText(name, x, (groundLevel + (83 * multiplier)) * dpi)
       }
 
       offsetLeft += availableWidth
     }
 
-    var left = offsetLeft + 1
+    // Final right-hand side line
+    const left = offsetLeft + 1
     drawLine(ctx,
       left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
       left, (groundLevel + (125 * multiplier)), dpi)
@@ -217,7 +222,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
-    ctx.font = 'normal 700 140px interstate-condensed,sans-serif'
+    ctx.font = `normal 700 ${70 * dpi}px interstate-condensed,sans-serif`
 
     var measurement = ctx.measureText(text)
 
@@ -231,6 +236,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       text += '…'
     }
 
+    // Street nameplate
     ctx.fillStyle = 'white'
     const x1 = (thumbnailWidth * dpi / 2) - ((measurement.width / 2) + (45 * dpi))
     const x2 = (thumbnailWidth * dpi / 2) + ((measurement.width / 2) + (45 * dpi))
@@ -238,9 +244,10 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     const y2 = (75 + 60) * dpi
     ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
 
+    // Street nameplate border
     ctx.strokeStyle = 'black'
-    ctx.lineWidth = 10
-    ctx.strokeRect(x1 + (10 * 2), y1 + (10 * 2), x2 - x1 - (10 * 4), y2 - y1 - (10 * 4))
+    ctx.lineWidth = 5 * dpi
+    ctx.strokeRect(x1 + (5 * dpi * 2), y1 + (5 * dpi * 2), x2 - x1 - (5 * dpi * 4), y2 - y1 - (5 * dpi * 4))
 
     const x = thumbnailWidth * dpi / 2
 
