@@ -139,21 +139,6 @@ app.use(requestHandlers.login_token_parser)
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
-// Permanently redirect http to https in production.
-app.use(function (req, res, next) {
-  if (app.locals.config.env === 'production') {
-    // req.secure is Express's flag for a secure request, but this is not available
-    // on Heroku, which uses a header instead.
-    if (req.secure === true || req.headers['x-forwarded-proto'] !== 'https') {
-      res.redirect(301, 'https://' + req.hostname + req.originalUrl)
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
-
 // Generate nonces for inline scripts
 app.use(function (req, res, next) {
   res.locals.nonce = {
