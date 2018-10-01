@@ -135,4 +135,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(GalleryStreetItem)
+export default connect(mapStateToProps)(GalleryStreetItemWithIntl)
