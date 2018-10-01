@@ -60,6 +60,10 @@ class StatusMessage extends React.PureComponent {
     }
   }
 
+  componentWillUnmount () {
+    window.removeEventListener('stmx:save_street', this.props.hideStatusMessage)
+  }
+
   onClickUndo = (event) => {
     this.props.doUndo()
   }
