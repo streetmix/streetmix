@@ -22,7 +22,7 @@
     "precommit": "lint-staged",
     "mongo:start": "mongod --fork --logpath /dev/null",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()'",
-    "app:start": "supervisor --ignore . index.js",
+    "app:start": "supervisor --extensions js --ignore .cache,assets,build,test index.js",
     "test:cleanup": "npm run test:server:close && npm run mongo:stop",
     "test:server": "NODE_ENV=test PORT=3000 node index &",
     "test:server:close": "pkill -SIGINT streetmix",
