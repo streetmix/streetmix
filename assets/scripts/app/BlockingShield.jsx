@@ -33,41 +33,50 @@ export default class BlockingShield extends React.Component {
     }
   }
 
+  /* TODO: move blocking shield state to Redux store */
   componentDidMount () {
-    window.addEventListener('stmx:show_blocking_shield', (event) => {
-      this.clearTimers()
-
-      this.setState({
-        visible: true,
-        mode: event.detail.mode || 'load'
-      })
-
-      this.blockingShieldTimerId = window.setTimeout(() => {
-        this.setState({ darken: true })
-      }, BLOCKING_SHIELD_DARKEN_DELAY)
-
-      this.blockingShieldTooSlowTimerId = window.setTimeout(() => {
-        this.setState({ errorType: 'too-slow' })
-      }, BLOCKING_SHIELD_TOO_SLOW_DELAY)
-    })
-
-    window.addEventListener('stmx:darken_blocking_shield', (event) => {
-      this.clearTimers()
-
-      this.setState({
-        visible: true,
-        immediate: true,
-        errorType: 'try-again',
-        showCancel: event.detail.showCancel
-      })
-    })
-
+    window.addEventListener('stmx:show_blocking_shield', this.showBlockingShield)
+    window.addEventListener('stmx:darken_blocking_shield', this.darkenBlockingShield)
     window.addEventListener('stmx:hide_blocking_shield', this.hide)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('stmx:show_blocking_shield', this.showBlockingShield)
+    window.removeEventListener('stmx:darken_blocking_shield', this.darkenBlockingShield)
+    window.removeEventListener('stmx:hide_blocking_shield', this.hide)
   }
 
   clearTimers = () => {
     window.clearTimeout(this.blockingShieldTimerId)
     window.clearTimeout(this.blockingShieldTooSlowTimerId)
+  }
+
+  showBlockingShield = (event) => {
+    this.clearTimers()
+
+    this.setState({
+      visible: true,
+      mode: event.detail.mode || 'load'
+    })
+
+    this.blockingShieldTimerId = window.setTimeout(() => {
+      this.setState({ darken: true })
+    }, BLOCKING_SHIELD_DARKEN_DELAY)
+
+    this.blockingShieldTooSlowTimerId = window.setTimeout(() => {
+      this.setState({ errorType: 'too-slow' })
+    }, BLOCKING_SHIELD_TOO_SLOW_DELAY)
+  }
+
+  darkenBlockingShield = (event) => {
+    this.clearTimers()
+
+    this.setState({
+      visible: true,
+      immediate: true,
+      errorType: 'try-again',
+      showCancel: event.detail.showCancel
+    })
   }
 
   onClickTryAgain = (event) => {
