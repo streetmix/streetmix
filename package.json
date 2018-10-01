@@ -43,7 +43,10 @@
     ],
     "setupFiles": [
       "./test/setup-jest.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js"
+    }
   },
   "browserslist": [
     "last 2 versions",
