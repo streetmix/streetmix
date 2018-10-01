@@ -162,14 +162,7 @@ body.controls-fade-out .segment.hover .hover-bk {
   width: 24px;
   height: 24px;
 
-  /* Highly specific overrides on the nonspecific `.menu .svg-inline--fa` selector */
   > svg.svg-inline--fa {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto !important;
-    width: 9px;
-    height: 9px;
     margin-left: 0.5px; /* adjust off-centering */
     margin-top: 1px; /* adjust off-centering */
   }
