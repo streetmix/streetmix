@@ -24,6 +24,7 @@ import {
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
 import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from './constants'
+import { BUILDING_SPACE } from './buildings'
 import { segmentsChanged } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
@@ -154,10 +155,13 @@ function handleSegmentResizeMove (event) {
     deltaFromOriginal = -deltaFromOriginal
   }
 
-  draggingResize.elX += deltaX
-  draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
+  const newWidth = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
+  const deltaMargin = calculateDeltaMargin(newWidth, draggingResize.originalWidth)
+  draggingResize.width = newWidth
 
-  draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
+  draggingResize.elX += deltaX
+  draggingResize.floatingEl.style.left = (draggingResize.elX + deltaMargin - document.querySelector('#street-section-outer').scrollLeft) + 'px'
+
   var precise = event.shiftKey
 
   if (precise) {
@@ -170,6 +174,31 @@ function handleSegmentResizeMove (event) {
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
+}
+
+function calculateDeltaMargin (newWidth, prevWidth) {
+  const prevRemainingWidth = store.getState().street.remainingWidth
+  const prevMargin = calculateStreetMargin(prevRemainingWidth)
+  const nextRemainingWidth = prevRemainingWidth + prevWidth - newWidth
+  const nextMargin = calculateStreetMargin(nextRemainingWidth)
+
+  let deltaMargin = (nextMargin - prevMargin)
+  const streetSectionOuter = document.querySelector('#street-section-outer')
+  var maxScrollLeft = streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
+  if (deltaMargin < 0 && (streetSectionOuter.scrollLeft === maxScrollLeft || Math.abs(deltaMargin) > streetSectionOuter.scrollLeft)) {
+    deltaMargin = 0
+  }
+
+  return deltaMargin
+}
+
+function calculateStreetMargin (remainingWidth) {
+  let streetMargin = Math.round(-remainingWidth * TILE_SIZE / 2)
+  if (streetMargin < BUILDING_SPACE) {
+    streetMargin = BUILDING_SPACE
+  }
+
+  return streetMargin
 }
 
 export function onBodyMouseDown (event) {
