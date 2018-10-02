@@ -184,7 +184,7 @@ function calculateDeltaMargin (newWidth, prevWidth) {
 
   let deltaMargin = (nextMargin - prevMargin)
   const streetSectionOuter = document.querySelector('#street-section-outer')
-  var maxScrollLeft = streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
+  const maxScrollLeft = streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
   if (deltaMargin < 0 && (streetSectionOuter.scrollLeft === maxScrollLeft || Math.abs(deltaMargin) > streetSectionOuter.scrollLeft)) {
     deltaMargin = 0
   }
