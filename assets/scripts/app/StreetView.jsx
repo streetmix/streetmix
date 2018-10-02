@@ -89,7 +89,8 @@ class StreetView extends React.Component {
       // scrollLeft to keep current segments in view (scrollLeft = 0)
       // Current solution is to delay updating margin until street is not scrolled all
       // the way to right or all the way to left or viewport was resized.
-      if (deltaX < 0 && (!this.state.posRight || Math.abs(deltaX) > this.streetSectionOuter.scrollLeft)) return
+      if (this.state.resizeType !== 'viewport' && deltaX < 0 &&
+         (!this.state.posRight || Math.abs(deltaX) > this.streetSectionOuter.scrollLeft)) return
 
       this.streetSectionCanvas.style.marginLeft = streetMargin + 'px'
       this.streetSectionCanvas.style.marginRight = streetMargin + 'px'
