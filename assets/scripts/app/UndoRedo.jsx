@@ -16,26 +16,8 @@ class UndoRedo extends React.Component {
     redo: PropTypes.func
   }
 
-  constructor (props) {
-    super(props)
-
-    // Undo/redo availability is always checked. This makes sure that
-    // component is always in the correct state even after re-mounting,
-    // e.g. when locale has changed.
-    this.state = {
-      undoAvailable: isUndoAvailable(),
-      redoAvailable: isRedoAvailable()
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    // Update undo or redo buttons if the undo position or stack has changed.
-    if (this.props.undoPosition !== nextProps.undoPosition || this.props.undoStack !== nextProps.undoStack) {
-      this.setState({
-        undoAvailable: isUndoAvailable(),
-        redoAvailable: isRedoAvailable()
-      })
-    }
+  shouldComponentUpdate (nextProps) {
+    return nextProps.undoPosition !== this.props.undoPosition || nextProps.undoStack !== this.props.undoStack
   }
 
   render () {
@@ -43,14 +25,14 @@ class UndoRedo extends React.Component {
       <React.Fragment>
         <button
           onClick={this.props.undo}
-          disabled={!this.state.undoAvailable}
+          disabled={!isUndoAvailable()}
           title={this.props.intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
         >
           <FontAwesomeIcon icon="undo" />
         </button>
         <button
           onClick={this.props.redo}
-          disabled={!this.state.redoAvailable}
+          disabled={!isRedoAvailable()}
           title={this.props.intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
         >
           <FontAwesomeIcon icon="redo" />
