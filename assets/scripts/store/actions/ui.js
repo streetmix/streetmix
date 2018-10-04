@@ -4,7 +4,8 @@ import {
   SET_UNIT_SETTINGS,
   SET_ACTIVE_SEGMENT,
   UPDATE_DRAGGING_STATE,
-  CLEAR_DRAGGING_STATE
+  CLEAR_DRAGGING_STATE,
+  SET_DRAGGING_TYPE
 } from './index'
 
 export function showStreetNameCanvas () {
@@ -46,5 +47,12 @@ export function updateDraggingState (segmentBeforeEl, segmentAfterEl, draggedSeg
 export function clearDraggingState () {
   return {
     type: CLEAR_DRAGGING_STATE
+  }
+}
+
+export function setDraggingType (draggingType) {
+  return {
+    type: SET_DRAGGING_TYPE,
+    draggingType
   }
 }

@@ -4,7 +4,8 @@ import {
   SET_UNIT_SETTINGS,
   SET_ACTIVE_SEGMENT,
   UPDATE_DRAGGING_STATE,
-  CLEAR_DRAGGING_STATE
+  CLEAR_DRAGGING_STATE,
+  SET_DRAGGING_TYPE
 } from '../actions'
 import * as constants from '../../users/constants'
 
@@ -59,6 +60,11 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         draggingState: null
+      }
+    case SET_DRAGGING_TYPE:
+      return {
+        ...state,
+        draggingType: action.draggingType
       }
     default:
       return state
