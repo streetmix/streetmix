@@ -20,13 +20,16 @@ import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
+import { DRAGGING_TYPE_RESIZE } from '../segments/drag_and_drop'
+import { updateStreetMargin } from '../segments/resizing'
 
 class StreetView extends React.Component {
   static propTypes = {
     readOnly: PropTypes.bool,
     street: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired,
-    locale: PropTypes.object.isRequired
+    locale: PropTypes.object.isRequired,
+    draggingType: PropTypes.number
   }
 
   static defaultProps = {
@@ -60,44 +63,27 @@ class StreetView extends React.Component {
       this.onResize()
     }
 
-    if (prevState.resizeType && !this.state.resizeType) {
-      const deltaX = (prevState.resizeType === 'segment' && this.state.buildingWidth - prevState.buildingWidth)
-      this.updateScrollLeft(deltaX)
+    if (prevState.buildingWidth !== this.state.buildingWidth) {
+      const deltaX = this.state.buildingWidth - prevState.buildingWidth
 
-      if (prevState.resizeType === 'viewport') {
-        this.updateStreetMargin(prevState.resizeType)
+      if (deltaX !== 0 && (prevState.resizeType === 'segment' || prevState.resizeType === this.state.resizeType)) {
+        this.updateScrollLeft(deltaX)
+      } else if (prevState.resizeType === 'viewport') {
+        this.resizeStreetExtent('segment', true)
       }
     }
 
-    if (prevProps.street.occupiedWidth !== this.props.street.occupiedWidth) {
-      this.updateStreetMargin()
+    if (prevProps.street.occupiedWidth !== this.props.street.occupiedWidth &&
+        this.props.draggingType !== DRAGGING_TYPE_RESIZE) {
+      this.resizeStreetExtent('segment', false)
     }
   }
 
-  updateStreetMargin = (prevResize) => {
-    const prevStreetMargin = (this.state.buildingWidth - 25)
-    let streetMargin = Math.round(-this.props.street.remainingWidth * TILE_SIZE / 2)
-    if (streetMargin < BUILDING_SPACE) {
-      streetMargin = BUILDING_SPACE
-    }
+  resizeStreetExtent = (resizeType, dontDelay) => {
+    const marginUpdated = updateStreetMargin(this.streetSectionCanvas, this.streetSectionOuter, dontDelay)
 
-    if (prevStreetMargin !== streetMargin) {
-      const deltaX = (streetMargin - prevStreetMargin)
-      // When scrolled all the way to right and decreasing occupiedWidth, an empty strip
-      // of space is shown briefly before being scrolled if updating streetMargin.
-      // When scrolled all the way to left and decreasing occupiedWidth, cannot update
-      // scrollLeft to keep current segments in view (scrollLeft = 0)
-      // Current solution is to delay updating margin until street is not scrolled all
-      // the way to right or all the way to left or viewport was resized.
-      if (prevResize !== 'viewport' && deltaX < 0 &&
-         (!this.state.posRight || Math.abs(deltaX) > this.streetSectionOuter.scrollLeft)) return
-
-      this.streetSectionCanvas.style.marginLeft = streetMargin + 'px'
-      this.streetSectionCanvas.style.marginRight = streetMargin + 'px'
-
-      this.setState({
-        resizeType: 'segment'
-      })
+    if (marginUpdated) {
+      this.setState({ resizeType: resizeType })
     }
   }
 
@@ -251,8 +237,8 @@ class StreetView extends React.Component {
 
   render () {
     const dirtStyle = {
-      marginLeft: (-this.state.buildingWidth) + 'px',
-      marginRight: (-this.state.buildingWidth) + 'px'
+      marginLeft: (-this.state.buildingWidth - 5) + 'px',
+      marginRight: (-this.state.buildingWidth - 5) + 'px'
     }
 
     return (
@@ -278,6 +264,7 @@ class StreetView extends React.Component {
                 resizeType={this.state.resizeType}
                 setBuildingWidth={this.setBuildingWidth}
                 updatePerspective={this.updatePerspective}
+                draggingType={this.props.draggingType}
               />
               <IntlProvider
                 locale={this.props.locale.locale}
@@ -314,7 +301,8 @@ function mapStateToProps (state) {
     readOnly: state.app.readOnly,
     street: state.street,
     system: state.system,
-    locale: state.locale
+    locale: state.locale,
+    draggingType: state.ui.draggingType
   }
 }
 
