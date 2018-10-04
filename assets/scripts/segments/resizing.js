@@ -78,25 +78,25 @@ export function updateStreetMargin (canvasRef, streetOuterRef, dontDelay = false
 
   const deltaMargin = (streetMargin - prevMargin)
 
-  if (deltaMargin) {
-    const maxScrollLeft = streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
+  if (!deltaMargin) return false
 
-    // When scrolled all the way to right and decreasing occupiedWidth, an empty strip
-    // of space is shown briefly before being scrolled if updating streetMargin.
-    // When scrolled all the way to left and decreasing occupiedWidth, cannot update
-    // scrollLeft to keep current segments in view (scrollLeft = 0)
-    // Current solution is to delay updating margin until street is not scrolled all
-    // the way to right or all the way to left or viewport was resized.
-    const delayUpdate = (!dontDelay && deltaMargin < 0 && (Math.abs(deltaMargin) > streetSectionOuter.scrollLeft ||
-      streetSectionOuter.scrollLeft === maxScrollLeft))
+  const maxScrollLeft = streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
 
-    if (!delayUpdate) {
-      streetSectionCanvas.style.marginLeft = (streetMargin + 25) + 'px'
-      streetSectionCanvas.style.marginRight = (streetMargin + 25) + 'px'
-    }
+  // When scrolled all the way to right and decreasing occupiedWidth, an empty strip
+  // of space is shown briefly before being scrolled if updating streetMargin.
+  // When scrolled all the way to left and decreasing occupiedWidth, cannot update
+  // scrollLeft to keep current segments in view (scrollLeft = 0)
+  // Current solution is to delay updating margin until street is not scrolled all
+  // the way to right or all the way to left or viewport was resized.
+  const delayUpdate = (!dontDelay && deltaMargin < 0 && (Math.abs(deltaMargin) > streetSectionOuter.scrollLeft ||
+    streetSectionOuter.scrollLeft === maxScrollLeft))
 
-    return (!delayUpdate)
+  if (!delayUpdate) {
+    streetSectionCanvas.style.marginLeft = (streetMargin + 25) + 'px'
+    streetSectionCanvas.style.marginRight = (streetMargin + 25) + 'px'
   }
+
+  return (!delayUpdate)
 }
 
 export function handleSegmentResizeEnd (event) {
