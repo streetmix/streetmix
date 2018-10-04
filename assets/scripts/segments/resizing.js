@@ -8,7 +8,10 @@ import {
   changeDraggingType
 } from './drag_and_drop'
 import { segmentsChanged } from './view'
+import { BUILDING_SPACE } from './buildings'
+import { TILE_SIZE } from './constants'
 import store from '../store'
+import { setDraggingType } from '../store/actions/ui'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
 const SHORT_DELAY = 100
@@ -47,8 +50,46 @@ export function handleSegmentResizeCancel () {
   handleSegmentResizeEnd()
 }
 
+export function updateStreetMargin (canvasRef, streetOuterRef, dontDelay = false) {
+  const streetSectionCanvas = canvasRef || document.querySelector('#street-section-canvas')
+  const streetSectionOuter = streetOuterRef || document.querySelector('#street-section-outer')
+
+  const prevMargin = Number.parseInt(streetSectionCanvas.style.marginLeft, 10) || BUILDING_SPACE
+  const { remainingWidth } = store.getState().street
+  let streetMargin = Math.round(-remainingWidth * TILE_SIZE / 2)
+
+  if (!streetMargin || streetMargin < BUILDING_SPACE) {
+    streetMargin = BUILDING_SPACE
+  }
+
+  const deltaMargin = (streetMargin - prevMargin)
+
+  if (deltaMargin) {
+    const maxScrollLeft = streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
+
+    // When scrolled all the way to right and decreasing occupiedWidth, an empty strip
+    // of space is shown briefly before being scrolled if updating streetMargin.
+    // When scrolled all the way to left and decreasing occupiedWidth, cannot update
+    // scrollLeft to keep current segments in view (scrollLeft = 0)
+    // Current solution is to delay updating margin until street is not scrolled all
+    // the way to right or all the way to left or viewport was resized.
+    const delayUpdate = (!dontDelay && deltaMargin < 0 && (Math.abs(deltaMargin) > streetSectionOuter.scrollLeft ||
+      streetSectionOuter.scrollLeft === maxScrollLeft))
+
+    if (!delayUpdate) {
+      streetSectionCanvas.style.marginLeft = (streetMargin + 25) + 'px'
+      streetSectionCanvas.style.marginRight = (streetMargin + 25) + 'px'
+    }
+
+    return (!delayUpdate)
+  }
+}
+
 export function handleSegmentResizeEnd (event) {
   setIgnoreStreetChanges(false)
+
+  updateStreetMargin()
+  store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
   segmentsChanged()
 
