@@ -50,6 +50,20 @@ export function handleSegmentResizeCancel () {
   handleSegmentResizeEnd()
 }
 
+/**
+ * Updates street section canvas margins when occupiedWidth is greater than default street extent
+ *
+ * The default street extent is equal to the street width + (2 * BUILDING_SPACE). When the occupiedWidth
+ * is greater than the default street extent, the street-section-outer's scrollLeft no longer works properly.
+ *
+ * The solution to the above problem, is to update the street-section-canvas' margins and the building widths
+ * based on how much the occupiedWidth extends greater than the street width and the default street extent.
+ *
+ * This function calculates the street margin based on the remainingWidth and compares it to the previous
+ * street margin. If the previous street margin is not equal to the current street margin, it will update
+ * street-section-canvas' margins accordingly (except in specific situations described within the function)
+ *
+ */
 export function updateStreetMargin (canvasRef, streetOuterRef, dontDelay = false) {
   const streetSectionCanvas = canvasRef || document.querySelector('#street-section-canvas')
   const streetSectionOuter = streetOuterRef || document.querySelector('#street-section-outer')
