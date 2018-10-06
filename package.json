@@ -36,6 +36,9 @@
     "protractor:local": "protractor ./test/integration/local.conf.js",
     "translations:download": "node bin/download_translations.js"
   },
+  "cacheDirectories": [
+    ".cache"
+  ],
   "jest": {
     "roots": [
       "app",
