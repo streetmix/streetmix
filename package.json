@@ -12,7 +12,7 @@
     "npm": "6.4.1"
   },
   "scripts": {
-    "postinstall": "parcel build assets/scripts/main.js --out-dir build",
+    "postinstall": "node app/bundle.js",
     "prestart": "npm run mongo:start",
     "start": "npm run app:start",
     "stop": "npm run mongo:stop",

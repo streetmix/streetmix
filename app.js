@@ -14,7 +14,6 @@ const helmet = require('helmet')
 const config = require('config')
 const path = require('path')
 const uuid = require('uuid/v4')
-const Bundler = require('parcel-bundler')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
@@ -148,20 +147,6 @@ app.use(function (req, res, next) {
   next()
 })
 
-// Add config variables to process.env which get injected into JS bundle
-process.env.APP_HOST_PORT = config.get('app_host_port')
-process.env.FACEBOOK_APP_ID = config.get('facebook_app_id')
-process.env.API_URL = config.get('restapi_proxy_baseuri_rel')
-process.env.PELIAS_HOST_NAME = config.get('geocode.pelias.host')
-process.env.PELIAS_API_KEY = config.get('geocode.pelias.api_key')
-process.env.TWITTER_CALLBACK_URI = config.get('twitter.oauth_callback_uri')
-process.env.AUTH0_CALLBACK_URI = config.get('auth0.callback_uri')
-process.env.AUTH0_DOMAIN = config.get('auth0.domain')
-process.env.AUTH0_CLIENT_ID = config.get('auth0.client_id')
-process.env.USE_AUTH0 = config.get('auth0.use_auth0')
-process.env.ENV = config.get('env')
-process.env.NO_INTERNET_MODE = config.get('no_internet_mode')
-
 // Set Redis client for when requesting the geoip
 app.use('/services/geoip', function (req, res, next) {
   req.redisClient = client
@@ -244,20 +229,9 @@ app.get('/assets/*', function (req, res) {
 })
 
 // Allow hot-module reloading (HMR) in non-production environments
-async function runBundle () {
-  const bundler = new Bundler(path.join(process.cwd(), '/assets/scripts/main.js'), {
-    outDir: './build'
-    // scopeHoist: true // Turns on experimental tree-shaking (broken)
-  })
-
-  app.use(bundler.middleware())
-
-  // This also runs .bundle()
-  await bundler.serve()
-}
-
 if (config.env !== 'production') {
-  runBundle()
+  const runBundle = require('./app/bundle')
+  runBundle(app)
 }
 
 // Catch-all
