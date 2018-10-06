@@ -228,6 +228,10 @@ app.get('/assets/*', function (req, res) {
   res.status(404).render('404', {})
 })
 
+app.get('/main.map', function (req, res) {
+  res.sendFile(path.join(__dirname, '/build/main.map'))
+})
+
 // Allow hot-module reloading (HMR) in non-production environments
 if (config.env !== 'production') {
   const runBundle = require('./app/bundle')
