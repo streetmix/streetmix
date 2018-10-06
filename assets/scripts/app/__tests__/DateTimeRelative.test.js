@@ -6,12 +6,11 @@ import DateTimeRelative from '../DateTimeRelative'
 
 // This will only test `en-US` (default) values. Assume that localized values will
 // be handled accurately by the react-intl implementation.
-// Furthermore, there's no need to import `moment`; we want our tests to be passing
-// regardless of helper libraries used behind the scenes.
 describe('DateTimeRelative', () => {
   // Mock the implementation of Date.now()
   beforeAll(() => {
-    jest.spyOn(Date, 'now').mockImplementation(() => 1524506400000) // '2018-04-23T18:00:00.000Z'
+    // jest.spyOn(Date, 'now').mockImplementation(() => 1524506400000) // '2018-04-23T18:00:00.000Z'
+    jest.fn(Date).mockImplementation(() => 1524506400000) // '2018-04-23T18:00:00.000Z'
   })
 
   it('renders without crashing', () => {
