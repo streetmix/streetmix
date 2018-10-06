@@ -162,24 +162,6 @@ process.env.USE_AUTH0 = config.get('auth0.use_auth0')
 process.env.ENV = config.get('env')
 process.env.NO_INTERNET_MODE = config.get('no_internet_mode')
 
-// Bundle stylesheets and JS with Parcel
-const bundler = new Bundler(path.join(process.cwd(), '/assets/scripts/main.js'), {
-  outDir: './build'
-  // scopeHoist: true // Turns on experimental tree-shaking (broken)
-})
-
-async function runBundle () {
-  if (config.env === 'production') {
-    await bundler.bundle()
-  } else {
-    // Allow hot-module reloading (HMR) in non-production environments
-    // This also runs .bundle()
-    await bundler.serve()
-  }
-}
-
-runBundle()
-
 // Set Redis client for when requesting the geoip
 app.use('/services/geoip', function (req, res, next) {
   req.redisClient = client
@@ -261,7 +243,22 @@ app.get('/assets/*', function (req, res) {
   res.status(404).render('404', {})
 })
 
-app.use(bundler.middleware())
+// Allow hot-module reloading (HMR) in non-production environments
+async function runBundle () {
+  const bundler = new Bundler(path.join(process.cwd(), '/assets/scripts/main.js'), {
+    outDir: './build'
+    // scopeHoist: true // Turns on experimental tree-shaking (broken)
+  })
+
+  app.use(bundler.middleware())
+
+  // This also runs .bundle()
+  await bundler.serve()
+}
+
+if (config.env !== 'production') {
+  runBundle()
+}
 
 // Catch-all
 app.use(function (req, res) {
