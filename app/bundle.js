@@ -18,7 +18,8 @@ process.env.NO_INTERNET_MODE = config.get('no_internet_mode')
 
 async function runBundle (app) {
   const bundler = new Bundler(path.join(process.cwd(), '/assets/scripts/main.js'), {
-    outDir: './build'
+    outDir: './build',
+    publicUrl: '/assets'
     // scopeHoist: true // Turns on experimental tree-shaking (broken)
   })
 
