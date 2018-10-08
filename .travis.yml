@@ -54,6 +54,7 @@ after_failure:
 cache:
   directories:
     - node_modules
+    - .cache
 
 notifications:
   slack:
