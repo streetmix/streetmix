@@ -169,6 +169,8 @@
       "sponsored-by": "",
       "donate-link": "",
       "github-link": "",
+      "open-source-link": "",
+      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": ""
     },
@@ -192,7 +194,8 @@
       "add-location": "",
       "confirm-location": "",
       "clear-location": "",
-      "unknown-location": ""
+      "unknown-location": "",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "",
@@ -325,6 +328,16 @@
     "description": "Diseña, mezcla y comparte la calle de tu barrio - ¡en todos los navegadores!. Agrega arboles o carriles para bicicletas, veredas mas amplias o carriles de circulacion. Analiza el impacto de tus decisiones en tu comunidad",
     "page-title": ""
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "",
@@ -339,6 +352,7 @@
       "pt-br": "Portugués (Brasil)",
       "ru": "",
       "sv": "",
+      "zh": "",
       "zh-hans": "",
       "zh-hant": ""
     }
