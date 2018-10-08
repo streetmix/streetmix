@@ -155,7 +155,39 @@ const SPRITE_DEFS = {
   'curb--pickup-sign-left': { id: 'curb--pickup-sign-left', width: 2, offsetY: -4.3 },
   'curb--pickup-sign-right': { id: 'curb--pickup-sign-right', width: 2, offsetY: -4.3 },
   'curb--person-waiting-01-left': { id: 'curb--person-waiting-01-left', width: 4, offsetY: -4.3 },
-  'curb--person-waiting-01-right': { id: 'curb--person-waiting-01-right', width: 4, offsetY: -4.3 }
+  'curb--person-waiting-01-right': { id: 'curb--person-waiting-01-right', width: 4, offsetY: -4.3 },
+
+  'people--people-01': { id: 'people--people-01', width: 5, offsetY: 3.7 },
+  'people--people-02': { id: 'people--people-02', width: 5, offsetY: 3.7 },
+  'people--people-03': { id: 'people--people-03', width: 5, offsetY: 3.7 },
+  'people--people-04': { id: 'people--people-04', width: 5, offsetY: 3.7 },
+  'people--people-05': { id: 'people--people-05', width: 5, offsetY: 3.7 },
+  'people--people-06': { id: 'people--people-06', width: 5, offsetY: 3.7 },
+  'people--people-07': { id: 'people--people-07', width: 5, offsetY: 3.7 },
+  'people--people-08': { id: 'people--people-08', width: 5, offsetY: 3.7 },
+  'people--people-09': { id: 'people--people-09', width: 5, offsetY: 3.7 },
+  'people--people-10': { id: 'people--people-10', width: 5, offsetY: 3.7 },
+  'people--people-11': { id: 'people--people-11', width: 5, offsetY: 3.7 },
+  'people--people-12': { id: 'people--people-12', width: 5, offsetY: 3.7 },
+  'people--people-13': { id: 'people--people-13', width: 5, offsetY: 3.7 },
+  'people--people-14': { id: 'people--people-14', width: 5, offsetY: 3.7 },
+  'people--people-15': { id: 'people--people-15', width: 5, offsetY: 3.7 },
+  'people--people-16': { id: 'people--people-16', width: 5, offsetY: 3.7 },
+  'people--people-17': { id: 'people--people-17', width: 5, offsetY: 3.7 },
+  'people--people-18': { id: 'people--people-18', width: 5, offsetY: 3.7 },
+  'people--people-19': { id: 'people--people-19', width: 5, offsetY: 3.7 },
+  'people--people-20': { id: 'people--people-20', width: 5, offsetY: 3.7 },
+  'people--people-21': { id: 'people--people-21', width: 5, offsetY: 3.7 },
+  'people--people-22': { id: 'people--people-22', width: 5, offsetY: 3.7 },
+  'people--people-23': { id: 'people--people-23', width: 5, offsetY: 3.7 },
+  'people--people-24': { id: 'people--people-24', width: 5, offsetY: 3.7 },
+  'people--people-25': { id: 'people--people-25', width: 5, offsetY: 3.5 }, // Scooter
+  'people--people-26': { id: 'people--people-26', width: 5, offsetY: 3.7 },
+  'people--people-27': { id: 'people--people-27', width: 5, offsetY: 3.7 },
+  'people--people-28': { id: 'people--people-28', width: 5, offsetY: 3.7 },
+  'people--people-29': { id: 'people--people-29', width: 5, offsetY: 3.7 },
+  'people--people-30': { id: 'people--people-30', width: 5, offsetY: 3.7 },
+  'people--people-31': { id: 'people--people-31', width: 5, offsetY: 3.7 }
 }
 
 /**
