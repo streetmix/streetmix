@@ -169,6 +169,8 @@
       "sponsored-by": "Streetmixスポンサー:",
       "donate-link": "財務支援",
       "github-link": "オープンなソースで貢献",
+      "open-source-link": "",
+      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": ""
     },
@@ -192,7 +194,8 @@
       "add-location": "場所情報を追加",
       "confirm-location": "場所情報を確認",
       "clear-location": "場所情報を解除",
-      "unknown-location": "地球のどこか"
+      "unknown-location": "地球のどこか",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmixにお力添えください！",
@@ -325,6 +328,16 @@
     "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。必要なものはブラウザだけです！ 街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",
     "page-title": "{streetName}({author}によって)"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "アラビア語",
@@ -339,6 +352,7 @@
       "pt-br": "ポルトガル語（ブラジル）",
       "ru": "Russian",
       "sv": "スェーデン語",
+      "zh": "",
       "zh-hans": "簡体字",
       "zh-hant": "繁体字"
     }
