@@ -169,6 +169,8 @@
       "sponsored-by": "مشروع Streetmix برعاية سخيّة من:",
       "donate-link": "إدعمنا مالياً",
       "github-link": "مساهمة في فتح شيفرة المصدر",
+      "open-source-link": "",
+      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": ""
     },
@@ -192,7 +194,8 @@
       "add-location": "إضافة موقع",
       "confirm-location": "تأكيد الموقع",
       "clear-location": "إزالة الموقع",
-      "unknown-location": "موقع غير محدد"
+      "unknown-location": "موقع غير محدد",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "يحتاج Streetmix إلى مساعدتكم!",
@@ -325,6 +328,16 @@
     "description": "قم بتصميم وإعادة توزيع شارع الحي ومشاركته - كل ذلك من خلال متصفحك! أضف أشجار أو مسارات الدراجات، قم بتوسيع الأرصفة أو الممرات المرورية، تعلم كيف يمكن لقراراتك التأثير في مجتمعك.",
     "page-title": "{streetName} (بواسطة {author})"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "لغة عربية",
@@ -339,6 +352,7 @@
       "pt-br": "لغة برتغالية",
       "ru": "الروسية",
       "sv": "لغة سويدية",
+      "zh": "",
       "zh-hans": "الصينية المبسطة",
       "zh-hant": "الصينية التقليدية"
     }

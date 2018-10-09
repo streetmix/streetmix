@@ -23,6 +23,9 @@ import { TILE_SIZE } from '../segments/constants'
 import { DRAGGING_TYPE_RESIZE } from '../segments/drag_and_drop'
 import { updateStreetMargin } from '../segments/resizing'
 
+const SEGMENT_RESIZED = 1
+const STREETVIEW_RESIZED = 2
+
 class StreetView extends React.Component {
   static propTypes = {
     readOnly: PropTypes.bool,
@@ -54,28 +57,56 @@ class StreetView extends React.Component {
     }
   }
 
+  componentDidMount () {
+    const resizeState = this.onResize()
+    const streetIndicators = this.calculateStreetIndicatorsPositions()
+
+    this.setState({
+      ...resizeState,
+      ...streetIndicators
+    })
+  }
+
   componentDidUpdate (prevProps, prevState) {
     const { viewportWidth, viewportHeight } = this.props.system
 
     if (prevProps.system.viewportWidth !== viewportWidth ||
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
-      this.onResize()
+      const resizeState = this.onResize()
+      const streetIndicators = this.calculateStreetIndicatorsPositions()
+
+      // We are permitted one setState in componentDidUpdate if
+      // it's inside of a condition, like it is now.
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        ...resizeState,
+        ...streetIndicators
+      })
     }
 
     if (prevState.buildingWidth !== this.state.buildingWidth) {
       const deltaX = this.state.buildingWidth - prevState.buildingWidth
 
-      if (deltaX !== 0 && (prevState.resizeType === 'segment' || prevState.resizeType === this.state.resizeType)) {
+      // If segment was resized (either dragged or incremented), update scrollLeft to make up for margin change.
+      if (prevState.resizeType === SEGMENT_RESIZED || prevState.resizeType === this.state.resizeType) {
         this.updateScrollLeft(deltaX)
-      } else if (prevState.resizeType === 'viewport') {
-        this.resizeStreetExtent('segment', true)
+      } else if (prevState.resizeType === STREETVIEW_RESIZED) {
+        // If StreetView was resized/changed (either viewport, streetWidth, or street itself),
+        // update scrollLeft to center street view and check if margins need to be updated.
+        this.updateScrollLeft()
+        this.resizeStreetExtent(SEGMENT_RESIZED, true)
       }
     }
 
+    // Updating margins when segment is resized by dragging is handled in resizing.js
     if (prevProps.street.occupiedWidth !== this.props.street.occupiedWidth &&
         this.props.draggingType !== DRAGGING_TYPE_RESIZE) {
-      this.resizeStreetExtent('segment', false)
+      // Check if occupiedWidth changed because segment was changed (resized, added, or removed)
+      // or because gallery street was changed, and update accordingly.
+      const resizeType = (this.props.street.id === prevProps.street.id) ? STREETVIEW_RESIZED : SEGMENT_RESIZED
+      const dontDelay = (resizeType === STREETVIEW_RESIZED)
+      this.resizeStreetExtent(resizeType, dontDelay)
     }
   }
 
@@ -99,7 +130,6 @@ class StreetView extends React.Component {
     }
 
     this.streetSectionOuter.scrollLeft = scrollLeft
-    this.calculateStreetIndicatorsPositions()
   }
 
   onResize = () => {
@@ -136,22 +166,23 @@ class StreetView extends React.Component {
     this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
-    this.setState({
+    return {
       streetSectionSkyTop,
       scrollTop,
       skyTop,
-      resizeType: 'viewport'
-    })
+      resizeType: STREETVIEW_RESIZED
+    }
   }
 
   handleStreetScroll = (event) => {
     infoBubble.suppress()
 
-    var scrollPos = this.streetSectionOuter.scrollLeft
-    this.calculateStreetIndicatorsPositions()
+    const scrollPos = this.streetSectionOuter.scrollLeft
+    const streetIndicators = this.calculateStreetIndicatorsPositions()
 
     this.setState({
-      scrollPos: scrollPos
+      scrollPos: scrollPos,
+      ...streetIndicators
     })
   }
 
@@ -182,10 +213,10 @@ class StreetView extends React.Component {
       posRight = posMax - posLeft
     }
 
-    this.setState({
+    return {
       posLeft: posLeft,
       posRight: posRight
-    })
+    }
   }
 
   scrollStreet = (left, far = false) => {

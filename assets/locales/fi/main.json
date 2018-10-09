@@ -169,6 +169,8 @@
       "sponsored-by": "Streetmixin avokätinen sponsori:",
       "donate-link": "Tue meitä taloudellisesti",
       "github-link": "Osallistu avoimen lähdekoodin kehittämiseen",
+      "open-source-link": "Avointa lähdekoodia",
+      "guidebook-link": "Käyttöopas",
       "tos-link": "Käyttöehdot",
       "privacy-link": "Tietosuojakäytäntö"
     },
@@ -192,7 +194,8 @@
       "add-location": "Lisää sijainti",
       "confirm-location": "Vahvista sijainti",
       "clear-location": "Tyhjennä sijainti",
-      "unknown-location": "Tuntematon sijainti"
+      "unknown-location": "Tuntematon sijainti",
+      "geotag-unavailable": "Sijaintipalvelut eivät ole käytettävissä. Voit tarkastella karttaa, mutta et vaihtaa kadun sijaintia."
     },
     "donate": {
       "heading": "Tarvitsemme apuasi!",
@@ -325,6 +328,16 @@
     "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
     "page-title": "{streetName} (suunnitellut {author})"
   },
+  "credits": {
+    "core-team-heading": "Kehitysryhmä",
+    "past-team-heading": "Entiset kehittäjät",
+    "advisors": "Konsultit",
+    "additional-illustrations": "Graafikot",
+    "additional-code": "Ohjelmoijat",
+    "additional-contributors": "Avustajat",
+    "special-thanks": "Erityiskiitokset",
+    "translators": "Kääntäjät"
+  },
   "i18n": {
     "lang": {
       "ar": "Arabia",
@@ -339,6 +352,7 @@
       "pt-br": "Portugali (Brasilia)",
       "ru": "Venäjä",
       "sv": "Ruotsi",
+      "zh": "Kiina",
       "zh-hans": "Kiina (yksinkertaistettu)",
       "zh-hant": "Kiina (perinteinen)"
     }

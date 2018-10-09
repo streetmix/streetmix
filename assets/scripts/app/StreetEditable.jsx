@@ -21,7 +21,7 @@ import {
 class StreetEditable extends React.Component {
   static propTypes = {
     // Provided by parent
-    resizeType: PropTypes.string,
+    resizeType: PropTypes.number,
     setBuildingWidth: PropTypes.func.isRequired,
     updatePerspective: PropTypes.func.isRequired,
     draggingType: PropTypes.number,
@@ -40,6 +40,10 @@ class StreetEditable extends React.Component {
     this.state = {
       suppressMouseEnter: false
     }
+  }
+
+  componentDidMount () {
+    this.props.setBuildingWidth(this.streetSectionEditable)
   }
 
   componentDidUpdate (prevProps) {

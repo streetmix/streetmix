@@ -27,10 +27,16 @@ import StreetView from './StreetView'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
+import { onResize } from './window_resize'
 
 class App extends React.PureComponent {
   static propTypes = {
     locale: PropTypes.object
+  }
+
+  componentDidMount () {
+    onResize()
+    // resizeStreetWidth()
   }
 
   render () {

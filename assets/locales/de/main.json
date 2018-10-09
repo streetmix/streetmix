@@ -169,6 +169,8 @@
       "sponsored-by": "Streetmix wird großzügigerweise gesponsert von:",
       "donate-link": "Unterstütze uns finanziell",
       "github-link": "Trage zu Open Source bei",
+      "open-source-link": "",
+      "guidebook-link": "",
       "tos-link": "Geschäftsbedingungen",
       "privacy-link": "Datenschutzrichtlinie"
     },
@@ -192,7 +194,8 @@
       "add-location": "Ort hinzufügen",
       "confirm-location": "Ort bestätigen",
       "clear-location": "Ort löschen",
-      "unknown-location": "Unbekannter Ort"
+      "unknown-location": "Unbekannter Ort",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmix braucht deine Hilfe!",
@@ -325,6 +328,16 @@
     "description": "Gestalte, remixe und teile die Straßen in deiner Nachbarschaft - einfach in deinem Browser! Füge Bäume oder Radwege hinzu, verbreitere Gehwege oder Fahrstreifen, und erfahre, wie deine Entscheidungen deine Gemeinde beeinflussen können.",
     "page-title": "{streetName} (von {author})"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "Arabisch",
@@ -339,6 +352,7 @@
       "pt-br": "Portugiesisch (Brasilien)",
       "ru": "Russisch",
       "sv": "Schwedisch",
+      "zh": "",
       "zh-hans": "Hochchinesisch",
       "zh-hant": "Traditionelles Chinesisch"
     }
