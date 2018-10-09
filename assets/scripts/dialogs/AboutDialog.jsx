@@ -373,6 +373,7 @@ export default class AboutDialog extends React.PureComponent {
                       <h4><FormattedMessage id="i18n.lang.ru" defaultMessage="Russian" /></h4>
                       <ul>
                         <li>Artem Savin</li>
+                        <li>Olya Arakhouskaya</li>
                       </ul>
                     </li>
                     <li>
