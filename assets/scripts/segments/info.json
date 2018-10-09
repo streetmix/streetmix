@@ -517,7 +517,6 @@
     "variants": [
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "left": {
         "minWidth": 7,
@@ -554,7 +553,6 @@
     "variants": [
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "left": {
         "minWidth": 10,
@@ -583,7 +581,6 @@
       "direction",
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "taxi|inbound|left": {
         "name": "Taxi loading zone",
@@ -685,7 +682,6 @@
       "waiting-area",
       "orientation"
     ],
-    "enableWithFlag": "SEGMENT_FLEX_ZONE",
     "details": {
       "sparse|left": {
         "graphics": {
@@ -1294,6 +1290,42 @@
           ],
           "repeat": "ground--asphalt-red"
         }
+      },
+      "inbound|grass": {
+        "minWidth": 10,
+        "maxWidth": 14,
+        "graphics": {
+          "center": [
+            "markings--streetcar-track-02",
+            "transit--streetcar-inbound",
+            "markings--straight-inbound-light"
+          ],
+          "repeat": [
+            {
+              "id": "plants--grass",
+              "offsetY": 10.3
+            },
+            "ground--asphalt-green"
+          ]
+        }
+      },
+      "outbound|grass": {
+        "minWidth": 10,
+        "maxWidth": 14,
+        "graphics": {
+          "center": [
+            "markings--streetcar-track-02",
+            "transit--streetcar-outbound",
+            "markings--straight-outbound-light"
+          ],
+          "repeat": [
+            {
+              "id": "plants--grass",
+              "offsetY": 10.3
+            },
+            "ground--asphalt-green"
+          ]
+        }
       }
     }
   },
@@ -1366,6 +1398,48 @@
             "markings--straight-outbound-light"
           ],
           "repeat": "ground--asphalt-red"
+        }
+      },
+      "inbound|grass": {
+        "minWidth": 10,
+        "maxWidth": 14,
+        "graphics": {
+          "center": [
+            "transit--light-rail-inbound",
+            {
+              "id": "markings--streetcar-track-02",
+              "offsetY": 11.05
+            },
+            "markings--straight-inbound-light"
+          ],
+          "repeat": [
+            {
+              "id": "plants--grass",
+              "offsetY": 10.3
+            },
+            "ground--asphalt-green"
+          ]
+        }
+      },
+      "outbound|grass": {
+        "minWidth": 10,
+        "maxWidth": 14,
+        "graphics": {
+          "center": [
+            "transit--light-rail-outbound",
+            {
+              "id": "markings--streetcar-track-02",
+              "offsetY": 11.05
+            },
+            "markings--straight-outbound-light"
+          ],
+          "repeat": [
+            {
+              "id": "plants--grass",
+              "offsetY": 10.3
+            },
+            "ground--asphalt-green"
+          ]
         }
       }
     }

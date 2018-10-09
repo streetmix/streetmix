@@ -17,7 +17,7 @@ const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
-export class GalleryStreetItem extends React.Component {
+class GalleryStreetItem extends React.Component {
   static propTypes = {
     street: PropTypes.object.isRequired,
     intl: intlShape.isRequired,
@@ -125,10 +125,14 @@ export class GalleryStreetItem extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const GalleryStreetItemWithIntl = injectIntl(GalleryStreetItem)
+
 function mapStateToProps (state) {
   return {
     dpi: state.system.devicePixelRatio
   }
 }
 
-export default injectIntl(connect(mapStateToProps)(GalleryStreetItem))
+export default connect(mapStateToProps)(GalleryStreetItemWithIntl)

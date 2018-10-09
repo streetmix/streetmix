@@ -168,7 +168,11 @@
       "view-source": "Ve la fuente del código",
       "sponsored-by": "Streetmix está apoyado generosamente por:",
       "donate-link": "Apoyarnos con fondos",
-      "github-link": "Contribuir al código abierto"
+      "github-link": "Contribuir al código abierto",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Guardar como imagen",
@@ -190,7 +194,8 @@
       "add-location": "Añadir ubicación",
       "confirm-location": "Confirmar ubicación",
       "clear-location": "Borrar ubicación",
-      "unknown-location": "Ubicación desconocida"
+      "unknown-location": "Ubicación desconocida",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "¡Streetmix necesita tu ayuda!",
@@ -198,6 +203,30 @@
       "text": "Por favor, considera apoyarnos con una contribución única o recurrente. Tu donación pagará nuestros servidores y la infraestructura en la nube, ayudando así a otras organizaciones sin fines de lucro, grupos de defensa, y estudiantes que trabajan para mejorar nuestras calles. Los ingresos adicionales se invertirán en el desarrollo de nuevas herramientas. Nuestros gastos son completamente transparentes así que puedes ver exactamente cómo tus contribuciones son utilizadas por el equipo de Streetmix.",
       "button": "Donar a Streemix",
       "cancel": "No, gracias"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -236,7 +265,11 @@
   },
   "key": {
     "backspace": "Suprimir",
-    "shift": "Mayús"
+    "shift": "Mayús",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Remover el segmento",
@@ -295,6 +328,16 @@
     "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad.",
     "page-title": "{streetName} (por {author})"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "Árabe",
@@ -309,6 +352,7 @@
       "pt-br": "Portugués (Brasil)",
       "ru": "Ruso",
       "sv": "Sueco",
+      "zh": "",
       "zh-hans": "Chino simplificado",
       "zh-hant": "Chino tradicional"
     }

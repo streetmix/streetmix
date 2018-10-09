@@ -16,29 +16,56 @@ const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
 class SegmentForPalette extends React.Component {
   static propTypes = {
+    // Provided by react-intl
     intl: intlShape.isRequired,
+
+    // Provided by react-dnd
+    connectDragSource: PropTypes.func,
+    connectDragPreview: PropTypes.func,
+
+    // Provided by parent
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
-    connectDragSource: PropTypes.func,
-    connectDragPreview: PropTypes.func
+    onPointerOver: PropTypes.func
   }
 
   componentDidMount = () => {
     this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
   }
 
-  render () {
+  handlePointerOver = (event) => {
+    const label = this.getLabel()
+    const rect = event.target.getBoundingClientRect()
+    this.props.onPointerOver(event, label, rect)
+  }
+
+  getInfo = () => {
+    const segment = getSegmentInfo(this.props.type)
+    const variant = getSegmentVariantInfo(this.props.type, this.props.variantString)
+
+    return {
+      segment,
+      variant
+    }
+  }
+
+  getLabel = () => {
     // Get localized display names
-    const segmentInfo = getSegmentInfo(this.props.type)
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const defaultMessage = variantInfo.name || segmentInfo.name
+    const info = this.getInfo()
+    const defaultMessage = info.variant.name || info.segment.name
+
+    return this.props.intl.formatMessage({ id: `segments.${info.segment.nameKey}`, defaultMessage })
+  }
+
+  render () {
+    const info = this.getInfo()
 
     // Determine width to render at
-    const dimensions = getVariantInfoDimensions(variantInfo)
+    const dimensions = getVariantInfoDimensions(info.variant)
 
     let actualWidth = dimensions.right - dimensions.left
     if (!actualWidth) {
-      actualWidth = segmentInfo.defaultWidth
+      actualWidth = info.segment.defaultWidth
     }
     actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
 
@@ -46,7 +73,8 @@ class SegmentForPalette extends React.Component {
       <div
         style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
         className="segment segment-in-palette"
-        title={this.props.intl.formatMessage({ id: `segments.${segmentInfo.nameKey}`, defaultMessage })}
+        onPointerOver={this.handlePointerOver}
+        onPointerOut={this.handlePointerOut}
       >
         <SegmentCanvas
           actualWidth={actualWidth}

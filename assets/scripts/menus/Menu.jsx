@@ -47,7 +47,7 @@ class Menu extends React.PureComponent {
 
     this.el.classList.add('visible')
 
-    const LEFT_RIGHT_INSET = 50 // match $left-right-inset in CSS
+    const LEFT_RIGHT_INSET = 30 // match $left-right-inset in CSS
 
     // Determine positioning
     // Aligns menu to the left side of the menu item, but aligns to the right side

@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FormattedMessage } from 'react-intl'
 
+import { doSignIn } from '../users/authentication'
 import { hideStatusMessage } from '../store/actions/status'
+import { undo as doUndo } from '../store/actions/undo'
 import { registerKeypress, deregisterKeypress } from './keypress'
-import { URL_SIGN_IN_REDIRECT } from './routing'
-import { undo } from '../streets/undo_stack'
 import { loseAnyFocus } from '../util/focus'
 import CloseButton from '../ui/CloseButton'
 
@@ -20,7 +20,8 @@ class StatusMessage extends React.PureComponent {
     message: PropTypes.string,
     undo: PropTypes.bool,
     signIn: PropTypes.bool,
-    hideStatusMessage: PropTypes.func
+    hideStatusMessage: PropTypes.func,
+    doUndo: PropTypes.func
   }
 
   static defaultProps = {
@@ -59,8 +60,12 @@ class StatusMessage extends React.PureComponent {
     }
   }
 
+  componentWillUnmount () {
+    window.removeEventListener('stmx:save_street', this.props.hideStatusMessage)
+  }
+
   onClickUndo = (event) => {
-    undo()
+    this.props.doUndo()
   }
 
   onClickTheX = (event) => {
@@ -76,33 +81,31 @@ class StatusMessage extends React.PureComponent {
     let className = 'status-message'
 
     if (visible === true) {
-      className += ' visible'
+      className += ' status-message-visible'
     }
 
     // Create an undo button if requested.
     // Translation of "undo" is reused from the undo palette.
-    const undoButton = (undo)
-      ? (
-        <button onClick={this.onClickUndo}>
-          <FormattedMessage id="btn.undo" defaultMessage="Undo" />
-        </button>
-      ) : null
+    const UndoButton = (undo) && (
+      <button onClick={this.onClickUndo}>
+        <FormattedMessage id="btn.undo" defaultMessage="Undo" />
+      </button>
+    )
 
     // Create a sign-in button if requested.
     // Translation of "sign in" is reused from the menu bar.
-    const signInButton = (signIn)
-      ? (
-        <a href={`/${URL_SIGN_IN_REDIRECT}`} className="button-like">
-          <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
-        </a>
-      ) : null
+    const SignInButton = (signIn) && (
+      <button onClick={doSignIn}>
+        <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
+      </button>
+    )
 
     return (
       <div id="status-message" className={className}>
         <div className="status-message-content">
           {message}
-          {undoButton}
-          {signInButton}
+          {UndoButton}
+          {SignInButton}
           <CloseButton onClick={this.onClickTheX} />
         </div>
       </div>
@@ -120,7 +123,7 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ hideStatusMessage }, dispatch)
+  return bindActionCreators({ hideStatusMessage, doUndo }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusMessage)

@@ -159,6 +159,7 @@
     "car-type|truck": "Camión",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Carril rojo",
+    "public-transit-asphalt|grass": "Pasto",
     "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Carril rojo",
     "bus-asphalt|shared": "Carril compartido de bús/bici",

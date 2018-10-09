@@ -7,17 +7,12 @@
   right: $left-right-inset;
   height: $palette-height - 30px;
   bottom: 0;
-  background: $header-footer-background;
+  background: $palette-background;
   border-top: 3px solid darken($bottom-background, 5%);
   text-align: center;
   z-index: $z-02-palette;
   user-select: none;
   touch-action: none;
-
-  // Address a bug where switching building types
-  // will momentarily cause this element to disappear from view
-  // Only in Safari (observed in v8.0.2, still present in v9.1.2)
-  transform: rotateZ(0);
 }
 
 body.read-only .palette-container {
@@ -60,6 +55,7 @@ body.read-only .palette-container {
 
   button {
     height: $palette-height - 50px;
+    width: $palette-height - 50px;
   }
 
   // Spacing between buttons

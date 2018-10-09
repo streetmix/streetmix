@@ -92,43 +92,6 @@
       width: 65px + 50px;
       text-align: center;
     }
-
-    .width,
-    .width-non-editable,
-    .height,
-    .height-non-editable {
-      width: 50px;
-      margin: 0 3px;
-      font-family: $font-family;
-      font-size: 13px;
-      line-height: 25px;
-      text-align: center;
-
-      &.width,
-      &.height {
-        background: $form-element-background;
-        border: 1px solid $form-element-border;
-        vertical-align: bottom;
-        height: 22px;
-        line-height: 22px;
-        outline: none;
-      }
-
-      &.width-non-editable,
-      &.height-non-editable {
-        display: inline-block;
-        color: black;
-        vertical-align: center;
-        height: 25px;
-      }
-
-      &.height,
-      &.height-non-editable {
-        width: 50px + 50px;
-        margin-top: 4px;
-        margin-bottom: 2px;
-      }
-    }
   }
 
   .variants,
@@ -159,17 +122,6 @@
 
     .icon {
       opacity: 1;
-    }
-  }
-
-  .building-height {
-    .decrement {
-      margin-top: 3px;
-      margin-bottom: 5px;
-    }
-
-    .increment {
-      margin-bottom: 2px;
     }
   }
 

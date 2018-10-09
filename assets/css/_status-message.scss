@@ -11,7 +11,7 @@
   transition: opacity 200ms, transform 200ms;
   transform: translateY(100px);
 
-  &.visible {
+  &.status-message-visible {
     transform: translateY(0);
   }
 }

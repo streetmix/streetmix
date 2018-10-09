@@ -29,11 +29,16 @@ button.close {
 
   // Appearance
   border: 0;
-  font-size: 14px;
   background: transparent;
   color: rgb(64, 32, 32);
   cursor: pointer;
   user-select: none;
+
+  // Override font-awesome sizing
+  > .svg-inline--fa {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
 
   &:hover {
     color: black;

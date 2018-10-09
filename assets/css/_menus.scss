@@ -7,7 +7,7 @@
   @include box-border;
 
   position: absolute;
-  top: 35px;
+  top: 45px;
   touch-action: none;
   opacity: 0;
   background: white;
@@ -19,7 +19,7 @@
   z-index: $z-04-menu;
 
   /* Allows scrolling if the menu length is longer than height of viewport */
-  max-height: calc(100% - 60px);
+  max-height: calc(100% - 100px);
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -59,15 +59,14 @@
     resize: none;
   }
 
-  .icon,
-  .svg-inline--fa {
+  .menu-item-icon {
     position: absolute;
     top: 0.75em;
     left: 0.75em;
     width: 16px;
     height: 16px;
 
-    [dir='rtl'] {
+    [dir='rtl'] & {
       left: auto;
       right: 0.75em;
     }
@@ -160,8 +159,19 @@ body.safari .menu {
   border-top: 1px solid #cde1ea;
   border-bottom: 1px solid #cde1ea;
 
+  // Remove the top border if menu group is the first element in a menu
+  &:first-child {
+    border-top: 0;
+  }
+
+  // Remove the bottom border if menu group is the last element in a menu
   &:last-child {
     border-bottom: 0;
+  }
+
+  // Remove the doubling up of borders between consecutive menu groups
+  + .menu-item-group {
+    border-top: 0;
   }
 }
 
@@ -210,7 +220,7 @@ body.safari .menu {
 
     [dir='rtl'] & {
       left: auto;
-      right: 0;
+      right: 16px;
       padding-right: auto;
       padding-left: 3px;
       text-align: left;

@@ -11,6 +11,7 @@ import FeatureFlagDialog from './FeatureFlagDialog'
 import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
 import SignInDialog from './SignInDialog'
+import WhatsNewDialog from './WhatsNewDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: {
@@ -31,6 +32,9 @@ const DIALOG_COMPONENTS = {
   },
   SIGN_IN: {
     contents: SignInDialog
+  },
+  WHATS_NEW: {
+    contents: WhatsNewDialog
   }
 }
 

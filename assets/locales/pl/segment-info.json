@@ -159,6 +159,7 @@
     "car-type|truck": "Ciężarówka",
     "public-transit-asphalt|regular": "Asfalt",
     "public-transit-asphalt|colored": "Pas wydzielony kolorem czerwonym",
+    "public-transit-asphalt|grass": "Trawa",
     "bus-asphalt|regular": "Asfalt",
     "bus-asphalt|colored": "Pas wydzielony kolorem czerwonym",
     "bus-asphalt|shared": "Buspas współdzielony ze ścieżką rowerową",

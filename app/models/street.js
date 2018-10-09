@@ -21,7 +21,7 @@ const streetSchema = new mongoose.Schema({
 streetSchema.add({
   original_street_id: {
     type: mongoose.Schema.ObjectId,
-    ref: streetSchema
+    ref: 'Street'
   }
 })
 

@@ -1,5 +1,7 @@
 import { noop } from 'lodash'
 
+import { KEYS } from './keys'
+import { registerKeypress } from './keypress'
 import { showGallery, hideGallery } from '../gallery/view'
 import {
   draggingType,
@@ -8,26 +10,12 @@ import {
   handleSegmentMoveCancel
 } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
-import { undo, redo } from '../streets/undo_stack'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { registerKeypress } from './keypress'
 import { showStatusMessage } from './status_message'
 import { t } from '../locales/locale'
 import { showDialog } from '../store/actions/dialogs'
+import { undo, redo } from '../store/actions/undo'
 import store from '../store'
-
-export const KEYS = {
-  ENTER: 13,
-  ESC: 27,
-  EQUAL: 187, // = or +
-  EQUAL_ALT: 61, // Firefox
-  PLUS_KEYPAD: 107,
-  MINUS: 189,
-  MINUS_ALT: 173, // Firefox
-  MINUS_KEYPAD: 109,
-  BACKSPACE: 8,
-  DELETE: 46
-}
 
 export function onGlobalKeyDown (event) {
   switch (event.keyCode) {
@@ -82,11 +70,15 @@ export function registerKeypresses () {
     preventDefault: true,
     requireFocusOnBody: true,
     shiftKey: false
-  }, undo)
+  }, () => {
+    store.dispatch(undo())
+  })
 
   // Redo
   registerKeypress(['shift ctrl z', 'ctrl y'], {
     preventDefault: true,
     requireFocusOnBody: true
-  }, redo)
+  }, () => {
+    store.dispatch(redo())
+  })
 }

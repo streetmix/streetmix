@@ -51,13 +51,31 @@ class StreetView extends React.Component {
     }
   }
 
+  componentDidMount () {
+    const resizeState = this.onResize()
+    const streetIndicators = this.calculateStreetIndicatorsPositions()
+
+    this.setState({
+      ...resizeState,
+      ...streetIndicators
+    })
+  }
+
   componentDidUpdate (prevProps) {
     const { viewportWidth, viewportHeight } = this.props.system
     if (prevProps.system.viewportWidth !== viewportWidth ||
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
-      this.onResize()
-      this.calculateStreetIndicatorsPositions()
+      const resizeState = this.onResize()
+      const streetIndicators = this.calculateStreetIndicatorsPositions()
+
+      // We are permitted one setState in componentDidUpdate if
+      // it's inside of a condition, like it is now.
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        ...resizeState,
+        ...streetIndicators
+      })
     }
   }
 
@@ -93,21 +111,22 @@ class StreetView extends React.Component {
     this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
-    this.setState({
+    return {
       streetSectionSkyTop,
       scrollTop,
       skyTop
-    })
+    }
   }
 
   handleStreetScroll = (event) => {
     infoBubble.suppress()
 
-    var scrollPos = this.streetSectionOuter.scrollLeft
-    this.calculateStreetIndicatorsPositions()
+    const scrollPos = this.streetSectionOuter.scrollLeft
+    const streetIndicators = this.calculateStreetIndicatorsPositions()
 
     this.setState({
-      scrollPos: scrollPos
+      scrollPos: scrollPos,
+      ...streetIndicators
     })
   }
 
@@ -138,11 +157,11 @@ class StreetView extends React.Component {
       posRight = posMax - posLeft
     }
 
-    this.setState({
+    return {
       posLeft: posLeft,
       posRight: posRight,
       onResized: true
-    })
+    }
   }
 
   scrollStreet = (left, far = false) => {
@@ -238,7 +257,6 @@ class StreetView extends React.Component {
         </section>
         <SkyBackground
           scrollPos={this.state.scrollPos}
-          stopStreetScroll={this.stopStreetScroll}
           streetSectionSkyTop={this.state.streetSectionSkyTop}
           skyTop={this.state.skyTop}
         />

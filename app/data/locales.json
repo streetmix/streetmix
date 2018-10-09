@@ -11,7 +11,7 @@
     "name": "German",
     "value": "de",
     "key": "i18n.lang.de",
-    "level": 1
+    "level": 3
   },
   {
     "label": "English",
@@ -88,13 +88,13 @@
     "name": "Simplified Chinese",
     "value": "zh-Hans",
     "key": "i18n.lang.zh-hans",
-    "level": 2
+    "level": 3
   },
   {
     "label": "繁體中文",
     "name": "Traditional Chinese",
     "value": "zh-Hant",
     "key": "i18n.lang.zh-hant",
-    "level": 2
+    "level": 3
   }
 ]

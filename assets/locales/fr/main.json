@@ -107,7 +107,7 @@
     "street-deleted-elsewhere-title": "Cette rue a été supprimée ailleurs.",
     "street-deleted-elsewhere-description": "Cette rue a été supprimée dans un autre navigateur.",
     "access-denied-title": "Vous n'êtes pas connecté.",
-    "access-denied-description": "",
+    "access-denied-description": "Vous avez annulé le processus de connexion.",
     "auth-api-problem-title": "Il y a eu un problème avec votre identification.",
     "auth-api-problem-description": "Il y a eu un problème avec l'authentification.",
     "please-try-again": "Veuillez réessayer plus tard ou nous le signaler via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> ou <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
@@ -168,7 +168,11 @@
       "view-source": "Voir le code source",
       "sponsored-by": "Streetmix est généreusement sponsorisé par :",
       "donate-link": "Aider nous financièrement",
-      "github-link": "Contribuer à l'open source"
+      "github-link": "Contribuer à l'open source",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "Conditions d'utilisation",
+      "privacy-link": "Politique de confidentialité"
     },
     "save": {
       "heading": "Sauver en tant qu'image",
@@ -190,7 +194,8 @@
       "add-location": "Ajouter un emplacement",
       "confirm-location": "Confirmer l'emplacement",
       "clear-location": "Effacer l'emplacement",
-      "unknown-location": "Emplacement inconnu"
+      "unknown-location": "Emplacement inconnu",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmix a besoin de votre aide !",
@@ -198,6 +203,30 @@
       "text": "Nous vous demandons de bien vouloir nous soutenir par une contribution unique ou récurrente. Votre don financera nos serveurs et notre infrastructure de cloud, en soutenant d'autres organisations à but non lucratif, des groupes de défense et des étudiants œuvrant pour l’amélioration de nos rues. Des revenus complémentaires seront investis dans le développement de nouvelles fonctionnalités. Nos dépenses sont totalement transparentes, vous pouvez ainsi voir exactement de quelle manière vos contributions sont utilisées par l'équipe de Streetmix.",
       "button": "Donner à Streetmix",
       "cancel": "Non merci"
+    },
+    "sign-in": {
+      "heading": "Se connecter / S'inscrire",
+      "description": "Sauvegarder votre premier concept ou connectez-vous pour accéder à vos concepts précédents",
+      "email-label": "Courriel",
+      "email-description": "Nous vous enverrons un lien pour vous connecter. Aucun mot de passe n'est nécessaire.",
+      "email-invalid": "Oops! Il semblerait que ce ne soit pas une adresse courriel valide. Veuillez essayer de nouveau.",
+      "social-heading": "ou",
+      "button": {
+        "email": "Continuer avec votre courriel",
+        "twitter": "Continuer avec Twitter",
+        "google": "Continuer avec Google",
+        "facebook": "Continuer avec Facebook"
+      },
+      "tos": "En cliquant sur l'un de ces boutons, j'accepte les {tosLink}et la {privacyLink}.",
+      "tos-link-label": "conditions d'utilisation (en)",
+      "privacy-link-label": "politique de confidentialité (en)",
+      "loading-message": "Connexion en cours ...",
+      "sent-message-with-email": "Nous vous avons envoyer un courriel à {email}. Veuillez y suivre les instructions pour vous connecter !",
+      "email-unreceived": "Vous n'avez pas reçu le courriel ?",
+      "resend-email": "Renvoyer le courriel"
+    },
+    "whatsnew": {
+      "heading": "Qu'est-ce qu'il y a de nouveau dans Streetmix ?"
     }
   },
   "prompt": {
@@ -236,7 +265,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Touche majuscule"
+    "shift": "Touche majuscule",
+    "plus": "Plus",
+    "minus": "Moins",
+    "left-arrow": "Flèche de gauche",
+    "right-arrow": "Flèche de droite"
   },
   "tooltip": {
     "remove-segment": "Enlever les éléments de voirie",
@@ -270,8 +303,8 @@
       "photo-credit": "Photo :"
     },
     "resize": {
-      "min": "",
-      "max": ""
+      "min": "Min",
+      "max": "Max"
     }
   },
   "section": {
@@ -285,7 +318,7 @@
     "street-count": "{count, plural, one {# rue} other {# rues}}",
     "no-streets": "Aucune rue pour le moment",
     "sign-in": "Se connecter à Twitter pour avoir accès à votre galerie de rues personnelles",
-    "sign-in-prompt": ""
+    "sign-in-prompt": "Connectez-vous pour voir votre galerie de rues personnelle"
   },
   "users": {
     "anonymous": "Anonyme",
@@ -294,6 +327,16 @@
   "meta": {
     "description": "Concevez, remixez et partagez la rue de votre quartier - le tout dans votre navigateur ! Ajoutez des arbres ou des pistes cyclables, élargissez des trottoirs ou des routes. Découvrez comment vos décisions peuvent impacter votre communauté.",
     "page-title": "{streetName}(par {author})"
+  },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
   },
   "i18n": {
     "lang": {
@@ -307,10 +350,11 @@
       "ja": "Japonais",
       "pl": "Polonais",
       "pt-br": "Portugais (Brésil)",
-      "ru": "",
+      "ru": "Russe",
       "sv": "Suédois",
-      "zh-hans": "",
-      "zh-hant": ""
+      "zh": "",
+      "zh-hans": "Chinois simplifié",
+      "zh-hant": "Chinois traditionnel"
     }
   }
 }

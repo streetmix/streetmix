@@ -164,6 +164,14 @@ export function hideLoadingScreen () {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
+  const loadingEl = document.getElementById('loading')
 
-  document.getElementById('loading').className += ' hidden'
+  // Add class if classList is available. This prevents extra 'hidden'
+  // classes from appearing in hot-module reloading.
+  if (loadingEl.classList) {
+    loadingEl.classList.add('hidden')
+  } else {
+    // For old browsers, do this
+    loadingEl.className += ' hidden'
+  }
 }

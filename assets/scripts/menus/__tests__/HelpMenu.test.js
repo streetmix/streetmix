@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { HelpMenu } from '../HelpMenu'
+import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { HelpMenuWithIntl as HelpMenu } from '../HelpMenu'
 
 describe('HelpMenu', () => {
   it('renders without crashing', () => {
@@ -11,8 +11,15 @@ describe('HelpMenu', () => {
 
   it('shows the About dialog when its link is clicked', () => {
     const showDialog = jest.fn()
-    const wrapper = shallow(<HelpMenu showDialog={showDialog} />)
-    wrapper.find('a').simulate('click')
+    const wrapper = shallow(<HelpMenu showAboutDialog={showDialog} />)
+    wrapper.find('a').first().simulate('click')
+    expect(showDialog).toBeCalled()
+  })
+
+  it('shows the What’s New dialog when its link is clicked', () => {
+    const showDialog = jest.fn()
+    const wrapper = shallow(<HelpMenu showWhatsNewDialog={showDialog} />)
+    wrapper.find('a').last().simulate('click')
     expect(showDialog).toBeCalled()
   })
 

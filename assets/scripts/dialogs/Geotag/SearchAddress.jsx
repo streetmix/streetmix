@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
 import Autosuggest from 'react-autosuggest'
 import { throttle } from 'lodash'
-import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
-import { setMapState } from '../store/actions/map'
+import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
+import { setMapState } from '../../store/actions/map'
 
 const AUTOCOMPLETE_API = `https://${PELIAS_HOST_NAME}/v1/autocomplete`
 const AUTOCOMPLETE_ENDPOINT = `${AUTOCOMPLETE_API}?api_key=${PELIAS_API_KEY}`
@@ -14,7 +14,7 @@ const SEARCH_ENDPOINT = `${SEARCH_API}?api_key=${PELIAS_API_KEY}`
 const REQUEST_THROTTLE = 300
 const MINIMUM_QUERY_LENGTH = 3
 
-export class SearchAddress extends React.Component {
+class SearchAddress extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     setMapState: PropTypes.func,
@@ -157,7 +157,6 @@ export class SearchAddress extends React.Component {
     })
 
     this.props.setMapState({
-      addressInformationLabel: suggestionValue,
       addressInformation: suggestion.properties,
       markerLocation: {
         lat: suggestion.geometry.coordinates[1],
@@ -238,11 +237,14 @@ export class SearchAddress extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const SearchAddressWithIntl = injectIntl(SearchAddress)
+
 function mapStateToProps (state) {
   return {
     markerLocation: state.map.markerLocation,
-    addressInformation: state.map.addressInformation,
-    addressInformationLabel: state.map.addressInformationLabel
+    addressInformation: state.map.addressInformation
   }
 }
 
@@ -252,4 +254,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SearchAddress))
+export default connect(mapStateToProps, mapDispatchToProps)(SearchAddressWithIntl)
