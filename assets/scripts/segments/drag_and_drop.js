@@ -59,8 +59,12 @@ export function changeDraggingType (newDraggingType) {
   document.body.classList.remove('segment-move-dragging')
   document.body.classList.remove('segment-resize-dragging')
 
-  if (newDraggingType === DRAGGING_TYPE_RESIZE) {
-    document.body.classList.add('segment-resize-dragging')
+  switch (newDraggingType) {
+    case DRAGGING_TYPE_RESIZE:
+      document.body.classList.add('segment-resize-dragging')
+      break
+    case DRAGGING_TYPE_MOVE:
+      document.body.classList.add('segment-move-dragging')
   }
 }
 
@@ -404,17 +408,19 @@ export function onBodyMouseUp (event) {
 }
 
 function handleSegmentDragStart () {
-  document.body.classList.add('segment-move-dragging')
+  changeDraggingType(DRAGGING_TYPE_MOVE)
+
   infoBubble.hide()
   cancelFadeoutControls()
   hideControls()
 }
 
 function handleSegmentDragEnd () {
+  changeDraggingType(DRAGGING_TYPE_NONE)
   oldDraggingState = null
   cancelSegmentResizeTransitions()
   segmentsChanged(false)
-  document.body.classList.remove('segment-move-dragging')
+
   document.body.classList.remove('not-within-canvas')
 }
 

@@ -17,7 +17,8 @@ const initialState = {
     clickIncrement: constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
   },
   activeSegment: null,
-  draggingState: null
+  draggingState: null,
+  draggingType: 0
 }
 
 const ui = (state = initialState, action) => {

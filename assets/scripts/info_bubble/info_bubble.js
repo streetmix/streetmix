@@ -1,6 +1,6 @@
 import { app } from '../preinit/app_settings'
 import { INFO_BUBBLE_TYPE_LEFT_BUILDING, INFO_BUBBLE_TYPE_RIGHT_BUILDING } from './constants'
-import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
+import { DRAGGING_TYPE_NONE } from '../segments/drag_and_drop'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
 import { showInfoBubble, hideInfoBubble } from '../store/actions/infoBubble'
@@ -117,7 +117,7 @@ export const infoBubble = {
       return
     }
 
-    if (draggingType() !== DRAGGING_TYPE_NONE) {
+    if (store.getState().ui.draggingType !== DRAGGING_TYPE_NONE) {
       return
     }
 
