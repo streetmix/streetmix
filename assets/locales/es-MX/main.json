@@ -169,6 +169,8 @@
       "sponsored-by": "Streetmix está apoyado generosamente por:",
       "donate-link": "Apoyarnos con fondos",
       "github-link": "Contribuir al código abierto",
+      "open-source-link": "",
+      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": ""
     },
@@ -192,7 +194,8 @@
       "add-location": "Añadir ubicación",
       "confirm-location": "Confirmar ubicación",
       "clear-location": "Borrar ubicación",
-      "unknown-location": "Ubicación desconocida"
+      "unknown-location": "Ubicación desconocida",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "¡Streetmix necesita tu ayuda!",
@@ -325,6 +328,16 @@
     "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad.",
     "page-title": "{streetName} (por {author})"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "Árabe",
@@ -339,6 +352,7 @@
       "pt-br": "Portugués (Brasil)",
       "ru": "Ruso",
       "sv": "Sueco",
+      "zh": "",
       "zh-hans": "Chino simplificado",
       "zh-hant": "Chino tradicional"
     }

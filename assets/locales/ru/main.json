@@ -169,6 +169,8 @@
       "sponsored-by": "Streetmix щедро спонсируется:",
       "donate-link": "Поддержите нас финансово",
       "github-link": "Внести вклад в open source",
+      "open-source-link": "",
+      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": ""
     },
@@ -192,7 +194,8 @@
       "add-location": "Добавить местоположение",
       "confirm-location": "Подтвердить местоположение",
       "clear-location": "Очистить местоположение",
-      "unknown-location": "неизвестное местоположение"
+      "unknown-location": "неизвестное местоположение",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmix нужна ваша помощь!",
@@ -325,6 +328,16 @@
     "description": "Проектируйте, перемещайте, и делитесь вашими соседними улицами. Добавьте деревья или велосипедные дорожки, расширьте тротуары или полосы движения, узнайте, как ваши решения могут повлиять на ваше сообщество.",
     "page-title": "{streetName} (от {author})"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "Арабский",
@@ -339,6 +352,7 @@
       "pt-br": "Португальский (Бразилия)",
       "ru": "Русский",
       "sv": "Шведский",
+      "zh": "",
       "zh-hans": "Упрощенный Китайский",
       "zh-hant": "Традиционный Китайский"
     }

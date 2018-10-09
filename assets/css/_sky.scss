@@ -31,7 +31,7 @@
 .rear-clouds {
   height: 120px;
   bottom: 480px;
-  background-image: url('/images/sky-rear.svg');
+  background-image: url('../../public/images/sky-rear.svg');
   background-size: 250px 120px;
 }
 
@@ -39,7 +39,7 @@
   height: 280px;
   bottom: 0;
   border-bottom: 200px solid rgb(165, 196, 209);
-  background-image: url('/images/sky-front.svg');
+  background-image: url('../../public/images/sky-front.svg');
   background-size: 250px 280px;
   opacity: 0.5;
 }

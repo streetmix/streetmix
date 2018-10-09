@@ -169,6 +169,8 @@
       "sponsored-by": "Streetmix 由以下組織及公司慷慨贊助：",
       "donate-link": "贊助我們",
       "github-link": "貢獻源代碼",
+      "open-source-link": "",
+      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": ""
     },
@@ -192,7 +194,8 @@
       "add-location": "添加位置",
       "confirm-location": "確認位置",
       "clear-location": "清除位置",
-      "unknown-location": "未知位置"
+      "unknown-location": "未知位置",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmix 需要你的幫助！",
@@ -325,6 +328,16 @@
     "description": "重新設計并分享你所在社區的街道 —— 只需要一個網頁！你可以添加行道樹和自行車道，拓寬人行道或机动車道，并从中探索你的设计将如何影响你的社區。",
     "page-title": "{streetName} （來自{author}）"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "阿拉伯文",
@@ -339,6 +352,7 @@
       "pt-br": "葡文 (巴西)",
       "ru": "俄文",
       "sv": "瑞典語",
+      "zh": "",
       "zh-hans": "簡體中文",
       "zh-hant": "繁體中文"
     }
