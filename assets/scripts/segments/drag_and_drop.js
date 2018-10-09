@@ -40,12 +40,6 @@ const DRAGGING_TYPE_CLICK_OR_MOVE = 1
 export const DRAGGING_TYPE_MOVE = 2
 export const DRAGGING_TYPE_RESIZE = 3
 
-var _draggingType = DRAGGING_TYPE_NONE
-
-export function draggingType () {
-  return _draggingType
-}
-
 export var draggingResize = {
   segmentEl: null,
   floatingEl: null,
@@ -60,18 +54,13 @@ export var draggingResize = {
 }
 
 export function changeDraggingType (newDraggingType) {
-  _draggingType = newDraggingType
+  store.dispatch(setDraggingType(newDraggingType))
 
   document.body.classList.remove('segment-move-dragging')
   document.body.classList.remove('segment-resize-dragging')
 
-  switch (_draggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      document.body.classList.add('segment-resize-dragging')
-      break
-    case DRAGGING_TYPE_MOVE:
-      document.body.classList.add('segment-move-dragging')
-      break
+  if (newDraggingType === DRAGGING_TYPE_RESIZE) {
+    document.body.classList.add('segment-resize-dragging')
   }
 }
 
@@ -93,7 +82,6 @@ function handleSegmentResizeStart (event) {
 
   var el = event.target
 
-  store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
   changeDraggingType(DRAGGING_TYPE_RESIZE)
 
   var pos = getElAbsolutePos(el)
@@ -256,14 +244,12 @@ export function isSegmentWithinCanvas (event, canvasEl) {
 }
 
 export function onBodyMouseMove (event) {
-  if (_draggingType === DRAGGING_TYPE_NONE) {
-    return
-  }
+  const { draggingType } = store.getState().ui
 
-  switch (_draggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      handleSegmentResizeMove(event)
-      break
+  if (draggingType === DRAGGING_TYPE_NONE) {
+    return
+  } else if (draggingType === DRAGGING_TYPE_RESIZE) {
+    handleSegmentResizeMove(event)
   }
 
   event.preventDefault()
@@ -400,7 +386,9 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 }
 
 export function onBodyMouseUp (event) {
-  switch (_draggingType) {
+  const { draggingType } = store.getState().ui
+
+  switch (draggingType) {
     case DRAGGING_TYPE_NONE:
       return
     case DRAGGING_TYPE_CLICK_OR_MOVE:

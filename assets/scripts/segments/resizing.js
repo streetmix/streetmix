@@ -11,7 +11,6 @@ import { segmentsChanged } from './view'
 import { BUILDING_SPACE } from './buildings'
 import { TILE_SIZE } from './constants'
 import store from '../store'
-import { setDraggingType } from '../store/actions/ui'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 
 const SHORT_DELAY = 100
@@ -103,8 +102,6 @@ export function handleSegmentResizeEnd (event) {
   setIgnoreStreetChanges(false)
 
   updateStreetMargin()
-  store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
-
   segmentsChanged()
 
   changeDraggingType(DRAGGING_TYPE_NONE)
