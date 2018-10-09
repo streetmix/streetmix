@@ -36,7 +36,6 @@ class App extends React.PureComponent {
 
   componentDidMount () {
     onResize()
-    // resizeStreetWidth()
   }
 
   render () {
