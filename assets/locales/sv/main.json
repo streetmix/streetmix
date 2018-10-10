@@ -168,7 +168,11 @@
       "view-source": "Visa källkod",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": ""
+      "github-link": "",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Spara som bild",
@@ -190,7 +194,8 @@
       "add-location": "",
       "confirm-location": "",
       "clear-location": "",
-      "unknown-location": ""
+      "unknown-location": "",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "",
@@ -198,6 +203,30 @@
       "text": "",
       "button": "",
       "cancel": ""
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -236,7 +265,11 @@
   },
   "key": {
     "backspace": "Backsteg",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Ta bort segment",
@@ -295,6 +328,16 @@
     "description": "Designa, ändra och dela din gata - allt i din webbläsare! Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde.",
     "page-title": ""
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "",
@@ -309,6 +352,7 @@
       "pt-br": "Portugisiska (Brasilien)",
       "ru": "",
       "sv": "Svenska",
+      "zh": "",
       "zh-hans": "",
       "zh-hant": ""
     }

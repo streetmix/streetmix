@@ -19,7 +19,6 @@ class Palette extends React.Component {
   constructor (props) {
     super(props)
 
-    this.commandsEl = React.createRef()
     this.scrollable = React.createRef()
 
     this.state = {
@@ -29,37 +28,43 @@ class Palette extends React.Component {
     }
   }
 
-  componentDidMount () {
-    this.adjustPaletteLayout()
-  }
-
-  componentDidUpdate () {
-    this.adjustPaletteLayout()
-  }
-
-  setScrollableRef = (ref) => {
-    this.paletteEl = ref
-  }
-
-  adjustPaletteLayout = () => {
-    const commandsWidth = this.commandsEl.current.getBoundingClientRect().width
-
-    // Only do work if palette commands has increased in width
-    // TODO: don't hardcode magic number
-    const delta = commandsWidth - 105 // 105 is approx what default width is
-
-    // Reset palette right position
-    this.paletteEl.style.right = ''
-
-    if (delta > 0) {
-      const paletteRightPos = Number.parseInt(window.getComputedStyle(this.paletteEl).right, 10)
-      const newPaletteRightPos = paletteRightPos + delta
-      this.paletteEl.style.right = newPaletteRightPos + 'px'
+  /**
+   * Prevent tooltips from displaying during a drag action
+   *
+   * @param {object} props - incoming props
+   */
+  static getDerivedStateFromProps (props) {
+    if (props.draggingState) {
+      return {
+        tooltipVisible: false
+      }
     }
 
-    // Check button visibility state by calling this method on the Scrollable
-    // component directly.
-    this.scrollable.current.checkButtonVisibilityState()
+    return null
+  }
+
+  /**
+   * When locale changes, <Palette /> is remounted. This lifecycle function
+   * forces the scrollable container to display scroll buttons, if needed.
+   */
+  componentDidMount () {
+    if (this.scrollable.current) {
+      window.setTimeout(this.scrollable.current.checkButtonVisibilityState, 0)
+    }
+  }
+
+  /**
+   * When the app is first started, we need to wait for assets to load and the
+   * palette items to be rendered. This lifecycle function forces the scrollable
+   * scrollable container to display scroll buttons, if needed. It only runs
+   * once (when `everythingLoaded` is flipped to true) and not on every update.
+   */
+  componentDidUpdate (prevProps) {
+    if (!prevProps.everythingLoaded && this.props.everythingLoaded) {
+      if (this.scrollable.current) {
+        window.setTimeout(this.scrollable.current.checkButtonVisibilityState, 0)
+      }
+    }
   }
 
   /**
@@ -133,21 +138,29 @@ class Palette extends React.Component {
   render () {
     const { draggingState } = this.props
 
+    // Render an empty container before assets for palette items have loaded.
+    // (Another part of the app depends on this element for layout calculation.)
+    if (!this.props.everythingLoaded) {
+      return (
+        <div className="palette-container" />
+      )
+    }
+
     return (
       <div className="palette-container">
         <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
           <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
         </div>
-        <div className="palette-commands" ref={this.commandsEl}>
+        <div className="palette-commands">
           <UndoRedo />
         </div>
         <div onPointerOut={this.handlePointerOut}>
-          <Scrollable className="palette" setRef={this.setScrollableRef} ref={this.scrollable} onScroll={this.handleScroll}>
+          <Scrollable className="palette" ref={this.scrollable} onScroll={this.handleScroll}>
             <IntlProvider
               locale={this.props.locale.locale}
               messages={this.props.locale.segmentInfo}
             >
-              <React.Fragment>{this.props.everythingLoaded && this.renderPaletteItems()}</React.Fragment>
+              <React.Fragment>{this.renderPaletteItems()}</React.Fragment>
             </IntlProvider>
           </Scrollable>
         </div>

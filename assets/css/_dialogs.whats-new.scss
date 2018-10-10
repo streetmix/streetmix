@@ -2,39 +2,6 @@
   width: 500px;
   height: 70vh;
   max-height: 800px;
-  margin: -1rem -2rem;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-
-  header {
-    padding: 1rem 2rem;
-    padding-top: 2rem;
-    text-align: center;
-    background-color: #e6f0f5;
-  }
-
-  footer {
-    border-top: 1px solid #cde1ea;
-    padding: 1rem 2rem;
-    margin-top: 0;
-
-    /* because the whole footer is a close button */
-    text-align: center;
-    font-size: 13px;
-    cursor: pointer;
-    color: darken($ui-colour, 30%);
-
-    &:hover {
-      background-color: #f1f7f9;
-      color: darken($ui-colour, 50%);
-    }
-  }
-}
-
-.dialog-content {
-  flex-grow: 1;
-  position: relative;
 }
 
 .whats-new-dialog iframe {

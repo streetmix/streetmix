@@ -1,7 +1,6 @@
 {
   "name": "streetmix",
-  "scripts": {
-  },
+  "scripts": {},
   "env": {
     "COOKIE_SESSION_SECRET": {
       "required": true
@@ -19,7 +18,7 @@
       "required": true
     },
     "TRANSIFEX_API_TOKEN": {
-      "required": true
+      "required": false
     },
     "TWITTER_OAUTH_CONSUMER_KEY": {
       "required": true
@@ -29,7 +28,6 @@
     }
   },
   "addons": [
-    "sendgrid",
     "mongohq",
     "papertrail"
   ],

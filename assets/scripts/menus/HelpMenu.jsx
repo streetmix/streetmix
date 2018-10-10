@@ -1,14 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
 
-export class HelpMenu extends React.PureComponent {
+class HelpMenu extends React.PureComponent {
   static propTypes = {
+    intl: intlShape.isRequired,
     showAboutDialog: PropTypes.func,
     showWhatsNewDialog: PropTypes.func
   }
@@ -35,7 +37,7 @@ export class HelpMenu extends React.PureComponent {
           href="#"
           onClick={this.props.showWhatsNewDialog}
         >
-          <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]" />
+          <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]&lrm;" />
         </a>
         <div className="form non-touch-only help-menu-shortcuts">
           <p>
@@ -56,8 +58,18 @@ export class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd className="key">-</kbd>
-                  <kbd className="key">+</kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.minus', defaultMessage: 'Minus' })}
+                  >
+                    <FontAwesomeIcon icon="minus" />
+                  </kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.plus', defaultMessage: 'Plus' })}
+                  >
+                    <FontAwesomeIcon icon="plus" />
+                  </kbd>
                 </td>
                 <td>
                   <FormattedHTMLMessage
@@ -68,8 +80,18 @@ export class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd className="key">&larr;</kbd>
-                  <kbd className="key">&rarr;</kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.left-arrow', defaultMessage: 'Left arrow' })}
+                  >
+                    <FontAwesomeIcon icon="arrow-left" />
+                  </kbd>
+                  <kbd
+                    className="key key-icon"
+                    title={this.props.intl.formatMessage({ id: 'key.right-arrow', defaultMessage: 'Right arrow' })}
+                  >
+                    <FontAwesomeIcon icon="arrow-right" />
+                  </kbd>
                 </td>
                 <td>
                   <FormattedHTMLMessage
@@ -86,6 +108,10 @@ export class HelpMenu extends React.PureComponent {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const HelpMenuWithIntl = injectIntl(HelpMenu)
+
 function mapDispatchToProps (dispatch) {
   return {
     showAboutDialog: () => { dispatch(showDialog('ABOUT')) },
@@ -93,4 +119,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(HelpMenu)
+export default connect(null, mapDispatchToProps)(HelpMenuWithIntl)

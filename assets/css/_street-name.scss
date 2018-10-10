@@ -34,21 +34,15 @@ body.read-only .street-name-canvas {
 @mixin street-name-inside-mixin($size: $street-name-size) {
   height: 30px * $size;
   border: 3px * $size solid $street-name-text;
-  padding: 10px * $size 30px * $size;
+  padding: 10px * $size 20px * $size;
   padding-top: 11px * $size;
   padding-bottom: 5px * $size;
-  font-size: 40px * $size;
-  line-height: 30px * $size;
-  letter-spacing: 1px * $size;
+  font-size: 36px * $size;
+  line-height: 24px * $size;
 
   [dir='rtl'] {
     font-size: 30px * $size;
   }
-}
-
-@mixin street-name-fallback-mixin($size: $street-name-size) {
-  font-size: 35px * $size;
-  padding-bottom: 11px * $size;
 }
 
 body.windows .street-name-text {
@@ -63,28 +57,14 @@ body.windows .street-name-text {
   color: $street-name-text;
   user-select: none;
   white-space: nowrap;
-
-  > div.street-name-text,
-  > span.street-name-text {
-    @include street-name-inside-mixin;
-
-    font-family: 'Roadgeek', sans-serif;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &.fallback-unicode-font > div.street-name-text {
-    @include street-name-fallback-mixin;
-
-    font-family: sans-serif;
-  }
 }
 
 .street-name-text {
   @include street-name-inside-mixin;
 
-  font-family: 'Roadgeek', sans-serif;
+  // TODO: fallback to Roadgeek at 60px high w/o internet
+  font-family: 'Interstate Condensed', 'interstate-condensed', sans-serif;
+  font-weight: 700;
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -100,10 +80,6 @@ body.windows .street-name-text {
   > div,
   > span {
     @include street-name-inside-mixin($street-name-gallery-size);
-  }
-
-  &.fallback-unicode-font > div {
-    @include street-name-fallback-mixin($street-name-gallery-size);
   }
 }
 

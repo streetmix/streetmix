@@ -86,135 +86,59 @@
   max-width: 400px;
 }
 
-// Content of #about dialog box
-.about-dialog {
-  // Used by team list and external links
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-}
+// Type 2 dialog, currently used for What's New and Sign in/Sign up
+.dialog-type-2 {
+  // Removes internal margins so that certain content can bleed to edges.
+  margin: -1rem -2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 
-.about-dialog-left {
-  width: 340px;
-  margin-right: 30px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.about-dialog-right {
-  width: 340px;
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: 15px;
-}
-
-.about-dialog-description {
-  font-size: 16px;
-  margin: 1em 0;
-}
-
-.about-dialog-team {
-  a {
-    color: black;
-  }
-
-  li {
-    margin-top: 5px;
-  }
-}
-
-.about-dialog-sponsors li {
-  display: inline-block;
-  margin-right: 1em;
-}
-
-// Content of Save as Image dialog box
-.save-as-image-dialog {
-  width: 700px;
-
-  p {
+  header {
+    padding: 1rem 2rem;
+    padding-top: 2rem;
     text-align: center;
-  }
-
-  input[type='checkbox'] {
-    margin-left: 20px;
-    font-size: 25px;
-    user-select: none;
-  }
-
-  label {
-    font-size: 16px;
-    padding-left: 1px;
-    user-select: none;
+    background-color: #e6f0f5;
   }
 
   footer {
-    text-align: center;
+    padding: 1rem 2rem;
+    margin-top: 0;
+
+    > p:first-child {
+      margin-top: 0;
+    }
   }
 }
 
-.save-as-image-preview {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 300px;
-}
+.dialog-content {
+  flex-grow: 1;
+  position: relative;
 
-.save-as-image-preview-loading {
-  font-size: 16px;
-  text-align: center;
-}
+  &:not(.dialog-content-bleed) {
+    padding: 1rem 2rem;
+  }
 
-.save-as-image-preview-image {
-  @include touch-callout(default);
-
-  text-align: center;
-  font-size: 0;
-
-  img {
-    max-width: 700px;
-    max-height: 300px;
-    cursor: move; // IE
-    cursor: grab;
-    border-top: 3px dashed $ui-colour;
-    border-bottom: 3px dashed $ui-colour;
+  > p:first-child {
+    margin-top: 0;
   }
 }
 
-.donate-dialog {
-  width: 500px;
+/* Type 2 footer-as-button
+  figure out how to generecize later */
+.whats-new-dialog footer,
+.feature-flag-dialog footer,
+.about-dialog footer {
+  border-top: 1px solid #cde1ea;
+
+  /* because the whole footer is a close button */
   text-align: center;
-}
+  font-size: 13px;
+  cursor: pointer;
+  color: darken($ui-colour, 30%);
 
-.donate-dialog-text {
-  text-align: left;
-}
-
-.donate-dialog-lede {
-  font-size: 1.25em;
-  margin: 1em 0;
-}
-
-// Feature flag dialog
-
-.feature-flag-dialog {
-  width: 350px;
-}
-
-.feature-flag-dialog td {
-  vertical-align: top;
-}
-
-.feature-flag-dialog p {
-  text-align: center;
-}
-
-.feature-flag-label-disabled {
-  color: #b0baba;
-}
-
-.feature-flag-label-modified {
-  font-weight: bold;
+  &:hover {
+    background-color: #f1f7f9;
+    color: darken($ui-colour, 50%);
+  }
 }

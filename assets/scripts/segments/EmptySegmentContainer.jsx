@@ -43,7 +43,7 @@ export class EmptySegmentContainer extends React.Component {
     // (tests) fail
     return (
       <React.Fragment>
-        {emptySegments.map(({width, left}, i) => <EmptySegment key={i} width={width} left={left} />)}
+        {emptySegments.map(({ width, left }, i) => <EmptySegment key={i} width={width} left={left} />)}
       </React.Fragment>
     )
   }

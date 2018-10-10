@@ -27,7 +27,7 @@ class CloseButton extends React.Component {
         onClick={this.props.onClick}
         title={title}
       >
-        <FontAwesomeIcon icon={['far', 'times-circle']} />
+        <FontAwesomeIcon icon="times" />
       </button>
     )
   }

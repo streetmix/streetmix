@@ -37,7 +37,8 @@ const street = (state = initialState, action) => {
     case REPLACE_STREET_DATA:
       return {
         ...state,
-        ...action.street
+        ...action.street,
+        immediateRemoval: true
       }
     case ADD_SEGMENT:
       return {

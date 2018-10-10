@@ -1,8 +1,5 @@
 @charset 'utf-8';
 
-// Import styles from node_modules
-@import '../../node_modules/leaflet/dist/leaflet.css';
-
 // Local imports
 @import 'variables';
 @import 'mixins';
@@ -14,6 +11,10 @@
 @import 'menu-bar';
 @import 'menus';
 @import 'dialogs';
+@import 'dialogs.about';
+@import 'dialogs.donate';
+@import 'dialogs.feature-flags';
+@import 'dialogs.save-as-image';
 @import 'dialogs.sign-in';
 @import 'dialogs.whats-new';
 @import 'buttons';

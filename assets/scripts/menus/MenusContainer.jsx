@@ -46,11 +46,7 @@ class MenusContainer extends React.PureComponent {
 
   componentDidMount () {
     // Hide menus if page loses visibility.
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden === true) {
-        this.hideAllMenus()
-      }
-    }, false)
+    document.addEventListener('visibilitychange', this.handleVisibilityChange, false)
 
     // Set up keypress listener to hide menus if visible
     registerKeypress('esc', this.hideAllMenus)
@@ -61,6 +57,10 @@ class MenusContainer extends React.PureComponent {
     if (prevProps.activeMenu && !this.props.activeMenu) {
       document.body.focus()
     }
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange, false)
   }
 
   componentDidCatch (error) {
@@ -83,6 +83,12 @@ class MenusContainer extends React.PureComponent {
       activeMenuPos: activeMenu ? position : null
     })
     this.props.showMenu(activeMenu)
+  }
+
+  handleVisibilityChange = () => {
+    if (document.hidden === true) {
+      this.hideAllMenus()
+    }
   }
 
   hideAllMenus = () => {

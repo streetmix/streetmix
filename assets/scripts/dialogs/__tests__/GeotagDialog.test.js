@@ -1,9 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
-import { GeotagDialog } from '../GeotagDialog'
-import { shallow } from 'enzyme'
+import { GeotagDialogWithIntl as GeotagDialog } from '../GeotagDialog'
+import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
 import { getRemixOnFirstEdit } from '../../streets/remix'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
 
 // Mock dependencies that could break tests
 jest.mock('../../streets/remix', () => ({
@@ -29,7 +28,6 @@ function getTestComponent (addressInformation, street) {
       street={testStreet}
       addressInformation={testAddressInfo}
       markerLocation={testMarker}
-      intl={mockIntl}
     />
   )
 }
@@ -50,7 +48,6 @@ describe('GeotagDialog', () => {
       <GeotagDialog
         street={{}}
         addressInformation={{}}
-        intl={mockIntl}
       />
     )
     expect(wrapper.exists()).toEqual(true)
@@ -101,5 +98,19 @@ describe('GeotagDialog', () => {
     getRemixOnFirstEdit.mockReturnValueOnce(true)
     updateProps(wrapper)
     expect(wrapper.instance().canEditLocation()).toEqual(true)
+  })
+
+  it('does not show error banner if geocoding services are available', () => {
+    const wrapper = shallow(getTestComponent())
+    wrapper.setState({ geocodeAvailable: true })
+    expect(wrapper.find('.geotag-error-banner')).toHaveLength(0)
+    expect(wrapper.find('.geotag-input-container')).toHaveLength(1)
+  })
+
+  it('cripples dialog behavior if geocoding services are unavailable', () => {
+    const wrapper = shallow(getTestComponent())
+    wrapper.setState({ geocodeAvailable: false })
+    expect(wrapper.find('.geotag-error-banner')).toHaveLength(1)
+    expect(wrapper.find('.geotag-input-container')).toHaveLength(0)
   })
 })

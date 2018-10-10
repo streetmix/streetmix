@@ -11,7 +11,7 @@
     "name": "German",
     "value": "de",
     "key": "i18n.lang.de",
-    "level": 1
+    "level": 3
   },
   {
     "label": "English",
@@ -74,7 +74,7 @@
     "name": "Russian",
     "value": "ru",
     "key": "i18n.lang.ru",
-    "level": 2
+    "level": 3
   },
   {
     "label": "Svenska",

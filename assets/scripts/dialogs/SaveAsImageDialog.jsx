@@ -20,7 +20,7 @@ import { saveAs } from 'file-saver'
 const DEFAULT_IMAGE_DPI = 2
 const MAX_IMAGE_DPI = 10
 
-export class SaveAsImageDialog extends React.Component {
+class SaveAsImageDialog extends React.Component {
   static propTypes = {
     intl: intlShape,
     locale: PropTypes.string,
@@ -251,10 +251,10 @@ export class SaveAsImageDialog extends React.Component {
         <div className="save-as-image-preview">
           {!this.state.errorMessage && (
             <React.Fragment>
-              <div className="save-as-image-preview-loading" style={{display: this.state.isLoading ? 'block' : 'none'}}>
+              <div className="save-as-image-preview-loading" style={{ display: this.state.isLoading ? 'block' : 'none' }}>
                 <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
               </div>
-              <div className="save-as-image-preview-image" style={{display: this.state.isLoading ? 'none' : 'block'}}>
+              <div className="save-as-image-preview-image" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
                 <img
                   src={this.state.download.dataUrl}
                   onLoad={this.onPreviewLoaded}
@@ -301,6 +301,10 @@ export class SaveAsImageDialog extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const SaveAsImageDialogWithIntl = injectIntl(SaveAsImageDialog)
+
 function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
@@ -319,4 +323,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialog))
+export default connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialogWithIntl)

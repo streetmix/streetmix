@@ -36,6 +36,10 @@ export class DebugHoverPolygon extends React.Component {
     this.drawPolygon()
   }
 
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.updateDimensions)
+  }
+
   updateDimensions = (event) => {
     if (this.props.enabled === false) return
 

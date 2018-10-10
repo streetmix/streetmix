@@ -168,7 +168,11 @@
       "view-source": "Ver código fonte",
       "sponsored-by": "Streetmix é generosamente patrocinado por:",
       "donate-link": "Apoie-nos financeiramente",
-      "github-link": "Contribua para o código aberto"
+      "github-link": "Contribua para o código aberto",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Salvar como imagem",
@@ -190,7 +194,8 @@
       "add-location": "Adicionar localização",
       "confirm-location": "Confirmar localização",
       "clear-location": "Apagar localização",
-      "unknown-location": "Localização desconhecida"
+      "unknown-location": "Localização desconhecida",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmix precisa da sua ajuda!",
@@ -198,6 +203,30 @@
       "text": "Por favor, considere apoiar-nos com uma contribuição única ou recorrente. Sua doação pagará por nossos servidores e infraestrutura de nuvem, apoiando outras organizações sem fins lucrativos, grupos de defesa e estudantes que trabalham para melhorar nossas ruas. A receita adicional será investida no desenvolvimento de novos recursos. Nossas despesas são completamente transparentes, para que você possa ver exatamente como suas contribuições são usadas pela equipe Streetmix.",
       "button": "Doar para Streetmix",
       "cancel": "Não, obrigado"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -236,7 +265,11 @@
   },
   "key": {
     "backspace": "Apagar",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Remover segmento",
@@ -295,6 +328,16 @@
     "description": "Projete, remix e compartilhe a rua de sua vizinhança - tudo em seu browser! Adicione árvores ou ciclovias, calçadas largas ou guias de tráfego, aprenda como suas decisões podem impactar sua comunidade.",
     "page-title": "{streetName} (por {author})"
   },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
   "i18n": {
     "lang": {
       "ar": "Árabe",
@@ -309,6 +352,7 @@
       "pt-br": "Português (Brasil)",
       "ru": "Russo",
       "sv": "Sueco",
+      "zh": "",
       "zh-hans": "Chinês simplificado",
       "zh-hant": "Chinês tradicional"
     }

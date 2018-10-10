@@ -1,13 +1,20 @@
 .geotag-dialog {
   width: 90vw;
   height: 80vh;
-  margin: -1rem -2rem; /* overrides padding from .dialog-box */
-  padding: 0;
 }
 
 .geotag-dialog .close {
   z-index: $z-index-10;
   text-shadow: 0 1px white;
+}
+
+.geotag-error-banner {
+  /* Very similar to the notification bar banner */
+  padding: 0.7em 2.5em;
+  font-size: 13px;
+  text-align: center;
+  background-color: $alert-background;
+  border-bottom: 3px solid $alert-border;
 }
 
 .geotag-input-container {

@@ -218,11 +218,11 @@ export function getSegmentVariantInfo (type, variant) {
 export function getSpriteDef (sprite) {
   let def
   if (typeof sprite === 'object' && sprite.id) {
-    def = {...SPRITE_DEFS[sprite.id], ...sprite}
+    def = { ...SPRITE_DEFS[sprite.id], ...sprite }
   } else {
     // Clone the original to prevent downstream consumers from accidentally
     // modifying the reference
-    def = {...SPRITE_DEFS[sprite]}
+    def = { ...SPRITE_DEFS[sprite] }
   }
   return def
 }

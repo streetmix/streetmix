@@ -40,6 +40,10 @@ class StreetEditable extends React.Component {
     }
   }
 
+  componentDidMount () {
+    this.props.setBuildingWidth(this.streetSectionEditable)
+  }
+
   componentDidUpdate (prevProps) {
     const { onResized, draggingState } = this.props
 
@@ -152,7 +156,7 @@ class StreetEditable extends React.Component {
           <Segment
             key={segment.id}
             dataNo={i}
-            segment={{...segment}}
+            segment={{ ...segment }}
             actualWidth={segment.width}
             units={units}
             segmentPos={segmentPos}

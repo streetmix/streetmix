@@ -159,6 +159,7 @@
     "car-type|truck": "Caminhão",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Faixa vermelha",
+    "public-transit-asphalt|grass": "Grama",
     "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Faixa vermelha",
     "bus-asphalt|shared": "Faixa compartilhada: ônibus e bicicleta",

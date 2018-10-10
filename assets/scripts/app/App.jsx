@@ -27,10 +27,17 @@ import StreetView from './StreetView'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
+import { onResize } from './window_resize'
+import { resizeStreetWidth } from '../streets/width'
 
 class App extends React.PureComponent {
   static propTypes = {
     locale: PropTypes.object
+  }
+
+  componentDidMount () {
+    onResize()
+    resizeStreetWidth()
   }
 
   render () {
@@ -45,7 +52,7 @@ class App extends React.PureComponent {
             <BlockingShield />
             <BlockingError />
             <Gallery />
-            <NotificationBar notification={NOTIFICATION} />
+            <NotificationBar locale={this.props.locale.locale} notification={NOTIFICATION} />
           </React.Fragment>
         </IntlProvider>
         <div className="main-screen">

@@ -672,7 +672,7 @@ export const canvasTarget = {
   hover (props, monitor, component) {
     if (!monitor.canDrop()) return
 
-    if (monitor.isOver({shallow: true})) {
+    if (monitor.isOver({ shallow: true })) {
       const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
 
       if (!position) return

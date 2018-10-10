@@ -7,8 +7,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
+// Stylesheets
+import '../../node_modules/leaflet/dist/leaflet.css'
+import '../css/styles.scss'
+
 // Polyfills
-import 'babel-polyfill'
+import '@babel/polyfill'
 import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import './vendor/canvas-toBlob.js'

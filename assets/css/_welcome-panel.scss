@@ -109,8 +109,4 @@
   > span {
     @include street-name-inside-mixin($street-name-gallery-size);
   }
-
-  &.fallback-unicode-font > div {
-    @include street-name-fallback-mixin($street-name-gallery-size);
-  }
 }

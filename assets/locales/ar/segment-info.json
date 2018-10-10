@@ -159,6 +159,7 @@
     "car-type|truck": "شاحنة",
     "public-transit-asphalt|regular": "أسفلت",
     "public-transit-asphalt|colored": "ممر أحمر",
+    "public-transit-asphalt|grass": "عشب",
     "bus-asphalt|regular": "أسفلت",
     "bus-asphalt|colored": "ممر أحمر",
     "bus-asphalt|shared": "ممر مشترك للدارجة/الحافلة",
