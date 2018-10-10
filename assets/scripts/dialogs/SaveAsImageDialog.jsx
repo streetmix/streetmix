@@ -20,7 +20,7 @@ import { saveAs } from 'file-saver'
 const DEFAULT_IMAGE_DPI = 2
 const MAX_IMAGE_DPI = 10
 
-export class SaveAsImageDialog extends React.Component {
+class SaveAsImageDialog extends React.Component {
   static propTypes = {
     intl: intlShape,
     locale: PropTypes.string,
@@ -301,6 +301,10 @@ export class SaveAsImageDialog extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const SaveAsImageDialogWithIntl = injectIntl(SaveAsImageDialog)
+
 function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
@@ -319,4 +323,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialog))
+export default connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialogWithIntl)

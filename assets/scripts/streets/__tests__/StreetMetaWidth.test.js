@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { StreetMetaWidth } from '../StreetMetaWidth'
-import { shallowWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { StreetMetaWidthWithIntl as StreetMetaWidth } from '../StreetMetaWidth'
 
 jest.mock('../../app/load_resources', () => {})
 jest.mock('../../app/routing', () => {})
@@ -10,14 +10,14 @@ jest.mock('../../app/initialization', () => {})
 
 describe('StreetMetaWidth', () => {
   it('renders without crashing', () => {
-    const wrapper = shallowWithIntl(
+    const wrapper = shallow(
       <StreetMetaWidth street={{}} />
     )
     expect(wrapper.exists()).toEqual(true)
   })
 
   it('does not allow street width to be edited if in read only mode', () => {
-    const wrapper = shallowWithIntl(<StreetMetaWidth street={{}} editable={false} />)
+    const wrapper = shallow(<StreetMetaWidth street={{}} editable={false} />)
 
     const streetWidthMenu = wrapper.find('.street-width')
     streetWidthMenu.simulate('click')

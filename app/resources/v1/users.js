@@ -2,6 +2,7 @@ const config = require('config')
 const uuid = require('uuid')
 const Twitter = require('twitter')
 const User = require('../../models/user.js')
+const { ERRORS } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
@@ -169,19 +170,50 @@ exports.post = function (req, res) {
   }
 } // END function - exports.post
 
-exports.get = function (req, res) {
-  const handleFindUserById = function (err, user) {
-    if (err) {
+exports.get = async function (req, res) {
+  // Flag error if user ID is not provided
+  if (!req.params.user_id) {
+    res.status(400).send('Please provide user ID.')
+    return
+  }
+
+  const userId = req.params.user_id
+
+  const findUserById = async function (userId) {
+    let user
+
+    try {
+      user = await User.findOne({ id: userId })
+    } catch (err) {
       logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
+      throw new Error(ERRORS.CANNOT_GET_USER)
     }
 
     if (!user) {
-      res.status(404).send('User not found.')
-      return
+      throw new Error(ERRORS.USER_NOT_FOUND)
     }
 
+    return user
+  }
+
+  const findUserByLoginToken = async function (loginToken) {
+    let user
+
+    try {
+      user = await User.findOne({ login_tokens: { $in: [ loginToken ] } })
+    } catch (err) {
+      logger.error(err)
+      throw new Error(ERRORS.CANNOT_GET_USER)
+    }
+
+    if (!user) {
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+    }
+
+    return user
+  }
+
+  const handleFindUser = function (user) {
     let twitterApiClient
 
     try {
@@ -252,70 +284,36 @@ exports.get = function (req, res) {
     } else {
       sendUserJson()
     }
-  } // END function - handleFindUserById
-
-  // Flag error if user ID is not provided
-  if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
-    return
-  }
-
-  const userId = req.params.user_id
-
-  const handleFindUserByLoginToken = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
-    }
-
-    if (!user) {
-      res.status(401).send('User with that login token not found.')
-      return
-    }
-
-    User.findOne({ id: userId }, handleFindUserById)
-  } // END function - handleFindUserByLoginToken
-
-  if (req.loginToken) {
-    User.findOne({ login_tokens: { $in: [ req.loginToken ] } }, handleFindUserByLoginToken)
-  } else {
-    User.findOne({ id: userId }, handleFindUserById)
-  }
-} // END function - exports.get
-
-exports.delete = function (req, res) {
-  const handleSaveUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Could not sign-out user.')
-      return
-    }
-    res.status(204).end()
-  } // END function - handleSaveUser
-
-  const handleFindUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
-    }
-
-    if (!user) {
-      res.status(404).send('User not found.')
-      return
-    }
-
-    const idx = user.login_tokens.indexOf(req.loginToken)
-    if (idx === -1) {
-      res.status(401).end()
-      return
-    }
-
-    user.login_tokens.splice(idx, 1)
-    user.save(handleSaveUser)
   } // END function - handleFindUser
 
+  const handleError = function (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).send('User not found.')
+        return
+      case ERRORS.CANNOT_GET_USER:
+        res.status(500).send('Error finding user.')
+        return
+      case ERRORS.UNAUTHORISED_ACCESS:
+        res.status(401).send('User with that login token not found.')
+        return
+      default:
+        res.status(500).end()
+    }
+  }
+
+  if (req.loginToken) {
+    findUserByLoginToken(req.loginToken)
+      .then(handleFindUser)
+      .catch(handleError)
+  } else {
+    findUserById(userId)
+      .then(handleFindUser)
+      .catch(handleError)
+  }
+}
+
+exports.delete = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).send('Please provide user ID.')
@@ -323,10 +321,37 @@ exports.delete = function (req, res) {
   }
 
   const userId = req.params.user_id
-  User.findOne({ id: userId }, handleFindUser)
+
+  let user
+
+  try {
+    user = await User.findOne({ id: userId })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).send('Error finding user.')
+  }
+
+  if (!user) {
+    res.status(404).send('User not found.')
+    return
+  }
+
+  const idx = user.login_tokens.indexOf(req.loginToken)
+  if (idx === -1) {
+    res.status(401).end()
+    return
+  }
+  user.login_tokens.splice(idx, 1)
+
+  user.save().then(user => {
+    res.status(204).end()
+  }).catch(err => {
+    logger.error(err)
+    res.status(500).send('Could not sign-out user.')
+  })
 } // END function - exports.delete
 
-exports.put = function (req, res) {
+exports.put = async function (req, res) {
   let body
   try {
     body = req.body
@@ -335,36 +360,6 @@ exports.put = function (req, res) {
     return
   }
 
-  const handleSaveUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Could not update user information.')
-      return
-    }
-    res.status(204).end()
-  } // END function - handleSaveUser
-
-  const handleFindUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).send('Error finding user.')
-      return
-    }
-
-    if (!user) {
-      res.status(404).send('User not found.')
-      return
-    }
-
-    if (user.login_tokens.indexOf(req.loginToken) === -1) {
-      res.status(401).end()
-      return
-    }
-
-    user.data = body.data || user.data
-    user.save(handleSaveUser)
-  } // END function - handleFindUser
-
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).send('Please provide user ID.')
@@ -372,5 +367,30 @@ exports.put = function (req, res) {
   }
 
   const userId = req.params.user_id
-  User.findOne({ id: userId }, handleFindUser)
+  let user
+
+  try {
+    user = await User.findOne({ id: userId })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).send('Error finding user.')
+  }
+
+  if (!user) {
+    res.status(404).send('User not found.')
+    return
+  }
+
+  if (user.login_tokens.indexOf(req.loginToken) === -1) {
+    res.status(401).end()
+    return
+  }
+
+  user.data = body.data || user.data
+  user.save().then(user => {
+    res.status(204).end()
+  }).catch(err => {
+    logger.error(err)
+    res.status(500).send('Could not update user information.')
+  })
 } // END function - exports.put

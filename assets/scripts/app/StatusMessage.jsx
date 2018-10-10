@@ -60,6 +60,10 @@ class StatusMessage extends React.PureComponent {
     }
   }
 
+  componentWillUnmount () {
+    window.removeEventListener('stmx:save_street', this.props.hideStatusMessage)
+  }
+
   onClickUndo = (event) => {
     this.props.doUndo()
   }
@@ -77,7 +81,7 @@ class StatusMessage extends React.PureComponent {
     let className = 'status-message'
 
     if (visible === true) {
-      className += ' visible'
+      className += ' status-message-visible'
     }
 
     // Create an undo button if requested.

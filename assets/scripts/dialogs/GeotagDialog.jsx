@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
@@ -35,7 +35,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png'
 })
 
-export class GeotagDialog extends React.Component {
+class GeotagDialog extends React.Component {
   static propTypes = {
     // Provided by react-intl higher-order component
     intl: intlShape.isRequired,
@@ -105,11 +105,15 @@ export class GeotagDialog extends React.Component {
       renderPopup: !!markerLocation,
       markerLocation: markerLocation,
       label: label,
-      bbox: null
+      bbox: null,
+      geocodeAvailable: !!(PELIAS_API_KEY)
     }
   }
 
   handleMapClick = (event) => {
+    // Bail if geocoding is not available.
+    if (!this.state.geocodeAvailable) return
+
     const latlng = {
       lat: event.latlng.lat,
       lng: event.latlng.lng
@@ -252,9 +256,21 @@ export class GeotagDialog extends React.Component {
 
     return (
       <div className="dialog-type-2 geotag-dialog">
-        <div className="geotag-input-container">
-          <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
-        </div>
+        {!this.state.geocodeAvailable && (
+          <div className="geotag-error-banner">
+            <FormattedMessage
+              id="dialogs.geotag.geotag-unavailable"
+              defaultMessage="Geocoding services are currently unavailable. You can view the map,
+                but you won’t be able to change this street’s location."
+            />
+          </div>
+        )}
+        {this.state.geocodeAvailable && (
+          <div className="geotag-input-container">
+            <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
+          </div>
+        )}
+
         <Map
           center={this.state.mapCenter}
           zoomControl={false}
@@ -274,8 +290,8 @@ export class GeotagDialog extends React.Component {
             <LocationPopup
               position={this.state.markerLocation}
               label={this.state.label}
-              isEditable={this.canEditLocation()}
-              isClearable={this.canClearLocation()}
+              isEditable={this.state.geocodeAvailable && this.canEditLocation()}
+              isClearable={this.state.geocodeAvailable && this.canClearLocation()}
               handleConfirm={this.handleConfirmLocation}
               handleClear={this.handleClearLocation}
             />
@@ -286,7 +302,7 @@ export class GeotagDialog extends React.Component {
               position={this.state.markerLocation}
               onDragEnd={this.handleMarkerDragEnd}
               onDragStart={this.handleMarkerDragStart}
-              draggable
+              draggable={this.state.geocodeAvailable}
             />
           }
         </Map>
@@ -294,6 +310,10 @@ export class GeotagDialog extends React.Component {
     )
   }
 }
+
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const GeotagDialogWithIntl = injectIntl(GeotagDialog)
 
 function mapStateToProps (state) {
   return {
@@ -314,4 +334,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GeotagDialog))
+export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialogWithIntl)

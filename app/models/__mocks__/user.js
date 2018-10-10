@@ -13,7 +13,10 @@ const userDummy = {
 }
 
 const save = function (cb) {
-  return cb(null, userDummy)
+  if (cb) {
+    return cb(null, userDummy)
+  }
+  return Promise.resolve(userDummy)
 }
 
 const asJson = function (option, cb) {
