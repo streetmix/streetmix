@@ -53,7 +53,7 @@ function setupMockServer () {
 describe('POST api/v1/users', function () {
   const app = setupMockServer()
 
-  it.only('should respond with 200 Ok when user credentials are sent', function () {
+  it('should respond with 200 Ok when user credentials are sent', function () {
     return request(app)
       .post('/api/v1/users/')
       .type('json')

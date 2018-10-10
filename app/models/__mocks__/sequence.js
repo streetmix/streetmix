@@ -15,7 +15,13 @@ function Model (_doc) {
 }
 
 Model.findByIdAndUpdate = function (query, operation, option, cb) {
-  return cb(null, {
+  if (cb) {
+    return cb(null, {
+      ...dummySequence,
+      save
+    })
+  }
+  return Promise.resolve({
     ...dummySequence,
     save
   })
