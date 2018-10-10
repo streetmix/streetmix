@@ -9,22 +9,22 @@ function handleErrors (error, res) {
   switch (error) {
     case ERRORS.USER_NOT_FOUND:
       res.status(404).send('Creator not found.')
-      return
+      break
     case ERRORS.STREET_NOT_FOUND:
       res.status(404).send('Could not find streets.')
-      return
+      break
     case ERRORS.STREET_DELETED:
       res.status(410).send('Could not find street.')
-      return
+      break
     case ERRORS.CANNOT_GET_STREET:
       res.status(500).send('Could not find streets for user.')
-      return
+      break
     case ERRORS.UNAUTHORISED_ACCESS:
       res.status(401).send('User is not signed-in.')
-      return
+      break
     case ERRORS.FORBIDDEN_REQUEST:
       res.status(403).send('Signed-in user cannot delete this street.')
-      return
+      break
     default:
       // Log unknown error.
       logger.error(error)
