@@ -4,6 +4,7 @@ const Twitter = require('twitter')
 const User = require('../../models/user.js')
 const { ERRORS } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
+const FEATURE_FLAGS = require('../../data/flags.json')
 
 exports.post = function (req, res) {
   let loginToken = null
@@ -241,6 +242,11 @@ exports.get = async function (req, res) {
           userJson.profileImageUrl = data.twitter_profile_image_url
         } else {
           userJson.profileImageUrl = user.profile_image_url
+        }
+
+        // If no flags exist for user, set default flags
+        if (!userJson.flags) {
+          userJson.flags = { ...FEATURE_FLAGS }
         }
 
         res.status(200).send(userJson)
