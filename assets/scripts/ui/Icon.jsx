@@ -19,6 +19,8 @@ export default class Icon extends React.Component {
         return <FontAwesomeIcon className="menu-item-icon" icon={['fab', 'facebook-square']} />
       case 'github':
         return <FontAwesomeIcon className="menu-item-icon" icon={['fab', 'github']} />
+      case 'discord':
+        return <FontAwesomeIcon className="menu-item-icon" icon={['fab', 'discord']} />
       case 'slack':
         return <img className="menu-item-icon" src={slackIcon} alt="" />
       case 'forums':

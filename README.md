@@ -15,7 +15,7 @@
 
 <p align="center">
   <b>Have questions? Looking for support or advice?</b>
-  <br><a href="http://forums.streetmix.net/">Check out our forums</a> or <a href="https://streetmix-slack.herokuapp.com/">join our Slack chat!</a>
+  <br><a href="http://forums.streetmix.net/">Check out our forums</a> or <a href="https://discord.gg/xt9cqn7">join our Discord!</a>
 </p>
 
 <p align="center">

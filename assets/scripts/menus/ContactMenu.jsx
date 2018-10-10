@@ -20,16 +20,9 @@ export default class ContactMenu extends React.PureComponent {
           <Icon icon="twitter" />
           <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
         </a>
-        <a href="http://streetmix-slack.herokuapp.com/" target="_blank" rel="noopener noreferrer">
-          <Icon icon="slack" />
-          <FormattedMessage id="menu.contact.slack" defaultMessage="Join Slack chat" />
-        </a>
-        <a href="https://medium.com/streetmixology" target="_blank" rel="noopener noreferrer">
-          <FormattedMessage id="menu.contact.blog" defaultMessage="Visit Streetmix blog" />
-        </a>
-        <a href="https://github.com/streetmix/streetmix/" target="_blank" rel="noopener noreferrer" onClick={this.onClickGitHub}>
-          <Icon icon="github" />
-          <FormattedMessage id="menu.contribute.opensource" defaultMessage="Contribute to open source" />
+        <a href="https://discord.gg/xt9cqn7" target="_blank" rel="noopener noreferrer">
+          <Icon icon="discord" />
+          <FormattedMessage id="menu.contact.discord" defaultMessage="Join Discord chat" />
         </a>
       </Menu>
     )
