@@ -176,10 +176,12 @@ exports.get = async function (req, res) {
     res.status(400).send('Please provide user ID.')
     return
   }
+
   const userId = req.params.user_id
 
   const findUserById = async function (userId) {
     let user
+
     try {
       user = await User.findOne({ id: userId })
     } catch (err) {
@@ -190,13 +192,15 @@ exports.get = async function (req, res) {
     if (!user) {
       throw new Error(ERRORS.USER_NOT_FOUND)
     }
+
     return user
   }
 
   const findUserByLoginToken = async function (loginToken) {
     let user
+
     try {
-      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+      user = await User.findOne({ login_tokens: { $in: [ loginToken ] } })
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)
@@ -205,6 +209,7 @@ exports.get = async function (req, res) {
     if (!user) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
+
     return user
   }
 
@@ -309,8 +314,16 @@ exports.get = async function (req, res) {
 }
 
 exports.delete = async function (req, res) {
+  // Flag error if user ID is not provided
+  if (!req.params.user_id) {
+    res.status(400).send('Please provide user ID.')
+    return
+  }
+
   const userId = req.params.user_id
+
   let user
+
   try {
     user = await User.findOne({ id: userId })
   } catch (err) {
@@ -344,6 +357,12 @@ exports.put = async function (req, res) {
     body = req.body
   } catch (e) {
     res.status(400).send('Could not parse body as JSON.')
+    return
+  }
+
+  // Flag error if user ID is not provided
+  if (!req.params.user_id) {
+    res.status(400).send('Please provide user ID.')
     return
   }
 
