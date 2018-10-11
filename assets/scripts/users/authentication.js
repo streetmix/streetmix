@@ -136,7 +136,9 @@ async function fetchSignInDetails (userId) {
     }
 
     const json = await response.json()
-    receiveSignInDetails(json)
+    const { flags, ...details } = json
+
+    receiveSignInDetails(details)
   } catch (error) {
     errorReceiveSignInDetails(error)
   }
