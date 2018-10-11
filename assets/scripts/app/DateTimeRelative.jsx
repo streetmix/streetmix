@@ -12,7 +12,11 @@ const SECONDS_AGO = 1000 * 60
  * @param {Date} b - second date to compare
  */
 function isSameDay (a, b) {
-  return new Date(a.getFullYear(), a.getMonth(), a.getDate()) === new Date(b.getFullYear(), b.getMonth(), b.getDate())
+  return (
+    (a.getFullYear() === b.getFullYear()) &&
+    (a.getMonth() === b.getMonth()) &&
+    (a.getDate() === b.getDate())
+  )
 }
 
 export default function DateTimeRelative (props) {
@@ -38,7 +42,7 @@ export default function DateTimeRelative (props) {
     }
   }
 
-  if (isSameDay(now, date)) {
+  if (isSameDay(date, now)) {
     return (
       <FormattedMessage
         id="datetime.today"
@@ -57,9 +61,9 @@ export default function DateTimeRelative (props) {
     )
   }
 
-  const yesterday = new Date(now.getTime() - 1000 * 60 * 60 * 24 * 7)
+  const yesterday = new Date(now.getTime() - 1000 * 60 * 60 * 24)
 
-  if (isSameDay(yesterday, date)) {
+  if (isSameDay(date, yesterday)) {
     return (
       <FormattedMessage
         id="datetime.yesterday"

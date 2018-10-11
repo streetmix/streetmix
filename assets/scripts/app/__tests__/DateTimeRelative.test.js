@@ -1,16 +1,17 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
+import { advanceTo, clear } from 'jest-date-mock'
 import { mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
 import DateTimeRelative from '../DateTimeRelative'
 
 // This will only test `en-US` (default) values. Assume that localized values will
 // be handled accurately by the react-intl implementation.
+
 describe('DateTimeRelative', () => {
-  // Mock the implementation of Date.now()
+  // Mock global Date object so that Date.now() returns the value we specify
   beforeAll(() => {
-    // jest.spyOn(Date, 'now').mockImplementation(() => 1524506400000) // '2018-04-23T18:00:00.000Z'
-    jest.fn(Date).mockImplementation(() => 1524506400000) // '2018-04-23T18:00:00.000Z'
+    advanceTo(new Date(1524506400000)) // '2018-04-23T18:00:00.000Z'
   })
 
   it('renders without crashing', () => {
@@ -51,7 +52,7 @@ describe('DateTimeRelative', () => {
   })
 
   afterAll(() => {
-    // Restore the mock implementation of Date.now()
-    Date.now.mockRestore()
+    // Restore the implementation of global Date object
+    clear()
   })
 })
