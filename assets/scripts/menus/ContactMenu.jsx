@@ -20,7 +20,7 @@ export default class ContactMenu extends React.PureComponent {
           <Icon icon="twitter" />
           <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
         </a>
-        <a href="https://discord.gg/xt9cqn7" target="_blank" rel="noopener noreferrer">
+        <a href="https://discord.gg/NsKmV3S" target="_blank" rel="noopener noreferrer">
           <Icon icon="discord" />
           <FormattedMessage id="menu.contact.discord" defaultMessage="Join Discord chat" />
         </a>
