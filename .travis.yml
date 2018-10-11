@@ -19,11 +19,6 @@ services:
   - mongodb
   - redis-server
 
-before_install:
-  # Install dependencies for node `canvas` package
-  # https://github.com/Automattic/node-canvas#compiling
-  - sudo apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
-
 # We have `npm ci` errors, so force it to use `npm install`
 install:
   - npm install
