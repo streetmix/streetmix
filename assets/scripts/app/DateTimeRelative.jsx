@@ -1,14 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, FormattedDate, FormattedTime } from 'react-intl'
-import moment from 'moment'
 
 const MINUTES_AGO = 1000 * 60 * 10
 const SECONDS_AGO = 1000 * 60
 
+/**
+ * Compares two date objects to see if they are the same day
+ *
+ * @param {Date} a - first date to compare
+ * @param {Date} b - second date to compare
+ */
+function isSameDay (a, b) {
+  return (
+    (a.getFullYear() === b.getFullYear()) &&
+    (a.getMonth() === b.getMonth()) &&
+    (a.getDate() === b.getDate())
+  )
+}
+
 export default function DateTimeRelative (props) {
-  const now = moment()
-  const date = moment(props.value)
+  const now = new Date()
+  const date = new Date(props.value)
   const diff = now - date
 
   if (diff >= 0) {
@@ -29,7 +42,7 @@ export default function DateTimeRelative (props) {
     }
   }
 
-  if (now.isSame(date, 'day')) {
+  if (isSameDay(date, now)) {
     return (
       <FormattedMessage
         id="datetime.today"
@@ -48,7 +61,9 @@ export default function DateTimeRelative (props) {
     )
   }
 
-  if (now.clone().subtract(1, 'day').isSame(date, 'day')) {
+  const yesterday = new Date(now.getTime() - 1000 * 60 * 60 * 24)
+
+  if (isSameDay(date, yesterday)) {
     return (
       <FormattedMessage
         id="datetime.yesterday"
@@ -67,7 +82,8 @@ export default function DateTimeRelative (props) {
     )
   }
 
-  if (now.isSame(date, 'year')) {
+  // Same year
+  if (now.getFullYear() === date.getFullYear()) {
     return (
       <time dateTime={props.value} title={props.value}>
         <FormattedDate
