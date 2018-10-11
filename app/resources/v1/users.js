@@ -244,10 +244,8 @@ exports.get = async function (req, res) {
           userJson.profileImageUrl = user.profile_image_url
         }
 
-        // If no flags exist for user, set default flags
-        if (!userJson.flags) {
-          userJson.flags = { ...FEATURE_FLAGS }
-        }
+        // Setting default flags and then any user overrides
+        userJson.flags = { ...FEATURE_FLAGS, ...userJson.flags }
 
         res.status(200).send(userJson)
       })
