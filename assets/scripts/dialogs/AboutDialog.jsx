@@ -186,6 +186,10 @@ export default class AboutDialog extends React.PureComponent {
                   <FormattedMessage id="dialogs.about.open-source-link" defaultMessage="We’re open source!&lrm;" />
                 </a>
                 <br />
+                <a href="https://medium.com/streetmixology" target="_blank" rel="noopener noreferrer">
+                  <FormattedMessage id="menu.contact.blog" defaultMessage="Visit Streetmix blog" />
+                </a>
+                <br />
                 <a href="https://streetmix.readme.io/" target="_blank" rel="noopener noreferrer">
                   <FormattedMessage id="dialogs.about.guidebook-link" defaultMessage="Guidebook" />
                 </a>
@@ -373,6 +377,7 @@ export default class AboutDialog extends React.PureComponent {
                       <h4><FormattedMessage id="i18n.lang.ru" defaultMessage="Russian" /></h4>
                       <ul>
                         <li>Artem Savin</li>
+                        <li>Olya Arakhouskaya</li>
                       </ul>
                     </li>
                     <li>

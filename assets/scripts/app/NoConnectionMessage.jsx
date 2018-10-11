@@ -26,7 +26,7 @@ export class NoConnectionMessage extends React.Component {
     if (this.props.scheduled && this.timerId === -1) {
       this.timerId = window.setTimeout(() => {
         this.el.current.classList.add('status-message-visible')
-        console.log(this.el.current)
+
         // When this is visible, this class on the body element repositions the
         // normal status message above this one so that they don't overlap
         document.body.classList.add('no-connection-message-visible')

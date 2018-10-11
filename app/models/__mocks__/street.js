@@ -18,7 +18,13 @@ const dummyStreet = {
 }
 
 const save = function (cb) {
-  return cb(null, {
+  if (cb) {
+    return cb(null, {
+      ...dummySequence,
+      asJson
+    })
+  }
+  return Promise.resolve({
     ...dummySequence,
     asJson
   })
@@ -56,7 +62,14 @@ const limit = function (option) {
 }
 
 const exec = function (cb) {
-  return cb(null, [{
+  if (cb) {
+    return cb(null, [{
+      ...dummyStreet,
+      save,
+      asJson
+    }])
+  }
+  return Promise.resolve([{
     ...dummyStreet,
     save,
     asJson
@@ -71,11 +84,21 @@ function Model (_doc) {
 }
 
 Model.findByIdAndUpdate = function (query, operation, option, cb) {
-  return cb(null, dummyStreet)
+  if (cb) {
+    return cb(null, dummyStreet)
+  }
+  return Promise.resolve(dummyStreet)
 }
 
 Model.findOne = function (query, cb) {
-  return cb(null, {
+  if (cb) {
+    return cb(null, {
+      ...dummyStreet,
+      save,
+      asJson
+    })
+  }
+  return Promise.resolve({
     ...dummyStreet,
     save,
     asJson
@@ -98,7 +121,10 @@ Model.find = function (query, cb) {
 }
 
 Model.count = function (query, cb) {
-  return cb(null, 1)
+  if (cb) {
+    return cb(null, 1)
+  }
+  return Promise.resolve(1)
 }
 
 module.exports = Model
