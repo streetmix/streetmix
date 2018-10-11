@@ -38,6 +38,12 @@ class GalleryStreetItem extends React.Component {
     dpi: 1
   }
 
+  constructor (props) {
+    super(props)
+
+    this.thumbnailEl = React.createRef()
+  }
+
   componentDidMount () {
     if (!this.props.street.data) return
 
@@ -45,7 +51,7 @@ class GalleryStreetItem extends React.Component {
   }
 
   drawCanvas = () => {
-    const ctx = this.thumbnailEl.getContext('2d')
+    const ctx = this.thumbnailEl.current.getContext('2d')
 
     // TODO: document magic number 2
     drawStreetThumbnail(ctx, this.props.street.data.street,
@@ -95,7 +101,7 @@ class GalleryStreetItem extends React.Component {
           <canvas
             width={THUMBNAIL_WIDTH * this.props.dpi * 2}
             height={THUMBNAIL_HEIGHT * this.props.dpi * 2}
-            ref={(ref) => { this.thumbnailEl = ref }}
+            ref={this.thumbnailEl}
           />
 
           <StreetName name={this.props.street.name} />
