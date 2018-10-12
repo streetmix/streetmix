@@ -104,7 +104,7 @@ class StreetView extends React.Component {
         this.props.draggingType !== DRAGGING_TYPE_RESIZE) {
       // Check if occupiedWidth changed because segment was changed (resized, added, or removed)
       // or because gallery street was changed, and update accordingly.
-      const resizeType = (this.props.street.id === prevProps.street.id) ? STREETVIEW_RESIZED : SEGMENT_RESIZED
+      const resizeType = (this.props.street.id !== prevProps.street.id) ? STREETVIEW_RESIZED : SEGMENT_RESIZED
       const dontDelay = (resizeType === STREETVIEW_RESIZED)
       this.resizeStreetExtent(resizeType, dontDelay)
     }
