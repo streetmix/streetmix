@@ -125,7 +125,7 @@ class StreetMetaWidth extends React.Component {
     let customWidthBlank = null
     let customWidth = null
     if (widths.indexOf(Number.parseFloat(this.props.street.width)) === -1) {
-      customWidthBlank = <option disabled="true" />
+      customWidthBlank = <option disabled />
       customWidth = this.createStreetWidthOption(this.props.street.width)
     }
 
@@ -145,14 +145,14 @@ class StreetMetaWidth extends React.Component {
           defaultMessage: 'Change width of the street'
         })}
       >
-        <option disabled="true">
+        <option disabled>
           {formatMessage({ id: 'width.occupied', defaultMessage: 'Occupied width:' })}
         </option>
-        <option disabled="true">
+        <option disabled>
           {prettifyWidth(this.props.street.occupiedWidth, this.props.street.units)}
         </option>
-        <option disabled="true" />
-        <option disabled="true">
+        <option disabled />
+        <option disabled>
           {formatMessage({ id: 'width.building', defaultMessage: 'Building-to-building width:' })}
         </option>
         {defaultWidths}
@@ -161,7 +161,7 @@ class StreetMetaWidth extends React.Component {
         <option value={STREET_WIDTH_CUSTOM} >
           {formatMessage({ id: 'width.different', defaultMessage: 'Different width…' })}
         </option>
-        <option disabled="true" />
+        <option disabled />
         <option
           id="switch-to-imperial-units"
           value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
