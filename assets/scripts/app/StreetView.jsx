@@ -268,8 +268,8 @@ class StreetView extends React.Component {
 
   render () {
     const dirtStyle = {
-      marginLeft: (-this.state.buildingWidth - 5) + 'px',
-      marginRight: (-this.state.buildingWidth - 5) + 'px'
+      marginLeft: (-this.state.buildingWidth) + 'px',
+      marginRight: (-this.state.buildingWidth) + 'px'
     }
 
     return (
