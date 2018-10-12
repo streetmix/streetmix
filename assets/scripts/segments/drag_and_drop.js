@@ -65,6 +65,7 @@ export function changeDraggingType (newDraggingType) {
       break
     case DRAGGING_TYPE_MOVE:
       document.body.classList.add('segment-move-dragging')
+      break
   }
 }
 
