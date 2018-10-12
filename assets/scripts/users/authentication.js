@@ -9,6 +9,7 @@ import { goTwitterSignIn } from '../app/routing'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
+import { receiveUserFlags } from '../app/flag_utils'
 import store from '../store'
 import {
   createSetSignInData,
@@ -138,6 +139,7 @@ async function fetchSignInDetails (userId) {
     const json = await response.json()
     const { flags, ...details } = json
 
+    receiveUserFlags(flags)
     receiveSignInDetails(details)
   } catch (error) {
     errorReceiveSignInDetails(error)
