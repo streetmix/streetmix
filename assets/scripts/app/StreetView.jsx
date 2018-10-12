@@ -85,7 +85,11 @@ class StreetView extends React.Component {
       })
     }
 
-    if (prevState.buildingWidth !== this.state.buildingWidth) {
+    // Two cases where scrollLeft might have to be updated:
+    // 1) Building width has changed due to segments being dragged in/out of StreetView or being resized
+    // 2) Street width changed causing remainingWidth to change, but not building width
+    if ((prevState.buildingWidth !== this.state.buildingWidth) ||
+        (prevState.resizeType === STREETVIEW_RESIZED && !this.state.resizeType)) {
       const deltaX = this.state.buildingWidth - prevState.buildingWidth
 
       // If segment was resized (either dragged or incremented), update scrollLeft to make up for margin change.
