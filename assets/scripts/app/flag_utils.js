@@ -1,5 +1,6 @@
 import FEATURE_FLAGS from '../../../app/data/flags'
-import { observeStore } from '../store'
+import { store, observeStore } from '../store'
+import { setFeatureFlag } from '../store/actions/flags'
 
 export function initializeFlagSubscribers () {
   initLocalStorageUpdateListener()
@@ -10,7 +11,7 @@ function whatAreTheFlagsWeNeedToSave (flags) {
   // convert to array
   const array = Object.entries(flags)
   // filter out all non-user set flags
-  const filter1 = array.filter((item) => item[1].source === 'user')
+  const filter1 = array.filter((item) => item[1].source === 'session')
   // filter out flags that equal default values
   const filter2 = filter1.filter((item) => item[1].value !== FEATURE_FLAGS[item[0]].defaultValue)
   // convert back to obj but simplify it to just the value
@@ -37,4 +38,14 @@ function initRedrawPaletteUpdateListener () {
   }
 
   return observeStore(select, onChange)
+}
+
+export function receiveUserFlags (flags) {
+  Object.keys(flags).forEach((key) => {
+    // If local storage does not already have the flag,
+    // set the flag in Redux as source user.
+    if (!window.localStorage.flags[key]) {
+      store.dispatch(setFeatureFlag(key, flags[key].value, 'user'))
+    }
+  })
 }
