@@ -42,7 +42,7 @@ class FeatureFlagDialog extends React.Component {
             <input
               type="checkbox"
               onChange={(event) => {
-                this.props.setFeatureFlag(id, event.target.checked)
+                this.props.setFeatureFlag(id, event.target.checked, 'session')
               }}
               checked={this.props.flags[id].value}
               id={htmlLabel}
@@ -86,7 +86,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    setFeatureFlag: (flag, value) => { dispatch(setFeatureFlag(flag, value)) }
+    setFeatureFlag: (flag, value, source) => { dispatch(setFeatureFlag(flag, value, source)) }
   }
 }
 
