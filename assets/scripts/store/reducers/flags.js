@@ -15,7 +15,7 @@ function generateInitialFlags (flags) {
     // only keep it if it is different from the default value.
     if (storage && typeof storage[key] === 'boolean' && storage[key] !== value.defaultValue) {
       obj[key].value = storage[key]
-      obj[key].source = 'user'
+      obj[key].source = 'session'
     }
 
     return obj
@@ -29,7 +29,7 @@ const flags = (state = initialState, action) => {
     case SET_FEATURE_FLAG:
       return {
         ...state,
-        [action.flag]: Object.assign({}, state[action.flag], { value: action.value, source: 'user' })
+        [action.flag]: Object.assign({}, state[action.flag], { value: action.value, source: action.source })
       }
     default:
       return state
