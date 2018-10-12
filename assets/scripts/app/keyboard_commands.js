@@ -1,6 +1,7 @@
 import { noop } from 'lodash'
 
 import { KEYS } from './keys'
+import { ENV } from './config'
 import { registerKeypress } from './keypress'
 import { showGallery, hideGallery } from '../gallery/view'
 import {
@@ -61,9 +62,13 @@ export function registerKeypresses () {
   }, noop)
 
   // Secret menu to toggle feature flags
-  registerKeypress('shift f', () => {
-    store.dispatch(showDialog('FEATURE_FLAGS'))
-  })
+  // Only active in development/staging
+  // TODO - active when user is admin
+  if (ENV !== 'production') {
+    registerKeypress('shift f', () => {
+      store.dispatch(showDialog('FEATURE_FLAGS'))
+    })
+  }
 
   // Undo
   registerKeypress('ctrl z', {
