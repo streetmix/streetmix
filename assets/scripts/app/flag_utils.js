@@ -41,6 +41,8 @@ function initRedrawPaletteUpdateListener () {
 }
 
 export function receiveUserFlags (flags) {
+  if (!flags) return
+
   Object.keys(flags).forEach((key) => {
     // If local storage does not already have the flag,
     // set the flag in Redux as source user.
