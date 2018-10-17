@@ -9,7 +9,7 @@ import { goTwitterSignIn } from '../app/routing'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
-import { receiveUserFlags } from '../app/flag_utils'
+import { receiveUserFlags, removeUserFlags } from '../app/flag_utils'
 import store from '../store'
 import {
   createSetSignInData,
@@ -208,6 +208,7 @@ function signOut (quiet) {
   })
 
   removeSignInCookies()
+  removeUserFlags({ ...store.getState().flags })
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
   sendSignOutToServer(quiet)
 }

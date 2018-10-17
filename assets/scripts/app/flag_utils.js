@@ -40,6 +40,15 @@ function initRedrawPaletteUpdateListener () {
   return observeStore(select, onChange)
 }
 
+export function removeUserFlags (flags) {
+  Object.keys(flags).forEach((key) => {
+    // If key source = user, reset to default value
+    if (flags[key].source === 'user') {
+      store.dispatch(setFeatureFlag(key, FEATURE_FLAGS[key].defaultValue, 'initial'))
+    }
+  })
+}
+
 export function receiveUserFlags (flags) {
   if (!flags) return
 
