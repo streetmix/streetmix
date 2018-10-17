@@ -12,10 +12,7 @@ import {
   getUndoStack,
   getUndoPosition
 } from '../streets/undo_stack'
-import {
-  normalizeStreetWidth,
-  resizeStreetWidth
-} from '../streets/width'
+import { normalizeStreetWidth } from '../streets/width'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
 import { setUnits, updateStreetWidth, updateStreetData } from '../store/actions/street'
@@ -111,7 +108,6 @@ export function updateUnits (newUnits) {
     store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))
   }
   segmentsChanged()
-  resizeStreetWidth()
 
   setIgnoreStreetChanges(false)
 

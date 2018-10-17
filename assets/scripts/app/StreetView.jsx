@@ -20,13 +20,19 @@ import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/width'
 import { BUILDING_SPACE } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
+import { DRAGGING_TYPE_RESIZE } from '../segments/drag_and_drop'
+import { updateStreetMargin } from '../segments/resizing'
+
+const SEGMENT_RESIZED = 1
+const STREETVIEW_RESIZED = 2
 
 class StreetView extends React.Component {
   static propTypes = {
     readOnly: PropTypes.bool,
     street: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired,
-    locale: PropTypes.object.isRequired
+    locale: PropTypes.object.isRequired,
+    draggingType: PropTypes.number
   }
 
   static defaultProps = {
@@ -46,7 +52,7 @@ class StreetView extends React.Component {
       scrollTop: 0,
       skyTop: 0,
 
-      onResized: false,
+      resizeType: null,
       buildingWidth: 0
     }
   }
@@ -61,8 +67,9 @@ class StreetView extends React.Component {
     })
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps, prevState) {
     const { viewportWidth, viewportHeight } = this.props.system
+
     if (prevProps.system.viewportWidth !== viewportWidth ||
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
@@ -77,6 +84,56 @@ class StreetView extends React.Component {
         ...streetIndicators
       })
     }
+
+    // Two cases where scrollLeft might have to be updated:
+    // 1) Building width has changed due to segments being dragged in/out of StreetView or being resized
+    // 2) Street width changed causing remainingWidth to change, but not building width
+    if ((prevState.buildingWidth !== this.state.buildingWidth) ||
+        (prevState.resizeType === STREETVIEW_RESIZED && !this.state.resizeType)) {
+      const deltaX = this.state.buildingWidth - prevState.buildingWidth
+
+      // If segment was resized (either dragged or incremented), update scrollLeft to make up for margin change.
+      if (prevState.resizeType === SEGMENT_RESIZED || prevState.resizeType === this.state.resizeType) {
+        this.updateScrollLeft(deltaX)
+      } else if (prevState.resizeType === STREETVIEW_RESIZED) {
+        // If StreetView was resized/changed (either viewport, streetWidth, or street itself),
+        // update scrollLeft to center street view and check if margins need to be updated.
+        this.updateScrollLeft()
+        this.resizeStreetExtent(SEGMENT_RESIZED, true)
+      }
+    }
+
+    // Updating margins when segment is resized by dragging is handled in resizing.js
+    if (prevProps.street.occupiedWidth !== this.props.street.occupiedWidth &&
+        this.props.draggingType !== DRAGGING_TYPE_RESIZE) {
+      // Check if occupiedWidth changed because segment was changed (resized, added, or removed)
+      // or because gallery street was changed, and update accordingly.
+      const resizeType = (this.props.street.id !== prevProps.street.id) ? STREETVIEW_RESIZED : SEGMENT_RESIZED
+      const dontDelay = (resizeType === STREETVIEW_RESIZED)
+      this.resizeStreetExtent(resizeType, dontDelay)
+    }
+  }
+
+  resizeStreetExtent = (resizeType, dontDelay) => {
+    const marginUpdated = updateStreetMargin(this.streetSectionCanvas, this.streetSectionOuter, dontDelay)
+
+    if (marginUpdated) {
+      this.setState({ resizeType: resizeType })
+    }
+  }
+
+  updateScrollLeft = (deltaX) => {
+    let scrollLeft = this.streetSectionOuter.scrollLeft
+
+    if (deltaX) {
+      scrollLeft += deltaX
+    } else {
+      const streetWidth = this.props.street.width * TILE_SIZE
+      const currBuildingSpace = (this.state.buildingWidth) ? (this.state.buildingWidth - 25) : BUILDING_SPACE
+      scrollLeft = (streetWidth + (currBuildingSpace * 2) - this.props.system.viewportWidth) / 2
+    }
+
+    this.streetSectionOuter.scrollLeft = scrollLeft
   }
 
   onResize = () => {
@@ -102,19 +159,22 @@ class StreetView extends React.Component {
       skyTop = 0
     }
 
+    const streetWidth = (this.props.street.width * TILE_SIZE)
     let streetSectionCanvasLeft =
-      ((viewportWidth - (this.props.street.width * TILE_SIZE)) / 2) - BUILDING_SPACE
+      ((viewportWidth - streetWidth) / 2) - BUILDING_SPACE
     if (streetSectionCanvasLeft < 0) {
       streetSectionCanvasLeft = 0
     }
 
+    this.streetSectionCanvas.style.width = streetWidth + 'px'
     this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
     return {
       streetSectionSkyTop,
       scrollTop,
-      skyTop
+      skyTop,
+      resizeType: STREETVIEW_RESIZED
     }
   }
 
@@ -159,8 +219,7 @@ class StreetView extends React.Component {
 
     return {
       posLeft: posLeft,
-      posRight: posRight,
-      onResized: true
+      posRight: posRight
     }
   }
 
@@ -195,7 +254,7 @@ class StreetView extends React.Component {
 
     this.setState({
       buildingWidth: width,
-      onResized: false
+      resizeType: null
     })
   }
 
@@ -237,9 +296,10 @@ class StreetView extends React.Component {
                 updatePerspective={this.updatePerspective}
               />
               <StreetEditable
-                onResized={this.state.onResized}
+                resizeType={this.state.resizeType}
                 setBuildingWidth={this.setBuildingWidth}
                 updatePerspective={this.updatePerspective}
+                draggingType={this.props.draggingType}
               />
               <IntlProvider
                 locale={this.props.locale.locale}
@@ -276,7 +336,8 @@ function mapStateToProps (state) {
     readOnly: state.app.readOnly,
     street: state.street,
     system: state.system,
-    locale: state.locale
+    locale: state.locale,
+    draggingType: state.ui.draggingType
   }
 }
 

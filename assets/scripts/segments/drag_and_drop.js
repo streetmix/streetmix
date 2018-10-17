@@ -31,19 +31,14 @@ import { clearMenus } from '../store/actions/menus'
 import {
   updateDraggingState,
   clearDraggingState,
-  setActiveSegment
+  setActiveSegment,
+  setDraggingType
 } from '../store/actions/ui'
 
 export const DRAGGING_TYPE_NONE = 0
 const DRAGGING_TYPE_CLICK_OR_MOVE = 1
 export const DRAGGING_TYPE_MOVE = 2
 export const DRAGGING_TYPE_RESIZE = 3
-
-var _draggingType = DRAGGING_TYPE_NONE
-
-export function draggingType () {
-  return _draggingType
-}
 
 export var draggingResize = {
   segmentEl: null,
@@ -59,12 +54,12 @@ export var draggingResize = {
 }
 
 export function changeDraggingType (newDraggingType) {
-  _draggingType = newDraggingType
+  store.dispatch(setDraggingType(newDraggingType))
 
   document.body.classList.remove('segment-move-dragging')
   document.body.classList.remove('segment-resize-dragging')
 
-  switch (_draggingType) {
+  switch (newDraggingType) {
     case DRAGGING_TYPE_RESIZE:
       document.body.classList.add('segment-resize-dragging')
       break
@@ -154,10 +149,10 @@ function handleSegmentResizeMove (event) {
     deltaFromOriginal = -deltaFromOriginal
   }
 
+  draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
   draggingResize.elX += deltaX
   draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
 
-  draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
   var precise = event.shiftKey
 
   if (precise) {
@@ -166,7 +161,7 @@ function handleSegmentResizeMove (event) {
     resizeType = RESIZE_TYPE_DRAGGING
   }
 
-  resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width)
+  draggingResize.width = resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width)
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
@@ -254,14 +249,12 @@ export function isSegmentWithinCanvas (event, canvasEl) {
 }
 
 export function onBodyMouseMove (event) {
-  if (_draggingType === DRAGGING_TYPE_NONE) {
-    return
-  }
+  const { draggingType } = store.getState().ui
 
-  switch (_draggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      handleSegmentResizeMove(event)
-      break
+  if (draggingType === DRAGGING_TYPE_NONE) {
+    return
+  } else if (draggingType === DRAGGING_TYPE_RESIZE) {
+    handleSegmentResizeMove(event)
   }
 
   event.preventDefault()
@@ -398,7 +391,9 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 }
 
 export function onBodyMouseUp (event) {
-  switch (_draggingType) {
+  const { draggingType } = store.getState().ui
+
+  switch (draggingType) {
     case DRAGGING_TYPE_NONE:
       return
     case DRAGGING_TYPE_CLICK_OR_MOVE:
@@ -414,17 +409,19 @@ export function onBodyMouseUp (event) {
 }
 
 function handleSegmentDragStart () {
-  document.body.classList.add('segment-move-dragging')
+  changeDraggingType(DRAGGING_TYPE_MOVE)
+
   infoBubble.hide()
   cancelFadeoutControls()
   hideControls()
 }
 
 function handleSegmentDragEnd () {
+  changeDraggingType(DRAGGING_TYPE_NONE)
   oldDraggingState = null
   cancelSegmentResizeTransitions()
   segmentsChanged(false)
-  document.body.classList.remove('segment-move-dragging')
+
   document.body.classList.remove('not-within-canvas')
 }
 

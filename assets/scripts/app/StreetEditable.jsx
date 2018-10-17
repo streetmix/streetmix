@@ -14,15 +14,17 @@ import {
   canvasTarget,
   collectDropTarget,
   makeSpaceBetweenSegments,
-  isSegmentWithinCanvas
+  isSegmentWithinCanvas,
+  DRAGGING_TYPE_RESIZE
 } from '../segments/drag_and_drop'
 
 class StreetEditable extends React.Component {
   static propTypes = {
     // Provided by parent
-    onResized: PropTypes.bool.isRequired,
+    resizeType: PropTypes.number,
     setBuildingWidth: PropTypes.func.isRequired,
     updatePerspective: PropTypes.func.isRequired,
+    draggingType: PropTypes.number,
 
     // Provided by store
     street: PropTypes.object.isRequired,
@@ -45,9 +47,10 @@ class StreetEditable extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { onResized, draggingState } = this.props
+    const { resizeType, draggingState } = this.props
 
-    if (onResized && prevProps.onResized !== onResized) {
+    if ((resizeType && !prevProps.resizeType) ||
+        (prevProps.draggingType === DRAGGING_TYPE_RESIZE && !this.props.draggingType)) {
       this.props.setBuildingWidth(this.streetSectionEditable)
     }
 

@@ -9,7 +9,6 @@ import {
   setIgnoreStreetChanges
 } from './data_model'
 import { updateStreetName } from './name'
-import { resizeStreetWidth } from './width'
 import { saveStreetToServer, fetchLastStreet } from './xhr'
 import store from '../store'
 
@@ -21,7 +20,6 @@ export function makeDefaultStreet () {
   prepareDefaultStreet()
   setUpdateTimeToNow()
 
-  resizeStreetWidth()
   updateStreetName(store.getState().street)
   segmentsChanged()
 
@@ -47,7 +45,6 @@ export function onNewStreetEmptyClick () {
   setIgnoreStreetChanges(true)
   prepareEmptyStreet()
 
-  resizeStreetWidth()
   updateStreetName(store.getState().street)
   segmentsChanged()
 

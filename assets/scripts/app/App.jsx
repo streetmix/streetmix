@@ -28,7 +28,6 @@ import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 import { onResize } from './window_resize'
-import { resizeStreetWidth } from '../streets/width'
 
 class App extends React.PureComponent {
   static propTypes = {
@@ -37,7 +36,6 @@ class App extends React.PureComponent {
 
   componentDidMount () {
     onResize()
-    resizeStreetWidth()
   }
 
   render () {

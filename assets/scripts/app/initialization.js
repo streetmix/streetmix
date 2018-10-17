@@ -15,7 +15,6 @@ import {
 import { updateStreetName } from '../streets/name'
 import { initStreetReduxTransitionSubscriber } from '../streets/street'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
-import { resizeStreetWidth } from '../streets/width'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
 import { detectGeolocation } from '../users/geolocation'
@@ -118,7 +117,6 @@ function onEverythingLoaded () {
   }
 
   onResize()
-  resizeStreetWidth()
   updateStreetName(store.getState().street)
   segmentsChanged()
 

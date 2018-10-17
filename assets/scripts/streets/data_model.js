@@ -15,8 +15,7 @@ import {
 } from './undo_stack'
 import {
   DEFAULT_STREET_WIDTH,
-  normalizeStreetWidth,
-  resizeStreetWidth
+  normalizeStreetWidth
 } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
@@ -462,7 +461,6 @@ export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
   // TODO Verify that we don't need to dispatch an update width event here
   segmentsChanged()
-  resizeStreetWidth(dontScroll)
   updateStreetName(store.getState().street)
   setIgnoreStreetChanges(false)
   _lastStreet = trimStreetData(store.getState().street)
