@@ -14,13 +14,27 @@ import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
 
 class Building extends React.Component {
   static propTypes = {
-    activeSegment: PropTypes.string,
+    // Provided by parent
     position: PropTypes.string.isRequired,
-    addBuildingFloor: PropTypes.func,
-    removeBuildingFloor: PropTypes.func,
-    street: PropTypes.object,
     buildingWidth: PropTypes.number,
-    updatePerspective: PropTypes.func
+    updatePerspective: PropTypes.func,
+
+    // Provided by Redux store
+    street: PropTypes.object,
+    activeSegment: PropTypes.string,
+    // eslint-disable-next-line react/no-unused-prop-types
+    leftBuildingEditable: PropTypes.bool,
+    // eslint-disable-next-line react/no-unused-prop-types
+    rightBuildingEditable: PropTypes.bool,
+
+    // Provided by Redux action dispatchers
+    addBuildingFloor: PropTypes.func,
+    removeBuildingFloor: PropTypes.func
+  }
+
+  static defaultProps = {
+    leftBuildingEditable: true,
+    rightBuildingEditable: true
   }
 
   constructor (props) {
@@ -31,7 +45,24 @@ class Building extends React.Component {
       height: (props.position === 'left') ? 'leftBuildingHeight' : 'rightBuildingHeight',
       oldBuildingEnter: true,
       newBuildingEnter: false,
-      switchBuildings: false
+      switchBuildings: false,
+      isEditable: true
+    }
+  }
+
+  static getDerivedStateFromProps (props, state) {
+    if (props.leftBuildingEditable === false && props.position === 'left') {
+      return {
+        isEditable: false
+      }
+    } else if (props.rightBuildingEditable === false && props.position === 'right') {
+      return {
+        isEditable: false
+      }
+    } else {
+      return {
+        isEditable: true
+      }
     }
   }
 
@@ -64,8 +95,12 @@ class Building extends React.Component {
   }
 
   onBuildingMouseEnter = (event) => {
+    if (!this.state.isEditable) return
+
     window.addEventListener('keydown', this.handleKeyDown)
+
     let type
+
     if (this.props.position === 'left') {
       type = INFO_BUBBLE_TYPE_LEFT_BUILDING
     } else if (this.props.position === 'right') {
@@ -77,13 +112,18 @@ class Building extends React.Component {
   }
 
   onBuildingMouseLeave = (event) => {
+    if (!this.state.isEditable) return
+
     window.removeEventListener('keydown', this.handleKeyDown)
+
     if (infoBubble.considerSegmentEl === this.streetSectionBuilding) {
       infoBubble.dontConsiderShowing()
     }
   }
 
   handleKeyDown = (event) => {
+    if (!this.state.isEditable) return
+
     const negative = (event.keyCode === KEYS.MINUS) ||
       (event.keyCode === KEYS.MINUS_ALT) ||
       (event.keyCode === KEYS.MINUS_KEYPAD)
@@ -200,7 +240,9 @@ class Building extends React.Component {
 function mapStateToProps (state) {
   return {
     street: state.street,
-    activeSegment: (typeof state.ui.activeSegment === 'string') ? state.ui.activeSegment : null
+    activeSegment: (typeof state.ui.activeSegment === 'string') ? state.ui.activeSegment : null,
+    leftBuildingEditable: state.flags.EDIT_BUILDINGS_LEFT.value,
+    rightBuildingEditable: state.flags.EDIT_BUILDINGS_RIGHT.value
   }
 }
 
