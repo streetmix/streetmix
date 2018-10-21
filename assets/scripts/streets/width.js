@@ -6,8 +6,6 @@ import {
 } from '../segments/constants'
 import store from '../store'
 
-export const DEFAULT_STREET_WIDTH = 80
-
 const MIN_CUSTOM_STREET_WIDTH = 10
 export const MAX_CUSTOM_STREET_WIDTH = 400
 

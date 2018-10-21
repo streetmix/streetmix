@@ -13,10 +13,7 @@ import {
   createNewUndoIfNecessary,
   unifyUndoStack
 } from './undo_stack'
-import {
-  DEFAULT_STREET_WIDTH,
-  normalizeStreetWidth
-} from './width'
+import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
   updateStreetWidth,
@@ -35,6 +32,7 @@ const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
 const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
 const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
 const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
+const DEFAULT_STREET_WIDTH = 80
 
 let _lastStreet
 
