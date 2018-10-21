@@ -11,8 +11,12 @@
     "label": "UI — Edit street name",
     "defaultValue": true
   },
-  "EDIT_BUILDINGS": {
-    "label": "UI — Edit buildings",
+  "EDIT_BUILDINGS_LEFT": {
+    "label": "UI — Edit left-side buildings",
+    "defaultValue": true
+  },
+  "EDIT_BUILDINGS_RIGHT": {
+    "label": "UI — Edit right-side buildings",
     "defaultValue": true
   },
   "SAVE_UNDO": {
