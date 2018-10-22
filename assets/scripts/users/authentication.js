@@ -9,6 +9,7 @@ import { goTwitterSignIn } from '../app/routing'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
+import { receiveUserFlags } from './user_flags'
 import store from '../store'
 import {
   createSetSignInData,
@@ -16,7 +17,7 @@ import {
   createSignInLoadedState,
   rememberUserProfile
 } from '../store/actions/user'
-import { setFeatureFlag } from '../store/actions/flags'
+import { setUserFlags } from '../store/actions/flags'
 import { showDialog } from '../store/actions/dialogs'
 
 const USER_ID_COOKIE = 'user_id'
@@ -92,27 +93,6 @@ function removeSignInCookies () {
   Cookies.remove(USER_ID_COOKIE)
 }
 
-export function removeUserFlags (flags) {
-  Object.keys(flags).forEach((key) => {
-    // If key source = user, reset to default value
-    if (flags[key].source === 'user') {
-      store.dispatch(setFeatureFlag(key, !flags[key].value, 'initial'))
-    }
-  })
-}
-
-export function receiveUserFlags (flags) {
-  if (!flags) return
-
-  Object.keys(flags).forEach((key) => {
-    // If local storage does not already have the flag,
-    // set the flag in Redux as source user.
-    if (!window.localStorage.flags || !window.localStorage.flags[key]) {
-      store.dispatch(setFeatureFlag(key, flags[key], 'user'))
-    }
-  })
-}
-
 export async function loadSignIn () {
   setSignInLoadedState(false)
 
@@ -160,7 +140,9 @@ async function fetchSignInDetails (userId) {
     const json = await response.json()
     const { flags, ...details } = json
 
-    receiveUserFlags(flags)
+    const userOverrides = receiveUserFlags(flags)
+    store.dispatch(setUserFlags(userOverrides))
+
     receiveSignInDetails(details)
   } catch (error) {
     errorReceiveSignInDetails(error)
@@ -229,7 +211,6 @@ function signOut (quiet) {
   })
 
   removeSignInCookies()
-  removeUserFlags({ ...store.getState().flags })
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
   sendSignOutToServer(quiet)
 }
