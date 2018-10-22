@@ -30,7 +30,7 @@ describe('flags reducer', () => {
   })
 
   it('should set a user-defined value', () => {
-    const action = reducer(undefined, actions.setFeatureFlag('BAZ_QUX', false))
+    const action = reducer(undefined, actions.setFeatureFlag('BAZ_QUX', false, 'user'))
     const result = {
       'BAZ_QUX': {
         'source': 'user',
