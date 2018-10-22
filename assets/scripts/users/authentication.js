@@ -92,7 +92,7 @@ function removeSignInCookies () {
   Cookies.remove(USER_ID_COOKIE)
 }
 
-function removeUserFlags (flags) {
+export function removeUserFlags (flags) {
   Object.keys(flags).forEach((key) => {
     // If key source = user, reset to default value
     if (flags[key].source === 'user') {
@@ -101,13 +101,13 @@ function removeUserFlags (flags) {
   })
 }
 
-function receiveUserFlags (flags) {
+export function receiveUserFlags (flags) {
   if (!flags) return
 
   Object.keys(flags).forEach((key) => {
     // If local storage does not already have the flag,
     // set the flag in Redux as source user.
-    if (!window.localStorage.flags[key]) {
+    if (!window.localStorage.flags || !window.localStorage.flags[key]) {
       store.dispatch(setFeatureFlag(key, flags[key], 'user'))
     }
   })
