@@ -42,7 +42,7 @@ class FeatureFlagDialog extends React.Component {
             <input
               type="checkbox"
               onChange={(event) => {
-                this.props.setFeatureFlag(id, event.target.checked, 'session')
+                this.props.setFeatureFlag(id, event.target.checked)
               }}
               checked={this.props.flags[id].value}
               id={htmlLabel}
