@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   created_at: Date,
   updated_at: Date,
   last_street_id: Number,
-  flags: mongoose.Schema.Types.Mixed
+  flags: { type: Map, of: Boolean }
 })
 
 userSchema.pre('save', function (next) {
