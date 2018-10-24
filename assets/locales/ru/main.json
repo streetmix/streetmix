@@ -44,6 +44,7 @@
       "email": "Отправить письмо команде Streetmix",
       "github": "Посмотреть исходники на GitHub",
       "blog": "Посетить блог Streetmix",
+      "discord": "",
       "slack": "Присоединиться к чату Slack"
     },
     "contribute": {

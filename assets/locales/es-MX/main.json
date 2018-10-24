@@ -44,6 +44,7 @@
       "email": "Enviar un correo electrónico al equipo de Streetmix",
       "github": "Ver el código fuente en GitHub",
       "blog": "Visitar el blog de Streetmix",
+      "discord": "Unirte al chat de Discord",
       "slack": "Unirte al chat de Slack"
     },
     "contribute": {
@@ -169,10 +170,10 @@
       "sponsored-by": "Streetmix está apoyado generosamente por:",
       "donate-link": "Apoyarnos con fondos",
       "github-link": "Contribuir al código abierto",
-      "open-source-link": "",
-      "guidebook-link": "",
-      "tos-link": "",
-      "privacy-link": ""
+      "open-source-link": "¡Nuestro código es abierto!",
+      "guidebook-link": "Guía",
+      "tos-link": "Condiciones (en)",
+      "privacy-link": "Privacidad (en)"
     },
     "save": {
       "heading": "Guardar como imagen",
@@ -195,7 +196,7 @@
       "confirm-location": "Confirmar ubicación",
       "clear-location": "Borrar ubicación",
       "unknown-location": "Ubicación desconocida",
-      "geotag-unavailable": ""
+      "geotag-unavailable": "Los servicios de geocodificación no están disponibles en este momento. Se puede ver el mapa, pero no se podrá cambiar la ubicación de esta calle."
     },
     "donate": {
       "heading": "¡Streetmix necesita tu ayuda!",
@@ -205,28 +206,28 @@
       "cancel": "No, gracias"
     },
     "sign-in": {
-      "heading": "",
-      "description": "",
-      "email-label": "",
-      "email-description": "",
-      "email-invalid": "",
-      "social-heading": "",
+      "heading": "Ingresar / Registrar",
+      "description": "Guarda tu primero diseño o ingrésate para accesar tu diseños anteriores.",
+      "email-label": "Correo electrónico",
+      "email-description": "Te enviaremos un enlace para ingresar. No se necesita una contraseña.",
+      "email-invalid": "¡Uy! Eso no parece ser un correo electrónico válido. Por favor intenta de nuevo.",
+      "social-heading": "o",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "Seguir con correo electrónico",
+        "twitter": "Seguir con Twitter",
+        "google": "Seguir con Google",
+        "facebook": "Seguir con Facebook"
       },
-      "tos": "",
-      "tos-link-label": "",
-      "privacy-link-label": "",
-      "loading-message": "",
-      "sent-message-with-email": "",
-      "email-unreceived": "",
-      "resend-email": ""
+      "tos": "Por hacer clic en uno de estos botones, me acuerdo con {tosLink} y {privacyLink}.",
+      "tos-link-label": "condiciones (en)",
+      "privacy-link-label": "privacidad (en)",
+      "loading-message": "Ingresando...",
+      "sent-message-with-email": "Hemos enviado un email a {email}. Por favor sigue las instrucciones allí para ingresar.",
+      "email-unreceived": "¿No lo recibiste?",
+      "resend-email": "Reenviar correo electrónico"
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "¿Qué es nuevo en Streetmix?"
     }
   },
   "prompt": {
@@ -266,10 +267,10 @@
   "key": {
     "backspace": "Suprimir",
     "shift": "Mayús",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "plus": "Más",
+    "minus": "Menos",
+    "left-arrow": "Flecha izquierda",
+    "right-arrow": "Flecha derecha"
   },
   "tooltip": {
     "remove-segment": "Remover el segmento",
@@ -329,14 +330,14 @@
     "page-title": "{streetName} (por {author})"
   },
   "credits": {
-    "core-team-heading": "",
-    "past-team-heading": "",
-    "advisors": "",
-    "additional-illustrations": "",
-    "additional-code": "",
-    "additional-contributors": "",
-    "special-thanks": "",
-    "translators": ""
+    "core-team-heading": "Equipo del proyecto",
+    "past-team-heading": "Miembros anteriores del equipo",
+    "advisors": "Consejeros",
+    "additional-illustrations": "Ilustraciones adicionales",
+    "additional-code": "Código adicional",
+    "additional-contributors": "Contribuidores adicionales",
+    "special-thanks": "Muchísimas gracias a",
+    "translators": "Traductores"
   },
   "i18n": {
     "lang": {
@@ -352,7 +353,7 @@
       "pt-br": "Portugués (Brasil)",
       "ru": "Ruso",
       "sv": "Sueco",
-      "zh": "",
+      "zh": "Chino",
       "zh-hans": "Chino simplificado",
       "zh-hant": "Chino tradicional"
     }

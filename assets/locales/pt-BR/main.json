@@ -44,6 +44,7 @@
       "email": "Enviar e-mail para a equipe do Streetmix",
       "github": "Ver código fonte no GitHub",
       "blog": "Visitar o blog do Streetmix",
+      "discord": "",
       "slack": "Participar no bate-papo do Slack"
     },
     "contribute": {
@@ -210,12 +211,12 @@
       "email-label": "",
       "email-description": "",
       "email-invalid": "",
-      "social-heading": "",
+      "social-heading": "ou",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "Continuar com e-mail",
+        "twitter": "Continuar com Twitter",
+        "google": "Continuar com Google",
+        "facebook": "Continuar com Facebook"
       },
       "tos": "",
       "tos-link-label": "",
@@ -336,7 +337,7 @@
     "additional-code": "",
     "additional-contributors": "",
     "special-thanks": "",
-    "translators": ""
+    "translators": "Tradutores"
   },
   "i18n": {
     "lang": {
@@ -352,7 +353,7 @@
       "pt-br": "Português (Brasil)",
       "ru": "Russo",
       "sv": "Sueco",
-      "zh": "",
+      "zh": "Chinês",
       "zh-hans": "Chinês simplificado",
       "zh-hant": "Chinês tradicional"
     }
