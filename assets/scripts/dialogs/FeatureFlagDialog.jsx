@@ -86,7 +86,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    setFeatureFlag: (flag, value, source) => { dispatch(setFeatureFlag(flag, value, source)) }
+    setFeatureFlag: (flag, value) => { dispatch(setFeatureFlag(flag, value)) }
   }
 }
 
