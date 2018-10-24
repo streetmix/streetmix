@@ -6,7 +6,7 @@ import { SET_FEATURE_FLAG, SET_USER_FLAGS } from './index'
  * @param {string} flag - name of flag
  * @param {Boolean} value - value to set flag to
  */
-export function setFeatureFlag (flag, value, source) {
+export function setFeatureFlag (flag, value) {
   return {
     type: SET_FEATURE_FLAG,
     flag,
