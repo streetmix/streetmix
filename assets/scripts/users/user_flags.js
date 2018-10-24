@@ -1,7 +1,7 @@
 export function receiveUserFlags (flags) {
   if (!flags) return
 
-  const sessionFlags = JSON.parse(window.localStorage.flags)
+  const sessionFlags = (window.localStorage.flags) ? JSON.parse(window.localStorage.flags) : {}
   // Convert to array
   const array = Object.entries(flags)
   // Filter flags not in session flags
