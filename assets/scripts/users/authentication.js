@@ -6,10 +6,10 @@ import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goTwitterSignIn } from '../app/routing'
+import { receiveUserFlags } from '../app/flag_utils'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
-import { receiveUserFlags } from './user_flags'
 import store from '../store'
 import {
   createSetSignInData,

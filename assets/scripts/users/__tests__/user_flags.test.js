@@ -3,7 +3,7 @@
 // 2) Session flags override user flags
 /* eslint-env jest */
 
-import { receiveUserFlags } from '../user_flags'
+import { receiveUserFlags } from '../../app/flag_utils'
 import configureStore from 'redux-mock-store'
 import { setUserFlags } from '../../store/actions/flags'
 import { SET_USER_FLAGS } from '../../store/actions'
