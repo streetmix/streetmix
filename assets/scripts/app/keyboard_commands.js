@@ -1,6 +1,5 @@
 import { noop } from 'lodash'
 
-import USER_ROLES from '../../../app/data/user_roles'
 import { KEYS } from './keys'
 import { ENV } from './config'
 import { registerKeypress } from './keypress'
@@ -66,7 +65,7 @@ export function registerKeypresses () {
   // Only active in development/staging
   // TODO - active when user is admin
   registerKeypress('shift f', () => {
-    if (ENV !== 'production' || (isSignedIn() && getSignInData().details.role === USER_ROLES.ADMIN)) {
+    if (ENV !== 'production' || (isSignedIn() && getSignInData().details.isAdmin)) {
       store.dispatch(showDialog('FEATURE_FLAGS'))
     }
   })
