@@ -38,7 +38,6 @@ userSchema.methods.asJson = function (options, cb) {
     json.flags = this.flags
 
     json.isAdmin = this.role.includes(USER_ROLES.ADMIN)
-    json.isUser = this.role.includes(USER_ROLES.USER)
   }
 
   cb(null, json)
