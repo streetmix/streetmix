@@ -179,15 +179,8 @@ class Building extends React.Component {
     const isOldBuilding = (building === 'old')
 
     const style = {
-      [this.props.position]: (-this.props.buildingWidth + 25) + 'px',
+      [this.props.position]: `-${this.props.buildingWidth}px`,
       width: this.props.buildingWidth + 'px'
-    }
-
-    const hoverStyle = {}
-    if (this.props.position === 'left') {
-      hoverStyle.right = '25px'
-    } else {
-      hoverStyle.left = '25px'
     }
 
     const classNames = ['street-section-building']
@@ -203,7 +196,7 @@ class Building extends React.Component {
         onMouseLeave={this.onBuildingMouseLeave}
         style={style}
       >
-        <div className="hover-bk" style={hoverStyle} />
+        <div className="hover-bk" />
       </section>
     )
   }

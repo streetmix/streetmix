@@ -16,8 +16,7 @@ export const MAX_BUILDING_HEIGHT = 20
 
 export const GROUND_BASELINE_HEIGHT = 44
 
-// TODO: default overhang should just be 0
-const OVERHANG_WIDTH = 25
+const OVERHANG_WIDTH = 0
 
 /**
  * Define buildings here. Properties:
