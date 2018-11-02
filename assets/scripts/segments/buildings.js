@@ -16,8 +16,6 @@ export const MAX_BUILDING_HEIGHT = 20
 
 export const GROUND_BASELINE_HEIGHT = 44
 
-const OVERHANG_WIDTH = 0
-
 /**
  * Define buildings here. Properties:
  *
@@ -90,7 +88,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 2,
     mainFloorHeight: 14,
-    overhangWidth: 9
+    overhangWidth: 16
   },
   'wide': {
     id: 'wide',
@@ -101,7 +99,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 2,
     mainFloorHeight: 14,
-    overhangWidth: 5
+    overhangWidth: 20
   }
 }
 
@@ -220,18 +218,15 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
     width = svg.width / TILESET_POINT_PER_PIXEL
   }
 
-  // Calculate overhang position
-  const offsetLeftPos = building.overhangWidth || OVERHANG_WIDTH
-  let leftPosShift
+  // For buildings in the left position, align building to the right
+  let leftPosShift = 0
   if (position === 'left') {
     if (!building.hasFloors) {
       // takes into consideration tiling
-      leftPosShift = (totalWidth % width) - (width + width + offsetLeftPos)
+      leftPosShift = (totalWidth % width) - (width + width)
     } else {
-      leftPosShift = totalWidth - (width + offsetLeftPos)
+      leftPosShift = totalWidth - (width)
     }
-  } else {
-    leftPosShift = offsetLeftPos
   }
 
   // Multifloor buildings
@@ -328,18 +323,29 @@ function shadeInContext (ctx) {
 }
 
 export function createBuilding (el, variant, position, floors, street) {
-  const totalWidth = el.offsetWidth
+  const elementWidth = el.offsetWidth
+
+  const building = BUILDINGS[variant]
+  const overhangWidth = (typeof building.overhangWidth === 'number') ? building.overhangWidth : 0
   const buildingHeight = getBuildingImageHeight(variant, position, floors)
 
+  const width = elementWidth + overhangWidth
   const height = Math.min(MAX_CANVAS_HEIGHT, buildingHeight)
+
   const canvasEl = document.createElement('canvas')
   const oldCanvasEl = el.querySelector('canvas')
   const dpi = store.getState().system.devicePixelRatio
 
-  canvasEl.width = totalWidth * dpi
+  canvasEl.width = width * dpi
   canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * dpi
-  canvasEl.style.width = totalWidth + 'px'
+  canvasEl.style.width = width + 'px'
   canvasEl.style.height = height + GROUND_BASELINE_HEIGHT + 'px'
+
+  if (position === 'left') {
+    canvasEl.style.left = '0'
+  } else {
+    canvasEl.style.right = '0'
+  }
 
   // Replace previous canvas if present, otherwise append a new one
   if (oldCanvasEl) {
@@ -350,7 +356,7 @@ export function createBuilding (el, variant, position, floors, street) {
 
   const ctx = canvasEl.getContext('2d')
   drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street,
-    position === 'left', totalWidth, height,
+    position === 'left', width, height,
     0,
     1.0, dpi)
 }
