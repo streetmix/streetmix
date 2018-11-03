@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const USER_ROLES = require('../data/user_roles.json')
 
 const userSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
@@ -11,7 +12,9 @@ const userSchema = new mongoose.Schema({
   data: mongoose.Schema.Types.Mixed,
   created_at: Date,
   updated_at: Date,
-  last_street_id: Number
+  last_street_id: Number,
+  flags: { type: Map, of: Boolean },
+  role: [ String ]
 })
 
 userSchema.pre('save', function (next) {
@@ -32,6 +35,9 @@ userSchema.methods.asJson = function (options, cb) {
     json.data = this.data
     json.createdAt = this.created_at
     json.updatedAt = this.updated_at
+    json.flags = this.flags
+
+    json.isAdmin = this.role.includes(USER_ROLES.ADMIN)
   }
 
   cb(null, json)

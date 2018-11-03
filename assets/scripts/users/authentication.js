@@ -6,6 +6,7 @@ import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goTwitterSignIn } from '../app/routing'
+import { receiveUserFlags } from '../app/flag_utils'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
@@ -16,6 +17,7 @@ import {
   createSignInLoadedState,
   rememberUserProfile
 } from '../store/actions/user'
+import { setUserFlags } from '../store/actions/flags'
 import { showDialog } from '../store/actions/dialogs'
 
 const USER_ID_COOKIE = 'user_id'
@@ -136,7 +138,12 @@ async function fetchSignInDetails (userId) {
     }
 
     const json = await response.json()
-    receiveSignInDetails(json)
+    const { flags, ...details } = json
+
+    const userOverrides = receiveUserFlags(flags)
+    store.dispatch(setUserFlags(userOverrides))
+
+    receiveSignInDetails(details)
   } catch (error) {
     errorReceiveSignInDetails(error)
   }

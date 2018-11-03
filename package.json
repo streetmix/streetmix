@@ -172,6 +172,7 @@
     "lint-staged": "7.3.0",
     "protractor": "5.4.1",
     "react-test-renderer": "16.5.2",
+    "redux-mock-store": "1.5.3",
     "stylelint": "9.5.0",
     "stylelint-config-standard": "18.2.0",
     "stylelint-scss": "3.3.1",
