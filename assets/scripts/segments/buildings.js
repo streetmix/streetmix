@@ -181,9 +181,7 @@ export function prettifyHeight (variant, position, floors, units, formatMessage)
   return text
 }
 
-export function drawBuilding (ctx, variant, street, position, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
-  const floors = (position === 'left') ? street.leftBuildingHeight : street.rightBuildingHeight
-
+export function drawBuilding (ctx, variant, floors, position, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
   const building = BUILDINGS[variant]
 
   const spriteId = getSpriteId(variant, position)
@@ -352,7 +350,7 @@ export function createBuilding (el, variant, position, floors, street) {
   const ctx = canvasEl.getContext('2d')
   const shadeIn = street.remainingWidth < 0
 
-  drawBuilding(ctx, variant, street,
+  drawBuilding(ctx, variant, floors,
     position, width, height,
     0,
     1.0, dpi, shadeIn)
