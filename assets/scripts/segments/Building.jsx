@@ -76,21 +76,21 @@ class Building extends React.Component {
     if (prevProps.street[height] !== street[height] ||
         lastOverflow !== streetOverflow ||
         (street[variant] && prevProps.buildingWidth !== buildingWidth)) {
-      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
     }
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
       if (this.shouldBuildingAnimate(prevProps.street, street)) {
         this.switchBuildings()
       } else {
-        createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+        createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
       }
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
       this.props.updatePerspective(this.oldStreetSectionBuilding)
       this.props.updatePerspective(this.streetSectionBuilding)
-      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
     }
   }
 
@@ -184,6 +184,10 @@ class Building extends React.Component {
     }
 
     const classNames = ['street-section-building']
+
+    // Add a class name for building position
+    classNames.push(`street-segment-building-${this.props.position}`)
+
     if (isOldBuilding && this.props.activeSegment === this.props.position) {
       classNames.push('hover')
     }

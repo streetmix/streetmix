@@ -181,6 +181,20 @@ export function prettifyHeight (variant, position, floors, units, formatMessage)
   return text
 }
 
+/**
+ * Draws the building on a canvas
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {string} variant - building
+ * @param {Number} floors - number of floors, if building as floors
+ * @param {string} position - left or right
+ * @param {Number} totalWidth - canvas width area to draw on
+ * @param {Number} totalHeight - canvas height area to draw on
+ * @param {Number} offsetLeft - left-position shift
+ * @param {Number} multiplier - scale of image
+ * @param {Number} dpi - pixel density of screen
+ * @param {Boolean} shadeIn - if true, add red colored overlay
+ */
 export function drawBuilding (ctx, variant, floors, position, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
   const building = BUILDINGS[variant]
 
@@ -315,16 +329,28 @@ function shadeInContext (ctx) {
   ctx.restore()
 }
 
-export function createBuilding (el, variant, position, floors, street) {
+/**
+ * Creates building canvas element to draw on
+ *
+ * @param {HTMLElement} el - wrapping element for canvas
+ * @param {string} variant
+ * @param {string} position
+ * @param {Number} floors
+ * @param {Boolean} shadeIn - colors the building with a red overlay
+ */
+export function createBuilding (el, variant, position, floors, shadeIn) {
   const elementWidth = el.offsetWidth
 
+  // Determine building dimensions
   const building = BUILDINGS[variant]
   const overhangWidth = (typeof building.overhangWidth === 'number') ? building.overhangWidth : 0
   const buildingHeight = getBuildingImageHeight(variant, position, floors)
 
+  // Determine canvas dimensions from building dimensions
   const width = elementWidth + overhangWidth
   const height = Math.min(MAX_CANVAS_HEIGHT, buildingHeight)
 
+  // Create canvas
   const canvasEl = document.createElement('canvas')
   const oldCanvasEl = el.querySelector('canvas')
   const dpi = store.getState().system.devicePixelRatio
@@ -334,12 +360,6 @@ export function createBuilding (el, variant, position, floors, street) {
   canvasEl.style.width = width + 'px'
   canvasEl.style.height = height + GROUND_BASELINE_HEIGHT + 'px'
 
-  if (position === 'left') {
-    canvasEl.style.left = '0'
-  } else {
-    canvasEl.style.right = '0'
-  }
-
   // Replace previous canvas if present, otherwise append a new one
   if (oldCanvasEl) {
     el.replaceChild(canvasEl, oldCanvasEl)
@@ -348,7 +368,6 @@ export function createBuilding (el, variant, position, floors, street) {
   }
 
   const ctx = canvasEl.getContext('2d')
-  const shadeIn = street.remainingWidth < 0
 
   drawBuilding(ctx, variant, floors,
     position, width, height,

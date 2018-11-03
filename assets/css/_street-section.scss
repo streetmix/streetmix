@@ -122,6 +122,14 @@
   }
 }
 
+.street-section-building-left canvas {
+  left: 0;
+}
+
+.street-segment-building-right canvas {
+  right: 0;
+}
+
 [dir='rtl'] {
   #street-section-outer,
   .street-scroll-indicator-left,
