@@ -7,9 +7,6 @@ import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
 
-const BUILDING_DESTINATION_SCREEN = 1
-export const BUILDING_DESTINATION_THUMBNAIL = 2
-
 export const BUILDING_SPACE = 360
 
 export const MAX_BUILDING_HEIGHT = 20
@@ -184,7 +181,7 @@ export function prettifyHeight (variant, position, floors, units, formatMessage)
   return text
 }
 
-export function drawBuilding (ctx, destination, street, left, totalWidth, totalHeight, offsetLeft, multiplier, dpi) {
+export function drawBuilding (ctx, street, left, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
   const variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
   const floors = left ? street.leftBuildingHeight : street.rightBuildingHeight
   const position = left ? 'left' : 'right'
@@ -303,7 +300,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
   // If street width is exceeded, fade buildings
   // Note: it would make sense to also fade out buildings when drawing large canvases but that would
   // shade in the entire background erroneously
-  if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
+  if (shadeIn === true) {
     shadeInContext(ctx)
   }
 }
@@ -355,8 +352,10 @@ export function createBuilding (el, variant, position, floors, street) {
   }
 
   const ctx = canvasEl.getContext('2d')
-  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street,
+  const shadeIn = street.remainingWidth < 0
+
+  drawBuilding(ctx, street,
     position === 'left', width, height,
     0,
-    1.0, dpi)
+    1.0, dpi, shadeIn)
 }
