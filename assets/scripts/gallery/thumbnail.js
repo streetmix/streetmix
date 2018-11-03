@@ -97,7 +97,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   const leftBuilding = BUILDINGS[street.leftBuildingVariant]
   const leftOverhang = (typeof leftBuilding.overhangWidth === 'number') ? leftBuilding.overhangWidth : 0
   drawBuilding(ctx, street,
-    true, buildingWidth, groundLevel,
+    'left', buildingWidth, groundLevel,
     x1 - ((buildingWidth - leftOverhang) * multiplier),
     multiplier, dpi)
 
@@ -106,7 +106,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   const rightBuilding = BUILDINGS[street.rightBuildingVariant]
   const rightOverhang = (typeof rightBuilding.overhangWidth === 'number') ? rightBuilding.overhangWidth : 0
   drawBuilding(ctx, street,
-    false, buildingWidth, groundLevel,
+    'right', buildingWidth, groundLevel,
     x2 - (rightOverhang * multiplier),
     multiplier, dpi)
 

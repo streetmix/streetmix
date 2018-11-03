@@ -181,10 +181,9 @@ export function prettifyHeight (variant, position, floors, units, formatMessage)
   return text
 }
 
-export function drawBuilding (ctx, street, left, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
-  const variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-  const floors = left ? street.leftBuildingHeight : street.rightBuildingHeight
-  const position = left ? 'left' : 'right'
+export function drawBuilding (ctx, street, position, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
+  const variant = (position === 'left') ? street.leftBuildingVariant : street.rightBuildingVariant
+  const floors = (position === 'left') ? street.leftBuildingHeight : street.rightBuildingHeight
 
   const building = BUILDINGS[variant]
 
@@ -355,7 +354,7 @@ export function createBuilding (el, variant, position, floors, street) {
   const shadeIn = street.remainingWidth < 0
 
   drawBuilding(ctx, street,
-    position === 'left', width, height,
+    position, width, height,
     0,
     1.0, dpi, shadeIn)
 }
