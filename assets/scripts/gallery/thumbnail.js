@@ -3,6 +3,7 @@ import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
 import {
+  BUILDINGS,
   BUILDING_DESTINATION_THUMBNAIL,
   GROUND_BASELINE_HEIGHT,
   drawBuilding
@@ -92,16 +93,22 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   const buildingWidth = buildingOffsetLeft / multiplier
 
+  // Left building
   const x1 = (thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)
+  const leftBuilding = BUILDINGS[street.leftBuildingVariant]
+  const leftOverhang = (typeof leftBuilding.overhangWidth === 'number') ? leftBuilding.overhangWidth : 0
   drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
     true, buildingWidth, groundLevel,
-    x1 - ((buildingWidth - 25) * multiplier),
+    x1 - ((buildingWidth - leftOverhang) * multiplier),
     multiplier, dpi)
 
+  // Right building
   const x2 = (thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)
+  const rightBuilding = BUILDINGS[street.rightBuildingVariant]
+  const rightOverhang = (typeof rightBuilding.overhangWidth === 'number') ? rightBuilding.overhangWidth : 0
   drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
     false, buildingWidth, groundLevel,
-    x2 - (25 * multiplier),
+    x2 - (rightOverhang * multiplier),
     multiplier, dpi)
 
   // Segments
