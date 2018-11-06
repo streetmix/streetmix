@@ -7,17 +7,11 @@ import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
 
-const BUILDING_DESTINATION_SCREEN = 1
-export const BUILDING_DESTINATION_THUMBNAIL = 2
-
 export const BUILDING_SPACE = 360
 
 export const MAX_BUILDING_HEIGHT = 20
 
 export const GROUND_BASELINE_HEIGHT = 44
-
-// TODO: default overhang should just be 0
-const OVERHANG_WIDTH = 25
 
 /**
  * Define buildings here. Properties:
@@ -91,7 +85,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 2,
     mainFloorHeight: 14,
-    overhangWidth: 9
+    overhangWidth: 16
   },
   'wide': {
     id: 'wide',
@@ -102,7 +96,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 2,
     mainFloorHeight: 14,
-    overhangWidth: 5
+    overhangWidth: 20
   }
 }
 
@@ -187,11 +181,21 @@ export function prettifyHeight (variant, position, floors, units, formatMessage)
   return text
 }
 
-export function drawBuilding (ctx, destination, street, left, totalWidth, totalHeight, offsetLeft, multiplier, dpi) {
-  const variant = left ? street.leftBuildingVariant : street.rightBuildingVariant
-  const floors = left ? street.leftBuildingHeight : street.rightBuildingHeight
-  const position = left ? 'left' : 'right'
-
+/**
+ * Draws the building on a canvas
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {string} variant - building
+ * @param {Number} floors - number of floors, if building as floors
+ * @param {string} position - left or right
+ * @param {Number} totalWidth - canvas width area to draw on
+ * @param {Number} totalHeight - canvas height area to draw on
+ * @param {Number} offsetLeft - left-position shift
+ * @param {Number} multiplier - scale of image
+ * @param {Number} dpi - pixel density of screen
+ * @param {Boolean} shadeIn - if true, add red colored overlay
+ */
+export function drawBuilding (ctx, variant, floors, position, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
   const building = BUILDINGS[variant]
 
   const spriteId = getSpriteId(variant, position)
@@ -221,18 +225,15 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
     width = svg.width / TILESET_POINT_PER_PIXEL
   }
 
-  // Calculate overhang position
-  const offsetLeftPos = building.overhangWidth || OVERHANG_WIDTH
-  let leftPosShift
+  // For buildings in the left position, align building to the right
+  let leftPosShift = 0
   if (position === 'left') {
     if (!building.hasFloors) {
       // takes into consideration tiling
-      leftPosShift = (totalWidth % width) - (width + width + offsetLeftPos)
+      leftPosShift = (totalWidth % width) - (width + width)
     } else {
-      leftPosShift = totalWidth - (width + offsetLeftPos)
+      leftPosShift = totalWidth - (width)
     }
-  } else {
-    leftPosShift = offsetLeftPos
   }
 
   // Multifloor buildings
@@ -309,7 +310,7 @@ export function drawBuilding (ctx, destination, street, left, totalWidth, totalH
   // If street width is exceeded, fade buildings
   // Note: it would make sense to also fade out buildings when drawing large canvases but that would
   // shade in the entire background erroneously
-  if ((street.remainingWidth < 0) && (destination === BUILDING_DESTINATION_SCREEN)) {
+  if (shadeIn === true) {
     shadeInContext(ctx)
   }
 }
@@ -328,18 +329,35 @@ function shadeInContext (ctx) {
   ctx.restore()
 }
 
-export function createBuilding (el, variant, position, floors, street) {
-  const totalWidth = el.offsetWidth
+/**
+ * Creates building canvas element to draw on
+ *
+ * @param {HTMLElement} el - wrapping element for canvas
+ * @param {string} variant
+ * @param {string} position
+ * @param {Number} floors
+ * @param {Boolean} shadeIn - colors the building with a red overlay
+ */
+export function createBuilding (el, variant, position, floors, shadeIn) {
+  const elementWidth = el.offsetWidth
+
+  // Determine building dimensions
+  const building = BUILDINGS[variant]
+  const overhangWidth = (typeof building.overhangWidth === 'number') ? building.overhangWidth : 0
   const buildingHeight = getBuildingImageHeight(variant, position, floors)
 
+  // Determine canvas dimensions from building dimensions
+  const width = elementWidth + overhangWidth
   const height = Math.min(MAX_CANVAS_HEIGHT, buildingHeight)
+
+  // Create canvas
   const canvasEl = document.createElement('canvas')
   const oldCanvasEl = el.querySelector('canvas')
   const dpi = store.getState().system.devicePixelRatio
 
-  canvasEl.width = totalWidth * dpi
+  canvasEl.width = width * dpi
   canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * dpi
-  canvasEl.style.width = totalWidth + 'px'
+  canvasEl.style.width = width + 'px'
   canvasEl.style.height = height + GROUND_BASELINE_HEIGHT + 'px'
 
   // Replace previous canvas if present, otherwise append a new one
@@ -350,8 +368,9 @@ export function createBuilding (el, variant, position, floors, street) {
   }
 
   const ctx = canvasEl.getContext('2d')
-  drawBuilding(ctx, BUILDING_DESTINATION_SCREEN, street,
-    position === 'left', totalWidth, height,
+
+  drawBuilding(ctx, variant, floors,
+    position, width, height,
     0,
-    1.0, dpi)
+    1.0, dpi, shadeIn)
 }

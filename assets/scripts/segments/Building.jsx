@@ -76,21 +76,21 @@ class Building extends React.Component {
     if (prevProps.street[height] !== street[height] ||
         lastOverflow !== streetOverflow ||
         (street[variant] && prevProps.buildingWidth !== buildingWidth)) {
-      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
     }
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
       if (this.shouldBuildingAnimate(prevProps.street, street)) {
         this.switchBuildings()
       } else {
-        createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+        createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
       }
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
       this.props.updatePerspective(this.oldStreetSectionBuilding)
       this.props.updatePerspective(this.streetSectionBuilding)
-      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], street)
+      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
     }
   }
 
@@ -179,18 +179,15 @@ class Building extends React.Component {
     const isOldBuilding = (building === 'old')
 
     const style = {
-      [this.props.position]: (-this.props.buildingWidth + 25) + 'px',
+      [this.props.position]: `-${this.props.buildingWidth}px`,
       width: this.props.buildingWidth + 'px'
     }
 
-    const hoverStyle = {}
-    if (this.props.position === 'left') {
-      hoverStyle.right = '25px'
-    } else {
-      hoverStyle.left = '25px'
-    }
-
     const classNames = ['street-section-building']
+
+    // Add a class name for building position
+    classNames.push(`street-segment-building-${this.props.position}`)
+
     if (isOldBuilding && this.props.activeSegment === this.props.position) {
       classNames.push('hover')
     }
@@ -203,7 +200,7 @@ class Building extends React.Component {
         onMouseLeave={this.onBuildingMouseLeave}
         style={style}
       >
-        <div className="hover-bk" style={hoverStyle} />
+        <div className="hover-bk" />
       </section>
     )
   }

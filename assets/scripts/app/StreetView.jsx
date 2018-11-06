@@ -129,7 +129,7 @@ class StreetView extends React.Component {
       scrollLeft += deltaX
     } else {
       const streetWidth = this.props.street.width * TILE_SIZE
-      const currBuildingSpace = (this.state.buildingWidth) ? (this.state.buildingWidth - 25) : BUILDING_SPACE
+      const currBuildingSpace = (this.state.buildingWidth) ? (this.state.buildingWidth) : BUILDING_SPACE
       scrollLeft = (streetWidth + (currBuildingSpace * 2) - this.props.system.viewportWidth) / 2
     }
 
@@ -247,7 +247,7 @@ class StreetView extends React.Component {
   setBuildingWidth = (el) => {
     const pos = getElAbsolutePos(el)
 
-    let width = pos[0] + 25
+    let width = pos[0]
     if (width < 0) {
       width = 0
     }
