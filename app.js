@@ -110,7 +110,8 @@ const csp = {
       'fonts.gstatic.com',
       '*.typekit.net'
     ],
-    connectSrc: ["'self'",
+    connectSrc: [
+      "'self'",
       'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',
