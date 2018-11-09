@@ -23,7 +23,7 @@ By participating in this project you agree to abide by its terms.
 ## Bug reports and feedback
 
 We use the [GitHub issue tracker][issues] to track bugs and features
-in development. We also have [forums](http://forums.streetmix.net) for feedback
+in development. We also have [a Discord server](https://discord.gg/NsKmV3S) for feedback
 and discussion.
 
 ### Bug reporting
@@ -52,7 +52,7 @@ If you have any ideas for new features or functionality for Streetmix,
 we'd love to hear about them! Unfortunately, we can't promise to build
 everything, but we are receptive to all thoughts you have on how
 Streetmix could be more useful. You can [open an issue on GitHub](https://github.com/streetmix/streetmix/issues/new)
-or [post in the forums](http://forums.streetmix.net).
+or [talk to us in Discord](https://discord.gg/NsKmV3S").
 
 Again, please make sure it hasn't already been posted. Posts or issues that
 are similar ones may be closed.

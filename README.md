@@ -15,7 +15,7 @@
 
 <p align="center">
   <b>Have questions? Looking for support or advice?</b>
-  <br><a href="http://forums.streetmix.net/">Check out our forums</a> or <a href="https://discord.gg/NsKmV3S">join our Discord!</a>
+  <br><a href="https://discord.gg/NsKmV3S">Join our Discord!</a>
 </p>
 
 <p align="center">

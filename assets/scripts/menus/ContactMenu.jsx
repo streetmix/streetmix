@@ -12,10 +12,6 @@ export default class ContactMenu extends React.PureComponent {
   render () {
     return (
       <Menu {...this.props}>
-        <a href="http://forums.streetmix.net/" target="_blank">
-          <Icon icon="forums" />
-          <FormattedMessage id="menu.contact.forums" defaultMessage="Discuss on the forums" />
-        </a>
         <a href="https://twitter.com/intent/tweet?text=@streetmix" target="_blank" rel="noopener noreferrer">
           <Icon icon="twitter" />
           <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
