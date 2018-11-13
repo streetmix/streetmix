@@ -140,18 +140,16 @@ body.segment-resize-dragging * {
 
 .drag-handle {
   position: absolute;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 170px + 150px;
-  width: 10px;
+  width: 30px;
   height: 100px;
-  padding-left: 10px;
-  padding-right: 10px;
   border-top: 3px solid darken($ui-colour, 30%);
   border-bottom: 3px solid darken($ui-colour, 30%);
-  line-height: 100px;
-  font-size: 50px;
-  font-family: 'Tahoma', sans-serif;
-  color: lighten($ui-colour, 0%);
+  font-size: 1.5rem;
+  color: darken($ui-colour, 20%);
   z-index: $z-06-drag-handle;
   pointer-events: none;
   background: $info-bubble-background;
@@ -160,7 +158,7 @@ body.segment-resize-dragging * {
   opacity: 0;
 
   &:hover {
-    color: darken($ui-colour, 10%);
+    color: darken($ui-colour, 30%);
   }
 }
 
