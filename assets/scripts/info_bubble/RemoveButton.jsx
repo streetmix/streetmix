@@ -44,7 +44,7 @@ class RemoveButton extends React.PureComponent {
         <FontAwesomeIcon
           icon="trash-alt"
           className="remove-icon"
-          title={this.props.intl.formatMessage({ id: 'btn.remove', defaultMessage: 'Remove' })} />
+        />
         <FormattedMessage id="btn.remove" defaultMessage="Remove" />
       </button>
     )
