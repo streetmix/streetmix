@@ -10,7 +10,8 @@ import {
   faArrowLeft,
   faTimes,
   faUndo,
-  faRedo
+  faRedo,
+  faTrashAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -22,6 +23,6 @@ export function initIcons () {
     faChevronRight, faChevronLeft,
     faArrowRight, faArrowLeft,
     faTimes, faTimesCircle, fab,
-    faUndo, faRedo
+    faUndo, faRedo, faTrashAlt
   )
 }
