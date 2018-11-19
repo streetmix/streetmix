@@ -2,7 +2,7 @@ import FEATURE_FLAGS from '../../../app/data/flags'
 import store, { observeStore } from '../store'
 import { setFlagOverrides } from '../store/actions/flags'
 
-export const flagPriorityLevels = {
+export const PRIORITY_LEVELS = {
   'initial': 0,
   'user': 1,
   'session': 2
@@ -58,7 +58,7 @@ export function generateFlagOverrides (flags, source) {
   const flagsOverrides = {
     source,
     flags: [],
-    priority: flagPriorityLevels[source]
+    priority: PRIORITY_LEVELS[source]
   }
 
   return Object.entries(flags).reduce((obj, item) => {
@@ -73,9 +73,13 @@ export function generateFlagOverrides (flags, source) {
   }, flagsOverrides)
 }
 
-export function applyFlagOverrides (flagOverrides) {
-  const defaultFlags = store.getState().flags
-
+/**
+ * Dispatches action to apply flag overrides to Redux flag state
+ *
+ * @param {Array} flagOverrides
+ * @param {Object} defaultFlags
+ */
+export function applyFlagOverrides (flagOverrides, defaultFlags) {
   let updatedFlags
 
   flagOverrides.forEach((flagSource) => {
@@ -87,7 +91,7 @@ export function applyFlagOverrides (flagOverrides) {
       const { flag, value } = item
 
       const prevFlagSource = obj[flag].source
-      const prevPriorityLevel = flagPriorityLevels[prevFlagSource]
+      const prevPriorityLevel = PRIORITY_LEVELS[prevFlagSource]
       if (obj[flag].value !== value && prevPriorityLevel < priority) {
         obj[flag] = { value, source }
       }
