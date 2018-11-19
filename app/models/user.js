@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const USER_ROLES = require('../data/user_roles.json')
 
 const userSchema = new mongoose.Schema({
   id: { type: String, index: { unique: true } },
@@ -37,7 +36,7 @@ userSchema.methods.asJson = function (options, cb) {
     json.updatedAt = this.updated_at
     json.flags = this.flags
 
-    json.isAdmin = this.role.includes(USER_ROLES.ADMIN)
+    json.role = this.role
   }
 
   cb(null, json)

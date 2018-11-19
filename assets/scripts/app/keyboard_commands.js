@@ -1,5 +1,6 @@
 import { noop } from 'lodash'
 
+import USER_ROLES from '../../../app/data/user_roles'
 import { KEYS } from './keys'
 import { ENV } from './config'
 import { registerKeypress } from './keypress'
@@ -63,9 +64,8 @@ export function registerKeypresses () {
 
   // Secret menu to toggle feature flags
   // Only active in development/staging
-  // TODO - active when user is admin
   registerKeypress('shift f', () => {
-    if (ENV !== 'production' || (isSignedIn() && getSignInData().details.isAdmin)) {
+    if (ENV !== 'production' || (isSignedIn() && getSignInData().details.role.includes(USER_ROLES.ADMIN))) {
       store.dispatch(showDialog('FEATURE_FLAGS'))
     }
   })
