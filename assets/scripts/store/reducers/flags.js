@@ -1,4 +1,4 @@
-import { SET_FEATURE_FLAG, SET_USER_FLAGS } from '../actions'
+import { SET_FEATURE_FLAG, SET_FLAG_OVERRIDES } from '../actions'
 import FEATURE_FLAGS from '../../../../app/data/flags'
 
 function generateInitialFlags (flags) {
@@ -22,10 +22,10 @@ const flags = (state = initialState, action) => {
         ...state,
         [action.flag]: Object.assign({}, state[action.flag], { value: action.value, source: 'session' })
       }
-    case SET_USER_FLAGS:
+    case SET_FLAG_OVERRIDES:
       return {
         ...state,
-        ...action.userFlags
+        ...action.flags
       }
     default:
       return state
