@@ -77,8 +77,7 @@ class MenuBar extends React.PureComponent {
       <nav className="menu-bar">
         <ul className="menu-bar-left">
           <li className="menu-bar-title">
-            <div className="streetmix-logo" />
-            <h1>Streetmix</h1>
+            <h1>Nominal Change</h1>
           </li>
           <MenuBarItem label="Help" translation="menu.item.help" onClick={this.onClickMenuButton('help')} />
           {!this.props.noInternet && (
