@@ -10,11 +10,11 @@
     }
   },
   "addons": [
-    "database",
-    "mongodb",
-    "papertrail",
-    "new_relic",
-    "redis"
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev",
+    "mongolab:sandbox",
+    "papertrail:choklad",
+    "newrelic:wayne"
   ],
   "buildpacks": [
     {
