@@ -146,9 +146,7 @@ async function fetchSignInDetails (userId) {
     const json = await response.json()
     const { flags, ...details } = json
 
-    // const userOverrides = receiveUserFlags(flags)
     const userOverrides = generateFlagOverrides(flags, 'user')
-    // store.dispatch(setUserFlags(userOverrides))
 
     receiveSignInDetails(details)
     return userOverrides
