@@ -9,42 +9,29 @@ jest.mock('../../app/routing', () => {})
 jest.mock('../../app/errors', () => {})
 
 const initialFlags = {
-  FOO_BAR: {
-    value: true,
-    source: 'initial'
-  },
-  BAZ_QUX: {
-    value: false,
-    source: 'initial'
-  }
+  FOO_BAR: { value: true, source: 'initial' },
+  BAZ_QUX: { value: false, source: 'initial' },
+  FOO_BAZ: { value: true, source: 'initial' },
+  BAZ_BAR: { value: false, source: 'initial' }
 }
 
-const flagOverrides = [
-  {
-    source: 'user',
-    flags: [
-      {
-        flag: 'FOO_BAR',
-        value: false
-      }
-    ],
-    priority: 1
-  },
-  {
-    source: 'session',
-    flags: [
-      {
-        flag: 'BAZ_QUX',
-        value: true
-      },
-      {
-        flag: 'FOO_BAR',
-        value: true
-      }
-    ],
-    priority: 2
-  }
-]
+const userOverrides = {
+  source: 'user',
+  flags: [
+    { flag: 'FOO_BAR', value: false },
+    { flag: 'BAZ_BAR', value: true }
+  ],
+  priority: 1
+}
+
+const sessionOverrides = {
+  source: 'session',
+  flags: [
+    { flag: 'BAZ_QUX', value: true },
+    { flag: 'FOO_BAR', value: true }
+  ],
+  priority: 2
+}
 
 describe('generateFlagOverrides', () => {
   it('creates an object with source, flags, and priority as keys', () => {
@@ -55,10 +42,9 @@ describe('generateFlagOverrides', () => {
     const result = generateFlagOverrides(userFlags, 'user')
     expect(result).toEqual({
       source: 'user',
-      flags: [{
-        flag: 'FOO_BAR',
-        value: false
-      }],
+      flags: [
+        { flag: 'FOO_BAR', value: false }
+      ],
       priority: 1
     })
   })
@@ -66,16 +52,12 @@ describe('generateFlagOverrides', () => {
 
 describe('applyFlagOverrides', () => {
   it('updates feature flag values according to flag overrides and priority levels', () => {
-    const result = applyFlagOverrides(flagOverrides, initialFlags)
+    const result = applyFlagOverrides(initialFlags, userOverrides, sessionOverrides)
     expect(result).toEqual({
-      FOO_BAR: {
-        source: 'session',
-        value: true
-      },
-      BAZ_QUX: {
-        source: 'session',
-        value: true
-      }
+      FOO_BAR: { source: 'session', value: true },
+      BAZ_QUX: { source: 'session', value: true },
+      FOO_BAZ: { source: 'initial', value: true },
+      BAZ_BAR: { source: 'user', value: true }
     })
   })
 })
