@@ -79,7 +79,7 @@ export function generateFlagOverrides (flags, source) {
  * @param {Array} flagOverrides
  * @param {Object} defaultFlags
  */
-export function applyFlagOverrides (flagOverrides, defaultFlags) {
+export function applyFlagOverrides (defaultFlags, ...flagOverrides) {
   let updatedFlags
 
   flagOverrides.forEach((flagSource) => {
