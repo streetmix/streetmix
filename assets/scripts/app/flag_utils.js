@@ -76,8 +76,8 @@ export function generateFlagOverrides (flags, source) {
 /**
  * Dispatches action to apply flag overrides to Redux flag state
  *
- * @param {Array} flagOverrides
  * @param {Object} defaultFlags
+ * @param {Array} flagOverrides
  */
 export function applyFlagOverrides (defaultFlags, ...flagOverrides) {
   let updatedFlags
