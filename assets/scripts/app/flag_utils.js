@@ -1,5 +1,12 @@
 import FEATURE_FLAGS from '../../../app/data/flags'
-import { observeStore } from '../store'
+import store, { observeStore } from '../store'
+import { setFlagOverrides } from '../store/actions/flags'
+
+export const PRIORITY_LEVELS = {
+  'initial': 0,
+  'user': 1,
+  'session': 2
+}
 
 export function initializeFlagSubscribers () {
   initLocalStorageUpdateListener()
@@ -39,22 +46,60 @@ function initRedrawPaletteUpdateListener () {
   return observeStore(select, onChange)
 }
 
-export function receiveUserFlags (flags) {
+/**
+ * Creates and returns an Object in shape of { source, flags: [ { key: value } ], priority }
+ *
+ * @param {Object} flags
+ * @param {String} source
+ */
+export function generateFlagOverrides (flags, source) {
   if (!flags) return
 
-  const sessionFlags = (window.localStorage.flags) ? JSON.parse(window.localStorage.flags) : {}
-  // Convert to array
-  const array = Object.entries(flags)
-  // Filter flags not in session flags
-  const filter = array.filter((item) => !(item[0] in sessionFlags))
-  // Convert back to object
+  const flagsOverrides = {
+    source,
+    flags: [],
+    priority: PRIORITY_LEVELS[source]
+  }
 
-  return filter.reduce((obj, item) => {
-    obj[item[0]] = {
-      value: item[1],
-      source: 'user'
+  return Object.entries(flags).reduce((obj, item) => {
+    const [key, value] = item
+    const flag = {
+      flag: key,
+      value
     }
 
+    flagsOverrides.flags.push(flag)
     return obj
-  }, {})
+  }, flagsOverrides)
+}
+
+/**
+ * Dispatches action to apply flag overrides to Redux flag state
+ *
+ * @param {Object} defaultFlags
+ * @param {Array} flagOverrides
+ */
+export function applyFlagOverrides (defaultFlags, ...flagOverrides) {
+  let updatedFlags
+
+  flagOverrides.forEach((flagSource) => {
+    if (!flagSource) return
+
+    const { source, flags, priority } = flagSource
+
+    updatedFlags = flags.reduce((obj, item) => {
+      const { flag, value } = item
+
+      const prevFlagSource = obj[flag].source
+      const prevPriorityLevel = PRIORITY_LEVELS[prevFlagSource]
+      if (obj[flag].value !== value && prevPriorityLevel < priority) {
+        obj[flag] = { value, source }
+      }
+
+      return obj
+    }, defaultFlags)
+  })
+
+  store.dispatch(setFlagOverrides(updatedFlags))
+  return updatedFlags
 }

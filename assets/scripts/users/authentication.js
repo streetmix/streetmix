@@ -6,7 +6,7 @@ import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goTwitterSignIn } from '../app/routing'
-import { receiveUserFlags } from '../app/flag_utils'
+import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
@@ -17,7 +17,6 @@ import {
   createSignInLoadedState,
   rememberUserProfile
 } from '../store/actions/user'
-import { setUserFlags } from '../store/actions/flags'
 import { showDialog } from '../store/actions/dialogs'
 
 const USER_ID_COOKIE = 'user_id'
@@ -112,11 +111,18 @@ export async function loadSignIn () {
 
   const signInData = getSignInData()
 
+  const storage = JSON.parse(window.localStorage.getItem('flags'))
+  const sessionOverrides = generateFlagOverrides(storage, 'session')
+
+  let userOverrides
+
   if (signInData && signInData.token && signInData.userId) {
-    await fetchSignInDetails(signInData.userId)
+    userOverrides = await fetchSignInDetails(signInData.userId)
   } else {
     setSignedInState(false)
   }
+
+  applyFlagOverrides(store.getState().flags, userOverrides, sessionOverrides)
 
   setSignInLoadedState(true)
 
@@ -140,10 +146,10 @@ async function fetchSignInDetails (userId) {
     const json = await response.json()
     const { flags, ...details } = json
 
-    const userOverrides = receiveUserFlags(flags)
-    store.dispatch(setUserFlags(userOverrides))
+    const userOverrides = generateFlagOverrides(flags, 'user')
 
     receiveSignInDetails(details)
+    return userOverrides
   } catch (error) {
     errorReceiveSignInDetails(error)
   }

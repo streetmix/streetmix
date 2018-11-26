@@ -47,7 +47,7 @@ export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'
 
 /* flags */
 export const SET_FEATURE_FLAG = 'SET_FEATURE_FLAG'
-export const SET_USER_FLAGS = 'SET_USER_FLAGS'
+export const SET_FLAG_OVERRIDES = 'SET_FLAG_OVERRIDES'
 
 /* gallery */
 export const SHOW_GALLERY = 'SHOW_GALLERY'
