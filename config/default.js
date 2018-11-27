@@ -46,7 +46,8 @@ module.exports = {
     baseuri: '/api'
   },
   db: {
-    url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
+    // MONGODB_URI - mLab MongoDB Heroku addon
+    url: process.env.MONGODB_URI || 'mongodb://localhost/streetmix'
   },
   log_level: 'debug',
   no_internet_mode: false,
