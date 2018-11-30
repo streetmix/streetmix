@@ -9,8 +9,9 @@ module.exports = {
   google_analytics_account: 'UA-38087461-1',
   mixpanel_token: '61e4b1fdd39e00551df8911fe62b8c56',
   db: {
-    // MONGOHQ_URL - Compose MongoDB Heroku addon
-    url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
+    // MONGOHQ_URL - Compose MongoDB Heroku addon - used in production environments
+    // MONGODB_URI - mLab MongoDB Heroku addon - used in free dyno "production-like" environments
+    url: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://localhost/streetmix'
   },
   l10n: {
     use_local: true
