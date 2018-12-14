@@ -9,7 +9,7 @@ export default class WhatsNewDialog extends React.PureComponent {
 
   render () {
     return (
-      <div className="dialog-type-2 whats-new-dialog">
+      <div className="whats-new-dialog">
         <header>
           <h1>
             <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix?&lrm;" />

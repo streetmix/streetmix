@@ -115,7 +115,7 @@ export default class SignInDialog extends React.Component {
 
   renderSignInWaiting = () => {
     return (
-      <div className="dialog-type-2 sign-in-dialog">
+      <div className="sign-in-dialog">
         <header>
           <h1 className="sign-in-loading-message">
             <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in…" />
@@ -130,7 +130,7 @@ export default class SignInDialog extends React.Component {
 
   renderEmailSent = () => {
     return (
-      <div className="dialog-type-2 sign-in-dialog">
+      <div className="sign-in-dialog">
         <header>
           <h1 className="sign-in-loading-message">
             <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in…" />
@@ -168,7 +168,7 @@ export default class SignInDialog extends React.Component {
     }
 
     return (
-      <div className="dialog-type-2 sign-in-dialog">
+      <div className="sign-in-dialog">
         <header>
           <h1>
             <FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in / Sign up" />

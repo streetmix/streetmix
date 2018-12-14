@@ -59,7 +59,7 @@ class FeatureFlagDialog extends React.Component {
 
   render () {
     return (
-      <div className="dialog-type-2 feature-flag-dialog">
+      <div className="feature-flag-dialog">
         <header>
           <h1>Feature flags</h1>
         </header>

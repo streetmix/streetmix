@@ -149,7 +149,7 @@ export default class AboutDialog extends React.PureComponent {
 
   render () {
     return (
-      <div className="dialog-type-2 about-dialog">
+      <div className="about-dialog">
         <header>
           <div className="streetmix-logo" />
           <h1>

@@ -255,7 +255,7 @@ class GeotagDialog extends React.Component {
     const tileUrl = (this.props.dpi > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <div className="dialog-type-2 geotag-dialog">
+      <div className="geotag-dialog">
         {!this.state.geocodeAvailable && (
           <div className="geotag-error-banner">
             <FormattedMessage

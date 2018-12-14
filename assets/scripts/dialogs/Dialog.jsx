@@ -53,7 +53,7 @@ export class Dialog extends React.Component {
   renderErrorDialog = () => {
     return (
       <div className="dialog-box">
-        <div className="dialog-type-2 dialog-error">
+        <div className="dialog-error">
           <header>
             <h1>
               <FormattedMessage id="dialogs.error.heading" defaultMessage="Oops!" />
