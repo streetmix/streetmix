@@ -96,9 +96,8 @@
   grid-gap: 1.5em;
 }
 
-/* 3 columns so people line up right now */
 .about-dialog-team-past {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .about-dialog-team-member {

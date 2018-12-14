@@ -37,12 +37,6 @@ const CORE_PEEPS = [
     name: 'Ryder Ross',
     mugshotFile: 'ryder.jpg',
     title: 'fullstack engineer'
-  },
-  {
-    name: 'Trey Hahn',
-    mugshotFile: 'trey.jpg',
-    title: 'localization project manager',
-    url: 'https://www.linkedin.com/in/treyhahn/'
   }
 ]
 
@@ -99,6 +93,12 @@ const PAST_PEEPS = [
     name: 'Tomasz Magulski',
     mugshotFile: 'tomasz.jpg',
     title: 'engineer'
+  },
+  {
+    name: 'Trey Hahn',
+    mugshotFile: 'trey.jpg',
+    title: 'localization project manager',
+    url: 'https://www.linkedin.com/in/treyhahn/'
   }
 ]
 
@@ -254,7 +254,7 @@ export default class AboutDialog extends React.PureComponent {
                   <h3><FormattedMessage id="credits.additional-contributors" defaultMessage="Additional contributors" /></h3>
 
                   <ul>
-                    <li>Aline Reynolds, <i>storytelling</i></li>
+                    <li>Aline Reynolds, <i>writer and researcher</i></li>
                     <li>Amir Reavis-Bey, <i>database migration</i></li>
                     <li>Patrick McDonnell, <i>styleguide</i></li>
                     <li>Jeremy Lechtzin, <i>law</i></li>
