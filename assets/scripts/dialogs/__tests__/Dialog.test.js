@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import Dialog from '../Dialog'
-import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { shallow } from 'enzyme'
 
 describe('Dialog', () => {
   it('renders without crashing', () => {
@@ -15,9 +15,7 @@ describe('Dialog', () => {
   it('listens for "escape" key when mounted', () => {})
   it('removes listener for "escape" key when unmounted', () => {})
   it('closes the dialog box when "escape" is pressed', () => {})
-  it('closes the dialog when the background shield is clicked', () => {})
-  it('does not close the dialog when the background shield is clicked, when `disableShieldExit` is `true`', () => {})
-  it('closes the dialog when the background shield is clicked, when error state is true, even if `disableShieldExit` is `true`', () => {})
+  it('closes the dialog when the backdrop is clicked', () => {})
   it('catches an error in child components and handles it', () => {})
   it('closes the dialog box when the "x" button is pressed', () => {})
   it('passes the closeDialog function to the child component', () => {})

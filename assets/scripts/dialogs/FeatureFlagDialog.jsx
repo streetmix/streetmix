@@ -7,14 +7,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Dialog from './Dialog'
 import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/actions/flags'
 
 class FeatureFlagDialog extends React.Component {
   static propTypes = {
     flags: PropTypes.object.isRequired,
-    setFeatureFlag: PropTypes.func.isRequired,
-    closeDialog: PropTypes.func.isRequired
+    setFeatureFlag: PropTypes.func.isRequired
   }
 
   renderFlagList = () => {
@@ -59,21 +59,25 @@ class FeatureFlagDialog extends React.Component {
 
   render () {
     return (
-      <div className="dialog-type-2 feature-flag-dialog">
-        <header>
-          <h1>Feature flags</h1>
-        </header>
-        <div className="dialog-content">
-          <table>
-            <tbody>
-              {this.renderFlagList()}
-            </tbody>
-          </table>
-        </div>
-        <footer onClick={this.props.closeDialog}>
-          Close
-        </footer>
-      </div>
+      <Dialog>
+        {(closeDialog) => (
+          <div className="feature-flag-dialog">
+            <header>
+              <h1>Feature flags</h1>
+            </header>
+            <div className="dialog-content">
+              <table>
+                <tbody>
+                  {this.renderFlagList()}
+                </tbody>
+              </table>
+            </div>
+            <button className="dialog-primary-action" onClick={closeDialog}>
+              Close
+            </button>
+          </div>
+        )}
+      </Dialog>
     )
   }
 }

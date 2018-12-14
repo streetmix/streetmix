@@ -16,8 +16,8 @@
   left: 0;
 }
 
-.dialog-box-shield {
-  z-index: $z-08-dialog-box-shield;
+.dialog-box-backdrop {
+  z-index: $z-08-dialog-box-backdrop;
   position: absolute;
   left: 0;
   top: 0;
@@ -27,10 +27,6 @@
   touch-action: none;
 }
 
-.dialog-box-shield-unclickable {
-  cursor: auto;
-}
-
 .dialog-box {
   @include box-border;
 
@@ -38,26 +34,48 @@
   box-sizing: border-box;
   // balance the dialog by making it slightly north of center
   margin-top: -6%;
+  padding: 0;
   background: white;
   font-size: 13px;
   line-height: 1.5;
-  padding: 1rem 2rem;
   z-index: $z-09-dialog-box;
   touch-action: none;
+
+  /* New styles! Let's try it! */
+  border-top: 0;
+  border-bottom: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.075);
+
+  /* Containing child element */
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 1.75rem 1em;
+    text-align: center;
+    background-color: #e6f0f5;
+  }
 
   h1 {
     @include large-message-text;
 
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    line-height: 1.2;
+    margin: 0;
   }
 
   footer {
+    padding: 1rem 2rem;
+    margin-top: 0;
     color: rgb(160, 160, 160);
     font-size: 11px;
     line-height: 14px;
-    margin-top: 15px;
+
+    > p:first-child {
+      margin-top: 0;
+    }
 
     a {
       color: inherit;
@@ -82,33 +100,7 @@
 }
 
 .dialog-error {
-  padding: 1.5em 3em;
   max-width: 400px;
-}
-
-// Type 2 dialog, currently used for What's New and Sign in/Sign up
-.dialog-type-2 {
-  // Removes internal margins so that certain content can bleed to edges.
-  margin: -1rem -2rem;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-
-  header {
-    padding: 1rem 2rem;
-    padding-top: 2rem;
-    text-align: center;
-    background-color: #e6f0f5;
-  }
-
-  footer {
-    padding: 1rem 2rem;
-    margin-top: 0;
-
-    > p:first-child {
-      margin-top: 0;
-    }
-  }
 }
 
 .dialog-content {
@@ -124,18 +116,18 @@
   }
 }
 
-/* Type 2 footer-as-button
-  figure out how to generecize later */
-.whats-new-dialog footer,
-.feature-flag-dialog footer,
-.about-dialog footer {
+button.dialog-primary-action {
   border-top: 1px solid #cde1ea;
-
-  /* because the whole footer is a close button */
+  border-bottom: 0;
+  background-color: white;
+  width: 100%;
   text-align: center;
-  font-size: 13px;
-  cursor: pointer;
   color: darken($ui-colour, 30%);
+  min-height: 46px;
+
+  /* override .dialog-box button */
+  padding: 1rem 2rem !important;
+  margin-top: 0 !important;
 
   &:hover {
     background-color: #f1f7f9;

@@ -1,6 +1,6 @@
 // Content of Save as Image dialog box
 .save-as-image-dialog {
-  width: 700px;
+  width: 720px;
 
   p {
     text-align: center;
@@ -42,11 +42,17 @@
   font-size: 0;
 
   img {
-    max-width: 700px;
+    /* Images may have variable dimensions. Use max-width/max-height
+    to preserve aspect ratio */
+    max-width: 100%;
     max-height: 300px;
     cursor: move; // IE
     cursor: grab;
     border-top: 3px dashed $ui-colour;
     border-bottom: 3px dashed $ui-colour;
   }
+}
+
+.save-as-image-download {
+  text-align: center;
 }

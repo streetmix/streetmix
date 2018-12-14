@@ -1,33 +1,29 @@
 /**
- * Dialog (class)
+ * Dialog
  *
- * Generic class instance of dialog
+ * These things are actually modals, since they block the main window.
+ * They're positioned over everything else in the app and will prevent
+ * interaction with the rest of the app until it's closed.
  *
+ * Clicking on the modal's backdrop will automatically close the modal.
+ * We used to have dialogs that prevented this form of closing, but
+ * they're not used anymore, so this functionality has been removed.
+ * Modals that behave differently from each other is probably not a
+ * great idea.
+ *
+ * Only one modal window is shown at a time. Nested modals aren't supported.
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import { connect } from 'react-redux'
 import CloseButton from '../ui/CloseButton'
+import { clearDialogs } from '../store/actions/dialogs'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
-export class Dialog extends React.PureComponent {
+export class Dialog extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
     closeDialog: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-    disableShieldExit: PropTypes.bool
-  }
-
-  static defaultProps = {
-    disableShieldExit: false
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      error: null
-    }
+    children: PropTypes.func.isRequired
   }
 
   componentDidMount () {
@@ -39,50 +35,27 @@ export class Dialog extends React.PureComponent {
     deregisterKeypress('esc', this.props.closeDialog)
   }
 
-  componentDidCatch (error, info) {
-    this.setState({
-      error
-    })
-  }
-
-  onClickShield = () => {
-    if (!this.props.disableShieldExit) {
-      this.props.closeDialog()
-    }
+  handleClickBackdrop = () => {
+    this.props.closeDialog()
   }
 
   render () {
-    let shieldClassName = 'dialog-box-shield'
-    if (this.props.disableShieldExit && !this.state.error) {
-      shieldClassName += ' dialog-box-shield-unclickable'
-    }
-
-    const closeLabel = this.props.intl.formatMessage({ id: 'btn.close', defaultMessage: 'Close' })
-
     return (
-      <div className="dialog-box-container" ref={(ref) => { this.dialogEl = ref }}>
-        <div className={shieldClassName} onClick={this.onClickShield} />
-        {this.state.error ? (
-          <div className="dialog-box dialog-error">
-            <h1><FormattedMessage id="dialogs.error.heading" defaultMessage="Oops!" /></h1>
-            <p>
-              <FormattedHTMLMessage id="dialogs.error.text" defaultMessage="Something unexpected happened 😢, please try again." />
-            </p>
-            <p style={{ textAlign: 'center' }}>
-              <button onClick={this.props.closeDialog} title={closeLabel}>
-                <FormattedMessage id="btn.close" defaultMessage="Close" />
-              </button>
-            </p>
-          </div>
-        ) : (
-          <div className="dialog-box">
-            <CloseButton onClick={this.props.closeDialog} title={closeLabel} />
-            {React.cloneElement(this.props.children, { closeDialog: this.props.closeDialog })}
-          </div>
-        )}
+      <div className="dialog-box-container">
+        <div className="dialog-box-backdrop" onClick={this.handleClickBackdrop} />
+        <div className="dialog-box" role="dialog">
+          <CloseButton onClick={this.props.closeDialog} />
+          {this.props.children(this.props.closeDialog)}
+        </div>
       </div>
     )
   }
 }
 
-export default injectIntl(Dialog)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    closeDialog: () => { dispatch(clearDialogs()) }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Dialog)

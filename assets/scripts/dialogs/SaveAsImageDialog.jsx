@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import { getStreetImage } from '../streets/image'
 import { setSettings } from '../store/actions/settings'
@@ -204,99 +205,109 @@ class SaveAsImageDialog extends React.Component {
 
   render () {
     return (
-      <div className="save-as-image-dialog">
-        <h1><FormattedMessage id="dialogs.save.heading" defaultMessage="Save as image" /></h1>
-        <p>
-          <input
-            type="checkbox"
-            onChange={this.onChangeOptionSegmentNames}
-            checked={this.props.segmentNames}
-            id="save-as-image-segment-names"
-          />
-          <label htmlFor="save-as-image-segment-names">
-            <FormattedMessage id="dialogs.save.option-labels" defaultMessage="Segment names and widths" />
-          </label>
-
-          <input
-            type="checkbox"
-            onChange={this.onChangeOptionStreetName}
-            checked={this.props.streetName}
-            id="save-as-image-street-name"
-          />
-          <label htmlFor="save-as-image-street-name">
-            <FormattedMessage id="dialogs.save.option-name" defaultMessage="Street name" />
-          </label>
-
-          <input
-            type="checkbox"
-            onChange={this.onChangeOptionTransparentSky}
-            checked={this.props.transparentSky}
-            id="save-as-image-transparent-sky"
-          />
-          <label htmlFor="save-as-image-transparent-sky">
-            <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
-          </label>
-        </p>
-        {this.props.allowCustomDpi &&
-          <p>
-            <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
-            <input
-              id="save-as-image-dpi-input"
-              type="text"
-              value={this.state.dpiInputValue}
-              onChange={this.onChangeDpiInput}
-            />
-          </p>
-        }
-        <div className="save-as-image-preview">
-          {!this.state.errorMessage && (
-            <React.Fragment>
-              <div className="save-as-image-preview-loading" style={{ display: this.state.isLoading ? 'block' : 'none' }}>
-                <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
-              </div>
-              <div className="save-as-image-preview-image" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
-                <img
-                  src={this.state.download.dataUrl}
-                  onLoad={this.onPreviewLoaded}
-                  onError={this.onPreviewError}
-                  alt={this.props.intl.formatMessage({
-                    id: 'dialogs.save.preview-image-alt',
-                    defaultMessage: 'Preview'
-                  })}
+      <Dialog>
+        {() => (
+          <div className="save-as-image-dialog">
+            <header>
+              <h1>
+                <FormattedMessage id="dialogs.save.heading" defaultMessage="Save as image" />
+              </h1>
+            </header>
+            <div className="dialog-content">
+              <p>
+                <input
+                  type="checkbox"
+                  onChange={this.onChangeOptionSegmentNames}
+                  checked={this.props.segmentNames}
+                  id="save-as-image-segment-names"
                 />
+                <label htmlFor="save-as-image-segment-names">
+                  <FormattedMessage id="dialogs.save.option-labels" defaultMessage="Segment names and widths" />
+                </label>
+
+                <input
+                  type="checkbox"
+                  onChange={this.onChangeOptionStreetName}
+                  checked={this.props.streetName}
+                  id="save-as-image-street-name"
+                />
+                <label htmlFor="save-as-image-street-name">
+                  <FormattedMessage id="dialogs.save.option-name" defaultMessage="Street name" />
+                </label>
+
+                <input
+                  type="checkbox"
+                  onChange={this.onChangeOptionTransparentSky}
+                  checked={this.props.transparentSky}
+                  id="save-as-image-transparent-sky"
+                />
+                <label htmlFor="save-as-image-transparent-sky">
+                  <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
+                </label>
+              </p>
+              {this.props.allowCustomDpi &&
+                <p>
+                  <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
+                  <input
+                    id="save-as-image-dpi-input"
+                    type="text"
+                    value={this.state.dpiInputValue}
+                    onChange={this.onChangeDpiInput}
+                  />
+                </p>
+              }
+              <div className="save-as-image-preview">
+                {!this.state.errorMessage && (
+                  <React.Fragment>
+                    <div className="save-as-image-preview-loading" style={{ display: this.state.isLoading ? 'block' : 'none' }}>
+                      <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
+                    </div>
+                    <div className="save-as-image-preview-image" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+                      <img
+                        src={this.state.download.dataUrl}
+                        onLoad={this.onPreviewLoaded}
+                        onError={this.onPreviewError}
+                        alt={this.props.intl.formatMessage({
+                          id: 'dialogs.save.preview-image-alt',
+                          defaultMessage: 'Preview'
+                        })}
+                      />
+                    </div>
+                  </React.Fragment>
+                )}
+                {this.state.errorMessage && (
+                  <div className="save-as-image-preview-loading">
+                    {this.state.errorMessage}
+                  </div>
+                )}
               </div>
-            </React.Fragment>
-          )}
-          {this.state.errorMessage && (
-            <div className="save-as-image-preview-loading">
-              {this.state.errorMessage}
+              <div className="save-as-image-download">
+                <a
+                  className="button-like"
+                  onClick={this.onClickDownloadImage}
+                  // Sets the anchor's `download` attribute so that it saves a meaningful filename
+                  // Note that this property is not supported in Safari/iOS
+                  download={this.state.download.filename}
+                  // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
+                  href={this.state.download.dataUrl}
+                >
+                  <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
+                </a>
+              </div>
             </div>
-          )}
-        </div>
-        <p>
-          <a
-            className="button-like"
-            onClick={this.onClickDownloadImage}
-            // Sets the anchor's `download` attribute so that it saves a meaningful filename
-            // Note that this property is not supported in Safari/iOS
-            download={this.state.download.filename}
-            // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
-            href={this.state.download.dataUrl}
-          >
-            <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
-          </a>
-        </p>
-        <footer>
-          <FormattedHTMLMessage
-            id="dialogs.save.license"
-            defaultMessage="This Streetmix-created image may be reused anywhere, for any purpose, under the<br /><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
-            values={{
-              // Get locale-specific license links!
-              url: this.getCCLinkByLocale()
-            }}
-          />
-        </footer>
-      </div>
+            <footer>
+              <FormattedHTMLMessage
+                id="dialogs.save.license"
+                defaultMessage="This Streetmix-created image may be reused anywhere, for any purpose, under the<br /><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>."
+                values={{
+                  // Get locale-specific license links!
+                  url: this.getCCLinkByLocale()
+                }}
+              />
+            </footer>
+          </div>
+        )}
+      </Dialog>
     )
   }
 }
