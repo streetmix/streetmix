@@ -13,6 +13,7 @@ import LocationPopup from './Geotag/LocationPopup'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
+import { clearDialogs } from '../store/actions/dialogs'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
 const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KEY}`
@@ -335,7 +336,8 @@ function mapDispatchToProps (dispatch) {
     setMapState: (...args) => { dispatch(setMapState(...args)) },
     addLocation: (...args) => { dispatch(addLocation(...args)) },
     clearLocation: () => { dispatch(clearLocation()) },
-    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
+    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) },
+    closeDialog: () => { dispatch(clearDialogs()) }
   }
 }
 
