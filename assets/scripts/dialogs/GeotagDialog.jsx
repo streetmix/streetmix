@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 import * as sharedstreets from 'sharedstreets'
+import Dialog from './Dialog'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import SearchAddress from './Geotag/SearchAddress'
@@ -255,58 +256,62 @@ class GeotagDialog extends React.Component {
     const tileUrl = (this.props.dpi > 1) ? MAP_TILES_2X : MAP_TILES
 
     return (
-      <div className="geotag-dialog">
-        {!this.state.geocodeAvailable && (
-          <div className="geotag-error-banner">
-            <FormattedMessage
-              id="dialogs.geotag.geotag-unavailable"
-              defaultMessage="Geocoding services are currently unavailable. You can view the map,
-                but you won’t be able to change this street’s location."
-            />
+      <Dialog>
+        {(closeDialog) => (
+          <div className="geotag-dialog">
+            {!this.state.geocodeAvailable && (
+              <div className="geotag-error-banner">
+                <FormattedMessage
+                  id="dialogs.geotag.geotag-unavailable"
+                  defaultMessage="Geocoding services are currently unavailable. You can view the map,
+                    but you won’t be able to change this street’s location."
+                />
+              </div>
+            )}
+            {this.state.geocodeAvailable && (
+              <div className="geotag-input-container">
+                <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
+              </div>
+            )}
+
+            <Map
+              center={this.state.mapCenter}
+              zoomControl={false}
+              zoom={this.state.zoom}
+              onClick={this.handleMapClick}
+            >
+              <TileLayer
+                attribution={MAP_ATTRIBUTION}
+                url={tileUrl}
+              />
+              <ZoomControl
+                zoomInTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-in', defaultMessage: 'Zoom in' })}
+                zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
+              />
+
+              {this.state.renderPopup &&
+                <LocationPopup
+                  position={this.state.markerLocation}
+                  label={this.state.label}
+                  isEditable={this.state.geocodeAvailable && this.canEditLocation()}
+                  isClearable={this.state.geocodeAvailable && this.canClearLocation()}
+                  handleConfirm={this.handleConfirmLocation}
+                  handleClear={this.handleClearLocation}
+                />
+              }
+
+              {this.state.markerLocation &&
+                <Marker
+                  position={this.state.markerLocation}
+                  onDragEnd={this.handleMarkerDragEnd}
+                  onDragStart={this.handleMarkerDragStart}
+                  draggable={this.state.geocodeAvailable}
+                />
+              }
+            </Map>
           </div>
         )}
-        {this.state.geocodeAvailable && (
-          <div className="geotag-input-container">
-            <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
-          </div>
-        )}
-
-        <Map
-          center={this.state.mapCenter}
-          zoomControl={false}
-          zoom={this.state.zoom}
-          onClick={this.handleMapClick}
-        >
-          <TileLayer
-            attribution={MAP_ATTRIBUTION}
-            url={tileUrl}
-          />
-          <ZoomControl
-            zoomInTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-in', defaultMessage: 'Zoom in' })}
-            zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
-          />
-
-          {this.state.renderPopup &&
-            <LocationPopup
-              position={this.state.markerLocation}
-              label={this.state.label}
-              isEditable={this.state.geocodeAvailable && this.canEditLocation()}
-              isClearable={this.state.geocodeAvailable && this.canClearLocation()}
-              handleConfirm={this.handleConfirmLocation}
-              handleClear={this.handleClearLocation}
-            />
-          }
-
-          {this.state.markerLocation &&
-            <Marker
-              position={this.state.markerLocation}
-              onDragEnd={this.handleMarkerDragEnd}
-              onDragStart={this.handleMarkerDragStart}
-              draggable={this.state.geocodeAvailable}
-            />
-          }
-        </Map>
-      </div>
+      </Dialog>
     )
   }
 }

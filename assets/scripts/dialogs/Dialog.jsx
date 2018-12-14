@@ -9,11 +9,13 @@ import PropTypes from 'prop-types'
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import CloseButton from '../ui/CloseButton'
+import { connect } from 'react-redux'
+import { clearDialogs } from '../store/actions/dialogs'
 
 export class Dialog extends React.Component {
   static propTypes = {
     closeDialog: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.func.isRequired,
     disableShieldExit: PropTypes.bool
   }
 
@@ -85,7 +87,7 @@ export class Dialog extends React.Component {
         {this.state.error ? this.renderErrorDialog() : (
           <div className="dialog-box">
             <CloseButton onClick={this.props.closeDialog} />
-            {React.cloneElement(this.props.children, { closeDialog: this.props.closeDialog })}
+            {this.props.children(this.props.closeDialog)}
           </div>
         )}
       </div>
@@ -93,4 +95,10 @@ export class Dialog extends React.Component {
   }
 }
 
-export default Dialog
+const mapDispatchToProps = (dispatch) => {
+  return {
+    closeDialog: () => { dispatch(clearDialogs()) }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Dialog)
