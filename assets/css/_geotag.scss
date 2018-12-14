@@ -1,6 +1,8 @@
 .geotag-dialog {
   width: 90vw;
   height: 80vh;
+  max-height: 960px; /* Prevent outside of map being shown when default view on large monitors */
+  max-width: 1400px;
 }
 
 .geotag-dialog .close {

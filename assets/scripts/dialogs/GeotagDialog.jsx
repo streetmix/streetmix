@@ -24,7 +24,7 @@ const MAP_LOCATION_ZOOM = 12
 // Default location if geo IP not detected; this hovers over the Atlantic Ocean
 const DEFAULT_MAP_ZOOM = 2
 const DEFAULT_MAP_LOCATION = {
-  lat: 30.450,
+  lat: 10.450,
   lng: -10.780
 }
 
