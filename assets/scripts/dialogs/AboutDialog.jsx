@@ -185,7 +185,7 @@ export default class AboutDialog extends React.PureComponent {
                       <FormattedMessage id="dialogs.about.donate-link" defaultMessage="Support us financially" />
                     </a>
                     <br />
-                    <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/streetmix/streetmix/" target="_blank" rel="noopener noreferrer">
                       <FormattedMessage id="dialogs.about.open-source-link" defaultMessage="We’re open source!&lrm;" />
                     </a>
                     <br />

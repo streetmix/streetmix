@@ -10,6 +10,7 @@ import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
 import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
+import MinecraftDialog from './MinecraftDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: {
@@ -33,6 +34,9 @@ const DIALOG_COMPONENTS = {
   },
   WHATS_NEW: {
     id: WhatsNewDialog
+  },
+  MINECRAFT: {
+    id: MinecraftDialog
   }
 }
 
