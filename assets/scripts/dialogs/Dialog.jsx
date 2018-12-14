@@ -15,10 +15,10 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import CloseButton from '../ui/CloseButton'
 import { connect } from 'react-redux'
+import CloseButton from '../ui/CloseButton'
 import { clearDialogs } from '../store/actions/dialogs'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 export class Dialog extends React.Component {
   static propTypes = {
@@ -35,14 +35,14 @@ export class Dialog extends React.Component {
     deregisterKeypress('esc', this.props.closeDialog)
   }
 
-  onClickShield = () => {
+  handleClickBackdrop = () => {
     this.props.closeDialog()
   }
 
   render () {
     return (
       <div className="dialog-box-container">
-        <div className="dialog-box-shield" onClick={this.onClickShield} />
+        <div className="dialog-box-backdrop" onClick={this.handleClickBackdrop} />
         <div className="dialog-box" role="dialog">
           <CloseButton onClick={this.props.closeDialog} />
           {this.props.children(this.props.closeDialog)}
