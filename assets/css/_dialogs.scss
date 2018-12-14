@@ -41,6 +41,13 @@
   z-index: $z-09-dialog-box;
   touch-action: none;
 
+  /* New styles! Let's try it! */
+  border-top: 0;
+  border-bottom: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.075);
+
   /* Containing child element */
   > div {
     display: flex;
