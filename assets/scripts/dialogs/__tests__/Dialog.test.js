@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import Dialog from '../Dialog'
-import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { shallow } from 'enzyme'
 
 describe('Dialog', () => {
   it('renders without crashing', () => {
