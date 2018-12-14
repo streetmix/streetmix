@@ -105,16 +105,17 @@
 }
 
 .about-dialog-sponsors {
-  margin-top: 1em !important;
+  margin-top: -1em !important;
 
   img {
-    height: 42px;
+    height: 40px;
   }
 }
 
 .about-dialog-sponsors li {
   display: inline-block;
   margin-right: 1.5em;
+  margin-top: 1em;
 
   [dir='rtl'] & {
     margin-left: 1.5em;

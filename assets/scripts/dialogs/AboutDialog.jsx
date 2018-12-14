@@ -176,6 +176,11 @@ export default class AboutDialog extends React.PureComponent {
                     <img src="/images/sponsors/lyft.svg" alt="Lyft" />
                   </a>
                 </li>
+                <li>
+                  <a href="https://www.mozilla.org/en-US/moss/" target="_blank" rel="noopener noreferrer">
+                    <img src="/images/sponsors/mozilla.svg" alt="Mozilla Open Source Support" />
+                  </a>
+                </li>
               </ul>
               <p>
                 <a href="https://opencollective.com/streetmix/" target="_blank" rel="noopener noreferrer">
