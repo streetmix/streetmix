@@ -27,10 +27,6 @@
   touch-action: none;
 }
 
-.dialog-box-shield-unclickable {
-  cursor: auto;
-}
-
 .dialog-box {
   @include box-border;
 

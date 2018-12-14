@@ -17,8 +17,7 @@ const DIALOG_COMPONENTS = {
     id: AboutDialog
   },
   DONATE: {
-    id: DonateDialog,
-    disableShieldExit: true
+    id: DonateDialog
   },
   FEATURE_FLAGS: {
     id: FeatureFlagDialog
@@ -45,9 +44,9 @@ const DialogRoot = (props) => {
 
   if (!name) return null
 
-  const { id: Dialog, ...restProps } = DIALOG_COMPONENTS[name]
+  const { id: Dialog } = DIALOG_COMPONENTS[name]
 
-  return <Dialog {...restProps} />
+  return <Dialog />
 }
 
 DialogRoot.propTypes = {
