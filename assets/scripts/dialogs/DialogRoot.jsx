@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -11,6 +11,7 @@ import SaveAsImageDialog from './SaveAsImageDialog'
 import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
 import MinecraftDialog from './MinecraftDialog'
+import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: {
@@ -39,18 +40,42 @@ const DIALOG_COMPONENTS = {
   }
 }
 
-const DialogRoot = (props) => {
-  const { name } = props
+class DialogRoot extends Component {
+  static propTypes = {
+    name: PropTypes.string
+  }
 
-  if (!name) return null
+  state = {
+    error: false
+  }
 
-  const { id: Dialog } = DIALOG_COMPONENTS[name]
+  static getDerivedStateFromError () {
+    return {
+      error: true
+    }
+  }
 
-  return <Dialog />
-}
+  resetError = () => {
+    this.setState({
+      error: false
+    })
+  }
 
-DialogRoot.propTypes = {
-  name: PropTypes.string
+  render () {
+    const { name } = this.props
+
+    // Bail if no dialog name is provided
+    if (!name) return null
+
+    // If there is an error, display the error dialog and
+    // give it a function to reset state when it closes
+    if (this.state.error) return <ErrorDialog reset={this.resetError} />
+
+    // Get the dialog we want, then render it
+    const { id: Dialog } = DIALOG_COMPONENTS[name]
+
+    return <Dialog />
+  }
 }
 
 export default connect(state => state.dialogs)(DialogRoot)
