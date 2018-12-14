@@ -405,9 +405,9 @@ export default class AboutDialog extends React.PureComponent {
 
           </div>
         </div>
-        <footer onClick={this.props.closeDialog}>
+        <button className="dialog-primary-action" onClick={this.props.closeDialog}>
           <FormattedMessage id="btn.close" defaultMessage="Close" />
-        </footer>
+        </button>
       </div>
     )
   }

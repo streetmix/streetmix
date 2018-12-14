@@ -70,9 +70,9 @@ class FeatureFlagDialog extends React.Component {
             </tbody>
           </table>
         </div>
-        <footer onClick={this.props.closeDialog}>
+        <button className="dialog-primary-action" onClick={this.props.closeDialog}>
           Close
-        </footer>
+        </button>
       </div>
     )
   }

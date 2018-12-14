@@ -1,6 +1,6 @@
 // Content of #about dialog box
 .about-dialog {
-  width: 900px;
+  width: 820px;
   min-height: 660px;
   max-height: 75vh;
 
@@ -134,6 +134,10 @@
   font-size: 1.1em;
   font-weight: bold;
   line-height: 1.2;
+
+  .about-dialog-team-past & {
+    font-size: 1em;
+  }
 
   a {
     color: black;

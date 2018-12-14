@@ -18,9 +18,9 @@ export default class WhatsNewDialog extends React.PureComponent {
         <div className="dialog-content dialog-content-bleed">
           <iframe src="/pages/whats-new/" />
         </div>
-        <footer onClick={this.props.closeDialog}>
+        <button className="dialog-primary-action" onClick={this.props.closeDialog}>
           <FormattedMessage id="btn.close" defaultMessage="Close" />
-        </footer>
+        </button>
       </div>
     )
   }

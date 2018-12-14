@@ -6,13 +6,12 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import CloseButton from '../ui/CloseButton'
 
-export class Dialog extends React.PureComponent {
+export class Dialog extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
     closeDialog: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     disableShieldExit: PropTypes.bool
@@ -26,7 +25,7 @@ export class Dialog extends React.PureComponent {
     super(props)
 
     this.state = {
-      error: null
+      error: false
     }
   }
 
@@ -51,32 +50,41 @@ export class Dialog extends React.PureComponent {
     }
   }
 
+  renderErrorDialog = () => {
+    return (
+      <div className="dialog-box">
+        <div className="dialog-type-2 dialog-error">
+          <header>
+            <h1>
+              <FormattedMessage id="dialogs.error.heading" defaultMessage="Oops!" />
+            </h1>
+          </header>
+          <div className="dialog-content">
+            <p>
+              <FormattedHTMLMessage id="dialogs.error.text" defaultMessage="Something unexpected happened 😢, please try again." />
+            </p>
+          </div>
+          <button className="dialog-primary-action" onClick={this.props.closeDialog}>
+            <FormattedMessage id="btn.close" defaultMessage="Close" />
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   render () {
     let shieldClassName = 'dialog-box-shield'
     if (this.props.disableShieldExit && !this.state.error) {
       shieldClassName += ' dialog-box-shield-unclickable'
     }
 
-    const closeLabel = this.props.intl.formatMessage({ id: 'btn.close', defaultMessage: 'Close' })
-
     return (
-      <div className="dialog-box-container" ref={(ref) => { this.dialogEl = ref }}>
+      <div className="dialog-box-container">
         <div className={shieldClassName} onClick={this.onClickShield} />
-        {this.state.error ? (
-          <div className="dialog-box dialog-error">
-            <h1><FormattedMessage id="dialogs.error.heading" defaultMessage="Oops!" /></h1>
-            <p>
-              <FormattedHTMLMessage id="dialogs.error.text" defaultMessage="Something unexpected happened 😢, please try again." />
-            </p>
-            <p style={{ textAlign: 'center' }}>
-              <button onClick={this.props.closeDialog} title={closeLabel}>
-                <FormattedMessage id="btn.close" defaultMessage="Close" />
-              </button>
-            </p>
-          </div>
-        ) : (
+
+        {this.state.error ? this.renderErrorDialog() : (
           <div className="dialog-box">
-            <CloseButton onClick={this.props.closeDialog} title={closeLabel} />
+            <CloseButton onClick={this.props.closeDialog} />
             {React.cloneElement(this.props.children, { closeDialog: this.props.closeDialog })}
           </div>
         )}
@@ -85,4 +93,4 @@ export class Dialog extends React.PureComponent {
   }
 }
 
-export default injectIntl(Dialog)
+export default Dialog

@@ -104,10 +104,10 @@
   footer {
     padding: 1rem 2rem;
     margin-top: 0;
+  }
 
-    > p:first-child {
-      margin-top: 0;
-    }
+  footer > p:first-child {
+    margin-top: 0;
   }
 }
 
@@ -124,18 +124,18 @@
   }
 }
 
-/* Type 2 footer-as-button
-  figure out how to generecize later */
-.whats-new-dialog footer,
-.feature-flag-dialog footer,
-.about-dialog footer {
+button.dialog-primary-action {
   border-top: 1px solid #cde1ea;
-
-  /* because the whole footer is a close button */
+  border-bottom: 0;
+  background-color: white;
+  width: 100%;
   text-align: center;
-  font-size: 13px;
-  cursor: pointer;
   color: darken($ui-colour, 30%);
+  min-height: 46px;
+
+  /* override .dialog-box button */
+  padding: 1rem 2rem !important;
+  margin-top: 0 !important;
 
   &:hover {
     background-color: #f1f7f9;
