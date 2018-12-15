@@ -222,7 +222,7 @@
       "tos-link-label": "conditions d'utilisation (en)",
       "privacy-link-label": "politique de confidentialité (en)",
       "loading-message": "Connexion en cours ...",
-      "sent-message-with-email": "Nous vous avons envoyer un courriel à {email}. Veuillez y suivre les instructions pour vous connecter !",
+      "sent-message-with-email": "Nous vous avons envoyé un courriel à {email}. Veuillez y suivre les instructions pour vous connecter !",
       "email-unreceived": "Vous n'avez pas reçu le courriel ?",
       "resend-email": "Renvoyer le courriel"
     },

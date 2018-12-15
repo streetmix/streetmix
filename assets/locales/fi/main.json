@@ -44,7 +44,7 @@
       "email": "Lähetä sähköpostia Streetmix-kehittäjille",
       "github": "Näytä lähdekoodi GitHub-palvelussa",
       "blog": "Vieraile Streetmix-blogissa",
-      "discord": "",
+      "discord": "Liity Discord-keskusteluun",
       "slack": "Liity Slack-keskusteluun"
     },
     "contribute": {
@@ -167,7 +167,7 @@
       "credits": "Seuraavien {cfaLink} 2013 -osallistujien sivuprojekti:",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
       "view-source": "Tutustu lähdekoodiin",
-      "sponsored-by": "Streetmixin avokätinen sponsori:",
+      "sponsored-by": "Streetmixin avokätiset sponsorit:",
       "donate-link": "Tue meitä taloudellisesti",
       "github-link": "Osallistu avoimen lähdekoodin kehittämiseen",
       "open-source-link": "Avointa lähdekoodia",
