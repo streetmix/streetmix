@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { injectIntl, intlShape } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { undo, redo } from '../store/actions/undo'
@@ -53,8 +52,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ undo, redo }, dispatch)
+const mapDispatchToProps = {
+  undo,
+  redo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UndoRedoWithIntl)
