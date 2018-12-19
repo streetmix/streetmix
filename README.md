@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>Streetmix is a collaborative process for communities and city planners to improve public spaces.</b> 
-  <br>Design, remix, and share your neighborhood street at <a href="http://streetmix.net/">streetmix.net</a>.
+  <br>Design, remix, and share your neighborhood street at <a href="https://streetmix.net/">streetmix.net</a>.
 </p>
 
 <p align="center">
@@ -15,18 +15,18 @@
 
 <p align="center">
   <b>Have questions? Looking for support or advice?</b>
-  <br><a href="https://discord.gg/NsKmV3S">Join our Discord!</a>
+  <br><a href="https://discord.gg/NsKmV3S">Join our Discord</a> or <a href="https://forums.streetmix.net/">our forums</a>!
 </p>
 
 <p align="center">
-  Learn more about the team and project collaborators at <a href="https://opencollective.com/streetmix">Open Collective</a>.
-  <br>We welcome contributions! Please see our <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md">contributor guidelines</a>.
+  <b>We welcome contributions!</b>
+  <br>Please see our <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md">contributor guidelines</a>.
 </p>
 
 <p align="center">
   <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=flat-square"></a>
   <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=flat-square"></a>
-  <a href="https://codeclimate.com/github/codeforamerica/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/codeforamerica/streetmix.svg?style=flat-square"></a>
+  <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/streetmix/streetmix.svg?style=flat-square"></a>
 </p>
 
 <hr>
