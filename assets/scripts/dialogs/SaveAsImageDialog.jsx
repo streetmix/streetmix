@@ -13,6 +13,7 @@ import { trackEvent } from '../app/event_tracking'
 import { getStreetImage } from '../streets/image'
 import { setSettings } from '../store/actions/settings'
 import { normalizeSlug } from '../util/helpers'
+import './SaveAsImageDialog.scss'
 
 // Require save-as polyfills
 import { saveAs } from 'file-saver'

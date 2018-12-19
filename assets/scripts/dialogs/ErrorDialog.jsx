@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
 import Dialog from './Dialog'
+import './ErrorDialog.scss'
 
 /**
  * The error dialog is displayed in place of another dialog if something goes wrong

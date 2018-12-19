@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import Dialog from './Dialog'
 import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/actions/flags'
+import './FeatureFlagDialog.scss'
 
 class FeatureFlagDialog extends React.Component {
   static propTypes = {

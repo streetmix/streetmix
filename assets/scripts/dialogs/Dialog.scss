@@ -1,9 +1,11 @@
 //
 // Dialog boxes
 //
+// Base styles for dialog boxes
 // --------------------------------------------------------
 
-// Base styles for dialog boxes
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
 
 .dialog-box-container {
   display: flex;
@@ -125,10 +127,6 @@
 
 .dialog-transition-exit .dialog-box-backdrop {
   opacity: 0;
-}
-
-.dialog-error {
-  max-width: 400px;
 }
 
 .dialog-content {

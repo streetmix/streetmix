@@ -8,6 +8,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
+import './AboutDialog.scss'
 
 // Keep in alphabetical order by first name
 const CORE_PEEPS = [

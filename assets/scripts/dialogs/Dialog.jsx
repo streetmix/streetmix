@@ -20,6 +20,7 @@ import { CSSTransition } from 'react-transition-group'
 import CloseButton from '../ui/CloseButton'
 import { clearDialogs } from '../store/actions/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import './Dialog.scss'
 
 export class Dialog extends React.Component {
   static propTypes = {

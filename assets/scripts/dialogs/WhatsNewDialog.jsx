@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
+import './WhatsNewDialog.scss'
 
 const WhatsNewDialog = () => (
   <Dialog>

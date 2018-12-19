@@ -4,6 +4,7 @@ import { isEmail } from 'validator'
 import Dialog from './Dialog'
 import { goEmailSignIn, goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
 import Icon from '../ui/Icon'
+import './SignInDialog.scss'
 
 export default class SignInDialog extends React.Component {
   constructor (props) {
