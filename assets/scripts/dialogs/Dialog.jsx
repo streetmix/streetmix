@@ -16,46 +16,56 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import CloseButton from '../ui/CloseButton'
 import { clearDialogs } from '../store/actions/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 export class Dialog extends React.Component {
   static propTypes = {
-    closeDialog: PropTypes.func.isRequired,
+    clearDialogs: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired
+  }
+
+  // Appear state controls transition in/out
+  state = {
+    appear: true
   }
 
   componentDidMount () {
     // Set up keypress listener to close dialogs if open
-    registerKeypress('esc', this.props.closeDialog)
+    registerKeypress('esc', this.handleClose)
   }
 
   componentWillUnmount () {
-    deregisterKeypress('esc', this.props.closeDialog)
+    deregisterKeypress('esc', this.handleClose)
   }
 
-  handleClickBackdrop = () => {
-    this.props.closeDialog()
+  handleClose = () => {
+    this.setState({
+      appear: false
+    })
   }
 
   render () {
     return (
-      <div className="dialog-box-container">
-        <div className="dialog-box-backdrop" onClick={this.handleClickBackdrop} />
-        <div className="dialog-box" role="dialog">
-          <CloseButton onClick={this.props.closeDialog} />
-          {this.props.children(this.props.closeDialog)}
+      <CSSTransition
+        appear
+        in={this.state.appear}
+        timeout={80}
+        classNames="dialog-transition"
+        onExited={this.props.clearDialogs}
+      >
+        <div className="dialog-box-container">
+          <div className="dialog-box-backdrop" onClick={this.handleClose} />
+          <div className="dialog-box" role="dialog">
+            <CloseButton onClick={this.handleClose} />
+            {this.props.children(this.handleClose)}
+          </div>
         </div>
-      </div>
+      </CSSTransition>
     )
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    closeDialog: () => { dispatch(clearDialogs()) }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Dialog)
+export default connect(null, { clearDialogs })(Dialog)

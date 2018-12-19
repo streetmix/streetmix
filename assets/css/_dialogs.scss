@@ -25,6 +25,10 @@
   bottom: 0;
   background: fade-out($sky-colour, 0.5);
   touch-action: none;
+
+  /* Transitions */
+  transition: opacity 60ms ease-in-out;
+  opacity: 0;
 }
 
 .dialog-box {
@@ -33,7 +37,7 @@
   position: relative;
   box-sizing: border-box;
   // balance the dialog by making it slightly north of center
-  margin-top: -6%;
+  margin-top: -3%;
   padding: 0;
   background: white;
   font-size: 13px;
@@ -47,6 +51,11 @@
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.075);
+
+  /* Transitions */
+  transition: opacity 80ms ease-in-out, transform 80ms ease-in-out;
+  opacity: 0;
+  transform: scale(0.9);
 
   /* Containing child element */
   > div {
@@ -97,6 +106,25 @@
     padding: 0.75em 2em;
     margin-top: 1em;
   }
+}
+
+/* Transitions */
+.dialog-transition-enter-done .dialog-box {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dialog-transition-exit .dialog-box {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.dialog-transition-enter-done .dialog-box-backdrop {
+  opacity: 1;
+}
+
+.dialog-transition-exit .dialog-box-backdrop {
+  opacity: 0;
 }
 
 .dialog-error {
