@@ -46,7 +46,7 @@
   },
   "SEGMENT_UTILITIES": {
     "label": "Segment — utility pole",
-    "defaultValue": true
+    "defaultValue": false
   },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
