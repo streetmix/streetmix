@@ -44,6 +44,10 @@
     "label": "Segment — the train from “Inception”",
     "defaultValue": false
   },
+  "SEGMENT_UTILITIES": {
+    "label": "Segment — utility pole",
+    "defaultValue": true
+  },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
     "defaultValue": false

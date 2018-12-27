@@ -134,6 +134,8 @@ const SPRITE_DEFS = {
   'transit--transit-shelter-01-right': { id: 'transit--transit-shelter-01-right', width: 9, offsetY: -1.3 },
   'transit--transit-shelter-02-left': { id: 'transit--transit-shelter-02-left', width: 9, offsetY: -3.8 },
   'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, offsetY: -3.8 },
+  'utilities--utility-pole-left': { id: 'utilities--utility-pole-left', width: 8, offsetY: -20.25 },
+  'utilities--utility-pole-right': { id: 'utilities--utility-pole-right', width: 8, offsetY: -20.25 },
   'missing': { id: 'missing', width: 4, offsetY: 10.5 },
 
   // test stuff

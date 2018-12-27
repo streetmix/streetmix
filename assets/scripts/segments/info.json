@@ -260,6 +260,31 @@
       }
     }
   },
+  "utilities": {
+    "name": "Utility pole",
+    "nameKey": "utility-pole",
+    "owner": "NONE",
+    "zIndex": 10,
+    "defaultWidth": 4,
+    "variants": [
+      "orientation"
+    ],
+    "enableWithFlag": "SEGMENT_UTILITIES",
+    "details": {
+      "left": {
+        "graphics": {
+          "center": "utilities--utility-pole-left",
+          "repeat": "ground--concrete"
+        }
+      },
+      "right": {
+        "graphics": {
+          "center": "utilities--utility-pole-right",
+          "repeat": "ground--concrete"
+        }
+      }
+    }
+  },
   "parklet": {
     "name": "Parklet",
     "nameKey": "parklet",
