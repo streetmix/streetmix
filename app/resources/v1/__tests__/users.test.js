@@ -87,6 +87,9 @@ describe('PUT api/v1/users/:user_id', function () {
         expect(response.statusCode).toEqual(204)
       })
   })
+
+  it.skip('should respond with 401 if a user attempts to put a request to a user that is not them', () => {})
+  it.skip('should respond with 204 if an admin user puts a request to another user', () => {})
 })
 
 describe('GET api/v1/users/:user_id', function () {
