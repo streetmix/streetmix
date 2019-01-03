@@ -32,6 +32,7 @@ const emailUser = {
 
 function setLoginToken (req, res, next) {
   req.loginToken = '133e5110-5d2e-11e8-a8fd-678b57961690'
+  req.userId = 'oluwaseun'
   next()
 }
 

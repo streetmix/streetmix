@@ -9,7 +9,8 @@ const userDummy = {
     access_token_secret: 'foofooofoofooofooofoo-sf'
   },
   updated_at: '2018-05-22T14:18:09.853Z',
-  created_at: '2018-05-21T19:35:10.807Z'
+  created_at: '2018-05-21T19:35:10.807Z',
+  roles: []
 }
 
 const save = function (cb) {

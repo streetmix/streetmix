@@ -411,7 +411,7 @@ exports.put = async function (req, res) {
     targetUser = user
   }
 
-  if (userId === targetUserId || user.role.includes('ADMIN')) {
+  if (userId === targetUserId || user.roles.includes('ADMIN')) {
     targetUser.data = body.data || targetUser.data
     targetUser.save().then(user => {
       res.status(204).end()

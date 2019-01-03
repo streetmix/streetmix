@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   updated_at: Date,
   last_street_id: Number,
   flags: { type: Map, of: Boolean },
-  role: [ String ]
+  roles: [ String ]
 })
 
 userSchema.pre('save', function (next) {
@@ -35,8 +35,7 @@ userSchema.methods.asJson = function (options, cb) {
     json.createdAt = this.created_at
     json.updatedAt = this.updated_at
     json.flags = this.flags
-
-    json.role = this.role
+    json.roles = this.roles
   }
 
   cb(null, json)
