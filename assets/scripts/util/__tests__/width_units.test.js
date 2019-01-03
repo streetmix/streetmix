@@ -357,11 +357,11 @@ describe('prettifyWidth()', () => {
     expect(width).toBe('3 m')
   })
 
-  // Test passes if output uses Western Arabic numerals
-  // If it outputs Eastern Arabic numerals, it fails
+  // Test passes if output uses Western Arabic numerals and Arabic character for meter
+  // Note that the test outputs in ltr, but in the UI we will be displaying this rtl
   it('formats a metric width in Arabic', () => {
     const width = prettifyWidth(10, SETTINGS_UNITS_METRIC, 'ar')
-    expect(width).toBe('3 m')
+    expect(width).toBe('3 م')
   })
 
   // Test passes if output uses the Cyrillic character for meter

@@ -98,13 +98,23 @@ export function prettifyWidth (width, units, locale) {
     case SETTINGS_UNITS_METRIC:
     default:
       widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC, locale)
-      // In Russian, the Cyrillic м is common in vernacular usage.
-      // This is in defiance of SI, but should be friendlier.
-      if (locale === 'ru') {
-        widthText += ' м'
-      } else {
-        widthText += ' m'
+
+      // Locale-specific units
+      switch (locale) {
+        // In Russian, the Cyrillic м is common in vernacular usage.
+        // This is in defiance of SI, but should be friendlier.
+        case 'ru':
+          widthText += ' м'
+          break
+        // In Arabic, use the same character that the USDM uses for metric units
+        case 'ar':
+          widthText += ' م'
+          break
+        default:
+          widthText += ' m'
+          break
       }
+
       break
   }
 

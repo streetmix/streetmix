@@ -36,7 +36,7 @@ class ContactMenu extends React.PureComponent {
           <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
         </a>
         <a href="#" onClick={this.props.showMinecraftDialog}>
-          <FormattedMessage id="menu.contact.minecraft" defaultMessage="Play Minecraft with us!" />
+          <FormattedMessage id="menu.contact.minecraft" defaultMessage="Play Minecraft with us!&lrm;" />
         </a>
       </Menu>
     )
