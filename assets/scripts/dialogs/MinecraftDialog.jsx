@@ -8,7 +8,7 @@ import MINECRAFT_IMAGE_2X from './minecraft@2x.png'
 const MinecraftDialog = () => (
   <Dialog>
     {(closeDialog) => (
-      <div className="minecraft-dialog">
+      <div className="minecraft-dialog" dir="ltr">
         <header>
           <h1>
             Play Minecraft with us!
