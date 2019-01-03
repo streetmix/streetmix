@@ -304,6 +304,12 @@ body.segment-resize-dragging .drag-handle.floating,
   pointer-events: none;
 }
 
+/* Force `rtl` direction when it's applied to the body, since
+the width element is inside the street layout which is forced `ltr` */
+body[dir='rtl'] .segment .width {
+  direction: rtl !important;
+}
+
 .segment.hover .width {
   font-weight: 700;
 }
