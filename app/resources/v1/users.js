@@ -366,7 +366,12 @@ exports.put = async function (req, res) {
     return
   }
 
-  const userId = req.params.user_id
+  // 1. on auth header, check userId matches their login token
+  // 2a. if auth.userId = params.userId => permission granted
+  // 2b. if auth.userId != params.userId, auth.userId IS admin => permission granted
+
+  // Find requesting user
+  const userId = req.userId
   let user
 
   try {
@@ -381,16 +386,40 @@ exports.put = async function (req, res) {
     return
   }
 
+  // Is requesting user logged in?
   if (user.login_tokens.indexOf(req.loginToken) === -1) {
     res.status(401).end()
     return
   }
 
-  user.data = body.data || user.data
-  user.save().then(user => {
-    res.status(204).end()
-  }).catch(err => {
-    logger.error(err)
-    res.status(500).send('Could not update user information.')
-  })
+  // Find target user
+  const targetUserId = req.params.user_id
+  let targetUser
+  if (userId !== targetUserId) {
+    try {
+      targetUser = await User.findOne({ id: targetUserId })
+    } catch (err) {
+      logger.error(err)
+      res.status(500).send('Error finding user.')
+    }
+
+    if (!targetUser) {
+      res.status(404).send('User not found.')
+      return
+    }
+  } else {
+    targetUser = user
+  }
+
+  if (userId === targetUserId || user.role.includes('ADMIN')) {
+    targetUser.data = body.data || targetUser.data
+    targetUser.save().then(user => {
+      res.status(204).end()
+    }).catch(err => {
+      logger.error(err)
+      res.status(500).send('Could not update user information.')
+    })
+  } else {
+    res.status(401).end()
+  }
 } // END function - exports.put
