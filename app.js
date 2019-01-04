@@ -185,6 +185,7 @@ app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.
 app.get(config.auth0.callback_uri, controllers.auth0_sign_in_callback.get)
 
 app.post('/api/v1/users', cors(), resources.v1.users.post)
+app.options('/api/v1/users/:user_id', cors()) // Enable pre-flight request for authorized PUT request
 app.get('/api/v1/users/:user_id', cors(), resources.v1.users.get)
 app.put('/api/v1/users/:user_id', cors(), resources.v1.users.put)
 app.delete('/api/v1/users/:user_id/login-token', cors(), resources.v1.users.delete)
