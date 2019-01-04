@@ -228,7 +228,7 @@ exports.get = async function (req, res) {
     }
 
     const sendUserJson = function (data) {
-      const auth = (user.login_tokens.indexOf(req.loginToken) > 0)
+      const auth = (user.login_tokens.indexOf(req.loginToken) !== -1)
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
