@@ -32,6 +32,7 @@ const emailUser = {
 
 function setLoginToken (req, res, next) {
   req.loginToken = '133e5110-5d2e-11e8-a8fd-678b57961690'
+  req.userId = 'oluwaseun'
   next()
 }
 
@@ -86,6 +87,9 @@ describe('PUT api/v1/users/:user_id', function () {
         expect(response.statusCode).toEqual(204)
       })
   })
+
+  it.skip('should respond with 401 if a user attempts to put a request to a user that is not them', () => {})
+  it.skip('should respond with 204 if an admin user puts a request to another user', () => {})
 })
 
 describe('GET api/v1/users/:user_id', function () {
