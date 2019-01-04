@@ -23,6 +23,12 @@ button.close {
   right: 0;
   top: 0;
 
+  // Mirror position in rtl
+  [dir="rtl"] & {
+    right: auto;
+    left: 0;
+  }
+
   // Touch-friendly size
   width: 36px;
   height: 36px;
