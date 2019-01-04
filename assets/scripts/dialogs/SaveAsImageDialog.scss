@@ -9,10 +9,15 @@
     text-align: center;
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     margin-left: 20px;
     font-size: 25px;
     user-select: none;
+  }
+
+  [dir="rtl"] & input[type="checkbox"] {
+    margin-left: 5px;
+    margin-right: 20px;
   }
 
   label {
