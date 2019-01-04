@@ -68,7 +68,7 @@
     }
   }
 
-  input[type='radio'] {
+  input[type="radio"] {
     display: none;
     border: 0;
     background: none;
@@ -84,12 +84,12 @@
     }
   }
 
-  input[type='radio']:checked + label {
+  input[type="radio"]:checked + label {
     color: black;
     font-weight: bold;
   }
 
-  input[type='radio']:not(:checked) + label {
+  input[type="radio"]:not(:checked) + label {
     text-decoration: underline;
   }
 }

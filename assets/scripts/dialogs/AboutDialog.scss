@@ -15,7 +15,7 @@
     padding: 0;
     text-align: left;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       text-align: right;
     }
   }
@@ -30,7 +30,7 @@
     margin-bottom: 1em;
     background-position: 0;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-right: 12px;
       margin-left: auto;
       background-position: 100%;
@@ -51,7 +51,7 @@
   position: fixed;
   width: 240px;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     margin-left: 40px;
     margin-right: 0;
     border-left: 1px solid #cde1ea;
@@ -74,7 +74,7 @@
   margin-bottom: 15px;
   margin-left: 320px;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     margin-right: 320px;
     margin-left: 0;
   }
@@ -116,7 +116,7 @@
   margin-right: 1.5em;
   margin-top: 1em;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     margin-left: 1.5em;
     margin-right: 0;
   }

@@ -174,7 +174,7 @@
     height: 14px;
     margin-right: 0.5em;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-right: 0;
       margin-left: 0.5em;
     }
@@ -338,7 +338,7 @@
   line-height: 1.25;
 }
 
-[dir='rtl'] {
+[dir="rtl"] {
   .info-bubble-remove {
     margin-left: 0;
     margin-right: 1em;

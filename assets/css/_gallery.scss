@@ -39,7 +39,7 @@ body:not(.safari).gallery-visible .street-section-sky {
     top: 1px;
     height: $gallery-height;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       right: 120px;
       left: 0;
     }

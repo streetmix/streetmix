@@ -306,7 +306,7 @@ body.segment-resize-dragging .drag-handle.floating,
 
 /* Force `rtl` direction when it's applied to the body, since
 the width element is inside the street layout which is forced `ltr` */
-body[dir='rtl'] .segment .width {
+body[dir="rtl"] .segment .width {
   direction: rtl !important;
 }
 

@@ -63,7 +63,7 @@ body.read-only .palette-container {
     margin-left: 0.25em;
 
     // Other way around on rtl
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-left: 0;
       margin-right: 0.25em;
     }
@@ -99,7 +99,7 @@ body.read-only .palette-container {
   }
 }
 
-[dir='rtl'] {
+[dir="rtl"] {
   .palette-scrollable-container {
     direction: ltr;
   }

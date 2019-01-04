@@ -66,7 +66,7 @@
     width: 16px;
     height: 16px;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       left: auto;
       right: 0.75em;
     }
@@ -93,7 +93,7 @@ body.safari .menu {
   padding: 0.5em 1em 0.5em 2.5em;
   border-bottom: 1px solid #cde1ea;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     padding: 0.5em 2.5em 0.5em 1em;
   }
 }
@@ -193,7 +193,7 @@ body.safari .menu {
     height: 12px;
     color: #1c99ce;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       left: auto;
       right: 1.25em;
     }
@@ -218,7 +218,7 @@ body.safari .menu {
     color: #1c99ce;
     font-size: 125%;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       left: auto;
       right: 16px;
       padding-right: auto;

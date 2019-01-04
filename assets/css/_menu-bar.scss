@@ -44,7 +44,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
   li + li {
     margin-left: 0.25em;
 
-    [dir='rtl'] & {
+    [dir="rtl"] & {
       margin-right: 0.25em;
       margin-left: 0;
     }
@@ -91,7 +91,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
       font-size: 9px;
       transform: scaleY(0.75);
 
-      [dir='rtl'] & {
+      [dir="rtl"] & {
         padding-right: 5px;
         padding-left: 0;
       }
@@ -139,7 +139,7 @@ button.menu-sign-in {
   padding-right: 0.25em !important;
   padding-left: 0.25em !important;
 
-  [dir='rtl'] & {
+  [dir="rtl"] & {
     float: left;
   }
 }
@@ -193,7 +193,7 @@ button.menu-sign-in {
   }
 }
 
-[dir='rtl'] {
+[dir="rtl"] {
   .environment-badge {
     right: 16px;
     left: auto;

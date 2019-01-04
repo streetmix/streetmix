@@ -40,7 +40,7 @@ body.read-only .street-name-canvas {
   font-size: 36px * $size;
   line-height: 24px * $size;
 
-  [dir='rtl'] {
+  [dir="rtl"] {
     font-size: 30px * $size;
   }
 }

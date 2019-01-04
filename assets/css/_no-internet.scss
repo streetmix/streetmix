@@ -7,10 +7,10 @@
 //  -------------------------------------------------------
 
 body.no-internet {
-  a[href^='http'],
-  a[rel='external'],
-  a[href^='http']:hover,
-  a[rel='external']:hover {
+  a[href^="http"],
+  a[rel="external"],
+  a[href^="http"]:hover,
+  a[rel="external"]:hover {
     text-decoration: none;
     cursor: text;
     color: inherit !important; // Ensure that hover styles do not override the color
