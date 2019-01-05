@@ -177,40 +177,56 @@ exports.get = async function (req, res) {
     return
   }
 
-  const userId = req.params.user_id
+  const targetUserId = req.params.user_id
+  let targetUser
 
   const findUserById = async function (userId) {
-    let user
-
     try {
-      user = await User.findOne({ id: userId })
+      targetUser = await User.findOne({ id: userId })
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)
     }
 
-    if (!user) {
+    if (!targetUser) {
       throw new Error(ERRORS.USER_NOT_FOUND)
     }
 
-    return user
+    return targetUser
   }
 
-  const findUserByLoginToken = async function (loginToken) {
-    let user
+  let requestUser
 
+  const findUserByLoginToken = async function (loginToken) {
     try {
-      user = await User.findOne({ login_tokens: { $in: [ loginToken ] } })
+      requestUser = await User.findOne({ login_tokens: { $in: [ loginToken ] } })
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)
     }
 
-    if (!user) {
+    if (!requestUser) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
 
-    return user
+    // Finding target user
+    if (req.user_id !== targetUserId) {
+      try {
+        targetUser = await findUserById(targetUserId)
+      } catch (error) {
+        logger.error(err)
+        throw new Error(ERRORS.CANNOT_GET_USER)
+      }
+
+      if (!targetUser) {
+        throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+      }
+
+    } else {
+      targetUser = requestUser
+    }
+
+    return targetUser
   }
 
   const handleFindUser = function (user) {
@@ -228,7 +244,9 @@ exports.get = async function (req, res) {
     }
 
     const sendUserJson = function (data) {
-      const auth = (user.login_tokens.indexOf(req.loginToken) !== -1)
+      // If requestUser = targetUser => permission granted
+      // If requestUser != targetUser and requestUser is admin => permission granted
+      const auth = (user.login_tokens.indexOf(req.loginToken) !== -1) || requestUser.roles.includes('ADMIN')
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
@@ -307,7 +325,7 @@ exports.get = async function (req, res) {
       .then(handleFindUser)
       .catch(handleError)
   } else {
-    findUserById(userId)
+    findUserById(targetUserId)
       .then(handleFindUser)
       .catch(handleError)
   }
