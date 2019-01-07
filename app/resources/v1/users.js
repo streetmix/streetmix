@@ -205,11 +205,12 @@ exports.getUsers = async function (req, res) {
     return users
   }
 
-  const sendUsersJson = function (users) {
+  const handleFindUsers = function (users) {
     let usersArray = []
 
-    users.forEach((user) => {
+    const getUserJson = function (user, twitterImageUrl) {
       const auth = req.loginToken && (user.login_tokens.indexOf(req.loginToken) !== -1 || requestUser.roles.includes('ADMIN'))
+
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
           logger.error(err)
@@ -217,9 +218,68 @@ exports.getUsers = async function (req, res) {
           return
         }
 
-        userJson.profileImageUrl = user.profile_image_url
+        if (twitterImageUrl) {
+          userJson.profileImageUrl = twitterImageUrl
+          console.log(twitterImageUrl)
+        } else {
+          userJson.profileImageUrl = user.profile_image_url
+        }
+
         usersArray.push(userJson)
       })
+    }
+
+    users.forEach((user) => {
+      console.log(user.id)
+      let twitterApiClient
+
+      try {
+        twitterApiClient = new Twitter({
+          consumer_key: config.twitter.oauth_consumer_key,
+          consumer_secret: config.twitter.oauth_consumer_secret,
+          access_token_key: user.twitter_credentials.access_token_key,
+          access_token_secret: user.twitter_credentials.access_token_secret
+        })
+      } catch (error) {
+        logger.error('Could not initialize Twitter API client: ' + error)
+      }
+
+      let responseAlreadySent = false
+
+      const handleFetchUserProfileFromTwitter = function (err, res) {
+        if (err) {
+          logger.error('Twitter API call users/show returned error.')
+          logger.error(err)
+        }
+
+        if (responseAlreadySent) {
+          logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned but response already sent!')
+        } else {
+          logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned. Sending response with Twitter data.')
+          responseAlreadySent = true
+
+          if (!res) {
+            logger.error('Twitter API call users/show did not return any data.')
+          }
+
+          console.log(res.picture)
+          getUserJson(user, res.picture)
+        }
+      } // END function - handleFetchUserProfileFromTwitter
+
+      if (twitterApiClient && !user.profile_image_url) {
+        logger.debug('About to call Twitter API: /users/show.json?user_id=' + user.twitter_id)
+        twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
+        setTimeout(function () {
+          if (!responseAlreadySent) {
+            logger.debug(`Timing out Twitter API call after %d milliseconds and sending partial response.`, config.twitter.timeout_ms)
+            responseAlreadySent = true
+            getUserJson(user)
+          }
+        }, config.twitter.timeout_ms)
+      } else {
+        getUserJson(user)
+      }
     })
 
     res.status(200).send(usersArray)
@@ -244,11 +304,11 @@ exports.getUsers = async function (req, res) {
   if (req.loginToken) {
     findUserByLoginToken(req.loginToken)
       .then(findStreetmixUsers)
-      .then(sendUsersJson)
+      .then(handleFindUsers)
       .catch(handleError)
   } else {
     findStreetmixUsers()
-      .then(sendUsersJson)
+      .then(handleFindUsers)
       .catch(handleError)
   }
 }
@@ -297,14 +357,13 @@ exports.get = async function (req, res) {
       try {
         targetUser = await findUserById(targetUserId)
       } catch (error) {
-        logger.error(err)
+        logger.error(error)
         throw new Error(ERRORS.CANNOT_GET_USER)
       }
 
       if (!targetUser) {
         throw new Error(ERRORS.UNAUTHORISED_ACCESS)
       }
-
     } else {
       targetUser = requestUser
     }
@@ -328,8 +387,8 @@ exports.get = async function (req, res) {
 
     const sendUserJson = function (data) {
       // If requestUser = targetUser => permission granted
-      // If requestUser != targetUser and requestUser is admin => permission granted
-      const auth = (user.login_tokens.indexOf(req.loginToken) !== -1) || requestUser.roles.includes('ADMIN')
+      // If requestUser exists and requestUser != targetUser and requestUser is admin => permission granted
+      const auth = (user.login_tokens.indexOf(req.loginToken) !== -1) || (requestUser && requestUser.roles.includes('ADMIN'))
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
