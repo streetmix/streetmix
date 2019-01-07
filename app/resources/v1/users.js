@@ -170,6 +170,89 @@ exports.post = function (req, res) {
   }
 } // END function - exports.post
 
+exports.getUsers = async function (req, res) {
+  let requestUser
+
+  const findUserByLoginToken = async function (loginToken) {
+    try {
+      requestUser = await User.findOne({ login_tokens: { $in: [ loginToken ] } })
+    } catch (err) {
+      logger.error(err)
+      throw new Error(ERRORS.CANNOT_GET_USER)
+    }
+
+    if (!requestUser) {
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+    }
+
+    return requestUser
+  }
+
+  const findStreetmixUsers = async function () {
+    let users
+
+    try {
+      users = await User.find({})
+    } catch (err) {
+      logger.error(err)
+      throw new Error(ERRORS.CANNOT_GET_USER)
+    }
+
+    if (!users) {
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+    }
+
+    return users
+  }
+
+  const sendUsersJson = function (users) {
+    let usersArray = []
+
+    users.forEach((user) => {
+      const auth = req.loginToken && (user.login_tokens.indexOf(req.loginToken) !== -1 || requestUser.roles.includes('ADMIN'))
+      user.asJson({ auth: auth }, function (err, userJson) {
+        if (err) {
+          logger.error(err)
+          res.status(500).send('Could not render user JSON.')
+          return
+        }
+
+        userJson.profileImageUrl = user.profile_image_url
+        usersArray.push(userJson)
+      })
+    })
+
+    res.status(200).send(usersArray)
+  }
+
+  const handleError = function (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).send('User not found.')
+        return
+      case ERRORS.CANNOT_GET_USER:
+        res.status(500).send('Error finding user.')
+        return
+      case ERRORS.UNAUTHORISED_ACCESS:
+        res.status(401).send('User with that login token not found.')
+        return
+      default:
+        res.status(500).end()
+    }
+  }
+
+  if (req.loginToken) {
+    findUserByLoginToken(req.loginToken)
+      .then(findStreetmixUsers)
+      .then(sendUsersJson)
+      .catch(handleError)
+  } else {
+    findStreetmixUsers()
+      .then(sendUsersJson)
+      .catch(handleError)
+  }
+}
+
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
