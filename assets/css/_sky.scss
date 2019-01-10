@@ -8,6 +8,9 @@
   background-position: 0 0;
   background-color: $sky-colour;
   pointer-events: none;
+
+  /* "Legacy" box-sizing */
+  box-sizing: content-box;
 }
 
 // Used on #error
@@ -17,6 +20,9 @@
   height: 100%;
   top: 0;
   left: 0;
+
+  /* "Legacy" box-sizing */
+  box-sizing: content-box;
 }
 
 .rear-clouds,
