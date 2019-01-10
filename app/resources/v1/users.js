@@ -253,5 +253,4 @@ exports.get = async function (req, res) {
     .then(findStreetmixUsers)
     .then(handleFindUsers)
     .catch(handleError)
-
 } // END function - exports.get

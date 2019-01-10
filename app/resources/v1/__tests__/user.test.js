@@ -68,4 +68,3 @@ describe('GET api/v1/users/:user_id', function () {
       })
   })
 })
-  
