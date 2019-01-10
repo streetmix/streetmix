@@ -171,6 +171,12 @@ exports.post = function (req, res) {
 } // END function - exports.post
 
 exports.get = async function (req, res) {
+  // Flag error if user is not authenticated (loginToken)
+  if (!req.loginToken) {
+    res.status(400).send('Please provide login token.')
+    return
+  }
+
   let requestUser
 
   const findUserByLoginToken = async function (loginToken) {
@@ -243,14 +249,9 @@ exports.get = async function (req, res) {
     }
   }
 
-  if (req.loginToken) {
-    findUserByLoginToken(req.loginToken)
-      .then(findStreetmixUsers)
-      .then(handleFindUsers)
-      .catch(handleError)
-  } else {
-    findStreetmixUsers()
-      .then(handleFindUsers)
-      .catch(handleError)
-  }
+  findUserByLoginToken(req.loginToken)
+    .then(findStreetmixUsers)
+    .then(handleFindUsers)
+    .catch(handleError)
+
 } // END function - exports.get
