@@ -32,7 +32,7 @@ body.read-only .street-name-canvas {
 }
 
 @mixin street-name-inside-mixin($size: $street-name-size) {
-  height: 30px * $size;
+  height: 50px * $size;
   border: 3px * $size solid $street-name-text;
   padding: 10px * $size 20px * $size;
   padding-top: 11px * $size;
@@ -75,7 +75,7 @@ body.windows .street-name-text {
 
   max-width: 100%;
   position: relative;
-  top: -15px;
+  top: -7px;
 
   > div,
   > span {

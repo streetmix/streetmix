@@ -24,9 +24,9 @@
     flex-direction: row;
     justify-content: space-between;
     position: relative;
-    padding: 2px 8px 5px;
-    height: $info-bubble-button-size;
-    line-height: $info-bubble-button-size + 1px;
+    padding: 2px 8px;
+    height: $info-bubble-button-size + 6px;
+    line-height: $info-bubble-button-size + 2px;
     font-size: 16px;
     font-weight: 300;
     color: white;
