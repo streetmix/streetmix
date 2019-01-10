@@ -1,6 +1,16 @@
 html {
   height: 100%;
   overflow: hidden;
+
+  /* Global box-sizing "reset" to the "quirks" box model */
+  box-sizing: border-box;
+}
+
+/* Inherit the box-sizing everywhere */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body {
