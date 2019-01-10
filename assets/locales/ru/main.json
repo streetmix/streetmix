@@ -45,7 +45,8 @@
       "github": "Посмотреть исходники на GitHub",
       "blog": "Посетить блог Streetmix",
       "discord": "",
-      "slack": "Присоединиться к чату Slack"
+      "slack": "Присоединиться к чату Slack",
+      "minecraft": ""
     },
     "contribute": {
       "donate": "Пожертвовать",
@@ -132,7 +133,8 @@
     "copy": "Сделать копию",
     "remove": "Удалить",
     "close": "Закрыть",
-    "dismiss": "Отклонить"
+    "dismiss": "Отклонить",
+    "okay": ""
   },
   "dialogs": {
     "error": {

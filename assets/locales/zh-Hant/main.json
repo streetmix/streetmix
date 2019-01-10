@@ -45,7 +45,8 @@
       "github": "在GitHub上查看源代碼",
       "blog": "訪問Streetmix的博客",
       "discord": "",
-      "slack": "加入Slack對話"
+      "slack": "加入Slack對話",
+      "minecraft": ""
     },
     "contribute": {
       "donate": "資助我們",
@@ -132,7 +133,8 @@
     "copy": "複製",
     "remove": "去掉",
     "close": "關閉",
-    "dismiss": "忽略"
+    "dismiss": "忽略",
+    "okay": ""
   },
   "dialogs": {
     "error": {

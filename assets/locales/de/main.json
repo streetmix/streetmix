@@ -45,7 +45,8 @@
       "github": "Quellcode auf GitHub ansehen",
       "blog": "Streetmix Blog ansehen",
       "discord": "",
-      "slack": "Slack Chat beitreten"
+      "slack": "Slack Chat beitreten",
+      "minecraft": ""
     },
     "contribute": {
       "donate": "Spenden",
@@ -132,7 +133,8 @@
     "copy": "Kopie erstellen",
     "remove": "Entfernen",
     "close": "Schließen",
-    "dismiss": "Verwerfen"
+    "dismiss": "Verwerfen",
+    "okay": ""
   },
   "dialogs": {
     "error": {

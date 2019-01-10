@@ -45,7 +45,8 @@
       "github": "",
       "blog": "Visita el blog de Streetmix",
       "discord": "",
-      "slack": "Participa en Slack chat"
+      "slack": "Participa en Slack chat",
+      "minecraft": ""
     },
     "contribute": {
       "donate": "",
@@ -132,7 +133,8 @@
     "copy": "Hacer una copia",
     "remove": "",
     "close": "",
-    "dismiss": ""
+    "dismiss": "",
+    "okay": ""
   },
   "dialogs": {
     "error": {

@@ -45,7 +45,8 @@
       "github": "Githubでコードを確認",
       "blog": "Streetmixブログを表示",
       "discord": "",
-      "slack": "Slackチャットに参加"
+      "slack": "Slackチャットに参加",
+      "minecraft": ""
     },
     "contribute": {
       "donate": "募金",
@@ -132,7 +133,8 @@
     "copy": "コピー作成",
     "remove": "削除",
     "close": "閉じる",
-    "dismiss": "無視"
+    "dismiss": "無視",
+    "okay": ""
   },
   "dialogs": {
     "error": {

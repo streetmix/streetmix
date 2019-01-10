@@ -45,7 +45,8 @@
       "github": "Visa källkod på GitHub",
       "blog": "Besök Streetmix-bloggen",
       "discord": "",
-      "slack": "Gå med i Slack-chatten"
+      "slack": "Gå med i Slack-chatten",
+      "minecraft": ""
     },
     "contribute": {
       "donate": "",
@@ -132,7 +133,8 @@
     "copy": "Gör en kopia",
     "remove": "Ta bort",
     "close": "",
-    "dismiss": ""
+    "dismiss": "",
+    "okay": ""
   },
   "dialogs": {
     "error": {

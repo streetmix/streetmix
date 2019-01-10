@@ -45,7 +45,8 @@
       "github": "Näytä lähdekoodi GitHub-palvelussa",
       "blog": "Vieraile Streetmix-blogissa",
       "discord": "Liity Discord-keskusteluun",
-      "slack": "Liity Slack-keskusteluun"
+      "slack": "Liity Slack-keskusteluun",
+      "minecraft": "Pelaa kanssamme Minecraftia!"
     },
     "contribute": {
       "donate": "Lahjoita",
@@ -132,7 +133,8 @@
     "copy": "Kopioi katupohja",
     "remove": "Poista",
     "close": "Sulje",
-    "dismiss": "Ohita"
+    "dismiss": "Ohita",
+    "okay": "Selvä!"
   },
   "dialogs": {
     "error": {

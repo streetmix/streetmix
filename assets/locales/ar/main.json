@@ -45,7 +45,8 @@
       "github": "إظهار شيفرة المصدر على GitHub",
       "blog": "زيارة مدونة Streetmix",
       "discord": "",
-      "slack": "الانضمام إلى غرفة الدردشة الهادئة"
+      "slack": "الانضمام إلى غرفة الدردشة الهادئة",
+      "minecraft": ""
     },
     "contribute": {
       "donate": "تبرع",
@@ -132,7 +133,8 @@
     "copy": "عمل نسخة",
     "remove": "إزالة",
     "close": "إغلاق",
-    "dismiss": "صرف النظر"
+    "dismiss": "صرف النظر",
+    "okay": ""
   },
   "dialogs": {
     "error": {
