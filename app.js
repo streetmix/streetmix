@@ -190,8 +190,11 @@ app.get('/api/v1/users', cors(), resources.v1.users.get)
 app.options('/api/v1/users/:user_id', cors()) // Enable pre-flight request for authorized PUT request
 app.get('/api/v1/users/:user_id', cors(), resources.v1.user.get)
 app.put('/api/v1/users/:user_id', cors(), resources.v1.user.put)
+app.delete('/api/v1/users/:user_id', cors(), resources.v1.user.delete)
 app.options('/api/v1/users/:user_id/login-token', cors())
 app.delete('/api/v1/users/:user_id/login-token', cors(), resources.v1.user_session.delete)
+app.options('/api/v1/users/:user_id/streets', cors())
+app.delete('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.delete)
 app.get('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.get)
 
 app.post('/api/v1/streets', resources.v1.streets.post)

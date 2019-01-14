@@ -242,3 +242,72 @@ exports.put = async function (req, res) {
     res.status(401).end()
   }
 } // END function - exports.put
+
+exports.delete = async function (req, res) {
+  if (!req.params.user_id) {
+    res.status(400).send('Please provide user ID.')
+    return
+  } else if (!req.loginToken) {
+    res.status(400).send('Please provide login token.')
+  }
+
+  const userId = req.userId
+  const targetUserId = req.params.user_id
+
+  let requestUser
+
+  try {
+    requestUser = await User.findOne({ id: userId })
+  } catch (error) {
+    logger.error(error)
+    res.status(500).send('Error finding user.')
+  }
+
+  if (!requestUser) {
+    res.status(404).send('User not found.')
+    return
+  }
+
+  // Is requesting user logged in?
+  if (requestUser.login_tokens.indexOf(req.loginToken) === -1) {
+    res.status(401).end()
+    return
+  }
+
+  let targetUser
+  if (targetUserId !== userId) {
+    try {
+      targetUser = await User.findOne({ id: targetUserId })
+    } catch (error) {
+      logger.error(error)
+      res.status(500).send('Error finding user.')
+    }
+
+    if (!targetUser) {
+      res.status(404).send('User not found.')
+      return
+    }
+  } else {
+    targetUser = requestUser
+  }
+
+  const handleDeleteUser = function (err, user) {
+    if (err) {
+      logger.error(err)
+      res.status(500).send('Error deleting user.')
+    } 
+    
+    if (!user) {
+      res.status(404).send('User not found.')
+      return
+    }
+
+    res.status(204).end()
+  }
+
+  if (userId === targetUserId || requestUser.roles.includes('ADMIN')) {
+    User.deleteOne({ id: targetUserId }, handleDeleteUser)
+  } else {
+    res.status(401).end()
+  }
+}
