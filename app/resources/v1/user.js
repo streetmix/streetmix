@@ -227,6 +227,9 @@ exports.put = async function (req, res) {
   if (userId === targetUserId || user.roles.includes('ADMIN')) {
     targetUser.data = body.data || targetUser.data
     targetUser.flags = body.flags || targetUser.flags
+    targetUser.roles = body.roles || targetUser.roles
+    targetUser.id = body.id || targetUser.id
+
     targetUser.save().then(user => {
       res.status(204).end()
     }).catch(err => {
