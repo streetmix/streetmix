@@ -295,8 +295,8 @@ exports.delete = async function (req, res) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error deleting user.')
-    } 
-    
+    }
+
     if (!user) {
       res.status(404).send('User not found.')
       return
