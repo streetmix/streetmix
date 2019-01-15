@@ -8,6 +8,8 @@
   background-position: 0 0;
   background-color: $sky-colour;
   pointer-events: none;
+  opacity: 1;
+  transition: 500ms opacity ease;
 
   /* "Legacy" box-sizing */
   box-sizing: content-box;
@@ -35,19 +37,17 @@
 }
 
 .rear-clouds {
-  height: 120px;
-  bottom: 480px;
+  height: 250px;
+  bottom: 350px;
   background-image: url('../../public/images/sky-rear.svg');
-  background-size: 250px 120px;
+  background-size: 250px 250px;
 }
 
 .front-clouds {
   height: 280px;
-  bottom: 0;
-  border-bottom: 200px solid rgb(165, 196, 209);
+  bottom: 200px;
   background-image: url('../../public/images/sky-front.svg');
   background-size: 250px 280px;
-  opacity: 0.5;
 }
 
 // A setting activates this class and turns on environmental animations
