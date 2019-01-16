@@ -1,0 +1,22 @@
+@import '../../css/variables.scss';
+
+.sky-background,
+.sky-background > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.sky-background-default {
+  background-color: $sky_colour;
+}
+
+.sky-background > div {
+  transition: opacity $environment-transition;
+}
+
+.sky-transition-out {
+  opacity: 0;
+}

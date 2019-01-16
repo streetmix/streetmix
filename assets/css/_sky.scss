@@ -5,7 +5,6 @@
   height: $canvas-baseline;
   pointer-events: none;
   opacity: 1;
-  transition: 500ms opacity ease;
 
   /* "Legacy" box-sizing */
   box-sizing: content-box;
@@ -30,6 +29,7 @@
   width: 100%;
   background-repeat: repeat-x;
   background-position: 0 0;
+  transition: opacity $environment-transition;
 }
 
 .rear-clouds {

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import './SkyBackground.scss'
 
 class SkyBackground extends React.PureComponent {
   static propTypes = {
@@ -40,7 +41,9 @@ class SkyBackground extends React.PureComponent {
 
     return (
       <section className="street-section-sky" style={skyStyle}>
-        <div className="street-section-sky-background" />
+        <div className="sky-background">
+          <div className="sky-background-default" />
+        </div>
         <div className="rear-clouds" style={rearCloudStyle} />
         <div className="front-clouds" style={frontCloudStyle} />
       </section>

@@ -5,6 +5,7 @@
   font-size: 13px;
   user-select: none;
   pointer-events: auto;
+  transition: color $environment-transition;
 
   a {
     color: inherit;
@@ -39,6 +40,7 @@
 
 .street-width-under {
   color: rgb(96, 96, 96);
+  transition: color $environment-transition;
 }
 
 .street-width-select {

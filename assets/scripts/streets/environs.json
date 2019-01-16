@@ -48,7 +48,8 @@
       [
         "#040308"
       ]
-    ]
+    ],
+    "cloudOpacity": 0.65
   },
   "sunset2": {
     "name": "Sunset 2",
