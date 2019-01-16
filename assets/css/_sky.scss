@@ -2,7 +2,7 @@
   position: absolute;
   left: 0;
   right: -2000px; // TODO hack - this makes the sky wide enough for 400' streets - sky scrolls with the street
-  height: $canvas-baseline + 150px;
+  height: $canvas-baseline;
   background-size: 100% 350px;
   background-repeat: no-repeat;
   background-position: 0 0;
@@ -38,14 +38,14 @@
 
 .rear-clouds {
   height: 250px;
-  bottom: 350px;
+  bottom: 200px;
   background-image: url('../../public/images/sky-rear.svg');
   background-size: 250px 250px;
 }
 
 .front-clouds {
   height: 280px;
-  bottom: 200px;
+  bottom: 50px;
   background-image: url('../../public/images/sky-front.svg');
   background-size: 250px 280px;
 }

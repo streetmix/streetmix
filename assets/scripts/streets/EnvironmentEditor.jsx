@@ -9,8 +9,28 @@ class EnvironmentEditor extends Component {
 
   handleClick = (event, env) => {
     this.setState({
-      selected: env
+      selected: env.id
     })
+
+    // Temp: affect the DOM, but don't save data
+    const skyEl = document.querySelector('.street-section-sky')
+    if (env.style.backgroundColor) {
+      skyEl.style.backgroundColor = env.style.backgroundColor
+    } else {
+      skyEl.style.removeProperty('background-color')
+    }
+    if (env.style.backgroundImage) {
+      skyEl.style.backgroundImage = env.style.backgroundImage
+    } else {
+      skyEl.style.removeProperty('background-image')
+    }
+    if (env.cloudOpacity) {
+      document.querySelector('.rear-clouds').style.opacity = env.cloudOpacity
+      document.querySelector('.front-clouds').style.opacity = env.cloudOpacity
+    } else {
+      document.querySelector('.rear-clouds').style.removeProperty('opacity')
+      document.querySelector('.front-clouds').style.removeProperty('opacity')
+    }
   }
 
   render () {
@@ -23,7 +43,8 @@ class EnvironmentEditor extends Component {
         </header>
         <div className="environment-editor-content">
           <div className="environment-select-grid">
-            {envs.map(({ id, name, style }) => {
+            {envs.map((env) => {
+              const { id, name, style } = env
               const classNames = ['environment-select']
 
               if (this.state.selected === id) {
@@ -38,7 +59,7 @@ class EnvironmentEditor extends Component {
                   key={id}
                   style={style}
                   title={name}
-                  onClick={(event) => this.handleClick(event, id)}
+                  onClick={(event) => this.handleClick(event, env)}
                 />
               )
             })}

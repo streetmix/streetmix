@@ -22,7 +22,7 @@ function makeCSSGradientValue (array) {
     }
   })
 
-  return `linear-gradient(to bottom, ${stops.join(', ')})`
+  return `linear-gradient(${stops.join(', ')})`
 }
 
 function makeStyleDeclarationReact (env) {
@@ -42,6 +42,7 @@ export function getAllEnvirons () {
   return environs.map(([id, env]) => ({
     id,
     name: env.name,
-    style: makeStyleDeclarationReact(env)
+    style: makeStyleDeclarationReact(env),
+    cloudOpacity: env.cloudOpacity
   }))
 }
