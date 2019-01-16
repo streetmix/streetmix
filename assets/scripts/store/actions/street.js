@@ -21,7 +21,8 @@ import {
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
   SET_BUILDING_FLOOR_VALUE,
-  SET_BUILDING_VARIANT
+  SET_BUILDING_VARIANT,
+  SET_ENVIRONMENT
 } from './'
 
 export function updateStreetData (street) {
@@ -221,5 +222,20 @@ export function setBuildingVariant (position, variant) {
     type: SET_BUILDING_VARIANT,
     position,
     variant
+  }
+}
+
+// Environment
+
+/**
+ * Sets environment
+ *
+ * @param {string} env - name of the environment
+ */
+
+export function setEnvironment (env) {
+  return {
+    type: SET_ENVIRONMENT,
+    env
   }
 }

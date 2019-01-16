@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { getAllEnvirons } from './environs'
+import { setEnvironment } from '../store/actions/street'
 import './EnvironmentEditor.scss'
 
 class EnvironmentEditor extends Component {
-  state = {
-    selected: null
+  static propTypes = {
+    selected: PropTypes.string,
+    setEnvironment: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    selected: 'defualt'
   }
 
   handleClick = (event, env) => {
-    this.setState({
-      selected: env.id
-    })
+    this.props.setEnvironment(env.id)
 
     // Temp: affect the DOM, but don't save data
     const skyEl = document.querySelector('.sky-background')
@@ -63,9 +69,9 @@ class EnvironmentEditor extends Component {
               const { id, name, style } = env
               const classNames = ['environment-select']
 
-              if (this.state.selected === id) {
+              if (this.props.selected === id) {
                 classNames.push('environment-active')
-              } else if (!this.state.selected && id === 'plain') {
+              } else if (!this.props.selected && id === 'default') {
                 classNames.push('environment-active')
               }
 
@@ -86,4 +92,12 @@ class EnvironmentEditor extends Component {
   }
 }
 
-export default EnvironmentEditor
+const mapStateToProps = (state) => ({
+  selected: state.street.environment
+})
+
+const mapDispatchToProps = {
+  setEnvironment
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EnvironmentEditor)
