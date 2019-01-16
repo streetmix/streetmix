@@ -50,71 +50,7 @@
 }
 
 .environment-select.environment-active {
-  // border: 2px solid #87b7Cb;
-  // box-shadow: inset 0 0 0 2px white;
-  border: 2px solid white;
-  box-shadow: 0 0 0 2px #87b7cb;
-}
-
-// Environment backgrounds (hardcoded for now).
-
-.env-plain {
-  background-color: #a9ccdb;
-}
-
-.env-twilight {
-  background-image:
-    linear-gradient(
-      #5583be,
-      #eebaa5,
-      #de7d8e 70%
-    );
-}
-
-.env-sunset {
-  background-image:
-    linear-gradient(
-      #020b1a,
-      #3e5879,
-      #9ba5ae,
-      #dcb697,
-      #fc7001,
-      #dd723c,
-      #ad4a28,
-      #040308
-    );
-}
-
-.env-sunset2 {
-  background-image:
-    linear-gradient(
-      #020b1a,
-      #3e5879,
-      #ec6127 50%,
-      #ffbb65 70%
-    );
-}
-
-.env-sunrise {
-  background-image:
-    linear-gradient(
-      #a9ccdb,
-      #b7d6fd,
-      #fbce96,
-      #dd771e,
-      #58151a
-    );
-}
-
-.env-night {
-  background-image:
-    linear-gradient(
-      #01081777 25%,
-      #031641 50%,
-      #061c45ff 100%
-    );
-}
-
-.env-karl {
-  background-color: #e2f0f2;
+  box-shadow:
+    0 0 0 2px #87b7cb,
+    inset 0 0 0 2px white;
 }

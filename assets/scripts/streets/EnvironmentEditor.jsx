@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
+import { getAllEnvirons } from './environs'
 import './EnvironmentEditor.scss'
-
-const ENVIRONS = [
-  'plain',
-  'twilight',
-  'sunset',
-  'sunset2',
-  'sunrise',
-  'night',
-  'karl'
-]
 
 class EnvironmentEditor extends Component {
   state = {
-    selected: ENVIRONS[0]
+    selected: null
   }
 
   handleClick = (event, env) => {
@@ -23,6 +14,8 @@ class EnvironmentEditor extends Component {
   }
 
   render () {
+    const envs = getAllEnvirons()
+
     return (
       <div className="environment-editor-container">
         <header>
@@ -30,21 +23,22 @@ class EnvironmentEditor extends Component {
         </header>
         <div className="environment-editor-content">
           <div className="environment-select-grid">
-            {ENVIRONS.map((env) => {
-              const classNames = [
-                'environment-select',
-                `env-${env}`
-              ]
+            {envs.map(({ id, name, style }) => {
+              const classNames = ['environment-select']
 
-              if (this.state.selected === env) {
+              if (this.state.selected === id) {
+                classNames.push('environment-active')
+              } else if (!this.state.selected && id === 'plain') {
                 classNames.push('environment-active')
               }
 
               return (
                 <div
                   className={classNames.join(' ')}
-                  key={env}
-                  onClick={(event) => this.handleClick(event, env)}
+                  key={id}
+                  style={style}
+                  title={name}
+                  onClick={(event) => this.handleClick(event, id)}
                 />
               )
             })}
