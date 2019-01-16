@@ -122,11 +122,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showDescription: () => { dispatch(showDescription()) },
-    hideDescription: () => { dispatch(hideDescription()) }
-  }
+const actionCreators = {
+  showDescription,
+  hideDescription
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Description)
+export default connect(mapStateToProps, actionCreators)(Description)
