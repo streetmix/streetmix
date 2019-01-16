@@ -154,7 +154,10 @@ class StreetView extends React.Component {
     let streetSectionSkyTop = ((streetSectionTop * 0.8) - 255)
     let scrollTop = (streetSectionTop + streetSectionHeight)
 
-    let skyTop = streetSectionTop
+    // Not sure what 255 does, but it keeps it from getting too tall
+    // `skyTop` is needed so that when gallery opens and the
+    // street slides down, there is some more sky to show
+    let skyTop = streetSectionTop - 255
     if (skyTop < 0) {
       skyTop = 0
     }

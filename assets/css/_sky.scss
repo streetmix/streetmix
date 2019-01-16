@@ -3,10 +3,6 @@
   left: 0;
   right: -2000px; // TODO hack - this makes the sky wide enough for 400' streets - sky scrolls with the street
   height: $canvas-baseline;
-  background-size: 100% 350px;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-color: $sky-colour;
   pointer-events: none;
   opacity: 1;
   transition: 500ms opacity ease;

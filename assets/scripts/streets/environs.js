@@ -40,9 +40,8 @@ export function getAllEnvirons () {
   const environs = Object.entries(ENVIRONS)
 
   return environs.map(([id, env]) => ({
+    ...env,
     id,
-    name: env.name,
-    style: makeStyleDeclarationReact(env),
-    cloudOpacity: env.cloudOpacity
+    style: makeStyleDeclarationReact(env)
   }))
 }
