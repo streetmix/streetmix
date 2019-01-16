@@ -39,13 +39,6 @@ class EnvironmentEditor extends Component {
 
     transitionBackground(env)
 
-    if (env.cloudOpacity) {
-      document.querySelector('.rear-clouds').style.opacity = env.cloudOpacity
-      document.querySelector('.front-clouds').style.opacity = env.cloudOpacity
-    } else {
-      document.querySelector('.rear-clouds').style.removeProperty('opacity')
-      document.querySelector('.front-clouds').style.removeProperty('opacity')
-    }
     if (env.invertTextColor) {
       document.querySelector('.street-width-under').style.color = '#a0a0a0'
       document.querySelector('.street-metadata').style.color = '#ffffff'

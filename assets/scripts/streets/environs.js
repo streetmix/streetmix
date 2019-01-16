@@ -36,12 +36,18 @@ function makeStyleDeclarationReact (env) {
   return style
 }
 
-export function getAllEnvirons () {
-  const environs = Object.entries(ENVIRONS)
+export function getEnvirons (id) {
+  const env = ENVIRONS[id]
 
-  return environs.map(([id, env]) => ({
+  return {
     ...env,
     id,
     style: makeStyleDeclarationReact(env)
-  }))
+  }
+}
+
+export function getAllEnvirons () {
+  const environs = Object.keys(ENVIRONS)
+
+  return environs.map(getEnvirons)
 }
