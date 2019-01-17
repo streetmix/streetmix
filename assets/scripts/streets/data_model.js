@@ -26,6 +26,7 @@ import { resetUndoStack } from '../store/actions/undo'
 import { setUnitSettings } from '../store/actions/ui'
 import store from '../store'
 
+const DEFAULT_ENVIRONMENT = 'default'
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
 const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
 const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
@@ -44,7 +45,7 @@ export function setLastStreet (value) {
   _lastStreet = value
 }
 
-const LATEST_SCHEMA_VERSION = 18
+const LATEST_SCHEMA_VERSION = 19
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -63,6 +64,7 @@ const LATEST_SCHEMA_VERSION = 18
 // 16: stop saving undo stack
 // 17: alternative colors for bike lanes
 // 18: change lat/lng format from array to object
+// 19: add environment
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -239,6 +241,10 @@ function incrementSchemaVersion (street) {
         }
       }
       break
+    case 18:
+      if (!street.environment) {
+        street.environment = DEFAULT_ENVIRONMENT
+      }
   }
 
   street.schemaVersion++
@@ -325,6 +331,7 @@ export function trimStreetData (street, saveSegmentId = true) {
     // console.log('not saving editCount')
   }
 
+  newData.environment = street.environment
   newData.leftBuildingHeight = street.leftBuildingHeight
   newData.rightBuildingHeight = street.rightBuildingHeight
   newData.leftBuildingVariant = street.leftBuildingVariant
@@ -428,6 +435,7 @@ export function prepareEmptyStreet () {
     name: null,
     userUpdated: false,
     editCount: 0,
+    environment: 'default',
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,

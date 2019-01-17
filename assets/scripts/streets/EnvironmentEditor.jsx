@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
+import { saveStreetToServerIfNecessary } from './data_model'
 import { getAllEnvirons } from './environs'
 import { setEnvironment } from '../store/actions/street'
 import './EnvironmentEditor.scss'
@@ -20,6 +21,7 @@ class EnvironmentEditor extends Component {
 
   handleClick = (event, env) => {
     this.props.setEnvironment(env.id)
+    saveStreetToServerIfNecessary()
   }
 
   render () {
