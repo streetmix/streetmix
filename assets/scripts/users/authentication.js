@@ -223,8 +223,8 @@ function signOut (quiet) {
 
 export function getAuthHeader () {
   const signInData = getSignInData()
-  if (signInData && signInData.token) {
-    return 'Streetmix realm="" loginToken="' + signInData.token + '"'
+  if (signInData && signInData.token && signInData.userId) {
+    return `Streetmix realm="" loginToken="${signInData.token}" userId="${signInData.userId}"`
   } else {
     return ''
   }

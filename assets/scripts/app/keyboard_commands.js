@@ -65,7 +65,7 @@ export function registerKeypresses () {
   // Secret menu to toggle feature flags
   // Only active in development/staging
   registerKeypress('shift f', () => {
-    if (ENV !== 'production' || (isSignedIn() && getSignInData().details.role.includes(USER_ROLES.ADMIN))) {
+    if (ENV !== 'production' || (isSignedIn() && getSignInData().details.roles.includes(USER_ROLES.ADMIN))) {
       store.dispatch(showDialog('FEATURE_FLAGS'))
     }
   })
