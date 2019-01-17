@@ -86,23 +86,27 @@
     "name": "Night",
     "backgroundGradient": [
       [
-        "#010817",
-        0.25
+        "#01051677",
+        0
+      ],
+      [
+        "#01081777",
+        0.33
       ],
       [
         "#031641",
-        0.5
+        0.66
       ],
       [
-        "#061c45ff",
-        0.1
+        "#061c45",
+        1
       ]
     ],
     "cloudOpacity": 0.2,
     "invertUITextColor": true
   },
   "karl": {
-    "name": "Karl",
+    "name": "Foggy",
     "backgroundColor": "#e2f0f2",
     "foregroundGradient": [
       [

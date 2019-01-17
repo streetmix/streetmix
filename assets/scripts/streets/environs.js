@@ -85,7 +85,7 @@ export function makeCanvasGradientStopArray (array) {
 }
 
 export function getEnvirons (id) {
-  const env = ENVIRONS[id]
+  const env = ENVIRONS[id] || ENVIRONS.default
 
   return {
     ...env,
