@@ -17,27 +17,6 @@ class EnvironmentEditor extends Component {
 
   handleClick = (event, env) => {
     this.props.setEnvironment(env.id)
-
-    // Temp: affect the DOM, but don't save data
-    const skyEl = document.querySelector('.sky-background')
-
-    function transitionBackground (env) {
-      const oldBg = skyEl.querySelector('div')
-      const newBg = document.createElement('div')
-      if (env.style.backgroundColor) {
-        newBg.style.backgroundColor = env.style.backgroundColor
-      }
-      if (env.style.backgroundImage) {
-        newBg.style.backgroundImage = env.style.backgroundImage
-      }
-      skyEl.insertBefore(newBg, oldBg)
-      oldBg.classList.add('sky-transition-out')
-      window.setTimeout(() => {
-        oldBg.remove()
-      }, 500)
-    }
-
-    transitionBackground(env)
   }
 
   render () {

@@ -13,6 +13,36 @@ class SkyBackground extends React.PureComponent {
     environment: PropTypes.string.isRequired
   }
 
+  constructor (props) {
+    super(props)
+
+    this.backgroundEl = React.createRef()
+  }
+
+  componentDidUpdate () {
+    // Use good old-fashioned DOM manipulation to transition backgrounds.
+    // Is there a React way of doing this?
+    const skyEl = this.backgroundEl.current
+    const env = getEnvirons(this.props.environment)
+
+    const oldBg = skyEl.querySelector('div')
+    const newBg = document.createElement('div')
+    if (env.style.backgroundColor) {
+      newBg.style.backgroundColor = env.style.backgroundColor
+    }
+    if (env.style.backgroundImage) {
+      newBg.style.backgroundImage = env.style.backgroundImage
+    }
+
+    skyEl.insertBefore(newBg, oldBg)
+    oldBg.classList.add('sky-transition-out')
+    window.setTimeout(() => {
+      if (oldBg) {
+        oldBg.remove()
+      }
+    }, 500)
+  }
+
   updateStreetSkyBackground = (isFront, scrollPos) => {
     let style = ''
     if (isFront) {
@@ -49,11 +79,13 @@ class SkyBackground extends React.PureComponent {
     if (environs.foregroundGradient) {
       foregroundStyle.backgroundImage = makeCSSGradientDeclaration(environs.foregroundGradient)
       foregroundStyle.opacity = 1
+    } else {
+      foregroundStyle.opacity = 0
     }
 
     return (
       <section className="street-section-sky" style={skyStyle}>
-        <div className="sky-background">
+        <div className="sky-background" ref={this.backgroundEl}>
           <div className="sky-background-default" />
         </div>
         <div className="rear-clouds" style={rearCloudStyle} />
