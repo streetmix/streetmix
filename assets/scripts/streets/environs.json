@@ -70,7 +70,7 @@
       ]
     ],
     "cloudOpacity": 0.5,
-    "invertTextColor": true
+    "invertUITextColor": true
   },
   "sunrise": {
     "name": "Sunrise",
@@ -99,7 +99,7 @@
       ]
     ],
     "cloudOpacity": 0.2,
-    "invertTextColor": true
+    "invertUITextColor": true
   },
   "karl": {
     "name": "Karl",

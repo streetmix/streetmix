@@ -1,3 +1,5 @@
+@import '../../css/variables.scss';
+
 .street-metadata {
   padding-top: 7px;
   padding-bottom: 40px;
@@ -66,4 +68,18 @@ body.read-only .street-metadata-author a {
 
 .street-metadata-map a {
   text-decoration: underline;
+}
+
+.street-metadata-invert-color {
+  color: #fff;
+
+  .street-width-under {
+    color: #a0a0a0;
+  }
+
+  .street-metadata-author:not(:empty)::before,
+  .street-metadata-date:not(:empty)::before,
+  .street-metadata-map:not(:empty)::before {
+    color: #b0b0b0;
+  }
 }

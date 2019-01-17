@@ -12,7 +12,7 @@ class EnvironmentEditor extends Component {
   }
 
   static defaultProps = {
-    selected: 'defualt'
+    selected: 'default'
   }
 
   handleClick = (event, env) => {
@@ -38,14 +38,6 @@ class EnvironmentEditor extends Component {
     }
 
     transitionBackground(env)
-
-    if (env.invertTextColor) {
-      document.querySelector('.street-width-under').style.color = '#a0a0a0'
-      document.querySelector('.street-metadata').style.color = '#ffffff'
-    } else {
-      document.querySelector('.street-width-under').style.removeProperty('color')
-      document.querySelector('.street-metadata').style.removeProperty('color')
-    }
   }
 
   render () {
