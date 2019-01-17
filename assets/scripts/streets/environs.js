@@ -1,6 +1,6 @@
 import ENVIRONS from './environs.json'
 
-function makeCSSGradientDeclaration (array) {
+export function makeCSSGradientDeclaration (array) {
   // Normalize all values
   const stops = array.map((item) => {
     // If the value is a string, use it as is

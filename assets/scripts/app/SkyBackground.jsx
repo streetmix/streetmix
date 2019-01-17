@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getEnvirons } from '../streets/environs'
+import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
 import './SkyBackground.scss'
 
 class SkyBackground extends React.PureComponent {
@@ -45,6 +45,12 @@ class SkyBackground extends React.PureComponent {
       opacity: environs.cloudOpacity || null
     }
 
+    let foregroundStyle = {}
+    if (environs.foregroundGradient) {
+      foregroundStyle.backgroundImage = makeCSSGradientDeclaration(environs.foregroundGradient)
+      foregroundStyle.opacity = 1
+    }
+
     return (
       <section className="street-section-sky" style={skyStyle}>
         <div className="sky-background">
@@ -52,6 +58,7 @@ class SkyBackground extends React.PureComponent {
         </div>
         <div className="rear-clouds" style={rearCloudStyle} />
         <div className="front-clouds" style={frontCloudStyle} />
+        <div className="sky-foreground" style={foregroundStyle} />
       </section>
     )
   }

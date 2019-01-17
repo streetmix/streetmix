@@ -20,3 +20,15 @@
 .sky-transition-out {
   opacity: 0;
 }
+
+.sky-foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity $environment-transition;
+  z-index: $z-01-foreground;
+  pointer-events: none;
+  opacity: 0;
+}
