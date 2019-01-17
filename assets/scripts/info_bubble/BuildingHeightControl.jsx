@@ -35,7 +35,9 @@ class BuildingHeightControl extends React.Component {
    * @param {string} value - raw input
    */
   updateModel = (value) => {
-    this.props.setBuildingFloorValue(this.props.position, value)
+    if (value) {
+      this.props.setBuildingFloorValue(this.props.position, value)
+    }
   }
 
   /**
@@ -97,15 +99,10 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    addBuildingFloor: (position) => { dispatch(addBuildingFloor(position)) },
-    removeBuildingFloor: (position) => { dispatch(removeBuildingFloor(position)) },
-    setBuildingFloorValue: (position, value) => {
-      if (!value) return
-      dispatch(setBuildingFloorValue(position, value))
-    }
-  }
+const actionCreators = {
+  addBuildingFloor,
+  removeBuildingFloor,
+  setBuildingFloorValue
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl))
+export default injectIntl(connect(mapStateToProps, actionCreators)(BuildingHeightControl))
