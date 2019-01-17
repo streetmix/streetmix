@@ -93,3 +93,63 @@ exports.get = async function (req, res) {
     .then(handleFindUserStreets)
     .catch((error) => handleErrors(error, res))
 }
+
+exports.delete = async function (req, res) {
+  // Flag error if user ID is not provided
+  if (!req.params.user_id) {
+    res.status(400).send('Please provide user ID.')
+  } else if (!req.loginToken) {
+    res.status(400).send('Please provid a login token.')
+  }
+
+  const userId = req.userId
+  let requestUser
+
+  try {
+    requestUser = await User.findOne({ id: userId })
+  } catch (error) {
+    logger.error(error)
+    res.status(500).send('Error finding user.')
+  }
+
+  if (!requestUser) {
+    res.status(401).send('User not found.')
+    return
+  }
+
+  // Is requesting user logged in?
+  if (requestUser.login_tokens.indexOf(req.loginToken) === -1) {
+    res.status(401).end()
+    return
+  }
+
+  const targetUserId = req.params.user_id
+  let targetUser
+
+  if (targetUserId !== userId) {
+    try {
+      targetUser = await User.findOne({ id: targetUserId })
+    } catch (error) {
+      logger.error(error)
+      res.status(500).send('Error finding user.')
+    }
+
+    if (!targetUser) {
+      res.status(401).send('User not found.')
+      return
+    }
+  } else {
+    targetUser = requestUser
+  }
+
+  const handleRemoveUserStreets = function (error, streets) {
+    if (error) {
+      logger.error(error)
+      handleErrors(ERRORS.CANNOT_UPDATE_STREET, res)
+    }
+
+    res.status(204).end()
+  }
+
+  Street.update({ creator_id: targetUser._id, status: 'ACTIVE' }, { status: 'DELETED' }, { multi: true }, handleRemoveUserStreets)
+}
