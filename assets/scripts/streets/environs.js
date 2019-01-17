@@ -25,14 +25,27 @@ export function makeCSSGradientDeclaration (array) {
   return `linear-gradient(${stops.join(', ')})`
 }
 
+function makeCSSBackgroundImageDeclaration (url) {
+  return `url('${url}') top/cover no-repeat`
+}
+
 function makeReactStyleObject (env) {
   const style = {}
   if (env.backgroundColor) {
     style.backgroundColor = env.backgroundColor
   }
+
   if (env.backgroundGradient) {
-    style.backgroundImage = makeCSSGradientDeclaration(env.backgroundGradient)
+    if (env.backgroundImage) {
+      const background = []
+      background.push(makeCSSGradientDeclaration(env.backgroundGradient))
+      background.push(makeCSSBackgroundImageDeclaration(env.backgroundImage))
+      style.background = background.join(', ')
+    } else {
+      style.backgroundImage = makeCSSGradientDeclaration(env.backgroundGradient)
+    }
   }
+
   return style
 }
 
