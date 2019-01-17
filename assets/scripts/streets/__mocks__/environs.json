@@ -1,0 +1,54 @@
+{
+  "default": {
+    "name": "Day",
+    "backgroundColor": "#a9ccdb"
+  },
+  "foo": {
+    "name": "Foo",
+    "backgroundGradient": [
+      "#020b1a",
+      "#3e5879",
+      [
+        "#9ba5ae"
+      ],
+      [
+        "#dcb697"
+      ],
+      [
+        "#fc7001"
+      ],
+      [
+        "#dd723c"
+      ],
+      [
+        "#ad4a28"
+      ],
+      [
+        "#040308"
+      ]
+    ],
+    "cloudOpacity": 0.85
+  },
+  "bar": {
+    "name": "Bar",
+    "backgroundGradient": [
+      [
+        "#020b1a"
+      ],
+      [
+        "#3e5879"
+      ],
+      [
+        "#9ba5ae",
+        0.4
+      ],
+      [
+        "#dcb697"
+      ],
+      [
+        "#fc7001"
+      ]
+    ],
+    "cloudOpacity": 0.85
+  }
+}
