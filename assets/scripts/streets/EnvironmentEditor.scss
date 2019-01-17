@@ -16,6 +16,24 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.075);
   font-size: 0.65rem;
   user-select: none;
+
+  /* Transitions - copied from Dialog! */
+  transition: opacity 60ms ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Transitions */
+.environment-editor-transition-enter-done {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.environment-editor-transition-exit {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
 }
 
 .environment-editor-container header {

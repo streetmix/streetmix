@@ -20,7 +20,7 @@
     "defaultValue": true
   },
   "ENVIRONMENT_EDITOR": {
-    "label": "Enable environment editor",
+    "label": "Environment editor",
     "defaultValue": false
   },
   "SAVE_UNDO": {
