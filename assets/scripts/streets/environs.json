@@ -1,0 +1,129 @@
+{
+  "default": {
+    "name": "Day",
+    "backgroundColor": "#a9ccdb"
+  },
+  "twilight": {
+    "name": "Twilight",
+    "backgroundGradient": [
+      [
+        "#5583be",
+        0
+      ],
+      [
+        "#eebaa5",
+        0.4
+      ],
+      [
+        "#de7d8e",
+        0.8
+      ]
+    ],
+    "cloudOpacity": 0.85
+  },
+  "sunset": {
+    "name": "Sunset",
+    "backgroundGradient": [
+      [
+        "#020b1a"
+      ],
+      [
+        "#3e5879"
+      ],
+      [
+        "#9ba5ae"
+      ],
+      [
+        "#dcb697"
+      ],
+      [
+        "#fc7001"
+      ],
+      [
+        "#dd723c"
+      ],
+      [
+        "#ad4a28"
+      ],
+      [
+        "#040308"
+      ]
+    ],
+    "cloudOpacity": 0.65
+  },
+  "sunset2": {
+    "name": "Sunset 2",
+    "backgroundGradient": [
+      [
+        "#020b1a"
+      ],
+      [
+        "#3e5879"
+      ],
+      [
+        "#ec6127",
+        0.5
+      ],
+      [
+        "#ffbb65",
+        0.7
+      ]
+    ],
+    "cloudOpacity": 0.5,
+    "invertUITextColor": true
+  },
+  "sunrise": {
+    "name": "Sunrise",
+    "backgroundGradient": [
+      "#a9ccdb",
+      "#b7d6fd",
+      "#fbce96",
+      "#dd771e",
+      "#58151a"
+    ]
+  },
+  "night": {
+    "name": "Night",
+    "backgroundImage": "/images/stars.jpg",
+    "backgroundColor": "#010516",
+    "_commentBackgroundColor": "Fall back to solid color in case image is broken",
+    "backgroundGradient": [
+      [
+        "#01051600",
+        0
+      ],
+      [
+        "#01081777",
+        0.33
+      ],
+      [
+        "#031641",
+        0.66
+      ],
+      [
+        "#061c45",
+        1
+      ]
+    ],
+    "cloudOpacity": 0.2,
+    "invertUITextColor": true
+  },
+  "karl": {
+    "name": "Foggy",
+    "backgroundColor": "#e2f0f2",
+    "foregroundGradient": [
+      [
+        "rgba(255,255,255,0.85)",
+        0
+      ],
+      [
+        "rgba(192,192,192,0.5)",
+        0.85
+      ],
+      [
+        "transparent",
+        1
+      ]
+    ]
+  }
+}

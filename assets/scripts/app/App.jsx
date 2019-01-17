@@ -17,6 +17,7 @@ import Palette from './Palette'
 import DialogRoot from '../dialogs/DialogRoot'
 import StatusMessage from './StatusMessage'
 import NoConnectionMessage from './NoConnectionMessage'
+import EnvironmentEditor from '../streets/EnvironmentEditor'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
@@ -70,6 +71,7 @@ class App extends React.PureComponent {
               <DialogRoot />
               <StatusMessage />
               <NoConnectionMessage />
+              <EnvironmentEditor />
             </React.Fragment>
           </IntlProvider>
           <SegmentDragLayer />

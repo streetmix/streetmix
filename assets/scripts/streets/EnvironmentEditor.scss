@@ -1,0 +1,74 @@
+//
+// Environment editor
+//
+// --------------------------------------------------------
+
+@import '../../css/variables.scss';
+
+.environment-editor-container {
+  z-index: $z-06-environment-editor;
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  font-size: 0.65rem;
+  user-select: none;
+
+  /* Transitions - copied from Dialog! */
+  transition: opacity 60ms ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Transitions */
+.environment-editor-transition-enter-done {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.environment-editor-transition-exit {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.environment-editor-container header {
+  padding: 0.75em;
+  text-align: center;
+  background-color: #e6f0f5;
+  cursor: move;
+}
+
+.environment-editor-container header h3 {
+  margin: 0;
+}
+
+.environment-editor-content {
+  padding: 1em;
+}
+
+.environment-select-grid {
+  display: grid;
+  height: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-flow: row;
+  grid-gap: 0.75em;
+}
+
+.environment-select {
+  width: 36px;
+  height: 36px;
+  background-color: #f7f7f7;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.environment-select.environment-active {
+  box-shadow:
+    0 0 0 2px #87b7cb,
+    inset 0 0 0 2px white;
+}

@@ -2,12 +2,9 @@
   position: absolute;
   left: 0;
   right: -2000px; // TODO hack - this makes the sky wide enough for 400' streets - sky scrolls with the street
-  height: $canvas-baseline + 150px;
-  background-size: 100% 350px;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-color: $sky-colour;
+  height: $canvas-baseline;
   pointer-events: none;
+  opacity: 1;
 
   /* "Legacy" box-sizing */
   box-sizing: content-box;
@@ -21,8 +18,15 @@
   top: 0;
   left: 0;
 
-  /* "Legacy" box-sizing */
-  box-sizing: content-box;
+  // Position of clouds is % based because it needs to be aligned with
+  // viewport, not attached to the horizon line
+  .rear-clouds {
+    bottom: calc(50% - 50px);
+  }
+
+  .front-clouds {
+    bottom: calc(50% - 250px);
+  }
 }
 
 .rear-clouds,
@@ -32,22 +36,21 @@
   width: 100%;
   background-repeat: repeat-x;
   background-position: 0 0;
+  transition: opacity $environment-transition;
 }
 
 .rear-clouds {
-  height: 120px;
-  bottom: 480px;
+  height: 250px;
+  bottom: 200px;
   background-image: url('../../public/images/sky-rear.svg');
-  background-size: 250px 120px;
+  background-size: 250px 250px;
 }
 
 .front-clouds {
   height: 280px;
-  bottom: 0;
-  border-bottom: 200px solid rgb(165, 196, 209);
+  bottom: 50px;
   background-image: url('../../public/images/sky-front.svg');
   background-size: 250px 280px;
-  opacity: 0.5;
 }
 
 // A setting activates this class and turns on environmental animations

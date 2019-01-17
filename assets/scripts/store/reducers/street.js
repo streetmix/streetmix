@@ -21,12 +21,15 @@ import {
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
   SET_BUILDING_FLOOR_VALUE,
-  SET_BUILDING_VARIANT
+  SET_BUILDING_VARIANT,
+  SET_ENVIRONMENT
 } from '../actions'
 import { getVariantString } from '../../segments/variant_utils'
+import { DEFAULT_ENVIRONS } from '../../streets/constants'
 
 const initialState = {
   segments: [],
+  environment: DEFAULT_ENVIRONS,
   immediateRemoval: true
 }
 
@@ -224,6 +227,12 @@ const street = (state = initialState, action) => {
           }
         default:
           return state
+      }
+    }
+    case SET_ENVIRONMENT: {
+      return {
+        ...state,
+        environment: action.env
       }
     }
     default:

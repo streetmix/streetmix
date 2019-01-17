@@ -48,6 +48,7 @@ $font-family: 'Lato', sans-serif;
 // Timing
 $touch-controls-fadeout-time: 3000ms;
 $segment-switching-time:      250ms;
+$environment-transition:      500ms ease;
 
 // Z-INDEX SCALE
 $z-index-01: 100;
@@ -72,6 +73,7 @@ $z-index-10: 1000;
 // imposed by stacking contexts.
 $z-01-main-screen:          $z-index-01;
 $z-01-street-section:       $z-index-01;
+$z-01-foreground:           $z-index-01;
 $z-02-segment-focused:      $z-index-02;
 $z-02-palette:              $z-index-02;
 $z-02-menu-bar:             $z-index-02;
@@ -83,6 +85,7 @@ $z-04-command-menu:         $z-index-04;
 $z-05-welcome:              $z-index-05;
 $z-06-info-bubble:          $z-index-06;
 $z-06-drag-handle:          $z-index-06;
+$z-06-environment-editor:   $z-index-06;
 $z-07-street-scroll:        $z-index-07;
 $z-07-status-message:       $z-index-07;
 $z-07-trashcan:             $z-index-07;

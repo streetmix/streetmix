@@ -19,6 +19,10 @@
     "label": "UI — Edit right-side buildings",
     "defaultValue": true
   },
+  "ENVIRONMENT_EDITOR": {
+    "label": "Environment editor",
+    "defaultValue": false
+  },
   "SAVE_UNDO": {
     "label": "Save undo data to server",
     "defaultValue": false,
