@@ -16,6 +16,10 @@ import {
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
+// Alternative icon reference, which can be mocked and tested
+export const UNDO_ICON = faUndo
+export const REDO_ICON = faRedo
+
 // Load Font-Awesome icons
 export function initIcons () {
   library.add(
