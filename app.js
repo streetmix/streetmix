@@ -205,7 +205,7 @@ app.get('/services/geoip', resources.services.geoip.get)
 
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
 
-app.get('/api/v1/flags', resources.v1.flags.get)
+app.get('/api/v1/flags', cors(), resources.v1.flags.get)
 
 // Catch all for all broken api paths, direct to 404 response.
 app.get('/api/*', function (req, res) {
