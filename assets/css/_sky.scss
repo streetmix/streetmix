@@ -18,8 +18,15 @@
   top: 0;
   left: 0;
 
-  /* "Legacy" box-sizing */
-  box-sizing: content-box;
+  // Position of clouds is % based because it needs to be aligned with
+  // viewport, not attached to the horizon line
+  .rear-clouds {
+    bottom: calc(50% - 50px);
+  }
+
+  .front-clouds {
+    bottom: calc(50% - 250px);
+  }
 }
 
 .rear-clouds,
