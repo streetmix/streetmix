@@ -2,6 +2,7 @@ import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
+import { getEnvirons, makeCanvasGradientStopArray } from '../streets/environs'
 import {
   BUILDINGS,
   GROUND_BASELINE_HEIGHT,
@@ -16,7 +17,6 @@ import {
 } from '../segments/view'
 import { t } from '../locales/locale'
 
-const SKY_COLOUR = 'rgb(169, 204, 219)'
 // TODO: replace SKY_WIDTH with image's natural width
 const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
@@ -48,36 +48,66 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   var groundLevel = offsetTop + (135 * multiplier)
 
-  // Sky
+  const horizonLine = (groundLevel + (20 * multiplier)) * dpi
 
+  // Sky
   if (!transparentSky) {
-    ctx.fillStyle = SKY_COLOUR
-    ctx.fillRect(0, 0, thumbnailWidth * dpi, (groundLevel + (20 * multiplier)) * dpi)
+    const env = getEnvirons(street.environment)
+
+    // Solid color fill
+    if (env.backgroundColor) {
+      ctx.fillStyle = env.backgroundColor
+      ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
+    }
+
+    // Gradient fill
+    if (env.backgroundGradient) {
+      const gradient = ctx.createLinearGradient(0, 0, 0, horizonLine)
+
+      // Make color stops
+      const stops = makeCanvasGradientStopArray(env.backgroundGradient)
+      for (let i = 0; i < stops.length; i++) {
+        const [ color, stop ] = stops[i]
+        gradient.addColorStop(stop, color)
+      }
+
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
+    }
+
+    const SKY_FRONT_HEIGHT = 280
+    const SKY_REAR_HEIGHT = 250
 
     // TODO document magic numbers
-    const y1 = groundLevel - 280
+    // y1 = top edge of sky-front image, bottom of image should hit groundlevel
+    const y1 = groundLevel - SKY_FRONT_HEIGHT
+
+    // Handle cloud opacity
+    ctx.save()
+    ctx.globalAlpha = env.cloudOpacity || 1
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
       ctx.drawImage(images.get('/images/sky-front.svg').img,
-        0, 0, SKY_WIDTH * 2, 280 * 2,
-        i * SKY_WIDTH * dpi, y1 * dpi, SKY_WIDTH * dpi, 280 * dpi)
+        0, 0, SKY_WIDTH * 2, SKY_FRONT_HEIGHT * 2,
+        i * SKY_WIDTH * dpi, y1 * dpi, SKY_WIDTH * dpi, SKY_FRONT_HEIGHT * dpi)
     }
 
     // TODO document magic numbers
-    const y2 = groundLevel - 280 - 120
+    // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
+    const y2 = groundLevel - SKY_FRONT_HEIGHT - 120
 
     for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
       ctx.drawImage(images.get('/images/sky-rear.svg').img,
-        0, 0, SKY_WIDTH * 2, 120 * 2,
-        i * SKY_WIDTH * dpi, y2 * dpi, SKY_WIDTH * dpi, 120 * dpi)
+        0, 0, SKY_WIDTH * 2, SKY_REAR_HEIGHT * 2,
+        i * SKY_WIDTH * dpi, y2 * dpi, SKY_WIDTH * dpi, SKY_REAR_HEIGHT * dpi)
     }
+    ctx.restore()
   }
 
   // Dirt
 
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(0, (groundLevel + (20 * multiplier)) * dpi,
-    thumbnailWidth * dpi, (25 * multiplier) * dpi)
+  ctx.fillRect(0, horizonLine, thumbnailWidth * dpi, (25 * multiplier) * dpi)
 
   ctx.fillRect(0, groundLevel * dpi,
     ((thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)) * dpi,
