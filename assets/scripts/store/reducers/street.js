@@ -25,10 +25,11 @@ import {
   SET_ENVIRONMENT
 } from '../actions'
 import { getVariantString } from '../../segments/variant_utils'
+import { DEFAULT_ENVIRONS } from '../../streets/constants'
 
 const initialState = {
   segments: [],
-  environment: 'default',
+  environment: DEFAULT_ENVIRONS,
   immediateRemoval: true
 }
 

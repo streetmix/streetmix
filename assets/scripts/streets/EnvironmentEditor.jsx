@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import { saveStreetToServerIfNecessary } from './data_model'
 import { getAllEnvirons } from './environs'
+import { DEFAULT_ENVIRONS } from './constants'
 import { setEnvironment } from '../store/actions/street'
 import './EnvironmentEditor.scss'
 
@@ -16,7 +17,7 @@ class EnvironmentEditor extends Component {
 
   static defaultProps = {
     enable: false,
-    selected: 'default'
+    selected: DEFAULT_ENVIRONS
   }
 
   handleClick = (event, env) => {
@@ -46,7 +47,7 @@ class EnvironmentEditor extends Component {
 
                 if (this.props.selected === id) {
                   classNames.push('environment-active')
-                } else if (!this.props.selected && id === 'default') {
+                } else if (!this.props.selected && id === DEFAULT_ENVIRONS) {
                   classNames.push('environment-active')
                 }
 

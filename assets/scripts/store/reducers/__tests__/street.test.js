@@ -6,16 +6,18 @@ describe('street reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       immediateRemoval: true,
-      segments: []
+      segments: [],
+      environment: 'default'
     })
   })
 
   it('should handle ADD_SEGMENT', () => {
     // Add a segment at index 0 from initial state
     expect(
-      reducer(undefined, actions.addSegment(0, { type: 'foo' }))
+      reducer({
+        segments: []
+      }, actions.addSegment(0, { type: 'foo' }))
     ).toEqual({
-      immediateRemoval: true,
       segments: [
         { type: 'foo' }
       ]
@@ -645,6 +647,16 @@ describe('street reducer', () => {
         expect(
           reducer({ ...existingStreet }, actions.setBuildingVariant('middle'))
         ).toEqual(existingStreet)
+      })
+    })
+  })
+
+  describe('environs', () => {
+    it('sets a new environs', () => {
+      expect(
+        reducer({ environment: 'foo' }, actions.setEnvironment('bar'))
+      ).toEqual({
+        environment: 'bar'
       })
     })
   })

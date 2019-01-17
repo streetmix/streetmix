@@ -8,6 +8,7 @@ import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
+import { DEFAULT_ENVIRONS } from './constants'
 import { updateStreetName } from './name'
 import {
   createNewUndoIfNecessary,
@@ -26,7 +27,6 @@ import { resetUndoStack } from '../store/actions/undo'
 import { setUnitSettings } from '../store/actions/ui'
 import store from '../store'
 
-const DEFAULT_ENVIRONMENT = 'default'
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
 const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
 const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
@@ -243,7 +243,7 @@ function incrementSchemaVersion (street) {
       break
     case 18:
       if (!street.environment) {
-        street.environment = DEFAULT_ENVIRONMENT
+        street.environment = DEFAULT_ENVIRONS
       }
   }
 
@@ -435,7 +435,7 @@ export function prepareEmptyStreet () {
     name: null,
     userUpdated: false,
     editCount: 0,
-    environment: 'default',
+    environment: DEFAULT_ENVIRONS,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
