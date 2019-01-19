@@ -84,7 +84,7 @@
   },
   "night": {
     "name": "Night",
-    "backgroundImage": "/images/stars.jpg",
+    "backgroundImage": "/images/stars.svg",
     "backgroundColor": "#010516",
     "_commentBackgroundColor": "Fall back to solid color in case image is broken",
     "backgroundGradient": [

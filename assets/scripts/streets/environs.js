@@ -40,7 +40,7 @@ export function makeCSSGradientDeclaration (array) {
  * @returns {String} - CSS value
  */
 function makeCSSBackgroundImageDeclaration (url) {
-  return `url('${url}') top/cover no-repeat`
+  return `url('${url}') top/2000px repeat`
 }
 
 /**
