@@ -1,12 +1,108 @@
 @import '../../css/variables.scss';
 
+.street-section-sky {
+  position: absolute;
+  left: 0;
+  right: -2000px; // TODO hack - this makes the sky wide enough for 400' streets - sky scrolls with the street
+  top: -70px; // Space for scrolling down when gallery open
+  pointer-events: none;
+  opacity: 1;
+}
+
+// Used on #error
+.clouds-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  // Position of clouds is % based because it needs to be aligned with
+  // viewport, not attached to the horizon line
+  .rear-clouds {
+    bottom: calc(50% - 50px);
+  }
+
+  .front-clouds {
+    bottom: calc(50% - 250px);
+  }
+}
+
+.rear-clouds,
+.front-clouds {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  transition: opacity $environment-transition;
+}
+
+.rear-clouds {
+  height: 250px;
+  bottom: 200px;
+  background-image: url('../../../public/images/sky-rear.svg');
+  background-size: 250px 250px;
+}
+
+.front-clouds {
+  height: 280px;
+  bottom: 50px;
+  background-image: url('../../../public/images/sky-front.svg');
+  background-size: 250px 280px;
+}
+
+// A setting activates this class and turns on environmental animations
+// This is so it can be disabled based on preference or performance reasons
+body.environment-animations {
+  .rear-clouds {
+    animation-name: rear-clouds-move;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .front-clouds {
+    animation-name: front-clouds-move;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes rear-clouds-move {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 250px 0;
+  }
+}
+
+@keyframes front-clouds-move {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 250px 0;
+  }
+}
+
 .sky-background,
-.sky-background > div {
+.sky-background > div,
+.sky-background-objects {
+  // Backgrounds don't need to have parallax scrolling, so they don't
+  // need to be as wide as the clouds, which do scroll. But we can't
+  // have it wider than the viewport, because there's a rendering bug
+  // in Chrome where if stars.svg is in a div that's too wide, it's
+  // rendered pixellated for some reason.
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
+  width: 100vw;
+  height: 100%;
 }
 
 .sky-background-default {
@@ -31,4 +127,14 @@
   z-index: $z-01-foreground;
   pointer-events: none;
   opacity: 0;
+}
+
+.sky-superbloodwolfmoon {
+  background-image: url('../../../public/images/super-blood-wolf-moon.png');
+  height: 116px;
+  width: 116px;
+  position: absolute;
+  top: 20%;
+  right: 30%;
+  background-size: contain;
 }

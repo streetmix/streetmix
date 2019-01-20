@@ -7,8 +7,7 @@ import './SkyBackground.scss'
 class SkyBackground extends React.PureComponent {
   static propTypes = {
     scrollPos: PropTypes.number.isRequired,
-    streetSectionSkyTop: PropTypes.number.isRequired,
-    skyTop: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
     system: PropTypes.object.isRequired,
     environment: PropTypes.string.isRequired
   }
@@ -60,16 +59,12 @@ class SkyBackground extends React.PureComponent {
   }
 
   render () {
-    const { streetSectionSkyTop, skyTop, scrollPos, system, environment } = this.props
-
+    const { height, scrollPos, system, environment } = this.props
     const environs = getEnvirons(environment)
 
     const skyStyle = {
-      top: streetSectionSkyTop + 'px',
-      paddingTop: skyTop + 'px',
-      marginTop: -skyTop + 'px'
+      height: `${height}px`
     }
-
     const frontCloudStyle = {
       [system.cssTransform]: this.updateStreetSkyBackground(true, scrollPos),
       opacity: environs.cloudOpacity || null
@@ -91,6 +86,9 @@ class SkyBackground extends React.PureComponent {
       <section className="street-section-sky" style={skyStyle}>
         <div className="sky-background" ref={this.backgroundEl}>
           <div className="sky-background-default" />
+        </div>
+        <div className="sky-background-objects">
+          <div className="sky-superbloodwolfmoon" />
         </div>
         <div className="rear-clouds" style={rearCloudStyle} />
         <div className="front-clouds" style={frontCloudStyle} />
