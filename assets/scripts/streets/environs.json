@@ -51,8 +51,8 @@
     ],
     "cloudOpacity": 0.65
   },
-  "sunset2": {
-    "name": "Sunset 2",
+  "dusk": {
+    "name": "Dusk",
     "backgroundGradient": [
       [
         "#020b1a"
@@ -78,7 +78,10 @@
       "#a9ccdb",
       "#b7d6fd",
       "#fbce96",
-      "#dd771e",
+      [
+        "#dd771e",
+        0.9
+      ],
       "#58151a"
     ]
   },
