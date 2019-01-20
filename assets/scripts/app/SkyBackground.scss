@@ -91,7 +91,8 @@ body.environment-animations {
 }
 
 .sky-background,
-.sky-background > div {
+.sky-background > div,
+.sky-background-objects {
   // Backgrounds don't need to have parallax scrolling, so they don't
   // need to be as wide as the clouds, which do scroll. But we can't
   // have it wider than the viewport, because there's a rendering bug
@@ -126,4 +127,14 @@ body.environment-animations {
   z-index: $z-01-foreground;
   pointer-events: none;
   opacity: 0;
+}
+
+.sky-superbloodwolfmoon {
+  background-image: url('../../../public/images/super-blood-wolf-moon.png');
+  height: 128px;
+  width: 128px;
+  position: absolute;
+  top: 20%;
+  right: 30%;
+  background-size: contain;
 }

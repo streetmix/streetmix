@@ -87,6 +87,9 @@ class SkyBackground extends React.PureComponent {
         <div className="sky-background" ref={this.backgroundEl}>
           <div className="sky-background-default" />
         </div>
+        <div className="sky-background-objects">
+          <a href="https://www.nationalgeographic.com/science/2019/01/how-to-watch-super-blood-wolf-moon-lunar-eclipse/" target="_blank" rel="noopener noreferrer"><div className="sky-superbloodwolfmoon" /></a>
+        </div>
         <div className="rear-clouds" style={rearCloudStyle} />
         <div className="front-clouds" style={frontCloudStyle} />
         <div className="sky-foreground" style={foregroundStyle} />
