@@ -137,4 +137,12 @@ body.environment-animations {
   top: 20%;
   right: 30%;
   background-size: contain;
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity $environment-transition, transform $environment-transition;
+}
+
+.sky-supermoon .sky-superbloodwolfmoon {
+  transform: translateY(0);
+  opacity: 1;
 }

@@ -1,13 +1,14 @@
 /* eslint-env jest */
 import reducer from '../street'
 import * as actions from '../../actions/street'
+import { DEFAULT_ENVIRONS } from '../../../streets/constants'
 
 describe('street reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       immediateRemoval: true,
       segments: [],
-      environment: 'default'
+      environment: DEFAULT_ENVIRONS
     })
   })
 

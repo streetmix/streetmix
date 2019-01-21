@@ -5,6 +5,7 @@ import {
   getEnvirons,
   getAllEnvirons
 } from '../environs'
+import { DEFAULT_ENVIRONS } from '../constants'
 import MOCK_ENVIRONS from '../__mocks__/environs.json'
 
 jest.mock('../environs.json', () => require('../__mocks__/environs.json'))
@@ -65,7 +66,7 @@ describe('environs helpers', () => {
 
     it('returns default environs if specified environs id does not exist', () => {
       const result = getEnvirons('qux')
-      expect(result.id).toEqual('default')
+      expect(result.id).toEqual(DEFAULT_ENVIRONS)
     })
   })
 

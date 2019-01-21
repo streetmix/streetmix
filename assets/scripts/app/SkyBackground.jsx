@@ -83,7 +83,7 @@ class SkyBackground extends React.PureComponent {
     }
 
     return (
-      <section className="street-section-sky" style={skyStyle}>
+      <section className={`street-section-sky sky-${environs.id}`} style={skyStyle}>
         <div className="sky-background" ref={this.backgroundEl}>
           <div className="sky-background-default" />
         </div>

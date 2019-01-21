@@ -6,6 +6,7 @@ import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import UndoRedo from './UndoRedo'
 import PaletteTooltips from '../palette/PaletteTooltips'
+import PaletteCommandsLeft from '../palette/PaletteCommandsLeft'
 import { getAllSegmentInfoArray } from '../segments/info'
 
 class Palette extends React.Component {
@@ -148,6 +149,7 @@ class Palette extends React.Component {
 
     return (
       <div className="palette-container">
+        <PaletteCommandsLeft />
         <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
           <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
         </div>
