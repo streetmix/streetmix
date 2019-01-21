@@ -8,11 +8,17 @@
   height: $palette-height - 26px;
   bottom: 0;
   background: $palette-background;
-  border-top: 3px solid darken($bottom-background, 5%);
+  // border-top: 3px solid darken($bottom-background, 5%);
   text-align: center;
   z-index: $z-02-palette;
   user-select: none;
   touch-action: none;
+
+  // New style!
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  // border-left: 3px solid darken($bottom-background, 5%);
+  // border-right: 3px solid darken($bottom-background, 5%);
 }
 
 body.read-only .palette-container {
@@ -30,6 +36,19 @@ body.read-only .palette-container {
   button.scrollable {
     margin-top: 10px;
     z-index: $z-04-palette-scroll;
+
+    // New style!
+    width: 40px;
+    border: $button-border;
+    border-radius: 50%;
+
+    &.scroll-right {
+      right: -20px !important;
+    }
+
+    &.scroll-left {
+      left: -20px !important;
+    }
   }
 }
 
@@ -56,6 +75,14 @@ body.read-only .palette-container {
   button {
     height: $palette-height - 50px;
     width: $palette-height - 50px;
+
+    // New style!
+    border: $button-border;
+    border-radius: 50%;
+
+    &[disabled] {
+      border-color: desaturate($ui-colour, 100%);
+    }
   }
 
   // Spacing between buttons
