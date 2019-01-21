@@ -60,6 +60,20 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
     }
 
+    // Background image fill
+    if (env.backgroundImage) {
+      const STARS_WIDTH = 2000
+      const STARS_HEIGHT = 1333
+      for (let i = 0; i < Math.floor(thumbnailHeight / STARS_HEIGHT) + 1; i++) {
+        for (let j = 0; j < Math.floor(thumbnailWidth / STARS_WIDTH) + 1; j++) {
+          ctx.drawImage(images.get('/images/stars.svg').img,
+            0, 0, STARS_WIDTH * 2, STARS_HEIGHT * 2,
+            j * SKY_WIDTH * dpi, i * STARS_HEIGHT * dpi, SKY_WIDTH * dpi, STARS_HEIGHT * dpi)
+          console.log('drawing', images.get('/images/stars.svg').img, i, j)
+        }
+      }
+    }
+
     // Gradient fill
     if (env.backgroundGradient) {
       const gradient = ctx.createLinearGradient(0, 0, 0, horizonLine)
@@ -73,6 +87,13 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
+    }
+
+    const SUPERMOON = true
+    if (SUPERMOON) {
+      console.log(images.get('/images/super-blood-wolf-moon.png').img)
+      ctx.drawImage(images.get('/images/super-blood-wolf-moon.png').img,
+        0.2 * thumbnailWidth, 0.33 * thumbnailHeight, 128 * dpi, 128 * dpi)
     }
 
     const SKY_FRONT_HEIGHT = 280

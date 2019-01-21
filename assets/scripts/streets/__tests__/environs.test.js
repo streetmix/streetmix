@@ -8,6 +8,7 @@ import {
 import MOCK_ENVIRONS from '../__mocks__/environs.json'
 
 jest.mock('../environs.json', () => require('../__mocks__/environs.json'))
+jest.mock('../constants', () => ({ DEFAULT_ENVIRONS: 'default' }))
 
 describe('environs helpers', () => {
   describe('makeCSSGradientDeclaration', () => {

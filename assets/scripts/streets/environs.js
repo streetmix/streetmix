@@ -1,4 +1,5 @@
 import ENVIRONS from './environs.json'
+import { DEFAULT_ENVIRONS } from './constants'
 
 /**
  * Converts information from environs.json to create a string value
@@ -139,8 +140,8 @@ export function getEnvirons (id) {
   let env = ENVIRONS[id]
 
   if (!env) {
-    env = ENVIRONS.default
-    id = 'default'
+    env = ENVIRONS[DEFAULT_ENVIRONS]
+    id = DEFAULT_ENVIRONS
   }
 
   return {
