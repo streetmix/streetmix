@@ -88,7 +88,7 @@ class SkyBackground extends React.PureComponent {
           <div className="sky-background-default" />
         </div>
         <div className="sky-background-objects">
-          <div className="sky-superbloodwolfmoon" />
+          {/* <div className="sky-superbloodwolfmoon" /> */}
         </div>
         <div className="rear-clouds" style={rearCloudStyle} />
         <div className="front-clouds" style={frontCloudStyle} />
