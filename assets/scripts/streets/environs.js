@@ -54,6 +54,10 @@ function makeCSSBackgroundImageDeclaration (url) {
  */
 function makeReactStyleObject (env) {
   const style = {}
+
+  // If an error causes `env` to be undefined, return an empty object.
+  if (!env) return style
+
   if (env.backgroundColor) {
     style.backgroundColor = env.backgroundColor
   }

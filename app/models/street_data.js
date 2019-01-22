@@ -2,7 +2,7 @@ const { getVariantString, getVariantArray } = require('../../lib/variant')
 
 const LATEST_SCHEMA_VERSION = 19
 
-const DEFAULT_ENVIRONS = 'supermoon'
+const DEFAULT_ENVIRONS = 'day'
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
 const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
 const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
