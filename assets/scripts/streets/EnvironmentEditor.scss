@@ -8,14 +8,19 @@
 .environment-editor-container {
   z-index: $z-06-environment-editor;
   position: absolute;
-  top: 60px;
-  left: 30px;
+  bottom: 90px;
+  left: 50px;
   background-color: white;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   font-size: 0.65rem;
   user-select: none;
+
+  [dir="rtl"] & {
+    left: auto;
+    right: 50px;
+  }
 
   /* Transitions - copied from Dialog! */
   transition: opacity 60ms ease-in-out;

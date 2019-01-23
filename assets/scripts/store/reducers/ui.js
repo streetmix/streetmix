@@ -5,12 +5,14 @@ import {
   SET_ACTIVE_SEGMENT,
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
-  SET_DRAGGING_TYPE
+  SET_DRAGGING_TYPE,
+  TOGGLE_TOOLBOX
 } from '../actions'
 import * as constants from '../../users/constants'
 
 const initialState = {
   streetNameCanvasVisible: true,
+  toolboxVisible: false,
   unitSettings: {
     resolution: constants.SEGMENT_WIDTH_RESOLUTION_METRIC,
     draggingResolution: constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
@@ -66,6 +68,11 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         draggingType: action.draggingType
+      }
+    case TOGGLE_TOOLBOX:
+      return {
+        ...state,
+        toolboxVisible: !state.toolboxVisible
       }
     default:
       return state

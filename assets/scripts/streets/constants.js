@@ -1,1 +1,1 @@
-export const DEFAULT_ENVIRONS = 'supermoon'
+export const DEFAULT_ENVIRONS = 'day'

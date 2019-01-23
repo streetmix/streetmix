@@ -12,8 +12,7 @@ import {
   faUndo,
   faRedo,
   faTrashAlt,
-  faSun,
-  faMoon
+  faTools
 } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -21,8 +20,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 // Alternative icon reference, which can be mocked and tested
 export const UNDO_ICON = faUndo
 export const REDO_ICON = faRedo
-export const SUN_ICON = faSun
-export const MOON_ICON = faMoon
+export const TOOLS_ICON = faTools
 
 // Load Font-Awesome icons
 export function initIcons () {

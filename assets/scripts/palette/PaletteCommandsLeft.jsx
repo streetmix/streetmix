@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CloseButton from '../ui/CloseButton'
-import { SUN_ICON, MOON_ICON } from '../ui/icons'
-import { setEnvironment } from '../store/actions/street'
+import { TOOLS_ICON } from '../ui/icons'
+import { toggleToolbox } from '../store/actions/ui'
 import './PaletteCommandsLeft.scss'
 
 class PaletteCommandsLeft extends Component {
   static propTypes = {
-    env: PropTypes.string,
-    setEnvironment: PropTypes.func.isRequired
+    enable: PropTypes.bool,
+    toggleToolbox: PropTypes.func
   }
 
   constructor (props) {
@@ -18,7 +18,7 @@ class PaletteCommandsLeft extends Component {
 
     let tooltipDismissed
     try {
-      tooltipDismissed = window.localStorage.getItem('supermoon-tooltip-dismissed')
+      tooltipDismissed = window.localStorage.getItem('new-palette-tooltip-dismissed')
     } catch (e) {
       console.log('Could not access localstorage')
     }
@@ -28,14 +28,9 @@ class PaletteCommandsLeft extends Component {
     }
   }
 
-  setToDay = () => {
+  handleClickTools = () => {
     this.dismissTooltip()
-    this.props.setEnvironment('day')
-  }
-
-  setToMoon = () => {
-    this.dismissTooltip()
-    this.props.setEnvironment('supermoon')
+    this.props.toggleToolbox()
   }
 
   dismissTooltip = () => {
@@ -44,41 +39,29 @@ class PaletteCommandsLeft extends Component {
     })
 
     try {
-      window.localStorage.setItem('supermoon-tooltip-dismissed', 'true')
+      window.localStorage.setItem('new-palette-tooltip-dismissed', 'true')
     } catch (e) {
       console.log('Could not access localstorage')
     }
   }
 
   render () {
-    let Button
-    if (this.props.env === 'supermoon') {
-      Button = (
-        <button
-          onClick={this.setToDay}
-          title={'Toggle supermoon'}
-        >
-          <FontAwesomeIcon icon={SUN_ICON} />
-        </button>
-      )
-    } else {
-      Button = (
-        <button
-          onClick={this.setToMoon}
-          title={'Toggle supermoon'}
-        >
-          <FontAwesomeIcon icon={MOON_ICON} />
-        </button>
+    if (!this.props.enable) return null
 
-      )
-    }
+    const Button = (
+      <button
+        onClick={this.handleClickTools}
+        title={'Toggle tools'}
+      >
+        <FontAwesomeIcon icon={TOOLS_ICON} />
+      </button>
+    )
 
-    let Tooltip = (this.state.tooltip) ? (
+    const Tooltip = (this.state.tooltip) ? (
       <div className="supermoon-tooltip">
         <CloseButton onClick={this.dismissTooltip} />
         <p>
-          <strong><a href="https://www.nationalgeographic.com/science/2019/01/how-to-watch-super-blood-wolf-moon-lunar-eclipse/" target="_blank" rel="noopener noreferrer">The “super blood wolf moon” lunar eclipse</a></strong> (external link) is visible in the Americas,
-          western Europe and in most of Africa from January 20-21, 2019. You can return to daytime sky with this button below.&lrm;
+          <strong>You’ve got some new tools!&lrm;</strong> Click on this button to activate some new abilities.&lrm;
         </p>
         <div className="palette-tooltip-pointer-container">
           <div className="palette-tooltip-pointer" />
@@ -96,11 +79,11 @@ class PaletteCommandsLeft extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  env: state.street.environment
+  enable: state.flags.ENVIRONMENT_EDITOR.value
 })
 
 const mapDispatchToProps = {
-  setEnvironment
+  toggleToolbox
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaletteCommandsLeft)

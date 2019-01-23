@@ -5,7 +5,8 @@ import {
   SET_ACTIVE_SEGMENT,
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
-  SET_DRAGGING_TYPE
+  SET_DRAGGING_TYPE,
+  TOGGLE_TOOLBOX
 } from './index'
 
 export function showStreetNameCanvas () {
@@ -54,5 +55,11 @@ export function setDraggingType (draggingType) {
   return {
     type: SET_DRAGGING_TYPE,
     draggingType
+  }
+}
+
+export function toggleToolbox () {
+  return {
+    type: TOGGLE_TOOLBOX
   }
 }
