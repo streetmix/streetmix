@@ -10,13 +10,13 @@ import './EnvironmentEditor.scss'
 
 class EnvironmentEditor extends Component {
   static propTypes = {
-    enable: PropTypes.bool,
+    visible: PropTypes.bool,
     selected: PropTypes.string,
     setEnvironment: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    enable: false,
+    visible: false,
     selected: DEFAULT_ENVIRONS
   }
 
@@ -31,7 +31,7 @@ class EnvironmentEditor extends Component {
     return (
       <CSSTransition
         appear
-        in={this.props.enable}
+        in={this.props.visible}
         timeout={80}
         classNames="environment-editor-transition"
       >
@@ -71,7 +71,7 @@ class EnvironmentEditor extends Component {
 
 const mapStateToProps = (state) => ({
   selected: state.street.environment,
-  enable: state.flags.ENVIRONMENT_EDITOR.value
+  visible: state.ui.toolboxVisible
 })
 
 const mapDispatchToProps = {
