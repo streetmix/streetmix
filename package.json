@@ -122,7 +122,6 @@
     "mongoose": "5.3.16",
     "newrelic": "4.12.0",
     "node-env-file": "0.1.8",
-    "node-sass": "4.11.0",
     "oauth": "0.9.15",
     "parcel-bundler": "1.10.3",
     "postcss": "7.0.6",
