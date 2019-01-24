@@ -44,10 +44,10 @@ export class ResizeGuides extends React.Component {
     return (
       <div className="segment-guide segment-guide-min" style={this.getStyle(width)}>
         <div className="segment-guide-min-before">
-          « <FormattedMessage id="segment.resize.min" defaultMessage="Min" />
+          « <FormattedMessage id="segments.resize.min" defaultMessage="Min" />
         </div>
         <div className="segment-guide-min-after">
-          <FormattedMessage id="segment.resize.min" defaultMessage="Min" /> »
+          <FormattedMessage id="segments.resize.min" defaultMessage="Min" /> »
         </div>
       </div>
     )
@@ -57,10 +57,10 @@ export class ResizeGuides extends React.Component {
     return (
       <div className="segment-guide segment-guide-max" style={this.getStyle(width)}>
         <div className="segment-guide-max-before">
-          <FormattedMessage id="segment.resize.max" defaultMessage="Max" /> »
+          <FormattedMessage id="segments.resize.max" defaultMessage="Max" /> »
         </div>
         <div className="segment-guide-max-after">
-          « <FormattedMessage id="segment.resize.max" defaultMessage="Max" />
+          « <FormattedMessage id="segments.resize.max" defaultMessage="Max" />
         </div>
       </div>
     )
