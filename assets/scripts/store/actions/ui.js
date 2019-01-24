@@ -6,6 +6,7 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
+  RESIZE_DRAG_STATE,
   TOGGLE_TOOLBOX
 } from './index'
 
@@ -55,6 +56,18 @@ export function setDraggingType (draggingType) {
   return {
     type: SET_DRAGGING_TYPE,
     draggingType
+  }
+}
+
+/**
+ * Update resize drag state
+ *
+ * @param {Boolean} isDragging - whether the resize action is being performed
+ */
+export function updateResizeDragState (isDragging) {
+  return {
+    type: RESIZE_DRAG_STATE,
+    isDragging
   }
 }
 

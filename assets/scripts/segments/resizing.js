@@ -12,6 +12,7 @@ import { BUILDING_SPACE } from './buildings'
 import { TILE_SIZE } from './constants'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
+import { updateResizeDragState } from '../store/actions/ui'
 
 const SHORT_DELAY = 100
 
@@ -111,8 +112,7 @@ export function handleSegmentResizeEnd (event) {
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 
-  // todo: refactor
-  window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
+  store.dispatch(updateResizeDragState(false))
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)
