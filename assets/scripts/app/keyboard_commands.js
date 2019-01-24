@@ -4,7 +4,6 @@ import USER_ROLES from '../../../app/data/user_roles'
 import { KEYS } from './keys'
 import { ENV } from './config'
 import { registerKeypress } from './keypress'
-import { showGallery, hideGallery } from '../gallery/view'
 import {
   draggingType,
   DRAGGING_TYPE_RESIZE,
@@ -26,10 +25,6 @@ export function onGlobalKeyDown (event) {
         handleSegmentResizeCancel()
       } else if (draggingType() === DRAGGING_TYPE_MOVE) {
         handleSegmentMoveCancel()
-      } else if (document.body.classList.contains('gallery-visible')) {
-        hideGallery(false)
-      } else if (isSignedIn()) {
-        showGallery(getSignInData().userId, false)
       } else {
         return
       }
