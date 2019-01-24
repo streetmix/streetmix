@@ -2,6 +2,7 @@
 import request from 'supertest'
 import express from 'express'
 import streets from '../streets'
+import loginTokenParser from '../../../../lib/request_handlers/login_token_parser'
 
 jest.mock('../../../models/street')
 jest.mock('../../../models/user')
@@ -26,22 +27,17 @@ const street = {
   data: { }
 }
 
-function setLoginToken (req, res, next) {
-  req.loginToken = '133e5110-5d2e-11e8-a8fd-678b57961690'
-  next()
-}
-
 function setupMockServer () {
   const app = express()
 
   app.use(express.json())
 
+  // Parse authorization headers if present
+  app.use(loginTokenParser)
+
   app.post('/api/v1/streets', streets.post)
   app.get('/api/v1/streets', streets.find)
   app.get('/api/v1/streets/:street_id', streets.get)
-  // Set loginToken before running remaining endpoint
-  app.use(setLoginToken)
-
   app.put('/api/v1/streets/:street_id', streets.put)
   app.delete('/api/v1/streets/:street_id', streets.delete)
   return app
@@ -53,6 +49,7 @@ describe('POST api/v1/streets', function () {
   it('should respond with 201 Created when street data are sent', function () {
     return request(app)
       .post('/api/v1/streets/')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .type('json')
       .send(JSON.stringify(street))
       .then((response) => {
@@ -79,6 +76,7 @@ describe('PUT api/v1/streets/:street_id', function () {
   it('should respond with 204 No Content when street data are sent', function () {
     return request(app)
       .put(`/api/v1/streets/${street.id}`)
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .type('json')
       .send(JSON.stringify(street))
       .then((response) => {
@@ -93,6 +91,7 @@ describe('DELETE api/v1/streets/:street_id', function () {
   it('should respond with 204 No Content when street data are deleted', function () {
     return request(app)
       .delete(`/api/v1/streets/${street.id}`)
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })
