@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import './PaletteTooltips.scss'
 
 export default class PaletteTooltips extends React.Component {
   static propTypes = {

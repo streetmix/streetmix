@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import UndoRedo from './UndoRedo'
-import PaletteTooltips from '../palette/PaletteTooltips'
-import PaletteCommandsLeft from '../palette/PaletteCommandsLeft'
+import PaletteTooltips from './PaletteTooltips'
+import PaletteCommandsLeft from './PaletteCommandsLeft'
 import { getAllSegmentInfoArray } from '../segments/info'
+import './Palette.scss'
 
 class Palette extends React.Component {
   static propTypes = {
