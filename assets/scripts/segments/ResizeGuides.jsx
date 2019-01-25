@@ -83,8 +83,7 @@ export class ResizeGuides extends React.Component {
     // Maximum-width guides are displayed based on recommended maximum widths
     // of the segment variant, if provided, but this is also limited by the
     // remaining space of the street. If no maximum-width recommendations
-    // are provided, the maximum width would be the entire remaining width,
-    // if any.
+    // are provided, the maximum width would be any remaining width of the street.
     const remainingWidth = this.props.remainingWidth + segment.width
     const shouldUseRemainingWidth = remainingWidth &&
       (((!variantInfo.minWidth) && (remainingWidth >= MIN_SEGMENT_WIDTH)) || (remainingWidth >= variantInfo.minWidth)) &&

@@ -62,21 +62,24 @@ describe('ResizeGuides', () => {
     const maxWidth = 20
     getSegmentVariantInfo.mockImplementationOnce(() => ({ maxWidth }))
 
-    // `remainingWidth` should be larger than `maxWidth`
+    // `remainingWidth` should be smaller than `maxWidth`
+    // `segment` is given a `width` property so that calculations can be performed
     const remainingWidth = 1
-    const wrapper = mountWithIntl(<ResizeGuides isResizing segment={{}} remainingWidth={remainingWidth} />)
+    const segmentWidth = 1
+    const wrapper = mountWithIntl(<ResizeGuides isResizing segment={{ width: segmentWidth }} remainingWidth={remainingWidth} />)
 
-    // But width should be based on `remainingWidth`, not `maxWidth`
-    const width = remainingWidth * TILE_SIZE
+    // Width should be based on `remainingWidth` + `segmentWidth`, not `maxWidth`
+    const width = (remainingWidth + segmentWidth) * TILE_SIZE
     expect(wrapper.find('.segment-guide-max').first().props().style.width).toEqual(`${width}px`)
   })
 
   it('renders max guide with only remaining width', () => {
-    const remainingWidth = 20
-    const wrapper = mountWithIntl(<ResizeGuides isResizing segment={{}} remainingWidth={remainingWidth} />)
+    const remainingWidth = 19
+    const segmentWidth = 1
+    const wrapper = mountWithIntl(<ResizeGuides isResizing segment={{ width: segmentWidth }} remainingWidth={remainingWidth} />)
 
-    // Width should be based on `remainingWidth`
-    const width = remainingWidth * TILE_SIZE
+    // Width should be based on `remainingWidth` + `segmentWidth`
+    const width = (remainingWidth + segmentWidth) * TILE_SIZE
     expect(wrapper.find('.segment-guide-max').first().props().style.width).toEqual(`${width}px`)
   })
 
