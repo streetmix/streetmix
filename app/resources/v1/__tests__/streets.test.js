@@ -8,13 +8,7 @@ jest.mock('../../../models/street')
 jest.mock('../../../models/user')
 jest.mock('../../../models/sequence')
 jest.mock('../../../../lib/db', () => {})
-jest.mock('../../../../lib/logger', () => function () {
-  return {
-    info: function () {},
-    error: function () {},
-    debug: function () {}
-  }
-})
+jest.mock('../../../../lib/logger')
 
 const street = {
   _id: '5b06a6544a62a14ae7467e37',

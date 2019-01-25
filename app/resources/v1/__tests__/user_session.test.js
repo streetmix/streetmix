@@ -5,13 +5,7 @@ import session from '../user_session'
 import loginTokenParser from '../../../../lib/request_handlers/login_token_parser'
 
 jest.mock('../../../models/user')
-jest.mock('../../../../lib/logger', () => function () {
-  return {
-    info: function () {},
-    error: function () {},
-    debug: function () {}
-  }
-})
+jest.mock('../../../../lib/logger')
 
 function setupMockServer () {
   const app = express()

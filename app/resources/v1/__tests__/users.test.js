@@ -4,13 +4,7 @@ import express from 'express'
 import users from '../users'
 
 jest.mock('../../../models/user')
-jest.mock('../../../../lib/logger', () => function () {
-  return {
-    info: function () {},
-    error: function () {},
-    debug: function () {}
-  }
-})
+jest.mock('../../../../lib/logger')
 
 // Fake user info to test the API
 const emailUser = {
