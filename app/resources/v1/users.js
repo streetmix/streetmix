@@ -173,6 +173,7 @@ exports.post = function (req, res) {
 exports.get = function (req, res) {
   if (!req.loginToken) {
     res.status(400).send('Please provide a login token.')
+    return
   }
 
   const findUserById = async function (userId) {
