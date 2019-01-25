@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import request from 'supertest'
-import express from 'express'
+import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import streets from '../streets'
-import loginTokenParser from '../../../../lib/request_handlers/login_token_parser'
 
 jest.mock('../../../models/street')
 jest.mock('../../../models/user')
@@ -21,24 +20,10 @@ const street = {
   data: { }
 }
 
-function setupMockServer () {
-  const app = express()
-
-  app.use(express.json())
-
-  // Parse authorization headers if present
-  app.use(loginTokenParser)
-
-  app.post('/api/v1/streets', streets.post)
-  app.get('/api/v1/streets', streets.find)
-  app.get('/api/v1/streets/:street_id', streets.get)
-  app.put('/api/v1/streets/:street_id', streets.put)
-  app.delete('/api/v1/streets/:street_id', streets.delete)
-  return app
-}
-
 describe('POST api/v1/streets', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.post('/api/v1/streets', streets.post)
+  })
 
   it('should respond with 201 Created when street data are sent', function () {
     return request(app)
@@ -53,7 +38,9 @@ describe('POST api/v1/streets', function () {
 })
 
 describe('GET api/v1/streets', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.get('/api/v1/streets', streets.find)
+  })
 
   it('should respond with 200 Ok when streets are returned', function () {
     return request(app)
@@ -65,7 +52,9 @@ describe('GET api/v1/streets', function () {
 })
 
 describe('PUT api/v1/streets/:street_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.put('/api/v1/streets/:street_id', streets.put)
+  })
 
   it('should respond with 204 No Content when street data are sent', function () {
     return request(app)
@@ -80,7 +69,9 @@ describe('PUT api/v1/streets/:street_id', function () {
 })
 
 describe('DELETE api/v1/streets/:street_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.delete('/api/v1/streets/:street_id', streets.delete)
+  })
 
   it('should respond with 204 No Content when street data are deleted', function () {
     return request(app)
@@ -93,7 +84,9 @@ describe('DELETE api/v1/streets/:street_id', function () {
 })
 
 describe('GET api/v1/streets/:street_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.get('/api/v1/streets/:street_id', streets.get)
+  })
 
   it('should respond with 200 Ok when street is returned', function () {
     return request(app)

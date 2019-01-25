@@ -1,27 +1,15 @@
 /* eslint-env jest */
 import request from 'supertest'
-import express from 'express'
+import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import user from '../user'
-import loginTokenParser from '../../../../lib/request_handlers/login_token_parser'
 
 jest.mock('../../../models/user')
 jest.mock('../../../../lib/logger')
 
-function setupMockServer () {
-  const app = express()
-  app.use(express.json())
-
-  // Parse authorization headers if present
-  app.use(loginTokenParser)
-
-  app.get('/api/v1/users/:user_id', user.get)
-  app.put('/api/v1/users/:user_id', user.put)
-
-  return app
-}
-
 describe('PUT api/v1/users/:user_id', () => {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.put('/api/v1/users/:user_id', user.put)
+  })
 
   it('should respond with 204 user updates their own credentials', () => {
     return request(app)
@@ -58,7 +46,9 @@ describe('PUT api/v1/users/:user_id', () => {
 })
 
 describe('GET api/v1/users/:user_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.get('/api/v1/users/:user_id', user.get)
+  })
 
   it('should respond with 200 when a user is found', function () {
     return request(app)

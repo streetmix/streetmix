@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import request from 'supertest'
-import express from 'express'
+import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import users from '../users'
 
 jest.mock('../../../models/user')
@@ -16,26 +16,10 @@ const emailUser = {
   }
 }
 
-function setLoginToken (req, res, next) {
-  req.loginToken = '133e5110-5d2e-11e8-a8fd-678b57961690'
-  req.userId = 'oluwaseun'
-  next()
-}
-
-function setupMockServer () {
-  const app = express()
-
-  app.use(express.json())
-
-  app.post('/api/v1/users', users.post)
-  // Set loginToken before running remaining endpoint
-  app.use(setLoginToken)
-  app.get('/api/v1/users', users.get)
-  return app
-}
-
 describe('POST api/v1/users', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.post('/api/v1/users', users.post)
+  })
 
   it('should respond with 200 Ok when user credentials are sent', function () {
     return request(app)
