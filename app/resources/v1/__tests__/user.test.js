@@ -50,11 +50,44 @@ describe('GET api/v1/users/:user_id', function () {
     app.get('/api/v1/users/:user_id', user.get)
   })
 
-  it('should respond with 200 when a user is found', function () {
+  it('should respond with 200 when a user is found', () => {
     return request(app)
       .get('/api/v1/users/user1')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
+      })
+  })
+})
+
+describe('DELETE api/v1/users/:user_id', () => {
+  const app = setupMockServer((app) => {
+    app.delete('/api/v1/users/:user_id', user.delete)
+  })
+
+  it('should respond with 204 when user DELETEs their account', () => {
+    return request(app)
+      .delete('/api/v1/users/user1')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .then((response) => {
+        expect(response.statusCode).toEqual(204)
+      })
+  })
+
+  it('should respond with 401 if user DELETEs a different user account', () => {
+    return request(app)
+      .delete('/api/v1/users/user2')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .then((response) => {
+        expect(response.statusCode).toEqual(401)
+      })
+  })
+
+  it('should respond with 204 when admin user DELETEs a different user account', () => {
+    return request(app)
+      .delete('/api/v1/users/user1')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"')
+      .then((response) => {
+        expect(response.statusCode).toEqual(204)
       })
   })
 })
