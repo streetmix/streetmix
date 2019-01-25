@@ -55,4 +55,13 @@ describe('GET api/v1/users', () => {
         expect(response.statusCode).toEqual(200)
       })
   })
+
+  it('should respond with 401 when user GETs Streetmix users data', () => {
+    return request(app)
+      .get('/api/v1/users')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .then((response) => {
+        expect(response.statusCode).toEqual(401)
+      })
+  })
 })
