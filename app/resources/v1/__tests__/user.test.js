@@ -25,7 +25,7 @@ describe('PUT api/v1/users/:user_id', () => {
   it('should respond with 401 if a user PUTs to a different user', () => {
     return request(app)
       .put('/api/v1/users/user2')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user1"')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .type('json')
       .send(JSON.stringify({}))
       .then((response) => {
