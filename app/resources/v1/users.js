@@ -170,28 +170,33 @@ exports.post = function (req, res) {
   }
 } // END function - exports.post
 
-exports.get = async function (req, res) {
-  // Flag error if user is not authenticated (loginToken)
+exports.get = function (req, res) {
   if (!req.loginToken) {
-    res.status(400).send('Please provide login token.')
+    res.status(400).send('Please provide a login token.')
     return
   }
 
-  let requestUser
+  const findUserById = async function (userId) {
+    let user
 
-  const findUserByLoginToken = async function (loginToken) {
     try {
-      requestUser = await User.findOne({ login_tokens: { $in: [ loginToken ] } })
+      user = await User.findOne({ id: userId })
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)
     }
 
-    if (!requestUser) {
+    if (!user) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
 
-    return requestUser
+    // If user is not logged in or user is not admin => permission NOT granted
+    if (user.login_tokens.indexOf(req.loginToken) === -1 || !user.roles.includes('ADMIN')) {
+      res.status(401).end()
+      return
+    }
+
+    return user
   }
 
   const findStreetmixUsers = async function () {
@@ -215,9 +220,7 @@ exports.get = async function (req, res) {
     let usersArray = []
 
     const getUserJson = function (user) {
-      const auth = req.loginToken && (user.login_tokens.indexOf(req.loginToken) !== -1 || requestUser.roles.includes('ADMIN'))
-
-      user.asJson({ auth: auth }, function (err, userJson) {
+      user.asJson({ auth: true }, function (err, userJson) {
         if (err) {
           logger.error(err)
           res.status(500).send('Could not render user JSON.')
@@ -249,7 +252,7 @@ exports.get = async function (req, res) {
     }
   }
 
-  findUserByLoginToken(req.loginToken)
+  findUserById(req.userId)
     .then(findStreetmixUsers)
     .then(handleFindUsers)
     .catch(handleError)
