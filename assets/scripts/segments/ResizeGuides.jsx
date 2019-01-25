@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
 import { getSegmentVariantInfo } from './info'
 import { getSegmentEl } from './view'
+import './ResizeGuides.scss'
 
 export class ResizeGuides extends React.Component {
   static propTypes = {
