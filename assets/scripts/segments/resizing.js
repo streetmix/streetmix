@@ -16,7 +16,7 @@ import {
 } from './constants'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
-import { updateResizeDragState } from '../store/actions/ui'
+import { setSegmentIsResizing } from '../store/actions/ui'
 
 const SHORT_DELAY = 100
 
@@ -113,7 +113,7 @@ export function handleSegmentResizeEnd (event) {
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 
-  store.dispatch(updateResizeDragState(false))
+  store.dispatch(setSegmentIsResizing(false))
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)

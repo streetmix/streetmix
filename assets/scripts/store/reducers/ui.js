@@ -6,7 +6,7 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  RESIZE_DRAG_STATE,
+  SEGMENT_IS_RESIZING,
   TOGGLE_TOOLBOX
 } from '../actions'
 import * as constants from '../../users/constants'
@@ -22,7 +22,7 @@ const initialState = {
   activeSegment: null,
   draggingState: null,
   draggingType: 0,
-  resizeDragState: false
+  segmentIsResizing: false
 }
 
 const ui = (state = initialState, action) => {
@@ -49,7 +49,7 @@ const ui = (state = initialState, action) => {
       }
     case SET_ACTIVE_SEGMENT:
       // If we're in the middle of a resize drag state, do not allow setting a new active segment.
-      if (state.resizeDragState === true) {
+      if (state.segmentIsResizing === true) {
         return { ...state }
       } else {
         return {
@@ -76,10 +76,10 @@ const ui = (state = initialState, action) => {
         ...state,
         draggingType: action.draggingType
       }
-    case RESIZE_DRAG_STATE:
+    case SEGMENT_IS_RESIZING:
       return {
         ...state,
-        resizeDragState: action.isDragging
+        segmentIsResizing: action.isResizing
       }
     case TOGGLE_TOOLBOX:
       return {

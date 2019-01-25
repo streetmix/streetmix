@@ -6,7 +6,7 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  RESIZE_DRAG_STATE,
+  SEGMENT_IS_RESIZING,
   TOGGLE_TOOLBOX
 } from './index'
 
@@ -60,14 +60,14 @@ export function setDraggingType (draggingType) {
 }
 
 /**
- * Update resize drag state
+ * Updates when a segment is being resized.
  *
- * @param {Boolean} isDragging - whether the resize action is being performed
+ * @param {Boolean} isResizing - whether the resize action is being performed
  */
-export function updateResizeDragState (isDragging) {
+export function setSegmentIsResizing (isResizing) {
   return {
-    type: RESIZE_DRAG_STATE,
-    isDragging
+    type: SEGMENT_IS_RESIZING,
+    isResizing
   }
 }
 

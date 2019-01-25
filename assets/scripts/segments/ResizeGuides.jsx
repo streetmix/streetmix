@@ -111,7 +111,7 @@ export class ResizeGuides extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    isResizing: state.ui.resizeDragState,
+    isResizing: state.ui.segmentIsResizing,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
     segment: state.street.segments[state.ui.activeSegment] || null,
     remainingWidth: state.street.remainingWidth
