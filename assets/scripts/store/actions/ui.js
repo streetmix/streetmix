@@ -6,7 +6,7 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  SEGMENT_IS_RESIZING,
+  SET_RESIZE_GUIDE_VISIBILITY,
   TOGGLE_TOOLBOX
 } from './index'
 
@@ -60,14 +60,14 @@ export function setDraggingType (draggingType) {
 }
 
 /**
- * Updates when a segment is being resized.
+ * Shows or hides min/max resize guides
  *
- * @param {Boolean} isResizing - whether the resize action is being performed
+ * @param {Boolean} isVisible - whether the guides are visible
  */
-export function setSegmentIsResizing (isResizing) {
+export function setResizeGuideVisibility (isVisible) {
   return {
-    type: SEGMENT_IS_RESIZING,
-    isResizing
+    type: SET_RESIZE_GUIDE_VISIBILITY,
+    isVisible
   }
 }
 

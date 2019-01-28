@@ -32,7 +32,7 @@ import {
   clearDraggingState,
   setActiveSegment,
   setDraggingType,
-  setSegmentIsResizing
+  setResizeGuideVisibility
 } from '../store/actions/ui'
 
 export const DRAGGING_TYPE_NONE = 0
@@ -119,7 +119,7 @@ function handleSegmentResizeStart (event) {
 
   draggingResize.segmentEl.classList.add('hover')
 
-  store.dispatch(setSegmentIsResizing(true))
+  store.dispatch(setResizeGuideVisibility(true))
 
   infoBubble.hide()
   infoBubble.hideSegment(true)

@@ -9,18 +9,18 @@ import './ResizeGuides.scss'
 
 export class ResizeGuides extends React.Component {
   static propTypes = {
-    isResizing: PropTypes.bool,
+    isVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     segment: PropTypes.object,
     remainingWidth: PropTypes.number
   }
 
   static defaultProps = {
-    isResizing: false
+    isVisible: false
   }
 
   /**
-   * Only updates on a change in value of the `isResizing` prop (which
+   * Only updates on a change in value of the `isVisible` prop (which
    * shows/hides the guides), to prevent continuous re-renders during a
    * resize drag input. Its appearance should remain the same throughout the
    * entire drag action.
@@ -29,7 +29,7 @@ export class ResizeGuides extends React.Component {
    * so we can't rely on PureComponent.
    */
   shouldComponentUpdate = (nextProps) => {
-    return (this.props.isResizing !== nextProps.isResizing)
+    return (this.props.isVisible !== nextProps.isVisible)
   }
 
   getStyle (width) {
@@ -68,7 +68,7 @@ export class ResizeGuides extends React.Component {
   }
 
   render () {
-    if (!this.props.isResizing || !this.props.segment) return null
+    if (!this.props.isVisible || !this.props.segment) return null
 
     const segment = this.props.segment
     const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
@@ -111,7 +111,7 @@ export class ResizeGuides extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    isResizing: state.ui.segmentIsResizing,
+    isVisible: state.ui.resizeGuidesVisible,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
     segment: state.street.segments[state.ui.activeSegment] || null,
     remainingWidth: state.street.remainingWidth
