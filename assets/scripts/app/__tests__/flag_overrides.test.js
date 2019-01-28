@@ -60,4 +60,21 @@ describe('applyFlagOverrides', () => {
       BAZ_BAR: { source: 'user', value: true }
     })
   })
+
+  it('does not apply flags that are not present in the application', () => {
+    // It is possible for a flag to be removed or deprecated from the application,
+    // but the value for the flag remains stored in user data or in localstorage.
+    // We do not want these "dead" flags to be in the final object.
+    const userOverrides = {
+      source: 'user',
+      flags: [
+        { flag: 'FOO_BAZ', value: false }
+      ],
+      priority: 1
+    }
+
+    const result = applyFlagOverrides(initialFlags, userOverrides)
+
+    expect(result).toEqual(initialFlags)
+  })
 })
