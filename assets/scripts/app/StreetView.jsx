@@ -13,7 +13,7 @@ import StreetEditable from './StreetEditable'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
-import SegmentDragGuides from '../segments/SegmentDragGuides'
+import ResizeGuides from '../segments/ResizeGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
@@ -310,7 +310,7 @@ class StreetView extends React.Component {
                 messages={this.props.locale.messages}
               >
                 <React.Fragment>
-                  <SegmentDragGuides />
+                  <ResizeGuides />
                   <EmptySegmentContainer />
                 </React.Fragment>
               </IntlProvider>

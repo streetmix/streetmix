@@ -6,6 +6,7 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
+  SET_RESIZE_GUIDE_VISIBILITY,
   TOGGLE_TOOLBOX
 } from '../actions'
 import * as constants from '../../users/constants'
@@ -20,7 +21,8 @@ const initialState = {
   },
   activeSegment: null,
   draggingState: null,
-  draggingType: 0
+  draggingType: 0,
+  resizeGuidesVisible: false
 }
 
 const ui = (state = initialState, action) => {
@@ -46,9 +48,14 @@ const ui = (state = initialState, action) => {
         }
       }
     case SET_ACTIVE_SEGMENT:
-      return {
-        ...state,
-        activeSegment: action.position
+      // If we're in the middle of a resize drag state, do not allow setting a new active segment.
+      if (state.resizeGuidesVisible === true) {
+        return { ...state }
+      } else {
+        return {
+          ...state,
+          activeSegment: action.position
+        }
       }
     case UPDATE_DRAGGING_STATE:
       return {
@@ -68,6 +75,11 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         draggingType: action.draggingType
+      }
+    case SET_RESIZE_GUIDE_VISIBILITY:
+      return {
+        ...state,
+        resizeGuidesVisible: action.isVisible
       }
     case TOGGLE_TOOLBOX:
       return {

@@ -14,7 +14,6 @@ import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_DRAGGING,
   RESIZE_TYPE_PRECISE_DRAGGING,
-  MIN_SEGMENT_WIDTH,
   resizeSegment,
   handleSegmentResizeEnd,
   normalizeSegmentWidth,
@@ -23,7 +22,7 @@ import {
   cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
-import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from './constants'
+import { TILE_SIZE, MIN_SEGMENT_WIDTH, DRAGGING_MOVE_HOLE_WIDTH } from './constants'
 import { segmentsChanged } from './view'
 import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
@@ -32,7 +31,8 @@ import {
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
-  setDraggingType
+  setDraggingType,
+  setResizeGuideVisibility
 } from '../store/actions/ui'
 
 export const DRAGGING_TYPE_NONE = 0
@@ -119,8 +119,7 @@ function handleSegmentResizeStart (event) {
 
   draggingResize.segmentEl.classList.add('hover')
 
-  // todo: refactor
-  window.dispatchEvent(new window.CustomEvent('stmx:show_segment_guides', { detail: { dataNo: window.parseInt(draggingResize.segmentEl.dataNo, 10) } }))
+  store.dispatch(setResizeGuideVisibility(true))
 
   infoBubble.hide()
   infoBubble.hideSegment(true)

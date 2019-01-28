@@ -9,9 +9,14 @@ import {
 } from './drag_and_drop'
 import { segmentsChanged } from './view'
 import { BUILDING_SPACE } from './buildings'
-import { TILE_SIZE } from './constants'
+import {
+  TILE_SIZE,
+  MIN_SEGMENT_WIDTH,
+  MAX_SEGMENT_WIDTH
+} from './constants'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
+import { setResizeGuideVisibility } from '../store/actions/ui'
 
 const SHORT_DELAY = 100
 
@@ -20,9 +25,6 @@ const RESIZE_TYPE_INCREMENT = 1
 export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
-
-export const MIN_SEGMENT_WIDTH = (1 / 0.3) * 0.25 // This is equal to 0.25m in our conversion rate
-export const MAX_SEGMENT_WIDTH = 400
 
 const TOUCH_CONTROLS_FADEOUT_TIME = 3000
 const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
@@ -111,8 +113,7 @@ export function handleSegmentResizeEnd (event) {
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 
-  // todo: refactor
-  window.dispatchEvent(new window.CustomEvent('stmx:hide_segment_guides'))
+  store.dispatch(setResizeGuideVisibility(false))
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)

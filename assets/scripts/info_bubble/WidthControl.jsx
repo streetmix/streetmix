@@ -6,7 +6,9 @@ import UpDownInput from './UpDownInput'
 import { trackEvent } from '../app/event_tracking'
 import {
   MIN_SEGMENT_WIDTH,
-  MAX_SEGMENT_WIDTH,
+  MAX_SEGMENT_WIDTH
+} from '../segments/constants'
+import {
   RESIZE_TYPE_TYPING,
   resizeSegment,
   incrementSegmentWidth,
