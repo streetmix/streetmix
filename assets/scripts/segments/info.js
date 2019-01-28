@@ -157,6 +157,9 @@ const SPRITE_DEFS = {
   'curb--person-waiting-01-left': { id: 'curb--person-waiting-01-left', width: 4, offsetY: -4.3 },
   'curb--person-waiting-01-right': { id: 'curb--person-waiting-01-right', width: 4, offsetY: -4.3 },
 
+  'scooters--scooter-inbound': { id: 'scooters--scooter-inbound', width: 3, offsetY: 3.28 },
+  'scooters--scooter-outbound': { id: 'scooters--scooter-outbound', width: 3, offsetY: 3.28 },
+
   'people--people-01': { id: 'people--people-01', width: 5, offsetY: 3.7 },
   'people--people-02': { id: 'people--people-02', width: 5, offsetY: 3.7 },
   'people--people-03': { id: 'people--people-03', width: 5, offsetY: 3.7 },

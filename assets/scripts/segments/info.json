@@ -446,24 +446,17 @@
     "owner": "BIKE",
     "zIndex": 16,
     "defaultWidth": 5,
+    "enableWithFlag": "SEGMENT_SCOOTERS",
     "variants": [
       "direction",
       "bike-asphalt"
     ],
-    "detailsx": {
-      "": {
-        "graphics": {
-          "center": "people--people-25",
-          "repeat": "ground--asphalt"
-        }
-      }
-    },
     "details": {
       "inbound|regular": {
         "minWidth": 4,
         "graphics": {
           "center": [
-            "people--people-25",
+            "scooters--scooter-inbound",
             "markings--straight-inbound-light"
           ],
           "repeat": "ground--asphalt"
@@ -473,7 +466,7 @@
         "minWidth": 4,
         "graphics": {
           "center": [
-            "people--people-25",
+            "scooters--scooter-outbound",
             "markings--straight-outbound-light"
           ],
           "repeat": "ground--asphalt"
@@ -483,7 +476,7 @@
         "minWidth": 4,
         "graphics": {
           "center": [
-            "people--people-25",
+            "scooters--scooter-inbound",
             "markings--straight-inbound-light"
           ],
           "repeat": "ground--asphalt-green"
@@ -493,7 +486,7 @@
         "minWidth": 4,
         "graphics": {
           "center": [
-            "people--people-25",
+            "scooters--scooter-outbound",
             "markings--straight-outbound-light"
           ],
           "repeat": "ground--asphalt-green"
@@ -503,7 +496,7 @@
         "minWidth": 4,
         "graphics": {
           "center": [
-            "people--people-25",
+            "scooters--scooter-inbound",
             "markings--straight-inbound-light"
           ],
           "repeat": "ground--asphalt-red"
@@ -513,7 +506,7 @@
         "minWidth": 4,
         "graphics": {
           "center": [
-            "people--people-25",
+            "scooters--scooter-outbound",
             "markings--straight-outbound-light"
           ],
           "repeat": "ground--asphalt-red"
