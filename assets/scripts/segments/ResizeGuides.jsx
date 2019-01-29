@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
 import { getSegmentVariantInfo } from './info'
 import { getSegmentEl } from './view'
+import { getEnvirons } from '../streets/environs'
 import './ResizeGuides.scss'
 
 export class ResizeGuides extends React.Component {
@@ -12,7 +13,8 @@ export class ResizeGuides extends React.Component {
     isVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     segment: PropTypes.object,
-    remainingWidth: PropTypes.number
+    remainingWidth: PropTypes.number,
+    environs: PropTypes.string
   }
 
   static defaultProps = {
@@ -100,8 +102,15 @@ export class ResizeGuides extends React.Component {
     const el = getSegmentEl(this.props.activeSegment)
     const centerline = el.offsetLeft + (el.cssTransformLeft || 0) + (el.offsetWidth / 2) - 1
 
+    // If our environs are dark, we invert the UI color so it stands out.
+    const classNames = ['segment-guides']
+    const environs = getEnvirons(this.props.environs)
+    if (environs.invertUITextColor) {
+      classNames.push('segment-guides-invert-color')
+    }
+
     return (
-      <div className="segment-guides" style={{ left: centerline }}>
+      <div className={classNames.join(' ')} style={{ left: centerline }}>
         {minGuide}
         {maxGuide}
       </div>
@@ -114,7 +123,8 @@ function mapStateToProps (state) {
     isVisible: state.ui.resizeGuidesVisible,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
     segment: state.street.segments[state.ui.activeSegment] || null,
-    remainingWidth: state.street.remainingWidth
+    remainingWidth: state.street.remainingWidth,
+    environs: state.street.environment
   }
 }
 
