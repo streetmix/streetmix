@@ -90,10 +90,12 @@ export function applyFlagOverrides (defaultFlags, ...flagOverrides) {
     updatedFlags = flags.reduce((obj, item) => {
       const { flag, value } = item
 
-      const prevFlagSource = obj[flag].source
-      const prevPriorityLevel = PRIORITY_LEVELS[prevFlagSource]
-      if (obj[flag].value !== value && prevPriorityLevel < priority) {
-        obj[flag] = { value, source }
+      if (obj[flag]) {
+        const prevFlagSource = obj[flag].source
+        const prevPriorityLevel = PRIORITY_LEVELS[prevFlagSource]
+        if (obj[flag].value !== value && prevPriorityLevel < priority) {
+          obj[flag] = { value, source }
+        }
       }
 
       return obj
