@@ -440,6 +440,80 @@
       }
     }
   },
+  "scooter": {
+    "name": "Scooter",
+    "nameKey": "scooter",
+    "owner": "BIKE",
+    "zIndex": 16,
+    "defaultWidth": 5,
+    "enableWithFlag": "SEGMENT_SCOOTERS",
+    "variants": [
+      "direction",
+      "bike-asphalt"
+    ],
+    "details": {
+      "inbound|regular": {
+        "minWidth": 4,
+        "graphics": {
+          "center": [
+            "scooters--scooter-inbound",
+            "markings--straight-inbound-light"
+          ],
+          "repeat": "ground--asphalt"
+        }
+      },
+      "outbound|regular": {
+        "minWidth": 4,
+        "graphics": {
+          "center": [
+            "scooters--scooter-outbound",
+            "markings--straight-outbound-light"
+          ],
+          "repeat": "ground--asphalt"
+        }
+      },
+      "inbound|green": {
+        "minWidth": 4,
+        "graphics": {
+          "center": [
+            "scooters--scooter-inbound",
+            "markings--straight-inbound-light"
+          ],
+          "repeat": "ground--asphalt-green"
+        }
+      },
+      "outbound|green": {
+        "minWidth": 4,
+        "graphics": {
+          "center": [
+            "scooters--scooter-outbound",
+            "markings--straight-outbound-light"
+          ],
+          "repeat": "ground--asphalt-green"
+        }
+      },
+      "inbound|red": {
+        "minWidth": 4,
+        "graphics": {
+          "center": [
+            "scooters--scooter-inbound",
+            "markings--straight-inbound-light"
+          ],
+          "repeat": "ground--asphalt-red"
+        }
+      },
+      "outbound|red": {
+        "minWidth": 4,
+        "graphics": {
+          "center": [
+            "scooters--scooter-outbound",
+            "markings--straight-outbound-light"
+          ],
+          "repeat": "ground--asphalt-red"
+        }
+      }
+    }
+  },
   "bike-lane": {
     "name": "Bike lane",
     "nameKey": "bike-lane",

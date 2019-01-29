@@ -52,6 +52,10 @@
     "label": "Segment — utility pole",
     "defaultValue": false
   },
+  "SEGMENT_SCOOTERS": {
+    "label": "Segment — scooters",
+    "defaultValue": false
+  },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
     "defaultValue": false
