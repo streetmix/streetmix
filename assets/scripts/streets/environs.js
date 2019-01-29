@@ -58,20 +58,22 @@ function makeReactStyleObject (env) {
   // If an error causes `env` to be undefined, return an empty object.
   if (!env) return style
 
-  if (env.backgroundColor) {
-    style.backgroundColor = env.backgroundColor
-  }
+  const background = []
 
   if (env.backgroundGradient) {
-    if (env.backgroundImage) {
-      const background = []
-      background.push(makeCSSGradientDeclaration(env.backgroundGradient))
-      background.push(makeCSSBackgroundImageDeclaration(env.backgroundImage))
-      style.background = background.join(', ')
-    } else {
-      style.backgroundImage = makeCSSGradientDeclaration(env.backgroundGradient)
-    }
+    background.push(makeCSSGradientDeclaration(env.backgroundGradient))
   }
+
+  if (env.backgroundImage) {
+    background.push(makeCSSBackgroundImageDeclaration(env.backgroundImage))
+  }
+
+  // Background colors must occur last in the `background` list
+  if (env.backgroundColor) {
+    background.push(env.backgroundColor)
+  }
+
+  style.background = background.join(', ')
 
   return style
 }

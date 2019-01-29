@@ -27,15 +27,9 @@ class SkyBackground extends React.PureComponent {
     const oldBg = skyEl.querySelector('div')
     const newBg = document.createElement('div')
 
-    if (env.style.backgroundColor) {
-      newBg.style.backgroundColor = env.style.backgroundColor
-    }
-    if (env.style.backgroundImage) {
-      newBg.style.backgroundImage = env.style.backgroundImage
-    }
-    if (env.style.background) {
-      newBg.style.background = env.style.background
-    }
+    Object.entries(env.style).forEach(([key, value]) => {
+      newBg.style[key] = value
+    })
 
     skyEl.insertBefore(newBg, oldBg)
     oldBg.classList.add('sky-transition-out')
