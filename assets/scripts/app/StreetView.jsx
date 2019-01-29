@@ -314,7 +314,10 @@ class StreetView extends React.Component {
                   <EmptySegmentContainer />
                 </React.Fragment>
               </IntlProvider>
-              <section id="street-section-dirt" style={dirtStyle} />
+              <section id="street-section-dirt" style={dirtStyle}>
+                <div className="dirt-left" style={{ width: `${this.state.buildingWidth}px` }} />
+                <div className="dirt-right" style={{ width: `${this.state.buildingWidth}px` }} />
+              </section>
             </section>
           </section>
         </section>

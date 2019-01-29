@@ -83,15 +83,36 @@
   height: $canvas-height + 40;
 }
 
+$dirt-height: 40px;
+$dirt-height-minimum: 5px;
+
 #street-section-dirt {
   position: absolute;
   left: 0;
   right: 0;
-  top: $canvas-height - 80px;
-  border-top: 45px solid $background-dirt-colour;
+  top: $canvas-height - 80px + $dirt-height;
+  border-top: $dirt-height-minimum solid $background-dirt-colour;
   background: $bottom-background;
   z-index: -2;
   pointer-events: none;
+}
+
+.dirt-left,
+.dirt-right {
+  content: ' ';
+  position: absolute;
+  top: -($dirt-height + $dirt-height-minimum);
+  background-color: $background-dirt-colour;
+  width: 360px;
+  height: $dirt-height;
+}
+
+.dirt-left {
+  left: 0;
+}
+
+.dirt-right {
+  right: 0;
 }
 
 .street-section-building {
