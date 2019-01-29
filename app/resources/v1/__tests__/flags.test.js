@@ -1,18 +1,12 @@
 /* eslint-env jest */
 import request from 'supertest'
-import express from 'express'
+import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import flags from '../flags'
 
-function setupMockServer () {
-  const app = express()
-
-  app.get('/api/v1/flags', flags.get)
-
-  return app
-}
-
 describe('get api/v1/flags', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.get('/api/v1/flags', flags.get)
+  })
 
   it('makes a request for a flag file', () => {
     return request(app)

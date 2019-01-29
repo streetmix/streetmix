@@ -1,48 +1,20 @@
 /* eslint-env jest */
 import request from 'supertest'
-import express from 'express'
+import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import session from '../user_session'
 
 jest.mock('../../../models/user')
-jest.mock('../../../../lib/logger', () => function () {
-  return {
-    info: function () {},
-    error: function () {},
-    debug: function () {}
-  }
-})
-
-// Fake user info to test the API
-const user = {
-  twitter: {
-    screenName: 'oluwaseun',
-    userId: '4232',
-    oauthAccessTokenKey: '461-Hvsiosdfsoafsoafedfd',
-    oauthAccessTokenSecret: 'WoZytO4kMLuafdafjdafja'
-  }
-}
-
-function setLoginToken (req, res, next) {
-  req.loginToken = '133e5110-5d2e-11e8-a8fd-678b57961690'
-  req.userId = 'oluwaseun'
-  next()
-}
-
-function setupMockServer () {
-  const app = express()
-
-  app.use(express.json())
-  app.use(setLoginToken)
-  app.delete('/api/v1/users/:user_id', session.delete)
-  return app
-}
+jest.mock('../../../../lib/logger')
 
 describe('DELETE api/v1/users/:user_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.delete('/api/v1/users/:user_id', session.delete)
+  })
 
   it('should respond with 204 No content when user signs out', function () {
     return request(app)
-      .delete(`/api/v1/users/${user.twitter.screenName}`)
+      .delete('/api/v1/users/user1')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })
