@@ -93,6 +93,30 @@ Model.count = function (option, cb) {
   return Promise.resolve(0)
 }
 
+Model.deleteOne = function (option, cb) {
+  const mockUser = mockUsers[option.id] || mockUsers['user1']
+
+  if (cb) {
+    cb(null, mockUser)
+  }
+
+  return Promise.resolve(mockUser)
+}
+
+Model.find = function (option) {
+  const users = Object.entries(mockUsers).map((user) => {
+    const mockUser = user[1]
+
+    return {
+      ...mockUser,
+      save: makeSaveFunction(mockUser),
+      asJson: makeAsJsonFunction(mockUser)
+    }
+  })
+
+  return Promise.resolve(users)
+}
+
 Model.findByIdAndUpdate = function (option) {
   const mockUser = mockUsers[option.id] || mockUsers['user1']
 
