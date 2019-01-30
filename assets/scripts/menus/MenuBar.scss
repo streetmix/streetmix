@@ -2,10 +2,14 @@
 // Menu bar
 //
 // --------------------------------------------------------
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
 
-$top-menu-text: $segment-text;
-$top-menu-hover-text: darken($ui-colour, 30%);
-$top-menu-active-text: darken($ui-colour, 40%);
+$menu-bar-text-color: $segment-text;
+$menu-bar-text-color-hover: darken($ui-colour, 30%);
+$menu-bar-text-color-active: darken($ui-colour, 40%);
+$menu-bar-border-radius: $border-radius;
+$menu-bar-box-shadow: $light-box-shadow;
 
 .menu-bar {
   z-index: $z-02-menu-bar;
@@ -15,9 +19,11 @@ $top-menu-active-text: darken($ui-colour, 40%);
   right: $left-right-inset - 20px; // 30px
   top: -150px;
   border-top: 150px solid $menu-bar-background;
-  border-bottom: 3px solid darken($ui-colour, 20%);
+  border-bottom-left-radius: $menu-bar-border-radius;
+  border-bottom-right-radius: $menu-bar-border-radius;
   background: $menu-bar-background;
   background-clip: padding-box;
+  box-shadow: $menu-bar-box-shadow;
   font-family: $font-family;
   font-size: 13px;
   user-select: none;
@@ -33,7 +39,7 @@ $top-menu-active-text: darken($ui-colour, 40%);
     padding: 3px 1em;
     margin: 0;
     line-height: 32px;
-    color: $top-menu-text;
+    color: $menu-bar-text-color;
   }
 
   li {
@@ -62,18 +68,18 @@ $top-menu-active-text: darken($ui-colour, 40%);
     color: inherit;
 
     &:hover {
-      color: $top-menu-hover-text;
+      color: $menu-bar-text-color-hover;
     }
 
     &:active {
-      color: $top-menu-active-text;
+      color: $menu-bar-text-color-active;
     }
   }
 
   button {
-    @include appearance(none);
     @include tap-highlight-color(transparent);
 
+    appearance: none;
     border: 0;
     font-size: inherit;
     font-weight: inherit;
@@ -98,12 +104,12 @@ $top-menu-active-text: darken($ui-colour, 40%);
     }
 
     &:hover {
-      color: $top-menu-hover-text;
+      color: $menu-bar-text-color-hover;
       background-color: transparent;
     }
 
     &:active {
-      color: $top-menu-active-text;
+      color: $menu-bar-text-color-active;
     }
 
     &[disabled] {
@@ -155,47 +161,5 @@ button.menu-sign-in {
     letter-spacing: 5px;
     color: black;
     display: none;
-  }
-}
-
-.environment-badge {
-  z-index: $z-02-menu-bar;
-  display: none;
-  position: absolute;
-  left: 14px;
-  bottom: -12px;
-  padding: 2px 7px;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 4px;
-  padding-right: 7px - 4px; // Right padding minus letter-spacing
-  color: white;
-  background-color: gray;
-  pointer-events: none;
-
-  &.environment-label-development {
-    display: inline-block;
-    background-color: rgb(200, 0, 0);
-  }
-
-  &.environment-label-staging,
-  &.environment-label-sandbox {
-    display: inline-block;
-    background-color: green;
-  }
-
-  &.environment-label-demo {
-    display: inline-block;
-    background-color: rgb(28, 189, 209);
-  }
-}
-
-[dir="rtl"] {
-  .environment-badge {
-    right: 16px;
-    left: auto;
   }
 }

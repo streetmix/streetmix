@@ -1,70 +1,69 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ENV } from '../app/config'
+import './EnvironmentBadge.scss'
 
 export default class EnvironmentBadge extends React.PureComponent {
   static propTypes = {
+    // Following propType is incorrectly undetected by eslint
+    // eslint-disable-next-line react/no-unused-prop-types
     label: PropTypes.string
   }
 
-  getLabel = () => {
-    let label
-
-    // If a label is not provided, determine one using ENV
-    if (!this.props.label) {
-      switch (ENV) {
-        case 'development':
-          label = 'Dev'
-          break
-        case 'staging':
-          label = 'Staging'
-          break
-        case 'sandbox':
-          label = 'Sandbox'
-          break
-        case 'demo':
-          label = 'Demo'
-          break
-        default:
-          break
-      }
-    }
-
-    return label
+  state = {
+    label: null,
+    className: null
   }
 
-  getClassName = () => {
-    let className = 'environment-badge'
-
+  static getDerivedStateFromProps (props, state) {
     // If a label is not provided, determine one using ENV
-    if (!this.props.label) {
+    if (!props.label) {
       switch (ENV) {
         case 'development':
-          className += ' environment-label-development'
-          break
+          return {
+            label: 'Dev',
+            className: 'environment-label-development'
+          }
         case 'staging':
-          className += ' environment-label-staging'
-          break
+          return {
+            label: 'Staging',
+            className: 'environment-label-staging'
+          }
         case 'sandbox':
-          className += ' environment-label-sandbox'
-          break
+          return {
+            label: 'Sandbox',
+            className: 'environment-label-sandbox'
+          }
         case 'demo':
-          className += ' environment-label-demo'
-          break
+          return {
+            label: 'Demo',
+            className: 'environment-label-demo'
+          }
         default:
-          break
+          return null
       }
     }
 
-    return className
+    return {
+      label: props.label
+    }
   }
 
   render () {
-    // Set the label. Nothing happens if there isn't one.
-    return (
-      <div className={this.getClassName()}>
-        {this.props.label || this.getLabel()}
-      </div>
-    )
+    const classNames = ['environment-badge']
+    if (this.state.className) {
+      classNames.push(this.state.className)
+    }
+
+    // Displays a label. Nothing happens if there isn't one.
+    if (this.state.label) {
+      return (
+        <div className={classNames.join(' ')}>
+          {this.state.label}
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 }

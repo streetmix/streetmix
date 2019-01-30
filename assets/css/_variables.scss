@@ -10,6 +10,7 @@ $thumbnail-height:          110px;
 $building-space:            360px;
 $segment-grid-height:       10px;
 $left-right-inset:          50px;
+$border-radius:             4px;
 
 // Colours
 $background-dirt-colour:    rgb(53, 45, 39);
@@ -37,6 +38,11 @@ $segment-width-rule:        rgb(160, 160, 160);
 $street-name-text:          black;
 $street-name-background:    white;
 $hr-colour:                 darken($ui-colour, 10%);
+
+// Layered UI box shadows
+$light-box-shadow:          0 0 14px 0 rgba(0, 0, 0, 0.075);
+$medium-box-shadow:         0 0 10px 0 rgba(0, 0, 0, 0.1);
+$heavy-box-shadow:          0 0 10px 0 rgba(0, 0, 0, 0.2);
 
 // Design
 $street-name-gallery-size:  0.5;

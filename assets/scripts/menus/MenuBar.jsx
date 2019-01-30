@@ -7,6 +7,7 @@ import SignInButton from './SignInButton'
 import AvatarMenu from './AvatarMenu'
 import { doSignIn } from '../users/authentication'
 import { clearMenus } from '../store/actions/menus'
+import './MenuBar.scss'
 
 class MenuBar extends React.PureComponent {
   static propTypes = {

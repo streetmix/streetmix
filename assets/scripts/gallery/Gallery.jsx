@@ -18,6 +18,7 @@ import { showError, ERRORS } from '../app/errors'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
 import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
 import { showDialog } from '../store/actions/dialogs'
+import './Gallery.scss'
 
 class Gallery extends React.Component {
   static propTypes = {

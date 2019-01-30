@@ -1,3 +1,8 @@
+@import '../../css/variables.scss';
+
+$gallery-border-radius: $border-radius;
+$gallery-box-shadow: $medium-box-shadow;
+
 body.gallery-visible {
   .main-screen {
     transform: translateY($gallery-height - 90px);
@@ -19,8 +24,10 @@ body:not(.safari).gallery-visible .street-section-sky {
   top: 0;
   height: $gallery-height;
   z-index: $z-09-gallery;
-  border-bottom: 3px solid darken($ui-colour, 30%);
+  border-bottom-left-radius: $gallery-border-radius;
+  border-bottom-right-radius: $gallery-border-radius;
   background: white;
+  box-shadow: $gallery-box-shadow;
   overflow: hidden;
   pointer-events: none;
   transform: translateY(-$gallery-height) rotateX(25deg);

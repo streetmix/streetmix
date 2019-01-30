@@ -19,6 +19,8 @@ import Avatar from '../users/Avatar'
 import { showStreetNameCanvas, hideStreetNameCanvas } from '../store/actions/ui'
 import CloseButton from '../ui/CloseButton'
 
+import './WelcomePanel.scss'
+
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
 const WELCOME_FIRST_TIME_NEW_STREET = 2

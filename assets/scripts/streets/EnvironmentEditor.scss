@@ -5,15 +5,18 @@
 
 @import '../../css/variables.scss';
 
+$environment-editor-border-radius: $border-radius;
+$environment-editor-box-shadow: $medium-box-shadow;
+
 .environment-editor-container {
   z-index: $z-06-environment-editor;
   position: absolute;
   bottom: 90px;
   left: 50px;
   background-color: white;
-  border-radius: 6px;
+  border-radius: $environment-editor-border-radius;
   overflow: hidden;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: $environment-editor-box-shadow;
   font-size: 0.65rem;
   user-select: none;
 

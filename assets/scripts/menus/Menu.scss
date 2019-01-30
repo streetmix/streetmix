@@ -2,10 +2,13 @@
 // Menus
 //
 // --------------------------------------------------------
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
+
+$menu-border-radius: $border-radius;
+$menu-box-shadow: $medium-box-shadow;
 
 .menu {
-  @include box-border;
-
   position: absolute;
   top: 45px;
   touch-action: none;
@@ -17,6 +20,8 @@
   transition: transform 100ms, opacity 100ms;
   pointer-events: none;
   z-index: $z-04-menu;
+  border-radius: $menu-border-radius;
+  box-shadow: $menu-box-shadow;
 
   /* Allows scrolling if the menu length is longer than height of viewport */
   max-height: calc(100% - 100px);
@@ -52,8 +57,7 @@
 
   textarea,
   input {
-    @include appearance(none);
-
+    appearance: none;
     background: $form-element-background;
     border: 1px solid $form-element-border;
     resize: none;
@@ -77,49 +81,8 @@ body.safari .menu {
   transform: translateY(20px) translateZ(100px);
 
   &.visible {
-    transform: rotateX(0) translateZ(100px);
-  }
-}
-
-#settings-menu {
-  min-width: 200px;
-}
-
-.share-menu {
-  min-width: 350px;
-}
-
-.share-via-link-container {
-  padding: 0.5em 1em 0.5em 2.5em;
-  border-bottom: 1px solid #cde1ea;
-
-  [dir="rtl"] & {
-    padding: 0.5em 2.5em 0.5em 1em;
-  }
-}
-
-.share-via-link {
-  font-size: 13px;
-  line-height: 18px;
-  width: 100%;
-  margin-top: 0.5em;
-  display: block;
-  box-sizing: border-box;
-  outline: none;
-}
-
-.share-sign-in-promo {
-  width: 300px;
-  text-align: center;
-  color: rgb(128, 128, 128);
-  font-size: 13px;
-  line-height: 18px;
-  padding: 15px 40px;
-  border-bottom: 1px solid rgb(224, 224, 224);
-  margin-bottom: 15px;
-
-  a {
-    color: inherit;
+    /* Y-position of 0 puts it too close to menubar, so give it a bit of space */
+    transform: translateY(3px) rotateX(0) translateZ(100px);
   }
 }
 
@@ -242,11 +205,6 @@ body.safari .menu {
   line-height: 8px;
   color: rgb(128, 128, 128);
   font-size: 11px;
-}
-
-.help-menu-shortcuts {
-  max-width: 400px;
-  line-height: 18px;
 }
 
 .fa-facebook,

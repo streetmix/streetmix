@@ -7,6 +7,8 @@
 @import '../../css/variables.scss';
 @import '../../css/mixins.scss';
 
+$dialog-border-radius: $border-radius;
+
 .dialog-box-container {
   display: flex;
   align-items: center;
@@ -50,7 +52,7 @@
   /* New styles! Let's try it! */
   border-top: 0;
   border-bottom: 0;
-  border-radius: 6px;
+  border-radius: $dialog-border-radius;
   overflow: hidden;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.075);
 
