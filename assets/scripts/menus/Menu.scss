@@ -2,6 +2,8 @@
 // Menus
 //
 // --------------------------------------------------------
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
 
 .menu {
   @include box-border;
