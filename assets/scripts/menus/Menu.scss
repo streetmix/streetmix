@@ -79,7 +79,8 @@ body.safari .menu {
   transform: translateY(20px) translateZ(100px);
 
   &.visible {
-    transform: rotateX(0) translateZ(100px);
+    /* Y-position of 0 puts it too close to menubar, so give it a bit of space */
+    transform: translateY(3px) rotateX(0) translateZ(100px);
   }
 }
 
