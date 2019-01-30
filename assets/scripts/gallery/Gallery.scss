@@ -1,3 +1,5 @@
+@import '../../css/variables.scss';
+
 body.gallery-visible {
   .main-screen {
     transform: translateY($gallery-height - 90px);
