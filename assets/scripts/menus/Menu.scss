@@ -56,8 +56,7 @@ $menu-border-radius: $border-radius;
 
   textarea,
   input {
-    @include appearance(none);
-
+    appearance: none;
     background: $form-element-background;
     border: 1px solid $form-element-border;
     resize: none;

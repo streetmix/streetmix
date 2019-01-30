@@ -75,9 +75,9 @@ $menu-bar-border-radius: $border-radius;
   }
 
   button {
-    @include appearance(none);
     @include tap-highlight-color(transparent);
 
+    appearance: none;
     border: 0;
     font-size: inherit;
     font-weight: inherit;

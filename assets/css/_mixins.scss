@@ -6,12 +6,6 @@
 }
 
 // Non-standard prefixed styles
-@mixin appearance($value: none) {
-  -webkit-appearance: $value;
-  -moz-appearance: $value;
-  appearance: $value;
-}
-
 @mixin tap-highlight-color($value: transparent) {
   -webkit-tap-highlight-color: $value;
   -moz-tap-highlight-color: $value;

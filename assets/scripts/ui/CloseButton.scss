@@ -1,11 +1,7 @@
-@import '../../css/mixins.scss';
-
 $close-button-margin: 2px;
 $close-button-size: 34px;
 
 button.close {
-  @include appearance(none);
-
   // Position in dialog boxes
   position: absolute;
   right: $close-button-margin;
@@ -22,6 +18,7 @@ button.close {
   height: $close-button-size;
 
   // Appearance
+  appearance: none;
   border: 0;
   border-radius: 50%;
   color: rgb(64, 32, 32);
