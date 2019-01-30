@@ -1,7 +1,13 @@
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
+@import '../../css/street-name.scss';
+
+$welcome-panel-border-radius: $border-radius;
+$welcome-panel-box-shadow: $medium-box-shadow;
 
 .welcome-panel-container {
   position: absolute;
-  top: -5px; // Hides top border
+  top: 0;
   left: 0;
   right: 0;
   z-index: $z-05-welcome;
@@ -15,17 +21,18 @@
 }
 
 .welcome-panel {
-  @include box-border;
-
   display: inline-block;
   position: relative;
-  padding: 6px 15px;
+  padding: 0.5em 1.5em 0.75em;
   margin: 0;
   background: white;
   text-align: center;
   font-size: 16px;
   color: rgb(64, 64, 64);
   pointer-events: auto;
+  border-bottom-left-radius: $welcome-panel-border-radius;
+  border-bottom-right-radius: $welcome-panel-border-radius;
+  box-shadow: $welcome-panel-box-shadow;
 }
 
 .welcome-panel-content {
