@@ -39,6 +39,10 @@ $street-name-text:          black;
 $street-name-background:    white;
 $hr-colour:                 darken($ui-colour, 10%);
 
+// Layered UI box shadows
+$medium-box-shadow:         0 0 10px 0 rgba(0, 0, 0, 0.1);
+$heavy-box-shadow:          0 0 10px 0 rgba(0, 0, 0, 0.2);
+
 // Design
 $street-name-gallery-size:  0.5;
 $info-bubble-button-size:   30px;
