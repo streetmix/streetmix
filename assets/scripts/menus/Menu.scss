@@ -83,48 +83,6 @@ body.safari .menu {
   }
 }
 
-#settings-menu {
-  min-width: 200px;
-}
-
-.share-menu {
-  min-width: 350px;
-}
-
-.share-via-link-container {
-  padding: 0.5em 1em 0.5em 2.5em;
-  border-bottom: 1px solid #cde1ea;
-
-  [dir="rtl"] & {
-    padding: 0.5em 2.5em 0.5em 1em;
-  }
-}
-
-.share-via-link {
-  font-size: 13px;
-  line-height: 18px;
-  width: 100%;
-  margin-top: 0.5em;
-  display: block;
-  box-sizing: border-box;
-  outline: none;
-}
-
-.share-sign-in-promo {
-  width: 300px;
-  text-align: center;
-  color: rgb(128, 128, 128);
-  font-size: 13px;
-  line-height: 18px;
-  padding: 15px 40px;
-  border-bottom: 1px solid rgb(224, 224, 224);
-  margin-bottom: 15px;
-
-  a {
-    color: inherit;
-  }
-}
-
 .menu .form {
   padding: 0.5em 1em 1em 2.5em;
 
@@ -244,11 +202,6 @@ body.safari .menu {
   line-height: 8px;
   color: rgb(128, 128, 128);
   font-size: 11px;
-}
-
-.help-menu-shortcuts {
-  max-width: 400px;
-  line-height: 18px;
 }
 
 .fa-facebook,

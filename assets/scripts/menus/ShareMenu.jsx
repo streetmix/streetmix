@@ -13,6 +13,8 @@ import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/actions/dialogs'
 import { startPrinting } from '../store/actions/app'
 
+import './ShareMenu.scss'
+
 class ShareMenu extends React.Component {
   static propTypes = {
     intl: intlShape,

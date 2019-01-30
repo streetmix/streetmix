@@ -7,6 +7,7 @@ import Menu from './Menu'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
+import './HelpMenu.scss'
 
 class HelpMenu extends React.PureComponent {
   static propTypes = {
