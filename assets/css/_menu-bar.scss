@@ -6,6 +6,7 @@
 $top-menu-text: $segment-text;
 $top-menu-hover-text: darken($ui-colour, 30%);
 $top-menu-active-text: darken($ui-colour, 40%);
+$menu-bar-border-radius: $border-radius;
 
 .menu-bar {
   z-index: $z-02-menu-bar;
@@ -15,7 +16,8 @@ $top-menu-active-text: darken($ui-colour, 40%);
   right: $left-right-inset - 20px; // 30px
   top: -150px;
   border-top: 150px solid $menu-bar-background;
-  border-bottom: 3px solid darken($ui-colour, 20%);
+  border-bottom-left-radius: $menu-bar-border-radius;
+  border-bottom-right-radius: $menu-bar-border-radius;
   background: $menu-bar-background;
   background-clip: padding-box;
   font-family: $font-family;
