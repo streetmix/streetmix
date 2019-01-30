@@ -159,9 +159,9 @@ class StreetView extends React.Component {
     if (skyHeight < 0) {
       skyHeight = 0
     }
-    // 600 is tweaked from 595px, the value of $canvas-baseline in CSS.
+    // 605 is tweaked by adding 10 to 595px, the value of $canvas-baseline in CSS.
     // TODO: consolidate hardcoded numbers
-    skyHeight += 600
+    skyHeight += 605
 
     const streetWidth = (this.props.street.width * TILE_SIZE)
     let streetSectionCanvasLeft =
