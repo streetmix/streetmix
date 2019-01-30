@@ -1,5 +1,7 @@
+$share-menu-width: 350px;
+
 .share-menu {
-  min-width: 350px;
+  min-width: $share-menu-width;
 }
 
 .share-via-link-container {
@@ -22,7 +24,7 @@
 }
 
 .share-sign-in-promo {
-  width: 300px;
+  width: $share-menu-width;
   text-align: center;
   color: rgb(128, 128, 128);
   font-size: 13px;
