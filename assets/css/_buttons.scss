@@ -15,42 +15,6 @@ button.scroll,
   }
 }
 
-button.close {
-  @include appearance(none);
-
-  // Position in dialog boxes
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  // Mirror position in rtl
-  [dir="rtl"] & {
-    right: auto;
-    left: 0;
-  }
-
-  // Touch-friendly size
-  width: 36px;
-  height: 36px;
-
-  // Appearance
-  border: 0;
-  background: transparent;
-  color: rgb(64, 32, 32);
-  cursor: pointer;
-  user-select: none;
-
-  // Override font-awesome sizing
-  > .svg-inline--fa {
-    width: 0.65rem;
-    height: 0.65rem;
-  }
-
-  &:hover {
-    color: black;
-  }
-}
-
 input[type="submit"],
 button,
 a.button-like {

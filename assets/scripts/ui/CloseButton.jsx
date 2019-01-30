@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { injectIntl, intlShape } from 'react-intl'
+import './CloseButton.scss'
 
 class CloseButton extends React.Component {
   static propTypes = {
