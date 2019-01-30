@@ -2,6 +2,8 @@
 // Menu bar
 //
 // --------------------------------------------------------
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
 
 $top-menu-text: $segment-text;
 $top-menu-hover-text: darken($ui-colour, 30%);
@@ -157,47 +159,5 @@ button.menu-sign-in {
     letter-spacing: 5px;
     color: black;
     display: none;
-  }
-}
-
-.environment-badge {
-  z-index: $z-02-menu-bar;
-  display: none;
-  position: absolute;
-  left: 14px;
-  bottom: -12px;
-  padding: 2px 7px;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 4px;
-  padding-right: 7px - 4px; // Right padding minus letter-spacing
-  color: white;
-  background-color: gray;
-  pointer-events: none;
-
-  &.environment-label-development {
-    display: inline-block;
-    background-color: rgb(200, 0, 0);
-  }
-
-  &.environment-label-staging,
-  &.environment-label-sandbox {
-    display: inline-block;
-    background-color: green;
-  }
-
-  &.environment-label-demo {
-    display: inline-block;
-    background-color: rgb(28, 189, 209);
-  }
-}
-
-[dir="rtl"] {
-  .environment-badge {
-    right: 16px;
-    left: auto;
   }
 }

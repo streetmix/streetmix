@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ENV } from '../app/config'
+import './EnvironmentBadge.scss'
 
 export default class EnvironmentBadge extends React.PureComponent {
   static propTypes = {
