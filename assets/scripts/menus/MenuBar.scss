@@ -5,10 +5,11 @@
 @import '../../css/variables.scss';
 @import '../../css/mixins.scss';
 
-$top-menu-text: $segment-text;
-$top-menu-hover-text: darken($ui-colour, 30%);
-$top-menu-active-text: darken($ui-colour, 40%);
+$menu-bar-text-color: $segment-text;
+$menu-bar-text-color-hover: darken($ui-colour, 30%);
+$menu-bar-text-color-active: darken($ui-colour, 40%);
 $menu-bar-border-radius: $border-radius;
+$menu-bar-box-shadow: $light-box-shadow;
 
 .menu-bar {
   z-index: $z-02-menu-bar;
@@ -22,6 +23,7 @@ $menu-bar-border-radius: $border-radius;
   border-bottom-right-radius: $menu-bar-border-radius;
   background: $menu-bar-background;
   background-clip: padding-box;
+  box-shadow: $menu-bar-box-shadow;
   font-family: $font-family;
   font-size: 13px;
   user-select: none;
@@ -37,7 +39,7 @@ $menu-bar-border-radius: $border-radius;
     padding: 3px 1em;
     margin: 0;
     line-height: 32px;
-    color: $top-menu-text;
+    color: $menu-bar-text-color;
   }
 
   li {
@@ -66,11 +68,11 @@ $menu-bar-border-radius: $border-radius;
     color: inherit;
 
     &:hover {
-      color: $top-menu-hover-text;
+      color: $menu-bar-text-color-hover;
     }
 
     &:active {
-      color: $top-menu-active-text;
+      color: $menu-bar-text-color-active;
     }
   }
 
@@ -102,12 +104,12 @@ $menu-bar-border-radius: $border-radius;
     }
 
     &:hover {
-      color: $top-menu-hover-text;
+      color: $menu-bar-text-color-hover;
       background-color: transparent;
     }
 
     &:active {
-      color: $top-menu-active-text;
+      color: $menu-bar-text-color-active;
     }
 
     &[disabled] {
