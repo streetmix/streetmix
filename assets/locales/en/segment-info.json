@@ -13,6 +13,8 @@
     "median": "Median",
     "bollard": "Bollard",
     "dome": "Traffic exclusion dome",
+    "scooter": "Electric scooter",
+    "scooter-drop-zone": "Scooter drop zone",
     "bike-lane": "Bike lane",
     "parking-lane": "Parking lane",
     "perpendicular-parking": "Perpendicular parking",

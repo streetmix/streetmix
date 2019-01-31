@@ -441,7 +441,7 @@
     }
   },
   "scooter": {
-    "name": "Scooter",
+    "name": "Electric scooter",
     "nameKey": "scooter",
     "owner": "BIKE",
     "zIndex": 16,
@@ -510,6 +510,138 @@
             "markings--straight-outbound-light"
           ],
           "repeat": "ground--asphalt-red"
+        }
+      }
+    }
+  },
+  "scooter-drop-zone": {
+    "name": "Scooter drop zone",
+    "nameKey": "scooter-drop-zone",
+    "owner": "FLEX",
+    "zIndex": 21,
+    "defaultWidth": 5,
+    "enableWithFlag": "SEGMENT_SCOOTERS",
+    "variants": [
+      "orientation",
+      "scooter-elevation",
+      "scooter-riders"
+    ],
+    "paletteIcon": "right|road|empty",
+    "details": {
+      "left|sidewalk|empty": {
+        "graphics": {
+          "left": [
+            {
+              "id": "scooters--scooter-left-docked",
+              "offsetY": 2.65
+            },
+            {
+              "id": "markings--lane-left",
+              "offsetY": 10.65
+            }
+          ],
+          "repeat": "ground--concrete",
+          "right": {
+            "id": "markings--lane-right",
+            "offsetY": 10.65
+          }
+        }
+      },
+      "right|sidewalk|empty": {
+        "graphics": {
+          "right": [
+            {
+              "id": "scooters--scooter-right-docked",
+              "offsetY": 2.65
+            },
+            {
+              "id": "markings--lane-right",
+              "offsetY": 10.65
+            }
+          ],
+          "repeat": "ground--concrete",
+          "left": {
+            "id": "markings--lane-left",
+            "offsetY": 10.65
+          }
+        }
+      },
+      "left|sidewalk|sparse": {
+        "graphics": {
+          "left": [
+            {
+              "id": "scooters--scooter-left-rider",
+              "offsetY": 2.65
+            },
+            {
+              "id": "markings--lane-left",
+              "offsetY": 10.65
+            }
+          ],
+          "repeat": "ground--concrete",
+          "right": {
+            "id": "markings--lane-right",
+            "offsetY": 10.65
+          }
+        }
+      },
+      "right|sidewalk|sparse": {
+        "graphics": {
+          "right": [
+            {
+              "id": "scooters--scooter-right-rider",
+              "offsetY": 2.65
+            },
+            {
+              "id": "markings--lane-right",
+              "offsetY": 10.65
+            }
+          ],
+          "repeat": "ground--concrete",
+          "left": {
+            "id": "markings--lane-left",
+            "offsetY": 10.65
+          }
+        }
+      },
+      "left|road|empty": {
+        "graphics": {
+          "left": [
+            "scooters--scooter-left-docked",
+            "markings--lane-left"
+          ],
+          "repeat": "ground--asphalt",
+          "right": "markings--lane-right"
+        }
+      },
+      "right|road|empty": {
+        "graphics": {
+          "right": [
+            "scooters--scooter-right-docked",
+            "markings--lane-right"
+          ],
+          "repeat": "ground--asphalt",
+          "left": "markings--lane-left"
+        }
+      },
+      "left|road|sparse": {
+        "graphics": {
+          "left": [
+            "scooters--scooter-left-rider",
+            "markings--lane-left"
+          ],
+          "repeat": "ground--asphalt",
+          "right": "markings--lane-right"
+        }
+      },
+      "right|road|sparse": {
+        "graphics": {
+          "right": [
+            "scooters--scooter-right-rider",
+            "markings--lane-right"
+          ],
+          "repeat": "ground--asphalt",
+          "left": "markings--lane-left"
         }
       }
     }

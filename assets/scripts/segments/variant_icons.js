@@ -354,5 +354,25 @@ export const VARIANT_ICONS = {
       'id': '',
       'title': 'No one'
     }
+  },
+  'scooter-elevation': {
+    'sidewalk': {
+      'id': 'elevation-higher',
+      'title': 'Sidewalk level'
+    },
+    'road': {
+      'id': 'elevation-lower',
+      'title': 'Road level'
+    }
+  },
+  'scooter-riders': {
+    'empty': {
+      'id': '',
+      'title': 'No one'
+    },
+    'sparse': {
+      'id': 'sidewalk-density-sparse',
+      'title': 'Someone'
+    }
   }
 }
