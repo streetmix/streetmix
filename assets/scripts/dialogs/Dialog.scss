@@ -39,7 +39,6 @@ $dialog-border-radius: $border-radius;
   @include box-border;
 
   position: relative;
-  box-sizing: border-box;
   // balance the dialog by making it slightly north of center
   margin-top: -3%;
   padding: 0;

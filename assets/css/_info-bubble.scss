@@ -36,7 +36,6 @@
   .icon {
     pointer-events: none;
     position: absolute;
-    box-sizing: border-box;
     left: 0;
     top: 0;
     width: 100%;
@@ -203,7 +202,6 @@
 
   > p {
     width: 100%;
-    box-sizing: border-box;
     margin: 0.5em auto; /* Ensure centering of text if not wide enough to fill width of bubble */
     padding: 0;
   }

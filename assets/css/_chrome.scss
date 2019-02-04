@@ -94,7 +94,6 @@ body.phone #loading {
   @include loading-spinner;
 
   content: '';
-  box-sizing: border-box;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -155,7 +154,6 @@ body.controls-fade-out .segment.hover .hover-bk {
 }
 
 .key-icon {
-  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   align-items: center;
