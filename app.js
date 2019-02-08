@@ -210,6 +210,7 @@ app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
 app.get('/services/geoip', resources.services.geoip.get)
 
+app.options('/services/cloudinary', cors())
 app.get('/services/cloudinary', cors(), resources.services.cloudinary.get)
 
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
