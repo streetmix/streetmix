@@ -102,8 +102,7 @@
   },
   "BUSINESS_PLAN": {
     "label": "Activate purchasing funnel",
-    "defaultValue": false,
-    "enabled": false
+    "defaultValue": false
   },
   "AUTHENTICATION_V2": {
     "label": "Authentication v2",
