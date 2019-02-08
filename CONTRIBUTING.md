@@ -23,7 +23,8 @@ By participating in this project you agree to abide by its terms.
 ## Bug reports and feedback
 
 We use the [GitHub issue tracker][issues] to track bugs and features
-in development. We also have [a Discord server](https://discord.gg/NsKmV3S) for feedback
+in development. We also have [a Discord server](https://discord.gg/NsKmV3S)
+and [forums](https://forums.streetmix.net/) for feedback
 and discussion.
 
 ### Bug reporting
@@ -88,22 +89,21 @@ your fork of the Streetmix repo, and submit a pull request to us.
 
 ### Submitting a pull request
 
-1. Fork the project.
-2. Create a topic branch.
-3. Implement your feature or bug fix.
-4. Commit and push your changes.
-5. Submit a pull request.
+1. **Fork the project**, if you do not already have write access to the repository. Individuals making significant and valuable contributions will be given write access.
+2. **Create a new branch.** Changes should always be made in a new feature branch. The branch should be named in the format `username/feature-name`.
+3. **Implement your feature or bug fix.** Writing code is the fun part! Before you start any work, it's a good idea to note your interest in GitHub issues, or talk to us on Discord or the forums so that we can be sure you're on the right track.
+4. **Commit and push your changes.** We have local hooks to verify code style during the commit stage. After pushing, we run tests in the cloud to make sure commits pass. We recommend manually running tests locally as well. See below for more information.
+5. **Submit a pull request.** Ideally, pull requests contain small, self-contained changes with a few commits, which are easier to review. You can simplify a review and merge process by making sure your branch contains no conflicts with the `master` branch and is up-to-date (either by rebasing on `master` or merging it in) when the pull request is created. If the pull request addresses an open issue, be sure to reference it in your request's title or description.
+6. **Wait for a review.** A project maintainer will review your pull request and either approve, reject, or request changes on it. A well-written, small pull request that fixes an open issue is most likely to be approved and merged quickly. Once merged, a branch is deleted.
 
-Individuals making significant and valuable contributions are made _Collaborators_ and given commit-access to the project.
+Stale branches, especially ones that cannot be cleanly merged anymore, are likely to be deleted after some amount of time has passed.
 
 
 ## Design / illustration contributions
 
-Unfortunately, we are not accepting illustration contributions at this
-time. If you have feedback on our illustrations, or if you think we
-should consider adding new elements, please follow the [instructions for
-feature requests/feedback](#feedback) above.
-
+If you would like to contribute illustrations, or have feedback on existing
+illustrations, please talk to us on [Discord](https://discord.gg/NsKmV3S)
+or on the [forums](https://forums.streetmix.net/)!
 
 ## Development setup
 
