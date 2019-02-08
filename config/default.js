@@ -72,5 +72,9 @@ module.exports = {
     port: process.env.REDIS_PORT,
     password: process.env.REDIS_PASSWORD || '',
     url: process.env.REDIS_URL || null
+  },
+  cloudinary: {
+    api_key: process.env.CLOUDINARY_API_KEY || null,
+    api_secret: process.env.CLOUDINARY_API_SECRET || null
   }
 }
