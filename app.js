@@ -176,8 +176,8 @@ app.get('/map', function (req, res) {
   res.redirect('https://streetmix.github.io/map/')
 })
 
-app.get('/privacy-policy', express.static(path.join(__dirname, '/public/pages'), { fallthrough: false }))
-app.get('/terms-of-service', express.static(path.join(__dirname, '/public/pages'), { fallthrough: false }))
+app.get('/privacy-policy', (req, res) => res.render('privacy'))
+app.get('/terms-of-service', (req, res) => res.render('tos'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
