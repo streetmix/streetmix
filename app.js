@@ -140,7 +140,7 @@ app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
 // Generate nonces for inline scripts
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.locals.nonce = {
     google_analytics: uuid(),
     mixpanel: uuid()
@@ -149,7 +149,7 @@ app.use(function (req, res, next) {
 })
 
 // Set Redis client for when requesting the geoip
-app.use('/services/geoip', function (req, res, next) {
+app.use('/services/geoip', (req, res, next) => {
   req.redisClient = client
   next()
 })
@@ -158,7 +158,7 @@ app.use('/services/geoip', function (req, res, next) {
 app.use(helmet.contentSecurityPolicy(csp))
 
 // Rewrite requests with timestamp
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   // Matches a filename like styles.2395934243.css
   // Accepts optional `?29090424` query string used by Parcel's hot-module reloader
   req.url = req.url.replace(/\/([^/]+)\.[0-9]+\.(css|js)(\?[0-9]+)?$/, '/$1.$2')
@@ -168,13 +168,8 @@ app.use(function (req, res, next) {
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
 
-app.get('/help/about', function (req, res) {
-  res.redirect('https://www.opencollective.com/streetmix/')
-})
-
-app.get('/map', function (req, res) {
-  res.redirect('https://streetmix.github.io/map/')
-})
+app.get('/help/about', (req, res) => res.redirect('https://www.opencollective.com/streetmix/'))
+app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 
 app.get('/privacy-policy', (req, res) => res.render('privacy'))
 app.get('/terms-of-service', (req, res) => res.render('tos'))
@@ -218,16 +213,16 @@ app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.
 app.get('/api/v1/flags', cors(), resources.v1.flags.get)
 
 // Catch all for all broken api paths, direct to 404 response.
-app.get('/api/*', function (req, res) {
+app.get('/api/*', (req, res) => {
   res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
 })
 
 // SVG bundled images served directly from packages
-app.get('/assets/images/icons.svg', function (req, res) {
+app.get('/assets/images/icons.svg', (req, res) => {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/icons/dist/icons.svg'))
 })
 
-app.get('/assets/images/images.svg', function (req, res) {
+app.get('/assets/images/images.svg', (req, res) => {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
 })
 
@@ -235,9 +230,7 @@ app.use('/assets', express.static(path.join(__dirname, '/build')))
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Catch all for all broken assets, direct to 404 response.
-app.get('/assets/*', function (req, res) {
-  res.status(404).render('404', {})
-})
+app.get('/assets/*', (req, res) => res.status(404).render('404'))
 
 // Allow hot-module reloading (HMR) in non-production environments
 if (config.env !== 'production') {
@@ -246,6 +239,4 @@ if (config.env !== 'production') {
 }
 
 // Catch-all
-app.use(function (req, res) {
-  res.render('main', {})
-})
+app.use((req, res) => res.render('main'))
