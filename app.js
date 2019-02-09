@@ -226,11 +226,8 @@ app.get('/assets/images/images.svg', (req, res) => {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
 })
 
-app.use('/assets', express.static(path.join(__dirname, '/build')))
+app.use('/assets', express.static(path.join(__dirname, '/build'), { fallthrough: false }))
 app.use(express.static(path.join(__dirname, '/public')))
-
-// Catch all for all broken assets, direct to 404 response.
-app.get('/assets/*', (req, res) => res.status(404).render('404'))
 
 // Allow hot-module reloading (HMR) in non-production environments
 if (config.env !== 'production') {
