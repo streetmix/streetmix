@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { KEYS } from '../app/keys'
+import './UpDownInput.scss'
 
 const EDIT_INPUT_DELAY = 200
 
