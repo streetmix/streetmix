@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import StreetEditable from './StreetEditable'
+import StreetViewDirt from './StreetViewDirt'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
@@ -22,6 +23,7 @@ import { BUILDING_SPACE } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
 import { DRAGGING_TYPE_RESIZE } from '../segments/drag_and_drop'
 import { updateStreetMargin } from '../segments/resizing'
+import './StreetView.scss'
 
 const SEGMENT_RESIZED = 1
 const STREETVIEW_RESIZED = 2
@@ -274,11 +276,6 @@ class StreetView extends React.Component {
   }
 
   render () {
-    const dirtStyle = {
-      marginLeft: (-this.state.buildingWidth) + 'px',
-      marginRight: (-this.state.buildingWidth) + 'px'
-    }
-
     return (
       <React.Fragment>
         <section
@@ -314,10 +311,7 @@ class StreetView extends React.Component {
                   <EmptySegmentContainer />
                 </React.Fragment>
               </IntlProvider>
-              <section id="street-section-dirt" style={dirtStyle}>
-                <div className="dirt-left" style={{ width: `${this.state.buildingWidth}px` }} />
-                <div className="dirt-right" style={{ width: `${this.state.buildingWidth}px` }} />
-              </section>
+              <StreetViewDirt buildingWidth={this.state.buildingWidth} />
             </section>
           </section>
         </section>

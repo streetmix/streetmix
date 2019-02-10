@@ -1,3 +1,8 @@
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
+
+// TODO: Further refactor / split up of this stylesheet
+
 #street-section-outer {
   position: absolute;
   display: block;
@@ -81,38 +86,6 @@
   margin-left: $building-space;
   margin-right: $building-space;
   height: $canvas-height + 40;
-}
-
-$dirt-height: 40px;
-$dirt-height-minimum: 5px;
-
-#street-section-dirt {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: $canvas-height - 80px + $dirt-height;
-  border-top: $dirt-height-minimum solid $background-dirt-colour;
-  background: $bottom-background;
-  z-index: -2;
-  pointer-events: none;
-}
-
-.dirt-left,
-.dirt-right {
-  content: ' ';
-  position: absolute;
-  top: -($dirt-height + $dirt-height-minimum);
-  background-color: $background-dirt-colour;
-  width: 360px;
-  height: $dirt-height;
-}
-
-.dirt-left {
-  left: 0;
-}
-
-.dirt-right {
-  right: 0;
 }
 
 .street-section-building {
