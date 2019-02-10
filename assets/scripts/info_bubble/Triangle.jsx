@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import './Triangle.scss'
 
 export default function Triangle (props) {
   const triangleClassNames = ['info-bubble-triangle']

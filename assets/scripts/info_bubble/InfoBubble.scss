@@ -1,3 +1,8 @@
+@import '../../css/variables.scss';
+@import '../../css/mixins.scss';
+
+// TODO: Further refactoring / splitting up of these styles
+
 .info-bubble {
   @include box-border;
 
@@ -159,27 +164,6 @@
   text-overflow: ellipsis;
 }
 
-.info-bubble-remove {
-  width: auto !important; /* Override button width of other buttons in infobubble */
-  padding: 0;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  margin-top: 1px;
-  margin-left: 1em;
-  font-size: 11px;
-
-  .remove-icon {
-    width: 14px;
-    height: 14px;
-    margin-right: 0.5em;
-
-    [dir="rtl"] & {
-      margin-right: 0;
-      margin-left: 0.5em;
-    }
-  }
-}
-
 .info-bubble-controls {
   display: flex;
   justify-content: space-between;
@@ -207,33 +191,6 @@
   }
 }
 
-.info-bubble-triangle {
-  position: absolute;
-  bottom: -30px;
-  height: 30px;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    left: 50%;
-    bottom: 15px;
-    margin-left: -15px - 3px;
-    border: 3px solid darken($ui-colour, 20%);
-    transform: rotateZ(45deg);
-    background: $info-bubble-background;
-    pointer-events: none;
-  }
-}
-
-.info-bubble-triangle-highlight::before {
-  background: mix($ui-colour, white, 50%);
-}
-
 .info-bubble.show-description {
   .variants {
     pointer-events: none;
@@ -258,82 +215,6 @@
   .description {
     pointer-events: auto;
   }
-}
-
-.description-prompt,
-.description-close {
-  border-top: 1px solid $ui-colour;
-  text-rendering: optimizeLegibility;
-  white-space: normal;
-  text-align: center;
-  padding: 1em 2em;
-  font-size: 13px;
-  user-select: none;
-  color: darken($ui-colour, 20%);
-  cursor: pointer;
-
-  &:hover {
-    color: darken($ui-colour, 40%);
-    background: mix($ui-colour, white, 50%);
-  }
-}
-
-.description-close {
-  pointer-events: none;
-}
-
-.description-canvas {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  left: -50px;
-  top: -50px;
-  right: -50px;
-  pointer-events: none;
-  border-top: 3px solid darken($ui-colour, 20%);
-  border-bottom: 3px solid darken($ui-colour, 20%);
-  background: $info-bubble-background;
-}
-
-.description {
-  height: 100%;
-  padding: 1em;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.4;
-  overflow-y: auto;
-  overflow-x: hidden;
-  touch-action: pan-y;
-
-  p {
-    margin: 10px 0;
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
-  footer {
-    text-align: right;
-    color: rgb(160, 160, 160);
-    font-size: 11px;
-    line-height: 14px;
-  }
-
-  img {
-    //width: 300px;
-    margin: 0 auto;
-    display: block;
-    max-width: 100%;
-    outline: 1px solid darken($ui-colour, 20%);
-  }
-}
-
-.description-lede {
-  font-size: 150%;
-  font-weight: 300;
-  line-height: 1.25;
 }
 
 [dir="rtl"] {

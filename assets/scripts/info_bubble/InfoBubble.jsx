@@ -8,7 +8,7 @@ import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
-import Description from './Description.jsx'
+import Description from './Description'
 import { infoBubble } from './info_bubble'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
@@ -24,6 +24,7 @@ import { getSegmentEl } from '../segments/view'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
+import './InfoBubble.scss'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
