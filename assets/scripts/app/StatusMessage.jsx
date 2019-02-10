@@ -10,6 +10,7 @@ import { undo as doUndo } from '../store/actions/undo'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
 import CloseButton from '../ui/CloseButton'
+import './StatusMessage.scss'
 
 const STATUS_MESSAGE_HIDE_DELAY = 15000
 
