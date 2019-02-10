@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { API_URL } from '../app/config'
 import { rememberUserProfile } from '../store/actions/user'
+import './Avatar.scss'
 
 // Requests are cached so that multiple Avatar components that have the
 // same userId only need to make one request. Requests are cached separately

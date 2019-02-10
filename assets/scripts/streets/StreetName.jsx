@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import './StreetName.scss'
 
 const MAX_STREET_NAME_WIDTH = 50
 

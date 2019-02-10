@@ -4,6 +4,7 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './RemoveButton.scss'
 
 class RemoveButton extends React.PureComponent {
   static propTypes = {

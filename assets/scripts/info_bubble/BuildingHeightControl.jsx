@@ -5,6 +5,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import UpDownInput from './UpDownInput'
 import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
+import './BuildingHeightControl.scss'
 
 class BuildingHeightControl extends React.Component {
   static propTypes = {

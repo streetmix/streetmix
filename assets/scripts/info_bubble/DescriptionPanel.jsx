@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import Transition from 'react-transition-group/Transition'
 import Triangle from './Triangle'
 import { getStreetSectionTop } from '../app/window_resize'
+import './DescriptionPanel.scss'
 
 const TRANSITION_DURATION = 250
 const DEFAULT_STYLE = {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { KEYS } from '../app/keys'
+import './UpDownInput.scss'
 
 const EDIT_INPUT_DELAY = 200
 
@@ -14,23 +15,24 @@ export default class UpDownInput extends React.Component {
     minValue: PropTypes.number,
     maxValue: PropTypes.number,
 
-    // Optionally, formatters may be used for display values.
-    // These are functions that can return numbers or strings.
+    // Formatter functions are used to optionally format raw values
+    // for display. These functions should return a number or a string.
 
-    // `inputValueFormatter` returns a value that is displayed in
-    // the input box when a user has focused or hovered it, and may
-    // be ready to edit the value. If a function is not provided,
-    // the default displays unformatted `props.value`.
+    // `inputValueFormatter` formats a value that is displayed when
+    // a user has focused or hovered over the <input> element. If this
+    // function is unspecified, the display value remains the raw
+    // `value` prop.
     inputValueFormatter: PropTypes.func,
 
-    // `displayValueFormatter` returns a value that is displayed in
-    // the input box when the user is not editing the input box.
-    // If a function is not provided, the default displays
-    // unformatted `props.value`.
+    // `displayValueFormatter` formats a value that is displayed inside
+    // the <input> element when it is not being edited. If this
+    // function is unspecified, the display value remains the raw
+    // `value` prop.
     displayValueFormatter: PropTypes.func,
 
-    // Handler functions from the parent. The handlers should be
-    // responsible for validating inputs and updating data stores.
+    // Handler functions are specified by the parent component. These
+    // handlers should be responsible for validating raw inputs and
+    // updating street data.
     onClickUp: PropTypes.func,
     onClickDown: PropTypes.func,
     onUpdatedValue: PropTypes.func,

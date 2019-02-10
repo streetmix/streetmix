@@ -2,8 +2,8 @@
 // Menu bar
 //
 // --------------------------------------------------------
-@import '../../css/variables.scss';
-@import '../../css/mixins.scss';
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
 
 $menu-bar-text-color: $segment-text;
 $menu-bar-text-color-hover: darken($ui-colour, 30%);

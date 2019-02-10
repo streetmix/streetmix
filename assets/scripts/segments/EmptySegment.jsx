@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import MeasurementText from '../ui/MeasurementText'
 import { TILE_SIZE } from '../segments/constants'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
+import './EmptySegment.scss'
 
 /**
  * This is a "presentational" component in the React presentational/container
