@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { startPrinting, stopPrinting } from '../store/actions/app'
 import { getStreetImage } from '../streets/image'
+import './PrintContainer.scss'
 
 class PrintContainer extends React.PureComponent {
   static propTypes = {
