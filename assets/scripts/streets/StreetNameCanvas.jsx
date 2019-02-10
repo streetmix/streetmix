@@ -6,6 +6,7 @@ import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
 import { getEnvirons } from '../streets/environs'
+import './StreetNameCanvas.scss'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {

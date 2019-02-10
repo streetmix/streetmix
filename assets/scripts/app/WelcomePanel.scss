@@ -1,6 +1,6 @@
 @import '../../css/variables.scss';
 @import '../../css/mixins.scss';
-@import '../../css/street-name.scss';
+@import '../streets/StreetName.scss';
 
 $welcome-panel-border-radius: $border-radius;
 $welcome-panel-box-shadow: $medium-box-shadow;
