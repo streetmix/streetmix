@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { DragLayer } from 'react-dnd'
 import SegmentCanvas from './SegmentCanvas'
 import { Types } from './drag_and_drop'
+import './SegmentDragLayer.scss'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 const MAX_DRAG_DEGREE = 20
@@ -10,10 +11,15 @@ const MAX_DRAG_DEGREE = 20
 class SegmentDragLayer extends React.PureComponent {
   static propTypes = {
     isDragging: PropTypes.bool.isRequired,
-    currentOffset: PropTypes.object,
+    currentOffset: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
     item: PropTypes.object,
     type: PropTypes.string
   }
+
+  floatingEl = React.createRef()
 
   getSnapshotBeforeUpdate (prevProps) {
     const { currentOffset } = this.props
@@ -50,20 +56,20 @@ class SegmentDragLayer extends React.PureComponent {
     }
 
     const transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
-    this.floatingEl.style['transform'] = transform
-    this.floatingEl.style['-webkit-transform'] = transform
+    this.floatingEl.current.style['transform'] = transform
+    this.floatingEl.current.style['-webkit-transform'] = transform
   }
 
   render () {
     const { isDragging, item } = this.props
 
-    if (!isDragging) return null
-
     return (
       <div className="segment-drag-layer">
-        <div className="floating segment" ref={(ref) => { this.floatingEl = ref }}>
-          <SegmentCanvas {...item} />
-        </div>
+        {isDragging && (
+          <div className="floating segment" ref={this.floatingEl}>
+            <SegmentCanvas {...item} />
+          </div>
+        )}
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
+import './SegmentDragHandles.scss'
 
 export class SegmentDragHandles extends React.Component {
   static propTypes = {

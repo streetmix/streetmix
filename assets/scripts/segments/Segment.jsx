@@ -9,6 +9,7 @@ import { CSSTransition } from 'react-transition-group'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import MeasurementText from '../ui/MeasurementText'
+import './Segment.scss'
 
 import {
   TILE_SIZE,
