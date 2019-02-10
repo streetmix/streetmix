@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 
 // Stylesheets
 import '../../node_modules/leaflet/dist/leaflet.css'
-import '../css/styles.scss'
+import '../styles/styles.scss'
 
 // Polyfills
 import '@babel/polyfill'
