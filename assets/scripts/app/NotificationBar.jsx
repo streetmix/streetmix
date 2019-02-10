@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
 import { FormattedMessage } from 'react-intl'
 import CloseButton from '../ui/CloseButton'
+import './NotificationBar.scss'
 
 const TRANSITION_DURATION = 250
 const TRANSITION_BASE_STYLE = {

@@ -1,3 +1,5 @@
+@import '../../css/variables.scss';
+
 .flash {
   display: none;
   position: absolute;
@@ -8,12 +10,12 @@
   border: 20px solid white;
   z-index: $z-10-flash-border;
 
-  &.visible {
+  &.flash-visible {
     display: block;
     opacity: 1;
   }
 
-  &.fading-out {
+  &.flash-fading-out {
     display: block;
     opacity: 0;
     transition: opacity 1000ms;

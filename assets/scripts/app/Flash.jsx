@@ -1,4 +1,5 @@
 import React from 'react'
+import './Flash.scss'
 
 export default class Flash extends React.PureComponent {
   componentDidMount () {
@@ -8,15 +9,15 @@ export default class Flash extends React.PureComponent {
   }
 
   flash () {
-    this.el.classList.add('visible')
+    this.el.classList.add('flash-visible')
 
     window.setTimeout(() => {
-      this.el.classList.add('fading-out')
+      this.el.classList.add('flash-fading-out')
     }, 100)
 
     window.setTimeout(() => {
-      this.el.classList.remove('visible')
-      this.el.classList.remove('fading-out')
+      this.el.classList.remove('flash-visible')
+      this.el.classList.remove('flash-fading-out')
     }, 1000)
   }
 

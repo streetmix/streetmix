@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import { cloneDeep } from 'lodash'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
+import './DebugInfo.scss'
 
 class DebugInfo extends React.Component {
   static propTypes = {
