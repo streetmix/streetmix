@@ -4,13 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './KeyboardKey.scss'
 
 const KeyboardKey = (props) => {
-  if (props.icon && props.label) {
+  if (props.icon && typeof props.children === 'string') {
     // The `title` property on <kbd> is suggested to provide
-    // accessible text for the icon being displayed.
+    // accessible text for the icon being displayed. In this
+    // case we use the `children` prop as the `title`, which
+    // means it's necessary for this to be a simple string content
+    // and not a React component
     return (
       <kbd
         className="key key-icon"
-        title={props.label}
+        title={props.children}
       >
         <FontAwesomeIcon icon={props.icon} />
       </kbd>
@@ -28,8 +31,7 @@ const KeyboardKey = (props) => {
 
 KeyboardKey.propTypes = {
   children: PropTypes.any,
-  label: PropTypes.string,
-  icon: PropTypes.string
+  icon: PropTypes.object
 }
 
 export default KeyboardKey

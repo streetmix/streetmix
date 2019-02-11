@@ -75,10 +75,10 @@ class HelpMenu extends Component {
                   {/* <FormattedMessage> used with render prop because we pass the translated
                       text to <KeyboardKey> as a string, not as a component */}
                   <FormattedMessage id="key.minus" defaultMessage="Minus">
-                    {(label) => <KeyboardKey icon={ICON_MINUS} label={label} />}
+                    {(label) => <KeyboardKey icon={ICON_MINUS}>{label}</KeyboardKey>}
                   </FormattedMessage>
                   <FormattedMessage id="key.plus" defaultMessage="Plus">
-                    {(label) => <KeyboardKey icon={ICON_PLUS} label={label} />}
+                    {(label) => <KeyboardKey icon={ICON_PLUS}>{label}</KeyboardKey>}
                   </FormattedMessage>
                 </td>
                 <td>
@@ -97,10 +97,10 @@ class HelpMenu extends Component {
               <tr>
                 <td>
                   <FormattedMessage id="key.left-arrow" defaultMessage="Left arrow">
-                    {(label) => <KeyboardKey icon={ICON_ARROW_LEFT} label={label} />}
+                    {(label) => <KeyboardKey icon={ICON_ARROW_LEFT}>{label}</KeyboardKey>}
                   </FormattedMessage>
                   <FormattedMessage id="key.right-arrow" defaultMessage="Right arrow">
-                    {(label) => <KeyboardKey icon={ICON_ARROW_RIGHT} label={label} />}
+                    {(label) => <KeyboardKey icon={ICON_ARROW_RIGHT}>{label}</KeyboardKey>}
                   </FormattedMessage>
                 </td>
                 <td>
