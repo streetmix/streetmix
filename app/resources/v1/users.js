@@ -1,6 +1,7 @@
 
 const config = require('config')
 const uuid = require('uuid')
+const cloudinary = require('cloudinary')
 const User = require('../../models/user.js')
 const { ERRORS } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
@@ -110,6 +111,37 @@ exports.post = function (req, res) {
     return nickname + '-' + id
   }
 
+  const handleUserProfileImage = async function (userId, credentials) {
+    const publicId = `${config.env}/profile_image/${userId}`
+
+    cloudinary.config({
+      cloud_name: 'streetmix',
+      api_key: config.cloudinary.api_key,
+      api_secret: config.cloudinary.api_secret
+    })
+
+    let response, profileImageUrl
+
+    try {
+      response = await cloudinary.v2.api.resource(publicId)
+      profileImageUrl = response.secure_url
+    } catch (error) {
+      logger.error(error)
+    }
+
+    if (!response) {
+      try {
+        response = await cloudinary.v2.uploader.upload(credentials.profile_image_url, { upload_preset: 'profile_image', public_id: publicId })
+        profileImageUrl = response.secure_url
+      } catch (error) {
+        logger.error(error)
+        profileImageUrl = credentials.profile_image_url
+      }
+    }
+
+    return profileImageUrl
+  }
+
   const handleAuth0SignIn = async function (credentials) {
     try {
       const user = await User.findOne({ auth0_id: credentials.auth0_id })
@@ -138,8 +170,10 @@ exports.post = function (req, res) {
           u.save(handleCreateUser)
         }
       } else {
+        const profileImageUrl = await handleUserProfileImage(user.id, credentials)
+
         user.auth0_id = credentials.auth0_id
-        user.profile_image_url = credentials.profile_image_url
+        user.profile_image_url = profileImageUrl
         user.email = credentials.email
         user.login_tokens.push(loginToken)
         user.save(handleUpdateUser)
