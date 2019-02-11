@@ -2,8 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
+import KeyboardKey from '../ui/KeyboardKey'
+import {
+  ICON_MINUS,
+  ICON_PLUS,
+  ICON_ARROW_RIGHT,
+  ICON_ARROW_LEFT
+} from '../ui/icons'
 import { registerKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
@@ -48,7 +54,9 @@ class HelpMenu extends React.PureComponent {
             <tbody>
               <tr>
                 <td>
-                  <kbd className="key"><FormattedMessage id="key.backspace" defaultMessage="Backspace" /></kbd>
+                  <KeyboardKey>
+                    <FormattedMessage id="key.backspace" defaultMessage="Backspace" />
+                  </KeyboardKey>
                 </td>
                 <td>
                   <FormattedHTMLMessage
@@ -59,20 +67,17 @@ class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd
-                    className="key key-icon"
-                    title={this.props.intl.formatMessage({ id: 'key.minus', defaultMessage: 'Minus' })}
-                  >
-                    <FontAwesomeIcon icon="minus" />
-                  </kbd>
-                  <kbd
-                    className="key key-icon"
-                    title={this.props.intl.formatMessage({ id: 'key.plus', defaultMessage: 'Plus' })}
-                  >
-                    <FontAwesomeIcon icon="plus" />
-                  </kbd>
+                  {/* <FormattedMessage> used with render prop because we pass the translated
+                      text to <KeyboardKey> as a string, not as a component */}
+                  <FormattedMessage id="key.minus" defaultMessage="Minus">
+                    {(label) => <KeyboardKey icon={ICON_MINUS} label={label} />}
+                  </FormattedMessage>
+                  <FormattedMessage id="key.plus" defaultMessage="Plus">
+                    {(label) => <KeyboardKey icon={ICON_PLUS} label={label} />}
+                  </FormattedMessage>
                 </td>
                 <td>
+                  {/* Note: the keyboard keys are currently hard-coded into the translation text. */}
                   <FormattedHTMLMessage
                     id="menu.help.change"
                     defaultMessage="Move around the street<br />(hold <kbd class='key'>Shift</kbd> to jump to edges)"
@@ -81,18 +86,12 @@ class HelpMenu extends React.PureComponent {
               </tr>
               <tr>
                 <td>
-                  <kbd
-                    className="key key-icon"
-                    title={this.props.intl.formatMessage({ id: 'key.left-arrow', defaultMessage: 'Left arrow' })}
-                  >
-                    <FontAwesomeIcon icon="arrow-left" />
-                  </kbd>
-                  <kbd
-                    className="key key-icon"
-                    title={this.props.intl.formatMessage({ id: 'key.right-arrow', defaultMessage: 'Right arrow' })}
-                  >
-                    <FontAwesomeIcon icon="arrow-right" />
-                  </kbd>
+                  <FormattedMessage id="key.left-arrow" defaultMessage="Left arrow">
+                    {(label) => <KeyboardKey icon={ICON_ARROW_LEFT} label={label} />}
+                  </FormattedMessage>
+                  <FormattedMessage id="key.right-arrow" defaultMessage="Right arrow">
+                    {(label) => <KeyboardKey icon={ICON_ARROW_RIGHT} label={label} />}
+                  </FormattedMessage>
                 </td>
                 <td>
                   <FormattedHTMLMessage
