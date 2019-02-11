@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { HelpMenuWithIntl as HelpMenu } from '../HelpMenu'
+import { shallow } from 'enzyme'
+import HelpMenu from '../HelpMenu'
 
 describe('HelpMenu', () => {
   it('renders without crashing', () => {

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import KeyboardKey from '../ui/KeyboardKey'
 import {
@@ -15,9 +15,8 @@ import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
 import './HelpMenu.scss'
 
-class HelpMenu extends React.PureComponent {
+class HelpMenu extends Component {
   static propTypes = {
-    intl: intlShape.isRequired,
     showAboutDialog: PropTypes.func,
     showWhatsNewDialog: PropTypes.func
   }
@@ -32,21 +31,21 @@ class HelpMenu extends React.PureComponent {
   }
 
   render () {
+    const shiftKey = (
+      <KeyboardKey>
+        <FormattedMessage id="key.shift" defaultMessage="Shift" />
+      </KeyboardKey>
+    )
+
     return (
       <Menu onShow={this.onShow} {...this.props}>
-        <a
-          href="#"
-          onClick={this.props.showAboutDialog}
-        >
+        <a href="#" onClick={this.props.showAboutDialog}>
           <FormattedMessage id="menu.item.about" defaultMessage="About Streetmix…" />
         </a>
-        <a
-          href="#"
-          onClick={this.props.showWhatsNewDialog}
-        >
+        <a href="#" onClick={this.props.showWhatsNewDialog}>
           <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]&lrm;" />
         </a>
-        <div className="form non-touch-only help-menu-shortcuts">
+        <div className="help-menu-shortcuts non-touch-only">
           <p>
             <FormattedMessage id="menu.help.keyboard-label" defaultMessage="Keyboard shortcuts:" />
           </p>
@@ -59,9 +58,15 @@ class HelpMenu extends React.PureComponent {
                   </KeyboardKey>
                 </td>
                 <td>
-                  <FormattedHTMLMessage
-                    id="menu.help.remove"
-                    defaultMessage="Remove a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> to remove all)"
+                  <FormattedMessage
+                    id="menu.help.remove-instruction"
+                    defaultMessage="Remove a segment you’re pointing at"
+                  />
+                  <br />
+                  <FormattedMessage
+                    id="menu.help.remove-shift-instruction"
+                    defaultMessage="(hold {shiftKey} to remove all)&lrm;"
+                    values={{ shiftKey }}
                   />
                 </td>
               </tr>
@@ -77,10 +82,15 @@ class HelpMenu extends React.PureComponent {
                   </FormattedMessage>
                 </td>
                 <td>
-                  {/* Note: the keyboard keys are currently hard-coded into the translation text. */}
-                  <FormattedHTMLMessage
-                    id="menu.help.change"
-                    defaultMessage="Move around the street<br />(hold <kbd class='key'>Shift</kbd> to jump to edges)"
+                  <FormattedMessage
+                    id="menu.help.change-instruction"
+                    defaultMessage="Change width of a segment you’re pointing at"
+                  />
+                  <br />
+                  <FormattedMessage
+                    id="menu.help.change-shift-instruction"
+                    defaultMessage="(hold {shiftKey} for more precision)&lrm;"
+                    values={{ shiftKey }}
                   />
                 </td>
               </tr>
@@ -94,9 +104,15 @@ class HelpMenu extends React.PureComponent {
                   </FormattedMessage>
                 </td>
                 <td>
-                  <FormattedHTMLMessage
-                    id="menu.help.move"
-                    defaultMessage="Change width of a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> for more precision)"
+                  <FormattedMessage
+                    id="menu.help.move-instruction"
+                    defaultMessage="Move around the street"
+                  />
+                  <br />
+                  <FormattedMessage
+                    id="menu.help.move-shift-instruction"
+                    defaultMessage="(hold {shiftKey} to jump to edges)&lrm;"
+                    values={{ shiftKey }}
                   />
                 </td>
               </tr>
@@ -108,10 +124,6 @@ class HelpMenu extends React.PureComponent {
   }
 }
 
-// Inject Intl via a higher-order component provided by react-intl.
-// Exported so that this component can be tested.
-export const HelpMenuWithIntl = injectIntl(HelpMenu)
-
 function mapDispatchToProps (dispatch) {
   return {
     showAboutDialog: () => { dispatch(showDialog('ABOUT')) },
@@ -119,4 +131,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(HelpMenuWithIntl)
+export default connect(null, mapDispatchToProps)(HelpMenu)
