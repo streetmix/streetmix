@@ -17,7 +17,13 @@
       "keyboard-label": "Snabbkommandon:",
       "remove": "Ta bort ett segment du pekar på<br />(håll inne <kbd class='key'>Shift</kbd> för att ta bort alla)",
       "move": "",
-      "change": ""
+      "change": "",
+      "remove-instruction": "Ta bort ett segment du pekar på",
+      "remove-shift-instruction": "(håll inne {shiftKey} för att ta bort alla)",
+      "move-instruction": "",
+      "move-shift-instruction": "",
+      "change-instruction": "",
+      "change-shift-instruction": ""
     },
     "share": {
       "sign-in-twitter-link": "Logga in",

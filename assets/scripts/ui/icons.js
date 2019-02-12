@@ -23,9 +23,13 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 
 // Alternative icon reference, which can be mocked and tested
-export const UNDO_ICON = faUndo
-export const REDO_ICON = faRedo
-export const TOOLS_ICON = faTools
+export const ICON_UNDO = faUndo
+export const ICON_REDO = faRedo
+export const ICON_TOOLS = faTools
+export const ICON_MINUS = faMinus
+export const ICON_PLUS = faPlus
+export const ICON_ARROW_RIGHT = faArrowRight
+export const ICON_ARROW_LEFT = faArrowLeft
 
 export const ICON_TWITTER = faTwitter
 export const ICON_FACEBOOK = faFacebookSquare

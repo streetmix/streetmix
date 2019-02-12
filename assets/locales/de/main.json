@@ -17,7 +17,13 @@
       "keyboard-label": "Tastatur-Shortcuts:",
       "remove": "Entferne das Element, auf das du zeigst <br />(halte <kbd class='key'>Shift</kbd> gedrückt, um alle zu entfernen)",
       "move": "Bewege dich auf der Straße <br /> (halte <kbd class='key'>Shift</kbd> gedrückt, um zu den Kanten zu springen)",
-      "change": "Ändere die Breite des Elements, auf das du zeigst <br />(halte <kbd class='key'>Shift</kbd> gedrückt für eine höhere Genauigkeit)"
+      "change": "Ändere die Breite des Elements, auf das du zeigst <br />(halte <kbd class='key'>Shift</kbd> gedrückt für eine höhere Genauigkeit)",
+      "remove-instruction": "Entferne das Element, auf das du zeigst",
+      "remove-shift-instruction": "(halte {shiftKey} gedrückt, um alle zu entfernen)",
+      "move-instruction": "Bewege dich auf der Straße",
+      "move-shift-instruction": "(halte {shiftKey} gedrückt, um zu den Kanten zu springen)",
+      "change-instruction": "Ändere die Breite des Elements, auf das du zeigst",
+      "change-shift-instruction": "(halte {shiftKey} gedrückt für eine höhere Genauigkeit)"
     },
     "share": {
       "sign-in-twitter-link": "Anmelden",

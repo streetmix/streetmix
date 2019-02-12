@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UNDO_ICON, REDO_ICON } from '../ui/icons'
+import { ICON_UNDO, ICON_REDO } from '../ui/icons'
 import { undo, redo } from '../store/actions/undo'
 import { isUndoAvailable, isRedoAvailable } from '../streets/undo_stack'
 
@@ -29,7 +29,7 @@ export class UndoRedo extends React.Component {
               disabled={!isUndoAvailable()}
               title={title}
             >
-              <FontAwesomeIcon icon={UNDO_ICON} />
+              <FontAwesomeIcon icon={ICON_UNDO} />
             </button>
           )}
         </FormattedMessage>
@@ -40,7 +40,7 @@ export class UndoRedo extends React.Component {
               disabled={!isRedoAvailable()}
               title={title}
             >
-              <FontAwesomeIcon icon={REDO_ICON} />
+              <FontAwesomeIcon icon={ICON_REDO} />
             </button>
           )}
         </FormattedMessage>

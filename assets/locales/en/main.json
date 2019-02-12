@@ -17,7 +17,13 @@
       "keyboard-label": "Keyboard shortcuts:",
       "remove": "Remove a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> to remove all)",
       "move": "Move around the street<br />(hold <kbd class='key'>Shift</kbd> to jump to edges)",
-      "change": "Change width of a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> for more precision)"
+      "change": "Change width of a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> for more precision)",
+      "remove-instruction": "Remove a segment you’re pointing at",
+      "remove-shift-instruction": "(hold {shiftKey} to remove all)",
+      "move-instruction": "Move around the street",
+      "move-shift-instruction": "(hold {shiftKey} to jump to edges)",
+      "change-instruction": "Change width of a segment you’re pointing at",
+      "change-shift-instruction": "(hold {shiftKey} for more precision)"
     },
     "share": {
       "sign-in-twitter-link": "Sign in",

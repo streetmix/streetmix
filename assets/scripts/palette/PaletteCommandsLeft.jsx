@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CloseButton from '../ui/CloseButton'
-import { TOOLS_ICON } from '../ui/icons'
+import { ICON_TOOLS } from '../ui/icons'
 import { toggleToolbox } from '../store/actions/ui'
 import './PaletteCommandsLeft.scss'
 
@@ -53,7 +53,7 @@ class PaletteCommandsLeft extends Component {
         onClick={this.handleClickTools}
         title={'Toggle tools'}
       >
-        <FontAwesomeIcon icon={TOOLS_ICON} />
+        <FontAwesomeIcon icon={ICON_TOOLS} />
       </button>
     )
 

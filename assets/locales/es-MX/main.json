@@ -17,7 +17,13 @@
       "keyboard-label": "Atajos del teclado:",
       "remove": "Eliminar el segmento que estás apuntando<br />(mantén pulsado <kbd class='key'>Mayús</kbd> para eliminar todo)",
       "move": "Desplazarte por la calle<br /> (mantén presionada<kbd class='key'>Mayús</kbd> para brincar a los bordes)",
-      "change": "Cambiar el ancho del segmento al que estas apuntando<br />(deja pulsada <kbd class='key'>Mayús</kbd> para mayor precisión)"
+      "change": "Cambiar el ancho del segmento al que estas apuntando<br />(deja pulsada <kbd class='key'>Mayús</kbd> para mayor precisión)",
+      "remove-instruction": "Eliminar el segmento que estás apuntando",
+      "remove-shift-instruction": "(mantén pulsado {shiftKey} para eliminar todo)",
+      "move-instruction": "Desplazarte por la calle",
+      "move-shift-instruction": "(mantén presionada {shiftKey} para brincar a los bordes)",
+      "change-instruction": "Cambiar el ancho del segmento al que estas apuntando",
+      "change-shift-instruction": "(deja pulsada {shiftKey} para mayor precisión)"
     },
     "share": {
       "sign-in-twitter-link": "Ingresar",
