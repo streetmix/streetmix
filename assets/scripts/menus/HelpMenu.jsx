@@ -15,7 +15,7 @@ import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
 import './HelpMenu.scss'
 
-class HelpMenu extends Component {
+export class HelpMenu extends Component {
   static propTypes = {
     showAboutDialog: PropTypes.func,
     showWhatsNewDialog: PropTypes.func

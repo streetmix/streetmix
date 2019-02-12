@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import HelpMenu from '../HelpMenu'
+import { HelpMenu } from '../HelpMenu'
 
 describe('HelpMenu', () => {
   it('renders without crashing', () => {
