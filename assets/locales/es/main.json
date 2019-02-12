@@ -17,7 +17,13 @@
       "keyboard-label": "Teclas de acceso rápido:",
       "remove": "Remover un segmento al que esté apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para remover todo)",
       "move": "Moverse alrededor de la calle<br />(manten presionada la tecla  <kbd class='key'>Shift</kbd> para saltar a los bordes)",
-      "change": "Cambiar lo ancho de un segmento al que estés apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para más precision)"
+      "change": "Cambiar lo ancho de un segmento al que estés apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para más precision)",
+      "remove-instruction": "Remover un segmento al que esté apuntando",
+      "remove-shift-instruction": "(mantén presionada la tecla {shiftKey} para remover todo)",
+      "move-instruction": "Moverse alrededor de la calle",
+      "move-shift-instruction": "(manten presionada la tecla {shiftKey} para saltar a los bordes)",
+      "change-instruction": "Cambiar lo ancho de un segmento al que estés apuntando",
+      "change-shift-instruction": "(mantén presionada la tecla {shiftKey} para más precision)"
     },
     "share": {
       "sign-in-twitter-link": "Acceder",
@@ -268,7 +274,7 @@
   },
   "key": {
     "backspace": "Retrocerder",
-    "shift": "Mover",
+    "shift": "Mayús",
     "plus": "",
     "minus": "",
     "left-arrow": "",

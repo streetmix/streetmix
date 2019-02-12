@@ -17,7 +17,13 @@
       "keyboard-label": "Сочетания клавиш:",
       "remove": "Удалить сегмент, на который вы указываете<br />(зажмите <kbd class='key'>Shift</kbd> для удаления всех сегментов)",
       "move": "Передвинуться по улице<br />(зажмите <kbd class='key'>Shift</kbd> для перехода на грани)",
-      "change": "Изменить ширину сегмента, на который вы указываете<br />(зажмите <kbd class='key'>Shift</kbd> для более точного изменения)"
+      "change": "Изменить ширину сегмента, на который вы указываете<br />(зажмите <kbd class='key'>Shift</kbd> для более точного изменения)",
+      "remove-instruction": "Удалить сегмент, на который вы указываете",
+      "remove-shift-instruction": "(зажмите {shiftKey} для удаления всех сегментов)",
+      "move-instruction": "Передвинуться по улице",
+      "move-shift-instruction": "(зажмите {shiftKey} для перехода на грани)",
+      "change-instruction": "Изменить ширину сегмента, на который вы указываете",
+      "change-shift-instruction": "(зажмите {shiftKey} для более точного изменения)"
     },
     "share": {
       "sign-in-twitter-link": "Войти",

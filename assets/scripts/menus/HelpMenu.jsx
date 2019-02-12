@@ -71,7 +71,7 @@ class HelpMenu extends Component {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td dir="ltr">
                   {/* <FormattedMessage> used with render prop because we pass the translated
                       text to <KeyboardKey> as a string, not as a component */}
                   <FormattedMessage id="key.minus" defaultMessage="Minus">
@@ -95,7 +95,7 @@ class HelpMenu extends Component {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td dir="ltr">
                   <FormattedMessage id="key.left-arrow" defaultMessage="Left arrow">
                     {(label) => <KeyboardKey icon={ICON_ARROW_LEFT}>{label}</KeyboardKey>}
                   </FormattedMessage>

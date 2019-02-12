@@ -17,7 +17,13 @@
       "keyboard-label": "اختصارات لوحة المفاتيح:",
       "remove": "إزالة الجزء الذي تُشير إليه<br />(إضغط مفتاح <kbd class='key'>Shift</kbd> لإزالة الكل)",
       "move": "جولة حول الشارع<br />(اضغط على مفتاح <kbd class='key'>Shift</kbd> للانتقال إلى الحواف)",
-      "change": "تغيير عرض الجزء الذي تُشير إليه<br />(لمزيد من الدقة إضغط على المفتاح <kbd class='key'>Shift</kbd>)"
+      "change": "تغيير عرض الجزء الذي تُشير إليه<br />(لمزيد من الدقة إضغط على المفتاح <kbd class='key'>Shift</kbd>)",
+      "remove-instruction": "إزالة الجزء الذي تُشير إليه",
+      "remove-shift-instruction": "(إضغط مفتاح {shiftKey} لإزالة الكل)",
+      "move-instruction": "جولة حول الشارع",
+      "move-shift-instruction": "(اضغط على مفتاح {shiftKey} للانتقال إلى الحواف)",
+      "change-instruction": "تغيير عرض الجزء الذي تُشير إليه",
+      "change-shift-instruction": "(لمزيد من الدقة إضغط على المفتاح {shiftKey})"
     },
     "share": {
       "sign-in-twitter-link": "تسجيل الدخول",

@@ -17,7 +17,13 @@
       "keyboard-label": "Pikanäppäimet:",
       "remove": "Poista osoittimen alla oleva kohde<br />(poista kaikki pitämällä <kbd class='key'>Shift</kbd> pohjassa)",
       "move": "Siirry kadulla<br />(hyppää reunaan pitämällä <kbd class='key'>Shift</kbd> pohjassa)",
-      "change": "Muuta osoittimen alla oleva kohteen leveyttä<br /> (lisää tarkkuutta pitämällä <kbd class='key'>Shift</kbd> pohjassa)"
+      "change": "Muuta osoittimen alla oleva kohteen leveyttä<br /> (lisää tarkkuutta pitämällä <kbd class='key'>Shift</kbd> pohjassa)",
+      "remove-instruction": "Poista osoittimen alla oleva kohde",
+      "remove-shift-instruction": "(poista kaikki pitämällä {shiftKey} pohjassa)",
+      "move-instruction": "Siirry kadulla",
+      "move-shift-instruction": "(hyppää reunaan pitämällä {shiftKey} pohjassa)",
+      "change-instruction": "Muuta osoittimen alla oleva kohteen leveyttä",
+      "change-shift-instruction": "(lisää tarkkuutta pitämällä {shiftKey} pohjassa)"
     },
     "share": {
       "sign-in-twitter-link": "Kirjaudu sisään",

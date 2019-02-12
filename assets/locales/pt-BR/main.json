@@ -17,7 +17,13 @@
       "keyboard-label": "Teclas de atalho:",
       "remove": "Remover um segmento que você está apontando<br />(segure <kbd class='key'>Shift</kbd> para remover tudo)",
       "move": "Movimente-se pela rua<br />(segure <kbd class='key'>Shift</kbd> para saltar para as bordas)",
-      "change": "Mudar largura do segmento que você está apontando<br />(segure <kbd class='key'>Shift</kbd> para obter mais precisão)"
+      "change": "Mudar largura do segmento que você está apontando<br />(segure <kbd class='key'>Shift</kbd> para obter mais precisão)",
+      "remove-instruction": "Remover um segmento que você está apontando",
+      "remove-shift-instruction": "(segure {shiftKey} para remover tudo)",
+      "move-instruction": "Movimente-se pela rua",
+      "move-shift-instruction": "(segure {shiftKey} para saltar para as bordas)",
+      "change-instruction": "Mudar largura do segmento que você está apontando",
+      "change-shift-instruction": "(segure {shiftKey} para obter mais precisão)"
     },
     "share": {
       "sign-in-twitter-link": "Entrar",

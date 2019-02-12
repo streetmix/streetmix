@@ -17,7 +17,13 @@
       "keyboard-label": "キーボードショートカット:",
       "remove": "選択中のセグメントを削除します<br />(<kbd class='key'>Shift</kbd>を押すと全削除)",
       "move": "ストリートを動かす<br />(<kbd class='key'>Shift</kbd> を押すと端に移動)",
-      "change": "選択中のセグメントの幅を変更<br />(<kbd class='key'>Shift</kbd>を押すと微調整可能)"
+      "change": "選択中のセグメントの幅を変更<br />(<kbd class='key'>Shift</kbd>を押すと微調整可能)",
+      "remove-instruction": "選択中のセグメントを削除します",
+      "remove-shift-instruction": "({shiftKey}を押すと全削除)",
+      "move-instruction": "ストリートを動かす",
+      "move-shift-instruction": "({shiftKey}を押すと端に移動)",
+      "change-instruction": "選択中のセグメントの幅を変更",
+      "change-shift-instruction": "({shiftKey}を押すと微調整可能)"
     },
     "share": {
       "sign-in-twitter-link": "サインイン",

@@ -17,7 +17,13 @@
       "keyboard-label": "Raccourcis claviers :",
       "remove": "Enlever un élément de voirie que vous pointez<br /> (maintenir la touche <kbd class='key'>Shift</kbd> enfoncée pour tout enlever)",
       "move": "Passer d'un segment de rue à un autre<br />(maintenir <kbd class='key'>Shift</kbd> appuyé pour atteindre les extrémités)",
-      "change": "Changer la largeur d'un élément de voirie pointé<br />(maintenir <kbd class='key'>Shift</kbd>pour plus de précision)"
+      "change": "Changer la largeur d'un élément de voirie pointé<br />(maintenir <kbd class='key'>Shift</kbd>pour plus de précision)",
+      "remove-instruction": "Enlever un élément de voirie que vous pointez",
+      "remove-shift-instruction": "(maintenir la touche {shiftKey} enfoncée pour tout enlever)",
+      "move-instruction": "Passer d'un segment de rue à un autre",
+      "move-shift-instruction": "(maintenir {shiftKey} appuyé pour atteindre les extrémités)",
+      "change-instruction": "Changer la largeur d'un élément de voirie pointé",
+      "change-shift-instruction": "(maintenir {shiftKey}pour plus de précision)"
     },
     "share": {
       "sign-in-twitter-link": "Se connecter",
@@ -268,7 +274,7 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Touche majuscule",
+    "shift": "Shift",
     "plus": "Plus",
     "minus": "Moins",
     "left-arrow": "Flèche de gauche",

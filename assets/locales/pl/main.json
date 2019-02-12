@@ -17,7 +17,13 @@
       "keyboard-label": "Skróty klawiszowe:",
       "remove": "Usuń wskazany segment<br />(przytrzymaj <kbd class='key'>Shift</kbd>, aby usunąć wszystko)",
       "move": "Przemieszczaj się po ulicy<br />(przytrzymaj <kbd class='key'>Shift</kbd> aby ustawić się na krawędzi)",
-      "change": "Zmień szerokość wskazanego segmentu<br />(przytrzymaj <kbd class='key'>Shift</kbd> dla zwiększenia precyzji)"
+      "change": "Zmień szerokość wskazanego segmentu<br />(przytrzymaj <kbd class='key'>Shift</kbd> dla zwiększenia precyzji)",
+      "remove-instruction": "Usuń wskazany segment",
+      "remove-shift-instruction": "(przytrzymaj {shiftKey}, aby usunąć wszystko)",
+      "move-instruction": "Przemieszczaj się po ulicy",
+      "move-shift-instruction": "(przytrzymaj {shiftKey} aby ustawić się na krawędzi)",
+      "change-instruction": "Zmień szerokość wskazanego segmentu",
+      "change-shift-instruction": "(przytrzymaj {shiftKey} dla zwiększenia precyzji)"
     },
     "share": {
       "sign-in-twitter-link": "Zaloguj się",
@@ -268,7 +274,7 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Przesuń",
+    "shift": "Shift",
     "plus": "Plus",
     "minus": "Minus",
     "left-arrow": "Strzałka w lewo",

@@ -3,6 +3,11 @@
   max-width: 400px;
   line-height: 18px;
 
+  [dir="rtl"] & {
+    padding-left: 1em;
+    padding-right: 2.5em;
+  }
+
   p:first-child {
     margin-top: 0;
   }

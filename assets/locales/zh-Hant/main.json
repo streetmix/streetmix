@@ -17,7 +17,13 @@
       "keyboard-label": "快捷鍵：",
       "remove": "移除你現在所指的部分<br />（長按<kbd class='key'>Shift</kbd>來移除所有的部分）",
       "move": "移動這個部分<br /> （長按<kbd class='key'>Shift</kbd>來跳到邊上）",
-      "change": "更改你現在所指部分<br />的寬度（長按<kbd class='key'>Shift</kbd>來微調）"
+      "change": "更改你現在所指部分<br />的寬度（長按<kbd class='key'>Shift</kbd>來微調）",
+      "remove-instruction": "移除你現在所指的部分",
+      "remove-shift-instruction": "（長按<kbd class='key'>Shift</kbd>來移除所有的部分）",
+      "move-instruction": "移動這個部分",
+      "move-shift-instruction": "（長按<kbd class='key'>Shift</kbd>來跳到邊上）",
+      "change-instruction": "更改你現在所指部分",
+      "change-shift-instruction": "的寬度（長按<kbd class='key'>Shift</kbd>來微調）"
     },
     "share": {
       "sign-in-twitter-link": "登錄",
@@ -268,7 +274,7 @@
   },
   "key": {
     "backspace": "退位鍵",
-    "shift": "Shift鍵",
+    "shift": "Shift",
     "plus": "",
     "minus": "",
     "left-arrow": "",
