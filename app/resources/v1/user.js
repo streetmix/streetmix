@@ -304,12 +304,6 @@ exports.delete = async function (req, res) {
     }
 
     // If successful in deleting user, delete user's profile image cached in cloudinary.
-    cloudinary.config({
-      cloud_name: 'streetmix',
-      api_key: config.cloudinary.api_key,
-      api_secret: config.cloudinary.api_secret
-    })
-
     const publicId = `${config.env}/profile_image/${targetUserId}`
 
     try {
