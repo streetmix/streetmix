@@ -13,6 +13,8 @@
     "median": "中央分離帯",
     "bollard": "ボラード",
     "dome": "車両除外ドーム",
+    "scooter": "",
+    "scooter-drop-zone": "",
     "bike-lane": "自転車専用レーン",
     "parking-lane": "路上駐車スペース",
     "perpendicular-parking": "道路に対して直角",

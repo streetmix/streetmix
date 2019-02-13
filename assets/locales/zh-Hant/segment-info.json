@@ -13,6 +13,8 @@
     "median": "安全島",
     "bollard": "護柱",
     "dome": "機動車禁行區",
+    "scooter": "",
+    "scooter-drop-zone": "",
     "bike-lane": "自行車道",
     "parking-lane": "停車道",
     "perpendicular-parking": "垂直停車位",

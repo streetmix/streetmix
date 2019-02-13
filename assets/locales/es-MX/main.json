@@ -52,7 +52,7 @@
       "blog": "Visitar el blog de Streetmix",
       "discord": "Unirte al chat de Discord",
       "slack": "Unirte al chat de Slack",
-      "minecraft": ""
+      "minecraft": "¡Juega Minecraft con nosotros!"
     },
     "contribute": {
       "donate": "Donar",
@@ -140,7 +140,7 @@
     "remove": "Remover",
     "close": "Cerrar",
     "dismiss": "Descartar",
-    "okay": ""
+    "okay": "¡Okey!"
   },
   "dialogs": {
     "error": {

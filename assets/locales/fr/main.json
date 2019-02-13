@@ -23,7 +23,7 @@
       "move-instruction": "Passer d'un segment de rue à un autre",
       "move-shift-instruction": "(maintenir {shiftKey} appuyé pour atteindre les extrémités)",
       "change-instruction": "Changer la largeur d'un élément de voirie pointé",
-      "change-shift-instruction": "(maintenir {shiftKey}pour plus de précision)"
+      "change-shift-instruction": "(maintenir {shiftKey} pour plus de précision)"
     },
     "share": {
       "sign-in-twitter-link": "Se connecter",
