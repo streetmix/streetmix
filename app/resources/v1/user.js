@@ -1,5 +1,6 @@
 const config = require('config')
 const Twitter = require('twitter')
+const cloudinary = require('cloudinary')
 const User = require('../../models/user.js')
 const { ERRORS } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
@@ -291,7 +292,7 @@ exports.delete = async function (req, res) {
     targetUser = requestUser
   }
 
-  const handleDeleteUser = function (err, user) {
+  const handleDeleteUser = async function (err, user) {
     if (err) {
       logger.error(err)
       res.status(500).send('Error deleting user.')
@@ -300,6 +301,22 @@ exports.delete = async function (req, res) {
     if (!user) {
       res.status(404).send('User not found.')
       return
+    }
+
+    // If successful in deleting user, delete user's profile image cached in cloudinary.
+    cloudinary.config({
+      cloud_name: 'streetmix',
+      api_key: config.cloudinary.api_key,
+      api_secret: config.cloudinary.api_secret
+    })
+
+    const publicId = `${config.env}/profile_image/${targetUserId}`
+
+    try {
+      await cloudinary.v2.uploader.destroy(publicId)
+    } catch (error) {
+      // If unable to delete user's profile image from cloudinary, log error and continue.
+      logger.error(error)
     }
 
     res.status(204).end()
