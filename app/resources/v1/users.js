@@ -116,7 +116,7 @@ exports.post = function (req, res) {
     let profileImageUrl
 
     // Check if user has profile image already cached in cloudinary
-    if (user.profile_image_url.includes(publicId)) {
+    if (user.profile_image_url && user.profile_image_url.includes(publicId)) {
       profileImageUrl = user.profile_image_url
     } else if (credentials.profile_image_url) {
       // If no profile image cached in cloudinary, cache image provided by credentials and return cloudinary url.
