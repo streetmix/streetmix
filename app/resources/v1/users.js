@@ -125,7 +125,7 @@ exports.post = function (req, res) {
         profileImageUrl = response.secure_url
       } catch (error) {
         logger.error(error)
-        // If unable to cache image, simply return credentials profile image url.
+        // If unable to cache image, return credentials.profile_image_url.
         profileImageUrl = credentials.profile_image_url
       }
     }
