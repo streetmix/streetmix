@@ -111,33 +111,21 @@ exports.post = function (req, res) {
     return nickname + '-' + id
   }
 
-  const handleUserProfileImage = async function (userId, credentials) {
-    const publicId = `${config.env}/profile_image/${userId}`
-
-    cloudinary.config({
-      cloud_name: 'streetmix',
-      api_key: config.cloudinary.api_key,
-      api_secret: config.cloudinary.api_secret
-    })
-
-    let response, profileImageUrl
+  const handleUserProfileImage = async function (user, credentials) {
+    const publicId = `${config.env}/profile_image/${user.id}`
+    let profileImageUrl
 
     // Check if user has profile image already cached in cloudinary
-    try {
-      response = await cloudinary.v2.api.resource(publicId)
-      profileImageUrl = response.secure_url
-    } catch (error) {
-      logger.error(error)
-    }
-
-    // If no cached image, upload image from credentials to cloudinary and return new cloudinary url.
-    // If failed to cache image, use existing credentials profile image url.
-    if (!response && credentials.profile_image_url) {
+    if (user.profile_image_url.includes(publicId)) {
+      profileImageUrl = user.profile_image_url
+    } else if (credentials.profile_image_url) {
+      // If no profile image cached in cloudinary, cache image provided by credentials and return cloudinary url.
       try {
-        response = await cloudinary.v2.uploader.upload(credentials.profile_image_url, { upload_preset: 'profile_image', public_id: publicId })
+        const response = await cloudinary.v2.uploader.upload(credentials.profile_image_url, { upload_preset: 'profile_image', public_id: publicId })
         profileImageUrl = response.secure_url
       } catch (error) {
         logger.error(error)
+        // If unable to cache image, simply return credentials profile image url.
         profileImageUrl = credentials.profile_image_url
       }
     }
@@ -173,7 +161,7 @@ exports.post = function (req, res) {
           u.save(handleCreateUser)
         }
       } else {
-        const profileImageUrl = await handleUserProfileImage(user.id, credentials)
+        const profileImageUrl = await handleUserProfileImage(user, credentials)
 
         user.auth0_id = credentials.auth0_id
         user.profile_image_url = profileImageUrl
