@@ -132,7 +132,7 @@ exports.post = function (req, res) {
 
     // If no cached image, upload image from credentials to cloudinary and return new cloudinary url.
     // If failed to cache image, use existing credentials profile image url.
-    if (!response) {
+    if (!response && credentials.profile_image_url) {
       try {
         response = await cloudinary.v2.uploader.upload(credentials.profile_image_url, { upload_preset: 'profile_image', public_id: publicId })
         profileImageUrl = response.secure_url
