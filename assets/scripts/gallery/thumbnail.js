@@ -89,12 +89,12 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
     }
 
-    const SUPERMOON = true
-    if (SUPERMOON) {
-      console.log(images.get('/images/super-blood-wolf-moon.png').img)
-      ctx.drawImage(images.get('/images/super-blood-wolf-moon.png').img,
-        0.2 * thumbnailWidth, 0.33 * thumbnailHeight, 128 * dpi, 128 * dpi)
-    }
+    // const SUPERMOON = true
+    // if (SUPERMOON) {
+    //   console.log(images.get('/images/super-blood-wolf-moon.png').img)
+    //   ctx.drawImage(images.get('/images/super-blood-wolf-moon.png').img,
+    //     0.7 * thumbnailWidth, 0.33 * thumbnailHeight, 128 * dpi, 128 * dpi)
+    // }
 
     const SKY_FRONT_HEIGHT = 280
     const SKY_REAR_HEIGHT = 250
