@@ -19,10 +19,12 @@ const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
 const initRedisClient = require('./lib/redis')
 const initMongoDB = require('./lib/db')
+const initCloudinary = require('./lib/cloudinary')
 const exec = require('child_process').exec
 
 const client = initRedisClient()
 initMongoDB()
+initCloudinary()
 
 const app = module.exports = express()
 
