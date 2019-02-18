@@ -30,7 +30,7 @@
     "lint:css": "stylelint ./assets/styles/**/*.scss",
     "lint:js": "eslint \"**/*.js\" \"**/*.jsx\"",
     "lint:json": "find assets -name '*.json' -exec jsonlint {} --quiet \\;",
-    "jest": "jest",
+    "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
     "protractor:update": "./node_modules/protractor/bin/webdriver-manager update",
     "protractor:local": "protractor ./test/integration/local.conf.js",
@@ -51,6 +51,12 @@
     ],
     "setupFiles": [
       "./test/setup-jest.js"
+    ],
+    "collectCoverageFrom": [
+      "app.js",
+      "app/**/*.{js,jsx}",
+      "assets/scripts/**/*.{js,jsx}",
+      "!assets/scripts/vendor/**/*.{js,jsx}"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
