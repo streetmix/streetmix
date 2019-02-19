@@ -14,7 +14,7 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
 import './DebugInfo.scss'
 
-class DebugInfo extends React.Component {
+export class DebugInfo extends React.Component {
   static propTypes = {
     settings: PropTypes.object.isRequired,
     street: PropTypes.object.isRequired,
