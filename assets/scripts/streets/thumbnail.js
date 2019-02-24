@@ -8,12 +8,9 @@ let _lastSavedThumbnail
 // Saves street thumbnail every five minutes (300000 ms) if any changes.
 export function initSaveStreetThumbnailTimer () {
   const timer = window.setInterval(function () {
-    const street = store.getState().street
-    const currData = trimStreetData(street)
-
-    if (JSON.stringify(currData) !== JSON.stringify(_lastSavedThumbnail)) {
+    if (checkSaveThumbnailIncomplete()) {
       console.log('Updating street thumbnail.')
-      saveStreetThumbnail(street)
+      saveStreetThumbnail(store.getState().street)
     }
   }, 300000)
 
@@ -21,7 +18,7 @@ export function initSaveStreetThumbnailTimer () {
 }
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
-async function saveStreetThumbnail (street) {
+export async function saveStreetThumbnail (street) {
   const thumbnail = getStreetImage(street, false, false, true, 2.0)
   const data = {
     image: thumbnail.toDataURL()
@@ -39,9 +36,17 @@ async function saveStreetThumbnail (street) {
   try {
     const response = await window.fetch(`/services/images/streets/${street.id}`, options)
     if (response.ok) {
+      console.log('Updated street thumbnail.')
       _lastSavedThumbnail = trimStreetData(street)
     }
   } catch (err) {
     console.log(err)
   }
+}
+
+export function checkSaveThumbnailIncomplete () {
+  const street = store.getState().street
+  const currData = trimStreetData(street)
+
+  return (JSON.stringify(currData) !== JSON.stringify(_lastSavedThumbnail))
 }
