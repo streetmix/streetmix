@@ -14,7 +14,7 @@ import {
 } from '../streets/data_model'
 import { updateStreetName } from '../streets/name'
 import { initStreetReduxTransitionSubscriber } from '../streets/street'
-import { initSaveStreetThumbnailTimer } from '../streets/thumbnail'
+import { initSaveStreetThumbnailTimer } from '../streets/image'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'

@@ -2,7 +2,7 @@ import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
 } from '../streets/xhr'
-import { checkSaveThumbnailIncomplete, saveStreetThumbnail } from '../streets/thumbnail'
+import { checkSaveThumbnailIncomplete, saveStreetThumbnail } from '../streets/image'
 import store from '../store'
 import { showNoConnectionMessage } from '../store/actions/status'
 
