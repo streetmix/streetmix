@@ -20,27 +20,30 @@ export function initSaveStreetThumbnailTimer () {
 // Creates street thumbnail and uploads thumbnail to cloudinary.
 export async function saveStreetThumbnail (street) {
   const thumbnail = getStreetImage(street, false, false, true, 2.0)
-  const data = {
-    image: thumbnail.toDataURL()
-  }
-
-  const options = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Authorization': getAuthHeader(),
-      'Content-Type': 'application/json'
-    }
-  }
 
   try {
+    // .toDataURL is not available on IE11 when SVGs are part of the canvas.
+    const dataUrl = thumbnail.toDataURL('image/png')
+    const data = {
+      image: dataUrl
+    }
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Authorization': getAuthHeader(),
+        'Content-Type': 'application/json'
+      }
+    }
+
     const response = await window.fetch(`/services/images/streets/${street.id}`, options)
     if (response.ok) {
       console.log('Updated street thumbnail.')
       _lastSavedThumbnail = trimStreetData(street)
     }
   } catch (err) {
-    console.log(err)
+    console.log('Unable to save street thumbnail', err)
   }
 }
 
