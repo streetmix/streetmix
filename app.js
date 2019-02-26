@@ -149,6 +149,10 @@ app.use((req, res, next) => {
     google_analytics: uuid(),
     mixpanel: uuid()
   }
+
+  res.locals.STREETMIX_IMAGE = 'https://streetmix.net/images/thumbnail.png'
+  res.locals.STREETMIX_TITLE = 'Streetmix'
+
   next()
 })
 
@@ -240,6 +244,8 @@ if (config.env !== 'production') {
   const runBundle = require('./app/bundle')
   runBundle(app)
 }
+
+app.get(['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'], requestHandlers.metatags)
 
 // Catch-all
 app.use((req, res) => res.render('main'))
