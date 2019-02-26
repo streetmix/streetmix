@@ -70,16 +70,13 @@ export async function saveStreetThumbnail (street) {
   try {
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     const dataUrl = thumbnail.toDataURL('image/png')
-    const data = {
-      image: dataUrl
-    }
 
     const options = {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: dataUrl,
       headers: {
         'Authorization': getAuthHeader(),
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
       }
     }
 

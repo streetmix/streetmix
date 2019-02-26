@@ -79,6 +79,7 @@ exports.post = async function (req, res) {
 
   if (!userId) {
     res.status(400).send('Please provide user ID.')
+    return
   }
 
   let user
@@ -124,10 +125,11 @@ exports.post = async function (req, res) {
   let response
   try {
     const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
-    response = await cloudinary.v2.uploader.upload(body.image, { public_id: publicId })
+    response = await cloudinary.v2.uploader.upload(body, { public_id: publicId })
   } catch (error) {
     logger.error(error)
     res.status(500).send('Error uploading thumbnail to cloudinary.')
+    return
   }
 
   if (!response) {
