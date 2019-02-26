@@ -9,6 +9,7 @@ const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const express = require('express')
+const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const config = require('config')
@@ -132,7 +133,7 @@ if (app.locals.config.env === 'development') {
 }
 
 app.use(helmet(helmetConfig))
-app.use(express.json({ limit: '50mb' }))
+app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
 app.use(cookieSession({ secret: config.cookie_session_secret }))
@@ -208,7 +209,7 @@ app.get('/services/geoip', resources.services.geoip.get)
 
 app.options('/services/images', cors())
 app.get('/services/images', cors(), resources.services.images.get)
-app.post('/services/images/streets/:street_id', resources.services.images.post)
+app.post('/services/images/streets/:street_id', bodyParser.text({ limit: '0.5mb' }), resources.services.images.post)
 
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
 
