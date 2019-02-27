@@ -6,9 +6,7 @@ import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme
 // Mock dependencies that could break tests
 jest.mock('../../streets/image', () => {
   return {
-    getStreetImage: () => {},
-    saveStreetThumbnail: () => {},
-    checkSaveThumbnailIncomplete: () => {}
+    getStreetImage: () => {}
   }
 })
 jest.mock('../../users/settings', () => {})
