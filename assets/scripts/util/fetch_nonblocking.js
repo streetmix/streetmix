@@ -2,7 +2,7 @@ import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
 } from '../streets/xhr'
-import { checkSaveThumbnailIncomplete, saveStreetThumbnail } from '../streets/image'
+import { saveStreetThumbnail } from '../streets/image'
 import store from '../store'
 import { showNoConnectionMessage } from '../store/actions/status'
 
@@ -175,10 +175,6 @@ function checkIfChangesSaved () {
         showWarning = true
       }
     }
-  }
-
-  if (checkSaveThumbnailIncomplete()) {
-    showWarning = true
   }
 
   if (showWarning) {
