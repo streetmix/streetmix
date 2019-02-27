@@ -9,7 +9,6 @@ import { initLocale } from '../locales/locale'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   setLastStreet,
-  trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
@@ -121,7 +120,7 @@ function onEverythingLoaded () {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
+  setLastStreet()
   initStreetReduxTransitionSubscriber()
   initializeFlagSubscribers()
   initPersistedSettingsStoreObserver()
