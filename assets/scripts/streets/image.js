@@ -1,3 +1,4 @@
+import { API_URL } from '../app/config'
 import { trimStreetData } from './data_model'
 import { getAuthHeader } from '../users/authentication'
 import { drawStreetThumbnail } from '../gallery/thumbnail'
@@ -70,6 +71,7 @@ export async function saveStreetThumbnail (street) {
   try {
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     const dataUrl = thumbnail.toDataURL('image/png')
+    const url = API_URL + 'v1/streets/images/' + street.id
 
     const options = {
       method: 'POST',
@@ -80,7 +82,8 @@ export async function saveStreetThumbnail (street) {
       }
     }
 
-    const response = await window.fetch(`/services/images/streets/${street.id}`, options)
+    const response = await window.fetch(url, options)
+
     if (response.ok) {
       console.log('Updated street thumbnail.')
       _lastSavedThumbnail = trimStreetData(street)

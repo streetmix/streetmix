@@ -203,13 +203,14 @@ app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
+app.post('/api/v1/streets/images/:street_id', bodyParser.text({ limit: '0.5mb' }), resources.v1.street_images.post)
+
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
 app.get('/services/geoip', resources.services.geoip.get)
 
 app.options('/services/images', cors())
 app.get('/services/images', cors(), resources.services.images.get)
-app.post('/services/images/streets/:street_id', bodyParser.text({ limit: '0.5mb' }), resources.services.images.post)
 
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
 
