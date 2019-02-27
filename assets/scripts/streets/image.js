@@ -4,7 +4,7 @@ import { getAuthHeader } from '../users/authentication'
 import { drawStreetThumbnail } from '../gallery/thumbnail'
 import { BUILDING_SPACE, getBuildingImageHeight } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
-import store from '../store'
+import { observeStore } from '../store'
 
 // This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0
@@ -50,18 +50,26 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
   return el
 }
 
-let _lastSavedThumbnail
+// Save thumbnail if necessary every 5 minutes (300000 ms)
+const SAVE_THUMBNAIL_TIME_INTERVAL = 300000
+let _lastSavedTimestamp
 
-// Saves street thumbnail every five minutes (300000 ms) if any changes.
-export function initSaveStreetThumbnailTimer () {
-  const timer = window.setInterval(function () {
-    if (checkSaveThumbnailIncomplete()) {
-      console.log('Updating street thumbnail.')
-      saveStreetThumbnail(store.getState().street)
+export function initStreetThumbnailSubscriber () {
+  const select = (state) => {
+    const currData = trimStreetData(state.street)
+    return JSON.stringify(currData)
+  }
+
+  const onChange = (street) => {
+    const timestamp = Date.now()
+    const timeElapsed = timestamp - _lastSavedTimestamp
+
+    if (!_lastSavedTimestamp || timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
+      saveStreetThumbnail(JSON.parse(street))
     }
-  }, 300000)
+  }
 
-  return timer
+  return observeStore(select, onChange)
 }
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
@@ -86,16 +94,9 @@ export async function saveStreetThumbnail (street) {
 
     if (response.ok) {
       console.log('Updated street thumbnail.')
-      _lastSavedThumbnail = trimStreetData(street)
+      _lastSavedTimestamp = Date.now()
     }
   } catch (err) {
     console.log('Unable to save street thumbnail', err)
   }
-}
-
-export function checkSaveThumbnailIncomplete () {
-  const street = store.getState().street
-  const currData = trimStreetData(street)
-
-  return (JSON.stringify(currData) !== JSON.stringify(_lastSavedThumbnail))
 }
