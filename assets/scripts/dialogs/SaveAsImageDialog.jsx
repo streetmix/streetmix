@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
-import { getStreetImage, saveStreetThumbnail, checkSaveThumbnailIncomplete } from '../streets/image'
+import { getStreetImage } from '../streets/image'
 import { setSettings } from '../store/actions/settings'
 import { normalizeSlug } from '../util/helpers'
 import './SaveAsImageDialog.scss'
@@ -124,11 +124,6 @@ class SaveAsImageDialog extends React.Component {
 
   updatePreview = () => {
     this.imageCanvas = getStreetImage(this.props.street, this.props.transparentSky, this.props.segmentNames, this.props.streetName, this.state.dpi)
-
-    // Save street thumbnail to cloudinary if necessary.
-    if (checkSaveThumbnailIncomplete()) {
-      saveStreetThumbnail(this.props.street)
-    }
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
