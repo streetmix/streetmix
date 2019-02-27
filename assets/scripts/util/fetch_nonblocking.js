@@ -180,12 +180,13 @@ function checkIfChangesSaved () {
   if (showWarning) {
     nonblockingAjaxRequestTimer = 0
     scheduleNextNonblockingAjaxRequest()
-    saveStreetThumbnail(store.getState().street)
     return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.'
   }
 }
 
 export function onWindowBeforeUnload (event) {
+  saveStreetThumbnail(store.getState().street)
+
   const text = checkIfChangesSaved()
 
   // NOTE: custom text is no longer returned as a message in many browsers,
