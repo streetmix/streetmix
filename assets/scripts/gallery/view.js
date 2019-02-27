@@ -7,6 +7,7 @@ import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
 import { hideControls } from '../segments/resizing'
 import { updateToLatestSchemaVersion } from '../streets/data_model'
+import { saveStreetThumbnail } from '../streets/image'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 
@@ -120,6 +121,9 @@ export function repeatReceiveGalleryData () {
 }
 
 export function switchGalleryStreet (id) {
+  // Save previous street's thumbnail before switching streets.
+  saveStreetThumbnail(store.getState().street)
+
   galleryState.noStreetSelected = false
 
   fetchGalleryStreet(id)
