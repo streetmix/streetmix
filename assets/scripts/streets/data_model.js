@@ -36,10 +36,6 @@ const DEFAULT_STREET_WIDTH = 80
 
 let _lastStreet
 
-export function getLastStreet () {
-  return _lastStreet
-}
-
 export function setLastStreet (value) {
   _lastStreet = value
 }
