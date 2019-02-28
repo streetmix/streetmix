@@ -53,7 +53,7 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
 // Save thumbnail if necessary every 5 minutes (300000 ms)
 const SAVE_THUMBNAIL_TIME_INTERVAL = 300000
 let _lastSavedTimestamp
-let unsavedThumbnail
+let unsavedThumbnail = true
 
 export function getUnsavedThumbnail () {
   return unsavedThumbnail
