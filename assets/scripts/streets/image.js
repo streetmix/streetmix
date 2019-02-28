@@ -81,6 +81,8 @@ export function initStreetThumbnailSubscriber () {
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
 export async function saveStreetThumbnail (street) {
+  if (!unsavedThumbnail) return
+
   const thumbnail = getStreetImage(street, false, false, true, 2.0)
 
   try {
