@@ -105,7 +105,8 @@ const csp = {
       'syndication.twitter.com',
       's.gravatar.com',
       'https://www.google-analytics.com',
-      '*.basemaps.cartocdn.com'
+      '*.basemaps.cartocdn.com',
+      'https://res.cloudinary.com/'
     ],
     fontSrc: [
       "'self'",
