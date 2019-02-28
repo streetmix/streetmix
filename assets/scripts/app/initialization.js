@@ -12,8 +12,8 @@ import {
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
-import { initStreetReduxTransitionSubscriber } from '../streets/street'
 import { initStreetThumbnailSubscriber } from '../streets/image'
+import { initStreetDataChangedListener } from '../streets/street'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
@@ -121,7 +121,7 @@ function onEverythingLoaded () {
 
   setIgnoreStreetChanges(false)
   setLastStreet()
-  initStreetReduxTransitionSubscriber()
+  initStreetDataChangedListener()
   initializeFlagSubscribers()
   initPersistedSettingsStoreObserver()
   initStreetThumbnailSubscriber()
