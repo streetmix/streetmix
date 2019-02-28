@@ -9,7 +9,6 @@ import { getUnits, getLeftHandTraffic } from '../users/localization'
 import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { DEFAULT_ENVIRONS } from './constants'
-import { updateStreetName } from './name'
 import {
   createNewUndoIfNecessary,
   unifyUndoStack
@@ -467,7 +466,6 @@ export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
   // TODO Verify that we don't need to dispatch an update width event here
   segmentsChanged()
-  updateStreetName(store.getState().street)
   setIgnoreStreetChanges(false)
   _lastStreet = trimStreetData(store.getState().street)
 

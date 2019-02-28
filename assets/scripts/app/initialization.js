@@ -12,7 +12,7 @@ import {
   trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
-import { updateStreetName } from '../streets/name'
+import { initStreetNameChangeListener } from '../streets/name'
 import { initStreetReduxTransitionSubscriber } from '../streets/street'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { loadSignIn } from '../users/authentication'
@@ -117,7 +117,6 @@ function onEverythingLoaded () {
   }
 
   onResize()
-  updateStreetName(store.getState().street)
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
@@ -125,6 +124,7 @@ function onEverythingLoaded () {
   initStreetReduxTransitionSubscriber()
   initializeFlagSubscribers()
   initPersistedSettingsStoreObserver()
+  initStreetNameChangeListener()
 
   updatePageUrl()
   addEventListeners()

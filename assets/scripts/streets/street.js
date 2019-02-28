@@ -1,6 +1,5 @@
 import store from '../store'
 import { saveStreetToServerIfNecessary } from './data_model'
-import { updateStreetName } from './name'
 
 const street = store.getState().street
 let oldStreetName = street.name
@@ -50,7 +49,6 @@ function updateIfStreetNameChanged (state) {
   if (state.name !== oldStreetName) {
     oldStreetName = state.name
     saveStreetToServerIfNecessary()
-    updateStreetName(state)
   }
 }
 
