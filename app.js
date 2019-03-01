@@ -209,7 +209,11 @@ app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
 app.post('/api/v1/streets/images/:street_id', bodyParser.text({ limit: '3mb' }), resources.v1.street_images.post)
+<<<<<<< HEAD
 app.delete('/api/v1/streets/images/:street_id', resources.v1.street_images.delete)
+=======
+app.get('/api/v1/streets/images/:street_id', resources.v1.street_images.get)
+>>>>>>> created GET api request to fetch street thumbnail from cloudinary
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
