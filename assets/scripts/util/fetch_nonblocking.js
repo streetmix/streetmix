@@ -2,7 +2,7 @@ import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
 } from '../streets/xhr'
-import { saveStreetThumbnail, isThumbnailUnsaved } from '../streets/image'
+import { saveStreetThumbnail, isThumbnailSaved } from '../streets/image'
 import store from '../store'
 import { showNoConnectionMessage } from '../store/actions/status'
 
@@ -177,7 +177,8 @@ function checkIfChangesSaved () {
     }
   }
 
-  if (isThumbnailUnsaved()) {
+  // If thumbnail needs to be saved before window close, show warning.
+  if (!isThumbnailSaved()) {
     showWarning = true
   }
 

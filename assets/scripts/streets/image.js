@@ -53,10 +53,10 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
 // Save thumbnail if necessary every 5 minutes (300000 ms)
 const SAVE_THUMBNAIL_TIME_INTERVAL = 300000
 let _lastSavedTimestamp
-let _unsavedThumbnail = true
+let _savedThumbnail
 
-export function isThumbnailUnsaved () {
-  return _unsavedThumbnail
+export function isThumbnailSaved () {
+  return _savedThumbnail
 }
 
 export function initStreetThumbnailSubscriber () {
@@ -72,7 +72,7 @@ export function initStreetThumbnailSubscriber () {
     if (!_lastSavedTimestamp || timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
       saveStreetThumbnail(JSON.parse(street))
     } else {
-      _unsavedThumbnail = true
+      _savedThumbnail = false
     }
   }
 
@@ -81,7 +81,7 @@ export function initStreetThumbnailSubscriber () {
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
 export async function saveStreetThumbnail (street) {
-  if (!_unsavedThumbnail) return
+  if (_savedThumbnail) return
 
   const thumbnail = getStreetImage(street, false, false, true, 2.0)
 
@@ -104,7 +104,7 @@ export async function saveStreetThumbnail (street) {
     if (response.ok) {
       console.log('Updated street thumbnail.')
       _lastSavedTimestamp = Date.now()
-      _unsavedThumbnail = false
+      _savedThumbnail = true
     }
   } catch (err) {
     console.log('Unable to save street thumbnail', err)
