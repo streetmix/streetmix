@@ -21,7 +21,7 @@ import { detectGeolocation } from '../users/geolocation'
 import { initPersistedSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
 import { getMode, setMode, MODES, processMode } from './mode'
-import { processUrl, updatePageUrl } from './page_url'
+import { processUrl } from './page_url'
 import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
@@ -127,7 +127,6 @@ function onEverythingLoaded () {
   initStreetThumbnailSubscriber()
   initStreetNameChangeListener()
 
-  updatePageUrl()
   addEventListeners()
 
   store.dispatch(everythingLoaded())
