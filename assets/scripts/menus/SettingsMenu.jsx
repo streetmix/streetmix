@@ -36,6 +36,11 @@ export class SettingsMenu extends React.PureComponent {
     if (prevProps.requestedLocale && this.props.requestedLocale === null) {
       this.props.clearMenus()
     }
+
+    // Close menu when units have changed
+    if (prevProps.units !== this.props.units) {
+      this.props.clearMenus()
+    }
   }
 
   selectLocale = (locale) => {
