@@ -13,7 +13,8 @@ export function initStreetDataChangedListener () {
     rightBuildingHeight: state.street.rightBuildingHeight,
     rightBuildingVariant: state.street.rightBuildingVariant,
     name: state.street.name,
-    location: state.street.location
+    location: state.street.location,
+    environment: state.street.environment
   })
 
   const onChange = () => {
