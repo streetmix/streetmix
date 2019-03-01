@@ -44,7 +44,6 @@ import {
   setLastStreet,
   setIgnoreStreetChanges
 } from './data_model'
-import { updateStreetName } from './name'
 import {
   getRemixOnFirstEdit,
   setRemixOnFirstEdit,
@@ -446,7 +445,6 @@ function receiveLastStreet (transmission) {
   // now have to update again to change edit count - how to fix?
   unifyUndoStack()
 
-  updateStreetName(store.getState().street)
   segmentsChanged()
 
   setIgnoreStreetChanges(false)

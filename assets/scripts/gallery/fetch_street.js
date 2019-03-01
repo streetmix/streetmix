@@ -6,7 +6,6 @@ import {
   trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
-import { updateStreetName } from '../streets/name'
 import { unpackServerStreetData } from '../streets/xhr'
 import { saveStreetThumbnail } from '../streets/image'
 import { getAuthHeader } from '../users/authentication'
@@ -62,7 +61,6 @@ function receiveGalleryStreet (transmission) {
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
 
-  updateStreetName(store.getState().street)
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
