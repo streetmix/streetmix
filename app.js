@@ -9,6 +9,7 @@ const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const express = require('express')
+const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const config = require('config')
@@ -202,6 +203,8 @@ app.delete('/api/v1/streets/:street_id', resources.v1.streets.delete)
 app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
+
+app.post('/api/v1/streets/images/:street_id', bodyParser.text({ limit: '3mb' }), resources.v1.street_images.post)
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
