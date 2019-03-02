@@ -111,6 +111,7 @@ export async function saveStreetThumbnail (street) {
   }
 }
 
+// Handles removing street thumbnail from cloudinary.
 export async function deleteStreetThumbnail (streetId) {
   const url = API_URL + 'v1/streets/images/' + streetId
 
