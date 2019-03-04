@@ -9,12 +9,11 @@ import { initLocale } from '../locales/locale'
 import { onNewStreetLastClick } from '../streets/creation'
 import {
   setLastStreet,
-  trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
-import { initStreetReduxTransitionSubscriber } from '../streets/street'
 import { initStreetThumbnailSubscriber } from '../streets/image'
+import { initStreetDataChangedListener } from '../streets/street'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
@@ -22,7 +21,7 @@ import { detectGeolocation } from '../users/geolocation'
 import { initPersistedSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
 import { getMode, setMode, MODES, processMode } from './mode'
-import { processUrl, updatePageUrl } from './page_url'
+import { processUrl } from './page_url'
 import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
@@ -121,14 +120,13 @@ function onEverythingLoaded () {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
-  initStreetReduxTransitionSubscriber()
+  setLastStreet()
+  initStreetDataChangedListener()
   initializeFlagSubscribers()
   initPersistedSettingsStoreObserver()
   initStreetThumbnailSubscriber()
   initStreetNameChangeListener()
 
-  updatePageUrl()
   addEventListeners()
 
   store.dispatch(everythingLoaded())

@@ -448,7 +448,7 @@ function receiveLastStreet (transmission) {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
+  setLastStreet()
 
   saveStreetToServer(false)
 }

@@ -36,12 +36,8 @@ const DEFAULT_STREET_WIDTH = 80
 
 let _lastStreet
 
-export function getLastStreet () {
-  return _lastStreet
-}
-
-export function setLastStreet (value) {
-  _lastStreet = value
+export function setLastStreet () {
+  _lastStreet = trimStreetData(store.getState().street)
 }
 
 const LATEST_SCHEMA_VERSION = 19
@@ -467,7 +463,8 @@ export function updateEverything (dontScroll, save = true) {
   // TODO Verify that we don't need to dispatch an update width event here
   segmentsChanged()
   setIgnoreStreetChanges(false)
-  _lastStreet = trimStreetData(store.getState().street)
+
+  setLastStreet()
 
   if (save === true) {
     scheduleSavingStreetToServer()

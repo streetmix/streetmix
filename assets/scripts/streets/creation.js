@@ -3,13 +3,11 @@ import { setSettings } from '../users/settings'
 import {
   setLastStreet,
   setUpdateTimeToNow,
-  trimStreetData,
   prepareDefaultStreet,
   prepareEmptyStreet,
   setIgnoreStreetChanges
 } from './data_model'
 import { saveStreetToServer, fetchLastStreet } from './xhr'
-import store from '../store'
 
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
@@ -22,7 +20,7 @@ export function makeDefaultStreet () {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
+  setLastStreet()
 
   saveStreetToServer(false)
 }
@@ -46,7 +44,7 @@ export function onNewStreetEmptyClick () {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
+  setLastStreet()
 
   saveStreetToServer(false)
 }

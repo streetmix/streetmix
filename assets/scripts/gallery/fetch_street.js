@@ -3,7 +3,6 @@ import { API_URL } from '../app/config'
 import { hideError, showError, ERRORS } from '../app/errors'
 import {
   setLastStreet,
-  trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { unpackServerStreetData } from '../streets/xhr'
@@ -64,7 +63,7 @@ function receiveGalleryStreet (transmission) {
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
+  setLastStreet()
 
   // Save new street's thumbnail.
   saveStreetThumbnail(store.getState().street)
