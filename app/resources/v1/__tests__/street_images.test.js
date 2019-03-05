@@ -49,3 +49,20 @@ describe('POST api/v1/streets/images/:street_id', () => {
       })
   })
 })
+
+describe('DELETE api/v1/streets/images/:street_id', () => {
+  const app = setupMockServer((app) => {
+    app.delete('/api/v1/streets/images/:street_id', images.delete)
+  })
+
+  cloudinary.v2.uploader.destroy.mockImplementation((publicId, cb) => cb(null, publicId))
+
+  it('should respond with 204 No content when street thumbnail is deleted by owner', () => {
+    return request(app)
+      .delete(`/api/v1/streets/images/${street.id}`)
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .then((response) => {
+        expect(response.statusCode).toEqual(204)
+      })
+  })
+})

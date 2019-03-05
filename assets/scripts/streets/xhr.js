@@ -63,6 +63,7 @@ import {
   updateStreetData
 } from '../store/actions/street'
 import { setUnitSettings } from '../store/actions/ui'
+import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500
 
@@ -454,6 +455,9 @@ function receiveLastStreet (transmission) {
 }
 
 export function sendDeleteStreetToServer (id) {
+  // Delete street thumbnail.
+  deleteStreetThumbnail(id)
+
   // Prevents new street submenu from showing the last street
   const settings = getSettings()
   if (settings.lastStreetId === id) {
