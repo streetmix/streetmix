@@ -35,7 +35,7 @@ import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
 
-class Segment extends React.Component {
+export class Segment extends React.Component {
   static propTypes = {
     // Provided by parent
     dataNo: PropTypes.number,
