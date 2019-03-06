@@ -149,6 +149,10 @@ app.use((req, res, next) => {
     google_analytics: uuid(),
     mixpanel: uuid()
   }
+
+  res.locals.STREETMIX_IMAGE = 'https://streetmix.net/images/thumbnail.png'
+  res.locals.STREETMIX_TITLE = 'Streetmix'
+
   next()
 })
 
@@ -206,6 +210,7 @@ app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
 app.post('/api/v1/streets/images/:street_id', bodyParser.text({ limit: '3mb' }), resources.v1.street_images.post)
 app.delete('/api/v1/streets/images/:street_id', resources.v1.street_images.delete)
+app.get('/api/v1/streets/images/:street_id', resources.v1.street_images.get)
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
@@ -240,6 +245,8 @@ if (config.env !== 'production') {
   const runBundle = require('./app/bundle')
   runBundle(app)
 }
+
+app.get(['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'], requestHandlers.metatags)
 
 // Catch-all
 app.use((req, res) => res.render('main'))
