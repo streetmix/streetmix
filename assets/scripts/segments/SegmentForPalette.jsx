@@ -14,7 +14,7 @@ const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_SEGMENT_Y_OFFSET = 20
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
-class SegmentForPalette extends React.Component {
+export class SegmentForPalette extends React.Component {
   static propTypes = {
     // Provided by react-intl
     intl: intlShape.isRequired,

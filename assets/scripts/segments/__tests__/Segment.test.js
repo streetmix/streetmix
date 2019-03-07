@@ -53,10 +53,6 @@ describe('Segment', () => {
     })
   })
   describe('shows the infobubble', () => {
-    it('on inital render and segement is active', () => {
-      shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} activeSegment={1} dataNo={1} />)
-      expect(infoBubble.considerShowing).toHaveBeenCalledTimes(1)
-    })
     it('when segment removing or dragging action ends', () => {
       const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging />)
       wrapper.setProps({ isDragging: false })

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentForPalette renders width correctly depending on the dimension 1`] = `
+<div
+  className="segment segment-in-palette"
+  onPointerOver={[Function]}
+  style={
+    Object {
+      "width": "NaNpx",
+    }
+  }
+>
+  <Connect(SegmentCanvas)
+    actualWidth={NaN}
+    multiplier={0.3333333333333333}
+    offsetTop={20}
+    randSeed={42}
+    type=""
+    variantString=""
+  />
+</div>
+`;
