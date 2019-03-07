@@ -1,0 +1,351 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Segment renders active segment correctly 1`] = `
+<div
+  className="segment hover show-drag-handles"
+  data-width={1}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "undefined": "translateX(undefinedpx)",
+      "width": "12px",
+      "zIndex": undefined,
+    }
+  }
+>
+  <span
+    className="name"
+  />
+  <span
+    className="width"
+  >
+    <MeasurementText
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="grid units-metric"
+  />
+  <Connect(SegmentDragHandles)
+    width={12}
+  />
+  <CSSTransition
+    classNames="switching-away"
+    in={true}
+    key="old-variant"
+    onExited={[Function]}
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <CSSTransition
+    classNames="switching-in"
+    in={false}
+    key="new-variant"
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <div
+    className="hover-bk"
+  />
+</div>
+`;
+
+exports[`Segment renders segment warnings correctly 1`] = `
+<div
+  className="segment hover show-drag-handles warning"
+  data-width={1}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "undefined": "translateX(undefinedpx)",
+      "width": "12px",
+      "zIndex": undefined,
+    }
+  }
+>
+  <span
+    className="name"
+  />
+  <span
+    className="width"
+  >
+    <MeasurementText
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="grid units-metric"
+  />
+  <Connect(SegmentDragHandles)
+    width={12}
+  />
+  <CSSTransition
+    classNames="switching-away"
+    in={true}
+    key="old-variant"
+    onExited={[Function]}
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <CSSTransition
+    classNames="switching-in"
+    in={false}
+    key="new-variant"
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <div
+    className="hover-bk"
+  />
+</div>
+`;
+
+exports[`Segment renders segment warnings outside correctly 1`] = `
+<div
+  className="segment hover show-drag-handles warning outside"
+  data-width={1}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "undefined": "translateX(undefinedpx)",
+      "width": "12px",
+      "zIndex": undefined,
+    }
+  }
+>
+  <span
+    className="name"
+  />
+  <span
+    className="width"
+  >
+    <MeasurementText
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="grid units-metric"
+  />
+  <Connect(SegmentDragHandles)
+    width={12}
+  />
+  <CSSTransition
+    classNames="switching-away"
+    in={true}
+    key="old-variant"
+    onExited={[Function]}
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <CSSTransition
+    classNames="switching-in"
+    in={false}
+    key="new-variant"
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <div
+    className="hover-bk"
+  />
+</div>
+`;
+
+exports[`Segment renders segment warnings width too large correctly 1`] = `
+<div
+  className="segment hover show-drag-handles warning"
+  data-width={1}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "undefined": "translateX(undefinedpx)",
+      "width": "12px",
+      "zIndex": undefined,
+    }
+  }
+>
+  <span
+    className="name"
+  />
+  <span
+    className="width"
+  >
+    <MeasurementText
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="grid units-metric"
+  />
+  <Connect(SegmentDragHandles)
+    width={12}
+  />
+  <CSSTransition
+    classNames="switching-away"
+    in={true}
+    key="old-variant"
+    onExited={[Function]}
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <CSSTransition
+    classNames="switching-in"
+    in={false}
+    key="new-variant"
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <div
+    className="hover-bk"
+  />
+</div>
+`;
+
+exports[`Segment renders the units correctly 1`] = `
+<div
+  className="segment hover show-drag-handles"
+  data-width={1}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "undefined": "translateX(undefinedpx)",
+      "width": "12px",
+      "zIndex": undefined,
+    }
+  }
+>
+  <span
+    className="name"
+  />
+  <span
+    className="width"
+  >
+    <MeasurementText
+      units={1}
+      value={1}
+    />
+  </span>
+  <span
+    className="grid units-imperial"
+  />
+  <Connect(SegmentDragHandles)
+    width={12}
+  />
+  <CSSTransition
+    classNames="switching-away"
+    in={true}
+    key="old-variant"
+    onExited={[Function]}
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <CSSTransition
+    classNames="switching-in"
+    in={false}
+    key="new-variant"
+    timeout={250}
+    unmountOnExit={true}
+  >
+    <div
+      className="segment-canvas-container"
+    >
+      <Connect(SegmentCanvas)
+        actualWidth={1}
+        variantString="variant"
+      />
+    </div>
+  </CSSTransition>
+  <div
+    className="hover-bk"
+  />
+</div>
+`;

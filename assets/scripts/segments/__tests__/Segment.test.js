@@ -4,6 +4,12 @@ import { shallow } from 'enzyme'
 import { Segment } from '../Segment'
 import { getSegmentInfo, getSegmentVariantInfo } from '../info'
 import { infoBubble } from '../../info_bubble/info_bubble'
+import { SETTINGS_UNITS_IMPERIAL } from '../../users/constants'
+import {
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL,
+  SEGMENT_WARNING_WIDTH_TOO_LARGE
+} from '../constants'
 
 jest.mock('../../app/routing')
 jest.mock('../info')
@@ -63,8 +69,30 @@ describe('Segment', () => {
       expect(infoBubble.considerShowing).toHaveBeenCalledTimes(2) // should probably only be 1
     })
   })
-  // ToDo: Snapshot test for
-  // this.props.units
-  // segment.warnings
-  // this.props.activeSegment === this.props.dataNo
+  it('renders the units correctly', () => {
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} units={SETTINGS_UNITS_IMPERIAL} />)
+    expect(wrapper).toMatchSnapshot()
+  })
+  it('renders active segment correctly', () => {
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    expect(wrapper).toMatchSnapshot()
+  })
+  it('renders segment warnings outside correctly', () => {
+    segment.warnings = {}
+    segment.warnings[SEGMENT_WARNING_OUTSIDE] = 'warning'
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    expect(wrapper).toMatchSnapshot()
+  })
+  it('renders segment warnings correctly', () => {
+    segment.warnings = {}
+    segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = 'warning'
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    expect(wrapper).toMatchSnapshot()
+  })
+  it('renders segment warnings width too large correctly', () => {
+    segment.warnings = {}
+    segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = 'warning'
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    expect(wrapper).toMatchSnapshot()
+  })
 })
