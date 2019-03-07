@@ -152,6 +152,7 @@ app.use((req, res, next) => {
 
   res.locals.STREETMIX_IMAGE = 'https://streetmix.net/images/thumbnail.png'
   res.locals.STREETMIX_TITLE = 'Streetmix'
+  res.locals.STREETMIX_URL = config.restapi.protocol + config.app_host_port + '/'
 
   next()
 })
