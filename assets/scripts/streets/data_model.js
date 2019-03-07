@@ -1,4 +1,3 @@
-import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
@@ -6,7 +5,6 @@ import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic } from '../users/localization'
-import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
 import { DEFAULT_ENVIRONS } from './constants'
 import {
@@ -369,32 +367,6 @@ function fillDefaultSegments () {
 
   store.dispatch(updateSegments(segments))
   normalizeAllSegmentWidths()
-}
-
-export function getStreetUrl (street) {
-  var url = '/'
-  if (street.creatorId) {
-    if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
-      url += URL_RESERVED_PREFIX
-    }
-
-    url += street.creatorId
-  } else {
-    url += URL_NO_USER
-  }
-
-  url += '/'
-
-  url += street.namespacedId
-
-  if (street.creatorId) {
-    var slug = normalizeSlug(street.name)
-    if (slug) {
-      url += '/' + encodeURIComponent(slug)
-    }
-  }
-
-  return url
 }
 
 export function prepareDefaultStreet () {

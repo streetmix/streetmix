@@ -1,5 +1,4 @@
 import { debug } from '../preinit/debug_settings'
-import { getStreetUrl } from '../streets/data_model'
 import { setMode, MODES } from './mode'
 import {
   URL_NEW_STREET,
@@ -8,8 +7,10 @@ import {
   URL_ERROR,
   URL_GLOBAL_GALLERY,
   URL_NO_USER,
-  URL_RESERVED_PREFIX
+  URL_RESERVED_PREFIX,
+  RESERVED_URLS
 } from './routing'
+import { normalizeSlug } from '../util/helpers'
 import { setGalleryUserId } from '../store/actions/gallery'
 import store from '../store'
 import { saveCreatorId, saveStreetId } from '../store/actions/street'
@@ -94,6 +95,32 @@ export function processUrl () {
   } else {
     setMode(MODES.NOT_FOUND)
   }
+}
+
+export function getStreetUrl (street) {
+  let url = '/'
+  if (street.creatorId) {
+    if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
+      url += URL_RESERVED_PREFIX
+    }
+
+    url += street.creatorId
+  } else {
+    url += URL_NO_USER
+  }
+
+  url += '/'
+
+  url += street.namespacedId
+
+  if (street.creatorId) {
+    const slug = normalizeSlug(street.name)
+    if (slug) {
+      url += '/' + window.encodeURIComponent(slug)
+    }
+  }
+
+  return url
 }
 
 export function updatePageUrl (forceGalleryUrl) {
