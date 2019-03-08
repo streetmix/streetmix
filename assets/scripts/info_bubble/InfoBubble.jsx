@@ -34,7 +34,7 @@ const DESCRIPTION_HOVER_POLYGON_MARGIN = 200
 const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
 const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
 
-class InfoBubble extends React.Component {
+export class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     descriptionVisible: PropTypes.bool,
