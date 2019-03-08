@@ -6,12 +6,12 @@ exports[`SegmentForPalette renders width correctly depending on the dimension 1`
   onPointerOver={[Function]}
   style={
     Object {
-      "width": "NaNpx",
+      "width": "424px",
     }
   }
 >
   <Connect(SegmentCanvas)
-    actualWidth={NaN}
+    actualWidth={106}
     multiplier={0.3333333333333333}
     offsetTop={20}
     randSeed={42}

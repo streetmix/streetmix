@@ -21,10 +21,13 @@ describe('SegmentForPalette', () => {
   const intlProvider = new IntlProvider({ locale: 'en' }, {})
   const { intl } = intlProvider.getChildContext()
   beforeEach(() => {
-    getSegmentInfo.mockResolvedValue('test')
+    const variant = { name: 'Variant' }
+    const segment = { nameKey: 'key' }
+    const dimensions = { left: 100, right: 200 }
+    getSegmentInfo.mockImplementation(() => segment)
+    getSegmentVariantInfo.mockImplementation(() => variant)
     generateRandSeed.mockImplementation(() => 42)
-    getSegmentVariantInfo.mockResolvedValue({ name: 'test' })
-    getVariantInfoDimensions.mockResolvedValue({ left: 100, right: 100 })
+    getVariantInfoDimensions.mockImplementation(() => dimensions)
   })
   describe('on mount', () => {
     it('connects to drag', () => {
