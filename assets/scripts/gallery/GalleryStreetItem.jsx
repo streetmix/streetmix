@@ -8,10 +8,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
 import StreetName from '../streets/StreetName'
+import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
 import CloseButton from '../ui/CloseButton'
 import { drawStreetThumbnail } from './thumbnail'
-import { getStreetUrl } from '../streets/data_model'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110

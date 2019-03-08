@@ -9,7 +9,7 @@ jest.mock('../thumbnail', () => {
     drawStreetThumbnail: jest.fn()
   }
 })
-jest.mock('../../streets/data_model', () => {
+jest.mock('../../app/page_url', () => {
   return {
     getStreetUrl: jest.fn()
   }
