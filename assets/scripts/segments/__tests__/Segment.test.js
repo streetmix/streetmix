@@ -24,8 +24,10 @@ describe('Segment', () => {
   const updateSegmentData = jest.fn()
   let segment = {}
   beforeEach(() => {
-    getSegmentInfo.mockResolvedValue('test')
-    getSegmentVariantInfo.mockResolvedValue({ name: 'test' })
+    const variant = { }
+    const segment = { name: 'Segment', nameKey: 'key', zIndex: 1 }
+    getSegmentInfo.mockImplementation(() => segment)
+    getSegmentVariantInfo.mockImplementation(() => variant)
   })
   describe('on mount', () => {
     it('updates the left position for this segment', () => {
@@ -60,35 +62,34 @@ describe('Segment', () => {
     })
     it('when the mouseEnter is suppressed', () => {
       const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} suppressMouseEnter />)
-      console.log('change mouse')
       wrapper.setProps({ suppressMouseEnter: false })
       expect(infoBubble.considerShowing).toHaveBeenCalledTimes(2) // should probably only be 1
     })
   })
   it('renders the units correctly', () => {
-    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} units={SETTINGS_UNITS_IMPERIAL} />)
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} units={SETTINGS_UNITS_IMPERIAL} cssTransform={'transform'} segmentPos={1} />)
     expect(wrapper).toMatchSnapshot()
   })
   it('renders active segment correctly', () => {
-    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} cssTransform={'transform'} segmentPos={1} />)
     expect(wrapper).toMatchSnapshot()
   })
   it('renders segment warnings outside correctly', () => {
     segment.warnings = {}
     segment.warnings[SEGMENT_WARNING_OUTSIDE] = 'warning'
-    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} cssTransform={'transform'} segmentPos={1} />)
     expect(wrapper).toMatchSnapshot()
   })
   it('renders segment warnings correctly', () => {
     segment.warnings = {}
     segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = 'warning'
-    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} cssTransform={'transform'} segmentPos={1} />)
     expect(wrapper).toMatchSnapshot()
   })
   it('renders segment warnings width too large correctly', () => {
     segment.warnings = {}
     segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = 'warning'
-    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} />)
+    const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} cssTransform={'transform'} segmentPos={1} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

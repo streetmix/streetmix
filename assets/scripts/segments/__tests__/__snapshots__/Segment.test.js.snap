@@ -8,15 +8,17 @@ exports[`Segment renders active segment correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
-      "undefined": "translateX(undefinedpx)",
+      "transform": "translateX(1px)",
       "width": "12px",
-      "zIndex": undefined,
+      "zIndex": 1,
     }
   }
 >
   <span
     className="name"
-  />
+  >
+    Segment
+  </span>
   <span
     className="width"
   >
@@ -78,15 +80,17 @@ exports[`Segment renders segment warnings correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
-      "undefined": "translateX(undefinedpx)",
+      "transform": "translateX(1px)",
       "width": "12px",
-      "zIndex": undefined,
+      "zIndex": 1,
     }
   }
 >
   <span
     className="name"
-  />
+  >
+    Segment
+  </span>
   <span
     className="width"
   >
@@ -148,15 +152,17 @@ exports[`Segment renders segment warnings outside correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
-      "undefined": "translateX(undefinedpx)",
+      "transform": "translateX(1px)",
       "width": "12px",
-      "zIndex": undefined,
+      "zIndex": 1,
     }
   }
 >
   <span
     className="name"
-  />
+  >
+    Segment
+  </span>
   <span
     className="width"
   >
@@ -218,15 +224,17 @@ exports[`Segment renders segment warnings width too large correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
-      "undefined": "translateX(undefinedpx)",
+      "transform": "translateX(1px)",
       "width": "12px",
-      "zIndex": undefined,
+      "zIndex": 1,
     }
   }
 >
   <span
     className="name"
-  />
+  >
+    Segment
+  </span>
   <span
     className="width"
   >
@@ -288,15 +296,17 @@ exports[`Segment renders the units correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
-      "undefined": "translateX(undefinedpx)",
+      "transform": "translateX(1px)",
       "width": "12px",
-      "zIndex": undefined,
+      "zIndex": 1,
     }
   }
 >
   <span
     className="name"
-  />
+  >
+    Segment
+  </span>
   <span
     className="width"
   >

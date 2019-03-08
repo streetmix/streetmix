@@ -87,6 +87,7 @@ export class Segment extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
+    // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
     // During a segment removal or a dragging action, the infoBubble temporarily does not appear
     // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
     // the active segment should be shown. The following IF statement checks to see if a removal
