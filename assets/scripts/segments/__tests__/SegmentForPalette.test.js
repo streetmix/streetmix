@@ -21,11 +21,7 @@ describe('SegmentForPalette', () => {
   const intlProvider = new IntlProvider({ locale: 'en' }, {})
   const { intl } = intlProvider.getChildContext()
   beforeEach(() => {
-    const variant = { name: 'Variant' }
-    const segment = { nameKey: 'key' }
     const dimensions = { left: 100, right: 200 }
-    getSegmentInfo.mockImplementation(() => segment)
-    getSegmentVariantInfo.mockImplementation(() => variant)
     generateRandSeed.mockImplementation(() => 42)
     getVariantInfoDimensions.mockImplementation(() => dimensions)
   })
@@ -38,5 +34,31 @@ describe('SegmentForPalette', () => {
   it('renders width correctly depending on the dimension', () => {
     const wrapper = shallow(<SegmentForPalette connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} connectDragPreview={connectDragPreview} type={''} variantString={''} intl={intl} />)
     expect(wrapper).toMatchSnapshot()
+  })
+  describe('mouseover', () => {
+    it('calls onPointerOver with Variant name', () => {
+      const onPointerOver = jest.fn()
+      const event = { target: { getBoundingClientRect: () => 1 } }
+      const variant = { name: 'Variant' }
+      const segment = { nameKey: 'key' }
+      getSegmentInfo.mockImplementation(() => segment)
+      getSegmentVariantInfo.mockImplementation(() => variant)
+      const wrapper = shallow(<SegmentForPalette connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} connectDragPreview={connectDragPreview} type={''} variantString={''} intl={intl} onPointerOver={onPointerOver} />)
+      wrapper.simulate('pointerover', event)
+      expect(onPointerOver).toHaveBeenCalledTimes(1)
+      expect(onPointerOver).toHaveBeenCalledWith(event, 'Variant', 1)
+    })
+    it('calls onPointerOver with Segment name', () => {
+      const onPointerOver = jest.fn()
+      const event = { target: { getBoundingClientRect: () => 1 } }
+      const variant = { }
+      const segment = { name: 'Segment', nameKey: 'key' }
+      getSegmentInfo.mockImplementation(() => segment)
+      getSegmentVariantInfo.mockImplementation(() => variant)
+      const wrapper = shallow(<SegmentForPalette connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} connectDragPreview={connectDragPreview} type={''} variantString={''} intl={intl} onPointerOver={onPointerOver} />)
+      wrapper.simulate('pointerover', event)
+      expect(onPointerOver).toHaveBeenCalledTimes(1)
+      expect(onPointerOver).toHaveBeenCalledWith(event, 'Segment', 1)
+    })
   })
 })
