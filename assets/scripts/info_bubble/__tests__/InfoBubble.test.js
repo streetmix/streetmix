@@ -88,11 +88,4 @@ describe('InfoBubble', () => {
       expect(setInfoBubbleMouseInside).toHaveBeenCalledWith(false)
     })
   })
-
-  /**
-   * test:
-   * onMouseEnter (setInfoBubbleMouse)
-   * onMouseLeave
-   * updateHoverPolygon
-   * **/
 })
