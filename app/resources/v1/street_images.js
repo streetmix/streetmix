@@ -17,70 +17,108 @@ exports.post = async function (req, res) {
     return
   }
 
-  // 1) Verify user is logged in.
-  const userId = req.userId
-
-  if (!userId) {
-    res.status(400).send('Please provide user ID.')
-    return
-  }
-
-  let user
+  // 1) Check if street thumbnail exists on Cloudinary.
+  const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
+  let thumbnail
 
   try {
-    user = await User.findOne({ id: userId })
+    const resource = await cloudinary.v2.api.resource(publicId)
+    thumbnail = resource && resource.secure_url
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error finding user.')
   }
 
-  if (!user) {
-    res.status(404).send('User not found.')
+  const handleErrors = function (error) {
+    logger.error(error)
+    res.status(500).end()
+  }
+
+  const handleUploadStreetThumbnail = async function (streetId) {
+    let resource
+
+    try {
+      const publicId = `${config.env}/street_thumbnails/${streetId}`
+      resource = await cloudinary.v2.uploader.upload(image, { public_id: publicId })
+    } catch (error) {
+      logger.error(error)
+    }
+
+    if (!resource) {
+      res.status(500).send('Error uploading street thumbnail to Cloudinary.')
+      return
+    }
+
+    res.status(200).json(resource)
+  }
+
+  // 2a) If street thumbnail does not exist, upload automatically to Cloudinary regardless of creator.
+  if (!thumbnail) {
+    handleUploadStreetThumbnail(req.params.street_id)
     return
   }
 
-  // Is requesting user logged in?
-  if (user.login_tokens.indexOf(req.loginToken) === -1) {
-    res.status(401).end()
-    return
-  }
-
-  // 2) Check that street exists.
-  // 3) Verify that street is owned by logged in user.
+  // 2b) If street thumbnail does exist, verify that street exists.
   let street
 
   try {
-    street = await Street.findOne({ id: req.params.street_id })
+    street = Street.findOne({ id: req.params.street_id })
   } catch (error) {
     logger.error(error)
     res.status(500).send('Error finding street.')
+    return
   }
 
   if (!street) {
     res.status(400).send('Street not found.')
     return
-  } else if (street.creator_id.toString() !== user._id.toString()) {
-    res.status(404).send('Signed in user cannot upload street thumbnail.')
-    return
   }
 
-  // 4) Upload street thumbnail to cloudinary.
-  let response
+  const handleFindStreetWithCreatorId = async function (street, userId) {
+    if (!userId) {
+      res.status(400).send('Please provide a user id.')
+      return
+    }
 
-  try {
-    const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
-    response = await cloudinary.v2.uploader.upload(image, { public_id: publicId })
-  } catch (error) {
-    logger.error(error)
-    res.status(500).send('Error uploading thumbnail to cloudinary.')
+    let user
+
+    try {
+      user = await User.findOne({ id: userId })
+    } catch (error) {
+      logger.error(error)
+      res.status(500).send('Error finding user.')
+      return
+    }
+
+    if (!user) {
+      res.status(400).send('User not found.')
+      return
+    }
+
+    // Verify user is signed in.
+    if (user.login_tokens.indexOf(req.loginToken) === -1) {
+      res.status(401).end()
+      return
+    }
+
+    // Verify user is owner of street.
+    if (street.creator_id !== user._id) {
+      res.status(404).send('User does not have right permissions to upload street thumbnail to Cloudinary.')
+      return
+    }
+
+    return req.params.street_id
   }
 
-  if (!response) {
-    res.status(400).send('Could not upload thumbnail to cloudinary.')
-    return
+  // 3a) If street was created by a user, verify that signed in user is the street owner before uploading street thumbnail to Cloudinary.
+  // 3b) If street was created anonymously, upload street thumbnail to Cloudinary
+  if (street.creator_id) {
+    handleFindStreetWithCreatorId(street, req.userId)
+      .then(handleUploadStreetThumbnail)
+      .catch(handleErrors)
+  } else {
+    handleUploadStreetThumbnail(req.params.street_id)
+      .catch(handleErrors)
   }
-
-  res.status(200).send('Successfully uploaded thumbnail to cloudinary.')
 }
 
 exports.delete = async function (req, res) {
