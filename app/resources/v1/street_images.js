@@ -4,6 +4,8 @@ const User = require('../../models/user.js')
 const Street = require('../../models/street.js')
 const logger = require('../../../lib/logger.js')()
 
+const ALLOW_ANON_STREET_THUMBNAILS = false
+
 exports.post = async function (req, res) {
   const image = req.body
 
@@ -17,27 +19,39 @@ exports.post = async function (req, res) {
     return
   }
 
-  // 1) Check if street thumbnail exists on Cloudinary.
-  const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
-  let thumbnail
+  // 1) Check if street exists.
+  let street
 
   try {
-    const resource = await cloudinary.v2.api.resource(publicId)
-    thumbnail = resource && resource.secure_url
+    street = await Street.findOne({ id: req.params.street_id })
+  } catch (error) {
+    logger.error(error)
+    res.status(500).send('Error finding street.')
+    return
+  }
+
+  if (!street) {
+    res.status(400).send('Street not found.')
+    return
+  }
+
+  // 2) Check if street thumbnail exists.
+  let resource
+  const publicId = `${config.env}/street_thumbnails/${street.id}`
+
+  try {
+    resource = cloudinary.v2.api.resource(publicId)
   } catch (error) {
     logger.error(error)
   }
 
-  const handleErrors = function (error) {
-    logger.error(error)
-    res.status(500).end()
-  }
-
-  const handleUploadStreetThumbnail = async function (streetId) {
-    let resource
+  const handleUploadStreetThumbnail = async function (publicId) {
+    if (!publicId) {
+      res.status(400).send('Please provide the public ID to be used.')
+      return
+    }
 
     try {
-      const publicId = `${config.env}/street_thumbnails/${streetId}`
       resource = await cloudinary.v2.uploader.upload(image, { public_id: publicId })
     } catch (error) {
       logger.error(error)
@@ -51,38 +65,16 @@ exports.post = async function (req, res) {
     res.status(200).json(resource)
   }
 
-  // 2a) If street thumbnail does not exist, upload automatically to Cloudinary regardless of creator.
-  if (!thumbnail) {
-    handleUploadStreetThumbnail(req.params.street_id)
-    return
-  }
-
-  // 2b) If street thumbnail does exist, verify that street exists.
-  let street
-
-  try {
-    street = Street.findOne({ id: req.params.street_id })
-  } catch (error) {
-    logger.error(error)
-    res.status(500).send('Error finding street.')
-    return
-  }
-
-  if (!street) {
-    res.status(400).send('Street not found.')
-    return
-  }
-
-  const handleFindStreetWithCreatorId = async function (street, userId) {
-    if (!userId) {
-      res.status(400).send('Please provide a user id.')
+  const handleFindStreetWithCreator = async function (street) {
+    if (!req.userId) {
+      res.status(404).send('Please provide a user ID.')
       return
     }
 
     let user
 
     try {
-      user = await User.findOne({ id: userId })
+      user = await User.findOne({ id: req.userId })
     } catch (error) {
       logger.error(error)
       res.status(500).send('Error finding user.')
@@ -94,30 +86,32 @@ exports.post = async function (req, res) {
       return
     }
 
-    // Verify user is signed in.
-    if (user.login_tokens.indexOf(req.loginToken) === -1) {
-      res.status(401).end()
-      return
-    }
-
-    // Verify user is owner of street.
     if (street.creator_id !== user._id) {
-      res.status(404).send('User does not have right permissions to upload street thumbnail to Cloudinary.')
+      res.status(404).send('User does not have right permissions to upload street thumbnail.')
       return
     }
 
-    return req.params.street_id
+    const publicId = `${config.env}/street_thumbnails/${street.id}`
+    return publicId
   }
 
-  // 3a) If street was created by a user, verify that signed in user is the street owner before uploading street thumbnail to Cloudinary.
-  // 3b) If street was created anonymously, upload street thumbnail to Cloudinary
-  if (street.creator_id) {
-    handleFindStreetWithCreatorId(street, req.userId)
+  const handleError = function (error) {
+    logger.error(error)
+    res.status(400).end()
+  }
+
+  // 3a) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
+  // 3b) If street was created by anonymous user, upload to Cloudinary.
+  if (!resource || (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)) {
+    handleUploadStreetThumbnail(publicId)
+      .catch(handleError)
+  } else if (street.creator_id) {
+    // 3c) If street thumbnail already exists and street was created by a user, check if signed in user = creator.
+    handleFindStreetWithCreator(street)
       .then(handleUploadStreetThumbnail)
-      .catch(handleErrors)
+      .catch(handleError)
   } else {
-    handleUploadStreetThumbnail(req.params.street_id)
-      .catch(handleErrors)
+    res.status(400).send('User does not have the right permissions to upload street thumbnail to Cloudinary.')
   }
 }
 
