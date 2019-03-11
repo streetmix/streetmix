@@ -66,3 +66,19 @@ describe('DELETE api/v1/streets/images/:street_id', () => {
       })
   })
 })
+
+describe('GET api/v1/streets/images/:street_id', () => {
+  const app = setupMockServer((app) => {
+    app.get('/api/v1/streets/images/:street_id', images.get)
+  })
+
+  cloudinary.v2.api.resource.mockResolvedValue('foo')
+
+  it('should respond with 200 when street thumbnail is found', () => {
+    return request(app)
+      .get(`/api/v1/streets/images/${street.id}`)
+      .then((response) => {
+        expect(response.statusCode).toEqual(200)
+      })
+  })
+})

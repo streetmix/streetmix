@@ -150,8 +150,14 @@ app.use((req, res, next) => {
     mixpanel: uuid()
   }
 
-  res.locals.STREETMIX_IMAGE = 'https://streetmix.net/images/thumbnail.png'
+  res.locals.STREETMIX_IMAGE = {
+    image: 'https://streetmix.net/images/thumbnail.png',
+    width: 1008,
+    height: 522
+  }
+
   res.locals.STREETMIX_TITLE = 'Streetmix'
+  res.locals.STREETMIX_URL = config.restapi.protocol + config.app_host_port + '/'
 
   next()
 })

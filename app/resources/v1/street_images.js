@@ -155,22 +155,21 @@ exports.get = async function (req, res) {
     return
   }
 
-  let thumbnail
+  let resource
 
   try {
     const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
-    const resource = await cloudinary.v2.api.resource(publicId)
-    thumbnail = resource && resource.secure_url
+    resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     logger.error(error)
     res.status(500).send('Error finding street thumbnail from cloudinary.')
     return
   }
 
-  if (!thumbnail) {
+  if (!resource) {
     res.status(400).send('Could not find street thumbnail from cloudinary.')
     return
   }
 
-  res.status(200).send({ image: thumbnail })
+  res.status(200).json(resource)
 }
