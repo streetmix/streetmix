@@ -97,7 +97,7 @@ exports.post = async function (req, res) {
 
   const handleError = function (error) {
     logger.error(error)
-    res.status(400).end()
+    res.status(500).end()
   }
 
   // 3a) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
