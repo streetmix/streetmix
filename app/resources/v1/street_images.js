@@ -111,7 +111,7 @@ exports.post = async function (req, res) {
       .then(handleUploadStreetThumbnail)
       .catch(handleError)
   } else {
-    res.status(400).send('User does not have the right permissions to upload street thumbnail to Cloudinary.')
+    res.status(404).send('User does not have the right permissions to upload street thumbnail to Cloudinary.')
   }
 }
 
