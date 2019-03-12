@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Variants renders 1`] = `
+<div
+  className="variants"
+>
+  <button
+    disabled={true}
+    key="direction.inbound"
+    onClick={[Function]}
+    title="Inbound"
+  >
+    <svg
+      className="icon"
+      style={null}
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-direction-inbound"
+      />
+    </svg>
+  </button>
+  <button
+    disabled={false}
+    key="direction.outbound"
+    onClick={[Function]}
+    title="Outbound"
+  >
+    <svg
+      className="icon"
+      style={null}
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-direction-outbound"
+      />
+    </svg>
+  </button>
+</div>
+`;

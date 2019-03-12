@@ -13,7 +13,7 @@ import {
 } from './constants'
 import { setBuildingVariant, changeSegmentVariant } from '../store/actions/street'
 
-class Variants extends React.Component {
+export class Variants extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     type: PropTypes.number,
