@@ -8,7 +8,7 @@ exports.get = async function (req, res) {
   const userId = req.userId
 
   if (!userId) {
-    res.status(400).send('Please provide user ID.')
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
   }
 
   let user
@@ -17,11 +17,11 @@ exports.get = async function (req, res) {
     user = await User.findOne({ id: userId })
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error finding user.')
+    res.status(500).json({ status: 400, msg: 'Error finding user.' })
   }
 
   if (!user) {
-    res.status(404).send('User not found.')
+    res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }
 
@@ -37,11 +37,11 @@ exports.get = async function (req, res) {
     signature = await cloudinary.utils.api_sign_request(query, config.cloudinary.api_secret)
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error generating signature.')
+    res.status(500).json({ status: 500, msg: 'Error generating signature.' })
   }
 
   if (!signature) {
-    res.status(404).send('Signature could not be generated.')
+    res.status(404).json({ status: 404, msg: 'Signature could not be generated.' })
   }
 
   const payload = {
