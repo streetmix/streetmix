@@ -74,7 +74,6 @@ export class SegmentForPalette extends React.Component {
         style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
         className="segment segment-in-palette"
         onPointerOver={this.handlePointerOver}
-        onPointerOut={this.handlePointerOut}
       >
         <SegmentCanvas
           actualWidth={actualWidth}
