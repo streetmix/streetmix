@@ -143,13 +143,15 @@ app.use(requestHandlers.login_token_parser)
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
-// Generate nonces for inline scripts
+// Set variables for use in view templates
 app.use((req, res, next) => {
+  // Generate nonces for inline scripts
   res.locals.nonce = {
     google_analytics: uuid(),
     mixpanel: uuid()
   }
 
+  // Set default metatag information for social sharing cards
   res.locals.STREETMIX_IMAGE = {
     image: 'https://streetmix.net/images/thumbnail.png',
     width: 1008,
@@ -158,6 +160,9 @@ app.use((req, res, next) => {
 
   res.locals.STREETMIX_TITLE = 'Streetmix'
   res.locals.STREETMIX_URL = config.restapi.protocol + config.app_host_port + '/'
+
+  // Make required Facebook app ID available to metatags
+  res.locals.FACEBOOK_APP_ID = config.facebook_app_id
 
   next()
 })
