@@ -255,4 +255,6 @@ if (config.env !== 'production') {
 app.get(['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'], requestHandlers.metatags)
 
 // Catch-all
-app.use((req, res) => res.render('main'))
+app.use((req, res) => res.render('main', {
+  FACEBOOK_APP_ID: config.facebook_app_id
+}))
