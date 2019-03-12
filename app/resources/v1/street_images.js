@@ -10,12 +10,12 @@ exports.post = async function (req, res) {
   const image = req.body
 
   if (!image) {
-    res.status(400).send('Image data not specified.')
+    res.status(400).json({ status: 400, msg: 'Image data not specified.' })
     return
   }
 
   if (!req.params.street_id) {
-    res.status(400).send('Please provide street ID.')
+    res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
   }
 
@@ -26,12 +26,11 @@ exports.post = async function (req, res) {
     street = await Street.findOne({ id: req.params.street_id })
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error finding street.')
-    return
+    res.status(500).json({ status: 500, msg: 'Error finding street.' })
   }
 
   if (!street) {
-    res.status(400).send('Street not found.')
+    res.status(400).json({ status: 400, msg: 'Street not found.' })
     return
   }
 
@@ -47,7 +46,7 @@ exports.post = async function (req, res) {
 
   const handleUploadStreetThumbnail = async function (publicId) {
     if (!publicId) {
-      res.status(400).send('Please provide the public ID to be used.')
+      res.status(400).json({ status: 400, msg: 'Please provide the public ID to be used.' })
       return
     }
 
@@ -58,7 +57,7 @@ exports.post = async function (req, res) {
     }
 
     if (!resource) {
-      res.status(500).send('Error uploading street thumbnail to Cloudinary.')
+      res.status(500).json({ status: 500, msg: 'Error uploading street thumbnail to Cloudinary.' })
       return
     }
 
@@ -76,7 +75,7 @@ exports.post = async function (req, res) {
 
   const handleFindStreetWithCreator = async function (street) {
     if (!req.userId) {
-      res.status(401).send('Please provide a user ID.')
+      res.status(401).json({ status: 401, msg: 'Please provide a user ID.' })
       return
     }
 
@@ -86,17 +85,17 @@ exports.post = async function (req, res) {
       user = await User.findOne({ id: req.userId })
     } catch (error) {
       logger.error(error)
-      res.status(500).send('Error finding user.')
+      res.status(500).json({ status: 500, msg: 'Error finding user.' })
       return
     }
 
     if (!user) {
-      res.status(403).send('User not found.')
+      res.status(403).json({ status: 403, msg: 'User not found.' })
       return
     }
 
     if (street.creator_id.toString() !== user._id.toString()) {
-      res.status(403).send('User does not have the right permissions to upload street thumbnail.')
+      res.status(403).json({ status: 403, msg: 'User does not have the right permissions to upload street thumbnail.' })
       return
     }
 
@@ -120,13 +119,13 @@ exports.post = async function (req, res) {
       .then(handleUploadStreetThumbnail)
       .catch(handleError)
   } else {
-    res.status(403).send('User does not have the right permissions to upload street thumbnail.')
+    res.status(403).json({ status: 403, msg: 'User does not have the right permissions to upload street thumbnail.' })
   }
 }
 
 exports.delete = async function (req, res) {
   if (!req.params.street_id) {
-    res.status(400).send('Please provide street ID.')
+    res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
   }
 
@@ -134,7 +133,7 @@ exports.delete = async function (req, res) {
   const userId = req.userId
 
   if (!userId) {
-    res.status(400).send('Please provide user ID.')
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   }
 
@@ -144,11 +143,11 @@ exports.delete = async function (req, res) {
     user = await User.findOne({ id: userId })
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error finding user.')
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
   if (!user) {
-    res.status(404).send('User not found.')
+    res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }
 
@@ -166,14 +165,14 @@ exports.delete = async function (req, res) {
     street = await Street.findOne({ id: req.params.street_id })
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error finding street.')
+    res.status(500).json({ status: 500, msg: 'Error finding street.' })
   }
 
   if (!street) {
-    res.status(400).send('Street not found.')
+    res.status(400).json({ status: 400, msg: 'Street not found.' })
     return
   } else if (street.creator_id.toString() !== user._id.toString()) {
-    res.status(404).send('Signed in user cannot delete street thumbnail.')
+    res.status(404).json({ status: 404, msg: 'Signed in user cannot delete street thumbnail.' })
     return
   }
 
@@ -182,7 +181,7 @@ exports.delete = async function (req, res) {
   cloudinary.v2.uploader.destroy(publicId, function (error, result) {
     if (error) {
       logger.error(error)
-      res.status(500).send('Error deleting street thumbnail from cloudinary.')
+      res.status(500).json({ status: 500, msg: 'Error deleting street thumbnail from cloudinary.' })
       return
     }
 
@@ -192,7 +191,7 @@ exports.delete = async function (req, res) {
 
 exports.get = async function (req, res) {
   if (!req.params.street_id) {
-    res.status(400).send('Please provide a street id.')
+    res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
     return
   }
 
@@ -203,12 +202,12 @@ exports.get = async function (req, res) {
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error finding street thumbnail from cloudinary.')
+    res.status(500).json({ status: 500, msg: 'Error finding street thumbnail from cloudinary.' })
     return
   }
 
   if (!resource) {
-    res.status(400).send('Could not find street thumbnail from cloudinary.')
+    res.status(400).json({ status: 400, msg: 'Could not find street thumbnail from cloudinary.' })
     return
   }
 
