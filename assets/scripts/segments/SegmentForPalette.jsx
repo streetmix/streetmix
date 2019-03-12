@@ -14,7 +14,7 @@ const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_SEGMENT_Y_OFFSET = 20
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
-class SegmentForPalette extends React.Component {
+export class SegmentForPalette extends React.Component {
   static propTypes = {
     // Provided by react-intl
     intl: intlShape.isRequired,
@@ -74,7 +74,6 @@ class SegmentForPalette extends React.Component {
         style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
         className="segment segment-in-palette"
         onPointerOver={this.handlePointerOver}
-        onPointerOut={this.handlePointerOut}
       >
         <SegmentCanvas
           actualWidth={actualWidth}
