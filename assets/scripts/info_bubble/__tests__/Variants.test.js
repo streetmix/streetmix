@@ -14,6 +14,7 @@ import {
 jest.mock('../../streets/data_model', () => {})
 jest.mock('../../segments/view')
 jest.mock('../../segments/info')
+jest.mock('../../segments/variant_icons')
 
 describe('Variants', () => {
   const intlProvider = new IntlProvider({ locale: 'en' }, {})
@@ -67,6 +68,20 @@ describe('Variants', () => {
     })
     it('renders left building correctly', () => {
       const wrapper = shallow(<Variants intl={intl} type={type} position={'right'} variant={'residential'} />)
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
+  describe('flag', () => {
+    let segment
+    beforeEach(() => {
+      segment = { variants: ['building-z', 'waterfront'] } // coming from info.json
+      getSegmentInfo.mockImplementation(() => segment)
+    })
+    const type = INFO_BUBBLE_TYPE_SEGMENT
+    const streetSegment = { variantString: 'inbound|regular', segmentType: 'streetcar' }
+    const flags = { 'flag': { value: 't' } }
+    it('renders with flag correctly', () => {
+      const wrapper = shallow(<Variants intl={intl} type={type} position={0} variant={streetSegment.variantString} segmentType={streetSegment.segmentType} flags={flags} />)
       expect(wrapper).toMatchSnapshot()
     })
   })

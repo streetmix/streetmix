@@ -12,114 +12,16 @@ exports[`Variants INFO_BUBBLE_TYPE_LEFT_BUILDING renders left building correctly
   >
     <svg
       className="icon"
-      style={null}
+      style={
+        Object {
+          "fill": "#ff0",
+        }
+      }
       xmlns="http://www.w3.org/1999/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <use
         xlinkHref="#icon-waterfront"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.grass"
-    onClick={[Function]}
-    title="Grass"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-grass"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.fence"
-    onClick={[Function]}
-    title="Empty lot"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-fence"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.parking-lot"
-    onClick={[Function]}
-    title="Parking lot"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-car"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={true}
-    key="building.residential"
-    onClick={[Function]}
-    title="Home"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-residential"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.narrow"
-    onClick={[Function]}
-    title="Narrow building"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-building-thin"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.wide"
-    onClick={[Function]}
-    title="Wide building"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-building-wide"
       />
     </svg>
   </button>
@@ -138,114 +40,16 @@ exports[`Variants INFO_BUBBLE_TYPE_RIGHT_BUILDING renders left building correctl
   >
     <svg
       className="icon"
-      style={null}
+      style={
+        Object {
+          "fill": "#ff0",
+        }
+      }
       xmlns="http://www.w3.org/1999/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <use
         xlinkHref="#icon-waterfront"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.grass"
-    onClick={[Function]}
-    title="Grass"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-grass"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.fence"
-    onClick={[Function]}
-    title="Empty lot"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-fence"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.parking-lot"
-    onClick={[Function]}
-    title="Parking lot"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-car"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={true}
-    key="building.residential"
-    onClick={[Function]}
-    title="Home"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-residential"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.narrow"
-    onClick={[Function]}
-    title="Narrow building"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-building-thin"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="building.wide"
-    onClick={[Function]}
-    title="Wide building"
-  >
-    <svg
-      className="icon"
-      style={null}
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-building-wide"
       />
     </svg>
   </button>
@@ -290,56 +94,11 @@ exports[`Variants INFO_BUBBLE_TYPE_SEGMENT renders segment type correctly 1`] = 
       />
     </svg>
   </button>
-  <hr
-    key="public-transit-asphalt"
-  />
-  <button
-    disabled={true}
-    key="public-transit-asphalt.regular"
-    onClick={[Function]}
-    title="Asphalt"
-  >
-    <svg
-      className="icon"
-      style={
-        Object {
-          "fill": "#292a29",
-        }
-      }
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-asphalt"
-      />
-    </svg>
-  </button>
   <button
     disabled={false}
-    key="public-transit-asphalt.colored"
+    key="direction.empty"
     onClick={[Function]}
-    title="Red lane"
-  >
-    <svg
-      className="icon"
-      style={
-        Object {
-          "fill": "#9b1f22",
-        }
-      }
-      xmlns="http://www.w3.org/1999/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
-      <use
-        xlinkHref="#icon-asphalt"
-      />
-    </svg>
-  </button>
-  <button
-    disabled={false}
-    key="public-transit-asphalt.grass"
-    onClick={[Function]}
-    title="Grass"
+    title="No one"
   >
     <svg
       className="icon"
@@ -348,11 +107,41 @@ exports[`Variants INFO_BUBBLE_TYPE_SEGMENT renders segment type correctly 1`] = 
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <use
-        xlinkHref="#icon-grass"
+        xlinkHref="#icon-"
       />
     </svg>
   </button>
+  <hr
+    key="public-transit-asphalt"
+  />
 </div>
 `;
 
 exports[`Variants does not render component 1`] = `""`;
+
+exports[`Variants flag renders with flag correctly 1`] = `
+<div
+  className="variants"
+>
+  <button
+    disabled={false}
+    key="building-z.waterfront"
+    onClick={[Function]}
+    title="Waterfront"
+  >
+    <svg
+      className="icon"
+      style={null}
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-waterfront"
+      />
+    </svg>
+  </button>
+  <hr
+    key="waterfront"
+  />
+</div>
+`;
