@@ -62,7 +62,16 @@ exports.post = async function (req, res) {
       return
     }
 
-    res.status(200).json(resource)
+    const thumbnail = {
+      public_id: resource.public_id,
+      width: resource.width,
+      height: resource.height,
+      format: resource.format,
+      secure_url: resource.secure_url,
+      created_at: resource.created_at
+    }
+
+    res.status(200).json(thumbnail)
   }
 
   const handleFindStreetWithCreator = async function (street) {
@@ -86,8 +95,8 @@ exports.post = async function (req, res) {
       return
     }
 
-    if (street.creator_id !== user._id) {
-      res.status(404).send('User does not have right permissions to upload street thumbnail.')
+    if (street.creator_id.toString() !== user._id.toString()) {
+      res.status(404).send('User does not have the right permissions to upload street thumbnail.')
       return
     }
 
@@ -111,7 +120,7 @@ exports.post = async function (req, res) {
       .then(handleUploadStreetThumbnail)
       .catch(handleError)
   } else {
-    res.status(404).send('User does not have the right permissions to upload street thumbnail to Cloudinary.')
+    res.status(404).send('User does not have the right permissions to upload street thumbnail.')
   }
 }
 
