@@ -71,12 +71,12 @@ exports.post = async function (req, res) {
       created_at: resource.created_at
     }
 
-    res.status(200).json(thumbnail)
+    res.status(201).json(thumbnail)
   }
 
   const handleFindStreetWithCreator = async function (street) {
     if (!req.userId) {
-      res.status(404).send('Please provide a user ID.')
+      res.status(401).send('Please provide a user ID.')
       return
     }
 
@@ -91,12 +91,12 @@ exports.post = async function (req, res) {
     }
 
     if (!user) {
-      res.status(400).send('User not found.')
+      res.status(403).send('User not found.')
       return
     }
 
     if (street.creator_id.toString() !== user._id.toString()) {
-      res.status(404).send('User does not have the right permissions to upload street thumbnail.')
+      res.status(403).send('User does not have the right permissions to upload street thumbnail.')
       return
     }
 
@@ -120,7 +120,7 @@ exports.post = async function (req, res) {
       .then(handleUploadStreetThumbnail)
       .catch(handleError)
   } else {
-    res.status(404).send('User does not have the right permissions to upload street thumbnail.')
+    res.status(403).send('User does not have the right permissions to upload street thumbnail.')
   }
 }
 
