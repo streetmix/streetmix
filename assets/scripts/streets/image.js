@@ -100,8 +100,9 @@ export async function saveStreetThumbnail (street) {
     }
 
     const response = await window.fetch(url, options)
-
-    if (response.ok) {
+    if (!response.ok) {
+      throw response
+    } else {
       console.log('Updated street thumbnail.')
       _lastSavedTimestamp = Date.now()
       _savedThumbnail = true
