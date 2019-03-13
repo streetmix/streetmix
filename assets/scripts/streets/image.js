@@ -100,15 +100,13 @@ export async function saveStreetThumbnail (street) {
     }
 
     const response = await window.fetch(url, options)
-    if (!response.ok) {
-      throw response
-    } else {
+    if (response.ok) {
       console.log('Updated street thumbnail.')
       _lastSavedTimestamp = Date.now()
       _savedThumbnail = true
     } else {
-      const json = await response.json()
-      throw json.msg
+      const results = await response.json()
+      throw results.msg
     }
   } catch (err) {
     console.log('Unable to save street thumbnail. ', err)
