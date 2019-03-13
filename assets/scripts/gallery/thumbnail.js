@@ -22,6 +22,37 @@ const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
+const WATERMARK = true
+const WATERMARK_RIGHT_MARGIN = 20
+const WATERMARK_BOTTOM_MARGIN = 15
+const WATERMARK_DARK_COLOR = '#333333'
+const WATERMARK_LIGHT_COLOR = '#cccccc'
+
+/**
+ * Draws a "made with Streetmix" watermark on the lower right of the image.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on.
+ * @param {Number} dpi - scale factor of image.
+ * @param {String} locale - used for localization (future)
+ */
+function drawWatermark (ctx, dpi, locale, invert) {
+  // Draw "Made with"
+  // TODO: localize this
+  const text = 'Made with Streetmix'
+
+  ctx.textAlign = 'right'
+  ctx.textBaseline = 'alphabetic'
+  ctx.font = `normal 700 ${24 * dpi}px Lato,sans-serif`
+  ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR
+
+  const watermarkX = ctx.canvas.width - (WATERMARK_RIGHT_MARGIN * dpi)
+  const watermarkY = ctx.canvas.height - (WATERMARK_BOTTOM_MARGIN * dpi)
+
+  ctx.fillText(text, watermarkX, watermarkY)
+
+  // TODO: Use logo
+}
+
 export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
   dpi, multiplier, silhouette, bottomAligned,
   transparentSky, segmentNamesAndWidths, streetName) {
@@ -314,5 +345,14 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     ctx.strokeStyle = 'transparent'
     ctx.fillStyle = 'black'
     ctx.fillText(text, x, y)
+  }
+
+  // Watermark
+  if (WATERMARK && !silhouette) {
+    if (segmentNamesAndWidths) {
+      drawWatermark(ctx, dpi)
+    } else {
+      drawWatermark(ctx, dpi, null, true)
+    }
   }
 }
