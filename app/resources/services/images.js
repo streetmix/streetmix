@@ -42,7 +42,7 @@ exports.get = async function (req, res) {
   }
 
   if (!signature) {
-    res.status(400).json({ status: 400, msg: 'Signature could not be generated.' })
+    res.status(500).json({ status: 500, msg: 'Error generating Cloudinary signature.' })
     return
   }
 
