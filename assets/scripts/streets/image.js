@@ -50,8 +50,8 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
   return el
 }
 
-// Save thumbnail if necessary every 5 minutes (300000 ms)
-const SAVE_THUMBNAIL_TIME_INTERVAL = 300000
+// Save thumbnail if necessary every 30 minutes (1800000 ms)
+const SAVE_THUMBNAIL_TIME_INTERVAL = 1800000
 let _lastSavedTimestamp
 let _savedThumbnail
 
