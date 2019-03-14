@@ -106,7 +106,7 @@ export async function saveStreetThumbnail (street) {
       _savedThumbnail = true
     } else {
       const results = await response.json()
-      throw results.msg
+      throw new Error(results.msg)
     }
   } catch (err) {
     console.log('Unable to save street thumbnail. ', err)
