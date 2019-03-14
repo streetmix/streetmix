@@ -57,7 +57,7 @@ exports.post = async function (req, res) {
     }
 
     if (!resource) {
-      res.status(500).json({ status: 500, msg: 'Error uploading street thumbnail to Cloudinary.' })
+      res.status(500).json({ status: 500, msg: 'Error uploading street thumbnail.' })
       return
     }
 
@@ -181,7 +181,7 @@ exports.delete = async function (req, res) {
   cloudinary.v2.uploader.destroy(publicId, function (error, result) {
     if (error) {
       logger.error(error)
-      res.status(500).json({ status: 500, msg: 'Error deleting street thumbnail from cloudinary.' })
+      res.status(500).json({ status: 500, msg: 'Error deleting street thumbnail.' })
       return
     }
 
@@ -202,12 +202,12 @@ exports.get = async function (req, res) {
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     logger.error(error)
-    res.status(500).json({ status: 500, msg: 'Error finding street thumbnail from cloudinary.' })
+    res.status(500).json({ status: 500, msg: 'Error finding street thumbnail.' })
     return
   }
 
   if (!resource) {
-    res.status(404).json({ status: 404, msg: 'Could not find street thumbnail from cloudinary.' })
+    res.status(404).json({ status: 404, msg: 'Could not find street thumbnail.' })
     return
   }
 
