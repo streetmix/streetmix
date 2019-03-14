@@ -30,7 +30,7 @@ exports.post = async function (req, res) {
   }
 
   if (!street) {
-    res.status(400).json({ status: 400, msg: 'Street not found.' })
+    res.status(404).json({ status: 404, msg: 'Street not found.' })
     return
   }
 
@@ -133,7 +133,7 @@ exports.delete = async function (req, res) {
   const userId = req.userId
 
   if (!userId) {
-    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
+    res.status(401).json({ status: 401, msg: 'Please provide user ID.' })
     return
   }
 
@@ -169,10 +169,10 @@ exports.delete = async function (req, res) {
   }
 
   if (!street) {
-    res.status(400).json({ status: 400, msg: 'Street not found.' })
+    res.status(404).json({ status: 404, msg: 'Street not found.' })
     return
   } else if (street.creator_id.toString() !== user._id.toString()) {
-    res.status(404).json({ status: 404, msg: 'Signed in user cannot delete street thumbnail.' })
+    res.status(403).json({ status: 403, msg: 'Signed in user cannot delete street thumbnail.' })
     return
   }
 
@@ -207,7 +207,7 @@ exports.get = async function (req, res) {
   }
 
   if (!resource) {
-    res.status(400).json({ status: 400, msg: 'Could not find street thumbnail from cloudinary.' })
+    res.status(404).json({ status: 404, msg: 'Could not find street thumbnail from cloudinary.' })
     return
   }
 

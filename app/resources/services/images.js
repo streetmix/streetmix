@@ -8,7 +8,7 @@ exports.get = async function (req, res) {
   const userId = req.userId
 
   if (!userId) {
-    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
+    res.status(401).json({ status: 401, msg: 'Please provide user ID.' })
     return
   }
 
@@ -23,7 +23,7 @@ exports.get = async function (req, res) {
   }
 
   if (!user) {
-    res.status(404).json({ status: 404, msg: 'User not found.' })
+    res.status(403).json({ status: 403, msg: 'User not found.' })
     return
   }
 
@@ -42,7 +42,7 @@ exports.get = async function (req, res) {
   }
 
   if (!signature) {
-    res.status(500).json({ status: 500, msg: 'Error generating Cloudinary signature.' })
+    res.status(500).json({ status: 500, msg: 'Error generating signature.' })
     return
   }
 
