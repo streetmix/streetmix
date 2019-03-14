@@ -17,7 +17,7 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 // TODO: a way to remove the circular dependency?!
 export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
-export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName, dpi = SAVE_AS_IMAGE_DPI) {
+export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName, dpi = SAVE_AS_IMAGE_DPI, watermark = true) {
   const width = (TILE_SIZE * street.width) + (BUILDING_SPACE * 2)
 
   const leftHeight = getBuildingImageHeight(street.leftBuildingVariant, 'left', street.leftBuildingHeight)
@@ -45,7 +45,7 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
 
   const ctx = el.getContext('2d')
 
-  drawStreetThumbnail(ctx, street, width, height, dpi, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
+  drawStreetThumbnail(ctx, street, width, height, dpi, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName, watermark)
 
   return el
 }
@@ -83,7 +83,7 @@ export function initStreetThumbnailSubscriber () {
 export async function saveStreetThumbnail (street) {
   if (_savedThumbnail) return
 
-  const thumbnail = getStreetImage(street, false, false, true, 2.0)
+  const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
 
   try {
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.

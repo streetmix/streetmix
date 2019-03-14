@@ -22,7 +22,6 @@ const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
-const WATERMARK = true
 const WATERMARK_TEXT_SIZE = 24
 const WATERMARK_RIGHT_MARGIN = 15
 const WATERMARK_BOTTOM_MARGIN = 15
@@ -95,7 +94,7 @@ function drawWatermark (ctx, dpi, invert) {
 
 export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
   dpi, multiplier, silhouette, bottomAligned,
-  transparentSky, segmentNamesAndWidths, streetName) {
+  transparentSky, segmentNamesAndWidths, streetName, watermark = true) {
   // Calculations
 
   // Determine how wide the street is
@@ -388,7 +387,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   }
 
   // Watermark
-  if (WATERMARK && !silhouette) {
+  if (watermark) {
     if (segmentNamesAndWidths) {
       drawWatermark(ctx, dpi)
     } else {
