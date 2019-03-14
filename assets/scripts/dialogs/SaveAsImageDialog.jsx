@@ -323,6 +323,8 @@ function mapStateToProps (state) {
     transparentSky: state.settings.saveAsImageTransparentSky,
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
     streetName: state.settings.saveAsImageStreetName,
+    // Even if watermarks are off, override with flag value if EXPORT_WATERMARK is `false`.
+    watermark: state.settings.saveAsImageWatermark || !state.flags.EXPORT_WATERMARK.value,
     street: state.street,
     name: state.street.name,
     allowCustomDpi: state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value
