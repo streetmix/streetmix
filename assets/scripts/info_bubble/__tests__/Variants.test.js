@@ -14,7 +14,7 @@ import {
 jest.mock('../../streets/data_model', () => {})
 jest.mock('../../segments/view')
 jest.mock('../../segments/info')
-jest.mock('../../segments/variant_icons')
+jest.mock('../../segments/variant_icons.json', () => require('../../segments/__mocks__/variant_icons.json'))
 
 describe('Variants', () => {
   const intlProvider = new IntlProvider({ locale: 'en' }, {})

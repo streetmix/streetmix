@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { segmentsChanged } from '../segments/view'
 import { injectIntl, intlShape } from 'react-intl'
 import { getSegmentInfo } from '../segments/info'
-import { VARIANT_ICONS } from '../segments/variant_icons'
+import VARIANT_ICONS from '../segments/variant_icons.json'
 import { getVariantArray } from '../segments/variant_utils'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
