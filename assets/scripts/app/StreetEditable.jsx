@@ -18,7 +18,7 @@ import {
   DRAGGING_TYPE_RESIZE
 } from '../segments/drag_and_drop'
 
-class StreetEditable extends React.Component {
+export class StreetEditable extends React.Component {
   static propTypes = {
     // Provided by parent
     resizeType: PropTypes.number,
@@ -135,6 +135,7 @@ class StreetEditable extends React.Component {
 
   renderStreetSegments = () => {
     const { segments, units, immediateRemoval } = this.props.street
+    console.log('segment', segments)
 
     return segments.map((segment, i) => {
       const segmentPos = this.calculateSegmentPos(i)
