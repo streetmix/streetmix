@@ -3,11 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
 import flow from 'lodash/flow'
-import uuid from 'uuid'
-import Segment from '../segments/Segment'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import StreetEditablePresentation from './StreetEditablePresentation'
 import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from '../segments/constants'
-import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import {
   Types,
@@ -18,7 +15,7 @@ import {
   DRAGGING_TYPE_RESIZE
 } from '../segments/drag_and_drop'
 
-class StreetEditable extends React.Component {
+class StreetEditableContainer extends React.Component {
   static propTypes = {
     // Provided by parent
     resizeType: PropTypes.number,
@@ -38,7 +35,7 @@ class StreetEditable extends React.Component {
     super(props)
 
     this.state = {
-      suppressMouseEnter: false
+      withinCanvas: null
     }
   }
 
@@ -79,26 +76,6 @@ class StreetEditable extends React.Component {
     }
   }
 
-  updateSegmentData = (ref, dataNo, segmentPos) => {
-    const { segments } = this.props.street
-    const segment = segments[dataNo]
-
-    if (segment) {
-      segment.el = ref
-      segment.el.dataNo = dataNo
-      segment.el.savedLeft = Math.round(segmentPos)
-      segment.el.cssTransformLeft = Math.round(segmentPos)
-    }
-  }
-
-  switchSegmentAway = (el) => {
-    el.classList.add('create')
-    el.style.left = el.savedLeft + 'px'
-
-    this.props.updatePerspective(el)
-    this.setState({ suppressMouseEnter: true })
-  }
-
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
     const { draggingState } = this.props
@@ -127,53 +104,6 @@ class StreetEditable extends React.Component {
     }
   }
 
-  handleExitAnimations = (child) => {
-    return React.cloneElement(child, {
-      exit: !(this.props.street.immediateRemoval)
-    })
-  }
-
-  renderStreetSegments = () => {
-    const { segments, units, immediateRemoval } = this.props.street
-
-    return segments.map((segment, i) => {
-      const segmentPos = this.calculateSegmentPos(i)
-
-      segment.variant = getVariantArray(segment.type, segment.variantString)
-      segment.warnings = (segment.warnings) || []
-
-      if (!segment.id) {
-        segment.id = uuid()
-      }
-
-      const segmentEl = (
-        <CSSTransition
-          key={segment.id}
-          timeout={250}
-          classNames="switching-away"
-          exit={!(immediateRemoval)}
-          onExit={this.switchSegmentAway}
-          onExited={() => { this.setState({ suppressMouseEnter: false }) }}
-          unmountOnExit
-        >
-          <Segment
-            key={segment.id}
-            dataNo={i}
-            segment={{ ...segment }}
-            actualWidth={segment.width}
-            units={units}
-            segmentPos={segmentPos}
-            suppressMouseEnter={this.state.suppressMouseEnter}
-            updateSegmentData={this.updateSegmentData}
-            updatePerspective={this.props.updatePerspective}
-          />
-        </CSSTransition>
-      )
-
-      return segmentEl
-    })
-  }
-
   render () {
     const { connectDropTarget } = this.props
     const style = {
@@ -182,14 +112,16 @@ class StreetEditable extends React.Component {
 
     return connectDropTarget(
       <div
-        id="street-section-editable"
         key={this.props.street.id}
+        id="street-section-editable"
         style={style}
         ref={(ref) => { this.streetSectionEditable = ref }}
       >
-        <TransitionGroup key={this.props.street.id} component={null} enter={false} childFactory={this.handleExitAnimations}>
-          {this.renderStreetSegments()}
-        </TransitionGroup>
+        <StreetEditablePresentation
+          street={this.props.street}
+          updatePerspective={this.props.updatePerspective}
+          calculateSegmentPos={this.calculateSegmentPos}
+        />
       </div>
     )
   }
@@ -205,4 +137,4 @@ function mapStateToProps (state) {
 export default flow(
   DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], canvasTarget, collectDropTarget),
   connect(mapStateToProps)
-)(StreetEditable)
+)(StreetEditableContainer)

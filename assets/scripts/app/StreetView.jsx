@@ -9,7 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
-import StreetEditable from './StreetEditable'
+import StreetEditableContainer from './StreetEditableContainer'
 import StreetViewDirt from './StreetViewDirt'
 import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
@@ -295,7 +295,7 @@ class StreetView extends React.Component {
                 buildingWidth={this.state.buildingWidth}
                 updatePerspective={this.updatePerspective}
               />
-              <StreetEditable
+              <StreetEditableContainer
                 resizeType={this.state.resizeType}
                 setBuildingWidth={this.setBuildingWidth}
                 updatePerspective={this.updatePerspective}
