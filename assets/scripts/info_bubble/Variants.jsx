@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { segmentsChanged } from '../segments/view'
 import { injectIntl, intlShape } from 'react-intl'
 import { getSegmentInfo } from '../segments/info'
-import { VARIANT_ICONS } from '../segments/variant_icons'
+import VARIANT_ICONS from '../segments/variant_icons.json'
 import { getVariantArray } from '../segments/variant_utils'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
@@ -13,7 +13,7 @@ import {
 } from './constants'
 import { setBuildingVariant, changeSegmentVariant } from '../store/actions/street'
 
-class Variants extends React.Component {
+export class Variants extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     type: PropTypes.number,
