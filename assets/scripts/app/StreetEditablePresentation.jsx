@@ -12,14 +12,6 @@ class StreetEditablePresentation extends React.Component {
     calculateSegmentPos: PropTypes.func.isRequired
   }
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      suppressMouseEnter: false
-    }
-  }
-
   /**
    * A <Transition> callback fired immediately after the `exit` class is applied.
    *
@@ -31,17 +23,6 @@ class StreetEditablePresentation extends React.Component {
     el.style.left = el.savedLeft + 'px'
 
     this.props.updatePerspective(el)
-    this.setState({ suppressMouseEnter: true })
-  }
-
-  /**
-   * A <Transition> callback fired immediately after the 'exit' classes are
-   * removed and the `exit-done` class is added to the DOM node.
-   *
-   * @params {HtmlElement}
-   */
-  handleOnExited = (el) => {
-    this.setState({ suppressMouseEnter: false })
   }
 
   updateSegmentData = (ref, dataNo, segmentPos) => {
@@ -85,7 +66,6 @@ class StreetEditablePresentation extends React.Component {
           enter={false}
           exit={!(immediateRemoval)}
           onExit={this.handleOnExit}
-          onExited={this.handleOnExited}
           unmountOnExit
         >
           <Segment
@@ -95,7 +75,6 @@ class StreetEditablePresentation extends React.Component {
             actualWidth={segment.width}
             units={units}
             segmentPos={segmentPos}
-            suppressMouseEnter={this.state.suppressMouseEnter}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
