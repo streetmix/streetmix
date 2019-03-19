@@ -18,6 +18,7 @@ describe('SaveAsImageDialog', () => {
         transparentSky={false}
         segmentNames={false}
         streetName={false}
+        watermark
         street={{}}
       />
     )

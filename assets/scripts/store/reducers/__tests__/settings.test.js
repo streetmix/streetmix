@@ -18,7 +18,8 @@ describe('settings reducer', () => {
       newStreetPreference: 1,
       saveAsImageTransparentSky: false,
       saveAsImageSegmentNamesAndWidths: false,
-      saveAsImageStreetName: false
+      saveAsImageStreetName: false,
+      saveAsImageWatermark: true
     })
   })
 
@@ -34,7 +35,8 @@ describe('settings reducer', () => {
       newStreetPreference: 1,
       saveAsImageTransparentSky: true,
       saveAsImageSegmentNamesAndWidths: true,
-      saveAsImageStreetName: false
+      saveAsImageStreetName: false,
+      saveAsImageWatermark: true
     })
   })
 })

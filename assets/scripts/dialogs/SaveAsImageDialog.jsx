@@ -29,9 +29,11 @@ class SaveAsImageDialog extends React.Component {
     transparentSky: PropTypes.bool.isRequired,
     segmentNames: PropTypes.bool.isRequired,
     streetName: PropTypes.bool.isRequired,
+    watermark: PropTypes.bool.isRequired,
     street: PropTypes.object.isRequired,
     name: PropTypes.string,
     allowCustomDpi: PropTypes.bool,
+    allowControlWatermark: PropTypes.bool,
     setSettings: PropTypes.func
   }
 
@@ -84,6 +86,11 @@ class SaveAsImageDialog extends React.Component {
     this.setState({ isLoading: true })
   }
 
+  onChangeOptionWatermark = (event) => {
+    this.props.setSettings({ saveAsImageWatermark: event.target.checked })
+    this.setState({ isLoading: true })
+  }
+
   onPreviewLoaded = () => {
     this.setState({ isLoading: false })
   }
@@ -123,7 +130,7 @@ class SaveAsImageDialog extends React.Component {
   }
 
   updatePreview = () => {
-    this.imageCanvas = getStreetImage(this.props.street, this.props.transparentSky, this.props.segmentNames, this.props.streetName, this.state.dpi)
+    this.imageCanvas = getStreetImage(this.props.street, this.props.transparentSky, this.props.segmentNames, this.props.streetName, this.state.dpi, this.props.watermark)
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
@@ -245,6 +252,17 @@ class SaveAsImageDialog extends React.Component {
                 <label htmlFor="save-as-image-transparent-sky">
                   <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
                 </label>
+
+                <input
+                  type="checkbox"
+                  onChange={this.onChangeOptionWatermark}
+                  checked={this.props.watermark}
+                  disabled={!this.props.allowControlWatermark}
+                  id="save-as-image-watermark"
+                />
+                <label htmlFor="save-as-image-watermark">
+                  <FormattedMessage id="dialogs.save.option-watermark" defaultMessage="Watermark" />
+                </label>
               </p>
               {this.props.allowCustomDpi &&
                 <p>
@@ -323,9 +341,12 @@ function mapStateToProps (state) {
     transparentSky: state.settings.saveAsImageTransparentSky,
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
     streetName: state.settings.saveAsImageStreetName,
+    // Even if watermarks are off, override with flag value if EXPORT_WATERMARK is `false`.
+    watermark: state.settings.saveAsImageWatermark || !state.flags.EXPORT_WATERMARK.value,
     street: state.street,
     name: state.street.name,
-    allowCustomDpi: state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value
+    allowCustomDpi: state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value,
+    allowControlWatermark: state.flags.EXPORT_WATERMARK.value
   }
 }
 

@@ -55,7 +55,7 @@ class GalleryStreetItem extends React.Component {
 
     // TODO: document magic number 2
     drawStreetThumbnail(ctx, this.props.street.data.street,
-      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, this.props.dpi, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
+      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, this.props.dpi, THUMBNAIL_MULTIPLIER, true, false, true, false, false, false)
   }
 
   onClickGalleryStreet = (event) => {

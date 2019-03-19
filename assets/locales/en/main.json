@@ -185,6 +185,7 @@
       "option-labels": "Segment names and widths",
       "option-name": "Street name",
       "option-sky": "Transparent sky",
+      "option-watermark": "Watermark",
       "loading": "Loading…",
       "save-button": "Save to your computer…",
       "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
@@ -329,6 +330,9 @@
   "users": {
     "anonymous": "Anonymous",
     "byline": "by {user}"
+  },
+  "export": {
+    "watermark": "Made with {{streetmixWordmark}}"
   },
   "meta": {
     "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.",

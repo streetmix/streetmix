@@ -26,6 +26,10 @@
     user-select: none;
   }
 
+  input[disabled] + label {
+    color: $control-disabled-colour;
+  }
+
   footer {
     text-align: center;
   }
