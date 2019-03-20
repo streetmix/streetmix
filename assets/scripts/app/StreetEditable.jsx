@@ -34,14 +34,6 @@ class StreetEditable extends React.Component {
     connectDropTarget: PropTypes.func
   }
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      suppressMouseEnter: false
-    }
-  }
-
   componentDidMount () {
     this.props.setBuildingWidth(this.streetSectionEditable)
   }
@@ -96,7 +88,6 @@ class StreetEditable extends React.Component {
     el.style.left = el.savedLeft + 'px'
 
     this.props.updatePerspective(el)
-    this.setState({ suppressMouseEnter: true })
   }
 
   calculateSegmentPos = (dataNo) => {
@@ -153,7 +144,6 @@ class StreetEditable extends React.Component {
           classNames="switching-away"
           exit={!(immediateRemoval)}
           onExit={this.switchSegmentAway}
-          onExited={() => { this.setState({ suppressMouseEnter: false }) }}
           unmountOnExit
         >
           <Segment
@@ -163,7 +153,6 @@ class StreetEditable extends React.Component {
             actualWidth={segment.width}
             units={units}
             segmentPos={segmentPos}
-            suppressMouseEnter={this.state.suppressMouseEnter}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
