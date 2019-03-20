@@ -1,8 +1,13 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Segment } from '../Segment'
+import {render, fireEvent, waitForElement, cleanup} from 'react-testing-library'
+
+import { renderWithRedux } from '../../../../test/helpers/render'
+
+import ConnectedSegment, { Segment } from '../Segment'
 import { getSegmentInfo, getSegmentVariantInfo } from '../info'
+import { getVariantInfoDimensions } from '../view'
 import { infoBubble } from '../../info_bubble/info_bubble'
 import { SETTINGS_UNITS_IMPERIAL } from '../../users/constants'
 import {
@@ -11,10 +16,28 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../constants'
 
-jest.mock('../../app/routing')
 jest.mock('../info')
+jest.mock('../view')
+/**
+jest.mock('../view', () => {
+  return {
+    getVariantInfoDimensions: jest.fn(() => ({ left: 0, right: 100, center: 50})),
+  }
+})
+**/
 jest.mock('../../streets/data_model', () => {})
-jest.mock('../../info_bubble/info_bubble')
+
+jest.mock('react-transition-group', () => {
+  return {
+    CSSTransition: jest.fn(({children, in: show}) => (show ? children : null))
+  };
+});
+jest.mock('react-dnd', () => {
+  return {
+    DragSource: (d) => (jest.fn((e) => e)),
+    DropTarget: (d) => (jest.fn((e) => e)),
+  };
+});
 
 function connectDropTarget (el) { return el }
 function connectDragSource (el) { return el }
@@ -28,6 +51,7 @@ describe('Segment', () => {
     const segment = { name: 'Segment', nameKey: 'key', zIndex: 1 }
     getSegmentInfo.mockImplementation(() => segment)
     getSegmentVariantInfo.mockImplementation(() => variant)
+    getVariantInfoDimensions.mockImplementation(() => ({ left: 0, right: 100, center: 50}))
   })
   describe('on mount', () => {
     it('updates the left position for this segment', () => {
@@ -91,5 +115,10 @@ describe('Segment', () => {
     segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = 'warning'
     const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} isDragging={false} dataNo={10} activeSegment={10} cssTransform={'transform'} segmentPos={1} />)
     expect(wrapper).toMatchSnapshot()
+  })
+  it.only('renders correctly with deep render', () => {
+    segment =  { variantString: 'inbound|regular', segmentType: 'streetcar', id: '1', width: 400 }
+    const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()}/>, { initialState: { ui: { activeSegment: 0}, street: { segments: [segment]}}})
+    wrapper.debug()
   })
 })
