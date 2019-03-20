@@ -25,7 +25,7 @@ import {
   collectDropTarget
 } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, incrementSegmentWidth } from './resizing'
 import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -43,7 +43,6 @@ export class Segment extends React.Component {
     actualWidth: PropTypes.number.isRequired,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
-    suppressMouseEnter: PropTypes.bool.isRequired,
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
 
@@ -63,8 +62,7 @@ export class Segment extends React.Component {
   }
 
   static defaultProps = {
-    units: SETTINGS_UNITS_METRIC,
-    suppressMouseEnter: false
+    units: SETTINGS_UNITS_METRIC
   }
 
   constructor (props) {
@@ -95,10 +93,10 @@ export class Segment extends React.Component {
     // segment if it is equal to the activeSegment and no infoBubble was shown already.
     const wasDragging = (prevProps.isDragging && !this.props.isDragging) ||
       (this.initialRender && (this.props.activeSegment || this.props.activeSegment === 0))
-    const mouseEnterSuppressed = (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter)
+
     this.initialRender = false
 
-    if ((wasDragging || mouseEnterSuppressed) && this.props.activeSegment === this.props.dataNo) {
+    if ((wasDragging) && this.props.activeSegment === this.props.dataNo) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
@@ -134,10 +132,7 @@ export class Segment extends React.Component {
   }
 
   onSegmentMouseEnter = (event) => {
-    if (this.props.suppressMouseEnter || suppressMouseEnter()) {
-      this.props.setActiveSegment(this.props.dataNo)
-      return
-    }
+    this.props.setActiveSegment(this.props.dataNo)
 
     window.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
@@ -323,10 +318,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) }
-  }
+const mapDispatchToProps = {
+  setActiveSegment
 }
 
 export default flow(

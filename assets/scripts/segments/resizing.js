@@ -31,12 +31,6 @@ const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
 
 const NORMALIZE_PRECISION = 5
 
-let _suppressMouseEnter = false
-
-export function suppressMouseEnter () {
-  return _suppressMouseEnter
-}
-
 export function resizeSegment (dataNo, resizeType, width) {
   width = normalizeSegmentWidth(width, resizeType)
   cancelSegmentResizeTransitions()
@@ -120,11 +114,7 @@ export function handleSegmentResizeEnd (event) {
 
   scheduleControlsFadeout(draggingResize.segmentEl)
 
-  _suppressMouseEnter = true
   infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT)
-  window.setTimeout(function () {
-    _suppressMouseEnter = false
-  }, 50)
 
   if (draggingResize.width && (draggingResize.originalWidth !== draggingResize.width)) {
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
