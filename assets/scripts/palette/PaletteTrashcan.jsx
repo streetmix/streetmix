@@ -4,16 +4,11 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import './PaletteTrashcan.scss'
 
-const PaletteTrashcan = (props) => {
-  const { draggedSegment } = props
+export const PaletteTrashcan = (props) => {
+  const { visible } = props
   const classNames = ['palette-trashcan']
 
-  // Display the trashcan when user is dragging an _existing_ segment on the street.
-  // Don't display the trashcan when the user is dragging a _new_ segment from the palette.
-  // `draggedSegment` is `null` when no drag action is being performed.
-  // `draggedSegment` is `undefined` when the user is dragging a _new_ segment.
-  // Don't use a falsy check, as `draggedSegment` is `0` for the first segment.
-  if (draggedSegment !== undefined && draggedSegment !== null) {
+  if (visible) {
     classNames.push('palette-trashcan-visible')
   }
 
@@ -25,12 +20,21 @@ const PaletteTrashcan = (props) => {
 }
 
 PaletteTrashcan.propTypes = {
-  draggedSegment: PropTypes.number
+  visible: PropTypes.bool
+}
+
+PaletteTrashcan.defaultProps = {
+  visible: false
 }
 
 function mapStateToProps (state) {
+  // Display the trashcan when user is dragging an _existing_ segment on the street.
+  // Don't display the trashcan when the user is dragging a _new_ segment from the palette.
+  // `draggedSegment` is `null` when no drag action is being performed.
+  // `draggedSegment` is `undefined` when the user is dragging a _new_ segment.
+  // Don't use a falsy check, as `draggedSegment` is `0` for the first segment.
   return {
-    draggedSegment: state.ui.draggingState && state.ui.draggingState.draggedSegment
+    visible: state.ui.draggingState && Number.isInteger(state.ui.draggingState.draggedSegment)
   }
 }
 
