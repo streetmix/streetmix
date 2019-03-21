@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
 import './SegmentDragHandles.scss'
 
-export class SegmentDragHandles extends React.Component {
+export class SegmentDragHandles extends React.PureComponent {
   static propTypes = {
     width: PropTypes.number,
     infoBubbleHovered: PropTypes.bool,
