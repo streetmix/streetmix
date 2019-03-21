@@ -1,0 +1,37 @@
+@import '../../styles/variables.scss';
+
+// Contrast ratio of at least 3:1 compared to background
+$palette-text-color: rgb(108, 108, 108);
+
+.palette-trashcan {
+  // Stretch out to fit the width of the viewport
+  position: absolute;
+  left: -$left-right-inset;
+  right: -$left-right-inset;
+
+  // Cover the top "overhang" of palette items
+  top: -20px;
+  height: $palette-height - 5px;
+
+  // Center text in box
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Rest of styles
+  z-index: $z-07-trashcan;
+  border-top: 2px dashed $palette-text-color;
+  color: $palette-text-color;
+  font-size: 24px;
+  font-weight: 400;
+  background: lighten($bottom-background, 5%);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(150px);
+  transition: transform 150ms, opacity 150ms;
+}
+
+.palette-trashcan-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

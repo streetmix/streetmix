@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,7 +7,7 @@ import { ICON_TOOLS } from '../ui/icons'
 import { toggleToolbox } from '../store/actions/ui'
 import './PaletteCommandsLeft.scss'
 
-class PaletteCommandsLeft extends Component {
+class PaletteCommandsLeft extends PureComponent {
   static propTypes = {
     enable: PropTypes.bool,
     toggleToolbox: PropTypes.func

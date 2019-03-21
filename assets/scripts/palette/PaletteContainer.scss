@@ -1,0 +1,64 @@
+@import '../../styles/variables.scss';
+
+.palette-container {
+  position: absolute;
+  left: $left-right-inset;
+  right: $left-right-inset;
+  height: $palette-height - 26px;
+  bottom: 0;
+  background: $palette-background;
+  // border-top: 3px solid darken($bottom-background, 5%);
+  text-align: center;
+  z-index: $z-02-palette;
+  user-select: none;
+  touch-action: none;
+
+  // New style!
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  // border-left: 3px solid darken($bottom-background, 5%);
+  // border-right: 3px solid darken($bottom-background, 5%);
+}
+
+body.read-only .palette-container {
+  display: none;
+}
+
+.palette-commands {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: $palette-height - 50px;
+  vertical-align: top;
+  text-align: right;
+  z-index: $z-04-command-menu;
+
+  button {
+    height: $palette-height - 50px;
+    width: $palette-height - 50px;
+
+    // New style!
+    border: $button-border;
+    border-radius: 50%;
+
+    &[disabled] {
+      border-color: desaturate($ui-colour, 100%);
+    }
+  }
+
+  // Spacing between buttons
+  button + button {
+    margin-left: 0.25em;
+
+    // Other way around on rtl
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 0.25em;
+    }
+  }
+
+  [dir="rtl"] & {
+    left: 10px;
+    right: auto;
+  }
+}
