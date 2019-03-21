@@ -47,7 +47,11 @@ class StreetNameCanvas extends React.Component {
   }
 
   componentDidUpdate (nextProps, nextState) {
-    this.updateCoords()
+    // Only update coords when something affects the size of the nameplate,
+    // prevents excessive cascading renders
+    if (this.props.street.name !== nextProps.street.name) {
+      this.updateCoords()
+    }
   }
 
   handleResizeStreetName = (coords) => {
