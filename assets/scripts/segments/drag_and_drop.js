@@ -411,7 +411,6 @@ function handleSegmentDragStart () {
 }
 
 function handleSegmentDragEnd () {
-  changeDraggingType(DRAGGING_TYPE_NONE)
   oldDraggingState = null
   cancelSegmentResizeTransitions()
   segmentsChanged(false)
@@ -614,7 +613,6 @@ export const segmentTarget = {
 function handleSegmentCanvasDrop (draggedItem, type) {
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
-  store.dispatch(clearDraggingState())
   // If dropped in same position as dragged segment was before, return
   if (segmentBeforeEl === draggedSegment && segmentAfterEl === undefined) {
     store.dispatch(setActiveSegment(draggedSegment))
@@ -679,6 +677,7 @@ export const canvasTarget = {
   drop (props, monitor, component) {
     const draggedItem = monitor.getItem()
     const draggedItemType = monitor.getItemType()
+
     handleSegmentCanvasDrop(draggedItem, draggedItemType)
 
     return { withinCanvas: true }
