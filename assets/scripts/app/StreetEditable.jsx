@@ -34,6 +34,15 @@ class StreetEditable extends React.Component {
     connectDropTarget: PropTypes.func
   }
 
+  // Internal "state", but does not affect renders, so it is not React state
+  withinCanvas = null
+
+  // Placeholder for a ref.
+  // TODO: Upgrade to createRef(), but this is currently broken when placed on
+  // an element inside of react-dnd's `connectDragSource`.
+  // Info: https://github.com/react-dnd/react-dnd/issues/998
+  streetSectionEditable = null
+
   componentDidMount () {
     this.props.setBuildingWidth(this.streetSectionEditable)
   }
@@ -60,14 +69,15 @@ class StreetEditable extends React.Component {
 
   updateWithinCanvas = (event) => {
     const withinCanvas = isSegmentWithinCanvas(event, this.streetSectionEditable)
+
     if (withinCanvas) {
       document.body.classList.remove('not-within-canvas')
     } else {
       document.body.classList.add('not-within-canvas')
     }
 
-    if (this.state.withinCanvas !== withinCanvas) {
-      this.setState({ withinCanvas })
+    if (this.withinCanvas !== withinCanvas) {
+      this.withinCanvas = withinCanvas
     }
   }
 
@@ -109,7 +119,7 @@ class StreetEditable extends React.Component {
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
 
-    if (draggingState && this.state.withinCanvas) {
+    if (draggingState && this.withinCanvas) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
       return Math.round(mainLeft + currPos + spaceBetweenSegments)
