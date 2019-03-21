@@ -6,7 +6,6 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  SET_RESIZE_GUIDE_VISIBILITY,
   TOGGLE_TOOLBOX
 } from './index'
 
@@ -56,18 +55,6 @@ export function setDraggingType (draggingType) {
   return {
     type: SET_DRAGGING_TYPE,
     draggingType
-  }
-}
-
-/**
- * Shows or hides min/max resize guides
- *
- * @param {Boolean} isVisible - whether the guides are visible
- */
-export function setResizeGuideVisibility (isVisible) {
-  return {
-    type: SET_RESIZE_GUIDE_VISIBILITY,
-    isVisible
   }
 }
 

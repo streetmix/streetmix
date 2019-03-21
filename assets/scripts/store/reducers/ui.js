@@ -6,7 +6,6 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  SET_RESIZE_GUIDE_VISIBILITY,
   TOGGLE_TOOLBOX
 } from '../actions'
 import * as constants from '../../users/constants'
@@ -72,14 +71,12 @@ const ui = (state = initialState, action) => {
         draggingState: null
       }
     case SET_DRAGGING_TYPE:
+      const resizeGuidesVisible = (action.draggingType === 3)
+
       return {
         ...state,
-        draggingType: action.draggingType
-      }
-    case SET_RESIZE_GUIDE_VISIBILITY:
-      return {
-        ...state,
-        resizeGuidesVisible: action.isVisible
+        draggingType: action.draggingType,
+        resizeGuidesVisible
       }
     case TOGGLE_TOOLBOX:
       return {

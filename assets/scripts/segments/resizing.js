@@ -3,7 +3,6 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import {
-  DRAGGING_TYPE_NONE,
   draggingResize,
   changeDraggingType
 } from './drag_and_drop'
@@ -12,11 +11,11 @@ import { BUILDING_SPACE } from './buildings'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
-  MAX_SEGMENT_WIDTH
+  MAX_SEGMENT_WIDTH,
+  DRAGGING_TYPE_NONE
 } from './constants'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
-import { setResizeGuideVisibility } from '../store/actions/ui'
 
 const SHORT_DELAY = 100
 
@@ -106,8 +105,6 @@ export function handleSegmentResizeEnd (event) {
   el.remove()
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
-
-  store.dispatch(setResizeGuideVisibility(false))
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)

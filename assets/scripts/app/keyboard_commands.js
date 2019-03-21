@@ -4,11 +4,8 @@ import USER_ROLES from '../../../app/data/user_roles'
 import { KEYS } from './keys'
 import { ENV } from './config'
 import { registerKeypress } from './keypress'
-import {
-  DRAGGING_TYPE_RESIZE,
-  DRAGGING_TYPE_MOVE,
-  handleSegmentMoveCancel
-} from '../segments/drag_and_drop'
+import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
+import { handleSegmentMoveCancel } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { showStatusMessage } from './status_message'
