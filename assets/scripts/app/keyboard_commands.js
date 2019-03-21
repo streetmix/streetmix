@@ -5,7 +5,6 @@ import { KEYS } from './keys'
 import { ENV } from './config'
 import { registerKeypress } from './keypress'
 import {
-  draggingType,
   DRAGGING_TYPE_RESIZE,
   DRAGGING_TYPE_MOVE,
   handleSegmentMoveCancel
@@ -19,11 +18,13 @@ import { undo, redo } from '../store/actions/undo'
 import store from '../store'
 
 export function onGlobalKeyDown (event) {
+  const { draggingType } = store.getState().ui
+
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (draggingType() === DRAGGING_TYPE_RESIZE) {
+      if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()
-      } else if (draggingType() === DRAGGING_TYPE_MOVE) {
+      } else if (draggingType === DRAGGING_TYPE_MOVE) {
         handleSegmentMoveCancel()
       } else {
         return

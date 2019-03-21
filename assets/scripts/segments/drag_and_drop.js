@@ -36,7 +36,6 @@ import {
 } from '../store/actions/ui'
 
 export const DRAGGING_TYPE_NONE = 0
-const DRAGGING_TYPE_CLICK_OR_MOVE = 1
 export const DRAGGING_TYPE_MOVE = 2
 export const DRAGGING_TYPE_RESIZE = 3
 
@@ -395,10 +394,6 @@ export function onBodyMouseUp (event) {
   switch (draggingType) {
     case DRAGGING_TYPE_NONE:
       return
-    case DRAGGING_TYPE_CLICK_OR_MOVE:
-      changeDraggingType(DRAGGING_TYPE_NONE)
-      setIgnoreStreetChanges(false)
-      break
     case DRAGGING_TYPE_RESIZE:
       handleSegmentResizeEnd(event)
       break
