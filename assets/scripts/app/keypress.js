@@ -81,8 +81,7 @@ const returnTrue = function () { return true }
  * @public
  */
 export function startListening () {
-  // TODO: remove useCapture if we don't need it
-  window.addEventListener('keydown', onGlobalKeyDown, true)
+  window.addEventListener('keydown', onGlobalKeyDown)
 }
 
 /**

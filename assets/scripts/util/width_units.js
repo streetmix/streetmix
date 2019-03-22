@@ -126,6 +126,9 @@ export function prettifyWidth (width, units, locale) {
  * and converts to the desired units, if necessary.
  * Used primarily when converting input box values to a simple number format
  *
+ * @todo Memoize the Intl.NumberFormat constructor, since this becomes very slow if many of
+ *          these are called in succession. See https://github.com/yahoo/intl-format-cache
+ *          for inspiration and reference.
  * @param {Number} value - original measurement value
  * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
  *          Defaults to metric.

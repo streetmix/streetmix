@@ -6,7 +6,7 @@ import flow from 'lodash/flow'
 import uuid from 'uuid'
 import Segment from '../segments/Segment'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from '../segments/constants'
+import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DRAGGING_TYPE_RESIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import {
@@ -14,8 +14,7 @@ import {
   canvasTarget,
   collectDropTarget,
   makeSpaceBetweenSegments,
-  isSegmentWithinCanvas,
-  DRAGGING_TYPE_RESIZE
+  isSegmentWithinCanvas
 } from '../segments/drag_and_drop'
 
 class StreetEditable extends React.Component {

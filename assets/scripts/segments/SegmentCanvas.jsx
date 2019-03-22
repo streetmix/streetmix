@@ -10,7 +10,7 @@ const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 
-class SegmentCanvas extends React.Component {
+class SegmentCanvas extends React.PureComponent {
   static propTypes = {
     actualWidth: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,

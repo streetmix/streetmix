@@ -1,20 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { IntlProvider, FormattedMessage } from 'react-intl'
+import { IntlProvider } from 'react-intl'
 import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
-import UndoRedo from './UndoRedo'
-import PaletteTooltips from './PaletteTooltips'
-import PaletteCommandsLeft from './PaletteCommandsLeft'
 import { getAllSegmentInfoArray } from '../segments/info'
 import './Palette.scss'
 
-class Palette extends React.Component {
+class Palette extends React.PureComponent {
   static propTypes = {
+    // Provided by parent component
+    handlePointerOver: PropTypes.func.isRequired,
+    handlePointerOut: PropTypes.func.isRequired,
+    handleScroll: PropTypes.func.isRequired,
+
+    // Provided by Redux
     everythingLoaded: PropTypes.bool.isRequired,
     flags: PropTypes.object.isRequired,
-    draggingState: PropTypes.object,
     locale: PropTypes.object
   }
 
@@ -22,27 +24,6 @@ class Palette extends React.Component {
     super(props)
 
     this.scrollable = React.createRef()
-
-    this.state = {
-      tooltipLabel: null,
-      tooltipVisible: false,
-      tooltipPosition: {}
-    }
-  }
-
-  /**
-   * Prevent tooltips from displaying during a drag action
-   *
-   * @param {object} props - incoming props
-   */
-  static getDerivedStateFromProps (props) {
-    if (props.draggingState) {
-      return {
-        tooltipVisible: false
-      }
-    }
-
-    return null
   }
 
   /**
@@ -67,43 +48,6 @@ class Palette extends React.Component {
         window.setTimeout(this.scrollable.current.checkButtonVisibilityState, 0)
       }
     }
-  }
-
-  /**
-   * Each segment in palette calls this function when the pointer hovers over it so we know
-   * what to display in the tooltip
-   *
-   * @param {Object} event - event handler object
-   * @param {string} label - text to display inside the tooltip
-   * @param {Object} rect - result of getBoundingClientRect() on segment element
-   */
-  handlePointerOver = (event, label, rect) => {
-    // x is the position right above the middle of the segment element to point at
-    const x = rect.x + (rect.width / 2)
-
-    this.setState({
-      tooltipLabel: label,
-      tooltipVisible: true,
-      tooltipPosition: { x }
-    })
-  }
-
-  /**
-   * When the pointer leaves the segment area, hide tooltip.
-   */
-  handlePointerOut = (event) => {
-    this.setState({
-      tooltipVisible: false
-    })
-  }
-
-  /**
-   * When the segment area is being scrolled, hide tooltip.
-   */
-  handleScroll = (event) => {
-    this.setState({
-      tooltipVisible: false
-    })
   }
 
   renderPaletteItems = () => {
@@ -131,48 +75,25 @@ class Palette extends React.Component {
           key={segment.id}
           type={segment.id}
           variantString={variant}
-          onPointerOver={this.handlePointerOver}
+          onPointerOver={this.props.handlePointerOver}
         />
       )
     })
   }
 
   render () {
-    const { draggingState } = this.props
-
-    // Render an empty container before assets for palette items have loaded.
-    // (Another part of the app depends on this element for layout calculation.)
-    if (!this.props.everythingLoaded) {
-      return (
-        <div className="palette-container" />
-      )
-    }
-
     return (
-      <div className="palette-container">
-        <PaletteCommandsLeft />
-        <div className={'palette-trashcan' + (draggingState && draggingState.draggedSegment !== undefined ? ' visible' : '')}>
-          <FormattedMessage id="palette.remove" defaultMessage="Drag here to remove" />
-        </div>
-        <div className="palette-commands">
-          <UndoRedo />
-        </div>
-        <div onPointerOut={this.handlePointerOut}>
-          <Scrollable className="palette" ref={this.scrollable} onScroll={this.handleScroll}>
-            <IntlProvider
-              locale={this.props.locale.locale}
-              messages={this.props.locale.segmentInfo}
-            >
-              <React.Fragment>{this.renderPaletteItems()}</React.Fragment>
-            </IntlProvider>
-          </Scrollable>
-        </div>
-        <PaletteTooltips
-          label={this.state.tooltipLabel}
-          visible={this.state.tooltipVisible}
-          pointAt={this.state.tooltipPosition}
-        />
+      <div onPointerOut={this.props.handlePointerOut}>
+        <Scrollable className="palette" ref={this.scrollable} onScroll={this.props.handleScroll}>
+          <IntlProvider
+            locale={this.props.locale.locale}
+            messages={this.props.locale.segmentInfo}
+          >
+            <React.Fragment>{this.renderPaletteItems()}</React.Fragment>
+          </IntlProvider>
+        </Scrollable>
       </div>
+
     )
   }
 }
@@ -181,7 +102,6 @@ function mapStateToProps (state) {
   return {
     everythingLoaded: state.app.everythingLoaded,
     flags: state.flags,
-    draggingState: state.ui.draggingState,
     locale: state.locale
   }
 }
