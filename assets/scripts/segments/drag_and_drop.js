@@ -35,6 +35,7 @@ import store from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import {
+  initDraggingState,
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
@@ -403,8 +404,6 @@ export function onBodyMouseUp (event) {
 }
 
 function handleSegmentDragStart () {
-  changeDraggingType(DRAGGING_TYPE_MOVE)
-
   infoBubble.hide()
   cancelFadeoutControls()
   hideControls()
@@ -434,6 +433,8 @@ export const segmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+
+    changeDraggingType(DRAGGING_TYPE_MOVE)
 
     return {
       dataNo: props.dataNo,
@@ -471,9 +472,12 @@ export const paletteSegmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+
     // Initialize an empty draggingState object in Redux for palette segments in order to
     // add event listener in StreetEditable once dragging begins.
-    store.dispatch(updateDraggingState())
+    // Also set the dragging type to MOVE. We use one action creator here and one
+    // dispatch to reduce batch renders.
+    store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
     const segmentInfo = getSegmentInfo(props.type)
 
