@@ -31,7 +31,7 @@ import {
   DRAGGING_TYPE_RESIZE
 } from './constants'
 import { segmentsChanged } from './view'
-import store from '../store'
+import store, { observeStore } from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import {
@@ -55,20 +55,24 @@ export var draggingResize = {
   right: false
 }
 
-export function changeDraggingType (newDraggingType) {
-  store.dispatch(setDraggingType(newDraggingType))
+export function initDragTypeSubscriber () {
+  const select = (state) => state.ui.draggingType
 
-  document.body.classList.remove('segment-move-dragging')
-  document.body.classList.remove('segment-resize-dragging')
+  const onChange = (draggingType) => {
+    document.body.classList.remove('segment-move-dragging')
+    document.body.classList.remove('segment-resize-dragging')
 
-  switch (newDraggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      document.body.classList.add('segment-resize-dragging')
-      break
-    case DRAGGING_TYPE_MOVE:
-      document.body.classList.add('segment-move-dragging')
-      break
+    switch (draggingType) {
+      case DRAGGING_TYPE_RESIZE:
+        document.body.classList.add('segment-resize-dragging')
+        break
+      case DRAGGING_TYPE_MOVE:
+        document.body.classList.add('segment-move-dragging')
+        break
+    }
   }
+
+  return observeStore(select, onChange)
 }
 
 function handleSegmentResizeStart (event) {
@@ -89,7 +93,7 @@ function handleSegmentResizeStart (event) {
 
   var el = event.target
 
-  changeDraggingType(DRAGGING_TYPE_RESIZE)
+  store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
 
   var pos = getElAbsolutePos(el)
 
@@ -434,7 +438,7 @@ export const segmentSource = {
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
 
-    changeDraggingType(DRAGGING_TYPE_MOVE)
+    store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
 
     return {
       dataNo: props.dataNo,

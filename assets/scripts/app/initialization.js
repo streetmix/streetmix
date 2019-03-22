@@ -14,6 +14,7 @@ import {
 import { initStreetNameChangeListener } from '../streets/name'
 import { initStreetThumbnailSubscriber } from '../streets/image'
 import { initStreetDataChangedListener } from '../streets/street'
+import { initDragTypeSubscriber } from '../segments/drag_and_drop'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
@@ -126,6 +127,7 @@ function onEverythingLoaded () {
   initPersistedSettingsStoreObserver()
   initStreetThumbnailSubscriber()
   initStreetNameChangeListener()
+  initDragTypeSubscriber()
 
   addEventListeners()
 
