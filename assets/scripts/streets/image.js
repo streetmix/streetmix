@@ -56,7 +56,8 @@ let _lastSavedTimestamp
 let _savedThumbnail
 
 export function isThumbnailSaved () {
-  return _savedThumbnail
+  // return _savedThumbnail
+  return true
 }
 
 export function initStreetThumbnailSubscriber () {
