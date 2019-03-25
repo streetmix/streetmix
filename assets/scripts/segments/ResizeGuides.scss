@@ -15,7 +15,8 @@
   border-left: 1px dashed fade-out(black, 0.6);
   border-right: 1px dashed fade-out(black, 0.6);
 
-  .segment-guides-invert-color & {
+  // Invert the UI text color when there is a dark background
+  body.dark-environs-invert-ui & {
     border-left: 1px dashed fade-out(white, 0.6);
     border-right: 1px dashed fade-out(white, 0.6);
   }
@@ -31,7 +32,8 @@
   font-size: 11px;
   color: fade-out(black, 0.4);
 
-  .segment-guides-invert-color & {
+  // Invert the UI text color when there is a dark background
+  body.dark-environs-invert-ui & {
     color: fade-out(white, 0.4);
   }
 }

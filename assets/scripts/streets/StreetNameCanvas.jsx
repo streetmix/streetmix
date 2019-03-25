@@ -5,7 +5,6 @@ import { injectIntl, intlShape } from 'react-intl'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
-import { getEnvirons } from '../streets/environs'
 import './StreetNameCanvas.scss'
 
 class StreetNameCanvas extends React.Component {
@@ -14,8 +13,7 @@ class StreetNameCanvas extends React.Component {
     visible: PropTypes.bool,
     editable: PropTypes.bool,
     street: PropTypes.object,
-    saveStreetName: PropTypes.func,
-    environs: PropTypes.string
+    saveStreetName: PropTypes.func
   }
 
   static defaultProps = {
@@ -113,8 +111,6 @@ class StreetNameCanvas extends React.Component {
   }
 
   render () {
-    const environs = getEnvirons(this.props.environs)
-
     return (
       <div className={this.determineClassNames().join(' ')}>
         <StreetName
@@ -124,7 +120,7 @@ class StreetNameCanvas extends React.Component {
           name={this.props.street.name}
           onClick={this.onClickStreetName}
         />
-        <StreetMeta invertUITextColor={environs.invertUITextColor} />
+        <StreetMeta />
       </div>
     )
   }
@@ -134,8 +130,7 @@ function mapStateToProps (state) {
   return {
     visible: state.ui.streetNameCanvasVisible,
     editable: !state.app.readOnly && state.flags.EDIT_STREET_NAME.value,
-    street: state.street,
-    environs: state.street.environment
+    street: state.street
   }
 }
 

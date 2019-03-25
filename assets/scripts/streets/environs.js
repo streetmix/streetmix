@@ -1,5 +1,6 @@
 import ENVIRONS from './environs.json'
 import { DEFAULT_ENVIRONS } from './constants'
+import { observeStore } from '../store'
 
 /**
  * Converts information from environs.json to create a string value
@@ -166,4 +167,21 @@ export function getAllEnvirons () {
   const environs = Object.keys(ENVIRONS)
 
   return environs.map(getEnvirons)
+}
+
+/**
+ * Toggles the `dark-environs-invert-ui` on the <body> element when there is a dark
+ * sky (environs). UI elements that are placed on top of the dark background
+ * should use this classname to invert its colors.
+ */
+export function initEnvironsChangedListener () {
+  const select = (state) => ({
+    ...getEnvirons(state.street.environment)
+  })
+  const onChange = (state) => {
+    // `invertUITextColor` may not be defined, so coerce it to `false` with Boolean()
+    document.body.classList.toggle('dark-environs-invert-ui', Boolean(state.invertUITextColor))
+  }
+
+  return observeStore(select, onChange)
 }
