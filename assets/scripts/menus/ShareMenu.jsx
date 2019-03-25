@@ -14,7 +14,7 @@ import { showDialog } from '../store/actions/dialogs'
 import { startPrinting } from '../store/actions/app'
 
 import './ShareMenu.scss'
-import { saveStreetThumbnail } from '../streets/image'
+// import { saveStreetThumbnail } from '../streets/image'
 
 class ShareMenu extends React.Component {
   static propTypes = {
@@ -94,7 +94,7 @@ class ShareMenu extends React.Component {
 
   onShow = () => {
     // Save street thumbnail when share menu is active
-    saveStreetThumbnail(this.props.street)
+    // saveStreetThumbnail(this.props.street)
 
     // Make sure links are updated when the menu is opened
     this.updateLinks()
