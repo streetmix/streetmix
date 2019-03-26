@@ -2,7 +2,7 @@ import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
 } from '../streets/xhr'
-import { saveStreetThumbnail, isThumbnailSaved } from '../streets/image'
+import { isThumbnailSaved } from '../streets/image'
 import store from '../store'
 import { showNoConnectionMessage } from '../store/actions/status'
 
@@ -185,7 +185,7 @@ function checkIfChangesSaved () {
   if (showWarning) {
     nonblockingAjaxRequestTimer = 0
     scheduleNextNonblockingAjaxRequest()
-    saveStreetThumbnail(store.getState().street)
+    // saveStreetThumbnail(store.getState().street)
     return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.'
   }
 }

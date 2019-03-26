@@ -3,6 +3,7 @@ import {
   HIDE_STREET_NAME_CANVAS,
   SET_UNIT_SETTINGS,
   SET_ACTIVE_SEGMENT,
+  INIT_DRAGGING_STATE,
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
@@ -56,6 +57,16 @@ const ui = (state = initialState, action) => {
           ...state,
           activeSegment: action.position
         }
+      }
+    case INIT_DRAGGING_STATE:
+      return {
+        ...state,
+        draggingState: {
+          segmentBeforeEl: action.segmentBeforeEl,
+          segmentAfterEl: action.segmentAfterEl,
+          draggedSegment: action.draggedSegment
+        },
+        draggingType: action.draggingType
       }
     case UPDATE_DRAGGING_STATE:
       return {

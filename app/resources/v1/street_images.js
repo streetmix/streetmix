@@ -4,7 +4,7 @@ const User = require('../../models/user.js')
 const Street = require('../../models/street.js')
 const logger = require('../../../lib/logger.js')()
 
-const ALLOW_ANON_STREET_THUMBNAILS = true
+const ALLOW_ANON_STREET_THUMBNAILS = false
 
 exports.post = async function (req, res) {
   const image = req.body

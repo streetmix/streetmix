@@ -31,10 +31,11 @@ import {
   DRAGGING_TYPE_RESIZE
 } from './constants'
 import { segmentsChanged } from './view'
-import store from '../store'
+import store, { observeStore } from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import {
+  initDraggingState,
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
@@ -54,20 +55,24 @@ export var draggingResize = {
   right: false
 }
 
-export function changeDraggingType (newDraggingType) {
-  store.dispatch(setDraggingType(newDraggingType))
+export function initDragTypeSubscriber () {
+  const select = (state) => state.ui.draggingType
 
-  document.body.classList.remove('segment-move-dragging')
-  document.body.classList.remove('segment-resize-dragging')
+  const onChange = (draggingType) => {
+    document.body.classList.remove('segment-move-dragging')
+    document.body.classList.remove('segment-resize-dragging')
 
-  switch (newDraggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      document.body.classList.add('segment-resize-dragging')
-      break
-    case DRAGGING_TYPE_MOVE:
-      document.body.classList.add('segment-move-dragging')
-      break
+    switch (draggingType) {
+      case DRAGGING_TYPE_RESIZE:
+        document.body.classList.add('segment-resize-dragging')
+        break
+      case DRAGGING_TYPE_MOVE:
+        document.body.classList.add('segment-move-dragging')
+        break
+    }
   }
+
+  return observeStore(select, onChange)
 }
 
 function handleSegmentResizeStart (event) {
@@ -88,7 +93,7 @@ function handleSegmentResizeStart (event) {
 
   var el = event.target
 
-  changeDraggingType(DRAGGING_TYPE_RESIZE)
+  store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
 
   var pos = getElAbsolutePos(el)
 
@@ -403,8 +408,6 @@ export function onBodyMouseUp (event) {
 }
 
 function handleSegmentDragStart () {
-  changeDraggingType(DRAGGING_TYPE_MOVE)
-
   infoBubble.hide()
   cancelFadeoutControls()
   hideControls()
@@ -434,6 +437,8 @@ export const segmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+
+    store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
 
     return {
       dataNo: props.dataNo,
@@ -471,9 +476,12 @@ export const paletteSegmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+
     // Initialize an empty draggingState object in Redux for palette segments in order to
     // add event listener in StreetEditable once dragging begins.
-    store.dispatch(updateDraggingState())
+    // Also set the dragging type to MOVE. We use one action creator here and one
+    // dispatch to reduce batch renders.
+    store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
     const segmentInfo = getSegmentInfo(props.type)
 
