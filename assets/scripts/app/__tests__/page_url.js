@@ -1,13 +1,6 @@
 /* eslint-env jest */
 import { getStreetUrl } from '../page_url'
 
-jest.mock('../routing', () => ({
-  // FIXME: redefining this manually to prevent failed import
-  RESERVED_URLS: ['reserved'],
-  URL_NO_USER: '-',
-  URL_RESERVED_PREFIX: '~'
-}))
-
 describe('getStreetUrl', () => {
   it('returns a url for a user’s street', () => {
     const url = getStreetUrl({
@@ -27,10 +20,10 @@ describe('getStreetUrl', () => {
 
   it('returns a url for a user with a reserved name', () => {
     const url = getStreetUrl({
-      creatorId: 'reserved',
+      creatorId: 'streets',
       namespacedId: 42
     })
-    expect(url).toBe('/~reserved/42')
+    expect(url).toBe('/~streets/42')
   })
 
   it('returns a url with a slug when street is named', () => {

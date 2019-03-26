@@ -5,7 +5,6 @@
 
 import { generateFlagOverrides, applyFlagOverrides } from '../flag_utils'
 
-jest.mock('../../app/routing', () => {})
 jest.mock('../../app/errors', () => {})
 
 const initialFlags = {

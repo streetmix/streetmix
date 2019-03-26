@@ -11,7 +11,6 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../constants'
 
-jest.mock('../../app/routing')
 jest.mock('../info')
 jest.mock('../../streets/data_model', () => {})
 jest.mock('../../info_bubble/info_bubble')

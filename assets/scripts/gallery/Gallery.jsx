@@ -15,7 +15,7 @@ import { switchGalleryStreet, repeatReceiveGalleryData, hideGallery } from './vi
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
-import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/routing'
+import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
 import { setGalleryMode, deleteGalleryStreet } from '../store/actions/gallery'
 import { showDialog } from '../store/actions/dialogs'
 import './Gallery.scss'
