@@ -4,7 +4,6 @@ import { shallow } from 'enzyme'
 import { WelcomePanel } from '../WelcomePanel'
 
 jest.mock('../mode', () => {})
-jest.mock('../routing', () => {})
 jest.mock('../../segments/view', () => {})
 jest.mock('../../streets/creation', () => {})
 jest.mock('../../streets/data_model', () => {})

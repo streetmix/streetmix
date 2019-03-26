@@ -5,7 +5,7 @@ import {
   URL_ERROR_AUTHENTICATION_API_PROBLEM,
   URL_ERROR_ACCESS_DENIED,
   URL_ERROR_NO_ACCESS_TOKEN
-} from './routing'
+} from './constants'
 import store from '../store'
 import { showError as showErrorAction, hideError as hideErrorAction } from '../store/actions/errors'
 
