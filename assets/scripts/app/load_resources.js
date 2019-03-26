@@ -8,6 +8,7 @@ export const images = new Map()
 
 // Image tileset loading
 const IMAGES_TO_BE_LOADED = [
+  '/images/wordmark.svg',
   '/images/sky-front.svg',
   '/images/sky-rear.svg',
   '/images/stars.svg',
@@ -84,6 +85,17 @@ async function loadImage (url) {
  * @return {string}
  */
 function getSVGOuterHTML (svg) {
+  // Height and width values are required to render to canvas in Firefox.
+  // Add them from `viewBox` property if they are not present.
+  if (svg.getAttribute('viewBox')) {
+    if (!svg.getAttribute('width')) {
+      svg.setAttribute('width', svg.viewBox.baseVal.width)
+    }
+    if (!svg.getAttribute('height')) {
+      svg.setAttribute('height', svg.viewBox.baseVal.height)
+    }
+  }
+
   let outerHTML = svg.outerHTML
 
   // The `outerHTML` property is not available on IE / Edge
