@@ -59,7 +59,7 @@ describe('environs helpers', () => {
         'backgroundGradient': [ '#020b1a', '#3e5879', ['#9ba5ae'], ['#dcb697'], ['#fc7001'], ['#dd723c'], ['#ad4a28'], ['#040308'] ],
         'cloudOpacity': 0.85,
         'style': {
-          'backgroundImage': 'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
+          'background': 'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
         }
       })
     })

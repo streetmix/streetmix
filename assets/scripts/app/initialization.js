@@ -14,6 +14,7 @@ import {
 import { initStreetNameChangeListener } from '../streets/name'
 import { saveStreetThumbnail } from '../streets/image'
 import { initStreetDataChangedListener } from '../streets/street'
+import { initEnvironsChangedListener } from '../streets/environs'
 import { initDragTypeSubscriber } from '../segments/drag_and_drop'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { loadSignIn } from '../users/authentication'
@@ -129,6 +130,7 @@ function onEverythingLoaded () {
   saveStreetThumbnail(store.getState().street)
 
   initStreetNameChangeListener()
+  initEnvironsChangedListener()
   initDragTypeSubscriber()
 
   addEventListeners()

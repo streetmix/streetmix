@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
+import { DEFAULT_ENVIRONS } from '../streets/constants'
 import './SkyBackground.scss'
 
 class SkyBackground extends React.PureComponent {
@@ -15,35 +16,25 @@ class SkyBackground extends React.PureComponent {
   constructor (props) {
     super(props)
 
-    this.backgroundEl = React.createRef()
+    this.state = {
+      prevEnvirons: DEFAULT_ENVIRONS
+    }
+
+    this.currentBackgroundEl = React.createRef()
   }
 
-  componentDidUpdate () {
-    // Use good old-fashioned DOM manipulation to transition backgrounds.
-    // Is there a React way of doing this?
-    const skyEl = this.backgroundEl.current
-    const env = getEnvirons(this.props.environment)
-
-    const oldBg = skyEl.querySelector('div')
-    const newBg = document.createElement('div')
-
-    if (env.style.backgroundColor) {
-      newBg.style.backgroundColor = env.style.backgroundColor
-    }
-    if (env.style.backgroundImage) {
-      newBg.style.backgroundImage = env.style.backgroundImage
-    }
-    if (env.style.background) {
-      newBg.style.background = env.style.background
+  componentDidUpdate (prevProps) {
+    // If environs have changed, store the previous environs so we can transition
+    if (this.props.environment !== prevProps.environment) {
+      // Permit an immediate setState() wrapped inside a condition, as per
+      // React docs (https://reactjs.org/docs/react-component.html#componentdidupdate)
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        prevEnvirons: prevProps.environment
+      })
     }
 
-    skyEl.insertBefore(newBg, oldBg)
-    oldBg.classList.add('sky-transition-out')
-    window.setTimeout(() => {
-      if (oldBg) {
-        oldBg.remove()
-      }
-    }, 500)
+    this.currentBackgroundEl.current.classList.add('sky-transition-in')
   }
 
   updateStreetSkyBackground = (isFront, scrollPos) => {
@@ -61,6 +52,7 @@ class SkyBackground extends React.PureComponent {
   render () {
     const { height, scrollPos, system, environment } = this.props
     const environs = getEnvirons(environment)
+    const prevEnvirons = getEnvirons(this.state.prevEnvirons)
 
     const skyStyle = {
       height: `${height}px`
@@ -84,8 +76,18 @@ class SkyBackground extends React.PureComponent {
 
     return (
       <section className={`street-section-sky sky-${environs.id}`} style={skyStyle}>
-        <div className="sky-background" ref={this.backgroundEl}>
-          <div className="sky-background-default" />
+        <div className="sky-background">
+          <div
+            style={prevEnvirons.style}
+            className="sky-background-previous"
+            key={`prev-${this.state.prevEnvirons}`}
+          />
+          <div
+            style={environs.style}
+            className="sky-background-current"
+            key={`current-${environment}`}
+            ref={this.currentBackgroundEl}
+          />
         </div>
         <div className="sky-background-objects">
           <div className="sky-superbloodwolfmoon" />
