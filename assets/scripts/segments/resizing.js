@@ -2,10 +2,7 @@ import { trackEvent } from '../app/event_tracking'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
-import {
-  draggingResize,
-  changeDraggingType
-} from './drag_and_drop'
+import { draggingResize } from './drag_and_drop'
 import { segmentsChanged } from './view'
 import { BUILDING_SPACE } from './buildings'
 import {
@@ -16,6 +13,7 @@ import {
 } from './constants'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
+import { setDraggingType } from '../store/actions/ui'
 
 const SHORT_DELAY = 100
 
@@ -99,7 +97,7 @@ export function handleSegmentResizeEnd (event) {
   updateStreetMargin()
   segmentsChanged()
 
-  changeDraggingType(DRAGGING_TYPE_NONE)
+  store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
   var el = draggingResize.floatingEl
   el.remove()
