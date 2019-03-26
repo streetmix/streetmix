@@ -115,7 +115,7 @@ export class Segment extends React.Component {
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener('keydown', this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
   }
 
   switchSegments = (oldVariant) => {
@@ -139,12 +139,12 @@ export class Segment extends React.Component {
       return
     }
 
-    window.addEventListener('keydown', this.handleKeyDown)
+    document.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
   }
 
   onSegmentMouseLeave = () => {
-    window.removeEventListener('keydown', this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
     infoBubble.dontConsiderShowing()
   }
 
@@ -250,7 +250,8 @@ export class Segment extends React.Component {
     }
 
     const dataAttributes = {
-      'data-width': actualWidth
+      'data-width': actualWidth,
+      'data-testid': 'segment'
     }
 
     const classNames = ['segment']
