@@ -1,20 +1,14 @@
 import { TWITTER_SIGN_IN_CALLBACK_PATH, AUTH0_SIGN_IN_CALLBACK_PATH } from './config'
 
 export const TWITTER_SIGN_IN_CALLBACK_URL =
-  window.location.protocol + '//' +
-  window.location.host + '/' +
-  TWITTER_SIGN_IN_CALLBACK_PATH
+  new URL(TWITTER_SIGN_IN_CALLBACK_PATH, window.location.origin)
 
 export const AUTH0_SIGN_IN_CALLBACK_URL =
-  window.location.protocol + '//' +
-  window.location.host + '/' +
-  AUTH0_SIGN_IN_CALLBACK_PATH
+  new URL(AUTH0_SIGN_IN_CALLBACK_PATH, window.location.origin)
 
 export const JUST_SIGNED_IN_PATH = 'just-signed-in'
 export const JUST_SIGNED_IN_URL =
-  window.location.protocol + '//' +
-  window.location.host + '/' +
-  JUST_SIGNED_IN_PATH
+  new URL(JUST_SIGNED_IN_PATH, window.location.origin)
 
 export const TWITTER_SIGN_IN_PATH = 'twitter-sign-in'
 export const TWITTER_URL_SIGN_IN_REDIRECT =
