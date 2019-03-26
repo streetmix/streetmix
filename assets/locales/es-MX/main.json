@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "Atajos del teclado:",
-      "remove": "Eliminar el segmento que estás apuntando<br />(mantén pulsado <kbd class='key'>Mayús</kbd> para eliminar todo)",
-      "move": "Desplazarte por la calle<br /> (mantén presionada<kbd class='key'>Mayús</kbd> para brincar a los bordes)",
-      "change": "Cambiar el ancho del segmento al que estas apuntando<br />(deja pulsada <kbd class='key'>Mayús</kbd> para mayor precisión)",
       "remove-instruction": "Eliminar el segmento que estás apuntando",
       "remove-shift-instruction": "(mantén pulsado {shiftKey} para eliminar todo)",
       "move-instruction": "Desplazarte por la calle",
@@ -188,6 +185,7 @@
       "option-labels": "Nombres y anchura de segmentos",
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo transparente",
+      "option-watermark": "",
       "loading": "Cargando…",
       "save-button": "Guardar a tu computadora…",
       "license": "Esta imagen-creada-por-Streetmix puede ser reusada en cualquier otra parte, por culaquier otro uso, bajo <br><a href='{url}'>la Licencia Internacional Creative Commons Attribution-ShareAlike 4.0</a>.",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "Anónimo",
     "byline": "por {user}"
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad.",

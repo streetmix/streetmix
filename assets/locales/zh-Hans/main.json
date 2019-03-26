@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "快捷键：",
-      "remove": "移除鼠标所指的部分<br />（长按<kbd class='key'>Shift</kbd>来移除所有的部分）",
-      "move": "移动这一部分的街道<br /> （长按<kbd class='key'>Shift</kbd>来跳到边上）",
-      "change": "更改鼠标所指街道部分<br />的宽度（长按<kbd class='key'>Shift</kbd>来进行微调）",
       "remove-instruction": "移除鼠标所指的部分",
       "remove-shift-instruction": "（长按{shiftKey}来移除所有的部分）",
       "move-instruction": "移动这一部分的街道",
@@ -188,6 +185,7 @@
       "option-labels": "各部分名称及宽度",
       "option-name": "街道名称",
       "option-sky": "无天空背景",
+      "option-watermark": "",
       "loading": "加载中......",
       "save-button": "保存到你的电脑上......",
       "license": "根据<br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>，这张由Streetmix生成的图片可以被用于任何地方，任何目的。",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "匿名",
     "byline": "来自{user}"
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "重新设计并共享你所在社区的街道——全都可以在你的浏览器中实现！你可以添加绿化带树木或自行车道，拓宽人行道或机动车道，并从中探索你的设计将会如何影响你的社区。",

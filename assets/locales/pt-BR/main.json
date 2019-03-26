@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "Teclas de atalho:",
-      "remove": "Remover um segmento que você está apontando<br />(segure <kbd class='key'>Shift</kbd> para remover tudo)",
-      "move": "Movimente-se pela rua<br />(segure <kbd class='key'>Shift</kbd> para saltar para as bordas)",
-      "change": "Mudar largura do segmento que você está apontando<br />(segure <kbd class='key'>Shift</kbd> para obter mais precisão)",
       "remove-instruction": "Remover um segmento que você está apontando",
       "remove-shift-instruction": "(segure {shiftKey} para remover tudo)",
       "move-instruction": "Movimente-se pela rua",
@@ -188,6 +185,7 @@
       "option-labels": "Nome dos segmentos e larguras",
       "option-name": "Nome da rua",
       "option-sky": "Céu transparente",
+      "option-watermark": "",
       "loading": "Carregando…",
       "save-button": "Salvar no seu computador…",
       "license": "Esta imagem criada pelo Streetmix poderá ser reutilizada em qualquer lugar, para qualquer propósito, sob a <br><a href='{url}'>Licença Internacional Creative Commons Attribution-ShareAlike 4.0</a>.",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "Anônimo",
     "byline": "por {user}"
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "Projete, remix e compartilhe a rua de sua vizinhança - tudo em seu browser! Adicione árvores ou ciclovias, calçadas largas ou guias de tráfego, aprenda como suas decisões podem impactar sua comunidade.",

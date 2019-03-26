@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "Skróty klawiszowe:",
-      "remove": "Usuń wskazany segment<br />(przytrzymaj <kbd class='key'>Shift</kbd>, aby usunąć wszystko)",
-      "move": "Przemieszczaj się po ulicy<br />(przytrzymaj <kbd class='key'>Shift</kbd> aby ustawić się na krawędzi)",
-      "change": "Zmień szerokość wskazanego segmentu<br />(przytrzymaj <kbd class='key'>Shift</kbd> dla zwiększenia precyzji)",
       "remove-instruction": "Usuń wskazany segment",
       "remove-shift-instruction": "(przytrzymaj {shiftKey}, aby usunąć wszystko)",
       "move-instruction": "Przemieszczaj się po ulicy",
@@ -188,6 +185,7 @@
       "option-labels": "Nazwy i szerokości segmentów",
       "option-name": "Nazwa ulicy",
       "option-sky": "Czyste niebo",
+      "option-watermark": "",
       "loading": "Ładuję…",
       "save-button": "Zapisz na swoim komputerze…",
       "license": "Obrazy tworzone w Streetmiksie mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License (uznanie autorstwa)</a>.",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "Anonim",
     "byline": "przez {user}"
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa - wszystko w przeglądarce! Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność.",

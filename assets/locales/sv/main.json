@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "Snabbkommandon:",
-      "remove": "Ta bort ett segment du pekar på<br />(håll inne <kbd class='key'>Shift</kbd> för att ta bort alla)",
-      "move": "",
-      "change": "",
       "remove-instruction": "Ta bort ett segment du pekar på",
       "remove-shift-instruction": "(håll inne {shiftKey} för att ta bort alla)",
       "move-instruction": "",
@@ -188,6 +185,7 @@
       "option-labels": "Segmentnamn och -bredder",
       "option-name": "Gatunamn",
       "option-sky": "Transparent himmel",
+      "option-watermark": "",
       "loading": "Laddar…",
       "save-button": "Sparar till din dator…",
       "license": "Denna av Streetmix skapade bild kan användas var som helst, oavsett syfte, i enlighet med <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "Anonym",
     "byline": ""
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "Designa, ändra och dela din gata - allt i din webbläsare! Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde.",
