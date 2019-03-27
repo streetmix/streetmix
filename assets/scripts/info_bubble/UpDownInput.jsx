@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { KEYS } from '../app/keys'
+import { ICON_MINUS, ICON_PLUS } from '../ui/icons'
 import './UpDownInput.scss'
 
 const EDIT_INPUT_DELAY = 200
@@ -284,7 +285,7 @@ export default class UpDownInput extends React.Component {
           onClick={this.handleClickDecrement}
           disabled={this.props.disabled || (this.props.value <= this.props.minValue)}
         >
-          <FontAwesomeIcon icon="minus" />
+          <FontAwesomeIcon icon={ICON_MINUS} />
         </button>
 
         {this.renderInputEl()}
@@ -296,7 +297,7 @@ export default class UpDownInput extends React.Component {
           onClick={this.handleClickIncrement}
           disabled={this.props.disabled || (this.props.value >= this.props.maxValue)}
         >
-          <FontAwesomeIcon icon="plus" />
+          <FontAwesomeIcon icon={ICON_PLUS} />
         </button>
       </React.Fragment>
     )

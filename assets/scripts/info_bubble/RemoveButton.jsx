@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ICON_TRASH } from '../ui/icons'
 import './RemoveButton.scss'
 
 class RemoveButton extends React.PureComponent {
@@ -43,7 +44,7 @@ class RemoveButton extends React.PureComponent {
         onClick={this.onClick}
       >
         <FontAwesomeIcon
-          icon="trash-alt"
+          icon={ICON_TRASH}
           className="remove-icon"
         />
         <FormattedMessage id="btn.remove" defaultMessage="Remove" />

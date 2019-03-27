@@ -5,6 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animate } from '../util/helpers'
+import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
@@ -115,14 +116,14 @@ export default class Scrollable extends React.PureComponent {
           onClick={this.onClickLeft}
           ref={this.leftButtonEl}
         >
-          <FontAwesomeIcon icon="chevron-left" />
+          <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
         </button>
         <button
           className="scrollable scroll-right"
           onClick={this.onClickRight}
           ref={this.rightButtonEl}
         >
-          <FontAwesomeIcon icon="chevron-right" />
+          <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
         </button>
       </div>
     )
