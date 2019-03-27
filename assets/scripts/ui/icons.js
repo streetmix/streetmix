@@ -12,7 +12,8 @@ import {
   faUndo,
   faRedo,
   faTrashAlt,
-  faTools
+  faTools,
+  faCrown
 } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import {
@@ -30,6 +31,7 @@ export const ICON_MINUS = faMinus
 export const ICON_PLUS = faPlus
 export const ICON_ARROW_RIGHT = faArrowRight
 export const ICON_ARROW_LEFT = faArrowLeft
+export const ICON_CROWN = faCrown
 
 export const ICON_TWITTER = faTwitter
 export const ICON_FACEBOOK = faFacebookSquare
