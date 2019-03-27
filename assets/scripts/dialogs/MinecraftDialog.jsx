@@ -2,8 +2,8 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
 import './MinecraftDialog.scss'
-import MINECRAFT_IMAGE_1X from './minecraft.png'
-import MINECRAFT_IMAGE_2X from './minecraft@2x.png'
+import MINECRAFT_IMAGE_1X from './Minecraft/minecraft.png'
+import MINECRAFT_IMAGE_2X from './Minecraft/minecraft@2x.png'
 
 const MinecraftDialog = () => (
   <Dialog>
