@@ -25,6 +25,7 @@ import {
   SET_ENVIRONMENT
 } from './'
 
+import { RESIZE_TYPE_INITIAL, normalizeSegmentWidth } from '../../segments/resizing'
 export function updateStreetData (street) {
   return {
     type: REPLACE_STREET_DATA,
@@ -237,5 +238,34 @@ export function setEnvironment (env) {
   return {
     type: SET_ENVIRONMENT,
     env
+  }
+}
+
+export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INITIAL) => {
+  return (dispatch, getState) => {
+    const { unitSettings } = getState().ui
+    let increment
+
+    if (precise) {
+      increment = unitSettings.resolution
+    } else {
+      increment = unitSettings.clickIncrement
+    }
+
+    if (!add) {
+      increment = -increment
+    }
+
+    const width = normalizeSegmentWidth(origWidth + increment, unitSettings.resolution)
+    dispatch(changeSegmentWidth(dataNo, width))
+    /**
+     * from segmentsChanged
+    const street = store.getState().street
+    const updatedStreet = recalculateWidth(street)
+
+    store.dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+
+    saveStreetToServerIfNecessary()
+    **/
   }
 }

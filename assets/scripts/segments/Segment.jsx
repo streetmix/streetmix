@@ -25,7 +25,7 @@ import {
   collectDropTarget
 } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter } from './resizing'
 import { removeSegment, removeAllSegments } from './remove'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -34,6 +34,7 @@ import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
+import { incrementSegmentWidth } from '../store/actions/street'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -54,6 +55,8 @@ export class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
+    resolution: PropTypes.number,
+    incrementSegmentWidth: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -128,7 +131,7 @@ export class Segment extends React.Component {
   calculateSegmentWidths = (resizeType) => {
     let actualWidth = this.props.actualWidth
 
-    actualWidth = normalizeSegmentWidth(actualWidth, resizeType)
+    actualWidth = normalizeSegmentWidth(actualWidth, this.props.resolution)
 
     return actualWidth
   }
@@ -172,8 +175,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, false, finetune, actualWidth)
+    this.props.incrementSegmentWidth(position, false, finetune, RESIZE_TYPE_INITIAL)
   }
 
   /**
@@ -184,7 +186,7 @@ export class Segment extends React.Component {
    */
   incrementSegmentWidth (position, finetune) {
     const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, true, finetune, actualWidth)
+    this.props.incrementSegmentWidth(position, true, finetune, actualWidth)
   }
 
   handleKeyDown = (event) => {
@@ -320,13 +322,15 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
-    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
+    resolution: state.ui.unitSettings.resolution
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps (dispatch, ownProps) {
   return {
-    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) }
+    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
+    incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType))
   }
 }
 

@@ -122,12 +122,16 @@ describe('Segment', () => {
     const variantString = 'inbound|regular'
     const type = 'streetcar'
     const variant = SEGMENT_INFO[type].details[variantString]
+    const currentWidth = 400
+    const increment = 1
+    const activeElement = 0
     getSegmentVariantInfo.mockImplementation(() => variant)
     getSpriteDef.mockImplementation(() => ({ id: 'markings--straight-inbound', width: 4, offsetY: 11.12 }))
     // getSpriteDef should either be unmocked or be defined
-    segment = { type, variantString, segmentType: type, id: '1', width: 400, randSeed: 1 }
-    const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={400} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: 0 }, street: { segments: [segment] } } })
+    segment = { type, variantString, segmentType: type, id: '1', width: currentWidth, randSeed: 1 }
+    const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
     fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
     fireEvent.keyDown(document, { key: 'Minus', keyCode: KEYS.MINUS, code: KEYS.MINUS, charCode: KEYS.MINUS })
+    expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth - increment)
   })
 })
