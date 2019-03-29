@@ -27,7 +27,6 @@ import './vendor/polyfills/Element.remove'
 import store from './store'
 
 // Main object
-import { initIcons } from './ui/icons'
 import { initialize } from './app/initialization'
 import App from './app/App'
 
@@ -38,9 +37,6 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
     whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
   }).install()
 }
-
-// Initialize Font-Awesome icons (this must be done before React component mounting.)
-initIcons()
 
 // Mount React components
 ReactDOM.render(

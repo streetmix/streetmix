@@ -1,20 +1,25 @@
 @import '../../styles/variables.scss';
 
+$tooltip-background-colour: rgba(24, 24, 24, 0.75);
+$tooltip-font-colour:       white;
+$tooltip-font-weight:       bold;
+$tooltip-max-width:         120px;
+
 .palette-tooltip {
   position: fixed;
-  background: white;
-  bottom: 84px;
-  padding: 0.75em 1.5em;
+  background: $tooltip-background-colour;
+  bottom: 88px;
+  padding: 0.75em 1.25em;
   font-size: 13px;
-  border: 3px solid #85b7cc;
-  border-left: 0;
-  border-right: 0;
-  border-radius: 0;
+  font-weight: $tooltip-font-weight;
+  color: $tooltip-font-colour;
+  border-radius: $border-radius;
   text-align: center;
-  max-width: 100px;
+  max-width: $tooltip-max-width;
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 100ms, transform 100ms ease-in;
+  box-shadow: $medium-box-shadow;
   z-index: 2; // Positions this above hovered segment element
   pointer-events: none;
 }
@@ -38,8 +43,8 @@
   margin-left: -20px;
   overflow: hidden;
   pointer-events: none;
-  bottom: -33px;
-  height: 33px;
+  bottom: -15px;
+  height: 15px;
 }
 
 .palette-tooltip-pointer {
@@ -47,10 +52,9 @@
   height: 30px;
   width: 30px;
   left: 50%;
-  bottom: 22px;
-  margin-left: -18px;
-  border: 3px solid #85b7cc;
+  bottom: 8px;
+  margin-left: -15px;
   transform: rotate(45deg);
-  background: #fff;
+  background-color: $tooltip-background-colour;
   box-shadow: none;
 }

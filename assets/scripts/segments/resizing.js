@@ -2,21 +2,18 @@ import { trackEvent } from '../app/event_tracking'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
-import {
-  DRAGGING_TYPE_NONE,
-  draggingResize,
-  changeDraggingType
-} from './drag_and_drop'
+import { draggingResize } from './drag_and_drop'
 import { segmentsChanged } from './view'
 import { BUILDING_SPACE } from './buildings'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
-  MAX_SEGMENT_WIDTH
+  MAX_SEGMENT_WIDTH,
+  DRAGGING_TYPE_NONE
 } from './constants'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
-import { setResizeGuideVisibility } from '../store/actions/ui'
+import { setDraggingType } from '../store/actions/ui'
 
 const SHORT_DELAY = 100
 
@@ -30,12 +27,6 @@ const TOUCH_CONTROLS_FADEOUT_TIME = 3000
 const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
 
 const NORMALIZE_PRECISION = 5
-
-let _suppressMouseEnter = false
-
-export function suppressMouseEnter () {
-  return _suppressMouseEnter
-}
 
 export function resizeSegment (dataNo, resizeType, width) {
   width = normalizeSegmentWidth(width, resizeType)
@@ -106,25 +97,19 @@ export function handleSegmentResizeEnd (event) {
   updateStreetMargin()
   segmentsChanged()
 
-  changeDraggingType(DRAGGING_TYPE_NONE)
+  store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
   var el = draggingResize.floatingEl
   el.remove()
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 
-  store.dispatch(setResizeGuideVisibility(false))
-
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)
 
   scheduleControlsFadeout(draggingResize.segmentEl)
 
-  _suppressMouseEnter = true
   infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT)
-  window.setTimeout(function () {
-    _suppressMouseEnter = false
-  }, 50)
 
   if (draggingResize.width && (draggingResize.originalWidth !== draggingResize.width)) {
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)

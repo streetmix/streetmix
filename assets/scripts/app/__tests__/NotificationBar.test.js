@@ -2,7 +2,6 @@
 import React from 'react'
 import NotificationBar from '../NotificationBar'
 import { shallowWithIntl, mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { initIcons } from '../../ui/icons'
 
 const TEST_NOTIFICATION = {
   display: true,
@@ -13,10 +12,6 @@ const TEST_NOTIFICATION = {
 }
 
 describe('NotificationBar', () => {
-  beforeAll(() => {
-    initIcons()
-  })
-
   it('renders without crashing', () => {
     const wrapper = shallowWithIntl(<NotificationBar locale="en" notification={TEST_NOTIFICATION} />)
     expect(wrapper.exists()).toEqual(true)

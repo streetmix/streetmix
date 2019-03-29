@@ -88,7 +88,6 @@
   "night": {
     "name": "Night",
     "backgroundImage": "/images/stars.svg",
-    "backgroundColor": "#010516",
     "_commentBackgroundColor": "Fall back to solid color in case image is broken",
     "backgroundGradient": [
       [
@@ -108,13 +107,13 @@
         1
       ]
     ],
+    "backgroundColor": "#000928",
     "cloudOpacity": 0.2,
     "invertUITextColor": true
   },
   "supermoon": {
     "name": "Supermoon",
     "backgroundImage": "/images/stars.svg",
-    "backgroundColor": "#010516",
     "backgroundGradient": [
       [
         "#01051600",
@@ -133,6 +132,7 @@
         1
       ]
     ],
+    "backgroundColor": "#000928",
     "cloudOpacity": 0.2,
     "invertUITextColor": true
   },

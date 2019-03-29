@@ -8,12 +8,12 @@ exports.get = async function (req, res) {
     results = await Street.find({ 'data.street.location': { $ne: null }, status: 'ACTIVE' })
   } catch (err) {
     logger.error(err)
-    res.status(500).send('Could not find streets with locations.')
+    res.status(500).json({ status: 500, msg: 'Could not find streets with locations.' })
     return
   }
 
   if (!results) {
-    res.status(404).send('Could not find streets with locations.')
+    res.status(404).json({ status: 404, msg: 'Could not find streets with locations.' })
     return
   }
 

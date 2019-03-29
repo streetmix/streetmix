@@ -2,9 +2,6 @@
 import reducer, { MAX_UNDO_LIMIT } from '../undo'
 import * as actions from '../../actions/undo'
 
-// Prevent import errors during test
-jest.mock('../../../app/routing.js', () => {})
-
 describe('undo reducer', () => {
   it('creates a new undo', () => {
     expect(reducer(undefined, actions.createNewUndo({ foo: 'bar' })))

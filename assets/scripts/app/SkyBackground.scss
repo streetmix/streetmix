@@ -112,8 +112,12 @@ body.environment-animations {
   transition: opacity $environment-transition;
 }
 
-.sky-transition-out {
+.sky-background-current {
   opacity: 0;
+}
+
+.sky-background-current.sky-transition-in {
+  opacity: 1;
 }
 
 .sky-foreground {

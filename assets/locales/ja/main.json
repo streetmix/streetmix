@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "キーボードショートカット:",
-      "remove": "選択中のセグメントを削除します<br />(<kbd class='key'>Shift</kbd>を押すと全削除)",
-      "move": "ストリートを動かす<br />(<kbd class='key'>Shift</kbd> を押すと端に移動)",
-      "change": "選択中のセグメントの幅を変更<br />(<kbd class='key'>Shift</kbd>を押すと微調整可能)",
       "remove-instruction": "選択中のセグメントを削除します",
       "remove-shift-instruction": "({shiftKey}を押すと全削除)",
       "move-instruction": "ストリートを動かす",
@@ -188,6 +185,7 @@
       "option-labels": "セグメントの名称と幅",
       "option-name": "ストリートの名称",
       "option-sky": "空を透明化",
+      "option-watermark": "",
       "loading": "ロード中…",
       "save-button": "コンピュータに保存中…",
       "license": "Streetmixで作成した画像は <br><a href='{url}'>クリエイティブ・コモンズ 表示 - 継承 4.0 国際</a> のもとで自由にお使いいただけます。",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "アノニマス",
     "byline": "{user}さん作"
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。必要なものはブラウザだけです！ 街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",

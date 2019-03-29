@@ -70,8 +70,11 @@ body.read-only .street-metadata-author a {
   text-decoration: underline;
 }
 
-.street-metadata-invert-color {
-  color: #fff;
+// Invert the UI text color when there is a dark background
+body.dark-environs-invert-ui {
+  .street-metadata {
+    color: #fff;
+  }
 
   .street-width-under {
     color: #a0a0a0;

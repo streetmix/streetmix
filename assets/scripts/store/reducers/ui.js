@@ -3,21 +3,22 @@ import {
   HIDE_STREET_NAME_CANVAS,
   SET_UNIT_SETTINGS,
   SET_ACTIVE_SEGMENT,
+  INIT_DRAGGING_STATE,
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  SET_RESIZE_GUIDE_VISIBILITY,
   TOGGLE_TOOLBOX
 } from '../actions'
-import * as constants from '../../users/constants'
+import * as UserConstants from '../../users/constants'
+import * as SegmentConstants from '../../segments/constants'
 
 const initialState = {
   streetNameCanvasVisible: true,
   toolboxVisible: false,
   unitSettings: {
-    resolution: constants.SEGMENT_WIDTH_RESOLUTION_METRIC,
-    draggingResolution: constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
-    clickIncrement: constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
+    resolution: UserConstants.SEGMENT_WIDTH_RESOLUTION_METRIC,
+    draggingResolution: UserConstants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
+    clickIncrement: UserConstants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
   },
   activeSegment: null,
   draggingState: null,
@@ -38,13 +39,13 @@ const ui = (state = initialState, action) => {
         streetNameCanvasVisible: false
       }
     case SET_UNIT_SETTINGS:
-      const imperial = (action.unit === constants.SETTINGS_UNITS_IMPERIAL)
+      const imperial = (action.unit === UserConstants.SETTINGS_UNITS_IMPERIAL)
       return {
         ...state,
         unitSettings: {
-          resolution: (imperial) ? constants.SEGMENT_WIDTH_RESOLUTION_IMPERIAL : constants.SEGMENT_WIDTH_RESOLUTION_METRIC,
-          draggingResolution: (imperial) ? constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL : constants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
-          clickIncrement: (imperial) ? constants.SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL : constants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
+          resolution: (imperial) ? UserConstants.SEGMENT_WIDTH_RESOLUTION_IMPERIAL : UserConstants.SEGMENT_WIDTH_RESOLUTION_METRIC,
+          draggingResolution: (imperial) ? UserConstants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL : UserConstants.SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
+          clickIncrement: (imperial) ? UserConstants.SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL : UserConstants.SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
         }
       }
     case SET_ACTIVE_SEGMENT:
@@ -56,6 +57,16 @@ const ui = (state = initialState, action) => {
           ...state,
           activeSegment: action.position
         }
+      }
+    case INIT_DRAGGING_STATE:
+      return {
+        ...state,
+        draggingState: {
+          segmentBeforeEl: action.segmentBeforeEl,
+          segmentAfterEl: action.segmentAfterEl,
+          draggedSegment: action.draggedSegment
+        },
+        draggingType: action.draggingType
       }
     case UPDATE_DRAGGING_STATE:
       return {
@@ -69,17 +80,14 @@ const ui = (state = initialState, action) => {
     case CLEAR_DRAGGING_STATE:
       return {
         ...state,
-        draggingState: null
+        draggingState: null,
+        draggingType: SegmentConstants.DRAGGING_TYPE_NONE
       }
     case SET_DRAGGING_TYPE:
       return {
         ...state,
-        draggingType: action.draggingType
-      }
-    case SET_RESIZE_GUIDE_VISIBILITY:
-      return {
-        ...state,
-        resizeGuidesVisible: action.isVisible
+        draggingType: action.draggingType,
+        resizeGuidesVisible: (action.draggingType === SegmentConstants.DRAGGING_TYPE_RESIZE)
       }
     case TOGGLE_TOOLBOX:
       return {

@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "Teclas de acceso rápido:",
-      "remove": "Remover un segmento al que esté apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para remover todo)",
-      "move": "Moverse alrededor de la calle<br />(manten presionada la tecla  <kbd class='key'>Shift</kbd> para saltar a los bordes)",
-      "change": "Cambiar lo ancho de un segmento al que estés apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para más precision)",
       "remove-instruction": "Remover un segmento al que esté apuntando",
       "remove-shift-instruction": "(mantén presionada la tecla {shiftKey} para remover todo)",
       "move-instruction": "Moverse alrededor de la calle",
@@ -188,6 +185,7 @@
       "option-labels": "Anchos y nombres de segmentos",
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo Transparente",
+      "option-watermark": "",
       "loading": "Cargando…",
       "save-button": "Grabar en tu computador…",
       "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier propósito, bajo la licencia <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "Anonimo",
     "byline": ""
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "Diseña, mezcla y comparte la calle de tu barrio - ¡en todos los navegadores!. Agrega arboles o carriles para bicicletas, veredas mas amplias o carriles de circulacion. Analiza el impacto de tus decisiones en tu comunidad",

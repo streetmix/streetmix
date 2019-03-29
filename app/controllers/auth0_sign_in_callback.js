@@ -86,7 +86,7 @@ exports.get = function (req, res) {
   }
 
   const code = req.query.code
-  const redirectUri = config.restapi.protocol + config.app_host_port + config.auth0.callback_uri
+  const redirectUri = config.restapi.protocol + config.app_host_port + '/' + config.auth0.callback_path
   const options = {
     method: 'POST',
     url: config.auth0.token_api_url,

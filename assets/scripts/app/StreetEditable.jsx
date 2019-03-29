@@ -6,7 +6,7 @@ import flow from 'lodash/flow'
 import uuid from 'uuid'
 import Segment from '../segments/Segment'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH } from '../segments/constants'
+import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DRAGGING_TYPE_RESIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import {
@@ -14,8 +14,7 @@ import {
   canvasTarget,
   collectDropTarget,
   makeSpaceBetweenSegments,
-  isSegmentWithinCanvas,
-  DRAGGING_TYPE_RESIZE
+  isSegmentWithinCanvas
 } from '../segments/drag_and_drop'
 
 export class StreetEditable extends React.Component {
@@ -34,13 +33,14 @@ export class StreetEditable extends React.Component {
     connectDropTarget: PropTypes.func
   }
 
-  constructor (props) {
-    super(props)
+  // Internal "state", but does not affect renders, so it is not React state
+  withinCanvas = null
 
-    this.state = {
-      suppressMouseEnter: false
-    }
-  }
+  // Placeholder for a ref.
+  // TODO: Upgrade to createRef(), but this is currently broken when placed on
+  // an element inside of react-dnd's `connectDragSource`.
+  // Info: https://github.com/react-dnd/react-dnd/issues/998
+  streetSectionEditable = null
 
   componentDidMount () {
     this.props.setBuildingWidth(this.streetSectionEditable)
@@ -68,14 +68,15 @@ export class StreetEditable extends React.Component {
 
   updateWithinCanvas = (event) => {
     const withinCanvas = isSegmentWithinCanvas(event, this.streetSectionEditable)
+
     if (withinCanvas) {
       document.body.classList.remove('not-within-canvas')
     } else {
       document.body.classList.add('not-within-canvas')
     }
 
-    if (this.state.withinCanvas !== withinCanvas) {
-      this.setState({ withinCanvas })
+    if (this.withinCanvas !== withinCanvas) {
+      this.withinCanvas = withinCanvas
     }
   }
 
@@ -96,7 +97,6 @@ export class StreetEditable extends React.Component {
     el.style.left = el.savedLeft + 'px'
 
     this.props.updatePerspective(el)
-    this.setState({ suppressMouseEnter: true })
   }
 
   calculateSegmentPos = (dataNo) => {
@@ -118,7 +118,7 @@ export class StreetEditable extends React.Component {
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
 
-    if (draggingState && this.state.withinCanvas) {
+    if (draggingState && this.withinCanvas) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
       return Math.round(mainLeft + currPos + spaceBetweenSegments)
@@ -154,7 +154,6 @@ export class StreetEditable extends React.Component {
           classNames="switching-away"
           exit={!(immediateRemoval)}
           onExit={this.switchSegmentAway}
-          onExited={() => { this.setState({ suppressMouseEnter: false }) }}
           unmountOnExit
         >
           <Segment
@@ -164,7 +163,6 @@ export class StreetEditable extends React.Component {
             actualWidth={segment.width}
             units={units}
             segmentPos={segmentPos}
-            suppressMouseEnter={this.state.suppressMouseEnter}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />

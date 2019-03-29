@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "Tastatur-Shortcuts:",
-      "remove": "Entferne das Element, auf das du zeigst <br />(halte <kbd class='key'>Shift</kbd> gedrückt, um alle zu entfernen)",
-      "move": "Bewege dich auf der Straße <br /> (halte <kbd class='key'>Shift</kbd> gedrückt, um zu den Kanten zu springen)",
-      "change": "Ändere die Breite des Elements, auf das du zeigst <br />(halte <kbd class='key'>Shift</kbd> gedrückt für eine höhere Genauigkeit)",
       "remove-instruction": "Entferne das Element, auf das du zeigst",
       "remove-shift-instruction": "(halte {shiftKey} gedrückt, um alle zu entfernen)",
       "move-instruction": "Bewege dich auf der Straße",
@@ -188,6 +185,7 @@
       "option-labels": "Namen und Breiten der Elemente",
       "option-name": "Straßenname",
       "option-sky": "Transparenter Himmel",
+      "option-watermark": "",
       "loading": "Laden…",
       "save-button": "Auf deinem Computer speichern…",
       "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der <br><a href='{url}'>Creative Commons Namensnennung - Share Alike 4.0 international Linzenz</a> verwendet werden.",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "Anonym",
     "byline": "erstellt von {user}"
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "Gestalte, remixe und teile die Straßen in deiner Nachbarschaft - einfach in deinem Browser! Füge Bäume oder Radwege hinzu, verbreitere Gehwege oder Fahrstreifen, und erfahre, wie deine Entscheidungen deine Gemeinde beeinflussen können.",

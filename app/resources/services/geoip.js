@@ -10,7 +10,7 @@ const IP_GEOLOCATION_TIMEOUT = 500
 exports.get = function (req, res) {
   // Prevent this service from being accessed by third parties
   if (req.headers.referer === undefined || new URL(req.headers.referer).host !== config.app_host_port) {
-    res.status(403).json({ status: 403, error: 'I’m sorry — you do not have access to this service.' })
+    res.status(403).json({ status: 403, msg: 'I’m sorry — you do not have access to this service.' })
     return
   }
 
@@ -21,7 +21,7 @@ exports.get = function (req, res) {
       ' cannot be fulfilled because the ' + chalk.gray('IPSTACK_API_KEY') +
       ' environment variable is not set.'
     ))
-    res.status(500).json({ status: 500, error: 'The server does not have access to the IP geolocation provider.' })
+    res.status(500).json({ status: 500, msg: 'The server does not have access to the IP geolocation provider.' })
     return
   }
 
@@ -33,7 +33,7 @@ exports.get = function (req, res) {
     request(url, { timeout: IP_GEOLOCATION_TIMEOUT }, function (error, response, body) {
       if (error) {
         logger.error(error)
-        res.status(503).json({ status: 503, error: 'The IP geolocation provider is unavailable.' })
+        res.status(503).json({ status: 503, msg: 'The IP geolocation provider is unavailable.' })
         return
       }
 
@@ -45,7 +45,7 @@ exports.get = function (req, res) {
       // not contain the `success` property. It is only present when it fails.
       if (data.success === false) {
         logger.error(data)
-        res.status(500).json({ status: 500, error: 'The IP geolocation provider returned an error.' })
+        res.status(500).json({ status: 500, msg: 'The IP geolocation provider returned an error.' })
         return
       }
 

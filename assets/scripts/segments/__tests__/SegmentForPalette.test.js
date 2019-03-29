@@ -7,7 +7,6 @@ import { getVariantInfoDimensions } from '../view'
 import { generateRandSeed } from '../../util/random'
 import { IntlProvider } from 'react-intl'
 
-jest.mock('../../app/routing')
 jest.mock('../../streets/data_model', () => {})
 jest.mock('../info')
 jest.mock('../view')

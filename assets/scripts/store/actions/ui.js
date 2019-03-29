@@ -3,10 +3,10 @@ import {
   HIDE_STREET_NAME_CANVAS,
   SET_UNIT_SETTINGS,
   SET_ACTIVE_SEGMENT,
+  INIT_DRAGGING_STATE,
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  SET_RESIZE_GUIDE_VISIBILITY,
   TOGGLE_TOOLBOX
 } from './index'
 
@@ -37,6 +37,20 @@ export function setActiveSegment (position) {
   }
 }
 
+/**
+ * Inititalizes a dragging state with a provided `draggingType`.
+ * This initalizes both `draggingState` and `draggingType` in the reducer in one dispatched action,
+ * so you shouldn't need to call `setDraggingType` and `updateDraggingState` simultaneously.
+ *
+ * @param {Number} draggingType
+ */
+export function initDraggingState (draggingType) {
+  return {
+    type: INIT_DRAGGING_STATE,
+    draggingType
+  }
+}
+
 export function updateDraggingState (segmentBeforeEl, segmentAfterEl, draggedSegment) {
   return {
     type: UPDATE_DRAGGING_STATE,
@@ -56,18 +70,6 @@ export function setDraggingType (draggingType) {
   return {
     type: SET_DRAGGING_TYPE,
     draggingType
-  }
-}
-
-/**
- * Shows or hides min/max resize guides
- *
- * @param {Boolean} isVisible - whether the guides are visible
- */
-export function setResizeGuideVisibility (isVisible) {
-  return {
-    type: SET_RESIZE_GUIDE_VISIBILITY,
-    isVisible
   }
 }
 

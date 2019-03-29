@@ -17,7 +17,7 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 // TODO: a way to remove the circular dependency?!
 export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
-export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName, dpi = SAVE_AS_IMAGE_DPI) {
+export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName, dpi = SAVE_AS_IMAGE_DPI, watermark = true) {
   const width = (TILE_SIZE * street.width) + (BUILDING_SPACE * 2)
 
   const leftHeight = getBuildingImageHeight(street.leftBuildingVariant, 'left', street.leftBuildingHeight)
@@ -45,18 +45,19 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
 
   const ctx = el.getContext('2d')
 
-  drawStreetThumbnail(ctx, street, width, height, dpi, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName)
+  drawStreetThumbnail(ctx, street, width, height, dpi, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName, watermark)
 
   return el
 }
 
-// Save thumbnail if necessary every 5 minutes (300000 ms)
-const SAVE_THUMBNAIL_TIME_INTERVAL = 300000
+// Save thumbnail if necessary every 30 minutes (1800000 ms)
+const SAVE_THUMBNAIL_TIME_INTERVAL = 1800000
 let _lastSavedTimestamp
 let _savedThumbnail
 
 export function isThumbnailSaved () {
-  return _savedThumbnail
+  // return _savedThumbnail
+  return true
 }
 
 export function initStreetThumbnailSubscriber () {
@@ -83,7 +84,7 @@ export function initStreetThumbnailSubscriber () {
 export async function saveStreetThumbnail (street) {
   if (_savedThumbnail) return
 
-  const thumbnail = getStreetImage(street, false, false, true, 2.0)
+  const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
 
   try {
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
@@ -100,14 +101,16 @@ export async function saveStreetThumbnail (street) {
     }
 
     const response = await window.fetch(url, options)
-
     if (response.ok) {
       console.log('Updated street thumbnail.')
       _lastSavedTimestamp = Date.now()
       _savedThumbnail = true
+    } else {
+      const results = await response.json()
+      throw new Error(results.msg)
     }
   } catch (err) {
-    console.log('Unable to save street thumbnail', err)
+    console.log('Unable to save street thumbnail. ', err)
   }
 }
 

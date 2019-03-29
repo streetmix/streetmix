@@ -12,8 +12,10 @@ import {
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
-import { initStreetThumbnailSubscriber } from '../streets/image'
+import { saveStreetThumbnail } from '../streets/image'
 import { initStreetDataChangedListener } from '../streets/street'
+import { initEnvironsChangedListener } from '../streets/environs'
+import { initDragTypeSubscriber } from '../segments/drag_and_drop'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
@@ -124,8 +126,12 @@ function onEverythingLoaded () {
   initStreetDataChangedListener()
   initializeFlagSubscribers()
   initPersistedSettingsStoreObserver()
-  initStreetThumbnailSubscriber()
+  // initStreetThumbnailSubscriber()
+  saveStreetThumbnail(store.getState().street)
+
   initStreetNameChangeListener()
+  initEnvironsChangedListener()
+  initDragTypeSubscriber()
 
   addEventListeners()
 

@@ -86,11 +86,6 @@ describe('Segment', () => {
       wrapper.setProps({ isDragging: false })
       expect(infoBubble.considerShowing).toHaveBeenCalledTimes(1)
     })
-    it('when the mouseEnter is suppressed', () => {
-      const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} suppressMouseEnter />)
-      wrapper.setProps({ suppressMouseEnter: false })
-      expect(infoBubble.considerShowing).toHaveBeenCalledTimes(2) // should probably only be 1
-    })
   })
   it('renders the units correctly', () => {
     const wrapper = shallow(<Segment connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} segment={segment} actualWidth={1} updateSegmentData={updateSegmentData} connectDragPreview={connectDragPreview} units={SETTINGS_UNITS_IMPERIAL} cssTransform={'transform'} segmentPos={1} />)

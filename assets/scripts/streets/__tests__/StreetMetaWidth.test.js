@@ -4,7 +4,6 @@ import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme
 import { StreetMetaWidthWithIntl as StreetMetaWidth } from '../StreetMetaWidth'
 
 jest.mock('../../app/load_resources', () => {})
-jest.mock('../../app/routing', () => {})
 jest.mock('../../preinit/app_settings', () => {})
 jest.mock('../../app/initialization', () => {})
 

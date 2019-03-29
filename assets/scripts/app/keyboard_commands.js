@@ -4,12 +4,8 @@ import USER_ROLES from '../../../app/data/user_roles'
 import { KEYS } from './keys'
 import { ENV } from './config'
 import { registerKeypress } from './keypress'
-import {
-  draggingType,
-  DRAGGING_TYPE_RESIZE,
-  DRAGGING_TYPE_MOVE,
-  handleSegmentMoveCancel
-} from '../segments/drag_and_drop'
+import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
+import { handleSegmentMoveCancel } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { showStatusMessage } from './status_message'
@@ -19,11 +15,13 @@ import { undo, redo } from '../store/actions/undo'
 import store from '../store'
 
 export function onGlobalKeyDown (event) {
+  const { draggingType } = store.getState().ui
+
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (draggingType() === DRAGGING_TYPE_RESIZE) {
+      if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()
-      } else if (draggingType() === DRAGGING_TYPE_MOVE) {
+      } else if (draggingType === DRAGGING_TYPE_MOVE) {
         handleSegmentMoveCancel()
       } else {
         return

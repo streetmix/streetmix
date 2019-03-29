@@ -22,23 +22,25 @@ import {
   cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantArray, getVariantString } from './variant_utils'
-import { TILE_SIZE, MIN_SEGMENT_WIDTH, DRAGGING_MOVE_HOLE_WIDTH } from './constants'
+import {
+  TILE_SIZE,
+  MIN_SEGMENT_WIDTH,
+  DRAGGING_MOVE_HOLE_WIDTH,
+  DRAGGING_TYPE_NONE,
+  DRAGGING_TYPE_MOVE,
+  DRAGGING_TYPE_RESIZE
+} from './constants'
 import { segmentsChanged } from './view'
-import store from '../store'
+import store, { observeStore } from '../store'
 import { addSegment, removeSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import {
+  initDraggingState,
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
-  setDraggingType,
-  setResizeGuideVisibility
+  setDraggingType
 } from '../store/actions/ui'
-
-export const DRAGGING_TYPE_NONE = 0
-const DRAGGING_TYPE_CLICK_OR_MOVE = 1
-export const DRAGGING_TYPE_MOVE = 2
-export const DRAGGING_TYPE_RESIZE = 3
 
 export var draggingResize = {
   segmentEl: null,
@@ -53,20 +55,24 @@ export var draggingResize = {
   right: false
 }
 
-export function changeDraggingType (newDraggingType) {
-  store.dispatch(setDraggingType(newDraggingType))
+export function initDragTypeSubscriber () {
+  const select = (state) => state.ui.draggingType
 
-  document.body.classList.remove('segment-move-dragging')
-  document.body.classList.remove('segment-resize-dragging')
+  const onChange = (draggingType) => {
+    document.body.classList.remove('segment-move-dragging')
+    document.body.classList.remove('segment-resize-dragging')
 
-  switch (newDraggingType) {
-    case DRAGGING_TYPE_RESIZE:
-      document.body.classList.add('segment-resize-dragging')
-      break
-    case DRAGGING_TYPE_MOVE:
-      document.body.classList.add('segment-move-dragging')
-      break
+    switch (draggingType) {
+      case DRAGGING_TYPE_RESIZE:
+        document.body.classList.add('segment-resize-dragging')
+        break
+      case DRAGGING_TYPE_MOVE:
+        document.body.classList.add('segment-move-dragging')
+        break
+    }
   }
+
+  return observeStore(select, onChange)
 }
 
 function handleSegmentResizeStart (event) {
@@ -87,7 +93,7 @@ function handleSegmentResizeStart (event) {
 
   var el = event.target
 
-  changeDraggingType(DRAGGING_TYPE_RESIZE)
+  store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
 
   var pos = getElAbsolutePos(el)
 
@@ -118,8 +124,6 @@ function handleSegmentResizeStart (event) {
   draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')
-
-  store.dispatch(setResizeGuideVisibility(true))
 
   infoBubble.hide()
   infoBubble.hideSegment(true)
@@ -395,10 +399,6 @@ export function onBodyMouseUp (event) {
   switch (draggingType) {
     case DRAGGING_TYPE_NONE:
       return
-    case DRAGGING_TYPE_CLICK_OR_MOVE:
-      changeDraggingType(DRAGGING_TYPE_NONE)
-      setIgnoreStreetChanges(false)
-      break
     case DRAGGING_TYPE_RESIZE:
       handleSegmentResizeEnd(event)
       break
@@ -408,15 +408,12 @@ export function onBodyMouseUp (event) {
 }
 
 function handleSegmentDragStart () {
-  changeDraggingType(DRAGGING_TYPE_MOVE)
-
   infoBubble.hide()
   cancelFadeoutControls()
   hideControls()
 }
 
 function handleSegmentDragEnd () {
-  changeDraggingType(DRAGGING_TYPE_NONE)
   oldDraggingState = null
   cancelSegmentResizeTransitions()
   segmentsChanged(false)
@@ -440,6 +437,8 @@ export const segmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+
+    store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
 
     return {
       dataNo: props.dataNo,
@@ -477,9 +476,12 @@ export const paletteSegmentSource = {
 
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
+
     // Initialize an empty draggingState object in Redux for palette segments in order to
     // add event listener in StreetEditable once dragging begins.
-    store.dispatch(updateDraggingState())
+    // Also set the dragging type to MOVE. We use one action creator here and one
+    // dispatch to reduce batch renders.
+    store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
     const segmentInfo = getSegmentInfo(props.type)
 
@@ -619,7 +621,6 @@ export const segmentTarget = {
 function handleSegmentCanvasDrop (draggedItem, type) {
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
-  store.dispatch(clearDraggingState())
   // If dropped in same position as dragged segment was before, return
   if (segmentBeforeEl === draggedSegment && segmentAfterEl === undefined) {
     store.dispatch(setActiveSegment(draggedSegment))
@@ -684,6 +685,7 @@ export const canvasTarget = {
   drop (props, monitor, component) {
     const draggedItem = monitor.getItem()
     const draggedItemType = monitor.getItemType()
+
     handleSegmentCanvasDrop(draggedItem, draggedItemType)
 
     return { withinCanvas: true }

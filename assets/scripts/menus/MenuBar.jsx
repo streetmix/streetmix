@@ -9,16 +9,12 @@ import { doSignIn } from '../users/authentication'
 import { clearMenus } from '../store/actions/menus'
 import './MenuBar.scss'
 
-class MenuBar extends React.PureComponent {
+class MenuBar extends React.Component {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
-    userId: PropTypes.string,
+    user: PropTypes.object,
     clearMenus: PropTypes.func,
     noInternet: PropTypes.bool
-  }
-
-  static defaultProps = {
-    userId: ''
   }
 
   componentDidMount () {
@@ -58,11 +54,11 @@ class MenuBar extends React.PureComponent {
     } }))
   }
 
-  renderUserAvatar = (userId) => {
-    return (userId)
+  renderUserAvatar = (user) => {
+    return (user)
       ? (
         <li>
-          <AvatarMenu userId={userId} onClick={this.onClickMenuButton('identity')} />
+          <AvatarMenu user={user} onClick={this.onClickMenuButton('identity')} />
         </li>
       ) : (
         <li>
@@ -72,7 +68,7 @@ class MenuBar extends React.PureComponent {
   }
 
   render () {
-    const userId = this.props.userId
+    const { user } = this.props
 
     return (
       <nav className="menu-bar">
@@ -104,7 +100,7 @@ class MenuBar extends React.PureComponent {
           />
           <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.onClickMenuButton('settings')} />
           <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
-          {!this.props.noInternet && this.renderUserAvatar(userId)}
+          {!this.props.noInternet && this.renderUserAvatar(user)}
         </ul>
         <EnvironmentBadge />
       </nav>
@@ -114,7 +110,7 @@ class MenuBar extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    userId: state.user.signInData && state.user.signInData.userId,
+    user: (state.user.signInData && state.user.signInData.details) || null,
     noInternet: state.system.noInternet
   }
 }

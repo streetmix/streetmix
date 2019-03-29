@@ -15,9 +15,6 @@
     },
     "help": {
       "keyboard-label": "Raccourcis claviers :",
-      "remove": "Enlever un élément de voirie que vous pointez<br /> (maintenir la touche <kbd class='key'>Shift</kbd> enfoncée pour tout enlever)",
-      "move": "Passer d'un segment de rue à un autre<br />(maintenir <kbd class='key'>Shift</kbd> appuyé pour atteindre les extrémités)",
-      "change": "Changer la largeur d'un élément de voirie pointé<br />(maintenir <kbd class='key'>Shift</kbd>pour plus de précision)",
       "remove-instruction": "Enlever un élément de voirie que vous pointez",
       "remove-shift-instruction": "(maintenir la touche {shiftKey} enfoncée pour tout enlever)",
       "move-instruction": "Passer d'un segment de rue à un autre",
@@ -188,6 +185,7 @@
       "option-labels": "Les noms des éléments de voirie et leurs largeurs",
       "option-name": "Nom de rue",
       "option-sky": "Ciel transparent",
+      "option-watermark": "",
       "loading": "Chargement…",
       "save-button": "Enregistrer sur votre ordinateur…",
       "license": "Cette image créée sur Streetmix peut être réutilisée n'importe où, pour n'importe quel usage, sous la <br><a href='{url}'>Licence Creative Commons Attribution - Partage dans les Mêmes Conditions 4.0 International</a>.",
@@ -215,7 +213,7 @@
     },
     "sign-in": {
       "heading": "Se connecter / S'inscrire",
-      "description": "Sauvegarder votre premier concept ou connectez-vous pour accéder à vos concepts précédents",
+      "description": "Sauvegarder votre premier concept ou connectez-vous pour accéder à vos concepts précédents.",
       "email-label": "Courriel",
       "email-description": "Nous vous enverrons un lien pour vous connecter. Aucun mot de passe n'est nécessaire.",
       "email-invalid": "Oops! Il semblerait que ce ne soit pas une adresse courriel valide. Veuillez essayer de nouveau.",
@@ -226,7 +224,7 @@
         "google": "Continuer avec Google",
         "facebook": "Continuer avec Facebook"
       },
-      "tos": "En cliquant sur l'un de ces boutons, j'accepte les {tosLink}et la {privacyLink}.",
+      "tos": "En cliquant sur l'un de ces boutons, j'accepte les {tosLink} et la {privacyLink}.",
       "tos-link-label": "conditions d'utilisation (en)",
       "privacy-link-label": "politique de confidentialité (en)",
       "loading-message": "Connexion en cours ...",
@@ -332,6 +330,9 @@
   "users": {
     "anonymous": "Anonyme",
     "byline": "par {user}"
+  },
+  "export": {
+    "watermark": ""
   },
   "meta": {
     "description": "Concevez, remixez et partagez la rue de votre quartier - le tout dans votre navigateur ! Ajoutez des arbres ou des pistes cyclables, élargissez des trottoirs ou des routes. Découvrez comment vos décisions peuvent impacter votre communauté.",
