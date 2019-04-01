@@ -55,6 +55,14 @@ const SAVE_THUMBNAIL_TIME_INTERVAL = 1800000
 let _lastSavedTimestamp
 let _savedThumbnail
 
+export const SAVE_THUMBNAIL_EVENTS = {
+  INITIAL: 'INITIAL',
+  SHARE: 'SHARE',
+  TIMER: 'TIMER',
+  BEFOREUNLOAD: 'BEFOREUNLOAD',
+  PREVIOUS_STREET: 'PREVIOUS_STREET'
+}
+
 export function isThumbnailSaved () {
   // return _savedThumbnail
   return true
@@ -69,11 +77,11 @@ export function initStreetThumbnailSubscriber () {
   const onChange = (street) => {
     const timestamp = Date.now()
     const timeElapsed = timestamp - _lastSavedTimestamp
+    _savedThumbnail = false
 
     if (!_lastSavedTimestamp || timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
-      saveStreetThumbnail(JSON.parse(street))
-    } else {
-      _savedThumbnail = false
+      const event = (!_lastSavedTimestamp) ? SAVE_THUMBNAIL_EVENTS.INITIAL : SAVE_THUMBNAIL_EVENTS.TIMER
+      saveStreetThumbnail(JSON.parse(street), event)
     }
   }
 
@@ -81,7 +89,7 @@ export function initStreetThumbnailSubscriber () {
 }
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
-export async function saveStreetThumbnail (street) {
+export async function saveStreetThumbnail (street, event) {
   if (_savedThumbnail) return
 
   const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
@@ -89,11 +97,13 @@ export async function saveStreetThumbnail (street) {
   try {
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     const dataUrl = thumbnail.toDataURL('image/png')
+    const details = { image: dataUrl, event }
+
     const url = API_URL + 'v1/streets/images/' + street.id
 
     const options = {
       method: 'POST',
-      body: dataUrl,
+      body: JSON.stringify(details),
       headers: {
         'Authorization': getAuthHeader(),
         'Content-Type': 'text/plain'
@@ -101,13 +111,18 @@ export async function saveStreetThumbnail (street) {
     }
 
     const response = await window.fetch(url, options)
+    _lastSavedTimestamp = Date.now()
+
     if (response.ok) {
       console.log('Updated street thumbnail.')
-      _lastSavedTimestamp = Date.now()
       _savedThumbnail = true
     } else {
       const results = await response.json()
-      throw new Error(results.msg)
+      // For now, we are only saving street thumbnails once (when the street first renders)
+      // Any other situation (i.e. timer, share menu) returns an error that does not need to be logged.
+      if (results.status !== 412) {
+        throw new Error(results.msg)
+      }
     }
   } catch (err) {
     console.log('Unable to save street thumbnail. ', err)
