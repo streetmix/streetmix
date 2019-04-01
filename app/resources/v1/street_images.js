@@ -3,11 +3,13 @@ const config = require('config')
 const User = require('../../models/user.js')
 const Street = require('../../models/street.js')
 const logger = require('../../../lib/logger.js')()
+const { SAVE_THUMBNAIL_EVENTS } = require('../../../lib/util.js')
 
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
 exports.post = async function (req, res) {
-  const image = req.body
+  const json = JSON.parse(req.body)
+  const { image, event } = json
 
   if (!image) {
     res.status(400).json({ status: 400, msg: 'Image data not specified.' })
@@ -16,6 +18,13 @@ exports.post = async function (req, res) {
 
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
+    return
+  }
+
+  logger.info({ event, streetId: req.params.street_id }, 'Uploading street thumbnail.')
+
+  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL) {
+    res.status(412).json({ status: 412, msg: 'Only saving initial street rendered thumbnail.' })
     return
   }
 
