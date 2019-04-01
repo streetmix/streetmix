@@ -8,7 +8,15 @@ const { SAVE_THUMBNAIL_EVENTS } = require('../../../lib/util.js')
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
 exports.post = async function (req, res) {
-  const json = JSON.parse(req.body)
+  let json
+
+  try {
+    json = await JSON.parse(req.body)
+  } catch (error) {
+    res.status(400).send('Could not parse body as JSON.')
+    return
+  }
+
   const { image, event } = json
 
   if (!image) {
@@ -23,7 +31,7 @@ exports.post = async function (req, res) {
 
   logger.info({ event, streetId: req.params.street_id }, 'Uploading street thumbnail.')
 
-  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL) {
+  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
     res.status(412).json({ status: 412, msg: 'Only saving initial street rendered thumbnail.' })
     return
   }
