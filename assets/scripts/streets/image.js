@@ -4,7 +4,7 @@ import { getAuthHeader } from '../users/authentication'
 import { drawStreetThumbnail } from '../gallery/thumbnail'
 import { BUILDING_SPACE, getBuildingImageHeight } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
-import { observeStore } from '../store'
+import store, { observeStore } from '../store'
 
 // This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0
@@ -69,19 +69,22 @@ export function isThumbnailSaved () {
 }
 
 export function initStreetThumbnailSubscriber () {
+  // Save street thumbnail on initial street render.
+  saveStreetThumbnail(trimStreetData(store.getState().street), SAVE_THUMBNAIL_EVENTS.INITIAL)
+
   const select = (state) => {
-    const currData = trimStreetData(state.street)
-    return JSON.stringify(currData)
+    return state.street.editCount
   }
 
-  const onChange = (street) => {
+  const onChange = () => {
     const timestamp = Date.now()
     const timeElapsed = timestamp - _lastSavedTimestamp
     _savedThumbnail = false
 
-    if (!_lastSavedTimestamp || timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
-      const event = (!_lastSavedTimestamp) ? SAVE_THUMBNAIL_EVENTS.INITIAL : SAVE_THUMBNAIL_EVENTS.TIMER
-      saveStreetThumbnail(JSON.parse(street), event)
+    // Save street thumbnail every 30 minutes if any changes to street.
+    if (timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
+      const street = trimStreetData(store.getState().street)
+      saveStreetThumbnail(street, SAVE_THUMBNAIL_EVENTS.TIMER)
     }
   }
 
