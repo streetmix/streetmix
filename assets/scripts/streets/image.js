@@ -123,7 +123,7 @@ export async function saveStreetThumbnail (street, event) {
       const results = await response.json()
       // For now, we are only saving street thumbnails once (when the street first renders)
       // Any other situation (i.e. timer, share menu) returns an error that does not need to be logged.
-      if (results.status !== 412) {
+      if (results.status !== 501) {
         throw new Error(results.msg)
       }
     }
