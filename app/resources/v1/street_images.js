@@ -32,7 +32,7 @@ exports.post = async function (req, res) {
     return
   }
 
-  const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
+  const publicId = `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
   logger.info({ event, street_type: streetType, public_id: publicId }, 'Uploading street thumbnail.')
 
   if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
@@ -64,6 +64,19 @@ exports.post = async function (req, res) {
     logger.error(error)
   }
 
+  const handleUploadSuccess = function (resource) {
+    const thumbnail = {
+      public_id: resource.public_id,
+      width: resource.width,
+      height: resource.height,
+      format: resource.format,
+      secure_url: resource.secure_url,
+      created_at: resource.created_at
+    }
+
+    res.status(201).json(thumbnail)
+  }
+
   const handleUploadStreetThumbnail = async function (publicId) {
     if (!publicId) {
       res.status(400).json({ status: 400, msg: 'Please provide the public ID to be used.' })
@@ -81,16 +94,7 @@ exports.post = async function (req, res) {
       return
     }
 
-    const thumbnail = {
-      public_id: resource.public_id,
-      width: resource.width,
-      height: resource.height,
-      format: resource.format,
-      secure_url: resource.secure_url,
-      created_at: resource.created_at
-    }
-
-    res.status(201).json(thumbnail)
+    return resource
   }
 
   const handleFindStreetWithCreator = async function (street) {
@@ -128,15 +132,20 @@ exports.post = async function (req, res) {
     res.status(500).end()
   }
 
-  // 3a) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
-  // 3b) If street was created by anonymous user, upload to Cloudinary.
-  if (!resource || (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)) {
+  // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
+  if (streetType && resource) {
+    handleUploadSuccess(resource)
+  } else if (!resource || (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)) {
+    // 3b) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
+    // 3c) If street was created by anonymous user, upload to Cloudinary.
     handleUploadStreetThumbnail(publicId)
+      .then(handleUploadSuccess)
       .catch(handleError)
   } else if (street.creator_id) {
     // 3c) If street thumbnail already exists and street was created by a user, check if signed in user = creator.
     handleFindStreetWithCreator(street)
       .then(handleUploadStreetThumbnail)
+      .then(handleUploadSuccess)
       .catch(handleError)
   } else {
     res.status(403).json({ status: 403, msg: 'User does not have the right permissions to upload street thumbnail.' })
