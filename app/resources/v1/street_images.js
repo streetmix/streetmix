@@ -17,7 +17,7 @@ exports.post = async function (req, res) {
     return
   }
 
-  const { image, event } = json
+  const { image, event, streetType } = json
 
   if (!image) {
     res.status(400).json({ status: 400, msg: 'Image data not specified.' })
@@ -29,7 +29,7 @@ exports.post = async function (req, res) {
     return
   }
 
-  logger.info({ event, streetId: req.params.street_id }, 'Uploading street thumbnail.')
+  logger.info({ event, street_type: streetType, street_id: req.params.street_id }, 'Uploading street thumbnail.')
 
   if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
     res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })

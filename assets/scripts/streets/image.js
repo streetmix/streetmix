@@ -102,6 +102,12 @@ export async function saveStreetThumbnail (street, event) {
     const dataUrl = thumbnail.toDataURL('image/png')
     const details = { image: dataUrl, event }
 
+    // Check if street is default or empty street.
+    if (street.editCount === 0) {
+      const streetType = (street.segments.length) ? 'DEFAULT' : 'EMPTY'
+      details.streetType = streetType
+    }
+
     const url = API_URL + 'v1/streets/images/' + street.id
 
     const options = {
