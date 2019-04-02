@@ -29,7 +29,8 @@ exports.post = async function (req, res) {
     return
   }
 
-  logger.info({ event, street_type: streetType, street_id: req.params.street_id }, 'Uploading street thumbnail.')
+  const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
+  logger.info({ event, street_type: streetType, public_id: publicId }, 'Uploading street thumbnail.')
 
   if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
     res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
@@ -53,7 +54,6 @@ exports.post = async function (req, res) {
 
   // 2) Check if street thumbnail exists.
   let resource
-  const publicId = `${config.env}/street_thumbnails/${street.id}`
 
   try {
     resource = await cloudinary.v2.api.resource(publicId)
