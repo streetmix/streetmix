@@ -56,7 +56,7 @@ exports.post = async function (req, res) {
   const publicId = `${config.env}/street_thumbnails/${street.id}`
 
   try {
-    resource = cloudinary.v2.api.resource(publicId)
+    resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     logger.error(error)
   }
