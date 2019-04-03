@@ -3,11 +3,24 @@ const config = require('config')
 const User = require('../../models/user.js')
 const Street = require('../../models/street.js')
 const logger = require('../../../lib/logger.js')()
+const { SAVE_THUMBNAIL_EVENTS } = require('../../../lib/util.js')
 
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
 exports.post = async function (req, res) {
-  const image = req.body
+  let json
+
+  // The request payload is a stringified JSON due to the data URL for the street thumbnail being too large.
+  // Setting the bodyParser.text({ limit }) works for a specific route whereas bodyParser.json({ limit }) does not.
+  // As a result of sending the request payload as `text/plain` we have to parse the JSON string to access the object values.
+  try {
+    json = await JSON.parse(req.body)
+  } catch (error) {
+    res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
+    return
+  }
+
+  const { image, event, streetType } = json
 
   if (!image) {
     res.status(400).json({ status: 400, msg: 'Image data not specified.' })
@@ -16,6 +29,14 @@ exports.post = async function (req, res) {
 
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
+    return
+  }
+
+  const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
+  logger.info({ event, street_type: streetType, public_id: publicId }, 'Uploading street thumbnail.')
+
+  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
+    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
     return
   }
 
@@ -36,10 +57,9 @@ exports.post = async function (req, res) {
 
   // 2) Check if street thumbnail exists.
   let resource
-  const publicId = `${config.env}/street_thumbnails/${street.id}`
 
   try {
-    resource = cloudinary.v2.api.resource(publicId)
+    resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     logger.error(error)
   }
