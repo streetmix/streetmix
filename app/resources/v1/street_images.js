@@ -10,6 +10,9 @@ const ALLOW_ANON_STREET_THUMBNAILS = false
 exports.post = async function (req, res) {
   let json
 
+  // The request payload is a stringified JSON due to the data URL for the street thumbnail being too large.
+  // Setting the bodyParser.text({ limit }) works for a specific route whereas bodyParser.json({ limit }) does not.
+  // As a result of sending the request payload as `text/plain` we have to parse the JSON string to access the object values.
   try {
     json = await JSON.parse(req.body)
   } catch (error) {
