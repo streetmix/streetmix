@@ -13,7 +13,7 @@ exports.post = async function (req, res) {
   try {
     json = await JSON.parse(req.body)
   } catch (error) {
-    res.status(400).send('Could not parse body as JSON.')
+    res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
     return
   }
 
