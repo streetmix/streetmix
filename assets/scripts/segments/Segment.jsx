@@ -34,7 +34,7 @@ import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
-import { incrementSegmentWidth, removeSegment as removeSegmentAction } from '../store/actions/street'
+import { incrementSegmentWidth, removeSegment as removeSegmentAction, clearSegments } from '../store/actions/street'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -57,6 +57,7 @@ export class Segment extends React.Component {
     resolution: PropTypes.number,
     incrementSegmentWidth: PropTypes.func,
     removeSegment: PropTypes.func,
+    clearSegments: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -181,8 +182,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    this.props.incrementSegmentWidth(position, true, finetune, actualWidth)
+    this.props.incrementSegmentWidth(position, true, finetune, RESIZE_TYPE_INITIAL)
   }
 
   handleKeyDown = (event) => {
@@ -213,6 +213,7 @@ export class Segment extends React.Component {
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey === true) {
           removeAllSegments()
+          this.props.clearSegments()
           trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'KEYBOARD', null, true)
         } else {
           removeSegment(this.props.dataNo)
@@ -328,6 +329,7 @@ function mapDispatchToProps (dispatch, ownProps) {
   return {
     setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
     removeSegment: (position) => { dispatch(removeSegmentAction(position)) },
+    clearSegments: () => { dispatch(clearSegments()) },
     incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType))
   }
 }

@@ -45,7 +45,7 @@ describe('Segment', () => {
     variantString = 'inbound|regular'
     type = 'streetcar'
     variant = SEGMENT_INFO[type].details[variantString]
-    currentWidth = 400
+    currentWidth = 200
     increment = 1
     activeElement = 0
     segment = { type, variantString, segmentType: type, id: '1', width: currentWidth, randSeed: 1 }
@@ -77,18 +77,33 @@ describe('Segment', () => {
     expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
   describe('keyboard events', () => {
-    it('updates the store when reducing the width of the segment via keyboard', () => {
+    it('KEY.MINUS decreases the width of the segment', () => {
       const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Minus', keyCode: KEYS.MINUS, code: KEYS.MINUS, charCode: KEYS.MINUS })
       expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth - increment)
     })
-    it('removes the store when reducing the width of the segment via keyboard', () => {
+    it('KEY.EQUAL increases the width of the segment', () => {
+      const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+      fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+      fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
+      expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth + increment)
+    })
+    it('removes segment when delete key is pressed', () => {
       const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
       setLastStreet() // ToDo: needs to be refactored
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Delete', keyCode: KEYS.DELETE, code: KEYS.DELETE, charCode: KEYS.DELETE })
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
+      expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
+      expect(wrapper.store.getState().street.segments.length).toEqual(0)
+    })
+    it('removes all segments when shift+delete keys are pressed', () => {
+      const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+      setLastStreet() // ToDo: needs to be refactored
+      fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+      fireEvent.keyDown(document, { key: 'Delete', keyCode: KEYS.DELETE, code: KEYS.DELETE, charCode: KEYS.DELETE, shiftKey: true })
+      expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(wrapper.store.getState().street.segments.length).toEqual(0)
     })
