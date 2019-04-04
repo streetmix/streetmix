@@ -88,6 +88,8 @@ describe('Segment', () => {
       setLastStreet() // ToDo: needs to be refactored
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Delete', keyCode: KEYS.DELETE, code: KEYS.DELETE, charCode: KEYS.DELETE })
+      expect(infoBubble.hide).toHaveBeenCalledTimes(1)
+      expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(wrapper.store.getState().street.segments.length).toEqual(0)
     })
   })

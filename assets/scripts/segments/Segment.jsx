@@ -34,7 +34,7 @@ import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
-import { incrementSegmentWidth } from '../store/actions/street'
+import { incrementSegmentWidth, removeSegment as removeSegmentAction } from '../store/actions/street'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -56,6 +56,7 @@ export class Segment extends React.Component {
     setActiveSegment: PropTypes.func,
     resolution: PropTypes.number,
     incrementSegmentWidth: PropTypes.func,
+    removeSegment: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -215,6 +216,7 @@ export class Segment extends React.Component {
           trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'KEYBOARD', null, true)
         } else {
           removeSegment(this.props.dataNo)
+          this.props.removeSegment(this.props.dataNo, false)
           trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
         }
         break
@@ -325,6 +327,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch, ownProps) {
   return {
     setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
+    removeSegment: (position) => { dispatch(removeSegmentAction(position)) },
     incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType))
   }
 }
