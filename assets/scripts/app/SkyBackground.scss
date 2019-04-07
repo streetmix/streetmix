@@ -132,8 +132,8 @@ body.environment-animations {
   opacity: 0;
 }
 
-.sky-superbloodwolfmoon {
-  background-image: url('../../../public/images/super-blood-wolf-moon.png');
+.sky-moon {
+  background-image: url('../../../public/images/moon.svg');
   height: 116px;
   width: 116px;
   position: absolute;
@@ -145,7 +145,7 @@ body.environment-animations {
   transition: opacity $environment-transition, transform $environment-transition;
 }
 
-.sky-supermoon .sky-superbloodwolfmoon {
+.sky-supermoon .sky-moon {
   transform: translateY(0);
   opacity: 1;
 }

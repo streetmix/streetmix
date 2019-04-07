@@ -154,8 +154,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // const SUPERMOON = true
     // if (SUPERMOON) {
-    //   console.log(images.get('/images/super-blood-wolf-moon.png').img)
-    //   ctx.drawImage(images.get('/images/super-blood-wolf-moon.png').img,
+    //   console.log(images.get('/images/moon.svg').img)
+    //   ctx.drawImage(images.get('/images/moon.svg').img,
     //     0.7 * thumbnailWidth, 0.33 * thumbnailHeight, 128 * dpi, 128 * dpi)
     // }
 
