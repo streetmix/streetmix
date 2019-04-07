@@ -125,14 +125,14 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // Background image fill
     if (env.backgroundImage) {
-      const STARS_WIDTH = 2000
-      const STARS_HEIGHT = 1333
-      for (let i = 0; i < Math.floor(thumbnailHeight / STARS_HEIGHT) + 1; i++) {
-        for (let j = 0; j < Math.floor(thumbnailWidth / STARS_WIDTH) + 1; j++) {
-          ctx.drawImage(images.get('/images/stars.svg').img,
-            0, 0, STARS_WIDTH * 2, STARS_HEIGHT * 2,
-            j * SKY_WIDTH * dpi, i * STARS_HEIGHT * dpi, SKY_WIDTH * dpi, STARS_HEIGHT * dpi)
-          console.log('drawing', images.get('/images/stars.svg').img, i, j)
+      // TODO: don't hardcode path
+      const img = images.get('/images/stars.svg')
+
+      for (let i = 0; i < Math.floor(thumbnailHeight / img.height) + 1; i++) {
+        for (let j = 0; j < Math.floor(thumbnailWidth / img.width) + 1; j++) {
+          ctx.drawImage(img.img,
+            0, 0, img.width, img.height,
+            j * img.width * dpi, i * img.height * dpi, img.width * dpi, img.height * dpi)
         }
       }
     }
@@ -152,12 +152,15 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
     }
 
-    // const SUPERMOON = true
-    // if (SUPERMOON) {
-    //   console.log(images.get('/images/moon.svg').img)
-    //   ctx.drawImage(images.get('/images/moon.svg').img,
-    //     0.7 * thumbnailWidth, 0.33 * thumbnailHeight, 128 * dpi, 128 * dpi)
-    // }
+    const SUPERMOON = true
+    if (SUPERMOON) {
+      // TODO: don't hardcode object width/height/filename
+      const MOON_WIDTH = 116
+      const MOON_HEIGHT = 116
+      ctx.drawImage(images.get('/images/moon.svg').img,
+        0.75 * thumbnailWidth * dpi, 0.10 * thumbnailHeight * dpi,
+        MOON_WIDTH * dpi, MOON_HEIGHT * dpi)
+    }
 
     const SKY_FRONT_HEIGHT = 280
     const SKY_REAR_HEIGHT = 250
