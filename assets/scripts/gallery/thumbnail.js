@@ -17,8 +17,6 @@ import {
 } from '../segments/view'
 import { t } from '../locales/locale'
 
-// TODO: replace SKY_WIDTH with image's natural width
-const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
@@ -162,32 +160,45 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
         MOON_WIDTH * dpi, MOON_HEIGHT * dpi)
     }
 
-    const SKY_FRONT_HEIGHT = 280
-    const SKY_REAR_HEIGHT = 250
-
-    // TODO document magic numbers
-    // y1 = top edge of sky-front image, bottom of image should hit groundlevel
-    const y1 = groundLevel - SKY_FRONT_HEIGHT
-
     // Handle cloud opacity
     ctx.save()
     ctx.globalAlpha = env.cloudOpacity || 1
 
-    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images.get('/images/sky-front.svg').img,
-        0, 0, SKY_WIDTH * 2, SKY_FRONT_HEIGHT * 2,
-        i * SKY_WIDTH * dpi, y1 * dpi, SKY_WIDTH * dpi, SKY_FRONT_HEIGHT * dpi)
+    // Grab images
+    const skyFrontImg = images.get('/images/sky-front.svg')
+    const skyRearImg = images.get('/images/sky-rear.svg')
+
+    // Source images are 2x what they need to be for the math to work
+    const skyFrontWidth = skyFrontImg.width / 2
+    const skyFrontHeight = skyFrontImg.height / 2
+    const skyRearWidth = skyRearImg.width / 2
+    const skyRearHeight = skyRearImg.height / 2
+
+    // TODO document magic numbers
+    // y1 = top edge of sky-front image, bottom of image should hit groundlevel
+    const y1 = groundLevel - skyFrontHeight
+
+    for (let i = 0; i < Math.floor(thumbnailWidth / skyFrontWidth) + 1; i++) {
+      ctx.drawImage(skyFrontImg.img,
+        0, 0, skyFrontWidth * 2, skyFrontHeight * 2, // todo: change intrinsic size
+        i * skyFrontWidth * dpi, y1 * dpi,
+        skyFrontWidth * dpi, skyFrontHeight * dpi
+      )
     }
 
     // TODO document magic numbers
     // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
-    const y2 = groundLevel - SKY_FRONT_HEIGHT - 120
+    const y2 = groundLevel - skyFrontHeight - 120
 
-    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images.get('/images/sky-rear.svg').img,
-        0, 0, SKY_WIDTH * 2, SKY_REAR_HEIGHT * 2,
-        i * SKY_WIDTH * dpi, y2 * dpi, SKY_WIDTH * dpi, SKY_REAR_HEIGHT * dpi)
+    for (let i = 0; i < Math.floor(thumbnailWidth / skyRearWidth) + 1; i++) {
+      ctx.drawImage(skyRearImg.img,
+        0, 0, skyRearWidth * 2, skyRearHeight * 2, // todo: change intrinsic size
+        i * skyRearWidth * dpi, y2 * dpi,
+        skyRearWidth * dpi, skyRearHeight * dpi
+      )
     }
+
+    // Restore global opacity
     ctx.restore()
   }
 
