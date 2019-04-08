@@ -32,14 +32,6 @@ exports.post = async function (req, res) {
     return
   }
 
-  const publicId = `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
-
-  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
-    logger.info({ event, street_type: streetType, public_id: publicId }, 'Uploading street thumbnail.')
-    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
-    return
-  }
-
   // 1) Check if street exists.
   let street
 
@@ -52,6 +44,14 @@ exports.post = async function (req, res) {
 
   if (!street) {
     res.status(404).json({ status: 404, msg: 'Street not found.' })
+    return
+  }
+
+  const publicId = `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
+
+  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
+    logger.info({ event, street_type: streetType, public_id: publicId, creator_id: street.creator_id }, 'Uploading street thumbnail.')
+    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
     return
   }
 
@@ -94,7 +94,7 @@ exports.post = async function (req, res) {
       return
     }
 
-    logger.info({ event, street_type: streetType, public_id: publicId }, 'Uploading street thumbnail.')
+    logger.info({ event, street_type: streetType, public_id: publicId, creator_id: street.creator_id }, 'Uploading street thumbnail.')
     return resource
   }
 
