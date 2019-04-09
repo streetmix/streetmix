@@ -103,8 +103,11 @@ export async function saveStreetThumbnail (street, event) {
     const details = { image: dataUrl, event }
 
     // Check if street is default or empty street.
-    if (street.editCount === 0) {
+    // If a signed-in user adopts an existing street, the editCount is set to 0 even if it isn't a DEFAULT or EMPTY street.
+    // Only if the street has an editCount = 0 and has no originalStreetId, should we set the streetType.
+    if (street.editCount === 0 && !street.originalStreetId) {
       const streetType = (street.segments.length) ? 'DEFAULT_STREET' : 'EMPTY_STREET'
+
       details.streetType = streetType
     }
 
