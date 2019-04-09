@@ -262,7 +262,6 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
     dispatch(changeSegmentWidth(dataNo, width))
     const street = getState().street
     const updatedStreet = recalculateWidth(street)
-    console.log(updatedStreet)
     dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
     /**
     from resizeSegmen: cancelSegmentResizeTransitions()

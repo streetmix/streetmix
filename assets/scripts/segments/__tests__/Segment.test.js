@@ -108,4 +108,16 @@ describe('Segment', () => {
       expect(wrapper.store.getState().street.segments.length).toEqual(0)
     })
   })
+  describe('warnings', () => {
+    describe('too large', () => {
+      it('KEY.EQUAL does not increase the width of the segment', () => {
+        const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={400} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+        fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+        fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
+        expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(400)
+        expect(wrapper.store.getState().street.segments[activeElement].warnings).toEqual([undefined, false, false, true])
+        expect(wrapper.asFragment()).toMatchSnapshot()
+      })
+    })
+  })
 })
