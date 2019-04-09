@@ -85,16 +85,77 @@ function drawWatermark (ctx, dpi, invert) {
 }
 
 /**
+ * Draws a layer of background color
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {string} color - color to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundColor (ctx, dpi, width, height, color) {
+  ctx.fillStyle = color
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws background image as a repeating pattern.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Object} imageId - image ID to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundImage (ctx, dpi, width, height, imageId) {
+  const img = images.get(imageId)
+
+  for (let i = 0; i < Math.floor(height / img.height) + 1; i++) {
+    for (let j = 0; j < Math.floor(width / img.width) + 1; j++) {
+      ctx.drawImage(img.img,
+        0, 0, img.width, img.height,
+        j * img.width * dpi, i * img.height * dpi, img.width * dpi, img.height * dpi)
+    }
+  }
+}
+
+/**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Array} backgroundGradient - environs definition of gradient
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundGradient (ctx, dpi, width, height, backgroundGradient) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, height * dpi)
+
+  // Make color stops
+  const stops = makeCanvasGradientStopArray(backgroundGradient)
+  for (let i = 0; i < stops.length; i++) {
+    const [ color, stop ] = stops[i]
+    gradient.addColorStop(stop, color)
+  }
+
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
  * Draws clouds.
  *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on.
- * @param {Number} dpi - scale factor of image.
- * @param {Object} env - environs settings.
- * @param {Number} groundLevel
- * @param {Number} thumbnailWidth
- * @modifies {CanvasRenderingContext2D}
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw o
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Object} env - environs settings
+ * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawClouds (ctx, dpi, env, groundLevel, thumbnailWidth) {
+function drawClouds (ctx, dpi, width, height, env) {
   // Handle cloud opacity
   ctx.save()
   ctx.globalAlpha = env.cloudOpacity || 1
@@ -112,10 +173,10 @@ function drawClouds (ctx, dpi, env, groundLevel, thumbnailWidth) {
   const skyRearHeight = skyRearImg.height / 2
 
   // TODO document magic numbers
-  // y1 = top edge of sky-front image, bottom of image should hit groundlevel
-  const y1 = groundLevel - skyFrontHeight
+  // y1 = top edge of sky-front image
+  const y1 = height - skyFrontHeight
 
-  for (let i = 0; i < Math.floor(thumbnailWidth / skyFrontWidth) + 1; i++) {
+  for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
     ctx.drawImage(skyFrontImg.img,
       0, 0, skyFrontWidth * 2, skyFrontHeight * 2, // todo: change intrinsic size
       i * skyFrontWidth * dpi, y1 * dpi,
@@ -125,9 +186,9 @@ function drawClouds (ctx, dpi, env, groundLevel, thumbnailWidth) {
 
   // TODO document magic numbers
   // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
-  const y2 = groundLevel - skyFrontHeight - 120
+  const y2 = height - skyFrontHeight - 120
 
-  for (let i = 0; i < Math.floor(thumbnailWidth / skyRearWidth) + 1; i++) {
+  for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
     ctx.drawImage(skyRearImg.img,
       0, 0, skyRearWidth * 2, skyRearHeight * 2, // todo: change intrinsic size
       i * skyRearWidth * dpi, y2 * dpi,
@@ -164,7 +225,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   var buildingOffsetLeft = (thumbnailWidth - (street.width * TILE_SIZE * multiplier)) / 2
 
   const groundLevel = offsetTop + (135 * multiplier)
-  const horizonLine = (groundLevel + (20 * multiplier)) * dpi
+  const horizonLine = (groundLevel + (20 * multiplier))
 
   // Sky
   if (!transparentSky) {
@@ -172,37 +233,17 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // Solid color fill
     if (env.backgroundColor) {
-      ctx.fillStyle = env.backgroundColor
-      ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
+      drawBackgroundColor(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundColor)
     }
 
     // Background image fill
     if (env.backgroundImage) {
-      // TODO: don't hardcode path
-      const img = images.get('/images/stars.svg')
-
-      for (let i = 0; i < Math.floor(thumbnailHeight / img.height) + 1; i++) {
-        for (let j = 0; j < Math.floor(thumbnailWidth / img.width) + 1; j++) {
-          ctx.drawImage(img.img,
-            0, 0, img.width, img.height,
-            j * img.width * dpi, i * img.height * dpi, img.width * dpi, img.height * dpi)
-        }
-      }
+      drawBackgroundImage(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundImage)
     }
 
     // Gradient fill
     if (env.backgroundGradient) {
-      const gradient = ctx.createLinearGradient(0, 0, 0, horizonLine)
-
-      // Make color stops
-      const stops = makeCanvasGradientStopArray(env.backgroundGradient)
-      for (let i = 0; i < stops.length; i++) {
-        const [ color, stop ] = stops[i]
-        gradient.addColorStop(stop, color)
-      }
-
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
+      drawBackgroundGradient(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundGradient)
     }
 
     const SUPERMOON = true
@@ -215,13 +256,13 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
         MOON_WIDTH * dpi, MOON_HEIGHT * dpi)
     }
 
-    drawClouds(ctx, dpi, env, groundLevel, thumbnailWidth)
+    drawClouds(ctx, dpi, thumbnailWidth, groundLevel, env)
   }
 
   // Dirt
 
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(0, horizonLine, thumbnailWidth * dpi, (25 * multiplier) * dpi)
+  ctx.fillRect(0, horizonLine * dpi, thumbnailWidth * dpi, (25 * multiplier) * dpi)
 
   ctx.fillRect(0, groundLevel * dpi,
     ((thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)) * dpi,
