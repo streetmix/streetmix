@@ -26,6 +26,8 @@ import {
 } from './'
 
 import { RESIZE_TYPE_INITIAL, normalizeSegmentWidth } from '../../segments/resizing'
+import { recalculateWidth } from '../../streets/width'
+
 export function updateStreetData (street) {
   return {
     type: REPLACE_STREET_DATA,
@@ -256,15 +258,15 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
       increment = -increment
     }
 
-    const width = normalizeSegmentWidth(origWidth + increment, unitSettings.resolution)
+    const width = normalizeSegmentWidth(origWidth + increment, increment)
     dispatch(changeSegmentWidth(dataNo, width))
-    /**
-     * from segmentsChanged
-    const street = store.getState().street
+    const street = getState().street
     const updatedStreet = recalculateWidth(street)
-
-    store.dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
-
+    console.log(updatedStreet)
+    dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+    /**
+    from resizeSegmen: cancelSegmentResizeTransitions()
+     * from segmentsChanged
     saveStreetToServerIfNecessary()
     **/
   }
