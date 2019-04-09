@@ -2,7 +2,7 @@ import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { segmentsChanged } from './view'
 import { t } from '../locales/locale'
-import { removeSegment as removeSegmentActionCreator, clearSegments } from '../store/actions/street'
+import { clearSegments } from '../store/actions/street'
 import store from '../store'
 
 /**
@@ -18,7 +18,7 @@ export function removeSegment (position) {
   infoBubble.hideSegment()
 
   // Update the store
-  store.dispatch(removeSegmentActionCreator(position, false))
+  // ToDo: Refactor all other methods that use this to update the store via there dispatch
 
   segmentsChanged()
 
