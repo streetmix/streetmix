@@ -25,8 +25,9 @@ import {
   SET_ENVIRONMENT
 } from './'
 
-import { RESIZE_TYPE_INITIAL, normalizeSegmentWidth } from '../../segments/resizing'
+import { RESIZE_TYPE_INITIAL, normalizeSegmentWidth, cancelSegmentResizeTransitions } from '../../segments/resizing'
 import { recalculateWidth } from '../../streets/width'
+import { saveStreetToServerIfNecessary } from '../../streets/data_model'
 
 export function updateStreetData (street) {
   return {
@@ -244,7 +245,7 @@ export function setEnvironment (env) {
 }
 
 export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INITIAL) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const { unitSettings } = getState().ui
     let increment
 
@@ -258,15 +259,13 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
       increment = -increment
     }
 
+    cancelSegmentResizeTransitions()
     const width = normalizeSegmentWidth(origWidth + increment, increment)
-    dispatch(changeSegmentWidth(dataNo, width))
+    await dispatch(changeSegmentWidth(dataNo, width))
     const street = getState().street
     const updatedStreet = recalculateWidth(street)
-    dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
-    /**
-    from resizeSegmen: cancelSegmentResizeTransitions()
-     * from segmentsChanged
+    await dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+    // ToDo: Refactor this out to be dispatched as well
     saveStreetToServerIfNecessary()
-    **/
   }
 }

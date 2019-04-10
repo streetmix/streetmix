@@ -28,3 +28,6 @@ newrelic_agent.log
 
 # Ignore editor settings
 .vscode
+
+# Ignore code coverage folder
+coverage
