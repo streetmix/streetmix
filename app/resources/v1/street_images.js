@@ -68,8 +68,11 @@ exports.post = async function (req, res) {
 
   try {
     resource = await cloudinary.v2.api.resource(publicId)
-  } catch (error) {
-    logger.error(error)
+  } catch (err) {
+    // If the http_code returned is 404, the street thumbnail does not exist which we shouldn't consider an error.
+    if (err.error.http_code !== 404) {
+      logger.error(err)
+    }
   }
 
   const handleUploadSuccess = function (resource) {
@@ -146,7 +149,9 @@ exports.post = async function (req, res) {
 
   // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
   // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
-  if ((streetType && resource) || (details.editCount === tag)) {
+  const thumbnailSaved = (streetType && resource) || (tag && details.editCount && tag === details.editCount)
+
+  if (thumbnailSaved) {
     handleUploadSuccess(resource)
   } else if (!resource || (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)) {
     // 3c) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
