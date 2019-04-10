@@ -20,7 +20,7 @@ exports.post = async function (req, res) {
     return
   }
 
-  const { image, event, streetType } = json
+  const { image, event, streetType, editCount, creatorId } = json
 
   if (!image) {
     res.status(400).json({ status: 400, msg: 'Image data not specified.' })
@@ -47,14 +47,13 @@ exports.post = async function (req, res) {
     return
   }
 
-  const editCount = street.data && street.data.street && street.data.street.editCount
   const publicId = `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
 
   const details = {
     public_id: publicId,
     street_type: streetType,
-    creator_id: street.creator_id,
-    edit_count: editCount && editCount.toString()
+    creator_id: creatorId,
+    edit_count: editCount
   }
 
   if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
@@ -149,7 +148,7 @@ exports.post = async function (req, res) {
 
   // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
   // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
-  const thumbnailSaved = (streetType && resource) || (tag && details.editCount && tag === details.editCount)
+  const thumbnailSaved = (streetType && resource) || (tag && editCount && parseInt(tag, 10) === editCount)
 
   if (thumbnailSaved) {
     handleUploadSuccess(resource)
