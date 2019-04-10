@@ -146,6 +146,32 @@ function drawBackgroundGradient (ctx, dpi, width, height, backgroundGradient) {
 }
 
 /**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Array} objects - environs definition of background objects
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundObjects (ctx, dpi, width, height, objects) {
+  objects.forEach((object) => {
+    const { image: imageId, width: imageWidth, height: imageHeight, top, left } = object
+    const image = images.get(imageId).img
+    ctx.drawImage(
+      image,
+      // Left and top values are "percentage" values
+      // and sets where the center of the image is
+      (left * width - (imageWidth / 2)) * dpi,
+      (top * height - (imageHeight / 2)) * dpi,
+      imageWidth * dpi,
+      imageHeight * dpi
+    )
+  })
+}
+
+/**
  * Draws clouds.
  *
  * @param {CanvasRenderingContext2D} ctx - the canvas context to draw o
@@ -246,16 +272,12 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       drawBackgroundGradient(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundGradient)
     }
 
-    const SUPERMOON = true
-    if (SUPERMOON) {
-      // TODO: don't hardcode object width/height/filename
-      const MOON_WIDTH = 116
-      const MOON_HEIGHT = 116
-      ctx.drawImage(images.get('/images/moon.svg').img,
-        0.75 * thumbnailWidth * dpi, 0.10 * thumbnailHeight * dpi,
-        MOON_WIDTH * dpi, MOON_HEIGHT * dpi)
+    // Background objects
+    if (env.backgroundObjects) {
+      drawBackgroundObjects(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundObjects)
     }
 
+    // Cluds
     drawClouds(ctx, dpi, thumbnailWidth, groundLevel, env)
   }
 
