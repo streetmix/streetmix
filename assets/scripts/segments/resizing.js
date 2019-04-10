@@ -149,28 +149,6 @@ export function normalizeSegmentWidth (width, resolution) {
   return width
 }
 
-// temp: add origWidth as 4th arg to pass in value from redux
-export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
-  const { unitSettings } = store.getState().ui
-  let increment
-
-  if (precise) {
-    increment = unitSettings.resolution
-  } else {
-    increment = unitSettings.clickIncrement
-  }
-
-  if (!add) {
-    increment = -increment
-  }
-
-  const width = normalizeSegmentWidth(origWidth + increment, RESIZE_TYPE_INCREMENT)
-
-  resizeSegment(dataNo, RESIZE_TYPE_INCREMENT, width)
-
-  return width
-}
-
 let controlsFadeoutDelayTimer = -1
 let controlsFadeoutHideTimer = -1
 
