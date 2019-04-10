@@ -47,10 +47,18 @@ exports.post = async function (req, res) {
     return
   }
 
+  const editCount = street.data && street.data.street && street.data.street.editCount
   const publicId = `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
 
+  const details = {
+    public_id: publicId,
+    street_type: streetType,
+    creator_id: street.creator_id,
+    edit_count: editCount && editCount.toString()
+  }
+
   if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
-    logger.info({ event, street_type: streetType, public_id: publicId, creator_id: street.creator_id }, 'Uploading street thumbnail.')
+    logger.info({ event, ...details }, 'Uploading street thumbnail.')
     res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
     return
   }
@@ -84,7 +92,8 @@ exports.post = async function (req, res) {
     }
 
     try {
-      resource = await cloudinary.v2.uploader.upload(image, { public_id: publicId })
+      await cloudinary.v2.uploader.remove_all_tags([publicId])
+      resource = await cloudinary.v2.uploader.upload(image, { public_id: publicId, tags: editCount })
     } catch (error) {
       logger.error(error)
     }
@@ -94,7 +103,7 @@ exports.post = async function (req, res) {
       return
     }
 
-    logger.info({ event, street_type: streetType, public_id: publicId, creator_id: street.creator_id }, 'Uploading street thumbnail.')
+    logger.info({ event, ...details }, 'Uploading street thumbnail.')
     return resource
   }
 
@@ -133,17 +142,20 @@ exports.post = async function (req, res) {
     res.status(500).end()
   }
 
+  const tag = resource && resource.tags && resource.tags[0]
+
   // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
-  if (streetType && resource) {
+  // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
+  if ((streetType && resource) || (details.editCount === tag)) {
     handleUploadSuccess(resource)
   } else if (!resource || (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)) {
-    // 3b) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
-    // 3c) If street was created by anonymous user, upload to Cloudinary.
+    // 3c) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
+    // 3d) If street was created by anonymous user, upload to Cloudinary.
     handleUploadStreetThumbnail(publicId)
       .then(handleUploadSuccess)
       .catch(handleError)
   } else if (street.creator_id) {
-    // 3c) If street thumbnail already exists and street was created by a user, check if signed in user = creator.
+    // 3e) If street thumbnail already exists and street was created by a user, check if signed in user = creator.
     handleFindStreetWithCreator(street)
       .then(handleUploadStreetThumbnail)
       .then(handleUploadSuccess)
