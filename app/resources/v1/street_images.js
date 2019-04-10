@@ -56,12 +56,6 @@ exports.post = async function (req, res) {
     edit_count: editCount
   }
 
-  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
-    logger.info({ event, ...details }, 'Uploading street thumbnail.')
-    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
-    return
-  }
-
   // 2) Check if street thumbnail exists.
   let resource
 
@@ -72,6 +66,22 @@ exports.post = async function (req, res) {
     if (err.error.http_code !== 404) {
       logger.error(err)
     }
+  }
+
+  // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
+  // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
+  const tag = resource && resource.tags && resource.tags[0]
+  const thumbnailSaved = (streetType && resource) || (tag && editCount && parseInt(tag, 10) === editCount)
+
+  // Currently only uploading street thumbnails for initial street render. If not initial street render, only log details.
+  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
+    // If thumbnailSaved === true, then no upload would have been made.
+    if (!thumbnailSaved) {
+      logger.info({ event, ...details }, 'Uploading street thumbnail.')
+    }
+
+    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
+    return
   }
 
   const handleUploadSuccess = function (resource) {
@@ -143,12 +153,6 @@ exports.post = async function (req, res) {
     logger.error(error)
     res.status(500).end()
   }
-
-  const tag = resource && resource.tags && resource.tags[0]
-
-  // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
-  // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
-  const thumbnailSaved = (streetType && resource) || (tag && editCount && parseInt(tag, 10) === editCount)
 
   if (thumbnailSaved) {
     handleUploadSuccess(resource)
