@@ -234,13 +234,15 @@ export class Segment extends React.Component {
 
     const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
     const elementWidth = actualWidth * TILE_SIZE
+    const translate = 'translateX(' + this.props.segmentPos + 'px)'
 
     const segmentStyle = {
       width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
       zIndex: (this.props.isDragging) ? 0 : segmentInfo.zIndex,
-      transform: 'translateX(' + this.props.segmentPos + 'px)'
+      WebkitTransform: translate,
+      transform: translate
     }
 
     const dataAttributes = {

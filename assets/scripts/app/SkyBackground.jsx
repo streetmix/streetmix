@@ -36,8 +36,9 @@ class SkyBackground extends React.PureComponent {
     this.currentBackgroundEl.current.classList.add('sky-transition-in')
   }
 
-  updateStreetSkyBackground = (isFront, scrollPos) => {
+  transformSkyBackground = (isFront, scrollPos) => {
     let style = ''
+
     if (isFront) {
       const frontPos = -scrollPos * 0.5
       style = 'translateX(' + frontPos + 'px)'
@@ -45,7 +46,11 @@ class SkyBackground extends React.PureComponent {
       const rearPos = -scrollPos * 0.25
       style = 'translateX(' + rearPos + 'px)'
     }
-    return style
+
+    return {
+      WebkitTransform: style,
+      transform: style
+    }
   }
 
   render () {
@@ -57,11 +62,11 @@ class SkyBackground extends React.PureComponent {
       height: `${height}px`
     }
     const frontCloudStyle = {
-      transform: this.updateStreetSkyBackground(true, scrollPos),
+      ...this.transformSkyBackground(true, scrollPos),
       opacity: environs.cloudOpacity || null
     }
     const rearCloudStyle = {
-      transform: this.updateStreetSkyBackground(false, scrollPos),
+      ...this.transformSkyBackground(false, scrollPos),
       opacity: environs.cloudOpacity || null
     }
 
