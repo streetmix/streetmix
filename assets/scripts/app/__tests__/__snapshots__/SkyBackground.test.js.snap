@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkyBackground renders 1`] = `
+<section
+  className="street-section-sky"
+  style={
+    Object {
+      "height": "100px",
+    }
+  }
+>
+  <div
+    className="sky-background"
+  >
+    <div
+      className="sky-background-previous"
+      key="prev-day"
+      style={
+        Object {
+          "background": "#a9ccdb",
+        }
+      }
+    />
+    <div
+      className="sky-background-current"
+      key="current-foo"
+      style={
+        Object {
+          "background": "#a9ccdb",
+        }
+      }
+    />
+  </div>
+  <SkyBackgroundObjects
+    objects={Array []}
+  />
+  <div
+    className="rear-clouds"
+    style={
+      Object {
+        "opacity": null,
+        "transform": "translateX(0px)",
+      }
+    }
+  />
+  <div
+    className="front-clouds"
+    style={
+      Object {
+        "opacity": null,
+        "transform": "translateX(0px)",
+      }
+    }
+  />
+  <div
+    className="sky-foreground"
+    style={
+      Object {
+        "opacity": 0,
+      }
+    }
+  />
+</section>
+`;

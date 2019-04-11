@@ -6,7 +6,7 @@ import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
 import { DEFAULT_ENVIRONS } from '../streets/constants'
 import './SkyBackground.scss'
 
-class SkyBackground extends React.PureComponent {
+export class SkyBackground extends React.PureComponent {
   static propTypes = {
     scrollPos: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
