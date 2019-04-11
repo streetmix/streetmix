@@ -9,7 +9,6 @@ class SkyBackground extends React.PureComponent {
   static propTypes = {
     scrollPos: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    system: PropTypes.object.isRequired,
     environment: PropTypes.string.isRequired
   }
 
@@ -50,7 +49,7 @@ class SkyBackground extends React.PureComponent {
   }
 
   render () {
-    const { height, scrollPos, system, environment } = this.props
+    const { height, scrollPos, environment } = this.props
     const environs = getEnvirons(environment)
     const prevEnvirons = getEnvirons(this.state.prevEnvirons)
 
@@ -58,11 +57,11 @@ class SkyBackground extends React.PureComponent {
       height: `${height}px`
     }
     const frontCloudStyle = {
-      [system.cssTransform]: this.updateStreetSkyBackground(true, scrollPos),
+      transform: this.updateStreetSkyBackground(true, scrollPos),
       opacity: environs.cloudOpacity || null
     }
     const rearCloudStyle = {
-      [system.cssTransform]: this.updateStreetSkyBackground(false, scrollPos),
+      transform: this.updateStreetSkyBackground(false, scrollPos),
       opacity: environs.cloudOpacity || null
     }
 
@@ -102,7 +101,6 @@ class SkyBackground extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    system: state.system,
     environment: state.street.environment
   }
 }
