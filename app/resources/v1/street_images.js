@@ -20,7 +20,7 @@ exports.post = async function (req, res) {
     return
   }
 
-  const { image, event, streetType } = json
+  const { image, event, streetType, editCount, creatorId } = json
 
   if (!image) {
     res.status(400).json({ status: 400, msg: 'Image data not specified.' })
@@ -49,10 +49,11 @@ exports.post = async function (req, res) {
 
   const publicId = `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
 
-  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
-    logger.info({ event, street_type: streetType, public_id: publicId, creator_id: street.creator_id }, 'Uploading street thumbnail.')
-    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
-    return
+  const details = {
+    public_id: publicId,
+    street_type: streetType,
+    creator_id: creatorId,
+    edit_count: editCount
   }
 
   // 2) Check if street thumbnail exists.
@@ -60,8 +61,27 @@ exports.post = async function (req, res) {
 
   try {
     resource = await cloudinary.v2.api.resource(publicId)
-  } catch (error) {
-    logger.error(error)
+  } catch (err) {
+    // If the http_code returned is 404, the street thumbnail does not exist which we shouldn't consider an error.
+    if (err.error.http_code !== 404) {
+      logger.error(err)
+    }
+  }
+
+  // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
+  // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
+  const tag = resource && resource.tags && resource.tags[0]
+  const thumbnailSaved = (streetType && resource) || (tag && editCount && parseInt(tag, 10) === editCount)
+
+  // Currently only uploading street thumbnails for initial street render. If not initial street render, only log details.
+  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
+    // If thumbnailSaved === true, then no upload would have been made.
+    if (!thumbnailSaved) {
+      logger.info({ event, ...details }, 'Uploading street thumbnail.')
+    }
+
+    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
+    return
   }
 
   const handleUploadSuccess = function (resource) {
@@ -84,7 +104,8 @@ exports.post = async function (req, res) {
     }
 
     try {
-      resource = await cloudinary.v2.uploader.upload(image, { public_id: publicId })
+      await cloudinary.v2.uploader.remove_all_tags([publicId])
+      resource = await cloudinary.v2.uploader.upload(image, { public_id: publicId, tags: editCount })
     } catch (error) {
       logger.error(error)
     }
@@ -94,7 +115,7 @@ exports.post = async function (req, res) {
       return
     }
 
-    logger.info({ event, street_type: streetType, public_id: publicId, creator_id: street.creator_id }, 'Uploading street thumbnail.')
+    logger.info({ event, ...details }, 'Uploading street thumbnail.')
     return resource
   }
 
@@ -133,17 +154,16 @@ exports.post = async function (req, res) {
     res.status(500).end()
   }
 
-  // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
-  if (streetType && resource) {
+  if (thumbnailSaved) {
     handleUploadSuccess(resource)
   } else if (!resource || (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)) {
-    // 3b) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
-    // 3c) If street was created by anonymous user, upload to Cloudinary.
+    // 3c) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
+    // 3d) If street was created by anonymous user, upload to Cloudinary.
     handleUploadStreetThumbnail(publicId)
       .then(handleUploadSuccess)
       .catch(handleError)
   } else if (street.creator_id) {
-    // 3c) If street thumbnail already exists and street was created by a user, check if signed in user = creator.
+    // 3e) If street thumbnail already exists and street was created by a user, check if signed in user = creator.
     handleFindStreetWithCreator(street)
       .then(handleUploadStreetThumbnail)
       .then(handleUploadSuccess)

@@ -93,9 +93,6 @@ class ShareMenu extends React.Component {
   }
 
   onShow = () => {
-    // Save street thumbnail when share menu is active
-    saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
-
     // Make sure links are updated when the menu is opened
     this.updateLinks()
 
@@ -107,10 +104,12 @@ class ShareMenu extends React.Component {
   }
 
   onClickShareViaTwitter () {
+    saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'TWITTER', null, null, false)
   }
 
   onClickShareViaFacebook () {
+    saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
@@ -179,6 +178,7 @@ class ShareMenu extends React.Component {
             className="share-via-link"
             type="text"
             value={this.state.shareUrl}
+            onCopy={() => { saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE) }}
             spellCheck="false"
             ref={(ref) => { this.shareViaLinkInput = ref }}
             readOnly
