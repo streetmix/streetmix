@@ -8,6 +8,7 @@ exports[`Segment renders active segment correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
+      "WebkitTransform": "translateX(1px)",
       "transform": "translateX(1px)",
       "width": "12px",
       "zIndex": 1,
@@ -80,6 +81,7 @@ exports[`Segment renders segment warnings correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
+      "WebkitTransform": "translateX(1px)",
       "transform": "translateX(1px)",
       "width": "12px",
       "zIndex": 1,
@@ -152,6 +154,7 @@ exports[`Segment renders segment warnings outside correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
+      "WebkitTransform": "translateX(1px)",
       "transform": "translateX(1px)",
       "width": "12px",
       "zIndex": 1,
@@ -224,6 +227,7 @@ exports[`Segment renders segment warnings width too large correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
+      "WebkitTransform": "translateX(1px)",
       "transform": "translateX(1px)",
       "width": "12px",
       "zIndex": 1,
@@ -296,6 +300,7 @@ exports[`Segment renders the units correctly 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
+      "WebkitTransform": "translateX(1px)",
       "transform": "translateX(1px)",
       "width": "12px",
       "zIndex": 1,
