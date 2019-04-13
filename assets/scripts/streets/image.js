@@ -73,7 +73,8 @@ export function initStreetThumbnailSubscriber () {
   saveStreetThumbnail(trimStreetData(store.getState().street), SAVE_THUMBNAIL_EVENTS.INITIAL)
 
   const select = (state) => {
-    return state.street.editCount
+    const street = { editCount: state.street.editCount, id: state.street.id }
+    return JSON.stringify(street)
   }
 
   const onChange = () => {
