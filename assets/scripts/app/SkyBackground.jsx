@@ -10,7 +10,6 @@ export class SkyBackground extends React.PureComponent {
   static propTypes = {
     scrollPos: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    system: PropTypes.object.isRequired,
     environment: PropTypes.string.isRequired
   }
 
@@ -38,8 +37,9 @@ export class SkyBackground extends React.PureComponent {
     this.currentBackgroundEl.current.classList.add('sky-transition-in')
   }
 
-  updateStreetSkyBackground = (isFront, scrollPos) => {
+  transformSkyBackground = (isFront, scrollPos) => {
     let style = ''
+
     if (isFront) {
       const frontPos = -scrollPos * 0.5
       style = 'translateX(' + frontPos + 'px)'
@@ -47,11 +47,15 @@ export class SkyBackground extends React.PureComponent {
       const rearPos = -scrollPos * 0.25
       style = 'translateX(' + rearPos + 'px)'
     }
-    return style
+
+    return {
+      WebkitTransform: style,
+      transform: style
+    }
   }
 
   render () {
-    const { height, scrollPos, system, environment } = this.props
+    const { height, scrollPos, environment } = this.props
     const environs = getEnvirons(environment)
     const prevEnvirons = getEnvirons(this.state.prevEnvirons)
 
@@ -59,11 +63,11 @@ export class SkyBackground extends React.PureComponent {
       height: `${height}px`
     }
     const frontCloudStyle = {
-      [system.cssTransform]: this.updateStreetSkyBackground(true, scrollPos),
+      ...this.transformSkyBackground(true, scrollPos),
       opacity: environs.cloudOpacity || null
     }
     const rearCloudStyle = {
-      [system.cssTransform]: this.updateStreetSkyBackground(false, scrollPos),
+      ...this.transformSkyBackground(false, scrollPos),
       opacity: environs.cloudOpacity || null
     }
 
@@ -101,7 +105,6 @@ export class SkyBackground extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    system: state.system,
     environment: state.street.environment
   }
 }

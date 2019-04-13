@@ -6,7 +6,7 @@ import {
   setIgnoreStreetChanges
 } from '../streets/data_model'
 import { unpackServerStreetData } from '../streets/xhr'
-import { saveStreetThumbnail } from '../streets/image'
+import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { getAuthHeader } from '../users/authentication'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
@@ -66,7 +66,7 @@ function receiveGalleryStreet (transmission) {
   setLastStreet()
 
   // Save new street's thumbnail.
-  saveStreetThumbnail(store.getState().street)
+  saveStreetThumbnail(store.getState().street, SAVE_THUMBNAIL_EVENTS.INITIAL)
 
   store.dispatch(resetMapState())
 }
