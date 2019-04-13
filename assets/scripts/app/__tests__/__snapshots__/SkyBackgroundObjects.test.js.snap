@@ -4,11 +4,6 @@ exports[`SkyBackgroundObjects renders 1`] = `
 <SkyBackgroundObjects
   environment="foo"
   objects={Array []}
-  system={
-    Object {
-      "cssTransform": "transform",
-    }
-  }
 >
   <TransitionGroup
     childFactory={[Function]}

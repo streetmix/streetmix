@@ -5,7 +5,7 @@ import { mount } from 'enzyme'
 
 describe('SkyBackgroundObjects', () => {
   it('renders', () => {
-    const wrapper = mount(<SkyBackgroundObjects system={{ cssTransform: 'transform' }} environment="foo" />)
+    const wrapper = mount(<SkyBackgroundObjects environment="foo" />)
     expect(wrapper).toMatchSnapshot()
   })
 })

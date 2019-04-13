@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 
 describe('SkyBackground', () => {
   it('renders', () => {
-    const wrapper = shallow(<SkyBackground system={{ cssTransform: 'transform' }} environment="foo" scrollPos={0} height={100} />)
+    const wrapper = shallow(<SkyBackground environment="foo" scrollPos={0} height={100} />)
     expect(wrapper).toMatchSnapshot()
   })
 })
