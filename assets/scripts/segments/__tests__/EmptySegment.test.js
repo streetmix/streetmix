@@ -14,14 +14,14 @@ describe('EmptySegment', () => {
 
   it('renders a width, and at left position 0 by default', () => {
     const wrapper = shallow(<EmptySegment width={12.5} units={SETTINGS_UNITS_METRIC} locale="en" />)
-    expect(wrapper.find('div').props().style.width).toEqual(`${12.5 * TILE_SIZE}px`)
-    expect(wrapper.find('div').props().style.left).toEqual('0px')
+    expect(wrapper.find('.segment-empty').props().style.width).toEqual(`${12.5 * TILE_SIZE}px`)
+    expect(wrapper.find('.segment-empty').props().style.left).toEqual('0px')
   })
 
   it('renders at width and left position given', () => {
     const wrapper = shallow(<EmptySegment width={15} left={33} units={SETTINGS_UNITS_METRIC} locale="en" />)
-    expect(wrapper.find('div').props().style.width).toEqual(`${15 * TILE_SIZE}px`)
-    expect(wrapper.find('div').props().style.left).toEqual(`${33 * TILE_SIZE}px`)
+    expect(wrapper.find('.segment-empty').props().style.width).toEqual(`${15 * TILE_SIZE}px`)
+    expect(wrapper.find('.segment-empty').props().style.left).toEqual(`${33 * TILE_SIZE}px`)
   })
 
   it('renders correct grid styling in metric', () => {
