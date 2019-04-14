@@ -28,13 +28,15 @@ export function EmptySegment (props) {
 
   return (
     <div className="segment segment-empty" style={style}>
-      <span className="name">
-        <FormattedMessage id="section.empty" defaultMessage="Empty space" />
-      </span>
-      <span className="width">
-        <MeasurementText value={width} units={units} locale={locale} />
-      </span>
-      <span className={'grid' + (units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+      <div className="segment-label-container">
+        <span className="segment-label">
+          <FormattedMessage id="section.empty" defaultMessage="Empty space" />
+        </span>
+        <span className="segment-width">
+          <MeasurementText value={width} units={units} locale={locale} />
+        </span>
+        <span className={'segment-grid' + (units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+      </div>
     </div>
   )
 }
