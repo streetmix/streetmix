@@ -238,7 +238,7 @@ export class Segment extends React.Component {
 
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
-    const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
+    const displayName = segment.label || t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
 
     const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
     const elementWidth = actualWidth * TILE_SIZE
