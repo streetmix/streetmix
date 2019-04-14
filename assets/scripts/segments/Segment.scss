@@ -56,7 +56,7 @@ body:not(.read-only) .segment {
   opacity: 0;
 }
 
-.segment .grid {
+.segment-grid {
   position: absolute;
   left: 0;
   right: -1px;
@@ -79,7 +79,7 @@ body:not(.read-only) .segment {
   }
 }
 
-.segment .name {
+.segment-label {
   position: absolute;
   left: 4px;
   right: 4px;
@@ -94,15 +94,15 @@ body:not(.read-only) .segment {
   pointer-events: none;
 }
 
-.segment.hover .name {
+.segment.hover .segment-label {
   font-weight: 700;
 }
 
-.segment.warning .name {
+.segment.warning .segment-label {
   color: $segment-warning-text;
 }
 
-.segment .width {
+.segment-width {
   position: absolute;
   left: 0;
   right: -1px;
@@ -121,15 +121,15 @@ body:not(.read-only) .segment {
 
 /* Force `rtl` direction when it's applied to the body, since
 the width element is inside the street layout which is forced `ltr` */
-body[dir="rtl"] .segment .width {
+body[dir="rtl"] .segment-width {
   direction: rtl !important;
 }
 
-.segment.hover .width {
+.segment.hover .segment-width {
   font-weight: 700;
 }
 
-.segment.warning .width {
+.segment.warning .segment-width {
   color: $segment-warning-text;
 }
 

@@ -5,12 +5,12 @@
   pointer-events: none;
   z-index: -1;
 
-  .name,
-  .width {
+  .segment-name,
+  .segment-width {
     color: $empty-segment-text;
   }
 
-  .width {
+  .segment-width {
     overflow: visible;
   }
 }

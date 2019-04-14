@@ -276,13 +276,13 @@ export class Segment extends React.Component {
         onMouseEnter={this.onSegmentMouseEnter}
         onMouseLeave={this.onSegmentMouseLeave}
       >
-        <span className="name">
+        <span className="segment-label">
           {displayName}
         </span>
-        <span className="width">
+        <span className="segment-width">
           <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
         </span>
-        <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+        <span className={'segment-grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition
           key="old-variant"
