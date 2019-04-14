@@ -9,6 +9,8 @@ import { CSSTransition } from 'react-transition-group'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
+import MeasurementText from '../ui/MeasurementText'
+import { getLocaleSegmentName } from '../segments/view'
 import './Segment.scss'
 
 import {
@@ -26,14 +28,13 @@ import {
   _getBugfix,
   _resetBugfix
 } from './drag_and_drop'
-import { getSegmentVariantInfo, getSegmentInfo } from './info'
+import { getSegmentInfo } from './info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, incrementSegmentWidth } from './resizing'
 import { removeSegment, removeAllSegments } from './remove'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
-import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
 
 export class Segment extends React.Component {
@@ -228,17 +229,20 @@ export class Segment extends React.Component {
     }
   }
 
+  editSegmentLabel (segment) {
+    let newLabel = window.prompt('Edit label', segment.label || getLocaleSegmentName(segment.type, segment.variantString))
+    console.log(newLabel)
+    // TODO: Update segment label somehow.
+  }
+
   render () {
     const { segment } = this.props
 
     const segmentInfo = getSegmentInfo(segment.type)
-    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
-    const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
-    const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
-    const displayName = segment.label || t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
+    const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
     const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
     const elementWidth = actualWidth * TILE_SIZE
@@ -289,6 +293,7 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
+          editSegmentLabel={(event) => this.editSegmentLabel(segment)}
         />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition

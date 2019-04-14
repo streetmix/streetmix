@@ -6,6 +6,7 @@ import './SegmentLabelContainer.scss'
 
 const SegmentLabelContainer = (props) => {
   const gridClassNames = ['segment-grid']
+  const labelClassNames = ['segment-label']
 
   // Add class names for measurement grid marks
   if (props.units === SETTINGS_UNITS_METRIC) {
@@ -14,9 +15,14 @@ const SegmentLabelContainer = (props) => {
     gridClassNames.push('units-imperial')
   }
 
+  // Add class name if label is editable
+  if (props.editable === true) {
+    labelClassNames.push('segment-label-editable')
+  }
+
   return (
     <div className="segment-label-container">
-      <span className="segment-label">
+      <span className={labelClassNames.join(' ')} onClick={props.editSegmentLabel}>
         {props.label}
       </span>
       <span className="segment-width">
@@ -39,11 +45,15 @@ SegmentLabelContainer.propTypes = {
   ]).isRequired,
   width: PropTypes.number.isRequired,
   units: PropTypes.number,
-  locale: PropTypes.string.isRequired
+  locale: PropTypes.string.isRequired,
+  editable: PropTypes.bool,
+  editSegmentLabel: PropTypes.func
 }
 
 SegmentLabelContainer.defaultProps = {
-  units: SETTINGS_UNITS_METRIC
+  units: SETTINGS_UNITS_METRIC,
+  editable: false,
+  editSegmentLabel: () => {}
 }
 
 export default SegmentLabelContainer
