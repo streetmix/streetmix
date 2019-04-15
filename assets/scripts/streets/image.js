@@ -73,7 +73,8 @@ export function initStreetThumbnailSubscriber () {
   saveStreetThumbnail(trimStreetData(store.getState().street), SAVE_THUMBNAIL_EVENTS.INITIAL)
 
   const select = (state) => {
-    return state.street.editCount
+    const street = { editCount: state.street.editCount, id: state.street.id }
+    return JSON.stringify(street)
   }
 
   const onChange = () => {
@@ -82,7 +83,7 @@ export function initStreetThumbnailSubscriber () {
     _savedThumbnail = false
 
     // Save street thumbnail every 30 minutes if any changes to street.
-    if (timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
+    if (timeElapsed && timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
       const street = trimStreetData(store.getState().street)
       saveStreetThumbnail(street, SAVE_THUMBNAIL_EVENTS.TIMER)
     }
@@ -95,6 +96,7 @@ export function initStreetThumbnailSubscriber () {
 export async function saveStreetThumbnail (street, event) {
   if (_savedThumbnail) return
 
+  _lastSavedTimestamp = Date.now()
   const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
 
   try {
@@ -127,7 +129,6 @@ export async function saveStreetThumbnail (street, event) {
     }
 
     const response = await window.fetch(url, options)
-    _lastSavedTimestamp = Date.now()
 
     if (response.ok) {
       console.log('Updated street thumbnail.')
