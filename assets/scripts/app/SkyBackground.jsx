@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import SkyBackgroundObjects from './SkyBackgroundObjects'
 import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
 import { DEFAULT_ENVIRONS } from '../streets/constants'
 import './SkyBackground.scss'
 
-class SkyBackground extends React.PureComponent {
+export class SkyBackground extends React.PureComponent {
   static propTypes = {
     scrollPos: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -79,7 +80,7 @@ class SkyBackground extends React.PureComponent {
     }
 
     return (
-      <section className={`street-section-sky sky-${environs.id}`} style={skyStyle}>
+      <section className="street-section-sky" style={skyStyle}>
         <div className="sky-background">
           <div
             style={prevEnvirons.style}
@@ -93,9 +94,7 @@ class SkyBackground extends React.PureComponent {
             ref={this.currentBackgroundEl}
           />
         </div>
-        <div className="sky-background-objects">
-          <div className="sky-superbloodwolfmoon" />
-        </div>
+        <SkyBackgroundObjects objects={environs.backgroundObjects} />
         <div className="rear-clouds" style={rearCloudStyle} />
         <div className="front-clouds" style={frontCloudStyle} />
         <div className="sky-foreground" style={foregroundStyle} />

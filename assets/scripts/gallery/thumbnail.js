@@ -17,8 +17,6 @@ import {
 } from '../segments/view'
 import { t } from '../locales/locale'
 
-// TODO: replace SKY_WIDTH with image's natural width
-const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
@@ -37,6 +35,7 @@ const WORDMARK_MARGIN = 4
  * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on.
  * @param {Number} dpi - scale factor of image.
  * @param {Boolean} invert - if `true`, render light text for dark background
+ * @modifies {CanvasRenderingContext2D}
  */
 function drawWatermark (ctx, dpi, invert) {
   const text = t('export.watermark', 'Made with {{streetmixWordmark}}')
@@ -85,6 +84,148 @@ function drawWatermark (ctx, dpi, invert) {
   }
 }
 
+/**
+ * Draws a layer of background color
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {string} color - color to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundColor (ctx, dpi, width, height, color) {
+  ctx.fillStyle = color
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws background image as a repeating pattern.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Object} imageId - image ID to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundImage (ctx, dpi, width, height, imageId) {
+  const img = images.get(imageId)
+
+  for (let i = 0; i < Math.floor(height / img.height) + 1; i++) {
+    for (let j = 0; j < Math.floor(width / img.width) + 1; j++) {
+      ctx.drawImage(img.img,
+        0, 0, img.width, img.height,
+        j * img.width * dpi, i * img.height * dpi, img.width * dpi, img.height * dpi)
+    }
+  }
+}
+
+/**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Array} backgroundGradient - environs definition of gradient
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundGradient (ctx, dpi, width, height, backgroundGradient) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, height * dpi)
+
+  // Make color stops
+  const stops = makeCanvasGradientStopArray(backgroundGradient)
+  for (let i = 0; i < stops.length; i++) {
+    const [ color, stop ] = stops[i]
+    gradient.addColorStop(stop, color)
+  }
+
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Array} objects - environs definition of background objects
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundObjects (ctx, dpi, width, height, objects) {
+  objects.forEach((object) => {
+    const { image: imageId, width: imageWidth, height: imageHeight, top, left } = object
+    const image = images.get(imageId).img
+    ctx.drawImage(
+      image,
+      // Left and top values are "percentage" values
+      // and sets where the center of the image is
+      (left * width - (imageWidth / 2)) * dpi,
+      (top * height - (imageHeight / 2)) * dpi,
+      imageWidth * dpi,
+      imageHeight * dpi
+    )
+  })
+}
+
+/**
+ * Draws clouds.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw o
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Object} env - environs settings
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawClouds (ctx, dpi, width, height, env) {
+  // Handle cloud opacity
+  ctx.save()
+  ctx.globalAlpha = env.cloudOpacity || 1
+
+  // Grab images
+  const skyFrontImg = images.get('/images/sky-front.svg')
+  const skyRearImg = images.get('/images/sky-rear.svg')
+
+  // Source images are 2x what they need to be for the math to work
+  // so until we resize the intrinsic size of the images, we have to
+  // do this and then size it back up later
+  const skyFrontWidth = skyFrontImg.width / 2
+  const skyFrontHeight = skyFrontImg.height / 2
+  const skyRearWidth = skyRearImg.width / 2
+  const skyRearHeight = skyRearImg.height / 2
+
+  // TODO document magic numbers
+  // y1 = top edge of sky-front image
+  const y1 = height - skyFrontHeight
+
+  for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
+    ctx.drawImage(skyFrontImg.img,
+      0, 0, skyFrontWidth * 2, skyFrontHeight * 2, // todo: change intrinsic size
+      i * skyFrontWidth * dpi, y1 * dpi,
+      skyFrontWidth * dpi, skyFrontHeight * dpi
+    )
+  }
+
+  // TODO document magic numbers
+  // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
+  const y2 = height - skyFrontHeight - 120
+
+  for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
+    ctx.drawImage(skyRearImg.img,
+      0, 0, skyRearWidth * 2, skyRearHeight * 2, // todo: change intrinsic size
+      i * skyRearWidth * dpi, y2 * dpi,
+      skyRearWidth * dpi, skyRearHeight * dpi
+    )
+  }
+
+  // Restore global opacity
+  ctx.restore()
+}
+
 export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
   dpi, multiplier, silhouette, bottomAligned,
   transparentSky, segmentNamesAndWidths, streetName, watermark = true) {
@@ -109,9 +250,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   var offsetLeft = (thumbnailWidth - (occupiedWidth * TILE_SIZE * multiplier)) / 2
   var buildingOffsetLeft = (thumbnailWidth - (street.width * TILE_SIZE * multiplier)) / 2
 
-  var groundLevel = offsetTop + (135 * multiplier)
-
-  const horizonLine = (groundLevel + (20 * multiplier)) * dpi
+  const groundLevel = offsetTop + (135 * multiplier)
+  const horizonLine = (groundLevel + (20 * multiplier))
 
   // Sky
   if (!transparentSky) {
@@ -119,79 +259,32 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // Solid color fill
     if (env.backgroundColor) {
-      ctx.fillStyle = env.backgroundColor
-      ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
+      drawBackgroundColor(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundColor)
     }
 
     // Background image fill
     if (env.backgroundImage) {
-      const STARS_WIDTH = 2000
-      const STARS_HEIGHT = 1333
-      for (let i = 0; i < Math.floor(thumbnailHeight / STARS_HEIGHT) + 1; i++) {
-        for (let j = 0; j < Math.floor(thumbnailWidth / STARS_WIDTH) + 1; j++) {
-          ctx.drawImage(images.get('/images/stars.svg').img,
-            0, 0, STARS_WIDTH * 2, STARS_HEIGHT * 2,
-            j * SKY_WIDTH * dpi, i * STARS_HEIGHT * dpi, SKY_WIDTH * dpi, STARS_HEIGHT * dpi)
-          console.log('drawing', images.get('/images/stars.svg').img, i, j)
-        }
-      }
+      drawBackgroundImage(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundImage)
     }
 
     // Gradient fill
     if (env.backgroundGradient) {
-      const gradient = ctx.createLinearGradient(0, 0, 0, horizonLine)
-
-      // Make color stops
-      const stops = makeCanvasGradientStopArray(env.backgroundGradient)
-      for (let i = 0; i < stops.length; i++) {
-        const [ color, stop ] = stops[i]
-        gradient.addColorStop(stop, color)
-      }
-
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, thumbnailWidth * dpi, horizonLine)
+      drawBackgroundGradient(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundGradient)
     }
 
-    // const SUPERMOON = true
-    // if (SUPERMOON) {
-    //   console.log(images.get('/images/super-blood-wolf-moon.png').img)
-    //   ctx.drawImage(images.get('/images/super-blood-wolf-moon.png').img,
-    //     0.7 * thumbnailWidth, 0.33 * thumbnailHeight, 128 * dpi, 128 * dpi)
-    // }
-
-    const SKY_FRONT_HEIGHT = 280
-    const SKY_REAR_HEIGHT = 250
-
-    // TODO document magic numbers
-    // y1 = top edge of sky-front image, bottom of image should hit groundlevel
-    const y1 = groundLevel - SKY_FRONT_HEIGHT
-
-    // Handle cloud opacity
-    ctx.save()
-    ctx.globalAlpha = env.cloudOpacity || 1
-
-    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images.get('/images/sky-front.svg').img,
-        0, 0, SKY_WIDTH * 2, SKY_FRONT_HEIGHT * 2,
-        i * SKY_WIDTH * dpi, y1 * dpi, SKY_WIDTH * dpi, SKY_FRONT_HEIGHT * dpi)
+    // Background objects
+    if (env.backgroundObjects) {
+      drawBackgroundObjects(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundObjects)
     }
 
-    // TODO document magic numbers
-    // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
-    const y2 = groundLevel - SKY_FRONT_HEIGHT - 120
-
-    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images.get('/images/sky-rear.svg').img,
-        0, 0, SKY_WIDTH * 2, SKY_REAR_HEIGHT * 2,
-        i * SKY_WIDTH * dpi, y2 * dpi, SKY_WIDTH * dpi, SKY_REAR_HEIGHT * dpi)
-    }
-    ctx.restore()
+    // Cluds
+    drawClouds(ctx, dpi, thumbnailWidth, groundLevel, env)
   }
 
   // Dirt
 
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(0, horizonLine, thumbnailWidth * dpi, (25 * multiplier) * dpi)
+  ctx.fillRect(0, horizonLine * dpi, thumbnailWidth * dpi, (25 * multiplier) * dpi)
 
   ctx.fillRect(0, groundLevel * dpi,
     ((thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)) * dpi,
