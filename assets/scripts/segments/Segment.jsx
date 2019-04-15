@@ -8,7 +8,7 @@ import { CSSTransition } from 'react-transition-group'
 
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
-import MeasurementText from '../ui/MeasurementText'
+import SegmentLabelContainer from './SegmentLabelContainer'
 import './Segment.scss'
 
 import {
@@ -27,7 +27,6 @@ import {
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, incrementSegmentWidth } from './resizing'
 import { removeSegment, removeAllSegments } from './remove'
-import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
@@ -58,10 +57,6 @@ export class Segment extends React.Component {
     connectDragPreview: PropTypes.func,
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool
-  }
-
-  static defaultProps = {
-    units: SETTINGS_UNITS_METRIC
   }
 
   constructor (props) {
@@ -276,15 +271,12 @@ export class Segment extends React.Component {
         onMouseEnter={this.onSegmentMouseEnter}
         onMouseLeave={this.onSegmentMouseLeave}
       >
-        <div className="segment-label-container">
-          <span className="segment-label">
-            {displayName}
-          </span>
-          <span className="segment-width">
-            <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
-          </span>
-        </div>
-        <span className={'segment-grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+        <SegmentLabelContainer
+          label={displayName}
+          width={actualWidth}
+          units={this.props.units}
+          locale={this.props.locale}
+        />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition
           key="old-variant"

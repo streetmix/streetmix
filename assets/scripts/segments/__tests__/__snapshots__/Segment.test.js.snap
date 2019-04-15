@@ -15,25 +15,11 @@ exports[`Segment renders active segment correctly 1`] = `
     }
   }
 >
-  <div
-    className="segment-label-container"
-  >
-    <span
-      className="segment-label"
-    >
-      Segment
-    </span>
-    <span
-      className="segment-width"
-    >
-      <React.Memo
-        units={2}
-        value={1}
-      />
-    </span>
-  </div>
-  <span
-    className="segment-grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -92,25 +78,11 @@ exports[`Segment renders segment warnings correctly 1`] = `
     }
   }
 >
-  <div
-    className="segment-label-container"
-  >
-    <span
-      className="segment-label"
-    >
-      Segment
-    </span>
-    <span
-      className="segment-width"
-    >
-      <React.Memo
-        units={2}
-        value={1}
-      />
-    </span>
-  </div>
-  <span
-    className="segment-grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -169,25 +141,11 @@ exports[`Segment renders segment warnings outside correctly 1`] = `
     }
   }
 >
-  <div
-    className="segment-label-container"
-  >
-    <span
-      className="segment-label"
-    >
-      Segment
-    </span>
-    <span
-      className="segment-width"
-    >
-      <React.Memo
-        units={2}
-        value={1}
-      />
-    </span>
-  </div>
-  <span
-    className="segment-grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -246,25 +204,11 @@ exports[`Segment renders segment warnings width too large correctly 1`] = `
     }
   }
 >
-  <div
-    className="segment-label-container"
-  >
-    <span
-      className="segment-label"
-    >
-      Segment
-    </span>
-    <span
-      className="segment-width"
-    >
-      <React.Memo
-        units={2}
-        value={1}
-      />
-    </span>
-  </div>
-  <span
-    className="segment-grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -323,25 +267,11 @@ exports[`Segment renders the units correctly 1`] = `
     }
   }
 >
-  <div
-    className="segment-label-container"
-  >
-    <span
-      className="segment-label"
-    >
-      Segment
-    </span>
-    <span
-      className="segment-width"
-    >
-      <React.Memo
-        units={1}
-        value={1}
-      />
-    </span>
-  </div>
-  <span
-    className="segment-grid units-imperial"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={1}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
