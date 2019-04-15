@@ -278,6 +278,28 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(0.25)
   })
 
+  it('parses a value using the prime mark (3′)', () => {
+    const value = '3′'
+
+    const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
+    expect(input1).toEqual(3)
+
+    const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
+    expect(input2).toEqual(3)
+  })
+
+  // TODO: This does not work because the parser only splits on straight-quotes
+  // not prime marks yet.
+  it.skip('parses a value using the prime marks (3′-6″)', () => {
+    const value = '3′-6″'
+
+    const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
+    expect(input1).toEqual(3.5)
+
+    const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
+    expect(input2).toEqual(3.5)
+  })
+
   it('parses a value with meters unit (3m)', () => {
     const value = '3m'
 
@@ -377,48 +399,48 @@ describe('prettifyWidth()', () => {
 
   it('formats an imperial unit width', () => {
     const width = prettifyWidth(3, SETTINGS_UNITS_IMPERIAL, 'en')
-    expect(width).toBe('3\'')
+    expect(width).toBe('3′')
   })
 
   describe('imperial units with vulgar fractions', () => {
     it('formats .125 as ⅛', () => {
       const width = prettifyWidth(3.125, SETTINGS_UNITS_IMPERIAL, 'en')
-      expect(width).toBe('3⅛\'')
+      expect(width).toBe('3⅛′')
     })
 
     it('formats .25 as ¼', () => {
       const width = prettifyWidth(3.25, SETTINGS_UNITS_IMPERIAL, 'en')
-      expect(width).toBe('3¼\'')
+      expect(width).toBe('3¼′')
     })
 
     it('formats .375 as ⅜', () => {
       const width = prettifyWidth(3.375, SETTINGS_UNITS_IMPERIAL, 'en')
-      expect(width).toBe('3⅜\'')
+      expect(width).toBe('3⅜′')
     })
 
     it('formats .5 as ½', () => {
       const width = prettifyWidth(3.5, SETTINGS_UNITS_IMPERIAL, 'en')
-      expect(width).toBe('3½\'')
+      expect(width).toBe('3½′')
     })
 
     it('formats .625 as ⅝', () => {
       const width = prettifyWidth(3.625, SETTINGS_UNITS_IMPERIAL, 'en')
-      expect(width).toBe('3⅝\'')
+      expect(width).toBe('3⅝′')
     })
 
     it('formats .75 as ¾', () => {
       const width = prettifyWidth(3.75, SETTINGS_UNITS_IMPERIAL, 'en')
-      expect(width).toBe('3¾\'')
+      expect(width).toBe('3¾′')
     })
 
     it('formats .875 as ⅞', () => {
       const width = prettifyWidth(3.875, SETTINGS_UNITS_IMPERIAL, 'en')
-      expect(width).toBe('3⅞\'')
+      expect(width).toBe('3⅞′')
     })
   })
 
   it('formats an imperial unit with decimals', () => {
     const width = prettifyWidth(3.65, SETTINGS_UNITS_IMPERIAL, 'en')
-    expect(width).toBe('3.65\'')
+    expect(width).toBe('3.65′')
   })
 })
