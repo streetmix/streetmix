@@ -1,0 +1,11 @@
+.segment-image {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 150px;
+  pointer-events: none;
+}
+
+body:not(.segment-resize-dragging) .segment.outside .segment-image {
+  transition: none;
+}

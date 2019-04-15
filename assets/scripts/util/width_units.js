@@ -10,11 +10,13 @@ const WIDTH_INPUT_CONVERSION = [
   { text: 'м', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
   { text: 'cm', multiplier: 1 / 100 / IMPERIAL_METRIC_MULTIPLIER },
   { text: '"', multiplier: 1 / 12 },
+  { text: '″', multiplier: 1 / 12 },
   { text: 'in', multiplier: 1 / 12 },
   { text: 'in.', multiplier: 1 / 12 },
   { text: 'inch', multiplier: 1 / 12 },
   { text: 'inches', multiplier: 1 / 12 },
   { text: "'", multiplier: 1 },
+  { text: '′', multiplier: 1 },
   { text: 'ft', multiplier: 1 },
   { text: 'ft.', multiplier: 1 },
   { text: 'feet', multiplier: 1 }
@@ -93,7 +95,7 @@ export function prettifyWidth (width, units, locale) {
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
       widthText = getImperialMeasurementWithVulgarFractions(width, locale) // also converts to string
-      widthText += "'"
+      widthText += '′'
       break
     case SETTINGS_UNITS_METRIC:
     default:

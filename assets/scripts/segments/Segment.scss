@@ -33,22 +33,6 @@ body.immediate-segment-resize .segment {
   transition: none !important;
 }
 
-// Segments in palette
-.segment.segment-in-palette {
-  display: inline-block;
-  position: relative;
-
-  //overflow: hidden;
-
-  margin: 12px 0;
-  height: 80px;
-  top: 0;
-  background-color: fade-out($sky-colour, 0.3);
-  margin-right: 1px;
-  transform-origin: 50% 75%;
-  transition: transform 50ms !important;
-}
-
 .segment.hover {
   z-index: $z-02-segment-focused !important;
 }
@@ -68,111 +52,8 @@ body:not(.read-only) .segment {
   cursor: grab;
 }
 
-.segment .image {
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  top: 150px;
-  pointer-events: none;
-}
-
-.segment.segment-in-palette .image {
-  top: 0;
-}
-
-body:not(.segment-resize-dragging) .segment.outside .image {
-  transition: none;
-}
-
 .segment.dragged-out {
   opacity: 0;
-}
-
-.segment.segment-in-palette:hover {
-  background: fade-out($sky-colour, 0.05);
-  z-index: 1;
-
-  canvas {
-    transform: scale(1.15);
-    transform-origin: 50% 75px;
-  }
-}
-
-.segment .grid {
-  position: absolute;
-  left: 0;
-  right: -1px;
-  top: $canvas-baseline;
-  height: $segment-grid-height;
-  pointer-events: none;
-
-  // Creates grid lines
-  // The last value is required for IE11
-  background-image: linear-gradient(90deg, $segment-width-rule 1px, transparent 1px, transparent);
-  background-repeat: repeat-x;
-
-  // Change background-size width to adjust spacing of grid lines
-  &.units-imperial {
-    background-size: $tile-size 100%;
-  }
-
-  &.units-metric {
-    background-size: ($tile-size * 100 / 30 / 2) 100%;
-  }
-}
-
-.segment .name {
-  position: absolute;
-  left: 4px;
-  right: 4px;
-  top: $canvas-baseline + 45;
-  height: 48px;
-  color: $segment-text;
-  font-weight: 300;
-  text-rendering: optimizeLegibility;
-  word-wrap: break-word;
-  font-size: 13px;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.segment.hover .name {
-  font-weight: 700;
-}
-
-.segment.warning .name {
-  color: $segment-warning-text;
-}
-
-.segment .width {
-  position: absolute;
-  left: 0;
-  right: -1px;
-  border-left: 1px solid $segment-width-rule;
-  border-right: 1px solid $segment-width-rule;
-  top: $canvas-baseline;
-  height: 90px;
-  line-height: 60px;
-  color: $segment-text;
-  font-weight: 300;
-  text-rendering: optimizeLegibility;
-  font-size: 13px;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-/* Force `rtl` direction when it's applied to the body, since
-the width element is inside the street layout which is forced `ltr` */
-body[dir="rtl"] .segment .width {
-  direction: rtl !important;
-}
-
-.segment.hover .width {
-  font-weight: 700;
-}
-
-.segment.warning .width {
-  color: $segment-warning-text;
 }
 
 body.segment-move-dragging,

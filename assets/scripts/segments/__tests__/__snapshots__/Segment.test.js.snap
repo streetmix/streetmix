@@ -15,21 +15,11 @@ exports[`Segment renders active segment correctly 1`] = `
     }
   }
 >
-  <span
-    className="name"
-  >
-    Segment
-  </span>
-  <span
-    className="width"
-  >
-    <React.Memo
-      units={2}
-      value={1}
-    />
-  </span>
-  <span
-    className="grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -88,21 +78,11 @@ exports[`Segment renders segment warnings correctly 1`] = `
     }
   }
 >
-  <span
-    className="name"
-  >
-    Segment
-  </span>
-  <span
-    className="width"
-  >
-    <React.Memo
-      units={2}
-      value={1}
-    />
-  </span>
-  <span
-    className="grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -161,21 +141,11 @@ exports[`Segment renders segment warnings outside correctly 1`] = `
     }
   }
 >
-  <span
-    className="name"
-  >
-    Segment
-  </span>
-  <span
-    className="width"
-  >
-    <React.Memo
-      units={2}
-      value={1}
-    />
-  </span>
-  <span
-    className="grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -234,21 +204,11 @@ exports[`Segment renders segment warnings width too large correctly 1`] = `
     }
   }
 >
-  <span
-    className="name"
-  >
-    Segment
-  </span>
-  <span
-    className="width"
-  >
-    <React.Memo
-      units={2}
-      value={1}
-    />
-  </span>
-  <span
-    className="grid units-metric"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={2}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}
@@ -307,21 +267,11 @@ exports[`Segment renders the units correctly 1`] = `
     }
   }
 >
-  <span
-    className="name"
-  >
-    Segment
-  </span>
-  <span
-    className="width"
-  >
-    <React.Memo
-      units={1}
-      value={1}
-    />
-  </span>
-  <span
-    className="grid units-imperial"
+  <SegmentLabelContainer
+    label="Segment"
+    locale="en"
+    units={1}
+    width={1}
   />
   <Connect(SegmentDragHandles)
     width={12}

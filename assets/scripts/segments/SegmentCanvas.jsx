@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { TILE_SIZE } from './constants'
+import './SegmentCanvas.scss'
 
 const SEGMENT_Y_OFFSET = 265
 const CANVAS_HEIGHT = 480
@@ -82,7 +83,13 @@ class SegmentCanvas extends React.PureComponent {
     }
 
     return (
-      <canvas className="image" ref={this.canvasEl} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+      <canvas
+        className="segment-image"
+        ref={this.canvasEl}
+        width={canvasWidth}
+        height={canvasHeight}
+        style={canvasStyle}
+      />
     )
   }
 }
