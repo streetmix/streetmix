@@ -93,7 +93,7 @@ export function prettifyWidth (width, units, locale) {
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
       widthText = getImperialMeasurementWithVulgarFractions(width, locale) // also converts to string
-      widthText += "'"
+      widthText += '′'
       break
     case SETTINGS_UNITS_METRIC:
     default:
