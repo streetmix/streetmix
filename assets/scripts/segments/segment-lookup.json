@@ -1,0 +1,23 @@
+{
+  "scooter": {
+    "inbound|regular": {
+      "lanes": [
+        {
+          "id": "road",
+          "variants": {
+            "color": "regular"
+          }
+        }
+      ],
+      "objects": [],
+      "vehicles": [
+        {
+          "id": "scooter",
+          "variants": {
+            "direction": "inbound"
+          }
+        }
+      ]
+    }
+  }
+}
