@@ -1,4 +1,5 @@
 import SEGMENT_INFO from './info.json'
+import { testSegmentLookup } from './segment-dict.js'
 
 /**
  * Defines the meta-category of each segment, similar to "typechecking"
@@ -244,7 +245,14 @@ export function getSegmentInfo (type) {
  */
 export function getSegmentVariantInfo (type, variant) {
   const segment = getSegmentInfo(type)
-  return (segment && segment.details && segment.details[variant]) || SEGMENT_UNKNOWN_VARIANT
+
+  const segmentVariantInfo = (segment && segment.details && segment.details[variant]) || SEGMENT_UNKNOWN_VARIANT
+
+  if (type === 'scooter' && !segmentVariantInfo.unknown) {
+    return testSegmentLookup(type, variant, segmentVariantInfo)
+  }
+
+  return segmentVariantInfo
 }
 
 /**
