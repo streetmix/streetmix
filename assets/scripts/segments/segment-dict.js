@@ -26,24 +26,16 @@ const SEGMENT_UNKNOWN_VARIANT = {
   }
 }
 
-const SEGMENT_COMPONENTS_UNKNOWN = {
-  unknown: true,
-  lanes: [],
-  objects: [],
-  vehicles: []
-}
-
 /**
- * Gets segment components data for segment `type` and `variantString`. Safer than reading
- * `type` and `variantString` directly from `SEGMENT_LOOKUP`, because this will return the
- * `SEGMENT_COMPONENTS_UNKNOWN` placeholder if the segment components data is not found.
+ * Gets segment components data for segment `type` and `variantString` which includes
+ * lanes, objects, and vehicles that make up the segment.
  *
  * @param {string} type
  * @param {string} variantString
- * @returns {Object} - { lanesArray, objectsArray, vehiclesArray }
+ * @returns {object} - { lanesArray, objectsArray, vehiclesArray }
  */
 function getSegmentComponents (type, variant) {
-  return (SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type][variant]) || SEGMENT_COMPONENTS_UNKNOWN
+  return SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type][variant]
 }
 
 /**
@@ -53,17 +45,18 @@ function getSegmentComponents (type, variant) {
  *
  * @param {string} type
  * @param {string} id
- * @returns {Object} - { characteristics, rules, variants }
+ * @returns {object} - { characteristics, rules, variants }
  */
 function getSegmentInfo (type, id) {
   return (SEGMENT_INFO[type] && SEGMENT_INFO[type][id]) || SEGMENT_UNKNOWN
 }
 
 /**
+ * Retrieves the segment pieces that make up the component (lane, object, or vehicle).
  *
  * @param {string} type
  * @param {Array} componentPieces
- * @returns {Object} - { id: { characteristics, rules, variants } }
+ * @returns {object} - { id: { characteristics, rules, variants } }
  */
 function getComponentPiecesInfo (type, componentPieces) {
   const componentPiecesInfo = componentPieces.reduce((obj, item) => {
@@ -75,30 +68,24 @@ function getComponentPiecesInfo (type, componentPieces) {
   return componentPiecesInfo
 }
 
-function appendVariantSprites (target, source) {
-  let newGraphicsInfo
-
-  if (Array.isArray(target) && Array.isArray(source)) {
-    newGraphicsInfo = target.concat(source)
-  } else if (Array.isArray(target)) {
-    newGraphicsInfo = target.push(source)
-  } else if (Array.isArray(source)) {
-    newGraphicsInfo = [...target].concat(source)
-  } else {
-    newGraphicsInfo = [...target, ...source]
-  }
-
-  return newGraphicsInfo
-}
-
+/**
+ * Creates one object with all the graphic definitions to draw a segment.
+ *
+ * @param {object} graphics
+ * @param {object} variantInfo
+ * @returns {object}
+ */
 function mergeVariantGraphics (graphics, variantInfo) {
   const graphicsInfo = { ...graphics }
 
   Object.keys(variantInfo).forEach((key) => {
+    const target = graphics[key]
+    const source = variantInfo[key]
+
     if (graphicsInfo[key]) {
-      graphicsInfo[key] = appendVariantSprites(graphicsInfo[key], variantInfo[key])
+      graphicsInfo[key] = [...target, ...source]
     } else {
-      graphicsInfo[key] = variantInfo[key]
+      graphicsInfo[key] = source
     }
   })
 
@@ -106,10 +93,11 @@ function mergeVariantGraphics (graphics, variantInfo) {
 }
 
 /**
+ * Collects graphics definitions for each segment piece that makes up a component into an array.
  *
  * @param {Array} componentPieces - [ { id, variants } ]
- * @param {Object} componentPiecesInfo - { id: { characteristics, rules, variants } }
- * @returns {Object} - { graphics: [ { graphicsForComponentPiece1 }, { graphicsForComponentPiece2 }, ... ], rules: {} }
+ * @param {object} componentPiecesInfo - { id: { characteristics, rules, variants } }
+ * @returns {object} - { graphics: [ { graphicsForComponentPiece1 }, { graphicsForComponentPiece2 }, ... ], rules: {} }
  */
 function getComponentPiecesVariantInfo (componentPieces, componentPiecesInfo) {
   let componentRules = {}
@@ -135,6 +123,12 @@ function getComponentPiecesVariantInfo (componentPieces, componentPiecesInfo) {
   return { graphics: componentPiecesVariantInfo, rules: componentRules }
 }
 
+/**
+ * Combines all graphics definitions from each segment piece that makes up a component into one graphics definition for the component.
+ *
+ * @param {Array} componentPiecesVariantInfo - [ { graphicsForComponentPiece1 }, { graphicsForComponentPiece2 }, ...]
+ * @returns {object}
+ */
 function mergeComponentVariants (componentPiecesVariantInfo) {
   return componentPiecesVariantInfo.reduce((graphics, componentPieceVariantInfo) => {
     return mergeVariantGraphics(graphics, componentPieceVariantInfo)
@@ -144,18 +138,22 @@ function mergeComponentVariants (componentPiecesVariantInfo) {
 function getSegmentVariantInfo (type, variant) {
   const segmentComponents = getSegmentComponents(type, variant)
 
-  if (segmentComponents.unknown) {
+  if (!segmentComponents) {
     return SEGMENT_UNKNOWN_VARIANT
   }
 
   let segmentRules = {}
 
+  // 1) Go through each segment component (lanes, objects, vehicles).
   const segmentVariantInfoArray = Object.entries(segmentComponents).map((segmentComponent) => {
     const [ type, componentPieces ] = segmentComponent
 
     if (componentPieces.length) {
+      // 2) For each segment component, retrieve information about each segment that makes up the component.
       const componentPiecesInfo = getComponentPiecesInfo(type, componentPieces)
+      // 3) For each segment component, retrieve graphics information for each segment that makes up the component.
       const componentPiecesVariantInfo = getComponentPiecesVariantInfo(componentPieces, componentPiecesInfo)
+      // 4) Combine graphics information from each segment that makes up the component into one object for the entire component.
       const componentVariantInfo = mergeComponentVariants(componentPiecesVariantInfo.graphics)
 
       segmentRules = Object.assign(segmentRules, componentPiecesVariantInfo.rules)
@@ -163,13 +161,24 @@ function getSegmentVariantInfo (type, variant) {
     }
   })
 
+  // 5) Combine graphics information from each segment component into one object for the whole segment.
   const segmentVariantInfo = segmentVariantInfoArray.reduce((graphics, variantInfo) => {
     return (variantInfo) ? mergeVariantGraphics(graphics, variantInfo) : graphics
   })
 
+  // 6) Return graphics information for whole segment along with any rules that apply to the segment.
   return { graphics: segmentVariantInfo, ...segmentRules }
 }
 
+/**
+ * Temporary helper method that compares the original segment variant info with the variant info returned
+ * by the new data model. If the new variant info contains all the keys from the original variant info, then
+ * the variant info is correct.
+ *
+ * @param {object} original
+ * @param {object} test
+ * @returns {boolean}
+ */
 function verifyCorrectness (original, test) {
   const filteredKeys = Object.keys(original).filter((key) => !(test[key]))
   const filteredGraphics = Object.entries(original.graphics).filter((item) => {
