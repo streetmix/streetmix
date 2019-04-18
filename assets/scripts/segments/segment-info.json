@@ -25,20 +25,17 @@
       }
     }
   },
-  "objects": {
-  },
+  "objects": {},
   "vehicles": {
     "scooter": {
-      "characteristics": {
-        "name": "Electric scooter",
-        "nameKey": "scooter",
-        "owner": "BIKE"
-      },
+      "name": "Electric scooter",
+      "nameKey": "scooter",
+      "owner": "BIKE",
+      "zIndex": 16,
+      "enableWithFlag": "SEGMENT_SCOOTERS",
       "rules": {
-        "zIndex": 16,
         "defaultWidth": 5,
-        "minWidth": 4,
-        "enableWithFlag": "SEGMENT_SCOOTERS"
+        "minWidth": 4
       },
       "variants": {
         "direction": {
