@@ -184,7 +184,7 @@ export function testSegmentLookup (type, variant, segmentVariantInfo) {
   const testSegmentVariantInfo = getSegmentVariantInfo(type, variant)
 
   if (verifyCorrectness(segmentVariantInfo, testSegmentVariantInfo)) {
-    console.log(testSegmentVariantInfo)
+    console.log(variant, testSegmentVariantInfo)
     return testSegmentVariantInfo
   } else {
     return segmentVariantInfo
