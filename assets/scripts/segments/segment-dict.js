@@ -39,6 +39,18 @@ function getSegmentLookup (type, variant) {
 }
 
 /**
+ * Retrieves the specified segment information from the new segment data model using the
+ * component group and the segment id.
+ *
+ * @param {string} group
+ * @param {id} id
+ * @returns {object} segmentInfo
+ */
+function getSegmentInfo (group, id) {
+  return (SEGMENT_INFO[group] && SEGMENT_INFO[group][id]) || SEGMENT_UNKNOWN
+}
+
+/**
  * Retrieves the information for all items that make up a particular component group by
  * looking up the component group and item id in `SEGMENT_INFO`.
  *
@@ -48,7 +60,7 @@ function getSegmentLookup (type, variant) {
  */
 function getComponentGroupInfo (group, groupItems) {
   return groupItems.reduce((obj, item) => {
-    obj[item.id] = (SEGMENT_INFO[group] && SEGMENT_INFO[group][item.id]) || SEGMENT_UNKNOWN
+    obj[item.id] = getSegmentInfo(group, item.id)
     return obj
   }, {})
 }
