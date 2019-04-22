@@ -1,7 +1,7 @@
 {
   "lanes": {
-    "road": {
-      "nameKey": "road",
+    "asphalt": {
+      "nameKey": "asphalt",
       "variants": {
         "color": {
           "regular": {

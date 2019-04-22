@@ -3,7 +3,7 @@
     "inbound|regular": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "regular"
           }
