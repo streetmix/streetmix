@@ -375,6 +375,15 @@ export class InfoBubble extends React.Component {
     let id
     let defaultMessage = ''
 
+    // Return label if provided
+    if (this.state.type === INFO_BUBBLE_TYPE_SEGMENT) {
+      const segment = this.props.street.segments[this.props.position]
+      if (segment && segment.label) {
+        return segment.label
+      }
+    }
+
+    // Otherwise need to do a lookup
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
         const segment = this.props.street.segments[this.props.position]
