@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ICON_PENCIL } from '../ui/icons'
 import MeasurementText from '../ui/MeasurementText'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import './SegmentLabelContainer.scss'
@@ -23,6 +25,9 @@ const SegmentLabelContainer = (props) => {
   return (
     <div className="segment-label-container">
       <span className={labelClassNames.join(' ')} onClick={props.editSegmentLabel}>
+        <span className="segment-label-editable-icon">
+        ️️️ <FontAwesomeIcon icon={ICON_PENCIL} />
+        </span>
         {props.label}
       </span>
       <span className="segment-width">

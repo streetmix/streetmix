@@ -17,7 +17,7 @@
   position: absolute;
   left: 4px;
   right: 4px;
-  top: 45px;
+  top: 48px;
   color: $segment-text;
   font-weight: 300;
   text-rendering: optimizeLegibility;
@@ -25,6 +25,42 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   pointer-events: none;
+}
+
+.segment-label-editable {
+  pointer-events: auto !important;
+}
+
+.segment-label-editable:hover {
+  background-color: lighten($bottom-background, 10%) !important;
+  border-radius: 20px;
+  padding-left: 1em !important;
+  padding-right: 1em !important;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.segment-label-editable-icon {
+  display: none;
+}
+
+.segment-label-editable:hover .segment-label-editable-icon {
+  width: 20px;
+  height: 20px;
+  background-color: lighten($bottom-background, 3%) !important;
+  display: inline-block;
+  border-radius: 50%;
+  margin-left: -0.65em;
+  margin-right: 0.3em;
+  color: black;
+
+  svg {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 81%;
+    transform: scaleX(-1);
+  }
 }
 
 .segment.hover .segment-label {

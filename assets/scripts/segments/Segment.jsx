@@ -9,7 +9,6 @@ import { CSSTransition } from 'react-transition-group'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
-import MeasurementText from '../ui/MeasurementText'
 import { getLocaleSegmentName } from '../segments/view'
 import './Segment.scss'
 
@@ -293,6 +292,7 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
+          editable
           editSegmentLabel={(event) => this.editSegmentLabel(segment)}
         />
         <SegmentDragHandles width={elementWidth} />
