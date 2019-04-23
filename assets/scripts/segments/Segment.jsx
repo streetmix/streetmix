@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
-import { getLocaleSegmentName } from '../segments/view'
+import { getLocaleSegmentName, segmentsChanged } from '../segments/view'
 import './Segment.scss'
 
 import {
@@ -35,6 +35,7 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { setActiveSegment } from '../store/actions/ui'
+import { changeSegmentProperties } from '../store/actions/street'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -53,6 +54,7 @@ export class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
+    changeSegmentProperties: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -229,9 +231,9 @@ export class Segment extends React.Component {
   }
 
   editSegmentLabel (segment) {
-    let newLabel = window.prompt('Edit label', segment.label || getLocaleSegmentName(segment.type, segment.variantString))
-    console.log(newLabel)
-    // TODO: Update segment label somehow.
+    const label = window.prompt('Edit label', segment.label || getLocaleSegmentName(segment.type, segment.variantString))
+    this.props.changeSegmentProperties(this.props.dataNo, { label })
+    segmentsChanged()
   }
 
   render () {
@@ -331,7 +333,8 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  setActiveSegment
+  setActiveSegment,
+  changeSegmentProperties
 }
 
 export default flow(

@@ -6,6 +6,7 @@ import {
   UPDATE_SEGMENTS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
+  CHANGE_SEGMENT_PROPERTIES,
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
@@ -87,6 +88,14 @@ export function changeSegmentVariant (index, set, selection) {
     index,
     set,
     selection
+  }
+}
+
+export function changeSegmentProperties (index, properties) {
+  return {
+    type: CHANGE_SEGMENT_PROPERTIES,
+    index,
+    properties
   }
 }
 
