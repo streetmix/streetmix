@@ -1,6 +1,7 @@
 import SEGMENT_COMPONENTS from './segment-info.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
+import { uniq } from 'lodash'
 
 /**
  * Retrieves the necessary information required to map the old segment data model to the
@@ -77,19 +78,11 @@ function getComponentGroupVariants (groupItems, componentGroupInfo) {
  * @returns {Array} graphicsInfo
  */
 function appendVariantSprites (target, source) {
-  let graphicsInfo
+  const targetArray = Array.isArray(target) ? target : [target]
+  const sourceArray = Array.isArray(source) ? source : [source]
 
-  if (Array.isArray(target) && Array.isArray(source)) {
-    graphicsInfo = [...target, ...source]
-  } else if (Array.isArray(target)) {
-    graphicsInfo = [...target, source]
-  } else if (Array.isArray(source)) {
-    graphicsInfo = [ target, ...source ]
-  } else {
-    graphicsInfo = (target === source) ? target : [ target, source ]
-  }
-
-  return graphicsInfo
+  const graphicsInfo = targetArray.concat(sourceArray)
+  return uniq(graphicsInfo)
 }
 
 /**
