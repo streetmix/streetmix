@@ -1,4 +1,4 @@
-import SEGMENT_INFO from './segment-info.json'
+import SEGMENT_COMPONENTS from './segment-info.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
 
@@ -23,12 +23,12 @@ function getSegmentLookup (type, variant) {
  * @returns {object} segmentInfo
  */
 function getSegmentInfo (group, id) {
-  return (SEGMENT_INFO[group] && SEGMENT_INFO[group][id]) || SEGMENT_UNKNOWN
+  return (SEGMENT_COMPONENTS[group] && SEGMENT_COMPONENTS[group][id]) || SEGMENT_UNKNOWN
 }
 
 /**
  * Retrieves the information for all items that make up a particular component group by
- * looking up the component group and item id in `SEGMENT_INFO`.
+ * looking up the component group and item id in `SEGMENT_COMPONENTS`.
  *
  * @param {string} group - component group name (i.e. `lanes`, `objects`, or `vehicles`)
  * @param {Array} groupItems - items that make up the component group in shape of [{ id, variants }]
@@ -46,7 +46,7 @@ function getComponentGroupInfo (group, groupItems) {
  * specified for each component group item.
  *
  * @param {Array} groupItems - items that make up the component group in shape of [ { id, variants } ]
- * @param {object} componentGroupInfo - definition of each item from `SEGMENT_INFO` in shape of { id: { characteristics, rules, variants } }
+ * @param {object} componentGroupInfo - definition of each item from `SEGMENT_COMPONENTS` in shape of { id: { characteristics, rules, variants } }
  * @returns {Array} componentGroupVariants - returns array of graphic definitions in shape of [ { graphics } ]
  */
 function getComponentGroupVariants (groupItems, componentGroupInfo) {
@@ -119,7 +119,7 @@ function mergeVariantGraphics (variantGraphics) {
  * Collects all rules associated with any items that make up the component group into a single object.
  *
  * @param {Array} groupItems - items that make up the component group in shape of [{ id, variants }]
- * @param {object} componentGroupInfo - definition of each item from `SEGMENT_INFO` in shape of { id: { characteristics, rules, variants } }
+ * @param {object} componentGroupInfo - definition of each item from `SEGMENT_COMPONENTS` in shape of { id: { characteristics, rules, variants } }
  * @returns {object} componentGroupRules
  */
 function getComponentGroupRules (groupItems, componentGroupInfo) {
