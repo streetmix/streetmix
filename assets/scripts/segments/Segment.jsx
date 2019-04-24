@@ -55,6 +55,7 @@ export class Segment extends React.Component {
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
     changeSegmentProperties: PropTypes.func,
+    customSegmentLabels: PropTypes.bool,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -294,7 +295,7 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
-          editable
+          editable={this.props.customSegmentLabels}
           editSegmentLabel={(event) => this.editSegmentLabel(segment)}
         />
         <SegmentDragHandles width={elementWidth} />
@@ -328,7 +329,8 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
-    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
+    customSegmentLabels: state.flags.CUSTOM_SEGMENT_LABELS.value
   }
 }
 

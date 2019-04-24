@@ -80,6 +80,10 @@
     "label": "Segment — [debug] canvas rectangles",
     "defaultValue": false
   },
+  "CUSTOM_SEGMENT_LABELS": {
+    "label": "Custom segment labels",
+    "defaultValue": false
+  },
   "SAVE_AS_IMAGE_CUSTOM_DPI": {
     "label": "Save images at custom DPI",
     "defaultValue": false
