@@ -18,8 +18,8 @@ function getSegmentLookup (type, variant) {
  * Retrieves the specified segment information from the new segment data model using the
  * component group and the segment id.
  *
- * @param {string} group
- * @param {id} id
+ * @param {string} group - component group, one of values "lanes", "vehicles" or "objects"
+ * @param {string} id - name of segment component, e.g. "scooter"
  * @returns {object} segmentInfo
  */
 function getSegmentInfo (group, id) {
