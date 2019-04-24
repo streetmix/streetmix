@@ -161,10 +161,8 @@ function getSegmentVariantInfo (type, variant) {
     return SEGMENT_UNKNOWN_VARIANT
   }
 
-  let variantInfo = { graphics: [] }
-
   // 1) Loop through each component group that makes up the segment.
-  variantInfo = Object.entries(segmentLookup).reduce((variantInfo, componentGroup) => {
+  const variantInfo = Object.entries(segmentLookup).reduce((variantInfo, componentGroup) => {
     const [ group, groupItems ] = componentGroup
     // 2) For each component group, look up the segment information for every item that makes up the component group.
     // componentGroupInfo = [ { characteristics, rules, variants } ]
@@ -186,7 +184,7 @@ function getSegmentVariantInfo (type, variant) {
     }
 
     return variantInfo
-  }, variantInfo)
+  }, { graphics: [] })
 
   // 6) Combine the variant graphics into one graphics definition object.
   variantInfo.graphics = mergeVariantGraphics(variantInfo.graphics)
