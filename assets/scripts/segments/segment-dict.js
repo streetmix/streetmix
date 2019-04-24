@@ -1,4 +1,4 @@
-import SEGMENT_COMPONENTS from './segment-info.json'
+import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
 import { uniq } from 'lodash'
@@ -197,10 +197,12 @@ function verifyCorrectness (originalVariantInfo, newVariantInfo) {
   const filteredKeys = Object.keys(originalVariantInfo).filter(key => !newVariantInfo[key])
   const filteredGraphics = Object.entries(originalVariantInfo.graphics).filter((item) => {
     const [ key, value ] = item
-    return !(JSON.stringify(value) === JSON.stringify(newVariantInfo.graphics[key]))
+    const originalGraphics = Array.isArray(value) ? value.sort() : value
+    const newGraphics = Array.isArray(newVariantInfo.graphics[key]) ? newVariantInfo.graphics[key].sort() : newVariantInfo.graphics[key]
+    return !(JSON.stringify(originalGraphics) === JSON.stringify(newGraphics))
   })
 
-  return !(filteredKeys.length && filteredGraphics.length)
+  return (filteredKeys.length === 0 && filteredGraphics.length === 0)
 }
 
 /**
