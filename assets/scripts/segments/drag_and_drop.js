@@ -32,7 +32,7 @@ import {
 } from './constants'
 import { segmentsChanged } from './view'
 import store, { observeStore } from '../store'
-import { addSegment, removeSegment } from '../store/actions/street'
+import { addSegment, removeSegment, moveSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import {
   initDraggingState,
@@ -638,11 +638,12 @@ function handleSegmentCanvasDrop (draggedItem, type) {
   let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl
 
   if (type === Types.SEGMENT) {
-    store.dispatch(removeSegment(draggedSegment))
     newIndex = (newIndex <= draggedSegment) ? newIndex : newIndex - 1
+    store.dispatch(moveSegment(draggedSegment, newIndex))
+  } else {
+    store.dispatch(addSegment(newIndex, newSegment))
   }
 
-  store.dispatch(addSegment(newIndex, newSegment))
   store.dispatch(setActiveSegment(newIndex))
 }
 
