@@ -135,7 +135,6 @@ export class StreetEditable extends React.Component {
 
   renderStreetSegments = () => {
     const { segments, units, immediateRemoval } = this.props.street
-    console.log('segment', segments)
 
     return segments.map((segment, i) => {
       const segmentPos = this.calculateSegmentPos(i)

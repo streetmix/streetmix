@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, getByTestId, cleanup, waitForDomChange } from 'react-testing-library'
+import { fireEvent, getByTestId, cleanup } from 'react-testing-library'
 
 import { renderWithRedux } from '../../../../test/helpers/render'
 
@@ -115,20 +115,6 @@ describe('Segment', () => {
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(wrapper.store.getState().street.segments.length).toEqual(0)
-    })
-  })
-  describe('warnings', () => {
-    describe('too large', () => {
-      it('KEY.EQUAL does not increase the width of the segment', async () => {
-        const wrapper = renderWithRedux(<ConnectedSegment connectDragSource={connectDragSource} connectDropTarget={connectDropTarget} segment={segment} actualWidth={400} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { width: 400, segments: [segment] } } })
-        fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-        fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
-        // ToDO: wait for the warning labels
-        waitForDomChange({ container: wrapper.container })
-        expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(400)
-        expect(wrapper.store.getState().street.segments[activeElement].warnings).toEqual([undefined, false, false, true])
-        expect(wrapper.asFragment()).toMatchSnapshot()
-      })
     })
   })
 })
