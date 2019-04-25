@@ -8,7 +8,6 @@ import './SegmentLabelContainer.scss'
 
 const SegmentLabelContainer = (props) => {
   const gridClassNames = ['segment-grid']
-  const labelClassNames = ['segment-label']
 
   // Add class names for measurement grid marks
   if (props.units === SETTINGS_UNITS_METRIC) {
@@ -17,19 +16,22 @@ const SegmentLabelContainer = (props) => {
     gridClassNames.push('units-imperial')
   }
 
-  // Add class name if label is editable
-  if (props.editable === true) {
-    labelClassNames.push('segment-label-editable')
-  }
-
   return (
     <div className="segment-label-container">
-      <span className={labelClassNames.join(' ')} onClick={props.editSegmentLabel}>
-        <span className="segment-label-editable-icon">
-          <FontAwesomeIcon icon={ICON_PENCIL} />
-        </span>
-        {props.label}
-      </span>
+      {
+        (props.editable) ? (
+          <span className="segment-label segment-label-editable" onClick={props.editSegmentLabel}>
+            <span className="segment-label-editable-icon">
+              <FontAwesomeIcon icon={ICON_PENCIL} />
+            </span>
+            {props.label}
+          </span>
+        ) : (
+          <span className="segment-label">
+            {props.label}
+          </span>
+        )
+      }
       <span className="segment-width">
         <MeasurementText
           value={props.width}

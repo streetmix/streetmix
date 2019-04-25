@@ -16,6 +16,8 @@ exports[`Segment renders active segment correctly 1`] = `
   }
 >
   <SegmentLabelContainer
+    editSegmentLabel={[Function]}
+    editable={false}
     label="Segment"
     locale="en"
     units={2}
@@ -79,6 +81,8 @@ exports[`Segment renders segment warnings correctly 1`] = `
   }
 >
   <SegmentLabelContainer
+    editSegmentLabel={[Function]}
+    editable={false}
     label="Segment"
     locale="en"
     units={2}
@@ -142,6 +146,8 @@ exports[`Segment renders segment warnings outside correctly 1`] = `
   }
 >
   <SegmentLabelContainer
+    editSegmentLabel={[Function]}
+    editable={false}
     label="Segment"
     locale="en"
     units={2}
@@ -205,6 +211,8 @@ exports[`Segment renders segment warnings width too large correctly 1`] = `
   }
 >
   <SegmentLabelContainer
+    editSegmentLabel={[Function]}
+    editable={false}
     label="Segment"
     locale="en"
     units={2}
@@ -268,6 +276,8 @@ exports[`Segment renders the units correctly 1`] = `
   }
 >
   <SegmentLabelContainer
+    editSegmentLabel={[Function]}
+    editable={false}
     label="Segment"
     locale="en"
     units={1}
