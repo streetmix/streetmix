@@ -10,6 +10,7 @@ import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
 import { getLocaleSegmentName, segmentsChanged } from '../segments/view'
+import { t } from '../locales/locale'
 import './Segment.scss'
 
 import {
@@ -233,7 +234,11 @@ export class Segment extends React.Component {
 
   editSegmentLabel (segment) {
     const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-    const label = window.prompt('Edit label', prevLabel)
+
+    // Localize prompt with the `t` function instead of injected `intl` HOC
+    // because <IntlProvider> is not in this component's parent hierarchy
+    const label = window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel)
+
     if (label && label !== prevLabel) {
       this.props.changeSegmentProperties(this.props.dataNo, { label })
       segmentsChanged()
