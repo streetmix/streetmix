@@ -232,9 +232,12 @@ export class Segment extends React.Component {
   }
 
   editSegmentLabel (segment) {
-    const label = window.prompt('Edit label', segment.label || getLocaleSegmentName(segment.type, segment.variantString))
-    this.props.changeSegmentProperties(this.props.dataNo, { label })
-    segmentsChanged()
+    const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+    const label = window.prompt('Edit label', prevLabel)
+    if (label && label !== prevLabel) {
+      this.props.changeSegmentProperties(this.props.dataNo, { label })
+      segmentsChanged()
+    }
   }
 
   render () {
