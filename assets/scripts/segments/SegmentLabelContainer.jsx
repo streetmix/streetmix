@@ -26,7 +26,7 @@ const SegmentLabelContainer = (props) => {
     <div className="segment-label-container">
       <span className={labelClassNames.join(' ')} onClick={props.editSegmentLabel}>
         <span className="segment-label-editable-icon">
-        ️️️ <FontAwesomeIcon icon={ICON_PENCIL} />
+          <FontAwesomeIcon icon={ICON_PENCIL} />
         </span>
         {props.label}
       </span>

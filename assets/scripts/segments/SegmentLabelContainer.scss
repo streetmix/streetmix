@@ -45,20 +45,14 @@
 }
 
 .segment-label-editable:hover .segment-label-editable-icon {
-  width: 20px;
-  height: 20px;
-  background-color: lighten($bottom-background, 3%) !important;
   display: inline-block;
-  border-radius: 50%;
-  margin-left: -0.65em;
-  margin-right: 0.3em;
+  margin-left: -0.35em;
+  margin-right: 0.55em;
   color: black;
+  font-size: 0.9em;
 
+  // Flip the pencil to point the other way.
   svg {
-    position: absolute;
-    top: 8px;
-    left: 10px;
-    font-size: 81%;
     transform: scaleX(-1);
   }
 }
