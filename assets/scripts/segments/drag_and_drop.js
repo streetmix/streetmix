@@ -454,6 +454,7 @@ export const segmentSource = {
       dataNo: props.dataNo,
       variantString: props.segment.variantString,
       type: props.segment.type,
+      label: props.segment.label,
       randSeed: props.segment.randSeed,
       actualWidth: props.segment.width,
       id: props.segment.id
@@ -641,6 +642,7 @@ function handleSegmentCanvasDrop (draggedItem, type) {
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     type: draggedItem.type,
+    label: draggedItem.label,
     randSeed: draggedItem.randSeed,
     id: draggedItem.id
   }
