@@ -12,21 +12,25 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
       data-width="400"
       style="width: 4800px; z-index: 1; transform: translateX(0px);"
     >
-      <span
-        class="name"
+      <div
+        class="segment-label-container"
       >
-        Segment
-      </span>
-      <span
-        class="width"
-      >
-        <span>
-          120 m
+        <span
+          class="segment-label"
+        >
+          Segment
         </span>
-      </span>
-      <span
-        class="grid units-metric"
-      />
+        <span
+          class="segment-width"
+        >
+          <span>
+            120 m
+          </span>
+        </span>
+        <span
+          class="segment-grid units-metric"
+        />
+      </div>
       <span
         class="drag-handle drag-handle-left"
       >
@@ -69,7 +73,7 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
         class="segment-canvas-container"
       >
         <div
-          class="image"
+          class="segment-image"
           height="445"
           style="width: 4800px; height: 445px; left: 0px;"
           width="4800"
@@ -79,7 +83,7 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
         class="segment-canvas-container"
       >
         <div
-          class="image"
+          class="segment-image"
           height="445"
           style="width: 4800px; height: 445px; left: 0px;"
           width="4800"
