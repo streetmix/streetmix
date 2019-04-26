@@ -6,8 +6,6 @@ import reducers from '../../assets/scripts/store/reducers'
 import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl'
 
-// use mock store
-
 export const renderWithRedux = function (ui,
   { initialState, store = createStore(reducers, initialState, applyMiddleware(thunk)) } = {}) {
   return {
