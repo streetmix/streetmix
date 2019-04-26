@@ -19,7 +19,7 @@ describe('WidthControl', () => {
   afterEach(cleanup)
   it('renders', () => {
     const wrapper = renderWithReduxAndIntl(<WidthControl />, { initialState: { ui: { unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
   describe('increase width', () => {
     it('increaeses store width', () => {

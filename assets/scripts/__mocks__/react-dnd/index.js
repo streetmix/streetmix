@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import { withProps } from 'recompose'
 
 export function DropTarget (type, spec, collect, options) {

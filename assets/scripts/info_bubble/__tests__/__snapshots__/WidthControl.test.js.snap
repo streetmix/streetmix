@@ -1,169 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WidthControl renders 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <div
-        class="non-variant"
-      >
-        <button
-          class="up-down-input-decrement"
-          disabled=""
-          tabindex="-1"
-          title="Decrease width (hold Shift for more precision)"
-        >
-          <svg
-            aria-hidden="true"
-            class="svg-inline--fa fa-minus fa-w-14 "
-            data-icon="minus"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            viewBox="0 0 448 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-        <input
-          class="up-down-input-element"
-          title="Change width of the segment"
-          type="text"
-          value="0 m"
-        />
-        <button
-          class="up-down-input-increment"
-          tabindex="-1"
-          title="Increase width (hold Shift for more precision)"
-        >
-          <svg
-            aria-hidden="true"
-            class="svg-inline--fa fa-plus fa-w-14 "
-            data-icon="plus"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            viewBox="0 0 448 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div
-      class="non-variant"
+<DocumentFragment>
+  <div
+    class="non-variant"
+  >
+    <button
+      class="up-down-input-decrement"
+      disabled=""
+      tabindex="-1"
+      title="Decrease width (hold Shift for more precision)"
     >
-      <button
-        class="up-down-input-decrement"
-        disabled=""
-        tabindex="-1"
-        title="Decrease width (hold Shift for more precision)"
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-minus fa-w-14 "
+        data-icon="minus"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          aria-hidden="true"
-          class="svg-inline--fa fa-minus fa-w-14 "
-          data-icon="minus"
-          data-prefix="fas"
-          focusable="false"
-          role="img"
-          viewBox="0 0 448 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-            fill="currentColor"
-          />
-        </svg>
-      </button>
-      <input
-        class="up-down-input-element"
-        title="Change width of the segment"
-        type="text"
-        value="0 m"
-      />
-      <button
-        class="up-down-input-increment"
-        tabindex="-1"
-        title="Increase width (hold Shift for more precision)"
+        <path
+          d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+    <input
+      class="up-down-input-element"
+      title="Change width of the segment"
+      type="text"
+      value="0 m"
+    />
+    <button
+      class="up-down-input-increment"
+      tabindex="-1"
+      title="Increase width (hold Shift for more precision)"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-plus fa-w-14 "
+        data-icon="plus"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          aria-hidden="true"
-          class="svg-inline--fa fa-plus fa-w-14 "
-          data-icon="plus"
-          data-prefix="fas"
-          focusable="false"
-          role="img"
-          viewBox="0 0 448 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-            fill="currentColor"
-          />
-        </svg>
-      </button>
-    </div>
-  </div>,
-  "debug": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllBySelectText": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getAllByValue": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getBySelectText": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "getByValue": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllBySelectText": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryAllByValue": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryBySelectText": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "queryByValue": [Function],
-  "rerender": [Function],
-  "store": Object {
-    "dispatch": [Function],
-    "getState": [Function],
-    "replaceReducer": [Function],
-    "subscribe": [Function],
-    Symbol(observable): [Function],
-  },
-  "unmount": [Function],
-}
+        <path
+          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
 `;
