@@ -7,7 +7,9 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  TOGGLE_TOOLBOX
+  TOGGLE_TOOLBOX,
+  MOVE_SEGMENT,
+  RESET_BUGFIX
 } from '../actions'
 import * as UserConstants from '../../users/constants'
 import * as SegmentConstants from '../../segments/constants'
@@ -23,7 +25,8 @@ const initialState = {
   activeSegment: null,
   draggingState: null,
   draggingType: 0,
-  resizeGuidesVisible: false
+  resizeGuidesVisible: false,
+  __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER: false
 }
 
 const ui = (state = initialState, action) => {
@@ -93,6 +96,18 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         toolboxVisible: !state.toolboxVisible
+      }
+    // Handle a bug in react-dnd where the wrong segment could display an info bubble
+    // after a move action, see here: https://github.com/streetmix/streetmix/pull/1262
+    case MOVE_SEGMENT:
+      return {
+        ...state,
+        __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER: true
+      }
+    case RESET_BUGFIX:
+      return {
+        ...state,
+        __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER: false
       }
     default:
       return state

@@ -7,7 +7,8 @@ import {
   UPDATE_DRAGGING_STATE,
   CLEAR_DRAGGING_STATE,
   SET_DRAGGING_TYPE,
-  TOGGLE_TOOLBOX
+  TOGGLE_TOOLBOX,
+  RESET_BUGFIX
 } from './index'
 
 export function showStreetNameCanvas () {
@@ -76,5 +77,11 @@ export function setDraggingType (draggingType) {
 export function toggleToolbox () {
   return {
     type: TOGGLE_TOOLBOX
+  }
+}
+
+export function resetBugfix () {
+  return {
+    type: RESET_BUGFIX
   }
 }

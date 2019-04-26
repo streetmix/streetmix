@@ -32,7 +32,7 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
-import { setActiveSegment } from '../store/actions/ui'
+import { setActiveSegment, resetBugfix } from '../store/actions/ui'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -51,6 +51,8 @@ export class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
+    resetBugfix: PropTypes.func,
+    bugFix: PropTypes.bool,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -126,6 +128,17 @@ export class Segment extends React.Component {
   }
 
   onSegmentMouseEnter = (event) => {
+    // Immediately after a segment move action, react-dnd can incorrectly trigger this handler
+    // on the segment that exists in the previous segment's spot. The bug is tracked here
+    // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
+    // We work around this by setting `__BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER` to `true`
+    // immediately after the move action, which prevents us from firing this event handler one
+    // time. Once suppressed, we dispatch an action creator specifically to reset it.
+    if (this.props.bugFix === true) {
+      this.props.resetBugfix()
+      return
+    }
+
     this.props.setActiveSegment(this.props.dataNo)
 
     window.addEventListener('keydown', this.handleKeyDown)
@@ -308,12 +321,14 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
-    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
+    bugFix: state.ui.__BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER
   }
 }
 
 const mapDispatchToProps = {
-  setActiveSegment
+  setActiveSegment,
+  resetBugfix
 }
 
 export default flow(
