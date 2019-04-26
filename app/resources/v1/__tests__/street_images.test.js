@@ -25,6 +25,9 @@ describe('POST api/v1/streets/images/:street_id', () => {
     app.post('/api/v1/streets/images/:street_id', images.post)
   })
 
+  const details = { image: 'foo', event: 'TEST' }
+  JSON.parse = jest.fn().mockReturnValue(details)
+
   cloudinary.v2.uploader.upload.mockResolvedValue('foo')
 
   it('should respond with 201 Created when a data url is sent', () => {
@@ -34,7 +37,7 @@ describe('POST api/v1/streets/images/:street_id', () => {
       .post(`/api/v1/streets/images/${street.id}`)
       .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .type('text/plain')
-      .send('bar')
+      .send(JSON.stringify(details))
       .then((response) => {
         expect(response.statusCode).toEqual(201)
       })
@@ -46,7 +49,7 @@ describe('POST api/v1/streets/images/:street_id', () => {
     return request(app)
       .post(`/api/v1/streets/images/${street.id}`)
       .type('text/plain')
-      .send('bar')
+      .send(JSON.stringify(details))
       .then((response) => {
         expect(response.statusCode).toEqual(201)
       })
@@ -59,7 +62,7 @@ describe('POST api/v1/streets/images/:street_id', () => {
       .post(`/api/v1/streets/images/${street.id}`)
       .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"')
       .type('text/plain')
-      .send('bar')
+      .send(JSON.stringify(details))
       .then((response) => {
         expect(response.statusCode).toEqual(403)
       })

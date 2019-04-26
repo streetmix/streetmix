@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.sky-background-objects {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+}
+
+.sky-background-objects > div {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity $environment-transition, transform $environment-transition;
+}
+
+.sky-background-object-enter-done {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}

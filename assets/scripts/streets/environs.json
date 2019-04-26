@@ -133,6 +133,15 @@
       ]
     ],
     "backgroundColor": "#000928",
+    "backgroundObjects": [
+      {
+        "image": "/images/moon.svg",
+        "width": 116,
+        "height": 116,
+        "top": 0.2,
+        "left": 0.8
+      }
+    ],
     "cloudOpacity": 0.2,
     "invertUITextColor": true
   },

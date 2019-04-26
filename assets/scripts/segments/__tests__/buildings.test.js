@@ -14,6 +14,6 @@ describe('prettifyHeight()', () => {
   it('formats a building with floors with height (metric)', () => {
     const formatMessage = () => '3 floors'
     const text = prettifyHeight('narrow', 'right', 3, SETTINGS_UNITS_IMPERIAL, formatMessage)
-    expect(text).toBe('3 floors (35½\')')
+    expect(text).toBe('3 floors (35½′)')
   })
 })

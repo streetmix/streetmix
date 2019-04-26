@@ -12,7 +12,7 @@ const IMAGES_TO_BE_LOADED = [
   '/images/sky-front.svg',
   '/images/sky-rear.svg',
   '/images/stars.svg',
-  '/images/super-blood-wolf-moon.png',
+  '/images/moon.svg',
   '/assets/images/icons.svg',
   '/assets/images/images.svg'
 ]

@@ -8,7 +8,7 @@ import { CSSTransition } from 'react-transition-group'
 
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
-import MeasurementText from '../ui/MeasurementText'
+import SegmentLabelContainer from './SegmentLabelContainer'
 import './Segment.scss'
 
 import {
@@ -27,7 +27,6 @@ import {
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL } from './resizing'
 import { removeSegment, removeAllSegments } from './remove'
-import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
@@ -48,7 +47,6 @@ export class Segment extends React.Component {
     updatePerspective: PropTypes.func,
 
     // Provided by store
-    cssTransform: PropTypes.string,
     locale: PropTypes.string,
     infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
@@ -64,10 +62,6 @@ export class Segment extends React.Component {
     connectDragPreview: PropTypes.func,
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool
-  }
-
-  static defaultProps = {
-    units: SETTINGS_UNITS_METRIC
   }
 
   constructor (props) {
@@ -240,13 +234,15 @@ export class Segment extends React.Component {
 
     const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
     const elementWidth = actualWidth * TILE_SIZE
+    const translate = 'translateX(' + this.props.segmentPos + 'px)'
 
     const segmentStyle = {
       width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
       zIndex: (this.props.isDragging) ? 0 : segmentInfo.zIndex,
-      [this.props.cssTransform]: 'translateX(' + this.props.segmentPos + 'px)'
+      WebkitTransform: translate,
+      transform: translate
     }
 
     const dataAttributes = {
@@ -281,13 +277,12 @@ export class Segment extends React.Component {
         onMouseEnter={this.onSegmentMouseEnter}
         onMouseLeave={this.onSegmentMouseLeave}
       >
-        <span className="name">
-          {displayName}
-        </span>
-        <span className="width">
-          <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
-        </span>
-        <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+        <SegmentLabelContainer
+          label={displayName}
+          width={actualWidth}
+          units={this.props.units}
+          locale={this.props.locale}
+        />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition
           key="old-variant"
@@ -316,7 +311,6 @@ export class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    cssTransform: state.system.cssTransform,
     locale: state.locale.locale,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,

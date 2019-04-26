@@ -9,6 +9,7 @@ import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { getVariantInfoDimensions } from './view'
 import { generateRandSeed } from '../util/random'
+import './SegmentForPalette.scss'
 
 const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_SEGMENT_Y_OFFSET = 20

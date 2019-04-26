@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkyBackgroundObjects renders 1`] = `
+<SkyBackgroundObjects
+  environment="foo"
+  objects={Array []}
+>
+  <TransitionGroup
+    childFactory={[Function]}
+    className="sky-background-objects"
+    component="div"
+  >
+    <div
+      className="sky-background-objects"
+    />
+  </TransitionGroup>
+</SkyBackgroundObjects>
+`;

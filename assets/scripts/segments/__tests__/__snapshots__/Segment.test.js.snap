@@ -8,21 +8,25 @@ exports[`Segment renders correctly 1`] = `
     data-width="200"
     style="width: 2400px; z-index: 1; transform: translateX(undefinedpx);"
   >
-    <span
-      class="name"
+    <div
+      class="segment-label-container"
     >
-      Segment
-    </span>
-    <span
-      class="width"
-    >
-      <span>
-        60 m
+      <span
+        class="segment-label"
+      >
+        Segment
       </span>
-    </span>
-    <span
-      class="grid units-metric"
-    />
+      <span
+        class="segment-width"
+      >
+        <span>
+          60 m
+        </span>
+      </span>
+      <span
+        class="segment-grid units-metric"
+      />
+    </div>
     <span
       class="drag-handle drag-handle-left"
     >
@@ -65,7 +69,7 @@ exports[`Segment renders correctly 1`] = `
       class="segment-canvas-container"
     >
       <div
-        class="image"
+        class="segment-image"
         height="445"
         style="width: 2400px; height: 445px; left: 0px;"
         width="2400"
