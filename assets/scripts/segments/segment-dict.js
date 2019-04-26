@@ -189,6 +189,8 @@ function getSegmentVariantInfo (type, variant) {
  * by the new data model. If the new variant info contains all the keys from the original variant info, then
  * the variant info is correct.
  *
+ * TODO - migrate helper method to become a test suite
+ *
  * @param {object} originalVariantInfo
  * @param {object} newVariantInfo
  * @returns {boolean} correct
