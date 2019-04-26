@@ -1,0 +1,118 @@
+{
+  "scooter": {
+    "inbound|regular": {
+      "lanes": [
+        {
+          "id": "asphalt",
+          "variants": {
+            "color": "regular"
+          }
+        }
+      ],
+      "objects": [],
+      "vehicles": [
+        {
+          "id": "scooter",
+          "variants": {
+            "direction": "inbound"
+          }
+        }
+      ]
+    },
+    "outbound|regular": {
+      "lanes": [
+        {
+          "id": "road",
+          "variants": {
+            "color": "regular"
+          }
+        }
+      ],
+      "objects": [],
+      "vehicles": [
+        {
+          "id": "scooter",
+          "variants": {
+            "direction": "outbound"
+          }
+        }
+      ]
+    },
+    "inbound|green": {
+      "lanes": [
+        {
+          "id": "road",
+          "variants": {
+            "color": "green"
+          }
+        }
+      ],
+      "objects": [],
+      "vehicles": [
+        {
+          "id": "scooter",
+          "variants": {
+            "direction": "inbound"
+          }
+        }
+      ]
+    },
+    "outbound|green": {
+      "lanes": [
+        {
+          "id": "road",
+          "variants": {
+            "color": "green"
+          }
+        }
+      ],
+      "objects": [],
+      "vehicles": [
+        {
+          "id": "scooter",
+          "variants": {
+            "direction": "outbound"
+          }
+        }
+      ]
+    },
+    "inbound|red": {
+      "lanes": [
+        {
+          "id": "road",
+          "variants": {
+            "color": "red"
+          }
+        }
+      ],
+      "objects": [],
+      "vehicles": [
+        {
+          "id": "scooter",
+          "variants": {
+            "direction": "inbound"
+          }
+        }
+      ]
+    },
+    "outbound|red": {
+      "lanes": [
+        {
+          "id": "road",
+          "variants": {
+            "color": "red"
+          }
+        }
+      ],
+      "objects": [],
+      "vehicles": [
+        {
+          "id": "scooter",
+          "variants": {
+            "direction": "outbound"
+          }
+        }
+      ]
+    }
+  }
+}

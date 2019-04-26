@@ -1,0 +1,59 @@
+{
+  "lanes": {
+    "asphalt": {
+      "variants": {
+        "color": {
+          "regular": {
+            "graphics": {
+              "repeat": "ground--asphalt"
+            }
+          },
+          "red": {
+            "graphics": {
+              "repeat": "ground--asphalt-red"
+            }
+          },
+          "green": {
+            "graphics": {
+              "repeat": "ground--asphalt-green"
+            }
+          }
+        }
+      }
+    }
+  },
+  "objects": {},
+  "vehicles": {
+    "scooter": {
+      "name": "Electric scooter",
+      "nameKey": "scooter",
+      "owner": "BIKE",
+      "zIndex": 16,
+      "enableWithFlag": "SEGMENT_SCOOTERS",
+      "rules": {
+        "defaultWidth": 5,
+        "minWidth": 4
+      },
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": [
+                "scooters--scooter-inbound",
+                "markings--straight-inbound-light"
+              ]
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": [
+                "scooters--scooter-outbound",
+                "markings--straight-outbound-light"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

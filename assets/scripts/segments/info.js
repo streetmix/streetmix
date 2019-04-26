@@ -1,4 +1,5 @@
 import SEGMENT_INFO from './info.json'
+import { testSegmentLookup } from './segment-dict.js'
 
 /**
  * Defines the meta-category of each segment, similar to "typechecking"
@@ -24,7 +25,7 @@ export const SegmentTypes = {
  * receivers of this object can tell the difference between a placeholder
  * and normal segment / variant data.
  */
-const SEGMENT_UNKNOWN = {
+export const SEGMENT_UNKNOWN = {
   unknown: true,
   name: 'Unknown',
   owner: 'NONE',
@@ -33,7 +34,7 @@ const SEGMENT_UNKNOWN = {
   details: {}
 }
 
-const SEGMENT_UNKNOWN_VARIANT = {
+export const SEGMENT_UNKNOWN_VARIANT = {
   unknown: true,
   name: 'Unknown',
   graphics: {
@@ -244,7 +245,14 @@ export function getSegmentInfo (type) {
  */
 export function getSegmentVariantInfo (type, variant) {
   const segment = getSegmentInfo(type)
-  return (segment && segment.details && segment.details[variant]) || SEGMENT_UNKNOWN_VARIANT
+
+  const segmentVariantInfo = (segment && segment.details && segment.details[variant]) || SEGMENT_UNKNOWN_VARIANT
+
+  if (type === 'scooter' && !segmentVariantInfo.unknown) {
+    return testSegmentLookup(type, variant, segmentVariantInfo)
+  }
+
+  return segmentVariantInfo
 }
 
 /**
