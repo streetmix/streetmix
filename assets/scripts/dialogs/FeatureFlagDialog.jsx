@@ -38,22 +38,18 @@ class FeatureFlagDialog extends React.Component {
       }
 
       return (
-        <tr key={id}>
-          <td>
-            <input
-              type="checkbox"
-              onChange={(event) => {
-                this.props.setFeatureFlag(id, event.target.checked)
-              }}
-              checked={this.props.flags[id].value}
-              id={htmlLabel}
-              disabled={deets.enabled === false}
-            />
-          </td>
-          <td>
-            <label htmlFor={htmlLabel} className={labelClassNames.join(' ')}>{deets.label}</label>
-          </td>
-        </tr>
+        <li key={id}>
+          <input
+            type="checkbox"
+            onChange={(event) => {
+              this.props.setFeatureFlag(id, event.target.checked)
+            }}
+            checked={this.props.flags[id].value}
+            id={htmlLabel}
+            disabled={deets.enabled === false}
+          />
+          <label htmlFor={htmlLabel} className={labelClassNames.join(' ')}>{deets.label}</label>
+        </li>
       )
     })
   }
@@ -67,11 +63,9 @@ class FeatureFlagDialog extends React.Component {
               <h1>Feature flags</h1>
             </header>
             <div className="dialog-content">
-              <table>
-                <tbody>
-                  {this.renderFlagList()}
-                </tbody>
-              </table>
+              <ul>
+                {this.renderFlagList()}
+              </ul>
             </div>
             <button className="dialog-primary-action" onClick={closeDialog}>
               Close
