@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Sidewalk",
-    "sidewalk-tree": "Sidewalk with a tree",
+    "sidewalk-tree": "Sidewalk tree",
     "bike-rack": "Bike rack",
     "bench": "Bench",
     "wayfinding-sign": "Wayfinding sign",
-    "sidewalk-lamp": "Sidewalk with a lamp",
+    "sidewalk-lamp": "Lamp",
     "parklet": "Parklet",
     "divider": "Buffer",
     "planting-strip": "Planting strip",

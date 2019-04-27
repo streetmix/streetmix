@@ -37,7 +37,7 @@
     }
   },
   "sidewalk-tree": {
-    "name": "Sidewalk with a tree",
+    "name": "Sidewalk tree",
     "nameKey": "sidewalk-tree",
     "owner": "NATURE",
     "zIndex": 22,
@@ -181,7 +181,7 @@
     }
   },
   "sidewalk-lamp": {
-    "name": "Sidewalk with a lamp",
+    "name": "Lamp",
     "nameKey": "sidewalk-lamp",
     "owner": "PEDESTRIAN",
     "zIndex": 19,
