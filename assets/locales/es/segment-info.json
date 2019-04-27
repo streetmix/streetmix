@@ -13,23 +13,23 @@
     "median": "",
     "bollard": "",
     "dome": "",
-    "scooter": "",
+    "scooter": "Scúter",
     "scooter-drop-zone": "",
-    "bike-lane": "Carril de Bici",
-    "parking-lane": "",
+    "bike-lane": "Carril bici",
+    "parking-lane": "Carril de Estacionamiento",
     "perpendicular-parking": "Estacionamiento perpendicular",
-    "angled-parking": "",
-    "flex-zone": "",
-    "taxi-pick-up": "",
-    "rideshare-pick-up": "",
+    "angled-parking": "Estacionamiento angulado",
+    "flex-zone": "Zona flexible",
+    "taxi-pick-up": "Zona de Taxi",
+    "rideshare-pick-up": "Zona de Viaje Compartido",
     "bikeshare-station": "",
     "foodtruck": "",
     "flex-zone-curb": "",
-    "drive-lane": "",
+    "drive-lane": "Carril de Conducir",
     "sharrow": "",
-    "turn-lane": "",
+    "turn-lane": "Carril de Virar",
     "turn-lane-straight": "",
-    "turn-lane-center": "",
+    "turn-lane-center": "Carril de Virar en Centro",
     "bus-lane": "Carril de bús",
     "bus-lane-shared": "Carril compartido de bús/bici",
     "streetcar": "",
@@ -66,7 +66,7 @@
       ]
     },
     "colored-bike-lane": {
-      "prompt": "Aprender más sobre carriles de bici colorados",
+      "prompt": "Aprenda más sobre bicicarriles en color verde",
       "lede": "",
       "text": [
         "",
@@ -101,25 +101,25 @@
   },
   "buildings": {
     "waterfront": {
-      "name": ""
+      "name": "Malecón"
     },
     "grass": {
       "name": "Pasto"
     },
     "fence": {
-      "name": ""
+      "name": "Lote vacío"
     },
     "parking-lot": {
-      "name": "Estacionamiento de carro"
+      "name": "Estacionamiento"
     },
     "residential": {
       "name": "Casa"
     },
     "narrow": {
-      "name": ""
+      "name": "Edificio"
     },
     "wide": {
-      "name": ""
+      "name": "Edificio"
     }
   },
   "variant-icons": {
@@ -134,18 +134,18 @@
     "turn-lane-orientation|shared": "",
     "bench-orientation|left": "Izquierda",
     "bench-orientation|right": "Derecha",
-    "bench-orientation|center": "",
+    "bench-orientation|center": "Centro",
     "parking-lane-orientation|left": "Izquierda",
     "parking-lane-orientation|right": "Derecha",
-    "parking-lane-direction|inbound": "",
-    "parking-lane-direction|outbound": "",
+    "parking-lane-direction|inbound": "Entrando",
+    "parking-lane-direction|outbound": "Saliendo",
     "parking-lane-direction|sideways": "Perpendicular",
-    "parking-lane-direction|angled-front-left": "",
-    "parking-lane-direction|angled-front-right": "",
-    "parking-lane-direction|angled-rear-left": "",
-    "parking-lane-direction|angled-rear-right": "",
-    "direction|inbound": "",
-    "direction|outbound": "",
+    "parking-lane-direction|angled-front-left": "Angulado",
+    "parking-lane-direction|angled-front-right": "Angulado",
+    "parking-lane-direction|angled-rear-left": "Angulado",
+    "parking-lane-direction|angled-rear-right": "Angulado",
+    "direction|inbound": "Entrando",
+    "direction|outbound": "Saliendo",
     "sidewalk-density|empty": "Vacío",
     "sidewalk-density|sparse": "Escaso",
     "sidewalk-density|normal": "Normal",
@@ -185,9 +185,9 @@
     "bike-rack-elevation|sidewalk-parallel": "",
     "bike-rack-elevation|sidewalk": "Estacionamiento perpendicular, nivel de la acera",
     "bike-rack-elevation|road": "Estacionamiento perpendicular, nivel de la calle",
-    "building|waterfront": "",
+    "building|waterfront": "Malecón",
     "building|grass": "Pasto",
-    "building|fence": "",
+    "building|fence": "Lote vacío",
     "building|parking-lot": "Estacionamiento de carro",
     "building|residential": "Casa",
     "building|narrow": "Edificio estrecho",

@@ -70,9 +70,9 @@
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "Unidades",
+      "metric": "Unidades Métricas (metros)",
+      "imperial": "Unidades inglesas (pies)"
     },
     "language": {
       "label": "Idioma"
@@ -80,14 +80,14 @@
   },
   "msg": {
     "loading": "Cargando…",
-    "remixing": "",
+    "remixing": "Remezclando...",
     "having-trouble": "Teniendo problemas…",
     "no-street": "Ninguna calle seleccionada.",
     "trouble-loading": "Tenemos problemas cargando Streetmix.",
     "slow-connection-1": "Streetmix ya ha estado tratando de conectarse a internet por un rato",
     "slow-connection-2": "Probablemente necesites recargar la pagina e intentar de nuevo. Toma en cuenta que puede perder los ultimos cambios que le hiciste a la calle. ¡Disculpas!",
     "no-connection": "Streetmix esta experimentando dificultades para conectarse a internet",
-    "more-info": ""
+    "more-info": "Más información"
   },
   "error": {
     "button": {
