@@ -155,6 +155,7 @@
     "sass": "1.17.0",
     "sharedstreets": "0.9.3",
     "shifty": "2.6.1",
+    "slugify": "1.3.4",
     "sprintf": "0.1.5",
     "supervisor": "0.12.0",
     "twitter": "1.7.1",
