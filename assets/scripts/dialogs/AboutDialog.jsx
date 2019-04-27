@@ -251,6 +251,7 @@ export default class AboutDialog extends React.PureComponent {
                         <li>Joe James-Rodriguez</li>
                         <li>Kieran Farr</li>
                         <li>Maciej Kus</li>
+                        <li>Mila Frerichs</li>
                         <li>Radosław Miernik</li>
                         <li>Tommi Vainikainen</li>
                       </ul>
@@ -262,6 +263,7 @@ export default class AboutDialog extends React.PureComponent {
                         <li>Amir Reavis-Bey, <i>database migration</i></li>
                         <li>Patrick McDonnell, <i>styleguide</i></li>
                         <li>Jeremy Lechtzin, <i>law</i></li>
+                        <li>Justine Braisted, <i>branding</i></li>
                         <li>Lisa Ratner, <i>user experience</i></li>
                         <li>Mebrak Tareke, <i>communications strategy</i></li>
                         <li>Nick Doiron, <i>right-to-left localization</i></li>
@@ -278,6 +280,7 @@ export default class AboutDialog extends React.PureComponent {
                         <li>Matt Hampel, <i>engineering mentor</i></li>
                         <li>Brandon Liu, <i>engineering mentor</i></li>
                         <li>Debs Schrimmer, <i>flex zones</i></li>
+                        <li>Rob McPherson, <i>scooters</i></li>
                         <li>
                           <h4>Code for America</h4>
                           <ul>
@@ -387,6 +390,7 @@ export default class AboutDialog extends React.PureComponent {
                         <li>
                           <h4><FormattedMessage id="i18n.lang.es-mx" defaultMessage="Spanish (Mexico)" /></h4>
                           <ul>
+                            <li>David Soto Padín</li>
                             <li>Paco Marquez</li>
                             <li>Patricio M. Ruiz Abrín</li>
                           </ul>
