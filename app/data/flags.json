@@ -44,16 +44,36 @@
     "label": "Locales — level 3 (complete, final)",
     "defaultValue": true
   },
+  "SEGMENT_3D_PARKING": {
+    "label": "Segment — 3d angled parking",
+    "defaultValue": false,
+    "enabled": false
+  },
+  "SEGMENT_CAFE_SEATING": {
+    "label": "Segment — cafe seating",
+    "defaultValue": false,
+    "enabled": false
+  },
+  "SEGMENT_CONSTRUCTION": {
+    "label": "Segment — construction items",
+    "defaultValue": false,
+    "enabled": false
+  },
   "SEGMENT_INCEPTION_TRAIN": {
     "label": "Segment — the train from “Inception”",
     "defaultValue": false
   },
-  "SEGMENT_UTILITIES": {
-    "label": "Segment — utility pole",
-    "defaultValue": false
+  "SEGMENT_RAISED_BIKES": {
+    "label": "Segment — raised bike lanes",
+    "defaultValue": false,
+    "enabled": false
   },
   "SEGMENT_SCOOTERS": {
     "label": "Segment — scooters",
+    "defaultValue": false
+  },
+  "SEGMENT_UTILITIES": {
+    "label": "Segment — utility pole",
     "defaultValue": false
   },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
@@ -75,6 +95,11 @@
   "DONATE_NAG_SCREEN": {
     "label": "Donation nag screen",
     "defaultValue": false
+  },
+  "BUSINESS_PLAN": {
+    "label": "Activate purchasing funnel",
+    "defaultValue": false,
+    "enabled": false
   },
   "AUTHENTICATION_V2": {
     "label": "Authentication v2",
