@@ -107,8 +107,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = center - (svg.width / 2) + (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
-      newRight = center + (svg.width / 2) + (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
+      newLeft = center - (svg.width / 2) + (sprite.offsetX || 0)
+      newRight = center + (svg.width / 2) + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -126,8 +126,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = sprite.offsetX * TILE_SIZE_ACTUAL || 0
-      newRight = svg.width + (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
+      newLeft = sprite.offsetX || 0
+      newRight = svg.width + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -145,8 +145,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = (displayWidth) - (sprite.offsetX * TILE_SIZE_ACTUAL || 0) - svg.width
-      newRight = (displayWidth) - (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
+      newLeft = (displayWidth) - (sprite.offsetX || 0) - svg.width
+      newRight = (displayWidth) - (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -230,7 +230,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
+      const x = 0 + ((-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
@@ -245,7 +245,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
-      const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
@@ -261,7 +261,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
       const center = dimensions.center
-      const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,

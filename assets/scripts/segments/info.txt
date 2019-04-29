@@ -150,16 +150,7 @@ How to fill in the data for a segment:
 
   id            String (required)
                 Refers to an SVG sprite
-  width         Number (required) (units: 1 = 24 pixels (1 feet))
-                From the x position of the sprite, the width of the
-                sprite and the display canvas
-                TODO: Deprecate this
-  height        Number (required) (units: 1 = 24 pixels (1 feet))
-                From the y position of the sprite, the height of the
-                sprite and the display canvas (note this measures
-                DOWNWARD, because the origin is from the TOP edge)
-                TODO: Deprecate this
-  offsetX       Number (optional) (units: 1 = 24 pixels (1 feet))
+  offsetX       Number (optional) (units: pixels (24 pixels = 1 foot))
                 Horizontal position to offset the sprite from the
                 attachment spot. The 0 position depends on whether the
                 sprite is attached to the left/right or center of segment.
@@ -167,3 +158,4 @@ How to fill in the data for a segment:
                 Vertical position to offset the sprite. The attachment
                 point is something like 10 feet above ground. A positive
                 value pushes the sprite downward.
+                @TODO: Update units

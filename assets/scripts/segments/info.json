@@ -243,7 +243,7 @@
             "lamps--lamp-modern-both",
             {
               "id": "lamps--pride-banner-left",
-              "offsetX": 1.5
+              "offsetX": 36
             }
           ],
           "repeat": "ground--concrete"
@@ -959,7 +959,7 @@
         "graphics": {
           "left": {
             "id": "vehicles--car-inbound",
-            "offsetX": 0.25
+            "offsetX": 6
           },
           "repeat": "ground--asphalt",
           "right": "markings--parking-left"
@@ -980,7 +980,7 @@
         "graphics": {
           "left": {
             "id": "vehicles--car-outbound",
-            "offsetX": 0.25
+            "offsetX": 6
           },
           "repeat": "ground--asphalt",
           "right": "markings--parking-left"
@@ -1432,7 +1432,7 @@
             "transit--bus-inbound",
             {
               "id": "bikes--biker-02-inbound",
-              "offsetX": 1.2
+              "offsetX": 30
             },
             "markings--sharrow-inbound"
           ],
@@ -1452,7 +1452,7 @@
             "transit--bus-outbound",
             {
               "id": "bikes--biker-02-outbound",
-              "offsetX": -1.2
+              "offsetX": -30
             },
             "markings--sharrow-outbound"
           ],
