@@ -22,7 +22,9 @@ import {
   segmentSource,
   collectDragSource,
   segmentTarget,
-  collectDropTarget
+  collectDropTarget,
+  _getBugfix,
+  _resetBugfix
 } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, incrementSegmentWidth } from './resizing'
@@ -126,6 +128,17 @@ export class Segment extends React.Component {
   }
 
   onSegmentMouseEnter = (event) => {
+    // Immediately after a segment move action, react-dnd can incorrectly trigger this handler
+    // on the segment that exists in the previous segment's spot. The bug is tracked here
+    // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
+    // We work around this by setting `__BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER` to `true`
+    // immediately after the move action, which prevents us from firing this event handler one
+    // time. This is suppressed once, then reset.
+    if (_getBugfix() === true) {
+      _resetBugfix()
+      return
+    }
+
     this.props.setActiveSegment(this.props.dataNo)
 
     window.addEventListener('keydown', this.handleKeyDown)

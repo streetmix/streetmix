@@ -32,7 +32,7 @@ import {
 } from './constants'
 import { segmentsChanged } from './view'
 import store, { observeStore } from '../store'
-import { addSegment, removeSegment } from '../store/actions/street'
+import { addSegment, removeSegment, moveSegment } from '../store/actions/street'
 import { clearMenus } from '../store/actions/menus'
 import {
   initDraggingState,
@@ -53,6 +53,16 @@ export var draggingResize = {
   originalX: null,
   originalWidth: null,
   right: false
+}
+
+let __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER = false
+
+export function _resetBugfix () {
+  __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER = false
+}
+
+export function _getBugfix () {
+  return __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER
 }
 
 export function initDragTypeSubscriber () {
@@ -638,11 +648,19 @@ function handleSegmentCanvasDrop (draggedItem, type) {
   let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl
 
   if (type === Types.SEGMENT) {
-    store.dispatch(removeSegment(draggedSegment))
     newIndex = (newIndex <= draggedSegment) ? newIndex : newIndex - 1
+    store.dispatch(moveSegment(draggedSegment, newIndex))
+
+    // Immediately after a segment move action, react-dnd can incorrectly trigger
+    // the onMouseEnter handler on another <Segment /> component that is in the
+    // previous component's location. This sets a variable which <Segment /> uses
+    // to suppress a single instance of the onMouseEnter handler. The bug is tracked here
+    // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
+    __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER = true
+  } else {
+    store.dispatch(addSegment(newIndex, newSegment))
   }
 
-  store.dispatch(addSegment(newIndex, newSegment))
   store.dispatch(setActiveSegment(newIndex))
 }
 
