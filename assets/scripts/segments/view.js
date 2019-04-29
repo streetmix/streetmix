@@ -4,15 +4,9 @@ import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, TILE_SIZE_ACTUAL } from './constants'
 import store from '../store'
 import { updateSegments } from '../store/actions/street'
-
-// Calculations are based on "actual" (real world) width units where
-// 1 unit = 1 foot. Images are on a scale of 1 foot = 24 pixels. So
-// when we look up the images' intrinsic width, we divide it by 24
-// so that these calculations work out. (This might change in future.)
-const SIZE_FACTOR = 24
 
 /**
  * Draws SVG sprite to canvas
@@ -84,14 +78,22 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
 }
 
 /**
- * TODO: Figure out what this does
+ * When rendering a stack of sprites, sometimes the resulting image will extend
+ * beyond the left or right edge of the segment's width. (For instance, a "tree"
+ * segment might be 0.5m wide, but the actual width of the tree sprite will need
+ * more than 0.5m width to render.) This calculates the actual left, right, and
+ * center Y-values needed to render sprites so that they are not truncated at the
+ * edge of the segment.
  *
  * @param {Object} variantInfo - segment variant info
  * @param {Number} actualWidth - segment's actual real life width
  * @returns {Object}
  */
 export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
-  const center = actualWidth / 2
+  // Convert actualWidth to units that work with images' intrinsic dimensions
+  const displayWidth = actualWidth * TILE_SIZE_ACTUAL
+
+  const center = displayWidth / 2
   let left = center
   let right = center
   let newLeft, newRight
@@ -105,8 +107,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = center - (svg.width / SIZE_FACTOR / 2) + (sprite.offsetX || 0)
-      newRight = center + (svg.width / SIZE_FACTOR / 2) + (sprite.offsetX || 0)
+      newLeft = center - (svg.width / 2) + (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
+      newRight = center + (svg.width / 2) + (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -124,8 +126,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = sprite.offsetX || 0
-      newRight = (svg.width / SIZE_FACTOR) + (sprite.offsetX || 0)
+      newLeft = sprite.offsetX * TILE_SIZE_ACTUAL || 0
+      newRight = svg.width + (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -143,8 +145,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = (actualWidth) - (sprite.offsetX || 0) - (svg.width / SIZE_FACTOR)
-      newRight = (actualWidth) - (sprite.offsetX || 0)
+      newLeft = (displayWidth) - (sprite.offsetX * TILE_SIZE_ACTUAL || 0) - svg.width
+      newRight = (displayWidth) - (sprite.offsetX * TILE_SIZE_ACTUAL || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -156,8 +158,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   }
 
   if (graphics.repeat && graphics.repeat[0]) {
-    newLeft = center - (actualWidth / 2)
-    newRight = center + (actualWidth / 2)
+    newLeft = center - (displayWidth / 2)
+    newRight = center + (displayWidth / 2)
 
     if (newLeft < left) {
       left = newLeft
@@ -167,7 +169,7 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
     }
   }
 
-  return { left: left, right: right, center: center }
+  return { left: left / TILE_SIZE_ACTUAL, right: right / TILE_SIZE_ACTUAL, center: center / TILE_SIZE_ACTUAL }
 }
 
 /**
@@ -175,7 +177,7 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
  * @param {CanvasRenderingContext2D} ctx
  * @param {string} type
  * @param {string} variantString
- * @param {Number} actualWidth - The actual width of a segment
+ * @param {Number} actualWidth - The real-world width of a segment, in feet
  * @param {Number} offsetLeft
  * @param {Number} offsetTop
  * @param {Number} randSeed
@@ -199,7 +201,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      let width = (svg.width / SIZE_FACTOR) * TILE_SIZE
+      let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
       let repeatStartX
 
@@ -216,7 +218,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
         }
 
         drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
-          offsetLeft + ((repeatStartX + (i * (svg.width / SIZE_FACTOR) * TILE_SIZE)) * multiplier),
+          offsetLeft + ((repeatStartX + (i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE)) * multiplier),
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
           width, undefined, multiplier, dpi)
       }
@@ -243,7 +245,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
-      const x = (-left + actualWidth - (svg.width / SIZE_FACTOR) - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
@@ -259,7 +261,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
       const center = dimensions.center
-      const x = (center - ((svg.width / SIZE_FACTOR) / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
