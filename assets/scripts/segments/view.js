@@ -8,6 +8,12 @@ import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
 import store from '../store'
 import { updateSegments } from '../store/actions/street'
 
+// Calculations are based on "actual" (real world) width units where
+// 1 unit = 1 foot. Images are on a scale of 1 foot = 24 pixels. So
+// when we look up the images' intrinsic width, we divide it by 24
+// so that these calculations work out. (This might change in future.)
+const SIZE_FACTOR = 24
+
 /**
  * Draws SVG sprite to canvas
  *
@@ -97,9 +103,10 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
 
-      newLeft = center - (sprite.width / 2) + (sprite.offsetX || 0)
-      newRight = center + (sprite.width / 2) + (sprite.offsetX || 0)
+      newLeft = center - (svg.width / SIZE_FACTOR / 2) + (sprite.offsetX || 0)
+      newRight = center + (svg.width / SIZE_FACTOR / 2) + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -115,8 +122,10 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
+
       newLeft = sprite.offsetX || 0
-      newRight = sprite.width + (sprite.offsetX || 0)
+      newRight = (svg.width / SIZE_FACTOR) + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -132,7 +141,9 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      newLeft = (actualWidth) - (sprite.offsetX || 0) - sprite.width
+      const svg = images.get(sprite.id)
+
+      newLeft = (actualWidth) - (sprite.offsetX || 0) - (svg.width / SIZE_FACTOR)
       newRight = (actualWidth) - (sprite.offsetX || 0)
 
       if (newLeft < left) {
@@ -186,7 +197,9 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      let width = sprite.width * TILE_SIZE
+      const svg = images.get(sprite.id)
+
+      let width = (svg.width / SIZE_FACTOR) * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
       let repeatStartX
 
@@ -203,7 +216,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
         }
 
         drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
-          offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
+          offsetLeft + ((repeatStartX + (i * (svg.width / SIZE_FACTOR) * TILE_SIZE)) * multiplier),
           offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
           width, undefined, multiplier, dpi)
       }
@@ -229,7 +242,8 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      const x = (-left + actualWidth - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const svg = images.get(sprite.id)
+      const x = (-left + actualWidth - (svg.width / SIZE_FACTOR) - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
@@ -243,8 +257,9 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
       const center = dimensions.center
-      const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const x = (center - ((svg.width / SIZE_FACTOR) / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
