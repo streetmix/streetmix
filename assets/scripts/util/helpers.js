@@ -42,10 +42,21 @@ export function getElAbsolutePos (el, includeScroll = false) {
 export function normalizeSlug (slug) {
   if (!slug) return
 
-  return slugify(slug, {
+  // Remove certain replacements mapped by slugify
+  slugify.extend({
+    '|': null,
+    '%': null,
+    '$': null
+  })
+
+  const slugified = slugify(slug, {
     replacement: '-',
+    remove: /[*+=~.,<>(){}'"!?:;@#$%^&*|\\/[\]]/g,
     lower: true
   })
+
+  // Remove any trailing or leading hyphens, which slugify doesn't clean up
+  return slugified.replace(/^[-]+|[-]+$/g, '')
 }
 
 /**
