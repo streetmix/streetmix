@@ -9,9 +9,7 @@ import { CSSTransition } from 'react-transition-group'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
-import { getLocaleSegmentName, segmentsChanged } from '../segments/view'
-import { t } from '../locales/locale'
-import './Segment.scss'
+import { getLocaleSegmentName, editSegmentLabel } from '../segments/view'
 
 import {
   TILE_SIZE,
@@ -37,6 +35,7 @@ import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { setActiveSegment } from '../store/actions/ui'
 import { changeSegmentProperties } from '../store/actions/street'
+import './Segment.scss'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -232,19 +231,6 @@ export class Segment extends React.Component {
     }
   }
 
-  editSegmentLabel (segment) {
-    const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-
-    // Localize prompt with the `t` function instead of injected `intl` HOC
-    // because <IntlProvider> is not in this component's parent hierarchy
-    const label = window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel)
-
-    if (label && label !== prevLabel) {
-      this.props.changeSegmentProperties(this.props.dataNo, { label })
-      segmentsChanged()
-    }
-  }
-
   render () {
     const { segment } = this.props
 
@@ -304,7 +290,7 @@ export class Segment extends React.Component {
           units={this.props.units}
           locale={this.props.locale}
           editable={this.props.customSegmentLabels}
-          editSegmentLabel={(event) => this.editSegmentLabel(segment)}
+          editSegmentLabel={(event) => editSegmentLabel(segment, this.props.dataNo)}
         />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedMessage } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
@@ -20,7 +21,8 @@ import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizi
 // import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
-import { getSegmentEl } from '../segments/view'
+import { getSegmentEl, editSegmentLabel } from '../segments/view'
+import { ICON_PENCIL } from '../ui/icons'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
@@ -47,11 +49,13 @@ export class InfoBubble extends React.Component {
     updateHoverPolygon: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object,
-    locale: PropTypes.object
+    locale: PropTypes.object,
+    customSegmentLabels: PropTypes.bool
   }
 
   static defaultProps = {
-    visible: false
+    visible: false,
+    customSegmentLabels: false
   }
 
   constructor (props) {
@@ -429,6 +433,7 @@ export class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
+    const isEditable = this.props.customSegmentLabels
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null)
 
     // Set class names
@@ -486,7 +491,19 @@ export class InfoBubble extends React.Component {
       >
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
-          <div className="info-bubble-header-label">{this.getName()}</div>
+          {isEditable ? (
+            <div
+              className="info-bubble-label info-bubble-label-editable"
+              onClick={() => editSegmentLabel(segment, this.props.position)}
+            >
+              {this.getName()}
+              <span className="info-bubble-label-editable-icon">
+                <FontAwesomeIcon icon={ICON_PENCIL} />
+              </span>
+            </div>
+          ) : (
+            <div className="info-bubble-label">{this.getName()}</div>
+          )}
           {canBeDeleted && <RemoveButton segment={this.props.position} />}
         </header>
         <div className="info-bubble-controls">
@@ -521,7 +538,8 @@ function mapStateToProps (state) {
     position: state.ui.activeSegment,
     street: state.street,
     system: state.system,
-    locale: state.locale
+    locale: state.locale,
+    customSegmentLabels: state.flags.CUSTOM_SEGMENT_LABELS.value
   }
 }
 

@@ -6,7 +6,7 @@ import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
 import store from '../store'
-import { updateSegments } from '../store/actions/street'
+import { updateSegments, changeSegmentProperties } from '../store/actions/street'
 
 /**
  * Draws SVG sprite to canvas
@@ -278,6 +278,19 @@ export function segmentsChanged () {
   store.dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
 
   saveStreetToServerIfNecessary()
+}
+
+export function editSegmentLabel (segment, position) {
+  const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+
+  // Localize prompt with the `t` function instead of injected `intl` HOC
+  // because <IntlProvider> is not in this component's parent hierarchy
+  const label = window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel)
+
+  if (label && label !== prevLabel) {
+    store.dispatch(changeSegmentProperties(position, { label }))
+    segmentsChanged()
+  }
 }
 
 /**

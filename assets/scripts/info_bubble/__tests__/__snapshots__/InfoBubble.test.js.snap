@@ -12,7 +12,7 @@ exports[`InfoBubble is visible 1`] = `
   />
   <header>
     <div
-      className="info-bubble-header-label"
+      className="info-bubble-label"
     />
     <InjectIntl(RemoveButton)
       segment="u"
@@ -58,7 +58,7 @@ exports[`InfoBubble renders 1`] = `
   />
   <header>
     <div
-      className="info-bubble-header-label"
+      className="info-bubble-label"
     >
       <IntlProvider
         locale="en"
@@ -114,7 +114,7 @@ exports[`InfoBubble shows building left info bubble 1`] = `
   />
   <header>
     <div
-      className="info-bubble-header-label"
+      className="info-bubble-label"
     >
       <IntlProvider
         locale="en"
@@ -167,7 +167,7 @@ exports[`InfoBubble shows building right info bubble 1`] = `
   />
   <header>
     <div
-      className="info-bubble-header-label"
+      className="info-bubble-label"
     >
       <IntlProvider
         locale="en"
@@ -220,7 +220,7 @@ exports[`InfoBubble shows description 1`] = `
   />
   <header>
     <div
-      className="info-bubble-header-label"
+      className="info-bubble-label"
     />
     <InjectIntl(RemoveButton)
       segment="u"
