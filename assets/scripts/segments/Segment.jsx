@@ -26,7 +26,6 @@ import {
 } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL } from './resizing'
-import { removeSegment, removeAllSegments } from './remove'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
@@ -34,6 +33,7 @@ import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
 import { incrementSegmentWidth, removeSegment as removeSegmentAction, clearSegments } from '../store/actions/street'
+import { showStatusMessage } from '../store/actions/status'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -56,6 +56,7 @@ export class Segment extends React.Component {
     incrementSegmentWidth: PropTypes.func,
     removeSegment: PropTypes.func,
     clearSegments: PropTypes.func,
+    showStatusMessage: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -206,11 +207,14 @@ export class Segment extends React.Component {
 
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey === true) {
-          removeAllSegments()
           this.props.clearSegments()
+          infoBubble.hide()
+          this.props.showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'))
           trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'KEYBOARD', null, true)
         } else {
-          removeSegment(this.props.dataNo)
+          infoBubble.hide()
+          infoBubble.hideSegment()
+          this.props.showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'))
           this.props.removeSegment(this.props.dataNo, false)
           trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
         }
@@ -324,7 +328,8 @@ function mapDispatchToProps (dispatch, ownProps) {
     setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
     removeSegment: (position) => { dispatch(removeSegmentAction(position)) },
     clearSegments: () => { dispatch(clearSegments()) },
-    incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType))
+    incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType)),
+    showStatusMessage: (message) => { dispatch(showStatusMessage(message, true)) }
   }
 }
 
