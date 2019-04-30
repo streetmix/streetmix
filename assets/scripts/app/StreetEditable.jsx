@@ -17,7 +17,7 @@ import {
   isSegmentWithinCanvas
 } from '../segments/drag_and_drop'
 
-class StreetEditable extends React.Component {
+export class StreetEditable extends React.Component {
   static propTypes = {
     // Provided by parent
     resizeType: PropTypes.number,

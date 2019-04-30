@@ -117,62 +117,35 @@ export function handleSegmentResizeEnd (event) {
 }
 
 export function normalizeAllSegmentWidths () {
-  const street = store.getState().street
+  const { street, ui } = store.getState()
   const segments = []
   for (var i in street.segments) {
     const segment = street.segments[i]
-    segment.width = normalizeSegmentWidth(segment.width, RESIZE_TYPE_INITIAL)
+    segment.width = normalizeSegmentWidth(segment.width, RESIZE_TYPE_INITIAL, ui.unitSettings)
     segments.push(segment)
   }
   store.dispatch(updateSegments(segments))
 }
 
-export function normalizeSegmentWidth (width, resizeType) {
-  const { unitSettings } = store.getState().ui
-  let resolution
-  if (width < MIN_SEGMENT_WIDTH) {
-    width = MIN_SEGMENT_WIDTH
-  } else if (width > MAX_SEGMENT_WIDTH) {
-    width = MAX_SEGMENT_WIDTH
-  }
-
+export function resolutionForResizeType (resizeType, unitSettings) {
   switch (resizeType) {
     case RESIZE_TYPE_INITIAL:
     case RESIZE_TYPE_TYPING:
     case RESIZE_TYPE_INCREMENT:
     case RESIZE_TYPE_PRECISE_DRAGGING:
-      resolution = unitSettings.resolution
-      break
+      return unitSettings.resolution
     case RESIZE_TYPE_DRAGGING:
-      resolution = unitSettings.draggingResolution
-      break
+      return unitSettings.draggingResolution
   }
-
+}
+export function normalizeSegmentWidth (width, resolution) {
+  if (width < MIN_SEGMENT_WIDTH) {
+    width = MIN_SEGMENT_WIDTH
+  } else if (width > MAX_SEGMENT_WIDTH) {
+    width = MAX_SEGMENT_WIDTH
+  }
   width = Math.round(width / resolution) * resolution
   width = Number.parseFloat(width.toFixed(NORMALIZE_PRECISION))
-
-  return width
-}
-
-// temp: add origWidth as 4th arg to pass in value from redux
-export function incrementSegmentWidth (dataNo, add, precise, origWidth) {
-  const { unitSettings } = store.getState().ui
-  let increment
-
-  if (precise) {
-    increment = unitSettings.resolution
-  } else {
-    increment = unitSettings.clickIncrement
-  }
-
-  if (!add) {
-    increment = -increment
-  }
-
-  const width = normalizeSegmentWidth(origWidth + increment, RESIZE_TYPE_INCREMENT)
-
-  resizeSegment(dataNo, RESIZE_TYPE_INCREMENT, width)
-
   return width
 }
 

@@ -5,14 +5,8 @@ exports[`SkyBackgroundObjects renders 1`] = `
   environment="foo"
   objects={Array []}
 >
-  <TransitionGroup
-    childFactory={[Function]}
+  <mockConstructor
     className="sky-background-objects"
-    component="div"
-  >
-    <div
-      className="sky-background-objects"
-    />
-  </TransitionGroup>
+  />
 </SkyBackgroundObjects>
 `;

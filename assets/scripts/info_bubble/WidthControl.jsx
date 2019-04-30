@@ -9,9 +9,11 @@ import {
   MAX_SEGMENT_WIDTH
 } from '../segments/constants'
 import {
+  incrementSegmentWidth
+} from '../store/actions/street'
+import {
   RESIZE_TYPE_TYPING,
   resizeSegment,
-  incrementSegmentWidth,
   resumeFadeoutControls
 } from '../segments/resizing'
 import {
@@ -28,13 +30,15 @@ class WidthControl extends React.Component {
     position: PropTypes.number,
     value: PropTypes.number,
     units: PropTypes.number,
-    locale: PropTypes.string
+    locale: PropTypes.string,
+    // provided by store
+    incrementSegmentWidth: PropTypes.func
   }
 
   handleIncrement = (event) => {
     const precise = event.shiftKey
 
-    incrementSegmentWidth(this.props.position, true, precise, this.props.value)
+    this.props.incrementSegmentWidth(true, precise, this.props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
@@ -42,7 +46,7 @@ class WidthControl extends React.Component {
   handleDecrement = (event) => {
     const precise = event.shiftKey
 
-    incrementSegmentWidth(this.props.position, false, precise, this.props.value)
+    this.props.incrementSegmentWidth(false, precise, this.props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
@@ -128,5 +132,10 @@ function mapStateToProps (state, ownProps) {
     locale: state.locale.locale
   }
 }
+function mapDispatchToProps (dispatch, ownProps) {
+  return {
+    incrementSegmentWidth: (add, precise, value) => dispatch(incrementSegmentWidth(ownProps.position, add, precise, value))
+  }
+}
 
-export default injectIntl(connect(mapStateToProps)(WidthControl))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WidthControl))
