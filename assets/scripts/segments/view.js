@@ -280,11 +280,14 @@ export function segmentsChanged () {
   saveStreetToServerIfNecessary()
 }
 
+/**
+ * Uses browser prompt to change the segment label
+ *
+ * @param {Object} segment - object describing the segment to edit
+ * @param {Number} position - index of segment to edit
+ */
 export function editSegmentLabel (segment, position) {
   const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-
-  // Localize prompt with the `t` function instead of injected `intl` HOC
-  // because <IntlProvider> is not in this component's parent hierarchy
   const label = window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel)
 
   if (label && label !== prevLabel) {

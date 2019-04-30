@@ -34,7 +34,6 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { setActiveSegment } from '../store/actions/ui'
-import { changeSegmentProperties } from '../store/actions/street'
 import './Segment.scss'
 
 export class Segment extends React.Component {
@@ -54,7 +53,6 @@ export class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
-    changeSegmentProperties: PropTypes.func,
     customSegmentLabels: PropTypes.bool,
 
     // Provided by react-dnd DragSource and DropTarget
@@ -329,8 +327,7 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  setActiveSegment,
-  changeSegmentProperties
+  setActiveSegment
 }
 
 export default flow(
