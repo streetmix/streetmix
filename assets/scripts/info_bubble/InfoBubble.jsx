@@ -22,7 +22,7 @@ import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizi
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { getSegmentEl, editSegmentLabel } from '../segments/view'
-import { ICON_PENCIL } from '../ui/icons'
+import { ICON_PENCIL, ICON_LOCK } from '../ui/icons'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
@@ -491,19 +491,18 @@ export class InfoBubble extends React.Component {
       >
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
-          {isEditable ? (
-            <div
-              className="info-bubble-label info-bubble-label-editable"
-              onClick={() => editSegmentLabel(segment, this.props.position)}
-            >
-              {this.getName()}
-              <span className="info-bubble-label-editable-icon">
-                <FontAwesomeIcon icon={ICON_PENCIL} />
-              </span>
-            </div>
-          ) : (
-            <div className="info-bubble-label">{this.getName()}</div>
-          )}
+          <div
+            className="info-bubble-label info-bubble-label-editable"
+            onClick={() => isEditable && editSegmentLabel(segment, this.props.position)}
+          >
+            {this.getName()}
+            <span className="info-bubble-label-editable-icon">
+              {isEditable
+                ? <FontAwesomeIcon icon={ICON_PENCIL} />
+                : <FontAwesomeIcon icon={ICON_LOCK} />
+              }
+            </span>
+          </div>
           {canBeDeleted && <RemoveButton segment={this.props.position} />}
         </header>
         <div className="info-bubble-controls">
