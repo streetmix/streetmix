@@ -255,7 +255,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
         // height of the currently rendered sprite and the # of pixels to get to the point of the sprite which aligns with the ground.
         const dy = sprite.id.includes('ground') ? groundLevel : groundLevel - (height - svg.originY) * multiplier
 
-        if (original - dy > 10 || original - dy < -10) {
+        if (original !== dy) {
           console.log(type, sprite.id, original, dy, original - dy)
         }
 
@@ -280,7 +280,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
       const dy = groundLevel - ((height - svg.originY) * multiplier)
 
-      if (original - dy > 10 || original - dy < -10) {
+      if (original !== dy) {
         console.log(type, sprite.id, original, dy, original - dy)
       }
 
@@ -303,7 +303,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
       const dy = groundLevel - (height - svg.originY) * multiplier
 
-      if (original - dy > 10 || original - dy < -10) {
+      if (original !== dy) {
         console.log(type, sprite.id, original, dy, original - dy)
       }
 
@@ -327,7 +327,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
       const dy = groundLevel - (height - svg.originY) * multiplier
 
-      if (original - dy > 10 || original - dy < -10) {
+      if (original !== dy) {
         console.log(type, sprite.id, original, dy, original - dy)
       }
 
