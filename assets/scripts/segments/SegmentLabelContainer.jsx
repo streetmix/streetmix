@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ICON_PENCIL } from '../ui/icons'
 import MeasurementText from '../ui/MeasurementText'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import './SegmentLabelContainer.scss'
@@ -18,20 +16,9 @@ const SegmentLabelContainer = (props) => {
 
   return (
     <div className="segment-label-container">
-      {
-        (props.editable) ? (
-          <span className="segment-label segment-label-editable" onClick={props.editSegmentLabel}>
-            <span className="segment-label-editable-icon">
-              <FontAwesomeIcon icon={ICON_PENCIL} />
-            </span>
-            {props.label}
-          </span>
-        ) : (
-          <span className="segment-label">
-            {props.label}
-          </span>
-        )
-      }
+      <span className="segment-label">
+        {props.label}
+      </span>
       <span className="segment-width">
         <MeasurementText
           value={props.width}
@@ -52,15 +39,11 @@ SegmentLabelContainer.propTypes = {
   ]).isRequired,
   width: PropTypes.number.isRequired,
   units: PropTypes.number,
-  locale: PropTypes.string.isRequired,
-  editable: PropTypes.bool,
-  editSegmentLabel: PropTypes.func
+  locale: PropTypes.string.isRequired
 }
 
 SegmentLabelContainer.defaultProps = {
-  units: SETTINGS_UNITS_METRIC,
-  editable: false,
-  editSegmentLabel: () => {}
+  units: SETTINGS_UNITS_METRIC
 }
 
 export default SegmentLabelContainer

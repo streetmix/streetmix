@@ -27,37 +27,6 @@
   pointer-events: none;
 }
 
-.segment-label-editable {
-  pointer-events: auto !important;
-}
-
-.segment-label-editable:hover {
-  background-color: lighten($bottom-background, 10%) !important;
-  border-radius: 20px;
-  padding-left: 1em !important;
-  padding-right: 1em !important;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.segment-label-editable-icon {
-  display: none;
-}
-
-.segment-label-editable:hover .segment-label-editable-icon {
-  display: inline-block;
-  margin-left: -0.35em;
-  margin-right: 0.55em;
-  color: black;
-  font-size: 0.9em;
-
-  // Flip the pencil to point the other way.
-  svg {
-    transform: scaleX(-1);
-  }
-}
-
-.segment-label-editable:hover,
 .segment.hover .segment-label {
   font-weight: 700;
 

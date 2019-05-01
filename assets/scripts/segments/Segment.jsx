@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
-import { getLocaleSegmentName, editSegmentLabel } from '../segments/view'
+import { getLocaleSegmentName } from '../segments/view'
 
 import {
   TILE_SIZE,
@@ -53,7 +53,6 @@ export class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
-    customSegmentLabels: PropTypes.bool,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -287,8 +286,6 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
-          editable={this.props.customSegmentLabels}
-          editSegmentLabel={(event) => editSegmentLabel(segment, this.props.dataNo)}
         />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition
@@ -321,8 +318,7 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
-    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
-    customSegmentLabels: state.flags.CUSTOM_SEGMENT_LABELS.value
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
   }
 }
 
