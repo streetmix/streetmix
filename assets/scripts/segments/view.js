@@ -172,6 +172,35 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   return { left: left / TILE_SIZE_ACTUAL, right: right / TILE_SIZE_ACTUAL, center: center / TILE_SIZE_ACTUAL }
 }
 
+const GROUND_LEVEL_OFFSETY = {
+  ASPHALT: 270, // offsetY = 11.25
+  CURB: 255.6, // offsetY = 10.65
+  RAISED_CURB: 196.8 // offsetY = 8.2
+}
+
+/**
+ * Originally a sprite's dy position was calculated using: dy = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)).
+ * In order to remove `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground", or "lane", sprites in pixels
+ * in `GROUND_LEVEL_OFFSETY`. This was calculated by taking the original `offsetY` and multiplying it by the "intrinsic" tile
+ * size (24px). Using `elevation`, which is defined for each segment based on the "ground" component being used, this function
+ * returns the corresponding `GROUND_LEVEL_OFFSETY` for that `elevation`. If not found, it returns null.
+ *
+ * @param {Number} elevation
+ * @returns {?Number} groundLevelOffset
+ */
+function getGroundLevelOffset (elevation) {
+  switch (elevation) {
+    case 0:
+      return GROUND_LEVEL_OFFSETY.ASPHALT
+    case 1:
+      return GROUND_LEVEL_OFFSETY.CURB
+    case 2:
+      return GROUND_LEVEL_OFFSETY.RAISED_CURB
+    default:
+      return null
+  }
+}
+
 /**
  *
  * @param {CanvasRenderingContext2D} ctx
@@ -194,6 +223,9 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   const dimensions = getVariantInfoDimensions(variantInfo, actualWidth)
   const left = dimensions.left
 
+  const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
+  const groundLevel = offsetTop + (multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0))
+
   if (graphics.repeat) {
     const sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
 
@@ -201,6 +233,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
+      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
       let repeatStartX
@@ -217,9 +250,18 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
+        const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
+        // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the
+        // height of the currently rendered sprite and the # of pixels to get to the point of the sprite which aligns with the ground.
+        const dy = sprite.id.includes('ground') ? groundLevel : groundLevel - (height - svg.originY) * multiplier
+
+        if (original - dy > 10 || original - dy < -10) {
+          console.log(type, sprite.id, original, dy, original - dy)
+        }
+
         drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
           offsetLeft + ((repeatStartX + (i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE)) * multiplier),
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+          dy,
           width, undefined, multiplier, dpi)
       }
     }
@@ -230,11 +272,21 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
+
       const x = 0 + ((-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier)
+      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
+
+      const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
+      const dy = groundLevel - ((height - svg.originY) * multiplier)
+
+      if (original - dy > 10 || original - dy < -10) {
+        console.log(type, sprite.id, original, dy, original - dy)
+      }
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        dy,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -246,10 +298,18 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
       const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
+      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
+
+      const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
+      const dy = groundLevel - (height - svg.originY) * multiplier
+
+      if (original - dy > 10 || original - dy < -10) {
+        console.log(type, sprite.id, original, dy, original - dy)
+      }
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        dy,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -262,10 +322,18 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const svg = images.get(sprite.id)
       const center = dimensions.center
       const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
+      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
+
+      const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
+      const dy = groundLevel - (height - svg.originY) * multiplier
+
+      if (original - dy > 10 || original - dy < -10) {
+        console.log(type, sprite.id, original, dy, original - dy)
+      }
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        dy,
         undefined, undefined, multiplier, dpi)
     }
   }
