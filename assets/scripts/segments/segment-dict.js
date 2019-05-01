@@ -220,7 +220,6 @@ export function testSegmentLookup (type, variant, segmentVariantInfo) {
   const newVariantInfo = getSegmentVariantInfo(type, variant)
 
   if (verifyCorrectness(segmentVariantInfo, newVariantInfo)) {
-    console.log(variant, newVariantInfo)
     return newVariantInfo
   } else {
     return segmentVariantInfo
