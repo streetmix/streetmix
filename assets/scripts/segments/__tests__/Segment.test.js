@@ -52,35 +52,35 @@ describe('Segment', () => {
   })
   afterEach(cleanup)
   it('renders correctly', () => {
-    const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+    const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
   it('shows the info bubble on mouseover', () => {
-    const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+    const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
     fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
     expect(infoBubble.considerShowing).toHaveBeenCalledTimes(1)
   })
   it('hides the info bubble on mouseleave', () => {
-    const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+    const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
     fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
     fireEvent.mouseLeave(getByTestId(wrapper.container, 'segment'))
     expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
   describe('keyboard events', () => {
     it('KEY.MINUS decreases the width of the segment', () => {
-      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Minus', keyCode: KEYS.MINUS, code: KEYS.MINUS, charCode: KEYS.MINUS })
       expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth - increment)
     })
     it('KEY.EQUAL increases the width of the segment', () => {
-      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
       expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth + increment)
     })
     it('removes segment when delete key is pressed', () => {
-      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
       setLastStreet() // ToDo: needs to be refactored
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Delete', keyCode: KEYS.DELETE, code: KEYS.DELETE, charCode: KEYS.DELETE })
@@ -89,7 +89,7 @@ describe('Segment', () => {
       expect(wrapper.store.getState().street.segments.length).toEqual(0)
     })
     it('removes all segments when shift+delete keys are pressed', () => {
-      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement, unitSettings: { resolution: 1, clickIncrement: 1 } }, street: { segments: [segment] } } })
+      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
       setLastStreet() // ToDo: needs to be refactored
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Delete', keyCode: KEYS.DELETE, code: KEYS.DELETE, charCode: KEYS.DELETE, shiftKey: true })

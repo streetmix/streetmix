@@ -1,7 +1,6 @@
 import {
   SHOW_STREET_NAME_CANVAS,
   HIDE_STREET_NAME_CANVAS,
-  SET_UNIT_SETTINGS,
   SET_ACTIVE_SEGMENT,
   INIT_DRAGGING_STATE,
   UPDATE_DRAGGING_STATE,
@@ -19,13 +18,6 @@ export function showStreetNameCanvas () {
 export function hideStreetNameCanvas () {
   return {
     type: HIDE_STREET_NAME_CANVAS
-  }
-}
-
-export function setUnitSettings (unit) {
-  return {
-    type: SET_UNIT_SETTINGS,
-    unit
   }
 }
 

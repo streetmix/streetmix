@@ -19,7 +19,6 @@ import {
   updateStreetData
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
-import { setUnitSettings } from '../store/actions/ui'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
@@ -387,7 +386,6 @@ export function prepareDefaultStreet () {
     creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
-  store.dispatch(setUnitSettings(units))
   store.dispatch(updateStreetData(defaultStreet))
 
   if (isSignedIn()) {
@@ -415,7 +413,6 @@ export function prepareEmptyStreet () {
     creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
-  store.dispatch(setUnitSettings(units))
   store.dispatch(updateStreetData(emptyStreet))
 
   if (isSignedIn()) {
