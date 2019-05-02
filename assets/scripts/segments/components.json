@@ -1,6 +1,7 @@
 {
   "lanes": {
     "asphalt": {
+      "elevation": 0,
       "variants": {
         "color": {
           "regular": {
@@ -20,9 +21,98 @@
           }
         }
       }
+    },
+    "sidewalk": {
+      "name": "Sidewalk",
+      "nameKey": "sidewalk",
+      "owner": "PEDESTRIAN",
+      "zIndex": 30,
+      "needRandSeed": true,
+      "elevation": 1,
+      "rules": {
+        "defaultWidth": 6,
+        "minWidth": 6
+      },
+      "variants": {
+        "density": {
+          "dense": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "normal": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "sparse": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "empty": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          }
+        }
+      }
     }
   },
-  "objects": {},
+  "objects": {
+    "markings": {
+      "variants": {
+        "type|orientation": {
+          "lane": {
+            "right": {
+              "graphics": {
+                "right": "markings--lane-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "left": "markings--lane-left"
+              }
+            },
+            "both": {
+              "graphics": {
+                "right": "markings--lane-right",
+                "left": "markings--lane-left"
+              }
+            }
+          }
+        },
+        "type|direction|opacity": {
+          "straight": {
+            "inbound": {
+              "light": {
+                "graphics": {
+                  "center": "markings--straight-inbound-light"
+                }
+              },
+              "default": {
+                "graphics": {
+                  "center": "markings--straight-inbound"
+                }
+              }
+            },
+            "outbound": {
+              "light": {
+                "graphics": {
+                  "center": "markings--straight-outbound-light"
+                }
+              },
+              "default": {
+                "graphics": {
+                  "center": "markings--straight-outbound"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "vehicles": {
     "scooter": {
       "name": "Electric scooter",
@@ -39,16 +129,14 @@
           "inbound": {
             "graphics": {
               "center": [
-                "scooters--scooter-inbound",
-                "markings--straight-inbound-light"
+                "scooters--scooter-inbound"
               ]
             }
           },
           "outbound": {
             "graphics": {
               "center": [
-                "scooters--scooter-outbound",
-                "markings--straight-outbound-light"
+                "scooters--scooter-outbound"
               ]
             }
           }
