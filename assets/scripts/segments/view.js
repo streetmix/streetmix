@@ -233,7 +233,6 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
       let repeatStartX
@@ -244,19 +243,21 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
         repeatStartX = 0
       }
 
+      // The distance between the top of the sprite and the ground is calculated by subtracting the height of the sprite with the # of pixels
+      // to get to the point of the sprite which should align with the ground.
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
-        // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the
-        // height of the currently rendered sprite and the # of pixels to get to the point of the sprite which aligns with the ground.
-        const dy = sprite.id.includes('ground') ? groundLevel : groundLevel - (height - svg.originY) * multiplier
-
+        // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the distance
+        // the sprite will be from the ground.
         drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
           offsetLeft + ((repeatStartX + (i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE)) * multiplier),
-          dy,
+          (sprite.id.includes('ground') ? groundLevel : groundLevel - distanceFromGround),
           width, undefined, multiplier, dpi)
       }
     }
@@ -270,12 +271,11 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const svg = images.get(sprite.id)
 
       const x = 0 + ((-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier)
-      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
-      const dy = groundLevel - ((height - svg.originY) * multiplier)
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        dy,
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -288,12 +288,11 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const svg = images.get(sprite.id)
 
       const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
-      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
-      const dy = groundLevel - (height - svg.originY) * multiplier
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        dy,
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -307,12 +306,11 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const center = dimensions.center
 
       const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
-      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
-      const dy = groundLevel - (height - svg.originY) * multiplier
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        dy,
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
