@@ -253,12 +253,14 @@ export const segmentsChanged = () => {
     saveStreetToServerIfNecessary()
   }
 }
+
 export const removeSegmentAction = (dataNo) => {
   return async (dispatch, getState) => {
     await dispatch(removeSegment(dataNo, false))
     await dispatch(segmentsChanged())
   }
 }
+
 export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INITIAL) => {
   return async (dispatch, getState) => {
     const { unitSettings } = getState().ui

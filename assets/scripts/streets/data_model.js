@@ -1,6 +1,6 @@
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
-import { normalizeAllSegmentWidths } from '../segments/resizing'
+import { normalizeSegmentWidth } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
@@ -14,8 +14,6 @@ import {
 import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
-  updateStreetWidth,
-  updateSegments,
   setUpdateTime,
   saveCreatorId,
   updateStreetData
@@ -350,13 +348,16 @@ export function trimStreetData (street, saveSegmentId = true) {
 }
 
 function fillDefaultSegments () {
+  const { resolution } = store.getState().ui.unitSettings
+
   const segments = []
   let leftHandTraffic = getLeftHandTraffic()
 
-  for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
-    var segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
+  for (let i in DEFAULT_SEGMENTS[leftHandTraffic]) {
+    const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
+    segment.width = normalizeSegmentWidth(segment.width, resolution)
 
     if (getSegmentInfo(segment.type).needRandSeed) {
       segment.randSeed = generateRandSeed()
@@ -365,8 +366,7 @@ function fillDefaultSegments () {
     segments.push(segment)
   }
 
-  store.dispatch(updateSegments(segments))
-  normalizeAllSegmentWidths()
+  return segments
 }
 
 export function prepareDefaultStreet () {
@@ -376,23 +376,24 @@ export function prepareDefaultStreet () {
     name: null,
     userUpdated: false,
     editCount: 0,
+    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH),
+    environment: DEFAULT_ENVIRONS,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT,
-    schemaVersion: LATEST_SCHEMA_VERSION
+    schemaVersion: LATEST_SCHEMA_VERSION,
+    segments: fillDefaultSegments(),
+    updatedAt: new Date().toISOString(),
+    creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
   store.dispatch(setUnitSettings(defaultStreet.units))
   store.dispatch(updateStreetData(defaultStreet))
-  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
-  // console.log('editCount = 0 on default street')
   if (isSignedIn()) {
-    setStreetCreatorId(getSignInData().userId)
+    updateLastStreetInfo()
   }
-  fillDefaultSegments()
-  setUpdateTimeToNow()
 }
 
 export function prepareEmptyStreet () {
@@ -402,24 +403,24 @@ export function prepareEmptyStreet () {
     name: null,
     userUpdated: false,
     editCount: 0,
+    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH),
     environment: DEFAULT_ENVIRONS,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     schemaVersion: LATEST_SCHEMA_VERSION,
-    segments: []
+    segments: [],
+    updatedAt: new Date().toISOString(),
+    creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
   store.dispatch(setUnitSettings(emptyStreet.units))
   store.dispatch(updateStreetData(emptyStreet))
-  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
-  // console.log('editCount = 0 on empty street!')
   if (isSignedIn()) {
-    setStreetCreatorId(getSignInData().userId)
+    updateLastStreetInfo()
   }
-  setUpdateTimeToNow()
 }
 
 /**
