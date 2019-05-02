@@ -244,6 +244,21 @@ export function setEnvironment (env) {
   }
 }
 
+export const segmentsChanged = () => {
+  return async (dispatch, getState) => {
+    const street = getState().street
+    const updatedStreet = recalculateWidth(street)
+    await dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+    // ToDo: Refactor this out to be dispatched as well
+    saveStreetToServerIfNecessary()
+  }
+}
+export const removeSegmentAction = (dataNo) => {
+  return async (dispatch, getState) => {
+    await dispatch(removeSegment(dataNo, false))
+    await dispatch(segmentsChanged())
+  }
+}
 export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INITIAL) => {
   return async (dispatch, getState) => {
     const { unitSettings } = getState().ui
@@ -262,10 +277,6 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
     cancelSegmentResizeTransitions()
     const width = normalizeSegmentWidth(origWidth + increment, increment)
     await dispatch(changeSegmentWidth(dataNo, width))
-    const street = getState().street
-    const updatedStreet = recalculateWidth(street)
-    await dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
-    // ToDo: Refactor this out to be dispatched as well
-    saveStreetToServerIfNecessary()
+    await dispatch(segmentsChanged())
   }
 }

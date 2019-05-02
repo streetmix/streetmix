@@ -34,7 +34,7 @@ import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
-import { incrementSegmentWidth, removeSegment as removeSegmentAction, clearSegments } from '../store/actions/street'
+import { incrementSegmentWidth, removeSegmentAction, clearSegments } from '../store/actions/street'
 import { showStatusMessage } from '../store/actions/status'
 
 export class Segment extends React.Component {
