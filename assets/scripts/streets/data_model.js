@@ -347,9 +347,7 @@ export function trimStreetData (street, saveSegmentId = true) {
   return newData
 }
 
-function fillDefaultSegments () {
-  const { resolution } = store.getState().ui.unitSettings
-
+function fillDefaultSegments (units) {
   const segments = []
   let leftHandTraffic = getLeftHandTraffic()
 
@@ -357,7 +355,7 @@ function fillDefaultSegments () {
     const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
-    segment.width = normalizeSegmentWidth(segment.width, resolution)
+    segment.width = normalizeSegmentWidth(segment.width, units)
 
     if (getSegmentInfo(segment.type).needRandSeed) {
       segment.randSeed = generateRandSeed()
@@ -370,25 +368,26 @@ function fillDefaultSegments () {
 }
 
 export function prepareDefaultStreet () {
+  const units = getUnits()
   const defaultStreet = {
-    units: getUnits(),
+    units: units,
     location: null,
     name: null,
     userUpdated: false,
     editCount: 0,
-    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH),
+    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
     environment: DEFAULT_ENVIRONS,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT,
     schemaVersion: LATEST_SCHEMA_VERSION,
-    segments: fillDefaultSegments(),
+    segments: fillDefaultSegments(units),
     updatedAt: new Date().toISOString(),
     creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
-  store.dispatch(setUnitSettings(defaultStreet.units))
+  store.dispatch(setUnitSettings(units))
   store.dispatch(updateStreetData(defaultStreet))
 
   if (isSignedIn()) {
@@ -397,13 +396,14 @@ export function prepareDefaultStreet () {
 }
 
 export function prepareEmptyStreet () {
+  const units = getUnits()
   const emptyStreet = {
-    units: getUnits(),
+    units: units,
     location: null,
     name: null,
     userUpdated: false,
     editCount: 0,
-    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH),
+    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
     environment: DEFAULT_ENVIRONS,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
@@ -415,7 +415,7 @@ export function prepareEmptyStreet () {
     creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
-  store.dispatch(setUnitSettings(emptyStreet.units))
+  store.dispatch(setUnitSettings(units))
   store.dispatch(updateStreetData(emptyStreet))
 
   if (isSignedIn()) {

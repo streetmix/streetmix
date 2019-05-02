@@ -101,7 +101,7 @@ export function updateUnits (newUnits) {
       }
       store.dispatch(updateStreetWidth(width))
     } else {
-      store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width)))
+      store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width, newUnits)))
     }
   } else {
     store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))

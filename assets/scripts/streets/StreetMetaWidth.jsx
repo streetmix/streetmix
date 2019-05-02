@@ -7,6 +7,7 @@ import { loseAnyFocus } from '../util/focus'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import { updateUnits } from '../users/localization'
 import { segmentsChanged } from '../segments/view'
+import { normalizeStreetWidth } from '../streets/width'
 import { updateStreetWidth } from '../store/actions/street'
 
 const STREET_WIDTH_CUSTOM = -1
@@ -23,8 +24,7 @@ class StreetMetaWidth extends React.Component {
     intl: intlShape,
     editable: PropTypes.bool,
     street: PropTypes.object,
-    updateStreetWidth: PropTypes.func,
-    unitSettings: PropTypes.object
+    updateStreetWidth: PropTypes.func
   }
 
   static defaultProps = {
@@ -68,21 +68,6 @@ class StreetMetaWidth extends React.Component {
     return { class: differenceClass, width: differenceEl }
   }
 
-  normalizeStreetWidth (width) {
-    const { unitSettings } = this.props
-
-    if (width < MIN_CUSTOM_STREET_WIDTH) {
-      width = MIN_CUSTOM_STREET_WIDTH
-    } else if (width > MAX_CUSTOM_STREET_WIDTH) {
-      width = MAX_CUSTOM_STREET_WIDTH
-    }
-
-    const resolution = (unitSettings && unitSettings.resolution)
-    width = Math.round(width / resolution) * resolution
-
-    return width
-  }
-
   renderStreetWidthLabel = () => {
     const width = prettifyWidth(this.props.street.width, this.props.street.units)
     const difference = this.displayStreetWidthRemaining()
@@ -117,7 +102,7 @@ class StreetMetaWidth extends React.Component {
 
     var widths = []
     const defaultWidths = DEFAULT_STREET_WIDTHS.map((defaultWidth) => {
-      let width = this.normalizeStreetWidth(defaultWidth)
+      let width = normalizeStreetWidth(defaultWidth, this.props.street.units)
       widths.push(width)
       return this.createStreetWidthOption(width)
     })
@@ -226,7 +211,7 @@ class StreetMetaWidth extends React.Component {
       let width = window.prompt(promptString, prettifyWidth(promptValue, this.props.street.units))
 
       if (width) {
-        width = this.normalizeStreetWidth(processWidthInput(width, this.props.street.units))
+        width = normalizeStreetWidth(processWidthInput(width, this.props.street.units), this.props.street.units)
       }
 
       if (!width) {
@@ -242,7 +227,7 @@ class StreetMetaWidth extends React.Component {
       newStreetWidth = width
     }
 
-    this.props.updateStreetWidth(this.normalizeStreetWidth(newStreetWidth))
+    this.props.updateStreetWidth(normalizeStreetWidth(newStreetWidth, this.props.street.units))
 
     segmentsChanged()
 
@@ -267,7 +252,6 @@ export const StreetMetaWidthWithIntl = injectIntl(StreetMetaWidth)
 function mapStateToProps (state) {
   return {
     street: state.street,
-    unitSettings: state.ui.unitSettings,
     editable: !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value
   }
 }

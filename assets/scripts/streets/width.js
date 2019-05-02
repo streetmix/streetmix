@@ -4,15 +4,15 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../segments/constants'
-import store from '../store'
+import { getSegmentWidthResolution } from '../ui/units'
 
 const MIN_CUSTOM_STREET_WIDTH = 10
 export const MAX_CUSTOM_STREET_WIDTH = 400
 
 const WIDTH_ROUNDING = 0.01
 
-export function normalizeStreetWidth (width) {
-  const { resolution } = store.getState().ui.unitSettings
+export function normalizeStreetWidth (width, units) {
+  const resolution = getSegmentWidthResolution(units)
 
   if (width < MIN_CUSTOM_STREET_WIDTH) {
     width = MIN_CUSTOM_STREET_WIDTH
