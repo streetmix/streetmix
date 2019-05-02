@@ -250,14 +250,9 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
-        const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
         // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the
         // height of the currently rendered sprite and the # of pixels to get to the point of the sprite which aligns with the ground.
         const dy = sprite.id.includes('ground') ? groundLevel : groundLevel - (height - svg.originY) * multiplier
-
-        if (original !== dy) {
-          console.log(type, sprite.id, original, dy, original - dy)
-        }
 
         drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
           offsetLeft + ((repeatStartX + (i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE)) * multiplier),
@@ -276,13 +271,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
       const x = 0 + ((-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier)
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
-
-      const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
       const dy = groundLevel - ((height - svg.originY) * multiplier)
-
-      if (original !== dy) {
-        console.log(type, sprite.id, original, dy, original - dy)
-      }
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
@@ -297,15 +286,10 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
+
       const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
-
-      const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
       const dy = groundLevel - (height - svg.originY) * multiplier
-
-      if (original !== dy) {
-        console.log(type, sprite.id, original, dy, original - dy)
-      }
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
@@ -321,15 +305,10 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
       const center = dimensions.center
+
       const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
-
-      const original = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0))
       const dy = groundLevel - (height - svg.originY) * multiplier
-
-      if (original !== dy) {
-        console.log(type, sprite.id, original, dy, original - dy)
-      }
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
