@@ -11,7 +11,7 @@ import {
   createNewUndoIfNecessary,
   unifyUndoStack
 } from './undo_stack'
-import { normalizeStreetWidth } from './width'
+import { normalizeStreetWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
   setUpdateTime,
@@ -355,7 +355,7 @@ function fillDefaultSegments (units) {
     const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
-    segment.width = normalizeSegmentWidth(segment.width, units)
+    segment.width = normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, units))
 
     if (getSegmentInfo(segment.type).needRandSeed) {
       segment.randSeed = generateRandSeed()

@@ -14,11 +14,16 @@ import {
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 import { setDraggingType } from '../store/actions/ui'
+import {
+  getSegmentWidthResolution,
+  getSegmentClickResizeResolution,
+  getSegmentDragResizeResolution
+} from '../ui/units'
 
 const SHORT_DELAY = 100
 
 export const RESIZE_TYPE_INITIAL = 0
-const RESIZE_TYPE_INCREMENT = 1
+export const RESIZE_TYPE_INCREMENT = 1
 export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
@@ -116,24 +121,25 @@ export function handleSegmentResizeEnd (event) {
   }
 }
 
-function resolutionForResizeType (resizeType, unitSettings) {
+export function resolutionForResizeType (resizeType, units) {
   switch (resizeType) {
     case RESIZE_TYPE_INITIAL:
     case RESIZE_TYPE_TYPING:
-    case RESIZE_TYPE_INCREMENT:
     case RESIZE_TYPE_PRECISE_DRAGGING:
-      return unitSettings.resolution
+      return getSegmentWidthResolution(units)
+    case RESIZE_TYPE_INCREMENT:
+      return getSegmentClickResizeResolution(units)
     case RESIZE_TYPE_DRAGGING:
-      return unitSettings.draggingResolution
+      return getSegmentDragResizeResolution(units)
   }
 }
 
 export function normalizeAllSegmentWidths () {
-  const { street, ui } = store.getState()
+  const { street } = store.getState()
   const segments = []
   for (var i in street.segments) {
     const segment = street.segments[i]
-    segment.width = normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, ui.unitSettings))
+    segment.width = normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, street.units))
     segments.push(segment)
   }
   store.dispatch(updateSegments(segments))
