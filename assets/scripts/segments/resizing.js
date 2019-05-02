@@ -116,18 +116,7 @@ export function handleSegmentResizeEnd (event) {
   }
 }
 
-export function normalizeAllSegmentWidths () {
-  const { street, ui } = store.getState()
-  const segments = []
-  for (var i in street.segments) {
-    const segment = street.segments[i]
-    segment.width = normalizeSegmentWidth(segment.width, RESIZE_TYPE_INITIAL, ui.unitSettings)
-    segments.push(segment)
-  }
-  store.dispatch(updateSegments(segments))
-}
-
-export function resolutionForResizeType (resizeType, unitSettings) {
+function resolutionForResizeType (resizeType, unitSettings) {
   switch (resizeType) {
     case RESIZE_TYPE_INITIAL:
     case RESIZE_TYPE_TYPING:
@@ -138,6 +127,18 @@ export function resolutionForResizeType (resizeType, unitSettings) {
       return unitSettings.draggingResolution
   }
 }
+
+export function normalizeAllSegmentWidths () {
+  const { street, ui } = store.getState()
+  const segments = []
+  for (var i in street.segments) {
+    const segment = street.segments[i]
+    segment.width = normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, ui.unitSettings))
+    segments.push(segment)
+  }
+  store.dispatch(updateSegments(segments))
+}
+
 export function normalizeSegmentWidth (width, resolution) {
   if (width < MIN_SEGMENT_WIDTH) {
     width = MIN_SEGMENT_WIDTH
