@@ -170,8 +170,7 @@ function cacheSVGObject (id, svg, svgHTML) {
     src: src,
     img: img,
     width: svg.viewBox.baseVal.width,
-    height: svg.viewBox.baseVal.height,
-    originY: parseInt(svg.getAttribute('originy')) || 0
+    height: svg.viewBox.baseVal.height
   })
 }
 
