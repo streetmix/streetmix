@@ -249,7 +249,6 @@ export const segmentsChanged = () => {
     const street = getState().street
     const updatedStreet = recalculateWidth(street)
     await dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
-    console.log(updatedStreet)
     // ToDo: Refactor this out to be dispatched as well
     saveStreetToServerIfNecessary()
   }
