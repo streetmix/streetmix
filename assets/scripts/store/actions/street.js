@@ -26,6 +26,10 @@ import {
   SET_ENVIRONMENT
 } from './'
 
+import { RESIZE_TYPE_INITIAL, normalizeSegmentWidth, cancelSegmentResizeTransitions } from '../../segments/resizing'
+import { recalculateWidth } from '../../streets/width'
+import { saveStreetToServerIfNecessary } from '../../streets/data_model'
+
 export function updateStreetData (street) {
   return {
     type: REPLACE_STREET_DATA,
@@ -246,5 +250,42 @@ export function setEnvironment (env) {
   return {
     type: SET_ENVIRONMENT,
     env
+  }
+}
+
+export const segmentsChanged = () => {
+  return async (dispatch, getState) => {
+    const street = getState().street
+    const updatedStreet = recalculateWidth(street)
+    await dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+    // ToDo: Refactor this out to be dispatched as well
+    saveStreetToServerIfNecessary()
+  }
+}
+export const removeSegmentAction = (dataNo) => {
+  return async (dispatch, getState) => {
+    await dispatch(removeSegment(dataNo, false))
+    await dispatch(segmentsChanged())
+  }
+}
+export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INITIAL) => {
+  return async (dispatch, getState) => {
+    const { unitSettings } = getState().ui
+    let increment
+
+    if (precise) {
+      increment = unitSettings.resolution
+    } else {
+      increment = unitSettings.clickIncrement
+    }
+
+    if (!add) {
+      increment = -increment
+    }
+
+    cancelSegmentResizeTransitions()
+    const width = normalizeSegmentWidth(origWidth + increment, increment)
+    await dispatch(changeSegmentWidth(dataNo, width))
+    await dispatch(segmentsChanged())
   }
 }

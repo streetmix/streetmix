@@ -18,6 +18,7 @@ export function removeSegment (position) {
   infoBubble.hideSegment()
 
   // Update the store
+  // ToDo: Refactor all other methods that use this to update the store via there dispatch
   store.dispatch(removeSegmentActionCreator(position, false))
 
   segmentsChanged()

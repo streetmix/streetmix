@@ -27,13 +27,15 @@ import {
   _resetBugfix
 } from './drag_and_drop'
 import { getSegmentInfo } from './info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, incrementSegmentWidth } from './resizing'
-import { removeSegment, removeAllSegments } from './remove'
+import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL } from './resizing'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
+import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
+import { incrementSegmentWidth, removeSegmentAction, clearSegments } from '../store/actions/street'
+import { showStatusMessage } from '../store/actions/status'
 import './Segment.scss'
 
 export class Segment extends React.Component {
@@ -53,6 +55,11 @@ export class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
+    resolution: PropTypes.number,
+    incrementSegmentWidth: PropTypes.func,
+    removeSegment: PropTypes.func,
+    clearSegments: PropTypes.func,
+    showStatusMessage: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -109,7 +116,7 @@ export class Segment extends React.Component {
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener('keydown', this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
   }
 
   switchSegments = (oldVariant) => {
@@ -122,7 +129,7 @@ export class Segment extends React.Component {
   calculateSegmentWidths = (resizeType) => {
     let actualWidth = this.props.actualWidth
 
-    actualWidth = normalizeSegmentWidth(actualWidth, resizeType)
+    actualWidth = normalizeSegmentWidth(actualWidth, this.props.resolution)
 
     return actualWidth
   }
@@ -141,12 +148,12 @@ export class Segment extends React.Component {
 
     this.props.setActiveSegment(this.props.dataNo)
 
-    window.addEventListener('keydown', this.handleKeyDown)
+    document.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
   }
 
   onSegmentMouseLeave = () => {
-    window.removeEventListener('keydown', this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
     infoBubble.dontConsiderShowing()
   }
 
@@ -174,8 +181,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, false, finetune, actualWidth)
+    this.props.incrementSegmentWidth(position, false, finetune, RESIZE_TYPE_INITIAL)
   }
 
   /**
@@ -185,8 +191,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, true, finetune, actualWidth)
+    this.props.incrementSegmentWidth(position, true, finetune, RESIZE_TYPE_INITIAL)
   }
 
   handleKeyDown = (event) => {
@@ -216,10 +221,15 @@ export class Segment extends React.Component {
 
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey === true) {
-          removeAllSegments()
+          this.props.clearSegments()
+          infoBubble.hide()
+          this.props.showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'))
           trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'KEYBOARD', null, true)
         } else {
-          removeSegment(this.props.dataNo)
+          infoBubble.hide()
+          infoBubble.hideSegment()
+          this.props.showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'))
+          this.props.removeSegment(this.props.dataNo, false)
           trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
         }
         break
@@ -251,7 +261,8 @@ export class Segment extends React.Component {
     }
 
     const dataAttributes = {
-      'data-width': actualWidth
+      'data-width': actualWidth,
+      'data-testid': 'segment'
     }
 
     const classNames = ['segment']
@@ -318,12 +329,19 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
-    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
+    resolution: state.ui.unitSettings.resolution
   }
 }
 
-const mapDispatchToProps = {
-  setActiveSegment
+function mapDispatchToProps (dispatch, ownProps) {
+  return {
+    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
+    removeSegment: (position) => { dispatch(removeSegmentAction(position)) },
+    clearSegments: () => { dispatch(clearSegments()) },
+    incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType)),
+    showStatusMessage: (message) => { dispatch(showStatusMessage(message, true)) }
+  }
 }
 
 export default flow(
