@@ -42,7 +42,7 @@ describe('Segment', () => {
     type = 'streetcar'
     variant = SEGMENT_INFO[type].details[variantString]
     currentWidth = 200
-    increment = 1
+    increment = 0.5
     activeElement = 0
     segment = { type, variantString, segmentType: type, id: '1', width: currentWidth, randSeed: 1 }
     const segmentInfo = { name: 'Segment', nameKey: 'key', zIndex: 1 }
@@ -68,13 +68,13 @@ describe('Segment', () => {
   })
   describe('keyboard events', () => {
     it('KEY.MINUS decreases the width of the segment', () => {
-      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
+      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment], units: 1 } } })
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Minus', keyCode: KEYS.MINUS, code: KEYS.MINUS, charCode: KEYS.MINUS })
       expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth - increment)
     })
     it('KEY.EQUAL increases the width of the segment', () => {
-      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
+      const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment], units: 1 } } })
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
       expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth + increment)
