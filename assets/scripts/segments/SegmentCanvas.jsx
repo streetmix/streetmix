@@ -7,6 +7,7 @@ import { TILE_SIZE } from './constants'
 import './SegmentCanvas.scss'
 
 const SEGMENT_Y_OFFSET = 265
+const GROUND_BASELINE = 400
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
@@ -18,13 +19,15 @@ class SegmentCanvas extends React.PureComponent {
     variantString: PropTypes.string.isRequired,
     randSeed: PropTypes.number,
     multiplier: PropTypes.number,
+    groundBaseline: PropTypes.number,
     offsetTop: PropTypes.number,
     dpi: PropTypes.number
   }
 
   static defaultProps = {
     multiplier: 1,
-    offsetTop: SEGMENT_Y_OFFSET
+    offsetTop: SEGMENT_Y_OFFSET,
+    groundBaseline: GROUND_BASELINE
   }
 
   constructor (props) {
@@ -56,7 +59,7 @@ class SegmentCanvas extends React.PureComponent {
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.offsetTop, this.props.randSeed, this.props.multiplier, this.props.dpi)
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.offsetTop, this.props.groundBaseline, this.props.randSeed, this.props.multiplier, this.props.dpi)
   }
 
   render () {
