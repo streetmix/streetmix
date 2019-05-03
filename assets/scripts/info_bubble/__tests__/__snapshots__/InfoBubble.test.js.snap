@@ -14,6 +14,7 @@ exports[`InfoBubble is visible 1`] = `
     <div
       className="info-bubble-label info-bubble-label-editable"
       onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <span
         className="info-bubble-label-editable-icon"
@@ -96,6 +97,7 @@ exports[`InfoBubble renders 1`] = `
     <div
       className="info-bubble-label info-bubble-label-editable"
       onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <IntlProvider
         locale="en"
@@ -187,6 +189,7 @@ exports[`InfoBubble shows building left info bubble 1`] = `
     <div
       className="info-bubble-label info-bubble-label-editable"
       onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <IntlProvider
         locale="en"
@@ -275,6 +278,7 @@ exports[`InfoBubble shows building right info bubble 1`] = `
     <div
       className="info-bubble-label info-bubble-label-editable"
       onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <IntlProvider
         locale="en"
@@ -363,6 +367,7 @@ exports[`InfoBubble shows description 1`] = `
     <div
       className="info-bubble-label info-bubble-label-editable"
       onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <span
         className="info-bubble-label-editable-icon"

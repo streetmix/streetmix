@@ -18,7 +18,7 @@ import {
 } from './constants'
 import { registerKeypress } from '../app/keypress'
 import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
-// import { trackEvent } from '../app/event_tracking'
+import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { getSegmentEl, editSegmentLabel } from '../segments/view'
@@ -178,6 +178,10 @@ export class InfoBubble extends React.Component {
     // so that keyboard commands respond to pointer position rather than
     // any focused buttons/inputs
     loseAnyFocus()
+  }
+
+  onMouseEnterLabel = (event) => {
+    trackEvent('Interaction', 'InoBubble: Hover over editable label', null, null, true)
   }
 
   onBodyMouseMove = (event) => {
@@ -494,6 +498,7 @@ export class InfoBubble extends React.Component {
           <div
             className="info-bubble-label info-bubble-label-editable"
             onClick={() => isEditable && editSegmentLabel(segment, this.props.position)}
+            onMouseEnter={this.onMouseEnterLabel}
           >
             {this.getName()}
             <span className="info-bubble-label-editable-icon">
