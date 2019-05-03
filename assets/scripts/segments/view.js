@@ -173,9 +173,9 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 }
 
 const GROUND_LEVEL_OFFSETY = {
-  RAISED_CURB: 196,
-  CURB: 256,
-  ASPHALT: 270
+  ASPHALT: 0,
+  CURB: 14,
+  RAISED_CURB: 74
 }
 
 /**
@@ -209,11 +209,12 @@ function getGroundLevelOffset (elevation) {
  * @param {Number} actualWidth - The real-world width of a segment, in feet
  * @param {Number} offsetLeft
  * @param {Number} offsetTop
+ * @param {Number} groundBaseline
  * @param {Number} randSeed
  * @param {Number} multiplier
  * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, offsetTop, randSeed, multiplier, dpi) {
+export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, offsetTop, groundBaseline, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
 
@@ -224,7 +225,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   const left = dimensions.left
 
   const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
-  const groundLevel = offsetTop + (multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0))
+  const groundLevel = groundBaseline - (multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0))
 
   if (graphics.repeat) {
     const sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
