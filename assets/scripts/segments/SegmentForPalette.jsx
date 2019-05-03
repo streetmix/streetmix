@@ -13,6 +13,7 @@ import './SegmentForPalette.scss'
 
 const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_SEGMENT_Y_OFFSET = 20
+const PALETTE_GROUND_BASELINE = 65
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
 export class SegmentForPalette extends React.Component {
@@ -82,6 +83,7 @@ export class SegmentForPalette extends React.Component {
           variantString={this.props.variantString}
           randSeed={generateRandSeed()}
           multiplier={PALETTE_SEGMENT_MULTIPLIER}
+          groundBaseline={PALETTE_GROUND_BASELINE}
           offsetTop={PALETTE_SEGMENT_Y_OFFSET}
         />
       </div>
