@@ -174,7 +174,7 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
 const GROUND_LEVEL_OFFSETY = {
   RAISED_CURB: 196,
-  CURB: 255,
+  CURB: 256,
   ASPHALT: 270
 }
 
