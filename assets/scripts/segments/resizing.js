@@ -9,16 +9,18 @@ import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
   MAX_SEGMENT_WIDTH,
-  DRAGGING_TYPE_NONE
+  DRAGGING_TYPE_NONE,
+  SEGMENT_WIDTH_RESOLUTION_IMPERIAL,
+  SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL,
+  SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL,
+  SEGMENT_WIDTH_RESOLUTION_METRIC,
+  SEGMENT_WIDTH_CLICK_INCREMENT_METRIC,
+  SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC
 } from './constants'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
 import { updateSegments, changeSegmentWidth } from '../store/actions/street'
 import { setDraggingType } from '../store/actions/ui'
-import {
-  getSegmentWidthResolution,
-  getSegmentClickResizeResolution,
-  getSegmentDragResizeResolution
-} from '../ui/units'
 
 const SHORT_DELAY = 100
 
@@ -119,6 +121,51 @@ export function handleSegmentResizeEnd (event) {
   if (draggingResize.width && (draggingResize.originalWidth !== draggingResize.width)) {
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
   }
+}
+
+/**
+ * Returns the minimum resolution for segment / street widths.
+ * Default return value is in metric units.
+ *
+ * @param {*} units - metric or imperial
+ * @param {Number}
+ */
+export function getSegmentWidthResolution (units) {
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return SEGMENT_WIDTH_RESOLUTION_IMPERIAL
+  }
+
+  return SEGMENT_WIDTH_RESOLUTION_METRIC
+}
+
+/**
+ * Returns the minimum resolution when click-resizing segments
+ * Default return value is in metric units.
+ *
+ * @param {*} units - metric or imperial
+ * @param {Number}
+ */
+export function getSegmentClickResizeResolution (units) {
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL
+  }
+
+  return SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
+}
+
+/**
+ * Returns the minimum resolution when drag-resizing segments
+ * Default return value is in metric units.
+ *
+ * @param {*} units - metric or imperial
+ * @param {Number}
+ */
+export function getSegmentDragResizeResolution (units) {
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL
+  }
+
+  return SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC
 }
 
 export function resolutionForResizeType (resizeType, units) {

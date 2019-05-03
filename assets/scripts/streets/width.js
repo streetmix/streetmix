@@ -1,10 +1,10 @@
-import { getSegmentVariantInfo } from '../segments/info'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../segments/constants'
-import { getSegmentWidthResolution } from '../ui/units'
+import { getSegmentVariantInfo } from '../segments/info'
+import { getSegmentWidthResolution } from '../segments/resizing'
 
 const MIN_CUSTOM_STREET_WIDTH = 10
 export const MAX_CUSTOM_STREET_WIDTH = 400
