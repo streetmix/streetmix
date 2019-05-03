@@ -173,9 +173,9 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 }
 
 const GROUND_LEVEL_OFFSETY = {
-  ASPHALT: 270, // offsetY = 11.25
-  CURB: 255.6, // offsetY = 10.65
-  RAISED_CURB: 196.8 // offsetY = 8.2
+  RAISED_CURB: 196,
+  CURB: 255,
+  ASPHALT: 270
 }
 
 /**
