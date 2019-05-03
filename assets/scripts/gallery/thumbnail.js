@@ -344,7 +344,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
         drawSegmentContents(ctx, segment.type, segment.variantString,
           segment.width, offsetLeft + (dimensions.left * TILE_SIZE * multiplier),
-          offsetTop, segment.randSeed, multiplier, dpi)
+          offsetTop, groundLevel, segment.randSeed, multiplier, dpi)
       }
 
       offsetLeft += segment.width * TILE_SIZE * multiplier
