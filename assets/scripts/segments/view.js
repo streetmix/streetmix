@@ -316,6 +316,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   }
 
   if (type === 'sidewalk') {
+    // TODO: pass in `groundLevel` and remove hardcoded `dy` value
     drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString, dpi)
   }
 }
