@@ -109,20 +109,14 @@
       "left|road": {
         "elevation": 0,
         "graphics": {
-          "left": {
-            "id": "bikes--bike-rack-perpendicular-left",
-            "offsetY": 5.25
-          },
+          "left": "bikes--bike-rack-perpendicular-left",
           "repeat": "ground--asphalt"
         }
       },
       "right|road": {
         "elevation": 0,
         "graphics": {
-          "right": {
-            "id": "bikes--bike-rack-perpendicular-right",
-            "offsetY": 5.25
-          },
+          "right": "bikes--bike-rack-perpendicular-right",
           "repeat": "ground--asphalt"
         }
       }
@@ -579,80 +573,44 @@
         "elevation": 1,
         "graphics": {
           "left": [
-            {
-              "id": "scooters--scooter-left-docked",
-              "offsetY": 2.65
-            },
-            {
-              "id": "markings--lane-left",
-              "offsetY": 10.65
-            }
+            "scooters--scooter-left-docked",
+            "markings--lane-left"
           ],
           "repeat": "ground--concrete",
-          "right": {
-            "id": "markings--lane-right",
-            "offsetY": 10.65
-          }
+          "right": "markings--lane-right"
         }
       },
       "right|sidewalk|empty": {
         "elevation": 1,
         "graphics": {
           "right": [
-            {
-              "id": "scooters--scooter-right-docked",
-              "offsetY": 2.65
-            },
-            {
-              "id": "markings--lane-right",
-              "offsetY": 10.65
-            }
+            "scooters--scooter-right-docked",
+            "markings--lane-right"
           ],
           "repeat": "ground--concrete",
-          "left": {
-            "id": "markings--lane-left",
-            "offsetY": 10.65
-          }
+          "left": "markings--lane-left"
         }
       },
       "left|sidewalk|sparse": {
         "elevation": 1,
         "graphics": {
           "left": [
-            {
-              "id": "scooters--scooter-left-rider",
-              "offsetY": 2.65
-            },
-            {
-              "id": "markings--lane-left",
-              "offsetY": 10.65
-            }
+            "scooters--scooter-left-rider",
+            "markings--lane-left"
           ],
           "repeat": "ground--concrete",
-          "right": {
-            "id": "markings--lane-right",
-            "offsetY": 10.65
-          }
+          "right": "markings--lane-right"
         }
       },
       "right|sidewalk|sparse": {
         "elevation": 1,
         "graphics": {
           "right": [
-            {
-              "id": "scooters--scooter-right-rider",
-              "offsetY": 2.65
-            },
-            {
-              "id": "markings--lane-right",
-              "offsetY": 10.65
-            }
+            "scooters--scooter-right-rider",
+            "markings--lane-right"
           ],
           "repeat": "ground--concrete",
-          "left": {
-            "id": "markings--lane-left",
-            "offsetY": 10.65
-          }
+          "left": "markings--lane-left"
         }
       },
       "left|road|empty": {
@@ -1654,10 +1612,7 @@
             "markings--straight-inbound-light"
           ],
           "repeat": [
-            {
-              "id": "plants--grass",
-              "offsetY": 10.3
-            },
+            "plants--grass",
             "ground--asphalt-green"
           ]
         }
@@ -1673,10 +1628,7 @@
             "markings--straight-outbound-light"
           ],
           "repeat": [
-            {
-              "id": "plants--grass",
-              "offsetY": 10.3
-            },
+            "plants--grass",
             "ground--asphalt-green"
           ]
         }
@@ -1701,10 +1653,7 @@
         "graphics": {
           "center": [
             "transit--light-rail-inbound",
-            {
-              "id": "markings--streetcar-track-02",
-              "offsetY": 11.05
-            },
+            "markings--streetcar-track-02",
             "markings--straight-inbound-light"
           ],
           "repeat": "ground--asphalt-gray"
@@ -1717,10 +1666,7 @@
         "graphics": {
           "center": [
             "transit--light-rail-outbound",
-            {
-              "id": "markings--streetcar-track-02",
-              "offsetY": 11.05
-            },
+            "markings--streetcar-track-02",
             "markings--straight-outbound-light"
           ],
           "repeat": "ground--asphalt-gray"
@@ -1733,10 +1679,7 @@
         "graphics": {
           "center": [
             "transit--light-rail-inbound",
-            {
-              "id": "markings--streetcar-track-02",
-              "offsetY": 11.05
-            },
+            "markings--streetcar-track-02",
             "markings--straight-inbound-light"
           ],
           "repeat": "ground--asphalt-red"
@@ -1749,10 +1692,7 @@
         "graphics": {
           "center": [
             "transit--light-rail-outbound",
-            {
-              "id": "markings--streetcar-track-02",
-              "offsetY": 11.05
-            },
+            "markings--streetcar-track-02",
             "markings--straight-outbound-light"
           ],
           "repeat": "ground--asphalt-red"
@@ -1765,17 +1705,11 @@
         "graphics": {
           "center": [
             "transit--light-rail-inbound",
-            {
-              "id": "markings--streetcar-track-02",
-              "offsetY": 11.05
-            },
+            "markings--streetcar-track-02",
             "markings--straight-inbound-light"
           ],
           "repeat": [
-            {
-              "id": "plants--grass",
-              "offsetY": 10.3
-            },
+            "plants--grass",
             "ground--asphalt-green"
           ]
         }
@@ -1787,17 +1721,11 @@
         "graphics": {
           "center": [
             "transit--light-rail-outbound",
-            {
-              "id": "markings--streetcar-track-02",
-              "offsetY": 11.05
-            },
+            "markings--streetcar-track-02",
             "markings--straight-outbound-light"
           ],
           "repeat": [
-            {
-              "id": "plants--grass",
-              "offsetY": 10.3
-            },
+            "plants--grass",
             "ground--asphalt-green"
           ]
         }
