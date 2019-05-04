@@ -1,15 +1,15 @@
 import {
+  MIN_CUSTOM_STREET_WIDTH,
+  MAX_CUSTOM_STREET_WIDTH,
+  WIDTH_ROUNDING
+} from './constants'
+import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
-
-const MIN_CUSTOM_STREET_WIDTH = 10
-export const MAX_CUSTOM_STREET_WIDTH = 400
-
-const WIDTH_ROUNDING = 0.01
 
 export function normalizeStreetWidth (width, units) {
   const resolution = getSegmentWidthResolution(units)

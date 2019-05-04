@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { MIN_CUSTOM_STREET_WIDTH, MAX_CUSTOM_STREET_WIDTH } from './constants'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { loseAnyFocus } from '../util/focus'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
@@ -13,9 +14,6 @@ import { updateStreetWidth } from '../store/actions/street'
 const STREET_WIDTH_CUSTOM = -1
 const STREET_WIDTH_SWITCH_TO_METRIC = -2
 const STREET_WIDTH_SWITCH_TO_IMPERIAL = -3
-
-const MIN_CUSTOM_STREET_WIDTH = 10
-export const MAX_CUSTOM_STREET_WIDTH = 400
 
 const DEFAULT_STREET_WIDTHS = [40, 60, 80]
 
