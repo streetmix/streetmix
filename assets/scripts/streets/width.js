@@ -11,6 +11,14 @@ import {
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 
+/**
+ * Given an input width value, constrains the value to the
+ * minimum or maximum value, then rounds it to nearest precision
+ *
+ * @param {Number} width - input width value
+ * @param {Number} units - metric or imperial
+ * @returns {Number}
+ */
 export function normalizeStreetWidth (width, units) {
   const resolution = getSegmentWidthResolution(units)
 

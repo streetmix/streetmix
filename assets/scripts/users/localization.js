@@ -15,7 +15,7 @@ import {
 import { normalizeStreetWidth } from '../streets/width'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
-import { setUnits, updateStreetWidth, updateStreetData } from '../store/actions/street'
+import { setUnits, updateStreetWidth, updateStreetData, updateSegments } from '../store/actions/street'
 import { setUserUnits } from '../store/actions/persistSettings'
 
 export function getUnits () {
@@ -90,7 +90,8 @@ export function updateUnits (newUnits) {
 
   setIgnoreStreetChanges(true)
   if (!fromUndo) {
-    normalizeAllSegmentWidths()
+    const segments = normalizeAllSegmentWidths(street.segments, street.units)
+    store.dispatch(updateSegments(segments))
 
     if (street.remainingWidth === 0) {
       let width = 0

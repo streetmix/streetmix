@@ -1,8 +1,33 @@
 /* eslint-env jest */
-import { recalculateWidth } from '../width'
+import { normalizeStreetWidth, recalculateWidth } from '../width'
 
-jest.mock('../../app/window_resize', () => {})
-jest.mock('../../segments/buildings', () => {})
+describe('normalizeStreetWidth', () => {
+  it('constrains to minimum street width', () => {
+    expect(normalizeStreetWidth(1, 1)).toBe(10)
+  })
+
+  it('constrains to maximum street width', () => {
+    expect(normalizeStreetWidth(5000, 1)).toBe(400)
+  })
+
+  it('rounds to nearest resolution (metric units)', () => {
+    // Rounds down
+    // Truncate and cast results to string to avoid precision errors
+    expect(normalizeStreetWidth(50.347, 2).toFixed(3)).toBe('50.333')
+
+    // Rounds up
+    // Truncate and cast results to string to avoid precision errors
+    expect(normalizeStreetWidth(50.59, 2).toFixed(3)).toBe('50.667')
+  })
+
+  it('rounds to nearest resolution (imperial units)', () => {
+    // Rounds down
+    expect(normalizeStreetWidth(50.347, 1)).toBe(50.25)
+
+    // Rounds up
+    expect(normalizeStreetWidth(50.49, 1)).toBe(50.5)
+  })
+})
 
 describe('recalculateWidth', () => {
   it('calculates a full street', () => {
