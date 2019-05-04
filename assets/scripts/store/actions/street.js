@@ -160,6 +160,19 @@ export function updateStreetWidth (width) {
   }
 }
 
+/**
+ * updateStreetWidth as a thunk action that automatically
+ * dispatches segmentChanged
+ *
+ * @param {Number} width
+ */
+export function updateStreetWidthAction (width) {
+  return async (dispatch, getState) => {
+    await dispatch(updateStreetWidth(width))
+    await dispatch(segmentsChanged())
+  }
+}
+
 export function updateSchemaVersion (version) {
   return {
     type: UPDATE_SCHEMA_VERSION,

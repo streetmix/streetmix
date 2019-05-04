@@ -6,13 +6,13 @@ import { StreetMetaWidthWithIntl as StreetMetaWidth } from '../StreetMetaWidth'
 describe('StreetMetaWidth', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(
-      <StreetMetaWidth street={{}} />
+      <StreetMetaWidth street={{}} updateStreetWidth={jest.fn()} />
     )
     expect(wrapper.exists()).toEqual(true)
   })
 
   it('does not allow street width to be edited if in read only mode', () => {
-    const wrapper = shallow(<StreetMetaWidth street={{}} editable={false} />)
+    const wrapper = shallow(<StreetMetaWidth street={{}} editable={false} updateStreetWidth={jest.fn()} />)
 
     const streetWidthMenu = wrapper.find('.street-width')
     streetWidthMenu.simulate('click')
