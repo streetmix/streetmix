@@ -37,7 +37,7 @@ class StreetMetaWidth extends React.Component {
     }
 
     // Stores a ref to the street width <select> element
-    this.streetWidth = React.createRef()
+    this.selectRef = React.createRef()
   }
 
   /**
@@ -45,133 +45,15 @@ class StreetMetaWidth extends React.Component {
    */
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.isEditing === true && prevState.isEditing === false) {
-      this.streetWidth.current.focus()
+      this.selectRef.current.focus()
     }
-  }
-
-  displayStreetWidthRemaining = () => {
-    const width = prettifyWidth(Math.abs(this.props.street.remainingWidth), this.props.street.units)
-
-    let differenceClass = ''
-    let differenceEl = ''
-
-    if (this.props.street.remainingWidth > 0) {
-      differenceClass = 'street-width-under'
-      differenceEl = <FormattedMessage id="width.under" defaultMessage="({width} room)" values={{ width }} />
-    } else if (this.props.street.remainingWidth < 0) {
-      differenceClass = 'street-width-over'
-      differenceEl = <FormattedMessage id="width.over" defaultMessage="({width} over)" values={{ width }} />
-    }
-
-    return { class: differenceClass, width: differenceEl }
-  }
-
-  renderStreetWidthLabel = () => {
-    const width = prettifyWidth(this.props.street.width, this.props.street.units)
-    const difference = this.displayStreetWidthRemaining()
-    const differenceClass = `street-width-read-difference ${difference.class}`
-
-    // A title attribute is provided only when street width is editable
-    const title = (this.props.editable)
-      ? this.props.intl.formatMessage({
-        id: 'tooltip.street-width',
-        defaultMessage: 'Change width of the street'
-      })
-      : null
-
-    // Apply a class when street width is editable to give it additional
-    // editability styling
-    let className = 'street-width'
-    if (this.props.editable) {
-      className += ' street-width-editable'
-    }
-
-    return (
-      <span className={className} title={title} onClick={this.clickStreetWidth}>
-        <FormattedMessage id="width.label" defaultMessage="{width} width" values={{ width }} />
-        &nbsp;
-        <span className={differenceClass}>{difference.width}</span>
-      </span>
-    )
-  }
-
-  renderStreetWidthMenu = () => {
-    const formatMessage = this.props.intl.formatMessage
-
-    var widths = []
-    const defaultWidths = DEFAULT_STREET_WIDTHS.map((defaultWidth) => {
-      let width = normalizeStreetWidth(defaultWidth, this.props.street.units)
-      widths.push(width)
-      return this.createStreetWidthOption(width)
-    })
-
-    let customWidthBlank = null
-    let customWidth = null
-    if (widths.indexOf(Number.parseFloat(this.props.street.width)) === -1) {
-      customWidthBlank = <option disabled />
-      customWidth = this.createStreetWidthOption(this.props.street.width)
-    }
-
-    let selectedValue = ''
-    if (this.props.street.width) {
-      selectedValue = this.props.street.width
-    }
-
-    return (
-      <select
-        ref={this.streetWidth}
-        onChange={this.changeStreetWidth}
-        value={selectedValue}
-        className="street-width-select"
-        title={this.props.intl.formatMessage({
-          id: 'tooltip.street-width',
-          defaultMessage: 'Change width of the street'
-        })}
-      >
-        <option disabled>
-          {formatMessage({ id: 'width.occupied', defaultMessage: 'Occupied width:' })}
-        </option>
-        <option disabled>
-          {prettifyWidth(this.props.street.occupiedWidth, this.props.street.units)}
-        </option>
-        <option disabled />
-        <option disabled>
-          {formatMessage({ id: 'width.building', defaultMessage: 'Building-to-building width:' })}
-        </option>
-        {defaultWidths}
-        {customWidthBlank}
-        {customWidth}
-        <option value={STREET_WIDTH_CUSTOM} >
-          {formatMessage({ id: 'width.different', defaultMessage: 'Different width…' })}
-        </option>
-        <option disabled />
-        <option
-          id="switch-to-imperial-units"
-          value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
-          disabled={this.props.street.units === SETTINGS_UNITS_IMPERIAL}
-        >
-          {formatMessage({ id: 'width.imperial', defaultMessage: 'Switch to imperial units (feet)' })}
-        </option>
-        <option
-          id="switch-to-metric-units"
-          value={STREET_WIDTH_SWITCH_TO_METRIC}
-          disabled={this.props.street.units === SETTINGS_UNITS_METRIC}
-        >
-          {formatMessage({ id: 'width.metric', defaultMessage: 'Switch to metric units' })}
-        </option>
-      </select>
-    )
-  }
-
-  createStreetWidthOption = (width) => {
-    return <option key={width} value={width}>{prettifyWidth(width, this.props.street.units)}</option>
   }
 
   /**
    * When the street width label is clicked, only allow editing if street
    * width is not read-only
    */
-  clickStreetWidth = (event) => {
+  onClickStreetWidth = (event) => {
     if (this.props.editable) {
       this.setState({
         isEditing: true
@@ -179,12 +61,12 @@ class StreetMetaWidth extends React.Component {
     }
   }
 
-  changeStreetWidth = () => {
+  onChangeStreetWidth = () => {
     this.setState({
       isEditing: false
     })
 
-    let newStreetWidth = Number.parseInt(this.streetWidth.current.value, 10)
+    let newStreetWidth = Number.parseInt(this.selectRef.current.value, 10)
 
     if (newStreetWidth === this.props.street.width) {
       return
@@ -232,6 +114,129 @@ class StreetMetaWidth extends React.Component {
     loseAnyFocus()
   }
 
+  renderStreetWidthRemaining = () => {
+    const { remainingWidth, units } = this.props.street
+    const width = prettifyWidth(Math.abs(remainingWidth), units)
+    const classNames = ['street-width-read-difference']
+
+    if (remainingWidth > 0) {
+      classNames.push('street-width-under')
+      return (
+        <span className={classNames.join(' ')}>
+          <FormattedMessage id="width.under" defaultMessage="({width} room)" values={{ width }} />
+        </span>
+      )
+    } else if (remainingWidth < 0) {
+      classNames.push('street-width-over')
+      return (
+        <span className={classNames.join(' ')}>
+          <FormattedMessage id="width.over" defaultMessage="({width} over)" values={{ width }} />
+        </span>
+      )
+    }
+
+    return null
+  }
+
+  renderStreetWidthLabel = () => {
+    const width = prettifyWidth(this.props.street.width, this.props.street.units)
+
+    // A title attribute is provided only when street width is editable
+    const title = (this.props.editable)
+      ? this.props.intl.formatMessage({
+        id: 'tooltip.street-width',
+        defaultMessage: 'Change width of the street'
+      })
+      : null
+
+    // Apply a class when street width is editable to give it additional
+    // editability styling
+    let className = 'street-width'
+    if (this.props.editable) {
+      className += ' street-width-editable'
+    }
+
+    return (
+      <span className={className} title={title} onClick={this.onClickStreetWidth}>
+        <FormattedMessage id="width.label" defaultMessage="{width} width" values={{ width }} />
+        &nbsp;
+        {this.renderStreetWidthRemaining()}
+      </span>
+    )
+  }
+
+  renderStreetWidthOption = (width, units) => {
+    return (
+      <option key={width} value={width}>
+        {prettifyWidth(width, units)}
+      </option>
+    )
+  }
+
+  renderStreetWidthMenu = () => {
+    const formatMessage = this.props.intl.formatMessage
+    const { units, width, occupiedWidth } = this.props.street
+
+    // Create options for default widths. This will also convert the widths
+    // the proper units for the street.
+    const defaultWidths = DEFAULT_STREET_WIDTHS.map((width) => normalizeStreetWidth(width, units))
+    const DefaultWidthOptions = defaultWidths.map((width) => this.renderStreetWidthOption(width, units))
+
+    // If the street width doesn't match any of the default widths,
+    // render another choice representing the current width
+    const CustomWidthOption = (defaultWidths.indexOf(Number.parseFloat(width)) === -1)
+      ? (
+        <React.Fragment>
+          <option disabled />
+          {this.renderStreetWidthOption(width, units)}
+        </React.Fragment>
+      ) : null
+
+    return (
+      <select
+        ref={this.selectRef}
+        onChange={this.onChangeStreetWidth}
+        value={width}
+        className="street-width-select"
+        title={formatMessage({
+          id: 'tooltip.street-width',
+          defaultMessage: 'Change width of the street'
+        })}
+      >
+        <option disabled>
+          {formatMessage({ id: 'width.occupied', defaultMessage: 'Occupied width:' })}
+        </option>
+        <option disabled>
+          {prettifyWidth(occupiedWidth, units)}
+        </option>
+        <option disabled />
+        <option disabled>
+          {formatMessage({ id: 'width.building', defaultMessage: 'Building-to-building width:' })}
+        </option>
+        {DefaultWidthOptions}
+        {CustomWidthOption}
+        <option value={STREET_WIDTH_CUSTOM} >
+          {formatMessage({ id: 'width.different', defaultMessage: 'Different width…' })}
+        </option>
+        <option disabled />
+        <option
+          id="switch-to-imperial-units"
+          value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
+          disabled={units === SETTINGS_UNITS_IMPERIAL}
+        >
+          {formatMessage({ id: 'width.imperial', defaultMessage: 'Switch to imperial units (feet)' })}
+        </option>
+        <option
+          id="switch-to-metric-units"
+          value={STREET_WIDTH_SWITCH_TO_METRIC}
+          disabled={units === SETTINGS_UNITS_METRIC}
+        >
+          {formatMessage({ id: 'width.metric', defaultMessage: 'Switch to metric units' })}
+        </option>
+      </select>
+    )
+  }
+
   render () {
     return (
       <span className="street-metadata-width">
@@ -254,10 +259,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    updateStreetWidth: (...args) => { dispatch(updateStreetWidth(...args)) }
-  }
+const mapDispatchToProps = {
+  updateStreetWidth
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StreetMetaWidthWithIntl)
