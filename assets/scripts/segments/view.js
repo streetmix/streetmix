@@ -4,7 +4,7 @@ import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, TILE_SIZE_ACTUAL } from './constants'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, TILE_SIZE_ACTUAL, MAX_SEGMENT_LABEL_LENGTH } from './constants'
 import store from '../store'
 import { updateSegments, changeSegmentProperties } from '../store/actions/street'
 
@@ -298,6 +298,24 @@ export function segmentsChanged () {
 }
 
 /**
+ * Process / sanitize segment labels
+ *
+ * @params {string} name - Segment label to check
+ * @returns {string} - normalized / sanitized segment label
+ */
+function normalizeSegmentLabel (label) {
+  if (!label) return ''
+
+  label = label.trim()
+
+  if (label.length > MAX_SEGMENT_LABEL_LENGTH) {
+    label = label.substr(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
+  }
+
+  return label
+}
+
+/**
  * Uses browser prompt to change the segment label
  *
  * @param {Object} segment - object describing the segment to edit
@@ -305,7 +323,7 @@ export function segmentsChanged () {
  */
 export function editSegmentLabel (segment, position) {
   const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-  const label = window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel)
+  const label = normalizeSegmentLabel(window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel))
 
   if (label && label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))

@@ -17,3 +17,5 @@ export const SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
 export const DRAGGING_TYPE_NONE = 0
 export const DRAGGING_TYPE_MOVE = 2
 export const DRAGGING_TYPE_RESIZE = 3
+
+export const MAX_SEGMENT_LABEL_LENGTH = 50
