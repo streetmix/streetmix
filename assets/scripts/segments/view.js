@@ -181,9 +181,9 @@ const GROUND_LEVEL_OFFSETY = {
 /**
  * Originally a sprite's dy position was calculated using: dy = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)).
  * In order to remove `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground", or "lane", sprites in pixels
- * in `GROUND_LEVEL_OFFSETY`. This was calculated by taking the original `offsetY` and multiplying it by the "intrinsic" tile
- * size (24px). Using `elevation`, which is defined for each segment based on the "ground" component being used, this function
- * returns the corresponding `GROUND_LEVEL_OFFSETY` for that `elevation`. If not found, it returns null.
+ * in `GROUND_LEVEL_OFFSETY`. This was calculated by taking the difference of the `offsetY` value for ground level 0 and the
+ * `offsetY` for the elevation of the current segment. Using `elevation`, which is defined for each segment based on the "ground"
+ * component being used, this function returns the `GROUND_LEVEL_OFFSETY` for that `elevation`. If not found, it returns null.
  *
  * @param {Number} elevation
  * @returns {?Number} groundLevelOffset
@@ -208,13 +208,12 @@ function getGroundLevelOffset (elevation) {
  * @param {string} variantString
  * @param {Number} actualWidth - The real-world width of a segment, in feet
  * @param {Number} offsetLeft
- * @param {Number} offsetTop
  * @param {Number} groundBaseline
  * @param {Number} randSeed
  * @param {Number} multiplier
  * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, offsetTop, groundBaseline, randSeed, multiplier, dpi) {
+export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
 
@@ -317,8 +316,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   }
 
   if (type === 'sidewalk') {
-    // TODO: pass in `groundLevel` and remove hardcoded `dy` value
-    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString, dpi)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), groundLevel, randSeed, multiplier, variantString, dpi)
   }
 }
 
