@@ -12,8 +12,8 @@ exports[`SegmentForPalette renders width correctly depending on the dimension 1`
 >
   <Connect(SegmentCanvas)
     actualWidth={106}
+    groundBaseline={65}
     multiplier={0.3333333333333333}
-    offsetTop={20}
     randSeed={42}
     type=""
     variantString=""
