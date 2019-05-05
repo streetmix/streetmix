@@ -32,4 +32,9 @@ describe('SegmentLabelContainer', () => {
     const wrapper = shallow(<SegmentLabelContainer {...testProps} units={SETTINGS_UNITS_IMPERIAL} />)
     expect(wrapper).toMatchSnapshot()
   })
+
+  it('renders editable label', () => {
+    const wrapper = shallow(<SegmentLabelContainer {...testProps} editable editSegmentLabel={() => {}} />)
+    expect(wrapper).toMatchSnapshot()
+  })
 })

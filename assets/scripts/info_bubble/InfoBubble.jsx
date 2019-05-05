@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedMessage } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
@@ -17,10 +18,11 @@ import {
 } from './constants'
 import { registerKeypress } from '../app/keypress'
 import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
-// import { trackEvent } from '../app/event_tracking'
+import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
-import { getSegmentEl } from '../segments/view'
+import { getSegmentEl, editSegmentLabel } from '../segments/view'
+import { ICON_PENCIL, ICON_LOCK } from '../ui/icons'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
@@ -47,11 +49,13 @@ export class InfoBubble extends React.Component {
     updateHoverPolygon: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object,
-    locale: PropTypes.object
+    locale: PropTypes.object,
+    customSegmentLabels: PropTypes.bool
   }
 
   static defaultProps = {
-    visible: false
+    visible: false,
+    customSegmentLabels: false
   }
 
   constructor (props) {
@@ -174,6 +178,10 @@ export class InfoBubble extends React.Component {
     // so that keyboard commands respond to pointer position rather than
     // any focused buttons/inputs
     loseAnyFocus()
+  }
+
+  onMouseEnterLabel = (event) => {
+    trackEvent('Interaction', 'InoBubble: Hover over editable label', null, null, true)
   }
 
   onBodyMouseMove = (event) => {
@@ -375,6 +383,15 @@ export class InfoBubble extends React.Component {
     let id
     let defaultMessage = ''
 
+    // Return label if provided
+    if (this.state.type === INFO_BUBBLE_TYPE_SEGMENT) {
+      const segment = this.props.street.segments[this.props.position]
+      if (segment && segment.label) {
+        return segment.label
+      }
+    }
+
+    // Otherwise need to do a lookup
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
         const segment = this.props.street.segments[this.props.position]
@@ -420,6 +437,7 @@ export class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
+    const isEditable = this.props.customSegmentLabels
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null)
 
     // Set class names
@@ -477,7 +495,19 @@ export class InfoBubble extends React.Component {
       >
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
-          <div className="info-bubble-header-label">{this.getName()}</div>
+          <div
+            className="info-bubble-label info-bubble-label-editable"
+            onClick={() => isEditable && editSegmentLabel(segment, this.props.position)}
+            onMouseEnter={this.onMouseEnterLabel}
+          >
+            {this.getName()}
+            <span className="info-bubble-label-editable-icon">
+              {isEditable
+                ? <FontAwesomeIcon icon={ICON_PENCIL} />
+                : <FontAwesomeIcon icon={ICON_LOCK} />
+              }
+            </span>
+          </div>
           {canBeDeleted && <RemoveButton segment={this.props.position} />}
         </header>
         <div className="info-bubble-controls">
@@ -512,7 +542,8 @@ function mapStateToProps (state) {
     position: state.ui.activeSegment,
     street: state.street,
     system: state.system,
-    locale: state.locale
+    locale: state.locale,
+    customSegmentLabels: state.flags.CUSTOM_SEGMENT_LABELS.value
   }
 }
 

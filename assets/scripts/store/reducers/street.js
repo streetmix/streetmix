@@ -6,6 +6,7 @@ import {
   UPDATE_SEGMENTS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
+  CHANGE_SEGMENT_PROPERTIES,
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
@@ -95,6 +96,17 @@ const street = (state = initialState, action) => {
       copy[action.index].variant[action.set] = action.selection
       copy[action.index].variantString = getVariantString(copy[action.index].variant)
 
+      return {
+        ...state,
+        segments: copy
+      }
+    }
+    case CHANGE_SEGMENT_PROPERTIES: {
+      const copy = [...state.segments]
+      copy[action.index] = {
+        ...copy[action.index],
+        ...action.properties
+      }
       return {
         ...state,
         segments: copy

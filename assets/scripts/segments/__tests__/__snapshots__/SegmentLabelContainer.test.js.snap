@@ -74,6 +74,30 @@ exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
 </div>
 `;
 
+exports[`SegmentLabelContainer renders editable label 1`] = `
+<div
+  className="segment-label-container"
+>
+  <span
+    className="segment-label"
+  >
+    foo
+  </span>
+  <span
+    className="segment-width"
+  >
+    <React.Memo
+      locale="en"
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="segment-grid units-metric"
+  />
+</div>
+`;
+
 exports[`SegmentLabelContainer renders string label 1`] = `
 <div
   className="segment-label-container"

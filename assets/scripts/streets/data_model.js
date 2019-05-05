@@ -332,11 +332,12 @@ export function trimStreetData (street, saveSegmentId = true) {
 
   newData.segments = []
 
-  for (var i in street.segments) {
-    var segment = {}
+  for (let i in street.segments) {
+    const segment = {}
     segment.type = street.segments[i].type
     segment.variantString = street.segments[i].variantString
     segment.width = street.segments[i].width
+    segment.label = street.segments[i].label
     if (street.segments[i].randSeed) {
       segment.randSeed = street.segments[i].randSeed
     }
