@@ -1,6 +1,6 @@
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, resolutionForResizeType } from '../segments/resizing'
+import { normalizeSegmentWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
@@ -11,7 +11,7 @@ import {
   createNewUndoIfNecessary,
   unifyUndoStack
 } from './undo_stack'
-import { normalizeStreetWidth, RESIZE_TYPE_INITIAL } from './width'
+import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
   setUpdateTime,

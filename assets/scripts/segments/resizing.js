@@ -185,6 +185,7 @@ export function resolutionForResizeType (resizeType, units) {
     case RESIZE_TYPE_INITIAL:
     case RESIZE_TYPE_TYPING:
     case RESIZE_TYPE_PRECISE_DRAGGING:
+    default: // Always return this resolution if `resizeType` is undefined or wrong value
       return getSegmentWidthResolution(units)
     case RESIZE_TYPE_INCREMENT:
       return getSegmentClickResizeResolution(units)

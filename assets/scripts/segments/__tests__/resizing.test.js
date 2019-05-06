@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { normalizeSegmentWidth, normalizeAllSegmentWidths } from '../resizing'
+import { normalizeSegmentWidth, normalizeAllSegmentWidths, resolutionForResizeType } from '../resizing'
 
 describe('normalizeSegmentWidth', () => {
   it('constrains to minimum segment width', () => {
@@ -48,5 +48,14 @@ describe('normalizeAllSegmentWidths', () => {
       { width: 3, foo: 'foo' },
       { width: 4, foo: 'qux' }
     ])
+  })
+})
+
+describe('resolutionForResizeType', () => {
+  it('returns a default resolution when arguments are undefined', () => {
+    // Just expect any number
+    expect(resolutionForResizeType()).toBeGreaterThan(0)
+    expect(resolutionForResizeType(undefined, 1)).toBeGreaterThan(0)
+    expect(resolutionForResizeType(1, undefined)).toBeGreaterThan(0)
   })
 })
