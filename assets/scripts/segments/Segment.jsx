@@ -261,7 +261,6 @@ export class Segment extends React.Component {
     }
 
     const dataAttributes = {
-      'data-width': actualWidth,
       'data-testid': 'segment'
     }
 

@@ -85,10 +85,9 @@ export class StreetEditable extends React.Component {
     const segment = segments[dataNo]
 
     if (segment) {
-      segment.el = ref
-      segment.el.dataNo = dataNo
-      segment.el.savedLeft = Math.round(segmentPos)
-      segment.el.cssTransformLeft = Math.round(segmentPos)
+      ref.dataNo = dataNo
+      ref.savedLeft = Math.round(segmentPos)
+      ref.cssTransformLeft = Math.round(segmentPos)
     }
   }
 
