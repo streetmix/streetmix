@@ -41,9 +41,6 @@
       "pre-commit": "lint-staged"
     }
   },
-  "cacheDirectories": [
-    ".cache"
-  ],
   "jest": {
     "roots": [
       "app",
