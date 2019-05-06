@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
-import './Segment.scss'
+import { getLocaleSegmentName } from '../segments/view'
 
 import {
   TILE_SIZE,
@@ -26,7 +26,7 @@ import {
   _getBugfix,
   _resetBugfix
 } from './drag_and_drop'
-import { getSegmentVariantInfo, getSegmentInfo } from './info'
+import { getSegmentInfo } from './info'
 import { normalizeSegmentWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL, RESIZE_TYPE_INCREMENT } from './resizing'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
@@ -36,6 +36,7 @@ import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
 import { incrementSegmentWidth, removeSegmentAction, clearSegments } from '../store/actions/street'
 import { showStatusMessage } from '../store/actions/status'
+import './Segment.scss'
 
 export class Segment extends React.Component {
   static propTypes = {
@@ -240,13 +241,10 @@ export class Segment extends React.Component {
     const { segment } = this.props
 
     const segmentInfo = getSegmentInfo(segment.type)
-    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
-    const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
-    const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
-    const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
+    const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
@@ -262,7 +260,6 @@ export class Segment extends React.Component {
     }
 
     const dataAttributes = {
-      'data-width': actualWidth,
       'data-testid': 'segment'
     }
 

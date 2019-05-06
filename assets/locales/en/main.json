@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "New street name:",
     "delete-street": "Are you sure you want to permanently delete {streetName}? This cannot be undone.",
-    "new-width": "New street width (from {minWidth} to {maxWidth}):"
+    "new-width": "New street width (from {minWidth} to {maxWidth}):",
+    "segment-label": "New segment label:"
   },
   "toast": {
     "segment-deleted": "The segment has been removed.",

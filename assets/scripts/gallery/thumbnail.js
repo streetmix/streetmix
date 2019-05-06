@@ -400,7 +400,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       ctx.fillText(text, x, (groundLevel + (60 * multiplier)) * dpi)
 
       // Segment name label
-      const name = getLocaleSegmentName(segment.type, segment.variantString)
+      const name = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
       const nameWidth = ctx.measureText(name).width / dpi
 
       if (nameWidth <= availableWidth - (10 * multiplier)) {
