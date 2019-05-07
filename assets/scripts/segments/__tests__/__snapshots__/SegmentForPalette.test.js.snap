@@ -10,7 +10,7 @@ exports[`SegmentForPalette renders width correctly depending on the dimension 1`
     }
   }
 >
-  <Connect(SegmentCanvas)
+  <ConnectFunction
     actualWidth={106}
     multiplier={0.3333333333333333}
     offsetTop={20}

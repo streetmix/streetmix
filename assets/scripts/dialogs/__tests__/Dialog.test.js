@@ -1,13 +1,15 @@
 /* eslint-env jest */
 import React from 'react'
-import Dialog from '../Dialog'
+import { Dialog } from '../Dialog'
 import { shallow } from 'enzyme'
 
 describe('Dialog', () => {
   it('renders without crashing', () => {
     const Contents = 'foo'
     const wrapper = shallow(
-      <Dialog closeDialog={jest.fn()}><Contents /></Dialog>
+      <Dialog closeDialog={jest.fn()}>
+        {(closeDialog) => <Contents />}
+      </Dialog>
     )
     expect(wrapper.exists()).toEqual(true)
   })

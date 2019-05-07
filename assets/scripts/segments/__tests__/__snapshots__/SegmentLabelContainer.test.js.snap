@@ -14,7 +14,7 @@ exports[`SegmentLabelContainer renders React element label 1`] = `
   <span
     className="segment-width"
   >
-    <React.Memo
+    <Component
       locale="en"
       units={2}
       value={1}
@@ -38,7 +38,7 @@ exports[`SegmentLabelContainer renders correct grid styling in imperial 1`] = `
   <span
     className="segment-width"
   >
-    <React.Memo
+    <Component
       locale="en"
       units={1}
       value={1}
@@ -62,7 +62,7 @@ exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
   <span
     className="segment-width"
   >
-    <React.Memo
+    <Component
       locale="en"
       units={2}
       value={1}
@@ -86,7 +86,7 @@ exports[`SegmentLabelContainer renders editable label 1`] = `
   <span
     className="segment-width"
   >
-    <React.Memo
+    <Component
       locale="en"
       units={2}
       value={1}
@@ -110,7 +110,7 @@ exports[`SegmentLabelContainer renders string label 1`] = `
   <span
     className="segment-width"
   >
-    <React.Memo
+    <Component
       locale="en"
       units={2}
       value={1}
