@@ -12,7 +12,8 @@ import '../../node_modules/leaflet/dist/leaflet.css'
 import '../styles/styles.scss'
 
 // Polyfills
-import '@babel/polyfill'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import './vendor/canvas-toBlob.js'

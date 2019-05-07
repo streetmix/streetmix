@@ -92,11 +92,6 @@
     ]
   },
   "dependencies": {
-    "@babel/core": "7.2.2",
-    "@babel/plugin-proposal-class-properties": "7.3.0",
-    "@babel/polyfill": "7.2.5",
-    "@babel/preset-env": "7.3.1",
-    "@babel/preset-react": "7.0.0",
     "@fortawesome/fontawesome-svg-core": "1.2.15",
     "@fortawesome/free-brands-svg-icons": "5.7.2",
     "@fortawesome/free-regular-svg-icons": "5.7.2",
@@ -116,6 +111,7 @@
     "config": "3.0.1",
     "cookie-parser": "1.4.3",
     "cookie-session": "2.0.0-beta.3",
+    "core-js": "3.0.1",
     "cors": "2.8.5",
     "dateformat": "3.0.3",
     "express": "4.16.4",
@@ -147,6 +143,7 @@
     "redis": "2.8.0",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
+    "regenerator-runtime": "0.13.2",
     "request": "2.88.0",
     "requireindex": "1.2.0",
     "sass": "1.17.0",
@@ -162,6 +159,10 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
+    "@babel/core": "7.4.4",
+    "@babel/plugin-proposal-class-properties": "7.4.4",
+    "@babel/preset-env": "7.4.4",
+    "@babel/preset-react": "7.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.1.0",
