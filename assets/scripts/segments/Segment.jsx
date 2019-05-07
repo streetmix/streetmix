@@ -51,7 +51,6 @@ export class Segment extends React.Component {
 
     // Provided by store
     locale: PropTypes.string,
-    infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
@@ -260,10 +259,6 @@ export class Segment extends React.Component {
       transform: translate
     }
 
-    const dataAttributes = {
-      'data-testid': 'segment'
-    }
-
     const classNames = ['segment']
 
     if (this.props.isDragging) {
@@ -286,7 +281,7 @@ export class Segment extends React.Component {
       <div
         style={segmentStyle}
         className={classNames.join(' ')}
-        {...dataAttributes}
+        data-testid="segment"
         ref={(ref) => { this.streetSegment = ref }}
         onMouseEnter={this.onSegmentMouseEnter}
         onMouseLeave={this.onSegmentMouseLeave}
@@ -326,7 +321,6 @@ export class Segment extends React.Component {
 function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
-    infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
     resolution: state.ui.unitSettings.resolution
