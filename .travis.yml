@@ -20,9 +20,6 @@ services:
   - redis-server
 
 before_script:
-  # Artificial wait before connecting to MongoDB
-  # https://docs.travis-ci.com/user/database-setup/#MongoDB-does-not-immediately-accept-connections
-  # - sleep 15
   # Start the server and run it in background process
   - node index &
 
