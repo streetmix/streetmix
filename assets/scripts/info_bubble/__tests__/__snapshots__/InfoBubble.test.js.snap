@@ -61,19 +61,19 @@ exports[`InfoBubble is visible 1`] = `
     <IntlProvider
       locale="en"
     >
-      <InjectIntl(Connect(Variants))
+      <Component
         position="u"
         type={1}
       />
     </IntlProvider>
-    <InjectIntl(Connect(WidthControl))
+    <Component
       position="u"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <Connect(Description)
+  <ConnectFunction
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -153,19 +153,19 @@ exports[`InfoBubble renders 1`] = `
     <IntlProvider
       locale="en"
     >
-      <InjectIntl(Connect(Variants))
+      <Component
         position={0}
         type={1}
       />
     </IntlProvider>
-    <InjectIntl(Connect(WidthControl))
+    <Component
       position={0}
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <Connect(Description)
+  <ConnectFunction
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -242,19 +242,19 @@ exports[`InfoBubble shows building left info bubble 1`] = `
     <IntlProvider
       locale="en"
     >
-      <InjectIntl(Connect(Variants))
+      <Component
         position="left"
         type={2}
       />
     </IntlProvider>
-    <InjectIntl(Connect(BuildingHeightControl))
+    <Component
       position="left"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <Connect(Description)
+  <ConnectFunction
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -331,19 +331,19 @@ exports[`InfoBubble shows building right info bubble 1`] = `
     <IntlProvider
       locale="en"
     >
-      <InjectIntl(Connect(Variants))
+      <Component
         position="right"
         type={3}
       />
     </IntlProvider>
-    <InjectIntl(Connect(BuildingHeightControl))
+    <Component
       position="right"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <Connect(Description)
+  <ConnectFunction
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -414,19 +414,19 @@ exports[`InfoBubble shows description 1`] = `
     <IntlProvider
       locale="en"
     >
-      <InjectIntl(Connect(Variants))
+      <Component
         position="u"
         type={1}
       />
     </IntlProvider>
-    <InjectIntl(Connect(WidthControl))
+    <Component
       position="u"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <Connect(Description)
+  <ConnectFunction
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}

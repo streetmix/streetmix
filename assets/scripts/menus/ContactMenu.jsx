@@ -7,7 +7,7 @@ import Icon from '../ui/Icon'
 import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
 
-class ContactMenu extends React.PureComponent {
+export class ContactMenu extends React.PureComponent {
   static propTypes = {
     showMinecraftDialog: PropTypes.func
   }
