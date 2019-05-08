@@ -9,16 +9,23 @@ import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
   MAX_SEGMENT_WIDTH,
-  DRAGGING_TYPE_NONE
+  DRAGGING_TYPE_NONE,
+  SEGMENT_WIDTH_RESOLUTION_IMPERIAL,
+  SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL,
+  SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL,
+  SEGMENT_WIDTH_RESOLUTION_METRIC,
+  SEGMENT_WIDTH_CLICK_INCREMENT_METRIC,
+  SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC
 } from './constants'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
-import { updateSegments, changeSegmentWidth } from '../store/actions/street'
+import { changeSegmentWidth } from '../store/actions/street'
 import { setDraggingType } from '../store/actions/ui'
 
 const SHORT_DELAY = 100
 
 export const RESIZE_TYPE_INITIAL = 0
-const RESIZE_TYPE_INCREMENT = 1
+export const RESIZE_TYPE_INCREMENT = 1
 export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
@@ -116,29 +123,85 @@ export function handleSegmentResizeEnd (event) {
   }
 }
 
-function resolutionForResizeType (resizeType, unitSettings) {
+/**
+ * Returns the minimum resolution for segment / street widths.
+ * Default return value is in metric units.
+ *
+ * @param {*} units - metric or imperial
+ * @param {Number}
+ */
+export function getSegmentWidthResolution (units) {
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return SEGMENT_WIDTH_RESOLUTION_IMPERIAL
+  }
+
+  return SEGMENT_WIDTH_RESOLUTION_METRIC
+}
+
+/**
+ * Returns the minimum resolution when click-resizing segments
+ * Default return value is in metric units.
+ *
+ * @param {*} units - metric or imperial
+ * @param {Number}
+ */
+export function getSegmentClickResizeResolution (units) {
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL
+  }
+
+  return SEGMENT_WIDTH_CLICK_INCREMENT_METRIC
+}
+
+/**
+ * Returns the minimum resolution when drag-resizing segments
+ * Default return value is in metric units.
+ *
+ * @param {Number} units - metric or imperial
+ * @param {Number}
+ */
+export function getSegmentDragResizeResolution (units) {
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL
+  }
+
+  return SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC
+}
+
+/**
+ * Resolution is the precision at which measurements are rounded to,
+ * in order to avoid awkward decimals. There are different levels
+ * of precision depending on what action is performed. The resolution
+ * is also different depending on whether the street is measured in
+ * metric or imperial units. This function returns the minimum resolution
+ * depending on the type of resize action and the measurement units.
+ *
+ * @param {Number} resizeType
+ * @param {Number} units - metric or imperial
+ * @returns {Number}
+ */
+export function resolutionForResizeType (resizeType, units) {
   switch (resizeType) {
     case RESIZE_TYPE_INITIAL:
     case RESIZE_TYPE_TYPING:
-    case RESIZE_TYPE_INCREMENT:
     case RESIZE_TYPE_PRECISE_DRAGGING:
-      return unitSettings.resolution
+    default: // Always return this resolution if `resizeType` is undefined or wrong value
+      return getSegmentWidthResolution(units)
+    case RESIZE_TYPE_INCREMENT:
+      return getSegmentClickResizeResolution(units)
     case RESIZE_TYPE_DRAGGING:
-      return unitSettings.draggingResolution
+      return getSegmentDragResizeResolution(units)
   }
 }
 
-export function normalizeAllSegmentWidths () {
-  const { street, ui } = store.getState()
-  const segments = []
-  for (var i in street.segments) {
-    const segment = street.segments[i]
-    segment.width = normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, ui.unitSettings))
-    segments.push(segment)
-  }
-  store.dispatch(updateSegments(segments))
-}
-
+/**
+ * Given an input width value, constrains the value to the
+ * minimum or maximum value, then rounds it to nearest precision
+ *
+ * @param {Number} width - input width value
+ * @param {Number} resolution - resolution to round to
+ * @returns {Number}
+ */
 export function normalizeSegmentWidth (width, resolution) {
   if (width < MIN_SEGMENT_WIDTH) {
     width = MIN_SEGMENT_WIDTH
@@ -148,6 +211,21 @@ export function normalizeSegmentWidth (width, resolution) {
   width = Math.round(width / resolution) * resolution
   width = Number.parseFloat(width.toFixed(NORMALIZE_PRECISION))
   return width
+}
+
+/**
+ * Performs `normalizeSegmentWidth` on an array of segments and
+ * returns the new array.
+ *
+ * @param {Array} segments
+ * @param {Number} units - metric or imperial units
+ * @returns {Array}
+ */
+export function normalizeAllSegmentWidths (segments, units) {
+  return segments.map((segment) => ({
+    ...segment,
+    width: normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, units))
+  }))
 }
 
 let controlsFadeoutDelayTimer = -1

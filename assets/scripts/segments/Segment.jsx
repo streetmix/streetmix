@@ -27,7 +27,7 @@ import {
   _resetBugfix
 } from './drag_and_drop'
 import { getSegmentInfo } from './info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL } from './resizing'
+import { normalizeSegmentWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL, RESIZE_TYPE_INCREMENT } from './resizing'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { KEYS } from '../app/keys'
@@ -54,7 +54,6 @@ export class Segment extends React.Component {
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
-    resolution: PropTypes.number,
     incrementSegmentWidth: PropTypes.func,
     removeSegment: PropTypes.func,
     clearSegments: PropTypes.func,
@@ -125,10 +124,10 @@ export class Segment extends React.Component {
     })
   }
 
-  calculateSegmentWidths = (resizeType) => {
+  calculateSegmentWidths = () => {
     let actualWidth = this.props.actualWidth
 
-    actualWidth = normalizeSegmentWidth(actualWidth, this.props.resolution)
+    actualWidth = normalizeSegmentWidth(actualWidth, resolutionForResizeType(RESIZE_TYPE_INITIAL, this.props.units))
 
     return actualWidth
   }
@@ -180,7 +179,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    this.props.incrementSegmentWidth(position, false, finetune, RESIZE_TYPE_INITIAL)
+    this.props.incrementSegmentWidth(position, false, finetune, RESIZE_TYPE_INCREMENT)
   }
 
   /**
@@ -190,7 +189,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    this.props.incrementSegmentWidth(position, true, finetune, RESIZE_TYPE_INITIAL)
+    this.props.incrementSegmentWidth(position, true, finetune, RESIZE_TYPE_INCREMENT)
   }
 
   handleKeyDown = (event) => {
@@ -246,7 +245,7 @@ export class Segment extends React.Component {
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + this.props.segmentPos + 'px)'
 
@@ -322,8 +321,7 @@ function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
     descriptionVisible: state.infoBubble.descriptionVisible,
-    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null,
-    resolution: state.ui.unitSettings.resolution
+    activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
   }
 }
 

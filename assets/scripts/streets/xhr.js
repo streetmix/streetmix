@@ -62,7 +62,6 @@ import {
   updateEditCount,
   updateStreetData
 } from '../store/actions/street'
-import { setUnitSettings } from '../store/actions/ui'
 import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500
@@ -326,7 +325,6 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
     }
   }
 
-  store.dispatch(setUnitSettings(street.units))
   store.dispatch(updateStreetData(street))
 
   if (transmission.data.undoStack) {

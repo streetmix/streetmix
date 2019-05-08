@@ -26,7 +26,13 @@ import {
   SET_ENVIRONMENT
 } from './'
 
-import { RESIZE_TYPE_INITIAL, normalizeSegmentWidth, cancelSegmentResizeTransitions } from '../../segments/resizing'
+import {
+  RESIZE_TYPE_INCREMENT,
+  RESIZE_TYPE_PRECISE_DRAGGING,
+  resolutionForResizeType,
+  normalizeSegmentWidth,
+  cancelSegmentResizeTransitions
+} from '../../segments/resizing'
 import { recalculateWidth } from '../../streets/width'
 import { saveStreetToServerIfNecessary } from '../../streets/data_model'
 
@@ -163,6 +169,19 @@ export function updateStreetWidth (width) {
   }
 }
 
+/**
+ * updateStreetWidth as a thunk action that automatically
+ * dispatches segmentChanged
+ *
+ * @param {Number} width
+ */
+export function updateStreetWidthAction (width) {
+  return async (dispatch, getState) => {
+    await dispatch(updateStreetWidth(width))
+    await dispatch(segmentsChanged())
+  }
+}
+
 export function updateSchemaVersion (version) {
   return {
     type: UPDATE_SCHEMA_VERSION,
@@ -262,29 +281,33 @@ export const segmentsChanged = () => {
     saveStreetToServerIfNecessary()
   }
 }
+
 export const removeSegmentAction = (dataNo) => {
   return async (dispatch, getState) => {
     await dispatch(removeSegment(dataNo, false))
     await dispatch(segmentsChanged())
   }
 }
-export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INITIAL) => {
+
+export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INCREMENT) => {
   return async (dispatch, getState) => {
-    const { unitSettings } = getState().ui
-    let increment
+    const units = getState().street.units
+    let resolution
 
     if (precise) {
-      increment = unitSettings.resolution
+      resolution = resolutionForResizeType(RESIZE_TYPE_PRECISE_DRAGGING, units)
     } else {
-      increment = unitSettings.clickIncrement
+      resolution = resolutionForResizeType(resizeType, units)
     }
+
+    let increment = resolution
 
     if (!add) {
       increment = -increment
     }
 
     cancelSegmentResizeTransitions()
-    const width = normalizeSegmentWidth(origWidth + increment, increment)
+    const width = normalizeSegmentWidth(origWidth + increment, resolution)
     await dispatch(changeSegmentWidth(dataNo, width))
     await dispatch(segmentsChanged())
   }
