@@ -71,7 +71,7 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
       <div
         class="segment-canvas-container"
       >
-        <div
+        <canvas
           class="segment-image"
           height="445"
           style="width: 4800px; height: 445px; left: 0px;"
@@ -81,7 +81,7 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
       <div
         class="segment-canvas-container"
       >
-        <div
+        <canvas
           class="segment-image"
           height="445"
           style="width: 4800px; height: 445px; left: 0px;"
