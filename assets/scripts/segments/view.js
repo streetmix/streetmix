@@ -172,6 +172,35 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   return { left: left / TILE_SIZE_ACTUAL, right: right / TILE_SIZE_ACTUAL, center: center / TILE_SIZE_ACTUAL }
 }
 
+const GROUND_LEVEL_OFFSETY = {
+  ASPHALT: 0,
+  CURB: 14,
+  RAISED_CURB: 74
+}
+
+/**
+ * Originally a sprite's dy position was calculated using: dy = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)).
+ * In order to remove `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground", or "lane", sprites in pixels
+ * in `GROUND_LEVEL_OFFSETY`. This was calculated by taking the difference of the `offsetY` value for ground level 0 and the
+ * `offsetY` for the elevation of the current segment. Using `elevation`, which is defined for each segment based on the "ground"
+ * component being used, this function returns the `GROUND_LEVEL_OFFSETY` for that `elevation`. If not found, it returns null.
+ *
+ * @param {Number} elevation
+ * @returns {?Number} groundLevelOffset
+ */
+function getGroundLevelOffset (elevation) {
+  switch (elevation) {
+    case 0:
+      return GROUND_LEVEL_OFFSETY.ASPHALT
+    case 1:
+      return GROUND_LEVEL_OFFSETY.CURB
+    case 2:
+      return GROUND_LEVEL_OFFSETY.RAISED_CURB
+    default:
+      return null
+  }
+}
+
 /**
  *
  * @param {CanvasRenderingContext2D} ctx
@@ -179,12 +208,12 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
  * @param {string} variantString
  * @param {Number} actualWidth - The real-world width of a segment, in feet
  * @param {Number} offsetLeft
- * @param {Number} offsetTop
+ * @param {Number} groundBaseline
  * @param {Number} randSeed
  * @param {Number} multiplier
  * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, offsetTop, randSeed, multiplier, dpi) {
+export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
 
@@ -193,6 +222,9 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
   const dimensions = getVariantInfoDimensions(variantInfo, actualWidth)
   const left = dimensions.left
+
+  const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
+  const groundLevel = groundBaseline - (multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0))
 
   if (graphics.repeat) {
     const sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
@@ -211,15 +243,21 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
         repeatStartX = 0
       }
 
+      // The distance between the top of the sprite and the ground is calculated by subtracting the height of the sprite with the # of pixels
+      // to get to the point of the sprite which should align with the ground.
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
+        // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the distance
+        // the sprite will be from the ground.
         drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
           offsetLeft + ((repeatStartX + (i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE)) * multiplier),
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+          (sprite.id.includes('ground') ? groundLevel : groundLevel - distanceFromGround),
           width, undefined, multiplier, dpi)
       }
     }
@@ -230,11 +268,14 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
+
       const x = 0 + ((-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier)
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -245,11 +286,13 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
+
       const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -261,17 +304,19 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
       const center = dimensions.center
+
       const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
 
   if (type === 'sidewalk') {
-    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString, dpi)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), groundLevel, randSeed, multiplier, variantString, dpi)
   }
 }
 

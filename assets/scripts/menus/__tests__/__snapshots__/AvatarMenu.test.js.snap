@@ -5,7 +5,7 @@ exports[`AvatarMenu renders user avatar 1`] = `
   className="menu-attached menu-avatar"
   onClick={[Function]}
 >
-  <Connect(Avatar)
+  <ConnectFunction
     userId="foo"
   />
   <span

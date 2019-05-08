@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StreetMetaWidthLabel renders when editable 1`] = `
+<span
+  className="street-width street-width-editable"
+  onClick={[MockFunction]}
+  title="Change width of the street"
+>
+  <FormattedMessage
+    defaultMessage="{width} width"
+    id="width.label"
+    values={
+      Object {
+        "width": "3 m",
+      }
+    }
+  />
+</span>
+`;
+
+exports[`StreetMetaWidthLabel renders when not editable 1`] = `
+<span
+  className="street-width"
+  onClick={[MockFunction]}
+  title={null}
+>
+  <FormattedMessage
+    defaultMessage="{width} width"
+    id="width.label"
+    values={
+      Object {
+        "width": "3 m",
+      }
+    }
+  />
+</span>
+`;
+
+exports[`StreetMetaWidthLabel renders with over available width 1`] = `
+<span
+  className="street-width street-width-editable"
+  onClick={[MockFunction]}
+  title="Change width of the street"
+>
+  <FormattedMessage
+    defaultMessage="{width} width"
+    id="width.label"
+    values={
+      Object {
+        "width": "3 m",
+      }
+    }
+  />
+  <span
+    className="street-width-over"
+  >
+    <FormattedMessage
+      defaultMessage="({width} over)"
+      id="width.over"
+      values={
+        Object {
+          "width": "0.3 m",
+        }
+      }
+    />
+  </span>
+</span>
+`;
+
+exports[`StreetMetaWidthLabel renders with remaining width 1`] = `
+<span
+  className="street-width street-width-editable"
+  onClick={[MockFunction]}
+  title="Change width of the street"
+>
+  <FormattedMessage
+    defaultMessage="{width} width"
+    id="width.label"
+    values={
+      Object {
+        "width": "3 m",
+      }
+    }
+  />
+  <span
+    className="street-width-under"
+  >
+    <FormattedMessage
+      defaultMessage="({width} room)"
+      id="width.under"
+      values={
+        Object {
+          "width": "0.3 m",
+        }
+      }
+    />
+  </span>
+</span>
+`;

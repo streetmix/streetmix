@@ -1,18 +1,26 @@
-import { getSegmentVariantInfo } from '../segments/info'
+import {
+  MIN_CUSTOM_STREET_WIDTH,
+  MAX_CUSTOM_STREET_WIDTH,
+  WIDTH_ROUNDING
+} from './constants'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../segments/constants'
-import store from '../store'
+import { getSegmentVariantInfo } from '../segments/info'
+import { getSegmentWidthResolution } from '../segments/resizing'
 
-const MIN_CUSTOM_STREET_WIDTH = 10
-export const MAX_CUSTOM_STREET_WIDTH = 400
-
-const WIDTH_ROUNDING = 0.01
-
-export function normalizeStreetWidth (width) {
-  const { resolution } = store.getState().ui.unitSettings
+/**
+ * Given an input width value, constrains the value to the
+ * minimum or maximum value, then rounds it to nearest precision
+ *
+ * @param {Number} width - input width value
+ * @param {Number} units - metric or imperial
+ * @returns {Number}
+ */
+export function normalizeStreetWidth (width, units) {
+  const resolution = getSegmentWidthResolution(units)
 
   if (width < MIN_CUSTOM_STREET_WIDTH) {
     width = MIN_CUSTOM_STREET_WIDTH

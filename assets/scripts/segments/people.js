@@ -1,11 +1,14 @@
 // TODO: Refactor this to have less magic numbers & stuff
+import { images } from '../app/load_resources'
 import { RandomGenerator } from '../util/random'
 import { drawSegmentImage } from './view'
+import { getSpriteDef } from './info'
+import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 import { getVariantArray } from './variant_utils'
 import PEOPLE from './people.json'
 
 // TODO magic number - randSeed defaults to 35: why?
-export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randSeed = 35, multiplier, variantString, dpi) {
+export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, randSeed = 35, multiplier, variantString, dpi) {
   let people = []
   let peopleWidth = 0
 
@@ -74,10 +77,16 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, offsetTop, randS
     // Change person.id to 1-index instead of 0-index,
     // convert to string & zero-pad to two digits
     const type = ('0' + (person.id + 1).toString()).slice(-2)
+    const id = 'people--people-' + type
+
+    const sprite = getSpriteDef(id)
+    const svg = images.get(id)
+
+    const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
     // TODO: Document / refactor magic numbers
     drawSegmentImage('people--people-' + type, ctx, undefined, undefined, undefined, undefined,
       offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - person.width) * 12 / 2) + startLeft) * multiplier),
-      offsetTop + (37 * multiplier), undefined, undefined, multiplier, dpi)
+      groundLevel - distanceFromGround, undefined, undefined, multiplier, dpi)
   }
 }

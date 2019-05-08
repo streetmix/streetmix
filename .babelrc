@@ -1,8 +1,19 @@
 {
   "presets": [
     // This `target` syntax is required for jest v24, which no longer injects regenerator-runtime
-    ["@babel/preset-env", { "targets": { "node": "current" } }],
-    "@babel/preset-react"
+    [
+      "@babel/preset-env", {
+        "targets": { "node": "current" },
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ],
+    [
+      "@babel/preset-react", {
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ]
   ],
   "plugins": [
     "@babel/plugin-proposal-class-properties"

@@ -16,6 +16,7 @@ import {
   RESIZE_TYPE_PRECISE_DRAGGING,
   resizeSegment,
   handleSegmentResizeEnd,
+  resolutionForResizeType,
   normalizeSegmentWidth,
   cancelFadeoutControls,
   hideControls,
@@ -285,7 +286,7 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 
       if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) &&
         (street.remainingWidth >= segmentMinWidth)) {
-        draggedItem.actualWidth = normalizeSegmentWidth(street.remainingWidth, RESIZE_TYPE_INITIAL)
+        draggedItem.actualWidth = normalizeSegmentWidth(street.remainingWidth, resolutionForResizeType(RESIZE_TYPE_INITIAL, street.units))
       }
     }
   }

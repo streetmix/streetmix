@@ -2,7 +2,6 @@ import { segmentsChanged } from '../segments/view'
 import { setSettings } from '../users/settings'
 import {
   setLastStreet,
-  setUpdateTimeToNow,
   prepareDefaultStreet,
   prepareEmptyStreet,
   setIgnoreStreetChanges
@@ -15,7 +14,6 @@ export const NEW_STREET_EMPTY = 2
 export function makeDefaultStreet () {
   setIgnoreStreetChanges(true)
   prepareDefaultStreet()
-  setUpdateTimeToNow()
 
   segmentsChanged()
 
