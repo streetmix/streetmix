@@ -24,9 +24,10 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=flat-square"></a>
-  <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=flat-square"></a>
-  <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/streetmix/streetmix.svg?style=flat-square"></a>
+  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=for-the-badge"></a>
+  <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=for-the-badge"></a>
+  <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/tech-debt/streetmix/streetmix.svg?style=for-the-badge"></a>
+  <a href=""><img alt="Code Coverage" src="https://img.shields.io/codecov/c/gh/streetmix/streetmix.svg?label=test%20coverage&style=for-the-badge"></a>
 </p>
 
 <hr>
