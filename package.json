@@ -194,5 +194,10 @@
     "stylelint-config-standard": "18.3.0",
     "stylelint-scss": "3.6.1",
     "supertest": "4.0.2"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "react-dnd-touch-backend"
+    ]
   }
 }
