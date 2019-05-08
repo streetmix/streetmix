@@ -1,0 +1,631 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StreetMetaWidthMenu renders (imperial units, default width selected) 1`] = `
+<StreetMetaWidthMenu
+  formatMessage={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "defaultMessage": "Change width of the street",
+            "id": "tooltip.street-width",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Occupied width:",
+            "id": "width.occupied",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Building-to-building width:",
+            "id": "width.building",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Different width…",
+            "id": "width.different",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to imperial units (feet)",
+            "id": "width.imperial",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to metric units",
+            "id": "width.metric",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Change width of the street",
+            "id": "tooltip.street-width",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Occupied width:",
+            "id": "width.occupied",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Building-to-building width:",
+            "id": "width.building",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Different width…",
+            "id": "width.different",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to imperial units (feet)",
+            "id": "width.imperial",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to metric units",
+            "id": "width.metric",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Change width of the street",
+            "id": "tooltip.street-width",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Occupied width:",
+            "id": "width.occupied",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Building-to-building width:",
+            "id": "width.building",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Different width…",
+            "id": "width.different",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to imperial units (feet)",
+            "id": "width.imperial",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to metric units",
+            "id": "width.metric",
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": "Change width of the street",
+        },
+        Object {
+          "type": "return",
+          "value": "Occupied width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Building-to-building width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Different width…",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to imperial units (feet)",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to metric units",
+        },
+        Object {
+          "type": "return",
+          "value": "Change width of the street",
+        },
+        Object {
+          "type": "return",
+          "value": "Occupied width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Building-to-building width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Different width…",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to imperial units (feet)",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to metric units",
+        },
+        Object {
+          "type": "return",
+          "value": "Change width of the street",
+        },
+        Object {
+          "type": "return",
+          "value": "Occupied width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Building-to-building width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Different width…",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to imperial units (feet)",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to metric units",
+        },
+      ],
+    }
+  }
+  onChange={[MockFunction]}
+  street={
+    Object {
+      "occupiedWidth": 10,
+      "units": 1,
+      "width": 60,
+    }
+  }
+>
+  <select
+    className="street-width-select"
+    onChange={[Function]}
+    title="Change width of the street"
+    value={60}
+  >
+    <option
+      disabled={true}
+    >
+      Occupied width:
+    </option>
+    <option
+      disabled={true}
+    >
+      10′
+    </option>
+    <option
+      disabled={true}
+    />
+    <option
+      disabled={true}
+    >
+      Building-to-building width:
+    </option>
+    <option
+      key="40"
+      value={40}
+    >
+      40′
+    </option>
+    <option
+      key="60"
+      value={60}
+    >
+      60′
+    </option>
+    <option
+      key="80"
+      value={80}
+    >
+      80′
+    </option>
+    <option
+      value={-1}
+    >
+      Different width…
+    </option>
+    <option
+      disabled={true}
+    />
+    <option
+      disabled={true}
+      id="switch-to-imperial-units"
+      value={-3}
+    >
+      Switch to imperial units (feet)
+    </option>
+    <option
+      disabled={false}
+      id="switch-to-metric-units"
+      value={-2}
+    >
+      Switch to metric units
+    </option>
+  </select>
+</StreetMetaWidthMenu>
+`;
+
+exports[`StreetMetaWidthMenu renders (metric units, custom width selected) 1`] = `
+<StreetMetaWidthMenu
+  formatMessage={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "defaultMessage": "Change width of the street",
+            "id": "tooltip.street-width",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Occupied width:",
+            "id": "width.occupied",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Building-to-building width:",
+            "id": "width.building",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Different width…",
+            "id": "width.different",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to imperial units (feet)",
+            "id": "width.imperial",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to metric units",
+            "id": "width.metric",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Change width of the street",
+            "id": "tooltip.street-width",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Occupied width:",
+            "id": "width.occupied",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Building-to-building width:",
+            "id": "width.building",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Different width…",
+            "id": "width.different",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to imperial units (feet)",
+            "id": "width.imperial",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to metric units",
+            "id": "width.metric",
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": "Change width of the street",
+        },
+        Object {
+          "type": "return",
+          "value": "Occupied width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Building-to-building width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Different width…",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to imperial units (feet)",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to metric units",
+        },
+        Object {
+          "type": "return",
+          "value": "Change width of the street",
+        },
+        Object {
+          "type": "return",
+          "value": "Occupied width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Building-to-building width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Different width…",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to imperial units (feet)",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to metric units",
+        },
+      ],
+    }
+  }
+  onChange={[MockFunction]}
+  street={
+    Object {
+      "occupiedWidth": 10,
+      "units": 0,
+      "width": 10,
+    }
+  }
+>
+  <select
+    className="street-width-select"
+    onChange={[Function]}
+    title="Change width of the street"
+    value={10}
+  >
+    <option
+      disabled={true}
+    >
+      Occupied width:
+    </option>
+    <option
+      disabled={true}
+    >
+      3 m
+    </option>
+    <option
+      disabled={true}
+    />
+    <option
+      disabled={true}
+    >
+      Building-to-building width:
+    </option>
+    <option
+      key="40"
+      value={40}
+    >
+      12 m
+    </option>
+    <option
+      key="60"
+      value={60}
+    >
+      18 m
+    </option>
+    <option
+      key="80"
+      value={80}
+    >
+      24 m
+    </option>
+    <option
+      disabled={true}
+    />
+    <option
+      key="10"
+      value={10}
+    >
+      3 m
+    </option>
+    <option
+      value={-1}
+    >
+      Different width…
+    </option>
+    <option
+      disabled={true}
+    />
+    <option
+      disabled={false}
+      id="switch-to-imperial-units"
+      value={-3}
+    >
+      Switch to imperial units (feet)
+    </option>
+    <option
+      disabled={false}
+      id="switch-to-metric-units"
+      value={-2}
+    >
+      Switch to metric units
+    </option>
+  </select>
+</StreetMetaWidthMenu>
+`;
+
+exports[`StreetMetaWidthMenu renders (metric units, default width selected) 1`] = `
+<StreetMetaWidthMenu
+  formatMessage={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "defaultMessage": "Change width of the street",
+            "id": "tooltip.street-width",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Occupied width:",
+            "id": "width.occupied",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Building-to-building width:",
+            "id": "width.building",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Different width…",
+            "id": "width.different",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to imperial units (feet)",
+            "id": "width.imperial",
+          },
+        ],
+        Array [
+          Object {
+            "defaultMessage": "Switch to metric units",
+            "id": "width.metric",
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": "Change width of the street",
+        },
+        Object {
+          "type": "return",
+          "value": "Occupied width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Building-to-building width:",
+        },
+        Object {
+          "type": "return",
+          "value": "Different width…",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to imperial units (feet)",
+        },
+        Object {
+          "type": "return",
+          "value": "Switch to metric units",
+        },
+      ],
+    }
+  }
+  onChange={[MockFunction]}
+  street={
+    Object {
+      "occupiedWidth": 10,
+      "units": 0,
+      "width": 60,
+    }
+  }
+>
+  <select
+    className="street-width-select"
+    onChange={[Function]}
+    title="Change width of the street"
+    value={60}
+  >
+    <option
+      disabled={true}
+    >
+      Occupied width:
+    </option>
+    <option
+      disabled={true}
+    >
+      3 m
+    </option>
+    <option
+      disabled={true}
+    />
+    <option
+      disabled={true}
+    >
+      Building-to-building width:
+    </option>
+    <option
+      key="40"
+      value={40}
+    >
+      12 m
+    </option>
+    <option
+      key="60"
+      value={60}
+    >
+      18 m
+    </option>
+    <option
+      key="80"
+      value={80}
+    >
+      24 m
+    </option>
+    <option
+      value={-1}
+    >
+      Different width…
+    </option>
+    <option
+      disabled={true}
+    />
+    <option
+      disabled={false}
+      id="switch-to-imperial-units"
+      value={-3}
+    >
+      Switch to imperial units (feet)
+    </option>
+    <option
+      disabled={false}
+      id="switch-to-metric-units"
+      value={-2}
+    >
+      Switch to metric units
+    </option>
+  </select>
+</StreetMetaWidthMenu>
+`;
