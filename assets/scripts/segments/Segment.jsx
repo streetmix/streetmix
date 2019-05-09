@@ -34,7 +34,7 @@ import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
-import { incrementSegmentWidth, removeSegmentAction, clearSegments } from '../store/actions/street'
+import { incrementSegmentWidth, removeSegmentAction, clearSegmentsAction } from '../store/actions/street'
 import { showStatusMessage } from '../store/actions/status'
 import './Segment.scss'
 
@@ -329,7 +329,7 @@ function mapDispatchToProps (dispatch, ownProps) {
   return {
     setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
     removeSegment: (position) => { dispatch(removeSegmentAction(position)) },
-    clearSegments: () => { dispatch(clearSegments()) },
+    clearSegments: () => { dispatch(clearSegmentsAction()) },
     incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType)),
     showStatusMessage: (message) => { dispatch(showStatusMessage(message, true)) }
   }
