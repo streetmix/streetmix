@@ -297,6 +297,7 @@ export default class AboutDialog extends React.PureComponent {
                           <ul>
                             <li>Alex Darby</li>
                             <li>Julia Kaganskiy</li>
+                            <li>Kelsa Trom</li>
                             <li>Michelle Carollo</li>
                             <li>Rasu Jilani</li>
                             <li>Stephanie Pereira</li>
