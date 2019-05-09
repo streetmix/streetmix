@@ -27,7 +27,7 @@
     "test:server": "NODE_ENV=test PORT=3000 node index &",
     "test:server:close": "pkill -SIGINT streetmix",
     "lint": "npm run lint:css && npm run lint:js && npm run lint:json",
-    "lint:css": "stylelint ./assets/styles/**/*.scss",
+    "lint:css": "stylelint \"./assets/**/*.scss\"",
     "lint:js": "eslint \"**/*.js\" \"**/*.jsx\"",
     "lint:json": "find assets -name '*.json' -exec jsonlint {} --quiet \\;",
     "jest": "jest --collectCoverage",
