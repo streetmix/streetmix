@@ -236,6 +236,7 @@ export default class AboutDialog extends React.PureComponent {
                       <h3><FormattedMessage id="credits.additional-illustrations" defaultMessage="Additional illustrations" /></h3>
 
                       <ul>
+                        <li>Brian Wamsley</li>
                         <li>Doneliza Joaquin</li>
                         <li>Jon Reese</li>
                         <li>Peter Welte</li>
