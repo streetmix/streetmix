@@ -33,7 +33,7 @@
     "outbound|regular": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "regular"
           }
@@ -63,7 +63,7 @@
     "inbound|green": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "green"
           }
@@ -93,7 +93,7 @@
     "outbound|green": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "green"
           }
@@ -123,7 +123,7 @@
     "inbound|red": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "red"
           }
@@ -153,7 +153,7 @@
     "outbound|red": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "red"
           }
