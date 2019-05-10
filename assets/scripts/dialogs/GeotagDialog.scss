@@ -51,8 +51,6 @@
   font-weight: bold;
 }
 
-/* React-autosuggest overrides */
-
 .geotag-input {
   width: 100%;
   padding: 3px 24px 3px 6px !important;
@@ -82,7 +80,7 @@
   cursor: pointer;
 }
 
-.geotag-suggestion--highlighted {
+.geotag-suggestion[aria-selected="true"] {
   background-color: $form-element-background;
 }
 
