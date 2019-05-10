@@ -279,7 +279,7 @@ class GeotagDialog extends React.Component {
             {this.state.geocodeAvailable && (
               <div className="geotag-input-container">
                 {/* <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} /> */}
-                <GeoSearch focus={this.state.mapCenter} />
+                <GeoSearch setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
               </div>
             )}
 
