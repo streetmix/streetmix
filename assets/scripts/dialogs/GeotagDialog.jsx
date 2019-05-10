@@ -11,7 +11,6 @@ import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 import Dialog from './Dialog'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
-// import SearchAddress from './Geotag/SearchAddress'
 import GeoSearch from './Geotag/GeoSearch'
 import LocationPopup from './Geotag/LocationPopup'
 import { getRemixOnFirstEdit } from '../streets/remix'
@@ -278,11 +277,9 @@ class GeotagDialog extends React.Component {
             )}
             {this.state.geocodeAvailable && (
               <div className="geotag-input-container">
-                {/* <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} /> */}
                 <GeoSearch setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
               </div>
             )}
-
             <Map
               center={this.state.mapCenter}
               zoomControl={false}
