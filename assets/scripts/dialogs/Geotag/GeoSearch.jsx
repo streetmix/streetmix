@@ -49,6 +49,31 @@ class GeoSearch extends React.Component {
     this.inputEl.current.focus()
   }
 
+  renderSuggestion = (item, index, inputValue, getItemProps) => {
+    const label = item.properties.label
+
+    // Highlight the input query
+    const regex = new RegExp(`(${inputValue})`, 'gi')
+    const parts = label.split(regex)
+    const highlighted = parts.map((part, index) => {
+      if (part.toLowerCase() === inputValue.toLowerCase()) {
+        return <strong key={index}>{part}</strong>
+      }
+      return part
+    })
+
+    return (
+      <li {...getItemProps({
+        className: 'geotag-suggestion',
+        key: item.properties.gid,
+        index,
+        item
+      })}>
+        { highlighted }
+      </li>
+    )
+  }
+
   render () {
     const { focus } = this.props
 
@@ -84,21 +109,8 @@ class GeoSearch extends React.Component {
             )}
             { isOpen && results && results.features.length > 0 && (
               <div className="geotag-suggestions-container">
-                <ul {...getMenuProps({
-                  className: 'geotag-suggestions-list'
-                })}>
-                  {
-                    results.features.map((item, index) => (
-                      <li {...getItemProps({
-                        className: 'geotag-suggestion',
-                        key: item.properties.gid,
-                        index,
-                        item
-                      })}>
-                        { item.properties.label }
-                      </li>
-                    ))
-                  }
+                <ul {...getMenuProps({ className: 'geotag-suggestions-list' })}>
+                  { results.features.map((item, index) => this.renderSuggestion(item, index, inputValue, getItemProps)) }
                 </ul>
               </div>
             )}
