@@ -13,9 +13,17 @@
     "es6": true,
     "mocha": true
   },
-  "plugins": ["react"],
-  "extends": ["standard", "standard-react"],
+  "plugins": [
+    "react",
+    "react-hooks"
+  ],
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
   "rules": {
-    "jsx-quotes": ["error", "prefer-double"]
+    "jsx-quotes": ["error", "prefer-double"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
