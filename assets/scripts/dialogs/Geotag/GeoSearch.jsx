@@ -11,6 +11,7 @@ class GeoSearch extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     setMapState: PropTypes.func,
+    setSearchResults: PropTypes.func,
     focus: PropTypes.shape({
       lat: PropTypes.number,
       lng: PropTypes.number
@@ -28,6 +29,26 @@ class GeoSearch extends React.Component {
     this.inputEl = React.createRef()
   }
 
+  onClickClearSearch = (clearSelection) => {
+    clearSelection()
+    this.inputEl.current.focus()
+  }
+
+  handleChange = (selection) => {
+    if (!selection) return
+
+    this.props.setMapState({
+      addressInformation: selection.properties,
+      markerLocation: {
+        lat: selection.geometry.coordinates[1],
+        lng: selection.geometry.coordinates[0]
+      }
+    })
+
+    this.props.setSearchResults(selection.geometry.coordinates.reverse(), selection.properties.label, selection.bbox)
+    this.inputEl.current.focus()
+  }
+
   render () {
     const { focus } = this.props
 
@@ -35,11 +56,12 @@ class GeoSearch extends React.Component {
     this.pelias.autocomplete.setFocusPoint({ lat: focus.lat, lon: focus.lng })
 
     return (
-      <DownshiftPelias pelias={this.pelias}>
+      <DownshiftPelias pelias={this.pelias} onChange={this.handleChange}>
         {({
           getInputProps,
           getMenuProps,
           getItemProps,
+          clearSelection,
           inputValue,
           isOpen,
           results
@@ -55,7 +77,7 @@ class GeoSearch extends React.Component {
               <span
                 title={this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-search', defaultMessage: 'Clear search' })}
                 className="geotag-input-clear"
-                onClick={this.onClickClearSearch}
+                onClick={() => { this.onClickClearSearch(clearSelection) }}
               >
                 ×
               </span>
