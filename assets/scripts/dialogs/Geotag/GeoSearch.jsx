@@ -38,10 +38,15 @@ class GeoSearch extends React.Component {
       <DownshiftPelias pelias={this.pelias}>
         {({
           getInputProps,
-          inputValue
+          getMenuProps,
+          getItemProps,
+          inputValue,
+          isOpen,
+          results
         }) => (
           <div className="geotag-input-form">
-            <input className="geotag-input" {...getInputProps({
+            <input {...getInputProps({
+              className: 'geotag-input',
               autoFocus: true,
               ref: this.inputEl,
               placeholder: this.props.intl.formatMessage({ id: 'dialogs.geotag.search', defaultMessage: 'Search for a location' })
@@ -54,6 +59,26 @@ class GeoSearch extends React.Component {
               >
                 ×
               </span>
+            )}
+            { isOpen && results && results.features.length > 0 && (
+              <div className="geotag-suggestions-container">
+                <ul {...getMenuProps({
+                  className: 'geotag-suggestions-list'
+                })}>
+                  {
+                    results.features.map((item, index) => (
+                      <li {...getItemProps({
+                        className: 'geotag-suggestion',
+                        key: item.properties.gid,
+                        index,
+                        item
+                      })}>
+                        { item.properties.label }
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
             )}
           </div>
         )}
