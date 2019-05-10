@@ -9,6 +9,7 @@ export function getStreetSectionTop () {
   return streetSectionTop
 }
 
+// TODO: less stop relying on querying other DOM elements
 export function setStreetSectionTop () {
   const viewportHeight = window.innerHeight
   const streetSectionHeight = document.querySelector('#street-section-inner').offsetHeight
