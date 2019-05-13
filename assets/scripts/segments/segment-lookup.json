@@ -9,18 +9,12 @@
           }
         }
       ],
-      "objects": [
+      "markings": [
         {
-          "id": "markings",
-          "variants": {
-            "type|direction|opacity": [
-              "straight",
-              "inbound",
-              "light"
-            ]
-          }
+          "id": "markings--straight-inbound-light"
         }
       ],
+      "objects": [],
       "vehicles": [
         {
           "id": "scooter",
@@ -39,18 +33,12 @@
           }
         }
       ],
-      "objects": [
+      "markings": [
         {
-          "id": "markings",
-          "variants": {
-            "type|direction|opacity": [
-              "straight",
-              "outbound",
-              "light"
-            ]
-          }
+          "id": "markings--straight-outbound-light"
         }
       ],
+      "objects": [],
       "vehicles": [
         {
           "id": "scooter",
@@ -69,18 +57,12 @@
           }
         }
       ],
-      "objects": [
+      "markings": [
         {
-          "id": "markings",
-          "variants": {
-            "type|direction|opacity": [
-              "straight",
-              "inbound",
-              "light"
-            ]
-          }
+          "id": "markings--straight-inbound-light"
         }
       ],
+      "objects": [],
       "vehicles": [
         {
           "id": "scooter",
@@ -99,18 +81,12 @@
           }
         }
       ],
-      "objects": [
+      "markings": [
         {
-          "id": "markings",
-          "variants": {
-            "type|direction|opacity": [
-              "straight",
-              "outbound",
-              "light"
-            ]
-          }
+          "id": "markings--straight-outbound-light"
         }
       ],
+      "objects": [],
       "vehicles": [
         {
           "id": "scooter",
@@ -129,18 +105,12 @@
           }
         }
       ],
-      "objects": [
+      "markings": [
         {
-          "id": "markings",
-          "variants": {
-            "type|direction|opacity": [
-              "straight",
-              "inbound",
-              "light"
-            ]
-          }
+          "id": "markings--straight-inbound-light"
         }
       ],
+      "objects": [],
       "vehicles": [
         {
           "id": "scooter",
@@ -159,18 +129,12 @@
           }
         }
       ],
-      "objects": [
+      "markings": [
         {
-          "id": "markings",
-          "variants": {
-            "type|direction|opacity": [
-              "straight",
-              "outbound",
-              "light"
-            ]
-          }
+          "id": "markings--straight-outbound-light"
         }
       ],
+      "objects": [],
       "vehicles": [
         {
           "id": "scooter",
