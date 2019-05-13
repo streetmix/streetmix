@@ -20,13 +20,13 @@ class SegmentCanvas extends React.PureComponent {
     multiplier: PropTypes.number,
     groundBaseline: PropTypes.number,
     dpi: PropTypes.number,
-    switchSegments: PropTypes.bool,
     updatePerspective: PropTypes.func
   }
 
   static defaultProps = {
     multiplier: 1,
-    groundBaseline: GROUND_BASELINE
+    groundBaseline: GROUND_BASELINE,
+    updatePerspective: () => {}
   }
 
   constructor (props) {
@@ -40,11 +40,12 @@ class SegmentCanvas extends React.PureComponent {
   }
 
   componentDidMount () {
+    this.props.updatePerspective(this.canvasEl.current)
     this.drawSegment()
   }
 
   componentDidUpdate (prevProps) {
-    if (!prevProps.switchSegments && this.props.switchSegments) {
+    if (prevProps.variantString !== this.props.variantString) {
       this.props.updatePerspective(this.canvasEl.current)
     }
 
