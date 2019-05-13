@@ -106,8 +106,8 @@ export class Segment extends React.Component {
     }
 
     if (!prevState.switchSegments && this.state.switchSegments) {
-      this.props.updatePerspective(this.oldSegmentCanvas.firstChildElement)
-      this.props.updatePerspective(this.newSegmentCanvas.firstChildElement)
+      this.props.updatePerspective(this.oldSegmentCanvas.current)
+      this.props.updatePerspective(this.newSegmentCanvas.current)
     }
 
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
@@ -166,7 +166,7 @@ export class Segment extends React.Component {
           type={segment.type}
           variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
           randSeed={segment.randSeed}
-          ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
+          forwardRef={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
         />
       </div>
     ))

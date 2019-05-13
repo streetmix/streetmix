@@ -19,7 +19,8 @@ class SegmentCanvas extends React.PureComponent {
     randSeed: PropTypes.number,
     multiplier: PropTypes.number,
     groundBaseline: PropTypes.number,
-    dpi: PropTypes.number
+    dpi: PropTypes.number,
+    forwardRef: PropTypes.object
   }
 
   static defaultProps = {
@@ -59,6 +60,14 @@ class SegmentCanvas extends React.PureComponent {
     drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.groundBaseline, this.props.randSeed, this.props.multiplier, this.props.dpi)
   }
 
+  attachRefsToCanvas = (el) => {
+    this.canvasEl.current = el
+
+    if (this.props.forwardRef) {
+      this.props.forwardRef.current = el
+    }
+  }
+
   render () {
     // Determine the maximum width of the artwork for this segment
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
@@ -85,7 +94,7 @@ class SegmentCanvas extends React.PureComponent {
     return (
       <canvas
         className="segment-image"
-        ref={this.canvasEl}
+        ref={this.attachRefsToCanvas}
         width={canvasWidth}
         height={canvasHeight}
         style={canvasStyle}
