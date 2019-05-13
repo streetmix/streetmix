@@ -160,7 +160,6 @@ export class Segment extends React.Component {
           variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
           randSeed={segment.randSeed}
           updatePerspective={this.props.updatePerspective}
-          switchSegments={this.state.switchSegments}
         />
       </div>
     ))
