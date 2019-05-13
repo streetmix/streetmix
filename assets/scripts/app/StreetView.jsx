@@ -8,7 +8,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { IntlProvider } from 'react-intl'
 import StreetEditable from './StreetEditable'
 import StreetViewDirt from './StreetViewDirt'
 import SkyBackground from './SkyBackground'
@@ -32,7 +31,6 @@ class StreetView extends React.Component {
     readOnly: PropTypes.bool,
     street: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired,
-    locale: PropTypes.object.isRequired,
     draggingType: PropTypes.number
   }
 
@@ -300,16 +298,8 @@ class StreetView extends React.Component {
                 updatePerspective={this.updatePerspective}
                 draggingType={this.props.draggingType}
               />
-              <IntlProvider
-                locale={this.props.locale.locale}
-                key={this.props.locale.locale}
-                messages={this.props.locale.messages}
-              >
-                <React.Fragment>
-                  <ResizeGuides />
-                  <EmptySegmentContainer />
-                </React.Fragment>
-              </IntlProvider>
+              <ResizeGuides />
+              <EmptySegmentContainer />
               <StreetViewDirt buildingWidth={this.state.buildingWidth} />
             </section>
           </section>
@@ -334,7 +324,6 @@ function mapStateToProps (state) {
     readOnly: state.app.readOnly,
     street: state.street,
     system: state.system,
-    locale: state.locale,
     draggingType: state.ui.draggingType
   }
 }
