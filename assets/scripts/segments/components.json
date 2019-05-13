@@ -1,6 +1,7 @@
 {
   "lanes": {
     "asphalt": {
+      "elevation": 0,
       "variants": {
         "color": {
           "regular": {
@@ -19,6 +20,64 @@
             }
           }
         }
+      }
+    },
+    "sidewalk": {
+      "name": "Sidewalk",
+      "nameKey": "sidewalk",
+      "owner": "PEDESTRIAN",
+      "zIndex": 30,
+      "needRandSeed": true,
+      "elevation": 1,
+      "rules": {
+        "defaultWidth": 6,
+        "minWidth": 6
+      },
+      "variants": {
+        "density": {
+          "dense": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "normal": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "sparse": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "empty": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          }
+        }
+      }
+    }
+  },
+  "markings": {
+    "markings--lane-right": {
+      "graphics": {
+        "right": "markings--lane-right"
+      }
+    },
+    "markings--lane-left": {
+      "graphics": {
+        "left": "markings--lane-left"
+      }
+    },
+    "markings--straight-inbound-light": {
+      "graphics": {
+        "center": "markings--straight-inbound-light"
+      }
+    },
+    "markings--straight-outbound-light": {
+      "graphics": {
+        "center": "markings--straight-outbound-light"
       }
     }
   },
@@ -39,16 +98,14 @@
           "inbound": {
             "graphics": {
               "center": [
-                "scooters--scooter-inbound",
-                "markings--straight-inbound-light"
+                "scooters--scooter-inbound"
               ]
             }
           },
           "outbound": {
             "graphics": {
               "center": [
-                "scooters--scooter-outbound",
-                "markings--straight-outbound-light"
+                "scooters--scooter-outbound"
               ]
             }
           }

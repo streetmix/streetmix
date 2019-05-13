@@ -31,7 +31,7 @@ function getSegmentInfo (group, id) {
  * Retrieves the information for all items that make up a particular component group by
  * looking up the component group and item id in `SEGMENT_COMPONENTS`.
  *
- * @param {string} group - component group name (i.e. `lanes`, `objects`, or `vehicles`)
+ * @param {string} group - component group name (i.e. `markings`, `lanes`, `objects`, or `vehicles`)
  * @param {Array} groupItems - items that make up the component group in shape of [{ id, variants }]
  * @returns {object} componentGroupInfo - returns object in shape of { id: { characteristics, rules, variants } }
  */
@@ -59,7 +59,13 @@ function getComponentGroupVariants (groupItems, componentGroupInfo) {
     if (groupItemVariants) {
       Object.entries(variants).forEach(([variantName, variantKey]) => {
         // variantInfo - graphics definition for specific variants defined by group item
-        const variantInfo = (groupItemVariants[variantName] && groupItemVariants[variantName][variantKey]) || SEGMENT_UNKNOWN_VARIANT
+        let variantInfo = groupItemVariants[variantName] || SEGMENT_UNKNOWN_VARIANT
+
+        const variantKeys = Array.isArray(variantKey) ? variantKey : [ variantKey ]
+        variantKeys.forEach((key) => {
+          variantInfo = (variantInfo && variantInfo[key]) || SEGMENT_UNKNOWN_VARIANT
+        })
+
         array.push(variantInfo.graphics)
       })
     }
@@ -161,19 +167,25 @@ function getSegmentVariantInfo (type, variant) {
     // componentGroupInfo = [ { characteristics, rules, variants } ]
     const componentGroupInfo = getComponentGroupInfo(group, groupItems)
 
-    // componentGroupVariants = [ { graphics } ]
-    // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
-    const componentGroupVariants = getComponentGroupVariants(groupItems, componentGroupInfo)
+    // The "markings" component group does not have any variants, so we do not have to go through the variants in order
+    // to get the sprite definitions.
+    if (group === 'markings') {
+      Object.values(componentGroupInfo).forEach((groupItem) => { variantInfo.graphics.push(groupItem.graphics) })
+    } else {
+      // componentGroupVariants = [ { graphics } ]
+      // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
+      const componentGroupVariants = getComponentGroupVariants(groupItems, componentGroupInfo)
 
-    if (componentGroupVariants.length) {
-      // 4) Combine the variant graphics for each component group into one array
-      componentGroupVariants.forEach((groupItemVariants) => { variantInfo.graphics.push(groupItemVariants) })
-    }
+      if (componentGroupVariants.length) {
+        // 4) Combine the variant graphics for each component group into one array
+        componentGroupVariants.forEach((groupItemVariants) => { variantInfo.graphics.push(groupItemVariants) })
+      }
 
-    // 5) For each component group, look up any rules associated with each of the items that make up the component group.
-    const componentGroupRules = getComponentGroupRules(groupItems, componentGroupInfo)
-    if (componentGroupRules) {
-      return Object.assign(variantInfo, componentGroupRules)
+      // 5) For each component group, look up any rules associated with each of the items that make up the component group.
+      const componentGroupRules = getComponentGroupRules(groupItems, componentGroupInfo)
+      if (componentGroupRules) {
+        return Object.assign(variantInfo, componentGroupRules)
+      }
     }
 
     return variantInfo
@@ -181,6 +193,12 @@ function getSegmentVariantInfo (type, variant) {
 
   // 6) Combine the variant graphics into one graphics definition object.
   variantInfo.graphics = mergeVariantGraphics(variantInfo.graphics)
+
+  // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
+  // of the first item in the "lane" component group.
+  const lane = getSegmentInfo('lanes', segmentLookup.lanes[0].id)
+  variantInfo.elevation = lane.elevation
+
   return variantInfo
 }
 
@@ -196,7 +214,10 @@ function getSegmentVariantInfo (type, variant) {
  * @returns {boolean} correct
  */
 function verifyCorrectness (originalVariantInfo, newVariantInfo) {
-  const filteredKeys = Object.keys(originalVariantInfo).filter(key => !newVariantInfo[key])
+  const filteredKeys = Object.keys(originalVariantInfo).filter((key) => {
+    return (key === 'graphics') ? !newVariantInfo.graphics : originalVariantInfo[key] !== newVariantInfo[key]
+  })
+
   const filteredGraphics = Object.entries(originalVariantInfo.graphics).filter((item) => {
     const [ key, value ] = item
     const originalGraphics = Array.isArray(value) ? value.sort() : value
@@ -219,9 +240,12 @@ function verifyCorrectness (originalVariantInfo, newVariantInfo) {
 export function testSegmentLookup (type, variant, segmentVariantInfo) {
   const newVariantInfo = getSegmentVariantInfo(type, variant)
 
+  console.log(segmentVariantInfo)
   if (verifyCorrectness(segmentVariantInfo, newVariantInfo)) {
+    console.log('Correctly mapped segment.')
     return newVariantInfo
   } else {
+    console.log(newVariantInfo)
     return segmentVariantInfo
   }
 }

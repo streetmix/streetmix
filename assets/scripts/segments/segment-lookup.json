@@ -9,6 +9,11 @@
           }
         }
       ],
+      "markings": [
+        {
+          "id": "markings--straight-inbound-light"
+        }
+      ],
       "objects": [],
       "vehicles": [
         {
@@ -22,10 +27,15 @@
     "outbound|regular": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "regular"
           }
+        }
+      ],
+      "markings": [
+        {
+          "id": "markings--straight-outbound-light"
         }
       ],
       "objects": [],
@@ -41,10 +51,15 @@
     "inbound|green": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "green"
           }
+        }
+      ],
+      "markings": [
+        {
+          "id": "markings--straight-inbound-light"
         }
       ],
       "objects": [],
@@ -60,10 +75,15 @@
     "outbound|green": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "green"
           }
+        }
+      ],
+      "markings": [
+        {
+          "id": "markings--straight-outbound-light"
         }
       ],
       "objects": [],
@@ -79,10 +99,15 @@
     "inbound|red": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "red"
           }
+        }
+      ],
+      "markings": [
+        {
+          "id": "markings--straight-inbound-light"
         }
       ],
       "objects": [],
@@ -98,10 +123,15 @@
     "outbound|red": {
       "lanes": [
         {
-          "id": "road",
+          "id": "asphalt",
           "variants": {
             "color": "red"
           }
+        }
+      ],
+      "markings": [
+        {
+          "id": "markings--straight-outbound-light"
         }
       ],
       "objects": [],
