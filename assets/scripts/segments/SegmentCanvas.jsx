@@ -20,7 +20,8 @@ class SegmentCanvas extends React.PureComponent {
     multiplier: PropTypes.number,
     groundBaseline: PropTypes.number,
     dpi: PropTypes.number,
-    forwardRef: PropTypes.object
+    switchSegments: PropTypes.bool,
+    updatePerspective: PropTypes.func
   }
 
   static defaultProps = {
@@ -43,6 +44,10 @@ class SegmentCanvas extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps) {
+    if (!prevProps.switchSegments && this.props.switchSegments) {
+      this.props.updatePerspective(this.canvasEl.current)
+    }
+
     this.drawSegment()
   }
 
@@ -58,14 +63,6 @@ class SegmentCanvas extends React.PureComponent {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.groundBaseline, this.props.randSeed, this.props.multiplier, this.props.dpi)
-  }
-
-  attachRefsToCanvas = (el) => {
-    this.canvasEl.current = el
-
-    if (this.props.forwardRef) {
-      this.props.forwardRef.current = el
-    }
   }
 
   render () {
@@ -94,7 +91,7 @@ class SegmentCanvas extends React.PureComponent {
     return (
       <canvas
         className="segment-image"
-        ref={this.attachRefsToCanvas}
+        ref={this.canvasEl}
         width={canvasWidth}
         height={canvasHeight}
         style={canvasStyle}
