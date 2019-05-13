@@ -59,60 +59,29 @@
       }
     }
   },
-  "objects": {
-    "markings": {
-      "variants": {
-        "type|orientation": {
-          "lane": {
-            "right": {
-              "graphics": {
-                "right": "markings--lane-right"
-              }
-            },
-            "left": {
-              "graphics": {
-                "left": "markings--lane-left"
-              }
-            },
-            "both": {
-              "graphics": {
-                "right": "markings--lane-right",
-                "left": "markings--lane-left"
-              }
-            }
-          }
-        },
-        "type|direction|opacity": {
-          "straight": {
-            "inbound": {
-              "light": {
-                "graphics": {
-                  "center": "markings--straight-inbound-light"
-                }
-              },
-              "default": {
-                "graphics": {
-                  "center": "markings--straight-inbound"
-                }
-              }
-            },
-            "outbound": {
-              "light": {
-                "graphics": {
-                  "center": "markings--straight-outbound-light"
-                }
-              },
-              "default": {
-                "graphics": {
-                  "center": "markings--straight-outbound"
-                }
-              }
-            }
-          }
-        }
+  "markings": {
+    "markings--lane-right": {
+      "graphics": {
+        "right": "markings--lane-right"
+      }
+    },
+    "markings--lane-left": {
+      "graphics": {
+        "left": "markings--lane-left"
+      }
+    },
+    "markings--straight-inbound-light": {
+      "graphics": {
+        "center": "markings--straight-inbound-light"
+      }
+    },
+    "markings--straight-outbound-light": {
+      "graphics": {
+        "center": "markings--straight-outbound-light"
       }
     }
   },
+  "objects": {},
   "vehicles": {
     "scooter": {
       "name": "Electric scooter",
