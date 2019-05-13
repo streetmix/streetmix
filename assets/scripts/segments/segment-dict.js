@@ -31,7 +31,7 @@ function getSegmentInfo (group, id) {
  * Retrieves the information for all items that make up a particular component group by
  * looking up the component group and item id in `SEGMENT_COMPONENTS`.
  *
- * @param {string} group - component group name (i.e. `lanes`, `objects`, or `vehicles`)
+ * @param {string} group - component group name (i.e. `markings`, `lanes`, `objects`, or `vehicles`)
  * @param {Array} groupItems - items that make up the component group in shape of [{ id, variants }]
  * @returns {object} componentGroupInfo - returns object in shape of { id: { characteristics, rules, variants } }
  */
@@ -167,19 +167,25 @@ function getSegmentVariantInfo (type, variant) {
     // componentGroupInfo = [ { characteristics, rules, variants } ]
     const componentGroupInfo = getComponentGroupInfo(group, groupItems)
 
-    // componentGroupVariants = [ { graphics } ]
-    // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
-    const componentGroupVariants = getComponentGroupVariants(groupItems, componentGroupInfo)
+    // The "markings" component group does not have any variants, so we do not have to go through the variants in order
+    // to get the sprite definitions.
+    if (group === 'markings') {
+      Object.values(componentGroupInfo).forEach((groupItem) => { variantInfo.graphics.push(groupItem.graphics) })
+    } else {
+      // componentGroupVariants = [ { graphics } ]
+      // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
+      const componentGroupVariants = getComponentGroupVariants(groupItems, componentGroupInfo)
 
-    if (componentGroupVariants.length) {
-      // 4) Combine the variant graphics for each component group into one array
-      componentGroupVariants.forEach((groupItemVariants) => { variantInfo.graphics.push(groupItemVariants) })
-    }
+      if (componentGroupVariants.length) {
+        // 4) Combine the variant graphics for each component group into one array
+        componentGroupVariants.forEach((groupItemVariants) => { variantInfo.graphics.push(groupItemVariants) })
+      }
 
-    // 5) For each component group, look up any rules associated with each of the items that make up the component group.
-    const componentGroupRules = getComponentGroupRules(groupItems, componentGroupInfo)
-    if (componentGroupRules) {
-      return Object.assign(variantInfo, componentGroupRules)
+      // 5) For each component group, look up any rules associated with each of the items that make up the component group.
+      const componentGroupRules = getComponentGroupRules(groupItems, componentGroupInfo)
+      if (componentGroupRules) {
+        return Object.assign(variantInfo, componentGroupRules)
+      }
     }
 
     return variantInfo
