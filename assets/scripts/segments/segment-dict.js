@@ -240,12 +240,11 @@ function verifyCorrectness (originalVariantInfo, newVariantInfo) {
 export function testSegmentLookup (type, variant, segmentVariantInfo) {
   const newVariantInfo = getSegmentVariantInfo(type, variant)
 
-  console.log(segmentVariantInfo)
   if (verifyCorrectness(segmentVariantInfo, newVariantInfo)) {
-    console.log('Correctly mapped segment.')
     return newVariantInfo
   } else {
-    console.log(newVariantInfo)
+    console.log(`Incorrectly mapped segment of type "${type}" and variant "${variant}".`)
+    console.log(segmentVariantInfo, newVariantInfo)
     return segmentVariantInfo
   }
 }
