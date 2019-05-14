@@ -238,6 +238,11 @@ function verifyCorrectness (originalVariantInfo, newVariantInfo) {
  * @returns {object} variantInfo
  */
 export function testSegmentLookup (type, variant, segmentVariantInfo) {
+  // If segment lookup value not defined yet, return original variantInfo.
+  if (!getSegmentLookup(type, variant)) {
+    return segmentVariantInfo
+  }
+
   const newVariantInfo = getSegmentVariantInfo(type, variant)
 
   if (verifyCorrectness(segmentVariantInfo, newVariantInfo)) {
