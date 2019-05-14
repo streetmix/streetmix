@@ -237,7 +237,7 @@ function getSegmentVariantInfo (type, variant) {
  * @returns {Object} segmentInfo
  */
 export function getSegmentInfo (type) {
-  const segmentInfo = SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type]['segment-info']
+  const segmentInfo = SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type].segmentInfo
   const segmentInfoKey = segmentInfo && segmentInfo.key
 
   if (segmentInfoKey) {
