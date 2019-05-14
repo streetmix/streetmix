@@ -7,8 +7,7 @@ import {
   NEW_STREET_DEFAULT,
   NEW_STREET_EMPTY,
   onNewStreetDefaultClick,
-  onNewStreetEmptyClick,
-  onNewStreetLastClick
+  onNewStreetEmptyClick
 } from '../streets/creation'
 import StreetName from '../streets/StreetName'
 import { isSignedIn } from '../users/authentication'
@@ -17,6 +16,7 @@ import { MODES, getMode } from './mode'
 import { goNewStreet } from './routing'
 import Avatar from '../users/Avatar'
 import { showStreetNameCanvas, hideStreetNameCanvas } from '../store/actions/ui'
+import { getLastStreet } from '../store/actions/street'
 import CloseButton from '../ui/CloseButton'
 
 import './WelcomePanel.scss'
@@ -36,7 +36,8 @@ export class WelcomePanel extends React.Component {
     priorLastStreetId: PropTypes.string,
     street: PropTypes.object,
     showStreetNameCanvas: PropTypes.func,
-    hideStreetNameCanvas: PropTypes.func
+    hideStreetNameCanvas: PropTypes.func,
+    getLastStreet: PropTypes.func
   }
 
   static defaultProps = {
@@ -316,7 +317,7 @@ export class WelcomePanel extends React.Component {
                         id="new-street-last"
                         checked={this.state.selectedNewStreetType === 'new-street-last'}
                         onChange={this.onChangeNewStreetType}
-                        onClick={onNewStreetLastClick}
+                        onClick={this.props.getLastStreet}
                       />
                       <label htmlFor="new-street-last">
                         <FormattedMessage id="dialogs.new-street.last" defaultMessage="Start with a copy of last street" />
@@ -373,7 +374,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     hideStreetNameCanvas: () => { dispatch(hideStreetNameCanvas()) },
-    showStreetNameCanvas: () => { dispatch(showStreetNameCanvas()) }
+    showStreetNameCanvas: () => { dispatch(showStreetNameCanvas()) },
+    getLastStreet: () => { dispatch(getLastStreet()) }
   }
 }
 

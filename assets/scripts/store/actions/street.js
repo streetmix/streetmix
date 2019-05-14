@@ -35,6 +35,7 @@ import {
 } from '../../segments/resizing'
 import { recalculateWidth } from '../../streets/width'
 import { saveStreetToServerIfNecessary } from '../../streets/data_model'
+import apiClient from '../../util/API'
 
 export function updateStreetData (street) {
   return {
@@ -310,5 +311,13 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
     const width = normalizeSegmentWidth(origWidth + increment, resolution)
     await dispatch(changeSegmentWidth(dataNo, width))
     await dispatch(segmentsChanged())
+  }
+}
+
+export const getLastStreet = () => {
+  return async (dispatch, getState) => {
+    const street = await apiClient.getStreet()
+    // undoStack
+    dispatch(updateStreetData(street))
   }
 }
