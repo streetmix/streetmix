@@ -180,7 +180,7 @@
     "eslint-plugin-standard": "4.0.0",
     "husky": "2.2.0",
     "jest": "24.8.0",
-    "jest-canvas-mock": "2.0.0",
+    "jest-canvas-mock": "2.1.0",
     "jest-date-mock": "1.0.7",
     "jest-fetch-mock": "2.1.2",
     "jsonlint": "1.6.3",
