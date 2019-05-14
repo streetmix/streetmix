@@ -1,5 +1,11 @@
 {
   "scooter": {
+    "segment-info": {
+      "key": [
+        "vehicles",
+        "scooter"
+      ]
+    },
     "inbound|regular": {
       "lanes": [
         {

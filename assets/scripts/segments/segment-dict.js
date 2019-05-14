@@ -203,6 +203,28 @@ function getSegmentVariantInfo (type, variant) {
 }
 
 /**
+ * Gets segment data for segment `type`. Safer than reading `type` directly
+ * from `SEGMENT_INFO`, because this will return the `SEGMENT_UNKNOWN`
+ * placeholder if the type is not found. The unknown segment placeholder
+ * allows means bad data, experimental segments, etc. won't break rendering.
+ *
+ * @param {string} type
+ * @returns {Object} segmentInfo
+ */
+export function getSegmentInfo (type) {
+  const segmentInfo = SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type]['segment-info']
+  const segmentInfoKey = segmentInfo && segmentInfo.key
+
+  if (segmentInfoKey) {
+    const [ group, id ] = segmentInfoKey
+    const { variants, ...componentInfo } = getSegmentComponentInfo(group, id)
+    return componentInfo || SEGMENT_UNKNOWN
+  }
+
+  return segmentInfo || SEGMENT_UNKNOWN
+}
+
+/**
  * Temporary helper method that compares the original segment variant info with the variant info returned
  * by the new data model. If the new variant info contains all the keys from the original variant info, then
  * the variant info is correct.
