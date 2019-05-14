@@ -115,7 +115,7 @@
     "cors": "2.8.5",
     "dateformat": "3.0.3",
     "express": "4.16.4",
-    "file-saver": "2.0.1",
+    "file-saver": "2.0.2",
     "handjs": "1.3.11",
     "hbs": "4.0.4",
     "helmet": "3.18.0",
