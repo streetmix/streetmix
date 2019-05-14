@@ -2,6 +2,10 @@ import axios from 'axios'
 
 import { API_URL } from '../app/config'
 
+import {
+  getAuthHeader
+} from '../users/authentication'
+
 class APIClient {
   constructor () {
     this.client = axios.create({
@@ -9,8 +13,10 @@ class APIClient {
       responseType: 'json'
     })
   }
-    getStreet = async () => {
-      const { data } = await this.client.get('/street')
+    getStreet = async (streetId) => {
+      const { data } = await this.client.get(`/streets/${streetId}`, {
+        headers: { 'Authorization': getAuthHeader() }
+      })
       return data
     };
 };

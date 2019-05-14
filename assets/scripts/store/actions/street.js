@@ -316,8 +316,7 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
 
 export const getLastStreet = () => {
   return async (dispatch, getState) => {
-    const street = await apiClient.getStreet()
-    // undoStack
+    const street = await apiClient.getStreet(getState().settings.priorLastStreetId)
     dispatch(updateStreetData(street))
   }
 }
