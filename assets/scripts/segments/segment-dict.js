@@ -16,14 +16,14 @@ function getSegmentLookup (type, variant) {
 }
 
 /**
- * Retrieves the specified segment information from the new segment data model using the
- * component group and the segment id.
+ * Retrieves the specified segment component information from the new segment data model using the
+ * component group and the segment component's id.
  *
  * @param {string} group - component group, one of values "lanes", "vehicles" or "objects"
  * @param {string} id - name of segment component, e.g. "scooter"
  * @returns {object} segmentInfo
  */
-function getSegmentInfo (group, id) {
+function getSegmentComponentInfo (group, id) {
   return (SEGMENT_COMPONENTS[group] && SEGMENT_COMPONENTS[group][id]) || SEGMENT_UNKNOWN
 }
 
@@ -37,7 +37,7 @@ function getSegmentInfo (group, id) {
  */
 function getComponentGroupInfo (group, groupItems) {
   return groupItems.reduce((obj, item) => {
-    obj[item.id] = getSegmentInfo(group, item.id)
+    obj[item.id] = getSegmentComponentInfo(group, item.id)
     return obj
   }, {})
 }
@@ -196,7 +196,7 @@ function getSegmentVariantInfo (type, variant) {
 
   // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
   // of the first item in the "lane" component group.
-  const lane = getSegmentInfo('lanes', segmentLookup.lanes[0].id)
+  const lane = getSegmentComponentInfo('lanes', segmentLookup.lanes[0].id)
   variantInfo.elevation = lane.elevation
 
   return variantInfo
