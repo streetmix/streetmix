@@ -1,7 +1,7 @@
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
-import { uniq } from 'lodash'
+import { uniq, omitBy } from 'lodash'
 
 /**
  * Retrieves the necessary information required to map the old segment data model to the
@@ -146,6 +146,29 @@ function getComponentGroupRules (groupItems, componentGroupInfo) {
 }
 
 /**
+ * Due to segments being broken down in to components in the new segment data model, some segments that used to
+ * have its own rules and characteristics are no longered recorded in `SEGMENT_COMPONENTS`, e.g. `scooter-drop-zone`.
+ * In order to make sure that segments which no longer exist as its own component maintain their rules and characteristics,
+ * `SEGMENT_LOOKUP` will contain an object of segment overrides if necessary. This function applies any rule overrides,
+ * whether that means removing any rules or updating them.
+ *
+ * @param {String} type
+ * @param {Object} variantInfo
+ * @returns {Object} newVariantInfo
+ */
+function applySegmentRuleOverridesIfAny (type, variantInfo) {
+  const segmentInfo = getSegmentInfo(type)
+  const segmentRuleOverrides = segmentInfo.rules
+
+  if (segmentRuleOverrides) {
+    const newVariantInfo = Object.assign(variantInfo, segmentRuleOverrides)
+    return omitBy(newVariantInfo, (value) => value === null)
+  } else {
+    return variantInfo
+  }
+}
+
+/**
  * Maps the old segment data model to the new segment data model and returns the graphic sprites necessary
  * to draw the segment as well as any rules to follow, e.g. `minWidth` based on the `type` and `variant`.
  *
@@ -161,7 +184,7 @@ function getSegmentVariantInfo (type, variant) {
   }
 
   // 1) Loop through each component group that makes up the segment.
-  const variantInfo = Object.entries(segmentLookup).reduce((variantInfo, componentGroup) => {
+  let variantInfo = Object.entries(segmentLookup).reduce((variantInfo, componentGroup) => {
     const [ group, groupItems ] = componentGroup
     // 2) For each component group, look up the segment information for every item that makes up the component group.
     // componentGroupInfo = [ { characteristics, rules, variants } ]
@@ -199,6 +222,8 @@ function getSegmentVariantInfo (type, variant) {
   const lane = getSegmentComponentInfo('lanes', segmentLookup.lanes[0].id)
   variantInfo.elevation = lane.elevation
 
+  // Check if any segment rule overrides
+  variantInfo = applySegmentRuleOverridesIfAny(type, variantInfo)
   return variantInfo
 }
 
