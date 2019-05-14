@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DebugHoverPolygon renders if enabled 1`] = `
+<div
+  className="debug-hover-polygon"
+>
+  <canvas
+    height={768}
+    width={1024}
+  />
+</div>
+`;
+
+exports[`DebugHoverPolygon renders nothing if disabled 1`] = `""`;
