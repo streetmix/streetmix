@@ -1,154 +1,159 @@
 {
   "scooter": {
-    "segmentInfo": {
-      "key": [
-        "vehicles",
-        "scooter"
-      ]
+    "name": "Electric scooter",
+    "nameKey": "scooter",
+    "owner": "BIKE",
+    "zIndex": 16,
+    "enableWithFlag": "SEGMENT_SCOOTERS",
+    "defaultWidth": 5,
+    "rules": {
+      "minWidth": 4
     },
-    "inbound|regular": {
-      "lanes": [
-        {
-          "id": "asphalt",
-          "variants": {
-            "color": "regular"
+    "details": {
+      "inbound|regular": {
+        "lanes": [
+          {
+            "id": "asphalt",
+            "variants": {
+              "color": "regular"
+            }
           }
-        }
-      ],
-      "markings": [
-        {
-          "id": "markings--straight-inbound-light"
-        }
-      ],
-      "objects": [],
-      "vehicles": [
-        {
-          "id": "scooter",
-          "variants": {
-            "direction": "inbound"
+        ],
+        "markings": [
+          {
+            "id": "markings--straight-inbound-light"
           }
-        }
-      ]
-    },
-    "outbound|regular": {
-      "lanes": [
-        {
-          "id": "asphalt",
-          "variants": {
-            "color": "regular"
+        ],
+        "objects": [],
+        "vehicles": [
+          {
+            "id": "scooter",
+            "variants": {
+              "direction": "inbound"
+            }
           }
-        }
-      ],
-      "markings": [
-        {
-          "id": "markings--straight-outbound-light"
-        }
-      ],
-      "objects": [],
-      "vehicles": [
-        {
-          "id": "scooter",
-          "variants": {
-            "direction": "outbound"
+        ]
+      },
+      "outbound|regular": {
+        "lanes": [
+          {
+            "id": "asphalt",
+            "variants": {
+              "color": "regular"
+            }
           }
-        }
-      ]
-    },
-    "inbound|green": {
-      "lanes": [
-        {
-          "id": "asphalt",
-          "variants": {
-            "color": "green"
+        ],
+        "markings": [
+          {
+            "id": "markings--straight-outbound-light"
           }
-        }
-      ],
-      "markings": [
-        {
-          "id": "markings--straight-inbound-light"
-        }
-      ],
-      "objects": [],
-      "vehicles": [
-        {
-          "id": "scooter",
-          "variants": {
-            "direction": "inbound"
+        ],
+        "objects": [],
+        "vehicles": [
+          {
+            "id": "scooter",
+            "variants": {
+              "direction": "outbound"
+            }
           }
-        }
-      ]
-    },
-    "outbound|green": {
-      "lanes": [
-        {
-          "id": "asphalt",
-          "variants": {
-            "color": "green"
+        ]
+      },
+      "inbound|green": {
+        "lanes": [
+          {
+            "id": "asphalt",
+            "variants": {
+              "color": "green"
+            }
           }
-        }
-      ],
-      "markings": [
-        {
-          "id": "markings--straight-outbound-light"
-        }
-      ],
-      "objects": [],
-      "vehicles": [
-        {
-          "id": "scooter",
-          "variants": {
-            "direction": "outbound"
+        ],
+        "markings": [
+          {
+            "id": "markings--straight-inbound-light"
           }
-        }
-      ]
-    },
-    "inbound|red": {
-      "lanes": [
-        {
-          "id": "asphalt",
-          "variants": {
-            "color": "red"
+        ],
+        "objects": [],
+        "vehicles": [
+          {
+            "id": "scooter",
+            "variants": {
+              "direction": "inbound"
+            }
           }
-        }
-      ],
-      "markings": [
-        {
-          "id": "markings--straight-inbound-light"
-        }
-      ],
-      "objects": [],
-      "vehicles": [
-        {
-          "id": "scooter",
-          "variants": {
-            "direction": "inbound"
+        ]
+      },
+      "outbound|green": {
+        "lanes": [
+          {
+            "id": "asphalt",
+            "variants": {
+              "color": "green"
+            }
           }
-        }
-      ]
-    },
-    "outbound|red": {
-      "lanes": [
-        {
-          "id": "asphalt",
-          "variants": {
-            "color": "red"
+        ],
+        "markings": [
+          {
+            "id": "markings--straight-outbound-light"
           }
-        }
-      ],
-      "markings": [
-        {
-          "id": "markings--straight-outbound-light"
-        }
-      ],
-      "objects": [],
-      "vehicles": [
-        {
-          "id": "scooter",
-          "variants": {
-            "direction": "outbound"
+        ],
+        "objects": [],
+        "vehicles": [
+          {
+            "id": "scooter",
+            "variants": {
+              "direction": "outbound"
+            }
           }
-        }
-      ]
+        ]
+      },
+      "inbound|red": {
+        "lanes": [
+          {
+            "id": "asphalt",
+            "variants": {
+              "color": "red"
+            }
+          }
+        ],
+        "markings": [
+          {
+            "id": "markings--straight-inbound-light"
+          }
+        ],
+        "objects": [],
+        "vehicles": [
+          {
+            "id": "scooter",
+            "variants": {
+              "direction": "inbound"
+            }
+          }
+        ]
+      },
+      "outbound|red": {
+        "lanes": [
+          {
+            "id": "asphalt",
+            "variants": {
+              "color": "red"
+            }
+          }
+        ],
+        "markings": [
+          {
+            "id": "markings--straight-outbound-light"
+          }
+        ],
+        "objects": [],
+        "vehicles": [
+          {
+            "id": "scooter",
+            "variants": {
+              "direction": "outbound"
+            }
+          }
+        ]
+      }
     }
   }
 }
