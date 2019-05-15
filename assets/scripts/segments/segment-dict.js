@@ -3,6 +3,13 @@ import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
 import { uniq, omitBy } from 'lodash'
 
+const COMPONENT_GROUPS = {
+  LANES: 'lanes',
+  MARKINGS: 'markings',
+  OBJECTS: 'objects',
+  VEHICLES: 'vehicles'
+}
+
 /**
  * Retrieves the necessary information required to map the old segment data model to the
  * new segment data model for the specific segment using the segment's `type` and `variant`.
@@ -12,7 +19,7 @@ import { uniq, omitBy } from 'lodash'
  * @returns {object|boolean} segmentLookup - returns an object in the shape of: { lanes, objects, vehicles } or `false` if not found.
  */
 function getSegmentLookup (type, variant) {
-  return SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type][variant]
+  return SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type].details[variant]
 }
 
 /**
@@ -115,57 +122,38 @@ function mergeVariantGraphics (variantGraphics) {
 }
 
 /**
- * Collects all rules associated with any items that make up the component group into a single object.
+ * Gets segment data for segment `type`. Safer than reading `type` directly
+ * from `SEGMENT_INFO`, because this will return the `SEGMENT_UNKNOWN`
+ * placeholder if the type is not found. The unknown segment placeholder
+ * allows means bad data, experimental segments, etc. won't break rendering.
  *
- * @param {Array} groupItems - items that make up the component group in shape of [{ id, variants }]
- * @param {object} componentGroupInfo - definition of each item from `SEGMENT_COMPONENTS` in shape of { id: { characteristics, rules, variants } }
- * @returns {object} componentGroupRules
+ * @param {string} type
+ * @returns {Object} segmentInfo
  */
-function getComponentGroupRules (groupItems, componentGroupInfo) {
-  const componentGroupRules = groupItems.reduce((obj, item) => {
-    const { id, variants } = item
-
-    let groupItemRules = {}
-
-    if (componentGroupInfo[id] && componentGroupInfo[id].rules) {
-      groupItemRules = { ...componentGroupInfo[id].rules }
-    }
-
-    const groupItemVariants = componentGroupInfo[id] && componentGroupInfo[id].variants
-
-    Object.keys(variants).forEach((variantName) => {
-      if (groupItemVariants[variantName] && groupItemVariants[variantName].rules) {
-        groupItemRules = { ...groupItemRules, ...groupItemVariants[variantName].rules }
-      }
-    })
-
-    return { ...obj, ...groupItemRules }
-  }, {})
-
-  return Object.keys(componentGroupRules).length && componentGroupRules
+function getSegmentInfo (type) {
+  const { details, ...segmentInfo } = SEGMENT_LOOKUP[type] || {}
+  return segmentInfo || SEGMENT_UNKNOWN
 }
 
 /**
- * Due to segments being broken down in to components in the new segment data model, some segments that used to
- * have its own rules and characteristics are no longered recorded in `SEGMENT_COMPONENTS`, e.g. `scooter-drop-zone`.
- * In order to make sure that segments which no longer exist as its own component maintain their rules and characteristics,
- * `SEGMENT_LOOKUP` will contain an object of segment overrides if necessary. This function applies any rule overrides,
- * whether that means removing any rules or updating them.
+ * Due to segments now being broken into components in the new segment data model, `SEGMENT_LOOKUP` will now
+ * include any rules and/or segment information for a segment of a specific `type` and `variant`. Rules applied
+ * to a segment should be included in the returned `variantInfo` object as well as rules for a specific `variant`.
+ * This function returns an updated version of the `variantInfo` such that `variantInfo` now also includes any
+ * information specific to the `variant` of the segment and any rules the segment has to follow along with the
+ * graphics information necessary to draw the segment.
  *
- * @param {String} type
- * @param {Object} variantInfo
- * @returns {Object} newVariantInfo
+ * @param {Object} segmentLookup - mapping of segment to new segment data model
+ * @param {string} type
+ * @param {Object} variantInfo - current variantInfo state, in shape of { graphics, elevation }
+ * @returns {Object} variantInfo - updated variantInfo state with any rules or segment info overrides included
  */
-function applySegmentRuleOverridesIfAny (type, variantInfo) {
+function applySegmentInfoOverridesAndRules (segmentLookup, type, variantInfo) {
+  const componentGroups = Object.values(COMPONENT_GROUPS)
+  const { rules, ...segmentInfoOverrides } = omitBy(segmentLookup, (value, key) => componentGroups.includes(key))
   const segmentInfo = getSegmentInfo(type)
-  const segmentRuleOverrides = segmentInfo.rules
 
-  if (segmentRuleOverrides) {
-    const newVariantInfo = Object.assign(variantInfo, segmentRuleOverrides)
-    return omitBy(newVariantInfo, (value) => value === null)
-  } else {
-    return variantInfo
-  }
+  return Object.assign(variantInfo, segmentInfoOverrides, rules, segmentInfo.rules)
 }
 
 /**
@@ -177,6 +165,7 @@ function applySegmentRuleOverridesIfAny (type, variantInfo) {
  * @returns {object} variantInfo - returns an object in the shape of { graphics, ...rules }
  */
 function getSegmentVariantInfo (type, variant) {
+  const componentGroups = Object.values(COMPONENT_GROUPS)
   const segmentLookup = getSegmentLookup(type, variant)
 
   if (!segmentLookup) {
@@ -186,13 +175,16 @@ function getSegmentVariantInfo (type, variant) {
   // 1) Loop through each component group that makes up the segment.
   let variantInfo = Object.entries(segmentLookup).reduce((variantInfo, componentGroup) => {
     const [ group, groupItems ] = componentGroup
+
+    if (!componentGroups.includes(group)) return variantInfo
+
     // 2) For each component group, look up the segment information for every item that makes up the component group.
     // componentGroupInfo = [ { characteristics, rules, variants } ]
     const componentGroupInfo = getComponentGroupInfo(group, groupItems)
 
     // The "markings" component group does not have any variants, so we do not have to go through the variants in order
     // to get the sprite definitions.
-    if (group === 'markings') {
+    if (group === COMPONENT_GROUPS.MARKINGS) {
       Object.values(componentGroupInfo).forEach((groupItem) => { variantInfo.graphics.push(groupItem.graphics) })
     } else {
       // componentGroupVariants = [ { graphics } ]
@@ -203,50 +195,23 @@ function getSegmentVariantInfo (type, variant) {
         // 4) Combine the variant graphics for each component group into one array
         componentGroupVariants.forEach((groupItemVariants) => { variantInfo.graphics.push(groupItemVariants) })
       }
-
-      // 5) For each component group, look up any rules associated with each of the items that make up the component group.
-      const componentGroupRules = getComponentGroupRules(groupItems, componentGroupInfo)
-      if (componentGroupRules) {
-        return Object.assign(variantInfo, componentGroupRules)
-      }
     }
 
     return variantInfo
   }, { graphics: [] })
 
-  // 6) Combine the variant graphics into one graphics definition object.
+  // 5) Combine the variant graphics into one graphics definition object.
   variantInfo.graphics = mergeVariantGraphics(variantInfo.graphics)
 
   // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
   // of the first item in the "lane" component group.
-  const lane = getSegmentComponentInfo('lanes', segmentLookup.lanes[0].id)
+  // 6) Set the segment's elevation level based on the "lane" component.
+  const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, segmentLookup.lanes[0].id)
   variantInfo.elevation = lane.elevation
 
-  // Check if any segment rule overrides
-  variantInfo = applySegmentRuleOverridesIfAny(type, variantInfo)
+  // 7) Get any additional segment info specific to the variant and any segment rules.
+  variantInfo = applySegmentInfoOverridesAndRules(segmentLookup, type, variantInfo)
   return variantInfo
-}
-
-/**
- * Gets segment data for segment `type`. Safer than reading `type` directly
- * from `SEGMENT_INFO`, because this will return the `SEGMENT_UNKNOWN`
- * placeholder if the type is not found. The unknown segment placeholder
- * allows means bad data, experimental segments, etc. won't break rendering.
- *
- * @param {string} type
- * @returns {Object} segmentInfo
- */
-export function getSegmentInfo (type) {
-  const segmentInfo = SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type].segmentInfo
-  const segmentInfoKey = segmentInfo && segmentInfo.key
-
-  if (segmentInfoKey) {
-    const [ group, id ] = segmentInfoKey
-    const { variants, ...componentInfo } = getSegmentComponentInfo(group, id)
-    return componentInfo || SEGMENT_UNKNOWN
-  }
-
-  return segmentInfo || SEGMENT_UNKNOWN
 }
 
 /**
@@ -292,6 +257,7 @@ export function testSegmentLookup (type, variant, segmentVariantInfo) {
 
   const newVariantInfo = getSegmentVariantInfo(type, variant)
 
+  console.log(segmentVariantInfo, newVariantInfo)
   if (verifyCorrectness(segmentVariantInfo, newVariantInfo)) {
     return newVariantInfo
   } else {
