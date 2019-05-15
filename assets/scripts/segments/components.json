@@ -23,16 +23,7 @@
       }
     },
     "sidewalk": {
-      "name": "Sidewalk",
-      "nameKey": "sidewalk",
-      "owner": "PEDESTRIAN",
-      "zIndex": 30,
-      "needRandSeed": true,
       "elevation": 1,
-      "rules": {
-        "defaultWidth": 6,
-        "minWidth": 6
-      },
       "variants": {
         "density": {
           "dense": {
@@ -84,15 +75,6 @@
   "objects": {},
   "vehicles": {
     "scooter": {
-      "name": "Electric scooter",
-      "nameKey": "scooter",
-      "owner": "BIKE",
-      "zIndex": 16,
-      "enableWithFlag": "SEGMENT_SCOOTERS",
-      "rules": {
-        "defaultWidth": 5,
-        "minWidth": 4
-      },
       "variants": {
         "direction": {
           "inbound": {
