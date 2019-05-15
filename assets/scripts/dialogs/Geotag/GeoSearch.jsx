@@ -91,7 +91,7 @@ class GeoSearch extends React.Component {
           isOpen,
           results
         }) => (
-          <div className="geotag-input-form">
+          <form className="geotag-input-form" onSubmit={(event) => { event.preventDefault() }}>
             <input {...getInputProps({
               className: 'geotag-input',
               autoFocus: true,
@@ -114,7 +114,7 @@ class GeoSearch extends React.Component {
                 </ul>
               </div>
             )}
-          </div>
+          </form>
         )}
       </DownshiftPelias>
     )
