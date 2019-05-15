@@ -137,7 +137,7 @@
     "react-dnd-multi-backend": "3.2.1",
     "react-dnd-touch-backend": "0.5.1",
     "react-dom": "16.8.6",
-    "react-intl": "2.8.0",
+    "react-intl": "2.9.0",
     "react-leaflet": "2.3.0",
     "react-redux": "7.0.3",
     "react-transition-group": "4.0.1",
