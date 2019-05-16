@@ -167,5 +167,266 @@
         }
       }
     }
+  },
+  "flex-zone": {
+    "name": "Flex zone",
+    "nameKey": "flex-zone",
+    "owner": "FLEX",
+    "zIndex": 15,
+    "defaultWidth": 7,
+    "rules": {
+      "minWidth": 7,
+      "maxWidth": 10
+    },
+    "details": {
+      "taxi|inbound|left": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": [
+                  "inbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "taxi|inbound|right": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": [
+                  "inbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "taxi|outbound|left": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": [
+                  "outbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "taxi|outbound|right": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": [
+                  "outbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|inbound|left": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": [
+                  "inbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|inbound|right": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": [
+                  "inbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|outbound|left": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": [
+                  "outbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|outbound|right": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": [
+                  "outbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
