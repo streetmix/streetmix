@@ -75,6 +75,10 @@
   "objects": {},
   "vehicles": {
     "scooter": {
+      "name": "Electric scooter",
+      "nameKey": "scooter",
+      "owner": "BIKE",
+      "zIndex": 16,
       "variants": {
         "direction": {
           "inbound": {
