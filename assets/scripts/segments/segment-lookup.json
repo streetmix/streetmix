@@ -11,148 +11,160 @@
     },
     "details": {
       "inbound|regular": {
-        "lanes": [
-          {
-            "id": "asphalt",
-            "variants": {
-              "color": "regular"
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
             }
-          }
-        ],
-        "markings": [
-          {
-            "id": "markings--straight-inbound-light"
-          }
-        ],
-        "objects": [],
-        "vehicles": [
-          {
-            "id": "scooter",
-            "variants": {
-              "direction": "inbound"
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
             }
-          }
-        ]
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
       },
       "outbound|regular": {
-        "lanes": [
-          {
-            "id": "asphalt",
-            "variants": {
-              "color": "regular"
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
             }
-          }
-        ],
-        "markings": [
-          {
-            "id": "markings--straight-outbound-light"
-          }
-        ],
-        "objects": [],
-        "vehicles": [
-          {
-            "id": "scooter",
-            "variants": {
-              "direction": "outbound"
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
             }
-          }
-        ]
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
       },
       "inbound|green": {
-        "lanes": [
-          {
-            "id": "asphalt",
-            "variants": {
-              "color": "green"
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
             }
-          }
-        ],
-        "markings": [
-          {
-            "id": "markings--straight-inbound-light"
-          }
-        ],
-        "objects": [],
-        "vehicles": [
-          {
-            "id": "scooter",
-            "variants": {
-              "direction": "inbound"
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
             }
-          }
-        ]
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
       },
       "outbound|green": {
-        "lanes": [
-          {
-            "id": "asphalt",
-            "variants": {
-              "color": "green"
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
             }
-          }
-        ],
-        "markings": [
-          {
-            "id": "markings--straight-outbound-light"
-          }
-        ],
-        "objects": [],
-        "vehicles": [
-          {
-            "id": "scooter",
-            "variants": {
-              "direction": "outbound"
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
             }
-          }
-        ]
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
       },
       "inbound|red": {
-        "lanes": [
-          {
-            "id": "asphalt",
-            "variants": {
-              "color": "red"
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
             }
-          }
-        ],
-        "markings": [
-          {
-            "id": "markings--straight-inbound-light"
-          }
-        ],
-        "objects": [],
-        "vehicles": [
-          {
-            "id": "scooter",
-            "variants": {
-              "direction": "inbound"
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
             }
-          }
-        ]
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
       },
       "outbound|red": {
-        "lanes": [
-          {
-            "id": "asphalt",
-            "variants": {
-              "color": "red"
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
             }
-          }
-        ],
-        "markings": [
-          {
-            "id": "markings--straight-outbound-light"
-          }
-        ],
-        "objects": [],
-        "vehicles": [
-          {
-            "id": "scooter",
-            "variants": {
-              "direction": "outbound"
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
             }
-          }
-        ]
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
       }
     }
   }
