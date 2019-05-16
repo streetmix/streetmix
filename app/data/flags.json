@@ -70,7 +70,7 @@
   },
   "SEGMENT_SCOOTERS": {
     "label": "Segment — scooters",
-    "defaultValue": false
+    "defaultValue": true
   },
   "SEGMENT_UTILITIES": {
     "label": "Segment — utility pole",
