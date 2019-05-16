@@ -61,10 +61,13 @@ const SPRITE_DEFS = {
   'markings--sharrow-inbound': { id: 'markings--sharrow-inbound', originY: 96 },
   'markings--sharrow-outbound': { id: 'markings--sharrow-outbound', originY: 96 },
 
-  'markings--lane-left': { id: 'markings--lane-left', originY: 96 },
-  'markings--lane-right': { id: 'markings--lane-right', originY: 96 },
-  'markings--center-lane-left': { id: 'markings--center-lane-left', originY: 96 },
-  'markings--center-lane-right': { id: 'markings--center-lane-right', originY: 96 },
+  'markings--lane-left': { id: 'markings--lane-left', originY: 102 },
+  'markings--lane-right': { id: 'markings--lane-right', originY: 102 },
+  'markings--lane-left-half': { id: 'markings--lane-left-half', originY: 102 },
+  'markings--lane-right-half': { id: 'markings--lane-right-half', originY: 102 },
+  'markings--lane-horiz': { id: 'markings--lane-horiz', originY: 102 },
+  'markings--center-lane-left': { id: 'markings--center-lane-left', originY: 102 },
+  'markings--center-lane-right': { id: 'markings--center-lane-right', originY: 102 },
   'markings--parking-left': { id: 'markings--parking-left', originY: 96 },
   'markings--parking-right': { id: 'markings--parking-right', originY: 96 },
   'markings--streetcar-track-01': { id: 'markings--streetcar-track-01', originY: 96 }, // lighter (for dark backgrounds)
