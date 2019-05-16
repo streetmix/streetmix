@@ -205,7 +205,7 @@ function getSegmentVariantInfo (type, variant) {
   // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
   // of the first item in the "lane" component group.
   // 6) Set the segment's elevation level based on the "lane" component.
-  const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, segmentLookup.lanes[0].id)
+  const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, components.lanes[0].id)
   variantInfo.elevation = lane.elevation
 
   // 7) Get any additional segment info specific to the variant and any segment rules.
@@ -256,7 +256,6 @@ export function testSegmentLookup (type, variant, segmentVariantInfo) {
 
   const newVariantInfo = getSegmentVariantInfo(type, variant)
 
-  console.log(segmentVariantInfo, newVariantInfo)
   if (verifyCorrectness(segmentVariantInfo, newVariantInfo)) {
     return newVariantInfo
   } else {
