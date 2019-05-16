@@ -1,7 +1,7 @@
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
-import { uniq, omitBy } from 'lodash'
+import { uniq } from 'lodash'
 
 const COMPONENT_GROUPS = {
   LANES: 'lanes',
@@ -16,10 +16,11 @@ const COMPONENT_GROUPS = {
  *
  * @param {string} type
  * @param {string} variant
- * @returns {object|boolean} segmentLookup - returns an object in the shape of: { lanes, objects, vehicles } or `false` if not found.
+ * @returns {object|boolean} segmentLookup - returns an object in the shape of:
+ *   { details, components: { lanes, objects, vehicles } } or `false` if not found.
  */
 function getSegmentLookup (type, variant) {
-  return SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type].details[variant]
+  return SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type].details && SEGMENT_LOOKUP[type].details[variant]
 }
 
 /**
@@ -143,17 +144,16 @@ function getSegmentInfo (type) {
  * information specific to the `variant` of the segment and any rules the segment has to follow along with the
  * graphics information necessary to draw the segment.
  *
- * @param {Object} segmentLookup - mapping of segment to new segment data model
+ * @param {Object} details - details for segment `type` and of a specific `variant`
  * @param {string} type
  * @param {Object} variantInfo - current variantInfo state, in shape of { graphics, elevation }
  * @returns {Object} variantInfo - updated variantInfo state with any rules or segment info overrides included
  */
-function applySegmentInfoOverridesAndRules (segmentLookup, type, variantInfo) {
-  const componentGroups = Object.values(COMPONENT_GROUPS)
-  const { rules, ...segmentInfoOverrides } = omitBy(segmentLookup, (value, key) => componentGroups.includes(key))
+function applySegmentInfoOverridesAndRules (details, type, variantInfo) {
+  const { rules, ...segmentInfoOverrides } = details
   const segmentInfo = getSegmentInfo(type)
 
-  return Object.assign(variantInfo, segmentInfoOverrides, rules, segmentInfo.rules)
+  return Object.assign(variantInfo, segmentInfo.rules, rules, segmentInfoOverrides)
 }
 
 /**
@@ -165,18 +165,17 @@ function applySegmentInfoOverridesAndRules (segmentLookup, type, variantInfo) {
  * @returns {object} variantInfo - returns an object in the shape of { graphics, ...rules }
  */
 function getSegmentVariantInfo (type, variant) {
-  const componentGroups = Object.values(COMPONENT_GROUPS)
   const segmentLookup = getSegmentLookup(type, variant)
 
-  if (!segmentLookup) {
+  if (!segmentLookup || !segmentLookup.components) {
     return SEGMENT_UNKNOWN_VARIANT
   }
 
-  // 1) Loop through each component group that makes up the segment.
-  let variantInfo = Object.entries(segmentLookup).reduce((variantInfo, componentGroup) => {
-    const [ group, groupItems ] = componentGroup
+  const { components, ...details } = segmentLookup
 
-    if (!componentGroups.includes(group)) return variantInfo
+  // 1) Loop through each component group that makes up the segment.
+  let variantInfo = Object.entries(components).reduce((variantInfo, componentGroup) => {
+    const [ group, groupItems ] = componentGroup
 
     // 2) For each component group, look up the segment information for every item that makes up the component group.
     // componentGroupInfo = [ { characteristics, rules, variants } ]
@@ -210,7 +209,7 @@ function getSegmentVariantInfo (type, variant) {
   variantInfo.elevation = lane.elevation
 
   // 7) Get any additional segment info specific to the variant and any segment rules.
-  variantInfo = applySegmentInfoOverridesAndRules(segmentLookup, type, variantInfo)
+  variantInfo = applySegmentInfoOverridesAndRules(details, type, variantInfo)
   return variantInfo
 }
 
