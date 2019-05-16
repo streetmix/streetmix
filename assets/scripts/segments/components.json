@@ -142,24 +142,24 @@
           "inbound": {
             "left": {
               "graphics": {
-                "center": "vehicles--rideshare-inbound-left"
+                "center": "vehicles--rideshare-inbound-door-left"
               }
             },
             "right": {
               "graphics": {
-                "center": "vehicles--rideshare-inbound-right"
+                "center": "vehicles--rideshare-inbound-door-right"
               }
             }
           },
           "outbound": {
             "left": {
               "graphics": {
-                "center": "vehicles--rideshare-outbound-left"
+                "center": "vehicles--rideshare-outbound-door-left"
               }
             },
             "right": {
               "graphics": {
-                "center": "vehicles--rideshare-outbound-right"
+                "center": "vehicles--rideshare-outbound-door-right"
               }
             }
           }
