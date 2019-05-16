@@ -168,6 +168,297 @@
       }
     }
   },
+  "scooter-drop-zone": {
+    "name": "Scooter drop zone",
+    "nameKey": "scooter-drop-zone",
+    "owner": "FLEX",
+    "zIndex": 21,
+    "defaultWidth": 5,
+    "enableWithFlag": "SEGMENT_SCOOTERS",
+    "paletteIcon": "right|sidewalk|empty",
+    "details": {
+      "left|sidewalk|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "empty",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "empty",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|sidewalk|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "sparse",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "sparse",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|road|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "empty",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|road|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "empty",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|road|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "sparse",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|road|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": [
+                  "sparse",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
   "flex-zone": {
     "name": "Flex zone",
     "nameKey": "flex-zone",

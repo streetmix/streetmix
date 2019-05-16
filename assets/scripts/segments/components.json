@@ -70,6 +70,21 @@
       "graphics": {
         "center": "markings--straight-outbound-light"
       }
+    },
+    "markings--lane-left-half": {
+      "graphics": {
+        "left": "markings--lane-left-half"
+      }
+    },
+    "markings--lane-right-half": {
+      "graphics": {
+        "right": "markings--lane-right-half"
+      }
+    },
+    "markings--lane-horiz": {
+      "graphics": {
+        "repeat": "markings--lane-horiz"
+      }
     }
   },
   "objects": {},
@@ -93,6 +108,32 @@
               "center": [
                 "scooters--scooter-outbound"
               ]
+            }
+          }
+        },
+        "riders|orientation": {
+          "empty": {
+            "left": {
+              "graphics": {
+                "left": "scooters--scooter-left-docked"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "scooters--scooter-right-docked"
+              }
+            }
+          },
+          "sparse": {
+            "left": {
+              "graphics": {
+                "left": "scooters--scooter-left-rider"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "scooters--scooter-right-rider"
+              }
             }
           }
         }
