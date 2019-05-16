@@ -97,6 +97,74 @@
           }
         }
       }
+    },
+    "taxi": {
+      "name": "Taxi",
+      "nameKey": "taxi",
+      "owner": "FLEX",
+      "zIndex": 15,
+      "variants": {
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--taxi-inbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--taxi-inbound-door-right"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--taxi-outbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--taxi-outbound-door-right"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rideshare": {
+      "name": "Rideshare",
+      "nameKey": "rideshare",
+      "owner": "FLEX",
+      "zIndex": 15,
+      "variants": {
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--rideshare-inbound-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--rideshare-inbound-right"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--rideshare-outbound-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--rideshare-outbound-right"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
