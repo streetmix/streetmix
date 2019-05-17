@@ -288,15 +288,29 @@
       "owner": "BIKE",
       "zIndex": 16,
       "variants": {
-        "direction": {
-          "inbound": {
-            "graphics": {
-              "center": "bikes--biker-01-inbound"
+        "type|direction": {
+          "biker-01": {
+            "inbound": {
+              "graphics": {
+                "center": "bikes--biker-01-inbound"
+              }
+            },
+            "outbound": {
+              "graphics": {
+                "center": "bikes--biker-01-outbound"
+              }
             }
           },
-          "outbound": {
-            "graphics": {
-              "center": "bikes--biker-01-outbound"
+          "biker-02": {
+            "inbound": {
+              "graphics": {
+                "center": "bikes--biker-02-inbound"
+              }
+            },
+            "outbound": {
+              "graphics": {
+                "center": "bikes--biker-02-outbound"
+              }
             }
           }
         }
