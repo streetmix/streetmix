@@ -1,7 +1,7 @@
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
-import { uniq } from 'lodash'
+import { uniq, difference, isEqualWith } from 'lodash'
 
 const COMPONENT_GROUPS = {
   LANES: 'lanes',
@@ -64,7 +64,7 @@ function getComponentGroupVariants (groupItems, componentGroupInfo) {
     // groupItemVariants - all variants possible for the particular group item
     const groupItemVariants = componentGroupInfo[id] && componentGroupInfo[id].variants
 
-    if (groupItemVariants) {
+    if (groupItemVariants && variants) {
       Object.entries(variants).forEach(([variantName, variantKey]) => {
         // variantInfo - graphics definition for specific variants defined by group item
         let variantInfo = groupItemVariants[variantName] || SEGMENT_UNKNOWN_VARIANT
@@ -225,18 +225,13 @@ function getSegmentVariantInfo (type, variant) {
  * @returns {boolean} correct
  */
 function verifyCorrectness (originalVariantInfo, newVariantInfo) {
-  const filteredKeys = Object.keys(originalVariantInfo).filter((key) => {
-    return (key === 'graphics') ? !newVariantInfo.graphics : originalVariantInfo[key] !== newVariantInfo[key]
-  })
+  const checkArrayEquality = (origValue, testValue) => {
+    if (Array.isArray(origValue) && Array.isArray(testValue)) {
+      return !difference(origValue, testValue).length
+    }
+  }
 
-  const filteredGraphics = Object.entries(originalVariantInfo.graphics).filter((item) => {
-    const [ key, value ] = item
-    const originalGraphics = Array.isArray(value) ? value.sort() : value
-    const newGraphics = Array.isArray(newVariantInfo.graphics[key]) ? newVariantInfo.graphics[key].sort() : newVariantInfo.graphics[key]
-    return !(JSON.stringify(originalGraphics) === JSON.stringify(newGraphics))
-  })
-
-  return (filteredKeys.length === 0 && filteredGraphics.length === 0)
+  return isEqualWith(originalVariantInfo, newVariantInfo, checkArrayEquality)
 }
 
 /**
