@@ -301,6 +301,26 @@
           }
         }
       }
+    },
+    "car": {
+      "name": "Car",
+      "nameKey": "car",
+      "owner": "CAR",
+      "zIndex": 14,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "vehicles--car-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "vehicles--car-outbound"
+            }
+          }
+        }
+      }
     }
   }
 }

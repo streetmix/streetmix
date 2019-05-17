@@ -1109,5 +1109,70 @@
         }
       }
     }
+  },
+  "drive-lane": {
+    "name": "Drive lane",
+    "nameKey": "drive-lane",
+    "owner": "CAR",
+    "zIndex": 14,
+    "defaultWidth": 10,
+    "rules": {
+      "minWidth": 8,
+      "maxWidth": 11.9
+    },
+    "details": {
+      "inbound|car": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|car": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
