@@ -107,16 +107,18 @@ function appendVariantSprites (target, source) {
  */
 function mergeVariantGraphics (variantGraphics) {
   return variantGraphics.reduce((graphics, variantInfo) => {
-    Object.keys(variantInfo).forEach((key) => {
-      const target = graphics[key]
-      const source = variantInfo[key]
+    if (variantInfo) {
+      Object.keys(variantInfo).forEach((key) => {
+        const target = graphics[key]
+        const source = variantInfo[key]
 
-      if (target) {
-        graphics[key] = appendVariantSprites(target, source)
-      } else {
-        graphics[key] = source
-      }
-    })
+        if (target) {
+          graphics[key] = appendVariantSprites(target, source)
+        } else {
+          graphics[key] = source
+        }
+      })
+    }
 
     return graphics
   }, {})
