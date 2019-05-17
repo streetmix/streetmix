@@ -236,6 +236,26 @@
           }
         }
       }
+    },
+    "tree": {
+      "name": "Tree",
+      "nameKey": "tree",
+      "owner": "NATURE",
+      "zIndex": 22,
+      "variants": {
+        "type": {
+          "big": {
+            "graphics": {
+              "center": "trees--tree"
+            }
+          },
+          "palm-tree": {
+            "graphics": {
+              "center": "trees--palm-tree"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

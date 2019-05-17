@@ -1883,5 +1883,58 @@
         }
       }
     }
+  },
+  "sidewalk-tree": {
+    "name": "Sidewalk tree",
+    "nameKey": "sidewalk-tree",
+    "owner": "NATURE",
+    "zIndex": 22,
+    "defaultWidth": 4,
+    "details": {
+      "big": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "tree",
+              "variants": {
+                "type": "big"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      },
+      "palm-tree": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "tree",
+              "variants": {
+                "type": "palm-tree"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      }
+    }
   }
 }
