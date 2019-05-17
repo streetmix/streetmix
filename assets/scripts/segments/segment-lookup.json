@@ -1810,5 +1810,78 @@
         }
       }
     }
+  },
+  "sidewalk": {
+    "name": "Sidewalk",
+    "nameKey": "sidewalk",
+    "owner": "PEDESTRIAN",
+    "zIndex": 30,
+    "defaultWidth": 6,
+    "needRandSeed": true,
+    "rules": {
+      "minWidth": 6
+    },
+    "details": {
+      "dense": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "dense"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [],
+          "vehicles": []
+        }
+      },
+      "normal": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "normal"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [],
+          "vehicles": []
+        }
+      },
+      "sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "sparse"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [],
+          "vehicles": []
+        }
+      },
+      "empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [],
+          "vehicles": []
+        }
+      }
+    }
   }
 }
