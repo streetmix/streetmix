@@ -281,6 +281,26 @@
           }
         }
       }
+    },
+    "bike": {
+      "name": "Bike",
+      "nameKey": "bike",
+      "owner": "BIKE",
+      "zIndex": 16,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "bikes--biker-01-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "bikes--biker-01-outbound"
+            }
+          }
+        }
+      }
     }
   }
 }
