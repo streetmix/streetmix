@@ -246,6 +246,21 @@
           }
         }
       }
+    },
+    "train": {
+      "name": "“Inception” train",
+      "nameKey": "inception-train",
+      "owner": "TRANSIT",
+      "zIndex": 10,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "secret--inception-train"
+            }
+          }
+        }
+      }
     }
   }
 }

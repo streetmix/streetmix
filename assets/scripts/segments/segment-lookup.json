@@ -828,5 +828,44 @@
         }
       }
     }
+  },
+  "train": {
+    "name": "“Inception” train",
+    "nameKey": "inception-train",
+    "owner": "TRANSIT",
+    "zIndex": 10,
+    "defaultWidth": 14,
+    "enableWithFlag": "SEGMENT_INCEPTION_TRAIN",
+    "description": {
+      "key": "inception-train",
+      "image": "train.jpg"
+    },
+    "rules": {
+      "minWidth": 14
+    },
+    "details": {
+      "": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "train",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
