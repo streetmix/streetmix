@@ -471,6 +471,26 @@
           }
         }
       }
+    },
+    "food-truck": {
+      "name": "Food truck",
+      "nameKey": "foodtruck",
+      "owner": "FLEX",
+      "zIndex": 20,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "center": "vehicles--foodtruck-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "center": "vehicles--foodtruck-right"
+            }
+          }
+        }
+      }
     }
   }
 }

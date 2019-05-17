@@ -1754,5 +1754,61 @@
         }
       }
     }
+  },
+  "food-truck": {
+    "name": "Food truck",
+    "nameKey": "foodtruck",
+    "owner": "FLEX",
+    "zIndex": 20,
+    "defaultWidth": 10,
+    "rules": {
+      "minWidth": 10
+    },
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "food-truck",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "food-truck",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
