@@ -1,7 +1,7 @@
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
-import { uniq, difference, isEqualWith } from 'lodash'
+import { uniq, differenceWith, isEqual, isEqualWith } from 'lodash'
 
 const COMPONENT_GROUPS = {
   LANES: 'lanes',
@@ -229,7 +229,7 @@ function getSegmentVariantInfo (type, variant) {
 function verifyCorrectness (originalVariantInfo, newVariantInfo) {
   const checkArrayEquality = (origValue, testValue) => {
     if (Array.isArray(origValue) && Array.isArray(testValue)) {
-      return !difference(origValue, testValue).length
+      return !differenceWith(origValue, testValue, isEqual).length
     }
   }
 
