@@ -315,6 +315,31 @@
           }
         }
       }
+    },
+    "wayfinding-sign": {
+      "name": "Wayfinding sign",
+      "nameKey": "wayfinding-sign",
+      "owner": "PEDESTRIAN",
+      "zIndex": 21,
+      "variants": {
+        "type": {
+          "small": {
+            "graphics": {
+              "center": "wayfinding--nyc-wayfinding-pylon-small"
+            }
+          },
+          "medium": {
+            "graphics": {
+              "center": "wayfinding--nyc-wayfinding-pylon-medium"
+            }
+          },
+          "large": {
+            "graphics": {
+              "center": "wayfinding--nyc-wayfinding-pylon-large"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

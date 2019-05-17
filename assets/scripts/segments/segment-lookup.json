@@ -2069,5 +2069,78 @@
         }
       }
     }
+  },
+  "sidewalk-wayfinding": {
+    "name": "Wayfinding sign",
+    "nameKey": "wayfinding-sign",
+    "owner": "PEDESTRIAN",
+    "zIndex": 21,
+    "defaultWidth": 4,
+    "description": {
+      "key": "wayfinding-sign",
+      "image": "wayfinding-02.jpg"
+    },
+    "details": {
+      "large": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wayfinding-sign",
+              "variants": {
+                "type": "large"
+              }
+            }
+          ]
+        }
+      },
+      "medium": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wayfinding-sign",
+              "variants": {
+                "type": "medium"
+              }
+            }
+          ]
+        }
+      },
+      "small": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wayfinding-sign",
+              "variants": {
+                "type": "small"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
