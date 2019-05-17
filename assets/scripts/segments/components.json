@@ -345,6 +345,26 @@
           }
         }
       }
+    },
+    "truck": {
+      "name": "Truck",
+      "nameKey": "truck",
+      "owner": "CAR",
+      "zIndex": 14,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "vehicles--truck-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "vehicles--truck-outbound"
+            }
+          }
+        }
+      }
     }
   }
 }

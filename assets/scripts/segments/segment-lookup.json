@@ -1282,6 +1282,58 @@
             }
           ]
         }
+      },
+      "inbound|truck": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "truck",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|truck": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "truck",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
       }
     }
   }
