@@ -95,6 +95,86 @@
       "graphics": {
         "center": "markings--sharrow-outbound"
       }
+    },
+    "markings--left-inbound": {
+      "graphics": {
+        "center": "markings--left-inbound"
+      }
+    },
+    "markings--left-straight-inbound": {
+      "graphics": {
+        "center": "markings--left-straight-inbound"
+      }
+    },
+    "markings--straight-inbound": {
+      "graphics": {
+        "center": "markings--straight-inbound"
+      }
+    },
+    "markings--right-straight-inbound": {
+      "graphics": {
+        "center": "markings--right-straight-inbound"
+      }
+    },
+    "markings--right-inbound": {
+      "graphics": {
+        "center": "markings--right-inbound"
+      }
+    },
+    "markings--both-inbound": {
+      "graphics": {
+        "center": "markings--both-inbound"
+      }
+    },
+    "markings--shared-inbound": {
+      "graphics": {
+        "center": "markings--shared-inbound"
+      }
+    },
+    "markings--center-lane-left": {
+      "graphics": {
+        "left": "markings--center-lane-left"
+      }
+    },
+    "markings--center-lane-right": {
+      "graphics": {
+        "right": "markings--center-lane-right"
+      }
+    },
+    "markings--left-outbound": {
+      "graphics": {
+        "center": "markings--left-outbound"
+      }
+    },
+    "markings--left-straight-outbound": {
+      "graphics": {
+        "center": "markings--left-straight-outbound"
+      }
+    },
+    "markings--straight-outbound": {
+      "graphics": {
+        "center": "markings--straight-outbound"
+      }
+    },
+    "markings--right-straight-outbound": {
+      "graphics": {
+        "center": "markings--right-straight-outbound"
+      }
+    },
+    "markings--right-outbound": {
+      "graphics": {
+        "center": "markings--right-outbound"
+      }
+    },
+    "markings--both-outbound": {
+      "graphics": {
+        "center": "markings--both-outbound"
+      }
+    },
+    "markings--shared-outbound": {
+      "graphics": {
+        "center": "markings--shared-outbound"
+      }
     }
   },
   "objects": {
@@ -341,6 +421,32 @@
           "outbound": {
             "graphics": {
               "center": "vehicles--car-outbound"
+            }
+          }
+        },
+        "direction|turn-orientation": {
+          "inbound": {
+            "right": {
+              "graphics": {
+                "center": "vehicles--car-inbound-turn-signal-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "center": "vehicles--car-inbound-turn-signal-left"
+              }
+            }
+          },
+          "outbound": {
+            "right": {
+              "graphics": {
+                "center": "vehicles--car-outbound-turn-signal-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "center": "vehicles--car-outbound-turn-signal-left"
+              }
             }
           }
         }

@@ -1336,5 +1336,423 @@
         }
       }
     }
+  },
+  "turn-lane": {
+    "name": "Turn lane",
+    "nameKey": "turn-lane",
+    "owner": "CAR",
+    "zIndex": 13,
+    "defaultWidth": 10,
+    "rules": {
+      "minWidth": 9,
+      "maxWidth": 12
+    },
+    "details": {
+      "inbound|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-inbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "inbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|left-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-straight-inbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "inbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|straight": {
+        "name": "No turn lane",
+        "nameKey": "turn-lane-straight",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-straight-inbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "inbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-inbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "inbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|both": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--both-inbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "inbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|shared": {
+        "name": "Center turn lane",
+        "nameKey": "turn-lane-center",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--shared-inbound"
+            },
+            {
+              "id": "markings--center-lane-left"
+            },
+            {
+              "id": "markings--center-lane-right"
+            }
+          ],
+          "objects": [],
+          "vehicles": []
+        }
+      },
+      "outbound|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-outbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "outbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|left-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-straight-outbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "outbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|straight": {
+        "name": "No turn lane",
+        "nameKey": "turn-lane-straight",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-straight-outbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "outbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-outbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "outbound",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|both": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--both-outbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": [
+                  "outbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|shared": {
+        "name": "Center turn lane",
+        "nameKey": "turn-lane-center",
+        "rules": {
+          "minWidth": 10,
+          "maxWidth": 16
+        },
+        "defaultWidth": 12,
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--shared-outbound"
+            },
+            {
+              "id": "markings--center-lane-left"
+            },
+            {
+              "id": "markings--center-lane-right"
+            }
+          ],
+          "objects": [],
+          "vehicles": []
+        }
+      }
+    }
   }
 }
