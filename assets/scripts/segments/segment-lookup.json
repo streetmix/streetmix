@@ -2377,5 +2377,61 @@
         }
       }
     }
+  },
+  "parklet": {
+    "name": "Parklet",
+    "nameKey": "parklet",
+    "owner": "NATURE",
+    "zIndex": 15,
+    "defaultWidth": 8,
+    "description": {
+      "key": "parklet",
+      "image": "parklets-01.jpg"
+    },
+    "rules": {
+      "minWidth": 8
+    },
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "parklet",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "parklet",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

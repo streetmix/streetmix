@@ -410,6 +410,26 @@
           }
         }
       }
+    },
+    "parklet": {
+      "name": "Parklet",
+      "nameKey": "parklet",
+      "owner": "NATURE",
+      "zIndex": 15,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "parklet--yerba-buena-parklet-left-v02"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "parklet--yerba-buena-parklet-right-v02"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {
