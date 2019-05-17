@@ -175,6 +175,16 @@
       "graphics": {
         "center": "markings--shared-outbound"
       }
+    },
+    "markings--streetcar-track-01": {
+      "graphics": {
+        "center": "markings--streetcar-track-01"
+      }
+    },
+    "markings--streetcar-track-02": {
+      "graphics": {
+        "center": "markings--streetcar-track-02"
+      }
     }
   },
   "objects": {
@@ -450,6 +460,19 @@
           }
         }
       }
+    },
+    "grass": {
+      "name": "Grass",
+      "nameKey": "grass",
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "repeat": "plants--grass"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {
@@ -701,6 +724,26 @@
           "right": {
             "graphics": {
               "center": "vehicles--foodtruck-right"
+            }
+          }
+        }
+      }
+    },
+    "streetcar": {
+      "name": "Streetcar",
+      "nameKey": "streetcar",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--streetcar-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--streetcar-outbound"
             }
           }
         }

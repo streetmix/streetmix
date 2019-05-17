@@ -2502,5 +2502,202 @@
         }
       }
     }
+  },
+  "streetcar": {
+    "name": "Streetcar",
+    "nameKey": "streetcar",
+    "owner": "TRANSIT",
+    "zIndex": 15,
+    "defaultWidth": 12,
+    "rules": {
+      "minWidth": 10,
+      "maxWidth": 14
+    },
+    "details": {
+      "inbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-01"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-01"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|grass": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "objects": [
+            {
+              "id": "grass",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|grass": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "objects": [
+            {
+              "id": "grass",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
