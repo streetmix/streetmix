@@ -218,9 +218,8 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
 
-  if (type === 'scooter') {
-    testSegmentLookup(type, variantString, variantInfo)
-  }
+  // Testing mapping segment to new segment data model.
+  testSegmentLookup(type, variantString, variantInfo)
 
   // TODO: refactor this variable
   const segmentWidth = actualWidth * TILE_SIZE
