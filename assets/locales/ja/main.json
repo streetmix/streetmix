@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "新しいストリートの名称:",
     "delete-street": "本当に {streetName} を削除してよろしいですか？ 削除した内容は元に戻せません。",
-    "new-width": "新しいストリートの道路幅 (最低幅 {minWidth} から {maxWidth} まで):"
+    "new-width": "新しいストリートの道路幅 (最低幅 {minWidth} から {maxWidth} まで):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "セグメントが削除されました。",

@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Trottoir",
-    "sidewalk-tree": "Trottoir avec un arbre",
+    "sidewalk-tree": "Arbre",
     "bike-rack": "Support à vélo",
     "bench": "Banc",
     "wayfinding-sign": "Panneaux directionnels",
-    "sidewalk-lamp": "Trottoir avec lampadaire",
+    "sidewalk-lamp": "Lampadaire",
     "parklet": "« Parklet »",
     "divider": "Zone tampon",
     "planting-strip": "Banquette",

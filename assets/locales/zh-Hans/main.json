@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "新的街道名称",
     "delete-street": "你确定你要永久删除{streetName}吗？此操作将无法被撤销。",
-    "new-width": "新街道的宽度（从{minWidth}到{maxWidth}）："
+    "new-width": "新街道的宽度（从{minWidth}到{maxWidth}）：",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "这个部分已经被移除。",

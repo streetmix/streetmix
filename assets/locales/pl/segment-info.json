@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Chodnik",
-    "sidewalk-tree": "Chodnik z drzewem",
+    "sidewalk-tree": "Drzewem",
     "bike-rack": "Stojak na rowery",
     "bench": "Ławka",
     "wayfinding-sign": "Drogowskaz",
-    "sidewalk-lamp": "Chodnik z latarnią",
+    "sidewalk-lamp": "Latarnią",
     "parklet": "Parklet",
     "divider": "Pobocze",
     "planting-strip": "Pas zieleni",

@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "اسم شارع جديد:",
     "delete-street": "هل أنت متأكد من أنك تُريد حذف {streetName}؟ لا يمكنك التراجع عن هذه الخطوة.",
-    "new-width": "عرض شارع جديد (من {minWidth} إلى {maxWidth}): "
+    "new-width": "عرض شارع جديد (من {minWidth} إلى {maxWidth}): ",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "تم إزالة الجزء.",

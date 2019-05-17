@@ -185,7 +185,7 @@
       "option-labels": "Elementtien nimet ja leveydet",
       "option-name": "Kadunnimi",
       "option-sky": "Läpinäkyvä taivas",
-      "option-watermark": "",
+      "option-watermark": "Streetmix-logo",
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
       "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href='{url}'>Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssin ehtojen mukaisesti.",
@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "Kadun uusi nimi:",
     "delete-street": "Haluatko varmasti poistaa kohteen {streetName} pysyvästi?",
-    "new-width": "Uusi kadunleveys ({minWidth}-{maxWidth}):"
+    "new-width": "Uusi kadunleveys ({minWidth}-{maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Tämä elementti on poistettu.",
@@ -332,7 +333,7 @@
     "byline": "käyttäjältä {user}"
   },
   "export": {
-    "watermark": ""
+    "watermark": "{{streetmixWordmark}}-suunnitelma"
   },
   "meta": {
     "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
