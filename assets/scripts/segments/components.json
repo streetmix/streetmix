@@ -85,6 +85,16 @@
       "graphics": {
         "repeat": "markings--lane-horiz"
       }
+    },
+    "markings--sharrow-inbound": {
+      "graphics": {
+        "center": "markings--sharrow-inbound"
+      }
+    },
+    "markings--sharrow-outbound": {
+      "graphics": {
+        "center": "markings--sharrow-outbound"
+      }
     }
   },
   "objects": {

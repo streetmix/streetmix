@@ -1190,6 +1190,98 @@
             }
           ]
         }
+      },
+      "inbound|sharrow": {
+        "name": "Sharrow",
+        "nameKey": "sharrow",
+        "rules": {
+          "minWidth": 12,
+          "maxWidth": 14
+        },
+        "defaultWidth": 14,
+        "description": {
+          "key": "sharrow",
+          "image": "sharrow-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-inbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": [
+                  "biker-02",
+                  "inbound"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|sharrow": {
+        "name": "Sharrow",
+        "nameKey": "sharrow",
+        "rules": {
+          "minWidth": 12,
+          "maxWidth": 14
+        },
+        "defaultWidth": 14,
+        "description": {
+          "key": "sharrow",
+          "image": "sharrow-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-outbound"
+            }
+          ],
+          "objects": [],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": [
+                  "biker-02",
+                  "outbound"
+                ]
+              }
+            }
+          ]
+        }
       }
     }
   }
