@@ -290,6 +290,31 @@
           }
         }
       }
+    },
+    "bench": {
+      "name": "Bench",
+      "nameKey": "bench",
+      "owner": "PEDESTRIAN",
+      "zIndex": 24,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "furniture--bench-left"
+            }
+          },
+          "center": {
+            "graphics": {
+              "center": "furniture--bench-center"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "furniture--bench-right"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

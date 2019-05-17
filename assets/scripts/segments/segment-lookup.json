@@ -2000,5 +2000,74 @@
         }
       }
     }
+  },
+  "sidewalk-bench": {
+    "name": "Bench",
+    "nameKey": "bench",
+    "owner": "PEDESTRIAN",
+    "zIndex": 24,
+    "defaultWidth": 4,
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bench",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "center": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bench",
+              "variants": {
+                "orientation": "center"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bench",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
