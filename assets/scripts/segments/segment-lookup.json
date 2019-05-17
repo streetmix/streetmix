@@ -1852,5 +1852,153 @@
         }
       }
     }
+  },
+  "sidewalk-bike-rack": {
+    "name": "Bike rack",
+    "nameKey": "bike-rack",
+    "owner": "BIKE",
+    "zIndex": 23,
+    "defaultWidth": 5,
+    "paletteIcon": "left|sidewalk",
+    "details": {
+      "left|sidewalk-parallel": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": [
+                  "parallel",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk-parallel": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": [
+                  "parallel",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": [
+                  "perpendicular",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": [
+                  "perpendicular",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": [
+                  "perpendicular",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": [
+                  "perpendicular",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

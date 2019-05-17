@@ -256,6 +256,40 @@
           }
         }
       }
+    },
+    "bike-rack": {
+      "name": "Bike rack",
+      "nameKey": "bike-rack",
+      "owner": "BIKE",
+      "zIndex": 23,
+      "variants": {
+        "direction|orientation": {
+          "parallel": {
+            "left": {
+              "graphics": {
+                "left": "bikes--bike-rack-parallel-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "bikes--bike-rack-parallel-right"
+              }
+            }
+          },
+          "perpendicular": {
+            "left": {
+              "graphics": {
+                "left": "bikes--bike-rack-perpendicular-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "bikes--bike-rack-perpendicular-right"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {
