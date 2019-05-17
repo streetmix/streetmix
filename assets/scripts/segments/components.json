@@ -18,6 +18,11 @@
             "graphics": {
               "repeat": "ground--asphalt-green"
             }
+          },
+          "gray": {
+            "graphics": {
+              "repeat": "ground--asphalt-gray"
+            }
           }
         }
       }
@@ -744,6 +749,26 @@
           "outbound": {
             "graphics": {
               "center": "transit--streetcar-outbound"
+            }
+          }
+        }
+      }
+    },
+    "light-rail": {
+      "name": "Light rail",
+      "nameKey": "light-rail",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--light-rail-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--light-rail-outbound"
             }
           }
         }
