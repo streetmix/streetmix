@@ -340,6 +340,76 @@
           }
         }
       }
+    },
+    "lamp": {
+      "name": "Lamp",
+      "nameKey": "lamp",
+      "owner": "PEDESTRIAN",
+      "zIndex": 19,
+      "variants": {
+        "type|orientation": {
+          "modern": {
+            "right": {
+              "graphics": {
+                "right": "lamps--lamp-modern-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "left": "lamps--lamp-modern-left"
+              }
+            },
+            "both": {
+              "graphics": {
+                "center": "lamps--lamp-modern-both"
+              }
+            }
+          },
+          "traditional": {
+            "right": {
+              "graphics": {
+                "right": "lamps--lamp-traditional-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "left": "lamps--lamp-traditional-left"
+              }
+            },
+            "both": {
+              "graphics": {
+                "center": "lamps--lamp-traditional-center"
+              }
+            }
+          }
+        }
+      }
+    },
+    "pride-banner": {
+      "name": "Pride banner",
+      "nameKey": "pride-banner",
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "lamps--pride-banner-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "lamps--pride-banner-right"
+            }
+          },
+          "both": {
+            "graphics": {
+              "center": {
+                "id": "lamps--pride-banner-left",
+                "offsetX": 36
+              }
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

@@ -2142,5 +2142,240 @@
         }
       }
     }
+  },
+  "sidewalk-lamp": {
+    "name": "Lamp",
+    "nameKey": "sidewalk-lamp",
+    "owner": "PEDESTRIAN",
+    "zIndex": 19,
+    "defaultWidth": 4,
+    "paletteIcon": "both|traditional",
+    "details": {
+      "right|modern": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "modern",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "both|modern": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "modern",
+                  "both"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|modern": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "modern",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|traditional": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "traditional",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "both|traditional": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "traditional",
+                  "both"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|traditional": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "traditional",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|pride": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "modern",
+                  "right"
+                ]
+              }
+            },
+            {
+              "id": "pride-banner",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      },
+      "left|pride": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "modern",
+                  "left"
+                ]
+              }
+            },
+            {
+              "id": "pride-banner",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "both|pride": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": [
+                  "modern",
+                  "both"
+                ]
+              }
+            },
+            {
+              "id": "pride-banner",
+              "variants": {
+                "orientation": "both"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
