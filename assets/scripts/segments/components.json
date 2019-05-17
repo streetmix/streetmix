@@ -126,6 +126,26 @@
           }
         }
       }
+    },
+    "utility-pole": {
+      "name": "Utility pole",
+      "nameKey": "utility-pole",
+      "owner": "NONE",
+      "zIndex": 10,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "center": "utilities--utility-pole-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "center": "utilities--utility-pole-right"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

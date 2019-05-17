@@ -867,5 +867,59 @@
         }
       }
     }
+  },
+  "utilities": {
+    "name": "Utility pole",
+    "nameKey": "utility-pole",
+    "owner": "NONE",
+    "zIndex": 10,
+    "defaultWidth": 4,
+    "enableWithFlag": "SEGMENT_UTILITIES",
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "utility-pole",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "utility-pole",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      }
+    }
   }
 }
