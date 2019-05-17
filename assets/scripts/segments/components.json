@@ -430,6 +430,26 @@
           }
         }
       }
+    },
+    "bikeshare": {
+      "name": "Bikeshare station",
+      "nameKey": "bikeshare-station",
+      "owner": "FLEX",
+      "zIndex": 21,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "bikes--bikeshare-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "bikes--bikeshare-right"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

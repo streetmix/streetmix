@@ -2433,5 +2433,74 @@
         }
       }
     }
+  },
+  "bikeshare": {
+    "name": "Bikeshare station",
+    "nameKey": "bikeshare-station",
+    "owner": "FLEX",
+    "zIndex": 21,
+    "defaultWidth": 7,
+    "rules": {
+      "minWidth": 7,
+      "maxWidth": 10
+    },
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
