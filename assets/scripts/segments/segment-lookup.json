@@ -719,5 +719,114 @@
         }
       }
     }
+  },
+  "flex-zone-curb": {
+    "name": "Waiting area",
+    "nameKey": "flex-zone-curb",
+    "owner": "FLEX",
+    "zIndex": 30,
+    "defaultWidth": 4,
+    "details": {
+      "sparse|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "right"
+              }
+            },
+            {
+              "id": "person-waiting",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      },
+      "sparse|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "left"
+              }
+            },
+            {
+              "id": "person-waiting",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      },
+      "empty|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      },
+      "empty|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "markings": [],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ],
+          "vehicles": []
+        }
+      }
+    }
   }
 }

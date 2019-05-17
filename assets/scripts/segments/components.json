@@ -87,7 +87,47 @@
       }
     }
   },
-  "objects": {},
+  "objects": {
+    "pickup-sign": {
+      "name": "Pickup sign",
+      "nameKey": "pickup-sign",
+      "owner": "FLEX",
+      "zIndex": 30,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "right": "curb--pickup-sign-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "left": "curb--pickup-sign-right"
+            }
+          }
+        }
+      }
+    },
+    "person-waiting": {
+      "name": "Person waiting",
+      "nameKey": "person-waiting",
+      "zIndex": 30,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "center": "curb--person-waiting-01-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "center": "curb--person-waiting-01-right"
+            }
+          }
+        }
+      }
+    }
+  },
   "vehicles": {
     "scooter": {
       "name": "Electric scooter",
