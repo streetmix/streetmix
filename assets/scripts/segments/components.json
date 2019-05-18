@@ -207,6 +207,16 @@
       "graphics": {
         "repeat": "markings--stripes-diagonal"
       }
+    },
+    "markings--parking-left": {
+      "graphics": {
+        "right": "markings--parking-left"
+      }
+    },
+    "markings--parking-right": {
+      "graphics": {
+        "left": "markings--parking-right"
+      }
     }
   },
   "objects": {
@@ -794,6 +804,92 @@
             "left": {
               "graphics": {
                 "center": "vehicles--car-outbound-turn-signal-left"
+              }
+            }
+          }
+        },
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-inbound"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-inbound"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-outbound"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-outbound"
+              }
+            }
+          },
+          "sideways": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-sideways-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-sideways-right"
+              }
+            }
+          },
+          "angled-front-left": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-front-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-front-left"
+              }
+            }
+          },
+          "angled-front-right": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-front-right"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-front-right"
+              }
+            }
+          },
+          "angled-rear-left": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-rear-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-rear-left"
+              }
+            }
+          },
+          "angled-rear-right": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-rear-right"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-rear-right"
               }
             }
           }
