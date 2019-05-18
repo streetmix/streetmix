@@ -2646,7 +2646,7 @@
           ],
           "objects": [
             {
-              "id": "grass",
+              "id": "planting-strip",
               "variants": {
                 "type": "default"
               }
@@ -2682,7 +2682,7 @@
           ],
           "objects": [
             {
-              "id": "grass",
+              "id": "planting-strip",
               "variants": {
                 "type": "default"
               }
@@ -2835,7 +2835,7 @@
           ],
           "objects": [
             {
-              "id": "grass",
+              "id": "planting-strip",
               "variants": {
                 "type": "default"
               }
@@ -2871,7 +2871,7 @@
           ],
           "objects": [
             {
-              "id": "grass",
+              "id": "planting-strip",
               "variants": {
                 "type": "default"
               }

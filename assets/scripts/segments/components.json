@@ -466,9 +466,9 @@
         }
       }
     },
-    "grass": {
-      "name": "Grass",
-      "nameKey": "grass",
+    "planting-strip": {
+      "name": "Planting strip",
+      "nameKey": "planting-strip",
       "variants": {
         "type": {
           "default": {
