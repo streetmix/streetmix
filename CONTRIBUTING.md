@@ -87,6 +87,22 @@ your fork of the Streetmix repo, and submit a pull request to us.
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+In the future, we may adopt [Prettier](https://github.com/prettier/prettier), which makes code style a non-concern. Currently, introducing it creates changes on every file, which can break existing work. If someone wants to champion adoption of Prettier, please get in touch.
+
+### Commit style
+
+We like [semantic commit messages](https://seesparkbox.com/foundry/semantic_commit_messages). This has become a convention adopted across the JavaScript developer ecosystem, particularly with the [Angular](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) team.
+
+In the future, we may use commit messages to help with [automated releases](https://github.com/semantic-release/semantic-release).
+
+### Dependency pinning
+
+We pin our dependencies (that is, we use exact dependency versions, not [version ranges](https://semver.org/)) for maximum reliability and consistency. Here is [a good overview of dependency pinning](https://renovatebot.com/docs/dependency-pinning/), which covers the reasons and tradeoffs that come from doing this.
+
+We want to make sure that all developers, and any deployment environments, are running the same code. Because Streetmix is an application, and it's not intended to be imported by other applications, we don't need the flexibility that comes from using version ranges. And this consistency makes obscure bugs easier to track down and resolve.
+
+This does introduce "upgrade noise", whether we have to manually update dependencies or use a third-party automated service like [Greenkeeper](https://greenkeeper.io/). This is a tradeoff we're willing to accept, although any strategy to limit the noise will be open for consideration.
+
 ### Submitting a pull request
 
 1. **Fork the project**, if you do not already have write access to the repository. Individuals making significant and valuable contributions will be given write access.
