@@ -879,6 +879,26 @@
           }
         }
       }
+    },
+    "bus": {
+      "name": "Bus",
+      "nameKey": "bus",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--bus-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--bus-outbound"
+            }
+          }
+        }
+      }
     }
   }
 }
