@@ -17,7 +17,7 @@ export class SkyBackground extends React.PureComponent {
     super(props)
 
     this.state = {
-      prevEnvirons: DEFAULT_ENVIRONS
+      prevEnvirons: props.environment || DEFAULT_ENVIRONS
     }
 
     this.currentBackgroundEl = React.createRef()
