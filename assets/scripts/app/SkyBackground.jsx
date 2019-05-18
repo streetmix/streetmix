@@ -17,7 +17,7 @@ export class SkyBackground extends React.PureComponent {
     super(props)
 
     this.state = {
-      prevEnvirons: DEFAULT_ENVIRONS
+      prevEnvirons: props.environment || DEFAULT_ENVIRONS
     }
 
     this.currentBackgroundEl = React.createRef()
@@ -34,7 +34,11 @@ export class SkyBackground extends React.PureComponent {
       })
     }
 
-    this.currentBackgroundEl.current.classList.add('sky-transition-in')
+    // Delay applying transition class until the end of the stack, so
+    // that the transition is visible
+    window.setTimeout(() => {
+      this.currentBackgroundEl.current.classList.add('sky-transition-in')
+    }, 0)
   }
 
   transformSkyBackground = (isFront, scrollPos) => {
