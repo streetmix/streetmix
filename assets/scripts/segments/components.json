@@ -190,6 +190,11 @@
       "graphics": {
         "center": "markings--streetcar-track-02"
       }
+    },
+    "markings--stripes-diagonal": {
+      "graphics": {
+        "repeat": "markings--stripes-diagonal"
+      }
     }
   },
   "objects": {
@@ -469,11 +474,66 @@
     "planting-strip": {
       "name": "Planting strip",
       "nameKey": "planting-strip",
+      "owner": "NATURE",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "grass": {
+            "graphics": {
+              "repeat": "plants--grass"
+            }
+          },
+          "bush": {
+            "graphics": {
+              "center": "plants--bush"
+            }
+          },
+          "flowers": {
+            "graphics": {
+              "center": "plants--flowers"
+            }
+          }
+        }
+      }
+    },
+    "planter-box": {
+      "name": "Planter box",
+      "nameKey": "planter-box",
+      "owner": "NATURE",
+      "zIndex": 20,
       "variants": {
         "type": {
           "default": {
             "graphics": {
-              "repeat": "plants--grass"
+              "center": "dividers--planter-box"
+            }
+          }
+        }
+      }
+    },
+    "bollard": {
+      "name": "Bollard",
+      "nameKey": "bollard",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "dividers--bollard"
+            }
+          }
+        }
+      }
+    },
+    "dome": {
+      "name": "Traffic exclusion dome",
+      "nameKey": "dome",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "dividers--dome"
             }
           }
         }

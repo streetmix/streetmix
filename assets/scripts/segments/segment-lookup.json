@@ -2896,5 +2896,287 @@
         }
       }
     }
+  },
+  "divider": {
+    "name": "Buffer",
+    "nameKey": "divider",
+    "owner": "NATURE",
+    "zIndex": 20,
+    "defaultWidth": 2,
+    "paletteIcon": "planting-strip",
+    "details": {
+      "planting-strip": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ]
+        }
+      },
+      "planter-box": {
+        "name": "Planter box",
+        "nameKey": "planter-box",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "planter-box",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "median": {
+        "name": "Median",
+        "nameKey": "median",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "striped-buffer": {
+        "name": "Buffer",
+        "nameKey": "divider",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ]
+        }
+      },
+      "bush": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "bush"
+              }
+            }
+          ]
+        }
+      },
+      "flowers": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "flowers"
+              }
+            }
+          ]
+        }
+      },
+      "big-tree": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "tree",
+              "variants": {
+                "type": "big"
+              }
+            }
+          ]
+        }
+      },
+      "palm-tree": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "tree",
+              "variants": {
+                "type": "palm-tree"
+              }
+            }
+          ]
+        }
+      },
+      "bollard": {
+        "name": "Bollard",
+        "nameKey": "bollard",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "bollard",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "dome": {
+        "name": "Traffic exclusion dome",
+        "nameKey": "dome",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "dome",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
