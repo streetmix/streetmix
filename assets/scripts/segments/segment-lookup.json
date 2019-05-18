@@ -3178,5 +3178,124 @@
         }
       }
     }
+  },
+  "transit-shelter": {
+    "name": "Transit shelter",
+    "nameKey": "transit-shelter",
+    "owner": "TRANSIT",
+    "zIndex": 20,
+    "defaultWidth": 9,
+    "paletteIcon": "right|light-rail",
+    "rules": {
+      "minWidth": 9
+    },
+    "details": {
+      "left|street-level": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": [
+                  "transit-shelter-01",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|street-level": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": [
+                  "transit-shelter-01",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "left|light-rail": {
+        "description": {
+          "key": "transit-shelter-elevated",
+          "image": "transit-station-elevated.jpg"
+        },
+        "rules": {
+          "minWidth": 8
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "raised-sidewalk",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": [
+                  "transit-shelter-02",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "right|light-rail": {
+        "description": {
+          "key": "transit-shelter-elevated",
+          "image": "transit-station-elevated.jpg"
+        },
+        "rules": {
+          "minWidth": 8
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "raised-sidewalk",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": [
+                  "transit-shelter-02",
+                  "right"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

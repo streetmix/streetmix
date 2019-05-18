@@ -53,6 +53,18 @@
           }
         }
       }
+    },
+    "raised-sidewalk": {
+      "elevation": 2,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "repeat": "ground--concrete-raised"
+            }
+          }
+        }
+      }
     }
   },
   "markings": {
@@ -534,6 +546,40 @@
           "default": {
             "graphics": {
               "center": "dividers--dome"
+            }
+          }
+        }
+      }
+    },
+    "transit-shelter": {
+      "name": "Transit shelter",
+      "nameKey": "transit-shelter",
+      "owner": "TRANSIT",
+      "zIndex": 20,
+      "variants": {
+        "type|orientation": {
+          "transit-shelter-01": {
+            "left": {
+              "graphics": {
+                "left": "transit--transit-shelter-01-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "transit--transit-shelter-01-right"
+              }
+            }
+          },
+          "transit-shelter-02": {
+            "left": {
+              "graphics": {
+                "left": "transit--transit-shelter-02-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "transit--transit-shelter-02-right"
+              }
             }
           }
         }
