@@ -2648,7 +2648,7 @@
             {
               "id": "planting-strip",
               "variants": {
-                "type": "default"
+                "type": "grass"
               }
             }
           ],
@@ -2684,7 +2684,7 @@
             {
               "id": "planting-strip",
               "variants": {
-                "type": "default"
+                "type": "grass"
               }
             }
           ],
@@ -2837,7 +2837,7 @@
             {
               "id": "planting-strip",
               "variants": {
-                "type": "default"
+                "type": "grass"
               }
             }
           ],
@@ -2873,7 +2873,7 @@
             {
               "id": "planting-strip",
               "variants": {
-                "type": "default"
+                "type": "grass"
               }
             }
           ],
