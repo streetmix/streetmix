@@ -125,7 +125,7 @@
     "leaflet": "1.5.1",
     "lodash": "4.17.11",
     "mongoose": "5.5.6",
-    "newrelic": "5.8.0",
+    "newrelic": "5.9.0",
     "node-env-file": "0.1.8",
     "oauth": "0.9.15",
     "parcel-bundler": "1.12.3",
