@@ -155,8 +155,7 @@ function mergeVariantGraphics (variantGraphics) {
  * @returns {Object} segmentInfo
  */
 function getSegmentInfo (type) {
-  const { details, ...segmentInfo } = SEGMENT_LOOKUP[type] || {}
-  return segmentInfo || SEGMENT_UNKNOWN
+  return SEGMENT_LOOKUP[type] || SEGMENT_UNKNOWN
 }
 
 /**
