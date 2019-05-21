@@ -163,20 +163,48 @@ function getSegmentInfo (type) {
  * Due to segments now being broken into components in the new segment data model, `SEGMENT_LOOKUP` will now
  * include any rules and/or segment information for a segment of a specific `type` and `variant`. Rules applied
  * to a segment should be included in the returned `variantInfo` object as well as rules for a specific `variant`.
- * This function returns an updated version of the `variantInfo` such that `variantInfo` now also includes any
- * information specific to the `variant` of the segment and any rules the segment has to follow along with the
- * graphics information necessary to draw the segment.
+ * This function returns a `variantInfo` object with information specific to the `variant` of the segment and any
+ * rules the segment has to follow.
  *
  * @param {Object} details - details for segment `type` and of a specific `variant`
  * @param {string} type
- * @param {Object} variantInfo - current variantInfo state, in shape of { graphics, elevation }
- * @returns {Object} variantInfo - updated variantInfo state with any rules or segment info overrides included
+ * @returns {Object} variantInfo - object with any rules or segment info overrides
  */
-function applySegmentInfoOverridesAndRules (details, type, variantInfo) {
+function applySegmentInfoOverridesAndRules (details, type) {
   const { rules, ...segmentInfoOverrides } = details
   const segmentInfo = getSegmentInfo(type)
+  return { ...segmentInfo.rules, ...rules, ...segmentInfoOverrides }
+}
 
-  return Object.assign(variantInfo, segmentInfo.rules, rules, segmentInfoOverrides)
+function getSegmentSprites (components) {
+  // 1) Loop through each component group that makes up the segment.
+  const sprites = Object.entries(components).reduce((graphicsArray, componentGroup) => {
+    const [ group, groupItems ] = componentGroup
+
+    // 2) For each component group, look up the segment information for every item that makes up the component group.
+    // componentGroupInfo = [ { characteristics, rules, variants } ]
+    const componentGroupInfo = getComponentGroupInfo(group, groupItems)
+
+    // The "markings" component group does not have any variants, so we do not have to go through the variants in order
+    // to get the sprite definitions.
+    if (group === COMPONENT_GROUPS.MARKINGS) {
+      Object.values(componentGroupInfo).forEach((groupItem) => { graphicsArray.push(groupItem.graphics) })
+    } else {
+      // componentGroupVariants = [ { graphics } ]
+      // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
+      const componentGroupVariants = getComponentGroupVariants(groupItems, componentGroupInfo)
+
+      if (componentGroupVariants.length) {
+        // 4) Combine the variant graphics for each component group into one array
+        componentGroupVariants.forEach((groupItemVariants) => { graphicsArray.push(groupItemVariants) })
+      }
+    }
+
+    return graphicsArray
+  }, [])
+
+  // 5) Combine the variant graphics into one graphics definition object.
+  return mergeVariantGraphics(sprites)
 }
 
 /**
@@ -195,44 +223,14 @@ function getSegmentVariantInfo (type, variant) {
   }
 
   const { components, ...details } = segmentLookup
-
-  // 1) Loop through each component group that makes up the segment.
-  let variantInfo = Object.entries(components).reduce((variantInfo, componentGroup) => {
-    const [ group, groupItems ] = componentGroup
-
-    // 2) For each component group, look up the segment information for every item that makes up the component group.
-    // componentGroupInfo = [ { characteristics, rules, variants } ]
-    const componentGroupInfo = getComponentGroupInfo(group, groupItems)
-
-    // The "markings" component group does not have any variants, so we do not have to go through the variants in order
-    // to get the sprite definitions.
-    if (group === COMPONENT_GROUPS.MARKINGS) {
-      Object.values(componentGroupInfo).forEach((groupItem) => { variantInfo.graphics.push(groupItem.graphics) })
-    } else {
-      // componentGroupVariants = [ { graphics } ]
-      // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
-      const componentGroupVariants = getComponentGroupVariants(groupItems, componentGroupInfo)
-
-      if (componentGroupVariants.length) {
-        // 4) Combine the variant graphics for each component group into one array
-        componentGroupVariants.forEach((groupItemVariants) => { variantInfo.graphics.push(groupItemVariants) })
-      }
-    }
-
-    return variantInfo
-  }, { graphics: [] })
-
-  // 5) Combine the variant graphics into one graphics definition object.
-  variantInfo.graphics = mergeVariantGraphics(variantInfo.graphics)
+  const variantInfo = applySegmentInfoOverridesAndRules(details, type)
+  variantInfo.graphics = getSegmentSprites(components)
 
   // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
   // of the first item in the "lane" component group.
-  // 6) Set the segment's elevation level based on the "lane" component.
   const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, components.lanes[0].id)
   variantInfo.elevation = lane.elevation
 
-  // 7) Get any additional segment info specific to the variant and any segment rules.
-  variantInfo = applySegmentInfoOverridesAndRules(details, type, variantInfo)
   return variantInfo
 }
 
