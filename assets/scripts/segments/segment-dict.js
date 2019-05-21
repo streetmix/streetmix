@@ -1,7 +1,7 @@
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
-import { uniq } from 'lodash'
+import { uniq, differenceWith, isEqual, isEqualWith, isNumber, pickBy } from 'lodash'
 
 const COMPONENT_GROUPS = {
   LANES: 'lanes',
@@ -51,6 +51,26 @@ function getComponentGroupInfo (group, groupItems) {
 }
 
 /**
+ * Allows for customizable positioning of sprites based on offsetX and offsetY. If a sprite
+ * has an offset, return a graphics object in shape of { id, offsetX, offsetY }. If no offset,
+ * return the original graphics object.
+ *
+ * @param {object} graphics
+ * @param {number|undefined} offsetX
+ * @param {number|undefined} offsetY
+ * @returns {object} graphicsWithOffsets
+ */
+function applyOffsetsIfAnyToSprites (graphics, offsetX, offsetY) {
+  if (!offsetX && !offsetY) return graphics
+
+  return Object.entries(graphics).reduce((graphicsWithOffsets, [key, id]) => {
+    const offsets = pickBy({ offsetX, offsetY }, isNumber)
+    graphicsWithOffsets[key] = { id, ...offsets }
+    return graphicsWithOffsets
+  }, {})
+}
+
+/**
  * Retrieves all graphics definitions for the component group based on each `variant`
  * specified for each component group item.
  *
@@ -60,11 +80,11 @@ function getComponentGroupInfo (group, groupItems) {
  */
 function getComponentGroupVariants (groupItems, componentGroupInfo) {
   return groupItems.reduce((array, item) => {
-    const { id, variants } = item
+    const { id, offsetX, offsetY, variants } = item
     // groupItemVariants - all variants possible for the particular group item
     const groupItemVariants = componentGroupInfo[id] && componentGroupInfo[id].variants
 
-    if (groupItemVariants) {
+    if (groupItemVariants && variants) {
       Object.entries(variants).forEach(([variantName, variantKey]) => {
         // variantInfo - graphics definition for specific variants defined by group item
         let variantInfo = groupItemVariants[variantName] || SEGMENT_UNKNOWN_VARIANT
@@ -74,7 +94,8 @@ function getComponentGroupVariants (groupItems, componentGroupInfo) {
           variantInfo = (variantInfo && variantInfo[key]) || SEGMENT_UNKNOWN_VARIANT
         })
 
-        array.push(variantInfo.graphics)
+        const graphics = applyOffsetsIfAnyToSprites(variantInfo.graphics, offsetX, offsetY)
+        array.push(graphics)
       })
     }
 
@@ -107,16 +128,18 @@ function appendVariantSprites (target, source) {
  */
 function mergeVariantGraphics (variantGraphics) {
   return variantGraphics.reduce((graphics, variantInfo) => {
-    Object.keys(variantInfo).forEach((key) => {
-      const target = graphics[key]
-      const source = variantInfo[key]
+    if (variantInfo) {
+      Object.keys(variantInfo).forEach((key) => {
+        const target = graphics[key]
+        const source = variantInfo[key]
 
-      if (target) {
-        graphics[key] = appendVariantSprites(target, source)
-      } else {
-        graphics[key] = source
-      }
-    })
+        if (target) {
+          graphics[key] = appendVariantSprites(target, source)
+        } else {
+          graphics[key] = source
+        }
+      })
+    }
 
     return graphics
   }, {})
@@ -225,18 +248,13 @@ function getSegmentVariantInfo (type, variant) {
  * @returns {boolean} correct
  */
 function verifyCorrectness (originalVariantInfo, newVariantInfo) {
-  const filteredKeys = Object.keys(originalVariantInfo).filter((key) => {
-    return (key === 'graphics') ? !newVariantInfo.graphics : originalVariantInfo[key] !== newVariantInfo[key]
-  })
+  const checkArrayEquality = (origValue, testValue) => {
+    if (Array.isArray(origValue) && Array.isArray(testValue)) {
+      return !differenceWith(origValue, testValue, isEqual).length
+    }
+  }
 
-  const filteredGraphics = Object.entries(originalVariantInfo.graphics).filter((item) => {
-    const [ key, value ] = item
-    const originalGraphics = Array.isArray(value) ? value.sort() : value
-    const newGraphics = Array.isArray(newVariantInfo.graphics[key]) ? newVariantInfo.graphics[key].sort() : newVariantInfo.graphics[key]
-    return !(JSON.stringify(originalGraphics) === JSON.stringify(newGraphics))
-  })
-
-  return (filteredKeys.length === 0 && filteredGraphics.length === 0)
+  return isEqualWith(originalVariantInfo, newVariantInfo, checkArrayEquality)
 }
 
 /**
