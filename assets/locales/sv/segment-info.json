@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Trottoar",
-    "sidewalk-tree": "Trottoar med träd",
+    "sidewalk-tree": "Träd",
     "bike-rack": "Cykelställ",
     "bench": "Bänk",
     "wayfinding-sign": "Vägvisningsskylt",
-    "sidewalk-lamp": "Trottoar med belysning",
+    "sidewalk-lamp": "Belysning",
     "parklet": "Mikropark",
     "divider": "Buffert",
     "planting-strip": "",

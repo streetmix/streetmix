@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Тротуар",
-    "sidewalk-tree": "Тротуар с деревьями",
+    "sidewalk-tree": "деревьями",
     "bike-rack": "Парковочная велостойка",
     "bench": "Скамейка",
     "wayfinding-sign": "Путевой знак",
-    "sidewalk-lamp": "Тротуар с фонарем",
+    "sidewalk-lamp": "фонарем",
     "parklet": "Парклет",
     "divider": "Буфер",
     "planting-strip": "Pазделительная полоса",

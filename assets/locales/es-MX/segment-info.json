@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Banqueta",
-    "sidewalk-tree": "Banqueta con un árbol",
+    "sidewalk-tree": "Árbol",
     "bike-rack": "Aparcabicis",
     "bench": "Banca",
     "wayfinding-sign": "Señales y letreros",
-    "sidewalk-lamp": "Banqueta con un poste de luz",
+    "sidewalk-lamp": "Poste de luz",
     "parklet": "Estacionaparquecito ",
     "divider": "Carga",
     "planting-strip": "Línea para plantar",

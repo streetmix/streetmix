@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "Nytt gatunamn:",
     "delete-street": "",
-    "new-width": ""
+    "new-width": "",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Segmentet har tagits bort.",

@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "Новое название улицы:",
     "delete-street": "Вы уверены, что хотите полностью удалить {streetName}? Это не может быть отменено.",
-    "new-width": "Новая ширина улицы (от {minWidth} к {maxWidth}):"
+    "new-width": "Новая ширина улицы (от {minWidth} к {maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Сегмент был удалён.",

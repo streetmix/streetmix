@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "رصيف",
-    "sidewalk-tree": "رصيف مُزود بشجرة",
+    "sidewalk-tree": "",
     "bike-rack": "موقف الدراجة",
     "bench": "مقعد",
     "wayfinding-sign": "إشارة الاستدلال على الطرق",
-    "sidewalk-lamp": "رصيف مُزود بمصباح",
+    "sidewalk-lamp": "",
     "parklet": "حديقة صغيرة",
     "divider": "منطقة عازلة",
     "planting-strip": "شريط الزراعة",

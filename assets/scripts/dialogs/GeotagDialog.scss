@@ -51,9 +51,7 @@
   font-weight: bold;
 }
 
-/* React-autosuggest overrides */
-
-.react-autosuggest__input {
+.geotag-input {
   width: 100%;
   padding: 3px 24px 3px 6px !important;
   border: 1px solid $form-element-border;
@@ -63,7 +61,7 @@
   background-color: $form-element-background;
 }
 
-.react-autosuggest__suggestions-container--open {
+.geotag-suggestions-container {
   border: 1px solid $form-element-border;
   border-top: 0;
   background-color: white;
@@ -71,18 +69,18 @@
   list-style-type: none;
 }
 
-.react-autosuggest__suggestions-list {
+.geotag-suggestions-list {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.react-autosuggest__suggestion {
+.geotag-suggestion {
   padding: 6px;
   cursor: pointer;
 }
 
-.react-autosuggest__suggestion--highlighted {
+.geotag-suggestion[aria-selected="true"] {
   background-color: $form-element-background;
 }
 

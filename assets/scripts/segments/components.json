@@ -23,16 +23,7 @@
       }
     },
     "sidewalk": {
-      "name": "Sidewalk",
-      "nameKey": "sidewalk",
-      "owner": "PEDESTRIAN",
-      "zIndex": 30,
-      "needRandSeed": true,
       "elevation": 1,
-      "rules": {
-        "defaultWidth": 6,
-        "minWidth": 6
-      },
       "variants": {
         "density": {
           "dense": {
@@ -88,11 +79,6 @@
       "nameKey": "scooter",
       "owner": "BIKE",
       "zIndex": 16,
-      "enableWithFlag": "SEGMENT_SCOOTERS",
-      "rules": {
-        "defaultWidth": 5,
-        "minWidth": 4
-      },
       "variants": {
         "direction": {
           "inbound": {
@@ -107,6 +93,74 @@
               "center": [
                 "scooters--scooter-outbound"
               ]
+            }
+          }
+        }
+      }
+    },
+    "taxi": {
+      "name": "Taxi",
+      "nameKey": "taxi",
+      "owner": "FLEX",
+      "zIndex": 15,
+      "variants": {
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--taxi-inbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--taxi-inbound-door-right"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--taxi-outbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--taxi-outbound-door-right"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rideshare": {
+      "name": "Rideshare",
+      "nameKey": "rideshare",
+      "owner": "FLEX",
+      "zIndex": 15,
+      "variants": {
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--rideshare-inbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--rideshare-inbound-door-right"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--rideshare-outbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--rideshare-outbound-door-right"
+              }
             }
           }
         }

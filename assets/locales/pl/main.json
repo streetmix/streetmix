@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "Nazwa ulicy:",
     "delete-street": "Czy jesteś pewien, że chcesz trwale usunąć {streetName}? Tej operacji nie można cofnąć.",
-    "new-width": "Nowa szerokość ulicy (od {minWidth} do {maxWidth}):"
+    "new-width": "Nowa szerokość ulicy (od {minWidth} do {maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Segment został usunięty.",

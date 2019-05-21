@@ -239,7 +239,8 @@
   "prompt": {
     "new-street": "Neuer Straßenname:",
     "delete-street": "Bist du sicher, dass du {streetName} dauerhaft löschen möchtest? Dies kann nicht rückgängig gemacht werden.",
-    "new-width": "Neue Straßenbreite (von {minWidth} bis {maxWidth}):"
+    "new-width": "Neue Straßenbreite (von {minWidth} bis {maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Das Element wurde entfernt.",
