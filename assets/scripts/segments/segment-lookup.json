@@ -9,6 +9,9 @@
     "rules": {
       "minWidth": 6
     },
+    "variants": [
+      "sidewalk-density"
+    ],
     "details": {
       "dense": {
         "components": {
@@ -66,6 +69,9 @@
     "owner": "NATURE",
     "zIndex": 22,
     "defaultWidth": 4,
+    "variants": [
+      "tree-type"
+    ],
     "details": {
       "big": {
         "components": {
@@ -116,6 +122,10 @@
     "zIndex": 23,
     "defaultWidth": 5,
     "paletteIcon": "left|sidewalk",
+    "variants": [
+      "orientation",
+      "bike-rack-elevation"
+    ],
     "details": {
       "left|sidewalk-parallel": {
         "components": {
@@ -263,6 +273,9 @@
     "owner": "PEDESTRIAN",
     "zIndex": 24,
     "defaultWidth": 4,
+    "variants": [
+      "bench-orientation"
+    ],
     "details": {
       "left": {
         "components": {
@@ -336,6 +349,9 @@
       "key": "wayfinding-sign",
       "image": "wayfinding-02.jpg"
     },
+    "variants": [
+      "wayfinding-type"
+    ],
     "details": {
       "large": {
         "components": {
@@ -406,6 +422,10 @@
     "zIndex": 19,
     "defaultWidth": 4,
     "paletteIcon": "both|traditional",
+    "variants": [
+      "lamp-orientation",
+      "lamp-type"
+    ],
     "details": {
       "right|modern": {
         "components": {
@@ -641,6 +661,9 @@
     "zIndex": 10,
     "defaultWidth": 4,
     "enableWithFlag": "SEGMENT_UTILITIES",
+    "variants": [
+      "orientation"
+    ],
     "details": {
       "left": {
         "components": {
@@ -697,6 +720,9 @@
     "rules": {
       "minWidth": 8
     },
+    "variants": [
+      "orientation"
+    ],
     "details": {
       "left": {
         "components": {
@@ -747,6 +773,9 @@
     "zIndex": 20,
     "defaultWidth": 2,
     "paletteIcon": "planting-strip",
+    "variants": [
+      "divider-type"
+    ],
     "details": {
       "planting-strip": {
         "name": "Planting strip",
@@ -1032,6 +1061,10 @@
     "rules": {
       "minWidth": 4
     },
+    "variants": [
+      "direction",
+      "bike-asphalt"
+    ],
     "details": {
       "inbound|regular": {
         "components": {
@@ -1193,6 +1226,11 @@
     "defaultWidth": 5,
     "enableWithFlag": "SEGMENT_SCOOTERS",
     "paletteIcon": "right|sidewalk|empty",
+    "variants": [
+      "orientation",
+      "scooter-elevation",
+      "scooter-riders"
+    ],
     "details": {
       "left|sidewalk|empty": {
         "components": {
@@ -1481,6 +1519,10 @@
     "rules": {
       "minWidth": 5
     },
+    "variants": [
+      "direction",
+      "bike-asphalt"
+    ],
     "details": {
       "inbound|regular": {
         "components": {
@@ -1678,6 +1720,9 @@
       "minWidth": 7,
       "maxWidth": 10
     },
+    "variants": [
+      "orientation"
+    ],
     "details": {
       "left": {
         "components": {
@@ -1746,6 +1791,9 @@
     "rules": {
       "minWidth": 10
     },
+    "variants": [
+      "orientation"
+    ],
     "details": {
       "left": {
         "components": {
@@ -1799,6 +1847,11 @@
       "minWidth": 7,
       "maxWidth": 10
     },
+    "variants": [
+      "flex-type",
+      "direction",
+      "orientation"
+    ],
     "details": {
       "taxi|inbound|left": {
         "name": "Taxi loading zone",
@@ -2048,6 +2101,10 @@
     "owner": "FLEX",
     "zIndex": 30,
     "defaultWidth": 4,
+    "variants": [
+      "waiting-area",
+      "orientation"
+    ],
     "details": {
       "sparse|left": {
         "components": {
@@ -2153,6 +2210,10 @@
       "minWidth": 7,
       "maxWidth": 10
     },
+    "variants": [
+      "parking-lane-direction",
+      "parking-lane-orientation"
+    ],
     "details": {
       "inbound|left": {
         "components": {
@@ -2570,6 +2631,10 @@
       "minWidth": 8,
       "maxWidth": 11.9
     },
+    "variants": [
+      "direction",
+      "car-type"
+    ],
     "details": {
       "inbound|car": {
         "components": {
@@ -2773,6 +2838,10 @@
       "minWidth": 9,
       "maxWidth": 12
     },
+    "variants": [
+      "direction",
+      "turn-lane-orientation"
+    ],
     "details": {
       "inbound|left": {
         "components": {
@@ -3175,6 +3244,10 @@
       "minWidth": 10,
       "maxWidth": 13
     },
+    "variants": [
+      "direction",
+      "bus-asphalt"
+    ],
     "details": {
       "inbound|regular": {
         "components": {
@@ -3384,6 +3457,10 @@
       "minWidth": 10,
       "maxWidth": 14
     },
+    "variants": [
+      "direction",
+      "public-transit-asphalt"
+    ],
     "details": {
       "inbound|regular": {
         "components": {
@@ -3581,6 +3658,10 @@
       "minWidth": 10,
       "maxWidth": 14
     },
+    "variants": [
+      "direction",
+      "public-transit-asphalt"
+    ],
     "details": {
       "inbound|regular": {
         "components": {
@@ -3778,6 +3859,10 @@
     "rules": {
       "minWidth": 9
     },
+    "variants": [
+      "orientation",
+      "transit-shelter-elevation"
+    ],
     "details": {
       "left|street-level": {
         "components": {
@@ -3901,6 +3986,9 @@
     "rules": {
       "minWidth": 14
     },
+    "variants": [
+      ""
+    ],
     "details": {
       "": {
         "components": {
