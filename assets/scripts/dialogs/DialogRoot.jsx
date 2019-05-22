@@ -72,9 +72,14 @@ class DialogRoot extends Component {
     if (this.state.error) return <ErrorDialog reset={this.resetError} />
 
     // Get the dialog we want, then render it
-    const { id: Dialog } = DIALOG_COMPONENTS[name]
-
-    return <Dialog />
+    try {
+      const { id: Dialog } = DIALOG_COMPONENTS[name]
+      return <Dialog />
+    } catch (err) {
+      // Render the error dialog if we are unable to find the dialog
+      console.error('[DialogRoot]', `Unable to find dialog id \`${name}\``)
+      return <ErrorDialog reset={this.resetError} />
+    }
   }
 }
 
