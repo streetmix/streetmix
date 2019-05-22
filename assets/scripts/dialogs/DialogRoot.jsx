@@ -11,6 +11,7 @@ import SaveAsImageDialog from './SaveAsImageDialog'
 import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
 import MinecraftDialog from './MinecraftDialog'
+import NewsletterDialog from './NewsletterDialog'
 import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
@@ -37,6 +38,9 @@ const DIALOG_COMPONENTS = {
   },
   MINECRAFT: {
     id: MinecraftDialog
+  },
+  NEWSLETTER: {
+    id: NewsletterDialog
   }
 }
 
@@ -72,9 +76,14 @@ class DialogRoot extends Component {
     if (this.state.error) return <ErrorDialog reset={this.resetError} />
 
     // Get the dialog we want, then render it
-    const { id: Dialog } = DIALOG_COMPONENTS[name]
-
-    return <Dialog />
+    try {
+      const { id: Dialog } = DIALOG_COMPONENTS[name]
+      return <Dialog />
+    } catch (err) {
+      // Render the error dialog if we are unable to find the dialog
+      console.error('[DialogRoot]', `Unable to find dialog id \`${name}\``)
+      return <ErrorDialog reset={this.resetError} />
+    }
   }
 }
 
