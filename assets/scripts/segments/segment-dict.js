@@ -156,7 +156,7 @@ function mergeVariantGraphics (variantGraphics) {
  * @param {Object} segmentRules - rules applied to the segment `type`
  * @returns {Object} variantInfo - object with any rules or segment info overrides
  */
-export function applySegmentInfoOverridesAndRules (details, type, segmentRules) {
+export function applySegmentInfoOverridesAndRules (details, segmentRules) {
   const { rules, ...segmentInfoOverrides } = details
   return { ...segmentRules, ...rules, ...segmentInfoOverrides }
 }
