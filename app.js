@@ -94,6 +94,7 @@ const csp = {
       'streetmix.auth0.com',
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
+      'downloads.mailchimp.com.s3.amazonaws.com',
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],

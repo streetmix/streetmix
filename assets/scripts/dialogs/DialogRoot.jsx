@@ -11,6 +11,7 @@ import SaveAsImageDialog from './SaveAsImageDialog'
 import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
 import MinecraftDialog from './MinecraftDialog'
+import NewsletterDialog from './NewsletterDialog'
 import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
@@ -37,6 +38,9 @@ const DIALOG_COMPONENTS = {
   },
   MINECRAFT: {
     id: MinecraftDialog
+  },
+  NEWSLETTER: {
+    id: NewsletterDialog
   }
 }
 

@@ -49,7 +49,8 @@
       "blog": "Visit Streetmix blog",
       "discord": "Join Discord chat",
       "slack": "Join Slack chat",
-      "minecraft": "Play Minecraft with us!"
+      "minecraft": "Play Minecraft with us!",
+      "newsletter": "Subscribe to our newsletter"
     },
     "contribute": {
       "donate": "Donate",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": "What’s new in Streetmix?"
+    },
+    "newsletter": {
+      "heading": "Subscribe to our newsletter"
     }
   },
   "prompt": {
