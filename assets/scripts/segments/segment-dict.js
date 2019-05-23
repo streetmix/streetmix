@@ -158,7 +158,7 @@ function mergeVariantGraphics (variantGraphics) {
  */
 export function applySegmentInfoOverridesAndRules (details, segmentRules) {
   const { rules, ...segmentInfoOverrides } = details
-  return { ...segmentRules, ...rules, ...segmentInfoOverrides }
+  return Object.assign({}, segmentRules, rules, segmentInfoOverrides)
 }
 
 /**
