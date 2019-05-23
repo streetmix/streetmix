@@ -18,16 +18,18 @@ class CloseButton extends React.Component {
   }
 
   render () {
-    const title = this.props.title || this.props.intl.formatMessage({
+    const { title, className, onClick, intl, ...restProps } = this.props
+    const displayTitle = title || intl.formatMessage({
       id: 'btn.dismiss',
       defaultMessage: 'Dismiss'
     })
 
     return (
       <button
-        className={this.props.className}
-        onClick={this.props.onClick}
-        title={title}
+        className={className}
+        onClick={onClick}
+        title={displayTitle}
+        {...restProps}
       >
         <FontAwesomeIcon icon={ICON_TIMES} />
       </button>
