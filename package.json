@@ -44,10 +44,14 @@
   "jest": {
     "roots": [
       "app",
-      "assets/scripts"
+      "assets/scripts",
+      "test"
     ],
     "setupFiles": [
       "./test/setup-jest.js"
+    ],
+    "testPathIgnorePatterns": [
+      "./test/integration"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

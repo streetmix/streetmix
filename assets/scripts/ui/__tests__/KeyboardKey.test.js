@@ -17,7 +17,7 @@ describe('KeyboardKey', () => {
   })
 
   it('renders a <kbd> element with icon and title', () => {
-    const wrapper = shallow(<KeyboardKey icon={{ prefix: 'fas', icon: 'minus' }}>foo</KeyboardKey>)
+    const wrapper = shallow(<KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>foo</KeyboardKey>)
     expect(wrapper.find('FontAwesomeIcon').length).toBe(1)
     expect(wrapper.props().title).toBe('foo')
     expect(wrapper.debug()).toMatchSnapshot()
