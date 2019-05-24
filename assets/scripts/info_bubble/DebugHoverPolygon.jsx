@@ -36,6 +36,8 @@ export const DebugHoverPolygon = (props) => {
   // height of the canvas element.
   const el = useRef(null)
   const handleResize = () => {
+    if (!el.current) return
+
     el.current.width = window.innerWidth
     el.current.height = window.innerHeight
   }
