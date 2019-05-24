@@ -1,4 +1,3 @@
-import { testSegmentLookup } from './segment-dict'
 import { images } from '../app/load_resources'
 import { t } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
@@ -217,9 +216,6 @@ function getGroundLevelOffset (elevation) {
 export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
-
-  // Testing mapping segment to new segment data model.
-  testSegmentLookup(type, variantString, variantInfo)
 
   // TODO: refactor this variable
   const segmentWidth = actualWidth * TILE_SIZE

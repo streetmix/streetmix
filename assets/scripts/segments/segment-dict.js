@@ -1,9 +1,9 @@
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
-import { uniq, differenceWith, isEqual, isEqualWith, isNumber, pickBy } from 'lodash'
+import { uniq, isNumber, pickBy } from 'lodash'
 
-const COMPONENT_GROUPS = {
+export const COMPONENT_GROUPS = {
   LANES: 'lanes',
   MARKINGS: 'markings',
   OBJECTS: 'objects',
@@ -19,7 +19,7 @@ const COMPONENT_GROUPS = {
  * @returns {object|boolean} segmentLookup - returns an object in the shape of:
  *   { details, components: { lanes, objects, vehicles } } or `false` if not found.
  */
-function getSegmentLookup (type, variant) {
+export function getSegmentLookup (type, variant) {
   return SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type].details && SEGMENT_LOOKUP[type].details[variant]
 }
 
@@ -31,7 +31,7 @@ function getSegmentLookup (type, variant) {
  * @param {string} id - name of segment component, e.g. "scooter"
  * @returns {object} segmentInfo
  */
-function getSegmentComponentInfo (group, id) {
+export function getSegmentComponentInfo (group, id) {
   return (SEGMENT_COMPONENTS[group] && SEGMENT_COMPONENTS[group][id]) || SEGMENT_UNKNOWN
 }
 
@@ -146,58 +146,32 @@ function mergeVariantGraphics (variantGraphics) {
 }
 
 /**
- * Gets segment data for segment `type`. Safer than reading `type` directly
- * from `SEGMENT_INFO`, because this will return the `SEGMENT_UNKNOWN`
- * placeholder if the type is not found. The unknown segment placeholder
- * allows means bad data, experimental segments, etc. won't break rendering.
- *
- * @param {string} type
- * @returns {Object} segmentInfo
- */
-function getSegmentInfo (type) {
-  const { details, ...segmentInfo } = SEGMENT_LOOKUP[type] || {}
-  return segmentInfo || SEGMENT_UNKNOWN
-}
-
-/**
  * Due to segments now being broken into components in the new segment data model, `SEGMENT_LOOKUP` will now
  * include any rules and/or segment information for a segment of a specific `type` and `variant`. Rules applied
  * to a segment should be included in the returned `variantInfo` object as well as rules for a specific `variant`.
- * This function returns an updated version of the `variantInfo` such that `variantInfo` now also includes any
- * information specific to the `variant` of the segment and any rules the segment has to follow along with the
- * graphics information necessary to draw the segment.
+ * This function returns a `variantInfo` object with information specific to the `variant` of the segment and any
+ * rules the segment has to follow.
  *
  * @param {Object} details - details for segment `type` and of a specific `variant`
- * @param {string} type
- * @param {Object} variantInfo - current variantInfo state, in shape of { graphics, elevation }
- * @returns {Object} variantInfo - updated variantInfo state with any rules or segment info overrides included
+ * @param {Object} segmentRules - rules applied to the segment `type`
+ * @returns {Object} variantInfo - object with any rules or segment info overrides
  */
-function applySegmentInfoOverridesAndRules (details, type, variantInfo) {
+export function applySegmentInfoOverridesAndRules (details, segmentRules) {
   const { rules, ...segmentInfoOverrides } = details
-  const segmentInfo = getSegmentInfo(type)
-
-  return Object.assign(variantInfo, segmentInfo.rules, rules, segmentInfoOverrides)
+  return Object.assign({}, segmentRules, rules, segmentInfoOverrides)
 }
 
 /**
- * Maps the old segment data model to the new segment data model and returns the graphic sprites necessary
- * to draw the segment as well as any rules to follow, e.g. `minWidth` based on the `type` and `variant`.
+ * Based on the list of `lanes`, `markings`, `objects`, and/or `vehicles` components that makes up
+ * the segment `type` and `variant`, this function creates a graphics object with all the sprite
+ * definitions needed to draw the segment.
  *
- * @param {string} type
- * @param {string} variant
- * @returns {object} variantInfo - returns an object in the shape of { graphics, ...rules }
+ * @param {Object} components - all segment components that make up the segment `type` and `variant`
+ * @returns {Object} sprites - all sprite definitions necessary to draw the segment
  */
-function getSegmentVariantInfo (type, variant) {
-  const segmentLookup = getSegmentLookup(type, variant)
-
-  if (!segmentLookup || !segmentLookup.components) {
-    return SEGMENT_UNKNOWN_VARIANT
-  }
-
-  const { components, ...details } = segmentLookup
-
+export function getSegmentSprites (components) {
   // 1) Loop through each component group that makes up the segment.
-  let variantInfo = Object.entries(components).reduce((variantInfo, componentGroup) => {
+  const sprites = Object.entries(components).reduce((graphicsArray, componentGroup) => {
     const [ group, groupItems ] = componentGroup
 
     // 2) For each component group, look up the segment information for every item that makes up the component group.
@@ -207,7 +181,7 @@ function getSegmentVariantInfo (type, variant) {
     // The "markings" component group does not have any variants, so we do not have to go through the variants in order
     // to get the sprite definitions.
     if (group === COMPONENT_GROUPS.MARKINGS) {
-      Object.values(componentGroupInfo).forEach((groupItem) => { variantInfo.graphics.push(groupItem.graphics) })
+      Object.values(componentGroupInfo).forEach((groupItem) => { graphicsArray.push(groupItem.graphics) })
     } else {
       // componentGroupVariants = [ { graphics } ]
       // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
@@ -215,70 +189,13 @@ function getSegmentVariantInfo (type, variant) {
 
       if (componentGroupVariants.length) {
         // 4) Combine the variant graphics for each component group into one array
-        componentGroupVariants.forEach((groupItemVariants) => { variantInfo.graphics.push(groupItemVariants) })
+        componentGroupVariants.forEach((groupItemVariants) => { graphicsArray.push(groupItemVariants) })
       }
     }
 
-    return variantInfo
-  }, { graphics: [] })
+    return graphicsArray
+  }, [])
 
   // 5) Combine the variant graphics into one graphics definition object.
-  variantInfo.graphics = mergeVariantGraphics(variantInfo.graphics)
-
-  // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
-  // of the first item in the "lane" component group.
-  // 6) Set the segment's elevation level based on the "lane" component.
-  const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, components.lanes[0].id)
-  variantInfo.elevation = lane.elevation
-
-  // 7) Get any additional segment info specific to the variant and any segment rules.
-  variantInfo = applySegmentInfoOverridesAndRules(details, type, variantInfo)
-  return variantInfo
-}
-
-/**
- * Temporary helper method that compares the original segment variant info with the variant info returned
- * by the new data model. If the new variant info contains all the keys from the original variant info, then
- * the variant info is correct.
- *
- * TODO - migrate helper method to become a test suite
- *
- * @param {object} originalVariantInfo
- * @param {object} newVariantInfo
- * @returns {boolean} correct
- */
-function verifyCorrectness (originalVariantInfo, newVariantInfo) {
-  const checkArrayEquality = (origValue, testValue) => {
-    if (Array.isArray(origValue) && Array.isArray(testValue)) {
-      return !differenceWith(origValue, testValue, isEqual).length
-    }
-  }
-
-  return isEqualWith(originalVariantInfo, newVariantInfo, checkArrayEquality)
-}
-
-/**
- * Tests the mapping of the old segment data model to the new segment data model and
- * returns the correct `variantInfo` needed to draw the segment.
- *
- * @param {string} type
- * @param {string} variant
- * @param {object} segmentVariantInfo
- * @returns {object} variantInfo
- */
-export function testSegmentLookup (type, variant, segmentVariantInfo) {
-  // If segment lookup value not defined yet, return original variantInfo.
-  if (!getSegmentLookup(type, variant)) {
-    return segmentVariantInfo
-  }
-
-  const newVariantInfo = getSegmentVariantInfo(type, variant)
-
-  if (verifyCorrectness(segmentVariantInfo, newVariantInfo)) {
-    return newVariantInfo
-  } else {
-    console.log(`Incorrectly mapped segment of type "${type}" and variant "${variant}".`)
-    console.log(segmentVariantInfo, newVariantInfo)
-    return segmentVariantInfo
-  }
+  return mergeVariantGraphics(sprites)
 }
