@@ -108,7 +108,7 @@ class StatusMessage extends React.PureComponent {
           {UndoButton}
           {SignInButton}
           {/* Do not focus the close button when offscreen */}
-          <CloseButton onClick={this.onClickTheX} tabindex={visible ? 0 : -1} />
+          <CloseButton onClick={this.onClickTheX} tabIndex={visible ? 0 : -1} />
         </div>
       </div>
     )
