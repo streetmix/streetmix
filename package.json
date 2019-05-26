@@ -103,7 +103,7 @@
     "@fortawesome/react-fontawesome": "0.1.4",
     "@streetmix/icons": "0.5.2",
     "@streetmix/illustrations": "0.7.2",
-    "async": "2.6.2",
+    "async": "3.0.1",
     "auth0": "2.17.0",
     "auth0-js": "9.10.2",
     "autoprefixer": "9.5.1",
