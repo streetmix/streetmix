@@ -84,7 +84,8 @@ const csp = {
       "'self'",
       "'unsafe-inline'",
       'fonts.googleapis.com',
-      '*.typekit.net'
+      '*.typekit.net',
+      'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
     ],
     scriptSrc: [
       "'self'",
@@ -95,9 +96,13 @@ const csp = {
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
+      'https://d10lpsik1i8c69.cloudfront.net', // Lucky Orange
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'",
       (req, res) => "'nonce-" + res.locals.nonce.luckyorange + "'"
+    ],
+    workerSrc: [
+      'blob:' // Lucky Orange
     ],
     childSrc: ['platform.twitter.com'],
     frameSrc: ["'self'", 'streetmix.github.io'],
@@ -109,7 +114,11 @@ const csp = {
       's.gravatar.com',
       'https://www.google-analytics.com',
       '*.basemaps.cartocdn.com',
-      'https://res.cloudinary.com/'
+      'https://res.cloudinary.com/',
+      'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
+    ],
+    mediaSrc: [
+      'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
     ],
     fontSrc: [
       "'self'",
@@ -123,7 +132,10 @@ const csp = {
       'syndication.twitter.com',
       'https://www.google-analytics.com',
       'app.getsentry.com',
-      'streetmix.auth0.com'
+      'streetmix.auth0.com',
+      'https://settings.luckyorange.net', // Lucky Orange
+      'wss://*.visitors.live', // Lucky Orange
+      'https://pubsub.googleapis.com' // Lucky Orange
     ]
   }
 }
