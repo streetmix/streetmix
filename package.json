@@ -199,7 +199,7 @@
     "redux-mock-store": "1.5.3",
     "stylelint": "10.0.1",
     "stylelint-config-standard": "18.3.0",
-    "stylelint-scss": "3.6.1",
+    "stylelint-scss": "3.7.0",
     "supertest": "4.0.2"
   },
   "greenkeeper": {
