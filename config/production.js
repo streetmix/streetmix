@@ -7,7 +7,9 @@ module.exports = {
   },
   facebook_app_id: '162729607241489',
   google_analytics_account: 'UA-38087461-1',
-  mixpanel_token: '61e4b1fdd39e00551df8911fe62b8c56',
+  // Temporarily disable mixpanel
+  // mixpanel_token: '61e4b1fdd39e00551df8911fe62b8c56',
+  luckyorange_enabled: true,
   db: {
     // MONGOHQ_URL - Compose MongoDB Heroku addon - used in production environments
     // MONGODB_URI - mLab MongoDB Heroku addon - used in free dyno "production-like" environments

@@ -96,7 +96,8 @@ const csp = {
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
-      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
+      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'",
+      (req, res) => "'nonce-" + res.locals.nonce.luckyorange + "'"
     ],
     childSrc: ['platform.twitter.com'],
     frameSrc: ["'self'", 'streetmix.github.io'],
@@ -149,7 +150,8 @@ app.use((req, res, next) => {
   // Generate nonces for inline scripts
   res.locals.nonce = {
     google_analytics: uuid(),
-    mixpanel: uuid()
+    mixpanel: uuid(),
+    luckyorange: uuid()
   }
 
   // Set default metatag information for social sharing cards
