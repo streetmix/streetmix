@@ -135,6 +135,7 @@ const csp = {
       'streetmix.auth0.com',
       'https://settings.luckyorange.net', // Lucky Orange
       'wss://*.visitors.live', // Lucky Orange
+      'wss://visitors.live', // Lucky Orange
       'https://pubsub.googleapis.com' // Lucky Orange
     ]
   }
