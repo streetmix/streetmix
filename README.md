@@ -78,7 +78,9 @@ Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by 
 
 ### Copyright
 
-Copyright (c) 2013-2017 Code for America and contributors. See [LICENSE][] for details.
+Copyright (c) 2013-2018 Code for America and contributors.
+Copyright (c) 2019 Streetmix LLC.
+See [LICENSE][] for details.
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/streetmix/streetmix.svg)](https://greenkeeper.io/)
 
