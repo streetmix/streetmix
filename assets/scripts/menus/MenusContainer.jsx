@@ -8,7 +8,7 @@ import ContributeMenu from './ContributeMenu'
 import IdentityMenu from './IdentityMenu'
 import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
-import { registerKeypress } from '../app/keypress'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/actions/menus'
 
 class MenusContainer extends React.PureComponent {
@@ -61,6 +61,7 @@ class MenusContainer extends React.PureComponent {
 
   componentWillUnmount () {
     document.removeEventListener('visibilitychange', this.handleVisibilityChange, false)
+    deregisterKeypress('esc', this.hideAllMenus)
   }
 
   componentDidCatch (error) {

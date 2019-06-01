@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { registerKeypress } from './keypress'
+import { registerKeypress, deregisterKeypress } from './keypress'
 
 class ScrollIndicators extends React.PureComponent {
   static propTypes = {
@@ -13,6 +13,11 @@ class ScrollIndicators extends React.PureComponent {
   componentDidMount () {
     registerKeypress(['left', 'shift left'], this.handleLeftScroll)
     registerKeypress(['right', 'shift right'], this.handleRightScroll)
+  }
+
+  componentWillUnmount () {
+    deregisterKeypress(['left', 'shift left'], this.handleLeftScroll)
+    deregisterKeypress(['right', 'shift right'], this.handleRightScroll)
   }
 
   handleLeftScroll = (event) => {

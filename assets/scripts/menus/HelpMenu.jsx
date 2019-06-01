@@ -10,7 +10,7 @@ import {
   ICON_ARROW_RIGHT,
   ICON_ARROW_LEFT
 } from '../ui/icons'
-import { registerKeypress } from '../app/keypress'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/actions/dialogs'
 import './HelpMenu.scss'
@@ -24,6 +24,10 @@ export class HelpMenu extends Component {
   componentDidMount () {
     // Set up keyboard shortcuts
     registerKeypress('?', { shiftKey: 'optional' }, this.props.showAboutDialog)
+  }
+
+  componentWillUnmount () {
+    deregisterKeypress('?', this.props.showAboutDialog)
   }
 
   onShow () {
