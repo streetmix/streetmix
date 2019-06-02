@@ -14,6 +14,12 @@ const ScrollIndicators = (props) => {
     scrollStreet(false, event.shiftKey)
   }
 
+  /**
+   * Sets up and takes down event listeners for keys.
+   *  - Left arrow scrolls left one screen
+   *  - Right arrow scrolls right one screen
+   *  - If shift is pressed, screen scrolls to extents.
+   */
   useEffect(() => {
     registerKeypress(['left', 'shift left'], doLeftScroll)
     registerKeypress(['right', 'shift right'], doRightScroll)

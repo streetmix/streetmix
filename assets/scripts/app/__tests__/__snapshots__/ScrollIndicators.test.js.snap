@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScrollIndicators renders snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="street-scroll-indicators"
+    style="top: 0px;"
+  >
+    <div
+      class="street-scroll-indicator-left"
+    >
+      ‹
+    </div>
+    <div
+      class="street-scroll-indicator-right"
+    >
+      ›››
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScrollIndicators renders snapshot for zero indicators 1`] = `
+<DocumentFragment>
+  <div
+    class="street-scroll-indicators"
+    style="top: 0px;"
+  >
+    <div
+      class="street-scroll-indicator-left"
+    />
+    <div
+      class="street-scroll-indicator-right"
+    />
+  </div>
+</DocumentFragment>
+`;
