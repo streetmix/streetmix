@@ -1,0 +1,3 @@
+# Streetmix documentation
+
+Placeholder.
