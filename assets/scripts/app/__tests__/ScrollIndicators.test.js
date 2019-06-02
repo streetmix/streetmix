@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { render, fireEvent, cleanup } from 'react-testing-library'
+import { fireEvent, cleanup } from 'react-testing-library'
+import { renderWithIntl as render } from '../../../../test/helpers/render'
 import ScrollIndicators from '../ScrollIndicators'
 
 const baseProps = {

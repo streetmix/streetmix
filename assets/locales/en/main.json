@@ -292,7 +292,9 @@
     "increase-width": "Increase width (hold Shift for more precision)",
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
-    "remove-floor": "Remove floor"
+    "remove-floor": "Remove floor",
+    "scroll-street-left": "Scroll street left",
+    "scroll-street-right": "Scroll street right"
   },
   "street": {
     "default-name": "Unnamed St",
