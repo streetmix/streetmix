@@ -31,18 +31,18 @@ const ScrollIndicators = (props) => {
 
   return (
     <div className="street-scroll-indicators" style={{ top: `${scrollTop}px` }}>
-      <div
+      <button
         className="street-scroll-indicator-left"
         onClick={doLeftScroll}
       >
         {Array(scrollIndicatorsLeft + 1).join('‹')}
-      </div>
-      <div
+      </button>
+      <button
         className="street-scroll-indicator-right"
         onClick={doRightScroll}
       >
         {Array(scrollIndicatorsRight + 1).join('›')}
-      </div>
+      </button>
     </div>
   )
 }
