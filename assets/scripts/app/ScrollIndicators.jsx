@@ -1,62 +1,56 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import './ScrollIndicators.scss'
 
-class ScrollIndicators extends React.PureComponent {
-  static propTypes = {
-    scrollIndicatorsLeft: PropTypes.number,
-    scrollIndicatorsRight: PropTypes.number,
-    scrollStreet: PropTypes.func.isRequired,
-    scrollTop: PropTypes.number.isRequired
+const ScrollIndicators = (props) => {
+  const { scrollTop, scrollStreet, scrollIndicatorsLeft, scrollIndicatorsRight } = props
+
+  const doLeftScroll = (event) => {
+    scrollStreet(true, event.shiftKey)
   }
 
-  static defaultProps = {
-    scrollIndicatorsLeft: 0,
-    scrollIndicatorsRight: 0
+  const doRightScroll = (event) => {
+    scrollStreet(false, event.shiftKey)
   }
 
-  componentDidMount () {
-    registerKeypress(['left', 'shift left'], this.handleLeftScroll)
-    registerKeypress(['right', 'shift right'], this.handleRightScroll)
-  }
-
-  componentWillUnmount () {
-    deregisterKeypress(['left', 'shift left'], this.handleLeftScroll)
-    deregisterKeypress(['right', 'shift right'], this.handleRightScroll)
-  }
-
-  handleLeftScroll = (event) => {
-    this.props.scrollStreet(true, event.shiftKey)
-  }
-
-  handleRightScroll = (event) => {
-    this.props.scrollStreet(false, event.shiftKey)
-  }
-
-  render () {
-    const { scrollTop, scrollIndicatorsLeft, scrollIndicatorsRight } = this.props
-    const style = {
-      top: scrollTop + 'px'
+  useEffect(() => {
+    registerKeypress(['left', 'shift left'], doLeftScroll)
+    registerKeypress(['right', 'shift right'], doRightScroll)
+    return () => {
+      deregisterKeypress(['left', 'shift left'], doLeftScroll)
+      deregisterKeypress(['right', 'shift right'], doRightScroll)
     }
+  })
 
-    return (
-      <div className="street-scroll-indicators" style={style}>
-        <div
-          className="street-scroll-indicator-left"
-          onClick={this.handleLeftScroll}
-        >
-          {Array(scrollIndicatorsLeft + 1).join('‹')}
-        </div>
-        <div
-          className="street-scroll-indicator-right"
-          onClick={this.handleRightScroll}
-        >
-          {Array(scrollIndicatorsRight + 1).join('›')}
-        </div>
+  return (
+    <div className="street-scroll-indicators" style={{ top: `${scrollTop}px` }}>
+      <div
+        className="street-scroll-indicator-left"
+        onClick={doLeftScroll}
+      >
+        {Array(scrollIndicatorsLeft + 1).join('‹')}
       </div>
-    )
-  }
+      <div
+        className="street-scroll-indicator-right"
+        onClick={doRightScroll}
+      >
+        {Array(scrollIndicatorsRight + 1).join('›')}
+      </div>
+    </div>
+  )
 }
 
-export default ScrollIndicators
+ScrollIndicators.propTypes = {
+  scrollIndicatorsLeft: PropTypes.number,
+  scrollIndicatorsRight: PropTypes.number,
+  scrollStreet: PropTypes.func.isRequired,
+  scrollTop: PropTypes.number.isRequired
+}
+
+ScrollIndicators.defaultProps = {
+  scrollIndicatorsLeft: 0,
+  scrollIndicatorsRight: 0
+}
+
+export default React.memo(ScrollIndicators)
