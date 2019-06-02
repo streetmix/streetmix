@@ -4,10 +4,15 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 
 class ScrollIndicators extends React.PureComponent {
   static propTypes = {
-    posLeft: PropTypes.number.isRequired,
-    posRight: PropTypes.number.isRequired,
+    scrollIndicatorsLeft: PropTypes.number,
+    scrollIndicatorsRight: PropTypes.number,
     scrollStreet: PropTypes.func.isRequired,
     scrollTop: PropTypes.number.isRequired
+  }
+
+  static defaultProps = {
+    scrollIndicatorsLeft: 0,
+    scrollIndicatorsRight: 0
   }
 
   componentDidMount () {
@@ -29,7 +34,7 @@ class ScrollIndicators extends React.PureComponent {
   }
 
   render () {
-    const { scrollTop, posLeft, posRight } = this.props
+    const { scrollTop, scrollIndicatorsLeft, scrollIndicatorsRight } = this.props
     const style = {
       position: 'absolute',
       top: scrollTop + 'px'
@@ -41,13 +46,13 @@ class ScrollIndicators extends React.PureComponent {
           className="street-scroll-indicator-left"
           onClick={this.handleLeftScroll}
         >
-          {Array(posLeft + 1).join('‹')}
+          {Array(scrollIndicatorsLeft + 1).join('‹')}
         </div>
         <div
           className="street-scroll-indicator-right"
           onClick={this.handleRightScroll}
         >
-          {Array(posRight + 1).join('›')}
+          {Array(scrollIndicatorsRight + 1).join('›')}
         </div>
       </div>
     )

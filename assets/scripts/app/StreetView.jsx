@@ -43,8 +43,8 @@ class StreetView extends React.Component {
 
     this.state = {
       isStreetScrolling: false,
-      posLeft: 0,
-      posRight: 0,
+      scrollIndicatorsLeft: 0,
+      scrollIndicatorsRight: 0,
 
       scrollTop: 0,
       skyHeight: 0,
@@ -58,11 +58,11 @@ class StreetView extends React.Component {
 
   componentDidMount () {
     const resizeState = this.onResize()
-    const streetIndicators = this.calculateStreetIndicatorsPositions()
+    const scrollIndicators = this.calculateScrollIndicators()
 
     this.setState({
       ...resizeState,
-      ...streetIndicators
+      ...scrollIndicators
     })
   }
 
@@ -73,14 +73,14 @@ class StreetView extends React.Component {
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       const resizeState = this.onResize()
-      const streetIndicators = this.calculateStreetIndicatorsPositions()
+      const scrollIndicators = this.calculateScrollIndicators()
 
       // We are permitted one setState in componentDidUpdate if
       // it's inside of a condition, like it is now.
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         ...resizeState,
-        ...streetIndicators
+        ...scrollIndicators
       })
     }
 
@@ -184,43 +184,48 @@ class StreetView extends React.Component {
   handleStreetScroll = (event) => {
     infoBubble.suppress()
 
-    const streetIndicators = this.calculateStreetIndicatorsPositions()
+    const scrollIndicators = this.calculateScrollIndicators()
 
     this.setState({
-      ...streetIndicators
+      ...scrollIndicators
     })
   }
 
-  calculateStreetIndicatorsPositions = () => {
+  /**
+   * Based on street width and scroll position, determine how many
+   * left and right "scroll indicator" arrows to display. This number
+   * is calculated as the street scrolls and stored in state.
+   */
+  calculateScrollIndicators = () => {
     const el = this.streetSectionEl.current
-    let posLeft
-    let posRight
+    let scrollIndicatorsLeft
+    let scrollIndicatorsRight
 
     if (el.scrollWidth <= el.offsetWidth) {
-      posLeft = 0
-      posRight = 0
+      scrollIndicatorsLeft = 0
+      scrollIndicatorsRight = 0
     } else {
-      var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
+      const left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
 
       // TODO const off max width street
-      var posMax = Math.round(this.props.street.width / MAX_CUSTOM_STREET_WIDTH * 6)
+      let posMax = Math.round(this.props.street.width / MAX_CUSTOM_STREET_WIDTH * 6)
       if (posMax < 2) {
         posMax = 2
       }
 
-      posLeft = Math.round(posMax * left)
-      if ((left > 0) && (posLeft === 0)) {
-        posLeft = 1
+      scrollIndicatorsLeft = Math.round(posMax * left)
+      if ((left > 0) && (scrollIndicatorsLeft === 0)) {
+        scrollIndicatorsLeft = 1
       }
-      if ((left < 1.0) && (posLeft === posMax)) {
-        posLeft = posMax - 1
+      if ((left < 1.0) && (scrollIndicatorsLeft === posMax)) {
+        scrollIndicatorsLeft = posMax - 1
       }
-      posRight = posMax - posLeft
+      scrollIndicatorsRight = posMax - scrollIndicatorsLeft
     }
 
     return {
-      posLeft: posLeft,
-      posRight: posRight
+      scrollIndicatorsLeft: scrollIndicatorsLeft,
+      scrollIndicatorsRight: scrollIndicatorsRight
     }
   }
 
@@ -317,8 +322,8 @@ class StreetView extends React.Component {
           height={this.state.skyHeight}
         />
         <ScrollIndicators
-          posLeft={this.state.posLeft}
-          posRight={this.state.posRight}
+          scrollIndicatorsLeft={this.state.scrollIndicatorsLeft}
+          scrollIndicatorsRight={this.state.scrollIndicatorsRight}
           scrollStreet={this.scrollStreet}
           scrollTop={this.state.scrollTop}
         />
