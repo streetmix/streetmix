@@ -8,11 +8,13 @@
     @include tap-highlight-color(transparent);
 
     position: fixed;
-    margin-top: -275px;
-    padding: 0 15px;
+    height: 80px;
+    margin-top: -260px;
+    padding: 0 0.2em;
     opacity: 0.25;
     font-size: 80px;
-    letter-spacing: -13px;
+    line-height: 1;
+    letter-spacing: -0.15em;
     cursor: pointer;
     user-select: none;
     z-index: $z-07-street-scroll;
@@ -40,6 +42,8 @@
 }
 
 .street-scroll-indicator-right {
-  right: 12px;
-  text-align: right;
+  right: 0;
+
+  // Visual alignment on the right side of the screen
+  padding-right: 0.4em !important;
 }

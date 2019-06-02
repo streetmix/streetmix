@@ -31,18 +31,22 @@ const ScrollIndicators = (props) => {
 
   return (
     <div className="street-scroll-indicators" style={{ top: `${scrollTop}px` }}>
-      <button
-        className="street-scroll-indicator-left"
-        onClick={doLeftScroll}
-      >
-        {Array(scrollIndicatorsLeft + 1).join('‹')}
-      </button>
-      <button
-        className="street-scroll-indicator-right"
-        onClick={doRightScroll}
-      >
-        {Array(scrollIndicatorsRight + 1).join('›')}
-      </button>
+      {scrollIndicatorsLeft ? (
+        <button
+          className="street-scroll-indicator-left"
+          onClick={doLeftScroll}
+        >
+          {Array(scrollIndicatorsLeft + 1).join('‹')}
+        </button>
+      ) : null}
+      {scrollIndicatorsRight ? (
+        <button
+          className="street-scroll-indicator-right"
+          onClick={doRightScroll}
+        >
+          {Array(scrollIndicatorsRight + 1).join('›')}
+        </button>
+      ) : null}
     </div>
   )
 }

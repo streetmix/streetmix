@@ -6,16 +6,16 @@ exports[`ScrollIndicators renders snapshot 1`] = `
     class="street-scroll-indicators"
     style="top: 0px;"
   >
-    <div
+    <button
       class="street-scroll-indicator-left"
     >
       ‹
-    </div>
-    <div
+    </button>
+    <button
       class="street-scroll-indicator-right"
     >
       ›››
-    </div>
+    </button>
   </div>
 </DocumentFragment>
 `;
@@ -25,13 +25,6 @@ exports[`ScrollIndicators renders snapshot for zero indicators 1`] = `
   <div
     class="street-scroll-indicators"
     style="top: 0px;"
-  >
-    <div
-      class="street-scroll-indicator-left"
-    />
-    <div
-      class="street-scroll-indicator-right"
-    />
-  </div>
+  />
 </DocumentFragment>
 `;
