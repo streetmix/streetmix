@@ -1,3 +1,43 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
 .street-scroll-indicators {
   position: absolute;
+}
+
+.street-scroll-indicator-left,
+.street-scroll-indicator-right {
+  @include tap-highlight-color(transparent);
+
+  position: fixed;
+  margin-top: -275px;
+  padding: 0 15px;
+  width: 70px;
+  opacity: 0.1;
+  font-size: 80px;
+  letter-spacing: -13px;
+  cursor: pointer;
+  user-select: none;
+  z-index: $z-07-street-scroll;
+
+  &:hover {
+    opacity: 0.333;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+
+  [dir="rtl"] & {
+    direction: ltr;
+  }
+
+  &.street-scroll-indicator-left {
+    left: 0;
+  }
+
+  &.street-scroll-indicator-right {
+    right: 12px;
+    text-align: right;
+  }
 }
