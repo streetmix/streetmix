@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { registerKeypress, deregisterKeypress } from './keypress'
+import './ScrollIndicators.scss'
 
 class ScrollIndicators extends React.PureComponent {
   static propTypes = {
@@ -36,7 +37,6 @@ class ScrollIndicators extends React.PureComponent {
   render () {
     const { scrollTop, scrollIndicatorsLeft, scrollIndicatorsRight } = this.props
     const style = {
-      position: 'absolute',
       top: scrollTop + 'px'
     }
 
