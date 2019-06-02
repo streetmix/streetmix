@@ -8,9 +8,13 @@ import './SkyBackground.scss'
 
 export class SkyBackground extends React.PureComponent {
   static propTypes = {
-    scrollPos: PropTypes.number.isRequired,
+    scrollPos: PropTypes.number,
     height: PropTypes.number.isRequired,
     environment: PropTypes.string.isRequired
+  }
+
+  static defaultProps = {
+    scrollPos: 0
   }
 
   constructor (props) {

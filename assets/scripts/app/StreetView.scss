@@ -1,5 +1,4 @@
 @import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
 
 // TODO: Further refactor / split up of this stylesheet
 
@@ -13,6 +12,10 @@
   overflow-x: scroll;
   overflow-y: hidden;
   touch-action: pan-x;
+
+  [dir="rtl"] & {
+    direction: ltr;
+  }
 }
 
 #street-section-inner {
@@ -41,39 +44,6 @@
     pointer-events: none;
     // Ensure that segments switching in stay above this
     z-index: -1;
-  }
-}
-
-.street-scroll-indicator-left,
-.street-scroll-indicator-right {
-  @include tap-highlight-color(transparent);
-
-  position: fixed;
-  margin-top: -275px;
-  padding: 0 15px;
-  width: 70px;
-  opacity: 0.1;
-  font-size: 80px;
-  letter-spacing: -13px;
-  cursor: pointer;
-  user-select: none;
-  z-index: $z-07-street-scroll;
-
-  &:hover {
-    opacity: 0.333;
-  }
-
-  &:active {
-    opacity: 0.5;
-  }
-
-  &.street-scroll-indicator-left {
-    left: 0;
-  }
-
-  &.street-scroll-indicator-right {
-    right: 12px;
-    text-align: right;
   }
 }
 
@@ -121,12 +91,4 @@
 
 .street-segment-building-right canvas {
   right: 0;
-}
-
-[dir="rtl"] {
-  #street-section-outer,
-  .street-scroll-indicator-left,
-  .street-scroll-indicator-right {
-    direction: ltr;
-  }
 }
