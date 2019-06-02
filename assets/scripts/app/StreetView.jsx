@@ -260,11 +260,20 @@ class StreetView extends React.Component {
     })
   }
 
+  /**
+   * Updates a segment or building's CSS `perspective-origin` property according
+   * to its current position in the street and on the screen, which is used
+   * when it animates in or out. Because this reads and writes to DOM, only call
+   * this function after a render. Do not set state or call other side effects
+   * from this function.
+   *
+   * @params (HTMLElement) - the element to apply CSS to
+   */
   updatePerspective = (el) => {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
-    const scrollPos = (this.streetSectionOuter && this.streetSectionOuter.scrollLeft) || this.state.scrollPos
+    const scrollPos = (this.streetSectionOuter && this.streetSectionOuter.scrollLeft) || 0
     const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
