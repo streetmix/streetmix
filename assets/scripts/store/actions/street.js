@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash'
+
 import {
   REPLACE_STREET_DATA,
   ADD_SEGMENT,
@@ -35,6 +37,7 @@ import {
 } from '../../segments/resizing'
 import { recalculateWidth } from '../../streets/width'
 import { saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { setSettings } from './settings'
 import apiClient from '../../util/API'
 
 export function updateStreetData (street) {
@@ -316,7 +319,22 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
 
 export const getLastStreet = () => {
   return async (dispatch, getState) => {
-    const street = await apiClient.getStreet(getState().settings.priorLastStreetId)
+    const lastStreetId = getState().settings.priorLastStreetId
+    const data = await apiClient.getStreet(lastStreetId)
+    const street = cloneDeep(data.data.street)
+    street.creatorId = (data.creator && data.creator.id) || null
+    street.originalStreetId = data.originalStreetId || null
+    street.updatedAt = data.updatedAt || null
+    street.name = data.name || null
+    street.location = data.data.street.location || null
+    street.editCount = data.data.street.editCount || 0
+    dispatch(saveStreetId(data.id, data.namespacedId))
+    dispatch(saveOriginalStreetId(lastStreetId))
+    await dispatch(setSettings({
+      lastStreetId: street.id,
+      lastStreetNamespacedId: street.namespacedId,
+      lastStreetCreatorId: street.creatorId
+    }))
     dispatch(updateStreetData(street))
   }
 }
