@@ -83,5 +83,6 @@ Copyright (c) 2019 Streetmix LLC.
 See [LICENSE][] for details.
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/streetmix/streetmix.svg)](https://greenkeeper.io/)
+[![Open Source Helpers](https://www.codetriage.com/codeforamerica/streetmix/badges/users.svg)](https://www.codetriage.com/codeforamerica/streetmix)
 
 [license]: https://github.com/streetmix/streetmix/blob/master/LICENSE.md
