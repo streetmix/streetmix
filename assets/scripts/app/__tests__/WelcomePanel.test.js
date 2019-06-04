@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import moxios from 'moxios'
 
 import ConnectedWelcomePanel, { WelcomePanel } from '../WelcomePanel'
-import { fireEvent, cleanup, waitForDomChange, waitForElementToBeRemoved } from 'react-testing-library'
+import { fireEvent, cleanup } from 'react-testing-library'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { respondWith } from '../../../../test/helpers/requests'
 import { getMode } from '../mode'
@@ -49,28 +49,21 @@ describe('WelcomePanel', () => {
       updatedAt: '',
       name: 'StreetName',
       data: {
-        street: updatedStreet,
+        street: updatedStreet
       }
     }
     beforeEach(() => {
-      getMode.mockImplementation(() => (2))
+      getMode.mockImplementation(() => (2)) // NEW_STREET
       isSignedIn.mockImplementation(() => (true))
     })
     it('gets the data from the server', async () => {
-      const { store, queryByLabelText, getByLabelText, container } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { street })
-      store.dispatch(setSettings({ priorLastStreetId: originalStreetId }))
+      const { store, queryByLabelText, getByLabelText } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { street })
+      store.dispatch(setSettings({ priorLastStreetId: '3' }))
       var event = new Event('stmx:everything_loaded')
       window.dispatchEvent(event)
       fireEvent.click(getByLabelText(/Start with a copy/))
       await respondWith(apiResponse)
-      //ToDo: welcome panel should not be visible
-      /**
-      await waitForElementToBeRemoved(() =>
-        queryByLabelText(/Start with a copy/)
-      )
-      await waitForDomChange({container})
       expect(queryByLabelText(/Start with a copy/)).toBeNull()
-      **/
     })
   })
 })

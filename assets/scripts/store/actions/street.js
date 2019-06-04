@@ -36,7 +36,8 @@ import {
   cancelSegmentResizeTransitions
 } from '../../segments/resizing'
 import { recalculateWidth } from '../../streets/width'
-import { saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { saveStreetToServer } from '../../streets/xhr'
 import { setSettings } from './settings'
 import apiClient from '../../util/API'
 
@@ -328,13 +329,15 @@ export const getLastStreet = () => {
     street.name = data.name || null
     street.location = data.data.street.location || null
     street.editCount = data.data.street.editCount || 0
-    dispatch(saveStreetId(data.id, data.namespacedId))
-    dispatch(saveOriginalStreetId(lastStreetId))
     await dispatch(setSettings({
-      lastStreetId: street.id,
-      lastStreetNamespacedId: street.namespacedId,
+      lastStreetId: data.id,
+      lastStreetNamespacedId: data.namespacedId,
       lastStreetCreatorId: street.creatorId
     }))
+    dispatch(saveStreetId(data.id, data.namespacedId))
+    dispatch(saveOriginalStreetId(lastStreetId))
     dispatch(updateStreetData(street))
+    setLastStreet()
+    saveStreetToServer(false)
   }
 }
