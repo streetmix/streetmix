@@ -321,6 +321,7 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
 export const getLastStreet = () => {
   return async (dispatch, getState) => {
     const lastStreetId = getState().settings.priorLastStreetId
+    const { id, namespacedId } = getState().street
     const data = await apiClient.getStreet(lastStreetId)
     const street = cloneDeep(data.data.street)
     street.creatorId = (data.creator && data.creator.id) || null
@@ -334,9 +335,13 @@ export const getLastStreet = () => {
       lastStreetNamespacedId: data.namespacedId,
       lastStreetCreatorId: street.creatorId
     }))
-    dispatch(saveStreetId(data.id, data.namespacedId))
-    dispatch(saveOriginalStreetId(lastStreetId))
     dispatch(updateStreetData(street))
+    if (id) {
+      dispatch(saveStreetId(id, namespacedId))
+    } else {
+      dispatch(saveStreetId(data.id, data.namespacedId))
+    }
+    dispatch(saveOriginalStreetId(lastStreetId))
     setLastStreet()
     saveStreetToServer(false)
   }
