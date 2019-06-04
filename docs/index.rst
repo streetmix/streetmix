@@ -3,15 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Streetmix documentation
-=======================
+Welcome!
+========
+
+**Hi there, and welcome to Streetmix documentation!** This documentation contains contributor guidelines for code, illustrations, translations, data, and more. It also contains helpful tips and reference information for street planning and civic engagement.
+
+.. attention::
+   
+   **This is a work in progress as we migrate miscellaneous documents into this space.** If you'd like to pitch in, check out our guidelines for contributing to documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
 
-
-Placeholder.
+   guidebook/index
+   contributing/index
 
 
 Indices and tables

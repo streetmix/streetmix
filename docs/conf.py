@@ -14,6 +14,11 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+# Add custom stylesheet
+def setup(app):
+    app.add_stylesheet('css/sphinx_prompt_css.css')
+    app.add_stylesheet('css/custom.css')
+
 
 # -- Project information -----------------------------------------------------
 
@@ -28,6 +33,7 @@ copyright = '2019, Streetmix LLC'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+  'sphinx-prompt'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -38,6 +44,9 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# Specify master doc (default is 'contents') because 'index' is what
+# Read the Docs expects
+master_doc = 'index'
 
 # -- Options for HTML output -------------------------------------------------
 
