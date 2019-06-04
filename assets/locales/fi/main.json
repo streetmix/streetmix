@@ -333,7 +333,7 @@
     "byline": "käyttäjältä {user}"
   },
   "export": {
-    "watermark": "{{streetmixWordmark}}-suunnitelma"
+    "watermark": "{streetmixWordmark}-suunnitelma"
   },
   "meta": {
     "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",

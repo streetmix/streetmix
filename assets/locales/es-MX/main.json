@@ -333,7 +333,7 @@
     "byline": "por {user}"
   },
   "export": {
-    "watermark": "Hecho con {{streetmixWordmark}}"
+    "watermark": "Hecho con {streetmixWordmark}"
   },
   "meta": {
     "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad.",

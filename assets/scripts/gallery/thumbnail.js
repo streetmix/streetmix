@@ -38,11 +38,13 @@ const WORDMARK_MARGIN = 4
  * @modifies {CanvasRenderingContext2D}
  */
 function drawWatermark (ctx, dpi, invert) {
-  const text = t('export.watermark', 'Made with {{streetmixWordmark}}')
+  const text = 'Made with {streetmixWordmark}'
+  // TODO: fix text replacement issue with intl-messageformat
+  // const text = t('export.watermark', 'Made with {streetmixWordmark}')
   const wordmarkImage = images.get('/images/wordmark.svg')
 
   // Separate string so that we can render a wordmark with an image
-  const strings = text.replace(/{{/g, '||{{').replace(/}}/g, '}}||').split('||')
+  const strings = text.replace(/{/g, '||{{').replace(/}/g, '}}||').split('||')
 
   // Set text render options
   ctx.textAlign = 'right'

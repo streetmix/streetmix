@@ -341,7 +341,7 @@
     "byline": "by {user}"
   },
   "export": {
-    "watermark": "Made with {{streetmixWordmark}}"
+    "watermark": "Made with {streetmixWordmark}"
   },
   "meta": {
     "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.",
