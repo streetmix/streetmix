@@ -1,0 +1,6 @@
+
+=======================
+Streetmix documentation
+=======================
+
+Placeholder.
