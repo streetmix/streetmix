@@ -39,7 +39,7 @@ import { recalculateWidth } from '../../streets/width'
 import { setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
 import { saveStreetToServer } from '../../streets/xhr'
 import { setSettings } from './settings'
-import apiClient from '../../util/API'
+import apiClient from '../../util/api'
 
 export function updateStreetData (street) {
   return {

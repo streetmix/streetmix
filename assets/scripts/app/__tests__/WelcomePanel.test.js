@@ -10,7 +10,7 @@ import { respondWith } from '../../../../test/helpers/requests'
 import { getMode } from '../mode'
 import { isSignedIn } from '../../users/authentication'
 import { setSettings } from '../../store/actions/settings'
-import apiClient from '../../util/API'
+import apiClient from '../../util/api'
 
 jest.mock('../mode')
 jest.mock('../../users/authentication')
