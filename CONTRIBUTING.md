@@ -61,8 +61,6 @@ are similar ones may be closed.
 
 ## Code contributions
 
-[![Waffle.io stories in Ready](https://badge.waffle.io/streetmix/streetmix.png?label=ready&style=flat-square)](https://waffle.io/streetmix/streetmix)
-
 If you have the capacity to write code, and wish to contribute to
 Streetmix, we'd love your help!
 
