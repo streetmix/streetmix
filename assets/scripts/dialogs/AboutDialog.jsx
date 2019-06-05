@@ -194,7 +194,7 @@ export default class AboutDialog extends React.PureComponent {
                       <FormattedMessage id="menu.contact.blog" defaultMessage="Visit Streetmix blog" />
                     </a>
                     <br />
-                    <a href="https://streetmix.readme.io/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://streetmix.readthedocs.io/en/latest/guidebook/" target="_blank" rel="noopener noreferrer">
                       <FormattedMessage id="dialogs.about.guidebook-link" defaultMessage="Guidebook" />
                     </a>
                   </p>
