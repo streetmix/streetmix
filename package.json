@@ -34,7 +34,10 @@
     "jest:watch": "jest --watch",
     "protractor:update": "./node_modules/protractor/bin/webdriver-manager update",
     "protractor:local": "protractor ./test/integration/local.conf.js",
-    "translations:download": "node bin/download_translations.js"
+    "translations:download": "node bin/download_translations.js",
+    "docs": "npm run docs:build && npm run docs:serve",
+    "docs:build": "cd docs && make dirhtml",
+    "docs:serve": "http-server docs/_build/dirhtml"
   },
   "husky": {
     "hooks": {

@@ -1,0 +1,56 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,600);
+
+#illustrations .wy-table-responsive table td,
+#illustrations .wy-table-responsive table th {
+  white-space: normal !important;
+}
+
+h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Goofus/Gallant illustration box */
+.stmx-goofus-gallant-box {
+  border-collapse: separate;
+  border-spacing: 1em 0;
+  width: calc(100% + 2em);
+  margin-left: -1em;
+  margin-right: -1em;
+}
+
+/* Resets table style */
+table.stmx-goofus-gallant-box td {
+    border: 0;
+}
+.stmx-gg-left {
+    width: 50%;
+}
+.stmx-gg-right {
+    width: 50%;
+}
+td.stmx-gg-image {
+    vertical-align: bottom !important;
+}
+.stmx-background-blue {
+    background-color: #a9ccdb;
+}
+.stmx-gg-caption {
+    padding: 0 !important;
+  padding-top: 1em !important;
+}
+.stmx-gg-caption p {
+    border-top: 10px solid;
+  padding-top: 0.5em;
+}
+.stmx-guideline-nope {
+    border-color: #d32f2f !important;
+}
+.stmx-guideline-nope strong {
+    color: #d32f2f;
+}
+.stmx-guideline-yep {
+    border-color: #4caf50 !important;
+}
+.stmx-guideline-yep strong {
+    color: #2e7b32;
+}
