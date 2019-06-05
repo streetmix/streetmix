@@ -1,6 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,600);
+
 #illustrations .wy-table-responsive table td,
 #illustrations .wy-table-responsive table th {
   white-space: normal !important;
+}
+
+h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Goofus/Gallant illustration box */
