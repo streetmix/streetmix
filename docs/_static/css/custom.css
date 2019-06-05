@@ -9,6 +9,47 @@ h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Hide side nav version tag -- we're always publishing "latest" */
+.wy-side-nav-search > div.version {
+  display: none;
+}
+
+/* Revise sidebar to a flex container and expand content menu */
+.wy-side-scroll {
+  display: flex;
+  flex-direction: column;
+}
+
+.wy-menu-vertical {
+  flex-grow: 1;
+}
+
+/* Expand content to always be full height of screen */
+.wy-nav-content-wrap {
+  min-height: 100vh;
+}
+
+.wy-nav-content {
+  padding: 0 !important; /* Also override mobile styles */
+}
+
+.wy-nav-content .rst-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.618em 3.236em;
+}
+
+@media screen and (max-width: 768px) {
+  .wy-nav-content .rst-content {
+    padding: 1.618em;
+  }
+}
+
+.wy-nav-content .rst-content .document {
+  flex-grow: 1;
+}
+
 /* Goofus/Gallant illustration box */
 .stmx-goofus-gallant-box {
   border-collapse: separate;
