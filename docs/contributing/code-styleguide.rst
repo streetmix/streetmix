@@ -1,3 +1,5 @@
+.. _code-styleguide:
+
 Code styleguide
 ===============
 
