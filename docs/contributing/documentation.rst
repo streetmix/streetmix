@@ -16,14 +16,11 @@ Setup
 
 It is not required to build documentation locally to work on Streetmix. However, it *is* a good idea to document whatever you're working on, so being able to update documentation would be a great idea! Here's how to set up a local development instance of the documentation.
 
-0. Install python
-+++++++++++++++++
-
-TODO
-
 
 1. Install dependencies
 +++++++++++++++++++++++
+
+First, make sure you have a working Python development environment on your system. Installing Python is outside of the scope of this guide.
 
 Install `Sphinx`_, the `Read the Docs Sphinx theme`_, and extensions.
 
@@ -32,22 +29,17 @@ Install `Sphinx`_, the `Read the Docs Sphinx theme`_, and extensions.
 
 .. prompt:: bash $
    
-   pip install sphinx sphinx-prompt sphinx_rtd_theme 
+   pip install sphinx sphinx-prompt sphinx_rtd_theme
 
 
-2. Set current working directory
-++++++++++++++++++++++++++++++++
+2. Build documentation
+++++++++++++++++++++++
+
+Documentation must be built from the ``./docs`` working directory.
 
 .. prompt:: bash $
 
    cd docs
-
-
-3. Build documentation
-++++++++++++++++++++++
-
-.. prompt:: bash $
-
    make dirhtml
 
 .. note::
@@ -55,19 +47,46 @@ Install `Sphinx`_, the `Read the Docs Sphinx theme`_, and extensions.
    The directory HTML renderer will create URLs that match what we use on Read the Docs.
 
 
-4. Preview
+Alternatively, we've provided an ``npm`` package script that can build documentation from the root directory.
+
+.. prompt:: bash $
+
+   npm run docs:build
+
+
+3. Preview
 ++++++++++
 
-Then run a static file server like ``http-server`` to view the built documentation.
+Then run a static file server, such as ``http-server``, to view the built documentation.
 
 .. prompt:: bash $
 
    http-server _build/dirhtml
 
-.. note::
 
-   This is currently a very manual process. Future improvements to this process include:
+You may use any static file server solution you wish. We've also provided an ``npm`` package script that assumes ``http-server`` is available on the system's global packages and will automatically serve the documentation locally at ``http://localhost:8080/``.
 
-   1. an ``npm`` package script for installing dependencies, and building and viewing documentation
-   2. automatically watching, building, and live-reloading documentation
+.. prompt:: bash $
 
+   npm run docs:serve
+
+
+.. attention::
+
+   We do not yet have a watch and livereload system for rebuilding documentation when contents change, but this would be a good project to take on.
+
+
+4. Upload
++++++++++
+
+Commit your changes.
+
+.. prompt:: bash $
+
+   git add docs/
+   git commit -m 'docs: short commit message [skip ci]'
+
+5. Deploy
++++++++++
+
+Read the Docs will automatically build and deploy changed documentation to https://streetmix.readthedocs.io/.
