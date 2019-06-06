@@ -81,18 +81,6 @@ In general, you can help by:
 Once your code is ready, please push your work to a feature branch on
 your fork of the Streetmix repo, and submit a pull request to us.
 
-### Code style
-
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
-In the future, we may adopt [Prettier](https://github.com/prettier/prettier), which makes code style a non-concern. Currently, introducing it creates changes on every file, which can break existing work. If someone wants to champion adoption of Prettier, please get in touch.
-
-### Commit style
-
-We like [semantic commit messages](https://seesparkbox.com/foundry/semantic_commit_messages). This has become a convention adopted across the JavaScript developer ecosystem, particularly with the [Angular](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) team.
-
-In the future, we may use commit messages to help with [automated releases](https://github.com/semantic-release/semantic-release).
-
 ### Dependency pinning
 
 We pin our dependencies (that is, we use exact dependency versions, not [version ranges](https://semver.org/)) for maximum reliability and consistency. Here is [a good overview of dependency pinning](https://renovatebot.com/docs/dependency-pinning/), which covers the reasons and tradeoffs that come from doing this.
