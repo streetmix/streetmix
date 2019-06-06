@@ -16,8 +16,8 @@ Welcome!
    :maxdepth: 2
    :caption: Contents
 
-   guidebook/index
    contributing/index
+   support/index
 
 
 Indices and tables
