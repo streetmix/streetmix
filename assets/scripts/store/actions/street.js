@@ -35,6 +35,11 @@ import {
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions
 } from '../../segments/resizing'
+
+import { ERRORS } from '../../app/errors'
+import { showError } from './errors'
+import { hideLoadingScreen } from '../../app/load_resources'
+
 import { recalculateWidth } from '../../streets/width'
 import { setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
 import { saveStreetToServer } from '../../streets/xhr'
@@ -322,27 +327,32 @@ export const getLastStreet = () => {
   return async (dispatch, getState) => {
     const lastStreetId = getState().settings.priorLastStreetId
     const { id, namespacedId } = getState().street
-    const data = await apiClient.getStreet(lastStreetId)
-    const street = cloneDeep(data.data.street)
-    street.creatorId = (data.creator && data.creator.id) || null
-    street.originalStreetId = data.originalStreetId || null
-    street.updatedAt = data.updatedAt || null
-    street.name = data.name || null
-    street.location = data.data.street.location || null
-    street.editCount = data.data.street.editCount || 0
-    await dispatch(setSettings({
-      lastStreetId: data.id,
-      lastStreetNamespacedId: data.namespacedId,
-      lastStreetCreatorId: street.creatorId
-    }))
-    dispatch(updateStreetData(street))
-    if (id) {
-      dispatch(saveStreetId(id, namespacedId))
-    } else {
-      dispatch(saveStreetId(data.id, data.namespacedId))
+    try {
+      const data = await apiClient.getStreet(lastStreetId)
+      const street = cloneDeep(data.data.street)
+      street.creatorId = (data.creator && data.creator.id) || null
+      street.originalStreetId = data.originalStreetId || null
+      street.updatedAt = data.updatedAt || null
+      street.name = data.name || null
+      street.location = data.data.street.location || null
+      street.editCount = data.data.street.editCount || 0
+      await dispatch(setSettings({
+        lastStreetId: data.id,
+        lastStreetNamespacedId: data.namespacedId,
+        lastStreetCreatorId: street.creatorId
+      }))
+      dispatch(updateStreetData(street))
+      if (id) {
+        dispatch(saveStreetId(id, namespacedId))
+      } else {
+        dispatch(saveStreetId(data.id, data.namespacedId))
+      }
+      dispatch(saveOriginalStreetId(lastStreetId))
+      setLastStreet()
+      saveStreetToServer(false)
+    } catch(error) {
+      dispatch(showError(ERRORS.NEW_STREET_SERVER_FAILURE, true))
+      //hideLoadingScreen() ToDo: Mock does not work properly
     }
-    dispatch(saveOriginalStreetId(lastStreetId))
-    setLastStreet()
-    saveStreetToServer(false)
   }
 }
