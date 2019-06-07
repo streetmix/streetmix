@@ -10,19 +10,21 @@ Welcome!
 
 .. attention::
    
-   **This is a work in progress as we migrate miscellaneous documents into this space.** If you'd like to pitch in, check out our guidelines for contributing to documentation!
+   **This is a work in progress as we migrate miscellaneous documents into this space.** If you'd like to pitch in, check out our guidelines for contributing to documentation (:ref:`documentation`)!
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents
 
-   guidebook/index
    contributing/index
+   technical/index
+   support/index
+   contact
 
+..
+  Indices and tables
+  ==================
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+  * :ref:`genindex`
+  * :ref:`modindex`
+  * :ref:`search`

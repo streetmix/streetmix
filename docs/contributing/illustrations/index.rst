@@ -1,3 +1,5 @@
+.. _illustrations:
+
 Illustrations
 =============
 
@@ -7,6 +9,8 @@ Illustrations
 
 .. role:: raw-html(raw)
     :format: html
+
+If you would like to contribute illustrations, or have feedback on existing illustrations, please talk to us on `Discord <https://discord.gg/NsKmV3S>`_ or on the `forums <https://forums.streetmix.net/>`_!
 
 Design principles
 -----------------

@@ -9,6 +9,11 @@ h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Slight indent to admonition blocks */
+.wy-alert, .rst-content .note, .rst-content .attention, .rst-content .caution, .rst-content .danger, .rst-content .error, .rst-content .hint, .rst-content .important, .rst-content .tip, .rst-content .warning, .rst-content .seealso, .rst-content .admonition-todo, .rst-content .admonition {
+  margin-left: 1.5em;
+}
+
 /* Hide side nav version tag -- we're always publishing "latest" */
 .wy-side-nav-search > div.version {
   display: none;

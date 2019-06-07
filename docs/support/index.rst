@@ -1,5 +1,5 @@
-Guidebook
-=========
+Support
+=======
 
 .. warning::
 
@@ -12,3 +12,4 @@ Guidebook
 
    faq
    troubleshooting
+   bug-report
