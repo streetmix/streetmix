@@ -60,7 +60,7 @@ Additional guidelines
 Code comments
 +++++++++++++
 
-**TODO:** JSDoc
+**TODO:** `JSDoc <https://jsdoc.app/>`_
 
 
 Commit style

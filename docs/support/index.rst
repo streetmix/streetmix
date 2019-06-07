@@ -12,3 +12,4 @@ Support
 
    faq
    troubleshooting
+   bug-report

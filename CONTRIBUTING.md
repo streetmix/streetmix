@@ -47,17 +47,6 @@ version, and operating system.
 - Steps we can follow to reproduce the bug.
 - Any other information you think might be at all helpful.
 
-### Feature requests and feedback
-
-If you have any ideas for new features or functionality for Streetmix,
-we'd love to hear about them! Unfortunately, we can't promise to build
-everything, but we are receptive to all thoughts you have on how
-Streetmix could be more useful. You can [open an issue on GitHub](https://github.com/streetmix/streetmix/issues/new)
-or [talk to us in Discord](https://discord.gg/NsKmV3S").
-
-Again, please make sure it hasn't already been posted. Posts or issues that
-are similar ones may be closed.
-
 
 ## Code contributions
 
@@ -81,13 +70,6 @@ In general, you can help by:
 Once your code is ready, please push your work to a feature branch on
 your fork of the Streetmix repo, and submit a pull request to us.
 
-### Dependency pinning
-
-We pin our dependencies (that is, we use exact dependency versions, not [version ranges](https://semver.org/)) for maximum reliability and consistency. Here is [a good overview of dependency pinning](https://renovatebot.com/docs/dependency-pinning/), which covers the reasons and tradeoffs that come from doing this.
-
-We want to make sure that all developers, and any deployment environments, are running the same code. Because Streetmix is an application, and it's not intended to be imported by other applications, we don't need the flexibility that comes from using version ranges. And this consistency makes obscure bugs easier to track down and resolve.
-
-This does introduce "upgrade noise", whether we have to manually update dependencies or use a third-party automated service like [Greenkeeper](https://greenkeeper.io/). This is a tradeoff we're willing to accept, although any strategy to limit the noise will be open for consideration.
 
 ### Submitting a pull request
 
@@ -100,12 +82,6 @@ This does introduce "upgrade noise", whether we have to manually update dependen
 
 Stale branches, especially ones that cannot be cleanly merged anymore, are likely to be deleted after some amount of time has passed.
 
-
-## Design / illustration contributions
-
-If you would like to contribute illustrations, or have feedback on existing
-illustrations, please talk to us on [Discord](https://discord.gg/NsKmV3S)
-or on the [forums](https://forums.streetmix.net/)!
 
 ## Development setup
 
