@@ -43,4 +43,4 @@ You can reach us on Twitter at `@streetmix <https://twitter.com/streetmix>`_.
 E-mail
 ------
 
-For business inquiries, email us at hello@streetmix.net.
+For business inquiries, or to report code of conduct violations, email us at hello@streetmix.net.

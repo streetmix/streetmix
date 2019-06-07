@@ -1,13 +1,6 @@
 Contributing
 ============
 
-.. warning::
-
-   This page is a work in progress.
-
-
-**So you'd like to contribute.** That's awesome! In the spirit of open source, **everyone** is welcome to help. This section will help you make high quality contributions to Streetmix.
-
 .. important::
 
    Please note that this project is released with a `Contributor Code of Conduct`_.
@@ -16,7 +9,8 @@ Contributing
    .. _Contributor Code of Conduct: https://github.com/streetmix/streetmix/blob/master/CODE_OF_CONDUCT.md
 
 
-There are many ways to contribute to Streetmix. **You do not have to be a programmer to participate.** Choose the activity you'd like to help with to learn more:
+In the spirit of open source, **everyone** is welcome to help! **You do not have to be a programmer to participate.** This section will help you make high quality contributions to Streetmix. Choose the activity you'd like to help with to learn more:
+
 
 .. - I want to add new street components.
 
@@ -24,19 +18,32 @@ There are many ways to contribute to Streetmix. **You do not have to be a progra
 
    - :ref:`illustrations`
 
-- I want to design the user interface and experience.
+.. - I want to design the user interface and experience.
+..   - :ref:`content-styleguide`
+
 - I want to write or improve documentation.
 
    - :ref:`documentation`
+   - :ref:`content-styleguide`
 
 - I want to translate.
+
+   - :ref:`translations`
+   - :ref:`content-styleguide`
+
 - I want to write code.
-- I want to fund Streetmix.
+
+   - :ref:`code-contributions`
+   - :ref:`code-styleguide`
+
+- I want to give money to Streetmix.
+
+   - `Support us on OpenCollective. <https://opencollective.com/streetmix/>`_
+   - For partnerships and business inquiries, email hello@streetmix.net.
+
 - I want to be a part of the community, or find other ways to help!
 
-.. tip::
-
-   Regardless of how you participate, everyone should read or review the :ref:`content-styleguide`.
+   - Join us on `Discord <https://discord.gg/NsKmV3S>`_ or the `forums <https://forums.streetmix.net/>`_.
 
 
 .. toctree::
@@ -45,7 +52,7 @@ There are many ways to contribute to Streetmix. **You do not have to be a progra
    :caption: Contents
 
    content-styleguide
-   code-styleguide
+   code/index
    documentation
    illustrations/index
    translations/index

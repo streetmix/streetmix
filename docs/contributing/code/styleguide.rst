@@ -63,6 +63,8 @@ Code comments
 **TODO:** `JSDoc <https://jsdoc.app/>`_
 
 
+.. _code-commit-style:
+
 Commit style
 ++++++++++++
 
