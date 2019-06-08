@@ -16,3 +16,4 @@ This section describes the architecture of Streetmix.
    installing-streetmix
    project
    tests
+   segment-definitions

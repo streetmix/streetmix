@@ -85,7 +85,7 @@ Clone and install Streetmix
 
 .. caution::
 
-   We do not currently use the **Yarn** package manager. Installing with Yarn may cause unpredictable errors.
+   We do not currently use the **Yarn** package manager. Installing with Yarn may have unpredictable results.
 
 
 Run Streetmix

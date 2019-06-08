@@ -5,6 +5,21 @@ Project organization
 
    This page is a work in progress.
 
+Streetmix is a Node.js and JavaScript project. We use the following frameworks:
+
+- `Express <https://expressjs.com/>`_, a web application framework. This is basically the server side of Streetmix. It handles HTTP requests and serves files and data requested by the front end.
+- `MongoDB <https://www.mongodb.com/>`_, a schemaless database. All the data on the server is stored in MongoDB.
+- `Parcel <https://parceljs.org/>`_, a web application bundler. When Streetmix starts, it uses Parcel to bundle all the front end JavaScript and CSS.
+- `Babel <https://babeljs.io/>`_, a compiler which allows us to use modern JavaScript in browsers that do not yet support it.
+- `React <https://reactjs.org/>`_, a front-end user interface framework. Most UI is rendered with React.
+- `Redux <https://redux.js.org/>`_, a state management framework that usually works alongside React. We maintain most application state in Redux.
+- `SCSS <https://sass-lang.com/>`_, an extension of CSS that allows us to use variables and calculate values.
+- `PostCSS <https://postcss.org/>`_, a CSS processor. We primarily use it to autoprefix certain CSS properties.
+
+.. note::
+
+   We have a long term plan to migrate away from MongoDB and use PostgreSQL instead.
+
 
 Dependency pinning
 ------------------
@@ -18,3 +33,15 @@ The tradeoff is that this introduces "upgrade noise". We are currently using `Gr
 **References**
 
   - `Should you Pin your Javascript Dependencies? <https://renovatebot.com/docs/dependency-pinning/>`_ *[Renovate Docs]*
+
+
+Browser support
+---------------
+
+
+
+**See also**
+
+**Resources**
+
+
