@@ -3,7 +3,7 @@ Contributing
 
 .. important::
 
-   Please note that this project is released with a `Contributor Code of Conduct`_.
+   The Streetmix team has adopted a `Contributor Code of Conduct`_.
    By participating in this project you agree to abide by its terms.
 
    .. _Contributor Code of Conduct: https://github.com/streetmix/streetmix/blob/master/CODE_OF_CONDUCT.md
