@@ -42,6 +42,11 @@
     {{! Do not track parameter }}
     <meta name="twitter:dnt" content="on">
 
+    {{#config.pinterest}}
+    {{! Pinterest domain verification }}
+    <meta name="p:domain_verify" content="{{.}}"/>
+    {{/config.pinterest}}
+
     <link rel="canonical" href="{{STREETMIX_URL}}">
     <link href="/favicon.ico" rel="shortcut icon">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic" rel="stylesheet">
