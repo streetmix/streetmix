@@ -150,7 +150,7 @@
     "react-dom": "16.8.6",
     "react-intl": "2.8.0",
     "react-leaflet": "2.3.0",
-    "react-redux": "7.0.3",
+    "react-redux": "7.1.0",
     "react-transition-group": "4.0.1",
     "redis": "2.8.0",
     "redux": "4.0.1",
