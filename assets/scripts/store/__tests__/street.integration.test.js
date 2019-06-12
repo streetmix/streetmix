@@ -1,6 +1,5 @@
 /* eslint-env jest */
 
-jest.mock('../../app/load_resources')
 import MockAdapter from 'axios-mock-adapter'
 
 import { createStore } from '../../../../test/helpers/store'
@@ -11,8 +10,8 @@ import { saveStreetToServerIfNecessary } from '../../streets/data_model'
 
 import apiClient from '../../util/api'
 import { ERRORS } from '../../app/errors'
-//import { hideLoadingScreen } from '../../app/load_resources'
 
+jest.mock('../../app/load_resources')
 jest.mock('../../streets/data_model', () => {
   const actual = jest.requireActual('../../streets/data_model')
   return {
@@ -111,7 +110,7 @@ describe('street integration test', () => {
     })
   })
   describe('#getLastStreet', () => {
-    let apiMock;
+    let apiMock
     const type = 'streetcar'
     const variantString = 'inbound|regular'
     const segment = { variantString, id: '1', width: 400, randSeed: 1, type }
@@ -135,7 +134,7 @@ describe('street integration test', () => {
       apiMock.restore()
     })
     it('updates the street', async () => {
-      const store = createStore({settings: { priorLastStreetId: '1'}})
+      const store = createStore({ settings: { priorLastStreetId: '1' } })
 
       apiMock.onAny().reply(200, apiResponse)
       await store.dispatch(getLastStreet())
@@ -144,7 +143,7 @@ describe('street integration test', () => {
       expect(street.segments.length).toEqual(1)
     })
     it('sets lastStreetId', async () => {
-      const store = createStore({settings: { priorLastStreetId: '1'}})
+      const store = createStore({ settings: { priorLastStreetId: '1' } })
 
       apiMock.onAny().reply(200, apiResponse)
       await store.dispatch(getLastStreet())
@@ -153,7 +152,7 @@ describe('street integration test', () => {
       expect(settings.lastStreetId).toEqual('3')
     })
     it('sets lastStreetId', async () => {
-      const store = createStore({ street: { id: '50', namespaceId: '45' }, settings: { priorLastStreetId: '1'}})
+      const store = createStore({ street: { id: '50', namespaceId: '45' }, settings: { priorLastStreetId: '1' } })
 
       apiMock.onAny().reply(200, apiResponse)
       await store.dispatch(getLastStreet())
@@ -164,9 +163,7 @@ describe('street integration test', () => {
     })
     describe('response failure', () => {
       it('does not set lastStreetId', async () => {
-        //console.log(hideLoadingScreen)
-        //hideLoadingScreen.mockReturnValueOnce('some value');
-        const store = createStore({settings: { priorLastStreetId: '1'}})
+        const store = createStore({ settings: { priorLastStreetId: '1' } })
 
         apiMock.onAny().networkError()
         await store.dispatch(getLastStreet())

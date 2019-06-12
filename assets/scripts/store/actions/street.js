@@ -350,9 +350,9 @@ export const getLastStreet = () => {
       dispatch(saveOriginalStreetId(lastStreetId))
       setLastStreet()
       saveStreetToServer(false)
-    } catch(error) {
+    } catch (error) {
       dispatch(showError(ERRORS.NEW_STREET_SERVER_FAILURE, true))
-      //hideLoadingScreen() ToDo: Mock does not work properly
+      hideLoadingScreen()
     }
   }
 }
