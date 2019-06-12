@@ -28,11 +28,11 @@ module.exports = {
   },
   auth0: {
     use_auth0: true,
-    domain: 'streetmix.auth0.com',
+    domain: 'dev-wschorn.auth0.com',
     client_id: process.env.AUTH0_CLIENT_ID || null,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
-    token_api_url: 'https://streetmix.auth0.com/oauth/token',
-    audience: 'https://streetmix.auth0.com/api/v2/',
+    token_api_url: 'https://dev-wschorn.auth0.com/oauth/token',
+    audience: 'https://dev-wschorn.auth0.com/api/v2/',
     screen_name_custom_claim: 'https://twitter.com/screen_name',
     management_scope: 'read:users write:users',
     callback_path: 'sign-in-callback'
