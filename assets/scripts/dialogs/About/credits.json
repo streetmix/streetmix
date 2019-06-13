@@ -100,5 +100,69 @@
       "url": "https://www.linkedin.com/in/treyhahn/",
       "active": false
     }
-  ]
+  ],
+  "translators": {
+    "ar": [
+      "Diana M. Alhaj",
+      "Zakaria Shekhreet"
+    ],
+    "zh": [
+      "Crystal Xing",
+      "Maggie Dong",
+      "Ricky Tsui",
+      "Summer Pan",
+      "Wen Jing Jiang"
+    ],
+    "fi": [
+      "Aleksi Kinnunen"
+    ],
+    "fr": [
+      "Denis Devillé",
+      "Jean-Louis Stanus",
+      "Philippe Provost"
+    ],
+    "de": [
+      "Julia Tahedl",
+      "Martin Niegl",
+      "Max Maaß"
+    ],
+    "ja": [
+      "Hitomi Narakawa",
+      "Satoshi Iida"
+    ],
+    "pl": [
+      "Honorata Grzesikowska",
+      "Tomasz Magulski",
+      "Weronika Grzejszczak",
+      "Wojciech Patelka"
+    ],
+    "pt-br": [
+      "Carlos Jimenez",
+      "Stephan Garcia",
+      [
+        "Carolina Guido",
+        "Urb-i"
+      ],
+      [
+        "Paulo Franco",
+        "Urb-i"
+      ],
+      [
+        "Yuval Fogelson",
+        "Urb-i"
+      ]
+    ],
+    "ru": [
+      "Artem Savin",
+      "Olya Arakhouskaya"
+    ],
+    "es-mx": [
+      "David Soto Padín",
+      "Paco Marquez",
+      "Patricio M. Ruiz Abrín"
+    ],
+    "sv": [
+      "Jakob Fahlstedt"
+    ]
+  }
 }

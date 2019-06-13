@@ -144,92 +144,20 @@ function Credits (props) {
           <h3><FormattedMessage id="credits.translators" defaultMessage="Translators" /></h3>
 
           <ul>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.ar" defaultMessage="Arabic" /></h4>
-              <ul>
-                <li>Diana M. Alhaj</li>
-                <li>Zakaria Shekhreet</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.zh" defaultMessage="Chinese" /></h4>
-              <ul>
-                <li>Crystal Xing</li>
-                <li>Maggie Dong</li>
-                <li>Ricky Tsui</li>
-                <li>Summer Pan</li>
-                <li>Wen Jing Jiang</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.fi" defaultMessage="Finnish" /></h4>
-              <ul>
-                <li>Aleksi Kinnunen</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.fr" defaultMessage="French" /></h4>
-              <ul>
-                <li>Denis Devillé</li>
-                <li>Jean-Louis Stanus</li>
-                <li>Philippe Provost</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.de" defaultMessage="German" /></h4>
-              <ul>
-                <li>Julia Tahedl</li>
-                <li>Martin Niegl</li>
-                <li>Max Maaß</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.ja" defaultMessage="Japanese" /></h4>
-              <ul>
-                <li>Hitomi Narakawa</li>
-                <li>Satoshi Iida</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.pl" defaultMessage="Polish" /></h4>
-              <ul>
-                <li>Honorata Grzesikowska</li>
-                <li>Tomasz Magulski</li>
-                <li>Weronika Grzejszczak</li>
-                <li>Wojciech Patelka</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.pt-br" defaultMessage="Portuguese (Brazil)" /></h4>
-              <ul>
-                <li>Carlos Jimenez</li>
-                <li>Carolina Guido <i>(Urb-i)&lrm;</i></li>
-                <li>Paulo Franco <i>(Urb-i)&lrm;</i></li>
-                <li>Stephan Garcia</li>
-                <li>Yuval Fogelson <i>(Urb-i)&lrm;</i></li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.ru" defaultMessage="Russian" /></h4>
-              <ul>
-                <li>Artem Savin</li>
-                <li>Olya Arakhouskaya</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.es-mx" defaultMessage="Spanish (Mexico)" /></h4>
-              <ul>
-                <li>David Soto Padín</li>
-                <li>Paco Marquez</li>
-                <li>Patricio M. Ruiz Abrín</li>
-              </ul>
-            </li>
-            <li>
-              <h4><FormattedMessage id="i18n.lang.sv" defaultMessage="Swedish" /></h4>
-              <ul>
-                <li>Jakob Fahlstedt</li>
-              </ul>
-            </li>
+            {/* TODO: Alphabetize language names for each locale */}
+            {/* TODO: set defaultMessage for untranslated locale names */}
+            {Object.entries(CREDITS.translators)
+              .map(([key, value]) => (
+                <li key={key}>
+                  <h4><FormattedMessage id={`i18n.lang.${key}`} /></h4>
+                  <ul>
+                    {value.sort().map(name => Array.isArray(name)
+                      ? <li key={name[0]}>{name[0]}, <i>{name[1]}</i></li>
+                      : <li key={name}>{name}</li>
+                    )}
+                  </ul>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
