@@ -7,7 +7,7 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
-import Credits from './About/Credits'
+import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
 import { trackEvent } from '../app/event_tracking'
 import './AboutDialog.scss'
 
@@ -82,7 +82,6 @@ function AboutDialog (props) {
               <div className="about-dialog-right">
                 <Credits />
               </div>
-
             </div>
           </div>
           <button className="dialog-primary-action" onClick={closeDialog}>
