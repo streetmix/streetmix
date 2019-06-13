@@ -1,137 +1,46 @@
 /**
  * About Streetmix (dialog box)
  *
- * Handles the "About" dialog box.
+ * Renders the "About" dialog box.
  *
  */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import TeamMember from './About/TeamMember'
 import Dialog from './Dialog'
 import { trackEvent } from '../app/event_tracking'
 import './AboutDialog.scss'
+import CREDITS from './About/credits.json'
 
-// Keep in alphabetical order by first name
-const CORE_PEEPS = [
-  {
-    name: 'Elizabeth Ferrao',
-    title: 'product manager',
-    mugshotFile: 'elizabeth.jpg'
-  },
-  {
-    name: 'Katie Lewis',
-    title: 'art director, illustrator',
-    mugshotFile: 'katie.jpg',
-    url: 'https://twitter.com/klizlewis'
-  },
-  {
-    name: 'Lou Huang',
-    title: 'project lead',
-    mugshotFile: 'lou.jpg',
-    url: 'https://louhuang.com'
-  },
-  {
-    name: 'Mandy Kong',
-    mugshotFile: 'mandy.jpg',
-    title: 'fullstack engineer'
-  },
-  {
-    name: 'Ryder Ross',
-    mugshotFile: 'ryder.jpg',
-    title: 'fullstack engineer'
-  }
-]
+function alphabetizeNames (a, b) {
+  // Ignore case
+  const nameA = a.name.toLowerCase()
+  const nameB = b.name.toLowerCase()
 
-// Keep in alphabetical order by first name
-const PAST_PEEPS = [
-  {
-    name: 'Anselm Bradford',
-    title: 'media production',
-    mugshotFile: 'anselm.jpg',
-    url: 'https://twitter.com/anselmbradford'
-  },
-  {
-    name: 'Drew Dara-Abrams',
-    title: 'fullstack engineer',
-    mugshotFile: 'drew.jpg',
-    url: 'https://drew.dara-abrams.com'
-  },
-  {
-    name: 'Ezra Spier',
-    title: 'engineer, marketing',
-    mugshotFile: 'ezra.jpg',
-    url: 'http://ahhrrr.com'
-  },
-  {
-    name: 'Marc Hébert',
-    title: 'design anthropologist',
-    mugshotFile: 'marc.jpg',
-    url: 'https://www.linkedin.com/pub/marc-hebert/1/2bb/66'
-  },
-  {
-    name: 'Marcin Wichary',
-    title: 'designer, project manager',
-    mugshotFile: 'marcin.jpg',
-    url: 'https://aresluna.org'
-  },
-  {
-    name: 'Oluwaseun Omoyajowo',
-    mugshotFile: 'oluwaseun.jpg',
-    title: 'fullstack engineer',
-    url: 'https://twitter.com/oluwaseunOmoya'
-  },
-  {
-    name: 'Shaunak Kashyap',
-    title: 'backend engineer',
-    mugshotFile: 'shaunak.jpg',
-    url: 'https://twitter.com/shaunak'
-  },
-  {
-    name: 'Shemar Dacosta',
-    mugshotFile: 'shemar.jpg',
-    title: 'frontend engineer'
-  },
-  {
-    name: 'Tomasz Magulski',
-    mugshotFile: 'tomasz.jpg',
-    title: 'engineer'
-  },
-  {
-    name: 'Trey Hahn',
-    mugshotFile: 'trey.jpg',
-    title: 'localization project manager',
-    url: 'https://www.linkedin.com/in/treyhahn/'
+  if (nameA < nameB) {
+    return -1
   }
-]
+
+  if (nameA > nameB) {
+    return 1
+  }
+
+  // If names are equal
+  return 0
+}
 
 export default class AboutDialog extends React.PureComponent {
   componentDidMount () {
     trackEvent('Interaction', 'Open about dialog box', null, null, false)
   }
 
-  renderTeamMember = (deets) => {
-    const style = {}
-
-    if (deets.mugshotFile) {
-      style.backgroundImage = `url('/images/team/${deets.mugshotFile}')`
-    }
-
-    const name = (deets.url) ? (
-      <a target="_blank" rel="noopener noreferrer" href={deets.url}>{deets.name}</a>
-    ) : deets.name
-
-    return (
-      <div className="about-dialog-team-member" key={deets.name}>
-        <div className="about-dialog-team-mugshot" style={style} />
-        <span className="about-team-name">{name}</span>
-        <span className="about-team-title">{deets.title}</span>
-      </div>
-    )
-  }
-
   renderCoreTeamList = (peeps) => {
     return (
       <div className="about-dialog-team">
-        {peeps.map(peep => this.renderTeamMember(peep))}
+        {peeps
+          .filter(peep => peep.active)
+          .sort(alphabetizeNames)
+          .map(peep => <TeamMember {...peep} key={peep.name} />)}
       </div>
     )
   }
@@ -139,7 +48,10 @@ export default class AboutDialog extends React.PureComponent {
   renderPastTeamList = (peeps) => {
     return (
       <div className="about-dialog-team about-dialog-team-past">
-        {peeps.map(peep => this.renderTeamMember(peep))}
+        {peeps
+          .filter(peep => !peep.active)
+          .sort(alphabetizeNames)
+          .map(peep => <TeamMember {...peep} key={peep.name} />)}
       </div>
     )
   }
@@ -213,15 +125,13 @@ export default class AboutDialog extends React.PureComponent {
                     <FormattedMessage id="credits.core-team-heading" defaultMessage="Project team" />
                   </h2>
 
-                  {this.renderCoreTeamList(CORE_PEEPS)}
+                  {this.renderCoreTeamList(CREDITS.team)}
 
                   <h2>
                     <FormattedMessage id="credits.past-team-heading" defaultMessage="Past team members" />
                   </h2>
 
-                  {/* experiment with smaller images for past team? */}
-                  {this.renderPastTeamList(PAST_PEEPS)}
-                  {/* {this.renderCoreTeamList(PAST_PEEPS)} */}
+                  {this.renderPastTeamList(CREDITS.team)}
 
                   <div className="about-dialog-credits-container">
                     <div className="about-dialog-credits-left">

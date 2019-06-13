@@ -1,0 +1,104 @@
+{
+  "team": [
+    {
+      "name": "Anselm Bradford",
+      "title": "media production",
+      "mugshotFile": "anselm.jpg",
+      "url": "https://twitter.com/anselmbradford",
+      "active": false
+    },
+    {
+      "name": "Drew Dara-Abrams",
+      "title": "fullstack engineer",
+      "mugshotFile": "drew.jpg",
+      "url": "https://drew.dara-abrams.com",
+      "active": false
+    },
+    {
+      "name": "Elizabeth Ferrao",
+      "title": "product manager",
+      "mugshotFile": "elizabeth.jpg",
+      "active": true
+    },
+    {
+      "name": "Ezra Spier",
+      "title": "engineer, marketing",
+      "mugshotFile": "ezra.jpg",
+      "url": "http://ahhrrr.com",
+      "active": false
+    },
+    {
+      "name": "Katie Lewis",
+      "title": "art director, illustrator",
+      "mugshotFile": "katie.jpg",
+      "url": "https://twitter.com/klizlewis",
+      "active": true
+    },
+    {
+      "name": "Lou Huang",
+      "title": "project lead",
+      "mugshotFile": "lou.jpg",
+      "url": "https://louhuang.com",
+      "active": true
+    },
+    {
+      "name": "Mandy Kong",
+      "mugshotFile": "mandy.jpg",
+      "title": "fullstack engineer",
+      "active": false
+    },
+    {
+      "name": "Marc Hébert",
+      "title": "design anthropologist",
+      "mugshotFile": "marc.jpg",
+      "url": "https://www.linkedin.com/pub/marc-hebert/1/2bb/66",
+      "active": false
+    },
+    {
+      "name": "Marcin Wichary",
+      "title": "designer, project manager",
+      "mugshotFile": "marcin.jpg",
+      "url": "https://aresluna.org",
+      "active": false
+    },
+    {
+      "name": "Oluwaseun Omoyajowo",
+      "mugshotFile": "oluwaseun.jpg",
+      "title": "fullstack engineer",
+      "url": "https://twitter.com/oluwaseunOmoya",
+      "active": false
+    },
+    {
+      "name": "Ryder Ross",
+      "mugshotFile": "ryder.jpg",
+      "title": "fullstack engineer",
+      "active": false
+    },
+    {
+      "name": "Shaunak Kashyap",
+      "title": "backend engineer",
+      "mugshotFile": "shaunak.jpg",
+      "url": "https://twitter.com/shaunak",
+      "active": false
+    },
+    {
+      "name": "Shemar Dacosta",
+      "mugshotFile": "shemar.jpg",
+      "title": "frontend engineer",
+      "active": false
+    },
+    {
+      "name": "Tomasz Magulski",
+      "mugshotFile": "tomasz.jpg",
+      "title": "engineer",
+      "active": false
+    },
+    {
+      "name": "Trey Hahn",
+      "mugshotFile": "trey.jpg",
+      "title": "localization project manager",
+      "url": "https://www.linkedin.com/in/treyhahn/",
+      "active": false
+    }
+  ]
+}
