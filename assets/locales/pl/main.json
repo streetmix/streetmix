@@ -49,7 +49,8 @@
       "blog": "Odwiedź blog Streetmiksa",
       "discord": "",
       "slack": "Dołącz do rozmów na Slacku",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Dołóż swój wkład",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": "Co nowego w Streetmiksie?"
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -288,7 +292,11 @@
     "increase-width": "Zwiększ szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "decrease-width": "Zmniejsz szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "add-floor": "Dodaj piętro",
-    "remove-floor": "Usuń piętro"
+    "remove-floor": "Usuń piętro",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Ul. Nienazwana",
@@ -363,7 +371,7 @@
       "pt-br": "Portugalski (Brazylia)",
       "ru": "Rosyjski",
       "sv": "Szwedzki",
-      "zh": "",
+      "zh": "Chiński",
       "zh-hans": "Chiński uproszczony",
       "zh-hant": "Chiński tradycyjny"
     }

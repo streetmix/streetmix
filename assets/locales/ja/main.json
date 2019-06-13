@@ -292,7 +292,11 @@
     "increase-width": "幅を増やす (Shiftを押すと微調整可)",
     "decrease-width": "幅を減らす (Shiftを押すと微調整可)",
     "add-floor": "階数を追加",
-    "remove-floor": "階数を減らす"
+    "remove-floor": "階数を減らす",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "したがきストリート",

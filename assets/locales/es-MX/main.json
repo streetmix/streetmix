@@ -49,7 +49,8 @@
       "blog": "Visitar el blog de Streetmix",
       "discord": "Unirte al chat de Discord",
       "slack": "Unirte al chat de Slack",
-      "minecraft": "¡Juega Minecraft con nosotros!"
+      "minecraft": "¡Juega Minecraft con nosotros!",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Donar",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": "¿Qué es nuevo en Streetmix?"
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -288,7 +292,11 @@
     "increase-width": "Aumentar el ancho (mantén presionada Mayús para mayor precisión)",
     "decrease-width": "Reducir el ancho (mantén presionada Mayús para mayor precisión)",
     "add-floor": "Adherir piso",
-    "remove-floor": "Remover piso"
+    "remove-floor": "Remover piso",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Calle desconocida",

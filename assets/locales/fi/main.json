@@ -49,7 +49,8 @@
       "blog": "Vieraile Streetmix-blogissa",
       "discord": "Liity Discord-keskusteluun",
       "slack": "Liity Slack-keskusteluun",
-      "minecraft": "Pelaa kanssamme Minecraftia!"
+      "minecraft": "Pelaa kanssamme Minecraftia!",
+      "newsletter": "Tilaa uutiskirje"
     },
     "contribute": {
       "donate": "Lahjoita",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": "Streetmixin uudet ominaisuudet"
+    },
+    "newsletter": {
+      "heading": "Tilaa uutiskirje"
     }
   },
   "prompt": {
@@ -288,7 +292,11 @@
     "increase-width": "Levennä (tarkempi ote pitämällä Shiftiä pohjassa)",
     "decrease-width": "Kavenna (tarkempi ote pitämällä Shiftiä pohjassa)",
     "add-floor": "Lisää kerros",
-    "remove-floor": "Poista kerros"
+    "remove-floor": "Poista kerros",
+    "scroll-street-left": "Vieritä katua vasemmalle",
+    "scroll-street-right": "Vieritä katua oikealle",
+    "scroll-left": "Vieritä vasemmalle",
+    "scroll-right": "Vieritä oikealle"
   },
   "street": {
     "default-name": "Nimetön katu",

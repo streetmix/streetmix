@@ -49,7 +49,8 @@
       "blog": "Visitar o blog do Streetmix",
       "discord": "",
       "slack": "Participar no bate-papo do Slack",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Doar",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -288,7 +292,11 @@
     "increase-width": "Aumentar largura (segure o Shift para mais precisão)",
     "decrease-width": "Diminuir largura (segure o Shift para mais precisão)",
     "add-floor": "Adicionar andar",
-    "remove-floor": "Remover andar"
+    "remove-floor": "Remover andar",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Rua anônima",

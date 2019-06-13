@@ -49,7 +49,8 @@
       "blog": "Besök Streetmix-bloggen",
       "discord": "",
       "slack": "Gå med i Slack-chatten",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -288,7 +292,11 @@
     "increase-width": "Öka bredd (håll inne Shift för ökad precision)",
     "decrease-width": "Minska bredd (håll inne Shift för ökad precision)",
     "add-floor": "Lägg till våning",
-    "remove-floor": "Ta bort våning"
+    "remove-floor": "Ta bort våning",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Namnlös gata",

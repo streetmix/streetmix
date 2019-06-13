@@ -49,7 +49,8 @@
       "blog": "訪問Streetmix的博客",
       "discord": "",
       "slack": "加入Slack對話",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "資助我們",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
@@ -288,7 +292,11 @@
     "increase-width": "增加寬度（長按 Shift 來微調）",
     "decrease-width": "減少寬度（長按 Shift 來微調）",
     "add-floor": "增加樓層",
-    "remove-floor": "移除樓層"
+    "remove-floor": "移除樓層",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "無名街",
@@ -363,7 +371,7 @@
       "pt-br": "葡文 (巴西)",
       "ru": "俄文",
       "sv": "瑞典語",
-      "zh": "",
+      "zh": "中文",
       "zh-hans": "簡體中文",
       "zh-hant": "繁體中文"
     }
