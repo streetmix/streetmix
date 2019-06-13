@@ -20,6 +20,65 @@ These properties are allowed for each team member:
 
 **Note:** We currently render past team members with a smaller mugshot in the UI, but source images are static and aren't "compiled" to a lower size. In the future, we may consider optimizing images even further, but this is not likely to happen unless we can use the same pipeline elsewhere in the application.
 
+## `contributors`
+
+All other contributors go in this section. (With the exception of translators, which has its own category, see below.) Contributors are grouped into the following categories:
+
+- **Advisors**, people whose roles are primarily as an advisor
+- **Additional illustrations**, people who have contributed illustrations
+- **Additional code**, people who have contributed code
+- **Additional contributors**, people who have contributed services in other ways
+- **Special thanks**, people from partnering or supporting organizations
+
+It's possible for people to belong to multiple categories, although in practice this has not really occurred. However, if someone has been in the contributor list, but then has "graduated" into becoming a core team member (whether past or present), they do not need to be in the contributor section any longer.
+
+Each category's key value maps to a value in a locale file, so that `advisors` is looked up under `credits.advisors` when translating the label. We can change or modify the categories by adding them in `credits.json` and ensuring that corresponding translations exist in locale files with the same key. Categories are listed in the order given in `credits.json` and are not sorted.
+
+Categories are an array of names and possibly other types (more on this below). All names are sorted alphabetically by first name (using `Array.sort()`). We previously had sections that were not alphabetized, but this was modified for consistent rendering behavior.
+
+```json
+{
+  "contributors": {
+    "advisors": [
+      "Ada Lovelace",
+      "Grace Hopper"
+    ]
+  }
+}
+```
+
+Names can have a special case where you can optionally display an organization (or title, etc) after the name. To do this, instead of using a string for the name, use an array, where the first item is the full name, and the second item is the name of their organization (or title, etc). This format can coexist alongside plain strings.
+
+```json
+{
+  "contributors": {
+    "advisors": [
+      "Ada Lovelace",
+      [ "Grace Hopper", "Harvard Computation Lab" ]
+    ]
+  }
+}
+```
+
+Names can also be subcategorized. This is done with an object like so. Currently, the names that are nested in this way don't support the array format for secondary information, but we can revisit this limitation if or when it comes up.
+
+```json
+{
+  "contributors": {
+    "advisors": [
+      "Ada Lovelace",
+      {
+        "label": "Harvard Computation Lab",
+        "people": {
+          "Grace Hopper",
+          "Howard H. Aiken"
+        }
+      }
+    ]
+  }
+}
+```
+
 ## `translators`
 
 Translators are all the people who have participated in localizing or translating Streetmix. They are listed alphabetically by first name for each locale (enforced by `Array.sort()`). This property stores an object where each item has a key that is a locale code, and the value of the key is an array of names:
@@ -28,23 +87,23 @@ Translators are all the people who have participated in localizing or translatin
 {
   "translators": {
     "en": [
-      "Ada Lovelace",
-      "Grace Hopper"
+      "Gandalf the Grey",
+      "Elrond"
     ]
   }
 }
 ```
 
-The key must map to the language name in a locale file, e.g. `en` maps to `i18n.lang.en`, so that the label `English` displays. Currently, there is no default message fallback if the language name is not found in the locale file, which would cause the UI to display the langage key. Also, languages are displayed in the order given in `credits.json`, which are currently ordered alphabetically based on their display name in English, but they are not currently sorted alphabetically for each locale when it is rendered.
+The key must map to the language name in a locale file, e.g. `en` maps to `i18n.lang.en`, so that the label `English` displays. Languages are displayed in the order given in `credits.json`, which are currently ordered alphabetically based on their display name in English, but they are not currently sorted alphabetically for each locale when it is rendered.
 
-Translator names can have a special case where you can optionally display an organization after the name. To do this, instead of using a string for a translator name, use an array, where the first item is the full name, and the second item is the name of their organization. This format can coexist alongside plain strings.
+Similar to contributor names, translator names can use the array format for secondary information (like organization name or title). However, unlike contributor names, the translator section does not support sub-grouping of names.
 
 ```json
 {
   "translators": {
     "en": [
-      "Ada Lovelace",
-      [ "Grace Hopper", "Harvard Computation Lab" ]
+      "Gandalf the Grey",
+      [ "Elrond", "Rivendell" ]
     ]
   }
 }
