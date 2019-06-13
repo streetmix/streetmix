@@ -101,6 +101,122 @@
       "active": false
     }
   ],
+  "contributors": {
+    "advisors": [
+      "Adrian Mak",
+      "Jeff Speck",
+      "Molly King"
+    ],
+    "additional-illustrations": [
+      "Brian Wamsley",
+      "Doneliza Joaquin",
+      "Jon Reese",
+      "Peter Welte"
+    ],
+    "additional-code": [
+      "Alex Ellis",
+      "Ayush Rawal",
+      "Cody Moss",
+      "Don McCurdy",
+      "Joe James-Rodriguez",
+      "Kieran Farr",
+      "Maciej Kus",
+      "Mila Frerichs",
+      "Radosław Miernik",
+      "Tommi Vainikainen"
+    ],
+    "additional-contributors": [
+      [
+        "Aline Reynolds",
+        "writer and researcher"
+      ],
+      [
+        "Amir Reavis-Bey",
+        "database migration"
+      ],
+      [
+        "Patrick McDonnell",
+        "illustrations styleguide"
+      ],
+      [
+        "Jeremy Lechtzin",
+        "legal matters"
+      ],
+      [
+        "Justine Braisted",
+        "branding"
+      ],
+      [
+        "Lisa Ratner",
+        "user experience"
+      ],
+      [
+        "Mebrak Tareke",
+        "communications strategy"
+      ],
+      [
+        "Nick Doiron",
+        "right-to-left localization"
+      ]
+    ],
+    "special-thanks": [
+      [
+        "Billy Riggs",
+        "ReStreet"
+      ],
+      [
+        "Michael Boswell",
+        "ReStreet"
+      ],
+      [
+        "Pia Mancini",
+        "OpenCollective"
+      ],
+      "Matt Hampel",
+      "Brandon Liu",
+      [
+        "Debs Schrimmer",
+        "Lyft"
+      ],
+      [
+        "Rob McPherson",
+        "Skip"
+      ],
+      [
+        "Carlos Pardo",
+        "NUMO"
+      ],
+      {
+        "label": "Code for America",
+        "people": [
+          "Alex Tran",
+          "Andrew Hyder",
+          "Dave Guarino",
+          "Jen Pahlka",
+          "Mike Migurski",
+          "SaraT Mayer"
+        ]
+      },
+      {
+        "label": "NEW INC",
+        "people": [
+          "Alex Darby",
+          "Julia Kaganskiy",
+          "Kelsa Trom",
+          "Michelle Carollo",
+          "Rasu Jilani",
+          "Stephanie Pereira"
+        ]
+      },
+      {
+        "label": "Civic Hall",
+        "people": [
+          "Ellen Mendlow",
+          "Shaneka Ramdeen"
+        ]
+      }
+    ]
+  },
   "translators": {
     "ar": [
       "Diana M. Alhaj",
