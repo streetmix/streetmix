@@ -1,12 +1,11 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
-import moxios from 'moxios'
+import MockAdapter from 'axios-mock-adapter'
 
 import ConnectedWelcomePanel, { WelcomePanel } from '../WelcomePanel'
-import { fireEvent, cleanup } from 'react-testing-library'
+import { fireEvent, cleanup, waitForElement } from 'react-testing-library'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
-import { respondWith } from '../../../../test/helpers/requests'
 import { getMode } from '../mode'
 import { isSignedIn } from '../../users/authentication'
 import { setSettings } from '../../store/actions/settings'
@@ -14,15 +13,15 @@ import apiClient from '../../util/api'
 
 jest.mock('../mode')
 jest.mock('../../users/authentication')
-jest.mock('../mode')
 jest.mock('../../users/settings')
 
 describe('WelcomePanel', () => {
+  let apiMock
   beforeEach(() => {
-    moxios.install(apiClient.client)
+    apiMock = new MockAdapter(apiClient.client)
   })
   afterEach(() => {
-    moxios.uninstall()
+    apiMock.restore()
     cleanup()
   })
   // Note: this test will always pass because of how this component's lifecycle works
@@ -36,6 +35,8 @@ describe('WelcomePanel', () => {
     const variantString = 'inbound|regular'
     const segment = { variantString, id: '1', width: 400, randSeed: 1, type }
     const street = {
+      id: '3',
+      namespaceId: '4',
       segments: [segment],
       width: 100
     }
@@ -56,14 +57,15 @@ describe('WelcomePanel', () => {
       getMode.mockImplementation(() => (2)) // NEW_STREET
       isSignedIn.mockImplementation(() => (true))
     })
-    it('gets the data from the server', async () => {
-      const { store, queryByLabelText, getByLabelText } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { street })
-      store.dispatch(setSettings({ priorLastStreetId: '3' }))
+    it('copies the last street and highlights Start with a copy button', async () => {
+      const { store, queryByLabelText, getByLabelText } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { initialState: { street } })
+      store.dispatch(setSettings({ priorLastStreetId: '2' }))
       var event = new Event('stmx:everything_loaded')
       window.dispatchEvent(event)
+      apiMock.onAny().reply(200, apiResponse)
       fireEvent.click(getByLabelText(/Start with a copy/))
-      await respondWith(apiResponse)
-      expect(queryByLabelText(/Start with a copy/)).toBeNull()
+      const input = await waitForElement(() => queryByLabelText(/Start with a copy/))
+      expect(input.checked).toBe(true)
     })
   })
 })

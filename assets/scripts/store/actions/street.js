@@ -42,7 +42,6 @@ import { hideLoadingScreen } from '../../app/load_resources'
 
 import { recalculateWidth } from '../../streets/width'
 import { setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
-import { saveStreetToServer } from '../../streets/xhr'
 import { setSettings } from './settings'
 import apiClient from '../../util/api'
 
@@ -349,7 +348,6 @@ export const getLastStreet = () => {
       }
       dispatch(saveOriginalStreetId(lastStreetId))
       setLastStreet()
-      saveStreetToServer(false)
     } catch (error) {
       dispatch(showError(ERRORS.NEW_STREET_SERVER_FAILURE, true))
       hideLoadingScreen()
