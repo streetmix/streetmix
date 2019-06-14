@@ -85,7 +85,7 @@ Integration and end-to-end testing
 
 We are using `Selenium <https://www.seleniumhq.org/>`_ and `Protractor <https://www.protractortest.org/#/>`_ in TravisCI to run a single "smoke test", which ensures that the application successfully builds and runs on a headless Chrome browser.
 
-We have begun to trial and adopt `Cypress.io <https://www.cypress.io/>`, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier. It is intended to replace Selenium fully.
+We have begun to trial and adopt `Cypress.io <https://www.cypress.io/>`_, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier. It is intended to replace Selenium fully.
 
 
 Device testing
@@ -131,14 +131,14 @@ In addition to continuous integration, we use some third-party services to keep 
 CodeClimate
 +++++++++++
 
-`CodeClimate <https://codeclimate.com/github/streetmix/streetmix>`_ measures **technical debt**, or the long-term maintainability and readability of code. It applies some heuristics to detect and track "code smells," which are opportunities to refactor code or fix potential bugs. A CodeClimate review is triggered automatically on every pull request, but some of the thresholds it uses are quite arbitrary. Here's some of the things that arise, and how we'd address them, in order of increasing severity (as it applies to Streetmix):
+`CodeClimate <https://codeclimate.com/github/streetmix/streetmix>`_ measures **technical debt**, or the long-term maintainability and readability of code. It applies some heuristics to detect and track "code smells," which are opportunities to refactor code or fix potential bugs. A CodeClimate review is triggered automatically on every pull request, but some of the thresholds it uses are quite arbitrary. Here's some of the issues are raised, and how we'd address them, in order of increasing severity (as it applies to Streetmix):
 
-- **Lines of code**. CodeClimate triggers a warning when functions and modules exceed an arbitrary line limit. Overly long functions and modules point at a potential opportunity to separate concerns, but we will never enforce this, as doing so only encourages "code golf" and reduces readability as quick hacks instead of actually taking the time to separate logic. If something can be refactored into smaller pieces, but can't be prioritized immediately, add a ``TODO`` comment for later. If something doesn't make sense to make smaller, mark it as :guilabel:`Wontfix`.
-- **Duplicate code.** CodeClimate triggers a warning when it detects code that look the same as other code in other parts of the codebase. Sometimes this really is an opportunity to combine or reduce code to reusable functions, but more often than not, CodeClimate is detecting similar-looking boilerplate code or patterns. In this case, mark it as :guilabel:`Invalid`.
-- **Cognitive complexity.** CodeClimate triggers a warning when a function contains too many conditional statements, resulting in branching code. Not all code can be made simpler, but many can. When CodeClimate triggers this warning, you want to consider whether it can be written diffferently. However, use your best judgment here. If CodeClimate's warning can be ignored, mark it as :guilabel:`Wontfix`.
-- **TODOs**. CodeClimate tracks when a ``TODO`` or a ``FIXME`` comment is placed in the code. As this is created by a developer's own note, this should be something that is addressed in the future. Never mark this as :guilabel:`Wontfix` or :guilabel:`Invalid`. If it's no longer valid, remove the ``TODO`` or ``FIXME`` comment from the code.
+- **Lines of code**. CodeClimate triggers a warning when functions and modules exceed an arbitrary line limit. This means there is a potential opportunity to separate concerns, but we will never enforce this, since we don't want to encourage "code golf" or quick workarounds instead of actually taking the time to separate logic. If something can be refactored into smaller pieces, but can't be prioritized immediately, add a ``TODO`` comment instead. If something doesn't make sense to shorten, mark the issue as :guilabel:`Wontfix`.
+- **Duplicate code.** CodeClimate triggers a warning when it detects code that look the same as other code elsewhere. This can be an opportunity to refactor code, but more often than not, CodeClimate is seeing similar-looking boilerplate code or patterns. In this case, mark the issue as :guilabel:`Invalid`.
+- **Cognitive complexity.** CodeClimate triggers a warning when a function contains too many conditional statements, resulting in complex branching or looping code. Not all code can be made simpler, but you may want to consider whether it can be written diffferently. However, use your best judgment here. If you don't agree with CodeClimate's assessment, mark the issue as :guilabel:`Wontfix`.
+- **TODOs**. CodeClimate tracks when a ``TODO`` or a ``FIXME`` comment is written in the code. Because this is a developer's own judgment call, this takes priority above other issues and should be addressed in the future. Never mark this as :guilabel:`Wontfix` or :guilabel:`Invalid`. If it's no longer valid, instead remove the ``TODO`` or ``FIXME`` comment from the code.
 
-Issues that should be addressed in the future, but won't be addressed immediately in the pull request in question, should be marked with :guilabel:`Confirmed.`
+Issues that should be addressed in the future, but can't or won't be addressed immediately, should be marked with :guilabel:`Confirmed.`
 
 In spite of CodeClimate's warnings, reviewers may approve its review even if the issues it raises are not addressed right away.
 
