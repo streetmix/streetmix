@@ -49,7 +49,7 @@ You may already have some of these prerequisites installed. Skip or update the p
 
    You may run into permissions issues, even if you are an administrator on your machine. You may need to run ``chown`` to give yourself ownership over any directories that you are manipulating. Alternatively, you may need to use ``sudo`` to run commands as a superuser.
 
-6. Add MongoDB binaries to the PATH environment variable. The most common way this can be done by editing ``~/.bash_profile``. Using a text editor, open that file and add this line at the bottom of it:
+6. Add MongoDB binaries to the PATH environment variable. The most common way this can be done by editing :file:`~/.bash_profile`. Using a text editor, open that file and add this line at the bottom of it:
 
    .. code::
 
@@ -111,7 +111,7 @@ Prerequisites
 
 You may already have some of these prerequisites installed. Skip or update the packages that already exist.
 
-1. Install `a modern browser <http://browsehappy.com/>`_. We recommend Firefox or Chrome. Internet explorer is not supported. (See :ref:`faq-internet-explorer`).
+1. Install `a modern browser <http://browsehappy.com/>`_. We recommend Firefox or Chrome. Internet Explorer is not supported. (See :ref:`faq-internet-explorer`).
 
 2. Install `Git <http://git-scm.com/download/win>`_.
 
@@ -121,7 +121,7 @@ You may already have some of these prerequisites installed. Skip or update the p
 
 5. Set up the MongoDB environment. `Follow the instructions under “Set up the MongoDB environment” from the MongoDB website. <http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/#run-mongodb>`_
 
-6. Add MongoDB binaries to your system path. Open the Start Menu and type in "environment variables", and select *Edit the system environment variables*. You should see the *Advanced* tab of *System Properties*. Click "Environment Variables..." at the lower right corner of the panel. In the user variables, select or create a variable called "Path", then edit it and add a new entry containing ``C:\Program Files\MongoDB\Server\3.4\bin`` (or the path you installed MongoDB to). Click OK until you return to the *System Properties* window, click Apply then click OK to exit.
+6. Add MongoDB binaries to your system path. Open the Start Menu and type in "environment variables", and select :guilabel:`Edit the system environment variables`. You should see the :guilabel:`Advanced` tab of :guilabel:`System Properties`. Click :guilabel:`Environment Variables...` at the lower right corner of the panel. In the user variables, select or create a variable called ``Path``, then edit it and add a new entry containing :file:`C:\\Program Files\\MongoDB\\Server\\3.4\\bin` (or the path you installed MongoDB to). Click :guilabel:`OK` until you return to the :guilabel:`System Properties` window, click :guilabel:`Apply` then click :guilabel:`OK` to exit.
 
 
 Clone and install Streetmix
@@ -145,7 +145,7 @@ Clone and install Streetmix
 
    We do not currently use the **Yarn** package manager. Installing with Yarn may cause unpredictable errors.
 
-3. Open ``package.json`` and remove the following line:
+3. Open :file:`package.json` and remove the following line:
 
    .. code::
 
@@ -153,7 +153,7 @@ Clone and install Streetmix
 
    We can't automatically start MongoDB with ``npm start`` on Windows, so we remove this line to prevent errors.
 
-4. Run MongoDB's ``mongod.exe`` and ``mongo.exe``. This will need to be run manually in the background before running Streetmix (see below).
+4. Run MongoDB's :file:`mongod.exe` and :file:`mongo.exe`. This will need to be run manually in the background before running Streetmix.
 
 
 Run Streetmix
@@ -184,7 +184,7 @@ Setting environment variables
 
 Environment variables store secret values (like authentication keys and passwords) to third-party services. We can't commit these keys to the repository, or they might be stolen and abused by strangers. To obtain keys for environment variables, you should refer to each service's documentation. Your team may also have keys to share.
 
-We recommend setting environment variables in a file named ``.env`` in the Streetmix root directory. The ``.env`` file is ignored by Git, so you won't accidentally commit secret keys into the repository.
+We recommend setting environment variables in a file named :file:`.env` in the Streetmix root directory. The :file:`.env` file is ignored by Git, so you won't accidentally commit secret keys into the repository.
 
 +-----------------------------------+----------------------------------------------+-----------+
 | Variable name                     | Description                                  | Required  |
@@ -204,7 +204,7 @@ We recommend setting environment variables in a file named ``.env`` in the Stree
 | ``TWITTER_OAUTH_CONSUMER_SECRET`` | Twitter OAuth consumer secret *(deprecated)* | No        |
 +-----------------------------------+----------------------------------------------+-----------+
 
-A sample ``.env`` file looks like this:
+A sample :file:`.env` file looks like this:
 
 .. code::
 
@@ -242,7 +242,7 @@ Starting the application
 Stopping the application
 ++++++++++++++++++++++++
 
-To stop running Streetmix, press ``Ctrl-C``.
+To stop running Streetmix, press :kbd:`Ctrl-C`.
 
 On Mac OS X, this should also automatically stop the MongoDB server. In case it doesn't work, you can run this command to manually clean up background tasks:
 
@@ -254,9 +254,9 @@ On Mac OS X, this should also automatically stop the MongoDB server. In case it 
 Setup in a no-internet environment
 ----------------------------------
 
-This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "no Internet mode", set your ``NODE_ENV`` environment variable to ``demo``.
+This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "no Internet mode", set your :envvar:`NODE_ENV` environment variable to ``demo``.
 
-You may do this by editing the ``.env`` file (see :ref:`install-env-vars` for more information about this file).
+You may do this by editing the :file:`.env` file (see :ref:`install-env-vars` for more information about this file).
 
 You can also do it one time by starting the server like this:
 
