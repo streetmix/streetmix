@@ -99,6 +99,13 @@
       "title": "localization project manager",
       "url": "https://www.linkedin.com/in/treyhahn/",
       "active": false
+    },
+    {
+      "name": "Whitman Schorn",
+      "mugshotFile": "whitman.jpg",
+      "title": "engineer",
+      "url": "https://whitmanschorn.com",
+      "active": true
     }
   ],
   "contributors": {
