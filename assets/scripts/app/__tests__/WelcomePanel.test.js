@@ -8,7 +8,6 @@ import { fireEvent, cleanup, waitForElement } from 'react-testing-library'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { getMode } from '../mode'
 import { isSignedIn } from '../../users/authentication'
-import { setSettings } from '../../store/actions/settings'
 import apiClient from '../../util/api'
 
 jest.mock('../mode')
@@ -58,8 +57,7 @@ describe('WelcomePanel', () => {
       isSignedIn.mockImplementation(() => (true))
     })
     it('copies the last street and highlights Start with a copy button', async () => {
-      const { store, queryByLabelText, getByLabelText } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { initialState: { street } })
-      store.dispatch(setSettings({ priorLastStreetId: '2' }))
+      const { queryByLabelText, getByLabelText } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { initialState: { street, settings: { priorLastStreetId: '2' } } })
       var event = new Event('stmx:everything_loaded')
       window.dispatchEvent(event)
       apiMock.onAny().reply(200, apiResponse)

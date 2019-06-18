@@ -322,29 +322,33 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
   }
 }
 
+const createStreetFromResponse = (response) => {
+  const street = cloneDeep(response.data.street)
+  street.creatorId = (response.creator && response.creator.id) || null
+  street.originalStreetId = response.originalStreetId || null
+  street.updatedAt = response.updatedAt || null
+  street.name = response.name || null
+  street.location = response.data.street.location || null
+  street.editCount = response.data.street.editCount || 0
+  return street
+}
 export const getLastStreet = () => {
   return async (dispatch, getState) => {
     const lastStreetId = getState().settings.priorLastStreetId
     const { id, namespacedId } = getState().street
     try {
-      const data = await apiClient.getStreet(lastStreetId)
-      const street = cloneDeep(data.data.street)
-      street.creatorId = (data.creator && data.creator.id) || null
-      street.originalStreetId = data.originalStreetId || null
-      street.updatedAt = data.updatedAt || null
-      street.name = data.name || null
-      street.location = data.data.street.location || null
-      street.editCount = data.data.street.editCount || 0
+      const response = await apiClient.getStreet(lastStreetId)
+      const street = createStreetFromResponse(response)
       await dispatch(setSettings({
-        lastStreetId: data.id,
-        lastStreetNamespacedId: data.namespacedId,
+        lastStreetId: response.id,
+        lastStreetNamespacedId: response.namespacedId,
         lastStreetCreatorId: street.creatorId
       }))
       dispatch(updateStreetData(street))
       if (id) {
         dispatch(saveStreetId(id, namespacedId))
       } else {
-        dispatch(saveStreetId(data.id, data.namespacedId))
+        dispatch(saveStreetId(response.id, response.namespacedId))
       }
       dispatch(saveOriginalStreetId(lastStreetId))
       setLastStreet()
