@@ -1,29 +1,29 @@
 /* eslint-env jest */
 import React from 'react'
+import { fireEvent, cleanup } from '@testing-library/react'
 import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { StreetMetaWidthContainerWithIntl as StreetMetaWidthContainer } from '../StreetMetaWidthContainer'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import StreetMetaWidthContainer, { StreetMetaWidthContainerWithIntl } from '../StreetMetaWidthContainer'
 
 describe('StreetMetaWidthContainer', () => {
+  afterEach(cleanup)
+
   it('renders', () => {
-    const wrapper = shallow(
-      <StreetMetaWidthContainer street={{}} updateStreetWidth={jest.fn()} />
-    )
-    expect(wrapper.exists('StreetMetaWidthLabel'))
+    const wrapper = renderWithReduxAndIntl(<StreetMetaWidthContainer />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders selection dropdown on click', () => {
-    const wrapper = shallow(
-      <StreetMetaWidthContainer street={{}} updateStreetWidth={jest.fn()} />
-    )
-    wrapper.instance().handleClickLabel()
-    expect(wrapper.exists('StreetMetaWidthMenu'))
+    const wrapper = renderWithReduxAndIntl(<StreetMetaWidthContainer />)
+    fireEvent.click(wrapper.getByTitle('Change width of the street'))
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('updates street label on selection change', () => {
     const updateStreetWidth = jest.fn()
     const changeValue = 10
     const wrapper = shallow(
-      <StreetMetaWidthContainer street={{}} updateStreetWidth={updateStreetWidth} />
+      <StreetMetaWidthContainerWithIntl street={{}} updateStreetWidth={updateStreetWidth} />
     )
     wrapper.instance().handleClickLabel()
     expect(wrapper.exists('StreetMetaWidthMenu'))
@@ -36,7 +36,7 @@ describe('StreetMetaWidthContainer', () => {
 
   it('does not render selection dropdown on click when not editable', () => {
     const wrapper = shallow(
-      <StreetMetaWidthContainer street={{}} editable={false} updateStreetWidth={jest.fn()} />
+      <StreetMetaWidthContainerWithIntl street={{}} editable={false} updateStreetWidth={jest.fn()} />
     )
 
     wrapper.instance().handleClickLabel()

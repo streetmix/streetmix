@@ -4,23 +4,25 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
-
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { getSharingUrl } from '../util/share_url'
-
 import { showDialog } from '../store/actions/dialogs'
 import { startPrinting } from '../store/actions/app'
-
 import './ShareMenu.scss'
 
 class ShareMenu extends React.Component {
   static propTypes = {
+    // Provided by react-intl
     intl: intlShape,
+
+    // Provided by Redux mapDispatchToProps
     showDialog: PropTypes.func,
     startPrinting: PropTypes.func,
+
+    // Provided by Redux mapStateToProps
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     street: PropTypes.object
@@ -218,10 +220,6 @@ class ShareMenu extends React.Component {
   }
 }
 
-// Inject Intl via a higher-order component provided by react-intl.
-// Exported so that this component can be tested.
-export const ShareMenuWithIntl = injectIntl(ShareMenu)
-
 function mapStateToProps (state) {
   return {
     signedIn: state.user.signedIn,
@@ -230,11 +228,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showDialog: (type) => { dispatch(showDialog(type)) },
-    startPrinting: () => { dispatch(startPrinting()) }
-  }
+const mapDispatchToProps = {
+  showDialog,
+  startPrinting
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShareMenuWithIntl)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ShareMenu))
