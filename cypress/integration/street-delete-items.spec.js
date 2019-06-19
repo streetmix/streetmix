@@ -1,6 +1,6 @@
 context('User Deleting Items on a Street', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:8000/')
+    cy.visit('http://localhost:3000/')
   })
   it('lets users delete an item', () => {
     cy.get('.welcome-panel', { timeout: 10000 }).contains('Welcome to Streetmix')
