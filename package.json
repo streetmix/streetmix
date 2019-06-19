@@ -15,6 +15,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:run:ci": "CYPRESS_baseUrl=http://localhost:3000 cypress run",
+    "cypress:open:ci": "CYPRESS_baseUrl=http://localhost:3000 cypress open",
     "postinstall": "node app/bundle.js",
     "prestart": "npm run mongo:start",
     "start": "npm run app:start",
