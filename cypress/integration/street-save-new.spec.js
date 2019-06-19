@@ -14,7 +14,7 @@ context('User Saving a New Street', () => {
     cy.server()
     cy.route('POST', '/api/v1/streets*').as('streetPost')
     cy.route('PUT', '/api/v1/streets/**').as('streetPut')
-    cy.visit('http://localhost:3000/', {
+    cy.visit('/', {
       onBeforeLoad (win) {
         cy.stub(win, 'prompt').returns(PROMPT_MESSAGE)
         delete win.fetch
