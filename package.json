@@ -13,6 +13,7 @@
   },
   "scripts": {
     "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "postinstall": "node app/bundle.js",
     "prestart": "npm run mongo:start",
     "start": "npm run app:start",

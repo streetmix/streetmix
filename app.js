@@ -92,7 +92,7 @@ const csp = {
       'platform.twitter.com',
       'https://www.google-analytics.com',
       'cdn.mxpnl.com',
-      'dev-wschorn.auth0.com',
+      'streetmix.auth0.com',
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
@@ -132,7 +132,7 @@ const csp = {
       'syndication.twitter.com',
       'https://www.google-analytics.com',
       'app.getsentry.com',
-      'dev-wschorn.auth0.com',
+      'streetmix.auth0.com',
       'https://settings.luckyorange.net', // Lucky Orange
       'wss://*.visitors.live', // Lucky Orange
       'wss://visitors.live', // Lucky Orange
