@@ -39,7 +39,7 @@ context('User Deleting Items on a Street', () => {
     cy.get('.welcome-panel', { timeout: 10000 }).contains('Welcome to Streetmix')
     cy.get('.welcome-panel>button.close').click()
 
-    // let's delete a thing
+    // let's delete all the things
     cy.get('.segment-canvas-container').first().trigger('mouseover')
     cy.get('body').type('{shift}', { release: false })
     cy.get('button').contains('Remove').first().click()
