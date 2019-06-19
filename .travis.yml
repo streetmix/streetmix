@@ -28,7 +28,7 @@ script:
     # Note: don't run `npm test` here directly, it's intended for local testing.
   - npm run jest
   - npm run lint
-  - CYPRESS_baseUrl=http://localhost:3000 npm run cypress:run
+  - npm run cypress:run:ci
     # Sauce-based tests cannot be performed on pull request open by user that
     # doesn't have write permission to main repository
     # https://docs.travis-ci.com/user/pull-requests/#Pull-Requests-and-Security-Restrictions
@@ -38,6 +38,9 @@ script:
 after_script:
   - bash <(curl -s https://codecov.io/bash)
   - pkill node
+  # after all tests finish running we need
+  # to kill all background jobs (like "npm start &")
+  - kill $(jobs -p) || true
 
 after_failure:
   - sudo service mongod status
