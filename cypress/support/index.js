@@ -19,7 +19,7 @@ import './commands'
 const whitelist = (xhr) => {
   // this function receives the xhr object in question and
   // will whitelist if it's a GET that appears to be a static resource
-  return xhr.method === 'GET' && /\.(jsx?|html|css|svg)(\?.*)?$/.test(xhr.url)
+  return xhr.method === 'GET' && /\.(jsx?|html|css|svg|ttf)(\?.*)?$/.test(xhr.url)
 }
 
 Cypress.Server.defaults({
