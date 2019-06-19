@@ -12,8 +12,8 @@ context('User Saving a New Street', () => {
 
   beforeEach(() => {
     cy.server()
-    cy.route('POST', '/api/v1/streets*').as('streetPost')
-    cy.route('PUT', '/api/v1/streets/**').as('streetPut')
+    cy.route('POST', '/api/v1/streets*', 'fixture:street-post-response').as('streetPost')
+    cy.route('PUT', '/api/v1/streets/**', 204).as('streetPut')
     cy.visit('/', {
       onBeforeLoad (win) {
         cy.stub(win, 'prompt').returns(PROMPT_MESSAGE)
