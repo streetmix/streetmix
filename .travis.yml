@@ -29,10 +29,6 @@ script:
   - npm run jest
   - npm run lint
   - npm run cypress:run:ci
-    # Sauce-based tests cannot be performed on pull request open by user that
-    # doesn't have write permission to main repository
-    # https://docs.travis-ci.com/user/pull-requests/#Pull-Requests-and-Security-Restrictions
-  - 'if [ "$SAUCE_USERNAME" ] && [ "$SAUCE_ACCESS_KEY" ]; then protractor ./test/integration/saucelabs.conf.js; fi'
 
 # Send exit signal to node process
 after_script:
