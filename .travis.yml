@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - "10"
+  # 10.13 includes npm@6 which has good "npm ci" command, and is LTS
+  - 10.13
 
 # Turns on newer container-based infrastructure
 # This generates a sudo warning with mongodb below, see here: https://github.com/travis-ci/travis-ci/issues/3044
@@ -11,9 +12,6 @@ env:
     - NODE_ENV: test
     - secure: entbiF59zjgSiel6S8bsKUrZVCXKsun9OqO95ABoQ8EaLrnP536EGVN/LurT/9W1QXcxLVChTpYZRizrhIoEQPi4vOVLrA5yhWlTGQULXWGNMf0VDTKfXOSQ6pV45zPnlmK/UV4eWAtDa7KsfOlPvQeX1K1JqSijLhPANNykGAQ=
     - secure: YFYR9PLyfwpVVRoTeCz/0Cml2NDCrqUgufshdKxc5SM/l0Ix8XlP8eJ+s3CVArTzWJg9nzOopt9qaXtTbcN+Kr5SaMDpmjliXpmOGEkhx29dCTYuksjbGW44ImUWT2kaAARZnufPXrI7/QDxHjcaMWlR5wKveB/8m0FpEpd7YL4=
-
-addons:
-  sauce_connect: true
 
 services:
   - mongodb
@@ -27,15 +25,15 @@ script:
     # Note: don't run `npm test` here directly, it's intended for local testing.
   - npm run jest
   - npm run lint
-    # Sauce-based tests cannot be performed on pull request open by user that
-    # doesn't have write permission to main repository
-    # https://docs.travis-ci.com/user/pull-requests/#Pull-Requests-and-Security-Restrictions
-  - 'if [ "$SAUCE_USERNAME" ] && [ "$SAUCE_ACCESS_KEY" ]; then protractor ./test/integration/saucelabs.conf.js; fi'
+  - npm run cypress:run:ci
 
 # Send exit signal to node process
 after_script:
   - bash <(curl -s https://codecov.io/bash)
   - pkill node
+  # after all tests finish running we need
+  # to kill all background jobs (like "npm start &")
+  - kill $(jobs -p) || true
 
 after_failure:
   - sudo service mongod status

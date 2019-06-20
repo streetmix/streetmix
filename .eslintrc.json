@@ -9,12 +9,14 @@
   },
   "env": {
     "browser": true,
+    "cypress/globals": true,
     "node": true,
     "es6": true,
     "mocha": true
   },
   "plugins": [
     "react",
+    "cypress",
     "react-hooks"
   ],
   "extends": [
@@ -22,7 +24,10 @@
     "standard-react"
   ],
   "rules": {
-    "jsx-quotes": ["error", "prefer-double"],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }
