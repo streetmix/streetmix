@@ -26,7 +26,7 @@ Full integration tests happen in our continuous integration infrastructure. You'
 
 .. prompt:: bash $
 
-   npm test:full
+   npm cypress:run
 
 
 Frameworks
@@ -83,10 +83,7 @@ React Testing Library is intended as a replacement for Enzyme. When writing new 
 Integration and end-to-end testing
 ++++++++++++++++++++++++++++++++++
 
-We are using `Selenium <https://www.seleniumhq.org/>`_ and `Protractor <https://www.protractortest.org/#/>`_ in TravisCI to run a single "smoke test", which ensures that the application successfully builds and runs on a headless Chrome browser.
-
-We have begun to trial and adopt `Cypress.io <https://www.cypress.io/>`_, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier. It is intended to replace Selenium fully.
-
+We are adopting `Cypress.io <https://www.cypress.io/>`_, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier.
 
 Device testing
 ++++++++++++++
@@ -107,7 +104,7 @@ Continuous integration testing is, unfortunately, not deterministic. Because the
 Even after determining that CI is failing not because of a bug or linting problem, here are some common tips for addressing issues with the CI infrastructure.
 
 1. **Try running the build again.** Because CI isn't deterministic, sometimes running it a second time with no changes will cause it to pass. This is commonly the issue when the Selenium smoke test fails.
-2. **Check the status of third-party services.** For instance, we use Sauce Labs to run the Selenium smoke test. If Sauce Labs is failing, check their status to see if their service is running properly, and try again when service is restored. Sometimes, TravisCI itself has issues, so also be sure to check `TravisCI status <https://www.traviscistatus.com/>`_.
+2. **Check the status of third-party services.** Sometimes, TravisCI itself has issues, so also be sure to check `TravisCI status <https://www.traviscistatus.com/>`_.
 3. **Check to make sure MongoDB is accepting connections.** A running MongoDB service is required for end-to-end testing. TravisCI have reported `an intermittent issue with MongoDB not accepting connections <https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections>`_, which can only be solved by injecting an artificial wait time. We have encountered this in the past, although we currently do not routinely experience this. However, there is always a possibility this issue can return.
 
 
