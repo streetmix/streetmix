@@ -8,9 +8,7 @@ context('User Deleting Items on a Street', () => {
       .then((response) => {
         polyfill = response.body
       })
-  })
 
-  beforeEach(() => {
     cy.server()
     cy.route('POST', '/api/v1/streets*', 'fixture:street-post-response').as('streetPost')
     cy.route('POST', '/api/v1/streets/images/*', 'fixture:street-image-post-response').as('streetImagePut')
@@ -26,23 +24,27 @@ context('User Deleting Items on a Street', () => {
       }
     })
   })
-  it('lets users delete an item', () => {
-    cy.get('.welcome-panel', { timeout: 10000 }).contains('Welcome to Streetmix')
-    cy.get('.welcome-panel>button.close').click()
 
-    // let's delete a thing
-    cy.get('.segment-canvas-container').first().trigger('mouseover')
-    cy.get('button').contains('Remove').first().click()
-    cy.contains('The segment has been removed').should('be.visible')
+  beforeEach(() => {
+    cy.reload()
   })
-  it('lets users delete all items', () => {
-    cy.get('.welcome-panel', { timeout: 10000 }).contains('Welcome to Streetmix')
-    cy.get('.welcome-panel>button.close').click()
+  // it('lets users delete an item', () => {
+  //   cy.get('.welcome-panel', { timeout: 10000 }).contains('Welcome to Streetmix')
+  //   cy.get('.welcome-panel>button.close').click()
 
-    // let's delete all the things
-    cy.get('.segment-canvas-container').first().trigger('mouseover')
-    cy.get('body').type('{shift}', { release: false })
-    cy.get('button').contains('Remove').first().click()
-    cy.contains('All segments have been removed.').should('be.visible')
-  })
+  //   // let's delete a thing
+  //   cy.get('.segment-canvas-container').first().trigger('mouseover')
+  //   cy.get('button').contains('Remove').first().click()
+  //   cy.contains('The segment has been removed').should('be.visible')
+  // })
+  // it('lets users delete all items', () => {
+  //   cy.get('.welcome-panel', { timeout: 10000 }).contains('Welcome to Streetmix')
+  //   cy.get('.welcome-panel>button.close').click()
+
+  //   // let's delete all the things
+  //   cy.get('.segment-canvas-container').first().trigger('mouseover')
+  //   cy.get('body').type('{shift}', { release: false })
+  //   cy.get('button').contains('Remove').first().click()
+  //   cy.contains('All segments have been removed.').should('be.visible')
+  // })
 })
