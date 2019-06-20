@@ -10,8 +10,6 @@ sudo: false
 env:
   global:
     - NODE_ENV: test
-    - secure: entbiF59zjgSiel6S8bsKUrZVCXKsun9OqO95ABoQ8EaLrnP536EGVN/LurT/9W1QXcxLVChTpYZRizrhIoEQPi4vOVLrA5yhWlTGQULXWGNMf0VDTKfXOSQ6pV45zPnlmK/UV4eWAtDa7KsfOlPvQeX1K1JqSijLhPANNykGAQ=
-    - secure: YFYR9PLyfwpVVRoTeCz/0Cml2NDCrqUgufshdKxc5SM/l0Ix8XlP8eJ+s3CVArTzWJg9nzOopt9qaXtTbcN+Kr5SaMDpmjliXpmOGEkhx29dCTYuksjbGW44ImUWT2kaAARZnufPXrI7/QDxHjcaMWlR5wKveB/8m0FpEpd7YL4=
 
 services:
   - mongodb
