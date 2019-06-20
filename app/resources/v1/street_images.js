@@ -63,9 +63,7 @@ exports.post = async function (req, res) {
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (err) {
     // If the http_code returned is 404, the street thumbnail does not exist which we shouldn't consider an error.
-    if (err.error && err.error.http_code !== 404) {
-      logger.error(err)
-    } else if (!err.error) {
+    if (err.error.http_code !== 404) {
       logger.error(err)
     }
   }
