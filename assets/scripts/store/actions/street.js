@@ -41,6 +41,8 @@ import { showError } from './errors'
 import { hideLoadingScreen } from '../../app/load_resources'
 
 import { recalculateWidth } from '../../streets/width'
+import { saveStreetToServer } from '../../streets/xhr'
+
 import { setIgnoreStreetChanges, setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
 import { setSettings } from './settings'
 import apiClient from '../../util/api'
@@ -355,6 +357,7 @@ export const getLastStreet = () => {
       await dispatch(segmentsChanged())
       setIgnoreStreetChanges(false)
       setLastStreet()
+      saveStreetToServer(false)
     } catch (error) {
       dispatch(showError(ERRORS.NEW_STREET_SERVER_FAILURE, true))
       hideLoadingScreen()
