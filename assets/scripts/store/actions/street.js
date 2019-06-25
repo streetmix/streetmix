@@ -41,7 +41,7 @@ import { showError } from './errors'
 import { hideLoadingScreen } from '../../app/load_resources'
 
 import { recalculateWidth } from '../../streets/width'
-import { setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { setIgnoreStreetChanges, setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
 import { setSettings } from './settings'
 import apiClient from '../../util/api'
 
@@ -339,6 +339,7 @@ export const getLastStreet = () => {
     try {
       const response = await apiClient.getStreet(lastStreetId)
       const street = createStreetFromResponse(response)
+      setIgnoreStreetChanges(true)
       await dispatch(setSettings({
         lastStreetId: response.id,
         lastStreetNamespacedId: response.namespacedId,
@@ -351,6 +352,8 @@ export const getLastStreet = () => {
         dispatch(saveStreetId(response.id, response.namespacedId))
       }
       dispatch(saveOriginalStreetId(lastStreetId))
+      await dispatch(segmentsChanged())
+      setIgnoreStreetChanges(false)
       setLastStreet()
     } catch (error) {
       dispatch(showError(ERRORS.NEW_STREET_SERVER_FAILURE, true))
