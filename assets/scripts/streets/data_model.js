@@ -298,50 +298,47 @@ export function saveStreetToServerIfNecessary () {
 
 // Copies only the data necessary for save/undo.
 export function trimStreetData (street, saveSegmentId = true) {
-  var newData = {}
+  const newData = {
+    schemaVersion: street.schemaVersion,
+    width: street.width,
+    name: street.name,
+    id: street.id,
+    namespacedId: street.namespacedId,
+    creatorId: street.creatorId,
+    originalStreetId: street.originalStreetId,
+    units: street.units,
+    location: street.location,
+    userUpdated: street.userUpdated,
+    environment: street.environment,
+    leftBuildingHeight: street.leftBuildingHeight,
+    rightBuildingHeight: street.rightBuildingHeight,
+    leftBuildingVariant: street.leftBuildingVariant,
+    rightBuildingVariant: street.rightBuildingVariant,
+    segments: street.segments.map((origSegment) => {
+      const segment = {
+        type: origSegment.type,
+        variantString: origSegment.variantString,
+        width: origSegment.width,
+        label: origSegment.label
+      }
 
-  newData.schemaVersion = street.schemaVersion
+      if (origSegment.randSeed) {
+        segment.randSeed = origSegment.randSeed
+      }
 
-  newData.width = street.width
-  newData.name = street.name
+      // Segment id is used as a key in rendering so we know
+      // if a segment has the same identity as before. It is only
+      // saved for the view, it does not need to be saved on the server
+      if (saveSegmentId) {
+        segment.id = origSegment.id
+      }
 
-  newData.id = street.id
-  newData.namespacedId = street.namespacedId
-  newData.creatorId = street.creatorId
-  newData.originalStreetId = street.originalStreetId
-  newData.units = street.units
-
-  newData.location = street.location
-  newData.userUpdated = street.userUpdated
-
-  if (street.editCount !== null) {
-    // console.log('saving editCount', street.editCount)
-    newData.editCount = street.editCount
-  } else {
-    // console.log('not saving editCount')
+      return segment
+    })
   }
 
-  newData.environment = street.environment
-  newData.leftBuildingHeight = street.leftBuildingHeight
-  newData.rightBuildingHeight = street.rightBuildingHeight
-  newData.leftBuildingVariant = street.leftBuildingVariant
-  newData.rightBuildingVariant = street.rightBuildingVariant
-
-  newData.segments = []
-
-  for (let i in street.segments) {
-    const segment = {}
-    segment.type = street.segments[i].type
-    segment.variantString = street.segments[i].variantString
-    segment.width = street.segments[i].width
-    segment.label = street.segments[i].label
-    if (street.segments[i].randSeed) {
-      segment.randSeed = street.segments[i].randSeed
-    }
-    if (saveSegmentId) {
-      segment.id = street.segments[i].id
-    }
-    newData.segments.push(segment)
+  if (street.editCount !== null) {
+    newData.editCount = street.editCount
   }
 
   return newData
