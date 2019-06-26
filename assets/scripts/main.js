@@ -38,6 +38,11 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
   }).install()
 }
 
+// Accept HMR in Parcel
+if (module && module.hot) {
+  module.hot.accept()
+}
+
 // Mount React components
 ReactDOM.render(
   <Provider store={store}>
