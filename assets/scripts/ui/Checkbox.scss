@@ -1,0 +1,123 @@
+// UI color ramp
+$color-1: #b2c1db;
+$color-2: #0d98e6;
+$color-3: #1daeff;
+
+// Special colors
+$disabled-color: #b0baba;
+
+// Colors for stylized checkbox input
+$input-default-border-color: $color-1;
+$input-unchecked-background-color: transparent;
+$input-checked-border-color: $color-1;
+$input-checked-background-color: white;
+$input-hover-border-color: $color-3;
+$input-active-border-color: $color-2;
+$input-active-background-color: $color-2;
+
+// Colors for checkmark icon
+$checkmark-checked-color: $color-3;
+$checkmark-active-color: white;
+$checkmark-disabled-color: $disabled-color;
+
+// Colors for label
+$label-disabled-text-color: $disabled-color;
+$label-outline-color: $color-3;
+
+.checkbox-item {
+  position: relative;
+
+  /* Hides the original input element from view, but not from DOM */
+  input {
+    position: absolute;
+    left: -9999em;
+  }
+
+  /* Positions the label */
+  label {
+    display: inline-block;
+    position: relative;
+    margin-left: 1.3em;
+    padding: 0 0.2em;
+    cursor: pointer;
+  }
+
+  /* Creates a stylized checkbox for visual display only */
+  label::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1.2em;
+    top: 0.2em;
+    height: 1em;
+    width: 1em;
+    background-color: $input-unchecked-background-color;
+    border-radius: 2px;
+    border: 1px solid $input-default-border-color;
+    color: inherit;
+  }
+
+  /* Stylized checkbox, when checked */
+  input:checked ~ label::before {
+    background-color: $input-checked-background-color;
+    border-color: $input-checked-border-color;
+  }
+
+  /* Stylized checkbox, when active (during click) */
+  input:active:not(:disabled) ~ label::before {
+    background-color: $input-active-border-color;
+    border-color: $input-active-border-color;
+  }
+
+  /* Stylized checkbox, when focused or hovered */
+  input:focus:not(:disabled) ~ label::before,
+  input:hover:not(:disabled) ~ label::before {
+    border: 1px solid $input-hover-border-color;
+  }
+
+  /* Stylized checkbox, when checked, and focused or hovered */
+  input:focus:checked:not(:disabled) + label::before,
+  input:hover:checked:not(:disabled) + label::before {
+    border-color: $input-active-border-color;
+  }
+
+  /* Checkmark */
+  input ~ svg {
+    position: absolute;
+    left: 0.1em;
+    top: 0.2em;
+    opacity: 0;
+    color: transparent;
+    pointer-events: none;
+
+    /* Use scale to affect the size because FontAwesome applies its own
+       width and height CSS values that interfere with overrides */
+    transform: scale(0.75);
+  }
+
+  /* Checkmark, when checked */
+  input:checked ~ svg {
+    color: $checkmark-checked-color;
+    opacity: 1;
+  }
+
+  /* Checkmark, when active (during click) */
+  input:active ~ svg {
+    color: $checkmark-active-color;
+  }
+
+  /* Checkmark, when input disabled */
+  input:checked:disabled ~ svg {
+    color: $checkmark-disabled-color;
+  }
+
+  /* Label, when input is focused */
+  input:focus ~ label {
+    outline: 1px dotted $label-outline-color;
+  }
+
+  /* Label, when input is disabled */
+  input:disabled ~ label {
+    color: $label-disabled-text-color;
+  }
+}
