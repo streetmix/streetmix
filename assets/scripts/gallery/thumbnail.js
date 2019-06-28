@@ -49,7 +49,7 @@ function drawWatermark (ctx, dpi, invert) {
   // Set text render options
   ctx.textAlign = 'right'
   ctx.textBaseline = 'alphabetic'
-  ctx.font = `normal 700 ${WATERMARK_TEXT_SIZE * dpi}px Lato,sans-serif`
+  ctx.font = `normal 700 ${WATERMARK_TEXT_SIZE * dpi}px Barlow,Lato,sans-serif`
   ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR
 
   // Set starting X/Y positions so that watermark is aligned right and bottom of image
@@ -368,7 +368,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     // TODO const
     ctx.strokeStyle = 'black'
     ctx.lineWidth = 0.25 * dpi
-    ctx.font = `normal 300 ${13 * dpi}px Lato`
+    ctx.font = `normal 300 ${13 * dpi}px Barlow,Lato`
     ctx.fillStyle = 'black'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
