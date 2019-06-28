@@ -33,7 +33,7 @@ function Checkbox (props) {
 }
 
 Checkbox.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   checked: PropTypes.bool,
   value: PropTypes.string,
   disabled: PropTypes.bool,
