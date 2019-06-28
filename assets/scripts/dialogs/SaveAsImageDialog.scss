@@ -7,27 +7,25 @@
 
   p {
     text-align: center;
+    font-size: 15px;
   }
 
-  input[type="checkbox"] {
+  .checkbox-item {
+    display: inline-block;
     margin-left: 20px;
-    font-size: 25px;
-    user-select: none;
   }
 
-  [dir="rtl"] & input[type="checkbox"] {
-    margin-left: 5px;
+  .checkbox-item:first-of-type {
+    margin-left: 0;
+  }
+
+  [dir="rtl"] & .checkbox-item {
+    margin-left: 0;
     margin-right: 20px;
   }
 
-  label {
-    font-size: 16px;
-    padding-left: 1px;
-    user-select: none;
-  }
-
-  input[disabled] + label {
-    color: $control-disabled-colour;
+  [dir="rtl"] & .checkbox-item:first-of-type {
+    margin-right: 0;
   }
 
   footer {
