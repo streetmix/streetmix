@@ -18,7 +18,6 @@ describe('Checkbox', () => {
         disabled
         value="bar"
         id="baz"
-        labelClassName="qux"
         onChange={jest.fn()}
       >
         foo

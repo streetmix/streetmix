@@ -41,9 +41,8 @@ class FeatureFlagDialog extends React.Component {
             }}
             checked={this.props.flags[id].value}
             disabled={deets.enabled === false}
-            labelClassName={labelClassName}
           >
-            {deets.label}
+            <span className={labelClassName}>{deets.label}</span>
           </Checkbox>
         </li>
       )
