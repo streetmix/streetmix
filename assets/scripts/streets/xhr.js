@@ -1,7 +1,6 @@
 import { cloneDeep } from 'lodash'
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
-import { trackEvent } from '../app/event_tracking'
 import {
   checkIfEverythingIsLoaded,
   setServerContacted
@@ -80,7 +79,6 @@ export function setSaveStreetIncomplete (value) {
 var uniqueRequestId = 0
 
 var latestRequestId
-var latestVerificationStreet
 
 function getUniqueRequestHeader () {
   uniqueRequestId++
@@ -214,7 +212,6 @@ export function fetchStreetForVerification () {
   const url = getFetchStreetUrl()
 
   latestRequestId = getUniqueRequestHeader()
-  latestVerificationStreet = trimStreetData(store.getState().street)
 
   const options = {
     headers: { 'X-Streetmix-Request-Id': latestRequestId }
@@ -245,27 +242,26 @@ export function fetchStreetForVerification () {
     })
 }
 
+/**
+ * Compares the street data locally to the street data received from the server.
+ * If the local copy is outdated, then we replace it with the updated data.
+ *
+ * @param {Object} transmission - server data
+ */
 function receiveStreetForVerification (transmission) {
-  const localStreetData = trimStreetData(latestVerificationStreet, false)
-  const serverStreetData = trimStreetData(unpackStreetDataFromServerTransmission(transmission), false)
+  const localUpdatedAt = new Date(store.getState().street.updatedAt)
+  const serverUpdatedAt = new Date(transmission.updatedAt)
 
-  if (JSON.stringify(localStreetData) !== JSON.stringify(serverStreetData)) {
-    console.log('NOT EQUAL')
-    console.log('-')
-    console.log(JSON.stringify(localStreetData))
-    console.log('-')
-    console.log(JSON.stringify(serverStreetData))
-    console.log('-')
-    console.log(transmission)
-
+  if (serverUpdatedAt > localUpdatedAt) {
     showStatusMessage(t('toast.reloaded', 'Your street was reloaded from the server as it was modified elsewhere.'))
 
     infoBubble.suppress()
 
     unpackServerStreetData(transmission, null, null, false)
-    updateEverything(true)
 
-    trackEvent('EVENT', 'STREET_MODIFIED_ELSEWHERE', null, null, false)
+    // Update everything, but don't re-save the street to the server,
+    // which will re-invalidate the local copy.
+    updateEverything(true, false)
   }
 }
 
