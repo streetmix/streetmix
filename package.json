@@ -173,7 +173,7 @@
     "babel-plugin-rewire": "1.2.0",
     "cypress": "3.3.2",
     "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "1.13.0",
+    "enzyme-adapter-react-16": "1.14.0",
     "enzyme-to-json": "3.3.5",
     "eslint": "5.16.0",
     "eslint-config-standard": "12.0.0",
