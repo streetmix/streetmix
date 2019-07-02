@@ -132,7 +132,7 @@
     "oauth": "0.9.15",
     "parcel-bundler": "1.12.3",
     "pelias-js": "0.0.8",
-    "postcss": "7.0.16",
+    "postcss": "7.0.17",
     "prop-types": "15.7.2",
     "raven-js": "3.27.0",
     "react": "16.8.6",
