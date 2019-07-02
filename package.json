@@ -145,7 +145,7 @@
     "react-intl": "2.8.0",
     "react-leaflet": "2.4.0",
     "react-redux": "7.1.0",
-    "react-transition-group": "4.0.1",
+    "react-transition-group": "4.2.0",
     "redis": "2.8.0",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
