@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 
-import { fireEvent, getByTestId, wait, waitForDomChange } from 'react-testing-library'
+import { fireEvent, getByTestId, wait, waitForDomChange } from '@testing-library/react'
 import { CSSTransition } from 'react-transition-group'
 
 import { renderWithRedux } from '../../../../test/helpers/render'

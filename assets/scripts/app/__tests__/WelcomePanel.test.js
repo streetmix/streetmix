@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import MockAdapter from 'axios-mock-adapter'
 
 import ConnectedWelcomePanel, { WelcomePanel } from '../WelcomePanel'
-import { fireEvent, cleanup, waitForElement } from 'react-testing-library'
+import { fireEvent, cleanup, waitForElement } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { getMode } from '../mode'
 import { isSignedIn } from '../../users/authentication'
