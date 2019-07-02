@@ -168,7 +168,7 @@
     "@babel/plugin-proposal-class-properties": "7.4.4",
     "@babel/preset-env": "7.4.5",
     "@babel/preset-react": "7.0.0",
-    "axios-mock-adapter": "1.16.0",
+    "axios-mock-adapter": "1.17.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.8.0",
     "babel-plugin-rewire": "1.2.0",
