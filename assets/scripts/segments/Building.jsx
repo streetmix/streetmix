@@ -22,9 +22,7 @@ class Building extends React.Component {
     // Provided by Redux store
     street: PropTypes.object,
     activeSegment: PropTypes.string,
-    // eslint-disable-next-line react/no-unused-prop-types
     leftBuildingEditable: PropTypes.bool,
-    // eslint-disable-next-line react/no-unused-prop-types
     rightBuildingEditable: PropTypes.bool,
 
     // Provided by Redux action dispatchers

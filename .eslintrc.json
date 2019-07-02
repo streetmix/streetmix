@@ -14,6 +14,11 @@
     "es6": true,
     "mocha": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "plugins": [
     "react",
     "cypress",
