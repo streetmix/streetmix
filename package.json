@@ -143,7 +143,7 @@
     "react-dnd-touch-backend": "0.5.1",
     "react-dom": "16.8.6",
     "react-intl": "2.8.0",
-    "react-leaflet": "2.3.0",
+    "react-leaflet": "2.4.0",
     "react-redux": "7.1.0",
     "react-transition-group": "4.0.1",
     "redis": "2.8.0",
