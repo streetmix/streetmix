@@ -5,8 +5,6 @@ import './EnvironmentBadge.scss'
 
 export default class EnvironmentBadge extends React.PureComponent {
   static propTypes = {
-    // Following propType is incorrectly undetected by eslint
-    // eslint-disable-next-line react/no-unused-prop-types
     label: PropTypes.string
   }
 

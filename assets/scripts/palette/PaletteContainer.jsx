@@ -11,8 +11,6 @@ import './PaletteContainer.scss'
 class PaletteContainer extends React.Component {
   static propTypes = {
     everythingLoaded: PropTypes.bool.isRequired,
-    // Used in `getDerivedStateFromProps` but eslint complains
-    // eslint-disable-next-line react/no-unused-prop-types
     draggingState: PropTypes.object
   }
 

@@ -26,7 +26,6 @@ class WidthControl extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     touch: PropTypes.bool,
-    segment: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
     position: PropTypes.number,
     value: PropTypes.number,
     units: PropTypes.number,
@@ -126,7 +125,6 @@ function mapStateToProps (state, ownProps) {
   const segment = state.street.segments[ownProps.position]
   return {
     touch: state.system.touch,
-    segment: segment,
     value: (segment && segment.width) || null,
     units: state.street.units,
     locale: state.locale.locale
