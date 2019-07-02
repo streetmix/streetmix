@@ -193,7 +193,7 @@
     "jsonlint": "1.6.3",
     "lint-staged": "8.1.6",
     "react-test-renderer": "16.8.6",
-    "react-testing-library": "7.x",
+    "react-testing-library": "8.x",
     "recompose": "0.30.0",
     "redux-mock-store": "1.5.3",
     "stylelint": "10.1.0",
