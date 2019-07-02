@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash'
+
 import {
   REPLACE_STREET_DATA,
   ADD_SEGMENT,
@@ -33,8 +35,17 @@ import {
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions
 } from '../../segments/resizing'
+
+import { ERRORS } from '../../app/errors'
+import { showError } from './errors'
+import { hideLoadingScreen } from '../../app/load_resources'
+
 import { recalculateWidth } from '../../streets/width'
-import { saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { saveStreetToServer } from '../../streets/xhr'
+
+import { setIgnoreStreetChanges, setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { setSettings } from './settings'
+import apiClient from '../../util/api'
 
 export function updateStreetData (street) {
   return {
@@ -317,5 +328,46 @@ export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeTyp
     const width = normalizeSegmentWidth(origWidth + increment, resolution)
     await dispatch(changeSegmentWidth(dataNo, width))
     await dispatch(segmentsChanged())
+  }
+}
+
+const createStreetFromResponse = (response) => {
+  const street = cloneDeep(response.data.street)
+  street.creatorId = (response.creator && response.creator.id) || null
+  street.originalStreetId = response.originalStreetId || null
+  street.updatedAt = response.updatedAt || null
+  street.name = response.name || null
+  street.location = response.data.street.location || null
+  street.editCount = response.data.street.editCount || 0
+  return street
+}
+export const getLastStreet = () => {
+  return async (dispatch, getState) => {
+    const lastStreetId = getState().settings.priorLastStreetId
+    const { id, namespacedId } = getState().street
+    try {
+      const response = await apiClient.getStreet(lastStreetId)
+      const street = createStreetFromResponse(response)
+      setIgnoreStreetChanges(true)
+      await dispatch(setSettings({
+        lastStreetId: response.id,
+        lastStreetNamespacedId: response.namespacedId,
+        lastStreetCreatorId: street.creatorId
+      }))
+      dispatch(updateStreetData(street))
+      if (id) {
+        dispatch(saveStreetId(id, namespacedId))
+      } else {
+        dispatch(saveStreetId(response.id, response.namespacedId))
+      }
+      dispatch(saveOriginalStreetId(lastStreetId))
+      await dispatch(segmentsChanged())
+      setIgnoreStreetChanges(false)
+      setLastStreet()
+      saveStreetToServer(false)
+    } catch (error) {
+      dispatch(showError(ERRORS.NEW_STREET_SERVER_FAILURE, true))
+      hideLoadingScreen()
+    }
   }
 }

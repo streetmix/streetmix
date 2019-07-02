@@ -1,4 +1,7 @@
+/* eslint-env jest */
+
 export const images = new Map()
+
 const loadImages = (id) => {
   const width = 96
   const height = 96
@@ -16,3 +19,5 @@ const loadImages = (id) => {
   })
 }
 loadImages('markings--straight-inbound')
+
+export const hideLoadingScreen = jest.fn()
