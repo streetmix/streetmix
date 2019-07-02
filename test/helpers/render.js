@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { render } from 'react-testing-library'
+import { render } from '@testing-library/react'
 import reducers from '../../assets/scripts/store/reducers'
 
 export const renderWithRedux = function (ui,

@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup, render } from 'react-testing-library'
+import { fireEvent, cleanup, render } from '@testing-library/react'
 import Checkbox from '../Checkbox'
 
 describe('Checkbox', () => {
