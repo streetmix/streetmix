@@ -49,7 +49,8 @@
       "blog": "Streetmix Blog ansehen",
       "discord": "",
       "slack": "Slack Chat beitreten",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Spenden",
@@ -234,12 +235,16 @@
     },
     "whatsnew": {
       "heading": "Was gibt es Neues bei Streetmix?"
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "Neuer Straßenname:",
     "delete-street": "Bist du sicher, dass du {streetName} dauerhaft löschen möchtest? Dies kann nicht rückgängig gemacht werden.",
-    "new-width": "Neue Straßenbreite (von {minWidth} bis {maxWidth}):"
+    "new-width": "Neue Straßenbreite (von {minWidth} bis {maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Das Element wurde entfernt.",
@@ -287,7 +292,11 @@
     "increase-width": "Breite vergrößern (Shift gedrückt halten für eine höhere Genauigkeit)",
     "decrease-width": "Breite verkleinern (Shift gedrückt halten für eine höhere Genauigkeit)",
     "add-floor": "Stockwerk hinzufügen",
-    "remove-floor": "Stockwerk entfernen"
+    "remove-floor": "Stockwerk entfernen",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Unbenannte Straße",
@@ -362,7 +371,7 @@
       "pt-br": "Portugiesisch (Brasilien)",
       "ru": "Russisch",
       "sv": "Schwedisch",
-      "zh": "",
+      "zh": "Chinesisch",
       "zh-hans": "Hochchinesisch",
       "zh-hant": "Traditionelles Chinesisch"
     }

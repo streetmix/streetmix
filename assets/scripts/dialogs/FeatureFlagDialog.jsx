@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Dialog from './Dialog'
+import Checkbox from '../ui/Checkbox'
 import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/actions/flags'
 import './FeatureFlagDialog.scss'
@@ -23,32 +24,26 @@ class FeatureFlagDialog extends React.Component {
       const id = item[0]
       const deets = item[1]
       const htmlLabel = `feature-flag__input--${id.toLowerCase().replace(/_/g, '-')}`
-      const labelClassNames = []
 
       // Bail if a defined flag is not in the store (e.g. in tests with mock stores)
       if (!this.props.flags[id]) return
 
+      // If the setting has changed, display it differently
       const isNotDefault = deets.defaultValue !== this.props.flags[id].value
-
-      if (deets.enabled === false) {
-        labelClassNames.push('feature-flag-label-disabled')
-      }
-      if (isNotDefault) {
-        labelClassNames.push('feature-flag-label-modified')
-      }
+      const labelClassName = isNotDefault ? 'feature-flag-label-modified' : ''
 
       return (
         <li key={id}>
-          <input
-            type="checkbox"
+          <Checkbox
+            id={htmlLabel}
             onChange={(event) => {
               this.props.setFeatureFlag(id, event.target.checked)
             }}
             checked={this.props.flags[id].value}
-            id={htmlLabel}
             disabled={deets.enabled === false}
-          />
-          <label htmlFor={htmlLabel} className={labelClassNames.join(' ')}>{deets.label}</label>
+          >
+            <span className={labelClassName}>{deets.label}</span>
+          </Checkbox>
         </li>
       )
     })

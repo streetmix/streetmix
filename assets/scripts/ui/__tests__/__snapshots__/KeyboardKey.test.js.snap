@@ -10,7 +10,7 @@ exports[`KeyboardKey renders a <kbd> element with element child 1`] = `
 
 exports[`KeyboardKey renders a <kbd> element with icon and title 1`] = `
 "<kbd className=\\"key key-icon\\" title=\\"foo\\">
-  <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} />
+  <FontAwesomeIcon icon={{...}} />
 </kbd>"
 `;
 

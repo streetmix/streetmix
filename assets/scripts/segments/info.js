@@ -1,5 +1,11 @@
-import SEGMENT_INFO from './info.json'
-import { testSegmentLookup } from './segment-dict.js'
+import SEGMENT_LOOKUP from './segment-lookup.json'
+import {
+  getSegmentLookup,
+  applySegmentInfoOverridesAndRules,
+  getSegmentComponentInfo,
+  getSegmentSprites,
+  COMPONENT_GROUPS
+} from './segment-dict'
 
 /**
  * Defines the meta-category of each segment, similar to "typechecking"
@@ -62,10 +68,13 @@ const SPRITE_DEFS = {
   'markings--sharrow-inbound': { id: 'markings--sharrow-inbound', originY: 96 },
   'markings--sharrow-outbound': { id: 'markings--sharrow-outbound', originY: 96 },
 
-  'markings--lane-left': { id: 'markings--lane-left', originY: 96 },
-  'markings--lane-right': { id: 'markings--lane-right', originY: 96 },
-  'markings--center-lane-left': { id: 'markings--center-lane-left', originY: 96 },
-  'markings--center-lane-right': { id: 'markings--center-lane-right', originY: 96 },
+  'markings--lane-left': { id: 'markings--lane-left', originY: 102 },
+  'markings--lane-right': { id: 'markings--lane-right', originY: 102 },
+  'markings--lane-left-half': { id: 'markings--lane-left-half', originY: 102 },
+  'markings--lane-right-half': { id: 'markings--lane-right-half', originY: 102 },
+  'markings--lane-horiz': { id: 'markings--lane-horiz', originY: 102 },
+  'markings--center-lane-left': { id: 'markings--center-lane-left', originY: 102 },
+  'markings--center-lane-right': { id: 'markings--center-lane-right', originY: 102 },
   'markings--parking-left': { id: 'markings--parking-left', originY: 96 },
   'markings--parking-right': { id: 'markings--parking-right', originY: 96 },
   'markings--streetcar-track-01': { id: 'markings--streetcar-track-01', originY: 96 }, // lighter (for dark backgrounds)
@@ -203,7 +212,7 @@ const SPRITE_DEFS = {
  * @returns {Object}
  */
 export function getAllSegmentInfo () {
-  return SEGMENT_INFO
+  return SEGMENT_LOOKUP
 }
 
 /**
@@ -213,8 +222,8 @@ export function getAllSegmentInfo () {
  * @returns {Object}
  */
 export function getAllSegmentInfoArray () {
-  return Object.keys(SEGMENT_INFO).map(id => {
-    const segment = { ...SEGMENT_INFO[id] }
+  return Object.keys(SEGMENT_LOOKUP).map(id => {
+    const segment = { ...SEGMENT_LOOKUP[id] }
     segment.id = id
     return segment
   })
@@ -230,28 +239,35 @@ export function getAllSegmentInfoArray () {
  * @returns {Object}
  */
 export function getSegmentInfo (type) {
-  return SEGMENT_INFO[type] || SEGMENT_UNKNOWN
+  return SEGMENT_LOOKUP[type] || SEGMENT_UNKNOWN
 }
 
 /**
- * Gets variant data for segment `type` and `variant`. Safer than reading
- * `type` directly from `SEGMENT_INFO`, or `variant` from the segment,
- * because this will return a placeholder if the variant is not found.
+ * Maps the old segment data model to the new segment data model and returns the graphic sprites necessary
+ * to draw the segment as well as any rules to follow, e.g. `minWidth` based on the `type` and `variant`.
  *
  * @param {string} type
  * @param {string} variant
- * @returns {Object}
+ * @returns {object} variantInfo - returns an object in the shape of { graphics, ...rules }
  */
 export function getSegmentVariantInfo (type, variant) {
-  const segment = getSegmentInfo(type)
+  const segmentLookup = getSegmentLookup(type, variant)
+  const { rules } = getSegmentInfo(type)
 
-  const segmentVariantInfo = (segment && segment.details && segment.details[variant]) || SEGMENT_UNKNOWN_VARIANT
-
-  if (type === 'scooter' && !segmentVariantInfo.unknown) {
-    return testSegmentLookup(type, variant, segmentVariantInfo)
+  if (!segmentLookup || !segmentLookup.components) {
+    return SEGMENT_UNKNOWN_VARIANT
   }
 
-  return segmentVariantInfo
+  const { components, ...details } = segmentLookup
+  const variantInfo = applySegmentInfoOverridesAndRules(details, rules)
+  variantInfo.graphics = getSegmentSprites(components)
+
+  // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
+  // of the first item in the "lane" component group.
+  const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, components.lanes[0].id)
+  variantInfo.elevation = lane.elevation
+
+  return variantInfo
 }
 
 /**

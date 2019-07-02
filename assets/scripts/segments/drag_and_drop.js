@@ -602,7 +602,7 @@ export const segmentTarget = {
     const dragIndex = monitor.getItem().dataNo
     const hoverIndex = props.dataNo
 
-    const hoveredSegment = component.getDecoratedComponentInstance().streetSegment
+    const hoveredSegment = component.streetSegment
     const { left } = hoveredSegment.getBoundingClientRect()
     const hoverMiddleX = Math.round(left + (props.actualWidth * TILE_SIZE) / 2)
     const { x } = monitor.getClientOffset()

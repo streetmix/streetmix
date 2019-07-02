@@ -49,7 +49,8 @@
       "blog": "Посетить блог Streetmix",
       "discord": "",
       "slack": "Присоединиться к чату Slack",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Пожертвовать",
@@ -234,12 +235,16 @@
     },
     "whatsnew": {
       "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "Новое название улицы:",
     "delete-street": "Вы уверены, что хотите полностью удалить {streetName}? Это не может быть отменено.",
-    "new-width": "Новая ширина улицы (от {minWidth} к {maxWidth}):"
+    "new-width": "Новая ширина улицы (от {minWidth} к {maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Сегмент был удалён.",
@@ -287,7 +292,11 @@
     "increase-width": "Увеличить ширину (зажмите Shift для большей точности)",
     "decrease-width": "Уменьшить ширину (зажмите Shift для большей точности)",
     "add-floor": "Добавить уровень",
-    "remove-floor": "Удалить уровень"
+    "remove-floor": "Удалить уровень",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Безымянная улица",
@@ -362,7 +371,7 @@
       "pt-br": "Португальский (Бразилия)",
       "ru": "Русский",
       "sv": "Шведский",
-      "zh": "",
+      "zh": "Китайский язык",
       "zh-hans": "Упрощенный Китайский",
       "zh-hant": "Традиционный Китайский"
     }

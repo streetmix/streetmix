@@ -9,10 +9,9 @@ export function getStreetSectionTop () {
   return streetSectionTop
 }
 
-export function onResize () {
-  store.dispatch(windowResize(window.innerWidth, window.innerHeight))
+// TODO: less stop relying on querying other DOM elements
+export function setStreetSectionTop () {
   const viewportHeight = window.innerHeight
-
   const streetSectionHeight = document.querySelector('#street-section-inner').offsetHeight
   const paletteTop = document.querySelector('.palette-container').offsetTop || viewportHeight
 
@@ -31,10 +30,10 @@ export function onResize () {
   if (streetSectionTop + document.querySelector('#street-section-inner').offsetHeight > paletteTop - 20 + 180) { // gallery height
     streetSectionTop = paletteTop - 20 - streetSectionHeight + 180
   }
+}
 
-  const streetSectionDirtPos = viewportHeight - streetSectionTop - 400 + 180
-
-  document.querySelector('#street-section-dirt').style.height = streetSectionDirtPos + 'px'
-
+export function onResize () {
+  store.dispatch(windowResize(window.innerWidth, window.innerHeight))
+  setStreetSectionTop()
   infoBubble.show(true)
 }

@@ -4,11 +4,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
-import * as sharedstreets from 'sharedstreets'
+// todo: re-enable sharedstreets
+// sharedstreets functionality is disabled until it stops installing an old
+// version of `npm` as a dependency.
+// import * as sharedstreets from 'sharedstreets'
 import Dialog from './Dialog'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
-import SearchAddress from './Geotag/SearchAddress'
+import GeoSearch from './Geotag/GeoSearch'
 import LocationPopup from './Geotag/LocationPopup'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
@@ -173,8 +176,8 @@ class GeotagDialog extends React.Component {
 
   handleConfirmLocation = (event) => {
     const { markerLocation, addressInformation } = this.props
-    const { bbox } = this.state
-    const point = [markerLocation.lng, markerLocation.lat]
+    // const { bbox } = this.state
+    // const point = [markerLocation.lng, markerLocation.lat]
     const location = {
       latlng: markerLocation,
       wofId: addressInformation.id,
@@ -186,14 +189,16 @@ class GeotagDialog extends React.Component {
         neighbourhood: addressInformation.neighbourhood,
         street: addressInformation.street
       },
-      geometryId: sharedstreets.geometryId([point]) || null,
-      intersectionId: sharedstreets.intersectionId(point) || null
+      geometryId: null,
+      intersectionId: null
+      // geometryId: sharedstreets.geometryId([point]) || null,
+      // intersectionId: sharedstreets.intersectionId(point) || null
     }
 
-    if (bbox) {
-      const line = [bbox.slice(0, 2), bbox.slice(2, 4)]
-      location.geometryId = sharedstreets.geometryId(line)
-    }
+    // if (bbox) {
+    //   const line = [bbox.slice(0, 2), bbox.slice(2, 4)]
+    //   location.geometryId = sharedstreets.geometryId(line)
+    // }
 
     trackEvent('Interaction', 'Geotag dialog: confirm chosen location', null, null, true)
 
@@ -272,10 +277,9 @@ class GeotagDialog extends React.Component {
             )}
             {this.state.geocodeAvailable && (
               <div className="geotag-input-container">
-                <SearchAddress setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
+                <GeoSearch setSearchResults={this.setSearchResults} focus={this.state.mapCenter} />
               </div>
             )}
-
             <Map
               center={this.state.mapCenter}
               zoomControl={false}

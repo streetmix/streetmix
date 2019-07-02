@@ -49,7 +49,8 @@
       "blog": "Visitez le blog Streetmix",
       "discord": "",
       "slack": "Rejoindre le chat sur Slack",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Donner",
@@ -234,12 +235,16 @@
     },
     "whatsnew": {
       "heading": "Qu'est-ce qu'il y a de nouveau dans Streetmix ?"
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "Nouveau nom de rue :",
     "delete-street": "Êtes-vous sûr de vouloir supprimer {streetName} de manière permanente ? Ceci ne pourra être annulé.",
-    "new-width": "Nouvelle largeur de rue (entre {minWidth} et {maxWidth}) :"
+    "new-width": "Nouvelle largeur de rue (entre {minWidth} et {maxWidth}) :",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Les éléments de voirie ont été enlevés.",
@@ -287,7 +292,11 @@
     "increase-width": "Augmenter la largeur (Maintenir Shift enfoncé pour obtenir plus de précision)",
     "decrease-width": "Diminuer la largeur (maintenir Shift enfoncé pour obtenir plus de précision)",
     "add-floor": "Ajouter un étage",
-    "remove-floor": "Retirer un étage"
+    "remove-floor": "Retirer un étage",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Rue non nommée",
@@ -362,7 +371,7 @@
       "pt-br": "Portugais (Brésil)",
       "ru": "Russe",
       "sv": "Suédois",
-      "zh": "",
+      "zh": "Chinois",
       "zh-hans": "Chinois simplifié",
       "zh-hant": "Chinois traditionnel"
     }

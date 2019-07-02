@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "人行道",
-    "sidewalk-tree": "有树的人行道",
+    "sidewalk-tree": "树",
     "bike-rack": "自行车架",
     "bench": "长椅",
     "wayfinding-sign": "路标",
-    "sidewalk-lamp": "有路灯的人行道",
+    "sidewalk-lamp": "路灯",
     "parklet": "微型公园",
     "divider": "禁停区",
     "planting-strip": "绿化带",

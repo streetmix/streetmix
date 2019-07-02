@@ -49,7 +49,8 @@
       "blog": "訪問Streetmix的博客",
       "discord": "",
       "slack": "加入Slack對話",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "資助我們",
@@ -234,12 +235,16 @@
     },
     "whatsnew": {
       "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "新的街道名稱",
     "delete-street": "你確定你要永久刪除{streetName}嗎？此操作將無法被撤銷。",
-    "new-width": "新街道的寬度（從{minWidth}到{maxWidth}）："
+    "new-width": "新街道的寬度（從{minWidth}到{maxWidth}）：",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "這個部分已被移除。",
@@ -287,7 +292,11 @@
     "increase-width": "增加寬度（長按 Shift 來微調）",
     "decrease-width": "減少寬度（長按 Shift 來微調）",
     "add-floor": "增加樓層",
-    "remove-floor": "移除樓層"
+    "remove-floor": "移除樓層",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "無名街",
@@ -362,7 +371,7 @@
       "pt-br": "葡文 (巴西)",
       "ru": "俄文",
       "sv": "瑞典語",
-      "zh": "",
+      "zh": "中文",
       "zh-hans": "簡體中文",
       "zh-hant": "繁體中文"
     }

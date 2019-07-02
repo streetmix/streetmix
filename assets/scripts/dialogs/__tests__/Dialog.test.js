@@ -7,7 +7,7 @@ describe('Dialog', () => {
   it('renders without crashing', () => {
     const Contents = 'foo'
     const wrapper = shallow(
-      <Dialog closeDialog={jest.fn()}>
+      <Dialog clearDialogs={jest.fn()}>
         {(closeDialog) => <Contents />}
       </Dialog>
     )

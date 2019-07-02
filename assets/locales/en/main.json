@@ -49,7 +49,8 @@
       "blog": "Visit Streetmix blog",
       "discord": "Join Discord chat",
       "slack": "Join Slack chat",
-      "minecraft": "Play Minecraft with us!"
+      "minecraft": "Play Minecraft with us!",
+      "newsletter": "Subscribe to our newsletter"
     },
     "contribute": {
       "donate": "Donate",
@@ -234,6 +235,9 @@
     },
     "whatsnew": {
       "heading": "What’s new in Streetmix?"
+    },
+    "newsletter": {
+      "heading": "Subscribe to our newsletter"
     }
   },
   "prompt": {
@@ -288,7 +292,11 @@
     "increase-width": "Increase width (hold Shift for more precision)",
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
-    "remove-floor": "Remove floor"
+    "remove-floor": "Remove floor",
+    "scroll-street-left": "Scroll street left",
+    "scroll-street-right": "Scroll street right",
+    "scroll-left": "Scroll left",
+    "scroll-right": "Scroll right"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -333,7 +341,7 @@
     "byline": "by {user}"
   },
   "export": {
-    "watermark": "Made with {{streetmixWordmark}}"
+    "watermark": "Made with {streetmixWordmark}"
   },
   "meta": {
     "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.",

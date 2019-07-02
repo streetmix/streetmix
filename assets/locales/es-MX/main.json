@@ -49,7 +49,8 @@
       "blog": "Visitar el blog de Streetmix",
       "discord": "Unirte al chat de Discord",
       "slack": "Unirte al chat de Slack",
-      "minecraft": "¡Juega Minecraft con nosotros!"
+      "minecraft": "¡Juega Minecraft con nosotros!",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Donar",
@@ -234,12 +235,16 @@
     },
     "whatsnew": {
       "heading": "¿Qué es nuevo en Streetmix?"
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "Nombre de la calle nueva:",
     "delete-street": "¿Estás seguro que quieres borrar {streetName}? No se puede deshacer esta acción.",
-    "new-width": "Nueva anchura de la calle (entre {minWidth} y {maxWidth}):"
+    "new-width": "Nueva anchura de la calle (entre {minWidth} y {maxWidth}):",
+    "segment-label": "Designación del nuevo segmento:"
   },
   "toast": {
     "segment-deleted": "Se ha removido este segmento.",
@@ -287,7 +292,11 @@
     "increase-width": "Aumentar el ancho (mantén presionada Mayús para mayor precisión)",
     "decrease-width": "Reducir el ancho (mantén presionada Mayús para mayor precisión)",
     "add-floor": "Adherir piso",
-    "remove-floor": "Remover piso"
+    "remove-floor": "Remover piso",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Calle desconocida",
@@ -332,7 +341,7 @@
     "byline": "por {user}"
   },
   "export": {
-    "watermark": ""
+    "watermark": "Hecho con {streetmixWordmark}"
   },
   "meta": {
     "description": "Diseña, remezcla, y comparte la calle de tu rumbo -- ¡todo dentro de tu navegador! Adhiere arboles o líneas de bici, haz las calles o banquetas mas anchas, aprende como tus decisiones impactan a tu comunidad.",

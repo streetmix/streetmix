@@ -567,17 +567,20 @@
       "scooter-elevation",
       "scooter-riders"
     ],
-    "paletteIcon": "right|road|empty",
+    "paletteIcon": "right|sidewalk|empty",
     "details": {
       "left|sidewalk|empty": {
         "elevation": 1,
         "graphics": {
           "left": [
             "scooters--scooter-left-docked",
-            "markings--lane-left"
+            "markings--lane-left-half"
           ],
-          "repeat": "ground--concrete",
-          "right": "markings--lane-right"
+          "repeat": [
+            "ground--concrete",
+            "markings--lane-horiz"
+          ],
+          "right": "markings--lane-right-half"
         }
       },
       "right|sidewalk|empty": {
@@ -585,10 +588,13 @@
         "graphics": {
           "right": [
             "scooters--scooter-right-docked",
-            "markings--lane-right"
+            "markings--lane-right-half"
           ],
-          "repeat": "ground--concrete",
-          "left": "markings--lane-left"
+          "repeat": [
+            "ground--concrete",
+            "markings--lane-horiz"
+          ],
+          "left": "markings--lane-left-half"
         }
       },
       "left|sidewalk|sparse": {
@@ -596,10 +602,13 @@
         "graphics": {
           "left": [
             "scooters--scooter-left-rider",
-            "markings--lane-left"
+            "markings--lane-left-half"
           ],
-          "repeat": "ground--concrete",
-          "right": "markings--lane-right"
+          "repeat": [
+            "ground--concrete",
+            "markings--lane-horiz"
+          ],
+          "right": "markings--lane-right-half"
         }
       },
       "right|sidewalk|sparse": {
@@ -607,10 +616,13 @@
         "graphics": {
           "right": [
             "scooters--scooter-right-rider",
-            "markings--lane-right"
+            "markings--lane-right-half"
           ],
-          "repeat": "ground--concrete",
-          "left": "markings--lane-left"
+          "repeat": [
+            "ground--concrete",
+            "markings--lane-horiz"
+          ],
+          "left": "markings--lane-left-half"
         }
       },
       "left|road|empty": {
@@ -618,10 +630,13 @@
         "graphics": {
           "left": [
             "scooters--scooter-left-docked",
-            "markings--lane-left"
+            "markings--lane-left-half"
           ],
-          "repeat": "ground--asphalt",
-          "right": "markings--lane-right"
+          "repeat": [
+            "ground--asphalt",
+            "markings--lane-horiz"
+          ],
+          "right": "markings--lane-right-half"
         }
       },
       "right|road|empty": {
@@ -629,10 +644,13 @@
         "graphics": {
           "right": [
             "scooters--scooter-right-docked",
-            "markings--lane-right"
+            "markings--lane-right-half"
           ],
-          "repeat": "ground--asphalt",
-          "left": "markings--lane-left"
+          "repeat": [
+            "ground--asphalt",
+            "markings--lane-horiz"
+          ],
+          "left": "markings--lane-left-half"
         }
       },
       "left|road|sparse": {
@@ -640,10 +658,13 @@
         "graphics": {
           "left": [
             "scooters--scooter-left-rider",
-            "markings--lane-left"
+            "markings--lane-left-half"
           ],
-          "repeat": "ground--asphalt",
-          "right": "markings--lane-right"
+          "repeat": [
+            "ground--asphalt",
+            "markings--lane-horiz"
+          ],
+          "right": "markings--lane-right-half"
         }
       },
       "right|road|sparse": {
@@ -651,10 +672,13 @@
         "graphics": {
           "right": [
             "scooters--scooter-right-rider",
-            "markings--lane-right"
+            "markings--lane-right-half"
           ],
-          "repeat": "ground--asphalt",
-          "left": "markings--lane-left"
+          "repeat": [
+            "ground--asphalt",
+            "markings--lane-horiz"
+          ],
+          "left": "markings--lane-left-half"
         }
       }
     }

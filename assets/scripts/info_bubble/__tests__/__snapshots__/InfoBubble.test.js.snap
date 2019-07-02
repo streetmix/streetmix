@@ -20,10 +20,6 @@ exports[`InfoBubble is visible 1`] = `
         className="info-bubble-label-editable-icon"
       >
         <FontAwesomeIcon
-          border={false}
-          className=""
-          fixedWidth={false}
-          flip={null}
           icon={
             Object {
               "icon": Array [
@@ -37,17 +33,6 @@ exports[`InfoBubble is visible 1`] = `
               "prefix": "fas",
             }
           }
-          inverse={false}
-          listItem={false}
-          mask={null}
-          pull={null}
-          pulse={false}
-          rotation={null}
-          size={null}
-          spin={false}
-          symbol={false}
-          title=""
-          transform={null}
         />
       </span>
     </div>
@@ -61,19 +46,19 @@ exports[`InfoBubble is visible 1`] = `
     <IntlProvider
       locale="en"
     >
-      <Component
+      <InjectIntl(Connect(Variants))
         position="u"
         type={1}
       />
     </IntlProvider>
-    <Component
+    <InjectIntl(Connect(WidthControl))
       position="u"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <ConnectFunction
+  <Connect(Description)
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -112,10 +97,6 @@ exports[`InfoBubble renders 1`] = `
         className="info-bubble-label-editable-icon"
       >
         <FontAwesomeIcon
-          border={false}
-          className=""
-          fixedWidth={false}
-          flip={null}
           icon={
             Object {
               "icon": Array [
@@ -129,17 +110,6 @@ exports[`InfoBubble renders 1`] = `
               "prefix": "fas",
             }
           }
-          inverse={false}
-          listItem={false}
-          mask={null}
-          pull={null}
-          pulse={false}
-          rotation={null}
-          size={null}
-          spin={false}
-          symbol={false}
-          title=""
-          transform={null}
         />
       </span>
     </div>
@@ -153,19 +123,19 @@ exports[`InfoBubble renders 1`] = `
     <IntlProvider
       locale="en"
     >
-      <Component
+      <InjectIntl(Connect(Variants))
         position={0}
         type={1}
       />
     </IntlProvider>
-    <Component
+    <InjectIntl(Connect(WidthControl))
       position={0}
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <ConnectFunction
+  <Connect(Description)
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -204,10 +174,6 @@ exports[`InfoBubble shows building left info bubble 1`] = `
         className="info-bubble-label-editable-icon"
       >
         <FontAwesomeIcon
-          border={false}
-          className=""
-          fixedWidth={false}
-          flip={null}
           icon={
             Object {
               "icon": Array [
@@ -221,17 +187,6 @@ exports[`InfoBubble shows building left info bubble 1`] = `
               "prefix": "fas",
             }
           }
-          inverse={false}
-          listItem={false}
-          mask={null}
-          pull={null}
-          pulse={false}
-          rotation={null}
-          size={null}
-          spin={false}
-          symbol={false}
-          title=""
-          transform={null}
         />
       </span>
     </div>
@@ -242,19 +197,19 @@ exports[`InfoBubble shows building left info bubble 1`] = `
     <IntlProvider
       locale="en"
     >
-      <Component
+      <InjectIntl(Connect(Variants))
         position="left"
         type={2}
       />
     </IntlProvider>
-    <Component
+    <InjectIntl(Connect(BuildingHeightControl))
       position="left"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <ConnectFunction
+  <Connect(Description)
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -293,10 +248,6 @@ exports[`InfoBubble shows building right info bubble 1`] = `
         className="info-bubble-label-editable-icon"
       >
         <FontAwesomeIcon
-          border={false}
-          className=""
-          fixedWidth={false}
-          flip={null}
           icon={
             Object {
               "icon": Array [
@@ -310,17 +261,6 @@ exports[`InfoBubble shows building right info bubble 1`] = `
               "prefix": "fas",
             }
           }
-          inverse={false}
-          listItem={false}
-          mask={null}
-          pull={null}
-          pulse={false}
-          rotation={null}
-          size={null}
-          spin={false}
-          symbol={false}
-          title=""
-          transform={null}
         />
       </span>
     </div>
@@ -331,19 +271,19 @@ exports[`InfoBubble shows building right info bubble 1`] = `
     <IntlProvider
       locale="en"
     >
-      <Component
+      <InjectIntl(Connect(Variants))
         position="right"
         type={3}
       />
     </IntlProvider>
-    <Component
+    <InjectIntl(Connect(BuildingHeightControl))
       position="right"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <ConnectFunction
+  <Connect(Description)
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}
@@ -373,10 +313,6 @@ exports[`InfoBubble shows description 1`] = `
         className="info-bubble-label-editable-icon"
       >
         <FontAwesomeIcon
-          border={false}
-          className=""
-          fixedWidth={false}
-          flip={null}
           icon={
             Object {
               "icon": Array [
@@ -390,17 +326,6 @@ exports[`InfoBubble shows description 1`] = `
               "prefix": "fas",
             }
           }
-          inverse={false}
-          listItem={false}
-          mask={null}
-          pull={null}
-          pulse={false}
-          rotation={null}
-          size={null}
-          spin={false}
-          symbol={false}
-          title=""
-          transform={null}
         />
       </span>
     </div>
@@ -414,19 +339,19 @@ exports[`InfoBubble shows description 1`] = `
     <IntlProvider
       locale="en"
     >
-      <Component
+      <InjectIntl(Connect(Variants))
         position="u"
         type={1}
       />
     </IntlProvider>
-    <Component
+    <InjectIntl(Connect(WidthControl))
       position="u"
     />
   </div>
   <Warnings
     segment={Object {}}
   />
-  <ConnectFunction
+  <Connect(Description)
     highlightTriangle={[Function]}
     infoBubbleEl={null}
     unhighlightTriangle={[Function]}

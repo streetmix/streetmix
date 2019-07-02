@@ -49,7 +49,8 @@
       "blog": "Streetmixブログを表示",
       "discord": "",
       "slack": "Slackチャットに参加",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "募金",
@@ -234,12 +235,16 @@
     },
     "whatsnew": {
       "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "新しいストリートの名称:",
     "delete-street": "本当に {streetName} を削除してよろしいですか？ 削除した内容は元に戻せません。",
-    "new-width": "新しいストリートの道路幅 (最低幅 {minWidth} から {maxWidth} まで):"
+    "new-width": "新しいストリートの道路幅 (最低幅 {minWidth} から {maxWidth} まで):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "セグメントが削除されました。",
@@ -287,7 +292,11 @@
     "increase-width": "幅を増やす (Shiftを押すと微調整可)",
     "decrease-width": "幅を減らす (Shiftを押すと微調整可)",
     "add-floor": "階数を追加",
-    "remove-floor": "階数を減らす"
+    "remove-floor": "階数を減らす",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "したがきストリート",
@@ -360,9 +369,9 @@
       "ja": "日本語",
       "pl": "ポーランド語",
       "pt-br": "ポルトガル語（ブラジル）",
-      "ru": "Russian",
+      "ru": "ロシア語",
       "sv": "スェーデン語",
-      "zh": "",
+      "zh": "中国語",
       "zh-hans": "簡体字",
       "zh-hant": "繁体字"
     }

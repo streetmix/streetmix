@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl'
 import Dialog from './Dialog'
+import Checkbox from '../ui/Checkbox'
 import { trackEvent } from '../app/event_tracking'
 import { getStreetImage } from '../streets/image'
 import { setSettings } from '../store/actions/settings'
@@ -223,46 +224,34 @@ class SaveAsImageDialog extends React.Component {
             </header>
             <div className="dialog-content">
               <p>
-                <input
-                  type="checkbox"
+                <Checkbox
                   onChange={this.onChangeOptionSegmentNames}
                   checked={this.props.segmentNames}
-                  id="save-as-image-segment-names"
-                />
-                <label htmlFor="save-as-image-segment-names">
+                >
                   <FormattedMessage id="dialogs.save.option-labels" defaultMessage="Segment names and widths" />
-                </label>
+                </Checkbox>
 
-                <input
-                  type="checkbox"
+                <Checkbox
                   onChange={this.onChangeOptionStreetName}
                   checked={this.props.streetName}
-                  id="save-as-image-street-name"
-                />
-                <label htmlFor="save-as-image-street-name">
+                >
                   <FormattedMessage id="dialogs.save.option-name" defaultMessage="Street name" />
-                </label>
+                </Checkbox>
 
-                <input
-                  type="checkbox"
+                <Checkbox
                   onChange={this.onChangeOptionTransparentSky}
                   checked={this.props.transparentSky}
-                  id="save-as-image-transparent-sky"
-                />
-                <label htmlFor="save-as-image-transparent-sky">
+                >
                   <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
-                </label>
+                </Checkbox>
 
-                <input
-                  type="checkbox"
+                <Checkbox
                   onChange={this.onChangeOptionWatermark}
                   checked={this.props.watermark}
                   disabled={!this.props.allowControlWatermark}
-                  id="save-as-image-watermark"
-                />
-                <label htmlFor="save-as-image-watermark">
+                >
                   <FormattedMessage id="dialogs.save.option-watermark" defaultMessage="Watermark" />
-                </label>
+                </Checkbox>
               </p>
               {this.props.allowCustomDpi &&
                 <p>

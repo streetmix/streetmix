@@ -1,37 +1,35 @@
 /* eslint-env jest */
 import React from 'react'
+import { fireEvent, cleanup } from 'react-testing-library'
+import { renderWithIntl as render } from '../../../../test/helpers/render'
 import CloseButton from '../CloseButton'
-import { mountWithIntl as mount } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-
-const onClick = jest.fn()
 
 describe('CloseButton', () => {
-  it('should renders without crashing', () => {
-    const wrapper = mount(<CloseButton onClick={onClick} />)
-    expect(wrapper.find('button').length).toEqual(1)
+  afterEach(cleanup)
+
+  it('renders snapshot', () => {
+    const wrapper = render(<CloseButton onClick={jest.fn()} />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('should set title attribute', () => {
-    const wrapper = mount(<CloseButton
-      onClick={onClick}
-      title="Delete street"
+  it('renders with custom title, class name, and other attributes', () => {
+    const wrapper = render(<CloseButton
+      onClick={jest.fn()}
+      title="foofoo"
+      className="my-class"
+      disabled
+      hidden
     />)
-    expect(wrapper.find('button').instance().getAttribute('title')).toEqual('Delete street')
-  })
-
-  it('should set className', () => {
-    const wrapper = mount(<CloseButton
-      onClick={onClick}
-      className="hide-btn"
-    />)
-    expect(wrapper.find('button').hasClass('hide-btn')).toEqual(true)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('should call onClick function when button is clicked', () => {
-    const wrapper = mount(<CloseButton
+    const onClick = jest.fn()
+    const { getByTitle } = render(<CloseButton
       onClick={onClick}
+      title="foo"
     />)
-    wrapper.find('button').simulate('click')
-    expect(onClick).toBeCalled()
+    fireEvent.click(getByTitle('foo'))
+    expect(onClick).toHaveBeenCalledTimes(1)
   })
 })

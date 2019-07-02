@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Calçada",
-    "sidewalk-tree": "Calçada com árvore",
+    "sidewalk-tree": "Árvore",
     "bike-rack": "Suporte de bicicletas",
     "bench": "Banco",
     "wayfinding-sign": "Sinal de orientação",
-    "sidewalk-lamp": "Calçada com poste",
+    "sidewalk-lamp": "Poste",
     "parklet": "Parklet",
     "divider": "Zona de amortecimento",
     "planting-strip": "Faixa de plantio",

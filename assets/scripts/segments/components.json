@@ -1,6 +1,7 @@
 {
   "lanes": {
     "asphalt": {
+      "elevation": 0,
       "variants": {
         "color": {
           "regular": {
@@ -17,39 +18,979 @@
             "graphics": {
               "repeat": "ground--asphalt-green"
             }
+          },
+          "gray": {
+            "graphics": {
+              "repeat": "ground--asphalt-gray"
+            }
+          }
+        }
+      }
+    },
+    "sidewalk": {
+      "elevation": 1,
+      "variants": {
+        "density": {
+          "dense": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "normal": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "sparse": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "empty": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          }
+        }
+      }
+    },
+    "raised-sidewalk": {
+      "elevation": 2,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "repeat": "ground--concrete-raised"
+            }
           }
         }
       }
     }
   },
-  "objects": {},
+  "markings": {
+    "markings--lane-right": {
+      "graphics": {
+        "right": "markings--lane-right"
+      }
+    },
+    "markings--lane-left": {
+      "graphics": {
+        "left": "markings--lane-left"
+      }
+    },
+    "markings--straight-inbound-light": {
+      "graphics": {
+        "center": "markings--straight-inbound-light"
+      }
+    },
+    "markings--straight-outbound-light": {
+      "graphics": {
+        "center": "markings--straight-outbound-light"
+      }
+    },
+    "markings--lane-left-half": {
+      "graphics": {
+        "left": "markings--lane-left-half"
+      }
+    },
+    "markings--lane-right-half": {
+      "graphics": {
+        "right": "markings--lane-right-half"
+      }
+    },
+    "markings--lane-horiz": {
+      "graphics": {
+        "repeat": "markings--lane-horiz"
+      }
+    },
+    "markings--sharrow-inbound": {
+      "graphics": {
+        "center": "markings--sharrow-inbound"
+      }
+    },
+    "markings--sharrow-outbound": {
+      "graphics": {
+        "center": "markings--sharrow-outbound"
+      }
+    },
+    "markings--left-inbound": {
+      "graphics": {
+        "center": "markings--left-inbound"
+      }
+    },
+    "markings--left-straight-inbound": {
+      "graphics": {
+        "center": "markings--left-straight-inbound"
+      }
+    },
+    "markings--straight-inbound": {
+      "graphics": {
+        "center": "markings--straight-inbound"
+      }
+    },
+    "markings--right-straight-inbound": {
+      "graphics": {
+        "center": "markings--right-straight-inbound"
+      }
+    },
+    "markings--right-inbound": {
+      "graphics": {
+        "center": "markings--right-inbound"
+      }
+    },
+    "markings--both-inbound": {
+      "graphics": {
+        "center": "markings--both-inbound"
+      }
+    },
+    "markings--shared-inbound": {
+      "graphics": {
+        "center": "markings--shared-inbound"
+      }
+    },
+    "markings--center-lane-left": {
+      "graphics": {
+        "left": "markings--center-lane-left"
+      }
+    },
+    "markings--center-lane-right": {
+      "graphics": {
+        "right": "markings--center-lane-right"
+      }
+    },
+    "markings--left-outbound": {
+      "graphics": {
+        "center": "markings--left-outbound"
+      }
+    },
+    "markings--left-straight-outbound": {
+      "graphics": {
+        "center": "markings--left-straight-outbound"
+      }
+    },
+    "markings--straight-outbound": {
+      "graphics": {
+        "center": "markings--straight-outbound"
+      }
+    },
+    "markings--right-straight-outbound": {
+      "graphics": {
+        "center": "markings--right-straight-outbound"
+      }
+    },
+    "markings--right-outbound": {
+      "graphics": {
+        "center": "markings--right-outbound"
+      }
+    },
+    "markings--both-outbound": {
+      "graphics": {
+        "center": "markings--both-outbound"
+      }
+    },
+    "markings--shared-outbound": {
+      "graphics": {
+        "center": "markings--shared-outbound"
+      }
+    },
+    "markings--streetcar-track-01": {
+      "graphics": {
+        "center": "markings--streetcar-track-01"
+      }
+    },
+    "markings--streetcar-track-02": {
+      "graphics": {
+        "center": "markings--streetcar-track-02"
+      }
+    },
+    "markings--stripes-diagonal": {
+      "graphics": {
+        "repeat": "markings--stripes-diagonal"
+      }
+    },
+    "markings--parking-left": {
+      "graphics": {
+        "right": "markings--parking-left"
+      }
+    },
+    "markings--parking-right": {
+      "graphics": {
+        "left": "markings--parking-right"
+      }
+    }
+  },
+  "objects": {
+    "pickup-sign": {
+      "name": "Pickup sign",
+      "nameKey": "pickup-sign",
+      "owner": "FLEX",
+      "zIndex": 30,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "right": "curb--pickup-sign-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "left": "curb--pickup-sign-right"
+            }
+          }
+        }
+      }
+    },
+    "person-waiting": {
+      "name": "Person waiting",
+      "nameKey": "person-waiting",
+      "zIndex": 30,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "center": "curb--person-waiting-01-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "center": "curb--person-waiting-01-right"
+            }
+          }
+        }
+      }
+    },
+    "utility-pole": {
+      "name": "Utility pole",
+      "nameKey": "utility-pole",
+      "owner": "NONE",
+      "zIndex": 10,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "center": "utilities--utility-pole-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "center": "utilities--utility-pole-right"
+            }
+          }
+        }
+      }
+    },
+    "tree": {
+      "name": "Tree",
+      "nameKey": "tree",
+      "owner": "NATURE",
+      "zIndex": 22,
+      "variants": {
+        "type": {
+          "big": {
+            "graphics": {
+              "center": "trees--tree"
+            }
+          },
+          "palm-tree": {
+            "graphics": {
+              "center": "trees--palm-tree"
+            }
+          }
+        }
+      }
+    },
+    "bike-rack": {
+      "name": "Bike rack",
+      "nameKey": "bike-rack",
+      "owner": "BIKE",
+      "zIndex": 23,
+      "variants": {
+        "direction|orientation": {
+          "parallel": {
+            "left": {
+              "graphics": {
+                "left": "bikes--bike-rack-parallel-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "bikes--bike-rack-parallel-right"
+              }
+            }
+          },
+          "perpendicular": {
+            "left": {
+              "graphics": {
+                "left": "bikes--bike-rack-perpendicular-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "bikes--bike-rack-perpendicular-right"
+              }
+            }
+          }
+        }
+      }
+    },
+    "bench": {
+      "name": "Bench",
+      "nameKey": "bench",
+      "owner": "PEDESTRIAN",
+      "zIndex": 24,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "furniture--bench-left"
+            }
+          },
+          "center": {
+            "graphics": {
+              "center": "furniture--bench-center"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "furniture--bench-right"
+            }
+          }
+        }
+      }
+    },
+    "wayfinding-sign": {
+      "name": "Wayfinding sign",
+      "nameKey": "wayfinding-sign",
+      "owner": "PEDESTRIAN",
+      "zIndex": 21,
+      "variants": {
+        "type": {
+          "small": {
+            "graphics": {
+              "center": "wayfinding--nyc-wayfinding-pylon-small"
+            }
+          },
+          "medium": {
+            "graphics": {
+              "center": "wayfinding--nyc-wayfinding-pylon-medium"
+            }
+          },
+          "large": {
+            "graphics": {
+              "center": "wayfinding--nyc-wayfinding-pylon-large"
+            }
+          }
+        }
+      }
+    },
+    "lamp": {
+      "name": "Lamp",
+      "nameKey": "lamp",
+      "owner": "PEDESTRIAN",
+      "zIndex": 19,
+      "variants": {
+        "type|orientation": {
+          "modern": {
+            "right": {
+              "graphics": {
+                "right": "lamps--lamp-modern-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "left": "lamps--lamp-modern-left"
+              }
+            },
+            "both": {
+              "graphics": {
+                "center": "lamps--lamp-modern-both"
+              }
+            }
+          },
+          "traditional": {
+            "right": {
+              "graphics": {
+                "right": "lamps--lamp-traditional-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "left": "lamps--lamp-traditional-left"
+              }
+            },
+            "both": {
+              "graphics": {
+                "center": "lamps--lamp-traditional-center"
+              }
+            }
+          }
+        }
+      }
+    },
+    "pride-banner": {
+      "name": "Pride banner",
+      "nameKey": "pride-banner",
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "lamps--pride-banner-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "lamps--pride-banner-right"
+            }
+          },
+          "both": {
+            "graphics": {
+              "center": {
+                "id": "lamps--pride-banner-left",
+                "offsetX": 36
+              }
+            }
+          }
+        }
+      }
+    },
+    "parklet": {
+      "name": "Parklet",
+      "nameKey": "parklet",
+      "owner": "NATURE",
+      "zIndex": 15,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "parklet--yerba-buena-parklet-left-v02"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "parklet--yerba-buena-parklet-right-v02"
+            }
+          }
+        }
+      }
+    },
+    "bikeshare": {
+      "name": "Bikeshare station",
+      "nameKey": "bikeshare-station",
+      "owner": "FLEX",
+      "zIndex": 21,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "bikes--bikeshare-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "bikes--bikeshare-right"
+            }
+          }
+        }
+      }
+    },
+    "planting-strip": {
+      "name": "Planting strip",
+      "nameKey": "planting-strip",
+      "owner": "NATURE",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "grass": {
+            "graphics": {
+              "repeat": "plants--grass"
+            }
+          },
+          "bush": {
+            "graphics": {
+              "center": "plants--bush"
+            }
+          },
+          "flowers": {
+            "graphics": {
+              "center": "plants--flowers"
+            }
+          }
+        }
+      }
+    },
+    "planter-box": {
+      "name": "Planter box",
+      "nameKey": "planter-box",
+      "owner": "NATURE",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "dividers--planter-box"
+            }
+          }
+        }
+      }
+    },
+    "bollard": {
+      "name": "Bollard",
+      "nameKey": "bollard",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "dividers--bollard"
+            }
+          }
+        }
+      }
+    },
+    "dome": {
+      "name": "Traffic exclusion dome",
+      "nameKey": "dome",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "dividers--dome"
+            }
+          }
+        }
+      }
+    },
+    "transit-shelter": {
+      "name": "Transit shelter",
+      "nameKey": "transit-shelter",
+      "owner": "TRANSIT",
+      "zIndex": 20,
+      "variants": {
+        "type|orientation": {
+          "transit-shelter-01": {
+            "left": {
+              "graphics": {
+                "left": "transit--transit-shelter-01-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "transit--transit-shelter-01-right"
+              }
+            }
+          },
+          "transit-shelter-02": {
+            "left": {
+              "graphics": {
+                "left": "transit--transit-shelter-02-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "transit--transit-shelter-02-right"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "vehicles": {
     "scooter": {
       "name": "Electric scooter",
       "nameKey": "scooter",
       "owner": "BIKE",
       "zIndex": 16,
-      "enableWithFlag": "SEGMENT_SCOOTERS",
-      "rules": {
-        "defaultWidth": 5,
-        "minWidth": 4
-      },
       "variants": {
         "direction": {
           "inbound": {
             "graphics": {
               "center": [
-                "scooters--scooter-inbound",
-                "markings--straight-inbound-light"
+                "scooters--scooter-inbound"
               ]
             }
           },
           "outbound": {
             "graphics": {
               "center": [
-                "scooters--scooter-outbound",
-                "markings--straight-outbound-light"
+                "scooters--scooter-outbound"
               ]
+            }
+          }
+        },
+        "riders|orientation": {
+          "empty": {
+            "left": {
+              "graphics": {
+                "left": "scooters--scooter-left-docked"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "scooters--scooter-right-docked"
+              }
+            }
+          },
+          "sparse": {
+            "left": {
+              "graphics": {
+                "left": "scooters--scooter-left-rider"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "scooters--scooter-right-rider"
+              }
+            }
+          }
+        }
+      }
+    },
+    "taxi": {
+      "name": "Taxi",
+      "nameKey": "taxi",
+      "owner": "FLEX",
+      "zIndex": 15,
+      "variants": {
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--taxi-inbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--taxi-inbound-door-right"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--taxi-outbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--taxi-outbound-door-right"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rideshare": {
+      "name": "Rideshare",
+      "nameKey": "rideshare",
+      "owner": "FLEX",
+      "zIndex": 15,
+      "variants": {
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--rideshare-inbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--rideshare-inbound-door-right"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "center": "vehicles--rideshare-outbound-door-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "center": "vehicles--rideshare-outbound-door-right"
+              }
+            }
+          }
+        }
+      }
+    },
+    "train": {
+      "name": "“Inception” train",
+      "nameKey": "inception-train",
+      "owner": "TRANSIT",
+      "zIndex": 10,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "secret--inception-train"
+            }
+          }
+        }
+      }
+    },
+    "bike": {
+      "name": "Bike",
+      "nameKey": "bike",
+      "owner": "BIKE",
+      "zIndex": 16,
+      "variants": {
+        "type|direction": {
+          "biker-01": {
+            "inbound": {
+              "graphics": {
+                "center": "bikes--biker-01-inbound"
+              }
+            },
+            "outbound": {
+              "graphics": {
+                "center": "bikes--biker-01-outbound"
+              }
+            }
+          },
+          "biker-02": {
+            "inbound": {
+              "graphics": {
+                "center": "bikes--biker-02-inbound"
+              }
+            },
+            "outbound": {
+              "graphics": {
+                "center": "bikes--biker-02-outbound"
+              }
+            }
+          }
+        }
+      }
+    },
+    "car": {
+      "name": "Car",
+      "nameKey": "car",
+      "owner": "CAR",
+      "zIndex": 14,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "vehicles--car-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "vehicles--car-outbound"
+            }
+          }
+        },
+        "direction|turn-orientation": {
+          "inbound": {
+            "right": {
+              "graphics": {
+                "center": "vehicles--car-inbound-turn-signal-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "center": "vehicles--car-inbound-turn-signal-left"
+              }
+            }
+          },
+          "outbound": {
+            "right": {
+              "graphics": {
+                "center": "vehicles--car-outbound-turn-signal-right"
+              }
+            },
+            "left": {
+              "graphics": {
+                "center": "vehicles--car-outbound-turn-signal-left"
+              }
+            }
+          }
+        },
+        "direction|orientation": {
+          "inbound": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-inbound"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-inbound"
+              }
+            }
+          },
+          "outbound": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-outbound"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-outbound"
+              }
+            }
+          },
+          "sideways": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-sideways-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-sideways-right"
+              }
+            }
+          },
+          "angled-front-left": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-front-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-front-left"
+              }
+            }
+          },
+          "angled-front-right": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-front-right"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-front-right"
+              }
+            }
+          },
+          "angled-rear-left": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-rear-left"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-rear-left"
+              }
+            }
+          },
+          "angled-rear-right": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-rear-right"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-rear-right"
+              }
+            }
+          }
+        }
+      }
+    },
+    "truck": {
+      "name": "Truck",
+      "nameKey": "truck",
+      "owner": "CAR",
+      "zIndex": 14,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "vehicles--truck-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "vehicles--truck-outbound"
+            }
+          }
+        }
+      }
+    },
+    "food-truck": {
+      "name": "Food truck",
+      "nameKey": "foodtruck",
+      "owner": "FLEX",
+      "zIndex": 20,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "center": "vehicles--foodtruck-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "center": "vehicles--foodtruck-right"
+            }
+          }
+        }
+      }
+    },
+    "streetcar": {
+      "name": "Streetcar",
+      "nameKey": "streetcar",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--streetcar-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--streetcar-outbound"
+            }
+          }
+        }
+      }
+    },
+    "light-rail": {
+      "name": "Light rail",
+      "nameKey": "light-rail",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--light-rail-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--light-rail-outbound"
+            }
+          }
+        }
+      }
+    },
+    "bus": {
+      "name": "Bus",
+      "nameKey": "bus",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--bus-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--bus-outbound"
             }
           }
         }

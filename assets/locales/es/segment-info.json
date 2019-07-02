@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Acera",
-    "sidewalk-tree": "Acera con un árbol",
+    "sidewalk-tree": "Árbol",
     "bike-rack": "Estacionamiento de bici",
     "bench": "Banco",
     "wayfinding-sign": "Señal de orientación",
-    "sidewalk-lamp": "Acera con farola",
+    "sidewalk-lamp": "Farola",
     "parklet": "Parklet (Parquecito en la calle)",
     "divider": "Zona de amortiguación",
     "planting-strip": "",

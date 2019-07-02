@@ -300,6 +300,13 @@ export const removeSegmentAction = (dataNo) => {
   }
 }
 
+export const clearSegmentsAction = () => {
+  return async (dispatch, getState) => {
+    await dispatch(clearSegments())
+    await dispatch(segmentsChanged())
+  }
+}
+
 export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INCREMENT) => {
   return async (dispatch, getState) => {
     const units = getState().street.units

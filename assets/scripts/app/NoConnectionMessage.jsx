@@ -27,6 +27,9 @@ export class NoConnectionMessage extends React.Component {
       this.timerId = window.setTimeout(() => {
         this.el.current.classList.add('status-message-visible')
 
+        // Allow keyboard focus on the button when visible
+        this.el.current.querySelector('button').setAttribute('tabindex', '0')
+
         // When this is visible, this class on the body element repositions the
         // normal status message above this one so that they don't overlap
         document.body.classList.add('no-connection-message-visible')
@@ -37,6 +40,9 @@ export class NoConnectionMessage extends React.Component {
 
       this.el.current.classList.remove('status-message-visible')
       document.body.classList.remove('no-connection-message-visible')
+
+      // Do not allow keyboard focus on the button when offscreen
+      this.el.current.querySelector('button').setAttribute('tabindex', '-1')
     }
   }
 
@@ -45,7 +51,7 @@ export class NoConnectionMessage extends React.Component {
       <div className="status-message" ref={this.el}>
         <div className="status-message-content">
           <FormattedMessage id="msg.no-connection" defaultMessage="Streetmix is having trouble connecting to the Internet." />
-          <button onClick={nonblockingAjaxTryAgain}>
+          <button onClick={nonblockingAjaxTryAgain} tabIndex="-1">
             <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
           </button>
         </div>

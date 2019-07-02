@@ -8,7 +8,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { IntlProvider } from 'react-intl'
+import { throttle } from 'lodash'
 import StreetEditable from './StreetEditable'
 import StreetViewDirt from './StreetViewDirt'
 import SkyBackground from './SkyBackground'
@@ -32,7 +32,6 @@ class StreetView extends React.Component {
     readOnly: PropTypes.bool,
     street: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired,
-    locale: PropTypes.object.isRequired,
     draggingType: PropTypes.number
   }
 
@@ -45,9 +44,8 @@ class StreetView extends React.Component {
 
     this.state = {
       isStreetScrolling: false,
-      scrollPos: 0,
-      posLeft: 0,
-      posRight: 0,
+      scrollIndicatorsLeft: 0,
+      scrollIndicatorsRight: 0,
 
       scrollTop: 0,
       skyHeight: 0,
@@ -55,15 +53,17 @@ class StreetView extends React.Component {
       resizeType: null,
       buildingWidth: 0
     }
+
+    this.streetSectionEl = React.createRef()
   }
 
   componentDidMount () {
     const resizeState = this.onResize()
-    const streetIndicators = this.calculateStreetIndicatorsPositions()
+    const scrollIndicators = this.calculateScrollIndicators()
 
     this.setState({
       ...resizeState,
-      ...streetIndicators
+      ...scrollIndicators
     })
   }
 
@@ -74,14 +74,14 @@ class StreetView extends React.Component {
         prevProps.system.viewportHeight !== viewportHeight ||
         prevProps.street.width !== this.props.street.width) {
       const resizeState = this.onResize()
-      const streetIndicators = this.calculateStreetIndicatorsPositions()
+      const scrollIndicators = this.calculateScrollIndicators()
 
       // We are permitted one setState in componentDidUpdate if
       // it's inside of a condition, like it is now.
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         ...resizeState,
-        ...streetIndicators
+        ...scrollIndicators
       })
     }
 
@@ -115,7 +115,7 @@ class StreetView extends React.Component {
   }
 
   resizeStreetExtent = (resizeType, dontDelay) => {
-    const marginUpdated = updateStreetMargin(this.streetSectionCanvas, this.streetSectionOuter, dontDelay)
+    const marginUpdated = updateStreetMargin(this.streetSectionCanvas, this.streetSectionEl.current, dontDelay)
 
     if (marginUpdated) {
       this.setState({ resizeType: resizeType })
@@ -123,7 +123,7 @@ class StreetView extends React.Component {
   }
 
   updateScrollLeft = (deltaX) => {
-    let scrollLeft = this.streetSectionOuter.scrollLeft
+    let scrollLeft = this.streetSectionEl.current.scrollLeft
 
     if (deltaX) {
       scrollLeft += deltaX
@@ -133,7 +133,7 @@ class StreetView extends React.Component {
       scrollLeft = (streetWidth + (currBuildingSpace * 2) - this.props.system.viewportWidth) / 2
     }
 
-    this.streetSectionOuter.scrollLeft = scrollLeft
+    this.streetSectionEl.current.scrollLeft = scrollLeft
   }
 
   onResize = () => {
@@ -182,53 +182,59 @@ class StreetView extends React.Component {
     }
   }
 
-  handleStreetScroll = (event) => {
+  /**
+   * Event handler for street scrolling. Throttled to update at 60fps.
+   */
+  handleStreetScroll = throttle((event) => {
     infoBubble.suppress()
 
-    const scrollPos = this.streetSectionOuter.scrollLeft
-    const streetIndicators = this.calculateStreetIndicatorsPositions()
+    const scrollIndicators = this.calculateScrollIndicators()
 
     this.setState({
-      scrollPos: scrollPos,
-      ...streetIndicators
+      ...scrollIndicators
     })
-  }
+  }, 16)
 
-  calculateStreetIndicatorsPositions = () => {
-    const el = this.streetSectionOuter
-    let posLeft
-    let posRight
+  /**
+   * Based on street width and scroll position, determine how many
+   * left and right "scroll indicator" arrows to display. This number
+   * is calculated as the street scrolls and stored in state.
+   */
+  calculateScrollIndicators = () => {
+    const el = this.streetSectionEl.current
+    let scrollIndicatorsLeft
+    let scrollIndicatorsRight
 
     if (el.scrollWidth <= el.offsetWidth) {
-      posLeft = 0
-      posRight = 0
+      scrollIndicatorsLeft = 0
+      scrollIndicatorsRight = 0
     } else {
-      var left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
+      const left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
 
       // TODO const off max width street
-      var posMax = Math.round(this.props.street.width / MAX_CUSTOM_STREET_WIDTH * 6)
+      let posMax = Math.round(this.props.street.width / MAX_CUSTOM_STREET_WIDTH * 6)
       if (posMax < 2) {
         posMax = 2
       }
 
-      posLeft = Math.round(posMax * left)
-      if ((left > 0) && (posLeft === 0)) {
-        posLeft = 1
+      scrollIndicatorsLeft = Math.round(posMax * left)
+      if ((left > 0) && (scrollIndicatorsLeft === 0)) {
+        scrollIndicatorsLeft = 1
       }
-      if ((left < 1.0) && (posLeft === posMax)) {
-        posLeft = posMax - 1
+      if ((left < 1.0) && (scrollIndicatorsLeft === posMax)) {
+        scrollIndicatorsLeft = posMax - 1
       }
-      posRight = posMax - posLeft
+      scrollIndicatorsRight = posMax - scrollIndicatorsLeft
     }
 
     return {
-      posLeft: posLeft,
-      posRight: posRight
+      scrollIndicatorsLeft: scrollIndicatorsLeft,
+      scrollIndicatorsRight: scrollIndicatorsRight
     }
   }
 
   scrollStreet = (left, far = false) => {
-    const el = this.streetSectionOuter
+    const el = this.streetSectionEl.current
     let newScrollLeft
 
     if (left) {
@@ -262,11 +268,20 @@ class StreetView extends React.Component {
     })
   }
 
+  /**
+   * Updates a segment or building's CSS `perspective-origin` property according
+   * to its current position in the street and on the screen, which is used
+   * when it animates in or out. Because this reads and writes to DOM, only call
+   * this function after a render. Do not set state or call other side effects
+   * from this function.
+   *
+   * @params (HTMLElement) - the element to apply CSS to
+   */
   updatePerspective = (el) => {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
-    const scrollPos = (this.streetSectionOuter && this.streetSectionOuter.scrollLeft) || this.state.scrollPos
+    const scrollPos = (this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft) || 0
     const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
@@ -280,7 +295,7 @@ class StreetView extends React.Component {
         <section
           id="street-section-outer"
           onScroll={this.handleStreetScroll}
-          ref={(ref) => { this.streetSectionOuter = ref }}
+          ref={this.streetSectionEl}
         >
           <section id="street-section-inner" ref={(ref) => { this.streetSectionInner = ref }}>
             <section id="street-section-canvas" ref={(ref) => { this.streetSectionCanvas = ref }}>
@@ -300,27 +315,19 @@ class StreetView extends React.Component {
                 updatePerspective={this.updatePerspective}
                 draggingType={this.props.draggingType}
               />
-              <IntlProvider
-                locale={this.props.locale.locale}
-                key={this.props.locale.locale}
-                messages={this.props.locale.messages}
-              >
-                <React.Fragment>
-                  <ResizeGuides />
-                  <EmptySegmentContainer />
-                </React.Fragment>
-              </IntlProvider>
+              <ResizeGuides />
+              <EmptySegmentContainer />
               <StreetViewDirt buildingWidth={this.state.buildingWidth} />
             </section>
           </section>
         </section>
         <SkyBackground
-          scrollPos={this.state.scrollPos}
+          scrollPos={this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft}
           height={this.state.skyHeight}
         />
         <ScrollIndicators
-          posLeft={this.state.posLeft}
-          posRight={this.state.posRight}
+          scrollIndicatorsLeft={this.state.scrollIndicatorsLeft}
+          scrollIndicatorsRight={this.state.scrollIndicatorsRight}
           scrollStreet={this.scrollStreet}
           scrollTop={this.state.scrollTop}
         />
@@ -334,7 +341,6 @@ function mapStateToProps (state) {
     readOnly: state.app.readOnly,
     street: state.street,
     system: state.system,
-    locale: state.locale,
     draggingType: state.ui.draggingType
   }
 }

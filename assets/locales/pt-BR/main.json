@@ -49,7 +49,8 @@
       "blog": "Visitar o blog do Streetmix",
       "discord": "",
       "slack": "Participar no bate-papo do Slack",
-      "minecraft": ""
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Doar",
@@ -234,12 +235,16 @@
     },
     "whatsnew": {
       "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "Nome da rua nova:",
     "delete-street": "Você esta seguro que quer borrar {streetName} permanentemente? Não se pode desfazer esta ação.",
-    "new-width": "Largura nova (de {minWidth} a {maxWidth}):"
+    "new-width": "Largura nova (de {minWidth} a {maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "O segmento foi removido.",
@@ -287,7 +292,11 @@
     "increase-width": "Aumentar largura (segure o Shift para mais precisão)",
     "decrease-width": "Diminuir largura (segure o Shift para mais precisão)",
     "add-floor": "Adicionar andar",
-    "remove-floor": "Remover andar"
+    "remove-floor": "Remover andar",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Rua anônima",

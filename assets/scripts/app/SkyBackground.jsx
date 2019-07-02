@@ -8,16 +8,20 @@ import './SkyBackground.scss'
 
 export class SkyBackground extends React.PureComponent {
   static propTypes = {
-    scrollPos: PropTypes.number.isRequired,
+    scrollPos: PropTypes.number,
     height: PropTypes.number.isRequired,
     environment: PropTypes.string.isRequired
+  }
+
+  static defaultProps = {
+    scrollPos: 0
   }
 
   constructor (props) {
     super(props)
 
     this.state = {
-      prevEnvirons: DEFAULT_ENVIRONS
+      prevEnvirons: props.environment || DEFAULT_ENVIRONS
     }
 
     this.currentBackgroundEl = React.createRef()
@@ -34,7 +38,11 @@ export class SkyBackground extends React.PureComponent {
       })
     }
 
-    this.currentBackgroundEl.current.classList.add('sky-transition-in')
+    // Delay applying transition class until the end of the stack, so
+    // that the transition is visible
+    window.setTimeout(() => {
+      this.currentBackgroundEl.current.classList.add('sky-transition-in')
+    }, 0)
   }
 
   transformSkyBackground = (isFront, scrollPos) => {

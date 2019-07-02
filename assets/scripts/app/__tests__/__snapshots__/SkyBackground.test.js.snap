@@ -14,7 +14,7 @@ exports[`SkyBackground renders 1`] = `
   >
     <div
       className="sky-background-previous"
-      key="prev-day"
+      key="prev-foo"
       style={
         Object {
           "background": "#a9ccdb",

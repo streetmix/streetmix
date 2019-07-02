@@ -12,20 +12,8 @@ exports[`WidthControl renders 1`] = `
       title="Decrease width (hold Shift for more precision)"
     >
       <svg
-        aria-hidden="true"
-        class="svg-inline--fa fa-minus fa-w-14 "
-        data-icon="minus"
-        data-prefix="fas"
-        focusable="false"
-        role="img"
-        viewBox="0 0 448 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-          fill="currentColor"
-        />
-      </svg>
+        class="svg-inline--fa fa-minus"
+      />
     </button>
     <input
       class="up-down-input-element"
@@ -39,20 +27,8 @@ exports[`WidthControl renders 1`] = `
       title="Increase width (hold Shift for more precision)"
     >
       <svg
-        aria-hidden="true"
-        class="svg-inline--fa fa-plus fa-w-14 "
-        data-icon="plus"
-        data-prefix="fas"
-        focusable="false"
-        role="img"
-        viewBox="0 0 448 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-          fill="currentColor"
-        />
-      </svg>
+        class="svg-inline--fa fa-plus"
+      />
     </button>
   </div>
 </DocumentFragment>
