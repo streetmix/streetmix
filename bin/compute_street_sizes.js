@@ -1,5 +1,5 @@
 // This is a Mongo DB script
-/* global db, emit, print */
+/* global db, emit */
 
 var userIdMap = {}
 db.users.find().forEach(function (u) {
