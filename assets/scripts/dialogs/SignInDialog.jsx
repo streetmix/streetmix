@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { isEmail } from 'validator'
 import Dialog from './Dialog'
 import { goEmailSignIn, goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
 import Icon from '../ui/Icon'
@@ -90,18 +89,14 @@ export default class SignInDialog extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const { email } = this.state
+    // Note: we don't validate the input here;
+    // we let HTML5 <input type="email" required /> do validation
 
-    if (isEmail(email)) {
-      this.setState({
-        sendingEmail: true
-      })
-      goEmailSignIn(email, this.handleGoEmailSignIn)
-    } else {
-      this.setState({
-        error: true
-      })
-    }
+    goEmailSignIn(this.state.email, this.handleGoEmailSignIn)
+
+    this.setState({
+      sendingEmail: true
+    })
   }
 
   renderErrorMessage = () => {
@@ -209,6 +204,7 @@ export default class SignInDialog extends React.Component {
                   name="email"
                   onChange={this.handleChange}
                   placeholder="test@test.com"
+                  required
                 />
 
                 {this.state.error && this.renderErrorMessage()}
