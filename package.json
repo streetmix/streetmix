@@ -165,7 +165,7 @@
   "devDependencies": {
     "@babel/core": "7.4.5",
     "@babel/plugin-proposal-class-properties": "7.4.4",
-    "@babel/preset-env": "7.4.5",
+    "@babel/preset-env": "7.5.0",
     "@babel/preset-react": "7.0.0",
     "@testing-library/react": "8.0.4",
     "axios-mock-adapter": "1.17.0",
