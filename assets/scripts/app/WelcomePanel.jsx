@@ -1,17 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage } from 'react-intl'
-import StreetName from '../streets/StreetName'
 import { isSignedIn } from '../users/authentication'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
-import { goNewStreet } from './routing'
-import Avatar from '../users/Avatar'
 import { showStreetNameCanvas, hideStreetNameCanvas } from '../store/actions/ui'
 import CloseButton from '../ui/CloseButton'
 import WelcomeNewStreet from './WelcomePanel/NewStreet'
-
+import WelcomeFirstTimeExistingStreet from './WelcomePanel/FirstTimeExistingStreet'
+import WelcomeFirstTimeNewStreet from './WelcomePanel/FirstTimeNewStreet'
 import './WelcomePanel.scss'
 
 const WELCOME_NONE = 0
@@ -23,16 +20,13 @@ const LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED = 'settings-welcome-dismissed'
 
 export class WelcomePanel extends React.Component {
   static propTypes = {
-    touch: PropTypes.bool,
     readOnly: PropTypes.bool,
     everythingLoaded: PropTypes.bool,
-    street: PropTypes.object,
     showStreetNameCanvas: PropTypes.func,
     hideStreetNameCanvas: PropTypes.func
   }
 
   static defaultProps = {
-    touch: false,
     readOnly: false,
     everythingLoaded: false
   }
@@ -42,7 +36,7 @@ export class WelcomePanel extends React.Component {
 
     this.state = {
       welcomeType: null,
-      welcomeDismissed: this.getSettingsWelcomeDismissed()
+      welcomeDismissed: getSettingsWelcomeDismissed()
     }
   }
 
@@ -54,9 +48,6 @@ export class WelcomePanel extends React.Component {
 
   componentDidUpdate (prevProps) {
     if (prevProps.everythingLoaded === false && this.props.everythingLoaded === true) {
-      // The StreetNameCanvas might stick out from underneath the WelcomePanel
-      // if it's visible, so momentarily keep the UI clean by hiding it until
-      // the WelcomePanel goes away.
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         welcomeType: this.getWelcomeType()
@@ -66,16 +57,20 @@ export class WelcomePanel extends React.Component {
       registerKeypress('esc', this.hideWelcome)
     }
 
+    // The StreetNameCanvas might stick out from underneath the WelcomePanel
+    // if it's visible, so momentarily keep the UI clean by hiding it until
+    // the WelcomePanel goes away.
+    // This will be cleaned up in this.hideWelcome()
     if (this.state.welcomeType) {
       this.props.hideStreetNameCanvas()
     }
-    // These changes will be reversed in this.hideWelcome()
   }
 
   componentWillUnmount () {
     // Clean up event listeners
     window.removeEventListener('stmx:receive_gallery_street', this.hideWelcome)
     window.removeEventListener('stmx:save_street', this.hideWelcome)
+    deregisterKeypress('esc', this.hideWelcome)
   }
 
   getWelcomeType = () => {
@@ -107,32 +102,13 @@ export class WelcomePanel extends React.Component {
       welcomeType: null,
       welcomeDismissed: true
     })
-    this.setSettingsWelcomeDismissed()
+    setSettingsWelcomeDismissed()
 
     // Make the StreetNameCanvas re-appear
     this.props.showStreetNameCanvas()
 
     // Remove keypress listener
     deregisterKeypress('esc', this.hideWelcome)
-  }
-
-  getSettingsWelcomeDismissed () {
-    const localSetting = window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]
-
-    if (localSetting) {
-      return JSON.parse(localSetting)
-    }
-
-    return false
-  }
-
-  setSettingsWelcomeDismissed () {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] = 'true'
-  }
-
-  onClickGoNewStreet = (event) => {
-    this.setSettingsWelcomeDismissed()
-    goNewStreet(true)
   }
 
   render () {
@@ -143,92 +119,14 @@ export class WelcomePanel extends React.Component {
     // If app has not fully loaded yet
     if (this.props.everythingLoaded === false) return null
 
-    let welcomeContent
-
     // Figure out what to display inside the panel
+    let welcomeContent
     switch (this.state.welcomeType) {
       case WELCOME_FIRST_TIME_NEW_STREET:
-        welcomeContent = (
-          <div className="welcome-panel-content first-time-new-street">
-            <h1>
-              <FormattedMessage id="dialogs.welcome.heading" defaultMessage="Welcome to Streetmix." />
-            </h1>
-            <p>
-              <FormattedMessage
-                id="dialogs.welcome.new.intro"
-                defaultMessage="Design, remix, and share your neighborhood street.
-                  Add trees or bike paths, widen sidewalks or traffic lanes, learn
-                  how your decisions can impact your community."
-              />
-            </p>
-            <p className="important">
-              <FormattedMessage
-                id="dialogs.welcome.new.instruct"
-                defaultMessage="Start by moving some segments around with {pointer}."
-                values={{
-                  pointer: (this.props.touch)
-                    ? <FormattedMessage id="dialogs.welcome.new.instruct-pointer-finger" defaultMessage="your finger" />
-                    : <FormattedMessage id="dialogs.welcome.new.instruct-pointer-mouse" defaultMessage="your mouse" />
-                }}
-              />
-            </p>
-          </div>
-        )
+        welcomeContent = <WelcomeFirstTimeNewStreet />
         break
       case WELCOME_FIRST_TIME_EXISTING_STREET:
-        const street = this.props.street
-
-        welcomeContent = (
-          <div className="welcome-panel-content first-time-existing-street">
-            <h1>
-              <FormattedMessage id="dialogs.welcome.heading" defaultMessage="Welcome to Streetmix." />
-            </h1>
-            {/* Enclose child elements in a paragraph-like <div> to get around
-                React's warning that <div> elements from StreetName and
-                Avatar components cannot exist inside a <p> */}
-            <div className="paragraph">
-              {(() => {
-                // Display street creator if creatorId is available.
-                if (street.creatorId) {
-                  return (
-                    <FormattedMessage
-                      id="dialogs.welcome.existing.intro"
-                      defaultMessage="This is {streetName} made by {creator}."
-                      values={{
-                        streetName: <StreetName name={street.name} />,
-                        creator: <React.Fragment><Avatar userId={street.creatorId} /> {street.creatorId}</React.Fragment>
-                      }}
-                    />
-                  )
-                } else {
-                  return (
-                    <FormattedMessage
-                      id="dialogs.welcome.existing.intro-without-creator"
-                      defaultMessage="This is {streetName}."
-                      values={{
-                        streetName: <StreetName name={street.name} />
-                      }}
-                    />
-                  )
-                }
-              })()}
-            </div>
-            <p className="important">
-              <FormattedMessage
-                id="dialogs.welcome.existing.instruct"
-                defaultMessage="Remix it by moving some segments around, or {startYourOwnStreet}."
-                values={{
-                  startYourOwnStreet: (
-                    <button onClick={this.onClickGoNewStreet}>
-                      <FormattedMessage id="dialogs.welcome.existing.instruct-start-own-street" defaultMessage="Start your own street" />
-                    </button>
-                  )
-                }}
-              />
-            </p>
-          </div>
-        )
-
+        welcomeContent = <WelcomeFirstTimeExistingStreet />
         break
       case WELCOME_NEW_STREET:
         welcomeContent = <WelcomeNewStreet />
@@ -256,12 +154,8 @@ export class WelcomePanel extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    touch: state.system.touch,
     readOnly: state.app.readOnly || state.system.phone,
-    everythingLoaded: state.app.everythingLoaded,
-    newStreetPreference: state.settings.newStreetPreference,
-    priorLastStreetId: state.settings.priorLastStreetId,
-    street: state.street
+    everythingLoaded: state.app.everythingLoaded
   }
 }
 
@@ -271,3 +165,23 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePanel)
+
+/**
+ * Remember whether the WelcomePanel has been dismissed in LocalStorage
+ */
+export function setSettingsWelcomeDismissed () {
+  window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] = 'true'
+}
+
+/**
+ * Retrieves LocalStorage state for whether WelcomePanel has been dismissed
+ */
+function getSettingsWelcomeDismissed () {
+  const localSetting = window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]
+
+  if (localSetting) {
+    return JSON.parse(localSetting)
+  }
+
+  return false
+}
