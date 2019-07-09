@@ -64,7 +64,7 @@ class WidthControl extends React.Component {
   updateModel = (value) => {
     const processedValue = processWidthInput(value, this.props.units)
     if (processedValue) {
-      resizeSegment(this.props.position, RESIZE_TYPE_TYPING, processedValue)
+      resizeSegment(this.props.position, RESIZE_TYPE_TYPING, processedValue, this.props.units)
     }
   }
 
