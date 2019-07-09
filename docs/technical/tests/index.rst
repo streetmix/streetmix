@@ -73,6 +73,8 @@ We use the `Jest testing framework <https://jestjs.io/en/>`_.
 
 When it comes to testing React components, we need a way to test components in insolation without needing to mount the entire application. Many of our current React components are tested with `Enzyme <https://airbnb.io/enzyme/>`_, but more recently, our tests have started to use `React Testing Library <https://testing-library.com/docs/react-testing-library/intro>`_ instead. (See `this blog post by Kent Dodds for more information <https://kentcdodds.com/blog/introducing-the-react-testing-library>`_.)
 
+The main reason to adopdt React Testing Library was to avoid testing too much implementation details, especially for React components. You want your tests to be maintanable and don't break and slow you down when you refactor components. With React testing Library we're testing the actual DOM and not React-specific implmentation details, like props or state.
+
 React Testing Library is intended as a replacement for Enzyme. When writing new tests, or ugprading old tests, try React Testing Library first. Please don't use both in a single test suite, choose one or the other. Eventually, our hope is that Enzyme can be removed from the infrastructure.
 
 .. tip::
@@ -80,8 +82,17 @@ React Testing Library is intended as a replacement for Enzyme. When writing new 
    Many of our React components use Redux and react-intl, which are required in the component's context to render properly. For both Enzyme and React Testing Library, we have replacement mounting utility functions in :file:`./test/helpers/` that mock the ``<Provider />`` and ``<IntlProvider />`` wrapping components, which you should use when testing components.
 
 
+Frontend API testing
+++++++++++++++++++++++++++++++++++
+
+For API-related tests we're moving slowly to axios and Axios Mock Adapter to not rely on the API to be running to test the application. The end goal is to have Axios Mock Adapter mock the complete API and no call will be made in the testing environment.
+
+If you work on API-related features, consider refactoring the fetch calls to use the API in :file:`.assets/scripts/util/api.js`
+
 Integration and end-to-end testing
 ++++++++++++++++++++++++++++++++++
+
+For Redux store related tests we use an integration test approach using the store directly and calling actions and making assertions on the result in the store. Take a look in :file:`./test/helpers/` for creating the store.
 
 We are adopting `Cypress.io <https://www.cypress.io/>`_, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier.
 
