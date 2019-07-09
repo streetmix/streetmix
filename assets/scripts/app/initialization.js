@@ -136,8 +136,6 @@ function onEverythingLoaded () {
   showConsoleMessage()
 
   store.dispatch(everythingLoaded())
-  // TODO: Only the WelcomePanel needs this event; refactor it out.
-  window.dispatchEvent(new window.CustomEvent('stmx:everything_loaded'))
 
   if (debug.forceLiveUpdate) {
     scheduleNextLiveUpdateCheck()

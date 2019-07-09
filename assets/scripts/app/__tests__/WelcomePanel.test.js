@@ -1,14 +1,13 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import MockAdapter from 'axios-mock-adapter'
-
-import ConnectedWelcomePanel, { WelcomePanel } from '../WelcomePanel'
 import { fireEvent, cleanup, waitForElement } from '@testing-library/react'
+import MockAdapter from 'axios-mock-adapter'
+import ConnectedWelcomePanel, { WelcomePanel } from '../WelcomePanel'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { getMode } from '../mode'
 import { isSignedIn } from '../../users/authentication'
 import apiClient from '../../util/api'
+import { everythingLoaded } from '../../store/actions/app'
 
 jest.mock('../mode')
 jest.mock('../../users/authentication')
@@ -16,18 +15,21 @@ jest.mock('../../users/settings')
 
 describe('WelcomePanel', () => {
   let apiMock
+
   beforeEach(() => {
     apiMock = new MockAdapter(apiClient.client)
   })
+
   afterEach(() => {
     apiMock.restore()
     cleanup()
   })
-  // Note: this test will always pass because of how this component's lifecycle works
+
   it('does not show if app is read-only', () => {
-    const wrapper = shallow(<WelcomePanel readOnly />)
-    expect(wrapper.state().visible).toBe(false)
+    const wrapper = renderWithReduxAndIntl(<WelcomePanel readOnly />)
+    expect(wrapper.container.firstChild).toEqual(null)
   })
+
   describe('start with a copy of previous street', () => {
     const originalStreetId = '2'
     const type = 'streetcar'
@@ -52,14 +54,15 @@ describe('WelcomePanel', () => {
         street: updatedStreet
       }
     }
+
     beforeEach(() => {
       getMode.mockImplementation(() => (2)) // NEW_STREET
       isSignedIn.mockImplementation(() => (true))
     })
+
     it('copies the last street and highlights Start with a copy button', async () => {
-      const { queryByLabelText, getByLabelText } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { initialState: { street, settings: { priorLastStreetId: '2' } } })
-      var event = new Event('stmx:everything_loaded')
-      window.dispatchEvent(event)
+      const { queryByLabelText, getByLabelText, store } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { initialState: { street, settings: { priorLastStreetId: '2' }, app: { everythingLoaded: false } } })
+      store.dispatch(everythingLoaded())
       apiMock.onAny().reply(200, apiResponse)
       fireEvent.click(getByLabelText(/Start with a copy/))
       const input = await waitForElement(() => queryByLabelText(/Start with a copy/))

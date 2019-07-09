@@ -32,6 +32,7 @@ export class WelcomePanel extends React.Component {
   static propTypes = {
     touch: PropTypes.bool,
     readOnly: PropTypes.bool,
+    everythingLoaded: PropTypes.bool,
     newStreetPreference: PropTypes.number,
     priorLastStreetId: PropTypes.string,
     street: PropTypes.object,
@@ -43,42 +44,66 @@ export class WelcomePanel extends React.Component {
   static defaultProps = {
     touch: false,
     readOnly: false,
+    everythingLoaded: false,
     priorLastStreetId: null
   }
 
   constructor (props) {
     super(props)
 
+    // If welcomeType is WELCOME_NEW_STREET, there is an additional state
+    // property that determines which of the new street modes is selected
+    let selectedNewStreetType
+    switch (props.newStreetPreference) {
+      case NEW_STREET_EMPTY:
+        selectedNewStreetType = 'new-street-empty'
+        break
+      case NEW_STREET_DEFAULT:
+      default:
+        selectedNewStreetType = 'new-street-default'
+        break
+    }
+
     this.state = {
-      visible: false,
-      welcomeType: WELCOME_NONE,
+      welcomeType: null,
       welcomeDismissed: this.getSettingsWelcomeDismissed(),
-      selectedNewStreetType: null
+      selectedNewStreetType: selectedNewStreetType
     }
   }
 
   componentDidMount () {
-    // Show welcome panel on load
-    window.addEventListener('stmx:everything_loaded', this.showWelcome)
-
     // Hide welcome panel on certain events
     window.addEventListener('stmx:receive_gallery_street', this.hideWelcome)
     window.addEventListener('stmx:save_street', this.hideWelcome)
   }
 
+  componentDidUpdate (prevProps) {
+    if (prevProps.everythingLoaded === false && this.props.everythingLoaded === true) {
+      // The StreetNameCanvas might stick out from underneath the WelcomePanel
+      // if it's visible, so momentarily keep the UI clean by hiding it until
+      // the WelcomePanel goes away.
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        welcomeType: this.getWelcomeType()
+      })
+
+      // Set up keypress listener to close welcome panel
+      registerKeypress('esc', this.hideWelcome)
+    }
+
+    if (this.state.welcomeType) {
+      this.props.hideStreetNameCanvas()
+    }
+    // These changes will be reversed in this.hideWelcome()
+  }
+
   componentWillUnmount () {
     // Clean up event listeners
-    window.removeEventListener('stmx:everything_loaded', this.showWelcome)
     window.removeEventListener('stmx:receive_gallery_street', this.hideWelcome)
     window.removeEventListener('stmx:save_street', this.hideWelcome)
   }
 
-  showWelcome = () => {
-    // Do not show if app is read-only
-    if (this.props.readOnly) {
-      return
-    }
-
+  getWelcomeType = () => {
     let welcomeType = WELCOME_NONE
 
     if (getMode() === MODES.NEW_STREET) {
@@ -93,54 +118,21 @@ export class WelcomePanel extends React.Component {
       }
     }
 
-    // If welcomeType is still none, abort
-    if (welcomeType === WELCOME_NONE) {
-      return
-    }
-
-    // If welcomeType is WELCOME_NEW_STREET, there is an additional state
-    // property that determines which of the new street modes is selected
-    let selectedNewStreetType
-
-    switch (this.props.newStreetPreference) {
-      case NEW_STREET_EMPTY:
-        selectedNewStreetType = 'new-street-empty'
-        break
-      case NEW_STREET_DEFAULT:
-        selectedNewStreetType = 'new-street-default'
-        break
-      default:
-        break
-    }
-
-    // Record state
-    this.setState({
-      visible: true,
-      welcomeType,
-      selectedNewStreetType
-    })
-
-    // The StreetNameCanvas might stick out from underneath the WelcomePanel
-    // if it's visible, so momentarily keep the UI clean by hiding it until
-    // the WelcomePanel goes away.
-    this.props.hideStreetNameCanvas()
-
-    // Set up keypress listener to close welcome panel
-    registerKeypress('esc', this.hideWelcome)
+    return welcomeType
   }
 
   hideWelcome = () => {
-    // Certain events will hide the welcome panel, if visible.
-    // Here we check to make sure it is visible before doing anything else.
-    if (this.state.visible === false) {
+    // Certain events will dismiss the welcome panel. If already
+    // invisible, do nothing.
+    if (!this.state.welcomeType) {
       return
     }
 
     this.setState({
-      visible: false,
+      welcomeType: null,
       welcomeDismissed: true
     })
-    this.setSettingsWelcomeDismissed(true)
+    this.setSettingsWelcomeDismissed()
 
     // Make the StreetNameCanvas re-appear
     this.props.showStreetNameCanvas()
@@ -159,20 +151,12 @@ export class WelcomePanel extends React.Component {
     return false
   }
 
-  setSettingsWelcomeDismissed (value = true) {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] = JSON.stringify(value)
-
-    // When dismissed, set what's new timestamp to now so that the what's new
-    // dialog doesn't get shown until it's actually new for this user.
-    // TODO: use constants for localStorage keys.
-    if (value === true) {
-      window.localStorage['whatsnew-last-timestamp'] = Date.now()
-    }
+  setSettingsWelcomeDismissed () {
+    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED] = 'true'
   }
 
   onClickGoNewStreet = (event) => {
-    this.setState({ welcomeDismissed: true })
-    this.setSettingsWelcomeDismissed(true)
+    this.setSettingsWelcomeDismissed()
     goNewStreet(true)
   }
 
@@ -185,6 +169,13 @@ export class WelcomePanel extends React.Component {
   }
 
   render () {
+    // Do not show under the following conditions:
+    // If app is read-only
+    if (this.props.readOnly) return null
+
+    // If app has not fully loaded yet
+    if (this.props.everythingLoaded === false) return null
+
     let welcomeContent
 
     // Figure out what to display inside the panel
@@ -343,15 +334,8 @@ export class WelcomePanel extends React.Component {
       return null
     }
 
-    // If visible, set the `visible` class on the container
-    let classes = 'welcome-panel-container'
-
-    if (this.state.visible) {
-      classes += ' visible'
-    }
-
     return (
-      <div className={classes}>
+      <div className="welcome-panel-container">
         <div className="welcome-panel">
           <CloseButton onClick={this.hideWelcome} />
           {welcomeContent}
@@ -365,18 +349,17 @@ function mapStateToProps (state) {
   return {
     touch: state.system.touch,
     readOnly: state.app.readOnly || state.system.phone,
+    everythingLoaded: state.app.everythingLoaded,
     newStreetPreference: state.settings.newStreetPreference,
     priorLastStreetId: state.settings.priorLastStreetId,
     street: state.street
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    hideStreetNameCanvas: () => { dispatch(hideStreetNameCanvas()) },
-    showStreetNameCanvas: () => { dispatch(showStreetNameCanvas()) },
-    getLastStreet: () => { dispatch(getLastStreet()) }
-  }
+const mapDispatchToProps = {
+  hideStreetNameCanvas,
+  showStreetNameCanvas,
+  getLastStreet
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePanel)
