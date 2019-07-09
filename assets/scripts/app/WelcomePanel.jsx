@@ -2,13 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-
-import {
-  NEW_STREET_DEFAULT,
-  NEW_STREET_EMPTY,
-  onNewStreetDefaultClick,
-  onNewStreetEmptyClick
-} from '../streets/creation'
 import StreetName from '../streets/StreetName'
 import { isSignedIn } from '../users/authentication'
 import { registerKeypress, deregisterKeypress } from './keypress'
@@ -16,8 +9,8 @@ import { MODES, getMode } from './mode'
 import { goNewStreet } from './routing'
 import Avatar from '../users/Avatar'
 import { showStreetNameCanvas, hideStreetNameCanvas } from '../store/actions/ui'
-import { getLastStreet } from '../store/actions/street'
 import CloseButton from '../ui/CloseButton'
+import WelcomeNewStreet from './WelcomePanel/NewStreet'
 
 import './WelcomePanel.scss'
 
@@ -33,41 +26,23 @@ export class WelcomePanel extends React.Component {
     touch: PropTypes.bool,
     readOnly: PropTypes.bool,
     everythingLoaded: PropTypes.bool,
-    newStreetPreference: PropTypes.number,
-    priorLastStreetId: PropTypes.string,
     street: PropTypes.object,
     showStreetNameCanvas: PropTypes.func,
-    hideStreetNameCanvas: PropTypes.func,
-    getLastStreet: PropTypes.func
+    hideStreetNameCanvas: PropTypes.func
   }
 
   static defaultProps = {
     touch: false,
     readOnly: false,
-    everythingLoaded: false,
-    priorLastStreetId: null
+    everythingLoaded: false
   }
 
   constructor (props) {
     super(props)
 
-    // If welcomeType is WELCOME_NEW_STREET, there is an additional state
-    // property that determines which of the new street modes is selected
-    let selectedNewStreetType
-    switch (props.newStreetPreference) {
-      case NEW_STREET_EMPTY:
-        selectedNewStreetType = 'new-street-empty'
-        break
-      case NEW_STREET_DEFAULT:
-      default:
-        selectedNewStreetType = 'new-street-default'
-        break
-    }
-
     this.state = {
       welcomeType: null,
-      welcomeDismissed: this.getSettingsWelcomeDismissed(),
-      selectedNewStreetType: selectedNewStreetType
+      welcomeDismissed: this.getSettingsWelcomeDismissed()
     }
   }
 
@@ -158,14 +133,6 @@ export class WelcomePanel extends React.Component {
   onClickGoNewStreet = (event) => {
     this.setSettingsWelcomeDismissed()
     goNewStreet(true)
-  }
-
-  // The following handler is only used with the WELCOME_NEW_STREET mode.
-  // It handles changing the "checked" state of the input buttons.
-  onChangeNewStreetType = (event) => {
-    this.setState({
-      selectedNewStreetType: event.target.id
-    })
   }
 
   render () {
@@ -264,65 +231,7 @@ export class WelcomePanel extends React.Component {
 
         break
       case WELCOME_NEW_STREET:
-        welcomeContent = (
-          <div className="welcome-panel-content new-street">
-            <h1>
-              <FormattedMessage id="dialogs.new-street.heading" defaultMessage="Here’s your new street." />
-            </h1>
-            <ul>
-              <li>
-                <input
-                  type="radio"
-                  name="new-street"
-                  id="new-street-default"
-                  checked={this.state.selectedNewStreetType === 'new-street-default' || !this.state.selectedNewStreetType}
-                  onChange={this.onChangeNewStreetType}
-                  onClick={onNewStreetDefaultClick}
-                />
-                <label htmlFor="new-street-default">
-                  <FormattedMessage id="dialogs.new-street.default" defaultMessage="Start with an example street" />
-                </label>
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="new-street"
-                  id="new-street-empty"
-                  checked={this.state.selectedNewStreetType === 'new-street-empty'}
-                  onChange={this.onChangeNewStreetType}
-                  onClick={onNewStreetEmptyClick}
-                />
-                <label htmlFor="new-street-empty">
-                  <FormattedMessage id="dialogs.new-street.empty" defaultMessage="Start with an empty street" />
-                </label>
-              </li>
-              {(() => {
-                // Display this button only if there is a previous street to copy
-                // from that is not the same as the current street
-                if (this.props.priorLastStreetId && this.props.priorLastStreetId !== this.props.street.id) {
-                  return (
-                    <li>
-                      <input
-                        type="radio"
-                        name="new-street"
-                        id="new-street-last"
-                        checked={this.state.selectedNewStreetType === 'new-street-last'}
-                        onChange={this.onChangeNewStreetType}
-                        onClick={this.props.getLastStreet}
-                      />
-                      <label htmlFor="new-street-last">
-                        <FormattedMessage id="dialogs.new-street.last" defaultMessage="Start with a copy of last street" />
-                      </label>
-                    </li>
-                  )
-                }
-
-                return null
-              })()}
-            </ul>
-          </div>
-        )
-
+        welcomeContent = <WelcomeNewStreet />
         break
       default:
         welcomeContent = null
@@ -358,8 +267,7 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = {
   hideStreetNameCanvas,
-  showStreetNameCanvas,
-  getLastStreet
+  showStreetNameCanvas
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePanel)
