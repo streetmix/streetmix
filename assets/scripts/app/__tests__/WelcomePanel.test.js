@@ -10,8 +10,8 @@ import apiClient from '../../util/api'
 import { everythingLoaded } from '../../store/actions/app'
 
 jest.mock('../mode')
+jest.mock('../keypress')
 jest.mock('../../users/authentication')
-jest.mock('../../users/settings')
 
 describe('WelcomePanel', () => {
   let apiMock
