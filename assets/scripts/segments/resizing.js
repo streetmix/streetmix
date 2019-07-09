@@ -35,8 +35,12 @@ const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
 
 const NORMALIZE_PRECISION = 5
 
-export function resizeSegment (dataNo, resizeType, width) {
-  width = normalizeSegmentWidth(width, resizeType)
+export function resizeSegment (dataNo, resizeType, width, units) {
+  // @TODO: don't read state for units; this is a temp kludge because the drag resizing
+  // handler doesn't currently have access to the units. So if it's not provided, grab it
+  // from state
+  const resolution = resolutionForResizeType(resizeType, units || store.getState().street.units)
+  width = normalizeSegmentWidth(width, resolution)
   cancelSegmentResizeTransitions()
   store.dispatch(changeSegmentWidth(dataNo, width))
   segmentsChanged()
