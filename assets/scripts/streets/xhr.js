@@ -416,7 +416,6 @@ export function fetchLastStreet () {
 }
 
 function cancelReceiveLastStreet () {
-  document.querySelector('#new-street-default').checked = true
   makeDefaultStreet()
 }
 
