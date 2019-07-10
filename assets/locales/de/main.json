@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Anmelden",
       "sign-in-link": "{signInLink} für schönere Links zu deinen Straßen und deiner persönlichen Straßen-Galerie",
-      "sign-in": "<a href='#'>Anmelden</a> für schönere Links zu deinen Straßen und deiner persönlichn Straßen-Gallerie",
       "link": "Diesen Link zum Teilen kopieren und einfügen",
       "twitter": "Über Twitter teilen",
       "facebook": "Über Facebook teilen",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "Laden…",
       "save-button": "Auf deinem Computer speichern…",
-      "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der <br><a href='{url}'>Creative Commons Namensnennung - Share Alike 4.0 international Linzenz</a> verwendet werden.",
+      "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der {licenseLink} Linzenz verwendet werden.",
       "error-preview": "Beim Anzeigen der Vorschau ist ein Fehler aufgetreten.",
       "error-unavailable": "Das Bild kann in diesem Browser nicht gespeichert werden.",
       "preview-image-alt": "Vorschau"

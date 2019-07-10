@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "サインイン",
       "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
-      "sign-in": "<a href='#'>サインイン</a> すると、あなたが作成したストリートと、個人用のストリートギャラリーへのリンクが表示されます",
       "link": "共有用リンク:",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "ロード中…",
       "save-button": "コンピュータに保存中…",
-      "license": "Streetmixで作成した画像は <br><a href='{url}'>クリエイティブ・コモンズ 表示 - 継承 4.0 国際</a> のもとで自由にお使いいただけます。",
+      "license": "Streetmixで作成した画像は {licenseLink} のもとで自由にお使いいただけます。",
       "error-preview": "プレビュー画像の表示に失敗しました。",
       "error-unavailable": "ブラウザが画像の保存に対応していません。",
       "preview-image-alt": "プレビュー"

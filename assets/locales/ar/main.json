@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "تسجيل الدخول",
       "sign-in-link": "{signInLink} للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
-      "sign-in": "<a href='#'>سجّل الدخول</a> للحصول على روابط أجمل إلى شوارعك الخاصة ومعرض صور شارعك الخاص",
       "link": "نسخ ولصق هذا الرابط لمشاركته:",
       "twitter": "مشاركة باستخدام تويتر",
       "facebook": "مشاركة باستخدام الفيسبوك",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "تحميل…",
       "save-button": "حفظ في جهاز الكمبيوتر الخاص بك…",
-      "license": "قد يتم إعادة استخدام هذه الصورة التي تم إنشائها باستخدام Streetmix في أي مكان ولأي غرص بموجب <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "license": "قد يتم إعادة استخدام هذه الصورة التي تم إنشائها باستخدام Streetmix في أي مكان ولأي غرص بموجب {licenseLink}.",
       "error-preview": "فشل عرض صورة المعاينة.",
       "error-unavailable": "تعذر الحفظ على الصورة في هذا المتصفح.",
       "preview-image-alt": "عرض مسبق"

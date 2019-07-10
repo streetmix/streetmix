@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Se connecter",
       "sign-in-link": "{signInLink} pour accéder plus facilement à vos rues et à votre galerie personnelle de rues",
-      "sign-in": "<a href='#'>Connectez-vous</a> pour une obtenir un lien vers les rues et galerie de rues vous concernant",
       "link": "Copier et coller ce lien pour le partager :",
       "twitter": "Partager en utilisant Twitter",
       "facebook": "Partager par Facebook",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "Chargement…",
       "save-button": "Enregistrer sur votre ordinateur…",
-      "license": "Cette image créée sur Streetmix peut être réutilisée n'importe où, pour n'importe quel usage, sous la <br><a href='{url}'>Licence Creative Commons Attribution - Partage dans les Mêmes Conditions 4.0 International</a>.",
+      "license": "Cette image créée sur Streetmix peut être réutilisée n'importe où, pour n'importe quel usage, sous la licence {licenseLink}.",
       "error-preview": "Une erreur s'est produite lors de l'affichage de l’aperçu.",
       "error-unavailable": "L'enregistrement en tant qu'image n'est pas possible sur ce navigateur.",
       "preview-image-alt": "Aperçu"

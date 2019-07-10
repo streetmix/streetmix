@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Kirjaudu sisään",
       "sign-in-link": "{signInLink}: voit jakaa kadut ja oman katugalleriasi näppärämmin",
-      "sign-in": "<a href='#'>Kirjautumalla sisään</a> voit jakaa katuja ja katugalleriasi näppärästi lyhytlinkeillä",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
@@ -189,7 +188,7 @@
       "option-watermark": "Streetmix-logo",
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
-      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href='{url}'>Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssin ehtojen mukaisesti.",
+      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen {licenseLink} -lisenssin ehtojen mukaisesti.",
       "error-preview": "Esikatselukuvan näyttäminen epäonnistui.",
       "error-unavailable": "Tallentaminen kuvana ei ole mahdollista tässä selaimessa.",
       "preview-image-alt": "Esikatselu"

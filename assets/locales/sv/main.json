@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Logga in",
       "sign-in-link": "{signInLink} för bättre koppling till ditt personliga gatubibliotek",
-      "sign-in": "",
       "link": "Kopiera och klistra in denna länk för att dela:",
       "twitter": "Dela på Twitter",
       "facebook": "Dela på Facebook",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "Laddar…",
       "save-button": "Sparar till din dator…",
-      "license": "Denna av Streetmix skapade bild kan användas var som helst, oavsett syfte, i enlighet med <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "license": "Denna av Streetmix skapade bild kan användas var som helst, oavsett syfte, i enlighet med {licenseLink}.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""

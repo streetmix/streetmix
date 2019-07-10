@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "登陆",
       "sign-in-link": "{signInLink}在此登陆以获取你所创建的街道及你的个人街道图集",
-      "sign-in": "<a href='#'>登录</a>之后获取你所创建街道和个人街道图片集的链接",
       "link": "复制粘贴这个连接来共享内容：",
       "twitter": "分享到推特",
       "facebook": "分享到脸书",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "加载中......",
       "save-button": "保存到你的电脑上......",
-      "license": "根据<br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>，这张由Streetmix生成的图片可以被用于任何地方，任何目的。",
+      "license": "根据{licenseLink}，这张由Streetmix生成的图片可以被用于任何地方，任何目的。",
       "error-preview": "我们在显示预览图时出现了故障。",
       "error-unavailable": "此浏览器不支持收藏图片功能。",
       "preview-image-alt": "预览"

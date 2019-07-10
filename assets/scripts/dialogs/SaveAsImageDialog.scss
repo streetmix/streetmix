@@ -26,6 +26,11 @@
   footer {
     text-align: center;
   }
+
+  // Don't wrap the Creative Commons label
+  footer a {
+    white-space: nowrap;
+  }
 }
 
 .save-as-image-options {

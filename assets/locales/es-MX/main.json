@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Ingresar",
       "sign-in-link": "{signInLink} para enlaces mejores a tus calles y a tu galería de calles personal",
-      "sign-in": "<a href='#'>Ingresar</a> para tener mejores enlaces a tus calles y a tu galería de calles",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir usando Twitter",
       "facebook": "Compartir usando Facebook",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "Cargando…",
       "save-button": "Guardar a tu computadora…",
-      "license": "Esta imagen-creada-por-Streetmix puede ser reusada en cualquier otra parte, por culaquier otro uso, bajo <br><a href='{url}'>la Licencia Internacional Creative Commons Attribution-ShareAlike 4.0</a>.",
+      "license": "Esta imagen-creada-por-Streetmix puede ser reusada en cualquier otra parte, por culaquier otro uso, bajo la licencia {licenseLink}.",
       "error-preview": "Hubo un error al visualizar una imagen de vista previa.",
       "error-unavailable": "No se puede guardar imagen en este navegador de internet.",
       "preview-image-alt": "Vista previa"

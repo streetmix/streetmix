@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Zaloguj się",
       "sign-in-link": "{signInLink} dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
-      "sign-in": "<a href='#'>Zarejestruj się</a> dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
       "link": "Skopiuj i wklej ten link, aby go udostępnić:",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "Ładuję…",
       "save-button": "Zapisz na swoim komputerze…",
-      "license": "Obrazy tworzone w Streetmiksie mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License (uznanie autorstwa)</a>.",
+      "license": "Obrazy tworzone w Streetmiksie mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji {licenseLink}.",
       "error-preview": "Wystąpił błąd podczas wyświetlania podglądu obrazu.",
       "error-unavailable": "Zapis do obrazu nie jest dostępny na tej przeglądarce.",
       "preview-image-alt": "Podgląd"

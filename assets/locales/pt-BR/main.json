@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Entrar",
       "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
-      "sign-in": "<a href='#'>Faça o login</a> para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "link": "Copiar e colar este link para compartilhar:",
       "twitter": "Compartilhar usando Twitter",
       "facebook": "Compartilhar usando Facebook",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "Carregando…",
       "save-button": "Salvar no seu computador…",
-      "license": "Esta imagem criada pelo Streetmix poderá ser reutilizada em qualquer lugar, para qualquer propósito, sob a <br><a href='{url}'>Licença Internacional Creative Commons Attribution-ShareAlike 4.0</a>.",
+      "license": "Esta imagem criada pelo Streetmix poderá ser reutilizada em qualquer lugar, para qualquer propósito, sob a {licenseLink}.",
       "error-preview": "Houve um erro ao exibir a pre-visualização da imagem.",
       "error-unavailable": "Salvar imagem não está disponível neste navegador.",
       "preview-image-alt": "Pre-visualização"

@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Acceder",
       "sign-in-link": "{signInLink} para mejores enlaces a tus calles y a tu galería de calles personal",
-      "sign-in": "",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
@@ -189,7 +188,7 @@
       "option-watermark": "",
       "loading": "Cargando…",
       "save-button": "Grabar en tu computador…",
-      "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier propósito, bajo la licencia <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier propósito, bajo la licencia {licenseLink}.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""
