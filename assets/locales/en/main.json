@@ -25,7 +25,6 @@
     "share": {
       "sign-in-twitter-link": "Sign in",
       "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
-      "sign-in": "<a href='#'>Sign in</a> for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
@@ -189,7 +188,7 @@
       "option-watermark": "Watermark",
       "loading": "Loading…",
       "save-button": "Save to your computer…",
-      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink}.",
       "error-preview": "There was an error displaying a preview image.",
       "error-unavailable": "Saving to image is not available on this browser.",
       "preview-image-alt": "Preview"
