@@ -5,11 +5,6 @@
 .save-as-image-dialog {
   width: 720px;
 
-  p {
-    text-align: center;
-    font-size: 15px;
-  }
-
   .checkbox-item {
     display: inline-block;
     margin-left: 20px;
@@ -31,6 +26,10 @@
   footer {
     text-align: center;
   }
+}
+
+.save-as-image-options {
+  text-align: center;
 }
 
 .save-as-image-preview {

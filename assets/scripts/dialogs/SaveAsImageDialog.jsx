@@ -223,7 +223,7 @@ class SaveAsImageDialog extends React.Component {
               </h1>
             </header>
             <div className="dialog-content">
-              <p>
+              <div className="save-as-image-options">
                 <Checkbox
                   onChange={this.onChangeOptionSegmentNames}
                   checked={this.props.segmentNames}
@@ -252,7 +252,7 @@ class SaveAsImageDialog extends React.Component {
                 >
                   <FormattedMessage id="dialogs.save.option-watermark" defaultMessage="Watermark" />
                 </Checkbox>
-              </p>
+              </div>
               {this.props.allowCustomDpi &&
                 <p>
                   <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
