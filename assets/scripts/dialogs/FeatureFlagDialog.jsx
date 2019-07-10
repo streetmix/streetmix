@@ -13,23 +13,18 @@ import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/actions/flags'
 import './FeatureFlagDialog.scss'
 
-class FeatureFlagDialog extends React.Component {
-  static propTypes = {
-    flags: PropTypes.object.isRequired,
-    setFeatureFlag: PropTypes.func.isRequired
-  }
-
-  renderFlagList = () => {
+const FeatureFlagDialog = (props) => {
+  const renderFlagList = () => {
     return Object.entries(FEATURE_FLAGS).map((item) => {
       const id = item[0]
       const deets = item[1]
       const htmlLabel = `feature-flag__input--${id.toLowerCase().replace(/_/g, '-')}`
 
       // Bail if a defined flag is not in the store (e.g. in tests with mock stores)
-      if (!this.props.flags[id]) return
+      if (!props.flags[id]) return
 
       // If the setting has changed, display it differently
-      const isNotDefault = deets.defaultValue !== this.props.flags[id].value
+      const isNotDefault = deets.defaultValue !== props.flags[id].value
       const labelClassName = isNotDefault ? 'feature-flag-label-modified' : ''
 
       return (
@@ -37,9 +32,9 @@ class FeatureFlagDialog extends React.Component {
           <Checkbox
             id={htmlLabel}
             onChange={(event) => {
-              this.props.setFeatureFlag(id, event.target.checked)
+              props.setFeatureFlag(id, event.target.checked)
             }}
-            checked={this.props.flags[id].value}
+            checked={props.flags[id].value}
             disabled={deets.enabled === false}
           >
             <span className={labelClassName}>{deets.label}</span>
@@ -49,27 +44,30 @@ class FeatureFlagDialog extends React.Component {
     })
   }
 
-  render () {
-    return (
-      <Dialog>
-        {(closeDialog) => (
-          <div className="feature-flag-dialog" dir="ltr">
-            <header>
-              <h1>Feature flags</h1>
-            </header>
-            <div className="dialog-content">
-              <ul>
-                {this.renderFlagList()}
-              </ul>
-            </div>
-            <button className="dialog-primary-action" onClick={closeDialog}>
-              Close
-            </button>
+  return (
+    <Dialog>
+      {(closeDialog) => (
+        <div className="feature-flag-dialog" dir="ltr">
+          <header>
+            <h1>Feature flags</h1>
+          </header>
+          <div className="dialog-content">
+            <ul>
+              {renderFlagList()}
+            </ul>
           </div>
-        )}
-      </Dialog>
-    )
-  }
+          <button className="dialog-primary-action" onClick={closeDialog}>
+            Close
+          </button>
+        </div>
+      )}
+    </Dialog>
+  )
+}
+
+FeatureFlagDialog.propTypes = {
+  flags: PropTypes.object.isRequired,
+  setFeatureFlag: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -78,10 +76,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setFeatureFlag: (flag, value) => { dispatch(setFeatureFlag(flag, value)) }
-  }
+const mapDispatchToProps = {
+  setFeatureFlag
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeatureFlagDialog)
