@@ -6,7 +6,6 @@ import { showGallery } from '../gallery/view'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
-import { onNewStreetLastClick } from '../streets/creation'
 import {
   setLastStreet,
   setIgnoreStreetChanges
@@ -17,6 +16,7 @@ import { initStreetDataChangedListener } from '../streets/street'
 import { initEnvironsChangedListener } from '../streets/environs'
 import { initDragTypeSubscriber } from '../segments/drag_and_drop'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
+import { fetchLastStreet } from '../streets/xhr'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
 import { detectGeolocation } from '../users/geolocation'
@@ -112,10 +112,8 @@ export function checkIfEverythingIsLoaded () {
 }
 
 function onEverythingLoaded () {
-  switch (getMode()) {
-    case MODES.NEW_STREET_COPY_LAST:
-      onNewStreetLastClick()
-      break
+  if (getMode() === MODES.NEW_STREET_COPY_LAST) {
+    fetchLastStreet()
   }
 
   onResize()

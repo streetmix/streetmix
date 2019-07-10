@@ -6,7 +6,7 @@ import {
   prepareEmptyStreet,
   setIgnoreStreetChanges
 } from './data_model'
-import { saveStreetToServer, fetchLastStreet } from './xhr'
+import { saveStreetToServer } from './xhr'
 
 export const NEW_STREET_DEFAULT = 1
 export const NEW_STREET_EMPTY = 2
@@ -45,8 +45,4 @@ export function onNewStreetEmptyClick () {
   setLastStreet()
 
   saveStreetToServer(false)
-}
-
-export function onNewStreetLastClick () {
-  fetchLastStreet()
 }
