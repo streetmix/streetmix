@@ -188,7 +188,7 @@
       "option-watermark": "Watermark",
       "loading": "Loading…",
       "save-button": "Save to your computer…",
-      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink}.",
+      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink} license.",
       "error-preview": "There was an error displaying a preview image.",
       "error-unavailable": "Saving to image is not available on this browser.",
       "preview-image-alt": "Preview"
