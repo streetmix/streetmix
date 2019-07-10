@@ -53,7 +53,7 @@ class FeatureFlagDialog extends React.Component {
     return (
       <Dialog>
         {(closeDialog) => (
-          <div className="feature-flag-dialog">
+          <div className="feature-flag-dialog" dir="ltr">
             <header>
               <h1>Feature flags</h1>
             </header>
