@@ -30,25 +30,38 @@
 
 .save-as-image-options {
   text-align: center;
+  margin-bottom: 1em;
 }
 
 .save-as-image-preview {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 300px;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-height: 300px;
+  border-top: 3px dashed $ui-colour;
+  border-bottom: 3px dashed $ui-colour;
 }
 
 .save-as-image-preview-loading {
-  font-size: 16px;
-  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .save-as-image-preview-image {
   @include touch-callout(default);
 
-  text-align: center;
-  font-size: 0;
+  /* Removes extra baseline space */
+  line-height: 0;
 
   img {
     /* Images may have variable dimensions. Use max-width/max-height
@@ -57,11 +70,21 @@
     max-height: 300px;
     cursor: move; // IE
     cursor: grab;
-    border-top: 3px dashed $ui-colour;
-    border-bottom: 3px dashed $ui-colour;
   }
+}
+
+.save-as-image-preview-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  padding: 3em;
 }
 
 .save-as-image-download {
   text-align: center;
+
+  a.button-like {
+    margin-top: 0;
+  }
 }

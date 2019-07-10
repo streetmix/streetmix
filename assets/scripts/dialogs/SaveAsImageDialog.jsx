@@ -44,7 +44,7 @@ class SaveAsImageDialog extends React.Component {
     this.state = {
       dpi: DEFAULT_IMAGE_DPI,
       dpiInputValue: DEFAULT_IMAGE_DPI,
-      isLoading: true,
+      isLoading: false,
       isShowingPreview: false,
       errorMessage: null,
       download: {
@@ -67,7 +67,7 @@ class SaveAsImageDialog extends React.Component {
       // Time delay makes the "Loading" feel "right."
       window.setTimeout(() => {
         this.updatePreview()
-      }, 50)
+      }, 100)
     }
   }
 
@@ -254,7 +254,7 @@ class SaveAsImageDialog extends React.Component {
                 </Checkbox>
               </div>
               {this.props.allowCustomDpi &&
-                <p>
+                <div className="save-as-image-options">
                   <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
                   <input
                     id="save-as-image-dpi-input"
@@ -262,45 +262,49 @@ class SaveAsImageDialog extends React.Component {
                     value={this.state.dpiInputValue}
                     onChange={this.onChangeDpiInput}
                   />
-                </p>
+                </div>
               }
               <div className="save-as-image-preview">
                 {!this.state.errorMessage && (
-                  <React.Fragment>
-                    <div className="save-as-image-preview-loading" style={{ display: this.state.isLoading ? 'block' : 'none' }}>
+                  <div className="save-as-image-preview-image">
+                    <div className="save-as-image-preview-loading" style={{ display: !this.state.isLoading && 'none' }}>
                       <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
                     </div>
-                    <div className="save-as-image-preview-image" style={{ display: this.state.isLoading ? 'none' : 'block' }}>
-                      <img
-                        src={this.state.download.dataUrl}
-                        onLoad={this.onPreviewLoaded}
-                        onError={this.onPreviewError}
-                        alt={this.props.intl.formatMessage({
-                          id: 'dialogs.save.preview-image-alt',
-                          defaultMessage: 'Preview'
-                        })}
-                      />
-                    </div>
-                  </React.Fragment>
+                    <img
+                      src={this.state.download.dataUrl}
+                      onLoad={this.onPreviewLoaded}
+                      onError={this.onPreviewError}
+                      alt={this.props.intl.formatMessage({
+                        id: 'dialogs.save.preview-image-alt',
+                        defaultMessage: 'Preview'
+                      })}
+                    />
+                  </div>
                 )}
                 {this.state.errorMessage && (
-                  <div className="save-as-image-preview-loading">
+                  <div className="save-as-image-preview-error">
                     {this.state.errorMessage}
                   </div>
                 )}
               </div>
               <div className="save-as-image-download">
-                <a
-                  className="button-like"
-                  onClick={this.onClickDownloadImage}
-                  // Sets the anchor's `download` attribute so that it saves a meaningful filename
-                  // Note that this property is not supported in Safari/iOS
-                  download={this.state.download.filename}
-                  // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
-                  href={this.state.download.dataUrl}
-                >
-                  <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
-                </a>
+                {!this.state.errorMessage ? (
+                  <a
+                    className="button-like"
+                    onClick={this.onClickDownloadImage}
+                    // Sets the anchor's `download` attribute so that it saves a meaningful filename
+                    // Note that this property is not supported in Safari/iOS
+                    download={this.state.download.filename}
+                    // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
+                    href={this.state.download.dataUrl}
+                  >
+                    <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
+                  </a>
+                ) : (
+                  <button disabled>
+                    <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
+                  </button>
+                )}
               </div>
             </div>
             <footer>
