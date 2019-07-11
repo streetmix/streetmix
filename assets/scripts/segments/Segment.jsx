@@ -7,6 +7,7 @@ import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
 
 import SegmentCanvas from './SegmentCanvas'
+import Segment3dCanvas from './Segment3dCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
 import { getLocaleSegmentName } from '../segments/view'
@@ -150,7 +151,21 @@ export class Segment extends React.Component {
 
   renderSegmentCanvas = (variantType) => {
     const isOldVariant = (variantType === 'old')
+    const is3DVariant = (variantType === '3d')
     const { segment, connectDragSource, connectDropTarget } = this.props
+
+    if (is3DVariant) {
+      return connectDragSource(connectDropTarget(
+        <div className="segment-canvas-container">
+          <Segment3dCanvas
+            actualWidth={this.props.actualWidth}
+            type={segment.type}
+            variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
+            randSeed={segment.randSeed}
+            updatePerspective={this.props.updatePerspective}
+          />
+        </div>))
+    }
 
     return connectDragSource(connectDropTarget(
       <div className="segment-canvas-container">
