@@ -1,111 +1,60 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { getSegmentVariantInfo } from './info'
-import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { TILE_SIZE } from './constants'
-import './SegmentCanvas.scss'
-
-const GROUND_BASELINE = 400
-const CANVAS_HEIGHT = 480
-const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
-
-class Segment3dCanvas extends React.PureComponent {
-  static propTypes = {
-    actualWidth: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired,
-    randSeed: PropTypes.number,
-    multiplier: PropTypes.number,
-    groundBaseline: PropTypes.number,
-    dpi: PropTypes.number,
-    updatePerspective: PropTypes.func
-  }
-
-  static defaultProps = {
-    multiplier: 1,
-    groundBaseline: GROUND_BASELINE,
-    updatePerspective: () => {}
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      error: null
-    }
-
-    this.canvasEl = React.createRef()
-  }
-
+import React, { Component } from 'react'
+import * as THREE from 'three'
+class ThreeScene extends Component {
   componentDidMount () {
-    this.props.updatePerspective(this.canvasEl.current)
-    this.drawSegment()
-  }
-
-  componentDidUpdate (prevProps) {
-    if (prevProps.variantString !== this.props.variantString) {
-      this.props.updatePerspective(this.canvasEl.current)
-    }
-
-    this.drawSegment()
-  }
-
-  componentDidCatch (error, info) {
-    this.setState({
-      error
-    })
-  }
-
-  drawSegment = () => {
-    const canvas = this.canvasEl.current
-    const ctx = canvas.getContext('2d')
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.groundBaseline, this.props.randSeed, this.props.multiplier, this.props.dpi)
-  }
-
-  render () {
-    // Determine the maximum width of the artwork for this segment
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.actualWidth)
-    const totalWidth = dimensions.right - dimensions.left
-
-    // If the graphics are wider than the width of the segment, then we will draw
-    // our canvas a little bigger to make sure that the graphics aren't truncated.
-    const displayWidth = (totalWidth > this.props.actualWidth) ? totalWidth : this.props.actualWidth
-
-    // Determine dimensions to draw DOM element
-    const elementWidth = displayWidth * TILE_SIZE * this.props.multiplier
-    const elementHeight = CANVAS_BASELINE
-
-    // Determine size of canvas
-    const canvasWidth = elementWidth * this.props.dpi
-    const canvasHeight = elementHeight * this.props.dpi
-    const canvasStyle = {
-      width: elementWidth,
-      height: elementHeight,
-      left: dimensions.left * TILE_SIZE * this.props.multiplier
-    }
-
-    return (
-      <canvas
-        className="segment-image"
-        ref={this.canvasEl}
-        width={canvasWidth}
-        height={canvasHeight}
-        style={canvasStyle}
-      />
+    const width = this.mount.clientWidth
+    const height = this.mount.clientHeight
+    // ADD SCENE
+    this.scene = new THREE.Scene()
+    // ADD CAMERA
+    this.camera = new THREE.PerspectiveCamera(
+      75,
+      width / height,
+      0.1,
+      1000
     )
+    this.camera.position.z = 4
+    // ADD RENDERER
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    this.renderer.setClearColor(0xffffff, 0)
+    this.renderer.setSize(width, height)
+    this.mount.appendChild(this.renderer.domElement)
+    // ADD CUBE
+    const geometry = new THREE.BoxGeometry(1, 1, 1)
+    const material = new THREE.MeshBasicMaterial({ color: '#433F81' })
+    this.cube = new THREE.Mesh(geometry, material)
+    this.scene.add(this.cube)
+    this.start()
+  }
+  componentWillUnmount () {
+    this.stop()
+    this.mount.removeChild(this.renderer.domElement)
+  }
+start = () => {
+  if (!this.frameId) {
+    this.frameId = requestAnimationFrame(this.animate)
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    dpi: state.system.devicePixelRatio,
-    redrawCanvas: state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value
-  }
+stop = () => {
+  cancelAnimationFrame(this.frameId)
 }
-
-export default connect(mapStateToProps)(Segment3dCanvas)
+animate = () => {
+  this.cube.rotation.x += 0.01
+  this.cube.rotation.y += 0.01
+  this.renderScene()
+  this.frameId = window.requestAnimationFrame(this.animate)
+}
+renderScene = () => {
+  this.renderer.render(this.scene, this.camera)
+}
+render () {
+  return (
+    <div
+      className="3d-mount"
+      style={{ width: '100px', height: '100px', marginTop: '500px' }}
+      ref={(mount) => { this.mount = mount }}
+    />
+  )
+}
+}
+export default ThreeScene

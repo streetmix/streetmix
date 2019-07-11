@@ -151,7 +151,9 @@ export class Segment extends React.Component {
 
   renderSegmentCanvas = (variantType) => {
     const isOldVariant = (variantType === 'old')
-    const is3DVariant = (variantType === '3d')
+
+    const isParking = this.props.segment.type === 'parking-lane'
+    const is3DVariant = (isOldVariant && isParking)
     const { segment, connectDragSource, connectDropTarget } = this.props
 
     if (is3DVariant) {
@@ -246,7 +248,7 @@ export class Segment extends React.Component {
 
   render () {
     const { segment } = this.props
-
+    console.log({ segment })
     const segmentInfo = getSegmentInfo(segment.type)
 
     // Get localized names from store, fall back to segment default names if translated
