@@ -14,10 +14,6 @@ $welcome-panel-box-shadow: $medium-box-shadow;
   text-align: center;
   user-select: none;
   pointer-events: none;
-
-  &:not(.visible) {
-    display: none;
-  }
 }
 
 .welcome-panel {
