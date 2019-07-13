@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
+import SliderVariant from './SliderVariant'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
@@ -484,7 +485,8 @@ export class InfoBubble extends React.Component {
     }
 
     const segment = this.props.street.segments[this.props.position] || {}
-
+    const hasSliderVariant = segment.type === 'parking-lane-3d'
+    console.log({ type, segment: JSON.stringify(segment) })
     return (
       <div
         className={classNames.join(' ')}
@@ -517,6 +519,12 @@ export class InfoBubble extends React.Component {
           >
             <Variants type={type} position={position} />
           </IntlProvider>
+          {hasSliderVariant && <IntlProvider
+            locale={this.props.locale.locale}
+            messages={this.props.locale.segmentInfo}
+          >
+            <SliderVariant type={type} position={position} />
+          </IntlProvider>}
           {widthOrHeightControl}
         </div>
         <Warnings segment={segment} />
