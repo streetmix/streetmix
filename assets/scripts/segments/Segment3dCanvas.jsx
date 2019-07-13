@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import * as THREE from 'three'
+import ColladaLoader from '../util/collada_loader'
+
 class ThreeScene extends Component {
   componentDidMount () {
     const width = this.mount.clientWidth
     const height = this.mount.clientHeight
+    this.loadCollada = this.loadCollada.bind(this)
     // ADD SCENE
     this.scene = new THREE.Scene()
     // ADD CAMERA
@@ -25,6 +28,11 @@ class ThreeScene extends Component {
     this.cube = new THREE.Mesh(geometry, material)
     this.scene.add(this.cube)
     this.start()
+
+    // var dae // graphic
+    this.loader = new ColladaLoader() // loader
+    // do we need to bind this.loadCollada here?
+    this.loader.load('../images/car.dae', this.loadCollada)
   }
   componentWillUnmount () {
     this.stop()
@@ -37,6 +45,11 @@ start = () => {
 }
 stop = () => {
   cancelAnimationFrame(this.frameId)
+}
+loadCollada = (collada, err) => {
+  console.log({ collada, err })
+  const dae = collada.scene
+  this.scene.add(dae)
 }
 animate = () => {
   this.cube.rotation.x += 0.01
