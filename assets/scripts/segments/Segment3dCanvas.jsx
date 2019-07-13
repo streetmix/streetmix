@@ -74,7 +74,7 @@ animate = () => {
     // this.car.rotation.y += 0.01
   }
   this.renderScene()
-  this.frameId = window.requestAnimationFrame(this.animate)
+  // this.frameId = window.requestAnimationFrame(this.animate)
 }
 renderScene = () => {
   this.renderer.render(this.scene, this.camera)
@@ -83,7 +83,7 @@ render () {
   return (
     <div
       className="3d-mount"
-      style={{ width: '100px', height: '100px', marginTop: '500px' }}
+      style={{ width: '225px', height: '225px', marginTop: '450px' }}
       ref={(mount) => { this.mount = mount }}
     />
   )

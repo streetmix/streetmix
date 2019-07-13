@@ -152,7 +152,7 @@ export class Segment extends React.Component {
   renderSegmentCanvas = (variantType) => {
     const isOldVariant = (variantType === 'old')
 
-    const isParking = this.props.segment.type === 'parking-lane'
+    const isParking = this.props.segment.type === 'parking-lane-3d'
     const is3DVariant = (isOldVariant && isParking)
     const { segment, connectDragSource, connectDropTarget } = this.props
 

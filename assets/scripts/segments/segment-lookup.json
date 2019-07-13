@@ -2621,6 +2621,51 @@
       }
     }
   },
+  "parking-lane-3d": {
+    "name": "Parking lane (3D)",
+    "nameKey": "parking-lane-3d",
+    "owner": "CAR",
+    "zIndex": 13,
+    "defaultWidth": 7,
+    "rules": {
+      "minWidth": 7,
+      "maxWidth": 10
+    },
+    "variants": [
+      "parking-lane-rotation"
+    ],
+    "details": {
+      "any": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--parking-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "offsetX": 6,
+              "variants": {
+                "direction|orientation": [
+                  "inbound",
+                  "left"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
   "drive-lane": {
     "name": "Drive lane",
     "nameKey": "drive-lane",
