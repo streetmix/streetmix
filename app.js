@@ -127,6 +127,7 @@ const csp = {
     ],
     connectSrc: [
       "'self'",
+      'http://localhost:3000',
       'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',

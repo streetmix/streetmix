@@ -248,7 +248,6 @@ export class Segment extends React.Component {
 
   render () {
     const { segment } = this.props
-    console.log({ segment })
     const segmentInfo = getSegmentInfo(segment.type)
 
     // Get localized names from store, fall back to segment default names if translated
