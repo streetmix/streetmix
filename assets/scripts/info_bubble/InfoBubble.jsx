@@ -570,10 +570,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setInfoBubbleMouseInside: (value) => { dispatch(setInfoBubbleMouseInside(value)) }
-  }
+const mapDispatchToProps = {
+  setInfoBubbleMouseInside
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoBubble)
