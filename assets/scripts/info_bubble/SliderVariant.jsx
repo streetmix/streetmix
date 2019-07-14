@@ -31,33 +31,35 @@ export class SliderVariant extends React.Component {
     super(props)
 
     this.state = {
-      variantSets: null
+      variantSets: null,
+      value: 0
     }
+    this.onChangeSlider = this.onChangeSlider.bind(this)
   }
 
-  // static getDerivedStateFromProps (nextProps, prevState) {
-  //   let variantSets = []
+  static getDerivedStateFromProps (nextProps, prevState) {
+    // let variantSets = []
 
-  //   switch (nextProps.type) {
-  //     case INFO_BUBBLE_TYPE_SEGMENT:
-  //       const segmentInfo = getSegmentInfo(nextProps.segmentType)
-  //       if (segmentInfo) {
-  //         variantSets = segmentInfo.variants
-  //       }
-  //       break
-  //     case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-  //     case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-  //       variantSets = Object.keys(VARIANT_ICONS['building'])
-  //       break
-  //     default:
-  //       break
-  //   }
+    // switch (nextProps.type) {
+    //   case INFO_BUBBLE_TYPE_SEGMENT:
+    //     const segmentInfo = getSegmentInfo(nextProps.segmentType)
+    //     if (segmentInfo) {
+    //       variantSets = segmentInfo.variants
+    //     }
+    //     break
+    //   case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+    //   case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+    //     variantSets = Object.keys(VARIANT_ICONS['building'])
+    //     break
+    //   default:
+    //     break
+    // }
 
-  //   // Return the array, removing any empty entries
-  //   return {
-  //     variantSets: variantSets.filter((x) => x !== (undefined || null || ''))
-  //   }
-  // }
+    // TODO derive this from variantString
+    return {
+      initialValue: 0
+    }
+  }
 
   // isVariantCurrentlySelected = (set, selection) => {
   //   let bool
@@ -181,12 +183,22 @@ export class SliderVariant extends React.Component {
   //   return variantEls
   // }
 
+  onChangeSlider (event) {
+    console.log('changed!')
+    const newValue = event.target.value
+    this.setState({ value: newValue })
+    // this.props.changeSegmentVariant(this.props.position, set, selection)
+    // segmentsChanged()
+  }
+
   render () {
     // Do not render this component if there are no variants to select
 
     return (
       <div className="variants">
-        Hello World
+        Hello World {this.state.value}
+        <br />
+        <input onChange={this.onChangeSlider} type="range" min="0" max="359" defaultValue="0" className="slider" id="myRange" />
       </div>
     )
   }
