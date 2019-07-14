@@ -22,7 +22,7 @@ describe('InfoBubble', () => {
       segments: []
     }
     const locale = { locale: 'en' }
-    const wrapper = shallow(<InfoBubble locale={locale} street={street} position={'u'} descriptionVisible />)
+    const wrapper = shallow(<InfoBubble locale={locale} street={street} position={1} descriptionVisible />)
     expect(wrapper).toMatchSnapshot()
   })
   it('is visible', () => {
@@ -30,7 +30,7 @@ describe('InfoBubble', () => {
       segments: []
     }
     const locale = { locale: 'en' }
-    const wrapper = shallow(<InfoBubble locale={locale} street={street} position={'u'} visible />)
+    const wrapper = shallow(<InfoBubble locale={locale} street={street} position={2} visible />)
     expect(wrapper).toMatchSnapshot()
   })
   it('shows building left info bubble', () => {
