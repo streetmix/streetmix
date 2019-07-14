@@ -182,27 +182,53 @@ Instructions for all systems
 Setting environment variables
 +++++++++++++++++++++++++++++
 
-Environment variables store secret values (like authentication keys and passwords) to third-party services. We can't commit these keys to the repository, or they might be stolen and abused by strangers. To obtain keys for environment variables, you should refer to each service's documentation. Your team may also have keys to share.
+Environment variables store secret values (like authentication keys and passwords) used to connect to third-party services. Just like regular passwords, secrets should never be revealed to the public, so we store them in a :file:`.env` file that isn't committed to the repository.
 
-We recommend setting environment variables in a file named :file:`.env` in the Streetmix root directory. The :file:`.env` file is ignored by Git, so you won't accidentally commit secret keys into the repository.
+You can create a :file:`.env` by renaming the starter :file:`.env.example` in the Streetmix root directory.
+
+To obtain keys for local development, you should be able to create your own free-tier accounts at each service and refer to their documentation for more information. To obtain keys to production resources, you will need to ask the project maintainers.
+
+
+Required environment variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The only required environment variables are the keys used for the Auth0 authentication service. Streetmix will run without this, but a lot of functionality is only available to signed-in users, and you will need these keys to sign in.
 
 +-----------------------------------+----------------------------------------------+-----------+
 | Variable name                     | Description                                  | Required  |
 +===================================+==============================================+===========+
-| ``AUTH0_CLIENT_ID``               | Auth0 client ID                              | Yes       |
+| ``AUTH0_CLIENT_ID``               | Authentication service (Auth0) client ID     | Yes       |
 +-----------------------------------+----------------------------------------------+-----------+
-| ``AUTH0_CLIENT_SECRET``           | Auth0 client secret                          | Yes       |
+| ``AUTH0_CLIENT_SECRET``           | Authentication service (Auth0) client secret | Yes       |
 +-----------------------------------+----------------------------------------------+-----------+
+
+
+Optional environment variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Streetmix will run without these keys. Some functionality will be limited, but they are not critical.
+
++-----------------------------------+----------------------------------------------+-----------+
+| Variable name                     | Description                                  | Required  |
++===================================+==============================================+===========+
 | ``PELIAS_API_KEY``                | Geocoding (Pelias) API key                   | No        |
 +-----------------------------------+----------------------------------------------+-----------+
 | ``IPSTACK_API_KEY``               | Geolocation (IPStack) API key                | No        |
 +-----------------------------------+----------------------------------------------+-----------+
-| ``TRANSIFEX_API_TOKEN``           | Your Transifex API token                     | No        |
+| ``TRANSIFEX_API_TOKEN``           | Translations (Transifex) API token           | No        |
++-----------------------------------+----------------------------------------------+-----------+
+| ``CLOUDINARY_API_KEY``            | Image cloud storage (Cloudinary) key         | No        |
++-----------------------------------+----------------------------------------------+-----------+
+| ``CLOUDINARY_API_SECRET``         | Image cloud storage (Cloudinary) secret      | No        |
 +-----------------------------------+----------------------------------------------+-----------+
 | ``TWITTER_OAUTH_CONSUMER_KEY``    | Twitter OAuth consumer key *(deprecated)*    | No        |
 +-----------------------------------+----------------------------------------------+-----------+
 | ``TWITTER_OAUTH_CONSUMER_SECRET`` | Twitter OAuth consumer secret *(deprecated)* | No        |
 +-----------------------------------+----------------------------------------------+-----------+
+
+
+Sample .env
+~~~~~~~~~~~
 
 A sample :file:`.env` file looks like this:
 
