@@ -19,6 +19,7 @@ Welcome!
    contributing/index
    technical/index
    support/index
+   guidebook/index
    contact
 
 ..
