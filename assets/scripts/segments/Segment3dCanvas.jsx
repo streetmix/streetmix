@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import * as THREE from 'three'
 import ColladaLoader from '../util/collada_loader'
+import PropTypes from 'prop-types'
 const MODEL_SCALE = 0.5
 
 class ThreeScene extends Component {
+  static propTypes = {
+    variantString: PropTypes.string.isRequired
+  }
   componentDidMount () {
     const width = this.mount.clientWidth
     const height = this.mount.clientHeight
@@ -29,13 +33,7 @@ class ThreeScene extends Component {
     this.camera.position.y = 0
     this.camera.position.z = Z_CLIPPING_PLANE
     this.camera.lookAt(new THREE.Vector3(0, 0, 0))
-    // this.camera = new THREE.PerspectiveCamera(
-    //   75,
-    //   width / height,
-    //   0.1,
-    //   1000
-    // )
-    // this.camera.position.z = 10
+
     // ADD RENDERER
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     this.renderer.setClearColor(0xffffff, 0)
@@ -49,6 +47,13 @@ class ThreeScene extends Component {
     this.stop()
     this.mount.removeChild(this.renderer.domElement)
   }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.variantString !== this.props.variantString) {
+      this.animate()
+    }
+  }
+
 start = () => {
   if (!this.frameId) {
     this.frameId = requestAnimationFrame(this.animate)
@@ -69,8 +74,12 @@ loadCollada = (result, err) => {
   this.start()
 }
 animate = () => {
+  console.log(this.props)
   if (this.car && this.car.rotation) {
-    this.car.rotation.z += 0.01
+    // convert to radians
+    const radians = (parseInt(this.props.variantString, 10) * Math.PI) / 180
+    console.log('HOW DO I ROTATE!?', this.props.variantString, radians)
+    this.car.rotation.z = radians
     // this.car.rotation.y += 0.01
   }
   this.renderScene()

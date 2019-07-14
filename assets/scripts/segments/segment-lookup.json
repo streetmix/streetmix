@@ -2635,7 +2635,7 @@
       "parking-lane-rotation"
     ],
     "details": {
-      "any": {
+      "0": {
         "components": {
           "lanes": [
             {

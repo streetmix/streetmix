@@ -162,7 +162,7 @@ export class Segment extends React.Component {
           <Segment3dCanvas
             actualWidth={this.props.actualWidth}
             type={segment.type}
-            variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
+            variantString={segment.variantString}
             randSeed={segment.randSeed}
             updatePerspective={this.props.updatePerspective}
           />
