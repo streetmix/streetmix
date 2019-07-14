@@ -1,52 +1,81 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { registerKeypress } from './keypress'
+import { injectIntl, intlShape } from 'react-intl'
+import { registerKeypress, deregisterKeypress } from './keypress'
+import './ScrollIndicators.scss'
 
-class ScrollIndicators extends React.PureComponent {
-  static propTypes = {
-    posLeft: PropTypes.number.isRequired,
-    posRight: PropTypes.number.isRequired,
-    scrollStreet: PropTypes.func.isRequired,
-    scrollTop: PropTypes.number.isRequired
+const ScrollIndicators = (props) => {
+  const { intl, scrollTop, scrollStreet, scrollIndicatorsLeft, scrollIndicatorsRight } = props
+
+  const doLeftScroll = (event) => {
+    scrollStreet(true, event.shiftKey)
   }
 
-  componentDidMount () {
-    registerKeypress(['left', 'shift left'], this.handleLeftScroll)
-    registerKeypress(['right', 'shift right'], this.handleRightScroll)
+  const doRightScroll = (event) => {
+    scrollStreet(false, event.shiftKey)
   }
 
-  handleLeftScroll = (event) => {
-    this.props.scrollStreet(true, event.shiftKey)
-  }
-
-  handleRightScroll = (event) => {
-    this.props.scrollStreet(false, event.shiftKey)
-  }
-
-  render () {
-    const { scrollTop, posLeft, posRight } = this.props
-    const style = {
-      position: 'absolute',
-      top: scrollTop + 'px'
+  /**
+   * Sets up and takes down event listeners for keys.
+   *  - Left arrow scrolls left one screen
+   *  - Right arrow scrolls right one screen
+   *  - If shift is pressed, screen scrolls to extents.
+   */
+  useEffect(() => {
+    registerKeypress(['left', 'shift left'], doLeftScroll)
+    registerKeypress(['right', 'shift right'], doRightScroll)
+    return () => {
+      deregisterKeypress(['left', 'shift left'], doLeftScroll)
+      deregisterKeypress(['right', 'shift right'], doRightScroll)
     }
+  })
 
-    return (
-      <div className="street-scroll-indicators" style={style}>
-        <div
+  const scrollLeftLabel = intl.formatMessage({
+    id: 'tooltip.scroll-street-left',
+    defaultMessage: 'Scroll street left'
+  })
+  const scrollRightLabel = intl.formatMessage({
+    id: 'tooltip.scroll-street-right',
+    defaultMessage: 'Scroll street right'
+  })
+
+  return (
+    <div className="street-scroll-indicators" style={{ top: `${scrollTop}px` }}>
+      {scrollIndicatorsLeft ? (
+        <button
           className="street-scroll-indicator-left"
-          onClick={this.handleLeftScroll}
+          onClick={doLeftScroll}
+          title={scrollLeftLabel}
+          aria-label={scrollLeftLabel}
         >
-          {Array(posLeft + 1).join('‹')}
-        </div>
-        <div
+          {Array(scrollIndicatorsLeft + 1).join('‹')}
+        </button>
+      ) : null}
+      {scrollIndicatorsRight ? (
+        <button
           className="street-scroll-indicator-right"
-          onClick={this.handleRightScroll}
+          onClick={doRightScroll}
+          title={scrollRightLabel}
+          aria-label={scrollRightLabel}
         >
-          {Array(posRight + 1).join('›')}
-        </div>
-      </div>
-    )
-  }
+          {Array(scrollIndicatorsRight + 1).join('›')}
+        </button>
+      ) : null}
+    </div>
+  )
 }
 
-export default ScrollIndicators
+ScrollIndicators.propTypes = {
+  intl: intlShape.isRequired,
+  scrollIndicatorsLeft: PropTypes.number,
+  scrollIndicatorsRight: PropTypes.number,
+  scrollStreet: PropTypes.func.isRequired,
+  scrollTop: PropTypes.number.isRequired
+}
+
+ScrollIndicators.defaultProps = {
+  scrollIndicatorsLeft: 0,
+  scrollIndicatorsRight: 0
+}
+
+export default React.memo(injectIntl(ScrollIndicators))

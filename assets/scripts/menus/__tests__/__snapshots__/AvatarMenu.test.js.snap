@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarMenu renders user avatar 1`] = `
+<button
+  className="menu-attached menu-avatar"
+  onClick={[Function]}
+>
+  <Connect(Avatar)
+    userId="foo"
+  />
+  <span
+    className="user-id"
+  >
+    foo
+  </span>
+</button>
+`;

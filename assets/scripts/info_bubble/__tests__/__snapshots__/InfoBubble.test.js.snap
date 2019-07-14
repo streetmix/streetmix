@@ -1,0 +1,362 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfoBubble is visible 1`] = `
+<div
+  className="info-bubble info-bubble-type-segment visible"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <div
+      className="info-bubble-label info-bubble-label-editable"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <span
+        className="info-bubble-label-editable-icon"
+      >
+        <FontAwesomeIcon
+          icon={
+            Object {
+              "icon": Array [
+                448,
+                512,
+                Array [],
+                "f023",
+                "M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z",
+              ],
+              "iconName": "lock",
+              "prefix": "fas",
+            }
+          }
+        />
+      </span>
+    </div>
+    <InjectIntl(RemoveButton)
+      segment="u"
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position="u"
+        type={1}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(WidthControl))
+      position="u"
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble renders 1`] = `
+<div
+  className="info-bubble info-bubble-type-segment"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <div
+      className="info-bubble-label info-bubble-label-editable"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <IntlProvider
+        locale="en"
+      >
+        <FormattedMessage
+          defaultMessage="Unknown"
+          id="segments.undefined"
+          values={Object {}}
+        />
+      </IntlProvider>
+      <span
+        className="info-bubble-label-editable-icon"
+      >
+        <FontAwesomeIcon
+          icon={
+            Object {
+              "icon": Array [
+                448,
+                512,
+                Array [],
+                "f023",
+                "M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z",
+              ],
+              "iconName": "lock",
+              "prefix": "fas",
+            }
+          }
+        />
+      </span>
+    </div>
+    <InjectIntl(RemoveButton)
+      segment={0}
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position={0}
+        type={1}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(WidthControl))
+      position={0}
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble shows building left info bubble 1`] = `
+<div
+  className="info-bubble info-bubble-type-building"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <div
+      className="info-bubble-label info-bubble-label-editable"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <IntlProvider
+        locale="en"
+      >
+        <FormattedMessage
+          defaultMessage="Grass"
+          id="buildings.grass.name"
+          values={Object {}}
+        />
+      </IntlProvider>
+      <span
+        className="info-bubble-label-editable-icon"
+      >
+        <FontAwesomeIcon
+          icon={
+            Object {
+              "icon": Array [
+                448,
+                512,
+                Array [],
+                "f023",
+                "M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z",
+              ],
+              "iconName": "lock",
+              "prefix": "fas",
+            }
+          }
+        />
+      </span>
+    </div>
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position="left"
+        type={2}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(BuildingHeightControl))
+      position="left"
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble shows building right info bubble 1`] = `
+<div
+  className="info-bubble info-bubble-type-building"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <div
+      className="info-bubble-label info-bubble-label-editable"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <IntlProvider
+        locale="en"
+      >
+        <FormattedMessage
+          defaultMessage="Grass"
+          id="buildings.grass.name"
+          values={Object {}}
+        />
+      </IntlProvider>
+      <span
+        className="info-bubble-label-editable-icon"
+      >
+        <FontAwesomeIcon
+          icon={
+            Object {
+              "icon": Array [
+                448,
+                512,
+                Array [],
+                "f023",
+                "M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z",
+              ],
+              "iconName": "lock",
+              "prefix": "fas",
+            }
+          }
+        />
+      </span>
+    </div>
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position="right"
+        type={3}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(BuildingHeightControl))
+      position="right"
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble shows description 1`] = `
+<div
+  className="info-bubble info-bubble-type-segment show-description"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <div
+      className="info-bubble-label info-bubble-label-editable"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <span
+        className="info-bubble-label-editable-icon"
+      >
+        <FontAwesomeIcon
+          icon={
+            Object {
+              "icon": Array [
+                448,
+                512,
+                Array [],
+                "f023",
+                "M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z",
+              ],
+              "iconName": "lock",
+              "prefix": "fas",
+            }
+          }
+        />
+      </span>
+    </div>
+    <InjectIntl(RemoveButton)
+      segment="u"
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position="u"
+        type={1}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(WidthControl))
+      position="u"
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;

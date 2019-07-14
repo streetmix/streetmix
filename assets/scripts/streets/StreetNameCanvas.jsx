@@ -5,6 +5,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
+import './StreetNameCanvas.scss'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
@@ -44,7 +45,11 @@ class StreetNameCanvas extends React.Component {
   }
 
   componentDidUpdate (nextProps, nextState) {
-    this.updateCoords()
+    // Only update coords when something affects the size of the nameplate,
+    // prevents excessive cascading renders
+    if (this.props.street.name !== nextProps.street.name) {
+      this.updateCoords()
+    }
   }
 
   handleResizeStreetName = (coords) => {

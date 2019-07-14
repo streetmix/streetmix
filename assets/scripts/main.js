@@ -7,15 +7,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
+// Stylesheets
+import '../../node_modules/leaflet/dist/leaflet.css'
+import '../styles/styles.scss'
+
 // Polyfills
-import 'babel-polyfill'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import './vendor/canvas-toBlob.js'
 import './vendor/Blob.js'
 import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
-import './vendor/polyfills/Number.isInteger' // for IE
 import './vendor/polyfills/Element.closest'
 import './vendor/polyfills/Element.remove'
 
@@ -32,6 +36,11 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
   Raven.config('https://fac2c23600414d2fb78c128cdbdeaf6f@app.getsentry.com/82756', {
     whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
   }).install()
+}
+
+// Accept HMR in Parcel
+if (module && module.hot) {
+  module.hot.accept()
 }
 
 // Mount React components

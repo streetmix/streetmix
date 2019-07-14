@@ -22,7 +22,7 @@ module.exports = {
     oauth_consumer_key: process.env.TWITTER_OAUTH_CONSUMER_KEY,
     oauth_consumer_secret: process.env.TWITTER_OAUTH_CONSUMER_SECRET,
     oauth_version: '1.0A',
-    oauth_callback_uri: '/twitter-sign-in-callback',
+    oauth_callback_path: 'twitter-sign-in-callback',
     oauth_signature_method: 'HMAC-SHA1',
     timeout_ms: 500
   },
@@ -35,7 +35,7 @@ module.exports = {
     audience: 'https://streetmix.auth0.com/api/v2/',
     screen_name_custom_claim: 'https://twitter.com/screen_name',
     management_scope: 'read:users write:users',
-    twitter_callback_uri: '/auth0-twitter-sign-in-callback'
+    callback_path: 'sign-in-callback'
   },
   facebook_app_id: '204327799717656',
   cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
@@ -46,15 +46,8 @@ module.exports = {
     baseuri: '/api'
   },
   db: {
-    url: process.env.MONGOHQ_URL || 'mongodb://localhost/streetmix'
-  },
-  email: {
-    sendgrid: {
-      api_key: process.env.SENGRID_API_KEY
-    },
-    feedback_recipient: process.env.EMAIL_FEEDBACK_RECIPIENT || 'hello@streetmix.net',
-    feedback_subject: 'Streetmix feedback',
-    feedback_sender_default: 'noreply@streetmix.net'
+    // MONGODB_URI - mLab MongoDB Heroku addon
+    url: process.env.MONGODB_URI || 'mongodb://localhost/streetmix'
   },
   log_level: 'debug',
   no_internet_mode: false,
@@ -69,5 +62,19 @@ module.exports = {
       host: 'api.geocode.earth',
       api_key: process.env.PELIAS_API_KEY || null
     }
+  },
+  geoip: {
+    host: 'api.ipstack.com/',
+    api_key: process.env.IPSTACK_API_KEY || null,
+    protocol: 'http://'
+  },
+  redis: {
+    port: process.env.REDIS_PORT,
+    password: process.env.REDIS_PASSWORD || '',
+    url: process.env.REDIS_URL || null
+  },
+  cloudinary: {
+    api_key: process.env.CLOUDINARY_API_KEY || null,
+    api_secret: process.env.CLOUDINARY_API_SECRET || null
   }
 }

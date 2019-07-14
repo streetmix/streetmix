@@ -2,6 +2,7 @@ import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
 } from '../streets/xhr'
+import { isThumbnailSaved, SAVE_THUMBNAIL_EVENTS, saveStreetThumbnail } from '../streets/image'
 import store from '../store'
 import { showNoConnectionMessage } from '../store/actions/status'
 
@@ -17,12 +18,6 @@ function scheduleNoConnectionMessage () {
 
 function hideNoConnectionMessage () {
   store.dispatch(showNoConnectionMessage(false))
-}
-
-export function attachFetchNonBlockingEventListeners () {
-  window.addEventListener('stmx:everything_loaded', function () {
-    window.addEventListener('beforeunload', onWindowBeforeUnload)
-  })
 }
 
 export function newNonblockingAjaxRequest (url, options, allowToClosePage, doneFunc, errorFunc, maxRetries) {
@@ -170,29 +165,39 @@ function checkIfChangesSaved () {
     return
   }
 
-  var showWarning = false
+  let showWarning = false
 
   if (getSaveStreetIncomplete()) {
     showWarning = true
   } else {
-    for (var i in nonblockingAjaxRequests) {
+    for (let i in nonblockingAjaxRequests) {
       if (!nonblockingAjaxRequests[i].allowToClosePage) {
         showWarning = true
       }
     }
   }
 
+  // If thumbnail needs to be saved before window close, show warning.
+  if (!isThumbnailSaved()) {
+    showWarning = true
+  }
+
   if (showWarning) {
     nonblockingAjaxRequestTimer = 0
     scheduleNextNonblockingAjaxRequest()
-
+    saveStreetThumbnail(store.getState().street, SAVE_THUMBNAIL_EVENTS.BEFOREUNLOAD)
     return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.'
   }
 }
 
-function onWindowBeforeUnload () {
-  var text = checkIfChangesSaved()
+export function onWindowBeforeUnload (event) {
+  const text = checkIfChangesSaved()
+
+  // NOTE: custom text is no longer returned as a message in many browsers,
+  // e.g. Chrome 51. see:
+  // https://developers.google.com/web/updates/2016/04/chrome-51-deprecations?hl=en#remove_custom_messages_in_onbeforeunload_dialogs
   if (text) {
+    event.returnValue = text
     return text
   }
 }

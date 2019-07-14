@@ -1,9 +1,10 @@
-engines:
+version: "2"
+plugins:
   eslint:
     enabled: true
-    channel: "eslint-2"
+    channel: "eslint-5"
     config:
-      config: .eslintrc.json
+      config: ".eslintrc.json"
   fixme:
     enabled: true
   duplication:
@@ -11,9 +12,8 @@ engines:
     config:
       languages:
         - javascript
-ratings:
-   paths:
-   - "**.js"
-exclude_paths:
-  - assets/scripts/vendor/*.js
-  - test/integration/smoke.spec.js
+exclude_patterns:
+  - "assets/scripts/vendor/*.js"
+  - "test/integration/smoke.spec.js"
+  - "**/__tests__"
+  - "**/__mocks__"

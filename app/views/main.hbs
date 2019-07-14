@@ -5,7 +5,28 @@
 
     <meta charset="utf-8">
     <meta http-equiv="Content-Language" content="en">
-    <meta name="description" content="Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.">
+    <meta name="title" content="{{STREETMIX_TITLE}}">
+    <meta name="description" content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
+
+    {{! Preview content for search engines, social media, chat apps }}
+    {{! Open Graph / Facebook }}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{STREETMIX_URL}}">
+    <meta property="og:title" content="{{STREETMIX_TITLE}}">
+    <meta property="og:description" content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
+    <meta property="og:image" content="{{STREETMIX_IMAGE.image}}">
+    <meta property="og:image:width" content="{{STREETMIX_IMAGE.width}}">
+    <meta property="og:image:height" content="{{STREETMIX_IMAGE.height}}">
+
+    {{! Facebook }}
+    <meta property="fb:app_id" content="{{FACEBOOK_APP_ID}}" />
+
+    {{! Twitter }}
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{STREETMIX_URL}}">
+    <meta property="twitter:title" content="{{STREETMIX_TITLE}}">
+    <meta property="twitter:description" content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
+    <meta property="twitter:image" content="{{STREETMIX_IMAGE.image}}">
 
     {{! Display at 50% on mobile devices only; should not affect desktop browsers }}
     <meta name="viewport" content="width=device-width, initial-scale=.5, maximum-scale=.5">
@@ -21,9 +42,16 @@
     {{! Do not track parameter }}
     <meta name="twitter:dnt" content="on">
 
+    {{#config.pinterest}}
+    {{! Pinterest domain verification }}
+    <meta name="p:domain_verify" content="{{.}}"/>
+    {{/config.pinterest}}
+
+    <link rel="canonical" href="{{STREETMIX_URL}}">
     <link href="/favicon.ico" rel="shortcut icon">
-    <link href="/assets/css/styles.css" rel="stylesheet">
-    <link href="/humans.txt" rel="author">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic" rel="stylesheet">
+    <link href="https://use.typekit.net/rtq2xbu.css" rel="stylesheet">
+    <link href="/assets/main.{{cacheTimestamp}}.css" rel="stylesheet">
 
     {{#config.google_analytics_account}}
     {{! Placed in head per Google's instructions }} 
@@ -48,6 +76,18 @@
     </script>
     {{/config.mixpanel_token}}
 
+    {{#config.luckyorange_enabled}}
+    <script type="text/javascript" nonce="{{nonce.luckyorange}}">
+      window.__lo_site_id = 157433;
+
+      (function() {
+        var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+        wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+      })();
+    </script>
+    {{/config.luckyorange_enabled}}
+
   </head>
   <body tabindex="1">
 
@@ -58,12 +98,13 @@
     <div id="loading">
       <div class="streetmix-logo"></div>
       <div class="loading-spinner"></div>
+      <noscript>To use Streetmix,&nbsp;<a href="https://www.enable-javascript.com/">please enable JavaScript</a>.</noscript>
     </div>
 
     {{! Mount point for React }}
     <div id="react-app" class="app"></div>
 
     <script src="https://platform.twitter.com/widgets.js" async></script>
-    <script src="/assets/scripts/main.js"></script>
+    <script src="/assets/main.{{cacheTimestamp}}.js"></script>
   </body>
 </html>

@@ -1,11 +1,16 @@
 /* eslint-env jest */
 import React from 'react'
+import { cleanup } from '@testing-library/react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import AboutDialog from '../AboutDialog'
-import { shallow } from 'enzyme'
+
+jest.mock('../About/credits.json', () => require('../About/__mocks__/credits.json'))
 
 describe('AboutDialog', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(<AboutDialog />)
-    expect(wrapper.exists()).toEqual(true)
+  afterEach(cleanup)
+
+  it('renders snapshot', () => {
+    const wrapper = renderWithReduxAndIntl(<AboutDialog />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })

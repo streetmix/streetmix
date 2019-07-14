@@ -1,0 +1,61 @@
+@import '../../styles/variables.scss';
+
+body.segment-resize-dragging,
+body.segment-resize-dragging * {
+  cursor: col-resize !important;
+}
+
+.drag-handle {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 170px + 150px;
+  width: 30px;
+  height: 100px;
+  border-top: 3px solid darken($ui-colour, 30%);
+  border-bottom: 3px solid darken($ui-colour, 30%);
+  font-size: 1.5rem;
+  color: darken($ui-colour, 20%);
+  z-index: $z-06-drag-handle;
+  pointer-events: none;
+  background: $info-bubble-background;
+  cursor: col-resize;
+  transition: transform 150ms, opacity 150ms;
+  opacity: 0;
+
+  &:hover {
+    color: darken($ui-colour, 30%);
+  }
+}
+
+.drag-handle-left {
+  left: -5px;
+  text-align: left;
+  text-indent: -5px;
+  transform-origin: 100% 50%;
+  transform: rotateY(90deg);
+}
+
+.drag-handle-right {
+  right: -5px;
+  text-align: right;
+  text-indent: -3px;
+  transform-origin: 0 50%;
+  transform: rotateY(-90deg);
+}
+
+.segment.immediate-show-drag-handles .drag-handle {
+  transition: none !important;
+}
+
+.drag-handle.floating {
+  background-color: darken($ui-colour, 30%);
+}
+
+body.segment-resize-dragging .drag-handle.floating,
+.segment.show-drag-handles .drag-handle {
+  pointer-events: auto;
+  opacity: 1;
+  transform: none;
+}

@@ -1,20 +1,13 @@
 import { app } from '../preinit/app_settings'
-import { INFO_BUBBLE_TYPE_LEFT_BUILDING } from './constants'
-import { DRAGGING_TYPE_NONE, draggingType } from '../segments/drag_and_drop'
+import { INFO_BUBBLE_TYPE_LEFT_BUILDING, INFO_BUBBLE_TYPE_RIGHT_BUILDING } from './constants'
+import { DRAGGING_TYPE_NONE } from '../segments/constants'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
-import {
-  showInfoBubble,
-  hideInfoBubble,
-  setInfoBubbleSegmentDataNo
-} from '../store/actions/infoBubble'
+import { showInfoBubble, hideInfoBubble } from '../store/actions/infoBubble'
+import { setActiveSegment } from '../store/actions/ui'
 
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible
-}
-
-export function isDescriptionVisible () {
-  return store.getState().infoBubble.descriptionVisible
 }
 
 export const infoBubble = {
@@ -59,6 +52,7 @@ export const infoBubble = {
   hideSegment: function (fast) {
     if (infoBubble.segmentEl) {
       infoBubble.segmentEl.classList.remove('hover')
+      store.dispatch(setActiveSegment(null))
       var el = infoBubble.segmentEl
       if (fast) {
         el.classList.add('immediate-show-drag-handles')
@@ -68,8 +62,6 @@ export const infoBubble = {
       } else {
         el.classList.remove('immediate-show-drag-handles')
       }
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-      infoBubble.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
       infoBubble.segmentEl.classList.remove('show-drag-handles')
       infoBubble.segmentEl = null
     }
@@ -125,7 +117,7 @@ export const infoBubble = {
       return
     }
 
-    if (draggingType() !== DRAGGING_TYPE_NONE) {
+    if (store.getState().ui.draggingType !== DRAGGING_TYPE_NONE) {
       return
     }
 
@@ -147,19 +139,21 @@ export const infoBubble = {
     infoBubble.segmentEl = segmentEl
     infoBubble.type = type
 
-    if (segmentEl) {
-      segmentEl.classList.add('hover')
-      segmentEl.classList.add('show-drag-handles')
-    }
-    if (isInfoBubbleVisible()) {
-      segmentEl.classList.add('immediate-show-drag-handles')
+    if (type !== INFO_BUBBLE_TYPE_LEFT_BUILDING && type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
+      if (segmentEl) {
+        segmentEl.classList.add('hover')
+        segmentEl.classList.add('show-drag-handles')
+      }
+      if (isInfoBubbleVisible()) {
+        segmentEl.classList.add('immediate-show-drag-handles')
+      }
     }
 
     let dataNo = segmentEl.dataNo
     if (typeof dataNo === 'undefined') {
       dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
     }
-    store.dispatch(setInfoBubbleSegmentDataNo(dataNo))
+    store.dispatch(setActiveSegment(dataNo))
 
     store.dispatch(showInfoBubble())
   }

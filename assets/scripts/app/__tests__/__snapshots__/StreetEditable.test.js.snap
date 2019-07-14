@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase the width of the segment 1`] = `
+<DocumentFragment>
+  <div
+    id="street-section-editable"
+    style="width: 4800px;"
+  >
+    <div
+      class="segment hover show-drag-handles warning"
+      data-testid="segment"
+      style="width: 4800px; z-index: 1; transform: translateX(0px);"
+    >
+      <div
+        class="segment-label-container"
+      >
+        <span
+          class="segment-label"
+        >
+          Segment
+        </span>
+        <span
+          class="segment-width"
+        >
+          <span>
+            120 m
+          </span>
+        </span>
+        <span
+          class="segment-grid units-metric"
+        />
+      </div>
+      <span
+        class="drag-handle drag-handle-left"
+      >
+        <svg
+          class="svg-inline--fa fa-chevron-left"
+        />
+      </span>
+      <span
+        class="drag-handle drag-handle-right"
+      >
+        <svg
+          class="svg-inline--fa fa-chevron-right"
+        />
+      </span>
+      <div
+        class="segment-canvas-container"
+      >
+        <canvas
+          class="segment-image"
+          height="445"
+          style="width: 4800px; height: 445px; left: 0px;"
+          width="4800"
+        />
+      </div>
+      <div
+        class="segment-canvas-container"
+      >
+        <canvas
+          class="segment-image"
+          height="445"
+          style="width: 4800px; height: 445px; left: 0px;"
+          width="4800"
+        />
+      </div>
+      <div
+        class="hover-bk"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

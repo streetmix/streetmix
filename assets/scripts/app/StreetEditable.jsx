@@ -1,38 +1,82 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Segment from '../segments/Segment'
+import { DropTarget } from 'react-dnd'
+import flow from 'lodash/flow'
 import uuid from 'uuid'
+import Segment from '../segments/Segment'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { TILE_SIZE } from '../segments/constants'
+import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DRAGGING_TYPE_RESIZE } from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
+import {
+  Types,
+  canvasTarget,
+  collectDropTarget,
+  makeSpaceBetweenSegments,
+  isSegmentWithinCanvas
+} from '../segments/drag_and_drop'
 
-class StreetEditable extends React.Component {
+export class StreetEditable extends React.Component {
   static propTypes = {
-    onResized: PropTypes.bool.isRequired,
+    // Provided by parent
+    resizeType: PropTypes.number,
     setBuildingWidth: PropTypes.func.isRequired,
+    updatePerspective: PropTypes.func.isRequired,
+    draggingType: PropTypes.number,
+
+    // Provided by store
     street: PropTypes.object.isRequired,
-    updatePerspective: PropTypes.func.isRequired
+    draggingState: PropTypes.object,
+
+    // Provided by DropTarget
+    connectDropTarget: PropTypes.func
   }
 
-  constructor (props) {
-    super(props)
+  // Internal "state", but does not affect renders, so it is not React state
+  withinCanvas = null
 
-    this.state = {
-      suppressMouseEnter: false
-    }
+  // Placeholder for a ref.
+  // TODO: Upgrade to createRef(), but this is currently broken when placed on
+  // an element inside of react-dnd's `connectDragSource`.
+  // Info: https://github.com/react-dnd/react-dnd/issues/998
+  streetSectionEditable = null
+
+  componentDidMount () {
+    this.props.setBuildingWidth(this.streetSectionEditable)
   }
 
   componentDidUpdate (prevProps) {
-    const { onResized } = this.props
+    const { resizeType, draggingState } = this.props
 
-    if (onResized && prevProps.onResized !== onResized) {
+    if ((resizeType && !prevProps.resizeType) ||
+        (prevProps.draggingType === DRAGGING_TYPE_RESIZE && !this.props.draggingType)) {
       this.props.setBuildingWidth(this.streetSectionEditable)
     }
 
     if (prevProps.street.id !== this.props.street.id || prevProps.street.width !== this.props.street.width) {
       cancelSegmentResizeTransitions()
+    }
+
+    const dragEvents = ['dragover', 'touchmove']
+    if (!prevProps.draggingState && draggingState) {
+      dragEvents.map((type) => { window.addEventListener(type, this.updateWithinCanvas) })
+    } else if (prevProps.draggingState && !draggingState) {
+      dragEvents.map((type) => { window.removeEventListener(type, this.updateWithinCanvas) })
+    }
+  }
+
+  updateWithinCanvas = (event) => {
+    const withinCanvas = isSegmentWithinCanvas(event, this.streetSectionEditable)
+
+    if (withinCanvas) {
+      document.body.classList.remove('not-within-canvas')
+    } else {
+      document.body.classList.add('not-within-canvas')
+    }
+
+    if (this.withinCanvas !== withinCanvas) {
+      this.withinCanvas = withinCanvas
     }
   }
 
@@ -40,12 +84,11 @@ class StreetEditable extends React.Component {
     const { segments } = this.props.street
     const segment = segments[dataNo]
 
-    segment.el = ref
-    segment.el.dataNo = dataNo
-    segment.el.savedLeft = Math.round(segmentPos)
-    segment.el.savedNoMoveLeft = Math.round(segmentPos)
-    segment.el.cssTransformLeft = Math.round(segmentPos)
-    segment.el.savedWidth = Math.round(segment.width * TILE_SIZE)
+    if (segment) {
+      ref.dataNo = dataNo
+      ref.savedLeft = Math.round(segmentPos)
+      ref.cssTransformLeft = Math.round(segmentPos)
+    }
   }
 
   switchSegmentAway = (el) => {
@@ -53,18 +96,34 @@ class StreetEditable extends React.Component {
     el.style.left = el.savedLeft + 'px'
 
     this.props.updatePerspective(el)
-    this.setState({ suppressMouseEnter: true })
   }
 
   calculateSegmentPos = (dataNo) => {
     const { segments, remainingWidth } = this.props.street
-    let currPos = remainingWidth / 2
+    const { draggingState } = this.props
+
+    let currPos = 0
 
     for (let i = 0; i < dataNo; i++) {
-      currPos += segments[i].width
+      const width = (draggingState && draggingState.draggedSegment === i) ? 0 : segments[i].width * TILE_SIZE
+      currPos += width
     }
 
-    return (currPos * TILE_SIZE)
+    let mainLeft = remainingWidth
+    if (draggingState && segments[draggingState.draggedSegment] !== undefined) {
+      const draggedWidth = segments[draggingState.draggedSegment].width || 0
+      mainLeft += draggedWidth
+    }
+
+    mainLeft = (mainLeft * TILE_SIZE) / 2
+
+    if (draggingState && this.withinCanvas) {
+      mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
+      const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
+      return Math.round(mainLeft + currPos + spaceBetweenSegments)
+    } else {
+      return Math.round(mainLeft + currPos)
+    }
   }
 
   handleExitAnimations = (child) => {
@@ -77,7 +136,6 @@ class StreetEditable extends React.Component {
     const { segments, units, immediateRemoval } = this.props.street
 
     return segments.map((segment, i) => {
-      const segmentWidth = (segment.width * TILE_SIZE)
       const segmentPos = this.calculateSegmentPos(i)
 
       segment.variant = getVariantArray(segment.type, segment.variantString)
@@ -94,21 +152,15 @@ class StreetEditable extends React.Component {
           classNames="switching-away"
           exit={!(immediateRemoval)}
           onExit={this.switchSegmentAway}
-          onExited={() => { this.setState({ suppressMouseEnter: false }) }}
           unmountOnExit
         >
           <Segment
             key={segment.id}
             dataNo={i}
-            type={segment.type}
-            variantString={segment.variantString}
-            width={segmentWidth}
-            isUnmovable={false}
-            forPalette={false}
+            segment={{ ...segment }}
+            actualWidth={segment.width}
             units={units}
-            randSeed={segment.randSeed}
             segmentPos={segmentPos}
-            suppressMouseEnter={this.state.suppressMouseEnter}
             updateSegmentData={this.updateSegmentData}
             updatePerspective={this.props.updatePerspective}
           />
@@ -120,11 +172,12 @@ class StreetEditable extends React.Component {
   }
 
   render () {
+    const { connectDropTarget } = this.props
     const style = {
       width: (this.props.street.width * TILE_SIZE) + 'px'
     }
 
-    return (
+    return connectDropTarget(
       <div
         id="street-section-editable"
         key={this.props.street.id}
@@ -141,8 +194,12 @@ class StreetEditable extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    street: state.street
+    street: state.street,
+    draggingState: state.ui.draggingState
   }
 }
 
-export default connect(mapStateToProps)(StreetEditable)
+export default flow(
+  DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], canvasTarget, collectDropTarget),
+  connect(mapStateToProps)
+)(StreetEditable)

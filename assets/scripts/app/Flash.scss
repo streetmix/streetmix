@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss';
+
+.flash {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: 20px solid white;
+  z-index: $z-10-flash-border;
+
+  &.flash-visible {
+    display: block;
+    opacity: 1;
+  }
+
+  &.flash-fading-out {
+    display: block;
+    opacity: 0;
+    transition: opacity 1000ms;
+  }
+}

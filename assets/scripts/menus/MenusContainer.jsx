@@ -8,7 +8,7 @@ import ContributeMenu from './ContributeMenu'
 import IdentityMenu from './IdentityMenu'
 import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
-import { registerKeypress } from '../app/keypress'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/actions/menus'
 
 class MenusContainer extends React.PureComponent {
@@ -46,11 +46,7 @@ class MenusContainer extends React.PureComponent {
 
   componentDidMount () {
     // Hide menus if page loses visibility.
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden === true) {
-        this.hideAllMenus()
-      }
-    }, false)
+    document.addEventListener('visibilitychange', this.handleVisibilityChange, false)
 
     // Set up keypress listener to hide menus if visible
     registerKeypress('esc', this.hideAllMenus)
@@ -61,6 +57,11 @@ class MenusContainer extends React.PureComponent {
     if (prevProps.activeMenu && !this.props.activeMenu) {
       document.body.focus()
     }
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange, false)
+    deregisterKeypress('esc', this.hideAllMenus)
   }
 
   componentDidCatch (error) {
@@ -83,6 +84,12 @@ class MenusContainer extends React.PureComponent {
       activeMenuPos: activeMenu ? position : null
     })
     this.props.showMenu(activeMenu)
+  }
+
+  handleVisibilityChange = () => {
+    if (document.hidden === true) {
+      this.hideAllMenus()
+    }
   }
 
   hideAllMenus = () => {

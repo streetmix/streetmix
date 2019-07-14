@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DebugInfo is visible when state visible is set 1`] = `
+<div
+  className="debug-info visible"
+>
+  <textarea
+    readOnly={true}
+    value=""
+  />
+</div>
+`;
+
+exports[`DebugInfo render correctly 1`] = `
+<div
+  className="debug-info"
+>
+  <textarea
+    readOnly={true}
+    value=""
+  />
+</div>
+`;

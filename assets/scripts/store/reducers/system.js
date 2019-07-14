@@ -1,19 +1,18 @@
+/* global Modernizr */
 import { SET_SYSTEM_FLAGS, UPDATE_WINDOW_SIZE } from '../actions'
 
 const initialState = {
-  touch: false,
-  phone: false,
-  safari: false,
-  windows: false,
+  touch: (Modernizr && Modernizr.touchevents) || false,
+  // "Phone" detection is based on "max screen size"
+  phone: ((typeof window.matchMedia !== 'undefined') &&
+    (window.matchMedia('only screen and (max-device-width: 480px)').matches ||
+    window.matchMedia('only screen and (max-device-height: 480px)').matches)) || false,
+  safari: ((navigator.userAgent.indexOf('Safari') !== -1) && (navigator.userAgent.indexOf('Chrome') === -1)) || false,
+  windows: (navigator.userAgent.indexOf('Windows') !== -1) || false,
   noInternet: false,
   viewportWidth: window.innerWidth,
   viewportHeight: window.innerHeight,
-  hiDpi: 1.0,
-  cssTransform: false,
-  pageVisibility: false,
-  hiddenProperty: false,
-  visibilityState: false,
-  visibilityChange: false
+  devicePixelRatio: window.devicePixelRatio || 1.0
 }
 
 const system = (state = initialState, action) => {

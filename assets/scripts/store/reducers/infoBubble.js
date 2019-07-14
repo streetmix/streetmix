@@ -1,7 +1,6 @@
 import {
   SHOW_INFO_BUBBLE,
   HIDE_INFO_BUBBLE,
-  SET_SEGMENT_DATA_NO,
   UPDATE_HOVER_POLYGON,
   SET_INFO_BUBBLE_MOUSE_INSIDE,
   START_PRINTING,
@@ -12,7 +11,6 @@ import {
 const initialState = {
   visible: false,
   mouseInside: false,
-  dataNo: null,
   descriptionVisible: false,
   hoverPolygon: [],
 
@@ -41,11 +39,6 @@ const infoBubble = (state = initialState, action) => {
         descriptionVisible: false,
         // When hidden, mouse is never considered to be "inside"
         mouseInside: false
-      }
-    case SET_SEGMENT_DATA_NO:
-      return {
-        ...state,
-        dataNo: action.dataNo
       }
     case UPDATE_HOVER_POLYGON:
       return {

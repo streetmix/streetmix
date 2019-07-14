@@ -10,9 +10,7 @@ jest.mock('../../streets/remix', () => {
 })
 
 jest.mock('../../app/load_resources', () => {})
-jest.mock('../../app/routing', () => {})
 jest.mock('../../app/initialization', () => {})
-jest.mock('../../preinit/system_capabilities', () => {})
 jest.mock('../../preinit/app_settings', () => {})
 
 describe('StreetMeta', () => {

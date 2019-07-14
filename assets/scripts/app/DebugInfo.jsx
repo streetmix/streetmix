@@ -12,8 +12,9 @@ import { connect } from 'react-redux'
 import { cloneDeep } from 'lodash'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
+import './DebugInfo.scss'
 
-class DebugInfo extends React.Component {
+export class DebugInfo extends React.Component {
   static propTypes = {
     settings: PropTypes.object.isRequired,
     street: PropTypes.object.isRequired,
@@ -28,11 +29,18 @@ class DebugInfo extends React.Component {
       visible: false,
       content: ''
     }
+
+    this.textareaEl = React.createRef()
   }
 
   componentDidMount () {
     // Register keyboard input for show (shift-D)
     registerKeypress('shift d', this.showDebugInfo)
+  }
+
+  componentWillUnmount () {
+    // Cleanup
+    deregisterKeypress('shift d', this.showDebugInfo)
   }
 
   getTextareaContent = () => {
@@ -67,12 +75,12 @@ class DebugInfo extends React.Component {
       content: this.getTextareaContent()
     })
 
-    this.textareaEl.focus()
-    this.textareaEl.select()
+    this.textareaEl.current.focus()
+    this.textareaEl.current.select()
 
     // Prevent scrolling to bottom of textarea after select
     window.setTimeout(() => {
-      this.textareaEl.scrollTop = 0
+      this.textareaEl.current.scrollTop = 0
     }, 0)
 
     // Set up keypress listener to close debug window
@@ -100,8 +108,8 @@ class DebugInfo extends React.Component {
     }
 
     return (
-      <div className={className} ref={(ref) => { this.containerEl = ref }}>
-        <textarea value={this.state.content} readOnly ref={(ref) => { this.textareaEl = ref }} />
+      <div className={className}>
+        <textarea value={this.state.content} readOnly ref={this.textareaEl} />
       </div>
     )
   }

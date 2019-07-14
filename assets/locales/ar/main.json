@@ -15,14 +15,16 @@
     },
     "help": {
       "keyboard-label": "اختصارات لوحة المفاتيح:",
-      "remove": "إزالة الجزء الذي تُشير إليه<br />(إضغط مفتاح <kbd class='key'>Shift</kbd> لإزالة الكل)",
-      "move": "جولة حول الشارع<br />(اضغط على مفتاح <kbd class='key'>Shift</kbd> للانتقال إلى الحواف)",
-      "change": "تغيير عرض الجزء الذي تُشير إليه<br />(لمزيد من الدقة إضغط على المفتاح Shift<kbd class='key'>)"
+      "remove-instruction": "إزالة الجزء الذي تُشير إليه",
+      "remove-shift-instruction": "(إضغط مفتاح {shiftKey} لإزالة الكل)",
+      "move-instruction": "جولة حول الشارع",
+      "move-shift-instruction": "(اضغط على مفتاح {shiftKey} للانتقال إلى الحواف)",
+      "change-instruction": "تغيير عرض الجزء الذي تُشير إليه",
+      "change-shift-instruction": "(لمزيد من الدقة إضغط على المفتاح {shiftKey})"
     },
     "share": {
       "sign-in-twitter-link": "تسجيل الدخول",
       "sign-in-link": "{signInLink} للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>تسجيل الدخول باستخدام حساب تويتر</a> للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
       "link": "نسخ ولصق هذا الرابط لمشاركته:",
       "twitter": "مشاركة باستخدام تويتر",
       "facebook": "مشاركة باستخدام الفيسبوك",
@@ -30,12 +32,12 @@
       "save": "حفظ كصورة…",
       "save-byline": "لإدراجها في تقرير أو مدونة وما إلى ذلك.",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "تحقق من شارعي، {streetName}، في Streetmix!",
+        "my-street-unnamed": "تحقق من شارعي في Streetmix!",
+        "someone-elses-street": "تحقق من شارعي، {streetName} بواسطة {streetCreator} في Streetmix!",
+        "someone-elses-street-unnamed": "تحقق من هذا الشارع، {streetCreator}، في Streetmix!",
+        "anonymous-creator-street": "تحقق من {streetName} في Streetmix!",
+        "anonymous-creator-street-unnamed": "تحقق من هذا الشارع في Streetmix!"
       }
     },
     "contact": {
@@ -44,7 +46,10 @@
       "email": "أرسل بريد إلكتروني إلى فريق Streetmix",
       "github": "إظهار شيفرة المصدر على GitHub",
       "blog": "زيارة مدونة Streetmix",
-      "slack": "الانضمام إلى غرفة الدردشة الهادئة"
+      "discord": "",
+      "slack": "الانضمام إلى غرفة الدردشة الهادئة",
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "تبرع",
@@ -58,13 +63,16 @@
       "send": "أرسل رسالة",
       "confirm": "حصلنا عليها. شكراً!",
       "error": "نأسف، هناك مشكلة في إرسال النتائج هذه الأثناء. يُرجى إعادة المحاولة في وقتٍ لاحق."
+    },
+    "sign-in": {
+      "twitter": "تسجيل الدخول باستخدام حساب تويتر"
     }
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "الوحدات",
+      "metric": "الوحدات المترية (بالمتر)",
+      "imperial": "الوحدات الإمبريالية (بالقدم)"
     },
     "language": {
       "label": "اللغة"
@@ -83,40 +91,40 @@
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
-      "reload": "",
+      "home": "الانتقال إلى الصفحة الرئيسية",
+      "sign-in": "تسجيل الدخول من جديد",
+      "reload": "إعادة تحميل الصفحة",
       "try-again": "حاول من جديد",
-      "view-example": ""
+      "view-example": "عرض شارع كمثال"
     },
-    "page-not-found-title": "",
-    "page-not-found-description": "",
-    "street-not-found-title": "",
-    "street-not-found-description": "",
-    "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
-    "street-deleted-description": "",
-    "sign-out-title": "",
-    "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
-    "reload-sign-in-title": "",
-    "please-reload": "",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
-    "twitter-access-denied-title": "",
-    "twitter-access-denied-description": "",
-    "auth-api-problem-title": "",
-    "auth-api-problem-description": "",
-    "please-try-again": "",
-    "unsupported-browser-title": "",
-    "unsupported-browser-description": "",
-    "unsupported-browser-internet-explorer": "",
-    "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "",
-    "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
-    "error-code": ""
+    "page-not-found-title": "الصفحة غير موجودة.",
+    "page-not-found-description": "يا إلهي. لا توجد صفحة لهذا العنوان!",
+    "street-not-found-title": "الشارع غير موجود.",
+    "street-not-found-description": "يا إلهي. لا يوجد شارع لهذا العنوان!",
+    "street-not-found-but-user-description": "لا يوجد شارع لهذا العنوان! ولكن يمكنك البحث عن شوارع أخرى بواسطة {user}",
+    "street-deleted-title": "هذا الشارع تم حذفه.",
+    "street-deleted-description": "لا يوجد هناك شارع لهذا الرابط بعد الآن، ولكن يمكنك البحث عن شوارع أخرى بواسطة {user}",
+    "sign-out-title": "لقد تم تسجيل خروجك.",
+    "reload-sign-out-title": "لقد قمت بتسجيل الخروج من نافذة أخرى.",
+    "gallery-street-failure-description": "حدثت مشكلة أثناء تحميل هذا الشارع.",
+    "reload-sign-in-title": "لقد قمت بتسجيل الدخول من نافذة أخرى.",
+    "please-reload": "يُرجى إعادة تحميل هذه الصفحة قبل الاستمرار.",
+    "street-deleted-elsewhere-title": "تم حذف هذا الشارع من مكان آخر.",
+    "street-deleted-elsewhere-description": "تم حذف هذا الشارع من متصفح آخر.",
+    "access-denied-title": "لم تقم بتسجيل الدخول.",
+    "access-denied-description": "لقد قمت بإلغاء عملية تسجيل الدخول.",
+    "auth-api-problem-title": "حدث خلل أثناء عملية تسجيل الدخول.",
+    "auth-api-problem-description": "حدث خلل أثناء المصادقة.",
+    "please-try-again": "يُرجى المحاولة لاحقاً، أو إبلاغنا من خلال البريد <a target='_blank' rel='noopener noreferrer' href='{email}'>الإلكتروني</a> أو <a target='_blank' rel='noopener noreferrer' href='{tweet}'>تويتر</a>.",
+    "unsupported-browser-title": "Streetmix لا يعمل على المتصفح الخاص بك.",
+    "unsupported-browser-description": "آسف بشأن ذلك. ربما ترغب في تجربة متصفح <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>كروم</a>، <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>فايرفوكس</a>، <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>ميكروسوفت ايدج</a>، أو سافاري.",
+    "unsupported-browser-internet-explorer": "هل تستخدم متصفح انترنت اكسبلورر الآن؟ <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>يمكنك العثور على المزيد من النتائج.</a>",
+    "unsupported-browser-contact-us": "إذا كنت تعتقد أن متصفحك يجب أن يكون مدعومًا، فالرجاء الاتصال بنا عبر البريد <a target='_blank' rel='noopener noreferrer' href='{email}'>الإلكتروني</a>.",
+    "cannot-create-new-street-on-phone-title": "لا يعمل Streetmix إلا على الأجهزة اللوحية وأجهزة الكمبيوتر.",
+    "cannot-create-new-street-on-phone-description": "إذا كنت تتبع رابطًا آخر إلى شارع معين، فيمكنك عرضه على هاتفك -ولكن لا يمكنك بعد إنشاء شوارع جديدة.",
+    "generic-error-title": "هناك خطأ ما.",
+    "generic-error-description": "نعتذر – هناك خطأ ما.",
+    "error-code": "(خطأ {code}.)"
   },
   "btn": {
     "reload": "إعادة التحميل",
@@ -128,7 +136,8 @@
     "copy": "عمل نسخة",
     "remove": "إزالة",
     "close": "إغلاق",
-    "dismiss": "صرف النظر"
+    "dismiss": "صرف النظر",
+    "okay": ""
   },
   "dialogs": {
     "error": {
@@ -146,8 +155,8 @@
       "existing": {
         "intro": "هذا شارع  {streetName} تم تخطيطه من قبل {creator}.",
         "intro-without-creator": "هذا شارع {streetName}.",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "instruct": "قم بالتعديل عن طريق نقل بعض المقاطع، أو {startYourOwnStreet}.",
+        "instruct-start-own-street": "ابدأ بإنشاء شارعك الخاص"
       }
     },
     "new-street": {
@@ -165,16 +174,21 @@
       "view-source": "إظهار شيفرة المصدر",
       "sponsored-by": "مشروع Streetmix برعاية سخيّة من:",
       "donate-link": "إدعمنا مالياً",
-      "github-link": "مساهمة في فتح شيفرة المصدر"
+      "github-link": "مساهمة في فتح شيفرة المصدر",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "حفظ كصورة",
       "option-labels": "عرض الأجزاء وأسمائها",
       "option-name": "اسم الشارع",
       "option-sky": "سماء شفافة",
+      "option-watermark": "",
       "loading": "تحميل…",
       "save-button": "حفظ في جهاز الكمبيوتر الخاص بك…",
-      "license": "قد يتم إعادة استخدام هذه الصورة التي تم إنشائها باستخدام Streetmix في أي مكان ولأي غرص بموجب <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "license": "قد يتم إعادة استخدام هذه الصورة التي تم إنشائها باستخدام Streetmix في أي مكان ولأي غرص بموجب {licenseLink}.",
       "error-preview": "فشل عرض صورة المعاينة.",
       "error-unavailable": "تعذر الحفظ على الصورة في هذا المتصفح.",
       "preview-image-alt": "عرض مسبق"
@@ -187,7 +201,8 @@
       "add-location": "إضافة موقع",
       "confirm-location": "تأكيد الموقع",
       "clear-location": "إزالة الموقع",
-      "unknown-location": "موقع غير محدد"
+      "unknown-location": "موقع غير محدد",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "يحتاج Streetmix إلى مساعدتكم!",
@@ -195,12 +210,40 @@
       "text": "يرجى النظر في دعمنا بمساهمة متكررة أو لمرة واحدة. سيتم دفع تبرعاتك إلى خدماتنا والبنية التحتية ولدعم المؤسسات الغير ربحية الأخرى والمجموعات المناصرة والطلاب الذين يعملون على تحسين شوارعنا. سيتم استثمار الأرباح الزائدة في تطوير المزيد من القطاعات الجديدة. نفقاتنا واضحة بالكامل، بحيث يمكنك أن ترى بالضبط كيفية استخدام مساهماتك من قبل فريق Streetmix.",
       "button": "تبرع إلى Streetmix",
       "cancel": "لا، شكراً"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "اسم شارع جديد:",
     "delete-street": "هل أنت متأكد من أنك تُريد حذف {streetName}؟ لا يمكنك التراجع عن هذه الخطوة.",
-    "new-width": "عرض شارع جديد (من {minWidth} إلى {maxWidth}): "
+    "new-width": "عرض شارع جديد (من {minWidth} إلى {maxWidth}): ",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "تم إزالة الجزء.",
@@ -233,7 +276,11 @@
   },
   "key": {
     "backspace": "مسافة للخلف",
-    "shift": "انتقال"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "إزالة الجزء",
@@ -244,14 +291,18 @@
     "increase-width": "زيادة العرض (لمزيد من الدقة إضغط على المفتاح Shift)",
     "decrease-width": "تقليل العرض (لمزيد من الدقة إضغط على المفتاح Shift)",
     "add-floor": "إضافة طابق",
-    "remove-floor": "إزالة الطابق"
+    "remove-floor": "إزالة الطابق",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "شارع غير مُسمى",
     "rename": "أنقر لإعادة التسمية"
   },
   "building": {
-    "floors-count": "{count, plural, zero {} one {} two {} few {} many {} other {}}"
+    "floors-count": "{count, plural, zero { # طَبَقة} one {طابِق} two {طابقين} few {# طوابق} many {# طوابق} other {# طوابق}}"
   },
   "segments": {
     "warnings": {
@@ -264,7 +315,11 @@
       "label": "غير معروف"
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "صورة:"
+    },
+    "resize": {
+      "min": "حد أدنى",
+      "max": "حد أقصى"
     }
   },
   "section": {
@@ -277,15 +332,29 @@
     "delete-street-tooltip": "شطب الشارع",
     "street-count": "{count, plural, zero {شوارع} one {شارع} two {شارعين} few {# شوارع} many {# شوارع} other {# شوارع}}",
     "no-streets": "لا وجود للشوارع إلى الآن",
-    "sign-in": "تسجيل الدخول باستخدام حساب تويتر من أجل معرض الصور الشخصية للشارع"
+    "sign-in": "تسجيل الدخول باستخدام حساب تويتر من أجل معرض الصور الشخصية للشارع",
+    "sign-in-prompt": "قم بتسجيل الدخول لمشاهدة معرض صور شارعك الخاص"
   },
   "users": {
     "anonymous": "مجهول",
     "byline": "من قبل {user}"
   },
+  "export": {
+    "watermark": ""
+  },
   "meta": {
     "description": "قم بتصميم وإعادة توزيع شارع الحي ومشاركته - كل ذلك من خلال متصفحك! أضف أشجار أو مسارات الدراجات، قم بتوسيع الأرصفة أو الممرات المرورية، تعلم كيف يمكن لقراراتك التأثير في مجتمعك.",
-    "page-title": ""
+    "page-title": "{streetName} (بواسطة {author})"
+  },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
   },
   "i18n": {
     "lang": {
@@ -299,8 +368,11 @@
       "ja": "لغة يابانية",
       "pl": "لغة بولندية",
       "pt-br": "لغة برتغالية",
+      "ru": "الروسية",
       "sv": "لغة سويدية",
-      "zh-hant": "حروف صينية تقليدية"
+      "zh": "الصينية",
+      "zh-hans": "الصينية المبسطة",
+      "zh-hant": "الصينية التقليدية"
     }
   }
 }

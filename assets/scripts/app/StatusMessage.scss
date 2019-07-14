@@ -1,0 +1,59 @@
+@import '../../styles/variables.scss';
+
+.status-message {
+  position: absolute;
+  bottom: 33px;
+  left: 20px;
+  right: 20px;
+  height: 20px;
+  padding: 0;
+  z-index: $z-07-status-message;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 200ms, transform 200ms;
+  transform: translateY(100px);
+
+  &.status-message-visible {
+    transform: translateY(0);
+  }
+}
+
+body.no-connection-message-visible #status-message {
+  bottom: 78px;
+}
+
+.status-message-content {
+  position: relative;
+  display: inline-block;
+  padding: 5px 20px;
+  padding-right: 45px; // for close box
+  border-top: 3px solid $alert-border;
+  border-bottom: 3px solid $alert-border;
+  font-size: 13px;
+  line-height: 23px; // force height to be the same whether there is a button in the status message or not
+  background: $alert-background;
+  color: rgb(64, 32, 32);
+  pointer-events: auto;
+
+  button {
+    line-height: 1.4; // force button height to be the same as the a.button-like
+  }
+
+  button:not(.close),
+  a.button-like {
+    margin-left: 20px;
+
+    // Force buttons to not add a 2px height to .status-message-content
+    margin-top: -1px;
+    margin-bottom: -1px;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  // Override styles for dialog box close button
+  .close {
+    height: 100%;
+  }
+}

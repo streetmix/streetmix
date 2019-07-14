@@ -1,21 +1,12 @@
-import { SET_FEATURE_FLAG } from '../actions'
+import { SET_FEATURE_FLAG, SET_FLAG_OVERRIDES } from '../actions'
 import FEATURE_FLAGS from '../../../../app/data/flags'
 
 function generateInitialFlags (flags) {
-  const storage = JSON.parse(window.localStorage.getItem('flags'))
-
   return Object.entries(flags).reduce((obj, item) => {
     const [key, value] = item
     obj[key] = {
       value: value.defaultValue,
       source: 'initial'
-    }
-
-    // get user-defined settings saved in local storage if present
-    // only keep it if it is different from the default value.
-    if (storage && typeof storage[key] === 'boolean' && storage[key] !== value.defaultValue) {
-      obj[key].value = storage[key]
-      obj[key].source = 'user'
     }
 
     return obj
@@ -29,7 +20,12 @@ const flags = (state = initialState, action) => {
     case SET_FEATURE_FLAG:
       return {
         ...state,
-        [action.flag]: Object.assign({}, state[action.flag], { value: action.value, source: 'user' })
+        [action.flag]: Object.assign({}, state[action.flag], { value: action.value, source: 'session' })
+      }
+    case SET_FLAG_OVERRIDES:
+      return {
+        ...state,
+        ...action.flags
       }
     default:
       return state

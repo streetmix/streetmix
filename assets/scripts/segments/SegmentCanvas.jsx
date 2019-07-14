@@ -3,22 +3,30 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { TILE_SIZE, WIDTH_PALETTE_MULTIPLIER } from './constants'
+import { TILE_SIZE } from './constants'
+import './SegmentCanvas.scss'
 
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
+const GROUND_BASELINE = 400
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 
-class SegmentCanvas extends React.Component {
+class SegmentCanvas extends React.PureComponent {
   static propTypes = {
-    width: PropTypes.number.isRequired,
+    actualWidth: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
-    forPalette: PropTypes.bool,
     randSeed: PropTypes.number,
-    dpi: PropTypes.number
+    multiplier: PropTypes.number,
+    groundBaseline: PropTypes.number,
+    dpi: PropTypes.number,
+    updatePerspective: PropTypes.func
+  }
+
+  static defaultProps = {
+    multiplier: 1,
+    groundBaseline: GROUND_BASELINE,
+    updatePerspective: () => {}
   }
 
   constructor (props) {
@@ -27,16 +35,21 @@ class SegmentCanvas extends React.Component {
     this.state = {
       error: null
     }
+
+    this.canvasEl = React.createRef()
   }
 
   componentDidMount () {
+    this.props.updatePerspective(this.canvasEl.current)
     this.drawSegment()
   }
 
   componentDidUpdate (prevProps) {
-    if (!this.props.forPalette) {
-      this.drawSegment()
+    if (prevProps.variantString !== this.props.variantString) {
+      this.props.updatePerspective(this.canvasEl.current)
     }
+
+    this.drawSegment()
   }
 
   componentDidCatch (error, info) {
@@ -46,36 +59,51 @@ class SegmentCanvas extends React.Component {
   }
 
   drawSegment = () => {
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const offsetTop = this.props.forPalette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-    const ctx = this.canvasEl.getContext('2d')
-    ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height)
-    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.width, 0, offsetTop, this.props.randSeed, multiplier, this.props.forPalette)
+    const canvas = this.canvasEl.current
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.groundBaseline, this.props.randSeed, this.props.multiplier, this.props.dpi)
   }
 
   render () {
+    // Determine the maximum width of the artwork for this segment
     const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const multiplier = this.props.forPalette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.width, multiplier)
+    const dimensions = getVariantInfoDimensions(variantInfo, this.props.actualWidth)
     const totalWidth = dimensions.right - dimensions.left
 
-    const canvasWidth = this.props.forPalette ? this.props.width * this.props.dpi : totalWidth * TILE_SIZE * this.props.dpi
-    const canvasHeight = CANVAS_BASELINE * this.props.dpi
+    // If the graphics are wider than the width of the segment, then we will draw
+    // our canvas a little bigger to make sure that the graphics aren't truncated.
+    const displayWidth = (totalWidth > this.props.actualWidth) ? totalWidth : this.props.actualWidth
+
+    // Determine dimensions to draw DOM element
+    const elementWidth = displayWidth * TILE_SIZE * this.props.multiplier
+    const elementHeight = CANVAS_BASELINE
+
+    // Determine size of canvas
+    const canvasWidth = elementWidth * this.props.dpi
+    const canvasHeight = elementHeight * this.props.dpi
     const canvasStyle = {
-      width: this.props.forPalette ? this.props.width : totalWidth * TILE_SIZE,
-      height: CANVAS_BASELINE,
-      left: (dimensions.left * TILE_SIZE * multiplier)
+      width: elementWidth,
+      height: elementHeight,
+      left: dimensions.left * TILE_SIZE * this.props.multiplier
     }
 
     return (
-      <canvas className="image" ref={(ref) => { this.canvasEl = ref }} width={canvasWidth} height={canvasHeight} style={canvasStyle} />
+      <canvas
+        className="segment-image"
+        ref={this.canvasEl}
+        width={canvasWidth}
+        height={canvasHeight}
+        style={canvasStyle}
+      />
     )
   }
 }
 
 function mapStateToProps (state) {
   return {
-    dpi: state.system.hiDpi,
+    dpi: state.system.devicePixelRatio,
     redrawCanvas: state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value
   }
 }

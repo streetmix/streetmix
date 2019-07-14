@@ -1,43 +1,45 @@
 {
   "segments": {
     "sidewalk": "Calçada",
-    "sidewalk-tree": "Calçada com árvore",
+    "sidewalk-tree": "Árvore",
     "bike-rack": "Suporte de bicicletas",
     "bench": "Banco",
     "wayfinding-sign": "Sinal de orientação",
-    "sidewalk-lamp": "Calçada com poste",
-    "parklet": "Estacionamento permitido",
-    "divider": "",
-    "planting-strip": "",
-    "planter-box": "",
+    "sidewalk-lamp": "Poste",
+    "parklet": "Parklet",
+    "divider": "Zona de amortecimento",
+    "planting-strip": "Faixa de plantio",
+    "planter-box": "Vaso de plantas",
     "median": "Médio",
-    "bollard": "",
-    "dome": "",
-    "bike-lane": "Ciclofaixa",
+    "bollard": "Balizador",
+    "dome": "Tachão",
+    "scooter": "Patinete elétrico",
+    "scooter-drop-zone": "Ponto de estacionamento para patinetes elétricos",
+    "bike-lane": "Ciclovia",
     "parking-lane": "Área de estacionamento",
-    "perpendicular-parking": "",
-    "angled-parking": "",
-    "flex-zone": "",
-    "taxi-pick-up": "",
-    "rideshare-pick-up": "",
-    "bikeshare-station": "",
-    "foodtruck": "",
-    "flex-zone-curb": "",
+    "perpendicular-parking": "Estacionamento a 90 graus",
+    "angled-parking": "Estacionamento a 45 graus",
+    "flex-zone": "Faixa flexível",
+    "taxi-pick-up": "Área de embarque/desembarque de taxi",
+    "rideshare-pick-up": "Área de embarque/desembarque de veículo compartilhado",
+    "bikeshare-station": "Estação de bicicleta compartilhada",
+    "foodtruck": "Food truck (carro de lanche)",
+    "flex-zone-curb": "Área de espera",
     "drive-lane": "Faixa de direção",
-    "sharrow": "",
-    "turn-lane": "",
-    "turn-lane-straight": "",
-    "turn-lane-center": "",
-    "bus-lane": "Faixa de ônibux",
+    "sharrow": "Ciclorrota",
+    "turn-lane": "Faixa de conversão",
+    "turn-lane-straight": "Sem faixa de conversão",
+    "turn-lane-center": "Faixa de conversão central",
+    "bus-lane": "Faixa de ônibus",
     "bus-lane-shared": "Faixa compartilhada: ônibus e bicicleta",
-    "streetcar": "",
-    "light-rail": "",
-    "transit-shelter": "",
-    "inception-train": ""
+    "streetcar": "Bonde",
+    "light-rail": "VLT",
+    "transit-shelter": "Abrigo de transporte coletivo",
+    "inception-train": "O trem do filme \"A Origem\""
   },
   "descriptions": {
     "wayfinding-sign": {
-      "prompt": "Aprenda mais sobre sinais de orientação",
+      "prompt": "Saiba mais sobre sinais de orientação",
       "lede": "Sinais de orientação ajudam os pedestres a navegar para seus destinos.",
       "text": [
         "",
@@ -46,7 +48,7 @@
       ]
     },
     "parklet": {
-      "prompt": "Saiba mais sobre estacionamentos permitidos",
+      "prompt": "Saiba mais sobre parklets",
       "imageCaption": "",
       "lede": "",
       "text": [
@@ -55,7 +57,7 @@
       ]
     },
     "bike-lane": {
-      "prompt": "",
+      "prompt": "Saiba mais sobre ciclovias ",
       "lede": "",
       "text": [
         "",
@@ -64,7 +66,7 @@
       ]
     },
     "colored-bike-lane": {
-      "prompt": "",
+      "prompt": "Saiba mais sobre ciclovias coloridas",
       "lede": "",
       "text": [
         "",
@@ -73,7 +75,7 @@
       ]
     },
     "sharrow": {
-      "prompt": "",
+      "prompt": "Saiba mais sobre ciclorrotas",
       "lede": "",
       "text": [
         "",
@@ -82,7 +84,7 @@
       ]
     },
     "transit-shelter-elevated": {
-      "prompt": "",
+      "prompt": "Saiba mais sobre abrigos de transporte coletivo",
       "lede": "",
       "text": [
         "",
@@ -91,9 +93,9 @@
       ]
     },
     "inception-train": {
-      "lede": "",
+      "lede": "É o trem do filme <em>A Origem</em> de Christopher Nolan.",
       "text": [
-        ""
+        "O que mais você precisa saber?"
       ]
     }
   },
@@ -114,38 +116,38 @@
       "name": "Casa"
     },
     "narrow": {
-      "name": ""
+      "name": "Edifício"
     },
     "wide": {
-      "name": ""
+      "name": "Edifício"
     }
   },
   "variant-icons": {
     "orientation|left": "Esquerda",
     "orientation|right": "Direita",
     "turn-lane-orientation|left": "Esquerda",
-    "turn-lane-orientation|left-straight": "Linha reta e à esquerda",
+    "turn-lane-orientation|left-straight": "Esquerda e em frente",
     "turn-lane-orientation|straight": "Em frente",
     "turn-lane-orientation|right-straight": "Direita e em frente",
     "turn-lane-orientation|right": "Direita",
-    "turn-lane-orientation|both": "Cabine",
+    "turn-lane-orientation|both": "Ambos",
     "turn-lane-orientation|shared": "Compartilhar",
     "bench-orientation|left": "Esquerda",
     "bench-orientation|right": "Direita",
     "bench-orientation|center": "Centro",
     "parking-lane-orientation|left": "Esquerda",
     "parking-lane-orientation|right": "Direita",
-    "parking-lane-direction|inbound": "",
-    "parking-lane-direction|outbound": "",
+    "parking-lane-direction|inbound": "Mão de ida",
+    "parking-lane-direction|outbound": "Mão de volta",
     "parking-lane-direction|sideways": "Perpendicular",
-    "parking-lane-direction|angled-front-left": "",
-    "parking-lane-direction|angled-front-right": "",
-    "parking-lane-direction|angled-rear-left": "",
-    "parking-lane-direction|angled-rear-right": "",
-    "direction|inbound": "",
-    "direction|outbound": "",
-    "sidewalk-density|empty": "",
-    "sidewalk-density|sparse": "",
+    "parking-lane-direction|angled-front-left": "Ângulado",
+    "parking-lane-direction|angled-front-right": "Ângulado",
+    "parking-lane-direction|angled-rear-left": "Ângulado",
+    "parking-lane-direction|angled-rear-right": "Ângulado",
+    "direction|inbound": "Mão de ida",
+    "direction|outbound": "Mão de volta",
+    "sidewalk-density|empty": "Vazio",
+    "sidewalk-density|sparse": "Esparso",
     "sidewalk-density|normal": "Normal",
     "sidewalk-density|dense": "Denso",
     "lamp-orientation|left": "Esquerda",
@@ -153,48 +155,49 @@
     "lamp-orientation|right": "Direita",
     "lamp-type|traditional": "Tradicional",
     "lamp-type|modern": "Moderno",
-    "lamp-type|pride": "",
+    "lamp-type|pride": "Moderno com bandeira LGBT",
     "car-type|car": "Carro",
-    "car-type|sharrow": "",
+    "car-type|sharrow": "Ciclorrota",
     "car-type|truck": "Caminhão",
-    "public-transit-asphalt|regular": "",
+    "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Faixa vermelha",
-    "bus-asphalt|regular": "",
+    "public-transit-asphalt|grass": "Grama",
+    "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Faixa vermelha",
     "bus-asphalt|shared": "Faixa compartilhada: ônibus e bicicleta",
-    "bike-asphalt|regular": "",
+    "bike-asphalt|regular": "Asfalto",
     "bike-asphalt|green": "Faixa verde",
     "bike-asphalt|red": "Faixa vermelha",
     "tree-type|big": "Árvore",
-    "tree-type|palm-tree": "",
+    "tree-type|palm-tree": "Palmeira",
     "divider-type|median": "Médio",
-    "divider-type|striped-buffer": "",
-    "divider-type|planting-strip": "",
-    "divider-type|planter-box": "",
-    "divider-type|bush": "",
-    "divider-type|flowers": "",
-    "divider-type|big-tree": "",
-    "divider-type|palm-tree": "",
-    "divider-type|bollard": "",
-    "divider-type|dome": "",
+    "divider-type|striped-buffer": "Zona de amortecimento listrada ",
+    "divider-type|planting-strip": "Faixa de plantio",
+    "divider-type|planter-box": "Vaso de plantas",
+    "divider-type|bush": "Faixa de plantio com arbusto",
+    "divider-type|flowers": "Faixa de plantio com flores",
+    "divider-type|big-tree": "Faixa de plantio com uma árvore",
+    "divider-type|palm-tree": "Faixa de plantio com uma palmeira",
+    "divider-type|bollard": "Balizador",
+    "divider-type|dome": "Tachão",
     "transit-shelter-elevation|street-level": "Nível da rua",
-    "transit-shelter-elevation|light-rail": "",
-    "bike-rack-elevation|sidewalk-parallel": "",
-    "bike-rack-elevation|sidewalk": "",
-    "bike-rack-elevation|road": "",
+    "transit-shelter-elevation|light-rail": "Plataforma de VLT",
+    "bike-rack-elevation|sidewalk-parallel": "Estacionamento em paralelo, nível de calçada",
+    "bike-rack-elevation|sidewalk": "Estacionamento a 90 graus, nível de calçada",
+    "bike-rack-elevation|road": "Estacionamento a 90 graus, nível de rua",
     "building|waterfront": "Beira-mar",
     "building|grass": "Grama",
     "building|fence": "Lote vazio",
     "building|parking-lot": "Estacionamento",
     "building|residential": "Casa",
-    "building|narrow": "",
-    "building|wide": "",
+    "building|narrow": "Edifício estreito",
+    "building|wide": "Edifício largo",
     "wayfinding-type|large": "Grande",
     "wayfinding-type|medium": "Médio",
     "wayfinding-type|small": "Pequeno",
-    "waiting-area|sparse": "",
-    "waiting-area|empty": "",
-    "flex-type|rideshare": "",
-    "flex-type|taxi": ""
+    "waiting-area|sparse": "Alguém",
+    "waiting-area|empty": "Ninguém",
+    "flex-type|rideshare": "Carro compartilhado",
+    "flex-type|taxi": "Táxi"
   }
 }

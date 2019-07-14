@@ -15,14 +15,16 @@
     },
     "help": {
       "keyboard-label": "Teclas de acceso rápido:",
-      "remove": "Remover un segmento al que esté apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para remover todo)",
-      "move": "Moverse alrededor de la calle<br />(manten presionada la tecla  <kbd class='key'>Shift</kbd> para saltar a los bordes)",
-      "change": "Cambiar lo ancho de un segmento al que estés apuntando<br />(mantén presionada la tecla <kbd class='key'>Shift</kbd> para más precision)"
+      "remove-instruction": "Remover un segmento al que esté apuntando",
+      "remove-shift-instruction": "(mantén presionada la tecla {shiftKey} para remover todo)",
+      "move-instruction": "Moverse alrededor de la calle",
+      "move-shift-instruction": "(manten presionada la tecla {shiftKey} para saltar a los bordes)",
+      "change-instruction": "Cambiar lo ancho de un segmento al que estés apuntando",
+      "change-shift-instruction": "(mantén presionada la tecla {shiftKey} para más precision)"
     },
     "share": {
       "sign-in-twitter-link": "Acceder",
       "sign-in-link": "{signInLink} para mejores enlaces a tus calles y a tu galería de calles personal",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Ingresa a tu cuenta con Twitter</a>para mejores enlaces a tus calles y a tu galería de calles personal",
       "link": "Copiar y pegar este enlace para compartir:",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
@@ -44,7 +46,10 @@
       "email": "Envía un correo electrónico al equipo de Streetmix",
       "github": "",
       "blog": "Visita el blog de Streetmix",
-      "slack": "Participa en Slack chat"
+      "discord": "",
+      "slack": "Participa en Slack chat",
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "",
@@ -58,13 +63,16 @@
       "send": "Enviar mensaje",
       "confirm": "Lo hemos recibido, gracias!",
       "error": "Disculpas, hubo un problema al enviar su retroalimentacion. Por favor intente despues"
+    },
+    "sign-in": {
+      "twitter": "Registrar con Twitter"
     }
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "Unidades",
+      "metric": "Unidades Métricas (metros)",
+      "imperial": "Unidades inglesas (pies)"
     },
     "language": {
       "label": "Idioma"
@@ -72,14 +80,14 @@
   },
   "msg": {
     "loading": "Cargando…",
-    "remixing": "",
+    "remixing": "Remezclando...",
     "having-trouble": "Teniendo problemas…",
     "no-street": "Ninguna calle seleccionada.",
     "trouble-loading": "Tenemos problemas cargando Streetmix.",
     "slow-connection-1": "Streetmix ya ha estado tratando de conectarse a internet por un rato",
     "slow-connection-2": "Probablemente necesites recargar la pagina e intentar de nuevo. Toma en cuenta que puede perder los ultimos cambios que le hiciste a la calle. ¡Disculpas!",
     "no-connection": "Streetmix esta experimentando dificultades para conectarse a internet",
-    "more-info": ""
+    "more-info": "Más información"
   },
   "error": {
     "button": {
@@ -103,8 +111,8 @@
     "please-reload": "",
     "street-deleted-elsewhere-title": "",
     "street-deleted-elsewhere-description": "",
-    "twitter-access-denied-title": "",
-    "twitter-access-denied-description": "",
+    "access-denied-title": "",
+    "access-denied-description": "",
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "",
@@ -128,7 +136,8 @@
     "copy": "Hacer una copia",
     "remove": "",
     "close": "",
-    "dismiss": ""
+    "dismiss": "",
+    "okay": ""
   },
   "dialogs": {
     "error": {
@@ -165,16 +174,21 @@
       "view-source": "Ver codigo fuente",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": ""
+      "github-link": "",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "Guardar como imagen",
       "option-labels": "Anchos y nombres de segmentos",
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo Transparente",
+      "option-watermark": "",
       "loading": "Cargando…",
       "save-button": "Grabar en tu computador…",
-      "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier propósito, bajo la licencia <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier propósito, bajo la licencia {licenseLink}.",
       "error-preview": "",
       "error-unavailable": "",
       "preview-image-alt": ""
@@ -187,7 +201,8 @@
       "add-location": "",
       "confirm-location": "",
       "clear-location": "",
-      "unknown-location": ""
+      "unknown-location": "",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "",
@@ -195,12 +210,40 @@
       "text": "",
       "button": "",
       "cancel": ""
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "",
     "delete-street": "",
-    "new-width": ""
+    "new-width": "",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "",
@@ -233,7 +276,11 @@
   },
   "key": {
     "backspace": "Retrocerder",
-    "shift": "Mover"
+    "shift": "Mayús",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "Retire el segmento",
@@ -244,7 +291,11 @@
     "increase-width": "Incrementar la anchura (presione la tecla Shift para tener más precisión)",
     "decrease-width": "Reducir anchura (presione la tecla Shift para tener más precisión)",
     "add-floor": "Adherir un piso",
-    "remove-floor": "Eliminar piso "
+    "remove-floor": "Eliminar piso",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "",
@@ -265,6 +316,10 @@
     },
     "description": {
       "photo-credit": ""
+    },
+    "resize": {
+      "min": "",
+      "max": ""
     }
   },
   "section": {
@@ -277,15 +332,29 @@
     "delete-street-tooltip": "Eliminar la calle",
     "street-count": "{count, plural, one {# calle} other {# calles}}",
     "no-streets": "",
-    "sign-in": "Registrar con Twitter para ver tu galería de calles personal"
+    "sign-in": "Registrar con Twitter para ver tu galería de calles personal",
+    "sign-in-prompt": ""
   },
   "users": {
     "anonymous": "Anonimo",
     "byline": ""
   },
+  "export": {
+    "watermark": ""
+  },
   "meta": {
     "description": "Diseña, mezcla y comparte la calle de tu barrio - ¡en todos los navegadores!. Agrega arboles o carriles para bicicletas, veredas mas amplias o carriles de circulacion. Analiza el impacto de tus decisiones en tu comunidad",
     "page-title": ""
+  },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
   },
   "i18n": {
     "lang": {
@@ -299,7 +368,10 @@
       "ja": "",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
+      "ru": "",
       "sv": "",
+      "zh": "",
+      "zh-hans": "",
       "zh-hant": ""
     }
   }

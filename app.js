@@ -8,22 +8,58 @@ process.title = 'streetmix'
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
-const envify = require('envify/custom')
 const express = require('express')
+const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
-const browserify = require('browserify-middleware')
-const babelify = require('babelify')
 const config = require('config')
 const path = require('path')
 const uuid = require('uuid/v4')
 const controllers = require('./app/controllers')
 const resources = require('./app/resources')
 const requestHandlers = require('./lib/request_handlers')
-const middleware = require('./lib/middleware')
+const initRedisClient = require('./lib/redis')
+const initMongoDB = require('./lib/db')
+const initCloudinary = require('./lib/cloudinary')
 const exec = require('child_process').exec
 
+const client = initRedisClient()
+initMongoDB()
+initCloudinary()
+
 const app = module.exports = express()
+
+// Get the timestamp of this server's start time to use as a cachebusting filename.
+const cacheTimestamp = Date.now()
+app.locals.cacheTimestamp = cacheTimestamp
+
+process.on('uncaughtException', function (error) {
+  console.log(error)
+  console.trace()
+
+  if (client.connected) {
+    client.on('end', function () {
+      process.exit(1)
+    })
+  } else {
+    process.exit(1)
+  }
+})
+
+// Provide a message after a Ctrl-C
+// Note: various sources tell us that this does not work on Windows
+process.on('SIGINT', function () {
+  if (app.locals.config.env === 'development') {
+    console.log('Stopping Streetmix!')
+    exec('npm stop')
+  }
+
+  if (client.connected) {
+    client.on('end', process.exit)
+  } else {
+    process.exit()
+  }
+})
 
 app.locals.config = config
 
@@ -44,34 +80,63 @@ const helmetConfig = {
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'fonts.googleapis.com',
+      '*.typekit.net',
+      'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
+    ],
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
       'https://www.google-analytics.com',
       'cdn.mxpnl.com',
+      'streetmix.auth0.com',
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
+      'downloads.mailchimp.com.s3.amazonaws.com',
+      'https://d10lpsik1i8c69.cloudfront.net', // Lucky Orange
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
-      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
+      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'",
+      (req, res) => "'nonce-" + res.locals.nonce.luckyorange + "'"
+    ],
+    workerSrc: [
+      'blob:' // Lucky Orange
     ],
     childSrc: ['platform.twitter.com'],
+    frameSrc: ["'self'", 'streetmix.github.io'],
     imgSrc: [
       "'self'",
       'data:',
       'pbs.twimg.com',
       'syndication.twitter.com',
+      's.gravatar.com',
       'https://www.google-analytics.com',
-      '*.basemaps.cartocdn.com'
+      '*.basemaps.cartocdn.com',
+      'https://res.cloudinary.com/',
+      'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
     ],
-    fontSrc: ["'self'", 'fonts.gstatic.com'],
-    connectSrc: ["'self'",
-      'freegeoip.net',
+    mediaSrc: [
+      'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
+    ],
+    fontSrc: [
+      "'self'",
+      'fonts.gstatic.com',
+      '*.typekit.net'
+    ],
+    connectSrc: [
+      "'self'",
       'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',
       'https://www.google-analytics.com',
-      'app.getsentry.com'
+      'app.getsentry.com',
+      'streetmix.auth0.com',
+      'https://settings.luckyorange.net', // Lucky Orange
+      'wss://*.visitors.live', // Lucky Orange
+      'wss://visitors.live', // Lucky Orange
+      'https://pubsub.googleapis.com' // Lucky Orange
     ]
   }
 }
@@ -79,6 +144,8 @@ const csp = {
 // Allow arbitrary injected code (e.g. Redux dispatches from dev tools) in development
 if (app.locals.config.env === 'development') {
   csp.directives.scriptSrc.push("'unsafe-eval'")
+  // Allows websockets for hot-module reloading (note: ports are assigned randomly by Parcel)
+  csp.directives.connectSrc.push('ws:')
 }
 
 app.use(helmet(helmetConfig))
@@ -91,66 +158,73 @@ app.use(requestHandlers.login_token_parser)
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
-// Permanently redirect http to https in production.
-app.use(function (req, res, next) {
-  if (app.locals.config.env === 'production') {
-    // req.secure is Express's flag for a secure request, but this is not available
-    // on Heroku, which uses a header instead.
-    if (req.secure === true || req.headers['x-forwarded-proto'] !== 'https') {
-      res.redirect(301, 'https://' + req.hostname + req.originalUrl)
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
-
-// Generate nonces for inline scripts
-app.use(function (req, res, next) {
+// Set variables for use in view templates
+app.use((req, res, next) => {
+  // Generate nonces for inline scripts
   res.locals.nonce = {
     google_analytics: uuid(),
-    mixpanel: uuid()
+    mixpanel: uuid(),
+    luckyorange: uuid()
   }
+
+  // Set default metatag information for social sharing cards
+  res.locals.STREETMIX_IMAGE = {
+    image: 'https://streetmix.net/images/thumbnail.png',
+    width: 1008,
+    height: 522
+  }
+
+  res.locals.STREETMIX_TITLE = 'Streetmix'
+  res.locals.STREETMIX_URL = config.restapi.protocol + config.app_host_port + '/'
+
+  // Make required Facebook app ID available to metatags
+  res.locals.FACEBOOK_APP_ID = config.facebook_app_id
+
+  next()
+})
+
+// Set Redis client for when requesting the geoip
+app.use('/services/geoip', (req, res, next) => {
+  req.redisClient = client
   next()
 })
 
 // Set CSP directives
 app.use(helmet.contentSecurityPolicy(csp))
 
+// Rewrite requests with timestamp
+app.use((req, res, next) => {
+  // Matches a filename like styles.2395934243.css
+  // Accepts optional `?29090424` query string used by Parcel's hot-module reloader
+  req.url = req.url.replace(/\/([^/]+)\.[0-9]+\.(css|js)(\?[0-9]+)?$/, '/$1.$2')
+  next()
+})
+
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
 
-// Redirect to environment-appropriate domain, if necessary
-// In production, this redirects streetmix-v2.herokuapp.com to https://streetmix.net/
-app.all('*', function (req, res, next) {
-  if (config.header_host_port !== req.headers.host && app.locals.config.env === 'production') {
-    const redirectUrl = 'https://' + config.header_host_port + req.url
-    console.log('req.hostname = %s but config.header_host_port = %s; redirecting to %s...', req.hostname, config.header_host_port, redirectUrl)
-    res.redirect(301, redirectUrl)
-  } else {
-    next('route')
-  }
-})
+app.get('/help/about', (req, res) => res.redirect('https://www.opencollective.com/streetmix/'))
+app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 
-app.get('/help/about', function (req, res) {
-  res.redirect('https://www.opencollective.com/streetmix/')
-})
-
-app.get('/map', function (req, res) {
-  res.redirect('https://streetmix.github.io/map/')
-})
+app.get('/privacy-policy', (req, res) => res.render('privacy'))
+app.get('/terms-of-service', (req, res) => res.render('tos'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
-app.get(config.twitter.oauth_callback_uri, controllers.twitter_sign_in_callback.get)
-// Auth0 - twitter auth
-app.get(config.auth0.twitter_callback_uri, controllers.twitter_auth0_sign_in_callback.get)
+app.get('/' + config.twitter.oauth_callback_path, controllers.twitter_sign_in_callback.get)
+// Auth0
+app.get('/' + config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 
-app.post('/api/v1/users', resources.v1.users.post)
-app.get('/api/v1/users/:user_id', resources.v1.users.get)
-app.put('/api/v1/users/:user_id', resources.v1.users.put)
-app.delete('/api/v1/users/:user_id/login-token', resources.v1.users.delete)
-app.get('/api/v1/users/:user_id/streets', resources.v1.users_streets.get)
+// Enable CORS for all OPTIONs "pre-flight" requests
+app.options('/api/*', cors())
+
+app.post('/api/v1/users', cors(), resources.v1.users.post)
+app.get('/api/v1/users', cors(), resources.v1.users.get)
+app.get('/api/v1/users/:user_id', cors(), resources.v1.user.get)
+app.put('/api/v1/users/:user_id', cors(), resources.v1.user.put)
+app.delete('/api/v1/users/:user_id', cors(), resources.v1.user.delete)
+app.delete('/api/v1/users/:user_id/login-token', cors(), resources.v1.user_session.delete)
+app.delete('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.delete)
+app.get('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.get)
 
 app.post('/api/v1/streets', resources.v1.streets.post)
 app.get('/api/v1/streets', resources.v1.streets.find)
@@ -161,86 +235,45 @@ app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
 
+app.post('/api/v1/streets/images/:street_id', bodyParser.text({ limit: '3mb' }), resources.v1.street_images.post)
+app.delete('/api/v1/streets/images/:street_id', resources.v1.street_images.delete)
+app.get('/api/v1/streets/images/:street_id', resources.v1.street_images.get)
+
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
 
-app.post('/api/v1/feedback', resources.v1.feedback.post)
+app.get('/services/geoip', resources.services.geoip.get)
+
+app.options('/services/images', cors())
+app.get('/services/images', cors(), resources.services.images.get)
 
 app.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
 
-app.get('/api/v1/flags', resources.v1.flags.get)
+app.get('/api/v1/flags', cors(), resources.v1.flags.get)
 
-app.get('/.well-known/status', resources.well_known_status.get)
-
-// Process stylesheets via Sass and PostCSS / Autoprefixer
-app.use('/assets/css/styles.css', middleware.styles.get)
-
-app.get('/assets/scripts/main.js', browserify(path.join(__dirname, '/assets/scripts/main.js'), {
-  cache: true,
-  precompile: true,
-  extensions: [ '.jsx' ],
-  transform: [babelify, envify({
-    APP_HOST_PORT: config.get('app_host_port'),
-    FACEBOOK_APP_ID: config.get('facebook_app_id'),
-    API_URL: config.get('restapi_proxy_baseuri_rel'),
-    PELIAS_HOST_NAME: config.get('geocode.pelias.host'),
-    PELIAS_API_KEY: config.get('geocode.pelias.api_key'),
-    TWITTER_CALLBACK_URI: config.get('twitter.oauth_callback_uri'),
-    AUTH0_TWITTER_CALLBACK_URI: config.get('auth0.twitter_callback_uri'),
-    AUTH0_DOMAIN: config.get('auth0.domain'),
-    AUTH0_CLIENT_ID: config.get('auth0.client_id'),
-    USE_AUTH0: config.get('auth0.use_auth0'),
-    ENV: config.get('env'),
-    NO_INTERNET_MODE: config.get('no_internet_mode')
-  })]
-}))
+// Catch all for all broken api paths, direct to 404 response.
+app.get('/api/*', (req, res) => {
+  res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
+})
 
 // SVG bundled images served directly from packages
-app.get('/assets/images/icons.svg', function (req, res) {
+app.get('/assets/images/icons.svg', (req, res) => {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/icons/dist/icons.svg'))
 })
 
-app.get('/assets/images/images.svg', function (req, res) {
+app.get('/assets/images/images.svg', (req, res) => {
   res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
 })
 
-app.get('/assets/*', function (req, res) {
-  res.render('404', {})
-})
-
-// Post-deploy hook handler
-app.post(
-  '/services/post-deploy',
-  express.urlencoded({ extended: false }),
-  resources.services.post_deploy.post
-)
-
+app.use('/assets', express.static(path.join(__dirname, '/build'), { fallthrough: false }))
 app.use(express.static(path.join(__dirname, '/public')))
 
-// Catch-all
-app.use(function (req, res) {
-  res.render('main', {})
-})
-
-// Set up file watcher in development
-if (config.env === 'development') {
-  const chokidar = require('chokidar')
-  const compileStyles = require('./lib/middleware/styles').compile
-
-  // Watch SCSS files
-  const cssWatcher = chokidar.watch('assets/css/*.scss')
-
-  cssWatcher.on('change', path => {
-    console.log(`File ${path} has been changed`)
-    compileStyles()
-  })
+// Allow hot-module reloading (HMR) in non-production environments
+if (config.env !== 'production') {
+  const runBundle = require('./app/bundle')
+  runBundle(app)
 }
 
-// Provide a message after a Ctrl-C
-// Note: various sources tell us that this does not work on Windows
-process.on('SIGINT', function () {
-  if (app.locals.config.env === 'development') {
-    console.log('Stopping Streetmix!')
-    exec('npm stop')
-  }
-  process.exit()
-})
+app.get(['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'], requestHandlers.metatags)
+
+// Catch-all
+app.use((req, res) => res.render('main'))

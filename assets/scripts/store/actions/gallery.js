@@ -5,8 +5,12 @@ import {
   DELETE_GALLERY_STREET,
   SET_GALLERY_STATE } from '../actions'
 
-export function showGallery () {
-  return { type: SHOW_GALLERY }
+export function showGallery (userId, mode) {
+  return {
+    type: SHOW_GALLERY,
+    userId,
+    mode
+  }
 }
 
 export function hideGallery () {

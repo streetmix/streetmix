@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Chodnik",
-    "sidewalk-tree": "Chodnik z drzewem",
+    "sidewalk-tree": "Drzewem",
     "bike-rack": "Stojak na rowery",
     "bench": "Ławka",
     "wayfinding-sign": "Drogowskaz",
-    "sidewalk-lamp": "Chodnik z latarnią",
+    "sidewalk-lamp": "Latarnią",
     "parklet": "Parklet",
     "divider": "Pobocze",
     "planting-strip": "Pas zieleni",
@@ -13,6 +13,8 @@
     "median": "Środkowy pas",
     "bollard": "Słupek",
     "dome": "Strefa wyłączonego ruchu kołowego",
+    "scooter": "",
+    "scooter-drop-zone": "",
     "bike-lane": "Droga rowerowa",
     "parking-lane": "Strefa parkowania",
     "perpendicular-parking": "Parkowanie prostopadłe",
@@ -41,7 +43,7 @@
       "lede": "Drogowskazy pomagają pieszym dotrzeć do popularnych miejsc.",
       "text": [
         "Urbaniści i architekci spędzili dekady analizując, co się dzieje w mózgach ludzi, którzy usiłują dotrzeć z punktu A do punktu B, a nawet skąd (ludzie) wiedzą, gdzie jest punkt A. Już w 1960 roku urbanista Kevin Lynch pisał o \"czytelności\" miasta w swojej książce <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, opisując odnajdywanie drogi jako “spójne zastosowanie i organizacja określonych sygnałów sensorycznych ze środowiska zewnętrznego.” Sygnały mogą być  nienamacalne - węch, dotyk, poczucie równowagi lub nawet pól elektrycznych lub magnetycznych. Mogą też pochodzić z fizycznych, stosowanych na skalę światową \"przyrządów do odnajdywania drogi\" takich jak mapy, numery ulic, znaki drogowe.",
-        "Zaskakujące, jak powszechnie akceptowany jest fakt, że ogrom drogowskazów służy podróżującym samochodem, przy zdecydowanie mniejszej uwadze poświęconej pieszym. Może to dlatego, że jest nam dużo łatwiej zatrzymać się, określić nasze położenie i korzystać z własnych zmysłów bez obawy przed stworzeniem kolejki sześciu osób za naszymi plecami. W każdym razie urbaniści zwrócili większą uwagę na oznakowanie dla pieszych, zwłaszcza w strefach dużego ruchu pieszych, np. w okolicach handlowych i to oznakowanie, poza główną funkcją, stało się też okazją do kreowania wizerunku. I tak Nowy Jork <a href=\"https://www.pentagram.com/work/walknyc/story\">zatrudnił światowej klasy projektanta (en)</a> (a Streetmix wzorowało się na nim projektując swoje segmenty), inne miasta przyjęły tradycyjny styl staromiejski albo styl miejski formalny, jeszcze inne, z jakiegokolwiek powodu, nie posiadają w ogóle drogowskazów dla pieszych i wszelkie usprawnienia wymagają użycia <a href=\"http://walkyourcity.org/\">partyzanckich umiejętności (en)</a>.",
+        "Zaskakujące, jak powszechnie akceptowany jest fakt, że ogrom drogowskazów służy podróżującym samochodem, przy zdecydowanie mniejszej uwadze poświęconej pieszym. Może to dlatego, że jest nam dużo łatwiej zatrzymać się, określić nasze położenie i korzystać z własnych zmysłów bez obawy przed stworzeniem kolejki sześciu osób za naszymi plecami. W każdym razie urbaniści zwrócili większą uwagę na oznakowanie dla pieszych, zwłaszcza w strefach dużego ruchu pieszych, np. w okolicach handlowych i to oznakowanie, poza główną funkcją, stało się też okazją do kreowania wizerunku. I tak Nowy Jork <a href=\"https://www.pentagram.com/work/walknyc/story\">zatrudnił światowej klasy projektanta (en)</a> (a aplikacja Streetmix wzorowała się na nim projektując swoje segmenty), inne miasta przyjęły tradycyjny styl staromiejski albo styl miejski formalny, jeszcze inne, z jakiegokolwiek powodu, nie posiadają w ogóle drogowskazów dla pieszych i wszelkie usprawnienia wymagają użycia <a href=\"http://walkyourcity.org/\">partyzanckich umiejętności (en)</a>.",
         "W końcu nie ma nic gorszego niż się zgubić. Jak pisał Lynch: \"Samo słowo <em>zgubić</em> w języku angielskim oznacza dużo więcej niż tylko geograficzną niepewność; zawiera w sobie całe tony doszczętnej porażki.\" A kto chce stać na ulicy czując się w ten sposób?"
       ]
     },
@@ -50,8 +52,8 @@
       "imageCaption": "Parklet przy Judah Street 4033, dzięki uprzejmości Departamentu Planowania w San Francisco.",
       "lede": "Parklety zmieniają dotychczasowe miejsca parkingowe w tymczasową przestrzeń publicznego odpoczynku.",
       "text": [
-        "W 2005, studio projektowe z San Francisco <a href=\"http://rebargroup.org/\">Rebar</a> tymczasowo zmieniło niewielkie miejsce parkingowe na śródmiejskiej ulicy Mission Street w malutki park publiczny. Pierwszy parklet był prosty: jedynie ławka i drzewo na prostokątnym kawałku trawnika, ale zawierał małą instrukcję i przyzwolenie dla innych, aby tworzyli kolejne. Gdy ludzie zdali sobie sprawę, że tak dużo przestrzeni publicznej poświęca się na przechowywanie samochodów, zrodził się międzynarodowy ruch i teraz doroczny <a href=\"http://parkingday.org/\">Park(ing) Day</a> wita około tysiąca tymczasowych parkletów na całym świecie.",
-        "San Francisco stało się pierwszym miastem, w którym parklety stały się oficjalne dzięki <a href=\"http://sfpavementtoparks.sfplanning.org/\">programowi Pavement to Parks</a>  w 2010 roku. Dziś to miasto nad zatoką ma ponad 50 parkletów, których architektura projektowana jest z dużo lepszym efektem w porównaniu do skromnego prototypu firmy Rebar. Powstał ambitny, wspierany przez sponsora w postaci korporacji, parklet długości dwóch bloków w sercu najbardziej ruchliwego korytarza handlowego San Francisco, jak również kolekcja czerwonych parków przenośnych (parkmobiles) (domyślny widok Streetmixa) zaprojektowanych dla <a href=\"http://www.ybcbd.org/\">Yerba Buena Community Benefit District</a>.  Oficjalne programy parkletowe istnieją teraz w wielu miastach Ameryki Północnej takich jak Philadelphia, Oakland, Kansas City, New York, Chicago, Vancouver i wiele miast niedługo podąży w ich ślady."
+        "W 2005, studio projektowe z San Francisco <a href=\"http://rebargroup.org/\">Rebar</a> tymczasowo zmieniło niewielkie miejsce parkingowe na śródmiejskiej ulicy Mission Street w malutki park publiczny. Pierwszy parklet był prosty: jedynie ławka i drzewo na prostokątnym kawałku trawnika, ale zawierał małą instrukcję i przyzwolenie dla innych, aby tworzyli kolejne. Gdy ludzie zdali sobie sprawę, że tak dużo przestrzeni publicznej poświęca się na przechowywanie samochodów, zrodził się międzynarodowy ruch i teraz doroczny <a href=\"https://www.facebook.com/PARKing-Day-71298180414\">Park(ing) Day</a> wita około tysiąca tymczasowych parkletów na całym świecie.",
+        "San Francisco stało się pierwszym miastem, w którym parklety stały się oficjalne dzięki <a href=\"http://sfpavementtoparks.sfplanning.org/\">programowi Pavement to Parks</a>  w 2010 roku. Dziś to miasto nad zatoką ma ponad 50 parkletów, których architektura projektowana jest z dużo lepszym efektem w porównaniu do skromnego prototypu firmy Rebar. Powstał ambitny, wspierany przez sponsora w postaci korporacji, parklet długości dwóch bloków w sercu najbardziej ruchliwego korytarza handlowego San Francisco, jak również kolekcja czerwonych parków przenośnych (parkmobiles) (domyślny widok Streetmiksa) zaprojektowanych dla <a href=\"http://www.ybcbd.org/\">Yerba Buena Community Benefit District</a>.  Oficjalne programy parkletowe istnieją teraz w wielu miastach Ameryki Północnej takich jak Philadelphia, Oakland, Kansas City, New York, Chicago, Vancouver i wiele miast niedługo podąży w ich ślady."
       ]
     },
     "bike-lane": {
@@ -86,7 +88,7 @@
       "lede": "Wzniesione przystanki obsługują pasażerów kolejki oraz autobusów.",
       "text": [
         "W przypadku niektórych systemów transportowych: autobusowych czy kolejkowych, gdzie szybkość transportu jest wielkim priorytetem, wzniesiony przystanek załatwia sprawę. Pozwala na przyjęcie pasażerów bez różnicy poziomów między platformą przystanku a podłogą pojazdu (np. w przypadku osób na wózku czy innych osób ze specjalnymi potrzebami związanymi z dostępem do pojazdu), a więc oszczędza kluczowe sekundy dla każdego przystanku co w sumie na całej trasie daje już istotny czas. ",
-        "Z powodu priorytetu, jakim jest szybkość transportu, pojazdy, które korzystają z wzniesionych przystanków często korzystają też z oddzielnych pasów ruchu, zwykle w środkowym pasie drogowym. Gdy są one umieszczone pomiędzy jezdniami przeznaczonymi dla przeciwnych kierunków ruchu, mogą być wykorzystywane przez pasażerów po obu stronach platformy (i będziesz musiał zamieścić dwa takie pasy w Streetmix).",
+        "Z powodu priorytetu, jakim jest szybkość transportu, pojazdy, które korzystają z wzniesionych przystanków często korzystają też z oddzielnych pasów ruchu, zwykle w środkowym pasie drogowym. Gdy są one umieszczone pomiędzy jezdniami przeznaczonymi dla przeciwnych kierunków ruchu, mogą być wykorzystywane przez pasażerów po obu stronach platformy (i będziesz musiał zamieścić dwa takie pasy w Streetmiksie).",
         "Wzniesione przystanki są też czasem projektowane jak perony kolejowe, zabudowane lub zadaszone, aby chronić podróżnych, stanowią też wówczas widoczne oznakowanie przystanku transportu publicznego na zatłoczonych ulicach. Ale w porównaniu z przystankami na wysokości krawężnika są droższe i zajmują więcej miejsca, uwzględniając także rampy dla wózków. To sprawia, że trudniej jest je uwzględniać w planowaniu w porównaniu ze zwykłymi przystankami. Ponadto przy wzroście popularności autobusów niskopodłogowych, spada potrzeba budowania wzniesionych platform przystankowych."
       ]
     },
@@ -145,7 +147,7 @@
     "direction|inbound": "Wlotowy",
     "direction|outbound": "Wylotowy",
     "sidewalk-density|empty": "Pusty",
-    "sidewalk-density|sparse": "Rzadki",
+    "sidewalk-density|sparse": "Umiarkowany",
     "sidewalk-density|normal": "Normalny",
     "sidewalk-density|dense": "Zagęszczony",
     "lamp-orientation|left": "W lewo",
@@ -159,6 +161,7 @@
     "car-type|truck": "Ciężarówka",
     "public-transit-asphalt|regular": "Asfalt",
     "public-transit-asphalt|colored": "Pas wydzielony kolorem czerwonym",
+    "public-transit-asphalt|grass": "Trawa",
     "bus-asphalt|regular": "Asfalt",
     "bus-asphalt|colored": "Pas wydzielony kolorem czerwonym",
     "bus-asphalt|shared": "Buspas współdzielony ze ścieżką rowerową",

@@ -1,4 +1,5 @@
 import { tween } from 'shifty'
+import slugify from 'slugify'
 
 /**
  * Gets the absolute position in pixels of a given element,
@@ -41,13 +42,21 @@ export function getElAbsolutePos (el, includeScroll = false) {
 export function normalizeSlug (slug) {
   if (!slug) return
 
-  slug = slug.toLowerCase()
-  slug = slug.replace(/ /g, '-')
-  slug = slug.replace(/-{2,}/, '-')
-  slug = slug.replace(/[^a-zA-Z0-9-]/g, '')
-  slug = slug.replace(/^[-]+|[-]+$/g, '')
+  // Remove certain replacements mapped by slugify
+  slugify.extend({
+    '|': null,
+    '%': null,
+    '$': null
+  })
 
-  return slug
+  const slugified = slugify(slug, {
+    replacement: '-',
+    remove: /[*+=~.,<>(){}'"!?:;@#$%^&*|\\/[\]]/g,
+    lower: true
+  })
+
+  // Remove any trailing or leading hyphens, which slugify doesn't clean up
+  return slugified.replace(/^[-]+|[-]+$/g, '')
 }
 
 /**

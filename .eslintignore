@@ -1,2 +1,4 @@
 assets/scripts/vendor/
 test/integration/smoke.spec.js
+build
+docs

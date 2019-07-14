@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedMessage } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
-import Description from './Description.jsx'
+import Description from './Description'
 import { infoBubble } from './info_bubble'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
@@ -17,12 +18,15 @@ import {
 } from './constants'
 import { registerKeypress } from '../app/keypress'
 import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
-// import { trackEvent } from '../app/event_tracking'
+import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
+import { getSegmentEl, editSegmentLabel } from '../segments/view'
+import { ICON_PENCIL, ICON_LOCK } from '../ui/icons'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
+import './InfoBubble.scss'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -32,24 +36,26 @@ const DESCRIPTION_HOVER_POLYGON_MARGIN = 200
 const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
 const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
 
-class InfoBubble extends React.Component {
+export class InfoBubble extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
+    descriptionVisible: PropTypes.bool,
     mouseInside: PropTypes.bool,
-    dataNo: PropTypes.oneOfType([
+    position: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
-    descriptionVisible: PropTypes.bool,
     setInfoBubbleMouseInside: PropTypes.func,
     updateHoverPolygon: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object,
-    locale: PropTypes.object
+    locale: PropTypes.object,
+    customSegmentLabels: PropTypes.bool
   }
 
   static defaultProps = {
-    visible: false
+    visible: false,
+    customSegmentLabels: false
   }
 
   constructor (props) {
@@ -57,7 +63,7 @@ class InfoBubble extends React.Component {
 
     // Stores a ref to the element
     this.el = React.createRef()
-    this.segmentEl = this.getSegmentEl(props.dataNo)
+    this.segmentEl = getSegmentEl(props.position)
     this.streetOuterEl = null
 
     this.state = {
@@ -86,11 +92,11 @@ class InfoBubble extends React.Component {
    * @param {Object} prevState
    */
   static getDerivedStateFromProps (nextProps, prevState) {
-    if (nextProps.dataNo === 'left') {
+    if (nextProps.position === 'left') {
       return {
         type: INFO_BUBBLE_TYPE_LEFT_BUILDING
       }
-    } else if (nextProps.dataNo === 'right') {
+    } else if (nextProps.position === 'right') {
       return {
         type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
       }
@@ -116,14 +122,14 @@ class InfoBubble extends React.Component {
 
     if (!this.el || !this.el.current) return null
 
-    if (!wasBuilding && this.props.dataNo === 'right') {
+    if (!wasBuilding && this.props.position === 'right') {
       return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
     return null
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    this.segmentEl = this.getSegmentEl(this.props.dataNo)
+    this.segmentEl = getSegmentEl(this.props.position)
     this.setInfoBubblePosition()
 
     // If info bubble changes, wake this back up if it's fading out
@@ -160,29 +166,22 @@ class InfoBubble extends React.Component {
 
   // TODO: verify this continues to work with pointer / touch taps
   onMouseEnter = (event) => {
-    // TODO: refactor so segment element handles this
-    if (this.segmentEl) {
-      this.segmentEl.classList.add('hide-drag-handles-when-inside-info-bubble')
-    }
-
     this.props.setInfoBubbleMouseInside(true)
 
     this.updateHoverPolygon()
   }
 
   onMouseLeave = (event) => {
-    // TODO: Prevent pointer taps from flashing the drag handles
-    // TODO: refactor so segment element handles this
-    if (this.segmentEl) {
-      this.segmentEl.classList.remove('hide-drag-handles-when-inside-info-bubble')
-    }
-
     this.props.setInfoBubbleMouseInside(false)
 
     // Returns focus to body when pointer leaves the info bubble area
     // so that keyboard commands respond to pointer position rather than
     // any focused buttons/inputs
     loseAnyFocus()
+  }
+
+  onMouseEnterLabel = (event) => {
+    trackEvent('Interaction', 'InoBubble: Hover over editable label', null, null, true)
   }
 
   onBodyMouseMove = (event) => {
@@ -217,111 +216,108 @@ class InfoBubble extends React.Component {
 
   // TODO: make this a pure(r) function
   createHoverPolygon = (mouseX, mouseY) => {
+    // `hoverPolygon` is an array of points as [x, y] values. Values should
+    // draw a shape counter-clockwise. The final value must match the first
+    // value in order to create an enclosed polygon.
     let hoverPolygon = []
 
     if (!this.props.visible) {
       return hoverPolygon
     }
 
-    if (!this.el || !this.el.current) return
+    // Bail if any reference to an element no longer exists
+    if (!this.el || !this.el.current || !this.segmentEl) return
 
     const bubbleWidth = this.el.current.offsetWidth
     const bubbleHeight = this.el.current.offsetHeight
     const bubbleX = Number.parseInt(this.el.current.style.left)
     const bubbleY = Number.parseInt(this.el.current.style.top)
 
-    let marginBubble
-
-    if (this.props.descriptionVisible) {
-      marginBubble = DESCRIPTION_HOVER_POLYGON_MARGIN
-    } else {
-      marginBubble = INFO_BUBBLE_MARGIN_BUBBLE
-    }
-
     if (this.props.mouseInside && !this.props.descriptionVisible) {
-      var pos = getElAbsolutePos(this.segmentEl)
+      const pos = getElAbsolutePos(this.segmentEl)
 
-      var x = pos[0] - document.querySelector('#street-section-outer').scrollLeft
+      // Left X position of segment element
+      const segmentLeftX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
+      // Right X position of segment element
+      const segmentRightX = segmentLeftX + this.segmentEl.offsetWidth
+      // Left X position of segment element with margin (edge of the hover polygon)
+      const hitboxLeftX = segmentLeftX - INFO_BUBBLE_MARGIN_BUBBLE
+      // Right X position of segment element with margin (edge of the hover polygon)
+      const hitboxRightX = segmentRightX + INFO_BUBBLE_MARGIN_BUBBLE
 
-      var segmentX1 = x - INFO_BUBBLE_MARGIN_BUBBLE
-      var segmentX2 = x + this.segmentEl.offsetWidth + INFO_BUBBLE_MARGIN_BUBBLE
-
-      var segmentY = pos[1] + this.segmentEl.offsetHeight + INFO_BUBBLE_MARGIN_BUBBLE
+      // Top Y position of segment element
+      const segmentTopY = pos[1]
+      // Bottom Y position of segment element
+      const segmentBottomY = segmentTopY + this.segmentEl.offsetHeight
+      // Bottom Y position of segment element with margin
+      const hitboxBottomY = segmentBottomY + INFO_BUBBLE_MARGIN_BUBBLE
 
       hoverPolygon = [
-        [bubbleX - marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [segmentX1, bubbleY + bubbleHeight + marginBubble + 120],
-        [segmentX1, segmentY],
-        [segmentX2, segmentY],
-        [segmentX2, bubbleY + bubbleHeight + marginBubble + 120],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY - marginBubble]
+        // Top left of infobubble
+        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+        // Bottom left of infobubble
+        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+        // Diagonal line to hit edge of segment
+        [hitboxLeftX, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE + 120],
+        // Bottom left of segment
+        [hitboxLeftX, hitboxBottomY],
+        // Bottom right of segment
+        [hitboxRightX, hitboxBottomY],
+        // Point at which to begin diagonal line to infobubble
+        [hitboxRightX, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE + 120],
+        // Bottom right of infobubble
+        [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+        // Top right of infobubble
+        [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+        // Top left of infobubble (starting point)
+        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE]
       ]
     } else {
-      var bottomY = mouseY - INFO_BUBBLE_MARGIN_MOUSE
+      let bottomY = mouseY - INFO_BUBBLE_MARGIN_MOUSE
       if (bottomY < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
         bottomY = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
-      var bottomY2 = mouseY + INFO_BUBBLE_MARGIN_MOUSE
+      let bottomY2 = mouseY + INFO_BUBBLE_MARGIN_MOUSE
       if (bottomY2 < bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE) {
         bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
 
       if (this.props.descriptionVisible) {
-        bottomY = bubbleY + bubbleHeight + marginBubble + 300
+        bottomY = bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300
         bottomY2 = bottomY
-      }
 
-      var diffX = 60 - ((mouseY - bubbleY) / 5)
-      if (diffX < 0) {
-        diffX = 0
-      } else if (diffX > 50) {
-        diffX = 50
-      }
-
-      hoverPolygon = [
-        [bubbleX - marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [(bubbleX - marginBubble + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
-        [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY],
-        [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
-        [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
-        [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
-        [(bubbleX + bubbleWidth + marginBubble + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + ((bubbleY + bubbleHeight + marginBubble - bottomY) * 0.2)],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble],
-        [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-        [bubbleX - marginBubble, bubbleY - marginBubble]
-      ]
-
-      if (this.props.descriptionVisible) {
         hoverPolygon = [
-          [bubbleX - marginBubble, bubbleY - marginBubble],
-          [bubbleX - marginBubble, bubbleY + bubbleHeight + marginBubble + 300],
-          [bubbleX + bubbleWidth + marginBubble, bubbleY + bubbleHeight + marginBubble + 300],
-          [bubbleX + bubbleWidth + marginBubble, bubbleY - marginBubble],
-          [bubbleX - marginBubble, bubbleY - marginBubble]
+          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN],
+          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300],
+          [bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300],
+          [bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN],
+          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN]
+        ]
+      } else {
+        let diffX = 60 - ((mouseY - bubbleY) / 5)
+        if (diffX < 0) {
+          diffX = 0
+        } else if (diffX > 50) {
+          diffX = 50
+        }
+
+        hoverPolygon = [
+          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+          [(bubbleX - INFO_BUBBLE_MARGIN_BUBBLE + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) * 0.2)],
+          [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY],
+          [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
+          [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
+          [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
+          [(bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + ((bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) * 0.2)],
+          [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+          [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE]
         ]
       }
     }
 
     return hoverPolygon
-  }
-
-  getSegmentEl (dataNo) {
-    if (!dataNo && dataNo !== 0) return
-
-    let segmentEl
-    if (dataNo === 'left') {
-      segmentEl = document.querySelectorAll('.street-section-building')[0]
-    } else if (dataNo === 'right') {
-      segmentEl = document.querySelectorAll('.street-section-building')[1]
-    } else {
-      const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
-      segmentEl = segments[dataNo]
-    }
-    return segmentEl
   }
 
   /**
@@ -398,9 +394,18 @@ class InfoBubble extends React.Component {
     let id
     let defaultMessage = ''
 
+    // Return label if provided
+    if (this.state.type === INFO_BUBBLE_TYPE_SEGMENT) {
+      const segment = this.props.street.segments[this.props.position]
+      if (segment && segment.label) {
+        return segment.label
+      }
+    }
+
+    // Otherwise need to do a lookup
     switch (this.state.type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const segment = this.props.street.segments[this.props.dataNo]
+        const segment = this.props.street.segments[this.props.position]
         if (segment) {
           const segmentInfo = getSegmentInfo(segment.type)
           const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
@@ -443,7 +448,8 @@ class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
-    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT)
+    const isEditable = this.props.customSegmentLabels
+    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null)
 
     // Set class names
     const classNames = ['info-bubble']
@@ -460,7 +466,7 @@ class InfoBubble extends React.Component {
     let position
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        position = this.props.dataNo
+        position = this.props.position
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         position = 'left'
@@ -477,7 +483,7 @@ class InfoBubble extends React.Component {
     let widthOrHeightControl
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        widthOrHeightControl = <WidthControl segmentEl={this.segmentEl} position={position} />
+        widthOrHeightControl = <WidthControl position={position} />
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
@@ -488,7 +494,7 @@ class InfoBubble extends React.Component {
         break
     }
 
-    const segment = this.props.street.segments[this.props.dataNo] || {}
+    const segment = this.props.street.segments[this.props.position] || {}
 
     return (
       <div
@@ -500,8 +506,20 @@ class InfoBubble extends React.Component {
       >
         <Triangle highlight={this.state.highlightTriangle} />
         <header>
-          <div className="info-bubble-header-label">{this.getName()}</div>
-          <RemoveButton enabled={canBeDeleted} segment={this.segmentEl} />
+          <div
+            className="info-bubble-label info-bubble-label-editable"
+            onClick={() => isEditable && editSegmentLabel(segment, this.props.position)}
+            onMouseEnter={this.onMouseEnterLabel}
+          >
+            {this.getName()}
+            <span className="info-bubble-label-editable-icon">
+              {isEditable
+                ? <FontAwesomeIcon icon={ICON_PENCIL} />
+                : <FontAwesomeIcon icon={ICON_LOCK} />
+              }
+            </span>
+          </div>
+          {canBeDeleted && <RemoveButton segment={this.props.position} />}
         </header>
         <div className="info-bubble-controls">
           <IntlProvider
@@ -519,7 +537,6 @@ class InfoBubble extends React.Component {
           updateBubbleDimensions={this.updateBubbleDimensions}
           highlightTriangle={this.highlightTriangle}
           unhighlightTriangle={this.unhighlightTriangle}
-          segmentEl={this.segmentEl}
           infoBubbleEl={this.el.current}
           updateHoverPolygon={this.updateHoverPolygon}
         />
@@ -531,12 +548,13 @@ class InfoBubble extends React.Component {
 function mapStateToProps (state) {
   return {
     visible: state.infoBubble.visible,
-    dataNo: state.infoBubble.dataNo,
     descriptionVisible: state.infoBubble.descriptionVisible,
     mouseInside: state.infoBubble.mouseInside,
+    position: state.ui.activeSegment,
     street: state.street,
     system: state.system,
-    locale: state.locale
+    locale: state.locale,
+    customSegmentLabels: state.flags.CUSTOM_SEGMENT_LABELS.value
   }
 }
 

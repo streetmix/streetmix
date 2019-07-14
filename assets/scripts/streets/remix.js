@@ -9,7 +9,6 @@ import {
 } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import { setStreetCreatorId } from './data_model'
-import { updateStreetName } from './name'
 import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
 import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
 import store from '../store'
@@ -95,14 +94,13 @@ export function remixStreet () {
 function receiveRemixedStreet (data) {
   if (!promoteStreet) {
     if (isSignedIn()) {
-      showStatusMessage(t('toast.remixing'))
+      showStatusMessage(t('toast.remixing', 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.'))
     } else {
-      showStatusMessage(t('toast.remixing-sign-in'), false, true)
+      showStatusMessage(t('toast.remixing-sign-in', 'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'), false, true)
     }
   }
 
   setStreetId(data.id, data.namespacedId)
-  updateStreetName(store.getState().street)
 
   saveStreetToServer(false)
 }

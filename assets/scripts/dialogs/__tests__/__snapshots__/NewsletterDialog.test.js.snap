@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewsletterDialog renders snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="dialog-box-container"
+  >
+    <div
+      class="dialog-box-backdrop"
+    />
+    <div
+      class="dialog-box"
+      role="dialog"
+    >
+      <button
+        class="close"
+        title="Dismiss"
+      >
+        <svg
+          class="svg-inline--fa fa-times"
+        />
+      </button>
+      <div
+        class="newsletter-dialog"
+      >
+        <header>
+          <h1>
+            <span>
+              Subscribe to our newsletter
+            </span>
+          </h1>
+        </header>
+        <div
+          class="dialog-content"
+        >
+          <div>
+            <div>
+              foo
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

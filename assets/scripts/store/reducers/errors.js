@@ -17,9 +17,7 @@ const status = (state = initialState, action) => {
         abortEverything: action.abortEverything
       }
     case HIDE_ERROR:
-      return {
-        ...initialState
-      }
+      return initialState
     default:
       return state
   }

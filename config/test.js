@@ -1,4 +1,4 @@
-const port = 3000
+const port = 8000
 
 module.exports = {
   port: port,
@@ -10,9 +10,6 @@ module.exports = {
   },
   db: {
     url: 'mongodb://127.0.0.1:27017/streetmix_test'
-  },
-  email: {
-    feedback_recipient: 'nobody@example.com'
   },
   l10n: {
     use_local: true

@@ -1,0 +1,60 @@
+@import '../../styles/variables.scss';
+
+$tooltip-background-colour: rgba(24, 24, 24, 0.75);
+$tooltip-font-colour:       white;
+$tooltip-font-weight:       bold;
+$tooltip-max-width:         120px;
+
+.palette-tooltip {
+  position: fixed;
+  background: $tooltip-background-colour;
+  bottom: 88px;
+  padding: 0.75em 1.25em;
+  font-size: 13px;
+  font-weight: $tooltip-font-weight;
+  color: $tooltip-font-colour;
+  border-radius: $border-radius;
+  text-align: center;
+  max-width: $tooltip-max-width;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 100ms, transform 100ms ease-in;
+  box-shadow: $medium-box-shadow;
+  z-index: 2; // Positions this above hovered segment element
+  pointer-events: none;
+}
+
+.palette-tooltip-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.palette-tooltip-contents {
+  max-height: 100px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.palette-tooltip-pointer-container {
+  width: 40px;
+  position: absolute;
+  left: 50%;
+  margin-left: -20px;
+  overflow: hidden;
+  pointer-events: none;
+  bottom: -15px;
+  height: 15px;
+}
+
+.palette-tooltip-pointer {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  left: 50%;
+  bottom: 8px;
+  margin-left: -15px;
+  transform: rotate(45deg);
+  background-color: $tooltip-background-colour;
+  box-shadow: none;
+}

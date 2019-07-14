@@ -4,34 +4,6 @@
     "name": "Arabic",
     "value": "ar",
     "key": "i18n.lang.ar",
-    "level": 2
-  },
-  {
-    "label": "中文",
-    "name": "Chinese (Traditional)",
-    "value": "zh-Hant",
-    "key": "i18n.lang.zh-hant",
-    "level": 2
-  },
-  {
-    "label": "English",
-    "name": "English",
-    "value": "en",
-    "key": "i18n.lang.en",
-    "level": 4
-  },
-  {
-    "label": "Suomi",
-    "name": "Finnish",
-    "value": "fi",
-    "key": "i18n.lang.fi",
-    "level": 2
-  },
-  {
-    "label": "Français",
-    "name": "French",
-    "value": "fr",
-    "key": "i18n.lang.fr",
     "level": 3
   },
   {
@@ -39,28 +11,14 @@
     "name": "German",
     "value": "de",
     "key": "i18n.lang.de",
-    "level": 1
-  },
-  {
-    "label": "日本語",
-    "name": "Japanese",
-    "value": "ja",
-    "key": "i18n.lang.ja",
     "level": 3
   },
   {
-    "label": "Polski",
-    "name": "Polish",
-    "value": "pl",
-    "key": "i18n.lang.pl",
-    "level": 2
-  },
-  {
-    "label": "Português (Brasil)",
-    "name": "Portuguese (Brazil)",
-    "value": "pt-BR",
-    "key": "i18n.lang.pt-br",
-    "level": 2
+    "label": "English",
+    "name": "English",
+    "value": "en",
+    "key": "i18n.lang.en",
+    "level": 4
   },
   {
     "label": "Español",
@@ -77,10 +35,66 @@
     "level": 3
   },
   {
+    "label": "Suomi",
+    "name": "Finnish",
+    "value": "fi",
+    "key": "i18n.lang.fi",
+    "level": 3
+  },
+  {
+    "label": "Français",
+    "name": "French",
+    "value": "fr",
+    "key": "i18n.lang.fr",
+    "level": 3
+  },
+  {
+    "label": "日本語",
+    "name": "Japanese",
+    "value": "ja",
+    "key": "i18n.lang.ja",
+    "level": 3
+  },
+  {
+    "label": "Polski",
+    "name": "Polish",
+    "value": "pl",
+    "key": "i18n.lang.pl",
+    "level": 3
+  },
+  {
+    "label": "Português (Brasil)",
+    "name": "Portuguese (Brazil)",
+    "value": "pt-BR",
+    "key": "i18n.lang.pt-br",
+    "level": 3
+  },
+  {
+    "label": "Русский",
+    "name": "Russian",
+    "value": "ru",
+    "key": "i18n.lang.ru",
+    "level": 3
+  },
+  {
     "label": "Svenska",
     "name": "Swedish",
     "value": "sv",
     "key": "i18n.lang.sv",
     "level": 1
+  },
+  {
+    "label": "简体中文",
+    "name": "Simplified Chinese",
+    "value": "zh-Hans",
+    "key": "i18n.lang.zh-hans",
+    "level": 3
+  },
+  {
+    "label": "繁體中文",
+    "name": "Traditional Chinese",
+    "value": "zh-Hant",
+    "key": "i18n.lang.zh-hant",
+    "level": 3
   }
 ]

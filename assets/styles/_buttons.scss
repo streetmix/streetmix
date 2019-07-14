@@ -1,0 +1,58 @@
+button.scroll,
+.scrollable {
+  @include tap-highlight-color(transparent);
+
+  position: absolute;
+  top: 0;
+  width: 25px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+
+  &[disabled] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+input[type="submit"],
+button,
+a.button-like {
+  display: inline-block !important;
+  outline: none;
+  border: 0;
+  border-top: $button-border;
+  border-bottom: $button-border;
+  border-radius: 0; /* For Chrome 62 on Mac, which enforces a border-radius in its browser stylesheet. */
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: mix($ui-colour, white, 50%);
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  -webkit-align-items: flex-start !important;
+
+  &:not([disabled]) .svg-inline--fa {
+    color: #231f20;
+  }
+
+  &:hover {
+    background-color: mix($ui-colour, white, 70%);
+  }
+
+  &:active {
+    background-color: mix($ui-colour, white, 95%);
+  }
+
+  &[disabled] {
+    border-top-color: desaturate($ui-colour, 100%);
+    border-bottom-color: desaturate($ui-colour, 100%);
+    background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    color: #999 !important;
+    cursor: auto;
+
+    &:hover {
+      background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    }
+  }
+}

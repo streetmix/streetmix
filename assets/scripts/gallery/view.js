@@ -7,13 +7,18 @@ import { hideStatusMessage } from '../app/status_message'
 import { app } from '../preinit/app_settings'
 import { hideControls } from '../segments/resizing'
 import { updateToLatestSchemaVersion } from '../streets/data_model'
+import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
 
 // Redux
 import store from '../store'
-import { SET_GALLERY_STATE } from '../store/actions'
-import { setGalleryMode, hideGallery as hideGalleryAction } from '../store/actions/gallery'
+import {
+  setGalleryMode,
+  receiveGalleryStreets,
+  showGallery as showGalleryAction,
+  hideGallery as hideGalleryAction
+} from '../store/actions/gallery'
 
 const galleryState = {
   // set to true when the current street is deleted from the gallery
@@ -21,20 +26,15 @@ const galleryState = {
   noStreetSelected: false
 }
 
-export function showGallery (userId, instant, signInPromo = false) {
+export function showGallery (userId, instant = false) {
   if (app.readOnly) {
     return
   }
 
   trackEvent('INTERACTION', 'OPEN_GALLERY', userId, null, false)
 
-  store.dispatch({
-    type: SET_GALLERY_STATE,
-    visible: true,
-    userId: userId,
-    // TODO: Handle modes better.
-    mode: (signInPromo) ? 'SIGN_IN_PROMO' : 'NONE'
-  })
+  // TODO: Handle modes better.
+  store.dispatch(showGalleryAction(userId, 'NONE'))
 
   hideControls()
   hideStatusMessage()
@@ -56,13 +56,11 @@ export function showGallery (userId, instant, signInPromo = false) {
     showError(ERRORS.NO_STREET, false)
   }
 
-  if (!signInPromo) {
-    loadGalleryContents()
-    updatePageUrl(true)
-  }
+  loadGalleryContents()
+  updatePageUrl(true)
 }
 
-export function hideGallery (instant) {
+export function hideGallery (instant = false) {
   // Do not hide the gallery if there is no street selected.
   if (galleryState.noStreetSelected === true) {
     return
@@ -111,11 +109,7 @@ export function receiveGalleryData (transmission) {
     streets.push(galleryStreet)
   }
 
-  store.dispatch({
-    type: SET_GALLERY_STATE,
-    mode: 'GALLERY',
-    streets: streets
-  })
+  store.dispatch(receiveGalleryStreets(streets))
 
   if (((getMode() === MODES.USER_GALLERY) && streets.length) || (getMode() === MODES.GLOBAL_GALLERY)) {
     switchGalleryStreet(streets[0].id)
@@ -127,6 +121,9 @@ export function repeatReceiveGalleryData () {
 }
 
 export function switchGalleryStreet (id) {
+  // Save previous street's thumbnail before switching streets.
+  saveStreetThumbnail(store.getState().street, SAVE_THUMBNAIL_EVENTS.PREVIOUS_STREET)
+
   galleryState.noStreetSelected = false
 
   fetchGalleryStreet(id)

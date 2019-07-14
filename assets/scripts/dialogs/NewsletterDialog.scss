@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+
+.newsletter-dialog {
+  min-width: 450px;
+  max-width: 600px;
+}
+
+/* Mailchimp overrides */
+#mc_embed_signup form {
+  padding: 0;
+}
+
+#mc_embed_signup h2 {
+  display: none;
+}
+
+/* Hard codes replacement button styles */
+#mc_embed_signup .button {
+  border-top: 1px solid #a9ccdb;
+  border-bottom: 1px solid #a9ccdb;
+  border-radius: 0;
+  background-color: #e6f0f5;
+  color: black;
+  text-align: center;
+  height: auto;
+
+  &:hover {
+    background-color: mix($ui-colour, white, 70%);
+  }
+
+  &:active {
+    background-color: mix($ui-colour, white, 95%);
+  }
+}
+
+/* Centers the subscribe button */
+#mc_embed_signup .clear {
+  width: 100%;
+  text-align: center;
+}

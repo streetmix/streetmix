@@ -3,15 +3,14 @@ import { API_URL } from '../app/config'
 import { hideError, showError, ERRORS } from '../app/errors'
 import {
   setLastStreet,
-  trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
-import { updateStreetName } from '../streets/name'
 import { unpackServerStreetData } from '../streets/xhr'
-import { resizeStreetWidth, recalculateOccupiedWidth } from '../streets/width'
+import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { getAuthHeader } from '../users/authentication'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
+import { resetMapState } from '../store/actions/map'
 
 let lastRequestedStreetId = null
 
@@ -57,15 +56,17 @@ function receiveGalleryStreet (transmission) {
 
   hideError()
   unpackServerStreetData(transmission, null, null, true)
-  recalculateOccupiedWidth()
 
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
 
-  resizeStreetWidth()
-  updateStreetName(store.getState().street)
-  segmentsChanged(false)
+  segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
+  setLastStreet()
+
+  // Save new street's thumbnail.
+  saveStreetThumbnail(store.getState().street, SAVE_THUMBNAIL_EVENTS.INITIAL)
+
+  store.dispatch(resetMapState())
 }

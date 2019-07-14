@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import MeasurementText from '../ui/MeasurementText'
+import SegmentLabelContainer from './SegmentLabelContainer'
 import { TILE_SIZE } from '../segments/constants'
-import { SETTINGS_UNITS_METRIC } from '../users/constants'
+import './EmptySegment.scss'
 
 /**
  * This is a "presentational" component in the React presentational/container
@@ -27,13 +27,12 @@ export function EmptySegment (props) {
 
   return (
     <div className="segment segment-empty" style={style}>
-      <span className="name">
-        <FormattedMessage id="section.empty" defaultMessage="Empty space" />
-      </span>
-      <span className="width">
-        <MeasurementText value={width} units={units} locale={locale} />
-      </span>
-      <span className={'grid' + (units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+      <SegmentLabelContainer
+        label={<FormattedMessage id="section.empty" defaultMessage="Empty space" />}
+        width={width}
+        units={units}
+        locale={locale}
+      />
     </div>
   )
 }

@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentLabelContainer renders React element label 1`] = `
+<div
+  className="segment-label-container"
+>
+  <span
+    className="segment-label"
+  >
+    <span>
+      bar
+    </span>
+  </span>
+  <span
+    className="segment-width"
+  >
+    <Memo()
+      locale="en"
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="segment-grid units-metric"
+  />
+</div>
+`;
+
+exports[`SegmentLabelContainer renders correct grid styling in imperial 1`] = `
+<div
+  className="segment-label-container"
+>
+  <span
+    className="segment-label"
+  >
+    foo
+  </span>
+  <span
+    className="segment-width"
+  >
+    <Memo()
+      locale="en"
+      units={1}
+      value={1}
+    />
+  </span>
+  <span
+    className="segment-grid units-imperial"
+  />
+</div>
+`;
+
+exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
+<div
+  className="segment-label-container"
+>
+  <span
+    className="segment-label"
+  >
+    foo
+  </span>
+  <span
+    className="segment-width"
+  >
+    <Memo()
+      locale="en"
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="segment-grid units-metric"
+  />
+</div>
+`;
+
+exports[`SegmentLabelContainer renders editable label 1`] = `
+<div
+  className="segment-label-container"
+>
+  <span
+    className="segment-label"
+  >
+    foo
+  </span>
+  <span
+    className="segment-width"
+  >
+    <Memo()
+      locale="en"
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="segment-grid units-metric"
+  />
+</div>
+`;
+
+exports[`SegmentLabelContainer renders string label 1`] = `
+<div
+  className="segment-label-container"
+>
+  <span
+    className="segment-label"
+  >
+    bar
+  </span>
+  <span
+    className="segment-width"
+  >
+    <Memo()
+      locale="en"
+      units={2}
+      value={1}
+    />
+  </span>
+  <span
+    className="segment-grid units-metric"
+  />
+</div>
+`;

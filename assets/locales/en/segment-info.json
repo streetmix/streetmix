@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Sidewalk",
-    "sidewalk-tree": "Sidewalk with a tree",
+    "sidewalk-tree": "Sidewalk tree",
     "bike-rack": "Bike rack",
     "bench": "Bench",
     "wayfinding-sign": "Wayfinding sign",
-    "sidewalk-lamp": "Sidewalk with a lamp",
+    "sidewalk-lamp": "Lamp",
     "parklet": "Parklet",
     "divider": "Buffer",
     "planting-strip": "Planting strip",
@@ -13,6 +13,8 @@
     "median": "Median",
     "bollard": "Bollard",
     "dome": "Traffic exclusion dome",
+    "scooter": "Electric scooter",
+    "scooter-drop-zone": "Scooter drop zone",
     "bike-lane": "Bike lane",
     "parking-lane": "Parking lane",
     "perpendicular-parking": "Perpendicular parking",
@@ -50,7 +52,7 @@
       "imageCaption": "4033 Judah Street Parklet, courtesy of San Francisco Planning Department.",
       "lede": "Parklets turn existing parking spots into temporary public spaces.",
       "text": [
-        "In 2005, San Francisco-based design studio <a href=\"http://rebargroup.org/\">Rebar</a> temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual <a href=\"http://parkingday.org/\">Park(ing) Day</a> hosts nearly a thousand temporarily converted spots around the world.",
+        "In 2005, San Francisco-based design studio <a href=\"http://rebargroup.org/\">Rebar</a> temporarily converted a single metered parking space on downtown Mission Street into a tiny public park. The first parklet was simple: just a bench and a tree on a rectangular piece of turf, but it featured a brief instruction manual and a charge for others to make their own. With people realizing that so much of public space was really devoted to storing cars, an international movement was born, and now, the annual <a href=\"https://www.facebook.com/PARKing-Day-71298180414\">Park(ing) Day</a> hosts nearly a thousand temporarily converted spots around the world.",
         "Knowing a good idea when it sees one, San Francisco became the first city to make parklets official with its <a href=\"http://sfpavementtoparks.sfplanning.org/\">Pavement to Parks program</a> in 2010. Today, the City by the Bay has over 50 parklets, many of which are now architecturally designed objects much improved beyond Rebar’s modest prototype. There’s an ambitious, corporate-sponsored two-block-long parklet in the heart of San Francisco’s busiest shopping corridor, and also a collection of movable, bright red “parkmobiles” (Streetmix’s default look) designed for the <a href=\"http://www.ybcbd.org/\">Yerba Buena Community Benefit District</a>. Official parklet programs now exist in many other cities in North America, such as Philadelphia, Oakland, Kansas City, New York, Chicago, and Vancouver, and many more cities are soon to follow."
       ]
     },
@@ -159,6 +161,7 @@
     "car-type|truck": "Truck",
     "public-transit-asphalt|regular": "Asphalt",
     "public-transit-asphalt|colored": "Red lane",
+    "public-transit-asphalt|grass": "Grass",
     "bus-asphalt|regular": "Asphalt",
     "bus-asphalt|colored": "Red lane",
     "bus-asphalt|shared": "Shared bus/bike lane",

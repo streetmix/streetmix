@@ -4,6 +4,7 @@
  *
  */
 import { addLocaleData } from 'react-intl'
+import IntlMessageFormat from 'intl-messageformat'
 import { DEFAULT_LOCALE } from './constants'
 import { API_URL } from '../app/config'
 import store, { observeStore } from '../store'
@@ -23,6 +24,7 @@ import fr from 'react-intl/locale-data/fr'
 import ja from 'react-intl/locale-data/ja'
 import pl from 'react-intl/locale-data/pl'
 import pt from 'react-intl/locale-data/pt'
+import ru from 'react-intl/locale-data/ru'
 import sv from 'react-intl/locale-data/sv'
 import zh from 'react-intl/locale-data/zh'
 
@@ -31,7 +33,7 @@ import zh from 'react-intl/locale-data/zh'
  */
 export async function initLocale () {
   // Add react-intl locale data
-  addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...sv, ...zh])
+  addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...ru, ...sv, ...zh])
 
   // Default language is set by browser, or is English if undetermined
   const defaultLocale = navigator.language || DEFAULT_LOCALE
@@ -68,19 +70,44 @@ function initRtlChangedListener () {
 }
 
 /**
- * Port of the old i18next `t` function, still used in some legacy spot
+ * For the same Intl.FormatMessage functionality but outside of React, use this
+ *
+ * @param {string} key - translation id
+ * @param {string} fallback - fallback / reference string
+ * @param {object} options - options
+ * @returns {string}
+ */
+export function formatMessage (key, fallback = '', options = {}) {
+  const locale = store.getState().locale
+
+  let message
+  if (options.ns === 'segment-info') {
+    message = locale.segmentInfo[key]
+  } else {
+    message = locale.messages[key]
+  }
+
+  if (!message) return fallback
+
+  // If message is an array (e.g. segment descriptions), return as is; don't format
+  if (Array.isArray(message)) {
+    return message
+  }
+
+  const msg = new IntlMessageFormat(message || fallback, locale.locale)
+  return msg.format(options)
+}
+
+/**
+ * Port of the old i18next `t` function, still used in some legacy spots
+ * This is deprecated, and is only a wrapper around intl-messageformat's formatMessage().
  *
  * @param {string} key - translation id
  * @param {string} fallback - fallback / reference string
  * @param {object} options - options
  */
 export function t (key, fallback, options = {}) {
-  const locale = store.getState().locale
-  if (options.ns === 'segment-info') {
-    return locale.segmentInfo[key] || fallback
-  } else {
-    return locale.messages[key] || fallback
-  }
+  return formatMessage(key, fallback, options)
 }
 
 /**

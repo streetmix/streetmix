@@ -1,0 +1,288 @@
+@import '../../styles/variables.scss';
+
+$gallery-border-radius: $border-radius;
+$gallery-box-shadow: $medium-box-shadow;
+
+body.gallery-visible {
+  .main-screen {
+    transform: translateY($gallery-height - 90px);
+  }
+
+  .street-name-canvas {
+    transform: translateY(60px);
+  }
+}
+
+body:not(.safari).gallery-visible .street-section-sky {
+  transform: translateY(-20px);
+}
+
+#gallery {
+  position: absolute;
+  left: $left-right-inset;
+  right: $left-right-inset;
+  top: 0;
+  height: $gallery-height;
+  z-index: $z-09-gallery;
+  border-bottom-left-radius: $gallery-border-radius;
+  border-bottom-right-radius: $gallery-border-radius;
+  background: white;
+  box-shadow: $gallery-box-shadow;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-$gallery-height) rotateX(25deg);
+  transform-origin: 50% 0;
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  // Applied by the wrapping element created by Scrollable.jsx component
+  .streets-scrollable-container {
+    position: absolute;
+    left: 110px + 10px;
+    right: 0;
+    top: 1px;
+    height: $gallery-height;
+
+    [dir="rtl"] & {
+      right: 120px;
+      left: 0;
+    }
+  }
+
+  .gallery-streets-container-full .streets-scrollable-container {
+    left: 0;
+  }
+
+  button.scrollable {
+    margin-top: 45px;
+
+    &.scroll-left {
+      left: -10px !important;
+    }
+
+    &.scroll-right {
+      right: -10px !important;
+    }
+  }
+
+  .streets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    height: $gallery-height + 20px; // To cover the scroll bar
+    overflow-x: scroll;
+  }
+}
+
+.gallery-loading,
+.gallery-error,
+.gallery-sign-in-promo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-03-gallery-message;
+
+  a {
+    color: inherit;
+  }
+}
+
+.gallery-label {
+  position: absolute;
+  left: 17px;
+  top: 11px;
+  font-size: 1.5em;
+}
+
+.gallery-user-id {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.gallery-user-twitter {
+  font-size: 13px;
+  margin-left: 10px;
+  color: rgb(128, 128, 128);
+}
+
+.gallery-street-count {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  font-size: 24px;
+  font-weight: 300;
+  color: rgb(128, 128, 128);
+}
+
+.gallery-streets-container {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 50px;
+}
+
+.gallery-try-again {
+  margin-left: 10px;
+}
+
+.gallery-street-item {
+  display: inline-block;
+
+  &:last-child a {
+    margin-right: 0;
+  }
+}
+
+.gallery-street-item > a {
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+  vertical-align: top;
+  width: $thumbnail-width;
+  height: $thumbnail-height;
+  margin: 10px;
+  margin-top: 5px;
+  background: fade-out($sky-colour, 0.2);
+  box-shadow:
+    inset 0 3px 0 0 darken($ui-colour, 10%),
+    0 3px 0 0 darken($ui-colour, 10%);
+  text-align: center;
+  white-space: normal;
+  cursor: pointer;
+  font-size: 13px;
+  position: relative;
+
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: $thumbnail-width;
+    height: $thumbnail-height;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:hover {
+    background: fade-out($ui-colour, 0.1);
+
+    button.remove {
+      display: block;
+    }
+  }
+
+  &.virgin:not(.selected) {
+    opacity: 0.33;
+  }
+
+  &.selected {
+    background: darken($ui-colour, 10%);
+    border-top-color: black;
+    border-bottom-color: black;
+
+    canvas {
+      opacity: 1;
+    }
+  }
+}
+
+.gallery-street-item-creator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  text-align: center;
+  display: block;
+  font-size: 11px;
+  color: black;
+}
+
+.gallery-street-item-date {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  text-align: center;
+  display: block;
+  font-size: 11px;
+  color: black;
+  font-weight: 300;
+}
+
+.gallery-street-item-delete {
+  position: absolute;
+  padding: 0 10px;
+  line-height: 25px;
+  top: -5px;
+  right: -5px;
+  user-select: none;
+}
+
+.gallery-user-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 112px;
+  margin-top: 6px;
+
+  a.button-like {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+  }
+}
+
+a.gallery-new-street {
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+a.gallery-copy-last-street {
+  height: 40px;
+  flex-basis: 40px;
+  margin-top: 10px;
+}
+
+body:not(.gallery-no-move-transition) .main-screen,
+body:not(.gallery-no-move-transition) #gallery,
+body:not(.gallery-no-move-transition) .street-name-canvas,
+body:not(.gallery-no-move-transition) .street-section-sky {
+  transition: transform 800ms;
+}
+
+body.safari #gallery {
+  transform: translateY(-$gallery-height - 3px);
+}
+
+.gallery-shield {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: -90px;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  z-index: $z-08-gallery-shield;
+}
+
+body.gallery-visible #gallery {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+body.gallery-visible .gallery-shield {
+  display: block;
+}

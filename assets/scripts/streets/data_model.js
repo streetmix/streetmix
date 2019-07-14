@@ -1,33 +1,24 @@
-import { URL_NO_USER, RESERVED_URLS, URL_RESERVED_PREFIX } from '../app/routing'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
-import { normalizeAllSegmentWidths } from '../segments/resizing'
+import { normalizeSegmentWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL } from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic } from '../users/localization'
-import { normalizeSlug } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
-import { updateStreetName } from './name'
+import { DEFAULT_ENVIRONS } from './constants'
 import {
   createNewUndoIfNecessary,
   unifyUndoStack
 } from './undo_stack'
-import {
-  DEFAULT_STREET_WIDTH,
-  normalizeStreetWidth,
-  resizeStreetWidth
-} from './width'
+import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
-  updateStreetWidth,
-  updateSegments,
   setUpdateTime,
   saveCreatorId,
   updateStreetData
 } from '../store/actions/street'
 import { resetUndoStack } from '../store/actions/undo'
-import { setUnitSettings } from '../store/actions/ui'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
@@ -36,18 +27,15 @@ const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
 const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
 const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
 const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
+const DEFAULT_STREET_WIDTH = 80
 
 let _lastStreet
 
-export function getLastStreet () {
-  return _lastStreet
+export function setLastStreet () {
+  _lastStreet = trimStreetData(store.getState().street)
 }
 
-export function setLastStreet (value) {
-  _lastStreet = value
-}
-
-const LATEST_SCHEMA_VERSION = 18
+const LATEST_SCHEMA_VERSION = 19
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -66,6 +54,7 @@ const LATEST_SCHEMA_VERSION = 18
 // 16: stop saving undo stack
 // 17: alternative colors for bike lanes
 // 18: change lat/lng format from array to object
+// 19: add environment
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -242,6 +231,10 @@ function incrementSchemaVersion (street) {
         }
       }
       break
+    case 18:
+      if (!street.environment) {
+        street.environment = DEFAULT_ENVIRONS
+      }
   }
 
   street.schemaVersion++
@@ -304,7 +297,7 @@ export function saveStreetToServerIfNecessary () {
 }
 
 // Copies only the data necessary for save/undo.
-export function trimStreetData (street) {
+export function trimStreetData (street, saveSegmentId = true) {
   var newData = {}
 
   newData.schemaVersion = street.schemaVersion
@@ -328,6 +321,7 @@ export function trimStreetData (street) {
     // console.log('not saving editCount')
   }
 
+  newData.environment = street.environment
   newData.leftBuildingHeight = street.leftBuildingHeight
   newData.rightBuildingHeight = street.rightBuildingHeight
   newData.leftBuildingVariant = street.leftBuildingVariant
@@ -335,56 +329,33 @@ export function trimStreetData (street) {
 
   newData.segments = []
 
-  for (var i in street.segments) {
-    var segment = {}
+  for (let i in street.segments) {
+    const segment = {}
     segment.type = street.segments[i].type
     segment.variantString = street.segments[i].variantString
     segment.width = street.segments[i].width
+    segment.label = street.segments[i].label
     if (street.segments[i].randSeed) {
       segment.randSeed = street.segments[i].randSeed
     }
-
+    if (saveSegmentId) {
+      segment.id = street.segments[i].id
+    }
     newData.segments.push(segment)
   }
 
   return newData
 }
 
-// TODO this function should not exist; all the data should be in street.
-// object to begin with
-export function createDataFromDom () {
-  var els = document.querySelectorAll('#street-section-editable > .segment')
-  const segments = []
-
-  for (var i = 0, el; el = els[i]; i++) { // eslint-disable-line no-cond-assign
-    var segment = {}
-    // Since we are using a unique id for the segment component key which can not be found
-    // on the DOM element, get it from the store.
-    const originalSegmentId = store.getState().street.segments[i].id
-
-    segment.type = el.getAttribute('type')
-    if (el.getAttribute('rand-seed')) {
-      segment.randSeed = parseInt(el.getAttribute('rand-seed'))
-    }
-    segment.variantString = el.getAttribute('variant-string')
-    segment.variant = getVariantArray(segment.type, segment.variantString)
-    segment.width = parseFloat(el.getAttribute('data-width'))
-    segment.el = el
-    segment.warnings = []
-    segment.id = originalSegmentId
-    segments.push(segment)
-  }
-  store.dispatch(updateSegments(segments))
-}
-
-function fillDefaultSegments () {
+function fillDefaultSegments (units) {
   const segments = []
   let leftHandTraffic = getLeftHandTraffic()
 
-  for (var i in DEFAULT_SEGMENTS[leftHandTraffic]) {
-    var segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
+  for (let i in DEFAULT_SEGMENTS[leftHandTraffic]) {
+    const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
+    segment.width = normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, units))
 
     if (getSegmentInfo(segment.type).needRandSeed) {
       segment.randSeed = generateRandSeed()
@@ -393,86 +364,61 @@ function fillDefaultSegments () {
     segments.push(segment)
   }
 
-  store.dispatch(updateSegments(segments))
-  normalizeAllSegmentWidths()
-}
-
-export function getStreetUrl (street) {
-  var url = '/'
-  if (street.creatorId) {
-    if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
-      url += URL_RESERVED_PREFIX
-    }
-
-    url += street.creatorId
-  } else {
-    url += URL_NO_USER
-  }
-
-  url += '/'
-
-  url += street.namespacedId
-
-  if (street.creatorId) {
-    var slug = normalizeSlug(street.name)
-    if (slug) {
-      url += '/' + encodeURIComponent(slug)
-    }
-  }
-
-  return url
+  return segments
 }
 
 export function prepareDefaultStreet () {
+  const units = getUnits()
   const defaultStreet = {
-    units: getUnits(),
+    units: units,
     location: null,
     name: null,
     userUpdated: false,
     editCount: 0,
+    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
+    environment: DEFAULT_ENVIRONS,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT,
-    schemaVersion: LATEST_SCHEMA_VERSION
+    schemaVersion: LATEST_SCHEMA_VERSION,
+    segments: fillDefaultSegments(units),
+    updatedAt: new Date().toISOString(),
+    creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
-  store.dispatch(setUnitSettings(defaultStreet.units))
   store.dispatch(updateStreetData(defaultStreet))
-  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
-  // console.log('editCount = 0 on default street')
   if (isSignedIn()) {
-    setStreetCreatorId(getSignInData().userId)
+    updateLastStreetInfo()
   }
-  fillDefaultSegments()
-  setUpdateTimeToNow()
 }
 
 export function prepareEmptyStreet () {
+  const units = getUnits()
   const emptyStreet = {
-    units: getUnits(),
+    units: units,
     location: null,
     name: null,
     userUpdated: false,
     editCount: 0,
+    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
+    environment: DEFAULT_ENVIRONS,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     schemaVersion: LATEST_SCHEMA_VERSION,
-    segments: []
+    segments: [],
+    updatedAt: new Date().toISOString(),
+    creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
-  store.dispatch(setUnitSettings(emptyStreet.units))
   store.dispatch(updateStreetData(emptyStreet))
-  store.dispatch(updateStreetWidth(normalizeStreetWidth(DEFAULT_STREET_WIDTH)))
 
-  // console.log('editCount = 0 on empty street!')
   if (isSignedIn()) {
-    setStreetCreatorId(getSignInData().userId)
+    updateLastStreetInfo()
   }
-  setUpdateTimeToNow()
 }
 
 /**
@@ -486,11 +432,10 @@ export function prepareEmptyStreet () {
 export function updateEverything (dontScroll, save = true) {
   setIgnoreStreetChanges(true)
   // TODO Verify that we don't need to dispatch an update width event here
-  segmentsChanged(false)
-  resizeStreetWidth(dontScroll)
-  updateStreetName(store.getState().street)
+  segmentsChanged()
   setIgnoreStreetChanges(false)
-  _lastStreet = trimStreetData(store.getState().street)
+
+  setLastStreet()
 
   if (save === true) {
     scheduleSavingStreetToServer()

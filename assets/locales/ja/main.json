@@ -15,14 +15,16 @@
     },
     "help": {
       "keyboard-label": "キーボードショートカット:",
-      "remove": "選択中のセグメントを削除します<br />(<kbd class='key'>Shift</kbd>を押すと全削除)",
-      "move": "ストリートを動かす<br />(<kbd class='key'>Shift</kbd> を押すと端に移動)",
-      "change": "選択中のセグメントの幅を変更<br />(<kbd class='key'>Shift</kbd>を押すと微調整可能)"
+      "remove-instruction": "選択中のセグメントを削除します",
+      "remove-shift-instruction": "({shiftKey}を押すと全削除)",
+      "move-instruction": "ストリートを動かす",
+      "move-shift-instruction": "({shiftKey}を押すと端に移動)",
+      "change-instruction": "選択中のセグメントの幅を変更",
+      "change-shift-instruction": "({shiftKey}を押すと微調整可能)"
     },
     "share": {
       "sign-in-twitter-link": "サインイン",
       "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Twitterアカウントでサインイン</a>すると、作成したストリートと個人用ストリートギャラリー用にリンクが生成されます",
       "link": "共有用リンク:",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
@@ -44,7 +46,10 @@
       "email": "Streetmixチームにメール",
       "github": "Githubでコードを確認",
       "blog": "Streetmixブログを表示",
-      "slack": "Slackチャットに参加"
+      "discord": "",
+      "slack": "Slackチャットに参加",
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "募金",
@@ -58,6 +63,9 @@
       "send": "送付",
       "confirm": "ご意見ありがとうございます！",
       "error": "すみません、フィードバックの送付に失敗しました。時間をおいて再度お試しください。"
+    },
+    "sign-in": {
+      "twitter": "Twitterでログイン"
     }
   },
   "settings": {
@@ -103,10 +111,10 @@
     "please-reload": "編集を続けるにはページを再読込してください。",
     "street-deleted-elsewhere-title": "このストリートは削除されました。",
     "street-deleted-elsewhere-description": "このストリートは別のブラウザで削除されました。",
-    "twitter-access-denied-title": "サインインしていません。",
-    "twitter-access-denied-description": "Twitterを使ったサインイン処理を中断します。",
+    "access-denied-title": "サインインしていません。",
+    "access-denied-description": "サインイン処理を中断しました",
     "auth-api-problem-title": "サインインに失敗しました。",
-    "auth-api-problem-description": "Twitter認証に失敗しました。",
+    "auth-api-problem-description": "認証に失敗しました",
     "please-try-again": "時間をおいて再度試すか、<a target='_blank' rel='noopener noreferrer' href='{email}'>メール</a> や <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>でご連絡ください。",
     "unsupported-browser-title": "Streetmixが対応していないブラウザです。",
     "unsupported-browser-description": "すみません。<a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>、 <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>、 <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>、あるいはSafariのいづれかで閲覧してください。",
@@ -128,7 +136,8 @@
     "copy": "コピー作成",
     "remove": "削除",
     "close": "閉じる",
-    "dismiss": "無視"
+    "dismiss": "無視",
+    "okay": ""
   },
   "dialogs": {
     "error": {
@@ -165,16 +174,21 @@
       "view-source": "ソースコードを表示",
       "sponsored-by": "Streetmixスポンサー:",
       "donate-link": "財務支援",
-      "github-link": "オープンなソースで貢献"
+      "github-link": "オープンなソースで貢献",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "画像として保存",
       "option-labels": "セグメントの名称と幅",
       "option-name": "ストリートの名称",
       "option-sky": "空を透明化",
+      "option-watermark": "",
       "loading": "ロード中…",
       "save-button": "コンピュータに保存中…",
-      "license": "Streetmixで作成した画像は <br><a href='{url}'>クリエイティブ・コモンズ 表示 - 継承 4.0 国際</a> のもとで自由にお使いいただけます。",
+      "license": "Streetmixで作成した画像は {licenseLink} のもとで自由にお使いいただけます。",
       "error-preview": "プレビュー画像の表示に失敗しました。",
       "error-unavailable": "ブラウザが画像の保存に対応していません。",
       "preview-image-alt": "プレビュー"
@@ -187,7 +201,8 @@
       "add-location": "場所情報を追加",
       "confirm-location": "場所情報を確認",
       "clear-location": "場所情報を解除",
-      "unknown-location": "地球のどこか"
+      "unknown-location": "地球のどこか",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmixにお力添えください！",
@@ -195,12 +210,40 @@
       "text": "いまだけでも、あるいはしばらくの期間、貢献を行うことをご検討ください。いただいた募金は私たちのサーバとクラウドインフラ料金、他の非営利団体のサポート、広報活動、そしてストリートの介然を行う学生たちの活動資金として使われます。其上で、余剰資金を使い、新規機能の開発を実施します。私たちの支出情報は完全に公開されており、Streetmixチームがどのように資金を運用しているかを知ることができます。",
       "button": "Streetmixに募金する",
       "cancel": "次回以降に考える"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "新しいストリートの名称:",
     "delete-street": "本当に {streetName} を削除してよろしいですか？ 削除した内容は元に戻せません。",
-    "new-width": "新しいストリートの道路幅 (最低幅 {minWidth} から {maxWidth} まで):"
+    "new-width": "新しいストリートの道路幅 (最低幅 {minWidth} から {maxWidth} まで):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "セグメントが削除されました。",
@@ -233,7 +276,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
     "remove-segment": "セグメント削除",
@@ -244,7 +291,11 @@
     "increase-width": "幅を増やす (Shiftを押すと微調整可)",
     "decrease-width": "幅を減らす (Shiftを押すと微調整可)",
     "add-floor": "階数を追加",
-    "remove-floor": "階数を減らす"
+    "remove-floor": "階数を減らす",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "したがきストリート",
@@ -265,6 +316,10 @@
     },
     "description": {
       "photo-credit": "写真："
+    },
+    "resize": {
+      "min": "最小",
+      "max": "最大"
     }
   },
   "section": {
@@ -277,15 +332,29 @@
     "delete-street-tooltip": "ストリート削除",
     "street-count": "{count, plural, other {#通り}}",
     "no-streets": "ストリート未作成",
-    "sign-in": "Twitterでログイン個人用のストリートギャラリーを作成できます"
+    "sign-in": "Twitterでログイン個人用のストリートギャラリーを作成できます",
+    "sign-in-prompt": "サインインして個人用のストリートギャラリーを表示"
   },
   "users": {
     "anonymous": "アノニマス",
     "byline": "{user}さん作"
   },
+  "export": {
+    "watermark": ""
+  },
   "meta": {
     "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。必要なものはブラウザだけです！ 街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",
     "page-title": "{streetName}({author}によって)"
+  },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
   },
   "i18n": {
     "lang": {
@@ -299,7 +368,10 @@
       "ja": "日本語",
       "pl": "ポーランド語",
       "pt-br": "ポルトガル語（ブラジル）",
+      "ru": "ロシア語",
       "sv": "スェーデン語",
+      "zh": "中国語",
+      "zh-hans": "簡体字",
       "zh-hant": "繁体字"
     }
   }

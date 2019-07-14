@@ -6,11 +6,12 @@
  *
  */
 import { debug } from './debug_settings'
-import { system } from './system_capabilities'
 import { setAppFlags } from '../store/actions/app'
 import store from '../store'
 
 // Just set readOnly
+const system = store.getState().system
+
 export const app = {
   readOnly: (system.phone || debug.forceReadOnly)
 }

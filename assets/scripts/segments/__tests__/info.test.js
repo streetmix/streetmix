@@ -1,7 +1,10 @@
 /* eslint-env jest */
+import { differenceWith, isEqual, isEqualWith } from 'lodash'
+import SEGMENT_INFO from '../info.json'
 import module, {
   getSpriteDef,
   getAllSegmentInfo,
+  getAllSegmentInfoArray,
   getSegmentInfo,
   getSegmentVariantInfo
 } from '../info'
@@ -44,6 +47,15 @@ describe('segment info', () => {
     })
   })
 
+  describe('getAllSegmentInfoArray()', () => {
+    it('returns all segment data in an array', () => {
+      const segments = getAllSegmentInfoArray()
+      expect(segments.length).toBeGreaterThan(0)
+      expect(segments[0].name).toEqual('Sidewalk')
+      expect(segments[0].id).toEqual('sidewalk')
+    })
+  })
+
   describe('getSegmentInfo()', () => {
     it('returns data for a segment type', () => {
       const segment = getSegmentInfo('sidewalk')
@@ -53,6 +65,15 @@ describe('segment info', () => {
     it('returns placeholder data for an unknown segment type', () => {
       const segment = getSegmentInfo('foo')
       expect(segment.unknown).toBe(true)
+    })
+
+    it('returns the same segment info as the old segment data model', () => {
+      const segment = getSegmentInfo('sidewalk')
+      expect(segment.unknown).toBeFalsy()
+
+      const { details, rules, ...segmentInfo } = segment
+      const { details: original, ...originalSegmentInfo } = SEGMENT_INFO['sidewalk']
+      expect(segmentInfo).toEqual(originalSegmentInfo)
     })
   })
 
@@ -70,6 +91,22 @@ describe('segment info', () => {
     it('returns placeholder data for an unknown segment type and variant', () => {
       const variant = getSegmentVariantInfo('foo', 'bar')
       expect(variant.unknown).toBe(true)
+    })
+
+    it('returns the same data as the old segment data model', () => {
+      const variant = getSegmentVariantInfo('turn-lane', 'inbound|straight')
+      expect(variant.unknown).toBeFalsy()
+
+      const original = SEGMENT_INFO['turn-lane'].details['inbound|straight']
+
+      const checkArrayEquality = (origValue, testValue) => {
+        if (Array.isArray(origValue) && Array.isArray(testValue)) {
+          return !differenceWith(origValue, testValue, isEqual).length
+        }
+      }
+
+      const correct = isEqualWith(original, variant, checkArrayEquality)
+      expect(correct).toEqual(true)
     })
   })
 })

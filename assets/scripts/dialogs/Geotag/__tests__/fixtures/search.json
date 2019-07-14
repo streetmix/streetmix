@@ -1,0 +1,361 @@
+{
+  "geocoding": {
+    "version": "0.2",
+    "attribution": "http://pelias.mapzen.com/v1/attribution",
+    "query": {
+      "text": "baz",
+      "size": 10,
+      "private": false,
+      "lang": {
+        "name": "English",
+        "iso6391": "en",
+        "iso6393": "eng",
+        "defaulted": false
+      },
+      "querySize": 20,
+      "parsed_text": {}
+    },
+    "engine": {
+      "name": "Pelias",
+      "author": "Mapzen",
+      "version": "1.0"
+    },
+    "timestamp": 1503203045627
+  },
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.194399,
+          19.539893
+        ]
+      },
+      "properties": {
+        "id": "85884361",
+        "gid": "whosonfirst:neighbourhood:85884361",
+        "layer": "neighbourhood",
+        "source": "whosonfirst",
+        "source_id": "85884361",
+        "name": "Tlalnepantla de Baz",
+        "confidence": 0.908,
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "México",
+        "region_gid": "whosonfirst:region:85686527",
+        "county": "Tlalnepantla de Baz",
+        "county_gid": "whosonfirst:county:102073949",
+        "locality": "Tlalnepantla",
+        "locality_gid": "whosonfirst:locality:101991513",
+        "neighbourhood": "Tlalnepantla de Baz",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85884361",
+        "label": "Tlalnepantla de Baz, Tlalnepantla, Mexico"
+      },
+      "bbox": [
+        -99.2083032226,
+        19.5213186796,
+        -99.1828100586,
+        19.5529667079
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.808275,
+          31.371269
+        ]
+      },
+      "properties": {
+        "id": "polyline:15594909",
+        "gid": "openstreetmap:street:polyline:15594909",
+        "layer": "street",
+        "source": "openstreetmap",
+        "source_id": "polyline:15594909",
+        "name": "Baz",
+        "street": "Baz",
+        "confidence": 0.726,
+        "accuracy": "centroid",
+        "country": "Israel",
+        "country_gid": "whosonfirst:country:85632315",
+        "country_a": "ISR",
+        "region": "HaDarom",
+        "region_gid": "whosonfirst:region:85672531",
+        "county": "Be'er Sheva",
+        "county_gid": "whosonfirst:county:1108720817",
+        "label": "Baz, Israel"
+      },
+      "bbox": [
+        34.808052,
+        31.370464,
+        34.808376,
+        31.372087
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.35828,
+          39.45831
+        ]
+      },
+      "properties": {
+        "id": "11328484",
+        "gid": "geonames:venue:11328484",
+        "layer": "venue",
+        "source": "geonames",
+        "source_id": "11328484",
+        "name": "Baz",
+        "confidence": 0.726,
+        "accuracy": "point",
+        "country": "Armenia",
+        "country_gid": "whosonfirst:country:85632773",
+        "country_a": "ARM",
+        "region": "Syunik",
+        "region_gid": "whosonfirst:region:85668119",
+        "label": "Baz, Armenia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.59517,
+          52.72283
+        ]
+      },
+      "properties": {
+        "id": "11113318",
+        "gid": "geonames:locality:11113318",
+        "layer": "locality",
+        "source": "geonames",
+        "source_id": "11113318",
+        "name": "Baz",
+        "confidence": 0.726,
+        "accuracy": "centroid",
+        "country": "Kazakhstan",
+        "country_gid": "whosonfirst:country:85632307",
+        "country_a": "KAZ",
+        "region": "Aqmola",
+        "region_gid": "whosonfirst:region:85672897",
+        "locality": "Baz",
+        "locality_gid": "geonames:locality:11113318",
+        "label": "Baz, Kazakhstan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.665472,
+          24.016799
+        ]
+      },
+      "properties": {
+        "id": "polyline:16738075",
+        "gid": "openstreetmap:street:polyline:16738075",
+        "layer": "street",
+        "source": "openstreetmap",
+        "source_id": "polyline:16738075",
+        "name": "Baz",
+        "street": "Baz",
+        "confidence": 0.726,
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "Durango",
+        "region_gid": "whosonfirst:region:85686573",
+        "county": "Durango",
+        "county_gid": "whosonfirst:county:102075159",
+        "locality": "Victoria de Durango",
+        "locality_gid": "whosonfirst:locality:101994335",
+        "label": "Baz, Victoria de Durango, Mexico"
+      },
+      "bbox": [
+        -104.666016,
+        24.015689,
+        -104.665001,
+        24.017885
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.293189,
+          32.900224
+        ]
+      },
+      "properties": {
+        "id": "polyline:15091288",
+        "gid": "openstreetmap:street:polyline:15091288",
+        "layer": "street",
+        "source": "openstreetmap",
+        "source_id": "polyline:15091288",
+        "name": "Baz",
+        "street": "Baz",
+        "confidence": 0.726,
+        "accuracy": "centroid",
+        "country": "Israel",
+        "country_gid": "whosonfirst:country:85632315",
+        "country_a": "ISR",
+        "region": "HaZafon",
+        "region_gid": "whosonfirst:region:85672545",
+        "county": "Akko",
+        "county_gid": "whosonfirst:county:1108720807",
+        "label": "Baz, Israel"
+      },
+      "bbox": [
+        35.287712,
+        32.899486,
+        35.293243,
+        32.902278
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.910165,
+          32.529012
+        ]
+      },
+      "properties": {
+        "id": "polyline:15217988",
+        "gid": "openstreetmap:street:polyline:15217988",
+        "layer": "street",
+        "source": "openstreetmap",
+        "source_id": "polyline:15217988",
+        "name": "Baz",
+        "street": "Baz",
+        "confidence": 0.726,
+        "accuracy": "centroid",
+        "country": "Israel",
+        "country_gid": "whosonfirst:country:85632315",
+        "country_a": "ISR",
+        "region": "Haifa",
+        "region_gid": "whosonfirst:region:85672535",
+        "county": "Hadera",
+        "county_gid": "whosonfirst:county:1108720819",
+        "label": "Baz, Israel"
+      },
+      "bbox": [
+        34.90982,
+        32.528457,
+        34.910499,
+        32.529571
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.92917,
+          41.63194
+        ]
+      },
+      "properties": {
+        "id": "3186103",
+        "gid": "geonames:locality:3186103",
+        "layer": "locality",
+        "source": "geonames",
+        "source_id": "3186103",
+        "name": "Baz",
+        "confidence": 0.726,
+        "accuracy": "centroid",
+        "country": "Albania",
+        "country_gid": "whosonfirst:country:85632405",
+        "country_a": "ALB",
+        "region": "Dibër",
+        "region_gid": "whosonfirst:region:85667821",
+        "county": "Mat",
+        "county_gid": "whosonfirst:county:421202751",
+        "locality": "Baz",
+        "locality_gid": "geonames:locality:3186103",
+        "label": "Baz, Albania"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.69567,
+          37.10593
+        ]
+      },
+      "properties": {
+        "id": "7336397",
+        "gid": "geonames:venue:7336397",
+        "layer": "venue",
+        "source": "geonames",
+        "source_id": "7336397",
+        "name": "Bāz",
+        "confidence": 0.666,
+        "accuracy": "point",
+        "country": "Iran",
+        "country_gid": "whosonfirst:country:85632361",
+        "country_a": "IRN",
+        "region": "North Khorasan",
+        "region_gid": "whosonfirst:region:85672401",
+        "county": "Esfarayen",
+        "county_gid": "whosonfirst:county:1108719979",
+        "label": "Bāz, Iran"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.898561,
+          31.990583
+        ]
+      },
+      "properties": {
+        "id": "polyline:15487547",
+        "gid": "openstreetmap:street:polyline:15487547",
+        "layer": "street",
+        "source": "openstreetmap",
+        "source_id": "polyline:15487547",
+        "name": "Baz",
+        "street": "Baz",
+        "confidence": 0.726,
+        "accuracy": "centroid",
+        "country": "Israel",
+        "country_gid": "whosonfirst:country:85632315",
+        "country_a": "ISR",
+        "region": "HaMerkaz",
+        "region_gid": "whosonfirst:region:85672541",
+        "county": "Ramla",
+        "county_gid": "whosonfirst:county:1108720815",
+        "label": "Baz, Israel"
+      },
+      "bbox": [
+        34.89767,
+        31.99051,
+        34.899501,
+        31.990982
+      ]
+    }
+  ],
+  "bbox": [
+    -104.666016,
+    19.5213186796,
+    70.59517,
+    52.72283
+  ]
+}

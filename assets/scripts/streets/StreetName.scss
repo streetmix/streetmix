@@ -1,0 +1,89 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+$street-name-size: 1.5;
+
+@mixin street-name-mixin($size: $street-name-size) {
+  padding: 3px * $size;
+}
+
+@mixin street-name-inside-mixin($size: $street-name-size) {
+  height: 50px * $size;
+  border: 3px * $size solid $street-name-text;
+  padding: 10px * $size 20px * $size;
+  padding-top: 11px * $size;
+  padding-bottom: 5px * $size;
+  font-size: 36px * $size;
+  line-height: 24px * $size;
+
+  [dir="rtl"] {
+    font-size: 30px * $size;
+  }
+}
+
+body.windows .street-name-text {
+  line-height: 38px;
+}
+
+.street-name {
+  @include street-name-mixin;
+
+  display: inline-block;
+  background: $street-name-background;
+  color: $street-name-text;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.street-name-text {
+  @include street-name-inside-mixin;
+
+  // TODO: fallback to Roadgeek at 60px high w/o internet
+  font-family: 'Interstate Condensed', 'interstate-condensed', sans-serif;
+  font-weight: 700;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#gallery .streets .street-name {
+  @include street-name-mixin($street-name-gallery-size);
+
+  max-width: 100%;
+  position: relative;
+  top: -7px;
+
+  > div,
+  > span {
+    @include street-name-inside-mixin($street-name-gallery-size);
+  }
+}
+
+body.segment-move-dragging #street-name {
+  pointer-events: none;
+}
+
+#street-name {
+  @include tap-highlight-color(transparent);
+
+  position: relative;
+  max-width: 100%;
+  pointer-events: auto;
+}
+
+.street-name-hover-prompt {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  white-space: normal;
+}

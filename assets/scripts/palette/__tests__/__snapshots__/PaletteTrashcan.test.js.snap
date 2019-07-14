@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaletteTrashcan renders with the \`-visible\` class when \`visible\` prop is true 1`] = `
+<div
+  className="palette-trashcan palette-trashcan-visible"
+>
+  <FormattedMessage
+    defaultMessage="Drag here to remove"
+    id="palette.remove"
+    values={Object {}}
+  />
+</div>
+`;

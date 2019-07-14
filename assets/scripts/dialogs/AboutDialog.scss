@@ -1,0 +1,113 @@
+.about-dialog {
+  width: 820px;
+  min-height: 660px;
+  max-height: 75vh;
+
+  // Used by team list and external links
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  header {
+    background-color: white;
+    padding: 0;
+    text-align: left;
+
+    [dir="rtl"] & {
+      text-align: right;
+    }
+  }
+
+  header h1 {
+    display: none;
+  }
+
+  .streetmix-logo {
+    margin-left: 12px;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    background-position: 0;
+
+    [dir="rtl"] & {
+      margin-right: 12px;
+      margin-left: auto;
+      background-position: 100%;
+    }
+  }
+
+  .dialog-content {
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+}
+
+.about-dialog-content {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+.about-dialog-left {
+  flex-basis: 240px;
+  margin-right: 40px;
+  border-right: 1px solid #cde1ea;
+  padding-right: 40px;
+  position: fixed;
+  width: 280px;
+
+  [dir="rtl"] & {
+    margin-left: 40px;
+    margin-right: 0;
+    border-left: 1px solid #cde1ea;
+    border-right: 0;
+    padding-left: 40px;
+    padding-right: 0;
+  }
+
+  p:first-child {
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 1.5em;
+  }
+}
+
+.about-dialog-right {
+  flex: 1;
+  margin-bottom: 15px;
+  margin-left: 320px;
+
+  [dir="rtl"] & {
+    margin-right: 320px;
+    margin-left: 0;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > h2 {
+    margin-top: 1.5em;
+  }
+}
+
+.about-dialog-sponsors {
+  margin-top: -1em !important;
+
+  img {
+    height: 40px;
+  }
+}
+
+.about-dialog-sponsors li {
+  display: inline-block;
+  margin-right: 1.5em;
+  margin-top: 1em;
+
+  [dir="rtl"] & {
+    margin-left: 1.5em;
+    margin-right: 0;
+  }
+}

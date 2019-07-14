@@ -6,6 +6,7 @@ import {
   UPDATE_SEGMENTS,
   CHANGE_SEGMENT_WIDTH,
   CHANGE_SEGMENT_VARIANT,
+  CHANGE_SEGMENT_PROPERTIES,
   ADD_LOCATION,
   CLEAR_LOCATION,
   SAVE_STREET_NAME,
@@ -17,17 +18,19 @@ import {
   SET_UNITS,
   UPDATE_STREET_WIDTH,
   UPDATE_SCHEMA_VERSION,
-  UPDATE_OCCUPIED_WIDTH,
   // BUILDINGS
   ADD_BUILDING_FLOOR,
   REMOVE_BUILDING_FLOOR,
   SET_BUILDING_FLOOR_VALUE,
-  SET_BUILDING_VARIANT
+  SET_BUILDING_VARIANT,
+  SET_ENVIRONMENT
 } from '../actions'
 import { getVariantString } from '../../segments/variant_utils'
+import { DEFAULT_ENVIRONS } from '../../streets/constants'
 
 const initialState = {
   segments: [],
+  environment: DEFAULT_ENVIRONS,
   immediateRemoval: true
 }
 
@@ -38,7 +41,8 @@ const street = (state = initialState, action) => {
     case REPLACE_STREET_DATA:
       return {
         ...state,
-        ...action.street
+        ...action.street,
+        immediateRemoval: true
       }
     case ADD_SEGMENT:
       return {
@@ -75,6 +79,8 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         segments: action.segments,
+        occupiedWidth: action.occupiedWidth,
+        remainingWidth: action.remainingWidth,
         immediateRemoval: immediate
       }
     case CHANGE_SEGMENT_WIDTH: {
@@ -90,6 +96,17 @@ const street = (state = initialState, action) => {
       copy[action.index].variant[action.set] = action.selection
       copy[action.index].variantString = getVariantString(copy[action.index].variant)
 
+      return {
+        ...state,
+        segments: copy
+      }
+    }
+    case CHANGE_SEGMENT_PROPERTIES: {
+      const copy = [...state.segments]
+      copy[action.index] = {
+        ...copy[action.index],
+        ...action.properties
+      }
       return {
         ...state,
         segments: copy
@@ -137,12 +154,6 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         width: action.width
-      }
-    case UPDATE_OCCUPIED_WIDTH:
-      return {
-        ...state,
-        occupiedWidth: action.occupiedWidth,
-        remainingWidth: action.remainingWidth
       }
     case UPDATE_SCHEMA_VERSION:
       return {
@@ -228,6 +239,12 @@ const street = (state = initialState, action) => {
           }
         default:
           return state
+      }
+    }
+    case SET_ENVIRONMENT: {
+      return {
+        ...state,
+        environment: action.env
       }
     }
     default:

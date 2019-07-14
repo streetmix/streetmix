@@ -1,23 +1,12 @@
 import { images } from '../app/load_resources'
 import { t } from '../locales/locale'
-import { system } from '../preinit/system_capabilities'
-import { saveStreetToServerIfNecessary, createDataFromDom } from '../streets/data_model'
+import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
-import { draggingMove } from './drag_and_drop'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, WIDTH_PALETTE_MULTIPLIER } from './constants'
-import { applyWarningsToSegments } from './resizing'
+import { TILE_SIZE, TILESET_POINT_PER_PIXEL, TILE_SIZE_ACTUAL, MAX_SEGMENT_LABEL_LENGTH } from './constants'
 import store from '../store'
-
-const CANVAS_HEIGHT = 480
-const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
-
-const SEGMENT_Y_NORMAL = 265
-const SEGMENT_Y_PALETTE = 20
-
-const DRAGGING_MOVE_HOLE_WIDTH = 40
+import { updateSegments, changeSegmentProperties } from '../store/actions/street'
 
 /**
  * Draws SVG sprite to canvas
@@ -43,7 +32,7 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
 
   // Settings
   const state = store.getState()
-  dpi = dpi || state.system.hiDpi || 1
+  dpi = dpi || state.system.devicePixelRatio || 1
   const debugRect = state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value || false
 
   // Get image definition
@@ -88,13 +77,26 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   }
 }
 
-export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, multiplier) {
-  let newLeft, newRight
-  var segmentWidth = initialSegmentWidth / TILE_SIZE / multiplier
+/**
+ * When rendering a stack of sprites, sometimes the resulting image will extend
+ * beyond the left or right edge of the segment's width. (For instance, a "tree"
+ * segment might be 0.5m wide, but the actual width of the tree sprite will need
+ * more than 0.5m width to render.) This calculates the actual left, right, and
+ * center Y-values needed to render sprites so that they are not truncated at the
+ * edge of the segment.
+ *
+ * @param {Object} variantInfo - segment variant info
+ * @param {Number} actualWidth - segment's actual real life width
+ * @returns {Object}
+ */
+export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
+  // Convert actualWidth to units that work with images' intrinsic dimensions
+  const displayWidth = actualWidth * TILE_SIZE_ACTUAL
 
-  var center = segmentWidth / 2
-  var left = center
-  var right = center
+  const center = displayWidth / 2
+  let left = center
+  let right = center
+  let newLeft, newRight
 
   const graphics = variantInfo.graphics
 
@@ -103,9 +105,10 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
 
-      newLeft = center - (sprite.width / 2) + (sprite.offsetX || 0)
-      newRight = center + (sprite.width / 2) + (sprite.offsetX || 0)
+      newLeft = center - (svg.width / 2) + (sprite.offsetX || 0)
+      newRight = center + (svg.width / 2) + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -121,8 +124,10 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
+
       newLeft = sprite.offsetX || 0
-      newRight = sprite.width + (sprite.offsetX || 0)
+      newRight = svg.width + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -138,8 +143,10 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      newLeft = (segmentWidth) - (sprite.offsetX || 0) - sprite.width
-      newRight = (segmentWidth) - (sprite.offsetX || 0)
+      const svg = images.get(sprite.id)
+
+      newLeft = (displayWidth) - (sprite.offsetX || 0) - svg.width
+      newRight = (displayWidth) - (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -151,8 +158,8 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
   }
 
   if (graphics.repeat && graphics.repeat[0]) {
-    newLeft = center - (segmentWidth / 2)
-    newRight = center + (segmentWidth / 2)
+    newLeft = center - (displayWidth / 2)
+    newRight = center + (displayWidth / 2)
 
     if (newLeft < left) {
       left = newLeft
@@ -162,7 +169,36 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
     }
   }
 
-  return { left: left, right: right, center: center }
+  return { left: left / TILE_SIZE_ACTUAL, right: right / TILE_SIZE_ACTUAL, center: center / TILE_SIZE_ACTUAL }
+}
+
+const GROUND_LEVEL_OFFSETY = {
+  ASPHALT: 0,
+  CURB: 14,
+  RAISED_CURB: 74
+}
+
+/**
+ * Originally a sprite's dy position was calculated using: dy = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)).
+ * In order to remove `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground", or "lane", sprites in pixels
+ * in `GROUND_LEVEL_OFFSETY`. This was calculated by taking the difference of the `offsetY` value for ground level 0 and the
+ * `offsetY` for the elevation of the current segment. Using `elevation`, which is defined for each segment based on the "ground"
+ * component being used, this function returns the `GROUND_LEVEL_OFFSETY` for that `elevation`. If not found, it returns null.
+ *
+ * @param {Number} elevation
+ * @returns {?Number} groundLevelOffset
+ */
+function getGroundLevelOffset (elevation) {
+  switch (elevation) {
+    case 0:
+      return GROUND_LEVEL_OFFSETY.ASPHALT
+    case 1:
+      return GROUND_LEVEL_OFFSETY.CURB
+    case 2:
+      return GROUND_LEVEL_OFFSETY.RAISED_CURB
+    default:
+      return null
+  }
 }
 
 /**
@@ -170,26 +206,34 @@ export function getVariantInfoDimensions (variantInfo, initialSegmentWidth, mult
  * @param {CanvasRenderingContext2D} ctx
  * @param {string} type
  * @param {string} variantString
- * @param {Number} segmentWidth - width in feet (not display width)
+ * @param {Number} actualWidth - The real-world width of a segment, in feet
  * @param {Number} offsetLeft
- * @param {Number} offsetTop
+ * @param {Number} groundBaseline
  * @param {Number} randSeed
  * @param {Number} multiplier
- * @param {Boolean} palette
  * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, segmentWidth, offsetLeft, offsetTop, randSeed, multiplier, palette, dpi) {
+export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
-  const dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
+
+  // TODO: refactor this variable
+  const segmentWidth = actualWidth * TILE_SIZE
+
+  const dimensions = getVariantInfoDimensions(variantInfo, actualWidth)
   const left = dimensions.left
+
+  const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
+  const groundLevel = groundBaseline - (multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0))
 
   if (graphics.repeat) {
     const sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      let width = sprite.width * TILE_SIZE
+      const svg = images.get(sprite.id)
+
+      let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
       let repeatStartX
 
@@ -199,15 +243,21 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
         repeatStartX = 0
       }
 
+      // The distance between the top of the sprite and the ground is calculated by subtracting the height of the sprite with the # of pixels
+      // to get to the point of the sprite which should align with the ground.
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
           width = (segmentWidth / multiplier) - ((count - 1) * width)
         }
 
+        // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the distance
+        // the sprite will be from the ground.
         drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
-          offsetLeft + ((repeatStartX + (i * sprite.width * TILE_SIZE)) * multiplier),
-          offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+          offsetLeft + ((repeatStartX + (i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE)) * multiplier),
+          (sprite.id.includes('ground') ? groundLevel : groundLevel - distanceFromGround),
           width, undefined, multiplier, dpi)
       }
     }
@@ -218,11 +268,14 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      const x = 0 + ((-left + (sprite.offsetX || 0)) * TILE_SIZE * multiplier)
+      const svg = images.get(sprite.id)
+
+      const x = 0 + ((-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier)
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -232,11 +285,14 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
-      const x = (-left + (segmentWidth / TILE_SIZE / multiplier) - sprite.width - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+      const svg = images.get(sprite.id)
+
+      const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
@@ -246,61 +302,21 @@ export function drawSegmentContents (ctx, type, variantString, segmentWidth, off
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
       const center = dimensions.center
-      const x = (center - (sprite.width / 2) - left - (sprite.offsetX || 0)) * TILE_SIZE * multiplier
+
+      const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
+      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
         offsetLeft + x,
-        offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)),
+        groundLevel - distanceFromGround,
         undefined, undefined, multiplier, dpi)
     }
   }
 
   if (type === 'sidewalk') {
-    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), offsetTop, randSeed, multiplier, variantString, dpi)
-  }
-}
-
-export function setSegmentContents (el, type, variantString, segmentWidth, randSeed, palette, quickUpdate) {
-  let canvasEl
-  const variantInfo = getSegmentVariantInfo(type, variantString)
-
-  var multiplier = palette ? (WIDTH_PALETTE_MULTIPLIER / TILE_SIZE) : 1
-  var dimensions = getVariantInfoDimensions(variantInfo, segmentWidth, multiplier)
-
-  var totalWidth = dimensions.right - dimensions.left
-
-  var offsetTop = palette ? SEGMENT_Y_PALETTE : SEGMENT_Y_NORMAL
-
-  if (!quickUpdate) {
-    var hoverBkEl = document.createElement('div')
-    hoverBkEl.classList.add('hover-bk')
-  }
-
-  if (!quickUpdate) {
-    canvasEl = document.createElement('canvas')
-    canvasEl.classList.add('image')
-  } else {
-    canvasEl = el.querySelector('canvas')
-  }
-  canvasEl.width = totalWidth * TILE_SIZE * system.hiDpi
-  canvasEl.height = CANVAS_BASELINE * system.hiDpi
-  canvasEl.style.width = (totalWidth * TILE_SIZE) + 'px'
-  canvasEl.style.height = CANVAS_BASELINE + 'px'
-  canvasEl.style.left = (dimensions.left * TILE_SIZE * multiplier) + 'px'
-
-  var ctx = canvasEl.getContext('2d')
-
-  drawSegmentContents(ctx, type, variantString, segmentWidth, 0, offsetTop, randSeed, multiplier, palette)
-
-  if (!quickUpdate) {
-    const removeEl = el.querySelector('canvas')
-    if (removeEl) removeEl.remove()
-    el.appendChild(canvasEl)
-
-    const removeEl2 = el.querySelector('.hover-bk')
-    if (removeEl2) removeEl2.remove()
-    el.appendChild(hoverBkEl)
+    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), groundLevel, randSeed, multiplier, variantString, dpi)
   }
 }
 
@@ -314,96 +330,71 @@ export function getLocaleSegmentName (type, variantString) {
   return t(key, defaultName, { ns: 'segment-info' })
 }
 
-export function repositionSegments () {
-  let width, el
-  var left = 0
-  var noMoveLeft = 0
-
+/**
+ * TODO: remove this
+ */
+export function segmentsChanged () {
   const street = store.getState().street
-  for (let i in street.segments) {
-    el = street.segments[i].el
+  const updatedStreet = recalculateWidth(street)
 
-    if (el === draggingMove.segmentBeforeEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH
+  store.dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
 
-      if (!draggingMove.segmentAfterEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH
-      }
-    }
+  saveStreetToServerIfNecessary()
+}
 
-    if (el.classList.contains('dragged-out')) {
-      width = 0
-    } else {
-      width = parseFloat(el.getAttribute('data-width')) * TILE_SIZE
-    }
+/**
+ * Process / sanitize segment labels
+ *
+ * @params {string} name - Segment label to check
+ * @returns {string} - normalized / sanitized segment label
+ */
+function normalizeSegmentLabel (label) {
+  if (!label) return ''
 
-    el.savedLeft = Math.round(left) // so we don’t have to use offsetLeft
-    el.savedNoMoveLeft = Math.round(noMoveLeft) // so we don’t have to use offsetLeft
-    el.savedWidth = Math.round(width)
+  label = label.trim()
 
-    left += width
-    noMoveLeft += width
-
-    if (el === draggingMove.segmentAfterEl) {
-      left += DRAGGING_MOVE_HOLE_WIDTH
-
-      if (!draggingMove.segmentBeforeEl) {
-        left += DRAGGING_MOVE_HOLE_WIDTH
-      }
-    }
+  if (label.length > MAX_SEGMENT_LABEL_LENGTH) {
+    label = label.substr(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
   }
 
-  var occupiedWidth = left
-  var noMoveOccupiedWidth = noMoveLeft
+  return label
+}
 
-  var mainLeft = Math.round(((street.width * TILE_SIZE) - occupiedWidth) / 2)
-  var mainNoMoveLeft = Math.round(((street.width * TILE_SIZE) - noMoveOccupiedWidth) / 2)
+/**
+ * Uses browser prompt to change the segment label
+ *
+ * @param {Object} segment - object describing the segment to edit
+ * @param {Number} position - index of segment to edit
+ */
+export function editSegmentLabel (segment, position) {
+  const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+  const label = normalizeSegmentLabel(window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel))
 
-  for (let i in street.segments) {
-    el = street.segments[i].el
-
-    el.savedLeft += mainLeft
-    el.savedNoMoveLeft += mainNoMoveLeft
-
-    if (system.cssTransform) {
-      el.style[system.cssTransform] = 'translateX(' + el.savedLeft + 'px)'
-      el.cssTransformLeft = el.savedLeft
-    } else {
-      el.style.left = el.savedLeft + 'px'
-    }
+  if (label && label !== prevLabel) {
+    store.dispatch(changeSegmentProperties(position, { label }))
+    segmentsChanged()
   }
 }
 
 /**
- * Set `readDataFromDom` to false to prevent re-reading of segment
- * data from the DOM. Do this whenever we refactor code to modify
- * segments in Redux store. Also set `reassignElementRefs` to true
- * so that new element references can be made
- * @param {boolean} readDataFromDom
+ * Given the position of a segment or building, retrieve a reference to its
+ * DOM element.
+ *
+ * @param {Number|string} position - either "left" or "right" for building,
+ *              or a number for the position of the segment. Should be
+ *              the `dataNo` or `position` variables.
  */
-export function segmentsChanged (readDataFromDom = true, reassignElementRefs = false) {
-  if (readDataFromDom === true) {
-    createDataFromDom()
+export function getSegmentEl (position) {
+  if (!position && position !== 0) return
+
+  let segmentEl
+  if (position === 'left') {
+    segmentEl = document.querySelectorAll('.street-section-building')[0]
+  } else if (position === 'right') {
+    segmentEl = document.querySelectorAll('.street-section-building')[1]
+  } else {
+    const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
+    segmentEl = segments[position]
   }
-
-  const street = store.getState().street
-  const segments = [...street.segments]
-  // When segments have chaged in Redux and we want to depend on that data,
-  // other parts of the app still want a reference to the element. This will
-  // update it. It only happens if you pass `true` as the second argument to this function.
-  if (reassignElementRefs === true) {
-    const els = document.querySelectorAll('#street-section-editable > .segment')
-    segments.map((item, i) => { item.el = els[i] })
-  }
-
-  recalculateWidth()
-  applyWarningsToSegments()
-
-  for (var i in segments) {
-    if (segments[i].el) {
-      segments[i].el.dataNo = i
-    }
-  }
-
-  saveStreetToServerIfNecessary()
+  return segmentEl
 }

@@ -1,33 +1,32 @@
+import { debug } from '../preinit/debug_settings'
+import { initSystemCapabilities } from '../preinit/system_capabilities'
 import { hideLoadingScreen, loadImages } from './load_resources'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { showGallery } from '../gallery/view'
-import { debug } from '../preinit/debug_settings'
-import { system } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
-import { onNewStreetLastClick } from '../streets/creation'
 import {
   setLastStreet,
-  trimStreetData,
   setIgnoreStreetChanges
 } from '../streets/data_model'
-import { updateStreetName } from '../streets/name'
-import { initStreetReduxTransitionSubscriber } from '../streets/street'
+import { initStreetNameChangeListener } from '../streets/name'
+import { initStreetThumbnailSubscriber } from '../streets/image'
+import { initStreetDataChangedListener } from '../streets/street'
+import { initEnvironsChangedListener } from '../streets/environs'
+import { initDragTypeSubscriber } from '../segments/drag_and_drop'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
-import { resizeStreetWidth } from '../streets/width'
+import { fetchLastStreet } from '../streets/xhr'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
 import { detectGeolocation } from '../users/geolocation'
 import { initPersistedSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
-import { trackEvent } from './event_tracking'
 import { getMode, setMode, MODES, processMode } from './mode'
-import { processUrl, updatePageUrl } from './page_url'
+import { processUrl } from './page_url'
 import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
-import { attachFetchNonBlockingEventListeners } from '../util/fetch_nonblocking'
 import store, { observeStore } from '../store'
 import { showDialog } from '../store/actions/dialogs'
 import { everythingLoaded } from '../store/actions/app'
@@ -39,6 +38,7 @@ export function setServerContacted (value) {
 }
 
 function preInit () {
+  initSystemCapabilities()
   setIgnoreStreetChanges(true)
 
   var language = window.navigator.userLanguage || window.navigator.language
@@ -52,7 +52,6 @@ function preInit () {
   // Start listening for keypresses
   startListening()
 
-  attachFetchNonBlockingEventListeners()
   observeStoreToUpdateBodyClasses()
 }
 
@@ -113,29 +112,28 @@ export function checkIfEverythingIsLoaded () {
 }
 
 function onEverythingLoaded () {
-  switch (getMode()) {
-    case MODES.NEW_STREET_COPY_LAST:
-      onNewStreetLastClick()
-      break
+  if (getMode() === MODES.NEW_STREET_COPY_LAST) {
+    fetchLastStreet()
   }
 
   onResize()
-  resizeStreetWidth()
-  updateStreetName(store.getState().street)
-  segmentsChanged(false)
+  segmentsChanged()
 
   setIgnoreStreetChanges(false)
-  setLastStreet(trimStreetData(store.getState().street))
-  initStreetReduxTransitionSubscriber()
+  setLastStreet()
+  initStreetDataChangedListener()
   initializeFlagSubscribers()
   initPersistedSettingsStoreObserver()
+  initStreetThumbnailSubscriber()
 
-  updatePageUrl()
+  initStreetNameChangeListener()
+  initEnvironsChangedListener()
+  initDragTypeSubscriber()
+
   addEventListeners()
+  showConsoleMessage()
 
   store.dispatch(everythingLoaded())
-  var event = new window.CustomEvent('stmx:everything_loaded')
-  window.dispatchEvent(event)
 
   if (debug.forceLiveUpdate) {
     scheduleNextLiveUpdateCheck()
@@ -154,38 +152,80 @@ function onEverythingLoaded () {
     remixStreet()
   }
 
-  // Track touch capability in Google Analytics
-  if (system.touch === true) {
-    trackEvent('SYSTEM', 'TOUCH_CAPABLE', null, null, true)
-  }
-
   // Display "support Streetmix" dialog for returning users
   if (mode === MODES.EXISTING_STREET || mode === MODES.CONTINUE) {
     let welcomeDismissed
     let donateDismissed
+    let canDisplayWhatsNew = false
+
+    const LSKEY_WELCOME_DISMISSED = 'settings-welcome-dismissed'
+    const LSKEY_DONATE_DISMISSED = 'settings-donate-dismissed'
+    const LSKEY_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'
+    const LSKEY_WHATSNEW_LAST_TIMESTAMP = 'whatsnew-last-timestamp'
+
     const twoWeeksAgo = Date.now() - 12096e5
-    const flag = store.getState().flags.DONATE_NAG_SCREEN.value
-    if (window.localStorage['settings-welcome-dismissed']) {
-      welcomeDismissed = JSON.parse(window.localStorage['settings-welcome-dismissed'])
+    const whatsNewTimestamp = 1537222458620 // Hard-coded value
+
+    const state = store.getState()
+    const donateFlag = state.flags.DONATE_NAG_SCREEN.value
+    const whatsNewFlag = state.flags.ALWAYS_DISPLAY_WHATS_NEW.value
+    const locale = state.locale.locale
+
+    if (window.localStorage[LSKEY_WELCOME_DISMISSED]) {
+      welcomeDismissed = JSON.parse(window.localStorage[LSKEY_WELCOME_DISMISSED])
     }
-    if (window.localStorage['settings-donate-dismissed']) {
-      donateDismissed = JSON.parse(window.localStorage['settings-donate-dismissed'])
+    if (window.localStorage[LSKEY_DONATE_DISMISSED]) {
+      donateDismissed = JSON.parse(window.localStorage[LSKEY_DONATE_DISMISSED])
+    }
+    if (window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP]) {
+      if (whatsNewTimestamp > window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP]) {
+        canDisplayWhatsNew = true
+      }
+    } else {
+      canDisplayWhatsNew = true
     }
 
     // if there's no delayed timestamp, immediately set one
     // This means the user should not see the donate nag until
     // they have returned after 2 weeks.
-    if (!window.localStorage['settings-donate-delayed-timestamp']) {
-      window.localStorage['settings-donate-delayed-timestamp'] = Date.now().toString()
+    if (!window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP]) {
+      window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP] = Date.now().toString()
     }
 
-    const delayedTimestamp = JSON.parse(window.localStorage['settings-donate-delayed-timestamp'])
+    const delayedTimestamp = JSON.parse(window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP])
 
-    if (welcomeDismissed && !donateDismissed && flag &&
+    // When to display the What's new dialog?
+    // - Store a hardcoded timestamp value here for the what's new dialog.
+    // - When we display the what's new dialog, store that timestamp on user's localstorage.
+    // On each load, check to see if that timestamp is there, and if so, compare
+    // with the hardcoded value.
+    // - If we are showing the welcome message, do not show What's New.
+    // - If locale is not English, do not show What's New. (We haven't localized it.)
+    // - If LocalStorage has no What's New timestamp, display What's New.
+    // - If LocalStorage has a timestamp value older than current, display What's New.
+    // If What's New is displayed, do not display the donate box.
+
+    if ((welcomeDismissed && canDisplayWhatsNew && locale === 'en') || whatsNewFlag) {
+      store.dispatch(showDialog('WHATS_NEW'))
+      window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP] = whatsNewTimestamp
+    } else if (welcomeDismissed && !donateDismissed && donateFlag &&
        (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
       store.dispatch(showDialog('DONATE'))
     }
   }
+}
+
+function showConsoleMessage () {
+  console.log(`%c
+          ____  _    %cWelcome to%c   _             _      _
+         / ___|| |_ _ __ ___  ___| |_ _ __ ___ (_)_  _| |
+         \\___ \\| __| '__/ _ \\/ _ \\ __| '_ \` _ \\| \\ \\/ / |
+          ___) | |_| | |  __/  __/ |_| | | | | | |>  <|_|
+         |____/ \\__|_|  \\___|\\___|\\__|_| |_| |_|_/_/\\_(_)
+%c..:  We’re looking for contributors!  https://github.com/streetmix/streetmix  :..
+%c..:  Support us financially at        https://opencollective.com/streetmix    :..`,
+  'color: green', 'color:gray', 'color: green', 'color: blue', 'color: red'
+  )
 }
 
 /**

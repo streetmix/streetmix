@@ -20,21 +20,13 @@ export class Description extends React.Component {
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
-    segmentEl: PropTypes.object,
     infoBubbleEl: PropTypes.object
   }
 
   onClickShow = () => {
     this.props.showDescription()
     this.props.updateBubbleDimensions()
-
-    // TODO refactor - segment element should handle this whenever descriptionVisible is true
-    if (this.props.segmentEl) {
-      this.props.segmentEl.classList.add('hide-drag-handles-when-description-shown')
-    }
-
     this.props.updateHoverPolygon()
-    // end TODO
 
     registerKeypress('esc', this.onClickHide)
     trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
@@ -43,14 +35,7 @@ export class Description extends React.Component {
   onClickHide = () => {
     this.props.hideDescription()
     this.props.updateBubbleDimensions()
-
-    // TODO refactor
-    if (this.props.segmentEl) {
-      this.props.segmentEl.classList.remove('hide-drag-handles-when-description-shown')
-    }
-
     this.props.updateHoverPolygon()
-    // end TODO
 
     deregisterKeypress('esc', this.onClickHide)
   }
@@ -94,7 +79,7 @@ export class Description extends React.Component {
   render () {
     const description = this.getDescriptionData(this.props.type, this.props.variantString)
 
-    if (!description || !this.props.segmentEl || !this.props.infoBubbleEl) return null
+    if (!description || !this.props.infoBubbleEl) return null
 
     // If the description text doesn't exist or hasn't been translated, bail.
     const text = t(`descriptions.${description.key}.text`, null, { ns: 'segment-info' })
@@ -137,11 +122,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showDescription: () => { dispatch(showDescription()) },
-    hideDescription: () => { dispatch(hideDescription()) }
-  }
+const actionCreators = {
+  showDescription,
+  hideDescription
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Description)
+export default connect(mapStateToProps, actionCreators)(Description)
