@@ -7,15 +7,25 @@ import {
   HIDE_DESCRIPTION
 } from '../actions'
 
+/**
+ * Conditionally dispatches `SHOW_INFO_BUBBLE` only if info bubble is not visible.
+ */
 export function showInfoBubble () {
-  return {
-    type: SHOW_INFO_BUBBLE
+  return (dispatch, getState) => {
+    if (getState().infoBubble.visible === false) {
+      dispatch({ type: SHOW_INFO_BUBBLE })
+    }
   }
 }
 
+/**
+ * Conditionally dispatches `HIDE_INFO_BUBBLE` only if info bubble is visible.
+ */
 export function hideInfoBubble () {
-  return {
-    type: HIDE_INFO_BUBBLE
+  return (dispatch, getState) => {
+    if (getState().infoBubble.visible === true) {
+      dispatch({ type: HIDE_INFO_BUBBLE })
+    }
   }
 }
 
