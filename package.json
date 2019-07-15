@@ -147,7 +147,7 @@
     "react-redux": "7.1.0",
     "react-transition-group": "4.2.1",
     "redis": "2.8.0",
-    "redux": "4.0.1",
+    "redux": "4.0.4",
     "redux-thunk": "2.3.0",
     "regenerator-runtime": "0.13.2",
     "request": "2.88.0",
