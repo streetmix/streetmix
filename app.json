@@ -7,14 +7,29 @@
     "COOKIE_SESSION_SECRET": {
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret"
+    },
+    "AUTH0_CLIENT_ID": {
+      "required": true
+    },
+    "AUTH0_CLIENT_SECRET": {
+      "required": true
     }
   },
   "addons": [
-    "database",
-    "mongodb",
-    "papertrail",
-    "new_relic",
-    "redis"
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "mongolab:sandbox",
+      "as": "MONGODB"
+    },
+    {
+      "plan": "heroku-redis:hobby-dev",
+      "as": "REDIS"
+    },
+    "papertrail:choklad",
+    "newrelic:wayne"
   ],
   "buildpacks": [
     {
