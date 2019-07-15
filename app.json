@@ -10,11 +10,20 @@
     }
   },
   "addons": [
-    "database",
-    "mongodb",
-    "papertrail",
-    "new_relic",
-    "redis"
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "mongolab:sandbox",
+      "as": "MONGODB"
+    },
+    {
+      "plan": "heroku-redis:hobby-dev",
+      "as": "REDIS"
+    },
+    "papertrail:choklad",
+    "newrelic:wayne"
   ],
   "buildpacks": [
     {
