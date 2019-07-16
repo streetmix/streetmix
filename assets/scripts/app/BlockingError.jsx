@@ -237,7 +237,7 @@ export class BlockingError extends React.Component {
                 id="error.unsupported-browser-internet-explorer"
                 defaultMessage="Are you on Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Find out more.</a>"
                 values={{
-                  readmeIEUrl: 'https://streetmix.readthedocs.io/en/latest/guidebook/faq/#does-streetmix-support-internet-explorer'
+                  readmeIEUrl: 'https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer'
                 }}
               />
             </p>
