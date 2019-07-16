@@ -1,4 +1,4 @@
-import { noop } from 'lodash'
+import { noop } from 'lodash-es'
 
 import USER_ROLES from '../../../app/data/user_roles'
 import { KEYS } from './keys'

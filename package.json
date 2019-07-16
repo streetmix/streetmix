@@ -50,6 +50,12 @@
     "testPathIgnorePatterns": [
       "./test/integration"
     ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!lodash-es/.*)"
+    ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
@@ -60,6 +66,7 @@
       "!assets/scripts/vendor/**/*.{js,jsx}"
     ],
     "moduleNameMapper": {
+      "^lodash-es$": "<rootDir>/node_modules/lodash/index.js",
       "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
       "\\.(css|scss)$": "<rootDir>/test/__mocks__/styleMock.js"
     }
@@ -125,7 +132,8 @@
     "intl-messageformat": "4.3.0",
     "js-cookie": "2.2.0",
     "leaflet": "1.5.1",
-    "lodash": "4.17.13",
+    "lodash": "4.17.14",
+    "lodash-es": "4.17.14",
     "mongoose": "5.6.4",
     "newrelic": "5.10.0",
     "node-env-file": "0.1.8",
@@ -174,6 +182,7 @@
     "babel-eslint": "10.0.2",
     "babel-jest": "24.8.0",
     "babel-plugin-rewire": "1.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "cypress": "3.3.2",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",

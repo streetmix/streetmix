@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 
 import { trackEvent } from '../app/event_tracking'
 import { hideStatusMessage } from '../app/status_message'

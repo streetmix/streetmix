@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { differenceWith, isEqual, isEqualWith } from 'lodash'
+import { differenceWith, isEqual, isEqualWith } from 'lodash-es'
 import SEGMENT_INFO from '../info.json'
 import module, {
   getSpriteDef,

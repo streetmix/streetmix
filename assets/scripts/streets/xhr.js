@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import {

@@ -1,4 +1,4 @@
-import { throttle } from 'lodash'
+import { throttle } from 'lodash-es'
 import { API_URL } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import {

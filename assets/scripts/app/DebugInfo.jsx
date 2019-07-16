@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
 import './DebugInfo.scss'

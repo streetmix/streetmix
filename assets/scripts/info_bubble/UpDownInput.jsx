@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { debounce } from 'lodash'
+import { debounce } from 'lodash-es'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { KEYS } from '../app/keys'
 import { ICON_MINUS, ICON_PLUS } from '../ui/icons'

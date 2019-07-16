@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragSource, DropTarget } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
-import flow from 'lodash/flow'
+import { flow } from 'lodash-es'
 import { CSSTransition } from 'react-transition-group'
 
 import SegmentCanvas from './SegmentCanvas'

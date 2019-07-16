@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl'
 import MultiBackend from 'react-dnd-multi-backend'
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch'
 import { DragDropContext } from 'react-dnd'
-import flow from 'lodash/flow'
+import { flow } from 'lodash-es'
 import NOTIFICATION from '../../../app/data/notification.json'
 
 import NotificationBar from './NotificationBar'

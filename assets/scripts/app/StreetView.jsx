@@ -8,7 +8,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { throttle } from 'lodash'
+import { throttle } from 'lodash-es'
 import StreetEditable from './StreetEditable'
 import StreetViewDirt from './StreetViewDirt'
 import SkyBackground from './SkyBackground'
