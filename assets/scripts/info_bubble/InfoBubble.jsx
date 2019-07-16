@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedMessage } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import EditableLabel from './EditableLabel'
 import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
@@ -19,11 +19,9 @@ import {
 } from './constants'
 import { registerKeypress } from '../app/keypress'
 import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
-import { trackEvent } from '../app/event_tracking'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
-import { getSegmentEl, editSegmentLabel } from '../segments/view'
-import { ICON_PENCIL, ICON_LOCK } from '../ui/icons'
+import { getSegmentEl } from '../segments/view'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
 import { setInfoBubbleMouseInside } from '../store/actions/infoBubble'
@@ -49,13 +47,11 @@ export class InfoBubble extends React.Component {
     setInfoBubbleMouseInside: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object,
-    locale: PropTypes.object,
-    customSegmentLabels: PropTypes.bool
+    locale: PropTypes.object
   }
 
   static defaultProps = {
-    visible: false,
-    customSegmentLabels: false
+    visible: false
   }
 
   constructor (props) {
@@ -177,10 +173,6 @@ export class InfoBubble extends React.Component {
     // so that keyboard commands respond to pointer position rather than
     // any focused buttons/inputs
     loseAnyFocus()
-  }
-
-  onMouseEnterLabel = (event) => {
-    trackEvent('Interaction', 'InoBubble: Hover over editable label', null, null, true)
   }
 
   onBodyMouseMove = (event) => {
@@ -395,7 +387,7 @@ export class InfoBubble extends React.Component {
    * Retrieve name from segment data. It should also find the equivalent strings from the
    * translation files if provided.
    */
-  getName = () => {
+  getLabel = () => {
     let id
     let defaultMessage = ''
 
@@ -453,7 +445,6 @@ export class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
-    const isEditable = this.props.customSegmentLabels
     const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null)
 
     // Set class names
@@ -512,19 +503,11 @@ export class InfoBubble extends React.Component {
         >
           <Triangle highlight={this.state.highlightTriangle} />
           <header>
-            <div
-              className="info-bubble-label info-bubble-label-editable"
-              onClick={() => isEditable && editSegmentLabel(segment, this.props.position)}
-              onMouseEnter={this.onMouseEnterLabel}
-            >
-              {this.getName()}
-              <span className="info-bubble-label-editable-icon">
-                {isEditable
-                  ? <FontAwesomeIcon icon={ICON_PENCIL} />
-                  : <FontAwesomeIcon icon={ICON_LOCK} />
-                }
-              </span>
-            </div>
+            <EditableLabel
+              label={this.getLabel()}
+              segment={segment}
+              position={this.props.position}
+            />
             {canBeDeleted && <RemoveButton segment={this.props.position} />}
           </header>
           <div className="info-bubble-controls">
