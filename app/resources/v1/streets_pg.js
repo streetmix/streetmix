@@ -54,7 +54,7 @@ exports.post = async function (req, res) {
   function updateUserLastStreetId (userId) {
     return User.findById(userId)
       .then(user => {
-        return user.increment('last_street_id', {by: 1})
+        return user.increment('last_street_id', { by: 1 })
       })
   }
 
@@ -68,8 +68,8 @@ exports.post = async function (req, res) {
     }
     if (sequence) {
       return Sequence.update(
-        {seq: sequence.seq + 1},
-        { where: {id: 'streets'}, returning: true }
+        { seq: sequence.seq + 1 },
+        { where: { id: 'streets' }, returning: true }
       )
     }
     return Sequence.create({
@@ -120,12 +120,12 @@ exports.post = async function (req, res) {
       street.original_street_id = origStreet
       const namespacedId = await makeNamespacedId()
       street.namespaced_id = namespacedId
-      return street.save({returning: true})
+      return street.save({ returning: true })
     }
 
     const namespacedId = await makeNamespacedId()
     street.namespaced_id = namespacedId
-    return street.save({returning: true})
+    return street.save({ returning: true })
   }
 
   const handleCreatedStreet = (s) => {
@@ -196,7 +196,7 @@ exports.delete = async function (req, res) {
     }
 
     street.status = 'DELETED'
-    return Street.update(street, {where: {id: req.params.street_id}, returning: true})
+    return Street.update(street, { where: { id: req.params.street_id }, returning: true })
   }
 
   function handleErrors (error) {
@@ -464,9 +464,9 @@ exports.put = async function (req, res) {
 
       street.original_street_id = origStreet.id
       console.log(JSON.stringify(street))
-      return street.save({returning: true})
+      return street.save({ returning: true })
     } else {
-      return street.save({returning: true})
+      return street.save({ returning: true })
     }
   } // END function - updateStreetData
 

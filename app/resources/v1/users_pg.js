@@ -89,7 +89,7 @@ exports.post = async function (req, res) {
     if (!user) {
       return User.create(credentials)
     } else {
-      return User.update(credentials, {where: {id: credentials.id}, returning: true})
+      return User.update(credentials, { where: { id: credentials.id }, returning: true })
     }
   }
 
@@ -309,7 +309,7 @@ exports.put = async function (req, res) {
   }
 
   user.data = body.data || user.data
-  User.update(user, {where: {id: user.id}, returning: true})
+  User.update(user, { where: { id: user.id }, returning: true })
     .then(result => {
       res.status(204).end()
     })
