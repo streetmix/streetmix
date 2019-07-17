@@ -12,6 +12,7 @@ import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
 import MinecraftDialog from './MinecraftDialog'
 import NewsletterDialog from './NewsletterDialog'
+import UpgradeDialog from './UpgradeDialog'
 import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
@@ -41,6 +42,9 @@ const DIALOG_COMPONENTS = {
   },
   NEWSLETTER: {
     id: NewsletterDialog
+  },
+  UPGRADE: {
+    id: UpgradeDialog
   }
 }
 
