@@ -41,7 +41,7 @@ class ThreeScene extends Component {
     this.mount.appendChild(this.renderer.domElement)
     this.loader = new ColladaLoader() // loader
     this.loader.options.convertUpAxis = true
-    this.loader.load('http://localhost:3000/car.dae', this.loadCollada)
+    this.loader.load('/images/models/car.dae', this.loadCollada)
   }
   componentWillUnmount () {
     this.stop()
