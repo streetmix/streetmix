@@ -37,13 +37,13 @@ function AboutDialog (props) {
                 </p>
                 <ul className="about-dialog-sponsors">
                   <li>
-                    <a href="https://codeforamerica.org/" target="_blank" rel="noopener noreferrer">
-                      <img src="/images/sponsors/codeforamerica.png" alt="Code for America" />
+                    <a href="https://numo.global/" target="_blank" rel="noopener noreferrer">
+                      <img src="/images/sponsors/numo.svg" alt="New Urban Mobility Alliance" />
                     </a>
                   </li>
                   <li>
-                    <a href="https://lyft.com/" target="_blank" rel="noopener noreferrer">
-                      <img src="/images/sponsors/lyft.svg" alt="Lyft" />
+                    <a href="https://codeforamerica.org/" target="_blank" rel="noopener noreferrer">
+                      <img src="/images/sponsors/codeforamerica.png" alt="Code for America" />
                     </a>
                   </li>
                   <li>
