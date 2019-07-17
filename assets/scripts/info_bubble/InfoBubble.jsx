@@ -141,9 +141,11 @@ export class InfoBubble extends React.Component {
       document.body.removeEventListener('mousemove', this.onBodyMouseMove)
     }
 
-    // TODO: Understand why this is needed and if running this can be constrained
-    // to specific instances, as it sets off cascading updates in React.
-    // this.updateHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)
+    // This appears to be needed to prevent a flicker during mouseover of the infobubble.
+    // However because this affects props, it triggers a secondary render() in React and
+    // incurs a small performance hit.
+    // TODO: can we optimize this away without introducing the flicker?
+    this.updateHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)
   }
 
   componentWillUnmount () {
