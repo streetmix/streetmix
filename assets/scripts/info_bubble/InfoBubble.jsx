@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedMessage } from 'react-intl'
+import { debounce } from 'lodash'
 import EditableLabel from './EditableLabel'
 import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
@@ -33,6 +34,8 @@ const DESCRIPTION_HOVER_POLYGON_MARGIN = 200
 
 const MIN_TOP_MARGIN_FROM_VIEWPORT = 120
 const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
+
+const HOVER_POLYGON_DEBOUNCE = 50
 
 export class InfoBubble extends React.Component {
   static propTypes = {
@@ -66,8 +69,6 @@ export class InfoBubble extends React.Component {
       type: null,
       highlightTriangle: false
     }
-
-    this.hoverPolygonUpdateTimerId = -1
 
     // Register keyboard shortcuts to hide info bubble
     // Only hide if it's currently visible, and if the
@@ -140,6 +141,10 @@ export class InfoBubble extends React.Component {
       document.body.removeEventListener('mousemove', this.onBodyMouseMove)
     }
 
+    // This appears to be needed to prevent a flicker during mouseover of the infobubble.
+    // However because this affects props, it triggers a secondary render() in React and
+    // incurs a small performance hit.
+    // TODO: can we optimize this away without introducing the flicker?
     this.updateHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)
   }
 
@@ -186,11 +191,7 @@ export class InfoBubble extends React.Component {
       }
     }
 
-    window.clearTimeout(this.hoverPolygonUpdateTimerId)
-
-    this.hoverPolygonUpdateTimerId = window.setTimeout(() => {
-      this.updateHoverPolygon(mouseX, mouseY)
-    }, 50)
+    this.debouncedUpdateHoverPolygon(mouseX, mouseY)
   }
 
   highlightTriangle = (event) => {
@@ -205,6 +206,8 @@ export class InfoBubble extends React.Component {
     const hoverPolygon = this.createHoverPolygon(mouseX, mouseY)
     this.props.updateHoverPolygon(hoverPolygon)
   }
+
+  debouncedUpdateHoverPolygon = debounce(this.updateHoverPolygon, HOVER_POLYGON_DEBOUNCE)
 
   // TODO: make this a pure(r) function
   createHoverPolygon = (mouseX, mouseY) => {
