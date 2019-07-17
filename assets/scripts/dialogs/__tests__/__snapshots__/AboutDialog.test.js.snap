@@ -57,6 +57,18 @@ exports[`AboutDialog renders snapshot 1`] = `
               >
                 <li>
                   <a
+                    href="https://numo.global/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt="New Urban Mobility Alliance"
+                      src="/images/sponsors/numo.svg"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="https://codeforamerica.org/"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -64,18 +76,6 @@ exports[`AboutDialog renders snapshot 1`] = `
                     <img
                       alt="Code for America"
                       src="/images/sponsors/codeforamerica.png"
-                    />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://lyft.com/"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <img
-                      alt="Lyft"
-                      src="/images/sponsors/lyft.svg"
                     />
                   </a>
                 </li>
