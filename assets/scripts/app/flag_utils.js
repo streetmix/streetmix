@@ -11,6 +11,7 @@ export const PRIORITY_LEVELS = {
 export function initializeFlagSubscribers () {
   initLocalStorageUpdateListener()
   initRedrawPaletteUpdateListener()
+  initExperimentalBodyFontListener()
 }
 
 function whatAreTheFlagsWeNeedToSave (flags) {
@@ -41,6 +42,23 @@ function initRedrawPaletteUpdateListener () {
   const select = (state) => state.flags.SEGMENT_INCEPTION_TRAIN.value
   const onChange = () => {
     window.dispatchEvent(new window.CustomEvent('stmx:force_palette_redraw'))
+  }
+
+  return observeStore(select, onChange)
+}
+
+function initExperimentalBodyFontListener () {
+  const select = (state) => state.flags.BODY_FONT_UPDATE.value
+  const onChange = (value) => {
+    if (value === true) {
+      const el = document.createElement('link')
+      el.href = 'https://fonts.googleapis.com/css?family=Barlow:400,600,400italic'
+      el.ref = 'stylesheet'
+      document.head.appendChild(el)
+      document.body.classList.add('experimental-font-family')
+    } else {
+      document.body.classList.remove('experimental-font-family')
+    }
   }
 
   return observeStore(select, onChange)
