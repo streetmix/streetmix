@@ -14,3 +14,16 @@ textarea,
 option {
   font-family: $font-family;
 }
+
+body.experimental-font-family {
+  font-family: $experimental-font-family;
+
+  button,
+  a.button-like,
+  input,
+  select,
+  textarea,
+  option {
+    font-family: $experimental-font-family;
+  }
+}
