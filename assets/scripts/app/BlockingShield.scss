@@ -1,0 +1,38 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.blocking-shield {
+  @include blocking-shield;
+
+  z-index: $z-09-blocking-shield;
+  display: none;
+  background: transparent;
+  color: transparent;
+  cursor: wait;
+
+  button {
+    cursor: pointer;
+  }
+
+  &.visible {
+    display: flex;
+  }
+
+  &.darken,
+  &.darken-immediately {
+    background: fade-out($sky-colour, 0.15);
+    color: black;
+  }
+
+  &.darken {
+    transition: background 1500ms, color 1500ms;
+  }
+
+  &.darken-immediately {
+    transition: none;
+  }
+
+  .message {
+    @include large-message-text;
+  }
+}

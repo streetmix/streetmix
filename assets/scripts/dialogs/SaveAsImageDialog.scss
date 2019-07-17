@@ -1,0 +1,95 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+// Content of Save as Image dialog box
+.save-as-image-dialog {
+  width: 720px;
+
+  .checkbox-item {
+    display: inline-block;
+    margin-left: 20px;
+  }
+
+  .checkbox-item:first-of-type {
+    margin-left: 0;
+  }
+
+  [dir="rtl"] & .checkbox-item {
+    margin-left: 0;
+    margin-right: 20px;
+  }
+
+  [dir="rtl"] & .checkbox-item:first-of-type {
+    margin-right: 0;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  // Don't wrap the Creative Commons label
+  footer a {
+    white-space: nowrap;
+  }
+}
+
+.save-as-image-options {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.save-as-image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-height: 300px;
+  border-top: 3px dashed $ui-colour;
+  border-bottom: 3px dashed $ui-colour;
+}
+
+.save-as-image-preview-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.save-as-image-preview-image {
+  @include touch-callout(default);
+
+  /* Removes extra baseline space */
+  line-height: 0;
+
+  img {
+    /* Images may have variable dimensions. Use max-width/max-height
+    to preserve aspect ratio */
+    max-width: 100%;
+    max-height: 300px;
+    cursor: move; // IE
+    cursor: grab;
+  }
+}
+
+.save-as-image-preview-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  padding: 3em;
+}
+
+.save-as-image-download {
+  text-align: center;
+
+  a.button-like {
+    margin-top: 0;
+  }
+}

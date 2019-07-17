@@ -1,0 +1,22 @@
+.building-height {
+  /* Re-organizes the up/down input so that elements are stacked
+  veritcally, and flips the icons so that up above the element */
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+
+  .up-down-input-element {
+    width: 50px + 50px;
+    margin-top: 4px;
+    margin-bottom: 2px;
+  }
+
+  .up-down-input-decrement {
+    margin-top: 3px;
+    margin-bottom: 5px;
+  }
+
+  .up-down-input-increment {
+    margin-bottom: 2px;
+  }
+}

@@ -2,28 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EnvironmentBadge from './EnvironmentBadge'
-import { goTwitterSignIn } from '../app/routing'
-import { showGallery } from '../gallery/view'
 import MenuBarItem from './MenuBarItem'
-import Avatar from '../users/Avatar'
+import SignInButton from './SignInButton'
+import AvatarMenu from './AvatarMenu'
+import { doSignIn } from '../users/authentication'
 import { clearMenus } from '../store/actions/menus'
+import { showDialog } from '../store/actions/dialogs'
+import './MenuBar.scss'
 
-class MenuBar extends React.PureComponent {
+class MenuBar extends React.Component {
   static propTypes = {
     onMenuDropdownClick: PropTypes.func,
-    userId: PropTypes.string,
-    clearMenus: PropTypes.func
+    user: PropTypes.object,
+    clearMenus: PropTypes.func,
+    showDialog: PropTypes.func,
+    noInternet: PropTypes.bool,
+    upgradeFunnel: PropTypes.bool
   }
 
   static defaultProps = {
-    userId: ''
+    upgradeFunnel: false
   }
 
   componentDidMount () {
-    window.addEventListener('resize', this.onResize)
+    window.addEventListener('resize', this.handleWindowResize)
 
     // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
-    window.addEventListener('stmx:streetnamecanvas_mounted', this.onResize)
+    window.addEventListener('stmx:streetnamecanvas_mounted', this.handleWindowResize)
 
     // Currently, when locales are refreshed, this remounts the entire app, including
     // this component. This "resets" all menus to its closed state, but it's still "active"
@@ -33,8 +38,8 @@ class MenuBar extends React.PureComponent {
 
   componentWillUnmount () {
     // Clean up event listeners
-    window.removeEventListener('resize', this.onResize)
-    window.removeEventListener('stmx:streetnamecanvas_mounted', this.onResize)
+    window.removeEventListener('resize', this.handleWindowResize)
+    window.removeEventListener('stmx:streetnamecanvas_mounted', this.handleWindowResize)
   }
 
   /**
@@ -42,52 +47,40 @@ class MenuBar extends React.PureComponent {
    * Pass in the name of this menu, and it returns (curries) a function
    * that handles the event.
    */
-  onClickMenuButton = (menu) => {
+  handleClickMenuButton = (menu) => {
     return (event) => {
       const position = event.target.closest('button').getBoundingClientRect()
       this.props.onMenuDropdownClick(menu, position)
     }
   }
 
-  onClickMyStreets = (event) => {
+  handleClickUpgrade = (event) => {
     event.preventDefault()
-    if (event.shiftKey || event.ctrlKey || event.metaKey) {
-      return
-    }
-
-    if (this.props.userId) {
-      showGallery(this.props.userId, false)
-    } else {
-      showGallery(null, false, true)
-    }
+    this.props.showDialog('UPGRADE')
   }
 
-  onResize = () => {
+  handleWindowResize = () => {
     // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
     window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
       rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
-    }}))
+    } }))
   }
 
-  onClickSignIn = (event) => {
-    goTwitterSignIn()
-  }
-
-  renderUserAvatar = (userId) => {
-    return (userId)
+  renderUserAvatar = (user) => {
+    return (user)
       ? (
-        <MenuBarItem onClick={this.onClickMenuButton('identity')} requireInternet>
-          <Avatar userId={userId} />
-          <span className="user-id">{userId}</span>
-        </MenuBarItem>
+        <li>
+          <AvatarMenu user={user} onClick={this.handleClickMenuButton('identity')} />
+        </li>
       ) : (
-        <MenuBarItem label="Sign in" translation="menu.item.sign-in" onClick={this.onClickMenuButton('signin')} requireInternet />
+        <li>
+          <SignInButton onClick={doSignIn} />
+        </li>
       )
   }
 
   render () {
-    const userId = this.props.userId
-    const myStreetsLink = userId ? `/${userId}` : ''
+    const { user } = this.props
 
     return (
       <nav className="menu-bar">
@@ -96,27 +89,34 @@ class MenuBar extends React.PureComponent {
             <div className="streetmix-logo" />
             <h1>Streetmix</h1>
           </li>
-          <MenuBarItem label="Help" translation="menu.item.help" onClick={this.onClickMenuButton('help')} />
-          <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.onClickMenuButton('contact')} requireInternet />
-          <MenuBarItem label="Contribute" translation="menu.item.contribute" onClick={this.onClickMenuButton('contribute')} requireInternet />
+          <MenuBarItem label="Help" translation="menu.item.help" onClick={this.handleClickMenuButton('help')} />
+          {!this.props.noInternet && (
+            <React.Fragment>
+              <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.handleClickMenuButton('contact')} />
+              {this.props.upgradeFunnel ? (
+                <MenuBarItem url="#" label="Upgrade" translation="menu.upgrade" onClick={this.handleClickUpgrade} />
+              ) : (
+                <MenuBarItem
+                  label="Donate"
+                  translation="menu.contribute.donate"
+                  url="https://opencollective.com/streetmix/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              )}
+            </React.Fragment>
+          )}
         </ul>
         <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>
-          {this.renderUserAvatar(userId)}
           <MenuBarItem
             label="New street"
             translation="menu.item.new-street"
             url="/new"
             target="_blank"
           />
-          <MenuBarItem
-            label="My streets"
-            translation="menu.item.my-streets"
-            url={myStreetsLink}
-            onClick={this.onClickMyStreets}
-            requireInternet
-          />
-          <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.onClickMenuButton('settings')} />
-          <MenuBarItem label="Share" translation="menu.item.share" onClick={this.onClickMenuButton('share')} />
+          <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.handleClickMenuButton('settings')} />
+          <MenuBarItem label="Share" translation="menu.item.share" onClick={this.handleClickMenuButton('share')} />
+          {!this.props.noInternet && this.renderUserAvatar(user)}
         </ul>
         <EnvironmentBadge />
       </nav>
@@ -126,14 +126,15 @@ class MenuBar extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    userId: state.user.signInData && state.user.signInData.userId
+    user: (state.user.signInData && state.user.signInData.details) || null,
+    noInternet: state.system.noInternet,
+    upgradeFunnel: state.flags.BUSINESS_PLAN.value
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    clearMenus: () => dispatch(clearMenus())
-  }
+const mapDispatchToProps = {
+  clearMenus,
+  showDialog
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

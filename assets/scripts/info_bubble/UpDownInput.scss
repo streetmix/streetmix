@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+
+.up-down-input-element {
+  width: 50px;
+  margin: 0 3px;
+  font-family: $font-family;
+  font-size: 13px;
+  text-align: center;
+  background: $form-element-background;
+  border: 1px solid $form-element-border;
+  vertical-align: bottom;
+  height: 30px;
+  line-height: 22px;
+  outline: none;
+
+  body.experimental-font-family & {
+    font-family: $experimental-font-family;
+  }
+}
+
+.up-down-input-uneditable {
+  display: inline-block;
+  color: black;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  white-space: nowrap;
+}

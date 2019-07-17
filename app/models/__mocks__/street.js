@@ -9,7 +9,7 @@ const dummyStreet = {
   _id: '5b06a6544a62a14ae7467e37',
   status: 'ACTIVE',
   id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
-  creator_id: '5b031f6eaf47f2002',
+  creator_id: '1',
   namespaced_id: 65,
   updated_at: '2018-05-24T11:47:33.041Z',
   created_at: '2018-05-24T11:47:32.721Z',
@@ -83,10 +83,7 @@ function Model (_doc) {
   }
 }
 
-Model.findByIdAndUpdate = function (query, operation, option, cb) {
-  if (cb) {
-    return cb(null, dummyStreet)
-  }
+Model.findByIdAndUpdate = function (query, operation, option) {
   return Promise.resolve(dummyStreet)
 }
 

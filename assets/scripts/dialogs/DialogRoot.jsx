@@ -1,65 +1,94 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { clearDialogs } from '../store/actions/dialogs'
 
 // Import all dialogs here
-import Dialog from './Dialog'
 import AboutDialog from './AboutDialog'
 import DonateDialog from './DonateDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
 import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
-import EmailSignInDialog from './EmailSignInDialog'
+import SignInDialog from './SignInDialog'
+import WhatsNewDialog from './WhatsNewDialog'
+import MinecraftDialog from './MinecraftDialog'
+import NewsletterDialog from './NewsletterDialog'
+import UpgradeDialog from './UpgradeDialog'
+import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
   ABOUT: {
-    contents: AboutDialog
+    id: AboutDialog
   },
   DONATE: {
-    contents: DonateDialog,
-    disableShieldExit: true
+    id: DonateDialog
   },
   FEATURE_FLAGS: {
-    contents: FeatureFlagDialog
+    id: FeatureFlagDialog
   },
   GEOTAG: {
-    contents: GeotagDialog
+    id: GeotagDialog
   },
   SAVE_AS_IMAGE: {
-    contents: SaveAsImageDialog
+    id: SaveAsImageDialog
   },
-  EMAIL_SIGN_IN: {
-    contents: EmailSignInDialog
+  SIGN_IN: {
+    id: SignInDialog
+  },
+  WHATS_NEW: {
+    id: WhatsNewDialog
+  },
+  MINECRAFT: {
+    id: MinecraftDialog
+  },
+  NEWSLETTER: {
+    id: NewsletterDialog
+  },
+  UPGRADE: {
+    id: UpgradeDialog
   }
 }
 
-const DialogRoot = (props) => {
-  const { name, clearDialogs } = props
+class DialogRoot extends Component {
+  static propTypes = {
+    name: PropTypes.string
+  }
 
-  if (!name) return null
+  state = {
+    error: false
+  }
 
-  const { contents: DialogContents, ...restProps } = DIALOG_COMPONENTS[name]
+  static getDerivedStateFromError () {
+    return {
+      error: true
+    }
+  }
 
-  return (
-    <Dialog {...restProps} closeDialog={clearDialogs}>
-      <DialogContents />
-    </Dialog>
-  )
-}
+  resetError = () => {
+    this.setState({
+      error: false
+    })
+  }
 
-DialogRoot.propTypes = {
-  name: PropTypes.string,
-  clearDialogs: PropTypes.func
-}
+  render () {
+    const { name } = this.props
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    clearDialogs: () => { dispatch(clearDialogs()) }
+    // Bail if no dialog name is provided
+    if (!name) return null
+
+    // If there is an error, display the error dialog and
+    // give it a function to reset state when it closes
+    if (this.state.error) return <ErrorDialog reset={this.resetError} />
+
+    // Get the dialog we want, then render it
+    try {
+      const { id: Dialog } = DIALOG_COMPONENTS[name]
+      return <Dialog />
+    } catch (err) {
+      // Render the error dialog if we are unable to find the dialog
+      console.error('[DialogRoot]', `Unable to find dialog id \`${name}\``)
+      return <ErrorDialog reset={this.resetError} />
+    }
   }
 }
 
-export default connect(
-  state => state.dialogs,
-  mapDispatchToProps
-)(DialogRoot)
+export default connect(state => state.dialogs)(DialogRoot)

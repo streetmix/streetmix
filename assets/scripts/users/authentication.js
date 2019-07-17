@@ -5,6 +5,8 @@ import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
+import { goTwitterSignIn } from '../app/routing'
+import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
@@ -15,10 +17,24 @@ import {
   createSignInLoadedState,
   rememberUserProfile
 } from '../store/actions/user'
+import { showDialog } from '../store/actions/dialogs'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
 const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
+
+export function doSignIn () {
+  const state = store.getState()
+  const locale = state.locale.locale
+  const newAuthEnabled = state.flags.AUTHENTICATION_V2.value
+
+  // The sign in dialog is only limited to users where the UI has been localized
+  if (newAuthEnabled && ['en', 'fi', 'fr', 'de', 'pl', 'es-MX'].indexOf(locale) >= 0) {
+    store.dispatch(showDialog('SIGN_IN'))
+  } else {
+    goTwitterSignIn()
+  }
+}
 
 export function getSignInData () {
   return store.getState().user.signInData
@@ -95,11 +111,18 @@ export async function loadSignIn () {
 
   const signInData = getSignInData()
 
+  const storage = JSON.parse(window.localStorage.getItem('flags'))
+  const sessionOverrides = generateFlagOverrides(storage, 'session')
+
+  let userOverrides
+
   if (signInData && signInData.token && signInData.userId) {
-    await fetchSignInDetails(signInData.userId)
+    userOverrides = await fetchSignInDetails(signInData.userId)
   } else {
     setSignedInState(false)
   }
+
+  applyFlagOverrides(store.getState().flags, userOverrides, sessionOverrides)
 
   setSignInLoadedState(true)
 
@@ -121,7 +144,12 @@ async function fetchSignInDetails (userId) {
     }
 
     const json = await response.json()
-    receiveSignInDetails(json)
+    const { flags, ...details } = json
+
+    const userOverrides = generateFlagOverrides(flags, 'user')
+
+    receiveSignInDetails(details)
+    return userOverrides
   } catch (error) {
     errorReceiveSignInDetails(error)
   }
@@ -195,8 +223,8 @@ function signOut (quiet) {
 
 export function getAuthHeader () {
   const signInData = getSignInData()
-  if (signInData && signInData.token) {
-    return 'Streetmix realm="" loginToken="' + signInData.token + '"'
+  if (signInData && signInData.token && signInData.userId) {
+    return `Streetmix realm="" loginToken="${signInData.token}" userId="${signInData.userId}"`
   } else {
     return ''
   }

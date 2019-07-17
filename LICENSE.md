@@ -1,4 +1,5 @@
-Copyright (c) 2013-2017, Code for America and contributors
+Copyright (c) 2013-2018, Code for America and contributors
+Copyright (c) 2019, Streetmix LLC
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

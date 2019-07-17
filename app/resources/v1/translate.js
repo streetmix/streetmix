@@ -45,8 +45,12 @@ exports.get = async (req, res) => {
 
   let translation
 
+  if (config.l10n.use_local === false && typeof config.l10n.transifex.api_token === 'undefined') {
+    logger.warn('Remote translation files were requested but an API token was not provided. Falling back to local translations.')
+  }
+
   try {
-    if (config.l10n.use_local === true) {
+    if (config.l10n.use_local === true || typeof config.l10n.transifex.api_token === 'undefined') {
       translation = await getLocalTranslation(res, locale, resource)
     } else {
       translation = await getFromTransifex(locale, resource, config.l10n.transifex.api_token)

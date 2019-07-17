@@ -2,9 +2,9 @@ import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
-import { needsUnicodeFont } from '../util/unicode'
+import { getEnvirons, makeCanvasGradientStopArray } from '../streets/environs'
 import {
-  BUILDING_DESTINATION_THUMBNAIL,
+  BUILDINGS,
   GROUND_BASELINE_HEIGHT,
   drawBuilding
 } from '../segments/buildings'
@@ -17,15 +17,220 @@ import {
 } from '../segments/view'
 import { t } from '../locales/locale'
 
-const SKY_COLOUR = 'rgb(169, 204, 219)'
-// TODO: replace SKY_WIDTH with image's natural width
-const SKY_WIDTH = 250
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
+const WATERMARK_TEXT_SIZE = 24
+const WATERMARK_RIGHT_MARGIN = 15
+const WATERMARK_BOTTOM_MARGIN = 15
+const WATERMARK_DARK_COLOR = '#333333'
+const WATERMARK_LIGHT_COLOR = '#cccccc'
+
+const WORDMARK_MARGIN = 4
+
+/**
+ * Draws a "made with Streetmix" watermark on the lower right of the image.
+ *
+ * @todo Make it work with rtl
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on.
+ * @param {Number} dpi - scale factor of image.
+ * @param {Boolean} invert - if `true`, render light text for dark background
+ * @modifies {CanvasRenderingContext2D}
+ */
+function drawWatermark (ctx, dpi, invert) {
+  const text = 'Made with {streetmixWordmark}'
+  // TODO: fix text replacement issue with intl-messageformat
+  // const text = t('export.watermark', 'Made with {streetmixWordmark}')
+  const wordmarkImage = images.get('/images/wordmark.svg')
+
+  // Separate string so that we can render a wordmark with an image
+  const strings = text.replace(/{/g, '||{{').replace(/}/g, '}}||').split('||')
+
+  // Set text render options
+  ctx.textAlign = 'right'
+  ctx.textBaseline = 'alphabetic'
+  ctx.font = `normal 700 ${WATERMARK_TEXT_SIZE * dpi}px Lato,sans-serif`
+  ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR
+
+  // Set starting X/Y positions so that watermark is aligned right and bottom of image
+  const startRightX = ctx.canvas.width - (WATERMARK_RIGHT_MARGIN * dpi)
+  const startBottomY = ctx.canvas.height - (WATERMARK_BOTTOM_MARGIN * dpi)
+
+  // Set wordmark width and height based on image scale (dpi)
+  const logoWidth = wordmarkImage.width * dpi
+  const logoHeight = wordmarkImage.height * dpi
+
+  // Keep track of where we are on the X-position.
+  let currentRightX = startRightX
+
+  // Render each part of the string.
+  for (let i = strings.length - 1; i >= 0; i--) {
+    const string = strings[i]
+
+    // If we see the wordmark placeholder, render the image.
+    if (string === '{{streetmixWordmark}}') {
+      const margin = WORDMARK_MARGIN * dpi
+      const logoLeftX = currentRightX - logoWidth - margin
+      const logoTopY = startBottomY - logoHeight + dpi // Additional adjustment for visual alignment
+
+      ctx.drawImage(wordmarkImage.img, logoLeftX, logoTopY, logoWidth, logoHeight)
+
+      // Update X position.
+      currentRightX = logoLeftX - margin
+    } else {
+      ctx.fillText(string, currentRightX, startBottomY)
+
+      // Update X position.
+      currentRightX = currentRightX - ctx.measureText(string).width
+    }
+  }
+}
+
+/**
+ * Draws a layer of background color
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {string} color - color to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundColor (ctx, dpi, width, height, color) {
+  ctx.fillStyle = color
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws background image as a repeating pattern.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Object} imageId - image ID to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundImage (ctx, dpi, width, height, imageId) {
+  const img = images.get(imageId)
+
+  for (let i = 0; i < Math.floor(height / img.height) + 1; i++) {
+    for (let j = 0; j < Math.floor(width / img.width) + 1; j++) {
+      ctx.drawImage(img.img,
+        0, 0, img.width, img.height,
+        j * img.width * dpi, i * img.height * dpi, img.width * dpi, img.height * dpi)
+    }
+  }
+}
+
+/**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Array} backgroundGradient - environs definition of gradient
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundGradient (ctx, dpi, width, height, backgroundGradient) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, height * dpi)
+
+  // Make color stops
+  const stops = makeCanvasGradientStopArray(backgroundGradient)
+  for (let i = 0; i < stops.length; i++) {
+    const [ color, stop ] = stops[i]
+    gradient.addColorStop(stop, color)
+  }
+
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Array} objects - environs definition of background objects
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundObjects (ctx, dpi, width, height, objects) {
+  objects.forEach((object) => {
+    const { image: imageId, width: imageWidth, height: imageHeight, top, left } = object
+    const image = images.get(imageId).img
+    ctx.drawImage(
+      image,
+      // Left and top values are "percentage" values
+      // and sets where the center of the image is
+      (left * width - (imageWidth / 2)) * dpi,
+      (top * height - (imageHeight / 2)) * dpi,
+      imageWidth * dpi,
+      imageHeight * dpi
+    )
+  })
+}
+
+/**
+ * Draws clouds.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw o
+ * @param {Number} dpi - scale factor of image
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Object} env - environs settings
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawClouds (ctx, dpi, width, height, env) {
+  // Handle cloud opacity
+  ctx.save()
+  ctx.globalAlpha = env.cloudOpacity || 1
+
+  // Grab images
+  const skyFrontImg = images.get('/images/sky-front.svg')
+  const skyRearImg = images.get('/images/sky-rear.svg')
+
+  // Source images are 2x what they need to be for the math to work
+  // so until we resize the intrinsic size of the images, we have to
+  // do this and then size it back up later
+  const skyFrontWidth = skyFrontImg.width / 2
+  const skyFrontHeight = skyFrontImg.height / 2
+  const skyRearWidth = skyRearImg.width / 2
+  const skyRearHeight = skyRearImg.height / 2
+
+  // TODO document magic numbers
+  // y1 = top edge of sky-front image
+  const y1 = height - skyFrontHeight
+
+  for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
+    ctx.drawImage(skyFrontImg.img,
+      0, 0, skyFrontWidth * 2, skyFrontHeight * 2, // todo: change intrinsic size
+      i * skyFrontWidth * dpi, y1 * dpi,
+      skyFrontWidth * dpi, skyFrontHeight * dpi
+    )
+  }
+
+  // TODO document magic numbers
+  // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
+  const y2 = height - skyFrontHeight - 120
+
+  for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
+    ctx.drawImage(skyRearImg.img,
+      0, 0, skyRearWidth * 2, skyRearHeight * 2, // todo: change intrinsic size
+      i * skyRearWidth * dpi, y2 * dpi,
+      skyRearWidth * dpi, skyRearHeight * dpi
+    )
+  }
+
+  // Restore global opacity
+  ctx.restore()
+}
+
 export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
   dpi, multiplier, silhouette, bottomAligned,
-  transparentSky, segmentNamesAndWidths, streetName) {
+  transparentSky, segmentNamesAndWidths, streetName, watermark = true) {
   // Calculations
 
   // Determine how wide the street is
@@ -47,38 +252,41 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   var offsetLeft = (thumbnailWidth - (occupiedWidth * TILE_SIZE * multiplier)) / 2
   var buildingOffsetLeft = (thumbnailWidth - (street.width * TILE_SIZE * multiplier)) / 2
 
-  var groundLevel = offsetTop + (135 * multiplier)
+  const groundLevel = offsetTop + (135 * multiplier)
+  const horizonLine = (groundLevel + (20 * multiplier))
 
   // Sky
-
   if (!transparentSky) {
-    ctx.fillStyle = SKY_COLOUR
-    ctx.fillRect(0, 0, thumbnailWidth * dpi, (groundLevel + (20 * multiplier)) * dpi)
+    const env = getEnvirons(street.environment)
 
-    // TODO document magic numbers
-    const y1 = groundLevel - 280
-
-    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images.get('/images/sky-front.svg').img,
-        0, 0, SKY_WIDTH * 2, 280 * 2,
-        i * SKY_WIDTH * dpi, y1 * dpi, SKY_WIDTH * dpi, 280 * dpi)
+    // Solid color fill
+    if (env.backgroundColor) {
+      drawBackgroundColor(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundColor)
     }
 
-    // TODO document magic numbers
-    const y2 = groundLevel - 280 - 120
-
-    for (let i = 0; i < Math.floor(thumbnailWidth / SKY_WIDTH) + 1; i++) {
-      ctx.drawImage(images.get('/images/sky-rear.svg').img,
-        0, 0, SKY_WIDTH * 2, 120 * 2,
-        i * SKY_WIDTH * dpi, y2 * dpi, SKY_WIDTH * dpi, 120 * dpi)
+    // Background image fill
+    if (env.backgroundImage) {
+      drawBackgroundImage(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundImage)
     }
+
+    // Gradient fill
+    if (env.backgroundGradient) {
+      drawBackgroundGradient(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundGradient)
+    }
+
+    // Background objects
+    if (env.backgroundObjects) {
+      drawBackgroundObjects(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundObjects)
+    }
+
+    // Cluds
+    drawClouds(ctx, dpi, thumbnailWidth, groundLevel, env)
   }
 
   // Dirt
 
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(0, (groundLevel + (20 * multiplier)) * dpi,
-    thumbnailWidth * dpi, (25 * multiplier) * dpi)
+  ctx.fillRect(0, horizonLine * dpi, thumbnailWidth * dpi, (25 * multiplier) * dpi)
 
   ctx.fillRect(0, groundLevel * dpi,
     ((thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)) * dpi,
@@ -93,16 +301,22 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   const buildingWidth = buildingOffsetLeft / multiplier
 
+  // Left building
   const x1 = (thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
-    true, buildingWidth, groundLevel,
-    x1 - ((buildingWidth - 25) * multiplier),
+  const leftBuilding = BUILDINGS[street.leftBuildingVariant]
+  const leftOverhang = (typeof leftBuilding.overhangWidth === 'number') ? leftBuilding.overhangWidth : 0
+  drawBuilding(ctx, street.leftBuildingVariant, street.leftBuildingHeight,
+    'left', buildingWidth, groundLevel,
+    x1 - ((buildingWidth - leftOverhang) * multiplier),
     multiplier, dpi)
 
+  // Right building
   const x2 = (thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)
-  drawBuilding(ctx, BUILDING_DESTINATION_THUMBNAIL, street,
-    false, buildingWidth, groundLevel,
-    x2 - (25 * multiplier),
+  const rightBuilding = BUILDINGS[street.rightBuildingVariant]
+  const rightOverhang = (typeof rightBuilding.overhangWidth === 'number') ? rightBuilding.overhangWidth : 0
+  drawBuilding(ctx, street.rightBuildingVariant, street.rightBuildingHeight,
+    'right', buildingWidth, groundLevel,
+    x2 - (rightOverhang * multiplier),
     multiplier, dpi)
 
   // Segments
@@ -132,7 +346,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
         drawSegmentContents(ctx, segment.type, segment.variantString,
           segment.width, offsetLeft + (dimensions.left * TILE_SIZE * multiplier),
-          offsetTop, segment.randSeed, multiplier, dpi)
+          groundLevel, segment.randSeed, multiplier, dpi)
       }
 
       offsetLeft += segment.width * TILE_SIZE * multiplier
@@ -153,8 +367,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // TODO const
     ctx.strokeStyle = 'black'
-    ctx.lineWidth = 0.5
-    ctx.font = 'normal 300 26px Lato'
+    ctx.lineWidth = 0.25 * dpi
+    ctx.font = `normal 300 ${13 * dpi}px Lato`
     ctx.fillStyle = 'black'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
@@ -169,32 +383,37 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
         left--
       }
 
+      // Left line
       drawLine(ctx,
         left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
         left, (groundLevel + (125 * multiplier)), dpi)
 
       const x = (offsetLeft + (availableWidth / 2)) * dpi
 
+      // Width label
       let text = prettifyWidth(segment.width, street.units)
-      let textWidth = ctx.measureText(text).width / 2
+      let textWidth = ctx.measureText(text).width / dpi
+
       while ((textWidth > availableWidth - (10 * multiplier)) && (text.indexOf(' ') !== -1)) {
         text = text.substr(0, text.lastIndexOf(' '))
-        textWidth = ctx.measureText(text).width / 2
+        textWidth = ctx.measureText(text).width / dpi
       }
-      ctx.fillText(text, x,
-        (groundLevel + (60 * multiplier)) * dpi)
 
-      const name = getLocaleSegmentName(segment.type, segment.variantString)
-      const nameWidth = ctx.measureText(name).width / 2
+      ctx.fillText(text, x, (groundLevel + (60 * multiplier)) * dpi)
+
+      // Segment name label
+      const name = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+      const nameWidth = ctx.measureText(name).width / dpi
+
       if (nameWidth <= availableWidth - (10 * multiplier)) {
-        ctx.fillText(name, x,
-          (groundLevel + (83 * multiplier)) * dpi)
+        ctx.fillText(name, x, (groundLevel + (83 * multiplier)) * dpi)
       }
 
       offsetLeft += availableWidth
     }
 
-    var left = offsetLeft + 1
+    // Final right-hand side line
+    const left = offsetLeft + 1
     drawLine(ctx,
       left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
       left, (groundLevel + (125 * multiplier)), dpi)
@@ -218,16 +437,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
-
-    let fallbackUnicodeFont
-
-    if (needsUnicodeFont(text)) {
-      fallbackUnicodeFont = true
-      ctx.font = 'normal 400 140px sans-serif'
-    } else {
-      fallbackUnicodeFont = false
-      ctx.font = 'normal 400 160px Roadgeek'
-    }
+    ctx.font = `normal 700 ${70 * dpi}px interstate-condensed,sans-serif`
 
     var measurement = ctx.measureText(text)
 
@@ -241,31 +451,35 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       text += '…'
     }
 
+    // Street nameplate
     ctx.fillStyle = 'white'
-    const x1 = (thumbnailWidth * dpi / 2) - ((measurement.width / 2) + (75 * dpi))
-    const x2 = (thumbnailWidth * dpi / 2) + ((measurement.width / 2) + (75 * dpi))
+    const x1 = (thumbnailWidth * dpi / 2) - ((measurement.width / 2) + (45 * dpi))
+    const x2 = (thumbnailWidth * dpi / 2) + ((measurement.width / 2) + (45 * dpi))
     const y1 = (75 - 60) * dpi
     const y2 = (75 + 60) * dpi
     ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
 
+    // Street nameplate border
     ctx.strokeStyle = 'black'
-    ctx.lineWidth = 10
-    ctx.strokeRect(x1 + (10 * 2), y1 + (10 * 2), x2 - x1 - (10 * 4), y2 - y1 - (10 * 4))
+    ctx.lineWidth = 5 * dpi
+    ctx.strokeRect(x1 + (5 * dpi * 2), y1 + (5 * dpi * 2), x2 - x1 - (5 * dpi * 4), y2 - y1 - (5 * dpi * 4))
 
     const x = thumbnailWidth * dpi / 2
 
-    let baselineCorrection
-
-    if (fallbackUnicodeFont) {
-      baselineCorrection = 24
-    } else {
-      baselineCorrection = 27
-    }
-
+    const baselineCorrection = 27
     const y = (75 + baselineCorrection) * dpi
 
     ctx.strokeStyle = 'transparent'
     ctx.fillStyle = 'black'
     ctx.fillText(text, x, y)
+  }
+
+  // Watermark
+  if (watermark) {
+    if (segmentNamesAndWidths) {
+      drawWatermark(ctx, dpi)
+    } else {
+      drawWatermark(ctx, dpi, true)
+    }
   }
 }

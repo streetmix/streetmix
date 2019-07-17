@@ -1,4 +1,4 @@
-import { SET_FEATURE_FLAG } from './index'
+import { SET_FEATURE_FLAG, SET_FLAG_OVERRIDES } from './index'
 
 /**
  * Sets a feature flag to a value. Not a toggle.
@@ -11,5 +11,12 @@ export function setFeatureFlag (flag, value) {
     type: SET_FEATURE_FLAG,
     flag,
     value
+  }
+}
+
+export function setFlagOverrides (flags) {
+  return {
+    type: SET_FLAG_OVERRIDES,
+    flags
   }
 }

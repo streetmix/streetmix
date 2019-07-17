@@ -12,8 +12,7 @@ const initialState = {
   noInternet: false,
   viewportWidth: window.innerWidth,
   viewportHeight: window.innerHeight,
-  devicePixelRatio: window.devicePixelRatio || 1.0,
-  cssTransform: (Modernizr && Modernizr.prefixed('transform')) || 'transform'
+  devicePixelRatio: window.devicePixelRatio || 1.0
 }
 
 const system = (state = initialState, action) => {

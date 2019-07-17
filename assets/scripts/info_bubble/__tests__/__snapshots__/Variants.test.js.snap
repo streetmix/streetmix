@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Variants INFO_BUBBLE_TYPE_LEFT_BUILDING renders left building correctly 1`] = `
+<div
+  className="variants"
+>
+  <button
+    disabled={false}
+    key="building.waterfront"
+    onClick={[Function]}
+    title="Waterfront"
+  >
+    <svg
+      className="icon"
+      style={
+        Object {
+          "fill": "#ff0",
+        }
+      }
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-waterfront"
+      />
+    </svg>
+  </button>
+</div>
+`;
+
+exports[`Variants INFO_BUBBLE_TYPE_RIGHT_BUILDING renders left building correctly 1`] = `
+<div
+  className="variants"
+>
+  <button
+    disabled={false}
+    key="building.waterfront"
+    onClick={[Function]}
+    title="Waterfront"
+  >
+    <svg
+      className="icon"
+      style={
+        Object {
+          "fill": "#ff0",
+        }
+      }
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-waterfront"
+      />
+    </svg>
+  </button>
+</div>
+`;
+
+exports[`Variants INFO_BUBBLE_TYPE_SEGMENT renders segment type correctly 1`] = `
+<div
+  className="variants"
+>
+  <button
+    disabled={true}
+    key="direction.inbound"
+    onClick={[Function]}
+    title="Inbound"
+  >
+    <svg
+      className="icon"
+      style={null}
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-direction-inbound"
+      />
+    </svg>
+  </button>
+  <button
+    disabled={false}
+    key="direction.outbound"
+    onClick={[Function]}
+    title="Outbound"
+  >
+    <svg
+      className="icon"
+      style={null}
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-direction-outbound"
+      />
+    </svg>
+  </button>
+  <button
+    disabled={false}
+    key="direction.empty"
+    onClick={[Function]}
+    title="No one"
+  >
+    <svg
+      className="icon"
+      style={null}
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-"
+      />
+    </svg>
+  </button>
+  <hr
+    key="public-transit-asphalt"
+  />
+</div>
+`;
+
+exports[`Variants does not render component 1`] = `""`;
+
+exports[`Variants flag renders with flag correctly 1`] = `
+<div
+  className="variants"
+>
+  <button
+    disabled={false}
+    key="building-z.waterfront"
+    onClick={[Function]}
+    title="Waterfront"
+  >
+    <svg
+      className="icon"
+      style={null}
+      xmlns="http://www.w3.org/1999/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use
+        xlinkHref="#icon-waterfront"
+      />
+    </svg>
+  </button>
+  <hr
+    key="waterfront"
+  />
+</div>
+`;

@@ -1,0 +1,102 @@
+html {
+  height: 100%;
+  overflow: hidden;
+
+  /* Global box-sizing "reset" to the "quirks" box model */
+  box-sizing: border-box;
+}
+
+/* Inherit the box-sizing everywhere */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  @include text-size-adjust(none);
+  @include touch-callout(default);
+
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative; // Fixes iOS Safari overflow: hidden not working bug
+  background: white;
+
+  &:not(.safari) {
+    perspective: 500px;
+  }
+}
+
+body:not(.touch-support) .touch-only {
+  display: none;
+}
+
+body.touch-support .non-touch-only {
+  display: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.main-screen {
+  position: relative;
+  z-index: $z-01-main-screen;
+  flex-grow: 1;
+
+  body:not(.safari) & {
+    perspective: 2000px;
+  }
+}
+
+a {
+  @include touch-callout(default);
+
+  color: darken($ui-colour, 30%);
+
+  &:hover {
+    color: darken($ui-colour, 50%);
+  }
+
+  &:active {
+    color: darken($ui-colour, 70%);
+  }
+}
+
+a,
+button {
+  @include tap-highlight-color('transparent !important');
+
+  cursor: pointer;
+}
+
+button,
+a.button-like {
+  font-size: 13px;
+}
+
+input[type="text"],
+textarea {
+  padding: 3px;
+
+  &[disabled] {
+    background: desaturate(fade-out($ui-colour, 0.7), 100%) !important;
+    border-color: desaturate($ui-colour, 100%) !important;
+  }
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $hr-colour;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

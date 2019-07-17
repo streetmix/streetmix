@@ -12,16 +12,11 @@ import {
   getUndoStack,
   getUndoPosition
 } from '../streets/undo_stack'
-import {
-  normalizeStreetWidth,
-  resizeStreetWidth
-} from '../streets/width'
+import { normalizeStreetWidth } from '../streets/width'
 import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
-import { setUnits, updateStreetWidth, updateStreetData } from '../store/actions/street'
-import { clearMenus } from '../store/actions/menus'
+import { setUnits, updateStreetWidth, updateStreetData, updateSegments } from '../store/actions/street'
 import { setUserUnits } from '../store/actions/persistSettings'
-import { setUnitSettings } from '../store/actions/ui'
 
 export function getUnits () {
   return store.getState().persistSettings.units
@@ -79,7 +74,6 @@ export function updateUnits (newUnits) {
     return
   }
 
-  store.dispatch(setUnitSettings(newUnits))
   store.dispatch(setUserUnits(newUnits))
   store.dispatch(setUnits(newUnits))
 
@@ -96,7 +90,8 @@ export function updateUnits (newUnits) {
 
   setIgnoreStreetChanges(true)
   if (!fromUndo) {
-    normalizeAllSegmentWidths()
+    const segments = normalizeAllSegmentWidths(street.segments, street.units)
+    store.dispatch(updateSegments(segments))
 
     if (street.remainingWidth === 0) {
       let width = 0
@@ -105,17 +100,14 @@ export function updateUnits (newUnits) {
       }
       store.dispatch(updateStreetWidth(width))
     } else {
-      store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width)))
+      store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width, newUnits)))
     }
   } else {
     store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))
   }
   segmentsChanged()
-  resizeStreetWidth()
 
   setIgnoreStreetChanges(false)
-
-  store.dispatch(clearMenus())
 
   saveStreetToServerIfNecessary()
   saveSettingsLocally()

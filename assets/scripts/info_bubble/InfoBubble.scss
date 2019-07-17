@@ -1,0 +1,237 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+// TODO: Further refactoring / splitting up of these styles
+
+.info-bubble {
+  @include box-border;
+
+  position: absolute;
+  border-top-color: darken($ui-colour, 30%);
+  min-width: 275px;
+  opacity: 0;
+  background: $info-bubble-background;
+  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  transform: rotateX(-80deg);
+  perspective: 1200px;
+  z-index: $z-06-info-bubble;
+  pointer-events: none;
+  touch-action: none;
+
+  &.visible {
+    opacity: 1;
+    transform: rotateY(0);
+    pointer-events: auto;
+  }
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    padding: 2px 8px;
+    height: $info-bubble-button-size + 6px;
+    line-height: $info-bubble-button-size + 2px;
+    font-size: 16px;
+    font-weight: 300;
+    color: white;
+    background: darken($ui-colour, 20%);
+  }
+
+  .icon {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2px 3px;
+    fill: #231f20;
+  }
+
+  .svg-inline--fa {
+    vertical-align: -0.1em;
+    height: 11px;
+  }
+
+  .variants {
+    text-align: left;
+    padding: 7px 8px 5px;
+    margin-right: 20px;
+    min-height: $info-bubble-button-size;
+    white-space: nowrap;
+    user-select: none;
+
+    button {
+      margin-bottom: 2px;
+      margin-right: 3px;
+    }
+
+    hr {
+      display: block;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      height: 5px;
+    }
+  }
+
+  .non-variant {
+    text-align: right;
+    margin: 8px;
+    min-height: 30px;
+    white-space: nowrap;
+    user-select: none;
+
+    /* Takes up the entire width of info-bubble if it is by itself */
+    &:only-child {
+      width: 100%;
+      text-align: center;
+    }
+
+    &.building-height {
+      margin-top: -29px;
+      height: auto;
+      white-space: normal;
+      width: 65px + 50px;
+      text-align: center;
+    }
+  }
+
+  .variants,
+  .non-variant {
+    button {
+      white-space: nowrap;
+      position: relative;
+
+      .icon {
+        opacity: 0.666;
+      }
+
+      &:active {
+        .icon {
+          margin-top: 1px;
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  .variants button[disabled] {
+    background: darken($ui-colour, 10%);
+    color: black;
+    opacity: 1;
+    border-top-color: darken($ui-colour, 30%);
+    border-bottom-color: darken($ui-colour, 30%);
+
+    .icon {
+      opacity: 1;
+    }
+  }
+
+  // Chrome
+  @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+    .non-variant {
+      margin-top: 7px;
+    }
+  }
+
+  button {
+    width: $info-bubble-button-size;
+    height: $info-bubble-button-size;
+  }
+}
+
+.info-bubble-type-building header {
+  margin-right: 90px + 50px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -37px;
+    width: 0;
+    height: 0;
+    border-top: 37px solid darken($ui-colour, 20%);
+    border-right: 37px solid transparent;
+  }
+}
+
+.info-bubble-controls {
+  display: flex;
+  justify-content: space-between;
+
+  .non-variant {
+    text-align: center;
+    width: auto;
+  }
+}
+
+.info-bubble-warnings {
+  margin-top: 1px;
+  font-size: 13px;
+  padding: 0.5em 1.5em;
+  border-top: 1px solid $ui-colour;
+  text-rendering: optimizeLegibility;
+  white-space: normal;
+  color: $warning-colour;
+  text-align: center;
+
+  > p {
+    width: 100%;
+    margin: 0.5em auto; /* Ensure centering of text if not wide enough to fill width of bubble */
+    padding: 0;
+  }
+}
+
+.info-bubble.show-description {
+  .variants {
+    pointer-events: none;
+  }
+
+  .non-variant {
+    pointer-events: none;
+  }
+
+  .warnings {
+    pointer-events: none;
+  }
+
+  .description-prompt {
+    pointer-events: none;
+  }
+
+  .description-close {
+    pointer-events: auto;
+  }
+
+  .description {
+    pointer-events: auto;
+  }
+}
+
+[dir="rtl"] {
+  .info-bubble-remove {
+    margin-left: 0;
+    margin-right: 1em;
+  }
+
+  .variants {
+    text-align: right;
+    margin-left: 20px;
+    margin-right: 0;
+    direction: ltr;
+  }
+
+  .info-bubble-type-building header {
+    margin-left: 90px + 50px;
+    margin-right: 0;
+
+    &::after {
+      left: -37px;
+      right: auto;
+      border-left: 37px solid transparent;
+      border-right: none;
+    }
+  }
+}

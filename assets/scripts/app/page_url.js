@@ -1,15 +1,16 @@
 import { debug } from '../preinit/debug_settings'
-import { getStreetUrl } from '../streets/data_model'
 import { setMode, MODES } from './mode'
 import {
   URL_NEW_STREET,
   URL_NEW_STREET_COPY_LAST,
-  URL_JUST_SIGNED_IN,
+  JUST_SIGNED_IN_PATH,
   URL_ERROR,
   URL_GLOBAL_GALLERY,
   URL_NO_USER,
-  URL_RESERVED_PREFIX
-} from './routing'
+  URL_RESERVED_PREFIX,
+  RESERVED_URLS
+} from './constants'
+import { normalizeSlug } from '../util/helpers'
 import { setGalleryUserId } from '../store/actions/gallery'
 import store from '../store'
 import { saveCreatorId, saveStreetId } from '../store/actions/street'
@@ -46,7 +47,7 @@ export function processUrl () {
     // New street (but start with copying last street)
 
     setMode(MODES.NEW_STREET_COPY_LAST)
-  } else if ((urlParts.length === 1) && (urlParts[0] === URL_JUST_SIGNED_IN)) {
+  } else if ((urlParts.length === 1) && (urlParts[0] === JUST_SIGNED_IN_PATH)) {
     // Coming back from a successful sign in
 
     setMode(MODES.JUST_SIGNED_IN)
@@ -94,6 +95,32 @@ export function processUrl () {
   } else {
     setMode(MODES.NOT_FOUND)
   }
+}
+
+export function getStreetUrl (street) {
+  let url = '/'
+  if (street.creatorId) {
+    if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
+      url += URL_RESERVED_PREFIX
+    }
+
+    url += street.creatorId
+  } else {
+    url += URL_NO_USER
+  }
+
+  url += '/'
+
+  url += street.namespacedId
+
+  if (street.creatorId) {
+    const slug = normalizeSlug(street.name)
+    if (slug) {
+      url += '/' + window.encodeURIComponent(slug)
+    }
+  }
+
+  return url
 }
 
 export function updatePageUrl (forceGalleryUrl) {

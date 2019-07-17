@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.segment-empty {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+
+  .segment-label,
+  .segment-width {
+    color: $empty-segment-text;
+  }
+}

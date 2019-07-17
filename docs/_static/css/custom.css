@@ -1,0 +1,338 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,600);
+
+#illustrations .wy-table-responsive table td,
+#illustrations .wy-table-responsive table th {
+  white-space: normal !important;
+}
+
+h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Slight indent and radius to admonition blocks */
+.wy-alert, .rst-content .note, .rst-content .attention, .rst-content .caution, .rst-content .danger, .rst-content .error, .rst-content .hint, .rst-content .important, .rst-content .tip, .rst-content .warning, .rst-content .seealso, .rst-content .admonition-todo, .rst-content .admonition {
+  margin-left: 1.5em;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* Hide side nav version tag -- we're always publishing "latest" */
+.wy-side-nav-search > div.version {
+  display: none;
+}
+
+/* Revise sidebar to a flex container and expand content menu */
+.wy-side-scroll {
+  display: flex;
+  flex-direction: column;
+}
+
+.wy-menu-vertical {
+  flex-grow: 1;
+}
+
+/* Expand content to always be full height of screen */
+.wy-nav-content-wrap {
+  min-height: 100vh;
+}
+
+.wy-nav-content {
+  padding: 0 !important; /* Also override mobile styles */
+}
+
+.wy-nav-content .rst-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.618em 3.236em;
+}
+
+@media screen and (max-width: 768px) {
+  .wy-nav-content .rst-content {
+    padding: 1.618em;
+  }
+}
+
+.wy-nav-content .rst-content .document {
+  flex-grow: 1;
+}
+
+/* Illustration comparison container
+   Needs to override theme table styles */
+.stmx-illustration-compare-container table {
+  border-collapse: separate !important;
+  border-spacing: 1em 0 !important;
+  width: calc(100% + 2em);
+  margin-left: -1em;
+  margin-right: -1em;
+}
+.stmx-illustration-compare-container table {
+  border: 0 !important
+}
+
+.stmx-illustration-compare-container .wy-table-responsive {
+  overflow: hidden;
+}
+
+.stmx-illustration-compare-container table td {
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+.stmx-illustration-compare-container table tr:first-child img {
+  max-height: 400px;
+  margin: 1em;
+}
+
+.stmx-illustration-compare-container table tr:first-child > td {
+  background-color: #a9ccdb !important;
+  border-radius: 5px;
+}
+
+.stmx-illustration-compare-container table tr:last-child > td {
+  padding-top: 1em !important;
+  vertical-align: top;
+}
+
+.stmx-compare-nope {
+  padding-top: 0.5em;
+  border-top: 10px solid;
+  border-color: #d32f2f !important;
+  line-height: 24px !important;
+}
+
+.stmx-compare-nope strong {
+  color: #d32f2f;
+}
+
+.stmx-compare-yep {
+  padding-top: 0.5em;
+  border-top: 10px solid;
+  border-color: #4caf50 !important;
+}
+
+.stmx-compare-yep strong {
+  color: #2e7b32;
+}
+
+.stmx-compare-nope p,
+.stmx-compare-yep p {
+  line-height: 24px !important;
+}
+
+/* Illustration example container */
+.stmx-illustration-container {
+  padding: 2em;
+  background-color: whitesmoke;
+  margin-bottom: 24px; /* Match sphinx theme element margin */
+  border-radius: 5px;
+}
+
+/* Set manual heights for these images, otherwise the default theme
+   will override it with "auto". Setting height options on the `image`
+   directive will cause it to be linked for some reason, so we apply the
+   sizing through CSS to avoid this extra markup */
+.stmx-illustration-small img {
+  height: 36px;
+}
+
+.section {
+  clear: both;
+}
+
+.stmx-color-swatch-container {
+  width: 100%;
+}
+
+.stmx-color-swatch {
+  width: 120px;
+  height: 120px;
+  padding: 0.75em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.stmx-color-swatch strong {
+  width: 1em;
+  display: inline-block;
+}
+
+.stmx-color-swatch .line-block {
+  line-height: 1.4;
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+.stmx-color-swatch p,
+.stmx-color-swatch .line {
+  font-size: 0.75em;
+}
+
+.stmx-color-swatch p {
+  margin-bottom: 0;
+}
+
+.stmx-color-swatch-table {
+  width: 100%;
+}
+
+.stmx-color-swatch-label {
+  font-weight: bold;
+}
+
+.stmx-color-skintone-1 {
+  background-color: #543e36;
+  color: white;
+}
+
+.stmx-color-skintone-2 {
+  background-color: #72594b;
+  color: white;
+}
+
+.stmx-color-skintone-3 {
+  background-color: #ceab97;
+  color: black;
+}
+
+.stmx-color-skintone-4 {
+  background-color: #e1c5b5;
+  color: black;
+}
+
+.stmx-color-beige-1 {
+  background-color: #cead80;
+  color: black;
+}
+
+.stmx-color-beige-2 {
+  background-color: #e0cea8;
+  color: black;
+}
+
+.stmx-color-beige-3 {
+  background-color: #ecdbb1;
+  color: black;
+}
+
+.stmx-color-beige-4 {
+  background-color: #f6f1e1;
+  color: black;
+}
+
+.stmx-color-gray-1 {
+  background-color: #d8d3cb;
+  color: black;
+}
+
+.stmx-color-gray-2 {
+  background-color: #e7e6de;
+  color: black;
+}
+
+.stmx-color-gray-3 {
+  background-color: #f5f3e9;
+  color: black;
+}
+
+.stmx-color-green-1 {
+  background-color: #35813f;
+  color: white;
+}
+
+.stmx-color-green-2 {
+  background-color: #679a45;
+  color: white;
+}
+
+.stmx-color-green-3 {
+  background-color: #89ba6a;
+  color: black;
+}
+
+.stmx-color-brown-1 {
+  background-color: #645849;
+  color: white;
+}
+.stmx-color-brown-2 {
+  background-color: #7c705a;
+  color: white;
+}
+
+.stmx-color-brown-3 {
+  background-color: #988a74;
+  color: white;
+}
+
+.stmx-color-grayscale-1 {
+  background-color: #2a2b2a;
+  color: white;
+}
+
+.stmx-color-grayscale-2 {
+  background-color: #5c5e5f;
+  color: white;
+}
+
+.stmx-color-grayscale-3 {
+  background-color: #c1bebb;
+  color: black;
+}
+
+.stmx-color-grayscale-4 {
+  background-color: #e4e2dc;
+  color: black;
+}
+
+.stmx-color-grayscale-5 {
+  background-color: #f4f2ed;
+  color: black;
+}
+
+.stmx-color-indigo-1 {
+  background-color: #0a1723;
+  color: white;
+}
+
+.stmx-color-indigo-2 {
+  background-color: #313156;
+  color: white;
+}
+
+.stmx-color-indigo-3 {
+  background-color: #494a72;
+  color: white;
+}
+
+.stmx-color-blue-1 {
+  background-color: #2a4d6b;
+  color: white;
+}
+
+.stmx-color-blue-2 {
+  background-color: #376489;
+  color: white;
+}
+
+.stmx-color-blue-3 {
+  background-color: #4f83a3;
+  color: white;
+}
+
+.stmx-color-orange-1 {
+  background-color: #ae2025;
+  color: white;
+}
+
+.stmx-color-orange-2 {
+  background-color: #ef9c74;
+  color: black;
+}
+
+.stmx-color-orange-3 {
+  background-color: #ffeecc;
+  color: black;
+}

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormattedMessage } from 'react-intl'
 import { DEFAULT_LOCALE } from '../locales/constants'
 import { getAvailableLocales, getActualLocaleFromRequested } from '../locales/locale'
+import { ICON_CHECK } from '../ui/icons'
 
 export default class LocaleSelect extends React.Component {
   static propTypes = {
@@ -35,7 +36,7 @@ export default class LocaleSelect extends React.Component {
 
       return (
         <li className={classNames.join(' ')} key={locale.value} onClick={(event) => this.props.selectLocale(locale.value)}>
-          {(locale.value === actuallySelectedLocale) && <FontAwesomeIcon icon="check" />}
+          {(locale.value === actuallySelectedLocale) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
           {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
           <span>{locale.label}&#x200E;</span>
           <span className="menu-item-subtext">

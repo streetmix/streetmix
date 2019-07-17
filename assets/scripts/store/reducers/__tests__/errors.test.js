@@ -15,19 +15,19 @@ describe('errors reducer', () => {
   it('should handle SHOW_ERROR', () => {
     // nothing set
     expect(reducer(undefined, actions.showError()))
-      .toEqual({...initialState, errorType: undefined, abortEverything: false})
+      .toEqual({ ...initialState, errorType: undefined, abortEverything: false })
 
     // errorType explicitly set and abortEverything set to true
     expect(reducer(undefined, actions.showError('Bad URL', true)))
-      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: true})
+      .toEqual({ ...initialState, errorType: 'Bad URL', abortEverything: true })
 
     // errorType explicitly set and abortEverything set to false
     expect(reducer(undefined, actions.showError('Bad URL', false)))
-      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: false})
+      .toEqual({ ...initialState, errorType: 'Bad URL', abortEverything: false })
 
     // errorType explicitly set and abortEverything not set
     expect(reducer(undefined, actions.showError('Bad URL')))
-      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: false})
+      .toEqual({ ...initialState, errorType: 'Bad URL', abortEverything: false })
 
     // NOTE: Since a null, empty or undefined value isn't provided in the tests
     // below for the abortEverything field, the field will default to true when
@@ -37,11 +37,11 @@ describe('errors reducer', () => {
 
     // errorType explicitly set and abortEverything set to invalid state
     expect(reducer(undefined, actions.showError('Bad URL', 'true')))
-      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: true})
+      .toEqual({ ...initialState, errorType: 'Bad URL', abortEverything: true })
 
     // errorType explicitly set and abortEverything set to invalid state
     expect(reducer(undefined, actions.showError('Bad URL', -101)))
-      .toEqual({...initialState, errorType: 'Bad URL', abortEverything: true})
+      .toEqual({ ...initialState, errorType: 'Bad URL', abortEverything: true })
   })
 
   it('should handle HIDE_ERROR', () => {
@@ -49,7 +49,7 @@ describe('errors reducer', () => {
     expect(reducer(undefined, actions.hideError())).toEqual(initialState)
 
     // Non-default state set
-    expect(reducer({errorType: 'Bad URL', abortEverything: true}, actions.hideError()))
+    expect(reducer({ errorType: 'Bad URL', abortEverything: true }, actions.hideError()))
       .toEqual(initialState)
   })
 

@@ -9,13 +9,31 @@
   },
   "env": {
     "browser": true,
+    "cypress/globals": true,
     "node": true,
     "es6": true,
     "mocha": true
   },
-  "plugins": ["react"],
-  "extends": ["standard", "standard-react"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": [
+    "react",
+    "cypress",
+    "react-hooks"
+  ],
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
   "rules": {
-    "jsx-quotes": ["error", "prefer-double"]
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }

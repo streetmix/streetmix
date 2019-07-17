@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+
+$street-name-top: 10px;
+
+.street-name-canvas {
+  position: absolute;
+  left: 150px;
+  right: 150px;
+  top: $street-name-top;
+  z-index: $z-03-street-name;
+  text-align: center;
+  pointer-events: none;
+
+  &.move-down-for-menu {
+    transform: translateY(20px);
+  }
+
+  &.no-movement {
+    transition: none !important;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+body.read-only .street-name-canvas {
+  transform: translateY(0);
+}

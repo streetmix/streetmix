@@ -1,19 +1,13 @@
 /* eslint-env jest */
 import request from 'supertest'
-import express from 'express'
+import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import streets from '../streets'
 
 jest.mock('../../../models/street')
 jest.mock('../../../models/user')
 jest.mock('../../../models/sequence')
 jest.mock('../../../../lib/db', () => {})
-jest.mock('../../../../lib/logger', () => function () {
-  return {
-    info: function () {},
-    error: function () {},
-    debug: function () {}
-  }
-})
+jest.mock('../../../../lib/logger')
 
 const street = {
   _id: '5b06a6544a62a14ae7467e37',
@@ -26,33 +20,15 @@ const street = {
   data: { }
 }
 
-function setLoginToken (req, res, next) {
-  req.loginToken = '133e5110-5d2e-11e8-a8fd-678b57961690'
-  next()
-}
-
-function setupMockServer () {
-  const app = express()
-
-  app.use(express.json())
-
-  app.post('/api/v1/streets', streets.post)
-  app.get('/api/v1/streets', streets.find)
-  app.get('/api/v1/streets/:street_id', streets.get)
-  // Set loginToken before running remaining endpoint
-  app.use(setLoginToken)
-
-  app.put('/api/v1/streets/:street_id', streets.put)
-  app.delete('/api/v1/streets/:street_id', streets.delete)
-  return app
-}
-
 describe('POST api/v1/streets', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.post('/api/v1/streets', streets.post)
+  })
 
   it('should respond with 201 Created when street data are sent', function () {
     return request(app)
       .post('/api/v1/streets/')
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .type('json')
       .send(JSON.stringify(street))
       .then((response) => {
@@ -62,7 +38,9 @@ describe('POST api/v1/streets', function () {
 })
 
 describe('GET api/v1/streets', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.get('/api/v1/streets', streets.find)
+  })
 
   it('should respond with 200 Ok when streets are returned', function () {
     return request(app)
@@ -74,11 +52,14 @@ describe('GET api/v1/streets', function () {
 })
 
 describe('PUT api/v1/streets/:street_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.put('/api/v1/streets/:street_id', streets.put)
+  })
 
   it('should respond with 204 No Content when street data are sent', function () {
     return request(app)
       .put(`/api/v1/streets/${street.id}`)
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .type('json')
       .send(JSON.stringify(street))
       .then((response) => {
@@ -88,11 +69,14 @@ describe('PUT api/v1/streets/:street_id', function () {
 })
 
 describe('DELETE api/v1/streets/:street_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.delete('/api/v1/streets/:street_id', streets.delete)
+  })
 
   it('should respond with 204 No Content when street data are deleted', function () {
     return request(app)
       .delete(`/api/v1/streets/${street.id}`)
+      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })
@@ -100,7 +84,9 @@ describe('DELETE api/v1/streets/:street_id', function () {
 })
 
 describe('GET api/v1/streets/:street_id', function () {
-  const app = setupMockServer()
+  const app = setupMockServer((app) => {
+    app.get('/api/v1/streets/:street_id', streets.get)
+  })
 
   it('should respond with 200 Ok when street is returned', function () {
     return request(app)

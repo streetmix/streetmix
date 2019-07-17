@@ -1,0 +1,59 @@
+@import '../../styles/variables.scss';
+
+.segment-guides {
+  position: absolute;
+  z-index: $z-07-segment-guide;
+  top: -75px;
+  bottom: 120px;
+  left: 50%; /* Will be overridden by component */
+  pointer-events: none;
+}
+
+.segment-guide {
+  position: absolute;
+  height: 100%;
+  border-left: 1px dashed fade-out(black, 0.6);
+  border-right: 1px dashed fade-out(black, 0.6);
+
+  // Invert the UI text color when there is a dark background
+  body.dark-environs-invert-ui & {
+    border-left: 1px dashed fade-out(white, 0.6);
+    border-right: 1px dashed fade-out(white, 0.6);
+  }
+}
+
+.segment-guide-max-before,
+.segment-guide-max-after,
+.segment-guide-min-before,
+.segment-guide-min-after {
+  width: 50px;
+  position: absolute;
+  bottom: 400px;
+  font-size: 11px;
+  color: fade-out(black, 0.4);
+
+  // Invert the UI text color when there is a dark background
+  body.dark-environs-invert-ui & {
+    color: fade-out(white, 0.4);
+  }
+}
+
+.segment-guide-max-before {
+  left: -55px;
+  text-align: right;
+}
+
+.segment-guide-max-after {
+  right: -55px;
+  text-align: left;
+}
+
+.segment-guide-min-before {
+  left: 5px;
+  text-align: left;
+}
+
+.segment-guide-min-after {
+  right: 5px;
+  text-align: right;
+}

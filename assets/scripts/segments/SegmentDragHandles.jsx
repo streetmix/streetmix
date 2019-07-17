@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
+import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
+import './SegmentDragHandles.scss'
 
-export class SegmentDragHandles extends React.Component {
+export class SegmentDragHandles extends React.PureComponent {
   static propTypes = {
     width: PropTypes.number,
     infoBubbleHovered: PropTypes.bool,
@@ -22,8 +25,12 @@ export class SegmentDragHandles extends React.Component {
 
     return (
       <React.Fragment>
-        <span className="drag-handle drag-handle-left" style={{ display, left: adjustX }}>‹</span>
-        <span className="drag-handle drag-handle-right" style={{ display, right: adjustX }}>›</span>
+        <span className="drag-handle drag-handle-left" style={{ display, left: adjustX }}>
+          <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
+        </span>
+        <span className="drag-handle drag-handle-right" style={{ display, right: adjustX }}>
+          <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
+        </span>
       </React.Fragment>
     )
   }

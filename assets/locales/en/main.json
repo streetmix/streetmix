@@ -15,14 +15,16 @@
     },
     "help": {
       "keyboard-label": "Keyboard shortcuts:",
-      "remove": "Remove a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> to remove all)",
-      "move": "Move around the street<br />(hold <kbd class='key'>Shift</kbd> to jump to edges)",
-      "change": "Change width of a segment you’re pointing at<br />(hold <kbd class='key'>Shift</kbd> for more precision)"
+      "remove-instruction": "Remove a segment you’re pointing at",
+      "remove-shift-instruction": "(hold {shiftKey} to remove all)",
+      "move-instruction": "Move around the street",
+      "move-shift-instruction": "(hold {shiftKey} to jump to edges)",
+      "change-instruction": "Change width of a segment you’re pointing at",
+      "change-shift-instruction": "(hold {shiftKey} for more precision)"
     },
     "share": {
       "sign-in-twitter-link": "Sign in",
       "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Sign in with Twitter</a> for nicer links to your streets and your personal street gallery",
       "link": "Copy and paste this link to share:",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
@@ -44,7 +46,10 @@
       "email": "Send an email to Streetmix team",
       "github": "View source code on GitHub",
       "blog": "Visit Streetmix blog",
-      "slack": "Join Slack chat"
+      "discord": "Join Discord chat",
+      "slack": "Join Slack chat",
+      "minecraft": "Play Minecraft with us!",
+      "newsletter": "Subscribe to our newsletter"
     },
     "contribute": {
       "donate": "Donate",
@@ -106,10 +111,8 @@
     "please-reload": "Please reload this page before continuing.",
     "street-deleted-elsewhere-title": "This street has been deleted elsewhere.",
     "street-deleted-elsewhere-description": "This street has been deleted in another browser.",
-    "twitter-access-denied-title": "You are not signed in.",
-    "twitter-access-denied-description": "You cancelled the Twitter sign in process.",
-    "email-access-denied-title": "You are not signed in.",
-    "email-access-denied-description": "You cancelled the email sign in process.",
+    "access-denied-title": "You are not signed in.",
+    "access-denied-description": "You cancelled the sign in process.",
     "auth-api-problem-title": "There was a problem with signing you in.",
     "auth-api-problem-description": "There was a problem with authentication.",
     "please-try-again": "Please try again later or let us know via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> or <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
@@ -133,7 +136,8 @@
     "copy": "Make a copy",
     "remove": "Remove",
     "close": "Close",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "okay": "Okay!"
   },
   "dialogs": {
     "error": {
@@ -170,16 +174,21 @@
       "view-source": "View source code",
       "sponsored-by": "Streetmix is generously sponsored by:",
       "donate-link": "Support us financially",
-      "github-link": "Contribute to open source"
+      "github-link": "Contribute to open source",
+      "open-source-link": "We’re open source!",
+      "guidebook-link": "Guidebook",
+      "tos-link": "Terms of service",
+      "privacy-link": "Privacy policy"
     },
     "save": {
       "heading": "Save as image",
       "option-labels": "Segment names and widths",
       "option-name": "Street name",
       "option-sky": "Transparent sky",
+      "option-watermark": "Watermark",
       "loading": "Loading…",
       "save-button": "Save to your computer…",
-      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>.",
+      "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink} license.",
       "error-preview": "There was an error displaying a preview image.",
       "error-unavailable": "Saving to image is not available on this browser.",
       "preview-image-alt": "Preview"
@@ -192,7 +201,8 @@
       "add-location": "Add location",
       "confirm-location": "Confirm location",
       "clear-location": "Clear location",
-      "unknown-location": "Unknown location"
+      "unknown-location": "Unknown location",
+      "geotag-unavailable": "Geocoding services are currently unavailable. You can view the map, but you won’t be able to change this street’s location."
     },
     "donate": {
       "heading": "Streetmix needs your help!",
@@ -200,12 +210,40 @@
       "text": "Please consider supporting us with a one-time or recurring contribution. Your donation will pay for our servers and cloud infrastructure, supporting other non-profits, advocacy groups, and students working to improve our streets. Additional revenue will be invested into further development of new features. Our expenses are completely transparent, so you can see exactly how your contributions are used by the Streetmix team.",
       "button": "Donate to Streetmix",
       "cancel": "No thanks"
+    },
+    "sign-in": {
+      "heading": "Sign in / Sign up",
+      "description": "Save your first design or sign in to access your past designs.",
+      "email-label": "Email",
+      "email-description": "We’ll send you a link to sign in. No password is required.",
+      "email-invalid": "Oops! That didn’t look like a valid email address. Please try again.",
+      "social-heading": "or",
+      "button": {
+        "email": "Continue with email",
+        "twitter": "Continue with Twitter",
+        "google": "Continue with Google",
+        "facebook": "Continue with Facebook"
+      },
+      "tos": "By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}.",
+      "tos-link-label": "terms of service",
+      "privacy-link-label": "privacy policy",
+      "loading-message": "Signing you in…",
+      "sent-message-with-email": "We’ve sent an email to {email}. Please follow the instructions there to continue signing in!",
+      "email-unreceived": "Didn’t receive it?",
+      "resend-email": "Resend email"
+    },
+    "whatsnew": {
+      "heading": "What’s new in Streetmix?"
+    },
+    "newsletter": {
+      "heading": "Subscribe to our newsletter"
     }
   },
   "prompt": {
     "new-street": "New street name:",
     "delete-street": "Are you sure you want to permanently delete {streetName}? This cannot be undone.",
-    "new-width": "New street width (from {minWidth} to {maxWidth}):"
+    "new-width": "New street width (from {minWidth} to {maxWidth}):",
+    "segment-label": "New segment label:"
   },
   "toast": {
     "segment-deleted": "The segment has been removed.",
@@ -238,7 +276,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "Plus",
+    "minus": "Minus",
+    "left-arrow": "Left arrow",
+    "right-arrow": "Right arrow"
   },
   "tooltip": {
     "remove-segment": "Remove segment",
@@ -249,7 +291,11 @@
     "increase-width": "Increase width (hold Shift for more precision)",
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",
-    "remove-floor": "Remove floor"
+    "remove-floor": "Remove floor",
+    "scroll-street-left": "Scroll street left",
+    "scroll-street-right": "Scroll street right",
+    "scroll-left": "Scroll left",
+    "scroll-right": "Scroll right"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -293,9 +339,22 @@
     "anonymous": "Anonymous",
     "byline": "by {user}"
   },
+  "export": {
+    "watermark": "Made with {streetmixWordmark}"
+  },
   "meta": {
     "description": "Design, remix, and share your neighborhood street – all in your browser! Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community.",
     "page-title": "{streetName} (by {author})"
+  },
+  "credits": {
+    "core-team-heading": "Project team",
+    "past-team-heading": "Past team members",
+    "advisors": "Advisors",
+    "additional-illustrations": "Additional illustrations",
+    "additional-code": "Additional code",
+    "additional-contributors": "Additional contributors",
+    "special-thanks": "Special thanks to",
+    "translators": "Translators"
   },
   "i18n": {
     "lang": {
@@ -309,8 +368,11 @@
       "ja": "Japanese",
       "pl": "Polish",
       "pt-br": "Portuguese (Brazil)",
+      "ru": "Russian",
       "sv": "Swedish",
-      "zh-hant": "Chinese (Traditional)"
+      "zh": "Chinese",
+      "zh-hans": "Simplified Chinese",
+      "zh-hant": "Traditional Chinese"
     }
   }
 }

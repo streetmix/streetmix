@@ -8,8 +8,11 @@ export const images = new Map()
 
 // Image tileset loading
 const IMAGES_TO_BE_LOADED = [
+  '/images/wordmark.svg',
   '/images/sky-front.svg',
   '/images/sky-rear.svg',
+  '/images/stars.svg',
+  '/images/moon.svg',
   '/assets/images/icons.svg',
   '/assets/images/images.svg'
 ]
@@ -82,6 +85,17 @@ async function loadImage (url) {
  * @return {string}
  */
 function getSVGOuterHTML (svg) {
+  // Height and width values are required to render to canvas in Firefox.
+  // Add them from `viewBox` property if they are not present.
+  if (svg.getAttribute('viewBox')) {
+    if (!svg.getAttribute('width')) {
+      svg.setAttribute('width', svg.viewBox.baseVal.width)
+    }
+    if (!svg.getAttribute('height')) {
+      svg.setAttribute('height', svg.viewBox.baseVal.height)
+    }
+  }
+
   let outerHTML = svg.outerHTML
 
   // The `outerHTML` property is not available on IE / Edge
@@ -164,6 +178,14 @@ export function hideLoadingScreen () {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
+  const loadingEl = document.getElementById('loading')
 
-  document.getElementById('loading').className += ' hidden'
+  // Add class if classList is available. This prevents extra 'hidden'
+  // classes from appearing in hot-module reloading.
+  if (loadingEl.classList) {
+    loadingEl.classList.add('hidden')
+  } else {
+    // For old browsers, do this
+    loadingEl.className += ' hidden'
+  }
 }

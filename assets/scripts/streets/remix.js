@@ -9,7 +9,6 @@ import {
 } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import { setStreetCreatorId } from './data_model'
-import { updateStreetName } from './name'
 import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
 import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
 import store from '../store'
@@ -102,7 +101,6 @@ function receiveRemixedStreet (data) {
   }
 
   setStreetId(data.id, data.namespacedId)
-  updateStreetName(store.getState().street)
 
   saveStreetToServer(false)
 }

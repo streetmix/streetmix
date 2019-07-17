@@ -33,7 +33,7 @@ describe('flags reducer', () => {
     const action = reducer(undefined, actions.setFeatureFlag('BAZ_QUX', false))
     const result = {
       'BAZ_QUX': {
-        'source': 'user',
+        'source': 'session',
         'value': false
       },
       'FOO_BAR': {

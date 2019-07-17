@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
+import { ICON_TRASH } from '../ui/icons'
+import './RemoveButton.scss'
 
 class RemoveButton extends React.PureComponent {
   static propTypes = {
@@ -40,6 +43,10 @@ class RemoveButton extends React.PureComponent {
         title={this.props.intl.formatMessage({ id: 'tooltip.remove-segment', defaultMessage: 'Remove segment' })}
         onClick={this.onClick}
       >
+        <FontAwesomeIcon
+          icon={ICON_TRASH}
+          className="remove-icon"
+        />
         <FormattedMessage id="btn.remove" defaultMessage="Remove" />
       </button>
     )

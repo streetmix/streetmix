@@ -1,0 +1,168 @@
+Google Summer of Code 2018
+==========================
+
+.. note::
+
+   This page describes a past event. Content may be outdated and links may be broken. It is archived for reference only.
+
+
+Streetmix is excited to participate in `Google Summer of Code 2018 <https://summerofcode.withgoogle.com/organizations/6723641824247808/>`_!
+
+
+Quick links
+-----------
+
+  - `Try Streetmix out! <https://streetmix.net/>`_
+  - `View our project ideas list <https://github.com/streetmix/streetmix/projects>`_
+
+
+Overview
+--------
+
+About us
+++++++++
+
+Streetmix is a fun and friendly way to play with streets. It is a browser-based interactive tool that lets you design, remix, and share your neighborhood street. You can add trees or bike paths, widen sidewalks or traffic lanes, and learn how your decisions impact your community.
+
+
+About the application
++++++++++++++++++++++
+
+We're looking for applicants that are eager to apply their programming skills to building civic technology and user interfaces that demystify a political, democratic process and to encourage more participation and collaboration within a community to design public space. We will be applying best practices in modern application architecture (with Javascript/Node.js) and user interface engineering to build a simple, responsive, and performance optimized user experience. Interest and experience in UI design, SVG and canvas rendering, databases, and open data are a plus. Candidates should be comfortable with HTML/CSS/Javascript and familiar with either MongoDB or Postgres.
+
+If you are considering applying to Streetmix, please explore our `GitHub repository <https://github.com/streetmix/streetmix>`_ and read our `contributing guidelines <https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md>`_ to see if the project interests you. 
+
+We highly recommend joining our community on `Slack <https://streetmix-slack.herokuapp.com/>`_! When you do, introduce yourself and you may ask questions about Streetmix or the application process in the *#gsoc* channel.
+
+
+Timeline
+++++++++
+
+The student application period opens March 12, 2018, and all proposals must be submitted by March 27. We will be reviewing applications between March 27–April 23. For candidates we think will potentially be a good fit, we will be reaching out to have an in-person or on-call conversation (the interview) and to work on a small coding exercise (no more than 1-2 hour estimated take-home project). On April 23, the accepted student and project will be announced.
+
+Coding takes place between May 14 and August 6. For more, see the `full program timeline <https://summerofcode.withgoogle.com/how-it-works/>`_.
+
+
+Application
+-----------
+
+Ready to apply? Please do the following:
+
+**1. Create a project proposal:** Choose one of `Streetmix's priority projects <https://github.com/streetmix/streetmix/projects>`_ (our "ideas list") (Please note: this list can change throughout the application process, so check back frequently for more ideas!). Prepare a detailed plan of how you propose to tackle it this summer. Some projects may be too long for one summer–in that case, feel free to break it down into smaller portions and detail which part you propose to complete. Make sure to include a timetable, and to be realistic! We have a template below:
+
+::
+
+  [PROJECT TITLE]
+  [APPLICANT NAME]
+  
+  Table of Contents
+  
+  1. Summary
+     In 3 sentences or less, summarize this project. What are you proposing to do?
+   
+  2. Introduction
+     2.1 Motivation
+         Why are you choosing this project? 
+     2.2 Skills
+         What do you bring to the table that will make you successful with this project?
+     2.3 Goals
+         What do you hope to learn or accomplish this summer?
+     2.4 Benefits
+         What are the benefits of what you are proposing to do?
+    
+  3. Plan of Action
+     3.1 Steps
+         What are the steps you need to complete your proposal?
+     3.2 Resources
+         What tools, resources, and  open source projects would help you do this?
+  
+  4. Proposed Timeline
+     4.1 Phase 1
+         What will you do in weeks 1-4?
+     4.2 Phase 2
+         What will you do in weeks 5-8?
+     4.3 Phase 3
+         What will you do in weeks 9-12?
+  
+  5. Challenges/Roadblocks
+     What are some "known unknowns" for the project? 
+  
+  6. Notes
+     What else should we know about your proposal? Any final notes?
+
+
+**Proposal drafts:** Optionally, you may ask for feedback on your project proposal before submitting it. To do this, please put it in a Google Doc and submit the link to it (please enable commenting) in the registration you complete on the `GSoC website <https://summerofcode.withgoogle.com/get-started/>`_. We will do our best to give as much feedback as possible, but note that due to time constraints we may not be able to respond to every request.
+
+*Final proposal submission:* When you are ready, submit your final proposal via the GSoC dashboard. There should be a place where you can upload a pdf for this. **All proposals (both draft and final) will be received through the GSoC dashboard. Please submit them there.**
+
+
+**2. Help Streetmix get to know you:** We have some questions in a Google Form to get to know you, your skills, and your goals. You can access the form `here <https://goo.gl/forms/ytO53N5dPUz9KrK83>`_ or by mashing this really large button:
+
+.. raw:: html
+
+    <div class="gsoc-apply-container">
+      <a class="gsoc-apply-button" href="https://goo.gl/forms/ytO53N5dPUz9KrK83" target="_blank">Apply now!</a>
+    </div>
+
+    <style>
+    .gsoc-apply-container {
+      text-align: center;
+      margin: 1em 0;
+    }
+    .gsoc-apply-button {
+      width: 80%;
+      padding: 1em;
+      border-radius: 4px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: #5b9dbd;
+      border: 0;
+      color: white !important;
+      font-size: 1.2em;
+      border-bottom: 2px solid #34677f;
+      text-decoration: none !important;
+      display: block;
+      margin: 0 auto;
+    }
+    .gsoc-apply-button:active {
+      border-bottom: 0;
+      border-top: 2px solid white;
+    }
+    </style>
+
+
+Some things to keep in mind about your application:
+
+- Remember to *submit both items 1 and 2* from above before the deadline (which is March 27, 2018 12:00 (EDT))
+- Making a pull request, contributing to the codebase, or participating in issues and community discussions, while welcome (and we will not turn you away!), is not a requirement for application, nor will it increase your chances of acceptance.
+- **Please use the #gsoc channel on Slack to ask questions (don't use DMs).** When we communicate and answer questions publicly, everyone benefits! Plus, you will hear back from someone faster. We love to welcome new contributors, but doing it for everyone through direct messages is not practical.
+- We can give general guidance and answer questions (in Slack) but we cannot tell you what to write in your proposal or provide individual feedback on the specific content of applications. As mentioned above, we can only provide comments on draft proposals through through the GSoC application dashboard.
+- Small but useful and viable project proposals are more likely to be accepted than large, ambitious or off-the-wall proposals.
+- We are committed to building a team that represents diverse viewpoints and backgrounds. We encourage women, people of color, individuals with disabilities, veterans, and others from underrepresented backgrounds to apply.
+
+Thank you for your interest in Streetmix and we look forward to reviewing your application. If you have any questions, please see the Frequently Asked Questions section below, or bring it to Slack!
+
+Frequently asked questions
+--------------------------
+
+How many students will you be accepting?
+++++++++++++++++++++++++++++++++++++++++
+
+As a first-year organization, and as a small team, we will only be accepting one student this year.
+
+
+I feel stuck or lost. Who do I ask for help?
+++++++++++++++++++++++++++++++++++++++++++++
+
+Come to the *#gsoc* channel on our `Slack <https://streetmix-slack.herokuapp.com/>`_ and ask! However, we will not be able to provide one-on-one review and feedback of proposals or applications.
+
+Keep in mind that we are not gauging applicants based on how "correct" they are in their proposals or how well they might read our minds. We are gauging applicants on critical thinking, their ability to synthesize information about a project and its needs, determine a possible solution, and be able to effectively articulate a plan for moving forward–even if some of the initial assumptions are wrong. Once our student collaborator has been selected, the mentor will work closely with the student to refine the proposal into a workable plan at the beginning of the development period.
+
+
+How will you be weighing candidate acceptance?
+++++++++++++++++++++++++++++++++++++++++++++++
+
+Beyond the details of the project proposal, we will review candidates based on a combination of technical ability, motivations and life goals, communication skills, demographics, location, and commitment level. Don't worry if your technical skill isn't the greatest! As long as you have some basic experience, an ability to learn quickly, and great communication skills, this makes a very strong candidate for our team.
+
+We welcome all students to apply and especially women, persons of color and other underrepresented backgrounds.
+

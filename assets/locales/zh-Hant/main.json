@@ -8,24 +8,26 @@
       "contribute": "貢獻",
       "sign-in": "登錄",
       "sign-out": "登出",
-      "new-street": "新的一條街",
+      "new-street": "新的街道",
       "my-streets": "我的街道",
       "settings": "設置",
       "share": "分享"
     },
     "help": {
       "keyboard-label": "快捷鍵：",
-      "remove": "移除你現在所指的部分<br />（長按<kbd class='key'>Shift</kbd>來移除所有的部分）",
-      "move": "移動這個部分<br /> （長按<kbd class='key'>Shift</kbd>來跳到邊上）",
-      "change": "更改你現在所指部分<br />的寬度（長按<kbd class='key'>Shift</kbd>來微調）"
+      "remove-instruction": "移除你現在所指的部分",
+      "remove-shift-instruction": "（長按{shiftKey}來移除所有的部分）",
+      "move-instruction": "移動這個部分",
+      "move-shift-instruction": "（長按{shiftKey}來跳到邊上）",
+      "change-instruction": "更改你現在所指部分",
+      "change-shift-instruction": "的寬度（長按{shiftKey}來微調）"
     },
     "share": {
       "sign-in-twitter-link": "登錄",
-      "sign-in-link": "{signInLink}你所創建的街道和個人街道集的鏈接",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>登錄推特</a>，會有你所創建的街道和個人街道集的鏈接",
+      "sign-in-link": "{signInLink}你所創建的街道和個人街道圖集的鏈接",
       "link": "複製和粘貼這個鏈接來分享：",
-      "twitter": "用推特來分享",
-      "facebook": "用臉書來分享",
+      "twitter": "分享到推特",
+      "facebook": "分享到臉書",
       "print": "打印",
       "save": "存為圖片",
       "save-byline": "將連接內嵌在報告，博客等等",
@@ -44,7 +46,10 @@
       "email": "給Streetmix團隊發郵件",
       "github": "在GitHub上查看源代碼",
       "blog": "訪問Streetmix的博客",
-      "slack": "加入Slack對話"
+      "discord": "",
+      "slack": "加入Slack對話",
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "資助我們",
@@ -106,10 +111,8 @@
     "please-reload": "請刷新此頁再繼續。",
     "street-deleted-elsewhere-title": "這條街道已在別處被刪除。",
     "street-deleted-elsewhere-description": "這條街道已在別的瀏覽器中被刪除。",
-    "twitter-access-denied-title": "你還沒有登錄。",
-    "twitter-access-denied-description": "你已取消登錄推特。",
-    "email-access-denied-title": "你還沒有登錄。",
-    "email-access-denied-description": "你已取消用電郵登錄。",
+    "access-denied-title": "你還沒有登錄。",
+    "access-denied-description": "你取消了這次登錄。",
     "auth-api-problem-title": "在你登錄的過程中出了點小問題。",
     "auth-api-problem-description": "在確認你身份的過程中出了點小問題。",
     "please-try-again": "請稍後再試，或通過<a target='_blank' rel='noopener noreferrer' href='{email}'>電郵</a>或<a target='_blank' rel='noopener noreferrer' href='{tweet}'>推特</a>聯繫我們。",
@@ -133,7 +136,8 @@
     "copy": "複製",
     "remove": "去掉",
     "close": "關閉",
-    "dismiss": "忽略"
+    "dismiss": "忽略",
+    "okay": ""
   },
   "dialogs": {
     "error": {
@@ -151,7 +155,7 @@
       "existing": {
         "intro": "這是由{creator}創建的{streetName}。",
         "intro-without-creator": "這是{streetName}。",
-        "instruct": "通過移動街道里的各個元素來重組街道，或{startYourOwnStreet}。",
+        "instruct": "通過移動街道里的各個元素來重組街道，或創建你自己的街道{startYourOwnStreet}。",
         "instruct-start-own-street": "創建你的街道。"
       }
     },
@@ -166,22 +170,27 @@
       "description": "設計，重組和分享你創建的街道。在添加自行車道，拓寬人行道或車道的過程中，發現這些改變對社區的影響。",
       "thanks": "衷心感謝所有的員工和參加2013 CfA的朋友所作出的努力和他們的耐心，以及Blockee組成員做的準備工作，還有所有調試人員付出的時間及提供的反饋！",
       "credits": "由參加2013 CfA 的朋友所創建的項目{cfaLink}：",
-      "team-heading": "策劃團隊及維修技術員",
+      "team-heading": "項目團隊及技術維護員",
       "view-source": "查看源代碼",
-      "sponsored-by": "Streetmix 由 X Company 慷慨贊助。",
-      "donate-link": "經濟上支持",
-      "github-link": "貢獻源代碼"
+      "sponsored-by": "Streetmix 由以下組織及公司慷慨贊助：",
+      "donate-link": "贊助我們",
+      "github-link": "貢獻源代碼",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": ""
     },
     "save": {
       "heading": "存為圖片",
       "option-labels": "各部分名稱與寬度",
       "option-name": "街道名稱",
-      "option-sky": "無背景",
+      "option-sky": "無天空背景",
+      "option-watermark": "",
       "loading": "加載中…",
       "save-button": "保存到電腦上…",
-      "license": "根據<br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License</a>條例，這張由Streetmix生成的圖片可以被用於任何位置，任何目的。",
-      "error-preview": "顯示預覽圖時出現了問題。",
-      "error-unavailable": "此瀏覽器不支援收藏圖片功能。",
+      "license": "根據{licenseLink}條例，這張由Streetmix生成的圖片可以被用於任何位置，任何目的。",
+      "error-preview": "我們在顯示預覽圖時出現了故障。",
+      "error-unavailable": "此瀏覽器不支持收藏圖片功能。",
       "preview-image-alt": "預覽"
     },
     "geotag": {
@@ -192,64 +201,101 @@
       "add-location": "添加位置",
       "confirm-location": "確認位置",
       "clear-location": "清除位置",
-      "unknown-location": "未知位置"
+      "unknown-location": "未知位置",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmix 需要你的幫助！",
       "lede": "Streetmix是一個由大眾支持的項目。和網絡上其他“免費”的服務不同，我們沒有插入任何廣告或跟蹤器來盜取你的隱私。因此我們全靠你的支持和資助來運營Streetmix。",
-      "text": "懇請大家能夠以單次或每月連續小額的方式資助我們。你的捐助會幫助我們支付服務器和雲端的儲存和網絡設施，支持其他非營利和倡導組織以及致力於改善社區和街道環境的學生。餘下的收入會用於研發新的功能。我們的支出完全公開透明，這樣你可以知道你的捐款具體是怎麼樣被Streetmix團隊使用的。",
+      "text": "希望大家能夠以單次或連續的方式資助我們。你的捐助會幫助我們支付服務器和雲端的儲存設施，支持其他非營利和倡導團體，以及致力於改善社區和街道環境的學生群體。餘下的收入會被用於研發新的功能。我們的支出完全公開透明，這樣你可以知道你的捐款具體是怎麼樣被Streetmix團隊使用的。",
       "button": "捐助Streetmix",
       "cancel": "不用了，多謝"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": ""
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
-    "new-street": "新街道名",
-    "delete-street": "你確定你要永久刪除{streetName}？這將不能被撤銷。",
-    "new-width": "新街道的寬度（從{minWidth}到{maxWidth}）："
+    "new-street": "新的街道名稱",
+    "delete-street": "你確定你要永久刪除{streetName}嗎？此操作將無法被撤銷。",
+    "new-width": "新街道的寬度（從{minWidth}到{maxWidth}）：",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "這個部分已被移除。",
     "all-segments-deleted": "所有部分已被移除。",
-    "no-undo": "無法撤銷",
-    "no-redo": "無法重做",
-    "no-save": "不須按儲存，Streetmix 會自動幫你儲存你的道路！",
-    "remixing": "現在你可以編輯這個剛剛出爐的原來街道的副本了。它已被放入你的街道集中。",
-    "remixing-sign-in": "現在你可以編輯這個剛剛出爐的原來街道的副本了。請登入來創建一個屬於你的街道集。",
-    "reloaded": "因該道路在其他地方曾經被更改，你設計的道路現已更新。"
+    "no-undo": "沒有內容可供撤銷",
+    "no-redo": "沒有內容可供重做",
+    "no-save": "無須手動儲存，Streetmix會自動幫你儲存你的街道！",
+    "remixing": "現在你可以編輯這個剛剛出爐的街道副本了。它已被放入你的街道圖集中。",
+    "remixing-sign-in": "現在你可以編輯這個剛剛出爐的街道副本了。請登入來創建一個屬於你的街道圖集。",
+    "reloaded": "由於這個街道已在別處被更改，你的街道已被重新加載。"
   },
   "palette": {
     "remove": "拖放到這裡來移除"
   },
   "width": {
     "label": "{width}寬",
-    "under": "（{width}寬的空間）",
-    "over": "（多出{width}）",
+    "under": "（{width}寬的空隙）",
+    "over": "（多出{width}的寬度）",
     "occupied": "已佔寬度：",
     "building": "樓與樓之間的寬度：",
-    "different": "重設寬度",
+    "different": "重設寬度⋯",
     "metric": "轉換成公制單位",
     "imperial": "轉換成英制單位（英尺）"
   },
   "datetime": {
     "minutes-ago": "幾分鍾前",
     "seconds-ago": "幾秒前",
-    "yesterday": "昨天在{time}",
-    "today": "今天在{time}"
+    "yesterday": "於昨天{time}",
+    "today": "於今天{time}"
   },
   "key": {
-    "backspace": "Backspace",
-    "shift": "Shift"
+    "backspace": "退位鍵",
+    "shift": "Shift",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
   },
   "tooltip": {
-    "remove-segment": "移除",
-    "delete-street": "刪除道路",
+    "remove-segment": "移除街道元素",
+    "delete-street": "刪除街道",
     "segment-width": "更改該部分的寬度",
     "building-height": "更改層數",
     "street-width": "更改街道的寬度",
     "increase-width": "增加寬度（長按 Shift 來微調）",
     "decrease-width": "減少寬度（長按 Shift 來微調）",
-    "add-floor": "添加樓層",
-    "remove-floor": "移除樓層"
+    "add-floor": "增加樓層",
+    "remove-floor": "移除樓層",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "無名街",
@@ -260,11 +306,11 @@
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "這個部分在這條街放不下了。",
+      "does-not-fit": "此街道无法容纳这个部分。",
       "not-wide": "這部分可能不夠寬。",
       "too-wide": " 這個部分可能太寬了。"
     },
-    "learn-more": "更多資訊",
+    "learn-more": "了解更多",
     "unknown": {
       "label": "未知"
     },
@@ -277,24 +323,38 @@
     }
   },
   "section": {
-    "empty": "空位"
+    "empty": "空白部分"
   },
   "gallery": {
-    "fail": "加載街道集失敗",
-    "all": "全部街道",
+    "fail": "加載街道圖集失敗。",
+    "all": "所有街道",
     "twitter-link": "Twitter 個人檔案",
     "delete-street-tooltip": "刪除街道",
     "street-count": "{count, plural, other {# 街道}}",
-    "no-streets": "暫時沒有道路",
-    "sign-in": "登入Twitter 帳戶查看你的個人街道集"
+    "no-streets": "暫時沒有街道",
+    "sign-in": "登入Twitter 帳戶查看你的個人街道圖集",
+    "sign-in-prompt": "登陸之後查看你的個人街道圖集"
   },
   "users": {
     "anonymous": "匿名",
     "byline": "來自{user}"
   },
+  "export": {
+    "watermark": ""
+  },
   "meta": {
-    "description": "重新設計并分享你所在社區的街道 —— 只需要一個網頁！在添加行道樹，自行車道，拓寬人行道或車道的過程中，探索和發現這些改變對社區的影響。",
+    "description": "重新設計并分享你所在社區的街道 —— 只需要一個網頁！你可以添加行道樹和自行車道，拓寬人行道或机动車道，并从中探索你的设计将如何影响你的社區。",
     "page-title": "{streetName} （來自{author}）"
+  },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
   },
   "i18n": {
     "lang": {
@@ -308,8 +368,11 @@
       "ja": "日文",
       "pl": "波蘭語",
       "pt-br": "葡文 (巴西)",
+      "ru": "俄文",
       "sv": "瑞典語",
-      "zh-hant": "中文（繁體）"
+      "zh": "中文",
+      "zh-hans": "簡體中文",
+      "zh-hant": "繁體中文"
     }
   }
 }

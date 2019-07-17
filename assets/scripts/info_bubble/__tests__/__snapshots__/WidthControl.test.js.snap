@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WidthControl renders 1`] = `
+<DocumentFragment>
+  <div
+    class="non-variant"
+  >
+    <button
+      class="up-down-input-decrement"
+      disabled=""
+      tabindex="-1"
+      title="Decrease width (hold Shift for more precision)"
+    >
+      <svg
+        class="svg-inline--fa fa-minus"
+      />
+    </button>
+    <input
+      class="up-down-input-element"
+      title="Change width of the segment"
+      type="text"
+      value="0 m"
+    />
+    <button
+      class="up-down-input-increment"
+      tabindex="-1"
+      title="Increase width (hold Shift for more precision)"
+    >
+      <svg
+        class="svg-inline--fa fa-plus"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;

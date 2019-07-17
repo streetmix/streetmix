@@ -1,0 +1,94 @@
+@import '../../styles/variables.scss';
+
+// TODO: Further refactor / split up of this stylesheet
+
+#street-section-outer {
+  position: absolute;
+  display: block;
+  left: 0;
+  right: 0;
+  top: -$gallery-height;
+  bottom: -20px; // To hide the scrollbar
+  overflow-x: scroll;
+  overflow-y: hidden;
+  touch-action: pan-x;
+
+  [dir="rtl"] & {
+    direction: ltr;
+  }
+}
+
+#street-section-inner {
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  height: $canvas-height + 45;
+  user-select: none;
+}
+
+#street-section-editable {
+  position: absolute;
+  height: $canvas-height + 80;
+  text-align: left;
+  touch-action: pan-x;
+
+  // Empty area
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 394px;
+    right: 0;
+    bottom: 115px + 5px;
+    pointer-events: none;
+    // Ensure that segments switching in stay above this
+    z-index: -1;
+  }
+}
+
+#street-section-canvas {
+  z-index: $z-01-street-section;
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  margin-left: $building-space;
+  margin-right: $building-space;
+  height: $canvas-height + 40;
+}
+
+.street-section-building {
+  display: block;
+  position: absolute;
+  top: -150px + 45px;
+  width: 396px;
+  height: $canvas-height + 70px;
+  touch-action: pan-x;
+
+  .hover-bk {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: -1000px;
+    bottom: 45px;
+    right: 0;
+  }
+
+  &.hover .hover-bk {
+    background: $segment-hover-background;
+  }
+
+  canvas {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.street-section-building-left canvas {
+  left: 0;
+}
+
+.street-segment-building-right canvas {
+  right: 0;
+}

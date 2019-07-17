@@ -1,4 +1,11 @@
-import SEGMENT_INFO from './info.json'
+import SEGMENT_LOOKUP from './segment-lookup.json'
+import {
+  getSegmentLookup,
+  applySegmentInfoOverridesAndRules,
+  getSegmentComponentInfo,
+  getSegmentSprites,
+  COMPONENT_GROUPS
+} from './segment-dict'
 
 /**
  * Defines the meta-category of each segment, similar to "typechecking"
@@ -24,7 +31,7 @@ export const SegmentTypes = {
  * receivers of this object can tell the difference between a placeholder
  * and normal segment / variant data.
  */
-const SEGMENT_UNKNOWN = {
+export const SEGMENT_UNKNOWN = {
   unknown: true,
   name: 'Unknown',
   owner: 'NONE',
@@ -33,7 +40,7 @@ const SEGMENT_UNKNOWN = {
   details: {}
 }
 
-const SEGMENT_UNKNOWN_VARIANT = {
+export const SEGMENT_UNKNOWN_VARIANT = {
   unknown: true,
   name: 'Unknown',
   graphics: {
@@ -42,118 +49,161 @@ const SEGMENT_UNKNOWN_VARIANT = {
 }
 
 const SPRITE_DEFS = {
-  'markings--straight-inbound-light': { id: 'markings--straight-inbound-light', width: 4, offsetY: 11.12 }, // translucent version of arrow
-  'markings--straight-outbound-light': { id: 'markings--straight-outbound-light', width: 4, offsetY: 11.12 },
-  'markings--straight-inbound': { id: 'markings--straight-inbound', width: 4, offsetY: 11.12 },
-  'markings--straight-outbound': { id: 'markings--straight-outbound', width: 4, offsetY: 11.12 },
-  'markings--left-inbound': { id: 'markings--left-inbound', width: 4, offsetY: 11.12 },
-  'markings--left-outbound': { id: 'markings--left-outbound', width: 4, offsetY: 11.12 },
-  'markings--left-straight-inbound': { id: 'markings--left-straight-inbound', width: 4, offsetY: 11.12 },
-  'markings--left-straight-outbound': { id: 'markings--left-straight-outbound', width: 4, offsetY: 11.12 },
-  'markings--right-inbound': { id: 'markings--right-inbound', width: 4, offsetY: 11.12 },
-  'markings--right-outbound': { id: 'markings--right-outbound', width: 4, offsetY: 11.12 },
-  'markings--right-straight-inbound': { id: 'markings--right-straight-inbound', width: 4, offsetY: 11.12 },
-  'markings--right-straight-outbound': { id: 'markings--right-straight-outbound', width: 4, offsetY: 11.12 },
-  'markings--both-inbound': { id: 'markings--both-inbound', width: 4, offsetY: 11.12 },
-  'markings--both-outbound': { id: 'markings--both-outbound', width: 4, offsetY: 11.12 },
-  'markings--shared-inbound': { id: 'markings--shared-inbound', width: 4, offsetY: 11.12 },
-  'markings--shared-outbound': { id: 'markings--shared-outbound', width: 4, offsetY: 11.12 },
-  'markings--sharrow-inbound': { id: 'markings--sharrow-inbound', width: 4, offsetY: 11.12 },
-  'markings--sharrow-outbound': { id: 'markings--sharrow-outbound', width: 4, offsetY: 11.12 },
+  'markings--straight-inbound-light': { id: 'markings--straight-inbound-light', originY: 96 }, // translucent version of arrow
+  'markings--straight-outbound-light': { id: 'markings--straight-outbound-light', originY: 96 },
+  'markings--straight-inbound': { id: 'markings--straight-inbound', originY: 96 },
+  'markings--straight-outbound': { id: 'markings--straight-outbound', originY: 96 },
+  'markings--left-inbound': { id: 'markings--left-inbound', originY: 96 },
+  'markings--left-outbound': { id: 'markings--left-outbound', originY: 96 },
+  'markings--left-straight-inbound': { id: 'markings--left-straight-inbound', originY: 96 },
+  'markings--left-straight-outbound': { id: 'markings--left-straight-outbound', originY: 96 },
+  'markings--right-inbound': { id: 'markings--right-inbound', originY: 96 },
+  'markings--right-outbound': { id: 'markings--right-outbound', originY: 96 },
+  'markings--right-straight-inbound': { id: 'markings--right-straight-inbound', originY: 96 },
+  'markings--right-straight-outbound': { id: 'markings--right-straight-outbound', originY: 96 },
+  'markings--both-inbound': { id: 'markings--both-inbound', originY: 96 },
+  'markings--both-outbound': { id: 'markings--both-outbound', originY: 96 },
+  'markings--shared-inbound': { id: 'markings--shared-inbound', originY: 96 },
+  'markings--shared-outbound': { id: 'markings--shared-outbound', originY: 96 },
+  'markings--sharrow-inbound': { id: 'markings--sharrow-inbound', originY: 96 },
+  'markings--sharrow-outbound': { id: 'markings--sharrow-outbound', originY: 96 },
 
-  'markings--lane-left': { id: 'markings--lane-left', width: 2, offsetY: 11.28 },
-  'markings--lane-right': { id: 'markings--lane-right', width: 2, offsetY: 11.28 },
-  'markings--center-lane-left': { id: 'markings--center-lane-left', width: 2, offsetY: 11.28 },
-  'markings--center-lane-right': { id: 'markings--center-lane-right', width: 2, offsetY: 11.28 },
-  'markings--parking-left': { id: 'markings--parking-left', width: 2, offsetY: 11.28 },
-  'markings--parking-right': { id: 'markings--parking-right', width: 2, offsetY: 11.28 },
-  'markings--streetcar-track-01': { id: 'markings--streetcar-track-01', width: 5, offsetY: 11.28 }, // lighter (for dark backgrounds)
-  'markings--streetcar-track-02': { id: 'markings--streetcar-track-02', width: 5, offsetY: 11.28 }, // darker (for light backgrounds)
-  'markings--stripes-diagonal': { id: 'markings--stripes-diagonal', width: 5, offsetY: 11.28 },
-  'ground--asphalt': { id: 'ground--asphalt', width: 10, offsetY: 11.25 },
-  'ground--asphalt-gray': { id: 'ground--asphalt-gray', width: 10, offsetY: 11.25 },
-  'ground--asphalt-green': { id: 'ground--asphalt-green', width: 10, offsetY: 11.25 },
-  'ground--asphalt-red': { id: 'ground--asphalt-red', width: 10, offsetY: 11.25 },
-  'ground--concrete': { id: 'ground--concrete', width: 10, offsetY: 10.65 },
-  'ground--concrete-raised': { id: 'ground--concrete-raised', width: 10, offsetY: 6 + 2.2 },
+  'markings--lane-left': { id: 'markings--lane-left', originY: 102 },
+  'markings--lane-right': { id: 'markings--lane-right', originY: 102 },
+  'markings--lane-left-half': { id: 'markings--lane-left-half', originY: 102 },
+  'markings--lane-right-half': { id: 'markings--lane-right-half', originY: 102 },
+  'markings--lane-horiz': { id: 'markings--lane-horiz', originY: 102 },
+  'markings--center-lane-left': { id: 'markings--center-lane-left', originY: 102 },
+  'markings--center-lane-right': { id: 'markings--center-lane-right', originY: 102 },
+  'markings--parking-left': { id: 'markings--parking-left', originY: 96 },
+  'markings--parking-right': { id: 'markings--parking-right', originY: 96 },
+  'markings--streetcar-track-01': { id: 'markings--streetcar-track-01', originY: 96 }, // lighter (for dark backgrounds)
+  'markings--streetcar-track-02': { id: 'markings--streetcar-track-02', originY: 96 }, // darker (for light backgrounds)
+  'markings--stripes-diagonal': { id: 'markings--stripes-diagonal', originY: 113 },
+  'ground--asphalt': { id: 'ground--asphalt' },
+  'ground--asphalt-gray': { id: 'ground--asphalt-gray' },
+  'ground--asphalt-green': { id: 'ground--asphalt-green' },
+  'ground--asphalt-red': { id: 'ground--asphalt-red' },
+  'ground--concrete': { id: 'ground--concrete' },
+  'ground--concrete-raised': { id: 'ground--concrete-raised' },
 
-  'parklet--yerba-buena-parklet-left-v02': { id: 'parklet--yerba-buena-parklet-left-v02', width: 8, offsetY: 3.4 },
-  'parklet--yerba-buena-parklet-right-v02': { id: 'parklet--yerba-buena-parklet-right-v02', width: 8, offsetY: 3.4 },
-  'bikes--bike-rack-parallel-left': { id: 'bikes--bike-rack-parallel-left', width: 3, offsetY: 4.75 },
-  'bikes--bike-rack-parallel-right': { id: 'bikes--bike-rack-parallel-right', width: 3, offsetY: 4.75 },
-  'bikes--bike-rack-perpendicular-left': { id: 'bikes--bike-rack-perpendicular-left', width: 6, offsetY: 4.75 },
-  'bikes--bike-rack-perpendicular-right': { id: 'bikes--bike-rack-perpendicular-right', width: 6, offsetY: 4.75 },
-  'furniture--bench-left': { id: 'furniture--bench-left', width: 3, offsetY: 4.75 },
-  'furniture--bench-center': { id: 'furniture--bench-center', width: 3, offsetY: 4.75 },
-  'furniture--bench-right': { id: 'furniture--bench-right', width: 3, offsetY: 4.75 },
-  'wayfinding--nyc-wayfinding-pylon-large': { id: 'wayfinding--nyc-wayfinding-pylon-large', width: 4, offsetY: -0.3 },
-  'wayfinding--nyc-wayfinding-pylon-medium': { id: 'wayfinding--nyc-wayfinding-pylon-medium', width: 3, offsetY: -0.3 },
-  'wayfinding--nyc-wayfinding-pylon-small': { id: 'wayfinding--nyc-wayfinding-pylon-small', width: 2, offsetY: -0.3 },
-  'lamps--lamp-modern-left': { id: 'lamps--lamp-modern-left', width: 12, offsetX: -10.3, offsetY: -20.25 },
-  'lamps--lamp-modern-both': { id: 'lamps--lamp-modern-both', width: 16, offsetY: -20.25 },
-  'lamps--lamp-modern-right': { id: 'lamps--lamp-modern-right', width: 12, offsetX: -10.3, offsetY: -20.25 },
-  'lamps--lamp-traditional-right': { id: 'lamps--lamp-traditional-right', width: 4, offsetX: -1.5, offsetY: -4.25 },
-  'lamps--lamp-traditional-center': { id: 'lamps--lamp-traditional-center', width: 4, offsetY: -4.25 },
-  'lamps--lamp-traditional-left': { id: 'lamps--lamp-traditional-left', width: 4, offsetX: -1.5, offsetY: -4.25 },
-  'lamps--pride-banner-right': { id: 'lamps--pride-banner-right', width: 4, offsetX: -2.5, offsetY: -13 },
-  'lamps--pride-banner-left': { id: 'lamps--pride-banner-left', width: 4, offsetX: -2.5, offsetY: -13 },
-  'trees--tree': { id: 'trees--tree', width: 9, offsetY: -10.3 },
-  'trees--palm-tree': { id: 'trees--palm-tree', offsetX: 0, offsetY: -20.25, width: 14 },
-  'dividers--planter-box': { id: 'dividers--planter-box', width: 4, offsetY: 4.25 },
-  'plants--bush': { id: 'plants--bush', width: 4, offsetY: 5.7 },
-  'plants--flowers': { id: 'plants--flowers', width: 4, offsetY: 5.5 },
-  'plants--grass': { id: 'plants--grass', width: 4, offsetY: 9.7 },
-  'dividers--bollard': { id: 'dividers--bollard', width: 1, offsetY: 4.25 },
-  'dividers--dome': { id: 'dividers--dome', width: 1, offsetY: 4.25 },
-  'bikes--biker-01-inbound': { id: 'bikes--biker-01-inbound', width: 3, offsetY: 3.28 },
-  'bikes--biker-01-outbound': { id: 'bikes--biker-01-outbound', width: 3, offsetY: 3.28 },
-  'bikes--biker-02-inbound': { id: 'bikes--biker-02-inbound', width: 3, offsetY: 3.28 },
-  'bikes--biker-02-outbound': { id: 'bikes--biker-02-outbound', width: 3, offsetY: 3.28 },
-  'vehicles--car-inbound': { id: 'vehicles--car-inbound', width: 6, offsetY: -3.7 },
-  'vehicles--car-outbound': { id: 'vehicles--car-outbound', width: 6, offsetY: -3.7 },
-  'vehicles--car-inbound-turn-signal-right': { id: 'vehicles--car-inbound-turn-signal-right', width: 8, offsetY: -3.7 }, // left/right flipped on purpose (see relevant issue/discussion about swapping it back)
-  'vehicles--car-inbound-turn-signal-left': { id: 'vehicles--car-inbound-turn-signal-left', width: 8, offsetY: -3.7 }, // left/right flipped on purpose (see relevant issue/discussion about swapping it back)
-  'vehicles--car-outbound-turn-signal-left': { id: 'vehicles--car-outbound-turn-signal-left', width: 8, offsetY: -3.7 },
-  'vehicles--car-outbound-turn-signal-right': { id: 'vehicles--car-outbound-turn-signal-right', width: 8, offsetY: -3.7 },
-  'vehicles--car-sideways-left': { id: 'vehicles--car-sideways-left', width: 14, offsetY: 5.35 },
-  'vehicles--car-sideways-right': { id: 'vehicles--car-sideways-right', width: 14, offsetY: 5.35 },
-  'vehicles--car-angled-front-left': { id: 'vehicles--car-angled-front-left', width: 14, offsetY: 5.35 },
-  'vehicles--car-angled-front-right': { id: 'vehicles--car-angled-front-right', width: 14, offsetY: 5.35 },
-  'vehicles--car-angled-rear-left': { id: 'vehicles--car-angled-rear-left', width: 14, offsetY: 5.35 },
-  'vehicles--car-angled-rear-right': { id: 'vehicles--car-angled-rear-right', width: 14, offsetY: 5.35 },
-  'transit--bus-inbound': { id: 'transit--bus-inbound', width: 12, offsetY: 0.35 },
-  'transit--bus-outbound': { id: 'transit--bus-outbound', width: 12, offsetY: 0.35 },
-  'transit--light-rail-inbound': { id: 'transit--light-rail-inbound', width: 10, offsetY: -5.75 },
-  'transit--light-rail-outbound': { id: 'transit--light-rail-outbound', width: 10, offsetY: -5.75 },
-  'secret--inception-train': { id: 'secret--inception-train', width: 14, offsetY: -4.7 },
-  'transit--streetcar-inbound': { id: 'transit--streetcar-inbound', width: 12, offsetY: -6.75 },
-  'transit--streetcar-outbound': { id: 'transit--streetcar-outbound', width: 12, offsetY: -6.75 },
-  'vehicles--truck-inbound': { id: 'vehicles--truck-inbound', width: 10, offsetY: -0.75 },
-  'vehicles--truck-outbound': { id: 'vehicles--truck-outbound', width: 9, offsetY: -0.75 },
-  'transit--transit-shelter-01-left': { id: 'transit--transit-shelter-01-left', width: 9, offsetY: -1.3 },
-  'transit--transit-shelter-01-right': { id: 'transit--transit-shelter-01-right', width: 9, offsetY: -1.3 },
-  'transit--transit-shelter-02-left': { id: 'transit--transit-shelter-02-left', width: 9, offsetY: -3.8 },
-  'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right', width: 9, offsetY: -3.8 },
-  'missing': { id: 'missing', width: 4, offsetY: 10.5 },
+  'parklet--yerba-buena-parklet-left-v02': { id: 'parklet--yerba-buena-parklet-left-v02' },
+  'parklet--yerba-buena-parklet-right-v02': { id: 'parklet--yerba-buena-parklet-right-v02' },
+  'bikes--bike-rack-parallel-left': { id: 'bikes--bike-rack-parallel-left' },
+  'bikes--bike-rack-parallel-right': { id: 'bikes--bike-rack-parallel-right' },
+  'bikes--bike-rack-perpendicular-left': { id: 'bikes--bike-rack-perpendicular-left' },
+  'bikes--bike-rack-perpendicular-right': { id: 'bikes--bike-rack-perpendicular-right' },
+  'furniture--bench-left': { id: 'furniture--bench-left' },
+  'furniture--bench-center': { id: 'furniture--bench-center' },
+  'furniture--bench-right': { id: 'furniture--bench-right' },
+  'wayfinding--nyc-wayfinding-pylon-large': { id: 'wayfinding--nyc-wayfinding-pylon-large' },
+  'wayfinding--nyc-wayfinding-pylon-medium': { id: 'wayfinding--nyc-wayfinding-pylon-medium' },
+  'wayfinding--nyc-wayfinding-pylon-small': { id: 'wayfinding--nyc-wayfinding-pylon-small' },
+  'lamps--lamp-modern-left': { id: 'lamps--lamp-modern-left', offsetX: -248 },
+  'lamps--lamp-modern-both': { id: 'lamps--lamp-modern-both' },
+  'lamps--lamp-modern-right': { id: 'lamps--lamp-modern-right', offsetX: -248 },
+  'lamps--lamp-traditional-right': { id: 'lamps--lamp-traditional-right', offsetX: -36 },
+  'lamps--lamp-traditional-center': { id: 'lamps--lamp-traditional-center' },
+  'lamps--lamp-traditional-left': { id: 'lamps--lamp-traditional-left', offsetX: -36 },
+  'lamps--pride-banner-right': { id: 'lamps--pride-banner-right', offsetX: -60, originY: -423 },
+  'lamps--pride-banner-left': { id: 'lamps--pride-banner-left', offsetX: -60, originY: -423 },
+  'trees--tree': { id: 'trees--tree' },
+  'trees--palm-tree': { id: 'trees--palm-tree' },
+  'dividers--planter-box': { id: 'dividers--planter-box' },
+  'plants--bush': { id: 'plants--bush' },
+  'plants--flowers': { id: 'plants--flowers' },
+  'plants--grass': { id: 'plants--grass' },
+  'dividers--bollard': { id: 'dividers--bollard' },
+  'dividers--dome': { id: 'dividers--dome' },
+  'bikes--biker-01-inbound': { id: 'bikes--biker-01-inbound' },
+  'bikes--biker-01-outbound': { id: 'bikes--biker-01-outbound' },
+  'bikes--biker-02-inbound': { id: 'bikes--biker-02-inbound' },
+  'bikes--biker-02-outbound': { id: 'bikes--biker-02-outbound' },
+  'vehicles--car-inbound': { id: 'vehicles--car-inbound' },
+  'vehicles--car-outbound': { id: 'vehicles--car-outbound' },
+  'vehicles--car-inbound-turn-signal-right': { id: 'vehicles--car-inbound-turn-signal-right' }, // left/right flipped on purpose (see relevant issue/discussion about swapping it back)
+  'vehicles--car-inbound-turn-signal-left': { id: 'vehicles--car-inbound-turn-signal-left' }, // left/right flipped on purpose (see relevant issue/discussion about swapping it back)
+  'vehicles--car-outbound-turn-signal-left': { id: 'vehicles--car-outbound-turn-signal-left' },
+  'vehicles--car-outbound-turn-signal-right': { id: 'vehicles--car-outbound-turn-signal-right' },
+  'vehicles--car-sideways-left': { id: 'vehicles--car-sideways-left' },
+  'vehicles--car-sideways-right': { id: 'vehicles--car-sideways-right' },
+  'vehicles--car-angled-front-left': { id: 'vehicles--car-angled-front-left' },
+  'vehicles--car-angled-front-right': { id: 'vehicles--car-angled-front-right' },
+  'vehicles--car-angled-rear-left': { id: 'vehicles--car-angled-rear-left' },
+  'vehicles--car-angled-rear-right': { id: 'vehicles--car-angled-rear-right' },
+  'transit--bus-inbound': { id: 'transit--bus-inbound' },
+  'transit--bus-outbound': { id: 'transit--bus-outbound' },
+  'transit--light-rail-inbound': { id: 'transit--light-rail-inbound' },
+  'transit--light-rail-outbound': { id: 'transit--light-rail-outbound' },
+  'secret--inception-train': { id: 'secret--inception-train' },
+  'transit--streetcar-inbound': { id: 'transit--streetcar-inbound' },
+  'transit--streetcar-outbound': { id: 'transit--streetcar-outbound' },
+  'vehicles--truck-inbound': { id: 'vehicles--truck-inbound' },
+  'vehicles--truck-outbound': { id: 'vehicles--truck-outbound' },
+  'transit--transit-shelter-01-left': { id: 'transit--transit-shelter-01-left' },
+  'transit--transit-shelter-01-right': { id: 'transit--transit-shelter-01-right' },
+  'transit--transit-shelter-02-left': { id: 'transit--transit-shelter-02-left' },
+  'transit--transit-shelter-02-right': { id: 'transit--transit-shelter-02-right' },
+  'utilities--utility-pole-left': { id: 'utilities--utility-pole-left' },
+  'utilities--utility-pole-right': { id: 'utilities--utility-pole-right' },
+  'missing': { id: 'missing' },
 
-  // test stuff
-  'vehicles--taxi-inbound-door-left': { id: 'vehicles--taxi-inbound-door-left', width: 12, offsetY: -3.7 },
-  'vehicles--taxi-inbound-door-right': { id: 'vehicles--taxi-inbound-door-right', width: 12, offsetY: -3.7 },
-  'vehicles--taxi-outbound-door-left': { id: 'vehicles--taxi-outbound-door-left', width: 12, offsetY: -3.7 },
-  'vehicles--taxi-outbound-door-right': { id: 'vehicles--taxi-outbound-door-right', width: 12, offsetY: -3.7 },
-  'vehicles--rideshare-inbound-door-left': { id: 'vehicles--rideshare-inbound-door-left', width: 12, offsetY: -3.7 },
-  'vehicles--rideshare-inbound-door-right': { id: 'vehicles--rideshare-inbound-door-right', width: 12, offsetY: -3.7 },
-  'vehicles--rideshare-outbound-door-left': { id: 'vehicles--rideshare-outbound-door-left', width: 12, offsetY: -3.7 },
-  'vehicles--rideshare-outbound-door-right': { id: 'vehicles--rideshare-outbound-door-right', width: 12, offsetY: -3.7 },
-  'bikes--bikeshare-left': { id: 'bikes--bikeshare-left', width: 7, offsetY: 4.25 },
-  'bikes--bikeshare-right': { id: 'bikes--bikeshare-right', width: 7, offsetY: 4.25 },
-  'vehicles--foodtruck-left': { id: 'vehicles--foodtruck-left', width: 15, offsetY: -3.7 },
-  'vehicles--foodtruck-right': { id: 'vehicles--foodtruck-right', width: 15, offsetY: -3.7 },
+  'vehicles--taxi-inbound-door-left': { id: 'vehicles--taxi-inbound-door-left' },
+  'vehicles--taxi-inbound-door-right': { id: 'vehicles--taxi-inbound-door-right' },
+  'vehicles--taxi-outbound-door-left': { id: 'vehicles--taxi-outbound-door-left' },
+  'vehicles--taxi-outbound-door-right': { id: 'vehicles--taxi-outbound-door-right' },
+  'vehicles--rideshare-inbound-door-left': { id: 'vehicles--rideshare-inbound-door-left' },
+  'vehicles--rideshare-inbound-door-right': { id: 'vehicles--rideshare-inbound-door-right' },
+  'vehicles--rideshare-outbound-door-left': { id: 'vehicles--rideshare-outbound-door-left' },
+  'vehicles--rideshare-outbound-door-right': { id: 'vehicles--rideshare-outbound-door-right' },
+  'bikes--bikeshare-left': { id: 'bikes--bikeshare-left' },
+  'bikes--bikeshare-right': { id: 'bikes--bikeshare-right' },
+  'vehicles--foodtruck-left': { id: 'vehicles--foodtruck-left' },
+  'vehicles--foodtruck-right': { id: 'vehicles--foodtruck-right' },
 
-  'curb--pickup-sign-left': { id: 'curb--pickup-sign-left', width: 2, offsetY: -4.3 },
-  'curb--pickup-sign-right': { id: 'curb--pickup-sign-right', width: 2, offsetY: -4.3 },
-  'curb--person-waiting-01-left': { id: 'curb--person-waiting-01-left', width: 4, offsetY: -4.3 },
-  'curb--person-waiting-01-right': { id: 'curb--person-waiting-01-right', width: 4, offsetY: -4.3 }
+  'curb--pickup-sign-left': { id: 'curb--pickup-sign-left' },
+  'curb--pickup-sign-right': { id: 'curb--pickup-sign-right' },
+  'curb--person-waiting-01-left': { id: 'curb--person-waiting-01-left' },
+  'curb--person-waiting-01-right': { id: 'curb--person-waiting-01-right' },
+
+  'scooters--scooter-inbound': { id: 'scooters--scooter-inbound' },
+  'scooters--scooter-outbound': { id: 'scooters--scooter-outbound' },
+  'scooters--scooter-left-rider': { id: 'scooters--scooter-left-rider' },
+  'scooters--scooter-right-rider': { id: 'scooters--scooter-right-rider' },
+  'scooters--scooter-left-docked': { id: 'scooters--scooter-left-docked' },
+  'scooters--scooter-right-docked': { id: 'scooters--scooter-right-docked' },
+
+  'people--people-01': { id: 'people--people-01', originY: 10 },
+  'people--people-02': { id: 'people--people-02', originY: 10 },
+  'people--people-03': { id: 'people--people-03', originY: 10 },
+  'people--people-04': { id: 'people--people-04', originY: 10 },
+  'people--people-05': { id: 'people--people-05', originY: 10 },
+  'people--people-06': { id: 'people--people-06', originY: 10 },
+  'people--people-07': { id: 'people--people-07', originY: 10 },
+  'people--people-08': { id: 'people--people-08', originY: 10 },
+  'people--people-09': { id: 'people--people-09', originY: 10 },
+  'people--people-10': { id: 'people--people-10', originY: 10 },
+  'people--people-11': { id: 'people--people-11', originY: 10 },
+  'people--people-12': { id: 'people--people-12', originY: 10 },
+  'people--people-13': { id: 'people--people-13', originY: 10 },
+  'people--people-14': { id: 'people--people-14', originY: 10 },
+  'people--people-15': { id: 'people--people-15', originY: 10 },
+  'people--people-16': { id: 'people--people-16', originY: 10 },
+  'people--people-17': { id: 'people--people-17', originY: 10 },
+  'people--people-18': { id: 'people--people-18', originY: 10 },
+  'people--people-19': { id: 'people--people-19', originY: 10 },
+  'people--people-20': { id: 'people--people-20', originY: 10 },
+  'people--people-21': { id: 'people--people-21', originY: 10 },
+  'people--people-22': { id: 'people--people-22', originY: 10 },
+  'people--people-23': { id: 'people--people-23', originY: 10 },
+  'people--people-24': { id: 'people--people-24', originY: 10 },
+  'people--people-25': { id: 'people--people-25', originY: 10 }, // Scooter
+  'people--people-26': { id: 'people--people-26', originY: 10 },
+  'people--people-27': { id: 'people--people-27', originY: 10 },
+  'people--people-28': { id: 'people--people-28', originY: 10 },
+  'people--people-29': { id: 'people--people-29', originY: 10 },
+  'people--people-30': { id: 'people--people-30', originY: 10 },
+  'people--people-31': { id: 'people--people-31', originY: 10 }
 }
 
 /**
@@ -162,7 +212,7 @@ const SPRITE_DEFS = {
  * @returns {Object}
  */
 export function getAllSegmentInfo () {
-  return SEGMENT_INFO
+  return SEGMENT_LOOKUP
 }
 
 /**
@@ -172,8 +222,8 @@ export function getAllSegmentInfo () {
  * @returns {Object}
  */
 export function getAllSegmentInfoArray () {
-  return Object.keys(SEGMENT_INFO).map(id => {
-    const segment = { ...SEGMENT_INFO[id] }
+  return Object.keys(SEGMENT_LOOKUP).map(id => {
+    const segment = { ...SEGMENT_LOOKUP[id] }
     segment.id = id
     return segment
   })
@@ -189,21 +239,35 @@ export function getAllSegmentInfoArray () {
  * @returns {Object}
  */
 export function getSegmentInfo (type) {
-  return SEGMENT_INFO[type] || SEGMENT_UNKNOWN
+  return SEGMENT_LOOKUP[type] || SEGMENT_UNKNOWN
 }
 
 /**
- * Gets variant data for segment `type` and `variant`. Safer than reading
- * `type` directly from `SEGMENT_INFO`, or `variant` from the segment,
- * because this will return a placeholder if the variant is not found.
+ * Maps the old segment data model to the new segment data model and returns the graphic sprites necessary
+ * to draw the segment as well as any rules to follow, e.g. `minWidth` based on the `type` and `variant`.
  *
  * @param {string} type
  * @param {string} variant
- * @returns {Object}
+ * @returns {object} variantInfo - returns an object in the shape of { graphics, ...rules }
  */
 export function getSegmentVariantInfo (type, variant) {
-  const segment = getSegmentInfo(type)
-  return (segment && segment.details && segment.details[variant]) || SEGMENT_UNKNOWN_VARIANT
+  const segmentLookup = getSegmentLookup(type, variant)
+  const { rules } = getSegmentInfo(type)
+
+  if (!segmentLookup || !segmentLookup.components) {
+    return SEGMENT_UNKNOWN_VARIANT
+  }
+
+  const { components, ...details } = segmentLookup
+  const variantInfo = applySegmentInfoOverridesAndRules(details, rules)
+  variantInfo.graphics = getSegmentSprites(components)
+
+  // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
+  // of the first item in the "lane" component group.
+  const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, components.lanes[0].id)
+  variantInfo.elevation = lane.elevation
+
+  return variantInfo
 }
 
 /**
@@ -218,11 +282,11 @@ export function getSegmentVariantInfo (type, variant) {
 export function getSpriteDef (sprite) {
   let def
   if (typeof sprite === 'object' && sprite.id) {
-    def = {...SPRITE_DEFS[sprite.id], ...sprite}
+    def = { ...SPRITE_DEFS[sprite.id], ...sprite }
   } else {
     // Clone the original to prevent downstream consumers from accidentally
     // modifying the reference
-    def = {...SPRITE_DEFS[sprite]}
+    def = { ...SPRITE_DEFS[sprite] }
   }
   return def
 }

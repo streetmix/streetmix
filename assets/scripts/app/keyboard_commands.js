@@ -1,45 +1,28 @@
 import { noop } from 'lodash'
 
-import { showGallery, hideGallery } from '../gallery/view'
-import {
-  draggingType,
-  DRAGGING_TYPE_RESIZE,
-  DRAGGING_TYPE_MOVE,
-  handleSegmentMoveCancel
-} from '../segments/drag_and_drop'
-import { handleSegmentResizeCancel } from '../segments/resizing'
-import { undo, redo } from '../streets/undo_stack'
-import { getSignInData, isSignedIn } from '../users/authentication'
+import USER_ROLES from '../../../app/data/user_roles'
+import { KEYS } from './keys'
+import { ENV } from './config'
 import { registerKeypress } from './keypress'
+import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
+import { handleSegmentMoveCancel } from '../segments/drag_and_drop'
+import { handleSegmentResizeCancel } from '../segments/resizing'
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { showStatusMessage } from './status_message'
 import { t } from '../locales/locale'
 import { showDialog } from '../store/actions/dialogs'
+import { undo, redo } from '../store/actions/undo'
 import store from '../store'
 
-export const KEYS = {
-  ENTER: 13,
-  ESC: 27,
-  EQUAL: 187, // = or +
-  EQUAL_ALT: 61, // Firefox
-  PLUS_KEYPAD: 107,
-  MINUS: 189,
-  MINUS_ALT: 173, // Firefox
-  MINUS_KEYPAD: 109,
-  BACKSPACE: 8,
-  DELETE: 46
-}
-
 export function onGlobalKeyDown (event) {
+  const { draggingType } = store.getState().ui
+
   switch (event.keyCode) {
     case KEYS.ESC:
-      if (draggingType() === DRAGGING_TYPE_RESIZE) {
+      if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()
-      } else if (draggingType() === DRAGGING_TYPE_MOVE) {
+      } else if (draggingType === DRAGGING_TYPE_MOVE) {
         handleSegmentMoveCancel()
-      } else if (document.body.classList.contains('gallery-visible')) {
-        hideGallery(false)
-      } else if (isSignedIn()) {
-        showGallery(getSignInData().userId, false)
       } else {
         return
       }
@@ -73,8 +56,11 @@ export function registerKeypresses () {
   }, noop)
 
   // Secret menu to toggle feature flags
+  // Only active in development/staging
   registerKeypress('shift f', () => {
-    store.dispatch(showDialog('FEATURE_FLAGS'))
+    if (ENV !== 'production' || (isSignedIn() && getSignInData().details.roles.includes(USER_ROLES.ADMIN))) {
+      store.dispatch(showDialog('FEATURE_FLAGS'))
+    }
   })
 
   // Undo
@@ -82,11 +68,15 @@ export function registerKeypresses () {
     preventDefault: true,
     requireFocusOnBody: true,
     shiftKey: false
-  }, undo)
+  }, () => {
+    store.dispatch(undo())
+  })
 
   // Redo
   registerKeypress(['shift ctrl z', 'ctrl y'], {
     preventDefault: true,
     requireFocusOnBody: true
-  }, redo)
+  }, () => {
+    store.dispatch(redo())
+  })
 }

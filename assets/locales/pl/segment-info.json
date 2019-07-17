@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Chodnik",
-    "sidewalk-tree": "Chodnik z drzewem",
+    "sidewalk-tree": "Drzewem",
     "bike-rack": "Stojak na rowery",
     "bench": "Ławka",
     "wayfinding-sign": "Drogowskaz",
-    "sidewalk-lamp": "Chodnik z latarnią",
+    "sidewalk-lamp": "Latarnią",
     "parklet": "Parklet",
     "divider": "Pobocze",
     "planting-strip": "Pas zieleni",
@@ -13,6 +13,8 @@
     "median": "Środkowy pas",
     "bollard": "Słupek",
     "dome": "Strefa wyłączonego ruchu kołowego",
+    "scooter": "",
+    "scooter-drop-zone": "",
     "bike-lane": "Droga rowerowa",
     "parking-lane": "Strefa parkowania",
     "perpendicular-parking": "Parkowanie prostopadłe",
@@ -50,7 +52,7 @@
       "imageCaption": "Parklet przy Judah Street 4033, dzięki uprzejmości Departamentu Planowania w San Francisco.",
       "lede": "Parklety zmieniają dotychczasowe miejsca parkingowe w tymczasową przestrzeń publicznego odpoczynku.",
       "text": [
-        "W 2005, studio projektowe z San Francisco <a href=\"http://rebargroup.org/\">Rebar</a> tymczasowo zmieniło niewielkie miejsce parkingowe na śródmiejskiej ulicy Mission Street w malutki park publiczny. Pierwszy parklet był prosty: jedynie ławka i drzewo na prostokątnym kawałku trawnika, ale zawierał małą instrukcję i przyzwolenie dla innych, aby tworzyli kolejne. Gdy ludzie zdali sobie sprawę, że tak dużo przestrzeni publicznej poświęca się na przechowywanie samochodów, zrodził się międzynarodowy ruch i teraz doroczny <a href=\"http://parkingday.org/\">Park(ing) Day</a> wita około tysiąca tymczasowych parkletów na całym świecie.",
+        "W 2005, studio projektowe z San Francisco <a href=\"http://rebargroup.org/\">Rebar</a> tymczasowo zmieniło niewielkie miejsce parkingowe na śródmiejskiej ulicy Mission Street w malutki park publiczny. Pierwszy parklet był prosty: jedynie ławka i drzewo na prostokątnym kawałku trawnika, ale zawierał małą instrukcję i przyzwolenie dla innych, aby tworzyli kolejne. Gdy ludzie zdali sobie sprawę, że tak dużo przestrzeni publicznej poświęca się na przechowywanie samochodów, zrodził się międzynarodowy ruch i teraz doroczny <a href=\"https://www.facebook.com/PARKing-Day-71298180414\">Park(ing) Day</a> wita około tysiąca tymczasowych parkletów na całym świecie.",
         "San Francisco stało się pierwszym miastem, w którym parklety stały się oficjalne dzięki <a href=\"http://sfpavementtoparks.sfplanning.org/\">programowi Pavement to Parks</a>  w 2010 roku. Dziś to miasto nad zatoką ma ponad 50 parkletów, których architektura projektowana jest z dużo lepszym efektem w porównaniu do skromnego prototypu firmy Rebar. Powstał ambitny, wspierany przez sponsora w postaci korporacji, parklet długości dwóch bloków w sercu najbardziej ruchliwego korytarza handlowego San Francisco, jak również kolekcja czerwonych parków przenośnych (parkmobiles) (domyślny widok Streetmiksa) zaprojektowanych dla <a href=\"http://www.ybcbd.org/\">Yerba Buena Community Benefit District</a>.  Oficjalne programy parkletowe istnieją teraz w wielu miastach Ameryki Północnej takich jak Philadelphia, Oakland, Kansas City, New York, Chicago, Vancouver i wiele miast niedługo podąży w ich ślady."
       ]
     },
@@ -159,6 +161,7 @@
     "car-type|truck": "Ciężarówka",
     "public-transit-asphalt|regular": "Asfalt",
     "public-transit-asphalt|colored": "Pas wydzielony kolorem czerwonym",
+    "public-transit-asphalt|grass": "Trawa",
     "bus-asphalt|regular": "Asfalt",
     "bus-asphalt|colored": "Pas wydzielony kolorem czerwonym",
     "bus-asphalt|shared": "Buspas współdzielony ze ścieżką rowerową",

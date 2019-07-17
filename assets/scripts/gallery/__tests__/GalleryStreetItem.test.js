@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
-import { GalleryStreetItem } from '../GalleryStreetItem'
+import { mountWithIntl as mount } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { GalleryStreetItemWithIntl as GalleryStreetItem } from '../GalleryStreetItem'
 
 // Mock dependencies
 jest.mock('../thumbnail', () => {
@@ -10,7 +9,7 @@ jest.mock('../thumbnail', () => {
     drawStreetThumbnail: jest.fn()
   }
 })
-jest.mock('../../streets/data_model', () => {
+jest.mock('../../app/page_url', () => {
   return {
     getStreetUrl: jest.fn()
   }
@@ -26,30 +25,21 @@ describe('GalleryStreetItem', () => {
   it('renders without crashing', () => {
     // Mounting is required to test that a canvas element will be rendered correctly
     // This also uses jsdom + canvas packages under the hood
-    const wrapper = mountWithIntl(
-      <GalleryStreetItem
-        street={MOCK_STREET_DATA}
-        intl={mockIntl}
-      />)
+    const wrapper = mount(<GalleryStreetItem street={MOCK_STREET_DATA} />)
 
     expect(wrapper.exists()).toEqual(true)
   })
 
   it('displays street owner', () => {
-    const wrapper = mountWithIntl(
-      <GalleryStreetItem
-        street={MOCK_STREET_DATA}
-        intl={mockIntl}
-      />)
+    const wrapper = mount(<GalleryStreetItem street={MOCK_STREET_DATA} />)
 
     expect(wrapper.find('.gallery-street-item-creator').text()).toEqual('foo')
   })
 
   it('does not display street owner when specified', () => {
-    const wrapper = mountWithIntl(
+    const wrapper = mount(
       <GalleryStreetItem
         street={MOCK_STREET_DATA}
-        intl={mockIntl}
         showStreetOwner={false}
       />)
 

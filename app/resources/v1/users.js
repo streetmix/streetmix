@@ -1,9 +1,9 @@
+
 const config = require('config')
 const uuid = require('uuid')
-const Twitter = require('twitter')
-const { random } = require('lodash')
-const { ERRORS } = require('../../../lib/util')
+const cloudinary = require('cloudinary')
 const User = require('../../models/user.js')
+const { ERRORS } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
 
 exports.post = function (req, res) {
@@ -98,12 +98,42 @@ exports.post = function (req, res) {
     User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
   } // END function - handleTwitterSignIn
 
-  const handleEmailSignIn = async function (credentials) {
-    function generateId (nickname) {
-      // TODO - Check if the Id generated is not existing
-      return nickname + '-' + random(0, 999)
+  /**
+   * Returns a randomly-generated 4-digit string of a number between 0000 and 9999
+   *
+   * @returns {string}
+   */
+  const generateRandomId = () => Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+
+  const generateId = function (nickname) {
+    // TODO - Check if the Id generated is not existing
+    const id = generateRandomId()
+    return nickname + '-' + id
+  }
+
+  const handleUserProfileImage = async function (user, credentials) {
+    const publicId = `${config.env}/profile_image/${user.id}`
+    let profileImageUrl
+
+    // Check if user has profile image already cached in cloudinary
+    if (user.profile_image_url && user.profile_image_url.includes(publicId)) {
+      profileImageUrl = user.profile_image_url
+    } else if (credentials.profile_image_url) {
+      // If no profile image cached in cloudinary, cache image provided by credentials and return cloudinary url.
+      try {
+        const response = await cloudinary.v2.uploader.upload(credentials.profile_image_url, { upload_preset: 'profile_image', public_id: publicId })
+        profileImageUrl = response.secure_url
+      } catch (error) {
+        logger.error(error)
+        // If unable to cache image, return credentials.profile_image_url.
+        profileImageUrl = credentials.profile_image_url
+      }
     }
 
+    return profileImageUrl
+  }
+
+  const handleAuth0SignIn = async function (credentials) {
     try {
       const user = await User.findOne({ auth0_id: credentials.auth0_id })
       loginToken = uuid.v1()
@@ -131,8 +161,10 @@ exports.post = function (req, res) {
           u.save(handleCreateUser)
         }
       } else {
+        const profileImageUrl = await handleUserProfileImage(user, credentials)
+
         user.auth0_id = credentials.auth0_id
-        user.profile_image_url = credentials.profile_image_url
+        user.profile_image_url = profileImageUrl
         user.email = credentials.email
         user.login_tokens.push(loginToken)
         user.save(handleUpdateUser)
@@ -142,7 +174,7 @@ exports.post = function (req, res) {
       console.log(err)
       res.status(500).send('Error finding user with Auth0 ID.')
     }
-  } // END function - handleAuth0TwitterSignIn
+  } // END function - handleAuth0SignIn
 
   let body
   try {
@@ -153,27 +185,25 @@ exports.post = function (req, res) {
   }
 
   if (body.hasOwnProperty('twitter')) {
-    // TODO: Validation
     handleTwitterSignIn(body.twitter)
   } else if (body.hasOwnProperty('auth0_twitter')) {
     handleAuth0TwitterSignIn(body.auth0_twitter)
-  } else if (body.hasOwnProperty('auth0_email')) {
-    handleEmailSignIn(body.auth0_email)
+  } else if (body.hasOwnProperty('auth0')) {
+    handleAuth0SignIn(body.auth0)
   } else {
     res.status(400).send('Unknown sign-in method used.')
   }
 } // END function - exports.post
 
-exports.get = async function (req, res) {
-  // Flag error if user ID is not provided
-  if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
+exports.get = function (req, res) {
+  if (!req.loginToken) {
+    res.status(400).send('Please provide a login token.')
     return
   }
-  const userId = req.params.user_id
 
   const findUserById = async function (userId) {
     let user
+
     try {
       user = await User.findOne({ id: userId })
     } catch (err) {
@@ -182,98 +212,54 @@ exports.get = async function (req, res) {
     }
 
     if (!user) {
-      throw new Error(ERRORS.USER_NOT_FOUND)
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
+
+    // If user is not logged in or user is not admin => permission NOT granted
+    if (user.login_tokens.indexOf(req.loginToken) === -1 || !user.roles.includes('ADMIN')) {
+      res.status(401).end()
+      return
+    }
+
     return user
   }
 
-  const findUserByLoginToken = async function (loginToken) {
-    let user
+  const findStreetmixUsers = async function () {
+    let users
+
     try {
-      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+      users = await User.find({})
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)
     }
 
-    if (!user) {
+    if (!users) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
-    return user
+
+    return users
   }
 
-  const handleFindUser = function (user) {
-    let twitterApiClient
-    try {
-      twitterApiClient = new Twitter({
-        consumer_key: config.twitter.oauth_consumer_key,
-        consumer_secret: config.twitter.oauth_consumer_secret,
-        access_token_key: user.twitter_credentials.access_token_key,
-        access_token_secret: user.twitter_credentials.access_token_secret
-      })
-    } catch (e) {
-      logger.error('Could not initialize Twitter API client. Error:')
-      logger.error(e)
-    }
+  const handleFindUsers = function (users) {
+    let usersArray = []
 
-    const sendUserJson = function (data) {
-      const auth = (user.login_tokens.indexOf(req.loginToken) > 0)
-
-      user.asJson({ auth: auth }, function (err, userJson) {
+    const getUserJson = function (user) {
+      user.asJson({ auth: true }, function (err, userJson) {
         if (err) {
           logger.error(err)
           res.status(500).send('Could not render user JSON.')
           return
         }
 
-        if (data) {
-          userJson.profileImageUrl = data.twitter_profile_image_url
-        } else {
-          userJson.profileImageUrl = user.profile_image_url
-        }
-
-        res.status(200).send(userJson)
+        userJson.profileImageUrl = user.profile_image_url
+        usersArray.push(userJson)
       })
-    } // END function - sendUserJson
-
-    let responseAlreadySent = false
-
-    const handleFetchUserProfileFromTwitter = function (err, res) {
-      if (err) {
-        logger.error('Twitter API call users/show returned error.')
-        logger.error(err)
-      }
-
-      if (responseAlreadySent) {
-        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned but response already sent!')
-      } else {
-        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned. Sending response with Twitter data.')
-        responseAlreadySent = true
-
-        if (!res) {
-          logger.error('Twitter API call users/show did not return any data.')
-        }
-
-        sendUserJson({
-          twitter_profile_image_url: res.picture
-        })
-      }
-    } // END function - handleFetchUserProfileFromTwitter
-
-    if (twitterApiClient && !user.profile_image_url) {
-      logger.debug('About to call Twitter API: /users/show.json?user_id=' + user.twitter_id)
-      twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
-      setTimeout(function () {
-        if (!responseAlreadySent) {
-          logger.debug(`Timing out Twitter API call after %d milliseconds and sending partial response.`, config.twitter.timeout_ms)
-          responseAlreadySent = true
-          sendUserJson()
-        }
-      }, config.twitter.timeout_ms)
-    } else {
-      sendUserJson()
     }
-  } // END function - handleFindUser
+
+    users.forEach((user) => { getUserJson(user) })
+    res.status(200).send(usersArray)
+  }
 
   const handleError = function (error) {
     switch (error) {
@@ -291,81 +277,8 @@ exports.get = async function (req, res) {
     }
   }
 
-  if (req.loginToken) {
-    findUserByLoginToken(req.loginToken)
-      .then(handleFindUser)
-      .catch(handleError)
-  } else {
-    findUserById(userId)
-      .then(handleFindUser)
-      .catch(handleError)
-  }
-}
-
-exports.delete = async function (req, res) {
-  const userId = req.params.user_id
-  let user
-  try {
-    user = await User.findOne({ id: userId })
-  } catch (err) {
-    logger.error(err)
-    res.status(500).send('Error finding user.')
-  }
-
-  if (!user) {
-    res.status(404).send('User not found.')
-    return
-  }
-
-  const idx = user.login_tokens.indexOf(req.loginToken)
-  if (idx === -1) {
-    res.status(401).end()
-    return
-  }
-  user.login_tokens.splice(idx, 1)
-
-  user.save().then(user => {
-    res.status(204).end()
-  }).catch(err => {
-    logger.error(err)
-    res.status(500).send('Could not sign-out user.')
-  })
-} // END function - exports.delete
-
-exports.put = async function (req, res) {
-  let body
-  try {
-    body = req.body
-  } catch (e) {
-    res.status(400).send('Could not parse body as JSON.')
-    return
-  }
-
-  const userId = req.params.user_id
-  let user
-
-  try {
-    user = await User.findOne({ id: userId })
-  } catch (err) {
-    logger.error(err)
-    res.status(500).send('Error finding user.')
-  }
-
-  if (!user) {
-    res.status(404).send('User not found.')
-    return
-  }
-
-  if (user.login_tokens.indexOf(req.loginToken) === -1) {
-    res.status(401).end()
-    return
-  }
-
-  user.data = body.data || user.data
-  user.save().then(user => {
-    res.status(204).end()
-  }).catch(err => {
-    logger.error(err)
-    res.status(500).send('Could not update user information.')
-  })
-} // END function - exports.put
+  findUserById(req.userId)
+    .then(findStreetmixUsers)
+    .then(handleFindUsers)
+    .catch(handleError)
+} // END function - exports.get

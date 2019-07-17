@@ -9,6 +9,7 @@ import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constan
 import { updateUnits } from '../users/localization'
 import { changeLocale } from '../store/actions/locale'
 import { clearMenus } from '../store/actions/menus'
+import { ICON_CHECK } from '../ui/icons'
 
 export class SettingsMenu extends React.PureComponent {
   static propTypes = {
@@ -34,6 +35,11 @@ export class SettingsMenu extends React.PureComponent {
     // I'm leaving it here anyway under the hopes that this code doesn't go to
     // waste when we figure out how to avoid this problem.
     if (prevProps.requestedLocale && this.props.requestedLocale === null) {
+      this.props.clearMenus()
+    }
+
+    // Close menu when units have changed
+    if (prevProps.units !== this.props.units) {
       this.props.clearMenus()
     }
   }
@@ -64,12 +70,12 @@ export class SettingsMenu extends React.PureComponent {
         </h2>
         <ul className="menu-item-group">
           <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_METRIC) ? 'menu-item-selected' : ''}`} onClick={this.selectMetric}>
-            {(this.props.units === SETTINGS_UNITS_METRIC) && <FontAwesomeIcon icon="check" />}
+            {(this.props.units === SETTINGS_UNITS_METRIC) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
             {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
             <FormattedMessage id="settings.units.metric" defaultMessage="Metric units (meters)" />&#x200E;
           </li>
           <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_IMPERIAL) ? 'menu-item-selected' : ''}`} onClick={this.selectImperial}>
-            {(this.props.units === SETTINGS_UNITS_IMPERIAL) && <FontAwesomeIcon icon="check" />}
+            {(this.props.units === SETTINGS_UNITS_IMPERIAL) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
             <FormattedMessage id="settings.units.imperial" defaultMessage="Imperial units (feet)" />&#x200E;
           </li>
         </ul>

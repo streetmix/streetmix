@@ -1,0 +1,28 @@
+.help-menu-shortcuts {
+  padding: 0.5em 1em 1em 2.5em;
+  max-width: 400px;
+  line-height: 18px;
+
+  [dir="rtl"] & {
+    padding-left: 1em;
+    padding-right: 2.5em;
+  }
+
+  p:first-child {
+    margin-top: 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: -5px;
+
+    td {
+      vertical-align: top;
+      padding: 5px;
+    }
+
+    td:first-child {
+      min-width: 60px;
+    }
+  }
+}

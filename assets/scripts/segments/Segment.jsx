@@ -8,7 +8,8 @@ import { CSSTransition } from 'react-transition-group'
 
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
-import MeasurementText from '../ui/MeasurementText'
+import SegmentLabelContainer from './SegmentLabelContainer'
+import { getLocaleSegmentName } from '../segments/view'
 
 import {
   TILE_SIZE,
@@ -21,20 +22,23 @@ import {
   segmentSource,
   collectDragSource,
   segmentTarget,
-  collectDropTarget
+  collectDropTarget,
+  _getBugfix,
+  _resetBugfix
 } from './drag_and_drop'
-import { getSegmentVariantInfo, getSegmentInfo } from './info'
-import { normalizeSegmentWidth, RESIZE_TYPE_INITIAL, suppressMouseEnter, incrementSegmentWidth } from './resizing'
-import { removeSegment, removeAllSegments } from './remove'
-import { SETTINGS_UNITS_METRIC } from '../users/constants'
+import { getSegmentInfo } from './info'
+import { normalizeSegmentWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL, RESIZE_TYPE_INCREMENT } from './resizing'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { KEYS } from '../app/keyboard_commands'
+import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
+import { incrementSegmentWidth, removeSegmentAction, clearSegmentsAction } from '../store/actions/street'
+import { showStatusMessage } from '../store/actions/status'
+import './Segment.scss'
 
-class Segment extends React.Component {
+export class Segment extends React.Component {
   static propTypes = {
     // Provided by parent
     dataNo: PropTypes.number,
@@ -42,17 +46,18 @@ class Segment extends React.Component {
     actualWidth: PropTypes.number.isRequired,
     units: PropTypes.number,
     segmentPos: PropTypes.number,
-    suppressMouseEnter: PropTypes.bool.isRequired,
     updateSegmentData: PropTypes.func,
     updatePerspective: PropTypes.func,
 
     // Provided by store
-    cssTransform: PropTypes.string,
     locale: PropTypes.string,
-    infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
+    incrementSegmentWidth: PropTypes.func,
+    removeSegment: PropTypes.func,
+    clearSegments: PropTypes.func,
+    showStatusMessage: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -61,16 +66,10 @@ class Segment extends React.Component {
     isDragging: PropTypes.bool
   }
 
-  static defaultProps = {
-    units: SETTINGS_UNITS_METRIC,
-    suppressMouseEnter: false
-  }
-
   constructor (props) {
     super(props)
 
-    this.oldSegmentCanvas = React.createRef()
-    this.newSegmentCanvas = React.createRef()
+    this.initialRender = true
 
     this.state = {
       switchSegments: false,
@@ -85,12 +84,18 @@ class Segment extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
+    // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
     // During a segment removal or a dragging action, the infoBubble temporarily does not appear
     // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
     // the active segment should be shown. The following IF statement checks to see if a removal
     // or drag action occurred previously to this segment and displays the infoBubble for the
     // segment if it is equal to the activeSegment and no infoBubble was shown already.
-    if (prevProps.suppressMouseEnter && !this.props.suppressMouseEnter && this.props.activeSegment === this.props.dataNo) {
+    const wasDragging = (prevProps.isDragging && !this.props.isDragging) ||
+      (this.initialRender && (this.props.activeSegment || this.props.activeSegment === 0))
+
+    this.initialRender = false
+
+    if ((wasDragging) && this.props.activeSegment === this.props.dataNo) {
       infoBubble.considerShowing(false, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
     }
 
@@ -98,16 +103,11 @@ class Segment extends React.Component {
       this.switchSegments(prevProps.segment.variantString)
     }
 
-    if (!prevState.switchSegments && this.state.switchSegments) {
-      this.props.updatePerspective(this.oldSegmentCanvas.firstChildElement)
-      this.props.updatePerspective(this.newSegmentCanvas.firstChildElement)
-    }
-
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener('keydown', this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
   }
 
   switchSegments = (oldVariant) => {
@@ -117,26 +117,34 @@ class Segment extends React.Component {
     })
   }
 
-  calculateSegmentWidths = (resizeType) => {
+  calculateSegmentWidths = () => {
     let actualWidth = this.props.actualWidth
 
-    actualWidth = normalizeSegmentWidth(actualWidth, resizeType)
+    actualWidth = normalizeSegmentWidth(actualWidth, resolutionForResizeType(RESIZE_TYPE_INITIAL, this.props.units))
 
     return actualWidth
   }
 
   onSegmentMouseEnter = (event) => {
-    if (this.props.suppressMouseEnter || suppressMouseEnter()) {
-      this.props.setActiveSegment(this.props.dataNo)
+    // Immediately after a segment move action, react-dnd can incorrectly trigger this handler
+    // on the segment that exists in the previous segment's spot. The bug is tracked here
+    // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
+    // We work around this by setting `__BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER` to `true`
+    // immediately after the move action, which prevents us from firing this event handler one
+    // time. This is suppressed once, then reset.
+    if (_getBugfix() === true) {
+      _resetBugfix()
       return
     }
 
-    window.addEventListener('keydown', this.handleKeyDown)
+    this.props.setActiveSegment(this.props.dataNo)
+
+    document.addEventListener('keydown', this.handleKeyDown)
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
   }
 
   onSegmentMouseLeave = () => {
-    window.removeEventListener('keydown', this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
     infoBubble.dontConsiderShowing()
   }
 
@@ -151,7 +159,7 @@ class Segment extends React.Component {
           type={segment.type}
           variantString={(isOldVariant) ? this.state.oldVariant : segment.variantString}
           randSeed={segment.randSeed}
-          ref={(isOldVariant) ? this.oldSegmentCanvas : this.newSegmentCanvas}
+          updatePerspective={this.props.updatePerspective}
         />
       </div>
     ))
@@ -164,8 +172,7 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, false, finetune, actualWidth)
+    this.props.incrementSegmentWidth(position, false, finetune, RESIZE_TYPE_INCREMENT)
   }
 
   /**
@@ -175,8 +182,7 @@ class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
-    incrementSegmentWidth(position, true, finetune, actualWidth)
+    this.props.incrementSegmentWidth(position, true, finetune, RESIZE_TYPE_INCREMENT)
   }
 
   handleKeyDown = (event) => {
@@ -206,10 +212,15 @@ class Segment extends React.Component {
 
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey === true) {
-          removeAllSegments()
+          this.props.clearSegments()
+          infoBubble.hide()
+          this.props.showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'))
           trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'KEYBOARD', null, true)
         } else {
-          removeSegment(this.props.dataNo)
+          infoBubble.hide()
+          infoBubble.hideSegment()
+          this.props.showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'))
+          this.props.removeSegment(this.props.dataNo, false)
           trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
         }
         break
@@ -222,27 +233,22 @@ class Segment extends React.Component {
     const { segment } = this.props
 
     const segmentInfo = getSegmentInfo(segment.type)
-    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
-    const defaultName = variantInfo.name || segmentInfo.name // the name to display if there isn't a localized version of it
-    const nameKey = variantInfo.nameKey || segmentInfo.nameKey
 
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
-    const displayName = t(`segments.${nameKey}`, defaultName, { ns: 'segment-info' })
+    const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
-    const actualWidth = this.calculateSegmentWidths(RESIZE_TYPE_INITIAL)
+    const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
+    const translate = 'translateX(' + this.props.segmentPos + 'px)'
 
     const segmentStyle = {
       width: elementWidth + 'px',
       // In a street, certain segments have stacking priority over others (expressed as z-index).
       // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
       zIndex: (this.props.isDragging) ? 0 : segmentInfo.zIndex,
-      [this.props.cssTransform]: 'translateX(' + this.props.segmentPos + 'px)'
-    }
-
-    const dataAttributes = {
-      'data-width': actualWidth
+      WebkitTransform: translate,
+      transform: translate
     }
 
     const classNames = ['segment']
@@ -267,18 +273,17 @@ class Segment extends React.Component {
       <div
         style={segmentStyle}
         className={classNames.join(' ')}
-        {...dataAttributes}
+        data-testid="segment"
         ref={(ref) => { this.streetSegment = ref }}
         onMouseEnter={this.onSegmentMouseEnter}
         onMouseLeave={this.onSegmentMouseLeave}
       >
-        <span className="name">
-          {displayName}
-        </span>
-        <span className="width">
-          <MeasurementText value={actualWidth} units={this.props.units} locale={this.props.locale} />
-        </span>
-        <span className={'grid' + (this.props.units === SETTINGS_UNITS_METRIC ? ' units-metric' : ' units-imperial')} />
+        <SegmentLabelContainer
+          label={displayName}
+          width={actualWidth}
+          units={this.props.units}
+          locale={this.props.locale}
+        />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition
           key="old-variant"
@@ -307,17 +312,19 @@ class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    cssTransform: state.system.cssTransform,
     locale: state.locale.locale,
-    infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps (dispatch, ownProps) {
   return {
-    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) }
+    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
+    removeSegment: (position) => { dispatch(removeSegmentAction(position)) },
+    clearSegments: () => { dispatch(clearSegmentsAction()) },
+    incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType)),
+    showStatusMessage: (message) => { dispatch(showStatusMessage(message, true)) }
   }
 }
 

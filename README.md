@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>Streetmix is a collaborative process for communities and city planners to improve public spaces.</b> 
-  <br>Design, remix, and share your neighborhood street at <a href="http://streetmix.net/">streetmix.net</a>.
+  <br>Design, remix, and share your neighborhood street at <a href="https://streetmix.net/">streetmix.net</a>.
 </p>
 
 <p align="center">
@@ -15,24 +15,25 @@
 
 <p align="center">
   <b>Have questions? Looking for support or advice?</b>
-  <br><a href="http://forums.streetmix.net/">Check out our forums</a> or <a href="https://streetmix-slack.herokuapp.com/">join our Slack chat!</a>
+  <br><a href="https://discord.gg/NsKmV3S">Join our Discord</a> or <a href="https://forums.streetmix.net/">our forums</a>!
 </p>
 
 <p align="center">
-  Learn more about the team and project collaborators at <a href="https://opencollective.com/streetmix">Open Collective</a>.
-  <br>We welcome contributions! Please see our <a href="https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md">contributor guidelines</a>.
+  <b>We welcome contributions!</b>
+  <br>Please see our <a href="https://streetmix.readthedocs.io/en/latest/contributing/">contributor guidelines</a>.
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=flat-square"></a>
-  <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=flat-square"></a>
-  <a href="https://codeclimate.com/github/codeforamerica/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/github/codeforamerica/streetmix.svg?style=flat-square"></a>
+  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=for-the-badge"></a>
+  <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=for-the-badge"></a>
+  <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/tech-debt/streetmix/streetmix.svg?style=for-the-badge"></a>
+  <a href=""><img alt="Code Coverage" src="https://img.shields.io/codecov/c/gh/streetmix/streetmix.svg?label=test%20coverage&style=for-the-badge"></a>
 </p>
 
 <hr>
 
 <p align="center">
-  <img src="https://github.com/streetmix/streetmix/raw/master/doc/images/screenshot-beta.jpg" alt="screenshot">
+  <img src="https://github.com/streetmix/streetmix/raw/master/docs/images/screenshot-beta.jpg" alt="screenshot">
 </p>
 
 ## About
@@ -41,7 +42,7 @@
 
 A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you take a slice of it and look at it head-on. Similarly, a street section is a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have created very colorful illustrative street sections, removing most of the engineering particulars to communicate how a street could be designed to feel safe, walkable or habitable.
 
-![example-sections](doc/images/thumb_sections.png "Left to Right: (1) Existing conditions section of Market Street, from the Better Market Street Plan, San Francisco (2) Proposed one-way cycletrack design of Second Street, from the Great Second Street Plan, San Francisco (3)Example of an illustrative section, courtesy of Lou Huang")
+![example-sections](docs/images/thumb_sections.png "Left to Right: (1) Existing conditions section of Market Street, from the Better Market Street Plan, San Francisco (2) Proposed one-way cycletrack design of Second Street, from the Great Second Street Plan, San Francisco (3)Example of an illustrative section, courtesy of Lou Huang")
 
 #### Why does Streetmix exist?
 
@@ -66,7 +67,7 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 
 #### How do I install / set up Streetmix myself?
 
-Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by [following these instructions](https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md#development-setup)!
+Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by [following these instructions](https://streetmix.readthedocs.io/en/latest/technical/installing-streetmix)!
 
 ## Sponsors
 
@@ -77,6 +78,11 @@ Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by 
 
 ### Copyright
 
-Copyright (c) 2013-2017 Code for America and contributors. See [LICENSE][] for details.
+Copyright (c) 2013-2018 Code for America and contributors.
+Copyright (c) 2019 Streetmix LLC.
+See [LICENSE][] for details.
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/streetmix/streetmix.svg)](https://greenkeeper.io/)
+[![Open Source Helpers](https://www.codetriage.com/codeforamerica/streetmix/badges/users.svg)](https://www.codetriage.com/codeforamerica/streetmix)
 
 [license]: https://github.com/streetmix/streetmix/blob/master/LICENSE.md

@@ -1,0 +1,163 @@
+//
+// Dialog boxes
+//
+// Base styles for dialog boxes
+// --------------------------------------------------------
+
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+$dialog-border-radius: $border-radius;
+
+.dialog-box-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.dialog-box-backdrop {
+  z-index: $z-08-dialog-box-backdrop;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: fade-out($sky-colour, 0.5);
+  touch-action: none;
+
+  /* Transitions */
+  transition: opacity 60ms ease-in-out;
+  opacity: 0;
+}
+
+.dialog-box {
+  @include box-border;
+
+  position: relative;
+  // balance the dialog by making it slightly north of center
+  margin-top: -3%;
+  padding: 0;
+  background: white;
+  font-size: 13px;
+  line-height: 1.5;
+  z-index: $z-09-dialog-box;
+  touch-action: none;
+
+  /* New styles! Let's try it! */
+  border-top: 0;
+  border-bottom: 0;
+  border-radius: $dialog-border-radius;
+  overflow: hidden;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.075);
+
+  /* Transitions */
+  transition: opacity 80ms ease-in-out, transform 80ms ease-in-out;
+  opacity: 0;
+  transform: scale(0.9);
+
+  /* Containing child element */
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 1.75rem 1em;
+    text-align: center;
+    background-color: #e6f0f5;
+  }
+
+  h1 {
+    @include large-message-text;
+
+    margin: 0;
+  }
+
+  footer {
+    padding: 1rem 2rem;
+    margin-top: 0;
+    color: rgb(160, 160, 160);
+    font-size: 11px;
+    line-height: 1.3;
+
+    > p:first-child {
+      margin-top: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:hover {
+      color: rgb(120, 120, 120);
+    }
+  }
+
+  button.close {
+    z-index: $z-09-dialog-box;
+  }
+
+  button:not(.close),
+  a.button-like {
+    margin: 0 auto;
+    display: inline-block;
+    padding: 0.75em 2em;
+    margin-top: 1em;
+  }
+}
+
+/* Transitions */
+.dialog-transition-enter-done .dialog-box {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dialog-transition-exit .dialog-box {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.dialog-transition-enter-done .dialog-box-backdrop {
+  opacity: 1;
+}
+
+.dialog-transition-exit .dialog-box-backdrop {
+  opacity: 0;
+}
+
+.dialog-content {
+  flex-grow: 1;
+  position: relative;
+
+  &:not(.dialog-content-bleed) {
+    padding: 1rem 2rem;
+  }
+
+  > p:first-child {
+    margin-top: 0;
+  }
+}
+
+button.dialog-primary-action {
+  border-top: 1px solid #cde1ea;
+  border-bottom: 0;
+  background-color: white;
+  width: 100%;
+  text-align: center;
+  color: darken($ui-colour, 30%);
+  min-height: 46px;
+
+  /* override .dialog-box button */
+  padding: 1rem 2rem !important;
+  margin-top: 0 !important;
+
+  &:hover {
+    background-color: #f1f7f9;
+    color: darken($ui-colour, 50%);
+  }
+}

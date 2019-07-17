@@ -4,14 +4,14 @@
     "name": "Arabic",
     "value": "ar",
     "key": "i18n.lang.ar",
-    "level": 2
+    "level": 3
   },
   {
-    "label": "中文",
-    "name": "Chinese (Traditional)",
-    "value": "zh-Hant",
-    "key": "i18n.lang.zh-hant",
-    "level": 2
+    "label": "Deutsch",
+    "name": "German",
+    "value": "de",
+    "key": "i18n.lang.de",
+    "level": 3
   },
   {
     "label": "English",
@@ -19,6 +19,20 @@
     "value": "en",
     "key": "i18n.lang.en",
     "level": 4
+  },
+  {
+    "label": "Español",
+    "name": "Spanish",
+    "value": "es",
+    "key": "i18n.lang.es",
+    "level": 1
+  },
+  {
+    "label": "Español (México)",
+    "name": "Spanish (Mexico)",
+    "value": "es-MX",
+    "key": "i18n.lang.es-mx",
+    "level": 3
   },
   {
     "label": "Suomi",
@@ -33,13 +47,6 @@
     "value": "fr",
     "key": "i18n.lang.fr",
     "level": 3
-  },
-  {
-    "label": "Deutsch",
-    "name": "German",
-    "value": "de",
-    "key": "i18n.lang.de",
-    "level": 1
   },
   {
     "label": "日本語",
@@ -60,20 +67,13 @@
     "name": "Portuguese (Brazil)",
     "value": "pt-BR",
     "key": "i18n.lang.pt-br",
-    "level": 2
+    "level": 3
   },
   {
-    "label": "Español",
-    "name": "Spanish",
-    "value": "es",
-    "key": "i18n.lang.es",
-    "level": 1
-  },
-  {
-    "label": "Español (México)",
-    "name": "Spanish (Mexico)",
-    "value": "es-MX",
-    "key": "i18n.lang.es-mx",
+    "label": "Русский",
+    "name": "Russian",
+    "value": "ru",
+    "key": "i18n.lang.ru",
     "level": 3
   },
   {
@@ -82,5 +82,19 @@
     "value": "sv",
     "key": "i18n.lang.sv",
     "level": 1
+  },
+  {
+    "label": "简体中文",
+    "name": "Simplified Chinese",
+    "value": "zh-Hans",
+    "key": "i18n.lang.zh-hans",
+    "level": 3
+  },
+  {
+    "label": "繁體中文",
+    "name": "Traditional Chinese",
+    "value": "zh-Hant",
+    "key": "i18n.lang.zh-hant",
+    "level": 3
   }
 ]

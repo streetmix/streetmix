@@ -1,0 +1,41 @@
+$close-button-margin: 2px;
+$close-button-size: 34px;
+
+button.close {
+  // Position in dialog boxes
+  position: absolute;
+  right: $close-button-margin;
+  top: $close-button-margin;
+
+  // Mirror position in rtl
+  [dir="rtl"] & {
+    right: auto;
+    left: $close-button-margin;
+  }
+
+  // Touch-friendly size
+  width: $close-button-size;
+  height: $close-button-size;
+
+  // Appearance
+  appearance: none;
+  border: 0;
+  border-radius: 50%;
+  color: rgb(64, 32, 32);
+  cursor: pointer;
+  user-select: none;
+
+  // Override font-awesome sizing
+  > .svg-inline--fa {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
+
+  &:not(:hover) {
+    background-color: transparent;
+  }
+
+  &:hover {
+    color: black;
+  }
+}

@@ -1,12 +1,11 @@
 import { hideLoadingScreen } from './load_resources'
 import {
-  URL_ERROR_TWITTER_ACCESS_DENIED,
   URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
   URL_ERROR_AUTHENTICATION_API_PROBLEM,
-  URL_ERROR_EMAIL_ACCESS_DENIED,
-  URL_ERROR_NO_EMAIL_ACCESS_TOKEN
-} from './routing'
+  URL_ERROR_ACCESS_DENIED,
+  URL_ERROR_NO_ACCESS_TOKEN
+} from './constants'
 import store from '../store'
 import { showError as showErrorAction, hideError as hideErrorAction } from '../store/actions/errors'
 
@@ -19,7 +18,7 @@ export const ERRORS = {
   STREET_DELETED_ELSEWHERE: 6,
   NEW_STREET_SERVER_FAILURE: 7,
   FORCE_RELOAD_SIGN_OUT_401: 8,
-  TWITTER_ACCESS_DENIED: 9,
+  ACCESS_DENIED: 9,
   AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN: 10,
   AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN: 11,
   AUTH_PROBLEM_API_PROBLEM: 12,
@@ -33,8 +32,7 @@ export const ERRORS = {
   SIGN_IN_401: 20,
   STREET_DATA_FAILURE: 21,
   GALLERY_STREET_FAILURE: 22,
-  EMAIL_ACCESS_DENIED: 23,
-  AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN: 24
+  AUTH_PROBLEM_NO_ACCESS_TOKEN: 23
 }
 
 export function showError (errorType, newAbortEverything) {
@@ -54,23 +52,20 @@ export function showErrorFromUrl (errorUrl) {
 
   // TODO const
   switch (errorUrl) {
-    case URL_ERROR_TWITTER_ACCESS_DENIED:
-      errorType = ERRORS.TWITTER_ACCESS_DENIED
-      break
     case URL_ERROR_NO_TWITTER_REQUEST_TOKEN:
       errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN
       break
     case URL_ERROR_NO_TWITTER_ACCESS_TOKEN:
       errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN
       break
-    case URL_ERROR_NO_EMAIL_ACCESS_TOKEN:
-      errorType = ERRORS.AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN
+    case URL_ERROR_NO_ACCESS_TOKEN:
+      errorType = ERRORS.AUTH_PROBLEM_NO_ACCESS_TOKEN
       break
     case URL_ERROR_AUTHENTICATION_API_PROBLEM:
       errorType = ERRORS.AUTH_PROBLEM_API_PROBLEM
       break
-    case URL_ERROR_EMAIL_ACCESS_DENIED:
-      errorType = ERRORS.EMAIL_ACCESS_DENIED
+    case URL_ERROR_ACCESS_DENIED:
+      errorType = ERRORS.ACCESS_DENIED
       break
     default:
       errorType = ERRORS.GENERIC_ERROR

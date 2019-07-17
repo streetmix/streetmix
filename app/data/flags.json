@@ -11,9 +11,21 @@
     "label": "UI — Edit street name",
     "defaultValue": true
   },
-  "EDIT_BUILDINGS": {
-    "label": "UI — Edit buildings",
+  "EDIT_BUILDINGS_LEFT": {
+    "label": "UI — Edit left-side buildings",
     "defaultValue": true
+  },
+  "EDIT_BUILDINGS_RIGHT": {
+    "label": "UI — Edit right-side buildings",
+    "defaultValue": true
+  },
+  "ENVIRONMENT_EDITOR": {
+    "label": "Environment editor",
+    "defaultValue": false
+  },
+  "BODY_FONT_UPDATE": {
+    "label": "Experimental body font update",
+    "defaultValue": false
   },
   "SAVE_UNDO": {
     "label": "Save undo data to server",
@@ -26,46 +38,82 @@
   },
   "LOCALES_LEVEL_1": {
     "label": "Locales — level 1+ (in progress)",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": false
   },
   "LOCALES_LEVEL_2": {
     "label": "Locales — level 2+ (complete, in testing)",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": false
   },
   "LOCALES_LEVEL_3": {
     "label": "Locales — level 3 (complete, final)",
     "defaultValue": true
   },
-  "SEGMENT_FLEX_ZONE": {
-    "label": "Segment — flex zone",
+  "SEGMENT_3D_PARKING": {
+    "label": "Segment — 3d angled parking",
     "defaultValue": false,
-    "enabled": true
+    "enabled": false
+  },
+  "SEGMENT_CAFE_SEATING": {
+    "label": "Segment — cafe seating",
+    "defaultValue": false,
+    "enabled": false
+  },
+  "SEGMENT_CONSTRUCTION": {
+    "label": "Segment — construction items",
+    "defaultValue": false,
+    "enabled": false
   },
   "SEGMENT_INCEPTION_TRAIN": {
     "label": "Segment — the train from “Inception”",
-    "defaultValue": false,
-    "enabled": true
+    "defaultValue": false
   },
-  "SEGMENT_ANGLED_PARKING": {
-    "label": "Segment — angled parking",
+  "SEGMENT_RAISED_BIKES": {
+    "label": "Segment — raised bike lanes",
+    "defaultValue": false,
+    "enabled": false
+  },
+  "SEGMENT_SCOOTERS": {
+    "label": "Segment — scooters",
     "defaultValue": true
+  },
+  "SEGMENT_UTILITIES": {
+    "label": "Segment — utility pole",
+    "defaultValue": false
   },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
+    "defaultValue": false
+  },
+  "CUSTOM_SEGMENT_LABELS": {
+    "label": "Custom segment labels",
     "defaultValue": false
   },
   "SAVE_AS_IMAGE_CUSTOM_DPI": {
     "label": "Save images at custom DPI",
     "defaultValue": false
   },
+  "EXPORT_WATERMARK": {
+    "label": "Allow exporting images without watermark",
+    "defaultValue": false
+  },
+  "ALWAYS_DISPLAY_WHATS_NEW": {
+    "label": "Always display the What’s New dialog",
+    "defaultValue": false
+  },
   "DONATE_NAG_SCREEN": {
     "label": "Donation nag screen",
+    "defaultValue": false
+  },
+  "BUSINESS_PLAN": {
+    "label": "Activate purchasing funnel",
+    "defaultValue": false
+  },
+  "AUTHENTICATION_V2": {
+    "label": "Authentication v2",
     "defaultValue": true
   },
-  "EMAIL_AUTHENTICATION": {
-    "label": "Auth0 email authentication",
+  "SILLY_CLOWNS": {
+    "label": "Silly clowns",
     "defaultValue": false
   }
 }

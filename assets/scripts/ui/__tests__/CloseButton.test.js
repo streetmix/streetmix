@@ -1,43 +1,35 @@
 /* eslint-env jest */
 import React from 'react'
+import { fireEvent, cleanup } from '@testing-library/react'
+import { renderWithIntl as render } from '../../../../test/helpers/render'
 import CloseButton from '../CloseButton'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
-import { mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { initIcons } from '../../ui/icons'
-
-const onClick = jest.fn()
 
 describe('CloseButton', () => {
-  beforeAll(() => {
-    initIcons()
+  afterEach(cleanup)
+
+  it('renders snapshot', () => {
+    const wrapper = render(<CloseButton onClick={jest.fn()} />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('should renders without crashing', () => {
-    const wrapper = mountWithIntl(<CloseButton onClick={onClick} />)
-    expect(wrapper.find('button').length).toEqual(1)
-  })
-
-  it('should set title attribute', () => {
-    const wrapper = mountWithIntl(<CloseButton
-      onClick={onClick}
-      title={mockIntl.formatMessage({ id: 'gallery.delete-street-tooltip', defaultMessage: 'Delete street' })}
+  it('renders with custom title, class name, and other attributes', () => {
+    const wrapper = render(<CloseButton
+      onClick={jest.fn()}
+      title="foofoo"
+      className="my-class"
+      disabled
+      hidden
     />)
-    expect(wrapper.find('button').instance().getAttribute('title')).toEqual('Delete street')
-  })
-
-  it('should set className', () => {
-    const wrapper = mountWithIntl(<CloseButton
-      onClick={onClick}
-      className="hide-btn"
-    />)
-    expect(wrapper.find('button').hasClass('hide-btn')).toEqual(true)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('should call onClick function when button is clicked', () => {
-    const wrapper = mountWithIntl(<CloseButton
+    const onClick = jest.fn()
+    const { getByTitle } = render(<CloseButton
       onClick={onClick}
+      title="foo"
     />)
-    wrapper.find('button').simulate('click')
-    expect(onClick).toBeCalled()
+    fireEvent.click(getByTitle('foo'))
+    expect(onClick).toHaveBeenCalledTimes(1)
   })
 })

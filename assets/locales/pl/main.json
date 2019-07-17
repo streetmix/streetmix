@@ -15,14 +15,16 @@
     },
     "help": {
       "keyboard-label": "Skróty klawiszowe:",
-      "remove": "Usuń wskazany segment<br />(przytrzymaj <kbd class='key'>Shift</kbd>, aby usunąć wszystko)",
-      "move": "Przemieszczaj się po ulicy<br />(przytrzymaj <kbd class='key'>Shift</kbd> aby ustawić się na krawędzi)",
-      "change": "Zmień szerokość wskazanego segmentu<br />(przytrzymaj <kbd class='key'>Shift</kbd> dla zwiększenia precyzji)"
+      "remove-instruction": "Usuń wskazany segment",
+      "remove-shift-instruction": "(przytrzymaj {shiftKey}, aby usunąć wszystko)",
+      "move-instruction": "Przemieszczaj się po ulicy",
+      "move-shift-instruction": "(przytrzymaj {shiftKey} aby ustawić się na krawędzi)",
+      "change-instruction": "Zmień szerokość wskazanego segmentu",
+      "change-shift-instruction": "(przytrzymaj {shiftKey} dla zwiększenia precyzji)"
     },
     "share": {
       "sign-in-twitter-link": "Zaloguj się",
       "sign-in-link": "{signInLink} dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Zarejestruj się przez Twittera</a> dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
       "link": "Skopiuj i wklej ten link, aby go udostępnić:",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
@@ -44,7 +46,10 @@
       "email": "Wyślij maila do zespołu Streetmix",
       "github": "Obejrzyj kod źródłowy na GitHubie",
       "blog": "Odwiedź blog Streetmiksa",
-      "slack": "Dołącz do rozmów na Slacku"
+      "discord": "",
+      "slack": "Dołącz do rozmów na Slacku",
+      "minecraft": "",
+      "newsletter": ""
     },
     "contribute": {
       "donate": "Dołóż swój wkład",
@@ -106,10 +111,8 @@
     "please-reload": "Odśwież stronę, zanim będziesz kontynuować. ",
     "street-deleted-elsewhere-title": "Ta ulica została usunięta w innym miejscu. ",
     "street-deleted-elsewhere-description": "Ta ulica została usunięta w innej przeglądarce.",
-    "twitter-access-denied-title": "Użytkownik nie jest zalogowany.",
-    "twitter-access-denied-description": "Proces rejestracji poprzez konto na Twitterze został przerwany.",
-    "email-access-denied-title": "Użytkownik nie jest zalogowany.",
-    "email-access-denied-description": "Proces rejestracji został przerwany.",
+    "access-denied-title": "Użytkownik nie jest zalogowany.",
+    "access-denied-description": "Proces rejestracji został anulowany.",
     "auth-api-problem-title": "Wystąpił problem podczas próby zalogowania użytkownika.",
     "auth-api-problem-description": "Wystąpił problem z uwierzytelnianiem. ",
     "please-try-again": "Spróbuj ponownie później lub daj nam znać poprzez <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> lub <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twittera</a>.",
@@ -133,7 +136,8 @@
     "copy": "Utwórz kopię",
     "remove": "Usuń",
     "close": "Zamknij",
-    "dismiss": "Odrzuć"
+    "dismiss": "Odrzuć",
+    "okay": ""
   },
   "dialogs": {
     "error": {
@@ -170,16 +174,21 @@
       "view-source": "Zobacz kod źródłowy",
       "sponsored-by": "Streetmix jest hojnie wspierany przez:",
       "donate-link": "Wesprzyj nas finansowo",
-      "github-link": "Współtwórz otwarte oprogramowanie"
+      "github-link": "Współtwórz otwarte oprogramowanie",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "Warunki korzystania z usługi",
+      "privacy-link": "Polityka prywatności"
     },
     "save": {
       "heading": "Zapisz jako obrazek",
       "option-labels": "Nazwy i szerokości segmentów",
       "option-name": "Nazwa ulicy",
       "option-sky": "Czyste niebo",
+      "option-watermark": "",
       "loading": "Ładuję…",
       "save-button": "Zapisz na swoim komputerze…",
-      "license": "Obrazy tworzone w Streetmiksie mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji <br><a href='{url}'>Creative Commons Attribution-ShareAlike 4.0 International License (uznanie autorstwa)</a>.",
+      "license": "Obrazy tworzone w Streetmiksie mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji {licenseLink}.",
       "error-preview": "Wystąpił błąd podczas wyświetlania podglądu obrazu.",
       "error-unavailable": "Zapis do obrazu nie jest dostępny na tej przeglądarce.",
       "preview-image-alt": "Podgląd"
@@ -192,7 +201,8 @@
       "add-location": "Dodaj lokalizację",
       "confirm-location": "Potwierdź lokalizację",
       "clear-location": "Wyczyść lokalizację",
-      "unknown-location": "Nieznana lokalizacja"
+      "unknown-location": "Nieznana lokalizacja",
+      "geotag-unavailable": ""
     },
     "donate": {
       "heading": "Streetmix potrzebuje Twojej pomocy!",
@@ -200,12 +210,40 @@
       "text": "Rozważ proszę jednorazowe lub cykliczne wspieranie nas. Twoja darowizna pomoże nam na opłaty serwerowe oraz infrastruktury w chmurze, inne wydatki non-profit, grupy interesariuszy oraz studentów wspierających nasze ulice. Dodatkowo przychód będzie inwestowany w tworzenie dodatkowych funkcji. Nasze wydatki są w pełni transparentne, dlatego możesz sprawdzić, jak Twoja darowizna jest wykorzystywana przez zespół Streetmix.",
       "button": "Przekaż darowiznę na Streetmix",
       "cancel": "Nie, dziękuję"
+    },
+    "sign-in": {
+      "heading": "Logowanie / Rejestracja",
+      "description": "Zapisz swój pierwszy projekt lub zaloguj się, by mieć dostęp do poprzednich projektów.",
+      "email-label": "Email",
+      "email-description": "Wyślemy Ci link do logowania. Hasło nie jest wymagane.",
+      "email-invalid": "",
+      "social-heading": "lub",
+      "button": {
+        "email": "Kontynuuj z: email",
+        "twitter": "Kontynuuj z: Twitter",
+        "google": "Kontynuuj z: Google",
+        "facebook": "Kontynuuj z: Facebook"
+      },
+      "tos": "Klikając jeden z tych przycisków, zgadzasz się na {tosLink} i {privacyLink}.",
+      "tos-link-label": "warunki korzystania z usługi",
+      "privacy-link-label": "politykę prywatności",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": "Co nowego w Streetmiksie?"
+    },
+    "newsletter": {
+      "heading": ""
     }
   },
   "prompt": {
     "new-street": "Nazwa ulicy:",
     "delete-street": "Czy jesteś pewien, że chcesz trwale usunąć {streetName}? Tej operacji nie można cofnąć.",
-    "new-width": "Nowa szerokość ulicy (od {minWidth} do {maxWidth}):"
+    "new-width": "Nowa szerokość ulicy (od {minWidth} do {maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Segment został usunięty.",
@@ -238,7 +276,11 @@
   },
   "key": {
     "backspace": "Backspace",
-    "shift": "Przesuń"
+    "shift": "Shift",
+    "plus": "Plus",
+    "minus": "Minus",
+    "left-arrow": "Strzałka w lewo",
+    "right-arrow": "Strzałka w prawo"
   },
   "tooltip": {
     "remove-segment": "Usuń segment",
@@ -249,7 +291,11 @@
     "increase-width": "Zwiększ szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "decrease-width": "Zmniejsz szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "add-floor": "Dodaj piętro",
-    "remove-floor": "Usuń piętro"
+    "remove-floor": "Usuń piętro",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
   },
   "street": {
     "default-name": "Ul. Nienazwana",
@@ -286,15 +332,29 @@
     "delete-street-tooltip": "Usuń ulicę",
     "street-count": "{count, plural, one {# ulica} few {# ulice} many {# ulic} other {# ulic}}",
     "no-streets": "Jak dotąd brak ulic",
-    "sign-in": "Zaloguj się przez Twittera, by posiadać własną galerię ulic"
+    "sign-in": "Zaloguj się przez Twittera, by posiadać własną galerię ulic",
+    "sign-in-prompt": "Zaloguj się, by zobaczyć własną galerie ulic"
   },
   "users": {
     "anonymous": "Anonim",
     "byline": "przez {user}"
   },
+  "export": {
+    "watermark": ""
+  },
   "meta": {
     "description": "Projektuj, zmieniaj i udostępniaj projekty ulic ze swojego sąsiedztwa - wszystko w przeglądarce! Sadź drzewa, dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie,. Zobacz, jak Twoje decyzje wpłyną na lokalną społeczność.",
     "page-title": "{streetName} (stworzona przez {author})"
+  },
+  "credits": {
+    "core-team-heading": "",
+    "past-team-heading": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
   },
   "i18n": {
     "lang": {
@@ -308,8 +368,11 @@
       "ja": "Japoński",
       "pl": "Polski",
       "pt-br": "Portugalski (Brazylia)",
+      "ru": "Rosyjski",
       "sv": "Szwedzki",
-      "zh-hant": "Chiński (tradycyjny)"
+      "zh": "Chiński",
+      "zh-hans": "Chiński uproszczony",
+      "zh-hant": "Chiński tradycyjny"
     }
   }
 }

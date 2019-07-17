@@ -4,21 +4,25 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
-
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
-import { goSignIn } from '../app/routing'
+import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { getSharingUrl } from '../util/share_url'
-
 import { showDialog } from '../store/actions/dialogs'
 import { startPrinting } from '../store/actions/app'
+import './ShareMenu.scss'
 
-export class ShareMenu extends React.Component {
+class ShareMenu extends React.Component {
   static propTypes = {
+    // Provided by react-intl
     intl: intlShape,
+
+    // Provided by Redux mapDispatchToProps
     showDialog: PropTypes.func,
     startPrinting: PropTypes.func,
+
+    // Provided by Redux mapStateToProps
     signedIn: PropTypes.bool.isRequired,
     userId: PropTypes.string,
     street: PropTypes.object
@@ -102,21 +106,23 @@ export class ShareMenu extends React.Component {
   }
 
   onClickShareViaTwitter () {
+    saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'TWITTER', null, null, false)
   }
 
   onClickShareViaFacebook () {
+    saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
   onClickSaveAsImage = (event) => {
     event.preventDefault()
-    this.props.showDialog()
+    this.props.showDialog('SAVE_AS_IMAGE')
   }
 
   onClickSignIn = (event) => {
     event.preventDefault()
-    goSignIn()
+    this.props.showDialog('SIGN_IN')
   }
 
   onClickPrint = (event) => {
@@ -174,8 +180,10 @@ export class ShareMenu extends React.Component {
             className="share-via-link"
             type="text"
             value={this.state.shareUrl}
+            onCopy={() => { saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE) }}
             spellCheck="false"
             ref={(ref) => { this.shareViaLinkInput = ref }}
+            readOnly
           />
         </div>
         <a
@@ -220,11 +228,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showDialog: () => { dispatch(showDialog('SAVE_AS_IMAGE')) },
-    startPrinting: () => { dispatch(startPrinting()) }
-  }
+const mapDispatchToProps = {
+  showDialog,
+  startPrinting
 }
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ShareMenu))

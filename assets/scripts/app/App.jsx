@@ -13,10 +13,11 @@ import MenusContainer from '../menus/MenusContainer'
 import StreetNameCanvas from '../streets/StreetNameCanvas'
 import InfoBubble from '../info_bubble/InfoBubble'
 import WelcomePanel from './WelcomePanel'
-import Palette from './Palette'
+import PaletteContainer from '../palette/PaletteContainer'
 import DialogRoot from '../dialogs/DialogRoot'
 import StatusMessage from './StatusMessage'
 import NoConnectionMessage from './NoConnectionMessage'
+import EnvironmentEditor from '../streets/EnvironmentEditor'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
@@ -27,54 +28,49 @@ import StreetView from './StreetView'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
+import { onResize } from './window_resize'
 
 class App extends React.PureComponent {
   static propTypes = {
     locale: PropTypes.object
   }
 
+  componentDidMount () {
+    onResize()
+  }
+
   render () {
     return (
-      <React.Fragment>
-        <IntlProvider
-          locale={this.props.locale.locale}
-          key={`3_${this.props.locale.locale}`}
-          messages={this.props.locale.messages}
-        >
-          <React.Fragment>
-            <BlockingShield />
-            <BlockingError />
-            <Gallery />
-            <NotificationBar notification={NOTIFICATION} />
-          </React.Fragment>
-        </IntlProvider>
-        <div className="main-screen">
-          <IntlProvider
-            locale={this.props.locale.locale}
-            key={this.props.locale.locale}
-            messages={this.props.locale.messages}
-          >
-            <React.Fragment>
-              <GalleryShield />
-              <MenusContainer />
-              <StreetNameCanvas />
-              <InfoBubble />
-              <DebugHoverPolygon />
-              <WelcomePanel />
-              <Palette />
-              <DialogRoot />
-              <StatusMessage />
-              <NoConnectionMessage />
-            </React.Fragment>
-          </IntlProvider>
-          <SegmentDragLayer />
-          <StreetView />
-        </div>
-
-        <Flash />
-        <DebugInfo />
-        <PrintContainer />
-      </React.Fragment>
+      <IntlProvider
+        locale={this.props.locale.locale}
+        key={this.props.locale.locale}
+        messages={this.props.locale.messages}
+      >
+        <React.Fragment>
+          <NotificationBar locale={this.props.locale.locale} notification={NOTIFICATION} />
+          <BlockingShield />
+          <BlockingError />
+          <Gallery />
+          <Flash />
+          <DebugInfo />
+          <PrintContainer />
+          <div className="main-screen">
+            <GalleryShield />
+            <MenusContainer />
+            <StreetNameCanvas />
+            <InfoBubble />
+            <DebugHoverPolygon />
+            <WelcomePanel />
+            <PaletteContainer />
+            <DialogRoot />
+            <StatusMessage />
+            <NoConnectionMessage />
+            <EnvironmentEditor />
+            <SegmentDragLayer />
+            <StreetView />
+          </div>
+        </React.Fragment>
+      </IntlProvider>
     )
   }
 }

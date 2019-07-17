@@ -13,8 +13,7 @@ import {
   goReload,
   goHome,
   goNewStreet,
-  goExampleStreet,
-  goTwitterSignIn
+  goExampleStreet
 } from './routing'
 import { goReloadClearSignIn } from '../users/authentication'
 import { ERRORS } from './errors'
@@ -37,10 +36,6 @@ export class BlockingError extends React.Component {
     const linkToUser = (street) => {
       return street && street.creatorId ? <a href={'/' + street.creatorId}><Avatar userId={street.creatorId} />{street.creatorId}</a> : null
     }
-    const signInButton =
-      <button onClick={goTwitterSignIn}>
-        <FormattedMessage id="error.button.sign-in" defaultMessage="Sign in again" />
-      </button>
     const reloadButton =
       <button onClick={goReload}>
         <FormattedMessage id="error.button.reload" defaultMessage="Reload the page" />
@@ -109,11 +104,7 @@ export class BlockingError extends React.Component {
         break
       case ERRORS.SIGN_OUT:
         title = <FormattedMessage id="error.sign-out-title" defaultMessage="You are now signed out." />
-        description =
-          <React.Fragment>
-            {signInButton}
-            {homeButton}
-          </React.Fragment>
+        description = homeButton
         break
       case ERRORS.NO_STREET:
         title = <FormattedMessage id="msg.no-street" defaultMessage="No street selected." />
@@ -204,27 +195,18 @@ export class BlockingError extends React.Component {
             {tryAgainButton}
           </React.Fragment>
         break
-      case ERRORS.TWITTER_ACCESS_DENIED:
-        title = <FormattedMessage id="error.twitter-access-denied-title" defaultMessage="You are not signed in." />
+      case ERRORS.ACCESS_DENIED:
+        title = <FormattedMessage id="error.access-denied-title" defaultMessage="You are not signed in." />
         description =
           <React.Fragment>
-            <FormattedMessage id="error.twitter-access-denied-description" defaultMessage="You cancelled the Twitter sign in process." />
-            <br />
-            {homeButton}
-          </React.Fragment>
-        break
-      case ERRORS.EMAIL_ACCESS_DENIED:
-        title = <FormattedMessage id="error.email-access-denied-title" defaultMessage="You are not signed in." />
-        description =
-          <React.Fragment>
-            <FormattedMessage id="error.email-access-denied-description" defaultMessage="You cancelled the Email sign in process." />
+            <FormattedMessage id="error.access-denied-description" defaultMessage="You cancelled the sign in process." />
             <br />
             {homeButton}
           </React.Fragment>
         break
       case ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
       case ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
-      case ERRORS.AUTH_PROBLEM_NO_EMAIL_ACCESS_TOKEN:
+      case ERRORS.AUTH_PROBLEM_NO_ACCESS_TOKEN:
       case ERRORS.AUTH_PROBLEM_API_PROBLEM:
         title = <FormattedMessage id="error.auth-api-problem-title" defaultMessage="There was a problem with signing you in." />
         description =
@@ -255,7 +237,7 @@ export class BlockingError extends React.Component {
                 id="error.unsupported-browser-internet-explorer"
                 defaultMessage="Are you on Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Find out more.</a>"
                 values={{
-                  readmeIEUrl: 'https://streetmix.readme.io/docs/frequently-asked-questions/#internet-explorer'
+                  readmeIEUrl: 'https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer'
                 }}
               />
             </p>

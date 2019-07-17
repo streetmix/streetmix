@@ -7,75 +7,67 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Dialog from './Dialog'
+import Checkbox from '../ui/Checkbox'
 import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/actions/flags'
+import './FeatureFlagDialog.scss'
 
-class FeatureFlagDialog extends React.Component {
-  static propTypes = {
-    flags: PropTypes.object.isRequired,
-    setFeatureFlag: PropTypes.func.isRequired,
-    closeDialog: PropTypes.func.isRequired
-  }
-
-  renderFlagList = () => {
+const FeatureFlagDialog = (props) => {
+  const renderFlagList = () => {
     return Object.entries(FEATURE_FLAGS).map((item) => {
       const id = item[0]
       const deets = item[1]
       const htmlLabel = `feature-flag__input--${id.toLowerCase().replace(/_/g, '-')}`
-      const labelClassNames = []
 
       // Bail if a defined flag is not in the store (e.g. in tests with mock stores)
-      if (!this.props.flags[id]) return
+      if (!props.flags[id]) return
 
-      const isNotDefault = deets.defaultValue !== this.props.flags[id].value
-
-      if (deets.enabled === false) {
-        labelClassNames.push('feature-flag-label-disabled')
-      }
-      if (isNotDefault) {
-        labelClassNames.push('feature-flag-label-modified')
-      }
+      // If the setting has changed, display it differently
+      const isNotDefault = deets.defaultValue !== props.flags[id].value
+      const labelClassName = isNotDefault ? 'feature-flag-label-modified' : ''
 
       return (
-        <tr key={id}>
-          <td>
-            <input
-              type="checkbox"
-              onChange={(event) => {
-                this.props.setFeatureFlag(id, event.target.checked)
-              }}
-              checked={this.props.flags[id].value}
-              id={htmlLabel}
-              disabled={deets.enabled === false}
-            />
-          </td>
-          <td>
-            <label htmlFor={htmlLabel} className={labelClassNames.join(' ')}>{deets.label}</label>
-          </td>
-        </tr>
+        <li key={id}>
+          <Checkbox
+            id={htmlLabel}
+            onChange={(event) => {
+              props.setFeatureFlag(id, event.target.checked)
+            }}
+            checked={props.flags[id].value}
+            disabled={deets.enabled === false}
+          >
+            <span className={labelClassName}>{deets.label}</span>
+          </Checkbox>
+        </li>
       )
     })
   }
 
-  render () {
-    return (
-      <div className="feature-flag-dialog">
-        <h1>Feature flags</h1>
-
-        <table>
-          <tbody>
-            {this.renderFlagList()}
-          </tbody>
-        </table>
-
-        <p>
-          <button onClick={this.props.closeDialog}>
+  return (
+    <Dialog>
+      {(closeDialog) => (
+        <div className="feature-flag-dialog" dir="ltr">
+          <header>
+            <h1>Feature flags</h1>
+          </header>
+          <div className="dialog-content">
+            <ul>
+              {renderFlagList()}
+            </ul>
+          </div>
+          <button className="dialog-primary-action" onClick={closeDialog}>
             Close
           </button>
-        </p>
-      </div>
-    )
-  }
+        </div>
+      )}
+    </Dialog>
+  )
+}
+
+FeatureFlagDialog.propTypes = {
+  flags: PropTypes.object.isRequired,
+  setFeatureFlag: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -84,10 +76,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setFeatureFlag: (flag, value) => { dispatch(setFeatureFlag(flag, value)) }
-  }
+const mapDispatchToProps = {
+  setFeatureFlag
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeatureFlagDialog)

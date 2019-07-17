@@ -1,0 +1,216 @@
+@import '../../styles/variables.scss';
+
+.geotag-dialog {
+  width: 90vw;
+  height: 80vh;
+  max-height: 960px; /* Prevent outside of map being shown when default view on large monitors */
+  max-width: 1400px;
+}
+
+.geotag-dialog .close {
+  z-index: $z-index-10;
+  text-shadow: 0 1px white;
+}
+
+.geotag-error-banner {
+  /* Very similar to the notification bar banner */
+  padding: 0.85em 2.5em;
+  font-size: 13px;
+  text-align: center;
+  background-color: $alert-background;
+  border-bottom: 3px solid $alert-border;
+}
+
+.geotag-input-container {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  z-index: $z-index-10;
+  pointer-events: none;
+}
+
+.geotag-input-form {
+  position: relative;
+  width: 30vw;
+  min-width: 220px;
+  margin: 0 auto;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
+  pointer-events: auto;
+}
+
+.geotag-input-clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.geotag-location-button {
+  margin-top: '10px';
+  font-weight: bold;
+}
+
+.geotag-input {
+  width: 100%;
+  padding: 3px 24px 3px 6px !important;
+  border: 1px solid $form-element-border;
+  resize: none;
+  font-size: inherit;
+  line-height: 2;
+  background-color: $form-element-background;
+}
+
+.geotag-suggestions-container {
+  border: 1px solid $form-element-border;
+  border-top: 0;
+  background-color: white;
+  font-family: $font-family;
+  list-style-type: none;
+
+  body.experimental-font-family & {
+    font-family: $experimental-font-family;
+  }
+}
+
+.geotag-suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.geotag-suggestion {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.geotag-suggestion[aria-selected="true"] {
+  background-color: $form-element-background;
+}
+
+/* Leaflet overrides */
+
+.leaflet-container {
+  background-color: white;
+  height: 100%;
+  font-family: $font-family;
+  font-size: inherit;
+
+  body.experimental-font-family & {
+    font-family: $experimental-font-family;
+  }
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: transparent;
+  margin: 0.25em;
+  text-shadow: 0 1px white;
+  pointer-events: none;
+  user-select: none;
+}
+
+.leaflet-container .leaflet-control-attribution a {
+  pointer-events: auto;
+}
+
+.leaflet-popup-content-wrapper {
+  border: 3px solid darken($ui-colour, 20%);
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.25);
+}
+
+.leaflet-popup-tip-container {
+  bottom: -30px;
+  height: 33px;
+}
+
+.leaflet-popup-tip {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  left: 50%;
+  bottom: 22px;
+  margin-left: -18px;
+  border: 3px solid darken($ui-colour, 20%);
+  transform: rotateZ(45deg);
+  background: $info-bubble-background;
+  box-shadow: none;
+}
+
+.leaflet-popup-content {
+  text-align: center;
+}
+
+/* Leaflet zoom-in/zoom-out buttons resemble Streetmix buttons */
+.leaflet-bar {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
+  border-radius: 0;
+}
+
+.leaflet-touch .leaflet-bar {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
+  border: 0;
+}
+
+.leaflet-touch .leaflet-control-zoom-in,
+.leaflet-touch .leaflet-control-zoom-out {
+  font-size: inherit;
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  background-color: mix($ui-colour, white, 50%);
+  border: 0;
+  border-top: 1px solid darken($ui-colour, 10%);
+  font-size: inherit;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  user-select: none;
+}
+
+.leaflet-bar a:first-child,
+.leaflet-touch .leaflet-bar a:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.leaflet-bar a:last-child,
+.leaflet-touch .leaflet-bar a:last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.leaflet-bar a:last-child,
+.leaflet-bar a:last-child:hover {
+  border-bottom: 1px solid darken($ui-colour, 10%);
+}
+
+.leaflet-bar a {
+  &:hover {
+    background-color: mix($ui-colour, white, 70%);
+  }
+
+  &:active {
+    background-color: mix($ui-colour, white, 95%);
+  }
+
+  &.leaflet-disabled {
+    border-top-color: desaturate($ui-colour, 100%);
+    border-bottom-color: desaturate($ui-colour, 100%);
+    background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    cursor: default;
+
+    &:hover {
+      border-top-color: desaturate($ui-colour, 100%);
+      border-bottom-color: desaturate($ui-colour, 100%);
+      background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    }
+  }
+}

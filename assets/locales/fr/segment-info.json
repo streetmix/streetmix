@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Trottoir",
-    "sidewalk-tree": "Trottoir avec un arbre",
+    "sidewalk-tree": "Arbre",
     "bike-rack": "Support à vélo",
     "bench": "Banc",
     "wayfinding-sign": "Panneaux directionnels",
-    "sidewalk-lamp": "Trottoir avec lampadaire",
+    "sidewalk-lamp": "Lampadaire",
     "parklet": "« Parklet »",
     "divider": "Zone tampon",
     "planting-strip": "Banquette",
@@ -13,6 +13,8 @@
     "median": "Médiane",
     "bollard": "Délinéateur",
     "dome": "Butoir",
+    "scooter": "",
+    "scooter-drop-zone": "",
     "bike-lane": "Voie cyclable",
     "parking-lane": "Voie de stationnement",
     "perpendicular-parking": "Stationnement perpendiculaire",
@@ -50,7 +52,7 @@
       "imageCaption": "4033 Judah Street Parklet, courtoisie de San Francisco Planning Department.",
       "lede": "Les « parklet » transforment temporairement les espaces de stationnements existants en espaces publics.",
       "text": [
-        "En 2005, le studio de création <a href=\"http://rebargroup.org/\">Rebar</a> basé à San Francisco a temporairement converti un espace de stationnement dans le centre-ville du quartier Mission Street en petit parc public. Le premier « parklet » était simple. Il était constitué d'un banc, d'un arbre sur un morceau de gazon en plaque rectangulaire et d'un manuel d'instruction où les utilisateurs avaient la mission de faire leur propre « parklet ». Depuis cet évènement, de plus en plus de personnes ont pris conscience de tout l'espace public dédié au stationnement. De cette prise de conscience est né le <a href=\"http://parkingday.org/\">Park(ing) Day</a> un évènement annuel où des milliers de places de stationnement sont converti en espace publique autour du monde.",
+        "En 2005, le studio de création <a href=\"http://rebargroup.org/\">Rebar</a> basé à San Francisco a temporairement converti un espace de stationnement dans le centre-ville du quartier Mission Street en petit parc public. Le premier « parklet » était simple. Il était constitué d'un banc, d'un arbre sur un morceau de gazon en plaque rectangulaire et d'un manuel d'instruction où les utilisateurs avaient la mission de faire leur propre « parklet ». Depuis cet évènement, de plus en plus de personnes ont pris conscience de tout l'espace public dédié au stationnement. De cette prise de conscience est né le <a href=\"https://www.facebook.com/PARKing-Day-71298180414\">Park(ing) Day</a> un évènement annuel où des milliers de places de stationnement sont converti en espace publique autour du monde.",
         "Reconnaissant une bonne idée lorsqu'elle se présente, la ville de San Francisco est devenue la première ville à rendre les « parklets » officiels en instaurent le programme <a href=\"http://sfpavementtoparks.sfplanning.org/\">Pavement to Parks (en)</a> en 2010. À ce jour, la ville sur la baie a plus de 50 « parklets », dont plusieurs ont été conçus de façon architecturale, ce qui présente une amélioration comparativement au prototype modeste de Rebar. Il y a présentement un ambitieux projet commandité par des entreprises sur plus de deux pâtés de maisons au cœur du corridor commercial le plus achalandé de San Francisco en plus de « parkmobiles » (« parklet » amovible) rouge conçu pour le <a href=\"http://www.ybcbd.org/\">Yerba Buena Community Benefit District(en)</a>. Il existe maintenant des programmes officiels de « parklet » à travers plusieurs villes de l'Amérique du Nord tel que Philadelphie, Oakland, Kansas City, New York, Chicago et Vancouver. Plusieurs autres villes devraient s'ajouter à la liste prochainement."
       ]
     },
@@ -159,6 +161,7 @@
     "car-type|truck": "Camion",
     "public-transit-asphalt|regular": "Asphalte",
     "public-transit-asphalt|colored": "Voie colorée rouge",
+    "public-transit-asphalt|grass": "Gazon",
     "bus-asphalt|regular": "Asphalte",
     "bus-asphalt|colored": "Voie colorée rouge",
     "bus-asphalt|shared": "Voie partagée bus/vélo",

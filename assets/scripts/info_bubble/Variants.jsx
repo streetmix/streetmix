@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { segmentsChanged } from '../segments/view'
 import { injectIntl, intlShape } from 'react-intl'
 import { getSegmentInfo } from '../segments/info'
-import { VARIANT_ICONS } from '../segments/variant_icons'
+import VARIANT_ICONS from '../segments/variant_icons.json'
 import { getVariantArray } from '../segments/variant_utils'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
@@ -13,7 +13,7 @@ import {
 } from './constants'
 import { setBuildingVariant, changeSegmentVariant } from '../store/actions/street'
 
-class Variants extends React.Component {
+export class Variants extends React.Component {
   static propTypes = {
     intl: intlShape.isRequired,
     type: PropTypes.number,
@@ -32,22 +32,16 @@ class Variants extends React.Component {
     super(props)
 
     this.state = {
-      variantSets: this.getVariantSets(props) // should be an array or undefined
+      variantSets: null
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      variantSets: this.getVariantSets(nextProps)
-    })
-  }
-
-  getVariantSets = (props) => {
+  static getDerivedStateFromProps (nextProps, prevState) {
     let variantSets = []
 
-    switch (props.type) {
+    switch (nextProps.type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        const segmentInfo = getSegmentInfo(props.segmentType)
+        const segmentInfo = getSegmentInfo(nextProps.segmentType)
         if (segmentInfo) {
           variantSets = segmentInfo.variants
         }
@@ -61,7 +55,9 @@ class Variants extends React.Component {
     }
 
     // Return the array, removing any empty entries
-    return variantSets.filter((x) => x !== (undefined || null || ''))
+    return {
+      variantSets: variantSets.filter((x) => x !== (undefined || null || ''))
+    }
   }
 
   isVariantCurrentlySelected = (set, selection) => {

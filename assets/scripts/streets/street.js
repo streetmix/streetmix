@@ -1,72 +1,25 @@
-import store from '../store'
+import { observeStore } from '../store'
 import { saveStreetToServerIfNecessary } from './data_model'
-import { updateStreetName } from './name'
 
-const street = store.getState().street
-let oldStreetName = street.name
-let oldStreetLocation = (street.location) ? street.location.wofId : null
-let oldLeftBuildingHeight = street.leftBuildingHeight
-let oldRightBuildingHeight = street.rightBuildingHeight
-let oldLeftBuildingVariant = street.leftBuildingVariant
-let oldRightBuildingVariant = street.rightBuildingVariant
-
-export function initStreetReduxTransitionSubscriber () {
-  store.subscribe(() => {
-    const state = store.getState().street
-    updateIfBuildingsChanged(state)
-    updateIfStreetNameChanged(state)
-    updateIfLocationChanged(state)
+/**
+ * Initializes a subscriber to changes in the street name,
+ * and updates various parts of the UI in response.
+ */
+export function initStreetDataChangedListener () {
+  // We create a string representation of the values we need to compare
+  const select = (state) => JSON.stringify({
+    leftBuildingHeight: state.street.leftBuildingHeight,
+    leftBuildingVariant: state.street.leftBuildingVariant,
+    rightBuildingHeight: state.street.rightBuildingHeight,
+    rightBuildingVariant: state.street.rightBuildingVariant,
+    name: state.street.name,
+    location: state.street.location,
+    environment: state.street.environment
   })
-}
 
-function updateIfBuildingsChanged (state) {
-  let changed = false
-  // Checking building heights
-  if (state.leftBuildingHeight !== oldLeftBuildingHeight) {
-    oldLeftBuildingHeight = state.leftBuildingHeight
-    changed = true
-  }
-  if (state.rightBuildingHeight !== oldRightBuildingHeight) {
-    oldRightBuildingHeight = state.rightBuildingHeight
-    changed = true
-  }
-
-  // Checking building variants
-  if (state.leftBuildingVariant !== oldLeftBuildingVariant) {
-    oldLeftBuildingVariant = state.leftBuildingVariant
-    changed = true
-  }
-  if (state.rightBuildingVariant !== oldRightBuildingVariant) {
-    oldRightBuildingVariant = state.rightBuildingVariant
-    changed = true
-  }
-
-  if (changed) {
+  const onChange = () => {
     saveStreetToServerIfNecessary()
   }
-}
 
-function updateIfStreetNameChanged (state) {
-  if (state.name !== oldStreetName) {
-    oldStreetName = state.name
-    saveStreetToServerIfNecessary()
-    updateStreetName(state)
-  }
-}
-
-function updateIfLocationChanged (state) {
-  let changed = false
-  if (state.location && state.location.wofId !== oldStreetLocation) {
-    oldStreetLocation = state.location.wofId
-    changed = true
-  }
-  // If location was cleared
-  if (oldStreetLocation && !state.location) {
-    street.location = null
-    oldStreetLocation = null
-    changed = true
-  }
-  if (changed) {
-    saveStreetToServerIfNecessary()
-  }
+  return observeStore(select, onChange)
 }

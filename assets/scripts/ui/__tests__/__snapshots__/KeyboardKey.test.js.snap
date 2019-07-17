@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyboardKey renders a <kbd> element with element child 1`] = `
+"<kbd className=\\"key\\">
+  <strong>
+    foo
+  </strong>
+</kbd>"
+`;
+
+exports[`KeyboardKey renders a <kbd> element with icon and title 1`] = `
+"<kbd className=\\"key key-icon\\" title=\\"foo\\">
+  <FontAwesomeIcon icon={{...}} />
+</kbd>"
+`;
+
+exports[`KeyboardKey renders a <kbd> element with string child 1`] = `
+"<kbd className=\\"key\\">
+  foo
+</kbd>"
+`;

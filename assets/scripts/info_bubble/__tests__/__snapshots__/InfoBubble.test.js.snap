@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfoBubble is visible 1`] = `
+<div
+  className="info-bubble info-bubble-type-segment visible"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <Connect(EditableLabel)
+      label={null}
+      position={2}
+      segment={Object {}}
+    />
+    <InjectIntl(RemoveButton)
+      segment={2}
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position={2}
+        type={1}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(WidthControl))
+      position={2}
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble renders 1`] = `
+<div
+  className="info-bubble info-bubble-type-segment"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <Connect(EditableLabel)
+      label={
+        <IntlProvider
+          locale="en"
+        >
+          <FormattedMessage
+            defaultMessage="Unknown"
+            id="segments.undefined"
+            values={Object {}}
+          />
+        </IntlProvider>
+      }
+      position={0}
+      segment={Object {}}
+    />
+    <InjectIntl(RemoveButton)
+      segment={0}
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position={0}
+        type={1}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(WidthControl))
+      position={0}
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble shows building left info bubble 1`] = `
+<div
+  className="info-bubble info-bubble-type-building"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <Connect(EditableLabel)
+      label={
+        <IntlProvider
+          locale="en"
+        >
+          <FormattedMessage
+            defaultMessage="Grass"
+            id="buildings.grass.name"
+            values={Object {}}
+          />
+        </IntlProvider>
+      }
+      position="left"
+      segment={Object {}}
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position="left"
+        type={2}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(BuildingHeightControl))
+      position="left"
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble shows building right info bubble 1`] = `
+<div
+  className="info-bubble info-bubble-type-building"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <Connect(EditableLabel)
+      label={
+        <IntlProvider
+          locale="en"
+        >
+          <FormattedMessage
+            defaultMessage="Grass"
+            id="buildings.grass.name"
+            values={Object {}}
+          />
+        </IntlProvider>
+      }
+      position="right"
+      segment={Object {}}
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position="right"
+        type={3}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(BuildingHeightControl))
+      position="right"
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;
+
+exports[`InfoBubble shows description 1`] = `
+<div
+  className="info-bubble info-bubble-type-segment show-description"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onTouchStart={[Function]}
+>
+  <Triangle
+    highlight={false}
+  />
+  <header>
+    <Connect(EditableLabel)
+      label={null}
+      position={1}
+      segment={Object {}}
+    />
+    <InjectIntl(RemoveButton)
+      segment={1}
+    />
+  </header>
+  <div
+    className="info-bubble-controls"
+  >
+    <IntlProvider
+      locale="en"
+    >
+      <InjectIntl(Connect(Variants))
+        position={1}
+        type={1}
+      />
+    </IntlProvider>
+    <InjectIntl(Connect(WidthControl))
+      position={1}
+    />
+  </div>
+  <Warnings
+    segment={Object {}}
+  />
+  <Connect(Description)
+    highlightTriangle={[Function]}
+    infoBubbleEl={null}
+    unhighlightTriangle={[Function]}
+    updateBubbleDimensions={[Function]}
+    updateHoverPolygon={[Function]}
+  />
+</div>
+`;

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkyBackgroundObjects renders 1`] = `
+<SkyBackgroundObjects
+  environment="foo"
+  objects={Array []}
+>
+  <mockConstructor
+    className="sky-background-objects"
+  />
+</SkyBackgroundObjects>
+`;

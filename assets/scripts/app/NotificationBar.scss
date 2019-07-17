@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.notification-bar {
+  position: relative;
+  z-index: $z-08-notification-bar;
+  padding: 0.75em calc(36px + 1.5em); /* Makes room for dismiss button */
+  font-size: 13px;
+  text-align: center; /* Since the app is very center-view oriented, this helps message legibility */
+  background-color: $alert-background;
+  border-bottom: 3px solid $alert-border;
+}
+
+.notification-bar-text {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}

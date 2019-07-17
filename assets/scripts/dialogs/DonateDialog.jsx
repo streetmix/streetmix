@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { trackEvent } from '../app/event_tracking'
+import './DonateDialog.scss'
 
 const LOCALSTORAGE_DONATE_DISMISSED = 'settings-donate-dismissed'
 const LOCALSTORAGE_DONATE_DELAYED_TIMESTAMP = 'settings-donate-delayed-timestamp'

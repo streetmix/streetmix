@@ -1,0 +1,48 @@
+@import '../../styles/variables.scss';
+
+.street-metadata {
+  padding-top: 0.5em;
+  color: black;
+  font-size: 13px;
+  user-select: none;
+  pointer-events: auto;
+  transition: color $environment-transition;
+
+  a {
+    color: inherit;
+  }
+}
+
+body:not(.read-only) .street-metadata-author a:hover {
+  color: darken($ui-colour, 40%);
+}
+
+body.read-only .street-metadata-author a {
+  text-decoration: none;
+  cursor: default;
+}
+
+.street-metadata-author:not(:empty)::before,
+.street-metadata-date:not(:empty)::before,
+.street-metadata-map:not(:empty)::before {
+  content: ' · ';
+  color: darken($ui-colour, 40%);
+  margin: 0 4px;
+}
+
+.street-metadata-map a {
+  text-decoration: underline;
+}
+
+// Invert the UI text color when there is a dark background
+body.dark-environs-invert-ui {
+  .street-metadata {
+    color: #fff;
+  }
+
+  .street-metadata-author:not(:empty)::before,
+  .street-metadata-date:not(:empty)::before,
+  .street-metadata-map:not(:empty)::before {
+    color: #b0b0b0;
+  }
+}

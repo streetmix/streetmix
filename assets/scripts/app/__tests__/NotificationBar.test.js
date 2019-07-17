@@ -2,8 +2,6 @@
 import React from 'react'
 import NotificationBar from '../NotificationBar'
 import { shallowWithIntl, mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { mockIntl } from '../../../../test/__mocks__/react-intl'
-import { initIcons } from '../../ui/icons'
 
 const TEST_NOTIFICATION = {
   display: true,
@@ -14,42 +12,44 @@ const TEST_NOTIFICATION = {
 }
 
 describe('NotificationBar', () => {
-  beforeAll(() => {
-    initIcons()
-  })
-
   it('renders without crashing', () => {
-    const wrapper = shallowWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
+    const wrapper = shallowWithIntl(<NotificationBar locale="en" notification={TEST_NOTIFICATION} />)
     expect(wrapper.exists()).toEqual(true)
   })
 
   describe('conditions that render nothing', () => {
     it('renders nothing if notification is not provided', () => {
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" />)
       expect(wrapper.html()).toEqual(null)
     })
 
     it('renders nothing if notification is the empty object', () => {
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={{}} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={{}} />)
       expect(wrapper.html()).toEqual(null)
     })
 
     it('renders nothing if notification’s display property is false', () => {
       const notification = { ...TEST_NOTIFICATION, display: false }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={notification} />)
       expect(wrapper.html()).toEqual(null)
     })
 
     it('renders nothing if notification’s display property is true but has no other properties', () => {
       const notification = { display: true }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={notification} />)
+      expect(wrapper.html()).toEqual(null)
+    })
+
+    it('renders nothing if the locale is not English', () => {
+      const notification = { display: true }
+      const wrapper = mountWithIntl(<NotificationBar locale="de" notification={notification} />)
       expect(wrapper.html()).toEqual(null)
     })
   })
 
   describe('conditions that render something', () => {
     it('renders an entire notification', () => {
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={TEST_NOTIFICATION} />)
       expect(wrapper.find('.notification-bar-intro').text()).toEqual(TEST_NOTIFICATION.lede)
       expect(wrapper.find('.notification-bar-text').text()).toEqual(TEST_NOTIFICATION.text)
       expect(wrapper.find('a').prop('href')).toEqual(TEST_NOTIFICATION.link)
@@ -61,7 +61,7 @@ describe('NotificationBar', () => {
         display: true,
         lede: TEST_NOTIFICATION.lede
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={notification} />)
       expect(wrapper.find('.notification-bar-intro').text()).toEqual(notification.lede)
       expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
       expect(wrapper.find('a').exists()).toEqual(false)
@@ -72,7 +72,7 @@ describe('NotificationBar', () => {
         display: true,
         text: TEST_NOTIFICATION.text
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={notification} />)
       expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
       expect(wrapper.find('.notification-bar-text').text()).toEqual(notification.text)
       expect(wrapper.find('a').exists()).toEqual(false)
@@ -84,7 +84,7 @@ describe('NotificationBar', () => {
         link: TEST_NOTIFICATION.link,
         linkText: TEST_NOTIFICATION.linkText
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={notification} />)
       expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
       expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
       expect(wrapper.find('a').prop('href')).toEqual(TEST_NOTIFICATION.link)
@@ -96,7 +96,7 @@ describe('NotificationBar', () => {
         display: true,
         link: TEST_NOTIFICATION.link
       }
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={notification} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={notification} />)
       expect(wrapper.find('.notification-bar-intro').exists()).toEqual(false)
       expect(wrapper.find('.notification-bar-text').exists()).toEqual(false)
       expect(wrapper.find('a').prop('href')).toEqual(TEST_NOTIFICATION.link)
@@ -104,7 +104,7 @@ describe('NotificationBar', () => {
     })
 
     it('renders the close button', () => {
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={TEST_NOTIFICATION} />)
       expect(wrapper.find('.close').exists()).toEqual(true)
     })
   })
@@ -115,7 +115,7 @@ describe('NotificationBar', () => {
       // Ongoing discussion:
       // https://github.com/airbnb/enzyme/issues/365
       const spy = NotificationBar.prototype.onClickDismiss = jest.fn()
-      const wrapper = mountWithIntl(<NotificationBar intl={mockIntl} notification={TEST_NOTIFICATION} />)
+      const wrapper = mountWithIntl(<NotificationBar locale="en" notification={TEST_NOTIFICATION} />)
       wrapper.find('.close').simulate('click')
       expect(spy).toHaveBeenCalled()
     })

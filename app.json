@@ -1,37 +1,35 @@
 {
-  "name": "streetmix",
-  "scripts": {
-  },
+  "name": "Streetmix",
+  "scripts": {},
+  "repository": "https://github.com/streetmix/streetmix/",
+  "website": "https://streetmix.net/",
   "env": {
     "COOKIE_SESSION_SECRET": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "AUTH0_CLIENT_ID": {
       "required": true
     },
-    "ERROR_PAGE_URL": {
-      "required": true
-    },
-    "MAINTENANCE_PAGE_URL": {
-      "required": true
-    },
-    "NODE_ENV": {
-      "required": true
-    },
-    "PATH": {
-      "required": true
-    },
-    "TRANSIFEX_API_TOKEN": {
-      "required": true
-    },
-    "TWITTER_OAUTH_CONSUMER_KEY": {
-      "required": true
-    },
-    "TWITTER_OAUTH_CONSUMER_SECRET": {
+    "AUTH0_CLIENT_SECRET": {
       "required": true
     }
   },
   "addons": [
-    "sendgrid",
-    "mongohq",
-    "papertrail"
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "mongolab:sandbox",
+      "as": "MONGODB"
+    },
+    {
+      "plan": "heroku-redis:hobby-dev",
+      "as": "REDIS"
+    },
+    "papertrail:choklad",
+    "newrelic:wayne"
   ],
   "buildpacks": [
     {

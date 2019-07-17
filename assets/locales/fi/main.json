@@ -15,14 +15,16 @@
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
-      "remove": "Poista osoittimen alla oleva kohde<br />(poista kaikki pitämällä <kbd class='key'>Shift</kbd> pohjassa)",
-      "move": "Siirry kadulla<br />(hyppää reunaan pitämällä <kbd class='key'>Shift</kbd> pohjassa)",
-      "change": "Muuta osoittimen alla oleva kohteen leveyttä<br /> (lisää tarkkuutta pitämällä <kbd class='key'>Shift</kbd> pohjassa)"
+      "remove-instruction": "Poista osoittimen alla oleva kohde",
+      "remove-shift-instruction": "(poista kaikki pitämällä {shiftKey} pohjassa)",
+      "move-instruction": "Siirry kadulla",
+      "move-shift-instruction": "(hyppää reunaan pitämällä {shiftKey} pohjassa)",
+      "change-instruction": "Muuta osoittimen alla oleva kohteen leveyttä",
+      "change-shift-instruction": "(lisää tarkkuutta pitämällä {shiftKey} pohjassa)"
     },
     "share": {
       "sign-in-twitter-link": "Kirjaudu sisään",
-      "sign-in-link": "{signInLink} voit jakaa kadut ja oman katugalleriasi näppärämmin",
-      "sign-in": "<a href='/twitter-sign-in?redirectUri=/just-signed-in'>Kirjaudu sisään Twitter-tunnuksilla</a>, jolloin jakaminen on helpompaa ja näet katusi näppärästi galleriassa",
+      "sign-in-link": "{signInLink}: voit jakaa kadut ja oman katugalleriasi näppärämmin",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
@@ -44,7 +46,10 @@
       "email": "Lähetä sähköpostia Streetmix-kehittäjille",
       "github": "Näytä lähdekoodi GitHub-palvelussa",
       "blog": "Vieraile Streetmix-blogissa",
-      "slack": "Liity Slack-keskusteluun"
+      "discord": "Liity Discord-keskusteluun",
+      "slack": "Liity Slack-keskusteluun",
+      "minecraft": "Pelaa kanssamme Minecraftia!",
+      "newsletter": "Tilaa uutiskirje"
     },
     "contribute": {
       "donate": "Lahjoita",
@@ -106,12 +111,10 @@
     "please-reload": "Päivitä sivu ennen jatkamista.",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
-    "twitter-access-denied-title": "Et ole kirjautunut sisään.",
-    "twitter-access-denied-description": "Keskeytit Twitter-tunnistautumisen.",
-    "email-access-denied-title": "Et ole kirjautunut sisään.",
-    "email-access-denied-description": "",
+    "access-denied-title": "Et ole kirjautunut sisään.",
+    "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
-    "auth-api-problem-description": "",
+    "auth-api-problem-description": "Tunnistautuminen epäonnistui.",
     "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' rel='noopener noreferrer' href='{email}'>sähköpostitse</a> tai <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitterissä</a>.",
     "unsupported-browser-title": "Streetmix ei toimi tässä selaimessa.",
     "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chromea</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefoxia</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edgeä</a> tai Safaria.",
@@ -133,7 +136,8 @@
     "copy": "Kopioi katupohja",
     "remove": "Poista",
     "close": "Sulje",
-    "dismiss": "Ohita"
+    "dismiss": "Ohita",
+    "okay": "Selvä!"
   },
   "dialogs": {
     "error": {
@@ -168,18 +172,23 @@
       "credits": "Seuraavien {cfaLink} 2013 -osallistujien sivuprojekti:",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
       "view-source": "Tutustu lähdekoodiin",
-      "sponsored-by": "Streetmixin avokätinen sponsori:",
+      "sponsored-by": "Streetmixin avokätiset sponsorit:",
       "donate-link": "Tue meitä taloudellisesti",
-      "github-link": "Osallistu avoimen lähdekoodin kehittämiseen"
+      "github-link": "Osallistu avoimen lähdekoodin kehittämiseen",
+      "open-source-link": "Avointa lähdekoodia",
+      "guidebook-link": "Käyttöopas",
+      "tos-link": "Käyttöehdot",
+      "privacy-link": "Tietosuojakäytäntö"
     },
     "save": {
       "heading": "Tallenna kuvana",
       "option-labels": "Elementtien nimet ja leveydet",
       "option-name": "Kadunnimi",
       "option-sky": "Läpinäkyvä taivas",
+      "option-watermark": "Streetmix-logo",
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
-      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen <br><a href='{url}'>Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssin ehtojen mukaisesti.",
+      "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen {licenseLink} -lisenssin ehtojen mukaisesti.",
       "error-preview": "Esikatselukuvan näyttäminen epäonnistui.",
       "error-unavailable": "Tallentaminen kuvana ei ole mahdollista tässä selaimessa.",
       "preview-image-alt": "Esikatselu"
@@ -192,20 +201,49 @@
       "add-location": "Lisää sijainti",
       "confirm-location": "Vahvista sijainti",
       "clear-location": "Tyhjennä sijainti",
-      "unknown-location": "Tuntematon sijainti"
+      "unknown-location": "Tuntematon sijainti",
+      "geotag-unavailable": "Sijaintipalvelut eivät ole käytettävissä. Voit tarkastella karttaa, mutta et vaihtaa kadun sijaintia."
     },
     "donate": {
       "heading": "Tarvitsemme apuasi!",
-      "lede": "Streetmix perustuu vapaaehtoisen yhteisön tekemään työhön. Muista \"ilmaisista\" verkkosivustoista poiketen emme näytä mainoksia tai tallenna yksityisyyttäsi rikkovia evästeitä tietokoneellesi. Sen sijaan olemme riippuvaisia käyttäjiemme tuesta Streetmixin kehittämiseen.",
-      "text": "Halutessasi voit tukea meitä kertaluontoisella tai kestolahjoituksella, joita käytetään palvelinkapasiteetin ylläpitämiseen, jotta voittoa tavoittelemattomat tahot voisivat osallistua liikenteen kehittämiseen. Tästä ylijäävän osuuden käytämme uusien ominaisuuksien kehittämiseen. Tilikirjamme ovat täysin julkisia, joten voit tarkistaa, miten juuri Streetmix-kehitysryhmä on käyttänyt juuri sinun lahjoituksesi.",
+      "lede": "Streetmix perustuu vapaaehtoisten yhteisön tekemään työhön. Muista \"ilmaisista\" verkkosivustoista poiketen emme näytä mainoksia tai tallenna yksityisyyttäsi rikkovia evästeitä tietokoneellesi. Sen sijaan olemme riippuvaisia käyttäjiemme tuesta Streetmixin kehittämiseen.",
+      "text": "Halutessasi voit tukea meitä kertaluontoisella tai kestolahjoituksella, joita käytetään palvelinkapasiteetin ylläpitämiseen, jotta voittoa tavoittelemattomat tahot voisivat osallistua liikenteen kehittämiseen. Tästä ylijäävän osuuden käytämme uusien ominaisuuksien kehittämiseen. Tilikirjamme ovat täysin julkisia, joten voit tarkistaa, miten Streetmix-kehitysryhmä on käyttänyt juuri sinun lahjoituksesi.",
       "button": "Lahjoita Streetmixille",
       "cancel": "Ei kiitos"
+    },
+    "sign-in": {
+      "heading": "Kirjaudu/rekisteröidy",
+      "description": "Tallenna ensimmäinen työsi tai näytä aiemmat suunnittelutyöt kirjautumalla sisään",
+      "email-label": "Sähköpostiosoite",
+      "email-description": "Saat sähköpostitse sisäänkirjautumislinkin, salasanaa ei tarvita.",
+      "email-invalid": "Hups! Tuo ei kyllä ollut sähköpostiosoite, yritä uudelleen.",
+      "social-heading": "tai",
+      "button": {
+        "email": "Jatka sähköpostiosoitteella",
+        "twitter": "Jatka Twitter-tunnuksella",
+        "google": "Jatka Google-tunnuksella",
+        "facebook": "Jatka Facebook-tunnuksella"
+      },
+      "tos": "Jatkamalla hyväksyn {tosLink} ja {privacyLink}.",
+      "tos-link-label": "käyttöehdot",
+      "privacy-link-label": "tietosuojakäytännön",
+      "loading-message": "Kirjaudutaan sisään...",
+      "sent-message-with-email": "Olet saanut sähköpostia osoitteeseen {email}. Jatka kirjautumista seuraamalla viestin ohjeita.",
+      "email-unreceived": "Eikö tullut perille?",
+      "resend-email": "Lähetä uudelleen"
+    },
+    "whatsnew": {
+      "heading": "Streetmixin uudet ominaisuudet"
+    },
+    "newsletter": {
+      "heading": "Tilaa uutiskirje"
     }
   },
   "prompt": {
     "new-street": "Kadun uusi nimi:",
     "delete-street": "Haluatko varmasti poistaa kohteen {streetName} pysyvästi?",
-    "new-width": "Uusi kadunleveys ({minWidth}-{maxWidth}):"
+    "new-width": "Uusi kadunleveys ({minWidth}-{maxWidth}):",
+    "segment-label": ""
   },
   "toast": {
     "segment-deleted": "Tämä elementti on poistettu.",
@@ -238,7 +276,11 @@
   },
   "key": {
     "backspace": "Askelpalautin",
-    "shift": "Shift"
+    "shift": "Shift",
+    "plus": "Plus",
+    "minus": "Miinus",
+    "left-arrow": "Nuoli vasemmalle",
+    "right-arrow": "Nuoli oikealle"
   },
   "tooltip": {
     "remove-segment": "Poista elementti",
@@ -249,7 +291,11 @@
     "increase-width": "Levennä (tarkempi ote pitämällä Shiftiä pohjassa)",
     "decrease-width": "Kavenna (tarkempi ote pitämällä Shiftiä pohjassa)",
     "add-floor": "Lisää kerros",
-    "remove-floor": "Poista kerros"
+    "remove-floor": "Poista kerros",
+    "scroll-street-left": "Vieritä katua vasemmalle",
+    "scroll-street-right": "Vieritä katua oikealle",
+    "scroll-left": "Vieritä vasemmalle",
+    "scroll-right": "Vieritä oikealle"
   },
   "street": {
     "default-name": "Nimetön katu",
@@ -272,8 +318,8 @@
       "photo-credit": "Kuva: "
     },
     "resize": {
-      "min": "",
-      "max": ""
+      "min": "Min",
+      "max": "Max"
     }
   },
   "section": {
@@ -286,15 +332,29 @@
     "delete-street-tooltip": "Poista katu",
     "street-count": "{count, plural, one {# katu} other {# katua}}",
     "no-streets": "Ei luotuja katuja",
-    "sign-in": "Kirjaudu Twitter-tunnuksella voit tallentaa tämän kadun omaan katugalleriaasi"
+    "sign-in": "Kirjautumalla Twitter-tunnuksella voit tallentaa tämän kadun omaan katugalleriaasi",
+    "sign-in-prompt": "Kirjautumalla sisään voit hyödyntää omaa katugalleriaasi"
   },
   "users": {
     "anonymous": "Tuntematon",
     "byline": "käyttäjältä {user}"
   },
+  "export": {
+    "watermark": "{streetmixWordmark}-suunnitelma"
+  },
   "meta": {
     "description": "Suunnittele, muokkaa ja jaa kotikatusi verkkoselaimella! Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
     "page-title": "{streetName} (suunnitellut {author})"
+  },
+  "credits": {
+    "core-team-heading": "Kehitysryhmä",
+    "past-team-heading": "Entiset kehittäjät",
+    "advisors": "Konsultit",
+    "additional-illustrations": "Graafikot",
+    "additional-code": "Ohjelmoijat",
+    "additional-contributors": "Avustajat",
+    "special-thanks": "Erityiskiitokset",
+    "translators": "Kääntäjät"
   },
   "i18n": {
     "lang": {
@@ -308,7 +368,10 @@
       "ja": "Japani",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",
+      "ru": "Venäjä",
       "sv": "Ruotsi",
+      "zh": "Kiina",
+      "zh-hans": "Kiina (yksinkertaistettu)",
       "zh-hant": "Kiina (perinteinen)"
     }
   }

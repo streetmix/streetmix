@@ -7,15 +7,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
+// Stylesheets
+import '../../node_modules/leaflet/dist/leaflet.css'
+import '../styles/styles.scss'
+
 // Polyfills
-import 'babel-polyfill'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import './vendor/canvas-toBlob.js'
 import './vendor/Blob.js'
 import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
-import './vendor/polyfills/Number.isInteger' // for IE
 import './vendor/polyfills/Element.closest'
 import './vendor/polyfills/Element.remove'
 
@@ -23,7 +27,6 @@ import './vendor/polyfills/Element.remove'
 import store from './store'
 
 // Main object
-import { initIcons } from './ui/icons'
 import { initialize } from './app/initialization'
 import App from './app/App'
 
@@ -35,8 +38,10 @@ if (window.location.hostname === 'streetmix.net' || window.location.hostname ===
   }).install()
 }
 
-// Initialize Font-Awesome icons (this must be done before React component mounting.)
-initIcons()
+// Accept HMR in Parcel
+if (module && module.hot) {
+  module.hot.accept()
+}
 
 // Mount React components
 ReactDOM.render(

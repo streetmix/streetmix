@@ -8,16 +8,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, intlShape } from 'react-intl'
 import StreetName from '../streets/StreetName'
+import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
 import CloseButton from '../ui/CloseButton'
 import { drawStreetThumbnail } from './thumbnail'
-import { getStreetUrl } from '../streets/data_model'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
-export class GalleryStreetItem extends React.Component {
+class GalleryStreetItem extends React.Component {
   static propTypes = {
     street: PropTypes.object.isRequired,
     intl: intlShape.isRequired,
@@ -38,6 +38,12 @@ export class GalleryStreetItem extends React.Component {
     dpi: 1
   }
 
+  constructor (props) {
+    super(props)
+
+    this.thumbnailEl = React.createRef()
+  }
+
   componentDidMount () {
     if (!this.props.street.data) return
 
@@ -45,11 +51,11 @@ export class GalleryStreetItem extends React.Component {
   }
 
   drawCanvas = () => {
-    const ctx = this.thumbnailEl.getContext('2d')
+    const ctx = this.thumbnailEl.current.getContext('2d')
 
     // TODO: document magic number 2
     drawStreetThumbnail(ctx, this.props.street.data.street,
-      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, this.props.dpi, THUMBNAIL_MULTIPLIER, true, false, true, false, false)
+      THUMBNAIL_WIDTH * 2, THUMBNAIL_HEIGHT * 2, this.props.dpi, THUMBNAIL_MULTIPLIER, true, false, true, false, false, false)
   }
 
   onClickGalleryStreet = (event) => {
@@ -95,7 +101,7 @@ export class GalleryStreetItem extends React.Component {
           <canvas
             width={THUMBNAIL_WIDTH * this.props.dpi * 2}
             height={THUMBNAIL_HEIGHT * this.props.dpi * 2}
-            ref={(ref) => { this.thumbnailEl = ref }}
+            ref={this.thumbnailEl}
           />
 
           <StreetName name={this.props.street.name} />
@@ -125,10 +131,14 @@ export class GalleryStreetItem extends React.Component {
   }
 }
 
+// Inject Intl via a higher-order component provided by react-intl.
+// Exported so that this component can be tested.
+export const GalleryStreetItemWithIntl = injectIntl(GalleryStreetItem)
+
 function mapStateToProps (state) {
   return {
     dpi: state.system.devicePixelRatio
   }
 }
 
-export default injectIntl(connect(mapStateToProps)(GalleryStreetItem))
+export default connect(mapStateToProps)(GalleryStreetItemWithIntl)
