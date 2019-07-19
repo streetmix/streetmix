@@ -52,7 +52,7 @@ exports.post = async function (req, res) {
   }
 
   function updateUserLastStreetId (userId) {
-    return User.findById(userId)
+    return User.findByPk(userId)
       .then(user => {
         return user.increment('last_street_id', { by: 1 })
       })
@@ -61,7 +61,7 @@ exports.post = async function (req, res) {
   async function updateSequence () {
     let sequence
     try {
-      sequence = await Sequence.findById('streets')
+      sequence = await Sequence.findByPk('streets')
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_CREATE_STREET)
@@ -107,7 +107,7 @@ exports.post = async function (req, res) {
     if (body && body.originalStreetId) {
       let origStreet
       try {
-        origStreet = await Street.findById(body.originalStreetId)
+        origStreet = await Street.findByPk(body.originalStreetId)
       } catch (err) {
         logger.error(err)
         throw new Error(ERRORS.STREET_NOT_FOUND)
@@ -221,7 +221,7 @@ exports.delete = async function (req, res) {
   let street
 
   try {
-    street = await Street.findById(req.params.street_id)
+    street = await Street.findByPk(req.params.street_id)
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.STREET_NOT_FOUND)
@@ -284,7 +284,7 @@ exports.find = async function (req, res) {
   const findStreetWithCreatorId = async function (creatorId) {
     let user
     try {
-      user = await User.findById(creatorId)
+      user = await User.findByPk(creatorId)
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.USER_NOT_FOUND)
@@ -452,7 +452,7 @@ exports.put = async function (req, res) {
     if (body.originalStreetId) {
       let origStreet
       try {
-        origStreet = await Street.findById(body.originalStreetId)
+        origStreet = await Street.findByPk(body.originalStreetId)
       } catch (err) {
         logger.error(err)
         handleErrors(ERRORS.CANNOT_UPDATE_STREET)

@@ -61,7 +61,7 @@ exports.get = async function (req, res) {
 
   let user
   try {
-    user = await User.findById(req.params.user_id)
+    user = await User.findByPk(req.params.user_id)
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.CANNOT_GET_STREET)

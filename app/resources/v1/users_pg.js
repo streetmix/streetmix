@@ -80,7 +80,7 @@ exports.post = async function (req, res) {
   const updateOrCreateUser = async function (credentials) {
     let user
     try {
-      user = await User.findById(credentials.id)
+      user = await User.findByPk(credentials.id)
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)
@@ -225,7 +225,7 @@ exports.get = async function (req, res) {
   const findUserById = async function (userId) {
     let user
     try {
-      user = await User.findById(userId)
+      user = await User.findByPk(userId)
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)
@@ -252,7 +252,7 @@ exports.delete = async function (req, res) {
   const userId = req.params.user_id
   let user
   try {
-    user = await User.findById(userId)
+    user = await User.findByPk(userId)
   } catch (err) {
     logger.error(err)
     res.status(500).send('Error finding user.')
@@ -292,7 +292,7 @@ exports.put = async function (req, res) {
   let user
 
   try {
-    user = await User.findById(userId)
+    user = await User.findByPk(userId)
   } catch (err) {
     logger.error(err)
     res.status(500).send('Error finding user.')
