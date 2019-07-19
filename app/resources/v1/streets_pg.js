@@ -9,7 +9,7 @@ const Op = Sequelize.Op
 
 exports.post = async function (req, res) {
   let body
-  const street = Street.build()
+  const street = new Street()
   street.id = uuid.v1()
   const requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
