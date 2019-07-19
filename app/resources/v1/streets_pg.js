@@ -472,7 +472,9 @@ exports.put = async function (req, res) {
 
   let street
   try {
-    street = await Street.findOne({ id: req.params.street_id })
+    street = await Street.findOne({
+      where: { id: req.params.street_id }
+    })
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.CANNOT_UPDATE_STREET)
