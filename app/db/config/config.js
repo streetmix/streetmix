@@ -13,9 +13,11 @@ module.exports = {
     'port': process.env.PGPORT || 5432,
     'dialect': 'postgres'
   },
+  'staging': {
+    'use_env_variable': 'DATABASE_URL',
+    'dialect': 'postgres'
+  },
   'production': {
-    // Production credentials are added by Heroku-Postgres addon
-    // under the `DATABASE_URL` environment variable.
     'use_env_variable': 'DATABASE_URL',
     'dialect': 'postgres'
   }
