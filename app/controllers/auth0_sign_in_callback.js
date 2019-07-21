@@ -81,8 +81,6 @@ exports.get = function (req, res) {
   const redirectUri = config.restapi.protocol + config.app_host_port + '/' + config.auth0.callback_path
   const url = config.auth0.token_api_url
   const options = {
-    method: 'POST',
-    url,
     headers: { 'content-type': 'application/json' },
     json: true
   }
@@ -99,7 +97,6 @@ exports.get = function (req, res) {
     .then(AccessTokenHandler(req, res))
     .catch(err => {
       console.error('Error obtaining access token from Auth0:')
-
       console.log(err)
       res.redirect('/error/no-access-token')
     })
