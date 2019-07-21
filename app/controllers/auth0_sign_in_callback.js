@@ -19,7 +19,6 @@ const AccessTokenHandler = function (req, res) {
 
       //  Must be an absolute URI
       const endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
-      console.log('!!!' + endpoint + '!!!')
       axios.post(endpoint, apiRequestBody)
         .then(response => {
           const body = response.data
@@ -80,7 +79,6 @@ exports.get = function (req, res) {
 
   const code = req.query.code
   const redirectUri = config.restapi.protocol + config.app_host_port + '/' + config.auth0.callback_path
-  console.log('!!' + config.auth0.token_api_url + '!!')
   const url = config.auth0.token_api_url
   const options = {
     method: 'POST',
