@@ -34,7 +34,6 @@ exports.get = function (req, res) {
       .then(response => {
         {
           const body = response.data
-
           const data = JSON.parse(body)
 
           // If ipstack returns an error, catch it and return a generic error.
