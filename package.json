@@ -151,7 +151,6 @@
     "redux": "4.0.4",
     "redux-thunk": "2.3.0",
     "regenerator-runtime": "0.13.2",
-    "request": "2.88.0",
     "requireindex": "1.2.0",
     "sass": "1.22.2",
     "shifty": "2.8.0",

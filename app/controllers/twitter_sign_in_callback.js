@@ -1,5 +1,5 @@
 var config = require('config')
-var request = require('request')
+var axios = require('axios')
 var oauth = require('../../lib/oauth.js')
 
 var oauthAccessTokenHandler = function (req, res) {
@@ -25,18 +25,17 @@ var oauthAccessTokenHandler = function (req, res) {
     // Must be an absolute URI
     var endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
 
-    request.post({ url: endpoint, json: apiRequestBody }, function (err, response, body) {
-      if (err) {
+    axios.post(endpoint, apiRequestBody)
+      .then(response => {
+        const body = response.data
+        res.cookie('user_id', body.id)
+        res.cookie('login_token', body.loginToken)
+        res.redirect(req.session.oauth.redirect_uri)
+      })
+      .catch(err => {
         console.error('Error from API when signing in: ' + err)
         res.redirect('/error/authentication-api-problem')
-        return
-      }
-
-      // Redirect user
-      res.cookie('user_id', body.id)
-      res.cookie('login_token', body.loginToken)
-      res.redirect(req.session.oauth.redirect_uri)
-    })
+      })
   }
 }
 
