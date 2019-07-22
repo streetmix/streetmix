@@ -1,17 +1,11 @@
 const config = require('config')
-const request = require('request')
+const axios = require('axios')
 const logger = require('../../lib/logger.js')()
 const { Authentication } = require('../../lib/auth0')
 
 const AccessTokenHandler = function (req, res) {
-  return async function (err, response, body) {
-    if (err) {
-      console.error('Error obtaining access token from Auth0:')
-      console.log(err)
-      res.redirect('/error/no-access-token')
-      return
-    }
-
+  return async (response) => {
+    const body = response.data
     if (body.error && body.error === 'access_denied') {
       res.redirect('/error/access-denied')
       return
@@ -25,19 +19,17 @@ const AccessTokenHandler = function (req, res) {
 
       //  Must be an absolute URI
       const endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
-
-      request.post({ url: endpoint, json: apiRequestBody }, function (err, response, body) {
-        if (err) {
-          logger.error('Error from API when signing in: ' + err)
+      axios.post(endpoint, apiRequestBody)
+        .then(response => {
+          const body = response.data
+          res.cookie('user_id', body.id)
+          res.cookie('login_token', body.loginToken)
+          res.redirect('/just-signed-in')
+        })
+        .catch(error => {
+          logger.error('Error from API when signing in: ' + error)
           res.redirect('/error/authentication-api-problem')
-          return
-        }
-
-        // Redirect user
-        res.cookie('user_id', body.id)
-        res.cookie('login_token', body.loginToken)
-        res.redirect('/just-signed-in')
-      })
+        })
     } catch (error) {
       logger.error('Error obtaining user info from Auth0: ' + error)
       res.redirect('/error/no-access-token')
@@ -87,19 +79,25 @@ exports.get = function (req, res) {
 
   const code = req.query.code
   const redirectUri = config.restapi.protocol + config.app_host_port + '/' + config.auth0.callback_path
+  const url = config.auth0.token_api_url
   const options = {
-    method: 'POST',
-    url: config.auth0.token_api_url,
     headers: { 'content-type': 'application/json' },
-    body: {
-      grant_type: 'authorization_code',
-      client_id: config.auth0.client_id,
-      client_secret: config.auth0.client_secret,
-      code: code,
-      redirect_uri: redirectUri
-    },
     json: true
   }
 
-  request(options, AccessTokenHandler(req, res))
+  const body = {
+    grant_type: 'authorization_code',
+    client_id: config.auth0.client_id,
+    client_secret: config.auth0.client_secret,
+    code: code,
+    redirect_uri: redirectUri
+  }
+
+  axios.post(url, body, options)
+    .then(AccessTokenHandler(req, res))
+    .catch(err => {
+      console.error('Error obtaining access token from Auth0:')
+      console.log(err)
+      res.redirect('/error/no-access-token')
+    })
 }
