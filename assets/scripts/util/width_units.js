@@ -1,5 +1,6 @@
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import store from '../store'
+import memoizeFormatConstructor from './memoized_formatting'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
@@ -123,6 +124,7 @@ export function prettifyWidth (width, units, locale) {
   return widthText
 }
 
+const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)
 /**
  * Returns a measurement value as a locale-sensitive string without units or formatting,
  * and converts to the desired units, if necessary.
@@ -149,12 +151,12 @@ export function stringifyMeasurementValue (value, units, locale) {
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
-      string = new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: IMPERIAL_PRECISION }).format(value)
+      string = NumberFormat(locale, { style: 'decimal', maximumFractionDigits: IMPERIAL_PRECISION }).format(value)
       break
     case SETTINGS_UNITS_METRIC:
     default:
       const convertedValue = convertImperialMeasurementToMetric(value)
-      string = new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: METRIC_PRECISION }).format(convertedValue)
+      string = NumberFormat(locale, { style: 'decimal', maximumFractionDigits: METRIC_PRECISION }).format(convertedValue)
       break
   }
 
