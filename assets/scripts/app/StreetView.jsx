@@ -8,7 +8,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { throttle } from 'lodash'
 import StreetEditable from './StreetEditable'
 import StreetViewDirt from './StreetViewDirt'
 import SkyBackground from './SkyBackground'
@@ -183,17 +182,21 @@ class StreetView extends React.Component {
   }
 
   /**
-   * Event handler for street scrolling. Throttled to update at 60fps.
+   * Event handler for street scrolling.
    */
-  handleStreetScroll = throttle((event) => {
+  handleStreetScroll = (event) => {
     infoBubble.suppress()
 
-    const scrollIndicators = this.calculateScrollIndicators()
+    // Place all scroll-based positioning effects inside of a "raf"
+    // callback for better performance.
+    window.requestAnimationFrame(() => {
+      const scrollIndicators = this.calculateScrollIndicators()
 
-    this.setState({
-      ...scrollIndicators
+      this.setState({
+        ...scrollIndicators
+      })
     })
-  }, 16)
+  }
 
   /**
    * Based on street width and scroll position, determine how many
