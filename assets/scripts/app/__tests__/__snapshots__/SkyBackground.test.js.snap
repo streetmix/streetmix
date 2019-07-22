@@ -38,9 +38,8 @@ exports[`SkyBackground renders 1`] = `
     className="rear-clouds"
     style={
       Object {
-        "WebkitTransform": "translateX(0px)",
+        "backgroundPosition": "-0px 0",
         "opacity": null,
-        "transform": "translateX(0px)",
       }
     }
   />
@@ -48,9 +47,8 @@ exports[`SkyBackground renders 1`] = `
     className="front-clouds"
     style={
       Object {
-        "WebkitTransform": "translateX(0px)",
+        "backgroundPosition": "-0px 0",
         "opacity": null,
-        "transform": "translateX(0px)",
       }
     }
   />
