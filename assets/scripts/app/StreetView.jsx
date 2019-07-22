@@ -193,7 +193,8 @@ class StreetView extends React.Component {
       const scrollIndicators = this.calculateScrollIndicators()
 
       this.setState({
-        ...scrollIndicators
+        ...scrollIndicators,
+        scrollPos: this.getStreetScrollPosition()
       })
     })
   }
@@ -271,6 +272,10 @@ class StreetView extends React.Component {
     })
   }
 
+  getStreetScrollPosition = () => {
+    return (this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft) || 0
+  }
+
   /**
    * Updates a segment or building's CSS `perspective-origin` property according
    * to its current position in the street and on the screen, which is used
@@ -284,7 +289,7 @@ class StreetView extends React.Component {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
-    const scrollPos = (this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft) || 0
+    const scrollPos = this.getStreetScrollPosition()
     const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
@@ -325,7 +330,7 @@ class StreetView extends React.Component {
           </section>
         </section>
         <SkyBackground
-          scrollPos={this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft}
+          scrollPos={this.state.scrollPos}
           height={this.state.skyHeight}
         />
         <ScrollIndicators
