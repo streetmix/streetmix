@@ -43,7 +43,7 @@ import { hideLoadingScreen } from '../../app/load_resources'
 import { recalculateWidth } from '../../streets/width'
 import { saveStreetToServer } from '../../streets/xhr'
 
-import { setIgnoreStreetChanges, setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { setIgnoreStreetChanges, setLastStreet, saveStreetToServerIfNecessary, createEmptyStreet } from '../../streets/data_model'
 import { setSettings } from './settings'
 import apiClient from '../../util/api'
 
@@ -370,4 +370,52 @@ export const getLastStreet = () => {
       hideLoadingScreen()
     }
   }
+}
+export const createNewStreet = () => {
+  return async (dispatch, getState) => {
+    const { signedIn } = getState().user
+    const defaultStreet = createEmptyStreet(getState())
+    dispatch(updateStreetData(defaultStreet))
+    if (signedIn) {
+      await dispatch(setSettings({
+        lastStreetId: defaultStreet.id,
+        lastStreetNamespacedId: defaultStreet.namespacedId,
+        lastStreetCreatorId: defaultStreet.creatorId
+      }))
+    }
+
+    const response = await apiClient.saveStreet(prepareStreetForSaving(defaultStreet))
+    dispatch(saveStreetId(response.id, response.namespacedId))
+    // refactor once API save street has been added to actions
+    saveStreetToServer(true)
+  }
+}
+const prepareStreetForSaving = (street) => {
+  const data = { street }
+  const name = street.name
+  const originalStreetId = street.originalStreetId
+
+  // Those go above data in the structure, so they need to be cleared here
+  delete data.street.name
+  delete data.street.originalStreetId
+  delete data.street.updatedAt
+
+  // This will be implied through authorization header
+  delete data.street.creatorId
+
+  /**
+   * ToDo: move this outside
+  if (store.getState().flags.SAVE_UNDO.value === true) {
+    data.undoStack = cloneDeep(store.getState().undo.stack)
+    data.undoPosition = store.getState().undo.position
+  }
+  **/
+
+  var transmission = {
+    name,
+    originalStreetId,
+    data: data
+  }
+
+  return JSON.stringify(transmission)
 }

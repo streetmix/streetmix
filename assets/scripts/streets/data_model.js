@@ -7,6 +7,7 @@ import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic } from '../users/localization'
 import { generateRandSeed } from '../util/random'
 import { DEFAULT_ENVIRONS } from './constants'
+import { NEW_STREET_EMPTY } from './creation'
 import {
   createNewUndoIfNecessary,
   unifyUndoStack
@@ -25,9 +26,9 @@ const DEFAULT_BUILDING_HEIGHT_LEFT = 4
 const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
 const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
 const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
-const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
-const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
-const DEFAULT_STREET_WIDTH = 80
+export const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
+export const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
+export const DEFAULT_STREET_WIDTH = 80
 
 let _lastStreet
 
@@ -439,5 +440,35 @@ export function updateEverything (dontScroll, save = true) {
 
   if (save === true) {
     scheduleSavingStreetToServer()
+  }
+}
+export function createEmptyStreet (state) {
+  const { units } = state.persistSettings
+  const { signedIn, signInData } = state.user
+  const { newStreetPreference } = state.settings
+  const createDefaultStreet = newStreetPreference !== NEW_STREET_EMPTY
+  const segments = createDefaultStreet ? fillDefaultSegments(units) : []
+  const leftBuildingHeight = createDefaultStreet ? DEFAULT_BUILDING_HEIGHT_LEFT : DEFAULT_BUILDING_HEIGHT_EMPTY
+  const rightBuildingHeight = createDefaultStreet ? DEFAULT_BUILDING_HEIGHT_RIGHT : DEFAULT_BUILDING_HEIGHT_EMPTY
+
+  const leftBuildingVariant = createDefaultStreet ? DEFAULT_BUILDING_VARIANT_LEFT : DEFAULT_BUILDING_VARIANT_EMPTY
+  const rightBuildingVariant = createDefaultStreet ? DEFAULT_BUILDING_VARIANT_LEFT : DEFAULT_BUILDING_VARIANT_EMPTY
+
+  return {
+    units: units,
+    location: null,
+    name: null,
+    userUpdated: false,
+    editCount: 0,
+    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
+    environment: DEFAULT_ENVIRONS,
+    leftBuildingHeight,
+    leftBuildingVariant,
+    rightBuildingHeight,
+    rightBuildingVariant,
+    schemaVersion: LATEST_SCHEMA_VERSION,
+    segments,
+    updatedAt: new Date().toISOString(),
+    creatorId: (signedIn && signInData.userId) || null
   }
 }

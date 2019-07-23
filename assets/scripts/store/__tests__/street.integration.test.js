@@ -3,13 +3,15 @@
 import MockAdapter from 'axios-mock-adapter'
 
 import { createStore } from '../../../../test/helpers/store'
-import { addSegment, clearSegments, incrementSegmentWidth, getLastStreet } from '../actions/street'
 
 // ToDo: Remove this once refactoring of redux action saveStreetToServerIfNecessary is complete
-import { saveStreetToServerIfNecessary } from '../../streets/data_model'
+import { saveStreetToServerIfNecessary, DEFAULT_STREET_WIDTH, DEFAULT_BUILDING_HEIGHT_EMPTY, DEFAULT_BUILDING_VARIANT_EMPTY } from '../../streets/data_model'
+import { NEW_STREET_EMPTY } from '../../streets/creation'
 
 import apiClient from '../../util/api'
 import { ERRORS } from '../../app/errors'
+
+import { addSegment, clearSegments, incrementSegmentWidth, getLastStreet, createNewStreet } from '../actions/street'
 
 jest.mock('../../app/load_resources')
 jest.mock('../../streets/data_model', () => {
@@ -171,6 +173,36 @@ describe('street integration test', () => {
         const { errors } = store.getState()
         expect(errors.errorType).toEqual(ERRORS.NEW_STREET_SERVER_FAILURE)
       })
+    })
+  })
+  describe('#saveStreet', () => {
+    let apiMock
+    const apiResponse = {
+      id: '3',
+      originalStreetId: '1',
+      updatedAt: '',
+      name: 'StreetName',
+      data: {
+      }
+    }
+    beforeEach(() => {
+      apiMock = new MockAdapter(apiClient.client)
+    })
+    afterEach(() => {
+      apiMock.restore()
+    })
+    it('saves an empty street', async () => {
+      const store = createStore({ persistSettings: { units: {} }, user: { signedIn: false }, settings: { newStreetPreference: NEW_STREET_EMPTY } })
+
+      apiMock.onPost('/streets').reply(200, apiResponse)
+      await store.dispatch(createNewStreet())
+
+      const { street } = store.getState()
+      expect(street.segments.length).toEqual(0)
+      expect(street.leftBuildingHeight).toEqual(DEFAULT_BUILDING_HEIGHT_EMPTY)
+      expect(street.leftBuildingVariant).toEqual(DEFAULT_BUILDING_VARIANT_EMPTY)
+      expect(street.width).toEqual(DEFAULT_STREET_WIDTH)
+      expect(apiMock.history.post.length).toBe(1)
     })
   })
 })

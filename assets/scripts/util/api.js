@@ -19,7 +19,14 @@ class APIClient {
       })
       return data
     };
-};
+    saveStreet = async (street) => {
+      const { data } = await this.client.post('/streets', {
+        body: street,
+        headers: { 'Authorization': getAuthHeader() }
+      })
+      return data
+    }
+}
 
 const client = new APIClient()
 export default client
