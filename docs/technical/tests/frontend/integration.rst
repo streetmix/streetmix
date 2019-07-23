@@ -14,7 +14,7 @@ Redux
 --------------------------
 
 Redux actions and reducers are mostly boilerplate code and it is tedious to write unit tests for them. They do not serve a specific purpose since you're testing the framework more than you're testing your code.  
-There are instances where you have more business logic in your actions, typically for asynchronious actions. The best way we found to test those actions is to use a Integration test approach. 
+There are instances where you have more business logic in your actions, typically for asynchronous actions. The best way we found to test those actions is to use a Integration test approach. 
 Instead of testing the action in isolation, we test the end result of the action. Since actions are the way to change the store, we can use that to make assumptions on the end result. 
 
 Take a look in :file:`./test/helpers/` where you find a helper for creating the store.

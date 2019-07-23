@@ -22,5 +22,5 @@ We use the `Jest testing framework <https://jestjs.io/en/>`_.
 End-to-end testing
 ---------------------
 
-We are adopting `Cypress.io <https://www.cypress.io/>`_, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier.
+We have adopted `Cypress.io <https://www.cypress.io/>`_, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier.
 
