@@ -12,7 +12,7 @@ module.exports = {
   ],
   'transform': {
     '^.+\\.jsx?$': 'babel-jest',
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '<rootDir>/assets/scripts/util/fileTransform.js'
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '<rootDir>/assets/scripts/util/file-transform.js'
   },
   'transformIgnorePatterns': [
     '<rootDir>/node_modules/(?!lodash-es).+\\.js$'
