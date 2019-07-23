@@ -4,7 +4,7 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
 }
 
 process.title = 'streetmix'
-
+require('dotenv').config()
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
@@ -228,23 +228,53 @@ app.options('/api/*', cors())
 // Payments handler
 app.post('/pay', controllers.payments.post)
 
+// API: all users
 app.post('/api/v1/users', cors(), resources.v1.users.post)
 app.get('/api/v1/users', cors(), resources.v1.users.get)
+
+// API: single user
 app.get('/api/v1/users/:user_id', cors(), resources.v1.user.get)
 app.put('/api/v1/users/:user_id', cors(), resources.v1.user.put)
 app.delete('/api/v1/users/:user_id', cors(), resources.v1.user.delete)
+
+// API: single user sign-in state
 app.delete('/api/v1/users/:user_id/login-token', cors(), resources.v1.user_session.delete)
+
+// API: single user streets
 app.delete('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.delete)
 app.get('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.get)
 
+// API: all streets
 app.post('/api/v1/streets', resources.v1.streets.post)
 app.get('/api/v1/streets', resources.v1.streets.find)
 app.head('/api/v1/streets', resources.v1.streets.find)
 
+// API: single street
 app.delete('/api/v1/streets/:street_id', resources.v1.streets.delete)
 app.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.get('/api/v1/streets/:street_id', resources.v1.streets.get)
 app.put('/api/v1/streets/:street_id', resources.v1.streets.put)
+
+// Merge with users handler
+// app.post('/api/v1/users', cors(), resources.v1.users_pg.post)
+
+// Merge with user handler
+// app.get('/api/v1/users/:user_id', cors(), resources.v1.users_pg.get)
+// app.put('/api/v1/users/:user_id', cors(), resources.v1.users_pg.put)
+
+// Merge with user_session handler
+// app.delete('/api/v1/users/:user_id/login-token', cors(), resources.v1.users_pg.delete)
+
+// app.get('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets_pg.get)
+
+// app.post('/api/v1/streets', resources.v1.streets_pg.post)
+// app.get('/api/v1/streets', resources.v1.streets_pg.find)
+// app.head('/api/v1/streets', resources.v1.streets_pg.find)
+
+// app.delete('/api/v1/streets/:street_id', resources.v1.streets_pg.delete)
+// app.head('/api/v1/streets/:street_id', resources.v1.streets_pg.get)
+// app.get('/api/v1/streets/:street_id', resources.v1.streets_pg.get)
+// app.put('/api/v1/streets/:street_id', resources.v1.streets_pg.put)
 
 app.post('/api/v1/streets/images/:street_id', bodyParser.text({ limit: '3mb' }), resources.v1.street_images.post)
 app.delete('/api/v1/streets/images/:street_id', resources.v1.street_images.delete)
