@@ -8,11 +8,14 @@
 $environment-editor-border-radius: $border-radius;
 $environment-editor-box-shadow: $medium-box-shadow;
 
-.environment-editor-container {
-  z-index: $z-06-environment-editor;
+.environment-editor-container-outer {
+  z-index: $z-environment-editor;
   position: absolute;
   bottom: 90px;
   left: 50px;
+}
+
+.environment-editor-container-inner {
   background-color: white;
   border-radius: $environment-editor-border-radius;
   overflow: hidden;
@@ -24,34 +27,24 @@ $environment-editor-box-shadow: $medium-box-shadow;
     left: auto;
     right: 50px;
   }
-
-  /* Transitions - copied from Dialog! */
-  transition: opacity 60ms ease-in-out;
-  opacity: 0;
-  pointer-events: none;
 }
 
-/* Transitions */
-.environment-editor-transition-enter-done {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
-
-.environment-editor-transition-exit {
-  opacity: 0;
-  transform: scale(0.9);
-  pointer-events: none;
-}
-
-.environment-editor-container header {
-  padding: 0.75em;
+.environment-editor header {
+  padding: 1em;
   text-align: center;
   background-color: #e6f0f5;
-  cursor: move;
 }
 
-.environment-editor-container header h3 {
+.environment-editor.react-draggable header {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+}
+
+.environment-editor.react-draggable-dragging header {
+  cursor: grabbing;
+}
+
+.environment-editor header h3 {
   margin: 0;
 }
 
@@ -79,4 +72,35 @@ $environment-editor-box-shadow: $medium-box-shadow;
   box-shadow:
     0 0 0 2px #87b7cb,
     inset 0 0 0 2px white;
+}
+
+/* Close button overrides */
+.environment-editor .close {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  top: 6px;
+  right: 4px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+}
+
+.environment-editor .close:hover {
+  background-color: #d0dfe3;
+
+  svg {
+    color: #6b778c;
+  }
+}
+
+.environment-editor .close:active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.environment-editor .close svg {
+  transform: scale(0.6);
+  width: 1rem;
+  height: 1rem;
+  color: #a3aec2;
 }
