@@ -26,7 +26,7 @@
     "lint:css": "stylelint \"./assets/**/*.scss\"",
     "lint:js": "eslint \"**/*.js\" \"**/*.jsx\"",
     "lint:json": "find assets -name '*.json' -exec jsonlint {} --quiet \\;",
-    "jest": "jest --collectCoverage",
+    "jest": "jest",
     "jest:watch": "jest --watch",
     "translations:download": "node bin/download_translations.js",
     "docs": "npm run docs:build && npm run docs:serve",
@@ -36,39 +36,6 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
-    }
-  },
-  "jest": {
-    "roots": [
-      "app",
-      "assets/scripts",
-      "test"
-    ],
-    "setupFiles": [
-      "./test/setup-jest.js"
-    ],
-    "testPathIgnorePatterns": [
-      "./test/integration"
-    ],
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lodash-es/.*)"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "collectCoverageFrom": [
-      "app.js",
-      "app/**/*.{js,jsx}",
-      "assets/scripts/**/*.{js,jsx}",
-      "!assets/scripts/vendor/**/*.{js,jsx}"
-    ],
-    "moduleNameMapper": {
-      "^lodash-es$": "<rootDir>/node_modules/lodash/index.js",
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/test/__mocks__/styleMock.js"
     }
   },
   "browserslist": [
@@ -112,6 +79,7 @@
     "auth0-js": "9.11.1",
     "autoprefixer": "9.6.1",
     "axios": "0.19.0",
+    "babel-preset-react-app": "9.0.0",
     "btoa": "1.2.1",
     "chalk": "2.4.2",
     "cloudinary": "1.14.0",
@@ -181,6 +149,7 @@
     "axios-mock-adapter": "1.17.0",
     "babel-eslint": "10.0.2",
     "babel-jest": "24.8.0",
+    "babel-plugin-dynamic-import-node": "2.3.0",
     "babel-plugin-rewire": "1.2.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "cypress": "3.3.2",
