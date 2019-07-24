@@ -66,6 +66,13 @@ You may already have some of these prerequisites installed. Skip or update the p
    Some systems are set up differently and may have other methods for setting environment variables.
 
 
+7. **Optional: Install PostgreSQL.** We are currently working to migrate our database from MongoDB to Postgres. You can `download MacOSX packages here <https://www.postgresql.org/download/macosx/>`_ or use the `Postgress app <https://postgresapp.com/>`_, but the easiest method would be to use Homebrew, again:
+
+   .. prompt:: bash $
+
+      brew install postgres
+
+
 Clone and install Streetmix
 +++++++++++++++++++++++++++
 
@@ -86,6 +93,14 @@ Clone and install Streetmix
 .. caution::
 
    We do not currently use the **Yarn** package manager. Installing with Yarn may have unpredictable results.
+
+
+3. Initialize Postgres database.
+
+   .. prompt:: bash $
+
+      npx sequelize db:create
+      npx sequelize db:migrate
 
 
 Run Streetmix
@@ -123,6 +138,8 @@ You may already have some of these prerequisites installed. Skip or update the p
 
 6. Add MongoDB binaries to your system path. Open the Start Menu and type in "environment variables", and select :guilabel:`Edit the system environment variables`. You should see the :guilabel:`Advanced` tab of :guilabel:`System Properties`. Click :guilabel:`Environment Variables...` at the lower right corner of the panel. In the user variables, select or create a variable called ``Path``, then edit it and add a new entry containing :file:`C:\\Program Files\\MongoDB\\Server\\3.4\\bin` (or the path you installed MongoDB to). Click :guilabel:`OK` until you return to the :guilabel:`System Properties` window, click :guilabel:`Apply` then click :guilabel:`OK` to exit.
 
+7. **Optional: Install PostgreSQL.** We are currently working to migrate our database from MongoDB to Postgres. You can `download Windows packages here <https://www.postgresql.org/download/windows/>`.
+
 
 Clone and install Streetmix
 +++++++++++++++++++++++++++
@@ -155,6 +172,13 @@ Clone and install Streetmix
 
 4. Run MongoDB's :file:`mongod.exe` and :file:`mongo.exe`. This will need to be run manually in the background before running Streetmix.
 
+5. Initialize Postgres database.
+
+   .. prompt:: bash $
+
+      npx sequelize db:create
+      npx sequelize db:migrate
+
 
 Run Streetmix
 +++++++++++++
@@ -176,6 +200,7 @@ On Linux
 
 Instructions for all systems
 ----------------------------
+
 
 .. _install-env-vars:
 
@@ -227,6 +252,26 @@ Streetmix will run without these keys. Some functionality will be limited, but t
 +-----------------------------------+----------------------------------------------+-----------+
 
 
+Optional database configuration (Postgres)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Environment variables are the preferred way for Postgres to access the database. If you have a local database that are not using default values, you can set these here as well. Usually, you won't need to specify these at all.
+
++-----------------------------------+------------------------------+---------------------------+
+| Variable name                     | Description                  | Default value             |
++===================================+==============================+===========================+
+| ``PGUSER``                        | Postgres username            | (none)                    |
++-----------------------------------+------------------------------+---------------------------+
+| ``PGPASSWORD``                    | Postgres password            | (none)                    |
++-----------------------------------+------------------------------+---------------------------+
+| ``PGDATABASE``                    | Postgres database name       | ``streetmix_dev``         |
++-----------------------------------+------------------------------+---------------------------+
+| ``PGHOST``                        | Postgres server host IP      | ``127.0.0.1``             |
++-----------------------------------+------------------------------+---------------------------+
+| ``PGPORT``                        | Postgres server post         | ``5432``                  |
++-----------------------------------+------------------------------+---------------------------+
+
+
 Sample .env
 ~~~~~~~~~~~
 
@@ -275,6 +320,36 @@ On Mac OS X, this should also automatically stop the MongoDB server. In case it 
 .. prompt:: bash $
 
    npm stop
+
+
+Updating the application
+++++++++++++++++++++++++
+
+Every so often, you will need to update the project.
+
+1. Pull the latest code from the repository.
+
+   .. prompt:: bash $
+
+      git pull
+
+2. Install the latest version of all dependencies.
+
+   .. prompt:: bash $
+
+      npm install
+
+3. Update the database schema.
+
+   .. prompt:: bash $
+
+      npx sequelize db:migrate
+
+.. tip::
+
+   If you run into issues migrating the database, you can access Sequelize's "verbose" debug output with the command ``DEBUG=sequalize* npx sequelize db:migrate``. (This feature is not well-documented by Sequelize, which is why we're mentioning it ourselves.)
+
+   Debug a migration on a Heroku application instance like so: ``heroku run 'DEBUG=sequalize* npx sequelize db:migrate' --app <heroku app id>`` (Note the quotation marks surrounding the command.)
 
 
 Setup in a no-internet environment
