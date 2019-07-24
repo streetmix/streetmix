@@ -6,6 +6,9 @@ import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
 import { DEFAULT_ENVIRONS } from '../streets/constants'
 import './SkyBackground.scss'
 
+const REAR_CLOUD_PARALLAX_SPEED = 0.25
+const FRONT_CLOUD_PARALLAX_SPEED = 0.5
+
 export class SkyBackground extends React.PureComponent {
   static propTypes = {
     scrollPos: PropTypes.number,
@@ -45,20 +48,12 @@ export class SkyBackground extends React.PureComponent {
     }, 0)
   }
 
-  transformSkyBackground = (isFront, scrollPos) => {
-    let style = ''
-
-    if (isFront) {
-      const frontPos = -scrollPos * 0.5
-      style = 'translateX(' + frontPos + 'px)'
-    } else {
-      const rearPos = -scrollPos * 0.25
-      style = 'translateX(' + rearPos + 'px)'
-    }
+  getCloudPosition = (isFront, scrollPos) => {
+    const speed = isFront ? FRONT_CLOUD_PARALLAX_SPEED : REAR_CLOUD_PARALLAX_SPEED
+    const pos = scrollPos * speed
 
     return {
-      WebkitTransform: style,
-      transform: style
+      backgroundPosition: `-${pos}px 0`
     }
   }
 
@@ -71,11 +66,11 @@ export class SkyBackground extends React.PureComponent {
       height: `${height}px`
     }
     const frontCloudStyle = {
-      ...this.transformSkyBackground(true, scrollPos),
+      ...this.getCloudPosition(true, scrollPos),
       opacity: environs.cloudOpacity || null
     }
     const rearCloudStyle = {
-      ...this.transformSkyBackground(false, scrollPos),
+      ...this.getCloudPosition(false, scrollPos),
       opacity: environs.cloudOpacity || null
     }
 

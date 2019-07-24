@@ -8,7 +8,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { throttle } from 'lodash'
 import StreetEditable from './StreetEditable'
 import StreetViewDirt from './StreetViewDirt'
 import SkyBackground from './SkyBackground'
@@ -183,17 +182,22 @@ class StreetView extends React.Component {
   }
 
   /**
-   * Event handler for street scrolling. Throttled to update at 60fps.
+   * Event handler for street scrolling.
    */
-  handleStreetScroll = throttle((event) => {
+  handleStreetScroll = (event) => {
     infoBubble.suppress()
 
-    const scrollIndicators = this.calculateScrollIndicators()
+    // Place all scroll-based positioning effects inside of a "raf"
+    // callback for better performance.
+    window.requestAnimationFrame(() => {
+      const scrollIndicators = this.calculateScrollIndicators()
 
-    this.setState({
-      ...scrollIndicators
+      this.setState({
+        ...scrollIndicators,
+        scrollPos: this.getStreetScrollPosition()
+      })
     })
-  }, 16)
+  }
 
   /**
    * Based on street width and scroll position, determine how many
@@ -268,6 +272,10 @@ class StreetView extends React.Component {
     })
   }
 
+  getStreetScrollPosition = () => {
+    return (this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft) || 0
+  }
+
   /**
    * Updates a segment or building's CSS `perspective-origin` property according
    * to its current position in the street and on the screen, which is used
@@ -281,7 +289,7 @@ class StreetView extends React.Component {
     if (!el) return
 
     const pos = getElAbsolutePos(el)
-    const scrollPos = (this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft) || 0
+    const scrollPos = this.getStreetScrollPosition()
     const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
 
     el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
@@ -322,7 +330,7 @@ class StreetView extends React.Component {
           </section>
         </section>
         <SkyBackground
-          scrollPos={this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft}
+          scrollPos={this.state.scrollPos}
           height={this.state.skyHeight}
         />
         <ScrollIndicators
