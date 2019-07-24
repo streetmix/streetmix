@@ -51,6 +51,7 @@ export class Segment extends React.Component {
 
     // Provided by store
     locale: PropTypes.string,
+    infoBubbleHovered: PropTypes.bool,
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
@@ -269,6 +270,13 @@ export class Segment extends React.Component {
       }
     }
 
+    // Show the drag handles if this segment is the active one, but also
+    // only if the infobubble is not being interacted with, and the description
+    // panel is not visible.
+    const showDragHandles =
+      (this.props.activeSegment === this.props.dataNo) &&
+      !(this.props.infoBubbleHovered || this.props.descriptionVisible)
+
     return (
       <div
         style={segmentStyle}
@@ -284,7 +292,7 @@ export class Segment extends React.Component {
           units={this.props.units}
           locale={this.props.locale}
         />
-        <SegmentDragHandles width={elementWidth} />
+        <SegmentDragHandles width={elementWidth} visible={showDragHandles} />
         <CSSTransition
           key="old-variant"
           in={!this.state.switchSegments}
@@ -313,6 +321,7 @@ export class Segment extends React.Component {
 function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
+    infoBubbleHovered: state.infoBubble.mouseInside,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
   }
