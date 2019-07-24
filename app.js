@@ -1,10 +1,11 @@
+process.title = 'streetmix'
+require('dotenv').config()
+
 // Run this before other modules
 if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-process.title = 'streetmix'
-require('dotenv').config()
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')

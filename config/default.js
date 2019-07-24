@@ -1,12 +1,3 @@
-const fs = require('fs')
-const path = require('path')
-const envFile = path.join(__dirname, '/../.env')
-
-if (fs.existsSync(envFile)) {
-  const env = require('node-env-file')
-  env(envFile)
-}
-
 const port = process.env.PORT || 8000
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
