@@ -113,8 +113,6 @@ export function handleSegmentResizeEnd (event) {
   var el = draggingResize.floatingEl
   el.remove()
 
-  draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
-
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)
 
@@ -268,8 +266,6 @@ function fadeoutControls () {
 export function hideControls () {
   document.body.classList.remove('controls-fade-out')
   if (infoBubble.segmentEl) {
-    infoBubble.segmentEl.classList.remove('show-drag-handles')
-
     window.setTimeout(function () {
       infoBubble.hide()
       infoBubble.hideSegment(true)

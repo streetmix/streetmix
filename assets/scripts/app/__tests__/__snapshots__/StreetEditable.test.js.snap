@@ -7,7 +7,7 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
     style="width: 4800px;"
   >
     <div
-      class="segment hover show-drag-handles warning"
+      class="segment hover warning"
       data-testid="segment"
       style="width: 4800px; z-index: 1; transform: translateX(0px);"
     >

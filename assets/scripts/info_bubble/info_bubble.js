@@ -49,20 +49,10 @@ export const infoBubble = {
     return _isPointInPoly(hoverPolygon, [x, y])
   },
 
-  hideSegment: function (fast) {
+  hideSegment: function () {
     if (infoBubble.segmentEl) {
       infoBubble.segmentEl.classList.remove('hover')
       store.dispatch(setActiveSegment(null))
-      var el = infoBubble.segmentEl
-      if (fast) {
-        el.classList.add('immediate-show-drag-handles')
-        window.setTimeout(function () {
-          el.classList.remove('immediate-show-drag-handles')
-        }, 0)
-      } else {
-        el.classList.remove('immediate-show-drag-handles')
-      }
-      infoBubble.segmentEl.classList.remove('show-drag-handles')
       infoBubble.segmentEl = null
     }
   },
@@ -142,10 +132,6 @@ export const infoBubble = {
     if (type !== INFO_BUBBLE_TYPE_LEFT_BUILDING && type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
       if (segmentEl) {
         segmentEl.classList.add('hover')
-        segmentEl.classList.add('show-drag-handles')
-      }
-      if (isInfoBubbleVisible()) {
-        segmentEl.classList.add('immediate-show-drag-handles')
       }
     }
 

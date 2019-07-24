@@ -16,12 +16,19 @@ function SegmentDragHandles (props) {
   const adjustX = (props.width < 60)
     ? `${(0.5 * props.width) - 35}px` : null
 
+  let leftClassNames = 'drag-handle drag-handle-left'
+  let rightClassNames = 'drag-handle drag-handle-right'
+  if (props.visible) {
+    leftClassNames += ' drag-handle-visible'
+    rightClassNames += ' drag-handle-visible'
+  }
+
   return (
     <React.Fragment>
-      <span className="drag-handle drag-handle-left" style={{ display, left: adjustX }}>
+      <span className={leftClassNames} style={{ display, left: adjustX }}>
         <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
       </span>
-      <span className="drag-handle drag-handle-right" style={{ display, right: adjustX }}>
+      <span className={rightClassNames} style={{ display, right: adjustX }}>
         <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
       </span>
     </React.Fragment>

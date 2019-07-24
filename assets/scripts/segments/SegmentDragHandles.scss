@@ -45,7 +45,7 @@ body.segment-resize-dragging * {
   transform: rotateY(-90deg);
 }
 
-.segment.immediate-show-drag-handles .drag-handle {
+.drag-handle-visible.drag-handle-show-immediate {
   transition: none !important;
 }
 
@@ -54,7 +54,7 @@ body.segment-resize-dragging * {
 }
 
 body.segment-resize-dragging .drag-handle.floating,
-.segment.show-drag-handles .drag-handle {
+.drag-handle-visible {
   pointer-events: auto;
   opacity: 1;
   transform: none;
