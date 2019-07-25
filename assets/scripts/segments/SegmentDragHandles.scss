@@ -51,6 +51,11 @@ body.segment-resize-dragging * {
 
 .drag-handle.react-draggable-dragging {
   background-color: darken($ui-colour, 30%);
+  color: white;
+
+  &:hover {
+    color: white;
+  }
 }
 
 .drag-handle-visible {

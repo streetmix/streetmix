@@ -26,12 +26,10 @@ function SegmentDragHandles (props) {
   }
 
   function handleStart (event) {
-    console.log('hey')
     handleSegmentResizeStart(event)
   }
 
   function handleDrag (event) {
-    console.log('hey2')
     handleSegmentResizeMove(event)
   }
 

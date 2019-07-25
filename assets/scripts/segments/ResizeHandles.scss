@@ -1,0 +1,56 @@
+@import '../../styles/variables.scss';
+
+body.segment-resize-dragging,
+body.segment-resize-dragging * {
+  cursor: col-resize !important;
+}
+
+/* Positioning and layout at container level */
+.resize-handle {
+  position: absolute;
+  top: 170px + 120px;
+  width: 30px;
+  height: 100px;
+  z-index: $z-06-drag-handle;
+  perspective: 500px;
+}
+
+/* Inner container handles appearance and transitions */
+.resize-handle > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 3px solid darken($ui-colour, 30%);
+  border-bottom: 3px solid darken($ui-colour, 30%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  background: $info-bubble-background;
+  color: darken($ui-colour, 20%);
+  cursor: col-resize;
+  will-change: transform, opacity;
+
+  &:hover {
+    color: darken($ui-colour, 30%);
+  }
+}
+
+.resize-handle-left > div {
+  transform-origin: 100% 50%;
+}
+
+.resize-handle-right > div {
+  transform-origin: 0 50%;
+}
+
+.resize-handle.react-draggable-dragging {
+  background-color: darken($ui-colour, 30%);
+  color: white;
+
+  &:hover {
+    color: white;
+  }
+}
