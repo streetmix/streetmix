@@ -102,11 +102,11 @@ function handleSegmentResizeStart (event) {
 
   setIgnoreStreetChanges(true)
 
-  var el = event.target
+  const el = event.target.closest('.drag-handle')
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
 
-  var pos = getElAbsolutePos(el)
+  const pos = getElAbsolutePos(el)
 
   draggingResize.right = el.classList.contains('drag-handle-right')
 
@@ -222,7 +222,7 @@ export function onBodyMouseDown (event) {
 
   store.dispatch(clearMenus())
 
-  if (el.classList.contains('drag-handle')) {
+  if (el.closest('.drag-handle')) {
     handleSegmentResizeStart(event)
     event.preventDefault()
   }
