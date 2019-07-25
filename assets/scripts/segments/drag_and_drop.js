@@ -44,7 +44,6 @@ import {
 
 export var draggingResize = {
   segmentEl: null,
-  floatingEl: null,
   mouseX: null,
   mouseY: null,
   elX: null,
@@ -85,7 +84,7 @@ export function initDragTypeSubscriber () {
   return observeStore(select, onChange)
 }
 
-function handleSegmentResizeStart (event) {
+export function handleSegmentResizeStart (event) {
   let x, y
   if (app.readOnly) {
     return
@@ -109,20 +108,6 @@ function handleSegmentResizeStart (event) {
 
   draggingResize.right = el.classList.contains('drag-handle-right')
 
-  draggingResize.floatingEl = document.createElement('div')
-  draggingResize.floatingEl.classList.add('drag-handle')
-  draggingResize.floatingEl.classList.add('floating')
-
-  if (el.classList.contains('drag-handle-left')) {
-    draggingResize.floatingEl.classList.add('drag-handle-left')
-  } else {
-    draggingResize.floatingEl.classList.add('drag-handle-right')
-  }
-
-  draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
-  draggingResize.floatingEl.style.top = pos[1] + 'px'
-  document.body.appendChild(draggingResize.floatingEl)
-
   draggingResize.mouseX = x
   draggingResize.mouseY = y
 
@@ -145,7 +130,7 @@ function handleSegmentResizeStart (event) {
   }, 0)
 }
 
-function handleSegmentResizeMove (event) {
+export function handleSegmentResizeMove (event) {
   let x, y, resizeType
   if (event.touches && event.touches[0]) {
     x = event.touches[0].pageX
@@ -164,7 +149,6 @@ function handleSegmentResizeMove (event) {
 
   draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
   draggingResize.elX += deltaX
-  draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
 
   var precise = event.shiftKey
 
@@ -187,10 +171,10 @@ export function onBodyMouseDown (event) {
 
   loseAnyFocus()
 
-  if (event.target.closest('.drag-handle')) {
-    handleSegmentResizeStart(event)
-    event.preventDefault()
-  }
+  // if (event.target.closest('.drag-handle')) {
+  //   handleSegmentResizeStart(event)
+  //   event.preventDefault()
+  // }
 }
 
 export function isSegmentWithinCanvas (event, canvasEl) {
@@ -233,7 +217,7 @@ export function onBodyMouseMove (event) {
   if (draggingType === DRAGGING_TYPE_NONE) {
     return
   } else if (draggingType === DRAGGING_TYPE_RESIZE) {
-    handleSegmentResizeMove(event)
+    // handleSegmentResizeMove(event)
   }
 
   event.preventDefault()

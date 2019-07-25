@@ -49,11 +49,10 @@ body.segment-resize-dragging * {
   transition: none !important;
 }
 
-.drag-handle.floating {
+.drag-handle.react-draggable-dragging {
   background-color: darken($ui-colour, 30%);
 }
 
-body.segment-resize-dragging .drag-handle.floating,
 .drag-handle-visible {
   pointer-events: auto;
   opacity: 1;

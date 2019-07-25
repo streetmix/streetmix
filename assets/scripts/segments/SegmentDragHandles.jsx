@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Draggable from 'react-draggable'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
+import { handleSegmentResizeStart, handleSegmentResizeMove } from './drag_and_drop'
 import './SegmentDragHandles.scss'
 
 function SegmentDragHandles (props) {
@@ -23,14 +25,42 @@ function SegmentDragHandles (props) {
     rightClassNames += ' drag-handle-visible'
   }
 
+  function handleStart (event) {
+    console.log('hey')
+    handleSegmentResizeStart(event)
+  }
+
+  function handleDrag (event) {
+    console.log('hey2')
+    handleSegmentResizeMove(event)
+  }
+
+  function handleStop (event) {
+
+  }
+
   return (
     <React.Fragment>
-      <span className={leftClassNames} style={{ display, left: adjustX }}>
-        <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
-      </span>
-      <span className={rightClassNames} style={{ display, right: adjustX }}>
-        <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
-      </span>
+      <Draggable
+        axis="x"
+        onStart={handleStart}
+        onDrag={handleDrag}
+        onStop={handleStop}
+      >
+        <span className={leftClassNames} style={{ display, left: adjustX }}>
+          <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
+        </span>
+      </Draggable>
+      <Draggable
+        axis="x"
+        onStart={handleStart}
+        onDrag={handleDrag}
+        onStop={handleStop}
+      >
+        <span className={rightClassNames} style={{ display, right: adjustX }}>
+          <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
+        </span>
+      </Draggable>
     </React.Fragment>
   )
 }

@@ -110,9 +110,6 @@ export function handleSegmentResizeEnd (event) {
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
-  var el = draggingResize.floatingEl
-  el.remove()
-
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)
 
