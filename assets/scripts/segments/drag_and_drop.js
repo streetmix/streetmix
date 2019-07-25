@@ -34,7 +34,6 @@ import {
 import { segmentsChanged } from './view'
 import store, { observeStore } from '../store'
 import { addSegment, removeSegment, moveSegment } from '../store/actions/street'
-import { clearMenus } from '../store/actions/menus'
 import {
   initDraggingState,
   updateDraggingState,
@@ -182,47 +181,13 @@ function handleSegmentResizeMove (event) {
 }
 
 export function onBodyMouseDown (event) {
-  let topEl, withinMenu
-  var el = event.target
-
   if (app.readOnly || (event.touches && event.touches.length !== 1)) {
-    return
-  }
-
-  topEl = event.target
-
-  // For street width editing on Firefox
-
-  while (topEl && (topEl.id !== 'street-width')) {
-    topEl = topEl.parentNode
-  }
-
-  withinMenu = !!topEl
-
-  if (withinMenu) {
     return
   }
 
   loseAnyFocus()
 
-  topEl = event.target
-
-  while (topEl && (topEl.id !== 'info-bubble') && (topEl.id !== 'street-width') &&
-    ((!topEl.classList) ||
-    ((!topEl.classList.contains('menu-attached')) &&
-    (!topEl.classList.contains('menu'))))) {
-    topEl = topEl.parentNode
-  }
-
-  withinMenu = !!topEl
-
-  if (withinMenu) {
-    return
-  }
-
-  store.dispatch(clearMenus())
-
-  if (el.closest('.drag-handle')) {
+  if (event.target.closest('.drag-handle')) {
     handleSegmentResizeStart(event)
     event.preventDefault()
   }

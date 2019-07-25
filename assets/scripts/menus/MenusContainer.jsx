@@ -48,6 +48,9 @@ class MenusContainer extends React.PureComponent {
     // Hide menus if page loses visibility.
     document.addEventListener('visibilitychange', this.handleVisibilityChange, false)
 
+    // Hide menus if a click occurs outside of a menu or menu button
+    document.addEventListener('pointerdown', this.onBodyMouseDown)
+
     // Set up keypress listener to hide menus if visible
     registerKeypress('esc', this.hideAllMenus)
   }
@@ -61,6 +64,7 @@ class MenusContainer extends React.PureComponent {
 
   componentWillUnmount () {
     document.removeEventListener('visibilitychange', this.handleVisibilityChange, false)
+    document.removeEventListener('pointerdown', this.onBodyMouseDown)
     deregisterKeypress('esc', this.hideAllMenus)
   }
 
@@ -84,6 +88,16 @@ class MenusContainer extends React.PureComponent {
       activeMenuPos: activeMenu ? position : null
     })
     this.props.showMenu(activeMenu)
+  }
+
+  /**
+   * This event handler callback will close menus if a click occurs outside
+   * of a menu or a menu button.
+   */
+  onBodyMouseDown = (event) => {
+    if (!event.target.closest('.menu, .menu-attached')) {
+      this.props.clearMenus()
+    }
   }
 
   handleVisibilityChange = () => {
@@ -123,11 +137,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showMenu: (menu) => { dispatch(showMenu(menu)) },
-    clearMenus: () => { dispatch(clearMenus()) }
-  }
+const mapDispatchToProps = {
+  showMenu,
+  clearMenus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenusContainer)
