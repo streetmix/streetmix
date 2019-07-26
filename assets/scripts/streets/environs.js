@@ -164,9 +164,9 @@ export function getEnvirons (id) {
  * @returns {Array} - of objects
  */
 export function getAllEnvirons () {
-  const environs = Object.keys(ENVIRONS)
-
-  return environs.map(getEnvirons)
+  return Object.entries(ENVIRONS)
+    .filter(([ key, value ]) => value.enabled !== false)
+    .map(([ key, value ]) => getEnvirons(key))
 }
 
 /**

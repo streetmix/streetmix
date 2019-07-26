@@ -19,7 +19,7 @@ $menu-box-shadow: $medium-box-shadow;
   transform: rotateX(-90deg);
   transition: transform 100ms, opacity 100ms;
   pointer-events: none;
-  z-index: $z-04-menu;
+  z-index: $z-menu;
   border-radius: $menu-border-radius;
   box-shadow: $menu-box-shadow;
 
