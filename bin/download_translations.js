@@ -1,8 +1,9 @@
 'use strict'
 
+require('dotenv').config()
+
 const fs = require('fs')
 const path = require('path')
-const config = require('config')
 const chalk = require('chalk')
 const getFromTransifex = require('../lib/transifex.js')
 const languages = require('../app/data/locales.json')
@@ -42,7 +43,7 @@ for (let r in resources) {
       continue
     }
 
-    getFromTransifex(languages[l].value, resources[r], config.l10n.transifex.api_token)
+    getFromTransifex(languages[l].value, resources[r], process.env.TRANSIFEX_API_TOKEN)
       .then((data) => {
         downloadSuccess(languages[l].value, resources[r], languages[l].label, data)
       })

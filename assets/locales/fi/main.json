@@ -15,11 +15,11 @@
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
-      "remove-instruction": "Poista osoittimen alla oleva kohde",
+      "remove-instruction": "Poista osoittimen alla oleva elementti",
       "remove-shift-instruction": "(poista kaikki pitämällä {shiftKey} pohjassa)",
       "move-instruction": "Siirry kadulla",
       "move-shift-instruction": "(hyppää reunaan pitämällä {shiftKey} pohjassa)",
-      "change-instruction": "Muuta osoittimen alla oleva kohteen leveyttä",
+      "change-instruction": "Muuta osoittimen alla olevan elementin leveyttä",
       "change-shift-instruction": "(lisää tarkkuutta pitämällä {shiftKey} pohjassa)"
     },
     "share": {
@@ -243,7 +243,7 @@
     "new-street": "Kadun uusi nimi:",
     "delete-street": "Haluatko varmasti poistaa kohteen {streetName} pysyvästi?",
     "new-width": "Uusi kadunleveys ({minWidth}-{maxWidth}):",
-    "segment-label": ""
+    "segment-label": "Uuden elementin nimi:"
   },
   "toast": {
     "segment-deleted": "Tämä elementti on poistettu.",

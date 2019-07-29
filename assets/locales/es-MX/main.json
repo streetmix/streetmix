@@ -49,7 +49,7 @@
       "discord": "Unirte al chat de Discord",
       "slack": "Unirte al chat de Slack",
       "minecraft": "¡Juega Minecraft con nosotros!",
-      "newsletter": ""
+      "newsletter": "Suscribirte a nuestro boletín electrónico"
     },
     "contribute": {
       "donate": "Donar",
@@ -185,7 +185,7 @@
       "option-labels": "Nombres y anchura de segmentos",
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo transparente",
-      "option-watermark": "",
+      "option-watermark": "Filigrana",
       "loading": "Cargando…",
       "save-button": "Guardar a tu computadora…",
       "license": "Esta imagen-creada-por-Streetmix puede ser reusada en cualquier otra parte, por culaquier otro uso, bajo la licencia {licenseLink}.",
@@ -236,7 +236,7 @@
       "heading": "¿Qué es nuevo en Streetmix?"
     },
     "newsletter": {
-      "heading": ""
+      "heading": "Suscribirte a nuestro boletín electrónico"
     }
   },
   "prompt": {
@@ -292,10 +292,10 @@
     "decrease-width": "Reducir el ancho (mantén presionada Mayús para mayor precisión)",
     "add-floor": "Adherir piso",
     "remove-floor": "Remover piso",
-    "scroll-street-left": "",
-    "scroll-street-right": "",
-    "scroll-left": "",
-    "scroll-right": ""
+    "scroll-street-left": "Desplazarse la calle hacia izquierda",
+    "scroll-street-right": "Desplazarse la calle hacia derecha",
+    "scroll-left": "Desplazarse hacia izquierda",
+    "scroll-right": "Desplazarse hacia derecha"
   },
   "street": {
     "default-name": "Calle desconocida",
