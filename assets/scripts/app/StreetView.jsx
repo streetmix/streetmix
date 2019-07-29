@@ -14,7 +14,7 @@ import SkyBackground from './SkyBackground'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
 import ResizeGuides from '../segments/ResizeGuides'
-import ResizeHandles from '../segments/ResizeHandles'
+import ResizeHandleContainer from '../segments/ResizeHandleContainer'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
@@ -325,7 +325,7 @@ class StreetView extends React.Component {
                 draggingType={this.props.draggingType}
               />
               <ResizeGuides />
-              <ResizeHandles />
+              <ResizeHandleContainer />
               <EmptySegmentContainer />
               <StreetViewDirt buildingWidth={this.state.buildingWidth} />
             </section>

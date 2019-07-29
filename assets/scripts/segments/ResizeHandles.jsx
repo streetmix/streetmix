@@ -76,15 +76,15 @@ export class ResizeHandles extends React.Component {
 
   handleStart = (event) => {
     console.log('hey')
+    this.setState({
+      isDragging: true
+    })
     handleSegmentResizeStart(event)
   }
 
   handleDrag = (event) => {
     console.log('hey2')
     handleSegmentResizeMove(event)
-    this.setState({
-      isDragging: true
-    })
   }
 
   handleStop = (event) => {
@@ -137,7 +137,7 @@ export class ResizeHandles extends React.Component {
                 style={{ display: (item.isHidden) ? 'none' : null, left: item.pos }}
               >
                 {/* Inner container contains transition styles from Transition */}
-                <div style={props}>
+                <div style={props} className={(this.state.isDragging) ? 'resize-handle-active' : ''}>
                   <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
                 </div>
               </div>

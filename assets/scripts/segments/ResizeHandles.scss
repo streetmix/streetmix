@@ -46,7 +46,7 @@ body.segment-resize-dragging * {
   transform-origin: 0 50%;
 }
 
-.resize-handle.react-draggable-dragging {
+.resize-handle > .resize-handle-active {
   background-color: darken($ui-colour, 30%);
   color: white;
 
