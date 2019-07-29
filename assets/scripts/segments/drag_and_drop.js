@@ -84,7 +84,13 @@ export function initDragTypeSubscriber () {
   return observeStore(select, onChange)
 }
 
-export function handleSegmentResizeStart (event) {
+/**
+ *
+ * @param {Event} event - the original event object
+ * @param {string} direction - either 'left' or 'right'
+ * @param {number} segment - which segment is being resized
+ */
+export function handleSegmentResizeStart (event, direction, segment) {
   let x, y
   if (app.readOnly) {
     return
@@ -100,13 +106,13 @@ export function handleSegmentResizeStart (event) {
 
   setIgnoreStreetChanges(true)
 
-  const el = event.target.closest('.drag-handle')
+  const el = event.target.closest('.drag-handle, .resize-handle')
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
 
   const pos = getElAbsolutePos(el)
 
-  draggingResize.right = el.classList.contains('drag-handle-right')
+  draggingResize.right = (direction === 'right') || el.classList.contains('drag-handle-right')
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
@@ -115,7 +121,7 @@ export function handleSegmentResizeStart (event) {
   draggingResize.elY = pos[1]
 
   draggingResize.originalX = draggingResize.elX
-  draggingResize.originalWidth = store.getState().street.segments[el.parentNode.dataNo].width
+  draggingResize.originalWidth = store.getState().street.segments[segment || el.parentNode.dataNo].width
   draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')
@@ -130,7 +136,7 @@ export function handleSegmentResizeStart (event) {
   }, 0)
 }
 
-export function handleSegmentResizeMove (event) {
+export function handleSegmentResizeMove (event, direction, segment) {
   let x, y, resizeType
   if (event.touches && event.touches[0]) {
     x = event.touches[0].pageX
@@ -158,7 +164,7 @@ export function handleSegmentResizeMove (event) {
     resizeType = RESIZE_TYPE_DRAGGING
   }
 
-  draggingResize.width = resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width)
+  draggingResize.width = resizeSegment(segment || draggingResize.segmentEl.dataNo, resizeType, draggingResize.width)
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y

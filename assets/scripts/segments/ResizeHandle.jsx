@@ -1,17 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Transition } from 'react-spring/renderprops'
 import Draggable from 'react-draggable'
+import { Transition } from 'react-spring/renderprops'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
 import { handleSegmentResizeStart, handleSegmentResizeMove } from './drag_and_drop'
+import './ResizeHandle.scss'
 
+// Controls the animation of react-spring
 const SPRING_CONFIG = {
   tension: 130,
   friction: 10,
   clamp: true
 }
 
+// Direction-specific variables
 const DIRECTION = {
   'left': {
     TRANSFORM: 'rotateY(90deg)',
@@ -29,7 +32,8 @@ export class ResizeHandle extends React.Component {
   static propTypes = {
     hide: PropTypes.bool,
     direction: PropTypes.oneOf(['left', 'right']).isRequired,
-    offsetLeft: PropTypes.number.isRequired
+    offsetLeft: PropTypes.number.isRequired,
+    activeSegment: PropTypes.number
   }
 
   static defaultProps = {
@@ -49,12 +53,12 @@ export class ResizeHandle extends React.Component {
     this.setState({
       isDragging: true
     })
-    handleSegmentResizeStart(event)
+    handleSegmentResizeStart(event, this.props.direction, this.props.activeSegment)
   }
 
   handleDrag = (event) => {
     console.log('hey2')
-    handleSegmentResizeMove(event)
+    handleSegmentResizeMove(event, this.props.direction, this.props.activeSegment)
   }
 
   handleStop = (event) => {

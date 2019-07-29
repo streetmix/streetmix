@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ResizeHandle from './ResizeHandle'
 import { getSegmentEl } from './view'
-import './ResizeHandles.scss'
 
 export class ResizeHandles extends React.Component {
   static propTypes = {
@@ -79,11 +78,13 @@ export class ResizeHandles extends React.Component {
           hide={this.state.isHidden}
           direction="left"
           offsetLeft={pos.left}
+          activeSegment={this.props.activeSegment}
         />
         <ResizeHandle
           hide={this.state.isHidden}
           direction="right"
           offsetLeft={pos.right}
+          activeSegment={this.props.activeSegment}
         />
       </>
     )
