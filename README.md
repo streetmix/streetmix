@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://streetmix.net/">
-    <img width="450" alt="Streetmix" src="https://user-images.githubusercontent.com/2553268/62241806-e1294780-b3a7-11e9-8bad-4773a250ed2c.png">
+    <img width="450" alt="Streetmix" src="https://user-images.githubusercontent.com/2553268/62242301-dc18c800-b3a8-11e9-9960-6f6cbac50234.png">
   </a>
 </p>
 
