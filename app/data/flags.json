@@ -4,7 +4,7 @@
     "defaultValue": true
   },
   "ANALYTICS": {
-    "label": "Street Analytics",
+    "label": "UI — Street analytics",
     "defaultValue": false
   },
   "EDIT_STREET_WIDTH": {
