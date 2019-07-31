@@ -15,6 +15,7 @@ import {
   faTrashAlt,
   faTools,
   faCrown,
+  faMale,
   faPencilAlt,
   faLock
 } from '@fortawesome/free-solid-svg-icons'
@@ -58,6 +59,7 @@ export const ICON_ARROW_LEFT = faArrowLeft
 export const ICON_CHEVRON_RIGHT = faChevronRight
 export const ICON_CHEVRON_LEFT = faChevronLeft
 export const ICON_CROWN = faCrown
+export const ICON_PERSON = faMale
 export const ICON_PENCIL = faPencilAlt
 export const ICON_LOCK = faLock
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 // Import all dialogs here
 import AboutDialog from './AboutDialog'
+import AnalyticsDialog from './AnalyticsDialog'
 import DonateDialog from './DonateDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
 import GeotagDialog from './GeotagDialog'
@@ -18,6 +19,9 @@ import ErrorDialog from './ErrorDialog'
 const DIALOG_COMPONENTS = {
   ABOUT: {
     id: AboutDialog
+  },
+  ANALYTICS: {
+    id: AnalyticsDialog
   },
   DONATE: {
     id: DonateDialog

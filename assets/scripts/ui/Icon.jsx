@@ -5,7 +5,8 @@ import {
   ICON_TWITTER,
   ICON_FACEBOOK,
   ICON_GITHUB,
-  ICON_DISCORD
+  ICON_DISCORD,
+  ICON_PERSON
 } from './icons'
 
 import forumsIcon from './icons/forums.svg'
@@ -27,6 +28,8 @@ export default class Icon extends React.Component {
         return <FontAwesomeIcon className="menu-item-icon" icon={ICON_GITHUB} />
       case 'discord':
         return <FontAwesomeIcon className="menu-item-icon" icon={ICON_DISCORD} />
+      case 'person':
+        return <FontAwesomeIcon icon={ICON_PERSON} className="icon-person" size="md" />
       case 'slack':
         return <img className="menu-item-icon" src={slackIcon} alt="" />
       case 'forums':

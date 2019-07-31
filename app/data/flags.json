@@ -3,6 +3,10 @@
     "label": "UI — Geotagging",
     "defaultValue": true
   },
+  "ANALYTICS": {
+    "label": "Street Analytics",
+    "defaultValue": false
+  },
   "EDIT_STREET_WIDTH": {
     "label": "UI — Edit street width",
     "defaultValue": true

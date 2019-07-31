@@ -169,6 +169,37 @@ export function applySegmentInfoOverridesAndRules (details, segmentRules) {
  * @param {Object} components - all segment components that make up the segment `type` and `variant`
  * @returns {Object} sprites - all sprite definitions necessary to draw the segment
  */
+
+const gatherAnalytics = (componentArray, mapSection) => {
+  // so what do we have?
+  if (!componentArray) return []
+
+  // if (componentArray.length > 0) {
+  //   console.log({ withAnalytics, componentArray })
+  // }
+  return {}
+}
+
+// serves up complete analytics data the a set of component variants that make up a segment
+export function getSegmentAnalytics ({ objects, lanes, vehicles, markings }) {
+  // 1) Loop through each component group that makes up the segment.
+  let analytics = {}
+  analytics.vehicles = gatherAnalytics(vehicles, 'vehicles')
+  analytics.objects = gatherAnalytics(objects, 'objects')
+  analytics.lanes = gatherAnalytics(lanes, 'lanes')
+  analytics.markings = gatherAnalytics(markings, 'markings')
+
+  return analytics
+}
+
+/**
+ * Based on the list of `lanes`, `markings`, `objects`, and/or `vehicles` components that makes up
+ * the segment `type` and `variant`, this function creates a graphics object with all the sprite
+ * definitions needed to draw the segment.
+ *
+ * @param {Object} components - all segment components that make up the segment `type` and `variant`
+ * @returns {Object} sprites - all sprite definitions necessary to draw the segment
+ */
 export function getSegmentSprites (components) {
   // 1) Loop through each component group that makes up the segment.
   const sprites = Object.entries(components).reduce((graphicsArray, componentGroup) => {
