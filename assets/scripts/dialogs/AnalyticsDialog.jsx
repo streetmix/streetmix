@@ -70,7 +70,7 @@ function AnalyticsDialog (props) {
                 Your street has an estimated average traffic of <b>{FormatNumber(props.locale, averageTotal)}</b> passengers per hour, and potential for up to <b>{FormatNumber(props.locale, potentialTotal)}</b> passengers per hour.
               </div>
               <h2>Capacity By Segment</h2>
-              {segmentData.map(item => <SegmentAnalytics {...item} />)}
+              {segmentData.map(item => (item.capacity.average > 0) && <SegmentAnalytics {...item} />)}
             </div>
           </div>
           <button className="dialog-primary-action" onClick={closeDialog}>
