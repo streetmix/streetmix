@@ -55,7 +55,6 @@ class Menu extends React.PureComponent {
 
     if (!position) return
 
-    const LEFT_RIGHT_INSET = 30 // match $left-right-inset in CSS
     const el = this.el.current
 
     // Determine final position of menu
@@ -64,20 +63,18 @@ class Menu extends React.PureComponent {
 
     // `rtl` content alignment
     if (contentDirection === 'rtl') {
-      const minXPos = LEFT_RIGHT_INSET
-
       // If the menu width exceeds the left-most edge, or the `alignOpposite`
       // prop is true, the menu is aligned to the left-most edge
-      if ((position.right - el.offsetWidth < minXPos) || (alignOpposite === true)) {
-        xPos = minXPos
+      if ((position.right - el.offsetWidth < 0) || (alignOpposite === true)) {
+        xPos = 0
       } else {
         // Otherwise, align menu with the right edge of the menu item
         xPos = position.right - el.offsetWidth
       }
     } else {
       // `ltr` content alignment (default)
-      // Calculate maximum (right-most) edge
-      const maxXPos = document.documentElement.clientWidth - LEFT_RIGHT_INSET
+      // Get maximum (right-most) edge of menu bar
+      const maxXPos = el.parentNode.offsetWidth
 
       // If the menu width exceeds the right-most edge, or the `alignOpposite`
       // prop is true, the menu is aligned to the right-most edge
@@ -89,8 +86,12 @@ class Menu extends React.PureComponent {
       }
     }
 
+    // Top of menu aligns with bottom of menu item
+    const yPos = position.bottom
+
     // Set element position and make it visible
     el.style.left = xPos + 'px'
+    el.style.top = yPos + 'px'
     el.classList.add('menu-visible')
 
     // Callback function, if provided

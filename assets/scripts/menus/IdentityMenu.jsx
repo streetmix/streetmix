@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import { showGallery } from '../gallery/view'
 import { onSignOutClick } from '../users/authentication'
+import './IdentityMenu.scss'
 
 export class IdentityMenu extends React.PureComponent {
   static propTypes = {
@@ -23,7 +24,7 @@ export class IdentityMenu extends React.PureComponent {
     const myStreetsLink = userId ? `/${userId}` : ''
 
     return (
-      <Menu {...this.props}>
+      <Menu {...this.props} className="identity-menu">
         {!this.props.noInternet &&
           <a href={myStreetsLink} onClick={this.onClickMyStreets}>
             <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />

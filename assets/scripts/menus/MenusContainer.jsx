@@ -10,6 +10,7 @@ import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/actions/menus'
+import './MenusContainer.scss'
 
 class MenusContainer extends React.PureComponent {
   static propTypes = {
@@ -118,7 +119,7 @@ class MenusContainer extends React.PureComponent {
     const { activeMenuPos } = this.state
 
     return (
-      <React.Fragment>
+      <div className="menus-container">
         <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
         <HelpMenu isActive={activeMenu === 'help'} position={activeMenuPos} />
         <ContactMenu isActive={activeMenu === 'contact'} position={activeMenuPos} />
@@ -126,7 +127,7 @@ class MenusContainer extends React.PureComponent {
         <SettingsMenu isActive={activeMenu === 'settings'} position={activeMenuPos} />
         <ShareMenu isActive={activeMenu === 'share'} position={activeMenuPos} />
         <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} alignOpposite />
-      </React.Fragment>
+      </div>
     )
   }
 }

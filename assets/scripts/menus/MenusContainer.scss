@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.menus-container {
+  position: absolute;
+  left: $left-right-inset - 20px; // 30px
+  right: $left-right-inset - 20px; // 30px
+  top: 0;
+  bottom: 0;
+}
