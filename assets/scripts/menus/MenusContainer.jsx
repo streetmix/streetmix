@@ -119,15 +119,18 @@ class MenusContainer extends React.PureComponent {
     const { activeMenuItemNode } = this.state
 
     return (
-      <div className="menus-container">
+      <>
         <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
-        <HelpMenu isActive={activeMenu === 'help'} menuItemNode={activeMenuItemNode} />
-        <ContactMenu isActive={activeMenu === 'contact'} menuItemNode={activeMenuItemNode} />
-        <ContributeMenu isActive={activeMenu === 'contribute'} menuItemNode={activeMenuItemNode} />
-        <SettingsMenu isActive={activeMenu === 'settings'} menuItemNode={activeMenuItemNode} />
-        <ShareMenu isActive={activeMenu === 'share'} menuItemNode={activeMenuItemNode} />
-        <IdentityMenu isActive={activeMenu === 'identity'} menuItemNode={activeMenuItemNode} alignOpposite />
-      </div>
+        {/* Menus exist on a different z-index layer from the menu bar */}
+        <div className="menus-container">
+          <HelpMenu isActive={activeMenu === 'help'} menuItemNode={activeMenuItemNode} />
+          <ContactMenu isActive={activeMenu === 'contact'} menuItemNode={activeMenuItemNode} />
+          <ContributeMenu isActive={activeMenu === 'contribute'} menuItemNode={activeMenuItemNode} />
+          <SettingsMenu isActive={activeMenu === 'settings'} menuItemNode={activeMenuItemNode} />
+          <ShareMenu isActive={activeMenu === 'share'} menuItemNode={activeMenuItemNode} />
+          <IdentityMenu isActive={activeMenu === 'identity'} menuItemNode={activeMenuItemNode} alignOpposite />
+        </div>
+      </>
     )
   }
 }
