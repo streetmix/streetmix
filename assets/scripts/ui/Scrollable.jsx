@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animate } from '../util/helpers'
 import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
@@ -14,12 +15,14 @@ export default class Scrollable extends React.PureComponent {
     className: PropTypes.string,
     children: PropTypes.node,
     setRef: PropTypes.func,
-    onScroll: PropTypes.func
+    onScroll: PropTypes.func,
+    allowKeyboardScroll: PropTypes.bool
   }
 
   static defaultProps = {
     setRef: () => {},
-    onScroll: () => {}
+    onScroll: () => {},
+    allowKeyboardScroll: false
   }
 
   constructor (props) {
@@ -33,6 +36,11 @@ export default class Scrollable extends React.PureComponent {
   componentDidMount () {
     window.addEventListener('resize', this.checkButtonVisibilityState)
 
+    if (this.props.allowKeyboardScroll === true) {
+      registerKeypress('left', this.onClickLeft)
+      registerKeypress('right', this.onClickRight)
+    }
+
     // TODO: can this be placed in stylesheets?
     this.leftButtonEl.current.style.left = '-15px'
     this.rightButtonEl.current.style.right = '-15px'
@@ -42,6 +50,11 @@ export default class Scrollable extends React.PureComponent {
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.checkButtonVisibilityState)
+
+    if (this.props.allowKeyboardScroll === true) {
+      deregisterKeypress('left', this.onClickLeft)
+      deregisterKeypress('right', this.onClickRight)
+    }
   }
 
   onClickLeft = (event) => {

@@ -123,7 +123,9 @@ class Gallery extends React.Component {
         break
       case 'LOADING':
         childElements = (
-          <div className="gallery-loading"><FormattedMessage id="msg.loading" defaultMessage="Loading…" /></div>
+          <div className="gallery-loading">
+            <FormattedMessage id="msg.loading" defaultMessage="Loading…" />
+          </div>
         )
         break
       case 'ERROR':
@@ -208,7 +210,7 @@ class Gallery extends React.Component {
             {streetCount}
             <div className={galleryClassName}>
               {buttons}
-              <Scrollable className="streets">
+              <Scrollable className="streets" allowKeyboardScroll>
                 {items}
               </Scrollable>
             </div>
@@ -236,12 +238,10 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setGalleryMode: (mode) => { dispatch(setGalleryMode(mode)) },
-    deleteGalleryStreet: (streetId) => { dispatch(deleteGalleryStreet(streetId)) },
-    showDialog: (type) => { dispatch(showDialog(type)) }
-  }
+const mapDispatchToProps = {
+  setGalleryMode,
+  deleteGalleryStreet,
+  showDialog
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gallery)
