@@ -17,14 +17,13 @@ import './AnalyticsDialog.scss'
 const NO_CAPACITY = { average: 0, potential: 0 }
 
 const CAPACITIES = {
-  sidewalk: { average: 15000, potential: 15000 },
-  'bus-lane': { average: 5000, potential: 5000 },
+  'sidewalk': { average: 19000, potential: 19000 },
   'drive-lane': { average: 1500, potential: 2000 },
-  'turn-lane': { average: 1500, potential: 2000 },
-  'bike-lane': { average: 12000, potential: 12000 },
-  'scooter': { average: 12000, potential: 12000 },
+  'bike-lane': { average: 14000, potential: 14000 },
+  'scooter': { average: 14000, potential: 14000 },
+  'light-rail': { average: 18000, potential: 20000 },
   'streetcar': { average: 18000, potential: 20000 },
-  'light-rail': { average: 18000, potential: 20000 }
+  'bus-lane': { average: 5000, potential: 8000 }
 }
 
 const getCapacity = (type) => {
@@ -71,7 +70,7 @@ function AnalyticsDialog (props) {
                 Your street has an estimated average traffic of <b>{FormatNumber(props.locale, averageTotal)}</b> passengers per hour, and potential for up to <b>{FormatNumber(props.locale, potentialTotal)}</b> passengers per hour.
               </div>
               <h2>Capacity By Segment</h2>
-              {segmentData.map(item => <SegmentAnalytics {...item} />)}
+              {segmentData.map(item => (item.capacity.average > 0) && <SegmentAnalytics {...item} />)}
             </div>
           </div>
           <button className="dialog-primary-action" onClick={closeDialog}>
