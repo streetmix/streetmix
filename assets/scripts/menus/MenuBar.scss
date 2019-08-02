@@ -17,8 +17,7 @@ $menu-bar-box-shadow: $light-box-shadow;
   position: absolute;
   left: 0;
   right: 0;
-  top: -150px;
-  border-top: 150px solid $menu-bar-background;
+  top: 0;
   border-bottom-left-radius: $menu-bar-border-radius;
   border-bottom-right-radius: $menu-bar-border-radius;
   background: $menu-bar-background;
@@ -27,6 +26,16 @@ $menu-bar-box-shadow: $light-box-shadow;
   font-size: 13px;
   user-select: none;
   touch-action: none;
+
+  // Extra space above the menu bar which pans down when the gallery is open
+  &::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    width: 100%;
+    height: 150px;
+    background-color: $menu-bar-background;
+  }
 
   body.read-only & {
     display: none;
