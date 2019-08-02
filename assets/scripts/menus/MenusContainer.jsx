@@ -123,9 +123,9 @@ class MenusContainer extends React.PureComponent {
         <HelpMenu isActive={activeMenu === 'help'} position={activeMenuPos} />
         <ContactMenu isActive={activeMenu === 'contact'} position={activeMenuPos} />
         <ContributeMenu isActive={activeMenu === 'contribute'} position={activeMenuPos} />
-        <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} />
         <SettingsMenu isActive={activeMenu === 'settings'} position={activeMenuPos} />
         <ShareMenu isActive={activeMenu === 'share'} position={activeMenuPos} />
+        <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} alignOpposite />
       </React.Fragment>
     )
   }
