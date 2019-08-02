@@ -8,14 +8,7 @@ class Menu extends React.PureComponent {
     contentDirection: PropTypes.oneOf(['rtl', 'ltr']),
     className: PropTypes.string,
     isActive: PropTypes.bool.isRequired,
-    position: PropTypes.shape({
-      left: PropTypes.number,
-      right: PropTypes.number,
-      top: PropTypes.number,
-      bottom: PropTypes.number,
-      x: PropTypes.number,
-      y: PropTypes.number
-    }),
+    menuItemNode: PropTypes.element,
     alignOpposite: PropTypes.bool,
     onShow: PropTypes.func,
     onHide: PropTypes.func,
@@ -35,6 +28,14 @@ class Menu extends React.PureComponent {
     this.el = React.createRef()
   }
 
+  componentDidMount () {
+    window.addEventListener('resize', this.updateMenuPosition)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.updateMenuPosition)
+  }
+
   /**
    * Show or hide the menu, and run callback functions, depending on whether
    * the next active state is different from the previous one.
@@ -50,26 +51,31 @@ class Menu extends React.PureComponent {
     }
   }
 
-  show () {
-    const { contentDirection, alignOpposite, position } = this.props
-
-    if (!position) return
-
+  /**
+   * Determines actual position of the menu, based on the menu item position prop
+   * passed in by <MenuBar />
+   *
+   * @returns {Object} an object with {left, top} values used for absolute positioning
+   */
+  getMenuPosition = () => {
     const el = this.el.current
+    const { contentDirection, alignOpposite, menuItemNode } = this.props
 
-    // Determine final position of menu
-    // Menu position is calculated from the menu item position prop passed in by <MenuBar />.
-    let xPos
+    if (!el || !menuItemNode) return
+
+    // Calculate left position
+    let left
 
     // `rtl` content alignment
     if (contentDirection === 'rtl') {
       // If the menu width exceeds the left-most edge, or the `alignOpposite`
       // prop is true, the menu is aligned to the left-most edge
-      if ((position.right - el.offsetWidth < 0) || (alignOpposite === true)) {
-        xPos = 0
+      const right = menuItemNode.offsetLeft + menuItemNode.offsetWidth
+      if ((right - el.offsetWidth < 0) || (alignOpposite === true)) {
+        left = 0
       } else {
         // Otherwise, align menu with the right edge of the menu item
-        xPos = position.right - el.offsetWidth
+        left = right - el.offsetWidth
       }
     } else {
       // `ltr` content alignment (default)
@@ -78,20 +84,41 @@ class Menu extends React.PureComponent {
 
       // If the menu width exceeds the right-most edge, or the `alignOpposite`
       // prop is true, the menu is aligned to the right-most edge
-      if ((position.left + el.offsetWidth > maxXPos) || (alignOpposite === true)) {
-        xPos = maxXPos - el.offsetWidth
+      if ((menuItemNode.offsetLeft + el.offsetWidth > maxXPos) || (alignOpposite === true)) {
+        left = maxXPos - el.offsetWidth
       } else {
         // Otherwise, align menu with the left edge of the menu item
-        xPos = position.left
+        left = menuItemNode.offsetLeft
       }
     }
 
+    // Get top position
     // Top of menu aligns with bottom of menu item
-    const yPos = position.bottom
+    const top = menuItemNode.offsetTop + menuItemNode.offsetHeight
+
+    return {
+      left,
+      top
+    }
+  }
+
+  updateMenuPosition = () => {
+    const el = this.el.current
+    const pos = this.getMenuPosition()
 
     // Set element position and make it visible
-    el.style.left = xPos + 'px'
-    el.style.top = yPos + 'px'
+    if (el && pos) {
+      el.style.left = pos.left + 'px'
+      el.style.top = pos.top + 'px'
+    }
+  }
+
+  show () {
+    const el = this.el.current
+
+    if (!el) return
+
+    this.updateMenuPosition()
     el.classList.add('menu-visible')
 
     // Callback function, if provided

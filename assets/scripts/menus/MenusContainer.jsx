@@ -27,7 +27,7 @@ class MenusContainer extends React.PureComponent {
     super(props)
 
     this.state = {
-      activeMenuPos: null
+      activeMenuItemNode: null
     }
   }
 
@@ -36,9 +36,9 @@ class MenusContainer extends React.PureComponent {
     // can be cleared from anywhere, so this handles changes in active menu state.
     // Clear active menu state only if props have changed from an active menu
     // state to a no-menu state, this prevents side effects from running needlessly.
-    if (prevState.activeMenuPos && !nextProps.activeMenu) {
+    if (prevState.activeMenuItemNode && !nextProps.activeMenu) {
       return {
-        activeMenuPos: null
+        activeMenuItemNode: null
       }
     }
 
@@ -76,17 +76,17 @@ class MenusContainer extends React.PureComponent {
   /**
    * Callback function passed to the MenuBar component.
    * Clicked buttons that have a menu component will report back to this component
-   * what was clicked and where it should be placed, which is then passed to
+   * what was clicked and a reference to that element, which is then passed to
    * individual menus.
    *
    * @param {string} menu - name of the menu that was clicked
-   * @param {Object} position - value of getBoundingClientRect for menu button
+   * @param {HTMLElement} node - reference to the menu item button, used to position menu
    */
-  onMenuDropdownClick = (menu, position) => {
+  onMenuDropdownClick = (menu, node) => {
     // If the clicked menu is already active, it's toggled off.
     const activeMenu = (this.props.activeMenu === menu) ? null : menu
     this.setState({
-      activeMenuPos: activeMenu ? position : null
+      activeMenuItemNode: activeMenu ? node : null
     })
     this.props.showMenu(activeMenu)
   }
@@ -116,17 +116,17 @@ class MenusContainer extends React.PureComponent {
 
   render () {
     const { activeMenu } = this.props
-    const { activeMenuPos } = this.state
+    const { activeMenuItemNode } = this.state
 
     return (
       <div className="menus-container">
         <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
-        <HelpMenu isActive={activeMenu === 'help'} position={activeMenuPos} />
-        <ContactMenu isActive={activeMenu === 'contact'} position={activeMenuPos} />
-        <ContributeMenu isActive={activeMenu === 'contribute'} position={activeMenuPos} />
-        <SettingsMenu isActive={activeMenu === 'settings'} position={activeMenuPos} />
-        <ShareMenu isActive={activeMenu === 'share'} position={activeMenuPos} />
-        <IdentityMenu isActive={activeMenu === 'identity'} position={activeMenuPos} alignOpposite />
+        <HelpMenu isActive={activeMenu === 'help'} menuItemNode={activeMenuItemNode} />
+        <ContactMenu isActive={activeMenu === 'contact'} menuItemNode={activeMenuItemNode} />
+        <ContributeMenu isActive={activeMenu === 'contribute'} menuItemNode={activeMenuItemNode} />
+        <SettingsMenu isActive={activeMenu === 'settings'} menuItemNode={activeMenuItemNode} />
+        <ShareMenu isActive={activeMenu === 'share'} menuItemNode={activeMenuItemNode} />
+        <IdentityMenu isActive={activeMenu === 'identity'} menuItemNode={activeMenuItemNode} alignOpposite />
       </div>
     )
   }

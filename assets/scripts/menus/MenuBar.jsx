@@ -50,15 +50,7 @@ class MenuBar extends React.Component {
   handleClickMenuButton = (menu) => {
     return (event) => {
       const el = event.target.closest('button')
-      const position = {
-        left: el.offsetLeft,
-        top: el.offsetTop,
-        right: el.offsetLeft + el.offsetWidth,
-        bottom: el.offsetTop + el.offsetHeight,
-        width: el.offsetWidth,
-        height: el.offsetHeight
-      }
-      this.props.onMenuDropdownClick(menu, position)
+      this.props.onMenuDropdownClick(menu, el)
     }
   }
 
