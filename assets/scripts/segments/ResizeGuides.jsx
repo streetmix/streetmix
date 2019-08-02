@@ -43,11 +43,11 @@ export class ResizeGuides extends React.Component {
 
   renderMinGuides = (width) => {
     return (
-      <div className="segment-guide segment-guide-min" style={this.getStyle(width)}>
-        <div className="segment-guide-min-before">
+      <div className="resize-guide resize-guide-min" style={this.getStyle(width)}>
+        <div className="resize-guide-min-before">
           « <FormattedMessage id="segments.resize.min" defaultMessage="Min" />
         </div>
-        <div className="segment-guide-min-after">
+        <div className="resize-guide-min-after">
           <FormattedMessage id="segments.resize.min" defaultMessage="Min" /> »
         </div>
       </div>
@@ -56,11 +56,11 @@ export class ResizeGuides extends React.Component {
 
   renderMaxGuides = (width) => {
     return (
-      <div className="segment-guide segment-guide-max" style={this.getStyle(width)}>
-        <div className="segment-guide-max-before">
+      <div className="resize-guide resize-guide-max" style={this.getStyle(width)}>
+        <div className="resize-guide-max-before">
           <FormattedMessage id="segments.resize.max" defaultMessage="Max" /> »
         </div>
-        <div className="segment-guide-max-after">
+        <div className="resize-guide-max-after">
           « <FormattedMessage id="segments.resize.max" defaultMessage="Max" />
         </div>
       </div>
@@ -101,7 +101,7 @@ export class ResizeGuides extends React.Component {
     const centerline = el.offsetLeft + (el.cssTransformLeft || 0) + (el.offsetWidth / 2) - 1
 
     return (
-      <div className="segment-guides" style={{ left: centerline }}>
+      <div className="resize-guides" style={{ left: centerline }}>
         {minGuide}
         {maxGuide}
       </div>

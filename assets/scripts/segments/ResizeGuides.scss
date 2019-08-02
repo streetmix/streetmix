@@ -1,15 +1,15 @@
 @import '../../styles/variables.scss';
 
-.segment-guides {
+.resize-guides {
   position: absolute;
-  z-index: $z-07-segment-guide;
+  z-index: $z-07-resize-guide;
   top: -75px;
   bottom: 120px;
   left: 50%; /* Will be overridden by component */
   pointer-events: none;
 }
 
-.segment-guide {
+.resize-guide {
   position: absolute;
   height: 100%;
   border-left: 1px dashed fade-out(black, 0.6);
@@ -22,10 +22,10 @@
   }
 }
 
-.segment-guide-max-before,
-.segment-guide-max-after,
-.segment-guide-min-before,
-.segment-guide-min-after {
+.resize-guide-max-before,
+.resize-guide-max-after,
+.resize-guide-min-before,
+.resize-guide-min-after {
   width: 50px;
   position: absolute;
   bottom: 400px;
@@ -38,22 +38,22 @@
   }
 }
 
-.segment-guide-max-before {
+.resize-guide-max-before {
   left: -55px;
   text-align: right;
 }
 
-.segment-guide-max-after {
+.resize-guide-max-after {
   right: -55px;
   text-align: left;
 }
 
-.segment-guide-min-before {
+.resize-guide-min-before {
   left: 5px;
   text-align: left;
 }
 
-.segment-guide-min-after {
+.resize-guide-min-after {
   right: 5px;
   text-align: right;
 }

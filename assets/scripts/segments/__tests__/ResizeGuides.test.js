@@ -28,7 +28,7 @@ describe('ResizeGuides', () => {
 
   it('renders while segment is resizing', () => {
     const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{}} />)
-    expect(wrapper.html()).toEqual('<div class="segment-guides" style="left: 74px;"></div>')
+    expect(wrapper.html()).toEqual('<div class="resize-guides" style="left: 74px;"></div>')
   })
 
   it('renders min guide', () => {
@@ -37,9 +37,9 @@ describe('ResizeGuides', () => {
     }))
 
     const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{}} />)
-    expect(wrapper.find('.segment-guide-min').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-min-before').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-min-after').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-min').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-min-before').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-min-after').length).toEqual(1)
   })
 
   it('renders max guide when remaining width is large', () => {
@@ -51,11 +51,11 @@ describe('ResizeGuides', () => {
 
     // But width should be based on `maxWidth`, not `remainingWidth`
     const width = maxWidth * TILE_SIZE
-    expect(wrapper.find('.segment-guide-max').first().props().style.width).toEqual(`${width}px`)
+    expect(wrapper.find('.resize-guide-max').first().props().style.width).toEqual(`${width}px`)
 
     // Also test that child elements are rendered
-    expect(wrapper.find('.segment-guide-max-before').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-max-after').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-max-before').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-max-after').length).toEqual(1)
   })
 
   it('renders max guide when remaining width is small', () => {
@@ -70,7 +70,7 @@ describe('ResizeGuides', () => {
 
     // Width should be based on `remainingWidth` + `segmentWidth`, not `maxWidth`
     const width = (remainingWidth + segmentWidth) * TILE_SIZE
-    expect(wrapper.find('.segment-guide-max').first().props().style.width).toEqual(`${width}px`)
+    expect(wrapper.find('.resize-guide-max').first().props().style.width).toEqual(`${width}px`)
   })
 
   it('renders max guide with only remaining width', () => {
@@ -80,7 +80,7 @@ describe('ResizeGuides', () => {
 
     // Width should be based on `remainingWidth` + `segmentWidth`
     const width = (remainingWidth + segmentWidth) * TILE_SIZE
-    expect(wrapper.find('.segment-guide-max').first().props().style.width).toEqual(`${width}px`)
+    expect(wrapper.find('.resize-guide-max').first().props().style.width).toEqual(`${width}px`)
   })
 
   it('renders max and min guides', () => {
@@ -90,11 +90,11 @@ describe('ResizeGuides', () => {
     }))
 
     const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{}} />)
-    expect(wrapper.find('.segment-guide-min').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-min-before').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-min-after').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-max').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-max-before').length).toEqual(1)
-    expect(wrapper.find('.segment-guide-max-after').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-min').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-min-before').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-min-after').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-max').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-max-before').length).toEqual(1)
+    expect(wrapper.find('.resize-guide-max-after').length).toEqual(1)
   })
 })
