@@ -1,3 +1,5 @@
+.. _install-streetmix:
+
 Installing Streetmix
 ====================
 
@@ -379,4 +381,4 @@ You can also do it one time by starting the server like this:
 Troubleshooting
 ---------------
 
-If you run into problems, please reach out to us. :ref:`contact`.
+If you run into problems, please see the :ref:`troubleshooting-development-issues` section.
