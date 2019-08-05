@@ -89,7 +89,7 @@ function getComponentGroupVariants (groupItems, componentGroupInfo) {
         // variantInfo - graphics definition for specific variants defined by group item
         let variantInfo = groupItemVariants[variantName] || SEGMENT_UNKNOWN_VARIANT
 
-        const variantKeys = Array.isArray(variantKey) ? variantKey : [ variantKey ]
+        const variantKeys = Array.isArray(variantKey) ? variantKey : [variantKey]
         variantKeys.forEach((key) => {
           variantInfo = (variantInfo && variantInfo[key]) || SEGMENT_UNKNOWN_VARIANT
         })
@@ -183,7 +183,7 @@ const gatherAnalytics = (componentArray, mapSection) => {
 // serves up complete analytics data the a set of component variants that make up a segment
 export function getSegmentAnalytics ({ objects, lanes, vehicles, markings }) {
   // 1) Loop through each component group that makes up the segment.
-  let analytics = {}
+  const analytics = {}
   analytics.vehicles = gatherAnalytics(vehicles, 'vehicles')
   analytics.objects = gatherAnalytics(objects, 'objects')
   analytics.lanes = gatherAnalytics(lanes, 'lanes')
@@ -203,7 +203,7 @@ export function getSegmentAnalytics ({ objects, lanes, vehicles, markings }) {
 export function getSegmentSprites (components) {
   // 1) Loop through each component group that makes up the segment.
   const sprites = Object.entries(components).reduce((graphicsArray, componentGroup) => {
-    const [ group, groupItems ] = componentGroup
+    const [group, groupItems] = componentGroup
 
     // 2) For each component group, look up the segment information for every item that makes up the component group.
     // componentGroupInfo = [ { characteristics, rules, variants } ]

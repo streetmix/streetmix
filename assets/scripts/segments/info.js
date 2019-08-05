@@ -101,7 +101,6 @@ const SPRITE_DEFS = {
   'lamps--lamp-traditional-left': { id: 'lamps--lamp-traditional-left', offsetX: -36 },
   'lamps--pride-banner-right': { id: 'lamps--pride-banner-right', offsetX: -60, originY: -423 },
   'lamps--pride-banner-left': { id: 'lamps--pride-banner-left', offsetX: -60, originY: -423 },
-
   'missing': { id: 'missing' },
 
   'people--people-01': { id: 'people--people-01', originY: 10 },

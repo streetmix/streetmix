@@ -23,7 +23,7 @@ function Avatar (props) {
     if (!image) {
       fetchData()
     }
-  }, [ image, userId, rememberUserProfile ])
+  }, [image, userId, rememberUserProfile])
 
   return (
     <div className="avatar">

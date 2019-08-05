@@ -41,21 +41,21 @@ describe('getSegmentComponentInfo()', () => {
 
 describe('applySegmentInfoOverridesAndRules()', () => {
   it('returns rules and information for a segment type and variant', () => {
-    const segmentRules = { 'minWidth': 0, 'maxWidth': 2 }
+    const segmentRules = { minWidth: 0, maxWidth: 2 }
     const details = {
-      'name': 'Bar',
-      'nameKey': 'bar',
-      'rules': {
-        'minWidth': 1
+      name: 'Bar',
+      nameKey: 'bar',
+      rules: {
+        minWidth: 1
       }
     }
 
     const variantInfo = applySegmentInfoOverridesAndRules(details, segmentRules)
     expect(variantInfo).toEqual({
-      'name': 'Bar',
-      'nameKey': 'bar',
-      'minWidth': 1,
-      'maxWidth': 2
+      name: 'Bar',
+      nameKey: 'bar',
+      minWidth: 1,
+      maxWidth: 2
     })
   })
 })

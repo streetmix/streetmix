@@ -3,9 +3,9 @@ import store, { observeStore } from '../store'
 import { setFlagOverrides } from '../store/actions/flags'
 
 export const PRIORITY_LEVELS = {
-  'initial': 0,
-  'user': 1,
-  'session': 2
+  initial: 0,
+  user: 1,
+  session: 2
 }
 
 export function initializeFlagSubscribers () {

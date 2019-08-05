@@ -84,7 +84,7 @@ export function remixStreet () {
       method: 'POST',
       body: transmission,
       headers: {
-        'Authorization': getAuthHeader(),
+        Authorization: getAuthHeader(),
         'Content-Type': 'application/json'
       }
     }, receiveRemixedStreet

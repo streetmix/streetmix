@@ -155,7 +155,7 @@ export class Variants extends React.Component {
         let first = true
 
         // Each segment has some allowed variant sets (e.g. "direction")
-        for (let variant in this.state.variantSets) {
+        for (const variant in this.state.variantSets) {
           const set = this.state.variantSets[variant]
 
           // New row for each variant set
@@ -171,7 +171,7 @@ export class Variants extends React.Component {
           // each of the selections are and data for building an icon.
           // Different segments may refer to the same variant set
           // ("direction" is a good example of this)
-          for (let selection in VARIANT_ICONS[set]) {
+          for (const selection in VARIANT_ICONS[set]) {
             const el = this.renderButton(set, selection)
 
             variantEls.push(el)

@@ -2,7 +2,7 @@ const config = require('config')
 const stripe = require('stripe')(config.stripe.api_secret)
 
 exports.post = (req, res) => {
-  let amount = 1000
+  const amount = 1000
 
   stripe.customers.create({
     email: req.body.stripeEmail,

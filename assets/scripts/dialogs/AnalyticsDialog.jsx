@@ -17,12 +17,12 @@ import './AnalyticsDialog.scss'
 const NO_CAPACITY = { average: 0, potential: 0 }
 
 const CAPACITIES = {
-  'sidewalk': { average: 19000, potential: 19000 },
+  sidewalk: { average: 19000, potential: 19000 },
   'drive-lane': { average: 1500, potential: 2000 },
   'bike-lane': { average: 14000, potential: 14000 },
-  'scooter': { average: 14000, potential: 14000 },
+  scooter: { average: 14000, potential: 14000 },
   'light-rail': { average: 18000, potential: 20000 },
-  'streetcar': { average: 18000, potential: 20000 },
+  streetcar: { average: 18000, potential: 20000 },
   'bus-lane': { average: 5000, potential: 8000 }
 }
 

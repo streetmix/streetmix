@@ -74,7 +74,7 @@ export class SkyBackground extends React.PureComponent {
       opacity: environs.cloudOpacity || null
     }
 
-    let foregroundStyle = {}
+    const foregroundStyle = {}
     if (environs.foregroundGradient) {
       foregroundStyle.backgroundImage = makeCSSGradientDeclaration(environs.foregroundGradient)
       foregroundStyle.opacity = 1

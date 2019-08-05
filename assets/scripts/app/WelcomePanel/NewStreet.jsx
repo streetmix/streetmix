@@ -35,7 +35,7 @@ function NewStreet (props) {
       break
   }
 
-  const [ state, setState ] = useState({ selectedNewStreetType })
+  const [state, setState] = useState({ selectedNewStreetType })
 
   // Handles changing the "checked" state of the input buttons.
   function onChangeNewStreetType (event) {

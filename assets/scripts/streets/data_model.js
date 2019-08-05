@@ -88,7 +88,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 4:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-lamp') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -98,7 +98,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 5:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'streetcar') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -108,7 +108,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 6:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bus-lane') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -122,7 +122,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 7:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bike-lane') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -132,7 +132,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 8:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'drive-lane') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -142,7 +142,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 9:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -152,7 +152,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 10:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'planting-strip') {
           segment.type = 'divider'
@@ -167,7 +167,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 11:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'divider') {
           if (segment.variantString === 'small-tree') {
@@ -181,7 +181,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 12:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-bike-rack') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -191,7 +191,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 13:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk-wayfinding') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -201,7 +201,7 @@ function incrementSchemaVersion (street) {
       }
       break
     case 14:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk') {
           segment.randSeed = 35
@@ -212,7 +212,7 @@ function incrementSchemaVersion (street) {
       store.dispatch(resetUndoStack())
       break
     case 16:
-      for (let i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bike-lane') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -346,9 +346,9 @@ export function trimStreetData (street, saveSegmentId = true) {
 
 function fillDefaultSegments (units) {
   const segments = []
-  let leftHandTraffic = getLeftHandTraffic()
+  const leftHandTraffic = getLeftHandTraffic()
 
-  for (let i in DEFAULT_SEGMENTS[leftHandTraffic]) {
+  for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
     const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)

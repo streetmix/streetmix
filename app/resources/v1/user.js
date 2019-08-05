@@ -34,7 +34,7 @@ exports.get = async function (req, res) {
 
   const findUserByLoginToken = async function (loginToken) {
     try {
-      requestUser = await User.findOne({ login_tokens: { $in: [ loginToken ] } })
+      requestUser = await User.findOne({ login_tokens: { $in: [loginToken] } })
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.CANNOT_GET_USER)

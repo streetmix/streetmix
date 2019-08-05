@@ -75,7 +75,7 @@ export default class DescriptionPanel extends React.Component {
   retargetAnchors = () => {
     if (!this.text) return
     const links = this.text.querySelectorAll('a')
-    for (let link of links) {
+    for (const link of links) {
       link.target = '_blank'
       link.rel = 'noopener noreferrer'
     }

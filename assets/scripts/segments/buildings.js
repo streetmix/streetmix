@@ -38,14 +38,14 @@ export const GROUND_BASELINE_HEIGHT = 44
  * overhangWidth    (number) in ??, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
  */
 export const BUILDINGS = {
-  'grass': {
+  grass: {
     id: 'grass',
     label: 'Grass',
     spriteId: 'buildings--grass',
     hasFloors: false,
     sameOnBothSides: true
   },
-  'fence': {
+  fence: {
     id: 'fence',
     label: 'Empty lot',
     spriteId: 'buildings--fenced-lot',
@@ -58,7 +58,7 @@ export const BUILDINGS = {
     hasFloors: false,
     repeatHalf: true
   },
-  'waterfront': {
+  waterfront: {
     id: 'waterfront',
     label: 'Waterfront',
     spriteId: 'buildings--waterfront',
@@ -66,7 +66,7 @@ export const BUILDINGS = {
     alignAtBaseline: true,
     repeatHalf: true
   },
-  'residential': {
+  residential: {
     id: 'residential',
     label: 'Home',
     spriteId: 'buildings--residential',
@@ -76,7 +76,7 @@ export const BUILDINGS = {
     roofHeight: 6,
     mainFloorHeight: 24.5
   },
-  'narrow': {
+  narrow: {
     id: 'narrow',
     label: 'Building',
     spriteId: 'buildings--apartments-narrow',
@@ -87,7 +87,7 @@ export const BUILDINGS = {
     mainFloorHeight: 14,
     overhangWidth: 16
   },
-  'wide': {
+  wide: {
     id: 'wide',
     label: 'Building',
     spriteId: 'buildings--apartments-wide',

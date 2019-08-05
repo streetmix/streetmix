@@ -25,18 +25,18 @@ var mapper = function () {
   emit(
     this._id,
     {
-      'creator_id': this.creator_id,
-      'namespaced_id': this.namespaced_id,
-      'undo_stack_length': ((this.data && this.data.undoStack) ? this.data.undoStack.length : 0),
-      'size_in_bytes': Object.bsonsize(this),
-      'updated_at': this.updated_at
+      creator_id: this.creator_id,
+      namespaced_id: this.namespaced_id,
+      undo_stack_length: ((this.data && this.data.undoStack) ? this.data.undoStack.length : 0),
+      size_in_bytes: Object.bsonsize(this),
+      updated_at: this.updated_at
     }
   )
 }
 
 var reducer = function (key, values) { return { _id: key, size: values } }
 
-var results = db.streets.mapReduce(mapper, reducer, { out: { 'inline': 1 } }).results
+var results = db.streets.mapReduce(mapper, reducer, { out: { inline: 1 } }).results
 
 results.forEach(function (result) {
   var creator = '-'

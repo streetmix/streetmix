@@ -21,7 +21,7 @@ export function fetchGalleryStreet (streetId) {
 
   const url = API_URL + 'v1/streets/' + streetId
   const options = {
-    headers: { 'Authorization': getAuthHeader() }
+    headers: { Authorization: getAuthHeader() }
   }
 
   window.fetch(url, options)

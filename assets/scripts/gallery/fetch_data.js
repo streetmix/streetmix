@@ -13,7 +13,7 @@ export function fetchGalleryData () {
   if (galleryUserId) {
     const url = API_URL + 'v1/users/' + galleryUserId + '/streets'
     const options = {
-      headers: { 'Authorization': getAuthHeader() }
+      headers: { Authorization: getAuthHeader() }
     }
 
     window.fetch(url, options)

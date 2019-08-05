@@ -96,7 +96,7 @@ export function createNewStreetOnServer () {
     method: 'POST',
     body: packServerStreetData(),
     headers: {
-      'Authorization': getAuthHeader(),
+      Authorization: getAuthHeader(),
       'Content-Type': 'application/json'
     }
   }
@@ -149,7 +149,7 @@ export function fetchStreetFromServer () {
 }
 
 function errorReceiveStreet (data) {
-  let mode = getMode()
+  const mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.USER_GALLERY) ||
     (mode === MODES.GLOBAL_GALLERY)) {
     goNewStreet()
@@ -184,7 +184,7 @@ export function saveStreetToServer (initial) {
     method: 'PUT',
     body: transmission,
     headers: {
-      'Authorization': getAuthHeader(),
+      Authorization: getAuthHeader(),
       'Content-Type': 'application/json'
     }
   }
@@ -410,7 +410,7 @@ export function fetchLastStreet () {
       // TODO const
       url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,
       method: 'GET',
-      headers: { 'Authorization': getAuthHeader() }
+      headers: { Authorization: getAuthHeader() }
     }, receiveLastStreet, cancelReceiveLastStreet
   )
 }
@@ -466,6 +466,6 @@ export function sendDeleteStreetToServer (id) {
   // TODO const url
   newNonblockingAjaxRequest(API_URL + 'v1/streets/' + id, {
     method: 'DELETE',
-    headers: { 'Authorization': getAuthHeader() }
+    headers: { Authorization: getAuthHeader() }
   }, false)
 }

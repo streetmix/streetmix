@@ -19,7 +19,7 @@ export function makeCSSGradientDeclaration (array) {
 
     // If the value is an array, turn it into a string
     if (Array.isArray(item)) {
-      const [ color, position ] = item
+      const [color, position] = item
 
       // Position is recorded as a value between 0 and 1, but is optional
       let percentage
@@ -165,8 +165,8 @@ export function getEnvirons (id) {
  */
 export function getAllEnvirons () {
   return Object.entries(ENVIRONS)
-    .filter(([ key, value ]) => value.enabled !== false)
-    .map(([ key, value ]) => getEnvirons(key))
+    .filter(([key, value]) => value.enabled !== false)
+    .map(([key, value]) => getEnvirons(key))
 }
 
 /**

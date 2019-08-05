@@ -45,7 +45,7 @@ exports.post = async function (req, res) {
     // }
     loginToken = uuid.v1()
 
-    if (body.hasOwnProperty('twitter')) {
+    if (Object.prototype.hasOwnProperty.call(body, 'twitter')) {
       const credentials = body.twitter
       return {
         id: credentials.screenName,
@@ -54,23 +54,23 @@ exports.post = async function (req, res) {
           access_token_key: credentials.oauthAccessTokenKey,
           access_token_secret: credentials.oauthAccessTokenSecret
         },
-        login_tokens: [ loginToken ]
+        login_tokens: [loginToken]
       }
-    } else if (body.hasOwnProperty('auth0_twitter')) {
+    } else if (Object.prototype.hasOwnProperty.call(body, 'auth0_twitter')) {
       const credentials = body.auth0_twitter
       return {
         id: credentials.screenName,
         auth0_id: credentials.auth0_id,
-        login_tokens: [ loginToken ],
+        login_tokens: [loginToken],
         profile_image_url: credentials.profile_image_url
       }
-    } else if (body.hasOwnProperty('auth0_email')) {
+    } else if (Object.prototype.hasOwnProperty.call(body, 'auth0_email')) {
       const credentials = body.auth0_email
       return {
         id: credentials.nickname,
         auth0_id: credentials.auth0_id,
         email: credentials.email,
-        login_tokens: [ loginToken ],
+        login_tokens: [loginToken],
         profile_image_url: credentials.profile_image_url
       }
     }
@@ -209,7 +209,7 @@ exports.get = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { login_tokens: { [Op.contains]: [ loginToken ] } }
+        where: { login_tokens: { [Op.contains]: [loginToken] } }
       })
     } catch (err) {
       logger.error(err)

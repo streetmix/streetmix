@@ -36,8 +36,8 @@ const downloadError = function (locale, resource, label, error) {
   console.error(chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${error}}`)
 }
 
-for (let r in resources) {
-  for (let l in languages) {
+for (const r in resources) {
+  for (const l in languages) {
     // Skip English
     if (languages[l].value === 'en') {
       continue

@@ -2,7 +2,7 @@
 // Contains identifiers for actions that should only be tracked
 // once per user session, as defined by the boolean value of
 // onlyFirstTime passed to eventTracking.track()
-let alreadyTracked = []
+const alreadyTracked = []
 
 // These constants define what are valid actions, labels and categories for Streetmix.
 // They're stored as strings so that they can be passed around instead of needing to
@@ -12,35 +12,35 @@ let alreadyTracked = []
 // constants to define action types.
 // Strings are not namespaced to keep trackEvent() calls shorter.
 const TRACK_CATEGORY = {
-  'INTERACTION': 'Interaction',
-  'EVENT': 'Event',
-  'ERROR': 'Error',
-  'SYSTEM': 'System',
-  'SHARING': 'Sharing'
+  INTERACTION: 'Interaction',
+  EVENT: 'Event',
+  ERROR: 'Error',
+  SYSTEM: 'System',
+  SHARING: 'Sharing'
 }
 
 const TRACK_ACTION = {
-  'TOUCH_CAPABLE': 'Touch capability detected',
-  'OPEN_GALLERY': 'Open gallery',
-  'UNDO': 'Undo',
-  'CHANGE_WIDTH': 'Change width',
-  'REMOVE_SEGMENT': 'Remove segment',
-  'LEARN_MORE': 'Learn more about segment',
-  'FACEBOOK': 'Facebook',
-  'TWITTER': 'Twitter',
-  'ERROR_15A': 'Error 15A (sign in API failure)',
-  'ERROR_RM1': 'Error RM1 (auth 401 failure on load)',
-  'ERROR_RM2': 'Error RM2 (auth 401 failure mid-flight)',
-  'ERROR_GEOLOCATION_TIMEOUT': 'Geolocation timeout',
-  'STREET_MODIFIED_ELSEWHERE': 'Street modified elsewhere'
+  TOUCH_CAPABLE: 'Touch capability detected',
+  OPEN_GALLERY: 'Open gallery',
+  UNDO: 'Undo',
+  CHANGE_WIDTH: 'Change width',
+  REMOVE_SEGMENT: 'Remove segment',
+  LEARN_MORE: 'Learn more about segment',
+  FACEBOOK: 'Facebook',
+  TWITTER: 'Twitter',
+  ERROR_15A: 'Error 15A (sign in API failure)',
+  ERROR_RM1: 'Error RM1 (auth 401 failure on load)',
+  ERROR_RM2: 'Error RM2 (auth 401 failure mid-flight)',
+  ERROR_GEOLOCATION_TIMEOUT: 'Geolocation timeout',
+  STREET_MODIFIED_ELSEWHERE: 'Street modified elsewhere'
 }
 
 const TRACK_LABEL = {
-  'BUTTON': 'Button',
-  'DRAGGING': 'Dragging',
-  'INPUT_FIELD': 'Input field',
-  'INCREMENT_BUTTON': 'Increment button',
-  'KEYBOARD': 'Keyboard'
+  BUTTON: 'Button',
+  DRAGGING: 'Dragging',
+  INPUT_FIELD: 'Input field',
+  INCREMENT_BUTTON: 'Increment button',
+  KEYBOARD: 'Keyboard'
 }
 
 /**

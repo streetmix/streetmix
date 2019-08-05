@@ -14,7 +14,7 @@ describe('Warnings', () => {
 
   it('renders warning 1', () => {
     const segment = {
-      warnings: [ null, true ]
+      warnings: [null, true]
     }
     const wrapper = shallow(<Warnings segment={segment} />)
     expect(wrapper).toMatchSnapshot()
@@ -22,7 +22,7 @@ describe('Warnings', () => {
 
   it('renders warning 2', () => {
     const segment = {
-      warnings: [ null, false, true, false ]
+      warnings: [null, false, true, false]
     }
     const wrapper = shallow(<Warnings segment={segment} />)
     expect(wrapper).toMatchSnapshot()
@@ -30,7 +30,7 @@ describe('Warnings', () => {
 
   it('renders warning 3', () => {
     const segment = {
-      warnings: [ null, false, false, true ]
+      warnings: [null, false, false, true]
     }
     const wrapper = shallow(<Warnings segment={segment} />)
     expect(wrapper).toMatchSnapshot()
@@ -38,7 +38,7 @@ describe('Warnings', () => {
 
   it('renders two warnings', () => {
     const segment = {
-      warnings: [ null, true, false, true ]
+      warnings: [null, true, false, true]
     }
     const wrapper = shallow(<Warnings segment={segment} />)
     expect(wrapper).toMatchSnapshot()
@@ -46,7 +46,7 @@ describe('Warnings', () => {
 
   it('renders three warnings', () => {
     const segment = {
-      warnings: [ null, true, true, true ]
+      warnings: [null, true, true, true]
     }
     const wrapper = shallow(<Warnings segment={segment} />)
     expect(wrapper).toMatchSnapshot()
@@ -54,7 +54,7 @@ describe('Warnings', () => {
 
   it('renders no warnings', () => {
     const segment = {
-      warnings: [ null, false, false, false ]
+      warnings: [null, false, false, false]
     }
     const wrapper = shallow(<Warnings segment={segment} />)
     expect(wrapper).toMatchSnapshot()

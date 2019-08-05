@@ -33,24 +33,24 @@ function alphabetizeNames (a, b) {
 // because right now we don't have a way to fall back when a label is untranslated.
 // We can remove this once this has been built into our localization infrastructure.
 const UNTRANSLATED_LABELS = {
-  'advisors': 'Advisors',
+  advisors: 'Advisors',
   'additional-illustrations': 'Additional illustrations',
   'additional-code': 'Additional code',
   'additional-contributors': 'Additional contributors',
   'special-thanks': 'Special thanks to',
-  'ar': 'Arabic',
-  'de': 'German',
-  'en': 'English',
-  'es': 'Spanish',
+  ar: 'Arabic',
+  de: 'German',
+  en: 'English',
+  es: 'Spanish',
   'es-mx': 'Spanish (Mexico)',
-  'fi': 'Finnish',
-  'fr': 'French',
-  'ja': 'Japanese',
-  'pl': 'Polish',
+  fi: 'Finnish',
+  fr: 'French',
+  ja: 'Japanese',
+  pl: 'Polish',
   'pt-br': 'Portuguese (Brazil)',
-  'ru': 'Russian',
-  'sv': 'Swedish',
-  'zh': 'Chinese'
+  ru: 'Russian',
+  sv: 'Swedish',
+  zh: 'Chinese'
 }
 
 function Credits (props) {

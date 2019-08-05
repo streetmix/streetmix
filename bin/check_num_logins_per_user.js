@@ -13,4 +13,4 @@ var reducer = function (key, values) {
   return values.length // { _id: key, value: values.length }
 }
 
-printjson(db.streets.mapReduce(mapper, reducer, { out: { 'inline': 1 } }).results)
+printjson(db.streets.mapReduce(mapper, reducer, { out: { inline: 1 } }).results)
