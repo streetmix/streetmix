@@ -44,7 +44,7 @@ export class BlockingError extends React.Component {
       <button onClick={goNewStreet}>
         <FormattedMessage id="error.button.try-again" defaultMessage="Try again" />
       </button>
-    const pleaseLetUsKnow = <FormattedMessage
+    const pleaseLetUsKnow = <FormattedHTMLMessage
       id="error.please-try-again"
       defaultMessage="Please try again later or let us know via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> or <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>."
       values={{
@@ -212,7 +212,7 @@ export class BlockingError extends React.Component {
         description =
           <React.Fragment>
             <FormattedMessage id="error.auth-api-problem-description" defaultMessage="There was a problem with authentication." />
-            {pleaseLetUsKnow}
+            &nbsp;{pleaseLetUsKnow}
             <br />
             {homeButton}
           </React.Fragment>
@@ -268,7 +268,7 @@ export class BlockingError extends React.Component {
         description =
           <React.Fragment>
             <FormattedMessage id="error.generic-error-description" defaultMessage="We’re sorry – something went wrong." />
-            {pleaseLetUsKnow}
+            &nbsp;{pleaseLetUsKnow}
             <br />
             {homeButton}
           </React.Fragment>
