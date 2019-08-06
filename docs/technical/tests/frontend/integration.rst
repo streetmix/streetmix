@@ -6,8 +6,8 @@ Integration tests help to test a specifix flow of information.
 What integration tests to write?
 ----------------------------------------
 
-Everywhere were it feels like you're writing boilerplate tests consider writing an integration test rather than an unit test.  
-Especially redux related actions and reducers are a good way to use integration tests. 
+Whenever you're writing boilerplate tests consider writing an integration test rather than an unit test.  
+Especially Redux-related actions and reducers are a good opportunity to use integration tests. 
 Another good point to introduce an integration test is for a test where you need to mock a lot of modules to test in isolation. This is typicaly a sign of a lot of side effects that should be tested with an integration test.
 
 Redux

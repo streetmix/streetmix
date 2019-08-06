@@ -1,9 +1,9 @@
 Component Tests
 ===============
 
-When it comes to testing React components, we need a way to test components in insolation without needing to mount the entire application. Many of our current React components are tested with `Enzyme <https://airbnb.io/enzyme/>`_, but more recently, our tests have started to use `React Testing Library <https://testing-library.com/docs/react-testing-library/intro>`_ instead. (See `this blog post by Kent Dodds for more information <https://kentcdodds.com/blog/introducing-the-react-testing-library>`_.)
+When it comes to testing React components, we need a way to test components in isolation without needing to mount the entire application. Many of our current React components are tested with `Enzyme <https://airbnb.io/enzyme/>`_, but more recently, our tests have started to use `React Testing Library <https://testing-library.com/docs/react-testing-library/intro>`_ instead. (See `this blog post by Kent Dodds for more information <https://kentcdodds.com/blog/introducing-the-react-testing-library>`_.)
 
-The main reason to adopt React Testing Library was to avoid testing too much implementation details, especially for React components. You want your tests to be maintainable and don't break and slow you down when you refactor components. With React Testing Library we're testing the actual DOM and not React-specific implementation details, like ``props`` or ``state``.
+We adopted React Testing Library to avoid testing implementation details. , especially for React components. You want your tests to be maintainable and less susceptible to breaking, which slows you down when you refactor components. With React Testing Library we're testing the actual DOM and not React-specific implementation details, like ``props`` or ``state``.
 
 React Testing Library is intended as a replacement for Enzyme. When writing new tests, or ugprading old tests, try React Testing Library first. Please don't use both in a single test suite, choose one or the other. Eventually, our hope is that Enzyme can be removed from the infrastructure.
 
@@ -34,4 +34,4 @@ Mocks
 --------------------------
 
 Be aware of mocks. A few files and functions are mocked globally. For example ``load_resources`` is mocked globally and if you need to use that file in your tests/components be sure to check the mock.  
-Otherwise use ``jest.mock`` to mock modules, classed, etc.
+Otherwise use ``jest.mock`` to mock modules, classes, etc.
