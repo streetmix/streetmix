@@ -1,6 +1,14 @@
 Tests
 =====
 
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Contents
+
+   frontend/index
+
+
 Tests are extremely important to the health and stability of Streetmix. We have established some systems and processes to help ensure the ongoing reliability of our platform.
 
 We do not have a strict test-driven development (TDD) methodology, although individual engineers may use this approach if that's the development pattern they are most comfortable with. Also, while we do measure code coverage, our goal is not necessarily to reach 100%. We're looking for "enough" coverage to have confidence that new features or refactoring will not create new bugs, which can be more of a subjective approach. As Guillermo Rauch says, `"Write tests. Not too many. Mostly integration." <https://twitter.com/rauchg/status/807626710350839808>`_
@@ -65,25 +73,6 @@ We have experimented with TypeScript in auxiliary codebases, but we've not incor
 
 
 .. _unit-tests:
-
-Unit tests
-++++++++++
-
-We use the `Jest testing framework <https://jestjs.io/en/>`_.
-
-When it comes to testing React components, we need a way to test components in insolation without needing to mount the entire application. Many of our current React components are tested with `Enzyme <https://airbnb.io/enzyme/>`_, but more recently, our tests have started to use `React Testing Library <https://testing-library.com/docs/react-testing-library/intro>`_ instead. (See `this blog post by Kent Dodds for more information <https://kentcdodds.com/blog/introducing-the-react-testing-library>`_.)
-
-React Testing Library is intended as a replacement for Enzyme. When writing new tests, or ugprading old tests, try React Testing Library first. Please don't use both in a single test suite, choose one or the other. Eventually, our hope is that Enzyme can be removed from the infrastructure.
-
-.. tip::
-
-   Many of our React components use Redux and react-intl, which are required in the component's context to render properly. For both Enzyme and React Testing Library, we have replacement mounting utility functions in :file:`./test/helpers/` that mock the ``<Provider />`` and ``<IntlProvider />`` wrapping components, which you should use when testing components.
-
-
-Integration and end-to-end testing
-++++++++++++++++++++++++++++++++++
-
-We are adopting `Cypress.io <https://www.cypress.io/>`_, a modern framework for end-to-end testing, to make writing and running our integration and end-to-end tests easier.
 
 Device testing
 ++++++++++++++
