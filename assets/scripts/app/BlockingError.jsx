@@ -212,7 +212,7 @@ export class BlockingError extends React.Component {
         description =
           <React.Fragment>
             <FormattedMessage id="error.auth-api-problem-description" defaultMessage="There was a problem with authentication." />
-            &nbsp;&nbsp;{pleaseLetUsKnow}
+            &nbsp;{pleaseLetUsKnow}
             <br />
             {homeButton}
           </React.Fragment>
