@@ -14,7 +14,12 @@ const IMAGES_TO_BE_LOADED = [
   '/images/stars.svg',
   '/images/moon.svg',
   '/assets/images/icons.svg',
-  '/assets/images/images.svg'
+  '/assets/images/images.svg',
+  '/images/av-inbound.svg',
+  '/images/magic-carpet-aladdin.svg',
+  '/images/magic-carpet-jasmine.svg',
+  '/images/magic-carpet-aladdin-jasmine.svg',
+  '/images/magic-carpet-jasmine-aladdin.svg'
 ]
 
 const SVGStagingEl = document.getElementById('svg')
@@ -86,14 +91,19 @@ async function loadImage (url) {
  */
 function getSVGOuterHTML (svg) {
   // Height and width values are required to render to canvas in Firefox.
-  // Add them from `viewBox` property if they are not present.
+  //
+  // Applications that export SVG may set width and height values that differ from viewBox
+  // values. This can have unexpected results during canvas rendering in different browsers.
+  //
+  // Here's a real-world example:
+  // If `width="100%"` and `height="100%"` and the `viewBox` is in pixels, Chrome will ignore
+  // `viewBox` values and scale the rendered SVG images; Firefox won't render anything at all.
+  //
+  // As a result, we let the `viewBox` values be the single source of truth, and force
+  // `width` and `height` attributes to match.
   if (svg.getAttribute('viewBox')) {
-    if (!svg.getAttribute('width')) {
-      svg.setAttribute('width', svg.viewBox.baseVal.width)
-    }
-    if (!svg.getAttribute('height')) {
-      svg.setAttribute('height', svg.viewBox.baseVal.height)
-    }
+    svg.setAttribute('width', svg.viewBox.baseVal.width)
+    svg.setAttribute('height', svg.viewBox.baseVal.height)
   }
 
   let outerHTML = svg.outerHTML
@@ -161,7 +171,7 @@ function cacheSVGObject (id, svg, svgHTML) {
   // makes rendering intermittent)
   const src = 'data:image/svg+xml;base64,' + window.btoa(svgHTML)
 
-  const img = new window.Image()
+  const img = new Image()
   img.src = src
 
   // Store properties on svg cache, using its simplified id as the key

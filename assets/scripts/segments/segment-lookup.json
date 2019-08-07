@@ -2825,6 +2825,56 @@
             }
           ]
         }
+      },
+      "inbound|av": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|av": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
       }
     }
   },
@@ -4005,6 +4055,97 @@
               "id": "train",
               "variants": {
                 "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "magic-carpet": {
+    "name": "Magic carpet",
+    "nameKey": "magic-carpet",
+    "defaultWidth": 10,
+    "enableWithFlag": "SEGMENT_MAGIC_CARPET",
+    "variants": [
+      "magic-carpet-occupants"
+    ],
+    "details": {
+      "aladdin": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "aladdin"
+              }
+            }
+          ]
+        }
+      },
+      "jasmine": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "jasmine"
+              }
+            }
+          ]
+        }
+      },
+      "aladdin-jasmine": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "aladdin-jasmine"
+              }
+            }
+          ]
+        }
+      },
+      "jasmine-aladdin": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "jasmine-aladdin"
               }
             }
           ]

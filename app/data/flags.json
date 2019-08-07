@@ -57,6 +57,10 @@
     "defaultValue": false,
     "enabled": false
   },
+  "SEGMENT_AV": {
+    "label": "Segment — autonomous vehicles",
+    "defaultValue": false
+  },
   "SEGMENT_CAFE_SEATING": {
     "label": "Segment — cafe seating",
     "defaultValue": false,
@@ -69,6 +73,10 @@
   },
   "SEGMENT_INCEPTION_TRAIN": {
     "label": "Segment — the train from “Inception”",
+    "defaultValue": false
+  },
+  "SEGMENT_MAGIC_CARPET": {
+    "label": "Segment — magic carpet",
     "defaultValue": false
   },
   "SEGMENT_RAISED_BIKES": {

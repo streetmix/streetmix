@@ -288,6 +288,11 @@
     "truck": {
       "id": "truck",
       "title": "Truck"
+    },
+    "av": {
+      "id": "rideshare",
+      "title": "Autonomous vehicle",
+      "enableWithFlag": "SEGMENT_AV"
     }
   },
   "sidewalk-density": {
@@ -370,6 +375,24 @@
     "sparse": {
       "id": "sidewalk-density-sparse",
       "title": "Someone"
+    }
+  },
+  "magic-carpet-occupants": {
+    "aladdin": {
+      "id": "",
+      "title": "Aladdin"
+    },
+    "jasmine": {
+      "id": "",
+      "title": "Jasmine"
+    },
+    "aladdin-jasmine": {
+      "id": "",
+      "title": "Aladdin & Jasmine"
+    },
+    "jasmine-aladdin": {
+      "id": "",
+      "title": "Jasmine & Aladdin"
     }
   }
 }
