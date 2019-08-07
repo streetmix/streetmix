@@ -35,7 +35,8 @@
     "streetcar": "Streetcar",
     "light-rail": "Light rail",
     "transit-shelter": "Transit shelter",
-    "inception-train": "“Inception” train"
+    "inception-train": "“Inception” train",
+    "magic-carpet": "Magic carpet"
   },
   "descriptions": {
     "wayfinding-sign": {

@@ -376,5 +376,23 @@
       "id": "sidewalk-density-sparse",
       "title": "Someone"
     }
+  },
+  "magic-carpet-occupants": {
+    "aladdin": {
+      "id": "",
+      "title": "Aladdin"
+    },
+    "jasmine": {
+      "id": "",
+      "title": "Jasmine"
+    },
+    "aladdin-jasmine": {
+      "id": "",
+      "title": "Aladdin & Jasmine"
+    },
+    "jasmine-aladdin": {
+      "id": "",
+      "title": "Jasmine & Aladdin"
+    }
   }
 }

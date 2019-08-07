@@ -15,7 +15,11 @@ const IMAGES_TO_BE_LOADED = [
   '/images/moon.svg',
   '/assets/images/icons.svg',
   '/assets/images/images.svg',
-  '/images/av-inbound.svg'
+  '/images/av-inbound.svg',
+  '/images/magic-carpet-aladdin.svg',
+  '/images/magic-carpet-jasmine.svg',
+  '/images/magic-carpet-aladdin-jasmine.svg',
+  '/images/magic-carpet-jasmine-aladdin.svg'
 ]
 
 const SVGStagingEl = document.getElementById('svg')

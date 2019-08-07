@@ -1010,6 +1010,47 @@
           }
         }
       }
+    },
+    "magic-carpet": {
+      "name": "Magic carpet",
+      "nameKey": "magic-carpet",
+      "zIndex": 14,
+      "variants": {
+        "magic-carpet-occupants": {
+          "aladdin": {
+            "graphics": {
+              "center": {
+                "id": "/images/magic-carpet-aladdin.svg",
+                "originY": -256
+              }
+            }
+          },
+          "jasmine": {
+            "graphics": {
+              "center": {
+                "id": "/images/magic-carpet-jasmine.svg",
+                "originY": -256
+              }
+            }
+          },
+          "aladdin-jasmine": {
+            "graphics": {
+              "center": {
+                "id": "/images/magic-carpet-aladdin-jasmine.svg",
+                "originY": -256
+              }
+            }
+          },
+          "jasmine-aladdin": {
+            "graphics": {
+              "center": {
+                "id": "/images/magic-carpet-jasmine-aladdin.svg",
+                "originY": -256
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

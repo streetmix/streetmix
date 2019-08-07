@@ -75,6 +75,10 @@
     "label": "Segment — the train from “Inception”",
     "defaultValue": false
   },
+  "SEGMENT_MAGIC_CARPET": {
+    "label": "Segment — magic carpet",
+    "defaultValue": false
+  },
   "SEGMENT_RAISED_BIKES": {
     "label": "Segment — raised bike lanes",
     "defaultValue": false,
