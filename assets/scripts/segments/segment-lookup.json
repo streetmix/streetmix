@@ -2825,6 +2825,56 @@
             }
           ]
         }
+      },
+      "inbound|av": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|av": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
       }
     }
   },

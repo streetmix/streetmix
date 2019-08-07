@@ -896,6 +896,21 @@
         }
       }
     },
+    "av": {
+      "name": "Autonomous vehicle",
+      "nameKey": "av",
+      "owner": "CAR",
+      "zIndex": 14,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "/images/av-inbound.svg"
+            }
+          }
+        }
+      }
+    },
     "truck": {
       "name": "Truck",
       "nameKey": "truck",

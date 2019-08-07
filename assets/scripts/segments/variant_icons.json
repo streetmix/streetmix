@@ -288,6 +288,11 @@
     "truck": {
       "id": "truck",
       "title": "Truck"
+    },
+    "av": {
+      "id": "rideshare",
+      "title": "Autonomous vehicle",
+      "enableWithFlag": "SEGMENT_AV"
     }
   },
   "sidewalk-density": {
