@@ -13,10 +13,12 @@ const SPRITE_DEFS = module.__get__('SPRITE_DEFS')
 
 describe('segment info', () => {
   it('gets a sprite definition with a string id', () => {
-    const id = 'trees--palm-tree'
+    const id = 'foo'
     const sprite = getSpriteDef(id)
 
-    expect(sprite).toEqual(SPRITE_DEFS[id])
+    expect(sprite).toEqual({
+      id: 'foo'
+    })
   })
 
   it('overwrites sprite definition properties with an object', () => {
@@ -32,7 +34,7 @@ describe('segment info', () => {
   })
 
   it('returns a cloned definition that does not allow modification of the original data', () => {
-    const id = 'ground--concrete'
+    const id = 'missing'
     const sprite = getSpriteDef(id)
 
     sprite.foo = 'bar'
