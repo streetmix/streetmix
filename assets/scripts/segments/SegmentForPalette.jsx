@@ -8,7 +8,6 @@ import { TILE_SIZE } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { getVariantInfoDimensions } from './view'
-import { generateRandSeed } from '../util/random'
 import './SegmentForPalette.scss'
 
 const PALETTE_SEGMENT_EXTRA_PADDING = 6
@@ -27,7 +26,8 @@ export class SegmentForPalette extends React.Component {
     // Provided by parent
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
-    onPointerOver: PropTypes.func
+    onPointerOver: PropTypes.func,
+    randSeed: PropTypes.number
   }
 
   componentDidMount = () => {
@@ -80,7 +80,7 @@ export class SegmentForPalette extends React.Component {
           actualWidth={actualWidth}
           type={this.props.type}
           variantString={this.props.variantString}
-          randSeed={generateRandSeed()}
+          randSeed={this.props.randSeed}
           multiplier={PALETTE_SEGMENT_MULTIPLIER}
           groundBaseline={PALETTE_GROUND_BASELINE}
         />
