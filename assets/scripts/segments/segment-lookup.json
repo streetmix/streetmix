@@ -4132,6 +4132,107 @@
       }
     }
   },
+  "temporary": {
+    "name": "Temporary barriers",
+    "nameKey": "temporary-barriers",
+    "zIndex": 20,
+    "defaultWidth": 2,
+    "paletteIcon": "traffic-cone",
+    "enableWithFlag": "SEGMENT_CONSTRUCTION",
+    "variants": [
+      "temporary-barrier-type"
+    ],
+    "details": {
+      "traffic-cone": {
+        "name": "Traffic cone",
+        "nameKey": "traffic-cone",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "traffic-cone",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "barricade": {
+        "name": "Barricade",
+        "nameKey": "barricade",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "barricade",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "jersey-barrier-concrete": {
+        "name": "Jersey barrier",
+        "nameKey": "jersey-barrier",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "jersey-barrier",
+              "variants": {
+                "material": "concrete"
+              }
+            }
+          ]
+        }
+      },
+      "jersey-barrier-plastic": {
+        "name": "Jersey barrier",
+        "nameKey": "jersey-barrier",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "jersey-barrier",
+              "variants": {
+                "material": "plastic"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
   "train": {
     "name": "“Inception” train",
     "nameKey": "inception-train",

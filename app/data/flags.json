@@ -67,8 +67,7 @@
   },
   "SEGMENT_CONSTRUCTION": {
     "label": "Segment — construction items",
-    "defaultValue": false,
-    "enabled": false
+    "defaultValue": false
   },
   "SEGMENT_INCEPTION_TRAIN": {
     "label": "Segment — the train from “Inception”",
