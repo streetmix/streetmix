@@ -339,6 +339,116 @@
       }
     }
   },
+  "cafe-seating": {
+    "name": "Cafe seating",
+    "nameKey": "cafe-seating",
+    "owner": "PEDESTRIAN",
+    "zIndex": 24,
+    "defaultWidth": 8,
+    "enableWithFlag": "SEGMENT_CAFE_SEATING",
+    "variants": [
+      "occupants",
+      "elevation"
+    ],
+    "details": {
+      "full|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "cafe-seating",
+              "variants": {
+                "occupants": "full"
+              }
+            }
+          ]
+        }
+      },
+      "empty|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "density": "empty"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "cafe-seating",
+              "variants": {
+                "occupants": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "full|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "cafe-seating",
+              "variants": {
+                "occupants": "full"
+              }
+            }
+          ]
+        }
+      },
+      "empty|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "cafe-seating",
+              "variants": {
+                "occupants": "empty"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
   "sidewalk-wayfinding": {
     "name": "Wayfinding sign",
     "nameKey": "wayfinding-sign",
