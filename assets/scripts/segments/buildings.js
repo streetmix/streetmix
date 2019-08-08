@@ -1,4 +1,5 @@
-import { RandomGenerator } from '../util/random'
+import seedrandom from 'seedrandom'
+import { generateRandSeed } from '../util/random'
 import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from '../segments/constants'
@@ -253,11 +254,10 @@ export function drawBuilding (ctx, variant, floors, position, totalWidth, totalH
       multiplier, dpi)
 
     // middle floors
-    const randomGenerator = new RandomGenerator()
-    randomGenerator.seed = 0
+    const randomGenerator = seedrandom(generateRandSeed())
 
     for (let i = 1; i < floors; i++) {
-      const variant = (building.variantsCount === 0) ? 0 : Math.floor(randomGenerator.rand() * building.variantsCount) + 1
+      const variant = (building.variantsCount === 0) ? 0 : Math.floor(randomGenerator() * building.variantsCount) + 1
 
       drawSegmentImage(spriteId, ctx,
         0,
