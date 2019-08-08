@@ -4,6 +4,7 @@
     "sidewalk-tree": "Sidewalk tree",
     "bike-rack": "Bike rack",
     "bench": "Bench",
+    "cafe-seating": "Cafe seating",
     "wayfinding-sign": "Wayfinding sign",
     "sidewalk-lamp": "Lamp",
     "parklet": "Parklet",
@@ -200,6 +201,10 @@
     "waiting-area|sparse": "Someone",
     "waiting-area|empty": "No one",
     "flex-type|rideshare": "Rideshare",
-    "flex-type|taxi": "Taxi"
+    "flex-type|taxi": "Taxi",
+    "occupants|empty": "Empty",
+    "occupants|full": "Full",
+    "elevation|sidewalk": "Sidewalk level",
+    "elevation|road": "Street level"
   }
 }

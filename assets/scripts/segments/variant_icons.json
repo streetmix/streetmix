@@ -394,5 +394,25 @@
       "id": "",
       "title": "Jasmine & Aladdin"
     }
+  },
+  "occupants": {
+    "empty": {
+      "id": "",
+      "title": "Empty"
+    },
+    "full": {
+      "id": "sidewalk-density-normal",
+      "title": "Full"
+    }
+  },
+  "elevation": {
+    "sidewalk": {
+      "id": "elevation-higher",
+      "title": "Sidewalk level"
+    },
+    "road": {
+      "id": "elevation-lower",
+      "title": "Street level"
+    }
   }
 }

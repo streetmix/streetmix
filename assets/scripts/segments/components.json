@@ -358,6 +358,26 @@
         }
       }
     },
+    "cafe-seating": {
+      "name": "Cafe seating",
+      "nameKey": "cafe-seating",
+      "owner": "PEDESTRIAN",
+      "zIndex": 20,
+      "variants": {
+        "occupants": {
+          "full": {
+            "graphics": {
+              "center": "furniture--cafe-seating-occupied"
+            }
+          },
+          "empty": {
+            "graphics": {
+              "center": "furniture--cafe-seating"
+            }
+          }
+        }
+      }
+    },
     "wayfinding-sign": {
       "name": "Wayfinding sign",
       "nameKey": "wayfinding-sign",

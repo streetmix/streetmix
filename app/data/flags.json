@@ -63,8 +63,7 @@
   },
   "SEGMENT_CAFE_SEATING": {
     "label": "Segment — cafe seating",
-    "defaultValue": false,
-    "enabled": false
+    "defaultValue": false
   },
   "SEGMENT_CONSTRUCTION": {
     "label": "Segment — construction items",
