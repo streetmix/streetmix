@@ -1,99 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StreetMetaWidthLabel renders when editable 1`] = `
-<span
-  className="street-width street-width-editable"
-  onClick={[MockFunction]}
-  title="Change width of the street"
->
-  <injectIntl(FormattedMessage)
-    defaultMessage="{width} width"
-    id="width.label"
-    values={
-      Object {
-        "width": "3 m",
-      }
-    }
-  />
-</span>
+<DocumentFragment>
+  <span
+    class="street-width street-width-editable"
+    title="Change width of the street"
+  >
+    3 m width
+  </span>
+</DocumentFragment>
 `;
 
 exports[`StreetMetaWidthLabel renders when not editable 1`] = `
-<span
-  className="street-width"
-  onClick={[MockFunction]}
-  title={null}
->
-  <injectIntl(FormattedMessage)
-    defaultMessage="{width} width"
-    id="width.label"
-    values={
-      Object {
-        "width": "3 m",
-      }
-    }
-  />
-</span>
+<DocumentFragment>
+  <span
+    class="street-width"
+  >
+    3 m width
+  </span>
+</DocumentFragment>
 `;
 
 exports[`StreetMetaWidthLabel renders with over available width 1`] = `
-<span
-  className="street-width street-width-editable"
-  onClick={[MockFunction]}
-  title="Change width of the street"
->
-  <injectIntl(FormattedMessage)
-    defaultMessage="{width} width"
-    id="width.label"
-    values={
-      Object {
-        "width": "3 m",
-      }
-    }
-  />
+<DocumentFragment>
   <span
-    className="street-width-over"
+    class="street-width street-width-editable"
+    title="Change width of the street"
   >
-    <injectIntl(FormattedMessage)
-      defaultMessage="({width} over)"
-      id="width.over"
-      values={
-        Object {
-          "width": "0.3 m",
-        }
-      }
-    />
+    3 m width
+    <span
+      class="street-width-over"
+    >
+      (0.3 m over)
+    </span>
   </span>
-</span>
+</DocumentFragment>
 `;
 
 exports[`StreetMetaWidthLabel renders with remaining width 1`] = `
-<span
-  className="street-width street-width-editable"
-  onClick={[MockFunction]}
-  title="Change width of the street"
->
-  <injectIntl(FormattedMessage)
-    defaultMessage="{width} width"
-    id="width.label"
-    values={
-      Object {
-        "width": "3 m",
-      }
-    }
-  />
+<DocumentFragment>
   <span
-    className="street-width-under"
+    class="street-width street-width-editable"
+    title="Change width of the street"
   >
-    <injectIntl(FormattedMessage)
-      defaultMessage="({width} room)"
-      id="width.under"
-      values={
-        Object {
-          "width": "0.3 m",
-        }
-      }
-    />
+    3 m width
+    <span
+      class="street-width-under"
+    >
+      (0.3 m room)
+    </span>
   </span>
-</span>
+</DocumentFragment>
 `;

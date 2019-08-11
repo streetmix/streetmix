@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { prettifyWidth } from '../util/width_units'
 import './StreetMetaWidthLabel.scss'
 
@@ -26,12 +26,13 @@ function renderStreetWidthRemaining ({ remainingWidth, units }) {
 }
 
 const StreetMetaWidthLabel = (props) => {
-  const { formatMessage, street, editable, onClick } = props
+  const { street, editable, onClick } = props
   const width = prettifyWidth(street.width, street.units)
 
   // A title attribute is provided only when street width is editable
+  const intl = useIntl()
   const title = (editable)
-    ? formatMessage({
+    ? intl.formatMessage({
       id: 'tooltip.street-width',
       defaultMessage: 'Change width of the street'
     })
@@ -52,10 +53,6 @@ const StreetMetaWidthLabel = (props) => {
 }
 
 StreetMetaWidthLabel.propTypes = {
-  // pass intl's formatMessage() to here to avoid HOC wrapper
-  formatMessage: PropTypes.func.isRequired,
-
-  // from parent component
   street: PropTypes.shape({
     units: PropTypes.number,
     width: PropTypes.number,

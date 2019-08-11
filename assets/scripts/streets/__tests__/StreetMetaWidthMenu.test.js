@@ -1,16 +1,15 @@
 /* eslint-env jest */
 import React from 'react'
-import { mount } from 'enzyme'
+import { fireEvent, cleanup } from '@testing-library/react'
+import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthMenu from '../StreetMetaWidthMenu'
 
-const formatMessage = jest.fn(({ defaultMessage }) => defaultMessage)
-
 describe('StreetMetaWidthMenu', () => {
+  afterEach(cleanup)
+
   it('renders (metric units, default width selected)', () => {
-    // This component has a ref, so mount() is required
-    const wrapper = mount(
+    const wrapper = renderWithIntl(
       <StreetMetaWidthMenu
-        formatMessage={formatMessage}
         street={{
           units: 0,
           width: 60,
@@ -19,14 +18,13 @@ describe('StreetMetaWidthMenu', () => {
         onChange={jest.fn()}
       />
     )
-    expect(wrapper).toMatchSnapshot()
+
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders (metric units, custom width selected)', () => {
-    // This component has a ref, so mount() is required
-    const wrapper = mount(
+    const wrapper = renderWithIntl(
       <StreetMetaWidthMenu
-        formatMessage={formatMessage}
         street={{
           units: 0,
           width: 10,
@@ -35,14 +33,13 @@ describe('StreetMetaWidthMenu', () => {
         onChange={jest.fn()}
       />
     )
-    expect(wrapper).toMatchSnapshot()
+
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders (imperial units, default width selected)', () => {
-    // This component has a ref, so mount() is required
-    const wrapper = mount(
+    const wrapper = renderWithIntl(
       <StreetMetaWidthMenu
-        formatMessage={formatMessage}
         street={{
           units: 1,
           width: 60,
@@ -51,14 +48,14 @@ describe('StreetMetaWidthMenu', () => {
         onChange={jest.fn()}
       />
     )
-    expect(wrapper).toMatchSnapshot()
+
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('calls onChange handler when selection changed', () => {
     const handleChange = jest.fn((value) => value)
-    const wrapper = mount(
+    const wrapper = renderWithIntl(
       <StreetMetaWidthMenu
-        formatMessage={formatMessage}
         street={{
           units: 0,
           width: 40,
@@ -69,8 +66,7 @@ describe('StreetMetaWidthMenu', () => {
       />
     )
 
-    const selectWrapper = wrapper.find('select')
-    selectWrapper.simulate('change')
+    fireEvent.change(wrapper.getByRole('listbox'), { target: { value: 40 } })
 
     // Return value is a string from <option value=""> attribute
     expect(handleChange).toHaveReturnedWith('40')

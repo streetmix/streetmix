@@ -116,7 +116,6 @@ class StreetMetaWidthContainer extends Component {
               <StreetMetaWidthMenu
                 street={this.props.street}
                 onChange={this.handleChangeMenuSelection}
-                formatMessage={this.props.intl.formatMessage}
               />
             )
             : (
@@ -124,7 +123,6 @@ class StreetMetaWidthContainer extends Component {
                 street={this.props.street}
                 editable={this.props.editable}
                 onClick={this.handleClickLabel}
-                formatMessage={this.props.intl.formatMessage}
               />
             )
         }
