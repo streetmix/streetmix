@@ -190,6 +190,7 @@ app.use((req, res, next) => {
 
   // Make required Facebook app ID available to metatags
   res.locals.FACEBOOK_APP_ID = config.facebook_app_id
+  res.locals.STRIPE_PUBLIC_KEY = config.STRIPE_PUBLIC_KEY
 
   next()
 })
@@ -227,9 +228,6 @@ app.get('/' + config.auth0.callback_path, controllers.auth0_sign_in_callback.get
 
 // Enable CORS for all OPTIONs "pre-flight" requests
 app.options('/api/*', cors())
-
-// Payments handler
-app.post('/pay', controllers.payments.post)
 
 // API: all users
 app.post('/api/v1/users', cors(), resources.v1.users.post)
@@ -284,6 +282,8 @@ app.delete('/api/v1/streets/images/:street_id', resources.v1.street_images.delet
 app.get('/api/v1/streets/images/:street_id', resources.v1.street_images.get)
 
 app.get('/api/v1/geo', cors(), resources.v1.geo.get)
+
+app.post('/services/pay', resources.services.payments.post)
 
 app.get('/services/geoip', resources.services.geoip.get)
 

@@ -75,7 +75,8 @@ module.exports = {
     api_secret: process.env.CLOUDINARY_API_SECRET || null
   },
   stripe: {
-    api_key: process.env.STRIPE_TEST_PUBLIC_KEY || null,
-    api_secret: process.env.STRIPE_TEST_SECRET_KEY || null
+    api_key: process.env.STRIPE_PUBLIC_KEY || null,
+    api_secret: process.env.STRIPE_SECRET_KEY || null,
+    tier1_plan_id: process.env.TIER1_PLAN_ID || 'plan_Fc2mb0eKhaEzu5'
   }
 }

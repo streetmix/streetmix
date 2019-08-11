@@ -1,0 +1,26 @@
+.upgrade-dialog {
+  width: 440px;
+  min-height: 220px;
+  max-height: 75vh;
+  padding: 20px;
+
+  header {
+    background-color: white;
+    padding: 0;
+    text-align: left;
+
+    [dir="rtl"] & {
+      text-align: right;
+    }
+  }
+
+  .dialog-content {
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+}
+
+.upgrade-dialog-content {
+  display: flex;
+  margin-bottom: 2em;
+}

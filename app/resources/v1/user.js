@@ -88,7 +88,6 @@ exports.get = async function (req, res) {
           res.status(500).send('Could not render user JSON.')
           return
         }
-
         if (data) {
           userJson.profileImageUrl = data.twitter_profile_image_url
         } else {
