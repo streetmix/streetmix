@@ -6,7 +6,7 @@ exports[`StreetMetaWidthLabel renders when editable 1`] = `
   onClick={[MockFunction]}
   title="Change width of the street"
 >
-  <FormattedMessage
+  <injectIntl(FormattedMessage)
     defaultMessage="{width} width"
     id="width.label"
     values={
@@ -24,7 +24,7 @@ exports[`StreetMetaWidthLabel renders when not editable 1`] = `
   onClick={[MockFunction]}
   title={null}
 >
-  <FormattedMessage
+  <injectIntl(FormattedMessage)
     defaultMessage="{width} width"
     id="width.label"
     values={
@@ -42,7 +42,7 @@ exports[`StreetMetaWidthLabel renders with over available width 1`] = `
   onClick={[MockFunction]}
   title="Change width of the street"
 >
-  <FormattedMessage
+  <injectIntl(FormattedMessage)
     defaultMessage="{width} width"
     id="width.label"
     values={
@@ -54,7 +54,7 @@ exports[`StreetMetaWidthLabel renders with over available width 1`] = `
   <span
     className="street-width-over"
   >
-    <FormattedMessage
+    <injectIntl(FormattedMessage)
       defaultMessage="({width} over)"
       id="width.over"
       values={
@@ -73,7 +73,7 @@ exports[`StreetMetaWidthLabel renders with remaining width 1`] = `
   onClick={[MockFunction]}
   title="Change width of the street"
 >
-  <FormattedMessage
+  <injectIntl(FormattedMessage)
     defaultMessage="{width} width"
     id="width.label"
     values={
@@ -85,7 +85,7 @@ exports[`StreetMetaWidthLabel renders with remaining width 1`] = `
   <span
     className="street-width-under"
   >
-    <FormattedMessage
+    <injectIntl(FormattedMessage)
       defaultMessage="({width} room)"
       id="width.under"
       values={

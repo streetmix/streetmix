@@ -25,9 +25,7 @@ exports[`NewsletterDialog renders snapshot 1`] = `
       >
         <header>
           <h1>
-            <span>
-              Subscribe to our newsletter
-            </span>
+            Subscribe to our newsletter
           </h1>
         </header>
         <div

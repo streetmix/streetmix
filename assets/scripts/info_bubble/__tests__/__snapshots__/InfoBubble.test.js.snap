@@ -16,7 +16,7 @@ exports[`InfoBubble is visible 1`] = `
       position={2}
       segment={Object {}}
     />
-    <InjectIntl(RemoveButton)
+    <injectIntl(RemoveButton)
       segment={2}
     />
   </header>
@@ -24,14 +24,20 @@ exports[`InfoBubble is visible 1`] = `
     className="info-bubble-controls"
   >
     <IntlProvider
+      defaultFormats={Object {}}
+      defaultLocale="en"
+      formats={Object {}}
       locale="en"
+      messages={Object {}}
+      onError={[Function]}
+      textComponent={Symbol(react.fragment)}
     >
-      <InjectIntl(Connect(Variants))
+      <injectIntl(Connect(Variants))
         position={2}
         type={1}
       />
     </IntlProvider>
-    <InjectIntl(Connect(WidthControl))
+    <injectIntl(Connect(WidthControl))
       position={2}
     />
   </div>
@@ -62,19 +68,24 @@ exports[`InfoBubble renders 1`] = `
     <Connect(EditableLabel)
       label={
         <IntlProvider
+          defaultFormats={Object {}}
+          defaultLocale="en"
+          formats={Object {}}
           locale="en"
+          messages={Object {}}
+          onError={[Function]}
+          textComponent={Symbol(react.fragment)}
         >
-          <FormattedMessage
+          <injectIntl(FormattedMessage)
             defaultMessage="Unknown"
             id="segments.undefined"
-            values={Object {}}
           />
         </IntlProvider>
       }
       position={0}
       segment={Object {}}
     />
-    <InjectIntl(RemoveButton)
+    <injectIntl(RemoveButton)
       segment={0}
     />
   </header>
@@ -82,14 +93,20 @@ exports[`InfoBubble renders 1`] = `
     className="info-bubble-controls"
   >
     <IntlProvider
+      defaultFormats={Object {}}
+      defaultLocale="en"
+      formats={Object {}}
       locale="en"
+      messages={Object {}}
+      onError={[Function]}
+      textComponent={Symbol(react.fragment)}
     >
-      <InjectIntl(Connect(Variants))
+      <injectIntl(Connect(Variants))
         position={0}
         type={1}
       />
     </IntlProvider>
-    <InjectIntl(Connect(WidthControl))
+    <injectIntl(Connect(WidthControl))
       position={0}
     />
   </div>
@@ -120,12 +137,17 @@ exports[`InfoBubble shows building left info bubble 1`] = `
     <Connect(EditableLabel)
       label={
         <IntlProvider
+          defaultFormats={Object {}}
+          defaultLocale="en"
+          formats={Object {}}
           locale="en"
+          messages={Object {}}
+          onError={[Function]}
+          textComponent={Symbol(react.fragment)}
         >
-          <FormattedMessage
+          <injectIntl(FormattedMessage)
             defaultMessage="Grass"
             id="buildings.grass.name"
-            values={Object {}}
           />
         </IntlProvider>
       }
@@ -137,14 +159,20 @@ exports[`InfoBubble shows building left info bubble 1`] = `
     className="info-bubble-controls"
   >
     <IntlProvider
+      defaultFormats={Object {}}
+      defaultLocale="en"
+      formats={Object {}}
       locale="en"
+      messages={Object {}}
+      onError={[Function]}
+      textComponent={Symbol(react.fragment)}
     >
-      <InjectIntl(Connect(Variants))
+      <injectIntl(Connect(Variants))
         position="left"
         type={2}
       />
     </IntlProvider>
-    <InjectIntl(Connect(BuildingHeightControl))
+    <injectIntl(Connect(BuildingHeightControl))
       position="left"
     />
   </div>
@@ -175,12 +203,17 @@ exports[`InfoBubble shows building right info bubble 1`] = `
     <Connect(EditableLabel)
       label={
         <IntlProvider
+          defaultFormats={Object {}}
+          defaultLocale="en"
+          formats={Object {}}
           locale="en"
+          messages={Object {}}
+          onError={[Function]}
+          textComponent={Symbol(react.fragment)}
         >
-          <FormattedMessage
+          <injectIntl(FormattedMessage)
             defaultMessage="Grass"
             id="buildings.grass.name"
-            values={Object {}}
           />
         </IntlProvider>
       }
@@ -192,14 +225,20 @@ exports[`InfoBubble shows building right info bubble 1`] = `
     className="info-bubble-controls"
   >
     <IntlProvider
+      defaultFormats={Object {}}
+      defaultLocale="en"
+      formats={Object {}}
       locale="en"
+      messages={Object {}}
+      onError={[Function]}
+      textComponent={Symbol(react.fragment)}
     >
-      <InjectIntl(Connect(Variants))
+      <injectIntl(Connect(Variants))
         position="right"
         type={3}
       />
     </IntlProvider>
-    <InjectIntl(Connect(BuildingHeightControl))
+    <injectIntl(Connect(BuildingHeightControl))
       position="right"
     />
   </div>
@@ -232,7 +271,7 @@ exports[`InfoBubble shows description 1`] = `
       position={1}
       segment={Object {}}
     />
-    <InjectIntl(RemoveButton)
+    <injectIntl(RemoveButton)
       segment={1}
     />
   </header>
@@ -240,14 +279,20 @@ exports[`InfoBubble shows description 1`] = `
     className="info-bubble-controls"
   >
     <IntlProvider
+      defaultFormats={Object {}}
+      defaultLocale="en"
+      formats={Object {}}
       locale="en"
+      messages={Object {}}
+      onError={[Function]}
+      textComponent={Symbol(react.fragment)}
     >
-      <InjectIntl(Connect(Variants))
+      <injectIntl(Connect(Variants))
         position={1}
         type={1}
       />
     </IntlProvider>
-    <InjectIntl(Connect(WidthControl))
+    <injectIntl(Connect(WidthControl))
       position={1}
     />
   </div>

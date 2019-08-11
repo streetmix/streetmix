@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useIntl } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_TIMES } from '../ui/icons'
 import './CloseButton.scss'
 

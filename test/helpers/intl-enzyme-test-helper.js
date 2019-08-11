@@ -4,45 +4,33 @@
  * These helper functions aim to address that and wrap a valid,
  * English-locale intl context around them.
  *
- * https://github.com/yahoo/react-intl/wiki/Testing-with-React-Intl
+ * https://github.com/formatjs/react-intl/blob/master/docs/Testing-with-React-Intl.md#helper-function-1
  */
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import { IntlProvider } from 'react-intl'
 import { mount, shallow } from 'enzyme'
+import { IntlProvider } from 'react-intl'
 
 // You can pass your messages to the IntlProvider. Optional: remove if unneeded.
 const messages = require('../../assets/locales/en/main.json')
 
-// Create the IntlProvider to retrieve context for wrapping around.
-const intlProvider = new IntlProvider({ locale: 'en', messages }, {})
-const { intl } = intlProvider.getChildContext()
-
-/**
- * When using React-Intl `injectIntl` on components, props.intl is required.
- */
-function nodeWithIntlProp (node) {
-  return React.cloneElement(node, { intl })
+export function mountWithIntl (node) {
+  return mount(node, {
+    wrappingComponent: IntlProvider,
+    wrappingComponentProps: {
+      locale: 'en',
+      defaultLocale: 'en',
+      messages
+    }
+  })
 }
 
-export function shallowWithIntl (node, { context, ...additionalOptions } = {}) {
-  return shallow(
-    nodeWithIntlProp(node),
-    {
-      context: Object.assign({}, context, { intl }),
-      ...additionalOptions
+export function shallowWithIntl (node) {
+  return shallow(node, {
+    wrappingComponent: IntlProvider,
+    wrappingComponentProps: {
+      locale: 'en',
+      defaultLocale: 'en',
+      messages
     }
-  ).dive() // Returns the wrapped node, not the intl wrapper
-}
-
-export function mountWithIntl (node, { context, childContextTypes, ...additionalOptions } = {}) {
-  return mount(
-    nodeWithIntlProp(node),
-    {
-      context: Object.assign({}, context, { intl }),
-      childContextTypes: Object.assign({}, { intl: PropTypes.object }, childContextTypes),
-      ...additionalOptions
-    }
-  )
+  })
 }
