@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import StreetMetaWidthLabel from './StreetMetaWidthLabel'
 import StreetMetaWidthMenu from './StreetMetaWidthMenu'
 
@@ -19,40 +19,17 @@ import { normalizeStreetWidth } from './width'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
 
-class StreetMetaWidthContainer extends Component {
-  static propTypes = {
-    // from react-intl
-    intl: PropTypes.object.isRequired,
-
-    // from Redux mapStateToProps
-    editable: PropTypes.bool,
-    street: PropTypes.object.isRequired,
-
-    // from Redux mapDispatchToProps
-    updateStreetWidth: PropTypes.func.isRequired
-  }
-
-  static defaultProps = {
-    editable: true
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      isEditing: false
-    }
-  }
+const StreetMetaWidthContainer = (props) => {
+  const [ isEditing, setEditing ] = useState(false)
+  const intl = useIntl()
 
   /**
    * When the street width label is clicked, only allow editing if street
    * width is not read-only
    */
-  handleClickLabel = (event) => {
-    if (this.props.editable) {
-      this.setState({
-        isEditing: true
-      })
+  const handleClickLabel = (event) => {
+    if (props.editable) {
+      setEditing(true)
     }
   }
 
@@ -61,12 +38,10 @@ class StreetMetaWidthContainer extends Component {
    *
    * @param {string} - value from selected <option>
    */
-  handleChangeMenuSelection = (value) => {
-    this.setState({
-      isEditing: false
-    })
+  const handleChangeMenuSelection = (value) => {
+    setEditing(false)
 
-    const { units, width, occupiedWidth } = this.props.street
+    const { units, width, occupiedWidth } = props.street
     const selection = Number.parseInt(value, 10)
 
     switch (selection) {
@@ -79,7 +54,7 @@ class StreetMetaWidthContainer extends Component {
       // Prompt for new street width
       case STREET_WIDTH_CUSTOM: {
         const promptValue = normalizeStreetWidth(occupiedWidth, units)
-        const promptString = this.props.intl.formatMessage({
+        const promptString = intl.formatMessage({
           id: 'prompt.new-width',
           defaultMessage: 'New street width (from {minWidth} to {maxWidth}):'
         }, {
@@ -90,7 +65,7 @@ class StreetMetaWidthContainer extends Component {
 
         if (inputWidth) {
           const newWidth = normalizeStreetWidth(processWidthInput(inputWidth, units), units)
-          this.props.updateStreetWidth(newWidth)
+          props.updateStreetWidth(newWidth)
         }
 
         break
@@ -101,37 +76,46 @@ class StreetMetaWidthContainer extends Component {
       // Change width to the desired selection
       default:
         if (selection) {
-          this.props.updateStreetWidth(selection)
+          props.updateStreetWidth(selection)
         }
         break
     }
   }
 
-  render () {
-    return (
-      <span className="street-metadata-width">
-        {
-          (this.state.isEditing)
-            ? (
-              <StreetMetaWidthMenu
-                street={this.props.street}
-                onChange={this.handleChangeMenuSelection}
-              />
-            )
-            : (
-              <StreetMetaWidthLabel
-                street={this.props.street}
-                editable={this.props.editable}
-                onClick={this.handleClickLabel}
-              />
-            )
-        }
-      </span>
-    )
-  }
+  return (
+    <span className="street-metadata-width">
+      {
+        (isEditing)
+          ? (
+            <StreetMetaWidthMenu
+              street={props.street}
+              onChange={handleChangeMenuSelection}
+            />
+          )
+          : (
+            <StreetMetaWidthLabel
+              street={props.street}
+              editable={props.editable}
+              onClick={handleClickLabel}
+            />
+          )
+      }
+    </span>
+  )
 }
 
-export const StreetMetaWidthContainerWithIntl = injectIntl(StreetMetaWidthContainer)
+StreetMetaWidthContainer.propTypes = {
+  // from Redux mapStateToProps
+  editable: PropTypes.bool,
+  street: PropTypes.object.isRequired,
+
+  // from Redux mapDispatchToProps
+  updateStreetWidth: PropTypes.func.isRequired
+}
+
+StreetMetaWidthContainer.defaultProps = {
+  editable: true
+}
 
 function mapStateToProps (state) {
   return {
@@ -144,4 +128,4 @@ const mapDispatchToProps = {
   updateStreetWidth
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StreetMetaWidthContainerWithIntl)
+export default connect(mapStateToProps, mapDispatchToProps)(StreetMetaWidthContainer)
