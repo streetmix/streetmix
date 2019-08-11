@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import './ScrollIndicators.scss'
 
 const ScrollIndicators = (props) => {
-  const { intl, scrollTop, scrollStreet, scrollIndicatorsLeft, scrollIndicatorsRight } = props
+  const { scrollTop, scrollStreet, scrollIndicatorsLeft, scrollIndicatorsRight } = props
 
   const doLeftScroll = (event) => {
     scrollStreet(true, event.shiftKey)
@@ -30,6 +30,7 @@ const ScrollIndicators = (props) => {
     }
   })
 
+  const intl = useIntl()
   const scrollLeftLabel = intl.formatMessage({
     id: 'tooltip.scroll-street-left',
     defaultMessage: 'Scroll street left'
@@ -66,7 +67,6 @@ const ScrollIndicators = (props) => {
 }
 
 ScrollIndicators.propTypes = {
-  intl: PropTypes.object.isRequired,
   scrollIndicatorsLeft: PropTypes.number,
   scrollIndicatorsRight: PropTypes.number,
   scrollStreet: PropTypes.func.isRequired,
@@ -78,4 +78,4 @@ ScrollIndicators.defaultProps = {
   scrollIndicatorsRight: 0
 }
 
-export default React.memo(injectIntl(ScrollIndicators))
+export default React.memo(ScrollIndicators)
