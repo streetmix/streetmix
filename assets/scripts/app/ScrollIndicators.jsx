@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import './ScrollIndicators.scss'
 
@@ -66,7 +66,7 @@ const ScrollIndicators = (props) => {
 }
 
 ScrollIndicators.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   scrollIndicatorsLeft: PropTypes.number,
   scrollIndicatorsRight: PropTypes.number,
   scrollStreet: PropTypes.func.isRequired,

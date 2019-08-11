@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
@@ -9,7 +9,7 @@ import './RemoveButton.scss'
 
 class RemoveButton extends React.PureComponent {
   static propTypes = {
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
     segment: PropTypes.number.isRequired
   }
 

@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 // todo: re-enable sharedstreets
 // sharedstreets functionality is disabled until it stops installing an old
@@ -44,7 +44,7 @@ L.Icon.Default.mergeOptions({
 class GeotagDialog extends React.Component {
   static propTypes = {
     // Provided by react-intl higher-order component
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
 
     // Provided by parent
     closeDialog: PropTypes.func,

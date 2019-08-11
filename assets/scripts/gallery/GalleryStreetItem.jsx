@@ -6,7 +6,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import StreetName from '../streets/StreetName'
 import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
@@ -20,7 +20,7 @@ const THUMBNAIL_MULTIPLIER = 0.1 * 2
 class GalleryStreetItem extends React.Component {
   static propTypes = {
     street: PropTypes.object.isRequired,
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
     showStreetOwner: PropTypes.bool,
     selected: PropTypes.bool,
     allowDelete: PropTypes.bool,

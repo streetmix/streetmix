@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
@@ -18,7 +18,7 @@ const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 export class SegmentForPalette extends React.Component {
   static propTypes = {
     // Provided by react-intl
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
 
     // Provided by react-dnd
     connectDragSource: PropTypes.func,

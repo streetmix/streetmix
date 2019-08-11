@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import { ICON_TIMES } from '../ui/icons'
 import './CloseButton.scss'
 
@@ -28,7 +28,7 @@ CloseButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   title: PropTypes.string,
   className: PropTypes.string,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 CloseButton.defaultProps = {

@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import DownshiftPelias from 'downshift-pelias'
 import Pelias from 'pelias-js'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
 import { setMapState } from '../../store/actions/map'
 
 class GeoSearch extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
     setMapState: PropTypes.func,
     setSearchResults: PropTypes.func,
     focus: PropTypes.shape({

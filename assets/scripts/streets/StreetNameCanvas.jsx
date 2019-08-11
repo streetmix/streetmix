@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
@@ -9,7 +9,7 @@ import './StreetNameCanvas.scss'
 
 class StreetNameCanvas extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
     visible: PropTypes.bool,
     editable: PropTypes.bool,
     street: PropTypes.object,

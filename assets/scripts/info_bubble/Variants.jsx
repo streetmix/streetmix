@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { segmentsChanged } from '../segments/view'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import { getSegmentInfo } from '../segments/info'
 import VARIANT_ICONS from '../segments/variant_icons.json'
 import { getVariantArray } from '../segments/variant_utils'
@@ -15,7 +15,7 @@ import { setBuildingVariant, changeSegmentVariant } from '../store/actions/stree
 
 export class Variants extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
     type: PropTypes.number,
     position: PropTypes.oneOfType([
       PropTypes.number,

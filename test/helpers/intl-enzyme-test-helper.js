@@ -8,7 +8,8 @@
  */
 
 import React from 'react'
-import { IntlProvider, intlShape } from 'react-intl'
+import PropTypes from 'prop-types'
+import { IntlProvider } from 'react-intl'
 import { mount, shallow } from 'enzyme'
 
 // You can pass your messages to the IntlProvider. Optional: remove if unneeded.
@@ -40,7 +41,7 @@ export function mountWithIntl (node, { context, childContextTypes, ...additional
     nodeWithIntlProp(node),
     {
       context: Object.assign({}, context, { intl }),
-      childContextTypes: Object.assign({}, { intl: intlShape }, childContextTypes),
+      childContextTypes: Object.assign({}, { intl: PropTypes.object }, childContextTypes),
       ...additionalOptions
     }
   )

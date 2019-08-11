@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import StreetMetaWidthLabel from './StreetMetaWidthLabel'
 import StreetMetaWidthMenu from './StreetMetaWidthMenu'
 
@@ -22,7 +22,7 @@ import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/s
 class StreetMetaWidthContainer extends Component {
   static propTypes = {
     // from react-intl
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
 
     // from Redux mapStateToProps
     editable: PropTypes.bool,
