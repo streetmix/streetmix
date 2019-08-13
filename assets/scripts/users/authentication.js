@@ -8,7 +8,7 @@ import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goTwitterSignIn } from '../app/routing'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
 import { setPromoteStreet } from '../streets/remix'
-import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
+import { fetchStreetFromServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
 import store from '../store'
 import {
@@ -18,6 +18,7 @@ import {
   rememberUserProfile
 } from '../store/actions/user'
 import { showDialog } from '../store/actions/dialogs'
+import { createNewStreet } from '../store/actions/street'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -295,7 +296,7 @@ function _signInLoaded () {
       if (app.readOnly) {
         showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
       } else {
-        createNewStreetOnServer()
+        store.dispatch(createNewStreet())
       }
       break
   }
