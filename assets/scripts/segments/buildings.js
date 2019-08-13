@@ -1,4 +1,5 @@
-import seedrandom from 'seedrandom'
+// FIXME: Replace `seedrandom` package with vendored variant, which removes use of `eval`
+import seedrandom from '../vendor/seedrandom'
 import { generateRandSeed } from '../util/random'
 import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
