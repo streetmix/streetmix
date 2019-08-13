@@ -18,13 +18,13 @@ jest.mock('../../../../../app/data/flags', () => {
 describe('flags reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
-      'BAZ_QUX': {
-        'source': 'initial',
-        'value': true
+      BAZ_QUX: {
+        source: 'initial',
+        value: true
       },
-      'FOO_BAR': {
-        'source': 'initial',
-        'value': false
+      FOO_BAR: {
+        source: 'initial',
+        value: false
       }
     })
   })
@@ -32,13 +32,13 @@ describe('flags reducer', () => {
   it('should set a user-defined value', () => {
     const action = reducer(undefined, actions.setFeatureFlag('BAZ_QUX', false))
     const result = {
-      'BAZ_QUX': {
-        'source': 'session',
-        'value': false
+      BAZ_QUX: {
+        source: 'session',
+        value: false
       },
-      'FOO_BAR': {
-        'source': 'initial',
-        'value': false
+      FOO_BAR: {
+        source: 'initial',
+        value: false
       }
     }
     expect(action).toEqual(result)

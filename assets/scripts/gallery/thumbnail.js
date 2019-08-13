@@ -139,7 +139,7 @@ function drawBackgroundGradient (ctx, dpi, width, height, backgroundGradient) {
   // Make color stops
   const stops = makeCanvasGradientStopArray(backgroundGradient)
   for (let i = 0; i < stops.length; i++) {
-    const [ color, stop ] = stops[i]
+    const [color, stop] = stops[i]
     gradient.addColorStop(stop, color)
   }
 
@@ -235,7 +235,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   // Determine how wide the street is
   let occupiedWidth = 0
-  for (let segment of street.segments) {
+  for (const segment of street.segments) {
     occupiedWidth += segment.width
   }
 
@@ -325,7 +325,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   // Collect z-indexes
   const zIndexes = []
-  for (let segment of street.segments) {
+  for (const segment of street.segments) {
     const segmentInfo = getSegmentInfo(segment.type)
 
     if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
@@ -334,10 +334,10 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   }
 
   // Render objects at each z-index level
-  for (let zIndex of zIndexes) {
+  for (const zIndex of zIndexes) {
     let offsetLeft = originalOffsetLeft
 
-    for (let segment of street.segments) {
+    for (const segment of street.segments) {
       const segmentInfo = getSegmentInfo(segment.type)
 
       if (segmentInfo.zIndex === zIndex) {
@@ -373,7 +373,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
 
-    for (let i in street.segments) {
+    for (const i in street.segments) {
       const segment = street.segments[i]
       const availableWidth = segment.width * TILE_SIZE * multiplier
 

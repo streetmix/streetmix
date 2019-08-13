@@ -2,7 +2,7 @@
 
 const dummySequence = {
   _id: 'streets',
-  '__v': 0,
+  __v: 0,
   seq: 65
 }
 

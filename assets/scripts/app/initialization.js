@@ -84,7 +84,7 @@ export async function initialize () {
   const geo = await detectGeolocation()
 
   // Parallel tasks
-  await Promise.all([ loadImages(), geo, initLocale() ])
+  await Promise.all([loadImages(), geo, initLocale()])
 
   if (geo && geo.country_code) {
     updateSettingsFromCountryCode(geo.country_code)

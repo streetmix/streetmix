@@ -32,12 +32,12 @@ exports.post = async function (req, res) {
     try {
       if (street.creator_id) {
         const row = await User.findByIdAndUpdate(street.creator_id,
-          { $inc: { 'last_street_id': 1 } },
+          { $inc: { last_street_id: 1 } },
           { new: true, upsert: true })
         namespacedId = (row) ? row.last_street_id : null
       } else {
         const row = await Sequence.findByIdAndUpdate('streets',
-          { $inc: { 'seq': 1 } },
+          { $inc: { seq: 1 } },
           { new: true, upsert: true })
         namespacedId = (row) ? row.seq : null
       }
@@ -112,7 +112,7 @@ exports.post = async function (req, res) {
   if (req.loginToken) {
     let user
     try {
-      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+      user = await User.findOne({ login_tokens: { $in: [req.loginToken] } })
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.USER_NOT_FOUND)
@@ -147,7 +147,7 @@ exports.delete = async function (req, res) {
   async function deleteStreet (street) {
     let user
     try {
-      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+      user = await User.findOne({ login_tokens: { $in: [req.loginToken] } })
     } catch (err) {
       logger.error(err)
       throw new Error(ERRORS.USER_NOT_FOUND)
@@ -327,9 +327,8 @@ exports.find = function (req, res) {
     }
 
     if (start + streets.length < totalNumStreets) {
-      let nextStart, nextCount
-      nextStart = start + count
-      nextCount = Math.min(count, totalNumStreets - start - streets.length)
+      const nextStart = start + count
+      const nextCount = Math.min(count, totalNumStreets - start - streets.length)
       json.meta.links.next = config.restapi.baseuri + '/v1/streets?start=' + nextStart + '&count=' + nextCount
     }
 
@@ -431,7 +430,7 @@ exports.put = async function (req, res) {
   async function updateStreetWithCreatorId (street) {
     let user
     try {
-      user = await User.findOne({ login_tokens: { $in: [ req.loginToken ] } })
+      user = await User.findOne({ login_tokens: { $in: [req.loginToken] } })
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.CANNOT_UPDATE_STREET)

@@ -38,7 +38,7 @@ function mergeSettings (serverSettings = {}, localSettings = {}) {
 export function loadSettings () {
   let serverSettings = {}
   let localSettings = {}
-  let signInData = getSignInData()
+  const signInData = getSignInData()
 
   if (isSignedIn() && signInData.details) {
     serverSettings = signInData.details.data
@@ -111,7 +111,7 @@ export function saveSettingsToServer () {
     method: 'PUT',
     body: transmission,
     headers: {
-      'Authorization': getAuthHeader(),
+      Authorization: getAuthHeader(),
       'Content-Type': 'application/json'
     }
   }, true, null, errorSavingSettingsToServer)

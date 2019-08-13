@@ -102,7 +102,7 @@ describe('Variants', () => {
 
     const type = INFO_BUBBLE_TYPE_SEGMENT
     const streetSegment = { variantString: 'inbound|regular', segmentType: 'streetcar' }
-    const flags = { 'flag': { value: 't' } }
+    const flags = { flag: { value: 't' } }
 
     it('renders with flag correctly', () => {
       const wrapper = shallow(<Variants {...requiredProps} type={type} position={0} variant={streetSegment.variantString} segmentType={streetSegment.segmentType} flags={flags} />)

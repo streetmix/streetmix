@@ -9,7 +9,7 @@ import { showNoConnectionMessage } from '../store/actions/status'
 const NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
 
-let nonblockingAjaxRequests = []
+const nonblockingAjaxRequests = []
 let nonblockingAjaxRequestTimer = 0
 
 function scheduleNoConnectionMessage () {
@@ -170,7 +170,7 @@ function checkIfChangesSaved () {
   if (getSaveStreetIncomplete()) {
     showWarning = true
   } else {
-    for (let i in nonblockingAjaxRequests) {
+    for (const i in nonblockingAjaxRequests) {
       if (!nonblockingAjaxRequests[i].allowToClosePage) {
         showWarning = true
       }

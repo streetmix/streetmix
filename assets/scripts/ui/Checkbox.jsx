@@ -50,7 +50,7 @@ function Checkbox (props) {
   // This is a controlled component. The `useState` hook maintains
   // this component's internal state, and sets the initial state
   // based on the `checked` prop (which is `false` by default).
-  const [ isChecked, setChecked ] = useState(props.checked)
+  const [isChecked, setChecked] = useState(props.checked)
 
   // When the value is changed, we update the state, and we also call
   // any `onChange` handler that is provided by the parent via props.

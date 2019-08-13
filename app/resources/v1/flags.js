@@ -24,7 +24,7 @@ async function readFlags (res) {
 function sendSuccessResponse (res, flags) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
-    'Location': config.restapi.baseuri + '/v1/flags',
+    Location: config.restapi.baseuri + '/v1/flags',
     'Cache-Control': 'max-age=86400'
   })
 
@@ -32,7 +32,7 @@ function sendSuccessResponse (res, flags) {
 }
 
 exports.get = async function (req, res) {
-  let flags = await readFlags(res)
+  const flags = await readFlags(res)
 
   if (flags) {
     sendSuccessResponse(res, flags)

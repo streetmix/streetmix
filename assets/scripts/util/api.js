@@ -13,9 +13,10 @@ class APIClient {
       responseType: 'json'
     })
   }
+
     getStreet = async (streetId) => {
       const { data } = await this.client.get(`/streets/${streetId}`, {
-        headers: { 'Authorization': getAuthHeader() }
+        headers: { Authorization: getAuthHeader() }
       })
       return data
     };

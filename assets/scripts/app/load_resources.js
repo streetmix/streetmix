@@ -23,10 +23,10 @@ const IMAGES_TO_BE_LOADED = [
 ]
 
 const SVGStagingEl = document.getElementById('svg')
-let loading = []
+const loading = []
 
 export async function loadImages () {
-  for (let url of IMAGES_TO_BE_LOADED) {
+  for (const url of IMAGES_TO_BE_LOADED) {
     loading.push(loadImage(url))
   }
 
@@ -48,9 +48,9 @@ async function loadImage (url) {
     // later rendering to canvas
 
     // Get all the <symbol>s
-    let symbolEls = SVGStagingEl.querySelectorAll('symbol')
+    const symbolEls = SVGStagingEl.querySelectorAll('symbol')
 
-    for (let svg of symbolEls) {
+    for (const svg of symbolEls) {
       // Skip icons, we don't need to cache these
       if (svg.id.indexOf('icon-') === 0) continue
 
@@ -65,9 +65,9 @@ async function loadImage (url) {
 
     // Captures anything with its own viewbox, whether that's an svg file
     // or symbol elements within a svg.
-    let svgEls = SVGStagingEl.querySelectorAll('svg[viewBox]')
+    const svgEls = SVGStagingEl.querySelectorAll('svg[viewBox]')
 
-    for (let svg of svgEls) {
+    for (const svg of svgEls) {
       // Right now none of these have ids, use the url
       const id = url
 

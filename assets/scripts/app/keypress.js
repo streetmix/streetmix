@@ -18,48 +18,48 @@ import { isFocusOnBody } from '../util/focus'
 
 // TODO: Flesh out this dictionary
 const KEYS = {
-  'left': 37,
-  'right': 39,
-  'enter': 13,
-  'backspace': 8,
-  'delete': 46,
-  'esc': 27,
-  '0': 48,
-  '1': 49,
-  '2': 50,
-  '3': 51,
-  '4': 52,
-  '5': 53,
-  '6': 54,
-  '7': 55,
-  '8': 56,
-  '9': 57,
-  'a': 65,
-  'b': 66,
-  'c': 67,
-  'd': 68,
-  'e': 69,
-  'f': 70,
-  'g': 71,
-  'h': 72,
-  'i': 73,
-  'j': 74,
-  'k': 75,
-  'l': 76,
-  'm': 77,
-  'n': 78,
-  'o': 79,
-  'p': 80,
-  'q': 81,
-  'r': 82,
-  's': 83,
-  't': 84,
-  'u': 85,
-  'v': 86,
-  'w': 87,
-  'x': 88,
-  'y': 89,
-  'z': 90,
+  left: 37,
+  right: 39,
+  enter: 13,
+  backspace: 8,
+  delete: 46,
+  esc: 27,
+  0: 48,
+  1: 49,
+  2: 50,
+  3: 51,
+  4: 52,
+  5: 53,
+  6: 54,
+  7: 55,
+  8: 56,
+  9: 57,
+  a: 65,
+  b: 66,
+  c: 67,
+  d: 68,
+  e: 69,
+  f: 70,
+  g: 71,
+  h: 72,
+  i: 73,
+  j: 74,
+  k: 75,
+  l: 76,
+  m: 77,
+  n: 78,
+  o: 79,
+  p: 80,
+  q: 81,
+  r: 82,
+  s: 83,
+  t: 84,
+  u: 85,
+  v: 86,
+  w: 87,
+  x: 88,
+  y: 89,
+  z: 90,
   // '=': [187, 61],
   '+': [187, 61, 107], // = or +; 61 for Firefox; 107 for keypad
   '-': [189, 173, 109], // 109 for keypad; 173 for Firefox
@@ -68,7 +68,7 @@ const KEYS = {
 }
 
 // Keep track of all registered commands here
-let inputs = {}
+const inputs = {}
 
 // Utility functions
 const noop = function () {}
@@ -197,12 +197,12 @@ export function registerKeypress (commands, options, callback) {
   const commandObj = processCommands(commands)
 
   // Process each command input
-  for (let keyCode in commandObj) {
-    let commands = commandObj[keyCode]
+  for (const keyCode in commandObj) {
+    const commands = commandObj[keyCode]
 
-    for (let command of commands) {
+    for (const command of commands) {
       // Get default settings
-      for (let key in defaults) {
+      for (const key in defaults) {
         if (typeof command[key] === 'undefined') {
           command[key] = defaults[key]
         }
@@ -227,7 +227,7 @@ export function registerKeypress (commands, options, callback) {
       // This basically allows other code to override settings via the
       // options object - it's dumb, but there's no protection against it,
       // and who knows, could be useful in edge cases
-      for (let k in options) {
+      for (const k in options) {
         command[k] = options[k]
       }
 
@@ -264,16 +264,16 @@ export function deregisterKeypress (commands, callback) {
   const commandObj = processCommands(commands)
 
   // Process each command input
-  for (let keyCode in commandObj) {
+  for (const keyCode in commandObj) {
     const commands = commandObj[keyCode]
 
-    for (let command of commands) {
-      let items = inputs[keyCode]
+    for (const command of commands) {
+      const items = inputs[keyCode]
       let x = items.length
 
       // A reverse while loop quickly removes all duplicates that matches
       while (x--) {
-        let item = items[x]
+        const item = items[x]
         if (item.onKeypress === callback || typeof callback === 'undefined') {
           // Check for equality for command + function
           if ((item.shiftKey === command.shiftKey || item.shiftKey === 'optional') &&
@@ -304,7 +304,7 @@ function processCommands (commands) {
     commands = new Array(commands)
   }
 
-  let commandsObj = {}
+  const commandsObj = {}
 
   // Process each command input
   for (let command of commands) {
@@ -315,7 +315,7 @@ function processCommands (commands) {
       .replace(/(command|cmd|control|ctrl)/g, 'meta')
       .split(' ')
 
-    let settings = {
+    const settings = {
       shiftKey: false,
       altKey: false,
       metaKey: false
@@ -323,19 +323,19 @@ function processCommands (commands) {
 
     // Check for existence of modifier keys
     // Modifier keys are removed from input array
-    let isShift = command.indexOf('shift')
+    const isShift = command.indexOf('shift')
     if (isShift > -1) {
       settings.shiftKey = true
       command.splice(isShift, 1)
     }
 
-    let isAlt = command.indexOf('alt')
+    const isAlt = command.indexOf('alt')
     if (isAlt > -1) {
       settings.altKey = true
       command.splice(isAlt, 1)
     }
 
-    let isMeta = command.indexOf('meta')
+    const isMeta = command.indexOf('meta')
     if (isMeta > -1) {
       settings.metaKey = true
       command.splice(isMeta, 1)
@@ -343,7 +343,7 @@ function processCommands (commands) {
 
     // First remaining item in the input array is the key code to test for.
     // Does not support multi-keys, so rest of input (if provided) is ignored.
-    let keyCode = KEYS[command[0]]
+    const keyCode = KEYS[command[0]]
 
     // Keycodes might be a single number or an array
     if (keyCode) {
@@ -356,7 +356,7 @@ function processCommands (commands) {
         keys = keyCode
       }
 
-      for (let key of keys) {
+      for (const key of keys) {
         settings.keyCode = key
         if (typeof commandsObj[key] === 'undefined') {
           commandsObj[key] = []
@@ -371,14 +371,14 @@ function processCommands (commands) {
 }
 
 function onGlobalKeyDown (event) {
-  let toExecute = []
+  const toExecute = []
 
   // Find the right command object
   const commandsForKeyCode = inputs[event.keyCode]
   if (!commandsForKeyCode || commandsForKeyCode.length === 0) return
 
   // Check if the right meta keys are down
-  for (let item of commandsForKeyCode) {
+  for (const item of commandsForKeyCode) {
     if ((item.shiftKey === event.shiftKey || item.shiftKey === 'optional') &&
         (item.altKey === event.altKey || item.altKey === 'optional') &&
         (item.metaKey === event.metaKey || item.metaKey === event.ctrlKey || item.metaKey === 'optional')) {
@@ -387,7 +387,7 @@ function onGlobalKeyDown (event) {
   }
 
   // Execute input's callbacks, if found
-  for (let input of toExecute) {
+  for (const input of toExecute) {
     execute(input, event)
   }
 }

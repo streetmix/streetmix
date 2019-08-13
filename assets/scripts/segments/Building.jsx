@@ -164,7 +164,7 @@ class Building extends React.Component {
   // editCount, rightBuildingVariant (or leftBuildingVariant), and updatedAt
   shouldBuildingAnimate = (oldStreet, newStreet) => {
     let userUpdated = true
-    for (let key in newStreet) {
+    for (const key in newStreet) {
       if (oldStreet[key] !== newStreet[key]) {
         userUpdated = ['editCount', this.state.variant, 'updatedAt'].includes(key)
         if (!userUpdated) return false

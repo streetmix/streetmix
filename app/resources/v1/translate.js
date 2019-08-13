@@ -27,7 +27,7 @@ async function getLocalTranslation (res, locale, resource) {
 function sendSuccessResponse (res, locale, resource, translation) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
-    'Location': config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
+    Location: config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
     'Cache-Control': 'max-age=86400'
   })
 

@@ -48,22 +48,22 @@ export class DebugInfo extends React.Component {
     const debugUndo = cloneDeep(this.props.undo)
 
     // Some things just shouldn't be seen...
-    for (let i in debugStreetData.segments) {
+    for (const i in debugStreetData.segments) {
       delete debugStreetData.segments[i].el
     }
 
-    for (let j in debugUndo) {
-      for (let k in debugUndo[j].segments) {
+    for (const j in debugUndo) {
+      for (const k in debugUndo[j].segments) {
         delete debugUndo[j].segments[k].el
       }
     }
 
     // Create a JSON object, this parses better in editors
     const debugObj = {
-      'DATA': debugStreetData,
-      'SETTINGS': this.props.settings,
-      'FLAGS': this.props.flags,
-      'UNDO': debugUndo
+      DATA: debugStreetData,
+      SETTINGS: this.props.settings,
+      FLAGS: this.props.flags,
+      UNDO: debugUndo
     }
 
     return JSON.stringify(debugObj, null, 2)

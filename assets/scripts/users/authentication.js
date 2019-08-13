@@ -133,7 +133,7 @@ export async function loadSignIn () {
 
 async function fetchSignInDetails (userId) {
   const options = {
-    headers: { 'Authorization': getAuthHeader() }
+    headers: { Authorization: getAuthHeader() }
   }
 
   try {
@@ -234,7 +234,7 @@ function sendSignOutToServer (quiet) {
   const signInData = getSignInData()
   const options = {
     method: 'DELETE',
-    headers: { 'Authorization': getAuthHeader() }
+    headers: { Authorization: getAuthHeader() }
   }
 
   // TODO const
@@ -264,7 +264,7 @@ function _signInLoaded () {
   let mode = getMode()
   if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||
     (mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
-    let settings = getSettings()
+    const settings = getSettings()
     if (settings.lastStreetId) {
       street.creatorId = settings.lastStreetCreatorId
       street.id = settings.lastStreetId

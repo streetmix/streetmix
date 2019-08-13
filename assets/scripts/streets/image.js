@@ -123,7 +123,7 @@ export async function saveStreetThumbnail (street, event) {
       method: 'POST',
       body: JSON.stringify(details),
       headers: {
-        'Authorization': getAuthHeader(),
+        Authorization: getAuthHeader(),
         'Content-Type': 'text/plain'
       }
     }
@@ -153,7 +153,7 @@ export async function deleteStreetThumbnail (streetId) {
   const options = {
     method: 'DELETE',
     headers: {
-      'Authorization': getAuthHeader(),
+      Authorization: getAuthHeader(),
       'Content-Type': 'text/plain'
     }
   }

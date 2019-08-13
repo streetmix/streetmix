@@ -16,7 +16,7 @@ exports.get = async function (req, res) {
           model: User,
           where: { creator_id: userId }
         }],
-        order: [ ['updated_at', 'DESC'] ]
+        order: [['updated_at', 'DESC']]
       })
     } catch (err) {
       logger.error(err)

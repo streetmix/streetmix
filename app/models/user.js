@@ -6,14 +6,14 @@ const userSchema = new mongoose.Schema({
   twitter_credentials: mongoose.Schema.Types.Mixed,
   auth0_id: String,
   email: { type: String, index: { unique: true, sparse: true } },
-  login_tokens: [ String ],
+  login_tokens: [String],
   profile_image_url: String,
   data: mongoose.Schema.Types.Mixed,
   created_at: Date,
   updated_at: Date,
   last_street_id: Number,
   flags: mongoose.Schema.Types.Mixed,
-  roles: [ String ]
+  roles: [String]
 })
 
 userSchema.pre('save', function (next) {

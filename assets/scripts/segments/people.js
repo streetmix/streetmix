@@ -9,7 +9,7 @@ import PEOPLE from './people.json'
 
 // TODO magic number - randSeed defaults to 35: why?
 export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, randSeed = 35, multiplier, variantString, dpi) {
-  let people = []
+  const people = []
   let peopleWidth = 0
 
   // Depending on the type of sidewalk, we would have different densities of people.
@@ -73,7 +73,7 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, ran
     startLeft += (firstPersonCorrection + lastPersonCorrection) / 2
   }
 
-  for (let person of people) {
+  for (const person of people) {
     // Change person.id to 1-index instead of 0-index,
     // convert to string & zero-pad to two digits
     const type = ('0' + (person.id + 1).toString()).slice(-2)

@@ -14,7 +14,7 @@ import slugify from 'slugify'
  *    from the top of the viewport.
  */
 export function getElAbsolutePos (el, includeScroll = false) {
-  let pos = [0, 0]
+  const pos = [0, 0]
 
   do {
     pos[0] += el.offsetLeft + (el.cssTransformLeft || 0)
@@ -46,7 +46,7 @@ export function normalizeSlug (slug) {
   slugify.extend({
     '|': null,
     '%': null,
-    '$': null
+    $: null
   })
 
   const slugified = slugify(slug, {

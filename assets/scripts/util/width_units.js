@@ -48,7 +48,7 @@ export function processWidthInput (widthInput, units) {
   widthInput = widthInput.replace(/ /g, '')
   widthInput = widthInput.replace(/,/g, '.')
 
-  for (let i in IMPERIAL_VULGAR_FRACTIONS) {
+  for (const i in IMPERIAL_VULGAR_FRACTIONS) {
     if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) !== -1) {
       widthInput = widthInput.replace(new RegExp(IMPERIAL_VULGAR_FRACTIONS[i]), i)
     }
@@ -227,7 +227,7 @@ function parseStringForUnits (widthInput, units) {
       multiplier = 1
     }
 
-    for (let i in WIDTH_INPUT_CONVERSION) {
+    for (const i in WIDTH_INPUT_CONVERSION) {
       if (widthInput.match(new RegExp('[\\d\\.]' + WIDTH_INPUT_CONVERSION[i].text + '$'))) {
         multiplier = WIDTH_INPUT_CONVERSION[i].multiplier
         break

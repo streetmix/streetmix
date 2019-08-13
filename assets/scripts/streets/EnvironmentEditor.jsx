@@ -33,7 +33,7 @@ class EnvironmentEditor extends Component {
 
   render () {
     const envs = getAllEnvirons()
-    const show = [ this.props.visible ]
+    const show = [this.props.visible]
 
     return (
       <Transition

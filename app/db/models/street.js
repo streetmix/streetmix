@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     namespaced_id: DataTypes.INTEGER,
     status: {
       type: DataTypes.ENUM,
-      values: [ 'ACTIVE', 'DELETED' ],
+      values: ['ACTIVE', 'DELETED'],
       defaultValue: 'ACTIVE'
     },
     name: DataTypes.STRING,

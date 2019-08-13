@@ -23,7 +23,7 @@ export function getVariantArray (segmentType, variantString) {
   const segment = getSegmentInfo(segmentType)
 
   if (segment && segment.variants) {
-    for (let i in segment.variants) {
+    for (const i in segment.variants) {
       const variantName = segment.variants[i]
       variantArray[variantName] = variantSplit[i]
     }

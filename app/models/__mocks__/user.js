@@ -1,7 +1,7 @@
 /* eslint-env jest */
 const mockUsers = {
   user1: {
-    login_tokens: [ 'xxxxxxxx-xxxx-xxxx-xxxx-1111111111111' ],
+    login_tokens: ['xxxxxxxx-xxxx-xxxx-xxxx-1111111111111'],
     _id: '1',
     id: 'user1',
     last_street_id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
@@ -15,7 +15,7 @@ const mockUsers = {
     roles: []
   },
   user2: {
-    login_tokens: [ 'xxxxxxxx-xxxx-xxxx-xxxx-2222222222222' ],
+    login_tokens: ['xxxxxxxx-xxxx-xxxx-xxxx-2222222222222'],
     _id: '2',
     id: 'user2',
     twitter_id: '2',
@@ -28,7 +28,7 @@ const mockUsers = {
     roles: []
   },
   admin: {
-    login_tokens: [ 'xxxxxxxx-xxxx-xxxx-xxxx-3333333333333' ],
+    login_tokens: ['xxxxxxxx-xxxx-xxxx-xxxx-3333333333333'],
     _id: '3',
     id: 'admin',
     twitter_id: '3',
@@ -38,7 +38,7 @@ const mockUsers = {
     },
     updated_at: '2018-05-22T14:18:09.853Z',
     created_at: '2018-05-21T19:35:10.807Z',
-    roles: [ 'ADMIN' ]
+    roles: ['ADMIN']
   }
 }
 

@@ -138,7 +138,7 @@ class StreetView extends React.Component {
   onResize = () => {
     const { viewportWidth, viewportHeight } = this.props.system
     let streetSectionTop
-    let streetSectionHeight = this.streetSectionInner.offsetHeight
+    const streetSectionHeight = this.streetSectionInner.offsetHeight
 
     if (viewportHeight - streetSectionHeight > 450) {
       streetSectionTop = ((viewportHeight - streetSectionHeight - 450) / 2) + 450 + 80
@@ -150,7 +150,7 @@ class StreetView extends React.Component {
       streetSectionTop += 80
     }
 
-    let scrollTop = (streetSectionTop + streetSectionHeight)
+    const scrollTop = (streetSectionTop + streetSectionHeight)
 
     // Not sure what 255 does, but it keeps it from getting too tall
     // `skyHeight` is needed so that when gallery opens and the

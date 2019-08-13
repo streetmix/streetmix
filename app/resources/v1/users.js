@@ -47,7 +47,7 @@ exports.post = function (req, res) {
         const u = new User({
           id: credentials.screenName,
           auth0_id: credentials.auth0_id,
-          login_tokens: [ loginToken ],
+          login_tokens: [loginToken],
           profile_image_url: credentials.profile_image_url
         })
         u.save(handleCreateUser)
@@ -80,7 +80,7 @@ exports.post = function (req, res) {
             access_token_key: twitterCredentials.oauthAccessTokenKey,
             access_token_secret: twitterCredentials.oauthAccessTokenSecret
           },
-          login_tokens: [ loginToken ]
+          login_tokens: [loginToken]
         })
         u.save(handleCreateUser)
       } else {
@@ -145,7 +145,7 @@ exports.post = function (req, res) {
             id: credentials.nickname,
             auth0_id: credentials.auth0_id,
             email: credentials.email,
-            login_tokens: [ loginToken ],
+            login_tokens: [loginToken],
             profile_image_url: credentials.profile_image_url
           })
           u.save(handleCreateUser)
@@ -155,7 +155,7 @@ exports.post = function (req, res) {
             id: id,
             auth0_id: credentials.auth0_id,
             email: credentials.email,
-            login_tokens: [ loginToken ],
+            login_tokens: [loginToken],
             profile_image_url: credentials.profile_image_url
           })
           u.save(handleCreateUser)
@@ -184,11 +184,11 @@ exports.post = function (req, res) {
     return
   }
 
-  if (body.hasOwnProperty('twitter')) {
+  if (Object.prototype.hasOwnProperty.call(body, 'twitter')) {
     handleTwitterSignIn(body.twitter)
-  } else if (body.hasOwnProperty('auth0_twitter')) {
+  } else if (Object.prototype.hasOwnProperty.call(body, 'auth0_twitter')) {
     handleAuth0TwitterSignIn(body.auth0_twitter)
-  } else if (body.hasOwnProperty('auth0')) {
+  } else if (Object.prototype.hasOwnProperty.call(body, 'auth0')) {
     handleAuth0SignIn(body.auth0)
   } else {
     res.status(400).send('Unknown sign-in method used.')
@@ -242,7 +242,7 @@ exports.get = function (req, res) {
   }
 
   const handleFindUsers = function (users) {
-    let usersArray = []
+    const usersArray = []
 
     const getUserJson = function (user) {
       user.asJson({ auth: true }, function (err, userJson) {

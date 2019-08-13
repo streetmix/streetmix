@@ -11,7 +11,7 @@ const NewsletterDialog = (props) => {
   const closeDialogFunc = useRef(() => {})
   const subscribeButton = useRef(null)
   useEffect(() => {
-    let handler = closeDialogFunc.current
+    const handler = closeDialogFunc.current
     subscribeButton.current = document.querySelector('#mc-embedded-subscribe')
     if (subscribeButton.current) {
       subscribeButton.current.addEventListener('click', handler)

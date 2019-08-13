@@ -51,7 +51,7 @@ EditableLabel.propTypes = {
   segment: PropTypes.object,
   position: PropTypes.oneOfType([
     PropTypes.number,
-    PropTypes.oneOf([ 'left', 'right' ])
+    PropTypes.oneOf(['left', 'right'])
   ]),
 
   // Provided by Redux mapStateToProps

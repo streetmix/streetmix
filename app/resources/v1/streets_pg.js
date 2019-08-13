@@ -139,7 +139,7 @@ exports.post = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { login_tokens: { [Op.contains]: [ req.loginToken ] } }
+        where: { login_tokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
@@ -176,7 +176,7 @@ exports.delete = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { login_tokens: { [Op.contains]: [ req.loginToken ] } }
+        where: { login_tokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
@@ -307,7 +307,7 @@ exports.find = async function (req, res) {
   const findStreets = async function (start, count) {
     return Street.findAndCountAll({
       where: { status: 'ACTIVE' },
-      order: [ ['updated_at', 'DESC'] ],
+      order: [['updated_at', 'DESC']],
       offset: start,
       limit: count
     })
@@ -378,9 +378,8 @@ exports.find = async function (req, res) {
     }
 
     if (start + streets.length < totalNumStreets) {
-      let nextStart, nextCount
-      nextStart = start + count
-      nextCount = Math.min(count, totalNumStreets - start - streets.length)
+      const nextStart = start + count
+      const nextCount = Math.min(count, totalNumStreets - start - streets.length)
       json.meta.links.next = config.restapi.baseuri + '/v1/streets?start=' + nextStart + '&count=' + nextCount
     }
     res.status(200).send(json)
@@ -484,7 +483,7 @@ exports.put = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { login_tokens: { [Op.contains]: [ req.loginToken ] } }
+        where: { login_tokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
