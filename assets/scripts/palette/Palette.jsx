@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import { getAllSegmentInfoArray } from '../segments/info'
+import { generateRandSeed } from '../util/random'
 import './Palette.scss'
 
 class Palette extends React.PureComponent {
@@ -24,6 +25,10 @@ class Palette extends React.PureComponent {
     super(props)
 
     this.scrollable = React.createRef()
+
+    this.state = {
+      randSeed: generateRandSeed()
+    }
   }
 
   /**
@@ -76,6 +81,7 @@ class Palette extends React.PureComponent {
           type={segment.id}
           variantString={variant}
           onPointerOver={this.props.handlePointerOver}
+          randSeed={this.state.randSeed}
         />
       )
     })

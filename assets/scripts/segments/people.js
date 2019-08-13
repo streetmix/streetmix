@@ -1,14 +1,13 @@
 // TODO: Refactor this to have less magic numbers & stuff
+import seedrandom from 'seedrandom'
 import { images } from '../app/load_resources'
-import { RandomGenerator } from '../util/random'
 import { drawSegmentImage } from './view'
 import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 import { getVariantArray } from './variant_utils'
 import PEOPLE from './people.json'
 
-// TODO magic number - randSeed defaults to 35: why?
-export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, randSeed = 35, multiplier, variantString, dpi) {
+export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, randSeed, multiplier, variantString, dpi) {
   const people = []
   let peopleWidth = 0
 
@@ -35,8 +34,7 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, ran
       break
   }
 
-  const randomGenerator = new RandomGenerator()
-  randomGenerator.seed = randSeed + 16 // TODO magic number - randSeed adds 16: why?
+  const randomGenerator = seedrandom(randSeed)
 
   let lastPersonId = 0
 
@@ -44,7 +42,7 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, ran
     let person
 
     do {
-      const index = Math.floor(randomGenerator.rand() * PEOPLE.length)
+      const index = Math.floor(randomGenerator() * PEOPLE.length)
 
       // Clone the person object
       person = Object.assign({}, PEOPLE[index])
@@ -53,7 +51,7 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, ran
     lastPersonId = person.id
     person.left = peopleWidth
 
-    var lastWidth = widthConst + (person.width * 12) - 24 + (randomGenerator.rand() * widthRand)
+    var lastWidth = widthConst + (person.width * 12) - 24 + (randomGenerator() * widthRand)
 
     peopleWidth += lastWidth
     people.push(person)
