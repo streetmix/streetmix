@@ -336,3 +336,143 @@ h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
   background-color: #ffeecc;
   color: black;
 }
+
+.stmx-brand-color-green-700 {
+  background-color: #093f14;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-green-600 {
+  background-color: #1f7234;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-green-500 {
+  background-color: #1a914e;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-green-400 {
+  background-color: #5bc17d;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-green-300 {
+  background-color: #93dba9;
+  color: #093f14;
+}
+
+.stmx-brand-color-green-200 {
+  background-color: #c8edd1;
+  color: #093f14;
+}
+
+.stmx-brand-color-green-100 {
+  background-color: #e7f7ea;
+  color: #093f14;
+}
+
+.stmx-brand-color-aqua-700 {
+  background-color: #154447;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-aqua-600 {
+  background-color: #306c72;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-aqua-500 {
+  background-color: #52a2af;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-aqua-400 {
+  background-color: #89c1ce;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-aqua-300 {
+  background-color: #c1ebf7;
+  color: #154447;
+}
+
+.stmx-brand-color-aqua-200 {
+  background-color: #dcf3f9;
+  color: #154447;
+}
+
+.stmx-brand-color-aqua-100 {
+  background-color: #ebf9fc;
+  color: #154447;
+}
+
+.stmx-brand-color-brown-700 {
+  background-color: #562211;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-brown-600 {
+  background-color: #894528;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-brown-500 {
+  background-color: #b56d48;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-brown-400 {
+  background-color: #d88d64;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-brown-300 {
+  background-color: #f8b890;
+  color: #562211;
+}
+
+.stmx-brand-color-brown-200 {
+  background-color: #f9d5c0;
+  color: #562211;
+}
+
+.stmx-brand-color-brown-100 {
+  background-color: #f9eee8;
+  color: #562211;
+}
+
+.stmx-brand-color-indigo-700 {
+  background-color: #182549;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-indigo-600 {
+  background-color: #354377;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-indigo-500 {
+  background-color: #536491;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-indigo-400 {
+  background-color: #7b8bad;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-indigo-300 {
+  background-color: #a6b2c9;
+  color: #182549;
+}
+
+.stmx-brand-color-indigo-200 {
+  background-color: #d4dbe8;
+  color: #182549;
+}
+
+.stmx-brand-color-indigo-100 {
+  background-color: #e6ebf4;
+  color: #182549;
+}

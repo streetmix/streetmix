@@ -18,8 +18,9 @@ In the spirit of open source, **everyone** is welcome to help! **You do not have
 
    - :ref:`illustrations`
 
-.. - I want to design the user interface and experience.
-..   - :ref:`content-styleguide`
+- I want to design the user interface and experience.
+
+   - :ref:`user-interface`
 
 - I want to write or improve documentation.
 
@@ -56,3 +57,4 @@ In the spirit of open source, **everyone** is welcome to help! **You do not have
    documentation
    illustrations/index
    translations/index
+   ui/index
