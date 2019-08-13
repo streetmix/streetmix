@@ -20,7 +20,7 @@ import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
 
 const StreetMetaWidthContainer = (props) => {
-  const [ isEditing, setEditing ] = useState(false)
+  const [isEditing, setEditing] = useState(false)
   const intl = useIntl()
 
   /**
