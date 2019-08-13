@@ -1,5 +1,4 @@
 var config = require('config')
-var sprintf = require('sprintf').sprintf
 var oauth = require('../../lib/oauth.js')
 var logger = require('../../lib/logger.js')()
 
@@ -19,7 +18,7 @@ var oauthRequestTokenHandler = function (req, res) {
     req.session.oauth.redirect_uri = req.query.redirectUri || '/'
 
     // Redirect user to Twitter sign-in flow
-    res.redirect(sprintf(config.twitter.oauth_authenticate_uri, oauthToken))
+    res.redirect(config.twitter.oauth_authenticate_uri + '?oauth_token=' + oauthToken)
   }
 }
 

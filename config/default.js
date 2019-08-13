@@ -9,7 +9,7 @@ module.exports = {
   twitter: {
     oauth_request_token_api_uri: 'https://api.twitter.com/oauth/request_token',
     oauth_access_token_api_uri: 'https://api.twitter.com/oauth/access_token',
-    oauth_authenticate_uri: 'https://twitter.com/oauth/authenticate?oauth_token=%s',
+    oauth_authenticate_uri: 'https://twitter.com/oauth/authenticate',
     oauth_consumer_key: process.env.TWITTER_OAUTH_CONSUMER_KEY,
     oauth_consumer_secret: process.env.TWITTER_OAUTH_CONSUMER_SECRET,
     oauth_version: '1.0A',

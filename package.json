@@ -172,7 +172,6 @@
     "sequelize-cli": "5.5.0",
     "shifty": "2.8.0",
     "slugify": "1.3.4",
-    "sprintf": "0.1.5",
     "stripe": "7.6.0",
     "supervisor": "0.12.0",
     "twitter": "1.7.1",
