@@ -41,6 +41,36 @@ $street-name-background:    white;
 $hr-colour:                 darken($ui-colour, 10%);
 $control-disabled-colour:   gray;
 
+// Brand colours
+$colour-emerald-700:        rgb(12, 62, 22);
+$colour-emerald-600:        rgb(35, 113, 55);
+$colour-emerald-500:        rgb(35, 144, 80);
+$colour-emerald-400:        rgb(95, 192, 127);
+$colour-emerald-300:        rgb(149, 218, 170);
+$colour-emerald-200:        rgb(201, 236, 210);
+$colour-emerald-100:        rgb(231, 247, 234);
+$colour-turquoise-700:      rgb(23, 68, 70);
+$colour-turquoise-600:      rgb(51, 108, 113);
+$colour-turquoise-500:      rgb(86, 162, 174);
+$colour-turquoise-400:      rgb(139, 193, 205);
+$colour-turquoise-300:      rgb(194, 235, 246);
+$colour-turquoise-200:      rgb(221, 243, 249);
+$colour-turquoise-100:      rgb(235, 249, 252);
+$colour-copper-700:         rgb(85, 34, 19);
+$colour-copper-600:         rgb(136, 69, 44);
+$colour-copper-500:         rgb(180, 109, 76);
+$colour-copper-400:         rgb(214, 141, 104);
+$colour-copper-300:         rgb(247, 184, 147);
+$colour-copper-200:         rgb(248, 213, 193);
+$colour-copper-100:         rgb(249, 238, 232);
+$colour-midnight-700:       rgb(24, 38, 72);
+$colour-midnight-600:       rgb(54, 68, 117);
+$colour-midnight-500:       rgb(84, 101, 143);
+$colour-midnight-400:       rgb(124, 140, 172);
+$colour-midnight-300:       rgb(166, 178, 200);
+$colour-midnight-200:       rgb(212, 219, 231);
+$colour-midnight-100:       rgb(230, 235, 244);
+
 // Layered UI box shadows
 $light-box-shadow:          0 0 14px 0 rgba(0, 0, 0, 0.075);
 $medium-box-shadow:         0 0 10px 0 rgba(0, 0, 0, 0.1);
