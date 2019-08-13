@@ -12,18 +12,14 @@ exports[`StreetMeta renders without crashing 1`] = `
         class="street-width street-width-editable"
         title="Change width of the street"
       >
-        <span>
-          0 m width
-        </span>
+        0 m width
       </span>
     </span>
     <span
       class="street-metadata-map"
     >
       <a>
-        <span>
-          Add location
-        </span>
+        Add location
       </a>
     </span>
     <span

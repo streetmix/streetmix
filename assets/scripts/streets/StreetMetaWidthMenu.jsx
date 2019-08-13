@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useIntl } from 'react-intl'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
 import { normalizeStreetWidth } from '../streets/width'
 import { prettifyWidth } from '../util/width_units'
@@ -36,7 +37,7 @@ const StreetMetaWidthMenu = (props) => {
   }
 
   // Get ready to render
-  const formatMessage = props.formatMessage
+  const { formatMessage } = useIntl()
   const { units, width, occupiedWidth } = props.street
 
   // Create options for default widths. This will also convert the widths
@@ -101,10 +102,6 @@ const StreetMetaWidthMenu = (props) => {
 }
 
 StreetMetaWidthMenu.propTypes = {
-  // pass intl's formatMessage() to here to avoid HOC wrapper
-  formatMessage: PropTypes.func.isRequired,
-
-  // from parent component
   street: PropTypes.shape({
     units: PropTypes.number,
     width: PropTypes.number,

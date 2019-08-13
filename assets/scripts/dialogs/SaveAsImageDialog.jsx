@@ -7,7 +7,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import Dialog from './Dialog'
 import Checkbox from '../ui/Checkbox'
 import { trackEvent } from '../app/event_tracking'
@@ -25,7 +25,7 @@ const MAX_IMAGE_DPI = 10
 
 class SaveAsImageDialog extends React.Component {
   static propTypes = {
-    intl: intlShape,
+    intl: PropTypes.object.isRequired,
     locale: PropTypes.string,
     transparentSky: PropTypes.bool.isRequired,
     segmentNames: PropTypes.bool.isRequired,

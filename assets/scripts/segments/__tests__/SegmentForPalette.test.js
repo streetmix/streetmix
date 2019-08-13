@@ -1,11 +1,11 @@
 /* eslint-env jest */
 import React from 'react'
 import { shallow } from 'enzyme'
+import { createIntl, createIntlCache } from 'react-intl'
 import { SegmentForPalette } from '../SegmentForPalette'
 import { getSegmentInfo, getSegmentVariantInfo } from '../info'
 import { getVariantInfoDimensions } from '../view'
 import { generateRandSeed } from '../../util/random'
-import { IntlProvider } from 'react-intl'
 
 jest.mock('../../streets/data_model', () => {})
 jest.mock('../info')
@@ -17,8 +17,13 @@ function connectDragSource (el) { return el }
 
 describe('SegmentForPalette', () => {
   const connectDragPreview = jest.fn()
-  const intlProvider = new IntlProvider({ locale: 'en' }, {})
-  const { intl } = intlProvider.getChildContext()
+
+  const cache = createIntlCache()
+  const intl = createIntl({
+    locale: 'en',
+    messages: {}
+  }, cache)
+
   beforeEach(() => {
     const dimensions = { left: 100, right: 200 }
     generateRandSeed.mockImplementation(() => 42)

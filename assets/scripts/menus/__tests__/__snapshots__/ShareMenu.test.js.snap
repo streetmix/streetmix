@@ -8,23 +8,17 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
     <div
       class="share-sign-in-promo"
     >
-      <span>
-        <a
-          href="#"
-        >
-          <span>
-            Sign in
-          </span>
-        </a>
-         for nicer links to your streets and your personal street gallery
-      </span>
+      <a
+        href="#"
+      >
+        Sign in
+      </a>
+       for nicer links to your streets and your personal street gallery
     </div>
     <div
       class="share-via-link-container"
     >
-      <span>
-        Copy and paste this link to share:
-      </span>
+      Copy and paste this link to share:
       <input
         class="share-via-link"
         readonly=""
@@ -42,9 +36,7 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
       <svg
         class="svg-inline--fa fa-twitter"
       />
-      <span>
-        Share using Twitter
-      </span>
+      Share using Twitter
     </a>
     <a
       class="share-via-facebook"
@@ -55,30 +47,22 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
       <svg
         class="svg-inline--fa fa-facebook-square"
       />
-      <span>
-        Share using Facebook
-      </span>
+      Share using Facebook
     </a>
     <a
       href="#"
     >
-      <span>
-        Print…
-      </span>
+      Print…
     </a>
     <a
       href="#"
       id="save-as-image"
     >
-      <span>
-        Save as image…
-      </span>
+      Save as image…
       <span
         class="menu-item-subtext"
       >
-        <span>
-          For including in a report, blog, etc.
-        </span>
+        For including in a report, blog, etc.
       </span>
     </a>
   </div>
@@ -93,9 +77,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
     <div
       class="share-via-link-container"
     >
-      <span>
-        Copy and paste this link to share:
-      </span>
+      Copy and paste this link to share:
       <input
         class="share-via-link"
         readonly=""
@@ -113,9 +95,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
       <svg
         class="svg-inline--fa fa-twitter"
       />
-      <span>
-        Share using Twitter
-      </span>
+      Share using Twitter
     </a>
     <a
       class="share-via-facebook"
@@ -126,30 +106,22 @@ exports[`ShareMenu renders (user signed in) 1`] = `
       <svg
         class="svg-inline--fa fa-facebook-square"
       />
-      <span>
-        Share using Facebook
-      </span>
+      Share using Facebook
     </a>
     <a
       href="#"
     >
-      <span>
-        Print…
-      </span>
+      Print…
     </a>
     <a
       href="#"
       id="save-as-image"
     >
-      <span>
-        Save as image…
-      </span>
+      Save as image…
       <span
         class="menu-item-subtext"
       >
-        <span>
-          For including in a report, blog, etc.
-        </span>
+        For including in a report, blog, etc.
       </span>
     </a>
   </div>

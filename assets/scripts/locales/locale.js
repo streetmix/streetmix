@@ -3,7 +3,6 @@
  * handles internationalization (i18n)
  *
  */
-import { addLocaleData } from 'react-intl'
 import IntlMessageFormat from 'intl-messageformat'
 import { DEFAULT_LOCALE } from './constants'
 import { API_URL } from '../app/config'
@@ -11,30 +10,29 @@ import store, { observeStore } from '../store'
 import { changeLocale } from '../store/actions/locale'
 import LOCALES from '../../../app/data/locales.json'
 
-// Add react-intl files for all the languages we support
-// See https://github.com/yahoo/react-intl/wiki#locale-data-in-browsers
-// We are taking a simpler approach by bundling all the locale data together
-// (they are not large -- about 2kb-4kb pre-minification/gzip). We may consider
-// dynamically loading locale data later.
-import ar from 'react-intl/locale-data/ar'
-import es from 'react-intl/locale-data/es'
-import de from 'react-intl/locale-data/de'
-import fi from 'react-intl/locale-data/fi'
-import fr from 'react-intl/locale-data/fr'
-import ja from 'react-intl/locale-data/ja'
-import pl from 'react-intl/locale-data/pl'
-import pt from 'react-intl/locale-data/pt'
-import ru from 'react-intl/locale-data/ru'
-import sv from 'react-intl/locale-data/sv'
-import zh from 'react-intl/locale-data/zh'
+// Polyfill Intl API support for IE11, Edge & Safari 12
+import 'intl-pluralrules'
+import '@formatjs/intl-relativetimeformat/polyfill'
+
+// For the Intl. polyfill, we must import locale data for all
+// locales we support. See more here:
+// https://github.com/formatjs/formatjs/tree/master/packages/intl-relativetimeformat#usage
+import '@formatjs/intl-relativetimeformat/dist/locale-data/ar'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/es'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/de'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/fi'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/fr'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/ja'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/pl'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/pt'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/ru'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/sv'
+import '@formatjs/intl-relativetimeformat/dist/locale-data/zh'
 
 /**
  * Initialize i18n / localization
  */
 export async function initLocale () {
-  // Add react-intl locale data
-  addLocaleData([...ar, ...es, ...de, ...fi, ...fr, ...ja, ...pl, ...pt, ...ru, ...sv, ...zh])
-
   // Default language is set by browser, or is English if undetermined
   const defaultLocale = navigator.language || DEFAULT_LOCALE
 

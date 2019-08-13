@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import UpDownInput from './UpDownInput'
 import { trackEvent } from '../app/event_tracking'
 import {
@@ -24,7 +24,7 @@ import {
 
 class WidthControl extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
     touch: PropTypes.bool,
     position: PropTypes.number,
     value: PropTypes.number,

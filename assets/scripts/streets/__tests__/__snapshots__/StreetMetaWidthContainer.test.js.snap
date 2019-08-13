@@ -9,9 +9,7 @@ exports[`StreetMetaWidthContainer renders 1`] = `
       class="street-width street-width-editable"
       title="Change width of the street"
     >
-      <span>
-        0 m width
-      </span>
+      0 m width
     </span>
   </span>
 </DocumentFragment>

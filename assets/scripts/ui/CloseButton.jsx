@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { injectIntl, intlShape } from 'react-intl'
 import { ICON_TIMES } from '../ui/icons'
 import './CloseButton.scss'
 
 const CloseButton = (props) => {
-  const { title, className, onClick, intl, ...restProps } = props
-  const displayTitle = title || intl.formatMessage({
+  const { title, className, onClick, ...restProps } = props
+  const defaultTitle = useIntl().formatMessage({
     id: 'btn.dismiss',
     defaultMessage: 'Dismiss'
   })
@@ -16,7 +16,7 @@ const CloseButton = (props) => {
     <button
       className={className}
       onClick={onClick}
-      title={displayTitle}
+      title={title || defaultTitle}
       {...restProps}
     >
       <FontAwesomeIcon icon={ICON_TIMES} />
@@ -27,12 +27,11 @@ const CloseButton = (props) => {
 CloseButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   title: PropTypes.string,
-  className: PropTypes.string,
-  intl: intlShape.isRequired
+  className: PropTypes.string
 }
 
 CloseButton.defaultProps = {
   className: 'close'
 }
 
-export default React.memo(injectIntl(CloseButton))
+export default React.memo(CloseButton)

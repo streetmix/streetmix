@@ -28,9 +28,7 @@ exports[`AboutDialog renders snapshot 1`] = `
             class="streetmix-logo"
           />
           <h1>
-            <span>
-              About Streetmix.
-            </span>
+            About Streetmix.
           </h1>
         </header>
         <div
@@ -43,14 +41,10 @@ exports[`AboutDialog renders snapshot 1`] = `
               class="about-dialog-left"
             >
               <p>
-                <span>
-                  Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.
-                </span>
+                Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.
               </p>
               <p>
-                <span>
-                  Streetmix is generously sponsored by:
-                </span>
+                Streetmix is generously sponsored by:
               </p>
               <ul
                 class="about-dialog-sponsors"
@@ -98,9 +92,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>
-                    Support us financially
-                  </span>
+                  Support us financially
                 </a>
                 <br />
                 <a
@@ -108,9 +100,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>
-                    We’re open source!‎
-                  </span>
+                  We’re open source!‎
                 </a>
                 <br />
                 <a
@@ -118,9 +108,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>
-                    Visit Streetmix blog
-                  </span>
+                  Visit Streetmix blog
                 </a>
                 <br />
                 <a
@@ -128,9 +116,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>
-                    Guidebook
-                  </span>
+                  Guidebook
                 </a>
               </p>
               <p>
@@ -139,9 +125,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>
-                    Terms of service
-                  </span>
+                  Terms of service
                 </a>
                 <br />
                 <a
@@ -149,9 +133,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>
-                    Privacy policy
-                  </span>
+                  Privacy policy
                 </a>
               </p>
             </div>
@@ -159,9 +141,7 @@ exports[`AboutDialog renders snapshot 1`] = `
               class="about-dialog-right"
             >
               <h2>
-                <span>
-                  Project team
-                </span>
+                Project team
               </h2>
               <div
                 class="credits-team"
@@ -210,9 +190,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                 </div>
               </div>
               <h2>
-                <span>
-                  Past team members
-                </span>
+                Past team members
               </h2>
               <div
                 class="credits-team credits-team-past"
@@ -267,9 +245,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   class="credits-credits-left"
                 >
                   <h3>
-                    <span>
-                      Advisors
-                    </span>
+                    Advisors
                   </h3>
                   <ul>
                     <li>
@@ -280,9 +256,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                   </ul>
                   <h3>
-                    <span>
-                      Additional illustrations
-                    </span>
+                    Additional illustrations
                   </h3>
                   <ul>
                     <li>
@@ -296,9 +270,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                   </ul>
                   <h3>
-                    <span>
-                      Additional code
-                    </span>
+                    Additional code
                   </h3>
                   <ul>
                     <li>
@@ -312,9 +284,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                   </ul>
                   <h3>
-                    <span>
-                      Additional contributors
-                    </span>
+                    Additional contributors
                   </h3>
                   <ul>
                     <li>
@@ -334,9 +304,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                   </ul>
                   <h3>
-                    <span>
-                      Special thanks to
-                    </span>
+                    Special thanks to
                   </h3>
                   <ul>
                     <li>
@@ -379,16 +347,12 @@ exports[`AboutDialog renders snapshot 1`] = `
                   class="credits-credits-right"
                 >
                   <h3>
-                    <span>
-                      Translators
-                    </span>
+                    Translators
                   </h3>
                   <ul>
                     <li>
                       <h4>
-                        <span>
-                          Arabic
-                        </span>
+                        Arabic
                       </h4>
                       <ul>
                         <li>
@@ -401,9 +365,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                     <li>
                       <h4>
-                        <span>
-                          German
-                        </span>
+                        German
                       </h4>
                       <ul>
                         <li>
@@ -432,9 +394,7 @@ exports[`AboutDialog renders snapshot 1`] = `
         <button
           class="dialog-primary-action"
         >
-          <span>
-            Close
-          </span>
+          Close
         </button>
       </div>
     </div>

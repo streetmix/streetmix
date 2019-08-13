@@ -2,7 +2,7 @@
 import React from 'react'
 import { Variants } from '../Variants'
 import { shallow } from 'enzyme'
-import { IntlProvider } from 'react-intl'
+import { createIntl, createIntlCache } from 'react-intl'
 
 import { getSegmentInfo } from '../../segments/info'
 import {
@@ -17,8 +17,11 @@ jest.mock('../../segments/info')
 jest.mock('../../segments/variant_icons.json', () => require('../../segments/__mocks__/variant_icons.json'))
 
 describe('Variants', () => {
-  const intlProvider = new IntlProvider({ locale: 'en' }, {})
-  const { intl } = intlProvider.getChildContext()
+  const cache = createIntlCache()
+  const intl = createIntl({
+    locale: 'en',
+    messages: {}
+  }, cache)
 
   // Mock required props for component
   const requiredProps = {

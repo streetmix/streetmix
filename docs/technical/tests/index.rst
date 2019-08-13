@@ -55,6 +55,7 @@ Type safety
 
 JavaScript is notoriously not type safe: you may pass any type of object or JavaScript primitive to any function or method, which may not be able to handle them. Or you may write a function that returns values of different types, and the calling script wasn't expecting that return value. Various attempts to introduce type safety on top of JavaScript have entered the ecosystem, and here's how we use these tools.
 
+
 PropTypes (React)
 ~~~~~~~~~~~~~~~~~
 
@@ -62,7 +63,6 @@ PropTypes (React)
 
 We currently enforce using PropTypes for React components in development. This means that React components must declare all of its props and what types of values that prop should be. The benefit of this approach is that React components self-document what props it accepts. Sometimes, a prop can be overloaded with multiple types, but this is generally discouraged if you can avoid it. 
 
-While PropTypes come with built-in types, the types can also be extended. Some third party libraries export its own prop types, for example, ``react-intl`` exports ``intlShape`` which can be used when its methods are injected as props via a higher-order component.
 
 TypeScript
 ~~~~~~~~~~

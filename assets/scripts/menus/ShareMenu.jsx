@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Menu from './Menu'
@@ -16,7 +16,7 @@ import './ShareMenu.scss'
 class ShareMenu extends React.Component {
   static propTypes = {
     // Provided by react-intl
-    intl: intlShape,
+    intl: PropTypes.object.isRequired,
 
     // Provided by Redux mapDispatchToProps
     showDialog: PropTypes.func,

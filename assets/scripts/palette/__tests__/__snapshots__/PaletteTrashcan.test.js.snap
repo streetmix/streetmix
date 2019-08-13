@@ -4,10 +4,9 @@ exports[`PaletteTrashcan renders with the \`-visible\` class when \`visible\` pr
 <div
   className="palette-trashcan palette-trashcan-visible"
 >
-  <FormattedMessage
+  <injectIntl(FormattedMessage)
     defaultMessage="Drag here to remove"
     id="palette.remove"
-    values={Object {}}
   />
 </div>
 `;

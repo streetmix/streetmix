@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import UpDownInput from './UpDownInput'
 import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
@@ -9,7 +9,7 @@ import './BuildingHeightControl.scss'
 
 class BuildingHeightControl extends React.Component {
   static propTypes = {
-    intl: intlShape.isRequired,
+    intl: PropTypes.object.isRequired,
     touch: PropTypes.bool,
     position: PropTypes.oneOf(['left', 'right']),
     variant: PropTypes.string,
