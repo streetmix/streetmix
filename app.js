@@ -80,7 +80,9 @@ const helmetConfig = {
 // CSP directives are defined separately so we can generate nonces
 const csp = {
   directives: {
-    defaultSrc: ["'self'"],
+    defaultSrc: [
+      "'self'"
+    ],
     styleSrc: [
       "'self'",
       "'unsafe-inline'",
@@ -107,7 +109,9 @@ const csp = {
     workerSrc: [
       'blob:' // Lucky Orange
     ],
-    childSrc: ['platform.twitter.com'],
+    childSrc: [
+      'platform.twitter.com'
+    ],
     frameSrc: [
       "'self'",
       'streetmix.github.io',
@@ -150,10 +154,8 @@ const csp = {
   }
 }
 
-// Allow arbitrary injected code (e.g. Redux dispatches from dev tools) in development
+// Allows websockets for hot-module reloading (note: ports are assigned randomly by Parcel)
 if (app.locals.config.env === 'development') {
-  csp.directives.scriptSrc.push("'unsafe-eval'")
-  // Allows websockets for hot-module reloading (note: ports are assigned randomly by Parcel)
   csp.directives.connectSrc.push('ws:')
 }
 
