@@ -15,6 +15,7 @@ Welcome!
 .. toctree::
    :maxdepth: 2
    :caption: Contents
+   :includehidden:
 
    contributing/index
    technical/index
