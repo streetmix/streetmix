@@ -82,6 +82,7 @@ h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
 .stmx-illustration-compare-container table tr:first-child img {
   max-height: 400px;
   margin: 1em;
+  margin-bottom: 1em !important; /* Overrides `.rst-content table.docutils td .last` */
 }
 
 .stmx-illustration-compare-container table tr:first-child > td {
@@ -162,7 +163,7 @@ h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
 
 .stmx-color-swatch .line-block {
   line-height: 1.4;
-  margin-bottom: 0;
+  margin-bottom: 0 !important; /* Overrides `.rst-content .line-block` */
   flex-grow: 1;
 }
 
@@ -173,6 +174,7 @@ h1, h2, h3, h4, h5, h6, .rst-content .toctree-wrapper p.caption, legend {
 
 .stmx-color-swatch p {
   margin-bottom: 0;
+  line-height: 1;
 }
 
 .stmx-color-swatch-table {
