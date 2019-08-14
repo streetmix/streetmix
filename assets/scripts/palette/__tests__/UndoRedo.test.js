@@ -1,98 +1,67 @@
 /* eslint-env jest */
 import React from 'react'
-import { mountWithIntl as mount } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { UndoRedo } from '../UndoRedo'
-import { isUndoAvailable, isRedoAvailable } from '../../streets/undo_stack'
+import { cleanup } from '@testing-library/react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import UndoRedo from '../UndoRedo'
+import { replaceUndoStack } from '../../store/actions/undo'
 
-jest.mock('../../streets/undo_stack')
-jest.mock('../../store/actions/undo', () => ({
-  undo: jest.fn(),
-  redo: jest.fn()
+// `getRemixOnFirstEdit` is a legacy function, so for the purposes of this
+// test suite it always returns `false` (aka, assume user owns the street)
+jest.mock('../../streets/remix', () => ({
+  getRemixOnFirstEdit: () => false
 }))
 
 describe('UndoRedo', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
   it('renders two buttons', () => {
-    const wrapper = mount(<UndoRedo locale={{}} />)
-    expect(wrapper.find('button').length).toEqual(2)
+    const wrapper = renderWithReduxAndIntl(<UndoRedo />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('checks if undo or redo is available when undo position changes', () => {
-    // `<UndoRedo>` is mounted with initial props
-    const wrapper = mount(<UndoRedo undoPosition={0} undoStack={[]} />)
-
-    // Send new props to `<UndoRedo>`
-    // It doesn't really matter what we set props to.
-    wrapper.setProps({
-      undoPosition: 1,
-      undoStack: []
+  it('enables undo button when an undo stack is created', () => {
+    const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
+      initialState: {
+        undo: {
+          stack: [],
+          position: 0
+        }
+      }
     })
+    const undoButton = wrapper.getByTitle('Undo')
+    const redoButton = wrapper.getByTitle('Redo')
 
-    expect(isUndoAvailable).toBeCalled()
-    expect(isRedoAvailable).toBeCalled()
+    // Initial button states are disabled
+    expect(undoButton.disabled).toEqual(true)
+    expect(redoButton.disabled).toEqual(true)
 
-    // Clear mocks for future tests
-    isUndoAvailable.mockClear()
-    isRedoAvailable.mockClear()
+    // Update undo stack state, and `<UndoRedo>` should receive new props
+    // This is akin to a user editing the street once
+    wrapper.store.dispatch(replaceUndoStack([{ foo: 'bar' }], 1))
+
+    // Undo button state should become enabled
+    // Redo button should remain disabled
+    expect(undoButton.disabled).toEqual(false)
+    expect(redoButton.disabled).toEqual(true)
   })
 
-  it('checks if undo or redo is available when undo stack changes', () => {
-    // `<UndoRedo>` is mounted with initial props
-    const wrapper = mount(<UndoRedo undoPosition={0} undoStack={[]} />)
-
-    // Send new props to `<UndoRedo>`
-    // It doesn't really matter what we set props to.
-    wrapper.setProps({
-      undoPosition: 0,
-      undoStack: [{ foo: 'bar' }]
+  it('enables redo button when undo stack position is lower than the top of the stack', () => {
+    const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
+      initialState: {
+        undo: {
+          stack: [
+            { foo: 'bar' },
+            { foo: 'baz' }
+          ],
+          position: 0
+        }
+      }
     })
 
-    expect(isUndoAvailable).toBeCalled()
-    expect(isRedoAvailable).toBeCalled()
-
-    // Clear mocks for future tests
-    isUndoAvailable.mockClear()
-    isRedoAvailable.mockClear()
-  })
-
-  it('renders undo button enabled', () => {
-    // `<UndoRedo>` is mounted with initial props
-    const wrapper = mount(<UndoRedo undoPosition={0} undoStack={[]} />)
-
-    // Initial button state at mount time is disabled
-    const disabled1 = wrapper.find('button').last().prop('disabled')
-    expect(disabled1).toEqual(true)
-
-    // Send new props to `<UndoRedo>`
-    // It doesn't really matter what we set props to. The mock implementation
-    // of `isUndoAvailable` currently only returns `true`
-    wrapper.setProps({
-      undoPosition: 1,
-      undoStack: [{ foo: 'bar' }]
-    })
-
-    // Button state should become enabled
-    const disabled2 = wrapper.find('button').first().prop('disabled')
-    expect(disabled2).toEqual(false)
-  })
-
-  it('renders redo button disabled', () => {
-    // `<UndoRedo>` is mounted with initial props
-    const wrapper = mount(<UndoRedo undoPosition={0} undoStack={[]} />)
-
-    // Initial button state at mount time is disabled
-    const disabled1 = wrapper.find('button').last().prop('disabled')
-    expect(disabled1).toEqual(true)
-
-    // Send new props to `<UndoRedo>`
-    // It doesn't really matter what we set props to. The mock implementation
-    // of `isRedoAvailable` currently only returns `false`
-    wrapper.setProps({
-      undoPosition: 0,
-      undoStack: []
-    })
-
-    // Button state should remain disabled
-    const disabled2 = wrapper.find('button').last().prop('disabled')
-    expect(disabled2).toEqual(true)
+    // In this scenario, redo is available, but undo is not.
+    expect(wrapper.getByTitle('Undo').disabled).toEqual(true)
+    expect(wrapper.getByTitle('Redo').disabled).toEqual(false)
   })
 })
