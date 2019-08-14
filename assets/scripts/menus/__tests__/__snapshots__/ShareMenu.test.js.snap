@@ -26,6 +26,11 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
         type="text"
         value="http://localhost/"
       />
+      <button>
+        <svg
+          class="svg-inline--fa fa-copy"
+        />
+      </button>
     </div>
     <a
       class="share-via-twitter"
@@ -85,6 +90,11 @@ exports[`ShareMenu renders (user signed in) 1`] = `
         type="text"
         value="http://localhost/"
       />
+      <button>
+        <svg
+          class="svg-inline--fa fa-copy"
+        />
+      </button>
     </div>
     <a
       class="share-via-twitter"

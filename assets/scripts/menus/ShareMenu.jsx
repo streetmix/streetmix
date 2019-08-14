@@ -2,6 +2,7 @@ import React from 'react'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import copy from 'copy-to-clipboard'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
 import { FACEBOOK_APP_ID } from '../app/config'
@@ -185,6 +186,9 @@ class ShareMenu extends React.Component {
             ref={(ref) => { this.shareViaLinkInput = ref }}
             readOnly
           />
+          <button onClick={(e) => { e.preventDefault(); copy(this.state.shareUrl) }}>
+            <Icon icon="copy" />
+          </button>
         </div>
         <a
           className="share-via-twitter"

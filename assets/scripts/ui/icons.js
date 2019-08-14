@@ -19,7 +19,10 @@ import {
   faPencilAlt,
   faLock
 } from '@fortawesome/free-solid-svg-icons'
-import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
+import {
+  faCopy,
+  faTimesCircle
+} from '@fortawesome/free-regular-svg-icons'
 import {
   faTwitter,
   faFacebookSquare,
@@ -45,6 +48,7 @@ import {
 //
 // Furthermore, this is easier to mock for any tests where <FontAwesomeIcon>
 // is a child of the component under test.
+export const ICON_COPY = faCopy
 export const ICON_UNDO = faUndo
 export const ICON_REDO = faRedo
 export const ICON_TOOLS = faTools

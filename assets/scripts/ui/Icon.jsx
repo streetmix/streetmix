@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  ICON_COPY,
   ICON_TWITTER,
   ICON_FACEBOOK,
   ICON_GITHUB,
@@ -20,6 +21,8 @@ export default class Icon extends React.Component {
 
   render () {
     switch (this.props.icon) {
+      case 'copy':
+        return <FontAwesomeIcon icon={ICON_COPY} />
       case 'twitter':
         return <FontAwesomeIcon className="menu-item-icon" icon={ICON_TWITTER} />
       case 'facebook':

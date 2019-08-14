@@ -8,12 +8,12 @@ describe('ShareMenu', () => {
   afterEach(cleanup)
 
   it('renders (user not signed in)', () => {
-    const wrapper = renderWithReduxAndIntl(<ShareMenu />, { initialState: { user: { signedIn: false } } })
+    const wrapper = renderWithReduxAndIntl(<ShareMenu />, { initialState: { user: { signedIn: false, copied: false } } })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders (user signed in)', () => {
-    const wrapper = renderWithReduxAndIntl(<ShareMenu />, { initialState: { user: { signedIn: true } } })
+    const wrapper = renderWithReduxAndIntl(<ShareMenu />, { initialState: { user: { signedIn: true, copied: false } } })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })
