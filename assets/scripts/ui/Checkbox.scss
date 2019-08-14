@@ -30,7 +30,19 @@ $label-outline-color: $color-2;
   /* Hides the original input element from view, but not from DOM */
   input {
     position: absolute;
-    left: -9999em;
+
+    /* A standard CSS approach for "accessible" visually-hidden elements,
+       such as absolutely positioning elements off the page, can still cause
+       inputs to be hidden from certain screen readers. This approach hides
+       the input visually, but still makes it accessible. For more info:
+       https://scottaohara.github.io/a11y_styled_form_controls/src/checkbox/
+
+       Furthermore, absolute positioning with `left` can cause issues when
+       the document is in rtl text direction on Chrome. See also
+       https://github.com/streetmix/streetmix/issues/1424 */
+    opacity: 0.00001;
+    appearance: none;
+    z-index: 2;
   }
 
   /* Positions the label */
@@ -55,7 +67,7 @@ $label-outline-color: $color-2;
     border-radius: 2px;
     border: 1px solid $input-default-border-color;
     color: inherit;
-    transition: background-color 100ms, color 100ms;
+    transition: background-color 60ms, color 60ms;
   }
 
   /* Stylized checkbox, when checked */
