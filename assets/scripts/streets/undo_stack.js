@@ -4,7 +4,6 @@ import { trackEvent } from '../app/event_tracking'
 import { hideStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
-import { getRemixOnFirstEdit } from './remix'
 import { setUpdateTimeToNow, updateEverything } from './data_model'
 import store from '../store'
 import { updateStreetData } from '../store/actions/street'
@@ -43,19 +42,6 @@ export function createNewUndoIfNecessary (lastStreet, currentStreet) {
   }
 
   store.dispatch(createNewUndo(cloneDeep(lastStreet)))
-}
-
-export function isUndoAvailable () {
-  const undoPosition = getUndoPosition()
-  // Don’t allow undo/redo unless you own the street
-  return (undoPosition > 0) && !getRemixOnFirstEdit()
-}
-
-export function isRedoAvailable () {
-  const undoStack = getUndoStack()
-  const undoPosition = getUndoPosition()
-  // Don’t allow undo/redo unless you own the street
-  return (undoPosition >= 0 && undoPosition < undoStack.length - 1) && !getRemixOnFirstEdit()
 }
 
 export function unifyUndoStack () {

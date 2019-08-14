@@ -4,25 +4,35 @@ import { connect } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_UNDO, ICON_REDO } from '../ui/icons'
+import { getRemixOnFirstEdit } from '../streets/remix'
 import { undo, redo } from '../store/actions/undo'
-import { isUndoAvailable, isRedoAvailable } from '../streets/undo_stack'
 
 const UndoRedo = (props) => {
   const intl = useIntl()
+
+  // Don’t allow undo/redo unless you own the street
+  // TODO: We need a better function name than `getRemixOnFirstEdit`
+  function isUndoAvailable () {
+    return (props.undoPosition > 0) && !getRemixOnFirstEdit()
+  }
+
+  function isRedoAvailable () {
+    return (props.undoPosition >= 0 && props.undoPosition < props.undoStack.length - 1) && !getRemixOnFirstEdit()
+  }
 
   return (
     <>
       <button
         onClick={props.undo}
         disabled={!isUndoAvailable()}
-        title={intl.formatHTMLMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
+        title={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
       >
         <FontAwesomeIcon icon={ICON_UNDO} />
       </button>
       <button
         onClick={props.redo}
         disabled={!isRedoAvailable()}
-        title={intl.formatHTMLMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
+        title={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
       >
         <FontAwesomeIcon icon={ICON_REDO} />
       </button>
@@ -31,8 +41,10 @@ const UndoRedo = (props) => {
 }
 
 UndoRedo.propTypes = {
-  undo: PropTypes.func,
-  redo: PropTypes.func
+  undoPosition: PropTypes.number.isRequired,
+  undoStack: PropTypes.array.isRequired,
+  undo: PropTypes.func.isRequired,
+  redo: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
