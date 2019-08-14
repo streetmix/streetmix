@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup } from '@testing-library/react'
+import { cleanup, fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import UndoRedo from '../UndoRedo'
 import { replaceUndoStack } from '../../store/actions/undo'
@@ -37,8 +37,8 @@ describe('UndoRedo', () => {
     expect(undoButton.disabled).toEqual(true)
     expect(redoButton.disabled).toEqual(true)
 
-    // Update undo stack state, and `<UndoRedo>` should receive new props
-    // This is akin to a user editing the street once
+    // Update undo stack state from "elsewhere", and `<UndoRedo>` should
+    // receive new props. This is akin to a user editing the street once
     wrapper.store.dispatch(replaceUndoStack([{ foo: 'bar' }], 1))
 
     // Undo button state should become enabled
@@ -63,5 +63,41 @@ describe('UndoRedo', () => {
     // In this scenario, redo is available, but undo is not.
     expect(wrapper.getByTitle('Undo').disabled).toEqual(true)
     expect(wrapper.getByTitle('Redo').disabled).toEqual(false)
+  })
+
+  it('calls undo action when undo button is clicked', () => {
+    const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
+      initialState: {
+        undo: {
+          stack: [
+            { foo: 'bar' },
+            { foo: 'baz' }
+          ],
+          position: 1
+        }
+      }
+    })
+
+    // Expect the undo position to decrement when undo button is clicked
+    fireEvent.click(wrapper.getByTitle('Undo'))
+    expect(wrapper.store.getState().undo.position).toEqual(0)
+  })
+
+  it('calls redo action when redo button is clicked', () => {
+    const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
+      initialState: {
+        undo: {
+          stack: [
+            { foo: 'bar' },
+            { foo: 'baz' }
+          ],
+          position: 0
+        }
+      }
+    })
+
+    // Expect the undo position to increment when redo button is clicked
+    fireEvent.click(wrapper.getByTitle('Redo'))
+    expect(wrapper.store.getState().undo.position).toEqual(1)
   })
 })
