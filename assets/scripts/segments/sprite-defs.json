@@ -1,0 +1,281 @@
+{
+  "markings--straight-inbound-light": {
+    "id": "markings--straight-inbound-light",
+    "originY": 96
+  },
+  "markings--straight-outbound-light": {
+    "id": "markings--straight-outbound-light",
+    "originY": 96
+  },
+  "markings--straight-inbound": {
+    "id": "markings--straight-inbound",
+    "originY": 96
+  },
+  "markings--straight-outbound": {
+    "id": "markings--straight-outbound",
+    "originY": 96
+  },
+  "markings--left-inbound": {
+    "id": "markings--left-inbound",
+    "originY": 96
+  },
+  "markings--left-outbound": {
+    "id": "markings--left-outbound",
+    "originY": 96
+  },
+  "markings--left-straight-inbound": {
+    "id": "markings--left-straight-inbound",
+    "originY": 96
+  },
+  "markings--left-straight-outbound": {
+    "id": "markings--left-straight-outbound",
+    "originY": 96
+  },
+  "markings--right-inbound": {
+    "id": "markings--right-inbound",
+    "originY": 96
+  },
+  "markings--right-outbound": {
+    "id": "markings--right-outbound",
+    "originY": 96
+  },
+  "markings--right-straight-inbound": {
+    "id": "markings--right-straight-inbound",
+    "originY": 96
+  },
+  "markings--right-straight-outbound": {
+    "id": "markings--right-straight-outbound",
+    "originY": 96
+  },
+  "markings--both-inbound": {
+    "id": "markings--both-inbound",
+    "originY": 96
+  },
+  "markings--both-outbound": {
+    "id": "markings--both-outbound",
+    "originY": 96
+  },
+  "markings--shared-inbound": {
+    "id": "markings--shared-inbound",
+    "originY": 96
+  },
+  "markings--shared-outbound": {
+    "id": "markings--shared-outbound",
+    "originY": 96
+  },
+  "markings--sharrow-inbound": {
+    "id": "markings--sharrow-inbound",
+    "originY": 96
+  },
+  "markings--sharrow-outbound": {
+    "id": "markings--sharrow-outbound",
+    "originY": 96
+  },
+  "markings--lane-left": {
+    "id": "markings--lane-left",
+    "originY": 102
+  },
+  "markings--lane-right": {
+    "id": "markings--lane-right",
+    "originY": 102
+  },
+  "markings--lane-left-half": {
+    "id": "markings--lane-left-half",
+    "originY": 102
+  },
+  "markings--lane-right-half": {
+    "id": "markings--lane-right-half",
+    "originY": 102
+  },
+  "markings--lane-horiz": {
+    "id": "markings--lane-horiz",
+    "originY": 102
+  },
+  "markings--center-lane-left": {
+    "id": "markings--center-lane-left",
+    "originY": 102
+  },
+  "markings--center-lane-right": {
+    "id": "markings--center-lane-right",
+    "originY": 102
+  },
+  "markings--parking-left": {
+    "id": "markings--parking-left",
+    "originY": 96
+  },
+  "markings--parking-right": {
+    "id": "markings--parking-right",
+    "originY": 96
+  },
+  "markings--streetcar-track-01": {
+    "id": "markings--streetcar-track-01",
+    "originY": 96
+  },
+  "markings--streetcar-track-02": {
+    "id": "markings--streetcar-track-02",
+    "originY": 96
+  },
+  "markings--stripes-diagonal": {
+    "id": "markings--stripes-diagonal",
+    "originY": 113
+  },
+  "lamps--lamp-modern-left": {
+    "id": "lamps--lamp-modern-left",
+    "offsetX": -248
+  },
+  "lamps--lamp-modern-both": {
+    "id": "lamps--lamp-modern-both"
+  },
+  "lamps--lamp-modern-right": {
+    "id": "lamps--lamp-modern-right",
+    "offsetX": -248
+  },
+  "lamps--lamp-traditional-right": {
+    "id": "lamps--lamp-traditional-right",
+    "offsetX": -36
+  },
+  "lamps--lamp-traditional-center": {
+    "id": "lamps--lamp-traditional-center"
+  },
+  "lamps--lamp-traditional-left": {
+    "id": "lamps--lamp-traditional-left",
+    "offsetX": -36
+  },
+  "lamps--pride-banner-right": {
+    "id": "lamps--pride-banner-right",
+    "offsetX": -60,
+    "originY": -423
+  },
+  "lamps--pride-banner-left": {
+    "id": "lamps--pride-banner-left",
+    "offsetX": -60,
+    "originY": -423
+  },
+  "missing": {
+    "id": "missing"
+  },
+  "people--people-01": {
+    "id": "people--people-01",
+    "originY": 10
+  },
+  "people--people-02": {
+    "id": "people--people-02",
+    "originY": 10
+  },
+  "people--people-03": {
+    "id": "people--people-03",
+    "originY": 10
+  },
+  "people--people-04": {
+    "id": "people--people-04",
+    "originY": 10
+  },
+  "people--people-05": {
+    "id": "people--people-05",
+    "originY": 10
+  },
+  "people--people-06": {
+    "id": "people--people-06",
+    "originY": 10
+  },
+  "people--people-07": {
+    "id": "people--people-07",
+    "originY": 10
+  },
+  "people--people-08": {
+    "id": "people--people-08",
+    "originY": 10
+  },
+  "people--people-09": {
+    "id": "people--people-09",
+    "originY": 10
+  },
+  "people--people-10": {
+    "id": "people--people-10",
+    "originY": 10
+  },
+  "people--people-11": {
+    "id": "people--people-11",
+    "originY": 10
+  },
+  "people--people-12": {
+    "id": "people--people-12",
+    "originY": 10
+  },
+  "people--people-13": {
+    "id": "people--people-13",
+    "originY": 10
+  },
+  "people--people-14": {
+    "id": "people--people-14",
+    "originY": 10
+  },
+  "people--people-15": {
+    "id": "people--people-15",
+    "originY": 10
+  },
+  "people--people-16": {
+    "id": "people--people-16",
+    "originY": 10
+  },
+  "people--people-17": {
+    "id": "people--people-17",
+    "originY": 10
+  },
+  "people--people-18": {
+    "id": "people--people-18",
+    "originY": 10
+  },
+  "people--people-19": {
+    "id": "people--people-19",
+    "originY": 10
+  },
+  "people--people-20": {
+    "id": "people--people-20",
+    "originY": 10
+  },
+  "people--people-21": {
+    "id": "people--people-21",
+    "originY": 10
+  },
+  "people--people-22": {
+    "id": "people--people-22",
+    "originY": 10
+  },
+  "people--people-23": {
+    "id": "people--people-23",
+    "originY": 10
+  },
+  "people--people-24": {
+    "id": "people--people-24",
+    "originY": 10
+  },
+  "people--people-25": {
+    "id": "people--people-25",
+    "originY": 10
+  },
+  "people--people-26": {
+    "id": "people--people-26",
+    "originY": 10
+  },
+  "people--people-27": {
+    "id": "people--people-27",
+    "originY": 10
+  },
+  "people--people-28": {
+    "id": "people--people-28",
+    "originY": 10
+  },
+  "people--people-29": {
+    "id": "people--people-29",
+    "originY": 10
+  },
+  "people--people-30": {
+    "id": "people--people-30",
+    "originY": 10
+  },
+  "people--people-31": {
+    "id": "people--people-31",
+    "originY": 10
+  }
+}

@@ -1,15 +1,14 @@
 /* eslint-env jest */
 import { differenceWith, isEqual, isEqualWith } from 'lodash'
 import SEGMENT_INFO from '../info.json'
-import module, {
+import SPRITE_DEFS from '../sprite-defs.json'
+import {
   getSpriteDef,
   getAllSegmentInfo,
   getAllSegmentInfoArray,
   getSegmentInfo,
   getSegmentVariantInfo
 } from '../info'
-
-const SPRITE_DEFS = module.__get__('SPRITE_DEFS')
 
 describe('segment info', () => {
   it('gets a sprite definition with a string id', () => {

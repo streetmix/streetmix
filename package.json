@@ -189,7 +189,6 @@
     "axios-mock-adapter": "1.17.0",
     "babel-eslint": "10.0.2",
     "babel-jest": "24.8.0",
-    "babel-plugin-rewire": "1.2.0",
     "cypress": "3.4.0",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
