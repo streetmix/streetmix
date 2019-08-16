@@ -5,7 +5,6 @@ const roles = require('../../data/user_roles.json')
 const logger = require('../../../lib/logger.js')()
 const tier1PlanId = config.stripe.tier1_plan_id
 
-// TODO import this from user_roles.json
 const planMap = {
   [tier1PlanId]: roles.TIER1
 }
