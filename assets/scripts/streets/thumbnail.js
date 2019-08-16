@@ -41,7 +41,7 @@ function drawWatermark (ctx, dpi, invert) {
   const text = 'Made with {streetmixWordmark}'
   // TODO: fix text replacement issue with intl-messageformat
   // const text = t('export.watermark', 'Made with {streetmixWordmark}')
-  const wordmarkImage = images.get('/images/wordmark.svg')
+  const wordmarkImage = invert ? images.get('/images/wordmark_white.svg') : images.get('/images/wordmark_black.svg')
 
   // Separate string so that we can render a wordmark with an image
   const strings = text.replace(/{/g, '||{{').replace(/}/g, '}}||').split('||')

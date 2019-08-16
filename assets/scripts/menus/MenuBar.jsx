@@ -88,7 +88,7 @@ class MenuBar extends React.Component {
       <nav className="menu-bar">
         <ul className="menu-bar-left">
           <li className="menu-bar-title">
-            <div className="streetmix-logo" />
+            <div className="streetmix-wordmark" />
             <h1>Streetmix</h1>
           </li>
           <MenuBarItem label="Help" translation="menu.item.help" onClick={this.handleClickMenuButton('help')} />

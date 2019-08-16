@@ -25,7 +25,7 @@ exports[`AboutDialog renders snapshot 1`] = `
       >
         <header>
           <div
-            class="streetmix-logo"
+            class="streetmix-logo-horizontal"
           />
           <h1>
             About Streetmix.
