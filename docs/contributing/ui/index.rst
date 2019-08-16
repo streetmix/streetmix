@@ -213,10 +213,10 @@ Copper
    #f9eee8
 
 
-Slate
-~~~~~
+Midnight
+~~~~~~~~
 
-.. container:: stmx-color-swatch stmx-brand-color-slate-700
+.. container:: stmx-color-swatch stmx-brand-color-midnight-700
 
    | **700**
    | **R** 24
@@ -225,7 +225,7 @@ Slate
 
    #182549
 
-.. container:: stmx-color-swatch stmx-brand-color-slate-600
+.. container:: stmx-color-swatch stmx-brand-color-midnight-600
 
    | **600**
    | **R** 54
@@ -234,7 +234,7 @@ Slate
 
    #354377
 
-.. container:: stmx-color-swatch stmx-brand-color-slate-500
+.. container:: stmx-color-swatch stmx-brand-color-midnight-500
 
    | **500**
    | **R** 84
@@ -243,7 +243,7 @@ Slate
 
    #536491
 
-.. container:: stmx-color-swatch stmx-brand-color-slate-400
+.. container:: stmx-color-swatch stmx-brand-color-midnight-400
 
    | **400**
    | **R** 124
@@ -252,7 +252,7 @@ Slate
 
    #7b8bad
 
-.. container:: stmx-color-swatch stmx-brand-color-slate-300
+.. container:: stmx-color-swatch stmx-brand-color-midnight-300
 
    | **300**
    | **R** 166
@@ -261,7 +261,7 @@ Slate
 
    #a6b2c9
 
-.. container:: stmx-color-swatch stmx-brand-color-slate-200
+.. container:: stmx-color-swatch stmx-brand-color-midnight-200
 
    | **200**
    | **R** 212
@@ -270,7 +270,7 @@ Slate
 
    #d4dbe8
 
-.. container:: stmx-color-swatch stmx-brand-color-slate-100
+.. container:: stmx-color-swatch stmx-brand-color-midnight-100
 
    | **100**
    | **R** 230
