@@ -195,7 +195,7 @@
     "enzyme-to-json": "3.3.5",
     "eslint": "6.1.0",
     "eslint-config-standard": "13.0.1",
-    "eslint-config-standard-react": "7.0.2",
+    "eslint-config-standard-react": "8.0.0",
     "eslint-plugin-cypress": "2.6.1",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-node": "9.1.0",
