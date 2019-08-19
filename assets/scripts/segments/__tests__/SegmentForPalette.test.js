@@ -37,18 +37,6 @@ describe('SegmentForPalette', () => {
     expect(wrapper).toMatchSnapshot()
   })
   describe('mouseover', () => {
-    it('calls onPointerOver with Variant name', () => {
-      const onPointerOver = jest.fn()
-      const event = { target: { getBoundingClientRect: () => 1 } }
-      const variant = { name: 'Variant' }
-      const segment = { nameKey: 'key' }
-      getSegmentInfo.mockImplementation(() => segment)
-      getSegmentVariantInfo.mockImplementation(() => variant)
-      const wrapper = shallow(<SegmentForPalette connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} connectDragPreview={connectDragPreview} type={''} variantString={''} intl={intl} onPointerOver={onPointerOver} randSeed={42} />)
-      wrapper.simulate('pointerover', event)
-      expect(onPointerOver).toHaveBeenCalledTimes(1)
-      expect(onPointerOver).toHaveBeenCalledWith(event, 'Variant', 1)
-    })
     it('calls onPointerOver with Segment name', () => {
       const onPointerOver = jest.fn()
       const event = { target: { getBoundingClientRect: () => 1 } }

@@ -4133,11 +4133,11 @@
     }
   },
   "temporary": {
-    "name": "Temporary barriers",
-    "nameKey": "temporary-barriers",
+    "name": "Temporary barrier",
+    "nameKey": "temporary-barrier",
     "zIndex": 20,
     "defaultWidth": 2,
-    "paletteIcon": "traffic-cone",
+    "paletteIcon": "barricade",
     "enableWithFlag": "SEGMENT_CONSTRUCTION",
     "variants": [
       "temporary-barrier-type"
