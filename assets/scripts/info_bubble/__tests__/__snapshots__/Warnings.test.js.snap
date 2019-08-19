@@ -9,25 +9,28 @@ exports[`Warnings renders three warnings 1`] = `
   <p
     key="segments.warnings.does-not-fit"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment doesn’t fit within the street."
       id="segments.warnings.does-not-fit"
+      values={Object {}}
     />
   </p>
   <p
     key="segments.warnings.not-wide"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment might not be wide enough."
       id="segments.warnings.not-wide"
+      values={Object {}}
     />
   </p>
   <p
     key="segments.warnings.too-wide"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment might be too wide."
       id="segments.warnings.too-wide"
+      values={Object {}}
     />
   </p>
 </div>
@@ -40,17 +43,19 @@ exports[`Warnings renders two warnings 1`] = `
   <p
     key="segments.warnings.does-not-fit"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment doesn’t fit within the street."
       id="segments.warnings.does-not-fit"
+      values={Object {}}
     />
   </p>
   <p
     key="segments.warnings.too-wide"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment might be too wide."
       id="segments.warnings.too-wide"
+      values={Object {}}
     />
   </p>
 </div>
@@ -63,9 +68,10 @@ exports[`Warnings renders warning 1 1`] = `
   <p
     key="segments.warnings.does-not-fit"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment doesn’t fit within the street."
       id="segments.warnings.does-not-fit"
+      values={Object {}}
     />
   </p>
 </div>
@@ -78,9 +84,10 @@ exports[`Warnings renders warning 2 1`] = `
   <p
     key="segments.warnings.not-wide"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment might not be wide enough."
       id="segments.warnings.not-wide"
+      values={Object {}}
     />
   </p>
 </div>
@@ -93,9 +100,10 @@ exports[`Warnings renders warning 3 1`] = `
   <p
     key="segments.warnings.too-wide"
   >
-    <injectIntl(FormattedMessage)
+    <FormattedMessage
       defaultMessage="This segment might be too wide."
       id="segments.warnings.too-wide"
+      values={Object {}}
     />
   </p>
 </div>
