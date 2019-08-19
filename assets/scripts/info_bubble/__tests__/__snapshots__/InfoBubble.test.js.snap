@@ -76,9 +76,10 @@ exports[`InfoBubble renders 1`] = `
           onError={[Function]}
           textComponent={Symbol(react.fragment)}
         >
-          <injectIntl(FormattedMessage)
+          <FormattedMessage
             defaultMessage="Unknown"
             id="segments.undefined"
+            values={Object {}}
           />
         </IntlProvider>
       }
@@ -145,9 +146,10 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           onError={[Function]}
           textComponent={Symbol(react.fragment)}
         >
-          <injectIntl(FormattedMessage)
+          <FormattedMessage
             defaultMessage="Grass"
             id="buildings.grass.name"
+            values={Object {}}
           />
         </IntlProvider>
       }
@@ -211,9 +213,10 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           onError={[Function]}
           textComponent={Symbol(react.fragment)}
         >
-          <injectIntl(FormattedMessage)
+          <FormattedMessage
             defaultMessage="Grass"
             id="buildings.grass.name"
+            values={Object {}}
           />
         </IntlProvider>
       }
