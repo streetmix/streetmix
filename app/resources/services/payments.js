@@ -64,7 +64,7 @@ exports.post = async (req, res) => {
     const newData = { ...data, subscribed: now, subscriptionId: subscription.id, customerId: customer.id, planId: tier1PlanId }
     user.data = newData
     user.save().then(upgradedUser => {
-      logger.log('added user subscription', { upgradedUser, subscription })
+      logger.info({ upgradedUser, subscription }, 'added user subscription')
       res.status(200).send({ user: upgradedUser, subscription })
     })
 
