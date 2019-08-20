@@ -14,6 +14,7 @@
     "median": "Median",
     "bollard": "Bollard",
     "dome": "Traffic exclusion dome",
+    "jersey-barrier": "Jersey barrier",
     "scooter": "Electric scooter",
     "scooter-drop-zone": "Scooter drop zone",
     "bike-lane": "Bike lane",
@@ -36,6 +37,7 @@
     "streetcar": "Streetcar",
     "light-rail": "Light rail",
     "transit-shelter": "Transit shelter",
+    "temporary-barrier": "Temporary barrier",
     "inception-train": "“Inception” train",
     "magic-carpet": "Magic carpet"
   },
@@ -183,6 +185,8 @@
     "divider-type|palm-tree": "Planting strip with a palm tree",
     "divider-type|bollard": "Bollard",
     "divider-type|dome": "Traffic exclusion dome",
+    "divider-type|jersey-barrier-concrete": "Jersey barrier (concrete)",
+    "divider-type|jersey-barrier-plastic": "Jersey barrier (plastic)",
     "transit-shelter-elevation|street-level": "Street level",
     "transit-shelter-elevation|light-rail": "Light rail platform",
     "bike-rack-elevation|sidewalk-parallel": "Parallel parking, sidewalk level",
@@ -205,6 +209,8 @@
     "occupants|empty": "Empty",
     "occupants|full": "Full",
     "elevation|sidewalk": "Sidewalk level",
-    "elevation|road": "Street level"
+    "elevation|road": "Street level",
+    "temporary-barrier-type|traffic-cone": "Traffic cone",
+    "temporary-barrier-type|barricade": "Barricade"
   }
 }

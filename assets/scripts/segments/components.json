@@ -614,6 +614,53 @@
           }
         }
       }
+    },
+    "traffic-cone": {
+      "name": "Traffic cone",
+      "nameKey": "traffic-cone",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "construction--cone"
+            }
+          }
+        }
+      }
+    },
+    "jersey-barrier": {
+      "name": "Jersey barrier",
+      "nameKey": "jersey-barrier",
+      "zIndex": 20,
+      "variants": {
+        "material": {
+          "concrete": {
+            "graphics": {
+              "center": "construction--jersey-barrier-concrete"
+            }
+          },
+          "plastic": {
+            "graphics": {
+              "center": "construction--jersey-barrier-plastic"
+            }
+          }
+        }
+      }
+    },
+    "barricade": {
+      "name": "Barricade",
+      "nameKey": "barricade",
+      "zIndex": 20,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "construction--barricade"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

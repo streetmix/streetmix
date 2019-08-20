@@ -414,5 +414,24 @@
       "id": "elevation-lower",
       "title": "Street level"
     }
+  },
+  "temporary-barrier-type": {
+    "traffic-cone": {
+      "id": "traffic-cone",
+      "title": "Traffic cone"
+    },
+    "barricade": {
+      "id": "barricade",
+      "title": "Barricade"
+    },
+    "jersey-barrier-concrete": {
+      "id": "jersey-barrier",
+      "title": "Jersey barrier (concrete)"
+    },
+    "jersey-barrier-plastic": {
+      "id": "jersey-barrier",
+      "color": "#ef9c74",
+      "title": "Jersey barrier (plastic)"
+    }
   }
 }

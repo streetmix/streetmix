@@ -53,7 +53,7 @@ export class SegmentForPalette extends React.Component {
   getLabel = () => {
     // Get localized display names
     const info = this.getInfo()
-    const defaultMessage = info.variant.name || info.segment.name
+    const defaultMessage = info.segment.name
 
     return this.props.intl.formatMessage({ id: `segments.${info.segment.nameKey}`, defaultMessage })
   }
