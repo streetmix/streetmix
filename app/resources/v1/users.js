@@ -11,7 +11,7 @@ exports.post = function (req, res) {
   const handleCreateUser = function (err, user) {
     if (err) {
       logger.error(err)
-      res.status(500).send('Could not create user.')
+      res.status(500).send({ status: 500, msg: 'Could not create user.' })
       return
     }
     const userJson = { id: user.id, loginToken: loginToken }
@@ -23,7 +23,7 @@ exports.post = function (req, res) {
   const handleUpdateUser = function (err, user) {
     if (err) {
       logger.error(err)
-      res.status(500).send('Could not update user.')
+      res.status(500).send({ status: 500, msg: 'Could not update user.' })
       return
     }
 
@@ -38,7 +38,7 @@ exports.post = function (req, res) {
     const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
-        res.status(500).send('Error finding user with Auth0 ID.')
+        res.status(500).send({ status: 500, msg: 'Error finding user with Auth0 ID.' })
         return
       }
 
@@ -68,7 +68,7 @@ exports.post = function (req, res) {
     const handleFindUser = function (err, user) {
       if (err) {
         logger.error(err)
-        res.status(500).send('Error finding user with Twitter ID.')
+        res.status(500).send({ status: 500, msg: 'Error finding user with Twitter ID.' })
         return
       }
       loginToken = uuid.v1()
@@ -172,7 +172,7 @@ exports.post = function (req, res) {
     } catch (err) {
       logger.error(err)
       console.log(err)
-      res.status(500).send('Error finding user with Auth0 ID.')
+      res.status(500).send({ status: 500, msg: 'Error finding user with Auth0 ID.' })
     }
   } // END function - handleAuth0SignIn
 
@@ -180,7 +180,7 @@ exports.post = function (req, res) {
   try {
     body = req.body
   } catch (e) {
-    res.status(400).send('Could not parse body as JSON.')
+    res.status(400).send({ status: 400, msg: 'Could not parse body as JSON.' })
     return
   }
 
@@ -191,13 +191,13 @@ exports.post = function (req, res) {
   } else if (Object.prototype.hasOwnProperty.call(body, 'auth0')) {
     handleAuth0SignIn(body.auth0)
   } else {
-    res.status(400).send('Unknown sign-in method used.')
+    res.status(400).send({ status: 400, msg: 'Unknown sign-in method used.' })
   }
 } // END function - exports.post
 
 exports.get = function (req, res) {
   if (!req.loginToken) {
-    res.status(400).send('Please provide a login token.')
+    res.status(400).send({ status: 400, msg: 'Please provide a login token.' })
     return
   }
 
@@ -248,7 +248,7 @@ exports.get = function (req, res) {
       user.asJson({ auth: true }, function (err, userJson) {
         if (err) {
           logger.error(err)
-          res.status(500).send('Could not render user JSON.')
+          res.status(500).send({ status: 500, msg: 'Could not render user JSON.' })
           return
         }
 
@@ -264,13 +264,13 @@ exports.get = function (req, res) {
   const handleError = function (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send('User not found.')
+        res.status(404).send({ status: 404, msg: 'User not found.' })
         return
       case ERRORS.CANNOT_GET_USER:
-        res.status(500).send('Error finding user.')
+        res.status(500).send({ status: 500, msg: 'Error finding user.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send('User with that login token not found.')
+        res.status(401).send({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()

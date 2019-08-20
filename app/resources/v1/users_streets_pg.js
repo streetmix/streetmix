@@ -5,7 +5,7 @@ const logger = require('../../../lib/logger.js')()
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
+    res.status(400).send({ status: 400, msg: 'Please provide user ID.' })
   }
 
   const findUserStreets = async function (userId) {
@@ -37,22 +37,22 @@ exports.get = async function (req, res) {
   function handleErrors (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send('Creator not found.')
+        res.status(404).send({ status: 404, msg: 'Creator not found.' })
         return
       case ERRORS.STREET_NOT_FOUND:
-        res.status(404).send('Could not find streets.')
+        res.status(404).send({ status: 404, msg: 'Could not find streets.' })
         return
       case ERRORS.STREET_DELETED:
-        res.status(410).send('Could not find street.')
+        res.status(410).send({ status: 410, msg: 'Could not find street.' })
         return
       case ERRORS.CANNOT_GET_STREET:
-        res.status(500).send('Could not find streets for user.')
+        res.status(500).send({ status: 500, msg: 'Could not find streets for user.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send('User is not signed-in.')
+        res.status(401).send({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).send('Signed-in user cannot delete this street.')
+        res.status(403).send({ status: 403, msg: 'Signed-in user cannot delete this street.' })
         return
       default:
         res.status(500).end()
@@ -68,7 +68,7 @@ exports.get = async function (req, res) {
   }
 
   if (!user) {
-    res.status(404).send('Could not find user.')
+    res.status(404).send({ status: 404, msg: 'Could not find user.' })
     return
   }
 
