@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { FormattedMessage } from 'react-intl'
 
 import { doSignIn } from '../users/authentication'
@@ -124,8 +123,6 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ hideStatusMessage, doUndo }, dispatch)
-}
+const mapDispatchToProps = { hideStatusMessage, doUndo }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusMessage)

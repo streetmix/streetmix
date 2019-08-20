@@ -241,11 +241,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    removeBuildingFloor: (...args) => { dispatch(removeBuildingFloor(...args)) },
-    addBuildingFloor: (...args) => { dispatch(addBuildingFloor(...args)) }
-  }
+const mapDispatchToProps = {
+  removeBuildingFloor,
+  addBuildingFloor
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Building)

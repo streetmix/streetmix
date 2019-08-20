@@ -336,14 +336,12 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setMapState: (...args) => { dispatch(setMapState(...args)) },
-    addLocation: (...args) => { dispatch(addLocation(...args)) },
-    clearLocation: () => { dispatch(clearLocation()) },
-    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) },
-    closeDialog: () => { dispatch(clearDialogs()) }
-  }
+const mapDispatchToProps = {
+  setMapState,
+  addLocation,
+  clearLocation,
+  saveStreetName,
+  clearDialogs
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialogWithIntl)

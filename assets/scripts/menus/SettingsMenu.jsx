@@ -103,11 +103,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    changeLocale: (locale) => dispatch(changeLocale(locale)),
-    clearMenus: () => dispatch(clearMenus())
-  }
+const mapDispatchToProps = {
+  changeLocale,
+  clearMenus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)

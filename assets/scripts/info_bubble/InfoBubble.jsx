@@ -544,11 +544,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setInfoBubbleMouseInside: (value) => { dispatch(setInfoBubbleMouseInside(value)) },
-    updateHoverPolygon: (polygon) => { dispatch(updateHoverPolygon(polygon)) }
-  }
+const mapDispatchToProps = {
+  setInfoBubbleMouseInside,
+  updateHoverPolygon
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoBubble)
