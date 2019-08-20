@@ -53,19 +53,18 @@ exports.post = async (req, res) => {
 
   try {
     const { data, roles } = user
-    console.log({ user })
     const newRole = planMap[tier1PlanId]
 
-    // do not add role if the user already has it
+    // if we already have the role, skip adding it
     if (!roles.includes(newRole)) {
       roles.push(newRole)
       user.roles = roles
     }
-    console.log(JSON.stringify({ roles }))
     const now = new Date()
     const newData = { ...data, subscribed: now, subscriptionId: subscription.id, customerId: customer.id, planId: tier1PlanId }
     user.data = newData
     user.save().then(upgradedUser => {
+      logger.log('added user subscription', { upgradedUser, subscription })
       res.status(200).send({ user: upgradedUser, subscription })
     })
 
