@@ -15,7 +15,7 @@ exports.post = async function (req, res) {
   try {
     body = req.body
   } catch (e) {
-    res.status(400).send({ status: 400, msg: 'Could not parse body as JSON.' })
+    res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
     return
   }
 
@@ -96,13 +96,13 @@ exports.post = async function (req, res) {
   const handleError = function (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'User not found.' })
+        res.status(404).json({ status: 404, msg: 'User not found.' })
         return
       case ERRORS.CANNOT_GET_USER:
-        res.status(500).send({ status: 500, msg: 'Error finding user.' })
+        res.status(500).json({ status: 500, msg: 'Error finding user.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send({ status: 401, msg: 'User with that login token not found.' })
+        res.status(401).json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()
@@ -112,7 +112,7 @@ exports.post = async function (req, res) {
   const credentials = parseUserData(body)
 
   if (!credentials) {
-    res.status(400).send({ status: 400, msg: 'Unknown sign-in method used.' })
+    res.status(400).json({ status: 400, msg: 'Unknown sign-in method used.' })
   }
 
   updateOrCreateUser(credentials)
@@ -123,7 +123,7 @@ exports.post = async function (req, res) {
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.status(400).send({ status: 400, msg: 'Please provide user ID.' })
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   }
   const userId = req.params.user_id
@@ -192,13 +192,13 @@ exports.get = async function (req, res) {
   const handleError = function (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'User not found.' })
+        res.status(404).json({ status: 404, msg: 'User not found.' })
         return
       case ERRORS.CANNOT_GET_USER:
-        res.status(500).send({ status: 500, msg: 'Error finding user.' })
+        res.status(500).json({ status: 500, msg: 'Error finding user.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send({ status: 401, msg: 'User with that login token not found.' })
+        res.status(401).json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()
@@ -255,11 +255,11 @@ exports.delete = async function (req, res) {
     user = await User.findByPk(userId)
   } catch (err) {
     logger.error(err)
-    res.status(500).send({ status: 500, msg: 'Error finding user.' })
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
   if (!user) {
-    res.status(404).send({ status: 404, msg: 'User not fouloginTokennd.' })
+    res.status(404).json({ status: 404, msg: 'User not fouloginTokennd.' })
     return
   }
 
@@ -275,7 +275,7 @@ exports.delete = async function (req, res) {
     })
     .catch(err => {
       logger.error(err)
-      res.status(500).send({ status: 500, msg: 'Could not sign-out user.' })
+      res.status(500).json({ status: 500, msg: 'Could not sign-out user.' })
     })
 } // END function - exports.delete
 
@@ -284,7 +284,7 @@ exports.put = async function (req, res) {
   try {
     body = req.body
   } catch (e) {
-    res.status(400).send({ status: 400, msg: 'Could not parse body as JSON.' })
+    res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
     return
   }
 
@@ -295,11 +295,11 @@ exports.put = async function (req, res) {
     user = await User.findByPk(userId)
   } catch (err) {
     logger.error(err)
-    res.status(500).send({ status: 500, msg: 'Error finding user.' })
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
   if (!user) {
-    res.status(404).send({ status: 404, msg: 'User not found.' })
+    res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }
 
@@ -315,6 +315,6 @@ exports.put = async function (req, res) {
     })
     .catch(err => {
       logger.error(err)
-      res.status(500).send({ status: 500, msg: 'Could not update user information.' })
+      res.status(500).json({ status: 500, msg: 'Could not update user information.' })
     })
 } // END function - exports.put

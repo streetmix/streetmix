@@ -8,7 +8,7 @@ const logger = require('../../../lib/logger.js')()
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.status(400).send({ status: 400, msg: 'Please provide user ID.' })
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   }
 
@@ -85,7 +85,7 @@ exports.get = async function (req, res) {
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
           logger.error(err)
-          res.status(500).send({ status: 500, msg: 'Could not render user JSON.' })
+          res.status(500).json({ status: 500, msg: 'Could not render user JSON.' })
           return
         }
 
@@ -141,13 +141,13 @@ exports.get = async function (req, res) {
   const handleError = function (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'User not found.' })
+        res.status(404).json({ status: 404, msg: 'User not found.' })
         return
       case ERRORS.CANNOT_GET_USER:
-        res.status(500).send({ status: 500, msg: 'Error finding user.' })
+        res.status(500).json({ status: 500, msg: 'Error finding user.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send({ status: 401, msg: 'User with that login token not found.' })
+        res.status(401).json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()
@@ -170,13 +170,13 @@ exports.put = async function (req, res) {
   try {
     body = req.body
   } catch (e) {
-    res.status(400).send({ status: 400, msg: 'Could not parse body as JSON.' })
+    res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
     return
   }
 
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.status(400).send({ status: 400, msg: 'Please provide user ID.' })
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   }
 
@@ -192,11 +192,11 @@ exports.put = async function (req, res) {
     user = await User.findOne({ id: userId })
   } catch (err) {
     logger.error(err)
-    res.status(500).send({ status: 500, msg: 'Error finding user.' })
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
   if (!user) {
-    res.status(404).send({ status: 404, msg: 'User not found.' })
+    res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }
 
@@ -214,11 +214,11 @@ exports.put = async function (req, res) {
       targetUser = await User.findOne({ id: targetUserId })
     } catch (err) {
       logger.error(err)
-      res.status(500).send({ status: 500, msg: 'Error finding user.' })
+      res.status(500).json({ status: 500, msg: 'Error finding user.' })
     }
 
     if (!targetUser) {
-      res.status(404).send({ status: 404, msg: 'User not found.' })
+      res.status(404).json({ status: 404, msg: 'User not found.' })
       return
     }
   } else {
@@ -237,7 +237,7 @@ exports.put = async function (req, res) {
       res.status(204).end()
     }).catch(err => {
       logger.error(err)
-      res.status(500).send({ status: 500, msg: 'Could not update user information.' })
+      res.status(500).json({ status: 500, msg: 'Could not update user information.' })
     })
   } else {
     res.status(401).end()
@@ -246,10 +246,10 @@ exports.put = async function (req, res) {
 
 exports.delete = async function (req, res) {
   if (!req.params.user_id) {
-    res.status(400).send({ status: 400, msg: 'Please provide user ID.' })
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   } else if (!req.loginToken) {
-    res.status(400).send({ status: 400, msg: 'Please provide login token.' })
+    res.status(400).json({ status: 400, msg: 'Please provide login token.' })
   }
 
   const userId = req.userId
@@ -261,11 +261,11 @@ exports.delete = async function (req, res) {
     requestUser = await User.findOne({ id: userId })
   } catch (error) {
     logger.error(error)
-    res.status(500).send({ status: 500, msg: 'Error finding user.' })
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
   if (!requestUser) {
-    res.status(404).send({ status: 404, msg: 'User not found.' })
+    res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }
 
@@ -281,11 +281,11 @@ exports.delete = async function (req, res) {
       targetUser = await User.findOne({ id: targetUserId })
     } catch (error) {
       logger.error(error)
-      res.status(500).send({ status: 500, msg: 'Error finding user.' })
+      res.status(500).json({ status: 500, msg: 'Error finding user.' })
     }
 
     if (!targetUser) {
-      res.status(404).send({ status: 404, msg: 'User not found.' })
+      res.status(404).json({ status: 404, msg: 'User not found.' })
       return
     }
   } else {
@@ -295,11 +295,11 @@ exports.delete = async function (req, res) {
   const handleDeleteUser = async function (err, user) {
     if (err) {
       logger.error(err)
-      res.status(500).send({ status: 500, msg: 'Error deleting user.' })
+      res.status(500).json({ status: 500, msg: 'Error deleting user.' })
     }
 
     if (!user) {
-      res.status(404).send({ status: 404, msg: 'User not found.' })
+      res.status(404).json({ status: 404, msg: 'User not found.' })
       return
     }
 

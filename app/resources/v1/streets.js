@@ -18,7 +18,7 @@ exports.post = async function (req, res) {
     try {
       body = req.body
     } catch (e) {
-      res.status(400).send({ status: 400, msg: 'Could not parse body as JSON.' })
+      res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
       return
     }
     // TODO: Validation
@@ -81,7 +81,7 @@ exports.post = async function (req, res) {
     s.asJson((err, streetJson) => {
       if (err) {
         logger.error(err)
-        res.status(500).send({ status: 500, msg: 'Could not render street JSON.' })
+        res.status(500).json({ status: 500, msg: 'Could not render street JSON.' })
         return
       }
       logger.info({ street: streetJson }, 'New street created.')
@@ -93,16 +93,16 @@ exports.post = async function (req, res) {
   function handleErrors (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'User not found.' })
+        res.status(404).json({ status: 404, msg: 'User not found.' })
         return
       case ERRORS.STREET_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'Original street not found.' })
+        res.status(404).json({ status: 404, msg: 'Original street not found.' })
         return
       case ERRORS.CANNOT_CREATE_STREET:
-        res.status(500).send({ status: 500, msg: 'Could not create new street ID.' })
+        res.status(500).json({ status: 500, msg: 'Could not create new street ID.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send({ status: 401, msg: 'User with that login token not found.' })
+        res.status(401).json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()
@@ -140,7 +140,7 @@ exports.delete = async function (req, res) {
   }
 
   if (!req.params.street_id) {
-    res.status(400).send({ status: 400, msg: 'Please provide street ID.' })
+    res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
   }
 
@@ -172,16 +172,16 @@ exports.delete = async function (req, res) {
   function handleErrors (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'User not found.' })
+        res.status(404).json({ status: 404, msg: 'User not found.' })
         return
       case ERRORS.STREET_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'Could not find street.' })
+        res.status(404).json({ status: 404, msg: 'Could not find street.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send({ status: 401, msg: 'User is not signed-in.' })
+        res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).send({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+        res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
         return
       default:
         res.status(500).end()
@@ -209,7 +209,7 @@ exports.delete = async function (req, res) {
 
 exports.get = async function (req, res) {
   if (!req.params.street_id) {
-    res.status(400).send({ status: 400, msg: 'Please provide street ID.' })
+    res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
   }
   let street
@@ -218,16 +218,16 @@ exports.get = async function (req, res) {
     street = await Street.findOne({ id: req.params.street_id })
   } catch (err) {
     logger.error(err)
-    res.status(500).send({ status: 500, msg: 'Could not find street.' })
+    res.status(500).json({ status: 500, msg: 'Could not find street.' })
   }
 
   if (!street) {
-    res.status(404).send({ status: 404, msg: 'Could not find street.' })
+    res.status(404).json({ status: 404, msg: 'Could not find street.' })
     return
   }
 
   if (street.status === 'DELETED') {
-    res.status(410).send({ status: 410, msg: 'Could not find street.' })
+    res.status(410).json({ status: 410, msg: 'Could not find street.' })
     return
   }
 
@@ -239,7 +239,7 @@ exports.get = async function (req, res) {
   street.asJson(function (err, streetJson) {
     if (err) {
       logger.error(err)
-      res.status(500).send({ status: 500, msg: 'Could not render street JSON.' })
+      res.status(500).json({ status: 500, msg: 'Could not render street JSON.' })
       return
     }
     res.set('Access-Control-Allow-Origin', '*')
@@ -338,7 +338,7 @@ exports.find = function (req, res) {
       function (err, results) {
         if (err) {
           logger.error(err)
-          res.status(500).send({ status: 500, msg: 'Could not append street.' })
+          res.status(500).json({ status: 500, msg: 'Could not append street.' })
           return
         }
 
@@ -350,19 +350,19 @@ exports.find = function (req, res) {
   function handleErrors (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'Creator not found.' })
+        res.status(404).json({ status: 404, msg: 'Creator not found.' })
         return
       case ERRORS.STREET_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'Could not find street.' })
+        res.status(404).json({ status: 404, msg: 'Could not find street.' })
         return
       case ERRORS.STREET_DELETED:
-        res.status(410).send({ status: 410, msg: 'Could not find street.' })
+        res.status(410).json({ status: 410, msg: 'Could not find street.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send({ status: 401, msg: 'User is not signed-in.' })
+        res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).send({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+        res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
         return
       default:
         res.status(500).end()
@@ -391,16 +391,16 @@ exports.put = async function (req, res) {
     try {
       body = req.body
     } catch (e) {
-      res.status(400).send({ status: 400, msg: 'Could not parse body as JSON.' })
+      res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
       return
     }
   } else {
-    res.status(400).send({ status: 400, msg: 'Street information not specified.' })
+    res.status(400).json({ status: 400, msg: 'Street information not specified.' })
     return
   }
 
   if (!req.params.street_id) {
-    res.status(400).send({ status: 400, msg: 'Please provide street ID.' })
+    res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
   }
 
@@ -453,22 +453,22 @@ exports.put = async function (req, res) {
   function handleErrors (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'Creator not found.' })
+        res.status(404).json({ status: 404, msg: 'Creator not found.' })
         return
       case ERRORS.STREET_NOT_FOUND:
-        res.status(404).send({ status: 404, msg: 'Original street not found.' })
+        res.status(404).json({ status: 404, msg: 'Original street not found.' })
         return
       case ERRORS.STREET_DELETED:
-        res.status(410).send({ status: 410, msg: 'Could not find street.' })
+        res.status(410).json({ status: 410, msg: 'Could not find street.' })
         return
       case ERRORS.CANNOT_UPDATE_STREET:
-        res.status(500).send({ status: 500, msg: 'Could not update street.' })
+        res.status(500).json({ status: 500, msg: 'Could not update street.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).send({ status: 401, msg: 'User is not signed-in.' })
+        res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).send({ status: 403, msg: 'Signed-in user cannot update this street.' })
+        res.status(403).json({ status: 403, msg: 'Signed-in user cannot update this street.' })
         return
       default:
         res.status(500).end()
