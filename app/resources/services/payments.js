@@ -34,7 +34,7 @@ exports.post = async (req, res) => {
     })
   } catch (err) {
     logger.error(err)
-    res.status(500).send({ status: 500, msg: 'Unexpected error while submitting payment.' })
+    res.status(500).json({ status: 500, msg: 'Unexpected error while submitting payment.' })
     return
   }
 
@@ -43,12 +43,12 @@ exports.post = async (req, res) => {
     user = await User.findOne({ id: userId })
   } catch (err) {
     logger.error(err)
-    res.status(401).send({ status: 401, msg: 'Unexpected error while finding user.' })
+    res.status(401).json({ status: 401, msg: 'Unexpected error while finding user.' })
     return
   }
 
   if (!user) {
-    res.status(404).send({ status: 404, msg: 'Could not find user data.' })
+    res.status(404).json({ status: 404, msg: 'Could not find user data.' })
   }
 
   try {
@@ -65,12 +65,12 @@ exports.post = async (req, res) => {
     user.data = newData
     user.save().then(upgradedUser => {
       logger.info({ upgradedUser, subscription }, 'added user subscription')
-      res.status(200).send({ user: upgradedUser, subscription })
+      res.status(200).json({ user: upgradedUser, subscription })
     })
 
     return
   } catch (err) {
     logger.error(err)
-    res.status(500).send({ status: 500, msg: 'Unexpected error while processing payment.' })
+    res.status(500).json({ status: 500, msg: 'Unexpected error while processing payment.' })
   }
 }
