@@ -132,10 +132,6 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setMapState: (...args) => { dispatch(setMapState(...args)) }
-  }
-}
+const mapDispatchToProps = { setMapState }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GeoSearchWithIntl)

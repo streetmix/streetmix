@@ -134,10 +134,6 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    saveStreetName: (...args) => { dispatch(saveStreetName(...args)) }
-  }
-}
+const mapDispatchToProps = { saveStreetName }
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas))

@@ -78,11 +78,9 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    startPrinting: () => { dispatch(startPrinting()) },
-    stopPrinting: () => { dispatch(stopPrinting()) }
-  }
+const mapDispatchToProps = {
+  startPrinting,
+  stopPrinting
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrintContainer)

@@ -226,11 +226,9 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setBuildingVariant: (position, variant) => { dispatch(setBuildingVariant(position, variant)) },
-    changeSegmentVariant: (position, set, selection) => { dispatch(changeSegmentVariant(position, set, selection)) }
-  }
+const mapDispatchToProps = {
+  setBuildingVariant,
+  changeSegmentVariant
 }
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Variants))
