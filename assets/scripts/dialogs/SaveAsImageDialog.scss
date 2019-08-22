@@ -75,6 +75,10 @@
     max-height: 300px;
     cursor: move; // IE
     cursor: grab;
+
+    /* Center image within preview container */
+    display: block;
+    margin: 0 auto;
   }
 }
 
