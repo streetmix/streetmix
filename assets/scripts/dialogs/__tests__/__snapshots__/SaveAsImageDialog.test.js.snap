@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveAsImageDialog renders snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="dialog-box-container"
+  >
+    <div
+      class="dialog-box-backdrop"
+    />
+    <div
+      class="dialog-box"
+      role="dialog"
+    >
+      <button
+        class="close"
+        title="Dismiss"
+      >
+        <svg
+          class="svg-inline--fa fa-times"
+        />
+      </button>
+      <div
+        class="save-as-image-dialog"
+      >
+        <header>
+          <h1>
+            Save as image
+          </h1>
+        </header>
+        <div
+          class="dialog-content"
+        >
+          <div
+            class="save-as-image-options"
+          >
+            <div
+              class="checkbox-item"
+            >
+              <input
+                id="checkbox-id-4"
+                type="checkbox"
+                value=""
+              />
+              <label
+                for="checkbox-id-4"
+              >
+                Segment names and widths
+              </label>
+              <svg
+                class="svg-inline--fa fa-check"
+              />
+            </div>
+            <div
+              class="checkbox-item"
+            >
+              <input
+                id="checkbox-id-5"
+                type="checkbox"
+                value=""
+              />
+              <label
+                for="checkbox-id-5"
+              >
+                Street name
+              </label>
+              <svg
+                class="svg-inline--fa fa-check"
+              />
+            </div>
+            <div
+              class="checkbox-item"
+            >
+              <input
+                id="checkbox-id-6"
+                type="checkbox"
+                value=""
+              />
+              <label
+                for="checkbox-id-6"
+              >
+                Transparent sky
+              </label>
+              <svg
+                class="svg-inline--fa fa-check"
+              />
+            </div>
+            <div
+              class="checkbox-item"
+            >
+              <input
+                checked=""
+                disabled=""
+                id="checkbox-id-7"
+                type="checkbox"
+                value=""
+              />
+              <label
+                for="checkbox-id-7"
+              >
+                Watermark
+              </label>
+              <svg
+                class="svg-inline--fa fa-check"
+              />
+            </div>
+          </div>
+          <div
+            class="save-as-image-preview"
+          >
+            <div
+              class="save-as-image-preview-error"
+            >
+              Saving to image is not available on this browser.
+            </div>
+          </div>
+          <div
+            class="save-as-image-download"
+          >
+            <button
+              disabled=""
+            >
+              Save to your computer…
+            </button>
+          </div>
+        </div>
+        <footer>
+          This Streetmix-created image may be reused anywhere, for any purpose, under the 
+          <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)‎
+          </a>
+           license.
+        </footer>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

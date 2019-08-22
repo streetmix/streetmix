@@ -1,7 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
-import { SaveAsImageDialogWithIntl as SaveAsImageDialog } from '../SaveAsImageDialog'
-import { shallowWithIntl as shallow } from '../../../../test/helpers/intl-enzyme-test-helper.js'
+import { cleanup } from '@testing-library/react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import SaveAsImageDialog from '../SaveAsImageDialog'
 
 // Mock dependencies that could break tests
 jest.mock('../../streets/image', () => {
@@ -9,19 +10,31 @@ jest.mock('../../streets/image', () => {
     getStreetImage: () => {}
   }
 })
-jest.mock('../../users/settings', () => {})
+
+const initialState = {
+  locale: {
+    locale: 'en'
+  },
+  settings: {
+    saveAsImageTransparentSky: false,
+    saveAsImageSegmentNamesAndWidths: false,
+    saveAsImageStreetName: false,
+    saveAsImageWatermark: true
+  },
+  street: {
+    name: 'foo'
+  },
+  flags: {
+    SAVE_AS_IMAGE_CUSTOM_DPI: { value: false },
+    EXPORT_WATERMARK: { value: false }
+  }
+}
 
 describe('SaveAsImageDialog', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(
-      <SaveAsImageDialog
-        transparentSky={false}
-        segmentNames={false}
-        streetName={false}
-        watermark
-        street={{}}
-      />
-    )
-    expect(wrapper.exists()).toEqual(true)
+  afterEach(cleanup)
+
+  it('renders snapshot', () => {
+    const wrapper = renderWithReduxAndIntl(<SaveAsImageDialog />, { initialState })
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })
