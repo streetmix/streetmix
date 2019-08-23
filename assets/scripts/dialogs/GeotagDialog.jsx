@@ -16,7 +16,6 @@ import LocationPopup from './Geotag/LocationPopup'
 import { getRemixOnFirstEdit } from '../streets/remix'
 import { setMapState } from '../store/actions/map'
 import { addLocation, clearLocation, saveStreetName } from '../store/actions/street'
-import { clearDialogs } from '../store/actions/dialogs'
 import './GeotagDialog.scss'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -45,9 +44,6 @@ class GeotagDialog extends React.Component {
   static propTypes = {
     // Provided by react-intl higher-order component
     intl: PropTypes.object.isRequired,
-
-    // Provided by parent
-    closeDialog: PropTypes.func,
 
     // Provided by Redux store
     street: PropTypes.object,
@@ -204,13 +200,11 @@ class GeotagDialog extends React.Component {
 
     this.props.addLocation(location)
     this.props.saveStreetName(location.hierarchy.street, false)
-    this.props.closeDialog()
   }
 
   handleClearLocation = (event) => {
     trackEvent('Interaction', 'Geotag dialog: cleared existing location', null, null, true)
     this.props.clearLocation()
-    this.props.closeDialog()
   }
 
   reverseGeocode = (latlng) => {
@@ -301,8 +295,8 @@ class GeotagDialog extends React.Component {
                   label={this.state.label}
                   isEditable={this.state.geocodeAvailable && this.canEditLocation()}
                   isClearable={this.state.geocodeAvailable && this.canClearLocation()}
-                  handleConfirm={this.handleConfirmLocation}
-                  handleClear={this.handleClearLocation}
+                  handleConfirm={(e) => { this.handleConfirmLocation(e); closeDialog() }}
+                  handleClear={(e) => { this.handleClearLocation(e); closeDialog() }}
                 />
               }
 
@@ -340,8 +334,7 @@ const mapDispatchToProps = {
   setMapState,
   addLocation,
   clearLocation,
-  saveStreetName,
-  clearDialogs
+  saveStreetName
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GeotagDialogWithIntl)
