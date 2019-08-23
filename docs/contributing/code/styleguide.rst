@@ -39,6 +39,28 @@ Our JavaScript code style is `Standard JS`_.
    ...we may adopt `Prettier <https://github.com/prettier/prettier>`_ (or `prettier-standard <https://github.com/sheerun/prettier-standard>`_) to automatically format code. We have not introduced it yet because doing so across the entire codebase would be disruptive to existing work. If someone wants to champion adoption of Prettier, please get in touch.
 
 
+Import order
+^^^^^^^^^^^^
+
+Generally, external dependencies are imported first, then relative imports local to the application. Developers familiar with `Python's PEP8 guidelines <https://www.python.org/dev/peps/pep-0008/#imports>`_ will have seen this concept before.
+
+When importing relative files, files in the local directory ("closest" to the current module) are usually imported first. Files that come from the same subdirectories elsewhere are grouped together. When in doubt, alphabetical ordering within groups is better than no order at all.
+
+Here's a rough order of imports:
+
+- import ``react``
+- import ``prop-types``
+- import other React packages (usually related packages are grouped)
+- import other dependencies (usually related packages are grouped)
+- import constants
+- import components
+- import functions from non-component modules not covered elsewhere
+- import Redux-related modules (e.g. action creators) last
+- import CSS
+
+There's no technical reason to order imports. (In the past, some modules may have created side-effects when they load, meaning that import order was significant. This should no longer be the case. If you come across one, consider this a bug which should be fixed ASAP.) We order imports to make it easier for a human to understand the dependency graph of a module.
+
+
 React
 ~~~~~
 
