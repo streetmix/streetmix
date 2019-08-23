@@ -17,6 +17,7 @@ In the spirit of open source, **everyone** is welcome to help! **You do not have
 - I want to create illustrations.
 
    - :ref:`illustrations`
+   - :ref:`reference-library`
 
 - I want to design the user interface and experience.
 
