@@ -148,7 +148,7 @@
     "postcss": "7.0.17",
     "prop-types": "15.7.2",
     "raven-js": "3.27.2",
-    "react": "16.8.6",
+    "react": "16.9.0",
     "react-autosuggest": "9.4.3",
     "react-dnd": "7.4.5",
     "react-dnd-html5-backend": "7.4.4",
