@@ -52,5 +52,5 @@ describe('ScrollIndicators', () => {
     expect(scrollStreet).toBeCalled()
   })
 
-  it.skip('handles scroll right on keypress', () => {})
+  it.todo('handles scroll right on keypress')
 })

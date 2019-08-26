@@ -41,5 +41,5 @@ describe('NoConnectionMessage', () => {
     }, 0)
   })
 
-  it.skip('removes visibility class when connectivity returns', () => {})
+  it.todo('removes visibility class when connectivity returns')
 })

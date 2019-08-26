@@ -22,5 +22,5 @@ describe('get api/v1/translate', function () {
       })
   })
 
-  it.skip('falls back to local files if API token is not provided', () => {})
+  it.todo('falls back to local files if API token is not provided')
 })

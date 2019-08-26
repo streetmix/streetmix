@@ -49,7 +49,7 @@ describe('StreetMetaGeotag', () => {
       expect(wrapper.find('.street-metadata-map').length).toEqual(0)
     })
 
-    it.skip('displays the correct label for a given location hierarchy', () => {})
-    it.skip('displays a placeholder label if location hierarchy does not exist', () => {})
+    it.todo('displays the correct label for a given location hierarchy')
+    it.todo('displays a placeholder label if location hierarchy does not exist')
   })
 })

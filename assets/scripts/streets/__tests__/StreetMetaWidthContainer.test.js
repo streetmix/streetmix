@@ -48,5 +48,5 @@ describe('StreetMetaWidthContainer', () => {
   })
 
   // TODO: mock updateUnits() and test if it is called
-  it.skip('updates units', () => {})
+  it.todo('updates units')
 })

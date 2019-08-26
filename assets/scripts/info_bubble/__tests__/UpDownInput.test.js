@@ -48,8 +48,8 @@ describe('UpDownInput', () => {
     // expect(handleUpdate).toHaveBeenCalled()
   })
 
-  it.skip('renders a non-editable value in touch mode', () => {})
-  it.skip('renders as disabled', () => {})
-  it.skip('handles min value', () => {})
-  it.skip('handles max value', () => {})
+  it.todo('renders a non-editable value in touch mode')
+  it.todo('renders as disabled')
+  it.todo('handles min value')
+  it.todo('handles max value')
 })

@@ -19,5 +19,5 @@ describe('PaletteTooltips', () => {
     expect(wrapper.text()).toEqual('foo')
   })
 
-  it.skip('displays in the correct location', () => {})
+  it.todo('displays in the correct location')
 })

@@ -27,7 +27,7 @@ describe('StreetName', () => {
     expect(wrapper.text()).toEqual('Unnamed St')
   })
 
-  it('shows a "Click to edit" message when mouse is hovering over it', () => {})
-  it('does not do that if the street name is not editable', () => {})
-  it('responds to an onClick handler', () => {})
+  it.todo('shows a "Click to edit" message when mouse is hovering over it')
+  it.todo('does not do that if the street name is not editable')
+  it.todo('responds to an onClick handler')
 })

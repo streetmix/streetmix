@@ -46,6 +46,6 @@ describe('GalleryStreetItem', () => {
     expect(wrapper.find('.gallery-street-item-creator').length).toEqual(0)
   })
 
-  it('handles select', () => {})
-  it('handles delete', () => {})
+  it.todo('handles select')
+  it.todo('handles delete')
 })
