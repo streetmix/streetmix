@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import SegmentCanvas from './SegmentCanvas'
@@ -14,79 +14,66 @@ const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_GROUND_BASELINE = 65
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
-export class SegmentForPalette extends React.Component {
-  static propTypes = {
-    // Provided by react-intl
-    intl: PropTypes.object.isRequired,
+const SegmentForPalette = (props) => {
+  const intl = useIntl()
 
-    // Provided by react-dnd
-    connectDragSource: PropTypes.func,
-    connectDragPreview: PropTypes.func,
+  props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
 
-    // Provided by parent
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired,
-    onPointerOver: PropTypes.func,
-    randSeed: PropTypes.number
-  }
-
-  componentDidMount = () => {
-    this.props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
-  }
-
-  handlePointerOver = (event) => {
-    const label = this.getLabel()
-    const rect = event.target.getBoundingClientRect()
-    this.props.onPointerOver(event, label, rect)
-  }
-
-  getInfo = () => {
-    const segment = getSegmentInfo(this.props.type)
-    const variant = getSegmentVariantInfo(this.props.type, this.props.variantString)
-
-    return {
-      segment,
-      variant
-    }
-  }
-
-  getLabel = () => {
+  function getLabel (props) {
     // Get localized display names
-    const info = this.getInfo()
-    const defaultMessage = info.segment.name
+    const segment = getSegmentInfo(props.type)
+    const defaultMessage = segment.name
 
-    return this.props.intl.formatMessage({ id: `segments.${info.segment.nameKey}`, defaultMessage })
+    return intl.formatMessage({ id: `segments.${segment.nameKey}`, defaultMessage })
   }
 
-  render () {
-    const info = this.getInfo()
-
-    // Determine width to render at
-    const dimensions = getVariantInfoDimensions(info.variant)
-
-    let actualWidth = dimensions.right - dimensions.left
-    if (!actualWidth) {
-      actualWidth = info.segment.defaultWidth
-    }
-    actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
-
-    return this.props.connectDragSource(
-      <div
-        style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
-        className="segment segment-in-palette"
-        onPointerOver={this.handlePointerOver}
-      >
-        <SegmentCanvas
-          actualWidth={actualWidth}
-          type={this.props.type}
-          variantString={this.props.variantString}
-          randSeed={this.props.randSeed}
-          multiplier={PALETTE_SEGMENT_MULTIPLIER}
-          groundBaseline={PALETTE_GROUND_BASELINE}
-        />
-      </div>
-    )
+  function handlePointerOver (event) {
+    const label = getLabel(props)
+    const rect = event.target.getBoundingClientRect()
+    props.onPointerOver(event, label, rect)
   }
+
+  const segment = getSegmentInfo(props.type)
+  const variant = getSegmentVariantInfo(props.type, props.variantString)
+
+  // Determine width to render at
+  const dimensions = getVariantInfoDimensions(variant)
+
+  let actualWidth = dimensions.right - dimensions.left
+  if (!actualWidth) {
+    actualWidth = segment.defaultWidth
+  }
+  actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
+
+  return props.connectDragSource(
+    <div
+      style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
+      className="segment segment-in-palette"
+      onPointerOver={handlePointerOver}
+      data-testid="segment-for-palette"
+    >
+      <SegmentCanvas
+        actualWidth={actualWidth}
+        type={props.type}
+        variantString={props.variantString}
+        randSeed={props.randSeed}
+        multiplier={PALETTE_SEGMENT_MULTIPLIER}
+        groundBaseline={PALETTE_GROUND_BASELINE}
+      />
+    </div>
+  )
 }
 
-export default DragSource(Types.PALETTE_SEGMENT, paletteSegmentSource, collectDragSource)(injectIntl(SegmentForPalette))
+SegmentForPalette.propTypes = {
+  // Provided by react-dnd
+  connectDragSource: PropTypes.func,
+  connectDragPreview: PropTypes.func,
+
+  // Provided by parent
+  type: PropTypes.string.isRequired,
+  variantString: PropTypes.string.isRequired,
+  onPointerOver: PropTypes.func,
+  randSeed: PropTypes.number
+}
+
+export default DragSource(Types.PALETTE_SEGMENT, paletteSegmentSource, collectDragSource)(SegmentForPalette)
