@@ -169,7 +169,7 @@
     "requireindex": "1.2.0",
     "sass": "1.22.9",
     "seedrandom": "3.0.1",
-    "sequelize": "5.10.1",
+    "sequelize": "5.16.0",
     "sequelize-cli": "5.5.0",
     "shifty": "2.8.0",
     "slugify": "1.3.4",
