@@ -71,7 +71,7 @@ exports.post = async function (req, res) {
   // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
   // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
   const tag = resource && resource.tags && resource.tags[0]
-  const thumbnailSaved = (streetType && resource) || (tag && editCount && parseInt(tag, 10) === editCount)
+  const thumbnailSaved = (streetType && resource) || (tag && editCount && Number.parseInt(tag, 10) === editCount)
 
   // Currently only uploading street thumbnails for initial street render. If not initial street render, only log details.
   if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {

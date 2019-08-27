@@ -223,7 +223,7 @@ export function fetchStreetForVerification () {
         throw response
       }
 
-      const requestId = parseInt(response.headers.get('X-Streetmix-Request-Id'), 10)
+      const requestId = Number.parseInt(response.headers.get('X-Streetmix-Request-Id'), 10)
 
       if (requestId !== latestRequestId) {
         throw new Error('1')
