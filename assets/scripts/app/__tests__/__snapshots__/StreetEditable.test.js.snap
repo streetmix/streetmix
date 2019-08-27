@@ -27,6 +27,11 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
           </span>
         </span>
         <span
+          class="segment-capacity"
+        >
+          0 people/hr
+        </span>
+        <span
           class="segment-grid units-metric"
         />
       </div>

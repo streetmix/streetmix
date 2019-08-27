@@ -5,6 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
+import { getSegmentCapacity, formatCapacity } from '../util/street_analytics'
 
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
@@ -42,6 +43,7 @@ export class Segment extends React.Component {
   static propTypes = {
     // Provided by parent
     dataNo: PropTypes.number,
+    enableAnalytics: PropTypes.bool.isRequired,
     segment: PropTypes.object.isRequired,
     actualWidth: PropTypes.number.isRequired,
     units: PropTypes.number,
@@ -230,14 +232,16 @@ export class Segment extends React.Component {
   }
 
   render () {
-    const { segment } = this.props
+    const { segment, enableAnalytics } = this.props
 
     const segmentInfo = getSegmentInfo(segment.type)
 
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-
+    const avgCap = getSegmentCapacity(segment).capacity.average
+    let formattedCapacity = formatCapacity(avgCap, this.props.locale)
+    const showCapacity = enableAnalytics && Number.parseInt(avgCap, 10) > 0
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + this.props.segmentPos + 'px)'
@@ -263,6 +267,7 @@ export class Segment extends React.Component {
     if (segment && segment.warnings) {
       if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
         classNames.push('warning')
+        formattedCapacity = 0
       }
       if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
         classNames.push('outside')
@@ -283,6 +288,8 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
+          capacity={formattedCapacity}
+          showCapacity={showCapacity}
         />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition
@@ -312,6 +319,7 @@ export class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    enableAnalytics: state.flags.ANALYTICS.value,
     locale: state.locale.locale,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment: (typeof state.ui.activeSegment === 'number') ? state.ui.activeSegment : null
