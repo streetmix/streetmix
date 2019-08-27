@@ -8,22 +8,22 @@ const { ERRORS } = require('../../../lib/util')
 function handleErrors (error, res) {
   switch (error) {
     case ERRORS.USER_NOT_FOUND:
-      res.status(404).send('Creator not found.')
+      res.status(404).json({ status: 404, msg: 'Creator not found.' })
       break
     case ERRORS.STREET_NOT_FOUND:
-      res.status(404).send('Could not find streets.')
+      res.status(404).json({ status: 404, msg: 'Could not find streets.' })
       break
     case ERRORS.STREET_DELETED:
-      res.status(410).send('Could not find street.')
+      res.status(410).json({ status: 410, msg: 'Could not find street.' })
       break
     case ERRORS.CANNOT_GET_STREET:
-      res.status(500).send('Could not find streets for user.')
+      res.status(500).json({ status: 500, msg: 'Could not find streets for user.' })
       break
     case ERRORS.UNAUTHORISED_ACCESS:
-      res.status(401).send('User is not signed-in.')
+      res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
       break
     case ERRORS.FORBIDDEN_REQUEST:
-      res.status(403).send('Signed-in user cannot delete this street.')
+      res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
       break
     default:
       // Log unknown error.
@@ -35,7 +35,7 @@ function handleErrors (error, res) {
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
   }
 
   const findUserStreets = async function (userId) {
@@ -66,7 +66,7 @@ exports.get = async function (req, res) {
       function (err, results) {
         if (err) {
           logger.error(err)
-          res.status(500).send('Could not append street.')
+          res.status(500).json({ status: 500, msg: 'Could not append street.' })
           return
         }
 
@@ -85,7 +85,7 @@ exports.get = async function (req, res) {
   }
 
   if (!user) {
-    res.status(404).send('Could not find user.')
+    res.status(404).json({ status: 404, msg: 'Could not find user.' })
     return
   }
 
@@ -97,9 +97,9 @@ exports.get = async function (req, res) {
 exports.delete = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
-    res.status(400).send('Please provide user ID.')
+    res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
   } else if (!req.loginToken) {
-    res.status(400).send('Please provid a login token.')
+    res.status(400).json({ status: 400, msg: 'Please provid a login token.' })
   }
 
   const userId = req.userId
@@ -109,11 +109,11 @@ exports.delete = async function (req, res) {
     requestUser = await User.findOne({ id: userId })
   } catch (error) {
     logger.error(error)
-    res.status(500).send('Error finding user.')
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
   if (!requestUser) {
-    res.status(401).send('User not found.')
+    res.status(401).json({ status: 401, msg: 'User not found.' })
     return
   }
 
@@ -131,11 +131,11 @@ exports.delete = async function (req, res) {
       targetUser = await User.findOne({ id: targetUserId })
     } catch (error) {
       logger.error(error)
-      res.status(500).send('Error finding user.')
+      res.status(500).json({ status: 500, msg: 'Error finding user.' })
     }
 
     if (!targetUser) {
-      res.status(401).send('User not found.')
+      res.status(401).json({ status: 401, msg: 'User not found.' })
       return
     }
   } else {
