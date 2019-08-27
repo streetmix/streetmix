@@ -1,53 +1,51 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { createIntl, createIntlCache } from 'react-intl'
-import { SegmentForPalette } from '../SegmentForPalette'
-import { getSegmentInfo, getSegmentVariantInfo } from '../info'
+import { fireEvent, cleanup } from '@testing-library/react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import SegmentForPalette from '../SegmentForPalette'
+import { getSegmentInfo } from '../info'
 import { getVariantInfoDimensions } from '../view'
 
-jest.mock('../../streets/data_model', () => {})
 jest.mock('../info')
 jest.mock('../view')
 
-function connectDropTarget (el) { return el }
-function connectDragSource (el) { return el }
-
 describe('SegmentForPalette', () => {
-  const connectDragPreview = jest.fn()
+  afterEach(cleanup)
 
-  const cache = createIntlCache()
-  const intl = createIntl({
-    locale: 'en',
-    messages: {}
-  }, cache)
-
-  beforeEach(() => {
+  it('renders width correctly depending on the dimension', () => {
     const dimensions = { left: 100, right: 200 }
     getVariantInfoDimensions.mockImplementation(() => dimensions)
+
+    const wrapper = renderWithReduxAndIntl(
+      <SegmentForPalette
+        type={''}
+        variantString={''}
+        onPointerOver={jest.fn()}
+        randSeed={42}
+      />
+    )
+
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
-  describe('on mount', () => {
-    it('connects to drag', () => {
-      shallow(<SegmentForPalette connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} connectDragPreview={connectDragPreview} type={''} variantString={''} intl={intl} randSeed={42} />)
-      expect(connectDragPreview).toHaveBeenCalledTimes(1)
-    })
-  })
-  it('renders width correctly depending on the dimension', () => {
-    const wrapper = shallow(<SegmentForPalette connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} connectDragPreview={connectDragPreview} type={''} variantString={''} intl={intl} randSeed={42} />)
-    expect(wrapper).toMatchSnapshot()
-  })
+
   describe('mouseover', () => {
-    it('calls onPointerOver with Segment name', () => {
+    it('handles pointer over event with segment name', () => {
       const onPointerOver = jest.fn()
-      const event = { target: { getBoundingClientRect: () => 1 } }
-      const variant = { }
-      const segment = { name: 'Segment', nameKey: 'key' }
-      getSegmentInfo.mockImplementation(() => segment)
-      getSegmentVariantInfo.mockImplementation(() => variant)
-      const wrapper = shallow(<SegmentForPalette connectDropTarget={connectDropTarget} connectDragSource={connectDragSource} connectDragPreview={connectDragPreview} type={''} variantString={''} intl={intl} onPointerOver={onPointerOver} randSeed={42} />)
-      wrapper.simulate('pointerover', event)
+      const segmentInfo = ({ name: 'foo', nameKey: 'key' })
+      getSegmentInfo.mockImplementation(() => segmentInfo)
+
+      const wrapper = renderWithReduxAndIntl(
+        <SegmentForPalette
+          type={''}
+          variantString={''}
+          onPointerOver={onPointerOver}
+          randSeed={42}
+        />
+      )
+
+      fireEvent.pointerOver(wrapper.getByTestId('segment-for-palette'))
+
       expect(onPointerOver).toHaveBeenCalledTimes(1)
-      expect(onPointerOver).toHaveBeenCalledWith(event, 'Segment', 1)
     })
   })
 })
