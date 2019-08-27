@@ -20,6 +20,17 @@ describe('NotificationBar', () => {
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
+  describe('conditions that render something', () => {
+    it('renders default link text if no link text is provided', () => {
+      const notification = {
+        display: true,
+        link: TEST_NOTIFICATION.link
+      }
+      const wrapper = renderWithIntl(<NotificationBar locale="en" notification={notification} />)
+      expect(wrapper.getByRole('link')).toHaveTextContent('More info')
+    })
+  })
+
   describe('conditions that render nothing', () => {
     it('renders nothing if notification is not provided', () => {
       const wrapper = renderWithIntl(<NotificationBar locale="en" />)
@@ -47,45 +58,6 @@ describe('NotificationBar', () => {
       const notification = { display: true }
       const wrapper = renderWithIntl(<NotificationBar locale="de" notification={notification} />)
       expect(wrapper.container.firstChild).toBeNull()
-    })
-  })
-
-  describe('conditions that render something', () => {
-    it('renders only the lede', () => {
-      const notification = {
-        display: true,
-        lede: TEST_NOTIFICATION.lede
-      }
-      const wrapper = renderWithIntl(<NotificationBar locale="en" notification={notification} />)
-      expect(wrapper.asFragment()).toMatchSnapshot()
-    })
-
-    it('renders only the notification text', () => {
-      const notification = {
-        display: true,
-        text: TEST_NOTIFICATION.text
-      }
-      const wrapper = renderWithIntl(<NotificationBar locale="en" notification={notification} />)
-      expect(wrapper.asFragment()).toMatchSnapshot()
-    })
-
-    it('renders only the link', () => {
-      const notification = {
-        display: true,
-        link: TEST_NOTIFICATION.link,
-        linkText: TEST_NOTIFICATION.linkText
-      }
-      const wrapper = renderWithIntl(<NotificationBar locale="en" notification={notification} />)
-      expect(wrapper.asFragment()).toMatchSnapshot()
-    })
-
-    it('renders default link text if no link text is provided', () => {
-      const notification = {
-        display: true,
-        link: TEST_NOTIFICATION.link
-      }
-      const wrapper = renderWithIntl(<NotificationBar locale="en" notification={notification} />)
-      expect(wrapper.getByRole('link')).toHaveTextContent('More info')
     })
   })
 
