@@ -8,6 +8,12 @@
 $environment-editor-border-radius: $border-radius;
 $environment-editor-box-shadow: $medium-box-shadow;
 
+$header-background-colour:    $colour-turquoise-200;
+$header-text-colour:          $colour-turquoise-700;
+$close-icon-colour:           $colour-turquoise-500;
+$close-icon-colour-hover:     $colour-turquoise-600;
+$selection-highlight-colour:  $colour-turquoise-500;
+
 .environment-editor-container-outer {
   z-index: $z-environment-editor;
   position: absolute;
@@ -32,7 +38,8 @@ $environment-editor-box-shadow: $medium-box-shadow;
 .environment-editor header {
   padding: 1em;
   text-align: center;
-  background-color: #e6f0f5;
+  background-color: $header-background-colour;
+  color: $header-text-colour;
 }
 
 .environment-editor.react-draggable header {
@@ -70,7 +77,7 @@ $environment-editor-box-shadow: $medium-box-shadow;
 
 .environment-select.environment-active {
   box-shadow:
-    0 0 0 2px #87b7cb,
+    0 0 0 2px $selection-highlight-colour,
     inset 0 0 0 2px white;
 }
 
@@ -84,23 +91,23 @@ $environment-editor-box-shadow: $medium-box-shadow;
   display: flex !important;
   justify-content: center;
   align-items: center !important;
-}
 
-.environment-editor .close:hover {
-  background-color: #d0dfe3;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
 
   svg {
-    color: #6b778c;
+    transform: scale(0.6);
+    width: 1rem;
+    height: 1rem;
+    color: $close-icon-colour;
   }
-}
 
-.environment-editor .close:active {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.environment-editor .close svg {
-  transform: scale(0.6);
-  width: 1rem;
-  height: 1rem;
-  color: #a3aec2;
+  &:hover svg {
+    color: $close-icon-colour-hover;
+  }
 }
