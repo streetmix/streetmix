@@ -26,9 +26,9 @@ button.close {
   user-select: none;
 
   // Override font-awesome sizing
+  // A transform works better than overriding the width/height properties.
   > .svg-inline--fa {
-    width: 0.65rem;
-    height: 0.65rem;
+    transform: scale(0.75);
   }
 
   &:not(:hover) {

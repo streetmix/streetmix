@@ -35,6 +35,11 @@ body.no-connection-message-visible #status-message {
   color: rgb(64, 32, 32);
   pointer-events: auto;
 
+  [dir="rtl"] & {
+    padding-right: 20px;
+    padding-left: 45px;
+  }
+
   button {
     line-height: 1.4; // force button height to be the same as the a.button-like
   }
@@ -46,6 +51,11 @@ body.no-connection-message-visible #status-message {
     // Force buttons to not add a 2px height to .status-message-content
     margin-top: -1px;
     margin-bottom: -1px;
+
+    [dir="rtl"] & {
+      margin-left: auto;
+      margin-right: 20px;
+    }
   }
 
   a {
@@ -54,6 +64,15 @@ body.no-connection-message-visible #status-message {
 
   // Override styles for dialog box close button
   .close {
-    height: 100%;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 4px;
+    }
   }
 }
