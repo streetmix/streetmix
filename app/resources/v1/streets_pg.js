@@ -278,8 +278,8 @@ exports.get = async function (req, res) {
 exports.find = async function (req, res) {
   const creatorId = req.query.creatorId
   const namespacedId = req.query.namespacedId
-  const start = (req.query.start && parseInt(req.query.start, 10)) || 0
-  const count = (req.query.count && parseInt(req.query.count, 10)) || 20
+  const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
+  const count = (req.query.count && Number.parseInt(req.query.count, 10)) || 20
 
   const findStreetWithCreatorId = async function (creatorId) {
     let user

@@ -33,6 +33,25 @@
       "error",
       "prefer-double"
     ],
+    "no-restricted-globals": [
+      "error",
+      {
+        "name": "isNaN",
+        "message": "Use Number.isNaN() instead of the global isNan()."
+      },
+      {
+        "name": "isFinite",
+        "message": "Use Number.isFinite() instead of the global isFinite()."
+      },
+      {
+        "name": "parseInt",
+        "message": "Use Number.parseInt() instead of the global parseInt()."
+      },
+      {
+        "name": "parseFloat",
+        "message": "Use Number.parseFloat() instead of the global parseFloat()."
+      }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }
