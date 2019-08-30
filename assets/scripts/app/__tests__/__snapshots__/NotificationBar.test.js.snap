@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationBar renders snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="notification-bar"
+    style="margin-top: -0px;"
+  >
+    <strong
+      class="notification-bar-intro"
+    >
+      Heads up!
+    </strong>
+    <span
+      class="notification-bar-text"
+    >
+      Streetmix will be offline for maintainance on January 1, 2025 at 19:00 GMT.
+    </span>
+    <a
+      class="notification-bar-link"
+      href="https://twitter.com/streetmix/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Follow us on Twitter for updates.
+    </a>
+    <button
+      class="close"
+      title="Dismiss"
+    >
+      <svg
+        class="svg-inline--fa fa-times"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;

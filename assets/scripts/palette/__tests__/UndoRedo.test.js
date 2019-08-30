@@ -38,8 +38,8 @@ describe('UndoRedo', () => {
     fireEvent.click(wrapper.getByTitle('Undo'))
 
     // Redo should now be available, but undo is not.
-    expect(wrapper.getByTitle('Undo').disabled).toEqual(true)
-    expect(wrapper.getByTitle('Redo').disabled).toEqual(false)
+    expect(wrapper.getByTitle('Undo')).toBeDisabled()
+    expect(wrapper.getByTitle('Redo')).toBeEnabled()
   })
 
   it('handles clicking redo button', () => {
@@ -60,7 +60,7 @@ describe('UndoRedo', () => {
     fireEvent.click(wrapper.getByTitle('Redo'))
 
     // Undo should now be available, but redo is not.
-    expect(wrapper.getByTitle('Undo').disabled).toEqual(false)
-    expect(wrapper.getByTitle('Redo').disabled).toEqual(true)
+    expect(wrapper.getByTitle('Undo')).toBeEnabled()
+    expect(wrapper.getByTitle('Redo')).toBeDisabled()
   })
 })

@@ -356,10 +356,6 @@ class SaveAsImageDialog extends React.Component {
   }
 }
 
-// Inject Intl via a higher-order component provided by react-intl.
-// Exported so that this component can be tested.
-export const SaveAsImageDialogWithIntl = injectIntl(SaveAsImageDialog)
-
 function mapStateToProps (state) {
   return {
     locale: state.locale.locale,
@@ -377,4 +373,4 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = { setSettings }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SaveAsImageDialogWithIntl)
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(SaveAsImageDialog))
