@@ -5,16 +5,16 @@ import StreetMetaWidthContainer from './StreetMetaWidthContainer'
 import StreetMetaAuthor from './StreetMetaAuthor'
 import StreetMetaDate from './StreetMetaDate'
 import StreetMetaGeotag from './StreetMetaGeotag'
-import StreetMetaLink from './StreetMetaLink'
+import StreetMetaAnalytics from './StreetMetaAnalytics'
 import './StreetMeta.scss'
 
 const StreetMeta = (props) => (
   <div className="street-metadata">
     <StreetMetaWidthContainer />
+    {props.enableAnalytics && <StreetMetaAnalytics />}
     <StreetMetaGeotag />
     <StreetMetaAuthor />
     <StreetMetaDate />
-    {props.enableAnalytics && <StreetMetaLink />}
   </div>
 )
 

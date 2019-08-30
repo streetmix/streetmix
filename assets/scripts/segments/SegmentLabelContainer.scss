@@ -27,7 +27,8 @@
   pointer-events: none;
 }
 
-.segment.hover .segment-label {
+.segment.hover .segment-label,
+.segment.hover .segment-capacity {
   font-weight: 700;
 
   // Show full label when hovering over segment with
@@ -41,13 +42,14 @@
   margin-top: -4px;
 }
 
-.segment.warning .segment-label {
+.segment.warning .segment-label,
+.segment.warning .segment-capacity {
   color: $segment-warning-text;
 }
 
-.segment-width {
+.segment-width,
+.segment-capacity {
   position: absolute;
-  top: 22px;
   left: 0;
   right: 0;
   height: 24px;
@@ -59,29 +61,20 @@
   pointer-events: none;
 }
 
+.segment-width {
+  top: 22px;
+}
+
+.segment-capacity {
+  top: 65px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Force `rtl` direction when it's applied to the body, since
 the width element is inside the street layout which is forced `ltr` */
 body[dir="rtl"] .segment-width {
   direction: rtl !important;
-}
-
-.segment.hover .segment-width {
-  font-weight: 700;
-
-  // Show full label when hovering over segment with
-  // a truncated label
-  white-space: nowrap;
-  left: auto;
-  right: auto;
-  overflow: visible;
-  z-index: 1;
-  background-color: $bottom-background;
-  padding: 4px;
-  margin-top: -4px;
-}
-
-.segment.warning .segment-width {
-  color: $segment-warning-text;
 }
 
 .segment-grid {

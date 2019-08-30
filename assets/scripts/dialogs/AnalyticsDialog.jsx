@@ -12,23 +12,9 @@ import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
+import { getCapacity } from '../util/street_analytics'
+
 import './AnalyticsDialog.scss'
-
-const NO_CAPACITY = { average: 0, potential: 0 }
-
-const CAPACITIES = {
-  sidewalk: { average: 19000, potential: 19000 },
-  'drive-lane': { average: 1500, potential: 2000 },
-  'bike-lane': { average: 14000, potential: 14000 },
-  scooter: { average: 14000, potential: 14000 },
-  'light-rail': { average: 18000, potential: 20000 },
-  streetcar: { average: 18000, potential: 20000 },
-  'bus-lane': { average: 5000, potential: 8000 }
-}
-
-const getCapacity = (type) => {
-  return CAPACITIES[type] || NO_CAPACITY
-}
 
 const addSegmentData = (segments) => {
   return segments.map(item => {
