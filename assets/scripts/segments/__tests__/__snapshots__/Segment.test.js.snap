@@ -23,11 +23,6 @@ exports[`Segment renders correctly 1`] = `
         </span>
       </span>
       <span
-        class="segment-capacity"
-      >
-        18,000 people/hr
-      </span>
-      <span
         class="segment-grid units-metric"
       />
     </div>
