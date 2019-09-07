@@ -53,7 +53,7 @@ function initExperimentalBodyFontListener () {
     if (value === true) {
       const el = document.createElement('link')
       el.href = 'https://fonts.googleapis.com/css?family=Barlow:400,600,400italic'
-      el.ref = 'stylesheet'
+      el.setAttribute('rel', 'stylesheet')
       document.head.appendChild(el)
       document.body.classList.add('experimental-font-family')
     } else {
