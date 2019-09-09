@@ -24,6 +24,7 @@ import StreetView from './StreetView'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
+import ToastContainer from '../ui/Toasts/ToastContainer'
 import { onResize } from './window_resize'
 
 function App () {
@@ -66,10 +67,44 @@ function App () {
           <EnvironmentEditor />
           <SegmentDragLayer />
           <StreetView />
+          <ToastContainer setMessages={setMessages} />
         </div>
       </DndProvider>
     </IntlProvider>
   )
+}
+
+function setMessages (addMessage) {
+  const items = [
+    {
+      message: 'Your street was reloaded from the server as it was modified elsewhere.'
+    },
+    {
+      message: 'The segment has been removed.',
+      action: 'Undo'
+    },
+    {
+      type: 'success',
+      title: 'Achievement unlocked!',
+      message: 'Reach 100,000 people per hour street capacity.',
+      action: 'More info'
+    },
+    {
+      type: 'warning',
+      message: 'Streetmix is having trouble connecting to the Internet.',
+      action: 'Retry connection',
+      stay: true
+    },
+    {
+      message: 'Nothing to undo.'
+    }
+  ]
+
+  items.forEach((item, index) => {
+    window.setTimeout(() => {
+      addMessage(item)
+    }, (index * 1000) + 5000)
+  })
 }
 
 export default App

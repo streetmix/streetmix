@@ -1,0 +1,24 @@
+.toast-container {
+  position: absolute;
+  top: 40px;
+  right: 30px;
+  width: 300px;
+  z-index: 600;
+
+  // Align all toasts to right edge
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  // Allows inline-block children to set margin-bottom exactly
+  line-height: 0;
+
+  // Disallow intercepting clicks in spaces between toasts
+  pointer-events: none;
+
+  // A hint to the browser that child toasts should be optimized for transformation
+  > div {
+    will-change: transform;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}

@@ -1,0 +1,146 @@
+@import "../../../styles/variables.scss";
+
+.toast {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+  // Note: width and height must be set in JavaScript to
+  // match exact width and height of .toast-content child
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+
+  // Allow pointer interaction
+  pointer-events: auto;
+}
+
+.toast-content {
+  position: relative;
+  display: inline-block; // Variable width toast
+  max-width: 300px;
+  min-width: 150px;
+  padding: 0.75em 1em;
+  padding-right: 40px; // Space for close button
+  font-size: 13px;
+  border-top: 5px solid #ffd755;
+  background-color: #fff0c0;
+
+  // Restore line-height after being unset by parent element
+  line-height: 1.4;
+}
+
+.toast p {
+  margin: 0;
+}
+
+.toast-action {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  font-weight: bold;
+  background-color: transparent;
+  color: $colour-copper-600;
+
+  &:hover {
+    background-color: transparent;
+    color: $colour-copper-700;
+  }
+}
+
+$close-icon-colour: $colour-copper-500;
+$close-icon-colour-hover: $colour-copper-600;
+
+/* Close button overrides */
+.toast .close {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  top: 7px;
+  right: 6px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+
+  svg {
+    color: $close-icon-colour;
+  }
+
+  &:hover svg {
+    color: $close-icon-colour-hover;
+  }
+}
+
+.toast h3 {
+  margin: 0;
+  margin-bottom: 0.25em;
+}
+
+.toast-success {
+  .toast-content {
+    background-color: $colour-emerald-200;
+    border-top-color: $colour-emerald-300;
+  }
+
+  h3 {
+    color: $colour-emerald-700;
+  }
+
+  .close {
+    svg {
+      color: $colour-emerald-500;
+    }
+
+    &:hover svg {
+      color: $colour-emerald-600;
+    }
+  }
+
+  .toast-action {
+    color: $colour-emerald-600;
+
+    &:hover {
+      color: $colour-emerald-700;
+    }
+  }
+}
+
+.toast-warning {
+  .toast-content {
+    background-color: #fff9f9;
+    border-top-color: #ff5b5b;
+  }
+
+  h3 {
+    color: #a00101;
+  }
+
+  .close {
+    svg {
+      color: #c10000;
+    }
+
+    &:hover svg {
+      color: #a00101;
+    }
+  }
+
+  .toast-action {
+    color: #c10000;
+
+    &:hover {
+      color: #a00101;
+    }
+  }
+}
