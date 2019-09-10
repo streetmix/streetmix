@@ -181,6 +181,12 @@
       "tos-link": "Terms of service",
       "privacy-link": "Privacy policy"
     },
+    "analytics": {
+      "export-csv": "Export to CSV",
+      "heading": "Analytics",
+      "street-summary": "Your street has an estimated average traffic of {averageTotal} passengers per hour, and potential for up to {potentialTotal} passengers per hour.",
+      "segment-summary": "{average} — {potential} people/hour"
+    },
     "save": {
       "heading": "Save as image",
       "option-labels": "Segment names and widths",

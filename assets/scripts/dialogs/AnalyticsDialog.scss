@@ -3,40 +3,6 @@
   min-height: 660px;
   max-height: 75vh;
 
-  // Used by team list and external links
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  header {
-    background-color: white;
-    padding: 0;
-    text-align: left;
-
-    [dir="rtl"] & {
-      text-align: right;
-    }
-  }
-
-  header h1 {
-    display: none;
-  }
-
-  .streetmix-logo {
-    margin-left: 12px;
-    margin-top: 1.5em;
-    margin-bottom: 1em;
-    background-position: 0;
-
-    [dir="rtl"] & {
-      margin-right: 12px;
-      margin-left: auto;
-      background-position: 100%;
-    }
-  }
-
   .dialog-content {
     overflow: hidden;
     overflow-y: scroll;
@@ -51,7 +17,6 @@
 .analytics-dialog-left {
   flex-basis: 240px;
   margin-right: 40px;
-  border-right: 1px solid #cde1ea;
   padding-right: 40px;
   position: fixed;
   width: 520px;
@@ -59,7 +24,6 @@
   [dir="rtl"] & {
     margin-left: 40px;
     margin-right: 0;
-    border-left: 1px solid #cde1ea;
     border-right: 0;
     padding-left: 40px;
     padding-right: 0;
@@ -118,4 +82,66 @@
 
 .icon-person {
   margin: 5px;
+}
+
+.segment-analytics {
+  position: relative;
+  width: 100%;
+}
+
+.segment-analytics .segment-icon {
+  position: absolute;
+  left: 5px;
+  z-index: 999;
+}
+
+.segment-icon canvas {
+  margin-left: -5px;
+}
+
+.segment-analytics .capacity-bars {
+  position: relative;
+  display: inline-block;
+}
+
+.segment-analytics .capacity-text {
+  min-width: 15%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.capacity-text .capacity-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.capacity-text .capacity-summary {
+  font-size: 14px;
+}
+
+.segment.segment-icon {
+  display: inline-block;
+  position: relative;
+  height: 80px;
+  top: 0;
+  background-color: transparent;
+  margin-right: 1px;
+  transform-origin: 50% 75%;
+  transition: transform 50ms !important;
+}
+
+.dialog-actions {
+  text-align: center;
+}
+
+.segment-icon .segment-image {
+  top: 0;
+}
+
+.analytics-dialog footer {
+  text-align: center;
+}
+
+.analytics-dialog footer a {
+  white-space: nowrap;
 }

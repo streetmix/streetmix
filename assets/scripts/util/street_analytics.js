@@ -5,6 +5,35 @@ import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
 } from '../segments/constants'
+const { parse } = require('json2csv')
+
+const csvTransform = (item) => {
+  return {
+    type: item.type,
+    averageCapacity: item.capacity.average,
+    potentialCapacity: item.capacity.potential
+  }
+}
+export const saveCsv = (rows, streetName) => {
+  const fields = ['type', 'averageCapacity', 'potentialCapacity']
+  const opts = { fields }
+
+  const formattedData = rows.map(csvTransform)
+
+  try {
+    const csv = parse(formattedData, opts)
+    const downloadLink = document.createElement('a')
+    const blob = new Blob(['\ufeff', csv])
+    const url = URL.createObjectURL(blob)
+    downloadLink.href = url
+    downloadLink.download = `${streetName}.csv`
+
+    document.body.appendChild(downloadLink)
+    downloadLink.click()
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 // take in a street and returns a list of segments with analytics info
 const getAnalyticsFromStreet = (street, locale) => {
@@ -45,6 +74,8 @@ const addSegmentData = item => {
     segment: item
   }
 }
+
+export const capacitySum = (a, b) => { return { ...a, average: a.average + b.average, potential: a.potential + b.potential } }
 
 const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)
 
