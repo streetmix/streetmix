@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import MeasurementText from '../ui/MeasurementText'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
+import { formatCapacity } from '../util/street_analytics'
 import './SegmentLabelContainer.scss'
 
 const SegmentLabelContainer = (props) => {
@@ -31,7 +32,9 @@ const SegmentLabelContainer = (props) => {
         <FormattedMessage
           id="capacity.ppl-per-hr"
           defaultMessage="{capacity} people/hr"
-          values={{ capacity: props.capacity }} />
+          values={{
+            capacity: formatCapacity(props.capacity, props.locale)
+          }} />
       </span>}
       <span className={gridClassNames.join(' ')} />
     </div>
@@ -44,15 +47,16 @@ SegmentLabelContainer.propTypes = {
     PropTypes.string,
     PropTypes.element
   ]).isRequired,
-  showCapacity: PropTypes.bool.isRequired,
-  capacity: PropTypes.number.isRequired,
+  showCapacity: PropTypes.bool,
+  capacity: PropTypes.number,
   width: PropTypes.number.isRequired,
   units: PropTypes.number,
   locale: PropTypes.string.isRequired
 }
 
 SegmentLabelContainer.defaultProps = {
-  units: SETTINGS_UNITS_METRIC
+  units: SETTINGS_UNITS_METRIC,
+  showCapacity: false
 }
 
 export default SegmentLabelContainer
