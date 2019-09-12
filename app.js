@@ -156,6 +156,7 @@ const csp = {
 
 // Allows websockets for hot-module reloading (note: ports are assigned randomly by Parcel)
 if (app.locals.config.env === 'development') {
+  csp.directives.scriptSrc.push("'unsafe-eval'")
   csp.directives.connectSrc.push('ws:')
 }
 
