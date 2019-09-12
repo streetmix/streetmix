@@ -54,17 +54,14 @@
     <link href="/assets/main.{{cacheTimestamp}}.css" rel="stylesheet">
 
     {{#config.google_analytics_account}}
-    {{! Placed in head per Google's instructions }} 
-    {{! This incurs no performance hit. The snippet creates an asynchronous (non-blocking) request. }}
-    {{! This snippet has been edited to force analytics.js to load over https }}
+    {{! Placed in head per Google's instructions: https://developers.google.com/analytics/devguides/collection/analyticsjs/ }}
+    {{! The alternative async tracking snippet below adds support for preloading, which will provide a small performance boost on modern browsers, but can degrade to synchronous loading and execution on IE 9 and older mobile browsers that do not recognize the async script attribute. Only use this tracking snippet if your visitors primarily use modern browsers to access your site.}}
     <script nonce="{{../nonce.google_analytics}}">
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
       ga('create', '{{.}}', 'auto');
       ga('send', 'pageview');
     </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
     {{/config.google_analytics_account}}
 
     {{#config.mixpanel_token}}
