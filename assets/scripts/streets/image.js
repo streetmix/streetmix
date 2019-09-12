@@ -53,7 +53,7 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
 // Save thumbnail if necessary every 30 minutes (1800000 ms)
 const SAVE_THUMBNAIL_TIME_INTERVAL = 1800000
 let _lastSavedTimestamp
-let _savedThumbnail
+let _savedThumbnail // eslint-disable-line
 
 export const SAVE_THUMBNAIL_EVENTS = {
   INITIAL: 'INITIAL',
@@ -93,57 +93,58 @@ export function initStreetThumbnailSubscriber () {
 }
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
+// TEMPORARILY DISABLED.
 export async function saveStreetThumbnail (street, event) {
-  if (_savedThumbnail) return
+  // if (_savedThumbnail) return
 
-  _lastSavedTimestamp = Date.now()
-  const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
+  // _lastSavedTimestamp = Date.now()
+  // const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
 
-  try {
-    // .toDataURL is not available on IE11 when SVGs are part of the canvas.
-    const dataUrl = thumbnail.toDataURL('image/png')
-    const details = {
-      image: dataUrl,
-      event,
-      editCount: street.editCount,
-      creatorId: street.creatorId
-    }
+  // try {
+  //   // .toDataURL is not available on IE11 when SVGs are part of the canvas.
+  //   const dataUrl = thumbnail.toDataURL('image/png')
+  //   const details = {
+  //     image: dataUrl,
+  //     event,
+  //     editCount: street.editCount,
+  //     creatorId: street.creatorId
+  //   }
 
-    // Check if street is default or empty street.
-    // If a signed-in user adopts an existing street, the editCount is set to 0 even if it isn't a DEFAULT or EMPTY street.
-    // Only if the street has an editCount = 0 and has no originalStreetId, should we set the streetType.
-    if (street.editCount === 0 && !street.originalStreetId) {
-      const streetType = (street.segments.length) ? 'DEFAULT_STREET' : 'EMPTY_STREET'
-      details.streetType = streetType
-    }
+  //   // Check if street is default or empty street.
+  //   // If a signed-in user adopts an existing street, the editCount is set to 0 even if it isn't a DEFAULT or EMPTY street.
+  //   // Only if the street has an editCount = 0 and has no originalStreetId, should we set the streetType.
+  //   if (street.editCount === 0 && !street.originalStreetId) {
+  //     const streetType = (street.segments.length) ? 'DEFAULT_STREET' : 'EMPTY_STREET'
+  //     details.streetType = streetType
+  //   }
 
-    const url = API_URL + 'v1/streets/images/' + street.id
+  //   const url = API_URL + 'v1/streets/images/' + street.id
 
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(details),
-      headers: {
-        Authorization: getAuthHeader(),
-        'Content-Type': 'text/plain'
-      }
-    }
+  //   const options = {
+  //     method: 'POST',
+  //     body: JSON.stringify(details),
+  //     headers: {
+  //       Authorization: getAuthHeader(),
+  //       'Content-Type': 'text/plain'
+  //     }
+  //   }
 
-    const response = await window.fetch(url, options)
+  //   const response = await window.fetch(url, options)
 
-    if (response.ok) {
-      console.log('Updated street thumbnail.')
-      _savedThumbnail = true
-    } else {
-      const results = await response.json()
-      // For now, we are only saving street thumbnails once (when the street first renders)
-      // Any other situation (i.e. timer, share menu) returns an error that does not need to be logged.
-      if (results.status !== 501) {
-        throw new Error(results.msg)
-      }
-    }
-  } catch (err) {
-    console.log('Unable to save street thumbnail. ', err)
-  }
+  //   if (response.ok) {
+  //     console.log('Updated street thumbnail.')
+  //     _savedThumbnail = true
+  //   } else {
+  //     const results = await response.json()
+  //     // For now, we are only saving street thumbnails once (when the street first renders)
+  //     // Any other situation (i.e. timer, share menu) returns an error that does not need to be logged.
+  //     if (results.status !== 501) {
+  //       throw new Error(results.msg)
+  //     }
+  //   }
+  // } catch (err) {
+  //   console.log('Unable to save street thumbnail. ', err)
+  // }
 }
 
 // Handles removing street thumbnail from cloudinary.
