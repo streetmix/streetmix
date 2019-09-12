@@ -5,7 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
-import { getSegmentCapacity, formatCapacity } from '../util/street_analytics'
+import { getSegmentCapacity } from '../util/street_analytics'
 
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
@@ -239,9 +239,8 @@ export class Segment extends React.Component {
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-    const avgCap = getSegmentCapacity(segment).capacity.average
-    let formattedCapacity = formatCapacity(avgCap, this.props.locale)
-    const showCapacity = enableAnalytics && Number.parseInt(avgCap, 10) > 0
+    let capacity = getSegmentCapacity(segment).capacity.average
+    const showCapacity = enableAnalytics && Number.parseInt(capacity, 10) > 0
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + this.props.segmentPos + 'px)'
@@ -267,10 +266,14 @@ export class Segment extends React.Component {
     if (segment && segment.warnings) {
       if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
         classNames.push('warning')
-        formattedCapacity = 0
       }
       if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
         classNames.push('outside')
+      }
+
+      // Set capacity to zero when certain warnings are present
+      if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
+        capacity = 0
       }
     }
 
@@ -288,7 +291,7 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
-          capacity={formattedCapacity}
+          capacity={capacity}
           showCapacity={showCapacity}
         />
         <SegmentDragHandles width={elementWidth} />
