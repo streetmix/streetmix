@@ -8,7 +8,7 @@ class Menu extends React.PureComponent {
     contentDirection: PropTypes.oneOf(['rtl', 'ltr']),
     className: PropTypes.string,
     isActive: PropTypes.bool.isRequired,
-    menuItemNode: PropTypes.element,
+    menuItemNode: PropTypes.instanceOf(Element), // Must be a DOM element
     alignOpposite: PropTypes.bool,
     onShow: PropTypes.func,
     onHide: PropTypes.func,
