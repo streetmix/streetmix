@@ -6,11 +6,45 @@
   padding: 0.75em calc(36px + 1.5em); /* Makes room for dismiss button */
   font-size: 13px;
   text-align: center; /* Since the app is very center-view oriented, this helps message legibility */
-  background-color: $alert-background;
-  border-bottom: 3px solid $alert-border;
+  // background-color: $alert-background;
+  // border-bottom: 3px solid $alert-border;
+  background-color: #fff0c0; // TODO: This is new toast color; make variable
+  border-bottom: 5px solid #ffd755;
 }
 
 .notification-bar-text {
   margin-left: 0.5em;
   margin-right: 0.5em;
+}
+
+/* Close button overrides */
+// TODO: Make standard for toast, status, etc
+$close-icon-colour:           $colour-copper-500;
+$close-icon-colour-hover:     $colour-copper-600;
+
+.notification-bar .close {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  top: 7px;
+  right: 6px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+
+  svg {
+    color: $close-icon-colour;
+  }
+
+  &:hover svg {
+    color: $close-icon-colour-hover;
+  }
 }

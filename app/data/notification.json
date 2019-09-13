@@ -1,7 +1,7 @@
 {
-  "display": false,
-  "lede": "We’ve added a brand-new Terms of Service and Privacy Policy!",
-  "text": "By using Streetmix, you agree to these terms.",
-  "link": "https://streetmix.net/terms-of-service/",
-  "linkText": "Click here to read."
+  "display": true,
+  "lede": "New!",
+  "text": "Streetmix t-shirts and hoodies are now available!",
+  "link": "https://cottonbureau.com/people/streetmix",
+  "linkText": "Take me to the store"
 }

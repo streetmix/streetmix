@@ -104,6 +104,13 @@ class MenuBar extends React.Component {
                   rel="noopener noreferrer"
                 />
               )}
+              <MenuBarItem
+                label="Store"
+                translation="menu.item.store"
+                url="https://cottonbureau.com/people/streetmix"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
             </React.Fragment>
           )}
         </ul>
