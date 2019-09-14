@@ -92,12 +92,9 @@
       "eslint --fix",
       "git add"
     ],
-    "*.json": [
+    "*.{json,scss,css,md}": [
       "prettier --write",
       "git add"
-    ],
-    "*.scss": [
-      "stylelint --syntax=scss"
     ]
   },
   "dependencies": {
@@ -214,7 +211,9 @@
     "recompose": "0.30.0",
     "redux-mock-store": "1.5.3",
     "stylelint": "10.1.0",
+    "stylelint-config-prettier": "5.2.0",
     "stylelint-config-standard": "18.3.0",
+    "stylelint-prettier": "1.1.1",
     "stylelint-scss": "3.10.0",
     "supertest": "4.0.2"
   }
