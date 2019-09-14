@@ -36,7 +36,7 @@ Our JavaScript code style is `Standard JS`_.
 
 .. admonition:: In the future...
 
-   ...we may adopt `Prettier <https://github.com/prettier/prettier>`_ (or `prettier-standard <https://github.com/sheerun/prettier-standard>`_) to automatically format code. We have not introduced it yet because doing so across the entire codebase would be disruptive to existing work. If someone wants to champion adoption of Prettier, please get in touch.
+   ...we may adopt `Prettier <https://github.com/prettier/prettier>`_ (or `prettier-standard <https://github.com/sheerun/prettier-standard>`_) to automatically format code. We have not introduced it yet because doing so across the entire codebase would be disruptive to existing work. We currently use Prettier to lint and format JSON. If someone wants to champion adoption of Prettier, please get in touch.
 
 
 Import order

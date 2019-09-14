@@ -47,7 +47,9 @@ Linting
 
 We use `ESLint <https://eslint.org/>`_ and `Stylelint <https://stylelint.io/>`_ to lint JavaScript and CSS, respectively. There is a commit hook that automatically runs the linter on each commit. If the lint fails, you will need to fix your code and try your commit again, or force it to ignore the lint errors. For more on code style, see :ref:`code-styleguide`.
 
-In addition, we use `JSONLint <https://github.com/zaach/jsonlint>`_ to automatically format JSON or report errors when JSON is improperly formatted.
+.. admonition:: In the future...
+
+   ...we may adopt `Prettier <https://github.com/prettier/prettier>`_ (or `prettier-standard <https://github.com/sheerun/prettier-standard>`_) to automatically format code. We have not introduced it yet because doing so across the entire codebase would be disruptive to existing work. We currently use Prettier to lint and format JSON. If someone wants to champion adoption of Prettier, please get in touch.
 
 
 Type safety
