@@ -56,7 +56,7 @@ $label-outline-color: $color-2;
 
   /* Creates a stylized checkbox for visual display only */
   label::before {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     left: -1.2em;

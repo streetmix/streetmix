@@ -1,5 +1,5 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 // TODO: Further refactoring / splitting up of these styles
 
@@ -146,7 +146,7 @@
   margin-right: 90px + 50px;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: -37px;

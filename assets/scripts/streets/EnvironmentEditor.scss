@@ -3,16 +3,16 @@
 //
 // --------------------------------------------------------
 
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 $environment-editor-border-radius: $border-radius;
 $environment-editor-box-shadow: $medium-box-shadow;
 
-$header-background-colour:    $colour-turquoise-200;
-$header-text-colour:          $colour-turquoise-700;
-$close-icon-colour:           $colour-turquoise-500;
-$close-icon-colour-hover:     $colour-turquoise-600;
-$selection-highlight-colour:  $colour-turquoise-500;
+$header-background-colour: $colour-turquoise-200;
+$header-text-colour: $colour-turquoise-700;
+$close-icon-colour: $colour-turquoise-500;
+$close-icon-colour-hover: $colour-turquoise-600;
+$selection-highlight-colour: $colour-turquoise-500;
 
 .environment-editor-container-outer {
   z-index: $z-environment-editor;
@@ -76,9 +76,7 @@ $selection-highlight-colour:  $colour-turquoise-500;
 }
 
 .environment-select.environment-active {
-  box-shadow:
-    0 0 0 2px $selection-highlight-colour,
-    inset 0 0 0 2px white;
+  box-shadow: 0 0 0 2px $selection-highlight-colour, inset 0 0 0 2px white;
 }
 
 /* Close button overrides */

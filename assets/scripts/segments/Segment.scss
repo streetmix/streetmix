@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 // TODO: Further split-up and refactoring of styles
 
@@ -85,7 +85,8 @@ body.segment-move-dragging #street-section-editable .segment {
 }
 
 .switching-away-exit-active canvas {
-  transition: transform $segment-switching-time ease-in, opacity $segment-switching-time ease-in !important;
+  transition: transform $segment-switching-time ease-in,
+    opacity $segment-switching-time ease-in !important;
   transform: rotateX(-60deg);
   transform-origin: 50% 120%;
   opacity: 0;

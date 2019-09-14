@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .avatar {
   display: inline-block;
@@ -29,7 +29,7 @@
   /* Broken images will apply this pseudo-element, displaying a fallback image
     An "after" pseudo-element overlaps alt text, which still displays on some browsers */
   img::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -37,7 +37,7 @@
     left: 0;
     border-radius: 50%;
     box-shadow: inset 0 0 0 1px white;
-    background-image: url('../../images/avatar.png');
+    background-image: url("../../images/avatar.png");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

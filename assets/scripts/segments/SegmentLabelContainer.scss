@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .segment-label-container {
   display: flex;
@@ -87,7 +87,12 @@ body[dir="rtl"] .segment-width {
 
   // Creates grid lines
   // The last value is required for IE11
-  background-image: linear-gradient(90deg, $segment-width-rule 1px, transparent 1px, transparent);
+  background-image: linear-gradient(
+    90deg,
+    $segment-width-rule 1px,
+    transparent 1px,
+    transparent
+  );
   background-repeat: repeat-x;
 
   // Change background-size width to adjust spacing of grid lines

@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 // TODO: Further refactor / split up of this stylesheet
 
@@ -35,7 +35,7 @@
 
   // Empty area
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 394px;

@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 $dirt-height: 40px;
 $dirt-height-minimum: 5px;
@@ -16,7 +16,7 @@ $dirt-height-minimum: 5px;
 
 .street-section-dirt-left,
 .street-section-dirt-right {
-  content: ' ';
+  content: " ";
   position: absolute;
   top: -($dirt-height + $dirt-height-minimum);
   background-color: $background-dirt-colour;

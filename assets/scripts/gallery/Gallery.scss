@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 $gallery-border-radius: $border-radius;
 $gallery-box-shadow: $medium-box-shadow;
@@ -153,8 +153,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   margin: 10px;
   margin-top: 5px;
   background: fade-out($sky-colour, 0.2);
-  box-shadow:
-    inset 0 3px 0 0 darken($ui-colour, 10%),
+  box-shadow: inset 0 3px 0 0 darken($ui-colour, 10%),
     0 3px 0 0 darken($ui-colour, 10%);
   text-align: center;
   white-space: normal;

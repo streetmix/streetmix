@@ -1,6 +1,6 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
-@import '../streets/StreetName.scss';
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+@import "../streets/StreetName.scss";
 
 $welcome-panel-border-radius: $border-radius;
 $welcome-panel-box-shadow: $medium-box-shadow;
@@ -64,7 +64,7 @@ $welcome-panel-box-shadow: $medium-box-shadow;
     margin: 0;
 
     &:not(:first-child)::before {
-      content: '·';
+      content: "·";
       margin: 0 5px;
       color: darken($ui-colour, 40%);
       padding-left: 0;

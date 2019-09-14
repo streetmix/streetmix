@@ -1,93 +1,93 @@
 // Dimensions
-$tile-size:                 12px;
-$canvas-height:             480px;
-$canvas-ground:             35px;
-$canvas-baseline:           $canvas-height - $canvas-ground + 150px;
-$palette-height:            90px;
-$gallery-height:            180px;
-$thumbnail-width:           180px;
-$thumbnail-height:          110px;
-$building-space:            360px;
-$segment-grid-height:       10px;
-$left-right-inset:          50px;
-$border-radius:             4px;
-$menu-side-inset:           $left-right-inset - 20px;
+$tile-size: 12px;
+$canvas-height: 480px;
+$canvas-ground: 35px;
+$canvas-baseline: $canvas-height - $canvas-ground + 150px;
+$palette-height: 90px;
+$gallery-height: 180px;
+$thumbnail-width: 180px;
+$thumbnail-height: 110px;
+$building-space: 360px;
+$segment-grid-height: 10px;
+$left-right-inset: 50px;
+$border-radius: 4px;
+$menu-side-inset: $left-right-inset - 20px;
 
 // Colours
-$background-dirt-colour:    rgb(53, 45, 39);
-$sky-colour:                rgb(169, 204, 219);
-$ui-colour:                 lighten($sky-colour, 10%);
-$form-element-background:   lighten($ui-colour, 10%);
-$form-element-border:       $ui-colour;
-$button-border-colour:      darken($ui-colour, 10%);
-$button-border:             1px solid $button-border-colour;
-$alert-background:          rgb(255, 230, 150);
-$alert-border:              darken($alert-background, 20%);
-$off-white:                 rgb(240, 240, 240);
-$palette-background:        $off-white;
-$menu-bar-background:       rgb(247, 247, 247);
-$bottom-background:         rgb(216, 211, 203);
-$warning-colour:            rgb(220, 20, 20);
-$segment-text:              rgb(40, 35, 30);
-$segment-hover-text:        lighten($segment-text, 30%);
-$segment-warning-text:      $warning-colour;
-$empty-segment-text:        fade-out($segment-text, 0.5);
-$segment-hover-background:  rgba(255, 255, 255, 0.2);
-$light-text-colour:         rgb(240, 240, 240);
-$info-bubble-background:    white;
-$segment-width-rule:        rgb(160, 160, 160);
-$street-name-text:          black;
-$street-name-background:    white;
-$hr-colour:                 darken($ui-colour, 10%);
-$control-disabled-colour:   gray;
+$background-dirt-colour: rgb(53, 45, 39);
+$sky-colour: rgb(169, 204, 219);
+$ui-colour: lighten($sky-colour, 10%);
+$form-element-background: lighten($ui-colour, 10%);
+$form-element-border: $ui-colour;
+$button-border-colour: darken($ui-colour, 10%);
+$button-border: 1px solid $button-border-colour;
+$alert-background: rgb(255, 230, 150);
+$alert-border: darken($alert-background, 20%);
+$off-white: rgb(240, 240, 240);
+$palette-background: $off-white;
+$menu-bar-background: rgb(247, 247, 247);
+$bottom-background: rgb(216, 211, 203);
+$warning-colour: rgb(220, 20, 20);
+$segment-text: rgb(40, 35, 30);
+$segment-hover-text: lighten($segment-text, 30%);
+$segment-warning-text: $warning-colour;
+$empty-segment-text: fade-out($segment-text, 0.5);
+$segment-hover-background: rgba(255, 255, 255, 0.2);
+$light-text-colour: rgb(240, 240, 240);
+$info-bubble-background: white;
+$segment-width-rule: rgb(160, 160, 160);
+$street-name-text: black;
+$street-name-background: white;
+$hr-colour: darken($ui-colour, 10%);
+$control-disabled-colour: gray;
 
 // Brand colours
-$colour-emerald-700:        rgb(12, 62, 22);
-$colour-emerald-600:        rgb(35, 113, 55);
-$colour-emerald-500:        rgb(35, 144, 80);
-$colour-emerald-400:        rgb(95, 192, 127);
-$colour-emerald-300:        rgb(149, 218, 170);
-$colour-emerald-200:        rgb(201, 236, 210);
-$colour-emerald-100:        rgb(231, 247, 234);
-$colour-turquoise-700:      rgb(23, 68, 70);
-$colour-turquoise-600:      rgb(51, 108, 113);
-$colour-turquoise-500:      rgb(86, 162, 174);
-$colour-turquoise-400:      rgb(139, 193, 205);
-$colour-turquoise-300:      rgb(194, 235, 246);
-$colour-turquoise-200:      rgb(221, 243, 249);
-$colour-turquoise-100:      rgb(235, 249, 252);
-$colour-copper-700:         rgb(85, 34, 19);
-$colour-copper-600:         rgb(136, 69, 44);
-$colour-copper-500:         rgb(180, 109, 76);
-$colour-copper-400:         rgb(214, 141, 104);
-$colour-copper-300:         rgb(247, 184, 147);
-$colour-copper-200:         rgb(248, 213, 193);
-$colour-copper-100:         rgb(249, 238, 232);
-$colour-midnight-700:       rgb(24, 38, 72);
-$colour-midnight-600:       rgb(54, 68, 117);
-$colour-midnight-500:       rgb(84, 101, 143);
-$colour-midnight-400:       rgb(124, 140, 172);
-$colour-midnight-300:       rgb(166, 178, 200);
-$colour-midnight-200:       rgb(212, 219, 231);
-$colour-midnight-100:       rgb(230, 235, 244);
+$colour-emerald-700: rgb(12, 62, 22);
+$colour-emerald-600: rgb(35, 113, 55);
+$colour-emerald-500: rgb(35, 144, 80);
+$colour-emerald-400: rgb(95, 192, 127);
+$colour-emerald-300: rgb(149, 218, 170);
+$colour-emerald-200: rgb(201, 236, 210);
+$colour-emerald-100: rgb(231, 247, 234);
+$colour-turquoise-700: rgb(23, 68, 70);
+$colour-turquoise-600: rgb(51, 108, 113);
+$colour-turquoise-500: rgb(86, 162, 174);
+$colour-turquoise-400: rgb(139, 193, 205);
+$colour-turquoise-300: rgb(194, 235, 246);
+$colour-turquoise-200: rgb(221, 243, 249);
+$colour-turquoise-100: rgb(235, 249, 252);
+$colour-copper-700: rgb(85, 34, 19);
+$colour-copper-600: rgb(136, 69, 44);
+$colour-copper-500: rgb(180, 109, 76);
+$colour-copper-400: rgb(214, 141, 104);
+$colour-copper-300: rgb(247, 184, 147);
+$colour-copper-200: rgb(248, 213, 193);
+$colour-copper-100: rgb(249, 238, 232);
+$colour-midnight-700: rgb(24, 38, 72);
+$colour-midnight-600: rgb(54, 68, 117);
+$colour-midnight-500: rgb(84, 101, 143);
+$colour-midnight-400: rgb(124, 140, 172);
+$colour-midnight-300: rgb(166, 178, 200);
+$colour-midnight-200: rgb(212, 219, 231);
+$colour-midnight-100: rgb(230, 235, 244);
 
 // Layered UI box shadows
-$light-box-shadow:          0 0 14px 0 rgba(0, 0, 0, 0.075);
-$medium-box-shadow:         0 0 10px 0 rgba(0, 0, 0, 0.1);
-$heavy-box-shadow:          0 0 10px 0 rgba(0, 0, 0, 0.2);
+$light-box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.075);
+$medium-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+$heavy-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
 // Design
-$street-name-gallery-size:  0.5;
-$info-bubble-button-size:   30px;
+$street-name-gallery-size: 0.5;
+$info-bubble-button-size: 30px;
 
 // Typography
-$font-family: 'Lato', sans-serif;
-$experimental-font-family: 'Barlow', 'Lato', sans-serif;
+$font-family: "Lato", sans-serif;
+$experimental-font-family: "Barlow", "Lato", sans-serif;
 
 // Timing
 $touch-controls-fadeout-time: 3000ms;
-$segment-switching-time:      250ms;
-$environment-transition:      500ms ease;
+$segment-switching-time: 250ms;
+$environment-transition: 500ms ease;
 
 // Z-INDEX SCALE
 $z-index-01: 100;
@@ -110,38 +110,38 @@ $z-index-10: 1000;
 // z-scale position is also obvious at a glance.
 // Please note, the z-index scale does not defeat limitations
 // imposed by stacking contexts.
-$z-01-main-screen:          $z-index-01;
-$z-01-street-section:       $z-index-01;
-$z-01-foreground:           $z-index-01;
-$z-02-segment-focused:      $z-index-02;
-$z-02-palette:              $z-index-02;
-$z-02-menu-bar:             $z-index-02;
-$z-03-street-name:          $z-index-03;
-$z-03-gallery-message:      $z-index-03;
-$z-04-palette-scroll:       $z-index-04; // Match command menu
-$z-04-command-menu:         $z-index-04;
-$z-05-welcome:              $z-index-05;
-$z-06-info-bubble:          $z-index-06;
-$z-06-drag-handle:          $z-index-06;
-$z-07-street-scroll:        $z-index-07;
-$z-07-status-message:       $z-index-07;
-$z-07-trashcan:             $z-index-07;
-$z-07-resize-guide:        $z-index-07;
-$z-07-debug-hover-polygon:  $z-index-07;
-$z-environment-editor:      750;
-$z-menu:                    775;
-$z-08-dialog-box-backdrop:  $z-index-08;
-$z-08-gallery-shield:       $z-index-08;
-$z-08-notification-bar:     $z-index-08;
-$z-09-gallery:              $z-index-09;
-$z-09-dialog-box:           $z-index-09;
-$z-09-debug:                $z-index-09;
+$z-01-main-screen: $z-index-01;
+$z-01-street-section: $z-index-01;
+$z-01-foreground: $z-index-01;
+$z-02-segment-focused: $z-index-02;
+$z-02-palette: $z-index-02;
+$z-02-menu-bar: $z-index-02;
+$z-03-street-name: $z-index-03;
+$z-03-gallery-message: $z-index-03;
+$z-04-palette-scroll: $z-index-04; // Match command menu
+$z-04-command-menu: $z-index-04;
+$z-05-welcome: $z-index-05;
+$z-06-info-bubble: $z-index-06;
+$z-06-drag-handle: $z-index-06;
+$z-07-street-scroll: $z-index-07;
+$z-07-status-message: $z-index-07;
+$z-07-trashcan: $z-index-07;
+$z-07-resize-guide: $z-index-07;
+$z-07-debug-hover-polygon: $z-index-07;
+$z-environment-editor: 750;
+$z-menu: 775;
+$z-08-dialog-box-backdrop: $z-index-08;
+$z-08-gallery-shield: $z-index-08;
+$z-08-notification-bar: $z-index-08;
+$z-09-gallery: $z-index-09;
+$z-09-dialog-box: $z-index-09;
+$z-09-debug: $z-index-09;
 
 // Blocking overlays
-$z-09-loading:              $z-index-09;
-$z-09-error:                $z-index-09;
-$z-09-blocking-shield:      $z-index-09;
+$z-09-loading: $z-index-09;
+$z-09-error: $z-index-09;
+$z-09-blocking-shield: $z-index-09;
 
-$z-10-flash-border:         $z-index-10;
-$z-10-switch-away:          $z-index-10;
-$z-10-print:                $z-index-10;
+$z-10-flash-border: $z-index-10;
+$z-10-switch-away: $z-index-10;
+$z-10-print: $z-index-10;
