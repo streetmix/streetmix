@@ -1,6 +1,10 @@
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 // import store from '../store'
 import memoizeFormatConstructor from './memoized_formatting'
+import {
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL
+} from '../segments/constants'
 
 // take in a street and returns a list of segments with analytics info
 const getAnalyticsFromStreet = (street, locale) => {
@@ -33,9 +37,11 @@ const sumFunc = (total, num) => {
 }
 
 const addSegmentData = item => {
+  const hasZeroCapacityError = item && item.warnings && (item.warnings[SEGMENT_WARNING_OUTSIDE] || item.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
+
   return {
     label: `${item.variantString} ${item.type}`,
-    capacity: getCapacity(item.type),
+    capacity: hasZeroCapacityError ? NO_CAPACITY : getCapacity(item.type),
     segment: item
   }
 }
