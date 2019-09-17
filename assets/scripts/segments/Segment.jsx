@@ -239,7 +239,7 @@ export class Segment extends React.Component {
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-    let capacity = getSegmentCapacity(segment).capacity.average
+    const capacity = getSegmentCapacity(segment).capacity.average
     const showCapacity = enableAnalytics && Number.parseInt(capacity, 10) > 0
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
@@ -269,11 +269,6 @@ export class Segment extends React.Component {
       }
       if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
         classNames.push('outside')
-      }
-
-      // Set capacity to zero when certain warnings are present
-      if (segment.warnings[SEGMENT_WARNING_OUTSIDE] || segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
-        capacity = 0
       }
     }
 
