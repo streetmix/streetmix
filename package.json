@@ -22,10 +22,9 @@
     "mongo:start": "mongod --fork --logpath /dev/null",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()'",
     "app:start": "supervisor --extensions js --ignore .cache,assets,build,test index.js",
-    "lint": "npm run lint:css && npm run lint:js && npm run lint:json",
+    "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
     "lint:js": "eslint \"**/*.js\" \"**/*.jsx\"",
-    "lint:json": "find assets -name '*.json' -exec jsonlint {} --quiet \\;",
     "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
     "translations:download": "node bin/download_translations.js",
@@ -94,7 +93,7 @@
       "git add"
     ],
     "*.json": [
-      "jsonlint --in-place",
+      "prettier --write",
       "git add"
     ],
     "*.scss": [
@@ -209,8 +208,8 @@
     "jest-canvas-mock": "2.1.0",
     "jest-date-mock": "1.0.7",
     "jest-fetch-mock": "2.1.2",
-    "jsonlint": "1.6.3",
     "lint-staged": "9.2.0",
+    "prettier": "1.18.2",
     "react-test-renderer": "16.8.6",
     "recompose": "0.30.0",
     "redux-mock-store": "1.5.3",
