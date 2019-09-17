@@ -153,7 +153,7 @@
     "react-dnd": "7.4.5",
     "react-dnd-html5-backend": "7.4.4",
     "react-dnd-multi-backend": "3.2.1",
-    "react-dnd-touch-backend": "0.8.3",
+    "react-dnd-touch-backend": "9.3.4",
     "react-dom": "16.9.0",
     "react-draggable": "3.3.2",
     "react-intl": "3.1.13",
