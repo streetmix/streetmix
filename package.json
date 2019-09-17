@@ -151,7 +151,7 @@
     "react": "16.9.0",
     "react-autosuggest": "9.4.3",
     "react-dnd": "7.4.5",
-    "react-dnd-html5-backend": "7.4.4",
+    "react-dnd-html5-backend": "9.3.4",
     "react-dnd-multi-backend": "3.2.1",
     "react-dnd-touch-backend": "0.8.3",
     "react-dom": "16.9.0",
