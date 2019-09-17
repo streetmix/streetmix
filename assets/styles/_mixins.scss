@@ -17,12 +17,6 @@
   text-size-adjust: none;
 }
 
-@mixin touch-callout($value: default) {
-  -webkit-touch-callout: default;
-  // There is no -moz- version
-  touch-callout: default; // stylelint-disable-line property-no-unknown
-}
-
 // Shared style mixins
 
 // Position and layout for error, loading, and blocking shield

@@ -4,11 +4,13 @@
     "stylelint-config-prettier"
   ],
   "plugins": [
+    "stylelint-csstree-validator",
     "stylelint-prettier",
     "stylelint-scss"
   ],
   "rules": {
     "at-rule-no-unknown": null,
+    "csstree/validator": true,
     "no-descending-specificity": null,
     "prettier/prettier": true,
     "scss/at-import-no-partial-leading-underscore": true,

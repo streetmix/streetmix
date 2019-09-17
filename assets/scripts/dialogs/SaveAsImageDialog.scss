@@ -63,8 +63,6 @@
 }
 
 .save-as-image-preview-image {
-  @include touch-callout(default);
-
   /* Removes extra baseline space */
   line-height: 0;
 

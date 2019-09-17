@@ -160,7 +160,7 @@ body.safari .menu {
     [dir="rtl"] & {
       left: auto;
       right: 16px;
-      padding-right: auto;
+      padding-right: initial;
       padding-left: 3px;
       text-align: left;
     }

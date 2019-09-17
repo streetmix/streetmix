@@ -41,7 +41,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   // Applied by the wrapping element created by Scrollable.jsx component
   .streets-scrollable-container {
     position: absolute;
-    left: 110px + 10px;
+    left: 120px;
     right: 0;
     top: 1px;
     height: $gallery-height;

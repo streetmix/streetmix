@@ -93,7 +93,7 @@
       margin-top: -29px;
       height: auto;
       white-space: normal;
-      width: 65px + 50px;
+      width: 115px;
       text-align: center;
     }
   }
@@ -143,7 +143,7 @@
 }
 
 .info-bubble-type-building header {
-  margin-right: 90px + 50px;
+  margin-right: 140px;
 
   &::after {
     content: "";
@@ -224,7 +224,7 @@
   }
 
   .info-bubble-type-building header {
-    margin-left: 90px + 50px;
+    margin-left: 140px;
     margin-right: 0;
 
     &::after {
