@@ -167,7 +167,7 @@
     "regenerator-runtime": "0.13.2",
     "requireindex": "1.2.0",
     "sass": "1.22.9",
-    "seedrandom": "3.0.1",
+    "seedrandom": "3.0.5",
     "sequelize": "5.16.0",
     "sequelize-cli": "5.5.0",
     "shifty": "2.8.0",

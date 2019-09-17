@@ -1,6 +1,5 @@
 // TODO: Refactor this to have less magic numbers & stuff
-// FIXME: Replace `seedrandom` package with vendored variant, which removes use of `eval`
-import seedrandom from '../vendor/seedrandom'
+import seedrandom from 'seedrandom'
 import { images } from '../app/load_resources'
 import { drawSegmentImage } from './view'
 import { getSpriteDef } from './info'
