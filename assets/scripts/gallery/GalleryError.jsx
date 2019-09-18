@@ -9,7 +9,9 @@ GalleryError.propTypes = {
 function GalleryError (props) {
   return (
     <div className="gallery-error">
-      <FormattedMessage id="gallery.fail" defaultMessage="Failed to load the gallery." />
+      <p>
+        <FormattedMessage id="gallery.fail" defaultMessage="Failed to load the gallery." />
+      </p>
       <button className="gallery-try-again" onClick={props.retry}>
         <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
       </button>

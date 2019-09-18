@@ -9,6 +9,7 @@ import { setGalleryMode } from '../store/actions/gallery'
 import { showDialog } from '../store/actions/dialogs'
 import GalleryContents from './GalleryContents'
 
+// This component only handles switching between display modes
 class GalleryPanel extends React.Component {
   static propTypes = {
     // Provided by Redux action creators
@@ -58,8 +59,7 @@ class GalleryPanel extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  mode: state.gallery.mode,
-  currentStreetId: state.street.id
+  mode: state.gallery.mode
 })
 
 const mapDispatchToProps = {

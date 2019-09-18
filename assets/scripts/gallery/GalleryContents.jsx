@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
@@ -24,7 +24,17 @@ GalleryContents.propTypes = {
 
 function GalleryContents (props) {
   const { userId, isOwnedByCurrentUser, streets = [], currentStreetId, deleteGalleryStreet } = props
+  const galleryEl = useRef(null)
   const [selectedStreet, setSelectedStreet] = useState(null)
+
+  useLayoutEffect(() => {
+    if (selectedStreet) {
+      const selectedEl = document.querySelector('.gallery-selected')
+      // Note: smooth scroll is not supported in all browsers
+      selectedEl.scrollIntoView({ behavior: 'smooth', inline: 'nearest' })
+      galleryEl.current.parentNode.scrollTop = 0
+    }
+  }, [selectedStreet])
 
   function selectStreet (streetId) {
     setSelectedStreet(streetId)
@@ -44,19 +54,10 @@ function GalleryContents (props) {
     deleteGalleryStreet(streetId)
   }
 
-  // Carried over from older version of this component
-  // TODO: Restore this functionality and make it work again
-  // function scrollSelectedStreetIntoView () {
-  //   if (selectedStreet) {
-  //     selectedEl.scrollIntoView()
-  //     galleryEl.scrollTop = 0
-  //   }
-  // }
-
   return (
     <>
       {/* Heading */}
-      <div className="gallery-label">
+      <div className="gallery-label" ref={galleryEl}>
         {(userId) ? (
           <>
             <Avatar userId={userId} />
