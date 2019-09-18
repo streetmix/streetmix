@@ -173,11 +173,7 @@ body:not(.safari).gallery-visible .street-section-sky {
     }
   }
 
-  &.virgin:not(.selected) {
-    opacity: 0.33;
-  }
-
-  &.selected {
+  &.gallery-selected {
     background: darken($ui-colour, 10%);
     border-top-color: black;
     border-bottom-color: black;

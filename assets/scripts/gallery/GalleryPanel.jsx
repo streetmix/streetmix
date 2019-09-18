@@ -151,13 +151,14 @@ class GalleryPanel extends React.Component {
               key={item.id}
               street={item}
               selected={isSelected}
-              handleSelect={this.selectStreet}
-              handleDelete={this.deleteStreet}
+              doSelect={this.selectStreet}
+              doDelete={this.deleteStreet}
               showStreetOwner={this.props.userId !== item.creatorId}
               allowDelete={this.props.isOwnedByCurrentUser}
             />
           )
         })
+
         const streetCount = (this.props.userId) ? (
           <div className="gallery-street-count">
             <FormattedMessage
@@ -192,7 +193,6 @@ class GalleryPanel extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  visible: state.gallery.visible,
   userId: state.gallery.userId,
   mode: state.gallery.mode,
   streets: state.gallery.streets,
