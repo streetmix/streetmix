@@ -17,7 +17,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   transform: translateY(-20px);
 }
 
-#gallery {
+.gallery-panel {
   position: absolute;
   left: $left-right-inset;
   right: $left-right-inset;
@@ -256,13 +256,13 @@ a.gallery-copy-last-street {
 }
 
 body:not(.gallery-no-move-transition) .main-screen,
-body:not(.gallery-no-move-transition) #gallery,
+body:not(.gallery-no-move-transition) .gallery-panel,
 body:not(.gallery-no-move-transition) .street-name-canvas,
 body:not(.gallery-no-move-transition) .street-section-sky {
   transition: transform 800ms;
 }
 
-body.safari #gallery {
+body.safari .gallery-panel {
   transform: translateY(-$gallery-height - 3px);
 }
 
@@ -270,14 +270,14 @@ body.safari #gallery {
   position: absolute;
   display: none;
   left: 0;
-  top: -90px;
+  top: 0;
   width: 100vw;
   height: 100vh;
   cursor: pointer;
   z-index: $z-08-gallery-shield;
 }
 
-body.gallery-visible #gallery {
+body.gallery-visible .gallery-panel {
   transform: translateY(0);
   pointer-events: auto;
 }

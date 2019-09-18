@@ -21,7 +21,6 @@ import EnvironmentEditor from '../streets/EnvironmentEditor'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import Gallery from '../gallery/Gallery'
-import GalleryShield from '../gallery/GalleryShield'
 import BlockingShield from './BlockingShield'
 import BlockingError from './BlockingError'
 import StreetView from './StreetView'
@@ -55,7 +54,6 @@ class App extends React.PureComponent {
           <DebugInfo />
           <PrintContainer />
           <div className="main-screen">
-            <GalleryShield />
             <MenusContainer />
             <StreetNameCanvas />
             <InfoBubble />
