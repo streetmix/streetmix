@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Gallery renders global gallery view 1`] = `
+<DocumentFragment>
+  <div
+    class="gallery"
+  >
+    <div
+      class="gallery-panel"
+    >
+      <div
+        class="gallery-label"
+      >
+        All streets
+      </div>
+      <div
+        class="gallery-streets-container"
+      >
+        <div
+          class="streets-scrollable-container"
+        >
+          <div
+            class="streets"
+          >
+            <div
+              class="gallery-street-item"
+            >
+              <a
+                class=""
+                href="/foo/435"
+              >
+                <canvas
+                  height="220"
+                  width="360"
+                />
+                <div
+                  class="street-name"
+                >
+                  <div
+                    class="street-name-text"
+                  >
+                    Unnamed St
+                  </div>
+                </div>
+                <span
+                  class="gallery-street-item-date"
+                >
+                  Today at 
+                  <time
+                    datetime="2019-09-25T19:29:22.547Z"
+                    title="2019-09-25T19:29:22.547Z"
+                  >
+                    3:29 PM
+                  </time>
+                </span>
+                <span
+                  class="gallery-street-item-creator"
+                >
+                  foo
+                </span>
+              </a>
+            </div>
+          </div>
+          <button
+            class="scrollable scroll-left"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-left"
+            />
+          </button>
+          <button
+            class="scrollable scroll-right"
+            style="right: -15px; opacity: 0; pointer-events: none;"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-right"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="gallery-shield"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Gallery renders loading 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="false"
+    class="gallery"
+  >
+    <div
+      class="gallery-panel"
+    >
+      <div
+        aria-busy="true"
+        aria-live="polite"
+        class="gallery-loading"
+      >
+        <div
+          class="loading-spinner"
+        />
+      </div>
+    </div>
+    <div
+      class="gallery-shield"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Gallery renders main gallery view for another user’s streets 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="false"
+    class="gallery"
+  >
+    <div
+      class="gallery-panel"
+    >
+      <div
+        class="gallery-label"
+      >
+        <div
+          class="avatar"
+        >
+          <img
+            alt="foo"
+          />
+        </div>
+        <div
+          class="gallery-user-id"
+        >
+          foo
+        </div>
+      </div>
+      <div
+        class="gallery-street-count"
+      >
+        1 street
+      </div>
+      <div
+        class="gallery-streets-container"
+      >
+        <div
+          class="streets-scrollable-container"
+        >
+          <div
+            class="streets"
+          >
+            <div
+              class="gallery-street-item"
+            >
+              <a
+                class=""
+                href="/foo/435"
+              >
+                <canvas
+                  height="220"
+                  width="360"
+                />
+                <div
+                  class="street-name"
+                >
+                  <div
+                    class="street-name-text"
+                  >
+                    Unnamed St
+                  </div>
+                </div>
+                <span
+                  class="gallery-street-item-date"
+                >
+                  Today at 
+                  <time
+                    datetime="2019-09-25T19:29:22.547Z"
+                    title="2019-09-25T19:29:22.547Z"
+                  >
+                    3:29 PM
+                  </time>
+                </span>
+              </a>
+            </div>
+          </div>
+          <button
+            class="scrollable scroll-left"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-left"
+            />
+          </button>
+          <button
+            class="scrollable scroll-right"
+            style="right: -15px; opacity: 0; pointer-events: none;"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-right"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="gallery-shield"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Gallery renders main gallery view for user’s own streets 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="false"
+    class="gallery"
+  >
+    <div
+      class="gallery-panel"
+    >
+      <div
+        class="gallery-label"
+      >
+        <div
+          class="avatar"
+        >
+          <img
+            alt="foo"
+          />
+        </div>
+        <div
+          class="gallery-user-id"
+        >
+          foo
+        </div>
+      </div>
+      <div
+        class="gallery-street-count"
+      >
+        1 street
+      </div>
+      <div
+        class="gallery-streets-container"
+      >
+        <div
+          class="gallery-user-buttons"
+        >
+          <a
+            class="button-like gallery-new-street"
+            href="/new"
+            target="_blank"
+          >
+            Create new street
+          </a>
+          <a
+            class="button-like gallery-copy-last-street"
+            href="/copy-last"
+            target="_blank"
+          >
+            Make a copy
+          </a>
+        </div>
+        <div
+          class="streets-scrollable-container"
+        >
+          <div
+            class="streets"
+          >
+            <div
+              class="gallery-street-item"
+            >
+              <a
+                class=""
+                href="/foo/435"
+              >
+                <canvas
+                  height="220"
+                  width="360"
+                />
+                <div
+                  class="street-name"
+                >
+                  <div
+                    class="street-name-text"
+                  >
+                    Unnamed St
+                  </div>
+                </div>
+                <span
+                  class="gallery-street-item-date"
+                >
+                  Today at 
+                  <time
+                    datetime="2019-09-25T19:29:22.547Z"
+                    title="2019-09-25T19:29:22.547Z"
+                  >
+                    3:29 PM
+                  </time>
+                </span>
+                <button
+                  class="gallery-street-item-delete"
+                  title="Delete street"
+                >
+                  <svg
+                    class="svg-inline--fa fa-times"
+                  />
+                </button>
+              </a>
+            </div>
+          </div>
+          <button
+            class="scrollable scroll-left"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-left"
+            />
+          </button>
+          <button
+            class="scrollable scroll-right"
+            style="right: -15px; opacity: 0; pointer-events: none;"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-right"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="gallery-shield"
+    />
+  </div>
+</DocumentFragment>
+`;
