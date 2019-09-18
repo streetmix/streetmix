@@ -266,22 +266,7 @@ body.safari .gallery-panel {
   transform: translateY(-$gallery-height - 3px);
 }
 
-.gallery-shield {
-  position: absolute;
-  display: none;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  cursor: pointer;
-  z-index: $z-08-gallery-shield;
-}
-
 body.gallery-visible .gallery-panel {
   transform: translateY(0);
   pointer-events: auto;
-}
-
-body.gallery-visible .gallery-shield {
-  display: block;
 }

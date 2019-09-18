@@ -1,14 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { hideGallery } from './view'
+import './GalleryShield.scss'
 
-export default class GalleryShield extends React.Component {
-  onClick (event) {
-    hideGallery(false)
-  }
+const GalleryShield = ({ visible = false }) => visible && (
+  <div
+    className="gallery-shield"
+    onClick={(e) => hideGallery(false)}
+  />
+)
 
-  render () {
-    return (
-      <div className="gallery-shield" onClick={this.onClick} />
-    )
-  }
+GalleryShield.propTypes = {
+  visible: PropTypes.bool
 }
+
+export default GalleryShield
