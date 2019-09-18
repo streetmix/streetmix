@@ -44,6 +44,7 @@ body:not(.safari).gallery-visible .street-section-sky {
     top: 1px;
     height: $gallery-height;
     min-width: 0; // Allows content to overflow flex element
+    flex-grow: 1;
   }
 
   button.scrollable {

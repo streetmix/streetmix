@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { useIntl } from 'react-intl'
@@ -42,8 +42,7 @@ function GalleryStreetItem (props) {
   const intl = useIntl()
 
   // Effect hook draws thumbnail to canvas element after mounting
-  // TODO: resolve performance issues
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!street.data) return
 
     const ctx = thumbnailEl.current.getContext('2d')
