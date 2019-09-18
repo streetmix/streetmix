@@ -132,28 +132,17 @@ class GalleryPanel extends React.Component {
           )
         }
 
-        // Applies a class to the containing element if no user ID is provided
-        // (which displays all streets) or if the user ID provided is different
-        // from a currently signed-in user
-        let galleryClassName = 'gallery-streets-container'
-        if (!this.props.userId || !this.props.isOwnedByCurrentUser) {
-          galleryClassName += ' gallery-streets-container-full'
-        }
-
         // Display these buttons for a user viewing their own gallery
-        let buttons
-        if (this.props.isOwnedByCurrentUser) {
-          buttons = (
-            <div className="gallery-user-buttons">
-              <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
-                <FormattedMessage id="btn.create" defaultMessage="Create new street" />
-              </a>
-              <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
-                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-              </a>
-            </div>
-          )
-        }
+        const buttons = (this.props.isOwnedByCurrentUser) ? (
+          <div className="gallery-user-buttons">
+            <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
+              <FormattedMessage id="btn.create" defaultMessage="Create new street" />
+            </a>
+            <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
+              <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+            </a>
+          </div>
+        ) : null
 
         const items = this.props.streets.map((item) => {
           const isSelected = this.state.selected === item.id
@@ -183,7 +172,7 @@ class GalleryPanel extends React.Component {
           <React.Fragment>
             {label}
             {streetCount}
-            <div className={galleryClassName}>
+            <div className="gallery-streets-container">
               {buttons}
               <Scrollable className="streets" allowKeyboardScroll>
                 {items}

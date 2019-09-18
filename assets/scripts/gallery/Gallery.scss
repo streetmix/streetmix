@@ -40,20 +40,10 @@ body:not(.safari).gallery-visible .street-section-sky {
 
   // Applied by the wrapping element created by Scrollable.jsx component
   .streets-scrollable-container {
-    position: absolute;
-    left: 120px;
-    right: 0;
+    position: relative;
     top: 1px;
     height: $gallery-height;
-
-    [dir="rtl"] & {
-      right: 120px;
-      left: 0;
-    }
-  }
-
-  .gallery-streets-container-full .streets-scrollable-container {
-    left: 0;
+    min-width: 0; // Allows content to overflow flex element
   }
 
   button.scrollable {
@@ -129,6 +119,8 @@ body:not(.safari).gallery-visible .street-section-sky {
   left: 20px;
   right: 20px;
   top: 50px;
+  display: flex;
+  flex-direction: row;
 }
 
 .gallery-try-again {
@@ -230,10 +222,12 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-user-buttons {
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
   width: 100px;
   height: 112px;
   margin-top: 6px;
+  margin-right: 20px;
 
   a.button-like {
     padding-left: 0.5em;
