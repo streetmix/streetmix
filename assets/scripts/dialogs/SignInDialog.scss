@@ -5,6 +5,12 @@
   min-height: 250px;
 }
 
+.sign-in-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sign-in-email-label {
   display: block;
   font-weight: 700;

@@ -42,18 +42,3 @@
   margin-top: 8px;
   margin-bottom: 12px;
 }
-
-// LOADING SPINNER
-
-@mixin loading-spinner {
-  border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.75);
-  border-top-color: darken($ui-colour, 20%);
-  animation: spinner 0.75s linear infinite;
-}
-
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
-  }
-}

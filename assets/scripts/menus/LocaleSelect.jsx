@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormattedMessage } from 'react-intl'
 import { DEFAULT_LOCALE } from '../locales/constants'
 import { getAvailableLocales, getActualLocaleFromRequested } from '../locales/locale'
+import LoadingSpinner from '../ui/LoadingSpinner'
 import { ICON_CHECK } from '../ui/icons'
 
 export default class LocaleSelect extends React.Component {
@@ -30,12 +31,9 @@ export default class LocaleSelect extends React.Component {
         classNames.push('menu-item-selected')
       }
 
-      if (locale.value === this.props.requestedLocale) {
-        classNames.push('menu-item-loading')
-      }
-
       return (
         <li className={classNames.join(' ')} key={locale.value} onClick={(event) => this.props.selectLocale(locale.value)}>
+          {(locale.value === this.props.requestedLocale) && <LoadingSpinner size="small" />}
           {(locale.value === actuallySelectedLocale) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
           {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
           <span>{locale.label}&#x200E;</span>

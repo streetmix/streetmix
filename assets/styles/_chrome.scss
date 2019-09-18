@@ -90,17 +90,16 @@ body.phone #loading {
   background-position: center center;
 }
 
-.loading-spinner::before {
-  @include loading-spinner;
-
-  content: "";
+#loading .loading-spinner {
   position: absolute;
-  top: 50%;
   left: 50%;
-  width: 30px;
-  height: 30px;
-  margin-top: -15px;
-  margin-left: -15px;
+  top: 50%;
+
+  &::before {
+    border-left-color: rgba(255, 255, 255, 0.75);
+    border-right-color: rgba(255, 255, 255, 0.75);
+    border-bottom-color: rgba(255, 255, 255, 0.75);
+  }
 }
 
 #loading noscript {

@@ -1,0 +1,54 @@
+@import "../../styles/variables.scss";
+
+$spinner-default-size: 30px;
+$spinner-small-size: 13px;
+$spinner-border-default-width: 3px;
+$spinner-border-small-width: 2px;
+$spinner-primary-colour: $colour-turquoise-500;
+$spinner-secondary-colour: $colour-turquoise-200;
+
+// The loading spinner is one <div> element for placement and sizing,
+// and a pseudo-element for the visual animation itself. The base
+// element sets the default size, but not the default placement. It
+// is up to the parent element to do placement (e.g. with flexbox,
+// text-align, or similar) or it can override the CSS rules of
+// the .loading-spinner element itself.
+.loading-spinner {
+  position: relative;
+
+  // Default size of spinner
+  width: $spinner-default-size;
+  height: $spinner-default-size;
+}
+
+// The visual spinner exists in a pseudo-element set up to
+// always fit the dimensions of the base element.
+.loading-spinner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border-width: $spinner-border-default-width;
+  border-style: solid;
+  border-color: $spinner-secondary-colour;
+  border-top-color: $spinner-primary-colour;
+  animation: spinner 0.75s linear infinite;
+}
+
+.loading-spinner-small {
+  width: $spinner-small-size;
+  height: $spinner-small-size;
+
+  &::before {
+    border-width: $spinner-border-small-width;
+  }
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

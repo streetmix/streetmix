@@ -1,16 +1,11 @@
-/**
- * Gallery
- *
- * Displays a user's streets
- *
- */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import GalleryLoading from './GalleryLoading'
+import GalleryStreetItem from './GalleryStreetItem'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
-import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet, repeatReceiveGalleryData, hideGallery } from './view'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { sendDeleteStreetToServer } from '../streets/xhr'
@@ -121,11 +116,7 @@ class GalleryPanel extends React.Component {
         )
         break
       case 'LOADING':
-        childElements = (
-          <div className="gallery-loading">
-            <FormattedMessage id="msg.loading" defaultMessage="Loading…" />
-          </div>
-        )
+        childElements = <GalleryLoading />
         break
       case 'ERROR':
         childElements = (
@@ -226,16 +217,14 @@ class GalleryPanel extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    visible: state.gallery.visible,
-    userId: state.gallery.userId,
-    mode: state.gallery.mode,
-    streets: state.gallery.streets,
-    currentStreetId: state.street.id,
-    isOwnedByCurrentUser: state.user.signedIn && (state.gallery.userId === state.user.signInData.userId)
-  }
-}
+const mapStateToProps = (state) => ({
+  visible: state.gallery.visible,
+  userId: state.gallery.userId,
+  mode: state.gallery.mode,
+  streets: state.gallery.streets,
+  currentStreetId: state.street.id,
+  isOwnedByCurrentUser: state.user.signedIn && (state.gallery.userId === state.user.signInData.userId)
+})
 
 const mapDispatchToProps = {
   setGalleryMode,
