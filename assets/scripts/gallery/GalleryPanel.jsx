@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import GalleryLoading from './GalleryLoading'
+import GallerySignInPromo from './GallerySignInPromo'
 import GalleryStreetItem from './GalleryStreetItem'
+import GalleryError from './GalleryError'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import { switchGalleryStreet, repeatReceiveGalleryData, hideGallery } from './view'
@@ -16,7 +18,6 @@ import { showDialog } from '../store/actions/dialogs'
 
 class GalleryPanel extends React.Component {
   static propTypes = {
-    visible: PropTypes.bool,
     setGalleryMode: PropTypes.func,
     deleteGalleryStreet: PropTypes.func,
     showDialog: PropTypes.func,
@@ -43,7 +44,7 @@ class GalleryPanel extends React.Component {
   componentDidMount () {
     this.scrollSelectedStreetIntoView()
 
-    registerKeypress('esc', this.hideGallery)
+    registerKeypress('esc', hideGallery)
   }
 
   componentDidUpdate () {
@@ -51,17 +52,11 @@ class GalleryPanel extends React.Component {
   }
 
   componentWillUnmount () {
-    deregisterKeypress('esc', this.hideGallery)
+    deregisterKeypress('esc', hideGallery)
   }
 
   componentDidCatch () {
     this.props.setGalleryMode('ERROR')
-  }
-
-  hideGallery = (event) => {
-    if (this.props.visible) {
-      hideGallery()
-    }
   }
 
   selectStreet = (streetId) => {
@@ -94,39 +89,25 @@ class GalleryPanel extends React.Component {
     }
   }
 
-  onClickSignIn = (event) => {
-    event.preventDefault()
-    hideGallery()
-    this.props.showDialog('SIGN_IN')
-  }
-
   render () {
     let childElements
 
     switch (this.props.mode) {
-      // This is currently deprecated; the galley is only accessible only for
+      // This is currently deprecated; the gallery is only accessible only for
       // a defined user or as a global gallery.
       case 'SIGN_IN_PROMO':
         childElements = (
-          <div className="gallery-sign-in-promo">
-            <a onClick={this.onClickSignIn} href="#">
-              <FormattedMessage id="gallery.sign-in" defaultMessage="Sign in for your personal street gallery" />
-            </a>
-          </div>
+          <GallerySignInPromo
+            hideGallery={hideGallery}
+            showDialog={this.props.showDialog}
+          />
         )
         break
       case 'LOADING':
         childElements = <GalleryLoading />
         break
       case 'ERROR':
-        childElements = (
-          <div className="gallery-error">
-            <FormattedMessage id="gallery.fail" defaultMessage="Failed to load the gallery." />
-            <button className="gallery-try-again" onClick={repeatReceiveGalleryData}>
-              <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
-            </button>
-          </div>
-        )
+        childElements = <GalleryError retry={repeatReceiveGalleryData} />
         break
       case 'GALLERY':
       default:
@@ -144,7 +125,11 @@ class GalleryPanel extends React.Component {
             </div>
           )
         } else {
-          label = <div className="gallery-label"><FormattedMessage id="gallery.all" defaultMessage="All streets" /></div>
+          label = (
+            <div className="gallery-label">
+              <FormattedMessage id="gallery.all" defaultMessage="All streets" />
+            </div>
+          )
         }
 
         // Applies a class to the containing element if no user ID is provided
