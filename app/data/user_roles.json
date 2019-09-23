@@ -4,7 +4,9 @@
     "text": "User",
     "value": "USER",
     "flags": {
-      "SILLY_CLOWNS": true
+      "ANALYTICS": true,
+      "SEGMENT_AV": true,
+      "SEGMENT_MAGIC_CARPET": true
     }
   },
   "ADMIN": {
@@ -20,14 +22,11 @@
     "text": "Beta tester",
     "value": "BETA_TESTER",
     "flags": {
-      "ANALYTICS": true,
       "BODY_FONT_UPDATE": true,
       "ENVIRONMENT_EDITOR": true,
       "LOCALES_LEVEL_1": true,
-      "SEGMENT_AV": true,
       "SEGMENT_CAFE_SEATING": true,
       "SEGMENT_CONSTRUCTION": true,
-      "SEGMENT_MAGIC_CARPET": true,
       "SEGMENT_RAISED_BIKES": true,
       "SEGMENT_UTILITIES": true,
       "CUSTOM_SEGMENT_LABELS": true
