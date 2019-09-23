@@ -6,7 +6,7 @@ const logger = require('../../../lib/logger.js')()
 const tier1PlanId = config.stripe.tier1_plan_id
 
 const planMap = {
-  [tier1PlanId]: roles.TIER1
+  [tier1PlanId]: roles.SUBSCRIBER_1
 }
 
 exports.post = async (req, res) => {
@@ -53,7 +53,7 @@ exports.post = async (req, res) => {
 
   try {
     const { data, roles } = user
-    const newRole = planMap[tier1PlanId]
+    const newRole = planMap[tier1PlanId].value
 
     // if we already have the role, skip adding it
     if (!roles.includes(newRole)) {

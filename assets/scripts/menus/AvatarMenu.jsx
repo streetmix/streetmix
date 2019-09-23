@@ -9,7 +9,7 @@ import './AvatarMenu.scss'
 function AvatarMenu (props) {
   const { user, onClick } = props
   const { id, roles } = user
-  const isAdmin = roles && roles.includes(USER_ROLES.ADMIN)
+  const isAdmin = roles && roles.includes(USER_ROLES.ADMIN.value)
 
   return (
     <button
