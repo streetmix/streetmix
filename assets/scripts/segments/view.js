@@ -37,7 +37,6 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
 
   // Get image definition
   const svg = images.get(id)
-
   // Source width and height is based off of intrinsic image width and height,
   // but it can be overridden in the parameters, e.g. when repeating sprites
   // in a sequence and the last sprite needs to be truncated
@@ -202,6 +201,7 @@ function getGroundLevelOffset (elevation) {
 }
 
 /**
+ * Draws a segment without any background elements
  *
  * @param {CanvasRenderingContext2D} ctx
  * @param {string} type
@@ -213,7 +213,24 @@ function getGroundLevelOffset (elevation) {
  * @param {Number} multiplier
  * @param {Number} dpi
  */
-export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi) {
+export function drawSegmentPlain (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi) {
+  return drawSegmentContents(ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi, true)
+}
+
+/**
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {string} type
+ * @param {string} variantString
+ * @param {Number} actualWidth - The real-world width of a segment, in feet
+ * @param {Number} offsetLeft
+ * @param {Number} groundBaseline
+ * @param {Number} randSeed
+ * @param {Number} multiplier
+ * @param {Number} dpi
+ * @param {Number} drawSegmentOnly - If true, skips drawing background elements
+ */
+export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi, drawSegmentOnly = false) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
 
@@ -226,9 +243,11 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
   const groundLevel = groundBaseline - (multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0))
 
-  if (graphics.repeat) {
-    const sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
-
+  if (graphics.repeat && !drawSegmentOnly) {
+    let sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
+    if (drawSegmentOnly) {
+      sprites = [sprites[sprites.length - 1]]
+    }
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -264,8 +283,10 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   }
 
   if (graphics.left) {
-    const sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
-
+    let sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
+    if (drawSegmentOnly) {
+      sprites = [sprites[sprites.length - 1]]
+    }
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -281,8 +302,10 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   }
 
   if (graphics.right) {
-    const sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
-
+    let sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
+    if (drawSegmentOnly) {
+      sprites = [sprites[sprites.length - 1]]
+    }
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -298,8 +321,10 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   }
 
   if (graphics.center) {
-    const sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
-
+    let sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
+    if (drawSegmentOnly) {
+      sprites = [sprites[sprites.length - 1]]
+    }
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)

@@ -13,7 +13,7 @@ import './SegmentForPalette.scss'
 const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_GROUND_BASELINE = 65
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
-
+const ICON_MULTIPLIER = 1 / 2
 const SegmentForPalette = (props) => {
   const intl = useIntl()
 
@@ -45,6 +45,24 @@ const SegmentForPalette = (props) => {
   }
   actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
 
+  if (props.isIcon) {
+    return (<div
+      style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
+      className="segment segment-icon"
+      data-testid="segment-icon"
+    >
+      <SegmentCanvas
+        actualWidth={actualWidth}
+        type={props.type}
+        isIcon={props.isIcon}
+        variantString={props.variantString}
+        randSeed={props.randSeed}
+        multiplier={props.isIcon ? ICON_MULTIPLIER : PALETTE_SEGMENT_MULTIPLIER}
+        groundBaseline={PALETTE_GROUND_BASELINE}
+      />
+    </div>)
+  }
+
   return props.connectDragSource(
     <div
       style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
@@ -68,7 +86,7 @@ SegmentForPalette.propTypes = {
   // Provided by react-dnd
   connectDragSource: PropTypes.func,
   connectDragPreview: PropTypes.func,
-
+  isIcon: PropTypes.bool,
   // Provided by parent
   type: PropTypes.string.isRequired,
   variantString: PropTypes.string.isRequired,
