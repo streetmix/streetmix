@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 
+import USER_ROLES from '../../../app/data/user_roles'
 import { app } from '../preinit/app_settings'
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
@@ -114,15 +115,15 @@ export async function loadSignIn () {
   const storage = JSON.parse(window.localStorage.getItem('flags'))
   const sessionOverrides = generateFlagOverrides(storage, 'session')
 
-  let userOverrides
+  let flagOverrides = []
 
   if (signInData && signInData.token && signInData.userId) {
-    userOverrides = await fetchSignInDetails(signInData.userId)
+    flagOverrides = await fetchSignInDetails(signInData.userId)
   } else {
     setSignedInState(false)
   }
 
-  applyFlagOverrides(store.getState().flags, userOverrides, sessionOverrides)
+  applyFlagOverrides(store.getState().flags, ...flagOverrides, sessionOverrides)
 
   setSignInLoadedState(true)
 
@@ -131,6 +132,11 @@ export async function loadSignIn () {
   return true
 }
 
+/**
+ *
+ * @param {String} userId
+ * @returns {Array}
+ */
 async function fetchSignInDetails (userId) {
   const options = {
     headers: { Authorization: getAuthHeader() }
@@ -144,12 +150,17 @@ async function fetchSignInDetails (userId) {
     }
 
     const json = await response.json()
-    const { flags, ...details } = json
+    const { flags, roles = [] } = json
 
-    const userOverrides = generateFlagOverrides(flags, 'user')
+    const flagOverrides = [
+      // all role flag overrides
+      ...roles.map(key => generateFlagOverrides(USER_ROLES[key].flags, `role:${key}`)),
+      // user flag overrides
+      generateFlagOverrides(flags, 'user')
+    ]
 
-    receiveSignInDetails(details)
-    return userOverrides
+    receiveSignInDetails(json)
+    return flagOverrides
   } catch (error) {
     errorReceiveSignInDetails(error)
   }
