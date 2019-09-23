@@ -1,4 +1,3 @@
-
 // This is a mixin used by various UI elements
 @mixin box-border {
   border-top: 3px solid darken($ui-colour, 20%);
@@ -16,12 +15,6 @@
   -webkit-text-size-adjust: none;
   -moz-text-size-adjust: none;
   text-size-adjust: none;
-}
-
-@mixin touch-callout($value: default) {
-  -webkit-touch-callout: default;
-  // There is no -moz- version
-  touch-callout: default; // stylelint-disable-line property-no-unknown
 }
 
 // Shared style mixins
@@ -60,5 +53,7 @@
 }
 
 @keyframes spinner {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

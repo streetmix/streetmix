@@ -1,5 +1,5 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 $street-name-size: 1.5;
 
@@ -39,7 +39,7 @@ body.windows .street-name-text {
   @include street-name-inside-mixin;
 
   // TODO: fallback to Roadgeek at 60px high w/o internet
-  font-family: 'Interstate Condensed', 'interstate-condensed', sans-serif;
+  font-family: "Interstate Condensed", "interstate-condensed", sans-serif;
   font-weight: 700;
   text-align: left;
   text-overflow: ellipsis;

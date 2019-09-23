@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .environment-badge {
   z-index: $z-02-menu-bar;
@@ -12,7 +12,7 @@
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0.5em;
-  padding-right: 1em - 0.5em; // Right padding minus letter-spacing
+  padding-right: 0.5em; // Right padding minus letter-spacing
   color: white;
   background-color: gray;
   pointer-events: none;

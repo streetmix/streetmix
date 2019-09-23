@@ -15,7 +15,6 @@ html {
 
 body {
   @include text-size-adjust(none);
-  @include touch-callout(default);
 
   margin: 0;
   padding: 0;
@@ -59,8 +58,6 @@ body.touch-support .non-touch-only {
 }
 
 a {
-  @include touch-callout(default);
-
   color: darken($ui-colour, 30%);
 
   &:hover {
@@ -74,7 +71,7 @@ a {
 
 a,
 button {
-  @include tap-highlight-color('transparent !important');
+  @include tap-highlight-color("transparent !important");
 
   cursor: pointer;
 }

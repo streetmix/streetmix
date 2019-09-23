@@ -2,8 +2,8 @@
 // Menus
 //
 // --------------------------------------------------------
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 $menu-border-radius: $border-radius;
 $menu-box-shadow: $medium-box-shadow;
@@ -146,7 +146,7 @@ body.safari .menu {
   &.menu-item-loading::before {
     @include loading-spinner;
 
-    content: '';
+    content: "";
     position: absolute;
     left: 16px;
     top: 9px;
@@ -160,7 +160,7 @@ body.safari .menu {
     [dir="rtl"] & {
       left: auto;
       right: 16px;
-      padding-right: auto;
+      padding-right: initial;
       padding-left: 3px;
       text-align: left;
     }

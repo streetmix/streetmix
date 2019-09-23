@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .debug-info {
   display: none;
@@ -20,7 +20,7 @@
     height: 100%;
     border: 1px solid lightgray;
     background-color: whitesmoke;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     font-size: 11px;
     resize: none;
   }

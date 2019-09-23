@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 // TODO: Further refactor / split up of this stylesheet
 
@@ -35,12 +35,12 @@
 
   // Empty area
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 394px;
     right: 0;
-    bottom: 115px + 5px;
+    bottom: 120px;
     pointer-events: none;
     // Ensure that segments switching in stay above this
     z-index: -1;
@@ -61,7 +61,7 @@
 .street-section-building {
   display: block;
   position: absolute;
-  top: -150px + 45px;
+  top: -105px;
   width: 396px;
   height: $canvas-height + 70px;
   touch-action: pan-x;

@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .street-section-sky {
   position: absolute;
@@ -41,14 +41,14 @@
 .rear-clouds {
   height: 250px;
   bottom: 205px;
-  background-image: url('../../../public/images/sky-rear.svg');
+  background-image: url("../../../public/images/sky-rear.svg");
   background-size: 250px 250px;
 }
 
 .front-clouds {
   height: 280px;
   bottom: 55px;
-  background-image: url('../../../public/images/sky-front.svg');
+  background-image: url("../../../public/images/sky-front.svg");
   background-size: 250px 280px;
 }
 

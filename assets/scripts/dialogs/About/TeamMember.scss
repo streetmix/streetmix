@@ -32,14 +32,14 @@
   border-radius: 6px;
 
   /* Placeholder image in case a mugshot image is not provided */
-  background-image: url('../../../images/avatar.png');
+  background-image: url("../../../images/avatar.png");
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
 
   /* Forces the mugshot div height to be a perfect square, no matter its width */
   &::after {
-    content: '';
+    content: "";
     display: block;
     padding-bottom: 100%;
   }

@@ -1,9 +1,9 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 $tooltip-background-colour: rgba(24, 24, 24, 0.75);
-$tooltip-font-colour:       white;
-$tooltip-font-weight:       bold;
-$tooltip-max-width:         120px;
+$tooltip-font-colour: white;
+$tooltip-font-weight: bold;
+$tooltip-max-width: 120px;
 
 .palette-tooltip {
   position: fixed;

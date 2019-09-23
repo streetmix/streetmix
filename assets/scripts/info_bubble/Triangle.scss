@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .info-bubble-triangle {
   position: absolute;
@@ -9,13 +9,13 @@
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 30px;
     height: 30px;
     left: 50%;
     bottom: 15px;
-    margin-left: -15px - 3px;
+    margin-left: -18px;
     border: 3px solid darken($ui-colour, 20%);
     transform: rotateZ(45deg);
     background: $info-bubble-background;

@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .notification-bar {
   position: relative;
@@ -19,8 +19,8 @@
 
 /* Close button overrides */
 // TODO: Make standard for toast, status, etc
-$close-icon-colour:           $colour-copper-500;
-$close-icon-colour-hover:     $colour-copper-600;
+$close-icon-colour: $colour-copper-500;
+$close-icon-colour-hover: $colour-copper-600;
 
 .notification-bar .close {
   width: 24px;
