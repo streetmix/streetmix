@@ -9,7 +9,8 @@ describe('DebugInfo', () => {
     const street = { }
     const flags = { }
     const undo = { }
-    const wrapper = shallow(<DebugInfo settings={settings} street={street} flags={flags} undo={undo} />)
+    const user = { }
+    const wrapper = shallow(<DebugInfo settings={settings} street={street} flags={flags} undo={undo} user={user} />)
     expect(wrapper).toMatchSnapshot()
   })
   it('is visible when state visible is set', () => {
@@ -17,7 +18,8 @@ describe('DebugInfo', () => {
     const street = { }
     const flags = { }
     const undo = { }
-    const wrapper = shallow(<DebugInfo settings={settings} street={street} flags={flags} undo={undo} />)
+    const user = { }
+    const wrapper = shallow(<DebugInfo settings={settings} street={street} flags={flags} undo={undo} user={user} />)
     wrapper.setState({ visible: true })
     expect(wrapper).toMatchSnapshot()
   })
