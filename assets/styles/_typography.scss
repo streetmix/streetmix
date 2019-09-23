@@ -10,7 +10,6 @@ button,
 a.button-like,
 input,
 select,
-textarea,
 option {
   font-family: $font-family;
 }
@@ -22,7 +21,6 @@ body.experimental-font-family {
   a.button-like,
   input,
   select,
-  textarea,
   option {
     font-family: $experimental-font-family;
   }

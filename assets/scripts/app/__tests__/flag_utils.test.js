@@ -20,7 +20,7 @@ const userOverrides = {
     { flag: 'FOO_BAR', value: false },
     { flag: 'BAZ_BAR', value: true }
   ],
-  priority: 1
+  priority: 2
 }
 
 const sessionOverrides = {
@@ -29,7 +29,7 @@ const sessionOverrides = {
     { flag: 'BAZ_QUX', value: true },
     { flag: 'FOO_BAR', value: true }
   ],
-  priority: 2
+  priority: 3
 }
 
 describe('generateFlagOverrides', () => {
@@ -44,7 +44,7 @@ describe('generateFlagOverrides', () => {
       flags: [
         { flag: 'FOO_BAR', value: false }
       ],
-      priority: 1
+      priority: 2
     })
   })
 })
@@ -69,7 +69,7 @@ describe('applyFlagOverrides', () => {
       flags: [
         { flag: 'FOO_BAZ', value: false }
       ],
-      priority: 1
+      priority: 2
     }
 
     const result = applyFlagOverrides(initialFlags, userOverrides)

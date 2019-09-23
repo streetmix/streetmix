@@ -17,7 +17,7 @@ const UpgradeDialog = ({ userId, roles }) => {
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
 
-  const hasTier1 = roles.includes(userRoles.TIER1)
+  const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
   async function onToken (token) {
     const requestBody = { userId, token }

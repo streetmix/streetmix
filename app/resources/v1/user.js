@@ -94,7 +94,15 @@ exports.get = async function (req, res) {
           userJson.profileImageUrl = user.profile_image_url
         }
 
-        res.status(200).send(userJson)
+        // All users automatically are the USER role
+        // First create the roles array if it's not present
+        userJson.roles = userJson.roles || []
+        if (!userJson.roles.includes('USER')) {
+          // Also, make USER appear first in the list consistently
+          userJson.roles.unshift('USER')
+        }
+
+        res.status(200).json(userJson)
       })
     } // END function - sendUserJson
 

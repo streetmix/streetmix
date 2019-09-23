@@ -4,8 +4,9 @@ import { setFlagOverrides } from '../store/actions/flags'
 
 export const PRIORITY_LEVELS = {
   initial: 0,
-  user: 1,
-  session: 2
+  role: 1,
+  user: 2,
+  session: 3
 }
 
 export function initializeFlagSubscribers () {
@@ -76,7 +77,8 @@ export function generateFlagOverrides (flags, source) {
   const flagsOverrides = {
     source,
     flags: [],
-    priority: PRIORITY_LEVELS[source]
+    // Source can be a string that looks like 'role:USER', so just take the first part
+    priority: PRIORITY_LEVELS[source.split(':')[0]]
   }
 
   return Object.entries(flags).reduce((obj, item) => {

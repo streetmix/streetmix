@@ -19,7 +19,8 @@ export class DebugInfo extends React.Component {
     settings: PropTypes.object.isRequired,
     street: PropTypes.object.isRequired,
     flags: PropTypes.object.isRequired,
-    undo: PropTypes.object.isRequired
+    undo: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -61,6 +62,7 @@ export class DebugInfo extends React.Component {
     // Create a JSON object, this parses better in editors
     const debugObj = {
       DATA: debugStreetData,
+      USER: this.props.user,
       SETTINGS: this.props.settings,
       FLAGS: this.props.flags,
       UNDO: debugUndo
@@ -120,7 +122,8 @@ function mapStateToProps (state) {
     settings: state.settings,
     street: state.street,
     flags: state.flags,
-    undo: state.undo
+    undo: state.undo,
+    user: state.user
   }
 }
 
