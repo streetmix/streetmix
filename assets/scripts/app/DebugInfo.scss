@@ -3,17 +3,13 @@
 .debug-info {
   display: none;
   position: fixed;
-  top: 20px;
-  bottom: 20px;
-  right: 20px;
-  left: 20px;
-  padding: 10px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 30px;
   z-index: $z-09-debug;
-  background: white;
-
-  &.visible {
-    display: block;
-  }
+  background-color: rgba(192, 192, 192, 0.5);
 
   > textarea {
     width: 100%;
@@ -23,21 +19,10 @@
     font-family: monospace;
     font-size: 13px;
     resize: none;
+    box-shadow: 0 0 0 10px white;
   }
 }
 
-.debug-hover-polygon {
-  position: absolute;
-  z-index: $z-07-debug-hover-polygon;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-
-  canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+.debug-info-visible {
+  display: block;
 }

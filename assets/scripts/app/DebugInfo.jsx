@@ -6,115 +6,86 @@
  * @module DebugInfo
  * @requires keypress
  */
-import React from 'react'
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { cloneDeep } from 'lodash'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
 import './DebugInfo.scss'
 
-export class DebugInfo extends React.Component {
-  static propTypes = {
-    settings: PropTypes.object.isRequired,
-    street: PropTypes.object.isRequired,
-    flags: PropTypes.object.isRequired,
-    undo: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
-  }
+DebugInfo.propTypes = {
+  settings: PropTypes.object,
+  street: PropTypes.object,
+  flags: PropTypes.object,
+  undo: PropTypes.object,
+  user: PropTypes.object
+}
 
-  constructor (props) {
-    super(props)
+function DebugInfo (props) {
+  const { settings = {}, street = {}, flags = {}, undo = {}, user = {} } = props
+  const textareaEl = useRef(null)
+  const [isVisible, setVisible] = useState(false)
 
-    this.state = {
-      visible: false,
-      content: ''
+  // Register keyboard input for show (shift-D)
+  useEffect(() => {
+    registerKeypress('shift d', showDebugInfo)
+    return () => {
+      deregisterKeypress('shift d', showDebugInfo)
+    }
+  })
+
+  // Handle esc keybinding
+  useEffect(() => {
+    if (isVisible) {
+      // Set up keypress listener to close debug window
+      registerKeypress('esc', hideDebugInfo)
+    } else {
+      // Remove keypress listener
+      deregisterKeypress('esc', hideDebugInfo)
     }
 
-    this.textareaEl = React.createRef()
-  }
-
-  componentDidMount () {
-    // Register keyboard input for show (shift-D)
-    registerKeypress('shift d', this.showDebugInfo)
-  }
-
-  componentWillUnmount () {
-    // Cleanup
-    deregisterKeypress('shift d', this.showDebugInfo)
-  }
-
-  getTextareaContent = () => {
-    const debugStreetData = cloneDeep(this.props.street)
-    const debugUndo = cloneDeep(this.props.undo)
-
-    // Some things just shouldn't be seen...
-    for (const i in debugStreetData.segments) {
-      delete debugStreetData.segments[i].el
+    // Clean up in case component is unmounted before hiding
+    return () => {
+      deregisterKeypress('esc', hideDebugInfo)
     }
+  }, [isVisible])
 
-    for (const j in debugUndo) {
-      for (const k in debugUndo[j].segments) {
-        delete debugUndo[j].segments[k].el
-      }
+  // Handle DOM effects when show / hide
+  // useLayoutEffect helps with timing issues with DOM manipulation
+  useLayoutEffect(() => {
+    if (isVisible) {
+      textareaEl.current.value = JSON.stringify({ street, user, settings, flags, undo }, null, 2)
+      textareaEl.current.focus()
+      textareaEl.current.select()
+      // Prevent scrolling to bottom of textarea after select
+      // NOTE: this is still not 100% deterministic, not sure why
+      window.setTimeout(() => {
+        textareaEl.current.scrollTop = 0
+      }, 0)
+    } else {
+      loseAnyFocus()
     }
+  }, [isVisible, settings, street, flags, undo, user])
 
-    // Create a JSON object, this parses better in editors
-    const debugObj = {
-      DATA: debugStreetData,
-      USER: this.props.user,
-      SETTINGS: this.props.settings,
-      FLAGS: this.props.flags,
-      UNDO: debugUndo
-    }
-
-    return JSON.stringify(debugObj, null, 2)
+  function showDebugInfo () {
+    setVisible(true)
   }
 
-  showDebugInfo = () => {
-    this.setState({
-      visible: true,
-      content: this.getTextareaContent()
-    })
-
-    this.textareaEl.current.focus()
-    this.textareaEl.current.select()
-
-    // Prevent scrolling to bottom of textarea after select
-    window.setTimeout(() => {
-      this.textareaEl.current.scrollTop = 0
-    }, 0)
-
-    // Set up keypress listener to close debug window
-    registerKeypress('esc', this.hideDebugInfo)
-    // TODO: Register mouse inputs for hide
+  function hideDebugInfo () {
+    setVisible(false)
   }
 
-  hideDebugInfo = () => {
-    this.setState({
-      visible: false,
-      content: ''
-    })
+  let className = 'debug-info'
 
-    loseAnyFocus()
-
-    // Remove keypress listener
-    deregisterKeypress('esc', this.hideDebugInfo)
+  if (isVisible === true) {
+    className += ' debug-info-visible'
   }
 
-  render () {
-    let className = 'debug-info'
-
-    if (this.state.visible === true) {
-      className += ' visible'
-    }
-
-    return (
-      <div className={className}>
-        <textarea value={this.state.content} readOnly ref={this.textareaEl} />
-      </div>
-    )
-  }
+  return (
+    <div className={className}>
+      <textarea readOnly wrap="off" ref={textareaEl} />
+    </div>
+  )
 }
 
 function mapStateToProps (state) {
