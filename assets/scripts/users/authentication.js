@@ -123,6 +123,9 @@ export async function loadSignIn () {
     setSignedInState(false)
   }
 
+  if (!flagOverrides) {
+    flagOverrides = []
+  }
   applyFlagOverrides(store.getState().flags, ...flagOverrides, sessionOverrides)
 
   setSignInLoadedState(true)
