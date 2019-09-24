@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SegmentForPalette from '../../segments/SegmentForPalette'
-import { FormatNumber } from '../../util/formatting'
-import { FormattedMessage } from 'react-intl'
 import { getLocaleSegmentName } from '../../segments/view'
+import CapacityMessage from './CapacityMessage'
 
 const BAR_HEIGHT = '70px'
 const BAR_MODIFIER = 0.85
@@ -53,14 +52,7 @@ const SegmentAnalytics = ({ type, capacity, segment, locale, index, chartMax }) 
       <div className="capacity-text" style={{ width: `${widthPercentInv}%`, marginLeft: '2%' }}>
         <div className="capacity-label">{label}</div>
         <div className="capacity-summary">
-          <FormattedMessage
-            id="dialogs.analytics.segment-summary"
-            defaultMessage="{average} — {potential} people/hour"
-            values={{
-              average: FormatNumber(locale, average),
-              potential: FormatNumber(locale, potential)
-            }}
-          />
+          <CapacityMessage average={average} potential={potential} locale={locale} />
         </div>
       </div>
     </div>
