@@ -54,7 +54,8 @@ const CAPACITIES = {
   scooter: { average: 14000, potential: 14000 },
   'light-rail': { average: 18000, potential: 20000 },
   streetcar: { average: 18000, potential: 20000 },
-  'bus-lane': { average: 5000, potential: 8000 }
+  'bus-lane': { average: 5000, potential: 8000 },
+  'magic-carpet': { average: 2, potential: 3 }
 }
 
 export const getCapacity = (type) => {
