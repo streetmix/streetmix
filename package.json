@@ -206,7 +206,7 @@
     "jest-canvas-mock": "2.1.1",
     "jest-date-mock": "1.0.7",
     "jest-fetch-mock": "2.1.2",
-    "lint-staged": "9.2.0",
+    "lint-staged": "9.3.0",
     "prettier": "1.18.2",
     "react-test-renderer": "16.9.0",
     "recompose": "0.30.0",
