@@ -152,7 +152,7 @@
     "react-dnd-multi-backend": "3.2.1",
     "react-dnd-touch-backend": "0.8.3",
     "react-dom": "16.9.0",
-    "react-draggable": "3.3.2",
+    "react-draggable": "4.0.3",
     "react-intl": "3.1.13",
     "react-leaflet": "2.4.0",
     "react-redux": "7.1.0",
