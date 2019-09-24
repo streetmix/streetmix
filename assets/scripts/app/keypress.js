@@ -269,7 +269,11 @@ export function deregisterKeypress (commands, callback) {
 
     for (const command of commands) {
       const items = inputs[keyCode]
-      let x = items.length
+      let x = (items && items.length) || 0
+
+      // Break if the derigestered command is not found (may have not been registered,
+      // or already deregistered)
+      if (x === 0) break
 
       // A reverse while loop quickly removes all duplicates that matches
       while (x--) {
