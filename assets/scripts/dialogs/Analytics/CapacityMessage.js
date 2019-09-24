@@ -10,20 +10,14 @@ CapacityMessage.propTypes = {
 }
 
 export default function CapacityMessage ({ locale, average, potential }) {
-  if (average === potential) {
-    return (<FormattedMessage
-      id="dialogs.analytics.segment-summary-single"
-      defaultMessage="{amount} people/hour"
-      values={{
-        amount: FormatNumber(locale, average)
-      }}
-    />)
-  }
-
+  const isSingleAmount = average === potential
+  const defaultMessage = isSingleAmount ? '{amount} people/hour' : '{average} — {potential} people/hour'
+  const id = isSingleAmount ? 'dialogs.analytics.segment-summary-single' : 'dialogs.analytics.segment-summary'
   return (<FormattedMessage
-    id="dialogs.analytics.segment-summary"
-    defaultMessage="{average} — {potential} people/hour"
+    id={id}
+    defaultMessage={defaultMessage}
     values={{
+      amount: FormatNumber(locale, average),
       average: FormatNumber(locale, average),
       potential: FormatNumber(locale, potential)
     }}
