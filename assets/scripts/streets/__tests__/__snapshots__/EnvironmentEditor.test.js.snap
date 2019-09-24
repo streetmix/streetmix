@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EnvironmentEditor renders 1`] = `
+<DocumentFragment>
+  <div
+    class="environment-editor environment-editor-container-outer react-draggable"
+    style="transform: translate(0px,0px);"
+  >
+    <div
+      class="environment-editor-container-inner"
+      style="opacity: 0; transform: scale(0.75); pointer-events: none;"
+    >
+      <header>
+        <h3>
+          Environment
+        </h3>
+        <button
+          class="close"
+          title="Dismiss"
+        >
+          <svg
+            class="svg-inline--fa fa-times"
+          />
+        </button>
+      </header>
+      <div
+        class="environment-editor-content"
+      >
+        <div
+          class="environment-select-grid"
+        >
+          <div
+            class="environment-select environment-active"
+            style="background: rgb(169, 204, 219);"
+            title="Day"
+          />
+          <div
+            class="environment-select"
+            title="Twilight"
+          />
+          <div
+            class="environment-select"
+            title="Dusk"
+          />
+          <div
+            class="environment-select"
+            title="Sunrise"
+          />
+          <div
+            class="environment-select"
+            title="Night"
+          />
+          <div
+            class="environment-select"
+            style="background: rgb(226, 240, 242);"
+            title="Foggy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
