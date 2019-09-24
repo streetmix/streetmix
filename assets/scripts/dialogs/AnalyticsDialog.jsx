@@ -6,7 +6,7 @@
  */
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import PropTypes from 'prop-types'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
@@ -61,6 +61,7 @@ function AnalyticsDialog (props) {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
   }, [])
 
+  const intl = useIntl()
   const segmentData = addSegmentData(props.street.segments).sort(avgCapacityAscending)
 
   const sumFunc = (total, num) => {
@@ -82,6 +83,14 @@ function AnalyticsDialog (props) {
   const rolledUp = rollUpCategories(segmentData)
   const chartMax = Math.max(...rolledUp.map(item => Number.parseInt(item.capacity.potential, 10))) + 1000
 
+  function exportCSV () {
+    const name = props.street.name || intl.formatMessage({
+      id: 'street.default-name',
+      defaultMessage: 'Unnamed St'
+    })
+    saveCsv(rolledUp, name)
+  }
+
   return (
     <Dialog>
       {(closeDialog) => (
@@ -99,7 +108,7 @@ function AnalyticsDialog (props) {
               {rolledUp.map((item, index) => (item.capacity.average > 0) && <SegmentAnalytics index={index} {...item} chartMax={chartMax} />)}
             </div>
             <div className="dialog-actions">
-              <button onClick={() => saveCsv(rolledUp, props.street.name)}>
+              <button onClick={exportCSV}>
                 <FormattedMessage id="dialogs.analytics.export-csv" defaultMessage="Export as CSV" />
               </button>
               <footer>

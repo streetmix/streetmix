@@ -14,6 +14,7 @@ const csvTransform = (item) => {
     potentialCapacity: item.capacity.potential
   }
 }
+
 export const saveCsv = (rows, streetName) => {
   const fields = ['type', 'averageCapacity', 'potentialCapacity']
   const opts = { fields }
@@ -25,8 +26,9 @@ export const saveCsv = (rows, streetName) => {
     const downloadLink = document.createElement('a')
     const blob = new Blob(['\ufeff', csv])
     const url = URL.createObjectURL(blob)
+
     downloadLink.href = url
-    downloadLink.download = `${streetName}.csv`
+    downloadLink.download = `${streetName} capacity.csv`
 
     document.body.appendChild(downloadLink)
     downloadLink.click()
