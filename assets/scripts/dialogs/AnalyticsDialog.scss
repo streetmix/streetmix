@@ -1,9 +1,11 @@
 .analytics-dialog {
   width: 820px;
-  min-height: 660px;
   max-height: 75vh;
+  min-height: 500px;
 
   .dialog-content {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     overflow-y: scroll;
   }
@@ -12,6 +14,7 @@
 .analytics-dialog-content {
   display: inline;
   margin-bottom: 2em;
+  flex-grow: 1;
 }
 
 .analytics-dialog-left {

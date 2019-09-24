@@ -93,15 +93,15 @@ function AnalyticsDialog (props) {
           </header>
           <div className="dialog-content">
             <div className="analytics-dialog-content">
-              <div>
+              <p>
                 {summary}
-              </div>
+              </p>
               {rolledUp.map((item, index) => (item.capacity.average > 0) && <SegmentAnalytics index={index} {...item} chartMax={chartMax} />)}
-              <div className="dialog-actions">
-                <button onClick={() => saveCsv(rolledUp, props.street.name)}>
-                  <FormattedMessage id="dialogs.analytics.export-csv" defaultMessage="Export as CSV" />
-                </button>
-              </div>
+            </div>
+            <div className="dialog-actions">
+              <button onClick={() => saveCsv(rolledUp, props.street.name)}>
+                <FormattedMessage id="dialogs.analytics.export-csv" defaultMessage="Export as CSV" />
+              </button>
               <footer>
                 <Terms locale={props.locale} />
               </footer>
