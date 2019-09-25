@@ -23,7 +23,7 @@ const GalleryContainer = ({ visible }) => {
   }, [visible])
 
   return (
-    <div className="gallery">
+    <div className="gallery" aria-hidden={!visible}>
       <GalleryPanel />
       <GalleryShield visible={visible} />
     </div>

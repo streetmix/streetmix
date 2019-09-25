@@ -3,6 +3,7 @@
 exports[`Gallery renders global gallery view 1`] = `
 <DocumentFragment>
   <div
+    aria-hidden="false"
     class="gallery"
   >
     <div
