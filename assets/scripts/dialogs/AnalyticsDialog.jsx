@@ -13,15 +13,16 @@ import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
 import Terms from '../app/Terms'
-import { getCapacity, capacitySum, saveCsv } from '../util/street_analytics'
+import { getSegmentCapacity, capacitySum, saveCsv } from '../util/street_analytics'
 
 import './AnalyticsDialog.scss'
 
 const addSegmentData = (segments) => {
+  // return segments.map(getSegmentCapacity)
   return segments.map(item => {
     return {
       type: item.type,
-      capacity: getCapacity(item.type),
+      capacity: getSegmentCapacity(item).capacity,
       segment: item
     }
   })
