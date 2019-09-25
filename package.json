@@ -183,7 +183,7 @@
     "@babel/preset-env": "7.6.2",
     "@babel/preset-react": "7.0.0",
     "@testing-library/jest-dom": "4.1.0",
-    "@testing-library/react": "8.0.7",
+    "@testing-library/react": "9.1.4",
     "axios-mock-adapter": "1.17.0",
     "babel-eslint": "10.0.2",
     "babel-jest": "24.8.0",
