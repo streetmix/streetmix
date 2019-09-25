@@ -14,6 +14,7 @@ const csvTransform = (item) => {
     potentialCapacity: item.capacity.potential
   }
 }
+
 export const saveCsv = (rows, streetName) => {
   const fields = ['type', 'averageCapacity', 'potentialCapacity']
   const opts = { fields }
@@ -25,8 +26,9 @@ export const saveCsv = (rows, streetName) => {
     const downloadLink = document.createElement('a')
     const blob = new Blob(['\ufeff', csv])
     const url = URL.createObjectURL(blob)
+
     downloadLink.href = url
-    downloadLink.download = `${streetName}.csv`
+    downloadLink.download = `${streetName} capacity.csv`
 
     document.body.appendChild(downloadLink)
     downloadLink.click()
@@ -55,7 +57,8 @@ const CAPACITIES = {
   scooter: { average: 14000, potential: 14000 },
   'light-rail': { average: 18000, potential: 20000 },
   streetcar: { average: 18000, potential: 20000 },
-  'bus-lane': { average: 5000, potential: 8000 }
+  'bus-lane': { average: 5000, potential: 8000 },
+  'magic-carpet': { average: 2, potential: 3 }
 }
 
 export const getCapacity = (type) => {

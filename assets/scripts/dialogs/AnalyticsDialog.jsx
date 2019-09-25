@@ -6,7 +6,7 @@
  */
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import PropTypes from 'prop-types'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
@@ -62,6 +62,7 @@ function AnalyticsDialog (props) {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
   }, [])
 
+  const intl = useIntl()
   const segmentData = addSegmentData(props.street.segments).sort(avgCapacityAscending)
 
   const sumFunc = (total, num) => {
@@ -83,6 +84,14 @@ function AnalyticsDialog (props) {
   const rolledUp = rollUpCategories(segmentData)
   const chartMax = Math.max(...rolledUp.map(item => Number.parseInt(item.capacity.potential, 10))) + 1000
 
+  function exportCSV () {
+    const name = props.street.name || intl.formatMessage({
+      id: 'street.default-name',
+      defaultMessage: 'Unnamed St'
+    })
+    saveCsv(rolledUp, name)
+  }
+
   return (
     <Dialog>
       {(closeDialog) => (
@@ -94,15 +103,18 @@ function AnalyticsDialog (props) {
           </header>
           <div className="dialog-content">
             <div className="analytics-dialog-content">
-              <div>
+              <p>
                 {summary}
-              </div>
+              </p>
               {rolledUp.map((item, index) => (item.capacity.average > 0) && <SegmentAnalytics index={index} {...item} chartMax={chartMax} />)}
-              <div className="dialog-actions">
-                <button onClick={() => saveCsv(rolledUp, props.street.name)}>
-                  <FormattedMessage id="dialogs.analytics.export-csv" defaultMessage="Export as CSV" />
-                </button>
-              </div>
+              <p>
+                <strong>Source:</strong> <em><a href="">Environmentally Sustainable Transport - Main Principles and Impacts</a></em>, Manfred Breithaupt, Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)
+              </p>
+            </div>
+            <div className="dialog-actions">
+              <button onClick={exportCSV}>
+                <FormattedMessage id="dialogs.analytics.export-csv" defaultMessage="Export as CSV" />
+              </button>
               <footer>
                 <Terms locale={props.locale} />
               </footer>
