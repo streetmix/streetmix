@@ -5,7 +5,7 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import GalleryStreetItem from '../GalleryStreetItem'
 
 // Mock dependencies
-jest.mock('../thumbnail', () => ({
+jest.mock('../../streets/thumbnail', () => ({
   drawStreetThumbnail: jest.fn()
 }))
 jest.mock('../../app/page_url', () => ({

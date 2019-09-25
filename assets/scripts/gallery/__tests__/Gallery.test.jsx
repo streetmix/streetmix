@@ -6,7 +6,7 @@ import Gallery from '../Gallery'
 import { hideGallery } from '../view'
 
 jest.mock('../view')
-jest.mock('../thumbnail')
+jest.mock('../../streets/thumbnail')
 
 const mockStreet = {
   id: '2556be10-df45-11e9-92a0-b5e383de159b',

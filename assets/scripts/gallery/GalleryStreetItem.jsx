@@ -6,7 +6,7 @@ import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
 import CloseButton from '../ui/CloseButton'
 import StreetName from '../streets/StreetName'
-import { drawStreetThumbnail } from './thumbnail'
+import { drawStreetThumbnail } from '../streets/thumbnail'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
