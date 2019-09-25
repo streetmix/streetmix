@@ -240,7 +240,7 @@ export class Segment extends React.Component {
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
     const capacity = getSegmentCapacity(segment).capacity.average
-    const showCapacity = enableAnalytics && Number.parseInt(capacity, 10) > 0
+    const showCapacity = enableAnalytics && capacity !== undefined
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + this.props.segmentPos + 'px)'

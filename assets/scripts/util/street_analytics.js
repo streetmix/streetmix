@@ -46,6 +46,7 @@ const getAnalyticsFromStreet = (street, locale) => {
 }
 
 const NO_CAPACITY = { average: 0, potential: 0 }
+const UNDEFINED_CAPACITY = { average: undefined, potential: undefined }
 
 const CAPACITIES = {
   sidewalk: { average: 19000, potential: 19000 },
@@ -58,10 +59,11 @@ const CAPACITIES = {
 }
 
 export const getCapacity = (type) => {
-  return CAPACITIES[type] || NO_CAPACITY
+  return CAPACITIES[type] || UNDEFINED_CAPACITY
 }
 
 const sumFunc = (total, num) => {
+  if (Number.isNaN(num)) return total
   return total + num
 }
 
@@ -90,8 +92,8 @@ export const getSegmentCapacity = (segment) => {
 export const getStreetCapacity = (street) => {
   const { segments } = street
   const segmentData = segments.map(addSegmentData)
-  const averageTotal = segmentData.map(item => item.capacity.average).reduce(sumFunc)
-  const potentialTotal = segmentData.map(item => item.capacity.potential).reduce(sumFunc)
+  const averageTotal = segmentData.map(item => item.capacity.average || 0).reduce(sumFunc)
+  const potentialTotal = segmentData.map(item => item.capacity.potential || 0).reduce(sumFunc)
 
   return {
     segmentData,
