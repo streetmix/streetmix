@@ -106,6 +106,9 @@ function AnalyticsDialog (props) {
                 {summary}
               </p>
               {rolledUp.map((item, index) => (item.capacity.average > 0) && <SegmentAnalytics index={index} {...item} chartMax={chartMax} />)}
+              <p>
+                <strong>Source:</strong> <em><a href="">Environmentally Sustainable Transport - Main Principles and Impacts</a></em>, Manfred Breithaupt, Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)
+              </p>
             </div>
             <div className="dialog-actions">
               <button onClick={exportCSV}>
