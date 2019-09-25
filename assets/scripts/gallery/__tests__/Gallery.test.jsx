@@ -34,14 +34,6 @@ const mockStreet = {
       rightBuildingVariant: 'wide',
       segments: [
         'Object',
-        'Object',
-        'Object',
-        'Object',
-        'Object',
-        'Object',
-        'Object',
-        'Object',
-        'Object',
         'Object'
       ],
       editCount: 33
@@ -158,12 +150,24 @@ describe('Gallery', () => {
     const initialState = {
       gallery: {
         visible: true,
-        mode: 'ERROR'
+        streets: 'boom'
       }
     }
 
+    // Setup: Swallow console.error
+    jest.spyOn(console, 'error')
+    console.error.mockImplementation(() => {})
+
+    // Render with bad data, causing an error to occur
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
+
+    // Expect the error to occur.
+    // Note that if this test does fail with an error, we've set it up to swallow
+    // actual console.errors, so remove the mock if you need to debug this test.
     expect(wrapper.getByText('Failed to load the gallery.')).toBeInTheDocument()
+
+    // Restore console.error
+    console.error.mockRestore()
   })
 
   it('closes on shield click', () => {
