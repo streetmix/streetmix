@@ -92,8 +92,8 @@ export const getSegmentCapacity = (segment) => {
 export const getStreetCapacity = (street) => {
   const { segments } = street
   const segmentData = segments.map(addSegmentData)
-  const averageTotal = segmentData.map(item => item.capacity.average || 0).reduce(sumFunc)
-  const potentialTotal = segmentData.map(item => item.capacity.potential || 0).reduce(sumFunc)
+  const averageTotal = segmentData.map(item => item.capacity.average || 0).reduce(sumFunc, 0)
+  const potentialTotal = segmentData.map(item => item.capacity.potential || 0).reduce(sumFunc, 0)
 
   return {
     segmentData,

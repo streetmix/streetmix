@@ -68,8 +68,8 @@ function AnalyticsDialog (props) {
     return total + num
   }
 
-  const averageTotal = segmentData.map(item => item.capacity.average).reduce(sumFunc)
-  const potentialTotal = segmentData.map(item => item.capacity.potential).reduce(sumFunc)
+  const averageTotal = segmentData.map(item => item.capacity.average).reduce(sumFunc, 0)
+  const potentialTotal = segmentData.map(item => item.capacity.potential).reduce(sumFunc, 0)
 
   const summary = (<FormattedMessage
     id="dialogs.analytics.street-summary"
