@@ -82,11 +82,12 @@ function AnalyticsDialog (props) {
     }}
   />)
 
-  const getRolledCapacity = item => Number.isInteger(item.capacity.potential) ? item.capacity.potential : 0
-  const hasRolledCapacity = item => Number.isInteger(item.capacity.potential)
+  const displayCapacity = item => {
+    return item.capacity && item.capacity.display && item.capacity.average > 0
+  }
 
   const rolledUp = rollUpCategories(segmentData)
-  const chartMax = Math.max(...rolledUp.map(getRolledCapacity)) + 1000
+  const chartMax = Math.max(...rolledUp.map(item => item.capacity.potential)) + 1000
 
   function exportCSV () {
     const name = props.street.name || intl.formatMessage({
@@ -110,7 +111,7 @@ function AnalyticsDialog (props) {
               <p>
                 {summary}
               </p>
-              {rolledUp.filter(hasRolledCapacity).map((item, index) => (item.capacity.average > 0) && <SegmentAnalytics index={index} {...item} chartMax={chartMax} />)}
+              {rolledUp.filter(displayCapacity).map((item, index) => (item.capacity.average > 0) && <SegmentAnalytics index={index} {...item} chartMax={chartMax} />)}
               <p>
                 <strong>Source:</strong> <em><a href="">Environmentally Sustainable Transport - Main Principles and Impacts</a></em>, Manfred Breithaupt, Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)
               </p>

@@ -239,8 +239,9 @@ export class Segment extends React.Component {
     // Get localized names from store, fall back to segment default names if translated
     // text is not found. TODO: port to react-intl/formatMessage later.
     const displayName = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-    const capacity = getSegmentCapacity(segment).capacity.average
-    const showCapacity = enableAnalytics && capacity !== undefined
+
+    const { capacity: { average, display = true } } = getSegmentCapacity(segment)
+    const showCapacity = enableAnalytics && display
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + this.props.segmentPos + 'px)'
@@ -286,7 +287,7 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
-          capacity={capacity}
+          capacity={average}
           showCapacity={showCapacity}
         />
         <SegmentDragHandles width={elementWidth} />

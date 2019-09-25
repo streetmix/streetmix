@@ -20,7 +20,7 @@ function StreetMetaAnalytics (props) {
   const averageTotal = getStreetCapacity(street, locale).averageTotal
 
   // For zero capacity, don't display anything
-  return (averageTotal > 0) && (
+  return (Number.parseInt(averageTotal, 10) > 0) && (
     <span className="street-metadata-author">
       <a href="#" onClick={showAnalyticsDialog}>
         <FormattedMessage

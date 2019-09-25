@@ -48,7 +48,7 @@ const getAnalyticsFromStreet = (street, locale) => {
 }
 
 const NO_CAPACITY = { average: 0, potential: 0 }
-const UNDEFINED_CAPACITY = { average: undefined, potential: undefined }
+const UNDEFINED_CAPACITY = { average: 0, potential: 0, display: false }
 
 const CAPACITIES = {
   sidewalk: { average: 19000, potential: 19000 },
@@ -61,8 +61,12 @@ const CAPACITIES = {
   'magic-carpet': { average: 2, potential: 3 }
 }
 
+const hasCapacityType = (type) => {
+  return type in CAPACITIES
+}
+
 export const getCapacity = (type) => {
-  return CAPACITIES[type] || UNDEFINED_CAPACITY
+  return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
 }
 
 const sumFunc = (total, num) => {
@@ -71,7 +75,7 @@ const sumFunc = (total, num) => {
 }
 
 const addSegmentData = item => {
-  const hasZeroCapacityError = item && item.warnings && (item.warnings[SEGMENT_WARNING_OUTSIDE] || item.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
+  const hasZeroCapacityError = item && hasCapacityType(item.type) && item.warnings && (item.warnings[SEGMENT_WARNING_OUTSIDE] || item.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
 
   return {
     label: `${item.variantString} ${item.type}`,
