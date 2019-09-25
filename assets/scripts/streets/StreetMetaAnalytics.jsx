@@ -17,8 +17,9 @@ export class StreetMetaAnalytics extends React.Component {
     const { updatedAt, street, locale } = this.props
     if (!updatedAt) return null
     const data = getStreetCapacity(street, locale)
-    // TODO handle 0 case
-    return (
+
+    // For zero capacity, don't display anything
+    return (data.averageTotal > 0) && (
       <span className="street-metadata-author">
         <a href="#" onClick={this.props.showAnalyticsDialog}>
           <FormattedMessage
