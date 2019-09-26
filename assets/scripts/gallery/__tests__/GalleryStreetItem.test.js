@@ -2,6 +2,7 @@
 import React from 'react'
 import { cleanup, fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import MOCK_STREET from '../../../../test/fixtures/street.json'
 import GalleryStreetItem from '../GalleryStreetItem'
 
 // Mock dependencies
@@ -12,20 +13,13 @@ jest.mock('../../app/page_url', () => ({
   getStreetUrl: jest.fn()
 }))
 
-const MOCK_STREET_DATA = {
-  name: 'Street Name',
-  data: {},
-  creatorId: 'creatorFoo',
-  updatedAt: '2018-04-27T20:47:03.477Z'
-}
-
 describe('GalleryStreetItem', () => {
   afterEach(cleanup)
 
   it('renders', () => {
     // This uses jsdom + canvas packages under the hood to render canvas element
     const wrapper = renderWithReduxAndIntl(
-      <GalleryStreetItem street={MOCK_STREET_DATA} />
+      <GalleryStreetItem street={MOCK_STREET} />
     )
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
@@ -33,7 +27,7 @@ describe('GalleryStreetItem', () => {
   it('does not display street owner when not provided', () => {
     const wrapper = renderWithReduxAndIntl(
       <GalleryStreetItem
-        street={MOCK_STREET_DATA}
+        street={MOCK_STREET}
         showStreetOwner={false}
       />
     )
@@ -45,12 +39,12 @@ describe('GalleryStreetItem', () => {
     const doSelect = jest.fn()
     const wrapper = renderWithReduxAndIntl(
       <GalleryStreetItem
-        street={MOCK_STREET_DATA}
+        street={MOCK_STREET}
         doSelect={doSelect}
       />
     )
 
-    fireEvent.click(wrapper.getByText('Street Name'))
+    fireEvent.click(wrapper.getByText(MOCK_STREET.name))
     expect(doSelect).toBeCalled()
   })
 
@@ -60,7 +54,7 @@ describe('GalleryStreetItem', () => {
 
     const wrapper = renderWithReduxAndIntl(
       <GalleryStreetItem
-        street={MOCK_STREET_DATA}
+        street={MOCK_STREET}
         doDelete={doDelete}
         allowDelete
       />
@@ -76,7 +70,7 @@ describe('GalleryStreetItem', () => {
 
     const wrapper = renderWithReduxAndIntl(
       <GalleryStreetItem
-        street={MOCK_STREET_DATA}
+        street={MOCK_STREET}
         doDelete={doDelete}
         allowDelete
       />

@@ -18,7 +18,7 @@ exports[`GalleryStreetItem renders 1`] = `
         <div
           class="street-name-text"
         >
-          Street Name
+          Baz
         </div>
       </div>
       <span
@@ -34,7 +34,7 @@ exports[`GalleryStreetItem renders 1`] = `
       <span
         class="gallery-street-item-creator"
       >
-        creatorFoo
+        foo
       </span>
     </a>
   </div>

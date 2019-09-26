@@ -2,51 +2,12 @@
 import React from 'react'
 import { cleanup, fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
 import { hideGallery } from '../view'
 
 jest.mock('../view')
 jest.mock('../../streets/thumbnail')
-
-const mockStreet = {
-  id: '2556be10-df45-11e9-92a0-b5e383de159b',
-  namespacedId: 435,
-  data: {
-    street: {
-      schemaVersion: 19,
-      width: 80,
-      id: '2556be10-df45-11e9-92a0-b5e383de159b',
-      namespacedId: 435,
-      units: 2,
-      location: {
-        latlng: 'Object',
-        wofId: '85632717',
-        label: 'Azerbaijan',
-        hierarchy: 'Object',
-        geometryId: null,
-        intersectionId: null
-      },
-      userUpdated: false,
-      environment: 'day',
-      leftBuildingHeight: 3,
-      rightBuildingHeight: 2,
-      leftBuildingVariant: 'narrow',
-      rightBuildingVariant: 'wide',
-      segments: [
-        'Object',
-        'Object'
-      ],
-      editCount: 33
-    }
-  },
-  createdAt: '2019-09-25T03:32:48.377Z',
-  updatedAt: '2019-09-25T19:29:22.547Z',
-  originalStreetId: '33138040-df29-11e9-8f01-c72511055ed4',
-  creator: {
-    id: 'foo'
-  },
-  creatorId: 'foo'
-}
 
 describe('Gallery', () => {
   afterEach(cleanup)
@@ -58,7 +19,7 @@ describe('Gallery', () => {
         visible: true,
         mode: 'GALLERY',
         streets: [
-          mockStreet
+          MOCK_STREET
         ]
       },
       street: {
@@ -83,7 +44,7 @@ describe('Gallery', () => {
         visible: true,
         mode: 'GALLERY',
         streets: [
-          mockStreet
+          MOCK_STREET
         ]
       },
       street: {
@@ -107,7 +68,7 @@ describe('Gallery', () => {
         visible: true,
         mode: 'GALLERY',
         streets: [
-          mockStreet
+          MOCK_STREET
         ]
       },
       street: {

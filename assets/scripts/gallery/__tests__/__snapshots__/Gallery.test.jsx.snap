@@ -28,7 +28,7 @@ exports[`Gallery renders global gallery view 1`] = `
             >
               <a
                 class=""
-                href="/foo/435"
+                href="/foo/435/baz"
               >
                 <canvas
                   height="220"
@@ -40,18 +40,17 @@ exports[`Gallery renders global gallery view 1`] = `
                   <div
                     class="street-name-text"
                   >
-                    Unnamed St
+                    Baz
                   </div>
                 </div>
                 <span
                   class="gallery-street-item-date"
                 >
-                  Today at 
                   <time
-                    datetime="2019-09-25T19:29:22.547Z"
-                    title="2019-09-25T19:29:22.547Z"
+                    datetime="2018-04-27T20:47:03.477Z"
+                    title="2018-04-27T20:47:03.477Z"
                   >
-                    3:29 PM
+                    April 27, 2018
                   </time>
                 </span>
                 <span
@@ -158,7 +157,7 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
             >
               <a
                 class=""
-                href="/foo/435"
+                href="/foo/435/baz"
               >
                 <canvas
                   height="220"
@@ -170,18 +169,17 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
                   <div
                     class="street-name-text"
                   >
-                    Unnamed St
+                    Baz
                   </div>
                 </div>
                 <span
                   class="gallery-street-item-date"
                 >
-                  Today at 
                   <time
-                    datetime="2019-09-25T19:29:22.547Z"
-                    title="2019-09-25T19:29:22.547Z"
+                    datetime="2018-04-27T20:47:03.477Z"
+                    title="2018-04-27T20:47:03.477Z"
                   >
-                    3:29 PM
+                    April 27, 2018
                   </time>
                 </span>
               </a>
@@ -275,7 +273,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
             >
               <a
                 class=""
-                href="/foo/435"
+                href="/foo/435/baz"
               >
                 <canvas
                   height="220"
@@ -287,18 +285,17 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
                   <div
                     class="street-name-text"
                   >
-                    Unnamed St
+                    Baz
                   </div>
                 </div>
                 <span
                   class="gallery-street-item-date"
                 >
-                  Today at 
                   <time
-                    datetime="2019-09-25T19:29:22.547Z"
-                    title="2019-09-25T19:29:22.547Z"
+                    datetime="2018-04-27T20:47:03.477Z"
+                    title="2018-04-27T20:47:03.477Z"
                   >
-                    3:29 PM
+                    April 27, 2018
                   </time>
                 </span>
                 <button
