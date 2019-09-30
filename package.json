@@ -186,7 +186,7 @@
     "@testing-library/react": "8.0.7",
     "axios-mock-adapter": "1.17.0",
     "babel-eslint": "10.0.2",
-    "babel-jest": "24.8.0",
+    "babel-jest": "24.9.0",
     "cypress": "3.4.1",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
