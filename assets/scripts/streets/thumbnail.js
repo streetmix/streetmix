@@ -1,7 +1,7 @@
 import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
-import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from '../streets/image'
+import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from './image'
 import { getEnvirons, makeCanvasGradientStopArray } from '../streets/environs'
 import {
   BUILDINGS,

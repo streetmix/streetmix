@@ -142,34 +142,15 @@ body.safari .menu {
     display: inline-block;
   }
 
-  &.menu-item-loading::before {
-    @include loading-spinner;
-
-    content: "";
+  .loading-spinner {
     position: absolute;
     left: 16px;
-    top: 9px;
-    width: 13px;
-    height: 13px;
-    padding-right: 3px;
-    text-align: right;
-    color: #1c99ce;
-    font-size: 125%;
+    top: 8px;
 
     [dir="rtl"] & {
       left: auto;
       right: 16px;
-      padding-right: initial;
-      padding-left: 3px;
-      text-align: left;
     }
-
-    // Overrides loading-spinner
-    border-width: 2px;
-    border-top-color: #1c99ce;
-    border-left-color: rgba(223, 223, 223, 0.75);
-    border-right-color: rgba(223, 223, 223, 0.75);
-    border-bottom-color: rgba(223, 223, 223, 0.75);
   }
 }
 

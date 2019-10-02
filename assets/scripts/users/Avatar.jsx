@@ -48,7 +48,7 @@ function mapStateToProps (state, ownProps) {
   const cache = state.user.profileCache
 
   return {
-    image: (cache[userId] && cache[userId].profileImageUrl) || null
+    image: (cache && cache[userId] && cache[userId].profileImageUrl) || null
   }
 }
 

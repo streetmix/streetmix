@@ -1,0 +1,35 @@
+{
+  "id": "2556be10-df45-11e9-92a0-b5e383de159b",
+  "namespacedId": 435,
+  "name": "Baz",
+  "data": {
+    "street": {
+      "schemaVersion": 19,
+      "width": 80,
+      "id": "2556be10-df45-11e9-92a0-b5e383de159b",
+      "namespacedId": 435,
+      "units": 2,
+      "location": {
+        "latlng": "Object",
+        "wofId": "85632717",
+        "label": "Azerbaijan",
+        "hierarchy": "Object",
+        "geometryId": null,
+        "intersectionId": null
+      },
+      "userUpdated": false,
+      "environment": "day",
+      "leftBuildingHeight": 3,
+      "rightBuildingHeight": 2,
+      "leftBuildingVariant": "narrow",
+      "rightBuildingVariant": "wide",
+      "segments": ["Object", "Object"],
+      "editCount": 33
+    }
+  },
+  "createdAt": "2018-04-27T03:32:48.377Z",
+  "updatedAt": "2018-04-27T20:47:03.477Z",
+  "originalStreetId": "33138040-df29-11e9-8f01-c72511055ed4",
+  "creator": { "id": "foo" },
+  "creatorId": "foo"
+}

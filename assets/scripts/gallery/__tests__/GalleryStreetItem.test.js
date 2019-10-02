@@ -1,51 +1,82 @@
 /* eslint-env jest */
 import React from 'react'
-import { mountWithIntl as mount } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { GalleryStreetItemWithIntl as GalleryStreetItem } from '../GalleryStreetItem'
+import { cleanup, fireEvent } from '@testing-library/react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import MOCK_STREET from '../../../../test/fixtures/street.json'
+import GalleryStreetItem from '../GalleryStreetItem'
 
 // Mock dependencies
-jest.mock('../thumbnail', () => {
-  return {
-    drawStreetThumbnail: jest.fn()
-  }
-})
-jest.mock('../../app/page_url', () => {
-  return {
-    getStreetUrl: jest.fn()
-  }
-})
-
-const MOCK_STREET_DATA = {
-  data: {},
-  creatorId: 'foo',
-  updatedAt: '2018-04-27T20:47:03.477Z'
-}
+jest.mock('../../streets/thumbnail', () => ({
+  drawStreetThumbnail: jest.fn()
+}))
+jest.mock('../../app/page_url', () => ({
+  getStreetUrl: jest.fn()
+}))
 
 describe('GalleryStreetItem', () => {
-  it('renders without crashing', () => {
-    // Mounting is required to test that a canvas element will be rendered correctly
-    // This also uses jsdom + canvas packages under the hood
-    const wrapper = mount(<GalleryStreetItem street={MOCK_STREET_DATA} />)
+  afterEach(cleanup)
 
-    expect(wrapper.exists()).toEqual(true)
+  it('renders', () => {
+    // This uses jsdom + canvas packages under the hood to render canvas element
+    const wrapper = renderWithReduxAndIntl(
+      <GalleryStreetItem street={MOCK_STREET} />
+    )
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('displays street owner', () => {
-    const wrapper = mount(<GalleryStreetItem street={MOCK_STREET_DATA} />)
-
-    expect(wrapper.find('.gallery-street-item-creator').text()).toEqual('foo')
-  })
-
-  it('does not display street owner when specified', () => {
-    const wrapper = mount(
+  it('does not display street owner when not provided', () => {
+    const wrapper = renderWithReduxAndIntl(
       <GalleryStreetItem
-        street={MOCK_STREET_DATA}
+        street={MOCK_STREET}
         showStreetOwner={false}
-      />)
+      />
+    )
 
-    expect(wrapper.find('.gallery-street-item-creator').length).toEqual(0)
+    expect(wrapper.queryByText('creatorFoo')).not.toBeInTheDocument()
   })
 
-  it.todo('handles select')
-  it.todo('handles delete')
+  it('handles select', () => {
+    const doSelect = jest.fn()
+    const wrapper = renderWithReduxAndIntl(
+      <GalleryStreetItem
+        street={MOCK_STREET}
+        doSelect={doSelect}
+      />
+    )
+
+    fireEvent.click(wrapper.getByText(MOCK_STREET.name))
+    expect(doSelect).toBeCalled()
+  })
+
+  it('handles delete when confirmed', () => {
+    const doDelete = jest.fn()
+    window.confirm = jest.fn(() => true)
+
+    const wrapper = renderWithReduxAndIntl(
+      <GalleryStreetItem
+        street={MOCK_STREET}
+        doDelete={doDelete}
+        allowDelete
+      />
+    )
+
+    fireEvent.click(wrapper.getByTitle('Delete street'))
+    expect(doDelete).toBeCalled()
+  })
+
+  it('does not delete when confirmation is cancelled', () => {
+    const doDelete = jest.fn()
+    window.confirm = jest.fn(() => false)
+
+    const wrapper = renderWithReduxAndIntl(
+      <GalleryStreetItem
+        street={MOCK_STREET}
+        doDelete={doDelete}
+        allowDelete
+      />
+    )
+
+    fireEvent.click(wrapper.getByTitle('Delete street'))
+    expect(doDelete).not.toBeCalled()
+  })
 })

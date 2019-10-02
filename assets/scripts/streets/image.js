@@ -1,7 +1,7 @@
 import { API_URL } from '../app/config'
 import { trimStreetData } from './data_model'
 import { getAuthHeader } from '../users/authentication'
-import { drawStreetThumbnail } from '../gallery/thumbnail'
+import { drawStreetThumbnail } from './thumbnail'
 import { BUILDING_SPACE, getBuildingImageHeight } from '../segments/buildings'
 import { TILE_SIZE } from '../segments/constants'
 import store, { observeStore } from '../store'

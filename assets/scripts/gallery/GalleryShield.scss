@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+
+.gallery-shield {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  z-index: $z-08-gallery-shield;
+}

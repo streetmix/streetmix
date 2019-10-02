@@ -2,6 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
 import { goEmailSignIn, goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
+import LoadingSpinner from '../ui/LoadingSpinner'
 import Icon from '../ui/Icon'
 import './SignInDialog.scss'
 
@@ -120,8 +121,8 @@ export default class SignInDialog extends React.Component {
                 <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in…" />
               </h1>
             </header>
-            <div className="dialog-content">
-              <div className="loading-spinner" />
+            <div className="dialog-content sign-in-loading" aria-live="polite" aria-busy="true">
+              <LoadingSpinner />
             </div>
           </div>
         )}

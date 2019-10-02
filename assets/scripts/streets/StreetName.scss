@@ -46,7 +46,7 @@ body.windows .street-name-text {
   overflow: hidden;
 }
 
-#gallery .streets .street-name {
+.gallery .streets .street-name {
   @include street-name-mixin($street-name-gallery-size);
 
   max-width: 100%;

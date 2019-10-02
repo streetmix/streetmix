@@ -17,7 +17,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   transform: translateY(-20px);
 }
 
-#gallery {
+.gallery-panel {
   position: absolute;
   left: $left-right-inset;
   right: $left-right-inset;
@@ -40,20 +40,11 @@ body:not(.safari).gallery-visible .street-section-sky {
 
   // Applied by the wrapping element created by Scrollable.jsx component
   .streets-scrollable-container {
-    position: absolute;
-    left: 120px;
-    right: 0;
+    position: relative;
     top: 1px;
     height: $gallery-height;
-
-    [dir="rtl"] & {
-      right: 120px;
-      left: 0;
-    }
-  }
-
-  .gallery-streets-container-full .streets-scrollable-container {
-    left: 0;
+    min-width: 0; // Allows content to overflow flex element
+    flex-grow: 1;
   }
 
   button.scrollable {
@@ -88,6 +79,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   bottom: 0;
   text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: $z-03-gallery-message;
@@ -129,6 +121,8 @@ body:not(.safari).gallery-visible .street-section-sky {
   left: 20px;
   right: 20px;
   top: 50px;
+  display: flex;
+  flex-direction: row;
 }
 
 .gallery-try-again {
@@ -181,11 +175,7 @@ body:not(.safari).gallery-visible .street-section-sky {
     }
   }
 
-  &.virgin:not(.selected) {
-    opacity: 0.33;
-  }
-
-  &.selected {
+  &.gallery-selected {
     background: darken($ui-colour, 10%);
     border-top-color: black;
     border-bottom-color: black;
@@ -230,10 +220,12 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-user-buttons {
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
   width: 100px;
   height: 112px;
   margin-top: 6px;
+  margin-right: 20px;
 
   a.button-like {
     padding-left: 0.5em;
@@ -256,32 +248,17 @@ a.gallery-copy-last-street {
 }
 
 body:not(.gallery-no-move-transition) .main-screen,
-body:not(.gallery-no-move-transition) #gallery,
+body:not(.gallery-no-move-transition) .gallery-panel,
 body:not(.gallery-no-move-transition) .street-name-canvas,
 body:not(.gallery-no-move-transition) .street-section-sky {
   transition: transform 800ms;
 }
 
-body.safari #gallery {
+body.safari .gallery-panel {
   transform: translateY(-$gallery-height - 3px);
 }
 
-.gallery-shield {
-  position: absolute;
-  display: none;
-  left: 0;
-  top: -90px;
-  width: 100vw;
-  height: 100vh;
-  cursor: pointer;
-  z-index: $z-08-gallery-shield;
-}
-
-body.gallery-visible #gallery {
+body.gallery-visible .gallery-panel {
   transform: translateY(0);
   pointer-events: auto;
-}
-
-body.gallery-visible .gallery-shield {
-  display: block;
 }
