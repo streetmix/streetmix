@@ -11,9 +11,7 @@ import './EmptySegment.scss'
  * component pattern. Its "container" (parent) component, <EmptySegmentContainer />,
  * determines and passes the `width` and `left` props to this component.
  */
-export function EmptySegment (props) {
-  const { width, left, units, locale } = props
-
+export function EmptySegment ({ width = 0, left = 0, units, locale }) {
   // Do not render if width is a negative number
   if (width <= 0) return null
 
@@ -42,11 +40,6 @@ EmptySegment.propTypes = {
   left: PropTypes.number,
   units: PropTypes.number,
   locale: PropTypes.string
-}
-
-EmptySegment.defaultProps = {
-  width: 0,
-  left: 0
 }
 
 function mapStateToProps (state) {

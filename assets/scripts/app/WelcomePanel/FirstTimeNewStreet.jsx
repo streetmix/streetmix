@@ -7,11 +7,7 @@ FirstTimeNewStreet.propTypes = {
   touch: PropTypes.bool
 }
 
-FirstTimeNewStreet.defaultProps = {
-  touch: false
-}
-
-function FirstTimeNewStreet (props) {
+function FirstTimeNewStreet ({ touch = false }) {
   return (
     <div className="welcome-panel-content first-time-new-street">
       <h1>
@@ -33,7 +29,7 @@ function FirstTimeNewStreet (props) {
           id="dialogs.welcome.new.instruct"
           defaultMessage="Start by moving some segments around with {pointer}."
           values={{
-            pointer: (props.touch)
+            pointer: (touch)
               ? (
                 <FormattedMessage
                   id="dialogs.welcome.new.instruct-pointer-finger"

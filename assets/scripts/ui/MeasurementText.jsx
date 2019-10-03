@@ -4,7 +4,7 @@ import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constan
 import { prettifyWidth } from '../util/width_units'
 
 const MeasurementText = React.memo((props) => {
-  const { value, units, locale } = props
+  const { value, units = SETTINGS_UNITS_METRIC, locale } = props
 
   return (
     <span>
@@ -17,10 +17,6 @@ MeasurementText.propTypes = {
   value: PropTypes.number,
   units: PropTypes.oneOf([SETTINGS_UNITS_METRIC, SETTINGS_UNITS_IMPERIAL]),
   locale: PropTypes.string
-}
-
-MeasurementText.defaultProps = {
-  units: SETTINGS_UNITS_METRIC
 }
 
 export default MeasurementText

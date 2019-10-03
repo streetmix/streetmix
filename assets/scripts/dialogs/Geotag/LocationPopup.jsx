@@ -7,7 +7,14 @@ const POPUP_MAX_WIDTH = 300
 const POPUP_OFFSET = [0, -30]
 
 const LocationPopup = (props) => {
-  const { label, position, isEditable, isClearable, handleClear, handleConfirm } = props
+  const {
+    label,
+    position,
+    isEditable = false,
+    isClearable = false,
+    handleClear,
+    handleConfirm
+  } = props
 
   if (!position) return null
 
@@ -57,11 +64,6 @@ LocationPopup.propTypes = {
   isClearable: PropTypes.bool,
   handleConfirm: PropTypes.func,
   handleClear: PropTypes.func
-}
-
-LocationPopup.defaultProps = {
-  isEditable: false,
-  isClearable: false
 }
 
 export default LocationPopup

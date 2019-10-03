@@ -3,7 +3,6 @@
 exports[`SkyBackgroundObjects renders 1`] = `
 <SkyBackgroundObjects
   environment="foo"
-  objects={Array []}
 >
   <mockConstructor
     className="sky-background-objects"

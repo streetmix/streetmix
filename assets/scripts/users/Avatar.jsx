@@ -7,7 +7,11 @@ import { rememberUserProfile } from '../store/actions/user'
 import './Avatar.scss'
 
 function Avatar (props) {
-  const { userId, image, rememberUserProfile } = props
+  const {
+    userId,
+    image,
+    rememberUserProfile = () => {}
+  } = props
 
   useEffect(() => {
     async function fetchData () {
@@ -36,10 +40,6 @@ Avatar.propTypes = {
   userId: PropTypes.string.isRequired,
   image: PropTypes.string,
   rememberUserProfile: PropTypes.func
-}
-
-Avatar.defaultProps = {
-  rememberUserProfile: () => {}
 }
 
 // Retrieves cached profile image data, if available

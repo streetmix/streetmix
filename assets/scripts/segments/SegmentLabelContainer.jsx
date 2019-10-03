@@ -7,10 +7,19 @@ import { formatCapacity } from '../util/street_analytics'
 import './SegmentLabelContainer.scss'
 
 const SegmentLabelContainer = (props) => {
+  const {
+    label,
+    showCapacity = false,
+    capacity,
+    width,
+    units = SETTINGS_UNITS_METRIC,
+    locale
+  } = props
+
   const gridClassNames = ['segment-grid']
 
   // Add class names for measurement grid marks
-  if (props.units === SETTINGS_UNITS_METRIC) {
+  if (units === SETTINGS_UNITS_METRIC) {
     gridClassNames.push('units-metric')
   } else {
     gridClassNames.push('units-imperial')
@@ -19,21 +28,21 @@ const SegmentLabelContainer = (props) => {
   return (
     <div className="segment-label-container">
       <span className="segment-label">
-        {props.label}
+        {label}
       </span>
       <span className="segment-width">
         <MeasurementText
-          value={props.width}
-          units={props.units}
-          locale={props.locale}
+          value={width}
+          units={units}
+          locale={locale}
         />
       </span>
-      {props.showCapacity && <span className="segment-capacity">
+      {showCapacity && <span className="segment-capacity">
         <FormattedMessage
           id="capacity.ppl-per-hr"
           defaultMessage="{capacity} people/hr"
           values={{
-            capacity: formatCapacity(props.capacity, props.locale)
+            capacity: formatCapacity(capacity, locale)
           }} />
       </span>}
       <span className={gridClassNames.join(' ')} />
@@ -52,11 +61,6 @@ SegmentLabelContainer.propTypes = {
   width: PropTypes.number.isRequired,
   units: PropTypes.number,
   locale: PropTypes.string.isRequired
-}
-
-SegmentLabelContainer.defaultProps = {
-  units: SETTINGS_UNITS_METRIC,
-  showCapacity: false
 }
 
 export default SegmentLabelContainer

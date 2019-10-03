@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Triangle.scss'
 
-export default function Triangle (props) {
+export default function Triangle ({ highlight = false }) {
   const triangleClassNames = ['info-bubble-triangle']
 
-  if (props.highlight === true) {
+  if (highlight === true) {
     triangleClassNames.push('info-bubble-triangle-highlight')
   }
 
@@ -16,8 +16,4 @@ export default function Triangle (props) {
 
 Triangle.prototype.propTypes = {
   highlight: PropTypes.bool
-}
-
-Triangle.prototype.defaultProps = {
-  highlight: false
 }

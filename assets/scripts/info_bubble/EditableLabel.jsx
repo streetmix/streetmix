@@ -8,7 +8,7 @@ import { ICON_PENCIL, ICON_LOCK } from '../ui/icons'
 import './EditableLabel.scss'
 
 const EditableLabel = (props) => {
-  const { label, segment, position, customLabelEnabled } = props
+  const { label, segment, position, customLabelEnabled = false } = props
 
   const handleMouseEnterLabel = (event) => {
     trackEvent('Interaction', 'InoBubble: Hover over editable label', null, null, true)
@@ -56,10 +56,6 @@ EditableLabel.propTypes = {
 
   // Provided by Redux mapStateToProps
   customLabelEnabled: PropTypes.bool
-}
-
-EditableLabel.defaultProps = {
-  customLabelEnabled: false
 }
 
 function mapStateToProps (state) {
