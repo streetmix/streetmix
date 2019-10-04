@@ -52,7 +52,7 @@ The goal is to promote two-way communication between planners and the public, as
 
 Streetmix can be used as a tool to promote and engage citizens around streetscape and placemaking issues, such as [Complete Streets][completestreets] or the Project for Public Spaces' [Rightsizing Streets Guide][rightsizing].
 
-[completestreets]: http://www.smartgrowthamerica.org/complete-streets/complete-streets-fundamentals
+[completestreets]: https://smartgrowthamerica.org/program/national-complete-streets-coalition/
 [rightsizing]: http://www.pps.org/reference/rightsizing/
 
 #### Why the name "Streetmix"?
