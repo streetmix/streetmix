@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import './PaletteTrashcan.scss'
 
-export const PaletteTrashcan = (props) => {
-  const { visible } = props
+export const PaletteTrashcan = ({ visible = false }) => {
   const classNames = ['palette-trashcan']
 
   if (visible) {
@@ -21,10 +20,6 @@ export const PaletteTrashcan = (props) => {
 
 PaletteTrashcan.propTypes = {
   visible: PropTypes.bool
-}
-
-PaletteTrashcan.defaultProps = {
-  visible: false
 }
 
 function mapStateToProps (state) {

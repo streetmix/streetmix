@@ -5,7 +5,7 @@ import { registerKeypress, deregisterKeypress } from './keypress'
 import './ScrollIndicators.scss'
 
 const ScrollIndicators = (props) => {
-  const { scrollTop, scrollStreet, scrollIndicatorsLeft, scrollIndicatorsRight } = props
+  const { scrollTop, scrollStreet, scrollIndicatorsLeft = 0, scrollIndicatorsRight = 0 } = props
 
   const doLeftScroll = (event) => {
     scrollStreet(true, event.shiftKey)
@@ -71,11 +71,6 @@ ScrollIndicators.propTypes = {
   scrollIndicatorsRight: PropTypes.number,
   scrollStreet: PropTypes.func.isRequired,
   scrollTop: PropTypes.number.isRequired
-}
-
-ScrollIndicators.defaultProps = {
-  scrollIndicatorsLeft: 0,
-  scrollIndicatorsRight: 0
 }
 
 export default React.memo(ScrollIndicators)

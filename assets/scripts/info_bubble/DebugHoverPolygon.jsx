@@ -31,7 +31,7 @@ const drawPolygon = (canvas, polygon) => {
   ctx.stroke()
 }
 
-export const DebugHoverPolygon = (props) => {
+export const DebugHoverPolygon = ({ enabled = false, hoverPolygon = [] }) => {
   // When the window / viewport resizes, set the width and
   // height of the canvas element.
   const el = useRef(null)
@@ -50,13 +50,13 @@ export const DebugHoverPolygon = (props) => {
 
   // Draw the polygon area.
   useEffect(() => {
-    if (props.enabled) {
-      drawPolygon(el.current, props.hoverPolygon)
+    if (enabled) {
+      drawPolygon(el.current, hoverPolygon)
     }
-  }, [props.hoverPolygon, props.enabled])
+  }, [hoverPolygon, enabled])
 
   // Render component if enabled.
-  if (props.enabled) {
+  if (enabled) {
     return (
       <div className="debug-hover-polygon">
         <canvas
@@ -75,11 +75,6 @@ export const DebugHoverPolygon = (props) => {
 DebugHoverPolygon.propTypes = {
   enabled: PropTypes.bool,
   hoverPolygon: PropTypes.array
-}
-
-DebugHoverPolygon.defaultProps = {
-  enabled: false,
-  hoverPolygon: []
 }
 
 function mapStateToProps (state) {

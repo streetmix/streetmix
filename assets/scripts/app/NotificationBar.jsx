@@ -13,8 +13,16 @@ const TRANSITION_BASE_STYLE = {
 // const LSKEY_NOTIFICATION_TOS = 'notification-tos-dismissed'
 const LSKEY_NOTIFICATION_STORE = 'notification-store-dismissed'
 
-const NotificationBar = (props) => {
-  let shouldDisplay = props.notification.display
+const NotificationBar = ({ notification = {} }) => {
+  const {
+    display = false,
+    lede,
+    text,
+    link,
+    linkText
+  } = notification
+
+  let shouldDisplay = display
 
   // If dismissed, don't display again.
   if (window.localStorage[LSKEY_NOTIFICATION_STORE]) {
@@ -39,8 +47,6 @@ const NotificationBar = (props) => {
       // Cannot modify localstorage.
     }
   }
-
-  const { display, lede, text, link, linkText } = props.notification
 
   // If no one turns this on explicitly, don't display anything
   if (!display || (!lede && !text && !link)) return null
@@ -81,12 +87,6 @@ NotificationBar.propTypes = {
     link: PropTypes.string,
     linkText: PropTypes.string
   })
-}
-
-NotificationBar.defaultProps = {
-  notification: {
-    display: false
-  }
 }
 
 export default NotificationBar

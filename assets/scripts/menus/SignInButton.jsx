@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 
-function SignInButton (props) {
+function SignInButton ({ onClick = () => {} }) {
   return (
     <button
       className="menu-sign-in"
-      onClick={props.onClick}
+      onClick={onClick}
     >
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
     </button>
@@ -15,10 +15,6 @@ function SignInButton (props) {
 
 SignInButton.propTypes = {
   onClick: PropTypes.func
-}
-
-SignInButton.defaultProps = {
-  onClick: () => {}
 }
 
 export default SignInButton

@@ -3,7 +3,15 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 
 export default function MenuBarItem (props) {
-  const { translation, label, url, onClick, dispatch, ...restProps } = props
+  const {
+    translation = '',
+    label = '',
+    url,
+    onClick = () => {},
+    dispatch,
+    ...restProps
+  } = props
+
   const children = props.children || <FormattedMessage id={translation} defaultMessage={label} />
 
   if (url) {
@@ -42,10 +50,4 @@ MenuBarItem.propTypes = {
 
   // Event handlers
   onClick: PropTypes.func
-}
-
-MenuBarItem.defaultProps = {
-  onClick: () => {},
-  translation: '',
-  label: ''
 }

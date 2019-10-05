@@ -6,7 +6,7 @@ import { ICON_TIMES } from '../ui/icons'
 import './CloseButton.scss'
 
 const CloseButton = (props) => {
-  const { title, className, onClick, ...restProps } = props
+  const { title, className = 'close', onClick, ...restProps } = props
   const defaultTitle = useIntl().formatMessage({
     id: 'btn.dismiss',
     defaultMessage: 'Dismiss'
@@ -28,10 +28,6 @@ CloseButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   title: PropTypes.string,
   className: PropTypes.string
-}
-
-CloseButton.defaultProps = {
-  className: 'close'
 }
 
 export default React.memo(CloseButton)

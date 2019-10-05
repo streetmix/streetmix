@@ -35,28 +35,30 @@ Checkbox.propTypes = {
   id: PropTypes.string
 }
 
-Checkbox.defaultProps = {
-  checked: false,
-  disabled: false,
-  onChange: () => {}
-}
-
 function Checkbox (props) {
-  // An `id` is required to associate a `label` with an `input` element.
-  // You can provide one manually in props, otherwise, this component
-  // will generate a unique ID on each render.
-  const id = props.id || `checkbox-id-${idCounter++}`
+  const {
+    children,
+    checked = false,
+    disabled = false,
+    value,
+    onChange = () => {},
+
+    // An `id` is required to associate a `label` with an `input` element.
+    // You can provide one manually in props, otherwise, this component
+    // will generate a unique ID on each render.
+    id = `checkbox-id-${idCounter++}`
+  } = props
 
   // This is a controlled component. The `useState` hook maintains
   // this component's internal state, and sets the initial state
   // based on the `checked` prop (which is `false` by default).
-  const [isChecked, setChecked] = useState(props.checked)
+  const [isChecked, setChecked] = useState(checked)
 
   // When the value is changed, we update the state, and we also call
   // any `onChange` handler that is provided by the parent via props.
   const handleChange = (event) => {
     setChecked(!isChecked)
-    props.onChange(event)
+    onChange(event)
   }
 
   return (
@@ -65,12 +67,12 @@ function Checkbox (props) {
         type="checkbox"
         id={id}
         checked={isChecked}
-        value={props.value}
-        disabled={props.disabled}
+        value={value}
+        disabled={disabled}
         onChange={handleChange}
       />
       <label htmlFor={id}>
-        {props.children}
+        {children}
       </label>
       {/* The visual state of this checkbox is affected by the value of the input, via CSS. */}
       <FontAwesomeIcon icon={ICON_CHECK} />

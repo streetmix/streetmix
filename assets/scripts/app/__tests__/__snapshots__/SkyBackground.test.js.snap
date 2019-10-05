@@ -31,9 +31,7 @@ exports[`SkyBackground renders 1`] = `
       }
     />
   </div>
-  <SkyBackgroundObjects
-    objects={Array []}
-  />
+  <SkyBackgroundObjects />
   <div
     className="rear-clouds"
     style={

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './SkyBackgroundObjects.scss'
 
-export function SkyBackgroundObjects (props) {
+export function SkyBackgroundObjects ({ objects = [] }) {
   return (
     <TransitionGroup className="sky-background-objects">
-      {props.objects.map((object) => (
+      {objects.map((object) => (
         <CSSTransition
           key={object.image}
           timeout={{
@@ -40,10 +40,6 @@ SkyBackgroundObjects.propTypes = {
     top: PropTypes.number,
     left: PropTypes.number
   }))
-}
-
-SkyBackgroundObjects.defaultProps = {
-  objects: []
 }
 
 export default SkyBackgroundObjects

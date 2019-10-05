@@ -17,15 +17,11 @@ NewStreet.propTypes = {
   getLastStreet: PropTypes.func
 }
 
-NewStreet.defaultProps = {
-  priorLastStreetId: null
-}
-
-function NewStreet (props) {
+function NewStreet ({ newStreetPreference, priorLastStreetId = null, street, getLastStreet }) {
   // If welcomeType is WELCOME_NEW_STREET, there is an additional state
   // property that determines which of the new street modes is selected
   let selectedNewStreetType
-  switch (props.newStreetPreference) {
+  switch (newStreetPreference) {
     case NEW_STREET_EMPTY:
       selectedNewStreetType = 'new-street-empty'
       break
@@ -87,7 +83,7 @@ function NewStreet (props) {
         </li>
         {/* Display this button only if there is a previous street to copy
             from that is not the same as the current street */}
-        {(props.priorLastStreetId && props.priorLastStreetId !== props.street.id) && (
+        {(priorLastStreetId && priorLastStreetId !== street.id) && (
           <li>
             <input
               type="radio"
@@ -95,7 +91,7 @@ function NewStreet (props) {
               id="new-street-last"
               checked={state.selectedNewStreetType === 'new-street-last'}
               onChange={onChangeNewStreetType}
-              onClick={props.getLastStreet}
+              onClick={getLastStreet}
             />
             <label htmlFor="new-street-last">
               <FormattedMessage
