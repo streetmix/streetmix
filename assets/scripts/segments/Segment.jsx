@@ -57,8 +57,8 @@ export class Segment extends React.Component {
     activeSegment: PropTypes.number,
     setActiveSegment: PropTypes.func,
     incrementSegmentWidth: PropTypes.func,
-    removeSegment: PropTypes.func,
-    clearSegments: PropTypes.func,
+    removeSegmentAction: PropTypes.func,
+    clearSegmentsAction: PropTypes.func,
     showStatusMessage: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
@@ -174,7 +174,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   decrementSegmentWidth (position, finetune) {
-    this.props.incrementSegmentWidth(position, false, finetune, RESIZE_TYPE_INCREMENT)
+    this.props.incrementSegmentWidth(position, false, finetune, this.props.actualWidth, RESIZE_TYPE_INCREMENT)
   }
 
   /**
@@ -184,7 +184,7 @@ export class Segment extends React.Component {
    * @param {Boolean} finetune - true if shift key is pressed
    */
   incrementSegmentWidth (position, finetune) {
-    this.props.incrementSegmentWidth(position, true, finetune, RESIZE_TYPE_INCREMENT)
+    this.props.incrementSegmentWidth(position, true, finetune, this.props.actualWidth, RESIZE_TYPE_INCREMENT)
   }
 
   handleKeyDown = (event) => {
@@ -214,15 +214,15 @@ export class Segment extends React.Component {
 
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey === true) {
-          this.props.clearSegments()
+          this.props.clearSegmentsAction()
           infoBubble.hide()
-          this.props.showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'))
+          this.props.showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'), true)
           trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'KEYBOARD', null, true)
         } else {
           infoBubble.hide()
           infoBubble.hideSegment()
-          this.props.showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'))
-          this.props.removeSegment(this.props.dataNo, false)
+          this.props.showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'), true)
+          this.props.removeSegmentAction(this.props.dataNo, false)
           trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
         }
         break
@@ -325,14 +325,12 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch, ownProps) {
-  return {
-    setActiveSegment: (position) => { dispatch(setActiveSegment(position)) },
-    removeSegment: (position) => { dispatch(removeSegmentAction(position)) },
-    clearSegments: () => { dispatch(clearSegmentsAction()) },
-    incrementSegmentWidth: (dataNo, add, precise, resizeType) => dispatch(incrementSegmentWidth(dataNo, add, precise, ownProps.actualWidth, resizeType)),
-    showStatusMessage: (message) => { dispatch(showStatusMessage(message, true)) }
-  }
+const mapDispatchToProps = {
+  clearSegmentsAction,
+  incrementSegmentWidth,
+  removeSegmentAction,
+  setActiveSegment,
+  showStatusMessage
 }
 
 export default flow(

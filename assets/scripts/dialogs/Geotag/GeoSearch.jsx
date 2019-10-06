@@ -132,6 +132,8 @@ function mapStateToProps (state) {
   }
 }
 
-const mapDispatchToProps = { setMapState }
+const mapDispatchToProps = {
+  setMapState
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(GeoSearchWithIntl)

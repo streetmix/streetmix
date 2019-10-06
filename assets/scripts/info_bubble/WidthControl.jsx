@@ -37,7 +37,7 @@ class WidthControl extends React.Component {
   handleIncrement = (event) => {
     const precise = event.shiftKey
 
-    this.props.incrementSegmentWidth(true, precise, this.props.value)
+    this.props.incrementSegmentWidth(this.props.position, true, precise, this.props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
@@ -45,7 +45,7 @@ class WidthControl extends React.Component {
   handleDecrement = (event) => {
     const precise = event.shiftKey
 
-    this.props.incrementSegmentWidth(false, precise, this.props.value)
+    this.props.incrementSegmentWidth(this.props.position, false, precise, this.props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
@@ -130,10 +130,9 @@ function mapStateToProps (state, ownProps) {
     locale: state.locale.locale
   }
 }
-function mapDispatchToProps (dispatch, ownProps) {
-  return {
-    incrementSegmentWidth: (add, precise, value) => dispatch(incrementSegmentWidth(ownProps.position, add, precise, value))
-  }
+
+const mapDispatchToProps = {
+  incrementSegmentWidth
 }
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WidthControl))

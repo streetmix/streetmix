@@ -17,17 +17,16 @@ import './HelpMenu.scss'
 
 export class HelpMenu extends Component {
   static propTypes = {
-    showAboutDialog: PropTypes.func,
-    showWhatsNewDialog: PropTypes.func
+    showDialog: PropTypes.func
   }
 
   componentDidMount () {
     // Set up keyboard shortcuts
-    registerKeypress('?', { shiftKey: 'optional' }, this.props.showAboutDialog)
+    registerKeypress('?', { shiftKey: 'optional' }, () => this.props.showDialog('ABOUT'))
   }
 
   componentWillUnmount () {
-    deregisterKeypress('?', this.props.showAboutDialog)
+    deregisterKeypress('?', () => this.props.showDialog('ABOUT'))
   }
 
   onShow () {
@@ -43,10 +42,10 @@ export class HelpMenu extends Component {
 
     return (
       <Menu onShow={this.onShow} {...this.props}>
-        <a href="#" onClick={this.props.showAboutDialog}>
+        <a href="#" onClick={() => this.props.showDialog('ABOUT')}>
           <FormattedMessage id="menu.item.about" defaultMessage="About Streetmix…" />
         </a>
-        <a href="#" onClick={this.props.showWhatsNewDialog}>
+        <a href="#" onClick={() => this.props.showDialog('WHATS_NEW')}>
           <FormattedMessage id="dialogs.whatsnew.heading" defaultMessage="What’s new in Streetmix? [en]&lrm;" />
         </a>
         <div className="help-menu-shortcuts non-touch-only">
@@ -128,11 +127,8 @@ export class HelpMenu extends Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showAboutDialog: () => { dispatch(showDialog('ABOUT')) },
-    showWhatsNewDialog: () => { dispatch(showDialog('WHATS_NEW')) }
-  }
+const mapDispatchToProps = {
+  showDialog
 }
 
 export default connect(null, mapDispatchToProps)(HelpMenu)

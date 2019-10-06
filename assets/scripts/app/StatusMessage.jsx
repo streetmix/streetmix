@@ -123,6 +123,9 @@ function mapStateToProps (state) {
   }
 }
 
-const mapDispatchToProps = { hideStatusMessage, doUndo }
+const mapDispatchToProps = {
+  doUndo,
+  hideStatusMessage
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusMessage)

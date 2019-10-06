@@ -9,11 +9,11 @@ StreetMetaAnalytics.propTypes = {
   locale: PropTypes.string,
   updatedAt: PropTypes.string,
   street: PropTypes.shape({}),
-  showAnalyticsDialog: PropTypes.func
+  showDialog: PropTypes.func
 }
 
 function StreetMetaAnalytics (props) {
-  const { locale, updatedAt, street, showAnalyticsDialog } = props
+  const { locale, updatedAt, street, showDialog } = props
 
   if (!updatedAt) return null
 
@@ -22,7 +22,7 @@ function StreetMetaAnalytics (props) {
   // For zero capacity, don't display anything
   return (Number.parseInt(averageTotal, 10) > 0) && (
     <span className="street-metadata-author">
-      <a href="#" onClick={showAnalyticsDialog}>
+      <a href="#" onClick={() => showDialog('ANALYTICS')}>
         <FormattedMessage
           id="capacity.ppl-per-hr"
           defaultMessage="{capacity} people/hr"
@@ -36,11 +36,11 @@ const mapStateToProps = (state) => ({
   updatedAt: state.street.updatedAt,
   street: state.street,
   locale: state.locale.locale,
-  showAnalyticsDialog: PropTypes.func
+  showDialog: PropTypes.func
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  showAnalyticsDialog: () => { dispatch(showDialog('ANALYTICS')) }
-})
+const mapDispatchToProps = {
+  showDialog
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(StreetMetaAnalytics)

@@ -134,6 +134,8 @@ function mapStateToProps (state) {
   }
 }
 
-const mapDispatchToProps = { saveStreetName }
+const mapDispatchToProps = {
+  saveStreetName
+}
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas))
