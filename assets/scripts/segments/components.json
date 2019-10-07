@@ -673,16 +673,12 @@
         "direction": {
           "inbound": {
             "graphics": {
-              "center": [
-                "scooters--scooter-inbound"
-              ]
+              "center": ["scooters--scooter-inbound"]
             }
           },
           "outbound": {
             "graphics": {
-              "center": [
-                "scooters--scooter-outbound"
-              ]
+              "center": ["scooters--scooter-outbound"]
             }
           }
         },
@@ -972,7 +968,7 @@
         "type": {
           "default": {
             "graphics": {
-              "center": "/images/av-inbound.svg"
+              "center": "vehicles--av-inbound"
             }
           }
         }
@@ -1087,7 +1083,7 @@
           "aladdin": {
             "graphics": {
               "center": {
-                "id": "/images/magic-carpet-aladdin.svg",
+                "id": "vehicles--magic-carpet-aladdin",
                 "originY": -256
               }
             }
@@ -1095,7 +1091,7 @@
           "jasmine": {
             "graphics": {
               "center": {
-                "id": "/images/magic-carpet-jasmine.svg",
+                "id": "vehicles--magic-carpet-jasmine",
                 "originY": -256
               }
             }
@@ -1103,7 +1099,7 @@
           "aladdin-jasmine": {
             "graphics": {
               "center": {
-                "id": "/images/magic-carpet-aladdin-jasmine.svg",
+                "id": "vehicles--magic-carpet-aladdin-jasmine",
                 "originY": -256
               }
             }
@@ -1111,7 +1107,7 @@
           "jasmine-aladdin": {
             "graphics": {
               "center": {
-                "id": "/images/magic-carpet-jasmine-aladdin.svg",
+                "id": "vehicles--magic-carpet-jasmine-aladdin",
                 "originY": -256
               }
             }
