@@ -1,23 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, injectIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import { ICON_TRASH } from '../ui/icons'
 import './RemoveButton.scss'
 
-class RemoveButton extends React.PureComponent {
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    segment: PropTypes.number.isRequired
-  }
+RemoveButton.propTypes = {
+  segment: PropTypes.number.isRequired
+}
 
-  static defaultProps = {
-    segment: null
-  }
+function RemoveButton ({ segment = null }) {
+  const intl = useIntl()
 
-  onClick = (event) => {
+  const handleClick = (event) => {
     // Prevent this “leaking” to a segment below
     event.preventDefault()
 
@@ -27,30 +24,28 @@ class RemoveButton extends React.PureComponent {
       trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'BUTTON', null, true)
     } else {
       // Otherwise, remove one segment
-      removeSegment(this.props.segment)
+      removeSegment(segment)
       trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
     }
   }
 
-  render () {
-    // Bail if segment is not provided; do not check for falsy. 0 is valid value for segment
-    if (typeof this.props.segment === 'undefined' || this.props.segment === null) return null
+  // Bail if segment is not provided; do not check for falsy. 0 is valid value for segment
+  if (typeof segment === 'undefined' || segment === null) return null
 
-    return (
-      <button
-        className="info-bubble-remove"
-        tabIndex={-1}
-        title={this.props.intl.formatMessage({ id: 'tooltip.remove-segment', defaultMessage: 'Remove segment' })}
-        onClick={this.onClick}
-      >
-        <FontAwesomeIcon
-          icon={ICON_TRASH}
-          className="remove-icon"
-        />
-        <FormattedMessage id="btn.remove" defaultMessage="Remove" />
-      </button>
-    )
-  }
+  return (
+    <button
+      className="info-bubble-remove"
+      tabIndex={-1}
+      title={intl.formatMessage({ id: 'tooltip.remove-segment', defaultMessage: 'Remove segment' })}
+      onClick={handleClick}
+    >
+      <FontAwesomeIcon
+        icon={ICON_TRASH}
+        className="remove-icon"
+      />
+      <FormattedMessage id="btn.remove" defaultMessage="Remove" />
+    </button>
+  )
 }
 
-export default injectIntl(RemoveButton)
+export default RemoveButton
