@@ -7,10 +7,14 @@ import { removeSegment, removeAllSegments } from '../segments/remove'
 import { ICON_TRASH } from '../ui/icons'
 import './RemoveButton.scss'
 
-const RemoveButton = (props) => {
+RemoveButton.propTypes = {
+  segment: PropTypes.number.isRequired
+}
+
+function RemoveButton ({ segment = null }) {
   const intl = useIntl()
 
-  const onClick = (event) => {
+  const handleClick = (event) => {
     // Prevent this “leaking” to a segment below
     event.preventDefault()
 
@@ -20,20 +24,20 @@ const RemoveButton = (props) => {
       trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'BUTTON', null, true)
     } else {
       // Otherwise, remove one segment
-      removeSegment(props.segment)
+      removeSegment(segment)
       trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
     }
   }
 
   // Bail if segment is not provided; do not check for falsy. 0 is valid value for segment
-  if (typeof props.segment === 'undefined' || props.segment === null) return null
+  if (typeof segment === 'undefined' || segment === null) return null
 
   return (
     <button
       className="info-bubble-remove"
       tabIndex={-1}
       title={intl.formatMessage({ id: 'tooltip.remove-segment', defaultMessage: 'Remove segment' })}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <FontAwesomeIcon
         icon={ICON_TRASH}
@@ -42,14 +46,6 @@ const RemoveButton = (props) => {
       <FormattedMessage id="btn.remove" defaultMessage="Remove" />
     </button>
   )
-}
-
-RemoveButton.propTypes = {
-  segment: PropTypes.number.isRequired
-}
-
-RemoveButton.defaultProps = {
-  segment: null
 }
 
 export default RemoveButton

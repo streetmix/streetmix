@@ -7,7 +7,18 @@ import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buil
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
 import './BuildingHeightControl.scss'
 
-const BuildingHeightControl = (props) => {
+BuildingHeightControl.propTypes = {
+  touch: PropTypes.bool,
+  position: PropTypes.oneOf(['left', 'right']),
+  variant: PropTypes.string,
+  value: PropTypes.number,
+  units: PropTypes.number,
+  addBuildingFloor: PropTypes.func,
+  removeBuildingFloor: PropTypes.func,
+  setBuildingFloorValue: PropTypes.func
+}
+
+function BuildingHeightControl (props) {
   const intl = useIntl()
 
   const handleIncrement = () => {
@@ -92,17 +103,6 @@ const mapDispatchToProps = {
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue
-}
-
-BuildingHeightControl.propTypes = {
-  touch: PropTypes.bool,
-  position: PropTypes.oneOf(['left', 'right']),
-  variant: PropTypes.string,
-  value: PropTypes.number,
-  units: PropTypes.number,
-  addBuildingFloor: PropTypes.func,
-  removeBuildingFloor: PropTypes.func,
-  setBuildingFloorValue: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl)

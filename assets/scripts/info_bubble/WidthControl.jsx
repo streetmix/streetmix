@@ -22,7 +22,17 @@ import {
   processWidthInput
 } from '../util/width_units'
 
-const WidthControl = (props) => {
+WidthControl.propTypes = {
+  touch: PropTypes.bool,
+  position: PropTypes.number,
+  value: PropTypes.number,
+  units: PropTypes.number,
+  locale: PropTypes.string,
+  // provided by store
+  incrementSegmentWidth: PropTypes.func
+}
+
+function WidthControl (props) {
   const intl = useIntl()
 
   const handleIncrement = (event) => {
@@ -126,13 +136,3 @@ function mapDispatchToProps (dispatch, ownProps) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WidthControl)
-
-WidthControl.propTypes = {
-  touch: PropTypes.bool,
-  position: PropTypes.number,
-  value: PropTypes.number,
-  units: PropTypes.number,
-  locale: PropTypes.string,
-  // provided by store
-  incrementSegmentWidth: PropTypes.func
-}
