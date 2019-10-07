@@ -18,3 +18,7 @@ exclude_patterns:
   - "**/__tests__"
   - "**/__mocks__"
   - "docs/**/*.rst"
+checks:
+  file-lines:
+    config:
+      threshold: 100
