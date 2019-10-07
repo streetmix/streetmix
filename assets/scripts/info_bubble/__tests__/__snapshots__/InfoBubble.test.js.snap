@@ -16,7 +16,7 @@ exports[`InfoBubble is visible 1`] = `
       position={2}
       segment={Object {}}
     />
-    <injectIntl(RemoveButton)
+    <RemoveButton
       segment={2}
     />
   </header>
@@ -37,7 +37,7 @@ exports[`InfoBubble is visible 1`] = `
         type={1}
       />
     </IntlProvider>
-    <injectIntl(Connect(WidthControl))
+    <Connect(WidthControl)
       position={2}
     />
   </div>
@@ -86,7 +86,7 @@ exports[`InfoBubble renders 1`] = `
       position={0}
       segment={Object {}}
     />
-    <injectIntl(RemoveButton)
+    <RemoveButton
       segment={0}
     />
   </header>
@@ -107,7 +107,7 @@ exports[`InfoBubble renders 1`] = `
         type={1}
       />
     </IntlProvider>
-    <injectIntl(Connect(WidthControl))
+    <Connect(WidthControl)
       position={0}
     />
   </div>
@@ -174,7 +174,7 @@ exports[`InfoBubble shows building left info bubble 1`] = `
         type={2}
       />
     </IntlProvider>
-    <injectIntl(Connect(BuildingHeightControl))
+    <Connect(BuildingHeightControl)
       position="left"
     />
   </div>
@@ -241,7 +241,7 @@ exports[`InfoBubble shows building right info bubble 1`] = `
         type={3}
       />
     </IntlProvider>
-    <injectIntl(Connect(BuildingHeightControl))
+    <Connect(BuildingHeightControl)
       position="right"
     />
   </div>
@@ -274,7 +274,7 @@ exports[`InfoBubble shows description 1`] = `
       position={1}
       segment={Object {}}
     />
-    <injectIntl(RemoveButton)
+    <RemoveButton
       segment={1}
     />
   </header>
@@ -295,7 +295,7 @@ exports[`InfoBubble shows description 1`] = `
         type={1}
       />
     </IntlProvider>
-    <injectIntl(Connect(WidthControl))
+    <Connect(WidthControl)
       position={1}
     />
   </div>
