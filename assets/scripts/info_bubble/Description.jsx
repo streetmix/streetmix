@@ -15,29 +15,29 @@ export class Description extends React.Component {
     variantString: PropTypes.string,
     updateHoverPolygon: PropTypes.func.isRequired,
     updateBubbleDimensions: PropTypes.func.isRequired,
-    highlightTriangle: PropTypes.func.isRequired,
-    unhighlightTriangle: PropTypes.func.isRequired,
+    handleHighlightTriangle: PropTypes.func.isRequired,
+    handleUnhighlightTriangle: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
     infoBubbleEl: PropTypes.object
   }
 
-  onClickShow = () => {
+  handleClickShow = () => {
     this.props.showDescription()
     this.props.updateBubbleDimensions()
     this.props.updateHoverPolygon()
 
-    registerKeypress('esc', this.onClickHide)
+    registerKeypress('esc', this.handleClickHide)
     trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
   }
 
-  onClickHide = () => {
+  handleClickHide = () => {
     this.props.hideDescription()
     this.props.updateBubbleDimensions()
     this.props.updateHoverPolygon()
 
-    deregisterKeypress('esc', this.onClickHide)
+    deregisterKeypress('esc', this.handleClickHide)
   }
 
   /**
@@ -93,25 +93,25 @@ export class Description extends React.Component {
     const imageCaption = t(`descriptions.${description.key}.imageCaption`, null, { ns: 'segment-info' })
 
     return (
-      <React.Fragment>
+      <>
         <div
           className="description-prompt"
-          onClick={this.onClickShow}
-          onMouseOver={this.props.highlightTriangle}
-          onMouseOut={this.props.unhighlightTriangle}
+          onClick={this.handleClickShow}
+          onMouseOver={this.props.handleHighlightTriangle}
+          onMouseOut={this.props.handleUnhighlightTriangle}
         >
           {prompt}
         </div>
         <DescriptionPanel
           visible={this.props.descriptionVisible}
-          onClickHide={this.onClickHide}
+          onClickHide={this.handleClickHide}
           image={description.image}
           lede={lede}
           text={text}
           caption={imageCaption}
           bubbleY={Number.parseInt(this.props.infoBubbleEl.style.top)}
         />
-      </React.Fragment>
+      </>
     )
   }
 }

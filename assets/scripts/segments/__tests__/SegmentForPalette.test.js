@@ -18,8 +18,8 @@ describe('SegmentForPalette', () => {
 
     const wrapper = renderWithReduxAndIntl(
       <SegmentForPalette
-        type={''}
-        variantString={''}
+        type=""
+        variantString=""
         onPointerOver={jest.fn()}
         randSeed={42}
       />
@@ -36,8 +36,8 @@ describe('SegmentForPalette', () => {
 
       const wrapper = renderWithReduxAndIntl(
         <SegmentForPalette
-          type={''}
-          variantString={''}
+          type=""
+          variantString=""
           onPointerOver={onPointerOver}
           randSeed={42}
         />

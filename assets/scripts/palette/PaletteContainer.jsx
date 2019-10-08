@@ -47,7 +47,7 @@ class PaletteContainer extends React.Component {
    * @param {string} label - text to display inside the tooltip
    * @param {Object} rect - result of getBoundingClientRect() on segment element
    */
-  handlePointerOver = (event, label, rect) => {
+  onPointerOver = (event, label, rect) => {
     // x is the position right above the middle of the segment element to point at
     const x = rect.x + (rect.width / 2)
 
@@ -61,7 +61,7 @@ class PaletteContainer extends React.Component {
   /**
    * When the pointer leaves the segment area, hide tooltip.
    */
-  handlePointerOut = (event) => {
+  onPointerOut = (event) => {
     this.setState({
       tooltipVisible: false
     })
@@ -70,7 +70,7 @@ class PaletteContainer extends React.Component {
   /**
    * When the segment area is being scrolled, hide tooltip.
    */
-  handleScroll = (event) => {
+  onScroll = (event) => {
     this.setState({
       tooltipVisible: false
     })
@@ -93,9 +93,9 @@ class PaletteContainer extends React.Component {
           <UndoRedo />
         </div>
         <Palette
-          handlePointerOver={this.handlePointerOver}
-          handlePointerOut={this.handlePointerOut}
-          handleScroll={this.handleScroll}
+          handlePointerOver={this.onPointerOver}
+          handlePointerOut={this.onPointerOut}
+          handleScroll={this.onScroll}
         />
         <PaletteTooltips
           label={this.state.tooltipLabel}

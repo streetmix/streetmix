@@ -34,7 +34,7 @@ export function createNewUndo (street) {
   }
 }
 
-export function undo () {
+export function handleUndo () {
   return (dispatch, getState) => {
     const { position } = getState().undo
     const { street } = getState()
@@ -51,7 +51,7 @@ export function undo () {
   }
 }
 
-export function redo () {
+export function handleRedo () {
   return (dispatch, getState) => {
     const { position, stack } = getState().undo
 

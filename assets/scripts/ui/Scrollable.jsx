@@ -37,8 +37,8 @@ export default class Scrollable extends React.PureComponent {
     window.addEventListener('resize', this.checkButtonVisibilityState)
 
     if (this.props.allowKeyboardScroll === true) {
-      registerKeypress('left', this.onClickLeft)
-      registerKeypress('right', this.onClickRight)
+      registerKeypress('left', this.handleClickLeft)
+      registerKeypress('right', this.handleClickRight)
     }
 
     // TODO: can this be placed in stylesheets?
@@ -52,26 +52,26 @@ export default class Scrollable extends React.PureComponent {
     window.removeEventListener('resize', this.checkButtonVisibilityState)
 
     if (this.props.allowKeyboardScroll === true) {
-      deregisterKeypress('left', this.onClickLeft)
-      deregisterKeypress('right', this.onClickRight)
+      deregisterKeypress('left', this.handleClickLeft)
+      deregisterKeypress('right', this.handleClickRight)
     }
   }
 
-  onClickLeft = (event) => {
+  handleClickLeft = (event) => {
     const el = this.scrollerEl.current
     const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  onClickRight = (event) => {
+  handleClickRight = (event) => {
     const el = this.scrollerEl.current
     const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  onScrollContainer = (event) => {
+  handleScrollContainer = (event) => {
     this.checkButtonVisibilityState()
 
     // If parent has provided its own onScroll handler function, call that now.
@@ -119,21 +119,21 @@ export default class Scrollable extends React.PureComponent {
       <div className={containerClassName} ref={this.setWrapperElementRef}>
         <div
           className={this.props.className}
-          onScroll={this.onScrollContainer}
+          onScroll={this.handleScrollContainer}
           ref={this.scrollerEl}
         >
           {this.props.children}
         </div>
         <button
           className="scrollable scroll-left"
-          onClick={this.onClickLeft}
+          onClick={this.handleClickLeft}
           ref={this.leftButtonEl}
         >
           <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
         </button>
         <button
           className="scrollable scroll-right"
-          onClick={this.onClickRight}
+          onClick={this.handleClickRight}
           ref={this.rightButtonEl}
         >
           <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />

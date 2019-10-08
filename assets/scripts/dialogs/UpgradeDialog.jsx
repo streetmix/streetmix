@@ -68,21 +68,22 @@ const UpgradeDialog = ({ userId, roles }) => {
         <FormattedMessage id="upgrade.success" defaultMessage="Thank you! Please refresh this page to see your upgrades." />
       </p>)
   } else {
-    activePanel = (<React.Fragment>
-      <p>
-        <FormattedMessage id="upgrade.body" defaultMessage={DEFAULT_BODY} />
-      </p>
-      <StripeCheckout
-        amount={500}
-        name={stripeName}
-        description={stripeDescription}
-        label={stripeLabel}
-        locale="auto"
-        stripeKey={STRIPE_API_KEY}
-        token={onToken}
-        zipCode
-      />
-    </React.Fragment>)
+    activePanel = (
+      <>
+        <p>
+          <FormattedMessage id="upgrade.body" defaultMessage={DEFAULT_BODY} />
+        </p>
+        <StripeCheckout
+          amount={500}
+          name={stripeName}
+          description={stripeDescription}
+          label={stripeLabel}
+          locale="auto"
+          stripeKey={STRIPE_API_KEY}
+          token={onToken}
+          zipCode
+        />
+      </>)
   }
 
   return (

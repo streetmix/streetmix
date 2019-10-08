@@ -91,7 +91,7 @@ class StreetNameCanvas extends React.Component {
     return classNames
   }
 
-  onClickStreetName = () => {
+  handleClickStreetName = () => {
     if (!this.props.editable) return
 
     const streetName = this.props.street.name ||
@@ -118,7 +118,7 @@ class StreetNameCanvas extends React.Component {
           id="street-name"
           childRef={(ref) => { this.streetName = ref }}
           name={this.props.street.name}
-          onClick={this.onClickStreetName}
+          onClick={this.handleClickStreetName}
         />
         <StreetMeta />
       </div>

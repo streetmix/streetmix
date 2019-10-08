@@ -16,7 +16,7 @@ export class StreetMetaGeotag extends React.Component {
     editable: true
   }
 
-  onClickGeotag = (event) => {
+  handleClickGeotag = (event) => {
     event.preventDefault()
 
     if (!this.props.street.location) {
@@ -56,7 +56,7 @@ export class StreetMetaGeotag extends React.Component {
     return (
       <span className="street-metadata-map">
         {(this.props.editable)
-          ? <a onClick={this.onClickGeotag}>{geotagText}</a>
+          ? <a onClick={this.handleClickGeotag}>{geotagText}</a>
           : geotagText}
       </span>
     )

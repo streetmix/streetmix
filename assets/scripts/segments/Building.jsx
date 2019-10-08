@@ -79,7 +79,7 @@ class Building extends React.Component {
 
     if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
       if (this.shouldBuildingAnimate(prevProps.street, street)) {
-        this.switchBuildings()
+        this.handleSwitchBuildings()
       } else {
         createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
       }
@@ -92,7 +92,7 @@ class Building extends React.Component {
     }
   }
 
-  onBuildingMouseEnter = (event) => {
+  handleBuildingMouseEnter = (event) => {
     if (!this.state.isEditable) return
 
     window.addEventListener('keydown', this.handleKeyDown)
@@ -109,7 +109,7 @@ class Building extends React.Component {
     resumeFadeoutControls()
   }
 
-  onBuildingMouseLeave = (event) => {
+  handleBuildingMouseLeave = (event) => {
     if (!this.state.isEditable) return
 
     window.removeEventListener('keydown', this.handleKeyDown)
@@ -152,7 +152,7 @@ class Building extends React.Component {
     }
   }
 
-  switchBuildings = () => {
+  handleSwitchBuildings = () => {
     this.setState({
       switchBuildings: !(this.state.switchBuildings),
       newBuildingEnter: !(this.state.newBuildingEnter),
@@ -194,8 +194,8 @@ class Building extends React.Component {
       <section
         className={classNames.join(' ')}
         ref={(ref) => { this.changeRefs(ref, isOldBuilding) }}
-        onMouseEnter={this.onBuildingMouseEnter}
-        onMouseLeave={this.onBuildingMouseLeave}
+        onMouseEnter={this.handleBuildingMouseEnter}
+        onMouseLeave={this.handleBuildingMouseLeave}
         style={style}
       >
         <div className="hover-bk" />
@@ -207,16 +207,16 @@ class Building extends React.Component {
     const { newBuildingEnter, oldBuildingEnter } = this.state
 
     return (
-      <React.Fragment>
+      <>
         <CSSTransition
           key="new-building"
           in={newBuildingEnter}
           timeout={250}
           classNames="switching-in"
-          onEntered={this.switchBuildings}
+          onEntered={this.handleSwitchBuildings}
           unmountOnExit
         >
-          { this.renderBuilding('new') }
+          {this.renderBuilding('new')}
         </CSSTransition>
         <CSSTransition
           key="old-building"
@@ -225,9 +225,9 @@ class Building extends React.Component {
           classNames="switching-away"
           unmountOnExit
         >
-          { this.renderBuilding('old') }
+          {this.renderBuilding('old')}
         </CSSTransition>
-      </React.Fragment>
+      </>
     )
   }
 }

@@ -292,7 +292,8 @@ export default class SignInDialog extends React.Component {
                         />
                       </a>
                     )
-                  }} />
+                  }}
+                />
               </p>
             </footer>
           </div>

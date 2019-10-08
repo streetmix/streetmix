@@ -26,10 +26,12 @@ const ErrorDialog = (props) => (
             <FormattedHTMLMessage id="dialogs.error.text" defaultMessage="Something unexpected happened 😢, please try again." />
           </p>
         </div>
-        <button className="dialog-primary-action" onClick={() => {
-          props.reset()
-          closeDialog()
-        }}>
+        <button
+          className="dialog-primary-action" onClick={() => {
+            props.reset()
+            closeDialog()
+          }}
+        >
           <FormattedMessage id="btn.close" defaultMessage="Close" />
         </button>
       </div>

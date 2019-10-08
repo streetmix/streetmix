@@ -13,7 +13,7 @@ export class IdentityMenu extends React.PureComponent {
     noInternet: PropTypes.bool
   }
 
-  onClickMyStreets = (event) => {
+  handleClickMyStreets = (event) => {
     event.preventDefault()
 
     showGallery(this.props.userId)
@@ -25,10 +25,11 @@ export class IdentityMenu extends React.PureComponent {
 
     return (
       <Menu {...this.props} className="identity-menu">
-        {!this.props.noInternet &&
-          <a href={myStreetsLink} onClick={this.onClickMyStreets}>
-            <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
-          </a>
+        {
+          !this.props.noInternet &&
+            <a href={myStreetsLink} onClick={this.handleClickMyStreets}>
+              <FormattedMessage id="menu.item.my-streets" defaultMessage="My streets" />
+            </a>
         }
         <a className="menu-item" onClick={onSignOutClick}>
           <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />

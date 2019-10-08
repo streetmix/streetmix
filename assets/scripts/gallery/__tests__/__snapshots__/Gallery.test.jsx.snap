@@ -250,6 +250,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
           <a
             class="button-like gallery-new-street"
             href="/new"
+            rel="noopener noreferrer"
             target="_blank"
           >
             Create new street
@@ -257,6 +258,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
           <a
             class="button-like gallery-copy-last-street"
             href="/copy-last"
+            rel="noopener noreferrer"
             target="_blank"
           >
             Make a copy

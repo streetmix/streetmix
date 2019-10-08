@@ -66,14 +66,14 @@ describe('Variants', () => {
 
     it('onClick calls setBuildingVariant', () => {
       const setBuildingVariant = jest.fn()
-      const wrapper = shallow(<Variants {...requiredProps} setBuildingVariant={setBuildingVariant} type={type} position={'left'} variant={'residential'} />)
+      const wrapper = shallow(<Variants {...requiredProps} setBuildingVariant={setBuildingVariant} type={type} position="left" variant="residential" />)
       wrapper.find('button').first().simulate('click')
       expect(setBuildingVariant).toHaveBeenCalledTimes(1)
       expect(setBuildingVariant).toHaveBeenCalledWith('left', 'waterfront')
     })
 
     it('renders left building correctly', () => {
-      const wrapper = shallow(<Variants {...requiredProps} type={type} position={'left'} variant={'residential'} />)
+      const wrapper = shallow(<Variants {...requiredProps} type={type} position="left" variant="residential" />)
       expect(wrapper).toMatchSnapshot()
     })
   })
@@ -83,14 +83,14 @@ describe('Variants', () => {
 
     it('onClick calls setBuildingVariant', () => {
       const setBuildingVariant = jest.fn()
-      const wrapper = shallow(<Variants {...requiredProps} setBuildingVariant={setBuildingVariant} type={type} position={'right'} variant={'residential'} />)
+      const wrapper = shallow(<Variants {...requiredProps} setBuildingVariant={setBuildingVariant} type={type} position="right" variant="residential" />)
       wrapper.find('button').first().simulate('click')
       expect(setBuildingVariant).toHaveBeenCalledTimes(1)
       expect(setBuildingVariant).toHaveBeenCalledWith('right', 'waterfront')
     })
 
     it('renders left building correctly', () => {
-      const wrapper = shallow(<Variants {...requiredProps} type={type} position={'right'} variant={'residential'} />)
+      const wrapper = shallow(<Variants {...requiredProps} type={type} position="right" variant="residential" />)
       expect(wrapper).toMatchSnapshot()
     })
   })

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 
 GalleryError.propTypes = {
-  retry: PropTypes.func.isRequired
+  handleRetry: PropTypes.func.isRequired
 }
 
 function GalleryError (props) {
@@ -12,7 +12,7 @@ function GalleryError (props) {
       <p>
         <FormattedMessage id="gallery.fail" defaultMessage="Failed to load the gallery." />
       </p>
-      <button className="gallery-try-again" onClick={props.retry}>
+      <button className="gallery-try-again" onClick={props.handleRetry}>
         <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
       </button>
     </div>

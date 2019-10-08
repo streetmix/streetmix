@@ -17,7 +17,7 @@ const BAR_COLORS = [
 const CapacityBar = ({ amount, max, color }) => {
   const widthPercent = `${(Number.parseInt(amount, 10) / max) * 100}%`
   return (
-    <div className="capacity-bar" style={{ height: BAR_HEIGHT, background: color, display: 'inline-block', width: widthPercent }} >&nbsp;</div>
+    <div className="capacity-bar" style={{ height: BAR_HEIGHT, background: color, display: 'inline-block', width: widthPercent }}>&nbsp;</div>
   )
 }
 

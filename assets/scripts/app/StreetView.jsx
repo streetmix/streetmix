@@ -299,7 +299,7 @@ class StreetView extends React.Component {
 
   render () {
     return (
-      <React.Fragment>
+      <>
         <section
           id="street-section-outer"
           onScroll={this.handleStreetScroll}
@@ -339,7 +339,7 @@ class StreetView extends React.Component {
           scrollStreet={this.scrollStreet}
           scrollTop={this.state.scrollTop}
         />
-      </React.Fragment>
+      </>
     )
   }
 }
