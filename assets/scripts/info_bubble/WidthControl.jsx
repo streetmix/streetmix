@@ -38,7 +38,7 @@ function WidthControl (props) {
   const handleIncrement = (event) => {
     const precise = event.shiftKey
 
-    props.incrementSegmentWidth(true, precise, props.value)
+    props.incrementSegmentWidth(props.position, true, precise, props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
@@ -46,7 +46,7 @@ function WidthControl (props) {
   const handleDecrement = (event) => {
     const precise = event.shiftKey
 
-    props.incrementSegmentWidth(false, precise, props.value)
+    props.incrementSegmentWidth(props.position, false, precise, props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
