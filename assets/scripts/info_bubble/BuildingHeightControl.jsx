@@ -1,31 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import UpDownInput from './UpDownInput'
 import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buildings'
 import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
 import './BuildingHeightControl.scss'
 
-class BuildingHeightControl extends React.Component {
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    touch: PropTypes.bool,
-    position: PropTypes.oneOf(['left', 'right']),
-    variant: PropTypes.string,
-    value: PropTypes.number,
-    units: PropTypes.number,
-    addBuildingFloor: PropTypes.func,
-    removeBuildingFloor: PropTypes.func,
-    setBuildingFloorValue: PropTypes.func
+BuildingHeightControl.propTypes = {
+  touch: PropTypes.bool,
+  position: PropTypes.oneOf(['left', 'right']),
+  variant: PropTypes.string,
+  value: PropTypes.number,
+  units: PropTypes.number,
+  addBuildingFloor: PropTypes.func,
+  removeBuildingFloor: PropTypes.func,
+  setBuildingFloorValue: PropTypes.func
+}
+
+function BuildingHeightControl (props) {
+  const intl = useIntl()
+
+  const handleIncrement = () => {
+    props.addBuildingFloor(props.position)
   }
 
-  handleIncrement = () => {
-    this.props.addBuildingFloor(this.props.position)
-  }
-
-  handleDecrement = () => {
-    this.props.removeBuildingFloor(this.props.position)
+  const handleDecrement = () => {
+    props.removeBuildingFloor(props.position)
   }
 
   /**
@@ -35,9 +36,9 @@ class BuildingHeightControl extends React.Component {
    *
    * @param {string} value - raw input
    */
-  updateModel = (value) => {
+  const updateModel = (value) => {
     if (value) {
-      this.props.setBuildingFloorValue(this.props.position, value)
+      props.setBuildingFloorValue(props.position, value)
     }
   }
 
@@ -47,41 +48,39 @@ class BuildingHeightControl extends React.Component {
    * @param {Number} value - raw value
    * @returns {string} - a decorated value
    */
-  displayValueFormatter = (value) => {
-    return prettifyHeight(this.props.variant, this.props.position, value, this.props.units, this.props.intl.formatMessage)
+  const displayValueFormatter = (value) => {
+    return prettifyHeight(props.variant, props.position, value, props.units, intl.formatMessage)
   }
 
-  render () {
-    const isNotFloored = !BUILDINGS[this.props.variant].hasFloors
+  const isNotFloored = !BUILDINGS[props.variant].hasFloors
 
-    return (
-      <div className="non-variant building-height">
-        <UpDownInput
-          disabled={isNotFloored}
-          value={isNotFloored ? null : this.props.value}
-          minValue={1}
-          maxValue={MAX_BUILDING_HEIGHT}
-          displayValueFormatter={this.displayValueFormatter}
-          onClickUp={this.handleIncrement}
-          onClickDown={this.handleDecrement}
-          onUpdatedValue={this.updateModel}
-          inputTooltip={this.props.intl.formatMessage({
-            id: 'tooltip.building-height',
-            defaultMessage: 'Change the number of floors'
-          })}
-          upTooltip={this.props.intl.formatMessage({
-            id: 'tooltip.add-floor',
-            defaultMessage: 'Add floor'
-          })}
-          downTooltip={this.props.intl.formatMessage({
-            id: 'tooltip.remove-floor',
-            defaultMessage: 'Remove floor'
-          })}
-          touch={this.props.touch}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className="non-variant building-height">
+      <UpDownInput
+        disabled={isNotFloored}
+        value={isNotFloored ? null : props.value}
+        minValue={1}
+        maxValue={MAX_BUILDING_HEIGHT}
+        displayValueFormatter={displayValueFormatter}
+        onClickUp={handleIncrement}
+        onClickDown={handleDecrement}
+        onUpdatedValue={updateModel}
+        inputTooltip={intl.formatMessage({
+          id: 'tooltip.building-height',
+          defaultMessage: 'Change the number of floors'
+        })}
+        upTooltip={intl.formatMessage({
+          id: 'tooltip.add-floor',
+          defaultMessage: 'Add floor'
+        })}
+        downTooltip={intl.formatMessage({
+          id: 'tooltip.remove-floor',
+          defaultMessage: 'Remove floor'
+        })}
+        touch={props.touch}
+      />
+    </div>
+  )
 }
 
 function mapStateToProps (state, ownProps) {
@@ -100,10 +99,10 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-const actionCreators = {
+const mapDispatchToProps = {
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue
 }
 
-export default injectIntl(connect(mapStateToProps, actionCreators)(BuildingHeightControl))
+export default connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl)

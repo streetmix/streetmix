@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import UpDownInput from './UpDownInput'
 import { trackEvent } from '../app/event_tracking'
 import {
@@ -22,30 +22,31 @@ import {
   processWidthInput
 } from '../util/width_units'
 
-class WidthControl extends React.Component {
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    touch: PropTypes.bool,
-    position: PropTypes.number,
-    value: PropTypes.number,
-    units: PropTypes.number,
-    locale: PropTypes.string,
-    // provided by store
-    incrementSegmentWidth: PropTypes.func
-  }
+WidthControl.propTypes = {
+  touch: PropTypes.bool,
+  position: PropTypes.number,
+  value: PropTypes.number,
+  units: PropTypes.number,
+  locale: PropTypes.string,
+  // provided by store
+  incrementSegmentWidth: PropTypes.func
+}
 
-  handleIncrement = (event) => {
+function WidthControl (props) {
+  const intl = useIntl()
+
+  const handleIncrement = (event) => {
     const precise = event.shiftKey
 
-    this.props.incrementSegmentWidth(this.props.position, true, precise, this.props.value)
+    props.incrementSegmentWidth(true, precise, props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
 
-  handleDecrement = (event) => {
+  const handleDecrement = (event) => {
     const precise = event.shiftKey
 
-    this.props.incrementSegmentWidth(this.props.position, false, precise, this.props.value)
+    props.incrementSegmentWidth(false, precise, props.value)
     resumeFadeoutControls()
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
@@ -61,10 +62,10 @@ class WidthControl extends React.Component {
    *
    * @param {string} value - raw input
    */
-  updateModel = (value) => {
-    const processedValue = processWidthInput(value, this.props.units)
+  const updateModel = (value) => {
+    const processedValue = processWidthInput(value, props.units)
     if (processedValue) {
-      resizeSegment(this.props.position, RESIZE_TYPE_TYPING, processedValue, this.props.units)
+      resizeSegment(props.position, RESIZE_TYPE_TYPING, processedValue, props.units)
     }
   }
 
@@ -75,8 +76,8 @@ class WidthControl extends React.Component {
    * @param {Number} value - raw value
    * @returns {string} - a decorated value
    */
-  inputValueFormatter = (value) => {
-    return stringifyMeasurementValue(value, this.props.units, this.props.locale)
+  const inputValueFormatter = (value) => {
+    return stringifyMeasurementValue(value, props.units, props.locale)
   }
 
   /**
@@ -86,39 +87,37 @@ class WidthControl extends React.Component {
    * @param {Number} value - raw value
    * @returns {string} - a decorated value
    */
-  displayValueFormatter = (value) => {
-    return prettifyWidth(value, this.props.units)
+  const displayValueFormatter = (value) => {
+    return prettifyWidth(value, props.units)
   }
 
-  render () {
-    return (
-      <div className="non-variant">
-        <UpDownInput
-          value={this.props.value}
-          minValue={MIN_SEGMENT_WIDTH}
-          maxValue={MAX_SEGMENT_WIDTH}
-          inputValueFormatter={this.inputValueFormatter}
-          displayValueFormatter={this.displayValueFormatter}
-          onClickUp={this.handleIncrement}
-          onClickDown={this.handleDecrement}
-          onUpdatedValue={this.updateModel}
-          inputTooltip={this.props.intl.formatMessage({
-            id: 'tooltip.segment-width',
-            defaultMessage: 'Change width of the segment'
-          })}
-          upTooltip={this.props.intl.formatMessage({
-            id: 'tooltip.increase-width',
-            defaultMessage: 'Increase width (hold Shift for more precision)'
-          })}
-          downTooltip={this.props.intl.formatMessage({
-            id: 'tooltip.decrease-width',
-            defaultMessage: 'Decrease width (hold Shift for more precision)'
-          })}
-          touch={this.props.touch}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className="non-variant">
+      <UpDownInput
+        value={props.value}
+        minValue={MIN_SEGMENT_WIDTH}
+        maxValue={MAX_SEGMENT_WIDTH}
+        inputValueFormatter={inputValueFormatter}
+        displayValueFormatter={displayValueFormatter}
+        onClickUp={handleIncrement}
+        onClickDown={handleDecrement}
+        onUpdatedValue={updateModel}
+        inputTooltip={intl.formatMessage({
+          id: 'tooltip.segment-width',
+          defaultMessage: 'Change width of the segment'
+        })}
+        upTooltip={intl.formatMessage({
+          id: 'tooltip.increase-width',
+          defaultMessage: 'Increase width (hold Shift for more precision)'
+        })}
+        downTooltip={intl.formatMessage({
+          id: 'tooltip.decrease-width',
+          defaultMessage: 'Decrease width (hold Shift for more precision)'
+        })}
+        touch={props.touch}
+      />
+    </div>
+  )
 }
 
 function mapStateToProps (state, ownProps) {
@@ -135,4 +134,4 @@ const mapDispatchToProps = {
   incrementSegmentWidth
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WidthControl))
+export default connect(mapStateToProps, mapDispatchToProps)(WidthControl)

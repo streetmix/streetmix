@@ -379,19 +379,19 @@
   },
   "magic-carpet-occupants": {
     "aladdin": {
-      "id": "",
+      "id": "aladdin",
       "title": "Aladdin"
     },
     "jasmine": {
-      "id": "",
+      "id": "jasmine",
       "title": "Jasmine"
     },
     "aladdin-jasmine": {
-      "id": "",
+      "id": "aladdin-jasmine",
       "title": "Aladdin & Jasmine"
     },
     "jasmine-aladdin": {
-      "id": "",
+      "id": "jasmine-aladdin",
       "title": "Jasmine & Aladdin"
     }
   },
