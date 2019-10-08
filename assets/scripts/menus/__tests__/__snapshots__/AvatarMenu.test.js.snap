@@ -1,17 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AvatarMenu renders user avatar 1`] = `
-<button
-  className="menu-attached menu-avatar"
-  onClick={[Function]}
->
-  <Memo(Connect(Avatar))
-    userId="foo"
-  />
-  <span
-    className="user-id"
+<DocumentFragment>
+  <button
+    class="menu-attached menu-avatar"
   >
-    foo
-  </span>
-</button>
+    <div
+      class="avatar"
+    >
+      <img
+        alt="foo"
+      />
+    </div>
+    <span
+      class="user-id"
+    >
+      foo
+    </span>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`AvatarMenu renders user avatar for admin 1`] = `
+<DocumentFragment>
+  <button
+    class="menu-attached menu-avatar"
+  >
+    <div
+      class="avatar"
+    >
+      <img
+        alt="foo"
+      />
+    </div>
+    <svg
+      class="svg-inline--fa menu-avatar-admin fa-crown"
+    />
+    <span
+      class="user-id"
+    >
+      foo
+    </span>
+  </button>
+</DocumentFragment>
 `;

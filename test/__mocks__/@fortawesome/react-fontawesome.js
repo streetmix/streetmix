@@ -6,18 +6,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export function FontAwesomeIcon (props) {
-  const classNames = ['svg-inline--fa']
-
-  if (typeof props.icon === 'string') {
-    classNames.push(props.icon)
-  } else {
-    classNames.push(`fa-${props.icon.iconName}`)
-  }
-
-  return <svg className={classNames.join(' ')} />
-}
-
 FontAwesomeIcon.propTypes = {
   icon: PropTypes.oneOfType([
     PropTypes.string,
@@ -26,5 +14,23 @@ FontAwesomeIcon.propTypes = {
       iconName: PropTypes.string,
       icon: PropTypes.arrayOf(PropTypes.any)
     })
-  ]).isRequired
+  ]).isRequired,
+  className: PropTypes.string
+}
+
+export function FontAwesomeIcon (props) {
+  const { icon, className } = props
+  const classNames = ['svg-inline--fa']
+
+  if (className) {
+    classNames.push(className)
+  }
+
+  if (typeof icon === 'string') {
+    classNames.push(icon)
+  } else {
+    classNames.push(`fa-${icon.iconName}`)
+  }
+
+  return <svg className={classNames.join(' ')} />
 }
