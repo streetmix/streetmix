@@ -141,7 +141,7 @@
     "oauth": "0.9.15",
     "parcel-bundler": "1.12.3",
     "pelias-js": "0.0.8",
-    "pg": "7.11.0",
+    "pg": "7.12.1",
     "postcss": "7.0.17",
     "prop-types": "15.7.2",
     "raven-js": "3.27.2",
