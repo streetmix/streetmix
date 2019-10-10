@@ -46,21 +46,22 @@ const SegmentForPalette = (props) => {
   actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
 
   if (props.isIcon) {
-    return (<div
-      style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
-      className="segment segment-icon"
-      data-testid="segment-icon"
-    >
-      <SegmentCanvas
-        actualWidth={actualWidth}
-        type={props.type}
-        isIcon={props.isIcon}
-        variantString={props.variantString}
-        randSeed={props.randSeed}
-        multiplier={props.isIcon ? ICON_MULTIPLIER : PALETTE_SEGMENT_MULTIPLIER}
-        groundBaseline={PALETTE_GROUND_BASELINE}
-      />
-    </div>)
+    return (
+      <div
+        style={{ width: (actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER) + 'px' }}
+        className="segment segment-icon"
+        data-testid="segment-icon"
+      >
+        <SegmentCanvas
+          actualWidth={actualWidth}
+          type={props.type}
+          isIcon={props.isIcon}
+          variantString={props.variantString}
+          randSeed={props.randSeed}
+          multiplier={props.isIcon ? ICON_MULTIPLIER : PALETTE_SEGMENT_MULTIPLIER}
+          groundBaseline={PALETTE_GROUND_BASELINE}
+        />
+      </div>)
   }
 
   return props.connectDragSource(

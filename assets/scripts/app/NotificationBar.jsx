@@ -67,10 +67,11 @@ const NotificationBar = ({ notification = {} }) => {
       >
         {lede && <strong className="notification-bar-intro">{lede}</strong>}
         {text && <span className="notification-bar-text">{text}</span>}
-        {link &&
-          <a href={link} target="_blank" rel="noopener noreferrer" className="notification-bar-link">
-            {linkText || <FormattedMessage id="msg.more-info" defaultMessage="More info" />}
-          </a>
+        {
+          link &&
+            <a href={link} target="_blank" rel="noopener noreferrer" className="notification-bar-link">
+              {linkText || <FormattedMessage id="msg.more-info" defaultMessage="More info" />}
+            </a>
         }
         <CloseButton onClick={handleClickDismiss} />
       </div>

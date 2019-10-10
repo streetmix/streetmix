@@ -73,31 +73,31 @@ class SaveAsImageDialog extends React.Component {
   }
 
   // When options change, this changes props.
-  onChangeOptionTransparentSky = (event) => {
+  handleChangeOptionTransparentSky = (event) => {
     this.props.setSettings({ saveAsImageTransparentSky: event.target.checked })
     this.setState({ isLoading: true })
   }
 
-  onChangeOptionSegmentNames = (event) => {
+  handleChangeOptionSegmentNames = (event) => {
     this.props.setSettings({ saveAsImageSegmentNamesAndWidths: event.target.checked })
     this.setState({ isLoading: true })
   }
 
-  onChangeOptionStreetName = (event) => {
+  handleChangeOptionStreetName = (event) => {
     this.props.setSettings({ saveAsImageStreetName: event.target.checked })
     this.setState({ isLoading: true })
   }
 
-  onChangeOptionWatermark = (event) => {
+  handleChangeOptionWatermark = (event) => {
     this.props.setSettings({ saveAsImageWatermark: event.target.checked })
     this.setState({ isLoading: true })
   }
 
-  onPreviewLoaded = () => {
+  handlePreviewLoaded = () => {
     this.setState({ isLoading: false })
   }
 
-  onPreviewError = () => {
+  handlePreviewError = () => {
     this.setState({
       isLoading: false,
       errorMessage: this.props.intl.formatMessage({
@@ -112,7 +112,7 @@ class SaveAsImageDialog extends React.Component {
    * Designed to get around a limitation in IE where a dataURL is not downloadable
    * directly (https://msdn.microsoft.com/en-us/library/cc848897(v=vs.85).aspx)
    */
-  onClickDownloadImage = (event) => {
+  handleClickDownloadImage = (event) => {
     event.preventDefault()
     this.imageCanvas.toBlob((blob) => {
       const filename = this.makeFilename()
@@ -120,7 +120,7 @@ class SaveAsImageDialog extends React.Component {
     })
   }
 
-  onChangeDpiInput = (event) => {
+  handleChangeDpiInput = (event) => {
     const value = event.target.value
     const validDpi = Math.min(Math.max(DEFAULT_IMAGE_DPI, Number.parseInt(value, 10)), MAX_IMAGE_DPI) || DEFAULT_IMAGE_DPI
 
@@ -178,44 +178,45 @@ class SaveAsImageDialog extends React.Component {
             <div className="dialog-content">
               <div className="save-as-image-options">
                 <Checkbox
-                  onChange={this.onChangeOptionSegmentNames}
+                  onChange={this.handleChangeOptionSegmentNames}
                   checked={this.props.segmentNames}
                 >
                   <FormattedMessage id="dialogs.save.option-labels" defaultMessage="Segment names and widths" />
                 </Checkbox>
 
                 <Checkbox
-                  onChange={this.onChangeOptionStreetName}
+                  onChange={this.handleChangeOptionStreetName}
                   checked={this.props.streetName}
                 >
                   <FormattedMessage id="dialogs.save.option-name" defaultMessage="Street name" />
                 </Checkbox>
 
                 <Checkbox
-                  onChange={this.onChangeOptionTransparentSky}
+                  onChange={this.handleChangeOptionTransparentSky}
                   checked={this.props.transparentSky}
                 >
                   <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
                 </Checkbox>
 
                 <Checkbox
-                  onChange={this.onChangeOptionWatermark}
+                  onChange={this.handleChangeOptionWatermark}
                   checked={this.props.watermark}
                   disabled={!this.props.allowControlWatermark}
                 >
                   <FormattedMessage id="dialogs.save.option-watermark" defaultMessage="Watermark" />
                 </Checkbox>
               </div>
-              {this.props.allowCustomDpi &&
-                <div className="save-as-image-options">
-                  <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
-                  <input
-                    id="save-as-image-dpi-input"
-                    type="text"
-                    value={this.state.dpiInputValue}
-                    onChange={this.onChangeDpiInput}
-                  />
-                </div>
+              {
+                this.props.allowCustomDpi &&
+                  <div className="save-as-image-options">
+                    <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
+                    <input
+                      id="save-as-image-dpi-input"
+                      type="text"
+                      value={this.state.dpiInputValue}
+                      onChange={this.handleChangeDpiInput}
+                    />
+                  </div>
               }
               <div className="save-as-image-preview">
                 {!this.state.errorMessage && (
@@ -225,8 +226,8 @@ class SaveAsImageDialog extends React.Component {
                     </div>
                     <img
                       src={this.state.download.dataUrl}
-                      onLoad={this.onPreviewLoaded}
-                      onError={this.onPreviewError}
+                      onLoad={this.handlePreviewLoaded}
+                      onError={this.handlePreviewError}
                       alt={this.props.intl.formatMessage({
                         id: 'dialogs.save.preview-image-alt',
                         defaultMessage: 'Preview'
@@ -244,7 +245,7 @@ class SaveAsImageDialog extends React.Component {
                 {!this.state.errorMessage ? (
                   <a
                     className="button-like"
-                    onClick={this.onClickDownloadImage}
+                    onClick={this.handleClickDownloadImage}
                     // Sets the anchor's `download` attribute so that it saves a meaningful filename
                     // Note that this property is not supported in Safari/iOS
                     download={this.state.download.filename}

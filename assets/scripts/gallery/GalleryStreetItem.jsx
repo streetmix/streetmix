@@ -102,20 +102,22 @@ function GalleryStreetItem (props) {
           <DateTimeRelative value={street.updatedAt} />
         </span>
 
-        {/* Show street creator (owner) or 'Anonymous' */ }
-        {showStreetOwner &&
-          <span className="gallery-street-item-creator">
-            {street.creatorId || intl.formatMessage({ id: 'users.anonymous', defaultMessage: 'Anonymous' })}
-          </span>
+        {/* Show street creator (owner) or 'Anonymous' */}
+        {
+          showStreetOwner &&
+            <span className="gallery-street-item-creator">
+              {street.creatorId || intl.formatMessage({ id: 'users.anonymous', defaultMessage: 'Anonymous' })}
+            </span>
         }
 
-        {/* Only show delete button if allowed, e.g. if user is owner of the street */ }
-        {allowDelete &&
-          <CloseButton
-            className="gallery-street-item-delete"
-            title={intl.formatMessage({ id: 'gallery.delete-street-tooltip', defaultMessage: 'Delete street' })}
-            onClick={handleDeleteStreet}
-          />
+        {/* Only show delete button if allowed, e.g. if user is owner of the street */}
+        {
+          allowDelete &&
+            <CloseButton
+              className="gallery-street-item-delete"
+              title={intl.formatMessage({ id: 'gallery.delete-street-tooltip', defaultMessage: 'Delete street' })}
+              onClick={handleDeleteStreet}
+            />
         }
       </a>
     </div>

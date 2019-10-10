@@ -289,24 +289,26 @@ class GeotagDialog extends React.Component {
                 zoomOutTitle={this.props.intl.formatMessage({ id: 'dialogs.geotag.zoom-out', defaultMessage: 'Zoom out' })}
               />
 
-              {this.state.renderPopup &&
-                <LocationPopup
-                  position={this.state.markerLocation}
-                  label={this.state.label}
-                  isEditable={this.state.geocodeAvailable && this.canEditLocation()}
-                  isClearable={this.state.geocodeAvailable && this.canClearLocation()}
-                  handleConfirm={(e) => { this.handleConfirmLocation(e); closeDialog() }}
-                  handleClear={(e) => { this.handleClearLocation(e); closeDialog() }}
-                />
+              {
+                this.state.renderPopup &&
+                  <LocationPopup
+                    position={this.state.markerLocation}
+                    label={this.state.label}
+                    isEditable={this.state.geocodeAvailable && this.canEditLocation()}
+                    isClearable={this.state.geocodeAvailable && this.canClearLocation()}
+                    handleConfirm={(e) => { this.handleConfirmLocation(e); closeDialog() }}
+                    handleClear={(e) => { this.handleClearLocation(e); closeDialog() }}
+                  />
               }
 
-              {this.state.markerLocation &&
-                <Marker
-                  position={this.state.markerLocation}
-                  onDragEnd={this.handleMarkerDragEnd}
-                  onDragStart={this.handleMarkerDragStart}
-                  draggable={this.state.geocodeAvailable}
-                />
+              {
+                this.state.markerLocation &&
+                  <Marker
+                    position={this.state.markerLocation}
+                    onDragEnd={this.handleMarkerDragEnd}
+                    onDragStart={this.handleMarkerDragStart}
+                    draggable={this.state.geocodeAvailable}
+                  />
               }
             </Map>
           </div>

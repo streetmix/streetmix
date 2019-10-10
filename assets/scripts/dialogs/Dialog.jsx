@@ -18,13 +18,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import CloseButton from '../ui/CloseButton'
-import { clearDialogs } from '../store/actions/dialogs'
+import { handleClearDialogs } from '../store/actions/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Dialog.scss'
 
 export class Dialog extends React.Component {
   static propTypes = {
-    clearDialogs: PropTypes.func.isRequired,
+    handleClearDialogs: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired
   }
 
@@ -55,7 +55,7 @@ export class Dialog extends React.Component {
         in={this.state.appear}
         timeout={80}
         classNames="dialog-transition"
-        onExited={this.props.clearDialogs}
+        onExited={this.props.handleClearDialogs}
       >
         <div className="dialog-box-container">
           <div className="dialog-box-backdrop" onClick={this.handleClose} />
@@ -69,4 +69,4 @@ export class Dialog extends React.Component {
   }
 }
 
-export default connect(null, { clearDialogs })(Dialog)
+export default connect(null, handleClearDialogs)(Dialog)

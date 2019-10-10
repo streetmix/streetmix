@@ -24,14 +24,14 @@ export class SegmentDragHandles extends React.PureComponent {
       ? `${(0.5 * this.props.width) - 35}px` : null
 
     return (
-      <React.Fragment>
+      <>
         <span className="drag-handle drag-handle-left" style={{ display, left: adjustX }}>
           <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
         </span>
         <span className="drag-handle drag-handle-right" style={{ display, right: adjustX }}>
           <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
         </span>
-      </React.Fragment>
+      </>
     )
   }
 }

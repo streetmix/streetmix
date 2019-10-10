@@ -68,8 +68,9 @@ class GeoSearch extends React.Component {
         key: item.properties.gid,
         index,
         item
-      })}>
-        { highlighted }
+      })}
+      >
+        {highlighted}
       </li>
     )
   }
@@ -97,8 +98,9 @@ class GeoSearch extends React.Component {
               autoFocus: true,
               ref: this.inputEl,
               placeholder: this.props.intl.formatMessage({ id: 'dialogs.geotag.search', defaultMessage: 'Search for a location' })
-            })} />
-            { inputValue && (
+            })}
+            />
+            {inputValue && (
               <span
                 title={this.props.intl.formatMessage({ id: 'dialogs.geotag.clear-search', defaultMessage: 'Clear search' })}
                 className="geotag-input-clear"
@@ -107,10 +109,10 @@ class GeoSearch extends React.Component {
                 ×
               </span>
             )}
-            { isOpen && results && results.features.length > 0 && (
+            {isOpen && results && results.features.length > 0 && (
               <div className="geotag-suggestions-container">
                 <ul {...getMenuProps({ className: 'geotag-suggestions-list' })}>
-                  { results.features.map((item, index) => this.renderSuggestion(item, index, inputValue, getItemProps)) }
+                  {results.features.map((item, index) => this.renderSuggestion(item, index, inputValue, getItemProps))}
                 </ul>
               </div>
             )}

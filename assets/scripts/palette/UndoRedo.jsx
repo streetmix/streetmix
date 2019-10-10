@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_UNDO, ICON_REDO } from '../ui/icons'
 import { getRemixOnFirstEdit } from '../streets/remix'
-import { undo, redo } from '../store/actions/undo'
+import { handleUndo, handleRedo } from '../store/actions/undo'
 
 const UndoRedo = (props) => {
   const intl = useIntl()
@@ -23,14 +23,14 @@ const UndoRedo = (props) => {
   return (
     <>
       <button
-        onClick={props.undo}
+        onClick={props.handleUndo}
         disabled={!isUndoAvailable()}
         title={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
       >
         <FontAwesomeIcon icon={ICON_UNDO} />
       </button>
       <button
-        onClick={props.redo}
+        onClick={props.handleRedo}
         disabled={!isRedoAvailable()}
         title={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
       >
@@ -43,8 +43,8 @@ const UndoRedo = (props) => {
 UndoRedo.propTypes = {
   undoPosition: PropTypes.number.isRequired,
   undoStack: PropTypes.array.isRequired,
-  undo: PropTypes.func.isRequired,
-  redo: PropTypes.func.isRequired
+  handleUndo: PropTypes.func.isRequired,
+  handleRedo: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -55,8 +55,8 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  undo,
-  redo
+  handleUndo,
+  handleRedo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UndoRedo)

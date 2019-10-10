@@ -95,7 +95,7 @@ class ShareMenu extends React.Component {
     }, values)
   }
 
-  onShow = () => {
+  handleShow = () => {
     // Make sure links are updated when the menu is opened
     this.updateLinks()
 
@@ -106,27 +106,27 @@ class ShareMenu extends React.Component {
     }, 200)
   }
 
-  onClickShareViaTwitter () {
+  handleClickShareViaTwitter () {
     saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'TWITTER', null, null, false)
   }
 
-  onClickShareViaFacebook () {
+  handleClickShareViaFacebook () {
     saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
-  onClickSaveAsImage = (event) => {
+  handleClickSaveAsImage = (event) => {
     event.preventDefault()
     this.props.showDialog('SAVE_AS_IMAGE')
   }
 
-  onClickSignIn = (event) => {
+  handleClickSignIn = (event) => {
     event.preventDefault()
     this.props.showDialog('SIGN_IN')
   }
 
-  onClickPrint = (event) => {
+  handleClickPrint = (event) => {
     event.preventDefault()
 
     // Manually dispatch printing state here. Workaround for Chrome bug where
@@ -152,12 +152,13 @@ class ShareMenu extends React.Component {
       '&name=' + encodeURIComponent(getPageTitle(this.props.street)) +
       '&description=' + encodeURIComponent(shareText)
 
-    const signInLink = <a onClick={this.onClickSignIn} href="#">
-      <FormattedMessage
-        defaultMessage="Sign in"
-        id="menu.share.sign-in-twitter-link"
-      />
-    </a>
+    const signInLink =
+      <a onClick={this.handleClickSignIn} href="#">
+        <FormattedMessage
+          defaultMessage="Sign in"
+          id="menu.share.sign-in-twitter-link"
+        />
+      </a>
 
     const signInPromo = (!this.props.signedIn)
       ? (
@@ -173,7 +174,7 @@ class ShareMenu extends React.Component {
       ) : null
 
     return (
-      <Menu onShow={this.onShow} className="share-menu" {...this.props}>
+      <Menu onShow={this.handleShow} className="share-menu" {...this.props}>
         {signInPromo}
         <div className="share-via-link-container">
           <FormattedMessage id="menu.share.link" defaultMessage="Copy and paste this link to share:" />
@@ -195,7 +196,7 @@ class ShareMenu extends React.Component {
           href={twitterLink}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={this.onClickShareViaTwitter}
+          onClick={this.handleClickShareViaTwitter}
         >
           <Icon icon="twitter" />
           <FormattedMessage id="menu.share.twitter" defaultMessage="Share using Twitter" />
@@ -205,15 +206,15 @@ class ShareMenu extends React.Component {
           href={facebookLink}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={this.onClickShareViaFacebook}
+          onClick={this.handleClickShareViaFacebook}
         >
           <Icon icon="facebook" />
           <FormattedMessage id="menu.share.facebook" defaultMessage="Share using Facebook" />
         </a>
-        <a href="#" onClick={this.onClickPrint}>
+        <a href="#" onClick={this.handleClickPrint}>
           <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
         </a>
-        <a id="save-as-image" href="#" onClick={this.onClickSaveAsImage}>
+        <a id="save-as-image" href="#" onClick={this.handleClickSaveAsImage}>
           <FormattedMessage id="menu.share.save" defaultMessage="Save as image…" />
           <span className="menu-item-subtext">
             <FormattedMessage id="menu.share.save-byline" defaultMessage="For including in a report, blog, etc." />

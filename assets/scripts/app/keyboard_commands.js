@@ -11,7 +11,7 @@ import { getSignInData, isSignedIn } from '../users/authentication'
 import { showStatusMessage } from './status_message'
 import { t } from '../locales/locale'
 import { showDialog } from '../store/actions/dialogs'
-import { undo, redo } from '../store/actions/undo'
+import { handleUndo, handleRedo } from '../store/actions/undo'
 import store from '../store'
 
 export function onGlobalKeyDown (event) {
@@ -69,7 +69,7 @@ export function registerKeypresses () {
     requireFocusOnBody: true,
     shiftKey: false
   }, () => {
-    store.dispatch(undo())
+    store.dispatch(handleUndo())
   })
 
   // Redo
@@ -77,6 +77,6 @@ export function registerKeypresses () {
     preventDefault: true,
     requireFocusOnBody: true
   }, () => {
-    store.dispatch(redo())
+    store.dispatch(handleRedo())
   })
 }

@@ -161,18 +161,18 @@ export class InfoBubble extends React.Component {
     infoBubble.hide()
   }
 
-  onTouchStart (event) {
+  handleTouchStart (event) {
     resumeFadeoutControls()
   }
 
   // TODO: verify this continues to work with pointer / touch taps
-  onMouseEnter = (event) => {
+  handleMouseEnter = (event) => {
     this.props.setInfoBubbleMouseInside(true)
 
     this.updateHoverPolygon()
   }
 
-  onMouseLeave = (event) => {
+  handleMouseLeave = (event) => {
     this.props.setInfoBubbleMouseInside(false)
 
     // Returns focus to body when pointer leaves the info bubble area
@@ -493,9 +493,9 @@ export class InfoBubble extends React.Component {
     return (
       <div
         className={classNames.join(' ')}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        onTouchStart={this.onTouchStart}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+        onTouchStart={this.handleTouchStart}
         ref={this.el}
       >
         <Triangle highlight={this.state.highlightTriangle} />

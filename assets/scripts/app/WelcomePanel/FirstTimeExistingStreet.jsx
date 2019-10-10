@@ -34,9 +34,9 @@ function FirstTimeExistingStreet (props) {
             values={{
               streetName: <StreetName name={street.name} />,
               creator: (
-                <React.Fragment>
+                <>
                   <Avatar userId={street.creatorId} /> {street.creatorId}
-                </React.Fragment>
+                </>
               )
             }}
           />

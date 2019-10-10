@@ -29,7 +29,7 @@ export class HelpMenu extends Component {
     deregisterKeypress('?', () => this.props.showDialog('ABOUT'))
   }
 
-  onShow () {
+  handleShow () {
     trackEvent('Interaction', 'Open help menu', null, null, false)
   }
 
@@ -41,7 +41,7 @@ export class HelpMenu extends Component {
     )
 
     return (
-      <Menu onShow={this.onShow} {...this.props}>
+      <Menu onShow={this.handleShow} {...this.props}>
         <a href="#" onClick={() => this.props.showDialog('ABOUT')}>
           <FormattedMessage id="menu.item.about" defaultMessage="About Streetmix…" />
         </a>

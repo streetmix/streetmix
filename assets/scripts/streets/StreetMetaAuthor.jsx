@@ -17,7 +17,7 @@ export class StreetMetaAuthor extends React.Component {
     userId: ''
   }
 
-  onClickAuthor = (event) => {
+  handleClickAuthor = (event) => {
     if (event) {
       event.preventDefault()
     }
@@ -26,10 +26,10 @@ export class StreetMetaAuthor extends React.Component {
 
   renderByline = (creatorId) => {
     const user = (creatorId) ? (
-      <React.Fragment key={creatorId}>
+      <fragment key={creatorId}>
         <Avatar userId={creatorId} />
-        <a href={'/' + creatorId} onClick={this.onClickAuthor}>{creatorId}</a>
-      </React.Fragment>
+        <a href={'/' + creatorId} onClick={this.handleClickAuthor}>{creatorId}</a>
+      </fragment>
     ) : (
       <FormattedMessage id="users.anonymous" defaultMessage="Anonymous" />
     )

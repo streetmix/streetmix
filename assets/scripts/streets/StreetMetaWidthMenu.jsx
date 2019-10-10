@@ -49,10 +49,10 @@ const StreetMetaWidthMenu = (props) => {
   // render another choice representing the current width
   const CustomWidthOption = (defaultWidths.indexOf(Number.parseFloat(width)) === -1)
     ? (
-      <React.Fragment>
+      <>
         <option disabled />
         {renderOption(width, units)}
-      </React.Fragment>
+      </>
     ) : null
 
   return (
@@ -79,7 +79,7 @@ const StreetMetaWidthMenu = (props) => {
       </option>
       {DefaultWidthOptions}
       {CustomWidthOption}
-      <option value={STREET_WIDTH_CUSTOM} >
+      <option value={STREET_WIDTH_CUSTOM}>
         {formatMessage({ id: 'width.different', defaultMessage: 'Different width…' })}
       </option>
       <option disabled />

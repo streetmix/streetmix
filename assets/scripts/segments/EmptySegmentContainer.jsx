@@ -42,9 +42,9 @@ export class EmptySegmentContainer extends React.Component {
     // Returning a Fragment is not strictly required by React, but without it, Enzyme
     // (tests) fail
     return (
-      <React.Fragment>
+      <>
         {emptySegments.map(({ width, left }, i) => <EmptySegment key={i} width={width} left={left} />)}
-      </React.Fragment>
+      </>
     )
   }
 }

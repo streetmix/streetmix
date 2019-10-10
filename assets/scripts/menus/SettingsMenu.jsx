@@ -50,13 +50,13 @@ export class SettingsMenu extends React.PureComponent {
     this.props.changeLocale(locale)
   }
 
-  selectMetric = () => {
+  handleSelectMetric = () => {
     if (this.props.units === SETTINGS_UNITS_METRIC) return
 
     updateUnits(SETTINGS_UNITS_METRIC)
   }
 
-  selectImperial = () => {
+  handleSelectImperial = () => {
     if (this.props.units === SETTINGS_UNITS_IMPERIAL) return
 
     updateUnits(SETTINGS_UNITS_IMPERIAL)
@@ -64,29 +64,29 @@ export class SettingsMenu extends React.PureComponent {
 
   render () {
     return (
-      <Menu onShow={this.onShow} {...this.props}>
+      <Menu onShow={this.handleShow} {...this.props}>
         <h2 className="menu-header">
           <FormattedMessage id="settings.units.label" defaultMessage="Units" />
         </h2>
         <ul className="menu-item-group">
-          <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_METRIC) ? 'menu-item-selected' : ''}`} onClick={this.selectMetric}>
+          <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_METRIC) ? 'menu-item-selected' : ''}`} onClick={this.handleSelectMetric}>
             {(this.props.units === SETTINGS_UNITS_METRIC) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
             {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
             <FormattedMessage id="settings.units.metric" defaultMessage="Metric units (meters)" />&#x200E;
           </li>
-          <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_IMPERIAL) ? 'menu-item-selected' : ''}`} onClick={this.selectImperial}>
+          <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_IMPERIAL) ? 'menu-item-selected' : ''}`} onClick={this.handleSelectImperial}>
             {(this.props.units === SETTINGS_UNITS_IMPERIAL) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
             <FormattedMessage id="settings.units.imperial" defaultMessage="Imperial units (feet)" />&#x200E;
           </li>
         </ul>
 
         {this.props.enableLocaleSettings && (
-          <React.Fragment>
+          <>
             <h2 className="menu-header">
               <FormattedMessage id="settings.language.label" defaultMessage="Language" />
             </h2>
             <LocaleSelect locale={this.props.locale} requestedLocale={this.props.requestedLocale} selectLocale={this.selectLocale} />
-          </React.Fragment>
+          </>
         )}
       </Menu>
     )

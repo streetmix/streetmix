@@ -55,7 +55,7 @@ const UNTRANSLATED_LABELS = {
 
 function Credits (props) {
   return (
-    <React.Fragment>
+    <>
       <h2>
         <FormattedMessage id="credits.core-team-heading" defaultMessage="Project team" />
       </h2>
@@ -87,22 +87,23 @@ function Credits (props) {
           {
             Object.entries(CREDITS.contributors)
               .map(([key, value]) => (
-                <React.Fragment key={key}>
+                <fragment key={key}>
                   <h3><FormattedMessage id={`credits.${key}`} defaultMessage={UNTRANSLATED_LABELS[key]} /></h3>
                   <ul>
                     {value.sort().map(name => Array.isArray(name)
                       ? <li key={name[0]}>{name[0]}, <i>{name[1]}</i></li>
                       : (typeof name === 'string')
                         ? <li key={name}>{name}</li>
-                        : (<li key={name.label}>
-                          <h4>{name.label}</h4>
-                          <ul>
-                            {name.people.map(person => <li key={person}>{person}</li>)}
-                          </ul>
-                        </li>)
+                        : (
+                          <li key={name.label}>
+                            <h4>{name.label}</h4>
+                            <ul>
+                              {name.people.map(person => <li key={person}>{person}</li>)}
+                            </ul>
+                          </li>)
                     )}
                   </ul>
-                </React.Fragment>
+                </fragment>
               ))
           }
         </div>
@@ -126,7 +127,7 @@ function Credits (props) {
           </ul>
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

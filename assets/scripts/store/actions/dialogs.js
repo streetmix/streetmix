@@ -7,7 +7,7 @@ export function showDialog (name) {
   }
 }
 
-export function clearDialogs () {
+export function handleClearDialogs () {
   return {
     type: CLEAR_DIALOGS
   }

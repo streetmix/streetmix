@@ -102,7 +102,7 @@ export class Segment extends React.Component {
     }
 
     if (prevProps.segment.variantString && prevProps.segment.variantString !== this.props.segment.variantString) {
-      this.switchSegments(prevProps.segment.variantString)
+      this.handleSwitchSegments(prevProps.segment.variantString)
     }
 
     this.props.updateSegmentData(this.streetSegment, this.props.dataNo, this.props.segmentPos)
@@ -112,7 +112,7 @@ export class Segment extends React.Component {
     document.removeEventListener('keydown', this.handleKeyDown)
   }
 
-  switchSegments = (oldVariant) => {
+  handleSwitchSegments = (oldVariant) => {
     this.setState({
       switchSegments: !(this.state.switchSegments),
       oldVariant: (this.state.switchSegments) ? this.props.segment.variantString : oldVariant
@@ -127,7 +127,7 @@ export class Segment extends React.Component {
     return actualWidth
   }
 
-  onSegmentMouseEnter = (event) => {
+  handleSegmentMouseEnter = (event) => {
     // Immediately after a segment move action, react-dnd can incorrectly trigger this handler
     // on the segment that exists in the previous segment's spot. The bug is tracked here
     // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
@@ -145,7 +145,7 @@ export class Segment extends React.Component {
     infoBubble.considerShowing(event, this.streetSegment, INFO_BUBBLE_TYPE_SEGMENT)
   }
 
-  onSegmentMouseLeave = () => {
+  handleSegmentMouseLeave = () => {
     document.removeEventListener('keydown', this.handleKeyDown)
     infoBubble.dontConsiderShowing()
   }
@@ -279,8 +279,8 @@ export class Segment extends React.Component {
         className={classNames.join(' ')}
         data-testid="segment"
         ref={(ref) => { this.streetSegment = ref }}
-        onMouseEnter={this.onSegmentMouseEnter}
-        onMouseLeave={this.onSegmentMouseLeave}
+        onMouseEnter={this.handleSegmentMouseEnter}
+        onMouseLeave={this.handleSegmentMouseLeave}
       >
         <SegmentLabelContainer
           label={displayName}
@@ -296,7 +296,7 @@ export class Segment extends React.Component {
           in={!this.state.switchSegments}
           classNames="switching-away"
           timeout={250}
-          onExited={this.switchSegments}
+          onExited={this.handleSwitchSegments}
           unmountOnExit
         >
           {this.renderSegmentCanvas('old')}

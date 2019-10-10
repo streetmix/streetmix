@@ -29,11 +29,11 @@ class PaletteCommandsLeft extends PureComponent {
   }
 
   handleClickTools = () => {
-    this.dismissTooltip()
+    this.handleDismissTooltip()
     this.props.toggleToolbox()
   }
 
-  dismissTooltip = () => {
+  handleDismissTooltip = () => {
     this.setState({
       tooltip: false
     })
@@ -51,7 +51,7 @@ class PaletteCommandsLeft extends PureComponent {
     const Button = (
       <button
         onClick={this.handleClickTools}
-        title={'Toggle tools'}
+        title="Toggle tools"
       >
         <FontAwesomeIcon icon={ICON_TOOLS} />
       </button>
@@ -59,7 +59,7 @@ class PaletteCommandsLeft extends PureComponent {
 
     const Tooltip = (this.state.tooltip) ? (
       <div className="supermoon-tooltip">
-        <CloseButton onClick={this.dismissTooltip} />
+        <CloseButton onClick={this.handleDismissTooltip} />
         <p>
           <strong>You’ve got some new tools!&lrm;</strong> Click on this button to activate some new abilities.&lrm;
         </p>
