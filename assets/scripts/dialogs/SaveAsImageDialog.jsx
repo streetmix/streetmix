@@ -286,6 +286,8 @@ function mapStateToProps (state) {
   }
 }
 
-const mapDispatchToProps = { setSettings }
+const mapDispatchToProps = {
+  setSettings
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(SaveAsImageDialog))

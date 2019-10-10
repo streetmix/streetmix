@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { trackEvent } from '../app/event_tracking'
-import { SHOW_DIALOG } from '../store/actions'
+import { showDialog } from '../store/actions/dialogs'
 
 export class StreetMetaGeotag extends React.Component {
   static propTypes = {
     editable: PropTypes.bool,
     street: PropTypes.any,
-    showGeotagDialog: PropTypes.func
+    showDialog: PropTypes.func
   }
 
   static defaultProps = {
@@ -25,7 +25,7 @@ export class StreetMetaGeotag extends React.Component {
       trackEvent('Interaction', 'Clicked existing location', null, null, true)
     }
 
-    this.props.showGeotagDialog()
+    this.props.showDialog('GEOTAG')
   }
 
   getGeotagText = () => {
@@ -70,15 +70,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showGeotagDialog: () => {
-      dispatch({
-        type: SHOW_DIALOG,
-        name: 'GEOTAG'
-      })
-    }
-  }
+const mapDispatchToProps = {
+  showDialog
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StreetMetaGeotag)

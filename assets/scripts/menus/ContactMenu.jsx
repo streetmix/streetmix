@@ -41,7 +41,7 @@ export const ContactMenu = (props) => (
       <Icon icon="github" />
       <FormattedMessage id="menu.contact.github" defaultMessage="View source code on GitHub" />
     </a>
-    <a href="#" onClick={(e) => { handleClickNewsletter(); props.showNewsletterDialog() }}>
+    <a href="#" onClick={(e) => { handleClickNewsletter(); props.showDialog('NEWSLETTER') }}>
       <FormattedMessage id="menu.contact.newsletter" defaultMessage="Subscribe to our newsletter" />
     </a>
     {/* <a href="https://forums.streetmix.net/" target="_blank" rel="noopener noreferrer" onClick={handleClickForums}>
@@ -52,22 +52,18 @@ export const ContactMenu = (props) => (
       <Icon icon="twitter" />
       <FormattedMessage id="menu.contact.twitter" defaultMessage="Send a tweet to @streetmix" />
     </a>
-    <a href="#" onClick={(e) => { handleClickMinecraft(); props.showMinecraftDialog() }}>
+    <a href="#" onClick={(e) => { handleClickMinecraft(); props.showDialog('MINECRAFT') }}>
       <FormattedMessage id="menu.contact.minecraft" defaultMessage="Play Minecraft with us!&lrm;" />
     </a> */}
   </Menu>
 )
 
 ContactMenu.propTypes = {
-  showMinecraftDialog: PropTypes.func,
-  showNewsletterDialog: PropTypes.func
+  showDialog: PropTypes.func
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    showMinecraftDialog: () => { dispatch(showDialog('MINECRAFT')) },
-    showNewsletterDialog: () => { dispatch(showDialog('NEWSLETTER')) }
-  }
+const mapDispatchToProps = {
+  showDialog
 }
 
 export default React.memo(connect(null, mapDispatchToProps)(ContactMenu))

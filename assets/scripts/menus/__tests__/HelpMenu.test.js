@@ -11,14 +11,14 @@ describe('HelpMenu', () => {
 
   it('shows the About dialog when its link is clicked', () => {
     const showDialog = jest.fn()
-    const wrapper = shallow(<HelpMenu handleShowAboutDialog={showDialog} />)
+    const wrapper = shallow(<HelpMenu showDialog={showDialog} />)
     wrapper.find('a').first().simulate('click')
     expect(showDialog).toBeCalled()
   })
 
   it('shows the What’s New dialog when its link is clicked', () => {
     const showDialog = jest.fn()
-    const wrapper = shallow(<HelpMenu handleShowWhatsNewDialog={showDialog} />)
+    const wrapper = shallow(<HelpMenu showDialog={showDialog} />)
     wrapper.find('a').last().simulate('click')
     expect(showDialog).toBeCalled()
   })
