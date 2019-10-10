@@ -48,14 +48,16 @@ export default function DateTimeRelative (props) {
         id="datetime.today"
         defaultMessage="Today at {time}"
         values={{
-          time: <time dateTime={props.value} title={props.value}>
-            <FormattedTime
-              timeZone={props.timezone}
-              value={props.value}
-              hour="numeric"
-              minute="numeric"
-            />
-          </time>
+          time: (
+            <time dateTime={props.value} title={props.value}>
+              <FormattedTime
+                timeZone={props.timezone}
+                value={props.value}
+                hour="numeric"
+                minute="numeric"
+              />
+            </time>
+          )
         }}
       />
     )
@@ -69,14 +71,16 @@ export default function DateTimeRelative (props) {
         id="datetime.yesterday"
         defaultMessage="Yesterday at {time}"
         values={{
-          time: <time dateTime={props.value} title={props.value}>
-            <FormattedTime
-              timeZone={props.timezone}
-              value={props.value}
-              hour="numeric"
-              minute="numeric"
-            />
-          </time>
+          time: (
+            <time dateTime={props.value} title={props.value}>
+              <FormattedTime
+                timeZone={props.timezone}
+                value={props.value}
+                hour="numeric"
+                minute="numeric"
+              />
+            </time>
+          )
         }}
       />
     )

@@ -34,7 +34,7 @@ class GalleryPanel extends React.Component {
     let childElements
 
     if (this.state.hasError) {
-      childElements = <GalleryError retry={repeatReceiveGalleryData} />
+      childElements = <GalleryError handleRetry={repeatReceiveGalleryData} />
     } else {
       switch (this.props.mode) {
         // This is currently deprecated; the gallery is only accessible only for

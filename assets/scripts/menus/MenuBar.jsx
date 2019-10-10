@@ -91,7 +91,7 @@ class MenuBar extends React.Component {
           </li>
           <MenuBarItem label="Help" translation="menu.item.help" onClick={this.handleClickMenuButton('help')} />
           {!this.props.noInternet && (
-            <React.Fragment>
+            <>
               <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.handleClickMenuButton('contact')} />
               {this.props.upgradeFunnel ? (
                 <MenuBarItem url="#" label="Upgrade" translation="menu.upgrade" onClick={this.handleClickUpgrade} />
@@ -111,7 +111,7 @@ class MenuBar extends React.Component {
                 target="_blank"
                 rel="noopener noreferrer"
               />
-            </React.Fragment>
+            </>
           )}
         </ul>
         <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { doSignIn } from '../users/authentication'
 import { hideStatusMessage } from '../store/actions/status'
-import { undo as doUndo } from '../store/actions/undo'
+import { handleUndo as doUndo } from '../store/actions/undo'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
 import CloseButton from '../ui/CloseButton'
@@ -64,11 +64,11 @@ class StatusMessage extends React.PureComponent {
     window.removeEventListener('stmx:save_street', this.props.hideStatusMessage)
   }
 
-  onClickUndo = (event) => {
+  handleClickUndo = (event) => {
     this.props.doUndo()
   }
 
-  onClickTheX = (event) => {
+  handleClickTheX = (event) => {
     this.props.hideStatusMessage()
 
     // Force window to refocus on document.body after StatusMessage is closed by X button
@@ -87,7 +87,7 @@ class StatusMessage extends React.PureComponent {
     // Create an undo button if requested.
     // Translation of "undo" is reused from the undo palette.
     const UndoButton = (undo) && (
-      <button onClick={this.onClickUndo}>
+      <button onClick={this.handleClickUndo}>
         <FormattedMessage id="btn.undo" defaultMessage="Undo" />
       </button>
     )
@@ -107,7 +107,7 @@ class StatusMessage extends React.PureComponent {
           {UndoButton}
           {SignInButton}
           {/* Do not focus the close button when offscreen */}
-          <CloseButton onClick={this.onClickTheX} tabIndex={visible ? 0 : -1} />
+          <CloseButton onClick={this.handleClickTheX} tabIndex={visible ? 0 : -1} />
         </div>
       </div>
     )

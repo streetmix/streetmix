@@ -42,8 +42,8 @@ export class WelcomePanel extends React.Component {
 
   componentDidMount () {
     // Hide welcome panel on certain events
-    window.addEventListener('stmx:receive_gallery_street', this.hideWelcome)
-    window.addEventListener('stmx:save_street', this.hideWelcome)
+    window.addEventListener('stmx:receive_gallery_street', this.handleHideWelcome)
+    window.addEventListener('stmx:save_street', this.handleHideWelcome)
   }
 
   componentDidUpdate (prevProps) {
@@ -54,7 +54,7 @@ export class WelcomePanel extends React.Component {
       })
 
       // Set up keypress listener to close welcome panel
-      registerKeypress('esc', this.hideWelcome)
+      registerKeypress('esc', this.handleHideWelcome)
     }
 
     // The StreetNameCanvas might stick out from underneath the WelcomePanel
@@ -68,9 +68,9 @@ export class WelcomePanel extends React.Component {
 
   componentWillUnmount () {
     // Clean up event listeners
-    window.removeEventListener('stmx:receive_gallery_street', this.hideWelcome)
-    window.removeEventListener('stmx:save_street', this.hideWelcome)
-    deregisterKeypress('esc', this.hideWelcome)
+    window.removeEventListener('stmx:receive_gallery_street', this.handleHideWelcome)
+    window.removeEventListener('stmx:save_street', this.handleHideWelcome)
+    deregisterKeypress('esc', this.handleHideWelcome)
   }
 
   getWelcomeType = () => {
@@ -91,7 +91,7 @@ export class WelcomePanel extends React.Component {
     return welcomeType
   }
 
-  hideWelcome = () => {
+  handleHideWelcome = () => {
     // Certain events will dismiss the welcome panel. If already
     // invisible, do nothing.
     if (!this.state.welcomeType) {
@@ -108,7 +108,7 @@ export class WelcomePanel extends React.Component {
     this.props.showStreetNameCanvas()
 
     // Remove keypress listener
-    deregisterKeypress('esc', this.hideWelcome)
+    deregisterKeypress('esc', this.handleHideWelcome)
   }
 
   render () {
@@ -144,7 +144,7 @@ export class WelcomePanel extends React.Component {
     return (
       <div className="welcome-panel-container">
         <div className="welcome-panel">
-          <CloseButton onClick={this.hideWelcome} />
+          <CloseButton onClick={this.handleHideWelcome} />
           {welcomeContent}
         </div>
       </div>

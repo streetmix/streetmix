@@ -86,10 +86,10 @@ function GalleryContents (props) {
         {/* Display these buttons for a user viewing their own gallery */}
         {isOwnedByCurrentUser && (
           <div className="gallery-user-buttons">
-            <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} target="_blank">
+            <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} rel="noopener noreferrer" target="_blank">
               <FormattedMessage id="btn.create" defaultMessage="Create new street" />
             </a>
-            <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} target="_blank">
+            <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} rel="noopener noreferrer" target="_blank">
               <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
             </a>
           </div>

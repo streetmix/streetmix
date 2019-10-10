@@ -37,14 +37,18 @@ const SegmentLabelContainer = (props) => {
           locale={locale}
         />
       </span>
-      {showCapacity && <span className="segment-capacity">
-        <FormattedMessage
-          id="capacity.ppl-per-hr"
-          defaultMessage="{capacity} people/hr"
-          values={{
-            capacity: formatCapacity(capacity, locale)
-          }} />
-      </span>}
+      {
+        showCapacity &&
+          <span className="segment-capacity">
+            <FormattedMessage
+              id="capacity.ppl-per-hr"
+              defaultMessage="{capacity} people/hr"
+              values={{
+                capacity: formatCapacity(capacity, locale)
+              }}
+            />
+          </span>
+      }
       <span className={gridClassNames.join(' ')} />
     </div>
   )

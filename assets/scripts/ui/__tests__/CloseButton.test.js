@@ -13,22 +13,24 @@ describe('CloseButton', () => {
   })
 
   it('renders with custom title, class name, and other attributes', () => {
-    const wrapper = render(<CloseButton
-      onClick={jest.fn()}
-      title="foofoo"
-      className="my-class"
-      disabled
-      hidden
-    />)
+    const wrapper = render(
+      <CloseButton
+        onClick={jest.fn()}
+        title="foofoo"
+        className="my-class"
+        disabled
+        hidden
+      />)
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('should call onClick function when button is clicked', () => {
     const onClick = jest.fn()
-    const { getByTitle } = render(<CloseButton
-      onClick={onClick}
-      title="foo"
-    />)
+    const { getByTitle } = render(
+      <CloseButton
+        onClick={onClick}
+        title="foo"
+      />)
     fireEvent.click(getByTitle('foo'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })

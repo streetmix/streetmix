@@ -95,7 +95,7 @@ class Palette extends React.PureComponent {
             locale={this.props.locale.locale}
             messages={this.props.locale.segmentInfo}
           >
-            <React.Fragment>{this.renderPaletteItems()}</React.Fragment>
+            <>{this.renderPaletteItems()}</>
           </IntlProvider>
         </Scrollable>
       </div>

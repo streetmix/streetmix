@@ -39,7 +39,7 @@ describe('InfoBubble', () => {
       leftBuildingVariant: 'grass'
     }
     const locale = { locale: 'en' }
-    const wrapper = shallow(<InfoBubble locale={locale} street={street} position={'left'} />)
+    const wrapper = shallow(<InfoBubble locale={locale} street={street} position="left" />)
     expect(wrapper).toMatchSnapshot()
   })
   it('shows building right info bubble', () => {
@@ -48,7 +48,7 @@ describe('InfoBubble', () => {
       rightBuildingVariant: 'grass'
     }
     const locale = { locale: 'en' }
-    const wrapper = shallow(<InfoBubble locale={locale} street={street} position={'right'} />)
+    const wrapper = shallow(<InfoBubble locale={locale} street={street} position="right" />)
     expect(wrapper).toMatchSnapshot()
   })
   it('updates hover polygon', () => {

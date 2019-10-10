@@ -10,7 +10,7 @@ class Menu extends React.PureComponent {
     isActive: PropTypes.bool.isRequired,
     menuItemNode: PropTypes.instanceOf(Element), // Must be a DOM element
     alignOpposite: PropTypes.bool,
-    onShow: PropTypes.func,
+    handleShow: PropTypes.func,
     onHide: PropTypes.func,
     children: PropTypes.node
   }
@@ -18,7 +18,7 @@ class Menu extends React.PureComponent {
   static defaultProps = {
     isActive: false,
     alignOpposite: false,
-    onShow: function () {}, // A no-op
+    handleShow: function () {}, // A no-op
     onHide: function () {}
   }
 
@@ -122,8 +122,8 @@ class Menu extends React.PureComponent {
     el.classList.add('menu-visible')
 
     // Callback function, if provided
-    if (this.props.onShow) {
-      this.props.onShow()
+    if (this.props.handleShow) {
+      this.props.handleShow()
     }
   }
 

@@ -91,7 +91,7 @@ export class StreetEditable extends React.Component {
     }
   }
 
-  switchSegmentAway = (el) => {
+  handleSwitchSegmentAway = (el) => {
     el.classList.add('create')
     el.style.left = el.savedLeft + 'px'
 
@@ -126,7 +126,7 @@ export class StreetEditable extends React.Component {
     }
   }
 
-  handleExitAnimations = (child) => {
+  onExitAnimations = (child) => {
     return React.cloneElement(child, {
       exit: !(this.props.street.immediateRemoval)
     })
@@ -151,7 +151,7 @@ export class StreetEditable extends React.Component {
           timeout={250}
           classNames="switching-away"
           exit={!(immediateRemoval)}
-          onExit={this.switchSegmentAway}
+          onExit={this.handleSwitchSegmentAway}
           unmountOnExit
         >
           <Segment
@@ -184,7 +184,7 @@ export class StreetEditable extends React.Component {
         style={style}
         ref={(ref) => { this.streetSectionEditable = ref }}
       >
-        <TransitionGroup key={this.props.street.id} component={null} enter={false} childFactory={this.handleExitAnimations}>
+        <TransitionGroup key={this.props.street.id} component={null} enter={false} childFactory={this.onExitAnimations}>
           {this.renderStreetSegments()}
         </TransitionGroup>
       </div>

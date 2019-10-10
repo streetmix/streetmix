@@ -82,7 +82,7 @@ class MenusContainer extends React.PureComponent {
    * @param {string} menu - name of the menu that was clicked
    * @param {HTMLElement} node - reference to the menu item button, used to position menu
    */
-  onMenuDropdownClick = (menu, node) => {
+  handleMenuDropdownClick = (menu, node) => {
     // If the clicked menu is already active, it's toggled off.
     const activeMenu = (this.props.activeMenu === menu) ? null : menu
     this.setState({
@@ -120,7 +120,7 @@ class MenusContainer extends React.PureComponent {
 
     return (
       <>
-        <MenuBar onMenuDropdownClick={this.onMenuDropdownClick} />
+        <MenuBar onMenuDropdownClick={this.handleMenuDropdownClick} />
         {/* Menus exist on a different z-index layer from the menu bar */}
         <div className="menus-container">
           <HelpMenu isActive={activeMenu === 'help'} menuItemNode={activeMenuItemNode} />

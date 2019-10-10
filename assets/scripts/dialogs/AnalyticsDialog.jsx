@@ -73,14 +73,15 @@ function AnalyticsDialog (props) {
   const averageTotal = segmentData.map(item => item.capacity.average).reduce(sumFunc, 0)
   const potentialTotal = segmentData.map(item => item.capacity.potential).reduce(sumFunc, 0)
 
-  const summary = (<FormattedMessage
-    id="dialogs.analytics.street-summary"
-    defaultMessage="Your street has an estimated average traffic of {averageTotal} passengers per hour, and potential for up to {potentialTotal} passengers per hour."
-    values={{
-      averageTotal: <b>{FormatNumber(props.locale, averageTotal)}</b>,
-      potentialTotal: <b>{FormatNumber(props.locale, potentialTotal)}</b>
-    }}
-  />)
+  const summary = (
+    <FormattedMessage
+      id="dialogs.analytics.street-summary"
+      defaultMessage="Your street has an estimated average traffic of {averageTotal} passengers per hour, and potential for up to {potentialTotal} passengers per hour."
+      values={{
+        averageTotal: <b>{FormatNumber(props.locale, averageTotal)}</b>,
+        potentialTotal: <b>{FormatNumber(props.locale, potentialTotal)}</b>
+      }}
+    />)
 
   const displayCapacity = item => {
     return item.capacity && item.capacity.display && item.capacity.average > 0

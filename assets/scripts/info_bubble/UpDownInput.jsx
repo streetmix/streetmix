@@ -277,7 +277,7 @@ export default class UpDownInput extends React.Component {
    */
   render () {
     return (
-      <React.Fragment>
+      <>
         <button
           className="up-down-input-decrement"
           title={this.props.downTooltip}
@@ -299,7 +299,7 @@ export default class UpDownInput extends React.Component {
         >
           <FontAwesomeIcon icon={ICON_PLUS} />
         </button>
-      </React.Fragment>
+      </>
     )
   }
 }

@@ -45,11 +45,11 @@ export default class StreetName extends React.PureComponent {
     }
   }
 
-  onMouseEnter = () => {
+  handleMouseEnter = () => {
     this.setState({ isHovered: true })
   }
 
-  onMouseLeave = () => {
+  handleMouseLeave = () => {
     this.setState({ isHovered: false })
   }
 
@@ -72,8 +72,8 @@ export default class StreetName extends React.PureComponent {
       <div
         className="street-name"
         ref={this.props.childRef}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
         onClick={this.props.onClick}
         id={this.props.id}
       >

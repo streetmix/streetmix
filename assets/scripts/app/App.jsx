@@ -45,7 +45,7 @@ class App extends React.PureComponent {
         key={this.props.locale.locale}
         messages={this.props.locale.messages}
       >
-        <React.Fragment>
+        <>
           <NotificationBar locale={this.props.locale.locale} notification={NOTIFICATION} />
           <BlockingShield />
           <BlockingError />
@@ -67,7 +67,7 @@ class App extends React.PureComponent {
             <SegmentDragLayer />
             <StreetView />
           </div>
-        </React.Fragment>
+        </>
       </IntlProvider>
     )
   }

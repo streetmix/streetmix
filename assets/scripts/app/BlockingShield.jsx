@@ -80,7 +80,7 @@ export default class BlockingShield extends React.Component {
     })
   }
 
-  onClickTryAgain = (event) => {
+  handleClickTryAgain = (event) => {
     this.setState({
       errorType: null,
       showCancel: false
@@ -89,7 +89,7 @@ export default class BlockingShield extends React.Component {
     blockingTryAgain()
   }
 
-  onClickCancel = (event) => {
+  handleClickCancel = (event) => {
     this.hide()
 
     blockingCancel()
@@ -126,43 +126,46 @@ export default class BlockingShield extends React.Component {
           {(this.state.mode === 'load') && <FormattedMessage id="msg.loading" defaultMessage="Loading…" />}
           {(this.state.mode === 'remix') && <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />}
         </div>
-        {(this.state.errorType === 'try-again') &&
-          <div className="error-content">
-            <p>
-              <FormattedMessage
-                id="msg.no-connection"
-                defaultMessage="Streetmix is having trouble connecting to the Internet."
-              />
-            </p>
-            <button onClick={this.onClickTryAgain}>
-              <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
-            </button>
-            {this.state.showCancel &&
-              <button onClick={this.onClickCancel}>
-                <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
+        {
+          (this.state.errorType === 'try-again') &&
+            <div className="error-content">
+              <p>
+                <FormattedMessage
+                  id="msg.no-connection"
+                  defaultMessage="Streetmix is having trouble connecting to the Internet."
+                />
+              </p>
+              <button onClick={this.handleClickTryAgain}>
+                <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
               </button>
-            }
-          </div>
+              {
+                this.state.showCancel &&
+                  <button onClick={this.handleClickCancel}>
+                    <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
+                  </button>
+              }
+            </div>
         }
-        {(this.state.errorType === 'too-slow') &&
-          <div className="error-content">
-            <p>
-              <FormattedMessage
-                id="msg.slow-connection-1"
-                defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now."
-              />
-            </p>
-            <p>
-              <FormattedMessage
-                id="msg.slow-connection-2"
-                defaultMessage="You might want to reload the page and try again. Please note
-                  you might lose the latest change to the street. Sorry!"
-              />
-            </p>
-            <button onClick={goReload}>
-              <FormattedMessage id="btn.reload" defaultMessage="Reload" />
-            </button>
-          </div>
+        {
+          (this.state.errorType === 'too-slow') &&
+            <div className="error-content">
+              <p>
+                <FormattedMessage
+                  id="msg.slow-connection-1"
+                  defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now."
+                />
+              </p>
+              <p>
+                <FormattedMessage
+                  id="msg.slow-connection-2"
+                  defaultMessage="You might want to reload the page and try again. Please note
+                    you might lose the latest change to the street. Sorry!"
+                />
+              </p>
+              <button onClick={goReload}>
+                <FormattedMessage id="btn.reload" defaultMessage="Reload" />
+              </button>
+            </div>
         }
       </div>
     )

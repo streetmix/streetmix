@@ -64,7 +64,7 @@ export default class DescriptionPanel extends React.Component {
     }, 200)
   }
 
-  toggleHighlightTriangle = () => {
+  handleToggleHighlightTriangle = () => {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
@@ -81,7 +81,7 @@ export default class DescriptionPanel extends React.Component {
     }
   }
 
-  onClickHide = (event) => {
+  handleClickHide = (event) => {
     this.props.onClickHide()
     this.unhighlightTriangleDelayed()
   }
@@ -108,11 +108,13 @@ export default class DescriptionPanel extends React.Component {
     return (
       <Transition in={this.props.visible} timeout={TRANSITION_DURATION}>
         {(state) => (
-          <div className="description-canvas" style={{
-            ...DEFAULT_STYLE,
-            ...TRANSITION_STYLES[state],
-            height
-          }}>
+          <div
+            className="description-canvas" style={{
+              ...DEFAULT_STYLE,
+              ...TRANSITION_STYLES[state],
+              height
+            }}
+          >
             <div className="description" ref={(ref) => { this.text = ref }}>
               {/* TODO: add alt text and requisite a11y attributes */}
               {this.props.image && <img src={`/images/info-bubble-examples/${this.props.image}`} />}
@@ -127,9 +129,9 @@ export default class DescriptionPanel extends React.Component {
             </div>
             <div
               className="description-close"
-              onClick={this.onClickHide}
-              onMouseOver={this.toggleHighlightTriangle}
-              onMouseOut={this.toggleHighlightTriangle}
+              onClick={this.handleClickHide}
+              onMouseOver={this.handleToggleHighlightTriangle}
+              onMouseOut={this.handleToggleHighlightTriangle}
             >
               <FormattedMessage id="btn.close" defaultMessage="Close" />
             </div>
