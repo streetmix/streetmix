@@ -84,14 +84,14 @@ describe('Segment', () => {
     it('KEY.MINUS decreases the width of the segment', () => {
       const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-      fireEvent.keyDown(document, { key: 'Minus', keyCode: KEYS.MINUS, code: KEYS.MINUS, charCode: KEYS.MINUS })
+      fireEvent.keyDown(document, { key: '-', keyCode: KEYS.MINUS, code: KEYS.MINUS, charCode: KEYS.MINUS })
       expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth - increment)
     })
 
     it('KEY.EQUAL increases the width of the segment', () => {
       const wrapper = renderWithRedux(<Segment segment={segment} actualWidth={currentWidth} dataNo={activeElement} updateSegmentData={jest.fn()} connectDragPreview={jest.fn()} />, { initialState: { ui: { activeSegment: activeElement }, street: { segments: [segment] } } })
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-      fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
+      fireEvent.keyDown(document, { key: '=', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
       expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(currentWidth + increment)
     })
 

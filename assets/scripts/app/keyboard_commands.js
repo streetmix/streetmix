@@ -17,7 +17,7 @@ import store from '../store'
 export function onGlobalKeyDown (event) {
   const { draggingType } = store.getState().ui
 
-  switch (event.keyCode) {
+  switch (event.key) {
     case KEYS.ESC:
       if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()

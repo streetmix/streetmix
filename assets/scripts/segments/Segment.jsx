@@ -188,10 +188,9 @@ export class Segment extends React.Component {
   }
 
   handleKeyDown = (event) => {
-    switch (event.keyCode) {
+    switch (event.key) {
       case KEYS.MINUS:
-      case KEYS.MINUS_ALT:
-      case KEYS.MINUS_KEYPAD:
+      case KEYS.UNDERSCORE:
         if (event.metaKey || event.ctrlKey || event.altKey) return
 
         event.preventDefault()
@@ -199,8 +198,7 @@ export class Segment extends React.Component {
         trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
         break
       case KEYS.EQUAL:
-      case KEYS.EQUAL_ALT:
-      case KEYS.PLUS_KEYPAD:
+      case KEYS.PLUS:
         if (event.metaKey || event.ctrlKey || event.altKey) return
 
         event.preventDefault()

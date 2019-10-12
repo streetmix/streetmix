@@ -57,7 +57,7 @@ describe('StreetEditable', () => {
         const street = { width: 400, segments: [segment] }
         const wrapper = renderWithRedux(<StreetEditable setBuildingWidth={setBuildingWidth} updatePerspective={updatePerspective} />, { initialState: { street } })
         fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-        fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
+        fireEvent.keyDown(document, { key: '=', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
         await wait(() => {
           waitForDomChange({ container: wrapper.container })
           expect(wrapper.store.getState().street.segments[0].width).toEqual(400)

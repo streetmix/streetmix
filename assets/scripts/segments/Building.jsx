@@ -122,13 +122,11 @@ class Building extends React.Component {
   handleKeyDown = (event) => {
     if (!this.state.isEditable) return
 
-    const negative = (event.keyCode === KEYS.MINUS) ||
-      (event.keyCode === KEYS.MINUS_ALT) ||
-      (event.keyCode === KEYS.MINUS_KEYPAD)
+    const negative = (event.key === KEYS.MINUS) ||
+      (event.key === KEYS.UNDERSCORE)
 
-    const positive = (event.keyCode === KEYS.EQUAL) ||
-      (event.keyCode === KEYS.EQUAL_ALT) ||
-      (event.keyCode === KEYS.PLUS_KEYPAD)
+    const positive = (event.key === KEYS.EQUAL) ||
+      (event.key === KEYS.PLUS)
 
     const variant = this.props.street[this.state.variant]
     const hasFloors = BUILDINGS[variant].hasFloors
