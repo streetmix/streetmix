@@ -19,6 +19,7 @@ export function onGlobalKeyDown (event) {
 
   switch (event.key) {
     case KEYS.ESC:
+    case KEYS.ESC_ALT:
       if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()
       } else if (draggingType === DRAGGING_TYPE_MOVE) {
