@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { KEYS } from '../app/keys'
 import { ICON_MINUS, ICON_PLUS } from '../ui/icons'
 import './UpDownInput.scss'
 
@@ -218,8 +217,8 @@ export default class UpDownInput extends React.Component {
   }
 
   handleInputKeyDown = (event) => {
-    switch (event.keyCode) {
-      case KEYS.ENTER:
+    switch (event.key) {
+      case 'Enter':
         this.props.onUpdatedValue(event.target.value)
 
         this.setState({
@@ -230,7 +229,8 @@ export default class UpDownInput extends React.Component {
         this.inputEl.current.select()
 
         break
-      case KEYS.ESC:
+      case 'Esc': // IE/Edge specific value
+      case 'Escape':
         // Lose focus from input but place focus on body
         this.inputEl.current.blur()
         document.body.focus()

@@ -9,7 +9,6 @@ import {
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { resumeFadeoutControls } from './resizing'
-import { KEYS } from '../app/keys'
 import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
 
 class Building extends React.Component {
@@ -122,13 +121,10 @@ class Building extends React.Component {
   handleKeyDown = (event) => {
     if (!this.state.isEditable) return
 
-    const negative = (event.keyCode === KEYS.MINUS) ||
-      (event.keyCode === KEYS.MINUS_ALT) ||
-      (event.keyCode === KEYS.MINUS_KEYPAD)
+    const negative = (event.key === '-')
 
-    const positive = (event.keyCode === KEYS.EQUAL) ||
-      (event.keyCode === KEYS.EQUAL_ALT) ||
-      (event.keyCode === KEYS.PLUS_KEYPAD)
+    const positive = (event.key === '=') ||
+      (event.key === '+')
 
     const variant = this.props.street[this.state.variant]
     const hasFloors = BUILDINGS[variant].hasFloors
