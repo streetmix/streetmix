@@ -229,9 +229,10 @@ export function deregisterKeypress (commands, callback) {
         const item = items[x]
         if (item.onKeypress === callback || typeof callback === 'undefined') {
           // Check for equality for command + function
-          if ((item.shiftKey === command.shiftKey || item.shiftKey === 'optional') &&
-              (item.altKey === command.altKey || item.altKey === 'optional') &&
-              (item.metaKey === command.metaKey || item.metaKey === 'optional')) {
+          const isShiftOrOptional = (item.shiftKey === command.shiftKey || item.shiftKey === 'optional')
+          const isAltOrOptional = (item.altKey === command.altKey || item.altKey === 'optional')
+          const isMetaOrOptional = (item.metaKey === command.metaKey || item.metaKey === 'optional')
+          if (isShiftOrOptional && isAltOrOptional && isMetaOrOptional) {
             // If matches, remove it from the command list.
             inputs[key].splice(x, 1)
           }
