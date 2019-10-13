@@ -39,7 +39,7 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-twitter"
+        class="svg-inline--fa menu-item-icon fa-twitter"
       />
       Share using Twitter
     </a>
@@ -50,7 +50,7 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-facebook-square"
+        class="svg-inline--fa menu-item-icon fa-facebook-square"
       />
       Share using Facebook
     </a>
@@ -103,7 +103,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-twitter"
+        class="svg-inline--fa menu-item-icon fa-twitter"
       />
       Share using Twitter
     </a>
@@ -114,7 +114,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-facebook-square"
+        class="svg-inline--fa menu-item-icon fa-facebook-square"
       />
       Share using Facebook
     </a>
