@@ -35,7 +35,7 @@ export function finishUndoOrRedo () {
   trackEvent('INTERACTION', 'UNDO', null, null, true)
 }
 
-export function createNewUndoIfNecessary (lastStreet, currentStreet) {
+export function createNewUndoIfNecessary (lastStreet = {}, currentStreet) {
   // If just the street name has changed, don't make a new undo step for it.
   if (lastStreet.name !== currentStreet.name) {
     return
