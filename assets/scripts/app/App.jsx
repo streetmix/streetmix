@@ -80,8 +80,12 @@ function setMessages (addMessage) {
       message: 'Your street was reloaded from the server as it was modified elsewhere.'
     },
     {
-      message: 'The segment has been removed.',
-      action: 'Undo'
+      component: 'TOAST_UNDO',
+      message: 'The segment has been removed.'
+    },
+    {
+      component: 'TOAST_SIGN_IN',
+      message: 'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'
     },
     {
       type: 'success',
@@ -90,6 +94,7 @@ function setMessages (addMessage) {
       action: 'More info'
     },
     {
+      component: 'TOAST_NO_CONNECTION',
       type: 'warning',
       message: 'Streetmix is having trouble connecting to the Internet.',
       action: 'Retry connection',

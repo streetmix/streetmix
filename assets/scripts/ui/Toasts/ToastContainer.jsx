@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useTransition, animated } from 'react-spring'
 import Toast from './Toast'
+import ToastUndo from './ToastUndo'
+import ToastSignIn from './ToastSignIn'
+import ToastNoConnection from './ToastNoConnection'
 import './ToastContainer.scss'
 
 let id = 0
@@ -29,9 +32,12 @@ function ToastContainer (props) {
     from: {
       opacity: 0,
       height: 0,
-      life: '100%',
       transform: 'translateX(300px)',
-      marginTop: '10px'
+      marginTop: '10px',
+
+      // `life` is just a variable name used by react-spring docs, it has no special meaning
+      // This is the only property that decreases based on a duration (see config)
+      life: '100%'
     },
     enter: (item) => async (next) => {
       await next({
@@ -63,6 +69,9 @@ function ToastContainer (props) {
       })
     },
     onRest: (item) => setItems(state => state.filter(i => i.key !== item.key)),
+    // When state is leave, this returns an array of three configs.
+    // Each item in the array applies to each of the `next` calls in the `leave` function, I think.
+    // So the first config sets the duration for the `life` property.
     config: (item, state) => (state === 'leave' ? [{ duration: timeout }, config, config] : config)
   })
 
@@ -78,9 +87,26 @@ function ToastContainer (props) {
           cancelMap.has(item) && cancelMap.get(item)()
         }
 
+        let childComponent
+
+        switch (message.item.component) {
+          case 'TOAST_UNDO':
+            childComponent = <ToastUndo setRef={setRef} handleClose={handleClose} {...message} />
+            break
+          case 'TOAST_SIGN_IN':
+            childComponent = <ToastSignIn setRef={setRef} handleClose={handleClose} {...message} />
+            break
+          case 'TOAST_NO_CONNECTION':
+            childComponent = <ToastNoConnection setRef={setRef} handleClose={handleClose} {...message} />
+            break
+          default:
+            childComponent = <Toast setRef={setRef} handleClose={handleClose} {...message} />
+            break
+        }
+
         return (
           <animated.div key={item.key} style={style}>
-            <Toast setRef={setRef} handleClose={handleClose} {...message} />
+            {childComponent}
           </animated.div>
         )
       })}
