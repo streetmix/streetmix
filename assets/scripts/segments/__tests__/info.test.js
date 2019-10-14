@@ -44,7 +44,7 @@ describe('segment info', () => {
   describe('getAllSegmentInfo()', () => {
     it('returns all segment data', () => {
       const segments = getAllSegmentInfo()
-      expect(segments['sidewalk'].name).toEqual('Sidewalk')
+      expect(segments.sidewalk.name).toEqual('Sidewalk')
     })
   })
 
@@ -73,7 +73,7 @@ describe('segment info', () => {
       expect(segment.unknown).toBeFalsy()
 
       const { details, rules, ...segmentInfo } = segment
-      const { details: original, ...originalSegmentInfo } = SEGMENT_INFO['sidewalk']
+      const { details: original, ...originalSegmentInfo } = SEGMENT_INFO.sidewalk
       expect(segmentInfo).toEqual(originalSegmentInfo)
     })
   })

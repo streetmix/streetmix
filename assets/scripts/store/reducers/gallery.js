@@ -3,7 +3,8 @@ import {
   HIDE_GALLERY,
   RECEIVE_GALLERY_STREETS,
   DELETE_GALLERY_STREET,
-  SET_GALLERY_STATE } from '../actions'
+  SET_GALLERY_STATE
+} from '../actions'
 
 const initialState = {
   visible: false,
@@ -50,10 +51,11 @@ const gallery = (state = initialState, action) => {
     // object. The only property we don't want to copy is `type`, which is
     // only used here to specify the action type. Make sure we combine incoming
     // properties with existing properties.
-    case SET_GALLERY_STATE:
+    case SET_GALLERY_STATE: {
       const settingsObj = Object.assign({}, state, action)
       delete settingsObj.type
       return { ...settingsObj }
+    }
     default:
       return state
   }

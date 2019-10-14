@@ -44,7 +44,7 @@ describe('GET api/v1/streets', function () {
 
   it('should respond with 200 Ok when streets are returned', function () {
     return request(app)
-      .get(`/api/v1/streets/`)
+      .get('/api/v1/streets/')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
       })

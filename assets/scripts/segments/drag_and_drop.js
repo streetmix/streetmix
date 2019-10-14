@@ -281,10 +281,10 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   // Direction
 
   if (segmentInfo.variants.indexOf('direction') !== -1) {
-    if (leftVariant && leftVariant['direction']) {
-      variant['direction'] = leftVariant['direction']
-    } else if (rightVariant && rightVariant['direction']) {
-      variant['direction'] = rightVariant['direction']
+    if (leftVariant && leftVariant.direction) {
+      variant.direction = leftVariant.direction
+    } else if (rightVariant && rightVariant.direction) {
+      variant.direction = rightVariant.direction
     }
   }
 
@@ -302,9 +302,9 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 
   if (type === 'parklet') {
     if (left && leftOwnerAsphalt) {
-      variant['orientation'] = 'right'
+      variant.orientation = 'right'
     } else if (right && rightOwnerAsphalt) {
-      variant['orientation'] = 'left'
+      variant.orientation = 'left'
     }
   }
 
@@ -322,16 +322,16 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 
   if (type === 'transit-shelter') {
     if (left && (leftOwner === SegmentTypes.TRANSIT)) {
-      variant['orientation'] = 'right'
+      variant.orientation = 'right'
     } else if (right && (rightOwner === SegmentTypes.TRANSIT)) {
-      variant['orientation'] = 'left'
+      variant.orientation = 'left'
     }
   }
 
   if (segmentInfo.variants.indexOf('transit-shelter-elevation') !== -1) {
-    if (variant['orientation'] === 'right' && left && left.type === 'light-rail') {
+    if (variant.orientation === 'right' && left && left.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
-    } else if (variant['orientation'] === 'left' && right && right.type === 'light-rail') {
+    } else if (variant.orientation === 'left' && right && right.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
     }
   }
@@ -340,9 +340,9 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 
   if (type === 'sidewalk-bike-rack') {
     if (left && (leftOwner !== SegmentTypes.PEDESTRIAN)) {
-      variant['orientation'] = 'left'
+      variant.orientation = 'left'
     } else if (right && (rightOwner !== SegmentTypes.PEDESTRIAN)) {
-      variant['orientation'] = 'right'
+      variant.orientation = 'right'
     }
   }
 

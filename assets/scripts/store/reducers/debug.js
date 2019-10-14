@@ -12,10 +12,11 @@ const initialState = {
 
 const debug = (state = initialState, action) => {
   switch (action.type) {
-    case SET_DEBUG_FLAGS:
+    case SET_DEBUG_FLAGS: {
       const obj = Object.assign({}, state, action)
       delete obj.type // Do not save action type.
       return obj
+    }
     default:
       return state
   }
