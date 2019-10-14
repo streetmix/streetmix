@@ -47,6 +47,11 @@ You may already have some of these prerequisites installed. Skip or update the p
       mkdir -p /data/db
       chmod 777 /data/db
 
+.. warning::
+
+   These instructions are now out-of-date on Mac OS X 10.15 (Catalina), as those paths are no longer writeable. You will need to set the database path to another location, such as ``/System/Volumes/Data/data/db``, and run MongoDB using the ``--dbpath`` option to point to the new location.
+
+
 .. tip::
 
    You may run into permissions issues, even if you are an administrator on your machine. You may need to run ``chown`` to give yourself ownership over any directories that you are manipulating. Alternatively, you may need to use ``sudo`` to run commands as a superuser.
@@ -164,17 +169,9 @@ Clone and install Streetmix
 
    We do not currently use the **Yarn** package manager. Installing with Yarn may cause unpredictable errors.
 
-3. Open :file:`package.json` and remove the following line:
+3. Run MongoDB's :file:`mongod.exe` and :file:`mongo.exe`. This will need to be run manually in the background before running Streetmix.
 
-   .. code::
-
-      "prestart": "npm run mongo:start"` and `"mongo:start": "mongod --fork --logpath /dev/null"
-
-   We can't automatically start MongoDB with ``npm start`` on Windows, so we remove this line to prevent errors.
-
-4. Run MongoDB's :file:`mongod.exe` and :file:`mongo.exe`. This will need to be run manually in the background before running Streetmix.
-
-5. Initialize Postgres database.
+4. Initialize Postgres database.
 
    .. prompt:: bash $
 
@@ -289,23 +286,15 @@ A sample :file:`.env` file looks like this:
 Starting the application
 ++++++++++++++++++++++++
 
-1. Start the web server. In the Streetmix project directory, run:
+1. Start MongoDB and Postgres.
+
+2. Start the web server. In the Streetmix project directory, run:
 
    .. prompt:: bash $
 
       npm start
 
-
-   On Mac OS X, this also automatically starts MongoDB in the background.
-
-.. note ::
-
-   On Mac OS X, if MongoDB is already running, you may need to stop it before starting the server again.
-
-   On Windows, be sure to run MongoDB manually before starting Streetmix.
-
-
-2. Load the application in your web browser by navigating to ``http://localhost:8000`` or by running in your terminal:
+3. Load the application in your web browser by navigating to ``http://localhost:8000`` or by running in your terminal:
 
    .. prompt:: bash $
 
