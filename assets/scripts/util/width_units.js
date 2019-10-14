@@ -154,10 +154,11 @@ export function stringifyMeasurementValue (value, units, locale) {
       string = NumberFormat(locale, { style: 'decimal', maximumFractionDigits: IMPERIAL_PRECISION }).format(value)
       break
     case SETTINGS_UNITS_METRIC:
-    default:
+    default: {
       const convertedValue = convertImperialMeasurementToMetric(value)
       string = NumberFormat(locale, { style: 'decimal', maximumFractionDigits: METRIC_PRECISION }).format(convertedValue)
       break
+    }
   }
 
   return string

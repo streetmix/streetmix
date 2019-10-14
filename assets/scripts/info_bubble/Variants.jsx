@@ -40,15 +40,16 @@ export class Variants extends React.Component {
     let variantSets = []
 
     switch (nextProps.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
+      case INFO_BUBBLE_TYPE_SEGMENT: {
         const segmentInfo = getSegmentInfo(nextProps.segmentType)
         if (segmentInfo) {
           variantSets = segmentInfo.variants
         }
         break
+      }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        variantSets = Object.keys(VARIANT_ICONS['building'])
+        variantSets = Object.keys(VARIANT_ICONS.building)
         break
       default:
         break
@@ -151,7 +152,7 @@ export class Variants extends React.Component {
     const variantEls = []
 
     switch (this.props.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
+      case INFO_BUBBLE_TYPE_SEGMENT: {
         let first = true
 
         // Each segment has some allowed variant sets (e.g. "direction")
@@ -178,6 +179,7 @@ export class Variants extends React.Component {
           }
         }
         break
+      }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         this.state.variantSets.map((building) => {

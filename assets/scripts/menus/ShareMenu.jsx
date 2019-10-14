@@ -165,7 +165,7 @@ class ShareMenu extends React.Component {
         <div className="share-sign-in-promo">
           <FormattedMessage
             id="menu.share.sign-in-link"
-            defaultMessage={`{signInLink} for nicer links to your streets and your personal street gallery`}
+            defaultMessage={'{signInLink} for nicer links to your streets and your personal street gallery'}
             values={{
               signInLink
             }}

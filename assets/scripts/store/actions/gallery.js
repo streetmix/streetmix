@@ -3,7 +3,8 @@ import {
   HIDE_GALLERY,
   RECEIVE_GALLERY_STREETS,
   DELETE_GALLERY_STREET,
-  SET_GALLERY_STATE } from '../actions'
+  SET_GALLERY_STATE
+} from '../actions'
 
 export function showGallery (userId, mode) {
   return {

@@ -213,7 +213,7 @@ export function registerKeypress (commands, options, callback) {
       command.originalCommands = originalCommands
 
       // Special case for 'ESC' key; it defaults to global (window) focus
-      if (Number.parseInt(keyCode, 10) === KEYS['esc']) {
+      if (Number.parseInt(keyCode, 10) === KEYS.esc) {
         command.requireFocusOnBody = false
         command.stopPropagation = true
       }
