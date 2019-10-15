@@ -2,8 +2,6 @@
 import React from 'react'
 
 import { fireEvent, getByTestId, waitForDomChange } from '@testing-library/react'
-import { CSSTransition } from 'react-transition-group'
-
 import { renderWithRedux } from '../../../../test/helpers/render'
 
 import StreetEditable from '../StreetEditable'
@@ -11,9 +9,6 @@ import StreetEditable from '../StreetEditable'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import SEGMENT_INFO from '../../segments/info.json'
 import { KEYS } from '../keys'
-
-jest.mock('react-dnd')
-jest.mock('react-transition-group')
 
 jest.mock('../../app/load_resources')
 jest.mock('../../segments/info')
@@ -29,7 +24,6 @@ jest.mock('../../streets/data_model', () => {
 describe('StreetEditable', () => {
   beforeEach(() => {
     jest.resetModules()
-    CSSTransition.mockImplementation(({ children }) => (children))
   })
   const setBuildingWidth = jest.fn()
   const updatePerspective = () => {}
