@@ -1,15 +1,22 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { BlockingError } from '../BlockingError'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import BlockingError from '../BlockingError'
 import { ERRORS } from '../errors'
 
 jest.mock('../load_resources', () => {})
 jest.mock('../../users/authentication', () => {})
 
 describe('BlockingError', () => {
+  const initialState = {
+    errors: {
+      errorType: ERRORS.NOT_FOUND
+    },
+    street: {}
+  }
+
   it('renders', () => {
-    const wrapper = shallow(<BlockingError errorType={ERRORS.NOT_FOUND} street={{}} />)
-    expect(wrapper.exists()).toEqual(true)
+    const wrapper = renderWithReduxAndIntl(<BlockingError />, { initialState })
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })
