@@ -155,7 +155,7 @@
     "react-draggable": "4.0.3",
     "react-intl": "3.1.13",
     "react-leaflet": "2.4.0",
-    "react-redux": "7.1.0",
+    "react-redux": "7.1.1",
     "react-spring": "8.0.27",
     "react-stripe-checkout": "2.6.3",
     "react-transition-group": "4.2.1",
