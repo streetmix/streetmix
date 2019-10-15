@@ -60,7 +60,13 @@
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/test/__mocks__/styleMock.js"
+      "\\.(css|scss)$": "<rootDir>/test/__mocks__/styleMock.js",
+      "^dnd-core$": "dnd-core/dist/cjs",
+      "^react-dnd$": "react-dnd/dist/cjs",
+      "^react-dnd-html5-backend$": "react-dnd-html5-backend/dist/cjs",
+      "^react-dnd-touch-backend$": "react-dnd-touch-backend/dist/cjs",
+      "^react-dnd-test-backend$": "react-dnd-test-backend/dist/cjs",
+      "^react-dnd-test-utils$": "react-dnd-test-utils/dist/cjs"
     },
     "moduleFileExtensions": [
       "js",
@@ -147,10 +153,13 @@
     "raven-js": "3.27.2",
     "react": "16.10.1",
     "react-autosuggest": "9.4.3",
-    "react-dnd": "7.4.5",
-    "react-dnd-html5-backend": "7.4.4",
-    "react-dnd-multi-backend": "3.2.1",
-    "react-dnd-touch-backend": "0.8.3",
+    "react-dnd": "9.4.0",
+    "react-dnd-cjs": "9.4.0",
+    "react-dnd-html5-backend": "9.4.0",
+    "react-dnd-html5-backend-cjs": "9.4.0",
+    "react-dnd-multi-backend": "4.0.0",
+    "react-dnd-touch-backend": "9.4.0",
+    "react-dnd-touch-backend-cjs": "9.4.0",
     "react-dom": "16.9.0",
     "react-draggable": "4.0.3",
     "react-intl": "3.1.13",
