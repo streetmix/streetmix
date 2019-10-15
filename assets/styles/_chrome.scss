@@ -44,11 +44,6 @@ body.phone #loading {
   }
 }
 
-#loading {
-  // Slightly lighter than sky colour, and closer to the blue of new colour scheme
-  background-color: rgb(178, 211, 226);
-}
-
 #error {
   @include blocking-shield;
 
@@ -93,6 +88,9 @@ body.phone #loading {
   transition: opacity 120ms;
   opacity: 1;
   will-change: opacity;
+
+  // Slightly lighter than sky colour, and closer to the blue of new colour scheme
+  background-color: rgb(178, 211, 226);
 
   &.hidden {
     opacity: 0;
