@@ -15,6 +15,7 @@
  */
 import { trackEvent } from './event_tracking'
 import { isFocusOnBody } from '../util/focus'
+import { KEYS } from './keys'
 
 // Keep track of all registered commands here
 const inputs = {}
@@ -162,7 +163,7 @@ export function registerKeypress (commands, options, callback) {
       command.originalCommands = originalCommands
 
       // Special case for 'ESC' key; it defaults to global (window) focus
-      if (key === 'Escape') {
+      if (key === KEYS.ESC || key === KEYS.ESC_ALT) {
         command.requireFocusOnBody = false
         command.stopPropagation = true
       }
@@ -266,7 +267,7 @@ function processCommands (commands) {
     //  - adjust to lower case
     //  - replace command/cmd/control/ctrl to meta (this does not remove dupes)
     command = command.toLowerCase()
-      .replace(/(Command|Cmd|Control|Ctrl)/g, 'Meta')
+      .replace(/(Command|Cmd|Control|Ctrl)/g, KEYS.META)
       .split(' ')
 
     const settings = {
@@ -277,19 +278,19 @@ function processCommands (commands) {
 
     // Check for existence of modifier keys
     // Modifier keys are removed from input array
-    const isShift = command.indexOf('Shift')
+    const isShift = command.indexOf(KEYS.SHIFT)
     if (isShift > -1) {
       settings.shiftKey = true
       command.splice(isShift, 1)
     }
 
-    const isAlt = command.indexOf('Alt')
+    const isAlt = command.indexOf(KEYS.ALT)
     if (isAlt > -1) {
       settings.altKey = true
       command.splice(isAlt, 1)
     }
 
-    const isMeta = command.indexOf('Meta')
+    const isMeta = command.indexOf(KEYS.META)
     if (isMeta > -1) {
       settings.metaKey = true
       command.splice(isMeta, 1)
