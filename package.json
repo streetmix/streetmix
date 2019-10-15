@@ -132,7 +132,7 @@
     "helmet": "3.20.1",
     "intl-messageformat": "6.1.9",
     "intl-pluralrules": "1.0.3",
-    "js-cookie": "2.2.0",
+    "js-cookie": "2.2.1",
     "json2csv": "4.5.3",
     "leaflet": "1.5.1",
     "lodash": "4.17.15",
