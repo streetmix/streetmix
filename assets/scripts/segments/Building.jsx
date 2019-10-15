@@ -123,8 +123,7 @@ class Building extends React.Component {
 
     const negative = (event.key === '-')
 
-    const positive = (event.key === '=') ||
-      (event.key === '+')
+    const positive = (event.key === '+')
 
     const variant = this.props.street[this.state.variant]
     const hasFloors = BUILDINGS[variant].hasFloors
