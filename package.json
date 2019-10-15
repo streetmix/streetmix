@@ -123,7 +123,7 @@
     "cors": "2.8.5",
     "dateformat": "3.0.3",
     "dotenv": "8.1.0",
-    "downshift": "3.2.12",
+    "downshift": "3.3.4",
     "downshift-pelias": "0.0.3-alpha",
     "express": "4.17.1",
     "file-saver": "2.0.2",
