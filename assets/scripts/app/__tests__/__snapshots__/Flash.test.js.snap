@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Flash renders 1`] = `
-<div
-  className="flash"
-/>
+<DocumentFragment>
+  <div
+    class="flash"
+  />
+</DocumentFragment>
 `;
