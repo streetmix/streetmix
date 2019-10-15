@@ -12,7 +12,8 @@
       "my-streets": "Omat kadut",
       "settings": "Asetukset",
       "share": "Jaa",
-      "store": "Kauppa"
+      "store": "Kauppa",
+      "upgrade": ""
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
@@ -184,7 +185,7 @@
     "analytics": {
       "export-csv": "Vie CSV-tiedostoon",
       "heading": "Analyysi",
-      "street-summary": "Kadun arvioitu liikenne on {averageTotal}kulkijaa tunnissa, ja käyttäjäpotentiaali on {potentialTotal} kulkijaa tunnissa.",
+      "street-summary": "Kadun arvioitu liikenne on {averageTotal} kulkijaa tunnissa, ja käyttäjäpotentiaali on {potentialTotal} kulkijaa tunnissa.",
       "segment-summary": "{average} — {potential} ihmistä tunnissa",
       "segment-summary-single": "{amount} ihmistä tunnissa"
     },

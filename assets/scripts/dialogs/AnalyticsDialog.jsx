@@ -81,7 +81,7 @@ function AnalyticsDialog (props) {
   const summary = (
     <FormattedMessage
       id="dialogs.analytics.street-summary"
-      defaultMessage="Your street has an estimated average traffic of {averageTotal} passengers per hour, and potential for up to {potentialTotal} passengers per hour."
+      defaultMessage="Your street has an estimated average traffic of {averageTotal} people per hour, and potential for up to {potentialTotal} people per hour."
       values={{
         averageTotal: <b>{FormatNumber(props.locale, averageTotal)}</b>,
         potentialTotal: <b>{FormatNumber(props.locale, potentialTotal)}</b>
