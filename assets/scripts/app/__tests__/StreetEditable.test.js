@@ -10,8 +10,6 @@ import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../../segme
 import SEGMENT_INFO from '../../segments/info.json'
 import { KEYS } from '../keys'
 
-jest.mock('react-dnd')
-
 jest.mock('../../app/load_resources')
 jest.mock('../../segments/info')
 
