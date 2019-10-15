@@ -116,15 +116,13 @@ export class Description extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    descriptionVisible: state.infoBubble.descriptionVisible
-  }
-}
+const mapStateToProps = (state) => ({
+  descriptionVisible: state.infoBubble.descriptionVisible
+})
 
-const actionCreators = {
+const mapDispatchToProps = {
   showDescription,
   hideDescription
 }
 
-export default connect(mapStateToProps, actionCreators)(Description)
+export default connect(mapStateToProps, mapDispatchToProps)(Description)
