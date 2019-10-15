@@ -57,6 +57,11 @@ const avgCapacityAscending = (a, b) => {
   return a.capacity.average - b.capacity.average
 }
 
+AnalyticsDialog.propTypes = {
+  street: PropTypes.object,
+  locale: PropTypes.string
+}
+
 function AnalyticsDialog (props) {
   useEffect(() => {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
@@ -84,7 +89,7 @@ function AnalyticsDialog (props) {
     />)
 
   const displayCapacity = item => {
-    return item.capacity && item.capacity.display && item.capacity.average > 0
+    return item.capacity && (item.capacity.display !== false) && (item.capacity.average > 0)
   }
 
   const rolledUp = rollUpCategories(segmentData)
@@ -140,11 +145,6 @@ function mapStateToProps (state) {
     street: state.street,
     locale: state.locale.locale
   }
-}
-
-AnalyticsDialog.propTypes = {
-  street: PropTypes.object,
-  locale: PropTypes.string
 }
 
 export default connect(mapStateToProps)(AnalyticsDialog)
