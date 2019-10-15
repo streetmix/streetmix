@@ -4,6 +4,7 @@
     "sidewalk-tree": "树",
     "bike-rack": "自行车架",
     "bench": "长椅",
+    "cafe-seating": "",
     "wayfinding-sign": "路标",
     "sidewalk-lamp": "路灯",
     "parklet": "微型公园",
@@ -13,6 +14,7 @@
     "median": "安全岛",
     "bollard": "护柱",
     "dome": "机动车禁行区",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "自行车道",
@@ -35,7 +37,9 @@
     "streetcar": "有轨电车",
     "light-rail": "轻轨",
     "transit-shelter": "候车厅",
-    "inception-train": "《盗梦空间》版火车"
+    "temporary-barrier": "",
+    "inception-train": "《盗梦空间》版火车",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -77,26 +81,16 @@
     "sharrow": {
       "prompt": "了解更多关于混合车道的信息。",
       "lede": "混合车道是专门划分的，供汽车与自行车共同使用的道路。",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "transit-shelter-elevated": {
       "prompt": "了解更多公共交通站台的信息",
       "lede": "轻轨和快速公交系统站台候车厅",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "inception-train": {
       "lede": "这辆火车取材于Christopher Nolan的电影<em>《盗梦空间》</em>",
-      "text": [
-        "你还需要了解些什么其它的信息吗？"
-      ]
+      "text": ["你还需要了解些什么其它的信息吗？"]
     }
   },
   "buildings": {
@@ -159,6 +153,7 @@
     "car-type|car": "汽车",
     "car-type|sharrow": "共用车道",
     "car-type|truck": "货车",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "沥青路面",
     "public-transit-asphalt|colored": "红色车道",
     "public-transit-asphalt|grass": "草",
@@ -180,6 +175,8 @@
     "divider-type|palm-tree": "棕榈树绿化带",
     "divider-type|bollard": "护柱",
     "divider-type|dome": "机动车禁行区",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "路面水平面",
     "transit-shelter-elevation|light-rail": "轻轨站台",
     "bike-rack-elevation|sidewalk-parallel": "人行道高度的平行停车位",
@@ -198,6 +195,12 @@
     "waiting-area|sparse": "有人",
     "waiting-area|empty": "没有人",
     "flex-type|rideshare": "共乘汽车",
-    "flex-type|taxi": "出租车"
+    "flex-type|taxi": "出租车",
+    "occupants|empty": "空",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "路面水平面",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

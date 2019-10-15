@@ -11,7 +11,8 @@
       "new-street": "شارع جديد",
       "my-streets": "الشوارع الخاصة بي",
       "settings": "إعدادات",
-      "share": "مشاركة"
+      "share": "مشاركة",
+      "store": ""
     },
     "help": {
       "keyboard-label": "اختصارات لوحة المفاتيح:",
@@ -180,6 +181,13 @@
       "tos-link": "",
       "privacy-link": ""
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "حفظ كصورة",
       "option-labels": "عرض الأجزاء وأسمائها",
@@ -267,6 +275,9 @@
     "different": "عرض مختلف…",
     "metric": "التحويل إلى وحدة القياس بالمتر",
     "imperial": "التحويل إلى وحدة القياس بالقدم"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "منذ بضعة دقائق",

@@ -11,7 +11,8 @@
       "new-street": "Новая улица",
       "my-streets": "Мои улицы",
       "settings": "Настройки",
-      "share": "Поделиться"
+      "share": "Поделиться",
+      "store": ""
     },
     "help": {
       "keyboard-label": "Сочетания клавиш:",
@@ -180,6 +181,13 @@
       "tos-link": "",
       "privacy-link": ""
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "Сохранить как избражение",
       "option-labels": "Название и ширина сегментов",
@@ -267,6 +275,9 @@
     "different": "Разная ширина…",
     "metric": "Переключиться на метрические единицы",
     "imperial": "Переключиться на английские единицы (футы)"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "Несколько минут назад",

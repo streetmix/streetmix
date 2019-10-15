@@ -11,7 +11,8 @@
       "new-street": "Ny gata",
       "my-streets": "Mina gator",
       "settings": "Inställningar",
-      "share": "Dela"
+      "share": "Dela",
+      "store": ""
     },
     "help": {
       "keyboard-label": "Snabbkommandon:",
@@ -180,6 +181,13 @@
       "tos-link": "",
       "privacy-link": ""
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "Spara som bild",
       "option-labels": "Segmentnamn och -bredder",
@@ -267,6 +275,9 @@
     "different": "Annan bredd…",
     "metric": "Ändra till metriska enheter",
     "imperial": "Ändra till brittiska enheter (fot)"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "",

@@ -4,6 +4,7 @@
     "sidewalk-tree": "樹",
     "bike-rack": "自行車架",
     "bench": "長椅",
+    "cafe-seating": "",
     "wayfinding-sign": "路標",
     "sidewalk-lamp": "路燈",
     "parklet": "微型公園",
@@ -13,6 +14,7 @@
     "median": "安全島",
     "bollard": "護柱",
     "dome": "機動車禁行區",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "自行車道",
@@ -35,7 +37,9 @@
     "streetcar": "電車",
     "light-rail": "輕軌",
     "transit-shelter": "巴士站",
-    "inception-train": "“盗梦空间”列車"
+    "temporary-barrier": "",
+    "inception-train": "“盗梦空间”列車",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -77,11 +81,7 @@
     "sharrow": {
       "prompt": "了解更多關於混合車道的信息",
       "lede": "混合車道是專門劃分的，汽車與自行車共同使用的道路",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "transit-shelter-elevated": {
       "prompt": "了解更多關於公共交通專用站台的信息",
@@ -94,9 +94,7 @@
     },
     "inception-train": {
       "lede": "這是克里斯托弗諾蘭執導的電影<em>盜夢空間</em>中的列車",
-      "text": [
-        "你還需要知道什麼別的信息嗎？"
-      ]
+      "text": ["你還需要知道什麼別的信息嗎？"]
     }
   },
   "buildings": {
@@ -159,6 +157,7 @@
     "car-type|car": "汽車",
     "car-type|sharrow": "共用車道",
     "car-type|truck": "卡車",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "瀝青",
     "public-transit-asphalt|colored": "紅色車道",
     "public-transit-asphalt|grass": "草",
@@ -180,6 +179,8 @@
     "divider-type|palm-tree": "有棕櫚樹的綠化帶",
     "divider-type|bollard": "護柱",
     "divider-type|dome": "機動車禁行區",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "街面",
     "transit-shelter-elevation|light-rail": "輕軌站台",
     "bike-rack-elevation|sidewalk-parallel": "人行道上的平行停車",
@@ -198,6 +199,12 @@
     "waiting-area|sparse": "有人",
     "waiting-area|empty": "沒有人",
     "flex-type|rideshare": "拼車",
-    "flex-type|taxi": "計程車"
+    "flex-type|taxi": "計程車",
+    "occupants|empty": "空",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "街面",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

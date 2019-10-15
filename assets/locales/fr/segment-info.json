@@ -4,6 +4,7 @@
     "sidewalk-tree": "Arbre",
     "bike-rack": "Support à vélo",
     "bench": "Banc",
+    "cafe-seating": "",
     "wayfinding-sign": "Panneaux directionnels",
     "sidewalk-lamp": "Lampadaire",
     "parklet": "« Parklet »",
@@ -13,6 +14,7 @@
     "median": "Médiane",
     "bollard": "Délinéateur",
     "dome": "Butoir",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "Voie cyclable",
@@ -35,7 +37,9 @@
     "streetcar": "Tramway",
     "light-rail": "Système léger sur rail",
     "transit-shelter": "Abris",
-    "inception-train": "Le train dans le film « Inception »"
+    "temporary-barrier": "",
+    "inception-train": "Le train dans le film « Inception »",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -94,9 +98,7 @@
     },
     "inception-train": {
       "lede": "C'est le train du film <em>Inception</em> de Christopher Nolan.",
-      "text": [
-        "Qu'est-ce que vous voulez savoir de plus ?"
-      ]
+      "text": ["Qu'est-ce que vous voulez savoir de plus ?"]
     }
   },
   "buildings": {
@@ -159,6 +161,7 @@
     "car-type|car": "Voiture",
     "car-type|sharrow": "Chaussée désignée",
     "car-type|truck": "Camion",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "Asphalte",
     "public-transit-asphalt|colored": "Voie colorée rouge",
     "public-transit-asphalt|grass": "Gazon",
@@ -180,6 +183,8 @@
     "divider-type|palm-tree": "Banquette avec un palmier",
     "divider-type|bollard": "Délinéateur",
     "divider-type|dome": "Butoir",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "Au niveau de la rue",
     "transit-shelter-elevation|light-rail": "Quai pour système léger sur rail",
     "bike-rack-elevation|sidewalk-parallel": "Stationnement parallèle au niveau du trottoir",
@@ -198,6 +203,12 @@
     "waiting-area|sparse": "Quelqu'un",
     "waiting-area|empty": "Personne",
     "flex-type|rideshare": "Covoiturage",
-    "flex-type|taxi": "Taxi"
+    "flex-type|taxi": "Taxi",
+    "occupants|empty": "Vide",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "Au niveau de la rue",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

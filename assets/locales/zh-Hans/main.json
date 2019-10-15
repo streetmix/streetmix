@@ -11,7 +11,8 @@
       "new-street": "新建街道",
       "my-streets": "我的街道",
       "settings": "设置",
-      "share": "分享"
+      "share": "分享",
+      "store": ""
     },
     "help": {
       "keyboard-label": "快捷键：",
@@ -180,6 +181,13 @@
       "tos-link": "",
       "privacy-link": ""
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "另存为图片",
       "option-labels": "各部分名称及宽度",
@@ -267,6 +275,9 @@
     "different": "重设宽度......",
     "metric": "转换为公制单位",
     "imperial": "转换为英制单位（英尺）"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "更新于几分钟前",

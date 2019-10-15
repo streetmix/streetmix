@@ -4,6 +4,7 @@
     "sidewalk-tree": "街路樹",
     "bike-rack": "自転車置場",
     "bench": "ベンチ",
+    "cafe-seating": "",
     "wayfinding-sign": "道路名標識",
     "sidewalk-lamp": "街灯",
     "parklet": "パークレット",
@@ -13,6 +14,7 @@
     "median": "中央分離帯",
     "bollard": "ボラード",
     "dome": "車両除外ドーム",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "自転車専用レーン",
@@ -35,17 +37,15 @@
     "streetcar": "路面電車",
     "light-rail": "ライトレール",
     "transit-shelter": "屋根付き停留所",
-    "inception-train": "“インセプション” 電車"
+    "temporary-barrier": "",
+    "inception-train": "“インセプション” 電車",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "道路名標識 (wayfinding signs)について",
       "lede": "道路名標識があることで、歩行者にとっても目的地までの道のりがわかりやすくなります。",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "parklet": {
       "prompt": "パークレットについて",
@@ -59,44 +59,26 @@
     "bike-lane": {
       "prompt": "自転車専用レーンについて",
       "lede": "車両用とは別に自転車専用レーンを設置することで、自転車通行の安全性が増します。",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "colored-bike-lane": {
       "prompt": "色付き自転車専用レーンについて",
       "lede": "自転車専用レーンを色分けすることで、自転車通行時に道路を見分けやすくなり、安全性が向上します。",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "sharrow": {
       "prompt": "自転車共用レーンについて",
       "lede": "自転車共用レーンは、車両と自転車のどちらも通行可能です。",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "transit-shelter-elevated": {
       "prompt": "屋根付き停留所の段差分けについて",
       "lede": "停留所に段差をつけることで、ライトレールやバスがスムーズに停車し、運行することができます。",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "inception-train": {
       "lede": "クリストファー・ノーラン監督の映画<em>インセプション</em>に登場する電車です。",
-      "text": [
-        "説明は不要でしょ？"
-      ]
+      "text": ["説明は不要でしょ？"]
     }
   },
   "buildings": {
@@ -159,6 +141,7 @@
     "car-type|car": "車両",
     "car-type|sharrow": "共用",
     "car-type|truck": "トラック",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "アスファルト",
     "public-transit-asphalt|colored": "赤レーン",
     "public-transit-asphalt|grass": "芝生",
@@ -180,6 +163,8 @@
     "divider-type|palm-tree": "ヤシの木と緑地",
     "divider-type|bollard": "ボラード",
     "divider-type|dome": "車両除外ドーム",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "ストリートの段差",
     "transit-shelter-elevation|light-rail": "ライトレール停留所",
     "bike-rack-elevation|sidewalk-parallel": "並列駐車, 歩道と同じ高さ",
@@ -198,6 +183,12 @@
     "waiting-area|sparse": "歩行者表示",
     "waiting-area|empty": "無人",
     "flex-type|rideshare": "ライドシェア",
-    "flex-type|taxi": "タクシー"
+    "flex-type|taxi": "タクシー",
+    "occupants|empty": "ごく少数",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "ストリートの段差",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

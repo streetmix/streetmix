@@ -11,7 +11,8 @@
       "new-street": "新的街道",
       "my-streets": "我的街道",
       "settings": "設置",
-      "share": "分享"
+      "share": "分享",
+      "store": ""
     },
     "help": {
       "keyboard-label": "快捷鍵：",
@@ -180,6 +181,13 @@
       "tos-link": "",
       "privacy-link": ""
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "存為圖片",
       "option-labels": "各部分名稱與寬度",
@@ -267,6 +275,9 @@
     "different": "重設寬度⋯",
     "metric": "轉換成公制單位",
     "imperial": "轉換成英制單位（英尺）"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "幾分鍾前",

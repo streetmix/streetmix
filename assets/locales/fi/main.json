@@ -11,7 +11,8 @@
       "new-street": "Uusi katu",
       "my-streets": "Omat kadut",
       "settings": "Asetukset",
-      "share": "Jaa"
+      "share": "Jaa",
+      "store": "Kauppa"
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
@@ -180,6 +181,13 @@
       "tos-link": "Käyttöehdot",
       "privacy-link": "Tietosuojakäytäntö"
     },
+    "analytics": {
+      "export-csv": "Vie CSV-tiedostoon",
+      "heading": "Analyysi",
+      "street-summary": "Kadun arvioitu liikenne on {averageTotal}kulkijaa tunnissa, ja käyttäjäpotentiaali on {potentialTotal} kulkijaa tunnissa.",
+      "segment-summary": "{average} — {potential} ihmistä tunnissa",
+      "segment-summary-single": "{amount} ihmistä tunnissa"
+    },
     "save": {
       "heading": "Tallenna kuvana",
       "option-labels": "Elementtien nimet ja leveydet",
@@ -267,6 +275,9 @@
     "different": "Muu leveys…",
     "metric": "Vaihda metreihin",
     "imperial": "Vaihda jalkoihin"
+  },
+  "capacity": {
+    "ppl-per-hour": "{capacity} ihmistä/t"
   },
   "datetime": {
     "minutes-ago": "Muutama minuutti sitten",

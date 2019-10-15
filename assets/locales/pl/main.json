@@ -11,7 +11,8 @@
       "new-street": "Nowa ulica",
       "my-streets": "Moje ulice",
       "settings": "Ustawienia",
-      "share": "Udostępnij"
+      "share": "Udostępnij",
+      "store": ""
     },
     "help": {
       "keyboard-label": "Skróty klawiszowe:",
@@ -180,6 +181,13 @@
       "tos-link": "Warunki korzystania z usługi",
       "privacy-link": "Polityka prywatności"
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "Zapisz jako obrazek",
       "option-labels": "Nazwy i szerokości segmentów",
@@ -267,6 +275,9 @@
     "different": "Inna szerokość…",
     "metric": "W metrach",
     "imperial": "W stopach"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "Kilka minut wcześniej",

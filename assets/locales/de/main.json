@@ -11,7 +11,8 @@
       "new-street": "Neue Straße",
       "my-streets": "Meine Straßen",
       "settings": "Einstellungen",
-      "share": "Teilen"
+      "share": "Teilen",
+      "store": ""
     },
     "help": {
       "keyboard-label": "Tastatur-Shortcuts:",
@@ -180,6 +181,13 @@
       "tos-link": "Geschäftsbedingungen",
       "privacy-link": "Datenschutzrichtlinie"
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "Als Bild speichern",
       "option-labels": "Namen und Breiten der Elemente",
@@ -267,6 +275,9 @@
     "different": "Andere Breite...",
     "metric": "Zu metrischen Einheiten wechseln",
     "imperial": "Zu angloamerikanischen Einheiten (feet) wechseln"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "bearbeitet vor ein paar Minuten",
