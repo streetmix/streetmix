@@ -162,7 +162,7 @@
     "redis": "2.8.0",
     "redux": "4.0.4",
     "redux-thunk": "2.3.0",
-    "regenerator-runtime": "0.13.2",
+    "regenerator-runtime": "0.13.3",
     "requireindex": "1.2.0",
     "sass": "1.22.9",
     "seedrandom": "3.0.5",
