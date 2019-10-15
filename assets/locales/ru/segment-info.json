@@ -4,6 +4,7 @@
     "sidewalk-tree": "деревьями",
     "bike-rack": "Парковочная велостойка",
     "bench": "Скамейка",
+    "cafe-seating": "",
     "wayfinding-sign": "Путевой знак",
     "sidewalk-lamp": "фонарем",
     "parklet": "Парклет",
@@ -13,6 +14,7 @@
     "median": "Медиана",
     "bollard": "Тумба",
     "dome": "Купол исключения движения",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "Велосипедная дорожка",
@@ -35,7 +37,9 @@
     "streetcar": "Трамвай",
     "light-rail": "Скоростной трамвай",
     "transit-shelter": "Автобусная остановка",
-    "inception-train": "Вагон из фильма Начало"
+    "temporary-barrier": "",
+    "inception-train": "Вагон из фильма Начало",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -94,9 +98,7 @@
     },
     "inception-train": {
       "lede": "Это поезд из фильма Кристофера Нолана<em>Начало</em>.",
-      "text": [
-        "Что еще вам нужно знать?"
-      ]
+      "text": ["Что еще вам нужно знать?"]
     }
   },
   "buildings": {
@@ -159,6 +161,7 @@
     "car-type|car": "Машина",
     "car-type|sharrow": "Разметка дял велосипедистов",
     "car-type|truck": "Грузовик",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "Асфальт",
     "public-transit-asphalt|colored": "Красная полоса",
     "public-transit-asphalt|grass": "Трава",
@@ -180,6 +183,8 @@
     "divider-type|palm-tree": "Pазделительная полоса с пальмой",
     "divider-type|bollard": "Тумба",
     "divider-type|dome": "Купол исключения движения",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "Уровень улицы",
     "transit-shelter-elevation|light-rail": "Платорма для трамвая",
     "bike-rack-elevation|sidewalk-parallel": "Параллельная парковка, уровень тротуара",
@@ -198,6 +203,12 @@
     "waiting-area|sparse": "Кто-то",
     "waiting-area|empty": "Никого",
     "flex-type|rideshare": "Автостоп",
-    "flex-type|taxi": "Такси"
+    "flex-type|taxi": "Такси",
+    "occupants|empty": "Пустой",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "Уровень улицы",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

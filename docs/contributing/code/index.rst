@@ -21,7 +21,7 @@ We use `GitHub Flow <https://guides.github.com/introduction/flow/>`_ to make cha
 
 .. tip::
 
-   Before writing any new feature or code, it's best to have a brief conversation with the Streetmix team to make sure we're all on the same page. Please check `GitHub issues <https://github.com/streetmix/streetmix/issues>`_ to see if a feature is already being discussed or work on, and comment there to register your interest. If it hasn't been discussed, please feel free to open a new issue for it. You can also `join our Discord server <https://discord.gg/NsKmV3S>`_ and talk with us there. A little bit of communication will go a long way, making it more likely that we're able to accept your work when it's ready!
+   Before writing any new feature or code, it's best to have a brief conversation with the Streetmix team to make sure we're all on the same page. Please check `GitHub issues <https://github.com/streetmix/streetmix/issues>`_ to see if a feature is already being discussed or work on, and comment there to register your interest. If it hasn't been discussed, please feel free to open a new issue for it. You can also `join our Discord server <https://strt.mx/discord>`_ and talk with us there. A little bit of communication will go a long way, making it more likely that we're able to accept your work when it's ready!
 
 
 Submitting a pull request

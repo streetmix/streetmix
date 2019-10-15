@@ -4,6 +4,7 @@
     "sidewalk-tree": "Drzewem",
     "bike-rack": "Stojak na rowery",
     "bench": "Ławka",
+    "cafe-seating": "",
     "wayfinding-sign": "Drogowskaz",
     "sidewalk-lamp": "Latarnią",
     "parklet": "Parklet",
@@ -13,6 +14,7 @@
     "median": "Środkowy pas",
     "bollard": "Słupek",
     "dome": "Strefa wyłączonego ruchu kołowego",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "Droga rowerowa",
@@ -35,7 +37,9 @@
     "streetcar": "Tramwaj",
     "light-rail": "Kolejka",
     "transit-shelter": "Przystanek",
-    "inception-train": "Pociąg z \"Incepcji\""
+    "temporary-barrier": "",
+    "inception-train": "Pociąg z \"Incepcji\"",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -94,9 +98,7 @@
     },
     "inception-train": {
       "lede": "To pociąg z filmu Christophera Nolana <em>Incepcja</em>.",
-      "text": [
-        "Co jeszcze powinieneś wiedzieć?"
-      ]
+      "text": ["Co jeszcze powinieneś wiedzieć?"]
     }
   },
   "buildings": {
@@ -159,6 +161,7 @@
     "car-type|car": "Samochód",
     "car-type|sharrow": "Sierżant rowerowy",
     "car-type|truck": "Ciężarówka",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "Asfalt",
     "public-transit-asphalt|colored": "Pas wydzielony kolorem czerwonym",
     "public-transit-asphalt|grass": "Trawa",
@@ -180,6 +183,8 @@
     "divider-type|palm-tree": "Pas zieleni z palmą",
     "divider-type|bollard": "Słupek",
     "divider-type|dome": "Strefa wyłączonego ruchu kołowego",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "Poziom jezdni",
     "transit-shelter-elevation|light-rail": "Wzniesiony przystanek",
     "bike-rack-elevation|sidewalk-parallel": "Parkowanie równoległe, poziom chodnika",
@@ -198,6 +203,12 @@
     "waiting-area|sparse": "Z pasażerami",
     "waiting-area|empty": "Bez pasażerów",
     "flex-type|rideshare": "Przejazd współdzielony",
-    "flex-type|taxi": "Taxi"
+    "flex-type|taxi": "Taxi",
+    "occupants|empty": "Pusty",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "Poziom jezdni",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

@@ -11,7 +11,9 @@
       "new-street": "新しいストリート",
       "my-streets": "自分のストリート",
       "settings": "設定",
-      "share": "シェア"
+      "share": "シェア",
+      "store": "",
+      "upgrade": ""
     },
     "help": {
       "keyboard-label": "キーボードショートカット:",
@@ -180,6 +182,13 @@
       "tos-link": "",
       "privacy-link": ""
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "画像として保存",
       "option-labels": "セグメントの名称と幅",
@@ -267,6 +276,9 @@
     "different": "その他の値…",
     "metric": "メートル表示",
     "imperial": "フィート表示"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "数分以内",

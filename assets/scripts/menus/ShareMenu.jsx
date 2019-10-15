@@ -39,6 +39,8 @@ class ShareMenu extends React.Component {
     this.state = {
       shareUrl: ''
     }
+
+    this.shareViaLinkInputRef = React.createRef()
   }
 
   componentDidMount () {
@@ -101,8 +103,8 @@ class ShareMenu extends React.Component {
 
     // Auto-focus and select link when share menu is active
     window.setTimeout(() => {
-      this.shareViaLinkInput.focus()
-      this.shareViaLinkInput.select()
+      this.shareViaLinkInputRef.current.focus()
+      this.shareViaLinkInputRef.current.select()
     }, 200)
   }
 
@@ -165,7 +167,7 @@ class ShareMenu extends React.Component {
         <div className="share-sign-in-promo">
           <FormattedMessage
             id="menu.share.sign-in-link"
-            defaultMessage={`{signInLink} for nicer links to your streets and your personal street gallery`}
+            defaultMessage={'{signInLink} for nicer links to your streets and your personal street gallery'}
             values={{
               signInLink
             }}
@@ -178,18 +180,20 @@ class ShareMenu extends React.Component {
         {signInPromo}
         <div className="share-via-link-container">
           <FormattedMessage id="menu.share.link" defaultMessage="Copy and paste this link to share:" />
-          <input
-            className="share-via-link"
-            type="text"
-            value={this.state.shareUrl}
-            onCopy={() => { saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE) }}
-            spellCheck="false"
-            ref={(ref) => { this.shareViaLinkInput = ref }}
-            readOnly
-          />
-          <button onClick={(e) => { e.preventDefault(); copy(this.state.shareUrl) }}>
-            <Icon icon="copy" />
-          </button>
+          <div className="share-via-link-form">
+            <input
+              className="share-via-link"
+              type="text"
+              value={this.state.shareUrl}
+              onCopy={() => { saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE) }}
+              spellCheck="false"
+              ref={this.shareViaLinkInputRef}
+              readOnly
+            />
+            <button onClick={(e) => { e.preventDefault(); copy(this.state.shareUrl) }}>
+              <Icon icon="copy" />
+            </button>
+          </div>
         </div>
         <a
           className="share-via-twitter"

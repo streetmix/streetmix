@@ -5,7 +5,7 @@ Report a bug
 
 If you notice any bugs while using Streetmix, let us know by `opening a new issue <https://github.com/streetmix/streetmix/issues/new>`_ on our GitHub repository. Please check to make sure it hasn't already been reported. If there is already an existing issue, feel free to add a comment or indicate your support with an emoji reaction.
 
-**For serious bugs** on our production server, you might be able to get a faster response by notifying us on `Discord <https://discord.gg/NsKmV3S>`_ first.
+**For serious bugs** on our production server, you might be able to get a faster response by notifying us on `Discord <https://strt.mx/discord>`_ first.
 
 When submitting a bug report, please include the following information:
 

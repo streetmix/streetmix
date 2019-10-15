@@ -74,7 +74,7 @@ const street = (state = initialState, action) => {
         ]
       }
     }
-    case UPDATE_SEGMENTS:
+    case UPDATE_SEGMENTS: {
       const immediate = action.immediate || state.immediateRemoval
       return {
         ...state,
@@ -83,6 +83,7 @@ const street = (state = initialState, action) => {
         remainingWidth: action.remainingWidth,
         immediateRemoval: immediate
       }
+    }
     case CHANGE_SEGMENT_WIDTH: {
       const copy = [...state.segments]
       copy[action.index].width = action.width
@@ -112,13 +113,14 @@ const street = (state = initialState, action) => {
         segments: copy
       }
     }
-    case SAVE_STREET_NAME:
+    case SAVE_STREET_NAME: {
       const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated) || (action.system)
       return {
         ...state,
         name: (rename) ? action.streetName : state.name,
         userUpdated: (state.userUpdated || action.userUpdated)
       }
+    }
     case SAVE_CREATOR_ID:
       return {
         ...state,

@@ -11,7 +11,9 @@
       "new-street": "Rua nova",
       "my-streets": "Minhas ruas",
       "settings": "Opções",
-      "share": "Compartilhar"
+      "share": "Compartilhar",
+      "store": "",
+      "upgrade": ""
     },
     "help": {
       "keyboard-label": "Teclas de atalho:",
@@ -180,6 +182,13 @@
       "tos-link": "",
       "privacy-link": ""
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "Salvar como imagem",
       "option-labels": "Nome dos segmentos e larguras",
@@ -267,6 +276,9 @@
     "different": "Largura diferente…",
     "metric": "Mudar para unidades métricas",
     "imperial": "Mudar para unidades imperiais (pés)"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "Alguns minutos atrás",

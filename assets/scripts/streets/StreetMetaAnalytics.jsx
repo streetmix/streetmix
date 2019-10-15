@@ -24,7 +24,7 @@ function StreetMetaAnalytics (props) {
     <span className="street-metadata-author">
       <a href="#" onClick={() => showDialog('ANALYTICS')}>
         <FormattedMessage
-          id="capacity.ppl-per-hr"
+          id="capacity.ppl-per-hour"
           defaultMessage="{capacity} people/hr"
           values={{ capacity: formatCapacity(averageTotal) }}
         />

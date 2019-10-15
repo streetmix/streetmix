@@ -45,7 +45,7 @@ In the spirit of open source, **everyone** is welcome to help! **You do not have
 
 - I want to be a part of the community, or find other ways to help!
 
-   - Join us on `Discord <https://discord.gg/NsKmV3S>`_ or the `forums <https://forums.streetmix.net/>`_.
+   - Join us on `Discord <https://strt.mx/discord>`_ or the `forums <https://forums.streetmix.net/>`_.
 
 
 .. toctree::

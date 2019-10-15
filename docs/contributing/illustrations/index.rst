@@ -3,7 +3,7 @@
 Illustrations
 =============
 
-If you would like to contribute illustrations, or have feedback on existing illustrations, please talk to us on `Discord <https://discord.gg/NsKmV3S>`_ or on the `forums <https://forums.streetmix.net/>`_!
+If you would like to contribute illustrations, or have feedback on existing illustrations, please talk to us on `Discord <https://strt.mx/discord>`_ or on the `forums <https://forums.streetmix.net/>`_!
 
 We collect illustration inspiration and reference material on `Pinterest <https://www.pinterest.com/streetmix2020/illustration-references/>`_. Give it a look!
 

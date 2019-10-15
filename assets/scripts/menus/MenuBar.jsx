@@ -61,9 +61,11 @@ class MenuBar extends React.Component {
 
   handleWindowResize = () => {
     // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
-    window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', { detail: {
-      rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
-    } }))
+    window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', {
+      detail: {
+        rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
+      }
+    }))
   }
 
   renderUserAvatar = (user) => {
@@ -86,7 +88,7 @@ class MenuBar extends React.Component {
       <nav className="menu-bar">
         <ul className="menu-bar-left">
           <li className="menu-bar-title">
-            <div className="streetmix-logo" />
+            <div className="streetmix-logo-horizontal" />
             <h1>Streetmix</h1>
           </li>
           <MenuBarItem label="Help" translation="menu.item.help" onClick={this.handleClickMenuButton('help')} />

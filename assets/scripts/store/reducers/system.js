@@ -17,10 +17,11 @@ const initialState = {
 
 const system = (state = initialState, action) => {
   switch (action.type) {
-    case SET_SYSTEM_FLAGS:
+    case SET_SYSTEM_FLAGS: {
       const obj = Object.assign({}, state, action)
       delete obj.type // Do not save action type.
       return obj
+    }
     case UPDATE_WINDOW_SIZE:
       return {
         ...state,

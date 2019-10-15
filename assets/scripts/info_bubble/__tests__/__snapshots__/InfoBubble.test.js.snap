@@ -45,9 +45,9 @@ exports[`InfoBubble is visible 1`] = `
     segment={Object {}}
   />
   <Connect(Description)
-    highlightTriangle={[Function]}
     infoBubbleEl={null}
-    unhighlightTriangle={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
     updateBubbleDimensions={[Function]}
     updateHoverPolygon={[Function]}
   />
@@ -115,9 +115,9 @@ exports[`InfoBubble renders 1`] = `
     segment={Object {}}
   />
   <Connect(Description)
-    highlightTriangle={[Function]}
     infoBubbleEl={null}
-    unhighlightTriangle={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
     updateBubbleDimensions={[Function]}
     updateHoverPolygon={[Function]}
   />
@@ -182,9 +182,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
     segment={Object {}}
   />
   <Connect(Description)
-    highlightTriangle={[Function]}
     infoBubbleEl={null}
-    unhighlightTriangle={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
     updateBubbleDimensions={[Function]}
     updateHoverPolygon={[Function]}
   />
@@ -249,9 +249,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
     segment={Object {}}
   />
   <Connect(Description)
-    highlightTriangle={[Function]}
     infoBubbleEl={null}
-    unhighlightTriangle={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
     updateBubbleDimensions={[Function]}
     updateHoverPolygon={[Function]}
   />
@@ -303,9 +303,9 @@ exports[`InfoBubble shows description 1`] = `
     segment={Object {}}
   />
   <Connect(Description)
-    highlightTriangle={[Function]}
     infoBubbleEl={null}
-    unhighlightTriangle={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
     updateBubbleDimensions={[Function]}
     updateHoverPolygon={[Function]}
   />

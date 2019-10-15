@@ -8,6 +8,7 @@ export const DropTarget = (type, spec, collect, options) => {
     })(DecoratedComponent)
   }
 }
+
 export const DragSource = (type, spec, collect, options) => {
   return (DecoratedComponent) => {
     return withProps({

@@ -35,7 +35,7 @@ const MinecraftDialog = () => (
             your <a href="https://minecraft.net/" target="_blank" rel="noopener noreferrer">Minecraft game client</a> (Java edition only).
           </p>
           <p>
-            For rules and discussion, join us on <a href="https://discord.gg/Y8BMZq6" target="_blank" rel="noopener noreferrer">Discord</a> and
+            For rules and discussion, join us on <a href="https://strt.mx/discord" target="_blank" rel="noopener noreferrer">Discord</a> and
             use the <strong>#minecraft</strong> channel. See you in the world!
           </p>
         </div>

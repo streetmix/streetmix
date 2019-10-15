@@ -26,10 +26,10 @@ export class StreetMetaAuthor extends React.Component {
 
   renderByline = (creatorId) => {
     const user = (creatorId) ? (
-      <fragment key={creatorId}>
+      <React.Fragment key={creatorId}>
         <Avatar userId={creatorId} />
         <a href={'/' + creatorId} onClick={this.handleClickAuthor}>{creatorId}</a>
-      </fragment>
+      </React.Fragment>
     ) : (
       <FormattedMessage id="users.anonymous" defaultMessage="Anonymous" />
     )
