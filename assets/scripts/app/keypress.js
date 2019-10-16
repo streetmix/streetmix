@@ -15,14 +15,15 @@
  */
 import { trackEvent } from './event_tracking'
 import { isFocusOnBody } from '../util/focus'
-import { KEYS } from './keys'
 
 // Keep track of all registered commands here
 const inputs = {}
 
 // Utility functions
 const noop = function () {}
-const returnTrue = function () { return true }
+const returnTrue = function () {
+  return true
+}
 
 /**
  * Initiates keypress manager. Sets a global event listener on the window.
@@ -163,7 +164,7 @@ export function registerKeypress (commands, options, callback) {
       command.originalCommands = originalCommands
 
       // Special case for 'ESC' key; it defaults to global (window) focus
-      if (key === KEYS.ESC || key === KEYS.ESC_ALT) {
+      if (key === 'Esc' || key === 'Escape') {
         command.requireFocusOnBody = false
         command.stopPropagation = true
       }
@@ -230,9 +231,12 @@ export function deregisterKeypress (commands, callback) {
         const item = items[x]
         if (item.onKeypress === callback || typeof callback === 'undefined') {
           // Check for equality for command + function
-          const isShiftOrOptional = (item.shiftKey === command.shiftKey || item.shiftKey === 'optional')
-          const isAltOrOptional = (item.altKey === command.altKey || item.altKey === 'optional')
-          const isMetaOrOptional = (item.metaKey === command.metaKey || item.metaKey === 'optional')
+          const isShiftOrOptional =
+            item.shiftKey === command.shiftKey || item.shiftKey === 'optional'
+          const isAltOrOptional =
+            item.altKey === command.altKey || item.altKey === 'optional'
+          const isMetaOrOptional =
+            item.metaKey === command.metaKey || item.metaKey === 'optional'
           if (isShiftOrOptional && isAltOrOptional && isMetaOrOptional) {
             // If matches, remove it from the command list.
             inputs[key].splice(x, 1)
@@ -266,8 +270,9 @@ function processCommands (commands) {
     // Normalize command
     //  - adjust to lower case
     //  - replace command/cmd/control/ctrl to meta (this does not remove dupes)
-    command = command.toLowerCase()
-      .replace(/(Command|Cmd|Control|Ctrl)/g, KEYS.META)
+    command = command
+      .toLowerCase()
+      .replace(/(Command|Cmd|Control|Ctrl)/g, 'Meta')
       .split(' ')
 
     const settings = {
@@ -278,19 +283,19 @@ function processCommands (commands) {
 
     // Check for existence of modifier keys
     // Modifier keys are removed from input array
-    const isShift = command.indexOf(KEYS.SHIFT)
+    const isShift = command.indexOf('Shift')
     if (isShift > -1) {
       settings.shiftKey = true
       command.splice(isShift, 1)
     }
 
-    const isAlt = command.indexOf(KEYS.ALT)
+    const isAlt = command.indexOf('Alt')
     if (isAlt > -1) {
       settings.altKey = true
       command.splice(isAlt, 1)
     }
 
-    const isMeta = command.indexOf(KEYS.META)
+    const isMeta = command.indexOf('Meta')
     if (isMeta > -1) {
       settings.metaKey = true
       command.splice(isMeta, 1)
@@ -334,9 +339,13 @@ function onGlobalKeyDown (event) {
 
   // Check if the right meta keys are down
   for (const item of commandsForKey) {
-    if ((item.shiftKey === event.shiftKey || item.shiftKey === 'optional') &&
-        (item.altKey === event.altKey || item.altKey === 'optional') &&
-        (item.metaKey === event.metaKey || item.metaKey === event.ctrlKey || item.metaKey === 'optional')) {
+    if (
+      (item.shiftKey === event.shiftKey || item.shiftKey === 'optional') &&
+      (item.altKey === event.altKey || item.altKey === 'optional') &&
+      (item.metaKey === event.metaKey ||
+        item.metaKey === event.ctrlKey ||
+        item.metaKey === 'optional')
+    ) {
       toExecute.push(item)
     }
   }
@@ -368,7 +377,13 @@ function execute (input, event) {
     event.stopPropagation()
   }
   if (input.trackAction) {
-    trackEvent('INTERACTION', input.trackAction, 'KEYBOARD', input.trackValue, input.trackOnce)
+    trackEvent(
+      'INTERACTION',
+      input.trackAction,
+      'KEYBOARD',
+      input.trackValue,
+      input.trackOnce
+    )
   }
 
   // Execute callback
