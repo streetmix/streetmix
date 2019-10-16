@@ -218,7 +218,7 @@ export default class UpDownInput extends React.Component {
   }
 
   handleInputKeyDown = (event) => {
-    switch (event.keyCode) {
+    switch (event.key) {
       case KEYS.ENTER:
         this.props.onUpdatedValue(event.target.value)
 
