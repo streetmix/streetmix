@@ -1,0 +1,19 @@
+{
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"],
+      "options": {
+        "semi": false,
+        "singleQuote": true,
+        "arrowParens": "always",
+        "htmlWhitespaceSensitivity": "strict"
+      }
+    },
+    {
+      "files": ["*.md"],
+      "options": {
+        "proseWrap": "never"
+      }
+    }
+  ]
+}
