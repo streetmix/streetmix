@@ -33,7 +33,7 @@ function handleClickGitHub () {
 
 export const ContactMenu = (props) => (
   <Menu {...props}>
-    <a href="https://discord.gg/NsKmV3S" target="_blank" rel="noopener noreferrer" onClick={handleClickDiscord}>
+    <a href="https://strt.mx/discord" target="_blank" rel="noopener noreferrer" onClick={handleClickDiscord}>
       <Icon icon="discord" />
       <FormattedMessage id="menu.contact.discord" defaultMessage="Join Discord chat" />
     </a>

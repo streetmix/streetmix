@@ -1,9 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 
-import { fireEvent, getByTestId, wait, waitForDomChange } from '@testing-library/react'
-import { CSSTransition } from 'react-transition-group'
-
+import { fireEvent, getByTestId, waitForDomChange } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 
 import StreetEditable from '../StreetEditable'
@@ -11,9 +9,6 @@ import StreetEditable from '../StreetEditable'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import SEGMENT_INFO from '../../segments/info.json'
 import { KEYS } from '../keys'
-
-jest.mock('react-dnd')
-jest.mock('react-transition-group')
 
 jest.mock('../../app/load_resources')
 jest.mock('../../segments/info')
@@ -29,7 +24,6 @@ jest.mock('../../streets/data_model', () => {
 describe('StreetEditable', () => {
   beforeEach(() => {
     jest.resetModules()
-    CSSTransition.mockImplementation(({ children }) => (children))
   })
   const setBuildingWidth = jest.fn()
   const updatePerspective = () => {}
@@ -53,17 +47,15 @@ describe('StreetEditable', () => {
   })
   describe('segment warnings', () => {
     describe('too large', () => {
-      it('KEY.EQUAL does not increase the width of the segment', async () => {
+      it('KEY.PLUS does not increase the width of the segment', async () => {
         const street = { width: 400, segments: [segment] }
         const wrapper = renderWithRedux(<StreetEditable setBuildingWidth={setBuildingWidth} updatePerspective={updatePerspective} />, { initialState: { street } })
         fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-        fireEvent.keyDown(document, { key: 'Equal', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
-        await wait(() => {
-          waitForDomChange({ container: wrapper.container })
-          expect(wrapper.store.getState().street.segments[0].width).toEqual(400)
-          expect(wrapper.store.getState().street.segments[0].warnings).toEqual([undefined, false, false, true])
-          expect(wrapper.asFragment()).toMatchSnapshot()
-        })
+        fireEvent.keyDown(document, { key: '+', keyCode: KEYS.EQUAL, code: KEYS.EQUAL, charCode: KEYS.EQUAL })
+        await waitForDomChange({ container: wrapper.container })
+        expect(wrapper.store.getState().street.segments[0].width).toEqual(400)
+        expect(wrapper.store.getState().street.segments[0].warnings).toEqual([undefined, false, false, true])
+        expect(wrapper.asFragment()).toMatchSnapshot()
       })
     })
   })

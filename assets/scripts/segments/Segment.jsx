@@ -194,7 +194,6 @@ export class Segment extends React.Component {
         this.decrementSegmentWidth(this.props.dataNo, event.shiftKey)
         trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
         break
-      case '=':
       case '+':
         if (event.metaKey || event.ctrlKey || event.altKey) return
 

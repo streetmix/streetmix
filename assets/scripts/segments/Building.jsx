@@ -122,7 +122,6 @@ class Building extends React.Component {
     if (!this.state.isEditable) return
 
     const negative = (event.key === '-')
-
     const positive = (event.key === '+')
 
     const variant = this.props.street[this.state.variant]

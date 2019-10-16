@@ -41,7 +41,7 @@ const SegmentLabelContainer = (props) => {
         showCapacity &&
           <span className="segment-capacity">
             <FormattedMessage
-              id="capacity.ppl-per-hr"
+              id="capacity.ppl-per-hour"
               defaultMessage="{capacity} people/hr"
               values={{
                 capacity: formatCapacity(capacity, locale)

@@ -136,9 +136,9 @@ export class InfoBubble extends React.Component {
 
     // Add or remove event listener based on whether infobubble was shown or hidden
     if (prevProps.visible === false && this.props.visible === true) {
-      document.body.addEventListener('mousemove', this.onBodyMouseMove)
+      document.body.addEventListener('mousemove', this.handleBodyMouseMove)
     } else if (prevProps.visible === true && this.props.visible === false) {
-      document.body.removeEventListener('mousemove', this.onBodyMouseMove)
+      document.body.removeEventListener('mousemove', this.handleBodyMouseMove)
     }
 
     // This appears to be needed to prevent a flicker during mouseover of the infobubble.
@@ -181,7 +181,7 @@ export class InfoBubble extends React.Component {
     loseAnyFocus()
   }
 
-  onBodyMouseMove = (event) => {
+  handleBodyMouseMove = (event) => {
     const mouseX = event.pageX
     const mouseY = event.pageY
 
@@ -194,11 +194,11 @@ export class InfoBubble extends React.Component {
     this.debouncedUpdateHoverPolygon(mouseX, mouseY)
   }
 
-  highlightTriangle = (event) => {
+  handleDescriptionOver = (event) => {
     this.setState({ highlightTriangle: true })
   }
 
-  unhighlightTriangle = (event) => {
+  handleDescriptionOut = (event) => {
     this.setState({ highlightTriangle: false })
   }
 
@@ -521,8 +521,8 @@ export class InfoBubble extends React.Component {
           type={segment.type}
           variantString={segment.variantString}
           updateBubbleDimensions={this.updateBubbleDimensions}
-          highlightTriangle={this.highlightTriangle}
-          unhighlightTriangle={this.unhighlightTriangle}
+          onMouseOver={this.handleDescriptionOver}
+          onMouseOut={this.handleDescriptionOut}
           infoBubbleEl={this.el.current}
           updateHoverPolygon={this.updateHoverPolygon}
         />

@@ -4,6 +4,7 @@
     "sidewalk-tree": "Jalkakäytävä ja puu",
     "bike-rack": "Pyöräpysäköinti",
     "bench": "Penkki",
+    "cafe-seating": "Kahvilaterassi",
     "wayfinding-sign": "Opastetaulu",
     "sidewalk-lamp": "Valaisin",
     "parklet": "Puistoruutu",
@@ -13,6 +14,7 @@
     "median": "Mediaani",
     "bollard": "Sulkutolppa",
     "dome": "Tienrajakiila",
+    "jersey-barrier": "Betoniporsas",
     "scooter": "Sähköpotkulauta",
     "scooter-drop-zone": "Sähköpotkulautapiste",
     "bike-lane": "Pyöräkaista",
@@ -35,7 +37,9 @@
     "streetcar": "Katuraitiotie",
     "light-rail": "Pikaraitiotie",
     "transit-shelter": "Pysäkkikatos",
-    "inception-train": "Inception-juna"
+    "temporary-barrier": "Väliaikainen tiesulku",
+    "inception-train": "Inception-juna",
+    "magic-carpet": "Taikamatto"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -94,9 +98,7 @@
     },
     "inception-train": {
       "lede": "Juna Christopher Nolanin elokuvasta <em>Inception</em>.",
-      "text": [
-        "Mistä haluat tietää lisää?"
-      ]
+      "text": ["Mistä haluat tietää lisää?"]
     }
   },
   "buildings": {
@@ -159,6 +161,7 @@
     "car-type|car": "Auto",
     "car-type|sharrow": "Sekakaista",
     "car-type|truck": "Kuorma-auto",
+    "car-type|av": "Itsestään ohjautuva ajoneuvo",
     "public-transit-asphalt|regular": "Asfaltti",
     "public-transit-asphalt|colored": "Punainen asfaltti",
     "public-transit-asphalt|grass": "Ruohokenttä",
@@ -180,6 +183,8 @@
     "divider-type|palm-tree": "Viherkaista palmulla",
     "divider-type|bollard": "Sulkutolppa",
     "divider-type|dome": "Tienrajakiila",
+    "divider-type|jersey-barrier-concrete": "Ajoeste (betonia)",
+    "divider-type|jersey-barrier-plastic": "Ajoeste (muovia)",
     "transit-shelter-elevation|street-level": "Katutaso",
     "transit-shelter-elevation|light-rail": "Pikaraitiotiepysäkki",
     "bike-rack-elevation|sidewalk-parallel": "Pitkittäispysäköinti jalkakäytävän tasossa",
@@ -198,6 +203,12 @@
     "waiting-area|sparse": "Joku",
     "waiting-area|empty": "Ei kukaan",
     "flex-type|rideshare": "Kimppakyyti",
-    "flex-type|taxi": "Taks"
+    "flex-type|taxi": "Taks",
+    "occupants|empty": "Tyhjä",
+    "occupants|full": "Täysi",
+    "elevation|sidewalk": "Jalkakäytävän taso",
+    "elevation|road": "Katutaso",
+    "temporary-barrier-type|traffic-cone": "Liikennekartio",
+    "temporary-barrier-type|barricade": "Tiesulku"
   }
 }

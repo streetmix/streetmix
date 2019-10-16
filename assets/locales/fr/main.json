@@ -11,7 +11,9 @@
       "new-street": "Nouvelle rue",
       "my-streets": "Mes rues",
       "settings": "Paramètres",
-      "share": "Partager"
+      "share": "Partager",
+      "store": "",
+      "upgrade": ""
     },
     "help": {
       "keyboard-label": "Raccourcis claviers :",
@@ -180,6 +182,13 @@
       "tos-link": "Conditions d'utilisation",
       "privacy-link": "Politique de confidentialité"
     },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "segment-summary": "",
+      "segment-summary-single": ""
+    },
     "save": {
       "heading": "Sauver en tant qu'image",
       "option-labels": "Les noms des éléments de voirie et leurs largeurs",
@@ -267,6 +276,9 @@
     "different": "Largeur personnalisée…",
     "metric": "Passer aux unités métriques",
     "imperial": "Passer aux unités impériales (pieds)"
+  },
+  "capacity": {
+    "ppl-per-hour": ""
   },
   "datetime": {
     "minutes-ago": "Il y a quelques minutes",

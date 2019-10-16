@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase the width of the segment 1`] = `
+exports[`StreetEditable segment warnings too large KEY.PLUS does not increase the width of the segment 1`] = `
 <DocumentFragment>
   <div
     id="street-section-editable"
@@ -44,16 +44,6 @@ exports[`StreetEditable segment warnings too large KEY.EQUAL does not increase t
           class="svg-inline--fa fa-chevron-right"
         />
       </span>
-      <div
-        class="segment-canvas-container"
-      >
-        <canvas
-          class="segment-image"
-          height="445"
-          style="width: 4800px; height: 445px; left: 0px;"
-          width="4800"
-        />
-      </div>
       <div
         class="segment-canvas-container"
       >

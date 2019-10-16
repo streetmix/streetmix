@@ -4,6 +4,7 @@
     "sidewalk-tree": "Árvore",
     "bike-rack": "Suporte de bicicletas",
     "bench": "Banco",
+    "cafe-seating": "",
     "wayfinding-sign": "Sinal de orientação",
     "sidewalk-lamp": "Poste",
     "parklet": "Parklet",
@@ -13,6 +14,7 @@
     "median": "Médio",
     "bollard": "Balizador",
     "dome": "Tachão",
+    "jersey-barrier": "",
     "scooter": "Patinete elétrico",
     "scooter-drop-zone": "Ponto de estacionamento para patinetes elétricos",
     "bike-lane": "Ciclovia",
@@ -35,68 +37,45 @@
     "streetcar": "Bonde",
     "light-rail": "VLT",
     "transit-shelter": "Abrigo de transporte coletivo",
-    "inception-train": "O trem do filme \"A Origem\""
+    "temporary-barrier": "",
+    "inception-train": "O trem do filme \"A Origem\"",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Saiba mais sobre sinais de orientação",
       "lede": "Sinais de orientação ajudam os pedestres a navegar para seus destinos.",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "parklet": {
       "prompt": "Saiba mais sobre parklets",
       "imageCaption": "",
       "lede": "",
-      "text": [
-        "",
-        ""
-      ]
+      "text": ["", ""]
     },
     "bike-lane": {
       "prompt": "Saiba mais sobre ciclovias ",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "colored-bike-lane": {
       "prompt": "Saiba mais sobre ciclovias coloridas",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "sharrow": {
       "prompt": "Saiba mais sobre ciclorrotas",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "transit-shelter-elevated": {
       "prompt": "Saiba mais sobre abrigos de transporte coletivo",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "inception-train": {
       "lede": "É o trem do filme <em>A Origem</em> de Christopher Nolan.",
-      "text": [
-        "O que mais você precisa saber?"
-      ]
+      "text": ["O que mais você precisa saber?"]
     }
   },
   "buildings": {
@@ -159,6 +138,7 @@
     "car-type|car": "Carro",
     "car-type|sharrow": "Ciclorrota",
     "car-type|truck": "Caminhão",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Faixa vermelha",
     "public-transit-asphalt|grass": "Grama",
@@ -180,6 +160,8 @@
     "divider-type|palm-tree": "Faixa de plantio com uma palmeira",
     "divider-type|bollard": "Balizador",
     "divider-type|dome": "Tachão",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "Nível da rua",
     "transit-shelter-elevation|light-rail": "Plataforma de VLT",
     "bike-rack-elevation|sidewalk-parallel": "Estacionamento em paralelo, nível de calçada",
@@ -198,6 +180,12 @@
     "waiting-area|sparse": "Alguém",
     "waiting-area|empty": "Ninguém",
     "flex-type|rideshare": "Carro compartilhado",
-    "flex-type|taxi": "Táxi"
+    "flex-type|taxi": "Táxi",
+    "occupants|empty": "Vazio",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "Nível da rua",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

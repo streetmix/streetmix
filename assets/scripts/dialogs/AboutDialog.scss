@@ -24,15 +24,12 @@
     display: none;
   }
 
-  .streetmix-logo {
-    margin-left: 12px;
-    margin-top: 1.5em;
-    margin-bottom: 1em;
+  .streetmix-logo-horizontal {
+    height: 36px;
+    margin: 2.5rem 2rem 2rem 2rem;
     background-position: 0;
 
     [dir="rtl"] & {
-      margin-right: 12px;
-      margin-left: auto;
       background-position: 100%;
     }
   }

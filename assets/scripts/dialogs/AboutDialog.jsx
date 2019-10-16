@@ -21,7 +21,7 @@ function AboutDialog (props) {
       {(closeDialog) => (
         <div className="about-dialog">
           <header>
-            <div className="streetmix-logo" />
+            <div className="streetmix-logo-horizontal" />
             <h1>
               <FormattedMessage id="dialogs.about.heading" defaultMessage="About Streetmix." />
             </h1>

@@ -1,7 +1,7 @@
 New translator guide
 ====================
 
-.. _Discord: https://discord.gg/NsKmV3S
+.. _Discord: https://strt.mx/discord
 
 .. warning::
 
@@ -190,7 +190,7 @@ If you ever see an error on Transifex, please mark it. The instructions to do so
 
 For issues that are larger than one specific string, please bring this up to the Streetmix community. There are two ways you can do this:
 
-1. Tell us on the Streetmix Discord in the *#translations* channel. You can join our Discord server here: https://discord.gg/NsKmV3S.
+1. Tell us on the Streetmix Discord in the *#translations* channel. You can join our Discord server here: https://strt.mx/discord.
 2. Create an issue on GitHub. You can see how to create an issue here: https://help.github.com/articles/creating-an-issue/. If you don't have a GitHub account, see here: https://www.wikihow.com/Create-an-Account-on-GitHub. Choose the free account and you can skip the short survey.
 
 

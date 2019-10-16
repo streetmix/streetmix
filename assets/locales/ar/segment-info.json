@@ -4,6 +4,7 @@
     "sidewalk-tree": "",
     "bike-rack": "موقف الدراجة",
     "bench": "مقعد",
+    "cafe-seating": "",
     "wayfinding-sign": "إشارة الاستدلال على الطرق",
     "sidewalk-lamp": "",
     "parklet": "حديقة صغيرة",
@@ -13,6 +14,7 @@
     "median": "منتصف الطريق",
     "bollard": "مربط الحبل",
     "dome": "عيون القط",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "ممر الدراجات",
@@ -35,17 +37,15 @@
     "streetcar": "ترام",
     "light-rail": "قطار خفيف",
     "transit-shelter": "مأوى حافلة",
-    "inception-train": "\"استهلال\" قطار"
+    "temporary-barrier": "",
+    "inception-train": "\"استهلال\" قطار",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "اعرف المزيد",
       "lede": "إشارات الاستدلال على الطرق تساعد المشاة في الوصول إلى الوجهات المعروفة.",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "parklet": {
       "prompt": "اعرف المزيد",
@@ -94,9 +94,7 @@
     },
     "inception-train": {
       "lede": "",
-      "text": [
-        ""
-      ]
+      "text": [""]
     }
   },
   "buildings": {
@@ -159,6 +157,7 @@
     "car-type|car": "سيارة",
     "car-type|sharrow": "إشارة الممرات المشتركة",
     "car-type|truck": "شاحنة",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "أسفلت",
     "public-transit-asphalt|colored": "ممر أحمر",
     "public-transit-asphalt|grass": "عشب",
@@ -180,6 +179,8 @@
     "divider-type|palm-tree": "شريط زراعة مع شجرة نخيل",
     "divider-type|bollard": "مربط الحبل",
     "divider-type|dome": "عيون القط",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "مستوى الشارع",
     "transit-shelter-elevation|light-rail": "محطة قطار خفيف",
     "bike-rack-elevation|sidewalk-parallel": "موازي للموقف، مع مستوى الرصيف",
@@ -198,6 +199,12 @@
     "waiting-area|sparse": "شخص ما",
     "waiting-area|empty": "لا أحد",
     "flex-type|rideshare": "منطقة وقوف الدراجات الهوائية",
-    "flex-type|taxi": "سيارة أجرة"
+    "flex-type|taxi": "سيارة أجرة",
+    "occupants|empty": "فارغ",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "مستوى الشارع",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

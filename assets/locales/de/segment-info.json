@@ -4,6 +4,7 @@
     "sidewalk-tree": "Baum",
     "bike-rack": "Fahrradständer",
     "bench": "Sitzbank",
+    "cafe-seating": "",
     "wayfinding-sign": "Wegweiser",
     "sidewalk-lamp": "Straßenlaterne",
     "parklet": "Parklet",
@@ -13,6 +14,7 @@
     "median": "Mittelstreifen",
     "bollard": "Poller",
     "dome": "Leitschwelle",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "Radstreifen",
@@ -35,7 +37,9 @@
     "streetcar": "Straßenbahn",
     "light-rail": "Stadtbahn",
     "transit-shelter": "Wartehäuschen",
-    "inception-train": "Bahn aus dem Film \"Inception\""
+    "temporary-barrier": "",
+    "inception-train": "Bahn aus dem Film \"Inception\"",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -94,9 +98,7 @@
     },
     "inception-train": {
       "lede": "Es handelt sich um den Zug aus dem Film <em>Inception</em> von Christopher Nolan.",
-      "text": [
-        "Was musst du noch wissen?"
-      ]
+      "text": ["Was musst du noch wissen?"]
     }
   },
   "buildings": {
@@ -159,6 +161,7 @@
     "car-type|car": "Pkw",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Lkw",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "Asphalt",
     "public-transit-asphalt|colored": "Rot eingefärbt",
     "public-transit-asphalt|grass": "Rasen",
@@ -180,6 +183,8 @@
     "divider-type|palm-tree": "Grünstreifen mit Palmen",
     "divider-type|bollard": "Poller",
     "divider-type|dome": "Leitschwelle",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "Straßenniveau",
     "transit-shelter-elevation|light-rail": "Stadtbahn-Haltestelle",
     "bike-rack-elevation|sidewalk-parallel": "Parallelparken auf dem Gehweg",
@@ -198,6 +203,12 @@
     "waiting-area|sparse": "Jemand",
     "waiting-area|empty": "Niemand",
     "flex-type|rideshare": "Ridesharing",
-    "flex-type|taxi": "Taxi"
+    "flex-type|taxi": "Taxi",
+    "occupants|empty": "Leer",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "Straßenniveau",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

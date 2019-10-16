@@ -4,6 +4,7 @@
     "sidewalk-tree": "Árbol",
     "bike-rack": "Aparcabicis",
     "bench": "Banca",
+    "cafe-seating": "",
     "wayfinding-sign": "Señales y letreros",
     "sidewalk-lamp": "Poste de luz",
     "parklet": "Estacionaparquecito ",
@@ -13,6 +14,7 @@
     "median": "Camellón",
     "bollard": "Bolardo",
     "dome": "Domo de exclusión de tráfico ",
+    "jersey-barrier": "",
     "scooter": "Scooter eléctrico",
     "scooter-drop-zone": "Zona de estacionamiento para scooters eléctricos",
     "bike-lane": "Carril bici ",
@@ -35,7 +37,9 @@
     "streetcar": "Tranvía",
     "light-rail": "Tren ligero",
     "transit-shelter": "Refugio de colectivo",
-    "inception-train": "Tren de \"El Origen\""
+    "temporary-barrier": "",
+    "inception-train": "Tren de \"El Origen\"",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -94,9 +98,7 @@
     },
     "inception-train": {
       "lede": "Es el tren de la película de Christopher Nolan- <em>El Origen</em>.",
-      "text": [
-        "¿Qué más necesitas saber?"
-      ]
+      "text": ["¿Qué más necesitas saber?"]
     }
   },
   "buildings": {
@@ -159,6 +161,7 @@
     "car-type|car": "Carro",
     "car-type|sharrow": "Biciflecha",
     "car-type|truck": "Camión",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Carril rojo",
     "public-transit-asphalt|grass": "Pasto",
@@ -180,6 +183,8 @@
     "divider-type|palm-tree": "Línea para plantar con palmera ",
     "divider-type|bollard": "Bolardo",
     "divider-type|dome": "Domo de exclusión de tráfico ",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "Nivel de la calle",
     "transit-shelter-elevation|light-rail": "Plataforma de tren ligero ",
     "bike-rack-elevation|sidewalk-parallel": "Estacionamiento paralelo, al nivel de la banqueta",
@@ -198,6 +203,12 @@
     "waiting-area|sparse": "Alguien",
     "waiting-area|empty": "Nadie",
     "flex-type|rideshare": "Vehículos compartidos",
-    "flex-type|taxi": "Taxi"
+    "flex-type|taxi": "Taxi",
+    "occupants|empty": "Vacío",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "Nivel de la calle",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

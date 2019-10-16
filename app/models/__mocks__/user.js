@@ -67,7 +67,7 @@ function Model (_doc) {
 }
 
 Model.findOne = function (option, cb) {
-  const mockUser = mockUsers[option.id] || mockUsers['user1']
+  const mockUser = mockUsers[option.id] || mockUsers.user1
 
   if (cb) {
     cb(null, {
@@ -94,7 +94,7 @@ Model.count = function (option, cb) {
 }
 
 Model.deleteOne = function (option, cb) {
-  const mockUser = mockUsers[option.id] || mockUsers['user1']
+  const mockUser = mockUsers[option.id] || mockUsers.user1
 
   if (cb) {
     cb(null, mockUser)
@@ -118,7 +118,7 @@ Model.find = function (option) {
 }
 
 Model.findByIdAndUpdate = function (option) {
-  const mockUser = mockUsers[option.id] || mockUsers['user1']
+  const mockUser = mockUsers[option.id] || mockUsers.user1
 
   return Promise.resolve({
     ...mockUser,

@@ -179,7 +179,7 @@ exports.get = async function (req, res) {
       twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
       setTimeout(function () {
         if (!responseAlreadySent) {
-          logger.debug(`Timing out Twitter API call after %d milliseconds and sending partial response.`, config.twitter.timeout_ms)
+          logger.debug('Timing out Twitter API call after %d milliseconds and sending partial response.', config.twitter.timeout_ms)
           responseAlreadySent = true
           sendUserJson()
         }

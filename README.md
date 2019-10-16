@@ -15,7 +15,7 @@
 
 <p align="center">
   <b>Have questions? Looking for support or advice?</b>
-  <br><a href="https://discord.gg/NsKmV3S">Join our Discord</a> or <a href="https://forums.streetmix.net/">our forums</a>!
+  <br><a href="https://strt.mx/discord">Join our Discord</a> or <a href="https://forums.streetmix.net/">our forums</a>!
 </p>
 
 <p align="center">
@@ -74,7 +74,6 @@ Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by 
 <p align="center">
   <a href="https://opencollective.com/streetmix"><img src="https://opencollective.com/streetmix/sponsors.svg" alt="Become a sponsor"></a>
 </p>
-
 
 ### Copyright
 

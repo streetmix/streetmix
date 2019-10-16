@@ -15,8 +15,8 @@ export class Description extends React.Component {
     variantString: PropTypes.string,
     updateHoverPolygon: PropTypes.func.isRequired,
     updateBubbleDimensions: PropTypes.func.isRequired,
-    handleHighlightTriangle: PropTypes.func.isRequired,
-    handleUnhighlightTriangle: PropTypes.func.isRequired,
+    onMouseOver: PropTypes.func.isRequired,
+    onMouseOut: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
@@ -97,8 +97,8 @@ export class Description extends React.Component {
         <div
           className="description-prompt"
           onClick={this.handleClickShow}
-          onMouseOver={this.props.handleHighlightTriangle}
-          onMouseOut={this.props.handleUnhighlightTriangle}
+          onMouseOver={this.props.onMouseOver}
+          onMouseOut={this.props.onMouseOut}
         >
           {prompt}
         </div>
@@ -116,15 +116,13 @@ export class Description extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    descriptionVisible: state.infoBubble.descriptionVisible
-  }
-}
+const mapStateToProps = (state) => ({
+  descriptionVisible: state.infoBubble.descriptionVisible
+})
 
-const actionCreators = {
+const mapDispatchToProps = {
   showDescription,
   hideDescription
 }
 
-export default connect(mapStateToProps, actionCreators)(Description)
+export default connect(mapStateToProps, mapDispatchToProps)(Description)

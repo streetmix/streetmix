@@ -19,18 +19,22 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
       class="share-via-link-container"
     >
       Copy and paste this link to share:
-      <input
-        class="share-via-link"
-        readonly=""
-        spellcheck="false"
-        type="text"
-        value="http://localhost/"
-      />
-      <button>
-        <svg
-          class="svg-inline--fa fa-copy"
+      <div
+        class="share-via-link-form"
+      >
+        <input
+          class="share-via-link"
+          readonly=""
+          spellcheck="false"
+          type="text"
+          value="http://localhost/"
         />
-      </button>
+        <button>
+          <svg
+            class="svg-inline--fa fa-copy"
+          />
+        </button>
+      </div>
     </div>
     <a
       class="share-via-twitter"
@@ -39,7 +43,7 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-twitter"
+        class="svg-inline--fa menu-item-icon fa-twitter"
       />
       Share using Twitter
     </a>
@@ -50,7 +54,7 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-facebook-square"
+        class="svg-inline--fa menu-item-icon fa-facebook-square"
       />
       Share using Facebook
     </a>
@@ -83,18 +87,22 @@ exports[`ShareMenu renders (user signed in) 1`] = `
       class="share-via-link-container"
     >
       Copy and paste this link to share:
-      <input
-        class="share-via-link"
-        readonly=""
-        spellcheck="false"
-        type="text"
-        value="http://localhost/"
-      />
-      <button>
-        <svg
-          class="svg-inline--fa fa-copy"
+      <div
+        class="share-via-link-form"
+      >
+        <input
+          class="share-via-link"
+          readonly=""
+          spellcheck="false"
+          type="text"
+          value="http://localhost/"
         />
-      </button>
+        <button>
+          <svg
+            class="svg-inline--fa fa-copy"
+          />
+        </button>
+      </div>
     </div>
     <a
       class="share-via-twitter"
@@ -103,7 +111,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-twitter"
+        class="svg-inline--fa menu-item-icon fa-twitter"
       />
       Share using Twitter
     </a>
@@ -114,7 +122,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa fa-facebook-square"
+        class="svg-inline--fa menu-item-icon fa-facebook-square"
       />
       Share using Facebook
     </a>

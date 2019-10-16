@@ -4,6 +4,7 @@
     "sidewalk-tree": "Träd",
     "bike-rack": "Cykelställ",
     "bench": "Bänk",
+    "cafe-seating": "",
     "wayfinding-sign": "Vägvisningsskylt",
     "sidewalk-lamp": "Belysning",
     "parklet": "Mikropark",
@@ -13,6 +14,7 @@
     "median": "",
     "bollard": "",
     "dome": "",
+    "jersey-barrier": "",
     "scooter": "",
     "scooter-drop-zone": "",
     "bike-lane": "",
@@ -35,7 +37,9 @@
     "streetcar": "",
     "light-rail": "",
     "transit-shelter": "",
-    "inception-train": ""
+    "temporary-barrier": "",
+    "inception-train": "",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -51,52 +55,31 @@
       "prompt": "Läs mer om mikroparker",
       "imageCaption": "",
       "lede": "",
-      "text": [
-        "",
-        ""
-      ]
+      "text": ["", ""]
     },
     "bike-lane": {
       "prompt": "",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "colored-bike-lane": {
       "prompt": "",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "sharrow": {
       "prompt": "",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "transit-shelter-elevated": {
       "prompt": "",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "inception-train": {
       "lede": "",
-      "text": [
-        ""
-      ]
+      "text": [""]
     }
   },
   "buildings": {
@@ -159,6 +142,7 @@
     "car-type|car": "",
     "car-type|sharrow": "",
     "car-type|truck": "",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
     "public-transit-asphalt|grass": "",
@@ -180,6 +164,8 @@
     "divider-type|palm-tree": "",
     "divider-type|bollard": "",
     "divider-type|dome": "",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "",
     "transit-shelter-elevation|light-rail": "",
     "bike-rack-elevation|sidewalk-parallel": "",
@@ -198,6 +184,12 @@
     "waiting-area|sparse": "",
     "waiting-area|empty": "",
     "flex-type|rideshare": "",
-    "flex-type|taxi": ""
+    "flex-type|taxi": "",
+    "occupants|empty": "",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

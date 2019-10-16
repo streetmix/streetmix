@@ -25,7 +25,7 @@ exports[`AboutDialog renders snapshot 1`] = `
       >
         <header>
           <div
-            class="streetmix-logo"
+            class="streetmix-logo-horizontal"
           />
           <h1>
             About Streetmix.
@@ -244,114 +244,104 @@ exports[`AboutDialog renders snapshot 1`] = `
                 <div
                   class="credits-credits-left"
                 >
-                  <fragment>
-                    <h3>
-                      Advisors
-                    </h3>
-                    <ul>
-                      <li>
-                        Jan Levinson
-                      </li>
-                      <li>
-                        Robert California
-                      </li>
-                    </ul>
-                  </fragment>
-                  <fragment>
-                    <h3>
-                      Additional illustrations
-                    </h3>
-                    <ul>
-                      <li>
-                        Kevin Malone
-                      </li>
-                      <li>
-                        Meredith Palmer
-                      </li>
-                      <li>
-                        Stanley Hudson
-                      </li>
-                    </ul>
-                  </fragment>
-                  <fragment>
-                    <h3>
-                      Additional code
-                    </h3>
-                    <ul>
-                      <li>
-                        Angela Martin
-                      </li>
-                      <li>
-                        Oscar Martinez
-                      </li>
-                      <li>
-                        Phyllis Lapin
-                      </li>
-                    </ul>
-                  </fragment>
-                  <fragment>
-                    <h3>
-                      Additional contributors
-                    </h3>
-                    <ul>
-                      <li>
-                        Creed Bratton
-                      </li>
-                      <li>
-                        Kelly Kapoor, 
-                        <i>
-                          customer service
-                        </i>
-                      </li>
-                      <li>
-                        Toby Flenderson, 
-                        <i>
-                          human resources
-                        </i>
-                      </li>
-                    </ul>
-                  </fragment>
-                  <fragment>
-                    <h3>
-                      Special thanks to
-                    </h3>
-                    <ul>
-                      <li>
-                        Andy Bernard, 
-                        <i>
-                          Cornell
-                        </i>
-                      </li>
-                      <li>
-                        Darryl Philbin
-                      </li>
-                      <li>
-                        Kelly Erin Hannon
-                      </li>
-                      <li>
-                        Ryan Howard, 
-                        <i>
-                          WUPHF
-                        </i>
-                      </li>
-                      <li>
-                        <h4>
-                          Dunder Mifflin
-                        </h4>
-                        <ul>
-                          <li>
-                            David Wallace
-                          </li>
-                          <li>
-                            Nellie Bertram
-                          </li>
-                          <li>
-                            Holly Flax
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </fragment>
+                  <h3>
+                    Advisors
+                  </h3>
+                  <ul>
+                    <li>
+                      Jan Levinson
+                    </li>
+                    <li>
+                      Robert California
+                    </li>
+                  </ul>
+                  <h3>
+                    Additional illustrations
+                  </h3>
+                  <ul>
+                    <li>
+                      Kevin Malone
+                    </li>
+                    <li>
+                      Meredith Palmer
+                    </li>
+                    <li>
+                      Stanley Hudson
+                    </li>
+                  </ul>
+                  <h3>
+                    Additional code
+                  </h3>
+                  <ul>
+                    <li>
+                      Angela Martin
+                    </li>
+                    <li>
+                      Oscar Martinez
+                    </li>
+                    <li>
+                      Phyllis Lapin
+                    </li>
+                  </ul>
+                  <h3>
+                    Additional contributors
+                  </h3>
+                  <ul>
+                    <li>
+                      Creed Bratton
+                    </li>
+                    <li>
+                      Kelly Kapoor, 
+                      <i>
+                        customer service
+                      </i>
+                    </li>
+                    <li>
+                      Toby Flenderson, 
+                      <i>
+                        human resources
+                      </i>
+                    </li>
+                  </ul>
+                  <h3>
+                    Special thanks to
+                  </h3>
+                  <ul>
+                    <li>
+                      Andy Bernard, 
+                      <i>
+                        Cornell
+                      </i>
+                    </li>
+                    <li>
+                      Darryl Philbin
+                    </li>
+                    <li>
+                      Kelly Erin Hannon
+                    </li>
+                    <li>
+                      Ryan Howard, 
+                      <i>
+                        WUPHF
+                      </i>
+                    </li>
+                    <li>
+                      <h4>
+                        Dunder Mifflin
+                      </h4>
+                      <ul>
+                        <li>
+                          David Wallace
+                        </li>
+                        <li>
+                          Nellie Bertram
+                        </li>
+                        <li>
+                          Holly Flax
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
                 </div>
                 <div
                   class="credits-credits-right"

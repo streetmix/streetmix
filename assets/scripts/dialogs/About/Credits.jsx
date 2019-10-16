@@ -87,7 +87,7 @@ function Credits (props) {
           {
             Object.entries(CREDITS.contributors)
               .map(([key, value]) => (
-                <fragment key={key}>
+                <React.Fragment key={key}>
                   <h3><FormattedMessage id={`credits.${key}`} defaultMessage={UNTRANSLATED_LABELS[key]} /></h3>
                   <ul>
                     {value.sort().map(name => Array.isArray(name)
@@ -103,7 +103,7 @@ function Credits (props) {
                           </li>)
                     )}
                   </ul>
-                </fragment>
+                </React.Fragment>
               ))
           }
         </div>

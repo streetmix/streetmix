@@ -4,6 +4,7 @@
     "sidewalk-tree": "Árbol",
     "bike-rack": "Estacionamiento de bici",
     "bench": "Banco",
+    "cafe-seating": "",
     "wayfinding-sign": "Señal de orientación",
     "sidewalk-lamp": "Farola",
     "parklet": "Parklet (Parquecito en la calle)",
@@ -13,6 +14,7 @@
     "median": "",
     "bollard": "",
     "dome": "",
+    "jersey-barrier": "",
     "scooter": "Scúter",
     "scooter-drop-zone": "",
     "bike-lane": "Carril bici",
@@ -35,7 +37,9 @@
     "streetcar": "",
     "light-rail": "",
     "transit-shelter": "",
-    "inception-train": ""
+    "temporary-barrier": "",
+    "inception-train": "",
+    "magic-carpet": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -51,52 +55,31 @@
       "prompt": "Aprender más sobre parklets",
       "imageCaption": "",
       "lede": "",
-      "text": [
-        "",
-        ""
-      ]
+      "text": ["", ""]
     },
     "bike-lane": {
       "prompt": "Aprender más sobre carriles de bici",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "colored-bike-lane": {
       "prompt": "Aprenda más sobre bicicarriles en color verde",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "sharrow": {
       "prompt": "",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "transit-shelter-elevated": {
       "prompt": "",
       "lede": "",
-      "text": [
-        "",
-        "",
-        ""
-      ]
+      "text": ["", "", ""]
     },
     "inception-train": {
       "lede": "",
-      "text": [
-        "¿Qué más necesita saber?"
-      ]
+      "text": ["¿Qué más necesita saber?"]
     }
   },
   "buildings": {
@@ -159,6 +142,7 @@
     "car-type|car": "Carro",
     "car-type|sharrow": "",
     "car-type|truck": "Camión",
+    "car-type|av": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Carril rojo",
     "public-transit-asphalt|grass": "Pasto",
@@ -180,6 +164,8 @@
     "divider-type|palm-tree": "",
     "divider-type|bollard": "",
     "divider-type|dome": "",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
     "transit-shelter-elevation|street-level": "Nivel de la calle",
     "transit-shelter-elevation|light-rail": "",
     "bike-rack-elevation|sidewalk-parallel": "",
@@ -198,6 +184,12 @@
     "waiting-area|sparse": "",
     "waiting-area|empty": "",
     "flex-type|rideshare": "",
-    "flex-type|taxi": ""
+    "flex-type|taxi": "",
+    "occupants|empty": "Vacío",
+    "occupants|full": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "Nivel de la calle",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
   }
 }

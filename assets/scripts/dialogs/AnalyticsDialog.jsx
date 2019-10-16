@@ -57,6 +57,11 @@ const avgCapacityAscending = (a, b) => {
   return a.capacity.average - b.capacity.average
 }
 
+AnalyticsDialog.propTypes = {
+  street: PropTypes.object,
+  locale: PropTypes.string
+}
+
 function AnalyticsDialog (props) {
   useEffect(() => {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
@@ -76,7 +81,7 @@ function AnalyticsDialog (props) {
   const summary = (
     <FormattedMessage
       id="dialogs.analytics.street-summary"
-      defaultMessage="Your street has an estimated average traffic of {averageTotal} passengers per hour, and potential for up to {potentialTotal} passengers per hour."
+      defaultMessage="Your street has an estimated average traffic of {averageTotal} people per hour, and potential for up to {potentialTotal} people per hour."
       values={{
         averageTotal: <b>{FormatNumber(props.locale, averageTotal)}</b>,
         potentialTotal: <b>{FormatNumber(props.locale, potentialTotal)}</b>
@@ -84,7 +89,7 @@ function AnalyticsDialog (props) {
     />)
 
   const displayCapacity = item => {
-    return item.capacity && item.capacity.display && item.capacity.average > 0
+    return item.capacity && (item.capacity.display !== false) && (item.capacity.average > 0)
   }
 
   const rolledUp = rollUpCategories(segmentData)
@@ -140,11 +145,6 @@ function mapStateToProps (state) {
     street: state.street,
     locale: state.locale.locale
   }
-}
-
-AnalyticsDialog.propTypes = {
-  street: PropTypes.object,
-  locale: PropTypes.string
 }
 
 export default connect(mapStateToProps)(AnalyticsDialog)
