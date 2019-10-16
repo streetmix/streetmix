@@ -12,7 +12,6 @@ import { setLastStreet } from '../../streets/data_model'
 // Replace all increment resolution with a simple value of 1
 const __TEST_RESIZE_INCREMENT = 1
 
-jest.mock('react-dnd')
 jest.mock('../info')
 jest.mock('../view', () => {
   const actual = jest.requireActual('../view')

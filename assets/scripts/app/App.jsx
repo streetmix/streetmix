@@ -2,10 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
+import { DndProvider } from 'react-dnd'
 import MultiBackend from 'react-dnd-multi-backend'
 import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch'
-import { DragDropContext } from 'react-dnd'
-import flow from 'lodash/flow'
 import NOTIFICATION from '../../../app/data/notification.json'
 
 import NotificationBar from './NotificationBar'
@@ -45,7 +44,9 @@ class App extends React.PureComponent {
         key={this.props.locale.locale}
         messages={this.props.locale.messages}
       >
-        <>
+        {/* The prop context={window} prevents crash errors with hot-module reloading */}
+        <DndProvider backend={MultiBackend} options={HTML5toTouch} context={window}>
+          {/* DndProvider allows multiple children; IntlProvider does not */}
           <NotificationBar locale={this.props.locale.locale} notification={NOTIFICATION} />
           <BlockingShield />
           <BlockingError />
@@ -67,7 +68,7 @@ class App extends React.PureComponent {
             <SegmentDragLayer />
             <StreetView />
           </div>
-        </>
+        </DndProvider>
       </IntlProvider>
     )
   }
@@ -79,7 +80,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default flow(
-  connect(mapStateToProps),
-  DragDropContext(MultiBackend(HTML5toTouch))
-)(App)
+export default connect(mapStateToProps)(App)
