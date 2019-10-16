@@ -6,7 +6,6 @@ import { getEmptyImage } from 'react-dnd-html5-backend'
 import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
 import { getSegmentCapacity } from '../util/street_analytics'
-
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
@@ -31,7 +30,6 @@ import { getSegmentInfo } from './info'
 import { normalizeSegmentWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL, RESIZE_TYPE_INCREMENT } from './resizing'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { KEYS } from '../app/keys'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
 import { setActiveSegment } from '../store/actions/ui'
@@ -189,22 +187,22 @@ export class Segment extends React.Component {
 
   handleKeyDown = (event) => {
     switch (event.key) {
-      case KEYS.MINUS:
+      case '-':
         if (event.metaKey || event.ctrlKey || event.altKey) return
 
         event.preventDefault()
         this.decrementSegmentWidth(this.props.dataNo, event.shiftKey)
         trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
         break
-      case KEYS.PLUS:
+      case '+':
         if (event.metaKey || event.ctrlKey || event.altKey) return
 
         event.preventDefault()
         this.incrementSegmentWidth(this.props.dataNo, event.shiftKey)
         trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
         break
-      case KEYS.BACKSPACE:
-      case KEYS.DELETE:
+      case 'Backspace':
+      case 'Delete':
         // Prevent deletion from occurring if the description is visible
         if (this.props.descriptionVisible) return
 

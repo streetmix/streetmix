@@ -1,7 +1,6 @@
 import { noop } from 'lodash'
 
 import USER_ROLES from '../../../app/data/user_roles'
-import { KEYS } from './keys'
 import { ENV } from './config'
 import { registerKeypress } from './keypress'
 import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
@@ -18,8 +17,8 @@ export function onGlobalKeyDown (event) {
   const { draggingType } = store.getState().ui
 
   switch (event.key) {
-    case KEYS.ESC:
-    case KEYS.ESC_ALT:
+    case 'Esc': // IE/Edge specific value
+    case 'Escape':
       if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()
       } else if (draggingType === DRAGGING_TYPE_MOVE) {
