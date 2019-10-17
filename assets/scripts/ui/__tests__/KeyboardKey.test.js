@@ -1,25 +1,42 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
+import { cleanup } from '@testing-library/react'
 import KeyboardKey from '../KeyboardKey'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 
 describe('KeyboardKey', () => {
+  afterEach(() => {
+    cleanup()
+  })
   it('renders a <kbd> element with string child', () => {
-    const wrapper = shallow(<KeyboardKey>foo</KeyboardKey>)
-    expect(wrapper.props().title).toBeUndefined()
-    expect(wrapper.debug()).toMatchSnapshot()
+    const wrapper = renderWithReduxAndIntl(
+      <KeyboardKey title="fo">foo</KeyboardKey>
+    )
+    expect(wrapper.getByText('foo').title).toBe('')
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders a <kbd> element with element child', () => {
-    const wrapper = shallow(<KeyboardKey><strong>foo</strong></KeyboardKey>)
-    expect(wrapper.props().title).toBeUndefined()
-    expect(wrapper.debug()).toMatchSnapshot()
+    const wrapper = renderWithReduxAndIntl(
+      <KeyboardKey>
+        <strong>foo</strong>
+      </KeyboardKey>
+    )
+    expect(wrapper.getByText('foo').title).toBe('')
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('renders a <kbd> element with icon and title', () => {
-    const wrapper = shallow(<KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>foo</KeyboardKey>)
-    expect(wrapper.find('FontAwesomeIcon').length).toBe(1)
-    expect(wrapper.props().title).toBe('foo')
-    expect(wrapper.debug()).toMatchSnapshot()
+  it('renders a <kbd> element with icon and title', async () => {
+    const wrapper = renderWithReduxAndIntl(
+      <KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>foo</KeyboardKey>
+    )
+
+    const elementWithTitle = await wrapper.getByTitle('foo')
+    const iconElement = wrapper.container.querySelector('svg')
+
+    expect(elementWithTitle).toBeDefined()
+    expect(elementWithTitle.children).toHaveLength(1)
+    expect(iconElement.children).toBeDefined()
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })
