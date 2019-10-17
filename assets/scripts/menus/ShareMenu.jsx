@@ -60,22 +60,44 @@ class ShareMenu extends React.Component {
     if (street.creatorId) {
       if (this.props.signedIn && street.creatorId === this.props.userId) {
         if (street.name) {
-          message = this.formatSharingMessage('menu.share.messages.my-street', 'Check out my street, {streetName}, on Streetmix!', { streetName: street.name })
+          message = this.formatSharingMessage(
+            'menu.share.messages.my-street',
+            'Check out my street, {streetName}, on Streetmix!',
+            { streetName: street.name }
+          )
         } else {
-          message = this.formatSharingMessage('menu.share.messages.my-street-unnamed', 'Check out my street on Streetmix!')
+          message = this.formatSharingMessage(
+            'menu.share.messages.my-street-unnamed',
+            'Check out my street on Streetmix!'
+          )
         }
       } else {
         if (street.name) {
-          message = this.formatSharingMessage('menu.share.messages.someone-elses-street', 'Check out {streetName} by {streetCreator} on Streetmix!', { streetName: street.name, streetCreator: `@${street.creatorId}` })
+          message = this.formatSharingMessage(
+            'menu.share.messages.someone-elses-street',
+            'Check out {streetName} by {streetCreator} on Streetmix!',
+            { streetName: street.name, streetCreator: `@${street.creatorId}` }
+          )
         } else {
-          message = this.formatSharingMessage('menu.share.messages.someone-elses-street-unnamed', 'Check out this street by {streetCreator} on Streetmix!', { streetCreator: `@${street.creatorId}` })
+          message = this.formatSharingMessage(
+            'menu.share.messages.someone-elses-street-unnamed',
+            'Check out this street by {streetCreator} on Streetmix!',
+            { streetCreator: `@${street.creatorId}` }
+          )
         }
       }
     } else {
       if (street.name) {
-        message = this.formatSharingMessage('menu.share.messages.anonymous-creator-street', 'Check out {streetName} on Streetmix!', { streetName: street.name })
+        message = this.formatSharingMessage(
+          'menu.share.messages.anonymous-creator-street',
+          'Check out {streetName} on Streetmix!',
+          { streetName: street.name }
+        )
       } else {
-        message = this.formatSharingMessage('menu.share.messages.anonymous-creator-street-unnamed', 'Check out this street on Streetmix!')
+        message = this.formatSharingMessage(
+          'menu.share.messages.anonymous-creator-street-unnamed',
+          'Check out this street on Streetmix!'
+        )
       }
     }
 
@@ -91,10 +113,13 @@ class ShareMenu extends React.Component {
    * @returns {string}
    */
   formatSharingMessage = (key, defaultMsg, values = {}) => {
-    return this.props.intl.formatMessage({
-      id: key,
-      defaultMessage: defaultMsg
-    }, values)
+    return this.props.intl.formatMessage(
+      {
+        id: key,
+        defaultMessage: defaultMsg
+      },
+      values
+    )
   }
 
   handleShow = () => {
@@ -108,12 +133,12 @@ class ShareMenu extends React.Component {
     }, 200)
   }
 
-  handleClickShareViaTwitter () {
+  handleClickShareViaTwitter = () => {
     saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'TWITTER', null, null, false)
   }
 
-  handleClickShareViaFacebook () {
+  handleClickShareViaFacebook = () => {
     saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
@@ -143,54 +168,76 @@ class ShareMenu extends React.Component {
 
   render () {
     const shareText = this.getSharingMessage()
-    const twitterLink = 'https://twitter.com/intent/tweet' +
-      '?text=' + encodeURIComponent(shareText) +
-      '&url=' + encodeURIComponent(this.state.shareUrl)
+    const twitterLink =
+      'https://twitter.com/intent/tweet' +
+      '?text=' +
+      encodeURIComponent(shareText) +
+      '&url=' +
+      encodeURIComponent(this.state.shareUrl)
 
-    const facebookLink = 'https://www.facebook.com/dialog/feed' +
-      '?app_id=' + encodeURIComponent(FACEBOOK_APP_ID) +
-      '&redirect_uri=' + encodeURIComponent(this.state.shareUrl) +
-      '&link=' + encodeURIComponent(this.state.shareUrl) +
-      '&name=' + encodeURIComponent(getPageTitle(this.props.street)) +
-      '&description=' + encodeURIComponent(shareText)
+    const facebookLink =
+      'https://www.facebook.com/dialog/feed' +
+      '?app_id=' +
+      encodeURIComponent(FACEBOOK_APP_ID) +
+      '&redirect_uri=' +
+      encodeURIComponent(this.state.shareUrl) +
+      '&link=' +
+      encodeURIComponent(this.state.shareUrl) +
+      '&name=' +
+      encodeURIComponent(getPageTitle(this.props.street)) +
+      '&description=' +
+      encodeURIComponent(shareText)
 
-    const signInLink =
+    const signInLink = (
       <a onClick={this.handleClickSignIn} href="#">
         <FormattedMessage
           defaultMessage="Sign in"
           id="menu.share.sign-in-twitter-link"
         />
       </a>
+    )
 
-    const signInPromo = (!this.props.signedIn)
-      ? (
-        <div className="share-sign-in-promo">
-          <FormattedMessage
-            id="menu.share.sign-in-link"
-            defaultMessage={'{signInLink} for nicer links to your streets and your personal street gallery'}
-            values={{
-              signInLink
-            }}
-          />
-        </div>
-      ) : null
+    const signInPromo = !this.props.signedIn ? (
+      <div className="share-sign-in-promo">
+        <FormattedMessage
+          id="menu.share.sign-in-link"
+          defaultMessage="{signInLink} for nicer links to your streets and your personal street gallery"
+          values={{
+            signInLink
+          }}
+        />
+      </div>
+    ) : null
 
     return (
       <Menu onShow={this.handleShow} className="share-menu" {...this.props}>
         {signInPromo}
         <div className="share-via-link-container">
-          <FormattedMessage id="menu.share.link" defaultMessage="Copy and paste this link to share:" />
+          <FormattedMessage
+            id="menu.share.link"
+            defaultMessage="Copy and paste this link to share:"
+          />
           <div className="share-via-link-form">
             <input
               className="share-via-link"
               type="text"
               value={this.state.shareUrl}
-              onCopy={() => { saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE) }}
+              onCopy={() => {
+                saveStreetThumbnail(
+                  this.props.street,
+                  SAVE_THUMBNAIL_EVENTS.SHARE
+                )
+              }}
               spellCheck="false"
               ref={this.shareViaLinkInputRef}
               readOnly
             />
-            <button onClick={(e) => { e.preventDefault(); copy(this.state.shareUrl) }}>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                copy(this.state.shareUrl)
+              }}
+            >
               <Icon icon="copy" />
             </button>
           </div>
@@ -203,7 +250,10 @@ class ShareMenu extends React.Component {
           onClick={this.handleClickShareViaTwitter}
         >
           <Icon icon="twitter" />
-          <FormattedMessage id="menu.share.twitter" defaultMessage="Share using Twitter" />
+          <FormattedMessage
+            id="menu.share.twitter"
+            defaultMessage="Share using Twitter"
+          />
         </a>
         <a
           className="share-via-facebook"
@@ -213,15 +263,24 @@ class ShareMenu extends React.Component {
           onClick={this.handleClickShareViaFacebook}
         >
           <Icon icon="facebook" />
-          <FormattedMessage id="menu.share.facebook" defaultMessage="Share using Facebook" />
+          <FormattedMessage
+            id="menu.share.facebook"
+            defaultMessage="Share using Facebook"
+          />
         </a>
         <a href="#" onClick={this.handleClickPrint}>
           <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
         </a>
         <a id="save-as-image" href="#" onClick={this.handleClickSaveAsImage}>
-          <FormattedMessage id="menu.share.save" defaultMessage="Save as image…" />
+          <FormattedMessage
+            id="menu.share.save"
+            defaultMessage="Save as image…"
+          />
           <span className="menu-item-subtext">
-            <FormattedMessage id="menu.share.save-byline" defaultMessage="For including in a report, blog, etc." />
+            <FormattedMessage
+              id="menu.share.save-byline"
+              defaultMessage="For including in a report, blog, etc."
+            />
           </span>
         </a>
       </Menu>
@@ -242,4 +301,9 @@ const mapDispatchToProps = {
   startPrinting
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ShareMenu))
+export default injectIntl(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ShareMenu)
+)
