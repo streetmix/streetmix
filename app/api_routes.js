@@ -211,6 +211,31 @@ const resources = require('./resources')
  *       updatedAt:
  *         type: string
  *         format: date-time
+ *   Flags:
+ *     type: object
+ *     example:
+ *       SEGMENT_CONSTRUCTION:
+ *         label: "Segment — construction items"
+ *         defaultValue: false
+ *     properties:
+ *       flagId:
+ *         type: object
+ *         $ref: '#/definitions/FlagItem'
+ *   FlagItem:
+ *     type: object
+ *     properties:
+ *       label:
+ *         type: string
+ *         description: "Label for this flag in the UI"
+ *         example: "Segment — construction items"
+ *       defaultValue:
+ *         type: boolean
+ *         description: "Default value for this flag"
+ *         example: "false"
+ *       enabled:
+ *         type: boolean
+ *         description: "Whether editing the state of this flag is allowed (optional property, defaults to true)"
+ *         example: "true"
  */
 
 // Enable CORS for all OPTIONs "pre-flight" requests
@@ -356,7 +381,7 @@ routes.get('/api/v1/users', cors(), resources.v1.users.get)
  *         schema:
  *           $ref: '#/definitions/User'
  *
-*/
+ */
 routes.get('/api/v1/users/:user_id', cors(), resources.v1.user.get)
 routes.put('/api/v1/users/:user_id', cors(), resources.v1.user.put)
 routes.delete('/api/v1/users/:user_id', cors(), resources.v1.user.delete)
@@ -382,7 +407,11 @@ routes.delete('/api/v1/users/:user_id', cors(), resources.v1.user.delete)
  *       200:
  *         description: succesfully removed loginToken
  */
-routes.delete('/api/v1/users/:user_id/login-token', cors(), resources.v1.user_session.delete)
+routes.delete(
+  '/api/v1/users/:user_id/login-token',
+  cors(),
+  resources.v1.user_session.delete
+)
 
 /**
  * @swagger
@@ -426,8 +455,16 @@ routes.delete('/api/v1/users/:user_id/login-token', cors(), resources.v1.user_se
  *           items:
  *             $ref: '#/definitions/Street'
  */
-routes.delete('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.delete)
-routes.get('/api/v1/users/:user_id/streets', cors(), resources.v1.users_streets.get)
+routes.delete(
+  '/api/v1/users/:user_id/streets',
+  cors(),
+  resources.v1.users_streets.delete
+)
+routes.get(
+  '/api/v1/users/:user_id/streets',
+  cors(),
+  resources.v1.users_streets.get
+)
 
 /**
  * @swagger
@@ -622,7 +659,7 @@ routes.head('/api/v1/streets', resources.v1.streets.find)
  *         schema:
  *           $ref: '#/definitions/Street'
  *
-*/
+ */
 routes.delete('/api/v1/streets/:street_id', resources.v1.streets.delete)
 routes.head('/api/v1/streets/:street_id', resources.v1.streets.get)
 routes.get('/api/v1/streets/:street_id', resources.v1.streets.get)
@@ -696,9 +733,16 @@ routes.put('/api/v1/streets/:street_id', resources.v1.streets.put)
  *         schema:
  *           $ref: '#/definitions/StreetImageData'
  *
-*/
-routes.post('/api/v1/streets/images/:street_id', bodyParser.text({ limit: '3mb' }), resources.v1.street_images.post)
-routes.delete('/api/v1/streets/images/:street_id', resources.v1.street_images.delete)
+ */
+routes.post(
+  '/api/v1/streets/images/:street_id',
+  bodyParser.text({ limit: '3mb' }),
+  resources.v1.street_images.post
+)
+routes.delete(
+  '/api/v1/streets/images/:street_id',
+  resources.v1.street_images.delete
+)
 routes.get('/api/v1/streets/images/:street_id', resources.v1.street_images.get)
 
 /**
@@ -723,11 +767,33 @@ routes.get('/api/v1/streets/images/:street_id', resources.v1.street_images.get)
  *       200:
  *         description: Translations for streetmix resources. Shape depends on resource.
  */
-routes.get('/api/v1/translate/:locale_code/:resource_name', resources.v1.translate.get)
+routes.get(
+  '/api/v1/translate/:locale_code/:resource_name',
+  resources.v1.translate.get
+)
+
+/**
+ * @swagger
+ * /api/v1/flags:
+ *   get:
+ *     description: Returns a list of feature flags and its global toggle state
+ *     tags:
+ *       - flags
+ *     produces:
+ *      - application/json
+ *     responses:
+ *       200:
+ *         description: List of feature flags
+ *         schema:
+ *           $ref: '#/definitions/Flags'
+ */
+routes.get('/api/v1/flags', cors(), resources.v1.flags.get)
 
 // Catch all for all broken api paths, direct to 404 response.
 routes.get('/api/*', (req, res) => {
-  res.status(404).json({ status: 404, error: 'Not found. Did you mispell something?' })
+  res
+    .status(404)
+    .json({ status: 404, error: 'Not found. Did you mispell something?' })
 })
 
 module.exports = routes
