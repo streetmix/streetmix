@@ -5,9 +5,6 @@ import KeyboardKey from '../KeyboardKey'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 
 describe('KeyboardKey', () => {
-  afterEach(() => {
-    cleanup()
-  })
   it('renders a <kbd> element with string child', () => {
     const wrapper = renderWithReduxAndIntl(
       <KeyboardKey title="fo">foo</KeyboardKey>
