@@ -211,6 +211,31 @@ const resources = require('./resources')
  *       updatedAt:
  *         type: string
  *         format: date-time
+ *   Flags:
+ *     type: object
+ *     example:
+ *       SEGMENT_CONSTRUCTION:
+ *         label: "Segment — construction items"
+ *         defaultValue: false
+ *     properties:
+ *       flagId:
+ *         type: object
+ *         $ref: '#/definitions/FlagItem'
+ *   FlagItem:
+ *     type: object
+ *     properties:
+ *       label:
+ *         type: string
+ *         description: "Label for this flag in the UI"
+ *         example: "Segment — construction items"
+ *       defaultValue:
+ *         type: boolean
+ *         description: "Default value for this flag"
+ *         example: "false"
+ *       enabled:
+ *         type: boolean
+ *         description: "Whether editing the state of this flag is allowed (optional property, defaults to true)"
+ *         example: "true"
  */
 
 // Enable CORS for all OPTIONs "pre-flight" requests
@@ -759,6 +784,8 @@ routes.get(
  *     responses:
  *       200:
  *         description: List of feature flags
+ *         schema:
+ *           $ref: '#/definitions/Flags'
  */
 routes.get('/api/v1/flags', cors(), resources.v1.flags.get)
 
