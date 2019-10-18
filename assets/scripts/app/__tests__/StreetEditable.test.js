@@ -64,7 +64,7 @@ describe('StreetEditable', () => {
 
   describe('segment warnings', () => {
     describe('too large', () => {
-      it('KEY.PLUS does not increase the width of the segment', async () => {
+      it('Pressing `+` does not increase the width of the segment', async () => {
         const street = { width: 400, segments: [segment] }
         const wrapper = renderWithRedux(
           <StreetEditable
@@ -74,7 +74,7 @@ describe('StreetEditable', () => {
           { initialState: { street } }
         )
         fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-        fireEvent.keyDown(document, { key: '+' })
+        fireEvent.keyDown(document, { key: '+', code: 'Equal' })
         await waitForDomChange({ container: wrapper.container })
         expect(wrapper.store.getState().street.segments[0].width).toEqual(400)
         expect(wrapper.store.getState().street.segments[0].warnings).toEqual([

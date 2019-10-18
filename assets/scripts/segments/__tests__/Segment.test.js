@@ -180,7 +180,7 @@ describe('Segment', () => {
         }
       )
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-      fireEvent.keyDown(document, { key: '+' })
+      fireEvent.keyDown(document, { key: '+', code: 'Equal' })
       expect(
         wrapper.store.getState().street.segments[activeElement].width
       ).toEqual(currentWidth + increment)
