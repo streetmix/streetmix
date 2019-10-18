@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 
 import WidthControl from '../WidthControl'
@@ -23,23 +23,35 @@ describe('WidthControl', () => {
   })
 
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<WidthControl />, { initialState: { street: { segments: [segment] } } })
+    const wrapper = renderWithReduxAndIntl(<WidthControl />, {
+      initialState: { street: { segments: [segment] } }
+    })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   describe('increase width', () => {
     it('increaeses store width', () => {
-      const wrapper = renderWithReduxAndIntl(<WidthControl position={activeElement} />, { initialState: { street: { segments: [segment], units: 1 } } })
+      const wrapper = renderWithReduxAndIntl(
+        <WidthControl position={activeElement} />,
+        { initialState: { street: { segments: [segment], units: 1 } } }
+      )
       fireEvent.click(wrapper.getByTitle(/Increase width/i))
-      expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(200.5)
+      expect(
+        wrapper.store.getState().street.segments[activeElement].width
+      ).toEqual(200.5)
     })
   })
 
   describe('decrease width', () => {
     it('decreaeses store width', () => {
-      const wrapper = renderWithReduxAndIntl(<WidthControl position={activeElement} />, { initialState: { street: { segments: [segment], units: 1 } } })
+      const wrapper = renderWithReduxAndIntl(
+        <WidthControl position={activeElement} />,
+        { initialState: { street: { segments: [segment], units: 1 } } }
+      )
       fireEvent.click(wrapper.getByTitle(/Decrease width/i))
-      expect(wrapper.store.getState().street.segments[activeElement].width).toEqual(199.5)
+      expect(
+        wrapper.store.getState().street.segments[activeElement].width
+      ).toEqual(199.5)
     })
   })
 })

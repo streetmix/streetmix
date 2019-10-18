@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthMenu from '../StreetMetaWidthMenu'
 

@@ -1,6 +1,5 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import SaveAsImageDialog from '../SaveAsImageDialog'
 
@@ -32,7 +31,9 @@ const initialState = {
 
 describe('SaveAsImageDialog', () => {
   it('renders snapshot', () => {
-    const wrapper = renderWithReduxAndIntl(<SaveAsImageDialog />, { initialState })
+    const wrapper = renderWithReduxAndIntl(<SaveAsImageDialog />, {
+      initialState
+    })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })

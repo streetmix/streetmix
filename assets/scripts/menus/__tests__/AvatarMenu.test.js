@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import AvatarMenu from '../AvatarMenu'
 
@@ -25,7 +25,9 @@ describe('AvatarMenu', () => {
 
   it('calls click handler', () => {
     const onClick = jest.fn()
-    const wrapper = renderWithRedux(<AvatarMenu user={user} onClick={onClick} />)
+    const wrapper = renderWithRedux(
+      <AvatarMenu user={user} onClick={onClick} />
+    )
     fireEvent.click(wrapper.getByText(user.id))
     expect(onClick).toHaveBeenCalled()
   })

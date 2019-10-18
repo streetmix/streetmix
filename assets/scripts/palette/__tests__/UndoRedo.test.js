@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import UndoRedo from '../UndoRedo'
 
@@ -21,10 +21,7 @@ describe('UndoRedo', () => {
     const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
       initialState: {
         undo: {
-          stack: [
-            { foo: 'bar' },
-            { foo: 'baz' }
-          ],
+          stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 1
         }
       }
@@ -42,10 +39,7 @@ describe('UndoRedo', () => {
     const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
       initialState: {
         undo: {
-          stack: [
-            { foo: 'bar' },
-            { foo: 'baz' }
-          ],
+          stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 0
         }
       }

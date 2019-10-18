@@ -1,6 +1,5 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import PrintContainer from '../PrintContainer'
 
@@ -18,13 +17,17 @@ jest.mock('../../streets/image', () => ({
 
 describe('PrintContainer', () => {
   it('renders', () => {
-    const wrapper = renderWithRedux(<PrintContainer />, { initialState: { app: { printing: false } } })
+    const wrapper = renderWithRedux(<PrintContainer />, {
+      initialState: { app: { printing: false } }
+    })
     const el = wrapper.container.querySelector('.print-container')
     expect(el).toBeInTheDocument()
   })
 
   it('renders image for printing', () => {
-    const wrapper = renderWithRedux(<PrintContainer />, { initialState: { app: { printing: true } } })
+    const wrapper = renderWithRedux(<PrintContainer />, {
+      initialState: { app: { printing: true } }
+    })
     expect(wrapper.getByRole('img')).toBeInTheDocument()
   })
 })

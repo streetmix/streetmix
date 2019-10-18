@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup, render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import Checkbox from '../Checkbox'
 
 describe('Checkbox', () => {
@@ -11,13 +11,7 @@ describe('Checkbox', () => {
 
   it('renders snapshot with all props', () => {
     const wrapper = render(
-      <Checkbox
-        checked
-        disabled
-        value="bar"
-        id="baz"
-        onChange={jest.fn()}
-      >
+      <Checkbox checked disabled value="bar" id="baz" onChange={jest.fn()}>
         foo
       </Checkbox>
     )
@@ -27,7 +21,9 @@ describe('Checkbox', () => {
 
   it('handles click', () => {
     const handleChange = jest.fn()
-    const { getByText } = render(<Checkbox onChange={handleChange}>foo</Checkbox>)
+    const { getByText } = render(
+      <Checkbox onChange={handleChange}>foo</Checkbox>
+    )
     fireEvent.click(getByText('foo'))
     expect(handleChange).toHaveBeenCalledTimes(1)
   })

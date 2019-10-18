@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithIntl } from '../../../../../test/helpers/render'
 import LocationPopup from '../LocationPopup'
 
@@ -20,10 +20,7 @@ describe('LocationPopup', () => {
 
   it('renders an address label', () => {
     const wrapper = renderWithIntl(
-      <LocationPopup
-        position={{ lat: 0, lng: 0 }}
-        label="foo"
-      />
+      <LocationPopup position={{ lat: 0, lng: 0 }} label="foo" />
     )
 
     // Expect the text to be visible

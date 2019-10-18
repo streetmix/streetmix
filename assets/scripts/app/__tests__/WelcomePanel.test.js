@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup, waitForElement } from '@testing-library/react'
+import { fireEvent, waitForElement } from '@testing-library/react'
 import MockAdapter from 'axios-mock-adapter'
 import ConnectedWelcomePanel, { WelcomePanel } from '../WelcomePanel'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
@@ -55,16 +55,28 @@ describe('WelcomePanel', () => {
     }
 
     beforeEach(() => {
-      getMode.mockImplementation(() => (2)) // NEW_STREET
-      isSignedIn.mockImplementation(() => (true))
+      getMode.mockImplementation(() => 2) // NEW_STREET
+      isSignedIn.mockImplementation(() => true)
     })
 
     it('copies the last street and highlights Start with a copy button', async () => {
-      const { queryByLabelText, getByLabelText, store } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, { initialState: { street, settings: { priorLastStreetId: '2' }, app: { everythingLoaded: false } } })
+      const {
+        queryByLabelText,
+        getByLabelText,
+        store
+      } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, {
+        initialState: {
+          street,
+          settings: { priorLastStreetId: '2' },
+          app: { everythingLoaded: false }
+        }
+      })
       store.dispatch(everythingLoaded())
       apiMock.onAny().reply(200, apiResponse)
       fireEvent.click(getByLabelText(/Start with a copy/))
-      const input = await waitForElement(() => queryByLabelText(/Start with a copy/))
+      const input = await waitForElement(() =>
+        queryByLabelText(/Start with a copy/)
+      )
       expect(input.checked).toBe(true)
     })
   })

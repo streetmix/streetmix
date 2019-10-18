@@ -1,6 +1,5 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import NewsletterDialog from '../NewsletterDialog'
 

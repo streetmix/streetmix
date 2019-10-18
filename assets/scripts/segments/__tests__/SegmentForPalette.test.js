@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import SegmentForPalette from '../SegmentForPalette'
 import { getSegmentInfo } from '../info'
@@ -29,7 +29,7 @@ describe('SegmentForPalette', () => {
   describe('mouseover', () => {
     it('handles pointer over event with segment name', () => {
       const onPointerOver = jest.fn()
-      const segmentInfo = ({ name: 'foo', nameKey: 'key' })
+      const segmentInfo = { name: 'foo', nameKey: 'key' }
       getSegmentInfo.mockImplementation(() => segmentInfo)
 
       const wrapper = renderWithReduxAndIntl(

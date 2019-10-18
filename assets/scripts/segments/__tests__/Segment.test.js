@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, getByTestId, cleanup } from '@testing-library/react'
+import { fireEvent, getByTestId } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import Segment from '../Segment'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
