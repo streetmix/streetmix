@@ -269,10 +269,11 @@ function processCommands (commands) {
   for (let command of commands) {
     // Normalize command
     //  - adjust to lower case
+    //  - normalize 'esc' to 'escape'
     //  - replace command/cmd/control/ctrl to meta (this does not remove dupes)
     command = command
       .toLowerCase()
-      .replace(/(Command|Cmd|Control|Ctrl)/g, 'Meta')
+      .replace(/(command|cmd|control|ctrl)/g, 'meta')
       .split(' ')
 
     const settings = {
@@ -283,19 +284,19 @@ function processCommands (commands) {
 
     // Check for existence of modifier keys
     // Modifier keys are removed from input array
-    const isShift = command.indexOf('Shift')
+    const isShift = command.indexOf('shift')
     if (isShift > -1) {
       settings.shiftKey = true
       command.splice(isShift, 1)
     }
 
-    const isAlt = command.indexOf('Alt')
+    const isAlt = command.indexOf('alt')
     if (isAlt > -1) {
       settings.altKey = true
       command.splice(isAlt, 1)
     }
 
-    const isMeta = command.indexOf('Meta')
+    const isMeta = command.indexOf('meta')
     if (isMeta > -1) {
       settings.metaKey = true
       command.splice(isMeta, 1)
@@ -317,12 +318,29 @@ function processCommands (commands) {
       }
 
       for (const key of keys) {
-        settings.key = key
-        if (typeof commandsObj[key] === 'undefined') {
-          commandsObj[key] = []
+        let processedKey
+        switch (key) {
+          case 'esc':
+            processedKey = 'escape'
+            break
+          case 'left':
+            processedKey = 'arrowleft'
+            break
+          case 'right':
+            processedKey = 'arrowright'
+            break
+          default:
+            processedKey = key
+            break
         }
 
-        commandsObj[key].push(settings)
+        settings.key = processedKey
+
+        if (typeof commandsObj[processedKey] === 'undefined') {
+          commandsObj[processedKey] = []
+        }
+
+        commandsObj[processedKey].push(settings)
       }
     }
   }
@@ -334,7 +352,7 @@ function onGlobalKeyDown (event) {
   const toExecute = []
 
   // Find the right command object
-  const commandsForKey = inputs[event.key]
+  const commandsForKey = inputs[event.key.toLowerCase()]
   if (!commandsForKey || commandsForKey.length === 0) return
 
   // Check if the right meta keys are down

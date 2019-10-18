@@ -9,7 +9,6 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { registerKeypress, deregisterKeypress } from './keypress'
 import { loseAnyFocus } from '../util/focus'
 import './DebugInfo.scss'
 
@@ -28,9 +27,9 @@ function DebugInfo (props) {
 
   // Register keyboard input for show (shift-D)
   useEffect(() => {
-    registerKeypress('shift d', showDebugInfo)
+    window.addEventListener('keydown', showDebugInfo)
     return () => {
-      deregisterKeypress('shift d', showDebugInfo)
+      window.removeEventListener('keydown', showDebugInfo)
     }
   })
 
@@ -38,15 +37,15 @@ function DebugInfo (props) {
   useEffect(() => {
     if (isVisible) {
       // Set up keypress listener to close debug window
-      registerKeypress('esc', hideDebugInfo)
+      window.addEventListener('keydown', hideDebugInfo)
     } else {
       // Remove keypress listener
-      deregisterKeypress('esc', hideDebugInfo)
+      window.removeEventListener('keydown', hideDebugInfo)
     }
 
     // Clean up in case component is unmounted before hiding
     return () => {
-      deregisterKeypress('esc', hideDebugInfo)
+      window.removeEventListener('keydown', hideDebugInfo)
     }
   }, [isVisible])
 
@@ -54,7 +53,11 @@ function DebugInfo (props) {
   // useLayoutEffect helps with timing issues with DOM manipulation
   useLayoutEffect(() => {
     if (isVisible) {
-      textareaEl.current.value = JSON.stringify({ street, user, settings, flags, undo }, null, 2)
+      textareaEl.current.value = JSON.stringify(
+        { street, user, settings, flags, undo },
+        null,
+        2
+      )
       textareaEl.current.focus()
       textareaEl.current.select()
       // Prevent scrolling to bottom of textarea after select
@@ -67,12 +70,16 @@ function DebugInfo (props) {
     }
   }, [isVisible, settings, street, flags, undo, user])
 
-  function showDebugInfo () {
-    setVisible(true)
+  function showDebugInfo (event) {
+    if (event.key === 'D') {
+      setVisible(true)
+    }
   }
 
-  function hideDebugInfo () {
-    setVisible(false)
+  function hideDebugInfo (event) {
+    if (event.key === 'Esc' || event.key === 'Escape') {
+      setVisible(false)
+    }
   }
 
   let className = 'debug-info'
