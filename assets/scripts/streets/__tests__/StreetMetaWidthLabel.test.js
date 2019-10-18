@@ -12,8 +12,6 @@ const dummyStreetObject = {
 }
 
 describe('StreetMetaWidthLabel', () => {
-  afterEach(cleanup)
-
   it('renders when editable', () => {
     const wrapper = renderWithIntl(
       <StreetMetaWidthLabel

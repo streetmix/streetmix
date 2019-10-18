@@ -4,8 +4,6 @@ import { fireEvent, cleanup, render } from '@testing-library/react'
 import Checkbox from '../Checkbox'
 
 describe('Checkbox', () => {
-  afterEach(cleanup)
-
   it('renders default snapshot', () => {
     const wrapper = render(<Checkbox>foo</Checkbox>)
     expect(wrapper.asFragment()).toMatchSnapshot()

@@ -14,8 +14,6 @@ describe('DateTimeRelative', () => {
     advanceTo(new Date(1524506400000)) // '2018-04-23T18:00:00.000Z'
   })
 
-  afterEach(cleanup)
-
   afterAll(() => {
     // Restore the implementation of global Date object
     clear()

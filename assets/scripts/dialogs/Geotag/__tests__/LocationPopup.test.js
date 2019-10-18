@@ -11,8 +11,6 @@ jest.mock('react-leaflet', () => {
 })
 
 describe('LocationPopup', () => {
-  afterEach(cleanup)
-
   it('does not render if a location is not provided', () => {
     const wrapper = renderWithIntl(<LocationPopup />)
 

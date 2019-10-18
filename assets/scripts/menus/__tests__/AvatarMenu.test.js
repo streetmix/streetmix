@@ -9,8 +9,6 @@ const user = {
 }
 
 describe('AvatarMenu', () => {
-  afterEach(cleanup)
-
   it('renders user avatar', () => {
     const wrapper = renderWithRedux(<AvatarMenu user={user} />)
     expect(wrapper.asFragment()).toMatchSnapshot()

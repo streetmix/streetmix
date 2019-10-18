@@ -10,8 +10,6 @@ jest.mock('../view')
 jest.mock('../../streets/thumbnail')
 
 describe('Gallery', () => {
-  afterEach(cleanup)
-
   it('renders main gallery view for user’s own streets', () => {
     const initialState = {
       gallery: {

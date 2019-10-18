@@ -10,8 +10,6 @@ jest.mock('../info')
 jest.mock('../view')
 
 describe('SegmentForPalette', () => {
-  afterEach(cleanup)
-
   it('renders width correctly depending on the dimension', () => {
     const dimensions = { left: 100, right: 200 }
     getVariantInfoDimensions.mockImplementation(() => dimensions)

@@ -14,8 +14,6 @@ jest.mock('../../app/page_url', () => ({
 }))
 
 describe('GalleryStreetItem', () => {
-  afterEach(cleanup)
-
   it('renders', () => {
     // This uses jsdom + canvas packages under the hood to render canvas element
     const wrapper = renderWithReduxAndIntl(

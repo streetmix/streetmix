@@ -22,8 +22,6 @@ describe('WidthControl', () => {
     }
   })
 
-  afterEach(cleanup)
-
   it('renders', () => {
     const wrapper = renderWithReduxAndIntl(<WidthControl />, { initialState: { street: { segments: [segment] } } })
     expect(wrapper.asFragment()).toMatchSnapshot()

@@ -13,8 +13,6 @@ describe('DebugInfo', () => {
     user: {}
   }
 
-  afterEach(cleanup)
-
   it('renders', () => {
     const wrapper = renderWithRedux(<DebugInfo />, { initialState })
     expect(wrapper.asFragment()).toMatchSnapshot()

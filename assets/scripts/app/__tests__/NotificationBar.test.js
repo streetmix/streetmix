@@ -13,8 +13,6 @@ const TEST_NOTIFICATION = {
 }
 
 describe('NotificationBar', () => {
-  afterEach(cleanup)
-
   it('renders snapshot', () => {
     const wrapper = renderWithIntl(<NotificationBar locale="en" notification={TEST_NOTIFICATION} />)
     expect(wrapper.asFragment()).toMatchSnapshot()

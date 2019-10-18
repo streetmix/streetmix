@@ -5,8 +5,6 @@ import { renderWithIntl as render } from '../../../../test/helpers/render'
 import CloseButton from '../CloseButton'
 
 describe('CloseButton', () => {
-  afterEach(cleanup)
-
   it('renders snapshot', () => {
     const wrapper = render(<CloseButton onClick={jest.fn()} />)
     expect(wrapper.asFragment()).toMatchSnapshot()

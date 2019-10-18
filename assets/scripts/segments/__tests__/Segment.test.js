@@ -79,8 +79,6 @@ describe('Segment', () => {
     }))
   })
 
-  afterEach(cleanup)
-
   it('renders correctly', () => {
     const wrapper = renderWithRedux(
       <Segment

@@ -11,10 +11,6 @@ jest.mock('../../streets/remix', () => ({
 }))
 
 describe('UndoRedo', () => {
-  afterEach(() => {
-    cleanup()
-  })
-
   // TODO: Remove snapshot after having a snapshot on the parent component
   it('renders two buttons', () => {
     const wrapper = renderWithReduxAndIntl(<UndoRedo />)

@@ -8,8 +8,6 @@ import NewsletterDialog from '../NewsletterDialog'
 jest.mock('../Newsletter/mailchimp.html', () => '<div>foo</div>')
 
 describe('NewsletterDialog', () => {
-  afterEach(cleanup)
-
   it('renders snapshot', () => {
     const wrapper = renderWithReduxAndIntl(<NewsletterDialog />)
     expect(wrapper.asFragment()).toMatchSnapshot()

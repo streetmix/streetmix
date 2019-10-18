@@ -31,8 +31,6 @@ const initialState = {
 }
 
 describe('SaveAsImageDialog', () => {
-  afterEach(cleanup)
-
   it('renders snapshot', () => {
     const wrapper = renderWithReduxAndIntl(<SaveAsImageDialog />, { initialState })
     expect(wrapper.asFragment()).toMatchSnapshot()

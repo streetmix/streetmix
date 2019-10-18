@@ -14,8 +14,6 @@ describe('EnvironmentEditor', () => {
     }
   }
 
-  afterEach(cleanup)
-
   it('renders', () => {
     const wrapper = renderWithReduxAndIntl(<EnvironmentEditor />, { initialState })
     expect(wrapper.asFragment()).toMatchSnapshot()

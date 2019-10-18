@@ -22,7 +22,6 @@ describe('WelcomePanel', () => {
 
   afterEach(() => {
     apiMock.restore()
-    cleanup()
   })
 
   it('does not show if app is read-only', () => {

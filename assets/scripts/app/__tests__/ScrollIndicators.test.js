@@ -12,8 +12,6 @@ const baseProps = {
 }
 
 describe('ScrollIndicators', () => {
-  afterEach(cleanup)
-
   it('renders snapshot', () => {
     const wrapper = render(<ScrollIndicators {...baseProps} />)
     expect(wrapper.asFragment()).toMatchSnapshot()

@@ -5,8 +5,6 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthContainer from '../StreetMetaWidthContainer'
 
 describe('StreetMetaWidthContainer', () => {
-  afterEach(cleanup)
-
   it('renders', () => {
     const wrapper = renderWithReduxAndIntl(<StreetMetaWidthContainer />)
     expect(wrapper.asFragment()).toMatchSnapshot()

@@ -5,8 +5,6 @@ import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthMenu from '../StreetMetaWidthMenu'
 
 describe('StreetMetaWidthMenu', () => {
-  afterEach(cleanup)
-
   it('renders (metric units, default width selected)', () => {
     const wrapper = renderWithIntl(
       <StreetMetaWidthMenu
