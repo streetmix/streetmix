@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import DebugInfo from '../DebugInfo'
 
@@ -12,8 +12,6 @@ describe('DebugInfo', () => {
     undo: {},
     user: {}
   }
-
-  afterEach(cleanup)
 
   it('renders', () => {
     const wrapper = renderWithRedux(<DebugInfo />, { initialState })

@@ -1,11 +1,9 @@
 /* eslint-env jest */
 import React from 'react'
-import { render, cleanup } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import EnvironmentBadge from '../EnvironmentBadge'
 
 describe('EnvironmentBadge', () => {
-  afterEach(cleanup)
-
   it('renders nothing in standard conditions', () => {
     const wrapper = render(<EnvironmentBadge />)
     expect(wrapper.container.firstChild).toEqual(null)

@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthLabel from '../StreetMetaWidthLabel'
 
@@ -12,8 +12,6 @@ const dummyStreetObject = {
 }
 
 describe('StreetMetaWidthLabel', () => {
-  afterEach(cleanup)
-
   it('renders when editable', () => {
     const wrapper = renderWithIntl(
       <StreetMetaWidthLabel
