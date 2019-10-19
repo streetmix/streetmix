@@ -32,7 +32,7 @@ exports[`InfoBubble is visible 1`] = `
       onError={[Function]}
       textComponent={Symbol(react.fragment)}
     >
-      <injectIntl(Connect(Variants))
+      <Connect(Variants)
         position={2}
         type={1}
       />
@@ -102,7 +102,7 @@ exports[`InfoBubble renders 1`] = `
       onError={[Function]}
       textComponent={Symbol(react.fragment)}
     >
-      <injectIntl(Connect(Variants))
+      <Connect(Variants)
         position={0}
         type={1}
       />
@@ -169,7 +169,7 @@ exports[`InfoBubble shows building left info bubble 1`] = `
       onError={[Function]}
       textComponent={Symbol(react.fragment)}
     >
-      <injectIntl(Connect(Variants))
+      <Connect(Variants)
         position="left"
         type={2}
       />
@@ -236,7 +236,7 @@ exports[`InfoBubble shows building right info bubble 1`] = `
       onError={[Function]}
       textComponent={Symbol(react.fragment)}
     >
-      <injectIntl(Connect(Variants))
+      <Connect(Variants)
         position="right"
         type={3}
       />
@@ -290,7 +290,7 @@ exports[`InfoBubble shows description 1`] = `
       onError={[Function]}
       textComponent={Symbol(react.fragment)}
     >
-      <injectIntl(Connect(Variants))
+      <Connect(Variants)
         position={1}
         type={1}
       />
