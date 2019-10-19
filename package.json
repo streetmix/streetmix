@@ -134,7 +134,7 @@
     "hbs": "4.0.6",
     "helmet": "3.21.1",
     "intl-messageformat": "7.3.2",
-    "intl-pluralrules": "1.1.0",
+    "intl-pluralrules": "1.1.1",
     "js-cookie": "2.2.1",
     "json2csv": "4.5.4",
     "leaflet": "1.5.1",
