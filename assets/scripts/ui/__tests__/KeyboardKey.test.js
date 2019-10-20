@@ -5,9 +5,7 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 
 describe('KeyboardKey', () => {
   it('renders a <kbd> element with string child', () => {
-    const wrapper = renderWithReduxAndIntl(
-      <KeyboardKey title="fo">foo</KeyboardKey>
-    )
+    const wrapper = renderWithReduxAndIntl(<KeyboardKey>foo</KeyboardKey>)
     expect(wrapper.getByText('foo').title).toBe('')
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
