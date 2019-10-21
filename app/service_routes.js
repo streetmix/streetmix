@@ -2,7 +2,6 @@ const routes = require('express').Router()
 const cors = require('cors')
 const resources = require('./resources')
 
-// API: all streets
 /**
  * @swagger
  *
