@@ -66,7 +66,11 @@ class StreetNameCanvas extends React.Component {
       left: rect.left,
       width: rect.width
     }
-    if (!this.lastSentCoords || coords.left !== this.lastSentCoords.left || coords.width !== this.lastSentCoords.width) {
+    if (
+      !this.lastSentCoords ||
+      coords.left !== this.lastSentCoords.left ||
+      coords.width !== this.lastSentCoords.width
+    ) {
       this.lastSentCoords = coords
       this.handleResizeStreetName(coords)
     }
@@ -82,7 +86,10 @@ class StreetNameCanvas extends React.Component {
 
   determineClassNames = () => {
     const classNames = ['street-name-canvas']
-    if (this.state.streetNameLeftPos + this.state.streetNameWidth > this.state.rightMenuBarLeftPos) {
+    if (
+      this.state.streetNameLeftPos + this.state.streetNameWidth >
+      this.state.rightMenuBarLeftPos
+    ) {
       classNames.push('move-down-for-menu')
     }
     if (!this.props.visible) {
@@ -94,18 +101,21 @@ class StreetNameCanvas extends React.Component {
   handleClickStreetName = () => {
     if (!this.props.editable) return
 
-    const streetName = this.props.street.name ||
+    const streetName =
+      this.props.street.name ||
       this.props.intl.formatMessage({
         id: 'street.default-name',
         defaultMessage: 'Unnamed St'
       })
-    const newName = window.prompt(this.props.intl.formatMessage({
-      id: 'prompt.new-street',
-      defaultMessage: 'New street name:'
-    }), streetName)
+    const newName = window.prompt(
+      this.props.intl.formatMessage({
+        id: 'prompt.new-street',
+        defaultMessage: 'New street name:'
+      }),
+      streetName
+    )
 
     if (newName) {
-      const name = StreetName.normalizeStreetName(newName)
       this.props.saveStreetName(name, true)
     }
   }
@@ -116,7 +126,9 @@ class StreetNameCanvas extends React.Component {
         <StreetName
           editable={this.props.editable}
           id="street-name"
-          childRef={(ref) => { this.streetName = ref }}
+          childRef={(ref) => {
+            this.streetName = ref
+          }}
           name={this.props.street.name}
           onClick={this.handleClickStreetName}
         />
@@ -138,4 +150,9 @@ const mapDispatchToProps = {
   saveStreetName
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas))
+export default injectIntl(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(StreetNameCanvas)
+)
