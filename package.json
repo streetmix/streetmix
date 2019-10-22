@@ -160,7 +160,7 @@
     "react-dom": "16.10.2",
     "react-draggable": "4.0.3",
     "react-intl": "3.3.2",
-    "react-leaflet": "2.4.0",
+    "react-leaflet": "2.5.0",
     "react-redux": "7.1.1",
     "react-spring": "8.0.27",
     "react-stripe-checkout": "2.6.3",
