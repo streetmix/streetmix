@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { isSignedIn } from '../users/authentication'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
-import { showStreetNameCanvas, hideStreetNameCanvas } from '../store/actions/ui'
+import { showStreetNameplate, hideStreetNameplate } from '../store/actions/ui'
 import CloseButton from '../ui/CloseButton'
 import WelcomeNewStreet from './WelcomePanel/NewStreet'
 import WelcomeFirstTimeExistingStreet from './WelcomePanel/FirstTimeExistingStreet'
@@ -22,8 +22,8 @@ export class WelcomePanel extends React.Component {
   static propTypes = {
     readOnly: PropTypes.bool,
     everythingLoaded: PropTypes.bool,
-    showStreetNameCanvas: PropTypes.func,
-    hideStreetNameCanvas: PropTypes.func
+    showStreetNameplate: PropTypes.func,
+    hideStreetNameplate: PropTypes.func
   }
 
   static defaultProps = {
@@ -42,12 +42,18 @@ export class WelcomePanel extends React.Component {
 
   componentDidMount () {
     // Hide welcome panel on certain events
-    window.addEventListener('stmx:receive_gallery_street', this.handleHideWelcome)
+    window.addEventListener(
+      'stmx:receive_gallery_street',
+      this.handleHideWelcome
+    )
     window.addEventListener('stmx:save_street', this.handleHideWelcome)
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps.everythingLoaded === false && this.props.everythingLoaded === true) {
+    if (
+      prevProps.everythingLoaded === false &&
+      this.props.everythingLoaded === true
+    ) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         welcomeType: this.getWelcomeType()
@@ -57,18 +63,21 @@ export class WelcomePanel extends React.Component {
       registerKeypress('esc', this.handleHideWelcome)
     }
 
-    // The StreetNameCanvas might stick out from underneath the WelcomePanel
+    // The StreetNameplateContainer might stick out from underneath the WelcomePanel
     // if it's visible, so momentarily keep the UI clean by hiding it until
     // the WelcomePanel goes away.
     // This will be cleaned up in this.hideWelcome()
     if (this.state.welcomeType) {
-      this.props.hideStreetNameCanvas()
+      this.props.hideStreetNameplate()
     }
   }
 
   componentWillUnmount () {
     // Clean up event listeners
-    window.removeEventListener('stmx:receive_gallery_street', this.handleHideWelcome)
+    window.removeEventListener(
+      'stmx:receive_gallery_street',
+      this.handleHideWelcome
+    )
     window.removeEventListener('stmx:save_street', this.handleHideWelcome)
     deregisterKeypress('esc', this.handleHideWelcome)
   }
@@ -104,8 +113,8 @@ export class WelcomePanel extends React.Component {
     })
     setSettingsWelcomeDismissed()
 
-    // Make the StreetNameCanvas re-appear
-    this.props.showStreetNameCanvas()
+    // Make the StreetNameplateContainer re-appear
+    this.props.showStreetNameplate()
 
     // Remove keypress listener
     deregisterKeypress('esc', this.handleHideWelcome)
@@ -160,11 +169,14 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  hideStreetNameCanvas,
-  showStreetNameCanvas
+  hideStreetNameplate,
+  showStreetNameplate
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WelcomePanel)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WelcomePanel)
 
 /**
  * Remember whether the WelcomePanel has been dismissed in LocalStorage
@@ -177,7 +189,8 @@ export function setSettingsWelcomeDismissed () {
  * Retrieves LocalStorage state for whether WelcomePanel has been dismissed
  */
 function getSettingsWelcomeDismissed () {
-  const localSetting = window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]
+  const localSetting =
+    window.localStorage[LOCAL_STORAGE_SETTINGS_WELCOME_DISMISSED]
 
   if (localSetting) {
     return JSON.parse(localSetting)

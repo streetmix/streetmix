@@ -1,6 +1,6 @@
 import {
-  SHOW_STREET_NAME_CANVAS,
-  HIDE_STREET_NAME_CANVAS,
+  SHOW_STREET_NAMEPLATE,
+  HIDE_STREET_NAMEPLATE,
   SET_ACTIVE_SEGMENT,
   INIT_DRAGGING_STATE,
   UPDATE_DRAGGING_STATE,
@@ -11,7 +11,7 @@ import {
 import * as SegmentConstants from '../../segments/constants'
 
 const initialState = {
-  streetNameCanvasVisible: true,
+  streetNameplateVisible: true,
   toolboxVisible: false,
   activeSegment: null,
   draggingState: null,
@@ -21,15 +21,15 @@ const initialState = {
 
 const ui = (state = initialState, action) => {
   switch (action.type) {
-    case SHOW_STREET_NAME_CANVAS:
+    case SHOW_STREET_NAMEPLATE:
       return {
         ...state,
-        streetNameCanvasVisible: true
+        streetNameplateVisible: true
       }
-    case HIDE_STREET_NAME_CANVAS:
+    case HIDE_STREET_NAMEPLATE:
       return {
         ...state,
-        streetNameCanvasVisible: false
+        streetNameplateVisible: false
       }
     case SET_ACTIVE_SEGMENT:
       // If we're in the middle of a resize drag state, do not allow setting a new active segment.
@@ -70,7 +70,8 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         draggingType: action.draggingType,
-        resizeGuidesVisible: (action.draggingType === SegmentConstants.DRAGGING_TYPE_RESIZE)
+        resizeGuidesVisible:
+          action.draggingType === SegmentConstants.DRAGGING_TYPE_RESIZE
       }
     case TOGGLE_TOOLBOX:
       return {
