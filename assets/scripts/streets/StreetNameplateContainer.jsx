@@ -116,7 +116,7 @@ class StreetNameplateContainer extends React.Component {
     )
 
     if (newName) {
-      this.props.saveStreetName(name, true)
+      this.props.saveStreetName(newName, true)
     }
   }
 
