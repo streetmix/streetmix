@@ -9,7 +9,7 @@ import NOTIFICATION from '../../../app/data/notification.json'
 
 import NotificationBar from './NotificationBar'
 import MenusContainer from '../menus/MenusContainer'
-import StreetNameCanvas from '../streets/StreetNameCanvas'
+import StreetNameplateContainer from '../streets/StreetNameplateContainer'
 import InfoBubble from '../info_bubble/InfoBubble'
 import WelcomePanel from './WelcomePanel'
 import PaletteContainer from '../palette/PaletteContainer'
@@ -45,9 +45,16 @@ class App extends React.PureComponent {
         messages={this.props.locale.messages}
       >
         {/* The prop context={window} prevents crash errors with hot-module reloading */}
-        <DndProvider backend={MultiBackend} options={HTML5toTouch} context={window}>
+        <DndProvider
+          backend={MultiBackend}
+          options={HTML5toTouch}
+          context={window}
+        >
           {/* DndProvider allows multiple children; IntlProvider does not */}
-          <NotificationBar locale={this.props.locale.locale} notification={NOTIFICATION} />
+          <NotificationBar
+            locale={this.props.locale.locale}
+            notification={NOTIFICATION}
+          />
           <BlockingShield />
           <BlockingError />
           <Gallery />
@@ -56,7 +63,7 @@ class App extends React.PureComponent {
           <PrintContainer />
           <div className="main-screen">
             <MenusContainer />
-            <StreetNameCanvas />
+            <StreetNameplateContainer />
             <InfoBubble />
             <DebugHoverPolygon />
             <WelcomePanel />

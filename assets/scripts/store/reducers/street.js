@@ -56,7 +56,9 @@ const street = (state = initialState, action) => {
     case REMOVE_SEGMENT:
       return {
         ...state,
-        segments: state.segments.filter((element, index) => index !== action.index),
+        segments: state.segments.filter(
+          (element, index) => index !== action.index
+        ),
         immediateRemoval: action.immediate
       }
     case MOVE_SEGMENT: {
@@ -95,7 +97,9 @@ const street = (state = initialState, action) => {
     case CHANGE_SEGMENT_VARIANT: {
       const copy = [...state.segments]
       copy[action.index].variant[action.set] = action.selection
-      copy[action.index].variantString = getVariantString(copy[action.index].variant)
+      copy[action.index].variantString = getVariantString(
+        copy[action.index].variant
+      )
 
       return {
         ...state,
@@ -114,11 +118,16 @@ const street = (state = initialState, action) => {
       }
     }
     case SAVE_STREET_NAME: {
-      const rename = (state.userUpdated && action.userUpdated) || (!state.userUpdated) || (action.system)
+      const rename =
+        (state.userUpdated && action.userUpdated) ||
+        !state.userUpdated ||
+        action.system
       return {
         ...state,
-        name: (rename) ? action.streetName : state.name,
-        userUpdated: (state.userUpdated || action.userUpdated)
+        // Normalize street name input
+        // TODO: Consider whether to limit street name length here
+        name: rename ? action.streetName.trim() : state.name.trim(),
+        userUpdated: state.userUpdated || action.userUpdated
       }
     }
     case SAVE_CREATOR_ID:
@@ -129,7 +138,7 @@ const street = (state = initialState, action) => {
     case SAVE_STREET_ID:
       return {
         ...state,
-        id: (action.id) ? action.id : state.id,
+        id: action.id ? action.id : state.id,
         namespacedId: action.namespacedId
       }
     case SET_UPDATE_TIME:
@@ -171,7 +180,7 @@ const street = (state = initialState, action) => {
       return {
         ...state,
         location: null,
-        name: (state.userUpdated) ? state.name : action.defaultName
+        name: state.userUpdated ? state.name : action.defaultName
       }
     // TODO: Move buildings logic?
     case ADD_BUILDING_FLOOR: {
@@ -179,12 +188,18 @@ const street = (state = initialState, action) => {
         case 'left':
           return {
             ...state,
-            leftBuildingHeight: Math.min(state.leftBuildingHeight + 1, MAX_BUILDING_HEIGHT)
+            leftBuildingHeight: Math.min(
+              state.leftBuildingHeight + 1,
+              MAX_BUILDING_HEIGHT
+            )
           }
         case 'right':
           return {
             ...state,
-            rightBuildingHeight: Math.min(state.rightBuildingHeight + 1, MAX_BUILDING_HEIGHT)
+            rightBuildingHeight: Math.min(
+              state.rightBuildingHeight + 1,
+              MAX_BUILDING_HEIGHT
+            )
           }
         default:
           return state
@@ -214,12 +229,18 @@ const street = (state = initialState, action) => {
         case 'left':
           return {
             ...state,
-            leftBuildingHeight: Math.min(Math.max(value, 1), MAX_BUILDING_HEIGHT)
+            leftBuildingHeight: Math.min(
+              Math.max(value, 1),
+              MAX_BUILDING_HEIGHT
+            )
           }
         case 'right':
           return {
             ...state,
-            rightBuildingHeight: Math.min(Math.max(value, 1), MAX_BUILDING_HEIGHT)
+            rightBuildingHeight: Math.min(
+              Math.max(value, 1),
+              MAX_BUILDING_HEIGHT
+            )
           }
         default:
           return state

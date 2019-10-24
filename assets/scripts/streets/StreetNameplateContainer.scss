@@ -2,7 +2,7 @@
 
 $street-name-top: 10px;
 
-.street-name-canvas {
+.street-nameplate-container {
   position: absolute;
   left: 150px;
   right: 150px;
@@ -24,6 +24,6 @@ $street-name-top: 10px;
   }
 }
 
-body.read-only .street-name-canvas {
+body.read-only .street-nameplate-container {
   transform: translateY(0);
 }

@@ -1,6 +1,6 @@
 import {
-  SHOW_STREET_NAME_CANVAS,
-  HIDE_STREET_NAME_CANVAS,
+  SHOW_STREET_NAMEPLATE,
+  HIDE_STREET_NAMEPLATE,
   SET_ACTIVE_SEGMENT,
   INIT_DRAGGING_STATE,
   UPDATE_DRAGGING_STATE,
@@ -9,23 +9,23 @@ import {
   TOGGLE_TOOLBOX
 } from './index'
 
-export function showStreetNameCanvas () {
+export function showStreetNameplate () {
   return {
-    type: SHOW_STREET_NAME_CANVAS
+    type: SHOW_STREET_NAMEPLATE
   }
 }
 
-export function hideStreetNameCanvas () {
+export function hideStreetNameplate () {
   return {
-    type: HIDE_STREET_NAME_CANVAS
+    type: HIDE_STREET_NAMEPLATE
   }
 }
 
 export function setActiveSegment (position) {
-  const isBuilding = (position === 'left' || position === 'right')
+  const isBuilding = position === 'left' || position === 'right'
   return {
     type: SET_ACTIVE_SEGMENT,
-    position: (isBuilding) ? position : Number.parseInt(position, 10)
+    position: isBuilding ? position : Number.parseInt(position, 10)
   }
 }
 
@@ -43,7 +43,11 @@ export function initDraggingState (draggingType) {
   }
 }
 
-export function updateDraggingState (segmentBeforeEl, segmentAfterEl, draggedSegment) {
+export function updateDraggingState (
+  segmentBeforeEl,
+  segmentAfterEl,
+  draggedSegment
+) {
   return {
     type: UPDATE_DRAGGING_STATE,
     segmentBeforeEl,

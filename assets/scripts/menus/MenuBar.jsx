@@ -27,8 +27,11 @@ class MenuBar extends React.Component {
   componentDidMount () {
     window.addEventListener('resize', this.handleWindowResize)
 
-    // StreetNameCanvas needs to know the left position of the right menu bar when it's mounted
-    window.addEventListener('stmx:streetnamecanvas_mounted', this.handleWindowResize)
+    // StreetNameplateContainer needs to know the left position of the right menu bar when it's mounted
+    window.addEventListener(
+      'stmx:streetnameplate_mounted',
+      this.handleWindowResize
+    )
 
     // Currently, when locales are refreshed, this remounts the entire app, including
     // this component. This "resets" all menus to its closed state, but it's still "active"
@@ -39,7 +42,10 @@ class MenuBar extends React.Component {
   componentWillUnmount () {
     // Clean up event listeners
     window.removeEventListener('resize', this.handleWindowResize)
-    window.removeEventListener('stmx:streetnamecanvas_mounted', this.handleWindowResize)
+    window.removeEventListener(
+      'stmx:streetnameplate_mounted',
+      this.handleWindowResize
+    )
   }
 
   /**
@@ -61,24 +67,28 @@ class MenuBar extends React.Component {
 
   handleWindowResize = () => {
     // Throw this event so that the StreetName can figure out if it needs to push itself lower than the menubar
-    window.dispatchEvent(new CustomEvent('stmx:menu_bar_resized', {
-      detail: {
-        rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
-      }
-    }))
+    window.dispatchEvent(
+      new CustomEvent('stmx:menu_bar_resized', {
+        detail: {
+          rightMenuBarLeftPos: this.menuBarRight.getBoundingClientRect().left
+        }
+      })
+    )
   }
 
   renderUserAvatar = (user) => {
-    return (user)
-      ? (
-        <li>
-          <AvatarMenu user={user} onClick={this.handleClickMenuButton('identity')} />
-        </li>
-      ) : (
-        <li>
-          <SignInButton onClick={doSignIn} />
-        </li>
-      )
+    return user ? (
+      <li>
+        <AvatarMenu
+          user={user}
+          onClick={this.handleClickMenuButton('identity')}
+        />
+      </li>
+    ) : (
+      <li>
+        <SignInButton onClick={doSignIn} />
+      </li>
+    )
   }
 
   render () {
@@ -91,12 +101,25 @@ class MenuBar extends React.Component {
             <div className="streetmix-logo-horizontal" />
             <h1>Streetmix</h1>
           </li>
-          <MenuBarItem label="Help" translation="menu.item.help" onClick={this.handleClickMenuButton('help')} />
+          <MenuBarItem
+            label="Help"
+            translation="menu.item.help"
+            onClick={this.handleClickMenuButton('help')}
+          />
           {!this.props.noInternet && (
             <>
-              <MenuBarItem label="Contact" translation="menu.item.contact" onClick={this.handleClickMenuButton('contact')} />
+              <MenuBarItem
+                label="Contact"
+                translation="menu.item.contact"
+                onClick={this.handleClickMenuButton('contact')}
+              />
               {this.props.upgradeFunnel ? (
-                <MenuBarItem url="#" label="Upgrade" translation="menu.upgrade" onClick={this.handleClickUpgrade} />
+                <MenuBarItem
+                  url="#"
+                  label="Upgrade"
+                  translation="menu.upgrade"
+                  onClick={this.handleClickUpgrade}
+                />
               ) : (
                 <MenuBarItem
                   label="Donate"
@@ -116,15 +139,28 @@ class MenuBar extends React.Component {
             </>
           )}
         </ul>
-        <ul className="menu-bar-right" ref={(ref) => { this.menuBarRight = ref }}>
+        <ul
+          className="menu-bar-right"
+          ref={(ref) => {
+            this.menuBarRight = ref
+          }}
+        >
           <MenuBarItem
             label="New street"
             translation="menu.item.new-street"
             url="/new"
             target="_blank"
           />
-          <MenuBarItem label="Settings" translation="menu.item.settings" onClick={this.handleClickMenuButton('settings')} />
-          <MenuBarItem label="Share" translation="menu.item.share" onClick={this.handleClickMenuButton('share')} />
+          <MenuBarItem
+            label="Settings"
+            translation="menu.item.settings"
+            onClick={this.handleClickMenuButton('settings')}
+          />
+          <MenuBarItem
+            label="Share"
+            translation="menu.item.share"
+            onClick={this.handleClickMenuButton('share')}
+          />
           {!this.props.noInternet && this.renderUserAvatar(user)}
         </ul>
         <EnvironmentBadge />
@@ -146,4 +182,7 @@ const mapDispatchToProps = {
   showDialog
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuBar)

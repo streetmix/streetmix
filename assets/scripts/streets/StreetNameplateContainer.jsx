@@ -5,9 +5,9 @@ import { injectIntl } from 'react-intl'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
-import './StreetNameCanvas.scss'
+import './StreetNameplateContainer.scss'
 
-class StreetNameCanvas extends React.Component {
+class StreetNameplateContainer extends React.Component {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     visible: PropTypes.bool,
@@ -36,7 +36,7 @@ class StreetNameCanvas extends React.Component {
   componentDidMount () {
     window.addEventListener('resize', this.updateCoords)
     window.addEventListener('stmx:menu_bar_resized', this.updatePositions)
-    window.dispatchEvent(new CustomEvent('stmx:streetnamecanvas_mounted'))
+    window.dispatchEvent(new CustomEvent('stmx:streetnameplate_mounted'))
   }
 
   componentWillUnmount () {
@@ -66,7 +66,11 @@ class StreetNameCanvas extends React.Component {
       left: rect.left,
       width: rect.width
     }
-    if (!this.lastSentCoords || coords.left !== this.lastSentCoords.left || coords.width !== this.lastSentCoords.width) {
+    if (
+      !this.lastSentCoords ||
+      coords.left !== this.lastSentCoords.left ||
+      coords.width !== this.lastSentCoords.width
+    ) {
       this.lastSentCoords = coords
       this.handleResizeStreetName(coords)
     }
@@ -81,8 +85,11 @@ class StreetNameCanvas extends React.Component {
   }
 
   determineClassNames = () => {
-    const classNames = ['street-name-canvas']
-    if (this.state.streetNameLeftPos + this.state.streetNameWidth > this.state.rightMenuBarLeftPos) {
+    const classNames = ['street-nameplate-container']
+    if (
+      this.state.streetNameLeftPos + this.state.streetNameWidth >
+      this.state.rightMenuBarLeftPos
+    ) {
       classNames.push('move-down-for-menu')
     }
     if (!this.props.visible) {
@@ -94,19 +101,22 @@ class StreetNameCanvas extends React.Component {
   handleClickStreetName = () => {
     if (!this.props.editable) return
 
-    const streetName = this.props.street.name ||
+    const streetName =
+      this.props.street.name ||
       this.props.intl.formatMessage({
         id: 'street.default-name',
         defaultMessage: 'Unnamed St'
       })
-    const newName = window.prompt(this.props.intl.formatMessage({
-      id: 'prompt.new-street',
-      defaultMessage: 'New street name:'
-    }), streetName)
+    const newName = window.prompt(
+      this.props.intl.formatMessage({
+        id: 'prompt.new-street',
+        defaultMessage: 'New street name:'
+      }),
+      streetName
+    )
 
     if (newName) {
-      const name = StreetName.normalizeStreetName(newName)
-      this.props.saveStreetName(name, true)
+      this.props.saveStreetName(newName, true)
     }
   }
 
@@ -116,7 +126,9 @@ class StreetNameCanvas extends React.Component {
         <StreetName
           editable={this.props.editable}
           id="street-name"
-          childRef={(ref) => { this.streetName = ref }}
+          childRef={(ref) => {
+            this.streetName = ref
+          }}
           name={this.props.street.name}
           onClick={this.handleClickStreetName}
         />
@@ -128,7 +140,7 @@ class StreetNameCanvas extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    visible: state.ui.streetNameCanvasVisible,
+    visible: state.ui.streetNameplateVisible,
     editable: !state.app.readOnly && state.flags.EDIT_STREET_NAME.value,
     street: state.street
   }
@@ -138,4 +150,9 @@ const mapDispatchToProps = {
   saveStreetName
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StreetNameCanvas))
+export default injectIntl(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(StreetNameplateContainer)
+)

@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import UndoRedo from '../UndoRedo'
 
@@ -11,10 +11,6 @@ jest.mock('../../streets/remix', () => ({
 }))
 
 describe('UndoRedo', () => {
-  afterEach(() => {
-    cleanup()
-  })
-
   // TODO: Remove snapshot after having a snapshot on the parent component
   it('renders two buttons', () => {
     const wrapper = renderWithReduxAndIntl(<UndoRedo />)
@@ -25,10 +21,7 @@ describe('UndoRedo', () => {
     const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
       initialState: {
         undo: {
-          stack: [
-            { foo: 'bar' },
-            { foo: 'baz' }
-          ],
+          stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 1
         }
       }
@@ -46,10 +39,7 @@ describe('UndoRedo', () => {
     const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
       initialState: {
         undo: {
-          stack: [
-            { foo: 'bar' },
-            { foo: 'baz' }
-          ],
+          stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 0
         }
       }

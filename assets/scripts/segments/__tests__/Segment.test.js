@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, getByTestId, cleanup } from '@testing-library/react'
+import { fireEvent, getByTestId } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import Segment from '../Segment'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
@@ -78,8 +78,6 @@ describe('Segment', () => {
       offsetY: 11.12
     }))
   })
-
-  afterEach(cleanup)
 
   it('renders correctly', () => {
     const wrapper = renderWithRedux(
@@ -182,7 +180,7 @@ describe('Segment', () => {
         }
       )
       fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-      fireEvent.keyDown(document, { key: '+' })
+      fireEvent.keyDown(document, { key: '+', code: 'Equal' })
       expect(
         wrapper.store.getState().street.segments[activeElement].width
       ).toEqual(currentWidth + increment)

@@ -10,7 +10,7 @@ class Menu extends React.PureComponent {
     isActive: PropTypes.bool.isRequired,
     menuItemNode: PropTypes.instanceOf(Element), // Must be a DOM element
     alignOpposite: PropTypes.bool,
-    handleShow: PropTypes.func,
+    onShow: PropTypes.func,
     onHide: PropTypes.func,
     children: PropTypes.node
   }
@@ -18,7 +18,7 @@ class Menu extends React.PureComponent {
   static defaultProps = {
     isActive: false,
     alignOpposite: false,
-    handleShow: function () {}, // A no-op
+    onShow: function () {}, // A no-op
     onHide: function () {}
   }
 
@@ -71,7 +71,7 @@ class Menu extends React.PureComponent {
       // If the menu width exceeds the left-most edge, or the `alignOpposite`
       // prop is true, the menu is aligned to the left-most edge
       const right = menuItemNode.offsetLeft + menuItemNode.offsetWidth
-      if ((right - el.offsetWidth < 0) || (alignOpposite === true)) {
+      if (right - el.offsetWidth < 0 || alignOpposite === true) {
         left = 0
       } else {
         // Otherwise, align menu with the right edge of the menu item
@@ -84,7 +84,10 @@ class Menu extends React.PureComponent {
 
       // If the menu width exceeds the right-most edge, or the `alignOpposite`
       // prop is true, the menu is aligned to the right-most edge
-      if ((menuItemNode.offsetLeft + el.offsetWidth > maxXPos) || (alignOpposite === true)) {
+      if (
+        menuItemNode.offsetLeft + el.offsetWidth > maxXPos ||
+        alignOpposite === true
+      ) {
         left = maxXPos - el.offsetWidth
       } else {
         // Otherwise, align menu with the left edge of the menu item
@@ -122,8 +125,8 @@ class Menu extends React.PureComponent {
     el.classList.add('menu-visible')
 
     // Callback function, if provided
-    if (this.props.handleShow) {
-      this.props.handleShow()
+    if (this.props.onShow) {
+      this.props.onShow()
     }
   }
 

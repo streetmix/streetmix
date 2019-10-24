@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import DebugInfo from '../DebugInfo'
 
@@ -13,17 +13,19 @@ describe('DebugInfo', () => {
     user: {}
   }
 
-  afterEach(cleanup)
-
   it('renders', () => {
     const wrapper = renderWithRedux(<DebugInfo />, { initialState })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  // fireEvent isn't working.
-  it.skip('is visible when opened with keyboard shortcut', () => {
+  it('is visible when opened with keyboard shortcut', () => {
     const wrapper = renderWithRedux(<DebugInfo />, { initialState })
-    fireEvent.keyDown(window, { key: 'D', code: 68, shiftKey: true })
+    fireEvent.keyDown(window, {
+      key: 'D',
+      code: 'KeyD',
+      keyCode: 68,
+      shiftKey: true
+    })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })

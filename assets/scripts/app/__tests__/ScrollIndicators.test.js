@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithIntl as render } from '../../../../test/helpers/render'
 import ScrollIndicators from '../ScrollIndicators'
 
@@ -12,21 +12,27 @@ const baseProps = {
 }
 
 describe('ScrollIndicators', () => {
-  afterEach(cleanup)
-
   it('renders snapshot', () => {
     const wrapper = render(<ScrollIndicators {...baseProps} />)
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders snapshot for zero indicators', () => {
-    const wrapper = render(<ScrollIndicators {...baseProps} scrollIndicatorsLeft={0} scrollIndicatorsRight={0} />)
+    const wrapper = render(
+      <ScrollIndicators
+        {...baseProps}
+        scrollIndicatorsLeft={0}
+        scrollIndicatorsRight={0}
+      />
+    )
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('handles scroll left on click', () => {
     const scrollStreet = jest.fn()
-    const wrapper = render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
+    const wrapper = render(
+      <ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />
+    )
 
     fireEvent.click(wrapper.getByText('‹'))
 
@@ -35,7 +41,9 @@ describe('ScrollIndicators', () => {
 
   it('handles scroll right on click', () => {
     const scrollStreet = jest.fn()
-    const wrapper = render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
+    const wrapper = render(
+      <ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />
+    )
 
     fireEvent.click(wrapper.getByText('›››'))
 

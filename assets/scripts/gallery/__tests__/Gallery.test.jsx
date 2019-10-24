@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
@@ -10,17 +10,13 @@ jest.mock('../view')
 jest.mock('../../streets/thumbnail')
 
 describe('Gallery', () => {
-  afterEach(cleanup)
-
   it('renders main gallery view for user’s own streets', () => {
     const initialState = {
       gallery: {
         userId: 'foo',
         visible: true,
         mode: 'GALLERY',
-        streets: [
-          MOCK_STREET
-        ]
+        streets: [MOCK_STREET]
       },
       street: {
         id: '2556be10-df45-11e9-92a0-b5e383de159b'
@@ -43,9 +39,7 @@ describe('Gallery', () => {
         userId: 'foo',
         visible: true,
         mode: 'GALLERY',
-        streets: [
-          MOCK_STREET
-        ]
+        streets: [MOCK_STREET]
       },
       street: {
         id: '2556be10-df45-11e9-92a0-b5e383de159b'
@@ -67,9 +61,7 @@ describe('Gallery', () => {
       gallery: {
         visible: true,
         mode: 'GALLERY',
-        streets: [
-          MOCK_STREET
-        ]
+        streets: [MOCK_STREET]
       },
       street: {
         id: '2556be10-df45-11e9-92a0-b5e383de159b'
@@ -104,7 +96,9 @@ describe('Gallery', () => {
     }
 
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-    expect(wrapper.getByText('Sign in for your personal street gallery')).toBeInTheDocument()
+    expect(
+      wrapper.getByText('Sign in for your personal street gallery')
+    ).toBeInTheDocument()
   })
 
   it('renders error', () => {

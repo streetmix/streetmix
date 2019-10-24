@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cleanup, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import GalleryStreetItem from '../GalleryStreetItem'
@@ -14,8 +14,6 @@ jest.mock('../../app/page_url', () => ({
 }))
 
 describe('GalleryStreetItem', () => {
-  afterEach(cleanup)
-
   it('renders', () => {
     // This uses jsdom + canvas packages under the hood to render canvas element
     const wrapper = renderWithReduxAndIntl(
@@ -26,10 +24,7 @@ describe('GalleryStreetItem', () => {
 
   it('does not display street owner when not provided', () => {
     const wrapper = renderWithReduxAndIntl(
-      <GalleryStreetItem
-        street={MOCK_STREET}
-        showStreetOwner={false}
-      />
+      <GalleryStreetItem street={MOCK_STREET} showStreetOwner={false} />
     )
 
     expect(wrapper.queryByText('creatorFoo')).not.toBeInTheDocument()
@@ -38,10 +33,7 @@ describe('GalleryStreetItem', () => {
   it('handles select', () => {
     const doSelect = jest.fn()
     const wrapper = renderWithReduxAndIntl(
-      <GalleryStreetItem
-        street={MOCK_STREET}
-        doSelect={doSelect}
-      />
+      <GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />
     )
 
     fireEvent.click(wrapper.getByText(MOCK_STREET.name))
@@ -53,11 +45,7 @@ describe('GalleryStreetItem', () => {
     window.confirm = jest.fn(() => true)
 
     const wrapper = renderWithReduxAndIntl(
-      <GalleryStreetItem
-        street={MOCK_STREET}
-        doDelete={doDelete}
-        allowDelete
-      />
+      <GalleryStreetItem street={MOCK_STREET} doDelete={doDelete} allowDelete />
     )
 
     fireEvent.click(wrapper.getByTitle('Delete street'))
@@ -69,11 +57,7 @@ describe('GalleryStreetItem', () => {
     window.confirm = jest.fn(() => false)
 
     const wrapper = renderWithReduxAndIntl(
-      <GalleryStreetItem
-        street={MOCK_STREET}
-        doDelete={doDelete}
-        allowDelete
-      />
+      <GalleryStreetItem street={MOCK_STREET} doDelete={doDelete} allowDelete />
     )
 
     fireEvent.click(wrapper.getByTitle('Delete street'))

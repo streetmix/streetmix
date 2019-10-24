@@ -1,5 +1,5 @@
-import React from 'react'
-import { FormattedMessage, injectIntl } from 'react-intl'
+import React, { useState, useRef, useEffect } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import copy from 'copy-to-clipboard'
@@ -14,232 +14,264 @@ import { showDialog } from '../store/actions/dialogs'
 import { startPrinting } from '../store/actions/app'
 import './ShareMenu.scss'
 
-class ShareMenu extends React.Component {
-  static propTypes = {
-    // Provided by react-intl
-    intl: PropTypes.object.isRequired,
+ShareMenu.propTypes = {
+  // Provided by Redux mapDispatchToProps
+  showDialog: PropTypes.func,
+  startPrinting: PropTypes.func,
 
-    // Provided by Redux mapDispatchToProps
-    showDialog: PropTypes.func,
-    startPrinting: PropTypes.func,
+  // Provided by Redux mapStateToProps
+  signedIn: PropTypes.bool.isRequired,
+  userId: PropTypes.string,
+  street: PropTypes.object
+}
 
-    // Provided by Redux mapStateToProps
-    signedIn: PropTypes.bool.isRequired,
-    userId: PropTypes.string,
-    street: PropTypes.object
+function ShareMenu (props) {
+  const [shareUrl, setShareUrl] = useState('')
+  const shareViaLinkInputRef = useRef(null)
+  const intl = useIntl()
+
+  useEffect(() => {
+    updateLinks()
+  })
+
+  function updateLinks () {
+    setShareUrl(getSharingUrl())
   }
 
-  static defaultProps = {
-    userId: ''
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      shareUrl: ''
-    }
-
-    this.shareViaLinkInputRef = React.createRef()
-  }
-
-  componentDidMount () {
-    this.updateLinks()
-  }
-
-  updateLinks = () => {
-    const url = getSharingUrl()
-
-    this.setState({ shareUrl: url })
-  }
-
-  getSharingMessage = () => {
-    const street = this.props.street
+  function getSharingMessage () {
+    const street = props.street
     let message = ''
 
     if (street.creatorId) {
-      if (this.props.signedIn && street.creatorId === this.props.userId) {
+      if (props.signedIn && street.creatorId === props.userId) {
         if (street.name) {
-          message = this.formatSharingMessage('menu.share.messages.my-street', 'Check out my street, {streetName}, on Streetmix!', { streetName: street.name })
+          message = intl.formatMessage(
+            {
+              id: 'menu.share.messages.my-street',
+              defaultMessage: 'Check out my street, {streetName}, on Streetmix!'
+            },
+            { streetName: street.name }
+          )
         } else {
-          message = this.formatSharingMessage('menu.share.messages.my-street-unnamed', 'Check out my street on Streetmix!')
+          message = intl.formatMessage({
+            id: 'menu.share.messages.my-street-unnamed',
+            defaultMessage: 'Check out my street on Streetmix!'
+          })
         }
       } else {
         if (street.name) {
-          message = this.formatSharingMessage('menu.share.messages.someone-elses-street', 'Check out {streetName} by {streetCreator} on Streetmix!', { streetName: street.name, streetCreator: `@${street.creatorId}` })
+          message = intl.formatMessage(
+            {
+              id: 'menu.share.messages.someone-elses-street',
+              defaultMessage:
+                'Check out {streetName} by {streetCreator} on Streetmix!'
+            },
+            { streetName: street.name, streetCreator: `@${street.creatorId}` }
+          )
         } else {
-          message = this.formatSharingMessage('menu.share.messages.someone-elses-street-unnamed', 'Check out this street by {streetCreator} on Streetmix!', { streetCreator: `@${street.creatorId}` })
+          message = intl.formatMessage(
+            {
+              id: 'menu.share.messages.someone-elses-street-unnamed',
+              defaultMessage:
+                'Check out this street by {streetCreator} on Streetmix!'
+            },
+            { streetCreator: `@${street.creatorId}` }
+          )
         }
       }
     } else {
       if (street.name) {
-        message = this.formatSharingMessage('menu.share.messages.anonymous-creator-street', 'Check out {streetName} on Streetmix!', { streetName: street.name })
+        message = intl.formatMessage(
+          {
+            id: 'menu.share.messages.anonymous-creator-street',
+            defaultMessage: 'Check out {streetName} on Streetmix!'
+          },
+          { streetName: street.name }
+        )
       } else {
-        message = this.formatSharingMessage('menu.share.messages.anonymous-creator-street-unnamed', 'Check out this street on Streetmix!')
+        message = intl.formatMessage({
+          id: 'menu.share.messages.anonymous-creator-street-unnamed',
+          defaultMessage: 'Check out this street on Streetmix!'
+        })
       }
     }
 
     return message
   }
 
-  /**
-   * Wrapper around props.intl.formatMessage
-   *
-   * @param {string} key
-   * @param {string} defaultMsg - default message (fallback)
-   * @param {Object} values - object of values to replace
-   * @returns {string}
-   */
-  formatSharingMessage = (key, defaultMsg, values = {}) => {
-    return this.props.intl.formatMessage({
-      id: key,
-      defaultMessage: defaultMsg
-    }, values)
-  }
-
-  handleShow = () => {
+  function handleShow () {
     // Make sure links are updated when the menu is opened
-    this.updateLinks()
+    updateLinks()
 
     // Auto-focus and select link when share menu is active
     window.setTimeout(() => {
-      this.shareViaLinkInputRef.current.focus()
-      this.shareViaLinkInputRef.current.select()
+      shareViaLinkInputRef.current.focus()
+      shareViaLinkInputRef.current.select()
     }, 200)
   }
 
-  handleClickShareViaTwitter () {
-    saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
+  function handleClickShareViaTwitter () {
+    saveStreetThumbnail(props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'TWITTER', null, null, false)
   }
 
-  handleClickShareViaFacebook () {
-    saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
+  function handleClickShareViaFacebook () {
+    saveStreetThumbnail(props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
-  handleClickSaveAsImage = (event) => {
+  function handleClickSaveAsImage (event) {
     event.preventDefault()
-    this.props.showDialog('SAVE_AS_IMAGE')
+    props.showDialog('SAVE_AS_IMAGE')
   }
 
-  handleClickSignIn = (event) => {
+  function handleClickSignIn (event) {
     event.preventDefault()
-    this.props.showDialog('SIGN_IN')
+    props.showDialog('SIGN_IN')
   }
 
-  handleClickPrint = (event) => {
+  function handleClickPrint (event) {
     event.preventDefault()
 
     // Manually dispatch printing state here. Workaround for Chrome bug where
     // calling window.print() programatically (even with a timeout) render a
     // blank image instead
-    this.props.startPrinting()
+    props.startPrinting()
 
     window.setTimeout(function () {
       window.print()
     }, 0)
   }
 
-  render () {
-    const shareText = this.getSharingMessage()
-    const twitterLink = 'https://twitter.com/intent/tweet' +
-      '?text=' + encodeURIComponent(shareText) +
-      '&url=' + encodeURIComponent(this.state.shareUrl)
+  const shareText = getSharingMessage()
+  const twitterLink =
+    'https://twitter.com/intent/tweet' +
+    '?text=' +
+    encodeURIComponent(shareText) +
+    '&url=' +
+    encodeURIComponent(shareUrl)
 
-    const facebookLink = 'https://www.facebook.com/dialog/feed' +
-      '?app_id=' + encodeURIComponent(FACEBOOK_APP_ID) +
-      '&redirect_uri=' + encodeURIComponent(this.state.shareUrl) +
-      '&link=' + encodeURIComponent(this.state.shareUrl) +
-      '&name=' + encodeURIComponent(getPageTitle(this.props.street)) +
-      '&description=' + encodeURIComponent(shareText)
+  const facebookLink =
+    'https://www.facebook.com/dialog/feed' +
+    '?app_id=' +
+    encodeURIComponent(FACEBOOK_APP_ID) +
+    '&redirect_uri=' +
+    encodeURIComponent(shareUrl) +
+    '&link=' +
+    encodeURIComponent(shareUrl) +
+    '&name=' +
+    encodeURIComponent(getPageTitle(props.street)) +
+    '&description=' +
+    encodeURIComponent(shareText)
 
-    const signInLink =
-      <a onClick={this.handleClickSignIn} href="#">
+  const signInLink = (
+    <a onClick={handleClickSignIn} href="#">
+      <FormattedMessage
+        defaultMessage="Sign in"
+        id="menu.share.sign-in-twitter-link"
+      />
+    </a>
+  )
+
+  const signInPromo = !props.signedIn ? (
+    <div className="share-sign-in-promo">
+      <FormattedMessage
+        id="menu.share.sign-in-link"
+        defaultMessage="{signInLink} for nicer links to your streets and your personal street gallery"
+        values={{
+          signInLink
+        }}
+      />
+    </div>
+  ) : null
+
+  return (
+    <Menu onShow={handleShow} className="share-menu" {...props}>
+      {signInPromo}
+      <div className="share-via-link-container">
         <FormattedMessage
-          defaultMessage="Sign in"
-          id="menu.share.sign-in-twitter-link"
+          id="menu.share.link"
+          defaultMessage="Copy and paste this link to share:"
+        />
+        <div className="share-via-link-form">
+          <input
+            className="share-via-link"
+            type="text"
+            value={shareUrl}
+            onCopy={() => {
+              saveStreetThumbnail(props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
+            }}
+            spellCheck="false"
+            ref={shareViaLinkInputRef}
+            readOnly
+          />
+          <button
+            onClick={(event) => {
+              event.preventDefault()
+              copy(shareUrl)
+            }}
+          >
+            <Icon icon="copy" />
+          </button>
+        </div>
+      </div>
+      <a
+        className="share-via-twitter"
+        href={twitterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClickShareViaTwitter}
+      >
+        <Icon icon="twitter" />
+        <FormattedMessage
+          id="menu.share.twitter"
+          defaultMessage="Share using Twitter"
         />
       </a>
-
-    const signInPromo = (!this.props.signedIn)
-      ? (
-        <div className="share-sign-in-promo">
+      <a
+        className="share-via-facebook"
+        href={facebookLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClickShareViaFacebook}
+      >
+        <Icon icon="facebook" />
+        <FormattedMessage
+          id="menu.share.facebook"
+          defaultMessage="Share using Facebook"
+        />
+      </a>
+      <a href="#" onClick={handleClickPrint}>
+        <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
+      </a>
+      <a id="save-as-image" href="#" onClick={handleClickSaveAsImage}>
+        <FormattedMessage
+          id="menu.share.save"
+          defaultMessage="Save as image…"
+        />
+        <span className="menu-item-subtext">
           <FormattedMessage
-            id="menu.share.sign-in-link"
-            defaultMessage={'{signInLink} for nicer links to your streets and your personal street gallery'}
-            values={{
-              signInLink
-            }}
+            id="menu.share.save-byline"
+            defaultMessage="For including in a report, blog, etc."
           />
-        </div>
-      ) : null
-
-    return (
-      <Menu onShow={this.handleShow} className="share-menu" {...this.props}>
-        {signInPromo}
-        <div className="share-via-link-container">
-          <FormattedMessage id="menu.share.link" defaultMessage="Copy and paste this link to share:" />
-          <div className="share-via-link-form">
-            <input
-              className="share-via-link"
-              type="text"
-              value={this.state.shareUrl}
-              onCopy={() => { saveStreetThumbnail(this.props.street, SAVE_THUMBNAIL_EVENTS.SHARE) }}
-              spellCheck="false"
-              ref={this.shareViaLinkInputRef}
-              readOnly
-            />
-            <button onClick={(e) => { e.preventDefault(); copy(this.state.shareUrl) }}>
-              <Icon icon="copy" />
-            </button>
-          </div>
-        </div>
-        <a
-          className="share-via-twitter"
-          href={twitterLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={this.handleClickShareViaTwitter}
-        >
-          <Icon icon="twitter" />
-          <FormattedMessage id="menu.share.twitter" defaultMessage="Share using Twitter" />
-        </a>
-        <a
-          className="share-via-facebook"
-          href={facebookLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={this.handleClickShareViaFacebook}
-        >
-          <Icon icon="facebook" />
-          <FormattedMessage id="menu.share.facebook" defaultMessage="Share using Facebook" />
-        </a>
-        <a href="#" onClick={this.handleClickPrint}>
-          <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
-        </a>
-        <a id="save-as-image" href="#" onClick={this.handleClickSaveAsImage}>
-          <FormattedMessage id="menu.share.save" defaultMessage="Save as image…" />
-          <span className="menu-item-subtext">
-            <FormattedMessage id="menu.share.save-byline" defaultMessage="For including in a report, blog, etc." />
-          </span>
-        </a>
-      </Menu>
-    )
-  }
+        </span>
+      </a>
+    </Menu>
+  )
 }
 
-function mapStateToProps (state) {
-  return {
-    signedIn: state.user.signedIn,
-    userId: state.user.signInData && state.user.signInData.userId,
-    street: state.street
-  }
-}
+const mapStateToProps = (state) => ({
+  signedIn: state.user.signedIn,
+  userId: (state.user.signInData && state.user.signInData.userId) || '',
+  street: state.street
+})
 
 const mapDispatchToProps = {
   showDialog,
   startPrinting
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ShareMenu))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShareMenu)

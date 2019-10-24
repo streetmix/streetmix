@@ -38,8 +38,14 @@ class Building extends React.Component {
     super(props)
 
     this.state = {
-      variant: (props.position === 'left') ? 'leftBuildingVariant' : 'rightBuildingVariant',
-      height: (props.position === 'left') ? 'leftBuildingHeight' : 'rightBuildingHeight',
+      variant:
+        props.position === 'left'
+          ? 'leftBuildingVariant'
+          : 'rightBuildingVariant',
+      height:
+        props.position === 'left'
+          ? 'leftBuildingHeight'
+          : 'rightBuildingHeight',
       oldBuildingEnter: true,
       newBuildingEnter: false,
       switchBuildings: false,
@@ -52,7 +58,10 @@ class Building extends React.Component {
       return {
         isEditable: false
       }
-    } else if (props.rightBuildingEditable === false && props.position === 'right') {
+    } else if (
+      props.rightBuildingEditable === false &&
+      props.position === 'right'
+    ) {
       return {
         isEditable: false
       }
@@ -67,27 +76,50 @@ class Building extends React.Component {
     const { street, position, buildingWidth } = this.props
     const { variant, height } = this.state
 
-    const lastOverflow = (prevProps.street.remainingWidth < 0)
-    const streetOverflow = (street.remainingWidth < 0)
+    const lastOverflow = prevProps.street.remainingWidth < 0
+    const streetOverflow = street.remainingWidth < 0
 
-    if (prevProps.street[height] !== street[height] ||
-        lastOverflow !== streetOverflow ||
-        (street[variant] && prevProps.buildingWidth !== buildingWidth)) {
-      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
+    if (
+      prevProps.street[height] !== street[height] ||
+      lastOverflow !== streetOverflow ||
+      (street[variant] && prevProps.buildingWidth !== buildingWidth)
+    ) {
+      createBuilding(
+        this.streetSectionBuilding,
+        street[variant],
+        position,
+        street[height],
+        streetOverflow
+      )
     }
 
-    if (prevProps.street[variant] && prevProps.street[variant] !== street[variant]) {
+    if (
+      prevProps.street[variant] &&
+      prevProps.street[variant] !== street[variant]
+    ) {
       if (this.shouldBuildingAnimate(prevProps.street, street)) {
         this.handleSwitchBuildings()
       } else {
-        createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
+        createBuilding(
+          this.streetSectionBuilding,
+          street[variant],
+          position,
+          street[height],
+          streetOverflow
+        )
       }
     }
 
     if (prevState.switchBuildings !== this.state.switchBuildings) {
       this.props.updatePerspective(this.oldStreetSectionBuilding)
       this.props.updatePerspective(this.streetSectionBuilding)
-      createBuilding(this.streetSectionBuilding, street[variant], position, street[height], streetOverflow)
+      createBuilding(
+        this.streetSectionBuilding,
+        street[variant],
+        position,
+        street[height],
+        streetOverflow
+      )
     }
   }
 
@@ -121,8 +153,11 @@ class Building extends React.Component {
   handleKeyDown = (event) => {
     if (!this.state.isEditable) return
 
-    const negative = (event.key === '-')
-    const positive = (event.key === '+')
+    const negative = event.key === '-'
+
+    // Plus (+) may only triggered with shift key, so also check if
+    // the same physical key (Equal) is pressed
+    const positive = event.key === '+' || event.code === 'Equal'
 
     const variant = this.props.street[this.state.variant]
     const hasFloors = BUILDINGS[variant].hasFloors
@@ -148,9 +183,9 @@ class Building extends React.Component {
 
   handleSwitchBuildings = () => {
     this.setState({
-      switchBuildings: !(this.state.switchBuildings),
-      newBuildingEnter: !(this.state.newBuildingEnter),
-      oldBuildingEnter: !(this.state.oldBuildingEnter)
+      switchBuildings: !this.state.switchBuildings,
+      newBuildingEnter: !this.state.newBuildingEnter,
+      oldBuildingEnter: !this.state.oldBuildingEnter
     })
   }
 
@@ -160,7 +195,9 @@ class Building extends React.Component {
     let userUpdated = true
     for (const key in newStreet) {
       if (oldStreet[key] !== newStreet[key]) {
-        userUpdated = ['editCount', this.state.variant, 'updatedAt'].includes(key)
+        userUpdated = ['editCount', this.state.variant, 'updatedAt'].includes(
+          key
+        )
         if (!userUpdated) return false
       }
     }
@@ -168,7 +205,7 @@ class Building extends React.Component {
   }
 
   renderBuilding = (building) => {
-    const isOldBuilding = (building === 'old')
+    const isOldBuilding = building === 'old'
 
     const style = {
       [this.props.position]: `-${this.props.buildingWidth}px`,
@@ -187,7 +224,9 @@ class Building extends React.Component {
     return (
       <section
         className={classNames.join(' ')}
-        ref={(ref) => { this.changeRefs(ref, isOldBuilding) }}
+        ref={(ref) => {
+          this.changeRefs(ref, isOldBuilding)
+        }}
         onMouseEnter={this.handleBuildingMouseEnter}
         onMouseLeave={this.handleBuildingMouseLeave}
         style={style}
@@ -229,7 +268,10 @@ class Building extends React.Component {
 function mapStateToProps (state) {
   return {
     street: state.street,
-    activeSegment: (typeof state.ui.activeSegment === 'string') ? state.ui.activeSegment : null,
+    activeSegment:
+      typeof state.ui.activeSegment === 'string'
+        ? state.ui.activeSegment
+        : null,
     leftBuildingEditable: state.flags.EDIT_BUILDINGS_LEFT.value,
     rightBuildingEditable: state.flags.EDIT_BUILDINGS_RIGHT.value
   }
@@ -240,4 +282,7 @@ const mapDispatchToProps = {
   addBuildingFloor
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Building)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Building)
