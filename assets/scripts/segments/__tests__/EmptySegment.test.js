@@ -38,8 +38,7 @@ describe('EmptySegment', () => {
     expect(container.firstChild.style.left).toEqual(`${33 * TILE_SIZE}px`)
   })
 
-  // TODO: unskip these tests when enzyme and react-test-render support memoized components
-  it.skip('renders text content', () => {
+  it('renders text content', () => {
     const { container } = renderWithReduxAndIntl(
       <EmptySegment width={15} units={SETTINGS_UNITS_METRIC} locale="ja" />
     )
