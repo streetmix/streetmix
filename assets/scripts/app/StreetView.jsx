@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import StreetEditable from './StreetEditable'
 import StreetViewDirt from './StreetViewDirt'
-import SkyBackground from './SkyBackground'
+import SkyContainer from './SkyContainer'
 import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
 import ResizeGuides from '../segments/ResizeGuides'
@@ -69,9 +69,11 @@ class StreetView extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     const { viewportWidth, viewportHeight } = this.props.system
 
-    if (prevProps.system.viewportWidth !== viewportWidth ||
-        prevProps.system.viewportHeight !== viewportHeight ||
-        prevProps.street.width !== this.props.street.width) {
+    if (
+      prevProps.system.viewportWidth !== viewportWidth ||
+      prevProps.system.viewportHeight !== viewportHeight ||
+      prevProps.street.width !== this.props.street.width
+    ) {
       const resizeState = this.onResize()
       const scrollIndicators = this.calculateScrollIndicators()
 
@@ -87,12 +89,17 @@ class StreetView extends React.Component {
     // Two cases where scrollLeft might have to be updated:
     // 1) Building width has changed due to segments being dragged in/out of StreetView or being resized
     // 2) Street width changed causing remainingWidth to change, but not building width
-    if ((prevState.buildingWidth !== this.state.buildingWidth) ||
-        (prevState.resizeType === STREETVIEW_RESIZED && !this.state.resizeType)) {
+    if (
+      prevState.buildingWidth !== this.state.buildingWidth ||
+      (prevState.resizeType === STREETVIEW_RESIZED && !this.state.resizeType)
+    ) {
       const deltaX = this.state.buildingWidth - prevState.buildingWidth
 
       // If segment was resized (either dragged or incremented), update scrollLeft to make up for margin change.
-      if (prevState.resizeType === SEGMENT_RESIZED || prevState.resizeType === this.state.resizeType) {
+      if (
+        prevState.resizeType === SEGMENT_RESIZED ||
+        prevState.resizeType === this.state.resizeType
+      ) {
         this.updateScrollLeft(deltaX)
       } else if (prevState.resizeType === STREETVIEW_RESIZED) {
         // If StreetView was resized/changed (either viewport, streetWidth, or street itself),
@@ -103,18 +110,27 @@ class StreetView extends React.Component {
     }
 
     // Updating margins when segment is resized by dragging is handled in resizing.js
-    if (prevProps.street.occupiedWidth !== this.props.street.occupiedWidth &&
-        this.props.draggingType !== DRAGGING_TYPE_RESIZE) {
+    if (
+      prevProps.street.occupiedWidth !== this.props.street.occupiedWidth &&
+      this.props.draggingType !== DRAGGING_TYPE_RESIZE
+    ) {
       // Check if occupiedWidth changed because segment was changed (resized, added, or removed)
       // or because gallery street was changed, and update accordingly.
-      const resizeType = (this.props.street.id !== prevProps.street.id) ? STREETVIEW_RESIZED : SEGMENT_RESIZED
-      const dontDelay = (resizeType === STREETVIEW_RESIZED)
+      const resizeType =
+        this.props.street.id !== prevProps.street.id
+          ? STREETVIEW_RESIZED
+          : SEGMENT_RESIZED
+      const dontDelay = resizeType === STREETVIEW_RESIZED
       this.resizeStreetExtent(resizeType, dontDelay)
     }
   }
 
   resizeStreetExtent = (resizeType, dontDelay) => {
-    const marginUpdated = updateStreetMargin(this.streetSectionCanvas, this.streetSectionEl.current, dontDelay)
+    const marginUpdated = updateStreetMargin(
+      this.streetSectionCanvas,
+      this.streetSectionEl.current,
+      dontDelay
+    )
 
     if (marginUpdated) {
       this.setState({ resizeType: resizeType })
@@ -128,8 +144,14 @@ class StreetView extends React.Component {
       scrollLeft += deltaX
     } else {
       const streetWidth = this.props.street.width * TILE_SIZE
-      const currBuildingSpace = (this.state.buildingWidth) ? (this.state.buildingWidth) : BUILDING_SPACE
-      scrollLeft = (streetWidth + (currBuildingSpace * 2) - this.props.system.viewportWidth) / 2
+      const currBuildingSpace = this.state.buildingWidth
+        ? this.state.buildingWidth
+        : BUILDING_SPACE
+      scrollLeft =
+        (streetWidth +
+          currBuildingSpace * 2 -
+          this.props.system.viewportWidth) /
+        2
     }
 
     this.streetSectionEl.current.scrollLeft = scrollLeft
@@ -141,7 +163,8 @@ class StreetView extends React.Component {
     const streetSectionHeight = this.streetSectionInner.offsetHeight
 
     if (viewportHeight - streetSectionHeight > 450) {
-      streetSectionTop = ((viewportHeight - streetSectionHeight - 450) / 2) + 450 + 80
+      streetSectionTop =
+        (viewportHeight - streetSectionHeight - 450) / 2 + 450 + 80
     } else {
       streetSectionTop = viewportHeight - streetSectionHeight + 70
     }
@@ -150,7 +173,7 @@ class StreetView extends React.Component {
       streetSectionTop += 80
     }
 
-    const scrollTop = (streetSectionTop + streetSectionHeight)
+    const scrollTop = streetSectionTop + streetSectionHeight
 
     // Not sure what 255 does, but it keeps it from getting too tall
     // `skyHeight` is needed so that when gallery opens and the
@@ -163,9 +186,9 @@ class StreetView extends React.Component {
     // TODO: consolidate hardcoded numbers
     skyHeight += 605
 
-    const streetWidth = (this.props.street.width * TILE_SIZE)
+    const streetWidth = this.props.street.width * TILE_SIZE
     let streetSectionCanvasLeft =
-      ((viewportWidth - streetWidth) / 2) - BUILDING_SPACE
+      (viewportWidth - streetWidth) / 2 - BUILDING_SPACE
     if (streetSectionCanvasLeft < 0) {
       streetSectionCanvasLeft = 0
     }
@@ -216,16 +239,18 @@ class StreetView extends React.Component {
       const left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
 
       // TODO const off max width street
-      let posMax = Math.round(this.props.street.width / MAX_CUSTOM_STREET_WIDTH * 6)
+      let posMax = Math.round(
+        (this.props.street.width / MAX_CUSTOM_STREET_WIDTH) * 6
+      )
       if (posMax < 2) {
         posMax = 2
       }
 
       scrollIndicatorsLeft = Math.round(posMax * left)
-      if ((left > 0) && (scrollIndicatorsLeft === 0)) {
+      if (left > 0 && scrollIndicatorsLeft === 0) {
         scrollIndicatorsLeft = 1
       }
-      if ((left < 1.0) && (scrollIndicatorsLeft === posMax)) {
+      if (left < 1.0 && scrollIndicatorsLeft === posMax) {
         scrollIndicatorsLeft = posMax - 1
       }
       scrollIndicatorsRight = posMax - scrollIndicatorsLeft
@@ -245,13 +270,13 @@ class StreetView extends React.Component {
       if (far) {
         newScrollLeft = 0
       } else {
-        newScrollLeft = el.scrollLeft - (el.offsetWidth * 0.5)
+        newScrollLeft = el.scrollLeft - el.offsetWidth * 0.5
       }
     } else {
       if (far) {
         newScrollLeft = el.scrollWidth - el.offsetWidth
       } else {
-        newScrollLeft = el.scrollLeft + (el.offsetWidth * 0.5)
+        newScrollLeft = el.scrollLeft + el.offsetWidth * 0.5
       }
     }
 
@@ -273,7 +298,11 @@ class StreetView extends React.Component {
   }
 
   getStreetScrollPosition = () => {
-    return (this.streetSectionEl.current && this.streetSectionEl.current.scrollLeft) || 0
+    return (
+      (this.streetSectionEl.current &&
+        this.streetSectionEl.current.scrollLeft) ||
+      0
+    )
   }
 
   /**
@@ -290,11 +319,15 @@ class StreetView extends React.Component {
 
     const pos = getElAbsolutePos(el)
     const scrollPos = this.getStreetScrollPosition()
-    const perspective = -(pos[0] - scrollPos - (this.props.system.viewportWidth / 2))
+    const perspective = -(
+      pos[0] -
+      scrollPos -
+      this.props.system.viewportWidth / 2
+    )
 
-    el.style.webkitPerspectiveOrigin = (perspective / 2) + 'px 50%'
-    el.style.MozPerspectiveOrigin = (perspective / 2) + 'px 50%'
-    el.style.perspectiveOrigin = (perspective / 2) + 'px 50%'
+    el.style.webkitPerspectiveOrigin = perspective / 2 + 'px 50%'
+    el.style.MozPerspectiveOrigin = perspective / 2 + 'px 50%'
+    el.style.perspectiveOrigin = perspective / 2 + 'px 50%'
   }
 
   render () {
@@ -305,8 +338,18 @@ class StreetView extends React.Component {
           onScroll={this.handleStreetScroll}
           ref={this.streetSectionEl}
         >
-          <section id="street-section-inner" ref={(ref) => { this.streetSectionInner = ref }}>
-            <section id="street-section-canvas" ref={(ref) => { this.streetSectionCanvas = ref }}>
+          <section
+            id="street-section-inner"
+            ref={(ref) => {
+              this.streetSectionInner = ref
+            }}
+          >
+            <section
+              id="street-section-canvas"
+              ref={(ref) => {
+                this.streetSectionCanvas = ref
+              }}
+            >
               <Building
                 position="left"
                 buildingWidth={this.state.buildingWidth}
@@ -329,7 +372,7 @@ class StreetView extends React.Component {
             </section>
           </section>
         </section>
-        <SkyBackground
+        <SkyContainer
           scrollPos={this.state.scrollPos}
           height={this.state.skyHeight}
         />
