@@ -144,7 +144,8 @@ const street = (state = initialState, action) => {
     case SET_UPDATE_TIME:
       return {
         ...state,
-        updatedAt: action.time
+        updatedAt: action.time,
+        clientUpdatedAt: action.time
       }
     case SAVE_ORIGINAL_STREET_ID:
       return {

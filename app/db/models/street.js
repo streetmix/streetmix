@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamp: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
+    clientUpdatedAt: 'client_updated_at',
     index: [{
       fields: ['namespaced_id', 'created_at', 'updated_at']
     }]

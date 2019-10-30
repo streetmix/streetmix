@@ -269,16 +269,18 @@ export function fetchStreetForVerification () {
 }
 
 /**
- * Compares the street data locally to the street data received from the server.
- * If the local copy is outdated, then we replace it with the updated data.
+ * Compare the `clientUpdatedAt` value of local data to server data.
+ * We don't use `updatedAt` which is only updated on the server. We use
+ * `clientUpdatedAt` which is only used to validate the age of local data.
+ * If local data is outdated, then we replace it with the updated data.
  *
  * @param {Object} transmission - server data
  */
 function receiveStreetForVerification (transmission) {
-  const localUpdatedAt = new Date(store.getState().street.updatedAt)
-  const serverUpdatedAt = new Date(transmission.updatedAt)
+  const localUpdatedAt = new Date(store.getState().street.clientUpdatedAt)
+  const serverUpdatedAt = new Date(transmission.clientUpdatedAt)
 
-  if (serverUpdatedAt > localUpdatedAt) {
+  if (serverUpdatedAt && localUpdatedAt && serverUpdatedAt > localUpdatedAt) {
     showStatusMessage(
       t(
         'toast.reloaded',
@@ -326,6 +328,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
+  street.clientUpdatedAt = transmission.clientUpdatedAt || null
   street.name = transmission.name || null
   street.location = transmission.data.street.location || null
 
@@ -397,6 +400,7 @@ export function packServerStreetData () {
   delete data.street.name
   delete data.street.originalStreetId
   delete data.street.updatedAt
+  delete data.street.clientUpdatedAt
 
   // This will be implied through authorization header
   delete data.street.creatorId
@@ -410,7 +414,8 @@ export function packServerStreetData () {
   var transmission = {
     name: street.name,
     originalStreetId: street.originalStreetId,
-    data: data
+    data: data,
+    clientUpdatedAt: street.clientUpdatedAt
   }
 
   return JSON.stringify(transmission)
