@@ -122,11 +122,15 @@ const street = (state = initialState, action) => {
         (state.userUpdated && action.userUpdated) ||
         !state.userUpdated ||
         action.system
+
       return {
         ...state,
         // Normalize street name input
         // TODO: Consider whether to limit street name length here
-        name: rename ? action.streetName.trim() : state.name.trim(),
+        name:
+          rename && typeof action.streetName === 'string'
+            ? action.streetName.trim()
+            : state.name,
         userUpdated: state.userUpdated || action.userUpdated
       }
     }
