@@ -18,13 +18,19 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import { registerKeypress } from '../app/keypress'
-import { cancelFadeoutControls, resumeFadeoutControls } from '../segments/resizing'
+import {
+  cancelFadeoutControls,
+  resumeFadeoutControls
+} from '../segments/resizing'
 import { BUILDINGS } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { getSegmentEl } from '../segments/view'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
-import { setInfoBubbleMouseInside, updateHoverPolygon } from '../store/actions/infoBubble'
+import {
+  setInfoBubbleMouseInside,
+  updateHoverPolygon
+} from '../store/actions/infoBubble'
 import './InfoBubble.scss'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
@@ -42,10 +48,7 @@ export class InfoBubble extends React.Component {
     visible: PropTypes.bool.isRequired,
     descriptionVisible: PropTypes.bool,
     mouseInside: PropTypes.bool,
-    position: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
+    position: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     setInfoBubbleMouseInside: PropTypes.func,
     updateHoverPolygon: PropTypes.func,
     street: PropTypes.object,
@@ -74,12 +77,16 @@ export class InfoBubble extends React.Component {
     // Only hide if it's currently visible, and if the
     // description is NOT visible. (If the description
     // is visible, the escape key should hide that first.)
-    registerKeypress('esc', {
-      condition: () => this.props.visible && !this.props.descriptionVisible
-    }, () => {
-      infoBubble.hide()
-      infoBubble.hideSegment(false)
-    })
+    registerKeypress(
+      'esc',
+      {
+        condition: () => this.props.visible && !this.props.descriptionVisible
+      },
+      () => {
+        infoBubble.hide()
+        infoBubble.hideSegment(false)
+      }
+    )
   }
 
   /**
@@ -97,9 +104,13 @@ export class InfoBubble extends React.Component {
       return {
         type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
       }
-    } else {
+    } else if (Number.isFinite(nextProps.position)) {
       return {
         type: INFO_BUBBLE_TYPE_SEGMENT
+      }
+    } else {
+      return {
+        type: null
       }
     }
   }
@@ -115,7 +126,7 @@ export class InfoBubble extends React.Component {
   }
 
   getSnapshotBeforeUpdate (prevProps, prevState) {
-    const wasBuilding = (prevState.type !== INFO_BUBBLE_TYPE_SEGMENT)
+    const wasBuilding = prevState.type !== INFO_BUBBLE_TYPE_SEGMENT
 
     if (!this.el || !this.el.current) return null
 
@@ -145,7 +156,10 @@ export class InfoBubble extends React.Component {
     // However because this affects props, it triggers a secondary render() in React and
     // incurs a small performance hit.
     // TODO: can we optimize this away without introducing the flicker?
-    this.updateHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)
+    this.updateHoverPolygon(
+      infoBubble.considerMouseX,
+      infoBubble.considerMouseY
+    )
   }
 
   componentWillUnmount () {
@@ -207,7 +221,10 @@ export class InfoBubble extends React.Component {
     this.props.updateHoverPolygon(hoverPolygon)
   }
 
-  debouncedUpdateHoverPolygon = debounce(this.updateHoverPolygon, HOVER_POLYGON_DEBOUNCE)
+  debouncedUpdateHoverPolygon = debounce(
+    this.updateHoverPolygon,
+    HOVER_POLYGON_DEBOUNCE
+  )
 
   // TODO: make this a pure(r) function
   createHoverPolygon = (mouseX, mouseY) => {
@@ -232,7 +249,8 @@ export class InfoBubble extends React.Component {
       const pos = getElAbsolutePos(this.segmentEl)
 
       // Left X position of segment element
-      const segmentLeftX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
+      const segmentLeftX =
+        pos[0] - document.querySelector('#street-section-outer').scrollLeft
       // Right X position of segment element
       const segmentRightX = segmentLeftX + this.segmentEl.offsetWidth
       // Left X position of segment element with margin (edge of the hover polygon)
@@ -249,9 +267,15 @@ export class InfoBubble extends React.Component {
 
       hoverPolygon = [
         // Top left of infobubble
-        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+        [
+          bubbleX - INFO_BUBBLE_MARGIN_BUBBLE,
+          bubbleY - INFO_BUBBLE_MARGIN_BUBBLE
+        ],
         // Bottom left of infobubble
-        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+        [
+          bubbleX - INFO_BUBBLE_MARGIN_BUBBLE,
+          bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
+        ],
         // Diagonal line to hit edge of segment
         [hitboxLeftX, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE + 120],
         // Bottom left of segment
@@ -259,13 +283,25 @@ export class InfoBubble extends React.Component {
         // Bottom right of segment
         [hitboxRightX, hitboxBottomY],
         // Point at which to begin diagonal line to infobubble
-        [hitboxRightX, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE + 120],
+        [
+          hitboxRightX,
+          bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE + 120
+        ],
         // Bottom right of infobubble
-        [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
+        [
+          bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE,
+          bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
+        ],
         // Top right of infobubble
-        [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
+        [
+          bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE,
+          bubbleY - INFO_BUBBLE_MARGIN_BUBBLE
+        ],
         // Top left of infobubble (starting point)
-        [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE]
+        [
+          bubbleX - INFO_BUBBLE_MARGIN_BUBBLE,
+          bubbleY - INFO_BUBBLE_MARGIN_BUBBLE
+        ]
       ]
     } else {
       let bottomY = mouseY - INFO_BUBBLE_MARGIN_MOUSE
@@ -278,18 +314,34 @@ export class InfoBubble extends React.Component {
       }
 
       if (this.props.descriptionVisible) {
-        bottomY = bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300
+        bottomY =
+          bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300
         bottomY2 = bottomY
 
         hoverPolygon = [
-          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN],
-          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300],
-          [bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300],
-          [bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN],
-          [bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN, bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN]
+          [
+            bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN,
+            bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN
+          ],
+          [
+            bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN,
+            bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300
+          ],
+          [
+            bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN,
+            bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300
+          ],
+          [
+            bubbleX + bubbleWidth + DESCRIPTION_HOVER_POLYGON_MARGIN,
+            bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN
+          ],
+          [
+            bubbleX - DESCRIPTION_HOVER_POLYGON_MARGIN,
+            bubbleY - DESCRIPTION_HOVER_POLYGON_MARGIN
+          ]
         ]
       } else {
-        let diffX = 60 - ((mouseY - bubbleY) / 5)
+        let diffX = 60 - (mouseY - bubbleY) / 5
         if (diffX < 0) {
           diffX = 0
         } else if (diffX > 50) {
@@ -297,17 +349,53 @@ export class InfoBubble extends React.Component {
         }
 
         hoverPolygon = [
-          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
-          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
-          [(bubbleX - INFO_BUBBLE_MARGIN_BUBBLE + mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX) / 2, bottomY + ((bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) * 0.2)],
+          [
+            bubbleX - INFO_BUBBLE_MARGIN_BUBBLE,
+            bubbleY - INFO_BUBBLE_MARGIN_BUBBLE
+          ],
+          [
+            bubbleX - INFO_BUBBLE_MARGIN_BUBBLE,
+            bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
+          ],
+          [
+            (bubbleX -
+              INFO_BUBBLE_MARGIN_BUBBLE +
+              mouseX -
+              INFO_BUBBLE_MARGIN_MOUSE -
+              diffX) /
+              2,
+            bottomY +
+              (bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) *
+                0.2
+          ],
           [mouseX - INFO_BUBBLE_MARGIN_MOUSE - diffX, bottomY],
           [mouseX - INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
           [mouseX + INFO_BUBBLE_MARGIN_MOUSE, bottomY2],
           [mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX, bottomY],
-          [(bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE + mouseX + INFO_BUBBLE_MARGIN_MOUSE + diffX) / 2, bottomY + ((bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) * 0.2)],
-          [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE],
-          [bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE],
-          [bubbleX - INFO_BUBBLE_MARGIN_BUBBLE, bubbleY - INFO_BUBBLE_MARGIN_BUBBLE]
+          [
+            (bubbleX +
+              bubbleWidth +
+              INFO_BUBBLE_MARGIN_BUBBLE +
+              mouseX +
+              INFO_BUBBLE_MARGIN_MOUSE +
+              diffX) /
+              2,
+            bottomY +
+              (bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE - bottomY) *
+                0.2
+          ],
+          [
+            bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE,
+            bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
+          ],
+          [
+            bubbleX + bubbleWidth + INFO_BUBBLE_MARGIN_BUBBLE,
+            bubbleY - INFO_BUBBLE_MARGIN_BUBBLE
+          ],
+          [
+            bubbleX - INFO_BUBBLE_MARGIN_BUBBLE,
+            bubbleY - INFO_BUBBLE_MARGIN_BUBBLE
+          ]
         ]
       }
     }
@@ -319,7 +407,7 @@ export class InfoBubble extends React.Component {
    * TODO: consolidate this with the dim calc in updateBubbleDimensions? do we need snapshot here?
    */
   setInfoBubblePosition = () => {
-    if (!this.segmentEl || !this.el || !this.el.current || !this.props.visible) return
+    if (!this.segmentEl || !this.el || !this.el.current || !this.props.visible) { return }
 
     // Determine dimensions and X/Y layout
     const bubbleWidth = this.el.current.offsetWidth
@@ -340,8 +428,16 @@ export class InfoBubble extends React.Component {
 
     if (bubbleX < MIN_SIDE_MARGIN_FROM_VIEWPORT) {
       bubbleX = MIN_SIDE_MARGIN_FROM_VIEWPORT
-    } else if (bubbleX > this.props.system.viewportWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT) {
-      bubbleX = this.props.system.viewportWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
+    } else if (
+      bubbleX >
+      this.props.system.viewportWidth -
+        bubbleWidth -
+        MIN_SIDE_MARGIN_FROM_VIEWPORT
+    ) {
+      bubbleX =
+        this.props.system.viewportWidth -
+        bubbleWidth -
+        MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
 
     this.el.current.style.left = bubbleX + 'px'
@@ -376,7 +472,7 @@ export class InfoBubble extends React.Component {
     // when hovering over the right building.
 
     if (snapshot) {
-      const bubbleX = (snapshot - this.el.current.offsetWidth)
+      const bubbleX = snapshot - this.el.current.offsetWidth
       this.el.current.style.left = bubbleX + 'px'
     }
   }
@@ -403,7 +499,10 @@ export class InfoBubble extends React.Component {
         const segment = this.props.street.segments[this.props.position]
         if (segment) {
           const segmentInfo = getSegmentInfo(segment.type)
-          const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+          const variantInfo = getSegmentVariantInfo(
+            segment.type,
+            segment.variantString
+          )
           const key = variantInfo.nameKey || segmentInfo.nameKey
 
           id = `segments.${key}`
@@ -431,7 +530,7 @@ export class InfoBubble extends React.Component {
         break
     }
 
-    return (id) ? (
+    return id ? (
       <IntlProvider
         locale={this.props.locale.locale}
         messages={this.props.locale.segmentInfo}
@@ -443,12 +542,17 @@ export class InfoBubble extends React.Component {
 
   render () {
     const type = this.state.type
-    const canBeDeleted = (type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null)
+    const canBeDeleted =
+      type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null
 
     // Set class names
     const classNames = ['info-bubble']
 
-    classNames.push((type === INFO_BUBBLE_TYPE_SEGMENT) ? 'info-bubble-type-segment' : 'info-bubble-type-building')
+    classNames.push(
+      type === INFO_BUBBLE_TYPE_SEGMENT
+        ? 'info-bubble-type-segment'
+        : 'info-bubble-type-building'
+    )
     if (this.props.visible) {
       classNames.push('visible')
     }
@@ -549,4 +653,7 @@ const mapDispatchToProps = {
   updateHoverPolygon
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoBubble)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(InfoBubble)

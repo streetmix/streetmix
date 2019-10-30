@@ -22,10 +22,9 @@ export function hideStreetNameplate () {
 }
 
 export function setActiveSegment (position) {
-  const isBuilding = position === 'left' || position === 'right'
   return {
     type: SET_ACTIVE_SEGMENT,
-    position: isBuilding ? position : Number.parseInt(position, 10)
+    position
   }
 }
 
