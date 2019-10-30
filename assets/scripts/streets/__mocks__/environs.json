@@ -8,46 +8,32 @@
     "backgroundGradient": [
       "#020b1a",
       "#3e5879",
-      [
-        "#9ba5ae"
-      ],
-      [
-        "#dcb697"
-      ],
-      [
-        "#fc7001"
-      ],
-      [
-        "#dd723c"
-      ],
-      [
-        "#ad4a28"
-      ],
-      [
-        "#040308"
-      ]
+      ["#9ba5ae"],
+      ["#dcb697"],
+      ["#fc7001"],
+      ["#dd723c"],
+      ["#ad4a28"],
+      ["#040308"]
     ],
     "cloudOpacity": 0.85
   },
   "bar": {
     "name": "Bar",
     "backgroundGradient": [
-      [
-        "#020b1a"
-      ],
-      [
-        "#3e5879"
-      ],
-      [
-        "#9ba5ae",
-        0.4
-      ],
-      [
-        "#dcb697"
-      ],
-      [
-        "#fc7001"
-      ]
+      ["#020b1a"],
+      ["#3e5879"],
+      ["#9ba5ae", 0.4],
+      ["#dcb697"],
+      ["#fc7001"]
+    ],
+    "backgroundObjects": [
+      {
+        "image": "bar.svg",
+        "width": 100,
+        "height": 100,
+        "top": 0.5,
+        "left": 0.5
+      }
     ],
     "cloudOpacity": 0.85
   }

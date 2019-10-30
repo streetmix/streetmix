@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkyContainer renders 1`] = `
+<DocumentFragment>
+  <section
+    class="street-section-sky"
+    style="height: 100px;"
+  >
+    <div
+      class="sky-background"
+    >
+      <div
+        class="sky-background-color"
+        style="opacity: 0;"
+      />
+    </div>
+    <div
+      class="rear-clouds"
+      style="opacity: 0.85;"
+    />
+    <div
+      class="front-clouds"
+      style="opacity: 0.85;"
+    />
+    <div
+      class="sky-foreground"
+      style="opacity: 0;"
+    />
+  </section>
+</DocumentFragment>
+`;
+
+exports[`SkyContainer renders with objects 1`] = `
+<DocumentFragment>
+  <section
+    class="street-section-sky"
+    style="height: 100px;"
+  >
+    <div
+      class="sky-background"
+    >
+      <div
+        class="sky-background-color"
+        style="opacity: 0;"
+      />
+    </div>
+    <div
+      style="width: 100px; height: 100px; position: absolute;"
+    >
+      <img
+        src="bar.svg"
+        style="width: 100%; height: 100%;"
+      />
+    </div>
+    <div
+      class="rear-clouds"
+      style="opacity: 0.85;"
+    />
+    <div
+      class="front-clouds"
+      style="opacity: 0.85;"
+    />
+    <div
+      class="sky-foreground"
+      style="opacity: 0;"
+    />
+  </section>
+</DocumentFragment>
+`;

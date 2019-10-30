@@ -1,9 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import './SkyBackgroundObjects.scss'
+import './SkyObjects.scss'
 
-export function SkyBackgroundObjects ({ objects = [] }) {
+SkyObjects.propTypes = {
+  objects: PropTypes.arrayOf(
+    PropTypes.shape({
+      images: PropTypes.string,
+      width: PropTypes.number,
+      height: PropTypes.number,
+      top: PropTypes.number,
+      left: PropTypes.number
+    })
+  )
+}
+
+function SkyObjects ({ objects = [] }) {
   return (
     <TransitionGroup className="sky-background-objects">
       {objects.map((object) => (
@@ -32,14 +44,4 @@ export function SkyBackgroundObjects ({ objects = [] }) {
   )
 }
 
-SkyBackgroundObjects.propTypes = {
-  objects: PropTypes.arrayOf(PropTypes.shape({
-    images: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    top: PropTypes.number,
-    left: PropTypes.number
-  }))
-}
-
-export default SkyBackgroundObjects
+export default SkyObjects
