@@ -1,13 +1,7 @@
 import { throttle } from 'lodash'
 import { API_URL } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
-import {
-  checkIfEverythingIsLoaded,
-  setServerContacted
-} from '../app/initialization'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-
-import { setSaveStreetIncomplete } from '../streets/xhr'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
 import store, { observeStore } from '../store'
@@ -73,7 +67,8 @@ function trimSettings (settings) {
   data.lastStreetNamespacedId = settings.lastStreetNamespacedId
   data.lastStreetCreatorId = settings.lastStreetCreatorId
   data.saveAsImageTransparentSky = settings.saveAsImageTransparentSky
-  data.saveAsImageSegmentNamesAndWidths = settings.saveAsImageSegmentNamesAndWidths
+  data.saveAsImageSegmentNamesAndWidths =
+    settings.saveAsImageSegmentNamesAndWidths
   data.saveAsImageStreetName = settings.saveAsImageStreetName
 
   data.newStreetPreference = settings.newStreetPreference
@@ -85,17 +80,11 @@ function trimSettings (settings) {
 // settings to write to localstorage.
 export function saveSettingsLocally (settings) {
   const merged = Object.assign({}, getSettings(), settings)
-  window.localStorage[LOCAL_STORAGE_SETTINGS_ID] =
-    JSON.stringify(trimSettings(merged))
+  window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(
+    trimSettings(merged)
+  )
 
   scheduleSavingSettingsToServer()
-}
-
-export function confirmSaveStreetToServerInitial () {
-  setSaveStreetIncomplete(false)
-
-  setServerContacted(true)
-  checkIfEverythingIsLoaded()
 }
 
 export function saveSettingsToServer () {
@@ -107,18 +96,24 @@ export function saveSettingsToServer () {
   const transmission = JSON.stringify({ data: trimSettings(settings) })
 
   // TODO const url
-  newNonblockingAjaxRequest(API_URL + 'v1/users/' + getSignInData().userId, {
-    method: 'PUT',
-    body: transmission,
-    headers: {
-      Authorization: getAuthHeader(),
-      'Content-Type': 'application/json'
-    }
-  }, true, null, errorSavingSettingsToServer)
+  newNonblockingAjaxRequest(
+    API_URL + 'v1/users/' + getSignInData().userId,
+    {
+      method: 'PUT',
+      body: transmission,
+      headers: {
+        Authorization: getAuthHeader(),
+        'Content-Type': 'application/json'
+      }
+    },
+    true,
+    null,
+    errorSavingSettingsToServer
+  )
 }
 
 function errorSavingSettingsToServer (data) {
-  if (!store.getState().errors.abortEverything && (data.status === 401)) {
+  if (!store.getState().errors.abortEverything && data.status === 401) {
     trackEvent('ERROR', 'ERROR_RM2', null, null, false)
 
     setMode(MODES.FORCE_RELOAD_SIGN_OUT_401)
@@ -133,8 +128,9 @@ function scheduleSavingSettingsToServer () {
 
   clearScheduledSavingSettingsToServer()
 
-  saveSettingsTimerId = // eslint-disable-line no-native-reassign
-    window.setTimeout(function () { saveSettingsToServer() }, SAVE_SETTINGS_DELAY)
+  saveSettingsTimerId = window.setTimeout(function () { // eslint-disable-line no-native-reassign
+    saveSettingsToServer()
+  }, SAVE_SETTINGS_DELAY)
 }
 
 function clearScheduledSavingSettingsToServer () {
@@ -155,7 +151,10 @@ export function initPersistedSettingsStoreObserver () {
   const select = (state) => state.persistSettings
   const onChange = throttle((settings) => {
     try {
-      window.localStorage.setItem(LOCAL_STORAGE_SETTINGS_UNITS_ID, JSON.stringify(settings.units))
+      window.localStorage.setItem(
+        LOCAL_STORAGE_SETTINGS_UNITS_ID,
+        JSON.stringify(settings.units)
+      )
       if (settings.locale) {
         window.localStorage.setItem('locale', JSON.stringify(settings.locale))
       } else {

@@ -18,7 +18,6 @@ import {
   isSignedIn
 } from '../users/authentication'
 import {
-  confirmSaveStreetToServerInitial,
   saveSettingsToServer,
   getSettings,
   setSettings
@@ -49,10 +48,7 @@ import {
   remixStreet,
   addRemixSuffixToName
 } from './remix'
-import {
-  getUndoStack,
-  unifyUndoStack
-} from './undo_stack'
+import { getUndoStack, unifyUndoStack } from './undo_stack'
 import { resetUndoStack, replaceUndoStack } from '../store/actions/undo'
 import store from '../store'
 import {
@@ -102,8 +98,9 @@ export function createNewStreetOnServer () {
   }
 
   // TODO const url
-  window.fetch(API_URL + 'v1/streets', options)
-    .then(response => {
+  window
+    .fetch(API_URL + 'v1/streets', options)
+    .then((response) => {
       if (!response.ok) {
         throw response
       }
@@ -128,11 +125,16 @@ export function getFetchStreetUrl () {
   let url
   const street = store.getState().street
   if (street.creatorId) {
-    url = API_URL + 'v1/streets?namespacedId=' +
-      encodeURIComponent(street.namespacedId) + '&creatorId=' +
+    url =
+      API_URL +
+      'v1/streets?namespacedId=' +
+      encodeURIComponent(street.namespacedId) +
+      '&creatorId=' +
       encodeURIComponent(street.creatorId)
   } else {
-    url = API_URL + 'v1/streets?namespacedId=' +
+    url =
+      API_URL +
+      'v1/streets?namespacedId=' +
       encodeURIComponent(street.namespacedId)
   }
 
@@ -142,7 +144,8 @@ export function getFetchStreetUrl () {
 export function fetchStreetFromServer () {
   var url = getFetchStreetUrl()
 
-  window.fetch(url)
+  window
+    .fetch(url)
     .then(function (response) {
       if (!response.ok) {
         throw response
@@ -155,11 +158,14 @@ export function fetchStreetFromServer () {
 
 function errorReceiveStreet (data) {
   const mode = getMode()
-  if ((mode === MODES.CONTINUE) || (mode === MODES.USER_GALLERY) ||
-    (mode === MODES.GLOBAL_GALLERY)) {
+  if (
+    mode === MODES.CONTINUE ||
+    mode === MODES.USER_GALLERY ||
+    mode === MODES.GLOBAL_GALLERY
+  ) {
     goNewStreet()
   } else {
-    if ((data.status === 404) || (data.status === 410)) {
+    if (data.status === 404 || data.status === 410) {
       if (store.getState().street.creatorId) {
         if (data.status === 410) {
           setMode(MODES.STREET_410_BUT_LINK_TO_USER)
@@ -196,11 +202,17 @@ export function saveStreetToServer (initial) {
 
   if (initial) {
     // blocking
-    window.fetch(url, options)
-      .then(confirmSaveStreetToServerInitial)
+    window.fetch(url, options).then(confirmSaveStreetToServerInitial)
   } else {
     newNonblockingAjaxRequest(url, options, false)
   }
+}
+
+function confirmSaveStreetToServerInitial () {
+  setSaveStreetIncomplete(false)
+
+  setServerContacted(true)
+  checkIfEverythingIsLoaded()
 }
 
 function clearScheduledSavingStreetToServer () {
@@ -209,8 +221,13 @@ function clearScheduledSavingStreetToServer () {
 
 export function fetchStreetForVerification () {
   // Don’t do it with any network services pending
-  if (getNonblockingAjaxRequestCount() || isblockingAjaxRequestInProgress() ||
-    saveStreetIncomplete || store.getState().errors.abortEverything || getRemixOnFirstEdit()) {
+  if (
+    getNonblockingAjaxRequestCount() ||
+    isblockingAjaxRequestInProgress() ||
+    saveStreetIncomplete ||
+    store.getState().errors.abortEverything ||
+    getRemixOnFirstEdit()
+  ) {
     return
   }
 
@@ -222,13 +239,17 @@ export function fetchStreetForVerification () {
     headers: { 'X-Streetmix-Request-Id': latestRequestId }
   }
 
-  window.fetch(url, options)
-    .then(response => {
+  window
+    .fetch(url, options)
+    .then((response) => {
       if (!response.ok) {
         throw response
       }
 
-      const requestId = Number.parseInt(response.headers.get('X-Streetmix-Request-Id'), 10)
+      const requestId = Number.parseInt(
+        response.headers.get('X-Streetmix-Request-Id'),
+        10
+      )
 
       if (requestId !== latestRequestId) {
         throw new Error('1')
@@ -236,10 +257,10 @@ export function fetchStreetForVerification () {
         return response.json()
       }
     })
-    .then(transmission => {
+    .then((transmission) => {
       receiveStreetForVerification(transmission)
     })
-    .catch(error => {
+    .catch((error) => {
       // Early exit if requestId does not equal the latestRequestId
       if (error.message !== '1') return
 
@@ -258,7 +279,12 @@ function receiveStreetForVerification (transmission) {
   const serverUpdatedAt = new Date(transmission.updatedAt)
 
   if (serverUpdatedAt > localUpdatedAt) {
-    showStatusMessage(t('toast.reloaded', 'Your street was reloaded from the server as it was modified elsewhere.'))
+    showStatusMessage(
+      t(
+        'toast.reloaded',
+        'Your street was reloaded from the server as it was modified elsewhere.'
+      )
+    )
 
     infoBubble.suppress()
 
@@ -274,7 +300,7 @@ function errorReceiveStreetForVerification (data) {
   // 404 should never happen here, since 410 designates streets that have
   // been deleted (but remain hidden on the server)
 
-  if (isSignedIn() && ((data.status === 404) || (data.status === 410))) {
+  if (isSignedIn() && (data.status === 404 || data.status === 410)) {
     showError(ERRORS.STREET_DELETED_ELSEWHERE, true)
   }
 }
@@ -309,13 +335,18 @@ function unpackStreetDataFromServerTransmission (transmission) {
     street.editCount = null
   } else {
     street.editCount = transmission.data.street.editCount
-  // console.log('editCount read is', street.editCount)
+    // console.log('editCount read is', street.editCount)
   }
 
   return street
 }
 
-export function unpackServerStreetData (transmission, id, namespacedId, checkIfNeedsToBeRemixed) {
+export function unpackServerStreetData (
+  transmission,
+  id,
+  namespacedId,
+  checkIfNeedsToBeRemixed
+) {
   const street = unpackStreetDataFromServerTransmission(transmission)
 
   var updatedSchema = updateToLatestSchemaVersion(street)
@@ -329,7 +360,12 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
   store.dispatch(updateStreetData(street))
 
   if (transmission.data.undoStack) {
-    store.dispatch(replaceUndoStack(cloneDeep(transmission.data.undoStack), transmission.data.undoPosition))
+    store.dispatch(
+      replaceUndoStack(
+        cloneDeep(transmission.data.undoStack),
+        transmission.data.undoPosition
+      )
+    )
   } else {
     store.dispatch(resetUndoStack())
   }
@@ -341,7 +377,7 @@ export function unpackServerStreetData (transmission, id, namespacedId, checkIfN
   }
 
   if (checkIfNeedsToBeRemixed) {
-    if (!isSignedIn() || (street.creatorId !== getSignInData().userId)) {
+    if (!isSignedIn() || street.creatorId !== getSignInData().userId) {
       setRemixOnFirstEdit(true)
     } else {
       setRemixOnFirstEdit(false)
@@ -404,19 +440,23 @@ export function scheduleSavingStreetToServer () {
   if (getRemixOnFirstEdit()) {
     remixStreet()
   } else {
-    saveStreetTimerId =
-      window.setTimeout(function () { saveStreetToServer(false) }, SAVE_STREET_DELAY)
+    saveStreetTimerId = window.setTimeout(function () {
+      saveStreetToServer(false)
+    }, SAVE_STREET_DELAY)
   }
 }
 
 export function fetchLastStreet () {
-  newBlockingAjaxRequest('load',
+  newBlockingAjaxRequest(
+    'load',
     {
       // TODO const
       url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,
       method: 'GET',
       headers: { Authorization: getAuthHeader() }
-    }, receiveLastStreet, cancelReceiveLastStreet
+    },
+    receiveLastStreet,
+    cancelReceiveLastStreet
   )
 }
 
@@ -469,8 +509,12 @@ export function sendDeleteStreetToServer (id) {
   }
 
   // TODO const url
-  newNonblockingAjaxRequest(API_URL + 'v1/streets/' + id, {
-    method: 'DELETE',
-    headers: { Authorization: getAuthHeader() }
-  }, false)
+  newNonblockingAjaxRequest(
+    API_URL + 'v1/streets/' + id,
+    {
+      method: 'DELETE',
+      headers: { Authorization: getAuthHeader() }
+    },
+    false
+  )
 }
