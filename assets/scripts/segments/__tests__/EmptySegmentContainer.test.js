@@ -1,31 +1,40 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
 import { EmptySegmentContainer } from '../EmptySegmentContainer'
-import EmptySegment from '../EmptySegment'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { TILE_SIZE } from '../../segments/constants'
 
 describe('EmptySegment', () => {
   it('renders two <EmptySegment /> components of equal width', () => {
-    const wrapper = shallow(<EmptySegmentContainer remainingWidth={10} occupiedWidth={40} />)
+    const { getAllByText, container } = renderWithReduxAndIntl(
+      <EmptySegmentContainer remainingWidth={10} occupiedWidth={40} />
+    )
+    expect(getAllByText(/empty space/i).length).toEqual(2)
 
-    expect(wrapper.find(EmptySegment).length).toEqual(2)
-    expect(wrapper.find(EmptySegment).at(0).props()).toMatchObject({ width: 5, left: 0 })
-    expect(wrapper.find(EmptySegment).at(1).props()).toMatchObject({ width: 5, left: 45 })
+    const firstComponentWidth = container.firstChild.style.width
+    const lastComponentWidth = container.lastChild.style.width
+    expect(firstComponentWidth).toEqual(lastComponentWidth)
   })
 
   it('renders one <EmptySegment /> component if street is totally empty', () => {
-    const wrapper = shallow(<EmptySegmentContainer remainingWidth={50} occupiedWidth={0} />)
-    expect(wrapper.find(EmptySegment).length).toEqual(1)
-    expect(wrapper.find(EmptySegment).at(0).props()).toMatchObject({ width: 50 })
+    const { getAllByText, container } = renderWithReduxAndIntl(
+      <EmptySegmentContainer remainingWidth={50} occupiedWidth={0} />
+    )
+    expect(getAllByText(/empty space/i).length).toEqual(1)
+    expect(container.firstChild.style.width).toEqual(`${50 * TILE_SIZE}px`)
   })
 
   it('renders zero <EmptySegment /> components if street is fully occupied', () => {
-    const wrapper = shallow(<EmptySegmentContainer remainingWidth={0} occupiedWidth={50} />)
-    expect(wrapper.find(EmptySegment).length).toEqual(0)
+    const { container } = renderWithReduxAndIntl(
+      <EmptySegmentContainer remainingWidth={0} occupiedWidth={50} />
+    )
+    expect(container.children.length).toEqual(0)
   })
 
   it('renders zero <EmptySegment /> components if street is over occupied', () => {
-    const wrapper = shallow(<EmptySegmentContainer remainingWidth={-10} occupiedWidth={50} />)
-    expect(wrapper.find(EmptySegment).length).toEqual(0)
+    const { container } = renderWithReduxAndIntl(
+      <EmptySegmentContainer remainingWidth={-10} occupiedWidth={50} />
+    )
+    expect(container.children.length).toEqual(0)
   })
 })
