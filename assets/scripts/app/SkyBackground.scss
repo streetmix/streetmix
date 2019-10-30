@@ -90,8 +90,7 @@ body.environment-animations {
   }
 }
 
-.sky-background,
-.sky-background > div {
+.sky-background {
   // Backgrounds don't need to have parallax scrolling, so they don't
   // need to be as wide as the clouds, which do scroll. But we can't
   // have it wider than the viewport, because there's a rendering bug
@@ -103,20 +102,17 @@ body.environment-animations {
   height: 100%;
 }
 
+.sky-background-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: opacity;
+}
+
 .sky-background-default {
   background-color: $sky_colour;
-}
-
-.sky-background > div {
-  transition: opacity $environment-transition;
-}
-
-.sky-background-current {
-  opacity: 0;
-}
-
-.sky-background-current.sky-transition-in {
-  opacity: 1;
 }
 
 .sky-foreground {
