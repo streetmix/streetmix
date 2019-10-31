@@ -1,21 +1,21 @@
 /* eslint-env jest */
 import React from 'react'
+import { render } from '@testing-library/react'
 import Triangle from '../Triangle'
-import { shallow } from 'enzyme'
 
 describe('Triangle', () => {
   it('renders an unhighlighted triangle by default', () => {
-    const wrapper = shallow(<Triangle />)
-    expect(wrapper.find('div').hasClass('info-bubble-triangle-highlight')).toEqual(false)
+    const wrapper = render(<Triangle />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders an highlighted triangle', () => {
-    const wrapper = shallow(<Triangle highlight />)
-    expect(wrapper.find('div').hasClass('info-bubble-triangle-highlight')).toEqual(true)
+    const wrapper = render(<Triangle highlight />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders an unhighlighted triangle', () => {
-    const wrapper = shallow(<Triangle highlight={false} />)
-    expect(wrapper.find('div').hasClass('info-bubble-triangle-highlight')).toEqual(false)
+    const wrapper = render(<Triangle highlight={false} />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })
