@@ -36,14 +36,26 @@ export default class BlockingShield extends React.Component {
 
   /* TODO: move blocking shield state to Redux store */
   componentDidMount () {
-    window.addEventListener('stmx:show_blocking_shield', this.showBlockingShield)
-    window.addEventListener('stmx:darken_blocking_shield', this.darkenBlockingShield)
+    window.addEventListener(
+      'stmx:show_blocking_shield',
+      this.showBlockingShield
+    )
+    window.addEventListener(
+      'stmx:darken_blocking_shield',
+      this.darkenBlockingShield
+    )
     window.addEventListener('stmx:hide_blocking_shield', this.hide)
   }
 
   componentWillUnmount () {
-    window.removeEventListener('stmx:show_blocking_shield', this.showBlockingShield)
-    window.removeEventListener('stmx:darken_blocking_shield', this.darkenBlockingShield)
+    window.removeEventListener(
+      'stmx:show_blocking_shield',
+      this.showBlockingShield
+    )
+    window.removeEventListener(
+      'stmx:darken_blocking_shield',
+      this.darkenBlockingShield
+    )
     window.removeEventListener('stmx:hide_blocking_shield', this.hide)
   }
 
@@ -57,7 +69,11 @@ export default class BlockingShield extends React.Component {
 
     this.setState({
       visible: true,
-      mode: event.detail.mode || 'load'
+
+      // Internet Explorer and some other browsers may not support `event.detail`
+      // See Sentry #STREETMIX-2MM
+      //  https://sentry.io/share/issue/25aaf22cd58647b8b3402f77875fd5ee/
+      mode: (event.detail && event.detail.mode) || 'load'
     })
 
     this.blockingShieldTimerId = window.setTimeout(() => {
@@ -76,7 +92,7 @@ export default class BlockingShield extends React.Component {
       visible: true,
       immediate: true,
       errorType: 'try-again',
-      showCancel: event.detail.showCancel
+      showCancel: (event.detail && event.detail.showCancel) || true
     })
   }
 
@@ -123,50 +139,51 @@ export default class BlockingShield extends React.Component {
     return (
       <div className={classNames.join(' ')} ref={this.el}>
         <div className="message">
-          {(this.state.mode === 'load') && <FormattedMessage id="msg.loading" defaultMessage="Loading…" />}
-          {(this.state.mode === 'remix') && <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />}
+          {this.state.mode === 'load' && (
+            <FormattedMessage id="msg.loading" defaultMessage="Loading…" />
+          )}
+          {this.state.mode === 'remix' && (
+            <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />
+          )}
         </div>
-        {
-          (this.state.errorType === 'try-again') &&
-            <div className="error-content">
-              <p>
-                <FormattedMessage
-                  id="msg.no-connection"
-                  defaultMessage="Streetmix is having trouble connecting to the Internet."
-                />
-              </p>
-              <button onClick={this.handleClickTryAgain}>
-                <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
+        {this.state.errorType === 'try-again' && (
+          <div className="error-content">
+            <p>
+              <FormattedMessage
+                id="msg.no-connection"
+                defaultMessage="Streetmix is having trouble connecting to the Internet."
+              />
+            </p>
+            <button onClick={this.handleClickTryAgain}>
+              <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
+            </button>
+            {this.state.showCancel && (
+              <button onClick={this.handleClickCancel}>
+                <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
               </button>
-              {
-                this.state.showCancel &&
-                  <button onClick={this.handleClickCancel}>
-                    <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
-                  </button>
-              }
-            </div>
-        }
-        {
-          (this.state.errorType === 'too-slow') &&
-            <div className="error-content">
-              <p>
-                <FormattedMessage
-                  id="msg.slow-connection-1"
-                  defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now."
-                />
-              </p>
-              <p>
-                <FormattedMessage
-                  id="msg.slow-connection-2"
-                  defaultMessage="You might want to reload the page and try again. Please note
+            )}
+          </div>
+        )}
+        {this.state.errorType === 'too-slow' && (
+          <div className="error-content">
+            <p>
+              <FormattedMessage
+                id="msg.slow-connection-1"
+                defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now."
+              />
+            </p>
+            <p>
+              <FormattedMessage
+                id="msg.slow-connection-2"
+                defaultMessage="You might want to reload the page and try again. Please note
                     you might lose the latest change to the street. Sorry!"
-                />
-              </p>
-              <button onClick={goReload}>
-                <FormattedMessage id="btn.reload" defaultMessage="Reload" />
-              </button>
-            </div>
-        }
+              />
+            </p>
+            <button onClick={goReload}>
+              <FormattedMessage id="btn.reload" defaultMessage="Reload" />
+            </button>
+          </div>
+        )}
       </div>
     )
   }
