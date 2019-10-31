@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 /**
  * Draws a polygon of the "Tognazzini zone" area.
@@ -31,16 +30,25 @@ const drawPolygon = (canvas, polygon) => {
   ctx.stroke()
 }
 
-export const DebugHoverPolygon = ({ enabled = false, hoverPolygon = [] }) => {
+const DebugHoverPolygon = (props) => {
   // When the window / viewport resizes, set the width and
   // height of the canvas element.
   const el = useRef(null)
+
+  const enabled = useSelector(
+    (state) => state.flags.INFO_BUBBLE_HOVER_POLYGON.value || false
+  )
+  const hoverPolygon = useSelector(
+    (state) => state.infoBubble.hoverPolygon || []
+  )
+
   const handleResize = () => {
     if (!el.current) return
 
     el.current.width = window.innerWidth
     el.current.height = window.innerHeight
   }
+
   useEffect(() => {
     window.addEventListener('resize', handleResize)
     return () => {
@@ -72,16 +80,4 @@ export const DebugHoverPolygon = ({ enabled = false, hoverPolygon = [] }) => {
   return null
 }
 
-DebugHoverPolygon.propTypes = {
-  enabled: PropTypes.bool,
-  hoverPolygon: PropTypes.array
-}
-
-function mapStateToProps (state) {
-  return {
-    enabled: state.flags.INFO_BUBBLE_HOVER_POLYGON.value,
-    hoverPolygon: state.infoBubble.hoverPolygon
-  }
-}
-
-export default connect(mapStateToProps)(DebugHoverPolygon)
+export default DebugHoverPolygon
