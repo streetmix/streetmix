@@ -1,25 +1,29 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { startPrinting, stopPrinting } from '../store/actions/app'
 import { getStreetImage } from '../streets/image'
 import './PrintContainer.scss'
 
-const PrintContainer = (props) => {
-  const { isPrinting = false, startPrinting, stopPrinting, street } = props
+function PrintContainer (props) {
+  const isPrinting = useSelector((state) => state.app.printing)
+  const street = useSelector((state) => state.street)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     function mediaQueryChangeHandler (mql) {
       if (mql.matches) {
-        startPrinting()
+        dispatch(startPrinting())
       } else {
-        stopPrinting()
+        dispatch(stopPrinting())
       }
     }
 
+    const beforeprintHandler = () => dispatch(startPrinting())
+    const afterprintHandler = () => dispatch(stopPrinting())
+
     // Add event listeners to handle a print event
-    window.addEventListener('beforeprint', startPrinting)
-    window.addEventListener('afterprint', stopPrinting)
+    window.addEventListener('beforeprint', beforeprintHandler)
+    window.addEventListener('afterprint', afterprintHandler)
 
     // Some older browsers (Chrome < 63, current Safari) do not
     // have the 'beforeprint' or 'afterprint' events
@@ -28,44 +32,25 @@ const PrintContainer = (props) => {
     mediaQueryList.addListener(mediaQueryChangeHandler)
 
     // Clean up listeners
-    return function cleanup () {
-      window.removeEventListener('beforeprint', startPrinting)
-      window.removeEventListener('afterprint', stopPrinting)
+    return () => {
+      window.removeEventListener('beforeprint', beforeprintHandler)
+      window.removeEventListener('afterprint', afterprintHandler)
       mediaQueryList.removeListener(mediaQueryChangeHandler)
     }
-  }, [startPrinting, stopPrinting])
+  }, [dispatch])
 
   function createPrintImage () {
     if (isPrinting) {
-      const dataUrl = getStreetImage(street, true, true, false).toDataURL('image/png')
+      const dataUrl = getStreetImage(street, true, true, false).toDataURL(
+        'image/png'
+      )
       return <img src={dataUrl} />
     }
 
     return null
   }
 
-  return (
-    <div className="print-container">
-      {createPrintImage()}
-    </div>
-  )
+  return <div className="print-container">{createPrintImage()}</div>
 }
 
-PrintContainer.propTypes = {
-  isPrinting: PropTypes.bool,
-  street: PropTypes.object.isRequired,
-  startPrinting: PropTypes.func.isRequired,
-  stopPrinting: PropTypes.func.isRequired
-}
-
-const mapStateToProps = (state) => ({
-  isPrinting: state.app.printing,
-  street: state.street
-})
-
-const mapDispatchToProps = {
-  startPrinting,
-  stopPrinting
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PrintContainer)
+export default PrintContainer
