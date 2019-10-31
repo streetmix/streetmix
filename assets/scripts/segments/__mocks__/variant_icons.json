@@ -20,11 +20,11 @@
       "title": "No one"
     }
   },
-  "building-z": {
-    "waterfront": {
-      "id": "waterfront",
-      "title": "Waterfront",
-      "enableWithFlag": "flag"
+  "flagged-variant": {
+    "foo": {
+      "id": "foo",
+      "title": "Flagged variant",
+      "enableWithFlag": "FLAGGED_VARIANT"
     }
   }
 }
