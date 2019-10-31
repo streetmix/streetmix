@@ -202,7 +202,7 @@
     "eslint-plugin-node": "10.0.0",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-react": "7.16.0",
-    "eslint-plugin-react-hooks": "2.1.2",
+    "eslint-plugin-react-hooks": "2.2.0",
     "eslint-plugin-standard": "4.0.1",
     "husky": "3.0.9",
     "jest": "24.9.0",
