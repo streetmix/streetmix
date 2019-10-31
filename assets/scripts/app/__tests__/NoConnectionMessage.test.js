@@ -1,44 +1,51 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { mountWithIntl as mount } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { NoConnectionMessage } from '../NoConnectionMessage'
+import { fireEvent } from '@testing-library/react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import NoConnectionMessage from '../NoConnectionMessage'
 import { nonblockingAjaxTryAgain } from '../../util/fetch_nonblocking'
+import { showNoConnectionMessage } from '../../store/actions/status'
 
 jest.mock('../../util/fetch_nonblocking', () => ({
   nonblockingAjaxTryAgain: jest.fn()
 }))
 
-describe('NoConnectionMessage', () => {
-  it('renders a button', () => {
-    const wrapper = shallow(<NoConnectionMessage />)
-    expect(wrapper.find('button').length).toEqual(1)
-  })
+const initialState = {
+  status: {
+    noConnectionMessage: false
+  }
+}
 
+describe('NoConnectionMessage', () => {
   it('tries to reconnect when button is clicked', () => {
-    const wrapper = shallow(<NoConnectionMessage />)
-    wrapper.find('button').simulate('click')
+    const wrapper = renderWithReduxAndIntl(<NoConnectionMessage />, {
+      initialState
+    })
+    fireEvent.click(wrapper.getByText('Try again'))
     expect(nonblockingAjaxTryAgain).toHaveBeenCalled()
   })
 
   it('does not have the visibility class when mounted', () => {
-    const wrapper = shallow(<NoConnectionMessage />)
-    expect(wrapper.find('.status-message-visible').length).toEqual(0)
+    const wrapper = renderWithReduxAndIntl(<NoConnectionMessage />, {
+      initialState
+    })
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('applies visibility class when scheduled', () => {
-    // Ensure that setTimouts will run automatically when triggered
+    // Make setTimeouts run automatically
     jest.useFakeTimers()
 
-    // Mount, then change schedule the message to appear
-    const wrapper = mount(<NoConnectionMessage />)
-    wrapper.setProps({ scheduled: true })
+    const wrapper = renderWithReduxAndIntl(<NoConnectionMessage />, {
+      initialState
+    })
 
-    // Wait until component's componentDidUpdate() runs before checking visibility
-    window.setTimeout(() => {
-      jest.runAllTimers()
-      expect(wrapper.find('.status-message-visible').length).toEqual(1)
-    }, 0)
+    // Schedule the message to appear
+    wrapper.store.dispatch(showNoConnectionMessage(true))
+
+    // Run timers, then checking visibility
+    jest.runAllTimers()
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it.todo('removes visibility class when connectivity returns')
