@@ -2,10 +2,10 @@
  * Streetmix
  *
  */
-import Raven from 'raven-js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import * as Sentry from '@sentry/browser'
 
 // Stylesheets
 import '../../node_modules/leaflet/dist/leaflet.css'
@@ -32,10 +32,14 @@ import App from './app/App'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
-if (window.location.hostname === 'streetmix.net' || window.location.hostname === 'www.streetmix.net') {
-  Raven.config('https://fac2c23600414d2fb78c128cdbdeaf6f@app.getsentry.com/82756', {
+if (
+  window.location.hostname === 'streetmix.net' ||
+  window.location.hostname === 'www.streetmix.net'
+) {
+  Sentry.init({
+    dsn: 'https://fac2c23600414d2fb78c128cdbdeaf6f@sentry.io/82756',
     whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
-  }).install()
+  })
 }
 
 // Accept HMR in Parcel
@@ -47,6 +51,8 @@ if (module && module.hot) {
 ReactDOM.render(
   <Provider store={store}>
     <App />
-  </Provider>, document.getElementById('react-app'))
+  </Provider>,
+  document.getElementById('react-app')
+)
 
 initialize()

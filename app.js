@@ -29,7 +29,7 @@ const client = initRedisClient()
 initMongoDB()
 initCloudinary()
 
-const app = module.exports = express()
+const app = (module.exports = express())
 
 // Get the timestamp of this server's start time to use as a cachebusting filename.
 const cacheTimestamp = Date.now()
@@ -81,9 +81,7 @@ const helmetConfig = {
 // CSP directives are defined separately so we can generate nonces
 const csp = {
   directives: {
-    defaultSrc: [
-      "'self'"
-    ],
+    defaultSrc: ["'self'"],
     styleSrc: [
       "'self'",
       "'unsafe-inline'",
@@ -110,14 +108,8 @@ const csp = {
     workerSrc: [
       'blob:' // Lucky Orange
     ],
-    childSrc: [
-      'platform.twitter.com'
-    ],
-    frameSrc: [
-      "'self'",
-      'streetmix.github.io',
-      'checkout.stripe.com'
-    ],
+    childSrc: ['platform.twitter.com'],
+    frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
     imgSrc: [
       "'self'",
       'data:',
@@ -133,18 +125,14 @@ const csp = {
     mediaSrc: [
       'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
     ],
-    fontSrc: [
-      "'self'",
-      'fonts.gstatic.com',
-      '*.typekit.net'
-    ],
+    fontSrc: ["'self'", 'fonts.gstatic.com', '*.typekit.net'],
     connectSrc: [
       "'self'",
       'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',
       'https://www.google-analytics.com',
-      'app.getsentry.com',
+      'sentry.io',
       'streetmix.auth0.com',
       'https://settings.luckyorange.net', // Lucky Orange
       'wss://*.visitors.live', // Lucky Orange
@@ -188,7 +176,8 @@ app.use((req, res, next) => {
   }
 
   res.locals.STREETMIX_TITLE = 'Streetmix'
-  res.locals.STREETMIX_URL = config.restapi.protocol + config.app_host_port + '/'
+  res.locals.STREETMIX_URL =
+    config.restapi.protocol + config.app_host_port + '/'
 
   // Make required Facebook app ID available to metatags
   res.locals.FACEBOOK_APP_ID = config.facebook_app_id
@@ -217,16 +206,24 @@ app.use((req, res, next) => {
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, '/app/views'))
 
-app.get('/help/about', (req, res) => res.redirect('https://www.opencollective.com/streetmix/'))
+app.get('/help/about', (req, res) =>
+  res.redirect('https://www.opencollective.com/streetmix/')
+)
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 
 app.get('/privacy-policy', (req, res) => res.render('privacy'))
 app.get('/terms-of-service', (req, res) => res.render('tos'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
-app.get('/' + config.twitter.oauth_callback_path, controllers.twitter_sign_in_callback.get)
+app.get(
+  '/' + config.twitter.oauth_callback_path,
+  controllers.twitter_sign_in_callback.get
+)
 // Auth0
-app.get('/' + config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
+app.get(
+  '/' + config.auth0.callback_path,
+  controllers.auth0_sign_in_callback.get
+)
 
 // API routes
 app.use('', apiRoutes)
@@ -234,14 +231,24 @@ app.use('', serviceRoutes)
 
 // SVG bundled images served directly from packages
 app.get('/assets/images/icons.svg', (req, res) => {
-  res.sendFile(path.join(__dirname, '/node_modules/@streetmix/icons/dist/icons.svg'))
+  res.sendFile(
+    path.join(__dirname, '/node_modules/@streetmix/icons/dist/icons.svg')
+  )
 })
 
 app.get('/assets/images/images.svg', (req, res) => {
-  res.sendFile(path.join(__dirname, '/node_modules/@streetmix/illustrations/dist/images.svg'))
+  res.sendFile(
+    path.join(
+      __dirname,
+      '/node_modules/@streetmix/illustrations/dist/images.svg'
+    )
+  )
 })
 
-app.use('/assets', express.static(path.join(__dirname, '/build'), { fallthrough: false }))
+app.use(
+  '/assets',
+  express.static(path.join(__dirname, '/build'), { fallthrough: false })
+)
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Allow hot-module reloading (HMR)
@@ -264,10 +271,17 @@ if (config.env !== 'production') {
     customCss: '.swagger-ui .topbar { display: none }'
   }
   const swaggerSpec = swaggerJSDoc(options)
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, displayOptions))
+  app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, displayOptions)
+  )
 }
 
-app.get(['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'], requestHandlers.metatags)
+app.get(
+  ['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'],
+  requestHandlers.metatags
+)
 
 // Catch-all
 app.use((req, res) => res.render('main'))
