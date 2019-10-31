@@ -1,55 +1,91 @@
 /* eslint-env jest */
 import React from 'react'
+import { render, fireEvent } from '@testing-library/react'
 import UpDownInput from '../UpDownInput'
-import { shallow } from 'enzyme'
+
+const inputValueFormatter = jest.fn((value) => value)
+const displayValueFormatter = jest.fn((value) => value)
+const handleUp = jest.fn()
+const handleDown = jest.fn()
+const handleUpdate = jest.fn()
+
+const defaultProps = {
+  value: 5,
+  minValue: 1,
+  maxValue: 10,
+  inputValueFormatter: inputValueFormatter,
+  displayValueFormatter: displayValueFormatter,
+  onClickUp: handleUp,
+  onClickDown: handleDown,
+  onUpdatedValue: handleUpdate,
+  inputTooltip: 'input',
+  upTooltip: 'up',
+  downTooltip: 'down'
+}
 
 describe('UpDownInput', () => {
+  afterEach(() => {
+    handleUp.mockClear()
+    handleDown.mockClear()
+    handleUpdate.mockClear()
+  })
+
   it('behaves', () => {
-    const inputValueFormatter = jest.fn((value) => 'foo')
-    const displayValueFormatter = jest.fn((value) => 'bar')
-    const handleUp = jest.fn()
-    const handleDown = jest.fn()
-    const handleUpdate = jest.fn()
+    const wrapper = render(<UpDownInput {...defaultProps} />)
 
-    const wrapper = shallow(
-      <UpDownInput
-        value={5}
-        minValue={1}
-        maxValue={10}
-        inputValueFormatter={inputValueFormatter}
-        displayValueFormatter={displayValueFormatter}
-        onClickUp={handleUp}
-        onClickDown={handleDown}
-        onUpdatedValue={handleUpdate}
-        inputTooltip="input"
-        upTooltip="up"
-        downTooltip="down"
-      />
-    )
-
-    const inputEl = wrapper.find('.up-down-input-element')
-    const upButton = wrapper.find('.up-down-input-increment')
-    const downButton = wrapper.find('.up-down-input-decrement')
-
-    // Ensures title text are rendered
-    expect(inputEl.props().title).toEqual('input')
-    expect(upButton.props().title).toEqual('up')
-    expect(downButton.props().title).toEqual('down')
+    // const inputEl = wrapper.getByTitle('input')
+    const upButton = wrapper.getByTitle('up')
+    const downButton = wrapper.getByTitle('down')
 
     // Ensure handler functions are called
-    upButton.simulate('click')
+    fireEvent.click(upButton)
     expect(handleUp).toHaveBeenCalled()
 
-    downButton.simulate('click')
+    fireEvent.click(downButton)
     expect(handleDown).toHaveBeenCalled()
 
-    // Doesn't work, needs event.target
-    // inputEl.simulate('change')
+    // TODO: This is not being called
+    // fireEvent.keyDown(inputEl, { key: 'A' })
     // expect(handleUpdate).toHaveBeenCalled()
   })
 
-  it.todo('renders a non-editable value in touch mode')
-  it.todo('renders as disabled')
-  it.todo('handles min value')
-  it.todo('handles max value')
+  it('renders a non-editable value in touch mode', () => {
+    const wrapper = render(<UpDownInput {...defaultProps} touch />)
+
+    const inputEl = wrapper.queryByTitle('input')
+
+    expect(inputEl).not.toBeInTheDocument()
+  })
+
+  it('renders inputs as disabled', () => {
+    const wrapper = render(<UpDownInput {...defaultProps} disabled />)
+
+    const inputEl = wrapper.getByTitle('input')
+    const upButton = wrapper.getByTitle('up')
+    const downButton = wrapper.getByTitle('down')
+
+    expect(inputEl).toBeDisabled()
+    expect(upButton).toBeDisabled()
+    expect(downButton).toBeDisabled()
+  })
+
+  it('disables down button when value is the min value', () => {
+    const wrapper = render(<UpDownInput {...defaultProps} value={1} />)
+
+    const upButton = wrapper.getByTitle('up')
+    const downButton = wrapper.getByTitle('down')
+
+    expect(upButton).not.toBeDisabled()
+    expect(downButton).toBeDisabled()
+  })
+
+  it('disables up button when value is the max value', () => {
+    const wrapper = render(<UpDownInput {...defaultProps} value={10} />)
+
+    const upButton = wrapper.getByTitle('up')
+    const downButton = wrapper.getByTitle('down')
+
+    expect(upButton).toBeDisabled()
+    expect(downButton).not.toBeDisabled()
+  })
 })

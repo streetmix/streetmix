@@ -45,15 +45,18 @@ const HOVER_POLYGON_DEBOUNCE = 50
 
 export class InfoBubble extends React.Component {
   static propTypes = {
+    // Provided by Redux connect mapStateToProps
     visible: PropTypes.bool.isRequired,
     descriptionVisible: PropTypes.bool,
     mouseInside: PropTypes.bool,
     position: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    setInfoBubbleMouseInside: PropTypes.func,
-    updateHoverPolygon: PropTypes.func,
     street: PropTypes.object,
     system: PropTypes.object,
-    locale: PropTypes.object
+    locale: PropTypes.object,
+
+    // Provided by Redux connect mapDispatchToProps
+    setInfoBubbleMouseInside: PropTypes.func,
+    updateHoverPolygon: PropTypes.func
   }
 
   static defaultProps = {
@@ -407,7 +410,14 @@ export class InfoBubble extends React.Component {
    * TODO: consolidate this with the dim calc in updateBubbleDimensions? do we need snapshot here?
    */
   setInfoBubblePosition = () => {
-    if (!this.segmentEl || !this.el || !this.el.current || !this.props.visible) { return }
+    if (
+      !this.segmentEl ||
+      !this.el ||
+      !this.el.current ||
+      !this.props.visible
+    ) {
+      return
+    }
 
     // Determine dimensions and X/Y layout
     const bubbleWidth = this.el.current.offsetWidth
@@ -643,8 +653,7 @@ function mapStateToProps (state) {
     position: state.ui.activeSegment,
     street: state.street,
     system: state.system,
-    locale: state.locale,
-    customSegmentLabels: state.flags.CUSTOM_SEGMENT_LABELS.value
+    locale: state.locale
   }
 }
 
