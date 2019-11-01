@@ -1,11 +1,11 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import ContributeMenu from '../ContributeMenu'
 
 describe('ContributeMenu', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(<ContributeMenu />)
-    expect(wrapper.exists()).toEqual(true)
+  it('renders', () => {
+    const wrapper = renderWithReduxAndIntl(<ContributeMenu />)
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })
