@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuBarItem renders 1`] = `
+<DocumentFragment>
+  <li>
+    <button
+      class="menu-attached"
+    >
+      foo
+    </button>
+  </li>
+</DocumentFragment>
+`;
