@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactMenu renders 1`] = `
+<DocumentFragment>
+  <div
+    class="menu"
+  >
+    <a
+      href="https://strt.mx/discord"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="svg-inline--fa menu-item-icon fa-discord"
+      />
+      Join Discord chat
+    </a>
+    <a
+      href="https://github.com/streetmix/streetmix/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="svg-inline--fa menu-item-icon fa-github"
+      />
+      View source code on GitHub
+    </a>
+    <a
+      href="#"
+    >
+      Subscribe to our newsletter
+    </a>
+  </div>
+</DocumentFragment>
+`;
