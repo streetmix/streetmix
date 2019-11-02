@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ShareMenu renders (user not signed in) 1`] = `
+exports[`ShareMenu renders (user not signed in, anonymous user’s street, no street name) 1`] = `
 <DocumentFragment>
   <div
     class="menu share-menu"
@@ -29,7 +29,9 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
           type="text"
           value="http://localhost/"
         />
-        <button>
+        <button
+          title="Copy to clipboard"
+        >
           <svg
             class="svg-inline--fa fa-copy"
           />
@@ -78,7 +80,7 @@ exports[`ShareMenu renders (user not signed in) 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ShareMenu renders (user signed in) 1`] = `
+exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
 <DocumentFragment>
   <div
     class="menu share-menu"
@@ -97,7 +99,9 @@ exports[`ShareMenu renders (user signed in) 1`] = `
           type="text"
           value="http://localhost/"
         />
-        <button>
+        <button
+          title="Copy to clipboard"
+        >
           <svg
             class="svg-inline--fa fa-copy"
           />
@@ -106,7 +110,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
     </div>
     <a
       class="share-via-twitter"
-      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%2F"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%2F"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -117,7 +121,7 @@ exports[`ShareMenu renders (user signed in) 1`] = `
     </a>
     <a
       class="share-via-facebook"
-      href="https://www.facebook.com/dialog/feed?app_id=undefined&redirect_uri=http%3A%2F%2Flocalhost%2F&link=http%3A%2F%2Flocalhost%2F&name=Unnamed%20St%20%E2%80%93%20Streetmix&description=Check%20out%20this%20street%20on%20Streetmix!"
+      href="https://www.facebook.com/dialog/feed?app_id=undefined&redirect_uri=http%3A%2F%2Flocalhost%2F&link=http%3A%2F%2Flocalhost%2F&name=bar%20%E2%80%93%20Streetmix&description=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!"
       rel="noopener noreferrer"
       target="_blank"
     >

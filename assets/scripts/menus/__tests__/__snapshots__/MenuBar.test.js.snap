@@ -88,6 +88,105 @@ exports[`MenuBar renders 1`] = `
 </DocumentFragment>
 `;
 
+exports[`MenuBar renders logged in user 1`] = `
+<DocumentFragment>
+  <nav
+    class="menu-bar"
+  >
+    <ul
+      class="menu-bar-left"
+    >
+      <li
+        class="menu-bar-title"
+      >
+        <div
+          class="streetmix-logo-horizontal"
+        />
+        <h1>
+          Streetmix
+        </h1>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Help
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Contact
+        </button>
+      </li>
+      <li>
+        <a
+          href="https://opencollective.com/streetmix/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Donate
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://cottonbureau.com/people/streetmix"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Store
+        </a>
+      </li>
+    </ul>
+    <ul
+      class="menu-bar-right"
+    >
+      <li>
+        <a
+          href="/new"
+          target="_blank"
+        >
+          New street
+        </a>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Share
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-attached menu-avatar"
+        >
+          <div
+            class="avatar"
+          >
+            <img
+              alt="foo"
+            />
+          </div>
+          <span
+            class="user-id"
+          >
+            foo
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</DocumentFragment>
+`;
+
 exports[`MenuBar renders minimal menu in offline mode 1`] = `
 <DocumentFragment>
   <nav
