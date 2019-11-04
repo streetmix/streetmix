@@ -1,5 +1,8 @@
 import { LOAD_LOCALE, SET_LOCALE } from './index'
-import { getActualLocaleFromRequested, fetchTranslationMessages } from '../../locales/locale'
+import {
+  getActualLocaleFromRequested,
+  fetchTranslationMessages
+} from '../../locales/locale'
 
 // Flattens a nested object from translation response, e.g.
 // { key1: { key2: "string" }} => { "key1.key2": "string" }
@@ -10,10 +13,10 @@ import { getActualLocaleFromRequested, fetchTranslationMessages } from '../../lo
 function flattenObject (obj) {
   const toReturn = {}
   let flatObject
-  Object.keys(obj).forEach(i => {
+  Object.keys(obj).forEach((i) => {
     if (typeof obj[i] === 'object' && !Array.isArray(obj[i])) {
       flatObject = flattenObject(obj[i])
-      Object.keys(flatObject).forEach(x => {
+      Object.keys(flatObject).forEach((x) => {
         toReturn[i + '.' + x] = flatObject[x]
       })
     } else {
@@ -48,5 +51,7 @@ export function changeLocale (requestedLocale) {
 
     const translation = await fetchTranslationMessages(locale)
     dispatch(setLocale(locale, translation.messages, translation.segmentInfo))
+
+    return translation
   }
 }
