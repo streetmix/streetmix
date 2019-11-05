@@ -4,7 +4,7 @@
     "sidewalk-tree": "Árbol",
     "bike-rack": "Aparcabicis",
     "bench": "Banca",
-    "cafe-seating": "",
+    "cafe-seating": "Asientos de cafetería",
     "wayfinding-sign": "Señales y letreros",
     "sidewalk-lamp": "Poste de luz",
     "parklet": "Estacionaparquecito ",
@@ -14,7 +14,7 @@
     "median": "Camellón",
     "bollard": "Bolardo",
     "dome": "Domo de exclusión de tráfico ",
-    "jersey-barrier": "",
+    "jersey-barrier": "Barrera Jersey",
     "scooter": "Scooter eléctrico",
     "scooter-drop-zone": "Zona de estacionamiento para scooters eléctricos",
     "bike-lane": "Carril bici ",
@@ -37,9 +37,9 @@
     "streetcar": "Tranvía",
     "light-rail": "Tren ligero",
     "transit-shelter": "Refugio de colectivo",
-    "temporary-barrier": "",
+    "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de \"El Origen\"",
-    "magic-carpet": ""
+    "magic-carpet": "Alfombra mágica"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -161,7 +161,7 @@
     "car-type|car": "Carro",
     "car-type|sharrow": "Biciflecha",
     "car-type|truck": "Camión",
-    "car-type|av": "",
+    "car-type|av": "Vehículo autónomo",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Carril rojo",
     "public-transit-asphalt|grass": "Pasto",
@@ -183,8 +183,8 @@
     "divider-type|palm-tree": "Línea para plantar con palmera ",
     "divider-type|bollard": "Bolardo",
     "divider-type|dome": "Domo de exclusión de tráfico ",
-    "divider-type|jersey-barrier-concrete": "",
-    "divider-type|jersey-barrier-plastic": "",
+    "divider-type|jersey-barrier-concrete": "Barrera Jersey (de cemento)",
+    "divider-type|jersey-barrier-plastic": "Barrera Jersey (de plástico)",
     "transit-shelter-elevation|street-level": "Nivel de la calle",
     "transit-shelter-elevation|light-rail": "Plataforma de tren ligero ",
     "bike-rack-elevation|sidewalk-parallel": "Estacionamiento paralelo, al nivel de la banqueta",
@@ -205,10 +205,10 @@
     "flex-type|rideshare": "Vehículos compartidos",
     "flex-type|taxi": "Taxi",
     "occupants|empty": "Vacío",
-    "occupants|full": "",
-    "elevation|sidewalk": "",
+    "occupants|full": "Lleno",
+    "elevation|sidewalk": "Nivel de banqueta",
     "elevation|road": "Nivel de la calle",
-    "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|traffic-cone": "Cono de seguridad",
+    "temporary-barrier-type|barricade": "Barricada"
   }
 }
