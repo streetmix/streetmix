@@ -1,0 +1,512 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenusContainer renders 1`] = `
+<DocumentFragment>
+  <nav
+    class="menu-bar"
+  >
+    <ul
+      class="menu-bar-left"
+    >
+      <li
+        class="menu-bar-title"
+      >
+        <div
+          class="streetmix-logo-horizontal"
+        />
+        <h1>
+          Streetmix
+        </h1>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Help
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Contact
+        </button>
+      </li>
+      <li>
+        <a
+          href="https://opencollective.com/streetmix/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Donate
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://cottonbureau.com/people/streetmix"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Store
+        </a>
+      </li>
+    </ul>
+    <ul
+      class="menu-bar-right"
+    >
+      <li>
+        <a
+          href="/new"
+          target="_blank"
+        >
+          New street
+        </a>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Share
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-sign-in"
+        >
+          Sign in
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <div
+    class="menus-container"
+  >
+    <div
+      class="menu"
+    >
+      <a
+        href="#"
+      >
+        About Streetmix…
+      </a>
+      <a
+        href="#"
+      >
+        What’s new in Streetmix? [en]‎
+      </a>
+      <div
+        class="help-menu-shortcuts non-touch-only"
+      >
+        <p>
+          Keyboard shortcuts:
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <kbd
+                  class="key"
+                >
+                  Backspace
+                </kbd>
+              </td>
+              <td>
+                Remove a segment you’re pointing at
+                <br />
+                (hold 
+                <kbd
+                  class="key"
+                >
+                  Shift
+                </kbd>
+                 to remove all)‎
+              </td>
+            </tr>
+            <tr>
+              <td
+                dir="ltr"
+              >
+                <kbd
+                  class="key key-icon"
+                  title="Minus"
+                >
+                  <svg
+                    class="svg-inline--fa fa-minus"
+                  />
+                </kbd>
+                <kbd
+                  class="key key-icon"
+                  title="Plus"
+                >
+                  <svg
+                    class="svg-inline--fa fa-plus"
+                  />
+                </kbd>
+              </td>
+              <td>
+                Change width of a segment you’re pointing at
+                <br />
+                (hold 
+                <kbd
+                  class="key"
+                >
+                  Shift
+                </kbd>
+                 for more precision)‎
+              </td>
+            </tr>
+            <tr>
+              <td
+                dir="ltr"
+              >
+                <kbd
+                  class="key key-icon"
+                  title="Left arrow"
+                >
+                  <svg
+                    class="svg-inline--fa fa-arrow-left"
+                  />
+                </kbd>
+                <kbd
+                  class="key key-icon"
+                  title="Right arrow"
+                >
+                  <svg
+                    class="svg-inline--fa fa-arrow-right"
+                  />
+                </kbd>
+              </td>
+              <td>
+                Move around the street
+                <br />
+                (hold 
+                <kbd
+                  class="key"
+                >
+                  Shift
+                </kbd>
+                 to jump to edges)‎
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      class="menu"
+    >
+      <a
+        href="https://strt.mx/discord"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <svg
+          class="svg-inline--fa menu-item-icon fa-discord"
+        />
+        Join Discord chat
+      </a>
+      <a
+        href="https://github.com/streetmix/streetmix/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <svg
+          class="svg-inline--fa menu-item-icon fa-github"
+        />
+        View source code on GitHub
+      </a>
+      <a
+        href="#"
+      >
+        Subscribe to our newsletter
+      </a>
+    </div>
+    <div
+      class="menu"
+    >
+      <a
+        href="https://opencollective.com/streetmix/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Donate
+      </a>
+    </div>
+    <div
+      class="menu"
+    >
+      <h2
+        class="menu-header"
+      >
+        Units
+      </h2>
+      <ul
+        class="menu-item-group"
+      >
+        <li
+          class="menu-item "
+        >
+          Metric units (meters)‎
+        </li>
+        <li
+          class="menu-item "
+        >
+          Imperial units (feet)‎
+        </li>
+      </ul>
+      <h2
+        class="menu-header"
+      >
+        Language
+      </h2>
+      <ul
+        class="menu-item-group"
+      >
+        <li
+          class="menu-item"
+        >
+          <span>
+            Deutsch‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            German
+          </span>
+        </li>
+        <li
+          class="menu-item menu-item-selected"
+        >
+          <svg
+            class="svg-inline--fa menu-item-icon fa-check"
+          />
+          <span>
+            English‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            English
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            Español (México)‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Spanish (Mexico)
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            Français‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            French
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            Polski‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Polish
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            Português (Brasil)‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Portuguese (Brazil)
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            Suomi‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Finnish
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            Русский‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Russian
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            لغة عربية‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Arabic
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            日本語‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Japanese
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            简体中文‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Simplified Chinese
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            繁體中文‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Traditional Chinese
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="menu share-menu"
+    >
+      <div
+        class="share-sign-in-promo"
+      >
+        <a
+          href="#"
+        >
+          Sign in
+        </a>
+         for nicer links to your streets and your personal street gallery
+      </div>
+      <div
+        class="share-via-link-container"
+      >
+        Copy and paste this link to share:
+        <div
+          class="share-via-link-form"
+        >
+          <input
+            class="share-via-link"
+            readonly=""
+            spellcheck="false"
+            type="text"
+            value="http://localhost/"
+          />
+          <button
+            title="Copy to clipboard"
+          >
+            <svg
+              class="svg-inline--fa fa-copy"
+            />
+          </button>
+        </div>
+      </div>
+      <a
+        class="share-via-twitter"
+        href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%2F"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <svg
+          class="svg-inline--fa menu-item-icon fa-twitter"
+        />
+        Share using Twitter
+      </a>
+      <a
+        class="share-via-facebook"
+        href="https://www.facebook.com/dialog/feed?app_id=undefined&redirect_uri=http%3A%2F%2Flocalhost%2F&link=http%3A%2F%2Flocalhost%2F&name=Unnamed%20St%20%E2%80%93%20Streetmix&description=Check%20out%20this%20street%20on%20Streetmix!"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <svg
+          class="svg-inline--fa menu-item-icon fa-facebook-square"
+        />
+        Share using Facebook
+      </a>
+      <a
+        href="#"
+      >
+        Print…
+      </a>
+      <a
+        href="#"
+        id="save-as-image"
+      >
+        Save as image…
+        <span
+          class="menu-item-subtext"
+        >
+          For including in a report, blog, etc.
+        </span>
+      </a>
+    </div>
+    <div
+      class="menu identity-menu"
+    >
+      <a
+        href=""
+      >
+        My streets
+      </a>
+      <a
+        class="menu-item"
+      >
+        Sign out
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
