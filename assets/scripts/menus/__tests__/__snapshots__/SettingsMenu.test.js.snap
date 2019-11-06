@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingsMenu renders without crashing 1`] = `
+<DocumentFragment>
+  <div
+    class="menu"
+  >
+    <h2
+      class="menu-header"
+    >
+      Units
+    </h2>
+    <ul
+      class="menu-item-group"
+    >
+      <li
+        class="menu-item "
+      >
+        Metric units (meters)‎
+      </li>
+      <li
+        class="menu-item "
+      >
+        Imperial units (feet)‎
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
