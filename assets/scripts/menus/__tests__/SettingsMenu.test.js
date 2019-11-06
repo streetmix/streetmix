@@ -6,7 +6,7 @@ import { SettingsMenu } from '../SettingsMenu'
 jest.mock('../../users/localization', () => {})
 
 describe('SettingsMenu', () => {
-  it('renders without crashing', () => {
+  it('renders', () => {
     const wrapper = renderWithReduxAndIntl(<SettingsMenu />)
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
