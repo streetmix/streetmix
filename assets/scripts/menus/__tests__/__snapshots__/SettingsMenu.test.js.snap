@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SettingsMenu renders without crashing 1`] = `
+exports[`SettingsMenu renders 1`] = `
 <DocumentFragment>
   <div
     class="menu"
