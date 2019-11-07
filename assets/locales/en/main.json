@@ -187,7 +187,8 @@
       "heading": "Analytics",
       "street-summary": "Your street has an estimated average traffic of {averageTotal} people per hour, and potential for up to {potentialTotal} people per hour.",
       "segment-summary": "{average} — {potential} people/hour",
-      "segment-summary-single": "{amount} people/hour"
+      "segment-summary-single": "{amount} people/hour",
+      "source": "Source"
     },
     "save": {
       "heading": "Save as image",
