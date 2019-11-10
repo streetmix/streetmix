@@ -12,8 +12,8 @@
       "my-streets": "Mis calles",
       "settings": "Configuración",
       "share": "Compartir",
-      "store": "",
-      "upgrade": ""
+      "store": "Tienda",
+      "upgrade": "Subir cuenta"
     },
     "help": {
       "keyboard-label": "Atajos del teclado:",
@@ -183,11 +183,11 @@
       "privacy-link": "Privacidad (en)"
     },
     "analytics": {
-      "export-csv": "",
-      "heading": "",
-      "street-summary": "",
-      "segment-summary": "",
-      "segment-summary-single": ""
+      "export-csv": "Exportar a CSV",
+      "heading": "Analítica",
+      "street-summary": "Se estima que tu calle tiene una capacidad media de {averageTotal} personas/hora, con potencial de hasta {potentialTotal} personas/hora.",
+      "segment-summary": "{average} — {potential} personas/hora",
+      "segment-summary-single": "{amount} personas/hora"
     },
     "save": {
       "heading": "Guardar como imagen",
@@ -278,7 +278,7 @@
     "imperial": "Cambiar a unidades inglesas (pies)"
   },
   "capacity": {
-    "ppl-per-hour": ""
+    "ppl-per-hour": "{capacity} personas/hora"
   },
   "datetime": {
     "minutes-ago": "Hace unos minutos",

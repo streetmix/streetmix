@@ -13,13 +13,17 @@ import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
 import Terms from '../app/Terms'
-import { getSegmentCapacity, capacitySum, saveCsv } from '../util/street_analytics'
+import {
+  getSegmentCapacity,
+  capacitySum,
+  saveCsv
+} from '../util/street_analytics'
 
 import './AnalyticsDialog.scss'
 
 const addSegmentData = (segments) => {
   // return segments.map(getSegmentCapacity)
-  return segments.map(item => {
+  return segments.map((item) => {
     return {
       type: item.type,
       capacity: getSegmentCapacity(item).capacity,
@@ -46,11 +50,11 @@ const groupBy = (list, keyGetter) => {
       map[key] = newItem
     }
   })
-  return Object.keys(map).map(key => map[key])
+  return Object.keys(map).map((key) => map[key])
 }
 
 const rollUpCategories = (arr) => {
-  return groupBy(arr, item => item.type)
+  return groupBy(arr, (item) => item.type)
 }
 
 const avgCapacityAscending = (a, b) => {
@@ -68,15 +72,21 @@ function AnalyticsDialog (props) {
   }, [])
 
   const intl = useIntl()
-  const segmentData = addSegmentData(props.street.segments).sort(avgCapacityAscending)
+  const segmentData = addSegmentData(props.street.segments).sort(
+    avgCapacityAscending
+  )
 
   const sumFunc = (total, num) => {
     if (!Number.isInteger(num)) return total
     return total + num
   }
 
-  const averageTotal = segmentData.map(item => item.capacity.average).reduce(sumFunc, 0)
-  const potentialTotal = segmentData.map(item => item.capacity.potential).reduce(sumFunc, 0)
+  const averageTotal = segmentData
+    .map((item) => item.capacity.average)
+    .reduce(sumFunc, 0)
+  const potentialTotal = segmentData
+    .map((item) => item.capacity.potential)
+    .reduce(sumFunc, 0)
 
   const summary = (
     <FormattedMessage
@@ -86,20 +96,28 @@ function AnalyticsDialog (props) {
         averageTotal: <b>{FormatNumber(props.locale, averageTotal)}</b>,
         potentialTotal: <b>{FormatNumber(props.locale, potentialTotal)}</b>
       }}
-    />)
+    />
+  )
 
-  const displayCapacity = item => {
-    return item.capacity && (item.capacity.display !== false) && (item.capacity.average > 0)
+  const displayCapacity = (item) => {
+    return (
+      item.capacity &&
+      item.capacity.display !== false &&
+      item.capacity.average > 0
+    )
   }
 
   const rolledUp = rollUpCategories(segmentData)
-  const chartMax = Math.max(...rolledUp.map(item => item.capacity.potential)) + 1000
+  const chartMax =
+    Math.max(...rolledUp.map((item) => item.capacity.potential)) + 1000
 
   function exportCSV () {
-    const name = props.street.name || intl.formatMessage({
-      id: 'street.default-name',
-      defaultMessage: 'Unnamed St'
-    })
+    const name =
+      props.street.name ||
+      intl.formatMessage({
+        id: 'street.default-name',
+        defaultMessage: 'Unnamed St'
+      })
     saveCsv(rolledUp, name)
   }
 
@@ -109,22 +127,55 @@ function AnalyticsDialog (props) {
         <div className="analytics-dialog">
           <header>
             <h1>
-              <FormattedMessage id="dialogs.analytics.heading" defaultMessage="Analytics" />
+              <FormattedMessage
+                id="dialogs.analytics.heading"
+                defaultMessage="Analytics"
+              />
             </h1>
           </header>
           <div className="dialog-content">
             <div className="analytics-dialog-content">
+              <p>{summary}</p>
+              {rolledUp
+                .filter(displayCapacity)
+                .map(
+                  (item, index) =>
+                    item.capacity.average > 0 && (
+                      <SegmentAnalytics
+                        index={index}
+                        {...item}
+                        chartMax={chartMax}
+                      />
+                    )
+                )}
               <p>
-                {summary}
-              </p>
-              {rolledUp.filter(displayCapacity).map((item, index) => (item.capacity.average > 0) && <SegmentAnalytics index={index} {...item} chartMax={chartMax} />)}
-              <p>
-                <strong>Source:</strong> <em><a href="">Environmentally Sustainable Transport - Main Principles and Impacts</a></em>, Manfred Breithaupt, Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)
+                <strong>
+                  <FormattedMessage
+                    id="dialogs.analytics.source"
+                    defaultMessage="Source"
+                  />
+                  :
+                </strong>
+                <em>
+                  <a
+                    href="http://www.uncrd.or.jp/content/documents/5594Presentation%203%20-%20Module%201%20-%20Mr.%20Breithaupt.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Environmentally Sustainable Transport - Main Principles and
+                    Impacts
+                  </a>
+                </em>
+                , Manfred Breithaupt, Deutsche Gesellschaft für Internationale
+                Zusammenarbeit (GIZ)
               </p>
             </div>
             <div className="dialog-actions">
               <button onClick={exportCSV}>
-                <FormattedMessage id="dialogs.analytics.export-csv" defaultMessage="Export as CSV" />
+                <FormattedMessage
+                  id="dialogs.analytics.export-csv"
+                  defaultMessage="Export as CSV"
+                />
               </button>
               <footer>
                 <Terms locale={props.locale} />
