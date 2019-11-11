@@ -141,7 +141,7 @@
     "parcel-bundler": "1.12.4",
     "pelias-js": "0.0.8",
     "pg": "7.12.1",
-    "postcss": "7.0.18",
+    "postcss": "7.0.21",
     "prop-types": "15.7.2",
     "react": "16.11.0",
     "react-autosuggest": "9.4.3",
