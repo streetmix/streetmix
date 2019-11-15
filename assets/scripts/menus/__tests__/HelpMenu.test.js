@@ -1,31 +1,58 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { HelpMenu } from '../HelpMenu'
+import { fireEvent } from '@testing-library/react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import HelpMenu from '../HelpMenu'
+import { showDialog } from '../../store/actions/dialogs'
+
+jest.mock('../../store/actions/dialogs', () => ({
+  // We don't use these actions for anything, but they must return
+  // a plain object or the dispatch() throws an error
+  showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+}))
 
 describe('HelpMenu', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(<HelpMenu showDialog={jest.fn()} />)
-    expect(wrapper.find('div').length).toEqual(1)
+  afterEach(() => {
+    // Resets mock call counter between tests
+    showDialog.mockClear()
+  })
+
+  it('renders', () => {
+    const wrapper = renderWithReduxAndIntl(<HelpMenu />)
+
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('shows the About dialog when its link is clicked', () => {
-    const showDialog = jest.fn()
-    const wrapper = shallow(<HelpMenu showDialog={showDialog} />)
-    wrapper.find('a').first().simulate('click')
-    expect(showDialog).toBeCalled()
+    const wrapper = renderWithReduxAndIntl(<HelpMenu />)
+
+    fireEvent.click(wrapper.getByText('About Streetmix…'))
+
+    expect(showDialog).toBeCalledTimes(1)
+    expect(showDialog).toBeCalledWith('ABOUT')
   })
 
   it('shows the What’s New dialog when its link is clicked', () => {
-    const showDialog = jest.fn()
-    const wrapper = shallow(<HelpMenu showDialog={showDialog} />)
-    wrapper.find('a').last().simulate('click')
-    expect(showDialog).toBeCalled()
+    const wrapper = renderWithReduxAndIntl(<HelpMenu />)
+
+    fireEvent.click(
+      wrapper.getByText('What’s new in Streetmix?', { exact: false })
+    )
+
+    expect(showDialog).toBeCalledTimes(1)
+    expect(showDialog).toBeCalledWith('WHATS_NEW')
   })
 
   // To implement this test, we need to test that the `keydown`
   // event is listened to on the window. It's possible this is out
   // of scope for a unit test and should be captured in the
   // end-to-end acceptance testing instead.
-  it.todo('shows the About dialog when keyboard shortcut is pressed')
+  it.skip('shows the About dialog when keyboard shortcut is pressed', () => {
+    renderWithReduxAndIntl(<HelpMenu />)
+
+    fireEvent.keyDown(window, { key: '?' })
+
+    expect(showDialog).toBeCalledTimes(1)
+    expect(showDialog).toBeCalledWith('ABOUT')
+  })
 })

@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HelpMenu renders 1`] = `
+<DocumentFragment>
+  <div
+    class="menu"
+  >
+    <a
+      href="#"
+    >
+      About Streetmix…
+    </a>
+    <a
+      href="#"
+    >
+      What’s new in Streetmix? [en]‎
+    </a>
+    <div
+      class="help-menu-shortcuts non-touch-only"
+    >
+      <p>
+        Keyboard shortcuts:
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <kbd
+                class="key"
+              >
+                Backspace
+              </kbd>
+            </td>
+            <td>
+              Remove a segment you’re pointing at
+              <br />
+              (hold 
+              <kbd
+                class="key"
+              >
+                Shift
+              </kbd>
+               to remove all)‎
+            </td>
+          </tr>
+          <tr>
+            <td
+              dir="ltr"
+            >
+              <kbd
+                class="key key-icon"
+                title="Minus"
+              >
+                <svg
+                  class="svg-inline--fa fa-minus"
+                />
+              </kbd>
+              <kbd
+                class="key key-icon"
+                title="Plus"
+              >
+                <svg
+                  class="svg-inline--fa fa-plus"
+                />
+              </kbd>
+            </td>
+            <td>
+              Change width of a segment you’re pointing at
+              <br />
+              (hold 
+              <kbd
+                class="key"
+              >
+                Shift
+              </kbd>
+               for more precision)‎
+            </td>
+          </tr>
+          <tr>
+            <td
+              dir="ltr"
+            >
+              <kbd
+                class="key key-icon"
+                title="Left arrow"
+              >
+                <svg
+                  class="svg-inline--fa fa-arrow-left"
+                />
+              </kbd>
+              <kbd
+                class="key key-icon"
+                title="Right arrow"
+              >
+                <svg
+                  class="svg-inline--fa fa-arrow-right"
+                />
+              </kbd>
+            </td>
+            <td>
+              Move around the street
+              <br />
+              (hold 
+              <kbd
+                class="key"
+              >
+                Shift
+              </kbd>
+               to jump to edges)‎
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DocumentFragment>
+`;

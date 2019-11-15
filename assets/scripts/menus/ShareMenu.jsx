@@ -1,31 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import copy from 'copy-to-clipboard'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
-import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/actions/dialogs'
 import { startPrinting } from '../store/actions/app'
 import './ShareMenu.scss'
 
-ShareMenu.propTypes = {
-  // Provided by Redux mapDispatchToProps
-  showDialog: PropTypes.func,
-  startPrinting: PropTypes.func,
-
-  // Provided by Redux mapStateToProps
-  signedIn: PropTypes.bool.isRequired,
-  userId: PropTypes.string,
-  street: PropTypes.object
-}
-
 function ShareMenu (props) {
+  const signedIn = useSelector((state) => state.user.signedIn || false)
+  const userId = useSelector(
+    (state) => (state.user.signInData && state.user.signInData.userId) || ''
+  )
+  const street = useSelector((state) => state.street)
+  const dispatch = useDispatch()
   const [shareUrl, setShareUrl] = useState('')
   const shareViaLinkInputRef = useRef(null)
   const intl = useIntl()
@@ -39,11 +32,10 @@ function ShareMenu (props) {
   }
 
   function getSharingMessage () {
-    const street = props.street
     let message = ''
 
     if (street.creatorId) {
-      if (props.signedIn && street.creatorId === props.userId) {
+      if (signedIn && street.creatorId === userId) {
         if (street.name) {
           message = intl.formatMessage(
             {
@@ -111,23 +103,21 @@ function ShareMenu (props) {
   }
 
   function handleClickShareViaTwitter () {
-    saveStreetThumbnail(props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'TWITTER', null, null, false)
   }
 
   function handleClickShareViaFacebook () {
-    saveStreetThumbnail(props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
     trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
   function handleClickSaveAsImage (event) {
     event.preventDefault()
-    props.showDialog('SAVE_AS_IMAGE')
+    dispatch(showDialog('SAVE_AS_IMAGE'))
   }
 
   function handleClickSignIn (event) {
     event.preventDefault()
-    props.showDialog('SIGN_IN')
+    dispatch(showDialog('SIGN_IN'))
   }
 
   function handleClickPrint (event) {
@@ -136,7 +126,7 @@ function ShareMenu (props) {
     // Manually dispatch printing state here. Workaround for Chrome bug where
     // calling window.print() programatically (even with a timeout) render a
     // blank image instead
-    props.startPrinting()
+    dispatch(startPrinting())
 
     window.setTimeout(function () {
       window.print()
@@ -160,7 +150,7 @@ function ShareMenu (props) {
     '&link=' +
     encodeURIComponent(shareUrl) +
     '&name=' +
-    encodeURIComponent(getPageTitle(props.street)) +
+    encodeURIComponent(getPageTitle(street)) +
     '&description=' +
     encodeURIComponent(shareText)
 
@@ -173,7 +163,7 @@ function ShareMenu (props) {
     </a>
   )
 
-  const signInPromo = !props.signedIn ? (
+  const signInPromo = !signedIn ? (
     <div className="share-sign-in-promo">
       <FormattedMessage
         id="menu.share.sign-in-link"
@@ -198,14 +188,15 @@ function ShareMenu (props) {
             className="share-via-link"
             type="text"
             value={shareUrl}
-            onCopy={() => {
-              saveStreetThumbnail(props.street, SAVE_THUMBNAIL_EVENTS.SHARE)
-            }}
             spellCheck="false"
             ref={shareViaLinkInputRef}
             readOnly
           />
           <button
+            title={intl.formatMessage({
+              id: 'menu.share.copy-to-clipboard',
+              defaultMessage: 'Copy to clipboard'
+            })}
             onClick={(event) => {
               event.preventDefault()
               copy(shareUrl)
@@ -260,18 +251,4 @@ function ShareMenu (props) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  signedIn: state.user.signedIn,
-  userId: (state.user.signInData && state.user.signInData.userId) || '',
-  street: state.street
-})
-
-const mapDispatchToProps = {
-  showDialog,
-  startPrinting
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ShareMenu)
+export default ShareMenu

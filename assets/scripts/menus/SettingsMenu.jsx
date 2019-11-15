@@ -1,111 +1,113 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
 import LocaleSelect from './LocaleSelect'
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../users/constants'
 import { updateUnits } from '../users/localization'
 import { changeLocale } from '../store/actions/locale'
 import { clearMenus } from '../store/actions/menus'
 import { ICON_CHECK } from '../ui/icons'
 
-export class SettingsMenu extends React.PureComponent {
-  static propTypes = {
-    units: PropTypes.number,
-    locale: PropTypes.string,
-    localeIsLoading: PropTypes.bool,
-    requestedLocale: PropTypes.string,
-    enableLocaleSettings: PropTypes.bool,
-    changeLocale: PropTypes.func,
-    clearMenus: PropTypes.func
+function SettingsMenu (props) {
+  const units = useSelector((state) => state.street.units)
+  const locale = useSelector((state) => state.locale.locale)
+  const requestedLocale = useSelector((state) => state.locale.requestedLocale)
+  const enableLocaleSettings = useSelector(
+    (state) =>
+      state.flags.LOCALES_LEVEL_1.value ||
+      state.flags.LOCALES_LEVEL_2.value ||
+      state.flags.LOCALES_LEVEL_3.value
+  )
+  const dispatch = useDispatch()
+
+  async function selectLocale (newLocale) {
+    if (locale === newLocale) return
+
+    await dispatch(changeLocale(newLocale))
+
+    // Hide the menu after a locale is selected.
+    // Note: because the application's tree is actually remounted with new
+    // locale context, the menu doesn't animate away. It just disappears.
+    // We still have to dispatch the clearMenus() so that the Redux store
+    // knows that the menu has closed.
+    dispatch(clearMenus())
   }
 
-  static defaultProps = {
-    changeLocale: () => {},
-    clearMenus: () => {}
-  }
-
-  componentDidUpdate (prevProps) {
-    // If there was previously a requested locale and now there isn't one, assume
-    // loading process for loading locale has completed; hide menu now.
-    // NOTE: This is how we want things to behave but this never actually works,
-    // because the menus are remounted every time the language has loaded.
-    // I'm leaving it here anyway under the hopes that this code doesn't go to
-    // waste when we figure out how to avoid this problem.
-    if (prevProps.requestedLocale && this.props.requestedLocale === null) {
-      this.props.clearMenus()
-    }
-
-    // Close menu when units have changed
-    if (prevProps.units !== this.props.units) {
-      this.props.clearMenus()
-    }
-  }
-
-  selectLocale = (locale) => {
-    if (this.props.locale === locale) return
-
-    this.props.changeLocale(locale)
-  }
-
-  handleSelectMetric = () => {
-    if (this.props.units === SETTINGS_UNITS_METRIC) return
+  function handleSelectMetric () {
+    if (units === SETTINGS_UNITS_METRIC) return
 
     updateUnits(SETTINGS_UNITS_METRIC)
+    dispatch(clearMenus())
   }
 
-  handleSelectImperial = () => {
-    if (this.props.units === SETTINGS_UNITS_IMPERIAL) return
+  function handleSelectImperial () {
+    if (units === SETTINGS_UNITS_IMPERIAL) return
 
     updateUnits(SETTINGS_UNITS_IMPERIAL)
+    dispatch(clearMenus())
   }
 
-  render () {
-    return (
-      <Menu onShow={this.handleShow} {...this.props}>
-        <h2 className="menu-header">
-          <FormattedMessage id="settings.units.label" defaultMessage="Units" />
-        </h2>
-        <ul className="menu-item-group">
-          <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_METRIC) ? 'menu-item-selected' : ''}`} onClick={this.handleSelectMetric}>
-            {(this.props.units === SETTINGS_UNITS_METRIC) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
-            {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
-            <FormattedMessage id="settings.units.metric" defaultMessage="Metric units (meters)" />&#x200E;
-          </li>
-          <li className={`menu-item ${(this.props.units === SETTINGS_UNITS_IMPERIAL) ? 'menu-item-selected' : ''}`} onClick={this.handleSelectImperial}>
-            {(this.props.units === SETTINGS_UNITS_IMPERIAL) && <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />}
-            <FormattedMessage id="settings.units.imperial" defaultMessage="Imperial units (feet)" />&#x200E;
-          </li>
-        </ul>
+  return (
+    <Menu {...props}>
+      <h2 className="menu-header">
+        <FormattedMessage id="settings.units.label" defaultMessage="Units" />
+      </h2>
+      <ul className="menu-item-group">
+        <li
+          className={`menu-item ${
+            units === SETTINGS_UNITS_METRIC ? 'menu-item-selected' : ''
+          }`}
+          onClick={handleSelectMetric}
+        >
+          {units === SETTINGS_UNITS_METRIC && (
+            <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />
+          )}
+          {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
+          <FormattedMessage
+            id="settings.units.metric"
+            defaultMessage="Metric units (meters)"
+          />
+          &#x200E;
+        </li>
+        <li
+          className={`menu-item ${
+            units === SETTINGS_UNITS_IMPERIAL ? 'menu-item-selected' : ''
+          }`}
+          onClick={handleSelectImperial}
+        >
+          {units === SETTINGS_UNITS_IMPERIAL && (
+            <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />
+          )}
+          <FormattedMessage
+            id="settings.units.imperial"
+            defaultMessage="Imperial units (feet)"
+          />
+          &#x200E;
+        </li>
+      </ul>
 
-        {this.props.enableLocaleSettings && (
-          <>
-            <h2 className="menu-header">
-              <FormattedMessage id="settings.language.label" defaultMessage="Language" />
-            </h2>
-            <LocaleSelect locale={this.props.locale} requestedLocale={this.props.requestedLocale} selectLocale={this.selectLocale} />
-          </>
-        )}
-      </Menu>
-    )
-  }
+      {enableLocaleSettings && (
+        <>
+          <h2 className="menu-header">
+            <FormattedMessage
+              id="settings.language.label"
+              defaultMessage="Language"
+            />
+          </h2>
+          <LocaleSelect
+            locale={locale}
+            requestedLocale={requestedLocale}
+            selectLocale={selectLocale}
+          />
+        </>
+      )}
+    </Menu>
+  )
 }
 
-function mapStateToProps (state) {
-  return {
-    units: state.street.units,
-    locale: state.locale.locale,
-    localeIsLoading: state.locale.isLoading,
-    requestedLocale: state.locale.requestedLocale,
-    enableLocaleSettings: state.flags.LOCALES_LEVEL_1.value || state.flags.LOCALES_LEVEL_2.value || state.flags.LOCALES_LEVEL_3.value
-  }
-}
-
-const mapDispatchToProps = {
-  changeLocale,
-  clearMenus
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)
+export default SettingsMenu

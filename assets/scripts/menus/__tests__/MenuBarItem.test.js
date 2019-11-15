@@ -1,46 +1,57 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
+import { fireEvent } from '@testing-library/react'
+import { renderWithIntl } from '../../../../test/helpers/render'
 import MenuBarItem from '../MenuBarItem'
 
-function FormattedMessage () {
-  return <span />
-}
-
 describe('MenuBarItem', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(<MenuBarItem label="foo" translation="foo" />)
-    expect(wrapper.children().length).toEqual(1)
+  it('renders', () => {
+    const wrapper = renderWithIntl(
+      <MenuBarItem label="foo" translation="foo" />
+    )
+
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('handles the click on a button', () => {
     const handleClick = jest.fn()
-    const wrapper = shallow(<MenuBarItem onClick={handleClick} />)
-    wrapper.find('button').simulate('click')
+    const wrapper = renderWithIntl(
+      <MenuBarItem onClick={handleClick}>label</MenuBarItem>
+    )
+
+    fireEvent.click(wrapper.getByRole('button'))
+
     expect(handleClick).toBeCalled()
   })
 
   it('handles the click on a link', () => {
     const handleClick = jest.fn()
-    const wrapper = shallow(<MenuBarItem url="#" onClick={handleClick} />)
-    wrapper.find('a').simulate('click')
+    const wrapper = renderWithIntl(
+      <MenuBarItem url="#" onClick={handleClick}>
+        label
+      </MenuBarItem>
+    )
+
+    // Expect an anchor tag element to be present, then click it
+    fireEvent.click(wrapper.getByRole('link'))
+
     expect(handleClick).toBeCalled()
   })
 
   it('renders children instead of default label if provided', () => {
-    const wrapper = shallow(<MenuBarItem><span className="foo">bar</span></MenuBarItem>)
-    expect(wrapper.find(FormattedMessage).exists()).toEqual(false)
-    expect(wrapper.find('.foo').exists()).toEqual(true)
-    expect(wrapper.text()).toEqual('bar')
-  })
+    const wrapper = renderWithIntl(
+      <MenuBarItem>
+        <span data-testid="foo">bar</span>
+      </MenuBarItem>
+    )
 
-  it('renders anchor tag instead of button if url is provided', () => {
-    const wrapper = shallow(<MenuBarItem url="#" />)
-    expect(wrapper.find('a').exists()).toEqual(true)
+    expect(wrapper.getByTestId('foo')).toHaveTextContent('bar')
+    expect(wrapper.getByText('bar')).toBeInTheDocument()
   })
 
   it('passes unhandled props to child elements', () => {
-    const wrapper = shallow(<MenuBarItem className="foo" />)
-    expect(wrapper.find('.foo').exists()).toEqual(true)
+    const wrapper = renderWithIntl(<MenuBarItem foo="bar">child</MenuBarItem>)
+
+    expect(wrapper.getByText('child')).toHaveAttribute('foo', 'bar')
   })
 })
