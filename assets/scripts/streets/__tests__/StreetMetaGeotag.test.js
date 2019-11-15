@@ -1,16 +1,14 @@
 /* eslint-env jest */
 import React from 'react'
 import StreetMetaGeotag from '../StreetMetaGeotag'
-import { shallow } from 'enzyme'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 
 describe('StreetMetaGeotag', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(
-      <StreetMetaGeotag.WrappedComponent
-        street={{}}
-      />
+    const { container } = renderWithReduxAndIntl(
+      <StreetMetaGeotag.WrappedComponent street={{}} />
     )
-    expect(wrapper.exists()).toEqual(true)
+    expect(container.childNodes).toBeDefined()
   })
 
   describe('geotag label', () => {
@@ -24,7 +22,7 @@ describe('StreetMetaGeotag', () => {
         }
       }
 
-      const wrapper = shallow(
+      const { container } = renderWithReduxAndIntl(
         <StreetMetaGeotag.WrappedComponent
           street={testStreet}
           editable={false}
@@ -32,12 +30,13 @@ describe('StreetMetaGeotag', () => {
           locale={{}}
         />
       )
-
-      expect(wrapper.find('.street-metadata-map a').length).toEqual(0)
+      expect(
+        container.querySelectorAll('.street-metadata-map a').length
+      ).toEqual(0)
     })
 
     it('does not display geotag label if no location and application is read only', () => {
-      const wrapper = shallow(
+      const { container } = renderWithReduxAndIntl(
         <StreetMetaGeotag.WrappedComponent
           street={{}}
           editable={false}
@@ -45,8 +44,9 @@ describe('StreetMetaGeotag', () => {
           locale={{}}
         />
       )
-
-      expect(wrapper.find('.street-metadata-map').length).toEqual(0)
+      expect(container.querySelectorAll('.street-metadata-map').length).toEqual(
+        0
+      )
     })
 
     it.todo('displays the correct label for a given location hierarchy')

@@ -1,123 +1,123 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SegmentLabelContainer renders React element label 1`] = `
-<div
-  className="segment-label-container"
->
-  <span
-    className="segment-label"
+<DocumentFragment>
+  <div
+    class="segment-label-container"
   >
-    <span>
-      bar
+    <span
+      class="segment-label"
+    >
+      <span>
+        bar
+      </span>
     </span>
-  </span>
-  <span
-    className="segment-width"
-  >
-    <Memo()
-      locale="en"
-      units={2}
-      value={1}
+    <span
+      class="segment-width"
+    >
+      <span>
+        0.3 m
+      </span>
+    </span>
+    <span
+      class="segment-grid units-metric"
     />
-  </span>
-  <span
-    className="segment-grid units-metric"
-  />
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SegmentLabelContainer renders correct grid styling in imperial 1`] = `
-<div
-  className="segment-label-container"
->
-  <span
-    className="segment-label"
+<DocumentFragment>
+  <div
+    class="segment-label-container"
   >
-    foo
-  </span>
-  <span
-    className="segment-width"
-  >
-    <Memo()
-      locale="en"
-      units={1}
-      value={1}
+    <span
+      class="segment-label"
+    >
+      foo
+    </span>
+    <span
+      class="segment-width"
+    >
+      <span>
+        1′
+      </span>
+    </span>
+    <span
+      class="segment-grid units-imperial"
     />
-  </span>
-  <span
-    className="segment-grid units-imperial"
-  />
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
-<div
-  className="segment-label-container"
->
-  <span
-    className="segment-label"
+<DocumentFragment>
+  <div
+    class="segment-label-container"
   >
-    foo
-  </span>
-  <span
-    className="segment-width"
-  >
-    <Memo()
-      locale="en"
-      units={2}
-      value={1}
+    <span
+      class="segment-label"
+    >
+      foo
+    </span>
+    <span
+      class="segment-width"
+    >
+      <span>
+        0.3 m
+      </span>
+    </span>
+    <span
+      class="segment-grid units-metric"
     />
-  </span>
-  <span
-    className="segment-grid units-metric"
-  />
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SegmentLabelContainer renders editable label 1`] = `
-<div
-  className="segment-label-container"
->
-  <span
-    className="segment-label"
+<DocumentFragment>
+  <div
+    class="segment-label-container"
   >
-    foo
-  </span>
-  <span
-    className="segment-width"
-  >
-    <Memo()
-      locale="en"
-      units={2}
-      value={1}
+    <span
+      class="segment-label"
+    >
+      foo
+    </span>
+    <span
+      class="segment-width"
+    >
+      <span>
+        0.3 m
+      </span>
+    </span>
+    <span
+      class="segment-grid units-metric"
     />
-  </span>
-  <span
-    className="segment-grid units-metric"
-  />
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SegmentLabelContainer renders string label 1`] = `
-<div
-  className="segment-label-container"
->
-  <span
-    className="segment-label"
+<DocumentFragment>
+  <div
+    class="segment-label-container"
   >
-    bar
-  </span>
-  <span
-    className="segment-width"
-  >
-    <Memo()
-      locale="en"
-      units={2}
-      value={1}
+    <span
+      class="segment-label"
+    >
+      bar
+    </span>
+    <span
+      class="segment-width"
+    >
+      <span>
+        0.3 m
+      </span>
+    </span>
+    <span
+      class="segment-grid units-metric"
     />
-  </span>
-  <span
-    className="segment-grid units-metric"
-  />
-</div>
+  </div>
+</DocumentFragment>
 `;
