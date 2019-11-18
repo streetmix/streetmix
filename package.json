@@ -211,7 +211,7 @@
     "jest-fetch-mock": "2.1.2",
     "lint-staged": "9.4.2",
     "prettier": "1.18.2",
-    "react-test-renderer": "16.10.2",
+    "react-test-renderer": "16.12.0",
     "recompose": "0.30.0",
     "redux-mock-store": "1.5.3",
     "stylelint": "11.1.1",
