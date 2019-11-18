@@ -908,22 +908,10 @@
               }
             }
           },
-          "angled-front-left": {
+          "backin-inbound": {
             "left": {
               "graphics": {
                 "left": "vehicles--car-angled-front-left"
-              }
-            },
-            "right": {
-              "graphics": {
-                "right": "vehicles--car-angled-front-left"
-              }
-            }
-          },
-          "angled-front-right": {
-            "left": {
-              "graphics": {
-                "left": "vehicles--car-angled-front-right"
               }
             },
             "right": {
@@ -932,10 +920,22 @@
               }
             }
           },
-          "angled-rear-left": {
+          "headfirst-inbound": {
             "left": {
               "graphics": {
-                "left": "vehicles--car-angled-rear-left"
+                "left": "vehicles--car-angled-front-right"
+              }
+            },
+            "right": {
+              "graphics": {
+                "right": "vehicles--car-angled-front-left"
+              }
+            }
+          },
+          "backin-outbound": {
+            "left": {
+              "graphics": {
+                "left": "vehicles--car-angled-rear-right"
               }
             },
             "right": {
@@ -944,10 +944,10 @@
               }
             }
           },
-          "angled-rear-right": {
+          "headfirst-outbound": {
             "left": {
               "graphics": {
-                "left": "vehicles--car-angled-rear-right"
+                "left": "vehicles--car-angled-rear-left"
               }
             },
             "right": {

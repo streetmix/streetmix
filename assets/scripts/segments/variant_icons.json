@@ -52,21 +52,21 @@
       "id": "direction-both",
       "title": "Perpendicular"
     },
-    "angled-front-left": {
+    "backin-outbound": {
       "id": "direction-down-left",
-      "title": "Angled"
+      "title": "Backin Outbound"
     },
-    "angled-front-right": {
+    "headfirst-outbound": {
       "id": "direction-down-right",
-      "title": "Angled"
+      "title": "Head First Outbound"
     },
-    "angled-rear-left": {
+    "backin-inbound": {
       "id": "direction-up-left",
-      "title": "Angled"
+      "title": "Backin Inbound"
     },
-    "angled-rear-right": {
+    "headfirst-inbound": {
       "id": "direction-up-right",
-      "title": "Angled"
+      "title": "Head First Inbound"
     }
   },
   "tree-type": {
