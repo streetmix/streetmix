@@ -135,7 +135,7 @@
     "json2csv": "4.5.4",
     "leaflet": "1.5.1",
     "lodash": "4.17.15",
-    "mongoose": "5.7.5",
+    "mongoose": "5.7.11",
     "newrelic": "6.1.0",
     "oauth": "0.9.15",
     "parcel-bundler": "1.12.4",
