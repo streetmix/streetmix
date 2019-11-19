@@ -25,6 +25,7 @@ exports.post = async function (req, res) {
     street.name = body.name
     street.data = body.data
     street.creator_ip = requestIp(req)
+    street.client_updated_at = body.clientUpdatedAt
   }
 
   const makeNamespacedId = async function () {
@@ -407,6 +408,8 @@ exports.put = async function (req, res) {
   async function updateStreetData (street) {
     street.name = body.name || street.name
     street.data = body.data || street.data
+    street.client_updated_at = body.clientUpdatedAt || street.client_updated_at
+
     if (body.originalStreetId) {
       let origStreet
       try {
@@ -421,10 +424,9 @@ exports.put = async function (req, res) {
       }
 
       street.original_street_id = origStreet
-      return street.save()
-    } else {
-      return street.save()
     }
+
+    return street.save()
   } // END function - updateStreetData
 
   async function updateStreetWithCreatorId (street) {

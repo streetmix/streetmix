@@ -366,6 +366,7 @@ function fillDefaultSegments (units) {
 
 export function prepareDefaultStreet () {
   const units = getUnits()
+  const currentDate = new Date().toISOString()
   const defaultStreet = {
     units: units,
     location: null,
@@ -380,7 +381,8 @@ export function prepareDefaultStreet () {
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT,
     schemaVersion: LATEST_SCHEMA_VERSION,
     segments: fillDefaultSegments(units),
-    updatedAt: new Date().toISOString(),
+    updatedAt: currentDate,
+    clientUpdatedAt: currentDate,
     creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 
@@ -393,6 +395,7 @@ export function prepareDefaultStreet () {
 
 export function prepareEmptyStreet () {
   const units = getUnits()
+  const currentDate = new Date().toISOString()
   const emptyStreet = {
     units: units,
     location: null,
@@ -407,7 +410,8 @@ export function prepareEmptyStreet () {
     rightBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     schemaVersion: LATEST_SCHEMA_VERSION,
     segments: [],
-    updatedAt: new Date().toISOString(),
+    updatedAt: currentDate,
+    clientUpdatedAt: currentDate,
     creatorId: (isSignedIn() && getSignInData().userId) || null
   }
 

@@ -211,6 +211,11 @@ const resources = require('./resources')
  *       updatedAt:
  *         type: string
  *         format: date-time
+ *         description: Server-side updates will update this timestamp. This is the canonical timestamp for the street and should be used for display purposes.
+ *       clientUpdatedAt:
+ *         type: string
+ *         format: date-time
+ *         description: Client-side updates will update this timestamp. This should only be used to verify the age of client side data.
  *   Flags:
  *     type: object
  *     example:

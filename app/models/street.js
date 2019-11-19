@@ -15,6 +15,7 @@ const streetSchema = new mongoose.Schema({
   data: mongoose.Schema.Types.Mixed,
   created_at: { type: Date, index: true },
   updated_at: { type: Date, index: true },
+  client_updated_at: { type: Date },
   creator_ip: String
 })
 
@@ -39,7 +40,8 @@ streetSchema.methods.asJson = function (cb) {
     name: this.name,
     data: this.data,
     createdAt: this.created_at,
-    updatedAt: this.updated_at
+    updatedAt: this.updated_at,
+    clientUpdatedAt: this.client_updated_at
   }
 
   const creatorId = this.creator_id
