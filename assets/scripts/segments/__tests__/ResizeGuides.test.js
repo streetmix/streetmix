@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
-import { mountWithIntl } from '../../../../test/helpers/intl-enzyme-test-helper.js'
-import { ResizeGuides } from '../ResizeGuides'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import ResizeGuides from '../ResizeGuides'
 import { TILE_SIZE } from '../constants'
 import { getSegmentVariantInfo } from '../info'
 
@@ -20,42 +19,141 @@ jest.mock('../info', () => ({
   getSegmentVariantInfo: jest.fn(() => ({}))
 }))
 
+const initialState = {
+  ui: {
+    resizeGuidesVisible: true,
+    activeSegment: 0
+  },
+  street: {
+    segments: [{}],
+    remainingWidth: 0
+  }
+}
+
 describe('ResizeGuides', () => {
   it('does not render when nothing is being resized', () => {
-    const wrapper = shallow(<ResizeGuides isVisible={false} />)
-    expect(wrapper.html()).toEqual(null)
+    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState: {
+        ui: {
+          resizeGuidesVisible: false
+        }
+      }
+    })
+
+    expect(container.firstChild).toBeNull()
   })
 
   it('renders while segment is resizing', () => {
-    const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{}} />)
-    expect(wrapper.html()).toEqual('<div class="resize-guides" style="left: 74px;"></div>')
+    const wrapper = renderWithReduxAndIntl(<ResizeGuides />, { initialState })
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('renders min guide', () => {
+  it('renders only min guide', () => {
     getSegmentVariantInfo.mockImplementationOnce(() => ({
       minWidth: 10
     }))
 
-    const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{}} />)
-    expect(wrapper.find('.resize-guide-min').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-min-before').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-min-after').length).toEqual(1)
+    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState
+    })
+    expect(container.querySelector('.resize-guide-min')).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-min-before')
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-min-after')
+    ).toBeInTheDocument()
+    expect(container.querySelector('.resize-guide-max')).not.toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max-before')
+    ).not.toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max-after')
+    ).not.toBeInTheDocument()
+  })
+
+  it('renders only max guide', () => {
+    getSegmentVariantInfo.mockImplementationOnce(() => ({
+      maxWidth: 12
+    }))
+
+    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState
+    })
+    expect(container.querySelector('.resize-guide-min')).not.toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-min-before')
+    ).not.toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-min-after')
+    ).not.toBeInTheDocument()
+    expect(container.querySelector('.resize-guide-max')).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max-before')
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max-after')
+    ).toBeInTheDocument()
+  })
+
+  it('renders max and min guides', () => {
+    getSegmentVariantInfo.mockImplementationOnce(() => ({
+      minWidth: 10,
+      maxWidth: 12
+    }))
+
+    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState
+    })
+    expect(container.querySelector('.resize-guide-min')).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-min-before')
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-min-after')
+    ).toBeInTheDocument()
+    expect(container.querySelector('.resize-guide-max')).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max-before')
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max-after')
+    ).toBeInTheDocument()
   })
 
   it('renders max guide when remaining width is large', () => {
     const maxWidth = 20
     getSegmentVariantInfo.mockImplementationOnce(() => ({ maxWidth }))
 
-    // `remainingWidth` should be larger than `maxWidth`
-    const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{}} remainingWidth={30} />)
+    const initialState = {
+      ui: {
+        resizeGuidesVisible: true,
+        activeSegment: 0
+      },
+      street: {
+        segments: [{}],
+        // `remainingWidth` should be larger than `maxWidth`
+        remainingWidth: 30
+      }
+    }
+
+    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState
+    })
 
     // But width should be based on `maxWidth`, not `remainingWidth`
     const width = maxWidth * TILE_SIZE
-    expect(wrapper.find('.resize-guide-max').first().props().style.width).toEqual(`${width}px`)
+    expect(container.querySelector('.resize-guide-max').style.width).toEqual(
+      `${width}px`
+    )
 
     // Also test that child elements are rendered
-    expect(wrapper.find('.resize-guide-max-before').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-max-after').length).toEqual(1)
+    expect(
+      container.querySelector('.resize-guide-max-before')
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max-after')
+    ).toBeInTheDocument()
   })
 
   it('renders max guide when remaining width is small', () => {
@@ -66,35 +164,50 @@ describe('ResizeGuides', () => {
     // `segment` is given a `width` property so that calculations can be performed
     const remainingWidth = 1
     const segmentWidth = 1
-    const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{ width: segmentWidth }} remainingWidth={remainingWidth} />)
+    const initialState = {
+      ui: {
+        resizeGuidesVisible: true,
+        activeSegment: 0
+      },
+      street: {
+        segments: [{ width: segmentWidth }],
+        remainingWidth: remainingWidth
+      }
+    }
+
+    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState
+    })
 
     // Width should be based on `remainingWidth` + `segmentWidth`, not `maxWidth`
     const width = (remainingWidth + segmentWidth) * TILE_SIZE
-    expect(wrapper.find('.resize-guide-max').first().props().style.width).toEqual(`${width}px`)
+    expect(container.querySelector('.resize-guide-max').style.width).toEqual(
+      `${width}px`
+    )
   })
 
   it('renders max guide with only remaining width', () => {
     const remainingWidth = 19
     const segmentWidth = 1
-    const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{ width: segmentWidth }} remainingWidth={remainingWidth} />)
+    const initialState = {
+      ui: {
+        resizeGuidesVisible: true,
+        activeSegment: 0
+      },
+      street: {
+        segments: [{ width: segmentWidth }],
+        remainingWidth: remainingWidth
+      }
+    }
+
+    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState
+    })
 
     // Width should be based on `remainingWidth` + `segmentWidth`
     const width = (remainingWidth + segmentWidth) * TILE_SIZE
-    expect(wrapper.find('.resize-guide-max').first().props().style.width).toEqual(`${width}px`)
-  })
-
-  it('renders max and min guides', () => {
-    getSegmentVariantInfo.mockImplementationOnce(() => ({
-      minWidth: 10,
-      maxWidth: 12
-    }))
-
-    const wrapper = mountWithIntl(<ResizeGuides isVisible segment={{}} />)
-    expect(wrapper.find('.resize-guide-min').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-min-before').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-min-after').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-max').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-max-before').length).toEqual(1)
-    expect(wrapper.find('.resize-guide-max-after').length).toEqual(1)
+    expect(container.querySelector('.resize-guide-max').style.width).toEqual(
+      `${width}px`
+    )
   })
 })

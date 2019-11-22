@@ -1,9 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
-import MeasurementText from '../MeasurementText'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import MeasurementText from '../MeasurementText'
 
-// TODO: unskip these tests when enzyme and react-test-render support memoized components
 describe('MeasurementText', () => {
   it('renders without crashing', () => {
     const { container } = renderWithReduxAndIntl(<MeasurementText />)
