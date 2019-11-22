@@ -1,15 +1,11 @@
 Component Tests
 ===============
 
-When it comes to testing React components, we need a way to test components in isolation without needing to mount the entire application. Many of our current React components are tested with `Enzyme <https://airbnb.io/enzyme/>`_, but more recently, our tests have started to use `React Testing Library <https://testing-library.com/docs/react-testing-library/intro>`_ instead. (See `this blog post by Kent Dodds for more information <https://kentcdodds.com/blog/introducing-the-react-testing-library>`_.)
-
-We adopted React Testing Library to avoid testing implementation details. , especially for React components. You want your tests to be maintainable and less susceptible to breaking, which slows you down when you refactor components. With React Testing Library we're testing the actual DOM and not React-specific implementation details, like ``props`` or ``state``.
-
-React Testing Library is intended as a replacement for Enzyme. When writing new tests, or ugprading old tests, try React Testing Library first. Please don't use both in a single test suite, choose one or the other. Eventually, our hope is that Enzyme can be removed from the infrastructure.
+When it comes to testing React components, we need a way to test components in isolation without needing to mount the entire application. We use `React Testing Library <https://testing-library.com/docs/react-testing-library/intro>`_ (`more information <https://kentcdodds.com/blog/introducing-the-react-testing-library>`_) to help us write tests.
 
 .. tip::
 
-   Many of our React components use Redux and react-intl, which are required in the component's context to render properly. For both Enzyme and React Testing Library, we have replacement mounting utility functions in :file:`./test/helpers/` that mock the ``<Provider />`` and ``<IntlProvider />`` wrapping components, which you should use when testing components.
+   Many of our React components use Redux and react-intl, which are required in the component's context to render properly. If a component has either (or both) in its context, use the helper functions in :file:`./test/helpers/` which wrap React Testing Library's `render()` with mock ``<Provider />`` and ``<IntlProvider />`` components.
 
 How to test components
 --------------------------

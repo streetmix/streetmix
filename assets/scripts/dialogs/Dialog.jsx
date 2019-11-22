@@ -13,68 +13,60 @@
  *
  * Only one modal window is shown at a time. Nested modals aren't supported.
  */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import CloseButton from '../ui/CloseButton'
 import { clearDialogs } from '../store/actions/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Dialog.scss'
 
-export class Dialog extends React.Component {
-  static propTypes = {
-    clearDialogs: PropTypes.func.isRequired,
-    children: PropTypes.func.isRequired
-  }
+Dialog.propTypes = {
+  children: PropTypes.func.isRequired
+}
 
+function Dialog ({ children }) {
   // Appear state controls transition in/out
-  state = {
-    appear: true
-  }
+  const [appear, setAppear] = useState(true)
+  const dispatch = useDispatch()
 
-  componentDidMount () {
+  useEffect(() => {
     // Set up keypress listener to close dialogs if open
-    registerKeypress('esc', this.handleClose)
+    registerKeypress('esc', handleClose)
+
+    return () => {
+      deregisterKeypress('esc', handleClose)
+    }
+  }, [])
+
+  // On "close", we animate the dialog out
+  function handleClose () {
+    setAppear(false)
   }
 
-  componentWillUnmount () {
-    deregisterKeypress('esc', this.handleClose)
+  // When the animation is complete, then we clear dialog state
+  function handleExit () {
+    dispatch(clearDialogs())
   }
 
-  handleClose = () => {
-    this.setState({
-      appear: false
-    })
-  }
-
-  handleExit = () => {
-    this.props.clearDialogs()
-  }
-
-  render () {
-    return (
-      <CSSTransition
-        appear
-        in={this.state.appear}
-        timeout={80}
-        classNames="dialog-transition"
-        onExited={this.handleExit}
-      >
-        <div className="dialog-box-container">
-          <div className="dialog-box-backdrop" onClick={this.handleClose} />
-          <div className="dialog-box" role="dialog">
-            <CloseButton onClick={this.handleClose} />
-            {this.props.children(this.handleClose)}
-          </div>
+  return (
+    <CSSTransition
+      appear
+      in={appear}
+      timeout={80}
+      classNames="dialog-transition"
+      onExited={handleExit}
+    >
+      <div className="dialog-box-container">
+        <div className="dialog-box-backdrop" onClick={handleClose} />
+        <div className="dialog-box" role="dialog">
+          <CloseButton onClick={handleClose} />
+          {children(handleClose)}
         </div>
-      </CSSTransition>
-    )
-  }
+      </div>
+    </CSSTransition>
+  )
 }
 
-const mapDispatchToProps = {
-  clearDialogs
-}
-
-export default connect(null, mapDispatchToProps)(Dialog)
+export default Dialog

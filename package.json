@@ -44,9 +44,6 @@
     "testPathIgnorePatterns": [
       "./test/integration"
     ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
     "collectCoverageFrom": [
       "app.js",
       "app/**/*.{js,jsx}",
@@ -191,9 +188,6 @@
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "cypress": "3.6.1",
-    "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "1.15.1",
-    "enzyme-to-json": "3.4.3",
     "eslint": "6.5.1",
     "eslint-config-standard": "14.1.0",
     "eslint-config-standard-react": "9.2.0",

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DonateDialog renders 1`] = `
+<DocumentFragment>
+  <div
+    class="donate-dialog"
+  >
+    <h1>
+      Streetmix needs your help!
+    </h1>
+    <div
+      class="donate-dialog-text"
+    >
+      <p
+        class="donate-dialog-lede"
+      >
+        Streetmix is a community-supported project. Unlike other “free” services on the Internet, we do not show ads or inject trackers that abuse your privacy. Instead, we depend on your support to keep Streetmix up and running.
+      </p>
+      <p>
+        Please consider supporting us with a one-time or recurring contribution. Your donation will pay for our servers and cloud infrastructure, supporting other non-profits, advocacy groups, and students working to improve our streets. Additional revenue will be invested into further development of new features. Our expenses are completely transparent, so you can see exactly how your contributions are used by the Streetmix team.
+      </p>
+    </div>
+    <p>
+      <a
+        class="button-like donate-dialog-button"
+        href="https://opencollective.com/streetmix"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Donate to Streetmix
+      </a>
+    </p>
+    <p>
+      <a
+        href="#"
+      >
+        No thanks
+      </a>
+    </p>
+  </div>
+</DocumentFragment>
+`;
