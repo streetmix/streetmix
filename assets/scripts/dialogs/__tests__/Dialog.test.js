@@ -1,24 +1,24 @@
 /* eslint-env jest */
 import React from 'react'
-import { Dialog } from '../Dialog'
-import { shallow } from 'enzyme'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import Dialog from '../Dialog'
+
+const Contents = () => <>'foo'</>
 
 describe('Dialog', () => {
-  it('renders without crashing', () => {
-    const Contents = 'foo'
-    const wrapper = shallow(
-      <Dialog clearDialogs={jest.fn()}>
-        {(closeDialog) => <Contents />}
-      </Dialog>
+  it('renders', () => {
+    const { getByRole } = renderWithReduxAndIntl(
+      <Dialog>{(closeDialog) => <Contents />}</Dialog>
     )
-    expect(wrapper.exists()).toEqual(true)
+
+    expect(getByRole('dialog')).toBeInTheDocument()
   })
 
-  it.todo('listens for "escape" key when mounted')
-  it.todo('removes listener for "escape" key when unmounted')
-  it.todo('closes the dialog box when "escape" is pressed')
+  // These can't be tested right now because it CSSTransition is mocked
+  // and does not actually call onExited when animating out. We might
+  // not be able to test this until clearDialogs() is not tied to dialog
+  // animation
   it.todo('closes the dialog when the backdrop is clicked')
-  it.todo('catches an error in child components and handles it')
+  it.todo('closes the dialog box when "escape" is pressed')
   it.todo('closes the dialog box when the "x" button is pressed')
-  it.todo('passes the closeDialog function to the child component')
 })
