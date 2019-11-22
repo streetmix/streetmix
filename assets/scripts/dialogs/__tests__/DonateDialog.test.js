@@ -1,11 +1,13 @@
 /* eslint-env jest */
 import React from 'react'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import DonateDialog from '../DonateDialog'
-import { shallow } from 'enzyme'
 
 describe('DonateDialog', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(<DonateDialog closeDialog={jest.fn()} />)
-    expect(wrapper.exists()).toEqual(true)
+  it('renders', () => {
+    const wrapper = renderWithReduxAndIntl(
+      <DonateDialog closeDialog={jest.fn()} />
+    )
+    expect(wrapper.asFragment()).toMatchSnapshot()
   })
 })
