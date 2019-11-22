@@ -109,11 +109,7 @@
     }
   ],
   "contributors": {
-    "advisors": [
-      "Adrian Mak",
-      "Jeff Speck",
-      "Molly King"
-    ],
+    "advisors": ["Adrian Mak", "Jeff Speck", "Molly King"],
     "additional-illustrations": [
       "Brian Wamsley",
       "Claudio Olivares Medina",
@@ -123,77 +119,40 @@
     ],
     "additional-code": [
       "Alex Ellis",
+      "Ali Idrees",
+      "André Lins",
       "Ayush Rawal",
       "Cody Moss",
       "Don McCurdy",
+      "Dwiki Arlan",
       "Joe James-Rodriguez",
       "Kieran Farr",
       "Maciej Kus",
       "Mila Frerichs",
+      "Paulius Kuzmickas",
       "Radosław Miernik",
+      "Tanya Yakovleva",
       "Tommi Vainikainen"
     ],
     "additional-contributors": [
-      [
-        "Aline Reynolds",
-        "writer and researcher"
-      ],
-      [
-        "Amir Reavis-Bey",
-        "database migration"
-      ],
-      [
-        "Patrick McDonnell",
-        "illustrations styleguide"
-      ],
-      [
-        "Jeremy Lechtzin",
-        "legal counsel"
-      ],
-      [
-        "Justine Braisted",
-        "branding"
-      ],
-      [
-        "Lisa Ratner",
-        "user experience"
-      ],
-      [
-        "Mebrak Tareke",
-        "communications"
-      ],
-      [
-        "Nick Doiron",
-        "right-to-left localization"
-      ]
+      ["Aline Reynolds", "writer and researcher"],
+      ["Amir Reavis-Bey", "database migration"],
+      ["Patrick McDonnell", "illustrations styleguide"],
+      ["Jeremy Lechtzin", "legal counsel"],
+      ["Justine Braisted", "branding"],
+      ["Lisa Ratner", "user experience"],
+      ["Mebrak Tareke", "communications"],
+      ["Nick Doiron", "right-to-left localization"]
     ],
     "special-thanks": [
-      [
-        "Billy Riggs",
-        "ReStreet"
-      ],
-      [
-        "Michael Boswell",
-        "ReStreet"
-      ],
-      [
-        "Pia Mancini",
-        "OpenCollective"
-      ],
+      ["Billy Riggs", "ReStreet"],
+      ["Michael Boswell", "ReStreet"],
+      ["Pia Mancini", "OpenCollective"],
       "Matt Hampel",
       "Brandon Liu",
-      [
-        "Debs Schrimmer",
-        "Lyft"
-      ],
-      [
-        "Rob McPherson",
-        "Skip"
-      ],
-      [
-        "Carlos Pardo",
-        "NUMO"
-      ],
+      ["Debs Schrimmer", "Lyft"],
+      ["Rob McPherson", "Skip"],
+      ["Carlos Pardo", "NUMO"],
       {
         "label": "Code for America",
         "people": [
@@ -218,18 +177,12 @@
       },
       {
         "label": "Civic Hall",
-        "people": [
-          "Ellen Mendlow",
-          "Shaneka Ramdeen"
-        ]
+        "people": ["Ellen Mendlow", "Shaneka Ramdeen"]
       }
     ]
   },
   "translators": {
-    "ar": [
-      "Diana M. Alhaj",
-      "Zakaria Shekhreet"
-    ],
+    "ar": ["Diana M. Alhaj", "Zakaria Shekhreet"],
     "zh": [
       "Crystal Xing",
       "Maggie Dong",
@@ -237,23 +190,10 @@
       "Summer Pan",
       "Wen Jing Jiang"
     ],
-    "fi": [
-      "Aleksi Kinnunen"
-    ],
-    "fr": [
-      "Denis Devillé",
-      "Jean-Louis Stanus",
-      "Philippe Provost"
-    ],
-    "de": [
-      "Julia Tahedl",
-      "Martin Niegl",
-      "Max Maaß"
-    ],
-    "ja": [
-      "Hitomi Narakawa",
-      "Satoshi Iida"
-    ],
+    "fi": ["Aleksi Kinnunen"],
+    "fr": ["Denis Devillé", "Jean-Louis Stanus", "Philippe Provost"],
+    "de": ["Julia Tahedl", "Martin Niegl", "Max Maaß"],
+    "ja": ["Hitomi Narakawa", "Satoshi Iida"],
     "pl": [
       "Honorata Grzesikowska",
       "Tomasz Magulski",
@@ -263,30 +203,12 @@
     "pt-br": [
       "Carlos Jimenez",
       "Stephan Garcia",
-      [
-        "Carolina Guido",
-        "Urb-i"
-      ],
-      [
-        "Paulo Franco",
-        "Urb-i"
-      ],
-      [
-        "Yuval Fogelson",
-        "Urb-i"
-      ]
+      ["Carolina Guido", "Urb-i"],
+      ["Paulo Franco", "Urb-i"],
+      ["Yuval Fogelson", "Urb-i"]
     ],
-    "ru": [
-      "Artem Savin",
-      "Olya Arakhouskaya"
-    ],
-    "es-mx": [
-      "David Soto Padín",
-      "Paco Marquez",
-      "Patricio M. Ruiz Abrín"
-    ],
-    "sv": [
-      "Jakob Fahlstedt"
-    ]
+    "ru": ["Artem Savin", "Olya Arakhouskaya"],
+    "es-mx": ["David Soto Padín", "Paco Marquez", "Patricio M. Ruiz Abrín"],
+    "sv": ["Jakob Fahlstedt"]
   }
 }
