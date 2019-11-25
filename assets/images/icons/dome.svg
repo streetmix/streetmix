@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="dome">
+            <g>
+                <path d="M31.6451,44.5364L30.0171,44.5374L27.5064,40L20.5897,40.0153L18.0728,44.5506L16.451,44.5516L15.047,48L33.047,48Z" style="fill:black;fill-rule:nonzero;"/>
+            </g>
+        </g>
+    </g>
+</svg>

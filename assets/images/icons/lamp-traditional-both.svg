@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="lamp-traditional-both">
+            <path d="M20.791,5.184L22.088,9.102L22.434,9.336L22.088,9.327L22.081,10.447L10.725,9.889L10.101,13.698L9.545,13.713L2.625,18.121L7.875,33.982L15.694,33.907L20.4,18.157L13.538,13.602L12.948,13.618L12.92,11.914L22.069,12.081L21.825,48.001L26.301,48.001L26.097,12.082L35.082,11.914L34.885,13.613L34.463,13.602L27.6,18.157L32.307,33.907L40.125,33.982L45.375,18.121L38.457,13.713L37.899,13.698L37.275,9.889L26.088,10.429L26.082,9.438L25.85,9.432L26.082,9.213L27.45,5.114L24.114,1.749ZM6.192,19.194L17.422,18.868L14.109,31.143L9.306,31.143ZM31.009,19.443L42.014,19.443L38.7,31.143L33.898,31.143Z" style="fill:black;fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

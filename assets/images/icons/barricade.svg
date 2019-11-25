@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="barricade">
+        <g transform="matrix(0.472217,-2.32834e-32,-2.32834e-32,0.472217,-52.9665,-30.8606)">
+            <path d="M118.614,167L132.254,167L146.5,99.667L133.945,99.261L118.614,167Z" style="fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(0.472217,-2.32834e-32,-2.32834e-32,0.472217,-52.9665,-30.8606)">
+            <path d="M181.531,99.667L195.776,167L209.418,167L194.086,99.26L181.531,99.667Z" style="fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(0.472217,-2.32834e-32,-2.32834e-32,0.472217,-53.4632,-30.7973)">
+            <path d="M119.013,118.126L207.672,118.07L208.994,103.872L117.613,103.853L119.013,118.126Z" style="fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(0.472217,-2.32834e-32,-2.32834e-32,0.472217,-52.9665,-30.8606)">
+            <path d="M117.613,141.399L208.995,141.38L207.672,127.182L119.013,127.127L117.613,141.399Z" style="fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="truck">
+            <g>
+                <path d="M5.16,0.743L5.675,23.841L6.231,37.895L6.364,42.067L6.396,42.067L6.398,42.105L6.417,42.105L6.752,46L10.642,46L10.692,45.755L11.82,42.105L36.578,42.105L37.769,46L37.773,45.9L37.785,45.957L41.676,46L42.014,42.109L41.682,42.105L42.039,42.105L42.148,37.891L42.508,24.044L42.84,0.743ZM11.008,9.148L36.711,9.196L39.968,21.556L7.959,21.556ZM36.711,31.166L40.449,31.173L39.824,33.054L37.319,33.062ZM7.811,31.166L11.548,31.173L10.924,33.054L8.419,33.062ZM36.782,34.018L40.52,34.024L39.895,35.905L37.39,35.913ZM7.882,34.018L11.62,34.024L10.995,35.905L8.49,35.913Z" style="fill:black;fill-rule:nonzero;"/>
+            </g>
+        </g>
+    </g>
+</svg>
