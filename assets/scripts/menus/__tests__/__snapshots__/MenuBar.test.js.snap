@@ -11,8 +11,10 @@ exports[`MenuBar renders 1`] = `
       <li
         class="menu-bar-title"
       >
-        <div
-          class="streetmix-logo-horizontal"
+        <img
+          alt="Streemix"
+          class="menu-bar-logo"
+          src="test-file-stub"
         />
         <h1>
           Streetmix
@@ -99,8 +101,10 @@ exports[`MenuBar renders logged in user 1`] = `
       <li
         class="menu-bar-title"
       >
-        <div
-          class="streetmix-logo-horizontal"
+        <img
+          alt="Streemix"
+          class="menu-bar-logo"
+          src="test-file-stub"
         />
         <h1>
           Streetmix
@@ -198,8 +202,10 @@ exports[`MenuBar renders minimal menu in offline mode 1`] = `
       <li
         class="menu-bar-title"
       >
-        <div
-          class="streetmix-logo-horizontal"
+        <img
+          alt="Streemix"
+          class="menu-bar-logo"
+          src="test-file-stub"
         />
         <h1>
           Streetmix
