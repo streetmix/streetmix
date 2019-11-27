@@ -7,6 +7,7 @@ import SignInButton from './SignInButton'
 import AvatarMenu from './AvatarMenu'
 import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/actions/dialogs'
+import logo from '../../images/logo_horizontal.svg'
 import './MenuBar.scss'
 
 MenuBar.propTypes = {
@@ -87,7 +88,7 @@ function MenuBar (props) {
     <nav className="menu-bar">
       <ul className="menu-bar-left">
         <li className="menu-bar-title">
-          <div className="streetmix-logo-horizontal" />
+          <img src={logo} alt="Streemix" className="menu-bar-logo" />
           <h1>Streetmix</h1>
         </li>
         <MenuBarItem

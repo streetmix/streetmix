@@ -24,20 +24,15 @@
     display: none;
   }
 
-  .streetmix-logo-horizontal {
-    height: 36px;
-    margin: 2.5rem 2rem 2rem 2rem;
-    background-position: 0;
-
-    [dir="rtl"] & {
-      background-position: 100%;
-    }
-  }
-
   .dialog-content {
     overflow: hidden;
     overflow-y: scroll;
   }
+}
+
+.about-dialog-logo {
+  height: 36px;
+  margin: 2.5rem 2rem 2rem 2rem;
 }
 
 .about-dialog-content {
