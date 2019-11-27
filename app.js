@@ -19,6 +19,7 @@ const requestHandlers = require('./lib/request_handlers')
 const initRedisClient = require('./lib/redis')
 const initMongoDB = require('./lib/db')
 const initCloudinary = require('./lib/cloudinary')
+const compileSVGIcons = require('./lib/icons')
 const exec = require('child_process').exec
 const swaggerUi = require('swagger-ui-express')
 const swaggerJSDoc = require('swagger-jsdoc')
@@ -28,6 +29,7 @@ const serviceRoutes = require('./app/service_routes')
 const client = initRedisClient()
 initMongoDB()
 initCloudinary()
+compileSVGIcons()
 
 const app = (module.exports = express())
 
@@ -230,12 +232,6 @@ app.use('', apiRoutes)
 app.use('', serviceRoutes)
 
 // SVG bundled images served directly from packages
-app.get('/assets/images/icons.svg', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, '/node_modules/@streetmix/icons/dist/icons.svg')
-  )
-})
-
 app.get('/assets/images/images.svg', (req, res) => {
   res.sendFile(
     path.join(

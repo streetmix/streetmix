@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="turn-lane-left">
+            <path d="M8.062,18.999L22.683,7.654L22.683,14.603C34.016,14.854 35.646,22.551 36.184,25.768C36.516,27.753 36.749,32.772 36.876,36.348C36.96,38.672 37.011,40.067 36.98,40.976L30.369,40.976C30.368,38.721 30.242,30.267 29.671,26.856C28.636,20.661 26.402,21.298 22.683,21.203L22.683,28.931Z" style="fill:black;fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

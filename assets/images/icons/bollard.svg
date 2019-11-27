@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="bollard">
+            <path d="M21.048,10.638L20.516,48.001L27.581,48.001L27.048,10.62L25.724,8.307L22.373,8.272ZM23.521,18.94L26.065,13.941L27.059,13.775L27.126,18.522L24.048,19.025ZM20.97,18.522L21.037,13.775L23.921,14.254L21.726,18.645Z" style="fill:black;fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

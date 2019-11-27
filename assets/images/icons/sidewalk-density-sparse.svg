@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="sidewalk-density-sparse">
+            <path d="M20.556,13.777L14.996,16.558L14.559,22.665L16.505,22.416L16.591,23.981L18.385,24.05L18.404,25.392L21.507,28.999L20.766,31.102L18.697,32.48L18.64,32.42L14.261,35.093L11.878,48L15.163,48L17.223,39.216L16.665,48L32.244,48L31.778,37.155L33.285,48L36.122,48L34.224,33.678L29.556,31.648L28.704,32.962L29.458,31.746L27.012,30.522L26.293,28.757L28.912,25.392L28.784,23.423L30.809,23.528L30.746,22.149L31.797,22.086L30.935,14.716L20.572,13.713Z" style="fill:black;fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

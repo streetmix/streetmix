@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="waterfront">
+            <path d="M30.366,6.426L28.658,9.907L24.664,10.95L27.984,12.112L27.627,15.208L29.656,11.208L34.297,10.055L34.434,5.848Z" style="fill:black;fill-rule:nonzero;"/>
+            <g>
+                <path d="M18.9339,32.5512L26.602,31.637L27.435,33.764L40.537,31.639L41.368,33.657L48,32.705L48,48.001L0,48.001L0,32.838L7.988,31.626L8.82,33.757L14.8642,33.0364L13.933,29.093L16.547,30.424L18,26.836L18,30.908L21.635,27.798L18.9339,32.5512Z" style="fill:black;"/>
+            </g>
+            <path d="M4.599,40.599L18.881,38.084L26.325,40.599L18.278,39.392L4.599,40.599Z" style="fill:white;fill-rule:nonzero;"/>
+            <path d="M26.19,45.394L36.725,42.879L42.215,45.394L36.28,44.187L26.19,45.394Z" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

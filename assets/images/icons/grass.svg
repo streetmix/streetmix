@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+        <g id="grass">
+            <g>
+                <path d="M48,48L47.9658,47.9907L47.954,44.4132L45.284,44.4281L44.5916,42.0434L39.96,41.0943L35.6206,38.988L33.7113,40.6866C33.7113,40.6866 24.1616,42.4498 23.872,42.315C23.5817,42.1788 19.5897,38.988 19.5897,38.988L12.9773,40.4485L12.2837,40.3124L8.94057,38.988L8.36131,40.6157L6.56698,40.2086L5.98835,41.837L4.42584,40.7518L1.58985,41.4293L1.72348,44.6749L0.00372912,44.6848L4.26326e-14,48Z" style="fill:black;fill-rule:nonzero;"/>
+            </g>
+        </g>
+    </g>
+</svg>
