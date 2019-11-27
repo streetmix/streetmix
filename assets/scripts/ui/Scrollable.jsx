@@ -1,7 +1,7 @@
 /**
  * Adds scroll buttons to UI elements.
  */
-import React from 'react'
+import React, { useEffect, useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animate } from '../util/helpers'
@@ -10,135 +10,125 @@ import { registerKeypress, deregisterKeypress } from '../app/keypress'
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
-export default class Scrollable extends React.PureComponent {
-  static propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.node,
-    setRef: PropTypes.func,
-    onScroll: PropTypes.func,
-    allowKeyboardScroll: PropTypes.bool
-  }
+const Scrollable = React.forwardRef((props, ref) => {
+  const {
+    className,
+    onScroll = () => {},
+    allowKeyboardScroll = false,
+    children
+  } = props
+  const scrollerEl = useRef()
+  const leftButtonEl = useRef()
+  const rightButtonEl = useRef()
 
-  static defaultProps = {
-    setRef: () => {},
-    onScroll: () => {},
-    allowKeyboardScroll: false
-  }
+  useEffect(() => {
+    window.addEventListener('resize', checkButtonVisibilityState)
+    checkButtonVisibilityState()
 
-  constructor (props) {
-    super(props)
+    return () => {
+      window.removeEventListener('resize', checkButtonVisibilityState)
+    }
+  })
 
-    this.scrollerEl = React.createRef()
-    this.leftButtonEl = React.createRef()
-    this.rightButtonEl = React.createRef()
-  }
-
-  componentDidMount () {
-    window.addEventListener('resize', this.checkButtonVisibilityState)
-
-    if (this.props.allowKeyboardScroll === true) {
-      registerKeypress('left', this.handleClickLeft)
-      registerKeypress('right', this.handleClickRight)
+  useEffect(() => {
+    if (allowKeyboardScroll === true) {
+      registerKeypress('left', handleClickLeft)
+      registerKeypress('right', handleClickRight)
     }
 
-    // TODO: can this be placed in stylesheets?
-    this.leftButtonEl.current.style.left = '-15px'
-    this.rightButtonEl.current.style.right = '-15px'
-
-    this.checkButtonVisibilityState()
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.checkButtonVisibilityState)
-
-    if (this.props.allowKeyboardScroll === true) {
-      deregisterKeypress('left', this.handleClickLeft)
-      deregisterKeypress('right', this.handleClickRight)
+    return () => {
+      if (allowKeyboardScroll === true) {
+        deregisterKeypress('left', handleClickLeft)
+        deregisterKeypress('right', handleClickRight)
+      }
     }
-  }
+  })
 
-  handleClickLeft = (event) => {
-    const el = this.scrollerEl.current
+  useLayoutEffect(() => {
+    leftButtonEl.current.style.left = '-15px'
+    rightButtonEl.current.style.right = '-15px'
+  })
+
+  function handleClickLeft (event) {
+    const el = scrollerEl.current
     const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  handleClickRight = (event) => {
-    const el = this.scrollerEl.current
+  function handleClickRight (event) {
+    const el = scrollerEl.current
     const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  handleScrollContainer = (event) => {
-    this.checkButtonVisibilityState()
+  function handleScrollContainer (event) {
+    checkButtonVisibilityState()
 
     // If parent has provided its own onScroll handler function, call that now.
-    this.props.onScroll(event)
+    onScroll(event)
   }
 
-  // Allows parent component to obtain a ref to the wrapping element created here.
-  setWrapperElementRef = (ref) => {
-    this.props.setRef(ref)
-  }
-
-  checkButtonVisibilityState = () => {
-    const el = this.scrollerEl.current
-    const leftButtonEl = this.leftButtonEl.current
-    const rightButtonEl = this.rightButtonEl.current
+  function checkButtonVisibilityState () {
+    const el = scrollerEl.current
 
     // We set styles manually instead of setting `disabled` as before; it's
     // because a button in a disabled state doesn't seem to get onClick
     // handlers attached.
     if (el.scrollLeft === 0) {
-      leftButtonEl.style.opacity = 0
-      leftButtonEl.style.pointerEvents = 'none'
+      leftButtonEl.current.style.opacity = 0
+      leftButtonEl.current.style.pointerEvents = 'none'
     } else {
-      leftButtonEl.style.opacity = 1
-      leftButtonEl.style.pointerEvents = 'auto'
+      leftButtonEl.current.style.opacity = 1
+      leftButtonEl.current.style.pointerEvents = 'auto'
     }
 
     if (el.scrollLeft === el.scrollWidth - el.offsetWidth) {
-      rightButtonEl.style.opacity = 0
-      rightButtonEl.style.pointerEvents = 'none'
+      rightButtonEl.current.style.opacity = 0
+      rightButtonEl.current.style.pointerEvents = 'none'
     } else {
-      rightButtonEl.style.opacity = 1
-      rightButtonEl.style.pointerEvents = 'auto'
+      rightButtonEl.current.style.opacity = 1
+      rightButtonEl.current.style.pointerEvents = 'auto'
     }
   }
 
-  render () {
-    let containerClassName
+  const containerClassName = className
+    ? `${className}-scrollable-container`
+    : ''
 
-    if (this.props.className) {
-      containerClassName = `${this.props.className}-scrollable-container`
-    }
-
-    return (
-      <div className={containerClassName} ref={this.setWrapperElementRef}>
-        <div
-          className={this.props.className}
-          onScroll={this.handleScrollContainer}
-          ref={this.scrollerEl}
-        >
-          {this.props.children}
-        </div>
-        <button
-          className="scrollable scroll-left"
-          onClick={this.handleClickLeft}
-          ref={this.leftButtonEl}
-        >
-          <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
-        </button>
-        <button
-          className="scrollable scroll-right"
-          onClick={this.handleClickRight}
-          ref={this.rightButtonEl}
-        >
-          <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
-        </button>
+  return (
+    <div className={containerClassName} ref={ref}>
+      <div
+        className={className}
+        onScroll={handleScrollContainer}
+        ref={scrollerEl}
+      >
+        {children}
       </div>
-    )
-  }
+      <button
+        className="scrollable scroll-left"
+        onClick={handleClickLeft}
+        ref={leftButtonEl}
+      >
+        <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
+      </button>
+      <button
+        className="scrollable scroll-right"
+        onClick={handleClickRight}
+        ref={rightButtonEl}
+      >
+        <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
+      </button>
+    </div>
+  )
+})
+
+Scrollable.propTypes = {
+  className: PropTypes.string,
+  onScroll: PropTypes.func,
+  allowKeyboardScroll: PropTypes.bool,
+  children: PropTypes.node
 }
+
+export default Scrollable

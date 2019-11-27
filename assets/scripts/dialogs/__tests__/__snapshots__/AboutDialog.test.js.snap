@@ -24,8 +24,10 @@ exports[`AboutDialog renders snapshot 1`] = `
         class="about-dialog"
       >
         <header>
-          <div
-            class="streetmix-logo-horizontal"
+          <img
+            alt="Streetmix (logo)"
+            class="about-dialog-logo"
+            src="test-file-stub"
           />
           <h1>
             About Streetmix.
@@ -57,7 +59,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   >
                     <img
                       alt="New Urban Mobility Alliance"
-                      src="/images/sponsors/numo.svg"
+                      src="test-file-stub"
                     />
                   </a>
                 </li>
@@ -69,7 +71,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   >
                     <img
                       alt="Code for America"
-                      src="/images/sponsors/codeforamerica.png"
+                      src="test-file-stub"
                     />
                   </a>
                 </li>
@@ -81,7 +83,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   >
                     <img
                       alt="Mozilla Open Source Support"
-                      src="/images/sponsors/mozilla.svg"
+                      src="test-file-stub"
                     />
                   </a>
                 </li>

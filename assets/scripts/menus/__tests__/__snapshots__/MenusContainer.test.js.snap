@@ -11,8 +11,10 @@ exports[`MenusContainer renders 1`] = `
       <li
         class="menu-bar-title"
       >
-        <div
-          class="streetmix-logo-horizontal"
+        <img
+          alt="Streemix"
+          class="menu-bar-logo"
+          src="test-file-stub"
         />
         <h1>
           Streetmix

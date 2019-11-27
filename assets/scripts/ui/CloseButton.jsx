@@ -5,7 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_TIMES } from '../ui/icons'
 import './CloseButton.scss'
 
-const CloseButton = (props) => {
+CloseButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  className: PropTypes.string
+}
+
+function CloseButton (props) {
   const { title, className = 'close', onClick, ...restProps } = props
   const defaultTitle = useIntl().formatMessage({
     id: 'btn.dismiss',
@@ -22,12 +28,6 @@ const CloseButton = (props) => {
       <FontAwesomeIcon icon={ICON_TIMES} />
     </button>
   )
-}
-
-CloseButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  className: PropTypes.string
 }
 
 export default React.memo(CloseButton)
