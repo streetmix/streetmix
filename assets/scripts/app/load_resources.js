@@ -8,6 +8,7 @@ export const images = new Map()
 
 // Image tileset loading
 const IMAGES_TO_BE_LOADED = [
+  '/images/icons.svg',
   '/images/wordmark.svg',
   '/images/wordmark_black.svg',
   '/images/wordmark_white.svg',
@@ -15,7 +16,6 @@ const IMAGES_TO_BE_LOADED = [
   '/images/sky-rear.svg',
   '/images/stars.svg',
   '/images/moon.svg',
-  '/assets/images/icons.svg',
   '/assets/images/images.svg'
 ]
 
@@ -108,7 +108,7 @@ function getSVGOuterHTML (svg) {
   // The `outerHTML` property is not available on IE / Edge
   // so if it's not present, use this alternate method below
   if (typeof outerHTML === 'undefined') {
-    outerHTML = (new window.XMLSerializer()).serializeToString(svg)
+    outerHTML = new window.XMLSerializer().serializeToString(svg)
   }
 
   return outerHTML
@@ -129,9 +129,11 @@ function getSVGSymbolInnerHTML (symbol) {
   // serializes each element to a string.
   if (typeof innerHTML === 'undefined') {
     innerHTML = ''
-    Array.prototype.slice.call(symbol.childNodes).forEach(function (node, index) {
-      innerHTML += (new window.XMLSerializer()).serializeToString(node)
-    })
+    Array.prototype.slice
+      .call(symbol.childNodes)
+      .forEach(function (node, index) {
+        innerHTML += new window.XMLSerializer().serializeToString(node)
+      })
   }
 
   return innerHTML

@@ -232,10 +232,6 @@ app.use('', apiRoutes)
 app.use('', serviceRoutes)
 
 // SVG bundled images served directly from packages
-app.get('/assets/images/icons.svg', (req, res) => {
-  res.sendFile(path.join(__dirname, '/assets/images/icons.svg'))
-})
-
 app.get('/assets/images/images.svg', (req, res) => {
   res.sendFile(
     path.join(
