@@ -6,7 +6,17 @@ import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { formatCapacity } from '../util/street_analytics'
 import './SegmentLabelContainer.scss'
 
-const SegmentLabelContainer = (props) => {
+SegmentLabelContainer.propTypes = {
+  // Label can be a string or a React element, e.g. <FormattedMessage />.
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
+  showCapacity: PropTypes.bool,
+  capacity: PropTypes.number,
+  width: PropTypes.number.isRequired,
+  units: PropTypes.number,
+  locale: PropTypes.string.isRequired
+}
+
+function SegmentLabelContainer (props) {
   const {
     label,
     showCapacity = false,
@@ -27,19 +37,14 @@ const SegmentLabelContainer = (props) => {
 
   return (
     <div className="segment-label-container">
-      <span className="segment-label">
-        {label}
-      </span>
-      <span className="segment-width">
-        <MeasurementText
-          value={width}
-          units={units}
-          locale={locale}
-        />
-      </span>
-      {
-        showCapacity &&
-          <span className="segment-capacity">
+      <div className={gridClassNames.join(' ')} />
+      <div className="segment-width">
+        <MeasurementText value={width} units={units} locale={locale} />
+      </div>
+      <div className="segment-label">
+        <p className="segment-name">{label}</p>
+        {showCapacity && (
+          <p className="segment-capacity">
             <FormattedMessage
               id="capacity.ppl-per-hour"
               defaultMessage="{capacity} people/hr"
@@ -47,24 +52,11 @@ const SegmentLabelContainer = (props) => {
                 capacity: formatCapacity(capacity, locale)
               }}
             />
-          </span>
-      }
-      <span className={gridClassNames.join(' ')} />
+          </p>
+        )}
+      </div>
     </div>
   )
-}
-
-SegmentLabelContainer.propTypes = {
-  // Label can be a string or a React element, e.g. <FormattedMessage />.
-  label: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element
-  ]).isRequired,
-  showCapacity: PropTypes.bool,
-  capacity: PropTypes.number,
-  width: PropTypes.number.isRequired,
-  units: PropTypes.number,
-  locale: PropTypes.string.isRequired
 }
 
 export default SegmentLabelContainer

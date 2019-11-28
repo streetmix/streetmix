@@ -14,21 +14,25 @@ exports[`StreetEditable segment warnings too large Pressing \`+\` does not incre
       <div
         class="segment-label-container"
       >
-        <span
-          class="segment-label"
-        >
-          Segment
-        </span>
-        <span
+        <div
+          class="segment-grid units-metric"
+        />
+        <div
           class="segment-width"
         >
           <span>
             120 m
           </span>
-        </span>
-        <span
-          class="segment-grid units-metric"
-        />
+        </div>
+        <div
+          class="segment-label"
+        >
+          <p
+            class="segment-name"
+          >
+            Segment
+          </p>
+        </div>
       </div>
       <span
         class="drag-handle drag-handle-left"

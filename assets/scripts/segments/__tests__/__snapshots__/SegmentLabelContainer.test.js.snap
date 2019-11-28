@@ -5,23 +5,27 @@ exports[`SegmentLabelContainer renders React element label 1`] = `
   <div
     class="segment-label-container"
   >
-    <span
-      class="segment-label"
-    >
-      <span>
-        bar
-      </span>
-    </span>
-    <span
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
       class="segment-width"
     >
       <span>
         0.3 m
       </span>
-    </span>
-    <span
-      class="segment-grid units-metric"
-    />
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        <span>
+          bar
+        </span>
+      </p>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -31,21 +35,25 @@ exports[`SegmentLabelContainer renders correct grid styling in imperial 1`] = `
   <div
     class="segment-label-container"
   >
-    <span
-      class="segment-label"
-    >
-      foo
-    </span>
-    <span
+    <div
+      class="segment-grid units-imperial"
+    />
+    <div
       class="segment-width"
     >
       <span>
         1′
       </span>
-    </span>
-    <span
-      class="segment-grid units-imperial"
-    />
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        foo
+      </p>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -55,21 +63,25 @@ exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
   <div
     class="segment-label-container"
   >
-    <span
-      class="segment-label"
-    >
-      foo
-    </span>
-    <span
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
       class="segment-width"
     >
       <span>
         0.3 m
       </span>
-    </span>
-    <span
-      class="segment-grid units-metric"
-    />
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        foo
+      </p>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -79,21 +91,25 @@ exports[`SegmentLabelContainer renders editable label 1`] = `
   <div
     class="segment-label-container"
   >
-    <span
-      class="segment-label"
-    >
-      foo
-    </span>
-    <span
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
       class="segment-width"
     >
       <span>
         0.3 m
       </span>
-    </span>
-    <span
-      class="segment-grid units-metric"
-    />
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        foo
+      </p>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -103,21 +119,25 @@ exports[`SegmentLabelContainer renders string label 1`] = `
   <div
     class="segment-label-container"
   >
-    <span
-      class="segment-label"
-    >
-      bar
-    </span>
-    <span
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
       class="segment-width"
     >
       <span>
         0.3 m
       </span>
-    </span>
-    <span
-      class="segment-grid units-metric"
-    />
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        bar
+      </p>
+    </div>
   </div>
 </DocumentFragment>
 `;

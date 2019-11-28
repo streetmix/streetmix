@@ -39,9 +39,10 @@ describe('EmptySegment', () => {
   })
 
   it('renders text content', () => {
-    const { container } = renderWithReduxAndIntl(
+    const { getByText } = renderWithReduxAndIntl(
       <EmptySegment width={15} units={SETTINGS_UNITS_METRIC} locale="ja" />
     )
-    expect(container.firstChild.textContent).toBe('Empty space4.5 m')
+    expect(getByText('4.5 m')).toBeInTheDocument()
+    expect(getByText('Empty space')).toBeInTheDocument()
   })
 })

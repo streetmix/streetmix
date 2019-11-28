@@ -15,20 +15,25 @@
 
 .segment-label {
   position: absolute;
-  left: 4px;
-  right: 4px;
-  top: 48px;
+  left: 2px;
+  right: 2px;
+  top: 44px;
   color: $segment-text;
   font-weight: 300;
   text-rendering: optimizeLegibility;
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+.segment-label > p {
+  margin: 0;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  pointer-events: none;
 }
 
-.segment.hover .segment-label,
-.segment.hover .segment-capacity {
+.segment.hover .segment-label {
   font-weight: 700;
 
   // Show full label when hovering over segment with
@@ -42,16 +47,15 @@
   margin-top: -4px;
 }
 
-.segment.warning .segment-label,
-.segment.warning .segment-capacity {
+.segment.warning .segment-label {
   color: $segment-warning-text;
 }
 
-.segment-width,
-.segment-capacity {
+.segment-width {
   position: absolute;
   left: 0;
   right: 0;
+  top: 22px;
   height: 24px;
   line-height: 20px;
   color: $segment-text;
@@ -59,16 +63,6 @@
   text-rendering: optimizeLegibility;
   overflow: hidden;
   pointer-events: none;
-}
-
-.segment-width {
-  top: 22px;
-}
-
-.segment-capacity {
-  top: 65px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /* Force `rtl` direction when it's applied to the body, since

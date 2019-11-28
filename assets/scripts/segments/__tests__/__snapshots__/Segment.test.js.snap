@@ -10,21 +10,25 @@ exports[`Segment renders correctly 1`] = `
     <div
       class="segment-label-container"
     >
-      <span
-        class="segment-label"
-      >
-        Segment
-      </span>
-      <span
+      <div
+        class="segment-grid units-metric"
+      />
+      <div
         class="segment-width"
       >
         <span>
           60 m
         </span>
-      </span>
-      <span
-        class="segment-grid units-metric"
-      />
+      </div>
+      <div
+        class="segment-label"
+      >
+        <p
+          class="segment-name"
+        >
+          Segment
+        </p>
+      </div>
     </div>
     <span
       class="drag-handle drag-handle-left"
