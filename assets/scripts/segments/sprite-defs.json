@@ -55,6 +55,14 @@
     "id": "markings--both-outbound",
     "originY": 96
   },
+  "markings--left-right-straight-inbound": {
+    "id": "markings--left-right-straight-inbound",
+    "originY": 96
+  },
+  "markings--left-right-straight-outbound": {
+    "id": "markings--left-right-straight-outbound",
+    "originY": 96
+  },
   "markings--shared-inbound": {
     "id": "markings--shared-inbound",
     "originY": 96

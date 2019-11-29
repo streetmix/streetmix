@@ -98,9 +98,7 @@
     },
     "inception-train": {
       "lede": "It’s the train from the Christopher Nolan movie <em>Inception</em>.",
-      "text": [
-        "What more do you need to know?"
-      ]
+      "text": ["What more do you need to know?"]
     }
   },
   "buildings": {
@@ -135,6 +133,7 @@
     "turn-lane-orientation|right-straight": "Right and straight",
     "turn-lane-orientation|right": "Right",
     "turn-lane-orientation|both": "Both",
+    "turn-lane-orientation|left-right-straight": "Left, right and straight",
     "turn-lane-orientation|shared": "Shared",
     "bench-orientation|left": "Left",
     "bench-orientation|right": "Right",
