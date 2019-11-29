@@ -19,7 +19,7 @@ const requestHandlers = require('./lib/request_handlers')
 const initRedisClient = require('./lib/redis')
 const initMongoDB = require('./lib/db')
 const initCloudinary = require('./lib/cloudinary')
-const compileSVGIcons = require('./lib/icons')
+const compileSVGSprites = require('./lib/svg-sprite')
 const exec = require('child_process').exec
 const swaggerUi = require('swagger-ui-express')
 const swaggerJSDoc = require('swagger-jsdoc')
@@ -31,7 +31,8 @@ const logger = require('./lib/logger.js')()
 const client = initRedisClient()
 initMongoDB()
 initCloudinary()
-compileSVGIcons()
+compileSVGSprites('assets/images/icons/', 'icons', 'icon')
+compileSVGSprites('assets/images/illustrations/', 'illustrations', 'image')
 
 const app = (module.exports = express())
 
@@ -40,9 +41,7 @@ const cacheTimestamp = Date.now()
 app.locals.cacheTimestamp = cacheTimestamp
 
 process.on('uncaughtException', function (error) {
-  logger.error(
-    chalk`[process] {bold Uncaught exception:} ${error}`
-  )
+  logger.error(chalk`[process] {bold Uncaught exception:} ${error}`)
 
   console.trace()
 
@@ -59,9 +58,7 @@ process.on('uncaughtException', function (error) {
 // Note: various sources tell us that this does not work on Windows
 process.on('SIGINT', function () {
   if (app.locals.config.env === 'development') {
-    logger.info(
-      chalk`[express] {yellow.bold Stopping Streetmix!}`
-    )
+    logger.info(chalk`[express] {yellow.bold Stopping Streetmix!}`)
     exec('npm stop')
   }
 
