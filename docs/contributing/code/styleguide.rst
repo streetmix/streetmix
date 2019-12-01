@@ -90,7 +90,7 @@ Code comments
 Commit style
 ++++++++++++
 
-We like the `Conventional Commits specification <https://www.conventionalcommits.org/en/v1.0.0-beta.4/>`_. This commit style helps us organize our changes into discrete commits by documenting them in a standard way, which helps us understand project history over time. This is still a young specification and we are just beginning to adopt it. (Previously, this is also known as `semantic commit messages <https://seesparkbox.com/foundry/semantic_commit_messages>`_ or the `Angular commit style <https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines>`_.)
+We like the `Conventional Commits specification <https://www.conventionalcommits.org/en/v1.0.0-beta.4/>`_. This commit style helps us organize our changes into discrete commits by documenting them in a standard way, which helps us understand project history over time. (Previously, this is also known as `semantic commit messages <https://seesparkbox.com/foundry/semantic_commit_messages>`_ or the `Angular commit style <https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines>`_.)
 
 While the Conventional Commits specification only defines the ``feat`` and ``fix`` types, we also use the following **types**:
 
@@ -99,6 +99,7 @@ While the Conventional Commits specification only defines the ``feat`` and ``fix
   - **style**: Changes to code style (white-space, formatting, etc)
   - **test**: Changes to tests
   - **perf**: Improvement to existing code that improves performance
+  - **revert**: Reverts a previous change
   - **refactor**: All other improvements to existing code (and not ``perf``, ``fix``, or ``feat``)
 
 A **role** can also be added optionally. For React components, the role is often the name of the component:
@@ -109,6 +110,11 @@ A **role** can also be added optionally. For React components, the role is often
 
 
 This is flexible and new types may be adopted over time. Sometimes a commit may seem to fall into one or more category. The first thing to consider is whether the commit is too large and should be split into smaller commits. If not, then pick which category seems most relevant. Make your own best judgment call here. Pull request reviews should not be held up on semantic debates of commit types, but a review should note if commit types are completely missing or very clearly used improperly.
+
+
+.. note::
+
+   We use `commitlint <https://commitlint.js.org>` to automatically check your commit messages for validity. If they're not valid, the check will fail. This check is hooked into each commit, and our CI test will also check your commit messages.
 
 
 .. tip::
