@@ -49,6 +49,13 @@
     "level": 3
   },
   {
+    "label": "Italiano",
+    "name": "Italian",
+    "value": "it",
+    "key": "i18n.lang.it",
+    "level": 2
+  },
+  {
     "label": "日本語",
     "name": "Japanese",
     "value": "ja",
