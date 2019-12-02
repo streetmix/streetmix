@@ -103,29 +103,52 @@ export default class DescriptionPanel extends React.Component {
 
   render () {
     // TODO document magic numbers
-    const height = (getStreetSectionTop() + 300 - this.props.bubbleY) + 'px'
+    const height = getStreetSectionTop() + 300 - this.props.bubbleY + 'px'
 
     return (
       <Transition in={this.props.visible} timeout={TRANSITION_DURATION}>
         {(state) => (
           <div
-            className="description-canvas" style={{
+            className="description-canvas"
+            style={{
               ...DEFAULT_STYLE,
               ...TRANSITION_STYLES[state],
               height
             }}
           >
-            <div className="description" ref={(ref) => { this.text = ref }}>
-              {/* TODO: add alt text and requisite a11y attributes */}
-              {this.props.image && <img src={`/images/info-bubble-examples/${this.props.image}`} />}
-              {this.props.lede && <p className="description-lede" dangerouslySetInnerHTML={{ __html: this.props.lede }} />}
-              {this.renderText(this.props.text)}
-              {this.props.caption && (
-                <footer>
-                  <FormattedMessage id="segments.description.photo-credit" defaultMessage="Photo:" />&nbsp;
-                  {this.props.caption}
-                </footer>
-              )}
+            <div
+              className="description"
+              ref={(ref) => {
+                this.text = ref
+              }}
+            >
+              <div className="description-content">
+                {/* TODO: add alt text and requisite a11y attributes */}
+                {this.props.image && (
+                  <img
+                    src={`/images/info-bubble-examples/${this.props.image}`}
+                  />
+                )}
+                <div className="description-text">
+                  {this.props.lede && (
+                    <p
+                      className="description-lede"
+                      dangerouslySetInnerHTML={{ __html: this.props.lede }}
+                    />
+                  )}
+                  {this.renderText(this.props.text)}
+                  {this.props.caption && (
+                    <footer>
+                      <FormattedMessage
+                        id="segments.description.photo-credit"
+                        defaultMessage="Photo:"
+                      />
+                      &nbsp;
+                      {this.props.caption}
+                    </footer>
+                  )}
+                </div>
+              </div>
             </div>
             <div
               className="description-close"

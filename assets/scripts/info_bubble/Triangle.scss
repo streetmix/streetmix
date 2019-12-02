@@ -2,8 +2,8 @@
 
 .info-bubble-triangle {
   position: absolute;
-  bottom: -30px;
-  height: 30px;
+  bottom: -24px;
+  height: 24px;
   left: 0;
   right: 0;
   overflow: hidden;
@@ -11,14 +11,14 @@
   &::before {
     content: "";
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     left: 50%;
-    bottom: 15px;
-    margin-left: -18px;
-    border: 3px solid darken($ui-colour, 20%);
+    bottom: 12px;
+    margin-left: -12px;
     transform: rotateZ(45deg);
     background: $info-bubble-background;
+    box-shadow: $light-box-shadow;
     pointer-events: none;
   }
 }

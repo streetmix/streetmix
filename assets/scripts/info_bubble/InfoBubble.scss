@@ -2,15 +2,15 @@
 @import "../../styles/mixins.scss";
 
 // TODO: Further refactoring / splitting up of these styles
+$info-bubble-border-radius: $border-radius;
 
 .info-bubble {
-  @include box-border;
-
   position: absolute;
-  border-top-color: darken($ui-colour, 30%);
   min-width: 275px;
   opacity: 0;
   background: $info-bubble-background;
+  border-radius: $info-bubble-border-radius;
+  box-shadow: $light-box-shadow;
   transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
   transform: rotateX(-80deg);
   perspective: 1200px;
@@ -29,13 +29,15 @@
     flex-direction: row;
     justify-content: space-between;
     position: relative;
-    padding: 2px 8px;
-    height: $info-bubble-button-size + 6px;
+    padding: 4px 10px;
+    height: $info-bubble-button-size + 10px;
     line-height: $info-bubble-button-size + 2px;
     font-size: 1.2em;
     font-weight: 300;
     color: white;
     background: darken($ui-colour, 20%);
+    border-top-left-radius: $info-bubble-border-radius;
+    border-top-right-radius: $info-bubble-border-radius;
   }
 
   .icon {
@@ -56,7 +58,6 @@
 
   .variants {
     text-align: left;
-    padding: 7px 8px 5px;
     margin-right: 20px;
     min-height: $info-bubble-button-size;
     white-space: nowrap;
@@ -90,12 +91,17 @@
         right: auto;
       }
     }
+
+    [dir="rtl"] & {
+      text-align: right;
+      margin-left: 20px;
+      margin-right: 0;
+      direction: ltr;
+    }
   }
 
   .non-variant {
     text-align: right;
-    margin: 8px;
-    min-height: 30px;
     white-space: nowrap;
     user-select: none;
 
@@ -106,7 +112,7 @@
     }
 
     &.building-height {
-      margin-top: -29px;
+      margin-top: -36px;
       height: auto;
       white-space: normal;
       width: 115px;
@@ -147,13 +153,6 @@
     }
   }
 
-  // Chrome
-  @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
-    .non-variant {
-      margin-top: 7px;
-    }
-  }
-
   button {
     width: $info-bubble-button-size;
     height: $info-bubble-button-size;
@@ -162,22 +161,38 @@
 
 .info-bubble-type-building header {
   margin-right: 140px;
+  border-top-right-radius: 0;
+
+  [dir="rtl"] & {
+    border-top-left-radius: 0;
+    border-top-right-radius: $info-bubble-border-radius;
+    margin-left: 140px;
+    margin-right: 0;
+  }
 
   &::after {
     content: "";
     position: absolute;
     top: 0;
-    right: -37px;
+    right: -40px;
     width: 0;
     height: 0;
-    border-top: 37px solid darken($ui-colour, 20%);
-    border-right: 37px solid transparent;
+    border-top: 40px solid darken($ui-colour, 20%);
+    border-right: 40px solid transparent;
+
+    [dir="rtl"] & {
+      left: -37px;
+      right: auto;
+      border-left: 37px solid transparent;
+      border-right: none;
+    }
   }
 }
 
 .info-bubble-controls {
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 
   .non-variant {
     text-align: center;
@@ -231,24 +246,5 @@
   .info-bubble-remove {
     margin-left: 0;
     margin-right: 1em;
-  }
-
-  .variants {
-    text-align: right;
-    margin-left: 20px;
-    margin-right: 0;
-    direction: ltr;
-  }
-
-  .info-bubble-type-building header {
-    margin-left: 140px;
-    margin-right: 0;
-
-    &::after {
-      left: -37px;
-      right: auto;
-      border-left: 37px solid transparent;
-      border-right: none;
-    }
   }
 }

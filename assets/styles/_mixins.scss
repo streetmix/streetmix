@@ -1,9 +1,3 @@
-// This is a mixin used by various UI elements
-@mixin box-border {
-  border-top: 3px solid darken($ui-colour, 20%);
-  border-bottom: 3px solid darken($ui-colour, 20%);
-}
-
 // Non-standard prefixed styles
 @mixin tap-highlight-color($value: transparent) {
   -webkit-tap-highlight-color: $value;

@@ -39,6 +39,10 @@ const INFO_BUBBLE_MARGIN_MOUSE = 10
 const DESCRIPTION_HOVER_POLYGON_MARGIN = 200
 
 const MIN_TOP_MARGIN_FROM_VIEWPORT = 150
+
+// The menu bar has extended to 30px margin, but we can't change
+// this because a lesser number will currently cause the description
+// panel to potentially be offscreen.
 const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
 
 const HOVER_POLYGON_DEBOUNCE = 50

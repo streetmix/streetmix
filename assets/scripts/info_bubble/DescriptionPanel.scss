@@ -10,6 +10,9 @@
   user-select: none;
   color: darken($ui-colour, 20%);
   cursor: pointer;
+  overflow: hidden;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
 
   &:hover {
     color: darken($ui-colour, 40%);
@@ -30,23 +33,21 @@
   top: -50px;
   right: -50px;
   pointer-events: none;
-  border-top: 3px solid darken($ui-colour, 20%);
-  border-bottom: 3px solid darken($ui-colour, 20%);
+  border-radius: $border-radius;
+  box-shadow: $light-box-shadow;
   background: $info-bubble-background;
 }
 
 .description {
   height: 100%;
-  padding: 1em;
-  font-size: 1.2em;
   font-weight: 300;
   line-height: 1.4;
-  overflow-y: auto;
-  overflow-x: hidden;
-  touch-action: pan-y;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   p {
-    margin: 10px 0;
+    margin: 1em 0;
 
     &:first-child {
       margin-top: 0;
@@ -54,19 +55,28 @@
   }
 
   footer {
-    text-align: right;
     color: rgb(160, 160, 160);
     font-size: 0.8em;
     margin: 1em 0;
   }
 
   img {
-    //width: 300px;
-    margin: 0 auto;
+    width: 100%;
     display: block;
-    max-width: 100%;
-    outline: 1px solid darken($ui-colour, 20%);
   }
+}
+
+.description-content {
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  overflow-x: hidden;
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+
+.description-text {
+  padding: 1em;
+  font-size: 16px;
 }
 
 .description-lede {
