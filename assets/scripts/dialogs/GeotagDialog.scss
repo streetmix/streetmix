@@ -105,47 +105,53 @@
 }
 
 .leaflet-popup-content-wrapper {
-  border: 3px solid darken($ui-colour, 20%);
-  border-left: 0;
-  border-right: 0;
-  border-radius: 0;
+  border-radius: $border-radius;
 }
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .leaflet-popup-tip-container {
-  bottom: -30px;
-  height: 33px;
+  bottom: -24px;
+  height: 24px;
 }
 
 .leaflet-popup-tip {
   position: absolute;
-  height: 30px;
-  width: 30px;
+  width: 24px;
+  height: 24px;
   left: 50%;
-  bottom: 22px;
-  margin-left: -18px;
-  border: 3px solid darken($ui-colour, 20%);
+  bottom: 12px;
+  margin-left: -12px;
   transform: rotateZ(45deg);
   background: $info-bubble-background;
   box-shadow: none;
 }
 
 .leaflet-popup-content {
+  margin: 0;
+  padding: 1em;
   text-align: center;
 }
 
-/* Leaflet zoom-in/zoom-out buttons resemble Streetmix buttons */
-.leaflet-bar {
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
-  border-radius: 0;
+.leaflet-control-zoom {
+  padding: 2px;
+  background-color: white;
 }
 
-.leaflet-touch .leaflet-bar {
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
+.leaflet-left .leaflet-control {
+  margin-top: 12px;
+}
+
+.leaflet-top .leaflet-control {
+  margin-top: 12px;
+}
+
+.leaflet-touch .leaflet-bar,
+.leaflet-bar {
+  box-shadow: $medium-box-shadow;
   border: 0;
 }
 
@@ -156,9 +162,7 @@
 
 .leaflet-bar a,
 .leaflet-bar a:hover {
-  background-color: mix($ui-colour, white, 50%);
   border: 0;
-  border-top: 1px solid darken($ui-colour, 10%);
   font-size: inherit;
   width: 30px;
   height: 30px;
@@ -168,40 +172,5 @@
 
 .leaflet-bar a:first-child,
 .leaflet-touch .leaflet-bar a:first-child {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.leaflet-bar a:last-child,
-.leaflet-touch .leaflet-bar a:last-child {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.leaflet-bar a:last-child,
-.leaflet-bar a:last-child:hover {
-  border-bottom: 1px solid darken($ui-colour, 10%);
-}
-
-.leaflet-bar a {
-  &:hover {
-    background-color: mix($ui-colour, white, 70%);
-  }
-
-  &:active {
-    background-color: mix($ui-colour, white, 95%);
-  }
-
-  &.leaflet-disabled {
-    border-top-color: desaturate($ui-colour, 100%);
-    border-bottom-color: desaturate($ui-colour, 100%);
-    background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
-    cursor: default;
-
-    &:hover {
-      border-top-color: desaturate($ui-colour, 100%);
-      border-bottom-color: desaturate($ui-colour, 100%);
-      background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
-    }
-  }
+  border-bottom: 1px solid #e7e7e7;
 }
