@@ -7,23 +7,18 @@
  * @requires keypress
  */
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { loseAnyFocus } from '../util/focus'
 import './DebugInfo.scss'
 
-DebugInfo.propTypes = {
-  settings: PropTypes.object,
-  street: PropTypes.object,
-  flags: PropTypes.object,
-  undo: PropTypes.object,
-  user: PropTypes.object
-}
-
 function DebugInfo (props) {
-  const { settings = {}, street = {}, flags = {}, undo = {}, user = {} } = props
   const textareaEl = useRef(null)
   const [isVisible, setVisible] = useState(false)
+  const settings = useSelector((state) => state.settings || {})
+  const street = useSelector((state) => state.street || {})
+  const flags = useSelector((state) => state.flags || {})
+  const undo = useSelector((state) => state.undo || {})
+  const user = useSelector((state) => state.user || {})
 
   // Register keyboard input for show (shift-D)
   useEffect(() => {
@@ -82,27 +77,16 @@ function DebugInfo (props) {
     }
   }
 
-  let className = 'debug-info'
-
   if (isVisible === true) {
-    className += ' debug-info-visible'
+    return (
+      <div className="debug-info">
+        <textarea readOnly wrap="off" ref={textareaEl} />
+      </div>
+    )
   }
 
-  return (
-    <div className={className}>
-      <textarea readOnly wrap="off" ref={textareaEl} />
-    </div>
-  )
+  // Don't render any DOM if invisible
+  return null
 }
 
-function mapStateToProps (state) {
-  return {
-    settings: state.settings,
-    street: state.street,
-    flags: state.flags,
-    undo: state.undo,
-    user: state.user
-  }
-}
-
-export default connect(mapStateToProps)(DebugInfo)
+export default DebugInfo
