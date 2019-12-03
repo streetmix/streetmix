@@ -5,13 +5,11 @@
 
 @import "../../styles/variables.scss";
 
-$environment-editor-border-radius: $border-radius;
+$environment-editor-border-radius: $border-radius-large;
 $environment-editor-box-shadow: $medium-box-shadow;
 
 $header-background-colour: $colour-turquoise-200;
 $header-text-colour: $colour-turquoise-700;
-$close-icon-colour: $colour-turquoise-500;
-$close-icon-colour-hover: $colour-turquoise-600;
 $selection-highlight-colour: $colour-turquoise-500;
 
 .environment-editor-container-outer {
@@ -89,20 +87,4 @@ $selection-highlight-colour: $colour-turquoise-500;
   display: flex !important;
   justify-content: center;
   align-items: center !important;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-
-  &:active {
-    background-color: rgba(255, 255, 255, 0.75);
-  }
-
-  svg {
-    color: $close-icon-colour;
-  }
-
-  &:hover svg {
-    color: $close-icon-colour-hover;
-  }
 }

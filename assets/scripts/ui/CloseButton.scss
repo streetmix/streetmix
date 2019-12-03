@@ -1,5 +1,9 @@
+@import "../../styles/variables.scss";
+
 $close-button-margin: 2px;
 $close-button-size: 34px;
+$close-icon-colour: $colour-turquoise-500;
+$close-icon-colour-hover: $colour-turquoise-600;
 
 button.close {
   // Position in dialog boxes
@@ -21,9 +25,10 @@ button.close {
   appearance: none;
   border: 0;
   border-radius: 50%;
-  color: rgb(64, 32, 32);
+  color: $close-icon-colour;
   cursor: pointer;
   user-select: none;
+  background-color: transparent;
 
   // Override font-awesome sizing
   // A transform works better than overriding the width/height properties.
@@ -31,11 +36,20 @@ button.close {
     transform: scale(0.75);
   }
 
-  &:not(:hover) {
-    background-color: transparent;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
   }
 
-  &:hover {
-    color: black;
+  &:active {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+
+  svg {
+    // `!important` overrides higher-specifity button style
+    color: $close-icon-colour !important;
+  }
+
+  &:hover svg {
+    color: $close-icon-colour-hover !important;
   }
 }
