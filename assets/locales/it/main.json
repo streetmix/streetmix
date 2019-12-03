@@ -1,0 +1,393 @@
+{
+  "menu": {
+    "item": {
+      "help": "Aiuto",
+      "about": "A proposito di Streetmix...",
+      "contact": "Contatti",
+      "community": "Comunità",
+      "contribute": "Contribuisci",
+      "sign-in": "Entra nel sito",
+      "sign-out": "Esci dal sito",
+      "new-street": "Nuova strada",
+      "my-streets": "Le mie strade",
+      "settings": "Configurazione",
+      "share": "Condividi",
+      "store": "Memorizza",
+      "upgrade": "Aggiorna"
+    },
+    "help": {
+      "keyboard-label": "Scorciatoie da tastiera",
+      "remove-instruction": "Cancella un segmento indicandolo con il cursore",
+      "remove-shift-instruction": "(premi {shiftKey} per cancellare tutto)",
+      "move-instruction": "Riposiziona nella strada",
+      "move-shift-instruction": "(premi{shiftKey} per saltare ai bordi)",
+      "change-instruction": "Cambia la larghezza del segmento indicato dal cursore",
+      "change-shift-instruction": "(premi{shiftKey} per una maggiore precisione)"
+    },
+    "share": {
+      "sign-in-twitter-link": "Entra nel sito",
+      "sign-in-link": "{signInLink} per collegamenti più efficaci con le tue strade e la tua galleria personale",
+      "link": "Copia ed incolla il collegamento da condividere",
+      "copy-to-clipboard": "Copia negli appunti",
+      "twitter": "Condividi con Twitter",
+      "facebook": "Condividi con Facebook",
+      "print": "Stampa...",
+      "save": "Salva come immagine...",
+      "save-byline": "Per includere in un rapporto, un blog etc...",
+      "messages": {
+        "my-street": "Dai un'occhiata alla mia strada, {streetName}, su Streetmix!",
+        "my-street-unnamed": "Dai un'occhiata alla mia strada su Streetmix!",
+        "someone-elses-street": "Dai un'occhiata a{streetName} di {streetCreator} su Streetmix!",
+        "someone-elses-street-unnamed": "Dai un'occhiata a questa strada di {streetCreator} su Streetmix!",
+        "anonymous-creator-street": "Dai un'occhiata a {streetName} su Streetmix!",
+        "anonymous-creator-street-unnamed": "Dai un'occhiata a questa strada su Streetmix!"
+      }
+    },
+    "contact": {
+      "forums": "Parliamone nei forum",
+      "twitter": "Invia un tweet a @streetmix",
+      "email": "Invia un'email al team di Steetmix",
+      "github": "Esamina il codice sorgente su GitHub",
+      "blog": "Visita il blog di Streetmix",
+      "discord": "Unisciti alla chat su Discord",
+      "slack": "Unisciti alla chat su Slack",
+      "minecraft": "Gioca a Minecraft con noi!",
+      "newsletter": "Sottoscrivi la nostra newsletter"
+    },
+    "contribute": {
+      "donate": "Contribuisci economicamente",
+      "stickers": "Compra un foglio di adesivi!",
+      "opensource": "Contribuisci allo sviluppo open source"
+    },
+    "feedback": {
+      "prompt": "Mandaci un messaggio:",
+      "message-placeholder": "Cosa pensi di Streetmix?",
+      "email-placeholder": "La tua email (opzionale)",
+      "send": "Invia un messaggio",
+      "confirm": "Ricevuto. Grazie!",
+      "error": "Siamo dispiaciuti, in questo momento c'è stato un problema inviando il rapporto. Cortesemente riprova più tardi."
+    },
+    "sign-in": {
+      "twitter": "Autenticati con Twitter"
+    }
+  },
+  "settings": {
+    "units": {
+      "label": "Unità di misura",
+      "metric": "Unità metriche (metri)",
+      "imperial": "Unità imperiali (piedi)"
+    },
+    "language": {
+      "label": "Lingua"
+    }
+  },
+  "msg": {
+    "loading": "Caricamento",
+    "remixing": "Riassemblaggio...",
+    "having-trouble": "Sto avendo dei problemi...",
+    "no-street": "Nessuna strada selezionata.",
+    "trouble-loading": "Abbiamo dei problemi nel caricamento di Streetmix",
+    "slow-connection-1": "E' da un po' che Streetmix non riesce a collegarsi ad internet.",
+    "slow-connection-2": "Prova a ricaricare la pagina e a riprovare di nuovo. Tieni presente che potresti aver perso le ultime modifiche alla tua strada. Siamo dispiaciuti!",
+    "no-connection": "Streetmix sta avendo dei problemi nel collegamento ad internet",
+    "more-info": "Ulteriori informazioni"
+  },
+  "error": {
+    "button": {
+      "home": "Vai all'homepage",
+      "sign-in": "Autenticati di nuovo",
+      "reload": "Ricarica la pagina",
+      "try-again": "Riprova",
+      "view-example": "Vedi una strada di esempio"
+    },
+    "page-not-found-title": "Pagina non trovata.",
+    "page-not-found-description": "Accidenti! Non c'è nessuna pagina a questo indirizzo!",
+    "street-not-found-title": "Strada non trovata.",
+    "street-not-found-description": "Accidenti! Non c'è nessuna strada che ha questo collegamento!",
+    "street-not-found-but-user-description": "Non c'è nessuna strada che ha questo collegamento! Ma puoi dare un'occhiata ad altre strade di {user}",
+    "street-deleted-title": "Questa strada è stata cancellata.",
+    "street-deleted-description": "Non esiste più una strada con questo collegamento, ma puoi dare un'occhiata ad altre strade di  {user}",
+    "sign-out-title": "Ti sei scollegato dal sito.",
+    "reload-sign-out-title": "Ti sei scollegato in un'altra finestra.",
+    "gallery-street-failure-description": "Abbiamo dei problemi nel caricamento di questa strada.",
+    "reload-sign-in-title": "Ti sei già autenticato in un'altra finestra.",
+    "please-reload": "Cortesemente ricarica questa pagina prima di continuare.",
+    "street-deleted-elsewhere-title": "Questa strada è già stata cancellata da un'altra parte.",
+    "street-deleted-elsewhere-description": "Questa strada è già stata cancellata in un altro browser.",
+    "access-denied-title": "Non sei autenticato.",
+    "access-denied-description": "Hai cancellato il processo di autenticazione.",
+    "auth-api-problem-title": "C'è stato un problema di autenticazione.",
+    "auth-api-problem-description": "C'è stato un problema con il sistema di autenticazione.",
+    "please-try-again": "Cortesemente riprova più tardi o comunicaci l'esito via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> o <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
+    "unsupported-browser-title": "Streetmix non funziona sul tuo browser.",
+    "unsupported-browser-description": "Siamo spiacenti. Potresti provare con <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, o Safari.",
+    "unsupported-browser-internet-explorer": "Sei connesso con Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Scopri di più.</a>",
+    "unsupported-browser-contact-us": "Se pensi che sia opportuno che il tuo browser sia supportato, contattaci via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a>.",
+    "cannot-create-new-street-on-phone-title": "Streetmix funziona solo su tablet o pc",
+    "cannot-create-new-street-on-phone-description": "Puoi connetterti ad un collegamento di una specifica strada e vederla sul tuo telefono - ma non puoi creare nuove strade.",
+    "generic-error-title": "Qualcosa è andato storto.",
+    "generic-error-description": "Siamo dispiaciuti - qualcosa è andato storto.",
+    "error-code": "(Errore{code}.)"
+  },
+  "btn": {
+    "reload": "Ricarica",
+    "undo": "Annulla",
+    "redo": "Rifai",
+    "try-again": "Riprova",
+    "cancel": "Cancella",
+    "create": "Crea una nuova strada",
+    "copy": "Fai una copia",
+    "remove": "Rimuovi",
+    "close": "Chiudi",
+    "dismiss": "Abbandona",
+    "okay": "Okay!"
+  },
+  "dialogs": {
+    "error": {
+      "heading": "Oops!",
+      "text": "E' successo qualcosa di inaspettato 😢.Abbiamo già schedato l'errore, ma se ti ricordi esattamente le condizioni operative in cui si è verificato <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">cortesemente faccelo sapere</a>. Comunque potrebbe essere un proplema temporaneo, quindi riprova altre volte."
+    },
+    "welcome": {
+      "heading": "Benvenuti in Streetmix.",
+      "new": {
+        "intro": "Disegna, riassembla gli spazi e condividi la tua strada di vicinato. Aggiungi alberature, piste ciclabili, allarga i marciapiedi o le corsie stradali e scopri come le tue decisioni possono avere un'impatto positivo sulla comunità.",
+        "instruct": "Riposiziona alcuni segmenti con {pointer}.",
+        "instruct-pointer-finger": "il tuo dito",
+        "instruct-pointer-mouse": "il tuo mouse"
+      },
+      "existing": {
+        "intro": "Questa {streetName} è disegnata da{creator}.",
+        "intro-without-creator": "Questa è {streetName}.",
+        "instruct": "Riassembla riposizionando alcuni segmenti o {startYourOwnStreet}.",
+        "instruct-start-own-street": "Parti con una nuova strada"
+      }
+    },
+    "new-street": {
+      "heading": "Ecco la tua nuova strada.",
+      "default": "Comincia con una strada di esempio",
+      "empty": "Comincia con una strada vuota",
+      "last": "Comincia con una copia dell'ultima strada"
+    },
+    "about": {
+      "heading": "A proposito si Streetmix.",
+      "description": "Disegna, riassembla gli spazi e condividi la tua strada di vicinato. Aggiungi piste ciclabili, allarga i marciapiedi o le corsie stradali e scopri come le tue decisioni possono avere un'impatto positivo sulla comunità.",
+      "thanks": "Grazie infinite allo staff ed alla gente del 2013 CfA per il loro supporto e la loro pazienza, al team di Blockee per aver spianato la strada, e a tutti i nostri collaudatori per il loro tempo e i loro contributi!",
+      "credits": "Un progetto collaterale del {cfaLink} 2013:",
+      "team-heading": "Team di progetto e di manutentenzione",
+      "view-source": "Esplora il codice sorgente",
+      "sponsored-by": "Streetmix è sponsorizzata generosamente da:",
+      "donate-link": "Supportaci finaziariamente",
+      "github-link": "Contribuisci allo sviluppo open source",
+      "open-source-link": "Abbiamo tutto in open source!",
+      "guidebook-link": "Guida",
+      "tos-link": "Termini del servizio",
+      "privacy-link": "Informativa sulla privacy"
+    },
+    "analytics": {
+      "export-csv": "Esporta in CSV",
+      "heading": "Analisi dei dati",
+      "street-summary": "La tua strada ha un traffico medio stimato di {averageTotal} visitatori all'ora, e potenzialmente per {potentialTotal} visitatori all'ora.",
+      "segment-summary": "{average} — {potential} visitatori/ora",
+      "segment-summary-single": "{amount} visitatori/ora",
+      "source": "Sorgente"
+    },
+    "save": {
+      "heading": "Salva come immagine",
+      "option-labels": "Nomi dei segmenti e larghezze",
+      "option-name": "Nome della strada",
+      "option-sky": "Cielo trasparente",
+      "option-watermark": "Sovrimpressione",
+      "loading": "Caricamento",
+      "save-button": "Salva sul tuo computer...",
+      "license": "Questa immagine, creata con Streemix, può essere riusata ovunque e per qualunque scopo, secondo i termini della licenza {licenseLink}.",
+      "error-preview": "C'è stato un errore visualizzando l'immagine di anteprima",
+      "error-unavailable": "Il salvataggio come immagine non è disponibile su questo browser.",
+      "preview-image-alt": "Anteprima"
+    },
+    "geotag": {
+      "search": "Cerca un luogo",
+      "clear-search": "Cancella la ricerca",
+      "zoom-in": "Zoom in",
+      "zoom-out": "Zoom out",
+      "add-location": "Aggiungi un luogo",
+      "confirm-location": "Conferma il luogo",
+      "clear-location": "Cancella il luogo",
+      "unknown-location": "Luogo sconosciuto",
+      "geotag-unavailable": "I servizi di geocoding non sono al momento disponibili. Puoi visualizzare la mappa, ma non sarà possibile cambiare il luogo della strada."
+    },
+    "donate": {
+      "heading": "Streetmix ha bisogno del tuo aiuto!",
+      "lede": "Streetmix è un progetto supportato da una comunità. A differenza del servizi \"gratuiti\" su Internet, non vengono mostrate pubblicità ne viene tracciato il vostro traffico abusando della vostra privacy. Al contrario, dipensiamo dal tuo supporto per mantenere attivo Streetmix.",
+      "text": "Ti preghiamo di prendere in considerazione di sostenerci con contributi una tantum o ricorrenti. La tua donazione ci permetterà di pagare l'infrastruttura di rete ed i server su cui risiede il servizio e di patrocinare organizzazioni, gruppi senza fini di lucro e studenti che lavorano per migliorare le strada disponibili. Ulteriori introiti saranno investiti per  lo sviluppo di nuove funzionalità. La contabilità delle nostre spese è completamente trasparente e potrai sempre sapere come il team di Streetmix usa le risorse a sua disposizione.",
+      "button": "Dona a Streetmix",
+      "cancel": "No grazie."
+    },
+    "sign-in": {
+      "heading": "Autenticazione / riconoscimento",
+      "description": "Salva il tuo primo disegno o autenticati per accedere ai disegni precedenti.",
+      "email-label": "Email",
+      "email-description": "Ti stiamo per inviare un collegamento per l'autenticazione. Non è richiesta nessuna password.",
+      "email-invalid": "Oops! Non sembra un valido indirizzo di email. Cortesemente riprova.",
+      "social-heading": "o",
+      "button": {
+        "email": "Continua con l'email",
+        "twitter": "Continua con Twitter",
+        "google": "Continua con Google",
+        "facebook": "Continua con Facebook"
+      },
+      "tos": "Cliccando su questi bottoni, Acconsento a {tosLink} e{privacyLink}.",
+      "tos-link-label": "termini del servizio",
+      "privacy-link-label": "Informativa sulla privacy",
+      "loading-message": "Autenticazione in corso...",
+      "sent-message-with-email": "Ti abbiamo spedito un messaggio a {email}. Segui le istruzioni per continuare l'autenticazione!",
+      "email-unreceived": "Non l'hai ricevuta?",
+      "resend-email": "Reinvia l'email"
+    },
+    "whatsnew": {
+      "heading": "Quali sono le novità di Streetmix?"
+    },
+    "newsletter": {
+      "heading": "Sottoscrivi la nostra newsletter"
+    }
+  },
+  "prompt": {
+    "new-street": "Nuovo nome della strada:",
+    "delete-street": "Sei sicuro di volere la cancellazione definitiva di {streetName}? L'operazione non può essere annullata.",
+    "new-width": "Nuova larghezza di strada (da{minWidth} a {maxWidth}):",
+    "segment-label": "Nuova etichetta di segmento:"
+  },
+  "toast": {
+    "segment-deleted": "Il segmento è stato rimosso.",
+    "all-segments-deleted": "Tutti i segmenti sono stati rimossi.",
+    "no-undo": "Niente da annullare.",
+    "no-redo": "Niente da rifare.",
+    "no-save": "Non c'è bisogno di salvare a mano. Streetmix salva automaticamente la strada!",
+    "remixing": "Adesso si sta editando il duplicato appena tratto dalla strada originale. Il duplicato è stato inserito nella tua galleria delle tue strade.",
+    "remixing-sign-in": "Adesso si sta editando il duplicato appena tratto dalla strada originale. Autenticati per cominciare con la tua galleria di strade.",
+    "reloaded": "La tua strada è stata ricaricata dal server poichè è stata modificata da qualche altra parte."
+  },
+  "palette": {
+    "remove": "Trascina qui per cancellare"
+  },
+  "width": {
+    "label": "{width} di larghezza",
+    "under": "({width} di spazio)",
+    "over": "({width} sopra)",
+    "occupied": "Larghezza occupata:",
+    "building": "Larghezza da edificio ad edificio:",
+    "different": "Larghezza differente....",
+    "metric": "Cambia al sistema metrico",
+    "imperial": "Cambia al sistema imperiale (piedi)"
+  },
+  "capacity": {
+    "ppl-per-hour": "{capacity} persone/ora"
+  },
+  "datetime": {
+    "minutes-ago": "Qualche minuto fa",
+    "seconds-ago": "Qualche secondo fa",
+    "yesterday": "Ieri alle {time}",
+    "today": "Oggi alle{time}"
+  },
+  "key": {
+    "backspace": "Tasto Backspace",
+    "shift": "Tasto shift",
+    "plus": "Tasto più",
+    "minus": "Tasto meno",
+    "left-arrow": "Tasto sposta a destra",
+    "right-arrow": "Tasto sposta a sinistra"
+  },
+  "tooltip": {
+    "remove-segment": "Cancella il segmento",
+    "delete-street": "Cancella la strada",
+    "segment-width": "Cambia la larghezza del segmento",
+    "building-height": "Cambia il numero dei piani",
+    "street-width": "Cambia la larghezza della strada",
+    "increase-width": "Incrementa la larghezza (premi Shift per una maggiore precisione)",
+    "decrease-width": "Decrementa la larghezza (premi Shift per una maggiore precisione)",
+    "add-floor": "Aggiungi un piano",
+    "remove-floor": "Cancella un piano",
+    "scroll-street-left": "Sposta la strada a sinistra",
+    "scroll-street-right": "Sposta la strada a destra",
+    "scroll-left": "Scrolla a sinistra",
+    "scroll-right": "Scrolla a destra"
+  },
+  "street": {
+    "default-name": "Strada senza nome",
+    "rename": "Clicca per rinominare"
+  },
+  "building": {
+    "floors-count": "{count, plural, one {numero di piani} other {numero di piani}}"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "Il segmento non si adatta alla strada.",
+      "not-wide": "Questo segmento non è abbastanza largo",
+      "too-wide": "Il segmento è troppo largo"
+    },
+    "learn-more": "Per saperne di più",
+    "unknown": {
+      "label": "Sconosciuto"
+    },
+    "description": {
+      "photo-credit": "Foto:"
+    },
+    "resize": {
+      "min": "Min",
+      "max": "Max"
+    }
+  },
+  "section": {
+    "empty": "Spazio vuoto"
+  },
+  "gallery": {
+    "fail": "Caricamento della galleria non riuscito.",
+    "all": "Tutte la strade",
+    "twitter-link": "profilo di Twitter",
+    "delete-street-tooltip": "Cancella la strada",
+    "street-count": "{count, plural, one {numero di strada} other {numero di strade}}",
+    "no-streets": "Nessuna strada ancora",
+    "sign-in": "Autenticati con Twitter per vedere la tua personale galleria di strade",
+    "sign-in-prompt": "Autenticati per vedere la tua personale galleria di strade"
+  },
+  "users": {
+    "anonymous": "Anonimo",
+    "byline": "di {user}"
+  },
+  "export": {
+    "watermark": "Progettata con{streetmixWordmark}"
+  },
+  "meta": {
+    "description": "Disegna, riassembla gli spazi e condividi la tua strada di vicinato- tutto nel tuo browser. Aggiungi alberature, piste ciclabili, allarga i marciapiedi o le corsie stradali e scopri come le decisioni possono avere un'impatto positivo sulla comunità.",
+    "page-title": "{streetName} (di{author})"
+  },
+  "credits": {
+    "core-team-heading": "Team di progetto",
+    "past-team-heading": "Ex membri del team",
+    "advisors": "Consulenti",
+    "additional-illustrations": "Illustrazioni aggiuntive",
+    "additional-code": "Codice aggiuntivo",
+    "additional-contributors": "Contributori aggiuntivi",
+    "special-thanks": "Un ringraziamento speciale a",
+    "translators": "Traduttori"
+  },
+  "i18n": {
+    "lang": {
+      "ar": "Arabo",
+      "de": "Tedesco",
+      "en": "Inglese",
+      "es": "Spagnolo",
+      "es-mx": "Spagnolo (Messico)",
+      "fi": "Finlandese",
+      "fr": "Francese",
+      "it": "Italiano",
+      "ja": "Giapponese",
+      "pl": "Polacco",
+      "pt-br": "Portoghese (Brasile)",
+      "ru": "Russo",
+      "sv": "Svedese",
+      "zh": "Cinese",
+      "zh-hans": "Cinese semplificato",
+      "zh-hant": "Cinese tradizionale"
+    }
+  }
+}
