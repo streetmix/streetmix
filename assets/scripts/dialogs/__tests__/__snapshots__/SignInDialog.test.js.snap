@@ -68,7 +68,9 @@ exports[`SignInDialog renders 1`] = `
             class="sign-in-social-heading"
           >
             <hr />
-            or
+            <span>
+              or
+            </span>
           </div>
           <button
             class="sign-in-button sign-in-social-button sign-in-twitter-button"
