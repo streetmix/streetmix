@@ -202,7 +202,7 @@
     "eslint-plugin-react": "7.16.0",
     "eslint-plugin-react-hooks": "2.3.0",
     "eslint-plugin-standard": "4.0.1",
-    "husky": "3.0.9",
+    "husky": "3.1.0",
     "jest": "24.9.0",
     "jest-canvas-mock": "2.2.0",
     "jest-date-mock": "1.0.7",
