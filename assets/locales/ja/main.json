@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "サインイン",
       "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
       "link": "共有用リンク:",
+      "copy-to-clipboard": "",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
       "print": "印刷",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "画像として保存",
@@ -377,6 +379,7 @@
       "es-mx": "スペイン語（メキシコ）",
       "fi": "フィンランド語",
       "fr": "フランス語",
+      "it": "イタリア語",
       "ja": "日本語",
       "pl": "ポーランド語",
       "pt-br": "ポルトガル語（ブラジル）",

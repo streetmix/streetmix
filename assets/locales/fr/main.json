@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Se connecter",
       "sign-in-link": "{signInLink} pour accéder plus facilement à vos rues et à votre galerie personnelle de rues",
       "link": "Copier et coller ce lien pour le partager :",
+      "copy-to-clipboard": "",
       "twitter": "Partager en utilisant Twitter",
       "facebook": "Partager par Facebook",
       "print": "Imprimer…",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Sauver en tant qu'image",
@@ -377,6 +379,7 @@
       "es-mx": "Espagnol (Mexique)",
       "fi": "Finlandais",
       "fr": "Français",
+      "it": "Italien",
       "ja": "Japonais",
       "pl": "Polonais",
       "pt-br": "Portugais (Brésil)",

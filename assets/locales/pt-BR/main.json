@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Entrar",
       "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "link": "Copiar e colar este link para compartilhar:",
+      "copy-to-clipboard": "",
       "twitter": "Compartilhar usando Twitter",
       "facebook": "Compartilhar usando Facebook",
       "print": "Imprimir…",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Salvar como imagem",
@@ -377,6 +379,7 @@
       "es-mx": "Espanhol (México)",
       "fi": "Finlandês",
       "fr": "Francês",
+      "it": "Italiano",
       "ja": "Japonês",
       "pl": "Polonês",
       "pt-br": "Português (Brasil)",

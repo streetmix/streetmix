@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "登錄",
       "sign-in-link": "{signInLink}你所創建的街道和個人街道圖集的鏈接",
       "link": "複製和粘貼這個鏈接來分享：",
+      "copy-to-clipboard": "",
       "twitter": "分享到推特",
       "facebook": "分享到臉書",
       "print": "打印",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "存為圖片",
@@ -377,6 +379,7 @@
       "es-mx": "西班牙文 (墨西哥)",
       "fi": "芬蘭語",
       "fr": "法文",
+      "it": "義大利文",
       "ja": "日文",
       "pl": "波蘭語",
       "pt-br": "葡文 (巴西)",

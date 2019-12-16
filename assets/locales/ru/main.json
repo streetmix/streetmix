@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Войти",
       "sign-in-link": "{signInLink} для красивых ссылок на улицы и персональной галереи улиц",
       "link": "Скопируйте и вставьте эту ссылку, чтобы поделиться:",
+      "copy-to-clipboard": "",
       "twitter": "Поделиться через Twitter",
       "facebook": "Поделиться через Facebook",
       "print": "Распечатать…",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Сохранить как избражение",
@@ -377,6 +379,7 @@
       "es-mx": "Испанский (Мексика)",
       "fi": "Финский",
       "fr": "Французский",
+      "it": "итальянский",
       "ja": "Японский",
       "pl": "Польский",
       "pt-br": "Португальский (Бразилия)",

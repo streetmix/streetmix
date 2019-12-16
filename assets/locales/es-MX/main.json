@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Ingresar",
       "sign-in-link": "{signInLink} para enlaces mejores a tus calles y a tu galería de calles personal",
       "link": "Copiar y pegar este enlace para compartir:",
+      "copy-to-clipboard": "",
       "twitter": "Compartir usando Twitter",
       "facebook": "Compartir usando Facebook",
       "print": "Imprimir…",
@@ -187,7 +188,8 @@
       "heading": "Analítica",
       "street-summary": "Se estima que tu calle tiene una capacidad media de {averageTotal} personas/hora, con potencial de hasta {potentialTotal} personas/hora.",
       "segment-summary": "{average} — {potential} personas/hora",
-      "segment-summary-single": "{amount} personas/hora"
+      "segment-summary-single": "{amount} personas/hora",
+      "source": ""
     },
     "save": {
       "heading": "Guardar como imagen",
@@ -377,6 +379,7 @@
       "es-mx": "Español (México)",
       "fi": "Finlandés",
       "fr": "Francés",
+      "it": "Italiano",
       "ja": "Japonés",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",

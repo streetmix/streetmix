@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Anmelden",
       "sign-in-link": "{signInLink} für schönere Links zu deinen Straßen und deiner persönlichen Straßen-Galerie",
       "link": "Diesen Link zum Teilen kopieren und einfügen",
+      "copy-to-clipboard": "",
       "twitter": "Über Twitter teilen",
       "facebook": "Über Facebook teilen",
       "print": "Drucken...",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Als Bild speichern",
@@ -377,6 +379,7 @@
       "es-mx": "Spanisch (Mexiko)",
       "fi": "Finnisch",
       "fr": "Französisch",
+      "it": "Italienisch",
       "ja": "Japanisch",
       "pl": "Polnisch",
       "pt-br": "Portugiesisch (Brasilien)",

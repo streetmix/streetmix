@@ -13,7 +13,7 @@
       "settings": "Asetukset",
       "share": "Jaa",
       "store": "Kauppa",
-      "upgrade": ""
+      "upgrade": "Päivitä"
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Kirjaudu sisään",
       "sign-in-link": "{signInLink}: voit jakaa kadut ja oman katugalleriasi näppärämmin",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
+      "copy-to-clipboard": "Kopioi leikepöydälle",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
       "print": "Tulosta…",
@@ -187,7 +188,8 @@
       "heading": "Analyysi",
       "street-summary": "Kadun arvioitu liikenne on {averageTotal} kulkijaa tunnissa, ja käyttäjäpotentiaali on {potentialTotal} kulkijaa tunnissa.",
       "segment-summary": "{average} — {potential} ihmistä tunnissa",
-      "segment-summary-single": "{amount} ihmistä tunnissa"
+      "segment-summary-single": "{amount} ihmistä tunnissa",
+      "source": "Lähde"
     },
     "save": {
       "heading": "Tallenna kuvana",
@@ -377,6 +379,7 @@
       "es-mx": "Espanja (Meksiko)",
       "fi": "Suomi",
       "fr": "Ranska",
+      "it": "Italia",
       "ja": "Japani",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",

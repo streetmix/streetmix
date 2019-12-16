@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Zaloguj się",
       "sign-in-link": "{signInLink} dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
       "link": "Skopiuj i wklej ten link, aby go udostępnić:",
+      "copy-to-clipboard": "",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
       "print": "Drukuj…",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Zapisz jako obrazek",
@@ -377,6 +379,7 @@
       "es-mx": "Hiszpański (Meksyk)",
       "fi": "Fiński",
       "fr": "Francuski",
+      "it": "Włoski",
       "ja": "Japoński",
       "pl": "Polski",
       "pt-br": "Portugalski (Brazylia)",

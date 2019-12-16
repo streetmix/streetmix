@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Logga in",
       "sign-in-link": "{signInLink} för bättre koppling till ditt personliga gatubibliotek",
       "link": "Kopiera och klistra in denna länk för att dela:",
+      "copy-to-clipboard": "",
       "twitter": "Dela på Twitter",
       "facebook": "Dela på Facebook",
       "print": "Skriv ut…",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Spara som bild",
@@ -377,6 +379,7 @@
       "es-mx": "Spanska (Mexiko)",
       "fi": "Finska",
       "fr": "",
+      "it": "Italiensk",
       "ja": "",
       "pl": "Polska",
       "pt-br": "Portugisiska (Brasilien)",

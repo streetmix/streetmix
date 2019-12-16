@@ -8,20 +8,20 @@
       "contribute": "Contribuisci",
       "sign-in": "Entra nel sito",
       "sign-out": "Esci dal sito",
-      "new-street": "Nuova strada",
+      "new-street": "Crea una nuova strada",
       "my-streets": "Le mie strade",
       "settings": "Configurazione",
       "share": "Condividi",
-      "store": "Memorizza",
+      "store": "Store",
       "upgrade": "Aggiorna"
     },
     "help": {
       "keyboard-label": "Scorciatoie da tastiera",
-      "remove-instruction": "Cancella un segmento indicandolo con il cursore",
+      "remove-instruction": "Cancella il segmento indicato con il mouse",
       "remove-shift-instruction": "(premi {shiftKey} per cancellare tutto)",
       "move-instruction": "Riposiziona nella strada",
       "move-shift-instruction": "(premi{shiftKey} per saltare ai bordi)",
-      "change-instruction": "Cambia la larghezza del segmento indicato dal cursore",
+      "change-instruction": "Cambia la larghezza del segmento indicato con il mouse",
       "change-shift-instruction": "(premi{shiftKey} per una maggiore precisione)"
     },
     "share": {
@@ -33,7 +33,7 @@
       "facebook": "Condividi con Facebook",
       "print": "Stampa...",
       "save": "Salva come immagine...",
-      "save-byline": "Per includere in un rapporto, un blog etc...",
+      "save-byline": "Da includere in un documento, in un blog etc...",
       "messages": {
         "my-street": "Dai un'occhiata alla mia strada, {streetName}, su Streetmix!",
         "my-street-unnamed": "Dai un'occhiata alla mia strada su Streetmix!",
@@ -55,7 +55,7 @@
       "newsletter": "Sottoscrivi la nostra newsletter"
     },
     "contribute": {
-      "donate": "Contribuisci economicamente",
+      "donate": "Sostieni il progetto",
       "stickers": "Compra un foglio di adesivi!",
       "opensource": "Contribuisci allo sviluppo open source"
     },
@@ -178,7 +178,7 @@
       "sponsored-by": "Streetmix è sponsorizzata generosamente da:",
       "donate-link": "Supportaci finaziariamente",
       "github-link": "Contribuisci allo sviluppo open source",
-      "open-source-link": "Abbiamo tutto in open source!",
+      "open-source-link": "E' tutto open source!",
       "guidebook-link": "Guida",
       "tos-link": "Termini del servizio",
       "privacy-link": "Informativa sulla privacy"
@@ -286,7 +286,7 @@
     "minutes-ago": "Qualche minuto fa",
     "seconds-ago": "Qualche secondo fa",
     "yesterday": "Ieri alle {time}",
-    "today": "Oggi alle{time}"
+    "today": "Oggi alle {time}"
   },
   "key": {
     "backspace": "Tasto Backspace",

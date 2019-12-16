@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "تسجيل الدخول",
       "sign-in-link": "{signInLink} للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
       "link": "نسخ ولصق هذا الرابط لمشاركته:",
+      "copy-to-clipboard": "",
       "twitter": "مشاركة باستخدام تويتر",
       "facebook": "مشاركة باستخدام الفيسبوك",
       "print": "طباعة…",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "حفظ كصورة",
@@ -377,6 +379,7 @@
       "es-mx": "لغة إسبانية (المكسيك)",
       "fi": "لغة فنلندية",
       "fr": "لغة فرنسية",
+      "it": "الإيطالي",
       "ja": "لغة يابانية",
       "pl": "لغة بولندية",
       "pt-br": "لغة برتغالية",
