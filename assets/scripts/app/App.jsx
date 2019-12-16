@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { DndProvider } from 'react-dnd'
 import MultiBackend from 'react-dnd-multi-backend'
-import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch'
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'
 import NOTIFICATION from '../../../app/data/notification.json'
 
 import NotificationBar from './NotificationBar'
