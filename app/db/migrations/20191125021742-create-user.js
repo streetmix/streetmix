@@ -8,6 +8,11 @@ module.exports = {
         unique: true,
         type: Sequelize.STRING
       },
+      _id: {
+        allowNull: false,
+        unique: true,
+        type: Sequelize.STRING
+      },
       twitter_id: {
         type: Sequelize.STRING
       },
@@ -21,6 +26,9 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
         allowNull: true
+      },
+      roles: {
+        type: Sequelize.ARRAY(Sequelize.TEXT)
       },
       login_tokens: {
         type: Sequelize.ARRAY(Sequelize.TEXT)

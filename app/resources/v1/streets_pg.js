@@ -10,7 +10,13 @@ const Op = Sequelize.Op
 exports.post = async function (req, res) {
   let body
   const street = new Street()
-  street.id = uuid.v1()
+
+  // we are mirroring a mongoDB call, so use the same IDs.
+  const hasPriorCall = !!(
+    res.mainData &&
+    (res.mainData.id || res.mainData.status)
+  )
+  street.id = hasPriorCall ? res.mainData.id : uuid.v1()
   const requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
       return req.headers['x-forwarded-for'].split(', ')[0]
@@ -19,20 +25,24 @@ exports.post = async function (req, res) {
     }
   }
 
-  if (req.body && (req.body.length > 0)) {
+  if (req.body && req.body.length > 0) {
     try {
       body = req.body
     } catch (e) {
-      res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
+      res
+        .status(400)
+        .json({ status: 400, msg: 'Could not parse body as JSON.' })
       return
     }
     // TODO: Validation
     street.name = body.name
+    street.namespaced_id = body.data.namespacedId
+    street.client_updated_at = body.clientUpdatedAt
     street.data = body.data
     street.creator_ip = requestIp(req)
   }
 
-  function handleErrors (error) {
+  function handleErrors (error, foo) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -41,10 +51,14 @@ exports.post = async function (req, res) {
         res.status(404).json({ status: 404, msg: 'Original street not found.' })
         return
       case ERRORS.CANNOT_CREATE_STREET:
-        res.status(500).json({ status: 500, msg: 'Could not create new street ID.' })
+        res
+          .status(500)
+          .json({ status: 500, msg: 'Could not create new street ID.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).json({ status: 401, msg: 'User with that login token not found.' })
+        res
+          .status(401)
+          .json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()
@@ -52,10 +66,9 @@ exports.post = async function (req, res) {
   }
 
   function updateUserLastStreetId (userId) {
-    return User.findByPk(userId)
-      .then(user => {
-        return user.increment('last_street_id', { by: 1 })
-      })
+    return User.findByPk(userId).then((user) => {
+      return user.increment('last_street_id', { by: 1 })
+    })
   }
 
   async function updateSequence () {
@@ -83,7 +96,7 @@ exports.post = async function (req, res) {
     try {
       if (street.creator_id) {
         const user = await updateUserLastStreetId(street.creator_id)
-        namespacedId = (user) ? user.last_street_id : null
+        namespacedId = user && user.last_street_id ? user.last_street_id : 1
       } else {
         const sequence = await updateSequence()
         if (isArray(sequence)) {
@@ -106,33 +119,58 @@ exports.post = async function (req, res) {
   const saveStreet = async function () {
     if (body && body.originalStreetId) {
       let origStreet
-      try {
-        origStreet = await Street.findByPk(body.originalStreetId)
-      } catch (err) {
-        logger.error(err)
-        throw new Error(ERRORS.STREET_NOT_FOUND)
+      if (hasPriorCall) {
+        street.original_street_id = res.mainData.originalStreetId
+      } else {
+        try {
+          origStreet = await Street.findByPk(body.originalStreetId)
+        } catch (err) {
+          logger.error(err)
+          throw new Error(ERRORS.STREET_NOT_FOUND)
+        }
+
+        if (!origStreet || origStreet.status === 'DELETED') {
+          throw new Error(ERRORS.STREET_NOT_FOUND)
+        }
+
+        street.original_street_id = origStreet
       }
 
-      if (!origStreet || origStreet.status === 'DELETED') {
-        throw new Error(ERRORS.STREET_NOT_FOUND)
+      if (hasPriorCall) {
+        street.client_updated_at = res.mainData.clientUpdatedAt
+        street.namespaced_id = res.mainData.namespacedId
+      } else {
+        const namespacedId = await makeNamespacedId()
+        street.namespaced_id = namespacedId
       }
 
-      street.original_street_id = origStreet
-      const namespacedId = await makeNamespacedId()
-      street.namespaced_id = namespacedId
-      return street.save({ returning: true })
+      // const namespacedId = await makeNamespacedId()
+      // street.namespaced_id = namespacedId
+
+      await street.save()
+      return street
     }
 
-    const namespacedId = await makeNamespacedId()
-    street.namespaced_id = namespacedId
-    return street.save({ returning: true })
+    if (hasPriorCall) {
+      street.client_updated_at = res.mainData.clientUpdatedAt
+      street.namespaced_id = res.mainData.namespacedId
+    } else {
+      const namespacedId = await makeNamespacedId()
+      street.namespaced_id = namespacedId
+    }
+    await street.save()
+    return street
   }
 
   const handleCreatedStreet = (s) => {
     s = asStreetJson(s)
     logger.info({ street: s }, 'New street created.')
-    res.header('Location', config.restapi.baseuri + '/v1/streets/' + s.id)
-    res.status(201).send(s)
+    if (hasPriorCall) {
+      res.send(s)
+    } else {
+      res.status(201).send(s)
+      res.header('Location', config.restapi.baseuri + '/v1/streets/' + s.id)
+    }
   }
 
   if (req.loginToken) {
@@ -149,8 +187,7 @@ exports.post = async function (req, res) {
     if (!user) {
       handleErrors(ERRORS.UNAUTHORISED_ACCESS)
     }
-    console.log('I came here')
-    street.creator_id = user
+    street.creator_id = user ? user.id : ''
     saveStreet()
       .then(handleCreatedStreet)
       .catch(handleErrors)
@@ -196,7 +233,10 @@ exports.delete = async function (req, res) {
     }
 
     street.status = 'DELETED'
-    return Street.update(street, { where: { id: req.params.street_id }, returning: true })
+    return Street.update(street, {
+      where: { id: req.params.street_id },
+      returning: true
+    })
   }
 
   function handleErrors (error) {
@@ -211,7 +251,10 @@ exports.delete = async function (req, res) {
         res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+        res.status(403).json({
+          status: 403,
+          msg: 'Signed-in user cannot delete this street.'
+        })
         return
       default:
         res.status(500).end()
@@ -233,7 +276,9 @@ exports.delete = async function (req, res) {
   }
 
   deleteStreet(street)
-    .then(street => { res.status(204).end() })
+    .then((street) => {
+      res.status(204).end()
+    })
     .catch(handleErrors)
 } // END function - exports.delete
 
@@ -328,7 +373,10 @@ exports.find = async function (req, res) {
         res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+        res.status(403).json({
+          status: 403,
+          msg: 'Signed-in user cannot delete this street.'
+        })
         return
       default:
         res.status(500).end()
@@ -354,7 +402,8 @@ exports.find = async function (req, res) {
     const totalNumStreets = results.count
     const streets = results.rows
 
-    const selfUri = config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
+    const selfUri =
+      config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
 
     const json = {
       meta: {
@@ -374,13 +423,26 @@ exports.find = async function (req, res) {
         prevStart = 0
         prevCount = start
       }
-      json.meta.links.prev = config.restapi.baseuri + '/v1/streets?start=' + prevStart + '&count=' + prevCount
+      json.meta.links.prev =
+        config.restapi.baseuri +
+        '/v1/streets?start=' +
+        prevStart +
+        '&count=' +
+        prevCount
     }
 
     if (start + streets.length < totalNumStreets) {
       const nextStart = start + count
-      const nextCount = Math.min(count, totalNumStreets - start - streets.length)
-      json.meta.links.next = config.restapi.baseuri + '/v1/streets?start=' + nextStart + '&count=' + nextCount
+      const nextCount = Math.min(
+        count,
+        totalNumStreets - start - streets.length
+      )
+      json.meta.links.next =
+        config.restapi.baseuri +
+        '/v1/streets?start=' +
+        nextStart +
+        '&count=' +
+        nextCount
     }
     res.status(200).send(json)
   } // END function - handleFindStreets
@@ -407,11 +469,15 @@ exports.put = async function (req, res) {
     try {
       body = req.body
     } catch (e) {
-      res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
+      res
+        .status(400)
+        .json({ status: 400, msg: 'Could not parse body as JSON.' })
       return
     }
   } else {
-    res.status(400).json({ status: 400, msg: 'Street information not specified.' })
+    res
+      .status(400)
+      .json({ status: 400, msg: 'Street information not specified.' })
     return
   }
 
@@ -438,7 +504,10 @@ exports.put = async function (req, res) {
         res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).json({ status: 403, msg: 'Signed-in user cannot update this street.' })
+        res.status(403).json({
+          status: 403,
+          msg: 'Signed-in user cannot update this street.'
+        })
         return
       default:
         res.status(500).end()
@@ -448,6 +517,9 @@ exports.put = async function (req, res) {
   async function updateStreetData (street) {
     street.name = body.name || street.name
     street.data = body.data || street.data
+    street.client_updated_at =
+      body.clientUpdatedAt || street.client_updated_at || ''
+
     if (body.originalStreetId) {
       let origStreet
       try {
@@ -462,7 +534,6 @@ exports.put = async function (req, res) {
       }
 
       street.original_street_id = origStreet.id
-      console.log(JSON.stringify(street))
       return street.save({ returning: true })
     } else {
       return street.save({ returning: true })
@@ -516,7 +587,7 @@ exports.put = async function (req, res) {
 
   if (!street.creator_id) {
     updateStreetData(street)
-      .then(street => {
+      .then((street) => {
         res.status(204).end()
       })
       .catch(handleErrors)
@@ -526,7 +597,9 @@ exports.put = async function (req, res) {
       return
     }
     updateStreetWithCreatorId(street)
-      .then(street => { res.status(204).end() })
+      .then((street) => {
+        res.status(204).end()
+      })
       .catch(handleErrors)
   }
 } // END function - exports.put
