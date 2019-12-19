@@ -10,23 +10,37 @@ const TRANSITION_BASE_STYLE = {
   transition: `margin ${TRANSITION_DURATION}ms ease-out`
 }
 
+// Past notification localstorage keys
 // const LSKEY_NOTIFICATION_TOS = 'notification-tos-dismissed'
-const LSKEY_NOTIFICATION_STORE = 'notification-store-dismissed'
+// const LSKEY_NOTIFICATION_STORE = 'notification-store-dismissed'
 
-const NotificationBar = ({ notification = {} }) => {
+NotificationBar.propTypes = {
+  // locale: PropTypes.string,
+  notification: PropTypes.shape({
+    display: PropTypes.bool,
+    lede: PropTypes.string,
+    text: PropTypes.string,
+    link: PropTypes.string,
+    linkText: PropTypes.string,
+    localStorageKey: PropTypes.string
+  })
+}
+
+function NotificationBar ({ notification = {} }) {
   const {
     display = false,
     lede,
     text,
     link,
-    linkText
+    linkText,
+    localStorageKey
   } = notification
 
   let shouldDisplay = display
 
   // If dismissed, don't display again.
-  if (window.localStorage[LSKEY_NOTIFICATION_STORE]) {
-    shouldDisplay = !JSON.parse(window.localStorage[LSKEY_NOTIFICATION_STORE])
+  if (window.localStorage[localStorageKey]) {
+    shouldDisplay = !JSON.parse(window.localStorage[localStorageKey])
   }
 
   const [show, setShow] = useState(shouldDisplay)
@@ -42,7 +56,9 @@ const NotificationBar = ({ notification = {} }) => {
 
   const handleExited = () => {
     try {
-      window.localStorage[LSKEY_NOTIFICATION_STORE] = JSON.stringify(true)
+      if (localStorageKey) {
+        window.localStorage[localStorageKey] = JSON.stringify(true)
+      }
     } catch (error) {
       // Cannot modify localstorage.
     }
@@ -56,7 +72,12 @@ const NotificationBar = ({ notification = {} }) => {
   // For now disabled so that TOS/Privacy policy notice displays worldwide.
 
   return (
-    <Transition in={show} timeout={TRANSITION_DURATION} onExited={handleExited} unmountOnExit>
+    <Transition
+      in={show}
+      timeout={TRANSITION_DURATION}
+      onExited={handleExited}
+      unmountOnExit
+    >
       <div
         className="notification-bar"
         ref={el}
@@ -67,27 +88,22 @@ const NotificationBar = ({ notification = {} }) => {
       >
         {lede && <strong className="notification-bar-intro">{lede}</strong>}
         {text && <span className="notification-bar-text">{text}</span>}
-        {
-          link &&
-            <a href={link} target="_blank" rel="noopener noreferrer" className="notification-bar-link">
-              {linkText || <FormattedMessage id="msg.more-info" defaultMessage="More info" />}
-            </a>
-        }
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="notification-bar-link"
+          >
+            {linkText || (
+              <FormattedMessage id="msg.more-info" defaultMessage="More info" />
+            )}
+          </a>
+        )}
         <CloseButton onClick={handleClickDismiss} />
       </div>
     </Transition>
   )
-}
-
-NotificationBar.propTypes = {
-  // locale: PropTypes.string,
-  notification: PropTypes.shape({
-    display: PropTypes.bool,
-    lede: PropTypes.string,
-    text: PropTypes.string,
-    link: PropTypes.string,
-    linkText: PropTypes.string
-  })
 }
 
 export default NotificationBar
