@@ -1,8 +1,5 @@
 {
   "display": true,
-  "lede": "We’ve got swag!",
-  "text": "And so can you. Streetmix t-shirts and hoodies are now available!",
-  "link": "https://cottonbureau.com/people/streetmix",
-  "linkText": "Take me to the store",
-  "localStorageKey": "notification-store-dismissed"
+  "lede": "Service announcement:",
+  "text": "Streetmix will be down for database maintenance on December 19, 2019 at 10 PM Eastern Time."
 }
