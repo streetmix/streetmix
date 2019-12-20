@@ -13,8 +13,6 @@ const SAVE_SETTINGS_DELAY = 500
 let saveSettingsTimerId = -1
 
 export function getSettings () {
-  console.log('GETTING SETTINGS', store.getState().settings)
-  // debugger
   return store.getState().settings
 }
 
@@ -130,7 +128,8 @@ function scheduleSavingSettingsToServer () {
 
   clearScheduledSavingSettingsToServer()
 
-  saveSettingsTimerId = window.setTimeout(function () { // eslint-disable-line no-native-reassign
+  saveSettingsTimerId = window.setTimeout(function () {
+    // eslint-disable-line no-native-reassign
     saveSettingsToServer()
   }, SAVE_SETTINGS_DELAY)
 }

@@ -429,7 +429,6 @@ export function setStreetId (newId, newNamespacedId) {
 }
 
 export function updateLastStreetInfo () {
-  // debugger;
   const street = store.getState().street
   setSettings({
     lastStreetId: street.id,
