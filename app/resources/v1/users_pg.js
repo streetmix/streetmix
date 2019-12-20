@@ -69,7 +69,11 @@ exports.post = async function (req, res) {
         user.id = credentials.screenName
         user.auth0_id = credentials.auth0_id
         user.profile_image_url = credentials.profile_image_url
-        user.login_tokens.push(loginToken)
+        if (user.login_tokens) {
+          user.login_tokens.push(loginToken)
+        } else {
+          user.login_tokens = [loginToken]
+        }
         user.save(handleUpdateUser)
       }
     } // END function - handleFindUser
@@ -112,7 +116,11 @@ exports.post = async function (req, res) {
           access_token_key: twitterCredentials.oauthAccessTokenKey,
           access_token_secret: twitterCredentials.oauthAccessTokenSecret
         }
-        user.login_tokens.push(loginToken)
+        if (user.login_tokens) {
+          user.login_tokens.push(loginToken)
+        } else {
+          user.login_tokens = [loginToken]
+        }
         user.save(handleUpdateUser)
       }
     } // END function - handleFindUser
