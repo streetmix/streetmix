@@ -105,10 +105,8 @@ exports.post = async function (req, res) {
         user.auth0_id = credentials.auth0_id
         user.profile_image_url = credentials.profile_image_url
         if (user.login_tokens) {
-          console.log('pushing...', user.login_tokens)
           user.login_tokens.push(loginToken)
         } else {
-          console.log('not pushing...', Object.keys(user))
           user.login_tokens = [loginToken]
         }
         user.save().then(handleUpdateUser)
