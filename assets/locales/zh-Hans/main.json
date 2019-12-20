@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "哎呀！",
-      "text": "一个意外的故障发生了 😢。我们已经将这个故障记录存档， 但如果你记得故障是如何发生的， <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">请告诉我们</a>。 这也有可能是暂时的问题，请再尝试一次。"
+      "text": "一个意外的故障发生了 😢。我们已经将这个故障记录存档， 但如果你记得故障是如何发生的， <a>请告诉我们</a>。 这也有可能是暂时的问题，请再尝试一次。"
     },
     "welcome": {
       "heading": "欢迎来到Streetmix。",

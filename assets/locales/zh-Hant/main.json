@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "哎呀！",
-      "text": "發生了一個意外的故障 😢。我們已經將這個問題存檔, 但如果你記得發生故障時的操作 <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">請告訴我們</a>。 這也有可能只是一個小問題，你可以再試一次。"
+      "text": "發生了一個意外的故障 😢。我們已經將這個問題存檔, 但如果你記得發生故障時的操作 <a>請告訴我們</a>。 這也有可能只是一個小問題，你可以再試一次。"
     },
     "welcome": {
       "heading": "歡迎來到 Streetmix",

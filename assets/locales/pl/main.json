@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "Oops!",
-      "text": "Wydarzyło się coś nieprzewidzianego. Zarejestrowaliśmy błąd, lecz jeśli znasz kroki do jego reprodukcji, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">napisz nam o tym</a>. Może to być także jednorazowy błąd, dlatego spróbuj jeszcze raz za chwilę. "
+      "text": "Wydarzyło się coś nieprzewidzianego. Zarejestrowaliśmy błąd, lecz jeśli znasz kroki do jego reprodukcji, <a>napisz nam o tym</a>. Może to być także jednorazowy błąd, dlatego spróbuj jeszcze raz za chwilę. "
     },
     "welcome": {
       "heading": "Streetmix wita!",

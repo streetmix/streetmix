@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "Oops!",
-      "text": "Algo inesperado aconteceu 😢. Registramos o erro, mas se você pode lembrar o que passou no camino, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">por favor conte-nos sobre isso</a>. Isto também poderia ser um problema temporário, então tente uma vez mais."
+      "text": "Algo inesperado aconteceu 😢. Registramos o erro, mas se você pode lembrar o que passou no camino, <a>por favor conte-nos sobre isso</a>. Isto também poderia ser um problema temporário, então tente uma vez mais."
     },
     "welcome": {
       "heading": "Bem-vindo ao Streetmix.",
