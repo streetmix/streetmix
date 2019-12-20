@@ -47,24 +47,22 @@ exports.post = async function (req, res) {
     }
   } // END function - handleUpdateUser
 
-  const handleAuth0TwitterSignIn = function (credentials) {
-    const handleFindUser = function (err, user) {
-      if (err) {
-        logger.error(err)
-        res
-          .status(500)
-          .json({ status: 500, msg: 'Error finding user with Auth0 ID.' })
-        return
+  const handleAuth0TwitterSignIn = async function (credentials) {
+    try {
+      let user
+      if (credentials.auth0_id) {
+        user = await User.findOne({ where: { id: credentials.screenName } })
       }
-
       loginToken = hasPriorCall ? res.mainData.loginToken : uuid.v1()
       if (!user) {
-        User.create({
+        const newUserData = {
           id: credentials.screenName,
+          _id: credentials.auth0_id.split('|')[1],
           auth0_id: credentials.auth0_id,
           login_tokens: [loginToken],
           profile_image_url: credentials.profile_image_url
-        }).then(handleCreateUser)
+        }
+        User.create(newUserData).then(handleCreateUser)
       } else {
         user.id = credentials.screenName
         user.auth0_id = credentials.auth0_id
@@ -74,65 +72,54 @@ exports.post = async function (req, res) {
         } else {
           user.login_tokens = [loginToken]
         }
-        user.save(handleUpdateUser)
+        user.save().then(handleUpdateUser)
       }
-    } // END function - handleFindUser
-
-    const foundUser = User.findOne({ where: { id: credentials.screenName } })
-    if (foundUser) {
-      handleFindUser(null, foundUser)
-    } else {
-      logger.error('unable to find auth0 twitter user', credentials)
+    } catch (err) {
+      logger.error(err)
+      console.log(err)
+      res.status(500).json({
+        status: 500,
+        msg: 'Error finding user with Auth Twitter Sign-in.'
+      })
     }
   } // END function - handleAuth0TwitterSignIn
 
-  const handleTwitterSignIn = function (twitterCredentials) {
-    // TODO: Call Twitter API with OAuth access credentials to make sure they are valid
-    const handleFindUser = function (err, user) {
-      if (err) {
-        logger.error(err)
-        res
-          .status(500)
-          .json({ status: 500, msg: 'Error finding user with Twitter ID.' })
-        return
+  const handleTwitterSignIn = async function (credentials) {
+    try {
+      let user
+      if (credentials.auth0_id) {
+        user = await User.findOne({ where: { id: credentials.screenName } })
       }
       loginToken = hasPriorCall ? res.mainData.loginToken : uuid.v1()
       if (!user) {
-        // const u = new User({
-        User.create({
-          id: twitterCredentials.screenName,
-          twitter_id: twitterCredentials.userId,
-          twitter_credentials: {
-            access_token_key: twitterCredentials.oauthAccessTokenKey,
-            access_token_secret: twitterCredentials.oauthAccessTokenSecret
-          },
-          login_tokens: [loginToken]
-        }).then(handleCreateUser)
-        // u.save(handleCreateUser)
-      } else {
-        user.id = twitterCredentials.screenName
-        user.twitter_id = twitterCredentials.userId
-        user.twitter_credentials = {
-          access_token_key: twitterCredentials.oauthAccessTokenKey,
-          access_token_secret: twitterCredentials.oauthAccessTokenSecret
+        const newUserData = {
+          id: credentials.screenName,
+          _id: credentials.auth0_id.split('|')[1],
+          auth0_id: credentials.auth0_id,
+          login_tokens: [loginToken],
+          profile_image_url: credentials.profile_image_url
         }
+        User.create(newUserData).then(handleCreateUser)
+      } else {
+        user.id = credentials.screenName
+        user.auth0_id = credentials.auth0_id
+        user.profile_image_url = credentials.profile_image_url
         if (user.login_tokens) {
+          console.log('pushing...', user.login_tokens)
           user.login_tokens.push(loginToken)
         } else {
+          console.log('not pushing...', Object.keys(user))
           user.login_tokens = [loginToken]
         }
-        user.save(handleUpdateUser)
+        user.save().then(handleUpdateUser)
       }
-    } // END function - handleFindUser
-    // Try to find user with twitter ID
-    // User.findOne({ twitter_id: twitterCredentials.userId }, handleFindUser)
-    const foundUser = User.findOne({
-      where: { id: twitterCredentials.screenName }
-    })
-    if (foundUser) {
-      handleFindUser(null, foundUser)
-    } else {
-      logger.error('unable to find twitter user', twitterCredentials)
+    } catch (err) {
+      logger.error(err)
+      console.log(err)
+      res.status(500).json({
+        status: 500,
+        msg: 'Error finding user with twitter screenName.'
+      })
     }
   } // END function - handleTwitterSignIn
 
