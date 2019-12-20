@@ -2,7 +2,7 @@ const routes = require('express').Router()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const resources = require('./resources')
-
+const { combineReads, combineWrites } = require('./db_utils')
 /**
  * @swagger
  *
@@ -272,7 +272,11 @@ routes.options('/api/*', cors())
  *         schema:
  *           $ref: '#/definitions/User'
  */
-routes.post('/api/v1/users', cors(), resources.v1.users.post)
+routes.post(
+  '/api/v1/users',
+  cors(),
+  combineWrites(resources.v1.users.post, resources.v1.users_pg.post)
+)
 
 /**
  * @swagger
@@ -297,7 +301,11 @@ routes.post('/api/v1/users', cors(), resources.v1.users.post)
  *           items:
  *             $ref: '#/definitions/User'
  */
-routes.get('/api/v1/users', cors(), resources.v1.users.get)
+routes.get(
+  '/api/v1/users',
+  cors(),
+  combineReads(resources.v1.users.get, resources.v1.users_pg.get)
+)
 
 // API: single user
 
@@ -387,9 +395,21 @@ routes.get('/api/v1/users', cors(), resources.v1.users.get)
  *           $ref: '#/definitions/User'
  *
  */
-routes.get('/api/v1/users/:user_id', cors(), resources.v1.user.get)
-routes.put('/api/v1/users/:user_id', cors(), resources.v1.user.put)
-routes.delete('/api/v1/users/:user_id', cors(), resources.v1.user.delete)
+routes.get(
+  '/api/v1/users/:user_id',
+  cors(),
+  combineReads(resources.v1.user.get, resources.v1.users_pg.get)
+)
+routes.put(
+  '/api/v1/users/:user_id',
+  cors(),
+  combineWrites(resources.v1.user.put, resources.v1.users_pg.put)
+)
+routes.delete(
+  '/api/v1/users/:user_id',
+  cors(),
+  combineWrites(resources.v1.user.delete, resources.v1.users_pg.delete)
+)
 
 /**
  * @swagger
@@ -463,12 +483,18 @@ routes.delete(
 routes.delete(
   '/api/v1/users/:user_id/streets',
   cors(),
-  resources.v1.users_streets.delete
+  combineWrites(
+    resources.v1.users_streets.delete,
+    resources.v1.users_streets_pg.delete
+  )
 )
 routes.get(
   '/api/v1/users/:user_id/streets',
   cors(),
-  resources.v1.users_streets.get
+  combineReads(
+    resources.v1.users_streets.get,
+    resources.v1.users_streets_pg.get
+  )
 )
 
 /**
@@ -495,7 +521,10 @@ routes.get(
  *         schema:
  *           $ref: '#/definitions/Street'
  */
-routes.post('/api/v1/streets', resources.v1.streets.post)
+routes.post(
+  '/api/v1/streets',
+  combineWrites(resources.v1.streets.post, resources.v1.streets_pg.post)
+)
 
 /**
  * @swagger
@@ -565,8 +594,14 @@ routes.post('/api/v1/streets', resources.v1.streets.post)
  *           items:
  *             $ref: '#/definitions/Street'
  */
-routes.get('/api/v1/streets', resources.v1.streets.find)
-routes.head('/api/v1/streets', resources.v1.streets.find)
+routes.get(
+  '/api/v1/streets',
+  combineReads(resources.v1.streets.find, resources.v1.streets_pg.find)
+)
+routes.head(
+  '/api/v1/streets',
+  combineReads(resources.v1.streets.find, resources.v1.streets_pg.find)
+)
 
 /**
  * @swagger
@@ -665,10 +700,22 @@ routes.head('/api/v1/streets', resources.v1.streets.find)
  *           $ref: '#/definitions/Street'
  *
  */
-routes.delete('/api/v1/streets/:street_id', resources.v1.streets.delete)
-routes.head('/api/v1/streets/:street_id', resources.v1.streets.get)
-routes.get('/api/v1/streets/:street_id', resources.v1.streets.get)
-routes.put('/api/v1/streets/:street_id', resources.v1.streets.put)
+routes.delete(
+  '/api/v1/streets/:street_id',
+  combineWrites(resources.v1.streets.delete, resources.v1.streets_pg.delete)
+)
+routes.head(
+  '/api/v1/streets/:street_id',
+  combineReads(resources.v1.streets.get, resources.v1.streets_pg.get)
+)
+routes.get(
+  '/api/v1/streets/:street_id',
+  combineReads(resources.v1.streets.get, resources.v1.streets_pg.get)
+)
+routes.put(
+  '/api/v1/streets/:street_id',
+  combineWrites(resources.v1.streets.put, resources.v1.streets_pg.put)
+)
 
 /**
  * @swagger

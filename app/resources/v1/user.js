@@ -80,12 +80,16 @@ exports.get = async function (req, res) {
     const sendUserJson = function (data) {
       // If requestUser = targetUser => permission granted
       // If requestUser exists and requestUser != targetUser and requestUser is admin => permission granted
-      const auth = (user.login_tokens.indexOf(req.loginToken) !== -1) || (requestUser && requestUser.roles.includes('ADMIN'))
+      const auth =
+        user.login_tokens.indexOf(req.loginToken) !== -1 ||
+        (requestUser && requestUser.roles.includes('ADMIN'))
 
       user.asJson({ auth: auth }, function (err, userJson) {
         if (err) {
           logger.error(err)
-          res.status(500).json({ status: 500, msg: 'Could not render user JSON.' })
+          res
+            .status(500)
+            .json({ status: 500, msg: 'Could not render user JSON.' })
           return
         }
         if (data) {
@@ -115,9 +119,15 @@ exports.get = async function (req, res) {
       }
 
       if (responseAlreadySent) {
-        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned but response already sent!')
+        logger.debug(
+          { profile_image_url: res.profile_image_url },
+          'Twitter API users/show call returned but response already sent!'
+        )
       } else {
-        logger.debug({ profile_image_url: res.profile_image_url }, 'Twitter API users/show call returned. Sending response with Twitter data.')
+        logger.debug(
+          { profile_image_url: res.profile_image_url },
+          'Twitter API users/show call returned. Sending response with Twitter data.'
+        )
         responseAlreadySent = true
 
         if (!res) {
@@ -131,11 +141,20 @@ exports.get = async function (req, res) {
     } // END function - handleFetchUserProfileFromTwitter
 
     if (twitterApiClient && !user.profile_image_url) {
-      logger.debug('About to call Twitter API: /users/show.json?user_id=' + user.twitter_id)
-      twitterApiClient.get('/users/show.json', { user_id: user.twitter_id }, handleFetchUserProfileFromTwitter)
+      logger.debug(
+        'About to call Twitter API: /users/show.json?user_id=' + user.twitter_id
+      )
+      twitterApiClient.get(
+        '/users/show.json',
+        { user_id: user.twitter_id },
+        handleFetchUserProfileFromTwitter
+      )
       setTimeout(function () {
         if (!responseAlreadySent) {
-          logger.debug('Timing out Twitter API call after %d milliseconds and sending partial response.', config.twitter.timeout_ms)
+          logger.debug(
+            'Timing out Twitter API call after %d milliseconds and sending partial response.',
+            config.twitter.timeout_ms
+          )
           responseAlreadySent = true
           sendUserJson()
         }
@@ -154,7 +173,9 @@ exports.get = async function (req, res) {
         res.status(500).json({ status: 500, msg: 'Error finding user.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).json({ status: 401, msg: 'User with that login token not found.' })
+        res
+          .status(401)
+          .json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()
@@ -233,19 +254,25 @@ exports.put = async function (req, res) {
   }
 
   if (userId === targetUserId || user.roles.includes('ADMIN')) {
-    targetUser.data = body.data || targetUser.data
+    targetUser.data = body.data || targetUser.data || {}
     targetUser.flags = body.flags || targetUser.flags
 
     targetUser.roles = body.roles || targetUser.roles
     targetUser.id = body.id || targetUser.id
-    targetUser.profile_image_url = body.profileImageUrl || targetUser.profile_image_url
+    targetUser.profile_image_url =
+      body.profileImageUrl || targetUser.profile_image_url
 
-    targetUser.save().then(user => {
-      res.status(204).end()
-    }).catch(err => {
-      logger.error(err)
-      res.status(500).json({ status: 500, msg: 'Could not update user information.' })
-    })
+    targetUser
+      .save()
+      .then((user) => {
+        res.status(204).end()
+      })
+      .catch((err) => {
+        logger.error(err)
+        res
+          .status(500)
+          .json({ status: 500, msg: 'Could not update user information.' })
+      })
   } else {
     res.status(401).end()
   }

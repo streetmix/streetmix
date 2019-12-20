@@ -128,7 +128,8 @@ function scheduleSavingSettingsToServer () {
 
   clearScheduledSavingSettingsToServer()
 
-  saveSettingsTimerId = window.setTimeout(function () { // eslint-disable-line no-native-reassign
+  saveSettingsTimerId = window.setTimeout(function () {
+    // eslint-disable-line no-native-reassign
     saveSettingsToServer()
   }, SAVE_SETTINGS_DELAY)
 }
