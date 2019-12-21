@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "Oops !",
-      "text": "Quelque chose d'inattendu s'est produit 😢. Nous avons enregistré l'erreur, mais si vous vous souvenez de ce qui s'est passé à ce stade, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">veuillez nous en informer</a>. Ça peut aussi être un problème temporaire, veuillez réessayer."
+      "text": "Quelque chose d'inattendu s'est produit 😢. Nous avons enregistré l'erreur, mais si vous vous souvenez de ce qui s'est passé à ce stade, <a>veuillez nous en informer</a>. Ça peut aussi être un problème temporaire, veuillez réessayer."
     },
     "welcome": {
       "heading": "Bienvenue dans Streetmix.",

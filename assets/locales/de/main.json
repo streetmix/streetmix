@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "Hoppla!",
-      "text": "Etwas Unerwartetes ist passiert 😢. Wir haben den Fehler aufgezeichnet, aber wenn du dich erinnern kannst, was auf dem Weg hierher passiert ist, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">erzähl uns bitte davon</a>. Es könnte sich auch um ein temporäres Problem handeln, also bitte probiere es noch einmal."
+      "text": "Etwas Unerwartetes ist passiert 😢. Wir haben den Fehler aufgezeichnet, aber wenn du dich erinnern kannst, was auf dem Weg hierher passiert ist, <a>erzähl uns bitte davon</a>. Es könnte sich auch um ein temporäres Problem handeln, also bitte probiere es noch einmal."
     },
     "welcome": {
       "heading": "Willkommen bei Streetmix.",

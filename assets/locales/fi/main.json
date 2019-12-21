@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "Oho!",
-      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
+      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a>voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
     },
     "welcome": {
       "heading": "Tervetuloa, tämä on Streetmix.",

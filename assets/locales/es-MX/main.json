@@ -28,7 +28,7 @@
       "sign-in-twitter-link": "Ingresar",
       "sign-in-link": "{signInLink} para enlaces mejores a tus calles y a tu galería de calles personal",
       "link": "Copiar y pegar este enlace para compartir:",
-      "copy-to-clipboard": "",
+      "copy-to-clipboard": "Copiar al portapapeles",
       "twitter": "Compartir usando Twitter",
       "facebook": "Compartir usando Facebook",
       "print": "Imprimir…",
@@ -145,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "¡Uy!",
-      "text": "Algo inesperado sucedió 😢. Hemos notado el error, pero si puedes recordar lo que sucedió antes de este error, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">cuéntanos</a>. Es posible que éste sea un problema temporal, así que por favor intenta una vez más."
+      "text": "Algo inesperado sucedió 😢. Hemos notado el error, pero si puedes recordar lo que sucedió antes de este error, <a>cuéntanos</a>. Es posible que éste sea un problema temporal, así que por favor intenta una vez más."
     },
     "welcome": {
       "heading": "Te damos la bienvenida a Streetmix.",
@@ -189,7 +189,7 @@
       "street-summary": "Se estima que tu calle tiene una capacidad media de {averageTotal} personas/hora, con potencial de hasta {potentialTotal} personas/hora.",
       "segment-summary": "{average} — {potential} personas/hora",
       "segment-summary-single": "{amount} personas/hora",
-      "source": ""
+      "source": "Citación"
     },
     "save": {
       "heading": "Guardar como imagen",
