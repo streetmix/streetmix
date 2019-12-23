@@ -124,7 +124,7 @@
     "intl-pluralrules": "1.1.1",
     "js-cookie": "2.2.1",
     "json2csv": "4.5.4",
-    "leaflet": "1.5.1",
+    "leaflet": "1.6.0",
     "lodash": "4.17.15",
     "mongoose": "5.8.1",
     "newrelic": "6.2.0",
