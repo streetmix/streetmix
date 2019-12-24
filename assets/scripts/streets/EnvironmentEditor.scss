@@ -10,7 +10,7 @@ $environment-editor-box-shadow: $medium-box-shadow;
 
 $header-background-colour: $colour-turquoise-200;
 $header-text-colour: $colour-turquoise-700;
-$selection-highlight-colour: $colour-turquoise-500;
+$selection-highlight-colour: $colour-copper-500;
 
 .environment-editor-container-outer {
   z-index: $z-environment-editor;
@@ -66,15 +66,17 @@ $selection-highlight-colour: $colour-turquoise-500;
 }
 
 .environment-select {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   background-color: #f7f7f7;
-  border-radius: 50%;
+  border-radius: $border-radius-large;
   cursor: pointer;
+  transition: 120ms box-shadow;
 }
 
 .environment-select.environment-active {
-  box-shadow: 0 0 0 2px $selection-highlight-colour, inset 0 0 0 2px white;
+  box-shadow: 0 0 0 2px $selection-highlight-colour,
+    inset 0 0 0 2px rgba(255, 255, 255, 1);
 }
 
 /* Close button overrides */
