@@ -2,7 +2,7 @@ coverage:
   status:
     project:
       default:
-        # Allow project coverage to decrease by 0.1%
+        # Allow project coverage to decrease a little
         # We don't want to fail projects where minor changes
         # cause coverage to decrease slightly
-        threshold: 0.1
+        threshold: 1%
