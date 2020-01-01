@@ -23,6 +23,7 @@ body {
   overflow: hidden;
   position: relative; // Fixes iOS Safari overflow: hidden not working bug
   background: white;
+  overscroll-behavior: none;
 
   &:not(.safari) {
     perspective: 500px;

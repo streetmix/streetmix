@@ -13,6 +13,9 @@
   overflow-y: hidden;
   touch-action: pan-x;
 
+  /* Prevent overscroll from doing forward/back navigation on some browsers */
+  overscroll-behavior-x: contain;
+
   [dir="rtl"] & {
     direction: ltr;
   }
