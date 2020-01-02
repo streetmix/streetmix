@@ -77,10 +77,8 @@ Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by 
 
 ### Copyright
 
-Copyright (c) 2013-2018 Code for America and contributors.
-
-Copyright (c) 2019 Streetmix LLC.
-
+Copyright (c) 2013-2018 Code for America and contributors.  
+Copyright (c) 2019-2020 Streetmix LLC.  
 See [LICENSE][] for details.
 
 [![Open Source Helpers](https://www.codetriage.com/codeforamerica/streetmix/badges/users.svg)](https://www.codetriage.com/codeforamerica/streetmix)
