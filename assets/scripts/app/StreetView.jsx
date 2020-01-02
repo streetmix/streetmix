@@ -18,8 +18,11 @@ import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants'
-import { BUILDING_SPACE } from '../segments/buildings'
-import { TILE_SIZE, DRAGGING_TYPE_RESIZE } from '../segments/constants'
+import {
+  TILE_SIZE,
+  DRAGGING_TYPE_RESIZE,
+  BUILDING_SPACE
+} from '../segments/constants'
 import { updateStreetMargin } from '../segments/resizing'
 import './StreetView.scss'
 

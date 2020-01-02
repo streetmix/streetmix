@@ -7,6 +7,10 @@ import { getSegmentInfo } from '../segments/info'
 import VARIANT_ICONS from '../segments/variant_icons.json'
 import { getVariantArray } from '../segments/variant_utils'
 import {
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '../segments/constants'
+import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
@@ -21,7 +25,7 @@ Variants.propTypes = {
   type: PropTypes.number,
   position: PropTypes.oneOfType([
     PropTypes.number,
-    PropTypes.oneOf(['left', 'right'])
+    PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
   ]),
 
   // Provided by Redux connect mapStateToProps
@@ -90,12 +94,12 @@ function Variants (props) {
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         handler = (event) => {
-          props.setBuildingVariant('left', selection)
+          props.setBuildingVariant(BUILDING_LEFT_POSITION, selection)
         }
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         handler = (event) => {
-          props.setBuildingVariant('right', selection)
+          props.setBuildingVariant(BUILDING_RIGHT_POSITION, selection)
         }
         break
       default:
@@ -201,9 +205,9 @@ function mapStateToProps (state, ownProps) {
   let segmentType
 
   // Get the appropriate variant information
-  if (ownProps.position === 'left') {
+  if (ownProps.position === BUILDING_LEFT_POSITION) {
     variant = state.street.leftBuildingVariant
-  } else if (ownProps.position === 'right') {
+  } else if (ownProps.position === BUILDING_RIGHT_POSITION) {
     variant = state.street.rightBuildingVariant
   } else if (
     Number.isInteger(ownProps.position) &&
@@ -226,7 +230,4 @@ const mapDispatchToProps = {
   changeSegmentVariant
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Variants)
+export default connect(mapStateToProps, mapDispatchToProps)(Variants)

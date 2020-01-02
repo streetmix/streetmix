@@ -3,13 +3,23 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { useIntl } from 'react-intl'
 import UpDownInput from './UpDownInput'
-import { MAX_BUILDING_HEIGHT, BUILDINGS, prettifyHeight } from '../segments/buildings'
-import { addBuildingFloor, removeBuildingFloor, setBuildingFloorValue } from '../store/actions/street'
+import { BUILDINGS, prettifyHeight } from '../segments/buildings'
+import {
+  addBuildingFloor,
+  removeBuildingFloor,
+  setBuildingFloorValue
+} from '../store/actions/street'
+import {
+  MAX_BUILDING_HEIGHT,
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '../segments/constants'
+
 import './BuildingHeightControl.scss'
 
 BuildingHeightControl.propTypes = {
   touch: PropTypes.bool,
-  position: PropTypes.oneOf(['left', 'right']),
+  position: PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION]),
   variant: PropTypes.string,
   value: PropTypes.number,
   units: PropTypes.number,
@@ -49,7 +59,13 @@ function BuildingHeightControl (props) {
    * @returns {string} - a decorated value
    */
   const displayValueFormatter = (value) => {
-    return prettifyHeight(props.variant, props.position, value, props.units, intl.formatMessage)
+    return prettifyHeight(
+      props.variant,
+      props.position,
+      value,
+      props.units,
+      intl.formatMessage
+    )
   }
 
   const isNotFloored = !BUILDINGS[props.variant].hasFloors
@@ -84,15 +100,23 @@ function BuildingHeightControl (props) {
 }
 
 function mapStateToProps (state, ownProps) {
-  const isLeft = ownProps.position === 'left'
-  const isRight = ownProps.position === 'right'
+  const isLeft = ownProps.position === BUILDING_LEFT_POSITION
+  const isRight = ownProps.position === BUILDING_RIGHT_POSITION
 
   return {
     touch: state.system.touch,
 
     // Get the appropriate building data based on which side of street it's on
-    variant: (isLeft) ? state.street.leftBuildingVariant : (isRight) ? state.street.rightBuildingVariant : null,
-    value: (isLeft) ? state.street.leftBuildingHeight : (isRight) ? state.street.rightBuildingHeight : null,
+    variant: isLeft
+      ? state.street.leftBuildingVariant
+      : isRight
+        ? state.street.rightBuildingVariant
+        : null,
+    value: isLeft
+      ? state.street.leftBuildingHeight
+      : isRight
+        ? state.street.rightBuildingHeight
+        : null,
 
     // Units
     units: state.street.units
@@ -105,4 +129,7 @@ const mapDispatchToProps = {
   setBuildingFloorValue
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuildingHeightControl)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BuildingHeightControl)

@@ -27,3 +27,8 @@ export const DRAGGING_TYPE_MOVE = 2
 export const DRAGGING_TYPE_RESIZE = 3
 
 export const MAX_SEGMENT_LABEL_LENGTH = 50
+
+export const BUILDING_SPACE = 360
+export const MAX_BUILDING_HEIGHT = 20
+export const BUILDING_LEFT_POSITION = 'left'
+export const BUILDING_RIGHT_POSITION = 'right'

@@ -4,9 +4,19 @@ import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawProgrammaticPeople } from './people'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL, TILE_SIZE_ACTUAL, MAX_SEGMENT_LABEL_LENGTH } from './constants'
+import {
+  TILE_SIZE,
+  TILESET_POINT_PER_PIXEL,
+  TILE_SIZE_ACTUAL,
+  MAX_SEGMENT_LABEL_LENGTH,
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from './constants'
 import store from '../store'
-import { updateSegments, changeSegmentProperties } from '../store/actions/street'
+import {
+  updateSegments,
+  changeSegmentProperties
+} from '../store/actions/street'
 
 /**
  * Draws SVG sprite to canvas
@@ -24,7 +34,20 @@ import { updateSegments, changeSegmentProperties } from '../store/actions/street
  * @param {Number} multiplier - scale to draw at (default = 1)
  * @param {Number} dpi
  */
-export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, dh, multiplier = 1, dpi) {
+export function drawSegmentImage (
+  id,
+  ctx,
+  sx = 0,
+  sy = 0,
+  sw,
+  sh,
+  dx,
+  dy,
+  dw,
+  dh,
+  multiplier = 1,
+  dpi
+) {
   // If asked to render a source or destination image with width or height
   // that is equal to or less than 0, bail. Attempting to render such an image
   // will throw an IndexSizeError error in Firefox.
@@ -40,8 +63,8 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   // Source width and height is based off of intrinsic image width and height,
   // but it can be overridden in the parameters, e.g. when repeating sprites
   // in a sequence and the last sprite needs to be truncated
-  sw = (sw === undefined) ? svg.width : sw * TILESET_POINT_PER_PIXEL
-  sh = (sh === undefined) ? svg.height : sh * TILESET_POINT_PER_PIXEL
+  sw = sw === undefined ? svg.width : sw * TILESET_POINT_PER_PIXEL
+  sh = sh === undefined ? svg.height : sh * TILESET_POINT_PER_PIXEL
 
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
   // the image in IE11, which returns 0. This is why width and height are
@@ -50,8 +73,8 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   // actual width / height value then multiply by system pixel density
   //
   // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
-  dw = (dw === undefined) ? svg.width / TILESET_POINT_PER_PIXEL : dw
-  dh = (dh === undefined) ? svg.height / TILESET_POINT_PER_PIXEL : dh
+  dw = dw === undefined ? svg.width / TILESET_POINT_PER_PIXEL : dw
+  dh = dh === undefined ? svg.height / TILESET_POINT_PER_PIXEL : dh
   dw *= multiplier * dpi
   dh *= multiplier * dpi
 
@@ -70,7 +93,13 @@ export function drawSegmentImage (id, ctx, sx = 0, sy = 0, sw, sh, dx, dy, dw, d
   } catch (e) {
     // IE11 has some issues drawing SVG images soon after loading. https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
     setTimeout(() => {
-      console.error('drawImage failed for img id ' + id + ' with error: ' + e + ' - Retrying after 2 seconds')
+      console.error(
+        'drawImage failed for img id ' +
+          id +
+          ' with error: ' +
+          e +
+          ' - Retrying after 2 seconds'
+      )
       ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
     }, 2000)
   }
@@ -100,14 +129,16 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   const graphics = variantInfo.graphics
 
   if (graphics.center) {
-    const sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
+    const sprites = Array.isArray(graphics.center)
+      ? graphics.center
+      : [graphics.center]
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = center - (svg.width / 2) + (sprite.offsetX || 0)
-      newRight = center + (svg.width / 2) + (sprite.offsetX || 0)
+      newLeft = center - svg.width / 2 + (sprite.offsetX || 0)
+      newRight = center + svg.width / 2 + (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -119,7 +150,9 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   }
 
   if (graphics.left) {
-    const sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
+    const sprites = Array.isArray(graphics.left)
+      ? graphics.left
+      : [graphics.left]
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
@@ -138,14 +171,16 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   }
 
   if (graphics.right) {
-    const sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
+    const sprites = Array.isArray(graphics.right)
+      ? graphics.right
+      : [graphics.right]
 
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = (displayWidth) - (sprite.offsetX || 0) - svg.width
-      newRight = (displayWidth) - (sprite.offsetX || 0)
+      newLeft = displayWidth - (sprite.offsetX || 0) - svg.width
+      newRight = displayWidth - (sprite.offsetX || 0)
 
       if (newLeft < left) {
         left = newLeft
@@ -157,8 +192,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   }
 
   if (graphics.repeat && graphics.repeat[0]) {
-    newLeft = center - (displayWidth / 2)
-    newRight = center + (displayWidth / 2)
+    newLeft = center - displayWidth / 2
+    newRight = center + displayWidth / 2
 
     if (newLeft < left) {
       left = newLeft
@@ -168,7 +203,11 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
     }
   }
 
-  return { left: left / TILE_SIZE_ACTUAL, right: right / TILE_SIZE_ACTUAL, center: center / TILE_SIZE_ACTUAL }
+  return {
+    left: left / TILE_SIZE_ACTUAL,
+    right: right / TILE_SIZE_ACTUAL,
+    center: center / TILE_SIZE_ACTUAL
+  }
 }
 
 const GROUND_LEVEL_OFFSETY = {
@@ -213,8 +252,29 @@ function getGroundLevelOffset (elevation) {
  * @param {Number} multiplier
  * @param {Number} dpi
  */
-export function drawSegmentPlain (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi) {
-  return drawSegmentContents(ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi, true)
+export function drawSegmentPlain (
+  ctx,
+  type,
+  variantString,
+  actualWidth,
+  offsetLeft,
+  groundBaseline,
+  randSeed,
+  multiplier,
+  dpi
+) {
+  return drawSegmentContents(
+    ctx,
+    type,
+    variantString,
+    actualWidth,
+    offsetLeft,
+    groundBaseline,
+    randSeed,
+    multiplier,
+    dpi,
+    true
+  )
 }
 
 /**
@@ -230,7 +290,18 @@ export function drawSegmentPlain (ctx, type, variantString, actualWidth, offsetL
  * @param {Number} dpi
  * @param {Number} drawSegmentOnly - If true, skips drawing background elements
  */
-export function drawSegmentContents (ctx, type, variantString, actualWidth, offsetLeft, groundBaseline, randSeed, multiplier, dpi, drawSegmentOnly = false) {
+export function drawSegmentContents (
+  ctx,
+  type,
+  variantString,
+  actualWidth,
+  offsetLeft,
+  groundBaseline,
+  randSeed,
+  multiplier,
+  dpi,
+  drawSegmentOnly = false
+) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
 
@@ -241,10 +312,14 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
   const left = dimensions.left
 
   const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
-  const groundLevel = groundBaseline - (multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0))
+  const groundLevel =
+    groundBaseline -
+    multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0)
 
   if (graphics.repeat && !drawSegmentOnly) {
-    let sprites = Array.isArray(graphics.repeat) ? graphics.repeat : [graphics.repeat]
+    let sprites = Array.isArray(graphics.repeat)
+      ? graphics.repeat
+      : [graphics.repeat]
     if (drawSegmentOnly) {
       sprites = [sprites[sprites.length - 1]]
     }
@@ -253,7 +328,7 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const svg = images.get(sprite.id)
 
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
-      const count = Math.floor((segmentWidth / (width * multiplier)) + 1)
+      const count = Math.floor(segmentWidth / (width * multiplier) + 1)
       let repeatStartX
 
       if (left < 0) {
@@ -264,20 +339,37 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
 
       // The distance between the top of the sprite and the ground is calculated by subtracting the height of the sprite with the # of pixels
       // to get to the point of the sprite which should align with the ground.
-      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+      const distanceFromGround =
+        multiplier *
+        TILE_SIZE *
+        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          width = (segmentWidth / multiplier) - ((count - 1) * width)
+          width = segmentWidth / multiplier - (count - 1) * width
         }
 
         // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the distance
         // the sprite will be from the ground.
-        drawSegmentImage(sprite.id, ctx, undefined, undefined, width, undefined,
-          offsetLeft + ((repeatStartX + (i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE)) * multiplier),
-          (sprite.id.includes('ground') ? groundLevel : groundLevel - distanceFromGround),
-          width, undefined, multiplier, dpi)
+        drawSegmentImage(
+          sprite.id,
+          ctx,
+          undefined,
+          undefined,
+          width,
+          undefined,
+          offsetLeft +
+            (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
+              multiplier,
+          sprite.id.includes('ground')
+            ? groundLevel
+            : groundLevel - distanceFromGround,
+          width,
+          undefined,
+          multiplier,
+          dpi
+        )
       }
     }
   }
@@ -291,18 +383,37 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      const x = 0 + ((-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier)
-      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+      const x =
+        0 +
+        (-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+          TILE_SIZE *
+          multiplier
+      const distanceFromGround =
+        multiplier *
+        TILE_SIZE *
+        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
-      drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
+      drawSegmentImage(
+        sprite.id,
+        ctx,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
         offsetLeft + x,
         groundLevel - distanceFromGround,
-        undefined, undefined, multiplier, dpi)
+        undefined,
+        undefined,
+        multiplier,
+        dpi
+      )
     }
   }
 
   if (graphics.right) {
-    let sprites = Array.isArray(graphics.right) ? graphics.right : [graphics.right]
+    let sprites = Array.isArray(graphics.right)
+      ? graphics.right
+      : [graphics.right]
     if (drawSegmentOnly) {
       sprites = [sprites[sprites.length - 1]]
     }
@@ -310,18 +421,39 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      const x = (-left + actualWidth - (svg.width / TILE_SIZE_ACTUAL) - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
-      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+      const x =
+        (-left +
+          actualWidth -
+          svg.width / TILE_SIZE_ACTUAL -
+          (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+        TILE_SIZE *
+        multiplier
+      const distanceFromGround =
+        multiplier *
+        TILE_SIZE *
+        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
-      drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
+      drawSegmentImage(
+        sprite.id,
+        ctx,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
         offsetLeft + x,
         groundLevel - distanceFromGround,
-        undefined, undefined, multiplier, dpi)
+        undefined,
+        undefined,
+        multiplier,
+        dpi
+      )
     }
   }
 
   if (graphics.center) {
-    let sprites = Array.isArray(graphics.center) ? graphics.center : [graphics.center]
+    let sprites = Array.isArray(graphics.center)
+      ? graphics.center
+      : [graphics.center]
     if (drawSegmentOnly) {
       sprites = [sprites[sprites.length - 1]]
     }
@@ -330,18 +462,46 @@ export function drawSegmentContents (ctx, type, variantString, actualWidth, offs
       const svg = images.get(sprite.id)
       const center = dimensions.center
 
-      const x = (center - ((svg.width / TILE_SIZE_ACTUAL) / 2) - left - (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) * TILE_SIZE * multiplier
-      const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+      const x =
+        (center -
+          svg.width / TILE_SIZE_ACTUAL / 2 -
+          left -
+          (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+        TILE_SIZE *
+        multiplier
+      const distanceFromGround =
+        multiplier *
+        TILE_SIZE *
+        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
-      drawSegmentImage(sprite.id, ctx, undefined, undefined, undefined, undefined,
+      drawSegmentImage(
+        sprite.id,
+        ctx,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
         offsetLeft + x,
         groundLevel - distanceFromGround,
-        undefined, undefined, multiplier, dpi)
+        undefined,
+        undefined,
+        multiplier,
+        dpi
+      )
     }
   }
 
   if (type === 'sidewalk') {
-    drawProgrammaticPeople(ctx, segmentWidth / multiplier, offsetLeft - (left * TILE_SIZE * multiplier), groundLevel, randSeed, multiplier, variantString, dpi)
+    drawProgrammaticPeople(
+      ctx,
+      segmentWidth / multiplier,
+      offsetLeft - left * TILE_SIZE * multiplier,
+      groundLevel,
+      randSeed,
+      multiplier,
+      variantString,
+      dpi
+    )
   }
 }
 
@@ -362,7 +522,13 @@ export function segmentsChanged () {
   const street = store.getState().street
   const updatedStreet = recalculateWidth(street)
 
-  store.dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+  store.dispatch(
+    updateSegments(
+      updatedStreet.segments,
+      updatedStreet.occupiedWidth,
+      updatedStreet.remainingWidth
+    )
+  )
 
   saveStreetToServerIfNecessary()
 }
@@ -392,8 +558,11 @@ function normalizeSegmentLabel (label) {
  * @param {Number} position - index of segment to edit
  */
 export function editSegmentLabel (segment, position) {
-  const prevLabel = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-  const label = normalizeSegmentLabel(window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel))
+  const prevLabel =
+    segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+  const label = normalizeSegmentLabel(
+    window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel)
+  )
 
   if (label && label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
@@ -413,12 +582,14 @@ export function getSegmentEl (position) {
   if (!position && position !== 0) return
 
   let segmentEl
-  if (position === 'left') {
+  if (position === BUILDING_LEFT_POSITION) {
     segmentEl = document.querySelectorAll('.street-section-building')[0]
-  } else if (position === 'right') {
+  } else if (position === BUILDING_RIGHT_POSITION) {
     segmentEl = document.querySelectorAll('.street-section-building')[1]
   } else {
-    const segments = document.getElementById('street-section-editable').querySelectorAll('.segment')
+    const segments = document
+      .getElementById('street-section-editable')
+      .querySelectorAll('.segment')
     segmentEl = segments[position]
   }
   return segmentEl

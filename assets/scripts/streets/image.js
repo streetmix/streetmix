@@ -2,8 +2,8 @@ import { API_URL } from '../app/config'
 import { trimStreetData } from './data_model'
 import { getAuthHeader } from '../users/authentication'
 import { drawStreetThumbnail } from './thumbnail'
-import { BUILDING_SPACE, getBuildingImageHeight } from '../segments/buildings'
-import { TILE_SIZE } from '../segments/constants'
+import { getBuildingImageHeight } from '../segments/buildings'
+import { TILE_SIZE, BUILDING_SPACE } from '../segments/constants'
 import store, { observeStore } from '../store'
 
 // This can be adjusted to create much more hi-definition images
@@ -17,11 +17,26 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 // TODO: a way to remove the circular dependency?!
 export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
 
-export function getStreetImage (street, transparentSky, segmentNamesAndWidths, streetName, dpi = SAVE_AS_IMAGE_DPI, watermark = true) {
-  const width = (TILE_SIZE * street.width) + (BUILDING_SPACE * 2)
+export function getStreetImage (
+  street,
+  transparentSky,
+  segmentNamesAndWidths,
+  streetName,
+  dpi = SAVE_AS_IMAGE_DPI,
+  watermark = true
+) {
+  const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
 
-  const leftHeight = getBuildingImageHeight(street.leftBuildingVariant, 'left', street.leftBuildingHeight)
-  const rightHeight = getBuildingImageHeight(street.rightBuildingVariant, 'right', street.rightBuildingHeight)
+  const leftHeight = getBuildingImageHeight(
+    street.leftBuildingVariant,
+    'left',
+    street.leftBuildingHeight
+  )
+  const rightHeight = getBuildingImageHeight(
+    street.rightBuildingVariant,
+    'right',
+    street.rightBuildingHeight
+  )
 
   let height = Math.max(leftHeight, rightHeight)
 
@@ -29,7 +44,7 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
     height = SAVE_AS_IMAGE_MIN_HEIGHT
   }
 
-  if (streetName && (height < SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME)) {
+  if (streetName && height < SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME) {
     height = SAVE_AS_IMAGE_MIN_HEIGHT_WITH_STREET_NAME
   }
 
@@ -45,7 +60,20 @@ export function getStreetImage (street, transparentSky, segmentNamesAndWidths, s
 
   const ctx = el.getContext('2d')
 
-  drawStreetThumbnail(ctx, street, width, height, dpi, 1.0, false, true, transparentSky, segmentNamesAndWidths, streetName, watermark)
+  drawStreetThumbnail(
+    ctx,
+    street,
+    width,
+    height,
+    dpi,
+    1.0,
+    false,
+    true,
+    transparentSky,
+    segmentNamesAndWidths,
+    streetName,
+    watermark
+  )
 
   return el
 }
@@ -70,7 +98,10 @@ export function isThumbnailSaved () {
 
 export function initStreetThumbnailSubscriber () {
   // Save street thumbnail on initial street render.
-  saveStreetThumbnail(trimStreetData(store.getState().street), SAVE_THUMBNAIL_EVENTS.INITIAL)
+  saveStreetThumbnail(
+    trimStreetData(store.getState().street),
+    SAVE_THUMBNAIL_EVENTS.INITIAL
+  )
 
   const select = (state) => {
     const street = { editCount: state.street.editCount, id: state.street.id }
@@ -96,10 +127,8 @@ export function initStreetThumbnailSubscriber () {
 // TEMPORARILY DISABLED.
 export async function saveStreetThumbnail (street, event) {
   // if (_savedThumbnail) return
-
   // _lastSavedTimestamp = Date.now()
   // const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
-
   // try {
   //   // .toDataURL is not available on IE11 when SVGs are part of the canvas.
   //   const dataUrl = thumbnail.toDataURL('image/png')
@@ -109,7 +138,6 @@ export async function saveStreetThumbnail (street, event) {
   //     editCount: street.editCount,
   //     creatorId: street.creatorId
   //   }
-
   //   // Check if street is default or empty street.
   //   // If a signed-in user adopts an existing street, the editCount is set to 0 even if it isn't a DEFAULT or EMPTY street.
   //   // Only if the street has an editCount = 0 and has no originalStreetId, should we set the streetType.
@@ -117,9 +145,7 @@ export async function saveStreetThumbnail (street, event) {
   //     const streetType = (street.segments.length) ? 'DEFAULT_STREET' : 'EMPTY_STREET'
   //     details.streetType = streetType
   //   }
-
   //   const url = API_URL + 'v1/streets/images/' + street.id
-
   //   const options = {
   //     method: 'POST',
   //     body: JSON.stringify(details),
@@ -128,9 +154,7 @@ export async function saveStreetThumbnail (street, event) {
   //       'Content-Type': 'text/plain'
   //     }
   //   }
-
   //   const response = await window.fetch(url, options)
-
   //   if (response.ok) {
   //     console.log('Updated street thumbnail.')
   //     _savedThumbnail = true
