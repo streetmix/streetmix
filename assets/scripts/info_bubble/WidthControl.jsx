@@ -1,16 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import UpDownInput from './UpDownInput'
-import { trackEvent } from '../app/event_tracking'
-import {
-  MIN_SEGMENT_WIDTH,
-  MAX_SEGMENT_WIDTH
-} from '../segments/constants'
-import {
-  incrementSegmentWidth
-} from '../store/actions/street'
+import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '../segments/constants'
 import {
   RESIZE_TYPE_TYPING,
   resizeSegment,
@@ -21,34 +14,37 @@ import {
   stringifyMeasurementValue,
   processWidthInput
 } from '../util/width_units'
+import { incrementSegmentWidth } from '../store/actions/street'
 
 WidthControl.propTypes = {
-  touch: PropTypes.bool,
-  position: PropTypes.number,
-  value: PropTypes.number,
-  units: PropTypes.number,
-  locale: PropTypes.string,
-  // provided by store
-  incrementSegmentWidth: PropTypes.func
+  position: PropTypes.number
 }
 
-function WidthControl (props) {
+function WidthControl ({ position }) {
+  const touch = useSelector((state) => state.system.touch)
+  const value = useSelector(
+    (state) =>
+      (state.street.segments[position] &&
+        state.street.segments[position].width) ||
+      null
+  )
+  const units = useSelector((state) => state.street.units)
+  const locale = useSelector((state) => state.locale.locale)
+  const dispatch = useDispatch()
   const intl = useIntl()
 
   const handleIncrement = (event) => {
     const precise = event.shiftKey
 
-    props.incrementSegmentWidth(props.position, true, precise, props.value)
+    dispatch(incrementSegmentWidth(position, true, precise, value))
     resumeFadeoutControls()
-    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DECREMENT_BUTTON', null, true)
   }
 
   const handleDecrement = (event) => {
     const precise = event.shiftKey
 
-    props.incrementSegmentWidth(props.position, false, precise, props.value)
+    dispatch(incrementSegmentWidth(position, false, precise, value))
     resumeFadeoutControls()
-    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'INCREMENT_BUTTON', null, true)
   }
 
   /**
@@ -63,9 +59,9 @@ function WidthControl (props) {
    * @param {string} value - raw input
    */
   const updateModel = (value) => {
-    const processedValue = processWidthInput(value, props.units)
+    const processedValue = processWidthInput(value, units)
     if (processedValue) {
-      resizeSegment(props.position, RESIZE_TYPE_TYPING, processedValue, props.units)
+      resizeSegment(position, RESIZE_TYPE_TYPING, processedValue, units)
     }
   }
 
@@ -77,7 +73,7 @@ function WidthControl (props) {
    * @returns {string} - a decorated value
    */
   const inputValueFormatter = (value) => {
-    return stringifyMeasurementValue(value, props.units, props.locale)
+    return stringifyMeasurementValue(value, units, locale)
   }
 
   /**
@@ -88,13 +84,13 @@ function WidthControl (props) {
    * @returns {string} - a decorated value
    */
   const displayValueFormatter = (value) => {
-    return prettifyWidth(value, props.units)
+    return prettifyWidth(value, units)
   }
 
   return (
     <div className="non-variant">
       <UpDownInput
-        value={props.value}
+        value={value}
         minValue={MIN_SEGMENT_WIDTH}
         maxValue={MAX_SEGMENT_WIDTH}
         inputValueFormatter={inputValueFormatter}
@@ -114,24 +110,10 @@ function WidthControl (props) {
           id: 'tooltip.decrease-width',
           defaultMessage: 'Decrease width (hold Shift for more precision)'
         })}
-        touch={props.touch}
+        touch={touch}
       />
     </div>
   )
 }
 
-function mapStateToProps (state, ownProps) {
-  const segment = state.street.segments[ownProps.position]
-  return {
-    touch: state.system.touch,
-    value: (segment && segment.width) || null,
-    units: state.street.units,
-    locale: state.locale.locale
-  }
-}
-
-const mapDispatchToProps = {
-  incrementSegmentWidth
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(WidthControl)
+export default WidthControl
