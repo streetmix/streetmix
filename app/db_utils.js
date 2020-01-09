@@ -43,20 +43,9 @@ const combineWrites = (mainMethod, altMethod) => {
           return JSON.stringify(cleaned, Object.keys(cleaned).sort())
         }
         // if resulting objects are unequal, log an alarm
-        if (comparify(mainData) === comparify(altData)) {
-          logger.info(
-            `main/alt response for ${req.method} ${
-              req.url
-            } match: \n ${JSON.stringify({
-              m: comparify(mainData),
-              a: comparify(altData)
-            })}`
-          )
-        } else {
+        if (comparify(mainData) !== comparify(altData)) {
           logger.error(
-            `main/alt response for ${req.method} ${
-              req.url
-            } DIFFER: \n ${JSON.stringify({
+            `main/alt response for ${req.method} ${req.url} DIFFER: \n ${JSON.stringify({
               m: comparify(mainData),
               a: comparify(altData)
             })}`
