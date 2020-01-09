@@ -9,9 +9,7 @@
     "rules": {
       "minWidth": 6
     },
-    "variants": [
-      "sidewalk-density"
-    ],
+    "variants": ["sidewalk-density"],
     "details": {
       "dense": {
         "components": {
@@ -69,9 +67,7 @@
     "owner": "NATURE",
     "zIndex": 22,
     "defaultWidth": 4,
-    "variants": [
-      "tree-type"
-    ],
+    "variants": ["tree-type"],
     "details": {
       "big": {
         "components": {
@@ -122,10 +118,7 @@
     "zIndex": 23,
     "defaultWidth": 5,
     "paletteIcon": "left|sidewalk",
-    "variants": [
-      "orientation",
-      "bike-rack-elevation"
-    ],
+    "variants": ["orientation", "bike-rack-elevation"],
     "details": {
       "left|sidewalk-parallel": {
         "components": {
@@ -141,10 +134,7 @@
             {
               "id": "bike-rack",
               "variants": {
-                "direction|orientation": [
-                  "parallel",
-                  "left"
-                ]
+                "direction|orientation": ["parallel", "left"]
               }
             }
           ]
@@ -164,10 +154,7 @@
             {
               "id": "bike-rack",
               "variants": {
-                "direction|orientation": [
-                  "parallel",
-                  "right"
-                ]
+                "direction|orientation": ["parallel", "right"]
               }
             }
           ]
@@ -187,10 +174,7 @@
             {
               "id": "bike-rack",
               "variants": {
-                "direction|orientation": [
-                  "perpendicular",
-                  "left"
-                ]
+                "direction|orientation": ["perpendicular", "left"]
               }
             }
           ]
@@ -210,10 +194,7 @@
             {
               "id": "bike-rack",
               "variants": {
-                "direction|orientation": [
-                  "perpendicular",
-                  "right"
-                ]
+                "direction|orientation": ["perpendicular", "right"]
               }
             }
           ]
@@ -233,10 +214,7 @@
             {
               "id": "bike-rack",
               "variants": {
-                "direction|orientation": [
-                  "perpendicular",
-                  "left"
-                ]
+                "direction|orientation": ["perpendicular", "left"]
               }
             }
           ]
@@ -256,10 +234,7 @@
             {
               "id": "bike-rack",
               "variants": {
-                "direction|orientation": [
-                  "perpendicular",
-                  "right"
-                ]
+                "direction|orientation": ["perpendicular", "right"]
               }
             }
           ]
@@ -273,9 +248,7 @@
     "owner": "PEDESTRIAN",
     "zIndex": 24,
     "defaultWidth": 4,
-    "variants": [
-      "bench-orientation"
-    ],
+    "variants": ["bench-orientation"],
     "details": {
       "left": {
         "components": {
@@ -346,10 +319,7 @@
     "zIndex": 24,
     "defaultWidth": 8,
     "enableWithFlag": "SEGMENT_CAFE_SEATING",
-    "variants": [
-      "occupants",
-      "elevation"
-    ],
+    "variants": ["occupants", "elevation"],
     "details": {
       "full|sidewalk": {
         "components": {
@@ -459,9 +429,7 @@
       "key": "wayfinding-sign",
       "image": "wayfinding-02.jpg"
     },
-    "variants": [
-      "wayfinding-type"
-    ],
+    "variants": ["wayfinding-type"],
     "details": {
       "large": {
         "components": {
@@ -532,10 +500,7 @@
     "zIndex": 19,
     "defaultWidth": 4,
     "paletteIcon": "both|traditional",
-    "variants": [
-      "lamp-orientation",
-      "lamp-type"
-    ],
+    "variants": ["lamp-orientation", "lamp-type"],
     "details": {
       "right|modern": {
         "components": {
@@ -551,10 +516,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "modern",
-                  "right"
-                ]
+                "type|orientation": ["modern", "right"]
               }
             }
           ]
@@ -574,10 +536,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "modern",
-                  "both"
-                ]
+                "type|orientation": ["modern", "both"]
               }
             }
           ]
@@ -597,10 +556,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "modern",
-                  "left"
-                ]
+                "type|orientation": ["modern", "left"]
               }
             }
           ]
@@ -620,10 +576,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "traditional",
-                  "right"
-                ]
+                "type|orientation": ["traditional", "right"]
               }
             }
           ]
@@ -643,10 +596,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "traditional",
-                  "both"
-                ]
+                "type|orientation": ["traditional", "both"]
               }
             }
           ]
@@ -666,10 +616,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "traditional",
-                  "left"
-                ]
+                "type|orientation": ["traditional", "left"]
               }
             }
           ]
@@ -689,10 +636,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "modern",
-                  "right"
-                ]
+                "type|orientation": ["modern", "right"]
               }
             },
             {
@@ -718,10 +662,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "modern",
-                  "left"
-                ]
+                "type|orientation": ["modern", "left"]
               }
             },
             {
@@ -747,10 +688,7 @@
             {
               "id": "lamp",
               "variants": {
-                "type|orientation": [
-                  "modern",
-                  "both"
-                ]
+                "type|orientation": ["modern", "both"]
               }
             },
             {
@@ -771,9 +709,7 @@
     "zIndex": 10,
     "defaultWidth": 4,
     "enableWithFlag": "SEGMENT_UTILITIES",
-    "variants": [
-      "orientation"
-    ],
+    "variants": ["orientation"],
     "details": {
       "left": {
         "components": {
@@ -830,9 +766,7 @@
     "rules": {
       "minWidth": 8
     },
-    "variants": [
-      "orientation"
-    ],
+    "variants": ["orientation"],
     "details": {
       "left": {
         "components": {
@@ -883,9 +817,7 @@
     "zIndex": 20,
     "defaultWidth": 2,
     "paletteIcon": "planting-strip",
-    "variants": [
-      "divider-type"
-    ],
+    "variants": ["divider-type"],
     "details": {
       "planting-strip": {
         "name": "Planting strip",
@@ -1171,10 +1103,7 @@
     "rules": {
       "minWidth": 4
     },
-    "variants": [
-      "direction",
-      "bike-asphalt"
-    ],
+    "variants": ["direction", "bike-asphalt"],
     "details": {
       "inbound|regular": {
         "components": {
@@ -1336,11 +1265,7 @@
     "defaultWidth": 5,
     "enableWithFlag": "SEGMENT_SCOOTERS",
     "paletteIcon": "right|sidewalk|empty",
-    "variants": [
-      "orientation",
-      "scooter-elevation",
-      "scooter-riders"
-    ],
+    "variants": ["orientation", "scooter-elevation", "scooter-riders"],
     "details": {
       "left|sidewalk|empty": {
         "components": {
@@ -1367,10 +1292,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "empty",
-                  "left"
-                ]
+                "riders|orientation": ["empty", "left"]
               }
             }
           ]
@@ -1401,10 +1323,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "empty",
-                  "right"
-                ]
+                "riders|orientation": ["empty", "right"]
               }
             }
           ]
@@ -1435,10 +1354,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "sparse",
-                  "left"
-                ]
+                "riders|orientation": ["sparse", "left"]
               }
             }
           ]
@@ -1469,10 +1385,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "sparse",
-                  "right"
-                ]
+                "riders|orientation": ["sparse", "right"]
               }
             }
           ]
@@ -1503,10 +1416,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "empty",
-                  "left"
-                ]
+                "riders|orientation": ["empty", "left"]
               }
             }
           ]
@@ -1537,10 +1447,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "empty",
-                  "right"
-                ]
+                "riders|orientation": ["empty", "right"]
               }
             }
           ]
@@ -1571,10 +1478,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "sparse",
-                  "left"
-                ]
+                "riders|orientation": ["sparse", "left"]
               }
             }
           ]
@@ -1605,10 +1509,7 @@
             {
               "id": "scooter",
               "variants": {
-                "riders|orientation": [
-                  "sparse",
-                  "right"
-                ]
+                "riders|orientation": ["sparse", "right"]
               }
             }
           ]
@@ -1629,10 +1530,7 @@
     "rules": {
       "minWidth": 5
     },
-    "variants": [
-      "direction",
-      "bike-asphalt"
-    ],
+    "variants": ["direction", "bike-asphalt"],
     "details": {
       "inbound|regular": {
         "components": {
@@ -1653,10 +1551,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-01",
-                  "inbound"
-                ]
+                "type|direction": ["biker-01", "inbound"]
               }
             }
           ]
@@ -1681,10 +1576,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-01",
-                  "outbound"
-                ]
+                "type|direction": ["biker-01", "outbound"]
               }
             }
           ]
@@ -1713,10 +1605,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-01",
-                  "inbound"
-                ]
+                "type|direction": ["biker-01", "inbound"]
               }
             }
           ]
@@ -1745,10 +1634,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-01",
-                  "outbound"
-                ]
+                "type|direction": ["biker-01", "outbound"]
               }
             }
           ]
@@ -1777,10 +1663,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-01",
-                  "inbound"
-                ]
+                "type|direction": ["biker-01", "inbound"]
               }
             }
           ]
@@ -1809,10 +1692,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-01",
-                  "outbound"
-                ]
+                "type|direction": ["biker-01", "outbound"]
               }
             }
           ]
@@ -1830,9 +1710,7 @@
       "minWidth": 7,
       "maxWidth": 10
     },
-    "variants": [
-      "orientation"
-    ],
+    "variants": ["orientation"],
     "details": {
       "left": {
         "components": {
@@ -1901,9 +1779,7 @@
     "rules": {
       "minWidth": 10
     },
-    "variants": [
-      "orientation"
-    ],
+    "variants": ["orientation"],
     "details": {
       "left": {
         "components": {
@@ -1957,11 +1833,7 @@
       "minWidth": 7,
       "maxWidth": 10
     },
-    "variants": [
-      "flex-type",
-      "direction",
-      "orientation"
-    ],
+    "variants": ["flex-type", "direction", "orientation"],
     "details": {
       "taxi|inbound|left": {
         "name": "Taxi loading zone",
@@ -1984,10 +1856,7 @@
             {
               "id": "taxi",
               "variants": {
-                "direction|orientation": [
-                  "inbound",
-                  "left"
-                ]
+                "direction|orientation": ["inbound", "left"]
               }
             }
           ]
@@ -2014,10 +1883,7 @@
             {
               "id": "taxi",
               "variants": {
-                "direction|orientation": [
-                  "inbound",
-                  "right"
-                ]
+                "direction|orientation": ["inbound", "right"]
               }
             }
           ]
@@ -2044,10 +1910,7 @@
             {
               "id": "taxi",
               "variants": {
-                "direction|orientation": [
-                  "outbound",
-                  "left"
-                ]
+                "direction|orientation": ["outbound", "left"]
               }
             }
           ]
@@ -2074,10 +1937,7 @@
             {
               "id": "taxi",
               "variants": {
-                "direction|orientation": [
-                  "outbound",
-                  "right"
-                ]
+                "direction|orientation": ["outbound", "right"]
               }
             }
           ]
@@ -2104,10 +1964,7 @@
             {
               "id": "rideshare",
               "variants": {
-                "direction|orientation": [
-                  "inbound",
-                  "left"
-                ]
+                "direction|orientation": ["inbound", "left"]
               }
             }
           ]
@@ -2134,10 +1991,7 @@
             {
               "id": "rideshare",
               "variants": {
-                "direction|orientation": [
-                  "inbound",
-                  "right"
-                ]
+                "direction|orientation": ["inbound", "right"]
               }
             }
           ]
@@ -2164,10 +2018,7 @@
             {
               "id": "rideshare",
               "variants": {
-                "direction|orientation": [
-                  "outbound",
-                  "left"
-                ]
+                "direction|orientation": ["outbound", "left"]
               }
             }
           ]
@@ -2194,10 +2045,7 @@
             {
               "id": "rideshare",
               "variants": {
-                "direction|orientation": [
-                  "outbound",
-                  "right"
-                ]
+                "direction|orientation": ["outbound", "right"]
               }
             }
           ]
@@ -2211,10 +2059,7 @@
     "owner": "FLEX",
     "zIndex": 30,
     "defaultWidth": 4,
-    "variants": [
-      "waiting-area",
-      "orientation"
-    ],
+    "variants": ["waiting-area", "orientation"],
     "details": {
       "sparse|left": {
         "components": {
@@ -2320,10 +2165,7 @@
       "minWidth": 7,
       "maxWidth": 10
     },
-    "variants": [
-      "parking-lane-direction",
-      "parking-lane-orientation"
-    ],
+    "variants": ["parking-lane-direction", "parking-lane-orientation"],
     "details": {
       "inbound|left": {
         "components": {
@@ -2345,10 +2187,7 @@
               "id": "car",
               "offsetX": 6,
               "variants": {
-                "direction|orientation": [
-                  "inbound",
-                  "left"
-                ]
+                "direction|orientation": ["inbound", "left"]
               }
             }
           ]
@@ -2373,10 +2212,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "inbound",
-                  "right"
-                ]
+                "direction|orientation": ["inbound", "right"]
               }
             }
           ]
@@ -2402,10 +2238,7 @@
               "id": "car",
               "offsetX": 6,
               "variants": {
-                "direction|orientation": [
-                  "outbound",
-                  "left"
-                ]
+                "direction|orientation": ["outbound", "left"]
               }
             }
           ]
@@ -2430,10 +2263,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "outbound",
-                  "right"
-                ]
+                "direction|orientation": ["outbound", "right"]
               }
             }
           ]
@@ -2459,10 +2289,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "sideways",
-                  "left"
-                ]
+                "direction|orientation": ["sideways", "left"]
               }
             }
           ]
@@ -2488,10 +2315,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "sideways",
-                  "right"
-                ]
+                "direction|orientation": ["sideways", "right"]
               }
             }
           ]
@@ -2517,10 +2341,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-front-left",
-                  "left"
-                ]
+                "direction|orientation": ["angled-front-left", "left"]
               }
             }
           ]
@@ -2546,10 +2367,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-front-right",
-                  "left"
-                ]
+                "direction|orientation": ["angled-front-right", "left"]
               }
             }
           ]
@@ -2575,10 +2393,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-rear-left",
-                  "left"
-                ]
+                "direction|orientation": ["angled-rear-left", "left"]
               }
             }
           ]
@@ -2604,10 +2419,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-rear-right",
-                  "left"
-                ]
+                "direction|orientation": ["angled-rear-right", "left"]
               }
             }
           ]
@@ -2633,10 +2445,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-front-left",
-                  "right"
-                ]
+                "direction|orientation": ["angled-front-left", "right"]
               }
             }
           ]
@@ -2662,10 +2471,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-front-right",
-                  "right"
-                ]
+                "direction|orientation": ["angled-front-right", "right"]
               }
             }
           ]
@@ -2691,10 +2497,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-rear-left",
-                  "right"
-                ]
+                "direction|orientation": ["angled-rear-left", "right"]
               }
             }
           ]
@@ -2720,10 +2523,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|orientation": [
-                  "angled-rear-right",
-                  "right"
-                ]
+                "direction|orientation": ["angled-rear-right", "right"]
               }
             }
           ]
@@ -2741,10 +2541,7 @@
       "minWidth": 8,
       "maxWidth": 11.9
     },
-    "variants": [
-      "direction",
-      "car-type"
-    ],
+    "variants": ["direction", "car-type"],
     "details": {
       "inbound|car": {
         "components": {
@@ -2832,10 +2629,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-02",
-                  "inbound"
-                ]
+                "type|direction": ["biker-02", "inbound"]
               }
             }
           ]
@@ -2877,10 +2671,7 @@
             {
               "id": "bike",
               "variants": {
-                "type|direction": [
-                  "biker-02",
-                  "outbound"
-                ]
+                "type|direction": ["biker-02", "outbound"]
               }
             }
           ]
@@ -2998,10 +2789,7 @@
       "minWidth": 9,
       "maxWidth": 12
     },
-    "variants": [
-      "direction",
-      "turn-lane-orientation"
-    ],
+    "variants": ["direction", "turn-lane-orientation"],
     "details": {
       "inbound|left": {
         "components": {
@@ -3022,10 +2810,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "inbound",
-                  "right"
-                ]
+                "direction|turn-orientation": ["inbound", "right"]
               }
             }
           ]
@@ -3050,10 +2835,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "inbound",
-                  "right"
-                ]
+                "direction|turn-orientation": ["inbound", "right"]
               }
             }
           ]
@@ -3105,10 +2887,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "inbound",
-                  "left"
-                ]
+                "direction|turn-orientation": ["inbound", "left"]
               }
             }
           ]
@@ -3133,10 +2912,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "inbound",
-                  "left"
-                ]
+                "direction|turn-orientation": ["inbound", "left"]
               }
             }
           ]
@@ -3161,10 +2937,32 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "inbound",
-                  "right"
-                ]
+                "direction|turn-orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|left-right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-right-straight-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["inbound", "right"]
               }
             }
           ]
@@ -3214,10 +3012,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "outbound",
-                  "left"
-                ]
+                "direction|turn-orientation": ["outbound", "left"]
               }
             }
           ]
@@ -3242,10 +3037,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "outbound",
-                  "left"
-                ]
+                "direction|turn-orientation": ["outbound", "left"]
               }
             }
           ]
@@ -3297,10 +3089,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "outbound",
-                  "right"
-                ]
+                "direction|turn-orientation": ["outbound", "right"]
               }
             }
           ]
@@ -3325,10 +3114,7 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "outbound",
-                  "right"
-                ]
+                "direction|turn-orientation": ["outbound", "right"]
               }
             }
           ]
@@ -3353,10 +3139,32 @@
             {
               "id": "car",
               "variants": {
-                "direction|turn-orientation": [
-                  "outbound",
-                  "left"
-                ]
+                "direction|turn-orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|left-right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-right-straight-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["outbound", "left"]
               }
             }
           ]
@@ -3404,10 +3212,7 @@
       "minWidth": 10,
       "maxWidth": 13
     },
-    "variants": [
-      "direction",
-      "bus-asphalt"
-    ],
+    "variants": ["direction", "bus-asphalt"],
     "details": {
       "inbound|regular": {
         "components": {
@@ -3548,10 +3353,7 @@
               "id": "bike",
               "offsetX": 30,
               "variants": {
-                "type|direction": [
-                  "biker-02",
-                  "inbound"
-                ]
+                "type|direction": ["biker-02", "inbound"]
               }
             }
           ]
@@ -3596,10 +3398,7 @@
               "id": "bike",
               "offsetX": -30,
               "variants": {
-                "type|direction": [
-                  "biker-02",
-                  "outbound"
-                ]
+                "type|direction": ["biker-02", "outbound"]
               }
             }
           ]
@@ -3617,10 +3416,7 @@
       "minWidth": 10,
       "maxWidth": 14
     },
-    "variants": [
-      "direction",
-      "public-transit-asphalt"
-    ],
+    "variants": ["direction", "public-transit-asphalt"],
     "details": {
       "inbound|regular": {
         "components": {
@@ -3818,10 +3614,7 @@
       "minWidth": 10,
       "maxWidth": 14
     },
-    "variants": [
-      "direction",
-      "public-transit-asphalt"
-    ],
+    "variants": ["direction", "public-transit-asphalt"],
     "details": {
       "inbound|regular": {
         "components": {
@@ -4019,10 +3812,7 @@
     "rules": {
       "minWidth": 9
     },
-    "variants": [
-      "orientation",
-      "transit-shelter-elevation"
-    ],
+    "variants": ["orientation", "transit-shelter-elevation"],
     "details": {
       "left|street-level": {
         "components": {
@@ -4038,10 +3828,7 @@
             {
               "id": "transit-shelter",
               "variants": {
-                "type|orientation": [
-                  "transit-shelter-01",
-                  "left"
-                ]
+                "type|orientation": ["transit-shelter-01", "left"]
               }
             }
           ]
@@ -4061,10 +3848,7 @@
             {
               "id": "transit-shelter",
               "variants": {
-                "type|orientation": [
-                  "transit-shelter-01",
-                  "right"
-                ]
+                "type|orientation": ["transit-shelter-01", "right"]
               }
             }
           ]
@@ -4091,10 +3875,7 @@
             {
               "id": "transit-shelter",
               "variants": {
-                "type|orientation": [
-                  "transit-shelter-02",
-                  "left"
-                ]
+                "type|orientation": ["transit-shelter-02", "left"]
               }
             }
           ]
@@ -4121,10 +3902,7 @@
             {
               "id": "transit-shelter",
               "variants": {
-                "type|orientation": [
-                  "transit-shelter-02",
-                  "right"
-                ]
+                "type|orientation": ["transit-shelter-02", "right"]
               }
             }
           ]
@@ -4139,9 +3917,7 @@
     "defaultWidth": 2,
     "paletteIcon": "barricade",
     "enableWithFlag": "SEGMENT_CONSTRUCTION",
-    "variants": [
-      "temporary-barrier-type"
-    ],
+    "variants": ["temporary-barrier-type"],
     "details": {
       "traffic-cone": {
         "name": "Traffic cone",
@@ -4247,9 +4023,7 @@
     "rules": {
       "minWidth": 14
     },
-    "variants": [
-      ""
-    ],
+    "variants": [""],
     "details": {
       "": {
         "components": {
@@ -4278,9 +4052,7 @@
     "nameKey": "magic-carpet",
     "defaultWidth": 10,
     "enableWithFlag": "SEGMENT_MAGIC_CARPET",
-    "variants": [
-      "magic-carpet-occupants"
-    ],
+    "variants": ["magic-carpet-occupants"],
     "details": {
       "aladdin": {
         "components": {

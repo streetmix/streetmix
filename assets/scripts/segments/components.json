@@ -143,6 +143,11 @@
         "center": "markings--both-inbound"
       }
     },
+    "markings--left-right-straight-inbound": {
+      "graphics": {
+        "center": "markings--left-right-straight-inbound"
+      }
+    },
     "markings--shared-inbound": {
       "graphics": {
         "center": "markings--shared-inbound"
@@ -186,6 +191,11 @@
     "markings--both-outbound": {
       "graphics": {
         "center": "markings--both-outbound"
+      }
+    },
+    "markings--left-right-straight-outbound": {
+      "graphics": {
+        "center": "markings--left-right-straight-outbound"
       }
     },
     "markings--shared-outbound": {

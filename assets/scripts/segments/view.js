@@ -137,14 +137,17 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = center - svg.width / 2 + (sprite.offsetX || 0)
-      newRight = center + svg.width / 2 + (sprite.offsetX || 0)
+      // If svg is missing, let it not affect this calculation
+      if (svg) {
+        newLeft = center - svg.width / 2 + (sprite.offsetX || 0)
+        newRight = center + svg.width / 2 + (sprite.offsetX || 0)
 
-      if (newLeft < left) {
-        left = newLeft
-      }
-      if (newRight > right) {
-        right = newRight
+        if (newLeft < left) {
+          left = newLeft
+        }
+        if (newRight > right) {
+          right = newRight
+        }
       }
     }
   }
@@ -158,14 +161,16 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = sprite.offsetX || 0
-      newRight = svg.width + (sprite.offsetX || 0)
+      if (svg) {
+        newLeft = sprite.offsetX || 0
+        newRight = svg.width + (sprite.offsetX || 0)
 
-      if (newLeft < left) {
-        left = newLeft
-      }
-      if (newRight > right) {
-        right = newRight
+        if (newLeft < left) {
+          left = newLeft
+        }
+        if (newRight > right) {
+          right = newRight
+        }
       }
     }
   }
@@ -179,14 +184,16 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
-      newLeft = displayWidth - (sprite.offsetX || 0) - svg.width
-      newRight = displayWidth - (sprite.offsetX || 0)
+      if (svg) {
+        newLeft = displayWidth - (sprite.offsetX || 0) - svg.width
+        newRight = displayWidth - (sprite.offsetX || 0)
 
-      if (newLeft < left) {
-        left = newLeft
-      }
-      if (newRight > right) {
-        right = newRight
+        if (newLeft < left) {
+          left = newLeft
+        }
+        if (newRight > right) {
+          right = newRight
+        }
       }
     }
   }
@@ -327,6 +334,9 @@ export function drawSegmentContents (
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
+      // Skip drawing if sprite is missing
+      if (!svg) continue
+
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const count = Math.floor(segmentWidth / (width * multiplier) + 1)
       let repeatStartX
@@ -383,6 +393,9 @@ export function drawSegmentContents (
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
+      // Skip drawing if sprite is missing
+      if (!svg) continue
+
       const x =
         0 +
         (-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
@@ -420,6 +433,9 @@ export function drawSegmentContents (
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
+
+      // Skip drawing if sprite is missing
+      if (!svg) continue
 
       const x =
         (-left +
@@ -460,8 +476,11 @@ export function drawSegmentContents (
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
-      const center = dimensions.center
 
+      // Skip drawing if sprite is missing
+      if (!svg) continue
+
+      const center = dimensions.center
       const x =
         (center -
           svg.width / TILE_SIZE_ACTUAL / 2 -
