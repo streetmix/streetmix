@@ -1,7 +1,6 @@
 @import "../../styles/variables.scss";
 
 .debug-info {
-  display: none;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -21,8 +20,4 @@
     resize: none;
     box-shadow: 0 0 0 10px white;
   }
-}
-
-.debug-info-visible {
-  display: block;
 }

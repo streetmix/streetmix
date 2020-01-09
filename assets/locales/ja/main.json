@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "サインイン",
       "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
       "link": "共有用リンク:",
+      "copy-to-clipboard": "",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
       "print": "印刷",
@@ -117,11 +118,11 @@
     "access-denied-description": "サインイン処理を中断しました",
     "auth-api-problem-title": "サインインに失敗しました。",
     "auth-api-problem-description": "認証に失敗しました",
-    "please-try-again": "時間をおいて再度試すか、<a target='_blank' rel='noopener noreferrer' href='{email}'>メール</a> や <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>でご連絡ください。",
+    "please-try-again": "時間をおいて再度試すか、<email_link>メール</email_link> や <tweet_link>Twitter</tweet_link>でご連絡ください。",
     "unsupported-browser-title": "Streetmixが対応していないブラウザです。",
-    "unsupported-browser-description": "すみません。<a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>、 <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>、 <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>、あるいはSafariのいづれかで閲覧してください。",
-    "unsupported-browser-internet-explorer": "Internet Explorerをお使いですか？  <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>他のブラウザはこちらです。</a>",
-    "unsupported-browser-contact-us": "お使いのブラウザのサポートを希望されるかたは<a target='_blank' rel='noopener noreferrer' href='{email}'>メール</a>でご連絡ください。",
+    "unsupported-browser-description": "すみません。<chrome_link>Chrome</chrome_link>、 <firefox_link>Firefox</firefox_link>、 <edge_link>Microsoft Edge</edge_link>、あるいはSafariのいづれかで閲覧してください。",
+    "unsupported-browser-internet-explorer": "Internet Explorerをお使いですか？  <a>他のブラウザはこちらです。</a>",
+    "unsupported-browser-contact-us": "お使いのブラウザのサポートを希望されるかたは<a>メール</a>でご連絡ください。",
     "cannot-create-new-street-on-phone-title": "StreetmixはタブレットかPCでのみ動作します。",
     "cannot-create-new-street-on-phone-description": "リンクをたどってきた場合、ストリートは閲覧だけが可能です。新規のストリート作成はできません。",
     "generic-error-title": "どこかで処理に失敗しています。",
@@ -144,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "おおっと！",
-      "text": "予期しないエラーが発生しました 😢。 発生したエラーはすでに記録されていますが、<a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">もし可能であれば 発生した状況を詳しくお知らせください</a>。一時的な問題である可能性もありますので、再度試してみて発生するかどうかも試していただけると助かります。"
+      "text": "予期しないエラーが発生しました 😢。 発生したエラーはすでに記録されていますが、<a>もし可能であれば 発生した状況を詳しくお知らせください</a>。一時的な問題である可能性もありますので、再度試してみて発生するかどうかも試していただけると助かります。"
     },
     "welcome": {
       "heading": "Streetmixへようこそ。",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "画像として保存",
@@ -377,6 +379,7 @@
       "es-mx": "スペイン語（メキシコ）",
       "fi": "フィンランド語",
       "fr": "フランス語",
+      "it": "イタリア語",
       "ja": "日本語",
       "pl": "ポーランド語",
       "pt-br": "ポルトガル語（ブラジル）",

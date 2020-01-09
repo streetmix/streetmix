@@ -4,6 +4,10 @@ import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import InfoBubble from '../InfoBubble'
 import {
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '../../segments/constants'
+import {
   setInfoBubbleMouseInside,
   updateHoverPolygon
 } from '../../store/actions/infoBubble'
@@ -103,7 +107,7 @@ describe('InfoBubble', () => {
       initialState: {
         ...initialState,
         ui: {
-          activeSegment: 'left'
+          activeSegment: BUILDING_LEFT_POSITION
         }
       }
     })
@@ -116,7 +120,7 @@ describe('InfoBubble', () => {
       initialState: {
         ...initialState,
         ui: {
-          activeSegment: 'right'
+          activeSegment: BUILDING_RIGHT_POSITION
         }
       }
     })

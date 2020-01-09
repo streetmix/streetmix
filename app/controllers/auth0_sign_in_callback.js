@@ -18,15 +18,20 @@ const AccessTokenHandler = function (req, res) {
       const apiRequestBody = getUserInfo(user)
 
       //  Must be an absolute URI
-      const endpoint = config.restapi.protocol + config.app_host_port + config.restapi.baseuri + '/v1/users'
-      axios.post(endpoint, apiRequestBody)
-        .then(response => {
+      const endpoint =
+        config.restapi.protocol +
+        config.app_host_port +
+        config.restapi.baseuri +
+        '/v1/users'
+      axios
+        .post(endpoint, apiRequestBody)
+        .then((response) => {
           const body = response.data
           res.cookie('user_id', body.id)
           res.cookie('login_token', body.loginToken)
           res.redirect('/just-signed-in')
         })
-        .catch(error => {
+        .catch((error) => {
           logger.error('Error from API when signing in: ' + error)
           res.redirect('/error/authentication-api-problem')
         })
@@ -78,7 +83,11 @@ exports.get = function (req, res) {
   }
 
   const code = req.query.code
-  const redirectUri = config.restapi.protocol + config.app_host_port + '/' + config.auth0.callback_path
+  const redirectUri =
+    config.restapi.protocol +
+    config.app_host_port +
+    '/' +
+    config.auth0.callback_path
   const url = config.auth0.token_api_url
   const options = {
     headers: { 'content-type': 'application/json' },
@@ -93,9 +102,10 @@ exports.get = function (req, res) {
     redirect_uri: redirectUri
   }
 
-  axios.post(url, body, options)
+  axios
+    .post(url, body, options)
     .then(AccessTokenHandler(req, res))
-    .catch(err => {
+    .catch((err) => {
       console.error('Error obtaining access token from Auth0:')
       console.log(err)
       res.redirect('/error/no-access-token')

@@ -4,7 +4,6 @@ import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { draggingResize } from './drag_and_drop'
 import { segmentsChanged } from './view'
-import { BUILDING_SPACE } from './buildings'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -15,7 +14,8 @@ import {
   SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL,
   SEGMENT_WIDTH_RESOLUTION_METRIC,
   SEGMENT_WIDTH_CLICK_INCREMENT_METRIC,
-  SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC
+  SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
+  BUILDING_SPACE
 } from './constants'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
@@ -39,7 +39,10 @@ export function resizeSegment (dataNo, resizeType, width, units) {
   // @TODO: don't read state for units; this is a temp kludge because the drag resizing
   // handler doesn't currently have access to the units. So if it's not provided, grab it
   // from state
-  const resolution = resolutionForResizeType(resizeType, units || store.getState().street.units)
+  const resolution = resolutionForResizeType(
+    resizeType,
+    units || store.getState().street.units
+  )
   width = normalizeSegmentWidth(width, resolution)
   cancelSegmentResizeTransitions()
   store.dispatch(changeSegmentWidth(dataNo, width))
@@ -48,7 +51,11 @@ export function resizeSegment (dataNo, resizeType, width, units) {
 }
 
 export function handleSegmentResizeCancel () {
-  resizeSegment(draggingResize.segmentEl.dataNo, RESIZE_TYPE_INITIAL, draggingResize.originalWidth)
+  resizeSegment(
+    draggingResize.segmentEl.dataNo,
+    RESIZE_TYPE_INITIAL,
+    draggingResize.originalWidth
+  )
 
   handleSegmentResizeEnd()
 }
@@ -67,23 +74,31 @@ export function handleSegmentResizeCancel () {
  * street-section-canvas' margins accordingly (except in specific situations described within the function)
  *
  */
-export function updateStreetMargin (canvasRef, streetOuterRef, dontDelay = false) {
-  const streetSectionCanvas = canvasRef || document.querySelector('#street-section-canvas')
-  const streetSectionOuter = streetOuterRef || document.querySelector('#street-section-outer')
+export function updateStreetMargin (
+  canvasRef,
+  streetOuterRef,
+  dontDelay = false
+) {
+  const streetSectionCanvas =
+    canvasRef || document.querySelector('#street-section-canvas')
+  const streetSectionOuter =
+    streetOuterRef || document.querySelector('#street-section-outer')
 
-  const prevMargin = Number.parseInt(streetSectionCanvas.style.marginLeft, 10) || BUILDING_SPACE
+  const prevMargin =
+    Number.parseInt(streetSectionCanvas.style.marginLeft, 10) || BUILDING_SPACE
   const { remainingWidth } = store.getState().street
-  let streetMargin = Math.round(-remainingWidth * TILE_SIZE / 2)
+  let streetMargin = Math.round((-remainingWidth * TILE_SIZE) / 2)
 
   if (!streetMargin || streetMargin < BUILDING_SPACE) {
     streetMargin = BUILDING_SPACE
   }
 
-  const deltaMargin = (streetMargin - prevMargin)
+  const deltaMargin = streetMargin - prevMargin
 
   if (!deltaMargin) return false
 
-  const maxScrollLeft = streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
+  const maxScrollLeft =
+    streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
 
   // When scrolled all the way to right and decreasing occupiedWidth, an empty strip
   // of space is shown briefly before being scrolled if updating streetMargin.
@@ -91,15 +106,18 @@ export function updateStreetMargin (canvasRef, streetOuterRef, dontDelay = false
   // scrollLeft to keep current segments in view (scrollLeft = 0)
   // Current solution is to delay updating margin until street is not scrolled all
   // the way to right or all the way to left or viewport was resized.
-  const delayUpdate = (!dontDelay && deltaMargin < 0 && (Math.abs(deltaMargin) > streetSectionOuter.scrollLeft ||
-    streetSectionOuter.scrollLeft === maxScrollLeft))
+  const delayUpdate =
+    !dontDelay &&
+    deltaMargin < 0 &&
+    (Math.abs(deltaMargin) > streetSectionOuter.scrollLeft ||
+      streetSectionOuter.scrollLeft === maxScrollLeft)
 
   if (!delayUpdate) {
-    streetSectionCanvas.style.marginLeft = (streetMargin + 25) + 'px'
-    streetSectionCanvas.style.marginRight = (streetMargin + 25) + 'px'
+    streetSectionCanvas.style.marginLeft = streetMargin + 25 + 'px'
+    streetSectionCanvas.style.marginRight = streetMargin + 25 + 'px'
   }
 
-  return (!delayUpdate)
+  return !delayUpdate
 }
 
 export function handleSegmentResizeEnd (event) {
@@ -120,9 +138,16 @@ export function handleSegmentResizeEnd (event) {
 
   scheduleControlsFadeout(draggingResize.segmentEl)
 
-  infoBubble.considerShowing(event, draggingResize.segmentEl, INFO_BUBBLE_TYPE_SEGMENT)
+  infoBubble.considerShowing(
+    event,
+    draggingResize.segmentEl,
+    INFO_BUBBLE_TYPE_SEGMENT
+  )
 
-  if (draggingResize.width && (draggingResize.originalWidth !== draggingResize.width)) {
+  if (
+    draggingResize.width &&
+    draggingResize.originalWidth !== draggingResize.width
+  ) {
     trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
   }
 }
@@ -189,7 +214,8 @@ export function resolutionForResizeType (resizeType, units) {
     case RESIZE_TYPE_INITIAL:
     case RESIZE_TYPE_TYPING:
     case RESIZE_TYPE_PRECISE_DRAGGING:
-    default: // Always return this resolution if `resizeType` is undefined or wrong value
+    default:
+      // Always return this resolution if `resizeType` is undefined or wrong value
       return getSegmentWidthResolution(units)
     case RESIZE_TYPE_INCREMENT:
       return getSegmentClickResizeResolution(units)
@@ -228,7 +254,10 @@ export function normalizeSegmentWidth (width, resolution) {
 export function normalizeAllSegmentWidths (segments, units) {
   return segments.map((segment) => ({
     ...segment,
-    width: normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, units))
+    width: normalizeSegmentWidth(
+      segment.width,
+      resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
+    )
   }))
 }
 
@@ -250,7 +279,10 @@ export function resumeFadeoutControls () {
 
   cancelFadeoutControls()
 
-  controlsFadeoutDelayTimer = window.setTimeout(fadeoutControls, TOUCH_CONTROLS_FADEOUT_DELAY)
+  controlsFadeoutDelayTimer = window.setTimeout(
+    fadeoutControls,
+    TOUCH_CONTROLS_FADEOUT_DELAY
+  )
 }
 
 export function cancelFadeoutControls () {
@@ -262,7 +294,10 @@ export function cancelFadeoutControls () {
 function fadeoutControls () {
   document.body.classList.add('controls-fade-out')
 
-  controlsFadeoutHideTimer = window.setTimeout(hideControls, TOUCH_CONTROLS_FADEOUT_TIME)
+  controlsFadeoutHideTimer = window.setTimeout(
+    hideControls,
+    TOUCH_CONTROLS_FADEOUT_TIME
+  )
 }
 
 export function hideControls () {

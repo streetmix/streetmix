@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Entrar",
       "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
       "link": "Copiar e colar este link para compartilhar:",
+      "copy-to-clipboard": "",
       "twitter": "Compartilhar usando Twitter",
       "facebook": "Compartilhar usando Facebook",
       "print": "Imprimir…",
@@ -117,11 +118,11 @@
     "access-denied-description": "Você cancelou o processo de login.",
     "auth-api-problem-title": "Houve um problema com o seu login.",
     "auth-api-problem-description": "Houve um problema com a autenticação.",
-    "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <a target='_blank' rel='noopener noreferrer' href='{email}'>e-mail</a> ou <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>.",
+    "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <email_link>e-mail</email_link> ou <tweet_link>Twitter</tweet_link>.",
     "unsupported-browser-title": "Streetmix não funciona no seu navegador.",
-    "unsupported-browser-description": "Desculpe. Você talvez deve tentar <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, ou Safari.",
-    "unsupported-browser-internet-explorer": "Você está usando o Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Descubra mais.</a>",
-    "unsupported-browser-contact-us": "Se você acha que o seu navegador deve ser suportado, por favor contate-nos via <a target='_blank' rel='noopener noreferrer' href='{email}'>e-mail</a>.",
+    "unsupported-browser-description": "Desculpe. Você talvez deve tentar <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, ou Safari.",
+    "unsupported-browser-internet-explorer": "Você está usando o Internet Explorer? <a>Descubra mais.</a>",
+    "unsupported-browser-contact-us": "Se você acha que o seu navegador deve ser suportado, por favor contate-nos via <a>e-mail</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix só funciona em tablets e desktops.",
     "cannot-create-new-street-on-phone-description": "Se você segue outro link a uma rua específica, a pode ver no seu celular - mas aínda não pode criar ruas novas.",
     "generic-error-title": "Algo deu errado.",
@@ -144,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "Oops!",
-      "text": "Algo inesperado aconteceu 😢. Registramos o erro, mas se você pode lembrar o que passou no camino, <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">por favor conte-nos sobre isso</a>. Isto também poderia ser um problema temporário, então tente uma vez mais."
+      "text": "Algo inesperado aconteceu 😢. Registramos o erro, mas se você pode lembrar o que passou no camino, <a>por favor conte-nos sobre isso</a>. Isto também poderia ser um problema temporário, então tente uma vez mais."
     },
     "welcome": {
       "heading": "Bem-vindo ao Streetmix.",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Salvar como imagem",
@@ -377,6 +379,7 @@
       "es-mx": "Espanhol (México)",
       "fi": "Finlandês",
       "fr": "Francês",
+      "it": "Italiano",
       "ja": "Japonês",
       "pl": "Polonês",
       "pt-br": "Português (Brasil)",

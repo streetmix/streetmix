@@ -23,6 +23,10 @@ import {
   resumeFadeoutControls
 } from '../segments/resizing'
 import { BUILDINGS } from '../segments/buildings'
+import {
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { getSegmentEl } from '../segments/view'
 import { loseAnyFocus } from '../util/focus'
@@ -49,7 +53,10 @@ export class InfoBubble extends React.Component {
     visible: PropTypes.bool.isRequired,
     descriptionVisible: PropTypes.bool,
     mouseInside: PropTypes.bool,
-    position: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    position: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
+    ]),
     street: PropTypes.object,
     system: PropTypes.object,
     locale: PropTypes.object,
@@ -99,11 +106,11 @@ export class InfoBubble extends React.Component {
    * @param {Object} prevState
    */
   static getDerivedStateFromProps (nextProps, prevState) {
-    if (nextProps.position === 'left') {
+    if (nextProps.position === BUILDING_LEFT_POSITION) {
       return {
         type: INFO_BUBBLE_TYPE_LEFT_BUILDING
       }
-    } else if (nextProps.position === 'right') {
+    } else if (nextProps.position === BUILDING_RIGHT_POSITION) {
       return {
         type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
       }
@@ -133,7 +140,7 @@ export class InfoBubble extends React.Component {
 
     if (!this.el || !this.el.current) return null
 
-    if (!wasBuilding && this.props.position === 'right') {
+    if (!wasBuilding && this.props.position === BUILDING_RIGHT_POSITION) {
       return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
     return null
@@ -577,10 +584,10 @@ export class InfoBubble extends React.Component {
         position = this.props.position
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        position = 'left'
+        position = BUILDING_LEFT_POSITION
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        position = 'right'
+        position = BUILDING_RIGHT_POSITION
         break
       default:
         position = null
@@ -662,7 +669,4 @@ const mapDispatchToProps = {
   updateHoverPolygon
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(InfoBubble)
+export default connect(mapStateToProps, mapDispatchToProps)(InfoBubble)

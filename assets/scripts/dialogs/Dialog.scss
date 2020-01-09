@@ -7,7 +7,9 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
 
-$dialog-border-radius: $border-radius;
+$dialog-border-radius: $border-radius-large;
+$header-background-colour: $colour-turquoise-200;
+$header-text-colour: $colour-turquoise-700;
 
 .dialog-box-container {
   display: flex;
@@ -69,7 +71,8 @@ $dialog-border-radius: $border-radius;
   header {
     padding: 1.75rem 1em;
     text-align: center;
-    background-color: #e6f0f5;
+    background-color: $header-background-colour;
+    color: $header-text-colour;
   }
 
   h1 {
@@ -108,6 +111,22 @@ $dialog-border-radius: $border-radius;
     display: inline-block;
     padding: 0.75em 2em;
     margin-top: 1em;
+  }
+
+  // New button appearance
+  button:not(.close):not(.dialog-primary-action),
+  a.button-like {
+    margin: 0 auto;
+    display: inline-block;
+    padding: 0.75em 2em;
+    margin-top: 1em;
+
+    // New button appearance
+    border: 0; // Overwrites traditional button appearance
+    border-radius: $border-radius-medium;
+    background-color: $colour-emerald-400;
+    color: white;
+    font-weight: bold;
   }
 }
 

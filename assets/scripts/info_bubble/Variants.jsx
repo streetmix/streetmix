@@ -1,11 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { segmentsChanged } from '../segments/view'
 import { getSegmentInfo } from '../segments/info'
 import VARIANT_ICONS from '../segments/variant_icons.json'
 import { getVariantArray } from '../segments/variant_utils'
+import {
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '../segments/constants'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
@@ -17,30 +21,39 @@ import {
 } from '../store/actions/street'
 
 Variants.propTypes = {
-  // Props from parent
   type: PropTypes.number,
   position: PropTypes.oneOfType([
     PropTypes.number,
-    PropTypes.oneOf(['left', 'right'])
-  ]),
-
-  // Provided by Redux connect mapStateToProps
-  variant: PropTypes.string,
-  segmentType: PropTypes.string,
-  flags: PropTypes.object.isRequired, // eslint-disable-line
-
-  // Provided by Redux connect mapDispatchToProps
-  setBuildingVariant: PropTypes.func.isRequired,
-  changeSegmentVariant: PropTypes.func.isRequired
+    PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
+  ])
 }
 
 function Variants (props) {
+  const { type, position } = props
+
+  // Get the appropriate variant information
+  const variant = useSelector((state) => {
+    if (position === BUILDING_LEFT_POSITION) {
+      return state.street.leftBuildingVariant
+    } else if (position === BUILDING_RIGHT_POSITION) {
+      return state.street.rightBuildingVariant
+    } else if (Number.isInteger(position) && state.street.segments[position]) {
+      return state.street.segments[position].variantString
+    }
+  })
+  const segmentType = useSelector((state) => {
+    if (Number.isInteger(position) && state.street.segments[position]) {
+      return state.street.segments[position].type
+    }
+  })
+  const flags = useSelector((state) => state.flags)
+  const dispatch = useDispatch()
   const intl = useIntl()
 
   let variantSets = []
-  switch (props.type) {
+  switch (type) {
     case INFO_BUBBLE_TYPE_SEGMENT: {
-      const segmentInfo = getSegmentInfo(props.segmentType)
+      const segmentInfo = getSegmentInfo(segmentType)
       if (segmentInfo) {
         variantSets = segmentInfo.variants
       }
@@ -60,15 +73,15 @@ function Variants (props) {
   function isVariantCurrentlySelected (set, selection) {
     let bool
 
-    switch (props.type) {
+    switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const obj = getVariantArray(props.segmentType, props.variant)
+        const obj = getVariantArray(segmentType, variant)
         bool = selection === obj[set]
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        bool = selection === props.variant
+        bool = selection === variant
         break
       default:
         bool = false
@@ -81,21 +94,21 @@ function Variants (props) {
   function getButtonOnClickHandler (set, selection) {
     let handler
 
-    switch (props.type) {
+    switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
         handler = (event) => {
-          props.changeSegmentVariant(props.position, set, selection)
+          dispatch(changeSegmentVariant(position, set, selection))
           segmentsChanged()
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         handler = (event) => {
-          props.setBuildingVariant('left', selection)
+          dispatch(setBuildingVariant(BUILDING_LEFT_POSITION, selection))
         }
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         handler = (event) => {
-          props.setBuildingVariant('right', selection)
+          dispatch(setBuildingVariant(BUILDING_RIGHT_POSITION, selection))
         }
         break
       default:
@@ -119,7 +132,7 @@ function Variants (props) {
     // Segments that are only enabled with a flag checks to see if flag
     // is set to true. If not, bail.
     if (icon.enableWithFlag) {
-      const flag = props.flags[icon.enableWithFlag]
+      const flag = flags[icon.enableWithFlag]
       if (!flag) return null
       if (!flag.value) return null
     }
@@ -147,7 +160,7 @@ function Variants (props) {
   function renderVariantsSelection () {
     const variantEls = []
 
-    switch (props.type) {
+    switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
         let first = true
 
@@ -196,37 +209,4 @@ function Variants (props) {
   return <div className="variants">{renderVariantsSelection()}</div>
 }
 
-function mapStateToProps (state, ownProps) {
-  let variant
-  let segmentType
-
-  // Get the appropriate variant information
-  if (ownProps.position === 'left') {
-    variant = state.street.leftBuildingVariant
-  } else if (ownProps.position === 'right') {
-    variant = state.street.rightBuildingVariant
-  } else if (
-    Number.isInteger(ownProps.position) &&
-    state.street.segments[ownProps.position]
-  ) {
-    const segment = state.street.segments[ownProps.position]
-    variant = segment.variantString
-    segmentType = segment.type
-  }
-
-  return {
-    variant,
-    segmentType,
-    flags: state.flags
-  }
-}
-
-const mapDispatchToProps = {
-  setBuildingVariant,
-  changeSegmentVariant
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Variants)
+export default Variants

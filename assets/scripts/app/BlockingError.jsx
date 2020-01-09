@@ -6,20 +6,17 @@
  * @module BlockingError
  */
 import React from 'react'
-import { connect } from 'react-redux'
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
+import { useSelector } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import Avatar from '../users/Avatar'
 import { goReload, goHome, goNewStreet, goExampleStreet } from './routing'
 import { goReloadClearSignIn } from '../users/authentication'
 import { ERRORS } from './errors'
-import PropTypes from 'prop-types'
-
-BlockingError.propTypes = {
-  errorType: PropTypes.number,
-  street: PropTypes.object
-}
 
 function BlockingError (props) {
+  const errorType = useSelector((state) => state.errors.errorType)
+  const street = useSelector((state) => state.street)
+
   let title = ''
   let description = ''
 
@@ -56,17 +53,33 @@ function BlockingError (props) {
     </button>
   )
   const pleaseLetUsKnow = (
-    <FormattedHTMLMessage
+    <FormattedMessage
       id="error.please-try-again"
-      defaultMessage="Please try again later or let us know via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a> or <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitter</a>."
+      defaultMessage="Please try again later or let us know via <email_link>email</email_link> or <tweet_link>Twitter</tweet_link>."
       values={{
-        email: 'mailto:hello@streetmix.net',
-        tweet: 'https://twitter.com/intent/tweet?text=@streetmix'
+        email_link: (...chunks) => (
+          <a
+            href="mailto:hello@streetmix.net"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {chunks}
+          </a>
+        ),
+        tweet_link: (...chunks) => (
+          <a
+            href="https://twitter.com/intent/tweet?text=@streetmix"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {chunks}
+          </a>
+        )
       }}
     />
   )
 
-  switch (props.errorType) {
+  switch (errorType) {
     case ERRORS.NOT_FOUND:
       title = (
         <FormattedMessage
@@ -116,7 +129,7 @@ function BlockingError (props) {
             id="error.street-not-found-but-user-description"
             defaultMessage="There is no street with this link! But you can look at other streets by {user}"
             values={{
-              user: linkToUser(props.street)
+              user: linkToUser(street)
             }}
           />
           <br />
@@ -137,7 +150,7 @@ function BlockingError (props) {
             id="error.street-deleted-description"
             defaultMessage="There is no longer a street with this link, but you can look at other streets by {user}"
             values={{
-              user: linkToUser(props.street)
+              user: linkToUser(street)
             }}
           />
           <br />
@@ -399,33 +412,71 @@ function BlockingError (props) {
       description = (
         <>
           <p>
-            <FormattedHTMLMessage
+            <FormattedMessage
               id="error.unsupported-browser-description"
-              defaultMessage="Sorry about that. You might want to try <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>, <a target='_blank' rel='noopener noreferrer' href='{firefoxUrl}'>Firefox</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>, or Safari."
+              defaultMessage="Sorry about that. You might want to try <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, or Safari."
               values={{
-                chromeUrl: 'https://www.google.com/chrome',
-                firefoxUrl: 'https://www.mozilla.org/firefox',
-                edgeUrl:
-                  'https://www.microsoft.com/en-us/windows/microsoft-edge'
+                chrome_link: (...chunks) => (
+                  <a
+                    href="https://www.google.com/chrome"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {chunks}
+                  </a>
+                ),
+                firefox_link: (...chunks) => (
+                  <a
+                    href="https://www.mozilla.org/firefox"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {chunks}
+                  </a>
+                ),
+                edge_link: (...chunks) => (
+                  <a
+                    href="https://www.microsoft.com/en-us/windows/microsoft-edge"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {chunks}
+                  </a>
+                )
               }}
             />
           </p>
           <p>
-            <FormattedHTMLMessage
+            <FormattedMessage
               id="error.unsupported-browser-internet-explorer"
-              defaultMessage="Are you on Internet Explorer? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Find out more.</a>"
+              defaultMessage="Are you on Internet Explorer? <a>Find out more.</a>"
               values={{
-                readmeIEUrl:
-                  'https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer'
+                a: (...chunks) => (
+                  <a
+                    href="https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {chunks}
+                  </a>
+                )
               }}
             />
           </p>
           <p>
-            <FormattedHTMLMessage
+            <FormattedMessage
               id="error.unsupported-browser-contact-us"
-              defaultMessage="If you think your browser should be supported, please contact us via <a target='_blank' rel='noopener noreferrer' href='{email}'>email</a>."
+              defaultMessage="If you think your browser should be supported, please contact us via <a>email</a>."
               values={{
-                email: 'mailto:hello@streetmix.net'
+                a: (...chunks) => (
+                  <a
+                    href="'mailto:hello@streetmix.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {chunks}
+                  </a>
+                )
               }}
             />
           </p>
@@ -477,7 +528,7 @@ function BlockingError (props) {
       break
   }
 
-  return props.errorType ? (
+  return errorType ? (
     <div id="error">
       <div className="clouds-background">
         <div className="rear-clouds" />
@@ -491,11 +542,4 @@ function BlockingError (props) {
   ) : null
 }
 
-function mapStateToProps (state) {
-  return {
-    errorType: state.errors.errorType,
-    street: state.street
-  }
-}
-
-export default connect(mapStateToProps)(BlockingError)
+export default BlockingError

@@ -32,6 +32,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      client_updated_at: {
+        allowNull: true,
+        type: Sequelize.DATE
+      },
       creator_ip: {
         type: Sequelize.STRING
       },

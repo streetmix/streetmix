@@ -41,10 +41,10 @@ $close-icon-colour-hover: $colour-copper-600;
   }
 
   svg {
-    color: $close-icon-colour;
+    color: $close-icon-colour !important;
   }
 
   &:hover svg {
-    color: $close-icon-colour-hover;
+    color: $close-icon-colour-hover !important;
   }
 }

@@ -41,7 +41,7 @@ streetSchema.methods.asJson = function (cb) {
     data: this.data,
     createdAt: this.created_at,
     updatedAt: this.updated_at,
-    clientUpdatedAt: this.client_updated_at
+    clientUpdatedAt: this.client_updated_at || this.clientUpdatedAt
   }
 
   const creatorId = this.creator_id
@@ -70,23 +70,22 @@ streetSchema.methods.asJson = function (cb) {
 
   const appendOriginalStreetId = function (callback) {
     if (originalStreetId) {
-      mongoose.model('Street').findById(originalStreetId, function (err, originalStreet) {
-        if (err) {
-          callback(err)
-        } else {
-          json.originalStreetId = originalStreet.id
-          callback()
-        } // END else
-      })
+      mongoose
+        .model('Street')
+        .findById(originalStreetId, function (err, originalStreet) {
+          if (err) {
+            callback(err)
+          } else {
+            json.originalStreetId = originalStreet.id
+            callback()
+          } // END else
+        })
     } else {
       callback()
     }
   } // END function - appendOriginalStreetId
 
-  async.parallel([
-    appendCreator,
-    appendOriginalStreetId
-  ], function (err) {
+  async.parallel([appendCreator, appendOriginalStreetId], function (err) {
     cb(err, json)
   })
 }

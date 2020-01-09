@@ -13,34 +13,42 @@ exports.post = async function (req, res) {
   let body
 
   street.id = uuid.v1()
+  street.client_updated_at = body
+    ? body.clientUpdatedAt
+    : new Date().toISOString()
 
-  if (req.body && (req.body.length > 0)) {
+  if (req.body && req.body.length > 0) {
     try {
       body = req.body
     } catch (e) {
-      res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
+      res
+        .status(400)
+        .json({ status: 400, msg: 'Could not parse body as JSON.' })
       return
     }
     // TODO: Validation
     street.name = body.name
     street.data = body.data
     street.creator_ip = requestIp(req)
-    street.client_updated_at = body.clientUpdatedAt
   }
 
   const makeNamespacedId = async function () {
     let namespacedId
     try {
       if (street.creator_id) {
-        const row = await User.findByIdAndUpdate(street.creator_id,
+        const row = await User.findByIdAndUpdate(
+          street.creator_id,
           { $inc: { last_street_id: 1 } },
-          { new: true, upsert: true })
-        namespacedId = (row) ? row.last_street_id : null
+          { new: true, upsert: true }
+        )
+        namespacedId = row ? row.last_street_id : null
       } else {
-        const row = await Sequence.findByIdAndUpdate('streets',
+        const row = await Sequence.findByIdAndUpdate(
+          'streets',
           { $inc: { seq: 1 } },
-          { new: true, upsert: true })
-        namespacedId = (row) ? row.seq : null
+          { new: true, upsert: true }
+        )
+        namespacedId = row ? row.seq : null
       }
     } catch (err) {
       logger.error(err)
@@ -82,7 +90,9 @@ exports.post = async function (req, res) {
     s.asJson((err, streetJson) => {
       if (err) {
         logger.error(err)
-        res.status(500).json({ status: 500, msg: 'Could not render street JSON.' })
+        res
+          .status(500)
+          .json({ status: 500, msg: 'Could not render street JSON.' })
         return
       }
       logger.info({ street: streetJson }, 'New street created.')
@@ -100,10 +110,14 @@ exports.post = async function (req, res) {
         res.status(404).json({ status: 404, msg: 'Original street not found.' })
         return
       case ERRORS.CANNOT_CREATE_STREET:
-        res.status(500).json({ status: 500, msg: 'Could not create new street ID.' })
+        res
+          .status(500)
+          .json({ status: 500, msg: 'Could not create new street ID.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).json({ status: 401, msg: 'User with that login token not found.' })
+        res
+          .status(401)
+          .json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
         res.status(500).end()
@@ -182,7 +196,10 @@ exports.delete = async function (req, res) {
         res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+        res.status(403).json({
+          status: 403,
+          msg: 'Signed-in user cannot delete this street.'
+        })
         return
       default:
         res.status(500).end()
@@ -204,7 +221,9 @@ exports.delete = async function (req, res) {
   }
 
   deleteStreet(street)
-    .then(street => { res.status(204).end() })
+    .then((street) => {
+      res.status(204).end()
+    })
     .catch(handleErrors)
 } // END function - exports.delete
 
@@ -240,7 +259,9 @@ exports.get = async function (req, res) {
   street.asJson(function (err, streetJson) {
     if (err) {
       logger.error(err)
-      res.status(500).json({ status: 500, msg: 'Could not render street JSON.' })
+      res
+        .status(500)
+        .json({ status: 500, msg: 'Could not render street JSON.' })
       return
     }
     res.set('Access-Control-Allow-Origin', '*')
@@ -304,7 +325,8 @@ exports.find = function (req, res) {
     const totalNumStreets = results[0]
     const streets = results[1]
 
-    const selfUri = config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
+    const selfUri =
+      config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
 
     const json = {
       meta: {
@@ -324,18 +346,33 @@ exports.find = function (req, res) {
         prevStart = 0
         prevCount = start
       }
-      json.meta.links.prev = config.restapi.baseuri + '/v1/streets?start=' + prevStart + '&count=' + prevCount
+      json.meta.links.prev =
+        config.restapi.baseuri +
+        '/v1/streets?start=' +
+        prevStart +
+        '&count=' +
+        prevCount
     }
 
     if (start + streets.length < totalNumStreets) {
       const nextStart = start + count
-      const nextCount = Math.min(count, totalNumStreets - start - streets.length)
-      json.meta.links.next = config.restapi.baseuri + '/v1/streets?start=' + nextStart + '&count=' + nextCount
+      const nextCount = Math.min(
+        count,
+        totalNumStreets - start - streets.length
+      )
+      json.meta.links.next =
+        config.restapi.baseuri +
+        '/v1/streets?start=' +
+        nextStart +
+        '&count=' +
+        nextCount
     }
 
     async.map(
       streets,
-      function (street, callback) { street.asJson(callback) },
+      function (street, callback) {
+        street.asJson(callback)
+      },
       function (err, results) {
         if (err) {
           logger.error(err)
@@ -345,7 +382,8 @@ exports.find = function (req, res) {
 
         json.streets = results
         res.status(200).send(json)
-      }) // END - async.map
+      }
+    ) // END - async.map
   } // END function - handleFindStreets
 
   function handleErrors (error) {
@@ -363,7 +401,10 @@ exports.find = function (req, res) {
         res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+        res.status(403).json({
+          status: 403,
+          msg: 'Signed-in user cannot delete this street.'
+        })
         return
       default:
         res.status(500).end()
@@ -392,11 +433,15 @@ exports.put = async function (req, res) {
     try {
       body = req.body
     } catch (e) {
-      res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
+      res
+        .status(400)
+        .json({ status: 400, msg: 'Could not parse body as JSON.' })
       return
     }
   } else {
-    res.status(400).json({ status: 400, msg: 'Street information not specified.' })
+    res
+      .status(400)
+      .json({ status: 400, msg: 'Street information not specified.' })
     return
   }
 
@@ -470,7 +515,10 @@ exports.put = async function (req, res) {
         res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).json({ status: 403, msg: 'Signed-in user cannot update this street.' })
+        res.status(403).json({
+          status: 403,
+          msg: 'Signed-in user cannot update this street.'
+        })
         return
       default:
         res.status(500).end()
@@ -497,7 +545,9 @@ exports.put = async function (req, res) {
 
   if (!street.creator_id) {
     updateStreetData(street)
-      .then(street => { res.status(204).end() })
+      .then((street) => {
+        res.status(204).end()
+      })
       .catch(handleErrors)
   } else {
     if (!req.loginToken) {
@@ -505,7 +555,9 @@ exports.put = async function (req, res) {
       return
     }
     updateStreetWithCreatorId(street)
-      .then(street => { res.status(204).end() })
+      .then((street) => {
+        res.status(204).end()
+      })
       .catch(handleErrors)
   }
 } // END function - exports.put

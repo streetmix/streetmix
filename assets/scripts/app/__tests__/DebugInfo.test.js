@@ -13,9 +13,9 @@ describe('DebugInfo', () => {
     user: {}
   }
 
-  it('renders', () => {
+  it('renders nothing by default', () => {
     const wrapper = renderWithRedux(<DebugInfo />, { initialState })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(wrapper.asFragment().firstChild).toBe(null)
   })
 
   it('is visible when opened with keyboard shortcut', () => {

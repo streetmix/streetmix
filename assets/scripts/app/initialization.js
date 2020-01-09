@@ -6,10 +6,7 @@ import { showGallery } from '../gallery/view'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
-import {
-  setLastStreet,
-  setIgnoreStreetChanges
-} from '../streets/data_model'
+import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
 import { initStreetThumbnailSubscriber } from '../streets/image'
 import { initStreetDataChangedListener } from '../streets/street'
@@ -59,9 +56,11 @@ export async function initialize () {
   preInit()
   if (!debug.forceUnsupportedBrowser) {
     // TODO temporary ban
-    if ((navigator.userAgent.indexOf('Opera') !== -1) ||
-      (navigator.userAgent.indexOf('Internet Explorer') !== -1) ||
-      (navigator.userAgent.indexOf('MSIE') !== -1)) {
+    if (
+      navigator.userAgent.indexOf('Opera') !== -1 ||
+      navigator.userAgent.indexOf('Internet Explorer') !== -1 ||
+      navigator.userAgent.indexOf('MSIE') !== -1
+    ) {
       setMode(MODES.UNSUPPORTED_BROWSER)
       processMode()
       return
@@ -172,13 +171,17 @@ function onEverythingLoaded () {
     const locale = state.locale.locale
 
     if (window.localStorage[LSKEY_WELCOME_DISMISSED]) {
-      welcomeDismissed = JSON.parse(window.localStorage[LSKEY_WELCOME_DISMISSED])
+      welcomeDismissed = JSON.parse(
+        window.localStorage[LSKEY_WELCOME_DISMISSED]
+      )
     }
     if (window.localStorage[LSKEY_DONATE_DISMISSED]) {
       donateDismissed = JSON.parse(window.localStorage[LSKEY_DONATE_DISMISSED])
     }
     if (window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP]) {
-      if (whatsNewTimestamp > window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP]) {
+      if (
+        whatsNewTimestamp > window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP]
+      ) {
         canDisplayWhatsNew = true
       }
     } else {
@@ -189,10 +192,14 @@ function onEverythingLoaded () {
     // This means the user should not see the donate nag until
     // they have returned after 2 weeks.
     if (!window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP]) {
-      window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP] = Date.now().toString()
+      window.localStorage[
+        LSKEY_DONATE_DELAYED_TIMESTAMP
+      ] = Date.now().toString()
     }
 
-    const delayedTimestamp = JSON.parse(window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP])
+    const delayedTimestamp = JSON.parse(
+      window.localStorage[LSKEY_DONATE_DELAYED_TIMESTAMP]
+    )
 
     // When to display the What's new dialog?
     // - Store a hardcoded timestamp value here for the what's new dialog.
@@ -205,18 +212,26 @@ function onEverythingLoaded () {
     // - If LocalStorage has a timestamp value older than current, display What's New.
     // If What's New is displayed, do not display the donate box.
 
-    if ((welcomeDismissed && canDisplayWhatsNew && locale === 'en') || whatsNewFlag) {
+    if (
+      (welcomeDismissed && canDisplayWhatsNew && locale === 'en') ||
+      whatsNewFlag
+    ) {
       store.dispatch(showDialog('WHATS_NEW'))
       window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP] = whatsNewTimestamp
-    } else if (welcomeDismissed && !donateDismissed && donateFlag &&
-       (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)) {
+    } else if (
+      welcomeDismissed &&
+      !donateDismissed &&
+      donateFlag &&
+      (!delayedTimestamp || delayedTimestamp < twoWeeksAgo)
+    ) {
       store.dispatch(showDialog('DONATE'))
     }
   }
 }
 
 function showConsoleMessage () {
-  console.log(`%c
+  console.log(
+    `%c
           ____  _    %cWelcome to%c   _             _      _
          / ___|| |_ _ __ ___  ___| |_ _ __ ___ (_)_  _| |
          \\___ \\| __| '__/ _ \\/ _ \\ __| '_ \` _ \\| \\ \\/ / |
@@ -224,7 +239,11 @@ function showConsoleMessage () {
          |____/ \\__|_|  \\___|\\___|\\__|_| |_| |_|_/_/\\_(_)
 %c..:  We’re looking for contributors!  https://github.com/streetmix/streetmix  :..
 %c..:  Support us financially at        https://opencollective.com/streetmix    :..`,
-  'color: green', 'color:gray', 'color: green', 'color: blue', 'color: red'
+    'color: green',
+    'color:gray',
+    'color: green',
+    'color: blue',
+    'color: red'
   )
 }
 
@@ -258,7 +277,10 @@ function observeStoreToUpdateBodyClasses () {
  * CSS takes care of altering their appearance to resemble normal text
  */
 function blockLinksOnClick (event) {
-  if (event.target.nodeName === 'A' && event.target.getAttribute('href').indexOf('http') === 0) {
+  if (
+    event.target.nodeName === 'A' &&
+    event.target.getAttribute('href').indexOf('http') === 0
+  ) {
     event.preventDefault()
   }
 }

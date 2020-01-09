@@ -2,15 +2,15 @@ import seedrandom from 'seedrandom'
 import { generateRandSeed } from '../util/random'
 import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from '../segments/constants'
+import {
+  TILE_SIZE,
+  TILESET_POINT_PER_PIXEL,
+  BUILDING_LEFT_POSITION
+} from '../segments/constants'
 import { drawSegmentImage } from './view'
 import store from '../store'
 
 const MAX_CANVAS_HEIGHT = 2048
-
-export const BUILDING_SPACE = 360
-
-export const MAX_BUILDING_HEIGHT = 20
 
 export const GROUND_BASELINE_HEIGHT = 44
 
@@ -127,7 +127,11 @@ export function getBuildingImageHeight (variant, position, floors = 1) {
   let height
 
   if (building.hasFloors) {
-    height = ((building.roofHeight + (building.floorHeight * (floors - 1)) + building.mainFloorHeight) * TILE_SIZE)
+    height =
+      (building.roofHeight +
+        building.floorHeight * (floors - 1) +
+        building.mainFloorHeight) *
+      TILE_SIZE
   } else {
     const id = getSpriteId(variant, position)
     const svg = images.get(id)
@@ -147,7 +151,10 @@ export function getBuildingImageHeight (variant, position, floors = 1) {
  */
 export function calculateRealHeightNumber (variant, position, floors) {
   const CURB_HEIGHT = 6
-  return (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) / TILE_SIZE
+  return (
+    (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) /
+    TILE_SIZE
+  )
 }
 
 /**
@@ -166,13 +173,22 @@ export function calculateRealHeightNumber (variant, position, floors) {
  * @param {Number} units - units, either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
  * @param {Function} formatMessage - pass in intl.formatMessage()
  */
-export function prettifyHeight (variant, position, floors, units, formatMessage) {
-  let text = formatMessage({
-    id: 'building.floors-count',
-    defaultMessage: '{count, plural, one {# floor} other {# floors}}'
-  }, {
-    count: floors
-  })
+export function prettifyHeight (
+  variant,
+  position,
+  floors,
+  units,
+  formatMessage
+) {
+  let text = formatMessage(
+    {
+      id: 'building.floors-count',
+      defaultMessage: '{count, plural, one {# floor} other {# floors}}'
+    },
+    {
+      count: floors
+    }
+  )
 
   const realHeight = calculateRealHeightNumber(variant, position, floors)
   const prettifiedHeight = prettifyWidth(realHeight, units)
@@ -196,14 +212,25 @@ export function prettifyHeight (variant, position, floors, units, formatMessage)
  * @param {Number} dpi - pixel density of screen
  * @param {Boolean} shadeIn - if true, add red colored overlay
  */
-export function drawBuilding (ctx, variant, floors, position, totalWidth, totalHeight, offsetLeft, multiplier, dpi, shadeIn = false) {
+export function drawBuilding (
+  ctx,
+  variant,
+  floors,
+  position,
+  totalWidth,
+  totalHeight,
+  offsetLeft,
+  multiplier,
+  dpi,
+  shadeIn = false
+) {
   const building = BUILDINGS[variant]
 
   const spriteId = getSpriteId(variant, position)
   const svg = images.get(spriteId)
 
   const buildingHeight = getBuildingImageHeight(variant, position, floors)
-  let offsetTop = totalHeight - (buildingHeight * multiplier)
+  let offsetTop = totalHeight - buildingHeight * multiplier
 
   // Adjust offset if the building should be aligned at baseline instead of ground plane
   if (building.alignAtBaseline) {
@@ -215,7 +242,7 @@ export function drawBuilding (ctx, variant, floors, position, totalWidth, totalH
   if (building.repeatHalf) {
     width = svg.width / TILESET_POINT_PER_PIXEL / 2 // 2 = halfway point is where repeat starts.
 
-    if (position === 'left') {
+    if (position === BUILDING_LEFT_POSITION) {
       x = 0 // repeat the left half of this sprite
       lastX = svg.width / 2 // anchor the right half of this sprite
     } else {
@@ -228,12 +255,12 @@ export function drawBuilding (ctx, variant, floors, position, totalWidth, totalH
 
   // For buildings in the left position, align building to the right
   let leftPosShift = 0
-  if (position === 'left') {
+  if (position === BUILDING_LEFT_POSITION) {
     if (!building.hasFloors) {
       // takes into consideration tiling
       leftPosShift = (totalWidth % width) - (width + width)
     } else {
-      leftPosShift = totalWidth - (width)
+      leftPosShift = totalWidth - width
     }
   }
 
@@ -242,47 +269,75 @@ export function drawBuilding (ctx, variant, floors, position, totalWidth, totalH
     const height = svg.height // actual pixels, don't need to divide by TILESET_POINT_PER_PIXEL
 
     // bottom floor
-    drawSegmentImage(spriteId, ctx,
+    drawSegmentImage(
+      spriteId,
+      ctx,
       0,
-      height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL), // 0 - 240 + (120 * building.variantsCount),
+      height - building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL, // 0 - 240 + (120 * building.variantsCount),
       undefined,
       building.mainFloorHeight * TILE_SIZE,
-      offsetLeft + (leftPosShift * multiplier),
-      offsetTop + ((buildingHeight - (building.mainFloorHeight * TILE_SIZE)) * multiplier),
+      offsetLeft + leftPosShift * multiplier,
+      offsetTop +
+        (buildingHeight - building.mainFloorHeight * TILE_SIZE) * multiplier,
       undefined,
       building.mainFloorHeight * TILE_SIZE,
-      multiplier, dpi)
+      multiplier,
+      dpi
+    )
 
     // middle floors
     const randomGenerator = seedrandom(generateRandSeed())
 
     for (let i = 1; i < floors; i++) {
-      const variant = (building.variantsCount === 0) ? 0 : Math.floor(randomGenerator() * building.variantsCount) + 1
+      const variant =
+        building.variantsCount === 0
+          ? 0
+          : Math.floor(randomGenerator() * building.variantsCount) + 1
 
-      drawSegmentImage(spriteId, ctx,
+      drawSegmentImage(
+        spriteId,
+        ctx,
         0,
-        height - (building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL) - (building.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL),
+        height -
+          building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL -
+          building.floorHeight * TILE_SIZE * variant * TILESET_POINT_PER_PIXEL,
         // 168 - (building.floorHeight * TILE_SIZE * variant), // 0 - 240 + (120 * building.variantsCount) - (building.floorHeight * TILE_SIZE * variant),
         undefined,
         building.floorHeight * TILE_SIZE,
-        offsetLeft + (leftPosShift * multiplier),
-        offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * i)) * TILE_SIZE * multiplier),
+        offsetLeft + leftPosShift * multiplier,
+        offsetTop +
+          buildingHeight * multiplier -
+          (building.mainFloorHeight + building.floorHeight * i) *
+            TILE_SIZE *
+            multiplier,
         undefined,
         building.floorHeight * TILE_SIZE,
-        multiplier, dpi)
+        multiplier,
+        dpi
+      )
     }
 
     // roof
-    drawSegmentImage(spriteId, ctx,
+    drawSegmentImage(
+      spriteId,
+      ctx,
       0,
       0,
       undefined,
       building.roofHeight * TILE_SIZE,
-      offsetLeft + (leftPosShift * multiplier),
-      offsetTop + (buildingHeight * multiplier) - ((building.mainFloorHeight + (building.floorHeight * (floors - 1)) + building.roofHeight) * TILE_SIZE * multiplier),
+      offsetLeft + leftPosShift * multiplier,
+      offsetTop +
+        buildingHeight * multiplier -
+        (building.mainFloorHeight +
+          building.floorHeight * (floors - 1) +
+          building.roofHeight) *
+          TILE_SIZE *
+          multiplier,
       undefined,
       building.roofHeight * TILE_SIZE,
-      multiplier, dpi)
+      multiplier,
+      dpi
+    )
   } else {
     // Single floor buildings
     // Determine how much tiling happens
@@ -290,20 +345,28 @@ export function drawBuilding (ctx, variant, floors, position, totalWidth, totalH
 
     let currentX
     for (let i = 0; i < count; i++) {
-      if ((i === 0) && (typeof firstX !== 'undefined')) {
+      if (i === 0 && typeof firstX !== 'undefined') {
         currentX = firstX
-      } else if ((i === count - 1) && (typeof lastX !== 'undefined')) {
+      } else if (i === count - 1 && typeof lastX !== 'undefined') {
         currentX = lastX
       } else {
         currentX = x
       }
 
-      drawSegmentImage(spriteId, ctx,
-        currentX, undefined,
-        width, undefined,
-        offsetLeft + ((leftPosShift + (i * width)) * multiplier),
+      drawSegmentImage(
+        spriteId,
+        ctx,
+        currentX,
+        undefined,
+        width,
+        undefined,
+        offsetLeft + (leftPosShift + i * width) * multiplier,
         offsetTop,
-        width, undefined, multiplier, dpi)
+        width,
+        undefined,
+        multiplier,
+        dpi
+      )
     }
   }
 
@@ -343,7 +406,8 @@ export function createBuilding (el, variant, position, floors, shadeIn) {
 
   // Determine building dimensions
   const building = BUILDINGS[variant]
-  const overhangWidth = (typeof building.overhangWidth === 'number') ? building.overhangWidth : 0
+  const overhangWidth =
+    typeof building.overhangWidth === 'number' ? building.overhangWidth : 0
   const buildingHeight = getBuildingImageHeight(variant, position, floors)
 
   // Determine canvas dimensions from building dimensions
@@ -369,8 +433,16 @@ export function createBuilding (el, variant, position, floors, shadeIn) {
 
   const ctx = canvasEl.getContext('2d')
 
-  drawBuilding(ctx, variant, floors,
-    position, width, height,
+  drawBuilding(
+    ctx,
+    variant,
+    floors,
+    position,
+    width,
+    height,
     0,
-    1.0, dpi, shadeIn)
+    1.0,
+    dpi,
+    shadeIn
+  )
 }

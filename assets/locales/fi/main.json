@@ -13,7 +13,7 @@
       "settings": "Asetukset",
       "share": "Jaa",
       "store": "Kauppa",
-      "upgrade": ""
+      "upgrade": "Päivitä"
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Kirjaudu sisään",
       "sign-in-link": "{signInLink}: voit jakaa kadut ja oman katugalleriasi näppärämmin",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
+      "copy-to-clipboard": "Kopioi leikepöydälle",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
       "print": "Tulosta…",
@@ -117,11 +118,11 @@
     "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
     "auth-api-problem-description": "Tunnistautuminen epäonnistui.",
-    "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <a target='_blank' rel='noopener noreferrer' href='{email}'>sähköpostitse</a> tai <a target='_blank' rel='noopener noreferrer' href='{tweet}'>Twitterissä</a>.",
+    "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <email_link>sähköpostitse</email_link> tai <tweet_link>Twitterissä</tweet_link>.",
     "unsupported-browser-title": "Streetmix ei toimi tässä selaimessa.",
-    "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chromea</a>, <a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>Firefoxia</a>, <a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edgeä</a> tai Safaria.",
-    "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>Lue lisätietoja.</a>",
-    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus <a target='_blank' rel='noopener noreferrer' href='{email}'>sähköpostitse</a>.",
+    "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <chrome_link>Chromea</chrome_link>, <firefox_link>Firefoxia</firefox_link>, <edge_link>Microsoft Edgeä</edge_link> tai Safaria.",
+    "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a>Lue lisätietoja.</a>",
+    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus <a>sähköpostitse</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix toimii vain tabletilla ja tietokoneella.",
     "cannot-create-new-street-on-phone-description": "Voit tarkastella linkistä avaamasi katua, mutta et voi muokata tai luoda uusia katuja.",
     "generic-error-title": "Jokin meni vikaan.",
@@ -144,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "Oho!",
-      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
+      "text": "Jotakin odottamatonta tapahtui 😢. Virheilmoitus on tallennettu automaattisesti, mutta <a>voit myös kertoa siitä meille</a>. Kokeile hetken kuluttua uudelleen."
     },
     "welcome": {
       "heading": "Tervetuloa, tämä on Streetmix.",
@@ -187,7 +188,8 @@
       "heading": "Analyysi",
       "street-summary": "Kadun arvioitu liikenne on {averageTotal} kulkijaa tunnissa, ja käyttäjäpotentiaali on {potentialTotal} kulkijaa tunnissa.",
       "segment-summary": "{average} — {potential} ihmistä tunnissa",
-      "segment-summary-single": "{amount} ihmistä tunnissa"
+      "segment-summary-single": "{amount} ihmistä tunnissa",
+      "source": "Lähde"
     },
     "save": {
       "heading": "Tallenna kuvana",
@@ -377,6 +379,7 @@
       "es-mx": "Espanja (Meksiko)",
       "fi": "Suomi",
       "fr": "Ranska",
+      "it": "Italia",
       "ja": "Japani",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",

@@ -8,7 +8,9 @@ import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
   TILE_SIZE_ACTUAL,
-  MAX_SEGMENT_LABEL_LENGTH
+  MAX_SEGMENT_LABEL_LENGTH,
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
 } from './constants'
 import store from '../store'
 import {
@@ -599,9 +601,9 @@ export function getSegmentEl (position) {
   if (!position && position !== 0) return
 
   let segmentEl
-  if (position === 'left') {
+  if (position === BUILDING_LEFT_POSITION) {
     segmentEl = document.querySelectorAll('.street-section-building')[0]
-  } else if (position === 'right') {
+  } else if (position === BUILDING_RIGHT_POSITION) {
     segmentEl = document.querySelectorAll('.street-section-building')[1]
   } else {
     const segments = document

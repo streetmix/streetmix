@@ -1,6 +1,13 @@
 import { app } from '../preinit/app_settings'
-import { INFO_BUBBLE_TYPE_LEFT_BUILDING, INFO_BUBBLE_TYPE_RIGHT_BUILDING } from './constants'
-import { DRAGGING_TYPE_NONE } from '../segments/constants'
+import {
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
+import {
+  DRAGGING_TYPE_NONE,
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '../segments/constants'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
 import { showInfoBubble, hideInfoBubble } from '../store/actions/infoBubble'
@@ -83,7 +90,7 @@ export const infoBubble = {
     }
 
     // Bail if we are requesting the info bubble for the element already being displayed
-    if ((segmentEl === infoBubble.segmentEl) && (type === infoBubble.type)) {
+    if (segmentEl === infoBubble.segmentEl && type === infoBubble.type) {
       return
     }
 
@@ -93,14 +100,21 @@ export const infoBubble = {
     } else {
       var pos = getElAbsolutePos(segmentEl)
 
-      infoBubble.considerMouseX = pos[0] - document.querySelector('#street-section-outer').scrollLeft
+      infoBubble.considerMouseX =
+        pos[0] - document.querySelector('#street-section-outer').scrollLeft
       infoBubble.considerMouseY = pos[1]
     }
 
     infoBubble.considerSegmentEl = segmentEl
     infoBubble.considerType = type
 
-    if (!isInfoBubbleVisible() || !infoBubble._withinHoverPolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)) {
+    if (
+      !isInfoBubbleVisible() ||
+      !infoBubble._withinHoverPolygon(
+        infoBubble.considerMouseX,
+        infoBubble.considerMouseY
+      )
+    ) {
       infoBubble.show(false)
     }
   },
@@ -130,8 +144,11 @@ export const infoBubble = {
     var segmentEl = infoBubble.considerSegmentEl
     var type = infoBubble.considerType
 
-    if ((segmentEl === infoBubble.segmentEl) &&
-      (type === infoBubble.type) && !force) {
+    if (
+      segmentEl === infoBubble.segmentEl &&
+      type === infoBubble.type &&
+      !force
+    ) {
       return
     }
     infoBubble.hideSegment(true)
@@ -139,7 +156,10 @@ export const infoBubble = {
     infoBubble.segmentEl = segmentEl
     infoBubble.type = type
 
-    if (type !== INFO_BUBBLE_TYPE_LEFT_BUILDING && type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING) {
+    if (
+      type !== INFO_BUBBLE_TYPE_LEFT_BUILDING &&
+      type !== INFO_BUBBLE_TYPE_RIGHT_BUILDING
+    ) {
       if (segmentEl) {
         segmentEl.classList.add('hover')
         segmentEl.classList.add('show-drag-handles')
@@ -151,7 +171,10 @@ export const infoBubble = {
 
     let dataNo = segmentEl.dataNo
     if (typeof dataNo === 'undefined') {
-      dataNo = (type === INFO_BUBBLE_TYPE_LEFT_BUILDING) ? 'left' : 'right'
+      dataNo =
+        type === INFO_BUBBLE_TYPE_LEFT_BUILDING
+          ? BUILDING_LEFT_POSITION
+          : BUILDING_RIGHT_POSITION
     }
     store.dispatch(setActiveSegment(dataNo))
 
@@ -170,8 +193,10 @@ function _isPointInPoly (vs = [], point) {
     var xj = vs[j][0]
     var yj = vs[j][1]
 
+    // prettier-ignore
     var intersect = ((yi > y) !== (yj > y)) &&
       (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi)
+
     if (intersect) inside = !inside
   }
 

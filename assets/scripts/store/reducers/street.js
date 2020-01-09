@@ -26,6 +26,11 @@ import {
   SET_ENVIRONMENT
 } from '../actions'
 import { getVariantString } from '../../segments/variant_utils'
+import {
+  MAX_BUILDING_HEIGHT,
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '../../segments/constants'
 import { DEFAULT_ENVIRONS } from '../../streets/constants'
 
 const initialState = {
@@ -33,8 +38,6 @@ const initialState = {
   environment: DEFAULT_ENVIRONS,
   immediateRemoval: true
 }
-
-const MAX_BUILDING_HEIGHT = 20
 
 const street = (state = initialState, action) => {
   switch (action.type) {
@@ -190,7 +193,7 @@ const street = (state = initialState, action) => {
     // TODO: Move buildings logic?
     case ADD_BUILDING_FLOOR: {
       switch (action.position) {
-        case 'left':
+        case BUILDING_LEFT_POSITION:
           return {
             ...state,
             leftBuildingHeight: Math.min(
@@ -198,7 +201,7 @@ const street = (state = initialState, action) => {
               MAX_BUILDING_HEIGHT
             )
           }
-        case 'right':
+        case BUILDING_RIGHT_POSITION:
           return {
             ...state,
             rightBuildingHeight: Math.min(
@@ -212,12 +215,12 @@ const street = (state = initialState, action) => {
     }
     case REMOVE_BUILDING_FLOOR: {
       switch (action.position) {
-        case 'left':
+        case BUILDING_LEFT_POSITION:
           return {
             ...state,
             leftBuildingHeight: Math.max(state.leftBuildingHeight - 1, 1)
           }
-        case 'right':
+        case BUILDING_RIGHT_POSITION:
           return {
             ...state,
             rightBuildingHeight: Math.max(state.rightBuildingHeight - 1, 1)
@@ -231,7 +234,7 @@ const street = (state = initialState, action) => {
       if (Number.isNaN(value)) return state
 
       switch (action.position) {
-        case 'left':
+        case BUILDING_LEFT_POSITION:
           return {
             ...state,
             leftBuildingHeight: Math.min(
@@ -239,7 +242,7 @@ const street = (state = initialState, action) => {
               MAX_BUILDING_HEIGHT
             )
           }
-        case 'right':
+        case BUILDING_RIGHT_POSITION:
           return {
             ...state,
             rightBuildingHeight: Math.min(
@@ -255,12 +258,12 @@ const street = (state = initialState, action) => {
       if (!action.variant) return state
 
       switch (action.position) {
-        case 'left':
+        case BUILDING_LEFT_POSITION:
           return {
             ...state,
             leftBuildingVariant: action.variant
           }
-        case 'right':
+        case BUILDING_RIGHT_POSITION:
           return {
             ...state,
             rightBuildingVariant: action.variant

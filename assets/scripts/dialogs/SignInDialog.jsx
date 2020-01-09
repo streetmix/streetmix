@@ -1,7 +1,12 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
-import { goEmailSignIn, goTwitterSignIn, goFacebookSignIn, goGoogleSignIn } from '../app/routing'
+import {
+  goEmailSignIn,
+  goTwitterSignIn,
+  goFacebookSignIn,
+  goGoogleSignIn
+} from '../app/routing'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import Icon from '../ui/Icon'
 import './SignInDialog.scss'
@@ -118,10 +123,17 @@ export default class SignInDialog extends React.Component {
           <div className="sign-in-dialog">
             <header>
               <h1 className="sign-in-loading-message">
-                <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in…" />
+                <FormattedMessage
+                  id="dialogs.sign-in.loading-message"
+                  defaultMessage="Signing you in…"
+                />
               </h1>
             </header>
-            <div className="dialog-content sign-in-loading" aria-live="polite" aria-busy="true">
+            <div
+              className="dialog-content sign-in-loading"
+              aria-live="polite"
+              aria-busy="true"
+            >
               <LoadingSpinner />
             </div>
           </div>
@@ -137,7 +149,10 @@ export default class SignInDialog extends React.Component {
           <div className="sign-in-dialog">
             <header>
               <h1 className="sign-in-loading-message">
-                <FormattedMessage id="dialogs.sign-in.loading-message" defaultMessage="Signing you in…" />
+                <FormattedMessage
+                  id="dialogs.sign-in.loading-message"
+                  defaultMessage="Signing you in…"
+                />
               </h1>
             </header>
             <div className="dialog-content sign-in-email-sent">
@@ -146,22 +161,29 @@ export default class SignInDialog extends React.Component {
                   id="dialogs.sign-in.sent-message-with-email"
                   defaultMessage="We’ve sent an email to {email}. Please follow the instructions there to continue signing in!"
                   values={{
-                    email: <span className="sign-in-email">{this.state.email}</span>
+                    email: (
+                      <span className="sign-in-email">{this.state.email}</span>
+                    )
                   }}
                 />
               </p>
               <p className="sign-in-resend">
-                <FormattedMessage id="dialogs.sign-in.email-unreceived" defaultMessage="Didn’t receive it?" />
+                <FormattedMessage
+                  id="dialogs.sign-in.email-unreceived"
+                  defaultMessage="Didn’t receive it?"
+                />
                 <br />
                 <a onClick={this.handleEmailResend}>
-                  <FormattedMessage id="dialogs.sign-in.resend-email" defaultMessage="Resend email" />
+                  <FormattedMessage
+                    id="dialogs.sign-in.resend-email"
+                    defaultMessage="Resend email"
+                  />
                 </a>
               </p>
             </div>
           </div>
         )}
       </Dialog>
-
     )
   }
 
@@ -180,7 +202,10 @@ export default class SignInDialog extends React.Component {
           <div className="sign-in-dialog">
             <header>
               <h1>
-                <FormattedMessage id="dialogs.sign-in.heading" defaultMessage="Sign in / Sign up" />
+                <FormattedMessage
+                  id="dialogs.sign-in.heading"
+                  defaultMessage="Sign in / Sign up"
+                />
               </h1>
             </header>
             <div className="dialog-content">
@@ -192,8 +217,14 @@ export default class SignInDialog extends React.Component {
               </p>
 
               <form onSubmit={this.handleSubmit}>
-                <label htmlFor="sign-in-email-input" className="sign-in-email-label">
-                  <FormattedMessage id="dialogs.sign-in.email-label" defaultMessage="Email" />
+                <label
+                  htmlFor="sign-in-email-input"
+                  className="sign-in-email-label"
+                >
+                  <FormattedMessage
+                    id="dialogs.sign-in.email-label"
+                    defaultMessage="Email"
+                  />
                 </label>
 
                 <input
@@ -201,7 +232,10 @@ export default class SignInDialog extends React.Component {
                   id="sign-in-email-input"
                   ref={this.emailInputEl}
                   value={this.state.email}
-                  className={'sign-in-input ' + (this.state.error ? 'sign-in-input-error' : '')}
+                  className={
+                    'sign-in-input ' +
+                    (this.state.error ? 'sign-in-input-error' : '')
+                  }
                   name="email"
                   onChange={this.handleChange}
                   placeholder="test@test.com"
@@ -219,7 +253,10 @@ export default class SignInDialog extends React.Component {
                   </small>
                 </p>
 
-                <button type="submit" className="sign-in-button sign-in-email-button">
+                <button
+                  type="submit"
+                  className="sign-in-button sign-in-email-button"
+                >
                   <FormattedMessage
                     id="dialogs.sign-in.button.email"
                     defaultMessage="Continue with email"
@@ -229,10 +266,12 @@ export default class SignInDialog extends React.Component {
 
               <div className="sign-in-social-heading">
                 <hr />
-                <FormattedMessage
-                  id="dialogs.sign-in.social-heading"
-                  defaultMessage="or"
-                />
+                <span>
+                  <FormattedMessage
+                    id="dialogs.sign-in.social-heading"
+                    defaultMessage="or"
+                  />
+                </span>
               </div>
 
               <button

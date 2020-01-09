@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "Acceder",
       "sign-in-link": "{signInLink} para mejores enlaces a tus calles y a tu galería de calles personal",
       "link": "Copiar y pegar este enlace para compartir:",
+      "copy-to-clipboard": "",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
       "print": "Imprimir…",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "Guardar como imagen",
@@ -377,6 +379,7 @@
       "es-mx": "Español (México)",
       "fi": "Finlandés",
       "fr": "",
+      "it": "Italiano",
       "ja": "",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",

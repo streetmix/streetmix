@@ -10,7 +10,10 @@ $thumbnail-height: 110px;
 $building-space: 360px;
 $segment-grid-height: 10px;
 $left-right-inset: 50px;
-$border-radius: 4px;
+$border-radius: 4px; // Deprecated. Use the following instead.
+$border-radius-small: 2px;
+$border-radius-medium: 4px;
+$border-radius-large: 6px;
 $menu-side-inset: $left-right-inset - 20px;
 
 // Colours

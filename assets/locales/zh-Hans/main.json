@@ -28,6 +28,7 @@
       "sign-in-twitter-link": "登陆",
       "sign-in-link": "{signInLink}在此登陆以获取你所创建的街道及你的个人街道图集",
       "link": "复制粘贴这个连接来共享内容：",
+      "copy-to-clipboard": "",
       "twitter": "分享到推特",
       "facebook": "分享到脸书",
       "print": "打印",
@@ -117,11 +118,11 @@
     "access-denied-description": "你取消了这次登录。",
     "auth-api-problem-title": "你在登录过程中遇到了一点小问题。",
     "auth-api-problem-description": "我们在确认你身份的过程中遇到了一点小问题。",
-    "please-try-again": "请稍后再试。请通过<a target='_blank' rel='noopener noreferrer' href='{email}'>电子邮件</a>或者<a target='_blank' rel='noopener noreferrer' href='{tweet}'>推特</a>联系我们。",
+    "please-try-again": "请稍后再试。请通过<email_link>电子邮件</email_link>或者<tweet_link>推特</tweet_link>联系我们。",
     "unsupported-browser-title": "Streetmix无法在这个浏览器中运行。",
-    "unsupported-browser-description": "非常抱歉。你可以尝试使用<a target='_blank' rel='noopener noreferrer' href='{chromeUrl}'>Chrome</a>、<a target='_blank' rel='noopener noreferrer' href='{mozillaUrl}'>火狐</a>、<a target='_blank' rel='noopener noreferrer' href='{edgeUrl}'>Microsoft Edge</a>，或者Safari。",
-    "unsupported-browser-internet-explorer": "你在使用Internet Explorer吗？<a target='_blank' rel='noopener noreferrer' href='{readmeIEUrl}'>了解更多。</a>",
-    "unsupported-browser-contact-us": "如果你认为Streetmix应该兼容你的浏览器，请通过<a target='_blank' rel='noopener noreferrer' href='{email}'>电子邮箱</a>联系我们。",
+    "unsupported-browser-description": "非常抱歉。你可以尝试使用<chrome_link>Chrome</chrome_link>、<firefox_link>火狐</firefox_link>、<edge_link>Microsoft Edge</edge_link>，或者Safari。",
+    "unsupported-browser-internet-explorer": "你在使用Internet Explorer吗？<a>了解更多。</a>",
+    "unsupported-browser-contact-us": "如果你认为Streetmix应该兼容你的浏览器，请通过<a>电子邮箱</a>联系我们。",
     "cannot-create-new-street-on-phone-title": "Streetmix只能在平板电脑和台式电脑上运行。",
     "cannot-create-new-street-on-phone-description": "如果你通过另一个链接来查看某条街道，你可以在手机上查看，但是现在暂时还无法在手机上创建新的街道。",
     "generic-error-title": "我们出现了一些技术故障。",
@@ -144,7 +145,7 @@
   "dialogs": {
     "error": {
       "heading": "哎呀！",
-      "text": "一个意外的故障发生了 😢。我们已经将这个故障记录存档， 但如果你记得故障是如何发生的， <a href=\"https://github.com/streetmix/streetmix/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">请告诉我们</a>。 这也有可能是暂时的问题，请再尝试一次。"
+      "text": "一个意外的故障发生了 😢。我们已经将这个故障记录存档， 但如果你记得故障是如何发生的， <a>请告诉我们</a>。 这也有可能是暂时的问题，请再尝试一次。"
     },
     "welcome": {
       "heading": "欢迎来到Streetmix。",
@@ -187,7 +188,8 @@
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": ""
+      "segment-summary-single": "",
+      "source": ""
     },
     "save": {
       "heading": "另存为图片",
@@ -377,6 +379,7 @@
       "es-mx": "西班牙语（墨西哥）",
       "fi": "芬兰语",
       "fr": "法语",
+      "it": "义大利文",
       "ja": "日语",
       "pl": "波兰语",
       "pt-br": "葡萄牙语（巴西）",

@@ -30,7 +30,10 @@ export function doSignIn () {
   const newAuthEnabled = state.flags.AUTHENTICATION_V2.value
 
   // The sign in dialog is only limited to users where the UI has been localized
-  if (newAuthEnabled && ['en', 'fi', 'fr', 'de', 'pl', 'es-MX'].indexOf(locale) >= 0) {
+  if (
+    newAuthEnabled &&
+    ['en', 'fi', 'fr', 'de', 'it', 'pl', 'es-MX'].indexOf(locale) >= 0
+  ) {
     store.dispatch(showDialog('SIGN_IN'))
   } else {
     goTwitterSignIn()
@@ -157,7 +160,9 @@ async function fetchSignInDetails (userId) {
 
     const flagOverrides = [
       // all role flag overrides
-      ...roles.map(key => generateFlagOverrides(USER_ROLES[key].flags, `role:${key}`)),
+      ...roles.map((key) =>
+        generateFlagOverrides(USER_ROLES[key].flags, `role:${key}`)
+      ),
       // user flag overrides
       generateFlagOverrides(flags, 'user')
     ]
@@ -252,8 +257,9 @@ function sendSignOutToServer (quiet) {
   }
 
   // TODO const
-  window.fetch(API_URL + 'v1/users/' + signInData.userId + '/login-token', options)
-    .then(response => {
+  window
+    .fetch(API_URL + 'v1/users/' + signInData.userId + '/login-token', options)
+    .then((response) => {
       if (!quiet) {
         receiveSignOutConfirmationFromServer()
       }
@@ -276,15 +282,19 @@ function _signInLoaded () {
 
   const street = store.getState().street
   let mode = getMode()
-  if ((mode === MODES.CONTINUE) || (mode === MODES.JUST_SIGNED_IN) ||
-    (mode === MODES.USER_GALLERY) || (mode === MODES.GLOBAL_GALLERY)) {
+  if (
+    mode === MODES.CONTINUE ||
+    mode === MODES.JUST_SIGNED_IN ||
+    mode === MODES.USER_GALLERY ||
+    mode === MODES.GLOBAL_GALLERY
+  ) {
     const settings = getSettings()
     if (settings.lastStreetId) {
       street.creatorId = settings.lastStreetCreatorId
       street.id = settings.lastStreetId
       street.namespacedId = settings.lastStreetNamespacedId
 
-      if ((mode === MODES.JUST_SIGNED_IN) && (!street.creatorId)) {
+      if (mode === MODES.JUST_SIGNED_IN && !street.creatorId) {
         setPromoteStreet(true)
       }
 

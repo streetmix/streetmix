@@ -103,6 +103,11 @@ const Scrollable = React.forwardRef((props, ref) => {
         className={className}
         onScroll={handleScrollContainer}
         ref={scrollerEl}
+        style={{
+          // Prevent overscroll from doing forward/back
+          // navigation on some browsers
+          overscrollBehaviorX: 'contain'
+        }}
       >
         {children}
       </div>

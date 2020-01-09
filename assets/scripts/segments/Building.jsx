@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import { createBuilding, BUILDINGS } from './buildings'
+import { BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION } from './constants'
 import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
@@ -39,11 +40,11 @@ class Building extends React.Component {
 
     this.state = {
       variant:
-        props.position === 'left'
+        props.position === BUILDING_LEFT_POSITION
           ? 'leftBuildingVariant'
           : 'rightBuildingVariant',
       height:
-        props.position === 'left'
+        props.position === BUILDING_LEFT_POSITION
           ? 'leftBuildingHeight'
           : 'rightBuildingHeight',
       oldBuildingEnter: true,
@@ -54,13 +55,16 @@ class Building extends React.Component {
   }
 
   static getDerivedStateFromProps (props, state) {
-    if (props.leftBuildingEditable === false && props.position === 'left') {
+    if (
+      props.leftBuildingEditable === false &&
+      props.position === BUILDING_LEFT_POSITION
+    ) {
       return {
         isEditable: false
       }
     } else if (
       props.rightBuildingEditable === false &&
-      props.position === 'right'
+      props.position === BUILDING_RIGHT_POSITION
     ) {
       return {
         isEditable: false
@@ -130,9 +134,9 @@ class Building extends React.Component {
 
     let type
 
-    if (this.props.position === 'left') {
+    if (this.props.position === BUILDING_LEFT_POSITION) {
       type = INFO_BUBBLE_TYPE_LEFT_BUILDING
-    } else if (this.props.position === 'right') {
+    } else if (this.props.position === BUILDING_RIGHT_POSITION) {
       type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
     }
 
@@ -282,7 +286,4 @@ const mapDispatchToProps = {
   addBuildingFloor
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Building)
+export default connect(mapStateToProps, mapDispatchToProps)(Building)
