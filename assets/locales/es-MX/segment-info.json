@@ -133,6 +133,7 @@
     "turn-lane-orientation|right-straight": "Derecha y derecho",
     "turn-lane-orientation|right": "Derecha",
     "turn-lane-orientation|both": "Ambas",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "Compartido",
     "bench-orientation|left": "Izquierda",
     "bench-orientation|right": "Derecha",

@@ -129,6 +129,7 @@
     "turn-lane-orientation|right-straight": "يميناً باستقامة",
     "turn-lane-orientation|right": "يميناً",
     "turn-lane-orientation|both": "مفترق الممر",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "ممر مشترك",
     "bench-orientation|left": "يسار الشارع",
     "bench-orientation|right": "يمين الشارع",

@@ -133,6 +133,7 @@
     "turn-lane-orientation|right-straight": "W prawo i prosto",
     "turn-lane-orientation|right": "W prawo",
     "turn-lane-orientation|both": "Oba",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "Dzielony",
     "bench-orientation|left": "W lewo",
     "bench-orientation|right": "W prawo",

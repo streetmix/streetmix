@@ -133,6 +133,7 @@
     "turn-lane-orientation|right-straight": "Oikealle ja suoraan",
     "turn-lane-orientation|right": "Oikealla",
     "turn-lane-orientation|both": "Molemmat",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "Jaettu",
     "bench-orientation|left": "Vasemmalla",
     "bench-orientation|right": "Oikealle",

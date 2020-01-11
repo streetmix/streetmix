@@ -113,6 +113,7 @@
     "turn-lane-orientation|right-straight": "右折と直進",
     "turn-lane-orientation|right": "右折",
     "turn-lane-orientation|both": "両方",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "共用",
     "bench-orientation|left": "左",
     "bench-orientation|right": "右",

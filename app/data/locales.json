@@ -28,6 +28,13 @@
     "level": 1
   },
   {
+    "label": "Español (latinoamericano)",
+    "name": "Spanish (Latin America)",
+    "value": "es-419",
+    "key": "i18n.lang.es-419",
+    "level": 1
+  },
+  {
     "label": "Español (México)",
     "name": "Spanish (Mexico)",
     "value": "es-MX",

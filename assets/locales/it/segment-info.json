@@ -133,6 +133,7 @@
     "turn-lane-orientation|right-straight": "Dritto o destra",
     "turn-lane-orientation|right": "Destra",
     "turn-lane-orientation|both": "Destra o sinistra",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "Senso contrario",
     "bench-orientation|left": "Sinistra",
     "bench-orientation|right": "Destra",

@@ -133,6 +133,7 @@
     "turn-lane-orientation|right-straight": "Droite et tout droit",
     "turn-lane-orientation|right": "Droite",
     "turn-lane-orientation|both": "Virage à droite et à gauche",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "Partagé",
     "bench-orientation|left": "Gauche",
     "bench-orientation|right": "Droite",

@@ -1,15 +1,15 @@
 {
   "segments": {
-    "sidewalk": "Trottoar",
-    "sidewalk-tree": "Träd",
-    "bike-rack": "Cykelställ",
-    "bench": "Bänk",
+    "sidewalk": "Acera",
+    "sidewalk-tree": "",
+    "bike-rack": "Estacionamiento para bicicletas",
+    "bench": "Banca",
     "cafe-seating": "",
-    "wayfinding-sign": "Vägvisningsskylt",
-    "sidewalk-lamp": "Belysning",
-    "parklet": "Mikropark",
-    "divider": "Buffert",
-    "planting-strip": "",
+    "wayfinding-sign": "",
+    "sidewalk-lamp": "",
+    "parklet": "",
+    "divider": "",
+    "planting-strip": "Franja de vegetación",
     "planter-box": "",
     "median": "",
     "bollard": "",
@@ -43,16 +43,12 @@
   },
   "descriptions": {
     "wayfinding-sign": {
-      "prompt": "Läs mer om vägvisningsskyltar",
-      "lede": "Vägvisningsskyltar hjälper fotgängare att hitta till vanliga målpunkter.",
-      "text": [
-        "Stadsplanerare och arkitekter har tillbringat årtionden med att försöka lära sig vad som händer i människors hjärnor när de försöker komma på hur man tar sig från punkt A till punkt B - eller hur de ens vet var punkt A är till att börja med. Redan 1960 skrev stadsplaneraren Kevin Lynch om \"legibility\" i sin bok <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\"> The Image of the City</a></em> genom \"ett konstant användande och organiserande av sinnenas ledtrådar från den omkringliggande miljön.\" Det kan vara immateriella - lukt, känsel, känsla av gravitation eller till och med elektriska eller magnetiska fält. Eller så kan det vara mycket mer fysiskt, med tillverkade redskap såsom kartor, gatunummer eller vägvisningsskyltar.",
-        "",
-        ""
-      ]
+      "prompt": "",
+      "lede": "",
+      "text": ["", "", ""]
     },
     "parklet": {
-      "prompt": "Läs mer om mikroparker",
+      "prompt": "",
       "imageCaption": "",
       "lede": "",
       "text": ["", ""]
@@ -84,13 +80,13 @@
   },
   "buildings": {
     "waterfront": {
-      "name": ""
+      "name": "Espejo de agua"
     },
     "grass": {
-      "name": ""
+      "name": "Césped"
     },
     "fence": {
-      "name": ""
+      "name": "Lote vacío"
     },
     "parking-lot": {
       "name": ""
@@ -99,28 +95,28 @@
       "name": ""
     },
     "narrow": {
-      "name": ""
+      "name": "Edificio"
     },
     "wide": {
-      "name": ""
+      "name": "Edificio"
     }
   },
   "variant-icons": {
-    "orientation|left": "Vänster",
-    "orientation|right": "Höger",
-    "turn-lane-orientation|left": "Vänster",
-    "turn-lane-orientation|left-straight": "Vänster och rakt",
-    "turn-lane-orientation|straight": "Rakt",
-    "turn-lane-orientation|right-straight": "Höger och rakt",
-    "turn-lane-orientation|right": "Höger",
+    "orientation|left": "Izquierda",
+    "orientation|right": "Derecha",
+    "turn-lane-orientation|left": "Izquierda",
+    "turn-lane-orientation|left-straight": "",
+    "turn-lane-orientation|straight": "",
+    "turn-lane-orientation|right-straight": "",
+    "turn-lane-orientation|right": "Derecha",
     "turn-lane-orientation|both": "",
     "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "",
-    "bench-orientation|left": "Vänster",
-    "bench-orientation|right": "Höger",
+    "bench-orientation|left": "Izquierda",
+    "bench-orientation|right": "Derecha",
     "bench-orientation|center": "",
-    "parking-lane-orientation|left": "Vänster",
-    "parking-lane-orientation|right": "Höger",
+    "parking-lane-orientation|left": "Izquierda",
+    "parking-lane-orientation|right": "Derecha",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
     "parking-lane-direction|sideways": "",
@@ -134,9 +130,9 @@
     "sidewalk-density|sparse": "",
     "sidewalk-density|normal": "",
     "sidewalk-density|dense": "",
-    "lamp-orientation|left": "Vänster",
+    "lamp-orientation|left": "Izquierda",
     "lamp-orientation|both": "",
-    "lamp-orientation|right": "Höger",
+    "lamp-orientation|right": "Derecha",
     "lamp-type|traditional": "",
     "lamp-type|modern": "",
     "lamp-type|pride": "",
@@ -146,7 +142,7 @@
     "car-type|av": "",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
-    "public-transit-asphalt|grass": "",
+    "public-transit-asphalt|grass": "Césped",
     "bus-asphalt|regular": "",
     "bus-asphalt|colored": "",
     "bus-asphalt|shared": "",
@@ -157,7 +153,7 @@
     "tree-type|palm-tree": "",
     "divider-type|median": "",
     "divider-type|striped-buffer": "",
-    "divider-type|planting-strip": "",
+    "divider-type|planting-strip": "Franja de vegetación",
     "divider-type|planter-box": "",
     "divider-type|bush": "",
     "divider-type|flowers": "",
@@ -172,9 +168,9 @@
     "bike-rack-elevation|sidewalk-parallel": "",
     "bike-rack-elevation|sidewalk": "",
     "bike-rack-elevation|road": "",
-    "building|waterfront": "",
-    "building|grass": "",
-    "building|fence": "",
+    "building|waterfront": "Espejo de agua",
+    "building|grass": "Césped",
+    "building|fence": "Lote vacío",
     "building|parking-lot": "",
     "building|residential": "",
     "building|narrow": "",

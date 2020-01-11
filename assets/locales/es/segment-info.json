@@ -114,6 +114,7 @@
     "turn-lane-orientation|right-straight": "Derecha y derecho",
     "turn-lane-orientation|right": "Derecha",
     "turn-lane-orientation|both": "Ambos",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "",
     "bench-orientation|left": "Izquierda",
     "bench-orientation|right": "Derecha",

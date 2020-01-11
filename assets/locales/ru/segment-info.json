@@ -133,6 +133,7 @@
     "turn-lane-orientation|right-straight": "Право и прямо",
     "turn-lane-orientation|right": "Право",
     "turn-lane-orientation|both": "Оба",
+    "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "Общий",
     "bench-orientation|left": "Лево",
     "bench-orientation|right": "Право",
