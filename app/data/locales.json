@@ -7,6 +7,13 @@
     "level": 3
   },
   {
+    "label": "Català",
+    "name": "Catalan",
+    "value": "ca",
+    "key": "i18n.lang.ca",
+    "level": 1
+  },
+  {
     "label": "Deutsch",
     "name": "German",
     "value": "de",
@@ -68,6 +75,13 @@
     "value": "ja",
     "key": "i18n.lang.ja",
     "level": 3
+  },
+  {
+    "label": "한국어",
+    "name": "Korean",
+    "value": "ko",
+    "key": "i18n.lang.ko",
+    "level": 1
   },
   {
     "label": "Polski",

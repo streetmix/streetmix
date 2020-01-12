@@ -88,8 +88,8 @@
     "no-street": "No se ha seleccionado ninguna calle.",
     "trouble-loading": "Hay problemas para cargar Streetmix",
     "slow-connection-1": "",
-    "slow-connection-2": "",
-    "no-connection": "",
+    "slow-connection-2": "Puedes recargar la página e intentar de nuevo. Es posible que pierdas el último cambio que hiciste. ¡Lo sentimos!",
+    "no-connection": "Streetmix está teniendo problemas para conectarse a internet.",
     "more-info": "Más información"
   },
   "error": {
@@ -106,27 +106,27 @@
     "street-not-found-description": "¡Uy, no hay una calle en esta dirección!",
     "street-not-found-but-user-description": "¡No hay una calle en esta dirección! Pero puedes ver otras calles hechas por {user}",
     "street-deleted-title": "Esta calle ha sido eliminada",
-    "street-deleted-description": "",
-    "sign-out-title": "",
+    "street-deleted-description": "Ya no hay una calle en este enlace, pero puedes ver otras calles por {user}",
+    "sign-out-title": "Cerraste sesión.",
     "reload-sign-out-title": "Cerraste sesión en otra ventana",
     "gallery-street-failure-description": "Hay problemas para cargar esta calle",
     "reload-sign-in-title": "Iniciaste sesión en otra ventana",
     "please-reload": "Por favor recargar esta página antes de continuar",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
+    "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
+    "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
     "access-denied-title": "No has iniciado sesión",
     "access-denied-description": "Has cancelado el inicio de sesión",
     "auth-api-problem-title": "Hubo un problema con el inicio de sesión",
     "auth-api-problem-description": "Hubo un problema con la autenticación",
     "please-try-again": "Por favor intenta más tarde o avísanos por <email_link>e-mail</email_link> o <tweet_link>Twitter</tweet_link>.",
-    "unsupported-browser-title": "",
-    "unsupported-browser-description": "",
-    "unsupported-browser-internet-explorer": "",
-    "unsupported-browser-contact-us": "",
+    "unsupported-browser-title": "Streetmix no funciona en tu navegador.",
+    "unsupported-browser-description": "Lo sentimos. Puedes intentar con <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, o Safari.",
+    "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a>Más información.</a>",
+    "unsupported-browser-contact-us": "Si consideras que tu navegador debería estar soportado, contáctanos vía <a>email</a>.",
     "cannot-create-new-street-on-phone-title": "",
     "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
+    "generic-error-title": "Algo salió mal.",
+    "generic-error-description": "Lo sentimos – algo salió mal.",
     "error-code": "(Error {code}.)"
   },
   "btn": {
@@ -186,8 +186,8 @@
     "analytics": {
       "export-csv": "Exportar a CSV",
       "heading": "Estadísticas",
-      "street-summary": "",
-      "segment-summary": "",
+      "street-summary": "Tu calle tiene un tráfico estimado promedio de {averageTotal} personas por hora, y potencial de hasta {potentialTotal} personas por hora.",
+      "segment-summary": "{average} — {potential} personas/hora",
       "segment-summary-single": "{amount} personas/hora",
       "source": "Fuente"
     },
@@ -199,9 +199,9 @@
       "option-watermark": "Marca de agua",
       "loading": "Cargando...",
       "save-button": "Guardar en tu equipo...",
-      "license": "",
-      "error-preview": "",
-      "error-unavailable": "",
+      "license": "Esta imagen creada con Streetmix puede ser reutilizada en otros lugares, para cualquier propósito, bajo la licencia {licenseLink} .",
+      "error-preview": "Hubo un error al mostrar la vista previa.",
+      "error-unavailable": "La función de guardar como imagen no está disponible en este navegador.",
       "preview-image-alt": "Vista previa"
     },
     "geotag": {
@@ -216,26 +216,26 @@
       "geotag-unavailable": ""
     },
     "donate": {
-      "heading": "",
-      "lede": "",
-      "text": "",
+      "heading": "¡Streetmix necesita tu ayuda!",
+      "lede": "Streetmix es un proyecto apoyado por la comunidad. A diferencia de otros servicios \"gratuitos\" en Internet, no mostramos anuncios ni agregamos rastreadores que abusen de tu privacidad. En lugar de esto, dependemos de tu ayuda para mantener Streetmix en funcionamiento.",
+      "text": "Por favor considera apoyarnos con una contribución única o recurrente. Tu donación ayudará a pagar nuestros servidores e infraestructura en la nube, apoyando a otras organizaciones sin ánimo de lucro, grupos de activistas, y estudiantes que trabajan para mejorar nuestras calles. Los ingresos adicionales se invertirán en el desarrollo de nuevas características. Nuestros gastos son completamente transparentes, así que puedes ver exactamente cómo el equipo de Streetmix está usando tus contribuciones.",
       "button": "Donar a Streetmix",
       "cancel": "No, gracias"
     },
     "sign-in": {
       "heading": "Iniciar sesión o registrarse",
-      "description": "",
+      "description": "Guarda tu primer diseño o inicia sesión para acceder a tus diseños anteriores.",
       "email-label": "Correo electrónico",
-      "email-description": "",
-      "email-invalid": "",
-      "social-heading": "",
+      "email-description": "Te enviaremos un enlace para iniciar sesión. No se requiere contraseña.",
+      "email-invalid": "Esa no parece una dirección de correo electrónico válida. Por favor intenta de nuevo.",
+      "social-heading": "o",
       "button": {
-        "email": "",
+        "email": "Continuar con un correo electrónico.",
         "twitter": "Continuar con Twitter",
         "google": "Continuar con Google",
         "facebook": "Continuar con Facebook"
       },
-      "tos": "",
+      "tos": "Al hacer click en uno de estos botones, estoy de acuerdo con {tosLink} y {privacyLink}.",
       "tos-link-label": "términos de servicio",
       "privacy-link-label": "política de privacidad",
       "loading-message": "Iniciando sesión...",
@@ -253,7 +253,7 @@
   "prompt": {
     "new-street": "Nombre de la nueva calle:",
     "delete-street": "¿Estás seguro de que quieres borrar permanentemente {streetName}? Esta acción no se puede deshacer.",
-    "new-width": "",
+    "new-width": "Nuevo ancho de calle (de {minWidth} a {maxWidth}):",
     "segment-label": ""
   },
   "toast": {
