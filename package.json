@@ -171,7 +171,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.7.2",
-    "@babel/plugin-proposal-class-properties": "7.7.4",
+    "@babel/plugin-proposal-class-properties": "7.8.0",
     "@babel/preset-env": "7.7.7",
     "@babel/preset-react": "7.7.4",
     "@commitlint/cli": "8.3.4",
