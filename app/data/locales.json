@@ -39,7 +39,7 @@
     "name": "Spanish (Latin America)",
     "value": "es-419",
     "key": "i18n.lang.es-419",
-    "level": 1
+    "level": 2
   },
   {
     "label": "Español (México)",
@@ -81,7 +81,7 @@
     "name": "Korean",
     "value": "ko",
     "key": "i18n.lang.ko",
-    "level": 1
+    "level": 2
   },
   {
     "label": "Polski",

@@ -2,392 +2,395 @@
   "menu": {
     "item": {
       "help": "도움말",
-      "about": "",
-      "contact": "",
-      "community": "",
-      "contribute": "",
-      "sign-in": "",
-      "sign-out": "",
-      "new-street": "",
-      "my-streets": "",
-      "settings": "",
-      "share": "",
-      "store": "",
-      "upgrade": ""
+      "about": "스트리트믹스 소개",
+      "contact": "문의",
+      "community": "커뮤니티",
+      "contribute": "공헌",
+      "sign-in": "로그인",
+      "sign-out": "로그아웃",
+      "new-street": "새 스트리트",
+      "my-streets": "나의 스트리트",
+      "settings": "설정",
+      "share": "공유",
+      "store": "스토어",
+      "upgrade": "업그레이드"
     },
     "help": {
-      "keyboard-label": "",
-      "remove-instruction": "",
-      "remove-shift-instruction": "",
-      "move-instruction": "",
-      "move-shift-instruction": "",
-      "change-instruction": "",
-      "change-shift-instruction": ""
+      "keyboard-label": "키보드 단축키:",
+      "remove-instruction": "가리키고 있는 세그먼트 제거",
+      "remove-shift-instruction": "(전체를 제거하려면 {shiftKey} 키를 누르세요)",
+      "move-instruction": "스트리트 움직이기",
+      "move-shift-instruction": "(가장자리로 이동하려면 {shiftKey} 키를 누르세요)",
+      "change-instruction": "가리키고 있는 세그먼트의 폭 변경",
+      "change-shift-instruction": "(정확도를 높이려면 {shiftKey} 키를 누르세요)"
     },
     "share": {
-      "sign-in-twitter-link": "",
-      "sign-in-link": "",
-      "link": "",
-      "copy-to-clipboard": "",
-      "twitter": "",
-      "facebook": "",
-      "print": "",
-      "save": "",
-      "save-byline": "",
+      "sign-in-twitter-link": "로그인",
+      "sign-in-link": "나의 스트리트와 스트리트 갤러리의 더 나은 링크를 위해 {signInLink}",
+      "link": "이 링크를 복사하고 붙여 넣어 공유하세요:",
+      "copy-to-clipboard": "클립보드로 복사",
+      "twitter": "트위터로 공유",
+      "facebook": "페이스북으로 공유",
+      "print": "인쇄",
+      "save": "이미지로 저장",
+      "save-byline": "보고서, 블로그 등에 포함",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "나의 {streetName} 스트리트를 스트리트믹스에서 확인해보세요!",
+        "my-street-unnamed": "나의 스트리트를 스트리트믹스에서 확인해보세요!",
+        "someone-elses-street": "{streetCreator}의 {streetName} 스트리트를 스트리트믹스에서 확인해보세요!",
+        "someone-elses-street-unnamed": "{streetCreator}의 스트리트를 스트리트믹스에서 확인해보세요!",
+        "anonymous-creator-street": "{streetName} 스트리트를 스트리트믹스에서 확인해보세요!",
+        "anonymous-creator-street-unnamed": "스트리트믹스에서 이 스트리트를 확인해보세요!"
       }
     },
     "contact": {
-      "forums": "",
-      "twitter": "",
-      "email": "",
-      "github": "",
-      "blog": "",
-      "discord": "",
-      "slack": "",
-      "minecraft": "",
-      "newsletter": ""
+      "forums": "포럼에서 토론하기",
+      "twitter": "@streetmix 로 트윗 전송",
+      "email": "스트리트믹스 팀에게 이메일 전송",
+      "github": "GitHub에서 소스 코드 확인",
+      "blog": "스트리트믹스 블로그 방문",
+      "discord": "Discord 채팅 참여",
+      "slack": "Slack 채팅 참여",
+      "minecraft": "우리와 함께 Minecraft를 즐겨보세요!",
+      "newsletter": "뉴스레터 구독"
     },
     "contribute": {
-      "donate": "",
-      "stickers": "",
-      "opensource": ""
+      "donate": "기부하기",
+      "stickers": "Buy a sticker sheet!",
+      "opensource": "오픈 소스에 기여하기"
     },
     "feedback": {
-      "prompt": "",
-      "message-placeholder": "",
-      "email-placeholder": "",
-      "send": "",
-      "confirm": "",
-      "error": ""
+      "prompt": "Send us a message:",
+      "message-placeholder": "What do you think of Streetmix?",
+      "email-placeholder": "Your email (optional)",
+      "send": "Send message",
+      "confirm": "We got it. Thanks!",
+      "error": "We’re sorry, there was a problem sending feedback at this time. Please try again later."
     },
     "sign-in": {
-      "twitter": ""
+      "twitter": "트위터 계정으로 로그인"
     }
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "단위",
+      "metric": "미터법 단위 (미터)",
+      "imperial": "영국식 단위 (피트)"
     },
     "language": {
-      "label": ""
+      "label": "언어"
     }
   },
   "msg": {
-    "loading": "",
-    "remixing": "",
-    "having-trouble": "",
-    "no-street": "",
-    "trouble-loading": "",
-    "slow-connection-1": "",
-    "slow-connection-2": "",
-    "no-connection": "",
-    "more-info": ""
+    "loading": "로딩 중...",
+    "remixing": "리믹싱 중...",
+    "having-trouble": "문제가 있습니다...",
+    "no-street": "선택된 스트리트가 없습니다.",
+    "trouble-loading": "스트리트믹스를 로딩하는 데 문제가 있습니다.",
+    "slow-connection-1": "지금 잠시 인터넷에 연결할 수 없습니다.",
+    "slow-connection-2": "페이지를 새로 고침하고 다시 시도해보는 것이 좋겠네요. 가장 최근의 변경 사항이 손실될 수 있습니다. 죄송합니다!",
+    "no-connection": "인터넷에 연결하는 데 문제가 있습니다.",
+    "more-info": "더 많은 정보"
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
-      "reload": "",
-      "try-again": "",
-      "view-example": ""
+      "home": "홈페이지로 이동",
+      "sign-in": "다시 로그인",
+      "reload": "페이지 새로고침",
+      "try-again": "다시 시도",
+      "view-example": "예시 스트리트 보기"
     },
-    "page-not-found-title": "",
-    "page-not-found-description": "",
-    "street-not-found-title": "",
-    "street-not-found-description": "",
-    "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
-    "street-deleted-description": "",
-    "sign-out-title": "",
-    "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
-    "reload-sign-in-title": "",
-    "please-reload": "",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
-    "access-denied-title": "",
-    "access-denied-description": "",
-    "auth-api-problem-title": "",
-    "auth-api-problem-description": "",
-    "please-try-again": "",
-    "unsupported-browser-title": "",
-    "unsupported-browser-description": "",
-    "unsupported-browser-internet-explorer": "",
-    "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "",
-    "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
-    "error-code": ""
+    "page-not-found-title": "페이지를 찾을 수 없습니다.",
+    "page-not-found-description": "오, 이런! 이 주소를 가진 페이지가 없습니다!",
+    "street-not-found-title": "스트리트를 찾을 수 없습니다.",
+    "street-not-found-description": "오, 이런! 이 링크로 연결된 스트리트가 없습니다!",
+    "street-not-found-but-user-description": "이 링크로 연결된 스트리트가 없습니다! 하지만 {user}가 만든 다른 스트리트를 살펴볼 수 있습니다",
+    "street-deleted-title": "이 스트리트는 삭제되었습니다.",
+    "street-deleted-description": "이 링크로 연결된 스트리트가 더 이상 없지만, {user}가 만든 다른 스트리트를 살펴볼 수 있습니다",
+    "sign-out-title": "정상적으로 로그아웃 되었습니다.",
+    "reload-sign-out-title": "다른 창에서 로그아웃 되었습니다.",
+    "gallery-street-failure-description": "스트리트를 로딩하는 데 문제가 있습니다.",
+    "reload-sign-in-title": "다른 창에서 로그인 되었습니다.",
+    "please-reload": "계속하기 전에 이 페이지를 새로고침 해주세요.",
+    "street-deleted-elsewhere-title": "이 스트리트는 다른 곳에서 삭제되었습니다.",
+    "street-deleted-elsewhere-description": "이 스트리트는 다른 브라우저에서 삭제되었습니다.",
+    "access-denied-title": "로그인 상태가 아닙니다.",
+    "access-denied-description": "로그인 과정을 취소하였습니다.",
+    "auth-api-problem-title": "로그인에 문제가 있습니다.",
+    "auth-api-problem-description": "인증에 문제가 있습니다.",
+    "please-try-again": "나중에 다시 시도해주시거나 <email_link>이메일</email_link> 또는 <tweet_link>트위터</tweet_link>로 알려주세요.",
+    "unsupported-browser-title": "다른 브라우저를 사용해주세요.",
+    "unsupported-browser-description": "죄송합니다. <chrome_link>크롬</chrome_link>, <firefox_link>파이어폭스</firefox_link>, <edge_link>마이크로소프트 엣지</edge_link>, 또는 사파리로 시도해주세요.",
+    "unsupported-browser-internet-explorer": "인터넷익스플로러를 사용하고 계신가요? <a>더 알아보세요.</a>",
+    "unsupported-browser-contact-us": "사용하고 계신 브라우저가 지원 가능한 브라우저라면 <a>이메일</a>로 연락주세요.",
+    "cannot-create-new-street-on-phone-title": "스트리트믹스는 태블릿과 데스크탑에서만 작동합니다.",
+    "cannot-create-new-street-on-phone-description": "핸드폰에서는 다른 링크를 통한 특정 스트리트를 확인할 수는 있지만, 새로운 스트리트를 생성할 수는 없습니다.",
+    "generic-error-title": "뭔가 잘못됐습니다.",
+    "generic-error-description": "죄송합니다 - 뭔가 잘못됐네요.",
+    "error-code": "(에러 {code}.)"
   },
   "btn": {
-    "reload": "",
-    "undo": "",
-    "redo": "",
-    "try-again": "",
-    "cancel": "",
-    "create": "",
-    "copy": "",
-    "remove": "",
-    "close": "",
-    "dismiss": "",
-    "okay": ""
+    "reload": "새로고침",
+    "undo": "실행취소",
+    "redo": "재실행",
+    "try-again": "다시 시도",
+    "cancel": "취소",
+    "create": "새로운 스트리트 생성",
+    "copy": "복사",
+    "remove": "삭제",
+    "close": "닫기",
+    "dismiss": "무시하기",
+    "okay": "오케이!"
   },
   "dialogs": {
     "error": {
-      "heading": "",
-      "text": ""
+      "heading": "앗!",
+      "text": "예상치 못한 일이 발생했습니다 😢. 저희 쪽에서 오류를 자체적으로 기록했지만, 어떻게 이 문제가 발생했는지 과정을 기억한다면 <a>알려주세요</a>. 일시적인 문제일 수도 있으니, 한 번 더 시도해주세요."
     },
     "welcome": {
-      "heading": "",
+      "heading": "스트리트믹스에 오신 것을 환영합니다.",
       "new": {
-        "intro": "",
-        "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "intro": "동네의 거리를 디자인하고, 리믹스하고, 공유해보세요. 나무나 자전거 도로를 추가하고, 보도나 차선를 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+        "instruct": "{pointer}로 일부 세그먼트를 이동하여 시작하세요.",
+        "instruct-pointer-finger": "손가락",
+        "instruct-pointer-mouse": "마우스"
       },
       "existing": {
-        "intro": "",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "이것은 {creator}가 만든 {streetName} 입니다.",
+        "intro-without-creator": "이것은 {streetName} 입니다.",
+        "instruct": "일부 세트먼트를 움직여 리믹스하거나 {startYourOwnStreet}.",
+        "instruct-start-own-street": "나만의 스트리트 시작하기"
       }
     },
     "new-street": {
-      "heading": "",
-      "default": "",
-      "empty": "",
-      "last": ""
+      "heading": "여기에 나의 새로운 스트리트가 있습니다.",
+      "default": "예시 스트리트로 시작하기",
+      "empty": "빈 스트리트로 시작하기",
+      "last": "마지막 스트리트의 복사본으로 시작하기"
     },
     "about": {
-      "heading": "",
-      "description": "",
-      "thanks": "",
-      "credits": "",
-      "team-heading": "",
-      "view-source": "",
-      "sponsored-by": "",
-      "donate-link": "",
-      "github-link": "",
-      "open-source-link": "",
-      "guidebook-link": "",
-      "tos-link": "",
-      "privacy-link": ""
+      "heading": "스트리트믹스 소개",
+      "description": "거리를 디자인하고, 리믹스하고, 공유해보세요. 자전거 도로를 추가하고, 보도나 차선를 넓히고, 이 모든 것들이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+      "thanks": "Many thanks to the staff and 2013 CfA fellows for their support and patience, the Blockee team for paving the way, and all of our testers for their time and feedback!",
+      "credits": "A side project by {cfaLink} 2013 fellows:",
+      "team-heading": "프로젝트 팀 및 관리자",
+      "view-source": "소스 코드 확인",
+      "sponsored-by": "스트리트믹스는 다음에 의해 후원됩니다:",
+      "donate-link": "재정 지원",
+      "github-link": "오픈 소스에 기여하기",
+      "open-source-link": "우리는 오픈 소스입니다!",
+      "guidebook-link": "가이드북",
+      "tos-link": "서비스 약관",
+      "privacy-link": "개인 보호 정책"
     },
     "analytics": {
-      "export-csv": "",
-      "heading": "",
-      "street-summary": "",
-      "segment-summary": "",
-      "segment-summary-single": "",
-      "source": ""
+      "export-csv": "CSV로 내보내기",
+      "heading": "분석",
+      "street-summary": "나의 스트리트는 시간당 평균 {averageTotal} 명, 최대 {potentialTotal} 명의 트래픽이 예상됩니다.",
+      "segment-summary": "{average} ~ {potential} 명/시간",
+      "segment-summary-single": "{amount} 명/시간",
+      "source": "소스"
     },
     "save": {
-      "heading": "",
-      "option-labels": "",
-      "option-name": "",
-      "option-sky": "",
-      "option-watermark": "",
-      "loading": "",
-      "save-button": "",
-      "license": "",
-      "error-preview": "",
-      "error-unavailable": "",
-      "preview-image-alt": ""
+      "heading": "이미지로 저장",
+      "option-labels": "세그먼트 이름과 폭",
+      "option-name": "스트리트 이름",
+      "option-sky": "투명 하늘",
+      "option-watermark": "워터마크",
+      "loading": "로딩 중...",
+      "save-button": "컴퓨터에 저장하기...",
+      "license": "스트리트믹스에서 만든 해당 이미지는 {licenseLink} 라이센스에 따라 어떤 목적으로도 재사용 할 수 있습니다.",
+      "error-preview": "미리보기 이미지를 표시하는 중 오류가 발생했습니다.",
+      "error-unavailable": "이 브라우저에서는 이미지로 저장할 수 없습니다.",
+      "preview-image-alt": "미리보기"
     },
     "geotag": {
-      "search": "",
-      "clear-search": "",
-      "zoom-in": "",
-      "zoom-out": "",
-      "add-location": "",
-      "confirm-location": "",
-      "clear-location": "",
-      "unknown-location": "",
-      "geotag-unavailable": ""
+      "search": "위치 검색",
+      "clear-search": "검색 지우기",
+      "zoom-in": "확대하기",
+      "zoom-out": "축소하기",
+      "add-location": "위치 추가",
+      "confirm-location": "위치 확인",
+      "clear-location": "위치 지우기",
+      "unknown-location": "알 수 없는 위치",
+      "geotag-unavailable": "지오코딩 서비스를 현재 사용할 수 없습니다. 지도는 볼 수 있지만, 이 거리의 위치는 변경할 수 없습니다."
     },
     "donate": {
-      "heading": "",
-      "lede": "",
-      "text": "",
-      "button": "",
-      "cancel": ""
+      "heading": "스트리트믹스는 여러분의 도움이 필요합니다!",
+      "lede": "스트리트믹스는 커뮤니티 지원 프로젝트입니다. 인터넷의 다른 \"무료\" 서비스와 달리, 개인 정보를 남용하는 광고를 표시하거나 추적기를 삽입하지 않습니다. 대신, 우리는 스트리트믹스를 계속 가동시키기 위한 여러분의 지원에 의존합니다.",
+      "text": "한 번 또는 반복적인 기여를 통해 지원하는 것을 고려해주세요. 여러분의 기부금은 거리를 개선하기 위해 노력하는 다른 비영리 단체, 옹호 단체 및 학생을 지원하는 서버 및 클라우드 인프라 비용을 지불하는 데 사용됩니다. 추가 수익은 새로운 기능 개발에 투자될 것입니다. 우리의 비용은 완전히 투명하므로, 스트리트믹스 팀이 기부금을 어떻게 사용하는지 정확하게 알 수 있습니다.",
+      "button": "스트리트믹스에 기부",
+      "cancel": "아니요, 괜찮습니다."
     },
     "sign-in": {
-      "heading": "",
-      "description": "",
-      "email-label": "",
-      "email-description": "",
-      "email-invalid": "",
-      "social-heading": "",
+      "heading": "로그인 / 회원가입",
+      "description": "나의 첫번째 디자인을 저장하거나 로그인하여 이전 디자인을 확인하세요",
+      "email-label": "이메일",
+      "email-description": "로그인할 수 있는 링크를 보내드릴게요. 패스워드는 필요 없습니다.",
+      "email-invalid": "앗! 유효한 이메일 주소가 아닌 것 같네요. 다시 시도해주세요.",
+      "social-heading": "또는",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "이메일로 계속하기",
+        "twitter": "트위터로 계속하기",
+        "google": "구글로 계속하기",
+        "facebook": "페이스북으로 계속하기"
       },
-      "tos": "",
-      "tos-link-label": "",
-      "privacy-link-label": "",
-      "loading-message": "",
-      "sent-message-with-email": "",
-      "email-unreceived": "",
-      "resend-email": ""
+      "tos": "이 버튼 중 하나를 클릭하여 {tosLink}및 {privacyLink}에 동의합니다.",
+      "tos-link-label": "서비스 약관",
+      "privacy-link-label": "개인 보호 정책",
+      "loading-message": "로그인하는 중…",
+      "sent-message-with-email": "{email}로 이메일을 발송했습니다. 로그인을 위해 이메일 안의 지시를 따라주세요!",
+      "email-unreceived": "아직 도착 안 했나요?",
+      "resend-email": "이메일 재전송"
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "스트리트믹스의 새로운 기능"
     },
     "newsletter": {
-      "heading": ""
+      "heading": "뉴스레터 구독"
     }
   },
   "prompt": {
-    "new-street": "",
-    "delete-street": "",
-    "new-width": "",
-    "segment-label": ""
+    "new-street": "새로운 스트리트 이름:",
+    "delete-street": "{streetName}를 영구 삭제하는 것이 맞나요? 삭제되면 다시 되돌릴 수 없습니다.",
+    "new-width": "새로운 스트리트 폭 ({minWidth}부터 {maxWidth}까지):",
+    "segment-label": "새로운 세그먼트 라벨:"
   },
   "toast": {
-    "segment-deleted": "",
-    "all-segments-deleted": "",
-    "no-undo": "",
-    "no-redo": "",
-    "no-save": "",
-    "remixing": "",
-    "remixing-sign-in": "",
-    "reloaded": ""
+    "segment-deleted": "세그먼트가 제거되었습니다.",
+    "all-segments-deleted": "모든 세그먼트가 제거되었습니다.",
+    "no-undo": "취소할 것이 없습니다.",
+    "no-redo": "다시 할 것이 없습니다.",
+    "no-save": "수동으로 저장할 필요가 없어요. 스트리트믹스는 자동으로 저장해주거든요!",
+    "remixing": "이제 원본에서 새로 만들어진 사본 스트리트를 편집하세요. 사본은 나의 갤러리에 저장되었습니다.",
+    "remixing-sign-in": "이제 원본에서 새로 만들어진 사본 스트리트를 편집하세요. 나만의 스트리트 갤러리를 시작하려면 로그인하세요.",
+    "reloaded": "다른 곳에서 수정된대로 스트리트를 새로고침 했습니다."
   },
   "palette": {
-    "remove": ""
+    "remove": "제거하려면 여기로 드래그하세요"
   },
   "width": {
-    "label": "",
-    "under": "",
-    "over": "",
-    "occupied": "",
-    "building": "",
-    "different": "",
-    "metric": "",
-    "imperial": ""
+    "label": "{width} 폭",
+    "under": "({width} 여유)",
+    "over": "({width} 초과)",
+    "occupied": "점유 폭:",
+    "building": "건물 간 폭:",
+    "different": "다른 폭...",
+    "metric": "미터법 단위로 변경",
+    "imperial": "영국식 단위(피트)로 변경"
   },
   "capacity": {
-    "ppl-per-hour": ""
+    "ppl-per-hour": "{capacity} 명/시간"
   },
   "datetime": {
-    "minutes-ago": "",
-    "seconds-ago": "",
-    "yesterday": "",
-    "today": ""
+    "minutes-ago": "몇 분 전",
+    "seconds-ago": "몇 초 전",
+    "yesterday": "어제 {time}",
+    "today": "오늘 {time}"
   },
   "key": {
-    "backspace": "",
-    "shift": "",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "backspace": "Backspace 키",
+    "shift": "Shift 키",
+    "plus": "더하기",
+    "minus": "빼기",
+    "left-arrow": "왼쪽 화살표 키",
+    "right-arrow": "오른쪽 화살표 키"
   },
   "tooltip": {
-    "remove-segment": "",
-    "delete-street": "",
-    "segment-width": "",
-    "building-height": "",
-    "street-width": "",
-    "increase-width": "",
-    "decrease-width": "",
-    "add-floor": "",
-    "remove-floor": "",
-    "scroll-street-left": "",
-    "scroll-street-right": "",
-    "scroll-left": "",
-    "scroll-right": ""
+    "remove-segment": "세그먼트 제거",
+    "delete-street": "스트리트 삭제",
+    "segment-width": "세그먼트의 폭 변경",
+    "building-height": "층 개수 변경",
+    "street-width": "스트리트 폭 변경",
+    "increase-width": "폭 늘리기 (정확도를 높이려면 Shift 키를 누르세요)",
+    "decrease-width": "폭 줄이기 (정확도를 높이려면 Shift 키를 누르세요)",
+    "add-floor": "층 추가",
+    "remove-floor": "층 제거",
+    "scroll-street-left": "왼쪽으로 스트리트 스크롤",
+    "scroll-street-right": "오른쪽으로 스트리트 스크롤",
+    "scroll-left": "왼쪽으로 스크롤",
+    "scroll-right": "오른쪽으로 스크롤"
   },
   "street": {
-    "default-name": "",
-    "rename": ""
+    "default-name": "이름없는 도로",
+    "rename": "이름 변경을 위해 클릭"
   },
   "building": {
-    "floors-count": "{count, plural, other {}}"
+    "floors-count": "{count, plural, other {# 층}}"
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "",
-      "not-wide": "",
-      "too-wide": ""
+      "does-not-fit": "이 세그먼트는 스트리트 폭에 맞지 않습니다.",
+      "not-wide": "이 세그먼트는 폭이 충분히 넓지 않네요.",
+      "too-wide": "이 세그먼트는 폭이 너무 넓은 것 같네요."
     },
-    "learn-more": "",
+    "learn-more": "더 알아보기",
     "unknown": {
-      "label": ""
+      "label": "알 수 없음"
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "사진:"
     },
     "resize": {
-      "min": "",
-      "max": ""
+      "min": "최소",
+      "max": "최대"
     }
   },
   "section": {
-    "empty": ""
+    "empty": "빈 공간"
   },
   "gallery": {
-    "fail": "",
-    "all": "",
-    "twitter-link": "",
-    "delete-street-tooltip": "",
-    "street-count": "{count, plural, other {}}",
-    "no-streets": "",
-    "sign-in": "",
-    "sign-in-prompt": ""
+    "fail": "갤러리를 불러오는 데 실패하였습니다.",
+    "all": "모든 스트리트",
+    "twitter-link": "트위터 프로필",
+    "delete-street-tooltip": "스트리트 삭제",
+    "street-count": "{count, plural, other {# 스트리트}}",
+    "no-streets": "저장된 스트리트가 없습니다",
+    "sign-in": "트위터 계정으로 로그인하여 나만의 스트리트 갤러리 확인",
+    "sign-in-prompt": "로그인하여 나만의 스트리트 갤러리 확인"
   },
   "users": {
-    "anonymous": "",
-    "byline": ""
+    "anonymous": "익명",
+    "byline": "{user} "
   },
   "export": {
-    "watermark": ""
+    "watermark": "Made with {streetmixWordmark}"
   },
   "meta": {
-    "description": "",
-    "page-title": ""
+    "description": "모든 브라우저에서 동네의 거리를 디자인하고, 리믹스하고, 공유해보세요! 나무나 자전거 도로를 추가하고, 보도나 차선을 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+    "page-title": "{streetName}  ({author})"
   },
   "credits": {
-    "core-team-heading": "",
-    "past-team-heading": "",
-    "advisors": "",
-    "additional-illustrations": "",
-    "additional-code": "",
-    "additional-contributors": "",
-    "special-thanks": "",
-    "translators": ""
+    "core-team-heading": "프로젝트 팀",
+    "past-team-heading": "과거 팀 멤버",
+    "advisors": "어드바이저",
+    "additional-illustrations": "추가 일러스트레이션",
+    "additional-code": "추가 코드",
+    "additional-contributors": "추가 기여자",
+    "special-thanks": "특별히 고마운 분들",
+    "translators": "번역가"
   },
   "i18n": {
     "lang": {
-      "ar": "",
-      "de": "",
-      "en": "",
-      "es": "",
-      "es-mx": "",
-      "fi": "",
-      "fr": "",
-      "it": "",
-      "ja": "",
-      "pl": "",
-      "pt-br": "",
-      "ru": "",
-      "sv": "",
-      "zh": "",
-      "zh-hans": "",
-      "zh-hant": ""
+      "ar": "Arabic",
+      "ca": "Catalan",
+      "de": "German",
+      "en": "English",
+      "es": "Spanish",
+      "es-419": "Spanish (Latin America)",
+      "es-mx": "Spanish (Mexico)",
+      "fi": "Finnish",
+      "fr": "French",
+      "it": "Italian",
+      "ja": "日本語",
+      "ko": "한국어",
+      "pl": "Polish",
+      "pt-br": "Portuguese (Brazil)",
+      "ru": "Russian",
+      "sv": "Swedish",
+      "zh": "Chinese",
+      "zh-hans": "简体中文",
+      "zh-hant": "繁體中文"
     }
   }
 }

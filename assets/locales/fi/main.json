@@ -373,14 +373,17 @@
   "i18n": {
     "lang": {
       "ar": "Arabia",
+      "ca": "Katalaani",
       "de": "Saksa",
       "en": "Englanti",
       "es": "Espanja",
+      "es-419": "Espanja (Latinalainen Amerikka)",
       "es-mx": "Espanja (Meksiko)",
       "fi": "Suomi",
       "fr": "Ranska",
       "it": "Italia",
       "ja": "Japani",
+      "ko": "Korea",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",
       "ru": "Venäjä",

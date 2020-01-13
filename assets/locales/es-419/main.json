@@ -18,9 +18,9 @@
     "help": {
       "keyboard-label": "Métodos abreviados de teclado:",
       "remove-instruction": "Quitar el segmento al que estás apuntando",
-      "remove-shift-instruction": "",
-      "move-instruction": "",
-      "move-shift-instruction": "",
+      "remove-shift-instruction": "(mantén presionada la tecla {shiftKey} para eliminar todo)",
+      "move-instruction": "Moverse alredor de la calle",
+      "move-shift-instruction": "(mantén presionada la tecla {shiftKey} para saltar a los bordes)",
       "change-instruction": "Cambia el ancho del segmento al que estás apuntando",
       "change-shift-instruction": "(mantén oprimida la tecla {shiftKey} para mayor precisión)"
     },
@@ -87,7 +87,7 @@
     "having-trouble": "Hay un problema...",
     "no-street": "No se ha seleccionado ninguna calle.",
     "trouble-loading": "Hay problemas para cargar Streetmix",
-    "slow-connection-1": "",
+    "slow-connection-1": "Streetmix no ha podido conectarse a Internet desde hace un rato.",
     "slow-connection-2": "Puedes recargar la página e intentar de nuevo. Es posible que pierdas el último cambio que hiciste. ¡Lo sentimos!",
     "no-connection": "Streetmix está teniendo problemas para conectarse a internet.",
     "more-info": "Más información"
@@ -123,8 +123,8 @@
     "unsupported-browser-description": "Lo sentimos. Puedes intentar con <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, o Safari.",
     "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a>Más información.</a>",
     "unsupported-browser-contact-us": "Si consideras que tu navegador debería estar soportado, contáctanos vía <a>email</a>.",
-    "cannot-create-new-street-on-phone-title": "",
-    "cannot-create-new-street-on-phone-description": "",
+    "cannot-create-new-street-on-phone-title": "Streetmix solamente funciona en tabletas y computadores.",
+    "cannot-create-new-street-on-phone-description": "Si sigues el enlace de una calle en específico, puedes verla en tu teléfono – pero todavía no puedes crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
     "generic-error-description": "Lo sentimos – algo salió mal.",
     "error-code": "(Error {code}.)"
@@ -179,7 +179,7 @@
       "donate-link": "Apóyanos financieramente",
       "github-link": "Contribuir al código abierto",
       "open-source-link": "¡Somos de código abierto!",
-      "guidebook-link": "",
+      "guidebook-link": "Manual",
       "tos-link": "Términos de servicio",
       "privacy-link": "Política de privacidad"
     },
@@ -213,7 +213,7 @@
       "confirm-location": "Confirmar ubicación",
       "clear-location": "Borrar ubicación",
       "unknown-location": "Ubicación desconocida",
-      "geotag-unavailable": ""
+      "geotag-unavailable": "Los servicios de geocodificación no están disponibles en el momento. Puedes ver el mapa, pero no podrás cambiar la ubicación de esta calle."
     },
     "donate": {
       "heading": "¡Streetmix necesita tu ayuda!",
@@ -254,7 +254,7 @@
     "new-street": "Nombre de la nueva calle:",
     "delete-street": "¿Estás seguro de que quieres borrar permanentemente {streetName}? Esta acción no se puede deshacer.",
     "new-width": "Nuevo ancho de calle (de {minWidth} a {maxWidth}):",
-    "segment-label": ""
+    "segment-label": "Nueva etiqueta de segmento:"
   },
   "toast": {
     "segment-deleted": "Se ha quitado el segmento.",
@@ -262,12 +262,12 @@
     "no-undo": "Nada que deshacer.",
     "no-redo": "Nada que rehacer.",
     "no-save": "No hay necesidad de guardar a mano; ¡Streetmix guarda automáticamente tu calle!",
-    "remixing": "",
-    "remixing-sign-in": "",
-    "reloaded": ""
+    "remixing": "Ahora estás editando un duplicado nuevo de la calle original. El duplicado se ha agregado a tu galería.",
+    "remixing-sign-in": "Ahora estás editando un duplicado nuevo de la calle original. Inicia sesión para comenzar tu propia galería de calles.",
+    "reloaded": "Tu calle se ha recargado desde el servidor, dado que fue modificada en otro lugar."
   },
   "palette": {
-    "remove": ""
+    "remove": "Arrastra aquí para eliminar"
   },
   "width": {
     "label": "Ancho de {width} ",
@@ -289,7 +289,7 @@
     "today": "Hoy a las {time}"
   },
   "key": {
-    "backspace": "",
+    "backspace": "Tecla de retroceso",
     "shift": "Shift",
     "plus": "Más",
     "minus": "Menos",
@@ -306,27 +306,27 @@
     "decrease-width": "Disminuir el ancho (mantén oprimida la tecla Shift para mayor precisión)",
     "add-floor": "Añadir un piso",
     "remove-floor": "Quitar un piso",
-    "scroll-street-left": "",
-    "scroll-street-right": "",
-    "scroll-left": "",
-    "scroll-right": ""
+    "scroll-street-left": "Desplazar la calle hacia la izquierda",
+    "scroll-street-right": "Desplazar la calle hacia la derecha",
+    "scroll-left": "Desplazar hacia la izquierda",
+    "scroll-right": "Desplazar hacia la derecha"
   },
   "street": {
     "default-name": "Calle sin nombre",
     "rename": "Haz click para cambiar el nombre"
   },
   "building": {
-    "floors-count": "{count, plural, one {} other {}}"
+    "floors-count": "{count, plural, one {# piso} other {# pisos}}"
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "",
-      "not-wide": "",
-      "too-wide": ""
+      "does-not-fit": "Este segmento no cabe en la calle",
+      "not-wide": "Puede que este segmento no sea lo suficientemente ancho.",
+      "too-wide": "Puede que este segmento sea muy ancho."
     },
-    "learn-more": "",
+    "learn-more": "Saber más",
     "unknown": {
-      "label": ""
+      "label": "Desconocido"
     },
     "description": {
       "photo-credit": "Foto:"
@@ -340,7 +340,7 @@
     "empty": "Espacio vacío"
   },
   "gallery": {
-    "fail": "",
+    "fail": "No se ha podido cargar la galería",
     "all": "Todas las calles",
     "twitter-link": "Perfil de Twitter",
     "delete-street-tooltip": "Borrar calle",
@@ -357,30 +357,33 @@
     "watermark": "Hecho con {streetmixWordmark}"
   },
   "meta": {
-    "description": "",
+    "description": "Diseña, cambia y comparte la calle de tu vecindario – ¡todo en tu navegador! Agrega árboles o carriles para bicicleta, ensancha las aceras o los carriles de tránsito, aprende cómo tus decisiones pueden impactar a tu comunidad.",
     "page-title": "{streetName} (por {author})"
   },
   "credits": {
     "core-team-heading": "Equipo de proyecto",
-    "past-team-heading": "",
+    "past-team-heading": "Miembros del equipo en el pasado",
     "advisors": "Asesores",
     "additional-illustrations": "Ilustraciones adicionales",
     "additional-code": "Código adicional",
-    "additional-contributors": "",
+    "additional-contributors": "Contribuyentes adicionales",
     "special-thanks": "Agradecimientos espceciales para",
     "translators": "Traductores"
   },
   "i18n": {
     "lang": {
       "ar": "Árabe",
+      "ca": "Catalán",
       "de": "Alemán",
       "en": "Inglés",
       "es": "Español",
+      "es-419": "Español (América Latina)",
       "es-mx": "Español (México)",
       "fi": "Finlandés",
       "fr": "Francés",
       "it": "Italiano",
       "ja": "Japonés",
+      "ko": "Coreano",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
       "ru": "Ruso",

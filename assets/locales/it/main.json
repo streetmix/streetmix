@@ -373,14 +373,17 @@
   "i18n": {
     "lang": {
       "ar": "Arabo",
+      "ca": "",
       "de": "Tedesco",
       "en": "Inglese",
       "es": "Spagnolo",
+      "es-419": "",
       "es-mx": "Spagnolo (Messico)",
       "fi": "Finlandese",
       "fr": "Francese",
       "it": "Italiano",
       "ja": "Giapponese",
+      "ko": "",
       "pl": "Polacco",
       "pt-br": "Portoghese (Brasile)",
       "ru": "Russo",

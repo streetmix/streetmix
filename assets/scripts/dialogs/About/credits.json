@@ -196,6 +196,7 @@
     "fr": ["Denis Devillé", "Jean-Louis Stanus", "Philippe Provost"],
     "de": ["Julia Tahedl", "Martin Niegl", "Max Maaß"],
     "ja": ["Hitomi Narakawa", "Satoshi Iida"],
+    "ko": ["Sunha Park"],
     "pl": [
       "Honorata Grzesikowska",
       "Tomasz Magulski",
@@ -210,6 +211,7 @@
       ["Yuval Fogelson", "Urb-i"]
     ],
     "ru": ["Artem Savin", "Olya Arakhouskaya"],
+    "es-419": ["Lina Marcela Quiñones"],
     "es-mx": ["David Soto Padín", "Paco Marquez", "Patricio M. Ruiz Abrín"],
     "sv": ["Jakob Fahlstedt"]
   }
