@@ -13,7 +13,7 @@
     "planter-box": "화분 상자",
     "median": "중앙 분리대",
     "bollard": "차량 진입 방지용 말뚝",
-    "dome": "",
+    "dome": "차선규제장치",
     "jersey-barrier": "저지 장벽",
     "scooter": "전기 스쿠터",
     "scooter-drop-zone": "스쿠터 하차 구역",
@@ -22,8 +22,8 @@
     "perpendicular-parking": "직각 주차",
     "angled-parking": "비스듬한 주차",
     "flex-zone": "플렉스 존",
-    "taxi-pick-up": "택시 적재 구역",
-    "rideshare-pick-up": "공유차량 로딩존",
+    "taxi-pick-up": "택시 승하차 구역",
+    "rideshare-pick-up": "공유차량 승하차 구역",
     "bikeshare-station": "공유자전거 정거장",
     "foodtruck": "푸드트럭",
     "flex-zone-curb": "대기 장소",
@@ -45,7 +45,11 @@
     "wayfinding-sign": {
       "prompt": "길찾기 표지판에 대해 자세히 알아보기",
       "lede": "길찾기 표지판은 보행자가 주로 찾는 목적지에 갈 수 있도록 도움을 줍니다.",
-      "text": ["", "", ""]
+      "text": [
+        "도시 계획가들과 건축가들은 수십년에 걸쳐 사람들이 A 지점에서 B 지점으로 이동하는 방법을 알아낼 때 그들의 두뇌에서 무슨 일이 일어나는 지, 또는 “A 지점”을 어디에서부터 시작해야할 지를 어떻게 아는 지를 알기 위해 노력했습니다. 1960년 초, 도시 계획가 케빈 린치는 자신의 저서 <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">「도시의 이미지」</a></em>에서 길찾기를 “외부 환경으로부터 오는 확실한 감각적 신호의 일관된 사용과 조직”이라고 묘사하며 도시의 “가독성”에 대해 서술했습니다. 그것은 냄새, 촉각, 중력, 심지어 전기장이나 자기장 등의 무형의 것일 수도 있고, 또는 지도, 거리 번호 또는 경로 표시와 같이 의도적으로 설계된 “길찾기 장치”와 같은 훨씬 더 물리적인 것일 수도 있습니다.",
+        "보행자 층에는 더 적은 투자를 하면서도, 차량 운행에 맞춰서는 충분한 표지판을 두는 것이 얼마나 쉽게 용인되는 지 놀랍습니다. 어쩌면 6명의 사람들이 뒤로 줄지어있게 될 수 있다는 두려움 없이, 가만히 서서 주위를 살피고 우리의 감각들을 사용하는 것이 더 쉽기 때문일 것입니다. 어쨌든, 도시 설계자들은 특히 걷기 쉬운 상업 지역에 보행자 친화적인 길찾기 표지판을 요구했으며, 이러한 표지판들은 기능적인 것 뿐만 아니라 브랜딩의 기회가 되었습니다. 예를 들어, 뉴욕시는 <a href=\"https://www.pentagram.com/work/walknyc/story\">국제적으로 유명한 디자인 컨설턴트를 고용하여</a> 현재 유비쿼터스 WalkNYC 표지판을 만들었습니다 (Streetmix는 이를 본떠 세그먼트를 모델링했습니다). 다른 자치단체들은 전통적인 구시가지나 시민 양식의 형태(위 사진 참조)를 채택했으며 일부 지역은 <a href=\"http://walkyourcity.org/\">게릴라식 길찾기 전략</a>을 사용하기로 했습니다.",
+        "결국, 길을 잃는 것보다 더 나쁜 것은 없습니다. 린치가 서술했듯이 “우리 언어에서 <em>길을 잃은</em> 이라는 단어는 단순한 지리적 불확실성 이상을 의미합니다. 그것은 엄청난 재앙을 수반합니다.” 그리고 누가 길에서 그런 감정을 느끼고 싶어합니까?"
+      ]
     },
     "parklet": {
       "prompt": "파클렛에 대해 자세히 알아보기",
@@ -60,15 +64,19 @@
       "prompt": "자전거 도로에 대해 자세히 알아보기",
       "lede": "자전거 도로는 차들과 분리된 차선으로 자전거 운전자를 안전하게 해줍니다.",
       "text": [
-        "",
-        "",
+        "말을 타고 다니는 시절부터 세그웨이에 이르기까지, 개인용 운송 차량의 연대표에서 자동차와 자전거는 거의 한 세기 동안 공공도로를 지배하고 있는 전쟁 중의 부족들이나 다름없었습니다. 모든 자동차들이 그렇게 많은 공간을 차지하고 있음에도 불구하고, 세상 그 어떤 것보다 자전거가 더 많습니다. Worldometers 추산, 전체 자전거 수는 10억 대 이상이며, 포크송 가수 <a href=\"http://en.wikipedia.org/wiki/Nine_Million_Bicycles\">Katie Melua</a>에 따르면 자전거가 모든 이동의 32%를 차지하고 있는 베이징에 900만대가 있다고 합니다.",
+        "대부분의 관할 지역에서는 자전거가 자동차와 도로를 공유할 수 있지만 (“자전거를 타는 사람은 ... 모든 권리를 가지며 차량 운전자에게 적용되는 모든 조항이 적용된다.”라고 <a href=\"https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.\">캘리포니아 자동차 법규에 명시</a>) 말할 것도 없이 대부분의 자전거 운전자는 전용도로를 선호합니다. 우선은 더 안전합니다. 더 안전하기 때문에 실제로 더 많은 자전거 운전자를 격려합니다. 더 많은 자전거 운전자는 더 건강한 시민, 탄소 배출량의 감소, 교통 처리량 증가 및 혼잡 완화를 의미합니다. <a href=\"https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf\">경제적 이익도 발생합니다</a>. 자동차 인프라 (교량, 도로 및 주차 등)에 소비되는 비용이 적어지고, 도로에 더 많은 사람들을 수용할 수 있어 상업 거리에 더 많은 비즈니스를 이끌어줍니다.",
         "자전거 도로 디자인은 매우 다양할 수 있습니다. 중앙분리대, 화분, 볼라드 또는 심지어 주차 차선을 사용하여 자전거와 자동차를 더 잘 보호할 수 있습니다. 차선을 녹색으로 칠해서 연속적인 자전거 도로 표시를 나타냅니다. 그리고 자전거 정지를 제한하기 위해 신호등 타이밍을 동기화하는 것을 “녹색 물결”이라고 합니다. 더 자세한 내용은 <a href=\"http://nacto.org/cities-for-cycling/design-guide/\">NACTO Urban Bikeway Design Guide</a>를 참조하십시오."
       ]
     },
     "colored-bike-lane": {
       "prompt": "컬러 자전거 도로에 대해 자세히 알아보기",
       "lede": "컬러 자전거 도로는 자전거 운전자에게 더 눈에 잘 띄고 더 안전합니다.",
-      "text": ["", "", ""]
+      "text": [
+        "일상적인 교통수단을 위한 자전거 타기가 더욱 확산됨에 따라, 설계자들은 자전거 타는 사람들의 안전을 보장하고, 자전거와 자동차 사이의 충돌을 없애고, 자동차가 자전거 전용 공간을 불법으로 차지하지 못하도록 해야 합니다. 문제: 자동차 운전자가 항상 자전거 운전자를 완전히 인식하는 것은 아닙니다. 해결책: 자전거 운전자를 최대한 눈에 보이게 하십시오. 이를 위한 한 가지 전략은 자전거 도로를 아스팔트와 전혀 다른 색으로 만드는 것입니다.",
+        "비록 컬러 자전거 도로의 안전 이점이 <a href=\"https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities\">수많은 연구</a>에서 입증되었지만, <em>어떤</em> 색을 사용할 지에 대한 의견은 다 다릅니다. 네덜란드는 적색 차선을 사용하고 덴마크는 청색을, 프랑스는 녹색을 사용합니다. 영국에는 적색과 녹색이 혼합되어 있으며, 미국 대부분의 지자체에서는 (서로 따라하다보니 어쩌다가) 결국 녹색을 사용하게 되었으나, 미국에서 가장 자전거 친화적인 도시 중 하나인 포틀랜드에서는 <a href=\"http://www.portlandoregon.gov/transportation/article/58842\">1990년대부터 파란 차선</a>을 사용하고 있습니다.",
+        "어떤 색상을 가장 좋아하든 대략적인 방법은 같은 지역 내의 다른 차선 표시처럼 보이지 않고 구별되는 것을 선택하는 것입니다. 그 외에도, 대부분 도시의 긴급한 예산 문제는 유지 보수입니다. 현재 새로 개선된 페인트의 내구성이 향상되고 있기는 하지만, 가장 일반적으로 사용되는 페인트는 색상이 바래지고 상당히 빨리 벗겨집니다. 그렇다고 반복 비용을 안전상의 이점보다 더 중요한 문제로 두지 마세요. 대신 <a href=\"http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101\">보호 장벽</a> 형태의 선불 비용을 고려해볼 수도 있습니다."
+      ]
     },
     "sharrow": {
       "prompt": "섀로우에 대해 자세히 알아보기",
@@ -117,21 +125,21 @@
     }
   },
   "variant-icons": {
-    "orientation|left": "좌회전",
-    "orientation|right": "우회전",
-    "turn-lane-orientation|left": "좌회전",
+    "orientation|left": "왼쪽",
+    "orientation|right": "오른쪽",
+    "turn-lane-orientation|left": "왼쪽",
     "turn-lane-orientation|left-straight": "직진 및 좌회전",
     "turn-lane-orientation|straight": "직진",
     "turn-lane-orientation|right-straight": "직진 및 우회전",
     "turn-lane-orientation|right": "우회전",
     "turn-lane-orientation|both": "좌우회전",
     "turn-lane-orientation|left-right-straight": "좌, 우회전 및 직진",
-    "turn-lane-orientation|shared": "공유의",
+    "turn-lane-orientation|shared": "양방향 좌회전 차로",
     "bench-orientation|left": "좌회전",
     "bench-orientation|right": "우회전",
     "bench-orientation|center": "중앙",
-    "parking-lane-orientation|left": "좌회전",
-    "parking-lane-orientation|right": "우회전",
+    "parking-lane-orientation|left": "왼쪽",
+    "parking-lane-orientation|right": "오른쪽",
     "parking-lane-direction|inbound": "역방향",
     "parking-lane-direction|outbound": "정방향",
     "parking-lane-direction|sideways": "직각",
@@ -175,7 +183,7 @@
     "divider-type|big-tree": "나무가 있는 식수대",
     "divider-type|palm-tree": "야자수가 있는 식수대",
     "divider-type|bollard": "차량 진입 방지용 말뚝",
-    "divider-type|dome": "",
+    "divider-type|dome": "차선규제장치",
     "divider-type|jersey-barrier-concrete": "저지 장벽 (콘크리트)",
     "divider-type|jersey-barrier-plastic": "저지 장벽 (플라스틱)",
     "transit-shelter-elevation|street-level": "도로 레벨",
