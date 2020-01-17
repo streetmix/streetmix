@@ -101,17 +101,11 @@ body:not(.safari).gallery-visible .street-section-sky {
   vertical-align: bottom;
 }
 
-.gallery-user-twitter {
-  font-size: 13px;
-  margin-left: 10px;
-  color: rgb(128, 128, 128);
-}
-
 .gallery-street-count {
   position: absolute;
   right: 20px;
   top: 12px;
-  font-size: 24px;
+  font-size: 1.75em;
   font-weight: 300;
   color: rgb(128, 128, 128);
 }
@@ -152,7 +146,6 @@ body:not(.safari).gallery-visible .street-section-sky {
   text-align: center;
   white-space: normal;
   cursor: pointer;
-  font-size: 13px;
   position: relative;
 
   canvas {
@@ -193,7 +186,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   bottom: 18px;
   text-align: center;
   display: block;
-  font-size: 11px;
+  font-size: 0.8em;
   color: black;
 }
 
@@ -204,7 +197,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   bottom: 5px;
   text-align: center;
   display: block;
-  font-size: 11px;
+  font-size: 0.8em;
   color: black;
   font-weight: 300;
 }

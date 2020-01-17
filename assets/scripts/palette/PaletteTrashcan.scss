@@ -22,7 +22,7 @@ $palette-text-color: rgb(108, 108, 108);
   z-index: $z-07-trashcan;
   border-top: 2px dashed $palette-text-color;
   color: $palette-text-color;
-  font-size: 24px;
+  font-size: 1.75rem;
   font-weight: 400;
   background: lighten($bottom-background, 5%);
   pointer-events: none;

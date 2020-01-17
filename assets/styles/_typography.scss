@@ -1,5 +1,10 @@
 // Fonts
 
+/* Set root font-size */
+html {
+  font-size: $font-size-base;
+}
+
 @font-face {
   font-family: "Roadgeek";
   src: url("../fonts/roadgeek-2005-engschrift.otf");
@@ -12,6 +17,7 @@ input,
 select,
 option {
   font-family: $font-family;
+  font-size: 1rem;
 }
 
 body.experimental-font-family {

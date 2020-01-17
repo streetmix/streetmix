@@ -29,7 +29,6 @@ body.no-connection-message-visible #status-message {
   padding-right: 45px; // for close box
   border-top: 3px solid $alert-border;
   border-bottom: 3px solid $alert-border;
-  font-size: 13px;
   line-height: 23px; // force height to be the same whether there is a button in the status message or not
   background: $alert-background;
   color: rgb(64, 32, 32);

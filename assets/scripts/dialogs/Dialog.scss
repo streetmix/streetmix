@@ -45,8 +45,7 @@ $header-text-colour: $colour-turquoise-700;
   margin-top: -3%;
   padding: 0;
   background: white;
-  font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.4;
   z-index: $z-09-dialog-box;
   touch-action: none;
 
@@ -85,8 +84,7 @@ $header-text-colour: $colour-turquoise-700;
     padding: 1rem 2rem;
     margin-top: 0;
     color: rgb(160, 160, 160);
-    font-size: 11px;
-    line-height: 1.3;
+    font-size: 0.85em;
 
     > p:first-child {
       margin-top: 0;

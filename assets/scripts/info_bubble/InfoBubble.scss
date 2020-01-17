@@ -32,7 +32,7 @@
     padding: 2px 8px;
     height: $info-bubble-button-size + 6px;
     line-height: $info-bubble-button-size + 2px;
-    font-size: 16px;
+    font-size: 1.2em;
     font-weight: 300;
     color: white;
     background: darken($ui-colour, 20%);
@@ -169,7 +169,6 @@
 
 .info-bubble-warnings {
   margin-top: 1px;
-  font-size: 13px;
   padding: 0.5em 1.5em;
   border-top: 1px solid $ui-colour;
   text-rendering: optimizeLegibility;

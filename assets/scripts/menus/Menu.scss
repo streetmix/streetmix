@@ -14,7 +14,6 @@ $menu-box-shadow: $medium-box-shadow;
   touch-action: none;
   opacity: 0;
   background: white;
-  font-size: 13px;
   transform-origin: 50% 0;
   transform: rotateX(-90deg);
   transition: transform 100ms, opacity 100ms;
@@ -87,7 +86,7 @@ body.safari .menu {
 .menu-header {
   font-weight: bold;
   margin: 0;
-  font-size: 1em;
+  font-size: 1rem;
   padding: 0.5em 1em 0.5em 1.25em;
 }
 
@@ -160,7 +159,7 @@ body.safari .menu {
   margin-bottom: 4px;
   line-height: 8px;
   color: rgb(128, 128, 128);
-  font-size: 11px;
+  font-size: 0.8em;
 }
 
 .fa-facebook,
