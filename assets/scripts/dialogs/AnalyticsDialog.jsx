@@ -5,9 +5,8 @@
  *
  */
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import PropTypes from 'prop-types'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
@@ -18,7 +17,6 @@ import {
   capacitySum,
   saveCsv
 } from '../util/street_analytics'
-
 import './AnalyticsDialog.scss'
 
 const addSegmentData = (segments) => {
@@ -61,20 +59,16 @@ const avgCapacityAscending = (a, b) => {
   return a.capacity.average - b.capacity.average
 }
 
-AnalyticsDialog.propTypes = {
-  street: PropTypes.object,
-  locale: PropTypes.string
-}
-
 function AnalyticsDialog (props) {
+  const street = useSelector((state) => state.street)
+  const locale = useSelector((state) => state.locale.locale)
+
   useEffect(() => {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
   }, [])
 
   const intl = useIntl()
-  const segmentData = addSegmentData(props.street.segments).sort(
-    avgCapacityAscending
-  )
+  const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
 
   const sumFunc = (total, num) => {
     if (!Number.isInteger(num)) return total
@@ -93,8 +87,8 @@ function AnalyticsDialog (props) {
       id="dialogs.analytics.street-summary"
       defaultMessage="Your street has an estimated average traffic of {averageTotal} people per hour, and potential for up to {potentialTotal} people per hour."
       values={{
-        averageTotal: <b>{FormatNumber(props.locale, averageTotal)}</b>,
-        potentialTotal: <b>{FormatNumber(props.locale, potentialTotal)}</b>
+        averageTotal: <b>{FormatNumber(locale, averageTotal)}</b>,
+        potentialTotal: <b>{FormatNumber(locale, potentialTotal)}</b>
       }}
     />
   )
@@ -113,7 +107,7 @@ function AnalyticsDialog (props) {
 
   function exportCSV () {
     const name =
-      props.street.name ||
+      street.name ||
       intl.formatMessage({
         id: 'street.default-name',
         defaultMessage: 'Unnamed St'
@@ -155,7 +149,7 @@ function AnalyticsDialog (props) {
                     defaultMessage="Source"
                   />
                   :
-                </strong>
+                </strong>{' '}
                 <em>
                   <a
                     href="http://www.uncrd.or.jp/content/documents/5594Presentation%203%20-%20Module%201%20-%20Mr.%20Breithaupt.pdf"
@@ -178,7 +172,7 @@ function AnalyticsDialog (props) {
                 />
               </button>
               <footer>
-                <Terms locale={props.locale} />
+                <Terms locale={locale} />
               </footer>
             </div>
           </div>
@@ -191,11 +185,4 @@ function AnalyticsDialog (props) {
   )
 }
 
-function mapStateToProps (state) {
-  return {
-    street: state.street,
-    locale: state.locale.locale
-  }
-}
-
-export default connect(mapStateToProps)(AnalyticsDialog)
+export default AnalyticsDialog
