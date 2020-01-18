@@ -1,158 +1,116 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { injectIntl } from 'react-intl'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useIntl } from 'react-intl'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import { saveStreetName } from '../store/actions/street'
 import './StreetNameplateContainer.scss'
 
-class StreetNameplateContainer extends React.Component {
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    visible: PropTypes.bool,
-    editable: PropTypes.bool,
-    street: PropTypes.object,
-    saveStreetName: PropTypes.func
-  }
+function StreetNameplateContainer (props) {
+  const visible = useSelector((state) => state.ui.streetNameplateVisible)
+  const editable = useSelector(
+    (state) => !state.app.readOnly && state.flags.EDIT_STREET_NAME.value
+  )
+  const streetName = useSelector((state) => state.street.name)
+  const dispatch = useDispatch()
+  const intl = useIntl()
+  const streetNameEl = useRef(null)
+  const lastSentCoords = useRef(null)
+  const [rightMenuBarLeftPos, setRightMenuBarLeftPos] = useState(0)
+  const [streetNameCoords, setStreetNameCoords] = useState({
+    left: 0,
+    width: 0
+  })
 
-  static defaultProps = {
-    visible: true,
-    editable: true
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      rightMenuBarLeftPos: 0,
-      streetNameLeftPos: 0,
-      streetNameWidth: 0
-    }
-
-    this.lastSentCoords = null
-  }
-
-  componentDidMount () {
-    window.addEventListener('resize', this.updateCoords)
-    window.addEventListener('stmx:menu_bar_resized', this.updatePositions)
+  useEffect(() => {
+    window.addEventListener('resize', updateCoords)
+    window.addEventListener('stmx:menu_bar_resized', updatePositions)
     window.dispatchEvent(new CustomEvent('stmx:streetnameplate_mounted'))
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.updateCoords)
-    window.removeEventListener('stmx:menu_bar_resized', this.updatePositions)
-  }
-
-  componentDidUpdate (nextProps, nextState) {
-    // Only update coords when something affects the size of the nameplate,
-    // prevents excessive cascading renders
-    if (this.props.street.name !== nextProps.street.name) {
-      this.updateCoords()
+    return () => {
+      window.removeEventListener('resize', updateCoords)
+      window.removeEventListener('stmx:menu_bar_resized', updatePositions)
     }
-  }
+  })
 
-  handleResizeStreetName = (coords) => {
-    this.setState({
-      streetNameLeftPos: coords.left,
-      streetNameWidth: coords.width
-    })
-  }
-
-  updateCoords = () => {
-    const rect = this.streetName.getBoundingClientRect()
-
+  const updateCoords = useCallback(() => {
+    const rect = streetNameEl.current.getBoundingClientRect()
     const coords = {
       left: rect.left,
       width: rect.width
     }
+
     if (
-      !this.lastSentCoords ||
-      coords.left !== this.lastSentCoords.left ||
-      coords.width !== this.lastSentCoords.width
+      !lastSentCoords.current ||
+      coords.left !== lastSentCoords.current.left ||
+      coords.width !== lastSentCoords.current.width
     ) {
-      this.lastSentCoords = coords
-      this.handleResizeStreetName(coords)
+      lastSentCoords.current = coords
+      handleResizeStreetName(coords)
     }
+  }, [])
+
+  // Only update coords when something affects the size of the nameplate,
+  // prevents excessive cascading renders
+  useEffect(() => {
+    updateCoords()
+  }, [streetName, updateCoords])
+
+  function handleResizeStreetName (coords) {
+    setStreetNameCoords({
+      left: coords.left,
+      width: coords.width
+    })
   }
 
-  updatePositions = (event) => {
+  function updatePositions (event) {
     if (event.detail && event.detail.rightMenuBarLeftPos) {
-      this.setState({
-        rightMenuBarLeftPos: event.detail.rightMenuBarLeftPos
-      })
+      setRightMenuBarLeftPos(event.detail.rightMenuBarLeftPos)
     }
   }
 
-  determineClassNames = () => {
+  function determineClassNames () {
     const classNames = ['street-nameplate-container']
-    if (
-      this.state.streetNameLeftPos + this.state.streetNameWidth >
-      this.state.rightMenuBarLeftPos
-    ) {
+    if (streetNameCoords.left + streetNameCoords.width > rightMenuBarLeftPos) {
       classNames.push('move-down-for-menu')
     }
-    if (!this.props.visible) {
+    if (!visible) {
       classNames.push('hidden')
     }
     return classNames
   }
 
-  handleClickStreetName = () => {
-    if (!this.props.editable) return
+  function handleClickStreetName () {
+    if (!editable) return
 
-    const streetName =
-      this.props.street.name ||
-      this.props.intl.formatMessage({
-        id: 'street.default-name',
-        defaultMessage: 'Unnamed St'
-      })
     const newName = window.prompt(
-      this.props.intl.formatMessage({
+      intl.formatMessage({
         id: 'prompt.new-street',
         defaultMessage: 'New street name:'
       }),
-      streetName
+      streetName ||
+        intl.formatMessage({
+          id: 'street.default-name',
+          defaultMessage: 'Unnamed St'
+        })
     )
 
     if (newName) {
-      this.props.saveStreetName(newName, true)
+      dispatch(saveStreetName(newName, true))
     }
   }
 
-  render () {
-    return (
-      <div className={this.determineClassNames().join(' ')}>
-        <StreetName
-          editable={this.props.editable}
-          id="street-name"
-          childRef={(ref) => {
-            this.streetName = ref
-          }}
-          name={this.props.street.name}
-          onClick={this.handleClickStreetName}
-        />
-        <StreetMeta />
-      </div>
-    )
-  }
+  return (
+    <div className={determineClassNames().join(' ')}>
+      <StreetName
+        id="street-name"
+        editable={editable}
+        childRef={streetNameEl}
+        name={streetName}
+        onClick={handleClickStreetName}
+      />
+      <StreetMeta />
+    </div>
+  )
 }
 
-function mapStateToProps (state) {
-  return {
-    visible: state.ui.streetNameplateVisible,
-    editable: !state.app.readOnly && state.flags.EDIT_STREET_NAME.value,
-    street: state.street
-  }
-}
-
-const mapDispatchToProps = {
-  saveStreetName
-}
-
-export default injectIntl(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(StreetNameplateContainer)
-)
+export default StreetNameplateContainer

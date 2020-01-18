@@ -26,7 +26,7 @@ function normalizeStreetName (name) {
 StreetName.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
-  childRef: PropTypes.func,
+  childRef: PropTypes.object,
   onClick: PropTypes.func,
   editable: PropTypes.bool
 }

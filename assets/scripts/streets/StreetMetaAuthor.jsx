@@ -1,67 +1,50 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { getRemixOnFirstEdit } from './remix'
 import { showGallery } from '../gallery/view'
 import Avatar from '../users/Avatar'
 
-export class StreetMetaAuthor extends React.Component {
-  static propTypes = {
-    signedIn: PropTypes.bool.isRequired,
-    userId: PropTypes.string,
-    street: PropTypes.any
-  }
+function StreetMetaAuthor (props) {
+  const creatorId = useSelector((state) => state.street.creatorId)
+  const signedIn = useSelector((state) => state.user.signedIn)
+  const userId = useSelector(
+    (state) => (state.user.signInData && state.user.signInData.userId) || ''
+  )
 
-  static defaultProps = {
-    userId: ''
-  }
-
-  handleClickAuthor = (event) => {
+  function handleClickAuthor (event) {
     if (event) {
       event.preventDefault()
     }
-    showGallery(this.props.street.creatorId, false)
+
+    showGallery(creatorId, false)
   }
 
-  renderByline = (creatorId) => {
-    const user = (creatorId) ? (
-      <React.Fragment key={creatorId}>
+  let user
+  if (creatorId && (!signedIn || creatorId !== userId)) {
+    user = (
+      <>
         <Avatar userId={creatorId} />
-        <a href={'/' + creatorId} onClick={this.handleClickAuthor}>{creatorId}</a>
-      </React.Fragment>
-    ) : (
-      <FormattedMessage id="users.anonymous" defaultMessage="Anonymous" />
+        <a href={'/' + creatorId} onClick={handleClickAuthor}>
+          {creatorId}
+        </a>
+      </>
     )
+  } else if (!creatorId && (signedIn || getRemixOnFirstEdit())) {
+    user = <FormattedMessage id="users.anonymous" defaultMessage="Anonymous" />
+  }
 
-    return (
+  if (!user) return null
+
+  return (
+    <span className="street-metadata-author">
       <FormattedMessage
         id="users.byline"
         defaultMessage="by {user}"
         values={{ user }}
       />
-    )
-  }
-
-  render () {
-    let author = null
-    const creatorId = this.props.street.creatorId
-    if (creatorId && (!this.props.signedIn || (creatorId !== this.props.userId))) {
-      author = this.renderByline(creatorId)
-    } else if (!creatorId && (this.props.signedIn || getRemixOnFirstEdit())) {
-      author = this.renderByline(null)
-    }
-
-    return <span className="street-metadata-author">{author}</span>
-  }
+    </span>
+  )
 }
 
-function mapStateToProps (state) {
-  return {
-    street: state.street,
-    signedIn: state.user.signedIn,
-    userId: state.user.signInData && state.user.signInData.userId
-  }
-}
-
-export default connect(mapStateToProps)(StreetMetaAuthor)
+export default StreetMetaAuthor

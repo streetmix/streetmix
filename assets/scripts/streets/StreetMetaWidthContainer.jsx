@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import StreetMetaWidthLabel from './StreetMetaWidthLabel'
 import StreetMetaWidthMenu from './StreetMetaWidthMenu'
-
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
@@ -12,14 +10,21 @@ import {
   STREET_WIDTH_SWITCH_TO_METRIC,
   STREET_WIDTH_SWITCH_TO_IMPERIAL
 } from './constants'
-
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../users/constants'
 import { updateUnits } from '../users/localization'
 import { normalizeStreetWidth } from './width'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
 import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
 
-const StreetMetaWidthContainer = ({ editable = true, street, updateStreetWidth }) => {
+function StreetMetaWidthContainer (props) {
+  const street = useSelector((state) => state.street)
+  const editable = useSelector(
+    (state) => !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value
+  )
+  const dispatch = useDispatch()
   const [isEditing, setEditing] = useState(false)
   const intl = useIntl()
 
@@ -54,18 +59,27 @@ const StreetMetaWidthContainer = ({ editable = true, street, updateStreetWidth }
       // Prompt for new street width
       case STREET_WIDTH_CUSTOM: {
         const promptValue = normalizeStreetWidth(occupiedWidth, units)
-        const promptString = intl.formatMessage({
-          id: 'prompt.new-width',
-          defaultMessage: 'New street width (from {minWidth} to {maxWidth}):'
-        }, {
-          minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, units),
-          maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, units)
-        })
-        const inputWidth = window.prompt(promptString, prettifyWidth(promptValue, units))
+        const promptString = intl.formatMessage(
+          {
+            id: 'prompt.new-width',
+            defaultMessage: 'New street width (from {minWidth} to {maxWidth}):'
+          },
+          {
+            minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, units),
+            maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, units)
+          }
+        )
+        const inputWidth = window.prompt(
+          promptString,
+          prettifyWidth(promptValue, units)
+        )
 
         if (inputWidth) {
-          const newWidth = normalizeStreetWidth(processWidthInput(inputWidth, units), units)
-          updateStreetWidth(newWidth)
+          const newWidth = normalizeStreetWidth(
+            processWidthInput(inputWidth, units),
+            units
+          )
+          dispatch(updateStreetWidth(newWidth))
         }
 
         break
@@ -76,7 +90,7 @@ const StreetMetaWidthContainer = ({ editable = true, street, updateStreetWidth }
       // Change width to the desired selection
       default:
         if (selection) {
-          updateStreetWidth(selection)
+          dispatch(updateStreetWidth(selection))
         }
         break
     }
@@ -84,44 +98,20 @@ const StreetMetaWidthContainer = ({ editable = true, street, updateStreetWidth }
 
   return (
     <span className="street-metadata-width">
-      {
-        (isEditing)
-          ? (
-            <StreetMetaWidthMenu
-              street={street}
-              onChange={handleChangeMenuSelection}
-            />
-          )
-          : (
-            <StreetMetaWidthLabel
-              street={street}
-              editable={editable}
-              onClick={handleClickLabel}
-            />
-          )
-      }
+      {isEditing ? (
+        <StreetMetaWidthMenu
+          street={street}
+          onChange={handleChangeMenuSelection}
+        />
+      ) : (
+        <StreetMetaWidthLabel
+          street={street}
+          editable={editable}
+          onClick={handleClickLabel}
+        />
+      )}
     </span>
   )
 }
 
-StreetMetaWidthContainer.propTypes = {
-  // from Redux mapStateToProps
-  editable: PropTypes.bool,
-  street: PropTypes.object.isRequired,
-
-  // from Redux mapDispatchToProps
-  updateStreetWidth: PropTypes.func.isRequired
-}
-
-function mapStateToProps (state) {
-  return {
-    street: state.street,
-    editable: !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value
-  }
-}
-
-const mapDispatchToProps = {
-  updateStreetWidth
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StreetMetaWidthContainer)
+export default StreetMetaWidthContainer

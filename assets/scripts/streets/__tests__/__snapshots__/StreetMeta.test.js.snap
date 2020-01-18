@@ -22,9 +22,6 @@ exports[`StreetMeta renders without crashing 1`] = `
         Add location
       </a>
     </span>
-    <span
-      class="street-metadata-author"
-    />
   </div>
 </DocumentFragment>
 `;

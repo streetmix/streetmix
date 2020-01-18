@@ -21,6 +21,7 @@ body.read-only .street-metadata-author a {
   cursor: default;
 }
 
+.street-metadata-analytics:not(:empty)::before,
 .street-metadata-author:not(:empty)::before,
 .street-metadata-date:not(:empty)::before,
 .street-metadata-map:not(:empty)::before {

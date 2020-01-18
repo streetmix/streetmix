@@ -1,7 +1,10 @@
 import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../users/constants'
 import { normalizeStreetWidth } from '../streets/width'
 import { prettifyWidth } from '../util/width_units'
 import {
@@ -23,9 +26,18 @@ function useFocus () {
   return el
 }
 
-const StreetMetaWidthMenu = (props) => {
+StreetMetaWidthMenu.propTypes = {
+  street: PropTypes.shape({
+    units: PropTypes.number,
+    width: PropTypes.number,
+    occupiedWidth: PropTypes.number
+  }).isRequired,
+  onChange: PropTypes.func.isRequired
+}
+
+function StreetMetaWidthMenu ({ street, onChange }) {
   function handleChange (event) {
-    props.onChange(event.target.value)
+    onChange(event.target.value)
   }
 
   function renderOption (width, units) {
@@ -38,17 +50,21 @@ const StreetMetaWidthMenu = (props) => {
 
   // Get ready to render
   const { formatMessage } = useIntl()
-  const { units, width, occupiedWidth } = props.street
+  const { units, width, occupiedWidth } = street
 
   // Create options for default widths. This will also convert the widths
   // the proper units for the street.
-  const defaultWidths = DEFAULT_STREET_WIDTHS.map((width) => normalizeStreetWidth(width, units))
-  const DefaultWidthOptions = defaultWidths.map((width) => renderOption(width, units))
+  const defaultWidths = DEFAULT_STREET_WIDTHS.map((width) =>
+    normalizeStreetWidth(width, units)
+  )
+  const DefaultWidthOptions = defaultWidths.map((width) =>
+    renderOption(width, units)
+  )
 
   // If the street width doesn't match any of the default widths,
   // render another choice representing the current width
-  const CustomWidthOption = (defaultWidths.indexOf(Number.parseFloat(width)) === -1)
-    ? (
+  const CustomWidthOption =
+    defaultWidths.indexOf(Number.parseFloat(width)) === -1 ? (
       <>
         <option disabled />
         {renderOption(width, units)}
@@ -68,19 +84,26 @@ const StreetMetaWidthMenu = (props) => {
       })}
     >
       <option disabled>
-        {formatMessage({ id: 'width.occupied', defaultMessage: 'Occupied width:' })}
+        {formatMessage({
+          id: 'width.occupied',
+          defaultMessage: 'Occupied width:'
+        })}
       </option>
-      <option disabled>
-        {prettifyWidth(occupiedWidth, units)}
-      </option>
+      <option disabled>{prettifyWidth(occupiedWidth, units)}</option>
       <option disabled />
       <option disabled>
-        {formatMessage({ id: 'width.building', defaultMessage: 'Building-to-building width:' })}
+        {formatMessage({
+          id: 'width.building',
+          defaultMessage: 'Building-to-building width:'
+        })}
       </option>
       {DefaultWidthOptions}
       {CustomWidthOption}
       <option value={STREET_WIDTH_CUSTOM}>
-        {formatMessage({ id: 'width.different', defaultMessage: 'Different width…' })}
+        {formatMessage({
+          id: 'width.different',
+          defaultMessage: 'Different width…'
+        })}
       </option>
       <option disabled />
       <option
@@ -88,26 +111,23 @@ const StreetMetaWidthMenu = (props) => {
         value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
         disabled={units === SETTINGS_UNITS_IMPERIAL}
       >
-        {formatMessage({ id: 'width.imperial', defaultMessage: 'Switch to imperial units (feet)' })}
+        {formatMessage({
+          id: 'width.imperial',
+          defaultMessage: 'Switch to imperial units (feet)'
+        })}
       </option>
       <option
         id="switch-to-metric-units"
         value={STREET_WIDTH_SWITCH_TO_METRIC}
         disabled={units === SETTINGS_UNITS_METRIC}
       >
-        {formatMessage({ id: 'width.metric', defaultMessage: 'Switch to metric units' })}
+        {formatMessage({
+          id: 'width.metric',
+          defaultMessage: 'Switch to metric units'
+        })}
       </option>
     </select>
   )
-}
-
-StreetMetaWidthMenu.propTypes = {
-  street: PropTypes.shape({
-    units: PropTypes.number,
-    width: PropTypes.number,
-    occupiedWidth: PropTypes.number
-  }).isRequired,
-  onChange: PropTypes.func.isRequired
 }
 
 export default StreetMetaWidthMenu
