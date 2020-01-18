@@ -82,6 +82,9 @@
 
 .sign-in-social-button {
   text-align: left;
+  border: 1px solid $colour-turquoise-400 !important;
+  background-color: transparent !important;
+  color: black !important;
 
   /* Space for icon */
   padding-left: 54px !important;
