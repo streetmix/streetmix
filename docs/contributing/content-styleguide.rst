@@ -21,6 +21,8 @@ Basic guidelines
 User interface
 --------------
 
+.. _sentence-case:
+
 Sentence case
 +++++++++++++
 

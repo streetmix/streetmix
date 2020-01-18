@@ -30,7 +30,6 @@ legend {
 .rst-content .seealso,
 .rst-content .admonition-todo,
 .rst-content .admonition {
-  margin-left: 1.5em;
   border-radius: 5px;
   overflow: hidden;
 }

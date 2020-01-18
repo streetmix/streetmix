@@ -60,8 +60,10 @@ Once you've checked the appropriate locale box, you can change to your language 
 
 This is a really good way of visualizing how your translated text works in the real application. Maybe in the editor it's not clear whether something should be capitalized or how long a text string can be, or maybe it's not clear what the proper translation should be. *Seeing it in Streetmix directly provides context that allows you to go back and clarify any translations.*
 
-Also, if a translation is expected to show up, and it doesn't, please make a note of it (*`see how to report problems at bottom of this page <https://streetmix.readme.io/docs/translation-guide#section-reporting-issues>`_*). It might be that the application is not hooked up to the correct translation yet. Or it might be that the text showed up in another part of the application you didn't expect and is hard to get to (like an error page).
+Also, if a translation is expected to show up, and it doesn't, please make a note of it (:ref:`see how to report problems below <reporting-issues>`). It might be that the application is not hooked up to the correct translation yet. Or it might be that the text showed up in another part of the application you didn't expect and is hard to get to (like an error page).
 
+
+.. _translation-glossary:
 
 Glossary
 --------
@@ -102,11 +104,11 @@ If you are not logged in or don't have an account yet, you will need to click th
 
    The Transifex interface can take some getting used to. If something doesn't match a screenshot, let us know. It's most likely that there's some permissions problems, like we did not give you the correct editing privileges for your account. If it's because something in their interface actually changed, we'll update this accordingly.
 
-Once you create your account, you may have to confirm your email address. Then, navigate back to https://www.transifex.com/streetmix/streetmix/ and you should see a blue button that says "*Join team*".
+Once you create your account, you may have to confirm your email address. Then, navigate back to https://www.transifex.com/streetmix/streetmix/ and you should see a blue button that says :guilabel:`Join Team`.
 
 .. image:: _images/4769b7f-2-join-team.png
 
-Click that button and then select which language you would like to be added as a translator for. If you would like to translate multiple languages, you can join another language later on by going to the *Languages* page, selecting a language, and then clicking "*Join Team*".
+Click that button and then select which language you would like to be added as a translator for. If you would like to translate multiple languages, you can join another language later on by going to the *Languages* page, selecting a language, and then clicking :guilabel:`Join Team`.
 
 .. image:: _images/2ad4c3c-3-request-language.png
 
@@ -126,7 +128,7 @@ The next screen will show different "Resources". *Resources* are different categ
 
 .. image:: _images/5d34f23-6-resources.png
 
-If you click on a resource, such as "Main application," you will see a popup with more information. From here, click the large "Translate" button on the right.
+If you click on a resource, such as "Main application," you will see a popup with more information. From here, click the large :guilabel:`Translate` button on the right.
 
 The next screen is the main translation UI where you will be spending most of your time.
 
@@ -134,13 +136,13 @@ The next screen is the main translation UI where you will be spending most of yo
 
 On the left you will see a list of all the *strings* (phrases/sections of text to be translated) in English followed by its translation into your language, if already there. On the right is where you will make the translation. When you are looking for a specific string, filter them by using the search bar.
 
-You will also see a series of tabs (*Suggestions, History, etc.*) that can help you create a translation depending on the context. The first is *suggestions*- here Transifex will display similar strings to the one you are translating. This can help you see language that other translators have used for similar strings. However, do not copy and paste this as it is probably for a different string.
+You will also see a series of tabs (*Suggestions, History, etc.*) that can help you create a translation depending on the context. The first is *suggestions* — here Transifex will display similar strings to the one you are translating. This can help you see language that other translators have used for similar strings. However, do not copy and paste this as it is probably for a different string.
 
 Next, there is the *history* tab. This lets you see prior translations for the string. It is really helpful when an English string is updated, as it lets you retrieve previous translations, and then tweak the string from there.
 
 .. image:: _images/baefb00-9-history.png
 
-The last two tabs are *glossary* and *comments*. We are not utilizing the glossary yet, but comments are where you will tell the team anything that you think is important to note about the string. It is also where you can `report issues <https://streetmix.readme.io/docs/translation-guide#section-reporting-issues>`_ with the string (in some cases there may be an error in the English string, so please tell us!).
+The last two tabs are *glossary* and *comments*. We are not utilizing the glossary yet, but comments are where you will tell the team anything that you think is important to note about the string. It is also where you can :ref:`report issues <reporting-issues>` with the string (in some cases there may be an error in the English string, so please tell us!).
 
 
 Placeholders
@@ -178,25 +180,27 @@ Sometimes there will be updates to the English strings. Transifex will detect th
    Use the "History" tab to retrieve prior translations.
 
 
+.. _reporting-issues:
+
 Reporting issues
 ----------------
 
-If you ever see an error on Transifex, please mark it. The instructions to do so are here: https://docs.transifex.com/translation/tools-in-the-editor#comments-and-issues
+If you ever see an error on Transifex, please mark it. (`Instructions are here. <https://docs.transifex.com/translation/tools-in-the-editor#comments-and-issues>`_)
 
 .. NOTE: GIFs are unoptimized and are not hosted in the repository.
 .. figure:: https://files.readme.io/675f649-transifex-string-comment.gif
-   
-   If there is a difficult or confusing string, please add a comment on Transifex. You can also put any notes you think are important for the string there. This is the same place where you would mark something as an issue (just click "Add as issue" instead of "Add".
+
+If there is a difficult or confusing string, please add a comment on Transifex. You can also put any notes you think are important for the string there. This is the same place where you would mark something as an issue (just click "Add as issue" instead of "Add".
 
 For issues that are larger than one specific string, please bring this up to the Streetmix community. There are two ways you can do this:
 
 1. Tell us on the Streetmix Discord in the *#translations* channel. You can join our Discord server here: https://strt.mx/discord.
-2. Create an issue on GitHub. You can see how to create an issue here: https://help.github.com/articles/creating-an-issue/. If you don't have a GitHub account, see here: https://www.wikihow.com/Create-an-Account-on-GitHub. Choose the free account and you can skip the short survey.
+2. Create an issue on GitHub (`learn more <https://help.github.com/articles/creating-an-issue/>`_). Our issues are located here: https://github.com/streetmix/streetmix/issues/new
 
 
 FAQ & Discord chat
 ------------------
 
-As questions come in, we will add them to the `FAQ page <https://streetmix.readme.io/docs/translation-faq>`_.
+As questions come in, we will add them to the :ref:`Frequently Asked Questions page <translation-faq>`.
 
 If your question isn't answered there, come ask the Streetmix community on `Discord`_! Please ask translation-related questions in the #translations channel.
