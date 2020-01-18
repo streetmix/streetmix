@@ -26,14 +26,10 @@ const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
 export function doSignIn () {
   const state = store.getState()
-  const locale = state.locale.locale
   const newAuthEnabled = state.flags.AUTHENTICATION_V2.value
 
   // The sign in dialog is only limited to users where the UI has been localized
-  if (
-    newAuthEnabled &&
-    ['en', 'fi', 'fr', 'de', 'it', 'pl', 'es-MX'].indexOf(locale) >= 0
-  ) {
+  if (newAuthEnabled) {
     store.dispatch(showDialog('SIGN_IN'))
   } else {
     goTwitterSignIn()
