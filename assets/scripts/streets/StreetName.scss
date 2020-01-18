@@ -59,11 +59,11 @@ body.windows .street-name-text {
   }
 }
 
-body.segment-move-dragging #street-name {
+body.segment-move-dragging .street-nameplate-container .street-name {
   pointer-events: none;
 }
 
-#street-name {
+.street-nameplate-container .street-name {
   @include tap-highlight-color(transparent);
 
   position: relative;

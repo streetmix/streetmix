@@ -24,21 +24,14 @@ function normalizeStreetName (name) {
 }
 
 StreetName.propTypes = {
-  id: PropTypes.string,
   name: PropTypes.string,
-  childRef: PropTypes.func,
+  childRef: PropTypes.object,
   onClick: PropTypes.func,
   editable: PropTypes.bool
 }
 
 function StreetName (props) {
-  const {
-    id,
-    name = '',
-    childRef,
-    onClick = () => {},
-    editable = false
-  } = props
+  const { name = '', childRef, onClick = () => {}, editable = false } = props
   const [isHovered, setHovered] = useState(false)
 
   function handleMouseEnter () {
@@ -56,7 +49,6 @@ function StreetName (props) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      id={id}
     >
       {editable && isHovered && (
         <div className="street-name-hover-prompt">

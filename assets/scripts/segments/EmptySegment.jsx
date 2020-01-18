@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import SegmentLabelContainer from './SegmentLabelContainer'
 import { TILE_SIZE } from '../segments/constants'
@@ -11,7 +11,15 @@ import './EmptySegment.scss'
  * component pattern. Its "container" (parent) component, <EmptySegmentContainer />,
  * determines and passes the `width` and `left` props to this component.
  */
-export function EmptySegment ({ width = 0, left = 0, units, locale }) {
+EmptySegment.propTypes = {
+  width: PropTypes.number,
+  left: PropTypes.number
+}
+
+function EmptySegment ({ width = 0, left = 0 }) {
+  const units = useSelector((state) => state.street.units)
+  const locale = useSelector((state) => state.locale.locale)
+
   // Do not render if width is a negative number
   if (width <= 0) return null
 
@@ -19,14 +27,16 @@ export function EmptySegment ({ width = 0, left = 0, units, locale }) {
   // `width` and `left` are provided as real-world measurements. This is
   // multiplied by TILE_SIZE to get the pixel dimension and offset.
   const style = {
-    width: (width * TILE_SIZE) + 'px',
-    left: (left * TILE_SIZE) + 'px'
+    width: width * TILE_SIZE + 'px',
+    left: left * TILE_SIZE + 'px'
   }
 
   return (
     <div className="segment segment-empty" style={style}>
       <SegmentLabelContainer
-        label={<FormattedMessage id="section.empty" defaultMessage="Empty space" />}
+        label={
+          <FormattedMessage id="section.empty" defaultMessage="Empty space" />
+        }
         width={width}
         units={units}
         locale={locale}
@@ -35,18 +45,4 @@ export function EmptySegment ({ width = 0, left = 0, units, locale }) {
   )
 }
 
-EmptySegment.propTypes = {
-  width: PropTypes.number,
-  left: PropTypes.number,
-  units: PropTypes.number,
-  locale: PropTypes.string
-}
-
-function mapStateToProps (state) {
-  return {
-    units: state.street.units,
-    locale: state.locale.locale
-  }
-}
-
-export default connect(mapStateToProps)(EmptySegment)
+export default EmptySegment

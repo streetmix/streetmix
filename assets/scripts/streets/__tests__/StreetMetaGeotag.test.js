@@ -1,55 +1,83 @@
 /* eslint-env jest */
 import React from 'react'
+import { fireEvent } from '@testing-library/react'
 import StreetMetaGeotag from '../StreetMetaGeotag'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { showDialog } from '../../store/actions/dialogs'
+
+jest.mock('../../store/actions/dialogs', () => ({
+  showDialog: jest.fn(() => ({ type: 'MOCK_ACTION' }))
+}))
 
 describe('StreetMetaGeotag', () => {
-  it('renders without crashing', () => {
-    const { container } = renderWithReduxAndIntl(
-      <StreetMetaGeotag.WrappedComponent street={{}} />
-    )
-    expect(container.childNodes).toBeDefined()
+  afterEach(() => {
+    // Resets mock call counter between tests
+    showDialog.mockClear()
   })
 
-  describe('geotag label', () => {
-    it('does not indicate editability for location if read only', () => {
-      const testStreet = {
-        location: {
-          hierarchy: {
-            locality: 'foo',
-            country: 'bar'
-          }
-        }
+  it('renders placeholder label and opens dialog if location is editable (it is by default)', () => {
+    const { getByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+      initialState: {
+        street: {}
       }
-
-      const { container } = renderWithReduxAndIntl(
-        <StreetMetaGeotag.WrappedComponent
-          street={testStreet}
-          editable={false}
-          enableLocation
-          locale={{}}
-        />
-      )
-      expect(
-        container.querySelectorAll('.street-metadata-map a').length
-      ).toEqual(0)
     })
 
-    it('does not display geotag label if no location and application is read only', () => {
-      const { container } = renderWithReduxAndIntl(
-        <StreetMetaGeotag.WrappedComponent
-          street={{}}
-          editable={false}
-          enableLocation
-          locale={{}}
-        />
-      )
-      expect(container.querySelectorAll('.street-metadata-map').length).toEqual(
-        0
-      )
-    })
-
-    it.todo('displays the correct label for a given location hierarchy')
-    it.todo('displays a placeholder label if location hierarchy does not exist')
+    fireEvent.click(getByText('Add location'))
+    expect(showDialog).toBeCalledTimes(1)
   })
+
+  it('renders nothing if location is not set and is not editable', () => {
+    const { queryByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+      initialState: {
+        street: {},
+        app: { readOnly: true },
+        flags: { GEOTAG: { value: false } }
+      }
+    })
+
+    expect(queryByText('Add location')).toBe(null)
+    expect(showDialog).toBeCalledTimes(0)
+  })
+
+  it('renders location label and opens dialog if location is editable', () => {
+    const { getByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+      initialState: {
+        street: {
+          location: {
+            hierarchy: {
+              locality: 'foo',
+              country: 'bar'
+            }
+          }
+        },
+        app: { readOnly: false },
+        flags: { GEOTAG: { value: true } }
+      }
+    })
+
+    fireEvent.click(getByText('foo, bar'))
+    expect(showDialog).toBeCalledTimes(1)
+  })
+
+  it('renders location label but does nothing on click if location is not editable', () => {
+    const { getByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+      initialState: {
+        street: {
+          location: {
+            hierarchy: {
+              locality: 'foo',
+              country: 'bar'
+            }
+          }
+        },
+        app: { readOnly: true },
+        flags: { GEOTAG: { value: true } }
+      }
+    })
+
+    fireEvent.click(getByText('foo, bar'))
+    expect(showDialog).toBeCalledTimes(0)
+  })
+
+  it.todo('displays the correct label for a given location hierarchy')
 })

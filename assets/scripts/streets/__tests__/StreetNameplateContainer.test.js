@@ -4,8 +4,6 @@ import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import StreetNameplateContainer from '../StreetNameplateContainer'
 
-jest.mock('../StreetMeta')
-
 const initialState = {
   ui: {
     streetNameplateVisible: true
@@ -15,6 +13,12 @@ const initialState = {
   },
   flags: {
     EDIT_STREET_NAME: {
+      value: true
+    },
+    EDIT_STREET_WIDTH: {
+      value: true
+    },
+    GEOTAG: {
       value: true
     }
   },
