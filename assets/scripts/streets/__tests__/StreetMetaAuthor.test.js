@@ -3,11 +3,22 @@ import React from 'react'
 import StreetMetaAuthor from '../StreetMetaAuthor'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { getRemixOnFirstEdit } from '../../streets/remix'
+import { showGallery } from '../../gallery/view'
+import { fireEvent } from '@testing-library/react'
 
 // Enable mocking of the return value of `getRemixOnFirstEdit`
 jest.mock('../../streets/remix')
 
+jest.mock('../../gallery/view', () => ({
+  showGallery: jest.fn()
+}))
+
 describe('StreetMetaAuthor', () => {
+  afterEach(() => {
+    // Resets mock call counter between tests
+    showGallery.mockClear()
+  })
+
   it('renders nothing if you own the street', () => {
     const { container } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
@@ -41,7 +52,8 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    expect(getByText('foo')).toBeInTheDocument()
+    fireEvent.click(getByText('foo'))
+    expect(showGallery).toBeCalledTimes(1)
   })
 
   it('renders street creator byline if you are not signed in', () => {
@@ -59,7 +71,8 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    expect(getByText('foo')).toBeInTheDocument()
+    fireEvent.click(getByText('foo'))
+    expect(showGallery).toBeCalledTimes(1)
   })
 
   it('renders anonymous byline if you are signed in', () => {
