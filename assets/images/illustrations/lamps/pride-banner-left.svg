@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 96 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="pride-banner">
+        <path d="M15.268,2.467L4.6277,2.467L3.4459,140.554L14.0862,140.554L15.268,2.467Z" style="fill:rgb(174,32,37);"/>
+        <path d="M24.909,2.467L14.268,2.467L13.0862,140.554L23.7272,140.554L24.909,2.467Z" style="fill:rgb(241,158,117);"/>
+        <path d="M35.8926,2.467L23.909,2.467L22.7272,140.554L33.3681,140.554L35.8926,2.467Z" style="fill:rgb(255,232,118);"/>
+        <path d="M45.8757,2.467L33.8926,2.467L32.3681,140.554L43.0084,140.554L45.8757,2.467Z" style="fill:rgb(103,154,69);"/>
+        <path d="M55.5166,2.467L44.8757,2.467L42.0084,140.554L52.6494,140.554L55.5166,2.467Z" style="fill:rgb(54,99,135);"/>
+        <path d="M63.6331,2.467L53.5166,2.467L51.6494,140.554L61.2904,140.554L63.6331,2.467Z" style="fill:rgb(50,49,86);"/>
+        <path d="M2.3003,0L92.9285,0L92,4.496L2.9576,3.839L2.3003,0Z" style="fill:rgb(92,94,95);"/>
+        <path d="M1.8369,139.609L95.3427,138.952L96,144L1.1796,144L1.8369,139.609Z" style="fill:rgb(92,94,95);"/>
+    </g>
+</svg>
