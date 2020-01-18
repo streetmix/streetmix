@@ -6,6 +6,7 @@
   user-select: none;
   pointer-events: auto;
   transition: color $environment-transition;
+  font-size: 0.9rem; /* Match segment labels */
 
   a {
     color: inherit;
