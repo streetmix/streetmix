@@ -19,15 +19,3 @@ option {
   font-family: $font-family;
   font-size: 1rem;
 }
-
-body.experimental-font-family {
-  font-family: $experimental-font-family;
-
-  button,
-  a.button-like,
-  input,
-  select,
-  option {
-    font-family: $experimental-font-family;
-  }
-}

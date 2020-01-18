@@ -66,10 +66,6 @@
   background-color: white;
   font-family: $font-family;
   list-style-type: none;
-
-  body.experimental-font-family & {
-    font-family: $experimental-font-family;
-  }
 }
 
 .geotag-suggestions-list {
@@ -94,10 +90,6 @@
   height: 100%;
   font-family: $font-family;
   font-size: inherit;
-
-  body.experimental-font-family & {
-    font-family: $experimental-font-family;
-  }
 }
 
 .leaflet-container .leaflet-control-attribution {

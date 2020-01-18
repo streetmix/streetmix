@@ -27,10 +27,6 @@
     "label": "Environment editor",
     "defaultValue": false
   },
-  "BODY_FONT_UPDATE": {
-    "label": "Experimental body font update",
-    "defaultValue": false
-  },
   "SAVE_UNDO": {
     "label": "Save undo data to server",
     "defaultValue": false,

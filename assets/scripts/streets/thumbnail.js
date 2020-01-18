@@ -41,20 +41,25 @@ function drawWatermark (ctx, dpi, invert) {
   const text = 'Made with {streetmixWordmark}'
   // TODO: fix text replacement issue with intl-messageformat
   // const text = t('export.watermark', 'Made with {streetmixWordmark}')
-  const wordmarkImage = invert ? images.get('/images/wordmark_white.svg') : images.get('/images/wordmark_black.svg')
+  const wordmarkImage = invert
+    ? images.get('/images/wordmark_white.svg')
+    : images.get('/images/wordmark_black.svg')
 
   // Separate string so that we can render a wordmark with an image
-  const strings = text.replace(/{/g, '||{{').replace(/}/g, '}}||').split('||')
+  const strings = text
+    .replace(/{/g, '||{{')
+    .replace(/}/g, '}}||')
+    .split('||')
 
   // Set text render options
   ctx.textAlign = 'right'
   ctx.textBaseline = 'alphabetic'
-  ctx.font = `normal 700 ${WATERMARK_TEXT_SIZE * dpi}px Lato,sans-serif`
+  ctx.font = `normal 600 ${WATERMARK_TEXT_SIZE * dpi}px Rubik,sans-serif`
   ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR
 
   // Set starting X/Y positions so that watermark is aligned right and bottom of image
-  const startRightX = ctx.canvas.width - (WATERMARK_RIGHT_MARGIN * dpi)
-  const startBottomY = ctx.canvas.height - (WATERMARK_BOTTOM_MARGIN * dpi)
+  const startRightX = ctx.canvas.width - WATERMARK_RIGHT_MARGIN * dpi
+  const startBottomY = ctx.canvas.height - WATERMARK_BOTTOM_MARGIN * dpi
 
   // Set wordmark width and height based on image scale (dpi)
   const logoWidth = wordmarkImage.width * dpi
@@ -73,7 +78,13 @@ function drawWatermark (ctx, dpi, invert) {
       const logoLeftX = currentRightX - logoWidth - margin
       const logoTopY = startBottomY - logoHeight + dpi // Additional adjustment for visual alignment
 
-      ctx.drawImage(wordmarkImage.img, logoLeftX, logoTopY, logoWidth, logoHeight)
+      ctx.drawImage(
+        wordmarkImage.img,
+        logoLeftX,
+        logoTopY,
+        logoWidth,
+        logoHeight
+      )
 
       // Update X position.
       currentRightX = logoLeftX - margin
@@ -116,9 +127,17 @@ function drawBackgroundImage (ctx, dpi, width, height, imageId) {
 
   for (let i = 0; i < Math.floor(height / img.height) + 1; i++) {
     for (let j = 0; j < Math.floor(width / img.width) + 1; j++) {
-      ctx.drawImage(img.img,
-        0, 0, img.width, img.height,
-        j * img.width * dpi, i * img.height * dpi, img.width * dpi, img.height * dpi)
+      ctx.drawImage(
+        img.img,
+        0,
+        0,
+        img.width,
+        img.height,
+        j * img.width * dpi,
+        i * img.height * dpi,
+        img.width * dpi,
+        img.height * dpi
+      )
     }
   }
 }
@@ -159,14 +178,20 @@ function drawBackgroundGradient (ctx, dpi, width, height, backgroundGradient) {
  */
 function drawBackgroundObjects (ctx, dpi, width, height, objects) {
   objects.forEach((object) => {
-    const { image: imageId, width: imageWidth, height: imageHeight, top, left } = object
+    const {
+      image: imageId,
+      width: imageWidth,
+      height: imageHeight,
+      top,
+      left
+    } = object
     const image = images.get(imageId).img
     ctx.drawImage(
       image,
       // Left and top values are "percentage" values
       // and sets where the center of the image is
-      (left * width - (imageWidth / 2)) * dpi,
-      (top * height - (imageHeight / 2)) * dpi,
+      (left * width - imageWidth / 2) * dpi,
+      (top * height - imageHeight / 2) * dpi,
       imageWidth * dpi,
       imageHeight * dpi
     )
@@ -205,10 +230,16 @@ function drawClouds (ctx, dpi, width, height, env) {
   const y1 = height - skyFrontHeight
 
   for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
-    ctx.drawImage(skyFrontImg.img,
-      0, 0, skyFrontWidth * 2, skyFrontHeight * 2, // todo: change intrinsic size
-      i * skyFrontWidth * dpi, y1 * dpi,
-      skyFrontWidth * dpi, skyFrontHeight * dpi
+    ctx.drawImage(
+      skyFrontImg.img,
+      0,
+      0,
+      skyFrontWidth * 2,
+      skyFrontHeight * 2, // todo: change intrinsic size
+      i * skyFrontWidth * dpi,
+      y1 * dpi,
+      skyFrontWidth * dpi,
+      skyFrontHeight * dpi
     )
   }
 
@@ -217,10 +248,16 @@ function drawClouds (ctx, dpi, width, height, env) {
   const y2 = height - skyFrontHeight - 120
 
   for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
-    ctx.drawImage(skyRearImg.img,
-      0, 0, skyRearWidth * 2, skyRearHeight * 2, // todo: change intrinsic size
-      i * skyRearWidth * dpi, y2 * dpi,
-      skyRearWidth * dpi, skyRearHeight * dpi
+    ctx.drawImage(
+      skyRearImg.img,
+      0,
+      0,
+      skyRearWidth * 2,
+      skyRearHeight * 2, // todo: change intrinsic size
+      i * skyRearWidth * dpi,
+      y2 * dpi,
+      skyRearWidth * dpi,
+      skyRearHeight * dpi
     )
   }
 
@@ -228,9 +265,20 @@ function drawClouds (ctx, dpi, width, height, env) {
   ctx.restore()
 }
 
-export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeight,
-  dpi, multiplier, silhouette, bottomAligned,
-  transparentSky, segmentNamesAndWidths, streetName, watermark = true) {
+export function drawStreetThumbnail (
+  ctx,
+  street,
+  thumbnailWidth,
+  thumbnailHeight,
+  dpi,
+  multiplier,
+  silhouette,
+  bottomAligned,
+  transparentSky,
+  segmentNamesAndWidths,
+  streetName,
+  watermark = true
+) {
   // Calculations
 
   // Determine how wide the street is
@@ -241,19 +289,20 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
   var offsetTop
   if (bottomAligned) {
-    offsetTop = thumbnailHeight - (180 * multiplier)
+    offsetTop = thumbnailHeight - 180 * multiplier
   } else {
-    offsetTop = (thumbnailHeight + (5 * TILE_SIZE * multiplier)) / 2
+    offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2
   }
   if (segmentNamesAndWidths) {
     offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier
   }
 
-  var offsetLeft = (thumbnailWidth - (occupiedWidth * TILE_SIZE * multiplier)) / 2
-  var buildingOffsetLeft = (thumbnailWidth - (street.width * TILE_SIZE * multiplier)) / 2
+  var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2
+  var buildingOffsetLeft =
+    (thumbnailWidth - street.width * TILE_SIZE * multiplier) / 2
 
-  const groundLevel = offsetTop + (135 * multiplier)
-  const horizonLine = (groundLevel + (20 * multiplier))
+  const groundLevel = offsetTop + 135 * multiplier
+  const horizonLine = groundLevel + 20 * multiplier
 
   // Sky
   if (!transparentSky) {
@@ -261,22 +310,46 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // Solid color fill
     if (env.backgroundColor) {
-      drawBackgroundColor(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundColor)
+      drawBackgroundColor(
+        ctx,
+        dpi,
+        thumbnailWidth,
+        horizonLine,
+        env.backgroundColor
+      )
     }
 
     // Background image fill
     if (env.backgroundImage) {
-      drawBackgroundImage(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundImage)
+      drawBackgroundImage(
+        ctx,
+        dpi,
+        thumbnailWidth,
+        thumbnailHeight,
+        env.backgroundImage
+      )
     }
 
     // Gradient fill
     if (env.backgroundGradient) {
-      drawBackgroundGradient(ctx, dpi, thumbnailWidth, horizonLine, env.backgroundGradient)
+      drawBackgroundGradient(
+        ctx,
+        dpi,
+        thumbnailWidth,
+        horizonLine,
+        env.backgroundGradient
+      )
     }
 
     // Background objects
     if (env.backgroundObjects) {
-      drawBackgroundObjects(ctx, dpi, thumbnailWidth, thumbnailHeight, env.backgroundObjects)
+      drawBackgroundObjects(
+        ctx,
+        dpi,
+        thumbnailWidth,
+        thumbnailHeight,
+        env.backgroundObjects
+      )
     }
 
     // Cluds
@@ -286,38 +359,68 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Dirt
 
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(0, horizonLine * dpi, thumbnailWidth * dpi, (25 * multiplier) * dpi)
+  ctx.fillRect(
+    0,
+    horizonLine * dpi,
+    thumbnailWidth * dpi,
+    25 * multiplier * dpi
+  )
 
-  ctx.fillRect(0, groundLevel * dpi,
-    ((thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)) * dpi,
-    (20 * multiplier) * dpi)
+  ctx.fillRect(
+    0,
+    groundLevel * dpi,
+    (thumbnailWidth / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
+    20 * multiplier * dpi
+  )
 
-  ctx.fillRect(((thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)) * dpi,
+  ctx.fillRect(
+    (thumbnailWidth / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
     groundLevel * dpi,
     thumbnailWidth * dpi,
-    (20 * multiplier) * dpi)
+    20 * multiplier * dpi
+  )
 
   // Buildings
 
   const buildingWidth = buildingOffsetLeft / multiplier
 
   // Left building
-  const x1 = (thumbnailWidth / 2) - (street.width * TILE_SIZE * multiplier / 2)
+  const x1 = thumbnailWidth / 2 - (street.width * TILE_SIZE * multiplier) / 2
   const leftBuilding = BUILDINGS[street.leftBuildingVariant]
-  const leftOverhang = (typeof leftBuilding.overhangWidth === 'number') ? leftBuilding.overhangWidth : 0
-  drawBuilding(ctx, street.leftBuildingVariant, street.leftBuildingHeight,
-    'left', buildingWidth, groundLevel,
-    x1 - ((buildingWidth - leftOverhang) * multiplier),
-    multiplier, dpi)
+  const leftOverhang =
+    typeof leftBuilding.overhangWidth === 'number'
+      ? leftBuilding.overhangWidth
+      : 0
+  drawBuilding(
+    ctx,
+    street.leftBuildingVariant,
+    street.leftBuildingHeight,
+    'left',
+    buildingWidth,
+    groundLevel,
+    x1 - (buildingWidth - leftOverhang) * multiplier,
+    multiplier,
+    dpi
+  )
 
   // Right building
-  const x2 = (thumbnailWidth / 2) + (street.width * TILE_SIZE * multiplier / 2)
+  const x2 = thumbnailWidth / 2 + (street.width * TILE_SIZE * multiplier) / 2
   const rightBuilding = BUILDINGS[street.rightBuildingVariant]
-  const rightOverhang = (typeof rightBuilding.overhangWidth === 'number') ? rightBuilding.overhangWidth : 0
-  drawBuilding(ctx, street.rightBuildingVariant, street.rightBuildingHeight,
-    'right', buildingWidth, groundLevel,
-    x2 - (rightOverhang * multiplier),
-    multiplier, dpi)
+  const rightOverhang =
+    typeof rightBuilding.overhangWidth === 'number'
+      ? rightBuilding.overhangWidth
+      : 0
+  drawBuilding(
+    ctx,
+    street.rightBuildingVariant,
+    street.rightBuildingHeight,
+    'right',
+    buildingWidth,
+    groundLevel,
+    x2 - rightOverhang * multiplier,
+    multiplier,
+    dpi
+  )
 
   // Segments
 
@@ -341,12 +444,23 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       const segmentInfo = getSegmentInfo(segment.type)
 
       if (segmentInfo.zIndex === zIndex) {
-        const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+        const variantInfo = getSegmentVariantInfo(
+          segment.type,
+          segment.variantString
+        )
         const dimensions = getVariantInfoDimensions(variantInfo, segment.width)
 
-        drawSegmentContents(ctx, segment.type, segment.variantString,
-          segment.width, offsetLeft + (dimensions.left * TILE_SIZE * multiplier),
-          groundLevel, segment.randSeed, multiplier, dpi)
+        drawSegmentContents(
+          ctx,
+          segment.type,
+          segment.variantString,
+          segment.width,
+          offsetLeft + dimensions.left * TILE_SIZE * multiplier,
+          groundLevel,
+          segment.randSeed,
+          multiplier,
+          dpi
+        )
       }
 
       offsetLeft += segment.width * TILE_SIZE * multiplier
@@ -356,8 +470,13 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
   // Segment names background
   if (segmentNamesAndWidths || silhouette) {
     ctx.fillStyle = BOTTOM_BACKGROUND
-    ctx.fillRect(0, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)) * dpi,
-      thumbnailWidth * dpi, (thumbnailHeight - groundLevel - (GROUND_BASELINE_HEIGHT * multiplier)) * dpi)
+    ctx.fillRect(
+      0,
+      (groundLevel + GROUND_BASELINE_HEIGHT * multiplier) * dpi,
+      thumbnailWidth * dpi,
+      (thumbnailHeight - groundLevel - GROUND_BASELINE_HEIGHT * multiplier) *
+        dpi
+    )
   }
 
   // Segment names
@@ -368,7 +487,7 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     // TODO const
     ctx.strokeStyle = 'black'
     ctx.lineWidth = 0.25 * dpi
-    ctx.font = `normal 300 ${13 * dpi}px Lato`
+    ctx.font = `normal 400 ${12 * dpi}px Rubik`
     ctx.fillStyle = 'black'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'top'
@@ -384,29 +503,39 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
       }
 
       // Left line
-      drawLine(ctx,
-        left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
-        left, (groundLevel + (125 * multiplier)), dpi)
+      drawLine(
+        ctx,
+        left,
+        groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
+        left,
+        groundLevel + 125 * multiplier,
+        dpi
+      )
 
-      const x = (offsetLeft + (availableWidth / 2)) * dpi
+      const x = (offsetLeft + availableWidth / 2) * dpi
 
       // Width label
       let text = prettifyWidth(segment.width, street.units)
       let textWidth = ctx.measureText(text).width / dpi
 
-      while ((textWidth > availableWidth - (10 * multiplier)) && (text.indexOf(' ') !== -1)) {
+      while (
+        textWidth > availableWidth - 10 * multiplier &&
+        text.indexOf(' ') !== -1
+      ) {
         text = text.substr(0, text.lastIndexOf(' '))
         textWidth = ctx.measureText(text).width / dpi
       }
 
-      ctx.fillText(text, x, (groundLevel + (60 * multiplier)) * dpi)
+      ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
 
       // Segment name label
-      const name = segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+      const name =
+        segment.label ||
+        getLocaleSegmentName(segment.type, segment.variantString)
       const nameWidth = ctx.measureText(name).width / dpi
 
-      if (nameWidth <= availableWidth - (10 * multiplier)) {
-        ctx.fillText(name, x, (groundLevel + (83 * multiplier)) * dpi)
+      if (nameWidth <= availableWidth - 10 * multiplier) {
+        ctx.fillText(name, x, (groundLevel + 83 * multiplier) * dpi)
       }
 
       offsetLeft += availableWidth
@@ -414,9 +543,14 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // Final right-hand side line
     const left = offsetLeft + 1
-    drawLine(ctx,
-      left, (groundLevel + (GROUND_BASELINE_HEIGHT * multiplier)),
-      left, (groundLevel + (125 * multiplier)), dpi)
+    drawLine(
+      ctx,
+      left,
+      groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
+      left,
+      groundLevel + 125 * multiplier,
+      dpi
+    )
 
     ctx.restore()
   }
@@ -453,8 +587,8 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
 
     // Street nameplate
     ctx.fillStyle = 'white'
-    const x1 = (thumbnailWidth * dpi / 2) - ((measurement.width / 2) + (45 * dpi))
-    const x2 = (thumbnailWidth * dpi / 2) + ((measurement.width / 2) + (45 * dpi))
+    const x1 = (thumbnailWidth * dpi) / 2 - (measurement.width / 2 + 45 * dpi)
+    const x2 = (thumbnailWidth * dpi) / 2 + (measurement.width / 2 + 45 * dpi)
     const y1 = (75 - 60) * dpi
     const y2 = (75 + 60) * dpi
     ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
@@ -462,9 +596,14 @@ export function drawStreetThumbnail (ctx, street, thumbnailWidth, thumbnailHeigh
     // Street nameplate border
     ctx.strokeStyle = 'black'
     ctx.lineWidth = 5 * dpi
-    ctx.strokeRect(x1 + (5 * dpi * 2), y1 + (5 * dpi * 2), x2 - x1 - (5 * dpi * 4), y2 - y1 - (5 * dpi * 4))
+    ctx.strokeRect(
+      x1 + 5 * dpi * 2,
+      y1 + 5 * dpi * 2,
+      x2 - x1 - 5 * dpi * 4,
+      y2 - y1 - 5 * dpi * 4
+    )
 
-    const x = thumbnailWidth * dpi / 2
+    const x = (thumbnailWidth * dpi) / 2
 
     const baselineCorrection = 27
     const y = (75 + baselineCorrection) * dpi
