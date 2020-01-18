@@ -23,7 +23,7 @@ class SegmentDragLayer extends React.PureComponent {
 
   getSnapshotBeforeUpdate (prevProps) {
     const { currentOffset } = this.props
-    const prevMouseX = (prevProps.currentOffset && prevProps.currentOffset.x)
+    const prevMouseX = prevProps.currentOffset && prevProps.currentOffset.x
 
     if (!currentOffset || !prevMouseX) return null
 
@@ -61,11 +61,12 @@ class SegmentDragLayer extends React.PureComponent {
   }
 
   render () {
-    const { isDragging, item } = this.props
+    const { isDragging, item, type } = this.props
 
     return (
       <div className="segment-drag-layer">
-        {isDragging && (
+        {/* Ignore the drag state unless it's a Streetmix segment */}
+        {isDragging && type === 'SEGMENT' && (
           <div className="floating segment" ref={this.floatingEl}>
             <SegmentCanvas {...item} />
           </div>
