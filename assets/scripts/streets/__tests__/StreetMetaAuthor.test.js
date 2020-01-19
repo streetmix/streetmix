@@ -2,12 +2,12 @@
 import React from 'react'
 import StreetMetaAuthor from '../StreetMetaAuthor'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
-import { getRemixOnFirstEdit } from '../../streets/remix'
+import { isOwnedByCurrentUser } from '../../streets/owner'
 import { showGallery } from '../../gallery/view'
 import { fireEvent } from '@testing-library/react'
 
-// Enable mocking of the return value of `getRemixOnFirstEdit`
-jest.mock('../../streets/remix')
+// Enable mocking of the return value of `isOwnedByCurrentUser`
+jest.mock('../../streets/owner')
 
 jest.mock('../../gallery/view', () => ({
   showGallery: jest.fn()
@@ -94,7 +94,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders anonymous byline if you are not logged in and viewing an anonymous street', () => {
-    getRemixOnFirstEdit.mockImplementationOnce(() => true)
+    isOwnedByCurrentUser.mockImplementationOnce(() => false)
     const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {
@@ -113,7 +113,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders nothing if you are a not-logged in user still editing an anonymous street', () => {
-    getRemixOnFirstEdit.mockImplementationOnce(() => false)
+    isOwnedByCurrentUser.mockImplementationOnce(() => true)
     const { container } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {

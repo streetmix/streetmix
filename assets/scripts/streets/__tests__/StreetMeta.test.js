@@ -3,10 +3,6 @@ import React from 'react'
 import StreetMeta from '../StreetMeta'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 
-jest.mock('../../streets/remix', () => ({
-  getRemixOnFirstEdit: () => {}
-}))
-
 jest.mock('../../app/load_resources', () => {})
 jest.mock('../../app/initialization', () => {})
 jest.mock('../../preinit/app_settings', () => {})

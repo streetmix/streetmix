@@ -4,10 +4,9 @@ import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import UndoRedo from '../UndoRedo'
 
-// `getRemixOnFirstEdit` is a legacy function, so for the purposes of this
-// test suite it always returns `false` (aka, assume user owns the street)
-jest.mock('../../streets/remix', () => ({
-  getRemixOnFirstEdit: () => false
+// For the purposes of this test suite, assume user owns the street
+jest.mock('../../streets/owner', () => ({
+  isOwnedByCurrentUser: () => true
 }))
 
 describe('UndoRedo', () => {

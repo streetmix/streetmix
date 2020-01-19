@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_UNDO, ICON_REDO } from '../ui/icons'
-import { getRemixOnFirstEdit } from '../streets/remix'
+import { isOwnedByCurrentUser } from '../streets/owner'
 import { handleUndo, handleRedo } from '../store/actions/undo'
 
 function UndoRedo (props) {
@@ -13,16 +13,15 @@ function UndoRedo (props) {
   const intl = useIntl()
 
   // Don’t allow undo/redo unless you own the street
-  // TODO: We need a better function name than `getRemixOnFirstEdit`
   function isUndoAvailable () {
-    return undoPosition > 0 && !getRemixOnFirstEdit()
+    return undoPosition > 0 && isOwnedByCurrentUser()
   }
 
   function isRedoAvailable () {
     return (
       undoPosition >= 0 &&
       undoPosition < undoStack.length - 1 &&
-      !getRemixOnFirstEdit()
+      isOwnedByCurrentUser()
     )
   }
 
@@ -46,4 +45,4 @@ function UndoRedo (props) {
   )
 }
 
-export default UndoRedo
+export default React.memo(UndoRedo)

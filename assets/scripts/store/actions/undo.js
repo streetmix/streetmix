@@ -7,7 +7,7 @@ import {
   UNIFY_UNDO_STACK
 } from './'
 import { showStatusMessage } from './status'
-import { getRemixOnFirstEdit } from '../../streets/remix'
+import { isOwnedByCurrentUser } from '../../streets/owner'
 import { finishUndoOrRedo } from '../../streets/undo_stack'
 import { trimStreetData } from '../../streets/data_model'
 import { t } from '../../locales/locale'
@@ -40,7 +40,7 @@ export function handleUndo () {
     const { street } = getState()
 
     // Don’t allow undo/redo unless you own the street
-    if ((position > 0) && !getRemixOnFirstEdit()) {
+    if (position > 0 && isOwnedByCurrentUser()) {
       // Before undoing, send a copy of the current street data
       // to update data at the current position
       dispatch(undoAction(trimStreetData(street)))
@@ -56,7 +56,11 @@ export function handleRedo () {
     const { position, stack } = getState().undo
 
     // Don’t allow undo/redo unless you own the street
-    if ((position >= 0 && position < stack.length - 1) && !getRemixOnFirstEdit()) {
+    if (
+      position >= 0 &&
+      position < stack.length - 1 &&
+      isOwnedByCurrentUser()
+    ) {
       dispatch(redoAction())
       finishUndoOrRedo()
     } else {

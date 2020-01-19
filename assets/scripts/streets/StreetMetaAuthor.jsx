@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { getRemixOnFirstEdit } from './remix'
+import { isOwnedByCurrentUser } from './owner'
 import { showGallery } from '../gallery/view'
 import Avatar from '../users/Avatar'
 
@@ -30,7 +30,7 @@ function StreetMetaAuthor (props) {
         </a>
       </>
     )
-  } else if (!creatorId && (signedIn || getRemixOnFirstEdit())) {
+  } else if (!creatorId && (signedIn || !isOwnedByCurrentUser())) {
     user = <FormattedMessage id="users.anonymous" defaultMessage="Anonymous" />
   }
 

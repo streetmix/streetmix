@@ -13,7 +13,7 @@ import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import GeoSearch from './Geotag/GeoSearch'
 import LocationPopup from './Geotag/LocationPopup'
-import { getRemixOnFirstEdit } from '../streets/remix'
+import { isOwnedByCurrentUser } from '../streets/owner'
 import { setMapState } from '../store/actions/map'
 import {
   addLocation,
@@ -251,10 +251,10 @@ class GeotagDialog extends React.Component {
   canEditLocation = () => {
     const { street } = this.props
     // The street is editable if either of the following conditions are true:
-    //  - If there is no street owner
     //  - If there is a street owner, and it's equal to the current user
+    //  - If there is no street owner
     //  - If there is no street location saved.
-    return !street.creatorId || !getRemixOnFirstEdit() || !street.location
+    return isOwnedByCurrentUser() || !street.creatorId || !street.location
   }
 
   /**
@@ -268,8 +268,8 @@ class GeotagDialog extends React.Component {
 
     return (
       location &&
-      (location.latlng.lat === markerLocation.lat &&
-        location.latlng.lng === markerLocation.lng)
+      location.latlng.lat === markerLocation.lat &&
+        location.latlng.lng === markerLocation.lng
     )
   }
 

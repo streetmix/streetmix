@@ -2,11 +2,11 @@
 import React from 'react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import GeotagDialog from '../GeotagDialog'
-import { getRemixOnFirstEdit } from '../../streets/remix'
+import { isOwnedByCurrentUser } from '../../streets/owner'
 
 // Mock dependencies that could break tests
-jest.mock('../../streets/remix', () => ({
-  getRemixOnFirstEdit: jest.fn()
+jest.mock('../../streets/owner', () => ({
+  isOwnedByCurrentUser: jest.fn()
 }))
 
 const initialState = {
@@ -56,28 +56,28 @@ describe('GeotagDialog', () => {
 
   // TODO: Fix these tests
   it.skip('allows a location to be confirmed when the current signed-in user is the street owner', () => {
-    getRemixOnFirstEdit.mockReturnValueOnce(false)
+    isOwnedByCurrentUser.mockReturnValueOnce(true)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
 
     expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
   })
 
   it.skip('allows a location to be confirmed when the current anonymous user started this street', () => {
-    getRemixOnFirstEdit.mockReturnValueOnce(false)
+    isOwnedByCurrentUser.mockReturnValueOnce(true)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
 
     expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
   })
 
   it('does not allow a location to be confirmed when the current signed-in user is not the street owner', () => {
-    getRemixOnFirstEdit.mockReturnValueOnce(true)
+    isOwnedByCurrentUser.mockReturnValueOnce(false)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
 
     expect(wrapper.queryByText('Confirm location')).not.toBeInTheDocument()
   })
 
   it.skip('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
-    getRemixOnFirstEdit.mockReturnValueOnce(true)
+    isOwnedByCurrentUser.mockReturnValueOnce(false)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, {
       initialState: {
         ...initialState,
