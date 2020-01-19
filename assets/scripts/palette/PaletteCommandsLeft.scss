@@ -12,16 +12,19 @@
   button {
     height: $palette-height - 50px;
     width: $palette-height - 50px;
-
-    // New style!
-    border: $button-border;
-    border-radius: 50%;
+    border: 0;
+    border-radius: $border-radius-medium;
+    background-color: $colour-turquoise-200;
 
     // Icon style
     font-size: 1em;
 
-    &[disabled] {
-      border-color: desaturate($ui-colour, 100%);
+    &:hover {
+      background-color: $colour-turquoise-210;
+    }
+
+    &:active {
+      background-color: $colour-turquoise-220;
     }
   }
 }
