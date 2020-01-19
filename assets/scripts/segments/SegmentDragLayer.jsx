@@ -46,7 +46,7 @@ class SegmentDragLayer extends React.PureComponent {
   getSegmentStyle = (deg = 0) => {
     const { currentOffset, item } = this.props
 
-    if (!currentOffset) return
+    if (!currentOffset || !this.floatingEl.current) return
 
     let { x, y } = currentOffset
 
