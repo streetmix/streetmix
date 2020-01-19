@@ -9,7 +9,9 @@ $tooltip-max-width: 120px;
   position: fixed;
   background: $tooltip-background-colour;
   bottom: 88px;
-  padding: 0.75em 1.25em;
+  // Use a pixel-unit top and bottom to fix rounding
+  // issues with arrow placement on some displays
+  padding: 10px 1.25em;
   font-weight: $tooltip-font-weight;
   color: $tooltip-font-colour;
   border-radius: $border-radius;
