@@ -66,11 +66,15 @@ class SegmentDragLayer extends React.PureComponent {
     return (
       <div className="segment-drag-layer">
         {/* Ignore the drag state unless it's a Streetmix segment */}
-        {isDragging && type === 'SEGMENT' && (
-          <div className="floating segment" ref={this.floatingEl}>
-            <SegmentCanvas {...item} />
-          </div>
-        )}
+        {/* Ignore eslint warnings that conflict with Prettier, below */}
+        {/* eslint-disable */}
+        {isDragging &&
+          (type === Types.SEGMENT || type === Types.PALETTE_SEGMENT) && (
+            <div className="floating segment" ref={this.floatingEl}>
+              <SegmentCanvas {...item} />
+            </div>
+          )}
+        {/* eslint-enable */}
       </div>
     )
   }
