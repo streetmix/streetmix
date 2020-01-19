@@ -1,6 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import UndoRedo from './UndoRedo'
 import Palette from './Palette'
 import PaletteTooltips from './PaletteTooltips'
@@ -8,36 +7,24 @@ import PaletteTrashcan from './PaletteTrashcan'
 import PaletteCommandsLeft from './PaletteCommandsLeft'
 import './PaletteContainer.scss'
 
-class PaletteContainer extends React.Component {
-  static propTypes = {
-    everythingLoaded: PropTypes.bool.isRequired,
-    draggingState: PropTypes.object
-  }
+function PaletteContainer (props) {
+  const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
+  const draggingState = useSelector((state) => state.ui.draggingState)
+  const [tooltip, setTooltip] = useState({
+    label: null,
+    visible: false,
+    position: {}
+  })
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      tooltipLabel: null,
-      tooltipVisible: false,
-      tooltipPosition: {}
+  // Prevent tooltips from displaying during a drag action
+  useEffect(() => {
+    if (draggingState) {
+      setTooltip((state) => ({
+        ...state,
+        visible: false
+      }))
     }
-  }
-
-  /**
-   * Prevent tooltips from displaying during a drag action
-   *
-   * @param {object} props - incoming props
-   */
-  static getDerivedStateFromProps (props) {
-    if (props.draggingState) {
-      return {
-        tooltipVisible: false
-      }
-    }
-
-    return null
-  }
+  }, [draggingState])
 
   /**
    * Each segment in palette calls this function when the pointer hovers over it so we know
@@ -47,71 +34,62 @@ class PaletteContainer extends React.Component {
    * @param {string} label - text to display inside the tooltip
    * @param {Object} rect - result of getBoundingClientRect() on segment element
    */
-  onPointerOver = (event, label, rect) => {
+  function onPointerOver (event, label, rect) {
     // x is the position right above the middle of the segment element to point at
-    const x = rect.x + (rect.width / 2)
+    const x = rect.x + rect.width / 2
 
-    this.setState({
-      tooltipLabel: label,
-      tooltipVisible: true,
-      tooltipPosition: { x }
+    setTooltip({
+      label: label,
+      visible: true,
+      position: { x }
     })
   }
 
   /**
    * When the pointer leaves the segment area, hide tooltip.
    */
-  onPointerOut = (event) => {
-    this.setState({
-      tooltipVisible: false
+  function onPointerOut (event) {
+    setTooltip({
+      ...tooltip,
+      visible: false
     })
   }
 
   /**
    * When the segment area is being scrolled, hide tooltip.
    */
-  onScroll = (event) => {
-    this.setState({
-      tooltipVisible: false
+  function onScroll (event) {
+    setTooltip({
+      ...tooltip,
+      visible: false
     })
   }
 
-  render () {
-    // Render an empty container before assets for palette items have loaded.
-    // (Another part of the app depends on this element for layout calculation.)
-    if (!this.props.everythingLoaded) {
-      return (
-        <div className="palette-container" />
-      )
-    }
+  // Render an empty container before assets for palette items have loaded.
+  // (Another part of the app depends on this element for layout calculation.)
+  if (!everythingLoaded) {
+    return <div className="palette-container" />
+  }
 
-    return (
-      <div className="palette-container">
-        <PaletteCommandsLeft />
-        <PaletteTrashcan />
-        <div className="palette-commands">
-          <UndoRedo />
-        </div>
-        <Palette
-          handlePointerOver={this.onPointerOver}
-          handlePointerOut={this.onPointerOut}
-          handleScroll={this.onScroll}
-        />
-        <PaletteTooltips
-          label={this.state.tooltipLabel}
-          visible={this.state.tooltipVisible}
-          pointAt={this.state.tooltipPosition}
-        />
+  return (
+    <div className="palette-container">
+      <PaletteCommandsLeft />
+      <PaletteTrashcan />
+      <div className="palette-commands">
+        <UndoRedo />
       </div>
-    )
-  }
+      <Palette
+        handlePointerOver={onPointerOver}
+        handlePointerOut={onPointerOut}
+        handleScroll={onScroll}
+      />
+      <PaletteTooltips
+        label={tooltip.label}
+        visible={tooltip.visible}
+        pointAt={tooltip.position}
+      />
+    </div>
+  )
 }
 
-function mapStateToProps (state) {
-  return {
-    everythingLoaded: state.app.everythingLoaded,
-    draggingState: state.ui.draggingState
-  }
-}
-
-export default connect(mapStateToProps)(PaletteContainer)
+export default PaletteContainer

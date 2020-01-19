@@ -1,89 +1,68 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CloseButton from '../ui/CloseButton'
 import { ICON_TOOLS } from '../ui/icons'
 import { toggleToolbox } from '../store/actions/ui'
 import './PaletteCommandsLeft.scss'
 
-class PaletteCommandsLeft extends PureComponent {
-  static propTypes = {
-    enable: PropTypes.bool,
-    toggleToolbox: PropTypes.func
+function PaletteCommandsLeft (props) {
+  const enable = useSelector((state) => state.flags.ENVIRONMENT_EDITOR.value)
+  const dispatch = useDispatch()
+
+  let tooltipDismissed
+  try {
+    tooltipDismissed = window.localStorage.getItem(
+      'new-palette-tooltip-dismissed'
+    )
+  } catch (e) {
+    console.log('Could not access localstorage')
   }
 
-  constructor (props) {
-    super(props)
+  const [tooltip, setTooltip] = useState(tooltipDismissed !== 'true')
 
-    let tooltipDismissed
-    try {
-      tooltipDismissed = window.localStorage.getItem('new-palette-tooltip-dismissed')
-    } catch (e) {
-      console.log('Could not access localstorage')
-    }
-
-    this.state = {
-      tooltip: tooltipDismissed !== 'true'
-    }
+  function handleClickTools () {
+    handleDismissTooltip()
+    dispatch(toggleToolbox())
   }
 
-  handleClickTools = () => {
-    this.handleDismissTooltip()
-    this.props.toggleToolbox()
-  }
-
-  handleDismissTooltip = () => {
-    this.setState({
-      tooltip: false
-    })
+  function handleDismissTooltip () {
+    setTooltip(false)
 
     try {
       window.localStorage.setItem('new-palette-tooltip-dismissed', 'true')
-    } catch (e) {
-      console.log('Could not access localstorage')
+    } catch (error) {
+      console.error('Could not access localstorage', error)
     }
   }
 
-  render () {
-    if (!this.props.enable) return null
+  if (!enable) return null
 
-    const Button = (
-      <button
-        onClick={this.handleClickTools}
-        title="Toggle tools"
-      >
-        <FontAwesomeIcon icon={ICON_TOOLS} />
-      </button>
-    )
+  const Button = (
+    <button onClick={handleClickTools} title="Toggle tools">
+      <FontAwesomeIcon icon={ICON_TOOLS} />
+    </button>
+  )
 
-    const Tooltip = (this.state.tooltip) ? (
-      <div className="supermoon-tooltip">
-        <CloseButton onClick={this.handleDismissTooltip} />
-        <p>
-          <strong>You’ve got some new tools!&lrm;</strong> Click on this button to activate some new abilities.&lrm;
-        </p>
-        <div className="palette-tooltip-pointer-container">
-          <div className="palette-tooltip-pointer" />
-        </div>
+  const Tooltip = tooltip ? (
+    <div className="supermoon-tooltip">
+      <CloseButton onClick={handleDismissTooltip} />
+      <p>
+        <strong>You’ve got some new tools!&lrm;</strong> Click on this button to
+        activate some new abilities.&lrm;
+      </p>
+      <div className="palette-tooltip-pointer-container">
+        <div className="palette-tooltip-pointer" />
       </div>
-    ) : null
+    </div>
+  ) : null
 
-    return (
-      <div className="palette-commands-left">
-        {Button}
-        {Tooltip}
-      </div>
-    )
-  }
+  return (
+    <div className="palette-commands-left">
+      {Button}
+      {Tooltip}
+    </div>
+  )
 }
 
-const mapStateToProps = (state) => ({
-  enable: state.flags.ENVIRONMENT_EDITOR.value
-})
-
-const mapDispatchToProps = {
-  toggleToolbox
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PaletteCommandsLeft)
+export default React.memo(PaletteCommandsLeft)
