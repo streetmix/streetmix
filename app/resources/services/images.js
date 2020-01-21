@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary')
 const config = require('config')
-const User = require('../../models/user.js')
+const User = require('../../db/models/user.js')
 const logger = require('../../../lib/logger.js')()
 
 exports.get = async function (req, res) {
@@ -15,7 +15,7 @@ exports.get = async function (req, res) {
   let user
 
   try {
-    user = await User.findOne({ id: userId })
+    user = await User.findOne({ where: { id: userId } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -36,7 +36,10 @@ exports.get = async function (req, res) {
   // If requesting user is logged in, permission granted to receive cloudinary signature.
   let signature
   try {
-    signature = await cloudinary.utils.api_sign_request(query, config.cloudinary.api_secret)
+    signature = await cloudinary.utils.api_sign_request(
+      query,
+      config.cloudinary.api_secret
+    )
   } catch (error) {
     logger.error(error)
   }

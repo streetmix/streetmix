@@ -1,4 +1,4 @@
-const User = require('../../models/user.js')
+const { User } = require('../../db/models')
 const logger = require('../../../lib/logger.js')()
 
 exports.delete = async function (req, res) {
@@ -13,9 +13,10 @@ exports.delete = async function (req, res) {
   let user
 
   try {
-    user = await User.findOne({ id: userId })
+    user = await User.findOne({ where: { id: userId } })
   } catch (err) {
     logger.error(err)
+    console.log('DOOR 1')
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
@@ -31,10 +32,13 @@ exports.delete = async function (req, res) {
   }
   user.login_tokens.splice(idx, 1)
 
-  user.save().then(user => {
-    res.status(204).end()
-  }).catch(err => {
-    logger.error(err)
-    res.status(500).json({ status: 500, msg: 'Could not sign-out user.' })
-  })
+  user
+    .save()
+    .then((user) => {
+      res.status(204).end()
+    })
+    .catch((err) => {
+      logger.error(err)
+      res.status(500).json({ status: 500, msg: 'Could not sign-out user.' })
+    })
 } // END function - exports.delete

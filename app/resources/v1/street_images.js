@@ -1,7 +1,7 @@
 const cloudinary = require('cloudinary')
 const config = require('config')
-const User = require('../../models/user.js')
-const Street = require('../../models/street.js')
+const { User, Street } = require('../../db/models')
+
 const logger = require('../../../lib/logger.js')()
 const { SAVE_THUMBNAIL_EVENTS } = require('../../../lib/util.js')
 
@@ -36,7 +36,7 @@ exports.post = async function (req, res) {
   let street
 
   try {
-    street = await Street.findOne({ id: req.params.street_id })
+    street = await Street.findOne({ where: { id: req.params.street_id } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding street.' })
@@ -47,7 +47,8 @@ exports.post = async function (req, res) {
     return
   }
 
-  const publicId = `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
+  const publicId =
+    `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
 
   const details = {
     public_id: publicId,
@@ -71,16 +72,24 @@ exports.post = async function (req, res) {
   // 3a) If street is a DEFAULT_STREET or EMPTY_STREET and thumbnail exists, return existing street thumbnail.
   // 3b) If nothing changed since the last street thumbnail upload (based on editCount), return existing street thumbnail.
   const tag = resource && resource.tags && resource.tags[0]
-  const thumbnailSaved = (streetType && resource) || (tag && editCount && Number.parseInt(tag, 10) === editCount)
+  const thumbnailSaved =
+    (streetType && resource) ||
+    (tag && editCount && Number.parseInt(tag, 10) === editCount)
 
   // Currently only uploading street thumbnails for initial street render. If not initial street render, only log details.
-  if (event !== SAVE_THUMBNAIL_EVENTS.INITIAL && event !== SAVE_THUMBNAIL_EVENTS.TEST) {
+  if (
+    event !== SAVE_THUMBNAIL_EVENTS.INITIAL &&
+    event !== SAVE_THUMBNAIL_EVENTS.TEST
+  ) {
     // If thumbnailSaved === true, then no upload would have been made.
     if (!thumbnailSaved) {
       logger.info({ event, ...details }, 'Uploading street thumbnail.')
     }
 
-    res.status(501).json({ status: 501, msg: 'Only saving initial street rendered thumbnail.' })
+    res.status(501).json({
+      status: 501,
+      msg: 'Only saving initial street rendered thumbnail.'
+    })
     return
   }
 
@@ -99,19 +108,26 @@ exports.post = async function (req, res) {
 
   const handleUploadStreetThumbnail = async function (publicId) {
     if (!publicId) {
-      res.status(400).json({ status: 400, msg: 'Please provide the public ID to be used.' })
+      res
+        .status(400)
+        .json({ status: 400, msg: 'Please provide the public ID to be used.' })
       return
     }
 
     try {
       await cloudinary.v2.uploader.remove_all_tags([publicId])
-      resource = await cloudinary.v2.uploader.upload(image, { public_id: publicId, tags: editCount })
+      resource = await cloudinary.v2.uploader.upload(image, {
+        public_id: publicId,
+        tags: editCount
+      })
     } catch (error) {
       logger.error(error)
     }
 
     if (!resource) {
-      res.status(500).json({ status: 500, msg: 'Error uploading street thumbnail.' })
+      res
+        .status(500)
+        .json({ status: 500, msg: 'Error uploading street thumbnail.' })
       return
     }
 
@@ -128,20 +144,23 @@ exports.post = async function (req, res) {
     let user
 
     try {
-      user = await User.findOne({ id: req.userId })
+      user = await User.findOne({ where: { id: req.userId } })
     } catch (error) {
       logger.error(error)
       res.status(500).json({ status: 500, msg: 'Error finding user.' })
       return
     }
-
     if (!user) {
       res.status(403).json({ status: 403, msg: 'User not found.' })
       return
     }
 
-    if (street.creator_id.toString() !== user._id.toString()) {
-      res.status(403).json({ status: 403, msg: 'User does not have the right permissions to upload street thumbnail.' })
+    if (street.creator_id.toString() !== user.id.toString()) {
+      res.status(403).json({
+        status: 403,
+        msg:
+          'User does not have the right permissions to upload street thumbnail.'
+      })
       return
     }
 
@@ -156,7 +175,10 @@ exports.post = async function (req, res) {
 
   if (thumbnailSaved) {
     handleUploadSuccess(resource)
-  } else if (!resource || (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)) {
+  } else if (
+    !resource ||
+    (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)
+  ) {
     // 3c) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
     // 3d) If street was created by anonymous user, upload to Cloudinary.
     handleUploadStreetThumbnail(publicId)
@@ -169,7 +191,11 @@ exports.post = async function (req, res) {
       .then(handleUploadSuccess)
       .catch(handleError)
   } else {
-    res.status(403).json({ status: 403, msg: 'User does not have the right permissions to upload street thumbnail.' })
+    res.status(403).json({
+      status: 403,
+      msg:
+        'User does not have the right permissions to upload street thumbnail.'
+    })
   }
 }
 
@@ -188,9 +214,8 @@ exports.delete = async function (req, res) {
   }
 
   let user
-
   try {
-    user = await User.findOne({ id: userId })
+    user = await User.findOne({ where: { id: userId } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -212,7 +237,7 @@ exports.delete = async function (req, res) {
   let street
 
   try {
-    street = await Street.findOne({ id: req.params.street_id })
+    street = await Street.findOne({ where: { id: req.params.street_id } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding street.' })
@@ -221,8 +246,11 @@ exports.delete = async function (req, res) {
   if (!street) {
     res.status(404).json({ status: 404, msg: 'Street not found.' })
     return
-  } else if (street.creator_id.toString() !== user._id.toString()) {
-    res.status(403).json({ status: 403, msg: 'Signed in user cannot delete street thumbnail.' })
+  } else if (street.creator_id.toString() !== user.id.toString()) {
+    res.status(403).json({
+      status: 403,
+      msg: 'Signed in user cannot delete street thumbnail.'
+    })
     return
   }
 
@@ -231,7 +259,9 @@ exports.delete = async function (req, res) {
   cloudinary.v2.uploader.destroy(publicId, function (error, result) {
     if (error) {
       logger.error(error)
-      res.status(500).json({ status: 500, msg: 'Error deleting street thumbnail.' })
+      res
+        .status(500)
+        .json({ status: 500, msg: 'Error deleting street thumbnail.' })
       return
     }
 
@@ -252,12 +282,16 @@ exports.get = async function (req, res) {
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     logger.error(error)
-    res.status(500).json({ status: 500, msg: 'Error finding street thumbnail.' })
+    res
+      .status(500)
+      .json({ status: 500, msg: 'Error finding street thumbnail.' })
     return
   }
 
   if (!resource) {
-    res.status(404).json({ status: 404, msg: 'Could not find street thumbnail.' })
+    res
+      .status(404)
+      .json({ status: 404, msg: 'Could not find street thumbnail.' })
     return
   }
 

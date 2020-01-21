@@ -1,6 +1,6 @@
 const config = require('config')
 const stripe = require('stripe')(config.stripe.api_secret)
-const User = require('../../models/user.js')
+const User = require('../../db/models/user.js')
 const roles = require('../../data/user_roles.json')
 const logger = require('../../../lib/logger.js')()
 const tier1PlanId = config.stripe.tier1_plan_id
@@ -16,7 +16,9 @@ exports.post = async (req, res) => {
   try {
     userId = req.body.userId
     logger.info(`submitting payment for ${userId}`)
-    const { token: { email, id } } = req.body
+    const {
+      token: { email, id }
+    } = req.body
 
     customer = await stripe.customers.create({
       email,
@@ -34,16 +36,20 @@ exports.post = async (req, res) => {
     })
   } catch (err) {
     logger.error(err)
-    res.status(500).json({ status: 500, msg: 'Unexpected error while submitting payment.' })
+    res
+      .status(500)
+      .json({ status: 500, msg: 'Unexpected error while submitting payment.' })
     return
   }
 
   let user
   try {
-    user = await User.findOne({ id: userId })
+    user = await User.findOne({ where: { id: userId } })
   } catch (err) {
     logger.error(err)
-    res.status(401).json({ status: 401, msg: 'Unexpected error while finding user.' })
+    res
+      .status(401)
+      .json({ status: 401, msg: 'Unexpected error while finding user.' })
     return
   }
 
@@ -61,9 +67,15 @@ exports.post = async (req, res) => {
       user.roles = roles
     }
     const now = new Date()
-    const newData = { ...data, subscribed: now, subscriptionId: subscription.id, customerId: customer.id, planId: tier1PlanId }
+    const newData = {
+      ...data,
+      subscribed: now,
+      subscriptionId: subscription.id,
+      customerId: customer.id,
+      planId: tier1PlanId
+    }
     user.data = newData
-    user.save().then(upgradedUser => {
+    user.save().then((upgradedUser) => {
       logger.info({ upgradedUser, subscription }, 'added user subscription')
       res.status(200).json({ user: upgradedUser, subscription })
     })
@@ -71,6 +83,8 @@ exports.post = async (req, res) => {
     return
   } catch (err) {
     logger.error(err)
-    res.status(500).json({ status: 500, msg: 'Unexpected error while processing payment.' })
+    res
+      .status(500)
+      .json({ status: 500, msg: 'Unexpected error while processing payment.' })
   }
 }

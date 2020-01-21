@@ -4,8 +4,65 @@ import cloudinary from 'cloudinary'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import images from '../street_images'
 
-jest.mock('../../../models/street')
-jest.mock('../../../models/user')
+jest.mock('../../../db/models', () => {
+  var SequelizeMock = require('sequelize-mock')
+  var DBConnectionMock = new SequelizeMock()
+
+  var StreetMock = DBConnectionMock.define('street', { creator_id: 'user1' })
+  var SequenceMock = DBConnectionMock.define('sequence')
+  var UserMock = DBConnectionMock.define(
+    'user',
+    {
+      name: 'Test User',
+      _id: 'user1',
+      login_tokens: ['foo-bar'],
+      id: 'user1'
+    },
+    {
+      instanceMethods: {
+        increment: function () {
+          return this
+        }
+      }
+    }
+  )
+
+  const USER_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-1111111111111'
+  const USER_DEFAULTS = {
+    email: 'email@example.com',
+    login_tokens: [USER_TOKEN],
+    id: 'user1',
+    roles: ['ADMIN']
+  }
+
+  const ALT_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-2222222222222'
+  const ALT_USER_DEFAULTS = {
+    ...USER_DEFAULTS,
+    login_tokens: [ALT_TOKEN],
+    id: 'user2',
+    _id: 'user2'
+  }
+
+  UserMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
+    if (
+      queryOptions[0] &&
+      queryOptions[0].where &&
+      queryOptions[0].where.id &&
+      queryOptions[0].where.id === 'user2'
+    ) {
+      return UserMock.build(ALT_USER_DEFAULTS)
+    }
+
+    return UserMock.build(USER_DEFAULTS)
+  })
+
+  return {
+    Sequence: SequenceMock,
+    Street: StreetMock,
+    User: UserMock,
+    Sequelize: { Op: jest.fn() }
+  }
+})
 jest.mock('../../../../lib/logger')
 jest.mock('cloudinary')
 
@@ -17,7 +74,7 @@ const street = {
   updated_at: '2018-05-24T11:47:33.041Z',
   created_at: '2018-05-24T11:47:32.721Z',
   __v: 0,
-  data: { }
+  data: {}
 }
 
 describe('POST api/v1/streets/images/:street_id', () => {
@@ -35,7 +92,10 @@ describe('POST api/v1/streets/images/:street_id', () => {
 
     return request(app)
       .post(`/api/v1/streets/images/${street.id}`)
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
+      )
       .type('text/plain')
       .send(JSON.stringify(details))
       .then((response) => {
@@ -60,7 +120,10 @@ describe('POST api/v1/streets/images/:street_id', () => {
 
     return request(app)
       .post(`/api/v1/streets/images/${street.id}`)
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"'
+      )
       .type('text/plain')
       .send(JSON.stringify(details))
       .then((response) => {
@@ -74,12 +137,17 @@ describe('DELETE api/v1/streets/images/:street_id', () => {
     app.delete('/api/v1/streets/images/:street_id', images.delete)
   })
 
-  cloudinary.v2.uploader.destroy.mockImplementation((publicId, cb) => cb(null, publicId))
+  cloudinary.v2.uploader.destroy.mockImplementation((publicId, cb) =>
+    cb(null, publicId)
+  )
 
   it('should respond with 204 No content when street thumbnail is deleted by owner', () => {
     return request(app)
       .delete(`/api/v1/streets/images/${street.id}`)
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
+      )
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })

@@ -14,25 +14,33 @@ const AccessTokenHandler = function (req, res) {
     const auth0 = Authentication()
 
     try {
+      console.log('step 1', body.access_token)
       const user = await auth0.getProfile(body.access_token)
+      console.log('step 2', user)
       const apiRequestBody = getUserInfo(user)
-
       //  Must be an absolute URI
       const endpoint =
         config.restapi.protocol +
         config.app_host_port +
         config.restapi.baseuri +
         '/v1/users'
+
+      console.log('step 3', endpoint, apiRequestBody)
       axios
         .post(endpoint, apiRequestBody)
         .then((response) => {
           const body = response.data
-          res.cookie('user_id', body.id)
+
+          // TODO add code to properly resolve user_id
+          res.cookie(
+            'user_id',
+            body.id || apiRequestBody.auth0_twitter.screenName
+          )
           res.cookie('login_token', body.loginToken)
           res.redirect('/just-signed-in')
         })
         .catch((error) => {
-          logger.error('Error from API when signing in: ' + error)
+          logger.error('Error from auth0 API when signing in: ' + error)
           res.redirect('/error/authentication-api-problem')
         })
     } catch (error) {
@@ -106,8 +114,7 @@ exports.get = function (req, res) {
     .post(url, body, options)
     .then(AccessTokenHandler(req, res))
     .catch((err) => {
-      console.error('Error obtaining access token from Auth0:')
-      console.log(err)
+      logger.error('Error obtaining access token from Auth0: ' + err)
       res.redirect('/error/no-access-token')
     })
 }
