@@ -49,6 +49,18 @@ body:not(.safari).gallery-visible .street-section-sky {
 
   button.scrollable {
     margin-top: 45px;
+    width: 30px;
+    border: 0;
+    border-radius: $border-radius-medium;
+    background-color: $colour-turquoise-200;
+
+    &:hover {
+      background-color: $colour-turquoise-210;
+    }
+
+    &:active {
+      background-color: $colour-turquoise-220;
+    }
 
     &.scroll-left {
       left: -10px !important;
@@ -91,7 +103,7 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-label {
   position: absolute;
-  left: 17px;
+  left: 16px;
   top: 11px;
   font-size: 1.5em;
 }
@@ -103,7 +115,7 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-street-count {
   position: absolute;
-  right: 20px;
+  right: 16px;
   top: 12px;
   font-size: 1.75em;
   font-weight: 300;
@@ -112,8 +124,8 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-streets-container {
   position: absolute;
-  left: 20px;
-  right: 20px;
+  left: 16px;
+  right: 16px;
   top: 50px;
   display: flex;
   flex-direction: row;
@@ -121,6 +133,19 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-try-again {
   margin-left: 10px;
+  // TODO: adopt new button style via inheritance/composition
+  padding: 0.5em 1em;
+  border: 0;
+  border-radius: $border-radius-medium;
+  background-color: $colour-turquoise-200;
+
+  &:hover {
+    background-color: $colour-turquoise-210;
+  }
+
+  &:active {
+    background-color: $colour-turquoise-220;
+  }
 }
 
 .gallery-street-item {
@@ -141,12 +166,11 @@ body:not(.safari).gallery-visible .street-section-sky {
   margin: 10px;
   margin-top: 5px;
   background: fade-out($sky-colour, 0.2);
-  box-shadow: inset 0 3px 0 0 darken($ui-colour, 10%),
-    0 3px 0 0 darken($ui-colour, 10%);
   text-align: center;
   white-space: normal;
   cursor: pointer;
   position: relative;
+  border-radius: $border-radius-medium;
 
   canvas {
     position: absolute;
@@ -154,6 +178,8 @@ body:not(.safari).gallery-visible .street-section-sky {
     top: 0;
     width: $thumbnail-width;
     height: $thumbnail-height;
+    // TODO: this causes rendering weirdness in Firefox.
+    border-radius: $border-radius-medium;
   }
 
   &:first-child {
@@ -204,11 +230,28 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-street-item-delete {
   position: absolute;
-  padding: 0 10px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  top: 2px;
+  right: 2px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
   line-height: 25px;
-  top: -5px;
-  right: -5px;
   user-select: none;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.65em;
+
+  svg {
+    color: $colour-turquoise-500 !important;
+  }
+
+  &:hover svg {
+    color: $colour-turquoise-600 !important;
+  }
 }
 
 .gallery-user-buttons {
@@ -216,9 +259,9 @@ body:not(.safari).gallery-visible .street-section-sky {
   flex: 0 0 auto;
   flex-direction: column;
   width: 100px;
-  height: 112px;
+  height: 110px;
   margin-top: 6px;
-  margin-right: 20px;
+  margin-right: 16px;
 
   a.button-like {
     padding-left: 0.5em;
@@ -226,6 +269,17 @@ body:not(.safari).gallery-visible .street-section-sky {
     display: flex !important;
     align-items: center !important;
     justify-content: center;
+    border: 0;
+    border-radius: $border-radius-medium;
+    background-color: $colour-turquoise-200;
+
+    &:hover {
+      background-color: $colour-turquoise-210;
+    }
+
+    &:active {
+      background-color: $colour-turquoise-220;
+    }
   }
 }
 
