@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import GalleryPanel from './GalleryPanel'
 import GalleryShield from './GalleryShield'
 import { hideGallery } from './view'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Gallery.scss'
 
-const GalleryContainer = ({ visible }) => {
+function GalleryContainer (props) {
+  const visible = useSelector((state) => state.gallery.visible)
+
   useEffect(() => {
     // Only register the esc keybind when Gallery is visible
     if (visible) {
@@ -30,12 +31,4 @@ const GalleryContainer = ({ visible }) => {
   )
 }
 
-GalleryContainer.propTypes = {
-  visible: PropTypes.bool
-}
-
-const mapStateToProps = (state) => ({
-  visible: state.gallery.visible
-})
-
-export default connect(mapStateToProps)(GalleryContainer)
+export default GalleryContainer

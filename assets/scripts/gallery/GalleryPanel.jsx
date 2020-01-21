@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import GalleryError from './GalleryError'
 import GalleryLoading from './GalleryLoading'
 import GallerySignInPromo from './GallerySignInPromo'
-import GalleryError from './GalleryError'
+import GalleryContents from './GalleryContents'
 import { repeatReceiveGalleryData, hideGallery } from './view'
 import { showDialog } from '../store/actions/dialogs'
-import GalleryContents from './GalleryContents'
 
 // This component only handles switching between display modes
 class GalleryPanel extends React.Component {
@@ -57,11 +57,7 @@ class GalleryPanel extends React.Component {
       }
     }
 
-    return (
-      <div className="gallery-panel">
-        {childElements}
-      </div>
-    )
+    return <div className="gallery-panel">{childElements}</div>
   }
 }
 

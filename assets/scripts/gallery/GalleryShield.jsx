@@ -3,15 +3,18 @@ import PropTypes from 'prop-types'
 import { hideGallery } from './view'
 import './GalleryShield.scss'
 
-const GalleryShield = ({ visible = false }) => visible && (
-  <div
-    className="gallery-shield"
-    onClick={(e) => hideGallery(false)}
-  />
-)
-
 GalleryShield.propTypes = {
   visible: PropTypes.bool
+}
+
+function GalleryShield ({ visible = false }) {
+  if (visible) {
+    return (
+      <div className="gallery-shield" onClick={(e) => hideGallery(false)} />
+    )
+  }
+
+  return null
 }
 
 export default GalleryShield
