@@ -4,55 +4,55 @@ import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
-import { hideGallery } from '../view'
+import { hideGallery, switchGalleryStreet } from '../view'
+
+import { deleteGalleryStreet } from '../../store/actions/gallery'
 
 jest.mock('../view')
+jest.mock('../../app/errors')
 jest.mock('../../streets/thumbnail')
+jest.mock('../../streets/xhr')
+
+jest.mock('../../store/actions/gallery', () => ({
+  deleteGalleryStreet: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+}))
+
+const initialState = {
+  gallery: {
+    userId: 'foo',
+    visible: true,
+    mode: 'GALLERY',
+    streets: [MOCK_STREET]
+  },
+  street: {
+    id: '2556be10-df45-11e9-92a0-b5e383de159b'
+  },
+  user: {
+    signedIn: true,
+    signInData: {
+      userId: 'foo'
+    }
+  }
+}
 
 describe('Gallery', () => {
   it('renders main gallery view for user’s own streets', () => {
-    const initialState = {
-      gallery: {
-        userId: 'foo',
-        visible: true,
-        mode: 'GALLERY',
-        streets: [MOCK_STREET]
-      },
-      street: {
-        id: '2556be10-df45-11e9-92a0-b5e383de159b'
-      },
-      user: {
-        signedIn: true,
-        signInData: {
-          userId: 'foo'
-        }
-      }
-    }
-
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
   it('renders main gallery view for another user’s streets', () => {
-    const initialState = {
-      gallery: {
-        userId: 'foo',
-        visible: true,
-        mode: 'GALLERY',
-        streets: [MOCK_STREET]
-      },
-      street: {
-        id: '2556be10-df45-11e9-92a0-b5e383de159b'
-      },
-      user: {
-        signedIn: true,
-        signInData: {
-          userId: 'bar'
+    const wrapper = renderWithReduxAndIntl(<Gallery />, {
+      initialState: {
+        ...initialState,
+        user: {
+          signedIn: true,
+          signInData: {
+            userId: 'bar'
+          }
         }
       }
-    }
-
-    const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
+    })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
@@ -122,5 +122,23 @@ describe('Gallery', () => {
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
     fireEvent.click(wrapper.container.querySelector('.gallery-shield'))
     expect(hideGallery).toHaveBeenCalled()
+  })
+
+  describe('street item', () => {
+    it('selects street', () => {
+      const { getByText } = renderWithReduxAndIntl(<Gallery />, {
+        initialState
+      })
+      fireEvent.click(getByText('Baz'))
+      expect(switchGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
+    })
+
+    it('deletes street', () => {
+      const { getByTitle } = renderWithReduxAndIntl(<Gallery />, {
+        initialState
+      })
+      fireEvent.click(getByTitle('Delete street'))
+      expect(deleteGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
+    })
   })
 })

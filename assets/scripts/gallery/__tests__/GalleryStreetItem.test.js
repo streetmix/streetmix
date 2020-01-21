@@ -22,12 +22,38 @@ describe('GalleryStreetItem', () => {
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('does not display street owner when not provided', () => {
+  it('does not display street owner when we ask it not to', () => {
     const wrapper = renderWithReduxAndIntl(
       <GalleryStreetItem street={MOCK_STREET} showStreetOwner={false} />
     )
 
-    expect(wrapper.queryByText('creatorFoo')).not.toBeInTheDocument()
+    expect(wrapper.queryByText(MOCK_STREET.creatorId)).not.toBeInTheDocument()
+  })
+
+  it('displays "Unnamed St" without a street name', () => {
+    const wrapper = renderWithReduxAndIntl(
+      <GalleryStreetItem
+        street={{
+          ...MOCK_STREET,
+          name: null
+        }}
+      />
+    )
+
+    expect(wrapper.getByText('Unnamed St')).toBeInTheDocument()
+  })
+
+  it('displays "Anonymous" for anonymous streets', () => {
+    const wrapper = renderWithReduxAndIntl(
+      <GalleryStreetItem
+        street={{
+          ...MOCK_STREET,
+          creatorId: null
+        }}
+      />
+    )
+
+    expect(wrapper.getByText('Anonymous')).toBeInTheDocument()
   })
 
   it('handles select', () => {
