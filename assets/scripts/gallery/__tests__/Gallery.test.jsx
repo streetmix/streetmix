@@ -87,20 +87,6 @@ describe('Gallery', () => {
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('renders sign-in-promo', () => {
-    const initialState = {
-      gallery: {
-        visible: true,
-        mode: 'SIGN_IN_PROMO'
-      }
-    }
-
-    const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-    expect(
-      wrapper.getByText('Sign in for your personal street gallery')
-    ).toBeInTheDocument()
-  })
-
   it('renders error', () => {
     const initialState = {
       gallery: {

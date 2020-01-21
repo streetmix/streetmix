@@ -12,7 +12,6 @@ const initialState = {
 
   // Available modes:
   // NONE - null state
-  // SIGN_IN_PROMO - user is not signed in, show a message promoting it (deprecated)
   // LOADING - loading streets from server
   // ERROR - there is an error loading streets from server
   // GALLERY - displaying street gallery
