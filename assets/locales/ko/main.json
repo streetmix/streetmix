@@ -17,23 +17,23 @@
     },
     "help": {
       "keyboard-label": "키보드 단축키:",
-      "remove-instruction": "가리키고 있는 세그먼트 제거",
+      "remove-instruction": "선택하고 있는 세그먼트 제거",
       "remove-shift-instruction": "(전체를 제거하려면 {shiftKey} 키를 누르세요)",
-      "move-instruction": "스트리트 움직이기",
+      "move-instruction": "스트리트 이동하기",
       "move-shift-instruction": "(가장자리로 이동하려면 {shiftKey} 키를 누르세요)",
-      "change-instruction": "가리키고 있는 세그먼트의 폭 변경",
+      "change-instruction": "선택하고 있는 세그먼트의 폭 변경",
       "change-shift-instruction": "(정확도를 높이려면 {shiftKey} 키를 누르세요)"
     },
     "share": {
       "sign-in-twitter-link": "로그인",
-      "sign-in-link": "나의 스트리트와 스트리트 갤러리의 더 나은 링크를 위해 {signInLink}",
-      "link": "이 링크를 복사하고 붙여 넣어 공유하세요:",
+      "sign-in-link": "나의 스트리트와 스트리트 갤러리를 공유하려면 {signInLink}하세요",
+      "link": "공유를 위해 아래 링크를 복사하고 붙여넣기 하세요:",
       "copy-to-clipboard": "클립보드로 복사",
       "twitter": "트위터로 공유",
       "facebook": "페이스북으로 공유",
       "print": "인쇄",
       "save": "이미지로 저장",
-      "save-byline": "보고서, 블로그 등에 포함",
+      "save-byline": "보고서, 블로그 등에 포함시키기 위한 방법",
       "messages": {
         "my-street": "나의 {streetName} 스트리트를 스트리트믹스에서 확인해보세요!",
         "my-street-unnamed": "나의 스트리트를 스트리트믹스에서 확인해보세요!",
@@ -101,9 +101,9 @@
       "view-example": "예시 스트리트 보기"
     },
     "page-not-found-title": "페이지를 찾을 수 없습니다.",
-    "page-not-found-description": "오, 이런! 이 주소를 가진 페이지가 없습니다!",
+    "page-not-found-description": "아이고... 이 주소를 가진 페이지가 없습니다!",
     "street-not-found-title": "스트리트를 찾을 수 없습니다.",
-    "street-not-found-description": "오, 이런! 이 링크로 연결된 스트리트가 없습니다!",
+    "street-not-found-description": "아이고... 이 링크로 연결된 스트리트가 없습니다!",
     "street-not-found-but-user-description": "이 링크로 연결된 스트리트가 없습니다! 하지만 {user}가 만든 다른 스트리트를 살펴볼 수 있습니다",
     "street-deleted-title": "이 스트리트는 삭제되었습니다.",
     "street-deleted-description": "이 링크로 연결된 스트리트가 더 이상 없지만, {user}가 만든 다른 스트리트를 살펴볼 수 있습니다",
@@ -121,11 +121,11 @@
     "please-try-again": "나중에 다시 시도해주시거나 <email_link>이메일</email_link> 또는 <tweet_link>트위터</tweet_link>로 알려주세요.",
     "unsupported-browser-title": "다른 브라우저를 사용해주세요.",
     "unsupported-browser-description": "죄송합니다. <chrome_link>크롬</chrome_link>, <firefox_link>파이어폭스</firefox_link>, <edge_link>마이크로소프트 엣지</edge_link>, 또는 사파리로 시도해주세요.",
-    "unsupported-browser-internet-explorer": "인터넷익스플로러를 사용하고 계신가요? <a>더 알아보세요.</a>",
-    "unsupported-browser-contact-us": "사용하고 계신 브라우저가 지원 가능한 브라우저라면 <a>이메일</a>로 연락주세요.",
+    "unsupported-browser-internet-explorer": "인터넷 익스플로러를 사용하고 계신가요? <a>그럼 여기서 더 알아보세요.</a>",
+    "unsupported-browser-contact-us": "지원 가능한 브라우저를 사용하고 있어도 문제가 있다면 <a>이메일</a>로 연락주세요.",
     "cannot-create-new-street-on-phone-title": "스트리트믹스는 태블릿과 데스크탑에서만 작동합니다.",
     "cannot-create-new-street-on-phone-description": "핸드폰에서는 다른 링크를 통한 특정 스트리트를 확인할 수는 있지만, 새로운 스트리트를 생성할 수는 없습니다.",
-    "generic-error-title": "뭔가 잘못됐습니다.",
+    "generic-error-title": "뭔가 잘못됐네요.",
     "generic-error-description": "죄송합니다 - 뭔가 잘못됐네요.",
     "error-code": "(에러 {code}.)"
   },
@@ -165,7 +165,7 @@
     "new-street": {
       "heading": "여기에 나의 새로운 스트리트가 있습니다.",
       "default": "예시 스트리트로 시작하기",
-      "empty": "빈 스트리트로 시작하기",
+      "empty": "기본 스트리트로 시작하기",
       "last": "마지막 스트리트의 복사본으로 시작하기"
     },
     "about": {
@@ -186,7 +186,7 @@
     "analytics": {
       "export-csv": "CSV로 내보내기",
       "heading": "분석",
-      "street-summary": "나의 스트리트는 시간당 평균 {averageTotal} 명, 최대 {potentialTotal} 명의 트래픽이 예상됩니다.",
+      "street-summary": "나의 스트리트에는 시간당 평균 {averageTotal} 명, 최대 {potentialTotal} 명의 트래픽이 예상됩니다.",
       "segment-summary": "{average} ~ {potential} 명/시간",
       "segment-summary-single": "{amount} 명/시간",
       "source": "소스"
@@ -217,9 +217,9 @@
     },
     "donate": {
       "heading": "스트리트믹스는 여러분의 도움이 필요합니다!",
-      "lede": "스트리트믹스는 커뮤니티 지원 프로젝트입니다. 인터넷의 다른 \"무료\" 서비스와 달리, 개인 정보를 남용하는 광고를 표시하거나 추적기를 삽입하지 않습니다. 대신, 우리는 스트리트믹스를 계속 가동시키기 위한 여러분의 지원에 의존합니다.",
-      "text": "한 번 또는 반복적인 기여를 통해 지원하는 것을 고려해주세요. 여러분의 기부금은 거리를 개선하기 위해 노력하는 다른 비영리 단체, 옹호 단체 및 학생을 지원하는 서버 및 클라우드 인프라 비용을 지불하는 데 사용됩니다. 추가 수익은 새로운 기능 개발에 투자될 것입니다. 우리의 비용은 완전히 투명하므로, 스트리트믹스 팀이 기부금을 어떻게 사용하는지 정확하게 알 수 있습니다.",
-      "button": "스트리트믹스에 기부",
+      "lede": "스트리트믹스는 커뮤니티 지원 프로젝트입니다. 인터넷의 다른 \"무료\" 서비스와 달리, 개인 정보를 남용하는 광고를 표시하거나 추적기를 삽입하지 않습니다. 대신, 스트리트믹스는 여러분의 지원에 의지해 운영됩니다.",
+      "text": "한 번 또는 반복적으로 지원하는 것을 고려해주세요. 여러분의 기부금은 거리를 개선하기 위해 노력하는 다른 비영리 단체, 옹호 단체 및 학생을 지원하는 서버와 클라우드 인프라 비용을 지불하는 데 사용됩니다. 추가 수익은 새로운 기능 개발에 투자될 것입니다. 우리의 비용은 완전히 투명하므로, 스트리트믹스 팀이 기부금을 어떻게 사용하는지 정확하게 알 수 있습니다.",
+      "button": "스트리트믹스에 기부하기",
       "cancel": "아니요, 괜찮습니다."
     },
     "sign-in": {
@@ -262,8 +262,8 @@
     "no-undo": "취소할 것이 없습니다.",
     "no-redo": "다시 할 것이 없습니다.",
     "no-save": "수동으로 저장할 필요가 없어요. 스트리트믹스는 자동으로 저장해주거든요!",
-    "remixing": "이제 원본에서 새로 만들어진 사본 스트리트를 편집하세요. 사본은 나의 갤러리에 저장되었습니다.",
-    "remixing-sign-in": "이제 원본에서 새로 만들어진 사본 스트리트를 편집하세요. 나만의 스트리트 갤러리를 시작하려면 로그인하세요.",
+    "remixing": "지금 새로 만들어진 스트리트를 편집하고 있습니다. 사본은 나의 갤러리에 저장되었습니다.",
+    "remixing-sign-in": "지금 새로 만들어진 스트리트를 편집하고 있습니다. 나만의 스트리트 갤러리를 시작하려면 로그인하세요.",
     "reloaded": "다른 곳에서 수정된대로 스트리트를 새로고침 했습니다."
   },
   "palette": {
@@ -321,8 +321,8 @@
   "segments": {
     "warnings": {
       "does-not-fit": "이 세그먼트는 스트리트 폭에 맞지 않습니다.",
-      "not-wide": "이 세그먼트는 폭이 충분히 넓지 않네요.",
-      "too-wide": "이 세그먼트는 폭이 너무 넓은 것 같네요."
+      "not-wide": "이 세그먼트의 폭이 충분히 넓지 않습니다.",
+      "too-wide": "이 세그먼트의 폭이 너무 넓은 것 같네요."
     },
     "learn-more": "더 알아보기",
     "unknown": {
@@ -340,7 +340,7 @@
     "empty": "빈 공간"
   },
   "gallery": {
-    "fail": "갤러리를 불러오는 데 실패하였습니다.",
+    "fail": "갤러리를 불러오는 데 실패했습니다.",
     "all": "모든 스트리트",
     "twitter-link": "트위터 프로필",
     "delete-street-tooltip": "스트리트 삭제",
@@ -368,7 +368,7 @@
     "additional-code": "추가 코드",
     "additional-contributors": "추가 기여자",
     "special-thanks": "특별히 고마운 분들",
-    "translators": "번역가"
+    "translators": "번역"
   },
   "i18n": {
     "lang": {
