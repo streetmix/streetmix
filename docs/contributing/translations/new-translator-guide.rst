@@ -87,7 +87,7 @@ Before you get started, here are some terms that you should get familiar with.
 **UI:** UI means “user interface”. This refers to what people see when they use an app. You will be working in the Transifex UI and your translations will show up as a finished product in the Streetmix UI.
 
 
-Using transifex
+Using Transifex
 ---------------
 
 
@@ -157,38 +157,39 @@ Some of our strings have placeholders. These are what we use to represent elemen
 Plurals
 +++++++
 
-There is a special way to deal with plural strings in Transifex. They can be inputted in Transifex's UI as shown in the gif below. Some languages have more plural forms than others, and Transifex takes this into account based on `a Unicode standard <http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html>`_.
+There is a special way to deal with plural strings in Transifex. They can be inputted in Transifex's UI as shown in the animation below. Some languages have more plural forms than others, and Transifex takes this into account based on `a Unicode standard <http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html>`_.
 
-.. NOTE: GIFs are unoptimized and are not hosted in the repository.
-.. image:: https://files.readme.io/67a7ca5-plural-instructions.gif
+.. image:: _images/67a7ca5-plural-instructions.gif
+
+
+Translation string changes
+++++++++++++++++++++++++++
+
+Sometimes there will be updates to the English strings. Transifex will detect those and require a new translation to be submitted. However, have no fear! There is a handy dandy "History" feature that lets you retrieve your previous translations of the string, and then tweak the string from there.
 
 
 Need more help?
-+++++++++++++++
+---------------
 
 Refer to the `Transifex documentation <http://docs.transifex.com/>`_ if you need more help. A good place to start is the `Transifex web editor tutorial <http://docs.transifex.com/tutorials/txeditor/>`_.
 
 
-Translation string changes
---------------------------
+FAQ & Discord chat
+++++++++++++++++++
 
-Sometimes there will be updates to the English strings. Transifex will detect those and require a new translation to be submitted. However, have no fear! There is a handy dandy "History" feature that lets you retrieve your previous translations of the string, and then tweak the string from there.
+As questions come in, we will add them to the :ref:`Frequently Asked Questions page <translation-faq>`.
 
-.. NOTE: GIFs are unoptimized and are not hosted in the repository. The following GIF is over 14MB large.
-.. figure:: https://files.readme.io/4183d18-Use_translation_history__add_links.gif
-   
-   Use the "History" tab to retrieve prior translations.
+If your question isn't answered there, come ask the Streetmix community on `Discord`_! Please ask translation-related questions in the #translations channel.
 
 
 .. _reporting-issues:
 
 Reporting issues
-----------------
+++++++++++++++++
 
 If you ever see an error on Transifex, please mark it. (`Instructions are here. <https://docs.transifex.com/translation/tools-in-the-editor#comments-and-issues>`_)
 
-.. NOTE: GIFs are unoptimized and are not hosted in the repository.
-.. figure:: https://files.readme.io/675f649-transifex-string-comment.gif
+.. figure:: _images/675f649-transifex-string-comment.gif
 
 If there is a difficult or confusing string, please add a comment on Transifex. You can also put any notes you think are important for the string there. This is the same place where you would mark something as an issue (just click "Add as issue" instead of "Add".
 
@@ -197,10 +198,3 @@ For issues that are larger than one specific string, please bring this up to the
 1. Tell us on the Streetmix Discord in the *#translations* channel. You can join our Discord server here: https://strt.mx/discord.
 2. Create an issue on GitHub (`learn more <https://help.github.com/articles/creating-an-issue/>`_). Our issues are located here: https://github.com/streetmix/streetmix/issues/new
 
-
-FAQ & Discord chat
-------------------
-
-As questions come in, we will add them to the :ref:`Frequently Asked Questions page <translation-faq>`.
-
-If your question isn't answered there, come ask the Streetmix community on `Discord`_! Please ask translation-related questions in the #translations channel.
