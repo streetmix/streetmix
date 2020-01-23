@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(-0.0800153,0,0,0.0800153,75.3163,-9.65534)">
+        <g id="building-arcade">
+            <path d="M366.384,120.669L366.384,720.554L482.785,720.554L482.785,528.226C482.785,431.775 581.692,432.507 581.692,432.507C581.692,432.507 679.111,432.343 679.111,528.226L679.111,720.554L741.312,720.554L741.312,120.669L366.384,120.669Z"/>
+        </g>
+    </g>
+</svg>

@@ -27,6 +27,10 @@
     "wide": {
       "id": "building-wide",
       "title": "Wide building"
+    },
+    "arcade": {
+      "id": "building-arcade",
+      "title": "Arcade building"
     }
   },
   "direction": {

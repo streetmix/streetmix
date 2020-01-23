@@ -250,6 +250,19 @@ exports[`InfoBubble shows building left info bubble 1`] = `
             />
           </svg>
         </button>
+        <button
+          title="Arcade building"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-arcade"
+            />
+          </svg>
+        </button>
       </div>
       <div
         class="non-variant building-height"
@@ -398,6 +411,19 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           >
             <use
               xlink:href="#icon-building-wide"
+            />
+          </svg>
+        </button>
+        <button
+          title="Arcade building"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-arcade"
             />
           </svg>
         </button>
