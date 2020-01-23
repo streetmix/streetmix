@@ -3,10 +3,9 @@
 Code styleguide
 ===============
 
-.. warning::
+You've heard it all before: code style should be consistent across a project, which helps readability and maintainability. We've done our best to automate formatting or linting of code to keep things consistent. However, we still need to set some guidelines and document some of our tooling and decision-making.
 
-   This page is a work in progress.
-
+The first thing you should know is: *two-space indents everywhere; no tabs.*
 
 Code style
 ++++++++++
@@ -14,29 +13,41 @@ Code style
 HTML
 ~~~~
 
-TODO.
+We don't have anything to lint HTML, so here are some basic guidelines:
+
+- All elements and attributes should be lowercase.
+- All quotation marks should be double quotes.
+- We use `Handlebars <https://handlebarsjs.com/>`_ templating. In the past, we've tried using templating language that didn't look like HTML, and, long story short, we won't be doing that again.
+- Comments can also be written in Handlebars so they don't get sent to the client.
+- Indent nested elements.
 
 
 CSS
 ~~~
 
-TODO.
+We use `Sass <https://sass-lang.com/>`_ in the SCSS flavor, which makes it easier to interoperate with standard CSS syntax. Code style is enforced with `Stylelint <https://stylelint.io/>`_, using a combination of `stylelint-config-standard <https://github.com/stylelint/stylelint-config-standard>`_ and `Prettier <https://prettier.io/>`_ rules.
+
+SCSS files generally live adjacent to the components that they apply to, and will be imported by each component. SCSS files are not global, so variables and mixins need to be imported from other SCSS files. However, the compiled CSS will be global, not scoped to the component. *Don't be afraid of the cascade!*
+
+Avoid styling elements using ``id`` attribute selectors. Instead, use class names (alongside pseudo-selectors and attribute selectors, if necessary). Namespace all classnames. If there's a component called ``palette``, a good class name could be ``palette-container``. Try to avoid writing generic class names like ``large``. Because styles are not scoped, allowing generic class names without namespaces will inevitably cause collissions.
+
+.. admonition:: In the future...
+
+   We may make a stronger move toward `Tailwind CSS <https://tailwindcss.com/>`_-style composition of utility classes instead of relying on Sass mixins, extends, or copy-pasting duplicate CSS code across class names. Generic class names will then be used for utility classes.
+
+Although it's popular, we do not use BEM framework/naming convention. Some good resources which have generally informed our approach to CSS organization (but have not dictated it) include `Scalable and Modular Architecture for CSS (SMACSS) <http://smacss.com/>`_ and parts of the `Reasonable System for CSS Stylesheet Structure (rscss) <https://rscss.io/>`_.
 
 
 JavaScript
 ~~~~~~~~~~
 
-Our JavaScript code style is `Standard JS`_.
+Our JavaScript code style is `Standard JS`_. We enforce code style with a combination of `Prettier <https://github.com/prettier/prettier>`_ and `ESLint <https://eslint.org/>`_.
 
 .. _Standard JS: https://standardjs.com/
 
 .. image:: https://cdn.rawgit.com/standard/standard/master/badge.svg
    :target: https://github.com/standard/standard
    :alt: JavaScript Standard code style badge
-
-.. admonition:: In the future...
-
-   ...we may adopt `Prettier <https://github.com/prettier/prettier>`_ (or `prettier-standard <https://github.com/sheerun/prettier-standard>`_) to automatically format code. We have not introduced it yet because doing so across the entire codebase would be disruptive to existing work. We currently use Prettier to lint and format JSON. If someone wants to champion adoption of Prettier, please get in touch.
 
 
 Import order
@@ -64,7 +75,7 @@ There's no technical reason to order imports. (In the past, some modules may hav
 React
 ~~~~~
 
-We extend Standard JS with the `eslint-config-standard-react <https://github.com/standard/eslint-config-standard-react/>`_ package.
+We extend the Standard JS ESLint rules with the `eslint-config-standard-react <https://github.com/standard/eslint-config-standard-react/>`_ package.
 
 .. attention::
 
@@ -114,7 +125,7 @@ This is flexible and new types may be adopted over time. Sometimes a commit may 
 
 .. note::
 
-   We use `commitlint <https://commitlint.js.org>` to automatically check your commit messages for validity. If they're not valid, the check will fail. This check is hooked into each commit, and our CI test will also check your commit messages.
+   We use `commitlint <https://commitlint.js.org>`_ to automatically check your commit messages for validity. If they're not valid, the check will fail. This check is hooked into each commit, and our CI test will also check your commit messages.
 
 
 .. tip::
@@ -125,6 +136,17 @@ This is flexible and new types may be adopted over time. Sometimes a commit may 
 .. admonition:: In the future...
 
    ...we may use commit messages to help with `automated releases <https://github.com/semantic-release/semantic-release>`_.
+
+
+GitHub issues
+~~~~~~~~~~~~~
+
+Whenever possible, use commit messages or commit comments to close automatically close GitHub issues. (This may also be done in pull requests.)
+
+.. code::
+
+   refactor(Avatar): stop using internal state, resolves #1337
+
 
 
 Other stuff
