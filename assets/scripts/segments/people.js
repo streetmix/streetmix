@@ -7,7 +7,18 @@ import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 import { getVariantArray } from './variant_utils'
 import PEOPLE from './people.json'
 
-export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, randSeed, multiplier, variantString, dpi) {
+const PERSON_SPRITE_OFFSET_Y = 10
+
+export function drawProgrammaticPeople (
+  ctx,
+  width,
+  offsetLeft,
+  groundLevel,
+  randSeed,
+  multiplier,
+  variantString,
+  dpi
+) {
   const people = []
   let peopleWidth = 0
 
@@ -37,21 +48,27 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, ran
   const randomGenerator = seedrandom(randSeed)
 
   let lastPersonId = 0
+  let thisPersonId = null
 
-  while ((people.length === 0) || (peopleWidth < width - 40)) {
+  while (people.length === 0 || peopleWidth < width - 40) {
     let person
 
     do {
       const index = Math.floor(randomGenerator() * PEOPLE.length)
+      thisPersonId = index
 
       // Clone the person object
       person = Object.assign({}, PEOPLE[index])
-    } while ((person.id === lastPersonId) || ((people.length === 0) && person.disallowFirst === true))
+    } while (
+      thisPersonId === lastPersonId ||
+      (people.length === 0 && person.disallowFirst === true)
+    )
 
-    lastPersonId = person.id
+    lastPersonId = thisPersonId
     person.left = peopleWidth
 
-    var lastWidth = widthConst + (person.width * 12) - 24 + (randomGenerator() * widthRand)
+    var lastWidth =
+      widthConst + person.width * 12 - 24 + randomGenerator() * widthRand
 
     peopleWidth += lastWidth
     people.push(person)
@@ -61,30 +78,47 @@ export function drawProgrammaticPeople (ctx, width, offsetLeft, groundLevel, ran
   peopleWidth -= lastWidth
 
   let startLeft = (width - peopleWidth) / 2
-  const firstPersonCorrection = (4 - people[0].width) * 12 / 2
+  const firstPersonCorrection = ((4 - people[0].width) * 12) / 2
 
   if (people.length === 1) {
     startLeft += firstPersonCorrection
   } else {
-    const lastPersonCorrection = (4 - people[people.length - 1].width) * 12 / 2
+    const lastPersonCorrection =
+      ((4 - people[people.length - 1].width) * 12) / 2
 
     startLeft += (firstPersonCorrection + lastPersonCorrection) / 2
   }
 
   for (const person of people) {
-    // Change person.id to 1-index instead of 0-index,
-    // convert to string & zero-pad to two digits
-    const type = ('0' + (person.id + 1).toString()).slice(-2)
-    const id = 'people--people-' + type
-
+    const id = `people--${person.id}`
     const sprite = getSpriteDef(id)
     const svg = images.get(id)
 
-    const distanceFromGround = multiplier * TILE_SIZE * ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+    const distanceFromGround =
+      multiplier *
+      TILE_SIZE *
+      ((svg.height - (sprite.originY || PERSON_SPRITE_OFFSET_Y)) /
+        TILE_SIZE_ACTUAL)
 
     // TODO: Document / refactor magic numbers
-    drawSegmentImage('people--people-' + type, ctx, undefined, undefined, undefined, undefined,
-      offsetLeft + ((person.left - (5 * 12 / 2) - ((4 - person.width) * 12 / 2) + startLeft) * multiplier),
-      groundLevel - distanceFromGround, undefined, undefined, multiplier, dpi)
+    drawSegmentImage(
+      id,
+      ctx,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      offsetLeft +
+        (person.left -
+          (5 * 12) / 2 -
+          ((4 - person.width) * 12) / 2 +
+          startLeft) *
+          multiplier,
+      groundLevel - distanceFromGround,
+      undefined,
+      undefined,
+      multiplier,
+      dpi
+    )
   }
 }
