@@ -1,131 +1,151 @@
 [
   {
-    "id": 0,
+    "id": "people-01",
     "width": 2,
     "name": "Nora"
   },
   {
-    "id": 1,
+    "id": "people-02",
     "width": 2
   },
   {
-    "id": 2,
+    "id": "people-03",
     "width": 2
   },
   {
-    "id": 3,
+    "id": "people-04",
     "width": 2
   },
   {
-    "id": 4,
+    "id": "people-05",
     "width": 2
   },
   {
-    "id": 5,
+    "id": "people-06",
     "width": 2
   },
   {
-    "id": 6,
+    "id": "people-07",
     "width": 2
   },
   {
-    "id": 7,
+    "id": "people-08",
     "width": 2
   },
   {
-    "id": 8,
+    "id": "people-09",
     "width": 2
   },
   {
-    "id": 9,
+    "id": "people-10",
     "width": 2
   },
   {
-    "id": 10,
+    "id": "people-11",
     "width": 2
   },
   {
-    "id": 11,
+    "id": "people-12",
     "width": 2
   },
   {
-    "id": 12,
+    "id": "people-13",
     "width": 2
   },
   {
-    "id": 13,
+    "id": "people-14",
     "width": 3
   },
   {
-    "id": 14,
+    "id": "people-15",
     "width": 2
   },
   {
-    "id": 15,
+    "id": "people-16",
     "width": 3,
     "name": "Lou"
   },
   {
-    "id": 16,
+    "id": "people-17",
     "width": 3
   },
   {
-    "id": 17,
+    "id": "people-18",
     "width": 3
   },
   {
-    "id": 18,
+    "id": "people-19",
     "width": 3,
     "disallowFirst": true
   },
   {
-    "id": 19,
+    "id": "people-20",
     "width": 3,
     "disallowFirst": true
   },
   {
-    "id": 20,
+    "id": "people-21",
     "width": 1
   },
   {
-    "id": 21,
+    "id": "people-22",
     "width": 1
   },
   {
-    "id": 22,
+    "id": "people-23",
     "width": 3
   },
   {
-    "id": 23,
+    "id": "people-24",
     "width": 4,
     "name": "Katie"
   },
   {
-    "id": 24,
+    "id": "people-25",
     "width": 2
   },
   {
-    "id": 25,
+    "id": "people-26",
     "width": 3
   },
   {
-    "id": 26,
+    "id": "people-27",
     "width": 2
   },
   {
-    "id": 27,
+    "id": "people-28",
     "width": 3
   },
   {
-    "id": 28,
+    "id": "people-29",
     "width": 4
   },
   {
-    "id": 29,
+    "id": "people-30",
     "width": 3
   },
   {
-    "id": 30,
+    "id": "people-31",
     "width": 2
+  },
+  {
+    "id": "johnny-01",
+    "width": 3,
+    "name": "Johnny"
+  },
+  {
+    "id": "johnny-02",
+    "width": 3,
+    "name": "Johnny"
+  },
+  {
+    "id": "junebug-01",
+    "width": 3,
+    "name": "Junebug"
+  },
+  {
+    "id": "junebug-02",
+    "width": 3,
+    "name": "Junebug"
   }
 ]
