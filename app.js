@@ -235,16 +235,6 @@ app.get(
 app.use('', apiRoutes)
 app.use('', serviceRoutes)
 
-// SVG bundled images served directly from packages
-app.get('/assets/images/images.svg', (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      '/node_modules/@streetmix/illustrations/dist/images.svg'
-    )
-  )
-})
-
 app.use(
   '/assets',
   express.static(path.join(__dirname, '/build'), { fallthrough: false })
