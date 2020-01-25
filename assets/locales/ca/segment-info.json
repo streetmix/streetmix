@@ -140,6 +140,8 @@
     "car-type|sharrow": "",
     "car-type|truck": "",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
     "public-transit-asphalt|grass": "",

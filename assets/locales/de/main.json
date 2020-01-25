@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Straße löschen",
     "street-count": "{count, plural, one {# Straße} other {# Straßen}}",
     "no-streets": "Noch keine Straßen",
-    "sign-in": "Melde dich für deine persönliche Straßengalerie über Twitter an",
-    "sign-in-prompt": "Melde dich für deine persönliche Straßengalerie an"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "Anonym",

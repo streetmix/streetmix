@@ -163,6 +163,8 @@
     "car-type|sharrow": "Chaussée désignée",
     "car-type|truck": "Camion",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "Asphalte",
     "public-transit-asphalt|colored": "Voie colorée rouge",
     "public-transit-asphalt|grass": "Gazon",

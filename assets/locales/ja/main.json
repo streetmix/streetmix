@@ -346,8 +346,7 @@
     "delete-street-tooltip": "ストリート削除",
     "street-count": "{count, plural, other {#通り}}",
     "no-streets": "ストリート未作成",
-    "sign-in": "Twitterでログイン個人用のストリートギャラリーを作成できます",
-    "sign-in-prompt": "サインインして個人用のストリートギャラリーを表示"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "アノニマス",

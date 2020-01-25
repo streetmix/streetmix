@@ -159,6 +159,8 @@
     "car-type|sharrow": "إشارة الممرات المشتركة",
     "car-type|truck": "شاحنة",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "أسفلت",
     "public-transit-asphalt|colored": "ممر أحمر",
     "public-transit-asphalt|grass": "عشب",

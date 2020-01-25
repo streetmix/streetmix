@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Cancella la strada",
     "street-count": "{count, plural, one {numero di strada} other {numero di strade}}",
     "no-streets": "Nessuna strada ancora",
-    "sign-in": "Autenticati con Twitter per vedere la tua personale galleria di strade",
-    "sign-in-prompt": "Autenticati per vedere la tua personale galleria di strade"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "Anonimo",

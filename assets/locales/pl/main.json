@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Usuń ulicę",
     "street-count": "{count, plural, one {# ulica} few {# ulice} many {# ulic} other {# ulic}}",
     "no-streets": "Jak dotąd brak ulic",
-    "sign-in": "Zaloguj się przez Twittera, by posiadać własną galerię ulic",
-    "sign-in-prompt": "Zaloguj się, by zobaczyć własną galerie ulic"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "Anonim",

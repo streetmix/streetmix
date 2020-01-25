@@ -346,8 +346,7 @@
     "delete-street-tooltip": "",
     "street-count": "{count, plural, one {} other {}}",
     "no-streets": "",
-    "sign-in": "",
-    "sign-in-prompt": ""
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "",

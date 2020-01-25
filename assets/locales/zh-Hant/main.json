@@ -346,8 +346,7 @@
     "delete-street-tooltip": "刪除街道",
     "street-count": "{count, plural, other {# 街道}}",
     "no-streets": "暫時沒有街道",
-    "sign-in": "登入Twitter 帳戶查看你的個人街道圖集",
-    "sign-in-prompt": "登陸之後查看你的個人街道圖集"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "匿名",

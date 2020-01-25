@@ -155,6 +155,8 @@
     "car-type|sharrow": "共用车道",
     "car-type|truck": "货车",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "沥青路面",
     "public-transit-asphalt|colored": "红色车道",
     "public-transit-asphalt|grass": "草",

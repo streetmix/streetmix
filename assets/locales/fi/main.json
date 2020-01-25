@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Poista katu",
     "street-count": "{count, plural, one {# katu} other {# katua}}",
     "no-streets": "Ei luotuja katuja",
-    "sign-in": "Kirjautumalla Twitter-tunnuksella voit tallentaa tämän kadun omaan katugalleriaasi",
-    "sign-in-prompt": "Kirjautumalla sisään voit hyödyntää omaa katugalleriaasi"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "Tuntematon",

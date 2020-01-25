@@ -43,39 +43,43 @@
   },
   "descriptions": {
     "wayfinding-sign": {
-      "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "prompt": "Aprende más sobre las señales de orientación",
+      "lede": "Las señales de orientación ayudan a los peatones a llegar a destinos frecuentes.",
+      "text": [
+        "Los planificadores urbanos y arquitectos han dedicado algunas décadas a tratar de aprender qué sucede en los cerebros de las personas mientras descifran cómo llegar del punto A al punto B – o incluso cómo saben dónde está el \"punto A\", para empezar. Desde 1960, el planificador urbano Kevin Lynch escribió sobre la \"legibilidad\" de la ciudad en su libro<em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">La imagen de la ciudad</a></em>, y describió la orientación como \"un uso y organización consistente de las señales sensoriales del ambiente externo.\" Esta podía ser intangible – olfato, tacto, la sensación de la gravedad o incluso campos eléctricos o magnéticos. O podía ser mucho más física, con \"dispositivos de orientación\" diseñados intencionalmente como mapas, números o señales de ruta.",
+        "",
+        ""
+      ]
     },
     "parklet": {
-      "prompt": "",
-      "imageCaption": "",
-      "lede": "",
+      "prompt": "Aprende más sobre los parklets",
+      "imageCaption": "Parklet de 4033 Judah Street, cortesía del Departamento de Planeación de San Francisco.",
+      "lede": "Los parklets transforman los espacios de estacionamiento existentes en espacios públicos temporales.",
       "text": ["", ""]
     },
     "bike-lane": {
-      "prompt": "",
-      "lede": "",
+      "prompt": "Aprende más sobre los carriles para bicicleta",
+      "lede": "Los carriles para bicicleta ayudan a mantener a los ciclistas seguros en un carril separado de los vehículos motorizados.",
       "text": ["", "", ""]
     },
     "colored-bike-lane": {
-      "prompt": "",
-      "lede": "",
+      "prompt": "Aprende más sobre los carriles de colores para bicicletas",
+      "lede": "Los carriles de colores para bicicletas son más visibles y seguros para los ciclistas.",
       "text": ["", "", ""]
     },
     "sharrow": {
-      "prompt": "",
-      "lede": "",
+      "prompt": "Aprende más sobre los carriles compartidos para bicicletas",
+      "lede": "Los carriles compartidos para bicicletas tienen marcas que indican que son utilizados por vehículos motorizados y bicicletas.",
       "text": ["", "", ""]
     },
     "transit-shelter-elevated": {
-      "prompt": "",
-      "lede": "",
+      "prompt": "Aprende más sobre los paraderos de transporte público elevados",
+      "lede": "Los paraderos elevados funcionan con sistemas de trenes ligeros y BRT (bus rapid transit).",
       "text": ["", "", ""]
     },
     "inception-train": {
-      "lede": "",
-      "text": [""]
+      "lede": "Es el tren de la película <em>El Origen</em> de Christopher Nolan.",
+      "text": ["¿Qué más necesitarías saber?"]
     }
   },
   "buildings": {
@@ -140,6 +144,8 @@
     "car-type|sharrow": "Compartido con bicicletas",
     "car-type|truck": "Camión",
     "car-type|av": "Vehículo autónomo",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Carril rojo",
     "public-transit-asphalt|grass": "Césped",

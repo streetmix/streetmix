@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Eliminar calle",
     "street-count": "{count, plural, one {# calle} other {# calles}}",
     "no-streets": "Todavía no hay calles",
-    "sign-in": "Ingresar con Twitter para ver tu galería de calles personal",
-    "sign-in-prompt": "Ingresar para ver tu galería de calles personal"
+    "thumbnail-error": "Imagen en miniatura no está disponible."
   },
   "users": {
     "anonymous": "Anónimo",
@@ -373,17 +372,17 @@
   "i18n": {
     "lang": {
       "ar": "Árabe",
-      "ca": "",
+      "ca": "Catalán",
       "de": "Alemán",
       "en": "Inglés",
       "es": "Español",
-      "es-419": "",
+      "es-419": "Español (Latinoamérica)",
       "es-mx": "Español (México)",
       "fi": "Finlandés",
       "fr": "Francés",
       "it": "Italiano",
       "ja": "Japonés",
-      "ko": "",
+      "ko": "Coreano",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
       "ru": "Ruso",

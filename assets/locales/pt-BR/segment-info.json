@@ -140,6 +140,8 @@
     "car-type|sharrow": "Ciclorrota",
     "car-type|truck": "Caminhão",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Faixa vermelha",
     "public-transit-asphalt|grass": "Grama",

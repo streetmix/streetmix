@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Ta bort gata",
     "street-count": "{count, plural, one {# gata} other {# gator}}",
     "no-streets": "Inga gator än",
-    "sign-in": "Logga in med Twitter för ditt personliga gatubibliotek",
-    "sign-in-prompt": ""
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "Anonym",
