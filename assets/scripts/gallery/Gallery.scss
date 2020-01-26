@@ -2,6 +2,7 @@
 
 $gallery-border-radius: $border-radius;
 $gallery-box-shadow: $medium-box-shadow;
+$selection-highlight-colour: $colour-copper-500;
 
 body.gallery-visible {
   .main-screen {
@@ -195,8 +196,8 @@ body:not(.safari).gallery-visible .street-section-sky {
 
   &.gallery-selected {
     background: darken($ui-colour, 10%);
-    border-top-color: black;
-    border-bottom-color: black;
+    box-shadow: 0 0 0 2px $selection-highlight-colour,
+      inset 0 0 0 2px rgba(255, 255, 255, 1);
 
     canvas {
       opacity: 1;
@@ -262,7 +263,8 @@ body:not(.safari).gallery-visible .street-section-sky {
   margin-top: 6px;
   margin-right: 16px;
 
-  a.button-like {
+  a.button-like,
+  button {
     padding-left: 0.5em;
     padding-right: 0.5em;
     display: flex !important;
@@ -270,6 +272,10 @@ body:not(.safari).gallery-visible .street-section-sky {
     justify-content: center;
     border: 0;
     border-radius: $border-radius-medium;
+  }
+
+  a.button-like,
+  button:not(:disabled) {
     background-color: $colour-turquoise-200;
 
     &:hover {
@@ -282,12 +288,12 @@ body:not(.safari).gallery-visible .street-section-sky {
   }
 }
 
-a.gallery-new-street {
+.gallery-new-street {
   flex-grow: 1;
   font-weight: bold;
 }
 
-a.gallery-copy-last-street {
+.gallery-copy-last-street {
   height: 40px;
   flex-basis: 40px;
   margin-top: 10px;

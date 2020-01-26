@@ -22,7 +22,7 @@ function GalleryContents (props) {
   const dispatch = useDispatch()
 
   const galleryEl = useRef(null)
-  const [selectedStreet, setSelectedStreet] = useState(null)
+  const [selectedStreet, setSelectedStreet] = useState(currentStreetId)
 
   useLayoutEffect(() => {
     if (selectedStreet) {
@@ -92,14 +92,20 @@ function GalleryContents (props) {
                 defaultMessage="Create new street"
               />
             </a>
-            <a
-              className="button-like gallery-copy-last-street"
-              href={`/${URL_NEW_STREET_COPY_LAST}`}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-            </a>
+            {selectedStreet !== null ? (
+              <a
+                className="button-like gallery-copy-last-street"
+                href={`/${URL_NEW_STREET_COPY_LAST}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+              </a>
+            ) : (
+              <button className="gallery-copy-last-street" disabled>
+                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+              </button>
+            )}
           </div>
         )}
 
