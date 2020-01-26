@@ -2776,6 +2776,56 @@
             }
           ]
         }
+      },
+      "inbound|motorcycle-sidecar": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "motorcycle-sidecar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|motorcycle-sidecar": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "motorcycle-sidecar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
       }
     }
   },
