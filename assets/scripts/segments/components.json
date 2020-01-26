@@ -984,6 +984,26 @@
         }
       }
     },
+    "motorcycle-sidecar": {
+      "name": "Motorcycle with sidecar",
+      "nameKey": "motorcycle-sidecar",
+      "owner": "CAR",
+      "zIndex": 14,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "vehicles--krz-motorbike-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "vehicles--krz-motorbike-outbound"
+            }
+          }
+        }
+      }
+    },
     "truck": {
       "name": "Truck",
       "nameKey": "truck",

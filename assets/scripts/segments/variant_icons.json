@@ -297,6 +297,11 @@
       "id": "rideshare",
       "title": "Autonomous vehicle",
       "enableWithFlag": "SEGMENT_AV"
+    },
+    "motorcycle-sidecar": {
+      "id": "motorcycle-sidecar",
+      "title": "Motorcycle with sidecar",
+      "enableWithFlag": "SEGMENT_KRZ"
     }
   },
   "sidewalk-density": {

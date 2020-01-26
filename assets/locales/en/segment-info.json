@@ -163,6 +163,8 @@
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Truck",
     "car-type|av": "Autonomous vehicle",
+    "car-type|motorcycle": "Motorcycle",
+    "car-type|motorcycle-sidecar": "Motorcycle with sidecar",
     "public-transit-asphalt|regular": "Asphalt",
     "public-transit-asphalt|colored": "Red lane",
     "public-transit-asphalt|grass": "Grass",
