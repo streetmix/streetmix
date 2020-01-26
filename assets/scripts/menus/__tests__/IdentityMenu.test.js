@@ -3,11 +3,11 @@ import React from 'react'
 import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import IdentityMenu from '../IdentityMenu'
-import { showGallery } from '../../gallery/view'
+import { showGallery } from '../../store/actions/gallery'
 import { onSignOutClick } from '../../users/authentication'
 
-jest.mock('../../gallery/view', () => ({
-  showGallery: jest.fn()
+jest.mock('../../store/actions/gallery', () => ({
+  showGallery: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 jest.mock('../../users/authentication', () => ({
   onSignOutClick: jest.fn()
@@ -20,11 +20,20 @@ describe('IdentityMenu', () => {
   })
 
   it('shows "My streets" when its link is clicked', () => {
-    const wrapper = renderWithReduxAndIntl(<IdentityMenu />)
+    const wrapper = renderWithReduxAndIntl(<IdentityMenu />, {
+      initialState: {
+        user: {
+          signInData: {
+            userId: 'foo'
+          }
+        }
+      }
+    })
 
     fireEvent.click(wrapper.getByText('My streets'))
 
     expect(showGallery).toBeCalledTimes(1)
+    expect(showGallery).toBeCalledWith('foo')
   })
 
   it('signs the user out when its link is clicked', () => {

@@ -4,9 +4,8 @@ import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
-import { hideGallery, switchGalleryStreet } from '../view'
-
-import { deleteGalleryStreet } from '../../store/actions/gallery'
+import { switchGalleryStreet } from '../view'
+import { hideGallery, deleteGalleryStreet } from '../../store/actions/gallery'
 
 jest.mock('../view')
 jest.mock('../../app/errors')
@@ -14,6 +13,7 @@ jest.mock('../../streets/thumbnail')
 jest.mock('../../streets/xhr')
 
 jest.mock('../../store/actions/gallery', () => ({
+  hideGallery: jest.fn(() => ({ type: 'MOCK_ACTION' })),
   deleteGalleryStreet: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
@@ -121,7 +121,7 @@ describe('Gallery', () => {
 
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
     fireEvent.click(wrapper.container.querySelector('.gallery-shield'))
-    expect(hideGallery).toHaveBeenCalled()
+    expect(hideGallery).toHaveBeenCalledTimes(1)
   })
 
   describe('street item', () => {

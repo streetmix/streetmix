@@ -1,11 +1,11 @@
 import { API_URL } from '../app/config'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { getAuthHeader } from '../users/authentication'
-import { receiveGalleryData, hideGallery } from './view'
+import { receiveGalleryData } from './view'
 
 // Redux
 import store from '../store'
-import { setGalleryMode } from '../store/actions/gallery'
+import { hideGallery, setGalleryMode } from '../store/actions/gallery'
 
 export function fetchGalleryData () {
   const galleryUserId = store.getState().gallery.userId
@@ -16,7 +16,8 @@ export function fetchGalleryData () {
       headers: { Authorization: getAuthHeader() }
     }
 
-    window.fetch(url, options)
+    window
+      .fetch(url, options)
       .then(function (response) {
         if (!response.ok) {
           throw response
@@ -28,7 +29,8 @@ export function fetchGalleryData () {
   } else {
     const url = API_URL + 'v1/streets?count=200'
 
-    window.fetch(url)
+    window
+      .fetch(url)
       .then(function (response) {
         if (!response.ok) {
           throw response
@@ -41,10 +43,10 @@ export function fetchGalleryData () {
 }
 
 function errorReceiveGalleryData (data) {
-  if ((getMode() === MODES.USER_GALLERY) && (data.status === 404)) {
+  if (getMode() === MODES.USER_GALLERY && data.status === 404) {
     setMode(MODES.NOT_FOUND)
     processMode()
-    hideGallery(true)
+    store.dispatch(hideGallery(true))
   } else {
     store.dispatch(setGalleryMode('ERROR'))
   }

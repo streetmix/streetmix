@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
-import { showGallery } from '../gallery/view'
 import { onSignOutClick } from '../users/authentication'
+import { showGallery } from '../store/actions/gallery'
 import './IdentityMenu.scss'
 
 function IdentityMenu (props) {
@@ -11,14 +11,16 @@ function IdentityMenu (props) {
     (state) => state.user.signInData && state.user.signInData.userId
   )
   const noInternet = useSelector((state) => state.system.noInternet)
-  const myStreetsLink = userId ? `/${userId}` : ''
+  const dispatch = useDispatch()
   const handleClickMyStreets = useCallback(
     (event) => {
       event.preventDefault()
-      showGallery(userId)
+      dispatch(showGallery(userId))
     },
-    [userId]
+    [userId, dispatch]
   )
+
+  const myStreetsLink = userId ? `/${userId}` : ''
 
   return (
     <Menu {...props} className="identity-menu">

@@ -2,7 +2,6 @@ import { debug } from '../preinit/debug_settings'
 import { initSystemCapabilities } from '../preinit/system_capabilities'
 import { hideLoadingScreen, loadImages } from './load_resources'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { showGallery } from '../gallery/view'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
@@ -26,6 +25,7 @@ import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import store, { observeStore } from '../store'
 import { showDialog } from '../store/actions/dialogs'
+import { showGallery } from '../store/actions/gallery'
 import { everythingLoaded } from '../store/actions/app'
 
 let serverContacted
@@ -142,9 +142,9 @@ function onEverythingLoaded () {
 
   var mode = getMode()
   if (mode === MODES.USER_GALLERY) {
-    showGallery(store.getState().gallery.userId, true)
+    store.dispatch(showGallery(store.getState().gallery.userId, true))
   } else if (mode === MODES.GLOBAL_GALLERY) {
-    showGallery(null, true)
+    store.dispatch(showGallery(null, true))
   }
 
   if (getPromoteStreet()) {

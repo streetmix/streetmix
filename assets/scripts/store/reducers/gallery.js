@@ -26,7 +26,7 @@ const gallery = (state = initialState, action) => {
         ...state,
         visible: true,
         userId: action.userId,
-        mode: action.mode
+        mode: 'NONE'
       }
     case HIDE_GALLERY:
       return {
