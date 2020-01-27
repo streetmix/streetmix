@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Delete street",
     "street-count": "{count, plural, one {# street} other {# streets}}",
     "no-streets": "No streets yet",
-    "sign-in": "Sign in with Twitter for your personal street gallery",
-    "sign-in-prompt": "Sign in to see your personal street gallery"
+    "thumbnail-error": "Thumbnail image is not available."
   },
   "users": {
     "anonymous": "Anonymous",

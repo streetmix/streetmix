@@ -49,7 +49,7 @@ body.windows .street-name-text {
 .gallery .streets .street-name {
   @include street-name-mixin($street-name-gallery-size);
 
-  max-width: 100%;
+  max-width: 95%;
   position: relative;
   top: -7px;
 

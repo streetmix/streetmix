@@ -6,13 +6,16 @@ GalleryError.propTypes = {
   handleRetry: PropTypes.func.isRequired
 }
 
-function GalleryError (props) {
+function GalleryError ({ handleRetry }) {
   return (
     <div className="gallery-error">
       <p>
-        <FormattedMessage id="gallery.fail" defaultMessage="Failed to load the gallery." />
+        <FormattedMessage
+          id="gallery.fail"
+          defaultMessage="Failed to load the gallery."
+        />
       </p>
-      <button className="gallery-try-again" onClick={props.handleRetry}>
+      <button className="gallery-try-again" onClick={handleRetry}>
         <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
       </button>
     </div>

@@ -1,41 +1,36 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useEffect, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import GalleryPanel from './GalleryPanel'
 import GalleryShield from './GalleryShield'
-import { hideGallery } from './view'
+import { hideGallery } from '../store/actions/gallery'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Gallery.scss'
 
-const GalleryContainer = ({ visible }) => {
+function Gallery (props) {
+  const visible = useSelector((state) => state.gallery.visible)
+  const dispatch = useDispatch()
+  const hide = useCallback((e) => dispatch(hideGallery()), [dispatch])
+
   useEffect(() => {
     // Only register the esc keybind when Gallery is visible
     if (visible) {
-      registerKeypress('esc', hideGallery)
+      registerKeypress('esc', hide)
     } else {
-      deregisterKeypress('esc', hideGallery)
+      deregisterKeypress('esc', hide)
     }
 
     // Clean up the keybind when unmounted
     return () => {
-      deregisterKeypress('esc', hideGallery)
+      deregisterKeypress('esc', hide)
     }
-  }, [visible])
+  }, [visible, hide])
 
   return (
     <div className="gallery" aria-hidden={!visible}>
       <GalleryPanel />
-      <GalleryShield visible={visible} />
+      <GalleryShield visible={visible} onClick={hide} />
     </div>
   )
 }
 
-GalleryContainer.propTypes = {
-  visible: PropTypes.bool
-}
-
-const mapStateToProps = (state) => ({
-  visible: state.gallery.visible
-})
-
-export default connect(mapStateToProps)(GalleryContainer)
+export default Gallery

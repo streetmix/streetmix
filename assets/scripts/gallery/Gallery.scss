@@ -2,6 +2,7 @@
 
 $gallery-border-radius: $border-radius;
 $gallery-box-shadow: $medium-box-shadow;
+$selection-highlight-colour: $colour-copper-500;
 
 body.gallery-visible {
   .main-screen {
@@ -49,6 +50,18 @@ body:not(.safari).gallery-visible .street-section-sky {
 
   button.scrollable {
     margin-top: 45px;
+    width: 30px;
+    border: 0;
+    border-radius: $border-radius-medium;
+    background-color: $colour-turquoise-200;
+
+    &:hover {
+      background-color: $colour-turquoise-210;
+    }
+
+    &:active {
+      background-color: $colour-turquoise-220;
+    }
 
     &.scroll-left {
       left: -10px !important;
@@ -70,8 +83,7 @@ body:not(.safari).gallery-visible .street-section-sky {
 }
 
 .gallery-loading,
-.gallery-error,
-.gallery-sign-in-promo {
+.gallery-error {
   position: absolute;
   left: 0;
   right: 0;
@@ -91,7 +103,7 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-label {
   position: absolute;
-  left: 17px;
+  left: 16px;
   top: 11px;
   font-size: 1.5em;
 }
@@ -103,7 +115,7 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-street-count {
   position: absolute;
-  right: 20px;
+  right: 16px;
   top: 12px;
   font-size: 1.75em;
   font-weight: 300;
@@ -112,8 +124,8 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-streets-container {
   position: absolute;
-  left: 20px;
-  right: 20px;
+  left: 16px;
+  right: 16px;
   top: 50px;
   display: flex;
   flex-direction: row;
@@ -121,32 +133,60 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-try-again {
   margin-left: 10px;
+  // TODO: adopt new button style via inheritance/composition
+  padding: 0.5em 1em;
+  border: 0;
+  border-radius: $border-radius-medium;
+  background-color: $colour-turquoise-200;
+
+  &:hover {
+    background-color: $colour-turquoise-210;
+  }
+
+  &:active {
+    background-color: $colour-turquoise-220;
+  }
 }
 
 .gallery-street-item {
   display: inline-block;
+  position: relative;
+  width: $thumbnail-width;
+  height: $thumbnail-height;
+  border-radius: $border-radius-medium;
 
-  &:last-child a {
-    margin-right: 0;
+  /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
+  padding: 5px;
+  box-sizing: content-box;
+
+  /* reset child box sizing */
+  > * {
+    box-sizing: border-box;
+  }
+
+  &:first-child {
+    padding-left: 2px;
+  }
+
+  &:last-child {
+    padding-right: 2px;
   }
 }
 
 .gallery-street-item > a {
-  display: inline-block;
+  display: block;
   color: black;
   text-decoration: none;
-  vertical-align: top;
-  width: $thumbnail-width;
-  height: $thumbnail-height;
-  margin: 10px;
-  margin-top: 5px;
   background: fade-out($sky-colour, 0.2);
-  box-shadow: inset 0 3px 0 0 darken($ui-colour, 10%),
-    0 3px 0 0 darken($ui-colour, 10%);
   text-align: center;
   white-space: normal;
   cursor: pointer;
   position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius-medium;
 
   canvas {
     position: absolute;
@@ -154,28 +194,22 @@ body:not(.safari).gallery-visible .street-section-sky {
     top: 0;
     width: $thumbnail-width;
     height: $thumbnail-height;
-  }
-
-  &:first-child {
-    margin-left: 0;
+    // TODO: this causes rendering weirdness in Firefox.
+    border-radius: $border-radius-medium;
   }
 
   &:hover {
     background: fade-out($ui-colour, 0.1);
-
-    button.remove {
-      display: block;
-    }
   }
+}
 
-  &.gallery-selected {
-    background: darken($ui-colour, 10%);
-    border-top-color: black;
-    border-bottom-color: black;
+.gallery-street-item.gallery-selected > a {
+  background: darken($ui-colour, 10%);
+  box-shadow: 0 0 0 2px $selection-highlight-colour,
+    inset 0 0 0 2px rgba(255, 255, 255, 1);
 
-    canvas {
-      opacity: 1;
-    }
+  canvas {
+    opacity: 1;
   }
 }
 
@@ -192,23 +226,65 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-street-item-date {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 20px;
+  right: 20px;
   bottom: 5px;
   text-align: center;
   display: block;
   font-size: 0.8em;
   color: black;
   font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .gallery-street-item-delete {
   position: absolute;
-  padding: 0 10px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  bottom: 7px;
+  right: 7px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
   line-height: 25px;
-  top: -5px;
-  right: -5px;
   user-select: none;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.65em;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+
+  svg {
+    color: $colour-turquoise-500 !important;
+  }
+
+  &:hover svg {
+    color: $colour-turquoise-600 !important;
+  }
+}
+
+.gallery-street-item-error {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius-medium;
+  color: $colour-turquoise-600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
 }
 
 .gallery-user-buttons {
@@ -216,25 +292,41 @@ body:not(.safari).gallery-visible .street-section-sky {
   flex: 0 0 auto;
   flex-direction: column;
   width: 100px;
-  height: 112px;
+  height: 110px;
   margin-top: 6px;
-  margin-right: 20px;
+  margin-right: 16px;
 
-  a.button-like {
+  a.button-like,
+  button {
     padding-left: 0.5em;
     padding-right: 0.5em;
     display: flex !important;
     align-items: center !important;
     justify-content: center;
+    border: 0;
+    border-radius: $border-radius-medium;
+  }
+
+  a.button-like,
+  button:not(:disabled) {
+    background-color: $colour-turquoise-200;
+
+    &:hover {
+      background-color: $colour-turquoise-210;
+    }
+
+    &:active {
+      background-color: $colour-turquoise-220;
+    }
   }
 }
 
-a.gallery-new-street {
+.gallery-new-street {
   flex-grow: 1;
   font-weight: bold;
 }
 
-a.gallery-copy-last-street {
+.gallery-copy-last-street {
   height: 40px;
   flex-basis: 40px;
   margin-top: 10px;

@@ -1,8 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { isOwnedByCurrentUser } from './owner'
-import { showGallery } from '../gallery/view'
+import { showGallery } from '../store/actions/gallery'
 import Avatar from '../users/Avatar'
 
 function StreetMetaAuthor (props) {
@@ -11,13 +11,14 @@ function StreetMetaAuthor (props) {
   const userId = useSelector(
     (state) => (state.user.signInData && state.user.signInData.userId) || ''
   )
+  const dispatch = useDispatch()
 
   function handleClickAuthor (event) {
     if (event) {
       event.preventDefault()
     }
 
-    showGallery(creatorId, false)
+    dispatch(showGallery(creatorId))
   }
 
   let user

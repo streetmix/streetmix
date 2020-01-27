@@ -1,20 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import GalleryLoading from './GalleryLoading'
-import GallerySignInPromo from './GallerySignInPromo'
 import GalleryError from './GalleryError'
-import { repeatReceiveGalleryData, hideGallery } from './view'
-import { showDialog } from '../store/actions/dialogs'
+import GalleryLoading from './GalleryLoading'
 import GalleryContents from './GalleryContents'
+import { repeatReceiveGalleryData } from './view'
 
 // This component only handles switching between display modes
 class GalleryPanel extends React.Component {
   static propTypes = {
-    // Provided by Redux action creators
-    showDialog: PropTypes.func,
-
-    // Provided by Redux state
     mode: PropTypes.string
   }
 
@@ -37,16 +31,6 @@ class GalleryPanel extends React.Component {
       childElements = <GalleryError handleRetry={repeatReceiveGalleryData} />
     } else {
       switch (this.props.mode) {
-        // This is currently deprecated; the gallery is only accessible only for
-        // a defined user or as a global gallery.
-        case 'SIGN_IN_PROMO':
-          childElements = (
-            <GallerySignInPromo
-              hideGallery={hideGallery}
-              showDialog={this.props.showDialog}
-            />
-          )
-          break
         case 'LOADING':
           childElements = <GalleryLoading />
           break
@@ -57,11 +41,7 @@ class GalleryPanel extends React.Component {
       }
     }
 
-    return (
-      <div className="gallery-panel">
-        {childElements}
-      </div>
-    )
+    return <div className="gallery-panel">{childElements}</div>
   }
 }
 
@@ -69,8 +49,4 @@ const mapStateToProps = (state) => ({
   mode: state.gallery.mode
 })
 
-const mapDispatchToProps = {
-  showDialog
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GalleryPanel)
+export default connect(mapStateToProps)(GalleryPanel)

@@ -3,14 +3,14 @@ import React from 'react'
 import StreetMetaAuthor from '../StreetMetaAuthor'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { isOwnedByCurrentUser } from '../../streets/owner'
-import { showGallery } from '../../gallery/view'
+import { showGallery } from '../../store/actions/gallery'
 import { fireEvent } from '@testing-library/react'
 
 // Enable mocking of the return value of `isOwnedByCurrentUser`
 jest.mock('../../streets/owner')
 
-jest.mock('../../gallery/view', () => ({
-  showGallery: jest.fn()
+jest.mock('../../store/actions/gallery', () => ({
+  showGallery: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('StreetMetaAuthor', () => {
@@ -54,6 +54,7 @@ describe('StreetMetaAuthor', () => {
 
     fireEvent.click(getByText('foo'))
     expect(showGallery).toBeCalledTimes(1)
+    expect(showGallery).toBeCalledWith('foo')
   })
 
   it('renders street creator byline if you are not signed in', () => {
@@ -73,6 +74,7 @@ describe('StreetMetaAuthor', () => {
 
     fireEvent.click(getByText('foo'))
     expect(showGallery).toBeCalledTimes(1)
+    expect(showGallery).toBeCalledWith('foo')
   })
 
   it('renders anonymous byline if you are signed in', () => {

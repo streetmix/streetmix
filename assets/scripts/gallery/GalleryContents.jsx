@@ -1,6 +1,5 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import GalleryStreetItem from './GalleryStreetItem'
 import Scrollable from '../ui/Scrollable'
@@ -11,21 +10,19 @@ import { showError, ERRORS } from '../app/errors'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
 import { deleteGalleryStreet } from '../store/actions/gallery'
 
-GalleryContents.propTypes = {
-  // Provided by Redux action creators
-  deleteGalleryStreet: PropTypes.func,
-
-  // Provided by Redux store
-  userId: PropTypes.string,
-  streets: PropTypes.array,
-  isOwnedByCurrentUser: PropTypes.bool,
-  currentStreetId: PropTypes.string
-}
-
 function GalleryContents (props) {
-  const { userId, isOwnedByCurrentUser, streets = [], currentStreetId, deleteGalleryStreet } = props
+  const userId = useSelector((state) => state.gallery.userId)
+  const streets = useSelector((state) => state.gallery.streets || [])
+  const currentStreetId = useSelector((state) => state.street.id)
+  const isOwnedByCurrentUser = useSelector(
+    (state) =>
+      state.user.signedIn &&
+      state.gallery.userId === state.user.signInData.userId
+  )
+  const dispatch = useDispatch()
+
   const galleryEl = useRef(null)
-  const [selectedStreet, setSelectedStreet] = useState(null)
+  const [selectedStreet, setSelectedStreet] = useState(currentStreetId)
 
   useLayoutEffect(() => {
     if (selectedStreet) {
@@ -51,19 +48,17 @@ function GalleryContents (props) {
     // Optimistic delete: don't re-fetch, just remove street from memory
     // and let the change in data store trigger a re-render
     setSelectedStreet(null)
-    deleteGalleryStreet(streetId)
+    dispatch(deleteGalleryStreet(streetId))
   }
 
   return (
     <>
       {/* Heading */}
       <div className="gallery-label" ref={galleryEl}>
-        {(userId) ? (
+        {userId ? (
           <>
             <Avatar userId={userId} />
-            <div className="gallery-user-id">
-              {userId}
-            </div>
+            <div className="gallery-user-id">{userId}</div>
           </>
         ) : (
           <FormattedMessage id="gallery.all" defaultMessage="All streets" />
@@ -86,12 +81,31 @@ function GalleryContents (props) {
         {/* Display these buttons for a user viewing their own gallery */}
         {isOwnedByCurrentUser && (
           <div className="gallery-user-buttons">
-            <a className="button-like gallery-new-street" href={`/${URL_NEW_STREET}`} rel="noopener noreferrer" target="_blank">
-              <FormattedMessage id="btn.create" defaultMessage="Create new street" />
+            <a
+              className="button-like gallery-new-street"
+              href={`/${URL_NEW_STREET}`}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <FormattedMessage
+                id="btn.create"
+                defaultMessage="Create new street"
+              />
             </a>
-            <a className="button-like gallery-copy-last-street" href={`/${URL_NEW_STREET_COPY_LAST}`} rel="noopener noreferrer" target="_blank">
-              <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-            </a>
+            {selectedStreet !== null ? (
+              <a
+                className="button-like gallery-copy-last-street"
+                href={`/${URL_NEW_STREET_COPY_LAST}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+              </a>
+            ) : (
+              <button className="gallery-copy-last-street" disabled>
+                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+              </button>
+            )}
           </div>
         )}
 
@@ -113,15 +127,4 @@ function GalleryContents (props) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  userId: state.gallery.userId,
-  streets: state.gallery.streets,
-  currentStreetId: state.street.id,
-  isOwnedByCurrentUser: state.user.signedIn && (state.gallery.userId === state.user.signInData.userId)
-})
-
-const mapDispatchToProps = {
-  deleteGalleryStreet
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GalleryContents)
+export default GalleryContents
