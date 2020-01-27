@@ -975,10 +975,15 @@
       "owner": "CAR",
       "zIndex": 14,
       "variants": {
-        "type": {
-          "default": {
+        "direction": {
+          "inbound": {
             "graphics": {
               "center": "vehicles--av-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "vehicles--av-outbound"
             }
           }
         }

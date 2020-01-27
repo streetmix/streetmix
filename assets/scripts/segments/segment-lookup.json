@@ -2746,7 +2746,7 @@
             {
               "id": "av",
               "variants": {
-                "type": "default"
+                "direction": "inbound"
               }
             }
           ]
@@ -2771,7 +2771,7 @@
             {
               "id": "av",
               "variants": {
-                "type": "default"
+                "direction": "outbound"
               }
             }
           ]
