@@ -5,9 +5,7 @@ exports[`GalleryStreetItem renders 1`] = `
   <div
     class="gallery-street-item"
   >
-    <a
-      class=""
-    >
+    <a>
       <canvas
         height="220"
         width="360"

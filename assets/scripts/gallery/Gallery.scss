@@ -150,26 +150,42 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-street-item {
   display: inline-block;
+  position: relative;
+  width: $thumbnail-width;
+  height: $thumbnail-height;
+  border-radius: $border-radius-medium;
 
-  &:last-child a {
-    margin-right: 0;
+  /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
+  padding: 5px;
+  box-sizing: content-box;
+
+  /* reset child box sizing */
+  > * {
+    box-sizing: border-box;
+  }
+
+  &:first-child {
+    padding-left: 2px;
+  }
+
+  &:last-child {
+    padding-right: 2px;
   }
 }
 
 .gallery-street-item > a {
-  display: inline-block;
+  display: block;
   color: black;
   text-decoration: none;
-  vertical-align: top;
-  width: $thumbnail-width;
-  height: $thumbnail-height;
-  margin: 10px;
-  margin-top: 5px;
   background: fade-out($sky-colour, 0.2);
   text-align: center;
   white-space: normal;
   cursor: pointer;
   position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   border-radius: $border-radius-medium;
 
   canvas {
@@ -182,26 +198,18 @@ body:not(.safari).gallery-visible .street-section-sky {
     border-radius: $border-radius-medium;
   }
 
-  &:first-child {
-    margin-left: 0;
-  }
-
   &:hover {
     background: fade-out($ui-colour, 0.1);
-
-    button.remove {
-      display: block;
-    }
   }
+}
 
-  &.gallery-selected {
-    background: darken($ui-colour, 10%);
-    box-shadow: 0 0 0 2px $selection-highlight-colour,
-      inset 0 0 0 2px rgba(255, 255, 255, 1);
+.gallery-street-item.gallery-selected > a {
+  background: darken($ui-colour, 10%);
+  box-shadow: 0 0 0 2px $selection-highlight-colour,
+    inset 0 0 0 2px rgba(255, 255, 255, 1);
 
-    canvas {
-      opacity: 1;
-    }
+  canvas {
+    opacity: 1;
   }
 }
 
@@ -233,8 +241,8 @@ body:not(.safari).gallery-visible .street-section-sky {
   padding: 0;
   width: 20px;
   height: 20px;
-  top: 2px;
-  right: 2px;
+  top: 7px;
+  right: 7px;
   display: flex !important;
   justify-content: center;
   align-items: center !important;
@@ -252,6 +260,20 @@ body:not(.safari).gallery-visible .street-section-sky {
   &:hover svg {
     color: $colour-turquoise-600 !important;
   }
+}
+
+.gallery-street-item-error {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius-medium;
+  color: $colour-turquoise-600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
 }
 
 .gallery-user-buttons {

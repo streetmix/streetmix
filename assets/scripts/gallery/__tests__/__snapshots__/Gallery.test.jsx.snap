@@ -24,10 +24,9 @@ exports[`Gallery renders global gallery view 1`] = `
             class="streets"
           >
             <div
-              class="gallery-street-item"
+              class="gallery-street-item gallery-selected"
             >
               <a
-                class="gallery-selected"
                 href="/foo/435/baz"
               >
                 <canvas
@@ -153,10 +152,9 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
             class="streets"
           >
             <div
-              class="gallery-street-item"
+              class="gallery-street-item gallery-selected"
             >
               <a
-                class="gallery-selected"
                 href="/foo/435/baz"
               >
                 <canvas
@@ -271,10 +269,9 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
             class="streets"
           >
             <div
-              class="gallery-street-item"
+              class="gallery-street-item gallery-selected"
             >
               <a
-                class="gallery-selected"
                 href="/foo/435/baz"
               >
                 <canvas
@@ -300,15 +297,15 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
                     April 27, 2018
                   </time>
                 </span>
-                <button
-                  class="gallery-street-item-delete"
-                  title="Delete street"
-                >
-                  <svg
-                    class="svg-inline--fa fa-times"
-                  />
-                </button>
               </a>
+              <button
+                class="gallery-street-item-delete"
+                title="Delete street"
+              >
+                <svg
+                  class="svg-inline--fa fa-times"
+                />
+              </button>
             </div>
           </div>
           <button

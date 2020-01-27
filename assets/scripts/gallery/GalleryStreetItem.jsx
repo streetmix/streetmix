@@ -1,7 +1,7 @@
-import React, { useRef, useLayoutEffect } from 'react'
+import React, { useState, useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
 import CloseButton from '../ui/CloseButton'
@@ -34,6 +34,7 @@ function GalleryStreetItem (props) {
   const dpi = useSelector((state) => state.system.devicePixelRatio || 1)
 
   // Set hooks
+  const [error, setError] = useState(null)
   const thumbnailEl = useRef(null)
   const intl = useIntl()
 
@@ -43,21 +44,27 @@ function GalleryStreetItem (props) {
 
     const ctx = thumbnailEl.current.getContext('2d')
 
-    // TODO: document magic number 2
-    drawStreetThumbnail(
-      ctx,
-      street.data.street,
-      THUMBNAIL_WIDTH * 2,
-      THUMBNAIL_HEIGHT * 2,
-      dpi,
-      THUMBNAIL_MULTIPLIER,
-      true,
-      false,
-      true,
-      false,
-      false,
-      false
-    )
+    try {
+      // TODO: document magic number 2
+      drawStreetThumbnail(
+        ctx,
+        street.data.street,
+        THUMBNAIL_WIDTH * 2,
+        THUMBNAIL_HEIGHT * 2,
+        dpi,
+        THUMBNAIL_MULTIPLIER,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      )
+    } catch (error) {
+      if (error) {
+        setError(error)
+      }
+    }
   }, [thumbnailEl, street, dpi])
 
   // Define event handlers
@@ -99,19 +106,29 @@ function GalleryStreetItem (props) {
     return null
   }
 
+  const classNames = ['gallery-street-item']
+  if (selected) {
+    classNames.push('gallery-selected')
+  }
+
   return (
-    <div className="gallery-street-item">
-      <a
-        href={getStreetUrl(street)}
-        onClick={handleSelectStreet}
-        className={selected ? 'gallery-selected' : ''}
-      >
-        {/* TODO: document magic number 2 */}
-        <canvas
-          width={THUMBNAIL_WIDTH * dpi * 2}
-          height={THUMBNAIL_HEIGHT * dpi * 2}
-          ref={thumbnailEl}
-        />
+    <div className={classNames.join(' ')}>
+      <a href={getStreetUrl(street)} onClick={handleSelectStreet}>
+        {error ? (
+          <div className="gallery-street-item-error">
+            <FormattedMessage
+              id="gallery.thumbnail-error"
+              defaultMessage="Thumbnail image is not available."
+            />
+          </div>
+        ) : (
+          /* TODO: document magic number 2 */
+          <canvas
+            width={THUMBNAIL_WIDTH * dpi * 2}
+            height={THUMBNAIL_HEIGHT * dpi * 2}
+            ref={thumbnailEl}
+          />
+        )}
 
         <StreetName name={street.name} />
 
@@ -129,19 +146,19 @@ function GalleryStreetItem (props) {
               })}
           </span>
         )}
-
-        {/* Only show delete button if allowed, e.g. if user is owner of the street */}
-        {allowDelete && (
-          <CloseButton
-            className="gallery-street-item-delete"
-            title={intl.formatMessage({
-              id: 'gallery.delete-street-tooltip',
-              defaultMessage: 'Delete street'
-            })}
-            onClick={handleDeleteStreet}
-          />
-        )}
       </a>
+
+      {/* Only show delete button if allowed, e.g. if user is owner of the street */}
+      {allowDelete && (
+        <CloseButton
+          className="gallery-street-item-delete"
+          title={intl.formatMessage({
+            id: 'gallery.delete-street-tooltip',
+            defaultMessage: 'Delete street'
+          })}
+          onClick={handleDeleteStreet}
+        />
+      )}
     </div>
   )
 }

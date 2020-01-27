@@ -345,7 +345,8 @@
     "twitter-link": "Twitter profile",
     "delete-street-tooltip": "Delete street",
     "street-count": "{count, plural, one {# street} other {# streets}}",
-    "no-streets": "No streets yet"
+    "no-streets": "No streets yet",
+    "thumbnail-error": "Thumbnail image is not available."
   },
   "users": {
     "anonymous": "Anonymous",
