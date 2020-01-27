@@ -167,7 +167,7 @@
     "swagger-jsdoc": "3.5.0",
     "swagger-ui-express": "4.1.2",
     "twitter": "1.7.1",
-    "uuid": "3.3.3",
+    "uuid": "3.4.0",
     "whatwg-fetch": "3.0.0",
     "winston": "3.2.1"
   },
