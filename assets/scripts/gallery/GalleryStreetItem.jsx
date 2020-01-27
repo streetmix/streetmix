@@ -2,11 +2,12 @@ import React, { useState, useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { useIntl, FormattedMessage } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
-import CloseButton from '../ui/CloseButton'
 import StreetName from '../streets/StreetName'
 import { drawStreetThumbnail } from '../streets/thumbnail'
+import { ICON_TRASH } from '../ui/icons'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -150,14 +151,16 @@ function GalleryStreetItem (props) {
 
       {/* Only show delete button if allowed, e.g. if user is owner of the street */}
       {allowDelete && (
-        <CloseButton
+        <button
           className="gallery-street-item-delete"
+          onClick={handleDeleteStreet}
           title={intl.formatMessage({
             id: 'gallery.delete-street-tooltip',
             defaultMessage: 'Delete street'
           })}
-          onClick={handleDeleteStreet}
-        />
+        >
+          <FontAwesomeIcon icon={ICON_TRASH} />
+        </button>
       )}
     </div>
   )

@@ -226,14 +226,17 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-street-item-date {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 20px;
+  right: 20px;
   bottom: 5px;
   text-align: center;
   display: block;
   font-size: 0.8em;
   color: black;
   font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .gallery-street-item-delete {
@@ -241,7 +244,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   padding: 0;
   width: 20px;
   height: 20px;
-  top: 7px;
+  bottom: 7px;
   right: 7px;
   display: flex !important;
   justify-content: center;
@@ -252,6 +255,14 @@ body:not(.safari).gallery-visible .street-section-sky {
   border: 0;
   border-radius: 50%;
   font-size: 0.65em;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.75);
+  }
 
   svg {
     color: $colour-turquoise-500 !important;

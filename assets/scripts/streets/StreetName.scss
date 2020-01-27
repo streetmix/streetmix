@@ -49,8 +49,7 @@ body.windows .street-name-text {
 .gallery .streets .street-name {
   @include street-name-mixin($street-name-gallery-size);
 
-  // Prevent overlap with "delete" button
-  max-width: 75%;
+  max-width: 95%;
   position: relative;
   top: -7px;
 
