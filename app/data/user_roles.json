@@ -6,6 +6,7 @@
     "flags": {
       "ANALYTICS": true,
       "SEGMENT_AV": true,
+      "SEGMENT_KRZ": true,
       "SEGMENT_MAGIC_CARPET": true
     }
   },
