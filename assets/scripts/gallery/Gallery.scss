@@ -106,6 +106,11 @@ body:not(.safari).gallery-visible .street-section-sky {
   left: 16px;
   top: 11px;
   font-size: 1.5em;
+
+  [dir="rtl"] & {
+    left: auto;
+    right: 16px;
+  }
 }
 
 .gallery-user-id {
@@ -120,6 +125,11 @@ body:not(.safari).gallery-visible .street-section-sky {
   font-size: 1.75em;
   font-weight: 300;
   color: rgb(128, 128, 128);
+
+  [dir="rtl"] & {
+    left: 16px;
+    right: auto;
+  }
 }
 
 .gallery-streets-container {
@@ -256,6 +266,11 @@ body:not(.safari).gallery-visible .street-section-sky {
   border-radius: 50%;
   font-size: 0.65em;
 
+  [dir="rtl"] & {
+    left: 7px;
+    right: auto;
+  }
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
   }
@@ -318,6 +333,11 @@ body:not(.safari).gallery-visible .street-section-sky {
     &:active {
       background-color: $colour-turquoise-220;
     }
+  }
+
+  [dir="rtl"] & {
+    margin-left: 16px;
+    margin-right: 0;
   }
 }
 

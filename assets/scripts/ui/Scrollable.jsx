@@ -72,24 +72,32 @@ const Scrollable = React.forwardRef((props, ref) => {
 
   function checkButtonVisibilityState () {
     const el = scrollerEl.current
+    const dir = window.getComputedStyle(el).direction
+
+    // Swap left and right buttons if direction is `rtl`
+    const left = dir === 'rtl' ? rightButtonEl.current : leftButtonEl.current
+    const right = dir === 'rtl' ? leftButtonEl.current : rightButtonEl.current
 
     // We set styles manually instead of setting `disabled` as before; it's
     // because a button in a disabled state doesn't seem to get onClick
     // handlers attached.
     if (el.scrollLeft === 0) {
-      leftButtonEl.current.style.opacity = 0
-      leftButtonEl.current.style.pointerEvents = 'none'
+      left.style.opacity = 0
+      left.style.pointerEvents = 'none'
     } else {
-      leftButtonEl.current.style.opacity = 1
-      leftButtonEl.current.style.pointerEvents = 'auto'
+      left.style.opacity = 1
+      left.style.pointerEvents = 'auto'
     }
 
-    if (el.scrollLeft === el.scrollWidth - el.offsetWidth) {
-      rightButtonEl.current.style.opacity = 0
-      rightButtonEl.current.style.pointerEvents = 'none'
+    // scrollLeft will be a negative value if direction is `rtl`,
+    // and a positive value if direction is `ltr`.
+    // Math.abs() is used to guarantee a positive value for the comparison.
+    if (Math.abs(el.scrollLeft) === el.scrollWidth - el.offsetWidth) {
+      right.style.opacity = 0
+      right.style.pointerEvents = 'none'
     } else {
-      rightButtonEl.current.style.opacity = 1
-      rightButtonEl.current.style.pointerEvents = 'auto'
+      right.style.opacity = 1
+      right.style.pointerEvents = 'auto'
     }
   }
 
