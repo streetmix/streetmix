@@ -19,7 +19,7 @@ function StreetMetaAnalytics (props) {
           <FormattedMessage
             id="capacity.ppl-per-hour"
             defaultMessage="{capacity} people/hr"
-            values={{ capacity: formatCapacity(averageTotal) }}
+            values={{ capacity: formatCapacity(averageTotal, locale) }}
           />
         </a>
       </span>
