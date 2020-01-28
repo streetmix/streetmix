@@ -1,5 +1,7 @@
 @import "../../styles/variables.scss";
 
+$geotag-dialog-background-color: $off-white;
+
 .geotag-dialog {
   width: 90vw;
   height: 80vh;
@@ -86,7 +88,7 @@
 /* Leaflet overrides */
 
 .leaflet-container {
-  background-color: white;
+  background-color: $geotag-dialog-background-color;
   height: 100%;
   font-family: $font-family;
   font-size: inherit;
