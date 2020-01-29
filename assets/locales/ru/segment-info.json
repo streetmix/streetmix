@@ -163,6 +163,8 @@
     "car-type|sharrow": "Разметка дял велосипедистов",
     "car-type|truck": "Грузовик",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "Асфальт",
     "public-transit-asphalt|colored": "Красная полоса",
     "public-transit-asphalt|grass": "Трава",

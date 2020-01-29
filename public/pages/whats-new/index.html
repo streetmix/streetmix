@@ -31,8 +31,8 @@
       margin-top: 0;
       margin-bottom: 0.25em;
       font-size: 1rem;
-      color: gray;
-      font-weight: 300;
+      font-weight: 600;
+      color: #39677a;
     }
 
     ul {
@@ -41,6 +41,10 @@
 
     li {
       margin-bottom: 0.75em;
+    }
+
+    ul ul {
+      margin-top: 1em;
     }
 
     a {
@@ -80,11 +84,73 @@
 </head>
 <body>
   <article>
+    <h1>January 29, 2020</h1>
+    <p>
+      <h2>New features</h2>
+      <ul>
+        <li>
+          <strong>Added an outbound autonomous vehicle illustration.</strong> When you hate to see them go, but you love to watch them drive away. (Note: only available for signed-in users.)
+        </li>
+        <li>
+          <strong>Added a motorcycle with sidecar to the drive lane.</strong> And introducing a cameo by <a href="http://kentuckyroutezero.com/" target="_blank" rel="noopener nofollow">Junebug and Johnny</a>. (Note: only available for signed-in users.)
+        </li>
+        <li>
+          <strong>Added languages: Italian, Korean, and Latin American Spanish.</strong> <em>Cin cin!</em> <em>건배!</em> <em>¡Salud!</em> The latter is especially important, as we can now support a much larger community of Spanish speakers throughout all of Latin America. Many thanks to our translators, Enrico Ferreguti, Sunha Park, and Lina Marcela Quiñones, with reviewers Marco Scarselli, Hanbyul Jo, and Carlos Pardo.
+        </li>
+      </ul>
+      <h2>UI improvements</h2> 
+      <ul>
+        <li>
+          <strong>Remodeled the personal street gallery interface.</strong> Some notable changes:
+          <ul>
+            <li>The selected street now has a more visible border, making it easier to see.</li>
+            <li>The “Delete street” button has been relocated to make room for longer street names, and changed from an “x” symbol to a more context-sensitive trash can icon.</li>
+            <li>Thumbnails that cannot be rendered (for instance, because the street contains data that hasn’t been implemented yet) now show an error message in place of the thumbnail, instead of crashing the entire gallery component.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Bug fixes</h2>
+      <ul>
+        <li>Fixed a bug where attempting to make a copy of a deleted street would crash the app.</li>
+        <li>Fixed a bug where the current street would not be shown as selected when opening the street gallery.</li>
+        <li>Fixed a bug where capacity count summaries would not be localized.</li>
+        <li>Fixed broken right-to-left layout in the street gallery.</li>
+        <li>Fixed certain styling issues that would occur as a result of rounding errors.</li>
+      </ul>
+    </p>
+  </article>
+  <article>
+    <h1>January 18, 2020</h1>
+    <p>
+      <h2>New features</h2>
+      <ul>
+        <li>
+          Users in any language can now sign in with e-mail, Facebook and Google single-sign-on options, in addition to Twitter. (Although they haven't all been translated yet.)
+        </li>
+      </ul>
+      <h2>UI improvements</h2> 
+      <ul>
+        <li>
+          <strong>New UI font!</strong> If you’re into typography, say hello to <a href="https://hubertfischer.com/work/type-rubik" target="_blank" rel="noopener nofollow">Rubik</a> by <a href="https://hubertfischer.com/" target="_blank" rel="noopener nofollow">Hubert & Fischer</a>.
+        </li>
+      </ul>
+      <h2>Bug fixes</h2> 
+      <ul>
+        <li>Fixed a regression that caused a crash whenever a new segment was dragged out from the palette.</li>
+        <li>Fixed a regression where streets would show a “Updated seconds ago” timestamp when being edited.</li>
+      </ul>
+    </p>
+  </article>
+  <article>
     <h1>January 8, 2020</h1>
     <p>
-      <strong>Happy new year!</strong> Here’s a few relevant feature updates.
+      <strong>Happy new year!</strong> We have a few updates!
+      <h2>New features</h2>
       <ul>
         <li>We added a variant of turn lane that has all three left turn, right turn and straight arrows. They're uncommon, but they do exist in the wild!</li>
+      </ul>
+      <h2>Bug fixes</h2> 
+      <ul>
         <li>We fixed a bug that could cause a browser to navigate forward or back a page if you scrolled too far on a wide street.</li>
       </ul>
     </p>

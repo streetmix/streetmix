@@ -143,6 +143,8 @@
     "car-type|sharrow": "共用",
     "car-type|truck": "トラック",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "アスファルト",
     "public-transit-asphalt|colored": "赤レーン",
     "public-transit-asphalt|grass": "芝生",

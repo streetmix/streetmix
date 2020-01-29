@@ -163,6 +163,8 @@
     "car-type|sharrow": "Corsia promiscua",
     "car-type|truck": "Automezzo pesante",
     "car-type|av": "Veicolo a guida autonoma",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Corsia rossa",
     "public-transit-asphalt|grass": "Erba",

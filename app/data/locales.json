@@ -35,11 +35,11 @@
     "level": 1
   },
   {
-    "label": "Español (latinoamericano)",
+    "label": "Español (América Latina)",
     "name": "Spanish (Latin America)",
     "value": "es-419",
     "key": "i18n.lang.es-419",
-    "level": 2
+    "level": 3
   },
   {
     "label": "Español (México)",
@@ -67,7 +67,7 @@
     "name": "Italian",
     "value": "it",
     "key": "i18n.lang.it",
-    "level": 2
+    "level": 3
   },
   {
     "label": "日本語",
@@ -81,7 +81,7 @@
     "name": "Korean",
     "value": "ko",
     "key": "i18n.lang.ko",
-    "level": 2
+    "level": 3
   },
   {
     "label": "Polski",

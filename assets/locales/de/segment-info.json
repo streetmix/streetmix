@@ -163,6 +163,8 @@
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Lkw",
     "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "Asphalt",
     "public-transit-asphalt|colored": "Rot eingefärbt",
     "public-transit-asphalt|grass": "Rasen",

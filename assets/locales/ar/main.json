@@ -346,8 +346,7 @@
     "delete-street-tooltip": "شطب الشارع",
     "street-count": "{count, plural, zero {شوارع} one {شارع} two {شارعين} few {# شوارع} many {# شوارع} other {# شوارع}}",
     "no-streets": "لا وجود للشوارع إلى الآن",
-    "sign-in": "تسجيل الدخول باستخدام حساب تويتر من أجل معرض الصور الشخصية للشارع",
-    "sign-in-prompt": "قم بتسجيل الدخول لمشاهدة معرض صور شارعك الخاص"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "مجهول",

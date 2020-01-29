@@ -163,6 +163,8 @@
     "car-type|sharrow": "Sekakaista",
     "car-type|truck": "Kuorma-auto",
     "car-type|av": "Itsestään ohjautuva ajoneuvo",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
     "public-transit-asphalt|regular": "Asfaltti",
     "public-transit-asphalt|colored": "Punainen asfaltti",
     "public-transit-asphalt|grass": "Ruohokenttä",

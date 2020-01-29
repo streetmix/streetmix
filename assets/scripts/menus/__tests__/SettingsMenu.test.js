@@ -45,11 +45,6 @@ describe('SettingsMenu', () => {
     clearMenus.mockClear()
   })
 
-  it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<SettingsMenu />, { initialState })
-    expect(wrapper.asFragment()).toMatchSnapshot()
-  })
-
   it.todo('renders proper locale lists for given feature flags')
 
   it('handles locale selection', () => {

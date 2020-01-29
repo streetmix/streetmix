@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Удалить улицу",
     "street-count": "{count, plural, one {улица} few {улиц} many {улиц} other {улиц}}",
     "no-streets": "Пока что нет улиц",
-    "sign-in": "Войти через Twitter для персоальной галереи улиц",
-    "sign-in-prompt": "Войти для персональной галереи улиц"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "Аноним",

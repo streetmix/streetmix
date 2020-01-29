@@ -150,7 +150,7 @@
     "welcome": {
       "heading": "스트리트믹스에 오신 것을 환영합니다.",
       "new": {
-        "intro": "동네의 거리를 디자인하고, 리믹스하고, 공유해보세요. 나무나 자전거 도로를 추가하고, 보도나 차선를 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+        "intro": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 나무나 자전거 도로를 추가하고, 보도나 차선를 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
         "instruct": "{pointer}로 일부 세그먼트를 이동하여 시작하세요.",
         "instruct-pointer-finger": "손가락",
         "instruct-pointer-mouse": "마우스"
@@ -170,7 +170,7 @@
     },
     "about": {
       "heading": "스트리트믹스 소개",
-      "description": "거리를 디자인하고, 리믹스하고, 공유해보세요. 자전거 도로를 추가하고, 보도나 차선를 넓히고, 이 모든 것들이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+      "description": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 자전거 도로를 추가하고, 보도나 차선를 넓히고, 이 모든 것들이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
       "thanks": "Many thanks to the staff and 2013 CfA fellows for their support and patience, the Blockee team for paving the way, and all of our testers for their time and feedback!",
       "credits": "A side project by {cfaLink} 2013 fellows:",
       "team-heading": "프로젝트 팀 및 관리자",
@@ -213,7 +213,7 @@
       "confirm-location": "위치 확인",
       "clear-location": "위치 지우기",
       "unknown-location": "알 수 없는 위치",
-      "geotag-unavailable": "지오코딩 서비스를 현재 사용할 수 없습니다. 지도는 볼 수 있지만, 이 거리의 위치는 변경할 수 없습니다."
+      "geotag-unavailable": "지오코딩 서비스를 현재 사용할 수 없습니다. 지도는 볼 수 있지만, 이 스트리트의 위치는 변경할 수 없습니다."
     },
     "donate": {
       "heading": "스트리트믹스는 여러분의 도움이 필요합니다!",
@@ -346,8 +346,7 @@
     "delete-street-tooltip": "스트리트 삭제",
     "street-count": "{count, plural, other {# 스트리트}}",
     "no-streets": "저장된 스트리트가 없습니다",
-    "sign-in": "트위터 계정으로 로그인하여 나만의 스트리트 갤러리 확인",
-    "sign-in-prompt": "로그인하여 나만의 스트리트 갤러리 확인"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "익명",
@@ -357,7 +356,7 @@
     "watermark": "Made with {streetmixWordmark}"
   },
   "meta": {
-    "description": "모든 브라우저에서 동네의 거리를 디자인하고, 리믹스하고, 공유해보세요! 나무나 자전거 도로를 추가하고, 보도나 차선을 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+    "description": "모든 브라우저에서 동네의 스트리트를 디자인하고, 리믹스하고, 공유해보세요! 나무나 자전거 도로를 추가하고, 보도나 차선을 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
     "page-title": "{streetName}  ({author})"
   },
   "credits": {

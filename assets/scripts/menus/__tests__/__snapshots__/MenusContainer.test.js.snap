@@ -302,6 +302,18 @@ exports[`MenusContainer renders 1`] = `
           class="menu-item"
         >
           <span>
+            Español (América Latina)‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Spanish (Latin America)
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
             Español (México)‎
           </span>
           <span
@@ -320,6 +332,18 @@ exports[`MenusContainer renders 1`] = `
             class="menu-item-subtext"
           >
             French
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            Italiano‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Italian
           </span>
         </li>
         <li
@@ -416,6 +440,18 @@ exports[`MenusContainer renders 1`] = `
             class="menu-item-subtext"
           >
             Traditional Chinese
+          </span>
+        </li>
+        <li
+          class="menu-item"
+        >
+          <span>
+            한국어‎
+          </span>
+          <span
+            class="menu-item-subtext"
+          >
+            Korean
           </span>
         </li>
       </ul>

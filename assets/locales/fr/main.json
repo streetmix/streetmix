@@ -346,8 +346,7 @@
     "delete-street-tooltip": "Supprimer la rue",
     "street-count": "{count, plural, one {# rue} other {# rues}}",
     "no-streets": "Aucune rue pour le moment",
-    "sign-in": "Se connecter à Twitter pour avoir accès à votre galerie de rues personnelles",
-    "sign-in-prompt": "Connectez-vous pour voir votre galerie de rues personnelle"
+    "thumbnail-error": ""
   },
   "users": {
     "anonymous": "Anonyme",
