@@ -1,0 +1,6 @@
+Google Summer of Code 2020
+==========================
+
+.. warning::
+
+   This page is a work in progress.
