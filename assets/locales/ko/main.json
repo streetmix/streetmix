@@ -17,17 +17,17 @@
     },
     "help": {
       "keyboard-label": "키보드 단축키:",
-      "remove-instruction": "선택하고 있는 세그먼트 제거",
+      "remove-instruction": "선택한 세그먼트 제거",
       "remove-shift-instruction": "(전체를 제거하려면 {shiftKey} 키를 누르세요)",
       "move-instruction": "스트리트 이동하기",
       "move-shift-instruction": "(가장자리로 이동하려면 {shiftKey} 키를 누르세요)",
-      "change-instruction": "선택하고 있는 세그먼트의 폭 변경",
+      "change-instruction": "선택한 세그먼트의 폭 변경",
       "change-shift-instruction": "(정확도를 높이려면 {shiftKey} 키를 누르세요)"
     },
     "share": {
       "sign-in-twitter-link": "로그인",
       "sign-in-link": "나의 스트리트와 스트리트 갤러리를 공유하려면 {signInLink}하세요",
-      "link": "공유를 위해 아래 링크를 복사하고 붙여넣기 하세요:",
+      "link": "아래의 링크를 복사하고 붙여넣어 공유해보세요",
       "copy-to-clipboard": "클립보드로 복사",
       "twitter": "트위터로 공유",
       "facebook": "페이스북으로 공유",
@@ -122,9 +122,9 @@
     "unsupported-browser-title": "다른 브라우저를 사용해주세요.",
     "unsupported-browser-description": "죄송합니다. <chrome_link>크롬</chrome_link>, <firefox_link>파이어폭스</firefox_link>, <edge_link>마이크로소프트 엣지</edge_link>, 또는 사파리로 시도해주세요.",
     "unsupported-browser-internet-explorer": "인터넷 익스플로러를 사용하고 계신가요? <a>그럼 여기서 더 알아보세요.</a>",
-    "unsupported-browser-contact-us": "지원 가능한 브라우저를 사용하고 있어도 문제가 있다면 <a>이메일</a>로 연락주세요.",
+    "unsupported-browser-contact-us": "이 브라우저를 꼭 사용해야하는 이유가 있다면 <a>이메일</a>로 연락주세요.",
     "cannot-create-new-street-on-phone-title": "스트리트믹스는 태블릿과 데스크탑에서만 작동합니다.",
-    "cannot-create-new-street-on-phone-description": "핸드폰에서는 다른 링크를 통한 특정 스트리트를 확인할 수는 있지만, 새로운 스트리트를 생성할 수는 없습니다.",
+    "cannot-create-new-street-on-phone-description": "핸드폰에서는 링크를 통해 특정 스트리트를 확인할 수는 있지만, 새로운 스트리트를 생성할 수는 없습니다.",
     "generic-error-title": "뭔가 잘못됐네요.",
     "generic-error-description": "죄송합니다 - 뭔가 잘못됐네요.",
     "error-code": "(에러 {code}.)"
@@ -136,7 +136,7 @@
     "try-again": "다시 시도",
     "cancel": "취소",
     "create": "새로운 스트리트 생성",
-    "copy": "복사",
+    "copy": "복사본 만들기",
     "remove": "삭제",
     "close": "닫기",
     "dismiss": "무시하기",
@@ -150,7 +150,7 @@
     "welcome": {
       "heading": "스트리트믹스에 오신 것을 환영합니다.",
       "new": {
-        "intro": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 나무나 자전거 도로를 추가하고, 보도나 차선를 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+        "intro": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 나무나 자전거 도로를 추가하거나, 보도나 차선를 넓히는 나의 디자인이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
         "instruct": "{pointer}로 일부 세그먼트를 이동하여 시작하세요.",
         "instruct-pointer-finger": "손가락",
         "instruct-pointer-mouse": "마우스"
@@ -158,7 +158,7 @@
       "existing": {
         "intro": "이것은 {creator}가 만든 {streetName} 입니다.",
         "intro-without-creator": "이것은 {streetName} 입니다.",
-        "instruct": "일부 세트먼트를 움직여 리믹스하거나 {startYourOwnStreet}.",
+        "instruct": "일부 세그먼트를 움직여 리믹스하거나 {startYourOwnStreet}.",
         "instruct-start-own-street": "나만의 스트리트 시작하기"
       }
     },
@@ -176,7 +176,7 @@
       "team-heading": "프로젝트 팀 및 관리자",
       "view-source": "소스 코드 확인",
       "sponsored-by": "스트리트믹스는 다음에 의해 후원됩니다:",
-      "donate-link": "재정 지원",
+      "donate-link": "재정 지원하기",
       "github-link": "오픈 소스에 기여하기",
       "open-source-link": "우리는 오픈 소스입니다!",
       "guidebook-link": "가이드북",
@@ -218,7 +218,7 @@
     "donate": {
       "heading": "스트리트믹스는 여러분의 도움이 필요합니다!",
       "lede": "스트리트믹스는 커뮤니티 지원 프로젝트입니다. 인터넷의 다른 \"무료\" 서비스와 달리, 개인 정보를 남용하는 광고를 표시하거나 추적기를 삽입하지 않습니다. 대신, 스트리트믹스는 여러분의 지원에 의지해 운영됩니다.",
-      "text": "한 번 또는 반복적으로 지원하는 것을 고려해주세요. 여러분의 기부금은 거리를 개선하기 위해 노력하는 다른 비영리 단체, 옹호 단체 및 학생을 지원하는 서버와 클라우드 인프라 비용을 지불하는 데 사용됩니다. 추가 수익은 새로운 기능 개발에 투자될 것입니다. 우리의 비용은 완전히 투명하므로, 스트리트믹스 팀이 기부금을 어떻게 사용하는지 정확하게 알 수 있습니다.",
+      "text": "한 번 또는 반복적으로 기부하는 것을 고려해주세요. 여러분의 기부금은 거리를 개선하기 위해 노력하는 다른 비영리 단체, 옹호 단체 및 학생을 지원하는 서버와 클라우드 인프라 비용을 지불하는 데 사용됩니다. 추가 수익은 새로운 기능 개발에 투자될 것입니다. 우리의 비용은 완전히 투명하므로, 스트리트믹스 팀이 기부금을 어떻게 사용하는지 정확하게 알 수 있습니다.",
       "button": "스트리트믹스에 기부하기",
       "cancel": "아니요, 괜찮습니다."
     },
@@ -226,7 +226,7 @@
       "heading": "로그인 / 회원가입",
       "description": "나의 첫번째 디자인을 저장하거나 로그인하여 이전 디자인을 확인하세요",
       "email-label": "이메일",
-      "email-description": "로그인할 수 있는 링크를 보내드릴게요. 패스워드는 필요 없습니다.",
+      "email-description": "로그인할 수 있는 링크를 보내드릴게요. 패스워드는 필요하지 않습니다.",
       "email-invalid": "앗! 유효한 이메일 주소가 아닌 것 같네요. 다시 시도해주세요.",
       "social-heading": "또는",
       "button": {
@@ -252,7 +252,7 @@
   },
   "prompt": {
     "new-street": "새로운 스트리트 이름:",
-    "delete-street": "{streetName}를 영구 삭제하는 것이 맞나요? 삭제되면 다시 되돌릴 수 없습니다.",
+    "delete-street": "{streetName}를 영구 삭제하는 것이 맞나요? 삭제된 스트리트는 다시 되돌릴 수 없습니다.",
     "new-width": "새로운 스트리트 폭 ({minWidth}부터 {maxWidth}까지):",
     "segment-label": "새로운 세그먼트 라벨:"
   },
@@ -346,7 +346,7 @@
     "delete-street-tooltip": "스트리트 삭제",
     "street-count": "{count, plural, other {# 스트리트}}",
     "no-streets": "저장된 스트리트가 없습니다",
-    "thumbnail-error": ""
+    "thumbnail-error": "썸네일 이미지가 없습니다."
   },
   "users": {
     "anonymous": "익명",
@@ -356,7 +356,7 @@
     "watermark": "Made with {streetmixWordmark}"
   },
   "meta": {
-    "description": "모든 브라우저에서 동네의 스트리트를 디자인하고, 리믹스하고, 공유해보세요! 나무나 자전거 도로를 추가하고, 보도나 차선을 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+    "description": "브라우저 내에서 동네의 스트리트를 디자인하고, 리믹스하고, 공유해보세요! 나무나 자전거 도로를 추가하고, 보도나 차선을 넓히고, 나의 결정이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
     "page-title": "{streetName}  ({author})"
   },
   "credits": {
