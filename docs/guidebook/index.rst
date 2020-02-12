@@ -11,3 +11,5 @@ Guidebook
    :caption: Contents
 
    case-studies
+   segments
+   vehicles
