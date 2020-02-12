@@ -13,6 +13,7 @@ List of vehicles
 
 - Automobiles (cars)
 
+  - Personal automobile
   - Taxi
   - Rideshare
   - Autonomous vehicle
