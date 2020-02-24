@@ -150,6 +150,7 @@ exports.post = async function (req, res) {
       res.status(500).json({ status: 500, msg: 'Error finding user.' })
       return
     }
+
     if (!user) {
       res.status(403).json({ status: 403, msg: 'User not found.' })
       return

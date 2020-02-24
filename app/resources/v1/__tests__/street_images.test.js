@@ -5,12 +5,12 @@ import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import images from '../street_images'
 
 jest.mock('../../../db/models', () => {
-  var SequelizeMock = require('sequelize-mock')
-  var DBConnectionMock = new SequelizeMock()
+  const SequelizeMock = require('sequelize-mock')
+  const DBConnectionMock = new SequelizeMock()
 
-  var StreetMock = DBConnectionMock.define('street', { creator_id: 'user1' })
-  var SequenceMock = DBConnectionMock.define('sequence')
-  var UserMock = DBConnectionMock.define(
+  const StreetMock = DBConnectionMock.define('street', { creator_id: 'user1' })
+  const SequenceMock = DBConnectionMock.define('sequence')
+  const UserMock = DBConnectionMock.define(
     'user',
     {
       name: 'Test User',
@@ -73,7 +73,6 @@ const street = {
   namespaced_id: 65,
   updated_at: '2018-05-24T11:47:33.041Z',
   created_at: '2018-05-24T11:47:32.721Z',
-  __v: 0,
   data: {}
 }
 

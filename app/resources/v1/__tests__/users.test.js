@@ -5,9 +5,9 @@ import users from '../users'
 
 jest.mock('twitter')
 jest.mock('../../../db/models', () => {
-  var SequelizeMock = require('sequelize-mock')
-  var DBConnectionMock = new SequelizeMock()
-  var UserMock = DBConnectionMock.define(
+  const SequelizeMock = require('sequelize-mock')
+  const DBConnectionMock = new SequelizeMock()
+  const UserMock = DBConnectionMock.define(
     'user',
     {
       email: 'email@example.com',

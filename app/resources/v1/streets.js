@@ -1,5 +1,5 @@
 const config = require('config')
-const uuid = require('uuid')
+const uuidv1 = require('uuid/v1')
 const { isArray } = require('lodash')
 const { ERRORS, asStreetJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
@@ -11,7 +11,7 @@ exports.post = async function (req, res) {
   let body
   const street = {}
 
-  street.id = uuid.v1()
+  street.id = uuidv1()
   const requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
       return req.headers['x-forwarded-for'].split(', ')[0]
