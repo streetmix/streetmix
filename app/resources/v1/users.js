@@ -74,7 +74,6 @@ exports.post = async function (req, res) {
             where: { id: credentials.screenName },
             returning: true
           })
-          // await user.save()
           handleUpdateUser(user)
         } catch (err) {
           handleUpdateUserError(err)
@@ -84,7 +83,7 @@ exports.post = async function (req, res) {
       logger.error(err)
       res.status(500).json({
         status: 500,
-        msg: 'Error finding user with Auth Twitter Sign-in.'
+        msg: 'Error finding user with Auth0 Twitter sign-in.'
       })
     }
   } // END function - handleAuth0TwitterSignIn
@@ -237,7 +236,10 @@ exports.post = async function (req, res) {
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   const userId = req.params.user_id
-  console.log('get', { userId })
+  // console.log('get', { userId })
+  // if(!userId){
+  //   res.status(401).end()
+  // }
   const handleFindUser = function (user) {
     let twitterApiClient
     try {
@@ -335,7 +337,6 @@ exports.get = async function (req, res) {
   }
 
   const findUserById = async function (userId) {
-    console.log('!!!', 'findUserById', userId)
     let user
     try {
       user = await User.findOne({ where: { id: userId } })

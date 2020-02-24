@@ -62,7 +62,7 @@ jest.mock('../../../../lib/logger')
 // Fake user info to test the API
 const emailUser = {
   auth0: {
-    nickname: 'user',
+    nickname: 'user2',
     auth0_id: 'email|1111',
     email: 'test@test.com',
     profile_image_url: 'https://avatar.com/picture.png'
