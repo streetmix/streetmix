@@ -186,12 +186,11 @@ exports.post = async function (req, res) {
         userUpdates.login_tokens.push(loginToken)
         console.log('User tokens is a thing yay ii', userUpdates.login_tokens)
         try {
-          console.log('ahahaha no cred', {
-            credentials,
+          console.log('attempting to update user with new login token...', {
             aid: credentials.auth0_id,
-            user,
             userUpdates
           })
+
           const [numUsersUpdated, updatedUser] = await User.update(
             userUpdates,
             {

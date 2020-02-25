@@ -11,6 +11,7 @@ jest.mock('../../../db/models', () => {
     'user',
     {
       email: 'email@example.com',
+      auth0_id: 'abc123',
       login_tokens: ['xxxxxxxx-xxxx-xxxx-xxxx-0000000000000'],
       id: 'user1'
     },
@@ -20,6 +21,7 @@ jest.mock('../../../db/models', () => {
   const ADMIN_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-3333333333333'
   const ADMIN_DEFAULTS = {
     email: 'email@example.com',
+    auth0_id: 'xyz987',
     login_tokens: [ADMIN_TOKEN],
     id: 'user1',
     roles: ['ADMIN']
@@ -33,6 +35,8 @@ jest.mock('../../../db/models', () => {
   }
 
   UserMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
+    if (query === 'update') return [1, [UserMock.build(USER_DEFAULTS)]]
+
     if (
       queryOptions[0] &&
       queryOptions[0].where &&
