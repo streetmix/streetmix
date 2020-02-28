@@ -39,7 +39,7 @@ You may already have some of these prerequisites installed. Skip or update the p
    .. prompt:: bash $
 
       brew tap mongodb/brew
-      brew install mongodb@3.4
+      brew install mongodb-community@3.4
 
 5. `Set up MongoDB's data directory <https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb>`_.
 
@@ -61,7 +61,7 @@ You may already have some of these prerequisites installed. Skip or update the p
 
    .. code::
 
-      export PATH="/usr/local/opt/mongodb@3.4/bin:$PATH"
+      export PATH="/usr/local/opt/mongodb-community@3.4/bin:$PATH"
 
    Save the file, then restart your Terminal. You can double check if this worked like so:
 
