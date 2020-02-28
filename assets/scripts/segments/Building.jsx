@@ -194,7 +194,7 @@ class Building extends React.Component {
   }
 
   // Animate if the only changes in street object are:
-  // editCount, rightBuildingVariant (or leftBuildingVariant), updatedAt, and clientUpdatedAt
+  // editCount, rightBuildingVariant (or leftBuildingVariant), updated_at, and client_updated_at
   shouldBuildingAnimate = (oldStreet, newStreet) => {
     let userUpdated = true
     for (const key in newStreet) {
@@ -202,8 +202,8 @@ class Building extends React.Component {
         userUpdated = [
           'editCount',
           this.state.variant,
-          'updatedAt',
-          'clientUpdatedAt'
+          'updated_at',
+          'client_updated_at'
         ].includes(key)
         if (!userUpdated) return false
       }

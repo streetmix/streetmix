@@ -6,7 +6,7 @@ import { showGallery } from '../store/actions/gallery'
 import Avatar from '../users/Avatar'
 
 function StreetMetaAuthor (props) {
-  const creatorId = useSelector((state) => state.street.creatorId)
+  const creatorId = useSelector((state) => state.street.creator_id)
   const signedIn = useSelector((state) => state.user.signedIn)
   const userId = useSelector(
     (state) => (state.user.signInData && state.user.signInData.userId) || ''

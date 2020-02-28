@@ -134,7 +134,7 @@ function GalleryStreetItem (props) {
         <StreetName name={street.name} />
 
         <span className="gallery-street-item-date">
-          <DateTimeRelative value={street.updatedAt} />
+          <DateTimeRelative value={street.updated_at} />
         </span>
 
         {/* Show street creator (owner) or 'Anonymous' */}

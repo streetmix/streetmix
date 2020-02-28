@@ -29,10 +29,10 @@ function BlockingError (props) {
     </button>
   )
   const linkToUser = (street) => {
-    return street && street.creatorId ? (
-      <a href={'/' + street.creatorId}>
-        <Avatar userId={street.creatorId} />
-        {street.creatorId}
+    return street && street.creator_id ? (
+      <a href={'/' + street.creator_id}>
+        <Avatar userId={street.creator_id} />
+        {street.creator_id}
       </a>
     ) : null
   }
