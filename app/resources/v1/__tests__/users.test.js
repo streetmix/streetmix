@@ -3,8 +3,6 @@ import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import users from '../users'
 
-const mockFoo = 'abc123'
-
 jest.mock('twitter')
 jest.mock('../../../db/models', () => {
   const SequelizeMock = require('sequelize-mock')
@@ -13,7 +11,7 @@ jest.mock('../../../db/models', () => {
     'user',
     {
       email: 'email@example.com',
-      auth0_id: mockFoo,
+      auth0_id: 'abc123',
       login_tokens: ['xxxxxxxx-xxxx-xxxx-xxxx-0000000000000'],
       id: 'user1'
     },

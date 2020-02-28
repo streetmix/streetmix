@@ -4,65 +4,7 @@ import cloudinary from 'cloudinary'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import images from '../street_images'
 
-jest.mock('../../../db/models', () => {
-  const SequelizeMock = require('sequelize-mock')
-  const DBConnectionMock = new SequelizeMock()
-
-  const StreetMock = DBConnectionMock.define('street', { creator_id: 'user1' })
-  const SequenceMock = DBConnectionMock.define('sequence')
-  const UserMock = DBConnectionMock.define(
-    'user',
-    {
-      name: 'Test User',
-      _id: 'user1',
-      login_tokens: ['foo-bar'],
-      id: 'user1'
-    },
-    {
-      instanceMethods: {
-        increment: function () {
-          return this
-        }
-      }
-    }
-  )
-
-  const USER_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-1111111111111'
-  const USER_DEFAULTS = {
-    email: 'email@example.com',
-    login_tokens: [USER_TOKEN],
-    id: 'user1',
-    roles: ['ADMIN']
-  }
-
-  const ALT_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-2222222222222'
-  const ALT_USER_DEFAULTS = {
-    ...USER_DEFAULTS,
-    login_tokens: [ALT_TOKEN],
-    id: 'user2',
-    _id: 'user2'
-  }
-
-  UserMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
-    if (
-      queryOptions[0] &&
-      queryOptions[0].where &&
-      queryOptions[0].where.id &&
-      queryOptions[0].where.id === 'user2'
-    ) {
-      return UserMock.build(ALT_USER_DEFAULTS)
-    }
-
-    return UserMock.build(USER_DEFAULTS)
-  })
-
-  return {
-    Sequence: SequenceMock,
-    Street: StreetMock,
-    User: UserMock,
-    Sequelize: { Op: jest.fn() }
-  }
-})
+jest.mock('../../../db/models')
 jest.mock('../../../../lib/logger')
 jest.mock('cloudinary')
 
@@ -79,8 +21,7 @@ const street = {
 describe('POST api/v1/streets/images/:street_id', () => {
   const app = setupMockServer((app) => {
     app.post('/api/v1/streets/images/:street_id', images.post)
-  })
-
+  }, 'street_images')
   const details = { image: 'foo', event: 'TEST' }
   JSON.parse = jest.fn().mockReturnValue(details)
 

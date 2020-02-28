@@ -24,7 +24,6 @@ exports.post = async function (req, res) {
   } // END function - handleCreateUser
 
   const handleUpdateUserError = function (err) {
-    console.log('handleUpdateUserError wha?', err)
     if (err) {
       logger.error(err)
       res.status(500).json({ status: 500, msg: 'Could not update user.' })
@@ -34,7 +33,6 @@ exports.post = async function (req, res) {
   const handleUpdateUser = function (user) {
     // console.log('handleUpdateUser wha?', user );
     const userJson = { id: user.id, loginToken: loginToken }
-    console.log('handleUpdateUser wha?', { userJson, user: user.toJSON() })
     logger.info({ user: userJson }, 'Existing user issued new login token.')
 
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
@@ -42,7 +40,6 @@ exports.post = async function (req, res) {
   } // END function - handleUpdateUser
 
   const handleAuth0TwitterSignIn = async function (credentials) {
-    console.log('handleAuth0TwitterSignIn ???', credentials)
     try {
       let user
       if (credentials.auth0_id) {
@@ -129,19 +126,13 @@ exports.post = async function (req, res) {
   }
 
   const handleAuth0SignIn = async function (credentials) {
-    console.log('handleAuth0SignIn ahoy')
     try {
       let user
       if (credentials.auth0_id) {
         user = await User.findOne({ where: { auth0_id: credentials.auth0_id } })
-        console.log('handleAuth0SignIn user', {
-          user,
-          id: credentials.auth0_id
-        })
       }
       loginToken = uuidv1()
       if (!user) {
-        console.log('NO FIND USER', credentials)
         const numOfUser = await User.findOne({
           where: { id: credentials.nickname }
         })
@@ -179,18 +170,9 @@ exports.post = async function (req, res) {
         if (!userUpdates.login_tokens) {
           userUpdates.login_tokens = []
         }
-        console.log(
-          'userUpdates tokens is a thing yay',
-          userUpdates.login_tokens
-        )
-        userUpdates.login_tokens.push(loginToken)
-        console.log('User tokens is a thing yay ii', userUpdates.login_tokens)
-        try {
-          console.log('attempting to update user with new login token...', {
-            aid: credentials.auth0_id,
-            userUpdates
-          })
 
+        userUpdates.login_tokens.push(loginToken)
+        try {
           const [numUsersUpdated, updatedUser] = await User.update(
             userUpdates,
             {
@@ -198,11 +180,15 @@ exports.post = async function (req, res) {
               returning: true
             }
           )
-          console.log({ numUsersUpdated, updatedUser })
+
+          if (numUsersUpdated !== 1) {
+            logger.info(
+              `Updated data for ${numUsersUpdated} users based on auth0 credentials`
+            )
+          }
           // TODO check here that only 1 user is updated
           handleUpdateUser(updatedUser[0])
         } catch (err) {
-          console.log('shit guys', err)
           handleUpdateUserError(err)
         }
       }
@@ -465,9 +451,7 @@ exports.put = async function (req, res) {
     res.status(401).end()
     return
   }
-  console.log('!!!5-2 final a', { userId })
   user.data = body.data || user.data || {}
-  console.log('!!!5-2 final b', { userId, user })
   User.update(user, { where: { id: user.id }, returning: true })
     .then((result) => {
       res.status(204).end()
