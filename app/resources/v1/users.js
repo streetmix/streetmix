@@ -42,7 +42,7 @@ exports.post = async function (req, res) {
   const handleAuth0TwitterSignIn = async function (credentials) {
     try {
       let user
-      if (credentials.auth0_id) {
+      if (credentials.screenName) {
         user = await User.findOne({ where: { id: credentials.screenName } })
       }
       loginToken = uuidv1()
@@ -56,22 +56,36 @@ exports.post = async function (req, res) {
         }
         User.create(newUserData).then(handleCreateUser)
       } else {
-        user.id = credentials.screenName
-        user.auth0_id = credentials.auth0_id
-        user.profile_image_url = credentials.profile_image_url
-        if (user.login_tokens) {
-          const newArray = user.login_tokens.concat(loginToken)
-          user.login_tokens = newArray
+        const userUpdates = user.toJSON()
+        userUpdates.auth0_id = credentials.auth0_id
+        userUpdates.profile_image_url = credentials.profile_image_url
+        if (userUpdates.login_tokens) {
+          console.log('--- adding token')
+          const newArray = userUpdates.login_tokens.concat(loginToken)
+          userUpdates.login_tokens = newArray
         } else {
-          user.login_tokens = [loginToken]
+          console.log('--- first token')
+          userUpdates.login_tokens = [loginToken]
         }
 
         try {
-          await User.update(user, {
-            where: { id: credentials.screenName },
-            returning: true
-          })
-          handleUpdateUser(user)
+          console.log('about to update user in auth0 twitter sign in!!!')
+          const [numUsersUpdated, updatedUser] = await User.update(
+            userUpdates,
+            {
+              where: { id: credentials.screenName },
+              returning: true
+            }
+          )
+
+          if (numUsersUpdated !== 1) {
+            console.log('!!!!', { numUsersUpdated })
+            logger.info(
+              `Updated data for ${numUsersUpdated} users based on auth0 credentials`
+            )
+          }
+          console.log('user updated!!!')
+          handleUpdateUser(updatedUser)
         } catch (err) {
           handleUpdateUserError(err)
         }
@@ -160,9 +174,7 @@ exports.post = async function (req, res) {
           User.create(newUserData).then(handleCreateUser)
         }
       } else {
-        console.log('User is a thing yay')
         const profileImageUrl = await handleUserProfileImage(user, credentials)
-        console.log('User img is a thing yay', profileImageUrl)
         const userUpdates = user.toJSON()
         userUpdates.auth0_id = credentials.auth0_id
         userUpdates.profile_image_url = profileImageUrl

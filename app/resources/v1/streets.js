@@ -61,9 +61,7 @@ exports.post = async function (req, res) {
   }
 
   function updateUserLastStreetId (userId) {
-    console.log('updateUserLastStreetId 1')
     return User.findOne({ where: { id: userId } }).then((user) => {
-      console.log('updateUserLastStreetId 2', user)
       if (!user.last_street_id) {
         return user.update({ last_street_id: 1 })
       }
@@ -117,8 +115,6 @@ exports.post = async function (req, res) {
   }
 
   const saveStreet = async function () {
-    console.log(street)
-
     if (body && body.originalStreetId) {
       let origStreet
       try {

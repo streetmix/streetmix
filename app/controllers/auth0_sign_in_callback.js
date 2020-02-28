@@ -14,9 +14,7 @@ const AccessTokenHandler = function (req, res) {
     const auth0 = Authentication()
 
     try {
-      console.log('step 1', body.access_token)
       const user = await auth0.getProfile(body.access_token)
-      console.log('step 2', user)
       const apiRequestBody = getUserInfo(user)
       //  Must be an absolute URI
       const endpoint =
@@ -25,7 +23,6 @@ const AccessTokenHandler = function (req, res) {
         config.restapi.baseuri +
         '/v1/users'
 
-      console.log('step 3', endpoint, apiRequestBody)
       axios
         .post(endpoint, apiRequestBody)
         .then((response) => {
