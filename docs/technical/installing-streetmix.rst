@@ -38,6 +38,7 @@ You may already have some of these prerequisites installed. Skip or update the p
 
    .. prompt:: bash $
 
+      brew tap mongodb/brew
       brew install mongodb@3.4
 
 5. `Set up MongoDB's data directory <https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/#run-mongodb>`_.
