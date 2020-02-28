@@ -141,6 +141,7 @@ function GalleryStreetItem (props) {
         {showStreetOwner && (
           <span className="gallery-street-item-creator">
             {street.creator_id ||
+              street.creatorId ||
               intl.formatMessage({
                 id: 'users.anonymous',
                 defaultMessage: 'Anonymous'

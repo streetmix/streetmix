@@ -31,8 +31,8 @@ exports.post = async function (req, res) {
     }
     // TODO: Validation
     street.name = body.name
-    street.namespaced_id = body.data.namespacedId
-    street.client_updated_at = body.clientUpdatedAt
+    street.namespaced_id = body.data.namespaced_id
+    street.client_updated_at = body.client_updated_at
     street.data = body.data
     street.creator_ip = requestIp(req)
   }
@@ -117,11 +117,9 @@ exports.post = async function (req, res) {
   }
 
   const saveStreet = async function () {
-    console.log('!!!!! saveStreet, 1')
     console.log(street)
 
     if (body && body.originalStreetId) {
-      console.log('!!!!! saveStreet, 2a')
       let origStreet
       try {
         origStreet = await Street.findOne({
@@ -142,9 +140,7 @@ exports.post = async function (req, res) {
     }
 
     const namespacedId = await makeNamespacedId()
-    console.log('!!!!! saveStreet, 2', namespacedId)
     street.namespaced_id = namespacedId
-    console.log('!!!!! saveStreet, 3')
     return Street.create(street)
   }
 
@@ -157,29 +153,24 @@ exports.post = async function (req, res) {
 
   if (req.loginToken) {
     let user
-    console.log('!!!4', { loginToken: req.loginToken })
     try {
       user = await User.findOne({
         where: { login_tokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
-      console.log('fail 1 my dude')
       logger.error(err)
       handleErrors(ERRORS.USER_NOT_FOUND)
     }
 
     if (!user) {
-      console.log('fail 2 my dude')
       handleErrors(ERRORS.UNAUTHORISED_ACCESS)
     }
     street.creator_id = user ? user.id : ''
 
-    console.log('saving street')
     saveStreet()
       .then(handleCreatedStreet)
       .catch(handleErrors)
   } else {
-    console.log('got here 1 my dude')
     saveStreet()
       .then(handleCreatedStreet)
       .catch(handleErrors)

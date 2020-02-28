@@ -52,7 +52,7 @@ describe('ShareMenu', () => {
           }
         },
         street: {
-          creatorId: 'foo',
+          creator_id: 'foo',
           name: 'bar'
         }
       }
@@ -84,7 +84,7 @@ describe('ShareMenu', () => {
             }
           },
           street: {
-            creatorId: 'foo'
+            creator_id: 'foo'
           }
         }
       })
@@ -107,7 +107,7 @@ describe('ShareMenu', () => {
             }
           },
           street: {
-            creatorId: 'qux',
+            creator_id: 'qux',
             name: 'bar'
           }
         }
@@ -135,7 +135,7 @@ describe('ShareMenu', () => {
             }
           },
           street: {
-            creatorId: 'qux'
+            creator_id: 'qux'
           }
         }
       })

@@ -10,7 +10,7 @@ function getInitialState (errorType) {
       errorType: errorType
     },
     street: {
-      creatorId: 'foo'
+      creator_id: 'foo'
     }
   }
 }

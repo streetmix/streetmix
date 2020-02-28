@@ -11,7 +11,7 @@ jest.mock('../../streets/owner', () => ({
 
 const initialState = {
   street: {
-    creatorId: 'foo',
+    creator_id: 'foo',
     location: {
       label: 'foo',
       wofId: 'foo'
@@ -82,7 +82,7 @@ describe('GeotagDialog', () => {
       initialState: {
         ...initialState,
         street: {
-          creatorId: 'foo',
+          creator_id: 'foo',
           location: null
         }
       }

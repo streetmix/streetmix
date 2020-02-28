@@ -23,7 +23,7 @@ describe('StreetMetaAuthor', () => {
     const { container } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: 'foo'
+          creator_id: 'foo'
         },
         user: {
           signedIn: true,
@@ -41,7 +41,7 @@ describe('StreetMetaAuthor', () => {
     const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: 'foo'
+          creator_id: 'foo'
         },
         user: {
           signedIn: true,
@@ -61,7 +61,7 @@ describe('StreetMetaAuthor', () => {
     const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: 'foo'
+          creator_id: 'foo'
         },
         user: {
           signedIn: false,
@@ -81,7 +81,7 @@ describe('StreetMetaAuthor', () => {
     const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: null
+          creator_id: null
         },
         user: {
           signedIn: true,
@@ -100,7 +100,7 @@ describe('StreetMetaAuthor', () => {
     const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: null
+          creator_id: null
         },
         user: {
           signedIn: false,
@@ -119,7 +119,7 @@ describe('StreetMetaAuthor', () => {
     const { container } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: null
+          creator_id: null
         },
         user: {
           signedIn: false,
