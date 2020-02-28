@@ -8,7 +8,7 @@ const TIME_LIMIT = 6000
 
 function StreetMetaDate (props) {
   const updatedAt = useSelector(
-    (state) => state.street.updated_at || state.street.client_updated_at
+    (state) => state.street.updatedAt || state.street.clientUpdatedAt
   )
 
   if (!updatedAt) return null
