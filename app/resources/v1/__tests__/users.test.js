@@ -4,63 +4,7 @@ import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import users from '../users'
 
 jest.mock('twitter')
-jest.mock('../../../db/models', () => {
-  const SequelizeMock = require('sequelize-mock')
-  const DBConnectionMock = new SequelizeMock()
-  const UserMock = DBConnectionMock.define(
-    'user',
-    {
-      email: 'email@example.com',
-      auth0_id: 'abc123',
-      login_tokens: ['xxxxxxxx-xxxx-xxxx-xxxx-0000000000000'],
-      id: 'user1'
-    },
-    {}
-  )
-
-  const ADMIN_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-3333333333333'
-  const ADMIN_DEFAULTS = {
-    email: 'email@example.com',
-    auth0_id: 'xyz987',
-    login_tokens: [ADMIN_TOKEN],
-    id: 'user1',
-    roles: ['ADMIN']
-  }
-
-  const DEFAULT_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-1111111111111'
-  const USER_DEFAULTS = {
-    ...ADMIN_DEFAULTS,
-    login_tokens: [DEFAULT_TOKEN],
-    roles: []
-  }
-
-  UserMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
-    if (query === 'update') return [1, [UserMock.build(USER_DEFAULTS)]]
-
-    if (
-      queryOptions[0] &&
-      queryOptions[0].where &&
-      queryOptions[0].where.login_tokens &&
-      queryOptions[0].where.login_tokens[0] &&
-      queryOptions[0].where.login_tokens[0] === ADMIN_TOKEN
-    ) {
-      return UserMock.build(ADMIN_DEFAULTS)
-    } else if (
-      queryOptions[0] &&
-      queryOptions[0].where &&
-      queryOptions[0].where.login_tokens &&
-      queryOptions[0].where.login_tokens[0] &&
-      queryOptions[0].where.login_tokens[0] === DEFAULT_TOKEN
-    ) {
-      return UserMock.build(USER_DEFAULTS)
-    }
-
-    return UserMock.build(ADMIN_DEFAULTS)
-  })
-
-  return { User: UserMock, Sequelize: { Op: jest.fn() } }
-})
-
+jest.mock('../../../db/models')
 jest.mock('../../../../lib/logger')
 
 // Fake user info to test the API
@@ -121,7 +65,7 @@ describe('GET api/v1/users', () => {
       .get('/api/v1/users')
       .set(
         'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"'
       )
       .then((response) => {
         expect(response.statusCode).toEqual(401)

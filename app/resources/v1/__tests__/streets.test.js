@@ -2,36 +2,7 @@
 import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import streets from '../streets'
-
-jest.mock('../../../db/models', () => {
-  const SequelizeMock = require('sequelize-mock')
-  const DBConnectionMock = new SequelizeMock()
-
-  const StreetMock = DBConnectionMock.define('street', { creator_id: 'user1' })
-  const SequenceMock = DBConnectionMock.define('sequence')
-  const UserMock = DBConnectionMock.define(
-    'user',
-    {
-      name: 'Test User',
-      id: 'user1'
-    },
-    {
-      instanceMethods: {
-        increment: function () {
-          return this
-        }
-      }
-    }
-  )
-
-  return {
-    Sequence: SequenceMock,
-    Street: StreetMock,
-    User: UserMock,
-    Sequelize: { Op: jest.fn() }
-  }
-})
-
+jest.mock('../../../db/models')
 jest.mock('../../../../lib/logger')
 
 const street = {
