@@ -12,6 +12,7 @@ import { deleteGalleryStreet } from '../store/actions/gallery'
 
 function GalleryContents (props) {
   const userId = useSelector((state) => state.gallery.userId)
+  console.log({ userId }, '!!!')
   const streets = useSelector((state) => state.gallery.streets || [])
   const currentStreetId = useSelector((state) => state.street.id)
   const isOwnedByCurrentUser = useSelector(
