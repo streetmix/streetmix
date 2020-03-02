@@ -1,15 +1,16 @@
 'use strict'
 
-var fs = require('fs')
-var path = require('path')
-var Sequelize = require('sequelize')
-var basename = path.basename(__filename)
-var env = process.env.NODE_ENV || 'development'
-var config = require(path.join(__dirname, '/../config/config'))[env]
-var db = {}
+const fs = require('fs')
+const path = require('path')
+const Sequelize = require('sequelize')
+const basename = path.basename(__filename)
+const env = process.env.NODE_ENV || 'development'
+const config = require(path.join(__dirname, '/../config/config'))[env]
+const db = {}
 
+let sequelize
 if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config)
+  sequelize = new Sequelize(process.env[config.use_env_variable], config)
 } else {
   sequelize = new Sequelize(
     config.database,
@@ -26,7 +27,7 @@ fs.readdirSync(__dirname)
     )
   })
   .forEach((file) => {
-    var model = sequelize.import(path.join(__dirname, file))
+    const model = sequelize.import(path.join(__dirname, file))
     if (!model) {
       throw new Error(`missing model for file: ${file}`)
     }

@@ -1,6 +1,7 @@
 'use strict'
+
 module.exports = (sequelize, DataTypes) => {
-  var Street = sequelize.define(
+  const Street = sequelize.define(
     'Street',
     {
       id: {
@@ -47,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       ]
     }
   )
+
   Street.associate = function (models) {
     models.Street.belongsTo(models.User, {
       foreignKey: 'creatorId',
@@ -58,5 +60,6 @@ module.exports = (sequelize, DataTypes) => {
       targetKey: 'id'
     })
   }
+
   return Street
 }
