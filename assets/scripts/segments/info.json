@@ -691,7 +691,8 @@
     "defaultWidth": 6,
     "variants": [
       "direction",
-      "bike-asphalt"
+      "bike-asphalt",
+      "bike-lane-elevation"
     ],
     "description": {
       "key": "bike-lane",

@@ -10,7 +10,7 @@ export const DEFAULT_SEGMENTS = {
     { type: 'turn-lane', variant: { direction: 'outbound', 'turn-lane-orientation': 'left-straight' }, width: 10 },
     { type: 'parking-lane', variant: { 'parking-lane-direction': 'outbound', 'parking-lane-orientation': 'right' }, width: 7 },
     { type: 'divider', variant: { 'divider-type': 'planter-box' }, width: 4 },
-    { type: 'bike-lane', variant: { direction: 'outbound', 'bike-asphalt': 'green' }, width: 6 },
+    { type: 'bike-lane', variant: { direction: 'outbound', 'bike-asphalt': 'green', 'bike-lane-elevation': 'elevation-lower' }, width: 6 },
     { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' }, width: 2 },
     { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
     { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 }
@@ -19,7 +19,7 @@ export const DEFAULT_SEGMENTS = {
     { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 },
     { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
     { type: 'sidewalk-lamp', variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' }, width: 2 },
-    { type: 'bike-lane', variant: { direction: 'outbound', 'bike-asphalt': 'green' }, width: 6 },
+    { type: 'bike-lane', variant: { direction: 'outbound', 'bike-asphalt': 'green', 'bike-lane-elevation': 'elevation-lower' }, width: 6 },
     { type: 'divider', variant: { 'divider-type': 'planter-box' }, width: 4 },
     { type: 'parking-lane', variant: { 'parking-lane-direction': 'outbound', 'parking-lane-orientation': 'left' }, width: 7 },
     { type: 'turn-lane', variant: { direction: 'outbound', 'turn-lane-orientation': 'right-straight' }, width: 10 },
