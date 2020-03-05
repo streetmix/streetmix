@@ -37,11 +37,10 @@ module.exports = {
     baseuri: '/api'
   },
   db: {
-    postgres: {
-      username: process.env.PG_USERNAME,
-      password: process.env.PG_PASSWORD,
-      name: 'streetmix',
-      host: '127.0.0.1'
+    sequelize: {
+      database: 'streetmix_dev',
+      host: process.env.PGHOST || '127.0.0.1',
+      port: process.env.PGPORT || 5432
     }
   },
   log_level: 'debug',

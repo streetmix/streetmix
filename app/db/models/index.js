@@ -4,20 +4,28 @@ const fs = require('fs')
 const path = require('path')
 const Sequelize = require('sequelize')
 const basename = path.basename(__filename)
-const env = process.env.NODE_ENV || 'development'
-const config = require(path.join(__dirname, '/../config/config'))[env]
+const config = require('config')
 const db = {}
 
+const configDb = config.get('db.sequelize')
+
 let sequelize
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config)
+
+// When we have a database connection URL string, it must
+// be passed in as the first argument to the Sequelize constructor.
+// Although sequelize-cli documents the `url` property as a valid
+// option, Sequelize core does not use it.
+if (config.has('db.sequelize.url')) {
+  const url = config.get('db.sequelize.url')
+  sequelize = new Sequelize(url, {
+    dialect: 'postgres',
+    ...configDb
+  })
 } else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  )
+  sequelize = new Sequelize({
+    dialect: 'postgres',
+    ...configDb
+  })
 }
 
 fs.readdirSync(__dirname)
