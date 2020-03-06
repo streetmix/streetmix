@@ -280,7 +280,7 @@
       "title": "Perpendicular parking, road level"
     }
   },
-  "bike-lane-elevation": {
+  "elevation": {
     "sidewalk": {
       "id": "elevation-higher",
       "title": "Sidewalk level"
