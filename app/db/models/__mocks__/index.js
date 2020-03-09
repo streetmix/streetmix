@@ -11,7 +11,6 @@ const UserMock = DBConnectionMock.define(
   'user',
   {
     name: 'Test User',
-    _id: 'user1',
     id: 'user1',
     email: 'email@example.com',
     profileImageUrl: 'http://example.com/example.gif',
@@ -46,8 +45,7 @@ const ALT_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-2222222222222'
 const ALT_USER_DEFAULTS = {
   ...USER_DEFAULTS,
   loginTokens: [ALT_TOKEN],
-  id: 'user2',
-  _id: 'user2'
+  id: 'user2'
 }
 
 UserMock.$queryInterface.$useHandler(function (query, queryOptions, done) {

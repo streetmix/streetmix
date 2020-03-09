@@ -9,7 +9,6 @@ jest.mock('../../../../lib/logger')
 jest.mock('cloudinary')
 
 const street = {
-  _id: '5b06a6544a62a14ae7467e37',
   status: 'ACTIVE',
   id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
   namespacedId: 65,

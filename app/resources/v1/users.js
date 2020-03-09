@@ -48,7 +48,6 @@ exports.post = async function (req, res) {
       if (!user) {
         const newUserData = {
           id: credentials.screenName,
-          _id: credentials.auth0Id.split('|')[1],
           auth0Id: credentials.auth0Id,
           loginTokens: [loginToken],
           profileImageUrl: credentials.profileImageUrl
@@ -148,7 +147,6 @@ exports.post = async function (req, res) {
         if (!numOfUser) {
           const newUserData = {
             id: credentials.nickname,
-            _id: credentials.auth0Id.split('|')[1],
             auth0Id: credentials.auth0Id,
             email: credentials.email,
             loginTokens: [loginToken],
@@ -159,7 +157,6 @@ exports.post = async function (req, res) {
           const id = generateId(credentials.nickname)
           const newUserData = {
             id: id,
-            _id: credentials.auth0Id.split('|')[1],
             auth0Id: credentials.auth0Id,
             email: credentials.email,
             loginTokens: [loginToken],
