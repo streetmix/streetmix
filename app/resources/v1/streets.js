@@ -188,7 +188,7 @@ exports.delete = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { loginTokens: { $contains: [req.loginToken] } }
+        where: { loginTokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
@@ -208,10 +208,8 @@ exports.delete = async function (req, res) {
     }
 
     street.status = 'DELETED'
-    return Street.update(street, {
-      where: { id: req.params.street_id },
-      returning: true
-    })
+
+    return street.save({ returning: true })
   }
 
   function handleErrors (error) {
@@ -236,21 +234,21 @@ exports.delete = async function (req, res) {
     }
   }
 
-  let street
+  let targetStreet
 
   try {
-    street = await Street.findOne({ where: { id: req.params.street_id } })
+    targetStreet = await Street.findOne({ where: { id: req.params.street_id } })
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.STREET_NOT_FOUND)
   }
 
-  if (!street) {
+  if (!targetStreet) {
     res.status(204).end()
     return
   }
 
-  deleteStreet(street)
+  deleteStreet(targetStreet)
     .then((street) => {
       res.status(204).end()
     })

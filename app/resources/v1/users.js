@@ -329,10 +329,11 @@ exports.get = async function (req, res) {
       throw new Error(ERRORS.CANNOT_GET_USER)
     }
 
-    if (user.loginTokens.indexOf(req.loginToken) === -1) {
-      res.status(401).end()
-      return
-    }
+    // blocks users from learning about each other (e.g. user galleries)
+    // if (user.loginTokens.indexOf(req.loginToken) === -1) {
+    //   res.status(401).end()
+    //   return
+    // }
     if (!user) {
       throw new Error(ERRORS.USER_NOT_FOUND)
     }

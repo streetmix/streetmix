@@ -43,7 +43,7 @@ exports.get = async function (req, res) {
     let streets
     try {
       streets = await Street.findAll({
-        where: { creatorId: userId },
+        where: { creatorId: userId, status: 'ACTIVE' },
         order: [['updatedAt', 'DESC']]
       })
     } catch (err) {
