@@ -28,7 +28,7 @@ const AccessTokenHandler = function (req, res) {
         .then((response) => {
           const body = response.data
 
-          // TODO add code to properly resolve user_id
+          // TODO resolve user via auth0
           res.cookie(
             'user_id',
             body.id || apiRequestBody.auth0_twitter.screenName

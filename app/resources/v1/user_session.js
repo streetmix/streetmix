@@ -16,7 +16,6 @@ exports.delete = async function (req, res) {
     user = await User.findOne({ where: { id: userId } })
   } catch (err) {
     logger.error(err)
-    console.log('DOOR 1')
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
