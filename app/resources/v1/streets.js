@@ -31,10 +31,10 @@ exports.post = async function (req, res) {
     }
     // TODO: Validation
     street.name = body.name
-    street.namespaced_id = body.data.namespaced_id
-    street.client_updated_at = body.client_updated_at
+    street.namespacedId = body.data.namespacedId
+    street.clientUpdatedAt = body.clientUpdatedAt
     street.data = body.data
-    street.creator_ip = requestIp(req)
+    street.creatorIp = requestIp(req)
   }
 
   function handleErrors (error, foo) {
@@ -62,10 +62,10 @@ exports.post = async function (req, res) {
 
   function updateUserLastStreetId (userId) {
     return User.findOne({ where: { id: userId } }).then((user) => {
-      if (!user.last_street_id) {
-        return user.update({ last_street_id: 1 })
+      if (!user.lastStreetId) {
+        return user.update({ lastStreetId: 1 })
       }
-      return user.increment('last_street_id', { by: 1 })
+      return user.increment('lastStreetId', { by: 1 })
     })
   }
 
@@ -92,9 +92,9 @@ exports.post = async function (req, res) {
   const makeNamespacedId = async function () {
     let namespacedId
     try {
-      if (street.creator_id) {
-        const user = await updateUserLastStreetId(street.creator_id)
-        namespacedId = user && user.last_street_id ? user.last_street_id : 1
+      if (street.creatorId) {
+        const user = await updateUserLastStreetId(street.creatorId)
+        namespacedId = user && user.lastStreetId ? user.lastStreetId : 1
       } else {
         const sequence = await updateSequence()
         if (isArray(sequence)) {
@@ -130,13 +130,13 @@ exports.post = async function (req, res) {
         throw new Error(ERRORS.STREET_NOT_FOUND)
       }
       const namespacedId = await makeNamespacedId()
-      street.namespaced_id = namespacedId
+      street.namespacedId = namespacedId
 
       return Street.create(street)
     }
 
     const namespacedId = await makeNamespacedId()
-    street.namespaced_id = namespacedId
+    street.namespacedId = namespacedId
     return Street.create(street)
   }
 
@@ -151,7 +151,7 @@ exports.post = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { login_tokens: { [Op.contains]: [req.loginToken] } }
+        where: { loginTokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
@@ -161,7 +161,7 @@ exports.post = async function (req, res) {
     if (!user) {
       handleErrors(ERRORS.UNAUTHORISED_ACCESS)
     }
-    street.creator_id = user ? user.id : ''
+    street.creatorId = user ? user.id : ''
 
     saveStreet()
       .then(handleCreatedStreet)
@@ -188,8 +188,8 @@ exports.delete = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { login_tokens: { $contains: [req.loginToken] } }
-        // where: { login_tokens: { [Op.contains]: [req.loginToken] } }
+        where: { loginTokens: { $contains: [req.loginToken] } }
+        // where: { loginTokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
@@ -200,11 +200,11 @@ exports.delete = async function (req, res) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
 
-    if (!street.creator_id) {
+    if (!street.creatorId) {
       throw new Error(ERRORS.FORBIDDEN_REQUEST)
     }
 
-    if (street.creator_id.toString() !== user.id.toString()) {
+    if (street.creatorId.toString() !== user.id.toString()) {
       throw new Error(ERRORS.FORBIDDEN_REQUEST)
     }
 
@@ -285,7 +285,7 @@ exports.get = async function (req, res) {
     return
   }
 
-  res.header('Last-Modified', street.updated_at)
+  res.header('Last-Modified', street.updatedAt)
   if (req.method === 'HEAD') {
     res.status(204).end()
     return
@@ -314,20 +314,20 @@ exports.find = async function (req, res) {
       throw new Error(ERRORS.USER_NOT_FOUND)
     }
     return Street.findOne({
-      where: { namespaced_id: namespacedId, creator_id: user.id }
+      where: { namespacedId: namespacedId, creatorId: user.id }
     })
   } // END function - findStreetWithCreatorId
 
   const findStreetWithNamespacedId = async function (namespacedId) {
     return Street.findOne({
-      where: { namespaced_id: namespacedId, creator_id: null }
+      where: { namespacedId: namespacedId, creatorId: null }
     })
   }
 
   const findStreets = async function (start, count) {
     return Street.findAndCountAll({
       where: { status: 'ACTIVE' },
-      order: [['updated_at', 'DESC']],
+      order: [['updatedAt', 'DESC']],
       offset: start,
       limit: count
     })
@@ -495,8 +495,8 @@ exports.put = async function (req, res) {
   async function updateStreetData (street) {
     street.name = body.name || street.name
     street.data = body.data || street.data
-    street.client_updated_at =
-      body.clientUpdatedAt || street.client_updated_at || ''
+    street.clientUpdatedAt =
+      body.clientUpdatedAt || street.clientUpdatedAt || ''
 
     if (body.originalStreetId) {
       let origStreet
@@ -513,7 +513,7 @@ exports.put = async function (req, res) {
         throw new Error(ERRORS.STREET_NOT_FOUND)
       }
 
-      street.original_street_id = origStreet.id
+      street.originalStreetId = origStreet.id
       return street.save({ returning: true })
     } else {
       return street.save({ returning: true })
@@ -534,7 +534,7 @@ exports.put = async function (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { login_tokens: { [Op.contains]: [req.loginToken] } }
+        where: { loginTokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
@@ -545,11 +545,11 @@ exports.put = async function (req, res) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
 
-    if (!street.creator_id) {
+    if (!street.creatorId) {
       throw new Error(ERRORS.FORBIDDEN_REQUEST)
     }
 
-    if (street.creator_id.toString() !== user.id.toString()) {
+    if (street.creatorId.toString() !== user.id.toString()) {
       throw new Error(ERRORS.FORBIDDEN_REQUEST)
     }
     return updateStreetData(street)
@@ -565,7 +565,7 @@ exports.put = async function (req, res) {
     return
   }
 
-  if (!street.creator_id) {
+  if (!street.creatorId) {
     updateStreetData(street)
       .then((street) => {
         res.status(204).end()

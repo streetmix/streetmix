@@ -198,9 +198,9 @@ const resources = require('./resources')
  *         example: "ACTIVE"
  *       name:
  *         type: string
- *       creator_id:
+ *       creatorId:
  *         type: string
- *       creator_ip:
+ *       creatorIp:
  *         type: string
  *       data:
  *         $ref: '#/definitions/StreetData'

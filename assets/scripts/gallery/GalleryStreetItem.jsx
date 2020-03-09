@@ -134,13 +134,13 @@ function GalleryStreetItem (props) {
         <StreetName name={street.name} />
 
         <span className="gallery-street-item-date">
-          <DateTimeRelative value={street.updated_at} />
+          <DateTimeRelative value={street.updatedAt} />
         </span>
 
         {/* Show street creator (owner) or 'Anonymous' */}
         {showStreetOwner && (
           <span className="gallery-street-item-creator">
-            {street.creator_id ||
+            {street.creatorId ||
               street.creatorId ||
               intl.formatMessage({
                 id: 'users.anonymous',

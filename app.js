@@ -277,7 +277,7 @@ if (config.env !== 'production') {
 }
 
 app.get(
-  ['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'],
+  ['/:user_id/:namespacedId', '/:user_id/:namespacedId/:street_name'],
   requestHandlers.metatags
 )
 

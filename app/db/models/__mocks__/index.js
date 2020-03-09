@@ -4,7 +4,7 @@ const DBConnectionMock = new SequelizeMock()
 const CONTAINS_KEY = 'CONTAINS_KEY'
 
 const StreetMock = DBConnectionMock.define('street', {
-  creator_id: 'user1'
+  creatorId: 'user1'
 })
 const SequenceMock = DBConnectionMock.define('sequence')
 const UserMock = DBConnectionMock.define(
@@ -14,8 +14,8 @@ const UserMock = DBConnectionMock.define(
     _id: 'user1',
     id: 'user1',
     email: 'email@example.com',
-    profile_image_url: 'http://example.com/example.gif',
-    login_tokens: ['xxxxxxxx-xxxx-xxxx-xxxx-0000000000000']
+    profileImageUrl: 'http://example.com/example.gif',
+    loginTokens: ['xxxxxxxx-xxxx-xxxx-xxxx-0000000000000']
   },
   {
     instanceMethods: {
@@ -27,9 +27,9 @@ const UserMock = DBConnectionMock.define(
 )
 const ADMIN_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-3333333333333'
 const ADMIN_DEFAULTS = {
-  profile_image_url: 'http://example.com/example.gif',
+  profileImageUrl: 'http://example.com/example.gif',
   email: 'email@example.com',
-  login_tokens: [ADMIN_TOKEN],
+  loginTokens: [ADMIN_TOKEN],
   id: 'admin1',
   roles: ['ADMIN']
 }
@@ -37,7 +37,7 @@ const ADMIN_DEFAULTS = {
 const USER_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-1111111111111'
 const USER_DEFAULTS = {
   email: 'email@example.com',
-  login_tokens: [USER_TOKEN],
+  loginTokens: [USER_TOKEN],
   id: 'user1',
   roles: ['ADMIN']
 }
@@ -45,7 +45,7 @@ const USER_DEFAULTS = {
 const ALT_TOKEN = 'xxxxxxxx-xxxx-xxxx-xxxx-2222222222222'
 const ALT_USER_DEFAULTS = {
   ...USER_DEFAULTS,
-  login_tokens: [ALT_TOKEN],
+  loginTokens: [ALT_TOKEN],
   id: 'user2',
   _id: 'user2'
 }
@@ -62,9 +62,9 @@ UserMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
   } else if (
     queryOptions[0] &&
     queryOptions[0].where &&
-    queryOptions[0].where.login_tokens &&
-    queryOptions[0].where.login_tokens.CONTAINS_KEY &&
-    queryOptions[0].where.login_tokens.CONTAINS_KEY[0] ===
+    queryOptions[0].where.loginTokens &&
+    queryOptions[0].where.loginTokens.CONTAINS_KEY &&
+    queryOptions[0].where.loginTokens.CONTAINS_KEY[0] ===
       'xxxxxxxx-xxxx-xxxx-xxxx-3333333333333'
   ) {
     return UserMock.build(ADMIN_DEFAULTS)

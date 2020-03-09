@@ -19,7 +19,7 @@ function receiveLiveUpdateCheck (response) {
     new Date(response.headers.get('last-modified')).getTime() / 1000
   )
   const oldUpdatedDate = Math.floor(
-    new Date(store.getState().street.updated_at).getTime() / 1000
+    new Date(store.getState().street.updatedAt).getTime() / 1000
   )
 
   if (newUpdatedDate !== oldUpdatedDate) {

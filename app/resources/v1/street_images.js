@@ -53,7 +53,7 @@ exports.post = async function (req, res) {
   const details = {
     public_id: publicId,
     street_type: streetType,
-    creator_id: creatorId,
+    creatorId: creatorId,
     edit_count: editCount
   }
 
@@ -156,7 +156,7 @@ exports.post = async function (req, res) {
       return
     }
 
-    if (street.creator_id.toString() !== user.id.toString()) {
+    if (street.creatorId.toString() !== user.id.toString()) {
       res.status(403).json({
         status: 403,
         msg:
@@ -176,16 +176,13 @@ exports.post = async function (req, res) {
 
   if (thumbnailSaved) {
     handleUploadSuccess(resource)
-  } else if (
-    !resource ||
-    (!street.creator_id && ALLOW_ANON_STREET_THUMBNAILS)
-  ) {
+  } else if (!resource || (!street.creatorId && ALLOW_ANON_STREET_THUMBNAILS)) {
     // 3c) If street thumbnail does not exist, upload to Cloudinary no matter the currently signed in user.
     // 3d) If street was created by anonymous user, upload to Cloudinary.
     handleUploadStreetThumbnail(publicId)
       .then(handleUploadSuccess)
       .catch(handleError)
-  } else if (street.creator_id) {
+  } else if (street.creatorId) {
     // 3e) If street thumbnail already exists and street was created by a user, check if signed in user = creator.
     handleFindStreetWithCreator(street)
       .then(handleUploadStreetThumbnail)
@@ -228,7 +225,7 @@ exports.delete = async function (req, res) {
   }
 
   // Is requesting user logged in?
-  if (user.login_tokens.indexOf(req.loginToken) === -1) {
+  if (user.loginTokens.indexOf(req.loginToken) === -1) {
     res.status(401).end()
     return
   }
@@ -247,7 +244,7 @@ exports.delete = async function (req, res) {
   if (!street) {
     res.status(404).json({ status: 404, msg: 'Street not found.' })
     return
-  } else if (street.creator_id.toString() !== user.id.toString()) {
+  } else if (street.creatorId.toString() !== user.id.toString()) {
     res.status(403).json({
       status: 403,
       msg: 'Signed in user cannot delete street thumbnail.'

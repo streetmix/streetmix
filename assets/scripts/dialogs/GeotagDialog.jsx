@@ -254,7 +254,7 @@ class GeotagDialog extends React.Component {
     //  - If there is a street owner, and it's equal to the current user
     //  - If there is no street owner
     //  - If there is no street location saved.
-    return isOwnedByCurrentUser() || !street.creator_id || !street.location
+    return isOwnedByCurrentUser() || !street.creatorId || !street.location
   }
 
   /**

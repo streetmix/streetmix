@@ -25,12 +25,12 @@ exports.delete = async function (req, res) {
     return
   }
 
-  const idx = user.login_tokens.indexOf(req.loginToken)
+  const idx = user.loginTokens.indexOf(req.loginToken)
   if (idx === -1) {
     res.status(401).end()
     return
   }
-  user.login_tokens.splice(idx, 1)
+  user.loginTokens.splice(idx, 1)
 
   user
     .save()

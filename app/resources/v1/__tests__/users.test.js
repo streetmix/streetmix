@@ -11,9 +11,9 @@ jest.mock('../../../../lib/logger')
 const emailUser = {
   auth0: {
     nickname: 'user2',
-    auth0_id: 'email|1111',
+    auth0Id: 'email|1111',
     email: 'test@test.com',
-    profile_image_url: 'https://avatar.com/picture.png'
+    profileImageUrl: 'https://avatar.com/picture.png'
   }
 }
 

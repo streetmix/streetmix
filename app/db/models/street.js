@@ -8,23 +8,38 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.STRING
       },
-      namespaced_id: DataTypes.INTEGER,
+      namespacedId: {
+        type: DataTypes.INTEGER,
+        field: 'namespaced_id'
+      },
       status: {
         type: DataTypes.ENUM,
         values: ['ACTIVE', 'DELETED'],
         defaultValue: 'ACTIVE'
       },
       name: DataTypes.STRING,
-      creator_id: DataTypes.STRING,
+      creatorId: {
+        type: DataTypes.STRING,
+        field: 'creator_id'
+      },
       data: DataTypes.JSON,
-      creator_ip: DataTypes.STRING,
-      original_street_id: DataTypes.STRING,
-      client_updated_at: DataTypes.DATE
+      creatorIp: {
+        type: DataTypes.STRING,
+        field: 'creator_ip'
+      },
+      originalStreetId: {
+        type: DataTypes.STRING,
+        field: 'original_street_id'
+      },
+      clientUpdatedAt: {
+        type: DataTypes.DATE,
+        field: 'client_updated_at'
+      },
+      createdAt: { type: DataTypes.DATE, field: 'created_at' },
+      updatedAt: { type: DataTypes.DATE, field: 'updated_at' }
     },
     {
       timestamp: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
       index: [
         {
           fields: ['namespaced_id', 'created_at', 'updated_at']
@@ -34,12 +49,12 @@ module.exports = (sequelize, DataTypes) => {
   )
   Street.associate = function (models) {
     models.Street.belongsTo(models.User, {
-      foreignKey: 'creator_id',
+      foreignKey: 'creatorId',
       targetKey: 'id'
     })
 
     models.Street.belongsTo(models.Street, {
-      foreignKey: 'original_street_id',
+      foreignKey: 'originalStreetId',
       targetKey: 'id'
     })
   }

@@ -49,23 +49,23 @@ exports.post = async function (req, res) {
       if (!user) {
         const newUserData = {
           id: credentials.screenName,
-          _id: credentials.auth0_id.split('|')[1],
-          auth0_id: credentials.auth0_id,
-          login_tokens: [loginToken],
-          profile_image_url: credentials.profile_image_url
+          _id: credentials.auth0Id.split('|')[1],
+          auth0Id: credentials.auth0Id,
+          loginTokens: [loginToken],
+          profileImageUrl: credentials.profileImageUrl
         }
         User.create(newUserData).then(handleCreateUser)
       } else {
         const userUpdates = user.toJSON()
-        userUpdates.auth0_id = credentials.auth0_id
-        userUpdates.profile_image_url = credentials.profile_image_url
-        if (userUpdates.login_tokens) {
+        userUpdates.auth0Id = credentials.auth0Id
+        userUpdates.profileImageUrl = credentials.profileImageUrl
+        if (userUpdates.loginTokens) {
           console.log('--- adding token')
-          const newArray = userUpdates.login_tokens.concat(loginToken)
-          userUpdates.login_tokens = newArray
+          const newArray = userUpdates.loginTokens.concat(loginToken)
+          userUpdates.loginTokens = newArray
         } else {
           console.log('--- first token')
-          userUpdates.login_tokens = [loginToken]
+          userUpdates.loginTokens = [loginToken]
         }
 
         try {
@@ -119,20 +119,20 @@ exports.post = async function (req, res) {
     let profileImageUrl
 
     // Check if user has profile image already cached in cloudinary
-    if (user.profile_image_url && user.profile_image_url.includes(publicId)) {
-      profileImageUrl = user.profile_image_url
-    } else if (credentials.profile_image_url) {
+    if (user.profileImageUrl && user.profileImageUrl.includes(publicId)) {
+      profileImageUrl = user.profileImageUrl
+    } else if (credentials.profileImageUrl) {
       // If no profile image cached in cloudinary, cache image provided by credentials and return cloudinary url.
       try {
         const response = await cloudinary.v2.uploader.upload(
-          credentials.profile_image_url,
+          credentials.profileImageUrl,
           { upload_preset: 'profile_image', public_id: publicId }
         )
         profileImageUrl = response.secure_url
       } catch (error) {
         logger.error(error)
-        // If unable to cache image, return credentials.profile_image_url.
-        profileImageUrl = credentials.profile_image_url
+        // If unable to cache image, return credentials.profileImageUrl.
+        profileImageUrl = credentials.profileImageUrl
       }
     }
 
@@ -142,8 +142,8 @@ exports.post = async function (req, res) {
   const handleAuth0SignIn = async function (credentials) {
     try {
       let user
-      if (credentials.auth0_id) {
-        user = await User.findOne({ where: { auth0_id: credentials.auth0_id } })
+      if (credentials.auth0Id) {
+        user = await User.findOne({ where: { auth0Id: credentials.auth0Id } })
       }
       loginToken = uuidv1()
       if (!user) {
@@ -154,41 +154,41 @@ exports.post = async function (req, res) {
         if (!numOfUser) {
           const newUserData = {
             id: credentials.nickname,
-            _id: credentials.auth0_id.split('|')[1],
-            auth0_id: credentials.auth0_id,
+            _id: credentials.auth0Id.split('|')[1],
+            auth0Id: credentials.auth0Id,
             email: credentials.email,
-            login_tokens: [loginToken],
-            profile_image_url: credentials.profile_image_url
+            loginTokens: [loginToken],
+            profileImageUrl: credentials.profileImageUrl
           }
           User.create(newUserData).then(handleCreateUser)
         } else {
           const id = generateId(credentials.nickname)
           const newUserData = {
             id: id,
-            _id: credentials.auth0_id.split('|')[1],
-            auth0_id: credentials.auth0_id,
+            _id: credentials.auth0Id.split('|')[1],
+            auth0Id: credentials.auth0Id,
             email: credentials.email,
-            login_tokens: [loginToken],
-            profile_image_url: credentials.profile_image_url
+            loginTokens: [loginToken],
+            profileImageUrl: credentials.profileImageUrl
           }
           User.create(newUserData).then(handleCreateUser)
         }
       } else {
         const profileImageUrl = await handleUserProfileImage(user, credentials)
         const userUpdates = user.toJSON()
-        userUpdates.auth0_id = credentials.auth0_id
-        userUpdates.profile_image_url = profileImageUrl
+        userUpdates.auth0Id = credentials.auth0Id
+        userUpdates.profileImageUrl = profileImageUrl
         userUpdates.email = credentials.email
-        if (!userUpdates.login_tokens) {
-          userUpdates.login_tokens = []
+        if (!userUpdates.loginTokens) {
+          userUpdates.loginTokens = []
         }
 
-        userUpdates.login_tokens.push(loginToken)
+        userUpdates.loginTokens.push(loginToken)
         try {
           const [numUsersUpdated, updatedUser] = await User.update(
             userUpdates,
             {
-              where: { auth0_id: credentials.auth0_id },
+              where: { auth0Id: credentials.auth0Id },
               returning: true
             }
           )
@@ -243,8 +243,8 @@ exports.get = async function (req, res) {
       twitterApiClient = new Twitter({
         consumer_key: config.twitter.oauth_consumer_key,
         consumer_secret: config.twitter.oauth_consumer_secret,
-        access_token_key: user.twitter_credentials.access_token_key,
-        access_token_secret: user.twitter_credentials.access_token_secret
+        access_token_key: user.twitterCredentials.access_token_key,
+        access_token_secret: user.twitterCredentials.access_token_secret
       })
     } catch (e) {
       logger.error('Could not initialize Twitter API client. Error:')
@@ -252,10 +252,8 @@ exports.get = async function (req, res) {
     }
 
     const sendUserJson = function (data) {
-      if (data) {
+      if (data && data.twitter_profile_image_url) {
         user.profileImageUrl = data.twitter_profile_image_url
-      } else {
-        user.profileImageUrl = user.profile_image_url
       }
       res.status(200).send(asUserJson(data || user))
     }
@@ -270,12 +268,12 @@ exports.get = async function (req, res) {
 
       if (responseAlreadySent) {
         logger.debug(
-          { profile_image_url: res.profile_image_url },
+          { profileImageUrl: res.profileImageUrl },
           'Twitter API users/show call returned but response already sent!'
         )
       } else {
         logger.debug(
-          { profile_image_url: res.profile_image_url },
+          { profileImageUrl: res.profileImageUrl },
           'Twitter API users/show call returned. Sending response with Twitter data.'
         )
         responseAlreadySent = true
@@ -285,18 +283,18 @@ exports.get = async function (req, res) {
         }
 
         sendUserJson({
-          twitter_profile_image_url: res.picture
+          twitter_profileImageUrl: res.picture
         })
       }
     } // END function - handleFetchUserProfileFromTwitter
 
-    if (twitterApiClient && !user.profile_image_url) {
+    if (twitterApiClient && !user.profileImageUrl) {
       logger.debug(
-        'About to call Twitter API: /users/show.json?user_id=' + user.twitter_id
+        'About to call Twitter API: /users/show.json?user_id=' + user.twitterId
       )
       twitterApiClient.get(
         '/users/show.json',
-        { user_id: user.twitter_id },
+        { user_id: user.twitterId },
         handleFetchUserProfileFromTwitter
       )
       setTimeout(function () {
@@ -343,7 +341,7 @@ exports.get = async function (req, res) {
     }
 
     // if enabled, returns 401 for any attempt to get another user's data
-    // if (user.login_tokens.indexOf(req.loginToken) === -1) {
+    // if (user.loginTokens.indexOf(req.loginToken) === -1) {
     //   res.status(401).end()
     //   return
     // }
@@ -356,14 +354,14 @@ exports.get = async function (req, res) {
 
   if (!userId) {
     const callingUser = await User.findOne({
-      where: { login_tokens: { [Op.contains]: [req.loginToken] } }
+      where: { loginTokens: { [Op.contains]: [req.loginToken] } }
     })
 
     const isAdmin =
       callingUser &&
-      callingUser.login_tokens &&
-      callingUser.login_tokens.indexOf &&
-      callingUser.login_tokens.indexOf(req.loginToken) !== -1
+      callingUser.loginTokens &&
+      callingUser.loginTokens.indexOf &&
+      callingUser.loginTokens.indexOf(req.loginToken) !== -1
 
     if (isAdmin) {
       const userList = await User.findAll({ raw: true })
@@ -398,23 +396,23 @@ exports.delete = async function (req, res) {
     return
   }
 
-  const idx = user.login_tokens.indexOf(req.loginToken)
+  const idx = user.loginTokens.indexOf(req.loginToken)
 
   const callingUser = await User.findOne({
-    where: { login_tokens: { [Op.contains]: [req.loginToken] } }
+    where: { loginTokens: { [Op.contains]: [req.loginToken] } }
   })
 
   const isAdmin =
     callingUser &&
-    callingUser.login_tokens &&
-    callingUser.login_tokens.indexOf &&
-    callingUser.login_tokens.indexOf(req.loginToken) !== -1
+    callingUser.loginTokens &&
+    callingUser.loginTokens.indexOf &&
+    callingUser.loginTokens.indexOf(req.loginToken) !== -1
 
   if (idx === -1 && !isAdmin) {
     res.status(401).end()
     return
   }
-  user.login_tokens.splice(idx, 1)
+  user.loginTokens.splice(idx, 1)
   User.update(user, { where: { id: user.id }, returning: true })
     .then((result) => {
       res.status(204).end()
@@ -450,16 +448,16 @@ exports.put = async function (req, res) {
   }
 
   const callingUser = await User.findOne({
-    where: { login_tokens: { [Op.contains]: [req.loginToken] } }
+    where: { loginTokens: { [Op.contains]: [req.loginToken] } }
   })
 
   const isAdmin =
     callingUser &&
-    callingUser.login_tokens &&
-    callingUser.login_tokens.indexOf &&
-    callingUser.login_tokens.indexOf(req.loginToken) !== -1
+    callingUser.loginTokens &&
+    callingUser.loginTokens.indexOf &&
+    callingUser.loginTokens.indexOf(req.loginToken) !== -1
 
-  if (!isAdmin && user.login_tokens.indexOf(req.loginToken) === -1) {
+  if (!isAdmin && user.loginTokens.indexOf(req.loginToken) === -1) {
     res.status(401).end()
     return
   }
@@ -499,12 +497,12 @@ exports.logout = async function (req, res) {
     return
   }
 
-  const idx = user.login_tokens.indexOf(req.loginToken)
+  const idx = user.loginTokens.indexOf(req.loginToken)
   if (idx === -1) {
     res.status(401).end()
     return
   }
-  user.login_tokens.splice(idx, 1)
+  user.loginTokens.splice(idx, 1)
 
   User.update(user, { where: { id: userId }, returning: true })
     .then((user) => {

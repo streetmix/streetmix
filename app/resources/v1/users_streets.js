@@ -43,8 +43,8 @@ exports.get = async function (req, res) {
     let streets
     try {
       streets = await Street.findAll({
-        where: { creator_id: userId },
-        order: [['updated_at', 'DESC']]
+        where: { creatorId: userId },
+        order: [['updatedAt', 'DESC']]
       })
     } catch (err) {
       logger.error(err)
@@ -54,11 +54,12 @@ exports.get = async function (req, res) {
     if (!streets) {
       throw new Error(ERRORS.STREET_NOT_FOUND)
     }
+
     return streets
   } // END function - handleFindUserstreets
 
   const handleFindUserStreets = function (streets) {
-    const json = { streets }
+    const json = { streets: streets }
     res
       .status(200)
       .json(json)
@@ -140,7 +141,7 @@ exports.delete = async function (req, res) {
   }
 
   // Is requesting user logged in?
-  if (requestUser.login_tokens.indexOf(req.loginToken) === -1) {
+  if (requestUser.loginTokens.indexOf(req.loginToken) === -1) {
     res.status(401).end()
     return
   }
@@ -174,7 +175,7 @@ exports.delete = async function (req, res) {
   }
 
   Street.update(
-    { creator_id: targetUser.id, status: 'ACTIVE' },
+    { creatorId: targetUser.id, status: 'ACTIVE' },
     { status: 'DELETED' },
     { multi: true },
     handleRemoveUserStreets

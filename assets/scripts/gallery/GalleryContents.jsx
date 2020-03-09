@@ -53,6 +53,7 @@ function GalleryContents (props) {
     setSelectedStreet(null)
     dispatch(deleteGalleryStreet(streetId))
   }
+
   return (
     <>
       {/* Heading */}
@@ -121,7 +122,7 @@ function GalleryContents (props) {
               doDelete={deleteStreet}
               showStreetOwner={
                 !userId ||
-                !(userId === item.creatorId || userId === item.creator_id)
+                !(userId === item.creatorId || userId === item.creatorId)
               }
               allowDelete={isOwnedByCurrentUser}
             />

@@ -34,8 +34,8 @@ function ShareMenu (props) {
   function getSharingMessage () {
     let message = ''
 
-    if (street.creator_id) {
-      if (signedIn && street.creator_id === userId) {
+    if (street.creatorId) {
+      if (signedIn && street.creatorId === userId) {
         if (street.name) {
           message = intl.formatMessage(
             {
@@ -58,7 +58,7 @@ function ShareMenu (props) {
               defaultMessage:
                 'Check out {streetName} by {streetCreator} on Streetmix!'
             },
-            { streetName: street.name, streetCreator: `@${street.creator_id}` }
+            { streetName: street.name, streetCreator: `@${street.creatorId}` }
           )
         } else {
           message = intl.formatMessage(
@@ -67,7 +67,7 @@ function ShareMenu (props) {
               defaultMessage:
                 'Check out this street by {streetCreator} on Streetmix!'
             },
-            { streetCreator: `@${street.creator_id}` }
+            { streetCreator: `@${street.creatorId}` }
           )
         }
       }

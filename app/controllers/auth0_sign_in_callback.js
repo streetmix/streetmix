@@ -64,9 +64,9 @@ const getUserAuth0Info = function (user) {
   return {
     auth0: {
       nickname: user.nickname,
-      auth0_id: user.sub,
+      auth0Id: user.sub,
       email: user.email,
-      profile_image_url: user.picture
+      profileImageUrl: user.picture
     }
   }
 }
@@ -75,8 +75,8 @@ const getUserTwitterAuth0Info = function (user) {
   return {
     auth0_twitter: {
       screenName: user[`${config.auth0.screen_name_custom_claim}`],
-      auth0_id: user.sub,
-      profile_image_url: user.picture
+      auth0Id: user.sub,
+      profileImageUrl: user.picture
     }
   }
 }
