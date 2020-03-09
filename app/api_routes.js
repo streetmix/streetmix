@@ -414,7 +414,7 @@ routes.delete('/api/v1/users/:user_id', cors(), resources.v1.users.delete)
 routes.delete(
   '/api/v1/users/:user_id/login-token',
   cors(),
-  resources.v1.users.logout
+  resources.v1.user_session.delete
 )
 
 /**

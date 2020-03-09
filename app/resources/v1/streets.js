@@ -37,29 +37,6 @@ exports.post = async function (req, res) {
     street.creatorIp = requestIp(req)
   }
 
-  function handleErrors (error, foo) {
-    switch (error) {
-      case ERRORS.USER_NOT_FOUND:
-        res.status(404).json({ status: 404, msg: 'User not found.' })
-        return
-      case ERRORS.STREET_NOT_FOUND:
-        res.status(404).json({ status: 404, msg: 'Original street not found.' })
-        return
-      case ERRORS.CANNOT_CREATE_STREET:
-        res
-          .status(500)
-          .json({ status: 500, msg: 'Could not create new street ID.' })
-        return
-      case ERRORS.UNAUTHORISED_ACCESS:
-        res
-          .status(401)
-          .json({ status: 401, msg: 'User with that login token not found.' })
-        return
-      default:
-        res.status(500).end()
-    }
-  }
-
   function updateUserLastStreetId (userId) {
     return User.findOne({ where: { id: userId } }).then((user) => {
       if (!user.lastStreetId) {
@@ -147,6 +124,29 @@ exports.post = async function (req, res) {
     res.status(201).json(s)
   }
 
+  function handleErrors (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).json({ status: 404, msg: 'User not found.' })
+        return
+      case ERRORS.STREET_NOT_FOUND:
+        res.status(404).json({ status: 404, msg: 'Original street not found.' })
+        return
+      case ERRORS.CANNOT_CREATE_STREET:
+        res
+          .status(500)
+          .json({ status: 500, msg: 'Could not create new street ID.' })
+        return
+      case ERRORS.UNAUTHORISED_ACCESS:
+        res
+          .status(401)
+          .json({ status: 401, msg: 'User with that login token not found.' })
+        return
+      default:
+        res.status(500).end()
+    }
+  }
+
   if (req.loginToken) {
     let user
     try {
@@ -189,7 +189,6 @@ exports.delete = async function (req, res) {
     try {
       user = await User.findOne({
         where: { loginTokens: { $contains: [req.loginToken] } }
-        // where: { loginTokens: { [Op.contains]: [req.loginToken] } }
       })
     } catch (err) {
       logger.error(err)
