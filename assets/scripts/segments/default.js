@@ -49,7 +49,7 @@ export const DEFAULT_SEGMENTS = {
       variant: {
         direction: 'outbound',
         'bike-asphalt': 'green',
-        elevation: 'elevation-lower'
+        elevation: 'road'
       },
       width: 6
     },
@@ -75,7 +75,7 @@ export const DEFAULT_SEGMENTS = {
       variant: {
         direction: 'outbound',
         'bike-asphalt': 'green',
-        elevation: 'elevation-lower'
+        elevation: 'road'
       },
       width: 6
     },

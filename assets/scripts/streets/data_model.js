@@ -245,7 +245,7 @@ function incrementSchemaVersion (street) {
         segment = street.segments[i]
         if (segment.type === 'bike-lane') {
           variant = getVariantArray(segment.type, segment.variantString)
-          variant.elevation = 'elevation-lower'
+          variant.elevation = 'road'
           segment.variantString = getVariantString(variant)
         }
       }
