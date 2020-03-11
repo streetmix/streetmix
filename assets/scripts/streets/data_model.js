@@ -1,16 +1,17 @@
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
-import { normalizeSegmentWidth, resolutionForResizeType, RESIZE_TYPE_INITIAL } from '../segments/resizing'
+import {
+  normalizeSegmentWidth,
+  resolutionForResizeType,
+  RESIZE_TYPE_INITIAL
+} from '../segments/resizing'
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getUnits, getLeftHandTraffic } from '../users/localization'
 import { generateRandSeed } from '../util/random'
 import { DEFAULT_ENVIRONS } from './constants'
-import {
-  createNewUndoIfNecessary,
-  unifyUndoStack
-} from './undo_stack'
+import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
 import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
@@ -35,7 +36,7 @@ export function setLastStreet () {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
-const LATEST_SCHEMA_VERSION = 19
+const LATEST_SCHEMA_VERSION = 20
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -61,7 +62,10 @@ function incrementSchemaVersion (street) {
 
   if (!street.schemaVersion) {
     // Fix a bug in 2018 where a street does not have a schema version when it should.
-    if ((street.createdAt && street.createdAt.indexOf('2018') === 0) || (street.updatedAt && street.updatedAt.indexOf('2018') === 0)) {
+    if (
+      (street.createdAt && street.createdAt.indexOf('2018') === 0) ||
+      (street.updatedAt && street.updatedAt.indexOf('2018') === 0)
+    ) {
       street.schemaVersion = 17
     } else {
       street.schemaVersion = 1
@@ -235,6 +239,16 @@ function incrementSchemaVersion (street) {
       if (!street.environment) {
         street.environment = DEFAULT_ENVIRONS
       }
+      break
+    case 19:
+      for (const i in street.segments) {
+        segment = street.segments[i]
+        if (segment.type === 'bike-lane') {
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant.elevation = 'road'
+          segment.variantString = getVariantString(variant)
+        }
+      }
   }
 
   street.schemaVersion++
@@ -243,7 +257,10 @@ function incrementSchemaVersion (street) {
 
 export function updateToLatestSchemaVersion (street) {
   var updated = false
-  while (!street.schemaVersion || (street.schemaVersion < LATEST_SCHEMA_VERSION)) {
+  while (
+    !street.schemaVersion ||
+    street.schemaVersion < LATEST_SCHEMA_VERSION
+  ) {
     street = incrementSchemaVersion(street)
     updated = true
   }
@@ -352,7 +369,10 @@ function fillDefaultSegments (units) {
     const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
-    segment.width = normalizeSegmentWidth(segment.width, resolutionForResizeType(RESIZE_TYPE_INITIAL, units))
+    segment.width = normalizeSegmentWidth(
+      segment.width,
+      resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
+    )
 
     if (getSegmentInfo(segment.type).needRandSeed) {
       segment.randSeed = generateRandSeed()

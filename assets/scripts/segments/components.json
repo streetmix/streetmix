@@ -30,6 +30,33 @@
     "sidewalk": {
       "elevation": 1,
       "variants": {
+        "color": {
+          "regular": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          },
+          "black": {
+            "graphics": {
+              "repeat": "ground--asphalt"
+            }
+          },
+          "red": {
+            "graphics": {
+              "repeat": "ground--asphalt-red"
+            }
+          },
+          "green": {
+            "graphics": {
+              "repeat": "ground--asphalt-green"
+            }
+          },
+          "gray": {
+            "graphics": {
+              "repeat": "ground--asphalt-gray"
+            }
+          }
+        },
         "density": {
           "dense": {
             "graphics": {
