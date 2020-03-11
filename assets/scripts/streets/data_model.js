@@ -36,7 +36,7 @@ export function setLastStreet () {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
-const LATEST_SCHEMA_VERSION = 20
+const LATEST_SCHEMA_VERSION = 21
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -56,6 +56,8 @@ const LATEST_SCHEMA_VERSION = 20
 // 17: alternative colors for bike lanes
 // 18: change lat/lng format from array to object
 // 19: add environment
+// 20: add sidewalk-level bike lanes
+// 21: add sidewalk-level bikeshare docks
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -244,6 +246,16 @@ function incrementSchemaVersion (street) {
       for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'bike-lane') {
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant.elevation = 'road'
+          segment.variantString = getVariantString(variant)
+        }
+      }
+      break
+    case 20:
+      for (const i in street.segments) {
+        segment = street.segments[i]
+        if (segment.type === 'bikeshare') {
           variant = getVariantArray(segment.type, segment.variantString)
           variant.elevation = 'road'
           segment.variantString = getVariantString(variant)
