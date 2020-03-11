@@ -56,6 +56,7 @@ const LATEST_SCHEMA_VERSION = 20
 // 17: alternative colors for bike lanes
 // 18: change lat/lng format from array to object
 // 19: add environment
+// 20: add sidewalk-level bike lanes
 
 function incrementSchemaVersion (street) {
   let segment, variant
