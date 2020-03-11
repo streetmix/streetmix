@@ -1876,9 +1876,9 @@
       "minWidth": 7,
       "maxWidth": 10
     },
-    "variants": ["orientation"],
+    "variants": ["orientation", "elevation"],
     "details": {
-      "left": {
+      "left|road": {
         "components": {
           "lanes": [
             {
@@ -1906,7 +1906,7 @@
           ]
         }
       },
-      "right": {
+      "right|road": {
         "components": {
           "lanes": [
             {
@@ -1922,6 +1922,46 @@
             },
             {
               "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      },
+      "left|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
             }
           ],
           "objects": [

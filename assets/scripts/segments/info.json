@@ -773,7 +773,7 @@
     "defaultWidth": 7,
     "variants": ["orientation"],
     "details": {
-      "left": {
+      "left|road": {
         "elevation": 0,
         "minWidth": 7,
         "maxWidth": 10,
@@ -783,8 +783,28 @@
           "right": "markings--lane-right"
         }
       },
-      "right": {
+      "right|road": {
         "elevation": 0,
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "right": ["bikes--bikeshare-right", "markings--lane-right"],
+          "repeat": "ground--asphalt",
+          "left": "markings--lane-left"
+        }
+      },
+      "left|sidewalk": {
+        "elevation": 1,
+        "minWidth": 7,
+        "maxWidth": 10,
+        "graphics": {
+          "left": ["bikes--bikeshare-left", "markings--lane-left"],
+          "repeat": "ground--asphalt",
+          "right": "markings--lane-right"
+        }
+      },
+      "right|sidewalk": {
+        "elevation": 1,
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
