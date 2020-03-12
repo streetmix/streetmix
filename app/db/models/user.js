@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         type: DataTypes.STRING
       },
-      _id: DataTypes.STRING,
+      _id: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       twitterId: {
         type: DataTypes.STRING,
         field: 'twitter_id'

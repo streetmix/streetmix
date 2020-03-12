@@ -11,10 +11,13 @@ const Op = Sequelize.Op
 exports.post = async function (req, res) {
   let loginToken = null
 
-  const handleCreateUser = function (err, user) {
-    if (err) {
-      logger.error(err)
-      res.status(500).json({ status: 500, msg: 'Could not create user.' })
+  const handleCreateUser = function (user) {
+    console.log('handleCreateUser', { user: user && user.toJSON() })
+    if (!user) {
+      res.status(500).json({
+        status: 500,
+        msg: 'Could not create user, user not found after creation.'
+      })
       return
     }
     const userJson = { id: user.id, loginToken: loginToken }
@@ -22,6 +25,13 @@ exports.post = async function (req, res) {
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
     res.status(201).send(userJson)
   } // END function - handleCreateUser
+
+  const handleCreateUserError = function (err) {
+    if (err) {
+      logger.error(err)
+      res.status(500).json({ status: 500, msg: 'Could not create user.' })
+    }
+  }
 
   const handleUpdateUserError = function (err) {
     if (err) {
@@ -52,7 +62,11 @@ exports.post = async function (req, res) {
           loginTokens: [loginToken],
           profileImageUrl: credentials.profileImageUrl
         }
-        User.create(newUserData).then(handleCreateUser)
+        try {
+          User.create(newUserData).then(handleCreateUser)
+        } catch (err) {
+          handleCreateUserError(err)
+        }
       } else {
         const userUpdates = user.toJSON()
         userUpdates.auth0Id = credentials.auth0Id
@@ -143,6 +157,7 @@ exports.post = async function (req, res) {
         const numOfUser = await User.findOne({
           where: { id: credentials.nickname }
         })
+
         // Ensure there is no existing user with id same this nickname
         if (!numOfUser) {
           const newUserData = {
@@ -152,7 +167,11 @@ exports.post = async function (req, res) {
             loginTokens: [loginToken],
             profileImageUrl: credentials.profileImageUrl
           }
-          User.create(newUserData).then(handleCreateUser)
+          try {
+            User.create(newUserData).then(handleCreateUser)
+          } catch (err) {
+            handleCreateUserError(err)
+          }
         } else {
           const id = generateId(credentials.nickname)
           const newUserData = {
