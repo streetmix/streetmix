@@ -1265,7 +1265,7 @@
     "defaultWidth": 5,
     "enableWithFlag": "SEGMENT_SCOOTERS",
     "paletteIcon": "right|sidewalk|empty",
-    "variants": ["orientation", "scooter-elevation", "scooter-riders"],
+    "variants": ["orientation", "elevation", "scooter-riders"],
     "details": {
       "left|sidewalk|empty": {
         "components": {

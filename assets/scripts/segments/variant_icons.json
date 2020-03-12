@@ -376,16 +376,6 @@
       "title": "No one"
     }
   },
-  "scooter-elevation": {
-    "sidewalk": {
-      "id": "elevation-higher",
-      "title": "Sidewalk level"
-    },
-    "road": {
-      "id": "elevation-lower",
-      "title": "Road level"
-    }
-  },
   "scooter-riders": {
     "empty": {
       "id": "",
@@ -422,16 +412,6 @@
     "full": {
       "id": "sidewalk-density-normal",
       "title": "Full"
-    }
-  },
-  "elevation": {
-    "sidewalk": {
-      "id": "elevation-higher",
-      "title": "Sidewalk level"
-    },
-    "road": {
-      "id": "elevation-lower",
-      "title": "Street level"
     }
   },
   "temporary-barrier-type": {

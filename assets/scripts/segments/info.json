@@ -506,7 +506,7 @@
     "zIndex": 21,
     "defaultWidth": 5,
     "enableWithFlag": "SEGMENT_SCOOTERS",
-    "variants": ["orientation", "scooter-elevation", "scooter-riders"],
+    "variants": ["orientation", "elevation", "scooter-riders"],
     "paletteIcon": "right|sidewalk|empty",
     "details": {
       "left|sidewalk|empty": {
