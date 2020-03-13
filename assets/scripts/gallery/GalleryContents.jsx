@@ -27,9 +27,12 @@ function GalleryContents (props) {
   useLayoutEffect(() => {
     if (selectedStreet) {
       const selectedEl = document.querySelector('.gallery-selected')
-      // Note: smooth scroll is not supported in all browsers
-      selectedEl.scrollIntoView({ behavior: 'smooth', inline: 'nearest' })
-      galleryEl.current.parentNode.scrollTop = 0
+      // Make sure the element exists -- sometimes it hasn't rendered yet
+      if (selectedEl) {
+        // Note: smooth scroll is not supported in all browsers
+        selectedEl.scrollIntoView({ behavior: 'smooth', inline: 'nearest' })
+        galleryEl.current.parentNode.scrollTop = 0
+      }
     }
   }, [selectedStreet])
 
