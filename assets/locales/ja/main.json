@@ -12,7 +12,7 @@
       "my-streets": "自分のストリート",
       "settings": "設定",
       "share": "シェア",
-      "store": "",
+      "store": "ストア",
       "upgrade": ""
     },
     "help": {
@@ -28,7 +28,7 @@
       "sign-in-twitter-link": "サインイン",
       "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
       "link": "共有用リンク:",
-      "copy-to-clipboard": "",
+      "copy-to-clipboard": "クリップボードにコピー",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
       "print": "印刷",
@@ -52,7 +52,7 @@
       "discord": "",
       "slack": "Slackチャットに参加",
       "minecraft": "",
-      "newsletter": ""
+      "newsletter": "ニュースレター購読"
     },
     "contribute": {
       "donate": "募金",
@@ -60,12 +60,12 @@
       "opensource": "オープンなソースで貢献"
     },
     "feedback": {
-      "prompt": "メッセージを送付:",
+      "prompt": "メッセージを送信:",
       "message-placeholder": "Streetmixへのご意見",
       "email-placeholder": "あなたのメールアドレス (任意)",
-      "send": "送付",
+      "send": "送信",
       "confirm": "ご意見ありがとうございます！",
-      "error": "すみません、フィードバックの送付に失敗しました。時間をおいて再度お試しください。"
+      "error": "フィードバックの送信に失敗しました。時間をおいて再度お試しください。"
     },
     "sign-in": {
       "twitter": "Twitterでログイン"
@@ -82,13 +82,13 @@
     }
   },
   "msg": {
-    "loading": "ロード中…",
+    "loading": "読み込み中…",
     "remixing": "リミックス中…",
     "having-trouble": "トラブルが発生しています…",
     "no-street": "ストリートが選択されていません。",
-    "trouble-loading": "Streetmixのロードに失敗しました。",
-    "slow-connection-1": "現在、Streetmixとインターネットの疎通に問題が発生しています。",
-    "slow-connection-2": "ページを再度読み込んでください。最後に行った変更点は破棄されます。申し訳ありません。",
+    "trouble-loading": "Streetmixの読み込みが失敗しました。",
+    "slow-connection-1": "現在、Streetmixからインターネットへの接続に時間が通常よりかかっております。",
+    "slow-connection-2": "ページを再度読み込んでください。最後に行った変更点は破棄される可能性があります。ご了承ください。",
     "no-connection": "Streetmixからインターネットへの接続に失敗しました。",
     "more-info": "詳細情報"
   },
@@ -197,8 +197,8 @@
       "option-name": "ストリートの名称",
       "option-sky": "空を透明化",
       "option-watermark": "",
-      "loading": "ロード中…",
-      "save-button": "コンピュータに保存中…",
+      "loading": "読み込み中…",
+      "save-button": "保存中…",
       "license": "Streetmixで作成した画像は {licenseLink} のもとで自由にお使いいただけます。",
       "error-preview": "プレビュー画像の表示に失敗しました。",
       "error-unavailable": "ブラウザが画像の保存に対応していません。",
