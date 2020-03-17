@@ -509,12 +509,9 @@ exports.put = async function (req, res) {
       if (!origStreet) {
         throw new Error(ERRORS.STREET_NOT_FOUND)
       }
-
       street.originalStreetId = origStreet.id
-      return street.save({ returning: true })
-    } else {
-      return street.save({ returning: true })
     }
+    return street.save({ returning: true })
   } // END function - updateStreetData
 
   let street
