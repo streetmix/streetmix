@@ -1,9 +1,6 @@
-const async = require('async')
-
-const User = require('../../models/user.js')
-const Street = require('../../models/street.js')
-const logger = require('../../../lib/logger.js')()
+const { User, Street } = require('../../db/models')
 const { ERRORS } = require('../../../lib/util')
+const logger = require('../../../lib/logger.js')()
 
 function handleErrors (error, res) {
   switch (error) {
@@ -17,13 +14,17 @@ function handleErrors (error, res) {
       res.status(410).json({ status: 410, msg: 'Could not find street.' })
       break
     case ERRORS.CANNOT_GET_STREET:
-      res.status(500).json({ status: 500, msg: 'Could not find streets for user.' })
+      res
+        .status(500)
+        .json({ status: 500, msg: 'Could not find streets for user.' })
       break
     case ERRORS.UNAUTHORISED_ACCESS:
       res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
       break
     case ERRORS.FORBIDDEN_REQUEST:
-      res.status(403).json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+      res
+        .status(403)
+        .json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
       break
     default:
       // Log unknown error.
@@ -40,14 +41,14 @@ exports.get = async function (req, res) {
 
   const findUserStreets = async function (userId) {
     let streets
-
     try {
-      streets = await Street.find({ creator_id: userId, status: 'ACTIVE' })
-        .sort({ updated_at: 'descending' })
-        .exec()
+      streets = await Street.findAll({
+        where: { creatorId: userId, status: 'ACTIVE' },
+        order: [['updatedAt', 'DESC']]
+      })
     } catch (err) {
       logger.error(err)
-      handleErrors(ERRORS.CANNOT_GET_STREET, res)
+      handleErrors(ERRORS.CANNOT_GET_STREET)
     }
 
     if (!streets) {
@@ -58,40 +59,62 @@ exports.get = async function (req, res) {
   } // END function - handleFindUserstreets
 
   const handleFindUserStreets = function (streets) {
-    const json = { streets: [] }
-
-    async.map(
-      streets,
-      function (street, callback) { street.asJson(callback) },
-      function (err, results) {
-        if (err) {
-          logger.error(err)
-          res.status(500).json({ status: 500, msg: 'Could not append street.' })
-          return
-        }
-
-        json.streets = results
-        res.status(200).send(json)
-      }) // END - async.map
+    const json = { streets: streets }
+    res
+      .status(200)
+      .json(json)
+      .end()
   } // END function - handleFindUserStreets
 
-  let user
+  function handleErrors (error) {
+    switch (error) {
+      case ERRORS.USER_NOT_FOUND:
+        res.status(404).json({ status: 404, msg: 'Creator not found.' })
+        return
+      case ERRORS.STREET_NOT_FOUND:
+        res.status(404).json({ status: 404, msg: 'Could not find streets.' })
+        return
+      case ERRORS.STREET_DELETED:
+        res.status(410).json({ status: 410, msg: 'Could not find street.' })
+        return
+      case ERRORS.CANNOT_GET_STREET:
+        res
+          .status(500)
+          .json({ status: 500, msg: 'Could not find streets for user.' })
+        return
+      case ERRORS.UNAUTHORISED_ACCESS:
+        res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
+        return
+      case ERRORS.FORBIDDEN_REQUEST:
+        res.status(403).json({
+          status: 403,
+          msg: 'Signed-in user cannot delete this street.'
+        })
+        return
+      default:
+        res.status(500).end()
+    }
+  } // END function - handleErrors
 
+  let user
   try {
-    user = await User.findOne({ id: req.params.user_id })
+    user = await User.findOne({ where: { id: req.params.user_id } })
   } catch (err) {
     logger.error(err)
-    handleErrors(ERRORS.CANNOT_GET_STREET, res)
+    handleErrors(ERRORS.CANNOT_GET_STREET)
   }
 
   if (!user) {
     res.status(404).json({ status: 404, msg: 'Could not find user.' })
     return
   }
-
-  findUserStreets(user._id)
-    .then(handleFindUserStreets)
-    .catch((error) => handleErrors(error, res))
+  try {
+    const streets = await findUserStreets(user.id)
+    handleFindUserStreets(streets)
+  } catch (err) {
+    console.error(err)
+    handleErrors(err)
+  }
 }
 
 exports.delete = async function (req, res) {
@@ -106,7 +129,7 @@ exports.delete = async function (req, res) {
   let requestUser
 
   try {
-    requestUser = await User.findOne({ id: userId })
+    requestUser = await User.findOne({ where: { id: userId } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -118,7 +141,7 @@ exports.delete = async function (req, res) {
   }
 
   // Is requesting user logged in?
-  if (requestUser.login_tokens.indexOf(req.loginToken) === -1) {
+  if (requestUser.loginTokens.indexOf(req.loginToken) === -1) {
     res.status(401).end()
     return
   }
@@ -128,7 +151,7 @@ exports.delete = async function (req, res) {
 
   if (targetUserId !== userId) {
     try {
-      targetUser = await User.findOne({ id: targetUserId })
+      targetUser = await User.findOne({ where: { id: targetUserId } })
     } catch (error) {
       logger.error(error)
       res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -151,5 +174,10 @@ exports.delete = async function (req, res) {
     res.status(204).end()
   }
 
-  Street.update({ creator_id: targetUser._id, status: 'ACTIVE' }, { status: 'DELETED' }, { multi: true }, handleRemoveUserStreets)
+  Street.update(
+    { creatorId: targetUser.id, status: 'ACTIVE' },
+    { status: 'DELETED' },
+    { multi: true },
+    handleRemoveUserStreets
+  )
 }

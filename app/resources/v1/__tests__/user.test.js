@@ -1,9 +1,10 @@
 /* eslint-env jest */
 import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
-import user from '../user'
+import user from '../users'
 
-jest.mock('../../../models/user')
+jest.mock('twitter')
+jest.mock('../../../db/models')
 jest.mock('../../../../lib/logger')
 
 describe('PUT api/v1/users/:user_id', () => {
@@ -14,7 +15,10 @@ describe('PUT api/v1/users/:user_id', () => {
   it('should respond with 204 user updates their own credentials', () => {
     return request(app)
       .put('/api/v1/users/user1')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
+      )
       .type('json')
       .send(JSON.stringify({}))
       .then((response) => {
@@ -25,7 +29,10 @@ describe('PUT api/v1/users/:user_id', () => {
   it('should respond with 401 if a user PUTs to a different user', () => {
     return request(app)
       .put('/api/v1/users/user2')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222229" userId="user1"'
+      )
       .type('json')
       .send(JSON.stringify({}))
       .then((response) => {
@@ -36,7 +43,10 @@ describe('PUT api/v1/users/:user_id', () => {
   it('should respond with 204 if an admin user PUTS to a different user', () => {
     return request(app)
       .put('/api/v1/users/user1')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"'
+      )
       .type('json')
       .send(JSON.stringify({}))
       .then((response) => {
@@ -67,7 +77,10 @@ describe('DELETE api/v1/users/:user_id', () => {
   it('should respond with 204 when user DELETEs their account', () => {
     return request(app)
       .delete('/api/v1/users/user1')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
+      )
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })
@@ -75,8 +88,11 @@ describe('DELETE api/v1/users/:user_id', () => {
 
   it('should respond with 401 if user DELETEs a different user account', () => {
     return request(app)
-      .delete('/api/v1/users/user2')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .delete('/api/v1/users/user1')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"'
+      )
       .then((response) => {
         expect(response.statusCode).toEqual(401)
       })
@@ -85,7 +101,10 @@ describe('DELETE api/v1/users/:user_id', () => {
   it('should respond with 204 when admin user DELETEs a different user account', () => {
     return request(app)
       .delete('/api/v1/users/user1')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"'
+      )
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })

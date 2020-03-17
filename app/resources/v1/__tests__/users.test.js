@@ -3,16 +3,17 @@ import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import users from '../users'
 
-jest.mock('../../../models/user')
+jest.mock('twitter')
+jest.mock('../../../db/models')
 jest.mock('../../../../lib/logger')
 
 // Fake user info to test the API
 const emailUser = {
   auth0: {
-    nickname: 'user',
-    auth0_id: 'email|1111',
+    nickname: 'user2',
+    auth0Id: 'email|1111',
     email: 'test@test.com',
-    profile_image_url: 'https://avatar.com/picture.png'
+    profileImageUrl: 'https://avatar.com/picture.png'
   }
 }
 
@@ -50,7 +51,10 @@ describe('GET api/v1/users', () => {
   it('should respond with 200 Ok when admin user GETs Streetmix users data', () => {
     return request(app)
       .get('/api/v1/users')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"'
+      )
       .then((response) => {
         expect(response.statusCode).toEqual(200)
       })
@@ -59,7 +63,10 @@ describe('GET api/v1/users', () => {
   it('should respond with 401 when user GETs Streetmix users data', () => {
     return request(app)
       .get('/api/v1/users')
-      .set('Authorization', 'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"')
+      .set(
+        'Authorization',
+        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"'
+      )
       .then((response) => {
         expect(response.statusCode).toEqual(401)
       })

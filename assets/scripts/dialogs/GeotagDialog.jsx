@@ -269,7 +269,7 @@ class GeotagDialog extends React.Component {
     return (
       location &&
       location.latlng.lat === markerLocation.lat &&
-        location.latlng.lng === markerLocation.lng
+      location.latlng.lng === markerLocation.lng
     )
   }
 

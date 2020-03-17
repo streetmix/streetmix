@@ -11,21 +11,23 @@ export function scheduleNextLiveUpdateCheck () {
 function checkForLiveUpdate () {
   const url = getFetchStreetUrl()
 
-  window.fetch(url, { method: 'HEAD' })
-    .then(receiveLiveUpdateCheck)
+  window.fetch(url, { method: 'HEAD' }).then(receiveLiveUpdateCheck)
 }
 
 function receiveLiveUpdateCheck (response) {
-  const newUpdatedDate =
-    Math.floor((new Date(response.headers.get('last-modified')).getTime()) / 1000)
-  const oldUpdatedDate =
-    Math.floor((new Date(store.getState().street.updatedAt).getTime()) / 1000)
+  const newUpdatedDate = Math.floor(
+    new Date(response.headers.get('last-modified')).getTime() / 1000
+  )
+  const oldUpdatedDate = Math.floor(
+    new Date(store.getState().street.updatedAt).getTime() / 1000
+  )
 
   if (newUpdatedDate !== oldUpdatedDate) {
     const url = getFetchStreetUrl()
 
-    window.fetch(url)
-      .then(response => response.json())
+    window
+      .fetch(url)
+      .then((response) => response.json())
       .then(receiveLiveUpdateStreet)
   }
 

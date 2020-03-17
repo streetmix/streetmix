@@ -17,7 +17,6 @@ const uuid = require('uuid/v4')
 const controllers = require('./app/controllers')
 const requestHandlers = require('./lib/request_handlers')
 const initRedisClient = require('./lib/redis')
-const initMongoDB = require('./lib/db')
 const initCloudinary = require('./lib/cloudinary')
 const compileSVGSprites = require('./lib/svg-sprite')
 const exec = require('child_process').exec
@@ -29,7 +28,6 @@ const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
 
 const client = initRedisClient()
-initMongoDB()
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
 compileSVGSprites('assets/images/illustrations/', 'illustrations', 'image')
@@ -279,7 +277,7 @@ if (config.env !== 'production') {
 }
 
 app.get(
-  ['/:user_id/:namespaced_id', '/:user_id/:namespaced_id/:street_name'],
+  ['/:user_id/:namespacedId', '/:user_id/:namespacedId/:street_name'],
   requestHandlers.metatags
 )
 

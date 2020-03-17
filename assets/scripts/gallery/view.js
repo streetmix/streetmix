@@ -20,8 +20,6 @@ export function receiveGalleryData (transmission) {
 
     updateToLatestSchemaVersion(galleryStreet.data.street)
 
-    galleryStreet.creatorId = galleryStreet.creator && galleryStreet.creator.id
-
     streets.push(galleryStreet)
   }
 

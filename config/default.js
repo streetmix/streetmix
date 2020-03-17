@@ -37,8 +37,6 @@ module.exports = {
     baseuri: '/api'
   },
   db: {
-    // MONGODB_URI - mLab MongoDB Heroku addon
-    url: process.env.MONGODB_URI || 'mongodb://localhost/streetmix',
     postgres: {
       username: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
