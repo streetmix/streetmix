@@ -19,7 +19,6 @@ env:
     - NODE_ENV: test
 
 services:
-  - mongodb
   - redis-server
 
 before_script:
@@ -39,8 +38,5 @@ after_script:
   # after all tests finish running we need
   # to kill all background jobs (like "npm start &")
   - kill $(jobs -p) || true
-
-after_failure:
-  - sudo service mongod status
 
 cache: npm
