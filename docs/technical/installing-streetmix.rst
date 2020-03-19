@@ -239,7 +239,7 @@ A sample :file:`.env` file looks like this:
 Starting the application
 ++++++++++++++++++++++++
 
-1. Start MongoDB and Postgres.
+1. Start Postgres.
 
 2. Start the web server. In the Streetmix project directory, run:
 

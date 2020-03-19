@@ -96,7 +96,6 @@ Even after determining that CI is failing not because of a bug or linting proble
 
 1. **Try running the build again.** Because CI isn't deterministic, sometimes running it a second time with no changes will cause it to pass. This is commonly the issue when the Selenium smoke test fails.
 2. **Check the status of third-party services.** Sometimes, TravisCI itself has issues, so also be sure to check `TravisCI status <https://www.traviscistatus.com/>`_.
-3. **Check to make sure MongoDB is accepting connections.** A running MongoDB service is required for end-to-end testing. TravisCI have reported `an intermittent issue with MongoDB not accepting connections <https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections>`_, which can only be solved by injecting an artificial wait time. We have encountered this in the past, although we currently do not routinely experience this. However, there is always a possibility this issue can return.
 
 
 Skipping CI
