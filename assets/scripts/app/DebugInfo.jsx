@@ -66,7 +66,11 @@ function DebugInfo (props) {
   }, [isVisible, settings, street, flags, undo, user])
 
   function showDebugInfo (event) {
-    if (event.key === 'D') {
+    // Do not display debug info when the key combo is pressed inside of an input element
+    if (
+      event.key === 'D' &&
+      /input|textarea/i.test(event.target.tagName) === false
+    ) {
       setVisible(true)
     }
   }
