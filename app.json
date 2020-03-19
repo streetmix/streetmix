@@ -21,10 +21,6 @@
       "as": "DATABASE"
     },
     {
-      "plan": "mongolab:sandbox",
-      "as": "MONGODB"
-    },
-    {
       "plan": "heroku-redis:hobby-dev",
       "as": "REDIS"
     },
