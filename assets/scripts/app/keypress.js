@@ -350,9 +350,16 @@ function processCommands (commands) {
 
 function onGlobalKeyDown (event) {
   const toExecute = []
+  const key = event.key
+
+  // There is a bug in Chrome where events can be fired with an
+  // undefined `key` property, which does not adhere to spec.
+  // This can be duplicated by autofilling an input with 1Password,
+  // and it may be caused by other tools as well.
+  if (typeof key === 'undefined') return
 
   // Find the right command object
-  const commandsForKey = inputs[event.key.toLowerCase()]
+  const commandsForKey = inputs[key.toLowerCase()]
   if (!commandsForKey || commandsForKey.length === 0) return
 
   // Check if the right meta keys are down
