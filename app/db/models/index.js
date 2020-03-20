@@ -1,22 +1,31 @@
 'use strict'
 
-var fs = require('fs')
-var path = require('path')
-var Sequelize = require('sequelize')
-var basename = path.basename(__filename)
-var env = process.env.NODE_ENV || 'development'
-var config = require(path.join(__dirname, '/../config/config'))[env]
-var db = {}
+const fs = require('fs')
+const path = require('path')
+const Sequelize = require('sequelize')
+const basename = path.basename(__filename)
+const config = require('config')
+const db = {}
 
-if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config)
+const configDb = config.get('db.sequelize')
+
+let sequelize
+
+// When we have a database connection URL string, it must
+// be passed in as the first argument to the Sequelize constructor.
+// Although sequelize-cli documents the `url` property as a valid
+// option, Sequelize core does not use it.
+if (config.has('db.sequelize.url')) {
+  const url = config.get('db.sequelize.url')
+  sequelize = new Sequelize(url, {
+    dialect: 'postgres',
+    ...configDb
+  })
 } else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  )
+  sequelize = new Sequelize({
+    dialect: 'postgres',
+    ...configDb
+  })
 }
 
 fs.readdirSync(__dirname)
@@ -26,7 +35,7 @@ fs.readdirSync(__dirname)
     )
   })
   .forEach((file) => {
-    var model = sequelize.import(path.join(__dirname, file))
+    const model = sequelize.import(path.join(__dirname, file))
     if (!model) {
       throw new Error(`missing model for file: ${file}`)
     }

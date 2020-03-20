@@ -1,25 +1,13 @@
-require('dotenv').config()
+const config = require('config')
 
+// Export environment-specific Sequelize configuration
+// imported from app-level configuration
+// required by sequelize-cli utility
 module.exports = {
-  development: {
-    database: 'streetmix_dev',
-    host: process.env.PGHOST || '127.0.0.1',
-    port: process.env.PGPORT || 5432,
-    dialect: 'postgres'
-  },
-  test: {
-    database: 'streetmix_test',
-    host: process.env.PGHOST || '127.0.0.1',
-    port: process.env.PGPORT || 5432,
-    dialect: 'postgres'
-  },
-  staging: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres'
-  },
-  production: {
-    use_env_variable: 'DATABASE_URL',
-    logging: false,
-    dialect: 'postgres'
+  // Property needs to match the environment sequelize is used in
+  [config.env]: {
+    // Dialect needs to be explicitly supplied as of sequelize v4.0.0
+    dialect: 'postgres',
+    ...config.db.sequelize
   }
 }
