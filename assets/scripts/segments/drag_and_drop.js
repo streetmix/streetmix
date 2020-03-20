@@ -5,11 +5,7 @@ import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import { generateRandSeed } from '../util/random'
-import {
-  SegmentTypes,
-  getSegmentInfo,
-  getSegmentVariantInfo
-} from './info'
+import { SegmentTypes, getSegmentInfo, getSegmentVariantInfo } from './info'
 import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_DRAGGING,
@@ -119,7 +115,8 @@ function handleSegmentResizeStart (event) {
     draggingResize.floatingEl.classList.add('drag-handle-right')
   }
 
-  draggingResize.floatingEl.style.left = (pos[0] - document.querySelector('#street-section-outer').scrollLeft) + 'px'
+  draggingResize.floatingEl.style.left =
+    pos[0] - document.querySelector('#street-section-outer').scrollLeft + 'px'
   draggingResize.floatingEl.style.top = pos[1] + 'px'
   document.body.appendChild(draggingResize.floatingEl)
 
@@ -130,7 +127,9 @@ function handleSegmentResizeStart (event) {
   draggingResize.elY = pos[1]
 
   draggingResize.originalX = draggingResize.elX
-  draggingResize.originalWidth = store.getState().street.segments[el.parentNode.dataNo].width
+  draggingResize.originalWidth = store.getState().street.segments[
+    el.parentNode.dataNo
+  ].width
   draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')
@@ -162,9 +161,13 @@ function handleSegmentResizeMove (event) {
     deltaFromOriginal = -deltaFromOriginal
   }
 
-  draggingResize.width = draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE * 2)
+  draggingResize.width =
+    draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE) * 2
   draggingResize.elX += deltaX
-  draggingResize.floatingEl.style.left = (draggingResize.elX - document.querySelector('#street-section-outer').scrollLeft) + 'px'
+  draggingResize.floatingEl.style.left =
+    draggingResize.elX -
+    document.querySelector('#street-section-outer').scrollLeft +
+    'px'
 
   var precise = event.shiftKey
 
@@ -174,7 +177,11 @@ function handleSegmentResizeMove (event) {
     resizeType = RESIZE_TYPE_DRAGGING
   }
 
-  draggingResize.width = resizeSegment(draggingResize.segmentEl.dataNo, resizeType, draggingResize.width)
+  draggingResize.width = resizeSegment(
+    draggingResize.segmentEl.dataNo,
+    resizeType,
+    draggingResize.width
+  )
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
@@ -207,18 +214,18 @@ export function isSegmentWithinCanvas (event, canvasEl) {
 
   const { top, bottom, left, right } = canvasEl.getBoundingClientRect()
 
-  const withinCanvasY = (y >= top && y <= bottom)
-  let withinCanvasX = (x >= left && x <= right)
+  const withinCanvasY = y >= top && y <= bottom
+  let withinCanvasX = x >= left && x <= right
 
   if (!withinCanvasX && remainingWidth < 0) {
-    const margin = (remainingWidth * TILE_SIZE / 2)
+    const margin = (remainingWidth * TILE_SIZE) / 2
     const newLeft = left + margin - DRAGGING_MOVE_HOLE_WIDTH
     const newRight = right - margin + DRAGGING_MOVE_HOLE_WIDTH
 
-    withinCanvasX = (x >= newLeft && x <= newRight)
+    withinCanvasX = x >= newLeft && x <= newRight
   }
 
-  const withinCanvas = (withinCanvasX && withinCanvasY)
+  const withinCanvas = withinCanvasX && withinCanvasY
 
   if (oldDraggingState) {
     oldDraggingState.withinCanvas = withinCanvas
@@ -245,13 +252,18 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   const { variantString, type, actualWidth } = draggedItem
 
   if (draggedItemType === Types.PALETTE_SEGMENT) {
-    if ((street.remainingWidth > 0) &&
-      (actualWidth > street.remainingWidth)) {
-      var segmentMinWidth = getSegmentVariantInfo(type, variantString).minWidth || 0
+    if (street.remainingWidth > 0 && actualWidth > street.remainingWidth) {
+      var segmentMinWidth =
+        getSegmentVariantInfo(type, variantString).minWidth || 0
 
-      if ((street.remainingWidth >= MIN_SEGMENT_WIDTH) &&
-        (street.remainingWidth >= segmentMinWidth)) {
-        draggedItem.actualWidth = normalizeSegmentWidth(street.remainingWidth, resolutionForResizeType(RESIZE_TYPE_INITIAL, street.units))
+      if (
+        street.remainingWidth >= MIN_SEGMENT_WIDTH &&
+        street.remainingWidth >= segmentMinWidth
+      ) {
+        draggedItem.actualWidth = normalizeSegmentWidth(
+          street.remainingWidth,
+          resolutionForResizeType(RESIZE_TYPE_INITIAL, street.units)
+        )
       }
     }
   }
@@ -259,18 +271,22 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   // Automatically figure out variants
   const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
 
-  var left = (segmentAfterEl !== undefined) ? street.segments[segmentAfterEl] : null
-  var right = (segmentBeforeEl !== undefined) ? street.segments[segmentBeforeEl] : null
+  var left =
+    segmentAfterEl !== undefined ? street.segments[segmentAfterEl] : null
+  var right =
+    segmentBeforeEl !== undefined ? street.segments[segmentBeforeEl] : null
 
   var leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
   var rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
 
-  var leftOwnerAsphalt = (leftOwner === SegmentTypes.CAR) ||
-    (leftOwner === SegmentTypes.BIKE) ||
-    (leftOwner === SegmentTypes.TRANSIT)
-  var rightOwnerAsphalt = (rightOwner === SegmentTypes.CAR) ||
-    (rightOwner === SegmentTypes.BIKE) ||
-    (rightOwner === SegmentTypes.TRANSIT)
+  var leftOwnerAsphalt =
+    leftOwner === SegmentTypes.CAR ||
+    leftOwner === SegmentTypes.BIKE ||
+    leftOwner === SegmentTypes.TRANSIT
+  var rightOwnerAsphalt =
+    rightOwner === SegmentTypes.CAR ||
+    rightOwner === SegmentTypes.BIKE ||
+    rightOwner === SegmentTypes.TRANSIT
 
   var leftVariant = left && getVariantArray(left.type, left.variantString)
   var rightVariant = right && getVariantArray(right.type, right.variantString)
@@ -321,9 +337,9 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   // Transit shelter orientation and elevation
 
   if (type === 'transit-shelter') {
-    if (left && (leftOwner === SegmentTypes.TRANSIT)) {
+    if (left && leftOwner === SegmentTypes.TRANSIT) {
       variant.orientation = 'right'
-    } else if (right && (rightOwner === SegmentTypes.TRANSIT)) {
+    } else if (right && rightOwner === SegmentTypes.TRANSIT) {
       variant.orientation = 'left'
     }
   }
@@ -331,7 +347,11 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   if (segmentInfo.variants.indexOf('transit-shelter-elevation') !== -1) {
     if (variant.orientation === 'right' && left && left.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
-    } else if (variant.orientation === 'left' && right && right.type === 'light-rail') {
+    } else if (
+      variant.orientation === 'left' &&
+      right &&
+      right.type === 'light-rail'
+    ) {
       variant['transit-shelter-elevation'] = 'light-rail'
     }
   }
@@ -339,9 +359,9 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   // Bike rack orientation
 
   if (type === 'sidewalk-bike-rack') {
-    if (left && (leftOwner !== SegmentTypes.PEDESTRIAN)) {
+    if (left && leftOwner !== SegmentTypes.PEDESTRIAN) {
       variant.orientation = 'left'
-    } else if (right && (rightOwner !== SegmentTypes.PEDESTRIAN)) {
+    } else if (right && rightOwner !== SegmentTypes.PEDESTRIAN) {
       variant.orientation = 'right'
     }
   }
@@ -530,13 +550,19 @@ let oldDraggingState = store.getState().ui.draggingState
 // This prevents a constant dispatch of the updateDraggingState action which causes the
 // dragging of the segment to be laggy and choppy.
 
-function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedItem, draggedItemType) {
+function updateIfDraggingStateChanged (
+  segmentBeforeEl,
+  segmentAfterEl,
+  draggedItem,
+  draggedItemType
+) {
   let changed = false
 
   if (oldDraggingState) {
-    changed = (segmentBeforeEl !== oldDraggingState.segmentBeforeEl ||
+    changed =
+      segmentBeforeEl !== oldDraggingState.segmentBeforeEl ||
       segmentAfterEl !== oldDraggingState.segmentAfterEl ||
-      draggedItem.dataNo !== oldDraggingState.draggedSegment)
+      draggedItem.dataNo !== oldDraggingState.draggedSegment
   } else {
     changed = true
   }
@@ -548,7 +574,9 @@ function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedI
       draggedSegment: draggedItem.dataNo
     }
 
-    store.dispatch(updateDraggingState(segmentBeforeEl, segmentAfterEl, draggedItem.dataNo))
+    store.dispatch(
+      updateDraggingState(segmentBeforeEl, segmentAfterEl, draggedItem.dataNo)
+    )
     doDropHeuristics(draggedItem, draggedItemType)
   }
 
@@ -558,7 +586,7 @@ function updateIfDraggingStateChanged (segmentBeforeEl, segmentAfterEl, draggedI
 export const segmentTarget = {
   canDrop (props, monitor) {
     const type = monitor.getItemType()
-    return (type === Types.SEGMENT) || (type === Types.PALETTE_SEGMENT)
+    return type === Types.SEGMENT || type === Types.PALETTE_SEGMENT
   },
 
   hover (props, monitor, component) {
@@ -578,24 +606,43 @@ export const segmentTarget = {
     if (dragIndex === hoverIndex && oldDraggingState) return
 
     if (dragIndex === hoverIndex) {
-      updateIfDraggingStateChanged(dragIndex, undefined, monitor.getItem(), monitor.getItemType())
+      updateIfDraggingStateChanged(
+        dragIndex,
+        undefined,
+        monitor.getItem(),
+        monitor.getItemType()
+      )
     } else {
       const { segments } = store.getState().street
 
-      const segmentBeforeEl = (x > hoverMiddleX && hoverIndex !== segments.length - 1) ? hoverIndex + 1
-        : (hoverIndex === segments.length - 1) ? undefined
-          : hoverIndex
+      const segmentBeforeEl =
+        x > hoverMiddleX && hoverIndex !== segments.length - 1
+          ? hoverIndex + 1
+          : hoverIndex === segments.length - 1
+            ? undefined
+            : hoverIndex
 
-      const segmentAfterEl = (x > hoverMiddleX && hoverIndex !== 0) ? hoverIndex
-        : (hoverIndex === 0) ? undefined
-          : hoverIndex - 1
+      const segmentAfterEl =
+        x > hoverMiddleX && hoverIndex !== 0
+          ? hoverIndex
+          : hoverIndex === 0
+            ? undefined
+            : hoverIndex - 1
 
-      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem(), monitor.getItemType())
+      updateIfDraggingStateChanged(
+        segmentBeforeEl,
+        segmentAfterEl,
+        monitor.getItem(),
+        monitor.getItemType()
+      )
     }
   }
 }
 
 function handleSegmentCanvasDrop (draggedItem, type) {
+  // `oldDraggingState` can be `null`, if so, bail
+  if (oldDraggingState === null) return
+
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
   // If dropped in same position as dragged segment was before, return
@@ -613,10 +660,11 @@ function handleSegmentCanvasDrop (draggedItem, type) {
     id: draggedItem.id
   }
 
-  let newIndex = (segmentAfterEl !== undefined) ? (segmentAfterEl + 1) : segmentBeforeEl
+  let newIndex =
+    segmentAfterEl !== undefined ? segmentAfterEl + 1 : segmentBeforeEl
 
   if (type === Types.SEGMENT) {
-    newIndex = (newIndex <= draggedSegment) ? newIndex : newIndex - 1
+    newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
     store.dispatch(moveSegment(draggedSegment, newIndex))
 
     // Immediately after a segment move action, react-dnd can incorrectly trigger
@@ -646,8 +694,10 @@ function isOverLeftOrRightCanvas (segment, droppedPosition) {
 
   const emptySegmentWidth = (remainingWidth * TILE_SIZE) / 2
 
-  return (droppedPosition < left + emptySegmentWidth) ? 'left'
-    : (droppedPosition > right - emptySegmentWidth) ? 'right'
+  return droppedPosition < left + emptySegmentWidth
+    ? 'left'
+    : droppedPosition > right - emptySegmentWidth
+      ? 'right'
       : null
 }
 
@@ -656,15 +706,24 @@ export const canvasTarget = {
     if (!monitor.canDrop()) return
 
     if (monitor.isOver({ shallow: true })) {
-      const position = isOverLeftOrRightCanvas(component.streetSectionEditable, monitor.getClientOffset().x)
+      const position = isOverLeftOrRightCanvas(
+        component.streetSectionEditable,
+        monitor.getClientOffset().x
+      )
 
       if (!position) return
 
       const { segments } = store.getState().street
-      const segmentBeforeEl = (position === 'left') ? 0 : undefined
-      const segmentAfterEl = (position === 'left') ? undefined : segments.length - 1
+      const segmentBeforeEl = position === 'left' ? 0 : undefined
+      const segmentAfterEl =
+        position === 'left' ? undefined : segments.length - 1
 
-      updateIfDraggingStateChanged(segmentBeforeEl, segmentAfterEl, monitor.getItem(), monitor.getItemType())
+      updateIfDraggingStateChanged(
+        segmentBeforeEl,
+        segmentAfterEl,
+        monitor.getItem(),
+        monitor.getItemType()
+      )
     }
   },
 
