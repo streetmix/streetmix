@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         field: 'profile_image_url'
       },
+      flags: DataTypes.JSON,
       data: DataTypes.JSON,
       lastStreetId: {
         type: DataTypes.INTEGER,
