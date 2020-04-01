@@ -1,6 +1,7 @@
 const routes = require('express').Router()
 const cors = require('cors')
 const resources = require('./resources')
+const jwtCheck = require('./authentication')
 
 /**
  * @swagger
@@ -92,6 +93,6 @@ routes.options('/services/images', cors())
  *             api_key:
  *               type: string
  */
-routes.get('/services/images', cors(), resources.services.images.get)
+routes.get('/services/images', cors(), jwtCheck, resources.services.images.get)
 
 module.exports = routes

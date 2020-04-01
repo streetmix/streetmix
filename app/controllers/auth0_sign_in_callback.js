@@ -10,30 +10,34 @@ const AccessTokenHandler = function (req, res) {
       res.redirect('/error/access-denied')
       return
     }
-
     const auth0 = Authentication()
 
     try {
-      const user = await auth0.getProfile(body.access_token)
+      const refreshToken = body.refresh_token
+      const idToken = body.id_token
+      const accessToken = body.access_token
+      const user = await auth0.getProfile(accessToken)
+
       const apiRequestBody = getUserInfo(user)
-      //  Must be an absolute URI
-      const endpoint =
-        config.restapi.protocol +
-        config.app_host_port +
-        config.restapi.baseuri +
-        '/v1/users'
+      const endpoint = `${config.restapi.protocol}${req.headers.host}/api/v1/users`
+      const apiRequestOptions = {
+        headers: {
+          login_token: idToken
+        }
+      }
 
       axios
-        .post(endpoint, apiRequestBody)
+        .post(endpoint, apiRequestBody, apiRequestOptions)
         .then((response) => {
-          const body = response.data
+          const user = response.data
+          const userAuthData = apiRequestBody.auth0_twitter
+            ? apiRequestBody.auth0_twitter.screenName
+            : apiRequestBody.auth0.nickname
 
-          // TODO resolve user via auth0
-          res.cookie(
-            'user_id',
-            body.id || apiRequestBody.auth0_twitter.screenName
-          )
-          res.cookie('login_token', body.loginToken)
+          res.cookie('user_id', user.id || userAuthData)
+          res.cookie('refresh_token', refreshToken)
+          res.cookie('login_token', idToken)
+          res.cookie('access_token', idToken)
           res.redirect('/just-signed-in')
         })
         .catch((error) => {
@@ -88,12 +92,10 @@ exports.get = function (req, res) {
   }
 
   const code = req.query.code
-  const redirectUri =
-    config.restapi.protocol +
-    config.app_host_port +
-    '/' +
-    config.auth0.callback_path
-  const url = config.auth0.token_api_url
+
+  const redirectUri = `${config.restapi.protocol}${req.headers.host}/${config.auth0.callback_path}`
+
+  const tokenUrl = config.auth0.token_api_url
   const options = {
     headers: { 'content-type': 'application/json' },
     json: true
@@ -108,7 +110,7 @@ exports.get = function (req, res) {
   }
 
   axios
-    .post(url, body, options)
+    .post(tokenUrl, body, options)
     .then(AccessTokenHandler(req, res))
     .catch((err) => {
       logger.error('Error obtaining access token from Auth0: ' + err)

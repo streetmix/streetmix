@@ -28,10 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       email: { type: DataTypes.STRING, unique: true },
       roles: DataTypes.ARRAY(DataTypes.TEXT),
-      loginTokens: {
-        type: DataTypes.ARRAY(DataTypes.TEXT),
-        field: 'login_tokens'
-      },
       profileImageUrl: {
         type: DataTypes.STRING,
         field: 'profile_image_url'

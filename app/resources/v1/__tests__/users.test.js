@@ -17,6 +17,20 @@ const emailUser = {
   }
 }
 
+const mockUser = {
+  sub: 'foo|123'
+}
+
+const mockAdminUser = {
+  sub: 'admin|789'
+}
+
+const jwtMock = jest.fn() // returns a user
+const mockUserMiddleware = (req, res, next) => {
+  req.user = jwtMock()
+  next()
+}
+
 describe('POST api/v1/users', function () {
   const app = setupMockServer((app) => {
     app.post('/api/v1/users', users.post)
@@ -45,28 +59,22 @@ describe('POST api/v1/users', function () {
 
 describe('GET api/v1/users', () => {
   const app = setupMockServer((app) => {
-    app.get('/api/v1/users', users.get)
+    app.get('/api/v1/users', mockUserMiddleware, users.get)
   })
 
   it('should respond with 200 Ok when admin user GETs Streetmix users data', () => {
+    jwtMock.mockReturnValueOnce(mockAdminUser)
     return request(app)
       .get('/api/v1/users')
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"'
-      )
       .then((response) => {
         expect(response.statusCode).toEqual(200)
       })
   })
 
   it('should respond with 401 when user GETs Streetmix users data', () => {
+    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .get('/api/v1/users')
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"'
-      )
       .then((response) => {
         expect(response.statusCode).toEqual(401)
       })

@@ -14,18 +14,25 @@ const street = {
   data: {}
 }
 
+const mockUser = {
+  sub: 'foo|123'
+}
+
+const jwtMock = jest.fn() // returns a user
+const mockUserMiddleware = (req, res, next) => {
+  req.user = jwtMock()
+  next()
+}
+
 describe('POST api/v1/streets', function () {
   const app = setupMockServer((app) => {
-    app.post('/api/v1/streets', streets.post)
+    app.post('/api/v1/streets', mockUserMiddleware, streets.post)
   })
 
   it('should respond with 201 Created when street data are sent', function () {
+    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .post('/api/v1/streets/')
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
-      )
       .type('json')
       .send(JSON.stringify(street))
       .then((response) => {
@@ -50,16 +57,13 @@ describe('GET api/v1/streets', function () {
 
 describe('PUT api/v1/streets/:street_id', function () {
   const app = setupMockServer((app) => {
-    app.put('/api/v1/streets/:street_id', streets.put)
+    app.put('/api/v1/streets/:street_id', mockUserMiddleware, streets.put)
   })
 
   it('should respond with 204 No Content when street data are sent', function () {
+    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .put(`/api/v1/streets/${street.id}`)
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
-      )
       .type('json')
       .send(JSON.stringify(street))
       .then((response) => {
@@ -70,16 +74,13 @@ describe('PUT api/v1/streets/:street_id', function () {
 
 describe('DELETE api/v1/streets/:street_id', function () {
   const app = setupMockServer((app) => {
-    app.delete('/api/v1/streets/:street_id', streets.delete)
+    app.delete('/api/v1/streets/:street_id', mockUserMiddleware, streets.delete)
   })
 
   it('should respond with 204 No Content when street data are deleted', function () {
+    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .delete(`/api/v1/streets/${street.id}`)
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
-      )
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })

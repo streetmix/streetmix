@@ -36,6 +36,14 @@ function BlockingError (props) {
       </a>
     ) : null
   }
+  const resetAuthButton = (
+    <button onClick={goReloadClearSignIn}>
+      <FormattedMessage
+        id="error.button.reloadAuth"
+        defaultMessage="Reload user session"
+      />
+    </button>
+  )
   const reloadButton = (
     <button onClick={goReload}>
       <FormattedMessage
@@ -251,6 +259,24 @@ function BlockingError (props) {
           />
           <br />
           {reloadButton}
+        </>
+      )
+      break
+    case ERRORS.AUTH_FAILURE:
+      title = (
+        <FormattedMessage
+          id="error.auth-failure"
+          defaultMessage="Your authentication has expired."
+        />
+      )
+      description = (
+        <>
+          <FormattedMessage
+            id="error.please-sign-in"
+            defaultMessage="Please sign in to continue your session."
+          />
+          <br />
+          {resetAuthButton}
         </>
       )
       break

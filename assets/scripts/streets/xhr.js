@@ -12,6 +12,7 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import {
+  getAuthToken,
   getAuthHeader,
   getSignInData,
   isSignedIn
@@ -92,6 +93,7 @@ export function createNewStreetOnServer () {
     body: packServerStreetData(),
     headers: {
       Authorization: getAuthHeader(),
+      login_token: getAuthToken(),
       'Content-Type': 'application/json'
     }
   }
@@ -116,7 +118,11 @@ function receiveNewStreet (data) {
 }
 
 function errorReceiveNewStreet (data) {
-  showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
+  if (data.status === 401) {
+    showError(ERRORS.AUTH_FAILURE, true)
+  } else {
+    showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
+  }
 }
 
 export function getFetchStreetUrl () {
@@ -194,6 +200,7 @@ export function saveStreetToServer (initial) {
     method: 'PUT',
     body: transmission,
     headers: {
+      login_token: getAuthToken(),
       Authorization: getAuthHeader(),
       'Content-Type': 'application/json'
     }
@@ -353,7 +360,6 @@ export function unpackServerStreetData (
   checkIfNeedsToBeRemixed
 ) {
   const street = unpackStreetDataFromServerTransmission(transmission)
-
   var updatedSchema = updateToLatestSchemaVersion(street)
   var undoStack = getUndoStack()
   for (var i = 0; i < undoStack.length; i++) {
@@ -463,7 +469,10 @@ export function fetchLastStreet () {
       // TODO const
       url: API_URL + 'v1/streets/' + streetId,
       method: 'GET',
-      headers: { Authorization: getAuthHeader() }
+      headers: {
+        login_token: getAuthToken(),
+        Authorization: getAuthHeader()
+      }
     },
     receiveLastStreet,
     cancelReceiveLastStreet
@@ -525,7 +534,10 @@ export function sendDeleteStreetToServer (id) {
     API_URL + 'v1/streets/' + id,
     {
       method: 'DELETE',
-      headers: { Authorization: getAuthHeader() }
+      headers: {
+        login_token: getAuthToken(),
+        Authorization: getAuthHeader()
+      }
     },
     false
   )
