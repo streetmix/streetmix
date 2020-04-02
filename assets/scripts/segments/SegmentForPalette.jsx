@@ -52,7 +52,10 @@ function SegmentForPalette (props) {
     const sublabel = props.disabled
       ? intl.formatMessage({
         id: 'plus.locked.user',
-        defaultMessage: 'Sign in to use!'
+        // Default message ends with a Unicode-only left-right order mark
+        // to allow for proper punctuation in `rtl` text direction
+        // This character is hidden from editors by default!
+        defaultMessage: 'Sign in to use!‎'
       })
       : null
     const rect = event.target.getBoundingClientRect()

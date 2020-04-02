@@ -84,6 +84,11 @@
       top: -2px;
       right: -2px;
       color: $colour-copper-600;
+
+      [dir="rtl"] & {
+        left: -2px;
+        right: auto;
+      }
     }
   }
 

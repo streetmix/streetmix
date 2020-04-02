@@ -40,5 +40,10 @@
     top: 4px;
     z-index: 2;
     color: $colour-copper-600;
+
+    [dir="rtl"] & {
+      left: 4px;
+      right: auto;
+    }
   }
 }
