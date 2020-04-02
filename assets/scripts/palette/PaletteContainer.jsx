@@ -12,6 +12,7 @@ function PaletteContainer (props) {
   const draggingState = useSelector((state) => state.ui.draggingState)
   const [tooltip, setTooltip] = useState({
     label: null,
+    sublabel: null,
     visible: false,
     position: {}
   })
@@ -32,14 +33,16 @@ function PaletteContainer (props) {
    *
    * @param {Object} event - event handler object
    * @param {string} label - text to display inside the tooltip
+   * @param {string} sublabel - text to display inside the tooltip
    * @param {Object} rect - result of getBoundingClientRect() on segment element
    */
-  function onPointerOver (event, label, rect) {
+  function onPointerOver (event, label, sublabel, rect) {
     // x is the position right above the middle of the segment element to point at
     const x = rect.x + rect.width / 2
 
     setTooltip({
-      label: label,
+      label,
+      sublabel,
       visible: true,
       position: { x }
     })
@@ -85,6 +88,7 @@ function PaletteContainer (props) {
       />
       <PaletteTooltips
         label={tooltip.label}
+        sublabel={tooltip.sublabel}
         visible={tooltip.visible}
         pointAt={tooltip.position}
       />

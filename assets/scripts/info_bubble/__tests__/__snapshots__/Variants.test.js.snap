@@ -6,6 +6,7 @@ exports[`Variants segment variants renders segment buttons 1`] = `
     class="variants"
   >
     <button
+      class="variant-selected"
       disabled=""
       title="Inbound"
     >

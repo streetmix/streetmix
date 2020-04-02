@@ -74,6 +74,22 @@
       opacity: 0;
       height: 5px;
     }
+
+    button[disabled] .icon {
+      opacity: 0.4;
+    }
+
+    .fa-lock {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      color: $colour-copper-600;
+
+      [dir="rtl"] & {
+        left: -2px;
+        right: auto;
+      }
+    }
   }
 
   .non-variant {
@@ -108,7 +124,7 @@
         opacity: 0.666;
       }
 
-      &:active {
+      &:not([disabled]):active {
         .icon {
           margin-top: 1px;
           opacity: 0.9;
@@ -117,7 +133,8 @@
     }
   }
 
-  .variants button[disabled] {
+  .variant-selected,
+  .variant-selected:hover {
     background: darken($ui-colour, 10%);
     color: black;
     opacity: 1;
@@ -125,7 +142,8 @@
     border-bottom-color: darken($ui-colour, 30%);
 
     .icon {
-      opacity: 1;
+      // Overrides disabled button opacity
+      opacity: 1 !important;
     }
   }
 

@@ -4,6 +4,7 @@ import './PaletteTooltips.scss'
 
 PaletteTooltips.propTypes = {
   label: PropTypes.string,
+  sublabel: PropTypes.string,
   visible: PropTypes.bool,
   pointAt: PropTypes.shape({
     x: PropTypes.number,
@@ -11,7 +12,12 @@ PaletteTooltips.propTypes = {
   })
 }
 
-function PaletteTooltips ({ label = null, visible = false, pointAt = {} }) {
+function PaletteTooltips ({
+  label = null,
+  sublabel = null,
+  visible = false,
+  pointAt = {}
+}) {
   const el = useRef()
 
   useEffect(() => {
@@ -32,7 +38,10 @@ function PaletteTooltips ({ label = null, visible = false, pointAt = {} }) {
   return (
     <div className="palette-tooltip-container">
       <div className={classNames.join(' ')} ref={el}>
-        <div className="palette-tooltip-contents">{label}</div>
+        <div className="palette-tooltip-contents">
+          {label}
+          {sublabel && <p>{sublabel}</p>}
+        </div>
         <div className="palette-tooltip-pointer-container">
           <div className="palette-tooltip-pointer" />
         </div>

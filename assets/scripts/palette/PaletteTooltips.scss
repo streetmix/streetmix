@@ -3,7 +3,7 @@
 $tooltip-background-colour: rgba(24, 24, 24, 0.75);
 $tooltip-font-colour: white;
 $tooltip-font-weight: bold;
-$tooltip-max-width: 120px;
+$tooltip-max-width: 150px;
 
 .palette-tooltip {
   position: fixed;
@@ -35,6 +35,13 @@ $tooltip-max-width: 120px;
   overflow: hidden;
   overflow-wrap: break-word;
   hyphens: auto;
+
+  p {
+    margin: 0.2em;
+    font-weight: normal;
+    font-size: 0.9em;
+    opacity: 0.75;
+  }
 }
 
 .palette-tooltip-pointer-container {
