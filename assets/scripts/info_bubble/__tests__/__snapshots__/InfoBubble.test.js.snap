@@ -171,6 +171,7 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="variant-selected"
           disabled=""
           title="Grass"
         >
@@ -321,6 +322,7 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="variant-selected"
           disabled=""
           title="Grass"
         >

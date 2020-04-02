@@ -74,6 +74,17 @@
       opacity: 0;
       height: 5px;
     }
+
+    button[disabled] .icon {
+      opacity: 0.4;
+    }
+
+    .fa-lock {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      color: $colour-copper-600;
+    }
   }
 
   .non-variant {
@@ -117,7 +128,7 @@
     }
   }
 
-  .variants button[disabled] {
+  .variant-selected {
     background: darken($ui-colour, 10%);
     color: black;
     opacity: 1;
@@ -125,7 +136,8 @@
     border-bottom-color: darken($ui-colour, 30%);
 
     .icon {
-      opacity: 1;
+      // Overrides disabled button opacity
+      opacity: 1 !important;
     }
   }
 

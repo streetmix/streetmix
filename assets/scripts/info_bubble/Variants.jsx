@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { segmentsChanged } from '../segments/view'
 import { getSegmentInfo } from '../segments/info'
 import VARIANT_ICONS from '../segments/variant_icons.json'
@@ -19,6 +20,7 @@ import {
   setBuildingVariant,
   changeSegmentVariant
 } from '../store/actions/street'
+import { ICON_LOCK } from '../ui/icons'
 
 Variants.propTypes = {
   type: PropTypes.number,
@@ -124,24 +126,40 @@ function Variants (props) {
 
     if (!icon) return null
 
-    const title = intl.formatMessage({
+    // Segments that are only enabled with a flag checks to see if flag
+    // is set to true. If not, we'll show in a disabled state.
+    // Note: This is currently different from palette items in that
+    // no variants are currently experimental and so all disabled
+    // variants will be visible to any user. We will need to update
+    // this code in the future.
+    let isLocked = false
+    if (icon.enableWithFlag) {
+      const flag = flags[icon.enableWithFlag]
+      isLocked = !flag || !flag.value
+    }
+
+    let title = intl.formatMessage({
       id: `variant-icons.${set}|${selection}`,
       defaultMessage: icon.title
     })
-
-    // Segments that are only enabled with a flag checks to see if flag
-    // is set to true. If not, bail.
-    if (icon.enableWithFlag) {
-      const flag = flags[icon.enableWithFlag]
-      if (!flag) return null
-      if (!flag.value) return null
+    // Add a note to the tooltip when disabled
+    if (isLocked) {
+      title +=
+        ' — ' +
+        intl.formatMessage({
+          id: 'plus.locked.user',
+          defaultMessage: 'Sign in to use!'
+        })
     }
+
+    const isSelected = isVariantCurrentlySelected(set, selection)
 
     return (
       <button
         key={set + '.' + selection}
         title={title}
-        disabled={isVariantCurrentlySelected(set, selection)}
+        className={isSelected ? 'variant-selected' : null}
+        disabled={isSelected || isLocked}
         onClick={getButtonOnClickHandler(set, selection)}
       >
         <svg
@@ -153,6 +171,7 @@ function Variants (props) {
           {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
           <use xlinkHref={`#icon-${icon.id}`} />
         </svg>
+        {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
       </button>
     )
   }
