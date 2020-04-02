@@ -31,20 +31,31 @@ function Palette (props) {
   function renderPaletteItems () {
     const segments = getAllSegmentInfoArray()
 
-    // Filter out segments that are not enabled.
-    const enabledSegments = segments.filter((segment) => {
-      // Accept segments that don't have the `enableWithFlag` property
-      const enabledByDefault = !segment.enableWithFlag
-      // Accept segments with the `enableWithFlag` property, but only if
-      // the flags have that value set to true.
-      const enabledByFlag =
-        segment.enableWithFlag && flags[segment.enableWithFlag].value
+    // For each segment, set "disabled" property instead that indicates
+    // whether this segment is in a disabled state for this user
+    // Then filter out disabled segments that do not have the
+    // `alwaysShowInPalette` property set to `true`
+    const displayedSegments = segments
+      .map((segment) => {
+        // Accept segments that don't have the `enableWithFlag` property
+        const enabledByDefault = !segment.enableWithFlag
+        // Accept segments with the `enableWithFlag` property, but only if
+        // the flags have that value set to true.
+        const enabledByFlag =
+          segment.enableWithFlag && flags[segment.enableWithFlag].value
 
-      return enabledByDefault || enabledByFlag
-    })
+        return {
+          ...segment,
+          disabled: !(enabledByDefault || enabledByFlag)
+        }
+      })
+      .filter(
+        (segment) =>
+          !segment.disabled || (segment.disabled && segment.alwaysShowInPalette)
+      )
 
     // Return all enabled segments as an array of SegmentForPalette components.
-    return enabledSegments.map((segment) => {
+    return displayedSegments.map((segment) => {
       const variant = segment.paletteIcon
         ? segment.paletteIcon
         : Object.keys(segment.details).shift()
@@ -56,6 +67,7 @@ function Palette (props) {
           variantString={variant}
           onPointerOver={props.handlePointerOver}
           randSeed={randSeed.current}
+          disabled={segment.disabled}
         />
       )
     })

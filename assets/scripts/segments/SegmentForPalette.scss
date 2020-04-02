@@ -12,7 +12,7 @@
   transition: transform 50ms !important;
 }
 
-.segment.segment-in-palette:hover {
+.segment.segment-in-palette:not(.segment-disabled):hover {
   background: fade-out($sky-colour, 0.05);
   z-index: 1;
 
@@ -24,4 +24,21 @@
 
 .segment.segment-in-palette .segment-image {
   top: 0;
+}
+
+.segment.segment-disabled {
+  background: desaturate(fade-out($sky-colour, 0.3), 100%);
+
+  canvas {
+    filter: grayscale(0.8);
+    opacity: 0.4;
+  }
+
+  .fa-lock {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    z-index: 2;
+    color: $colour-copper-600;
+  }
 }
