@@ -119,7 +119,7 @@
         opacity: 0.666;
       }
 
-      &:active {
+      &:not([disabled]):active {
         .icon {
           margin-top: 1px;
           opacity: 0.9;
@@ -128,7 +128,8 @@
     }
   }
 
-  .variant-selected {
+  .variant-selected,
+  .variant-selected:hover {
     background: darken($ui-colour, 10%);
     color: black;
     opacity: 1;
