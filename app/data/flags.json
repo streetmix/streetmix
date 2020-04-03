@@ -77,6 +77,10 @@
     "label": "Segment — magic carpet",
     "defaultValue": false
   },
+  "SEGMENT_PED_LANES": {
+    "label": "Segment — pedestrians in drive lanes",
+    "defaultValue": false
+  },
   "SEGMENT_RAISED_BIKES": {
     "label": "Segment — raised bike lanes",
     "defaultValue": false,

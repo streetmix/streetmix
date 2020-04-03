@@ -510,7 +510,11 @@ export function drawSegmentContents (
     }
   }
 
-  if (type === 'sidewalk') {
+  // HACK: display people for pedestrians in drive lanes
+  if (
+    type === 'sidewalk' ||
+    (type === 'drive-lane' && variantString.endsWith('|pedestrian'))
+  ) {
     drawProgrammaticPeople(
       ctx,
       segmentWidth / multiplier,

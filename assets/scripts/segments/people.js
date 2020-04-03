@@ -23,6 +23,8 @@ export function drawProgrammaticPeople (
   let peopleWidth = 0
 
   // Depending on the type of sidewalk, we would have different densities of people.
+  // If we are rendering people anywhere else, this variant array thing won't help
+  // in that case we just render the 'normal' density
   const variantArray = getVariantArray('sidewalk', variantString)
 
   let widthConst
@@ -35,13 +37,14 @@ export function drawProgrammaticPeople (
       widthConst = 60
       widthRand = 100
       break
-    case 'normal':
-      widthConst = 18
-      widthRand = 60
-      break
     case 'dense':
       widthConst = 18
       widthRand = 18
+      break
+    case 'normal':
+    default:
+      widthConst = 18
+      widthRand = 60
       break
   }
 

@@ -165,6 +165,7 @@
     "car-type|av": "Autonomous vehicle",
     "car-type|motorcycle": "Motorcycle",
     "car-type|motorcycle-sidecar": "Motorcycle with sidecar",
+    "car-type|pedestrian": "Pedestrian",
     "public-transit-asphalt|regular": "Asphalt",
     "public-transit-asphalt|colored": "Red lane",
     "public-transit-asphalt|grass": "Grass",

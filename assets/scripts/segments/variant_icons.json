@@ -312,6 +312,11 @@
       "id": "motorcycle-sidecar",
       "title": "Motorcycle with sidecar",
       "enableWithFlag": "SEGMENT_KRZ"
+    },
+    "pedestrian": {
+      "id": "sidewalk-density-normal",
+      "title": "Pedestrian",
+      "enableWithFlag": "SEGMENT_PED_LANES"
     }
   },
   "sidewalk-density": {

@@ -7,6 +7,7 @@
       "ANALYTICS": true,
       "SEGMENT_AV": true,
       "SEGMENT_KRZ": true,
+      "SEGMENT_PED_LANES": true,
       "SEGMENT_CONSTRUCTION": true,
       "SEGMENT_MAGIC_CARPET": true
     }

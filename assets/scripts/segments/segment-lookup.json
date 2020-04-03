@@ -2843,6 +2843,7 @@
     "owner": "CAR",
     "zIndex": 14,
     "defaultWidth": 10,
+    "needRandSeed": true,
     "rules": {
       "minWidth": 8,
       "maxWidth": 11.9
@@ -3129,6 +3130,40 @@
               "variants": {
                 "direction": "outbound"
               }
+            }
+          ]
+        }
+      },
+      "inbound|pedestrian": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ]
+        }
+      },
+      "outbound|pedestrian": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
             }
           ]
         }
