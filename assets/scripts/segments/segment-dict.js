@@ -20,7 +20,7 @@ export const COMPONENT_GROUPS = {
  *   { details, components: { lanes, objects, vehicles } } or `false` if not found.
  */
 export function getSegmentLookup (type, variant) {
-  return SEGMENT_LOOKUP[type] && SEGMENT_LOOKUP[type].details && SEGMENT_LOOKUP[type].details[variant]
+  return SEGMENT_LOOKUP[type]?.details?.[variant]
 }
 
 /**
@@ -32,7 +32,7 @@ export function getSegmentLookup (type, variant) {
  * @returns {object} segmentInfo
  */
 export function getSegmentComponentInfo (group, id) {
-  return (SEGMENT_COMPONENTS[group] && SEGMENT_COMPONENTS[group][id]) || SEGMENT_UNKNOWN
+  return SEGMENT_COMPONENTS[group]?.[id] ?? SEGMENT_UNKNOWN
 }
 
 /**
@@ -82,19 +82,27 @@ function getComponentGroupVariants (groupItems, componentGroupInfo) {
   return groupItems.reduce((array, item) => {
     const { id, offsetX, offsetY, variants } = item
     // groupItemVariants - all variants possible for the particular group item
-    const groupItemVariants = componentGroupInfo[id] && componentGroupInfo[id].variants
+    const groupItemVariants =
+      componentGroupInfo[id] && componentGroupInfo[id].variants
 
     if (groupItemVariants && variants) {
       Object.entries(variants).forEach(([variantName, variantKey]) => {
         // variantInfo - graphics definition for specific variants defined by group item
-        let variantInfo = groupItemVariants[variantName] || SEGMENT_UNKNOWN_VARIANT
+        let variantInfo =
+          groupItemVariants[variantName] ?? SEGMENT_UNKNOWN_VARIANT
 
-        const variantKeys = Array.isArray(variantKey) ? variantKey : [variantKey]
+        const variantKeys = Array.isArray(variantKey)
+          ? variantKey
+          : [variantKey]
         variantKeys.forEach((key) => {
-          variantInfo = (variantInfo && variantInfo[key]) || SEGMENT_UNKNOWN_VARIANT
+          variantInfo = variantInfo?.[key] ?? SEGMENT_UNKNOWN_VARIANT
         })
 
-        const graphics = applyOffsetsIfAnyToSprites(variantInfo.graphics, offsetX, offsetY)
+        const graphics = applyOffsetsIfAnyToSprites(
+          variantInfo.graphics,
+          offsetX,
+          offsetY
+        )
         array.push(graphics)
       })
     }
@@ -202,30 +210,40 @@ export function getSegmentAnalytics ({ objects, lanes, vehicles, markings }) {
  */
 export function getSegmentSprites (components) {
   // 1) Loop through each component group that makes up the segment.
-  const sprites = Object.entries(components).reduce((graphicsArray, componentGroup) => {
-    const [group, groupItems] = componentGroup
+  const sprites = Object.entries(components).reduce(
+    (graphicsArray, componentGroup) => {
+      const [group, groupItems] = componentGroup
 
-    // 2) For each component group, look up the segment information for every item that makes up the component group.
-    // componentGroupInfo = [ { characteristics, rules, variants } ]
-    const componentGroupInfo = getComponentGroupInfo(group, groupItems)
+      // 2) For each component group, look up the segment information for every item that makes up the component group.
+      // componentGroupInfo = [ { characteristics, rules, variants } ]
+      const componentGroupInfo = getComponentGroupInfo(group, groupItems)
 
-    // The "markings" component group does not have any variants, so we do not have to go through the variants in order
-    // to get the sprite definitions.
-    if (group === COMPONENT_GROUPS.MARKINGS) {
-      Object.values(componentGroupInfo).forEach((groupItem) => { graphicsArray.push(groupItem.graphics) })
-    } else {
-      // componentGroupVariants = [ { graphics } ]
-      // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
-      const componentGroupVariants = getComponentGroupVariants(groupItems, componentGroupInfo)
+      // The "markings" component group does not have any variants, so we do not have to go through the variants in order
+      // to get the sprite definitions.
+      if (group === COMPONENT_GROUPS.MARKINGS) {
+        Object.values(componentGroupInfo).forEach((groupItem) => {
+          graphicsArray.push(groupItem.graphics)
+        })
+      } else {
+        // componentGroupVariants = [ { graphics } ]
+        // 3) For each component group, look up the segment variant graphics for every item that makes up the component group.
+        const componentGroupVariants = getComponentGroupVariants(
+          groupItems,
+          componentGroupInfo
+        )
 
-      if (componentGroupVariants.length) {
-        // 4) Combine the variant graphics for each component group into one array
-        componentGroupVariants.forEach((groupItemVariants) => { graphicsArray.push(groupItemVariants) })
+        if (componentGroupVariants.length) {
+          // 4) Combine the variant graphics for each component group into one array
+          componentGroupVariants.forEach((groupItemVariants) => {
+            graphicsArray.push(groupItemVariants)
+          })
+        }
       }
-    }
 
-    return graphicsArray
-  }, [])
+      return graphicsArray
+    },
+    []
+  )
 
   // 5) Combine the variant graphics into one graphics definition object.
   return mergeVariantGraphics(sprites)
