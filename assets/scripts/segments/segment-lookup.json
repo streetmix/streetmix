@@ -17,6 +17,14 @@
             {
               "id": "sidewalk",
               "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
                 "density": "dense"
               }
             }
@@ -28,6 +36,14 @@
           "lanes": [
             {
               "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
               "variants": {
                 "density": "normal"
               }
@@ -41,6 +57,14 @@
             {
               "id": "sidewalk",
               "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
                 "density": "sparse"
               }
             }
@@ -53,7 +77,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ]
@@ -75,7 +99,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -95,7 +119,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -126,7 +150,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -146,7 +170,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -166,7 +190,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -186,7 +210,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -256,7 +280,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -276,7 +300,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -296,7 +320,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -327,7 +351,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -347,7 +371,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -437,7 +461,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -457,7 +481,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -477,7 +501,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -508,7 +532,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -528,7 +552,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -548,7 +572,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -568,7 +592,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -588,7 +612,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -608,7 +632,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -628,7 +652,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -654,7 +678,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -680,7 +704,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -717,7 +741,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -737,7 +761,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -827,7 +851,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -882,7 +906,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ]
@@ -921,7 +945,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -949,7 +973,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -977,7 +1001,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -1005,7 +1029,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -1373,7 +1397,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -1404,7 +1428,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -1435,7 +1459,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -1466,7 +1490,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -2373,7 +2397,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -2399,7 +2423,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -2425,7 +2449,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -2445,7 +2469,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -3148,6 +3172,14 @@
             {
               "id": "markings--straight-inbound-light"
             }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "normal"
+              }
+            }
           ]
         }
       },
@@ -3164,6 +3196,14 @@
           "markings": [
             {
               "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "normal"
+              }
             }
           ]
         }
@@ -4211,7 +4251,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],
@@ -4231,7 +4271,7 @@
             {
               "id": "sidewalk",
               "variants": {
-                "density": "empty"
+                "color": "regular"
               }
             }
           ],

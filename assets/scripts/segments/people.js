@@ -4,55 +4,44 @@ import { images } from '../app/load_resources'
 import { drawSegmentImage } from './view'
 import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
-import { getVariantArray } from './variant_utils'
 import PEOPLE from './people.json'
 
 const PERSON_SPRITE_OFFSET_Y = 10
 
+/**
+ * Programatically draw a crowd of people to a canvas
+ *
+ * @todo refactor to general use case
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} width
+ * @param {Number} offsetLeft
+ * @param {Number} groundLevel - height at which to draw people
+ * @param {Number} randSeed - create a consistent random sequence of people across renders
+ * @param {Number} minSpacing - mininum distance between each sprite (in pixels?) (controls density)
+ * @param {Number} maxSpacing - maximum distance between each sprite (in pixels?) (controls density)
+ * @param {Number} multiplier
+ * @param {Number} dpi
+ */
 export function drawProgrammaticPeople (
   ctx,
   width,
   offsetLeft,
   groundLevel,
   randSeed,
+  minSpacing,
+  maxSpacing,
   multiplier,
-  variantString,
   dpi
 ) {
   const people = []
   let peopleWidth = 0
-
-  // Depending on the type of sidewalk, we would have different densities of people.
-  // If we are rendering people anywhere else, this variant array thing won't help
-  // in that case we just render the 'normal' density
-  const variantArray = getVariantArray('sidewalk', variantString)
-
-  let widthConst
-  let widthRand
-
-  switch (variantArray['sidewalk-density']) {
-    case 'empty':
-      return
-    case 'sparse':
-      widthConst = 60
-      widthRand = 100
-      break
-    case 'dense':
-      widthConst = 18
-      widthRand = 18
-      break
-    case 'normal':
-    default:
-      widthConst = 18
-      widthRand = 60
-      break
-  }
 
   const randomGenerator = seedrandom(randSeed)
 
   let lastPersonId = 0
   let thisPersonId = null
 
+  // TODO: Document magic number `40` or replace with defined constants
   while (people.length === 0 || peopleWidth < width - 40) {
     let person
 
@@ -70,8 +59,9 @@ export function drawProgrammaticPeople (
     lastPersonId = thisPersonId
     person.left = peopleWidth
 
+    // TODO: Document magic numbers or replace with defined constants
     var lastWidth =
-      widthConst + person.width * 12 - 24 + randomGenerator() * widthRand
+      minSpacing + person.width * 12 - 24 + randomGenerator() * maxSpacing
 
     peopleWidth += lastWidth
     people.push(person)
@@ -100,7 +90,7 @@ export function drawProgrammaticPeople (
     const distanceFromGround =
       multiplier *
       TILE_SIZE *
-      ((svg.height - (sprite.originY || PERSON_SPRITE_OFFSET_Y)) /
+      ((svg.height - (sprite.originY ?? PERSON_SPRITE_OFFSET_Y)) /
         TILE_SIZE_ACTUAL)
 
     // TODO: Document / refactor magic numbers

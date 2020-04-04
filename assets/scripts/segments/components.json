@@ -58,21 +58,6 @@
           }
         },
         "density": {
-          "dense": {
-            "graphics": {
-              "repeat": "ground--concrete"
-            }
-          },
-          "normal": {
-            "graphics": {
-              "repeat": "ground--concrete"
-            }
-          },
-          "sparse": {
-            "graphics": {
-              "repeat": "ground--concrete"
-            }
-          },
           "empty": {
             "graphics": {
               "repeat": "ground--concrete"
@@ -701,6 +686,42 @@
     }
   },
   "vehicles": {
+    "pedestrian": {
+      "name": "Pedestrian",
+      "nameKey": "pedestrian",
+      "owner": "PEDESTRIAN",
+      "variants": {
+        "density": {
+          "normal": {
+            "graphics": {
+              "scatter": {
+                "pool": "people",
+                "minSpacing": 18,
+                "maxSpacing": 60
+              }
+            }
+          },
+          "dense": {
+            "graphics": {
+              "scatter": {
+                "pool": "people",
+                "minSpacing": 18,
+                "maxSpacing": 18
+              }
+            }
+          },
+          "sparse": {
+            "graphics": {
+              "scatter": {
+                "pool": "people",
+                "minSpacing": 60,
+                "maxSpacing": 100
+              }
+            }
+          }
+        }
+      }
+    },
     "scooter": {
       "name": "Electric scooter",
       "nameKey": "scooter",

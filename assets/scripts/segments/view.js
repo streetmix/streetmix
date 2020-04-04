@@ -510,21 +510,22 @@ export function drawSegmentContents (
     }
   }
 
-  // HACK: display people for pedestrians in drive lanes
-  if (
-    type === 'sidewalk' ||
-    (type === 'drive-lane' && variantString.endsWith('|pedestrian'))
-  ) {
-    drawProgrammaticPeople(
-      ctx,
-      segmentWidth / multiplier,
-      offsetLeft - left * TILE_SIZE * multiplier,
-      groundLevel,
-      randSeed,
-      multiplier,
-      variantString,
-      dpi
-    )
+  // Draw items that are scattered from a pool of assets
+  // Only used for random people generation right now
+  if (graphics.scatter) {
+    if (graphics.scatter.pool === 'people') {
+      drawProgrammaticPeople(
+        ctx,
+        segmentWidth / multiplier,
+        offsetLeft - left * TILE_SIZE * multiplier,
+        groundLevel,
+        randSeed,
+        graphics.scatter.minSpacing,
+        graphics.scatter.maxSpacing,
+        multiplier,
+        dpi
+      )
+    }
   }
 }
 

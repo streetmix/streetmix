@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Sidewalk",
+    "pedestrian": "Pedestrian",
     "sidewalk-tree": "Sidewalk tree",
     "bike-rack": "Bike rack",
     "bench": "Bench",
