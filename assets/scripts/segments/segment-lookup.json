@@ -1127,28 +1127,6 @@
     "alwaysShowInPalette": true,
     "variants": ["temporary-barrier-type"],
     "details": {
-      "traffic-cone": {
-        "name": "Traffic cone",
-        "nameKey": "traffic-cone",
-        "components": {
-          "lanes": [
-            {
-              "id": "asphalt",
-              "variants": {
-                "color": "regular"
-              }
-            }
-          ],
-          "objects": [
-            {
-              "id": "traffic-cone",
-              "variants": {
-                "type": "default"
-              }
-            }
-          ]
-        }
-      },
       "barricade": {
         "name": "Barricade",
         "nameKey": "barricade",
@@ -1164,6 +1142,28 @@
           "objects": [
             {
               "id": "barricade",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "traffic-cone": {
+        "name": "Traffic cone",
+        "nameKey": "traffic-cone",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "traffic-cone",
               "variants": {
                 "type": "default"
               }
