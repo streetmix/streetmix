@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`scatter objects in segments picks from a pool of one single string id 1`] = `
+Array [
+  Object {
+    "id": "plants--bush",
+    "left": 0,
+    "width": 5,
+  },
+  Object {
+    "id": "plants--bush",
+    "left": 2.5174780997211976,
+    "width": 5,
+  },
+  Object {
+    "id": "plants--bush",
+    "left": 7.687586461069147,
+    "width": 5,
+  },
+  Object {
+    "id": "plants--bush",
+    "left": 11.138584601278607,
+    "width": 5,
+  },
+]
+`;
+
 exports[`scatter objects in segments picks people at dense density 1`] = `
 Array [
   Object {

@@ -549,12 +549,20 @@
           },
           "bush": {
             "graphics": {
-              "center": "plants--bush"
+              "scatter": {
+                "sprites": ["plants--bush"],
+                "minSpacing": -3,
+                "maxSpacing": 3
+              }
             }
           },
           "flowers": {
             "graphics": {
-              "center": "plants--flowers"
+              "scatter": {
+                "sprites": ["plants--flowers"],
+                "minSpacing": -3,
+                "maxSpacing": 3
+              }
             }
           }
         }

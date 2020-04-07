@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { pickObjectsFromPool } from '../people'
+import { pickObjectsFromPool } from '../scatter'
 import PEOPLE from '../people.json'
 
 // The unit test for `pickObjectsFromPool()` is designed to ensure that it
@@ -58,5 +58,32 @@ describe('scatter objects in segments', () => {
 
     expect(people).toMatchSnapshot()
     expect(startLeft).toEqual(3.0462522570605604)
+  })
+
+  it('picks from a pool of one single string id', () => {
+    const scatter = {
+      sprites: ['plants--bush'],
+      minSpacing: -3,
+      maxSpacing: 3
+    }
+    const pool = [
+      {
+        id: 'plants--bush',
+        width: 5
+      }
+    ]
+
+    const [objects, startLeft] = pickObjectsFromPool(
+      pool,
+      20,
+      0,
+      scatter.minSpacing,
+      scatter.maxSpacing,
+      5,
+      0
+    )
+
+    expect(objects).toMatchSnapshot()
+    expect(startLeft).toEqual(4.430707699360696)
   })
 })

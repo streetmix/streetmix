@@ -3,7 +3,7 @@ import { t } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
-import { drawProgrammaticPeople } from './people'
+import { drawScatteredSprites } from './scatter'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
@@ -17,6 +17,11 @@ import {
   updateSegments,
   changeSegmentProperties
 } from '../store/actions/street'
+import PEOPLE from './people.json'
+
+// Adjust spacing between people to be slightly closer
+const PERSON_SPACING_ADJUSTMENT = -0.5 // in feet
+const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
 
 /**
  * Draws SVG sprite to canvas
@@ -514,7 +519,16 @@ export function drawSegmentContents (
   // Only used for random people generation right now
   if (graphics.scatter) {
     if (graphics.scatter.pool === 'people') {
-      drawProgrammaticPeople(
+      const people = PEOPLE.map((person) => {
+        return {
+          ...person,
+          id: `people--${person.id}`,
+          originY: PERSON_SPRITE_OFFSET_Y
+        }
+      })
+
+      drawScatteredSprites(
+        people,
         ctx,
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
@@ -522,6 +536,22 @@ export function drawSegmentContents (
         randSeed,
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
+        PERSON_SPACING_ADJUSTMENT,
+        multiplier,
+        dpi
+      )
+    }
+    if (graphics.scatter.sprites) {
+      drawScatteredSprites(
+        graphics.scatter.sprites,
+        ctx,
+        actualWidth,
+        offsetLeft - left * TILE_SIZE * multiplier,
+        groundLevel,
+        9123984, // self defined randSeed
+        graphics.scatter.minSpacing,
+        graphics.scatter.maxSpacing,
+        0,
         multiplier,
         dpi
       )
