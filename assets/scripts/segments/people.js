@@ -6,6 +6,8 @@ import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 import PEOPLE from './people.json'
 
+// Adjust spacing between people to be slightly closer
+const PERSON_SPACING_ADJUSTMENT = -2
 const PERSON_SPRITE_OFFSET_Y = 10
 
 /**
@@ -59,15 +61,37 @@ export function drawProgrammaticPeople (
     lastPersonId = thisPersonId
     person.left = peopleWidth
 
-    // TODO: Document magic numbers or replace with defined constants
+    // Calculate the amount of space to allocate to this person,
+    // creating space for placing the next person (if any).
+    // `minSpacing` here is the spacing to the left of the person,
+    // in feet. In most cases ('normal' and 'dense') we're saying
+    // each person has a 1.5-ft of space to the left of them.
+    // `maxSpacing` is a random amount betwween it and 0 to allocate
+    // to the right of the person.
+    // This takes into account the person's defined sprite width.
+    // This is further tweaked by adding a PERSON_SPACING_ADJUSTMENT
+    // constant value. Currently, this is a negative value which causes
+    // sprites to be rendered slightly closer together. This is because
+    // sprites are generally less wide than the sprite's defined width
+    // (which is based on the width of the viewbox, not the content itself.)
+    // All of these units are using feet measurements, and we multiply this
+    // by TILE_SIZE because later calculations are also doing conversions.
+    // TODO: Refactor this multiplication out in conjunction with later
+    // calculation steps.
     var lastWidth =
-      minSpacing + person.width * 12 - 24 + randomGenerator() * maxSpacing
+      (minSpacing +
+        person.width +
+        PERSON_SPACING_ADJUSTMENT +
+        randomGenerator() * maxSpacing) *
+      TILE_SIZE
 
     peopleWidth += lastWidth
     people.push(person)
   }
 
-  // This adjusts peopleWidth by the last value of lastWidth from the while loop above
+  // After exiting the loop, remove the space allocated for the next person,
+  // by undoing the addition of `lastWidth` to `peopleWidth`.
+  // TODO: Refactor this behavior.
   peopleWidth -= lastWidth
 
   let startLeft = (width - peopleWidth) / 2

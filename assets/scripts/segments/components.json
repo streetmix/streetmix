@@ -696,8 +696,8 @@
             "graphics": {
               "scatter": {
                 "pool": "people",
-                "minSpacing": 18,
-                "maxSpacing": 60
+                "minSpacing": 1.5,
+                "maxSpacing": 5
               }
             }
           },
@@ -705,8 +705,8 @@
             "graphics": {
               "scatter": {
                 "pool": "people",
-                "minSpacing": 18,
-                "maxSpacing": 18
+                "minSpacing": 1.5,
+                "maxSpacing": 1.5
               }
             }
           },
@@ -714,8 +714,8 @@
             "graphics": {
               "scatter": {
                 "pool": "people",
-                "minSpacing": 60,
-                "maxSpacing": 100
+                "minSpacing": 5,
+                "maxSpacing": 8.3333
               }
             }
           }
