@@ -696,7 +696,7 @@
             "graphics": {
               "scatter": {
                 "pool": "people",
-                "minSpacing": 1.5,
+                "minSpacing": 0,
                 "maxSpacing": 5
               }
             }
@@ -705,7 +705,7 @@
             "graphics": {
               "scatter": {
                 "pool": "people",
-                "minSpacing": 1.5,
+                "minSpacing": 0,
                 "maxSpacing": 1.5
               }
             }
@@ -714,8 +714,8 @@
             "graphics": {
               "scatter": {
                 "pool": "people",
-                "minSpacing": 5,
-                "maxSpacing": 8.3333
+                "minSpacing": 3.5,
+                "maxSpacing": 11.8333
               }
             }
           }
