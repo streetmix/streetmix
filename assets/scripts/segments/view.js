@@ -516,7 +516,7 @@ export function drawSegmentContents (
     if (graphics.scatter.pool === 'people') {
       drawProgrammaticPeople(
         ctx,
-        segmentWidth / multiplier,
+        actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
         groundLevel,
         randSeed,

@@ -6,16 +6,25 @@ import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 import PEOPLE from './people.json'
 
+// Buffer area to not render people in
+// This will be split on either side (2 on the left, 2 on the right)
+// Not 4 on both sides
+const SEGMENT_PADDING = 4 // in feet
+
 // Adjust spacing between people to be slightly closer
-const PERSON_SPACING_ADJUSTMENT = -2
-const PERSON_SPRITE_OFFSET_Y = 10
+const PERSON_SPACING_ADJUSTMENT = -2 // in feet
+
+// Maximum width of a person sprite, used to help adjust sprites for alignment
+const PERSON_SPRITE_MAX_WIDTH = 4 // in feet
+
+const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
 
 /**
  * Programatically draw a crowd of people to a canvas
  *
  * @todo refactor to general use case
  * @param {CanvasRenderingContext2D} ctx
- * @param {Number} width
+ * @param {Number} width - width of segment to draw in, in feet
  * @param {Number} offsetLeft
  * @param {Number} groundLevel - height at which to draw people
  * @param {Number} randSeed - create a consistent random sequence of people across renders
@@ -43,8 +52,7 @@ export function drawProgrammaticPeople (
   let lastPersonId = 0
   let thisPersonId = null
 
-  // TODO: Document magic number `40` or replace with defined constants
-  while (people.length === 0 || peopleWidth < width - 40) {
+  while (people.length === 0 || peopleWidth < width - SEGMENT_PADDING) {
     let person
 
     do {
@@ -79,11 +87,10 @@ export function drawProgrammaticPeople (
     // TODO: Refactor this multiplication out in conjunction with later
     // calculation steps.
     var lastWidth =
-      (minSpacing +
-        person.width +
-        PERSON_SPACING_ADJUSTMENT +
-        randomGenerator() * maxSpacing) *
-      TILE_SIZE
+      minSpacing +
+      person.width +
+      PERSON_SPACING_ADJUSTMENT +
+      randomGenerator() * maxSpacing
 
     peopleWidth += lastWidth
     people.push(person)
@@ -95,14 +102,13 @@ export function drawProgrammaticPeople (
   peopleWidth -= lastWidth
 
   let startLeft = (width - peopleWidth) / 2
-  const firstPersonCorrection = ((4 - people[0].width) * 12) / 2
+  const firstPersonCorrection = (PERSON_SPRITE_MAX_WIDTH - people[0].width) / 2
+  const lastPersonCorrection =
+    (PERSON_SPRITE_MAX_WIDTH - people[people.length - 1].width) / 2
 
   if (people.length === 1) {
     startLeft += firstPersonCorrection
   } else {
-    const lastPersonCorrection =
-      ((4 - people[people.length - 1].width) * 12) / 2
-
     startLeft += (firstPersonCorrection + lastPersonCorrection) / 2
   }
 
@@ -127,9 +133,11 @@ export function drawProgrammaticPeople (
       undefined,
       offsetLeft +
         (person.left -
-          (5 * 12) / 2 -
-          ((4 - person.width) * 12) / 2 +
+          // TODO: his number was multiplied by TILE_SIZE, so 5 feet for what?
+          5 / 2 -
+          (PERSON_SPRITE_MAX_WIDTH - person.width) / 2 +
           startLeft) *
+          TILE_SIZE *
           multiplier,
       groundLevel - distanceFromGround,
       undefined,
