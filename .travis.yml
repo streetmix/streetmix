@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  # 10.13 includes npm@6 which has good "npm ci" command, and is LTS
-  - 10.13
+  - lts/*
 
 addons:
   apt:

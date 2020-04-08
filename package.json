@@ -8,8 +8,8 @@
   },
   "license": "BSD-3-Clause",
   "engines": {
-    "node": "10.11.0",
-    "npm": "6.4.1"
+    "node": "12.x",
+    "npm": "6.x"
   },
   "scripts": {
     "cypress:open": "cypress open",
