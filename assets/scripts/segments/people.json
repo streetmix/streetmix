@@ -93,12 +93,12 @@
   },
   {
     "id": "people-23",
-    "width": 3
+    "width": 3,
+    "name": "Katie"
   },
   {
     "id": "people-24",
-    "width": 4,
-    "name": "Katie"
+    "width": 4
   },
   {
     "id": "people-25",
@@ -131,21 +131,25 @@
   {
     "id": "johnny-01",
     "width": 3,
-    "name": "Johnny"
+    "name": "Johnny",
+    "disallowFirst": true
   },
   {
     "id": "johnny-02",
     "width": 3,
-    "name": "Johnny"
+    "name": "Johnny",
+    "disallowFirst": true
   },
   {
     "id": "junebug-01",
     "width": 3,
-    "name": "Junebug"
+    "name": "Junebug",
+    "disallowFirst": true
   },
   {
     "id": "junebug-02",
     "width": 3,
-    "name": "Junebug"
+    "name": "Junebug",
+    "disallowFirst": true
   }
 ]

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+Object {
+  "repeat": "ground--concrete",
+  "scatter": Object {
+    "maxSpacing": 5,
+    "minSpacing": 0,
+    "pool": "people",
+  },
+}
+`;

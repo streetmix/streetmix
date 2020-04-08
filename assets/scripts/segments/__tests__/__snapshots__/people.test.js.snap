@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scatter objects in segments picks people at dense density 1`] = `
+Array [
+  Object {
+    "id": "people-25",
+    "left": 0,
+    "width": 2,
+  },
+  Object {
+    "disallowFirst": true,
+    "id": "johnny-01",
+    "left": 2.74073930948676,
+    "name": "Johnny",
+    "width": 3,
+  },
+  Object {
+    "id": "people-24",
+    "left": 5.615210042353209,
+    "width": 4,
+  },
+  Object {
+    "id": "people-25",
+    "left": 9.860021493652413,
+    "width": 2,
+  },
+  Object {
+    "id": "people-27",
+    "left": 12.368637363837975,
+    "width": 2,
+  },
+  Object {
+    "id": "people-13",
+    "left": 14.270766914421968,
+    "width": 2,
+  },
+  Object {
+    "id": "people-26",
+    "left": 16.98367551508844,
+    "width": 3,
+  },
+  Object {
+    "id": "people-16",
+    "left": 20.61886035144698,
+    "name": "Lou",
+    "width": 3,
+  },
+  Object {
+    "disallowFirst": true,
+    "id": "johnny-01",
+    "left": 24.074165485878876,
+    "name": "Johnny",
+    "width": 3,
+  },
+]
+`;
+
+exports[`scatter objects in segments picks people at normal density 1`] = `
+Array [
+  Object {
+    "id": "people-25",
+    "left": 0,
+    "width": 2,
+  },
+  Object {
+    "disallowFirst": true,
+    "id": "johnny-01",
+    "left": 5.6357976982892,
+    "name": "Johnny",
+    "width": 3,
+  },
+  Object {
+    "id": "people-24",
+    "left": 9.384033474510698,
+    "width": 4,
+  },
+  Object {
+    "id": "people-25",
+    "left": 15.36673831217471,
+    "width": 2,
+  },
+  Object {
+    "id": "people-27",
+    "left": 20.228791212793247,
+    "width": 2,
+  },
+  Object {
+    "id": "people-13",
+    "left": 23.069223048073223,
+    "width": 2,
+  },
+]
+`;
+
+exports[`scatter objects in segments picks people at sparse density 1`] = `
+Array [
+  Object {
+    "id": "people-25",
+    "left": 0,
+    "width": 2,
+  },
+  Object {
+    "disallowFirst": true,
+    "id": "johnny-01",
+    "left": 11.892968591830677,
+    "name": "Johnny",
+    "width": 3,
+  },
+  Object {
+    "id": "people-24",
+    "left": 19.973353230628,
+    "width": 4,
+  },
+]
+`;

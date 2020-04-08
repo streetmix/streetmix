@@ -1,5 +1,4 @@
 /* eslint-env jest */
-import SEGMENT_COMPONENTS from '../components.json'
 import {
   getSegmentLookup,
   getSegmentComponentInfo,
@@ -62,13 +61,10 @@ describe('applySegmentInfoOverridesAndRules()', () => {
 
 describe('getSegmentSprites()', () => {
   const type = 'sidewalk'
-  const variantName = 'density'
   const variant = 'normal'
-
   const { components } = getSegmentLookup(type, variant)
   const sprites = getSegmentSprites(components)
-  expect(sprites).toBeTruthy()
 
-  const { graphics } = SEGMENT_COMPONENTS.lanes[type].variants[variantName][variant]
-  expect(sprites).toEqual(graphics)
+  expect(sprites).toBeTruthy()
+  expect(sprites).toMatchSnapshot()
 })
