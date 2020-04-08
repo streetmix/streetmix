@@ -4,8 +4,8 @@ exports[` 1`] = `
 Object {
   "repeat": "ground--concrete",
   "scatter": Object {
-    "maxSpacing": 60,
-    "minSpacing": 18,
+    "maxSpacing": 5,
+    "minSpacing": 0,
     "pool": "people",
   },
 }
