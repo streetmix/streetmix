@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Chodnik",
+    "pedestrian": "",
     "sidewalk-tree": "Drzewem",
     "bike-rack": "Stojak na rowery",
     "bench": "Ławka",
@@ -165,6 +166,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asfalt",
     "public-transit-asphalt|colored": "Pas wydzielony kolorem czerwonym",
     "public-transit-asphalt|grass": "Trawa",

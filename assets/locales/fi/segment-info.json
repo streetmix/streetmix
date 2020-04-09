@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Jalkakäytävä",
+    "pedestrian": "",
     "sidewalk-tree": "Jalkakäytävä ja puu",
     "bike-rack": "Pyöräpysäköinti",
     "bench": "Penkki",
@@ -163,8 +164,9 @@
     "car-type|sharrow": "Sekakaista",
     "car-type|truck": "Kuorma-auto",
     "car-type|av": "Itsestään ohjautuva ajoneuvo",
-    "car-type|motorcycle": "",
-    "car-type|motorcycle-sidecar": "",
+    "car-type|motorcycle": "Moottoripyörä",
+    "car-type|motorcycle-sidecar": "Sivuvaunullinen moottoripyörä",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asfaltti",
     "public-transit-asphalt|colored": "Punainen asfaltti",
     "public-transit-asphalt|grass": "Ruohokenttä",

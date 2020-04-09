@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Trottoar",
+    "pedestrian": "",
     "sidewalk-tree": "Träd",
     "bike-rack": "Cykelställ",
     "bench": "Bänk",
@@ -146,6 +147,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
     "public-transit-asphalt|grass": "",

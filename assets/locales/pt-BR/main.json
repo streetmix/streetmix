@@ -369,6 +369,12 @@
     "special-thanks": "",
     "translators": "Tradutores"
   },
+  "plus": {
+    "locked": {
+      "sub": "",
+      "user": ""
+    }
+  },
   "i18n": {
     "lang": {
       "ar": "Árabe",

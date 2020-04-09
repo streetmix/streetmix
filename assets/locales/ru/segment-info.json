@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Тротуар",
+    "pedestrian": "",
     "sidewalk-tree": "деревьями",
     "bike-rack": "Парковочная велостойка",
     "bench": "Скамейка",
@@ -165,6 +166,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Асфальт",
     "public-transit-asphalt|colored": "Красная полоса",
     "public-transit-asphalt|grass": "Трава",

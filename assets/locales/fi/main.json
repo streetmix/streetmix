@@ -346,7 +346,7 @@
     "delete-street-tooltip": "Poista katu",
     "street-count": "{count, plural, one {# katu} other {# katua}}",
     "no-streets": "Ei luotuja katuja",
-    "thumbnail-error": ""
+    "thumbnail-error": "Pienoiskuva ei ole saatavilla."
   },
   "users": {
     "anonymous": "Tuntematon",
@@ -368,6 +368,12 @@
     "additional-contributors": "Avustajat",
     "special-thanks": "Erityiskiitokset",
     "translators": "Kääntäjät"
+  },
+  "plus": {
+    "locked": {
+      "sub": "Aloita käyttö tilaamalla uutiskirjeemme",
+      "user": "Aloita käyttö kirjautumalla sisään"
+    }
   },
   "i18n": {
     "lang": {

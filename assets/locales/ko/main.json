@@ -369,6 +369,12 @@
     "special-thanks": "특별히 고마운 분들",
     "translators": "번역"
   },
+  "plus": {
+    "locked": {
+      "sub": "",
+      "user": ""
+    }
+  },
   "i18n": {
     "lang": {
       "ar": "아랍어",

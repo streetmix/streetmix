@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Banqueta",
+    "pedestrian": "",
     "sidewalk-tree": "Árbol",
     "bike-rack": "Aparcabicis",
     "bench": "Banca",
@@ -165,6 +166,7 @@
     "car-type|av": "Vehículo autónomo",
     "car-type|motorcycle": "Moto",
     "car-type|motorcycle-sidecar": "Moto con sidecar",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Carril rojo",
     "public-transit-asphalt|grass": "Pasto",

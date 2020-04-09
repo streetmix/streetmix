@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Gehweg",
+    "pedestrian": "",
     "sidewalk-tree": "Baum",
     "bike-rack": "Fahrradständer",
     "bench": "Sitzbank",
@@ -165,6 +166,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asphalt",
     "public-transit-asphalt|colored": "Rot eingefärbt",
     "public-transit-asphalt|grass": "Rasen",

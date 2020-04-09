@@ -1,9 +1,10 @@
 {
   "segments": {
-    "sidewalk": "",
-    "sidewalk-tree": "",
-    "bike-rack": "",
-    "bench": "",
+    "sidewalk": "Vorera",
+    "pedestrian": "Vianant",
+    "sidewalk-tree": "Arbre a la vorera",
+    "bike-rack": "Aparcament de bicis",
+    "bench": "Banc",
     "cafe-seating": "",
     "wayfinding-sign": "",
     "sidewalk-lamp": "",
@@ -43,28 +44,32 @@
   },
   "descriptions": {
     "wayfinding-sign": {
-      "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "prompt": "Apreneu-ne més sobre rètols de direcció",
+      "lede": "Els rètols de direcció ajuden els vianants a obtenir destinacions comunes.",
+      "text": [
+        "Els urbanistes i els arquitectes s'han passat les últimes dècades intentant aprenent què pensa la gent quan s'imagina com anar d'un punt A a un punt B, o com esbrinen on es troba el punt A. Tan aviat com l'any 1960, l'urbanista Kevin Lynch va escriure sobre la llegibilitat de la ciutat al seu llibre <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, descrivint la creació d'itineraris com \"un ús i una organització coherents de senyals sensorials des del medi extern\". Podrien ser intangibles com l'olor, el tacte, una sensació de gravetat o fins i tot electricitat o magnetisme. O podria ser quelcom més físic, amb elements d'ajut a la creació d'itineraris com els mapes, la numeració dels domicilis o els rètols de direcció.",
+        "És sorprenent com d'acceptable és un gran desplegament de senyalització per als desplaçaments en cotxe, en relació amb una inversió menor per als vianants. Potser és perquè és més fàcil per a nosaltres quedar-nos quiets, fer un balanç del nostre entorn i fer servir els nostres sentits sense por de provocar accidentalment una pila de sis persones darrere nostre. De totes maneres, els urbanistes han apostat per una senyalització amable amb els vianants, especialment als barris comercials. Aquests signes han esdevingut oportunitats d'imatge corporativa, a més de ser funcionals. Per exemple, Nova York <a href=\"https://www.pentagram.com/work/walknyc/story\">va contractar un consultor de disseny de renom internacional</a>per a crear la senyalització ara omnipresent WalkNYC (Streetmix ha modelat els seus segments en base a aquests). D'altres municipis han adoptat un enfocament tradicional antic o cívic-formal (a la imatge superior), i alguns llocs han optat per utilitzar <a href=\"http://walkyourcity.org/\">tàctiques de guerrilla</a>.",
+        ""
+      ]
     },
     "parklet": {
-      "prompt": "",
+      "prompt": "Apreneu-ne més sobre parklets",
       "imageCaption": "",
-      "lede": "",
+      "lede": "Els parklets converteixen espais d'aparcament en espais públics temporals.",
       "text": ["", ""]
     },
     "bike-lane": {
-      "prompt": "",
-      "lede": "",
+      "prompt": "Apreneu-ne més sobre carrils bici",
+      "lede": "Els carrils bici ajuden a mantenir els ciclistes segurs en un carril separat del trànsit rodat.",
       "text": ["", "", ""]
     },
     "colored-bike-lane": {
-      "prompt": "",
-      "lede": "",
+      "prompt": "Apreneu-ne més sobre carrils bici pintats.",
+      "lede": "Els carrils bici pintats són més visibles i segurs per als ciclistes.",
       "text": ["", "", ""]
     },
     "sharrow": {
-      "prompt": "",
+      "prompt": "Apreneu-ne més sobre ciclocarrils",
       "lede": "",
       "text": ["", "", ""]
     },
@@ -80,16 +85,16 @@
   },
   "buildings": {
     "waterfront": {
-      "name": ""
+      "name": "Passeig marítim"
     },
     "grass": {
-      "name": ""
+      "name": "Gespa"
     },
     "fence": {
-      "name": ""
+      "name": "Espai buit"
     },
     "parking-lot": {
-      "name": ""
+      "name": "Espai d'aparcament"
     },
     "residential": {
       "name": ""
@@ -102,21 +107,21 @@
     }
   },
   "variant-icons": {
-    "orientation|left": "",
-    "orientation|right": "",
-    "turn-lane-orientation|left": "",
+    "orientation|left": "Esquerra",
+    "orientation|right": "Dreta",
+    "turn-lane-orientation|left": "Esquerra",
     "turn-lane-orientation|left-straight": "",
     "turn-lane-orientation|straight": "",
     "turn-lane-orientation|right-straight": "",
-    "turn-lane-orientation|right": "",
+    "turn-lane-orientation|right": "Dreta",
     "turn-lane-orientation|both": "",
     "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "",
-    "bench-orientation|left": "",
-    "bench-orientation|right": "",
+    "bench-orientation|left": "Esquerra",
+    "bench-orientation|right": "Dreta",
     "bench-orientation|center": "",
-    "parking-lane-orientation|left": "",
-    "parking-lane-orientation|right": "",
+    "parking-lane-orientation|left": "Esquerra",
+    "parking-lane-orientation|right": "Dreta",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
     "parking-lane-direction|sideways": "",
@@ -130,9 +135,9 @@
     "sidewalk-density|sparse": "",
     "sidewalk-density|normal": "",
     "sidewalk-density|dense": "",
-    "lamp-orientation|left": "",
+    "lamp-orientation|left": "Esquerra",
     "lamp-orientation|both": "",
-    "lamp-orientation|right": "",
+    "lamp-orientation|right": "Dreta",
     "lamp-type|traditional": "",
     "lamp-type|modern": "",
     "lamp-type|pride": "",
@@ -142,9 +147,10 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "Vianant",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
-    "public-transit-asphalt|grass": "",
+    "public-transit-asphalt|grass": "Gespa",
     "bus-asphalt|regular": "",
     "bus-asphalt|colored": "",
     "bus-asphalt|shared": "",
@@ -170,10 +176,10 @@
     "bike-rack-elevation|sidewalk-parallel": "",
     "bike-rack-elevation|sidewalk": "",
     "bike-rack-elevation|road": "",
-    "building|waterfront": "",
-    "building|grass": "",
-    "building|fence": "",
-    "building|parking-lot": "",
+    "building|waterfront": "Passeig marítim",
+    "building|grass": "Gespa",
+    "building|fence": "Espai buit",
+    "building|parking-lot": "Espai d'aparcament",
     "building|residential": "",
     "building|narrow": "",
     "building|wide": "",

@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Calçada",
+    "pedestrian": "",
     "sidewalk-tree": "Árvore",
     "bike-rack": "Suporte de bicicletas",
     "bench": "Banco",
@@ -142,6 +143,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Faixa vermelha",
     "public-transit-asphalt|grass": "Grama",

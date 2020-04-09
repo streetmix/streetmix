@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "人行道",
+    "pedestrian": "",
     "sidewalk-tree": "树",
     "bike-rack": "自行车架",
     "bench": "长椅",
@@ -157,6 +158,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "沥青路面",
     "public-transit-asphalt|colored": "红色车道",
     "public-transit-asphalt|grass": "草",

@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Trottoir",
+    "pedestrian": "",
     "sidewalk-tree": "Arbre",
     "bike-rack": "Support à vélo",
     "bench": "Banc",
@@ -165,6 +166,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asphalte",
     "public-transit-asphalt|colored": "Voie colorée rouge",
     "public-transit-asphalt|grass": "Gazon",

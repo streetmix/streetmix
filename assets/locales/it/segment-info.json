@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Marciapiede",
+    "pedestrian": "",
     "sidewalk-tree": "Filare",
     "bike-rack": "Portabiciclette",
     "bench": "Panchina",
@@ -165,6 +166,7 @@
     "car-type|av": "Veicolo a guida autonoma",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Corsia rossa",
     "public-transit-asphalt|grass": "Erba",

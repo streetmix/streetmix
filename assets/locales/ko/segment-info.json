@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "보도",
+    "pedestrian": "",
     "sidewalk-tree": "가로수",
     "bike-rack": "자전거 거치대",
     "bench": "벤치",
@@ -165,6 +166,7 @@
     "car-type|av": "자율주행차",
     "car-type|motorcycle": "오토바이",
     "car-type|motorcycle-sidecar": "사이드카",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "아스팔트",
     "public-transit-asphalt|colored": "적색 차선",
     "public-transit-asphalt|grass": "풀",

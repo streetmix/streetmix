@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "Acera",
+    "pedestrian": "",
     "sidewalk-tree": "Árbol en acera",
     "bike-rack": "Estacionamiento para bicicletas",
     "bench": "Banca",
@@ -146,6 +147,7 @@
     "car-type|av": "Vehículo autónomo",
     "car-type|motorcycle": "Motocicleta",
     "car-type|motorcycle-sidecar": "Motocicleta con carro auxiliar",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Carril rojo",
     "public-transit-asphalt|grass": "Césped",

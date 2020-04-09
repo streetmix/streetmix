@@ -1,6 +1,7 @@
 {
   "segments": {
     "sidewalk": "رصيف",
+    "pedestrian": "",
     "sidewalk-tree": "",
     "bike-rack": "موقف الدراجة",
     "bench": "مقعد",
@@ -161,6 +162,7 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
     "public-transit-asphalt|regular": "أسفلت",
     "public-transit-asphalt|colored": "ممر أحمر",
     "public-transit-asphalt|grass": "عشب",
