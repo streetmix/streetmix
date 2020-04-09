@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { Transition } from 'react-transition-group'
 import { FormattedMessage } from 'react-intl'
 import CloseButton from '../ui/CloseButton'
@@ -15,7 +16,6 @@ const TRANSITION_BASE_STYLE = {
 // const LSKEY_NOTIFICATION_STORE = 'notification-store-dismissed'
 
 NotificationBar.propTypes = {
-  // locale: PropTypes.string,
   notification: PropTypes.shape({
     display: PropTypes.bool,
     lede: PropTypes.string,
@@ -27,6 +27,7 @@ NotificationBar.propTypes = {
 }
 
 function NotificationBar ({ notification = {} }) {
+  const locale = useSelector((state) => state.locale)
   const {
     display = false,
     lede,
@@ -68,8 +69,7 @@ function NotificationBar ({ notification = {} }) {
   if (!display || (!lede && !text && !link)) return null
 
   // If locale isn't English, don't display; we don't localize these messages
-  // if (this.props.locale !== 'en') return null
-  // For now disabled so that TOS/Privacy policy notice displays worldwide.
+  if (locale.locale !== 'en') return null
 
   return (
     <Transition

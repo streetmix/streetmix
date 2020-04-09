@@ -46,7 +46,7 @@ function App () {
         context={window}
       >
         {/* DndProvider allows multiple children; IntlProvider does not */}
-        <NotificationBar locale={locale.locale} notification={NOTIFICATION} />
+        <NotificationBar notification={NOTIFICATION} />
         <BlockingShield />
         <BlockingError />
         <Gallery />

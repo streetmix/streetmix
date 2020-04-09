@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { fireEvent } from '@testing-library/react'
-import { renderWithIntl } from '../../../../test/helpers/render'
+import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import NotificationBar from '../NotificationBar'
 
 const TEST_NOTIFICATION = {
@@ -13,10 +13,17 @@ const TEST_NOTIFICATION = {
   linkText: 'Follow us on Twitter for updates.'
 }
 
+const initialState = {
+  locale: {
+    locale: 'en'
+  }
+}
+
 describe('NotificationBar', () => {
   it('renders snapshot', () => {
-    const wrapper = renderWithIntl(
-      <NotificationBar locale="en" notification={TEST_NOTIFICATION} />
+    const wrapper = renderWithReduxAndIntl(
+      <NotificationBar notification={TEST_NOTIFICATION} />,
+      { initialState }
     )
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
@@ -27,8 +34,9 @@ describe('NotificationBar', () => {
         display: true,
         link: TEST_NOTIFICATION.link
       }
-      const wrapper = renderWithIntl(
-        <NotificationBar locale="en" notification={notification} />
+      const wrapper = renderWithReduxAndIntl(
+        <NotificationBar notification={notification} />,
+        { initialState }
       )
       expect(wrapper.getByRole('link')).toHaveTextContent('More info')
     })
@@ -36,37 +44,42 @@ describe('NotificationBar', () => {
 
   describe('conditions that render nothing', () => {
     it('renders nothing if notification is not provided', () => {
-      const wrapper = renderWithIntl(<NotificationBar locale="en" />)
+      const wrapper = renderWithReduxAndIntl(<NotificationBar />, {
+        initialState
+      })
       expect(wrapper.container.firstChild).toBeNull()
     })
 
     it('renders nothing if notification is the empty object', () => {
-      const wrapper = renderWithIntl(
-        <NotificationBar locale="en" notification={{}} />
+      const wrapper = renderWithReduxAndIntl(
+        <NotificationBar notification={{}} />
       )
       expect(wrapper.container.firstChild).toBeNull()
     })
 
     it('renders nothing if notification’s display property is false', () => {
       const notification = { ...TEST_NOTIFICATION, display: false }
-      const wrapper = renderWithIntl(
-        <NotificationBar locale="en" notification={notification} />
+      const wrapper = renderWithReduxAndIntl(
+        <NotificationBar notification={notification} />,
+        { initialState }
       )
       expect(wrapper.container.firstChild).toBeNull()
     })
 
     it('renders nothing if notification’s display property is true but has no other properties', () => {
       const notification = { display: true }
-      const wrapper = renderWithIntl(
-        <NotificationBar locale="en" notification={notification} />
+      const wrapper = renderWithReduxAndIntl(
+        <NotificationBar notification={notification} />,
+        { initialState }
       )
       expect(wrapper.container.firstChild).toBeNull()
     })
 
     it('renders nothing if the locale is not English', () => {
       const notification = { display: true }
-      const wrapper = renderWithIntl(
-        <NotificationBar locale="de" notification={notification} />
+      const wrapper = renderWithReduxAndIntl(
+        <NotificationBar locale="de" notification={notification} />,
+        { initialState }
       )
       expect(wrapper.container.firstChild).toBeNull()
     })
@@ -74,8 +87,9 @@ describe('NotificationBar', () => {
 
   describe('dismiss', () => {
     it('is no longer rendered after clicking the close button', () => {
-      const wrapper = renderWithIntl(
-        <NotificationBar locale="en" notification={TEST_NOTIFICATION} />
+      const wrapper = renderWithReduxAndIntl(
+        <NotificationBar notification={TEST_NOTIFICATION} />,
+        { initialState }
       )
       fireEvent.click(wrapper.getByTitle('Dismiss'))
       expect(wrapper.queryByText(TEST_NOTIFICATION.lede)).toBeNull()
