@@ -13,11 +13,12 @@
  *
  * Only one modal window is shown at a time. Nested modals aren't supported.
  */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import CloseButton from '../ui/CloseButton'
+import { useOnClickOutside } from '../ui/useOnClickOutside'
 import { clearDialogs } from '../store/actions/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Dialog.scss'
@@ -28,11 +29,15 @@ Dialog.propTypes = {
 
 function Dialog ({ children }) {
   // Appear state controls transition in/out
+  const dialogEl = useRef(null)
   const [appear, setAppear] = useState(true)
   const dispatch = useDispatch()
 
+  // Set up handler to close dialogs when clicking outside of it
+  useOnClickOutside(dialogEl, handleClose)
+
+  // Set up keypress listener to close dialogs if open
   useEffect(() => {
-    // Set up keypress listener to close dialogs if open
     registerKeypress('esc', handleClose)
 
     return () => {
@@ -59,8 +64,8 @@ function Dialog ({ children }) {
       onExited={handleExit}
     >
       <div className="dialog-box-container">
-        <div className="dialog-box-backdrop" onClick={handleClose} />
-        <div className="dialog-box" role="dialog">
+        <div className="dialog-box-backdrop" />
+        <div className="dialog-box" role="dialog" ref={dialogEl}>
           <CloseButton onClick={handleClose} />
           {children(handleClose)}
         </div>

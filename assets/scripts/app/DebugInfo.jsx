@@ -9,6 +9,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { loseAnyFocus } from '../util/focus'
+import { useOnClickOutside } from '../ui/useOnClickOutside'
 import './DebugInfo.scss'
 
 function DebugInfo (props) {
@@ -29,6 +30,7 @@ function DebugInfo (props) {
   })
 
   // Handle esc keybinding
+  // This appears to be used because there is a problem with registerKeypress()
   useEffect(() => {
     if (isVisible) {
       // Set up keypress listener to close debug window
@@ -64,6 +66,9 @@ function DebugInfo (props) {
       loseAnyFocus()
     }
   }, [isVisible, settings, street, flags, undo, user])
+
+  // Set up handler to close dialogs when clicking outside of it
+  useOnClickOutside(textareaEl, () => setVisible(false))
 
   function showDebugInfo (event) {
     // Do not display debug info when the key combo is pressed inside of an input element

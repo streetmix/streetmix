@@ -47,7 +47,11 @@ class MenusContainer extends React.PureComponent {
 
   componentDidMount () {
     // Hide menus if page loses visibility.
-    document.addEventListener('visibilitychange', this.handleVisibilityChange, false)
+    document.addEventListener(
+      'visibilitychange',
+      this.handleVisibilityChange,
+      false
+    )
 
     // Hide menus if a click occurs outside of a menu or menu button
     document.addEventListener('pointerdown', this.onBodyMouseDown)
@@ -64,7 +68,11 @@ class MenusContainer extends React.PureComponent {
   }
 
   componentWillUnmount () {
-    document.removeEventListener('visibilitychange', this.handleVisibilityChange, false)
+    document.removeEventListener(
+      'visibilitychange',
+      this.handleVisibilityChange,
+      false
+    )
     document.removeEventListener('pointerdown', this.onBodyMouseDown)
     deregisterKeypress('esc', this.hideAllMenus)
   }
@@ -84,7 +92,7 @@ class MenusContainer extends React.PureComponent {
    */
   handleMenuDropdownClick = (menu, node) => {
     // If the clicked menu is already active, it's toggled off.
-    const activeMenu = (this.props.activeMenu === menu) ? null : menu
+    const activeMenu = this.props.activeMenu === menu ? null : menu
     this.setState({
       activeMenuItemNode: activeMenu ? node : null
     })
@@ -94,6 +102,8 @@ class MenusContainer extends React.PureComponent {
   /**
    * This event handler callback will close menus if a click occurs outside
    * of a menu or a menu button.
+   * This remains in use despite the useOnClickOutside() hook, which
+   * can't apply in this situation because we need to listen on two elements.
    */
   onBodyMouseDown = (event) => {
     if (!event.target.closest('.menu, .menu-attached')) {
@@ -123,12 +133,31 @@ class MenusContainer extends React.PureComponent {
         <MenuBar onMenuDropdownClick={this.handleMenuDropdownClick} />
         {/* Menus exist on a different z-index layer from the menu bar */}
         <div className="menus-container">
-          <HelpMenu isActive={activeMenu === 'help'} menuItemNode={activeMenuItemNode} />
-          <ContactMenu isActive={activeMenu === 'contact'} menuItemNode={activeMenuItemNode} />
-          <ContributeMenu isActive={activeMenu === 'contribute'} menuItemNode={activeMenuItemNode} />
-          <SettingsMenu isActive={activeMenu === 'settings'} menuItemNode={activeMenuItemNode} />
-          <ShareMenu isActive={activeMenu === 'share'} menuItemNode={activeMenuItemNode} />
-          <IdentityMenu isActive={activeMenu === 'identity'} menuItemNode={activeMenuItemNode} alignOpposite />
+          <HelpMenu
+            isActive={activeMenu === 'help'}
+            menuItemNode={activeMenuItemNode}
+          />
+          <ContactMenu
+            isActive={activeMenu === 'contact'}
+            menuItemNode={activeMenuItemNode}
+          />
+          <ContributeMenu
+            isActive={activeMenu === 'contribute'}
+            menuItemNode={activeMenuItemNode}
+          />
+          <SettingsMenu
+            isActive={activeMenu === 'settings'}
+            menuItemNode={activeMenuItemNode}
+          />
+          <ShareMenu
+            isActive={activeMenu === 'share'}
+            menuItemNode={activeMenuItemNode}
+          />
+          <IdentityMenu
+            isActive={activeMenu === 'identity'}
+            menuItemNode={activeMenuItemNode}
+            alignOpposite
+          />
         </div>
       </>
     )
