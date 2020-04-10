@@ -20,10 +20,12 @@ option {
   font-size: 1rem;
 }
 
-/* Manrope */
-/* Used both online and offline, as it's not on Google Fonts yet */
-/* But they're looking at it! */
-/* https://github.com/google/fonts/issues/1612 */
+/**
+ * Manrope
+ * Used both online and offline, as it's not on Google Fonts yet
+ * But they're looking at it!
+ * https://github.com/google/fonts/issues/1612
+ */
 @font-face {
   font-family: "Manrope";
   font-style: normal;
