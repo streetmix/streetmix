@@ -2,7 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSegmentVariantInfo } from './info'
-import { drawSegmentContents, getVariantInfoDimensions, drawSegmentPlain } from './view'
+import {
+  drawSegmentContents,
+  getVariantInfoDimensions,
+  drawSegmentPlain
+} from './view'
 import { TILE_SIZE } from './constants'
 import './SegmentCanvas.scss'
 
@@ -18,7 +22,7 @@ class SegmentCanvas extends React.PureComponent {
     actualWidth: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
-    randSeed: PropTypes.number,
+    randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     multiplier: PropTypes.number,
     groundBaseline: PropTypes.number,
     dpi: PropTypes.number,
@@ -65,21 +69,48 @@ class SegmentCanvas extends React.PureComponent {
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     if (this.props.isIcon) {
-      drawSegmentPlain(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.groundBaseline, this.props.randSeed, this.props.multiplier, this.props.dpi)
+      drawSegmentPlain(
+        ctx,
+        this.props.type,
+        this.props.variantString,
+        this.props.actualWidth,
+        0,
+        this.props.groundBaseline,
+        this.props.randSeed,
+        this.props.multiplier,
+        this.props.dpi
+      )
     } else {
-      drawSegmentContents(ctx, this.props.type, this.props.variantString, this.props.actualWidth, 0, this.props.groundBaseline, this.props.randSeed, this.props.multiplier, this.props.dpi)
+      drawSegmentContents(
+        ctx,
+        this.props.type,
+        this.props.variantString,
+        this.props.actualWidth,
+        0,
+        this.props.groundBaseline,
+        this.props.randSeed,
+        this.props.multiplier,
+        this.props.dpi
+      )
     }
   }
 
   render () {
     // Determine the maximum width of the artwork for this segment
-    const variantInfo = getSegmentVariantInfo(this.props.type, this.props.variantString)
-    const dimensions = getVariantInfoDimensions(variantInfo, this.props.actualWidth)
+    const variantInfo = getSegmentVariantInfo(
+      this.props.type,
+      this.props.variantString
+    )
+    const dimensions = getVariantInfoDimensions(
+      variantInfo,
+      this.props.actualWidth
+    )
     const totalWidth = dimensions.right - dimensions.left
 
     // If the graphics are wider than the width of the segment, then we will draw
     // our canvas a little bigger to make sure that the graphics aren't truncated.
-    const displayWidth = (totalWidth > this.props.actualWidth) ? totalWidth : this.props.actualWidth
+    const displayWidth =
+      totalWidth > this.props.actualWidth ? totalWidth : this.props.actualWidth
 
     // Determine dimensions to draw DOM element
     const elementWidth = displayWidth * TILE_SIZE * this.props.multiplier
