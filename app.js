@@ -30,7 +30,12 @@ const logger = require('./lib/logger.js')()
 const client = initRedisClient()
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
-compileSVGSprites('assets/images/illustrations/', 'illustrations', 'image')
+compileSVGSprites('assets/images/illustrations', 'illustrations', 'image')
+compileSVGSprites(
+  'node_modules/@streetmix/illustrations/images/',
+  'images',
+  'image'
+)
 
 const app = (module.exports = express())
 
@@ -232,16 +237,6 @@ app.get(
 // API routes
 app.use('', apiRoutes)
 app.use('', serviceRoutes)
-
-// SVG bundled images served directly from packages
-app.get('/assets/images/images.svg', (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      '/node_modules/@streetmix/illustrations/dist/images.svg'
-    )
-  )
-})
 
 app.use(
   '/assets',

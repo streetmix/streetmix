@@ -10,14 +10,14 @@ export const images = new Map()
 const IMAGES_TO_BE_LOADED = [
   '/assets/icons.svg',
   '/assets/illustrations.svg',
+  '/assets/images.svg',
   '/images/wordmark.svg',
   '/images/wordmark_black.svg',
   '/images/wordmark_white.svg',
   '/images/sky-front.svg',
   '/images/sky-rear.svg',
   '/images/stars.svg',
-  '/images/moon.svg',
-  '/assets/images/images.svg'
+  '/images/moon.svg'
 ]
 
 const SVGStagingEl = document.getElementById('svg')
