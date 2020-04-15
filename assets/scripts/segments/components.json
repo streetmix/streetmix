@@ -559,7 +559,29 @@
           "flowers": {
             "graphics": {
               "scatter": {
-                "sprites": ["plants--flowers"],
+                "sprites": [
+                  "plants--flowers",
+                  {
+                    "id": "plants--flowers-orange",
+                    "width": 4,
+                    "disallowFirst": true
+                  },
+                  {
+                    "id": "plants--flowers-yellow",
+                    "width": 4,
+                    "disallowFirst": true
+                  },
+                  {
+                    "id": "plants--flowers-white",
+                    "width": 4,
+                    "disallowFirst": true
+                  },
+                  {
+                    "id": "plants--flowers-blue",
+                    "width": 4,
+                    "disallowFirst": true
+                  }
+                ],
                 "minSpacing": -3,
                 "maxSpacing": 3
               }
