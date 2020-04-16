@@ -34,10 +34,11 @@ $selection-highlight-colour: $colour-copper-500;
 }
 
 .environment-editor header {
-  padding: 1em;
-  text-align: center;
+  padding: 0.5em;
   background-color: $header-background-colour;
   color: $header-text-colour;
+  display: flex;
+  align-items: center;
 }
 
 .environment-editor.react-draggable header {
@@ -50,7 +51,12 @@ $selection-highlight-colour: $colour-copper-500;
 }
 
 .environment-editor header h3 {
-  margin: 0;
+  flex: 1;
+  min-width: 0;
+  margin: 0 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .environment-editor-content {
@@ -80,11 +86,12 @@ $selection-highlight-colour: $colour-copper-500;
 
 /* Close button overrides */
 .environment-editor .close {
+  position: relative;
   width: 24px;
   height: 24px;
   padding: 0;
-  top: 4px;
-  right: 4px;
+  top: auto;
+  right: auto;
   display: flex !important;
   justify-content: center;
   align-items: center !important;
