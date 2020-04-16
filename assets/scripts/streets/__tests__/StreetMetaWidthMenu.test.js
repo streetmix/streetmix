@@ -64,7 +64,7 @@ describe('StreetMetaWidthMenu', () => {
       />
     )
 
-    fireEvent.change(wrapper.getByRole('listbox'), { target: { value: 40 } })
+    fireEvent.change(wrapper.getByRole('combobox'), { target: { value: 40 } })
 
     // Return value is a string from <option value=""> attribute
     expect(handleChange).toHaveReturnedWith('40')

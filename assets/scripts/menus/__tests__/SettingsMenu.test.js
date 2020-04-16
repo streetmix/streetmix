@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, wait } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import SettingsMenu from '../SettingsMenu'
 import {
@@ -58,7 +58,7 @@ describe('SettingsMenu', () => {
     expect(changeLocale).toBeCalledTimes(1)
     expect(changeLocale).toBeCalledWith('fi')
 
-    wait(() => {
+    waitFor(() => {
       // This is called aynchronously, so we await the fireEvent.click(), above
       expect(clearMenus).toBeCalledTimes(1)
     })
