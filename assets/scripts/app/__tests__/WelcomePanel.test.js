@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, waitForElement } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import MockAdapter from 'axios-mock-adapter'
 import ConnectedWelcomePanel, { WelcomePanel } from '../WelcomePanel'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
@@ -60,23 +60,20 @@ describe('WelcomePanel', () => {
     })
 
     it('copies the last street and highlights Start with a copy button', async () => {
-      const {
-        queryByLabelText,
-        getByLabelText,
-        store
-      } = renderWithReduxAndIntl(<ConnectedWelcomePanel />, {
-        initialState: {
-          street,
-          settings: { priorLastStreetId: '2' },
-          app: { everythingLoaded: false }
+      const { getByLabelText, store } = renderWithReduxAndIntl(
+        <ConnectedWelcomePanel />,
+        {
+          initialState: {
+            street,
+            settings: { priorLastStreetId: '2' },
+            app: { everythingLoaded: false }
+          }
         }
-      })
+      )
       store.dispatch(everythingLoaded())
       apiMock.onAny().reply(200, apiResponse)
-      fireEvent.click(getByLabelText(/Start with a copy/))
-      const input = await waitForElement(() =>
-        queryByLabelText(/Start with a copy/)
-      )
+      const input = getByLabelText(/Start with a copy/)
+      fireEvent.click(input)
       expect(input.checked).toBe(true)
     })
   })
