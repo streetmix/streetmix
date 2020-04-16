@@ -38,18 +38,21 @@ button.close {
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
+    color: $close-icon-colour-hover;
   }
 
   &:active {
     background-color: rgba(255, 255, 255, 0.75);
   }
 
+  // !important overrides higher-level specificity on font awesome
+  // icons that normally exist on buttons. Apply color to the parent
+  // element (.close) and the icon will take on this color.
   svg {
-    // `!important` overrides higher-specifity button style
-    color: $close-icon-colour !important;
+    color: inherit !important;
   }
 
   &:hover svg {
-    color: $close-icon-colour-hover !important;
+    color: inherit !important;
   }
 }
