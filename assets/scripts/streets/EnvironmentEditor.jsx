@@ -1,12 +1,14 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
+import { FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
 import CloseButton from '../ui/CloseButton'
 import { getAllEnvirons } from './environs'
 import { DEFAULT_ENVIRONS } from './constants'
 import { setEnvironment } from '../store/actions/street'
 import { toggleToolbox } from '../store/actions/ui'
+import emojiIcon from '../../images/openmoji/color/1F324.svg'
 import './EnvironmentEditor.scss'
 
 function EnvironmentEditor (props) {
@@ -45,7 +47,13 @@ function EnvironmentEditor (props) {
               style={props}
             >
               <header>
-                <h3>Environment</h3>
+                <img src={emojiIcon} alt="Sun behind rain cloud" />
+                <h3>
+                  <FormattedMessage
+                    id="tools.environment.heading"
+                    defaultMessage="Environment"
+                  />
+                </h3>
                 <CloseButton onClick={handleClose} />
               </header>
               <div className="environment-editor-content">

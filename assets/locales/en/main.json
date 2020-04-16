@@ -250,6 +250,12 @@
       "heading": "Subscribe to our newsletter"
     }
   },
+  "tools": {
+    "tooltip": "Toggle tools",
+    "environment": {
+      "heading": "Environment"
+    }
+  },
   "prompt": {
     "new-street": "New street name:",
     "delete-street": "Are you sure you want to permanently delete {streetName}? This cannot be undone.",

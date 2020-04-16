@@ -50,10 +50,21 @@ $selection-highlight-colour: $colour-copper-500;
   cursor: grabbing;
 }
 
+.environment-editor header img {
+  height: 16px;
+  width: auto;
+  margin-left: 0.5em;
+
+  [dir="rtl"] & {
+    margin-right: 0.5em;
+    margin-left: auto;
+  }
+}
+
 .environment-editor header h3 {
   flex: 1;
   min-width: 0;
-  margin: 0 0.5em;
+  margin: 0 0.25em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
