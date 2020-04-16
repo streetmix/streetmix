@@ -1,21 +1,13 @@
-// TODO: Refactor this to have less magic numbers & stuff
 import seedrandom from 'seedrandom'
 import maxBy from 'lodash/maxBy'
 import { images } from '../app/load_resources'
 import { drawSegmentImage } from './view'
 import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
-import PEOPLE from './people.json'
 
-// Buffer area to not render people in
-// This will be split on either side (2 on the left, 2 on the right)
-// Not 4 on both sides
-const SEGMENT_PADDING = 4 // in feet
-
-// Adjust spacing between people to be slightly closer
-const PERSON_SPACING_ADJUSTMENT = -0.5 // in feet
-
-const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
+// Buffer area to avoid rendering sprites in.
+// Will be applied to both edges of the segment.
+const SEGMENT_PADDING = 2 // in feet
 
 /**
  * Given a pool of objects, with defined widths, get the maximum width value
@@ -57,35 +49,48 @@ export function pickObjectsFromPool (
 
   const objects = []
   let runningWidth = 0
-  let previousIndex = 0
+  let previousIndex = null
   let currentIndex = null
   let lastWidth = 0
 
   // Pick (draw) objects from the pool until we have at least one object, and
-  // until we hit the maximum width given
-  while (objects.length === 0 || runningWidth < maxWidth - SEGMENT_PADDING) {
+  // until we hit the maximum width given. SEGMENT_PADDING is used to so that
+  // we don't render objects too closely to the edge of a segment.
+  while (
+    objects.length === 0 ||
+    runningWidth < maxWidth - SEGMENT_PADDING * 2
+  ) {
     let object
 
-    do {
+    // Special choosing logic only for larger pools.
+    if (pool.length >= 4) {
+      do {
+        const index = Math.floor(randomGenerator() * pool.length)
+        currentIndex = index
+
+        // Clone the object
+        object = Object.assign({}, pool[index])
+      } while (
+        // Don't pick the same object twice in a row, and avoid picking
+        // certain objects as the first object in a list. This is because
+        // some objects are "special" and look strange when on their own,
+        // but can diversify when included in a list.
+        currentIndex === previousIndex ||
+        (objects.length === 0 && object.disallowFirst === true)
+      )
+    } else {
       const index = Math.floor(randomGenerator() * pool.length)
       currentIndex = index
 
       // Clone the object
       object = Object.assign({}, pool[index])
-    } while (
-      // Don't pick the same object twice in a row, and avoid picking
-      // certain objects as the first object in a list. This is because
-      // some objects are "special" and look strange when on their own,
-      // but can diversify when included in a list.
-      currentIndex === previousIndex ||
-      (objects.length === 0 && object.disallowFirst === true)
-    )
+    }
 
     previousIndex = currentIndex
     object.left = runningWidth
 
-    // Calculate the amount of space to allocate to this person,
-    // creating space for placing the next person (if any).
+    // Calculate the amount of space to allocate to this object,
+    // creating space for placing the next object (if any).
     // First, take into account the object's defined sprite width.
     // Then add `minSpacing`, the minimum spacing between sprites.
     // Next, add a variable distance between sprites. This number
@@ -130,9 +135,9 @@ export function pickObjectsFromPool (
 }
 
 /**
- * Programatically draw a crowd of people to a canvas
+ * General use case of rendering scattered sprites
  *
- * @todo refactor to general use case
+ * @param {Array} sprite - id of sprite to draw
  * @param {CanvasRenderingContext2D} ctx
  * @param {Number} width - width of segment to populate, in feet
  * @param {Number} offsetLeft
@@ -140,10 +145,12 @@ export function pickObjectsFromPool (
  * @param {Number} randSeed - ensures a consistent sequence of objects across renders
  * @param {Number} minSpacing - left spacing between each object, in feet (controls density)
  * @param {Number} maxSpacing - maximum right spacing between each object, in feet (controls density)
+ * @param {Number} adjustment - further adjustment value
  * @param {Number} multiplier
  * @param {Number} dpi
  */
-export function drawProgrammaticPeople (
+export function drawScatteredSprites (
+  sprites,
   ctx,
   width,
   offsetLeft,
@@ -151,29 +158,46 @@ export function drawProgrammaticPeople (
   randSeed,
   minSpacing,
   maxSpacing,
+  adjustment = 0,
   multiplier,
   dpi
 ) {
-  const maxSpriteWidth = getSpriteMaxWidth(PEOPLE)
-  const [people, startLeft] = pickObjectsFromPool(
-    PEOPLE,
+  // Pool must be an array of objects. If an array of strings
+  // is passed in, look up its sprite information from the string
+  // id and convert to object.
+  const pool = sprites.map((sprite) => {
+    if (typeof sprite === 'string') {
+      const svg = images.get(sprite)
+      return {
+        id: sprite,
+        width: svg.width / TILE_SIZE_ACTUAL
+      }
+    }
+
+    // Pass objects through as-is
+    return sprite
+  })
+
+  const maxSpriteWidth = getSpriteMaxWidth(pool)
+  const [objects, startLeft] = pickObjectsFromPool(
+    pool,
     width,
     randSeed,
     minSpacing,
     maxSpacing,
     maxSpriteWidth,
-    PERSON_SPACING_ADJUSTMENT
+    adjustment
   )
 
-  for (const person of people) {
-    const id = `people--${person.id}`
+  for (const object of objects) {
+    const id = object.id
     const sprite = getSpriteDef(id)
     const svg = images.get(id)
 
     const distanceFromGround =
       multiplier *
       TILE_SIZE *
-      ((svg.height - (sprite.originY ?? PERSON_SPRITE_OFFSET_Y)) /
+      ((svg.height - (sprite.originY ?? object.originY ?? 0)) /
         TILE_SIZE_ACTUAL)
 
     drawSegmentImage(
@@ -184,11 +208,11 @@ export function drawProgrammaticPeople (
       undefined,
       undefined,
       offsetLeft +
-        (person.left -
-          // TODO: Document / refactor magic numbers
-          // this number was originally multiplied by TILE_SIZE, so 5 feet for what?
-          5 / 2 -
-          (maxSpriteWidth - person.width) / 2 +
+        (object.left -
+          // Adjust offset according to the svg viewbox width
+          svg.width / TILE_SIZE_ACTUAL / 2 -
+          // Adjust according to sprite's defined "hitbox" width
+          (maxSpriteWidth - object.width) / 2 +
           startLeft) *
           TILE_SIZE *
           multiplier,

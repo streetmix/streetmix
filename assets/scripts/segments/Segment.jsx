@@ -189,6 +189,9 @@ export class Segment extends React.Component {
     const isOldVariant = variantType === 'old'
     const { segment, connectDragSource, connectDropTarget } = this.props
 
+    // uses the segment UUID as seed if a randseed isn't available
+    const randSeed = segment.randSeed ?? segment.id
+
     return connectDragSource(
       connectDropTarget(
         <div className="segment-canvas-container">
@@ -198,7 +201,7 @@ export class Segment extends React.Component {
             variantString={
               isOldVariant ? this.state.oldVariant : segment.variantString
             }
-            randSeed={segment.randSeed}
+            randSeed={randSeed}
             updatePerspective={this.props.updatePerspective}
           />
         </div>
@@ -412,8 +415,5 @@ export default flow(
     segmentTarget,
     collectDropTarget
   ),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+  connect(mapStateToProps, mapDispatchToProps)
 )(Segment)
