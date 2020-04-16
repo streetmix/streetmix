@@ -47,7 +47,11 @@ function EnvironmentEditor (props) {
               style={props}
             >
               <header>
-                <img src={emojiIcon} alt="Sun behind rain cloud" />
+                <img
+                  src={emojiIcon}
+                  alt="Sun behind rain cloud"
+                  draggable="false"
+                />
                 <h3>
                   <FormattedMessage
                     id="tools.environment.heading"
