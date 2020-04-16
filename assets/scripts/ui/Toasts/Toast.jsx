@@ -29,14 +29,12 @@ function Toast (props) {
       <div className="toast-content">
         <CloseButton onClick={handleClose} />
         {title && <h3>{title}</h3>}
-        <p>
-          {message}
-          {action && (
-            <button className="toast-action" onClick={handleAction}>
-              {action}
-            </button>
-          )}
-        </p>
+        <p>{message}</p>
+        {action && (
+          <button className="toast-action" onClick={handleAction}>
+            {action}
+          </button>
+        )}
       </div>
     </div>
   )
