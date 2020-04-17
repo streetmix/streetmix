@@ -1,8 +1,11 @@
-import { showStatusMessage } from '../app/status_message'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { segmentsChanged } from './view'
 import { t } from '../locales/locale'
-import { removeSegment as removeSegmentActionCreator, clearSegments } from '../store/actions/street'
+import {
+  removeSegment as removeSegmentActionCreator,
+  clearSegments
+} from '../store/actions/street'
+import { addToast } from '../store/actions/toast'
 import store from '../store'
 
 /**
@@ -23,7 +26,12 @@ export function removeSegment (position) {
 
   segmentsChanged()
 
-  showStatusMessage(t('toast.segment-deleted', 'The segment has been removed.'), true)
+  store.dispatch(
+    addToast({
+      message: t('toast.segment-deleted', 'The segment has been removed.'),
+      component: 'TOAST_UNDO'
+    })
+  )
 }
 
 /**
@@ -34,5 +42,13 @@ export function removeAllSegments () {
   store.dispatch(clearSegments())
   segmentsChanged()
   infoBubble.hide()
-  showStatusMessage(t('toast.all-segments-deleted', 'All segments have been removed.'), true)
+  store.dispatch(
+    addToast({
+      message: t(
+        'toast.all-segments-deleted',
+        'All segments have been removed.'
+      ),
+      component: 'TOAST_UNDO'
+    })
+  )
 }

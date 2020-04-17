@@ -7,7 +7,7 @@
   right: 20px;
   height: 20px;
   padding: 0;
-  z-index: $z-07-status-message;
+  z-index: $z-07-toasts;
   pointer-events: none;
   user-select: none;
   transition: opacity 200ms, transform 200ms;
@@ -16,10 +16,6 @@
   &.status-message-visible {
     transform: translateY(0);
   }
-}
-
-body.no-connection-message-visible #status-message {
-  bottom: 78px;
 }
 
 .status-message-content {

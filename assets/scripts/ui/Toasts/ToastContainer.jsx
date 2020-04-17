@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
 import Toast from './Toast'
 import ToastUndo from './ToastUndo'
 import ToastSignIn from './ToastSignIn'
 import ToastNoConnection from './ToastNoConnection'
+import { destroyToast } from '../../store/actions/toast'
 import './ToastContainer.scss'
-
-let id = 0
 
 const TOAST_SPRING_CONFIG = {
   tension: 488,
@@ -15,20 +15,29 @@ const TOAST_SPRING_CONFIG = {
   precision: 0.01
 }
 const TOAST_DISPLAY_TIMEOUT = 12000
+const TOAST_MAX_TO_DISPLAY = 5
 
 ToastContainer.propTypes = {
   config: PropTypes.object,
-  timeout: PropTypes.number,
-  setMessages: PropTypes.func
+  timeout: PropTypes.number
 }
 
 function ToastContainer (props) {
-  const { config = TOAST_SPRING_CONFIG, timeout = TOAST_DISPLAY_TIMEOUT, setMessages } = props
+  const {
+    config = TOAST_SPRING_CONFIG,
+    timeout = TOAST_DISPLAY_TIMEOUT
+  } = props
   const [refMap] = useState(() => new WeakMap())
   const [cancelMap] = useState(() => new WeakMap())
-  const [items, setItems] = useState([])
+  const toasts = useSelector((state) => state.toast.toasts)
+  const dispatch = useDispatch()
 
-  const transitions = useTransition(items, item => item.key, {
+  const truncatedToasts =
+    toasts.length >= TOAST_MAX_TO_DISPLAY
+      ? toasts.slice(toasts.length - TOAST_MAX_TO_DISPLAY)
+      : toasts
+
+  const transitions = useTransition(truncatedToasts, (item) => item.timestamp, {
     from: {
       opacity: 0,
       height: 0,
@@ -68,20 +77,24 @@ function ToastContainer (props) {
         marginTop: '0px'
       })
     },
-    onRest: (item) => setItems(state => state.filter(i => i.key !== item.key)),
+    onRest: (item) => {
+      dispatch(destroyToast(item.timestamp))
+    },
     // When state is leave, this returns an array of three configs.
     // Each item in the array applies to each of the `next` calls in the `leave` function, I think.
     // So the first config sets the duration for the `life` property.
-    config: (item, state) => (state === 'leave' ? [{ duration: timeout }, config, config] : config)
+    config: (item, state) =>
+      state === 'leave' ? [{ duration: timeout }, config, config] : config
   })
-
-  useEffect(() => void setMessages(item => setItems(state => [...state, { key: id++, ...item }])), [setMessages])
 
   return (
     <div className="toast-container">
       {transitions.map((message) => {
-        const { item, props: { life, ...style } } = message
-        const setRef = ref => ref && refMap.set(item, ref)
+        const {
+          item,
+          props: { life, ...style }
+        } = message
+        const setRef = (ref) => ref && refMap.set(item, ref)
         const handleClose = (event) => {
           event.stopPropagation()
           cancelMap.has(item) && cancelMap.get(item)()
@@ -91,21 +104,41 @@ function ToastContainer (props) {
 
         switch (message.item.component) {
           case 'TOAST_UNDO':
-            childComponent = <ToastUndo setRef={setRef} handleClose={handleClose} {...message} />
+            childComponent = (
+              <ToastUndo
+                setRef={setRef}
+                handleClose={handleClose}
+                {...message}
+              />
+            )
             break
           case 'TOAST_SIGN_IN':
-            childComponent = <ToastSignIn setRef={setRef} handleClose={handleClose} {...message} />
+            childComponent = (
+              <ToastSignIn
+                setRef={setRef}
+                handleClose={handleClose}
+                {...message}
+              />
+            )
             break
           case 'TOAST_NO_CONNECTION':
-            childComponent = <ToastNoConnection setRef={setRef} handleClose={handleClose} {...message} />
+            childComponent = (
+              <ToastNoConnection
+                setRef={setRef}
+                handleClose={handleClose}
+                {...message}
+              />
+            )
             break
           default:
-            childComponent = <Toast setRef={setRef} handleClose={handleClose} {...message} />
+            childComponent = (
+              <Toast setRef={setRef} handleClose={handleClose} {...message} />
+            )
             break
         }
 
         return (
-          <animated.div key={item.key} style={style}>
+          <animated.div key={item.timestamp} style={style}>
             {childComponent}
           </animated.div>
         )

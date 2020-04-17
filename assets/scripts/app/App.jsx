@@ -12,7 +12,6 @@ import InfoBubble from '../info_bubble/InfoBubble'
 import WelcomePanel from './WelcomePanel'
 import PaletteContainer from '../palette/PaletteContainer'
 import DialogRoot from '../dialogs/DialogRoot'
-import StatusMessage from './StatusMessage'
 import NoConnectionMessage from './NoConnectionMessage'
 import EnvironmentEditor from '../streets/EnvironmentEditor'
 import Flash from './Flash'
@@ -62,54 +61,15 @@ function App () {
           <WelcomePanel />
           <PaletteContainer />
           <DialogRoot />
-          <StatusMessage />
           <NoConnectionMessage />
           <EnvironmentEditor />
           <SegmentDragLayer />
           <StreetView />
-          <ToastContainer setMessages={setMessages} />
+          <ToastContainer />
         </div>
       </DndProvider>
     </IntlProvider>
   )
-}
-
-function setMessages (addMessage) {
-  const items = [
-    {
-      message: 'Your street was reloaded from the server as it was modified elsewhere.'
-    },
-    {
-      component: 'TOAST_UNDO',
-      message: 'The segment has been removed.'
-    },
-    {
-      component: 'TOAST_SIGN_IN',
-      message: 'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'
-    },
-    {
-      type: 'success',
-      title: 'Achievement unlocked!',
-      message: 'Reach 100,000 people per hour street capacity.',
-      action: 'More info'
-    },
-    {
-      component: 'TOAST_NO_CONNECTION',
-      type: 'warning',
-      message: 'Streetmix is having trouble connecting to the Internet.',
-      action: 'Retry connection',
-      stay: true
-    },
-    {
-      message: 'Nothing to undo.'
-    }
-  ]
-
-  items.forEach((item, index) => {
-    window.setTimeout(() => {
-      addMessage(item)
-    }, (index * 1000) + 5000)
-  })
 }
 
 export default App

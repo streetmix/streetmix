@@ -7,7 +7,7 @@ import { nonblockingAjaxTryAgain } from '../../util/fetch_nonblocking'
 // Renders a specific type of Toast with Undo button.
 ToastNoConnection.propTypes = {
   item: PropTypes.shape({
-    component: PropTypes.oneOf['TOAST_UNDO'],
+    component: PropTypes.oneOf(['TOAST_NO_CONNECTION']),
     message: PropTypes.string.isRequired,
     action: PropTypes.string,
     handleAction: PropTypes.func
@@ -30,9 +30,7 @@ function ToastNoConnection (props) {
     handleClose(event)
   }
 
-  return (
-    <Toast setRef={setRef} handleClose={handleClose} item={item} />
-  )
+  return <Toast setRef={setRef} handleClose={handleClose} item={item} />
 }
 
 export default ToastNoConnection

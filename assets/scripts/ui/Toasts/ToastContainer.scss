@@ -1,9 +1,11 @@
+@import "../../../styles/variables.scss";
+
 .toast-container {
   position: absolute;
   top: 40px;
   right: 30px;
   width: 300px;
-  z-index: 600;
+  z-index: $z-07-toasts;
 
   // Align all toasts to right edge
   display: flex;
@@ -19,6 +21,6 @@
   // A hint to the browser that child toasts should be optimized for transformation
   > div {
     will-change: transform;
-    transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0, 0, 0);
   }
 }
