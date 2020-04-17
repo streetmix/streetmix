@@ -7,7 +7,7 @@ import { doSignIn } from '../../users/authentication'
 // Renders a specific type of Toast with Sign in button.
 ToastSignIn.propTypes = {
   item: PropTypes.shape({
-    component: PropTypes.oneOf['TOAST_SIGN_IN'],
+    component: PropTypes.oneOf(['TOAST_SIGN_IN']),
     message: PropTypes.string.isRequired,
     action: PropTypes.string,
     handleAction: PropTypes.func
@@ -30,9 +30,7 @@ function ToastSignIn (props) {
     handleClose(event)
   }
 
-  return (
-    <Toast setRef={setRef} handleClose={handleClose} item={item} />
-  )
+  return <Toast setRef={setRef} handleClose={handleClose} item={item} />
 }
 
 export default ToastSignIn

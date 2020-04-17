@@ -1,25 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import Toast from './Toast'
-import { undo } from '../../store/actions/undo'
+import { handleUndo } from '../../store/actions/undo'
 
 // Renders a specific type of Toast with Undo button.
 ToastUndo.propTypes = {
   item: PropTypes.shape({
-    component: PropTypes.oneOf['TOAST_UNDO'],
+    component: PropTypes.oneOf(['TOAST_UNDO']),
     message: PropTypes.string.isRequired,
     action: PropTypes.string,
     handleAction: PropTypes.func
   }),
   setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  undo: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired
 }
 
 function ToastUndo (props) {
-  const { item, setRef, handleClose, undo } = props
+  const { item, setRef, handleClose } = props
+  const dispatch = useDispatch()
   const intl = useIntl()
 
   item.action = intl.formatMessage({
@@ -28,15 +28,11 @@ function ToastUndo (props) {
   })
 
   item.handleAction = (event) => {
-    undo()
+    dispatch(handleUndo())
     handleClose(event)
   }
 
-  return (
-    <Toast setRef={setRef} handleClose={handleClose} item={item} />
-  )
+  return <Toast setRef={setRef} handleClose={handleClose} item={item} />
 }
 
-const mapDispatchToProps = { undo }
-
-export default connect(null, mapDispatchToProps)(ToastUndo)
+export default ToastUndo
