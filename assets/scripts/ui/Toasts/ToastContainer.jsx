@@ -49,13 +49,30 @@ function ToastContainer (props) {
       life: '100%'
     },
     enter: (item) => async (next) => {
+      // Get the computed width and height values from the DOM element as
+      // it's first rendered, but before animating in, and then set these
+      // values on the element to lock them in place. This solves some
+      // layout issues (see comments below). Using `getBoundingClientRect()`
+      // gets more precise values (e.g. decimal values).
       await next({
-        // Set the width on enter so that the toast has proper width for shadow
-        width: refMap.get(item).offsetWidth,
+        // Set the width on the toast element so that the drop shadow
+        // also has the proper width. `getBoundingClientRect()` is preferred
+        // over `offsetWidth` because if the latter property returns a
+        // rounded-down number (the nearest integer), setting a rounded
+        // width can improperly cause text to wrap. So instead we obtain
+        // the more precise measurement and force it to round up.
+        width: Math.ceil(refMap.get(item).getBoundingClientRect().width),
 
-        // Height is set dynamically so we can animate out
-        height: refMap.get(item).offsetHeight
+        // Set the height on the toast element so that we can position
+        // multiple toasts at the correct vertical spacing from each other.
+        // This height also allows us to properly animate out as toasts
+        // disappear, causing toasts below it to "slide" upwards.
+        // `getBoundingClientRect()` is preferred over `offsetHeight` because
+        // a rounded number can cause toats to be positioned too closely to
+        // each other -- almost overlapping each other.
+        height: Math.ceil(refMap.get(item).getBoundingClientRect().height)
       })
+
       await next({
         opacity: 1,
         transform: 'translateX(0px)'
