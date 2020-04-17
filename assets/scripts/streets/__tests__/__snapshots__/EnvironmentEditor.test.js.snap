@@ -11,6 +11,11 @@ exports[`EnvironmentEditor renders 1`] = `
       style="opacity: 0; transform: scale(0.75); pointer-events: none;"
     >
       <header>
+        <img
+          alt="Sun behind rain cloud"
+          draggable="false"
+          src="test-file-stub"
+        />
         <h3>
           Environment
         </h3>
