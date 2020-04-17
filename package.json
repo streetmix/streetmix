@@ -175,7 +175,7 @@
     "@babel/preset-env": "7.9.0",
     "@babel/preset-react": "7.9.0",
     "@commitlint/cli": "8.3.5",
-    "@commitlint/config-conventional": "8.2.0",
+    "@commitlint/config-conventional": "8.3.4",
     "@commitlint/travis-cli": "8.3.5",
     "@testing-library/jest-dom": "5.0.2",
     "@testing-library/react": "10.0.2",
