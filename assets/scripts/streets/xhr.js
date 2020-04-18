@@ -283,6 +283,7 @@ function receiveStreetForVerification (transmission) {
   if (serverUpdatedAt && localUpdatedAt && serverUpdatedAt > localUpdatedAt) {
     store.dispatch(
       addToast({
+        method: 'warning',
         message: t(
           'toast.reloaded',
           'Your street was reloaded from the server as it was modified elsewhere.'
