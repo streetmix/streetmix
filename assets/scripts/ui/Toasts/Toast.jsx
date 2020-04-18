@@ -8,16 +8,16 @@ Toast.propTypes = {
     type: PropTypes.oneOf(['success', 'warning']),
     message: PropTypes.string.isRequired,
     title: PropTypes.string,
-    action: PropTypes.string,
-    handleAction: PropTypes.func
+    action: PropTypes.string
   }),
   setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  handleAction: PropTypes.func
 }
 
 function Toast (props) {
-  const { item, setRef, handleClose } = props
-  const { type, title, message, action, handleAction = () => {} } = item
+  const { item, setRef, handleClose, handleAction = () => {} } = props
+  const { type, title, message, action } = item
 
   const classNames = ['toast']
   if (type) {

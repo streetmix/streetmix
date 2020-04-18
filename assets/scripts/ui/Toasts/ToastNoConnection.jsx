@@ -9,8 +9,7 @@ ToastNoConnection.propTypes = {
   item: PropTypes.shape({
     component: PropTypes.oneOf(['TOAST_NO_CONNECTION']),
     message: PropTypes.string.isRequired,
-    action: PropTypes.string,
-    handleAction: PropTypes.func
+    action: PropTypes.string
   }),
   setRef: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired
@@ -25,12 +24,19 @@ function ToastNoConnection (props) {
     defaultMessage: 'Try again'
   })
 
-  item.handleAction = (event) => {
+  function handleAction (event) {
     nonblockingAjaxTryAgain()
     handleClose(event)
   }
 
-  return <Toast setRef={setRef} handleClose={handleClose} item={item} />
+  return (
+    <Toast
+      setRef={setRef}
+      handleClose={handleClose}
+      handleAction={handleAction}
+      item={item}
+    />
+  )
 }
 
 export default ToastNoConnection

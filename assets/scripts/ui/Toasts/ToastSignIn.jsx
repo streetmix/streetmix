@@ -9,8 +9,7 @@ ToastSignIn.propTypes = {
   item: PropTypes.shape({
     component: PropTypes.oneOf(['TOAST_SIGN_IN']),
     message: PropTypes.string.isRequired,
-    action: PropTypes.string,
-    handleAction: PropTypes.func
+    action: PropTypes.string
   }),
   setRef: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired
@@ -25,12 +24,19 @@ function ToastSignIn (props) {
     defaultMessage: 'Sign in'
   })
 
-  item.handleAction = (event) => {
+  function handleAction (event) {
     doSignIn()
     handleClose(event)
   }
 
-  return <Toast setRef={setRef} handleClose={handleClose} item={item} />
+  return (
+    <Toast
+      setRef={setRef}
+      handleClose={handleClose}
+      handleAction={handleAction}
+      item={item}
+    />
+  )
 }
 
 export default ToastSignIn

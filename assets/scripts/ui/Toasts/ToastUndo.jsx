@@ -10,8 +10,7 @@ ToastUndo.propTypes = {
   item: PropTypes.shape({
     component: PropTypes.oneOf(['TOAST_UNDO']),
     message: PropTypes.string.isRequired,
-    action: PropTypes.string,
-    handleAction: PropTypes.func
+    action: PropTypes.string
   }),
   setRef: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired
@@ -44,12 +43,19 @@ function ToastUndo (props) {
       defaultMessage: 'Undo'
     })
 
-  item.handleAction = (event) => {
+  function handleAction (event) {
     dispatch(handleUndo())
     handleClose(event)
   }
 
-  return <Toast setRef={setRef} handleClose={handleClose} item={item} />
+  return (
+    <Toast
+      setRef={setRef}
+      handleClose={handleClose}
+      handleAction={handleAction}
+      item={item}
+    />
+  )
 }
 
 export default ToastUndo
