@@ -114,7 +114,8 @@ function receiveRemixedStreet (data) {
             'toast.remixing-sign-in',
             'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'
           ),
-          component: 'TOAST_SIGN_IN'
+          component: 'TOAST_SIGN_IN',
+          duration: 12000
         })
       )
     }

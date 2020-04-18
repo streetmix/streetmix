@@ -13,7 +13,7 @@ const TOAST_SPRING_CONFIG = {
   friction: 36,
   precision: 0.01
 }
-const TOAST_DISPLAY_TIMEOUT = 12000
+const TOAST_DISPLAY_TIMEOUT = 6000
 const TOAST_MAX_TO_DISPLAY = 5
 
 function ToastContainer (props) {
