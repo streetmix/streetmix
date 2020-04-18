@@ -120,8 +120,6 @@ $header-text-colour: $colour-turquoise-700;
     margin-top: 1em;
 
     // New button appearance
-    border: 0; // Overwrites traditional button appearance
-    border-radius: $border-radius-medium;
     background-color: $colour-emerald-400;
     color: white;
     font-weight: bold;
@@ -161,8 +159,8 @@ $header-text-colour: $colour-turquoise-700;
 }
 
 button.dialog-primary-action {
-  border-top: 1px solid #cde1ea;
-  border-bottom: 0;
+  border-top: 1px solid $colour-turquoise-300;
+  border-radius: 0;
   background-color: white;
   width: 100%;
   text-align: center;
@@ -174,7 +172,7 @@ button.dialog-primary-action {
   margin-top: 0 !important;
 
   &:hover {
-    background-color: #f1f7f9;
+    background-color: $colour-turquoise-100;
     color: darken($ui-colour, 50%);
   }
 }

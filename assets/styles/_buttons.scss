@@ -21,16 +21,13 @@ a.button-like {
   display: inline-block !important;
   outline: none;
   border: 0;
-  border-top: $button-border;
-  border-bottom: $button-border;
-  border-radius: 0; /* For Chrome 62 on Mac, which enforces a border-radius in its browser stylesheet. */
+  border-radius: $border-radius-medium;
   padding-left: 10px;
   padding-right: 10px;
   background-color: mix($ui-colour, white, 50%);
   color: black;
   text-align: center;
   text-decoration: none;
-  -webkit-align-items: flex-start !important;
 
   &:not([disabled]) .svg-inline--fa {
     color: #231f20;
