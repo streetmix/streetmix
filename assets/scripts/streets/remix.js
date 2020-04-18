@@ -1,5 +1,4 @@
 import { API_URL } from '../app/config'
-import { showStatusMessage } from '../app/status_message'
 import { t } from '../locales/locale'
 import { app } from '../preinit/app_settings'
 import {
@@ -17,6 +16,7 @@ import {
   updateEditCount,
   saveOriginalStreetId
 } from '../store/actions/street'
+import { addToast } from '../store/actions/toast'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false
@@ -63,7 +63,10 @@ export function remixStreet () {
 
   var undoStack = getUndoStack()
   var undoPosition = getUndoPosition()
-  if (undoStack[undoPosition - 1] && (undoStack[undoPosition - 1].name !== street.name)) {
+  if (
+    undoStack[undoPosition - 1] &&
+    undoStack[undoPosition - 1].name !== street.name
+  ) {
     // The street was remixed as a result of editing its name. Don’t be
     // a douche and add (remixed) to it then.
     dontAddSuffix = true
@@ -77,7 +80,8 @@ export function remixStreet () {
 
   var transmission = packServerStreetData()
 
-  newBlockingAjaxRequest('remix',
+  newBlockingAjaxRequest(
+    'remix',
     {
       // TODO const
       url: API_URL + 'v1/streets',
@@ -87,16 +91,32 @@ export function remixStreet () {
         Authorization: getAuthHeader(),
         'Content-Type': 'application/json'
       }
-    }, receiveRemixedStreet
+    },
+    receiveRemixedStreet
   )
 }
 
 function receiveRemixedStreet (data) {
   if (!promoteStreet) {
     if (isSignedIn()) {
-      showStatusMessage(t('toast.remixing', 'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.'))
+      store.dispatch(
+        addToast({
+          message: t(
+            'toast.remixing',
+            'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.'
+          )
+        })
+      )
     } else {
-      showStatusMessage(t('toast.remixing-sign-in', 'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'), false, true)
+      store.dispatch(
+        addToast({
+          message: t(
+            'toast.remixing-sign-in',
+            'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'
+          ),
+          component: 'TOAST_SIGN_IN'
+        })
+      )
     }
   }
 
@@ -111,8 +131,12 @@ export function addRemixSuffixToName () {
   // Bail if street is unnamed
   if (!street.name) return
 
-  if (street.name.substr(street.name.length - STREET_NAME_REMIX_SUFFIX.length,
-    STREET_NAME_REMIX_SUFFIX.length) !== STREET_NAME_REMIX_SUFFIX) {
+  if (
+    street.name.substr(
+      street.name.length - STREET_NAME_REMIX_SUFFIX.length,
+      STREET_NAME_REMIX_SUFFIX.length
+    ) !== STREET_NAME_REMIX_SUFFIX
+  ) {
     street.name += ' ' + STREET_NAME_REMIX_SUFFIX
   }
   store.dispatch(saveStreetName(street.name, false))

@@ -43,7 +43,7 @@ import {
   removeSegmentAction,
   clearSegmentsAction
 } from '../store/actions/street'
-import { showStatusMessage } from '../store/actions/status'
+import { addToast } from '../store/actions/toast'
 import './Segment.scss'
 
 export class Segment extends React.Component {
@@ -66,7 +66,7 @@ export class Segment extends React.Component {
     incrementSegmentWidth: PropTypes.func,
     removeSegmentAction: PropTypes.func,
     clearSegmentsAction: PropTypes.func,
-    showStatusMessage: PropTypes.func,
+    addToast: PropTypes.func,
 
     // Provided by react-dnd DragSource and DropTarget
     connectDragSource: PropTypes.func,
@@ -269,10 +269,13 @@ export class Segment extends React.Component {
         if (event.shiftKey === true) {
           this.props.clearSegmentsAction()
           infoBubble.hide()
-          this.props.showStatusMessage(
-            t('toast.all-segments-deleted', 'All segments have been removed.'),
-            true
-          )
+          this.props.addToast({
+            message: t(
+              'toast.all-segments-deleted',
+              'All segments have been removed.'
+            ),
+            component: 'TOAST_UNDO'
+          })
           trackEvent(
             'INTERACTION',
             'REMOVE_ALL_SEGMENTS',
@@ -283,10 +286,13 @@ export class Segment extends React.Component {
         } else {
           infoBubble.hide()
           infoBubble.hideSegment()
-          this.props.showStatusMessage(
-            t('toast.segment-deleted', 'The segment has been removed.'),
-            true
-          )
+          this.props.addToast({
+            message: t(
+              'toast.segment-deleted',
+              'The segment has been removed.'
+            ),
+            component: 'TOAST_UNDO'
+          })
           this.props.removeSegmentAction(this.props.dataNo, false)
           trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
         }
@@ -405,7 +411,7 @@ const mapDispatchToProps = {
   incrementSegmentWidth,
   removeSegmentAction,
   setActiveSegment,
-  showStatusMessage
+  addToast
 }
 
 export default flow(

@@ -12,7 +12,6 @@ import InfoBubble from '../info_bubble/InfoBubble'
 import WelcomePanel from './WelcomePanel'
 import PaletteContainer from '../palette/PaletteContainer'
 import DialogRoot from '../dialogs/DialogRoot'
-import StatusMessage from './StatusMessage'
 import NoConnectionMessage from './NoConnectionMessage'
 import EnvironmentEditor from '../streets/EnvironmentEditor'
 import Flash from './Flash'
@@ -24,6 +23,7 @@ import StreetView from './StreetView'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
+import ToastContainer from '../ui/Toasts/ToastContainer'
 import { onResize } from './window_resize'
 
 function App () {
@@ -61,11 +61,11 @@ function App () {
           <WelcomePanel />
           <PaletteContainer />
           <DialogRoot />
-          <StatusMessage />
           <NoConnectionMessage />
           <EnvironmentEditor />
           <SegmentDragLayer />
           <StreetView />
+          <ToastContainer />
         </div>
       </DndProvider>
     </IntlProvider>

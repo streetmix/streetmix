@@ -5,7 +5,6 @@ import {
   DELETE_GALLERY_STREET,
   SET_GALLERY_STATE
 } from '../actions'
-import { hideStatusMessage } from './status'
 import { hideControls } from '../../segments/resizing'
 import { fetchGalleryData } from '../../gallery/fetch_data'
 import { updatePageUrl } from '../../app/page_url'
@@ -21,15 +20,9 @@ function showGalleryAction (userId) {
 }
 
 export function showGallery (userId, instant = false) {
-  return (dispatch, getState) => {
-    const state = getState()
-
+  return (dispatch) => {
     dispatch(showGalleryAction(userId))
     hideControls()
-
-    if (state.status.showMessage) {
-      dispatch(hideStatusMessage())
-    }
 
     // TODO: Handle transition inside Gallery component.
     if (instant) {

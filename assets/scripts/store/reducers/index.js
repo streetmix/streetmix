@@ -14,6 +14,7 @@ import persistSettings from './persistSettings'
 import status from './status'
 import street from './street'
 import system from './system'
+import toast from './toast'
 import ui from './ui'
 import undo from './undo'
 import user from './user'
@@ -34,6 +35,7 @@ const reducers = combineReducers({
   status,
   street,
   system,
+  toast,
   ui,
   undo,
   user

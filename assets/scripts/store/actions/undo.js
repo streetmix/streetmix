@@ -6,7 +6,7 @@ import {
   REDO,
   UNIFY_UNDO_STACK
 } from './'
-import { showStatusMessage } from './status'
+import { addToast } from './toast'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { finishUndoOrRedo } from '../../streets/undo_stack'
 import { trimStreetData } from '../../streets/data_model'
@@ -46,7 +46,12 @@ export function handleUndo () {
       dispatch(undoAction(trimStreetData(street)))
       finishUndoOrRedo()
     } else {
-      dispatch(showStatusMessage(t('toast.no-undo', 'Nothing to undo.')))
+      dispatch(
+        addToast({
+          message: t('toast.no-undo', 'Nothing to undo.'),
+          duration: 6000
+        })
+      )
     }
   }
 }
@@ -64,7 +69,12 @@ export function handleRedo () {
       dispatch(redoAction())
       finishUndoOrRedo()
     } else {
-      dispatch(showStatusMessage(t('toast.no-redo', 'Nothing to redo.')))
+      dispatch(
+        addToast({
+          message: t('toast.no-redo', 'Nothing to redo.'),
+          duration: 6000
+        })
+      )
     }
   }
 }

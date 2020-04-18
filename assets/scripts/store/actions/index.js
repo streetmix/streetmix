@@ -83,8 +83,6 @@ export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
 export const SET_USER_UNITS = 'SET_USER_UNITS'
 
 /* status */
-export const SHOW_STATUS_MESSAGE = 'SHOW_STATUS_MESSAGE'
-export const HIDE_STATUS_MESSAGE = 'HIDE_STATUS_MESSAGE'
 export const SHOW_NO_CONNECTION_MESSAGE = 'SHOW_NO_CONNECTION_MESSAGE'
 
 /* street */
@@ -123,6 +121,11 @@ export const SET_ENVIRONMENT = 'SET_ENVIRONMENT'
 /* system */
 export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
 export const UPDATE_WINDOW_SIZE = 'UPDATE_WINDOW_SIZE'
+
+/* toast */
+export const ADD_TOAST = 'ADD_TOAST'
+export const DISMISS_TOAST = 'DISMISS_TOAST'
+export const DESTROY_TOAST = 'DESTROY_TOAST'
 
 /* ui */
 export const SHOW_STREET_NAMEPLATE = 'SHOW_STREET_NAMEPLATE'
