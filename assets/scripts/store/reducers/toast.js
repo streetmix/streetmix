@@ -18,7 +18,7 @@ const initialState = {
  * action (label) - string (optional) - a button action label. buttons trigger code so
  *              usually they're only attached through components. but this can override the
  *              label possibly.
- * expire (default: 12000 (ms), forever: 0 ) - number. time to expire if different length
+ * duration (default: 12000 (ms), forever: 0 ) - number. time to expire if different length
  *              is required. the only time you usually need to change this is to have an
  *              expiration date of forever. this means the only way to remove the toast is
  *              to dismiss it (whether by user interaction or other code)
@@ -30,7 +30,7 @@ const initialState = {
  *
  * not properties but states logged by toast container logic ....
  * expired (boolean) - this is not stored in the state because it's not required to render.
- *    expired is just timestamp + expire. (if expire !== -1)
+ *    expired is just timestamp + duration. (if duration !== 0)
  * done (boolean) - true once expired or dismissed, and has animated out. triggered at end of
  *    animation. this can be cleaned up.
  */
@@ -46,7 +46,7 @@ const status = (state = initialState, action) => {
           title: action.title,
           message: action.message,
           action: action.action,
-          expire: action.expire ?? 12000,
+          duration: action.duration,
           timestamp: Date.now(),
           dismissed: false
         }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
 import Toast from './Toast'
@@ -17,21 +16,14 @@ const TOAST_SPRING_CONFIG = {
 const TOAST_DISPLAY_TIMEOUT = 12000
 const TOAST_MAX_TO_DISPLAY = 5
 
-ToastContainer.propTypes = {
-  config: PropTypes.object,
-  timeout: PropTypes.number
-}
-
 function ToastContainer (props) {
-  const {
-    config = TOAST_SPRING_CONFIG,
-    timeout = TOAST_DISPLAY_TIMEOUT
-  } = props
+  const config = TOAST_SPRING_CONFIG
   const [refMap] = useState(() => new WeakMap())
   const [cancelMap] = useState(() => new WeakMap())
   const toasts = useSelector((state) => state.toast.toasts)
   const dispatch = useDispatch()
 
+  // TODO: Truncation doesn't work
   const truncatedToasts =
     toasts.length >= TOAST_MAX_TO_DISPLAY
       ? toasts.slice(toasts.length - TOAST_MAX_TO_DISPLAY)
@@ -95,13 +87,18 @@ function ToastContainer (props) {
       })
     },
     onRest: (item) => {
+      // This actually destroys the toast in Redux once it's animated *in*. This
+      // is counter-intuitive, but seems necessary, otherwise on subsequent updates
+      // it's still in the state and can cause the toast to be rendered again
       dispatch(destroyToast(item.timestamp))
     },
     // When state is leave, this returns an array of three configs.
     // Each item in the array applies to each of the `next` calls in the `leave` function, I think.
     // So the first config sets the duration for the `life` property.
     config: (item, state) =>
-      state === 'leave' ? [{ duration: timeout }, config, config] : config
+      state === 'leave'
+        ? [{ duration: item.duration ?? TOAST_DISPLAY_TIMEOUT }, config, config]
+        : config
   })
 
   return (

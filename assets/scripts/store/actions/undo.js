@@ -46,7 +46,12 @@ export function handleUndo () {
       dispatch(undoAction(trimStreetData(street)))
       finishUndoOrRedo()
     } else {
-      dispatch(addToast({ message: t('toast.no-undo', 'Nothing to undo.') }))
+      dispatch(
+        addToast({
+          message: t('toast.no-undo', 'Nothing to undo.'),
+          duration: 6000
+        })
+      )
     }
   }
 }
@@ -64,7 +69,12 @@ export function handleRedo () {
       dispatch(redoAction())
       finishUndoOrRedo()
     } else {
-      dispatch(addToast({ message: t('toast.no-redo', 'Nothing to redo.') }))
+      dispatch(
+        addToast({
+          message: t('toast.no-redo', 'Nothing to redo.'),
+          duration: 6000
+        })
+      )
     }
   }
 }

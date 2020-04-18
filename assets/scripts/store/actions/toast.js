@@ -6,7 +6,7 @@ export function addToast ({
   title,
   message,
   action,
-  expire
+  duration
 }) {
   return {
     type: ADD_TOAST,
@@ -15,7 +15,7 @@ export function addToast ({
     title,
     message,
     action,
-    expire
+    duration
   }
 }
 
