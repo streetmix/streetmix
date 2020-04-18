@@ -117,6 +117,8 @@ $z-index-10: 1000;
 // They are also named with the scale position so that
 // when they are referenced in other CSS files, their
 // z-scale position is also obvious at a glance.
+// Between scale positions, one can fine-tune placement
+// by adding a +number to the defined scale.
 // Please note, the z-index scale does not defeat limitations
 // imposed by stacking contexts.
 $z-01-main-screen: $z-index-01;
@@ -137,8 +139,8 @@ $z-07-toasts: $z-index-07;
 $z-07-trashcan: $z-index-07;
 $z-07-resize-guide: $z-index-07;
 $z-07-debug-hover-polygon: $z-index-07;
-$z-environment-editor: 750;
-$z-menu: 775;
+$z-07-environment-editor: $z-index-07 + 50;
+$z-07-menu: $z-index-07 + 75;
 $z-08-dialog-box-backdrop: $z-index-08;
 $z-08-gallery-shield: $z-index-08;
 $z-08-notification-bar: $z-index-08;
