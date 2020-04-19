@@ -54,6 +54,7 @@ $selection-highlight-colour: $colour-copper-500;
   height: 16px;
   width: auto;
   margin-left: 0.5em;
+  pointer-events: none;
 
   [dir="rtl"] & {
     margin-right: 0.5em;
