@@ -25,6 +25,7 @@ function ToastContainer (props) {
   const [refMap] = useState(() => new WeakMap())
   const [cancelMap] = useState(() => new WeakMap())
   const toasts = useSelector((state) => state.toast.toasts)
+  const contentDirection = useSelector((state) => state.app.contentDirection)
   const dispatch = useDispatch()
 
   // TODO: Truncation doesn't work
@@ -37,7 +38,8 @@ function ToastContainer (props) {
     from: {
       opacity: 0,
       height: 0,
-      transform: 'translateX(300px)',
+      transform:
+        contentDirection === 'rtl' ? 'translateX(-300px)' : 'translateX(300px)',
       marginTop: '10px',
 
       // `life` is just a variable name used by react-spring docs, it has no special meaning
@@ -81,7 +83,10 @@ function ToastContainer (props) {
       })
       await next({
         opacity: 0,
-        transform: 'translateX(300px)'
+        transform:
+          contentDirection === 'rtl'
+            ? 'translateX(-300px)'
+            : 'translateX(300px)'
       })
       // Height going to zero allows subsequent messages to "slide" upwards
       // We also need to animate the margin between toasts

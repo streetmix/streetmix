@@ -23,4 +23,9 @@
     will-change: transform;
     transform: translate3d(0, 0, 0);
   }
+
+  [dir="rtl"] & {
+    right: auto;
+    left: 30px;
+  }
 }

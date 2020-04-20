@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import Toast from './Toast'
 import { nonblockingAjaxTryAgain } from '../../util/fetch_nonblocking'
 
-// Renders a specific type of Toast for no-conenction message.
+// Renders a specific type of Toast for no-connection message.
 ToastNoConnection.propTypes = {
   item: PropTypes.shape({
     component: PropTypes.oneOf(['TOAST_NO_CONNECTION']),
