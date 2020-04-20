@@ -32,6 +32,11 @@ $share-menu-width: 350px;
   line-height: 18px;
   margin-right: 0.5em;
   outline: none;
+
+  [dir="rtl"] & {
+    margin-right: auto;
+    margin-left: 0.5em;
+  }
 }
 
 .share-sign-in-promo {
