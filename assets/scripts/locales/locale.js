@@ -62,7 +62,7 @@ export async function initLocale () {
 function initRtlChangedListener () {
   const select = (state) => state.app.contentDirection
   const onChange = (direction) => {
-    document.body.dir = direction
+    document.documentElement.dir = direction
   }
 
   return observeStore(select, onChange)
@@ -137,15 +137,17 @@ function getLocaleLevel () {
 export function getAvailableLocales () {
   const level = getLocaleLevel()
 
-  return LOCALES
-    // Remove languages that aren't enabled
-    .filter((item) => item.level >= level)
-    // Sort the list of languages alphabetically
-    .sort((a, b) => {
-      if (a.label < b.label) return -1
-      if (a.label > b.label) return 1
-      return 0
-    })
+  return (
+    LOCALES
+      // Remove languages that aren't enabled
+      .filter((item) => item.level >= level)
+      // Sort the list of languages alphabetically
+      .sort((a, b) => {
+        if (a.label < b.label) return -1
+        if (a.label > b.label) return 1
+        return 0
+      })
+  )
 }
 
 /**
@@ -218,7 +220,9 @@ export function getActualLocaleFromRequested (proposedLocale) {
 export function fetchTranslationMessages (locale) {
   return Promise.all([
     window.fetch(`${API_URL}v1/translate/${locale}/main`).then((r) => r.json()),
-    window.fetch(`${API_URL}v1/translate/${locale}/segment-info`).then((r) => r.json())
+    window
+      .fetch(`${API_URL}v1/translate/${locale}/segment-info`)
+      .then((r) => r.json())
   ]).then((responses) => ({
     messages: responses[0],
     segmentInfo: responses[1]

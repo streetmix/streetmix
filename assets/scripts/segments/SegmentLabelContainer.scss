@@ -65,9 +65,9 @@
   pointer-events: none;
 }
 
-/* Force `rtl` direction when it's applied to the body, since
+/* Force `rtl` direction when it's applied to the document root element, since
 the width element is inside the street layout which is forced `ltr` */
-body[dir="rtl"] .segment-width {
+:root[dir="rtl"] .segment-width {
   direction: rtl !important;
 }
 
