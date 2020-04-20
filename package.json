@@ -205,7 +205,7 @@
     "redux-mock-store": "1.5.4",
     "stylelint": "11.1.1",
     "stylelint-config-prettier": "8.0.1",
-    "stylelint-config-standard": "19.0.0",
+    "stylelint-config-standard": "20.0.0",
     "stylelint-csstree-validator": "1.8.0",
     "stylelint-prettier": "1.1.2",
     "stylelint-scss": "3.16.1",
