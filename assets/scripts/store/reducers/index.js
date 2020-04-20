@@ -11,7 +11,6 @@ import map from './map'
 import menus from './menus'
 import settings from './settings'
 import persistSettings from './persistSettings'
-import status from './status'
 import street from './street'
 import system from './system'
 import toast from './toast'
@@ -32,7 +31,6 @@ const reducers = combineReducers({
   menus,
   settings,
   persistSettings,
-  status,
   street,
   system,
   toast,

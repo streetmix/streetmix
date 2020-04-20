@@ -1,7 +1,7 @@
-import { ADD_TOAST, DISMISS_TOAST, DESTROY_TOAST } from './'
+import { ADD_TOAST, DESTROY_TOAST } from './'
 
 export function addToast ({
-  method,
+  mode,
   component,
   title,
   message,
@@ -10,19 +10,12 @@ export function addToast ({
 }) {
   return {
     type: ADD_TOAST,
-    method,
+    mode,
     component,
     title,
     message,
     action,
     duration
-  }
-}
-
-export function dismissToast (id) {
-  return {
-    type: DISMISS_TOAST,
-    id
   }
 }
 

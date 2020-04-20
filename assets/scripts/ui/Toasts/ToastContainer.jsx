@@ -16,6 +16,10 @@ const TOAST_SPRING_CONFIG = {
 const TOAST_DISPLAY_TIMEOUT = 6000
 const TOAST_MAX_TO_DISPLAY = 5
 
+/**
+ * Based on react-spring "Notification hub" example.
+ * https://codesandbox.io/embed/7mqy09jyq
+ */
 function ToastContainer (props) {
   const config = TOAST_SPRING_CONFIG
   const [refMap] = useState(() => new WeakMap())
