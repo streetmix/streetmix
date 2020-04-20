@@ -12,7 +12,6 @@ import InfoBubble from '../info_bubble/InfoBubble'
 import WelcomePanel from './WelcomePanel'
 import PaletteContainer from '../palette/PaletteContainer'
 import DialogRoot from '../dialogs/DialogRoot'
-import NoConnectionMessage from './NoConnectionMessage'
 import EnvironmentEditor from '../streets/EnvironmentEditor'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
@@ -61,7 +60,6 @@ function App () {
           <WelcomePanel />
           <PaletteContainer />
           <DialogRoot />
-          <NoConnectionMessage />
           <EnvironmentEditor />
           <SegmentDragLayer />
           <StreetView />

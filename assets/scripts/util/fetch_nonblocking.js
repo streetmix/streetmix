@@ -2,9 +2,13 @@ import {
   getSaveStreetIncomplete,
   setSaveStreetIncomplete
 } from '../streets/xhr'
-import { isThumbnailSaved, SAVE_THUMBNAIL_EVENTS, saveStreetThumbnail } from '../streets/image'
+import {
+  isThumbnailSaved,
+  SAVE_THUMBNAIL_EVENTS,
+  saveStreetThumbnail
+} from '../streets/image'
 import store from '../store'
-import { showNoConnectionMessage } from '../store/actions/status'
+import { addToast } from '../store/actions/toast'
 
 const NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
@@ -12,15 +16,45 @@ const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
 const nonblockingAjaxRequests = []
 let nonblockingAjaxRequestTimer = 0
 
+// Amount of time to retry connection before showing a no-connection toast
+const NO_CONNECTION_MESSAGE_TIMEOUT = 10000
+let noConnectionMessageTimer = -1
+
 function scheduleNoConnectionMessage () {
-  store.dispatch(showNoConnectionMessage(true))
+  if (noConnectionMessageTimer === -1) {
+    noConnectionMessageTimer = window.setTimeout(
+      showNoConnectionMessage,
+      NO_CONNECTION_MESSAGE_TIMEOUT
+    )
+  }
+}
+
+function showNoConnectionMessage () {
+  store.dispatch(
+    addToast({
+      component: 'TOAST_NO_CONNECTION',
+      mode: 'warning',
+      duration: Infinity
+    })
+  )
 }
 
 function hideNoConnectionMessage () {
-  store.dispatch(showNoConnectionMessage(false))
+  window.dispatchEvent(new window.CustomEvent('stmx:connection_reattempt'))
+
+  // Cleanup
+  window.clearTimeout(noConnectionMessageTimer)
+  noConnectionMessageTimer = -1
 }
 
-export function newNonblockingAjaxRequest (url, options, allowToClosePage, doneFunc, errorFunc, maxRetries) {
+export function newNonblockingAjaxRequest (
+  url,
+  options,
+  allowToClosePage,
+  doneFunc,
+  errorFunc,
+  maxRetries
+) {
   nonblockingAjaxRequestTimer = 0
 
   var signature = getAjaxRequestSignature(url, options)
@@ -73,17 +107,18 @@ function sendNextNonblockingAjaxRequest () {
       if (!request.inProgress) {
         request.inProgress = true
 
-        window.fetch(request.url, request.options)
-          .then(response => {
+        window
+          .fetch(request.url, request.options)
+          .then((response) => {
             if (!response.ok) {
               throw response
             }
             return response
           })
-          .then(data => {
+          .then((data) => {
             successNonblockingAjaxRequest(data, request)
           })
-          .catch(data => {
+          .catch((data) => {
             errorNonblockingAjaxRequest(data, request)
           })
       }
@@ -185,7 +220,10 @@ function checkIfChangesSaved () {
   if (showWarning) {
     nonblockingAjaxRequestTimer = 0
     scheduleNextNonblockingAjaxRequest()
-    saveStreetThumbnail(store.getState().street, SAVE_THUMBNAIL_EVENTS.BEFOREUNLOAD)
+    saveStreetThumbnail(
+      store.getState().street,
+      SAVE_THUMBNAIL_EVENTS.BEFOREUNLOAD
+    )
     return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.'
   }
 }

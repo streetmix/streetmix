@@ -27,6 +27,11 @@
   border-top: 5px solid #ffd755;
   background-color: #fff0c0;
 
+  [dir="rtl"] & {
+    padding-left: 40px; // Space for close button
+    padding-right: 1em;
+  }
+
   // Restore line-height after being unset by parent element
   line-height: 1.4;
 }
@@ -68,6 +73,11 @@ $close-icon-colour-hover: $colour-copper-600;
   justify-content: center;
   align-items: center !important;
   color: $close-icon-colour;
+
+  [dir="rtl"] & {
+    right: auto;
+    left: 6px;
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
