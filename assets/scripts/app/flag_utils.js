@@ -88,6 +88,10 @@ export function applyFlagOverrides (defaultFlags, ...overrides) {
   const initialFlags = JSON.parse(JSON.stringify(defaultFlags))
 
   const newFlags = overrides.reduce((accumulatedFlags, currentFlags) => {
+    // Handle a situation where currentFlags could be `undefined`
+    // TODO: fix this (it's basically a type error.)
+    if (!currentFlags) return accumulatedFlags
+
     const { source, flags } = currentFlags
 
     flags.forEach((item) => {

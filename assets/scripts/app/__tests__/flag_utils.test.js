@@ -88,4 +88,10 @@ describe('applyFlagOverrides', () => {
 
     expect(result).toEqual(initialFlags)
   })
+
+  it('does not fail if somehow an array with an undefined entry is passed in', () => {
+    const result = applyFlagOverrides(initialFlags, undefined)
+
+    expect(result).toEqual(initialFlags)
+  })
 })
