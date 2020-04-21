@@ -6,7 +6,11 @@ import flow from 'lodash/flow'
 import uuid from 'uuid'
 import Segment from '../segments/Segment'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { TILE_SIZE, DRAGGING_MOVE_HOLE_WIDTH, DRAGGING_TYPE_RESIZE } from '../segments/constants'
+import {
+  TILE_SIZE,
+  DRAGGING_MOVE_HOLE_WIDTH,
+  DRAGGING_TYPE_RESIZE
+} from '../segments/constants'
 import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import {
@@ -49,25 +53,38 @@ export class StreetEditable extends React.Component {
   componentDidUpdate (prevProps) {
     const { resizeType, draggingState } = this.props
 
-    if ((resizeType && !prevProps.resizeType) ||
-        (prevProps.draggingType === DRAGGING_TYPE_RESIZE && !this.props.draggingType)) {
+    if (
+      (resizeType && !prevProps.resizeType) ||
+      (prevProps.draggingType === DRAGGING_TYPE_RESIZE &&
+        !this.props.draggingType)
+    ) {
       this.props.setBuildingWidth(this.streetSectionEditable)
     }
 
-    if (prevProps.street.id !== this.props.street.id || prevProps.street.width !== this.props.street.width) {
+    if (
+      prevProps.street.id !== this.props.street.id ||
+      prevProps.street.width !== this.props.street.width
+    ) {
       cancelSegmentResizeTransitions()
     }
 
     const dragEvents = ['dragover', 'touchmove']
     if (!prevProps.draggingState && draggingState) {
-      dragEvents.map((type) => { window.addEventListener(type, this.updateWithinCanvas) })
+      dragEvents.map((type) => {
+        window.addEventListener(type, this.updateWithinCanvas)
+      })
     } else if (prevProps.draggingState && !draggingState) {
-      dragEvents.map((type) => { window.removeEventListener(type, this.updateWithinCanvas) })
+      dragEvents.map((type) => {
+        window.removeEventListener(type, this.updateWithinCanvas)
+      })
     }
   }
 
   updateWithinCanvas = (event) => {
-    const withinCanvas = isSegmentWithinCanvas(event, this.streetSectionEditable)
+    const withinCanvas = isSegmentWithinCanvas(
+      event,
+      this.streetSectionEditable
+    )
 
     if (withinCanvas) {
       document.body.classList.remove('not-within-canvas')
@@ -105,7 +122,10 @@ export class StreetEditable extends React.Component {
     let currPos = 0
 
     for (let i = 0; i < dataNo; i++) {
-      const width = (draggingState && draggingState.draggedSegment === i) ? 0 : segments[i].width * TILE_SIZE
+      const width =
+        draggingState && draggingState.draggedSegment === i
+          ? 0
+          : segments[i].width * TILE_SIZE
       currPos += width
     }
 
@@ -119,16 +139,19 @@ export class StreetEditable extends React.Component {
 
     if (draggingState && this.withinCanvas) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
-      const spaceBetweenSegments = makeSpaceBetweenSegments(dataNo, draggingState)
-      return Math.round(mainLeft + currPos + spaceBetweenSegments)
+      const spaceBetweenSegments = makeSpaceBetweenSegments(
+        dataNo,
+        draggingState
+      )
+      return mainLeft + currPos + spaceBetweenSegments
     } else {
-      return Math.round(mainLeft + currPos)
+      return mainLeft + currPos
     }
   }
 
   onExitAnimations = (child) => {
     return React.cloneElement(child, {
-      exit: !(this.props.street.immediateRemoval)
+      exit: !this.props.street.immediateRemoval
     })
   }
 
@@ -139,7 +162,7 @@ export class StreetEditable extends React.Component {
       const segmentPos = this.calculateSegmentPos(i)
 
       segment.variant = getVariantArray(segment.type, segment.variantString)
-      segment.warnings = (segment.warnings) || []
+      segment.warnings = segment.warnings || []
 
       if (!segment.id) {
         segment.id = uuid()
@@ -150,7 +173,7 @@ export class StreetEditable extends React.Component {
           key={segment.id}
           timeout={250}
           classNames="switching-away"
-          exit={!(immediateRemoval)}
+          exit={!immediateRemoval}
           onExit={this.handleSwitchSegmentAway}
           unmountOnExit
         >
@@ -174,7 +197,7 @@ export class StreetEditable extends React.Component {
   render () {
     const { connectDropTarget } = this.props
     const style = {
-      width: (this.props.street.width * TILE_SIZE) + 'px'
+      width: this.props.street.width * TILE_SIZE + 'px'
     }
 
     return connectDropTarget(
@@ -182,9 +205,16 @@ export class StreetEditable extends React.Component {
         id="street-section-editable"
         key={this.props.street.id}
         style={style}
-        ref={(ref) => { this.streetSectionEditable = ref }}
+        ref={(ref) => {
+          this.streetSectionEditable = ref
+        }}
       >
-        <TransitionGroup key={this.props.street.id} component={null} enter={false} childFactory={this.onExitAnimations}>
+        <TransitionGroup
+          key={this.props.street.id}
+          component={null}
+          enter={false}
+          childFactory={this.onExitAnimations}
+        >
           {this.renderStreetSegments()}
         </TransitionGroup>
       </div>
@@ -200,6 +230,10 @@ function mapStateToProps (state) {
 }
 
 export default flow(
-  DropTarget([Types.SEGMENT, Types.PALETTE_SEGMENT], canvasTarget, collectDropTarget),
+  DropTarget(
+    [Types.SEGMENT, Types.PALETTE_SEGMENT],
+    canvasTarget,
+    collectDropTarget
+  ),
   connect(mapStateToProps)
 )(StreetEditable)

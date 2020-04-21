@@ -117,10 +117,10 @@ class SegmentCanvas extends React.PureComponent {
     const elementHeight = this.props.isIcon ? ICON_BASELINE : CANVAS_BASELINE
 
     // Determine size of canvas
-    const canvasWidth = elementWidth * this.props.dpi
+    const canvasWidth = Math.round(elementWidth * this.props.dpi)
     const canvasHeight = elementHeight * this.props.dpi
     const canvasStyle = {
-      width: elementWidth,
+      width: Math.round(elementWidth),
       height: elementHeight,
       left: dimensions.left * TILE_SIZE * this.props.multiplier
     }
