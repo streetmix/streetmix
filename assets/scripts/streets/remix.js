@@ -16,7 +16,7 @@ import {
   updateEditCount,
   saveOriginalStreetId
 } from '../store/actions/street'
-import { addToast } from '../store/actions/toast'
+import { addToast } from '../store/slices/toasts'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false

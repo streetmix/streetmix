@@ -1,8 +1,4 @@
-import { ADD_TOAST, DESTROY_TOAST } from '../actions'
-
-const initialState = {
-  toasts: []
-}
+import { createSlice } from '@reduxjs/toolkit'
 
 /**
  * Toasts are objects with the following signature.
@@ -28,38 +24,35 @@ const initialState = {
  *    TODO: collisions on this are possible, but we can ignore that for now
  */
 
-const status = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TOAST: {
-      const toasts = [
-        ...state.toasts.slice(0),
-        {
-          mode: action.mode,
-          component: action.component,
-          title: action.title,
-          message: action.message,
-          action: action.action,
-          duration: action.duration,
-          timestamp: Date.now()
+const toastsSlice = createSlice({
+  name: 'toasts',
+  initialState: [],
+
+  reducers: {
+    addToast: {
+      reducer (state, action) {
+        state.push(action.payload)
+      },
+      prepare (toast) {
+        return {
+          payload: {
+            ...toast,
+            // The timestamp is used to identify when a toast is generated,
+            // and currently does double duty as a unique identifier. This
+            // must be done here (in an action creator prepare()) as opposed
+            // to the reducer because this is *not* a pure function.
+            timestamp: Date.now()
+          }
         }
-      ]
-
-      return {
-        ...state,
-        toasts
       }
-    }
-    case DESTROY_TOAST: {
-      const toasts = state.toasts.filter((item) => item.timestamp !== action.id)
+    },
 
-      return {
-        ...state,
-        toasts
-      }
+    destroyToast (state, action) {
+      return state.filter((item) => item.timestamp !== action.payload)
     }
-    default:
-      return state
   }
-}
+})
 
-export default status
+export const { addToast, destroyToast } = toastsSlice.actions
+
+export default toastsSlice.reducer
