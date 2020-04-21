@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import CloseButton from '../ui/CloseButton'
 import { useOnClickOutside } from '../ui/useOnClickOutside'
-import { clearDialogs } from '../store/actions/dialogs'
+import { clearDialogs } from '../store/slices/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Dialog.scss'
 

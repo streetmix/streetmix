@@ -8,7 +8,7 @@ import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { getSharingUrl } from '../util/share_url'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 import { startPrinting } from '../store/actions/app'
 import './ShareMenu.scss'
 

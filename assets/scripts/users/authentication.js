@@ -18,7 +18,7 @@ import {
   createSignInLoadedState,
   rememberUserProfile
 } from '../store/actions/user'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'

@@ -3,9 +3,9 @@ import React from 'react'
 import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import HelpMenu from '../HelpMenu'
-import { showDialog } from '../../store/actions/dialogs'
+import { showDialog } from '../../store/slices/dialogs'
 
-jest.mock('../../store/actions/dialogs', () => ({
+jest.mock('../../store/slices/dialogs', () => ({
   // We don't use these actions for anything, but they must return
   // a plain object or the dispatch() throws an error
   showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))

@@ -6,7 +6,7 @@ import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import AvatarMenu from './AvatarMenu'
 import { doSignIn } from '../users/authentication'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 import logo from '../../images/logo_horizontal.svg'
 import './MenuBar.scss'
 

@@ -3,9 +3,9 @@ import React from 'react'
 import { fireEvent } from '@testing-library/react'
 import StreetMetaGeotag from '../StreetMetaGeotag'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
-import { showDialog } from '../../store/actions/dialogs'
+import { showDialog } from '../../store/slices/dialogs'
 
-jest.mock('../../store/actions/dialogs', () => ({
+jest.mock('../../store/slices/dialogs', () => ({
   showDialog: jest.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 

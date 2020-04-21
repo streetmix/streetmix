@@ -38,10 +38,6 @@ export const START_PRINTING = 'START_PRINTING'
 export const STOP_PRINTING = 'STOP_PRINTING'
 export const EVERYTHING_LOADED = 'EVERYTHING_LOADED'
 
-/* dialogs */
-export const SHOW_DIALOG = 'SHOW_DIALOG'
-export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'
-
 /* flags */
 export const SET_FEATURE_FLAG = 'SET_FEATURE_FLAG'
 export const SET_FLAG_OVERRIDES = 'SET_FLAG_OVERRIDES'

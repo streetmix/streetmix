@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
 import { trackEvent } from '../app/event_tracking'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 
 function handleClickDiscord () {
   trackEvent(

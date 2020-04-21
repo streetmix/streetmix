@@ -5,14 +5,14 @@ import copy from 'copy-to-clipboard'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import ShareMenu from '../ShareMenu'
 import { trackEvent } from '../../app/event_tracking'
-import { showDialog } from '../../store/actions/dialogs'
+import { showDialog } from '../../store/slices/dialogs'
 import { startPrinting } from '../../store/actions/app'
 
 jest.mock('copy-to-clipboard')
 jest.mock('../../app/event_tracking', () => ({
   trackEvent: jest.fn()
 }))
-jest.mock('../../store/actions/dialogs', () => ({
+jest.mock('../../store/slices/dialogs', () => ({
   showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 jest.mock('../../store/actions/app', () => ({

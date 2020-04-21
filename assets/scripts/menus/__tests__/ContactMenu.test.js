@@ -4,12 +4,12 @@ import { fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import ContactMenu from '../ContactMenu'
 import { trackEvent } from '../../app/event_tracking'
-import { showDialog } from '../../store/actions/dialogs'
+import { showDialog } from '../../store/slices/dialogs'
 
 jest.mock('../../app/event_tracking', () => ({
   trackEvent: jest.fn()
 }))
-jest.mock('../../store/actions/dialogs', () => ({
+jest.mock('../../store/slices/dialogs', () => ({
   showDialog: jest.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 

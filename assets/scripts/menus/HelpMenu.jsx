@@ -11,7 +11,7 @@ import {
 } from '../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { trackEvent } from '../app/event_tracking'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 import './HelpMenu.scss'
 
 function handleShow () {

@@ -24,7 +24,7 @@ import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import store, { observeStore } from '../store'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 import { showGallery } from '../store/actions/gallery'
 import { everythingLoaded } from '../store/actions/app'
 

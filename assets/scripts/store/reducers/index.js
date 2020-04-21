@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import app from './app'
 import debug from '../slices/debug'
-import dialogs from './dialogs'
+import dialogs from '../slices/dialogs'
 import errors from './errors'
 import flags from './flags'
 import gallery from './gallery'
