@@ -171,8 +171,10 @@ async function fetchSignInDetails (userId) {
 }
 
 function receiveSignInDetails (details) {
-  const signInData = getSignInData()
-  signInData.details = details
+  const signInData = {
+    ...getSignInData(),
+    details
+  }
   setSignInData(signInData)
   saveSignInDataLocally()
 

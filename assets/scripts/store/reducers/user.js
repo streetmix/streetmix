@@ -36,14 +36,22 @@ const settings = (state = initialState, action) => {
         signInLoaded: action.signInLoaded
       }
     case GEOLOCATION_ATTEMPTED: {
-      const obj = Object.assign({}, state)
-      obj.geolocation.attempted = action.attempted
-      return obj
+      return {
+        ...state,
+        geolocation: {
+          ...state.geolocation,
+          attempted: action.attempted
+        }
+      }
     }
     case GEOLOCATION_DATA: {
-      const obj = Object.assign({}, state)
-      obj.geolocation.data = action.data
-      return obj
+      return {
+        ...state,
+        geolocation: {
+          ...state.geolocation,
+          data: action.data
+        }
+      }
     }
     case REMEMBER_USER_PROFILE: {
       // Prevent a case where a bad action results in a corrupted cache
@@ -51,9 +59,10 @@ const settings = (state = initialState, action) => {
 
       return {
         ...state,
-        profileCache: Object.assign(state.profileCache, {
+        profileCache: {
+          ...state.profileCache,
           [action.profile.id]: action.profile
-        })
+        }
       }
     }
     default:
