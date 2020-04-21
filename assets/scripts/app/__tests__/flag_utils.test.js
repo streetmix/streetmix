@@ -8,10 +8,15 @@ import { generateFlagOverrides, applyFlagOverrides } from '../flag_utils'
 jest.mock('../../app/errors', () => {})
 
 const initialFlags = {
-  FOO_BAR: { value: true, source: 'initial' },
-  BAZ_QUX: { value: false, source: 'initial' },
-  FOO_BAZ: { value: true, source: 'initial' },
-  BAZ_BAR: { value: false, source: 'initial' }
+  FOO_BAR: { source: 'initial', value: true },
+  BAZ_QUX: { source: 'initial', value: false },
+  FOO_BAZ: { source: 'initial', value: true },
+  BAZ_BAR: { source: 'initial', value: false }
+}
+
+const roleOverrides = {
+  source: 'role:USER',
+  flags: [{ flag: 'BAZ_QUX', value: true }]
 }
 
 const userOverrides = {
@@ -19,8 +24,7 @@ const userOverrides = {
   flags: [
     { flag: 'FOO_BAR', value: false },
     { flag: 'BAZ_BAR', value: true }
-  ],
-  priority: 2
+  ]
 }
 
 const sessionOverrides = {
@@ -28,8 +32,7 @@ const sessionOverrides = {
   flags: [
     { flag: 'BAZ_QUX', value: true },
     { flag: 'FOO_BAR', value: true }
-  ],
-  priority: 3
+  ]
 }
 
 describe('generateFlagOverrides', () => {
@@ -41,8 +44,7 @@ describe('generateFlagOverrides', () => {
     const result = generateFlagOverrides(userFlags, 'user')
     expect(result).toEqual({
       source: 'user',
-      flags: [{ flag: 'FOO_BAR', value: false }],
-      priority: 2
+      flags: [{ flag: 'FOO_BAR', value: false }]
     })
   })
 })
@@ -52,7 +54,8 @@ describe('applyFlagOverrides', () => {
     const result = applyFlagOverrides(
       initialFlags,
       userOverrides,
-      sessionOverrides
+      sessionOverrides,
+      roleOverrides
     )
     expect(result).toEqual({
       FOO_BAR: { source: 'session', value: true },
@@ -62,14 +65,23 @@ describe('applyFlagOverrides', () => {
     })
   })
 
+  it('updates role overrides with colon (:) separator', () => {
+    const result = applyFlagOverrides(initialFlags, roleOverrides)
+    expect(result).toEqual({
+      FOO_BAR: { source: 'initial', value: true },
+      BAZ_QUX: { source: 'role:USER', value: true },
+      FOO_BAZ: { source: 'initial', value: true },
+      BAZ_BAR: { source: 'initial', value: false }
+    })
+  })
+
   it('does not apply flags that are not present in the application', () => {
     // It is possible for a flag to be removed or deprecated from the application,
     // but the value for the flag remains stored in user data or in localstorage.
     // We do not want these "dead" flags to be in the final object.
     const userOverrides = {
       source: 'user',
-      flags: [{ flag: 'FOO_FOO', value: false }],
-      priority: 2
+      flags: [{ flag: 'FOO_FOO', value: false }]
     }
 
     const result = applyFlagOverrides(initialFlags, userOverrides)

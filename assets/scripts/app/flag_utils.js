@@ -50,7 +50,7 @@ function initRedrawPaletteUpdateListener () {
 }
 
 /**
- * Creates and returns an Object in shape of { source, flags: [ { key: value } ], priority }
+ * Creates and returns an Object in shape of { source, flags: [ { key: value } ] }
  *
  * @param {Object} flags
  * @param {String} source
@@ -60,9 +60,7 @@ export function generateFlagOverrides (flags, source) {
 
   const flagsOverrides = {
     source,
-    flags: [],
-    // Source can be a string that looks like 'role:USER', so just take the first part
-    priority: PRIORITY_LEVELS[source.split(':')[0]]
+    flags: []
   }
 
   return Object.entries(flags).reduce((obj, item) => {
@@ -98,7 +96,7 @@ export function applyFlagOverrides (defaultFlags, ...overrides) {
 
       if (previousFlag) {
         const previousPriority = PRIORITY_LEVELS[previousFlag.source] || 0
-        const newPriority = PRIORITY_LEVELS[source] || 0
+        const newPriority = PRIORITY_LEVELS[source.split(':')[0]] || 0
 
         if (newPriority > previousPriority) {
           previousFlag.value = value
