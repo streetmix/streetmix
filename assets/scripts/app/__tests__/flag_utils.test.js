@@ -41,9 +41,7 @@ describe('generateFlagOverrides', () => {
     const result = generateFlagOverrides(userFlags, 'user')
     expect(result).toEqual({
       source: 'user',
-      flags: [
-        { flag: 'FOO_BAR', value: false }
-      ],
+      flags: [{ flag: 'FOO_BAR', value: false }],
       priority: 2
     })
   })
@@ -51,7 +49,11 @@ describe('generateFlagOverrides', () => {
 
 describe('applyFlagOverrides', () => {
   it('updates feature flag values according to flag overrides and priority levels', () => {
-    const result = applyFlagOverrides(initialFlags, userOverrides, sessionOverrides)
+    const result = applyFlagOverrides(
+      initialFlags,
+      userOverrides,
+      sessionOverrides
+    )
     expect(result).toEqual({
       FOO_BAR: { source: 'session', value: true },
       BAZ_QUX: { source: 'session', value: true },
@@ -66,9 +68,7 @@ describe('applyFlagOverrides', () => {
     // We do not want these "dead" flags to be in the final object.
     const userOverrides = {
       source: 'user',
-      flags: [
-        { flag: 'FOO_BAZ', value: false }
-      ],
+      flags: [{ flag: 'FOO_FOO', value: false }],
       priority: 2
     }
 

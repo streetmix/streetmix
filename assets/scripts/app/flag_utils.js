@@ -81,31 +81,36 @@ export function generateFlagOverrides (flags, source) {
  * Dispatches action to apply flag overrides to Redux flag state
  *
  * @param {Object} defaultFlags
- * @param {Array} flagOverrides
+ * @param {Array} overrides
  */
-export function applyFlagOverrides (defaultFlags, ...flagOverrides) {
-  let updatedFlags
+export function applyFlagOverrides (defaultFlags, ...overrides) {
+  // Quickly clone the defaultFlags object by converting it to a string
+  // and then back to an object. The source of this can come from state
+  // and we need to avoid mutating it.
+  const initialFlags = JSON.parse(JSON.stringify(defaultFlags))
 
-  flagOverrides.forEach((flagSource) => {
-    if (!flagSource) return
+  const newFlags = overrides.reduce((accumulatedFlags, currentFlags) => {
+    const { source, flags } = currentFlags
 
-    const { source, flags, priority } = flagSource
-
-    updatedFlags = flags.reduce((obj, item) => {
+    flags.forEach((item) => {
       const { flag, value } = item
+      const previousFlag = accumulatedFlags[flag]
 
-      if (obj[flag]) {
-        const prevFlagSource = obj[flag].source
-        const prevPriorityLevel = PRIORITY_LEVELS[prevFlagSource]
-        if (obj[flag].value !== value && prevPriorityLevel < priority) {
-          obj[flag] = { value, source }
+      if (previousFlag) {
+        const previousPriority = PRIORITY_LEVELS[previousFlag.source] || 0
+        const newPriority = PRIORITY_LEVELS[source] || 0
+
+        if (newPriority > previousPriority) {
+          previousFlag.value = value
+          previousFlag.source = source
         }
       }
+    })
 
-      return obj
-    }, defaultFlags)
-  })
+    return accumulatedFlags
+  }, initialFlags)
 
-  store.dispatch(setFlagOverrides(updatedFlags))
-  return updatedFlags
+  store.dispatch(setFlagOverrides(newFlags))
+
+  return newFlags
 }

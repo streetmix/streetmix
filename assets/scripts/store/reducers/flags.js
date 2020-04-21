@@ -20,7 +20,11 @@ const flags = (state = initialState, action) => {
     case SET_FEATURE_FLAG:
       return {
         ...state,
-        [action.flag]: Object.assign({}, state[action.flag], { value: action.value, source: 'session' })
+        [action.flag]: {
+          ...state[action.flag],
+          value: action.value,
+          source: 'session'
+        }
       }
     case SET_FLAG_OVERRIDES:
       return {
