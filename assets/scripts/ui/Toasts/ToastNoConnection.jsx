@@ -31,11 +31,6 @@ function ToastNoConnection (props) {
     }
   })
 
-  item.action = intl.formatMessage({
-    id: 'btn.try-again',
-    defaultMessage: 'Try again'
-  })
-
   function handleAction (event) {
     nonblockingAjaxTryAgain()
     handleClose(event)
@@ -46,7 +41,15 @@ function ToastNoConnection (props) {
       setRef={setRef}
       handleClose={handleClose}
       handleAction={handleAction}
-      item={item}
+      item={{
+        ...item,
+        action:
+          item.action ||
+          intl.formatMessage({
+            id: 'btn.try-again',
+            defaultMessage: 'Try again'
+          })
+      }}
     >
       {/* Handle the message here so it doesn't need to be passed by caller. */}
       <FormattedMessage

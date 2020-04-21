@@ -19,11 +19,6 @@ function ToastSignIn (props) {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
-  item.action = intl.formatMessage({
-    id: 'menu.item.sign-in',
-    defaultMessage: 'Sign in'
-  })
-
   function handleAction (event) {
     doSignIn()
     handleClose(event)
@@ -34,7 +29,15 @@ function ToastSignIn (props) {
       setRef={setRef}
       handleClose={handleClose}
       handleAction={handleAction}
-      item={item}
+      item={{
+        ...item,
+        action:
+          item.action ||
+          intl.formatMessage({
+            id: 'menu.item.sign-in',
+            defaultMessage: 'Sign in'
+          })
+      }}
     />
   )
 }

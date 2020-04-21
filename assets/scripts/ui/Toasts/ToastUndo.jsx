@@ -36,13 +36,6 @@ function ToastUndo (props) {
     }
   })
 
-  item.action =
-    item.action ||
-    intl.formatMessage({
-      id: 'btn.undo',
-      defaultMessage: 'Undo'
-    })
-
   function handleAction (event) {
     dispatch(handleUndo())
     handleClose(event)
@@ -53,7 +46,15 @@ function ToastUndo (props) {
       setRef={setRef}
       handleClose={handleClose}
       handleAction={handleAction}
-      item={item}
+      item={{
+        ...item,
+        action:
+          item.action ||
+          intl.formatMessage({
+            id: 'btn.undo',
+            defaultMessage: 'Undo'
+          })
+      }}
     />
   )
 }
