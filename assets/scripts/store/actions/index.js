@@ -38,9 +38,6 @@ export const START_PRINTING = 'START_PRINTING'
 export const STOP_PRINTING = 'STOP_PRINTING'
 export const EVERYTHING_LOADED = 'EVERYTHING_LOADED'
 
-/* debug */
-export const SET_DEBUG_FLAGS = 'SET_DEBUG_FLAGS'
-
 /* dialogs */
 export const SHOW_DIALOG = 'SHOW_DIALOG'
 export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'

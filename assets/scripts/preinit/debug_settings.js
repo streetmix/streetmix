@@ -9,7 +9,7 @@
  *
  */
 import store from '../store'
-import { SET_DEBUG_FLAGS } from '../store/actions'
+import { setDebugFlags } from '../store/slices/debug'
 
 export const debug = {
   forceLeftHandTraffic: false,
@@ -51,7 +51,8 @@ if (url.match(/[?&]debug-force-live-update&?/)) {
   debug.forceLiveUpdate = true
 }
 
-store.dispatch({
-  type: SET_DEBUG_FLAGS,
-  ...debug
-})
+store.dispatch(
+  setDebugFlags({
+    ...debug
+  })
+)
