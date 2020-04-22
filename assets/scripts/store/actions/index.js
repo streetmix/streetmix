@@ -38,10 +38,6 @@ export const START_PRINTING = 'START_PRINTING'
 export const STOP_PRINTING = 'STOP_PRINTING'
 export const EVERYTHING_LOADED = 'EVERYTHING_LOADED'
 
-/* flags */
-export const SET_FEATURE_FLAG = 'SET_FEATURE_FLAG'
-export const SET_FLAG_OVERRIDES = 'SET_FLAG_OVERRIDES'
-
 /* gallery */
 export const SHOW_GALLERY = 'SHOW_GALLERY'
 export const HIDE_GALLERY = 'HIDE_GALLERY'

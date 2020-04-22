@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Dialog from './Dialog'
 import Checkbox from '../ui/Checkbox'
 import FEATURE_FLAGS from '../../../app/data/flags'
-import { setFeatureFlag } from '../store/actions/flags'
+import { setFeatureFlag } from '../store/slices/flags'
 import './FeatureFlagDialog.scss'
 
 function FeatureFlagDialog (props) {
@@ -36,7 +36,12 @@ function FeatureFlagDialog (props) {
           <Checkbox
             id={htmlLabel}
             onChange={(event) => {
-              dispatch(setFeatureFlag(id, event.target.checked))
+              dispatch(
+                setFeatureFlag({
+                  flag: id,
+                  value: event.target.checked
+                })
+              )
             }}
             checked={flags[id].value}
             disabled={deets.enabled === false}
