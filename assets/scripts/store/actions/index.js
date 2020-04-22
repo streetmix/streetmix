@@ -32,12 +32,6 @@
  * > have to write them!
  */
 
-/* app */
-export const SET_APP_FLAGS = 'SET_APP_FLAGS'
-export const START_PRINTING = 'START_PRINTING'
-export const STOP_PRINTING = 'STOP_PRINTING'
-export const EVERYTHING_LOADED = 'EVERYTHING_LOADED'
-
 /* gallery */
 export const SHOW_GALLERY = 'SHOW_GALLERY'
 export const HIDE_GALLERY = 'HIDE_GALLERY'

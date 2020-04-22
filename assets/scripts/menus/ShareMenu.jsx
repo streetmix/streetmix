@@ -9,7 +9,7 @@ import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/slices/dialogs'
-import { startPrinting } from '../store/actions/app'
+import { startPrinting } from '../store/slices/app'
 import './ShareMenu.scss'
 
 function ShareMenu (props) {

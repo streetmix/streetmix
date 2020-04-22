@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { startPrinting, stopPrinting } from '../store/actions/app'
+import { startPrinting, stopPrinting } from '../store/slices/app'
 import { getStreetImage } from '../streets/image'
 import './PrintContainer.scss'
 

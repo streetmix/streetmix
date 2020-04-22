@@ -3,10 +3,10 @@ import {
   HIDE_INFO_BUBBLE,
   UPDATE_HOVER_POLYGON,
   SET_INFO_BUBBLE_MOUSE_INSIDE,
-  START_PRINTING,
   SHOW_DESCRIPTION,
   HIDE_DESCRIPTION
 } from '../actions'
+import { startPrinting } from '../slices/app'
 
 const initialState = {
   visible: false,
@@ -31,7 +31,7 @@ const infoBubble = (state = initialState, action) => {
         descriptionVisible: false
       }
     case HIDE_INFO_BUBBLE:
-    case START_PRINTING: // Also hide when printing
+    case startPrinting.type: // Also hide when printing
       return {
         ...state,
         visible: false,
