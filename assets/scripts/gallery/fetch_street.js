@@ -1,16 +1,14 @@
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { API_URL } from '../app/config'
-import { hideError, showError, ERRORS } from '../app/errors'
-import {
-  setLastStreet,
-  setIgnoreStreetChanges
-} from '../streets/data_model'
+import { showError, ERRORS } from '../app/errors'
+import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { unpackServerStreetData } from '../streets/xhr'
 import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { getAuthHeader } from '../users/authentication'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
 import { resetMapState } from '../store/actions/map'
+import { hideError } from '../store/slices/errors'
 
 let lastRequestedStreetId = null
 
@@ -24,7 +22,8 @@ export function fetchGalleryStreet (streetId) {
     headers: { Authorization: getAuthHeader() }
   }
 
-  window.fetch(url, options)
+  window
+    .fetch(url, options)
     .then(function (response) {
       if (!response.ok) {
         throw response
@@ -54,7 +53,7 @@ function receiveGalleryStreet (transmission) {
 
   setIgnoreStreetChanges(true)
 
-  hideError()
+  store.dispatch(hideError())
   unpackServerStreetData(transmission, null, null, true)
 
   // Some parts of the UI need to know this happened to respond to it

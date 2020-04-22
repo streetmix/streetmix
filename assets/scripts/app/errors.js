@@ -7,7 +7,7 @@ import {
   URL_ERROR_NO_ACCESS_TOKEN
 } from './constants'
 import store from '../store'
-import { showError as showErrorAction, hideError as hideErrorAction } from '../store/actions/errors'
+import { showError as showErrorAction } from '../store/slices/errors'
 
 export const ERRORS = {
   NOT_FOUND: 1,
@@ -41,10 +41,6 @@ export function showError (errorType, newAbortEverything) {
   // sure not to use modern faculties.
   hideLoadingScreen()
   store.dispatch(showErrorAction(errorType, newAbortEverything))
-}
-
-export function hideError () {
-  store.dispatch(hideErrorAction())
 }
 
 export function showErrorFromUrl (errorUrl) {

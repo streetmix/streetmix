@@ -37,13 +37,17 @@ import {
 } from '../../segments/resizing'
 
 import { ERRORS } from '../../app/errors'
-import { showError } from './errors'
+import { showError } from '../slices/errors'
 import { hideLoadingScreen } from '../../app/load_resources'
 
 import { recalculateWidth } from '../../streets/width'
 import { saveStreetToServer } from '../../streets/xhr'
 
-import { setIgnoreStreetChanges, setLastStreet, saveStreetToServerIfNecessary } from '../../streets/data_model'
+import {
+  setIgnoreStreetChanges,
+  setLastStreet,
+  saveStreetToServerIfNecessary
+} from '../../streets/data_model'
 import { setSettings } from './settings'
 import apiClient from '../../util/api'
 
@@ -287,7 +291,13 @@ export const segmentsChanged = () => {
   return async (dispatch, getState) => {
     const street = getState().street
     const updatedStreet = recalculateWidth(street)
-    await dispatch(updateSegments(updatedStreet.segments, updatedStreet.occupiedWidth, updatedStreet.remainingWidth))
+    await dispatch(
+      updateSegments(
+        updatedStreet.segments,
+        updatedStreet.occupiedWidth,
+        updatedStreet.remainingWidth
+      )
+    )
     // ToDo: Refactor this out to be dispatched as well
     saveStreetToServerIfNecessary()
   }
@@ -307,7 +317,13 @@ export const clearSegmentsAction = () => {
   }
 }
 
-export const incrementSegmentWidth = (dataNo, add, precise, origWidth, resizeType = RESIZE_TYPE_INCREMENT) => {
+export const incrementSegmentWidth = (
+  dataNo,
+  add,
+  precise,
+  origWidth,
+  resizeType = RESIZE_TYPE_INCREMENT
+) => {
   return async (dispatch, getState) => {
     const units = getState().street.units
     let resolution
@@ -349,11 +365,13 @@ export const getLastStreet = () => {
       const response = await apiClient.getStreet(lastStreetId)
       const street = createStreetFromResponse(response)
       setIgnoreStreetChanges(true)
-      await dispatch(setSettings({
-        lastStreetId: response.id,
-        lastStreetNamespacedId: response.namespacedId,
-        lastStreetCreatorId: street.creatorId
-      }))
+      await dispatch(
+        setSettings({
+          lastStreetId: response.id,
+          lastStreetNamespacedId: response.namespacedId,
+          lastStreetCreatorId: street.creatorId
+        })
+      )
       dispatch(updateStreetData(street))
       if (id) {
         dispatch(saveStreetId(id, namespacedId))
