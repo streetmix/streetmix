@@ -390,6 +390,119 @@ exports[`AboutDialog renders snapshot 1`] = `
                   </ul>
                 </div>
               </div>
+              <div
+                class="credits-container"
+              >
+                <div>
+                  <h3>
+                    Acknowledgements
+                  </h3>
+                  <ul>
+                    <li>
+                      <strong>
+                        <a
+                          href="https://manropefont.com/"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          Manrope
+                        </a>
+                      </strong>
+                       font designed by 
+                      <a
+                        href="https://gent.media/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Mikhail Shiranda
+                      </a>
+                      . (
+                      <a
+                        href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="SIL Open Font License, Version 1.1"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
+                      <strong>
+                        <a
+                          href="https://hubertfischer.com/work/type-rubik"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          Rubik
+                        </a>
+                      </strong>
+                       font designed by 
+                      <a
+                        href="https://hubertfischer.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Hubert & Fischer
+                      </a>
+                      . (
+                      <a
+                        href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="SIL Open Font License, Version 1.1"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
+                      Emoji by 
+                      <strong>
+                        <a
+                          href="https://openmoji.org/"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          OpenMoji
+                        </a>
+                      </strong>
+                      . (
+                      <a
+                        href="https://creativecommons.org/licenses/by-sa/4.0/#"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
+                      Icons by 
+                      <strong>
+                        <a
+                          href="https://fontawesome.com/"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          Font Awesome
+                        </a>
+                      </strong>
+                      . (
+                      <a
+                        href="https://fontawesome.com/license/free"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
