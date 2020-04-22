@@ -67,8 +67,16 @@
     border: 0;
     color: white;
     font-size: 2em;
-    padding: 0;
+    padding: 5px;
     vertical-align: middle;
+    transition: 120ms transform ease-in-out;
+    transition: transform 300ms cubic-bezier(0.5, 0, 0, 3);
+    transform: scale(1);
+    transform-origin: center center;
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 
   .sentiment-1 {

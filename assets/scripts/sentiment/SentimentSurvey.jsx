@@ -5,11 +5,11 @@ import { useTransition, animated, config } from 'react-spring'
 import CloseButton from '../ui/CloseButton'
 import PaletteTooltips from '../palette/PaletteTooltips'
 import './SentimentSurvey.scss'
-import IMG_SENTIMENT_1 from './sentiment-1.svg'
-import IMG_SENTIMENT_2 from './sentiment-2.svg'
-import IMG_SENTIMENT_3 from './sentiment-3.svg'
-import IMG_SENTIMENT_4 from './sentiment-4.svg'
-import IMG_SENTIMENT_5 from './sentiment-5.svg'
+import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
+import IMG_SENTIMENT_2 from '../../images/openmoji/color/1F641.svg'
+import IMG_SENTIMENT_3 from '../../images/openmoji/color/1F610.svg'
+import IMG_SENTIMENT_4 from '../../images/openmoji/color/1F60A.svg'
+import IMG_SENTIMENT_5 from '../../images/openmoji/color/1F60D.svg'
 
 SentimentSurvey.propTypes = {
   visible: PropTypes.bool,
