@@ -9,7 +9,7 @@ import {
 } from '../../users/constants'
 import { updateUnits } from '../../users/localization'
 import { changeLocale } from '../../store/actions/locale'
-import { clearMenus } from '../../store/actions/menus'
+import { clearMenus } from '../../store/slices/menus'
 
 jest.mock('../../users/localization', () => ({
   updateUnits: jest.fn()
@@ -19,7 +19,7 @@ jest.mock('../../store/actions/locale', () => ({
     Promise.resolve({ type: 'MOCK_ACTION' })
   )
 }))
-jest.mock('../../store/actions/menus', () => ({
+jest.mock('../../store/slices/menus', () => ({
   clearMenus: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 

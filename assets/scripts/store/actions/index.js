@@ -61,10 +61,6 @@ export const SET_LOCALE = 'SET_LOCALE'
 export const SET_MAP_STATE = 'SET_MAP_STATE'
 export const RESET_MAP_STATE = 'RESET_MAP_STATE'
 
-/* menus */
-export const SHOW_MENU = 'SHOW_MENU'
-export const CLEAR_MENUS = 'CLEAR_MENUS'
-
 /* settings */
 export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
 

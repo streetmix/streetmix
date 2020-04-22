@@ -10,7 +10,7 @@ import {
 } from '../users/constants'
 import { updateUnits } from '../users/localization'
 import { changeLocale } from '../store/actions/locale'
-import { clearMenus } from '../store/actions/menus'
+import { clearMenus } from '../store/slices/menus'
 import { ICON_CHECK } from '../ui/icons'
 
 function SettingsMenu (props) {
