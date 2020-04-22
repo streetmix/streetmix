@@ -23,6 +23,7 @@ import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 import ToastContainer from '../ui/Toasts/ToastContainer'
+import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
 import { setStreetSectionTop } from './window_resize'
 
 function App () {
@@ -64,6 +65,7 @@ function App () {
           <SegmentDragLayer />
           <StreetView />
           <ToastContainer />
+          <SentimentSurveyContainer />
         </div>
       </DndProvider>
     </IntlProvider>
