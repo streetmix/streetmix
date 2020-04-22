@@ -57,10 +57,6 @@ export const HIDE_DESCRIPTION = 'HIDE_DESCRIPTION'
 export const LOAD_LOCALE = 'LOAD_LOCALE'
 export const SET_LOCALE = 'SET_LOCALE'
 
-/* map */
-export const SET_MAP_STATE = 'SET_MAP_STATE'
-export const RESET_MAP_STATE = 'RESET_MAP_STATE'
-
 /* settings */
 export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
 

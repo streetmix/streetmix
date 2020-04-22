@@ -7,7 +7,7 @@ import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { getAuthHeader } from '../users/authentication'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
-import { resetMapState } from '../store/actions/map'
+import { resetMapState } from '../store/slices/map'
 import { hideError } from '../store/slices/errors'
 
 let lastRequestedStreetId = null

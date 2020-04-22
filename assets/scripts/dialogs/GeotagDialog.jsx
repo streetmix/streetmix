@@ -14,7 +14,7 @@ import { trackEvent } from '../app/event_tracking'
 import GeoSearch from './Geotag/GeoSearch'
 import LocationPopup from './Geotag/LocationPopup'
 import { isOwnedByCurrentUser } from '../streets/owner'
-import { setMapState } from '../store/actions/map'
+import { setMapState } from '../store/slices/map'
 import {
   addLocation,
   clearLocation,
