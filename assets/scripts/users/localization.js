@@ -8,15 +8,20 @@ import {
   saveStreetToServerIfNecessary,
   setIgnoreStreetChanges
 } from '../streets/data_model'
-import {
-  getUndoStack,
-  getUndoPosition
-} from '../streets/undo_stack'
+import { getUndoStack, getUndoPosition } from '../streets/undo_stack'
 import { normalizeStreetWidth } from '../streets/width'
-import { saveSettingsLocally, LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
+import {
+  saveSettingsLocally,
+  LOCAL_STORAGE_SETTINGS_UNITS_ID
+} from '../users/settings'
 import store from '../store'
-import { setUnits, updateStreetWidth, updateStreetData, updateSegments } from '../store/actions/street'
-import { setUserUnits } from '../store/actions/persistSettings'
+import {
+  setUnits,
+  updateStreetWidth,
+  updateStreetData,
+  updateSegments
+} from '../store/actions/street'
+import { setUserUnits } from '../store/slices/persistSettings'
 
 export function getUnits () {
   return store.getState().persistSettings.units
@@ -31,13 +36,81 @@ export function getLeftHandTraffic () {
 }
 
 const COUNTRIES_LEFT_HAND_TRAFFIC = [
-  'AI', 'AG', 'AU', 'BS', 'BD', 'BB', 'BM', 'BT', 'BW', 'BN',
-  'KY', 'CX', 'CC', 'CK', 'CY', 'DM', 'TL', 'FK', 'FJ', 'GD', 'GG',
-  'GY', 'HK', 'IN', 'ID', 'IE', 'IM', 'JM', 'JP', 'JE', 'KE', 'KI',
-  'LS', 'MO', 'MW', 'MY', 'MV', 'MT', 'MU', 'MS', 'MZ', 'NA', 'NR',
-  'NP', 'NZ', 'NU', 'NF', 'PK', 'PG', 'PN', 'SH', 'KN', 'LC', 'VC',
-  'WS', 'SC', 'SG', 'SB', 'ZA', 'LK', 'SR', 'SZ', 'TZ', 'TH', 'TK',
-  'TO', 'TT', 'TC', 'TV', 'UG', 'GB', 'VG', 'VI', 'ZM', 'ZW'
+  'AI',
+  'AG',
+  'AU',
+  'BS',
+  'BD',
+  'BB',
+  'BM',
+  'BT',
+  'BW',
+  'BN',
+  'KY',
+  'CX',
+  'CC',
+  'CK',
+  'CY',
+  'DM',
+  'TL',
+  'FK',
+  'FJ',
+  'GD',
+  'GG',
+  'GY',
+  'HK',
+  'IN',
+  'ID',
+  'IE',
+  'IM',
+  'JM',
+  'JP',
+  'JE',
+  'KE',
+  'KI',
+  'LS',
+  'MO',
+  'MW',
+  'MY',
+  'MV',
+  'MT',
+  'MU',
+  'MS',
+  'MZ',
+  'NA',
+  'NR',
+  'NP',
+  'NZ',
+  'NU',
+  'NF',
+  'PK',
+  'PG',
+  'PN',
+  'SH',
+  'KN',
+  'LC',
+  'VC',
+  'WS',
+  'SC',
+  'SG',
+  'SB',
+  'ZA',
+  'LK',
+  'SR',
+  'SZ',
+  'TZ',
+  'TH',
+  'TK',
+  'TO',
+  'TT',
+  'TC',
+  'TV',
+  'UG',
+  'GB',
+  'VG',
+  'VI',
+  'ZM',
+  'ZW'
 ]
 
 export function updateSettingsFromCountryCode (countryCode) {
@@ -81,8 +154,10 @@ export function updateUnits (newUnits) {
   // to undo stack instead of double conversion (which could be lossy).
   var undoStack = getUndoStack()
   var undoPosition = getUndoPosition()
-  if (undoStack[undoPosition - 1] &&
-    (undoStack[undoPosition - 1].units === newUnits)) {
+  if (
+    undoStack[undoPosition - 1] &&
+    undoStack[undoPosition - 1].units === newUnits
+  ) {
     fromUndo = true
   } else {
     fromUndo = false
@@ -100,7 +175,9 @@ export function updateUnits (newUnits) {
       }
       store.dispatch(updateStreetWidth(width))
     } else {
-      store.dispatch(updateStreetWidth(normalizeStreetWidth(street.width, newUnits)))
+      store.dispatch(
+        updateStreetWidth(normalizeStreetWidth(street.width, newUnits))
+      )
     }
   } else {
     store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))

@@ -5,9 +5,8 @@
  */
 import IntlMessageFormat from 'intl-messageformat'
 import { DEFAULT_LOCALE } from './constants'
-import { API_URL } from '../app/config'
 import store, { observeStore } from '../store'
-import { changeLocale } from '../store/actions/locale'
+import { changeLocale } from '../store/slices/locale'
 import LOCALES from '../../../app/data/locales.json'
 
 // Polyfill Intl API support for IE11, Edge & Safari 12
@@ -38,20 +37,22 @@ export async function initLocale () {
   const defaultLocale = navigator.language || DEFAULT_LOCALE
 
   // Current language is the one set by Streetmix or is the browser default, if unset
-  let locale
+  let requestedLocale
 
   // Try to read a stored value from LocalStorage; if it fails (access denied, etc)
   // then ignore this error and go with the browser's locale or default
   try {
-    locale = JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
+    requestedLocale =
+      JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
   } catch (err) {
-    locale = defaultLocale
+    requestedLocale = defaultLocale
   }
 
   // Listen for switches in language direction (right-to-left vs left-to-right)
   initRtlChangedListener()
 
   // Change app locale
+  const locale = getActualLocaleFromRequested(requestedLocale)
   store.dispatch(changeLocale(locale))
 }
 
@@ -209,22 +210,4 @@ export function getActualLocaleFromRequested (proposedLocale) {
 
   // Finally, return DEFAULT_LOCALE if nothing else matches
   return locale
-}
-
-/**
- * Given a locale, returns an object representing all translation messages.
- *
- * @param {string}
- * @return {Promise}
- */
-export function fetchTranslationMessages (locale) {
-  return Promise.all([
-    window.fetch(`${API_URL}v1/translate/${locale}/main`).then((r) => r.json()),
-    window
-      .fetch(`${API_URL}v1/translate/${locale}/segment-info`)
-      .then((r) => r.json())
-  ]).then((responses) => ({
-    messages: responses[0],
-    segmentInfo: responses[1]
-  }))
 }

@@ -9,7 +9,7 @@ import {
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
 import { updateUnits } from '../users/localization'
-import { changeLocale } from '../store/actions/locale'
+import { changeLocale } from '../store/slices/locale'
 import { clearMenus } from '../store/slices/menus'
 import { ICON_CHECK } from '../ui/icons'
 

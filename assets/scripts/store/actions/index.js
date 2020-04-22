@@ -53,15 +53,8 @@ export const SET_INFO_BUBBLE_MOUSE_INSIDE = 'SET_INFO_BUBBLE_MOUSE_INSIDE'
 export const SHOW_DESCRIPTION = 'SHOW_DESCRIPTION'
 export const HIDE_DESCRIPTION = 'HIDE_DESCRIPTION'
 
-/* locale */
-export const LOAD_LOCALE = 'LOAD_LOCALE'
-export const SET_LOCALE = 'SET_LOCALE'
-
 /* settings */
 export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
-
-/* persist settings -- settings saved in local storage */
-export const SET_USER_UNITS = 'SET_USER_UNITS'
 
 /* street */
 export const REPLACE_STREET_DATA = 'REPLACE_STREET_DATA'
