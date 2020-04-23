@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Axios from 'axios'
 import { API_URL } from '../app/config'
 import { rememberUserProfile } from '../store/slices/user'
 import './Avatar.scss'
 
 Avatar.propTypes = {
-  userId: PropTypes.string.isRequired,
-  cachedImageUrl: PropTypes.string,
-  rememberUserProfile: PropTypes.func
+  userId: PropTypes.string.isRequired
 }
 
-function Avatar (props) {
-  const { userId, cachedImageUrl, rememberUserProfile = () => {} } = props
+function Avatar ({ userId }) {
+  // Uses cached profile image data, if available
+  const cachedImageUrl = useSelector(
+    (state) => state.user.profileCache?.[userId]?.profileImageUrl || null
+  )
   const [imageUrl, setImageUrl] = useState(cachedImageUrl)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const source = Axios.CancelToken.source()
@@ -32,7 +34,7 @@ function Avatar (props) {
         // have the same userId only need to make one request.
         if (response.data) {
           setImageUrl(response.data.profileImageUrl)
-          rememberUserProfile(response.data)
+          dispatch(rememberUserProfile(response.data))
         }
       } catch (error) {
         if (Axios.isCancel(error)) {
@@ -50,7 +52,7 @@ function Avatar (props) {
     return () => {
       source.cancel()
     }
-  }, [userId, imageUrl, rememberUserProfile])
+  }, [userId, imageUrl, dispatch])
 
   return (
     <div className="avatar">
@@ -59,19 +61,4 @@ function Avatar (props) {
   )
 }
 
-// Retrieves cached profile image data, if available
-function mapStateToProps (state, ownProps) {
-  const { userId } = ownProps
-  const cache = state.user.profileCache
-
-  return {
-    cachedImageUrl:
-      (cache && cache[userId] && cache[userId].profileImageUrl) || null
-  }
-}
-
-const mapDispatchToProps = {
-  rememberUserProfile
-}
-
-export default React.memo(connect(mapStateToProps, mapDispatchToProps)(Avatar))
+export default React.memo(Avatar)
