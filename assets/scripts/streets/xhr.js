@@ -56,7 +56,7 @@ import {
   updateEditCount,
   updateStreetData
 } from '../store/actions/street'
-import { addToast } from '../store/actions/toast'
+import { addToast } from '../store/slices/toasts'
 import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500

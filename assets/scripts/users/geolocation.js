@@ -1,5 +1,8 @@
 import store from '../store'
-import { setGeolocationAttempted, setGeolocationData } from '../store/actions/user'
+import {
+  setGeolocationAttempted,
+  setGeolocationData
+} from '../store/slices/user'
 
 /**
  * Checks the store to see if geolocation service attempt was made. It does
@@ -22,10 +25,9 @@ export function geolocationAttempted () {
 export function detectGeolocation () {
   // Reset state
   store.dispatch(setGeolocationAttempted(false))
-  return fetchGeolocation()
-    .catch(() => {
-      geolocationAttempted()
-    })
+  return fetchGeolocation().catch(() => {
+    geolocationAttempted()
+  })
 }
 
 /**

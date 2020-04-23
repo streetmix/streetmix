@@ -5,26 +5,20 @@ import copy from 'copy-to-clipboard'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import ShareMenu from '../ShareMenu'
 import { trackEvent } from '../../app/event_tracking'
-import { showDialog } from '../../store/actions/dialogs'
-import { startPrinting } from '../../store/actions/app'
+import { showDialog } from '../../store/slices/dialogs'
 
 jest.mock('copy-to-clipboard')
 jest.mock('../../app/event_tracking', () => ({
   trackEvent: jest.fn()
 }))
-jest.mock('../../store/actions/dialogs', () => ({
+jest.mock('../../store/slices/dialogs', () => ({
   showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
-}))
-jest.mock('../../store/actions/app', () => ({
-  ...jest.requireActual('../../store/actions/app'),
-  startPrinting: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('ShareMenu', () => {
   afterEach(() => {
     trackEvent.mockClear()
     showDialog.mockClear()
-    startPrinting.mockClear()
   })
 
   it('renders (user not signed in, anonymous user’s street, no street name)', () => {
@@ -211,7 +205,7 @@ describe('ShareMenu', () => {
   it('handles clicking print', () => {
     const wrapper = renderWithReduxAndIntl(<ShareMenu />)
     fireEvent.click(wrapper.getByText('Print', { exact: false }))
-    expect(startPrinting).toBeCalledTimes(1)
+    expect(wrapper.store.getState().app.printing).toBe(true)
   })
 
   it('handles clicking copy to clipboard', () => {

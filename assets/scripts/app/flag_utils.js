@@ -1,6 +1,6 @@
 import FEATURE_FLAGS from '../../../app/data/flags'
 import store, { observeStore } from '../store'
-import { setFlagOverrides } from '../store/actions/flags'
+import { setFlagOverrides } from '../store/slices/flags'
 
 export const PRIORITY_LEVELS = {
   initial: 0,

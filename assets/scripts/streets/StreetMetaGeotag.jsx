@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { trackEvent } from '../app/event_tracking'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 
 function StreetMetaGeotag (props) {
   const street = useSelector((state) => state.street)

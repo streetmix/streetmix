@@ -8,7 +8,7 @@ import {
   saveStreetThumbnail
 } from '../streets/image'
 import store from '../store'
-import { addToast } from '../store/actions/toast'
+import { addToast } from '../store/slices/toasts'
 
 const NON_BLOCKING_AJAX_REQUEST_TIME = [10, 500, 1000, 5000, 10000]
 const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000

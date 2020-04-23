@@ -13,12 +13,11 @@ import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings, getSettings, setSettings } from './settings'
 import store from '../store'
 import {
-  createSetSignInData,
-  createSignedInState,
-  createSignInLoadedState,
+  setSignInData,
+  clearSignInData,
   rememberUserProfile
-} from '../store/actions/user'
-import { showDialog } from '../store/actions/dialogs'
+} from '../store/slices/user'
+import { showDialog } from '../store/slices/dialogs'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -40,28 +39,12 @@ export function getSignInData () {
   return store.getState().user.signInData
 }
 
-function setSignInData (data) {
-  store.dispatch(createSetSignInData(data))
-}
-
-function clearSignInData () {
-  store.dispatch(createSetSignInData(null))
-}
-
 export function isSignedIn () {
   return store.getState().user.signedIn
 }
 
-function setSignedInState (bool) {
-  store.dispatch(createSignedInState(bool))
-}
-
-function setSignInLoadedState (bool) {
-  store.dispatch(createSignInLoadedState(bool))
-}
-
 export function goReloadClearSignIn () {
-  clearSignInData()
+  store.dispatch(clearSignInData())
   saveSignInDataLocally()
   removeSignInCookies()
 
@@ -93,19 +76,19 @@ function removeSignInCookies () {
 }
 
 export async function loadSignIn () {
-  setSignInLoadedState(false)
-
   var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   var userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
-    setSignInData({ token: signInCookie, userId: userIdCookie })
+    store.dispatch(setSignInData({ token: signInCookie, userId: userIdCookie }))
 
     removeSignInCookies()
     saveSignInDataLocally()
   } else {
     if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      setSignInData(JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]))
+      store.dispatch(
+        setSignInData(JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]))
+      )
     }
   }
 
@@ -119,15 +102,13 @@ export async function loadSignIn () {
   if (signInData && signInData.token && signInData.userId) {
     flagOverrides = await fetchSignInDetails(signInData.userId)
   } else {
-    setSignedInState(false)
+    store.dispatch(clearSignInData())
   }
 
   if (!flagOverrides) {
     flagOverrides = []
   }
   applyFlagOverrides(store.getState().flags, ...flagOverrides, sessionOverrides)
-
-  setSignInLoadedState(true)
 
   _signInLoaded()
 
@@ -171,15 +152,15 @@ async function fetchSignInDetails (userId) {
 }
 
 function receiveSignInDetails (details) {
-  const signInData = getSignInData()
-  signInData.details = details
-  setSignInData(signInData)
+  const signInData = {
+    ...getSignInData(),
+    details
+  }
+  store.dispatch(setSignInData(signInData))
   saveSignInDataLocally()
 
   // cache the users profile image so we don't have to request it later
   store.dispatch(rememberUserProfile(details))
-
-  setSignedInState(true)
 }
 
 function errorReceiveSignInDetails (data) {
@@ -211,9 +192,7 @@ function errorReceiveSignInDetails (data) {
   }
 
   // Fail silently
-
-  clearSignInData()
-  setSignedInState(false)
+  store.dispatch(clearSignInData())
 }
 
 export function onSignOutClick (event) {

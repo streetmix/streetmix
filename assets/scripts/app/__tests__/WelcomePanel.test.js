@@ -7,7 +7,7 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { getMode } from '../mode'
 import { isSignedIn } from '../../users/authentication'
 import apiClient from '../../util/api'
-import { everythingLoaded } from '../../store/actions/app'
+import { everythingLoaded } from '../../store/slices/app'
 
 jest.mock('../mode')
 jest.mock('../keypress')

@@ -6,7 +6,7 @@ import {
   REDO,
   UNIFY_UNDO_STACK
 } from './'
-import { addToast } from './toast'
+import { addToast } from '../slices/toasts'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { finishUndoOrRedo } from '../../streets/undo_stack'
 import { trimStreetData } from '../../streets/data_model'

@@ -6,7 +6,7 @@ import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import AvatarMenu from './AvatarMenu'
 import { doSignIn } from '../users/authentication'
-import { showDialog } from '../store/actions/dialogs'
+import { showDialog } from '../store/slices/dialogs'
 import logo from '../../images/logo_horizontal.svg'
 import './MenuBar.scss'
 
@@ -15,9 +15,7 @@ MenuBar.propTypes = {
 }
 
 function MenuBar (props) {
-  const user = useSelector(
-    (state) => (state.user.signInData && state.user.signInData.details) || null
-  )
+  const user = useSelector((state) => state.user.signInData?.details || null)
   const offline = useSelector((state) => state.system.noInternet)
   const upgradeFunnel = useSelector(
     (state) => state.flags.BUSINESS_PLAN.value || false

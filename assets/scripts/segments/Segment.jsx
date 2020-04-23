@@ -43,7 +43,7 @@ import {
   removeSegmentAction,
   clearSegmentsAction
 } from '../store/actions/street'
-import { addToast } from '../store/actions/toast'
+import { addToast } from '../store/slices/toasts'
 import './Segment.scss'
 
 export class Segment extends React.Component {

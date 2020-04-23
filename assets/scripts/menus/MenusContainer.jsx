@@ -9,7 +9,7 @@ import IdentityMenu from './IdentityMenu'
 import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { showMenu, clearMenus } from '../store/actions/menus'
+import { showMenu, clearMenus } from '../store/slices/menus'
 import './MenusContainer.scss'
 
 class MenusContainer extends React.PureComponent {
@@ -166,7 +166,7 @@ class MenusContainer extends React.PureComponent {
 
 function mapStateToProps (state) {
   return {
-    activeMenu: state.menus.activeMenu
+    activeMenu: state.menus
   }
 }
 

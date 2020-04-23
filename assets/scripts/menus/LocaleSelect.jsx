@@ -34,11 +34,15 @@ function LocaleSelect (props) {
         classNames.push('menu-item-selected')
       }
 
+      // TODO: ARIA roles and attributes have been added to help with
+      // testing, but these are not actually to accessible spec
       return (
         <li
           className={classNames.join(' ')}
           key={locale.value}
           onClick={(event) => selectLocale(locale.value)}
+          role="option"
+          aria-selected={locale.value === actuallySelectedLocale}
         >
           {locale.value === requestedLocale && <LoadingSpinner size="small" />}
           {locale.value === actuallySelectedLocale && (
@@ -54,7 +58,15 @@ function LocaleSelect (props) {
     })
   }
 
-  return <ul className="menu-item-group">{renderLocaleOptions()}</ul>
+  return (
+    <ul
+      className="menu-item-group"
+      role="listbox"
+      aria-labelledby="settings-menu-language-select"
+    >
+      {renderLocaleOptions()}
+    </ul>
+  )
 }
 
 export default LocaleSelect

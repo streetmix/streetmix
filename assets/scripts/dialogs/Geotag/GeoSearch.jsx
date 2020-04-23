@@ -5,10 +5,9 @@ import { useIntl } from 'react-intl'
 import DownshiftPelias from 'downshift-pelias'
 import Pelias from 'pelias-js'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
-import { setMapState } from '../../store/actions/map'
+import { setMapState } from '../../store/slices/map'
 
 GeoSearch.propTypes = {
-  setMapState: PropTypes.func,
   setSearchResults: PropTypes.func,
   focus: PropTypes.shape({
     lat: PropTypes.number,

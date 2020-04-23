@@ -9,8 +9,8 @@ import {
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
 import { updateUnits } from '../users/localization'
-import { changeLocale } from '../store/actions/locale'
-import { clearMenus } from '../store/actions/menus'
+import { changeLocale } from '../store/slices/locale'
+import { clearMenus } from '../store/slices/menus'
 import { ICON_CHECK } from '../ui/icons'
 
 function SettingsMenu (props) {
@@ -52,17 +52,25 @@ function SettingsMenu (props) {
     dispatch(clearMenus())
   }
 
+  // TODO: ARIA roles and attributes have been added to help with
+  // testing, but these are not actually to accessible spec
   return (
     <Menu {...props}>
-      <h2 className="menu-header">
+      <h2 className="menu-header" id="settings-menu-units-select">
         <FormattedMessage id="settings.units.label" defaultMessage="Units" />
       </h2>
-      <ul className="menu-item-group">
+      <ul
+        className="menu-item-group"
+        role="listbox"
+        aria-labelledby="settings-menu-units-select"
+      >
         <li
           className={`menu-item ${
             units === SETTINGS_UNITS_METRIC ? 'menu-item-selected' : ''
           }`}
           onClick={handleSelectMetric}
+          role="option"
+          aria-selected={units === SETTINGS_UNITS_METRIC}
         >
           {units === SETTINGS_UNITS_METRIC && (
             <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />
@@ -79,6 +87,8 @@ function SettingsMenu (props) {
             units === SETTINGS_UNITS_IMPERIAL ? 'menu-item-selected' : ''
           }`}
           onClick={handleSelectImperial}
+          role="option"
+          aria-selected={units === SETTINGS_UNITS_IMPERIAL}
         >
           {units === SETTINGS_UNITS_IMPERIAL && (
             <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />
@@ -93,7 +103,7 @@ function SettingsMenu (props) {
 
       {enableLocaleSettings && (
         <>
-          <h2 className="menu-header">
+          <h2 className="menu-header" id="settings-menu-language-select">
             <FormattedMessage
               id="settings.language.label"
               defaultMessage="Language"

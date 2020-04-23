@@ -32,23 +32,6 @@
  * > have to write them!
  */
 
-/* app */
-export const SET_APP_FLAGS = 'SET_APP_FLAGS'
-export const START_PRINTING = 'START_PRINTING'
-export const STOP_PRINTING = 'STOP_PRINTING'
-export const EVERYTHING_LOADED = 'EVERYTHING_LOADED'
-
-/* debug */
-export const SET_DEBUG_FLAGS = 'SET_DEBUG_FLAGS'
-
-/* dialogs */
-export const SHOW_DIALOG = 'SHOW_DIALOG'
-export const CLEAR_DIALOGS = 'CLEAR_DIALOGS'
-
-/* flags */
-export const SET_FEATURE_FLAG = 'SET_FEATURE_FLAG'
-export const SET_FLAG_OVERRIDES = 'SET_FLAG_OVERRIDES'
-
 /* gallery */
 export const SHOW_GALLERY = 'SHOW_GALLERY'
 export const HIDE_GALLERY = 'HIDE_GALLERY'
@@ -64,23 +47,8 @@ export const SET_INFO_BUBBLE_MOUSE_INSIDE = 'SET_INFO_BUBBLE_MOUSE_INSIDE'
 export const SHOW_DESCRIPTION = 'SHOW_DESCRIPTION'
 export const HIDE_DESCRIPTION = 'HIDE_DESCRIPTION'
 
-/* locale */
-export const LOAD_LOCALE = 'LOAD_LOCALE'
-export const SET_LOCALE = 'SET_LOCALE'
-
-/* map */
-export const SET_MAP_STATE = 'SET_MAP_STATE'
-export const RESET_MAP_STATE = 'RESET_MAP_STATE'
-
-/* menus */
-export const SHOW_MENU = 'SHOW_MENU'
-export const CLEAR_MENUS = 'CLEAR_MENUS'
-
 /* settings */
 export const SET_USER_SETTINGS = 'SET_USER_SETTINGS'
-
-/* persist settings -- settings saved in local storage */
-export const SET_USER_UNITS = 'SET_USER_UNITS'
 
 /* street */
 export const REPLACE_STREET_DATA = 'REPLACE_STREET_DATA'
@@ -119,10 +87,6 @@ export const SET_ENVIRONMENT = 'SET_ENVIRONMENT'
 export const SET_SYSTEM_FLAGS = 'SET_SYSTEM_FLAGS'
 export const UPDATE_WINDOW_SIZE = 'UPDATE_WINDOW_SIZE'
 
-/* toast */
-export const ADD_TOAST = 'ADD_TOAST'
-export const DESTROY_TOAST = 'DESTROY_TOAST'
-
 /* ui */
 export const SHOW_STREET_NAMEPLATE = 'SHOW_STREET_NAMEPLATE'
 export const HIDE_STREET_NAMEPLATE = 'HIDE_STREET_NAMEPLATE'
@@ -140,15 +104,3 @@ export const CREATE_NEW_UNDO = 'CREATE_NEW_UNDO'
 export const UNDO = 'UNDO'
 export const REDO = 'REDO'
 export const UNIFY_UNDO_STACK = 'UNIFY_UNDO_STACK'
-
-/* user */
-export const SET_USER_SIGN_IN_DATA = 'SET_USER_SIGN_IN_DATA'
-export const SET_USER_SIGNED_IN_STATE = 'SET_USER_SIGNED_IN_STATE'
-export const SET_USER_SIGN_IN_LOADED_STATE = 'SET_USER_SIGN_IN_LOADED_STATE'
-export const GEOLOCATION_DATA = 'GEOLOCATION_DATA'
-export const GEOLOCATION_ATTEMPTED = 'GEOLOCATION_ATTEMPTED'
-export const REMEMBER_USER_PROFILE = 'REMEMBER_USER_PROFILE'
-
-/* errors */
-export const SHOW_ERROR = 'SHOW_ERROR'
-export const HIDE_ERROR = 'HIDE_ERROR'

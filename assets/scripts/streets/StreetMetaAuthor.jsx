@@ -8,9 +8,7 @@ import Avatar from '../users/Avatar'
 function StreetMetaAuthor (props) {
   const creatorId = useSelector((state) => state.street.creatorId)
   const signedIn = useSelector((state) => state.user.signedIn)
-  const userId = useSelector(
-    (state) => (state.user.signInData && state.user.signInData.userId) || ''
-  )
+  const userId = useSelector((state) => state.user.signInData?.userId || '')
   const dispatch = useDispatch()
 
   function handleClickAuthor (event) {

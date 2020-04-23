@@ -246,33 +246,45 @@ exports[`MenusContainer renders 1`] = `
     >
       <h2
         class="menu-header"
+        id="settings-menu-units-select"
       >
         Units
       </h2>
       <ul
+        aria-labelledby="settings-menu-units-select"
         class="menu-item-group"
+        role="listbox"
       >
         <li
+          aria-selected="false"
           class="menu-item "
+          role="option"
         >
           Metric units (meters)‎
         </li>
         <li
+          aria-selected="false"
           class="menu-item "
+          role="option"
         >
           Imperial units (feet)‎
         </li>
       </ul>
       <h2
         class="menu-header"
+        id="settings-menu-language-select"
       >
         Language
       </h2>
       <ul
+        aria-labelledby="settings-menu-language-select"
         class="menu-item-group"
+        role="listbox"
       >
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Deutsch‎
@@ -284,7 +296,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="true"
           class="menu-item menu-item-selected"
+          role="option"
         >
           <svg
             class="svg-inline--fa menu-item-icon fa-check"
@@ -299,7 +313,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Español (América Latina)‎
@@ -311,7 +327,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Español (México)‎
@@ -323,7 +341,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Français‎
@@ -335,7 +355,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Italiano‎
@@ -347,7 +369,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Polski‎
@@ -359,7 +383,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Português (Brasil)‎
@@ -371,7 +397,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Suomi‎
@@ -383,7 +411,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             Русский‎
@@ -395,7 +425,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             لغة عربية‎
@@ -407,7 +439,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             日本語‎
@@ -419,7 +453,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             简体中文‎
@@ -431,7 +467,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             繁體中文‎
@@ -443,7 +481,9 @@ exports[`MenusContainer renders 1`] = `
           </span>
         </li>
         <li
+          aria-selected="false"
           class="menu-item"
+          role="option"
         >
           <span>
             한국어‎

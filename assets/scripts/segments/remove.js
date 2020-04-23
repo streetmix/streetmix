@@ -5,7 +5,7 @@ import {
   removeSegment as removeSegmentActionCreator,
   clearSegments
 } from '../store/actions/street'
-import { addToast } from '../store/actions/toast'
+import { addToast } from '../store/slices/toasts'
 import store from '../store'
 
 /**

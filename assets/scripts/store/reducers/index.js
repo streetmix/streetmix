@@ -1,22 +1,22 @@
 import { combineReducers } from 'redux'
-import app from './app'
-import debug from './debug'
-import dialogs from './dialogs'
-import errors from './errors'
-import flags from './flags'
+import app from '../slices/app'
+import debug from '../slices/debug'
+import dialogs from '../slices/dialogs'
+import errors from '../slices/errors'
+import flags from '../slices/flags'
 import gallery from './gallery'
 import infoBubble from './infoBubble'
-import locale from './locale'
-import map from './map'
-import menus from './menus'
+import locale from '../slices/locale'
+import map from '../slices/map'
+import menus from '../slices/menus'
 import settings from './settings'
-import persistSettings from './persistSettings'
+import persistSettings from '../slices/persistSettings'
 import street from './street'
 import system from './system'
-import toast from './toast'
+import toasts from '../slices/toasts'
 import ui from './ui'
 import undo from './undo'
-import user from './user'
+import user from '../slices/user'
 
 const reducers = combineReducers({
   app,
@@ -33,7 +33,7 @@ const reducers = combineReducers({
   persistSettings,
   street,
   system,
-  toast,
+  toasts,
   ui,
   undo,
   user

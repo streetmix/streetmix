@@ -5,7 +5,7 @@ import Toast from './Toast'
 import ToastUndo from './ToastUndo'
 import ToastSignIn from './ToastSignIn'
 import ToastNoConnection from './ToastNoConnection'
-import { destroyToast } from '../../store/actions/toast'
+import { destroyToast } from '../../store/slices/toasts'
 import './ToastContainer.scss'
 
 const TOAST_SPRING_CONFIG = {
@@ -24,7 +24,7 @@ function ToastContainer (props) {
   const config = TOAST_SPRING_CONFIG
   const [refMap] = useState(() => new WeakMap())
   const [cancelMap] = useState(() => new WeakMap())
-  const toasts = useSelector((state) => state.toast.toasts)
+  const toasts = useSelector((state) => state.toasts)
   const contentDirection = useSelector((state) => state.app.contentDirection)
   const dispatch = useDispatch()
 
