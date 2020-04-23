@@ -16,7 +16,7 @@ import system from './system'
 import toasts from '../slices/toasts'
 import ui from './ui'
 import undo from './undo'
-import user from './user'
+import user from '../slices/user'
 
 const reducers = combineReducers({
   app,

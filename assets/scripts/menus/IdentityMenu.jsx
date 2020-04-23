@@ -7,9 +7,7 @@ import { showGallery } from '../store/actions/gallery'
 import './IdentityMenu.scss'
 
 function IdentityMenu (props) {
-  const userId = useSelector(
-    (state) => state.user.signInData && state.user.signInData.userId
-  )
+  const userId = useSelector((state) => state.user.signInData?.userId)
   const noInternet = useSelector((state) => state.system.noInternet)
   const dispatch = useDispatch()
   const handleClickMyStreets = useCallback(

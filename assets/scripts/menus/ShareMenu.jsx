@@ -14,9 +14,7 @@ import './ShareMenu.scss'
 
 function ShareMenu (props) {
   const signedIn = useSelector((state) => state.user.signedIn || false)
-  const userId = useSelector(
-    (state) => (state.user.signInData && state.user.signInData.userId) || ''
-  )
+  const userId = useSelector((state) => state.user.signInData?.userId || '')
   const street = useSelector((state) => state.street)
   const dispatch = useDispatch()
   const [shareUrl, setShareUrl] = useState('')

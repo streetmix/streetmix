@@ -15,9 +15,7 @@ MenuBar.propTypes = {
 }
 
 function MenuBar (props) {
-  const user = useSelector(
-    (state) => (state.user.signInData && state.user.signInData.details) || null
-  )
+  const user = useSelector((state) => state.user.signInData?.details || null)
   const offline = useSelector((state) => state.system.noInternet)
   const upgradeFunnel = useSelector(
     (state) => state.flags.BUSINESS_PLAN.value || false

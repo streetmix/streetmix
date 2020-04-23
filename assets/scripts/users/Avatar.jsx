@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Axios from 'axios'
 import { API_URL } from '../app/config'
-import { rememberUserProfile } from '../store/actions/user'
+import { rememberUserProfile } from '../store/slices/user'
 import './Avatar.scss'
 
 Avatar.propTypes = {
@@ -13,11 +13,7 @@ Avatar.propTypes = {
 }
 
 function Avatar (props) {
-  const {
-    userId,
-    cachedImageUrl,
-    rememberUserProfile = () => {}
-  } = props
+  const { userId, cachedImageUrl, rememberUserProfile = () => {} } = props
   const [imageUrl, setImageUrl] = useState(cachedImageUrl)
 
   useEffect(() => {
@@ -69,7 +65,8 @@ function mapStateToProps (state, ownProps) {
   const cache = state.user.profileCache
 
   return {
-    cachedImageUrl: (cache && cache[userId] && cache[userId].profileImageUrl) || null
+    cachedImageUrl:
+      (cache && cache[userId] && cache[userId].profileImageUrl) || null
   }
 }
 
