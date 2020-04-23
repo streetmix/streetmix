@@ -2,6 +2,11 @@ language: node_js
 node_js:
   - lts/*
 
+# Default distribution. If left commented out,
+# Travis will upgrade distros as needed
+# dist: xenial
+# os: linux
+
 addons:
   apt:
     packages:
@@ -9,16 +14,12 @@ addons:
       # Required for Cypress. https://docs.cypress.io/guides/guides/continuous-integration.html#Travis
       - libgconf-2-4
 
-# Turns on newer container-based infrastructure
-# This generates a sudo warning with mongodb below, see here: https://github.com/travis-ci/travis-ci/issues/3044
-sudo: false
-
 env:
   global:
     - NODE_ENV: test
 
 services:
-  - redis-server
+  - redis
 
 before_script:
   # Start the server and run it in background process
