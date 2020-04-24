@@ -32,13 +32,6 @@
  * > have to write them!
  */
 
-/* gallery */
-export const SHOW_GALLERY = 'SHOW_GALLERY'
-export const HIDE_GALLERY = 'HIDE_GALLERY'
-export const RECEIVE_GALLERY_STREETS = 'RECEIVE_GALLERY_STREETS'
-export const DELETE_GALLERY_STREET = 'DELETE_GALLERY_STREET'
-export const SET_GALLERY_STATE = 'SET_GALLERY_STATE'
-
 /* street */
 export const REPLACE_STREET_DATA = 'REPLACE_STREET_DATA'
 

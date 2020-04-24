@@ -11,7 +11,7 @@ import {
   RESERVED_URLS
 } from './constants'
 import { normalizeSlug } from '../util/helpers'
-import { setGalleryUserId } from '../store/actions/gallery'
+import { setGalleryUserId } from '../store/slices/gallery'
 import store from '../store'
 import { saveCreatorId, saveStreetId } from '../store/actions/street'
 

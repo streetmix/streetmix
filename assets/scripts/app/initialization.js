@@ -24,8 +24,8 @@ import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import store, { observeStore } from '../store'
-import { showDialog } from '../store/slices/dialogs'
 import { showGallery } from '../store/actions/gallery'
+import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
 
 let serverContacted

@@ -1,27 +1,22 @@
-import {
-  SHOW_GALLERY,
-  HIDE_GALLERY,
-  RECEIVE_GALLERY_STREETS,
-  DELETE_GALLERY_STREET,
-  SET_GALLERY_STATE
-} from '../actions'
+import { show, hide, setGalleryMode } from '../slices/gallery'
 import { hideControls } from '../../segments/resizing'
 import { fetchGalleryData } from '../../gallery/fetch_data'
+import { GALLERY_MODES } from '../../gallery/constants'
 import { updatePageUrl } from '../../app/page_url'
 import { showError, ERRORS } from '../../app/errors'
 import { MODES, getMode, setMode } from '../../app/mode'
 import { onWindowFocus } from '../../app/focus'
 
-function showGalleryAction (userId) {
-  return {
-    type: SHOW_GALLERY,
-    userId
-  }
-}
+// TODO: Convert these to use createAsyncThunk from @redux/toolkit
+// That way we can take advantage of the bog-standard `pending`
+// `fulfilled` and `rejected` lifecycle actions. This will also
+// require refactoring `fetchGalleryData` to return a promise we
+// can work with.
+// These will also need to be tested.
 
 export function showGallery (userId, instant = false) {
   return (dispatch) => {
-    dispatch(showGalleryAction(userId))
+    dispatch(show(userId))
     hideControls()
 
     // TODO: Handle transition inside Gallery component.
@@ -45,21 +40,17 @@ export function showGallery (userId, instant = false) {
       showError(ERRORS.NO_STREET, false)
     }
 
-    dispatch(setGalleryMode('LOADING'))
+    dispatch(setGalleryMode(GALLERY_MODES.LOADING))
     fetchGalleryData()
     updatePageUrl(true)
   }
-}
-
-function hideGalleryAction () {
-  return { type: HIDE_GALLERY }
 }
 
 export function hideGallery (instant = false) {
   return (dispatch, getState) => {
     const state = getState()
     if (state.gallery.visible) {
-      dispatch(hideGalleryAction())
+      dispatch(hide())
 
       if (instant) {
         document.body.classList.add('gallery-no-move-transition')
@@ -80,33 +71,5 @@ export function hideGallery (instant = false) {
 
       setMode(MODES.CONTINUE)
     }
-  }
-}
-
-export function receiveGalleryStreets (streets) {
-  return {
-    type: RECEIVE_GALLERY_STREETS,
-    streets
-  }
-}
-
-export function deleteGalleryStreet (streetId) {
-  return {
-    type: DELETE_GALLERY_STREET,
-    id: streetId
-  }
-}
-
-export function setGalleryMode (mode) {
-  return {
-    type: SET_GALLERY_STATE,
-    mode
-  }
-}
-
-export function setGalleryUserId (userId) {
-  return {
-    type: SET_GALLERY_STATE,
-    userId
   }
 }

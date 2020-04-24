@@ -5,16 +5,14 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
 import { switchGalleryStreet } from '../view'
-import { hideGallery, deleteGalleryStreet } from '../../store/actions/gallery'
+import { hideGallery } from '../../store/actions/gallery'
 
 jest.mock('../view')
 jest.mock('../../app/errors')
 jest.mock('../../streets/thumbnail')
 jest.mock('../../streets/xhr')
-
 jest.mock('../../store/actions/gallery', () => ({
-  hideGallery: jest.fn(() => ({ type: 'MOCK_ACTION' })),
-  deleteGalleryStreet: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+  hideGallery: jest.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 const initialState = {
@@ -134,11 +132,14 @@ describe('Gallery', () => {
     })
 
     it('deletes street', () => {
-      const { getByTitle } = renderWithReduxAndIntl(<Gallery />, {
+      const { getByTitle, queryByTitle } = renderWithReduxAndIntl(<Gallery />, {
         initialState
       })
       fireEvent.click(getByTitle('Delete street'))
-      expect(deleteGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
+
+      // There's only one street "displayed" so we expect no "delete street"
+      // button to be rendered anymore, since that street should be deleted.
+      expect(queryByTitle('Delete street')).not.toBeInTheDocument()
     })
   })
 })
