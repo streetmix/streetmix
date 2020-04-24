@@ -6,7 +6,7 @@ import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import { setUpdateTimeToNow, updateEverything } from './data_model'
 import store from '../store'
 import { updateStreetData } from '../store/actions/street'
-import { createNewUndo, unifyStack } from '../store/actions/undo'
+import { createNewUndo, unifyStack } from '../store/slices/undo'
 
 export function getUndoStack () {
   return cloneDeep(store.getState().undo.stack)

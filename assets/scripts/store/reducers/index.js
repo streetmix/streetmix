@@ -15,7 +15,7 @@ import street from './street'
 import system from '../slices/system'
 import toasts from '../slices/toasts'
 import ui from './ui'
-import undo from './undo'
+import undo from '../slices/undo'
 import user from '../slices/user'
 
 const reducers = combineReducers({

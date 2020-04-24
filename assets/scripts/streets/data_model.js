@@ -19,7 +19,7 @@ import {
   saveCreatorId,
   updateStreetData
 } from '../store/actions/street'
-import { resetUndoStack } from '../store/actions/undo'
+import { resetUndoStack } from '../store/slices/undo'
 import store from '../store'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
