@@ -6,10 +6,8 @@ import {
   prepareEmptyStreet,
   setIgnoreStreetChanges
 } from './data_model'
+import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from './constants'
 import { saveStreetToServer } from './xhr'
-
-export const NEW_STREET_DEFAULT = 1
-export const NEW_STREET_EMPTY = 2
 
 export function makeDefaultStreet () {
   setIgnoreStreetChanges(true)

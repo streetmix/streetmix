@@ -29,7 +29,8 @@ import {
   newNonblockingAjaxRequest,
   getNonblockingAjaxRequestCount
 } from '../util/fetch_nonblocking'
-import { NEW_STREET_EMPTY, makeDefaultStreet } from './creation'
+import { makeDefaultStreet } from './creation'
+import { NEW_STREET_EMPTY } from './constants'
 import {
   prepareEmptyStreet,
   prepareDefaultStreet,

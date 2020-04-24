@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../../streets/constants'
 import {
-  NEW_STREET_DEFAULT,
-  NEW_STREET_EMPTY,
   onNewStreetDefaultClick,
   onNewStreetEmptyClick
 } from '../../streets/creation'
@@ -17,7 +16,12 @@ NewStreet.propTypes = {
   getLastStreet: PropTypes.func
 }
 
-function NewStreet ({ newStreetPreference, priorLastStreetId = null, street, getLastStreet }) {
+function NewStreet ({
+  newStreetPreference,
+  priorLastStreetId = null,
+  street,
+  getLastStreet
+}) {
   // If welcomeType is WELCOME_NEW_STREET, there is an additional state
   // property that determines which of the new street modes is selected
   let selectedNewStreetType
@@ -54,7 +58,10 @@ function NewStreet ({ newStreetPreference, priorLastStreetId = null, street, get
             type="radio"
             name="new-street"
             id="new-street-default"
-            checked={state.selectedNewStreetType === 'new-street-default' || !state.selectedNewStreetType}
+            checked={
+              state.selectedNewStreetType === 'new-street-default' ||
+              !state.selectedNewStreetType
+            }
             onChange={onChangeNewStreetType}
             onClick={onNewStreetDefaultClick}
           />
@@ -83,7 +90,7 @@ function NewStreet ({ newStreetPreference, priorLastStreetId = null, street, get
         </li>
         {/* Display this button only if there is a previous street to copy
             from that is not the same as the current street */}
-        {(priorLastStreetId && priorLastStreetId !== street.id) && (
+        {priorLastStreetId && priorLastStreetId !== street.id && (
           <li>
             <input
               type="radio"
