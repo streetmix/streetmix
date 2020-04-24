@@ -136,21 +136,6 @@ body.phone #loading {
 
 // --------------------------------------------------------
 
-body.controls-fade-out .info-bubble {
-  transition: opacity $touch-controls-fadeout-time;
-  opacity: 0.01 !important;
-}
-
-body.controls-fade-out .segment .drag-handle {
-  transition: opacity $touch-controls-fadeout-time !important;
-  opacity: 0.01 !important;
-}
-
-body.controls-fade-out .segment.hover .hover-bk {
-  transition: opacity $touch-controls-fadeout-time !important;
-  opacity: 0.01 !important;
-}
-
 .debug-hover-polygon {
   position: absolute;
   z-index: $z-07-debug-hover-polygon;

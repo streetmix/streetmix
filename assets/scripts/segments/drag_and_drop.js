@@ -14,7 +14,6 @@ import {
   handleSegmentResizeEnd,
   resolutionForResizeType,
   normalizeSegmentWidth,
-  cancelFadeoutControls,
   hideControls,
   cancelSegmentResizeTransitions
 } from './resizing'
@@ -136,7 +135,6 @@ function handleSegmentResizeStart (event) {
 
   infoBubble.hide()
   infoBubble.hideSegment(true)
-  cancelFadeoutControls()
   hideControls()
 
   window.setTimeout(function () {
@@ -405,7 +403,6 @@ export function onBodyMouseUp (event) {
 
 function handleSegmentDragStart () {
   infoBubble.hide()
-  cancelFadeoutControls()
   hideControls()
 }
 

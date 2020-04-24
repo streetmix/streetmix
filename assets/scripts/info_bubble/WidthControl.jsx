@@ -4,11 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import UpDownInput from './UpDownInput'
 import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '../segments/constants'
-import {
-  RESIZE_TYPE_TYPING,
-  resizeSegment,
-  resumeFadeoutControls
-} from '../segments/resizing'
+import { RESIZE_TYPE_TYPING, resizeSegment } from '../segments/resizing'
 import {
   prettifyWidth,
   stringifyMeasurementValue,
@@ -21,7 +17,6 @@ WidthControl.propTypes = {
 }
 
 function WidthControl ({ position }) {
-  const touch = useSelector((state) => state.system.touch)
   const value = useSelector(
     (state) =>
       (state.street.segments[position] &&
@@ -37,14 +32,12 @@ function WidthControl ({ position }) {
     const precise = event.shiftKey
 
     dispatch(incrementSegmentWidth(position, true, precise, value))
-    resumeFadeoutControls()
   }
 
   const handleDecrement = (event) => {
     const precise = event.shiftKey
 
     dispatch(incrementSegmentWidth(position, false, precise, value))
-    resumeFadeoutControls()
   }
 
   /**
@@ -110,7 +103,6 @@ function WidthControl ({ position }) {
           id: 'tooltip.decrease-width',
           defaultMessage: 'Decrease width (hold Shift for more precision)'
         })}
-        touch={touch}
       />
     </div>
   )

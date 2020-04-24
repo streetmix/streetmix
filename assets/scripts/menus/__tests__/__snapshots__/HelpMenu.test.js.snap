@@ -16,7 +16,7 @@ exports[`HelpMenu renders 1`] = `
       What’s new in Streetmix? [en]‎
     </a>
     <div
-      class="help-menu-shortcuts non-touch-only"
+      class="help-menu-shortcuts"
     >
       <p>
         Keyboard shortcuts:

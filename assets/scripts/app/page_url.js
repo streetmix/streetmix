@@ -39,34 +39,41 @@ export function processUrl () {
     // Continue where we left off… or start with a default (demo) street
 
     setMode(MODES.CONTINUE)
-  } else if ((urlParts.length === 1) && (urlParts[0] === URL_NEW_STREET)) {
+  } else if (urlParts.length === 1 && urlParts[0] === URL_NEW_STREET) {
     // New street
 
     setMode(MODES.NEW_STREET)
-  } else if ((urlParts.length === 1) && (urlParts[0] === URL_NEW_STREET_COPY_LAST)) {
+  } else if (
+    urlParts.length === 1 &&
+    urlParts[0] === URL_NEW_STREET_COPY_LAST
+  ) {
     // New street (but start with copying last street)
 
     setMode(MODES.NEW_STREET_COPY_LAST)
-  } else if ((urlParts.length === 1) && (urlParts[0] === JUST_SIGNED_IN_PATH)) {
+  } else if (urlParts.length === 1 && urlParts[0] === JUST_SIGNED_IN_PATH) {
     // Coming back from a successful sign in
 
     setMode(MODES.JUST_SIGNED_IN)
-  } else if ((urlParts.length >= 1) && (urlParts[0] === URL_ERROR)) {
+  } else if (urlParts.length >= 1 && urlParts[0] === URL_ERROR) {
     // Error
 
     setMode(MODES.ERROR)
     errorUrl = urlParts[1]
-  } else if ((urlParts.length === 1) && (urlParts[0] === URL_GLOBAL_GALLERY)) {
+  } else if (urlParts.length === 1 && urlParts[0] === URL_GLOBAL_GALLERY) {
     // Global gallery
 
     setMode(MODES.GLOBAL_GALLERY)
-  } else if ((urlParts.length === 1) && urlParts[0]) {
+  } else if (urlParts.length === 1 && urlParts[0]) {
     // User gallery
 
     store.dispatch(setGalleryUserId(urlParts[0]))
 
     setMode(MODES.USER_GALLERY)
-  } else if ((urlParts.length === 2) && (urlParts[0] === URL_NO_USER) && urlParts[1]) {
+  } else if (
+    urlParts.length === 2 &&
+    urlParts[0] === URL_NO_USER &&
+    urlParts[1]
+  ) {
     // TODO add is integer urlParts[1]
     // Existing street by an anonymous person
 
@@ -74,7 +81,7 @@ export function processUrl () {
     store.dispatch(saveStreetId(null, urlParts[1]))
 
     setMode(MODES.EXISTING_STREET)
-  } else if ((urlParts.length >= 2) && urlParts[0] && urlParts[1]) {
+  } else if (urlParts.length >= 2 && urlParts[0] && urlParts[1]) {
     // Existing street by a user person
     let creatorId = urlParts[0]
 
@@ -144,9 +151,6 @@ export function updatePageUrl (forceGalleryUrl) {
   }
   if (debug.forceReadOnly) {
     url += '&debug-force-read-only'
-  }
-  if (debug.forceTouch) {
-    url += '&debug-force-touch'
   }
   if (debug.forceLiveUpdate) {
     url += '&debug-force-live-update'

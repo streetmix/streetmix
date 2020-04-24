@@ -1,13 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 
-FirstTimeNewStreet.propTypes = {
-  touch: PropTypes.bool
-}
-
-function FirstTimeNewStreet ({ touch = false }) {
+function FirstTimeNewStreet (props) {
   return (
     <div className="welcome-panel-content first-time-new-street">
       <h1>
@@ -26,32 +20,12 @@ function FirstTimeNewStreet ({ touch = false }) {
       </p>
       <p className="important">
         <FormattedMessage
-          id="dialogs.welcome.new.instruct"
-          defaultMessage="Start by moving some segments around with {pointer}."
-          values={{
-            pointer: (touch)
-              ? (
-                <FormattedMessage
-                  id="dialogs.welcome.new.instruct-pointer-finger"
-                  defaultMessage="your finger"
-                />
-              ) : (
-                <FormattedMessage
-                  id="dialogs.welcome.new.instruct-pointer-mouse"
-                  defaultMessage="your mouse"
-                />
-              )
-          }}
+          id="dialogs.welcome.new.instruction"
+          defaultMessage="Start by moving some segments around."
         />
       </p>
     </div>
   )
 }
 
-function mapStateToProps (state) {
-  return {
-    touch: state.system.touch
-  }
-}
-
-export default connect(mapStateToProps)(FirstTimeNewStreet)
+export default FirstTimeNewStreet

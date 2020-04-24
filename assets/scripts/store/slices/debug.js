@@ -8,7 +8,6 @@ const debugSlice = createSlice({
     forceNonRetina: false,
     forceNoInternet: false,
     forceReadOnly: false,
-    forceTouch: false,
     forceLiveUpdate: false
   },
 

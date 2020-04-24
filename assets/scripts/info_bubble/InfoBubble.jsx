@@ -18,10 +18,6 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import { registerKeypress } from '../app/keypress'
-import {
-  cancelFadeoutControls,
-  resumeFadeoutControls
-} from '../segments/resizing'
 import { BUILDINGS } from '../segments/buildings'
 import {
   BUILDING_LEFT_POSITION,
@@ -149,10 +145,6 @@ export class InfoBubble extends React.Component {
   componentDidUpdate (prevProps, prevState, snapshot) {
     this.segmentEl = getSegmentEl(this.props.position)
     this.setInfoBubblePosition()
-
-    // If info bubble changes, wake this back up if it's fading out
-    cancelFadeoutControls()
-
     this.updateBubbleDimensions(snapshot)
 
     // Add or remove event listener based on whether infobubble was shown or hidden
@@ -183,10 +175,6 @@ export class InfoBubble extends React.Component {
 
   hide = () => {
     infoBubble.hide()
-  }
-
-  handleTouchStart (event) {
-    resumeFadeoutControls()
   }
 
   // TODO: verify this continues to work with pointer / touch taps

@@ -16,10 +16,6 @@ import { SET_SYSTEM_FLAGS } from '../store/actions'
 export function initSystemCapabilities () {
   const system = {}
 
-  if (debug.forceTouch) {
-    system.touch = true
-  }
-
   if (debug.forceNoInternet || NO_INTERNET_MODE === true) {
     system.noInternet = true
   }

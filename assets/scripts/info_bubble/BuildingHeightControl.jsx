@@ -21,7 +21,6 @@ BuildingHeightControl.propTypes = {
 }
 
 function BuildingHeightControl ({ position }) {
-  const touch = useSelector((state) => state.system.touch)
   const units = useSelector((state) => state.street.units)
 
   // Get the appropriate building data based on which side of street it's on
@@ -99,7 +98,6 @@ function BuildingHeightControl ({ position }) {
           id: 'tooltip.remove-floor',
           defaultMessage: 'Remove floor'
         })}
-        touch={touch}
       />
     </div>
   )

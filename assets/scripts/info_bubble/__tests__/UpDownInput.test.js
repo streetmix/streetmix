@@ -49,14 +49,6 @@ describe('UpDownInput', () => {
     // expect(handleUpdate).toHaveBeenCalled()
   })
 
-  it('renders a non-editable value in touch mode', () => {
-    const wrapper = render(<UpDownInput {...defaultProps} touch />)
-
-    const inputEl = wrapper.queryByTitle('input')
-
-    expect(inputEl).not.toBeInTheDocument()
-  })
-
   it('renders inputs as disabled', () => {
     const wrapper = render(<UpDownInput {...defaultProps} disabled />)
 

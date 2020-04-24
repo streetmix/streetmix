@@ -18,7 +18,6 @@ import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import './vendor/canvas-toBlob.js'
 import './vendor/Blob.js'
-import './vendor/modernizr-custom'
 import './vendor/polyfills/customevent' // customEvent in IE
 import './vendor/polyfills/Element.closest'
 import './vendor/polyfills/Element.remove'

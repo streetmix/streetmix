@@ -40,9 +40,6 @@ export default class UpDownInput extends React.Component {
     // When `true`, the input box and buttons are disabled
     disabled: PropTypes.bool,
 
-    // When `true`, displays a non-editable <span> instead of an <input>
-    touch: PropTypes.bool,
-
     // Tooltip text
     inputTooltip: PropTypes.string,
     upTooltip: PropTypes.string,
@@ -56,7 +53,6 @@ export default class UpDownInput extends React.Component {
     onClickDown: () => {},
     onUpdatedValue: () => {},
     disabled: false,
-    touch: false,
     inputTooltip: 'Change value',
     upTooltip: 'Increment',
     downTooltip: 'Decrement'
@@ -246,31 +242,25 @@ export default class UpDownInput extends React.Component {
     }
   }
 
-  renderInputEl = () => {
-    return (this.props.touch) ? (
-      <span className="up-down-input-element up-down-input-uneditable">
-        {this.state.displayValue}
-      </span>
-    ) : (
-      <input
-        type="text"
-        className="up-down-input-element"
-        title={this.props.inputTooltip}
-        disabled={this.props.disabled}
-        value={this.props.disabled ? '' : this.state.displayValue}
-        onChange={this.handleInputChange}
-        onClick={this.handleInputClick}
-        onDoubleClick={this.handleInputDoubleClick}
-        onFocus={this.handleInputFocus}
-        onBlur={this.handleInputBlur}
-        onMouseDown={this.handleInputMouseDown}
-        onMouseOver={this.handleInputMouseOver}
-        onMouseOut={this.handleInputMouseOut}
-        onKeyDown={this.handleInputKeyDown}
-        ref={this.inputEl}
-      />
-    )
-  }
+  renderInputEl = () => (
+    <input
+      type="text"
+      className="up-down-input-element"
+      title={this.props.inputTooltip}
+      disabled={this.props.disabled}
+      value={this.props.disabled ? '' : this.state.displayValue}
+      onChange={this.handleInputChange}
+      onClick={this.handleInputClick}
+      onDoubleClick={this.handleInputDoubleClick}
+      onFocus={this.handleInputFocus}
+      onBlur={this.handleInputBlur}
+      onMouseDown={this.handleInputMouseDown}
+      onMouseOver={this.handleInputMouseOver}
+      onMouseOut={this.handleInputMouseOut}
+      onKeyDown={this.handleInputKeyDown}
+      ref={this.inputEl}
+    />
+  )
 
   /**
    * @todo make minValue and maxValue optional
@@ -283,7 +273,9 @@ export default class UpDownInput extends React.Component {
           title={this.props.downTooltip}
           tabIndex={-1}
           onClick={this.handleClickDecrement}
-          disabled={this.props.disabled || (this.props.value <= this.props.minValue)}
+          disabled={
+            this.props.disabled || this.props.value <= this.props.minValue
+          }
         >
           <FontAwesomeIcon icon={ICON_MINUS} />
         </button>
@@ -295,7 +287,9 @@ export default class UpDownInput extends React.Component {
           title={this.props.upTooltip}
           tabIndex={-1}
           onClick={this.handleClickIncrement}
-          disabled={this.props.disabled || (this.props.value >= this.props.maxValue)}
+          disabled={
+            this.props.disabled || this.props.value >= this.props.maxValue
+          }
         >
           <FontAwesomeIcon icon={ICON_PLUS} />
         </button>

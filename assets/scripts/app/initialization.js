@@ -256,7 +256,6 @@ function observeStoreToUpdateBodyClasses () {
   const onChange = (state) => {
     document.body.classList.toggle('windows', state.system.windows)
     document.body.classList.toggle('safari', state.system.safari)
-    document.body.classList.toggle('touch-support', state.system.touch)
     document.body.classList.toggle('phone', state.system.phone)
     document.body.classList.toggle('no-internet', state.system.noInternet)
     document.body.classList.toggle('read-only', state.app.readOnly)

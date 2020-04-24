@@ -30,9 +30,6 @@ export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
 
-const TOUCH_CONTROLS_FADEOUT_TIME = 3000
-const TOUCH_CONTROLS_FADEOUT_DELAY = 3000
-
 const NORMALIZE_PRECISION = 5
 
 export function resizeSegment (dataNo, resizeType, width, units) {
@@ -135,8 +132,6 @@ export function handleSegmentResizeEnd (event) {
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
   infoBubble.show(false)
-
-  scheduleControlsFadeout(draggingResize.segmentEl)
 
   infoBubble.considerShowing(
     event,
@@ -261,47 +256,7 @@ export function normalizeAllSegmentWidths (segments, units) {
   }))
 }
 
-let controlsFadeoutDelayTimer = -1
-let controlsFadeoutHideTimer = -1
-
-function scheduleControlsFadeout (el) {
-  infoBubble.considerShowing(null, el, INFO_BUBBLE_TYPE_SEGMENT)
-
-  resumeFadeoutControls()
-}
-
-export function resumeFadeoutControls () {
-  const system = store.getState().system
-
-  if (!system.touch) {
-    return
-  }
-
-  cancelFadeoutControls()
-
-  controlsFadeoutDelayTimer = window.setTimeout(
-    fadeoutControls,
-    TOUCH_CONTROLS_FADEOUT_DELAY
-  )
-}
-
-export function cancelFadeoutControls () {
-  document.body.classList.remove('controls-fade-out')
-  window.clearTimeout(controlsFadeoutDelayTimer)
-  window.clearTimeout(controlsFadeoutHideTimer)
-}
-
-function fadeoutControls () {
-  document.body.classList.add('controls-fade-out')
-
-  controlsFadeoutHideTimer = window.setTimeout(
-    hideControls,
-    TOUCH_CONTROLS_FADEOUT_TIME
-  )
-}
-
 export function hideControls () {
-  document.body.classList.remove('controls-fade-out')
   if (infoBubble.segmentEl) {
     infoBubble.segmentEl.classList.remove('show-drag-handles')
 
