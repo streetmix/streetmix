@@ -7,10 +7,6 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from '../../segments/constants'
-import {
-  setInfoBubbleMouseInside,
-  updateHoverPolygon
-} from '../../store/actions/infoBubble'
 
 jest.mock('../../segments/view')
 jest.mock('../../segments/buildings', () => {
@@ -28,16 +24,6 @@ jest.mock('../../segments/buildings', () => {
     }
   }
 })
-
-// Spy on action creators
-jest.mock('../../store/actions/infoBubble', () => ({
-  // Require the actual action creators so that other stuff works
-  ...jest.requireActual('../../store/actions/infoBubble'),
-  // We don't use these actions for anything, but they must return
-  // a plain object or the dispatch() throws an error
-  setInfoBubbleMouseInside: jest.fn(() => ({ type: 'MOCK_ACTION' })),
-  updateHoverPolygon: jest.fn(() => ({ type: 'MOCK_ACTION' }))
-}))
 
 const initialState = {
   infoBubble: {
@@ -60,12 +46,6 @@ const initialState = {
 }
 
 describe('InfoBubble', () => {
-  afterEach(() => {
-    // Resets mock call counter between tests
-    setInfoBubbleMouseInside.mockClear()
-    updateHoverPolygon.mockClear()
-  })
-
   it('renders', () => {
     const wrapper = renderWithReduxAndIntl(<InfoBubble />, { initialState })
     expect(wrapper.asFragment()).toMatchSnapshot()
@@ -128,28 +108,23 @@ describe('InfoBubble', () => {
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('updates hover polygon', () => {
-    const wrapper = renderWithReduxAndIntl(<InfoBubble />, { initialState })
-    const showInfoBubble = jest.fn(() => ({ type: 'SHOW_INFO_BUBBLE' }))
-    wrapper.store.dispatch(showInfoBubble())
-    expect(updateHoverPolygon).toHaveBeenCalledTimes(1)
-  })
-
   describe('interactions', () => {
     it('set info bubble mouse inside', () => {
-      const wrapper = renderWithReduxAndIntl(<InfoBubble />, { initialState })
-      fireEvent.mouseEnter(wrapper.container.firstChild)
+      const { container, store } = renderWithReduxAndIntl(<InfoBubble />, {
+        initialState
+      })
+      fireEvent.mouseEnter(container.firstChild)
 
-      expect(setInfoBubbleMouseInside).toHaveBeenCalledTimes(1)
-      expect(setInfoBubbleMouseInside).toHaveBeenCalledWith(true)
+      expect(store.getState().infoBubble.mouseInside).toEqual(true)
     })
 
     it('does not set info bubble mouse inside', () => {
-      const wrapper = renderWithReduxAndIntl(<InfoBubble />, { initialState })
-      fireEvent.mouseLeave(wrapper.container.firstChild)
+      const { container, store } = renderWithReduxAndIntl(<InfoBubble />, {
+        initialState
+      })
+      fireEvent.mouseLeave(container.firstChild)
 
-      expect(setInfoBubbleMouseInside).toHaveBeenCalledTimes(1)
-      expect(setInfoBubbleMouseInside).toHaveBeenCalledWith(false)
+      expect(store.getState().infoBubble.mouseInside).toEqual(false)
     })
   })
 })

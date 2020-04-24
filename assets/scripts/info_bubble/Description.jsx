@@ -7,7 +7,7 @@ import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { t } from '../locales/locale'
-import { showDescription, hideDescription } from '../store/actions/infoBubble'
+import { showDescription, hideDescription } from '../store/slices/infoBubble'
 
 export class Description extends React.Component {
   static propTypes = {
@@ -77,20 +77,35 @@ export class Description extends React.Component {
   }
 
   render () {
-    const description = this.getDescriptionData(this.props.type, this.props.variantString)
+    const description = this.getDescriptionData(
+      this.props.type,
+      this.props.variantString
+    )
 
     if (!description || !this.props.infoBubbleEl) return null
 
     // If the description text doesn't exist or hasn't been translated, bail.
-    const text = t(`descriptions.${description.key}.text`, null, { ns: 'segment-info' })
+    const text = t(`descriptions.${description.key}.text`, null, {
+      ns: 'segment-info'
+    })
     if (!text || this.isEmptyText(text)) return null
 
-    const defaultPrompt = <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
+    const defaultPrompt = (
+      <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
+    )
 
     // TODO: use FormattedMessage
-    const prompt = t(`descriptions.${description.key}.prompt`, defaultPrompt, { ns: 'segment-info' })
-    const lede = t(`descriptions.${description.key}.lede`, null, { ns: 'segment-info' })
-    const imageCaption = t(`descriptions.${description.key}.imageCaption`, null, { ns: 'segment-info' })
+    const prompt = t(`descriptions.${description.key}.prompt`, defaultPrompt, {
+      ns: 'segment-info'
+    })
+    const lede = t(`descriptions.${description.key}.lede`, null, {
+      ns: 'segment-info'
+    })
+    const imageCaption = t(
+      `descriptions.${description.key}.imageCaption`,
+      null,
+      { ns: 'segment-info' }
+    )
 
     return (
       <>
