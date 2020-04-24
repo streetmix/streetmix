@@ -250,6 +250,12 @@
       "heading": ""
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "Nazwa ulicy:",
     "delete-street": "Czy jesteś pewien, że chcesz trwale usunąć {streetName}? Tej operacji nie można cofnąć.",

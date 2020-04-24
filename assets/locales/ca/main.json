@@ -250,6 +250,12 @@
       "heading": "Subscriviu-vos al nostre butlletí"
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "",
     "delete-street": "",

@@ -250,6 +250,12 @@
       "heading": ""
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "新的街道名稱",
     "delete-street": "你確定你要永久刪除{streetName}嗎？此操作將無法被撤銷。",

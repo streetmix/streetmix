@@ -250,6 +250,12 @@
       "heading": "뉴스레터 구독"
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "새로운 스트리트 이름:",
     "delete-street": "{streetName}를 영구 삭제하는 것이 맞나요? 삭제된 스트리트는 다시 되돌릴 수 없습니다.",

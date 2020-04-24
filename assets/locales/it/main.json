@@ -250,6 +250,12 @@
       "heading": "Sottoscrivi la nostra newsletter"
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "Nuovo nome della strada:",
     "delete-street": "Sei sicuro di volere la cancellazione definitiva di {streetName}? L'operazione non può essere annullata.",

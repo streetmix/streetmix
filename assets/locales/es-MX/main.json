@@ -250,6 +250,12 @@
       "heading": "Suscribirte a nuestro boletín electrónico"
     }
   },
+  "tools": {
+    "tooltip": "Cambiar herramientas",
+    "environment": {
+      "heading": "Entorno"
+    }
+  },
   "prompt": {
     "new-street": "Nombre de la calle nueva:",
     "delete-street": "¿Estás seguro que quieres borrar {streetName}? No se puede deshacer esta acción.",

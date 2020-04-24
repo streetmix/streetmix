@@ -250,6 +250,12 @@
       "heading": "Tilaa uutiskirje"
     }
   },
+  "tools": {
+    "tooltip": "Muuta asetuksia",
+    "environment": {
+      "heading": "Ympäristö"
+    }
+  },
   "prompt": {
     "new-street": "Kadun uusi nimi:",
     "delete-street": "Haluatko varmasti poistaa kohteen {streetName} pysyvästi?",

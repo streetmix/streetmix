@@ -250,6 +250,12 @@
       "heading": ""
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "",
     "delete-street": "",

@@ -250,6 +250,12 @@
       "heading": ""
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "Nouveau nom de rue :",
     "delete-street": "Êtes-vous sûr de vouloir supprimer {streetName} de manière permanente ? Ceci ne pourra être annulé.",

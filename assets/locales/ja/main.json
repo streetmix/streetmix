@@ -250,6 +250,12 @@
       "heading": ""
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "新しいストリートの名称:",
     "delete-street": "本当に {streetName} を削除してよろしいですか？ 削除した内容は元に戻せません。",

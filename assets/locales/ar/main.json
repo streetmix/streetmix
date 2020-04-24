@@ -250,6 +250,12 @@
       "heading": ""
     }
   },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "heading": ""
+    }
+  },
   "prompt": {
     "new-street": "اسم شارع جديد:",
     "delete-street": "هل أنت متأكد من أنك تُريد حذف {streetName}؟ لا يمكنك التراجع عن هذه الخطوة.",
