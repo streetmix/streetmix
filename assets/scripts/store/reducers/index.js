@@ -14,7 +14,7 @@ import persistSettings from '../slices/persistSettings'
 import street from './street'
 import system from '../slices/system'
 import toasts from '../slices/toasts'
-import ui from './ui'
+import ui from '../slices/ui'
 import undo from '../slices/undo'
 import user from '../slices/user'
 

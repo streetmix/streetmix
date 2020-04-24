@@ -7,7 +7,7 @@ import CloseButton from '../ui/CloseButton'
 import { getAllEnvirons } from './environs'
 import { DEFAULT_ENVIRONS } from './constants'
 import { setEnvironment } from '../store/actions/street'
-import { toggleToolbox } from '../store/actions/ui'
+import { toggleToolbox } from '../store/slices/ui'
 import emojiIcon from '../../images/openmoji/color/1F324.svg'
 import './EnvironmentEditor.scss'
 

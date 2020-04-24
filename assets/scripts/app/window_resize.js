@@ -41,6 +41,11 @@ export function setStreetSectionTop () {
 }
 
 export function onResize () {
+  setLayoutValues()
+  infoBubble.show(true)
+}
+
+export function setLayoutValues () {
   store.dispatch(
     setViewportSize({
       width: window.innerWidth,
@@ -48,5 +53,4 @@ export function onResize () {
     })
   )
   setStreetSectionTop()
-  infoBubble.show(true)
 }

@@ -37,7 +37,7 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { trackEvent } from '../app/event_tracking'
 import { t } from '../locales/locale'
-import { setActiveSegment } from '../store/actions/ui'
+import { setActiveSegment } from '../store/slices/ui'
 import {
   incrementSegmentWidth,
   removeSegmentAction,

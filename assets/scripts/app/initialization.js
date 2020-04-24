@@ -20,7 +20,6 @@ import { initPersistedSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl } from './page_url'
-import { onResize } from './window_resize'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import store, { observeStore } from '../store'
@@ -115,7 +114,6 @@ function onEverythingLoaded () {
     fetchLastStreet()
   }
 
-  onResize()
   segmentsChanged()
 
   setIgnoreStreetChanges(false)
