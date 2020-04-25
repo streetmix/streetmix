@@ -9,7 +9,6 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { resumeFadeoutControls } from './resizing'
 import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
 
 class Building extends React.Component {
@@ -141,7 +140,6 @@ class Building extends React.Component {
     }
 
     infoBubble.considerShowing(event, this.streetSectionBuilding, type)
-    resumeFadeoutControls()
   }
 
   handleBuildingMouseLeave = (event) => {

@@ -30,14 +30,6 @@ body {
   }
 }
 
-body:not(.touch-support) .touch-only {
-  display: none;
-}
-
-body.touch-support .non-touch-only {
-  display: none;
-}
-
 .app {
   display: flex;
   flex-direction: column;

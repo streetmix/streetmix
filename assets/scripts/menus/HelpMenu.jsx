@@ -52,7 +52,7 @@ function HelpMenu (props) {
           defaultMessage="What’s new in Streetmix? [en]&lrm;"
         />
       </a>
-      <div className="help-menu-shortcuts non-touch-only">
+      <div className="help-menu-shortcuts">
         <p>
           <FormattedMessage
             id="menu.help.keyboard-label"

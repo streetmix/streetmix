@@ -75,8 +75,6 @@ export const infoBubble = {
   },
 
   hide: function () {
-    document.body.classList.remove('controls-fade-out')
-
     store.dispatch(hideInfoBubble())
   },
 

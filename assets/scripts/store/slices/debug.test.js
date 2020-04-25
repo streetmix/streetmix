@@ -8,7 +8,6 @@ describe('debug reducer', () => {
     forceNonRetina: false,
     forceNoInternet: false,
     forceReadOnly: false,
-    forceTouch: false,
     forceLiveUpdate: false
   }
 
@@ -31,7 +30,6 @@ describe('debug reducer', () => {
         forceNonRetina: true,
         forceNoInternet: false,
         forceReadOnly: false,
-        forceTouch: false,
         forceLiveUpdate: false
       }
 
@@ -44,8 +42,7 @@ describe('debug reducer', () => {
         setDebugFlags({
           forceLeftHandTraffic: true,
           forceNonRetina: true,
-          forceReadOnly: false,
-          forceTouch: true
+          forceReadOnly: false
         })
       )
 
@@ -55,7 +52,6 @@ describe('debug reducer', () => {
         forceNonRetina: true,
         forceNoInternet: false,
         forceReadOnly: false,
-        forceTouch: true,
         forceLiveUpdate: false
       }
 

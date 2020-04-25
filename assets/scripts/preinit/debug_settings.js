@@ -17,7 +17,6 @@ export const debug = {
   forceNonRetina: false,
   forceNoInternet: false,
   forceReadOnly: false,
-  forceTouch: false,
   forceLiveUpdate: false
 }
 
@@ -41,10 +40,6 @@ if (url.match(/[?&]debug-force-no-internet&?/)) {
 
 if (url.match(/[?&]debug-force-read-only&?/)) {
   debug.forceReadOnly = true
-}
-
-if (url.match(/[?&]debug-force-touch&?/)) {
-  debug.forceTouch = true
 }
 
 if (url.match(/[?&]debug-force-live-update&?/)) {
