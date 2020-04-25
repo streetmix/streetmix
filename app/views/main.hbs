@@ -85,19 +85,6 @@
       mixpanel.init("{{.}}");
     </script>
     {{/config.mixpanel_token}}
-
-    {{#config.luckyorange_enabled}}
-    <script type="text/javascript" nonce="{{nonce.luckyorange}}">
-      window.__lo_site_id = 157433;
-
-      (function() {
-        var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
-        wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
-      })();
-    </script>
-    {{/config.luckyorange_enabled}}
-
   </head>
   <body tabindex="1">
 

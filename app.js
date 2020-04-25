@@ -96,7 +96,6 @@ const csp = {
       "'unsafe-inline'",
       'fonts.googleapis.com',
       '*.typekit.net',
-      'https://d10lpsik1i8c69.cloudfront.net', // Lucky Orange
       'checkout.stripe.com'
     ],
     scriptSrc: [
@@ -108,15 +107,11 @@ const csp = {
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
-      'https://d10lpsik1i8c69.cloudfront.net', // Lucky Orange
       'checkout.stripe.com',
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
-      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'",
-      (req, res) => "'nonce-" + res.locals.nonce.luckyorange + "'"
+      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],
-    workerSrc: [
-      'blob:' // Lucky Orange
-    ],
+    workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
     frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
     imgSrc: [
@@ -128,11 +123,7 @@ const csp = {
       'https://www.google-analytics.com',
       '*.basemaps.cartocdn.com',
       'https://res.cloudinary.com/',
-      'https://d10lpsik1i8c69.cloudfront.net', // Lucky Orange
       '*.stripe.com'
-    ],
-    mediaSrc: [
-      'https://d10lpsik1i8c69.cloudfront.net' // Lucky Orange
     ],
     fontSrc: ["'self'", 'fonts.gstatic.com', '*.typekit.net'],
     connectSrc: [
@@ -143,10 +134,6 @@ const csp = {
       'https://www.google-analytics.com',
       'sentry.io',
       'streetmix.auth0.com',
-      'https://settings.luckyorange.net', // Lucky Orange
-      'wss://*.visitors.live', // Lucky Orange
-      'wss://visitors.live', // Lucky Orange
-      'https://pubsub.googleapis.com', // Lucky Orange
       'checkout.stripe.com'
     ]
   }
@@ -173,8 +160,7 @@ app.use((req, res, next) => {
   // Generate nonces for inline scripts
   res.locals.nonce = {
     google_analytics: uuid(),
-    mixpanel: uuid(),
-    luckyorange: uuid()
+    mixpanel: uuid()
   }
 
   // Set default metatag information for social sharing cards
