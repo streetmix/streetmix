@@ -46,12 +46,12 @@ function AboutDialog (props) {
                     defaultMessage="Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community."
                   />
                 </p>
-                <p>
+                <h3>
                   <FormattedMessage
-                    id="dialogs.about.sponsored-by"
-                    defaultMessage="Streetmix is generously sponsored by:"
+                    id="dialogs.about.partners"
+                    defaultMessage="Partners"
                   />
-                </p>
+                </h3>
                 <ul className="about-dialog-sponsors">
                   <li>
                     <a
@@ -71,6 +71,14 @@ function AboutDialog (props) {
                       <img src={cfalogo} alt="Code for America" />
                     </a>
                   </li>
+                </ul>
+                <h3>
+                  <FormattedMessage
+                    id="dialogs.about.sponsors"
+                    defaultMessage="Sponsors"
+                  />
+                </h3>
+                <ul className="about-dialog-sponsors">
                   <li>
                     <a
                       href="https://www.mozilla.org/en-US/moss/"
@@ -152,6 +160,168 @@ function AboutDialog (props) {
               </div>
               <div className="about-dialog-right">
                 <Credits />
+                <div className="credits-container">
+                  <div>
+                    <h3>
+                      <FormattedMessage
+                        id="dialogs.about.acknowledgements"
+                        defaultMessage="Acknowledgements"
+                      />
+                    </h3>
+                    <ul>
+                      <li>
+                        <FormattedMessage
+                          id="dialogs.about.font-designed-by"
+                          defaultMessage="{fontName} font designed by {fontAuthor}."
+                          values={{
+                            fontName: (
+                              <a
+                                href="https://manropefont.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Manrope
+                              </a>
+                            ),
+                            fontAuthor: (
+                              <a
+                                href="https://gent.media/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Mikhail Shiranda
+                              </a>
+                            )
+                          }}
+                        />{' '}
+                        <FormattedMessage
+                          id="dialogs.about.license-label"
+                          defaultMessage="(<a>License</a>)"
+                          values={{
+                            a: (...chunks) => (
+                              <a
+                                href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="SIL Open Font License, Version 1.1"
+                              >
+                                {chunks}
+                              </a>
+                            )
+                          }}
+                        />
+                      </li>
+                      <li>
+                        <FormattedMessage
+                          id="dialogs.about.font-designed-by"
+                          defaultMessage="{fontName} font designed by {fontAuthor}."
+                          values={{
+                            fontName: (
+                              <a
+                                href="https://hubertfischer.com/work/type-rubik"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Rubik
+                              </a>
+                            ),
+                            fontAuthor: (
+                              <a
+                                href="https://hubertfischer.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Hubert & Fischer
+                              </a>
+                            )
+                          }}
+                        />{' '}
+                        <FormattedMessage
+                          id="dialogs.about.license-label"
+                          defaultMessage="(<a>License</a>)"
+                          values={{
+                            a: (...chunks) => (
+                              <a
+                                href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="SIL Open Font License, Version 1.1"
+                              >
+                                {chunks}
+                              </a>
+                            )
+                          }}
+                        />
+                      </li>
+                      <li>
+                        <FormattedMessage
+                          id="dialogs.about.emoji-by"
+                          defaultMessage="Emoji by {author}."
+                          values={{
+                            author: (
+                              <a
+                                href="https://openmoji.org/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                OpenMoji
+                              </a>
+                            )
+                          }}
+                        />{' '}
+                        <FormattedMessage
+                          id="dialogs.about.license-label"
+                          defaultMessage="(<a>License</a>)"
+                          values={{
+                            a: (...chunks) => (
+                              <a
+                                href="https://creativecommons.org/licenses/by-sa/4.0/#"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                              >
+                                {chunks}
+                              </a>
+                            )
+                          }}
+                        />
+                      </li>
+                      <li>
+                        <FormattedMessage
+                          id="dialogs.about.icons-by"
+                          defaultMessage="Icons by {author}."
+                          values={{
+                            author: (
+                              <a
+                                href="https://fontawesome.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Font Awesome
+                              </a>
+                            )
+                          }}
+                        />{' '}
+                        <FormattedMessage
+                          id="dialogs.about.license-label"
+                          defaultMessage="(<a>License</a>)"
+                          values={{
+                            a: (...chunks) => (
+                              <a
+                                href="https://fontawesome.com/license/free"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                              >
+                                {chunks}
+                              </a>
+                            )
+                          }}
+                        />
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

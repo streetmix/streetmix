@@ -175,13 +175,20 @@
       "credits": "A side project by {cfaLink} 2013 fellows:",
       "team-heading": "Project team and maintainers",
       "view-source": "View source code",
+      "partners": "Partners",
+      "sponsors": "Sponsors",
       "sponsored-by": "Streetmix is generously sponsored by:",
       "donate-link": "Support us financially",
       "github-link": "Contribute to open source",
       "open-source-link": "We’re open source!",
       "guidebook-link": "Guidebook",
       "tos-link": "Terms of service",
-      "privacy-link": "Privacy policy"
+      "privacy-link": "Privacy policy",
+      "acknowledgements": "Acknowledgements",
+      "font-designed-by": "{fontName} font designed by {fontAuthor].",
+      "emoji-by": "Emoji by {author}.",
+      "icons-by": "Icons by {author}.",
+      "license-label": "(<a>License</a>)"
     },
     "analytics": {
       "export-csv": "Export to CSV",

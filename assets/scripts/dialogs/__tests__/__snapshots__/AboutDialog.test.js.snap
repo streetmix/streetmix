@@ -45,9 +45,9 @@ exports[`AboutDialog renders snapshot 1`] = `
               <p>
                 Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.
               </p>
-              <p>
-                Streetmix is generously sponsored by:
-              </p>
+              <h3>
+                Partners
+              </h3>
               <ul
                 class="about-dialog-sponsors"
               >
@@ -75,6 +75,13 @@ exports[`AboutDialog renders snapshot 1`] = `
                     />
                   </a>
                 </li>
+              </ul>
+              <h3>
+                Sponsors
+              </h3>
+              <ul
+                class="about-dialog-sponsors"
+              >
                 <li>
                   <a
                     href="https://www.mozilla.org/en-US/moss/"
@@ -399,15 +406,13 @@ exports[`AboutDialog renders snapshot 1`] = `
                   </h3>
                   <ul>
                     <li>
-                      <strong>
-                        <a
-                          href="https://manropefont.com/"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Manrope
-                        </a>
-                      </strong>
+                      <a
+                        href="https://manropefont.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Manrope
+                      </a>
                        font designed by 
                       <a
                         href="https://gent.media/"
@@ -428,15 +433,13 @@ exports[`AboutDialog renders snapshot 1`] = `
                       )
                     </li>
                     <li>
-                      <strong>
-                        <a
-                          href="https://hubertfischer.com/work/type-rubik"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Rubik
-                        </a>
-                      </strong>
+                      <a
+                        href="https://hubertfischer.com/work/type-rubik"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Rubik
+                      </a>
                        font designed by 
                       <a
                         href="https://hubertfischer.com/"
@@ -458,15 +461,13 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                     <li>
                       Emoji by 
-                      <strong>
-                        <a
-                          href="https://openmoji.org/"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          OpenMoji
-                        </a>
-                      </strong>
+                      <a
+                        href="https://openmoji.org/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        OpenMoji
+                      </a>
                       . (
                       <a
                         href="https://creativecommons.org/licenses/by-sa/4.0/#"
@@ -480,15 +481,13 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                     <li>
                       Icons by 
-                      <strong>
-                        <a
-                          href="https://fontawesome.com/"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Font Awesome
-                        </a>
-                      </strong>
+                      <a
+                        href="https://fontawesome.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Font Awesome
+                      </a>
                       . (
                       <a
                         href="https://fontawesome.com/license/free"
