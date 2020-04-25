@@ -3,10 +3,11 @@ import { updateToLatestSchemaVersion } from '../streets/data_model'
 import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
+import { GALLERY_MODES } from './constants'
 
 // Redux
 import store from '../store'
-import { setGalleryMode, receiveGalleryStreets } from '../store/actions/gallery'
+import { setGalleryMode, receiveGalleryStreets } from '../store/slices/gallery'
 
 export function receiveGalleryData (transmission) {
   // Prepare data object
@@ -48,6 +49,6 @@ export function switchGalleryStreet (id) {
 }
 
 function loadGalleryContents () {
-  store.dispatch(setGalleryMode('LOADING'))
+  store.dispatch(setGalleryMode(GALLERY_MODES.LOADING))
   fetchGalleryData()
 }

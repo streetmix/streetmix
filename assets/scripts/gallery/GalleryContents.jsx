@@ -8,7 +8,7 @@ import { switchGalleryStreet } from './view'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
-import { deleteGalleryStreet } from '../store/actions/gallery'
+import { deleteGalleryStreet } from '../store/slices/gallery'
 
 function GalleryContents (props) {
   const userId = useSelector((state) => state.gallery.userId)

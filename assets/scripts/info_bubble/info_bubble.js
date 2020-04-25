@@ -10,8 +10,8 @@ import {
 } from '../segments/constants'
 import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
-import { showInfoBubble, hideInfoBubble } from '../store/actions/infoBubble'
-import { setActiveSegment } from '../store/actions/ui'
+import { showInfoBubble, hideInfoBubble } from '../store/slices/infoBubble'
+import { setActiveSegment } from '../store/slices/ui'
 
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible

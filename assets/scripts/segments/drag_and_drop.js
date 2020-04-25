@@ -35,7 +35,7 @@ import {
   clearDraggingState,
   setActiveSegment,
   setDraggingType
-} from '../store/actions/ui'
+} from '../store/slices/ui'
 
 export var draggingResize = {
   segmentEl: null,
@@ -541,7 +541,7 @@ export function makeSpaceBetweenSegments (dataNo, draggingState) {
   return spaceBetweenSegments
 }
 
-let oldDraggingState = store.getState().ui.draggingState
+let oldDraggingState
 
 // Checks to see if Redux dragging state needs to be updated, and if so, dispatches action.
 // This prevents a constant dispatch of the updateDraggingState action which causes the
@@ -572,7 +572,11 @@ function updateIfDraggingStateChanged (
     }
 
     store.dispatch(
-      updateDraggingState(segmentBeforeEl, segmentAfterEl, draggedItem.dataNo)
+      updateDraggingState({
+        segmentBeforeEl,
+        segmentAfterEl,
+        draggedSegment: draggedItem.dataNo
+      })
     )
     doDropHeuristics(draggedItem, draggedItemType)
   }

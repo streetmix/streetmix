@@ -29,7 +29,8 @@ import {
   newNonblockingAjaxRequest,
   getNonblockingAjaxRequestCount
 } from '../util/fetch_nonblocking'
-import { NEW_STREET_EMPTY, makeDefaultStreet } from './creation'
+import { makeDefaultStreet } from './creation'
+import { NEW_STREET_EMPTY } from './constants'
 import {
   prepareEmptyStreet,
   prepareDefaultStreet,
@@ -48,7 +49,7 @@ import {
   addRemixSuffixToName
 } from './remix'
 import { getUndoStack, unifyUndoStack } from './undo_stack'
-import { resetUndoStack, replaceUndoStack } from '../store/actions/undo'
+import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
 import store from '../store'
 import {
   saveStreetId,
@@ -367,10 +368,10 @@ export function unpackServerStreetData (
 
   if (transmission.data.undoStack) {
     store.dispatch(
-      replaceUndoStack(
-        cloneDeep(transmission.data.undoStack),
-        transmission.data.undoPosition
-      )
+      replaceUndoStack({
+        stack: cloneDeep(transmission.data.undoStack),
+        position: transmission.data.undoPosition
+      })
     )
   } else {
     store.dispatch(resetUndoStack())

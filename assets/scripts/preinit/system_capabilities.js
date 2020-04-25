@@ -8,7 +8,7 @@
 import { NO_INTERNET_MODE } from '../app/config'
 import { debug } from './debug_settings'
 import store from '../store'
-import { SET_SYSTEM_FLAGS } from '../store/actions'
+import { setSystemFlags } from '../store/slices/system'
 
 // Default settings
 // TODO: move everything to Redux store, if possible.
@@ -24,8 +24,5 @@ export function initSystemCapabilities () {
     system.devicePixelRatio = 1.0
   }
 
-  store.dispatch({
-    type: SET_SYSTEM_FLAGS,
-    ...system
-  })
+  store.dispatch(setSystemFlags(system))
 }

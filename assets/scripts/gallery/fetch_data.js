@@ -2,10 +2,12 @@ import { API_URL } from '../app/config'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { getAuthHeader } from '../users/authentication'
 import { receiveGalleryData } from './view'
+import { GALLERY_MODES } from './constants'
 
 // Redux
 import store from '../store'
-import { hideGallery, setGalleryMode } from '../store/actions/gallery'
+import { hideGallery } from '../store/actions/gallery'
+import { setGalleryMode } from '../store/slices/gallery'
 
 export function fetchGalleryData () {
   const galleryUserId = store.getState().gallery.userId
@@ -48,6 +50,6 @@ function errorReceiveGalleryData (data) {
     processMode()
     store.dispatch(hideGallery(true))
   } else {
-    store.dispatch(setGalleryMode('ERROR'))
+    store.dispatch(setGalleryMode(GALLERY_MODES.ERROR))
   }
 }

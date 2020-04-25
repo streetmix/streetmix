@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CloseButton from '../ui/CloseButton'
 import { ICON_TOOLS } from '../ui/icons'
-import { toggleToolbox } from '../store/actions/ui'
+import { toggleToolbox } from '../store/slices/ui'
 import './PaletteCommandsLeft.scss'
 
 function PaletteCommandsLeft (props) {

@@ -20,7 +20,7 @@ import {
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
 import { changeSegmentWidth } from '../store/actions/street'
-import { setDraggingType } from '../store/actions/ui'
+import { setDraggingType } from '../store/slices/ui'
 
 const SHORT_DELAY = 100
 

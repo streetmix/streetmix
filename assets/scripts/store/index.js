@@ -29,7 +29,7 @@ const store = configureStore({
     ...getDefaultMiddleware({
       immutableCheck: {
         // Immutability violations that are difficult to fix right now.
-        ignoredPaths: ['street', 'undo.stack']
+        ignoredPaths: ['street']
       }
     })
   ]

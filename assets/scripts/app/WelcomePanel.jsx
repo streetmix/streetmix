@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { isSignedIn } from '../users/authentication'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
-import { showStreetNameplate, hideStreetNameplate } from '../store/actions/ui'
+import { showStreetNameplate, hideStreetNameplate } from '../store/slices/ui'
 import CloseButton from '../ui/CloseButton'
 import WelcomeNewStreet from './WelcomePanel/NewStreet'
 import WelcomeFirstTimeExistingStreet from './WelcomePanel/FirstTimeExistingStreet'
@@ -173,10 +173,7 @@ const mapDispatchToProps = {
   showStreetNameplate
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WelcomePanel)
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomePanel)
 
 /**
  * Remember whether the WelcomePanel has been dismissed in LocalStorage

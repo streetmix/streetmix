@@ -30,7 +30,7 @@ import { getElAbsolutePos } from '../util/helpers'
 import {
   setInfoBubbleMouseInside,
   updateHoverPolygon
-} from '../store/actions/infoBubble'
+} from '../store/slices/infoBubble'
 import './InfoBubble.scss'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
