@@ -17,8 +17,6 @@ const systemSlice = createSlice({
       false,
     windows: navigator.userAgent.indexOf('Windows') !== -1 || false,
     noInternet: false,
-    viewportWidth: window.innerWidth,
-    viewportHeight: window.innerHeight,
     devicePixelRatio: window.devicePixelRatio || 1.0
   },
 
@@ -28,15 +26,10 @@ const systemSlice = createSlice({
         ...state,
         ...action.payload
       }
-    },
-
-    setViewportSize (state, action) {
-      state.viewportWidth = action.payload.width
-      state.viewportHeight = action.payload.height
     }
   }
 })
 
-export const { setSystemFlags, setViewportSize } = systemSlice.actions
+export const { setSystemFlags } = systemSlice.actions
 
 export default systemSlice.reducer

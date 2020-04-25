@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import system, { setSystemFlags, setViewportSize } from './system'
+import system, { setSystemFlags } from './system'
 
 describe('system reducer', () => {
   const initialState = {
@@ -7,8 +7,6 @@ describe('system reducer', () => {
     safari: false,
     windows: false,
     noInternet: false,
-    viewportWidth: 1024,
-    viewportHeight: 768,
     devicePixelRatio: 1
   }
 
@@ -30,29 +28,7 @@ describe('system reducer', () => {
       safari: false,
       windows: false,
       noInternet: true,
-      viewportWidth: 1024,
-      viewportHeight: 768,
       devicePixelRatio: 2
-    })
-  })
-
-  it('should handle setViewportSize()', () => {
-    expect(
-      system(
-        initialState,
-        setViewportSize({
-          width: 800,
-          height: 600
-        })
-      )
-    ).toEqual({
-      phone: false,
-      safari: false,
-      windows: false,
-      noInternet: false,
-      viewportWidth: 800,
-      viewportHeight: 600,
-      devicePixelRatio: 1
     })
   })
 })

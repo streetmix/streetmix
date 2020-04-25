@@ -23,13 +23,13 @@ import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import PrintContainer from './PrintContainer'
 import ToastContainer from '../ui/Toasts/ToastContainer'
-import { setLayoutValues } from './window_resize'
+import { setStreetSectionTop } from './window_resize'
 
 function App () {
   const locale = useSelector((state) => state.locale)
 
   useEffect(() => {
-    setLayoutValues()
+    setStreetSectionTop()
   }, [])
 
   return (
