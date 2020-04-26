@@ -4,16 +4,15 @@ import { useIntl } from 'react-intl'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import './ScrollIndicators.scss'
 
-const ScrollIndicators = (props) => {
-  const { scrollTop, scrollStreet, scrollIndicatorsLeft = 0, scrollIndicatorsRight = 0 } = props
+ScrollIndicators.propTypes = {
+  left: PropTypes.number,
+  right: PropTypes.number,
+  scrollStreet: PropTypes.func.isRequired,
+  scrollTop: PropTypes.number.isRequired
+}
 
-  const doLeftScroll = (event) => {
-    scrollStreet(true, event.shiftKey)
-  }
-
-  const doRightScroll = (event) => {
-    scrollStreet(false, event.shiftKey)
-  }
+function ScrollIndicators ({ scrollTop, scrollStreet, left = 0, right = 0 }) {
+  const intl = useIntl()
 
   /**
    * Sets up and takes down event listeners for keys.
@@ -22,15 +21,23 @@ const ScrollIndicators = (props) => {
    *  - If shift is pressed, screen scrolls to extents.
    */
   useEffect(() => {
-    registerKeypress(['left', 'shift left'], doLeftScroll)
-    registerKeypress(['right', 'shift right'], doRightScroll)
+    registerKeypress(['left', 'shift left'], handleScrollLeft)
+    registerKeypress(['right', 'shift right'], handleScrollRight)
+
     return () => {
-      deregisterKeypress(['left', 'shift left'], doLeftScroll)
-      deregisterKeypress(['right', 'shift right'], doRightScroll)
+      deregisterKeypress(['left', 'shift left'], handleScrollLeft)
+      deregisterKeypress(['right', 'shift right'], handleScrollRight)
     }
   })
 
-  const intl = useIntl()
+  function handleScrollLeft (event) {
+    scrollStreet(true, event.shiftKey)
+  }
+
+  function handleScrollRight (event) {
+    scrollStreet(false, event.shiftKey)
+  }
+
   const scrollLeftLabel = intl.formatMessage({
     id: 'tooltip.scroll-street-left',
     defaultMessage: 'Scroll street left'
@@ -42,35 +49,28 @@ const ScrollIndicators = (props) => {
 
   return (
     <div className="street-scroll-indicators" style={{ top: `${scrollTop}px` }}>
-      {scrollIndicatorsLeft ? (
+      {left > 0 && (
         <button
           className="street-scroll-indicator-left"
-          onClick={doLeftScroll}
+          onClick={handleScrollLeft}
           title={scrollLeftLabel}
           aria-label={scrollLeftLabel}
         >
-          {Array(scrollIndicatorsLeft + 1).join('‹')}
+          {Array(left + 1).join('‹')}
         </button>
-      ) : null}
-      {scrollIndicatorsRight ? (
+      )}
+      {right > 0 && (
         <button
           className="street-scroll-indicator-right"
-          onClick={doRightScroll}
+          onClick={handleScrollRight}
           title={scrollRightLabel}
           aria-label={scrollRightLabel}
         >
-          {Array(scrollIndicatorsRight + 1).join('›')}
+          {Array(right + 1).join('›')}
         </button>
-      ) : null}
+      )}
     </div>
   )
-}
-
-ScrollIndicators.propTypes = {
-  scrollIndicatorsLeft: PropTypes.number,
-  scrollIndicatorsRight: PropTypes.number,
-  scrollStreet: PropTypes.func.isRequired,
-  scrollTop: PropTypes.number.isRequired
 }
 
 export default React.memo(ScrollIndicators)

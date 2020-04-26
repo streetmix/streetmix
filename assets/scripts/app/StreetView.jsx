@@ -45,8 +45,10 @@ class StreetView extends React.Component {
 
     this.state = {
       isStreetScrolling: false,
-      scrollIndicatorsLeft: 0,
-      scrollIndicatorsRight: 0,
+      scrollIndicators: {
+        left: 0,
+        right: 0
+      },
 
       scrollTop: 0,
       skyHeight: 0,
@@ -198,7 +200,7 @@ class StreetView extends React.Component {
 
       this.setState({
         ...resizeState,
-        ...scrollIndicators
+        scrollIndicators
       })
     })
   }
@@ -215,7 +217,7 @@ class StreetView extends React.Component {
       const scrollIndicators = this.calculateScrollIndicators()
 
       this.setState({
-        ...scrollIndicators,
+        scrollIndicators,
         scrollPos: this.getStreetScrollPosition()
       })
     })
@@ -256,8 +258,8 @@ class StreetView extends React.Component {
     }
 
     return {
-      scrollIndicatorsLeft: scrollIndicatorsLeft,
-      scrollIndicatorsRight: scrollIndicatorsRight
+      left: scrollIndicatorsLeft,
+      right: scrollIndicatorsRight
     }
   }
 
@@ -372,8 +374,8 @@ class StreetView extends React.Component {
           height={this.state.skyHeight}
         />
         <ScrollIndicators
-          scrollIndicatorsLeft={this.state.scrollIndicatorsLeft}
-          scrollIndicatorsRight={this.state.scrollIndicatorsRight}
+          left={this.state.scrollIndicators.left}
+          right={this.state.scrollIndicators.right}
           scrollStreet={this.scrollStreet}
           scrollTop={this.state.scrollTop}
         />

@@ -5,8 +5,8 @@ import { renderWithIntl as render } from '../../../../test/helpers/render'
 import ScrollIndicators from '../ScrollIndicators'
 
 const baseProps = {
-  scrollIndicatorsLeft: 1,
-  scrollIndicatorsRight: 3,
+  left: 1,
+  right: 3,
   scrollStreet: jest.fn(),
   scrollTop: 0
 }
@@ -19,11 +19,7 @@ describe('ScrollIndicators', () => {
 
   it('renders snapshot for zero indicators', () => {
     const wrapper = render(
-      <ScrollIndicators
-        {...baseProps}
-        scrollIndicatorsLeft={0}
-        scrollIndicatorsRight={0}
-      />
+      <ScrollIndicators {...baseProps} left={0} right={0} />
     )
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
