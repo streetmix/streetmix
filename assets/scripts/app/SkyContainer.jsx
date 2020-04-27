@@ -20,10 +20,9 @@ function SkyContainer (props) {
   const environment = useSelector(
     (state) => state.street.environment || DEFAULT_ENVIRONS
   )
-
-  const skyStyle = {
-    height: `${height}px`
-  }
+  const animations = useSelector(
+    (state) => state.flags.ENVIRONMENT_ANIMATIONS?.value || false
+  )
 
   const environs = getEnvirons(environment)
   const frontCloudStyle = {
@@ -45,8 +44,13 @@ function SkyContainer (props) {
     foregroundStyle.opacity = 0
   }
 
+  const classes = ['street-section-sky']
+  if (animations) {
+    classes.push('environment-animations')
+  }
+
   return (
-    <section className="street-section-sky" style={skyStyle}>
+    <section className={classes.join(' ')} style={{ height: `${height}px` }}>
       <SkyBackground environment={environment} />
       <SkyObjects objects={environs.backgroundObjects} />
       <div className="rear-clouds" style={rearCloudStyle} />
