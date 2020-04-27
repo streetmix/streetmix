@@ -145,6 +145,8 @@ class StreetView extends React.Component {
   }
 
   onResize = () => {
+    if (!this.sectionInnerEl.current || !this.sectionCanvasEl.current) return
+
     const viewportHeight = window.innerHeight
     const viewportWidth = window.innerWidth
     let streetSectionTop
