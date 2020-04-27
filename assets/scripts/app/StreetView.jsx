@@ -33,7 +33,6 @@ class StreetView extends React.Component {
   static propTypes = {
     readOnly: PropTypes.bool,
     street: PropTypes.object.isRequired,
-    system: PropTypes.object.isRequired,
     draggingType: PropTypes.number
   }
 
@@ -60,33 +59,19 @@ class StreetView extends React.Component {
   }
 
   componentDidMount () {
-    const resizeState = this.onResize()
-    const scrollIndicators = this.calculateScrollIndicators()
+    this.handleStreetResize()
+    window.addEventListener('resize', this.handleStreetResize)
+  }
 
-    this.setState({
-      ...resizeState,
-      ...scrollIndicators
-    })
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.handleStreetResize)
   }
 
   componentDidUpdate (prevProps, prevState) {
-    const { viewportWidth, viewportHeight } = this.props.system
-
-    if (
-      prevProps.system.viewportWidth !== viewportWidth ||
-      prevProps.system.viewportHeight !== viewportHeight ||
-      prevProps.street.width !== this.props.street.width
-    ) {
-      const resizeState = this.onResize()
-      const scrollIndicators = this.calculateScrollIndicators()
-
+    if (prevProps.street.width !== this.props.street.width) {
       // We are permitted one setState in componentDidUpdate if
       // it's inside of a condition, like it is now.
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        ...resizeState,
-        ...scrollIndicators
-      })
+      this.handleStreetResize()
     }
 
     // Two cases where scrollLeft might have to be updated:
@@ -150,18 +135,15 @@ class StreetView extends React.Component {
       const currBuildingSpace = this.state.buildingWidth
         ? this.state.buildingWidth
         : BUILDING_SPACE
-      scrollLeft =
-        (streetWidth +
-          currBuildingSpace * 2 -
-          this.props.system.viewportWidth) /
-        2
+      scrollLeft = (streetWidth + currBuildingSpace * 2 - window.innerWidth) / 2
     }
 
     this.streetSectionEl.current.scrollLeft = scrollLeft
   }
 
   onResize = () => {
-    const { viewportWidth, viewportHeight } = this.props.system
+    const viewportHeight = window.innerHeight
+    const viewportWidth = window.innerWidth
     let streetSectionTop
     const streetSectionHeight = this.streetSectionInner.offsetHeight
 
@@ -205,6 +187,20 @@ class StreetView extends React.Component {
       skyHeight,
       resizeType: STREETVIEW_RESIZED
     }
+  }
+
+  handleStreetResize = () => {
+    // Place all scroll-based positioning effects inside of a "raf"
+    // callback for better performance.
+    window.requestAnimationFrame(() => {
+      const resizeState = this.onResize()
+      const scrollIndicators = this.calculateScrollIndicators()
+
+      this.setState({
+        ...resizeState,
+        ...scrollIndicators
+      })
+    })
   }
 
   /**
@@ -322,11 +318,7 @@ class StreetView extends React.Component {
 
     const pos = getElAbsolutePos(el)
     const scrollPos = this.getStreetScrollPosition()
-    const perspective = -(
-      pos[0] -
-      scrollPos -
-      this.props.system.viewportWidth / 2
-    )
+    const perspective = -(pos[0] - scrollPos - window.innerWidth / 2)
 
     el.style.webkitPerspectiveOrigin = perspective / 2 + 'px 50%'
     el.style.MozPerspectiveOrigin = perspective / 2 + 'px 50%'
@@ -394,7 +386,6 @@ function mapStateToProps (state) {
   return {
     readOnly: state.app.readOnly,
     street: state.street,
-    system: state.system,
     draggingType: state.ui.draggingType
   }
 }

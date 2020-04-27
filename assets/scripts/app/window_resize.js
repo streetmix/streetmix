@@ -1,7 +1,5 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
-import store from '../store'
-import { setViewportSize } from '../store/slices/system'
 
 let streetSectionTop
 
@@ -41,16 +39,6 @@ export function setStreetSectionTop () {
 }
 
 export function onResize () {
-  setLayoutValues()
-  infoBubble.show(true)
-}
-
-export function setLayoutValues () {
-  store.dispatch(
-    setViewportSize({
-      width: window.innerWidth,
-      height: window.innerHeight
-    })
-  )
   setStreetSectionTop()
+  infoBubble.show(true)
 }

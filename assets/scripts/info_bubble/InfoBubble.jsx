@@ -54,7 +54,6 @@ export class InfoBubble extends React.Component {
       PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
     ]),
     street: PropTypes.object,
-    system: PropTypes.object,
     locale: PropTypes.object,
 
     // Provided by Redux connect mapDispatchToProps
@@ -137,7 +136,7 @@ export class InfoBubble extends React.Component {
     if (!this.el || !this.el.current) return null
 
     if (!wasBuilding && this.props.position === BUILDING_RIGHT_POSITION) {
-      return this.props.system.viewportWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
+      return window.innerWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
     return null
   }
@@ -435,14 +434,9 @@ export class InfoBubble extends React.Component {
       bubbleX = MIN_SIDE_MARGIN_FROM_VIEWPORT
     } else if (
       bubbleX >
-      this.props.system.viewportWidth -
-        bubbleWidth -
-        MIN_SIDE_MARGIN_FROM_VIEWPORT
+      window.innerWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     ) {
-      bubbleX =
-        this.props.system.viewportWidth -
-        bubbleWidth -
-        MIN_SIDE_MARGIN_FROM_VIEWPORT
+      bubbleX = window.innerWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
 
     this.el.current.style.left = bubbleX + 'px'
