@@ -18,7 +18,7 @@ import {
   setUpdateTime,
   saveCreatorId,
   updateStreetData
-} from '../store/actions/street'
+} from '../store/slices/street'
 import { resetUndoStack } from '../store/slices/undo'
 import store from '../store'
 

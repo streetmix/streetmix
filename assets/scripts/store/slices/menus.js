@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { showGallery } from '../slices/gallery'
-import { showDialog } from '../slices/dialogs'
-import { startPrinting } from '../slices/app'
+import { showGallery } from './gallery'
+import { showDialog } from './dialogs'
+import { startPrinting } from './app'
 
 const menusSlice = createSlice({
   name: 'menus',

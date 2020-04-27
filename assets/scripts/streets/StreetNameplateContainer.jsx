@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
-import { saveStreetName } from '../store/actions/street'
+import { saveStreetName } from '../store/slices/street'
 import './StreetNameplateContainer.scss'
 
 function StreetNameplateContainer (props) {

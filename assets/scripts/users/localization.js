@@ -20,7 +20,7 @@ import {
   updateStreetWidth,
   updateStreetData,
   updateSegments
-} from '../store/actions/street'
+} from '../store/slices/street'
 import { setUserUnits } from '../store/slices/persistSettings'
 
 export function getUnits () {

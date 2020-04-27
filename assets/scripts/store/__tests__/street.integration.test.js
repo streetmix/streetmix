@@ -3,7 +3,8 @@
 import MockAdapter from 'axios-mock-adapter'
 
 import { createStore } from '../../../../test/helpers/store'
-import { addSegment, clearSegments, incrementSegmentWidth, getLastStreet } from '../actions/street'
+import { addSegment, clearSegments } from '../slices/street'
+import { incrementSegmentWidth, getLastStreet } from '../actions/street'
 
 // ToDo: Remove this once refactoring of redux action saveStreetToServerIfNecessary is complete
 import { saveStreetToServerIfNecessary } from '../../streets/data_model'
@@ -50,7 +51,9 @@ describe('street integration test', () => {
   describe('#incrementSegmentWidth', () => {
     describe('decrease segment width by 1', () => {
       it('by resolution', async () => {
-        const initialState = { street: { segments: [{ width: 200 }, { width: 200 }], units: 1 } }
+        const initialState = {
+          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+        }
         const store = createStore(initialState)
 
         await store.dispatch(incrementSegmentWidth(1, false, true, 200))
@@ -59,7 +62,9 @@ describe('street integration test', () => {
         expect(street.segments[1].width).toEqual(199.75)
       })
       it('by clickIncrement', async () => {
-        const initialState = { street: { segments: [{ width: 200 }, { width: 200 }], units: 1 } }
+        const initialState = {
+          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+        }
         const store = createStore(initialState)
 
         await store.dispatch(incrementSegmentWidth(1, false, false, 200))
@@ -68,7 +73,13 @@ describe('street integration test', () => {
         expect(street.segments[1].width).toEqual(199.5)
       })
       it('has a remaining width of 0.25', async () => {
-        const initialState = { street: { width: 400, segments: [{ width: 200 }, { width: 200 }], units: 1 } }
+        const initialState = {
+          street: {
+            width: 400,
+            segments: [{ width: 200 }, { width: 200 }],
+            units: 1
+          }
+        }
         const store = createStore(initialState)
 
         await store.dispatch(incrementSegmentWidth(1, false, true, 200))
@@ -81,7 +92,9 @@ describe('street integration test', () => {
     })
     describe('increase segment width by 1', () => {
       it('by resolution', async () => {
-        const initialState = { street: { segments: [{ width: 200 }, { width: 200 }], units: 1 } }
+        const initialState = {
+          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+        }
         const store = createStore(initialState)
 
         await store.dispatch(incrementSegmentWidth(1, true, true, 200))
@@ -90,7 +103,9 @@ describe('street integration test', () => {
         expect(street.segments[1].width).toEqual(200.25)
       })
       it('by clickIncrement', async () => {
-        const initialState = { street: { segments: [{ width: 200 }, { width: 200 }], units: 1 } }
+        const initialState = {
+          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+        }
         const store = createStore(initialState)
 
         await store.dispatch(incrementSegmentWidth(1, true, false, 200))
@@ -101,7 +116,9 @@ describe('street integration test', () => {
     })
     // ToDo: Remove this once refactoring of redux action saveStreetToServerIfNecessary is complete
     it('saves to server', async () => {
-      const initialState = { street: { segments: [{ width: 200 }, { width: 200 }] } }
+      const initialState = {
+        street: { segments: [{ width: 200 }, { width: 200 }] }
+      }
       const store = createStore(initialState)
 
       await store.dispatch(incrementSegmentWidth(1, true, false, 200))
@@ -152,7 +169,10 @@ describe('street integration test', () => {
       expect(settings.lastStreetId).toEqual('3')
     })
     it('sets lastStreetId', async () => {
-      const store = createStore({ street: { id: '50', namespaceId: '45' }, settings: { priorLastStreetId: '1' } })
+      const store = createStore({
+        street: { id: '50', namespaceId: '45' },
+        settings: { priorLastStreetId: '1' }
+      })
 
       apiMock.onAny().reply(200, apiResponse)
       await store.dispatch(getLastStreet())

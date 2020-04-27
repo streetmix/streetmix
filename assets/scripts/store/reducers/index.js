@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import app from '../slices/app'
 import debug from '../slices/debug'
 import dialogs from '../slices/dialogs'
@@ -11,14 +10,14 @@ import map from '../slices/map'
 import menus from '../slices/menus'
 import settings from '../slices/settings'
 import persistSettings from '../slices/persistSettings'
-import street from './street'
+import street from '../slices/street'
 import system from '../slices/system'
 import toasts from '../slices/toasts'
 import ui from '../slices/ui'
 import undo from '../slices/undo'
 import user from '../slices/user'
 
-const reducers = combineReducers({
+const reducers = {
   app,
   debug,
   dialogs,
@@ -37,6 +36,6 @@ const reducers = combineReducers({
   ui,
   undo,
   user
-})
+}
 
 export default reducers

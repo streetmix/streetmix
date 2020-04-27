@@ -20,19 +20,11 @@
  * For more info: https://redux-toolkit.js.org/
  *
  */
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import reducers from './reducers'
 
 const store = configureStore({
-  reducer: reducers,
-  middleware: [
-    ...getDefaultMiddleware({
-      immutableCheck: {
-        // Immutability violations that are difficult to fix right now.
-        ignoredPaths: ['street']
-      }
-    })
-  ]
+  reducer: reducers
 })
 
 export default store

@@ -19,7 +19,7 @@ import {
 import {
   setBuildingVariant,
   changeSegmentVariant
-} from '../store/actions/street'
+} from '../store/slices/street'
 import { ICON_LOCK } from '../ui/icons'
 
 Variants.propTypes = {

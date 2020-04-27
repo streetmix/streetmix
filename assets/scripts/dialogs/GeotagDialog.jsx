@@ -19,7 +19,7 @@ import {
   addLocation,
   clearLocation,
   saveStreetName
-} from '../store/actions/street'
+} from '../store/slices/street'
 import './GeotagDialog.scss'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`

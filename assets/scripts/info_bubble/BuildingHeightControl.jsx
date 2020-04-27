@@ -13,7 +13,7 @@ import {
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue
-} from '../store/actions/street'
+} from '../store/slices/street'
 import './BuildingHeightControl.scss'
 
 BuildingHeightControl.propTypes = {
