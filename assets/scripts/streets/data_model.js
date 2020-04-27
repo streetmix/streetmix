@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
 import {
@@ -288,6 +289,21 @@ export function updateToLatestSchemaVersion (street) {
     updated = true
   }
 
+  // Do some work to update segment data, although they're not technically
+  // part of the schema (yet?)
+  street.segments = street.segments.map((segment) => {
+    // Alternate method of storing variants as object key-value pairs,
+    // instead of a string. We might gradually migrate toward this.
+    segment.variant = getVariantArray(segment.type, segment.variantString)
+
+    // Add uuids to segments
+    if (!segment.id) {
+      segment.id = uuidv4()
+    }
+
+    return segment
+  })
+
   return updated
 }
 
@@ -390,6 +406,7 @@ function fillDefaultSegments (units) {
 
   for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
     const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
+    segment.id = uuidv4()
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
     segment.width = normalizeSegmentWidth(

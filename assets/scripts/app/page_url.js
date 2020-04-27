@@ -11,8 +11,8 @@ import {
   RESERVED_URLS
 } from './constants'
 import { normalizeSlug } from '../util/helpers'
-import { setGalleryUserId } from '../store/slices/gallery'
 import store from '../store'
+import { setGalleryUserId } from '../store/slices/gallery'
 import { saveCreatorId, saveStreetId } from '../store/slices/street'
 
 let errorUrl = ''
