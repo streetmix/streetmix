@@ -56,7 +56,9 @@ class StreetView extends React.Component {
       buildingWidth: 0
     }
 
-    this.streetSectionEl = React.createRef()
+    this.sectionEl = React.createRef()
+    this.sectionInnerEl = React.createRef()
+    this.sectionCanvasEl = React.createRef()
   }
 
   componentDidMount () {
@@ -116,8 +118,8 @@ class StreetView extends React.Component {
 
   resizeStreetExtent = (resizeType, dontDelay) => {
     const marginUpdated = updateStreetMargin(
-      this.streetSectionCanvas,
-      this.streetSectionEl.current,
+      this.sectionCanvasEl.current,
+      this.sectionEl.current,
       dontDelay
     )
 
@@ -127,7 +129,7 @@ class StreetView extends React.Component {
   }
 
   updateScrollLeft = (deltaX) => {
-    let scrollLeft = this.streetSectionEl.current.scrollLeft
+    let scrollLeft = this.sectionEl.current.scrollLeft
 
     if (deltaX) {
       scrollLeft += deltaX
@@ -139,14 +141,14 @@ class StreetView extends React.Component {
       scrollLeft = (streetWidth + currBuildingSpace * 2 - window.innerWidth) / 2
     }
 
-    this.streetSectionEl.current.scrollLeft = scrollLeft
+    this.sectionEl.current.scrollLeft = scrollLeft
   }
 
   onResize = () => {
     const viewportHeight = window.innerHeight
     const viewportWidth = window.innerWidth
     let streetSectionTop
-    const streetSectionHeight = this.streetSectionInner.offsetHeight
+    const streetSectionHeight = this.sectionInnerEl.current.offsetHeight
 
     if (viewportHeight - streetSectionHeight > 450) {
       streetSectionTop =
@@ -177,9 +179,9 @@ class StreetView extends React.Component {
       streetSectionCanvasLeft = 0
     }
 
-    this.streetSectionCanvas.style.width = streetWidth + 'px'
-    this.streetSectionCanvas.style.left = streetSectionCanvasLeft + 'px'
-    this.streetSectionInner.style.top = streetSectionTop + 'px'
+    this.sectionCanvasEl.current.style.width = streetWidth + 'px'
+    this.sectionCanvasEl.current.style.left = streetSectionCanvasLeft + 'px'
+    this.sectionInnerEl.current.style.top = streetSectionTop + 'px'
 
     return {
       skyHeight,
@@ -225,7 +227,7 @@ class StreetView extends React.Component {
    * is calculated as the street scrolls and stored in state.
    */
   calculateScrollIndicators = () => {
-    const el = this.streetSectionEl.current
+    const el = this.sectionEl.current
     let scrollIndicatorsLeft
     let scrollIndicatorsRight
 
@@ -260,7 +262,7 @@ class StreetView extends React.Component {
   }
 
   scrollStreet = (left, far = false) => {
-    const el = this.streetSectionEl.current
+    const el = this.sectionEl.current
     let newScrollLeft
 
     if (left) {
@@ -295,11 +297,7 @@ class StreetView extends React.Component {
   }
 
   getStreetScrollPosition = () => {
-    return (
-      (this.streetSectionEl.current &&
-        this.streetSectionEl.current.scrollLeft) ||
-      0
-    )
+    return this.sectionEl.current?.scrollLeft ?? 0
   }
 
   /**
@@ -329,20 +327,10 @@ class StreetView extends React.Component {
         <section
           id="street-section-outer"
           onScroll={this.handleStreetScroll}
-          ref={this.streetSectionEl}
+          ref={this.sectionEl}
         >
-          <section
-            id="street-section-inner"
-            ref={(ref) => {
-              this.streetSectionInner = ref
-            }}
-          >
-            <section
-              id="street-section-canvas"
-              ref={(ref) => {
-                this.streetSectionCanvas = ref
-              }}
-            >
+          <section id="street-section-inner" ref={this.sectionInnerEl}>
+            <section id="street-section-canvas" ref={this.sectionCanvasEl}>
               <Building
                 position="left"
                 buildingWidth={this.state.buildingWidth}
