@@ -27,4 +27,23 @@ describe('SkyContainer', () => {
     )
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
+
+  it('renders background animations', () => {
+    const wrapper = renderWithRedux(
+      <SkyContainer scrollPos={0} height={100} />,
+      {
+        initialState: {
+          street: { environment: 'bar' },
+          flags: {
+            ENVIRONMENT_ANIMATIONS: { value: true }
+          }
+        }
+      }
+    )
+    expect(
+      wrapper.container
+        .querySelector('.street-section-sky')
+        .className.includes('environment-animations')
+    ).toEqual(true)
+  })
 })
