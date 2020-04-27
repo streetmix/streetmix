@@ -4,7 +4,6 @@ exports[`ScrollIndicators renders snapshot 1`] = `
 <DocumentFragment>
   <div
     class="street-scroll-indicators"
-    style="top: 0px;"
   >
     <button
       aria-label="Scroll street left"
@@ -28,7 +27,6 @@ exports[`ScrollIndicators renders snapshot for zero indicators 1`] = `
 <DocumentFragment>
   <div
     class="street-scroll-indicators"
-    style="top: 0px;"
   />
 </DocumentFragment>
 `;

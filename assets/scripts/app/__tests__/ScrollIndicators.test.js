@@ -7,8 +7,7 @@ import ScrollIndicators from '../ScrollIndicators'
 const baseProps = {
   left: 1,
   right: 3,
-  scrollStreet: jest.fn(),
-  scrollTop: 0
+  scrollStreet: jest.fn()
 }
 
 describe('ScrollIndicators', () => {

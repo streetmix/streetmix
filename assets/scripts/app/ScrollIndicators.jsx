@@ -7,11 +7,10 @@ import './ScrollIndicators.scss'
 ScrollIndicators.propTypes = {
   left: PropTypes.number,
   right: PropTypes.number,
-  scrollStreet: PropTypes.func.isRequired,
-  scrollTop: PropTypes.number.isRequired
+  scrollStreet: PropTypes.func.isRequired
 }
 
-function ScrollIndicators ({ scrollTop, scrollStreet, left = 0, right = 0 }) {
+function ScrollIndicators ({ scrollStreet, left = 0, right = 0 }) {
   const intl = useIntl()
 
   /**
@@ -48,7 +47,7 @@ function ScrollIndicators ({ scrollTop, scrollStreet, left = 0, right = 0 }) {
   })
 
   return (
-    <div className="street-scroll-indicators" style={{ top: `${scrollTop}px` }}>
+    <div className="street-scroll-indicators">
       {left > 0 && (
         <button
           className="street-scroll-indicator-left"

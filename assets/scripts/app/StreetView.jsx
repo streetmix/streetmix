@@ -50,7 +50,6 @@ class StreetView extends React.Component {
         right: 0
       },
 
-      scrollTop: 0,
       skyHeight: 0,
 
       resizeType: null,
@@ -160,8 +159,6 @@ class StreetView extends React.Component {
       streetSectionTop += 80
     }
 
-    const scrollTop = streetSectionTop + streetSectionHeight
-
     // Not sure what 255 does, but it keeps it from getting too tall
     // `skyHeight` is needed so that when gallery opens and the
     // street slides down, there is some more sky to show
@@ -185,7 +182,6 @@ class StreetView extends React.Component {
     this.streetSectionInner.style.top = streetSectionTop + 'px'
 
     return {
-      scrollTop,
       skyHeight,
       resizeType: STREETVIEW_RESIZED
     }
@@ -367,17 +363,16 @@ class StreetView extends React.Component {
               <EmptySegmentContainer />
               <StreetViewDirt buildingWidth={this.state.buildingWidth} />
             </section>
+            <ScrollIndicators
+              left={this.state.scrollIndicators.left}
+              right={this.state.scrollIndicators.right}
+              scrollStreet={this.scrollStreet}
+            />
           </section>
         </section>
         <SkyContainer
           scrollPos={this.state.scrollPos}
           height={this.state.skyHeight}
-        />
-        <ScrollIndicators
-          left={this.state.scrollIndicators.left}
-          right={this.state.scrollIndicators.right}
-          scrollStreet={this.scrollStreet}
-          scrollTop={this.state.scrollTop}
         />
       </>
     )
