@@ -17,7 +17,8 @@ import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
   setUpdateTime,
   saveCreatorId,
-  updateStreetData
+  updateStreetData,
+  updateEditCount
 } from '../store/slices/street'
 import { resetUndoStack } from '../store/slices/undo'
 import store from '../store'
@@ -319,7 +320,7 @@ export function saveStreetToServerIfNecessary () {
 
   if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
     if (street.editCount !== null) {
-      street.editCount++
+      store.dispatch(updateEditCount(street.editCount + 1))
     }
     setUpdateTimeToNow()
 
