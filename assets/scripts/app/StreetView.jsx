@@ -230,6 +230,8 @@ class StreetView extends React.Component {
    */
   calculateScrollIndicators = () => {
     const el = this.sectionEl.current
+    if (!el) return
+
     let scrollIndicatorsLeft
     let scrollIndicatorsRight
 
