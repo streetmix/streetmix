@@ -1,4 +1,8 @@
-import { show, hide, setGalleryMode } from '../slices/gallery'
+import {
+  showGallery as show,
+  hideGallery as hide,
+  setGalleryMode
+} from '../slices/gallery'
 import { hideControls } from '../../segments/resizing'
 import { fetchGalleryData } from '../../gallery/fetch_data'
 import { GALLERY_MODES } from '../../gallery/constants'

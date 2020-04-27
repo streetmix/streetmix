@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import gallery, {
-  show,
-  hide,
+  showGallery,
+  hideGallery,
   receiveGalleryStreets,
   deleteGalleryStreet,
   setGalleryMode,
@@ -20,8 +20,8 @@ describe('gallery reducer', () => {
     expect(gallery(undefined, {})).toEqual(initialState)
   })
 
-  it('should handle show()', () => {
-    expect(gallery(initialState, show('userId'))).toEqual({
+  it('should handle showGallery()', () => {
+    expect(gallery(initialState, showGallery('userId'))).toEqual({
       visible: true,
       userId: 'userId',
       mode: 'NONE',
@@ -29,7 +29,7 @@ describe('gallery reducer', () => {
     })
   })
 
-  it('should handle hide()', () => {
+  it('should handle hideGallery()', () => {
     expect(
       gallery(
         {
@@ -38,7 +38,7 @@ describe('gallery reducer', () => {
           mode: 'NONE',
           streets: []
         },
-        hide()
+        hideGallery()
       )
     ).toEqual({
       visible: false,

@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import menus, { showMenu, clearMenus } from './menus'
+import { showGallery } from './gallery'
 import { showDialog } from './dialogs'
 import { startPrinting } from './app'
 
@@ -19,7 +20,7 @@ describe('menus reducer', () => {
   })
 
   it('should handle extra reducers', () => {
-    expect(menus(initialState, 'SHOW_GALLERY')).toEqual(null)
+    expect(menus(initialState, showGallery())).toEqual(null)
     expect(menus(initialState, startPrinting())).toEqual(null)
     expect(menus(initialState, showDialog())).toEqual(null)
   })

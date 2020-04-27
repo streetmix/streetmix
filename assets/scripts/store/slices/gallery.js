@@ -11,13 +11,13 @@ export const gallerySlice = createSlice({
   },
 
   reducers: {
-    show (state, action) {
+    showGallery (state, action) {
       state.visible = true
       state.userId = action.payload
       state.mode = GALLERY_MODES.NONE
     },
 
-    hide (state, action) {
+    hideGallery (state, action) {
       state.visible = false
     },
 
@@ -43,8 +43,8 @@ export const gallerySlice = createSlice({
 })
 
 export const {
-  show,
-  hide,
+  showGallery,
+  hideGallery,
   receiveGalleryStreets,
   deleteGalleryStreet,
   setGalleryMode,
