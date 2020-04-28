@@ -56,7 +56,7 @@ import {
   saveOriginalStreetId,
   updateEditCount,
   updateStreetData
-} from '../store/actions/street'
+} from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
 import { deleteStreetThumbnail } from './image'
 

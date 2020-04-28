@@ -28,7 +28,7 @@ import {
 } from './constants'
 import { segmentsChanged } from './view'
 import store, { observeStore } from '../store'
-import { addSegment, removeSegment, moveSegment } from '../store/actions/street'
+import { addSegment, removeSegment, moveSegment } from '../store/slices/street'
 import {
   initDraggingState,
   updateDraggingState,

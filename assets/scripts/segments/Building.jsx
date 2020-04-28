@@ -9,7 +9,7 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
-import { addBuildingFloor, removeBuildingFloor } from '../store/actions/street'
+import { addBuildingFloor, removeBuildingFloor } from '../store/slices/street'
 
 class Building extends React.Component {
   static propTypes = {

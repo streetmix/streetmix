@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
 import {
@@ -17,8 +18,9 @@ import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
   setUpdateTime,
   saveCreatorId,
-  updateStreetData
-} from '../store/actions/street'
+  updateStreetData,
+  updateEditCount
+} from '../store/slices/street'
 import { resetUndoStack } from '../store/slices/undo'
 import store from '../store'
 
@@ -287,6 +289,21 @@ export function updateToLatestSchemaVersion (street) {
     updated = true
   }
 
+  // Do some work to update segment data, although they're not technically
+  // part of the schema (yet?)
+  street.segments = street.segments.map((segment) => {
+    // Alternate method of storing variants as object key-value pairs,
+    // instead of a string. We might gradually migrate toward this.
+    segment.variant = getVariantArray(segment.type, segment.variantString)
+
+    // Add uuids to segments
+    if (!segment.id) {
+      segment.id = uuidv4()
+    }
+
+    return segment
+  })
+
   return updated
 }
 
@@ -319,7 +336,7 @@ export function saveStreetToServerIfNecessary () {
 
   if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
     if (street.editCount !== null) {
-      street.editCount++
+      store.dispatch(updateEditCount(street.editCount + 1))
     }
     setUpdateTimeToNow()
 
@@ -389,6 +406,7 @@ function fillDefaultSegments (units) {
 
   for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
     const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
+    segment.id = uuidv4()
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
     segment.width = normalizeSegmentWidth(

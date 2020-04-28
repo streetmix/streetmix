@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { CLEAR_LOCATION } from '../actions'
+import { clearLocation } from './street'
 
 const initialState = {
   markerLocation: null,
@@ -26,7 +26,7 @@ const mapSlice = createSlice({
 
   extraReducers: {
     // If location is cleared from the street, also reset map state.
-    [CLEAR_LOCATION]: (state) => initialState
+    [clearLocation]: (state) => initialState
   }
 })
 

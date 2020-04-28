@@ -4,7 +4,7 @@ import { t } from '../locales/locale'
 import {
   removeSegment as removeSegmentActionCreator,
   clearSegments
-} from '../store/actions/street'
+} from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
 import store from '../store'
 

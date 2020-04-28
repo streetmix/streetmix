@@ -13,10 +13,7 @@ import {
   BUILDING_RIGHT_POSITION
 } from './constants'
 import store from '../store'
-import {
-  updateSegments,
-  changeSegmentProperties
-} from '../store/actions/street'
+import { updateSegments, changeSegmentProperties } from '../store/slices/street'
 import PEOPLE from './people.json'
 
 // Adjust spacing between people to be slightly closer

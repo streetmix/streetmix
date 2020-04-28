@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
 import flow from 'lodash/flow'
-import uuid from 'uuid'
 import Segment from '../segments/Segment'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import {
@@ -11,7 +10,6 @@ import {
   DRAGGING_MOVE_HOLE_WIDTH,
   DRAGGING_TYPE_RESIZE
 } from '../segments/constants'
-import { getVariantArray } from '../segments/variant_utils'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import {
   Types,
@@ -160,13 +158,6 @@ export class StreetEditable extends React.Component {
 
     return segments.map((segment, i) => {
       const segmentPos = this.calculateSegmentPos(i)
-
-      segment.variant = getVariantArray(segment.type, segment.variantString)
-      segment.warnings = segment.warnings || []
-
-      if (!segment.id) {
-        segment.id = uuid()
-      }
 
       const segmentEl = (
         <CSSTransition
