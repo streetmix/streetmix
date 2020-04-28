@@ -1,8 +1,10 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { segmentsChanged } from './view'
 import { t } from '../locales/locale'
-import { removeSegment as removeSegmentActionCreator } from '../store/actions/street'
-import { clearSegments } from '../store/slices/street'
+import {
+  removeSegment as removeSegmentActionCreator,
+  clearSegments
+} from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
 import store from '../store'
 
