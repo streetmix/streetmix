@@ -168,6 +168,13 @@ const streetSlice = createSlice({
       }
     },
 
+    updateStreetIdMetadata (state, action) {
+      const { creatorId, id, namespacedId } = action.payload
+      state.creatorId = creatorId
+      state.id = id
+      state.namespacedId = namespacedId
+    },
+
     // TODO: validate time (payload) is a string matching ISO string format
     setUpdateTime (state, action) {
       state.updatedAt = action.payload
@@ -320,6 +327,7 @@ export const {
   saveStreetName,
   saveCreatorId,
   saveStreetId,
+  updateStreetIdMetadata,
   setUpdateTime,
   saveOriginalStreetId,
   updateEditCount,

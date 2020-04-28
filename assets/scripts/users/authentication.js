@@ -18,6 +18,7 @@ import {
   rememberUserProfile
 } from '../store/slices/user'
 import { showDialog } from '../store/slices/dialogs'
+import { updateStreetIdMetadata } from '../store/slices/street'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -265,9 +266,13 @@ function _signInLoaded () {
   ) {
     const settings = getSettings()
     if (settings.lastStreetId) {
-      street.creatorId = settings.lastStreetCreatorId
-      street.id = settings.lastStreetId
-      street.namespacedId = settings.lastStreetNamespacedId
+      store.dispatch(
+        updateStreetIdMetadata({
+          creatorId: settings.lastStreetCreatorId,
+          id: settings.lastStreetId,
+          namespacedId: settings.lastStreetNamespacedId
+        })
+      )
 
       if (mode === MODES.JUST_SIGNED_IN && !street.creatorId) {
         setPromoteStreet(true)

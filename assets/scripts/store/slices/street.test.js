@@ -12,6 +12,7 @@ import street, {
   saveStreetName,
   saveCreatorId,
   saveStreetId,
+  updateStreetIdMetadata,
   setUpdateTime,
   saveOriginalStreetId,
   updateEditCount,
@@ -306,6 +307,26 @@ describe('street reducer', () => {
     ).toEqual({
       id: 'foo',
       namespacedId: 'bar'
+    })
+  })
+
+  it('should handle updateStreetIdMetadata()', () => {
+    expect(
+      street(
+        initialState,
+        updateStreetIdMetadata({
+          creatorId: 'foo',
+          id: 'bar',
+          namespacedId: 'baz'
+        })
+      )
+    ).toEqual({
+      segments: [],
+      environment: 'day',
+      immediateRemoval: true,
+      creatorId: 'foo',
+      id: 'bar',
+      namespacedId: 'baz'
     })
   })
 
