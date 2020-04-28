@@ -1,8 +1,4 @@
-import {
-  showGallery as show,
-  hideGallery as hide,
-  setGalleryMode
-} from '../slices/gallery'
+import { showGallery, hideGallery, setGalleryMode } from '../slices/gallery'
 import { hideControls } from '../../segments/resizing'
 import { fetchGalleryData } from '../../gallery/fetch_data'
 import { GALLERY_MODES } from '../../gallery/constants'
@@ -18,9 +14,9 @@ import { onWindowFocus } from '../../app/focus'
 // can work with.
 // These will also need to be tested.
 
-export function showGallery (userId, instant = false) {
+export function openGallery (userId, instant = false) {
   return (dispatch) => {
-    dispatch(show(userId))
+    dispatch(showGallery(userId))
     hideControls()
 
     // TODO: Handle transition inside Gallery component.
@@ -50,11 +46,11 @@ export function showGallery (userId, instant = false) {
   }
 }
 
-export function hideGallery (instant = false) {
+export function closeGallery (instant = false) {
   return (dispatch, getState) => {
     const state = getState()
     if (state.gallery.visible) {
-      dispatch(hide())
+      dispatch(hideGallery())
 
       if (instant) {
         document.body.classList.add('gallery-no-move-transition')

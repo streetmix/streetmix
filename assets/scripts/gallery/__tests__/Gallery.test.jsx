@@ -5,14 +5,14 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
 import { switchGalleryStreet } from '../view'
-import { hideGallery } from '../../store/actions/gallery'
+import { closeGallery } from '../../store/actions/gallery'
 
 jest.mock('../view')
 jest.mock('../../app/errors')
 jest.mock('../../streets/thumbnail')
 jest.mock('../../streets/xhr')
 jest.mock('../../store/actions/gallery', () => ({
-  hideGallery: jest.fn(() => ({ type: 'MOCK_ACTION' }))
+  closeGallery: jest.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 const initialState = {
@@ -107,7 +107,7 @@ describe('Gallery', () => {
 
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
     fireEvent.click(wrapper.container.querySelector('.gallery-shield'))
-    expect(hideGallery).toHaveBeenCalledTimes(1)
+    expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 
   describe('street item', () => {

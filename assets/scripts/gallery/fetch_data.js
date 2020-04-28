@@ -6,7 +6,7 @@ import { GALLERY_MODES } from './constants'
 
 // Redux
 import store from '../store'
-import { hideGallery } from '../store/actions/gallery'
+import { closeGallery } from '../store/actions/gallery'
 import { setGalleryMode } from '../store/slices/gallery'
 
 export function fetchGalleryData () {
@@ -48,7 +48,7 @@ function errorReceiveGalleryData (data) {
   if (getMode() === MODES.USER_GALLERY && data.status === 404) {
     setMode(MODES.NOT_FOUND)
     processMode()
-    store.dispatch(hideGallery(true))
+    store.dispatch(closeGallery(true))
   } else {
     store.dispatch(setGalleryMode(GALLERY_MODES.ERROR))
   }
