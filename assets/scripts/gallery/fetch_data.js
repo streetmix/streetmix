@@ -1,6 +1,5 @@
-import { API_URL } from '../app/config'
+import { getGalleryForUser, getGalleryForAllStreets } from '../util/api'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { getAuthHeader } from '../users/authentication'
 import { receiveGalleryData } from './view'
 import { GALLERY_MODES } from './constants'
 
@@ -9,38 +8,19 @@ import store from '../store'
 import { closeGallery } from '../store/actions/gallery'
 import { setGalleryMode } from '../store/slices/gallery'
 
-export function fetchGalleryData () {
+export async function fetchGalleryData () {
   const galleryUserId = store.getState().gallery.userId
 
-  if (galleryUserId) {
-    const url = API_URL + 'v1/users/' + galleryUserId + '/streets'
-    const options = {
-      headers: { Authorization: getAuthHeader() }
+  try {
+    if (galleryUserId) {
+      const response = await getGalleryForUser(galleryUserId)
+      receiveGalleryData(response.data)
+    } else {
+      const response = await getGalleryForAllStreets()
+      receiveGalleryData(response.data)
     }
-
-    window
-      .fetch(url, options)
-      .then(function (response) {
-        if (!response.ok) {
-          throw response
-        }
-        return response.json()
-      })
-      .then(receiveGalleryData)
-      .catch(errorReceiveGalleryData)
-  } else {
-    const url = API_URL + 'v1/streets?count=200'
-
-    window
-      .fetch(url)
-      .then(function (response) {
-        if (!response.ok) {
-          throw response
-        }
-        return response.json()
-      })
-      .then(receiveGalleryData)
-      .catch(errorReceiveGalleryData)
+  } catch (error) {
+    errorReceiveGalleryData(error.response)
   }
 }
 
