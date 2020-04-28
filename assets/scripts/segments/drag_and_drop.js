@@ -662,6 +662,10 @@ function handleSegmentCanvasDrop (draggedItem, type) {
     id: draggedItem.id ?? uuidv4()
   }
 
+  newSegment.variant =
+    draggedItem.variant ||
+    getVariantArray(newSegment.type, newSegment.variantString)
+
   let newIndex =
     segmentAfterEl !== undefined ? segmentAfterEl + 1 : segmentBeforeEl
 
