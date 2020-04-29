@@ -140,9 +140,18 @@ function onEverythingLoaded () {
 
   var mode = getMode()
   if (mode === MODES.USER_GALLERY) {
-    store.dispatch(openGallery(store.getState().gallery.userId, true))
+    store.dispatch(
+      openGallery({
+        userId: store.getState().gallery.userId,
+        instant: true
+      })
+    )
   } else if (mode === MODES.GLOBAL_GALLERY) {
-    store.dispatch(openGallery(null, true))
+    store.dispatch(
+      openGallery({
+        instant: true
+      })
+    )
   }
 
   if (getPromoteStreet()) {

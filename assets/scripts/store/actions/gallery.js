@@ -1,35 +1,16 @@
-import { showGallery, hideGallery, setGalleryMode } from '../slices/gallery'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { hideControls } from '../../segments/resizing'
 import { fetchGalleryData } from '../../gallery/fetch_data'
-import { GALLERY_MODES } from '../../gallery/constants'
 import { updatePageUrl } from '../../app/page_url'
 import { showError, ERRORS } from '../../app/errors'
 import { MODES, getMode, setMode } from '../../app/mode'
 import { onWindowFocus } from '../../app/focus'
 
-// TODO: Convert these to use createAsyncThunk from @redux/toolkit
-// That way we can take advantage of the bog-standard `pending`
-// `fulfilled` and `rejected` lifecycle actions. This will also
-// require refactoring `fetchGalleryData` to return a promise we
-// can work with.
-// These will also need to be tested.
-
-export function openGallery (userId, instant = false) {
-  return (dispatch) => {
-    dispatch(showGallery(userId))
+export const openGallery = createAsyncThunk(
+  'gallery/openGallery',
+  async ({ userId, instant = false }, { dispatch, rejectWithValue }) => {
+    updatePageUrl(true, userId)
     hideControls()
-
-    // TODO: Handle transition inside Gallery component.
-    if (instant) {
-      document.body.classList.add('gallery-no-move-transition')
-    }
-    document.body.classList.add('gallery-visible')
-
-    if (instant) {
-      window.setTimeout(function () {
-        document.body.classList.remove('gallery-no-move-transition')
-      }, 0)
-    }
 
     // TODO: Handle modes better.
     if (
@@ -40,36 +21,46 @@ export function openGallery (userId, instant = false) {
       showError(ERRORS.NO_STREET, false)
     }
 
-    dispatch(setGalleryMode(GALLERY_MODES.LOADING))
-    fetchGalleryData()
-    updatePageUrl(true)
-  }
-}
-
-export function closeGallery (instant = false) {
-  return (dispatch, getState) => {
-    const state = getState()
-    if (state.gallery.visible) {
-      dispatch(hideGallery())
-
-      if (instant) {
-        document.body.classList.add('gallery-no-move-transition')
-      }
-      document.body.classList.remove('gallery-visible')
-
-      if (instant) {
-        window.setTimeout(function () {
-          document.body.classList.remove('gallery-no-move-transition')
-        }, 0)
+    // Fetch data and catch errors if fetch goes wrong
+    try {
+      return await fetchGalleryData(userId)
+    } catch (error) {
+      // If the server error is 404, special rejection value
+      // to display a "not-found" screen without the gallery
+      if (error.response?.status === 404) {
+        return rejectWithValue({
+          killGallery: true
+        })
       }
 
-      onWindowFocus()
-
-      if (!state.errors.abortEverything) {
-        updatePageUrl()
-      }
-
-      setMode(MODES.CONTINUE)
+      // Re-throw original error for normal rejection
+      throw error
     }
   }
-}
+)
+
+export const closeGallery = createAsyncThunk(
+  'gallery/closeGallery',
+  ({ instant = false } = {}, { dispatch, getState }) => {
+    const state = getState()
+
+    if (!state.errors.abortEverything) {
+      updatePageUrl()
+    }
+
+    onWindowFocus()
+    setMode(MODES.CONTINUE)
+
+    return { instant }
+  },
+  {
+    condition: (arg, { getState }) => {
+      const { visible } = getState().gallery
+
+      // If gallery isn't visible, don't dispatch again
+      if (!visible) {
+        return false
+      }
+    }
+  }
+)

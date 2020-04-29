@@ -13,7 +13,7 @@ function IdentityMenu (props) {
   const handleClickMyStreets = useCallback(
     (event) => {
       event.preventDefault()
-      dispatch(openGallery(userId))
+      dispatch(openGallery({ userId }))
     },
     [userId, dispatch]
   )

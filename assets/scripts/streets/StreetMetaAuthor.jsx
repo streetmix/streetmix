@@ -16,7 +16,7 @@ function StreetMetaAuthor (props) {
       event.preventDefault()
     }
 
-    dispatch(openGallery(creatorId))
+    dispatch(openGallery({ userId: creatorId }))
   }
 
   let user

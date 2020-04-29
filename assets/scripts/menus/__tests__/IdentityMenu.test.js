@@ -33,7 +33,7 @@ describe('IdentityMenu', () => {
     fireEvent.click(wrapper.getByText('My streets'))
 
     expect(openGallery).toBeCalledTimes(1)
-    expect(openGallery).toBeCalledWith('foo')
+    expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
 
   it('signs the user out when its link is clicked', () => {

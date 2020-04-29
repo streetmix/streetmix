@@ -130,11 +130,10 @@ export function getStreetUrl (street) {
   return url
 }
 
-export function updatePageUrl (forceGalleryUrl) {
+export function updatePageUrl (forceGalleryUrl, userId = null) {
   let url
   if (forceGalleryUrl) {
-    const galleryUserId = store.getState().gallery.userId
-    const slug = galleryUserId || 'gallery/'
+    const slug = userId || 'gallery/'
     url = '/' + slug
   } else {
     url = getStreetUrl(store.getState().street)

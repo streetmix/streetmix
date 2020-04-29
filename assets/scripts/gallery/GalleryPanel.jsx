@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import GalleryError from './GalleryError'
 import GalleryLoading from './GalleryLoading'
 import GalleryContents from './GalleryContents'
-import { repeatReceiveGalleryData } from './view'
 
 // This component only handles switching between display modes
 function GalleryPanel (props) {
@@ -16,7 +15,7 @@ function GalleryPanel (props) {
       childElements = <GalleryLoading />
       break
     case 'ERROR':
-      childElements = <GalleryError handleRetry={repeatReceiveGalleryData} />
+      childElements = <GalleryError />
       break
     case 'GALLERY':
     default:

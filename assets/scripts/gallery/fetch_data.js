@@ -1,35 +1,29 @@
 import { getGalleryForUser, getGalleryForAllStreets } from '../util/api'
-import { MODES, processMode, getMode, setMode } from '../app/mode'
+import { MODES, processMode, setMode } from '../app/mode'
 import { receiveGalleryData } from './view'
-import { GALLERY_MODES } from './constants'
 
-// Redux
-import store from '../store'
-import { closeGallery } from '../store/actions/gallery'
-import { setGalleryMode } from '../store/slices/gallery'
-
-export async function fetchGalleryData () {
-  const galleryUserId = store.getState().gallery.userId
-
+export async function fetchGalleryData (userId) {
   try {
-    if (galleryUserId) {
-      const response = await getGalleryForUser(galleryUserId)
-      receiveGalleryData(response.data)
+    if (userId) {
+      const response = await getGalleryForUser(userId)
+      const streets = receiveGalleryData(response.data)
+
+      return streets
     } else {
       const response = await getGalleryForAllStreets()
-      receiveGalleryData(response.data)
+      const streets = receiveGalleryData(response.data)
+
+      return streets
     }
   } catch (error) {
-    errorReceiveGalleryData(error.response)
-  }
-}
+    // If the error is a 404, throw up a not-found page
+    if (error.response.status === 404) {
+      setMode(MODES.NOT_FOUND)
+      processMode()
+    }
 
-function errorReceiveGalleryData (data) {
-  if (getMode() === MODES.USER_GALLERY && data.status === 404) {
-    setMode(MODES.NOT_FOUND)
-    processMode()
-    store.dispatch(closeGallery(true))
-  } else {
-    store.dispatch(setGalleryMode(GALLERY_MODES.ERROR))
+    // Re-throw the original error. This is caught by Redux Toolkit's
+    // `asyncThunkCreator` and dispatches a rejected action
+    throw error
   }
 }
