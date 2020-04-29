@@ -43,6 +43,7 @@ function GalleryContents (props) {
 
   function deleteStreet (streetId) {
     if (streetId === currentStreetId) {
+      setSelectedStreet(null)
       showError(ERRORS.NO_STREET, false)
     }
 
@@ -50,7 +51,6 @@ function GalleryContents (props) {
 
     // Optimistic delete: don't re-fetch, just remove street from memory
     // and let the change in data store trigger a re-render
-    setSelectedStreet(null)
     dispatch(deleteGalleryStreet(streetId))
   }
 
