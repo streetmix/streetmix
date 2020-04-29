@@ -5,14 +5,14 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
 import { switchGalleryStreet } from '../view'
-import { hideGallery } from '../../store/actions/gallery'
+import { closeGallery } from '../../store/actions/gallery'
 
 jest.mock('../view')
 jest.mock('../../app/errors')
 jest.mock('../../streets/thumbnail')
 jest.mock('../../streets/xhr')
 jest.mock('../../store/actions/gallery', () => ({
-  hideGallery: jest.fn(() => ({ type: 'MOCK_ACTION' }))
+  closeGallery: jest.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 const initialState = {
@@ -89,24 +89,12 @@ describe('Gallery', () => {
     const initialState = {
       gallery: {
         visible: true,
-        streets: 'boom'
+        mode: 'ERROR'
       }
     }
 
-    // Setup: Swallow console.error
-    jest.spyOn(console, 'error')
-    console.error.mockImplementation(() => {})
-
-    // Render with bad data, causing an error to occur
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-
-    // Expect the error to occur.
-    // Note that if this test does fail with an error, we've set it up to swallow
-    // actual console.errors, so remove the mock if you need to debug this test.
     expect(wrapper.getByText('Failed to load the gallery.')).toBeInTheDocument()
-
-    // Restore console.error
-    console.error.mockRestore()
   })
 
   it('closes on shield click', () => {
@@ -119,7 +107,7 @@ describe('Gallery', () => {
 
     const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
     fireEvent.click(wrapper.container.querySelector('.gallery-shield'))
-    expect(hideGallery).toHaveBeenCalledTimes(1)
+    expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 
   describe('street item', () => {

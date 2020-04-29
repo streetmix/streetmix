@@ -23,7 +23,7 @@ import { processUrl } from './page_url'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import store, { observeStore } from '../store'
-import { showGallery } from '../store/actions/gallery'
+import { openGallery } from '../store/actions/gallery'
 import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
 
@@ -140,9 +140,18 @@ function onEverythingLoaded () {
 
   var mode = getMode()
   if (mode === MODES.USER_GALLERY) {
-    store.dispatch(showGallery(store.getState().gallery.userId, true))
+    store.dispatch(
+      openGallery({
+        userId: store.getState().gallery.userId,
+        instant: true
+      })
+    )
   } else if (mode === MODES.GLOBAL_GALLERY) {
-    store.dispatch(showGallery(null, true))
+    store.dispatch(
+      openGallery({
+        instant: true
+      })
+    )
   }
 
   if (getPromoteStreet()) {

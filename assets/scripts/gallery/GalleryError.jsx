@@ -1,12 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { openGallery } from '../store/actions/gallery'
 
-GalleryError.propTypes = {
-  handleRetry: PropTypes.func.isRequired
-}
+function GalleryError (props) {
+  const userId = useSelector((state) => state.gallery.userId)
+  const dispatch = useDispatch()
 
-function GalleryError ({ handleRetry }) {
+  const handleRetry = useCallback(() => {
+    dispatch(openGallery({ userId }))
+  }, [userId, dispatch])
+
   return (
     <div className="gallery-error">
       <p>

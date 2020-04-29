@@ -1,55 +1,29 @@
-import { API_URL } from '../app/config'
-import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { getAuthHeader } from '../users/authentication'
+import { getGalleryForUser, getGalleryForAllStreets } from '../util/api'
+import { MODES, processMode, setMode } from '../app/mode'
 import { receiveGalleryData } from './view'
-import { GALLERY_MODES } from './constants'
 
-// Redux
-import store from '../store'
-import { hideGallery } from '../store/actions/gallery'
-import { setGalleryMode } from '../store/slices/gallery'
+export async function fetchGalleryData (userId) {
+  try {
+    if (userId) {
+      const response = await getGalleryForUser(userId)
+      const streets = receiveGalleryData(response.data)
 
-export function fetchGalleryData () {
-  const galleryUserId = store.getState().gallery.userId
+      return streets
+    } else {
+      const response = await getGalleryForAllStreets()
+      const streets = receiveGalleryData(response.data)
 
-  if (galleryUserId) {
-    const url = API_URL + 'v1/users/' + galleryUserId + '/streets'
-    const options = {
-      headers: { Authorization: getAuthHeader() }
+      return streets
+    }
+  } catch (error) {
+    // If the error is a 404, throw up a not-found page
+    if (error.response.status === 404) {
+      setMode(MODES.NOT_FOUND)
+      processMode()
     }
 
-    window
-      .fetch(url, options)
-      .then(function (response) {
-        if (!response.ok) {
-          throw response
-        }
-        return response.json()
-      })
-      .then(receiveGalleryData)
-      .catch(errorReceiveGalleryData)
-  } else {
-    const url = API_URL + 'v1/streets?count=200'
-
-    window
-      .fetch(url)
-      .then(function (response) {
-        if (!response.ok) {
-          throw response
-        }
-        return response.json()
-      })
-      .then(receiveGalleryData)
-      .catch(errorReceiveGalleryData)
-  }
-}
-
-function errorReceiveGalleryData (data) {
-  if (getMode() === MODES.USER_GALLERY && data.status === 404) {
-    setMode(MODES.NOT_FOUND)
-    processMode()
-    store.dispatch(hideGallery(true))
-  } else {
-    store.dispatch(setGalleryMode(GALLERY_MODES.ERROR))
+    // Re-throw the original error. This is caught by Redux Toolkit's
+    // `asyncThunkCreator` and dispatches a rejected action
+    throw error
   }
 }

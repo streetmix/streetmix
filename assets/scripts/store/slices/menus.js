@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { showGallery } from './gallery'
 import { showDialog } from './dialogs'
 import { startPrinting } from './app'
 
@@ -19,7 +18,7 @@ const menusSlice = createSlice({
 
   // Certain other actions in the app will also hide menus.
   extraReducers: {
-    [showGallery]: (state) => null,
+    'gallery/openGallery/pending': (state) => null,
     [showDialog]: (state) => null,
     [startPrinting]: (state) => null
   }

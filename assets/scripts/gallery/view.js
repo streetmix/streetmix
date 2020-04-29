@@ -1,30 +1,21 @@
 import { MODES, getMode } from '../app/mode'
 import { updateToLatestSchemaVersion } from '../streets/data_model'
 import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
-import { fetchGalleryData } from './fetch_data'
 import { fetchGalleryStreet } from './fetch_street'
-import { GALLERY_MODES } from './constants'
-
-// Redux
 import store from '../store'
-import { setGalleryMode, receiveGalleryStreets } from '../store/slices/gallery'
 
 export function receiveGalleryData (transmission) {
   // Prepare data object
-  const streets = []
-  for (var i in transmission.streets) {
-    var galleryStreet = transmission.streets[i]
+  const streets = transmission.streets.map((street) => {
+    // There is a bug where sometimes street data is non-existent for an
+    // unknown reason. Skip over so that the rest of gallery will display
+    if (!street.data) return {}
 
-    // There is a bug where sometimes street data is non-existent for an unknown reason
-    // Skip over so that the rest of gallery will display
-    if (!galleryStreet.data) continue
+    // This mutates street data in place (not preferred; TODO: fix later)
+    updateToLatestSchemaVersion(street.data.street)
 
-    updateToLatestSchemaVersion(galleryStreet.data.street)
-
-    streets.push(galleryStreet)
-  }
-
-  store.dispatch(receiveGalleryStreets(streets))
+    return street
+  })
 
   if (
     (getMode() === MODES.USER_GALLERY && streets.length) ||
@@ -32,10 +23,8 @@ export function receiveGalleryData (transmission) {
   ) {
     switchGalleryStreet(streets[0].id)
   }
-}
 
-export function repeatReceiveGalleryData () {
-  loadGalleryContents()
+  return streets
 }
 
 export function switchGalleryStreet (id) {
@@ -46,9 +35,4 @@ export function switchGalleryStreet (id) {
   )
 
   fetchGalleryStreet(id)
-}
-
-function loadGalleryContents () {
-  store.dispatch(setGalleryMode(GALLERY_MODES.LOADING))
-  fetchGalleryData()
 }

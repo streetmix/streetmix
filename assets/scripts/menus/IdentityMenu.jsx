@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import { onSignOutClick } from '../users/authentication'
-import { showGallery } from '../store/actions/gallery'
+import { openGallery } from '../store/actions/gallery'
 import './IdentityMenu.scss'
 
 function IdentityMenu (props) {
@@ -13,7 +13,7 @@ function IdentityMenu (props) {
   const handleClickMyStreets = useCallback(
     (event) => {
       event.preventDefault()
-      dispatch(showGallery(userId))
+      dispatch(openGallery({ userId }))
     },
     [userId, dispatch]
   )

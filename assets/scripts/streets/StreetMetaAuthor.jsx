@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { isOwnedByCurrentUser } from './owner'
-import { showGallery } from '../store/actions/gallery'
+import { openGallery } from '../store/actions/gallery'
 import Avatar from '../users/Avatar'
 
 function StreetMetaAuthor (props) {
@@ -16,7 +16,7 @@ function StreetMetaAuthor (props) {
       event.preventDefault()
     }
 
-    dispatch(showGallery(creatorId))
+    dispatch(openGallery({ userId: creatorId }))
   }
 
   let user

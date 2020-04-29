@@ -279,6 +279,14 @@ function incrementSchemaVersion (street) {
   return street
 }
 
+/**
+ * This function mutates the original street object in place and then returns
+ * a boolean for whether it has been updated to the lastest schema version.
+ *
+ * @todo We should change this behavior (it's weird)
+ *
+ * @param {Object} street
+ */
 export function updateToLatestSchemaVersion (street) {
   var updated = false
   while (

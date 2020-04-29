@@ -2,15 +2,14 @@
 import gallery, {
   showGallery,
   hideGallery,
-  receiveGalleryStreets,
   deleteGalleryStreet,
-  setGalleryMode,
   setGalleryUserId
 } from './gallery'
 
 describe('gallery reducer', () => {
   const initialState = {
     visible: false,
+    instant: false,
     userId: null,
     mode: 'NONE',
     streets: []
@@ -23,6 +22,7 @@ describe('gallery reducer', () => {
   it('should handle showGallery()', () => {
     expect(gallery(initialState, showGallery('userId'))).toEqual({
       visible: true,
+      instant: false,
       userId: 'userId',
       mode: 'NONE',
       streets: []
@@ -48,20 +48,6 @@ describe('gallery reducer', () => {
     })
   })
 
-  it('should handle receiveGalleryStreets()', () => {
-    expect(
-      gallery(
-        initialState,
-        receiveGalleryStreets([{ id: 1 }, { id: 2 }, { id: 3 }])
-      )
-    ).toEqual({
-      visible: false,
-      userId: null,
-      mode: 'GALLERY',
-      streets: [{ id: 1 }, { id: 2 }, { id: 3 }]
-    })
-  })
-
   it('should handle deleteGalleryStreet()', () => {
     expect(
       gallery(
@@ -81,18 +67,10 @@ describe('gallery reducer', () => {
     })
   })
 
-  it('should handle setGalleryMode()', () => {
-    expect(gallery(initialState, setGalleryMode('GALLERY'))).toEqual({
-      visible: false,
-      userId: null,
-      mode: 'GALLERY',
-      streets: []
-    })
-  })
-
   it('should handle setGalleryUserId()', () => {
     expect(gallery(initialState, setGalleryUserId('foo'))).toEqual({
       visible: false,
+      instant: false,
       userId: 'foo',
       mode: 'NONE',
       streets: []

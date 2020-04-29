@@ -2,14 +2,14 @@ import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import GalleryPanel from './GalleryPanel'
 import GalleryShield from './GalleryShield'
-import { hideGallery } from '../store/actions/gallery'
+import { closeGallery } from '../store/actions/gallery'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Gallery.scss'
 
 function Gallery (props) {
-  const visible = useSelector((state) => state.gallery.visible)
+  const { visible, instant } = useSelector((state) => state.gallery)
   const dispatch = useDispatch()
-  const hide = useCallback((e) => dispatch(hideGallery()), [dispatch])
+  const hide = useCallback((e) => dispatch(closeGallery()), [dispatch])
 
   useEffect(() => {
     // Only register the esc keybind when Gallery is visible
@@ -24,6 +24,32 @@ function Gallery (props) {
       deregisterKeypress('esc', hide)
     }
   }, [visible, hide])
+
+  useEffect(() => {
+    if (visible) {
+      if (instant) {
+        document.body.classList.add('gallery-no-move-transition')
+      }
+      document.body.classList.add('gallery-visible')
+
+      if (instant) {
+        window.setTimeout(function () {
+          document.body.classList.remove('gallery-no-move-transition')
+        }, 0)
+      }
+    } else {
+      if (instant) {
+        document.body.classList.add('gallery-no-move-transition')
+      }
+      document.body.classList.remove('gallery-visible')
+
+      if (instant) {
+        window.setTimeout(function () {
+          document.body.classList.remove('gallery-no-move-transition')
+        }, 0)
+      }
+    }
+  }, [visible, instant])
 
   return (
     <div className="gallery" aria-hidden={!visible}>
