@@ -101,6 +101,15 @@ const streetSlice = createSlice({
     changeSegmentVariant: {
       reducer (state, action) {
         const { index, set, selection } = action.payload
+
+        // Monkey-patch
+        // Address a situation where the .variant property may not
+        // exist. Ideally, it should always be present and be an
+        // object. If it doesn't exist, create an empty object now.
+        // TODO: Guarantee that segment always the `variant` property
+        // and remove this.
+        state.segments[index].variant = state.segments[index].variant || {}
+
         state.segments[index].variant[set] = selection
         state.segments[index].variantString = getVariantString(
           state.segments[index].variant
