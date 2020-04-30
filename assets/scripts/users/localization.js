@@ -10,10 +10,7 @@ import {
 } from '../streets/data_model'
 import { getUndoStack, getUndoPosition } from '../streets/undo_stack'
 import { normalizeStreetWidth } from '../streets/width'
-import {
-  saveSettingsLocally,
-  LOCAL_STORAGE_SETTINGS_UNITS_ID
-} from '../users/settings'
+import { LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
 import {
   setUnits,
@@ -187,5 +184,4 @@ export function updateUnits (newUnits) {
   setIgnoreStreetChanges(false)
 
   saveStreetToServerIfNecessary()
-  saveSettingsLocally()
 }
