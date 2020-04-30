@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { cloneDeep } from 'lodash'
 import {
   RESIZE_TYPE_INCREMENT,
@@ -6,6 +7,7 @@ import {
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions
 } from '../../segments/resizing'
+import { getVariantArray } from '../../segments/variant_utils'
 import { ERRORS } from '../../app/errors'
 import { showError } from '../slices/errors'
 import { hideLoadingScreen } from '../../app/load_resources'
@@ -111,6 +113,13 @@ const createStreetFromResponse = (response) => {
   street.name = response.name || null
   street.location = response.data.street.location || null
   street.editCount = response.data.street.editCount || 0
+  street.segments = street.segments.map((segment) => {
+    segment.id = uuidv4()
+    segment.warnings = []
+    segment.variant = getVariantArray(segment.type, segment.variantString)
+    return segment
+  })
+
   return street
 }
 export const getLastStreet = () => {
