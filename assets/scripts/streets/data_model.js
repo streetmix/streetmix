@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
+import cloneDeep from 'lodash/cloneDeep'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
 import {
@@ -413,7 +414,7 @@ function fillDefaultSegments (units) {
   const leftHandTraffic = getLeftHandTraffic()
 
   for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
-    const segment = DEFAULT_SEGMENTS[leftHandTraffic][i]
+    const segment = cloneDeep(DEFAULT_SEGMENTS[leftHandTraffic][i])
     segment.id = uuidv4()
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
