@@ -36,5 +36,12 @@ describe('settings reducer', () => {
       saveAsImageStreetName: false,
       saveAsImageWatermark: true
     })
+
+    // Handle empty objects, and null or undefined values
+    expect(settings(initialState, updateSettings({}))).toEqual(initialState)
+
+    expect(settings(initialState, updateSettings(null))).toEqual(initialState)
+
+    expect(settings(initialState, updateSettings())).toEqual(initialState)
   })
 })

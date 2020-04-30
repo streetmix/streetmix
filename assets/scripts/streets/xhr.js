@@ -16,11 +16,7 @@ import {
   getSignInData,
   isSignedIn
 } from '../users/authentication'
-import {
-  saveSettingsToServer,
-  getSettings,
-  setSettings
-} from '../users/settings'
+import { getSettings, setSettings } from '../users/settings'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -515,8 +511,6 @@ export function sendDeleteStreetToServer (id) {
       lastStreetCreatorId: null,
       lastStreetNamespacedId: null
     })
-
-    saveSettingsToServer()
   }
 
   // TODO const url

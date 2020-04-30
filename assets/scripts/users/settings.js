@@ -22,32 +22,29 @@ export function setSettings (settings) {
   store.dispatch(setSettingsActionCreator(settings))
 }
 
-function mergeSettings (serverSettings = {}, localSettings = {}) {
-  const settings = getSettings()
-
-  // Redux initial state will contain default settings. Merge in
-  // server and local settings with it.
-  return Object.assign({}, settings, serverSettings, localSettings)
-}
-
 export function loadSettings () {
+  // Get server settings.
   let serverSettings = {}
-  let localSettings = {}
   const signInData = getSignInData()
-
   if (isSignedIn() && signInData.details) {
     serverSettings = signInData.details.data
   }
 
+  // Get local settings.
   // Skip this if localStorage is corrupted
+  let localSettings = {}
   try {
     if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
       localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
     }
   } catch (e) {}
 
-  const settings = mergeSettings(serverSettings, localSettings)
+  // Marge settings to a new object. Server settings take priority and will
+  // overwrite local settings.
+  const settings = Object.assign({}, localSettings, serverSettings)
 
+  // Except for last street settings -- if we've just signed in, local settings
+  // take priority.
   if (getMode() === MODES.JUST_SIGNED_IN) {
     settings.lastStreetId = localSettings.lastStreetId
     settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId
@@ -63,24 +60,30 @@ export function loadSettings () {
     })
   )
 
+  // Update our application state.
   setSettings(settings)
 }
 
-// Legacy: exporting because some parts of Streetmix code manually force current
-// settings to write to localstorage.
+/**
+ * Save settings to LocalStorage. This should only be called by the settings
+ * reducer when data is updated. This is meant to mirror application state that
+ * should persist across browser sessions and even different users.
+ *
+ * @param {Object} settings
+ */
 export function saveSettingsLocally (settings) {
-  const merged = Object.assign({}, getSettings(), settings)
-  window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(merged)
-
-  scheduleSavingSettingsToServer()
+  try {
+    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(settings)
+  } catch (err) {
+    // Ignore localstorage write errors.
+  }
 }
 
-export function saveSettingsToServer () {
+function saveSettingsToServer (settings) {
   if (!isSignedIn() || store.getState().errors.abortEverything) {
     return
   }
 
-  const settings = getSettings()
   const transmission = JSON.stringify({ data: settings })
 
   // TODO const url
@@ -109,7 +112,7 @@ function errorSavingSettingsToServer (data) {
   }
 }
 
-function scheduleSavingSettingsToServer () {
+export function scheduleSavingSettingsToServer (settings) {
   if (!isSignedIn()) {
     return
   }
@@ -117,7 +120,7 @@ function scheduleSavingSettingsToServer () {
   clearScheduledSavingSettingsToServer()
 
   saveSettingsTimerId = window.setTimeout(function () {
-    saveSettingsToServer()
+    saveSettingsToServer(settings)
   }, SAVE_SETTINGS_DELAY)
 }
 
