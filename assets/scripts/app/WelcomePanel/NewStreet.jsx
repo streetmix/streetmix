@@ -116,7 +116,7 @@ function NewStreet ({
 function mapStateToProps (state) {
   return {
     newStreetPreference: state.settings.newStreetPreference,
-    priorLastStreetId: state.settings.priorLastStreetId,
+    priorLastStreetId: state.app.priorLastStreetId,
     street: state.street
   }
 }

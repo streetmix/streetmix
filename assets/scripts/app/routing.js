@@ -1,7 +1,6 @@
 import {
   URL_NEW_STREET,
   URL_EXAMPLE_STREET,
-  URL_NEW_STREET_COPY_LAST,
   AUTH0_SIGN_IN_CALLBACK_URL,
   TWITTER_URL_SIGN_IN_REDIRECT
 } from './constants'
@@ -26,11 +25,6 @@ export function goNewStreet (sameWindow) {
 
 export function goExampleStreet () {
   window.location.href = '/' + URL_EXAMPLE_STREET
-}
-
-// NOTE: This does not seem to be used anywhere
-export function goCopyLastStreet () {
-  window.location.href = '/' + URL_NEW_STREET_COPY_LAST
 }
 
 export function goTwitterSignIn () {
@@ -66,15 +60,18 @@ export function goGoogleSignIn () {
 
 export function goEmailSignIn (email, callback) {
   const auth0 = Authenticate()
-  auth0.passwordlessStart({
-    send: 'link',
-    email: email,
-    connection: 'email',
-    authParams: {
-      redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,
-      responseType: 'code'
+  auth0.passwordlessStart(
+    {
+      send: 'link',
+      email: email,
+      connection: 'email',
+      authParams: {
+        redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,
+        responseType: 'code'
+      }
+    },
+    (err, res) => {
+      callback(err, res)
     }
-  }, (err, res) => {
-    callback(err, res)
-  })
+  )
 }

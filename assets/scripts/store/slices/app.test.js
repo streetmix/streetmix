@@ -12,7 +12,8 @@ describe('app reducer', () => {
     readOnly: false,
     printing: false,
     everythingLoaded: false,
-    contentDirection: 'ltr'
+    contentDirection: 'ltr',
+    priorLastStreetId: null
   }
 
   it('should handle initial state', () => {
@@ -24,14 +25,16 @@ describe('app reducer', () => {
       app(
         initialState,
         setAppFlags({
-          readOnly: true
+          readOnly: true,
+          priorLastStreetId: '1'
         })
       )
     ).toEqual({
       readOnly: true,
       printing: false,
       everythingLoaded: false,
-      contentDirection: 'ltr'
+      contentDirection: 'ltr',
+      priorLastStreetId: '1'
     })
   })
 
@@ -40,7 +43,8 @@ describe('app reducer', () => {
       readOnly: false,
       printing: true,
       everythingLoaded: false,
-      contentDirection: 'ltr'
+      contentDirection: 'ltr',
+      priorLastStreetId: null
     })
   })
 
@@ -51,7 +55,8 @@ describe('app reducer', () => {
           readOnly: false,
           printing: true,
           everythingLoaded: false,
-          contentDirection: 'ltr'
+          contentDirection: 'ltr',
+          priorLastStreetId: null
         },
         stopPrinting()
       )
@@ -59,7 +64,8 @@ describe('app reducer', () => {
       readOnly: false,
       printing: false,
       everythingLoaded: false,
-      contentDirection: 'ltr'
+      contentDirection: 'ltr',
+      priorLastStreetId: null
     })
   })
 
@@ -68,7 +74,8 @@ describe('app reducer', () => {
       readOnly: false,
       printing: false,
       everythingLoaded: true,
-      contentDirection: 'ltr'
+      contentDirection: 'ltr',
+      priorLastStreetId: null
     })
   })
 
@@ -85,7 +92,8 @@ describe('app reducer', () => {
         readOnly: false,
         printing: false,
         everythingLoaded: false,
-        contentDirection: 'rtl'
+        contentDirection: 'rtl',
+        priorLastStreetId: null
       })
     })
 
@@ -96,7 +104,8 @@ describe('app reducer', () => {
             readOnly: false,
             printing: false,
             everythingLoaded: true,
-            contentDirection: 'rtl'
+            contentDirection: 'rtl',
+            priorLastStreetId: null
           },
           changeLocale.fulfilled({
             locale: 'en'
@@ -106,7 +115,8 @@ describe('app reducer', () => {
         readOnly: false,
         printing: false,
         everythingLoaded: true,
-        contentDirection: 'ltr'
+        contentDirection: 'ltr',
+        priorLastStreetId: null
       })
     })
   })

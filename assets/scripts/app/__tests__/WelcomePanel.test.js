@@ -65,8 +65,7 @@ describe('WelcomePanel', () => {
         {
           initialState: {
             street,
-            settings: { priorLastStreetId: '2' },
-            app: { everythingLoaded: false }
+            app: { everythingLoaded: false, priorLastStreetId: '2' }
           }
         }
       )

@@ -115,7 +115,7 @@ const createStreetFromResponse = (response) => {
 }
 export const getLastStreet = () => {
   return async (dispatch, getState) => {
-    const lastStreetId = getState().settings.priorLastStreetId
+    const lastStreetId = getState().app.priorLastStreetId
     const { id, namespacedId } = getState().street
     try {
       const response = await apiClient.getStreet(lastStreetId)

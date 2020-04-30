@@ -6,6 +6,7 @@ import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
 import store, { observeStore } from '../store'
 import { setSettings as setSettingsActionCreator } from '../store/actions/settings'
+import { setAppFlags } from '../store/slices/app'
 
 export const LOCAL_STORAGE_SETTINGS_ID = 'settings'
 export const LOCAL_STORAGE_SETTINGS_UNITS_ID = 'settings-units'
@@ -53,36 +54,23 @@ export function loadSettings () {
     settings.lastStreetCreatorId = localSettings.lastStreetCreatorId
   }
 
-  settings.priorLastStreetId = settings.lastStreetId
+  // This is a temporary value used only for the "fetch last street"
+  // functionality (this can happen either through the welcome panel)
+  // or the /copy-last convenience URL.
+  store.dispatch(
+    setAppFlags({
+      priorLastStreetId: settings.lastStreetId
+    })
+  )
 
   setSettings(settings)
-}
-
-// Called before saving settings to LocalStorage or server. Ensures only some
-// data we want to save are saved.
-function trimSettings (settings) {
-  const data = {}
-
-  data.lastStreetId = settings.lastStreetId
-  data.lastStreetNamespacedId = settings.lastStreetNamespacedId
-  data.lastStreetCreatorId = settings.lastStreetCreatorId
-  data.saveAsImageTransparentSky = settings.saveAsImageTransparentSky
-  data.saveAsImageSegmentNamesAndWidths =
-    settings.saveAsImageSegmentNamesAndWidths
-  data.saveAsImageStreetName = settings.saveAsImageStreetName
-
-  data.newStreetPreference = settings.newStreetPreference
-
-  return data
 }
 
 // Legacy: exporting because some parts of Streetmix code manually force current
 // settings to write to localstorage.
 export function saveSettingsLocally (settings) {
   const merged = Object.assign({}, getSettings(), settings)
-  window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(
-    trimSettings(merged)
-  )
+  window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(merged)
 
   scheduleSavingSettingsToServer()
 }
@@ -93,7 +81,7 @@ export function saveSettingsToServer () {
   }
 
   const settings = getSettings()
-  const transmission = JSON.stringify({ data: trimSettings(settings) })
+  const transmission = JSON.stringify({ data: settings })
 
   // TODO const url
   newNonblockingAjaxRequest(

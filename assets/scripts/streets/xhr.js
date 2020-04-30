@@ -456,11 +456,12 @@ export function scheduleSavingStreetToServer () {
 }
 
 export function fetchLastStreet () {
+  const streetId = store.getState().app.priorLastStreetId
   newBlockingAjaxRequest(
     'load',
     {
       // TODO const
-      url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,
+      url: API_URL + 'v1/streets/' + streetId,
       method: 'GET',
       headers: { Authorization: getAuthHeader() }
     },
@@ -477,7 +478,8 @@ function receiveLastStreet (transmission) {
   setIgnoreStreetChanges(true)
   const street = store.getState().street
   unpackServerStreetData(transmission, street.id, street.namespacedId, false)
-  store.dispatch(saveOriginalStreetId(getSettings().priorLastStreetId))
+  const priorLastStreetId = store.getState().app.priorLastStreetId
+  store.dispatch(saveOriginalStreetId(priorLastStreetId))
   addRemixSuffixToName()
 
   if (isSignedIn()) {
