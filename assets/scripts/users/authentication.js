@@ -10,8 +10,9 @@ import { goTwitterSignIn } from '../app/routing'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
-import { loadSettings, getSettings, setSettings } from './settings'
+import { loadSettings } from './settings'
 import store from '../store'
+import { setSettings } from '../store/actions/settings'
 import {
   setSignInData,
   clearSignInData,
@@ -205,11 +206,13 @@ export function onSignOutClick (event) {
 }
 
 function signOut (quiet) {
-  setSettings({
-    lastStreetId: null,
-    lastStreetNamespacedId: null,
-    lastStreetCreatorId: null
-  })
+  store.dispatch(
+    setSettings({
+      lastStreetId: null,
+      lastStreetNamespacedId: null,
+      lastStreetCreatorId: null
+    })
+  )
 
   removeSignInCookies()
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
@@ -264,7 +267,8 @@ function _signInLoaded () {
     mode === MODES.USER_GALLERY ||
     mode === MODES.GLOBAL_GALLERY
   ) {
-    const settings = getSettings()
+    const settings = store.getState().settings
+
     if (settings.lastStreetId) {
       store.dispatch(
         updateStreetIdMetadata({

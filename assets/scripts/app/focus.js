@@ -24,7 +24,8 @@ export function onWindowFocus () {
 
   // Save settings on window focus, so the last edited street is the one you’re
   // currently looking at (in case you’re looking at many streets in various
-  // tabs)
+  // tabs). We don't pass in any new settings to save, but calling this does
+  // trigger mirroring the app state to localstorage and user account.
   store.dispatch(setSettings())
 }
 

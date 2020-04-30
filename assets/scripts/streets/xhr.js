@@ -16,7 +16,6 @@ import {
   getSignInData,
   isSignedIn
 } from '../users/authentication'
-import { getSettings, setSettings } from '../users/settings'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -45,8 +44,8 @@ import {
   addRemixSuffixToName
 } from './remix'
 import { getUndoStack, unifyUndoStack } from './undo_stack'
-import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
 import store from '../store'
+import { setSettings } from '../store/actions/settings'
 import {
   saveStreetId,
   saveOriginalStreetId,
@@ -54,6 +53,7 @@ import {
   updateStreetData
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
+import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
 import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500
@@ -79,7 +79,9 @@ function getUniqueRequestHeader () {
 }
 
 export function createNewStreetOnServer () {
-  if (getSettings().newStreetPreference === NEW_STREET_EMPTY) {
+  const settings = store.getState().settings
+
+  if (settings.newStreetPreference === NEW_STREET_EMPTY) {
     prepareEmptyStreet()
   } else {
     prepareDefaultStreet()
@@ -430,11 +432,13 @@ export function setStreetId (newId, newNamespacedId) {
 
 export function updateLastStreetInfo () {
   const street = store.getState().street
-  setSettings({
-    lastStreetId: street.id,
-    lastStreetNamespacedId: street.namespacedId,
-    lastStreetCreatorId: street.creatorId
-  })
+  store.dispatch(
+    setSettings({
+      lastStreetId: street.id,
+      lastStreetNamespacedId: street.namespacedId,
+      lastStreetCreatorId: street.creatorId
+    })
+  )
 }
 
 export function scheduleSavingStreetToServer () {
@@ -504,13 +508,16 @@ export function sendDeleteStreetToServer (id) {
   deleteStreetThumbnail(id)
 
   // Prevents new street submenu from showing the last street
-  const settings = getSettings()
+  const settings = store.getState().settings
+
   if (settings.lastStreetId === id) {
-    setSettings({
-      lastStreetId: null,
-      lastStreetCreatorId: null,
-      lastStreetNamespacedId: null
-    })
+    store.dispatch(
+      setSettings({
+        lastStreetId: null,
+        lastStreetCreatorId: null,
+        lastStreetNamespacedId: null
+      })
+    )
   }
 
   // TODO const url

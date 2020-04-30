@@ -1,5 +1,4 @@
 import { segmentsChanged } from '../segments/view'
-import { setSettings } from '../users/settings'
 import {
   setLastStreet,
   prepareDefaultStreet,
@@ -8,6 +7,8 @@ import {
 } from './data_model'
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from './constants'
 import { saveStreetToServer } from './xhr'
+import store from '../store'
+import { setSettings } from '../store/actions/settings'
 
 export function makeDefaultStreet () {
   setIgnoreStreetChanges(true)
@@ -22,17 +23,21 @@ export function makeDefaultStreet () {
 }
 
 export function onNewStreetDefaultClick () {
-  setSettings({
-    newStreetPreference: NEW_STREET_DEFAULT
-  })
+  store.dispatch(
+    setSettings({
+      newStreetPreference: NEW_STREET_DEFAULT
+    })
+  )
 
   makeDefaultStreet()
 }
 
 export function onNewStreetEmptyClick () {
-  setSettings({
-    newStreetPreference: NEW_STREET_EMPTY
-  })
+  store.dispatch(
+    setSettings({
+      newStreetPreference: NEW_STREET_EMPTY
+    })
+  )
 
   setIgnoreStreetChanges(true)
   prepareEmptyStreet()

@@ -5,22 +5,13 @@ import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getAuthHeader, getSignInData, isSignedIn } from './authentication'
 import store, { observeStore } from '../store'
-import { setSettings as setSettingsActionCreator } from '../store/actions/settings'
+import { setSettings } from '../store/actions/settings'
 import { setAppFlags } from '../store/slices/app'
 
 export const LOCAL_STORAGE_SETTINGS_ID = 'settings'
 export const LOCAL_STORAGE_SETTINGS_UNITS_ID = 'settings-units'
 const SAVE_SETTINGS_DELAY = 500
 let saveSettingsTimerId = -1
-
-export function getSettings () {
-  return store.getState().settings
-}
-
-// Legacy: utility function for redux dispatch
-export function setSettings (settings) {
-  store.dispatch(setSettingsActionCreator(settings))
-}
 
 export function loadSettings () {
   // Get server settings.
@@ -61,7 +52,7 @@ export function loadSettings () {
   )
 
   // Update our application state.
-  setSettings(settings)
+  store.dispatch(setSettings(settings))
 }
 
 /**
