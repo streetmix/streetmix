@@ -1,24 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { NEW_STREET_DEFAULT } from '../../streets/constants'
+import { changeLocale } from './locale'
 
-/**
- * This is a legacy settings state which mashes together several different
- * types of settings: some persist across browser sessions, some are stored
- * in the user account, and others are session-only state (like
- * priorLastStreetId). Significant refactoring of all of this is desired.
- */
 const settingsSlice = createSlice({
   name: 'settings',
   initialState: {
     lastStreetId: null,
     lastStreetNamespacedId: null,
     lastStreetCreatorId: null,
-    priorLastStreetId: null, // NOTE: Do not save to localstorage or server side, only used for current client session
     newStreetPreference: NEW_STREET_DEFAULT,
     saveAsImageTransparentSky: false,
     saveAsImageSegmentNamesAndWidths: false,
     saveAsImageStreetName: false,
-    saveAsImageWatermark: true
+    saveAsImageWatermark: true,
+    locale: null,
+    units: null
   },
 
   reducers: {
@@ -27,10 +23,21 @@ const settingsSlice = createSlice({
         ...state,
         ...action.payload
       }
+    },
+
+    setUserUnits (state, action) {
+      const units = action.payload
+      state.units = units
+    }
+  },
+
+  extraReducers: {
+    [changeLocale.fulfilled]: (state, action) => {
+      state.locale = action.payload.locale
     }
   }
 })
 
-export const { updateSettings } = settingsSlice.actions
+export const { updateSettings, setUserUnits } = settingsSlice.actions
 
 export default settingsSlice.reducer

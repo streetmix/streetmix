@@ -13,7 +13,7 @@ import Checkbox from '../ui/Checkbox'
 import { trackEvent } from '../app/event_tracking'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
-import { setSettings } from '../store/actions/settings'
+import { updateSettings } from '../store/slices/settings'
 import { normalizeSlug } from '../util/helpers'
 import './SaveAsImageDialog.scss'
 
@@ -36,7 +36,7 @@ class SaveAsImageDialog extends React.Component {
     name: PropTypes.string,
     allowCustomDpi: PropTypes.bool,
     allowControlWatermark: PropTypes.bool,
-    setSettings: PropTypes.func
+    updateSettings: PropTypes.func
   }
 
   constructor (props) {
@@ -74,22 +74,26 @@ class SaveAsImageDialog extends React.Component {
 
   // When options change, this changes props.
   handleChangeOptionTransparentSky = (event) => {
-    this.props.setSettings({ saveAsImageTransparentSky: event.target.checked })
+    this.props.updateSettings({
+      saveAsImageTransparentSky: event.target.checked
+    })
     this.setState({ isLoading: true })
   }
 
   handleChangeOptionSegmentNames = (event) => {
-    this.props.setSettings({ saveAsImageSegmentNamesAndWidths: event.target.checked })
+    this.props.updateSettings({
+      saveAsImageSegmentNamesAndWidths: event.target.checked
+    })
     this.setState({ isLoading: true })
   }
 
   handleChangeOptionStreetName = (event) => {
-    this.props.setSettings({ saveAsImageStreetName: event.target.checked })
+    this.props.updateSettings({ saveAsImageStreetName: event.target.checked })
     this.setState({ isLoading: true })
   }
 
   handleChangeOptionWatermark = (event) => {
-    this.props.setSettings({ saveAsImageWatermark: event.target.checked })
+    this.props.updateSettings({ saveAsImageWatermark: event.target.checked })
     this.setState({ isLoading: true })
   }
 
@@ -122,17 +126,28 @@ class SaveAsImageDialog extends React.Component {
 
   handleChangeDpiInput = (event) => {
     const value = event.target.value
-    const validDpi = Math.min(Math.max(DEFAULT_IMAGE_DPI, Number.parseInt(value, 10)), MAX_IMAGE_DPI) || DEFAULT_IMAGE_DPI
+    const validDpi =
+      Math.min(
+        Math.max(DEFAULT_IMAGE_DPI, Number.parseInt(value, 10)),
+        MAX_IMAGE_DPI
+      ) || DEFAULT_IMAGE_DPI
 
     this.setState({
-      isLoading: (validDpi !== this.state.dpi),
+      isLoading: validDpi !== this.state.dpi,
       dpiInputValue: value,
       dpi: validDpi
     })
   }
 
   updatePreview = () => {
-    this.imageCanvas = getStreetImage(this.props.street, this.props.transparentSky, this.props.segmentNames, this.props.streetName, this.state.dpi, this.props.watermark)
+    this.imageCanvas = getStreetImage(
+      this.props.street,
+      this.props.transparentSky,
+      this.props.segmentNames,
+      this.props.streetName,
+      this.state.dpi,
+      this.props.watermark
+    )
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
@@ -172,7 +187,10 @@ class SaveAsImageDialog extends React.Component {
           <div className="save-as-image-dialog">
             <header>
               <h1>
-                <FormattedMessage id="dialogs.save.heading" defaultMessage="Save as image" />
+                <FormattedMessage
+                  id="dialogs.save.heading"
+                  defaultMessage="Save as image"
+                />
               </h1>
             </header>
             <div className="dialog-content">
@@ -181,21 +199,30 @@ class SaveAsImageDialog extends React.Component {
                   onChange={this.handleChangeOptionSegmentNames}
                   checked={this.props.segmentNames}
                 >
-                  <FormattedMessage id="dialogs.save.option-labels" defaultMessage="Segment names and widths" />
+                  <FormattedMessage
+                    id="dialogs.save.option-labels"
+                    defaultMessage="Segment names and widths"
+                  />
                 </Checkbox>
 
                 <Checkbox
                   onChange={this.handleChangeOptionStreetName}
                   checked={this.props.streetName}
                 >
-                  <FormattedMessage id="dialogs.save.option-name" defaultMessage="Street name" />
+                  <FormattedMessage
+                    id="dialogs.save.option-name"
+                    defaultMessage="Street name"
+                  />
                 </Checkbox>
 
                 <Checkbox
                   onChange={this.handleChangeOptionTransparentSky}
                   checked={this.props.transparentSky}
                 >
-                  <FormattedMessage id="dialogs.save.option-sky" defaultMessage="Transparent sky" />
+                  <FormattedMessage
+                    id="dialogs.save.option-sky"
+                    defaultMessage="Transparent sky"
+                  />
                 </Checkbox>
 
                 <Checkbox
@@ -203,26 +230,36 @@ class SaveAsImageDialog extends React.Component {
                   checked={this.props.watermark}
                   disabled={!this.props.allowControlWatermark}
                 >
-                  <FormattedMessage id="dialogs.save.option-watermark" defaultMessage="Watermark" />
+                  <FormattedMessage
+                    id="dialogs.save.option-watermark"
+                    defaultMessage="Watermark"
+                  />
                 </Checkbox>
               </div>
-              {
-                this.props.allowCustomDpi &&
-                  <div className="save-as-image-options">
-                    <label htmlFor="save-as-image-dpi-input">Custom DPI (min 2x, max 10x): </label>
-                    <input
-                      id="save-as-image-dpi-input"
-                      type="text"
-                      value={this.state.dpiInputValue}
-                      onChange={this.handleChangeDpiInput}
-                    />
-                  </div>
-              }
+              {this.props.allowCustomDpi && (
+                <div className="save-as-image-options">
+                  <label htmlFor="save-as-image-dpi-input">
+                    Custom DPI (min 2x, max 10x):{' '}
+                  </label>
+                  <input
+                    id="save-as-image-dpi-input"
+                    type="text"
+                    value={this.state.dpiInputValue}
+                    onChange={this.handleChangeDpiInput}
+                  />
+                </div>
+              )}
               <div className="save-as-image-preview">
                 {!this.state.errorMessage && (
                   <div className="save-as-image-preview-image">
-                    <div className="save-as-image-preview-loading" style={{ display: !this.state.isLoading && 'none' }}>
-                      <FormattedMessage id="dialogs.save.loading" defaultMessage="Loading…" />
+                    <div
+                      className="save-as-image-preview-loading"
+                      style={{ display: !this.state.isLoading && 'none' }}
+                    >
+                      <FormattedMessage
+                        id="dialogs.save.loading"
+                        defaultMessage="Loading…"
+                      />
                     </div>
                     <img
                       src={this.state.download.dataUrl}
@@ -252,11 +289,17 @@ class SaveAsImageDialog extends React.Component {
                     // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
                     href={this.state.download.dataUrl}
                   >
-                    <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
+                    <FormattedMessage
+                      id="dialogs.save.save-button"
+                      defaultMessage="Save to your computer…"
+                    />
                   </a>
                 ) : (
                   <button disabled>
-                    <FormattedMessage id="dialogs.save.save-button" defaultMessage="Save to your computer…" />
+                    <FormattedMessage
+                      id="dialogs.save.save-button"
+                      defaultMessage="Save to your computer…"
+                    />
                   </button>
                 )}
               </div>
@@ -278,7 +321,9 @@ function mapStateToProps (state) {
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
     streetName: state.settings.saveAsImageStreetName,
     // Even if watermarks are off, override with flag value if EXPORT_WATERMARK is `false`.
-    watermark: state.settings.saveAsImageWatermark || !state.flags.EXPORT_WATERMARK.value,
+    watermark:
+      state.settings.saveAsImageWatermark ||
+      !state.flags.EXPORT_WATERMARK.value,
     street: state.street,
     name: state.street.name,
     allowCustomDpi: state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value,
@@ -287,7 +332,10 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  setSettings
+  updateSettings
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(SaveAsImageDialog))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(SaveAsImageDialog))

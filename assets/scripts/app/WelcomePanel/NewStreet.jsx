@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../../streets/constants'
 import {
@@ -9,19 +8,14 @@ import {
 } from '../../streets/creation'
 import { getLastStreet } from '../../store/actions/street'
 
-NewStreet.propTypes = {
-  newStreetPreference: PropTypes.number,
-  priorLastStreetId: PropTypes.string,
-  street: PropTypes.object,
-  getLastStreet: PropTypes.func
-}
+function NewStreet (props) {
+  const newStreetPreference = useSelector(
+    (state) => state.settings.newStreetPreference
+  )
+  const priorLastStreetId = useSelector((state) => state.app.priorLastStreetId)
+  const street = useSelector((state) => state.street)
+  const dispatch = useDispatch()
 
-function NewStreet ({
-  newStreetPreference,
-  priorLastStreetId = null,
-  street,
-  getLastStreet
-}) {
   // If welcomeType is WELCOME_NEW_STREET, there is an additional state
   // property that determines which of the new street modes is selected
   let selectedNewStreetType
@@ -38,10 +32,14 @@ function NewStreet ({
   const [state, setState] = useState({ selectedNewStreetType })
 
   // Handles changing the "checked" state of the input buttons.
-  function onChangeNewStreetType (event) {
+  function handleChangeNewStreetType (event) {
     setState({
       selectedNewStreetType: event.target.id
     })
+  }
+
+  function handleGetLastStreet (event) {
+    dispatch(getLastStreet())
   }
 
   return (
@@ -62,7 +60,7 @@ function NewStreet ({
               state.selectedNewStreetType === 'new-street-default' ||
               !state.selectedNewStreetType
             }
-            onChange={onChangeNewStreetType}
+            onChange={handleChangeNewStreetType}
             onClick={onNewStreetDefaultClick}
           />
           <label htmlFor="new-street-default">
@@ -78,7 +76,7 @@ function NewStreet ({
             name="new-street"
             id="new-street-empty"
             checked={state.selectedNewStreetType === 'new-street-empty'}
-            onChange={onChangeNewStreetType}
+            onChange={handleChangeNewStreetType}
             onClick={onNewStreetEmptyClick}
           />
           <label htmlFor="new-street-empty">
@@ -97,8 +95,8 @@ function NewStreet ({
               name="new-street"
               id="new-street-last"
               checked={state.selectedNewStreetType === 'new-street-last'}
-              onChange={onChangeNewStreetType}
-              onClick={getLastStreet}
+              onChange={handleChangeNewStreetType}
+              onClick={handleGetLastStreet}
             />
             <label htmlFor="new-street-last">
               <FormattedMessage
@@ -113,16 +111,4 @@ function NewStreet ({
   )
 }
 
-function mapStateToProps (state) {
-  return {
-    newStreetPreference: state.settings.newStreetPreference,
-    priorLastStreetId: state.settings.priorLastStreetId,
-    street: state.street
-  }
-}
-
-const mapDispatchToProps = {
-  getLastStreet
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewStreet)
+export default NewStreet

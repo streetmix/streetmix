@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { cloneDeep } from 'lodash'
 import {
   RESIZE_TYPE_INCREMENT,
@@ -6,6 +7,7 @@ import {
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions
 } from '../../segments/resizing'
+import { getVariantArray } from '../../segments/variant_utils'
 import { ERRORS } from '../../app/errors'
 import { showError } from '../slices/errors'
 import { hideLoadingScreen } from '../../app/load_resources'
@@ -16,7 +18,7 @@ import {
   setLastStreet,
   saveStreetToServerIfNecessary
 } from '../../streets/data_model'
-import { setSettings } from './settings'
+import { updateSettings } from '../slices/settings'
 import apiClient from '../../util/api'
 
 import {
@@ -111,18 +113,25 @@ const createStreetFromResponse = (response) => {
   street.name = response.name || null
   street.location = response.data.street.location || null
   street.editCount = response.data.street.editCount || 0
+  street.segments = street.segments.map((segment) => {
+    segment.id = uuidv4()
+    segment.warnings = []
+    segment.variant = getVariantArray(segment.type, segment.variantString)
+    return segment
+  })
+
   return street
 }
 export const getLastStreet = () => {
   return async (dispatch, getState) => {
-    const lastStreetId = getState().settings.priorLastStreetId
+    const lastStreetId = getState().app.priorLastStreetId
     const { id, namespacedId } = getState().street
     try {
       const response = await apiClient.getStreet(lastStreetId)
       const street = createStreetFromResponse(response)
       setIgnoreStreetChanges(true)
       await dispatch(
-        setSettings({
+        updateSettings({
           lastStreetId: response.id,
           lastStreetNamespacedId: response.namespacedId,
           lastStreetCreatorId: street.creatorId

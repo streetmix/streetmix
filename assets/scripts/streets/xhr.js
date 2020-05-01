@@ -17,11 +17,6 @@ import {
   isSignedIn
 } from '../users/authentication'
 import {
-  saveSettingsToServer,
-  getSettings,
-  setSettings
-} from '../users/settings'
-import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
 } from '../util/fetch_blocking'
@@ -49,8 +44,8 @@ import {
   addRemixSuffixToName
 } from './remix'
 import { getUndoStack, unifyUndoStack } from './undo_stack'
-import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
 import store from '../store'
+import { updateSettings } from '../store/slices/settings'
 import {
   saveStreetId,
   saveOriginalStreetId,
@@ -58,6 +53,7 @@ import {
   updateStreetData
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
+import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
 import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500
@@ -83,7 +79,9 @@ function getUniqueRequestHeader () {
 }
 
 export function createNewStreetOnServer () {
-  if (getSettings().newStreetPreference === NEW_STREET_EMPTY) {
+  const settings = store.getState().settings
+
+  if (settings.newStreetPreference === NEW_STREET_EMPTY) {
     prepareEmptyStreet()
   } else {
     prepareDefaultStreet()
@@ -434,11 +432,13 @@ export function setStreetId (newId, newNamespacedId) {
 
 export function updateLastStreetInfo () {
   const street = store.getState().street
-  setSettings({
-    lastStreetId: street.id,
-    lastStreetNamespacedId: street.namespacedId,
-    lastStreetCreatorId: street.creatorId
-  })
+  store.dispatch(
+    updateSettings({
+      lastStreetId: street.id,
+      lastStreetNamespacedId: street.namespacedId,
+      lastStreetCreatorId: street.creatorId
+    })
+  )
 }
 
 export function scheduleSavingStreetToServer () {
@@ -456,11 +456,12 @@ export function scheduleSavingStreetToServer () {
 }
 
 export function fetchLastStreet () {
+  const streetId = store.getState().app.priorLastStreetId
   newBlockingAjaxRequest(
     'load',
     {
       // TODO const
-      url: API_URL + 'v1/streets/' + getSettings().priorLastStreetId,
+      url: API_URL + 'v1/streets/' + streetId,
       method: 'GET',
       headers: { Authorization: getAuthHeader() }
     },
@@ -477,7 +478,8 @@ function receiveLastStreet (transmission) {
   setIgnoreStreetChanges(true)
   const street = store.getState().street
   unpackServerStreetData(transmission, street.id, street.namespacedId, false)
-  store.dispatch(saveOriginalStreetId(getSettings().priorLastStreetId))
+  const priorLastStreetId = store.getState().app.priorLastStreetId
+  store.dispatch(saveOriginalStreetId(priorLastStreetId))
   addRemixSuffixToName()
 
   if (isSignedIn()) {
@@ -506,15 +508,16 @@ export function sendDeleteStreetToServer (id) {
   deleteStreetThumbnail(id)
 
   // Prevents new street submenu from showing the last street
-  const settings = getSettings()
-  if (settings.lastStreetId === id) {
-    setSettings({
-      lastStreetId: null,
-      lastStreetCreatorId: null,
-      lastStreetNamespacedId: null
-    })
+  const settings = store.getState().settings
 
-    saveSettingsToServer()
+  if (settings.lastStreetId === id) {
+    store.dispatch(
+      updateSettings({
+        lastStreetId: null,
+        lastStreetCreatorId: null,
+        lastStreetNamespacedId: null
+      })
+    )
   }
 
   // TODO const url

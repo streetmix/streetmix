@@ -1,6 +1,6 @@
 import { fetchStreetForVerification } from '../streets/xhr'
-import { saveSettingsLocally } from '../users/settings'
 import store from '../store'
+import { updateSettings } from '../store/slices/settings'
 
 export function addPageVisibilityChangeListeners () {
   // Add event listeners to handle when a window is switched away from view,
@@ -24,8 +24,9 @@ export function onWindowFocus () {
 
   // Save settings on window focus, so the last edited street is the one you’re
   // currently looking at (in case you’re looking at many streets in various
-  // tabs)
-  saveSettingsLocally()
+  // tabs). We don't pass in any new settings to save, but calling this does
+  // trigger mirroring the app state to localstorage and user account.
+  store.dispatch(updateSettings())
 }
 
 function onVisibilityChange () {

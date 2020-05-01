@@ -151,7 +151,7 @@ describe('street integration test', () => {
       apiMock.restore()
     })
     it('updates the street', async () => {
-      const store = createStore({ settings: { priorLastStreetId: '1' } })
+      const store = createStore({ app: { priorLastStreetId: '1' } })
 
       apiMock.onAny().reply(200, apiResponse)
       await store.dispatch(getLastStreet())
@@ -160,7 +160,7 @@ describe('street integration test', () => {
       expect(street.segments.length).toEqual(1)
     })
     it('sets lastStreetId', async () => {
-      const store = createStore({ settings: { priorLastStreetId: '1' } })
+      const store = createStore({ app: { priorLastStreetId: '1' } })
 
       apiMock.onAny().reply(200, apiResponse)
       await store.dispatch(getLastStreet())
@@ -171,7 +171,7 @@ describe('street integration test', () => {
     it('sets lastStreetId', async () => {
       const store = createStore({
         street: { id: '50', namespaceId: '45' },
-        settings: { priorLastStreetId: '1' }
+        app: { priorLastStreetId: '1' }
       })
 
       apiMock.onAny().reply(200, apiResponse)
@@ -183,7 +183,7 @@ describe('street integration test', () => {
     })
     describe('response failure', () => {
       it('does not set lastStreetId', async () => {
-        const store = createStore({ settings: { priorLastStreetId: '1' } })
+        const store = createStore({ app: { priorLastStreetId: '1' } })
 
         apiMock.onAny().networkError()
         await store.dispatch(getLastStreet())

@@ -7,7 +7,8 @@ import {
 const uiSlice = createSlice({
   name: 'ui',
   initialState: {
-    streetNameplateVisible: true,
+    welcomePanelVisible: false,
+    welcomePanelDismissed: false,
     toolboxVisible: false,
     activeSegment: null,
     draggingState: null,
@@ -16,12 +17,13 @@ const uiSlice = createSlice({
   },
 
   reducers: {
-    showStreetNameplate (state, action) {
-      state.streetNameplateVisible = true
+    setWelcomePanelVisible (state, action) {
+      state.welcomePanelVisible = true
     },
 
-    hideStreetNameplate (state, action) {
-      state.streetNameplateVisible = false
+    setWelcomePanelDismissed (state, action) {
+      state.welcomePanelDismissed = true
+      state.welcomePanelVisible = false
     },
 
     setActiveSegment (state, action) {
@@ -61,8 +63,8 @@ const uiSlice = createSlice({
 })
 
 export const {
-  showStreetNameplate,
-  hideStreetNameplate,
+  setWelcomePanelVisible,
+  setWelcomePanelDismissed,
   setActiveSegment,
   initDraggingState,
   updateDraggingState,

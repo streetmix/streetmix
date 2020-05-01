@@ -7,7 +7,12 @@ const appSlice = createSlice({
     readOnly: false,
     printing: false,
     everythingLoaded: false,
-    contentDirection: 'ltr'
+    contentDirection: 'ltr',
+
+    // Used to remember the "last street" ID when making a copy of a street
+    // looked at in a previous tab. Its value is copied from the `lastStreetId`
+    // value from the `settings` reducer, so that it can be remembered
+    priorLastStreetId: null
   },
 
   reducers: {

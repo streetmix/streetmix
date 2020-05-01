@@ -7,8 +7,8 @@ import { saveStreetName } from '../store/slices/street'
 import './StreetNameplateContainer.scss'
 
 function StreetNameplateContainer (props) {
-  const visible = useSelector((state) => state.ui.streetNameplateVisible)
-  const editable = useSelector(
+  const isVisible = useSelector((state) => !state.ui.welcomePanelVisible)
+  const isEditable = useSelector(
     (state) => !state.app.readOnly && state.flags.EDIT_STREET_NAME.value
   )
   const streetName = useSelector((state) => state.street.name)
@@ -70,17 +70,24 @@ function StreetNameplateContainer (props) {
 
   function determineClassNames () {
     const classNames = ['street-nameplate-container']
+
     if (streetNameCoords.left + streetNameCoords.width > rightMenuBarLeftPos) {
       classNames.push('move-down-for-menu')
     }
-    if (!visible) {
+
+    // <StreetNameplateContainer /> might stick out from underneath the
+    // <WelcomePanel /> when it's visible. We've checked the store to see if
+    // the panel is visible, and if so, this component is not. In this case,
+    // momentarily keep the UI clean by hiding it until the panel goes away.
+    if (!isVisible) {
       classNames.push('hidden')
     }
+
     return classNames
   }
 
   function handleClickStreetName () {
-    if (!editable) return
+    if (!isEditable) return
 
     const newName = window.prompt(
       intl.formatMessage({
@@ -102,7 +109,7 @@ function StreetNameplateContainer (props) {
   return (
     <div className={determineClassNames().join(' ')}>
       <StreetName
-        editable={editable}
+        isEditable={isEditable}
         childRef={streetNameEl}
         name={streetName}
         onClick={handleClickStreetName}

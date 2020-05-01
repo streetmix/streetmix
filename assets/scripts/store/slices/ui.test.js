@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import ui, {
-  showStreetNameplate,
-  hideStreetNameplate,
+  setWelcomePanelVisible,
+  setWelcomePanelDismissed,
   setActiveSegment,
   initDraggingState,
   updateDraggingState,
@@ -16,7 +16,8 @@ import {
 
 describe('ui reducer', () => {
   const initialState = {
-    streetNameplateVisible: true,
+    welcomePanelVisible: false,
+    welcomePanelDismissed: false,
     toolboxVisible: false,
     activeSegment: null,
     draggingState: null,
@@ -28,9 +29,10 @@ describe('ui reducer', () => {
     expect(ui(undefined, {})).toEqual(initialState)
   })
 
-  it('should handle showStreetNameplate()', () => {
-    expect(ui(initialState, showStreetNameplate())).toEqual({
-      streetNameplateVisible: true,
+  it('should handle setWelcomePanelVisible()', () => {
+    expect(ui(initialState, setWelcomePanelVisible())).toEqual({
+      welcomePanelVisible: true,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: null,
@@ -39,9 +41,10 @@ describe('ui reducer', () => {
     })
   })
 
-  it('should handle hideStreetNameplate()', () => {
-    expect(ui(initialState, hideStreetNameplate())).toEqual({
-      streetNameplateVisible: false,
+  it('should handle setWelcomePanelDismissed()', () => {
+    expect(ui(initialState, setWelcomePanelDismissed())).toEqual({
+      welcomePanelVisible: false,
+      welcomePanelDismissed: true,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: null,
@@ -52,7 +55,8 @@ describe('ui reducer', () => {
 
   it('should handle setActiveSegment()', () => {
     expect(ui(initialState, setActiveSegment(1))).toEqual({
-      streetNameplateVisible: true,
+      welcomePanelVisible: false,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: 1,
       draggingState: null,
@@ -64,7 +68,8 @@ describe('ui reducer', () => {
     expect(
       ui(
         {
-          streetNameplateVisible: true,
+          welcomePanelVisible: false,
+          welcomePanelDismissed: false,
           toolboxVisible: false,
           activeSegment: null,
           draggingState: null,
@@ -74,7 +79,8 @@ describe('ui reducer', () => {
         setActiveSegment(1)
       )
     ).toEqual({
-      streetNameplateVisible: true,
+      welcomePanelVisible: false,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: null,
@@ -85,7 +91,8 @@ describe('ui reducer', () => {
 
   it('should handle initDraggingState()', () => {
     expect(ui(initialState, initDraggingState(1))).toEqual({
-      streetNameplateVisible: true,
+      welcomePanelVisible: false,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: null,
@@ -105,7 +112,8 @@ describe('ui reducer', () => {
         })
       )
     ).toEqual({
-      streetNameplateVisible: true,
+      welcomePanelVisible: false,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: {
@@ -122,7 +130,8 @@ describe('ui reducer', () => {
     expect(
       ui(
         {
-          streetNameplateVisible: true,
+          welcomePanelVisible: false,
+          welcomePanelDismissed: false,
           toolboxVisible: false,
           activeSegment: null,
           draggingState: {
@@ -136,7 +145,8 @@ describe('ui reducer', () => {
         clearDraggingState()
       )
     ).toEqual({
-      streetNameplateVisible: true,
+      welcomePanelVisible: false,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: null,
@@ -147,7 +157,8 @@ describe('ui reducer', () => {
 
   it('should handle setDraggingType()', () => {
     expect(ui(initialState, setDraggingType(DRAGGING_TYPE_NONE))).toEqual({
-      streetNameplateVisible: true,
+      welcomePanelVisible: false,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: null,
@@ -156,7 +167,8 @@ describe('ui reducer', () => {
     })
 
     expect(ui(initialState, setDraggingType(DRAGGING_TYPE_RESIZE))).toEqual({
-      streetNameplateVisible: true,
+      welcomePanelVisible: false,
+      welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
       draggingState: null,

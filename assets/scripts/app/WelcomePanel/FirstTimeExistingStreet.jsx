@@ -1,18 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import StreetName from '../../streets/StreetName'
 import Avatar from '../../users/Avatar'
 import { goNewStreet } from '../routing'
-import { setSettingsWelcomeDismissed } from '../WelcomePanel'
-
-FirstTimeExistingStreet.propTypes = {
-  street: PropTypes.object.isRequired
-}
+import { setIsReturningUserInLocalStorage } from '../WelcomePanel'
 
 function FirstTimeExistingStreet (props) {
-  const street = props.street
+  const street = useSelector((state) => state.street)
+
+  function handleGoNewStreet (event) {
+    setIsReturningUserInLocalStorage()
+    goNewStreet(true)
+  }
 
   return (
     <div className="welcome-panel-content first-time-existing-street">
@@ -56,7 +56,7 @@ function FirstTimeExistingStreet (props) {
           defaultMessage="Remix it by moving some segments around, or {startYourOwnStreet}."
           values={{
             startYourOwnStreet: (
-              <button onClick={onClickGoNewStreet}>
+              <button onClick={handleGoNewStreet}>
                 <FormattedMessage
                   id="dialogs.welcome.existing.instruct-start-own-street"
                   defaultMessage="Start your own street"
@@ -70,15 +70,4 @@ function FirstTimeExistingStreet (props) {
   )
 }
 
-function mapStateToProps (state) {
-  return {
-    street: state.street
-  }
-}
-
-export default connect(mapStateToProps)(FirstTimeExistingStreet)
-
-function onClickGoNewStreet (event) {
-  setSettingsWelcomeDismissed()
-  goNewStreet(true)
-}
+export default FirstTimeExistingStreet
