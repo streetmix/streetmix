@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { isSignedIn } from '../users/authentication'
 import { registerKeypress, deregisterKeypress } from './keypress'
 import { MODES, getMode } from './mode'
-import { showStreetNameplate, hideStreetNameplate } from '../store/slices/ui'
 import CloseButton from '../ui/CloseButton'
 import WelcomeNewStreet from './WelcomePanel/NewStreet'
 import WelcomeFirstTimeExistingStreet from './WelcomePanel/FirstTimeExistingStreet'
 import WelcomeFirstTimeNewStreet from './WelcomePanel/FirstTimeNewStreet'
 import './WelcomePanel.scss'
+import {
+  setWelcomePanelVisible,
+  setWelcomePanelDismissed
+} from '../store/slices/ui'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
@@ -41,9 +44,12 @@ const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
 
 function WelcomePanel (props) {
   const { readOnly, everythingLoaded } = useSelector((state) => state.app)
+  const {
+    welcomePanelVisible: isVisible,
+    welcomePanelDismissed: isDismissed
+  } = useSelector((state) => state.ui)
   const dispatch = useDispatch()
   const [welcomeType, setWelcomeType] = useState(WELCOME_NONE)
-  const [isDismissed, setDismissed] = useState(false)
   const [isReturningUser, setIsReturningUser] = useState(
     getIsReturningUserFromLocalStorage()
   )
@@ -53,13 +59,16 @@ function WelcomePanel (props) {
   // If app has not fully loaded yet
   // If user has dismissed the panel this session
   // If the welcome type is WELCOME_NONE
-  const isVisible =
+  if (
     !readOnly &&
     everythingLoaded &&
     !isDismissed &&
     welcomeType !== WELCOME_NONE
+  ) {
+    dispatch(setWelcomePanelVisible())
+  }
 
-  const handleHideWelcome = useCallback(() => {
+  const handleWelcomeDismissed = useCallback(() => {
     // Certain events will dismiss the welcome panel. If already
     // invisible, do nothing.
     if (welcomeType === WELCOME_NONE) {
@@ -67,12 +76,9 @@ function WelcomePanel (props) {
     }
 
     setWelcomeType(WELCOME_NONE)
-    setDismissed(true)
     setIsReturningUser(true)
     setIsReturningUserInLocalStorage()
-
-    // Make the <StreetNameplateContainer /> re-appear
-    dispatch(showStreetNameplate())
+    dispatch(setWelcomePanelDismissed())
   }, [welcomeType, dispatch])
 
   // When everything is loaded, determine what type of welcome panel to show
@@ -106,30 +112,25 @@ function WelcomePanel (props) {
     if (isVisible === false) return
 
     // Hide welcome panel on certain events
-    window.addEventListener('stmx:receive_gallery_street', handleHideWelcome)
-    window.addEventListener('stmx:save_street', handleHideWelcome)
+    window.addEventListener(
+      'stmx:receive_gallery_street',
+      handleWelcomeDismissed
+    )
+    window.addEventListener('stmx:save_street', handleWelcomeDismissed)
 
     // Hide welcome panel when someone presses Escape
-    registerKeypress('esc', handleHideWelcome)
-
-    // <StreetNameplateContainer /> might stick out from underneath the panel
-    // when it's visible, so momentarily keep the UI clean by hiding it until
-    // the panel goes away.
-    dispatch(hideStreetNameplate())
+    registerKeypress('esc', handleWelcomeDismissed)
 
     return () => {
       // Clean up event listeners
       window.removeEventListener(
         'stmx:receive_gallery_street',
-        handleHideWelcome
+        handleWelcomeDismissed
       )
-      window.removeEventListener('stmx:save_street', handleHideWelcome)
-      deregisterKeypress('esc', handleHideWelcome)
-
-      // Make the <StreetNameplateContainer /> re-appear
-      dispatch(showStreetNameplate())
+      window.removeEventListener('stmx:save_street', handleWelcomeDismissed)
+      deregisterKeypress('esc', handleWelcomeDismissed)
     }
-  }, [isVisible, dispatch, handleHideWelcome])
+  }, [isVisible, dispatch, handleWelcomeDismissed])
 
   // Figure out what to display inside the panel
   let welcomeContent
@@ -155,7 +156,7 @@ function WelcomePanel (props) {
   return (
     <div className="welcome-panel-container">
       <div className="welcome-panel">
-        <CloseButton onClick={handleHideWelcome} />
+        <CloseButton onClick={handleWelcomeDismissed} />
         {welcomeContent}
       </div>
     </div>

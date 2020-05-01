@@ -6,7 +6,7 @@ import StreetNameplateContainer from '../StreetNameplateContainer'
 
 const initialState = {
   ui: {
-    streetNameplateVisible: true
+    welcomePanelVisible: false
   },
   app: {
     readOnly: false
