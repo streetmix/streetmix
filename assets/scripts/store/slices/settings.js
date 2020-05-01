@@ -27,7 +27,7 @@ const settingsSlice = createSlice({
 
     setUserUnits (state, action) {
       const units = action.payload
-      state.units = Number.parseInt(units, 10)
+      state.units = units
     }
   },
 

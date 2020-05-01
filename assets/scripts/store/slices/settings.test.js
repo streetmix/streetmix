@@ -65,22 +65,6 @@ describe('settings reducer', () => {
     })
   })
 
-  // TODO: Remove this test once we have type safety
-  it('should handle setUserUnits() with string arguments', () => {
-    expect(settings(initialState, setUserUnits('2'))).toEqual({
-      lastStreetId: null,
-      lastStreetNamespacedId: null,
-      lastStreetCreatorId: null,
-      newStreetPreference: 1,
-      saveAsImageTransparentSky: false,
-      saveAsImageSegmentNamesAndWidths: false,
-      saveAsImageStreetName: false,
-      saveAsImageWatermark: true,
-      units: 2,
-      locale: null
-    })
-  })
-
   it('should handle extra reducers', () => {
     expect(
       settings(
