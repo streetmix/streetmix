@@ -15,13 +15,49 @@ const WELCOME_NEW_STREET = 1
 const WELCOME_FIRST_TIME_NEW_STREET = 2
 const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 
-const LOCAL_STORAGE_WELCOME_DISMISSED = 'settings-welcome-dismissed'
+// In the past, dismissing the welcome panel would set this flag in
+// LocalStorage, and the next time a welcome panel would be shown for a
+// returning user, the presence of this flag would show different content (or
+// not display the welcome panel at all).
+//
+// This naming convention caused confusion during the conversion to a
+// React function component, because in reality there are two states we care
+// about:
+// - the welcome panel is dismissed _for the session_ (and will not re-apppear
+//   _this session_)
+// - the user is a first-time user, and dismissing the welcome panel changes
+//   its content _in the future_
+//
+// The first value is ephemeral state, ao it is set only for the duration of
+// the session and is discarded if the tab is closed. We want to keep using
+// `dismissed` to label this state.
+//
+// The second value is persistent state. This is the one that's saved to
+// LocalStorage and is retrieved when the app is loaded to determine what
+// type of welcome message will be displayed. The LocalStorage key name
+// is now no longer what it means, but for now we keep it for backwards
+// compatibility
+const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
 
 function WelcomePanel (props) {
   const { readOnly, everythingLoaded } = useSelector((state) => state.app)
   const dispatch = useDispatch()
-  const [welcomeType, setWelcomeType] = useState(null)
-  const [isDismissed, setDismissed] = useState(getDismissedFromLocalStorage())
+  const [welcomeType, setWelcomeType] = useState(WELCOME_NONE)
+  const [isDismissed, setDismissed] = useState(false)
+  const [isReturningUser, setIsReturningUser] = useState(
+    getIsReturningUserFromLocalStorage()
+  )
+
+  // Do not show under the following conditions:
+  // If app is read-only
+  // If app has not fully loaded yet
+  // If user has dismissed the panel this session
+  // If the welcome type is WELCOME_NONE
+  const isVisible =
+    !readOnly &&
+    everythingLoaded &&
+    !isDismissed &&
+    welcomeType !== WELCOME_NONE
 
   const handleHideWelcome = useCallback(() => {
     // Certain events will dismiss the welcome panel. If already
@@ -32,8 +68,12 @@ function WelcomePanel (props) {
 
     setWelcomeType(WELCOME_NONE)
     setDismissed(true)
-    setDismissedInLocalStorage()
-  }, [welcomeType])
+    setIsReturningUser(true)
+    setIsReturningUserInLocalStorage()
+
+    // Make the <StreetNameplateContainer /> re-appear
+    dispatch(showStreetNameplate())
+  }, [welcomeType, dispatch])
 
   // When everything is loaded, determine what type of welcome panel to show
   useEffect(() => {
@@ -41,13 +81,13 @@ function WelcomePanel (props) {
       let welcomeType = WELCOME_NONE
 
       if (getMode() === MODES.NEW_STREET) {
-        if (isSignedIn() || isDismissed) {
+        if (isSignedIn() || isReturningUser) {
           welcomeType = WELCOME_NEW_STREET
         } else {
           welcomeType = WELCOME_FIRST_TIME_NEW_STREET
         }
       } else {
-        if (!isDismissed) {
+        if (!isReturningUser) {
           welcomeType = WELCOME_FIRST_TIME_EXISTING_STREET
         }
       }
@@ -58,12 +98,12 @@ function WelcomePanel (props) {
     if (everythingLoaded === true) {
       setWelcomeType(determineWelcomeType())
     }
-  }, [everythingLoaded, isDismissed])
+  }, [everythingLoaded, isReturningUser])
 
   // Set up and tear down when a welcome panel is shown
   useEffect(() => {
-    // Do nothing with this hook if there's no welcome type
-    if (welcomeType === WELCOME_NONE) return
+    // Do nothing with this hook if the panel is not visible
+    if (isVisible === false) return
 
     // Hide welcome panel on certain events
     window.addEventListener('stmx:receive_gallery_street', handleHideWelcome)
@@ -89,14 +129,7 @@ function WelcomePanel (props) {
       // Make the <StreetNameplateContainer /> re-appear
       dispatch(showStreetNameplate())
     }
-  }, [welcomeType, dispatch, handleHideWelcome])
-
-  // Do not show under the following conditions:
-  // If app is read-only
-  if (readOnly) return null
-
-  // If app has not fully loaded yet
-  if (everythingLoaded === false) return null
+  }, [isVisible, dispatch, handleHideWelcome])
 
   // Figure out what to display inside the panel
   let welcomeContent
@@ -116,10 +149,8 @@ function WelcomePanel (props) {
       break
   }
 
-  // Do not render if there is no content to display
-  if (!welcomeContent) {
-    return null
-  }
+  // Do not render if the panel is not visible
+  if (!isVisible) return null
 
   return (
     <div className="welcome-panel-container">
@@ -134,17 +165,19 @@ function WelcomePanel (props) {
 export default WelcomePanel
 
 /**
- * Remember whether the WelcomePanel has been dismissed in LocalStorage
+ * When the Welcome Panel is dismissed for the first time we mark this browser
+ * as a "returning user" so that the message is not geared toward first-time
+ * users the next time they visit the site.
  */
-export function setDismissedInLocalStorage () {
-  window.localStorage[LOCAL_STORAGE_WELCOME_DISMISSED] = 'true'
+export function setIsReturningUserInLocalStorage () {
+  window.localStorage[LOCAL_STORAGE_RETURNING_USER] = 'true'
 }
 
 /**
- * Retrieves LocalStorage state for whether WelcomePanel has been dismissed
+ * Retrieves LocalStorage state for whether whether user is a returning user
  */
-function getDismissedFromLocalStorage () {
-  const localSetting = window.localStorage[LOCAL_STORAGE_WELCOME_DISMISSED]
+function getIsReturningUserFromLocalStorage () {
+  const localSetting = window.localStorage[LOCAL_STORAGE_RETURNING_USER]
 
   if (localSetting) {
     return JSON.parse(localSetting)

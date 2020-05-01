@@ -4,13 +4,13 @@ import { FormattedMessage } from 'react-intl'
 import StreetName from '../../streets/StreetName'
 import Avatar from '../../users/Avatar'
 import { goNewStreet } from '../routing'
-import { setDismissedInLocalStorage } from '../WelcomePanel'
+import { setIsReturningUserInLocalStorage } from '../WelcomePanel'
 
 function FirstTimeExistingStreet (props) {
   const street = useSelector((state) => state.street)
 
   function handleGoNewStreet (event) {
-    setDismissedInLocalStorage()
+    setIsReturningUserInLocalStorage()
     goNewStreet(true)
   }
 
