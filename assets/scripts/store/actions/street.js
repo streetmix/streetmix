@@ -18,7 +18,7 @@ import {
   setLastStreet,
   saveStreetToServerIfNecessary
 } from '../../streets/data_model'
-import { setSettings } from './settings'
+import { updateSettings } from '../slices/settings'
 import apiClient from '../../util/api'
 
 import {
@@ -131,7 +131,7 @@ export const getLastStreet = () => {
       const street = createStreetFromResponse(response)
       setIgnoreStreetChanges(true)
       await dispatch(
-        setSettings({
+        updateSettings({
           lastStreetId: response.id,
           lastStreetNamespacedId: response.namespacedId,
           lastStreetCreatorId: street.creatorId

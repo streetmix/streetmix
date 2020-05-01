@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { NEW_STREET_DEFAULT } from '../../streets/constants'
+import { changeLocale } from './locale'
 
 const settingsSlice = createSlice({
   name: 'settings',
@@ -11,7 +12,9 @@ const settingsSlice = createSlice({
     saveAsImageTransparentSky: false,
     saveAsImageSegmentNamesAndWidths: false,
     saveAsImageStreetName: false,
-    saveAsImageWatermark: true
+    saveAsImageWatermark: true,
+    locale: null,
+    units: null
   },
 
   reducers: {
@@ -20,10 +23,21 @@ const settingsSlice = createSlice({
         ...state,
         ...action.payload
       }
+    },
+
+    setUserUnits (state, action) {
+      const units = action.payload
+      state.units = Number.parseInt(units, 10)
+    }
+  },
+
+  extraReducers: {
+    [changeLocale.fulfilled]: (state, action) => {
+      state.locale = action.payload.locale
     }
   }
 })
 
-export const { updateSettings } = settingsSlice.actions
+export const { updateSettings, setUserUnits } = settingsSlice.actions
 
 export default settingsSlice.reducer

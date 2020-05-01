@@ -10,7 +10,7 @@ import {
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { getUnits, getLeftHandTraffic } from '../users/localization'
+import { getLeftHandTraffic } from '../users/localization'
 import { generateRandSeed } from '../util/random'
 import { DEFAULT_ENVIRONS } from './constants'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
@@ -434,7 +434,7 @@ function fillDefaultSegments (units) {
 }
 
 export function prepareDefaultStreet () {
-  const units = getUnits()
+  const units = store.getState().settings.units
   const currentDate = new Date().toISOString()
   const defaultStreet = {
     units: units,
@@ -463,7 +463,7 @@ export function prepareDefaultStreet () {
 }
 
 export function prepareEmptyStreet () {
-  const units = getUnits()
+  const units = store.getState().settings.units
   const currentDate = new Date().toISOString()
   const emptyStreet = {
     units: units,

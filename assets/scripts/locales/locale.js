@@ -43,7 +43,8 @@ export async function initLocale () {
   // then ignore this error and go with the browser's locale or default
   try {
     requestedLocale =
-      JSON.parse(window.localStorage.getItem('locale')) || defaultLocale
+      JSON.parse(window.localStorage.getItem('settings')).locale ||
+      defaultLocale
   } catch (err) {
     requestedLocale = defaultLocale
   }

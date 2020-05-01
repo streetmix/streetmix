@@ -1,6 +1,6 @@
 import { fetchStreetForVerification } from '../streets/xhr'
 import store from '../store'
-import { setSettings } from '../store/actions/settings'
+import { updateSettings } from '../store/slices/settings'
 
 export function addPageVisibilityChangeListeners () {
   // Add event listeners to handle when a window is switched away from view,
@@ -26,7 +26,7 @@ export function onWindowFocus () {
   // currently looking at (in case you’re looking at many streets in various
   // tabs). We don't pass in any new settings to save, but calling this does
   // trigger mirroring the app state to localstorage and user account.
-  store.dispatch(setSettings())
+  store.dispatch(updateSettings())
 }
 
 function onVisibilityChange () {

@@ -45,7 +45,7 @@ import {
 } from './remix'
 import { getUndoStack, unifyUndoStack } from './undo_stack'
 import store from '../store'
-import { setSettings } from '../store/actions/settings'
+import { updateSettings } from '../store/slices/settings'
 import {
   saveStreetId,
   saveOriginalStreetId,
@@ -433,7 +433,7 @@ export function setStreetId (newId, newNamespacedId) {
 export function updateLastStreetInfo () {
   const street = store.getState().street
   store.dispatch(
-    setSettings({
+    updateSettings({
       lastStreetId: street.id,
       lastStreetNamespacedId: street.namespacedId,
       lastStreetCreatorId: street.creatorId
@@ -512,7 +512,7 @@ export function sendDeleteStreetToServer (id) {
 
   if (settings.lastStreetId === id) {
     store.dispatch(
-      setSettings({
+      updateSettings({
         lastStreetId: null,
         lastStreetCreatorId: null,
         lastStreetNamespacedId: null

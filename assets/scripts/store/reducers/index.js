@@ -9,7 +9,6 @@ import locale from '../slices/locale'
 import map from '../slices/map'
 import menus from '../slices/menus'
 import settings from '../slices/settings'
-import persistSettings from '../slices/persistSettings'
 import street from '../slices/street'
 import system from '../slices/system'
 import toasts from '../slices/toasts'
@@ -29,7 +28,6 @@ const reducers = {
   map,
   menus,
   settings,
-  persistSettings,
   street,
   system,
   toasts,

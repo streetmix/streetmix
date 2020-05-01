@@ -16,7 +16,7 @@ import { fetchLastStreet } from '../streets/xhr'
 import { loadSignIn } from '../users/authentication'
 import { updateSettingsFromCountryCode } from '../users/localization'
 import { detectGeolocation } from '../users/geolocation'
-import { initPersistedSettingsStoreObserver } from '../users/settings'
+import { initSettingsStoreObserver } from '../users/settings'
 import { addEventListeners } from './event_listeners'
 import { getMode, setMode, MODES, processMode } from './mode'
 import { processUrl } from './page_url'
@@ -120,7 +120,7 @@ function onEverythingLoaded () {
   setLastStreet()
   initStreetDataChangedListener()
   initializeFlagSubscribers()
-  initPersistedSettingsStoreObserver()
+  initSettingsStoreObserver()
   initStreetThumbnailSubscriber()
 
   initStreetNameChangeListener()

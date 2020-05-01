@@ -12,7 +12,7 @@ import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings } from './settings'
 import store from '../store'
-import { setSettings } from '../store/actions/settings'
+import { updateSettings } from '../store/slices/settings'
 import {
   setSignInData,
   clearSignInData,
@@ -207,7 +207,7 @@ export function onSignOutClick (event) {
 
 function signOut (quiet) {
   store.dispatch(
-    setSettings({
+    updateSettings({
       lastStreetId: null,
       lastStreetNamespacedId: null,
       lastStreetCreatorId: null

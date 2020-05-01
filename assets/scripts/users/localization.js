@@ -10,7 +10,6 @@ import {
 } from '../streets/data_model'
 import { getUndoStack, getUndoPosition } from '../streets/undo_stack'
 import { normalizeStreetWidth } from '../streets/width'
-import { LOCAL_STORAGE_SETTINGS_UNITS_ID } from '../users/settings'
 import store from '../store'
 import {
   setUnits,
@@ -18,11 +17,7 @@ import {
   updateStreetData,
   updateSegments
 } from '../store/slices/street'
-import { setUserUnits } from '../store/slices/persistSettings'
-
-export function getUnits () {
-  return store.getState().persistSettings.units
-}
+import { setUserUnits } from '../store/slices/settings'
 
 const COUNTRIES_IMPERIAL_UNITS = ['US']
 
@@ -123,7 +118,7 @@ export function updateSettingsFromCountryCode (countryCode) {
 }
 
 export function updateUnitSettings (countryCode) {
-  const localStorageUnits = window.localStorage[LOCAL_STORAGE_SETTINGS_UNITS_ID]
+  const localStorageUnits = store.getState().settings.units
   let unitType
 
   if (localStorageUnits) {

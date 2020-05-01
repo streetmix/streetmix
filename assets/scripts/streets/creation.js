@@ -8,7 +8,7 @@ import {
 import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from './constants'
 import { saveStreetToServer } from './xhr'
 import store from '../store'
-import { setSettings } from '../store/actions/settings'
+import { updateSettings } from '../store/slices/settings'
 
 export function makeDefaultStreet () {
   setIgnoreStreetChanges(true)
@@ -24,7 +24,7 @@ export function makeDefaultStreet () {
 
 export function onNewStreetDefaultClick () {
   store.dispatch(
-    setSettings({
+    updateSettings({
       newStreetPreference: NEW_STREET_DEFAULT
     })
   )
@@ -34,7 +34,7 @@ export function onNewStreetDefaultClick () {
 
 export function onNewStreetEmptyClick () {
   store.dispatch(
-    setSettings({
+    updateSettings({
       newStreetPreference: NEW_STREET_EMPTY
     })
   )
