@@ -178,35 +178,43 @@ Colors are not necessarily “true to life.” (For instance, we're not using th
 Skin tones
 ~~~~~~~~~~
 
-.. container:: stmx-color-swatch stmx-color-skintone-1
+.. container:: stmx-color-swatch stmx-color-skintone-5
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 85
+   | **G** 63
+   | **B** 55
 
-   #543e36
+   #553f37
 
-.. container:: stmx-color-swatch stmx-color-skintone-2
+.. container:: stmx-color-swatch stmx-color-skintone-4
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 114
+   | **G** 89
+   | **B** 75
 
    #72594b
 
 .. container:: stmx-color-swatch stmx-color-skintone-3
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 170
+   | **G** 139
+   | **B** 126
 
-   #ceab97
+   #aa8b7e
 
-.. container:: stmx-color-swatch stmx-color-skintone-4
+.. container:: stmx-color-swatch stmx-color-skintone-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 206
+   | **G** 172
+   | **B** 152
+
+   #ceac98
+
+.. container:: stmx-color-swatch stmx-color-skintone-1
+
+   | **R** 225
+   | **G** 197
+   | **B** 181
 
    #e1c5b5
 
@@ -216,35 +224,35 @@ To keep people recognizable, use skin tone colors only for people.
 Beiges
 ~~~~~~
 
-.. container:: stmx-color-swatch stmx-color-beige-1
+.. container:: stmx-color-swatch stmx-color-beige-4
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 206
+   | **G** 173
+   | **B** 128
 
    #cead80
 
-.. container:: stmx-color-swatch stmx-color-beige-2
+.. container:: stmx-color-swatch stmx-color-beige-3
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 224
+   | **G** 206
+   | **B** 168
 
    #e0cea8
 
-.. container:: stmx-color-swatch stmx-color-beige-3
+.. container:: stmx-color-swatch stmx-color-beige-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 236
+   | **G** 219
+   | **B** 177
 
    #ecdbb1
 
-.. container:: stmx-color-swatch stmx-color-beige-4
+.. container:: stmx-color-swatch stmx-color-beige-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 246
+   | **G** 241
+   | **B** 225
 
    #f6f1e1
 
@@ -254,27 +262,27 @@ Recommended for: walls, stucco, plaster, pavement, sand
 Off-whites
 ~~~~~~~~~~
 
-.. container:: stmx-color-swatch stmx-color-gray-1
+.. container:: stmx-color-swatch stmx-color-greige-3
 
-   | **R** 34
+   | **R** 216
    | **G** 211
-   | **B** 84
+   | **B** 203
 
    #d8d3cb
 
-.. container:: stmx-color-swatch stmx-color-gray-2
+.. container:: stmx-color-swatch stmx-color-greige-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 231
+   | **G** 230
+   | **B** 222
 
    #e7e6de
 
-.. container:: stmx-color-swatch stmx-color-gray-3
+.. container:: stmx-color-swatch stmx-color-greige-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 245
+   | **G** 243
+   | **B** 233
 
    #f5f3e9
 
@@ -284,27 +292,27 @@ Recommended for: walls, metal, concrete
 Greens
 ~~~~~~
 
-.. container:: stmx-color-swatch stmx-color-green-1
+.. container:: stmx-color-swatch stmx-color-green-3
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 53
+   | **G** 129
+   | **B** 63
 
    #35813f
 
 .. container:: stmx-color-swatch stmx-color-green-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 103
+   | **G** 154
+   | **B** 69
 
    #679a45
 
-.. container:: stmx-color-swatch stmx-color-green-3
+.. container:: stmx-color-swatch stmx-color-green-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 136
+   | **G** 186
+   | **B** 106
 
    #89ba6a
 
@@ -314,27 +322,35 @@ Recommended for: foliage, trees, plants
 Browns
 ~~~~~~
 
-.. container:: stmx-color-swatch stmx-color-brown-1
+.. container:: stmx-color-swatch stmx-color-brown-4
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 53
+   | **G** 45
+   | **B** 39
+
+   #352d27
+
+.. container:: stmx-color-swatch stmx-color-brown-3
+
+   | **R** 100
+   | **G** 88
+   | **B** 73
 
    #645849
 
 .. container:: stmx-color-swatch stmx-color-brown-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 124
+   | **G** 112
+   | **B** 90
 
    #7c705a
 
-.. container:: stmx-color-swatch stmx-color-brown-3
+.. container:: stmx-color-swatch stmx-color-brown-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 152
+   | **G** 138
+   | **B** 116
 
    #988a74
 
@@ -344,43 +360,43 @@ Recommended for: wood, dirt
 Grayscale
 ~~~~~~~~~
 
-.. container:: stmx-color-swatch stmx-color-grayscale-1
+.. container:: stmx-color-swatch stmx-color-grayscale-5
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 42
+   | **G** 43
+   | **B** 42
 
    #2a2b2a
 
-.. container:: stmx-color-swatch stmx-color-grayscale-2
+.. container:: stmx-color-swatch stmx-color-grayscale-4
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 92
+   | **G** 94
+   | **B** 95
 
    #5c5e5f
 
 .. container:: stmx-color-swatch stmx-color-grayscale-3
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 193
+   | **G** 190
+   | **B** 187
 
    #c1bebb
 
-.. container:: stmx-color-swatch stmx-color-grayscale-4
+.. container:: stmx-color-swatch stmx-color-grayscale-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 228
+   | **G** 226
+   | **B** 220
 
    #e4e2dc
 
-.. container:: stmx-color-swatch stmx-color-grayscale-5
+.. container:: stmx-color-swatch stmx-color-grayscale-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 244
+   | **G** 242
+   | **B** 237
 
    #f4f2ed
 
@@ -391,27 +407,27 @@ Indigos
 ~~~~~~~
 
 
-.. container:: stmx-color-swatch stmx-color-indigo-1
+.. container:: stmx-color-swatch stmx-color-indigo-3
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 10
+   | **G** 23
+   | **B** 35
 
    #0a1723
 
 .. container:: stmx-color-swatch stmx-color-indigo-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 49
+   | **G** 49
+   | **B** 86
 
    #313156
 
-.. container:: stmx-color-swatch stmx-color-indigo-3
+.. container:: stmx-color-swatch stmx-color-indigo-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 73
+   | **G** 74
+   | **B** 114
 
    #494a72
 
@@ -421,27 +437,27 @@ Recommend for: windows, reflective surfaces
 Blues
 ~~~~~
 
-.. container:: stmx-color-swatch stmx-color-blue-1
+.. container:: stmx-color-swatch stmx-color-blue-3
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 35
+   | **G** 76
+   | **B** 107
 
-   #2a4d6b
+   #234c6b
 
 .. container:: stmx-color-swatch stmx-color-blue-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 54
+   | **G** 99
+   | **B** 135
 
-   #376489
+   #366387
 
-.. container:: stmx-color-swatch stmx-color-blue-3
+.. container:: stmx-color-swatch stmx-color-blue-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 79
+   | **G** 131
+   | **B** 163
 
    #4f83a3
 
@@ -451,36 +467,85 @@ Recommended for: water
 Reds / Oranges
 ~~~~~~~~~~~~~~
 
-.. container:: stmx-color-swatch stmx-color-orange-1
+.. container:: stmx-color-swatch stmx-color-red-4
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 114
+   | **G** 14
+   | **B** 26
+
+   #720e1a
+
+.. container:: stmx-color-swatch stmx-color-red-3
+
+   | **R** 174
+   | **G** 32
+   | **B** 37
 
    #ae2025
 
-.. container:: stmx-color-swatch stmx-color-orange-2
+.. container:: stmx-color-swatch stmx-color-red-2
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 239
+   | **G** 156
+   | **B** 116
 
    #ef9c74
 
-.. container:: stmx-color-swatch stmx-color-orange-3
+.. container:: stmx-color-swatch stmx-color-red-1
 
-   | **R** 34
-   | **G** 211
-   | **B** 84
+   | **R** 255
+   | **G** 238
+   | **B** 204
 
    #ffeecc
 
 Recommended for: lights, flowers
 
 
+Brights
+~~~~~~~
+
+.. container:: stmx-color-swatch stmx-color-orange
+
+   | **R** 231
+   | **G** 103
+   | **B** 60
+
+   #e7673c
+
+.. container:: stmx-color-swatch stmx-color-yellow-2
+
+   | **R** 248
+   | **G** 187
+   | **B** 28
+
+   #f8bb1c
+
+.. container:: stmx-color-swatch stmx-color-yellow-1
+
+   | **R** 252
+   | **G** 209
+   | **B** 87
+
+   #fcd157
+
+.. container:: stmx-color-swatch stmx-color-bright-blue
+
+   | **R** 16
+   | **G** 155
+   | **B** 168
+
+   #109ba8
+
+Bright colors used sparingly when colors above won't do.
+
+
 .. tip::
 
-   You can `download a swatch file (ASE format) for use in your favorite graphics editing program <https://github.com/streetmix/illustrations/raw/master/swatches/streetmix-palette.ase>`_.
+   You can download a palette swatch for use in your favorite graphics editing program.
+
+      - `Adobe Swatch Exchange (ASE) format <https://github.com/streetmix/illustrations/raw/master/swatches/streetmix.ase>`_ can be used in Adobe Illustrator or Affinity Designer. (NOTE: This swatch is currently out of date.)
+      - `GIMP GPL format <https://github.com/streetmix/illustrations/raw/master/swatches/streetmix.gpl>`_ can be used in open-source image editing applications such as GIMP, Krita, or Inkscape.
 
 
 Shadows and highlights

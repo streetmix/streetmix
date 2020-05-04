@@ -210,62 +210,67 @@ legend {
   font-weight: bold;
 }
 
-.stmx-color-skintone-1 {
-  background-color: #543e36;
+.stmx-color-skintone-5 {
+  background-color: #553f37;
   color: white;
 }
 
-.stmx-color-skintone-2 {
-  background-color: #72594b;
+.stmx-color-skintone-4 {
+  background-color: #735a4c;
   color: white;
 }
 
 .stmx-color-skintone-3 {
-  background-color: #ceab97;
+  background-color: #aa8b7e;
+  color: white;
+}
+
+.stmx-color-skintone-2 {
+  background-color: #ceac98;
   color: black;
 }
 
-.stmx-color-skintone-4 {
+.stmx-color-skintone-1 {
   background-color: #e1c5b5;
   color: black;
 }
 
-.stmx-color-beige-1 {
+.stmx-color-beige-4 {
   background-color: #cead80;
   color: black;
 }
 
-.stmx-color-beige-2 {
+.stmx-color-beige-3 {
   background-color: #e0cea8;
   color: black;
 }
 
-.stmx-color-beige-3 {
+.stmx-color-beige-2 {
   background-color: #ecdbb1;
   color: black;
 }
 
-.stmx-color-beige-4 {
+.stmx-color-beige-1 {
   background-color: #f6f1e1;
   color: black;
 }
 
-.stmx-color-gray-1 {
+.stmx-color-greige-3 {
   background-color: #d8d3cb;
   color: black;
 }
 
-.stmx-color-gray-2 {
+.stmx-color-greige-2 {
   background-color: #e7e6de;
   color: black;
 }
 
-.stmx-color-gray-3 {
+.stmx-color-greige-1 {
   background-color: #f5f3e9;
   color: black;
 }
 
-.stmx-color-green-1 {
+.stmx-color-green-3 {
   background-color: #35813f;
   color: white;
 }
@@ -275,31 +280,37 @@ legend {
   color: white;
 }
 
-.stmx-color-green-3 {
+.stmx-color-green-1 {
   background-color: #89ba6a;
   color: black;
 }
 
-.stmx-color-brown-1 {
+.stmx-color-brown-4 {
+  background-color: #352d27;
+  color: white;
+}
+
+.stmx-color-brown-3 {
   background-color: #645849;
   color: white;
 }
+
 .stmx-color-brown-2 {
   background-color: #7c705a;
   color: white;
 }
 
-.stmx-color-brown-3 {
+.stmx-color-brown-1 {
   background-color: #988a74;
   color: white;
 }
 
-.stmx-color-grayscale-1 {
+.stmx-color-grayscale-5 {
   background-color: #2a2b2a;
   color: white;
 }
 
-.stmx-color-grayscale-2 {
+.stmx-color-grayscale-4 {
   background-color: #5c5e5f;
   color: white;
 }
@@ -309,17 +320,17 @@ legend {
   color: black;
 }
 
-.stmx-color-grayscale-4 {
+.stmx-color-grayscale-2 {
   background-color: #e4e2dc;
   color: black;
 }
 
-.stmx-color-grayscale-5 {
+.stmx-color-grayscale-1 {
   background-color: #f4f2ed;
   color: black;
 }
 
-.stmx-color-indigo-1 {
+.stmx-color-indigo-3 {
   background-color: #0a1723;
   color: white;
 }
@@ -329,13 +340,13 @@ legend {
   color: white;
 }
 
-.stmx-color-indigo-3 {
+.stmx-color-indigo-1 {
   background-color: #494a72;
   color: white;
 }
 
-.stmx-color-blue-1 {
-  background-color: #2a4d6b;
+.stmx-color-blue-3 {
+  background-color: #234c6b;
   color: white;
 }
 
@@ -344,23 +355,48 @@ legend {
   color: white;
 }
 
-.stmx-color-blue-3 {
+.stmx-color-blue-1 {
   background-color: #4f83a3;
   color: white;
 }
 
-.stmx-color-orange-1 {
+.stmx-color-red-4 {
+  background-color: #720e1a;
+  color: white;
+}
+
+.stmx-color-red-3 {
   background-color: #ae2025;
   color: white;
 }
 
-.stmx-color-orange-2 {
+.stmx-color-red-2 {
   background-color: #ef9c74;
   color: black;
 }
 
-.stmx-color-orange-3 {
+.stmx-color-red-1 {
   background-color: #ffeecc;
+  color: black;
+}
+
+.stmx-color-orange {
+  background-color: #e7673c;
+  color: black;
+}
+
+.stmx-color-yellow-2 {
+  background-color: #f8bb1c;
+  color: black;
+}
+
+.stmx-color-yellow-1 {
+  background-color: #fcd157;
+  color: black;
+}
+
+.stmx-color-bright-blue {
+  background-color: #109ba8;
   color: black;
 }
 
