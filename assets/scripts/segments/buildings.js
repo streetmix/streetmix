@@ -32,11 +32,12 @@ export const GROUND_BASELINE_HEIGHT = 44
  *
  * -- SPECIFICATIONS --
  * variantsCount    (number) actually, not sure
+ *                            guess: it varies the upper floor designs
  * mainFloorHeight  (number) in feet, how tall is the ground floor
  *                            todo: use pixel heights for these?
  * floorHeight      (number) in feet, how tall are intermediate floors (which can repeat)
  * roofHeight       (number) in feet, how tall is the roof structure
- * overhangWidth    (number) in ??, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
+ * overhangWidth    (number) in CSS pixels, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
  */
 export const BUILDINGS = {
   grass: {
@@ -98,6 +99,17 @@ export const BUILDINGS = {
     roofHeight: 2,
     mainFloorHeight: 14,
     overhangWidth: 20
+  },
+  arcade: {
+    id: 'arcade',
+    label: 'Arcade building',
+    spriteId: 'buildings--arcade',
+    hasFloors: true,
+    variantsCount: 1,
+    floorHeight: 10,
+    roofHeight: 6,
+    mainFloorHeight: 14,
+    overhangWidth: 13
   }
 }
 
