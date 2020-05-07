@@ -466,8 +466,13 @@ exports.put = async function (req, res) {
     res.status(401).end()
     return
   }
-  user.data = body.data || user.data || {}
-  User.update(user, { where: { id: user.id }, returning: true })
+
+  User.update(
+    {
+      data: body.data || {}
+    },
+    { where: { id: user.id }, returning: true }
+  )
     .then((result) => {
       res.status(204).end()
     })
