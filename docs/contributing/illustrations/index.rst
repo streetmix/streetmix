@@ -409,11 +409,11 @@ Indigos
 
 .. container:: stmx-color-swatch stmx-color-indigo-3
 
-   | **R** 10
-   | **G** 23
-   | **B** 35
+   | **R** 37
+   | **G** 41
+   | **B** 71
 
-   #0a1723
+   #252947
 
 .. container:: stmx-color-swatch stmx-color-indigo-2
 
@@ -544,7 +544,7 @@ Bright colors used sparingly when colors above won't do.
 
    You can download a palette swatch for use in your favorite graphics editing program.
 
-      - `Adobe Swatch Exchange (ASE) format <https://github.com/streetmix/illustrations/raw/master/swatches/streetmix.ase>`_ can be used in Adobe Illustrator or Affinity Designer. (NOTE: This swatch is currently out of date.)
+      - `Adobe Swatch Exchange (ASE) format <https://github.com/streetmix/illustrations/raw/master/swatches/streetmix.ase>`_ can be used in Adobe Illustrator or Affinity Designer.
       - `GIMP GPL format <https://github.com/streetmix/illustrations/raw/master/swatches/streetmix.gpl>`_ can be used in open-source image editing applications such as GIMP, Krita, or Inkscape.
 
 
