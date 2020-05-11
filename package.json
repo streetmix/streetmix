@@ -158,7 +158,7 @@
     "sequelize-mock": "0.10.2",
     "shifty": "2.8.3",
     "slugify": "1.4.0",
-    "stripe": "7.15.0",
+    "stripe": "8.50.0",
     "supervisor": "0.12.0",
     "svg-sprite": "1.5.0",
     "swagger-jsdoc": "4.0.0",
