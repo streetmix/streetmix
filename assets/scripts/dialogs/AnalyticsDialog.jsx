@@ -11,8 +11,7 @@ import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
-import { updateAnalytics } from '../store/slices/street'
-import { saveStreetToServer } from '../streets/xhr'
+import { updateStreetAnalytics } from '../store/actions/street'
 
 import Terms from '../app/Terms'
 import {
@@ -63,25 +62,19 @@ const avgCapacityAscending = (a, b) => {
 }
 
 function AnalyticsDialog (props) {
-  const dispatch = useDispatch()
   const street = useSelector((state) => state.street)
-  console.log({ street, props })
   const locale = useSelector((state) => state.locale.locale)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
   }, [])
 
-  const [isToggleDisabled, setIsToggleDisabled] = useState(false)
-  const [isVisible, setIsVisible] = useState(street.showAnalytics)
-  const toggleIsVisible = () => {
-    setIsToggleDisabled(true)
-    setIsVisible(!isVisible)
-    dispatch(updateAnalytics(!isVisible))
-    saveStreetToServer(true)
-    setIsToggleDisabled(false)
+  const [isVisible, setVisible] = useState(street.showAnalytics)
+  const toggleVisible = () => {
+    setVisible(!isVisible)
+    dispatch(updateStreetAnalytics(!isVisible))
   }
-  // useState =
 
   const intl = useIntl()
   const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
@@ -185,12 +178,11 @@ function AnalyticsDialog (props) {
                 <input
                   type="checkbox"
                   checked={isVisible}
-                  onClick={toggleIsVisible}
-                  disabled={isToggleDisabled}
+                  onClick={toggleVisible}
                 />
                 <FormattedMessage
                   id="dialogs.analytics.toggle-visible"
-                  defaultMessage="Show analytics"
+                  defaultMessage="Show capacity counts in segment labels"
                 />
               </label>
               <br />

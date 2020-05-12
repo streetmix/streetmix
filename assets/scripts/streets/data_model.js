@@ -365,6 +365,7 @@ export function saveStreetToServerIfNecessary () {
 export function trimStreetData (street, saveSegmentId = true) {
   const newData = {
     schemaVersion: street.schemaVersion,
+    showAnalytics: street.showAnalytics,
     width: street.width,
     name: street.name,
     id: street.id,
@@ -375,7 +376,6 @@ export function trimStreetData (street, saveSegmentId = true) {
     location: street.location,
     userUpdated: street.userUpdated,
     environment: street.environment,
-    showAnalytics: street.showAnalytics,
     leftBuildingHeight: street.leftBuildingHeight,
     rightBuildingHeight: street.rightBuildingHeight,
     leftBuildingVariant: street.leftBuildingVariant,
@@ -441,6 +441,7 @@ export function prepareDefaultStreet () {
     units: units,
     location: null,
     name: null,
+    showAnalytics: true,
     userUpdated: false,
     editCount: 0,
     width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
@@ -470,6 +471,7 @@ export function prepareEmptyStreet () {
     units: units,
     location: null,
     name: null,
+    showAnalytics: true,
     userUpdated: false,
     editCount: 0,
     width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
