@@ -375,6 +375,7 @@ export function trimStreetData (street, saveSegmentId = true) {
     location: street.location,
     userUpdated: street.userUpdated,
     environment: street.environment,
+    showAnalytics: street.showAnalytics,
     leftBuildingHeight: street.leftBuildingHeight,
     rightBuildingHeight: street.rightBuildingHeight,
     leftBuildingVariant: street.leftBuildingVariant,

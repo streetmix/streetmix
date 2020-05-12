@@ -398,7 +398,7 @@ export class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    enableAnalytics: state.flags.ANALYTICS.value,
+    enableAnalytics: state.flags.ANALYTICS.value && state.street.showAnalytics,
     locale: state.locale.locale,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment:

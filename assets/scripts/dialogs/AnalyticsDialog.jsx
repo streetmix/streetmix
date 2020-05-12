@@ -4,13 +4,16 @@
  * Renders the "Analytics" dialog box.
  *
  */
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
+import { updateAnalytics } from '../store/slices/street'
+import { saveStreetToServer } from '../streets/xhr'
+
 import Terms from '../app/Terms'
 import {
   getSegmentCapacity,
@@ -60,12 +63,25 @@ const avgCapacityAscending = (a, b) => {
 }
 
 function AnalyticsDialog (props) {
+  const dispatch = useDispatch()
   const street = useSelector((state) => state.street)
+  console.log({ street, props })
   const locale = useSelector((state) => state.locale.locale)
 
   useEffect(() => {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
   }, [])
+
+  const [isToggleDisabled, setIsToggleDisabled] = useState(false)
+  const [isVisible, setIsVisible] = useState(street.showAnalytics)
+  const toggleIsVisible = () => {
+    setIsToggleDisabled(true)
+    setIsVisible(!isVisible)
+    dispatch(updateAnalytics(!isVisible))
+    saveStreetToServer(true)
+    setIsToggleDisabled(false)
+  }
+  // useState =
 
   const intl = useIntl()
   const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
@@ -165,6 +181,20 @@ function AnalyticsDialog (props) {
               </p>
             </div>
             <div className="dialog-actions">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={isVisible}
+                  onClick={toggleIsVisible}
+                  disabled={isToggleDisabled}
+                />
+                <FormattedMessage
+                  id="dialogs.analytics.toggle-visible"
+                  defaultMessage="Show analytics"
+                />
+                {isToggleDisabled ? 'disabled' : ''}
+              </label>
+              <br />
               <button onClick={exportCSV}>
                 <FormattedMessage
                   id="dialogs.analytics.export-csv"
