@@ -192,7 +192,6 @@ function AnalyticsDialog (props) {
                   id="dialogs.analytics.toggle-visible"
                   defaultMessage="Show analytics"
                 />
-                {isToggleDisabled ? 'disabled' : ''}
               </label>
               <br />
               <button onClick={exportCSV}>
