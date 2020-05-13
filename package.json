@@ -198,7 +198,7 @@
     "jest-date-mock": "1.0.8",
     "jest-fetch-mock": "3.0.3",
     "lint-staged": "10.1.2",
-    "prettier": "1.19.1",
+    "prettier": "2.0.5",
     "react-test-renderer": "16.12.0",
     "recompose": "0.30.0",
     "redux-mock-store": "1.5.4",
