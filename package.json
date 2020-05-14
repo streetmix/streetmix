@@ -123,7 +123,7 @@
     "intl-messageformat": "8.2.1",
     "intl-pluralrules": "1.1.2",
     "js-cookie": "2.2.1",
-    "json2csv": "4.5.4",
+    "json2csv": "5.0.1",
     "leaflet": "1.6.0",
     "lodash": "4.17.15",
     "newrelic": "6.6.0",
