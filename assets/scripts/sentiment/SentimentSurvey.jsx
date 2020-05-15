@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
+import Tooltip, { useSingleton } from '../ui/Tooltip'
 import CloseButton from '../ui/CloseButton'
-import PaletteTooltips from '../palette/PaletteTooltips'
 import './SentimentSurvey.scss'
 import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
 import IMG_SENTIMENT_2 from '../../images/openmoji/color/1F641.svg'
@@ -18,47 +18,13 @@ SentimentSurvey.propTypes = {
 
 function SentimentSurvey ({ visible = false, onClose = () => {} }) {
   const intl = useIntl()
-  const [tooltip, setTooltip] = useState({
-    label: null,
-    visible: false,
-    position: {}
-  })
-
+  const [source, target] = useSingleton()
   const transitions = useTransition(visible, null, {
     from: { transform: 'translateY(200px)' },
     enter: { transform: 'translateY(0)' },
     leave: { transform: 'translateY(300px)' },
     config: config.wobbly
   })
-
-  /**
-   * Each segment in palette calls this function when the pointer hovers over it so we know
-   * what to display in the tooltip
-   *
-   * @param {Object} event - event handler object
-   * @param {string} label - text to display inside the tooltip
-   */
-  function handlePointerOver (event, label) {
-    // x is the position right above the middle of the segment element to point at
-    const rect = event.target.getBoundingClientRect()
-    const x = rect.x + rect.width / 2
-
-    setTooltip({
-      label: label,
-      visible: true,
-      position: { x }
-    })
-  }
-
-  /**
-   * When the pointer leaves the segment area, hide tooltip.
-   */
-  function handlePointerOut (event) {
-    setTooltip({
-      ...tooltip,
-      visible: false
-    })
-  }
 
   const classNames = ['sentiment-survey-container']
   if (visible === true) {
@@ -69,6 +35,8 @@ function SentimentSurvey ({ visible = false, onClose = () => {} }) {
   return (
     <div className={classNames.join(' ')}>
       <div className="sentiment-survey-background" />
+      <Tooltip placement="bottom" source={source} />
+
       {transitions.map(
         ({ item, key, props }) =>
           item && (
@@ -88,76 +56,71 @@ function SentimentSurvey ({ visible = false, onClose = () => {} }) {
                 />
               </h2>
               <div className="sentiment-survey-buttons">
-                <button
-                  className="sentiment-1"
-                  onPointerOver={(e) =>
-                    handlePointerOver(
-                      e,
-                      intl.formatMessage({
-                        id: 'sentiment.answer.rating-1',
-                        defaultMessage: 'Absolutely not'
-                      })
-                    )}
-                  onPointerOut={handlePointerOut}
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: 'sentiment.answer.rating-1',
+                    defaultMessage: 'Absolutely not'
+                  })}
+                  target={target}
                 >
-                  <img src={IMG_SENTIMENT_1} />
-                </button>
-                <button
-                  className="sentiment-2"
-                  onPointerOver={(e) =>
-                    handlePointerOver(
-                      e,
-                      intl.formatMessage({
-                        id: 'sentiment.answer.rating-2',
-                        defaultMessage: 'Not very much'
-                      })
-                    )}
-                  onPointerOut={handlePointerOut}
+                  <button>
+                    <div className="sentiment-button sentiment-1">
+                      <img src={IMG_SENTIMENT_1} />
+                    </div>
+                  </button>
+                </Tooltip>
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: 'sentiment.answer.rating-2',
+                    defaultMessage: 'Not very much'
+                  })}
+                  target={target}
                 >
-                  <img src={IMG_SENTIMENT_2} />
-                </button>
-                <button
-                  className="sentiment-3"
-                  onPointerOver={(e) =>
-                    handlePointerOver(
-                      e,
-                      intl.formatMessage({
-                        id: 'sentiment.answer.rating-3',
-                        defaultMessage: 'It’s so-so'
-                      })
-                    )}
-                  onPointerOut={handlePointerOut}
+                  <button>
+                    <div className="sentiment-button sentiment-2">
+                      <img src={IMG_SENTIMENT_2} />
+                    </div>
+                  </button>
+                </Tooltip>
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: 'sentiment.answer.rating-3',
+                    defaultMessage: 'It’s so-so'
+                  })}
+                  target={target}
                 >
-                  <img src={IMG_SENTIMENT_3} />
-                </button>
-                <button
-                  className="sentiment-4"
-                  onPointerOver={(e) =>
-                    handlePointerOver(
-                      e,
-                      intl.formatMessage({
-                        id: 'sentiment.answer.rating-4',
-                        defaultMessage: 'A little bit'
-                      })
-                    )}
-                  onPointerOut={handlePointerOut}
+                  <button>
+                    <div className="sentiment-button sentiment-3">
+                      <img src={IMG_SENTIMENT_3} />
+                    </div>
+                  </button>
+                </Tooltip>
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: 'sentiment.answer.rating-4',
+                    defaultMessage: 'A little bit'
+                  })}
+                  target={target}
                 >
-                  <img src={IMG_SENTIMENT_4} />
-                </button>
-                <button
-                  className="sentiment-5"
-                  onPointerOver={(e) =>
-                    handlePointerOver(
-                      e,
-                      intl.formatMessage({
-                        id: 'sentiment.answer.rating-5',
-                        defaultMessage: 'Quite a lot'
-                      })
-                    )}
-                  onPointerOut={handlePointerOut}
+                  <button>
+                    <div className="sentiment-button sentiment-4">
+                      <img src={IMG_SENTIMENT_4} />
+                    </div>
+                  </button>
+                </Tooltip>
+                <Tooltip
+                  label={intl.formatMessage({
+                    id: 'sentiment.answer.rating-5',
+                    defaultMessage: 'Quite a lot'
+                  })}
+                  target={target}
                 >
-                  <img src={IMG_SENTIMENT_5} />
-                </button>
+                  <button>
+                    <div className="sentiment-button sentiment-5">
+                      <img src={IMG_SENTIMENT_5} />
+                    </div>
+                  </button>
+                </Tooltip>
               </div>
               <p>
                 <FormattedMessage
@@ -168,11 +131,6 @@ function SentimentSurvey ({ visible = false, onClose = () => {} }) {
             </animated.div>
           )
       )}
-      <PaletteTooltips
-        label={tooltip.label}
-        visible={tooltip.visible}
-        pointAt={tooltip.position}
-      />
     </div>
   )
 }

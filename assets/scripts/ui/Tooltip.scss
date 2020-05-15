@@ -1,0 +1,81 @@
+@import "../../styles/variables.scss";
+
+$tooltip-background-colour: rgba(24, 24, 24, 0.75);
+$tooltip-font-colour: white;
+$tooltip-font-weight: bold;
+$tooltip-max-width: 150px;
+$tooltip-pointer-size: 8px;
+
+.tooltip {
+  background: $tooltip-background-colour;
+  // Use a pixel-unit top and bottom to fix rounding
+  // issues with arrow placement on some displays
+  padding: 10px 1.25em;
+  font-weight: $tooltip-font-weight;
+  color: $tooltip-font-colour;
+  border-radius: $border-radius;
+  text-align: center;
+  max-width: $tooltip-max-width;
+  // transform: translateY(-10px);
+  transition: opacity 100ms, transform 100ms ease-in;
+  box-shadow: $medium-box-shadow;
+  z-index: 2; // Positions this above hovered segment element
+  pointer-events: none;
+}
+
+.tooltip-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tooltip-contents {
+  max-height: 100px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  hyphens: auto;
+
+  p {
+    margin: 0.2em;
+    font-weight: normal;
+    font-size: 0.9em;
+    opacity: 0.75;
+  }
+}
+
+.tooltip-pointer {
+  width: 0;
+  height: 0;
+  pointer-events: none;
+
+  [data-popper-placement^="top"] & {
+    border-left: $tooltip-pointer-size solid transparent;
+    border-right: $tooltip-pointer-size solid transparent;
+    border-top: $tooltip-pointer-size solid $tooltip-background-colour;
+    left: -$tooltip-pointer-size !important;
+    bottom: -$tooltip-pointer-size;
+  }
+
+  [data-popper-placement^="bottom"] & {
+    border-left: $tooltip-pointer-size solid transparent;
+    border-right: $tooltip-pointer-size solid transparent;
+    border-bottom: $tooltip-pointer-size solid $tooltip-background-colour;
+    left: -$tooltip-pointer-size !important;
+    top: -$tooltip-pointer-size;
+  }
+
+  [data-popper-placement^="left"] & {
+    border-top: $tooltip-pointer-size solid transparent;
+    border-bottom: $tooltip-pointer-size solid transparent;
+    border-left: $tooltip-pointer-size solid $tooltip-background-colour;
+    right: -$tooltip-pointer-size;
+    top: -$tooltip-pointer-size !important;
+  }
+
+  [data-popper-placement^="right"] & {
+    border-top: $tooltip-pointer-size solid transparent;
+    border-bottom: $tooltip-pointer-size solid transparent;
+    border-right: $tooltip-pointer-size solid $tooltip-background-colour;
+    left: -$tooltip-pointer-size;
+    top: -$tooltip-pointer-size !important;
+  }
+}
