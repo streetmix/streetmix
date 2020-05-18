@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import SentimentSurvey from './SentimentSurvey'
 
 function SentimentSurveyContainer (props) {
-  const [visible, setVisible] = useState(false)
+  const [isVisible, setVisible] = useState(false)
+  const [isDismissed, setDismissed] = useState(false)
+  const isEnabled = useSelector(
+    (state) => state.flags.SENTIMENT_SURVEY.value || false
+  )
 
   useEffect(() => {
-    window.setTimeout(() => {
-      console.log('appear!')
-      setVisible(true)
-    }, 1000)
+    if (!isDismissed) {
+      window.setTimeout(() => {
+        setVisible(true)
+      }, 1000)
+    }
   })
 
   function handleClose () {
-    console.log('byeeeee')
     setVisible(false)
+    setDismissed(true)
   }
 
-  return <SentimentSurvey visible={visible} onClose={handleClose} />
+  if (isEnabled) {
+    return <SentimentSurvey visible={isVisible} onClose={handleClose} />
+  }
+
+  return null
 }
 
 export default SentimentSurveyContainer

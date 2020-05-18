@@ -23,6 +23,10 @@
     "label": "UI — Edit right-side buildings",
     "defaultValue": true
   },
+  "SENTIMENT_SURVEY": {
+    "label": "Survey sentiment",
+    "defaultValue": false
+  },
   "ENVIRONMENT_EDITOR": {
     "label": "Environment editor",
     "defaultValue": false
