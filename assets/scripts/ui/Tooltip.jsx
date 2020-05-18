@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Tippy, { useSingleton } from '@tippyjs/react/headless'
+import Tippy, { useSingleton } from '@tippyjs/react'
+import 'tippy.js/dist/tippy.css'
+import 'tippy.js/animations/shift-toward.css'
 import './Tooltip.scss'
 
 Tooltip.propTypes = {
@@ -26,16 +28,11 @@ function Tooltip ({
       <Tippy
         placement={placement}
         offset={[0, 10]}
-        moveTransition="transform 200ms cubic-bezier(0.22, 1, 0.36, 1)"
+        duration={100}
+        animation="shift-toward"
+        delay={[200, 150]}
+        moveTransition="transform 150ms cubic-bezier(0.22, 1, 0.36, 1)"
         singleton={source}
-        render={(attrs, content) => (
-          <div className="tooltip-popper" tabIndex="-1" {...attrs}>
-            <div className="tooltip">
-              <div className="tooltip-contents">{content}</div>
-            </div>
-            <div className="tooltip-pointer" data-popper-arrow="" />
-          </div>
-        )}
         {...props}
       />
     )
