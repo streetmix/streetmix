@@ -12,6 +12,7 @@ import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
 import { updateStreetAnalytics } from '../store/actions/street'
+import Checkbox from '../ui/Checkbox'
 
 import Terms from '../app/Terms'
 import {
@@ -174,17 +175,17 @@ function AnalyticsDialog (props) {
               </p>
             </div>
             <div className="dialog-actions">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={isVisible}
-                  onClick={toggleVisible}
-                />
+              <Checkbox
+                id="show-analytics"
+                checked={isVisible}
+                onChange={toggleVisible}
+              >
                 <FormattedMessage
                   id="dialogs.analytics.toggle-visible"
                   defaultMessage="Show capacity counts in segment labels"
                 />
-              </label>
+              </Checkbox>
+
               <br />
               <button onClick={exportCSV}>
                 <FormattedMessage

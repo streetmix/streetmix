@@ -75,6 +75,7 @@ export const clearSegmentsAction = () => {
     await dispatch(segmentsChanged())
   }
 }
+
 export const updateStreetAnalytics = (isVisible) => {
   return async (dispatch, getState) => {
     await dispatch(updateAnalytics(isVisible))
