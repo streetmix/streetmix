@@ -119,7 +119,7 @@ function receiveNewStreet (data) {
 
 function errorReceiveNewStreet (data) {
   if (data.status === 401) {
-    showError(ERRORS.AUTH_FAILURE, true)
+    showError(ERRORS.AUTH_EXPIRED, true)
   } else {
     showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
   }

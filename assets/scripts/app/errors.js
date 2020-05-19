@@ -33,7 +33,7 @@ export const ERRORS = {
   STREET_DATA_FAILURE: 21,
   GALLERY_STREET_FAILURE: 22,
   AUTH_PROBLEM_NO_ACCESS_TOKEN: 23,
-  AUTH_FAILURE: 24
+  AUTH_EXPIRED: 24
 }
 
 export function showError (errorType, newAbortEverything) {

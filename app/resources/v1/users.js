@@ -1,7 +1,6 @@
 const config = require('config')
 const Twitter = require('twitter')
 const cloudinary = require('cloudinary')
-const uuid = require('uuid/v4')
 const { ERRORS, asUserJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
 const { User } = require('../../db/models')
@@ -51,7 +50,6 @@ exports.post = async function (req, res) {
       }
       if (!user) {
         const newUserData = {
-          _id: uuid(),
           id: credentials.screenName,
           auth0Id: credentials.auth0Id,
           profileImageUrl: credentials.profileImageUrl
@@ -148,7 +146,6 @@ exports.post = async function (req, res) {
         // Ensure there is no existing user with id same this nickname
         if (!numOfUser) {
           const newUserData = {
-            _id: uuid(),
             id: credentials.nickname,
             auth0Id: credentials.auth0Id,
             email: credentials.email,
@@ -162,7 +159,6 @@ exports.post = async function (req, res) {
         } else {
           const id = generateId(credentials.nickname)
           const newUserData = {
-            _id: uuid(),
             id: id,
             auth0Id: credentials.auth0Id,
             email: credentials.email,
