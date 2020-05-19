@@ -125,7 +125,6 @@
     "intl-pluralrules": "1.1.2",
     "js-cookie": "2.2.1",
     "json2csv": "5.0.1",
-    "jsonwebtoken": "8.5.1",
     "jwks-rsa": "1.8.0",
     "leaflet": "1.6.0",
     "lodash": "4.17.15",
