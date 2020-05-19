@@ -147,6 +147,7 @@ function AnalyticsDialog (props) {
                     item.capacity.average > 0 && (
                       <SegmentAnalytics
                         index={index}
+                        key={index}
                         {...item}
                         chartMax={chartMax}
                       />
