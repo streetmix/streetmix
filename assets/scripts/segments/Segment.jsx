@@ -50,7 +50,7 @@ export class Segment extends React.Component {
   static propTypes = {
     // Provided by parent
     dataNo: PropTypes.number,
-    enableAnalytics: PropTypes.bool.isRequired,
+    enableAnalytics: PropTypes.bool,
     segment: PropTypes.object.isRequired,
     actualWidth: PropTypes.number.isRequired,
     units: PropTypes.number,
@@ -303,7 +303,7 @@ export class Segment extends React.Component {
   }
 
   render () {
-    const { segment, enableAnalytics } = this.props
+    const { segment, enableAnalytics = true } = this.props
 
     const segmentInfo = getSegmentInfo(segment.type)
 
@@ -398,7 +398,7 @@ export class Segment extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    enableAnalytics: state.flags.ANALYTICS.value,
+    enableAnalytics: state.flags.ANALYTICS.value && state.street.showAnalytics,
     locale: state.locale.locale,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment:

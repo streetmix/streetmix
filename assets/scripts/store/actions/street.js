@@ -28,6 +28,7 @@ import {
   clearSegments,
   changeSegmentWidth,
   updateStreetData,
+  updateAnalytics,
   saveStreetId,
   saveOriginalStreetId
 } from '../slices/street'
@@ -71,6 +72,13 @@ export const removeSegmentAction = (dataNo) => {
 export const clearSegmentsAction = () => {
   return async (dispatch, getState) => {
     await dispatch(clearSegments())
+    await dispatch(segmentsChanged())
+  }
+}
+
+export const updateStreetAnalytics = (isVisible) => {
+  return async (dispatch, getState) => {
+    await dispatch(updateAnalytics(isVisible))
     await dispatch(segmentsChanged())
   }
 }

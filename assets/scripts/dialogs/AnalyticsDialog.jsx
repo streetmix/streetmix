@@ -4,13 +4,16 @@
  * Renders the "Analytics" dialog box.
  *
  */
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
+import { updateStreetAnalytics } from '../store/actions/street'
+import Checkbox from '../ui/Checkbox'
+
 import Terms from '../app/Terms'
 import {
   getSegmentCapacity,
@@ -62,10 +65,17 @@ const avgCapacityAscending = (a, b) => {
 function AnalyticsDialog (props) {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
   }, [])
+
+  const [isVisible, setVisible] = useState(street.showAnalytics)
+  const toggleVisible = () => {
+    setVisible(!isVisible)
+    dispatch(updateStreetAnalytics(!isVisible))
+  }
 
   const intl = useIntl()
   const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
@@ -137,6 +147,7 @@ function AnalyticsDialog (props) {
                     item.capacity.average > 0 && (
                       <SegmentAnalytics
                         index={index}
+                        key={index}
                         {...item}
                         chartMax={chartMax}
                       />
@@ -165,6 +176,18 @@ function AnalyticsDialog (props) {
               </p>
             </div>
             <div className="dialog-actions">
+              <Checkbox
+                id="show-analytics"
+                checked={isVisible}
+                onChange={toggleVisible}
+              >
+                <FormattedMessage
+                  id="dialogs.analytics.toggle-visible"
+                  defaultMessage="Show capacity counts in segment labels"
+                />
+              </Checkbox>
+
+              <br />
               <button onClick={exportCSV}>
                 <FormattedMessage
                   id="dialogs.analytics.export-csv"
