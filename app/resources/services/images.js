@@ -28,7 +28,7 @@ exports.get = async function (req, res) {
   }
 
   // Is requesting user logged in?
-  if (user.loginTokens.indexOf(req.loginToken) === -1) {
+  if (!req.user || !req.user.sub || req.user.sub !== user.id) {
     res.status(401).end()
     return
   }

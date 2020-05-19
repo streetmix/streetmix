@@ -121,15 +121,16 @@ exports.delete = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
-  } else if (!req.loginToken) {
-    res.status(400).json({ status: 400, msg: 'Please provid a login token.' })
+  } else if (!req.user) {
+    res
+      .status(400)
+      .json({ status: 400, msg: 'Please provide a logged in user' })
   }
 
-  const userId = req.userId
   let requestUser
 
   try {
-    requestUser = await User.findOne({ where: { id: userId } })
+    requestUser = await User.findOne({ where: { auth0_id: req.user.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -141,15 +142,23 @@ exports.delete = async function (req, res) {
   }
 
   // Is requesting user logged in?
-  if (requestUser.loginTokens.indexOf(req.loginToken) === -1) {
+  if (!requestUser) {
     res.status(401).end()
     return
   }
 
   const targetUserId = req.params.user_id
   let targetUser
+  const requestUserIsAdmin =
+    requestUser.roles && requestUser.roles.indexOf('ADMIN') !== -1
+  if (targetUserId !== requestUser.id) {
+    if (!requestUserIsAdmin) {
+      res
+        .status(401)
+        .json({ status: 401, msg: 'Unable to delete streets by another user.' })
+      return
+    }
 
-  if (targetUserId !== userId) {
     try {
       targetUser = await User.findOne({ where: { id: targetUserId } })
     } catch (error) {

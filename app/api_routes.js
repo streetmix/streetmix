@@ -2,6 +2,7 @@ const routes = require('express').Router()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const resources = require('./resources')
+const jwtCheck = require('./authentication')
 /**
  * @swagger
  *
@@ -271,7 +272,7 @@ routes.options('/api/*', cors())
  *         schema:
  *           $ref: '#/definitions/User'
  */
-routes.post('/api/v1/users', cors(), resources.v1.users.post)
+routes.post('/api/v1/users', cors(), jwtCheck, resources.v1.users.post)
 
 /**
  * @swagger
@@ -296,7 +297,7 @@ routes.post('/api/v1/users', cors(), resources.v1.users.post)
  *           items:
  *             $ref: '#/definitions/User'
  */
-routes.get('/api/v1/users', cors(), resources.v1.users.get)
+routes.get('/api/v1/users', cors(), jwtCheck, resources.v1.users.get)
 
 // API: single user
 
@@ -386,15 +387,20 @@ routes.get('/api/v1/users', cors(), resources.v1.users.get)
  *           $ref: '#/definitions/User'
  *
  */
-routes.get('/api/v1/users/:user_id', cors(), resources.v1.users.get)
-routes.put('/api/v1/users/:user_id', cors(), resources.v1.users.put)
-routes.delete('/api/v1/users/:user_id', cors(), resources.v1.users.delete)
+routes.get('/api/v1/users/:user_id', cors(), jwtCheck, resources.v1.users.get)
+routes.put('/api/v1/users/:user_id', cors(), jwtCheck, resources.v1.users.put)
+routes.delete(
+  '/api/v1/users/:user_id',
+  cors(),
+  jwtCheck,
+  resources.v1.users.delete
+)
 
 /**
  * @swagger
  * /api/v1/users/{user_id}/login-token:
  *   delete:
- *     description: Revokes a user's current loginToken
+ *     description: Logs out current user
  *     tags:
  *       - users
  *     parameters:
@@ -409,11 +415,12 @@ routes.delete('/api/v1/users/:user_id', cors(), resources.v1.users.delete)
  *      - application/json
  *     responses:
  *       200:
- *         description: succesfully removed loginToken
+ *         description: succesfully logged out user
  */
 routes.delete(
   '/api/v1/users/:user_id/login-token',
   cors(),
+  jwtCheck,
   resources.v1.user_session.delete
 )
 
@@ -462,6 +469,7 @@ routes.delete(
 routes.delete(
   '/api/v1/users/:user_id/streets',
   cors(),
+  jwtCheck,
   resources.v1.users_streets.delete
 )
 routes.get(
@@ -494,7 +502,7 @@ routes.get(
  *         schema:
  *           $ref: '#/definitions/Street'
  */
-routes.post('/api/v1/streets', resources.v1.streets.post)
+routes.post('/api/v1/streets', jwtCheck, resources.v1.streets.post)
 
 /**
  * @swagger
@@ -564,8 +572,8 @@ routes.post('/api/v1/streets', resources.v1.streets.post)
  *           items:
  *             $ref: '#/definitions/Street'
  */
-routes.get('/api/v1/streets', resources.v1.streets.find)
-routes.head('/api/v1/streets', resources.v1.streets.find)
+routes.get('/api/v1/streets', jwtCheck, resources.v1.streets.find)
+routes.head('/api/v1/streets', jwtCheck, resources.v1.streets.find)
 
 /**
  * @swagger
@@ -664,10 +672,14 @@ routes.head('/api/v1/streets', resources.v1.streets.find)
  *           $ref: '#/definitions/Street'
  *
  */
-routes.delete('/api/v1/streets/:street_id', resources.v1.streets.delete)
-routes.head('/api/v1/streets/:street_id', resources.v1.streets.get)
-routes.get('/api/v1/streets/:street_id', resources.v1.streets.get)
-routes.put('/api/v1/streets/:street_id', resources.v1.streets.put)
+routes.delete(
+  '/api/v1/streets/:street_id',
+  jwtCheck,
+  resources.v1.streets.delete
+)
+routes.head('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
+routes.get('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
+routes.put('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
 
 /**
  * @swagger
@@ -747,7 +759,11 @@ routes.delete(
   '/api/v1/streets/images/:street_id',
   resources.v1.street_images.delete
 )
-routes.get('/api/v1/streets/images/:street_id', resources.v1.street_images.get)
+routes.get(
+  '/api/v1/streets/images/:street_id',
+  jwtCheck,
+  resources.v1.street_images.get
+)
 
 /**
  * @swagger

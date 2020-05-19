@@ -17,9 +17,26 @@ const street = {
   data: {}
 }
 
+const mockUser = {
+  sub: 'foo|123'
+}
+const mockAltUser = {
+  sub: 'bar|456'
+}
+
+const jwtMock = jest.fn() // returns a user
+const mockUserMiddleware = (req, res, next) => {
+  req.user = jwtMock()
+  next()
+}
+
 describe('POST api/v1/streets/images/:street_id', () => {
   const app = setupMockServer((app) => {
-    app.post('/api/v1/streets/images/:street_id', images.post)
+    app.post(
+      '/api/v1/streets/images/:street_id',
+      mockUserMiddleware,
+      images.post
+    )
   }, 'street_images')
   const details = { image: 'foo', event: 'TEST' }
   JSON.parse = jest.fn().mockReturnValue(details)
@@ -28,13 +45,9 @@ describe('POST api/v1/streets/images/:street_id', () => {
 
   it('should respond with 201 Created when a data url is sent', () => {
     cloudinary.v2.api.resource.mockResolvedValueOnce('baz')
-
+    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .post(`/api/v1/streets/images/${street.id}`)
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
-      )
       .type('text/plain')
       .send(JSON.stringify(details))
       .then((response) => {
@@ -57,12 +70,10 @@ describe('POST api/v1/streets/images/:street_id', () => {
   it('should respond with 403 Forbidden when user is not owner of street', () => {
     cloudinary.v2.api.resource.mockResolvedValueOnce('baz')
 
+    jwtMock.mockReturnValueOnce(mockAltUser)
+
     return request(app)
       .post(`/api/v1/streets/images/${street.id}`)
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-2222222222222" userId="user2"'
-      )
       .type('text/plain')
       .send(JSON.stringify(details))
       .then((response) => {
@@ -73,7 +84,11 @@ describe('POST api/v1/streets/images/:street_id', () => {
 
 describe('DELETE api/v1/streets/images/:street_id', () => {
   const app = setupMockServer((app) => {
-    app.delete('/api/v1/streets/images/:street_id', images.delete)
+    app.delete(
+      '/api/v1/streets/images/:street_id',
+      mockUserMiddleware,
+      images.delete
+    )
   })
 
   cloudinary.v2.uploader.destroy.mockImplementation((publicId, cb) =>
@@ -81,12 +96,10 @@ describe('DELETE api/v1/streets/images/:street_id', () => {
   )
 
   it('should respond with 204 No content when street thumbnail is deleted by owner', () => {
+    jwtMock.mockReturnValueOnce(mockUser)
+
     return request(app)
       .delete(`/api/v1/streets/images/${street.id}`)
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-1111111111111" userId="user1"'
-      )
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })
@@ -95,7 +108,7 @@ describe('DELETE api/v1/streets/images/:street_id', () => {
 
 describe('GET api/v1/streets/images/:street_id', () => {
   const app = setupMockServer((app) => {
-    app.get('/api/v1/streets/images/:street_id', images.get)
+    app.get('/api/v1/streets/images/:street_id', mockUserMiddleware, images.get)
   })
 
   cloudinary.v2.api.resource.mockResolvedValue('foo')
