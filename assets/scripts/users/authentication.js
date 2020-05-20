@@ -38,7 +38,7 @@ export function doSignIn () {
 }
 
 export function getSignInData () {
-  return store.getState().user.signInData
+  return store.getState().user.signInData || {}
 }
 
 export function isSignedIn () {
@@ -219,10 +219,15 @@ function signOut (quiet) {
   sendSignOutToServer(quiet)
 }
 
+export function getAuthToken () {
+  const signInData = getSignInData()
+  return signInData.token || ''
+}
+
 export function getAuthHeader () {
   const signInData = getSignInData()
   if (signInData && signInData.token && signInData.userId) {
-    return `Streetmix realm="" loginToken="${signInData.token}" userId="${signInData.userId}"`
+    return `Bearer ${signInData.token}`
   } else {
     return ''
   }

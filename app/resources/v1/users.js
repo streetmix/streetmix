@@ -5,15 +5,10 @@ const Twitter = require('twitter')
 const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
-const { User, Sequelize } = require('../../db/models')
-
-const Op = Sequelize.Op
+const { User } = require('../../db/models')
 
 exports.post = async function (req, res) {
-  let loginToken = null
-
   const handleCreateUser = function (user) {
-    console.log('handleCreateUser', { user: user && user.toJSON() })
     if (!user) {
       res.status(500).json({
         status: 500,
@@ -21,7 +16,7 @@ exports.post = async function (req, res) {
       })
       return
     }
-    const userJson = { id: user.id, loginToken: loginToken }
+    const userJson = { id: user.id }
     logger.info({ user: userJson }, 'New user created.')
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
     res.status(201).send(userJson)
@@ -42,8 +37,8 @@ exports.post = async function (req, res) {
   }
 
   const handleUpdateUser = function (user) {
-    const userJson = { id: user.id, loginToken: loginToken }
-    logger.info({ user: userJson }, 'Existing user issued new login token.')
+    const userJson = { id: user.id }
+    logger.info({ user: userJson }, 'Existing user logged in.')
 
     res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
     res.status(200).send(userJson)
@@ -55,12 +50,10 @@ exports.post = async function (req, res) {
       if (credentials.screenName) {
         user = await User.findOne({ where: { id: credentials.screenName } })
       }
-      loginToken = uuidv1()
       if (!user) {
         const newUserData = {
           id: credentials.screenName,
           auth0Id: credentials.auth0Id,
-          loginTokens: [loginToken],
           profileImageUrl: credentials.profileImageUrl
         }
         try {
@@ -72,18 +65,12 @@ exports.post = async function (req, res) {
         const userUpdates = user.toJSON()
         userUpdates.auth0Id = credentials.auth0Id
         userUpdates.profileImageUrl = credentials.profileImageUrl
-        if (userUpdates.loginTokens) {
-          const newArray = userUpdates.loginTokens.concat(loginToken)
-          userUpdates.loginTokens = newArray
-        } else {
-          userUpdates.loginTokens = [loginToken]
-        }
 
         try {
           const [numUsersUpdated, updatedUser] = await User.update(
             userUpdates,
             {
-              where: { id: credentials.screenName },
+              where: { auth0Id: credentials.auth0Id },
               returning: true
             }
           )
@@ -153,7 +140,6 @@ exports.post = async function (req, res) {
       if (credentials.auth0Id) {
         user = await User.findOne({ where: { auth0Id: credentials.auth0Id } })
       }
-      loginToken = uuidv1()
       if (!user) {
         const numOfUser = await User.findOne({
           where: { id: credentials.nickname }
@@ -165,7 +151,6 @@ exports.post = async function (req, res) {
             id: credentials.nickname,
             auth0Id: credentials.auth0Id,
             email: credentials.email,
-            loginTokens: [loginToken],
             profileImageUrl: credentials.profileImageUrl
           }
           try {
@@ -179,7 +164,6 @@ exports.post = async function (req, res) {
             id: id,
             auth0Id: credentials.auth0Id,
             email: credentials.email,
-            loginTokens: [loginToken],
             profileImageUrl: credentials.profileImageUrl
           }
           User.create(newUserData).then(handleCreateUser)
@@ -190,11 +174,7 @@ exports.post = async function (req, res) {
         userUpdates.auth0Id = credentials.auth0Id
         userUpdates.profileImageUrl = profileImageUrl
         userUpdates.email = credentials.email
-        if (!userUpdates.loginTokens) {
-          userUpdates.loginTokens = []
-        }
 
-        userUpdates.loginTokens.push(loginToken)
         try {
           const [numUsersUpdated, updatedUser] = await User.update(
             userUpdates,
@@ -347,7 +327,7 @@ exports.get = async function (req, res) {
     }
 
     // blocks users from learning about each other (e.g. user galleries)
-    // if (user.loginTokens.indexOf(req.loginToken) === -1) {
+    // if (!req.user || !req.user.sub || req.user.sub !== user.id) {
     //   res.status(401).end()
     //   return
     // }
@@ -359,15 +339,20 @@ exports.get = async function (req, res) {
   }
 
   if (!userId) {
+    if (!req.user || !req.user.sub) {
+      res
+        .status(401)
+        .json({ status: 401, msg: 'Please sign in to get all users.' })
+    }
+
     const callingUser = await User.findOne({
-      where: { loginTokens: { [Op.contains]: [req.loginToken] } }
+      where: { auth0_id: req.user.sub }
     })
 
     const isAdmin =
       callingUser &&
-      callingUser.loginTokens &&
-      callingUser.loginTokens.indexOf &&
-      callingUser.loginTokens.indexOf(req.loginToken) !== -1
+      callingUser.roles &&
+      callingUser.roles.indexOf('ADMIN') !== -1
 
     if (isAdmin) {
       const userList = await User.findAll({ raw: true })
@@ -402,23 +387,20 @@ exports.delete = async function (req, res) {
     return
   }
 
-  const idx = user.loginTokens.indexOf(req.loginToken)
-
   const callingUser = await User.findOne({
-    where: { loginTokens: { [Op.contains]: [req.loginToken] } }
+    where: { auth0_id: req.user.sub }
   })
 
   const isAdmin =
     callingUser &&
-    callingUser.loginTokens &&
-    callingUser.loginTokens.indexOf &&
-    callingUser.loginTokens.indexOf(req.loginToken) !== -1
+    callingUser.roles &&
+    callingUser.roles.indexOf('ADMIN') !== -1
 
-  if (idx === -1 && !isAdmin) {
+  const isSameUser = user.id === callingUser.id
+  if (!isSameUser && !isAdmin) {
     res.status(401).end()
     return
   }
-  user.loginTokens.splice(idx, 1)
   User.update(user, { where: { id: user.id }, returning: true })
     .then((result) => {
       res.status(204).end()
@@ -438,6 +420,10 @@ exports.put = async function (req, res) {
     return
   }
 
+  if (!(req.user && req.user.sub)) {
+    res.status(401).json({ status: 401, msg: 'User auth not found.' })
+  }
+
   const userId = req.params.user_id
   let user
 
@@ -448,22 +434,21 @@ exports.put = async function (req, res) {
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
-  if (!user) {
+  if (!user || !req.user.sub) {
     res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }
 
   const callingUser = await User.findOne({
-    where: { loginTokens: { [Op.contains]: [req.loginToken] } }
+    where: { auth0_id: req.user.sub }
   })
 
   const isAdmin =
     callingUser &&
-    callingUser.loginTokens &&
-    callingUser.loginTokens.indexOf &&
-    callingUser.loginTokens.indexOf(req.loginToken) !== -1
+    callingUser.roles &&
+    callingUser.roles.indexOf('ADMIN') !== -1
 
-  if (!isAdmin && user.loginTokens.indexOf(req.loginToken) === -1) {
+  if (!isAdmin && callingUser.id !== userId) {
     res.status(401).end()
     return
   }

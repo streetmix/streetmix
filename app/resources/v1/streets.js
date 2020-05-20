@@ -3,14 +3,11 @@ const { v1: uuidv1 } = require('uuid')
 const { isArray } = require('lodash')
 const { ERRORS, asStreetJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
-const { User, Sequelize, Street, Sequence } = require('../../db/models')
-
-const Op = Sequelize.Op
+const { User, Street, Sequence } = require('../../db/models')
 
 exports.post = async function (req, res) {
   let body
   const street = {}
-
   street.id = uuidv1()
   const requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
@@ -38,7 +35,7 @@ exports.post = async function (req, res) {
   }
 
   function updateUserLastStreetId (userId) {
-    return User.findOne({ where: { id: userId } }).then((user) => {
+    return User.findOne({ where: { auth0_id: userId } }).then((user) => {
       if (!user.lastStreetId) {
         return user.update({ lastStreetId: 1 })
       }
@@ -69,8 +66,8 @@ exports.post = async function (req, res) {
   const makeNamespacedId = async function () {
     let namespacedId
     try {
-      if (street.creatorId) {
-        const user = await updateUserLastStreetId(street.creatorId)
+      if (req.user && req.user.sub) {
+        const user = await updateUserLastStreetId(req.user.sub)
         namespacedId = user && user.lastStreetId ? user.lastStreetId : 1
       } else {
         const sequence = await updateSequence()
@@ -147,11 +144,11 @@ exports.post = async function (req, res) {
     }
   }
 
-  if (req.loginToken) {
+  if (req.user) {
     let user
     try {
       user = await User.findOne({
-        where: { loginTokens: { [Op.contains]: [req.loginToken] } }
+        where: { auth0_id: req.user.sub }
       })
     } catch (err) {
       logger.error(err)
@@ -170,7 +167,7 @@ exports.post = async function (req, res) {
 }
 
 exports.delete = async function (req, res) {
-  if (!req.loginToken) {
+  if (!req.user) {
     res.status(401).end()
     return
   }
@@ -182,9 +179,13 @@ exports.delete = async function (req, res) {
 
   async function deleteStreet (street) {
     let user
+    if (!req.user) {
+      throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+    }
+
     try {
       user = await User.findOne({
-        where: { loginTokens: { [Op.contains]: [req.loginToken] } }
+        where: { auth0_id: req.user.sub }
       })
     } catch (err) {
       logger.error(err)
@@ -418,6 +419,9 @@ exports.find = async function (req, res) {
   if (creatorId) {
     try {
       const street = await findStreetWithCreatorId(creatorId)
+      if (!street) {
+        handleErrors(ERRORS.STREET_NOT_FOUND)
+      }
       handleFindStreet(street)
     } catch (err) {
       handleErrors(err)
@@ -518,17 +522,7 @@ exports.put = async function (req, res) {
     handleErrors(ERRORS.CANNOT_UPDATE_STREET)
   }
 
-  async function updateStreetWithCreatorId (street) {
-    let user
-    try {
-      user = await User.findOne({
-        where: { loginTokens: { [Op.contains]: [req.loginToken] } }
-      })
-    } catch (err) {
-      logger.error(err)
-      handleErrors(ERRORS.CANNOT_UPDATE_STREET)
-    }
-
+  async function updateStreetWithUser (street, user) {
     if (!user) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
@@ -541,7 +535,7 @@ exports.put = async function (req, res) {
       throw new Error(ERRORS.FORBIDDEN_REQUEST)
     }
     return updateStreetData(street)
-  } // END function - updateStreetWithCreatorId
+  } // END function - updateStreetWithUser
 
   if (!street) {
     handleErrors(ERRORS.STREET_NOT_FOUND)
@@ -560,11 +554,22 @@ exports.put = async function (req, res) {
       })
       .catch(handleErrors)
   } else {
-    if (!req.loginToken) {
+    if (!req.user) {
       res.status(401).end()
       return
     }
-    updateStreetWithCreatorId(street)
+
+    const user = await User.findOne({
+      where: { auth0_id: req.user.sub }
+    })
+
+    const isOwner = user && user.id === street.creatorId
+    if (!isOwner) {
+      res.status(401).end()
+      return
+    }
+
+    updateStreetWithUser(street, user)
       .then((street) => {
         res.status(204).end()
       })

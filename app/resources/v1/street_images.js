@@ -136,15 +136,20 @@ exports.post = async function (req, res) {
   }
 
   const handleFindStreetWithCreator = async function (street) {
-    if (!req.userId) {
-      res.status(401).json({ status: 401, msg: 'Please provide a user ID.' })
+    if (!(req.user && req.user.sub)) {
+      res
+        .status(401)
+        .json({
+          status: 401,
+          msg: 'Sign in to upload street thumnail for owned street.'
+        })
       return
     }
 
     let user
 
     try {
-      user = await User.findOne({ where: { id: req.userId } })
+      user = await User.findOne({ where: { auth0_id: req.user.sub } })
     } catch (error) {
       logger.error(error)
       res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -204,16 +209,14 @@ exports.delete = async function (req, res) {
   }
 
   // 1) Verify user is logged in.
-  const userId = req.userId
-
-  if (!userId) {
+  if (!(req.user && req.user.sub)) {
     res.status(401).json({ status: 401, msg: 'Please provide user ID.' })
     return
   }
 
   let user
   try {
-    user = await User.findOne({ where: { id: userId } })
+    user = await User.findOne({ where: { auth0_id: req.user.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -225,7 +228,7 @@ exports.delete = async function (req, res) {
   }
 
   // Is requesting user logged in?
-  if (user.loginTokens.indexOf(req.loginToken) === -1) {
+  if (!req.user || !req.user.sub || req.user.sub !== user.auth0Id) {
     res.status(401).end()
     return
   }
