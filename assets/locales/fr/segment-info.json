@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Trottoir",
-    "pedestrian": "",
+    "pedestrian": "Piéton",
     "sidewalk-tree": "Arbre",
     "bike-rack": "Support à vélo",
     "bench": "Banc",
-    "cafe-seating": "",
+    "cafe-seating": "Terrasse de café",
     "wayfinding-sign": "Panneaux directionnels",
     "sidewalk-lamp": "Lampadaire",
     "parklet": "« Parklet »",
@@ -15,9 +15,9 @@
     "median": "Médiane",
     "bollard": "Délinéateur",
     "dome": "Butoir",
-    "jersey-barrier": "",
-    "scooter": "",
-    "scooter-drop-zone": "",
+    "jersey-barrier": "Barrière Jersey",
+    "scooter": "Trottinette électrique",
+    "scooter-drop-zone": "Parking pour trottinettes",
     "bike-lane": "Voie cyclable",
     "parking-lane": "Voie de stationnement",
     "perpendicular-parking": "Stationnement perpendiculaire",
@@ -38,9 +38,9 @@
     "streetcar": "Tramway",
     "light-rail": "Système léger sur rail",
     "transit-shelter": "Abris",
-    "temporary-barrier": "",
+    "temporary-barrier": "Barrière temporaire",
     "inception-train": "Le train dans le film « Inception »",
-    "magic-carpet": ""
+    "magic-carpet": "Tapis magique"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -123,6 +123,9 @@
     },
     "wide": {
       "name": "Bâtiment"
+    },
+    "arcade": {
+      "name": "Bâtiment avec des arcades"
     }
   },
   "variant-icons": {
@@ -134,7 +137,7 @@
     "turn-lane-orientation|right-straight": "Droite et tout droit",
     "turn-lane-orientation|right": "Droite",
     "turn-lane-orientation|both": "Virage à droite et à gauche",
-    "turn-lane-orientation|left-right-straight": "",
+    "turn-lane-orientation|left-right-straight": "Gauche, droite, tout droit",
     "turn-lane-orientation|shared": "Partagé",
     "bench-orientation|left": "Gauche",
     "bench-orientation|right": "Droite",
@@ -163,10 +166,10 @@
     "car-type|car": "Voiture",
     "car-type|sharrow": "Chaussée désignée",
     "car-type|truck": "Camion",
-    "car-type|av": "",
-    "car-type|motorcycle": "",
-    "car-type|motorcycle-sidecar": "",
-    "car-type|pedestrian": "",
+    "car-type|av": "Véhicule autonome",
+    "car-type|motorcycle": "Moto",
+    "car-type|motorcycle-sidecar": "Moto avec side-car",
+    "car-type|pedestrian": "Piéton",
     "public-transit-asphalt|regular": "Asphalte",
     "public-transit-asphalt|colored": "Voie colorée rouge",
     "public-transit-asphalt|grass": "Gazon",
@@ -188,8 +191,8 @@
     "divider-type|palm-tree": "Banquette avec un palmier",
     "divider-type|bollard": "Délinéateur",
     "divider-type|dome": "Butoir",
-    "divider-type|jersey-barrier-concrete": "",
-    "divider-type|jersey-barrier-plastic": "",
+    "divider-type|jersey-barrier-concrete": "Barrière Jersey (béton)",
+    "divider-type|jersey-barrier-plastic": "Barrière Jersey (plastique)",
     "transit-shelter-elevation|street-level": "Au niveau de la rue",
     "transit-shelter-elevation|light-rail": "Quai pour système léger sur rail",
     "bike-rack-elevation|sidewalk-parallel": "Stationnement parallèle au niveau du trottoir",
@@ -210,10 +213,10 @@
     "flex-type|rideshare": "Covoiturage",
     "flex-type|taxi": "Taxi",
     "occupants|empty": "Vide",
-    "occupants|full": "",
-    "elevation|sidewalk": "",
+    "occupants|full": "Plein",
+    "elevation|sidewalk": "Hauteur du trottoir",
     "elevation|road": "Au niveau de la rue",
-    "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|traffic-cone": "Cône de signalisation",
+    "temporary-barrier-type|barricade": "Barricade"
   }
 }

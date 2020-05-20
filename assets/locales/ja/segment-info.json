@@ -103,6 +103,9 @@
     },
     "wide": {
       "name": "建物"
+    },
+    "arcade": {
+      "name": ""
     }
   },
   "variant-icons": {

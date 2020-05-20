@@ -114,6 +114,7 @@
     "please-reload": "Cortesemente ricarica questa pagina prima di continuare.",
     "street-deleted-elsewhere-title": "Questa strada è già stata cancellata da un'altra parte.",
     "street-deleted-elsewhere-description": "Questa strada è già stata cancellata in un altro browser.",
+    "auth-expired": "",
     "access-denied-title": "Non sei autenticato.",
     "access-denied-description": "Hai cancellato il processo di autenticazione.",
     "auth-api-problem-title": "C'è stato un problema di autenticazione.",
@@ -151,6 +152,7 @@
       "heading": "Benvenuti in Streetmix.",
       "new": {
         "intro": "Disegna, riassembla gli spazi e condividi la tua strada di vicinato. Aggiungi alberature, piste ciclabili, allarga i marciapiedi o le corsie stradali e scopri come le tue decisioni possono avere un'impatto positivo sulla comunità.",
+        "instruction": "",
         "instruct": "Riposiziona alcuni segmenti con {pointer}.",
         "instruct-pointer-finger": "il tuo dito",
         "instruct-pointer-mouse": "il tuo mouse"
@@ -175,13 +177,20 @@
       "credits": "Un progetto collaterale del {cfaLink} 2013:",
       "team-heading": "Team di progetto e di manutentenzione",
       "view-source": "Esplora il codice sorgente",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "Streetmix è sponsorizzata generosamente da:",
       "donate-link": "Supportaci finaziariamente",
       "github-link": "Contribuisci allo sviluppo open source",
       "open-source-link": "E' tutto open source!",
       "guidebook-link": "Guida",
       "tos-link": "Termini del servizio",
-      "privacy-link": "Informativa sulla privacy"
+      "privacy-link": "Informativa sulla privacy",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "Esporta in CSV",

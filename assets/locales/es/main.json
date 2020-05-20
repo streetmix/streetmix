@@ -114,6 +114,7 @@
     "please-reload": "",
     "street-deleted-elsewhere-title": "",
     "street-deleted-elsewhere-description": "",
+    "auth-expired": "",
     "access-denied-title": "",
     "access-denied-description": "",
     "auth-api-problem-title": "",
@@ -151,6 +152,7 @@
       "heading": "Bienvenido a Streetmix.",
       "new": {
         "intro": "Diseña, mezcla y comparte la calle de tu vecindad. Agregar arboles o vías para bicicletas, aceras más anchas o carriles de circulación, aprende cómo impactan a tu comunidad tus decisiones.",
+        "instruction": "",
         "instruct": "Comienza moviendo algunos segmentos con {pointer}.",
         "instruct-pointer-finger": "tu dedo",
         "instruct-pointer-mouse": "tu mouse"
@@ -175,13 +177,20 @@
       "credits": "Un proyecto paralelo de amigos {cfaLink} 2013:",
       "team-heading": "",
       "view-source": "Ver codigo fuente",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "",
       "donate-link": "",
       "github-link": "",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
-      "privacy-link": ""
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "",

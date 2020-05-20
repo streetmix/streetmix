@@ -114,6 +114,7 @@
     "please-reload": "編集を続けるにはページを再読込してください。",
     "street-deleted-elsewhere-title": "このストリートは削除されました。",
     "street-deleted-elsewhere-description": "このストリートは別のブラウザで削除されました。",
+    "auth-expired": "",
     "access-denied-title": "サインインしていません。",
     "access-denied-description": "サインイン処理を中断しました",
     "auth-api-problem-title": "サインインに失敗しました。",
@@ -151,6 +152,7 @@
       "heading": "Streetmixへようこそ。",
       "new": {
         "intro": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",
+        "instruction": "",
         "instruct": "まずは {pointer} の近くにあるセグメントをいくつか動かしてみましょう。",
         "instruct-pointer-finger": "あなたの指",
         "instruct-pointer-mouse": "あなたのマウス"
@@ -175,13 +177,20 @@
       "credits": "{cfaLink} 2013フェローによる他のプロジェクト:",
       "team-heading": "プロジェクトチームとメンテナ",
       "view-source": "ソースコードを表示",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "Streetmixスポンサー:",
       "donate-link": "財務支援",
       "github-link": "オープンなソースで貢献",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
-      "privacy-link": ""
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "",

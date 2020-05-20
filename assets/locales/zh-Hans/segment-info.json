@@ -115,6 +115,9 @@
     },
     "wide": {
       "name": "建筑物"
+    },
+    "arcade": {
+      "name": ""
     }
   },
   "variant-icons": {

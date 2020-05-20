@@ -114,6 +114,7 @@
     "please-reload": "계속하기 전에 이 페이지를 새로고침 해주세요.",
     "street-deleted-elsewhere-title": "이 스트리트는 다른 곳에서 삭제되었습니다.",
     "street-deleted-elsewhere-description": "이 스트리트는 다른 브라우저에서 삭제되었습니다.",
+    "auth-expired": "",
     "access-denied-title": "로그인 상태가 아닙니다.",
     "access-denied-description": "로그인 과정을 취소하였습니다.",
     "auth-api-problem-title": "로그인에 문제가 있습니다.",
@@ -151,6 +152,7 @@
       "heading": "스트리트믹스에 오신 것을 환영합니다.",
       "new": {
         "intro": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 나무나 자전거 도로를 추가하거나, 보도나 차선를 넓히는 나의 디자인이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
+        "instruction": "",
         "instruct": "{pointer}로 일부 세그먼트를 이동하여 시작하세요.",
         "instruct-pointer-finger": "손가락",
         "instruct-pointer-mouse": "마우스"
@@ -175,13 +177,20 @@
       "credits": "A side project by {cfaLink} 2013 fellows:",
       "team-heading": "프로젝트 팀 및 관리자",
       "view-source": "소스 코드 확인",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "스트리트믹스는 다음에 의해 후원됩니다:",
       "donate-link": "재정 지원하기",
       "github-link": "오픈 소스에 기여하기",
       "open-source-link": "우리는 오픈 소스입니다!",
       "guidebook-link": "가이드북",
       "tos-link": "서비스 약관",
-      "privacy-link": "개인 보호 정책"
+      "privacy-link": "개인 보호 정책",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "CSV로 내보내기",

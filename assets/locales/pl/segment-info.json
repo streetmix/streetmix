@@ -123,6 +123,9 @@
     },
     "wide": {
       "name": "Budynek"
+    },
+    "arcade": {
+      "name": ""
     }
   },
   "variant-icons": {

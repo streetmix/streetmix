@@ -123,6 +123,9 @@
     },
     "wide": {
       "name": "건물"
+    },
+    "arcade": {
+      "name": ""
     }
   },
   "variant-icons": {

@@ -114,6 +114,7 @@
     "please-reload": "Päivitä sivu ennen jatkamista.",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
+    "auth-expired": "",
     "access-denied-title": "Et ole kirjautunut sisään.",
     "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
@@ -151,6 +152,7 @@
       "heading": "Tervetuloa, tämä on Streetmix.",
       "new": {
         "intro": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
+        "instruction": "Aloita muokkaaminen siirtelemällä elementtejä.",
         "instruct": "Aloita siirtelemällä elementtejä {pointer}.",
         "instruct-pointer-finger": "sormella",
         "instruct-pointer-mouse": "hiirellä"
@@ -175,13 +177,20 @@
       "credits": "Seuraavien {cfaLink} 2013 -osallistujien sivuprojekti:",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
       "view-source": "Tutustu lähdekoodiin",
+      "partners": "Yhteistyössä",
+      "sponsors": "Sponsorit",
       "sponsored-by": "Streetmixin avokätiset sponsorit:",
       "donate-link": "Tue meitä taloudellisesti",
       "github-link": "Osallistu avoimen lähdekoodin kehittämiseen",
       "open-source-link": "Avointa lähdekoodia",
       "guidebook-link": "Käyttöopas",
       "tos-link": "Käyttöehdot",
-      "privacy-link": "Tietosuojakäytäntö"
+      "privacy-link": "Tietosuojakäytäntö",
+      "acknowledgements": "Kiitokset",
+      "font-designed-by": "{fontName}-kirjasimen suunnittelijalle {fontAuthor}.",
+      "emoji-by": "Hymiöiden suunnittelijalle {author}.",
+      "icons-by": "Kuvakkeiden suunnittelijalle {author}.",
+      "license-label": "(<a>Lisenssi</a>)"
     },
     "analytics": {
       "export-csv": "Vie CSV-tiedostoon",

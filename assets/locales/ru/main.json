@@ -12,8 +12,8 @@
       "my-streets": "Мои улицы",
       "settings": "Настройки",
       "share": "Поделиться",
-      "store": "",
-      "upgrade": ""
+      "store": "Магазин",
+      "upgrade": "Поддержка"
     },
     "help": {
       "keyboard-label": "Сочетания клавиш:",
@@ -28,7 +28,7 @@
       "sign-in-twitter-link": "Войти",
       "sign-in-link": "{signInLink} для красивых ссылок на улицы и персональной галереи улиц",
       "link": "Скопируйте и вставьте эту ссылку, чтобы поделиться:",
-      "copy-to-clipboard": "",
+      "copy-to-clipboard": "Скопировать в буфер",
       "twitter": "Поделиться через Twitter",
       "facebook": "Поделиться через Facebook",
       "print": "Распечатать…",
@@ -49,10 +49,10 @@
       "email": "Отправить письмо команде Streetmix",
       "github": "Посмотреть исходники на GitHub",
       "blog": "Посетить блог Streetmix",
-      "discord": "",
+      "discord": "Присоединиться к серверу Discord",
       "slack": "Присоединиться к чату Slack",
-      "minecraft": "",
-      "newsletter": ""
+      "minecraft": "Сыграть в Minecraft с нами!",
+      "newsletter": "Подписаться на рассылку"
     },
     "contribute": {
       "donate": "Пожертвовать",
@@ -114,6 +114,7 @@
     "please-reload": "Пожалуйста, перезагрузите эту страницу, прежде чем продолжить.",
     "street-deleted-elsewhere-title": "Эта улица была удалена в другом месте.",
     "street-deleted-elsewhere-description": "Эта улица была удалена в другом браузере.",
+    "auth-expired": "",
     "access-denied-title": "Вы не вошли.",
     "access-denied-description": "Вы отменили процесс входа.",
     "auth-api-problem-title": "Возникла проблема со входом в систему.",
@@ -140,7 +141,7 @@
     "remove": "Удалить",
     "close": "Закрыть",
     "dismiss": "Отклонить",
-    "okay": ""
+    "okay": "Окей!"
   },
   "dialogs": {
     "error": {
@@ -151,6 +152,7 @@
       "heading": "Добро пожаловать в Streetmix.",
       "new": {
         "intro": "Проектируйте, перемещайте, и делитесь вашими соседними улицами. Добавьте деревья или велосипедные дорожки, расширьте тротуары или полосы движения, узнайте, как ваши решения могут повлиять на ваше сообщество.",
+        "instruction": "Начните передвижением какого-нибудь элемента.",
         "instruct": "Начните с перемещения некоторых сегментов с помощью {pointer}.",
         "instruct-pointer-finger": "пальца",
         "instruct-pointer-mouse": "мышки"
@@ -175,28 +177,35 @@
       "credits": "Сайд проект стипендиатов {cfaLink} 2013 года:",
       "team-heading": "Проектная группа и сопровождающие",
       "view-source": "Посмотреть исходный код",
+      "partners": "Партнёры",
+      "sponsors": "Спонсоры",
       "sponsored-by": "Streetmix щедро спонсируется:",
       "donate-link": "Поддержите нас финансово",
       "github-link": "Внести вклад в open source",
-      "open-source-link": "",
-      "guidebook-link": "",
-      "tos-link": "",
-      "privacy-link": ""
+      "open-source-link": "Мы в открытом исходном коде!",
+      "guidebook-link": "Руководство",
+      "tos-link": "Политика использования",
+      "privacy-link": "Политика конфиденциальности",
+      "acknowledgements": "Благодарнсть",
+      "font-designed-by": "Шрифт {fontName} создан {fontAuthor}.",
+      "emoji-by": "Емодзи от {author}.",
+      "icons-by": "Иконки от {author}.",
+      "license-label": "(<a>Лицензия</a>)"
     },
     "analytics": {
-      "export-csv": "",
-      "heading": "",
-      "street-summary": "",
-      "segment-summary": "",
-      "segment-summary-single": "",
-      "source": ""
+      "export-csv": "Экспортировать в CSV",
+      "heading": "Аналитика",
+      "street-summary": "Ваша улица имеет провозную способность {averageTotal} человек в час с потенциальным максимом {potentialTotal} человек в час.",
+      "segment-summary": "{average} — {potential} чел./ч",
+      "segment-summary-single": "{amount} чел./час",
+      "source": "Источник"
     },
     "save": {
       "heading": "Сохранить как избражение",
       "option-labels": "Название и ширина сегментов",
       "option-name": "Название улицы",
       "option-sky": "Прозрачное небо",
-      "option-watermark": "",
+      "option-watermark": "Водяной знак",
       "loading": "Загрузка…",
       "save-button": "Сохранить на компьютер…",
       "license": "Это изображение, созданное через Streetmix может быть переиспользовано везде для любых целей под лицензией {licenseLink}.",
@@ -213,7 +222,7 @@
       "confirm-location": "Подтвердить местоположение",
       "clear-location": "Очистить местоположение",
       "unknown-location": "неизвестное местоположение",
-      "geotag-unavailable": ""
+      "geotag-unavailable": "Геокодирование сейчас недоступно. Вы можете просматривать карту, но не сможете изменить местоположение Вашей улицы."
     },
     "donate": {
       "heading": "Streetmix нужна ваша помощь!",
@@ -223,44 +232,44 @@
       "cancel": "Нет, спасибо"
     },
     "sign-in": {
-      "heading": "",
-      "description": "",
-      "email-label": "",
-      "email-description": "",
-      "email-invalid": "",
-      "social-heading": "",
+      "heading": "Войти / Регистрация",
+      "description": "Сохраните Ваш первый концепт или войдите, чтобы перейти к предыдущим концептам.",
+      "email-label": "Email",
+      "email-description": "Мы пришлем Вам ссылку для входа. Без пароля.",
+      "email-invalid": "Упс! Это не выглядит как правильный адрес электронной почты. Пожалуйста, попробуйте снова.",
+      "social-heading": "или",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "Войти с почтой",
+        "twitter": "Войти через Twitter",
+        "google": "Войти через Google",
+        "facebook": "Войти через Facebook"
       },
-      "tos": "",
-      "tos-link-label": "",
-      "privacy-link-label": "",
-      "loading-message": "",
-      "sent-message-with-email": "",
-      "email-unreceived": "",
-      "resend-email": ""
+      "tos": "Нажатием одной из кнопок я соглашаюсь с {tosLink} и {privacyLink}.",
+      "tos-link-label": "политикой использования",
+      "privacy-link-label": "политикой конфиденциальности",
+      "loading-message": "Выполняется вход...",
+      "sent-message-with-email": "Мы послали Вам письмо на {email}. Пожалуйста, следуйте инструкции в письме для продолжения регистрации!",
+      "email-unreceived": "Не получили?",
+      "resend-email": "Послать письмо снова"
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "Что нового в Streetmix?"
     },
     "newsletter": {
-      "heading": ""
+      "heading": "Подписаться на рассылку"
     }
   },
   "tools": {
-    "tooltip": "",
+    "tooltip": "Переключить инструменты",
     "environment": {
-      "heading": ""
+      "heading": "Окружающая среда"
     }
   },
   "prompt": {
     "new-street": "Новое название улицы:",
     "delete-street": "Вы уверены, что хотите полностью удалить {streetName}? Это не может быть отменено.",
     "new-width": "Новая ширина улицы (от {minWidth} к {maxWidth}):",
-    "segment-label": ""
+    "segment-label": "Название нового сегмента:"
   },
   "toast": {
     "segment-deleted": "Сегмент был удалён.",
@@ -286,7 +295,7 @@
     "imperial": "Переключиться на английские единицы (футы)"
   },
   "capacity": {
-    "ppl-per-hour": ""
+    "ppl-per-hour": "{capacity} чел./час"
   },
   "datetime": {
     "minutes-ago": "Несколько минут назад",
@@ -297,10 +306,10 @@
   "key": {
     "backspace": "Backspace",
     "shift": "Shift",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "plus": "Плюс",
+    "minus": "Минус",
+    "left-arrow": "Стрелка влево",
+    "right-arrow": "Стрелка вправо"
   },
   "tooltip": {
     "remove-segment": "Удалить сегмент",
@@ -312,10 +321,10 @@
     "decrease-width": "Уменьшить ширину (зажмите Shift для большей точности)",
     "add-floor": "Добавить уровень",
     "remove-floor": "Удалить уровень",
-    "scroll-street-left": "",
-    "scroll-street-right": "",
-    "scroll-left": "",
-    "scroll-right": ""
+    "scroll-street-left": "Прокрутить улицу влево",
+    "scroll-street-right": "Прокрутить улицу вправо",
+    "scroll-left": "Прокрутить влево",
+    "scroll-right": "Прокрутить вправо"
   },
   "street": {
     "default-name": "Безымянная улица",
@@ -352,49 +361,49 @@
     "delete-street-tooltip": "Удалить улицу",
     "street-count": "{count, plural, one {улица} few {улиц} many {улиц} other {улиц}}",
     "no-streets": "Пока что нет улиц",
-    "thumbnail-error": ""
+    "thumbnail-error": "Эскиз недоступен"
   },
   "users": {
     "anonymous": "Аноним",
     "byline": "от {user}"
   },
   "export": {
-    "watermark": ""
+    "watermark": "Создано с {streetmixWordmark}"
   },
   "meta": {
     "description": "Проектируйте, перемещайте, и делитесь вашими соседними улицами. Добавьте деревья или велосипедные дорожки, расширьте тротуары или полосы движения, узнайте, как ваши решения могут повлиять на ваше сообщество.",
     "page-title": "{streetName} (от {author})"
   },
   "credits": {
-    "core-team-heading": "",
-    "past-team-heading": "",
-    "advisors": "",
-    "additional-illustrations": "",
-    "additional-code": "",
-    "additional-contributors": "",
-    "special-thanks": "",
-    "translators": ""
+    "core-team-heading": "Команда",
+    "past-team-heading": "Предыдущие участники",
+    "advisors": "Консультанты",
+    "additional-illustrations": "Дополнительные иллюстрации",
+    "additional-code": "Дополнительный код",
+    "additional-contributors": "Дополнительные участники",
+    "special-thanks": "Особая благодарность",
+    "translators": "Переводчики"
   },
   "plus": {
     "locked": {
-      "sub": "",
-      "user": ""
+      "sub": "Подпишитесь для использования!",
+      "user": "Войдите для использования!"
     }
   },
   "i18n": {
     "lang": {
       "ar": "Арабский",
-      "ca": "",
+      "ca": "Каталанский",
       "de": "Немецкий",
       "en": "Английский",
       "es": "Испанский",
-      "es-419": "",
+      "es-419": "Испанский (Латинская Америка)",
       "es-mx": "Испанский (Мексика)",
       "fi": "Финский",
       "fr": "Французский",
       "it": "итальянский",
       "ja": "Японский",
-      "ko": "",
+      "ko": "Корейский",
       "pl": "Польский",
       "pt-br": "Португальский (Бразилия)",
       "ru": "Русский",

@@ -114,6 +114,7 @@
     "please-reload": "Por favor, recarga esta página antes de continuar.",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
+    "auth-expired": "",
     "access-denied-title": "No estás ingresado.",
     "access-denied-description": "Cancelaste el proceso de ingresar.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
@@ -151,6 +152,7 @@
       "heading": "Te damos la bienvenida a Streetmix.",
       "new": {
         "intro": "Diseña, re-mezcla, y comparte la calle de tu vecindario; añade arboles o carriles ciclistas; ensancha las banquetas o carriles vehiculares y aprende como tus decisiones impactan a tu comunidad.",
+        "instruction": "Empieza moviendo algunos segmentos de aquí para allá.",
         "instruct": "Empieza moviendo algunos segmentos de aquí para allá con {pointer}.",
         "instruct-pointer-finger": "tu dedo",
         "instruct-pointer-mouse": "tu ratón"
@@ -175,13 +177,20 @@
       "credits": "Un proyecto extracurricular de los {cfaLink} 2013 fellows:",
       "team-heading": "Equipo del proyecto",
       "view-source": "Ve la fuente del código",
+      "partners": "Socios",
+      "sponsors": "Patrocinadores",
       "sponsored-by": "Streetmix está apoyado generosamente por:",
       "donate-link": "Apoyarnos con fondos",
       "github-link": "Contribuir al código abierto",
       "open-source-link": "¡Nuestro código es abierto!",
       "guidebook-link": "Guía",
       "tos-link": "Condiciones (en)",
-      "privacy-link": "Privacidad (en)"
+      "privacy-link": "Privacidad (en)",
+      "acknowledgements": "Agradecimientos",
+      "font-designed-by": "{fontName} fuente diseñada por {fontAuthor}.",
+      "emoji-by": "Emoji por {author}.",
+      "icons-by": "Íconos por {author}.",
+      "license-label": "(<a>Licencia</a>)"
     },
     "analytics": {
       "export-csv": "Exportar a CSV",

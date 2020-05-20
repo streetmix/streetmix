@@ -114,6 +114,7 @@
     "please-reload": "Por favor recargar esta página antes de continuar",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
+    "auth-expired": "",
     "access-denied-title": "No has iniciado sesión",
     "access-denied-description": "Has cancelado el inicio de sesión",
     "auth-api-problem-title": "Hubo un problema con el inicio de sesión",
@@ -151,6 +152,7 @@
       "heading": "¡Bienvenido a Streetmix!",
       "new": {
         "intro": "Diseña, cambia y comparte la calle de tu vecindario. Añade árboles o carriles para bicicleta, ensancha las aceras o los carriles de tránsito, aprende cómo tus decisiones pueden impactar a tu comunidad.",
+        "instruction": "",
         "instruct": "Comienza por mover algunos segmentos con {pointer}.",
         "instruct-pointer-finger": "tu dedo",
         "instruct-pointer-mouse": "tu ratón"
@@ -175,13 +177,20 @@
       "credits": "",
       "team-heading": "Equipo de proyecto y mantenimiento",
       "view-source": "Ver el código fuente",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "Streetmix es patrocinado generosamente por:",
       "donate-link": "Apóyanos financieramente",
       "github-link": "Contribuir al código abierto",
       "open-source-link": "¡Somos de código abierto!",
       "guidebook-link": "Manual",
       "tos-link": "Términos de servicio",
-      "privacy-link": "Política de privacidad"
+      "privacy-link": "Política de privacidad",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "Exportar a CSV",

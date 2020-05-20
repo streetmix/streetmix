@@ -123,6 +123,9 @@
     },
     "wide": {
       "name": "Edificio"
+    },
+    "arcade": {
+      "name": "Edificio con arquerías"
     }
   },
   "variant-icons": {

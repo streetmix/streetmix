@@ -12,8 +12,8 @@
       "my-streets": "Mes rues",
       "settings": "Paramètres",
       "share": "Partager",
-      "store": "",
-      "upgrade": ""
+      "store": "Magasin",
+      "upgrade": "Mettre à jour"
     },
     "help": {
       "keyboard-label": "Raccourcis claviers :",
@@ -28,9 +28,9 @@
       "sign-in-twitter-link": "Se connecter",
       "sign-in-link": "{signInLink} pour accéder plus facilement à vos rues et à votre galerie personnelle de rues",
       "link": "Copier et coller ce lien pour le partager :",
-      "copy-to-clipboard": "",
-      "twitter": "Partager en utilisant Twitter",
-      "facebook": "Partager par Facebook",
+      "copy-to-clipboard": "Copier dans le presse-papier",
+      "twitter": "Partager via Twitter",
+      "facebook": "Partager via Facebook",
       "print": "Imprimer…",
       "save": "Sauver en tant qu'image…",
       "save-byline": "Pour inclure dans un rapport, un blogue, etc.",
@@ -49,10 +49,10 @@
       "email": "Envoyer un e-mail à la team Streetmix",
       "github": "Voir le code source sur GitHub",
       "blog": "Visitez le blog Streetmix",
-      "discord": "",
+      "discord": "Rejoindre le chat sur Discord",
       "slack": "Rejoindre le chat sur Slack",
-      "minecraft": "",
-      "newsletter": ""
+      "minecraft": "Jouer a Minecraft avec nous !",
+      "newsletter": "S'inscrire à la newsletter"
     },
     "contribute": {
       "donate": "Donner",
@@ -114,6 +114,7 @@
     "please-reload": "Veuillez recharger cette page avant de continuer.",
     "street-deleted-elsewhere-title": "Cette rue a été supprimée ailleurs.",
     "street-deleted-elsewhere-description": "Cette rue a été supprimée dans un autre navigateur.",
+    "auth-expired": "",
     "access-denied-title": "Vous n'êtes pas connecté.",
     "access-denied-description": "Vous avez annulé le processus de connexion.",
     "auth-api-problem-title": "Il y a eu un problème avec votre identification.",
@@ -151,6 +152,7 @@
       "heading": "Bienvenue dans Streetmix.",
       "new": {
         "intro": "Concevez, remixez et partagez la rue e votre quartier. Ajoutez des arbres ou des pistes cyclables, des trottoirs ou des routes. Découvrez comment votre décision peut impacter la communauté.",
+        "instruction": "",
         "instruct": "Commencez par déplacer des éléments de voirie avec {pointer}.",
         "instruct-pointer-finger": "votre doigt",
         "instruct-pointer-mouse": "votre sourie"
@@ -175,21 +177,28 @@
       "credits": "Un projet parallèle par {cfaLink} 2013 collaborateurs :",
       "team-heading": "Équipe de projet et mainteneurs",
       "view-source": "Voir le code source",
+      "partners": "Partenaires",
+      "sponsors": "Sponsors",
       "sponsored-by": "Streetmix est généreusement sponsorisé par :",
       "donate-link": "Aider nous financièrement",
       "github-link": "Contribuer à l'open source",
-      "open-source-link": "",
+      "open-source-link": "Nous sommes open source !",
       "guidebook-link": "",
       "tos-link": "Conditions d'utilisation",
-      "privacy-link": "Politique de confidentialité"
+      "privacy-link": "Politique de confidentialité",
+      "acknowledgements": "Remerciements",
+      "font-designed-by": "Police {fontName} conçue par {fontAuthor}.",
+      "emoji-by": "Emoji par {author}.",
+      "icons-by": "Icons par {author}.",
+      "license-label": "(<a>Licence</a>)"
     },
     "analytics": {
-      "export-csv": "",
+      "export-csv": "Exporter en CSV",
       "heading": "",
       "street-summary": "",
       "segment-summary": "",
-      "segment-summary-single": "",
-      "source": ""
+      "segment-summary-single": "{amount} personnes/heure",
+      "source": "Source"
     },
     "save": {
       "heading": "Sauver en tant qu'image",
@@ -247,7 +256,7 @@
       "heading": "Qu'est-ce qu'il y a de nouveau dans Streetmix ?"
     },
     "newsletter": {
-      "heading": ""
+      "heading": "S'inscrire à notre newsletter"
     }
   },
   "tools": {
@@ -286,7 +295,7 @@
     "imperial": "Passer aux unités impériales (pieds)"
   },
   "capacity": {
-    "ppl-per-hour": ""
+    "ppl-per-hour": "{capacity} personnes/heure"
   },
   "datetime": {
     "minutes-ago": "Il y a quelques minutes",
@@ -359,42 +368,42 @@
     "byline": "par {user}"
   },
   "export": {
-    "watermark": ""
+    "watermark": "Fait avec {streetmixWordmark}"
   },
   "meta": {
     "description": "Concevez, remixez et partagez la rue de votre quartier - le tout dans votre navigateur ! Ajoutez des arbres ou des pistes cyclables, élargissez des trottoirs ou des routes. Découvrez comment vos décisions peuvent impacter votre communauté.",
     "page-title": "{streetName}(par {author})"
   },
   "credits": {
-    "core-team-heading": "",
-    "past-team-heading": "",
-    "advisors": "",
+    "core-team-heading": "Membres du projet",
+    "past-team-heading": "Anciens membres du projet",
+    "advisors": "Conseillers",
     "additional-illustrations": "",
     "additional-code": "",
     "additional-contributors": "",
-    "special-thanks": "",
-    "translators": ""
+    "special-thanks": "Remerciement spécial à",
+    "translators": "Traducteurs"
   },
   "plus": {
     "locked": {
-      "sub": "",
-      "user": ""
+      "sub": "S'inscrire pour utiliser !",
+      "user": "Se connecter pour utiliser !"
     }
   },
   "i18n": {
     "lang": {
       "ar": "Arabe",
-      "ca": "",
+      "ca": "Catalan",
       "de": "Allemand",
       "en": "Anglais",
       "es": "Espagnol",
-      "es-419": "",
+      "es-419": "Espagnol (Amérique Latine)",
       "es-mx": "Espagnol (Mexique)",
       "fi": "Finlandais",
       "fr": "Français",
       "it": "Italien",
       "ja": "Japonais",
-      "ko": "",
+      "ko": "Coréen",
       "pl": "Polonais",
       "pt-br": "Portugais (Brésil)",
       "ru": "Russe",

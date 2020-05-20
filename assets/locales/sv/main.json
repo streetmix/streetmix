@@ -114,6 +114,7 @@
     "please-reload": "",
     "street-deleted-elsewhere-title": "",
     "street-deleted-elsewhere-description": "",
+    "auth-expired": "",
     "access-denied-title": "",
     "access-denied-description": "",
     "auth-api-problem-title": "",
@@ -151,6 +152,7 @@
       "heading": "Välkommen till Streetmix.",
       "new": {
         "intro": "Designa, ändra och dela din gata. Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur dina beslut kan påverka ditt närområde.",
+        "instruction": "",
         "instruct": "Börja genom att flytta runt några segment med {pointer}.",
         "instruct-pointer-finger": "ditt finger",
         "instruct-pointer-mouse": "musen"
@@ -175,13 +177,20 @@
       "credits": "",
       "team-heading": "",
       "view-source": "Visa källkod",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "",
       "donate-link": "",
       "github-link": "",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
-      "privacy-link": ""
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "",

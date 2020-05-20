@@ -114,6 +114,7 @@
     "please-reload": "Si us plau, refresqueu aquesta pàgina abans de continuar.",
     "street-deleted-elsewhere-title": "Aquest carrer ha estat eliminat des d'algun altre lloc.",
     "street-deleted-elsewhere-description": "Aquest carrer ha estat eliminat des d'un altre navegador.",
+    "auth-expired": "",
     "access-denied-title": "No heu iniciat sessió.",
     "access-denied-description": "Heu cancel·lat el procés d'inici de sessió.",
     "auth-api-problem-title": "Hi ha hagut un problema amb l'inici de sessió.",
@@ -151,6 +152,7 @@
       "heading": "Benvinguts a Streetmix.",
       "new": {
         "intro": "Dissenyeu, remeneu i compartiu el carrer del vostre barri. Afegiu arbres o carrils bici, amples voreres o carrils per al trànsit, aprengueu com les vostres decisions poden impactar la comunitat.",
+        "instruction": "",
         "instruct": "Comenceu movent alguns segments amb {pointer}.",
         "instruct-pointer-finger": "el vostre dit",
         "instruct-pointer-mouse": "el vostre ratolí"
@@ -175,13 +177,20 @@
       "credits": "",
       "team-heading": "",
       "view-source": "",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "",
       "donate-link": "",
       "github-link": "Contribuïu al codi obert",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
-      "privacy-link": ""
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "",

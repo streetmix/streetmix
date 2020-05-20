@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Тротуар",
-    "pedestrian": "",
-    "sidewalk-tree": "деревьями",
+    "pedestrian": "Пешеход",
+    "sidewalk-tree": "Деревья",
     "bike-rack": "Парковочная велостойка",
     "bench": "Скамейка",
-    "cafe-seating": "",
+    "cafe-seating": "Столики кафе",
     "wayfinding-sign": "Путевой знак",
     "sidewalk-lamp": "фонарем",
     "parklet": "Парклет",
@@ -15,9 +15,9 @@
     "median": "Медиана",
     "bollard": "Тумба",
     "dome": "Купол исключения движения",
-    "jersey-barrier": "",
-    "scooter": "",
-    "scooter-drop-zone": "",
+    "jersey-barrier": "Блок (бетонный/пластиковый)",
+    "scooter": "Электросамокат",
+    "scooter-drop-zone": "Парковка для самокатов",
     "bike-lane": "Велосипедная дорожка",
     "parking-lane": "Парковочная полоса",
     "perpendicular-parking": "Перпендикулярная парковка",
@@ -38,9 +38,9 @@
     "streetcar": "Трамвай",
     "light-rail": "Скоростной трамвай",
     "transit-shelter": "Автобусная остановка",
-    "temporary-barrier": "",
+    "temporary-barrier": "Временное заграждение",
     "inception-train": "Вагон из фильма Начало",
-    "magic-carpet": ""
+    "magic-carpet": "Ковер-самолет"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -123,6 +123,9 @@
     },
     "wide": {
       "name": "Здание"
+    },
+    "arcade": {
+      "name": "Дом с арками"
     }
   },
   "variant-icons": {
@@ -134,7 +137,7 @@
     "turn-lane-orientation|right-straight": "Право и прямо",
     "turn-lane-orientation|right": "Право",
     "turn-lane-orientation|both": "Оба",
-    "turn-lane-orientation|left-right-straight": "",
+    "turn-lane-orientation|left-right-straight": "Лево, право и прямо",
     "turn-lane-orientation|shared": "Общий",
     "bench-orientation|left": "Лево",
     "bench-orientation|right": "Право",
@@ -163,10 +166,10 @@
     "car-type|car": "Машина",
     "car-type|sharrow": "Разметка дял велосипедистов",
     "car-type|truck": "Грузовик",
-    "car-type|av": "",
-    "car-type|motorcycle": "",
-    "car-type|motorcycle-sidecar": "",
-    "car-type|pedestrian": "",
+    "car-type|av": "Беспилотный автомобиль",
+    "car-type|motorcycle": "Мотоцикл",
+    "car-type|motorcycle-sidecar": "Мотоцикл с коляской",
+    "car-type|pedestrian": "Пешеход",
     "public-transit-asphalt|regular": "Асфальт",
     "public-transit-asphalt|colored": "Красная полоса",
     "public-transit-asphalt|grass": "Трава",
@@ -188,8 +191,8 @@
     "divider-type|palm-tree": "Pазделительная полоса с пальмой",
     "divider-type|bollard": "Тумба",
     "divider-type|dome": "Купол исключения движения",
-    "divider-type|jersey-barrier-concrete": "",
-    "divider-type|jersey-barrier-plastic": "",
+    "divider-type|jersey-barrier-concrete": "Бетонный блок",
+    "divider-type|jersey-barrier-plastic": "Пластиковый блок",
     "transit-shelter-elevation|street-level": "Уровень улицы",
     "transit-shelter-elevation|light-rail": "Платорма для трамвая",
     "bike-rack-elevation|sidewalk-parallel": "Параллельная парковка, уровень тротуара",
@@ -210,10 +213,10 @@
     "flex-type|rideshare": "Автостоп",
     "flex-type|taxi": "Такси",
     "occupants|empty": "Пустой",
-    "occupants|full": "",
-    "elevation|sidewalk": "",
+    "occupants|full": "Полный",
+    "elevation|sidewalk": "Уровень тротуара",
     "elevation|road": "Уровень улицы",
-    "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|traffic-cone": "Уличный конус",
+    "temporary-barrier-type|barricade": "Заграждение"
   }
 }

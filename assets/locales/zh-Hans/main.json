@@ -114,6 +114,7 @@
     "please-reload": "请刷新此页面再继续。",
     "street-deleted-elsewhere-title": "这条街道已在别处被删除。",
     "street-deleted-elsewhere-description": "这条街道已在另一个浏览器中被删除。",
+    "auth-expired": "",
     "access-denied-title": "你还未登录。",
     "access-denied-description": "你取消了这次登录。",
     "auth-api-problem-title": "你在登录过程中遇到了一点小问题。",
@@ -151,6 +152,7 @@
       "heading": "欢迎来到Streetmix。",
       "new": {
         "intro": "重新设计并共享你所在社区的街道。你可以添加绿化带树木或自行车道，拓宽人行道或机动车道，并从中探索你的设计将会如何影响你的社区。",
+        "instruction": "",
         "instruct": "你可以通过用{pointer}移动街道的各个元素。",
         "instruct-pointer-finger": "你的手指",
         "instruct-pointer-mouse": "你的鼠标"
@@ -175,13 +177,20 @@
       "credits": "由参加2013 CfA 的朋友们所创建的项目：{cfaLink}",
       "team-heading": "项目组团队及技术维护员",
       "view-source": "查看源代码",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "Streetmix由以下组织及公司慷慨赞助：",
       "donate-link": "赞助我们",
       "github-link": "贡献源代码",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
-      "privacy-link": ""
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "",

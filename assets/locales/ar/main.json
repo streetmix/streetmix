@@ -114,6 +114,7 @@
     "please-reload": "يُرجى إعادة تحميل هذه الصفحة قبل الاستمرار.",
     "street-deleted-elsewhere-title": "تم حذف هذا الشارع من مكان آخر.",
     "street-deleted-elsewhere-description": "تم حذف هذا الشارع من متصفح آخر.",
+    "auth-expired": "",
     "access-denied-title": "لم تقم بتسجيل الدخول.",
     "access-denied-description": "لقد قمت بإلغاء عملية تسجيل الدخول.",
     "auth-api-problem-title": "حدث خلل أثناء عملية تسجيل الدخول.",
@@ -151,6 +152,7 @@
       "heading": "مرحباً في Streetmix.",
       "new": {
         "intro": "قم بتصميم وإعادة توزيع شارع الحي ومشاركته. أضف أشجار أو مسارات الدراجات، قم بتوسيع الأرصفة أو الممرات المرورية، تعلم كيف يمكن لقراراتك التأثير في مجتمعك.",
+        "instruction": "",
         "instruct": "البدء من خلال تحريك بعض الأجزاء {pointer}.",
         "instruct-pointer-finger": " باللمس",
         "instruct-pointer-mouse": "باستخدام مؤشر الفأرة"
@@ -175,13 +177,20 @@
       "credits": "مشروع جانبي بحلول عام {cfaLink} 2013:",
       "team-heading": "فريق المشروع والمشرفين",
       "view-source": "إظهار شيفرة المصدر",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "مشروع Streetmix برعاية سخيّة من:",
       "donate-link": "إدعمنا مالياً",
       "github-link": "مساهمة في فتح شيفرة المصدر",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
-      "privacy-link": ""
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "",

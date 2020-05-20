@@ -114,6 +114,7 @@
     "please-reload": "請刷新此頁再繼續。",
     "street-deleted-elsewhere-title": "這條街道已在別處被刪除。",
     "street-deleted-elsewhere-description": "這條街道已在別的瀏覽器中被刪除。",
+    "auth-expired": "",
     "access-denied-title": "你還沒有登錄。",
     "access-denied-description": "你取消了這次登錄。",
     "auth-api-problem-title": "在你登錄的過程中出了點小問題。",
@@ -151,6 +152,7 @@
       "heading": "歡迎來到 Streetmix",
       "new": {
         "intro": "重新設計并分享你所在社區的街道。在添加行道樹，自行車道，拓寬人行道或車道的過程中，探索和發現這些改變對社區的影響。",
+        "instruction": "",
         "instruct": "開始用{pointer}來移動街道的各個部分",
         "instruct-pointer-finger": "你的手指",
         "instruct-pointer-mouse": "你的滑鼠"
@@ -175,13 +177,20 @@
       "credits": "由參加2013 CfA 的朋友所創建的項目{cfaLink}：",
       "team-heading": "項目團隊及技術維護員",
       "view-source": "查看源代碼",
+      "partners": "",
+      "sponsors": "",
       "sponsored-by": "Streetmix 由以下組織及公司慷慨贊助：",
       "donate-link": "贊助我們",
       "github-link": "貢獻源代碼",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
-      "privacy-link": ""
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
     },
     "analytics": {
       "export-csv": "",
