@@ -30,4 +30,20 @@ $tooltip-max-width: 150px;
 
 .tippy-arrow {
   color: $tooltip-background-colour;
+
+  .tippy-box[data-placement="bottom"] & {
+    margin-top: -1px;
+  }
+
+  .tippy-box[data-placement="top"] & {
+    margin-bottom: -1px;
+  }
+
+  .tippy-box[data-placement="left"] & {
+    margin-right: -1px;
+  }
+
+  .tippy-box[data-placement="right"] & {
+    margin-left: -1px;
+  }
 }
