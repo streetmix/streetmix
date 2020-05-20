@@ -49,7 +49,7 @@ Clone and install Streetmix
    .. prompt:: bash $
 
       git clone https://github.com/streetmix/streetmix.git
-   
+
 
 2. Change the directory to Streetmix's root directoy, and install project dependencies.
 
@@ -131,6 +131,9 @@ Clone and install Streetmix
       npx sequelize db:create
       npx sequelize db:migrate
 
+.. tip::
+  In general, sequelize should offer some sort of confirmation or error after completing these commands. If creating the database is successful, you should be able to see the database listed on your system by introspecting your databases using psql, PgAdmin, or other tools. The database needs to successfully exist before migrations can occur.
+  Currently, there is not a reliable way to run the application without having a successfully created database, so this is an important step!
 
 Run Streetmix
 +++++++++++++
@@ -143,9 +146,19 @@ See :ref:`install-all`, below.
 On Linux
 ----------
 
-.. admonition:: TODO
+The primary requirements for this project are Node.js and Postgresql. You will need those installed if you do not have them already.
 
-   This section has not yet been written.
+`Installing Node.js < https://www.ostechnix.com/install-node-js-linux/>`_
+
+
+`Installing Postgres < http://postgresguide.com/setup/install.html>`_
+
+If you haven't installed Postgres on your machine before, you may need to set up some intial configuration. `Here is an example for ArchLinux < https://wiki.archlinux.org/index.php/PostgreSQL>`_.
+
+
+You may need to look for instructions more specific to your distro for setting up Postgres.
+
+We also welcome contributions to our documentation, so if you get Streetmix up and running on a different distro and would like to share how, please feel free!
 
 
 .. _install-all:

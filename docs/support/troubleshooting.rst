@@ -32,7 +32,8 @@ While developing Streetmix, here are solutions to some problems that may arise.
 Strategies for resolving most common issues
 +++++++++++++++++++++++++++++++++++++++++++
 
-When you run into problems, **try this first!**
+Check which version of node you are using and make sure it matches the versions listed in ``package.json``
+If you're still running into problems, **try this first!**:
 
 - Update your global ``node`` and ``npm`` versions to the latest versions.
 - Remove the :file:`node_modules` and :file:`.cache` folders, if present, and reinstall (:ref:`install-streetmix`).
@@ -45,4 +46,3 @@ Specific issues
 This section is for troubleshooting specific issues.
 
 - **The server keeps restarting in a loop** with the ``EADDRINUSE`` error code. We have documented a solution in `GitHub issue #983 <https://github.com/streetmix/streetmix/issues/983>`_.
-
