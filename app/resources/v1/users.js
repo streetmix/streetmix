@@ -1,5 +1,4 @@
 const config = require('config')
-const { v1: uuidv1 } = require('uuid')
 
 const Twitter = require('twitter')
 const cloudinary = require('cloudinary')
