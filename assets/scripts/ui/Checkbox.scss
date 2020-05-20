@@ -27,6 +27,13 @@ $label-outline-color: $color-2;
 .checkbox-item {
   position: relative;
 
+  /* Fits DOM element to content, so check mark is aligned to box
+     if content is not aligned left */
+  display: inline-block;
+
+  /* Vertical alignment of checkbox and label text */
+  line-height: 1.5em;
+
   /* Hides the original input element from view, but not from DOM */
   input {
     position: absolute;
