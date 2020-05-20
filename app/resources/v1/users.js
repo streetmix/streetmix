@@ -1,5 +1,6 @@
 const config = require('config')
-const uuidv1 = require('uuid/v1')
+const { v1: uuidv1 } = require('uuid')
+
 const Twitter = require('twitter')
 const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
