@@ -1,22 +1,17 @@
 import React, { useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { IntlProvider } from 'react-intl'
 import { useSelector } from 'react-redux'
 import Scrollable from '../ui/Scrollable'
+import Tooltip, { useSingleton } from '../ui/Tooltip'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import { getAllSegmentInfoArray } from '../segments/info'
 import { generateRandSeed } from '../util/random'
 import './Palette.scss'
 
-Palette.propTypes = {
-  handlePointerOver: PropTypes.func.isRequired,
-  handlePointerOut: PropTypes.func.isRequired,
-  handleScroll: PropTypes.func.isRequired
-}
-
 function Palette (props) {
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
+  const [source, target] = useSingleton()
   const scrollable = useRef()
 
   // `randSeed` is stored as a ref so that its value does not change on every re-render
@@ -28,63 +23,54 @@ function Palette (props) {
     }
   }, [])
 
-  function renderPaletteItems () {
-    const segments = getAllSegmentInfoArray()
+  const segments = getAllSegmentInfoArray()
 
-    // For each segment, set "disabled" property instead that indicates
-    // whether this segment is in a disabled state for this user
-    // Then filter out disabled segments that do not have the
-    // `alwaysShowInPalette` property set to `true`
-    const displayedSegments = segments
-      .map((segment) => {
-        // Accept segments that don't have the `enableWithFlag` property
-        const enabledByDefault = !segment.enableWithFlag
-        // Accept segments with the `enableWithFlag` property, but only if
-        // the flags have that value set to true.
-        const enabledByFlag =
-          segment.enableWithFlag && flags[segment.enableWithFlag].value
+  // For each segment, set "disabled" property instead that indicates
+  // whether this segment is in a disabled state for this user
+  // Then filter out disabled segments that do not have the
+  // `alwaysShowInPalette` property set to `true`
+  const displayedSegments = segments
+    .map((segment) => {
+      // Accept segments that don't have the `enableWithFlag` property
+      const enabledByDefault = !segment.enableWithFlag
+      // Accept segments with the `enableWithFlag` property, but only if
+      // the flags have that value set to true.
+      const enabledByFlag =
+        segment.enableWithFlag && flags[segment.enableWithFlag].value
 
-        return {
-          ...segment,
-          disabled: !(enabledByDefault || enabledByFlag)
-        }
-      })
-      .filter(
-        (segment) =>
-          !segment.disabled || (segment.disabled && segment.alwaysShowInPalette)
-      )
-
-    // Return all enabled segments as an array of SegmentForPalette components.
-    return displayedSegments.map((segment) => {
-      const variant = segment.paletteIcon
-        ? segment.paletteIcon
-        : Object.keys(segment.details).shift()
-
-      return (
-        <SegmentForPalette
-          key={segment.id}
-          type={segment.id}
-          variantString={variant}
-          onPointerOver={props.handlePointerOver}
-          randSeed={randSeed.current}
-          disabled={segment.disabled}
-        />
-      )
+      return {
+        ...segment,
+        disabled: !(enabledByDefault || enabledByFlag)
+      }
     })
-  }
+    .filter(
+      (segment) =>
+        !segment.disabled || (segment.disabled && segment.alwaysShowInPalette)
+    )
+    .map((segment) => (
+      <SegmentForPalette
+        key={segment.id}
+        type={segment.id}
+        variantString={
+          segment.paletteIcon
+            ? segment.paletteIcon
+            : Object.keys(segment.details).shift()
+        }
+        randSeed={randSeed.current}
+        disabled={segment.disabled}
+        tooltipTarget={target}
+      />
+    ))
 
   return (
-    <div onPointerOut={props.handlePointerOut}>
-      <Scrollable
-        className="palette"
-        ref={scrollable}
-        onScroll={props.handleScroll}
-      >
+    <>
+      <Tooltip source={source} />
+      <Scrollable className="palette" ref={scrollable}>
         <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-          <>{renderPaletteItems()}</>
+          {displayedSegments}
         </IntlProvider>
       </Scrollable>
-    </div>
+    </>
   )
 }
 

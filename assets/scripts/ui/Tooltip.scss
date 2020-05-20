@@ -1,6 +1,6 @@
 @import "../../styles/variables.scss";
 
-$tooltip-background-colour: rgba(24, 24, 24, 0.8);
+$tooltip-background-colour: #2a2b2a;
 $tooltip-font-colour: white;
 $tooltip-font-weight: bold;
 $tooltip-max-width: 150px;
@@ -15,35 +15,20 @@ $tooltip-max-width: 150px;
   text-align: center;
   max-width: $tooltip-max-width;
   box-shadow: $medium-box-shadow;
+  opacity: 0.85;
 }
 
 .tippy-content {
   padding: 0;
 
   p {
-    margin: 0.2em;
+    margin: 0;
     font-weight: normal;
-    font-size: 0.9em;
+    font-size: 0.85em;
     opacity: 0.75;
   }
 }
 
 .tippy-arrow {
   color: $tooltip-background-colour;
-
-  .tippy-box[data-placement="bottom"] & {
-    margin-top: -1px;
-  }
-
-  .tippy-box[data-placement="top"] & {
-    margin-bottom: -1px;
-  }
-
-  .tippy-box[data-placement="left"] & {
-    margin-right: -1px;
-  }
-
-  .tippy-box[data-placement="right"] & {
-    margin-left: -1px;
-  }
 }

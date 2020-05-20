@@ -7,12 +7,16 @@ exports[`SegmentForPalette renders width correctly depending on the dimension 1`
     data-testid="segment-for-palette"
     style="width: 424px;"
   >
-    <canvas
-      class="segment-image"
-      height="445"
-      style="width: 424px; height: 445px; left: 400px;"
-      width="424"
-    />
+    <div
+      style="height: 80px;"
+    >
+      <canvas
+        class="segment-image"
+        height="445"
+        style="width: 424px; height: 445px; left: 400px;"
+        width="424"
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;

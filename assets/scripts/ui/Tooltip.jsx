@@ -1,3 +1,7 @@
+/**
+ * This component is a wrapper around tippyjs/react to provide
+ * functionality common to Streetmix's implementation of it
+ */
 import React from 'react'
 import PropTypes from 'prop-types'
 import Tippy, { useSingleton } from '@tippyjs/react'
@@ -15,7 +19,7 @@ Tooltip.propTypes = {
 }
 
 function Tooltip ({
-  placement,
+  placement = 'top',
   source,
   target,
   label,
@@ -30,8 +34,7 @@ function Tooltip ({
         offset={[0, 10]}
         duration={100}
         animation="shift-toward"
-        delay={[200, 150]}
-        moveTransition="transform 150ms cubic-bezier(0.22, 1, 0.36, 1)"
+        delay={[150, 0]}
         singleton={source}
         {...props}
       />
@@ -53,6 +56,10 @@ function Tooltip ({
       </Tippy>
     )
   }
+
+  // If something happens and above conditions can't render, just
+  // return any child nodes
+  return children
 }
 
 export default Tooltip
