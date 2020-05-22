@@ -96,6 +96,7 @@
     "@reduxjs/toolkit": "1.3.5",
     "@sentry/browser": "5.15.5",
     "@streetmix/illustrations": "0.9.0",
+    "@tippyjs/react": "4.0.2",
     "async": "3.1.0",
     "auth0": "2.20.0",
     "auth0-js": "9.13.2",

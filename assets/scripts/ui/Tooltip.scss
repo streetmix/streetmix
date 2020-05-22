@@ -1,0 +1,49 @@
+@import "../../styles/variables.scss";
+
+$tooltip-background-colour: rgba(24, 24, 24, 0.8);
+$tooltip-font-colour: white;
+$tooltip-font-weight: bold;
+$tooltip-max-width: 150px;
+
+// Styles must be used in conjunction with the default tippy.js css
+.tippy-box {
+  background-color: $tooltip-background-colour;
+  padding: 0.5em 1.25em;
+  font-weight: $tooltip-font-weight;
+  color: $tooltip-font-colour;
+  border-radius: $border-radius;
+  text-align: center;
+  max-width: $tooltip-max-width;
+  box-shadow: $medium-box-shadow;
+}
+
+.tippy-content {
+  padding: 0;
+
+  p {
+    margin: 0.2em;
+    font-weight: normal;
+    font-size: 0.9em;
+    opacity: 0.75;
+  }
+}
+
+.tippy-arrow {
+  color: $tooltip-background-colour;
+
+  .tippy-box[data-placement="bottom"] & {
+    margin-top: -1px;
+  }
+
+  .tippy-box[data-placement="top"] & {
+    margin-bottom: -1px;
+  }
+
+  .tippy-box[data-placement="left"] & {
+    margin-right: -1px;
+  }
+
+  .tippy-box[data-placement="right"] & {
+    margin-left: -1px;
+  }
+}
