@@ -9,7 +9,8 @@ import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
 
-const DEFAULT_BODY = 'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
+const DEFAULT_BODY =
+  'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
 
 const UpgradeDialog = ({ userId, roles }) => {
   const intl = useIntl()
@@ -49,24 +50,37 @@ const UpgradeDialog = ({ userId, roles }) => {
   if (hasTier1) {
     activePanel = (
       <p>
-        <FormattedMessage id="upgrade.hasTier1" defaultMessage="Thanks for supporting Streetmix!" />
-      </p>)
+        <FormattedMessage
+          id="upgrade.hasTier1"
+          defaultMessage="Thanks for supporting Streetmix!"
+        />
+      </p>
+    )
   } else if (loading) {
     activePanel = (
       <p>
         <FormattedMessage id="upgrade.loading" defaultMessage="Loading..." />
-      </p>)
+      </p>
+    )
   } else if (error) {
     activePanel = (
       <p>
-        <FormattedMessage id="upgrade.error" defaultMessage="We encountered an error:" />
+        <FormattedMessage
+          id="upgrade.error"
+          defaultMessage="We encountered an error:"
+        />
         {error}
-      </p>)
+      </p>
+    )
   } else if (data) {
     activePanel = (
       <p>
-        <FormattedMessage id="upgrade.success" defaultMessage="Thank you! Please refresh this page to see your upgrades." />
-      </p>)
+        <FormattedMessage
+          id="upgrade.success"
+          defaultMessage="Thank you! Please refresh this page to see your upgrades."
+        />
+      </p>
+    )
   } else {
     activePanel = (
       <>
@@ -81,9 +95,10 @@ const UpgradeDialog = ({ userId, roles }) => {
           locale="auto"
           stripeKey={STRIPE_API_KEY}
           token={onToken}
-          zipCode
+          zipCode={true}
         />
-      </>)
+      </>
+    )
   }
 
   return (
@@ -104,7 +119,9 @@ const UpgradeDialog = ({ userId, roles }) => {
 
 function mapStateToProps (state) {
   const { userId } = state.user.signInData || {}
-  const roles = state.user.profileCache ? state.user.profileCache[userId].roles : []
+  const roles = state.user.profileCache
+    ? state.user.profileCache[userId].roles
+    : []
   return {
     userId,
     roles

@@ -76,7 +76,7 @@ function NotificationBar ({ notification = {} }) {
       in={show}
       timeout={TRANSITION_DURATION}
       onExited={handleExited}
-      unmountOnExit
+      unmountOnExit={true}
     >
       <div
         className="notification-bar"

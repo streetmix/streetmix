@@ -71,7 +71,11 @@ describe('GalleryStreetItem', () => {
     window.confirm = jest.fn(() => true)
 
     const wrapper = renderWithReduxAndIntl(
-      <GalleryStreetItem street={MOCK_STREET} doDelete={doDelete} allowDelete />
+      <GalleryStreetItem
+        street={MOCK_STREET}
+        doDelete={doDelete}
+        allowDelete={true}
+      />
     )
 
     fireEvent.click(wrapper.getByTitle('Delete street'))
@@ -83,7 +87,11 @@ describe('GalleryStreetItem', () => {
     window.confirm = jest.fn(() => false)
 
     const wrapper = renderWithReduxAndIntl(
-      <GalleryStreetItem street={MOCK_STREET} doDelete={doDelete} allowDelete />
+      <GalleryStreetItem
+        street={MOCK_STREET}
+        doDelete={doDelete}
+        allowDelete={true}
+      />
     )
 
     fireEvent.click(wrapper.getByTitle('Delete street'))

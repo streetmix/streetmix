@@ -66,7 +66,7 @@ function StreetMetaWidthMenu ({ street, onChange }) {
   const CustomWidthOption =
     defaultWidths.indexOf(Number.parseFloat(width)) === -1 ? (
       <>
-        <option disabled />
+        <option disabled={true} />
         {renderOption(width, units)}
       </>
     ) : null
@@ -83,15 +83,15 @@ function StreetMetaWidthMenu ({ street, onChange }) {
         defaultMessage: 'Change width of the street'
       })}
     >
-      <option disabled>
+      <option disabled={true}>
         {formatMessage({
           id: 'width.occupied',
           defaultMessage: 'Occupied width:'
         })}
       </option>
-      <option disabled>{prettifyWidth(occupiedWidth, units)}</option>
-      <option disabled />
-      <option disabled>
+      <option disabled={true}>{prettifyWidth(occupiedWidth, units)}</option>
+      <option disabled={true} />
+      <option disabled={true}>
         {formatMessage({
           id: 'width.building',
           defaultMessage: 'Building-to-building width:'
@@ -105,7 +105,7 @@ function StreetMetaWidthMenu ({ street, onChange }) {
           defaultMessage: 'Different width…'
         })}
       </option>
-      <option disabled />
+      <option disabled={true} />
       <option
         id="switch-to-imperial-units"
         value={STREET_WIDTH_SWITCH_TO_IMPERIAL}

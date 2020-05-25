@@ -166,7 +166,7 @@ export class StreetEditable extends React.Component {
           classNames="switching-away"
           exit={!immediateRemoval}
           onExit={this.handleSwitchSegmentAway}
-          unmountOnExit
+          unmountOnExit={true}
         >
           <Segment
             key={segment.id}

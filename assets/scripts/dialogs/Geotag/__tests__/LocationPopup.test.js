@@ -34,7 +34,7 @@ describe('LocationPopup', () => {
     const wrapper = renderWithIntl(
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
-        isEditable
+        isEditable={true}
         handleConfirm={handleConfirm}
       />
     )
@@ -53,8 +53,8 @@ describe('LocationPopup', () => {
     const wrapper = renderWithIntl(
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
-        isEditable
-        isClearable
+        isEditable={true}
+        isClearable={true}
         handleClear={handleClear}
       />
     )

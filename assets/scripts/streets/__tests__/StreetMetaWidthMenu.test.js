@@ -59,7 +59,7 @@ describe('StreetMetaWidthMenu', () => {
           width: 40,
           occupiedWidth: 10
         }}
-        editable
+        editable={true}
         onChange={handleChange}
       />
     )

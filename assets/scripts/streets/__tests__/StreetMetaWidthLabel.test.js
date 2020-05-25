@@ -16,7 +16,7 @@ describe('StreetMetaWidthLabel', () => {
     const wrapper = renderWithIntl(
       <StreetMetaWidthLabel
         street={dummyStreetObject}
-        editable
+        editable={true}
         onClick={jest.fn()}
       />
     )
@@ -44,7 +44,7 @@ describe('StreetMetaWidthLabel', () => {
           occupiedWidth: 9,
           remainingWidth: 1
         }}
-        editable
+        editable={true}
         onClick={jest.fn()}
       />
     )
@@ -60,7 +60,7 @@ describe('StreetMetaWidthLabel', () => {
           occupiedWidth: 11,
           remainingWidth: -1
         }}
-        editable
+        editable={true}
         onClick={jest.fn()}
       />
     )
@@ -73,7 +73,7 @@ describe('StreetMetaWidthLabel', () => {
     const wrapper = renderWithIntl(
       <StreetMetaWidthLabel
         street={dummyStreetObject}
-        editable
+        editable={true}
         onClick={handleClick}
       />
     )

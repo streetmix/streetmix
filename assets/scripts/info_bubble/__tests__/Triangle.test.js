@@ -10,7 +10,7 @@ describe('Triangle', () => {
   })
 
   it('renders an highlighted triangle', () => {
-    const wrapper = render(<Triangle highlight />)
+    const wrapper = render(<Triangle highlight={true} />)
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 

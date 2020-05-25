@@ -48,7 +48,7 @@ describe('SegmentLabelContainer', () => {
     const { asFragment } = renderWithReduxAndIntl(
       <SegmentLabelContainer
         {...testProps}
-        editable
+        editable={true}
         editSegmentLabel={() => {}}
       />
     )

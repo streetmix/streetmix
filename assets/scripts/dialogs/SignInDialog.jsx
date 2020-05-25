@@ -239,7 +239,7 @@ export default class SignInDialog extends React.Component {
                   name="email"
                   onChange={this.handleChange}
                   placeholder="test@test.com"
-                  required
+                  required={true}
                 />
 
                 {this.state.error && this.renderErrorMessage()}

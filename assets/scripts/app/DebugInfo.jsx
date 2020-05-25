@@ -89,7 +89,7 @@ function DebugInfo (props) {
   if (isVisible === true) {
     return (
       <div className="debug-info">
-        <textarea readOnly wrap="off" ref={textareaEl} />
+        <textarea readOnly={true} wrap="off" ref={textareaEl} />
       </div>
     )
   }
