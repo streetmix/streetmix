@@ -11,7 +11,13 @@ describe('Checkbox', () => {
 
   it('renders snapshot with all props', () => {
     const wrapper = render(
-      <Checkbox checked disabled value="bar" id="baz" onChange={jest.fn()}>
+      <Checkbox
+        checked={true}
+        disabled={true}
+        value="bar"
+        id="baz"
+        onChange={jest.fn()}
+      >
         foo
       </Checkbox>
     )

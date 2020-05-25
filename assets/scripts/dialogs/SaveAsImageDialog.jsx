@@ -295,7 +295,7 @@ class SaveAsImageDialog extends React.Component {
                     />
                   </a>
                 ) : (
-                  <button disabled>
+                  <button disabled={true}>
                     <FormattedMessage
                       id="dialogs.save.save-button"
                       defaultMessage="Save to your computer…"

@@ -5,7 +5,9 @@ import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 
 describe('PaletteTooltips', () => {
   it('renders with the `show` class when `visible` prop is true', () => {
-    const { container } = renderWithReduxAndIntl(<PaletteTooltips visible />)
+    const { container } = renderWithReduxAndIntl(
+      <PaletteTooltips visible={true} />
+    )
     expect(container.querySelectorAll('.palette-tooltip-show').length).toEqual(
       1
     )
@@ -22,7 +24,7 @@ describe('PaletteTooltips', () => {
 
   it('renders the label', () => {
     const { getByText } = renderWithReduxAndIntl(
-      <PaletteTooltips visible label="foo" />
+      <PaletteTooltips visible={true} label="foo" />
     )
     expect(getByText('foo')).toBeDefined()
   })

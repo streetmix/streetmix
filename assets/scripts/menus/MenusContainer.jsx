@@ -156,7 +156,7 @@ class MenusContainer extends React.PureComponent {
           <IdentityMenu
             isActive={activeMenu === 'identity'}
             menuItemNode={activeMenuItemNode}
-            alignOpposite
+            alignOpposite={true}
           />
         </div>
       </>

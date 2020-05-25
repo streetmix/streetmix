@@ -377,7 +377,7 @@ export class Segment extends React.Component {
           classNames="switching-away"
           timeout={250}
           onExited={this.handleSwitchSegments}
-          unmountOnExit
+          unmountOnExit={true}
         >
           {this.renderSegmentCanvas('old')}
         </CSSTransition>
@@ -386,7 +386,7 @@ export class Segment extends React.Component {
           in={this.state.switchSegments}
           classNames="switching-in"
           timeout={250}
-          unmountOnExit
+          unmountOnExit={true}
         >
           {this.renderSegmentCanvas('new')}
         </CSSTransition>
@@ -402,7 +402,9 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment:
-      typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
+      typeof state.ui.activeSegment === 'number'
+        ? state.ui.activeSegment
+        : null
   }
 }
 

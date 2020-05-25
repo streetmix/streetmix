@@ -50,7 +50,7 @@ describe('UpDownInput', () => {
   })
 
   it('renders inputs as disabled', () => {
-    const wrapper = render(<UpDownInput {...defaultProps} disabled />)
+    const wrapper = render(<UpDownInput {...defaultProps} disabled={true} />)
 
     const inputEl = wrapper.getByTitle('input')
     const upButton = wrapper.getByTitle('up')

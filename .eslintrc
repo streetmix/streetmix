@@ -19,20 +19,11 @@
       "version": "detect"
     }
   },
-  "plugins": [
-    "react",
-    "cypress",
-    "react-hooks"
-  ],
-  "extends": [
-    "standard",
-    "standard-react"
-  ],
+  "plugins": ["react", "cypress", "react-hooks"],
+  "extends": ["standard", "standard-react"],
   "rules": {
-    "jsx-quotes": [
-      "error",
-      "prefer-double"
-    ],
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/jsx-boolean-value": ["error", "always"],
     "no-restricted-globals": [
       "error",
       {

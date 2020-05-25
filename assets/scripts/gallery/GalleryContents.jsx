@@ -105,14 +105,14 @@ function GalleryContents (props) {
                 <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
               </a>
             ) : (
-              <button className="gallery-copy-last-street" disabled>
+              <button className="gallery-copy-last-street" disabled={true}>
                 <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
               </button>
             )}
           </div>
         )}
 
-        <Scrollable className="streets" allowKeyboardScroll>
+        <Scrollable className="streets" allowKeyboardScroll={true}>
           {streets.map((item) => (
             <GalleryStreetItem
               key={item.id}

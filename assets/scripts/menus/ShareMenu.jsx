@@ -38,7 +38,8 @@ function ShareMenu (props) {
           message = intl.formatMessage(
             {
               id: 'menu.share.messages.my-street',
-              defaultMessage: 'Check out my street, {streetName}, on Streetmix!'
+              defaultMessage:
+                'Check out my street, {streetName}, on Streetmix!'
             },
             { streetName: street.name }
           )
@@ -188,7 +189,7 @@ function ShareMenu (props) {
             value={shareUrl}
             spellCheck="false"
             ref={shareViaLinkInputRef}
-            readOnly
+            readOnly={true}
           />
           <button
             title={intl.formatMessage({

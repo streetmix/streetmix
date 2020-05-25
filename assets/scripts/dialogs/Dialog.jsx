@@ -57,7 +57,7 @@ function Dialog ({ children }) {
 
   return (
     <CSSTransition
-      appear
+      appear={true}
       in={appear}
       timeout={80}
       classNames="dialog-transition"

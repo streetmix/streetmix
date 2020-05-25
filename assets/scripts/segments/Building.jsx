@@ -252,7 +252,7 @@ class Building extends React.Component {
           timeout={250}
           classNames="switching-in"
           onEntered={this.handleSwitchBuildings}
-          unmountOnExit
+          unmountOnExit={true}
         >
           {this.renderBuilding('new')}
         </CSSTransition>
@@ -261,7 +261,7 @@ class Building extends React.Component {
           in={oldBuildingEnter}
           timeout={250}
           classNames="switching-away"
-          unmountOnExit
+          unmountOnExit={true}
         >
           {this.renderBuilding('old')}
         </CSSTransition>

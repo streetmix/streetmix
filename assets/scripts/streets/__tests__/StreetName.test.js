@@ -32,7 +32,7 @@ describe('StreetName', () => {
   })
 
   it('shows a "Click to edit" message when mouse is hovering over it', () => {
-    const wrapper = renderWithIntl(<StreetName editable />)
+    const wrapper = renderWithIntl(<StreetName editable={true} />)
     fireEvent.mouseOver(wrapper.getByText('Unnamed St'))
     expect(wrapper.getByText('Click to rename')).toBeInTheDocument()
   })

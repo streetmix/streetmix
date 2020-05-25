@@ -16,8 +16,8 @@ describe('CloseButton', () => {
         onClick={jest.fn()}
         title="foofoo"
         className="my-class"
-        disabled
-        hidden
+        disabled={true}
+        hidden={true}
       />
     )
     expect(wrapper.asFragment()).toMatchSnapshot()

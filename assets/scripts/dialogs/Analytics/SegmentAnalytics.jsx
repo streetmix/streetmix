@@ -35,9 +35,10 @@ function SegmentAnalytics ({ type, capacity, segment, index, chartMax }) {
   const { average, potential } = capacity
   const label = getLocaleSegmentName(type, locale)
   const color = BAR_COLORS[index % BAR_COLORS.length]
-  const widthPercent = `${(Number.parseInt(potential, 10) /
-    Number.parseInt(chartMax, 10)) *
-    (100 * BAR_MODIFIER)}`
+  const widthPercent = `${
+    (Number.parseInt(potential, 10) / Number.parseInt(chartMax, 10)) *
+    (100 * BAR_MODIFIER)
+  }`
   // leave 2% margin
   const widthPercentInv = `${98 - Number.parseFloat(widthPercent)}`
 
@@ -45,7 +46,7 @@ function SegmentAnalytics ({ type, capacity, segment, index, chartMax }) {
     <div className="segment-analytics">
       <div className="segment-icon">
         <SegmentForPalette
-          isIcon
+          isIcon={true}
           key={segment.id}
           type={segment.type}
           variantString={segment.variantString}
