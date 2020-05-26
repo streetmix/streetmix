@@ -98,7 +98,7 @@
     "@streetmix/illustrations": "0.9.0",
     "@tippyjs/react": "4.0.2",
     "async": "3.1.0",
-    "auth0": "2.20.0",
+    "auth0": "2.25.1",
     "auth0-js": "9.13.2",
     "autoprefixer": "9.7.4",
     "axios": "0.19.2",
