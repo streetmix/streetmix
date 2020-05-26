@@ -30,6 +30,7 @@ const MAP_TILES_2X =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+// zoom level for a closer, 'street' zoom level
 const MAP_LOCATION_ZOOM = 12
 
 // Default location if geo IP not detected; this hovers over the Atlantic Ocean
@@ -46,6 +47,12 @@ L.Icon.Default.mergeOptions({
   iconUrl: '/images/marker-icon.png',
   shadowUrl: '/images/marker-shadow.png'
 })
+
+/**
+This Dialog uses the generic Dialog component and combines it with the GeoSearch
+and LocationPopup components as well as a map to display the coordinates on
+It handles setting, displaying, and clearing location information assocaited with a 'street'
+ */
 
 class GeotagDialog extends React.Component {
   static propTypes = {
@@ -127,6 +134,10 @@ class GeotagDialog extends React.Component {
       lat: event.latlng.lat,
       lng: event.latlng.lng
     }
+
+    // this is in the context of a a map click, we don't want to switch up
+    // the zoom level on the user
+    // (or at least im assuming this based on the code ;-))
     const zoom = event.target.getZoom()
 
     this.reverseGeocode(latlng).then((res) => {
@@ -237,6 +248,7 @@ class GeotagDialog extends React.Component {
     }
 
     this.setState({
+      zoom: MAP_LOCATION_ZOOM,
       mapCenter: latlng,
       renderPopup: true,
       markerLocation: latlng,
@@ -302,6 +314,7 @@ class GeotagDialog extends React.Component {
               zoomControl={false}
               zoom={this.state.zoom}
               onClick={this.handleMapClick}
+              useFlyTo={true}
             >
               <TileLayer attribution={MAP_ATTRIBUTION} url={tileUrl} />
               <ZoomControl
