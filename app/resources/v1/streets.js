@@ -1,5 +1,5 @@
 const config = require('config')
-const uuidv1 = require('uuid/v1')
+const { v1: uuidv1 } = require('uuid')
 const { isArray } = require('lodash')
 const { ERRORS, asStreetJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
@@ -160,13 +160,9 @@ exports.post = async function (req, res) {
     }
     street.creatorId = user ? user.id : ''
 
-    saveStreet()
-      .then(handleCreatedStreet)
-      .catch(handleErrors)
+    saveStreet().then(handleCreatedStreet).catch(handleErrors)
   } else {
-    saveStreet()
-      .then(handleCreatedStreet)
-      .catch(handleErrors)
+    saveStreet().then(handleCreatedStreet).catch(handleErrors)
   }
 }
 
@@ -435,9 +431,7 @@ exports.find = async function (req, res) {
       .then(handleFindStreet)
       .catch(handleErrors)
   } else {
-    findStreets(start, count)
-      .then(handleFindStreets)
-      .catch(handleErrors)
+    findStreets(start, count).then(handleFindStreets).catch(handleErrors)
   }
 }
 

@@ -13,7 +13,7 @@ const express = require('express')
 const helmet = require('helmet')
 const config = require('config')
 const path = require('path')
-const uuid = require('uuid/v4')
+const { v4: uuidv4 } = require('uuid')
 const controllers = require('./app/controllers')
 const requestHandlers = require('./lib/request_handlers')
 const initRedisClient = require('./lib/redis')
@@ -159,8 +159,8 @@ app.use(requestHandlers.request_id_echo)
 app.use((req, res, next) => {
   // Generate nonces for inline scripts
   res.locals.nonce = {
-    google_analytics: uuid(),
-    mixpanel: uuid()
+    google_analytics: uuidv4(),
+    mixpanel: uuidv4()
   }
 
   // Set default metatag information for social sharing cards
