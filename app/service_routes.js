@@ -19,6 +19,13 @@ const jwtCheck = require('./authentication')
  *             type: string
  *           id:
  *             type: string
+ *   Vote:
+ *     type: object
+ *     properties:
+ *       streetId:
+ *         type: string
+ *       score:
+ *         type: string
  */
 
 /**
@@ -94,5 +101,52 @@ routes.options('/services/images', cors())
  *               type: string
  */
 routes.get('/services/images', cors(), jwtCheck, resources.services.images.get)
+
+/**
+ * @swagger
+ * /services/votes:
+ *   get:
+ *     description: Returns a candidate street for the user to vote on
+ *     tags:
+ *       - sentiment
+ *     produces:
+ *      - application/json
+ *     responses:
+ *       200:
+ *         description: Street data
+ *         schema:
+ *           type: object
+ *           properties:
+ *             data:
+ *               type: string
+ */
+routes.get('/services/votes', cors(), jwtCheck, resources.services.votes.get)
+/**
+ * @swagger
+ * /services/votes:
+ *   post:
+ *     description: Adds a user's vote on a particular street
+ *     tags:
+ *       - sentiment
+ *     produces:
+ *      - application/json
+ *     parameters:
+ *       - name: vote
+ *         description: user's score of a street
+ *         in:  body
+ *         required: true
+ *         type: string
+ *         schema:
+ *           $ref: '#/definitions/NewSubscription'
+ *     responses:
+ *       200:
+ *         description: Street data
+ *         schema:
+ *           type: object
+ *           properties:
+ *             data:
+ *               type: string
+ */
+routes.post('/services/votes', cors(), jwtCheck, resources.services.votes.post)
 
 module.exports = routes
