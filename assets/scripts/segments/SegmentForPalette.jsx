@@ -1,3 +1,7 @@
+/**
+ * Segments in the Palette component render differently (and have differen
+ * logic and behavior) to segments rendered on the street.
+ */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'

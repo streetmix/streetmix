@@ -1,3 +1,8 @@
+/**
+ * The Palette is the UI element at the bottom of the screen that shows all the
+ * available street segments. Users can drag and drop segments from the palette
+ * onto the sleep.
+ */
 import React, { useRef, useEffect } from 'react'
 import { IntlProvider } from 'react-intl'
 import { useSelector } from 'react-redux'
