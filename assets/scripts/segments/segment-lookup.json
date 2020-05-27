@@ -336,16 +336,17 @@
       }
     }
   },
-  "cafe-seating": {
-    "name": "Cafe seating",
-    "nameKey": "cafe-seating",
+  "outdoor-dining": {
+    "name": "Outdoor dining",
+    "nameKey": "outdoor-dining",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
     "defaultWidth": 8,
     "enableWithFlag": "SEGMENT_CAFE_SEATING",
+    "alwaysShowInPalette": true,
     "variants": ["occupants", "elevation"],
     "details": {
-      "full|sidewalk": {
+      "occupied|sidewalk": {
         "components": {
           "lanes": [
             {
@@ -357,9 +358,9 @@
           ],
           "objects": [
             {
-              "id": "cafe-seating",
+              "id": "outdoor-dining",
               "variants": {
-                "occupants": "full"
+                "occupants": "occupied"
               }
             }
           ]
@@ -377,7 +378,7 @@
           ],
           "objects": [
             {
-              "id": "cafe-seating",
+              "id": "outdoor-dining",
               "variants": {
                 "occupants": "empty"
               }
@@ -385,7 +386,7 @@
           ]
         }
       },
-      "full|road": {
+      "occupied|road": {
         "components": {
           "lanes": [
             {
@@ -405,9 +406,9 @@
           ],
           "objects": [
             {
-              "id": "cafe-seating",
+              "id": "outdoor-dining",
               "variants": {
-                "occupants": "full"
+                "occupants": "occupied"
               }
             }
           ]
@@ -433,7 +434,7 @@
           ],
           "objects": [
             {
-              "id": "cafe-seating",
+              "id": "outdoor-dining",
               "variants": {
                 "occupants": "empty"
               }

@@ -380,14 +380,14 @@
         }
       }
     },
-    "cafe-seating": {
-      "name": "Cafe seating",
-      "nameKey": "cafe-seating",
+    "outdoor-dining": {
+      "name": "Outdoor dining",
+      "nameKey": "outdoor-dining",
       "owner": "PEDESTRIAN",
       "zIndex": 20,
       "variants": {
         "occupants": {
-          "full": {
+          "occupied": {
             "graphics": {
               "center": "furniture--cafe-seating-occupied"
             }

@@ -428,9 +428,9 @@
       "id": "",
       "title": "Empty"
     },
-    "full": {
+    "occupied": {
       "id": "sidewalk-density-normal",
-      "title": "Full"
+      "title": "Occupied"
     }
   },
   "elevation": {
