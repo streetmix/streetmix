@@ -1,3 +1,7 @@
+/**
+ * Segments in the Palette component render differently (and have differen
+ * logic and behavior) to segments rendered on the street.
+ */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
@@ -9,6 +13,7 @@ import { TILE_SIZE } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
 import { getSegmentVariantInfo, getSegmentInfo } from './info'
 import { getVariantInfoDimensions } from './view'
+import Tooltip from '../ui/Tooltip'
 import { ICON_LOCK } from '../ui/icons'
 import './SegmentForPalette.scss'
 
@@ -22,12 +27,14 @@ SegmentForPalette.propTypes = {
   connectDragSource: PropTypes.func,
   connectDragPreview: PropTypes.func,
   isIcon: PropTypes.bool,
+
   // Provided by parent
   type: PropTypes.string.isRequired,
   variantString: PropTypes.string.isRequired,
   onPointerOver: PropTypes.func,
   randSeed: PropTypes.number,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  tooltipTarget: PropTypes.object
 }
 
 function SegmentForPalette (props) {
@@ -44,22 +51,6 @@ function SegmentForPalette (props) {
       id: `segments.${segment.nameKey}`,
       defaultMessage
     })
-  }
-
-  function handlePointerOver (event) {
-    const label = getLabel(props)
-    // TODO: Different sublabels for different usage restrictions
-    const sublabel = props.disabled
-      ? intl.formatMessage({
-        id: 'plus.locked.user',
-        // Default message ends with a Unicode-only left-right order mark
-        // to allow for proper punctuation in `rtl` text direction
-        // This character is hidden from editors by default!
-        defaultMessage: 'Sign in to use!‎'
-      })
-      : null
-    const rect = event.target.getBoundingClientRect()
-    props.onPointerOver(event, label, sublabel, rect)
   }
 
   const segment = getSegmentInfo(props.type)
@@ -105,17 +96,32 @@ function SegmentForPalette (props) {
           width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
         }}
         className="segment segment-in-palette segment-disabled"
-        onPointerOver={handlePointerOver}
         data-testid="segment-for-palette"
       >
-        <SegmentCanvas
-          actualWidth={actualWidth}
-          type={props.type}
-          variantString={props.variantString}
-          randSeed={props.randSeed}
-          multiplier={PALETTE_SEGMENT_MULTIPLIER}
-          groundBaseline={PALETTE_GROUND_BASELINE}
-        />
+        <Tooltip
+          target={props.tooltipTarget}
+          label={getLabel(props)}
+          sublabel={intl.formatMessage({
+            id: 'plus.locked.user',
+            // Default message ends with a Unicode-only left-right order mark
+            // to allow for proper punctuation in `rtl` text direction
+            // This character is hidden from editors by default!
+            defaultMessage: 'Sign in to use!‎'
+          })}
+        >
+          {/* Wrapper element necessary for <Tooltip /> (alternate solution is
+              to forward ref) */}
+          <div style={{ height: '80px' }}>
+            <SegmentCanvas
+              actualWidth={actualWidth}
+              type={props.type}
+              variantString={props.variantString}
+              randSeed={props.randSeed}
+              multiplier={PALETTE_SEGMENT_MULTIPLIER}
+              groundBaseline={PALETTE_GROUND_BASELINE}
+            />
+          </div>
+        </Tooltip>
         <FontAwesomeIcon icon={ICON_LOCK} />
       </div>
     )
@@ -127,17 +133,22 @@ function SegmentForPalette (props) {
         width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
       }}
       className="segment segment-in-palette"
-      onPointerOver={handlePointerOver}
       data-testid="segment-for-palette"
     >
-      <SegmentCanvas
-        actualWidth={actualWidth}
-        type={props.type}
-        variantString={props.variantString}
-        randSeed={props.randSeed}
-        multiplier={PALETTE_SEGMENT_MULTIPLIER}
-        groundBaseline={PALETTE_GROUND_BASELINE}
-      />
+      <Tooltip target={props.tooltipTarget} label={getLabel(props)}>
+        {/* Wrapper element necessary for <Tooltip /> (alternate solution is
+            to forward ref) */}
+        <div style={{ height: '80px' }}>
+          <SegmentCanvas
+            actualWidth={actualWidth}
+            type={props.type}
+            variantString={props.variantString}
+            randSeed={props.randSeed}
+            multiplier={PALETTE_SEGMENT_MULTIPLIER}
+            groundBaseline={PALETTE_GROUND_BASELINE}
+          />
+        </div>
+      </Tooltip>
     </div>
   )
 }
