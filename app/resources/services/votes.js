@@ -35,7 +35,7 @@ exports.get = async function (req, res) {
   // If requesting user is logged in, send them a street
   let ballot
   try {
-    ballot = await Vote.findOne({ where: { userId: null } })
+    ballot = await Vote.findOne({ where: { userId: null }, order: 'random()' })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error fetching ballot.' })
