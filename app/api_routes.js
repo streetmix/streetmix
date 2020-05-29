@@ -809,6 +809,74 @@ routes.get(
  */
 routes.get('/api/v1/flags', cors(), resources.v1.flags.get)
 
+/**
+ * @swagger
+ * /api/v1/votes:
+ *   get:
+ *     description: Returns a candidate street for the user to vote on
+ *     tags:
+ *       - sentiment
+ *     produces:
+ *      - application/json
+ *     responses:
+ *       200:
+ *         description: Street data
+ *         schema:
+ *           type: object
+ *           properties:
+ *             data:
+ *               type: object
+ *             score:
+ *               type: number
+ *             id:
+ *               type: string
+ *             streetId:
+ *               type: string
+ *             voterId:
+ *               type: string
+ */
+routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
+/**
+ * @swagger
+ * /api/v1/votes:
+ *   post:
+ *     description: Adds a user's vote on a particular street
+ *     tags:
+ *       - sentiment
+ *     produces:
+ *      - application/json
+ *     parameters:
+ *       - name: data
+ *         description:  data of the street being rated
+ *         in:  body
+ *         type: string
+ *       - name: score
+ *         description: user's score of a street
+ *         in:  body
+ *         type: number
+ *       - name: streetId
+ *         description: ID of street being rated
+ *         in:  body
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Street data
+ *         schema:
+ *           type: object
+ *           properties:
+ *             data:
+ *               type: object
+ *             score:
+ *               type: number
+ *             id:
+ *               type: string
+ *             streetId:
+ *               type: string
+ *             voterId:
+ *               type: string
+ */
+routes.post('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
+
 // Catch all for all broken api paths, direct to 404 response.
 routes.get('/api/*', (req, res) => {
   res
