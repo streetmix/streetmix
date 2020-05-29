@@ -22,8 +22,18 @@ function SentimentSurveyContainer (props) {
     setDismissed(true)
   }
 
+  function handleVote (score) {
+    console.log('score ' + score + ' received!')
+  }
+
   if (isEnabled) {
-    return <SentimentSurvey visible={isVisible} onClose={handleClose} />
+    return (
+      <SentimentSurvey
+        visible={isVisible}
+        onClose={handleClose}
+        handleVote={handleVote}
+      />
+    )
   }
 
   return null
