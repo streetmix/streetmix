@@ -64,7 +64,7 @@ exports.post = async function (req, res) {
     ballot.data = req.body.data
     ballot.score = req.body.score
     ballot.streetId = req.body.streetId
-    ballot.voterId = userId || 'testuser'
+    ballot.voterId = userId
     await Vote.create(ballot)
   } catch (error) {
     logger.error(error)
