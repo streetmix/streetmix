@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const { User, Vote } = require('../../db/models')
+const { v4: uuidv4 } = require('uuid')
 // const Vote = require('../../db/models/vote.js').Vote
 const logger = require('../../../lib/logger.js')()
 
@@ -55,12 +56,15 @@ exports.post = async function (req, res) {
   }
 
   // If requesting user is logged in, create a new vote
-  const ballot = {}
+  const ballot = {
+    id: uuidv4()
+  }
+
   try {
     ballot.data = req.body.data
     ballot.score = req.body.score
     ballot.streetId = req.body.streetId
-    ballot.voterId = userId
+    ballot.voterId = userId || 'testuser'
     await Vote.create(ballot)
   } catch (error) {
     logger.error(error)
