@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
@@ -19,6 +19,7 @@ SentimentSurvey.propTypes = {
 }
 
 function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
+  const [score, setScore] = useState(null)
   const intl = useIntl()
   const [source, target] = useSingleton()
   const transitions = useTransition(visible, null, {
@@ -82,6 +83,7 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   ]
 
   function handleClick (score, event) {
+    setScore(score)
     handleVote(score)
   }
 
@@ -111,12 +113,19 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
               </h2>
               <div className="sentiment-survey-buttons">
                 {voteButtonData.map((props) => (
+                  /* eslint-disable react/prop-types */
                   <VoteButton
                     {...props}
-                    key={props.score} // eslint-disable-line react/prop-types
+                    key={props.score}
+                    disabled={score !== null}
+                    className={[
+                      props.className,
+                      score === props.score ? 'sentiment-selected' : ''
+                    ].join(' ')}
                     onClick={handleClick}
                     tooltipTarget={target}
                   />
+                  /* eslint-enable react/prop-types */
                 ))}
               </div>
               <p>

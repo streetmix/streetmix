@@ -28,8 +28,8 @@ function SentimentSurveyContainer (props) {
   })
 
   function handleClose () {
-    setVisible(false)
     setDismissed(true)
+    setVisible(false)
   }
 
   function handleVote (score) {
@@ -47,7 +47,7 @@ function SentimentSurveyContainer (props) {
     }
 
     // TODO: display a "Thank you!" message and then close
-    handleClose()
+    window.setTimeout(handleClose, 3000)
   }
 
   if (isEnabled) {

@@ -7,6 +7,7 @@ VoteButton.propTypes = {
   label: PropTypes.string,
   imgSrc: PropTypes.string,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   tooltipTarget: PropTypes.object
 }
@@ -16,6 +17,7 @@ function VoteButton ({
   label,
   imgSrc,
   className,
+  disabled = false,
   onClick,
   tooltipTarget
 }) {
@@ -27,9 +29,9 @@ function VoteButton ({
 
   return (
     <Tooltip label={label} target={tooltipTarget}>
-      <button onClick={handleClick}>
+      <button onClick={handleClick} disabled={disabled}>
         <div className={classNames}>
-          <img src={imgSrc} />
+          <img src={imgSrc} draggable="false" alt={label} />
         </div>
       </button>
     </Tooltip>
