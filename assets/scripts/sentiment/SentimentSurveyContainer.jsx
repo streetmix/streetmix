@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import SentimentSurvey from './SentimentSurvey'
+import { postSentimentSurveyVote } from '../util/api'
 
 function SentimentSurveyContainer (props) {
   const [isVisible, setVisible] = useState(false)
   const [isDismissed, setDismissed] = useState(false)
+  const street = useSelector((state) => state.street)
   const isEnabled = useSelector(
-    (state) => state.flags.SENTIMENT_SURVEY.value || false
+    (state) =>
+      // Enabled when the feature flag is true
+      state.flags.SENTIMENT_SURVEY?.value === true &&
+      // Enabled if user is signed in
+      state.user.signedIn === true &&
+      // Show if user is not the same the current street's creator
+      state.user.signInData.userId !== street.creatorId &&
+      // Show if the street has had more than a number of edits to it
+      street.editCount > 10
   )
 
   useEffect(() => {
@@ -23,7 +33,21 @@ function SentimentSurveyContainer (props) {
   }
 
   function handleVote (score) {
-    console.log('score ' + score + ' received!')
+    // Post the vote information immediately
+    // Let's allow this to fail silently (if there is a problem, the user
+    // doesn't need to know, but we still log the error internally)
+    try {
+      postSentimentSurveyVote({
+        score,
+        data: street,
+        streetId: street.id
+      })
+    } catch (error) {
+      console.error(error)
+    }
+
+    // TODO: display a "Thank you!" message and then close
+    handleClose()
   }
 
   if (isEnabled) {
