@@ -11,6 +11,9 @@ function SentimentSurveyContainer (props) {
     (state) =>
       // Enabled when the feature flag is true
       state.flags.SENTIMENT_SURVEY?.value === true &&
+      // Enabled if locale is English (or any other supported locale; for
+      // now, this is going to be hard-coded when needed)
+      state.locale.locale === 'en' &&
       // Enabled if user is signed in
       state.user.signedIn === true &&
       // Show if user is not the same the current street's creator
