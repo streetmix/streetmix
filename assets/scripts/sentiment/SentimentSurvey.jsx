@@ -129,10 +129,17 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                 ))}
               </div>
               <p>
-                <FormattedMessage
-                  id="sentiment.about-text"
-                  defaultMessage="This survey helps Streetmix learn how people feel about streets."
-                />
+                {score === null ? (
+                  <FormattedMessage
+                    id="sentiment.about-text"
+                    defaultMessage="This survey helps Streetmix learn how people feel about streets."
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="sentiment.thank-you"
+                    defaultMessage="Thank you for participating in this survey!"
+                  />
+                )}
               </p>
             </animated.div>
           )

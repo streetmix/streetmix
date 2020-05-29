@@ -46,8 +46,9 @@ function SentimentSurveyContainer (props) {
       console.error(error)
     }
 
-    // TODO: display a "Thank you!" message and then close
-    window.setTimeout(handleClose, 3000)
+    // There will be some visual confirmation of the vote, after that,
+    // the UI closes automatically
+    window.setTimeout(handleClose, 2500)
   }
 
   if (isEnabled) {
