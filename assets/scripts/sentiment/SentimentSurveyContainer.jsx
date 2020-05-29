@@ -18,6 +18,8 @@ function SentimentSurveyContainer (props) {
       state.user.signedIn === true &&
       // Show if user is not the same the current street's creator
       state.user.signInData.userId !== street.creatorId &&
+      // Show if the street is geolocated
+      street.location !== null &&
       // Show if the street has had more than a number of edits to it
       street.editCount > 10
   )
