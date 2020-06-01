@@ -64,6 +64,11 @@
     padding: 0 0.5em;
   }
 
+  /* Overwrite a global hover state when button is disabled */
+  button:disabled {
+    background: transparent;
+  }
+
   .sentiment-button {
     width: 60px;
     height: 60px;
@@ -74,15 +79,26 @@
     font-size: 2em;
     padding: 5px;
     vertical-align: middle;
-    transition: 120ms transform ease-in-out;
-    transition: transform 300ms cubic-bezier(0.5, 0, 0, 2.25);
+    transition: transform 300ms cubic-bezier(0.5, 0, 0, 2.25), 300ms opacity;
     transform: scale(1);
     transform-origin: center center;
+    opacity: 1;
   }
 
-  button:hover .sentiment-button,
-  button:focus .sentiment-button {
+  button:not([disabled]):hover .sentiment-button,
+  button:not([disabled]):focus .sentiment-button {
     transform: scale(1.2);
+  }
+
+  /* When disabled, fade out */
+  button:disabled .sentiment-button:not(.sentiment-selected) {
+    opacity: 0;
+  }
+
+  .sentiment-selected {
+    animation-name: tada;
+    animation-duration: 1000ms;
+    animation-fill-mode: both;
   }
 
   .sentiment-1 {
@@ -103,5 +119,35 @@
 
   .sentiment-5 {
     background-color: $colour-emerald-400;
+  }
+}
+
+/* Modified version of `tada` from animate.css
+   https://animate.style/ */
+@keyframes tada {
+  from {
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+
+  10%,
+  20% {
+    transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, -3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.4, 1.4, 1.4) rotate3d(0, 0, 1, 3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.4, 1.4, 1.4) rotate3d(0, 0, 1, -3deg);
+  }
+
+  to {
+    transform: scale3d(1.2, 1.2, 1.2);
   }
 }

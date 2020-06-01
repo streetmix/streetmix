@@ -401,7 +401,8 @@
       "rating-4": "A little bit",
       "rating-5": "Quite a lot"
     },
-    "about-text": "This survey helps us learn how people feel about streets."
+    "about-text": "This survey helps us learn how people feel about streets.",
+    "thank-you": "Thank you for participating in this survey!"
   },
   "i18n": {
     "lang": {

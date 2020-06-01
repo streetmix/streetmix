@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import CloseButton from '../ui/CloseButton'
+import VoteButton from './VoteButton'
 import './SentimentSurvey.scss'
 import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
 import IMG_SENTIMENT_2 from '../../images/openmoji/color/1F641.svg'
@@ -13,10 +14,12 @@ import IMG_SENTIMENT_5 from '../../images/openmoji/color/1F60D.svg'
 
 SentimentSurvey.propTypes = {
   visible: PropTypes.bool,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  handleVote: PropTypes.func.isRequired
 }
 
-function SentimentSurvey ({ visible = false, onClose = () => {} }) {
+function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
+  const [score, setScore] = useState(null)
   const intl = useIntl()
   const [source, target] = useSingleton()
   const transitions = useTransition(visible, null, {
@@ -29,6 +32,59 @@ function SentimentSurvey ({ visible = false, onClose = () => {} }) {
   const classNames = ['sentiment-survey-container']
   if (visible === true) {
     classNames.push('sentiment-survey-visible')
+  }
+
+  const voteButtonData = [
+    {
+      score: -1,
+      label: intl.formatMessage({
+        id: 'sentiment.answer.rating-1',
+        defaultMessage: 'Absolutely not'
+      }),
+      imgSrc: IMG_SENTIMENT_1,
+      className: 'sentiment-1'
+    },
+    {
+      score: -0.5,
+      label: intl.formatMessage({
+        id: 'sentiment.answer.rating-2',
+        defaultMessage: 'Not very much'
+      }),
+      imgSrc: IMG_SENTIMENT_2,
+      className: 'sentiment-2'
+    },
+    {
+      score: 0,
+      label: intl.formatMessage({
+        id: 'sentiment.answer.rating-3',
+        defaultMessage: 'It’s so-so'
+      }),
+      imgSrc: IMG_SENTIMENT_3,
+      className: 'sentiment-3'
+    },
+    {
+      score: 0.5,
+      label: intl.formatMessage({
+        id: 'sentiment.answer.rating-4',
+        defaultMessage: 'A little bit'
+      }),
+      imgSrc: IMG_SENTIMENT_4,
+      className: 'sentiment-4'
+    },
+    {
+      score: 1,
+      label: intl.formatMessage({
+        id: 'sentiment.answer.rating-5',
+        defaultMessage: 'Quite a lot'
+      }),
+      imgSrc: IMG_SENTIMENT_5,
+      className: 'sentiment-5'
+    }
+  ]
+
+  function handleClick (score, event) {
+    setScore(score)
+    handleVote(score)
   }
 
   /* eslint-disable react/jsx-indent */
@@ -56,77 +112,34 @@ function SentimentSurvey ({ visible = false, onClose = () => {} }) {
                 />
               </h2>
               <div className="sentiment-survey-buttons">
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'sentiment.answer.rating-1',
-                    defaultMessage: 'Absolutely not'
-                  })}
-                  target={target}
-                >
-                  <button>
-                    <div className="sentiment-button sentiment-1">
-                      <img src={IMG_SENTIMENT_1} />
-                    </div>
-                  </button>
-                </Tooltip>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'sentiment.answer.rating-2',
-                    defaultMessage: 'Not very much'
-                  })}
-                  target={target}
-                >
-                  <button>
-                    <div className="sentiment-button sentiment-2">
-                      <img src={IMG_SENTIMENT_2} />
-                    </div>
-                  </button>
-                </Tooltip>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'sentiment.answer.rating-3',
-                    defaultMessage: 'It’s so-so'
-                  })}
-                  target={target}
-                >
-                  <button>
-                    <div className="sentiment-button sentiment-3">
-                      <img src={IMG_SENTIMENT_3} />
-                    </div>
-                  </button>
-                </Tooltip>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'sentiment.answer.rating-4',
-                    defaultMessage: 'A little bit'
-                  })}
-                  target={target}
-                >
-                  <button>
-                    <div className="sentiment-button sentiment-4">
-                      <img src={IMG_SENTIMENT_4} />
-                    </div>
-                  </button>
-                </Tooltip>
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'sentiment.answer.rating-5',
-                    defaultMessage: 'Quite a lot'
-                  })}
-                  target={target}
-                >
-                  <button>
-                    <div className="sentiment-button sentiment-5">
-                      <img src={IMG_SENTIMENT_5} />
-                    </div>
-                  </button>
-                </Tooltip>
+                {voteButtonData.map((props) => (
+                  /* eslint-disable react/prop-types */
+                  <VoteButton
+                    {...props}
+                    key={props.score}
+                    disabled={score !== null}
+                    className={[
+                      props.className,
+                      score === props.score ? 'sentiment-selected' : ''
+                    ].join(' ')}
+                    onClick={handleClick}
+                    tooltipTarget={target}
+                  />
+                  /* eslint-enable react/prop-types */
+                ))}
               </div>
               <p>
-                <FormattedMessage
-                  id="sentiment.about-text"
-                  defaultMessage="This survey helps Streetmix learn how people feel about streets."
-                />
+                {score === null ? (
+                  <FormattedMessage
+                    id="sentiment.about-text"
+                    defaultMessage="This survey helps Streetmix learn how people feel about streets."
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="sentiment.thank-you"
+                    defaultMessage="Thank you for participating in this survey!"
+                  />
+                )}
               </p>
             </animated.div>
           )
