@@ -288,7 +288,7 @@ routes.post('/api/v1/users', cors(), jwtCheck, resources.v1.users.post)
  *     tags:
  *       - users
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: User
@@ -309,15 +309,15 @@ routes.get('/api/v1/users', cors(), jwtCheck, resources.v1.users.get)
  *     tags:
  *       - users
  *     parameters:
- *      - in: path
- *        name: user_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the user to delete
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the user to delete
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: users
@@ -328,15 +328,15 @@ routes.get('/api/v1/users', cors(), jwtCheck, resources.v1.users.get)
  *     tags:
  *       - users
  *     parameters:
- *      - in: path
- *        name: user_id
- *        schema:
- *          type: string
- *          format: uuid
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: string
+ *           format: uuid
  *        required: true
  *        description: ID of the user to get
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: users
@@ -347,39 +347,39 @@ routes.get('/api/v1/users', cors(), jwtCheck, resources.v1.users.get)
  *     tags:
  *       - users
  *     parameters:
- *      - in: path
- *        name: user_id
- *        schema:
- *          type: string
- *          format: uuid
- *        description: ID of the user to update
- *      - in: body
- *        name: id
- *        schema:
- *          type: string
- *      - in: body
- *        name: profileImageUrl
- *        schema:
- *          type: string
- *          format: uuid
- *      - in: body
- *        name: roles
- *        type: array
- *        items:
- *          type: string
- *          example: "USER"
- *      - in: body
- *        name: flags
- *        type: object
- *      - in: body
- *        name: data
- *        description: user data
- *        required: true
- *        type: string
- *        schema:
- *          $ref: '#/definitions/UserData'
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: ID of the user to update
+ *       - in: body
+ *         name: id
+ *         schema:
+ *           type: string
+ *       - in: body
+ *         name: profileImageUrl
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *       - in: body
+ *         name: roles
+ *         type: array
+ *         items:
+ *           type: string
+ *           example: "USER"
+ *       - in: body
+ *         name: flags
+ *         type: object
+ *       - in: body
+ *         name: data
+ *         description: user data
+ *         required: true
+ *         type: string
+ *         schema:
+ *           $ref: '#/definitions/UserData'
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: users
@@ -404,15 +404,15 @@ routes.delete(
  *     tags:
  *       - users
  *     parameters:
- *      - in: path
- *        name: user_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the user
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the user
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: succesfully logged out user
@@ -432,32 +432,32 @@ routes.delete(
  *     tags:
  *       - users
  *     parameters:
- *      - in: path
- *        name: user_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the user
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the user
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: succesfully deleted streets
  *   get:
  *     description: Returns all streets by a given user
  *     parameters:
- *      - in: path
- *        name: user_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the user
+ *       - in: path
+ *         name: user_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the user
  *     tags:
  *       - users
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: user streets
@@ -531,7 +531,7 @@ routes.post('/api/v1/streets', jwtCheck, resources.v1.streets.post)
  *     tags:
  *       - streets
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: streets
@@ -563,7 +563,7 @@ routes.post('/api/v1/streets', jwtCheck, resources.v1.streets.post)
  *     tags:
  *       - streets
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: streets
@@ -583,15 +583,15 @@ routes.head('/api/v1/streets', jwtCheck, resources.v1.streets.find)
  *     tags:
  *       - streets
  *     parameters:
- *      - in: path
- *        name: street_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the street to delete
+ *       - in: path
+ *         name: street_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the street to delete
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: streets
@@ -602,15 +602,15 @@ routes.head('/api/v1/streets', jwtCheck, resources.v1.streets.find)
  *     tags:
  *       - streets
  *     parameters:
- *      - in: path
- *        name: street_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the street to get
+ *       - in: path
+ *         name: street_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the street to get
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: streets
@@ -621,15 +621,15 @@ routes.head('/api/v1/streets', jwtCheck, resources.v1.streets.find)
  *     tags:
  *       - streets
  *     parameters:
- *      - in: path
- *        name: street_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the street to get
+ *       - in: path
+ *         name: street_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the street to get
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: streets
@@ -640,31 +640,31 @@ routes.head('/api/v1/streets', jwtCheck, resources.v1.streets.find)
  *     tags:
  *       - streets
  *     parameters:
- *      - in: path
- *        name: street_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the street to update
- *      - in: body
- *        name: name
- *        schema:
- *          type: string
- *      - in: body
- *        name: originalStreetId
- *        schema:
- *          type: string
- *          format: uuid
- *      - in: body
- *        name: data
- *        description: Street data
- *        required: true
- *        type: string
- *        schema:
- *          $ref: '#/definitions/StreetData'
+ *       - in: path
+ *         name: street_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the street to update
+ *       - in: body
+ *         name: name
+ *         schema:
+ *           type: string
+ *       - in: body
+ *         name: originalStreetId
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *       - in: body
+ *         name: data
+ *         description: Street data
+ *         required: true
+ *         type: string
+ *         schema:
+ *           $ref: '#/definitions/StreetData'
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: streets
@@ -689,15 +689,15 @@ routes.put('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
  *     tags:
  *       - images
  *     parameters:
- *      - in: path
- *        name: street_id
- *        schema:
- *          type: string
- *          format: uuid
- *        required: true
- *        description: ID of the street
+ *       - in: path
+ *         name: street_id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: ID of the street
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       204:
  *         description: Success
@@ -714,7 +714,7 @@ routes.put('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
  *        required: true
  *        description: ID of the street
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: street image
@@ -742,7 +742,7 @@ routes.put('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
  *         schema:
  *           $ref: '#/definitions/NewStreetImage'
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: street image
@@ -782,7 +782,7 @@ routes.get(
  *     tags:
  *       - translation
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: Translations for streetmix resources. Shape depends on resource.
@@ -800,7 +800,7 @@ routes.get(
  *     tags:
  *       - flags
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: List of feature flags
@@ -817,7 +817,7 @@ routes.get('/api/v1/flags', cors(), resources.v1.flags.get)
  *     tags:
  *       - sentiment
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: Street data
@@ -844,7 +844,7 @@ routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
  *     tags:
  *       - sentiment
  *     produces:
- *      - application/json
+ *       - application/json
  *     parameters:
  *       - name: data
  *         description:  data of the street being rated

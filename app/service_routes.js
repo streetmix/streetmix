@@ -53,7 +53,7 @@ routes.post('/services/pay', resources.services.payments.post)
  *     tags:
  *       - geolocation
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: Geolocation data
@@ -79,7 +79,7 @@ routes.options('/services/images', cors())
  *     tags:
  *       - images
  *     produces:
- *      - application/json
+ *       - application/json
  *     responses:
  *       200:
  *         description: Cloudinary API key and metadata
