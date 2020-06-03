@@ -1,8 +1,11 @@
 {
   "display": true,
-  "lede": "We’ve got swag!",
-  "text": "And so can you. Streetmix t-shirts and hoodies are now available!",
-  "link": "https://cottonbureau.com/people/streetmix",
-  "linkText": "Take me to the store",
-  "localStorageKey": "notification-store-dismissed"
+  "lede": "We stand with the Black community and against police brutality.",
+  "link": "https://www.joincampaignzero.org/",
+  "linkText": "Learn more from Campaign Zero.",
+  "_lede": "We’ve got swag!",
+  "_text": "And so can you. Streetmix t-shirts and hoodies are now available!",
+  "_link": "https://cottonbureau.com/people/streetmix",
+  "_linkText": "Take me to the store",
+  "_localStorageKey": "notification-store-dismissed"
 }

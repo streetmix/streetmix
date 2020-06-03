@@ -86,8 +86,16 @@ function NotificationBar ({ notification = {} }) {
           marginTop: `-${height}px`
         }}
       >
-        {lede && <strong className="notification-bar-intro">{lede}</strong>}
-        {text && <span className="notification-bar-text">{text}</span>}
+        {lede && (
+          <>
+            <strong className="notification-bar-intro">{lede}</strong>{' '}
+          </>
+        )}
+        {text && (
+          <>
+            <span className="notification-bar-text">{text}</span>{' '}
+          </>
+        )}
         {link && (
           <a
             href={link}

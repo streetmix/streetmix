@@ -11,11 +11,13 @@ exports[`NotificationBar renders snapshot 1`] = `
     >
       Heads up!
     </strong>
+     
     <span
       class="notification-bar-text"
     >
       Streetmix will be offline for maintainance on January 1, 2025 at 19:00 GMT.
     </span>
+     
     <a
       class="notification-bar-link"
       href="https://twitter.com/streetmix/"
