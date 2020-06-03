@@ -143,9 +143,14 @@ const streetSlice = createSlice({
         const { streetName, userUpdated } = action.payload
 
         if ((state.userUpdated && userUpdated) || !state.userUpdated) {
-          // Normalize street name input
-          // TODO: Consider whether to limit street name length here
-          state.name = streetName.trim()
+          if (typeof streetName === 'string') {
+            // Normalize street name input
+            // TODO: Consider whether to limit street name length here
+            state.name = streetName.trim()
+          } else if (!streetName) {
+            // If a streetname is null or undefined, unset it
+            state.name = null
+          }
         }
 
         if (userUpdated) {

@@ -245,8 +245,8 @@ describe('street reducer', () => {
     })
   })
 
-  describe('street name', () => {
-    it('should handle saveStreetName(), updating when edited by user', () => {
+  describe('saveStreetName()', () => {
+    it('should update a street name when set by user', () => {
       const existingStreet = {
         name: 'street name',
         userUpdated: false
@@ -260,7 +260,7 @@ describe('street reducer', () => {
       })
     })
 
-    it('should handle saveStreetName(), not overwriting user-edited name', () => {
+    it('should not update a street name set by a user, when set by automation', () => {
       const existingStreet = {
         name: 'street name',
         userUpdated: true
@@ -274,7 +274,7 @@ describe('street reducer', () => {
       })
     })
 
-    it('should handle saveStreetName(), overwriting when not user-edited', () => {
+    it('should update a street name previously set only by automation, when set by automation', () => {
       const existingStreet = {
         name: 'street name',
         userUpdated: false
@@ -285,6 +285,30 @@ describe('street reducer', () => {
       ).toEqual({
         name: 'new street name',
         userUpdated: false
+      })
+    })
+
+    it('should clear a street name set by automation, when cleared by automation', () => {
+      const existingStreet = {
+        name: 'street name',
+        userUpdated: false
+      }
+
+      expect(street(existingStreet, saveStreetName(undefined, false))).toEqual({
+        name: null,
+        userUpdated: false
+      })
+    })
+
+    it('should not clear a street name set by a user, when cleared by automation', () => {
+      const existingStreet = {
+        name: 'street name',
+        userUpdated: true
+      }
+
+      expect(street(existingStreet, saveStreetName(null, false))).toEqual({
+        name: 'street name',
+        userUpdated: true
       })
     })
   })

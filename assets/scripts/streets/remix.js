@@ -138,7 +138,7 @@ export function addRemixSuffixToName () {
       STREET_NAME_REMIX_SUFFIX.length
     ) !== STREET_NAME_REMIX_SUFFIX
   ) {
-    street.name += ' ' + STREET_NAME_REMIX_SUFFIX
+    const newStreetName = street.name + ' ' + STREET_NAME_REMIX_SUFFIX
+    store.dispatch(saveStreetName(newStreetName, false))
   }
-  store.dispatch(saveStreetName(street.name, false))
 }
