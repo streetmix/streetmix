@@ -28,11 +28,11 @@ class APIClient {
   }
 
   getSentimentSurveyStreet = () => {
-    return this.client.get('/vote')
+    return this.client.get('/votes')
   }
 
   postSentimentSurveyVote = (payload) => {
-    return this.client.post('/vote', payload, {
+    return this.client.post('/votes', payload, {
       headers: { Authorization: getAuthHeader() }
     })
   }
