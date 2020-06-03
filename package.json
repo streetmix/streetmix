@@ -123,7 +123,7 @@
     "hbs": "4.1.1",
     "helmet": "3.21.2",
     "intl-messageformat": "8.2.1",
-    "intl-pluralrules": "1.1.2",
+    "intl-pluralrules": "1.2.0",
     "js-cookie": "2.2.1",
     "json2csv": "5.0.1",
     "jwks-rsa": "1.8.0",
