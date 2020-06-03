@@ -26,9 +26,9 @@ exports.get = async function (req, res) {
 }
 
 exports.post = async function (req, res) {
-  const userId = req.userId
+  const authUser = req.user || {}
 
-  if (!userId) {
+  if (!authUser.sub) {
     res.status(401).json({ status: 401, msg: 'Please provide user ID.' })
     return
   }
@@ -36,7 +36,7 @@ exports.post = async function (req, res) {
   let user
 
   try {
-    user = await User.findOne({ where: { id: userId } })
+    user = await User.findOne({ where: { auth0Id: authUser.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -49,7 +49,7 @@ exports.post = async function (req, res) {
   }
 
   // Is requesting user logged in?
-  if (!req.user || !req.user.sub || req.user.sub !== user.id) {
+  if (!authUser.sub || authUser.sub !== user.auth0Id) {
     res.status(401).end()
     return
   }
@@ -63,7 +63,7 @@ exports.post = async function (req, res) {
     ballot.data = req.body.data
     ballot.score = req.body.score
     ballot.streetId = req.body.streetId
-    ballot.voterId = userId
+    ballot.voterId = authUser.sub
     await Vote.create(ballot)
   } catch (error) {
     logger.error(error)
