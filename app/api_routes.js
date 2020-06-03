@@ -261,7 +261,7 @@ routes.options('/api/*', cors())
  *     parameters:
  *       - name: user
  *         description: User object
- *         in:  body
+ *         in: body
  *         required: true
  *         type: string
  *         schema:
@@ -333,8 +333,8 @@ routes.get('/api/v1/users', cors(), jwtCheck, resources.v1.users.get)
  *         schema:
  *           type: string
  *           format: uuid
- *        required: true
- *        description: ID of the user to get
+ *         required: true
+ *         description: ID of the user to get
  *     produces:
  *       - application/json
  *     responses:
@@ -491,7 +491,7 @@ routes.get(
  *     parameters:
  *       - name: street
  *         description: Street object
- *         in:  body
+ *         in: body
  *         required: true
  *         type: string
  *         schema:
@@ -847,16 +847,16 @@ routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
  *       - application/json
  *     parameters:
  *       - name: data
- *         description:  data of the street being rated
- *         in:  body
+ *         description: data of the street being rated
+ *         in: body
  *         type: string
  *       - name: score
  *         description: user's score of a street
- *         in:  body
+ *         in: body
  *         type: number
  *       - name: streetId
  *         description: ID of street being rated
- *         in:  body
+ *         in: body
  *         type: string
  *     responses:
  *       200:

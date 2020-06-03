@@ -34,7 +34,7 @@ const jwtCheck = require('./authentication')
  *     parameters:
  *       - name: street
  *         description: Street object
- *         in:  body
+ *         in: body
  *         required: true
  *         type: string
  *         schema:
