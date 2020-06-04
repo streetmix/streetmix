@@ -18,6 +18,7 @@ exclude_patterns:
   - "**/__tests__"
   - "**/__mocks__"
   - "docs/**/*.rst"
+  - "assets/scripts/dialogs/GeotagDialog.jsx"
 checks:
   file-lines:
     config:

@@ -16,7 +16,8 @@ addons:
 
 env:
   global:
-    - NODE_ENV: test
+    - NODE_ENV=test
+    - PELIAS_API_KEY=ge-iampelias
 
 services:
   - redis
@@ -24,6 +25,9 @@ services:
 before_script:
   # Start the server and run it in background process
   - node index &
+
+install:
+  - npm ci
 
 script:
   # Note: don't run `npm test` here directly, it's intended for local testing.
@@ -39,4 +43,10 @@ after_script:
   # to kill all background jobs (like "npm start &")
   - kill $(jobs -p) || true
 
-cache: npm
+cache:
+  # Caches $HOME/.npm when npm ci is default script command
+  # Caches node_modules in all other cases
+  npm: true
+  directories:
+    # we also need to cache folder with Cypress binary
+    - ~/.cache

@@ -30,6 +30,7 @@ exports[`GeotagDialog renders 1`] = `
         </div>
         <div
           class="leaflet-container leaflet-grab leaflet-touch-drag"
+          id="map"
           style="position: relative;"
           tabindex="0"
         >
