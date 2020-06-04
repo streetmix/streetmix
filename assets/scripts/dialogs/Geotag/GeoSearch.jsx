@@ -28,6 +28,7 @@ function GeoSearch ({ setSearchResults, focus = { lat: 0, lng: 0 } }) {
   function handleChange (selection) {
     if (!selection) return
 
+    // setMapState is called here and in GeotagDialog
     dispatch(
       setMapState({
         addressInformation: selection.properties,
@@ -40,8 +41,7 @@ function GeoSearch ({ setSearchResults, focus = { lat: 0, lng: 0 } }) {
 
     setSearchResults(
       selection.geometry.coordinates.reverse(),
-      selection.properties.label,
-      selection.bbox
+      selection.properties
     )
     inputEl.current.focus()
   }
