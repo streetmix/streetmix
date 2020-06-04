@@ -55,7 +55,8 @@ describe('GeotagDialog', () => {
   })
 
   // TODO: Fix these tests
-  it.skip('allows a location to be confirmed when the current signed-in user is the street owner', () => {
+  // the jest snapshot only shows a version of the component where geocoding isn't available
+  it('allows a location to be confirmed when the current signed-in user is the street owner', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(true)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
 
