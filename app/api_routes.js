@@ -884,4 +884,6 @@ routes.get('/api/*', (req, res) => {
     .json({ status: 404, error: 'Not found. Did you mispell something?' })
 })
 
+routes.get('/survey', resources.v1.survey.get)
+
 module.exports = routes
