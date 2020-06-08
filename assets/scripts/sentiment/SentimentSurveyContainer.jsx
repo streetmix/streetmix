@@ -4,6 +4,8 @@ import SentimentSurvey from './SentimentSurvey'
 import { postSentimentSurveyVote } from '../util/api'
 import { trackEvent } from '../app/event_tracking'
 
+const SURVEY_DELAY_BEFORE_APPEAR = 5000 // in ms
+
 function SentimentSurveyContainer (props) {
   const [isVisible, setVisible] = useState(false)
   const [isDismissed, setDismissed] = useState(false)
@@ -19,6 +21,8 @@ function SentimentSurveyContainer (props) {
       state.user.signedIn === true &&
       // Show if user is not the same the current street's creator
       state.user.signInData.userId !== street.creatorId &&
+      // Show if gallery is not open
+      state.gallery.visible === false &&
       // Show if the street is geolocated
       street.location !== null &&
       // Show if the street has had more than a number of edits to it
@@ -31,7 +35,7 @@ function SentimentSurveyContainer (props) {
     if (!isDismissed) {
       window.setTimeout(() => {
         setVisible(true)
-      }, 1000)
+      }, SURVEY_DELAY_BEFORE_APPEAR)
     }
   })
 
