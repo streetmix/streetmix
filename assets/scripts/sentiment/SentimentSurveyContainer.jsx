@@ -22,7 +22,9 @@ function SentimentSurveyContainer (props) {
       // Show if the street is geolocated
       street.location !== null &&
       // Show if the street has had more than a number of edits to it
-      street.editCount > 10
+      street.editCount > 10 &&
+      // Show if the street segments fit street width exactly
+      street.remainingWidth === 0
   )
 
   useEffect(() => {
