@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RangeSlider renders default snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="range-slider-item"
+  >
+    <label
+      for="rangeslider-id-1"
+    >
+      foo
+    </label>
+     
+    <input
+      id="rangeslider-id-1"
+      max="100"
+      min="0"
+      step="1"
+      type="range"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RangeSlider renders snapshot with all props 1`] = `
+<DocumentFragment>
+  <div
+    class="range-slider-item custom-classname"
+    style="color: blue;"
+  >
+    <label
+      for="baz"
+    >
+      foo
+    </label>
+     
+    <input
+      disabled=""
+      id="baz"
+      max="2000"
+      min="0"
+      step="10"
+      type="range"
+      value="1000"
+    />
+  </div>
+</DocumentFragment>
+`;
