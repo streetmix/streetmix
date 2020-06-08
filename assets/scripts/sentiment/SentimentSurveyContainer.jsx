@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import SentimentSurvey from './SentimentSurvey'
 import { postSentimentSurveyVote } from '../util/api'
+import { trackEvent } from '../app/event_tracking'
 
 function SentimentSurveyContainer (props) {
   const [isVisible, setVisible] = useState(false)
@@ -32,6 +33,12 @@ function SentimentSurveyContainer (props) {
     }
   })
 
+  useEffect(() => {
+    if (isEnabled) {
+      trackEvent('INTERACTION', 'Sentiment survey viewed', null, null, false)
+    }
+  })
+
   function handleClose () {
     setDismissed(true)
     setVisible(false)
@@ -50,6 +57,8 @@ function SentimentSurveyContainer (props) {
     } catch (error) {
       console.error(error)
     }
+
+    trackEvent('INTERACTION', 'Sentiment survey voted', null, score, false)
 
     // There will be some visual confirmation of the vote, after that,
     // the UI closes automatically
