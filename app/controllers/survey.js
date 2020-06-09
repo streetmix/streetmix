@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
-const { Street, Vote } = require('../../db/models')
-const logger = require('../../../lib/logger.js')()
+const { Street, Vote } = require('../db/models')
+const logger = require('../../lib/logger.js')()
 
 exports.get = async function (req, res) {
   let ballot
