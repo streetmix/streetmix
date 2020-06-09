@@ -22,8 +22,11 @@ exports.get = async function (req, res) {
   let street
   let candidateStreetUrl = '/'
   try {
-    if (ballots.length > 1) {
-      res.status(503).send('Server found no candidate streets for voting.')
+    if (!(ballots[0] && ballots[0].data && ballots[0].data.street)) {
+      res.status(503).json({
+        status: 503,
+        msg: 'Server found no candidate streets for voting.'
+      })
     }
 
     const streetId = ballots[0].data.street.id
@@ -37,6 +40,7 @@ exports.get = async function (req, res) {
       candidateStreetUrl = `/${street.creatorId}/${street.namespacedId}`
     }
   } catch (error) {
+    console.log({ error })
     logger.error(error)
     res
       .status(500)
