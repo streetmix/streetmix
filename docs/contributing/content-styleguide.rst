@@ -51,6 +51,7 @@ At the same time, instructions should be short and to-the-point, so we would not
 
   Install your packages by typing ``npm install``.
 
+Those are not the only two words to avoid. For more, read `Words To Avoid in Educational Writing <https://css-tricks.com/words-avoid-educational-writing/>`_ from CSS Tricks.
 
 Specific words and phrases
 --------------------------
