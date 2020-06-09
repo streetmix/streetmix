@@ -47,7 +47,7 @@ exports.post = async function (req, res) {
     try {
       let user
       if (credentials.screenName) {
-        user = await User.findOne({ where: { id: credentials.screenName } })
+        user = await User.findOne({ where: { auth0Id: credentials.auth0Id } })
       }
       if (!user) {
         const newUserData = {
