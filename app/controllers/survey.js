@@ -27,6 +27,7 @@ exports.get = async function (req, res) {
         status: 503,
         msg: 'Server found no candidate streets for voting.'
       })
+      return
     }
 
     const streetId = ballots[0].data.street.id
