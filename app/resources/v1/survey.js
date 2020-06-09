@@ -19,7 +19,6 @@ exports.get = async function (req, res) {
     res.status(500).json({ status: 500, msg: 'Error fetching ballot.' })
     return
   }
-  // const payload = { ballot }
   let street
   let candidateStreetUrl = '/'
   try {

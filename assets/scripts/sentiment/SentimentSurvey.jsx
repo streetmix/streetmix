@@ -133,12 +133,12 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                   {score === null ? (
                     <FormattedMessage
                       id="sentiment.about-text"
-                      defaultMessage="This survey helps Streetmix learn how people feel about streets. Click here to see a different street."
+                      defaultMessage="This survey helps Streetmix learn how people feel about streets."
                     />
                   ) : (
                     <FormattedMessage
                       id="sentiment.thank-you"
-                      defaultMessage="Thank you for participating in this survey! Click here to see another street."
+                      defaultMessage="Thank you for participating in this survey!"
                     />
                   )}
                 </a>
