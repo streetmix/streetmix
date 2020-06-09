@@ -3,9 +3,9 @@ const { Street, Vote } = require('../db/models')
 const logger = require('../../lib/logger.js')()
 
 exports.get = async function (req, res) {
-  let ballot
+  let ballots
   try {
-    ballot = await Vote.findAll({
+    ballots = await Vote.findAll({
       where: {
         voterId: {
           [Sequelize.Op.is]: null
@@ -16,15 +16,19 @@ exports.get = async function (req, res) {
     })
   } catch (error) {
     logger.error(error)
-    res.status(500).json({ status: 500, msg: 'Error fetching ballot.' })
+    res.status(500).json({ status: 500, msg: 'Error fetching ballots.' })
     return
   }
   let street
   let candidateStreetUrl = '/'
   try {
-    const streetId = ballot[0].data.street.id
+    if (ballots.length > 1) {
+      res.status(503).send('Server found no candidate streets for voting.')
+    }
 
-    if (!streetId) throw new Error('no street ID found for ballot!')
+    const streetId = ballots[0].data.street.id
+
+    if (!streetId) throw new Error('no street ID found for ballots!')
     street = await Street.findOne({ where: { id: streetId } })
 
     if (!street.creatorId) {
