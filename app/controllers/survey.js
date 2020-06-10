@@ -41,7 +41,6 @@ exports.get = async function (req, res) {
       candidateStreetUrl = `/${street.creatorId}/${street.namespacedId}`
     }
   } catch (error) {
-    console.log({ error })
     logger.error(error)
     res
       .status(500)
