@@ -205,6 +205,7 @@ app.get('/help/about', (req, res) =>
   res.redirect('https://www.opencollective.com/streetmix/')
 )
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
+app.get('/survey', controllers.survey.get)
 
 app.get('/privacy-policy', (req, res) => res.render('privacy'))
 app.get('/terms-of-service', (req, res) => res.render('tos'))
