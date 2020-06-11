@@ -57,7 +57,11 @@ export const gallerySlice = createSlice({
 
       state.mode = GALLERY_MODES.ERROR
 
-      if (action.payload.killGallery === true) {
+      // A rejection occurs with an optional value. The `killGallery` value
+      // can be sent, which means we want to close the gallery immediately.
+      // If the rejection occurs without a value, then `action.payload` will
+      // be undefined.
+      if (action.payload?.killGallery === true) {
         state.visible = false
         state.instant = true
       }
