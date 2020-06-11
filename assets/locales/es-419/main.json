@@ -114,7 +114,7 @@
     "please-reload": "Por favor recargar esta página antes de continuar",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
-    "auth-expired": "",
+    "auth-expired": "Expiró su autenticación",
     "access-denied-title": "No has iniciado sesión",
     "access-denied-description": "Has cancelado el inicio de sesión",
     "auth-api-problem-title": "Hubo un problema con el inicio de sesión",
@@ -152,7 +152,7 @@
       "heading": "¡Bienvenido a Streetmix!",
       "new": {
         "intro": "Diseña, cambia y comparte la calle de tu vecindario. Añade árboles o carriles para bicicleta, ensancha las aceras o los carriles de tránsito, aprende cómo tus decisiones pueden impactar a tu comunidad.",
-        "instruction": "",
+        "instruction": "Comienza moviendo algunos segmentos a diferentes lugares",
         "instruct": "Comienza por mover algunos segmentos con {pointer}.",
         "instruct-pointer-finger": "tu dedo",
         "instruct-pointer-mouse": "tu ratón"
@@ -177,7 +177,7 @@
       "credits": "",
       "team-heading": "Equipo de proyecto y mantenimiento",
       "view-source": "Ver el código fuente",
-      "partners": "",
+      "partners": "Aliados",
       "sponsors": "",
       "sponsored-by": "Streetmix es patrocinado generosamente por:",
       "donate-link": "Apóyanos financieramente",
@@ -186,11 +186,11 @@
       "guidebook-link": "Manual",
       "tos-link": "Términos de servicio",
       "privacy-link": "Política de privacidad",
-      "acknowledgements": "",
-      "font-designed-by": "",
-      "emoji-by": "",
-      "icons-by": "",
-      "license-label": ""
+      "acknowledgements": "Agradecimientos",
+      "font-designed-by": "Tipografía {fontName} diseñada por {fontAuthor}.",
+      "emoji-by": "Emoji por {author}.",
+      "icons-by": "Íconos por {author}.",
+      "license-label": "(<a>Licencia</a>)"
     },
     "analytics": {
       "export-csv": "Exportar a CSV",
@@ -260,9 +260,9 @@
     }
   },
   "tools": {
-    "tooltip": "",
+    "tooltip": "Activar/desactivar herramientas",
     "environment": {
-      "heading": ""
+      "heading": "Ambiente"
     }
   },
   "prompt": {
@@ -361,7 +361,7 @@
     "delete-street-tooltip": "Borrar calle",
     "street-count": "{count, plural, one {# calle} other {# calles}}",
     "no-streets": "Aún no hay calles",
-    "thumbnail-error": ""
+    "thumbnail-error": "Imagen miniatura no disponible "
   },
   "users": {
     "anonymous": "Anónimo",
@@ -386,22 +386,23 @@
   },
   "plus": {
     "locked": {
-      "sub": "",
-      "user": ""
+      "sub": "¡Suscríbase para usar!",
+      "user": "¡Ingrese para usar!"
     }
   },
   "sentiment": {
     "prompt": {
-      "joyful": ""
+      "joyful": "¿Qué tan <em>alegre</em> se ve esta calle?"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "Para nada",
+      "rating-2": "No mucho",
+      "rating-3": "Más o menos",
+      "rating-4": "Un poco",
+      "rating-5": "Bastante"
     },
-    "about-text": ""
+    "about-text": "Esta encuesta nos ayuda a entender cómo se siente la gente sobre ciertas calles",
+    "thank-you": "¡Gracias por participar en esta encuesta!"
   },
   "i18n": {
     "lang": {

@@ -114,7 +114,7 @@
     "please-reload": "Por favor, recarga esta página antes de continuar.",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
-    "auth-expired": "",
+    "auth-expired": "Tu autenticación ha expirado.",
     "access-denied-title": "No estás ingresado.",
     "access-denied-description": "Cancelaste el proceso de ingresar.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
@@ -392,16 +392,17 @@
   },
   "sentiment": {
     "prompt": {
-      "joyful": ""
+      "joyful": "¿Te parece <em>alegre</em> esta calle?"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "Absolutamente no",
+      "rating-2": "No mucho",
+      "rating-3": "Más o menos",
+      "rating-4": "Un poco",
+      "rating-5": "Muchísimo"
     },
-    "about-text": ""
+    "about-text": "Esta encuesta nos ayuda a aprender cómo la gente siente sobre calles.",
+    "thank-you": "¡Gracias por participar en esta encuesta!"
   },
   "i18n": {
     "lang": {
