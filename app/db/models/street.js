@@ -40,6 +40,14 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: { type: DataTypes.DATE, field: 'updated_at' }
     },
     {
+      indexes: [
+        {
+          unique: true,
+          fields: ['namespaced_id', 'creator_id']
+        }
+      ]
+    },
+    {
       timestamp: true,
       index: [
         {
