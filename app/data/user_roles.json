@@ -10,7 +10,8 @@
       "SEGMENT_PED_LANES": true,
       "SEGMENT_CONSTRUCTION": true,
       "SEGMENT_MAGIC_CARPET": true,
-      "SEGMENT_CAFE_SEATING": true
+      "SEGMENT_CAFE_SEATING": true,
+      "SENTIMENT_SURVEY": true
     }
   },
   "ADMIN": {
@@ -27,7 +28,6 @@
     "value": "BETA_TESTER",
     "flags": {
       "ENVIRONMENT_EDITOR": true,
-      "SENTIMENT_SURVEY": true,
       "LOCALES_LEVEL_1": true,
       "SEGMENT_UTILITIES": true,
       "CUSTOM_SEGMENT_LABELS": true
