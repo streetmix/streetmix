@@ -491,7 +491,7 @@ export const paletteSegmentSource = {
   endDrag (props, monitor, component) {
     store.dispatch(clearDraggingState())
 
-    const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
+    const withinCanvas = oldDraggingState?.withinCanvas
     if (!monitor.didDrop() && withinCanvas) {
       handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
     }
@@ -642,8 +642,8 @@ export const segmentTarget = {
 }
 
 function handleSegmentCanvasDrop (draggedItem, type) {
-  // `oldDraggingState` can be `null`, if so, bail
-  if (oldDraggingState === null) return
+  // `oldDraggingState` can be `null` or undefined, if so, bail
+  if (!oldDraggingState) return
 
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
