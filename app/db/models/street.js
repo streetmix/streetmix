@@ -43,7 +43,6 @@ module.exports = (sequelize, DataTypes) => {
       indexes: [
         {
           unique: true,
-          using: 'BTREE',
           fields: ['namespaced_id', 'creator_id']
         }
       ]
