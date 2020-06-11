@@ -157,8 +157,8 @@ export function fetchStreetFromServer () {
       }
       return response.json()
     })
-    .catch(errorReceiveStreet)
     .then(receiveStreet)
+    .catch(errorReceiveStreet)
 }
 
 function errorReceiveStreet (data) {
