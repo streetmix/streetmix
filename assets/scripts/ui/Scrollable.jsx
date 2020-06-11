@@ -51,6 +51,9 @@ const Scrollable = React.forwardRef((props, ref) => {
 
   function handleClickLeft (event) {
     const el = scrollerEl.current
+
+    if (!el) return
+
     const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
@@ -58,6 +61,9 @@ const Scrollable = React.forwardRef((props, ref) => {
 
   function handleClickRight (event) {
     const el = scrollerEl.current
+
+    if (!el) return
+
     const position = el.scrollLeft + (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
@@ -72,6 +78,9 @@ const Scrollable = React.forwardRef((props, ref) => {
 
   function checkButtonVisibilityState () {
     const el = scrollerEl.current
+
+    if (!el) return
+
     const dir = window.getComputedStyle(el).direction
 
     // Swap left and right buttons if direction is `rtl`
