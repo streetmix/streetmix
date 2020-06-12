@@ -146,15 +146,13 @@ See :ref:`install-all`, below.
 On Linux
 ----------
 
-The primary requirements for this project are Node.js and Postgresql. You will need those installed if you do not have them already.
+The primary requirements for this project are Node.js and PostgreSQL. You will need those installed if you do not have them already.
 
-`Installing Node.js < https://www.ostechnix.com/install-node-js-linux/>`_
+`Installing Node.js <https://www.ostechnix.com/install-node-js-linux/>`_
 
+`Installing Postgres <http://postgresguide.com/setup/install.html>`_
 
-`Installing Postgres < http://postgresguide.com/setup/install.html>`_
-
-If you haven't installed Postgres on your machine before, you may need to set up some intial configuration. `Here is an example for ArchLinux < https://wiki.archlinux.org/index.php/PostgreSQL>`_.
-
+If you haven't installed Postgres on your machine before, you may need to set up some intial configuration. `Here is an example for ArchLinux <https://wiki.archlinux.org/index.php/PostgreSQL>`_.
 
 You may need to look for instructions more specific to your distro for setting up Postgres.
 
