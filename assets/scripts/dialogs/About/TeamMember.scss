@@ -25,6 +25,12 @@
   line-height: 1.2;
   margin-top: 0.25em;
   font-size: 0.9em;
+
+  /* If this text is translated into German (right now, we don't have strings
+     for this, but it can be automatically translated and text-replaced by a
+     browser, like Chrome) the text can be too long and won't fit in the
+     column width. In this case we can ask the browser to break the long word. */
+  overflow-wrap: anywhere;
 }
 
 .team-member-mugshot {
