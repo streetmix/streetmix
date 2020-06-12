@@ -304,9 +304,9 @@ Every so often, you will need to update the project.
 
 .. tip::
 
-   If you run into issues migrating the database, you can access Sequelize's "verbose" debug output with the command ``DEBUG=sequalize* npx sequelize db:migrate``. (This feature is not well-documented by Sequelize, which is why we're mentioning it ourselves.)
+   If you run into issues migrating the database, you can access Sequelize's "verbose" debug output with the command ``DEBUG=sequelize* npx sequelize db:migrate``. (This feature is not well-documented by Sequelize, which is why we're mentioning it ourselves.)
 
-   Debug a migration on a Heroku application instance like so: ``heroku run 'DEBUG=sequalize* npx sequelize db:migrate' --app <heroku app id>`` (Note the quotation marks surrounding the command.)
+   Debug a migration on a Heroku application instance like so: ``heroku run 'DEBUG=sequelize* npx sequelize db:migrate' --app <heroku app id>`` (Note the quotation marks surrounding the command.)
 
 
 Setup in a no-internet environment
