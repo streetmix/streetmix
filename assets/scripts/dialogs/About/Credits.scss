@@ -1,5 +1,6 @@
 .credits-team {
   display: grid;
+
   /* Setting a min-width value of 0 prevents the grid columns from changing
      its width if child content is too large, like a super long word */
   grid-template-columns: repeat(3, minmax(0, 1fr));
