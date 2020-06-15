@@ -1,13 +1,9 @@
-/* eslint-disable react/prop-types */
 /* global L */
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
-// todo: re-enable sharedstreets
-// sharedstreets functionality is disabled until it stops installing an old
-// version of `npm` as a dependency.
-// import * as sharedstreets from 'sharedstreets'
 import Dialog from './Dialog'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
@@ -33,7 +29,6 @@ const MAP_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 // zoom level for a closer, 'street' zoom level
 const MAP_LOCATION_ZOOM = 12
-
 // Default location if geo IP not detected; this hovers over the Atlantic Ocean
 const DEFAULT_MAP_ZOOM = 2
 const DEFAULT_MAP_LOCATION = {
@@ -49,11 +44,19 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png'
 })
 
-/**
-This Dialog uses the generic Dialog component and combines it with the GeoSearch
-and LocationPopup components as well as a map to display the coordinates on
-It handles setting, displaying, and clearing location information assocaited with a 'street'
- */
+GeotagDialog.propTypes = {
+  // Provided by Redux store
+  street: PropTypes.object,
+  markerLocation: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number
+  }),
+  addressInformation: PropTypes.object,
+  userLocation: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number
+  })
+}
 
 function getInitialState (props) {
   // Determine initial map center, and what to display
@@ -93,14 +96,18 @@ function getInitialState (props) {
   }
 }
 
+/*
+This Dialog uses the generic Dialog component and combines it with the GeoSearch
+and LocationPopup components as well as a map to display the coordinates on
+It handles:
+setting, displaying, and clearing location information associated with a 'street'
+user permission checks for whether location can be updated for a street based on the user
+reverse geocodeing based on user input (the user can click on the map to reverse geocode at the
+  clicked point, or it can drag the marker to a new location to confirm)
+
+It is tested primary via cypress at the moment
+ */
 function GeotagDialog () {
-  /* TODO: decide whether to have this be individual vs a reduce function
-  see the original conditional logic for the way some of these values are initialy set
-  the way they are set together feels like a code smell, but i also couldn't quite
-  come with a smart way to refactor it on the spot
-  */
-  // so each of these could be fed by a function, but is that a good pattern, and where would those live?
-  // alot of the params were just being passed from above consts and not used much elsewhere, maybe we should just set them here?
   const props = {
     street: useSelector((state) => state.street),
     markerLocation: useSelector((state) => state.map.markerLocation),
@@ -128,8 +135,6 @@ function GeotagDialog () {
   const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
 
   const handleMapClick = (event) => {
-    // TODO: for later, lets talk about whether this actually best for UX vs other patterns
-
     // get the new latlng of the clicked position
     const latlng = {
       lat: event.latlng.lat,
@@ -139,13 +144,6 @@ function GeotagDialog () {
     // this is in the context of a a map click or drag, we don't want to switch up
     // the zoom level on the user
     const zoom = event.target.getZoom()
-
-    /*
-    we reset state + reverse geocode on click
-    we also do the same thing on drag end
-    thats some pretty obvious copypasta to
-    clean up if/when we add to geocoding/map functionality
-    */
     reverseGeocode(latlng).then((res) => {
       const latlng = {
         lat: res.features[0].geometry.coordinates[1],
@@ -156,18 +154,15 @@ function GeotagDialog () {
     })
   }
 
-  /*
-  so here can we just set renderPopup to false?
-  or do we need to make a 'toggle' function and call it here (which seems extra)
-  */
   const handleMarkerDragStart = (event) => {
     setRenderPopup(false)
   }
 
   const handleMarkerDragEnd = (event) => {
-    // method of updating coords is different here(as opposed to onClick) since we're
-    // moving a leaflet object
-    // keeping the data shape of latlng in line with how its used elsewhere
+    /* method of updating coords is different here(as opposed to onClick) since we're
+     moving a leaflet object
+    keeping the data shape of latlng in line with how its used in child components
+    */
     let latlng = event.target.getLatLng()
     latlng = {
       lat: latlng.lat,
@@ -178,7 +173,6 @@ function GeotagDialog () {
     })
   }
 
-  // TODO: I'd expect the confirm location stuff to be part of location popup
   const handleConfirmLocation = (event) => {
     const { markerLocation, addressInformation } = props
 
@@ -205,9 +199,10 @@ function GeotagDialog () {
       true
     )
 
-    // TODO: batch dispatches so we don't trigger multiple re-renders in the same update
-    dispatch(addLocation(location))
-    dispatch(saveStreetName(location.hierarchy.street, false))
+    batch(() => {
+      dispatch(addLocation(location))
+      dispatch(saveStreetName(location.hierarchy.street, false))
+    })
   }
 
   const handleClearLocation = (event) => {
@@ -227,7 +222,7 @@ function GeotagDialog () {
     return window.fetch(url).then((response) => response.json())
   }
 
-  // TODO: search dialog state dosen't sync up with map state (IMO should clear or update with label)
+  // Search dialog state dosen't sync up with map state (IMO should clear or update with label)
   const setSearchResults = (point, locationProperties) => {
     const latlng = {
       lat: point[0],

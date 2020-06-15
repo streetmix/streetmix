@@ -28,8 +28,7 @@ function GeoSearch ({ setSearchResults, focus = { lat: 0, lng: 0 } }) {
   function handleChange (selection) {
     if (!selection) return
 
-    // why does geocode search dispatch to the store here?
-    // should this be here or in parent component dialog?
+    // setMapState is called here and in GeotagDialog
     dispatch(
       setMapState({
         addressInformation: selection.properties,
@@ -42,8 +41,7 @@ function GeoSearch ({ setSearchResults, focus = { lat: 0, lng: 0 } }) {
 
     setSearchResults(
       selection.geometry.coordinates.reverse(),
-      selection.properties,
-      selection.bbox
+      selection.properties
     )
     inputEl.current.focus()
   }
