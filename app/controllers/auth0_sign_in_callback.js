@@ -7,7 +7,6 @@ const AccessTokenHandler = function (req, res) {
   return async (response) => {
     const body = response.data
     if (body.error && body.error === 'access_denied') {
-      console.log('CODE 0')
       res.redirect('/error/access-denied')
       return
     }
@@ -42,7 +41,6 @@ const AccessTokenHandler = function (req, res) {
           res.redirect('/just-signed-in')
         })
         .catch((error) => {
-          console.log('CODE 1')
           logger.error('Error from auth0 API when signing in: ' + error)
           res.redirect('/error/authentication-api-problem')
         })
