@@ -7,6 +7,7 @@ const AccessTokenHandler = function (req, res) {
   return async (response) => {
     const body = response.data
     if (body.error && body.error === 'access_denied') {
+      console.log('CODE 0')
       res.redirect('/error/access-denied')
       return
     }
@@ -37,10 +38,11 @@ const AccessTokenHandler = function (req, res) {
           res.cookie('user_id', user.id || userAuthData)
           res.cookie('refresh_token', refreshToken)
           res.cookie('login_token', idToken)
-          res.cookie('access_token', idToken)
+          res.cookie('access_token', accessToken)
           res.redirect('/just-signed-in')
         })
         .catch((error) => {
+          console.log('CODE 1')
           logger.error('Error from auth0 API when signing in: ' + error)
           res.redirect('/error/authentication-api-problem')
         })
@@ -87,6 +89,7 @@ const getUserTwitterAuth0Info = function (user) {
 
 exports.get = function (req, res) {
   if (req.query.error) {
+    logger.error('Auth0 encountered an error: ' + req.query.error)
     res.redirect('/error/access-denied')
     return
   }
