@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import SentimentSurvey from './SentimentSurvey'
 import { postSentimentSurveyVote } from '../util/api'
+import { trackEvent } from '../app/event_tracking'
+
+const SURVEY_DELAY_BEFORE_APPEAR = 5000 // in ms
 
 function SentimentSurveyContainer (props) {
   const [isVisible, setVisible] = useState(false)
@@ -18,17 +21,27 @@ function SentimentSurveyContainer (props) {
       state.user.signedIn === true &&
       // Show if user is not the same the current street's creator
       state.user.signInData.userId !== street.creatorId &&
+      // Show if gallery is not open
+      state.gallery.visible === false &&
       // Show if the street is geolocated
       street.location !== null &&
       // Show if the street has had more than a number of edits to it
-      street.editCount > 10
+      street.editCount > 10 &&
+      // Show if the street segments fit street width exactly
+      street.remainingWidth === 0
   )
 
   useEffect(() => {
     if (!isDismissed) {
       window.setTimeout(() => {
         setVisible(true)
-      }, 1000)
+      }, SURVEY_DELAY_BEFORE_APPEAR)
+    }
+  })
+
+  useEffect(() => {
+    if (isEnabled) {
+      trackEvent('INTERACTION', 'Sentiment survey viewed', null, null, false)
     }
   })
 
@@ -50,6 +63,8 @@ function SentimentSurveyContainer (props) {
     } catch (error) {
       console.error(error)
     }
+
+    trackEvent('INTERACTION', 'Sentiment survey voted', null, score, false)
 
     // There will be some visual confirmation of the vote, after that,
     // the UI closes automatically

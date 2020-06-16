@@ -50,7 +50,7 @@ const TRACK_LABEL = {
  * @param {string} action - The action to log
  * @param {string} label - The label (optional)
  * @param {string} value - The value (optional)
- * @param {boolean} onlyFirstTime - Only track this once
+ * @param {boolean} onlyFirstTime - If `true`, only track this once per session
  */
 export function trackEvent (category, action, label, value, onlyFirstTime) {
   // Return early if ga is not present, e.g. if tracking is blocked by user
