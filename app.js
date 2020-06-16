@@ -207,7 +207,7 @@ app.get('/help/about', (req, res) =>
 )
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 app.get('/survey', controllers.survey.get)
-app.post('/refresh', cors(), controllers.refresh.post)
+app.post('/services/auth/refresh-login-token', cors(), controllers.refresh.post)
 
 app.get('/privacy-policy', (req, res) => res.render('privacy'))
 app.get('/terms-of-service', (req, res) => res.render('tos'))

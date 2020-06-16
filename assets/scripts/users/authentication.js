@@ -81,9 +81,9 @@ function removeSignInCookies () {
 }
 
 export async function loadSignIn () {
-  var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
-  var refreshCookie = Cookies.get(REFRESH_TOKEN_COOKIE)
-  var userIdCookie = Cookies.get(USER_ID_COOKIE)
+  const signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
+  const refreshCookie = Cookies.get(REFRESH_TOKEN_COOKIE)
+  const userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
     store.dispatch(
@@ -113,7 +113,7 @@ export async function loadSignIn () {
 
   if (signInData && signInData.token && signInData.userId) {
     const currentDate = new Date()
-    var decoded = jwtDecode(signInData.token)
+    const decoded = jwtDecode(signInData.token)
     const expDate = new Date(decoded.exp * 1000)
     expDate.setDate(expDate.getDate() - 1) // refresh token one day early
 
@@ -143,7 +143,7 @@ export async function loadSignIn () {
 async function fetchFreshTokens (refreshToken) {
   const requestBody = JSON.stringify({ token: refreshToken })
   try {
-    const response = await window.fetch('/refresh', {
+    const response = await window.fetch('/services/auth/refresh-login-token', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
