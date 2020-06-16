@@ -1,20 +1,31 @@
-import { TWITTER_SIGN_IN_CALLBACK_PATH, AUTH0_SIGN_IN_CALLBACK_PATH } from './config'
+import {
+  TWITTER_SIGN_IN_CALLBACK_PATH,
+  AUTH0_SIGN_IN_CALLBACK_PATH
+} from './config'
 
-export const TWITTER_SIGN_IN_CALLBACK_URL =
-  new URL(TWITTER_SIGN_IN_CALLBACK_PATH, window.location.origin).href
+export const TWITTER_SIGN_IN_CALLBACK_URL = new URL(
+  TWITTER_SIGN_IN_CALLBACK_PATH,
+  window.location.origin
+).href
 
-export const AUTH0_SIGN_IN_CALLBACK_URL =
-  new URL(AUTH0_SIGN_IN_CALLBACK_PATH, window.location.origin).href
+export const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
+  AUTH0_SIGN_IN_CALLBACK_PATH,
+  window.location.origin
+).href
 
 export const JUST_SIGNED_IN_PATH = 'just-signed-in'
-export const JUST_SIGNED_IN_URL =
-  new URL(JUST_SIGNED_IN_PATH, window.location.origin).href
+export const JUST_SIGNED_IN_URL = new URL(
+  JUST_SIGNED_IN_PATH,
+  window.location.origin
+).href
 
 export const TWITTER_SIGN_IN_PATH = 'twitter-sign-in'
 export const TWITTER_URL_SIGN_IN_REDIRECT =
   TWITTER_SIGN_IN_PATH +
-  '?callbackUri=' + TWITTER_SIGN_IN_CALLBACK_URL +
-  '&redirectUri=' + JUST_SIGNED_IN_URL
+  '?callbackUri=' +
+  TWITTER_SIGN_IN_CALLBACK_URL +
+  '&redirectUri=' +
+  JUST_SIGNED_IN_URL
 
 // Path segments
 export const URL_NEW_STREET = 'new'
@@ -48,7 +59,8 @@ export const RESERVED_URLS = [
   'streets',
   'terms-of-service',
   'privacy-policy',
-  'map'
+  'map',
+  'survey'
 ]
 
 export const URL_RESERVED_PREFIX = '~'
