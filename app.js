@@ -9,6 +9,7 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
+const cors = require('cors')
 const express = require('express')
 const helmet = require('helmet')
 const config = require('config')
@@ -206,6 +207,7 @@ app.get('/help/about', (req, res) =>
 )
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 app.get('/survey', controllers.survey.get)
+app.post('/services/auth/refresh-login-token', cors(), controllers.refresh.post)
 
 app.get('/privacy-policy', (req, res) => res.render('privacy'))
 app.get('/terms-of-service', (req, res) => res.render('tos'))

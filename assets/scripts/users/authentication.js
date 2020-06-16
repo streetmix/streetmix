@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
 
 import USER_ROLES from '../../../app/data/user_roles'
 import { app } from '../preinit/app_settings'
@@ -23,6 +24,7 @@ import { updateStreetIdMetadata } from '../store/slices/street'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
+const REFRESH_TOKEN_COOKIE = 'refresh_token'
 const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
 export function doSignIn () {
@@ -74,15 +76,23 @@ function saveSignInDataLocally () {
 
 function removeSignInCookies () {
   Cookies.remove(SIGN_IN_TOKEN_COOKIE)
+  Cookies.remove(REFRESH_TOKEN_COOKIE)
   Cookies.remove(USER_ID_COOKIE)
 }
 
 export async function loadSignIn () {
-  var signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
-  var userIdCookie = Cookies.get(USER_ID_COOKIE)
+  const signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
+  const refreshCookie = Cookies.get(REFRESH_TOKEN_COOKIE)
+  const userIdCookie = Cookies.get(USER_ID_COOKIE)
 
   if (signInCookie && userIdCookie) {
-    store.dispatch(setSignInData({ token: signInCookie, userId: userIdCookie }))
+    store.dispatch(
+      setSignInData({
+        token: signInCookie,
+        refreshToken: refreshCookie,
+        userId: userIdCookie
+      })
+    )
 
     removeSignInCookies()
     saveSignInDataLocally()
@@ -102,6 +112,14 @@ export async function loadSignIn () {
   let flagOverrides = []
 
   if (signInData && signInData.token && signInData.userId) {
+    const currentDate = new Date()
+    const decoded = jwtDecode(signInData.token)
+    const expDate = new Date(decoded.exp * 1000)
+    expDate.setDate(expDate.getDate() - 1) // refresh token one day early
+
+    if (currentDate >= expDate) {
+      await fetchFreshTokens(signInData.refreshToken)
+    }
     flagOverrides = await fetchSignInDetails(signInData.userId)
   } else {
     store.dispatch(clearSignInData())
@@ -115,6 +133,64 @@ export async function loadSignIn () {
   _signInLoaded()
 
   return true
+}
+
+/**
+ *
+ * @param {String} refreshToken
+ * @returns {Object}
+ */
+async function fetchFreshTokens (refreshToken) {
+  const requestBody = JSON.stringify({ token: refreshToken })
+  try {
+    const response = await window.fetch('/services/auth/refresh-login-token', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: requestBody
+    })
+
+    if (!response.ok) {
+      throw response
+    }
+
+    const json = await response.json()
+    const { token } = json
+
+    receiveFreshTokens({ token })
+    return
+  } catch (error) {
+    errorReceiveFreshTokens(error)
+  }
+}
+
+function receiveFreshTokens (freshTokens) {
+  const signInData = {
+    ...getSignInData(),
+    freshTokens
+  }
+  store.dispatch(setSignInData(signInData))
+  saveSignInDataLocally()
+}
+
+function errorReceiveFreshTokens (data) {
+  if (data.status === 401) {
+    trackEvent('ERROR', 'ERROR_RM1R', null, null, false)
+
+    signOut(true)
+
+    showError(ERRORS.SIGN_IN_401, true)
+    return
+  } else if (data.status === 503) {
+    trackEvent('ERROR', 'ERROR_15AR', null, null, false)
+
+    showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
+    return
+  }
+
+  // Fail silently
+  store.dispatch(clearSignInData())
 }
 
 /**

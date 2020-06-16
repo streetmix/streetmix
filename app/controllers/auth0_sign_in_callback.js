@@ -37,7 +37,7 @@ const AccessTokenHandler = function (req, res) {
           res.cookie('user_id', user.id || userAuthData)
           res.cookie('refresh_token', refreshToken)
           res.cookie('login_token', idToken)
-          res.cookie('access_token', idToken)
+          res.cookie('access_token', accessToken)
           res.redirect('/just-signed-in')
         })
         .catch((error) => {
@@ -87,6 +87,7 @@ const getUserTwitterAuth0Info = function (user) {
 
 exports.get = function (req, res) {
   if (req.query.error) {
+    logger.error('Auth0 encountered an error: ' + req.query.error)
     res.redirect('/error/access-denied')
     return
   }
