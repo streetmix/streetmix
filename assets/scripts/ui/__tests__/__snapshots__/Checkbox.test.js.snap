@@ -6,12 +6,12 @@ exports[`Checkbox renders default snapshot 1`] = `
     class="checkbox-item"
   >
     <input
-      id="checkbox-id-0"
+      id="checkbox-id-1"
       type="checkbox"
       value=""
     />
     <label
-      for="checkbox-id-0"
+      for="checkbox-id-1"
     >
       foo
     </label>
@@ -25,7 +25,8 @@ exports[`Checkbox renders default snapshot 1`] = `
 exports[`Checkbox renders snapshot with all props 1`] = `
 <DocumentFragment>
   <div
-    class="checkbox-item"
+    class="checkbox-item custom-classname"
+    style="color: blue;"
   >
     <input
       checked=""

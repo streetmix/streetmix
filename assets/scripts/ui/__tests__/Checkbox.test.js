@@ -17,6 +17,8 @@ describe('Checkbox', () => {
         value="bar"
         id="baz"
         onChange={jest.fn()}
+        className="custom-classname"
+        style={{ color: 'blue' }}
       >
         foo
       </Checkbox>
@@ -25,7 +27,7 @@ describe('Checkbox', () => {
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('handles click', () => {
+  it('handles click on the label text', () => {
     const handleChange = jest.fn()
     const { getByText } = render(
       <Checkbox onChange={handleChange}>foo</Checkbox>

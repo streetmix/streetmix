@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import Dialog from './Dialog'
 import Checkbox from '../ui/Checkbox'
+import RangeSlider from '../ui/RangeSlider'
 import { trackEvent } from '../app/event_tracking'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
@@ -22,6 +23,7 @@ import { saveAs } from 'file-saver'
 
 // Verify how this lines up with 150dpi, 300dpi, 600dpi, etc.
 const DEFAULT_IMAGE_DPI = 2
+const MIN_IMAGE_DPI = DEFAULT_IMAGE_DPI
 const MAX_IMAGE_DPI = 10
 
 class SaveAsImageDialog extends React.Component {
@@ -44,9 +46,9 @@ class SaveAsImageDialog extends React.Component {
 
     this.state = {
       dpi: DEFAULT_IMAGE_DPI,
-      dpiInputValue: DEFAULT_IMAGE_DPI,
       isLoading: false,
       isShowingPreview: false,
+      isSaving: false,
       errorMessage: null,
       download: {
         filename: '',
@@ -118,9 +120,19 @@ class SaveAsImageDialog extends React.Component {
    */
   handleClickDownloadImage = (event) => {
     event.preventDefault()
+    this.setState({
+      isSaving: true
+    })
+    // Update the image with the actual dpi before saving.
+    this.updatePreviewImage(this.state.dpi)
     this.imageCanvas.toBlob((blob) => {
       const filename = this.makeFilename()
       saveAs(blob, filename)
+      window.setTimeout(() => {
+        this.setState({
+          isSaving: false
+        })
+      }, 0)
     })
   }
 
@@ -128,26 +140,29 @@ class SaveAsImageDialog extends React.Component {
     const value = event.target.value
     const validDpi =
       Math.min(
-        Math.max(DEFAULT_IMAGE_DPI, Number.parseInt(value, 10)),
+        Math.max(MIN_IMAGE_DPI, Number.parseInt(value, MAX_IMAGE_DPI)),
         MAX_IMAGE_DPI
       ) || DEFAULT_IMAGE_DPI
 
     this.setState({
-      isLoading: validDpi !== this.state.dpi,
-      dpiInputValue: value,
       dpi: validDpi
     })
   }
 
-  updatePreview = () => {
+  updatePreviewImage = (dpi = DEFAULT_IMAGE_DPI) => {
+    // The preview is rendered at the default DPI at first.
     this.imageCanvas = getStreetImage(
       this.props.street,
       this.props.transparentSky,
       this.props.segmentNames,
       this.props.streetName,
-      this.state.dpi,
+      dpi,
       this.props.watermark
     )
+  }
+
+  updatePreview = () => {
+    this.updatePreviewImage(DEFAULT_IMAGE_DPI)
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
@@ -238,15 +253,14 @@ class SaveAsImageDialog extends React.Component {
               </div>
               {this.props.allowCustomDpi && (
                 <div className="save-as-image-options">
-                  <label htmlFor="save-as-image-dpi-input">
-                    Custom DPI (min 2x, max 10x):{' '}
-                  </label>
-                  <input
-                    id="save-as-image-dpi-input"
-                    type="text"
-                    value={this.state.dpiInputValue}
+                  <RangeSlider
+                    min={MIN_IMAGE_DPI}
+                    max={MAX_IMAGE_DPI}
+                    value={this.state.dpi}
                     onChange={this.handleChangeDpiInput}
-                  />
+                  >
+                    Custom DPI (min 2x, max 10x):
+                  </RangeSlider>
                 </div>
               )}
               <div className="save-as-image-preview">
@@ -279,7 +293,7 @@ class SaveAsImageDialog extends React.Component {
                 )}
               </div>
               <div className="save-as-image-download">
-                {!this.state.errorMessage ? (
+                {!this.state.errorMessage && !this.state.isSaving ? (
                   <a
                     className="button-like"
                     onClick={this.handleClickDownloadImage}
@@ -295,6 +309,7 @@ class SaveAsImageDialog extends React.Component {
                     />
                   </a>
                 ) : (
+                  // TODO: When saving, show busy cursor and "Please wait"
                   <button disabled={true}>
                     <FormattedMessage
                       id="dialogs.save.save-button"

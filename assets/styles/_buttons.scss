@@ -42,14 +42,12 @@ a.button-like {
   }
 
   &[disabled] {
-    border-top-color: desaturate($ui-colour, 100%);
-    border-bottom-color: desaturate($ui-colour, 100%);
-    background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+    background-color: desaturate(fade-out($ui-colour, 0.7), 100%) !important;
     color: #999 !important;
     cursor: auto;
 
     &:hover {
-      background-color: desaturate(fade-out($ui-colour, 0.7), 100%);
+      background-color: desaturate(fade-out($ui-colour, 0.7), 100%) !important;
     }
   }
 }

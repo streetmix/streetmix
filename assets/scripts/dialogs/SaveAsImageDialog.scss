@@ -90,7 +90,8 @@
 .save-as-image-download {
   text-align: center;
 
-  a.button-like {
-    margin-top: 0;
+  /* Override a reset to this line-height */
+  button {
+    line-height: inherit;
   }
 }

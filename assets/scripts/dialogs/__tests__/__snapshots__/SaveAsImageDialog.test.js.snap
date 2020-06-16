@@ -38,12 +38,12 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
               class="checkbox-item"
             >
               <input
-                id="checkbox-id-4"
+                id="checkbox-id-1"
                 type="checkbox"
                 value=""
               />
               <label
-                for="checkbox-id-4"
+                for="checkbox-id-1"
               >
                 Segment names and widths
               </label>
@@ -55,12 +55,12 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
               class="checkbox-item"
             >
               <input
-                id="checkbox-id-5"
+                id="checkbox-id-2"
                 type="checkbox"
                 value=""
               />
               <label
-                for="checkbox-id-5"
+                for="checkbox-id-2"
               >
                 Street name
               </label>
@@ -72,12 +72,12 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
               class="checkbox-item"
             >
               <input
-                id="checkbox-id-6"
+                id="checkbox-id-3"
                 type="checkbox"
                 value=""
               />
               <label
-                for="checkbox-id-6"
+                for="checkbox-id-3"
               >
                 Transparent sky
               </label>
@@ -91,12 +91,12 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
               <input
                 checked=""
                 disabled=""
-                id="checkbox-id-7"
+                id="checkbox-id-4"
                 type="checkbox"
                 value=""
               />
               <label
-                for="checkbox-id-7"
+                for="checkbox-id-4"
               >
                 Watermark
               </label>
