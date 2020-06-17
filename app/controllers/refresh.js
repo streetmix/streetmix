@@ -5,7 +5,8 @@ const config = require('config')
 // Refreshes auth0 token so user doesn't need to sign in every 30 days
 exports.post = function (req, res) {
   if (!req.body || !req.body.token) {
-    res.status(401).send({ error: 'Refresh token is required.' })
+    res.status(401).json({ status: 401, msg: 'Refresh token is required.' })
+    return
   }
 
   const endpoint = config.auth0.token_api_url
@@ -20,14 +21,14 @@ exports.post = function (req, res) {
     .post(endpoint, apiRequestBody, {})
     .then((response) => {
       if (!response.data.id_token) {
-        logger.error('Missing results from token fresh: ')
-        res.status(401).statusend({ error: 'Unable to refresh token.' })
+        logger.error('Missing results from token refresh: ')
+        res.status(401).json({ status: 401, msg: 'Unable to refresh token.' })
         return
       }
-      res.status(200).send({ token: response.data.id_token })
+      res.status(200).json({ token: response.data.id_token })
     })
     .catch((error) => {
       logger.error('Error from auth0 refreshing tokens: ' + error)
-      res.status(401).statusend({ error: 'Unable to refresh token.' })
+      res.status(401).json({ status: 401, msg: 'Unable to refresh token.' })
     })
 }
