@@ -124,13 +124,13 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
       <div
         class="gallery-label"
       >
-        <div
+        <span
           class="avatar"
         >
           <img
             alt="foo"
           />
-        </div>
+        </span>
         <div
           class="gallery-user-id"
         >
@@ -221,13 +221,13 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
       <div
         class="gallery-label"
       >
-        <div
+        <span
           class="avatar"
         >
           <img
             alt="foo"
           />
-        </div>
+        </span>
         <div
           class="gallery-user-id"
         >

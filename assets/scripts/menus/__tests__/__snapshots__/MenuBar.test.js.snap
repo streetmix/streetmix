@@ -172,13 +172,13 @@ exports[`MenuBar renders logged in user 1`] = `
         <button
           class="menu-attached menu-avatar"
         >
-          <div
+          <span
             class="avatar"
           >
             <img
               alt="foo"
             />
-          </div>
+          </span>
           <span
             class="user-id"
           >

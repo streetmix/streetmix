@@ -55,9 +55,9 @@ function Avatar ({ userId }) {
   }, [userId, imageUrl, dispatch])
 
   return (
-    <div className="avatar">
+    <span className="avatar">
       <img src={imageUrl} alt={userId} />
-    </div>
+    </span>
   )
 }
 

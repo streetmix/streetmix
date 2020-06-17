@@ -5,13 +5,13 @@ exports[`AvatarMenu renders user avatar 1`] = `
   <button
     class="menu-attached menu-avatar"
   >
-    <div
+    <span
       class="avatar"
     >
       <img
         alt="foo"
       />
-    </div>
+    </span>
     <span
       class="user-id"
     >
@@ -26,13 +26,13 @@ exports[`AvatarMenu renders user avatar for admin 1`] = `
   <button
     class="menu-attached menu-avatar"
   >
-    <div
+    <span
       class="avatar"
     >
       <img
         alt="foo"
       />
-    </div>
+    </span>
     <svg
       class="svg-inline--fa menu-avatar-admin fa-crown"
     />
