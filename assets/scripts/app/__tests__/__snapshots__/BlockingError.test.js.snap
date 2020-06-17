@@ -21,13 +21,12 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
       <h1>
         You are not signed in.
       </h1>
-      <div>
+      <p>
         You cancelled the sign in process.
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -54,7 +53,7 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
       <h1>
         There was a problem with signing you in.
       </h1>
-      <div>
+      <p>
         There was a problem with authentication. Please try again later or let us know via 
         <a
           href="mailto:hello@streetmix.net"
@@ -72,11 +71,10 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
           Twitter
         </a>
         .
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -103,7 +101,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
       <h1>
         There was a problem with signing you in.
       </h1>
-      <div>
+      <p>
         There was a problem with authentication. Please try again later or let us know via 
         <a
           href="mailto:hello@streetmix.net"
@@ -121,11 +119,10 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
           Twitter
         </a>
         .
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -152,7 +149,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
       <h1>
         There was a problem with signing you in.
       </h1>
-      <div>
+      <p>
         There was a problem with authentication. Please try again later or let us know via 
         <a
           href="mailto:hello@streetmix.net"
@@ -170,11 +167,10 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
           Twitter
         </a>
         .
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -201,7 +197,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
       <h1>
         There was a problem with signing you in.
       </h1>
-      <div>
+      <p>
         There was a problem with authentication. Please try again later or let us know via 
         <a
           href="mailto:hello@streetmix.net"
@@ -219,11 +215,10 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
           Twitter
         </a>
         .
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -250,13 +245,12 @@ exports[`BlockingError renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
       <h1>
         Streetmix works on tablets and desktops only.
       </h1>
-      <div>
+      <p>
         If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.
-        <br />
-        <button>
-          View an example street
-        </button>
-      </div>
+      </p>
+      <button>
+        View an example street
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -283,13 +277,12 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_IN 1`] = `
       <h1>
         You signed in in another window.
       </h1>
-      <div>
+      <p>
         Please reload this page before continuing.
-        <br />
-        <button>
-          Reload the page
-        </button>
-      </div>
+      </p>
+      <button>
+        Reload the page
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -316,13 +309,12 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
       <h1>
         You signed out in another window.
       </h1>
-      <div>
+      <p>
         Please reload this page before continuing.
-        <br />
-        <button>
-          Reload the page
-        </button>
-      </div>
+      </p>
+      <button>
+        Reload the page
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -349,15 +341,14 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT_401 1`] = `
       <h1>
         You signed out in another window.
       </h1>
-      <div>
+      <p>
         Please reload this page before continuing.
         <br />
         (Error RM2.)
-        <br />
-        <button>
-          Reload the page
-        </button>
-      </div>
+      </p>
+      <button>
+        Reload the page
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -384,9 +375,9 @@ exports[`BlockingError renders GALLERY_STREET_FAILURE 1`] = `
       <h1>
         Having trouble…
       </h1>
-      <div>
+      <p>
         We’re having trouble loading this street.
-      </div>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -413,7 +404,7 @@ exports[`BlockingError renders GENERIC_ERROR 1`] = `
       <h1>
         Something went wrong.
       </h1>
-      <div>
+      <p>
         We’re sorry – something went wrong. Please try again later or let us know via 
         <a
           href="mailto:hello@streetmix.net"
@@ -431,11 +422,10 @@ exports[`BlockingError renders GENERIC_ERROR 1`] = `
           Twitter
         </a>
         .
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -462,13 +452,12 @@ exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
       <h1>
         Having trouble…
       </h1>
-      <div>
+      <p>
         We’re having trouble loading Streetmix.
-        <br />
-        <button>
-          Try again
-        </button>
-      </div>
+      </p>
+      <button>
+        Try again
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -495,7 +484,6 @@ exports[`BlockingError renders NO_STREET 1`] = `
       <h1>
         No street selected.
       </h1>
-      <div />
     </div>
   </div>
 </DocumentFragment>
@@ -522,13 +510,12 @@ exports[`BlockingError renders NOT_FOUND 1`] = `
       <h1>
         Page not found.
       </h1>
-      <div>
+      <p>
         Oh, boy. There is no page with this address!
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -555,15 +542,14 @@ exports[`BlockingError renders SIGN_IN_401 1`] = `
       <h1>
         Having trouble…
       </h1>
-      <div>
+      <p>
         We’re having trouble loading Streetmix.
         <br />
         (Error RM1.)
-        <br />
-        <button>
-          Try again
-        </button>
-      </div>
+      </p>
+      <button>
+        Try again
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -590,15 +576,14 @@ exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
       <h1>
         Having trouble…
       </h1>
-      <div>
+      <p>
         We’re having trouble loading Streetmix.
         <br />
         (Error 15A.)
-        <br />
-        <button>
-          Try again
-        </button>
-      </div>
+      </p>
+      <button>
+        Try again
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -625,11 +610,9 @@ exports[`BlockingError renders SIGN_OUT 1`] = `
       <h1>
         You are now signed out.
       </h1>
-      <div>
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -656,13 +639,12 @@ exports[`BlockingError renders STREET_404 1`] = `
       <h1>
         Street not found.
       </h1>
-      <div>
+      <p>
         Oh, boy. There is no street with this link!
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -689,25 +671,24 @@ exports[`BlockingError renders STREET_404_BUT_LINK_TO_USER 1`] = `
       <h1>
         Street not found.
       </h1>
-      <div>
+      <p>
         There is no street with this link! But you can look at other streets by 
         <a
           href="/foo"
         >
-          <div
+          <span
             class="avatar"
           >
             <img
               alt="foo"
             />
-          </div>
+          </span>
           foo
         </a>
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -734,25 +715,24 @@ exports[`BlockingError renders STREET_410_BUT_LINK_TO_USER 1`] = `
       <h1>
         This street has been deleted.
       </h1>
-      <div>
+      <p>
         There is no longer a street with this link, but you can look at other streets by 
         <a
           href="/foo"
         >
-          <div
+          <span
             class="avatar"
           >
             <img
               alt="foo"
             />
-          </div>
+          </span>
           foo
         </a>
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -779,15 +759,14 @@ exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
       <h1>
         Having trouble…
       </h1>
-      <div>
+      <p>
         We’re having trouble loading Streetmix.
         <br />
         (Error 9B.)
-        <br />
-        <button>
-          Try again
-        </button>
-      </div>
+      </p>
+      <button>
+        Try again
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -814,13 +793,12 @@ exports[`BlockingError renders STREET_DELETED_ELSEWHERE 1`] = `
       <h1>
         This street has been deleted elsewhere.
       </h1>
-      <div>
+      <p>
         This street has been deleted in another browser.
-        <br />
-        <button>
-          Go to the homepage
-        </button>
-      </div>
+      </p>
+      <button>
+        Go to the homepage
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -847,56 +825,54 @@ exports[`BlockingError renders UNSUPPORTED_BROWSER 1`] = `
       <h1>
         Streetmix doesn’t work on your browser.
       </h1>
-      <div>
-        <p>
-          Sorry about that. You might want to try 
-          <a
-            href="https://www.google.com/chrome"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Chrome
-          </a>
-          , 
-          <a
-            href="https://www.mozilla.org/firefox"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Firefox
-          </a>
-          , 
-          <a
-            href="https://www.microsoft.com/en-us/windows/microsoft-edge"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Microsoft Edge
-          </a>
-          , or Safari.
-        </p>
-        <p>
-          Are you on Internet Explorer? 
-          <a
-            href="https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Find out more.
-          </a>
-        </p>
-        <p>
-          If you think your browser should be supported, please contact us via 
-          <a
-            href="'mailto:hello@streetmix.net"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            email
-          </a>
-          .
-        </p>
-      </div>
+      <p>
+        Sorry about that. You might want to try 
+        <a
+          href="https://www.google.com/chrome"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Chrome
+        </a>
+        , 
+        <a
+          href="https://www.mozilla.org/firefox"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Firefox
+        </a>
+        , 
+        <a
+          href="https://www.microsoft.com/en-us/windows/microsoft-edge"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Microsoft Edge
+        </a>
+        , or Safari.
+      </p>
+      <p>
+        Are you on Internet Explorer? 
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Find out more.
+        </a>
+      </p>
+      <p>
+        If you think your browser should be supported, please contact us via 
+        <a
+          href="'mailto:hello@streetmix.net"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          email
+        </a>
+        .
+      </p>
     </div>
   </div>
 </DocumentFragment>
