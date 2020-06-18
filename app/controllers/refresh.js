@@ -25,6 +25,9 @@ exports.post = function (req, res) {
         res.status(401).json({ status: 401, msg: 'Unable to refresh token.' })
         return
       }
+
+      const cookieOptions = { maxAge: 9000000000, sameSite: 'strict' }
+      res.cookie('login_token', response.data.id_token, cookieOptions)
       res.status(200).json({ token: response.data.id_token })
     })
     .catch((error) => {
