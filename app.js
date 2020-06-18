@@ -150,7 +150,9 @@ app.use(helmet(helmetConfig))
 app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
-app.use(cookieSession({ secret: config.cookie_session_secret }))
+app.use(
+  cookieSession({ secret: config.cookie_session_secret, sameSite: 'strict' })
+)
 
 app.use(requestHandlers.login_token_parser)
 app.use(requestHandlers.request_log)

@@ -34,11 +34,10 @@ const AccessTokenHandler = function (req, res) {
             ? apiRequestBody.auth0_twitter.screenName
             : apiRequestBody.auth0.nickname
 
-          const cookieOptions = { maxAge: 9000000000 }
+          const cookieOptions = { maxAge: 9000000000, sameSite: 'strict' }
           res.cookie('user_id', user.id || userAuthData, cookieOptions)
           res.cookie('refresh_token', refreshToken, cookieOptions)
           res.cookie('login_token', idToken, cookieOptions)
-          res.cookie('access_token', accessToken, cookieOptions)
           res.redirect('/just-signed-in')
         })
         .catch((error) => {

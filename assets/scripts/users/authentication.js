@@ -94,7 +94,6 @@ export async function loadSignIn () {
       })
     )
 
-    removeSignInCookies()
     saveSignInDataLocally()
   } else {
     if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {

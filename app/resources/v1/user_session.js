@@ -7,9 +7,10 @@ exports.delete = async function (req, res) {
   }
 
   try {
-    res.cookie('refresh_token', '')
-    res.cookie('login_token', '')
-    res.cookie('access_token', '')
+    const cookieOptions = { maxAge: 0, sameSite: 'Strict' }
+    res.cookie('refresh_token', '', cookieOptions)
+    res.cookie('login_token', '', cookieOptions)
+    res.cookie('access_token', '', cookieOptions)
     res.status(204).end()
   } catch (err) {
     logger.error(err)
