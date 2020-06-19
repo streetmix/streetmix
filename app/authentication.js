@@ -1,6 +1,7 @@
 const jwt = require('express-jwt')
 const config = require('config')
 const jwksRsa = require('jwks-rsa')
+const logger = require('../lib/logger.js')()
 
 const secret = jwksRsa.expressJwtSecret({
   cache: true,
@@ -14,7 +15,31 @@ const jwtCheck = jwt({
   secret,
   issuer: 'https://streetmix.auth0.com/',
   audience: config.auth0.client_id,
-  credentialsRequired: false
+  credentialsRequired: false,
+  getToken: function fromCookies (req) {
+    if (req.cookies && req.cookies.login_token) {
+      return req.cookies.login_token
+    }
+    return null
+  }
 })
 
-module.exports = jwtCheck
+const wrappedCheck = (req, res, next) => {
+  const handleErrorNext = (err) => {
+    if (err) {
+      if (
+        err.name === 'UnauthorizedError' &&
+        err.inner.name === 'TokenExpiredError'
+      ) {
+        logger.error(err)
+        console.log('TOKEN EXPIRED', err)
+        return next()
+      }
+    }
+    next(err)
+  }
+
+  jwtCheck(req, res, handleErrorNext)
+}
+
+module.exports = wrappedCheck

@@ -300,12 +300,7 @@ export function getAuthToken () {
 }
 
 export function getAuthHeader () {
-  const signInData = getSignInData()
-  if (signInData && signInData.token && signInData.userId) {
-    return `Bearer ${signInData.token}`
-  } else {
-    return ''
-  }
+  return ''
 }
 
 function sendSignOutToServer (quiet) {
