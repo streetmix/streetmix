@@ -753,10 +753,12 @@ routes.put('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
 routes.post(
   '/api/v1/streets/images/:street_id',
   bodyParser.text({ limit: '3mb' }),
+  jwtCheck,
   resources.v1.street_images.post
 )
 routes.delete(
   '/api/v1/streets/images/:street_id',
+  jwtCheck,
   resources.v1.street_images.delete
 )
 routes.get(
