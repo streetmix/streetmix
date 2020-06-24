@@ -4,7 +4,6 @@ import { showError, ERRORS } from '../app/errors'
 import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { unpackServerStreetData } from '../streets/xhr'
 import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
-import { getAuthHeader } from '../users/authentication'
 import { segmentsChanged } from '../segments/view'
 import store from '../store'
 import { resetMapState } from '../store/slices/map'
@@ -18,12 +17,9 @@ export function fetchGalleryStreet (streetId) {
   lastRequestedStreetId = streetId
 
   const url = API_URL + 'v1/streets/' + streetId
-  const options = {
-    headers: { Authorization: getAuthHeader() }
-  }
 
   window
-    .fetch(url, options)
+    .fetch(url)
     .then(function (response) {
       if (!response.ok) {
         throw response

@@ -3,12 +3,7 @@ import { API_URL } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
-import {
-  getAuthHeader,
-  getAuthToken,
-  getSignInData,
-  isSignedIn
-} from './authentication'
+import { getAuthToken, getSignInData, isSignedIn } from './authentication'
 import store, { observeStore } from '../store'
 import { updateSettings } from '../store/slices/settings'
 import { setAppFlags } from '../store/slices/app'
@@ -88,7 +83,6 @@ function saveSettingsToServer (settings) {
       body: transmission,
       headers: {
         login_token: getAuthToken(),
-        Authorization: getAuthHeader(),
         'Content-Type': 'application/json'
       }
     },

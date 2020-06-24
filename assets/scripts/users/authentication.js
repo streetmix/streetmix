@@ -201,12 +201,8 @@ function errorReceiveFreshTokens (data) {
  * @returns {Array}
  */
 async function fetchSignInDetails (userId) {
-  const options = {
-    headers: { Authorization: getAuthHeader() }
-  }
-
   try {
-    const response = await window.fetch(API_URL + 'v1/users/' + userId, options)
+    const response = await window.fetch(API_URL + 'v1/users/' + userId)
 
     if (!response.ok) {
       throw response
@@ -302,20 +298,14 @@ export function getAuthToken () {
   return signInData.token || ''
 }
 
-export function getAuthHeader () {
-  return ''
-}
-
 function sendSignOutToServer (quiet) {
   const signInData = getSignInData()
-  const options = {
-    method: 'DELETE',
-    headers: { Authorization: getAuthHeader() }
-  }
 
   // TODO const
   window
-    .fetch(API_URL + 'v1/users/' + signInData.userId + '/login-token', options)
+    .fetch(API_URL + 'v1/users/' + signInData.userId + '/login-token', {
+      method: 'DELETE'
+    })
     .then((response) => {
       if (!quiet) {
         receiveSignOutConfirmationFromServer()

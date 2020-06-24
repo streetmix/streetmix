@@ -1,11 +1,7 @@
 import { API_URL } from '../app/config'
 import { t } from '../locales/locale'
 import { app } from '../preinit/app_settings'
-import {
-  getAuthHeader,
-  getSignInData,
-  isSignedIn
-} from '../users/authentication'
+import { getSignInData, isSignedIn } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import { setStreetCreatorId } from './data_model'
 import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
@@ -88,7 +84,6 @@ export function remixStreet () {
       method: 'POST',
       body: transmission,
       headers: {
-        Authorization: getAuthHeader(),
         'Content-Type': 'application/json'
       }
     },

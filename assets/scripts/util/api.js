@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { API_URL } from '../app/config'
-import { getAuthHeader } from '../users/authentication'
 
 class APIClient {
   constructor () {
@@ -11,16 +10,12 @@ class APIClient {
   }
 
   getStreet = async (streetId) => {
-    const { data } = await this.client.get(`/streets/${streetId}`, {
-      headers: { Authorization: getAuthHeader() }
-    })
+    const { data } = await this.client.get(`/streets/${streetId}`)
     return data
   }
 
   getGalleryForUser = (userId) => {
-    return this.client.get(`/users/${userId}/streets`, {
-      headers: { Authorization: getAuthHeader() }
-    })
+    return this.client.get(`/users/${userId}/streets`)
   }
 
   getGalleryForAllStreets = () => {
@@ -32,9 +27,7 @@ class APIClient {
   }
 
   postSentimentSurveyVote = (payload) => {
-    return this.client.post('/votes', payload, {
-      headers: { Authorization: getAuthHeader() }
-    })
+    return this.client.post('/votes', payload)
   }
 }
 

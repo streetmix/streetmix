@@ -13,7 +13,6 @@ import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import {
   getAuthToken,
-  getAuthHeader,
   getSignInData,
   isSignedIn
 } from '../users/authentication'
@@ -92,7 +91,6 @@ export function createNewStreetOnServer () {
     method: 'POST',
     body: packServerStreetData(),
     headers: {
-      Authorization: getAuthHeader(),
       login_token: getAuthToken(),
       'Content-Type': 'application/json'
     }
@@ -201,7 +199,6 @@ export function saveStreetToServer (initial) {
     body: transmission,
     headers: {
       login_token: getAuthToken(),
-      Authorization: getAuthHeader(),
       'Content-Type': 'application/json'
     }
   }
@@ -470,8 +467,7 @@ export function fetchLastStreet () {
       url: API_URL + 'v1/streets/' + streetId,
       method: 'GET',
       headers: {
-        login_token: getAuthToken(),
-        Authorization: getAuthHeader()
+        login_token: getAuthToken()
       }
     },
     receiveLastStreet,
@@ -535,8 +531,7 @@ export function sendDeleteStreetToServer (id) {
     {
       method: 'DELETE',
       headers: {
-        login_token: getAuthToken(),
-        Authorization: getAuthHeader()
+        login_token: getAuthToken()
       }
     },
     false
