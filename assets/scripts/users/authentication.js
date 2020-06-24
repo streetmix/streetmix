@@ -293,11 +293,6 @@ function signOut (quiet) {
   sendSignOutToServer(quiet)
 }
 
-export function getAuthToken () {
-  const signInData = getSignInData()
-  return signInData.token || ''
-}
-
 function sendSignOutToServer (quiet) {
   const signInData = getSignInData()
 
