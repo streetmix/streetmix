@@ -154,7 +154,6 @@ app.use(
   cookieSession({ secret: config.cookie_session_secret, sameSite: 'strict' })
 )
 
-app.use(requestHandlers.login_token_parser)
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 

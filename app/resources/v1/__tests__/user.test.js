@@ -99,10 +99,6 @@ describe('DELETE api/v1/users/:user_id', () => {
     jwtMock.mockReturnValueOnce(mockAdminUser)
     return request(app)
       .delete('/api/v1/users/user1')
-      .set(
-        'Authorization',
-        'Streetmix realm="" loginToken="xxxxxxxx-xxxx-xxxx-xxxx-3333333333333" userId="admin"'
-      )
       .then((response) => {
         expect(response.statusCode).toEqual(204)
       })
