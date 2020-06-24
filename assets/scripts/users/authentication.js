@@ -49,7 +49,7 @@ export function isSignedIn () {
 
 export function goReloadClearSignIn () {
   store.dispatch(clearSignInData())
-  saveSignInDataLocally()
+  window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
   removeSignInCookies()
 
   window.location.reload()
@@ -68,9 +68,12 @@ export function onStorageChange () {
 function saveSignInDataLocally () {
   const signInData = getSignInData()
   if (signInData) {
-    window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = JSON.stringify(signInData)
+    window.localStorage.setItem(
+      LOCAL_STORAGE_SIGN_IN_ID,
+      JSON.stringify(signInData)
+    )
   } else {
-    window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] = ''
+    window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
   }
 }
 
