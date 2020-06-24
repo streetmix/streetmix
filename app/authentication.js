@@ -29,10 +29,16 @@ const wrappedCheck = (req, res, next) => {
     if (err) {
       if (
         err.name === 'UnauthorizedError' &&
-        err.inner.name === 'TokenExpiredError'
+        err.inner.name === 'TokenExpiredError' &&
+        req.cookies.login_token
       ) {
-        logger.error(err)
-        console.log('TOKEN EXPIRED', err)
+        if (req.method === 'POST' || req.method === 'PUT') {
+          logger.error(
+            `Expired token ${req.cookies.login_token} sent for authenticated route - ${req.method} ${req.url}`
+          )
+          logger.error(err)
+        }
+
         return next()
       }
     }
