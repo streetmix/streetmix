@@ -19,7 +19,7 @@ function GalleryError (props) {
           defaultMessage="Failed to load the gallery."
         />
       </p>
-      <button className="gallery-try-again" onClick={handleRetry}>
+      <button onClick={handleRetry}>
         <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
       </button>
     </div>

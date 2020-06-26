@@ -125,6 +125,7 @@ $info-bubble-border-radius: $border-radius;
     button {
       white-space: nowrap;
       position: relative;
+      padding: 0;
 
       .icon {
         opacity: 0.666;
@@ -141,11 +142,8 @@ $info-bubble-border-radius: $border-radius;
 
   .variant-selected,
   .variant-selected:hover {
-    background: darken($ui-colour, 10%);
-    color: black;
+    background: $colour-copper-300 !important;
     opacity: 1;
-    border-top-color: darken($ui-colour, 30%);
-    border-bottom-color: darken($ui-colour, 30%);
 
     .icon {
       // Overrides disabled button opacity

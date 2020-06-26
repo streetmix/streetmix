@@ -14,17 +14,6 @@
     margin-top: 10px;
     z-index: $z-04-palette-scroll;
     width: 30px;
-    border: 0;
-    border-radius: $border-radius-medium;
-    background-color: $colour-turquoise-200;
-
-    &:hover {
-      background-color: $colour-turquoise-210;
-    }
-
-    &:active {
-      background-color: $colour-turquoise-220;
-    }
 
     &.scroll-right {
       right: -20px !important;

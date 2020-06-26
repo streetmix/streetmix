@@ -58,7 +58,7 @@ exports[`SignInDialog renders 1`] = `
               </small>
             </p>
             <button
-              class="sign-in-button sign-in-email-button"
+              class="button-primary sign-in-button sign-in-email-button"
               type="submit"
             >
               Continue with email
@@ -73,7 +73,7 @@ exports[`SignInDialog renders 1`] = `
             </span>
           </div>
           <button
-            class="sign-in-button sign-in-social-button sign-in-twitter-button"
+            class="button-tertiary sign-in-button sign-in-social-button sign-in-twitter-button"
           >
             <svg
               class="svg-inline--fa menu-item-icon fa-twitter"
@@ -81,7 +81,7 @@ exports[`SignInDialog renders 1`] = `
             Continue with Twitter
           </button>
           <button
-            class="sign-in-button sign-in-social-button sign-in-google-button"
+            class="button-tertiary sign-in-button sign-in-social-button sign-in-google-button"
           >
             <img
               alt=""
@@ -91,7 +91,7 @@ exports[`SignInDialog renders 1`] = `
             Continue with Google
           </button>
           <button
-            class="sign-in-button sign-in-social-button sign-in-facebook-button"
+            class="button-tertiary sign-in-button sign-in-social-button sign-in-facebook-button"
           >
             <svg
               class="svg-inline--fa menu-item-icon fa-facebook-square"

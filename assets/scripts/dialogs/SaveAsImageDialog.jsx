@@ -295,7 +295,7 @@ class SaveAsImageDialog extends React.Component {
               <div className="save-as-image-download">
                 {!this.state.errorMessage && !this.state.isSaving ? (
                   <a
-                    className="button-like"
+                    className="button-like button-primary"
                     onClick={this.handleClickDownloadImage}
                     // Sets the anchor's `download` attribute so that it saves a meaningful filename
                     // Note that this property is not supported in Safari/iOS
@@ -310,7 +310,7 @@ class SaveAsImageDialog extends React.Component {
                   </a>
                 ) : (
                   // TODO: When saving, show busy cursor and "Please wait"
-                  <button disabled={true}>
+                  <button disabled={true} className="button-primary">
                     <FormattedMessage
                       id="dialogs.save.save-button"
                       defaultMessage="Save to your computer…"

@@ -31,21 +31,7 @@ body.read-only .palette-container {
   button {
     height: $palette-height - 50px;
     width: $palette-height - 50px;
-    border: 0;
-    border-radius: $border-radius-medium;
-    background-color: $colour-turquoise-200;
-
-    &:hover {
-      background-color: $colour-turquoise-210;
-    }
-
-    &:active {
-      background-color: $colour-turquoise-220;
-    }
-
-    &[disabled] {
-      background-color: #e1e1e1;
-    }
+    padding: 0;
   }
 
   // Spacing between buttons

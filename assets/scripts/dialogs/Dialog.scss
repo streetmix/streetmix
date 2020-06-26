@@ -99,26 +99,15 @@ $header-text-colour: $colour-turquoise-700;
     z-index: $z-09-dialog-box;
   }
 
-  button:not(.close),
-  a.button-like {
+  // Button placement
+  button.button-primary,
+  button.button-secondary,
+  button.button-tertiary,
+  a.button-like.button-primary,
+  a.button-like.button-secondary,
+  a.button-like.button-tertiary {
     margin: 0 auto;
-    display: inline-block;
-    padding: 0.75em 2em;
     margin-top: 1em;
-  }
-
-  // New button appearance
-  button:not(.close):not(.dialog-primary-action),
-  a.button-like {
-    margin: 0 auto;
-    display: inline-block;
-    padding: 0.75em 2em;
-    margin-top: 1em;
-
-    // New button appearance
-    background-color: $colour-emerald-400;
-    color: white;
-    font-weight: bold;
   }
 }
 
@@ -158,17 +147,17 @@ button.dialog-primary-action {
   border-top: 1px solid $colour-turquoise-300;
   border-radius: 0;
   background-color: white;
+  font-weight: normal;
   width: 100%;
   text-align: center;
-  color: darken($ui-colour, 30%);
+  color: $colour-turquoise-600;
   min-height: 46px;
 
   /* override .dialog-box button */
-  padding: 1rem 2rem !important;
   margin-top: 0 !important;
 
   &:hover {
     background-color: $colour-turquoise-100;
-    color: darken($ui-colour, 50%);
+    color: $colour-turquoise-700;
   }
 }

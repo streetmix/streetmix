@@ -255,7 +255,7 @@ export default class SignInDialog extends React.Component {
 
                 <button
                   type="submit"
-                  className="sign-in-button sign-in-email-button"
+                  className="button-primary sign-in-button sign-in-email-button"
                 >
                   <FormattedMessage
                     id="dialogs.sign-in.button.email"
@@ -275,7 +275,7 @@ export default class SignInDialog extends React.Component {
               </div>
 
               <button
-                className="sign-in-button sign-in-social-button sign-in-twitter-button"
+                className="button-tertiary sign-in-button sign-in-social-button sign-in-twitter-button"
                 onClick={this.handleTwitterSignIn}
               >
                 <Icon icon="twitter" />
@@ -286,7 +286,7 @@ export default class SignInDialog extends React.Component {
               </button>
 
               <button
-                className="sign-in-button sign-in-social-button sign-in-google-button"
+                className="button-tertiary sign-in-button sign-in-social-button sign-in-google-button"
                 onClick={this.handleGoogleSignIn}
               >
                 <Icon icon="google" />
@@ -297,7 +297,7 @@ export default class SignInDialog extends React.Component {
               </button>
 
               <button
-                className="sign-in-button sign-in-social-button sign-in-facebook-button"
+                className="button-tertiary sign-in-button sign-in-social-button sign-in-facebook-button"
                 onClick={this.handleFacebookSignIn}
               >
                 <Icon icon="facebook" />

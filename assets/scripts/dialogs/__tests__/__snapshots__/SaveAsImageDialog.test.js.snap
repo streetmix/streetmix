@@ -118,6 +118,7 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
             class="save-as-image-download"
           >
             <button
+              class="button-primary"
               disabled=""
             >
               Save to your computer…

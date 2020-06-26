@@ -14,6 +14,7 @@
     padding: 0 0.2em;
     opacity: 0.25;
     font-size: 80px;
+    font-weight: normal;
     line-height: 1;
     letter-spacing: -0.15em;
     cursor: pointer;
@@ -22,7 +23,6 @@
 
     // Override default button styles
     background-color: transparent !important;
-    border: 0 !important;
 
     &:hover {
       opacity: 0.45;
