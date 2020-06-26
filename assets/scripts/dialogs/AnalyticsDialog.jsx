@@ -188,7 +188,7 @@ function AnalyticsDialog (props) {
               </Checkbox>
 
               <br />
-              <button onClick={exportCSV}>
+              <button className="button-primary" onClick={exportCSV}>
                 <FormattedMessage
                   id="dialogs.analytics.export-csv"
                   defaultMessage="Export as CSV"

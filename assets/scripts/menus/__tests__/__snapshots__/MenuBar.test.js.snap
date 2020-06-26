@@ -80,7 +80,7 @@ exports[`MenuBar renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-sign-in"
+          class="menu-sign-in button-secondary"
         >
           Sign in
         </button>

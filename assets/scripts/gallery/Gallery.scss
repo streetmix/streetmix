@@ -51,17 +51,6 @@ body:not(.safari).gallery-visible .street-section-sky {
   button.scrollable {
     margin-top: 45px;
     width: 30px;
-    border: 0;
-    border-radius: $border-radius-medium;
-    background-color: $colour-turquoise-200;
-
-    &:hover {
-      background-color: $colour-turquoise-210;
-    }
-
-    &:active {
-      background-color: $colour-turquoise-220;
-    }
 
     &.scroll-left {
       left: -10px !important;
@@ -139,23 +128,6 @@ body:not(.safari).gallery-visible .street-section-sky {
   top: 50px;
   display: flex;
   flex-direction: row;
-}
-
-.gallery-try-again {
-  margin-left: 10px;
-  // TODO: adopt new button style via inheritance/composition
-  padding: 0.5em 1em;
-  border: 0;
-  border-radius: $border-radius-medium;
-  background-color: $colour-turquoise-200;
-
-  &:hover {
-    background-color: $colour-turquoise-210;
-  }
-
-  &:active {
-    background-color: $colour-turquoise-220;
-  }
 }
 
 .gallery-street-item {
@@ -318,19 +290,6 @@ body:not(.safari).gallery-visible .street-section-sky {
     display: flex !important;
     align-items: center !important;
     justify-content: center;
-  }
-
-  a.button-like,
-  button:not(:disabled) {
-    background-color: $colour-turquoise-200;
-
-    &:hover {
-      background-color: $colour-turquoise-210;
-    }
-
-    &:active {
-      background-color: $colour-turquoise-220;
-    }
   }
 
   [dir="rtl"] & {

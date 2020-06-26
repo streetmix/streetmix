@@ -16,20 +16,22 @@
 
 /* Hard codes replacement button styles */
 #mc_embed_signup .button {
-  border-top: 1px solid #a9ccdb;
-  border-bottom: 1px solid #a9ccdb;
-  border-radius: 0;
-  background-color: #e6f0f5;
-  color: black;
-  text-align: center;
+  // Match UI button style
+  background-color: $colour-emerald-400;
+  padding: 0.75em 2em;
+  margin-top: 1em;
+  color: white;
+  font-weight: bold;
+
+  // Override styles supplied by mailchimp.css
+  transition: none;
   height: auto;
+  font-size: inherit;
+  line-height: inherit;
 
+  // Match UI button hover style
   &:hover {
-    background-color: mix($ui-colour, white, 70%);
-  }
-
-  &:active {
-    background-color: mix($ui-colour, white, 95%);
+    background-color: mix($colour-emerald-400, $colour-emerald-500, 75%);
   }
 }
 

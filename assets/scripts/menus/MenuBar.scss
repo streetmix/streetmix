@@ -83,7 +83,7 @@ $menu-bar-box-shadow: $light-box-shadow;
     }
   }
 
-  button {
+  button.menu-attached {
     @include tap-highlight-color(transparent);
 
     appearance: none;
@@ -95,6 +95,7 @@ $menu-bar-box-shadow: $light-box-shadow;
     color: inherit;
     cursor: pointer;
     line-height: 24px;
+    padding: 0 0.75em;
 
     &::after {
       content: "▼";
@@ -115,10 +116,6 @@ $menu-bar-box-shadow: $light-box-shadow;
 
     &:active {
       color: $menu-bar-text-color-active;
-    }
-
-    &[disabled] {
-      color: red;
     }
   }
 }
