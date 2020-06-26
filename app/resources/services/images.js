@@ -5,9 +5,8 @@ const logger = require('../../../lib/logger.js')()
 
 exports.get = async function (req, res) {
   const query = req.query
-  const userId = req.userId
 
-  if (!userId) {
+  if (!(req.user && req.user.sub)) {
     res.status(401).json({ status: 401, msg: 'Please provide user ID.' })
     return
   }
@@ -15,7 +14,7 @@ exports.get = async function (req, res) {
   let user
 
   try {
-    user = await User.findOne({ where: { id: userId } })
+    user = await User.findOne({ where: { auth0_id: req.user.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })

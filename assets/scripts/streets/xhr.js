@@ -11,12 +11,7 @@ import { goNewStreet } from '../app/routing'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
-import {
-  getAuthToken,
-  getAuthHeader,
-  getSignInData,
-  isSignedIn
-} from '../users/authentication'
+import { getSignInData, isSignedIn } from '../users/authentication'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -92,8 +87,6 @@ export function createNewStreetOnServer () {
     method: 'POST',
     body: packServerStreetData(),
     headers: {
-      Authorization: getAuthHeader(),
-      login_token: getAuthToken(),
       'Content-Type': 'application/json'
     }
   }
@@ -200,8 +193,6 @@ export function saveStreetToServer (initial) {
     method: 'PUT',
     body: transmission,
     headers: {
-      login_token: getAuthToken(),
-      Authorization: getAuthHeader(),
       'Content-Type': 'application/json'
     }
   }
@@ -468,11 +459,7 @@ export function fetchLastStreet () {
     {
       // TODO const
       url: API_URL + 'v1/streets/' + streetId,
-      method: 'GET',
-      headers: {
-        login_token: getAuthToken(),
-        Authorization: getAuthHeader()
-      }
+      method: 'GET'
     },
     receiveLastStreet,
     cancelReceiveLastStreet
@@ -533,11 +520,7 @@ export function sendDeleteStreetToServer (id) {
   newNonblockingAjaxRequest(
     API_URL + 'v1/streets/' + id,
     {
-      method: 'DELETE',
-      headers: {
-        login_token: getAuthToken(),
-        Authorization: getAuthHeader()
-      }
+      method: 'DELETE'
     },
     false
   )

@@ -31,7 +31,6 @@ POST /users
 
 Sign-out a user.
 DELETE /users/{id}/login-token
-> Authorization: Streetmix realm="" loginToken="{login-token}"
 < 204
 
 
@@ -50,7 +49,6 @@ GET /users/{id}
 
 Update a user's information.
 PUT /users/{id}
-> Authorization: Streetmix realm="" loginToken="{login-token}"
 > Content-Type: application/json
 {
   "data": ...
@@ -103,7 +101,6 @@ GET /streets/{id}
 
 Delete a street.
 DELETE /streets/{id}
-> Authorization: Streetmix realm="" loginToken="{login-token}"
 < 204
 
 
