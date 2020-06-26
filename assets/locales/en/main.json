@@ -114,7 +114,7 @@
     "please-reload": "Please reload this page before continuing.",
     "street-deleted-elsewhere-title": "This street has been deleted elsewhere.",
     "street-deleted-elsewhere-description": "This street has been deleted in another browser.",
-    "auth-expired": "Your authentication has expired.",
+    "auth-expired": "We automatically signed you out due to inactivity. Please sign in again.",
     "access-denied-title": "You are not signed in.",
     "access-denied-description": "You cancelled the sign in process.",
     "auth-api-problem-title": "There was a problem with signing you in.",

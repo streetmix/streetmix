@@ -9,6 +9,7 @@ import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goTwitterSignIn } from '../app/routing'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
+import { t } from '../locales/locale'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings } from './settings'
@@ -21,6 +22,7 @@ import {
 } from '../store/slices/user'
 import { showDialog } from '../store/slices/dialogs'
 import { updateStreetIdMetadata } from '../store/slices/street'
+import { addToast } from '../store/slices/toasts'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -258,7 +260,21 @@ function errorReceiveSignInDetails (data) {
 
     signOut(true)
 
-    showError(ERRORS.SIGN_IN_401, true)
+    // showError(ERRORS.SIGN_IN_401, true)
+    // TODO: Check to make sure that this is the correct place to display
+    // this. Currently, this will display for all 401 errors, not just
+    // when a valid user who was previously signed in has been signed out.
+    store.dispatch(
+      addToast({
+        message: t(
+          'error.auth-expired',
+          'We automatically signed you out due to inactivity. Please sign in again.'
+        ),
+        component: 'TOAST_SIGN_IN',
+        duration: Infinity
+      })
+    )
+
     return
   } else if (data.status === 503) {
     trackEvent('ERROR', 'ERROR_15A', null, null, false)

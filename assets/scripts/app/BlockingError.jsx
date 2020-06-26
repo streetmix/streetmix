@@ -270,7 +270,7 @@ function BlockingError (props) {
       title = (
         <FormattedMessage
           id="error.auth-expired"
-          defaultMessage="Your authentication has expired."
+          defaultMessage="We automatically signed you out due to inactivity. Please sign in again."
         />
       )
       description = (
