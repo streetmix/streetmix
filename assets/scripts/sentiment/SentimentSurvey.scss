@@ -39,8 +39,8 @@
   pointer-events: auto;
 
   h2 {
-    margin-top: 0;
-    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0;
     color: $colour-turquoise-600;
     font-weight: normal;
 
@@ -50,10 +50,20 @@
     }
   }
 
-  p {
+  p:first-of-type {
+    margin-top: 0;
+  }
+
+  sub {
+    display: block;
+    margin-bottom: 1.5em;
+    color: gray;
+    font-style: italic;
+  }
+
+  p:last-child {
     margin-top: 1.5em;
     margin-bottom: 0;
-    color: $colour-midnight-500;
   }
 }
 

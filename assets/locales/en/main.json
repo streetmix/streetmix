@@ -392,7 +392,9 @@
   },
   "sentiment": {
     "prompt": {
-      "joyful": "How <em>joyful</em> is this street?"
+      "intro": "<strong>Pardon the interruption.</strong> We’d love your feedback on this street.",
+      "joyful": "Would you say this street feels <em>joyful</em>?",
+      "choose-one": "(choose one)"
     },
     "answer": {
       "rating-1": "Absolutely not",
@@ -401,8 +403,15 @@
       "rating-4": "A little bit",
       "rating-5": "Quite a lot"
     },
+    "about-link": "Why am I seeing this?",
     "about-text": "This survey helps us learn how people feel about streets.",
-    "thank-you": "Thank you for participating in this survey!"
+    "thank-you": "Thank you for participating in this survey!",
+    "about-header": "We want to understand how people feel about streets",
+    "about-article": {
+      "paragraph-1": "Many streets are designed by civil engineers, but we believe that design should include everyone’s point of view. In partnership with the <a>New Urban Mobility Alliance</a> (NUMO), we’re conducting this one-question survey to do just that.",
+      "paragraph-2": "We will analyze your responses so that we can infer which street characteristics will induce which feelings. In the future, we plan to incorporate these insights back into design recommendations for Streetmix users.",
+      "paragraph-3": "You can only vote once per street, but you can encourage others to cast their own vote by sharing your streets or a random street with the link <a>https://streetmix.net/survey/</a>."
+    }
   },
   "i18n": {
     "lang": {

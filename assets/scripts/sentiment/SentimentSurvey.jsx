@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import CloseButton from '../ui/CloseButton'
 import VoteButton from './VoteButton'
+import { showDialog } from '../store/slices/dialogs'
 import './SentimentSurvey.scss'
 import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
 import IMG_SENTIMENT_2 from '../../images/openmoji/color/1F641.svg'
@@ -20,6 +22,7 @@ SentimentSurvey.propTypes = {
 
 function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   const [score, setScore] = useState(null)
+  const dispatch = useDispatch()
   const intl = useIntl()
   const [source, target] = useSingleton()
   const transitions = useTransition(visible, null, {
@@ -87,6 +90,10 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
     handleVote(score)
   }
 
+  function handleClickAbout (event) {
+    dispatch(showDialog('SENTIMENT_SURVEY'))
+  }
+
   /* eslint-disable react/jsx-indent */
   return (
     <div className={classNames.join(' ')}>
@@ -102,15 +109,30 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
               style={props}
             >
               <CloseButton onClick={onClose} />
+              <p>
+                <FormattedMessage
+                  id="sentiment.prompt.intro"
+                  defaultMessage="<strong>Pardon the interruption.</strong> We’d love your feedback on this street."
+                  values={{
+                    strong: (...chunks) => <strong>{chunks}</strong>
+                  }}
+                />
+              </p>
               <h2>
                 <FormattedMessage
                   id="sentiment.prompt.joyful"
-                  defaultMessage="How <em>joyful</em> is this street?"
+                  defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
                     em: (...chunks) => <em>{chunks}</em>
                   }}
                 />
               </h2>
+              <sub>
+                <FormattedMessage
+                  id="sentiment.prompt.choose-one"
+                  defaultMessage="(choose one)"
+                />
+              </sub>
               <div className="sentiment-survey-buttons">
                 {voteButtonData.map((props) => (
                   /* eslint-disable react/prop-types */
@@ -130,10 +152,12 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
               </div>
               <p>
                 {score === null ? (
-                  <FormattedMessage
-                    id="sentiment.about-text"
-                    defaultMessage="This survey helps Streetmix learn how people feel about streets."
-                  />
+                  <span className="link-like" onClick={handleClickAbout}>
+                    <FormattedMessage
+                      id="sentiment.about-link"
+                      defaultMessage="Why am I seeing this?"
+                    />
+                  </span>
                 ) : (
                   <FormattedMessage
                     id="sentiment.thank-you"

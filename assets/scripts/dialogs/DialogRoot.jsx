@@ -14,6 +14,7 @@ import WhatsNewDialog from './WhatsNewDialog'
 import MinecraftDialog from './MinecraftDialog'
 import NewsletterDialog from './NewsletterDialog'
 import UpgradeDialog from './UpgradeDialog'
+import SentimentSurveyDialog from './SentimentSurveyDialog'
 import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
@@ -49,6 +50,9 @@ const DIALOG_COMPONENTS = {
   },
   UPGRADE: {
     id: UpgradeDialog
+  },
+  SENTIMENT_SURVEY: {
+    id: SentimentSurveyDialog
   }
 }
 
@@ -95,4 +99,4 @@ class DialogRoot extends Component {
   }
 }
 
-export default connect(state => state.dialogs)(DialogRoot)
+export default connect((state) => state.dialogs)(DialogRoot)
