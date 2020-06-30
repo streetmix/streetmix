@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import CloseButton from '../ui/CloseButton'
 import VoteButton from './VoteButton'
+import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
 import './SentimentSurvey.scss'
 import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
@@ -22,6 +23,7 @@ SentimentSurvey.propTypes = {
 
 function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   const [score, setScore] = useState(null)
+  const isUserSignedIn = useSelector((state) => state.user.signedIn)
   const dispatch = useDispatch()
   const intl = useIntl()
   const [source, target] = useSingleton()
@@ -86,12 +88,22 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   ]
 
   function handleClick (score, event) {
+    // Do not handle this vote if the user is not signed in.
+    // These vote buttons are normally blocked if the user is not signed in,
+    // but we have to verify this in case that DOM element fails or is user-
+    // edited out of existence.
+    if (!isUserSignedIn) return
+
     setScore(score)
     handleVote(score)
   }
 
   function handleClickAbout (event) {
     dispatch(showDialog('SENTIMENT_SURVEY'))
+  }
+
+  function handleClickSignIn (event) {
+    doSignIn()
   }
 
   /* eslint-disable react/jsx-indent */
@@ -128,10 +140,17 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                 />
               </h2>
               <sub>
-                <FormattedMessage
-                  id="sentiment.prompt.choose-one"
-                  defaultMessage="(choose one)"
-                />
+                {isUserSignedIn ? (
+                  <FormattedMessage
+                    id="sentiment.prompt.choose-one"
+                    defaultMessage="(choose one)"
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="sentiment.sign-in-prompt"
+                    defaultMessage="Please sign in now to make your voice heard."
+                  />
+                )}
               </sub>
               <div className="sentiment-survey-buttons">
                 {voteButtonData.map((props) => (
@@ -149,6 +168,19 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                   />
                   /* eslint-enable react/prop-types */
                 ))}
+                {!isUserSignedIn && (
+                  <div className="sentiment-survey-sign-in-prompt">
+                    <button
+                      className="button-primary"
+                      onClick={handleClickSignIn}
+                    >
+                      <FormattedMessage
+                        id="menu.item.sign-in"
+                        defaultMessage="Sign in"
+                      />
+                    </button>
+                  </div>
+                )}
               </div>
               <p>
                 {score === null ? (

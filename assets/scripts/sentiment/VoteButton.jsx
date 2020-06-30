@@ -29,7 +29,11 @@ function VoteButton ({
 
   return (
     <Tooltip label={label} target={tooltipTarget}>
-      <button onClick={handleClick} disabled={disabled}>
+      <button
+        className="sentiment-button-container"
+        onClick={handleClick}
+        disabled={disabled}
+      >
         <div className={classNames}>
           <img src={imgSrc} draggable="false" alt={label} />
         </div>

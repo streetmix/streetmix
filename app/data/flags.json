@@ -25,7 +25,7 @@
   },
   "SENTIMENT_SURVEY": {
     "label": "Survey sentiment",
-    "defaultValue": false
+    "defaultValue": true
   },
   "ENVIRONMENT_EDITOR": {
     "label": "Environment editor",

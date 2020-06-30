@@ -17,10 +17,8 @@ function SentimentSurveyContainer (props) {
       // Enabled if locale is English (or any other supported locale; for
       // now, this is going to be hard-coded when needed)
       ['en', 'es-419'].includes(state.locale.locale) &&
-      // Enabled if user is signed in
-      state.user.signedIn === true &&
       // Show if user is not the same the current street's creator
-      state.user.signInData.userId !== street.creatorId &&
+      state.user.signInData?.userId !== street.creatorId &&
       // Show if gallery is not open
       state.gallery.visible === false &&
       // Show if the street is geolocated

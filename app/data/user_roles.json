@@ -10,8 +10,7 @@
       "SEGMENT_PED_LANES": true,
       "SEGMENT_CONSTRUCTION": true,
       "SEGMENT_MAGIC_CARPET": true,
-      "SEGMENT_CAFE_SEATING": true,
-      "SENTIMENT_SURVEY": true
+      "SEGMENT_CAFE_SEATING": true
     }
   },
   "ADMIN": {
