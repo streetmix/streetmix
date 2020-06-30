@@ -28,9 +28,9 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   const intl = useIntl()
   const [source, target] = useSingleton()
   const transitions = useTransition(visible, null, {
-    from: { transform: 'translateY(200px)' },
-    enter: { transform: 'translateY(0px)' },
-    leave: { transform: 'translateY(300px)' },
+    from: { transform: 'translateY(-50px)', opacity: 0 },
+    enter: { transform: 'translateY(0px)', opacity: 1 },
+    leave: { transform: 'translateY(-50px)', opacity: 0 },
     config: config.wobbly
   })
 
