@@ -31,13 +31,10 @@ describe('StreetName', () => {
     expect(handleClick).toBeCalledTimes(1)
   })
 
-  it('shows a "Click to edit" message when mouse is hovering over it', () => {
-    const wrapper = renderWithIntl(<StreetName editable={true} />)
-    fireEvent.mouseOver(wrapper.getByText('Unnamed St'))
-    expect(wrapper.getByText('Click to rename')).toBeInTheDocument()
-  })
-
-  it('does not do that if the street name is not editable', () => {
+  // Editable state is tested at the StreetNameplateContainer component level.
+  // However, we do include a test here to ensure that StreetName is never
+  // editable by default.
+  it('is not editable by default', () => {
     const wrapper = renderWithIntl(<StreetName editable={false} />)
     fireEvent.mouseOver(wrapper.getByText('Unnamed St'))
     expect(wrapper.queryByText('Click to rename')).not.toBeInTheDocument()

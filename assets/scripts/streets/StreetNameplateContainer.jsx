@@ -109,7 +109,7 @@ function StreetNameplateContainer (props) {
   return (
     <div className={determineClassNames().join(' ')}>
       <StreetName
-        isEditable={isEditable}
+        editable={isEditable}
         childRef={streetNameEl}
         name={streetName}
         onClick={handleClickStreetName}

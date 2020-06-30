@@ -74,4 +74,36 @@ describe('StreetNameplateContainer', () => {
     // Restore mock
     mockPrompt.mockRestore()
   })
+
+  it('shows a "Click to edit" message when mouse is hovering over it', () => {
+    const wrapper = renderWithReduxAndIntl(<StreetNameplateContainer />, {
+      initialState
+    })
+
+    fireEvent.mouseOver(wrapper.getByText('foo'))
+    expect(wrapper.getByText('Click to rename')).toBeInTheDocument()
+
+    fireEvent.mouseOut(wrapper.getByText('foo'))
+    expect(wrapper.queryByText('Click to rename')).not.toBeInTheDocument()
+  })
+
+  it('does not show a "Click to edit" message when street name is not editable', () => {
+    const wrapper = renderWithReduxAndIntl(<StreetNameplateContainer />, {
+      initialState: {
+        ...initialState,
+        flags: {
+          ...initialState.flags,
+          EDIT_STREET_NAME: {
+            value: false
+          }
+        }
+      }
+    })
+
+    fireEvent.mouseOver(wrapper.getByText('foo'))
+    expect(wrapper.queryByText('Click to rename')).not.toBeInTheDocument()
+
+    fireEvent.mouseOut(wrapper.getByText('foo'))
+    expect(wrapper.queryByText('Click to rename')).not.toBeInTheDocument()
+  })
 })
