@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
 import VoteButtons from './VoteButtons'
+import VoteReceipt from './VoteReceipt'
 import CloseButton from '../ui/CloseButton'
 import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
@@ -113,20 +114,14 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                 )}
               </div>
               <p>
-                {score === null ? (
-                  <span className="link-like" onClick={handleClickAbout}>
-                    <FormattedMessage
-                      id="sentiment.about-link"
-                      defaultMessage="Why am I seeing this?"
-                    />
-                  </span>
-                ) : (
+                <span className="link-like" onClick={handleClickAbout}>
                   <FormattedMessage
-                    id="sentiment.thank-you"
-                    defaultMessage="Thank you for participating in this survey!"
+                    id="sentiment.about-link"
+                    defaultMessage="Why am I seeing this?"
                   />
-                )}
+                </span>
               </p>
+              <VoteReceipt score={score} handleClose={onClose} />
             </animated.div>
           )
       )}

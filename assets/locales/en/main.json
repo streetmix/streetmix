@@ -412,6 +412,17 @@
       "paragraph-1": "Many streets are designed by civil engineers, but we believe that design should include everyone’s point of view. In partnership with the <a>New Urban Mobility Alliance</a> (NUMO), we’re conducting this one-question survey to do just that.",
       "paragraph-2": "We will analyze your responses so that we can infer which street characteristics will induce which feelings. In the future, we plan to incorporate these insights back into design recommendations for Streetmix users.",
       "paragraph-3": "You can only vote once per street, but you can encourage others to cast their own vote by sharing your streets or a random street with the link <a>https://streetmix.net/survey/</a>."
+    },
+    "done": {
+      "response": "You responded {score}. Your response will help us learn how people feel about streets!",
+      "vote-another": "Vote on another!",
+      "really-done": "All done!"
+    },
+    "comment": {
+      "prompt": "Tell us why:",
+      "example": "(for instance, “I liked the trees.”)",
+      "submit": "Send",
+      "thanks": "Thank you!"
     }
   },
   "i18n": {

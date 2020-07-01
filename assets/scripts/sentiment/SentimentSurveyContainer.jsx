@@ -63,10 +63,6 @@ function SentimentSurveyContainer (props) {
     }
 
     trackEvent('INTERACTION', 'Sentiment survey voted', null, score, false)
-
-    // There will be some visual confirmation of the vote, after that,
-    // the UI closes automatically
-    window.setTimeout(handleClose, 2500)
   }
 
   if (isEnabled) {
