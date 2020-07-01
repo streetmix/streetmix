@@ -77,11 +77,6 @@
     padding: 0 0.5em;
   }
 
-  /* Overwrite a global hover state when button is disabled */
-  button.sentiment-button-container:disabled {
-    background: transparent;
-  }
-
   .sentiment-button {
     width: 60px;
     height: 60px;
@@ -98,14 +93,19 @@
     opacity: 1;
   }
 
-  button.sentiment-button-container:not([disabled]):hover .sentiment-button,
-  button.sentiment-button-container:not([disabled]):focus .sentiment-button {
+  button.sentiment-button-container:not(:disabled):hover .sentiment-button,
+  button.sentiment-button-container:not(:disabled):focus .sentiment-button {
     transform: scale(1.2);
   }
 
-  /* When disabled, fade out */
-  button.sentiment-button-container:disabled .sentiment-button:not(.sentiment-selected) {
-    opacity: 0;
+  button.sentiment-button-container:disabled {
+    /* Overwrite global button appearance when this button is disabled */
+    background-color: transparent !important;
+
+    /* When disabled, fade out */
+    .sentiment-button:not(.sentiment-selected) {
+      opacity: 0;
+    }
   }
 
   .sentiment-selected {
