@@ -9,10 +9,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
+import CapacitySource from './Analytics/CapacitySource'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
 import { updateStreetAnalytics } from '../store/actions/street'
-import Checkbox from '../ui/Checkbox'
 
 import Terms from '../app/Terms'
 import {
@@ -22,12 +22,18 @@ import {
 } from '../util/street_analytics'
 import './AnalyticsDialog.scss'
 
-const addSegmentData = (segments) => {
+const addSegmentData = (segments, analyticsSource) => {
   // return segments.map(getSegmentCapacity)
   return segments.map((item) => {
+    console.log()
+    let finalCapacity = getSegmentCapacity(item, analyticsSource).capacity
+    if (item.capacity) {
+      finalCapacity = item.capacity
+    }
     return {
       type: item.type,
-      capacity: getSegmentCapacity(item).capacity,
+      customCapacity: item.capacity,
+      capacity: finalCapacity,
       segment: item
     }
   })
@@ -65,6 +71,9 @@ const avgCapacityAscending = (a, b) => {
 function AnalyticsDialog (props) {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
+  const analyticsSource = useSelector(
+    (state) => state.street.analyticsSource || 'defaultSource'
+  )
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -78,7 +87,9 @@ function AnalyticsDialog (props) {
   }
 
   const intl = useIntl()
-  const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
+  const segmentData = addSegmentData(street.segments, analyticsSource).sort(
+    avgCapacityAscending
+  )
 
   const sumFunc = (total, num) => {
     if (!Number.isInteger(num)) return total
@@ -112,6 +123,7 @@ function AnalyticsDialog (props) {
   }
 
   const rolledUp = rollUpCategories(segmentData)
+  const rolledUpSorted = addSegmentData(street.segments, analyticsSource)
   const chartMax =
     Math.max(...rolledUp.map((item) => item.capacity.potential)) + 1000
 
@@ -153,40 +165,20 @@ function AnalyticsDialog (props) {
                       />
                     )
                 )}
-              <p>
-                <strong>
-                  <FormattedMessage
-                    id="dialogs.analytics.source"
-                    defaultMessage="Source"
-                  />
-                  :
-                </strong>{' '}
-                <em>
-                  <a
-                    href="http://www.uncrd.or.jp/content/documents/5594Presentation%203%20-%20Module%201%20-%20Mr.%20Breithaupt.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Environmentally Sustainable Transport - Main Principles and
-                    Impacts
-                  </a>
-                </em>
-                , Manfred Breithaupt, Deutsche Gesellschaft für Internationale
-                Zusammenarbeit (GIZ)
-              </p>
+              <CapacitySource segments={rolledUpSorted} />
             </div>
             <div className="dialog-actions">
-              <Checkbox
-                id="show-analytics"
-                checked={isVisible}
-                onChange={toggleVisible}
-              >
+              <label>
+                <input
+                  type="checkbox"
+                  checked={isVisible}
+                  onClick={toggleVisible}
+                />
                 <FormattedMessage
                   id="dialogs.analytics.toggle-visible"
                   defaultMessage="Show capacity counts in segment labels"
                 />
-              </Checkbox>
-
+              </label>
               <br />
               <button className="button-primary" onClick={exportCSV}>
                 <FormattedMessage

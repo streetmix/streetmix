@@ -39,8 +39,10 @@ export const saveCsv = (rows, streetName) => {
 
 // take in a street and returns a list of segments with analytics info
 const getAnalyticsFromStreet = (street, locale) => {
-  const segments = street.segments.map(segment => {
-    const variant = (getSegmentVariantInfo(segment.type, segment.variantString) || {}).analytics
+  const segments = street.segments.map((segment) => {
+    const variant = (
+      getSegmentVariantInfo(segment.type, segment.variantString) || {}
+    ).analytics
     const type = (getSegmentInfo(segment.type) || {}).analytics
     return { variant, type }
   })
@@ -61,11 +63,59 @@ const CAPACITIES = {
   'magic-carpet': { average: 2, potential: 3 }
 }
 
-const hasCapacityType = (type) => {
+const CAPACITIES_FOO = {
+  sidewalk: { average: 1500, potential: 1500 },
+  'drive-lane': { average: 1500, potential: 1500 },
+  'bike-lane': { average: 1500, potential: 1500 },
+  scooter: { average: 1500, potential: 1500 },
+  'light-rail': { average: 1500, potential: 1500 },
+  streetcar: { average: 18000, potential: 1500 },
+  'bus-lane': { average: 5000, potential: 8000 },
+  'magic-carpet': { average: 1500, potential: 1500 }
+}
+
+const CAPACITIES_BAR = {
+  sidewalk: { average: 5000, potential: 5000 },
+  'drive-lane': { average: 5000, potential: 5000 },
+  'bike-lane': { average: 5000, potential: 5000 },
+  scooter: { average: 5000, potential: 5000 },
+  'light-rail': { average: 18000, potential: 18000 },
+  streetcar: { average: 18000, potential: 20000 },
+  'bus-lane': { average: 5000, potential: 8000 },
+  'magic-carpet': { average: 2, potential: 3 }
+}
+
+const hasCapacityType = (type, source = '') => {
+  if (source === 'foo') {
+    return type in CAPACITIES_FOO
+  }
+  if (source === 'bar') {
+    return type in CAPACITIES_BAR
+  }
   return type in CAPACITIES
 }
 
 export const getCapacity = (type) => {
+  return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
+}
+
+export const getCapacityBySource = (type, source) => {
+  if (source === '' || source === 'defaultSource') {
+    return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
+  }
+
+  if (source === 'foo') {
+    return hasCapacityType(type, source)
+      ? { ...CAPACITIES_FOO[type] }
+      : UNDEFINED_CAPACITY
+  }
+
+  if (source === 'bar') {
+    return hasCapacityType(type, source)
+      ? { ...CAPACITIES_BAR[type] }
+      : UNDEFINED_CAPACITY
+  }
+
   return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
 }
 
@@ -74,17 +124,30 @@ const sumFunc = (total, num) => {
   return total + num
 }
 
-const addSegmentData = item => {
-  const hasZeroCapacityError = item && hasCapacityType(item.type) && item.warnings && (item.warnings[SEGMENT_WARNING_OUTSIDE] || item.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
+const addSegmentData = (item, source) => {
+  const hasZeroCapacityError =
+    item &&
+    hasCapacityType(item.type) &&
+    item.warnings &&
+    (item.warnings[SEGMENT_WARNING_OUTSIDE] ||
+      item.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
 
   return {
     label: `${item.variantString} ${item.type}`,
-    capacity: hasZeroCapacityError ? NO_CAPACITY : getCapacity(item.type),
+    capacity: hasZeroCapacityError
+      ? NO_CAPACITY
+      : getCapacityBySource(item.type, source),
     segment: item
   }
 }
 
-export const capacitySum = (a, b) => { return { ...a, average: a.average + b.average, potential: a.potential + b.potential } }
+export const capacitySum = (a, b) => {
+  return {
+    ...a,
+    average: a.average + b.average,
+    potential: a.potential + b.potential
+  }
+}
 
 const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)
 
@@ -92,15 +155,19 @@ export const formatCapacity = (amount, locale) => {
   return NumberFormat(locale).format(amount)
 }
 
-export const getSegmentCapacity = (segment) => {
+export const getSegmentCapacity = (segment, source = 'defaultSource') => {
   return addSegmentData(segment)
 }
 
 export const getStreetCapacity = (street) => {
   const { segments } = street
   const segmentData = segments.map(addSegmentData)
-  const averageTotal = segmentData.map(item => item.capacity.average || 0).reduce(sumFunc, 0)
-  const potentialTotal = segmentData.map(item => item.capacity.potential || 0).reduce(sumFunc, 0)
+  const averageTotal = segmentData
+    .map((item) => item.capacity.average || 0)
+    .reduce(sumFunc, 0)
+  const potentialTotal = segmentData
+    .map((item) => item.capacity.potential || 0)
+    .reduce(sumFunc, 0)
 
   return {
     segmentData,

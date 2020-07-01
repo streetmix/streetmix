@@ -304,7 +304,10 @@ export class Segment extends React.Component {
 
   render () {
     const { segment, enableAnalytics = true } = this.props
-
+    let customAverage = null
+    if (segment && segment.capacity && segment.capacity.average) {
+      customAverage = segment.capacity.average
+    }
     const segmentInfo = getSegmentInfo(segment.type)
 
     // Get localized names from store, fall back to segment default names if translated
@@ -367,7 +370,7 @@ export class Segment extends React.Component {
           width={actualWidth}
           units={this.props.units}
           locale={this.props.locale}
-          capacity={average}
+          capacity={customAverage || average}
           showCapacity={showCapacity}
         />
         <SegmentDragHandles width={elementWidth} />
