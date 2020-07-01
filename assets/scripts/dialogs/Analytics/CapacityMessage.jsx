@@ -4,16 +4,24 @@ import { FormattedMessage } from 'react-intl'
 import { FormatNumber } from '../../util/formatting'
 
 CapacityMessage.propTypes = {
+  pctAverage: PropTypes.number.isRequired,
+  pctPotential: PropTypes.number.isRequired,
   locale: PropTypes.string.isRequired,
   average: PropTypes.number.isRequired,
   potential: PropTypes.number.isRequired
 }
 
-function CapacityMessage ({ locale, average, potential }) {
+function CapacityMessage ({
+  locale,
+  average,
+  potential,
+  pctAverage,
+  pctPotential
+}) {
   const isSingleAmount = average === potential
   const defaultMessage = isSingleAmount
-    ? '{amount} people/hour'
-    : '{average} — {potential} people/hour'
+    ? '{amount} people/hour ({pctAverage}% - {pctPotential}%)'
+    : '{average} — {potential} people/hour ({pctAverage}% - {pctPotential}%)'
   const id = isSingleAmount
     ? 'dialogs.analytics.segment-summary-single'
     : 'dialogs.analytics.segment-summary'
@@ -23,6 +31,8 @@ function CapacityMessage ({ locale, average, potential }) {
       id={id}
       defaultMessage={defaultMessage}
       values={{
+        pctAverage: FormatNumber(locale, pctAverage),
+        pctPotential: FormatNumber(locale, pctPotential),
         amount: FormatNumber(locale, average),
         average: FormatNumber(locale, average),
         potential: FormatNumber(locale, potential)

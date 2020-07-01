@@ -15,6 +15,8 @@ const BAR_COLORS = [
 ]
 
 SegmentAnalytics.propTypes = {
+  averageTotal: PropTypes.number.isRequired,
+  potentialTotal: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   chartMax: PropTypes.number.isRequired,
@@ -29,7 +31,15 @@ SegmentAnalytics.propTypes = {
   }).isRequired
 }
 
-function SegmentAnalytics ({ type, capacity, segment, index, chartMax }) {
+function SegmentAnalytics ({
+  type,
+  capacity,
+  segment,
+  index,
+  chartMax,
+  averageTotal,
+  potentialTotal
+}) {
   const locale = useSelector((state) => state.locale.locale)
 
   const { average, potential } = capacity
@@ -41,6 +51,9 @@ function SegmentAnalytics ({ type, capacity, segment, index, chartMax }) {
   }`
   // leave 2% margin
   const widthPercentInv = `${98 - Number.parseFloat(widthPercent)}`
+
+  const pctAverage = (average / averageTotal) * 100
+  const pctPotential = (potential / potentialTotal) * 100
 
   return (
     <div className="segment-analytics">
@@ -70,6 +83,8 @@ function SegmentAnalytics ({ type, capacity, segment, index, chartMax }) {
             average={average}
             potential={potential}
             locale={locale}
+            pctAverage={pctAverage}
+            pctPotential={pctPotential}
           />
         </div>
       </div>
