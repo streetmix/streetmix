@@ -50,7 +50,8 @@ body {
   }
 }
 
-a {
+a,
+.link-like {
   color: darken($ui-colour, 30%);
 
   &:hover {
@@ -63,10 +64,15 @@ a {
 }
 
 a,
+.link-like,
 button {
   @include tap-highlight-color("transparent !important");
 
   cursor: pointer;
+}
+
+.link-like {
+  text-decoration: underline;
 }
 
 input[type="text"],
