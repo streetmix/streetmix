@@ -141,7 +141,8 @@
     "remove": "Remove",
     "close": "Close",
     "dismiss": "Dismiss",
-    "okay": "Okay!"
+    "okay": "Okay!",
+    "not-now": "Not now"
   },
   "dialogs": {
     "error": {
