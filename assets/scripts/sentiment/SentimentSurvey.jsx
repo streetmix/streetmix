@@ -1,19 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
-import Tooltip, { useSingleton } from '../ui/Tooltip'
+import VoteButtons from './VoteButtons'
 import CloseButton from '../ui/CloseButton'
-import VoteButton from './VoteButton'
 import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
 import './SentimentSurvey.scss'
-import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
-import IMG_SENTIMENT_2 from '../../images/openmoji/color/1F641.svg'
-import IMG_SENTIMENT_3 from '../../images/openmoji/color/1F610.svg'
-import IMG_SENTIMENT_4 from '../../images/openmoji/color/1F60A.svg'
-import IMG_SENTIMENT_5 from '../../images/openmoji/color/1F60D.svg'
 
 SentimentSurvey.propTypes = {
   visible: PropTypes.bool,
@@ -25,8 +19,7 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   const [score, setScore] = useState(null)
   const isUserSignedIn = useSelector((state) => state.user.signedIn)
   const dispatch = useDispatch()
-  const intl = useIntl()
-  const [source, target] = useSingleton()
+
   const transitions = useTransition(visible, null, {
     from: { transform: 'translateY(-50px)', opacity: 0 },
     enter: { transform: 'translateY(0px)', opacity: 1 },
@@ -38,54 +31,6 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   if (visible === true) {
     classNames.push('sentiment-survey-visible')
   }
-
-  const voteButtonData = [
-    {
-      score: -1,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-1',
-        defaultMessage: 'Absolutely not'
-      }),
-      imgSrc: IMG_SENTIMENT_1,
-      className: 'sentiment-1'
-    },
-    {
-      score: -0.5,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-2',
-        defaultMessage: 'Not very much'
-      }),
-      imgSrc: IMG_SENTIMENT_2,
-      className: 'sentiment-2'
-    },
-    {
-      score: 0,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-3',
-        defaultMessage: 'It’s so-so'
-      }),
-      imgSrc: IMG_SENTIMENT_3,
-      className: 'sentiment-3'
-    },
-    {
-      score: 0.5,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-4',
-        defaultMessage: 'A little bit'
-      }),
-      imgSrc: IMG_SENTIMENT_4,
-      className: 'sentiment-4'
-    },
-    {
-      score: 1,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-5',
-        defaultMessage: 'Quite a lot'
-      }),
-      imgSrc: IMG_SENTIMENT_5,
-      className: 'sentiment-5'
-    }
-  ]
 
   function handleClick (score, event) {
     // Do not handle this vote if the user is not signed in.
@@ -110,7 +55,6 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
   return (
     <div className={classNames.join(' ')}>
       <div className="sentiment-survey-background" />
-      <Tooltip placement="bottom" source={source} />
 
       {transitions.map(
         ({ item, key, props }) =>
@@ -153,21 +97,7 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                 )}
               </sub>
               <div className="sentiment-survey-buttons">
-                {voteButtonData.map((props) => (
-                  /* eslint-disable react/prop-types */
-                  <VoteButton
-                    {...props}
-                    key={props.score}
-                    disabled={score !== null}
-                    className={[
-                      props.className,
-                      score === props.score ? 'sentiment-selected' : ''
-                    ].join(' ')}
-                    onClick={handleClick}
-                    tooltipTarget={target}
-                  />
-                  /* eslint-enable react/prop-types */
-                ))}
+                <VoteButtons handleVote={handleClick} selectedScore={score} />
                 {!isUserSignedIn && (
                   <div className="sentiment-survey-sign-in-prompt">
                     <button
