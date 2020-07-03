@@ -114,7 +114,7 @@
     "please-reload": "Por favor, recarga esta página antes de continuar.",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
-    "auth-expired": "Tu autenticación ha expirado.",
+    "auth-expired": "",
     "access-denied-title": "No estás ingresado.",
     "access-denied-description": "Cancelaste el proceso de ingresar.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
@@ -141,7 +141,8 @@
     "remove": "Remover",
     "close": "Cerrar",
     "dismiss": "Descartar",
-    "okay": "¡Okey!"
+    "okay": "¡Okey!",
+    "not-now": ""
   },
   "dialogs": {
     "error": {
@@ -392,7 +393,9 @@
   },
   "sentiment": {
     "prompt": {
-      "joyful": "¿Te parece <em>alegre</em> esta calle?"
+      "intro": "",
+      "joyful": "",
+      "choose-one": ""
     },
     "answer": {
       "rating-1": "Absolutamente no",
@@ -401,8 +404,27 @@
       "rating-4": "Un poco",
       "rating-5": "Muchísimo"
     },
+    "sign-in-prompt": "",
+    "about-link": "",
     "about-text": "Esta encuesta nos ayuda a aprender cómo la gente siente sobre calles.",
-    "thank-you": "¡Gracias por participar en esta encuesta!"
+    "thank-you": "¡Gracias por participar en esta encuesta!",
+    "about-header": "",
+    "about-article": {
+      "paragraph-1": "",
+      "paragraph-2": "",
+      "paragraph-3": ""
+    },
+    "done": {
+      "response": "",
+      "vote-another": "",
+      "really-done": ""
+    },
+    "comment": {
+      "prompt": "",
+      "example": "",
+      "submit": "",
+      "thanks": ""
+    }
   },
   "i18n": {
     "lang": {

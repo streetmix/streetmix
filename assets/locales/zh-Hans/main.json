@@ -141,7 +141,8 @@
     "remove": "移除",
     "close": "关闭",
     "dismiss": "忽略",
-    "okay": ""
+    "okay": "",
+    "not-now": ""
   },
   "dialogs": {
     "error": {
@@ -392,7 +393,9 @@
   },
   "sentiment": {
     "prompt": {
-      "joyful": ""
+      "intro": "",
+      "joyful": "",
+      "choose-one": ""
     },
     "answer": {
       "rating-1": "",
@@ -401,8 +404,27 @@
       "rating-4": "",
       "rating-5": ""
     },
+    "sign-in-prompt": "",
+    "about-link": "",
     "about-text": "",
-    "thank-you": ""
+    "thank-you": "",
+    "about-header": "",
+    "about-article": {
+      "paragraph-1": "",
+      "paragraph-2": "",
+      "paragraph-3": ""
+    },
+    "done": {
+      "response": "",
+      "vote-another": "",
+      "really-done": ""
+    },
+    "comment": {
+      "prompt": "",
+      "example": "",
+      "submit": "",
+      "thanks": ""
+    }
   },
   "i18n": {
     "lang": {

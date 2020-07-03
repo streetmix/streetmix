@@ -114,7 +114,7 @@
     "please-reload": "Пожалуйста, перезагрузите эту страницу, прежде чем продолжить.",
     "street-deleted-elsewhere-title": "Эта улица была удалена в другом месте.",
     "street-deleted-elsewhere-description": "Эта улица была удалена в другом браузере.",
-    "auth-expired": "Срок действия вашей аутентификации истек.",
+    "auth-expired": "",
     "access-denied-title": "Вы не вошли.",
     "access-denied-description": "Вы отменили процесс входа.",
     "auth-api-problem-title": "Возникла проблема со входом в систему.",
@@ -141,7 +141,8 @@
     "remove": "Удалить",
     "close": "Закрыть",
     "dismiss": "Отклонить",
-    "okay": "Окей!"
+    "okay": "Окей!",
+    "not-now": ""
   },
   "dialogs": {
     "error": {
@@ -392,7 +393,9 @@
   },
   "sentiment": {
     "prompt": {
-      "joyful": "Насколько <em>приятная</em> эта улица?"
+      "intro": "",
+      "joyful": "",
+      "choose-one": ""
     },
     "answer": {
       "rating-1": "Совсем нет",
@@ -401,8 +404,27 @@
       "rating-4": "Немного",
       "rating-5": "Очень"
     },
+    "sign-in-prompt": "",
+    "about-link": "",
     "about-text": "Этот опрос поможет узнать, как люди относятся к разным улицам",
-    "thank-you": ""
+    "thank-you": "",
+    "about-header": "",
+    "about-article": {
+      "paragraph-1": "",
+      "paragraph-2": "",
+      "paragraph-3": ""
+    },
+    "done": {
+      "response": "",
+      "vote-another": "",
+      "really-done": ""
+    },
+    "comment": {
+      "prompt": "",
+      "example": "",
+      "submit": "",
+      "thanks": ""
+    }
   },
   "i18n": {
     "lang": {

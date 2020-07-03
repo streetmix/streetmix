@@ -60,12 +60,12 @@
       "opensource": "Contribuir al código abierto"
     },
     "feedback": {
-      "prompt": "",
-      "message-placeholder": "",
-      "email-placeholder": "",
-      "send": "",
+      "prompt": "Envíanos un mensaje:",
+      "message-placeholder": "¿Qué piensas de Streetmix?",
+      "email-placeholder": "Tu correo (opcional)",
+      "send": "Enviar mensaje",
       "confirm": "",
-      "error": ""
+      "error": "Lo sentimos, hubo un problema enviando retroalimentación. Por favor inténtalo nuevamente."
     },
     "sign-in": {
       "twitter": "Iniciar sesión con Twitter"
@@ -114,7 +114,7 @@
     "please-reload": "Por favor recargar esta página antes de continuar",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
-    "auth-expired": "Expiró su autenticación",
+    "auth-expired": "",
     "access-denied-title": "No has iniciado sesión",
     "access-denied-description": "Has cancelado el inicio de sesión",
     "auth-api-problem-title": "Hubo un problema con el inicio de sesión",
@@ -141,7 +141,8 @@
     "remove": "Eliminar",
     "close": "Cerrar",
     "dismiss": "Descartar",
-    "okay": "¡Ok!"
+    "okay": "¡Ok!",
+    "not-now": "Ahora no"
   },
   "dialogs": {
     "error": {
@@ -392,7 +393,9 @@
   },
   "sentiment": {
     "prompt": {
-      "joyful": "¿Qué tan <em>alegre</em> se ve esta calle?"
+      "intro": "<strong>Disculpa la interrupción.</strong> Nos encantaría recibir tu opinión sobre esta calle.",
+      "joyful": "¿Dirías que esta calle es <em>alegre</em>?",
+      "choose-one": "(elige una)"
     },
     "answer": {
       "rating-1": "Para nada",
@@ -401,8 +404,27 @@
       "rating-4": "Un poco",
       "rating-5": "Bastante"
     },
+    "sign-in-prompt": "Por favor ingresa para hacer que tu voz se oiga.",
+    "about-link": "¿Por qué estoy viendo esto?",
     "about-text": "Esta encuesta nos ayuda a entender cómo se siente la gente sobre ciertas calles",
-    "thank-you": "¡Gracias por participar en esta encuesta!"
+    "thank-you": "¡Gracias por participar en esta encuesta!",
+    "about-header": "Queremos entender cómo se siente la gente con las calles",
+    "about-article": {
+      "paragraph-1": "Muchas calles son diseñadas por ingenieros civiles, pero a nosotros nos parece que el diseño debería incluir el punto de vista de toda la gente. Con la <a>Alianza de la Nueva Movilidad Urbana</a> (NUMO por su sigla en inglés), estamos realizando esta encuesta de una pregunta para hacer eso justamente.",
+      "paragraph-2": "Analizaremos sus respuestas para que podamos inferir qué características de las calles inducirán sentimientos específicos. En el futuro, planeamos incorporar estos hallazgos en las recomendaciones de diseño que daremos a quienes usan Streetmix.",
+      "paragraph-3": "Solo puede votar una vez por calle, pero puedes motivar a otras personas a que voten compartiendo tus calles o una calle aleatoria con el link <a>https://streetmix.net/survey/</a>."
+    },
+    "done": {
+      "response": "Respondiste {score}. Tu respuesta nos ayudará a aprender qué siente la gente con estas calles!",
+      "vote-another": "Vote otra calle!",
+      "really-done": "Listo!"
+    },
+    "comment": {
+      "prompt": "Dinos por qué:",
+      "example": "(por ejemplo: \"me gustaron los árboles\")",
+      "submit": "Enviar",
+      "thanks": "Gracias!"
+    }
   },
   "i18n": {
     "lang": {
