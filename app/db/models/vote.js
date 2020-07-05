@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         field: 'voter_id'
       },
+      comment: DataTypes.STRING,
+      submitted: DataTypes.ARRAY(DataTypes.TEXT),
       score: DataTypes.DOUBLE,
       createdAt: { type: DataTypes.DATE, field: 'created_at' },
       updatedAt: { type: DataTypes.DATE, field: 'updated_at' }
