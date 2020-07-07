@@ -1,23 +1,23 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import DownshiftPelias from 'downshift-pelias'
 import Pelias from 'pelias-js'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
-import { setMapState } from '../../store/slices/map'
 
 GeoSearch.propTypes = {
-  setSearchResults: PropTypes.func,
+  handleSearchResults: PropTypes.func,
   focus: PropTypes.shape({
     lat: PropTypes.number,
     lng: PropTypes.number
   })
 }
 
-function GeoSearch ({ setSearchResults, focus = { lat: 0, lng: 0 } }) {
+function GeoSearch ({
+  handleSearchResults,
+  focus = { lat: 0, lng: 0 }
+}) {
   const intl = useIntl()
-  const dispatch = useDispatch()
   const inputEl = useRef()
 
   function handleClickClearSearch (clearSelection) {
@@ -28,18 +28,7 @@ function GeoSearch ({ setSearchResults, focus = { lat: 0, lng: 0 } }) {
   function handleChange (selection) {
     if (!selection) return
 
-    // setMapState is called here and in GeotagDialog
-    dispatch(
-      setMapState({
-        addressInformation: selection.properties,
-        markerLocation: {
-          lat: selection.geometry.coordinates[1],
-          lng: selection.geometry.coordinates[0]
-        }
-      })
-    )
-
-    setSearchResults(
+    handleSearchResults(
       selection.geometry.coordinates.reverse(),
       selection.properties
     )
