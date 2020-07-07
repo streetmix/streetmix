@@ -23,9 +23,7 @@ import {
 import './AnalyticsDialog.scss'
 
 const addSegmentData = (segments, analyticsSource) => {
-  // return segments.map(getSegmentCapacity)
   return segments.map((item) => {
-    console.log()
     let finalCapacity = getSegmentCapacity(item, analyticsSource).capacity
     if (item.capacity) {
       finalCapacity = item.capacity
