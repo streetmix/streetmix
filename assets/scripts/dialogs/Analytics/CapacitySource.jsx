@@ -7,43 +7,16 @@ import {
   setAnalyticsSource
 } from '../../store/actions/street'
 import { getCapacityBySource } from '../../util/street_analytics'
+import { SOURCE_VALUES, SOURCE_LIST } from '../../app/constants'
 
-const SOURCES = ['defaultSource', 'foo', 'bar']
-const SOURCE_OPTIONS = [
-  {
-    label: 'Default Source',
-    value: 'defaultSource',
-    citationUrl:
-      'http://www.uncrd.or.jp/content/documents/5594Presentation%203%20-%20Module%201%20-%20Mr.%20Breithaupt.pdf',
-    citationLabel:
-      'Environmentally Sustainable Transport - Main Principles and Impacts',
-    citationSub:
-      ', Manfred Breithaupt, Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)'
-  },
-  {
-    label: 'Foo Source',
-    value: 'foo',
-    citationUrl: 'http://google.com',
-    citationLabel: 'Study of Foo in Public Spaces',
-    citationSub: ', Some more text for Foo goes here'
-  },
-  {
-    label: 'Bar Source',
-    value: 'bar',
-    citationUrl: 'http://streetmix.net',
-    citationLabel: 'Study of Bar in Public Spaces',
-    citationSub: ', Some more text for Bar goes here'
-  }
-]
 const CapacitySource = ({ segments = [] }) => {
   const dispatch = useDispatch()
-  const [loading, setIsLoading] = useState(false)
-  const onChangeSource = (e) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const handleChangeSource = (e) => {
     setIsLoading(true)
     let newSource = e.target.value
-    // dispatch(updateStreetSegmentCapacity(index, value))
-    if (!newSource || SOURCES.indexOf(newSource) === -1) {
-      newSource = 'defaultSource'
+    if (!newSource || SOURCE_VALUES.indexOf(newSource) === -1) {
+      newSource = SOURCE_VALUES[0]
     }
 
     segments.forEach((item, index) => {
@@ -55,13 +28,12 @@ const CapacitySource = ({ segments = [] }) => {
   }
 
   const analyticsSource = useSelector((state) => {
-    return state.street ? state.street.analyticsSource : 'defaultSource'
+    return state.street ? state.street.analyticsSource : SOURCE_VALUES[0]
   })
   const showSourceOptions = true
 
   const { citationUrl, citationLabel, citationSub } =
-    SOURCE_OPTIONS.find((item) => item.value === analyticsSource) ||
-    SOURCE_OPTIONS[0]
+    SOURCE_LIST.find((item) => item.value === analyticsSource) || SOURCE_LIST[0]
 
   return (
     <>
@@ -80,14 +52,14 @@ const CapacitySource = ({ segments = [] }) => {
         </em>
         {citationSub}
       </p>
-      {loading && <span>loading...</span>}
+      {isLoading && <span>loading...</span>}
       {showSourceOptions && (
         <select
-          disabled={loading}
+          disabled={isLoading}
           value={analyticsSource}
-          onChange={onChangeSource}
+          onChange={handleChangeSource}
         >
-          {SOURCE_OPTIONS.map(({ label, value }) => {
+          {SOURCE_LIST.map(({ label, value }) => {
             return (
               <option key={value} value={value}>
                 {label}

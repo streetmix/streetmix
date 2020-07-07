@@ -1,10 +1,11 @@
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-// import store from '../store'
 import memoizeFormatConstructor from './memoized_formatting'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
 } from '../segments/constants'
+import { SOURCE_VALUES, DEFAULT_ANALYTICS_SOURCE } from '../app/constants'
+
 const { parse } = require('json2csv')
 
 const csvTransform = (item) => {
@@ -52,71 +53,24 @@ const getAnalyticsFromStreet = (street, locale) => {
 const NO_CAPACITY = { average: 0, potential: 0 }
 const UNDEFINED_CAPACITY = { average: 0, potential: 0, display: false }
 
-const CAPACITIES = {
-  sidewalk: { average: 19000, potential: 19000 },
-  'drive-lane': { average: 1500, potential: 2000 },
-  'bike-lane': { average: 14000, potential: 14000 },
-  scooter: { average: 14000, potential: 14000 },
-  'light-rail': { average: 18000, potential: 20000 },
-  streetcar: { average: 18000, potential: 20000 },
-  'bus-lane': { average: 5000, potential: 8000 },
-  'magic-carpet': { average: 2, potential: 3 }
-}
-
-const CAPACITIES_FOO = {
-  sidewalk: { average: 1500, potential: 1500 },
-  'drive-lane': { average: 1500, potential: 1500 },
-  'bike-lane': { average: 1500, potential: 1500 },
-  scooter: { average: 1500, potential: 1500 },
-  'light-rail': { average: 1500, potential: 1500 },
-  streetcar: { average: 18000, potential: 1500 },
-  'bus-lane': { average: 5000, potential: 8000 },
-  'magic-carpet': { average: 1500, potential: 1500 }
-}
-
-const CAPACITIES_BAR = {
-  sidewalk: { average: 5000, potential: 5000 },
-  'drive-lane': { average: 5000, potential: 5000 },
-  'bike-lane': { average: 5000, potential: 5000 },
-  scooter: { average: 5000, potential: 5000 },
-  'light-rail': { average: 18000, potential: 18000 },
-  streetcar: { average: 18000, potential: 20000 },
-  'bus-lane': { average: 5000, potential: 8000 },
-  'magic-carpet': { average: 2, potential: 3 }
-}
-
-const hasCapacityType = (type, source = '') => {
-  if (source === 'foo') {
-    return type in CAPACITIES_FOO
+export const hasCapacityType = (type, source = '') => {
+  const capacityList = SOURCE_VALUES.find((item) => item.value === source)
+  if (!capacityList || !capacityList.capacities) return false
+  if (type in capacityList.capacities) {
+    return true
+  } else {
+    return false
   }
-  if (source === 'bar') {
-    return type in CAPACITIES_BAR
-  }
-  return type in CAPACITIES
-}
-
-export const getCapacity = (type) => {
-  return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
 }
 
 export const getCapacityBySource = (type, source) => {
-  if (source === '' || source === 'defaultSource') {
-    return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
+  const capacityList = SOURCE_VALUES.find((item) => item.value === source)
+  if (!capacityList || !capacityList.capacities) return UNDEFINED_CAPACITY
+  if (type in capacityList.capacities) {
+    return { ...capacityList.capacities[type] }
+  } else {
+    return UNDEFINED_CAPACITY
   }
-
-  if (source === 'foo') {
-    return hasCapacityType(type, source)
-      ? { ...CAPACITIES_FOO[type] }
-      : UNDEFINED_CAPACITY
-  }
-
-  if (source === 'bar') {
-    return hasCapacityType(type, source)
-      ? { ...CAPACITIES_BAR[type] }
-      : UNDEFINED_CAPACITY
-  }
-
-  return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
 }
 
 const sumFunc = (total, num) => {
@@ -155,7 +109,10 @@ export const formatCapacity = (amount, locale) => {
   return NumberFormat(locale).format(amount)
 }
 
-export const getSegmentCapacity = (segment, source = 'defaultSource') => {
+export const getSegmentCapacity = (
+  segment,
+  source = DEFAULT_ANALYTICS_SOURCE
+) => {
   return addSegmentData(segment)
 }
 

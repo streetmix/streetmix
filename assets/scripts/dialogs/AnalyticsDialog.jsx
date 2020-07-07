@@ -12,6 +12,7 @@ import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import CapacitySource from './Analytics/CapacitySource'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
+import { DEFAULT_ANALYTICS_SOURCE } from '../app/constants'
 import { updateStreetAnalytics } from '../store/actions/street'
 
 import Terms from '../app/Terms'
@@ -70,7 +71,7 @@ function AnalyticsDialog (props) {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const analyticsSource = useSelector(
-    (state) => state.street.analyticsSource || 'defaultSource'
+    (state) => state.street.analyticsSource || DEFAULT_ANALYTICS_SOURCE
   )
   const dispatch = useDispatch()
 
