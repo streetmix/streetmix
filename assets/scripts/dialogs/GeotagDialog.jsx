@@ -68,7 +68,19 @@ function getInitialState (props) {
     zoom = MAP_LOCATION_ZOOM
     markerLocation = props.street.location.latlng
     label = props.street.location.label
-    // If we've previously saved marker position, re-use that information
+    /* If we've previously saved marker position, re-use that information
+     This can be better described. This is an intermediary state that can happen when:
+
+      1) A user is viewing a street without a geotagged location.
+      They open the dialog box and search for a street location.
+      A search result is selected and a marker is dropped on the map.
+
+      2) Without confirming the location, the user exits the dialog box.
+      Because a location is not confirmed, the street does not attach to the location.
+
+      3) The user re-opens the dialog box.
+      The previous state (with an unconfirmed location and map marker) is recovered.
+      */
   } else if (props.markerLocation) {
     mapCenter = props.markerLocation
     zoom = MAP_LOCATION_ZOOM
@@ -223,7 +235,7 @@ function GeotagDialog () {
   }
 
   // Search dialog state dosen't sync up with map state (IMO should clear or update with label)
-  const setSearchResults = (point, locationProperties) => {
+  const handleSearchResults = (point, locationProperties) => {
     const latlng = {
       lat: point[0],
       lng: point[1]
@@ -284,7 +296,7 @@ function GeotagDialog () {
           {geocodeAvailable ? (
             <div className="geotag-input-container">
               <GeoSearch
-                setSearchResults={setSearchResults}
+                handleSearchResults={handleSearchResults}
                 focus={mapCenter}
               />
             </div>
