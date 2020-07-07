@@ -41,6 +41,7 @@ const CapacitySource = ({ segments = [] }) => {
   const onChangeSource = (e) => {
     setIsLoading(true)
     let newSource = e.target.value
+    // dispatch(updateStreetSegmentCapacity(index, value))
     if (!newSource || SOURCES.indexOf(newSource) === -1) {
       newSource = 'defaultSource'
     }
