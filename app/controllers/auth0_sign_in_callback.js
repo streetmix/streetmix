@@ -22,7 +22,7 @@ const AccessTokenHandler = function (req, res) {
       const endpoint = `${config.restapi.protocol}${req.headers.host}/api/v1/users`
       const apiRequestOptions = {
         headers: {
-          login_token: idToken
+          Cookie: `login_token=${idToken};`
         }
       }
 

@@ -100,12 +100,11 @@ export async function loadSignIn () {
     )
 
     saveSignInDataLocally()
-  } else {
-    if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      store.dispatch(
-        setSignInData(JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]))
-      )
-    }
+  } else if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    // old login data is in localstorage but we don't have the cookies we need
+    setMode(MODES.FORCE_RELOAD_SIGN_IN)
+    processMode()
+    return true
   }
 
   const signInData = getSignInData()
