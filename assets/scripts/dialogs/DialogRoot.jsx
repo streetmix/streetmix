@@ -10,7 +10,6 @@ import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
 import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
-import MinecraftDialog from './MinecraftDialog'
 import NewsletterDialog from './NewsletterDialog'
 import UpgradeDialog from './UpgradeDialog'
 import SentimentSurveyDialog from './SentimentSurveyDialog'
@@ -37,9 +36,6 @@ const DIALOG_COMPONENTS = {
   },
   WHATS_NEW: {
     id: WhatsNewDialog
-  },
-  MINECRAFT: {
-    id: MinecraftDialog
   },
   NEWSLETTER: {
     id: NewsletterDialog

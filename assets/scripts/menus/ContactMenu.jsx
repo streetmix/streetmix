@@ -56,16 +56,6 @@ function handleClickNewsletter () {
 //   )
 // }
 
-// function handleClickMinecraft () {
-//   trackEvent(
-//     'INTERACTION',
-//     '[Contact menu] Minecraft link clicked',
-//     null,
-//     null,
-//     false
-//   )
-// }
-
 function ContactMenu (props) {
   const dispatch = useDispatch()
 
@@ -129,18 +119,6 @@ function ContactMenu (props) {
         <FormattedMessage
           id="menu.contact.twitter"
           defaultMessage="Send a tweet to @streetmix"
-        />
-      </a>
-      <a
-        href="#"
-        onClick={(e) => {
-          handleClickMinecraft()
-          dispatch(showDialog('MINECRAFT'))
-        }}
-      >
-        <FormattedMessage
-          id="menu.contact.minecraft"
-          defaultMessage="Play Minecraft with us!&lrm;"
         />
       </a> */}
     </Menu>
