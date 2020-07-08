@@ -3,6 +3,8 @@ const { User, Vote } = require('../../db/models')
 const { v4: uuidv4 } = require('uuid')
 const logger = require('../../../lib/logger.js')()
 
+const MAX_COMMENT_LENGTH = 280
+
 exports.get = async function (req, res) {
   let ballot
   try {
@@ -58,7 +60,7 @@ exports.get = async function (req, res) {
     // no eligible streets remaining
     res
       .status(204)
-      .json({ status: 204, msg: 'all eligible streets have been voted on' })
+      .json({ status: 204, msg: 'All eligible streets have been voted on.' })
   }
 
   const payload = { ballot }
@@ -95,12 +97,25 @@ exports.put = async function (req, res) {
   })
 
   if (!ballot) {
-    res.status(403).json({ status: 403, msg: 'Ballot not found.' })
+    return res.status(403).json({ status: 403, msg: 'Ballot not found.' })
   }
 
   if (comment) {
-    ballot.comment = comment
-    await ballot.save()
+    if (comment.length > MAX_COMMENT_LENGTH) {
+      res
+        .status(413)
+        .json({ status: 413, msg: 'Ballot must be 280 characters or less' })
+      return
+    }
+
+    try {
+      ballot.comment = comment
+      await ballot.save()
+    } catch (error) {
+      logger.error(error)
+      res.status(500).json({ status: 500, msg: 'Error updating ballot.' })
+      return
+    }
   }
 
   res.status(200).json(ballot)
@@ -168,7 +183,6 @@ exports.post = async function (req, res) {
       }
     )
   } catch (error) {
-    console.log({ error })
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error filling ballot.' })
     return

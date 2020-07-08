@@ -1,5 +1,7 @@
 'use strict'
 
+const MAX_COMMENT_LENGTH = 280
+
 module.exports = (sequelize, DataTypes) => {
   const Vote = sequelize.define(
     'Vote',
@@ -18,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         field: 'voter_id'
       },
-      comment: DataTypes.STRING,
+      comment: DataTypes.STRING(MAX_COMMENT_LENGTH),
       submitted: DataTypes.ARRAY(DataTypes.TEXT),
       score: DataTypes.DOUBLE,
       createdAt: { type: DataTypes.DATE, field: 'created_at' },

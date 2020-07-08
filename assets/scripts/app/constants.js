@@ -64,3 +64,5 @@ export const RESERVED_URLS = [
 ]
 
 export const URL_RESERVED_PREFIX = '~'
+
+export const MAX_COMMENT_LENGTH = 280
