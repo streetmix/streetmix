@@ -102,7 +102,7 @@ export async function loadSignIn () {
     saveSignInDataLocally()
   } else if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
     // old login data is in localstorage but we don't have the cookies we need
-    setMode(MODES.FORCE_RELOAD_SIGN_IN)
+    setMode(MODES.AUTH_EXPIRED)
     processMode()
     return true
   }

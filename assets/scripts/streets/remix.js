@@ -83,6 +83,7 @@ export function remixStreet () {
       url: API_URL + 'v1/streets',
       method: 'POST',
       body: transmission,
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       }

@@ -31,7 +31,6 @@ export function newBlockingAjaxRequest (mode, request, doneFunc, cancelFunc) {
   blockingAjaxRequestInProgress = true
 
   blockingAjaxRequest = request
-  blockingAjaxRequest.credentials = 'include'
   blockingAjaxRequestDoneFunc = doneFunc
   blockingAjaxRequestCancelFunc = cancelFunc
 

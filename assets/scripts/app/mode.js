@@ -20,7 +20,8 @@ export const MODES = {
   STREET_404: 15,
   STREET_404_BUT_LINK_TO_USER: 16,
   STREET_410_BUT_LINK_TO_USER: 17,
-  ABOUT: 18
+  ABOUT: 18,
+  AUTH_EXPIRED: 19
 }
 
 let mode
@@ -42,6 +43,9 @@ export function processMode () {
       break
     case MODES.UNSUPPORTED_BROWSER:
       showError(ERRORS.UNSUPPORTED_BROWSER, true)
+      break
+    case MODES.AUTH_EXPIRED:
+      showError(ERRORS.AUTH_EXPIRED, true)
       break
     case MODES.NOT_FOUND:
       showError(ERRORS.NOT_FOUND, true)
