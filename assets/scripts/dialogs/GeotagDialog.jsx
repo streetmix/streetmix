@@ -120,6 +120,9 @@ reverse geocodeing based on user input (the user can click on the map to reverse
 It is tested primary via cypress at the moment
  */
 function GeotagDialog () {
+  // this kinda goofy props object is a result of refactoring
+  // some legacy code. definetly worth refactoring further in the future
+  // if it causes other problems or confusion
   const props = {
     street: useSelector((state) => state.street),
     markerLocation: useSelector((state) => state.map.markerLocation),
