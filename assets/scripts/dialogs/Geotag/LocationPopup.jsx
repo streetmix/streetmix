@@ -38,15 +38,15 @@ const LocationPopup = (props) => {
             </button>
           </div>
         ) : (
-            <div>
-              <button className="button-primary" onClick={handleConfirm}>
-                <FormattedMessage
-                  id="dialogs.geotag.confirm-location"
-                  defaultMessage="Confirm location"
-                />
-              </button>
-            </div>
-          ))}
+          <div>
+            <button className="button-primary" onClick={handleConfirm}>
+              <FormattedMessage
+                id="dialogs.geotag.confirm-location"
+                defaultMessage="Confirm location"
+              />
+            </button>
+          </div>
+        ))}
     </Popup>
   )
 }
