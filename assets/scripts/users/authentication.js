@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
+import * as Sentry from '@sentry/browser'
 
 import USER_ROLES from '../../../app/data/user_roles'
 import { app } from '../preinit/app_settings'
@@ -119,16 +120,39 @@ export async function loadSignIn () {
 
   const signInData = getSignInData()
 
+  // Check if token is valid
+  // Note that jwtDecode does not actually validate tokens. We will need
+  // another library to do that. For now, we use the try/catch to see if
+  // throws an error. If so, we log and report this error so we can see
+  // why tokens are invalid, then we force clearing all data so that user
+  // can reset and start over.
+  try {
+    if (signInData.token) {
+      jwtDecode(signInData.token)
+    }
+  } catch (error) {
+    Sentry.captureMessage('Error parsing jwt token ', signInData?.token)
+    clearAllClientSignInData()
+    setMode(MODES.AUTH_EXPIRED)
+    processMode()
+    return true
+  }
+
   const storage = JSON.parse(window.localStorage.getItem('flags'))
   const sessionOverrides = generateFlagOverrides(storage, 'session')
 
   let flagOverrides = []
 
   if (signInData && signInData.token && signInData.userId) {
-    const currentDate = new Date()
     const decoded = jwtDecode(signInData.token)
+
+    // Check if token has expired
+    const currentDate = new Date()
     const expDate = new Date(decoded.exp * 1000)
-    expDate.setDate(expDate.getDate() - 1) // refresh token one day early
+
+    // Set the expiration date to one day early so that tokens
+    // don't wait till the last moment to refresh
+    expDate.setDate(expDate.getDate() - 1)
 
     if (currentDate >= expDate) {
       await fetchFreshTokens(signInData.refreshToken)
