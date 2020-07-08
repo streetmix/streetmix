@@ -50,6 +50,7 @@ function App () {
         <BlockingShield />
         <BlockingError />
         <Gallery />
+        <DialogRoot />
         <Flash />
         <DebugInfo />
         <PrintContainer />
@@ -60,7 +61,6 @@ function App () {
           <DebugHoverPolygon />
           <WelcomePanel />
           <PaletteContainer />
-          <DialogRoot />
           <EnvironmentEditor />
           <SegmentDragLayer />
           <StreetView />

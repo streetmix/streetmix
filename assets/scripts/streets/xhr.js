@@ -192,6 +192,7 @@ export function saveStreetToServer (initial) {
   const options = {
     method: 'PUT',
     body: transmission,
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json'
     }

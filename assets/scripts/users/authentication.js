@@ -49,11 +49,20 @@ export function isSignedIn () {
   return store.getState().user.signedIn
 }
 
-export function goReloadClearSignIn () {
+/**
+ * Clears sign in data on the client side. Use this when authentication
+ * data has become corrupted or expired on the client side and needs to be reset.
+ * Do not use this to sign out a user. For that, use signOut(), which ensures
+ * that sign out data is also sent to the server.
+ */
+export function clearAllClientSignInData () {
   store.dispatch(clearSignInData())
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
   removeSignInCookies()
+}
 
+export function goReloadClearSignIn () {
+  clearAllClientSignInData()
   window.location.reload()
 }
 
@@ -90,7 +99,7 @@ export async function loadSignIn () {
   const refreshCookie = Cookies.get(REFRESH_TOKEN_COOKIE)
   const userIdCookie = Cookies.get(USER_ID_COOKIE)
 
-  if (signInCookie && userIdCookie) {
+  if (signInCookie && userIdCookie && refreshCookie) {
     store.dispatch(
       setSignInData({
         token: signInCookie,
@@ -100,12 +109,12 @@ export async function loadSignIn () {
     )
 
     saveSignInDataLocally()
-  } else {
-    if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
-      store.dispatch(
-        setSignInData(JSON.parse(window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]))
-      )
-    }
+  } else if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+    // old login data is in localstorage but we don't have the cookies we need
+    clearAllClientSignInData()
+    setMode(MODES.AUTH_EXPIRED)
+    processMode()
+    return true
   }
 
   const signInData = getSignInData()

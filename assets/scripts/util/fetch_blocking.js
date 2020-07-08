@@ -4,7 +4,11 @@
  * Only one of these should be active at any time and
  * no other fetch / xhr / ajax should exist when they do.
  */
-import { showBlockingShield, hideBlockingShield, darkenBlockingShield } from '../app/blocking_shield'
+import {
+  showBlockingShield,
+  hideBlockingShield,
+  darkenBlockingShield
+} from '../app/blocking_shield'
 
 let blockingAjaxRequest
 let blockingAjaxRequestDoneFunc
@@ -44,8 +48,9 @@ function errorBlockingAjaxRequest () {
 }
 
 function makeBlockingAjaxRequest () {
-  window.fetch(blockingAjaxRequest.url, blockingAjaxRequest)
-    .then(response => {
+  window
+    .fetch(blockingAjaxRequest.url, blockingAjaxRequest)
+    .then((response) => {
       if (!response.ok) {
         throw response
       }
