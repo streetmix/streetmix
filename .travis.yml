@@ -26,9 +26,6 @@ before_script:
   # Start the server and run it in background process
   - node index &
 
-install:
-  - npm ci
-
 script:
   # Note: don't run `npm test` here directly, it's intended for local testing.
   - commitlint-travis
