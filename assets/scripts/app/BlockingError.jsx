@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import Avatar from '../users/Avatar'
 import { goReload, goHome, goNewStreet, goExampleStreet } from './routing'
-import { goReloadClearSignIn } from '../users/authentication'
+import { goReloadClearSignIn, doSignIn } from '../users/authentication'
 import { ERRORS } from './errors'
 
 function BlockingError (props) {
@@ -58,6 +58,11 @@ function BlockingError (props) {
         id="error.button.try-again"
         defaultMessage="Try again"
       />
+    </button>
+  )
+  const signInButton = (
+    <button onClick={doSignIn}>
+      <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
     </button>
   )
   const pleaseLetUsKnow = (
@@ -270,18 +275,18 @@ function BlockingError (props) {
       title = (
         <FormattedMessage
           id="error.auth-expired"
-          defaultMessage="We automatically signed you out due to inactivity. Please sign in again."
+          defaultMessage="We automatically signed you out due to inactivity."
         />
       )
       description = (
         <>
           <p>
             <FormattedMessage
-              id="error.please-reload"
-              defaultMessage="Please reload this page before continuing."
+              id="error.sign-in-again"
+              defaultMessage="Please sign in again."
             />
           </p>
-          {sessionReloadButton}
+          {signInButton}
         </>
       )
       break
