@@ -117,10 +117,6 @@
     "label": "Always display the What’s New dialog",
     "defaultValue": false
   },
-  "DONATE_NAG_SCREEN": {
-    "label": "Donation nag screen",
-    "defaultValue": false
-  },
   "BUSINESS_PLAN": {
     "label": "Activate purchasing funnel",
     "defaultValue": false

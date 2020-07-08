@@ -5,13 +5,11 @@ import { connect } from 'react-redux'
 // Import all dialogs here
 import AboutDialog from './AboutDialog'
 import AnalyticsDialog from './AnalyticsDialog'
-import DonateDialog from './DonateDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
 import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
 import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
-import MinecraftDialog from './MinecraftDialog'
 import NewsletterDialog from './NewsletterDialog'
 import UpgradeDialog from './UpgradeDialog'
 import SentimentSurveyDialog from './SentimentSurveyDialog'
@@ -23,9 +21,6 @@ const DIALOG_COMPONENTS = {
   },
   ANALYTICS: {
     id: AnalyticsDialog
-  },
-  DONATE: {
-    id: DonateDialog
   },
   FEATURE_FLAGS: {
     id: FeatureFlagDialog
@@ -41,9 +36,6 @@ const DIALOG_COMPONENTS = {
   },
   WHATS_NEW: {
     id: WhatsNewDialog
-  },
-  MINECRAFT: {
-    id: MinecraftDialog
   },
   NEWSLETTER: {
     id: NewsletterDialog
