@@ -2,18 +2,34 @@
 import { getRandomObjects } from '../scatter'
 import PEOPLE from '../people.json'
 
-// The unit test for `getRandomObjects()` is designed to ensure that it
-// returns the same values as previous behaviour, because we're heavily
-// refactoring how this works, and want to avoid regressions. We will need to
-// continue making sure that we return similar output against future
-// refactoring -- for instance, when transitioning from imperial to metric
-// units.
-
-// However! The output of this function is not intended to be guaranteed
-// consistent across all releases, because it can change for any reason -- for
-// example, just adding more people to people.json will result in different
-// output. As a future improvement, we can either make this test more general,
-// or roll it up into an integration test.
+// The unit test for `getRandomObjects()` is designed so that the expected
+// return values are very precise decimal numbers, on purpose. We want to see
+// the same values on each test, so that refactoring it does not cause new
+// regressions. One example of a large refactoring project that will happen
+// in the future is when we change from using imperial to metric units
+// primarily. We want the actual appearance of streets to remain as stable
+// as possible.
+//
+// However, using these exact numbers can be brittle, because there are
+// certain unavoidable cases where the resulting values will be different.
+// This usually happens when the random number generator gets called with
+// different input, for example, when the number of people in the `people.json`
+// pool have changed (this is data we have not mocked for the test).
+//
+// Another reason is if the random number generator is called in a slightly
+// different order because we have changed the logic. This is an example that
+// requires justification to break the test. Is changing the logic necessary
+// to make a performance improvement, or add a new feature? If so, then this
+// can cause a change in output that we expect, and we should update the test
+// to allow those values to change. But let's say we refactored the code to
+// make use of a new JavaScript language feature, and we do not expect the
+// output to be different. If it were (and tests fail), we can then go back
+// and see whether a mistake was made.
+//
+// (TODO) As a future improvement, we can remove the brittleness of these
+// tests by making it more generic (mocking the input object) or rolling it
+// up into an integration test (one which tests visual output but not the
+// actual mathematical values involved).
 describe('scatter objects in segments', () => {
   it('picks people at normal density', () => {
     const [people, startLeft] = getRandomObjects(
@@ -27,7 +43,7 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(3.7987234759633886)
+    expect(startLeft).toEqual(5.0487234759633886)
   })
 
   it('picks people at sparse density', () => {
@@ -57,7 +73,7 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(3.0462522570605604)
+    expect(startLeft).toEqual(4.046252257060564)
   })
 
   it('picks from a pool of one single string id', () => {
