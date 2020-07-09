@@ -1,8 +1,8 @@
 /* eslint-env jest */
-import { pickObjectsFromPool } from '../scatter'
+import { getRandomObjects } from '../scatter'
 import PEOPLE from '../people.json'
 
-// The unit test for `pickObjectsFromPool()` is designed to ensure that it
+// The unit test for `getRandomObjects()` is designed to ensure that it
 // returns the same values as previous behaviour, because we're heavily
 // refactoring how this works, and want to avoid regressions. We will need to
 // continue making sure that we return similar output against future
@@ -16,7 +16,7 @@ import PEOPLE from '../people.json'
 // or roll it up into an integration test.
 describe('scatter objects in segments', () => {
   it('picks people at normal density', () => {
-    const [people, startLeft] = pickObjectsFromPool(
+    const [people, startLeft] = getRandomObjects(
       PEOPLE,
       28.66667,
       936877893,
@@ -31,7 +31,7 @@ describe('scatter objects in segments', () => {
   })
 
   it('picks people at sparse density', () => {
-    const [people, startLeft] = pickObjectsFromPool(
+    const [people, startLeft] = getRandomObjects(
       PEOPLE,
       28.66667,
       936877893,
@@ -46,7 +46,7 @@ describe('scatter objects in segments', () => {
   })
 
   it('picks people at dense density', () => {
-    const [people, startLeft] = pickObjectsFromPool(
+    const [people, startLeft] = getRandomObjects(
       PEOPLE,
       28.66667,
       936877893,
@@ -73,7 +73,7 @@ describe('scatter objects in segments', () => {
       }
     ]
 
-    const [objects, startLeft] = pickObjectsFromPool(
+    const [objects, startLeft] = getRandomObjects(
       pool,
       20,
       0,
