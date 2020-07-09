@@ -101,7 +101,7 @@ Code comments
 Commit style
 ++++++++++++
 
-We like the `Conventional Commits specification <https://www.conventionalcommits.org/en/v1.0.0-beta.4/>`_. This commit style helps us organize our changes into discrete commits by documenting them in a standard way, which helps us understand project history over time. (Previously, this is also known as `semantic commit messages <https://seesparkbox.com/foundry/semantic_commit_messages>`_ or the `Angular commit style <https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines>`_.)
+We like the `Conventional Commits specification <https://www.conventionalcommits.org/en/v1.0.0/#specification/>`_. This commit style helps us organize our changes into discrete commits by documenting them in a standard way, which helps us understand project history over time. (Previously, this is also known as `semantic commit messages <https://seesparkbox.com/foundry/semantic_commit_messages>`_ or the `Angular commit style <https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines>`_.)
 
 While the Conventional Commits specification only defines the ``feat`` and ``fix`` types, we also use the following **types**:
 

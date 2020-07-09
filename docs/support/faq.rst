@@ -74,4 +74,4 @@ We believe that civic engagement is most empowering when users are not artificia
 Can you add X feature?
 ----------------------
 
-We'll see! We'd love to hear more about it on the :ref:`contact-forums`. We can't respond to all requests, but we do read and consider all user suggestions to help prioritize new features in Streetmix.
+We'll see! Please :ref:`contact us <contact>`. We can't respond to all requests, but we do read and consider all user suggestions to help prioritize new features in Streetmix.
