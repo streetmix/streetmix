@@ -4,7 +4,7 @@ import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
 } from '../segments/constants'
-import { SOURCE_VALUES, DEFAULT_ANALYTICS_SOURCE } from '../app/constants'
+import { SOURCE_LIST, DEFAULT_ANALYTICS_SOURCE } from '../app/constants'
 
 const { parse } = require('json2csv')
 
@@ -53,8 +53,8 @@ const getAnalyticsFromStreet = (street, locale) => {
 const NO_CAPACITY = { average: 0, potential: 0 }
 const UNDEFINED_CAPACITY = { average: 0, potential: 0, display: false }
 
-export const hasCapacityType = (type, source = '') => {
-  const capacityList = SOURCE_VALUES.find((item) => item.value === source)
+export const hasCapacityType = (type, source = DEFAULT_ANALYTICS_SOURCE) => {
+  const capacityList = SOURCE_LIST.find((item) => item.value === source)
   if (!capacityList || !capacityList.capacities) return false
   if (type in capacityList.capacities) {
     return true
@@ -63,8 +63,11 @@ export const hasCapacityType = (type, source = '') => {
   }
 }
 
-export const getCapacityBySource = (type, source) => {
-  const capacityList = SOURCE_VALUES.find((item) => item.value === source)
+export const getCapacityBySource = (
+  type,
+  source = DEFAULT_ANALYTICS_SOURCE
+) => {
+  const capacityList = SOURCE_LIST.find((item) => item.value === source)
   if (!capacityList || !capacityList.capacities) return UNDEFINED_CAPACITY
   if (type in capacityList.capacities) {
     return { ...capacityList.capacities[type] }
@@ -78,10 +81,10 @@ const sumFunc = (total, num) => {
   return total + num
 }
 
-const addSegmentData = (item, source) => {
+const addSegmentData = (item, source = DEFAULT_ANALYTICS_SOURCE) => {
   const hasZeroCapacityError =
     item &&
-    hasCapacityType(item.type) &&
+    hasCapacityType(item.type, source) &&
     item.warnings &&
     (item.warnings[SEGMENT_WARNING_OUTSIDE] ||
       item.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
@@ -113,12 +116,15 @@ export const getSegmentCapacity = (
   segment,
   source = DEFAULT_ANALYTICS_SOURCE
 ) => {
-  return addSegmentData(segment)
+  return addSegmentData(segment, source)
 }
 
-export const getStreetCapacity = (street) => {
+export const getStreetCapacity = (
+  street,
+  source = DEFAULT_ANALYTICS_SOURCE
+) => {
   const { segments } = street
-  const segmentData = segments.map(addSegmentData)
+  const segmentData = segments.map((item) => addSegmentData(item, source))
   const averageTotal = segmentData
     .map((item) => item.capacity.average || 0)
     .reduce(sumFunc, 0)

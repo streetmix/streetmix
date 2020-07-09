@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getVariantString } from '../../segments/variant_utils'
 import { DEFAULT_ENVIRONS } from '../../streets/constants'
+import { getCapacityBySource } from '../../util/street_analytics'
+
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION,
@@ -72,6 +74,13 @@ const streetSlice = createSlice({
 
     updateAnalyticsSource (state, action) {
       state.analyticsSource = action.payload
+
+      const updatedSegments = [...state.segments]
+      updatedSegments.forEach((item, index) => {
+        item.capacity = getCapacityBySource(item.type, action.payload)
+      })
+
+      state.segments = updatedSegments
     },
 
     updateSegments: {
