@@ -5,21 +5,8 @@
   z-index: $z-08-notification-bar;
   padding: 0.75em calc(36px + 1.5em); /* Makes room for dismiss button */
   text-align: center; /* Since the app is very center-view oriented, this helps message legibility */
-  // background-color: $alert-background;
-  // border-bottom: 3px solid $alert-border;
-  // background-color: #fff0c0; // TODO: This is new toast color; make variable
-  // border-bottom: 5px solid #ffd755;
-  background-color: #333;
-  border-bottom: 5px solid #606060;
-  color: #fcfcfc;
-
-  // Temporary (on dark background)
-  a,
-  a:hover,
-  a:active,
-  a:visited {
-    color: $colour-turquoise-300;
-  }
+  background-color: $alert-background;
+  border-bottom: $alert-border;
 }
 
 /* Close button overrides */
@@ -38,22 +25,18 @@ $close-icon-colour-hover: $colour-copper-600;
   align-items: center !important;
 
   &:hover {
-    // background-color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 
   &:active {
-    // background-color: rgba(255, 255, 255, 0.75);
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.75);
   }
 
   svg {
-    // color: $close-icon-colour !important;
-    color: #cfcfcf !important;
+    color: $close-icon-colour !important;
   }
 
   &:hover svg {
-    // color: $close-icon-colour-hover !important;
-    color: white !important;
+    color: $close-icon-colour-hover !important;
   }
 }

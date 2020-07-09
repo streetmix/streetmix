@@ -113,8 +113,8 @@ body.phone #loading {
   .loading-stuck {
     position: absolute;
     bottom: 20px;
-    background-color: #fff0c0;
-    border-bottom: 5px solid #ffd755;
+    background-color: $alert-background;
+    border-bottom: $alert-border;
     padding: 1em;
     border-radius: $border-radius-medium;
     opacity: 0;

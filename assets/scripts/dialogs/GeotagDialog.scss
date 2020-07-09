@@ -19,7 +19,7 @@ $geotag-dialog-background-color: $off-white;
   padding: 0.85em 2.5em;
   text-align: center;
   background-color: $alert-background;
-  border-bottom: 3px solid $alert-border;
+  border-bottom: $alert-border;
 }
 
 .geotag-input-container {
