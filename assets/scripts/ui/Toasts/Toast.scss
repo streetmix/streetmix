@@ -24,8 +24,8 @@
   padding: 0.75em 1em;
   padding-right: 40px; // Space for close button
   font-size: 13px;
-  border-top: 5px solid #ffd755;
-  background-color: #fff0c0;
+  border-top: $alert-border;
+  background-color: $alert-background;
 
   [dir="rtl"] & {
     padding-left: 40px; // Space for close button
