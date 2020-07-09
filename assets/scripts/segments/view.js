@@ -538,6 +538,7 @@ export function drawSegmentContents (
         dpi
       )
     }
+
     if (graphics.scatter.sprites) {
       drawScatteredSprites(
         graphics.scatter.sprites,
