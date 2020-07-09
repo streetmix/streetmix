@@ -27,6 +27,17 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
       <button>
         Go to the homepage
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -75,6 +86,17 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
       <button>
         Go to the homepage
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -123,6 +145,17 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
       <button>
         Go to the homepage
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -171,6 +204,17 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
       <button>
         Go to the homepage
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -219,6 +263,17 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
       <button>
         Go to the homepage
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -458,6 +513,17 @@ exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
       <button>
         Try again
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -550,6 +616,17 @@ exports[`BlockingError renders SIGN_IN_401 1`] = `
       <button>
         Try again
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -584,6 +661,17 @@ exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
       <button>
         Try again
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -767,6 +855,17 @@ exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
       <button>
         Try again
       </button>
+      <p
+        class="error-help-link"
+      >
+        <a
+          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Need help?
+        </a>
+      </p>
     </div>
   </div>
 </DocumentFragment>
