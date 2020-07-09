@@ -3,6 +3,7 @@
     {
       "files": ["*.js", "*.jsx"],
       "options": {
+        "trailingComma": "none",
         "semi": false,
         "singleQuote": true,
         "arrowParens": "always",
