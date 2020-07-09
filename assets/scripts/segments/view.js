@@ -109,11 +109,11 @@ export function drawSegmentImage (
 
 /**
  * When rendering a stack of sprites, sometimes the resulting image will extend
- * beyond the left or right edge of the segment's width. (For instance, a "tree"
- * segment might be 0.5m wide, but the actual width of the tree sprite will need
- * more than 0.5m width to render.) This calculates the actual left, right, and
- * center Y-values needed to render sprites so that they are not truncated at the
- * edge of the segment.
+ * beyond the left or right edge of the segment's width. (For instance, a
+ * "tree" segment might be 0.5m wide, but the actual width of the tree sprite
+ * will need more than 0.5m width to render.) This calculates the actual left,
+ * right, and center Y-values needed to render sprites so that they are not
+ * truncated at the edge of the segment.
  *
  * @param {Object} variantInfo - segment variant info
  * @param {Number} actualWidth - segment's actual real life width
@@ -226,11 +226,15 @@ const GROUND_LEVEL_OFFSETY = {
 }
 
 /**
- * Originally a sprite's dy position was calculated using: dy = offsetTop + (multiplier * TILE_SIZE * (sprite.offsetY || 0)).
- * In order to remove `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground", or "lane", sprites in pixels
- * in `GROUND_LEVEL_OFFSETY`. This was calculated by taking the difference of the `offsetY` value for ground level 0 and the
- * `offsetY` for the elevation of the current segment. Using `elevation`, which is defined for each segment based on the "ground"
- * component being used, this function returns the `GROUND_LEVEL_OFFSETY` for that `elevation`. If not found, it returns null.
+ * Originally a sprite's dy position was calculated using: dy = offsetTop +
+ * (multiplier * TILE_SIZE * (sprite.offsetY || 0)). In order to remove
+ * `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground",
+ * or "lane", sprites in pixels in `GROUND_LEVEL_OFFSETY`. This was calculated
+ * by taking the difference of the `offsetY` value for ground level 0 and the
+ * `offsetY` for the elevation of the current segment. Using `elevation`, which
+ * is defined for each segment based on the "ground" component being used, this
+ * function returns the `GROUND_LEVEL_OFFSETY` for that `elevation`. If not
+ * found, it returns null.
  *
  * @param {Number} elevation
  * @returns {?Number} groundLevelOffset

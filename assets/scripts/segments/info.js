@@ -65,7 +65,7 @@ export function getAllSegmentInfo () {
  * @returns {Object}
  */
 export function getAllSegmentInfoArray () {
-  return Object.keys(SEGMENT_LOOKUP).map(id => {
+  return Object.keys(SEGMENT_LOOKUP).map((id) => {
     const segment = { ...SEGMENT_LOOKUP[id] }
     segment.id = id
     return segment
@@ -86,8 +86,9 @@ export function getSegmentInfo (type) {
 }
 
 /**
- * Maps the old segment data model to the new segment data model and returns the graphic sprites necessary
- * to draw the segment as well as any rules to follow, e.g. `minWidth` based on the `type` and `variant`.
+ * Maps the old segment data model to the new segment data model and returns
+ * the graphic sprites necessary to render the segment as well as any rules
+ * to follow, e.g. `minWidth` based on the `type` and `variant`.
  *
  * @param {string} type
  * @param {string} variant
@@ -107,7 +108,10 @@ export function getSegmentVariantInfo (type, variant) {
 
   // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
   // of the first item in the "lane" component group.
-  const lane = getSegmentComponentInfo(COMPONENT_GROUPS.LANES, components.lanes[0].id)
+  const lane = getSegmentComponentInfo(
+    COMPONENT_GROUPS.LANES,
+    components.lanes[0].id
+  )
   variantInfo.elevation = lane.elevation
 
   return variantInfo
