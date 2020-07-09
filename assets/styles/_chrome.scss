@@ -109,6 +109,18 @@ body.phone #loading {
     opacity: 0;
     pointer-events: none;
   }
+
+  .loading-stuck {
+    position: absolute;
+    bottom: 20px;
+    background-color: #fff0c0;
+    border-bottom: 5px solid #ffd755;
+    padding: 1em;
+    border-radius: $border-radius-medium;
+    opacity: 0;
+    transition: opacity 120ms, transform 150ms ease-out;
+    transform: translateY(10px);
+  }
 }
 
 #loading .streetmix-logo {

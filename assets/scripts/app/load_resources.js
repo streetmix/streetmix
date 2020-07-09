@@ -190,12 +190,18 @@ export function hideLoadingScreen () {
   // sure not to use modern faculties.
   const loadingEl = document.getElementById('loading')
 
-  // Add class if classList is available. This prevents extra 'hidden'
-  // classes from appearing in hot-module reloading.
+  // Add class using classList, if available. This prevents extra 'hidden'
+  // class names from being appended repeatedly in hot-module reloading.
   if (loadingEl.classList) {
     loadingEl.classList.add('hidden')
   } else {
     // For old browsers, do this
     loadingEl.className += ' hidden'
   }
+
+  // The `hidden` attribute is more semantically correct for removing
+  // elements that are no longer relevant from the view. This was defined
+  // in HTML5 and will not be available in older browsers, but newer browsers
+  // will benefit from using it.
+  loadingEl.setAttribute('hidden', true)
 }
