@@ -27,7 +27,7 @@ function CapacitySource ({ segments = [] }) {
       newSource = DEFAULT_ANALYTICS_SOURCE
     }
     dispatch(setAnalyticsSource(newSource))
-    setIsLoading(false)
+    setTimeout(() => setIsLoading(false), 100)
   }
 
   const analyticsSource = useSelector((state) => {
@@ -57,7 +57,6 @@ function CapacitySource ({ segments = [] }) {
         </em>
         {citationSub}
       </p>
-      {isLoading && <span>loading...</span>}
       {showSourceOptions && (
         <select
           disabled={isLoading}
