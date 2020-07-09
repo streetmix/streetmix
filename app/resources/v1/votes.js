@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const { User, Vote } = require('../../db/models')
+const { User, Vote, Street } = require('../../db/models')
 const { v4: uuidv4 } = require('uuid')
 const logger = require('../../../lib/logger.js')()
 
@@ -7,60 +7,97 @@ const MAX_COMMENT_LENGTH = 280
 
 exports.get = async function (req, res) {
   let ballot
+
   try {
-    if (!req.user) {
-      ballot = await Vote.findAll({
-        where: {
-          voterId: {
-            [Sequelize.Op.is]: null
-          }
-        },
-        order: Sequelize.literal('random()'),
-        limit: 1
-      })
-    } else {
-      ballot = await Vote.findAll({
-        // where (submitted does not contain the user's auth0 ID, or is empty) AND (voterId is null)
-        where: {
-          [Sequelize.Op.and]: [
-            {
-              [Sequelize.Op.or]: [
-                {
-                  [Sequelize.Op.not]: {
+    let hasValidStreet = false
+    while (!hasValidStreet) {
+      if (!req.user) {
+        ballot = await Vote.findAll({
+          where: {
+            voterId: {
+              [Sequelize.Op.is]: null
+            }
+          },
+          order: Sequelize.literal('random()'),
+          limit: 1
+        })
+      } else {
+        ballot = await Vote.findAll({
+          // where (submitted does not contain the user's auth0 ID, or is empty) AND (voterId is null)
+          where: {
+            [Sequelize.Op.and]: [
+              {
+                [Sequelize.Op.or]: [
+                  {
+                    [Sequelize.Op.not]: {
+                      submitted: {
+                        [Sequelize.Op.contains]: [req.user.sub]
+                      }
+                    }
+                  },
+                  {
                     submitted: {
-                      [Sequelize.Op.contains]: [req.user.sub]
+                      [Sequelize.Op.is]: null
                     }
                   }
-                },
-                {
+                ]
+              },
+              {
+                voterId: {
+                  [Sequelize.Op.is]: null
+                }
+              },
+              {
+                [Sequelize.Op.not]: {
                   submitted: {
-                    [Sequelize.Op.is]: null
+                    [Sequelize.Op.contains]: [req.user.sub]
                   }
                 }
-              ]
-            },
-            {
-              voterId: {
-                [Sequelize.Op.is]: null
               }
-            }
-          ]
-        },
-        order: Sequelize.literal('random()'),
-        limit: 1
-      })
+            ]
+          },
+          order: Sequelize.literal('random()'),
+          limit: 1
+        })
+      }
+
+      if (ballot && ballot.length > 0) {
+        const myBallot = ballot[0]
+        const { streetId } = myBallot
+        if (streetId) {
+          const streetForBallot = await Street.findOne({
+            where: { id: streetId }
+          })
+          if (
+            streetForBallot &&
+            streetForBallot.status &&
+            streetForBallot.status === 'ACTIVE'
+          ) {
+            hasValidStreet = true
+          } else {
+            console.log(`no Deleted street found - ${streetId}`)
+            // since streets cannot be deleted, this ballot is no longer valid
+            myBallot.voterId = 'DELETED'
+            await myBallot.save()
+          }
+        }
+      }
+
+      if (!ballot || ballot.length === 0) {
+        // no eligible streets remaining
+        return res
+          .status(204)
+          .json({
+            status: 204,
+            msg: 'All eligible streets have been voted on.'
+          })
+      }
     }
   } catch (error) {
+    console.log({ error })
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error fetching ballot.' })
     return
-  }
-
-  if (ballot && ballot.length === 0) {
-    // no eligible streets remaining
-    res
-      .status(204)
-      .json({ status: 204, msg: 'All eligible streets have been voted on.' })
   }
 
   const payload = { ballot }
