@@ -91,6 +91,20 @@ function BlockingError (props) {
       }}
     />
   )
+  const needHelpLink = (
+    <p className="error-help-link">
+      <a
+        href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FormattedMessage
+          id="error.need-help-link"
+          defaultMessage="Need help?"
+        />
+      </a>
+    </p>
+  )
 
   switch (errorType) {
     case ERRORS.NOT_FOUND:
@@ -325,6 +339,7 @@ function BlockingError (props) {
             />
           </p>
           {tryAgainButton}
+          {needHelpLink}
         </>
       )
       break
@@ -350,6 +365,7 @@ function BlockingError (props) {
             />
           </p>
           {tryAgainButton}
+          {needHelpLink}
         </>
       )
       break
@@ -375,6 +391,7 @@ function BlockingError (props) {
             />
           </p>
           {tryAgainButton}
+          {needHelpLink}
         </>
       )
       break
@@ -400,6 +417,7 @@ function BlockingError (props) {
             />
           </p>
           {tryAgainButton}
+          {needHelpLink}
         </>
       )
       break
@@ -419,6 +437,7 @@ function BlockingError (props) {
             />
           </p>
           {homeButton}
+          {needHelpLink}
         </>
       )
       break
@@ -442,6 +461,7 @@ function BlockingError (props) {
             &nbsp;{pleaseLetUsKnow}
           </p>
           {homeButton}
+          {needHelpLink}
         </>
       )
       break

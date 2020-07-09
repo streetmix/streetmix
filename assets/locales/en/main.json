@@ -128,7 +128,8 @@
     "cannot-create-new-street-on-phone-description": "If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.",
     "generic-error-title": "Something went wrong.",
     "generic-error-description": "We’re sorry – something went wrong.",
-    "error-code": "(Error {code}.)"
+    "error-code": "(Error {code}.)",
+    "need-help-link": "Need help?"
   },
   "btn": {
     "reload": "Reload",

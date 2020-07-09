@@ -77,6 +77,21 @@ body.phone #loading {
   button + button {
     margin-left: 1em;
   }
+
+  .error-help-link {
+    margin-top: 2em;
+    font-size: 0.85em;
+
+    a,
+    a:visited,
+    a:active {
+      color: $colour-turquoise-700;
+    }
+
+    a:hover {
+      color: $colour-turquoise-600;
+    }
+  }
 }
 
 #loading {
