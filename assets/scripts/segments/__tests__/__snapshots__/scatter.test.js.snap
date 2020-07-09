@@ -28,54 +28,50 @@ Array [
 exports[`scatter objects in segments picks people at dense density 1`] = `
 Array [
   Object {
-    "id": "people-25",
+    "id": "people-23",
     "left": 0,
+    "name": "Katie",
+    "width": 3,
+  },
+  Object {
+    "id": "people-28",
+    "left": 3.7407393094867594,
+    "width": 3,
+  },
+  Object {
+    "id": "people-21",
+    "left": 6.615210042353208,
+    "width": 1,
+  },
+  Object {
+    "id": "people-22",
+    "left": 7.860021493652412,
+    "width": 1,
+  },
+  Object {
+    "id": "people-25",
+    "left": 9.368637363837973,
     "width": 2,
   },
   Object {
-    "disallowFirst": true,
-    "id": "johnny-01",
-    "left": 2.74073930948676,
-    "name": "Johnny",
-    "width": 3,
+    "id": "people-12",
+    "left": 11.270766914421966,
+    "width": 2,
   },
   Object {
     "id": "people-24",
-    "left": 5.615210042353209,
+    "left": 13.983675515088438,
     "width": 4,
   },
   Object {
-    "id": "people-25",
-    "left": 9.860021493652413,
+    "id": "people-15",
+    "left": 18.618860351446976,
     "width": 2,
   },
   Object {
-    "id": "people-27",
-    "left": 12.368637363837975,
-    "width": 2,
-  },
-  Object {
-    "id": "people-13",
-    "left": 14.270766914421968,
-    "width": 2,
-  },
-  Object {
-    "id": "people-26",
-    "left": 16.98367551508844,
-    "width": 3,
-  },
-  Object {
-    "id": "people-16",
-    "left": 20.61886035144698,
-    "name": "Lou",
-    "width": 3,
-  },
-  Object {
-    "disallowFirst": true,
-    "id": "johnny-01",
-    "left": 24.074165485878876,
-    "name": "Johnny",
-    "width": 3,
+    "id": "people-29",
+    "left": 21.074165485878872,
+    "width": 4,
   },
 ]
 `;
@@ -83,35 +79,34 @@ Array [
 exports[`scatter objects in segments picks people at normal density 1`] = `
 Array [
   Object {
-    "id": "people-25",
+    "id": "people-23",
     "left": 0,
-    "width": 2,
-  },
-  Object {
-    "disallowFirst": true,
-    "id": "johnny-01",
-    "left": 5.6357976982892,
-    "name": "Johnny",
+    "name": "Katie",
     "width": 3,
   },
   Object {
-    "id": "people-24",
-    "left": 9.384033474510698,
-    "width": 4,
+    "id": "people-28",
+    "left": 6.6357976982892,
+    "width": 3,
+  },
+  Object {
+    "id": "people-21",
+    "left": 10.384033474510698,
+    "width": 1,
+  },
+  Object {
+    "id": "people-22",
+    "left": 13.36673831217471,
+    "width": 1,
   },
   Object {
     "id": "people-25",
-    "left": 15.36673831217471,
+    "left": 17.228791212793247,
     "width": 2,
   },
   Object {
-    "id": "people-27",
-    "left": 20.228791212793247,
-    "width": 2,
-  },
-  Object {
-    "id": "people-13",
-    "left": 23.069223048073223,
+    "id": "people-12",
+    "left": 20.069223048073223,
     "width": 2,
   },
 ]
@@ -120,21 +115,20 @@ Array [
 exports[`scatter objects in segments picks people at sparse density 1`] = `
 Array [
   Object {
-    "id": "people-25",
+    "id": "people-23",
     "left": 0,
-    "width": 2,
-  },
-  Object {
-    "disallowFirst": true,
-    "id": "johnny-01",
-    "left": 11.892968591830677,
-    "name": "Johnny",
+    "name": "Katie",
     "width": 3,
   },
   Object {
-    "id": "people-24",
-    "left": 19.973353230628,
-    "width": 4,
+    "id": "people-28",
+    "left": 12.892968591830677,
+    "width": 3,
+  },
+  Object {
+    "id": "people-21",
+    "left": 20.973353230628,
+    "width": 1,
   },
 ]
 `;

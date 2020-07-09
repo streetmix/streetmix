@@ -132,24 +132,28 @@
     "id": "johnny-01",
     "width": 3,
     "name": "Johnny",
-    "disallowFirst": true
+    "disallowFirst": true,
+    "weight": 10
   },
   {
     "id": "johnny-02",
     "width": 3,
     "name": "Johnny",
-    "disallowFirst": true
+    "disallowFirst": true,
+    "weight": 5
   },
   {
     "id": "junebug-01",
     "width": 3,
     "name": "Junebug",
-    "disallowFirst": true
+    "disallowFirst": true,
+    "weight": 10
   },
   {
     "id": "junebug-02",
     "width": 3,
     "name": "Junebug",
-    "disallowFirst": true
+    "disallowFirst": true,
+    "weight": 5
   }
 ]
