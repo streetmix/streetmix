@@ -2,6 +2,10 @@
 import { getRandomObjects } from '../scatter'
 import PEOPLE from '../people.json'
 
+// Provide mock people data to prevent changes in production data from
+// breaking the expected values of this test
+jest.mock('../people.json', () => require('../__mocks__/people.json'))
+
 // The unit test for `getRandomObjects()` is designed so that the expected
 // return values are very precise decimal numbers, on purpose. We want to see
 // the same values on each test, so that refactoring it does not cause new
@@ -14,7 +18,8 @@ import PEOPLE from '../people.json'
 // certain unavoidable cases where the resulting values will be different.
 // This usually happens when the random number generator gets called with
 // different input, for example, when the number of people in the `people.json`
-// pool have changed (this is data we have not mocked for the test).
+// pool have changed. We have mocked this data, so changing the mock data
+// is an expected cause for breaking the test and needing this to update.
 //
 // Another reason is if the random number generator is called in a slightly
 // different order because we have changed the logic. This is an example that
@@ -25,11 +30,6 @@ import PEOPLE from '../people.json'
 // make use of a new JavaScript language feature, and we do not expect the
 // output to be different. If it were (and tests fail), we can then go back
 // and see whether a mistake was made.
-//
-// (TODO) As a future improvement, we can remove the brittleness of these
-// tests by making it more generic (mocking the input object) or rolling it
-// up into an integration test (one which tests visual output but not the
-// actual mathematical values involved).
 describe('scatter objects in segments', () => {
   it('picks people at normal density', () => {
     const [people, startLeft] = getRandomObjects(
@@ -43,7 +43,7 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(5.0487234759633886)
+    expect(startLeft).toEqual(5.479749926272657)
   })
 
   it('picks people at sparse density', () => {
@@ -58,7 +58,7 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(4.846658384686)
+    expect(startLeft).toEqual(4.346658384686)
   })
 
   it('picks people at dense density', () => {
@@ -73,7 +73,7 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(4.046252257060564)
+    expect(startLeft).toEqual(2.9027498893762225)
   })
 
   it('picks from a pool of one single string id', () => {
