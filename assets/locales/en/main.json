@@ -408,7 +408,7 @@
     "sign-in-prompt": "Please sign in now to make your voice heard.",
     "about-link": "Why am I seeing this?",
     "about-text": "This survey helps us learn how people feel about streets.",
-    "thank-you": "Thank you for participating in this survey!",
+    "thank-you": "Thank you!",
     "about-header": "We want to understand how people feel about streets",
     "about-article": {
       "paragraph-1": "Many streets are designed by civil engineers, but we believe that design should include everyone’s point of view. In partnership with the <a>New Urban Mobility Alliance</a> (NUMO), we’re conducting this one-question survey to do just that.",
@@ -416,15 +416,15 @@
       "paragraph-3": "You can only vote once per street, but you can encourage others to cast their own vote by sharing your streets or a random street with the link <a>https://streetmix.net/survey/</a>."
     },
     "done": {
-      "response": "You responded {score}. Your response will help us learn how people feel about streets!",
+      "response": "You responded {score}.",
       "vote-another": "Vote on another!",
       "really-done": "All done!"
     },
     "comment": {
       "prompt": "Tell us why:",
       "example": "(for instance, “I liked the trees.”)",
-      "submit": "Send",
-      "thanks": "Thank you!"
+      "submit": "Submit",
+      "thanks": "Got it!"
     }
   },
   "i18n": {

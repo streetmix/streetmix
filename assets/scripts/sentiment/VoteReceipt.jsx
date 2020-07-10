@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import VoteComment from './VoteComment'
 import SentimentIcon from './SentimentIcon'
 import { getDataForScore } from './scores'
+import './VoteReceipt.scss'
 
 VoteReceipt.propTypes = {
   score: PropTypes.number,
@@ -38,14 +40,14 @@ function VoteReceipt ({ score, handleClose }) {
         <h2>
           <FormattedMessage
             id="sentiment.thank-you"
-            defaultMessage="Thank you for participating in this survey!"
+            defaultMessage="Thank you!"
           />
         </h2>
-        <div className="sentiment-survey-done-receipt">
-          <div className="sentiment-survey-buttons">
+        <div className="sentiment-survey-done-text">
+          <div>
             <SentimentIcon {...vote} />
           </div>
-          <div className="sentiment-survey-done-text">
+          <div>
             <p>
               <strong>
                 <FormattedMessage
@@ -60,29 +62,26 @@ function VoteReceipt ({ score, handleClose }) {
             <p>
               <FormattedMessage
                 id="sentiment.done.response"
-                defaultMessage="You responded {score}. Your response will help us learn how people feel about streets!"
+                defaultMessage="You responded {score}."
                 values={{
                   score: (
-                    <strong>
+                    <em>
                       <FormattedMessage
                         id={vote.label.localizationKey}
                         defaultMessage={vote.label.defaultMessage}
                       />
-                    </strong>
+                    </em>
                   )
                 }}
+              />{' '}
+              <FormattedMessage
+                id="sentiment.comment.prompt"
+                defaultMessage="Tell us why:"
               />
             </p>
+            <VoteComment />
           </div>
         </div>
-        <p style={{ display: 'none' }}>
-          Tell us why:
-          <input
-            type="text"
-            placeholder="(for instance, “I liked the trees.”)"
-          />
-          <button className="button-secondary">Send</button>
-        </p>
         <div className="sentiment-survey-done-buttons">
           <a href="/survey" className="button-like button-primary">
             <FormattedMessage
@@ -90,7 +89,7 @@ function VoteReceipt ({ score, handleClose }) {
               defaultMessage="Vote on another!"
             />
           </a>
-          <button className="button-primary" onClick={handleClose}>
+          <button className="button-tertiary" onClick={handleClose}>
             <FormattedMessage
               id="sentiment.done.really-done"
               defaultMessage="All done!"

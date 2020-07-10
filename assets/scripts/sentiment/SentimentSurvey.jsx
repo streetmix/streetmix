@@ -113,7 +113,7 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                   </div>
                 )}
               </div>
-              <p>
+              <p className="sentiment-survey-about-link">
                 <span className="link-like" onClick={handleClickAbout}>
                   <FormattedMessage
                     id="sentiment.about-link"
