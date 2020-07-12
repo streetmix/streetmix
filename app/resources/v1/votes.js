@@ -4,6 +4,145 @@ const { v4: uuidv4 } = require('uuid')
 const logger = require('../../../lib/logger.js')()
 
 const MAX_COMMENT_LENGTH = 280
+const SURVEY_FINISHED = 'survey-finished'
+
+const generateRandomBallotFetch = ({ redirect = false }) => {
+  return async function (req, res) {
+    let ballots
+
+    try {
+      let hasValidStreet = false
+      while (!hasValidStreet) {
+        if (!req.user) {
+          ballots = await Vote.findAll({
+            where: {
+              voterId: {
+                [Sequelize.Op.is]: null
+              }
+            },
+            order: Sequelize.literal('random()'),
+            limit: 1
+          })
+        } else {
+          ballots = await Vote.findAll({
+            // where (submitted does not contain the user's auth0 ID, or is empty) AND (voterId is null)
+            where: {
+              [Sequelize.Op.and]: [
+                {
+                  [Sequelize.Op.or]: [
+                    {
+                      [Sequelize.Op.not]: {
+                        submitted: {
+                          [Sequelize.Op.contains]: [req.user.sub]
+                        }
+                      }
+                    },
+                    {
+                      submitted: {
+                        [Sequelize.Op.is]: null
+                      }
+                    }
+                  ]
+                },
+                {
+                  voterId: {
+                    [Sequelize.Op.is]: null
+                  }
+                },
+                {
+                  [Sequelize.Op.not]: {
+                    submitted: {
+                      [Sequelize.Op.contains]: [req.user.sub]
+                    }
+                  }
+                }
+              ]
+            },
+            order: Sequelize.literal('random()'),
+            limit: 1
+          })
+        }
+
+        if (ballots && ballots.length > 0) {
+          const myBallot = ballots[0]
+          const { streetId } = myBallot
+          if (streetId) {
+            const streetForBallot = await Street.findOne({
+              where: { id: streetId }
+            })
+            if (
+              streetForBallot &&
+              streetForBallot.status &&
+              streetForBallot.status === 'ACTIVE'
+            ) {
+              hasValidStreet = true
+            } else {
+              // since streets cannot be deleted, this ballot is no longer valid
+              myBallot.voterId = 'DELETED'
+              await myBallot.save()
+            }
+          }
+        }
+
+        if (!ballots || ballots.length === 0) {
+          // no ballots remaining
+          if (redirect) {
+            return res.redirect(`/${SURVEY_FINISHED}`)
+          } else {
+            return res.status(204).json({
+              status: 204,
+              msg: 'All eligible streets have been voted on.'
+            })
+          }
+        }
+      }
+    } catch (error) {
+      logger.error(error)
+      res.status(500).json({ status: 500, msg: 'Error fetching ballots.' })
+      return
+    }
+
+    if (redirect) {
+      let street
+      let candidateStreetUrl = '/'
+      try {
+        if (!(ballots[0] && ballots[0].data && ballots[0].streetId)) {
+          res.status(503).json({
+            status: 503,
+            msg: 'Server found no candidate streets for voting.'
+          })
+          return
+        }
+
+        const streetId = ballots[0].streetId
+        if (!streetId) throw new Error('no street ID found for ballots!')
+        street = await Street.findOne({ where: { id: streetId } })
+
+        if (!street.creatorId) {
+          candidateStreetUrl = `/-/${street.namespacedId}`
+        } else {
+          candidateStreetUrl = `/${street.creatorId}/${street.namespacedId}`
+        }
+      } catch (error) {
+        logger.error(error)
+        res
+          .status(500)
+          .json({ status: 500, msg: 'Error fetching street from ballot.' })
+        return
+      }
+
+      return res.redirect(candidateStreetUrl)
+    }
+
+    const payload = { ballots }
+
+    return res.status(200).json(payload)
+  }
+}
+
+exports.generateRandomBallotFetch = generateRandomBallotFetch
+
+exports.get = generateRandomBallotFetch({ redirect: false })
 
 exports.get = async function (req, res) {
   let ballot
@@ -75,7 +214,6 @@ exports.get = async function (req, res) {
           ) {
             hasValidStreet = true
           } else {
-            console.log(`no Deleted street found - ${streetId}`)
             // since streets cannot be deleted, this ballot is no longer valid
             myBallot.voterId = 'DELETED'
             await myBallot.save()
@@ -85,16 +223,13 @@ exports.get = async function (req, res) {
 
       if (!ballot || ballot.length === 0) {
         // no eligible streets remaining
-        return res
-          .status(204)
-          .json({
-            status: 204,
-            msg: 'All eligible streets have been voted on.'
-          })
+        return res.status(204).json({
+          status: 204,
+          msg: 'All eligible streets have been voted on.'
+        })
       }
     }
   } catch (error) {
-    console.log({ error })
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error fetching ballot.' })
     return

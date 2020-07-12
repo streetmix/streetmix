@@ -4,7 +4,7 @@ import { hideLoadingScreen, loadImages } from './load_resources'
 import { scheduleNextLiveUpdateCheck } from './live_update'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { segmentsChanged } from '../segments/view'
-import { initLocale } from '../locales/locale'
+import { initLocale, t } from '../locales/locale'
 import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
 import { initStreetThumbnailSubscriber } from '../streets/image'
@@ -26,6 +26,7 @@ import store, { observeStore } from '../store'
 import { openGallery } from '../store/actions/gallery'
 import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
+import { addToast } from '../store/slices/toasts'
 
 let serverContacted
 
@@ -156,6 +157,19 @@ function onEverythingLoaded () {
 
   if (getPromoteStreet()) {
     remixStreet()
+  }
+
+  if (mode === MODES.SURVEY_FINISHED) {
+    store.dispatch(
+      addToast({
+        message: t(
+          'toast.remixing-sign-in',
+          'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'
+        ),
+        component: 'TOAST_SIGN_IN',
+        duration: 12000
+      })
+    )
   }
 
   // Display "support Streetmix" dialog for returning users

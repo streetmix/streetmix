@@ -41,6 +41,7 @@ export const URL_ERROR_NO_ACCESS_TOKEN = 'no-access-token'
 export const URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token'
 export const URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token'
 export const URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem'
+export const SURVEY_FINISHED = 'survey-finished'
 
 export const URL_EXAMPLE_STREET = 'streetmix/7'
 
@@ -56,6 +57,7 @@ export const RESERVED_URLS = [
   URL_HELP,
   URL_GLOBAL_GALLERY,
   URL_ERROR,
+  SURVEY_FINISHED,
   'streets',
   'terms-of-service',
   'privacy-policy',

@@ -111,6 +111,7 @@
     "gallery-street-failure-description": "We’re having trouble loading this street.",
     "reload-sign-in-title": "You signed in in another window.",
     "please-reload": "Please reload this page before continuing.",
+    "survey-finished": "Survey complete. Congratulations and thank you!",
     "street-deleted-elsewhere-title": "This street has been deleted elsewhere.",
     "street-deleted-elsewhere-description": "This street has been deleted in another browser.",
     "auth-expired": "We automatically signed you out due to inactivity.",
