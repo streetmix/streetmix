@@ -10,9 +10,8 @@ module.exports = {
   },
   db: {
     sequelize: {
-      // The `url` property is documented in sequelize-cli readme but not in Sequelize core
-      url: process.env.DATABASE_URL,
       logging: false,
+      database: 'streetmix_test',
       pool: {
         max: 12,
         min: 0,
