@@ -16,3 +16,5 @@ global.confirm = jest.fn(() => true)
 // Add HTML methods not implemented in jsdom
 // https://github.com/jsdom/jsdom/issues/1695
 global.HTMLElement.prototype.scrollIntoView = jest.fn()
+
+process.env.PELIAS_API_KEY = process.env.PELIAS_API_KEY || 'ge-iampelias'
