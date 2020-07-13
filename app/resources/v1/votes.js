@@ -9,6 +9,18 @@ const SURVEY_FINISHED = 'survey-finished'
 const generateRandomBallotFetch = ({ redirect = false }) => {
   return async function (req, res) {
     let ballots
+    const authUser = req.user || {}
+    let user
+
+    if (authUser.sub) {
+      try {
+        user = await User.findOne({ where: { auth0Id: authUser.sub } })
+      } catch (error) {
+        logger.error(error)
+        res.status(500).json({ status: 500, msg: 'Error finding user.' })
+        return
+      }
+    }
 
     try {
       let hasValidStreet = false
@@ -33,7 +45,7 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
                     {
                       [Sequelize.Op.not]: {
                         submitted: {
-                          [Sequelize.Op.contains]: [req.user.sub]
+                          [Sequelize.Op.contains]: [user.id]
                         }
                       }
                     },
@@ -47,13 +59,6 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
                 {
                   voterId: {
                     [Sequelize.Op.is]: null
-                  }
-                },
-                {
-                  [Sequelize.Op.not]: {
-                    submitted: {
-                      [Sequelize.Op.contains]: [req.user.sub]
-                    }
                   }
                 }
               ]
@@ -70,17 +75,45 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
             const streetForBallot = await Street.findOne({
               where: { id: streetId }
             })
+
+            // do not return a vote to the same user
+            const isCreator = user && user.id === streetForBallot.creatorId
+
             if (
+              !isCreator &&
               streetForBallot &&
               streetForBallot.status &&
               streetForBallot.status === 'ACTIVE'
             ) {
               hasValidStreet = true
+            } else if (isCreator) {
+              // update existing ballot
+              await Vote.update(
+                {
+                  submitted: Sequelize.fn(
+                    'array_append',
+                    Sequelize.col('submitted'),
+                    user.id
+                  )
+                },
+                {
+                  where: {
+                    streetId: streetForBallot.id,
+                    voterId: {
+                      [Sequelize.Op.is]: null
+                    }
+                  }
+                }
+              )
             } else {
               // since streets cannot be deleted, this ballot is no longer valid
               myBallot.voterId = 'DELETED'
               await myBallot.save()
             }
+          } else {
+            res
+              .status(500)
+              .json({ status: 500, msg: 'Error fetching street for ballot.' })
           }
         }
 
@@ -144,102 +177,6 @@ exports.generateRandomBallotFetch = generateRandomBallotFetch
 
 exports.get = generateRandomBallotFetch({ redirect: false })
 
-exports.get = async function (req, res) {
-  let ballot
-
-  try {
-    let hasValidStreet = false
-    while (!hasValidStreet) {
-      if (!req.user) {
-        ballot = await Vote.findAll({
-          where: {
-            voterId: {
-              [Sequelize.Op.is]: null
-            }
-          },
-          order: Sequelize.literal('random()'),
-          limit: 1
-        })
-      } else {
-        ballot = await Vote.findAll({
-          // where (submitted does not contain the user's auth0 ID, or is empty) AND (voterId is null)
-          where: {
-            [Sequelize.Op.and]: [
-              {
-                [Sequelize.Op.or]: [
-                  {
-                    [Sequelize.Op.not]: {
-                      submitted: {
-                        [Sequelize.Op.contains]: [req.user.sub]
-                      }
-                    }
-                  },
-                  {
-                    submitted: {
-                      [Sequelize.Op.is]: null
-                    }
-                  }
-                ]
-              },
-              {
-                voterId: {
-                  [Sequelize.Op.is]: null
-                }
-              },
-              {
-                [Sequelize.Op.not]: {
-                  submitted: {
-                    [Sequelize.Op.contains]: [req.user.sub]
-                  }
-                }
-              }
-            ]
-          },
-          order: Sequelize.literal('random()'),
-          limit: 1
-        })
-      }
-
-      if (ballot && ballot.length > 0) {
-        const myBallot = ballot[0]
-        const { streetId } = myBallot
-        if (streetId) {
-          const streetForBallot = await Street.findOne({
-            where: { id: streetId }
-          })
-          if (
-            streetForBallot &&
-            streetForBallot.status &&
-            streetForBallot.status === 'ACTIVE'
-          ) {
-            hasValidStreet = true
-          } else {
-            // since streets cannot be deleted, this ballot is no longer valid
-            myBallot.voterId = 'DELETED'
-            await myBallot.save()
-          }
-        }
-      }
-
-      if (!ballot || ballot.length === 0) {
-        // no eligible streets remaining
-        return res.status(204).json({
-          status: 204,
-          msg: 'All eligible streets have been voted on.'
-        })
-      }
-    }
-  } catch (error) {
-    logger.error(error)
-    res.status(500).json({ status: 500, msg: 'Error fetching ballot.' })
-    return
-  }
-
-  const payload = { ballot }
-
-  res.status(200).json(payload)
-}
-
 exports.put = async function (req, res) {
   const authUser = req.user || {}
   const { id, comment } = req.body
@@ -265,7 +202,7 @@ exports.put = async function (req, res) {
   }
 
   const ballot = await Vote.findOne({
-    where: { id: id, voter_id: user.auth0Id }
+    where: { id: id, voter_id: user.id }
   })
 
   if (!ballot) {
@@ -333,7 +270,7 @@ exports.post = async function (req, res) {
     ballot.data = req.body.data
     ballot.score = req.body.score
     ballot.streetId = req.body.streetId
-    ballot.voterId = authUser.sub
+    ballot.voterId = user.id
     savedBallot = await Vote.create(ballot)
 
     // update existing ballot
@@ -342,7 +279,7 @@ exports.post = async function (req, res) {
         submitted: Sequelize.fn(
           'array_append',
           Sequelize.col('submitted'),
-          user.auth0Id
+          user.id
         )
       },
       {

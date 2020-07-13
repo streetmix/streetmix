@@ -10,9 +10,15 @@ module.exports = {
   },
   db: {
     sequelize: {
-      database: 'streetmix_test',
-      host: process.env.PGHOST || '127.0.0.1',
-      port: process.env.PGPORT || 5432
+      // The `url` property is documented in sequelize-cli readme but not in Sequelize core
+      url: process.env.DATABASE_URL,
+      logging: false,
+      pool: {
+        max: 12,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      }
     }
   },
   l10n: {

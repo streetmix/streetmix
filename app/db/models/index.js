@@ -28,6 +28,8 @@ if (config.has('db.sequelize.url')) {
   })
 }
 
+const queryInterface = sequelize.getQueryInterface()
+
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (
@@ -49,6 +51,8 @@ Object.keys(db).forEach((modelName) => {
 })
 
 db.sequelize = sequelize
+db.queryInterface = queryInterface
+
 db.Sequelize = Sequelize
 
 module.exports = db
