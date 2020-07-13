@@ -24,9 +24,25 @@ exports[`GeotagDialog renders 1`] = `
         class="geotag-dialog"
       >
         <div
-          class="geotag-error-banner"
+          class="geotag-input-container"
         >
-          Geocoding services are currently unavailable. You can view the map, but you won’t be able to change this street’s location.
+          <div
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-labelledby="downshift-0-label"
+            class="geotag-input-form"
+            role="combobox"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-labelledby="downshift-0-label"
+              autocomplete="off"
+              class="geotag-input"
+              id="downshift-0-input"
+              placeholder="Search for a location"
+              value=""
+            />
+          </div>
         </div>
         <div
           class="leaflet-container leaflet-grab leaflet-touch-drag"
@@ -39,22 +55,82 @@ exports[`GeotagDialog renders 1`] = `
           >
             <div
               class="leaflet-pane leaflet-tile-pane"
-            />
+            >
+              <div
+                class="leaflet-layer "
+                style="z-index: 1;"
+              >
+                <div
+                  class="leaflet-tile-container leaflet-zoom-animated"
+                  style="z-index: 18; left: 0px; top: 0px;"
+                >
+                  <img
+                    alt=""
+                    class="leaflet-tile"
+                    role="presentation"
+                    src="https://c.basemaps.cartocdn.com/rastertiles/voyager/12/2047/2047.png"
+                    style="width: 256px; height: 256px; left: -251px; top: -221px;"
+                  />
+                </div>
+              </div>
+            </div>
             <div
               class="leaflet-pane leaflet-shadow-pane"
-            />
+            >
+              <img
+                alt=""
+                class="leaflet-marker-shadow leaflet-zoom-hide"
+                src="/images/marker-shadow.png"
+                style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; left: 5px; top: 35px;"
+              />
+            </div>
             <div
               class="leaflet-pane leaflet-overlay-pane"
             />
             <div
               class="leaflet-pane leaflet-marker-pane"
-            />
+            >
+              <img
+                alt=""
+                class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive leaflet-marker-draggable"
+                src="/images/marker-icon.png"
+                style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; left: 5px; top: 35px; z-index: 35;"
+                tabindex="0"
+              />
+            </div>
             <div
               class="leaflet-pane leaflet-tooltip-pane"
             />
             <div
               class="leaflet-pane leaflet-popup-pane"
-            />
+            >
+              <div
+                class="leaflet-popup  leaflet-zoom-animated"
+                style="bottom: -5px; left: 5px;"
+              >
+                <div
+                  class="leaflet-popup-content-wrapper"
+                >
+                  <div
+                    class="leaflet-popup-content"
+                    style="width: 51px;"
+                  >
+                    <div
+                      class="geotag-location-label"
+                    >
+                      Null Island
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="leaflet-popup-tip-container"
+                >
+                  <div
+                    class="leaflet-popup-tip"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="leaflet-control-container"
@@ -102,6 +178,18 @@ exports[`GeotagDialog renders 1`] = `
                   title="A JS library for interactive maps"
                 >
                   Leaflet
+                </a>
+                 | © 
+                <a
+                  href="https://www.openstreetmap.org/copyright"
+                >
+                  OpenStreetMap
+                </a>
+                , © 
+                <a
+                  href="https://carto.com/attribution"
+                >
+                  CARTO
                 </a>
               </div>
             </div>

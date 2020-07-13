@@ -9,19 +9,27 @@ jest.mock('../../streets/owner', () => ({
   isOwnedByCurrentUser: jest.fn()
 }))
 
+// as mocked, the intial state is a street with a previously saved location, and a new marker location
+// in practice, these tests don't really handle this 'new' marker location yet
+
 const initialState = {
   street: {
-    creatorId: 'foo',
+    creatorId: 'mayorofnullisland',
     location: {
-      label: 'foo',
-      wofId: 'foo'
+      label: 'Null Island',
+      wofId: '1234',
+      latlng: {
+        lat: 0,
+        lng: 0
+      }
     }
   },
   map: {
-    markerLocation: { lat: 0, lng: 0 },
+    markerLocation: { lat: -1, lng: -1 },
     addressInformation: {
-      street: 'foo',
-      id: 'foo'
+      street: 'Null Island Port',
+      label: 'Null Island Port, Null Island',
+      id: 'polyline123'
     }
   },
   user: {
@@ -39,51 +47,29 @@ const initialState = {
 
 describe('GeotagDialog', () => {
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
+    const wrapper = renderWithReduxAndIntl(
+      <GeotagDialog renderPopup={true} />,
+      { initialState }
+    )
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
 
-  it('does not allow a location to be confirmed when geocoded data does not have street data', () => {
+  it('allows a location to be cleared when the street is owned by the current user', () => {
+    isOwnedByCurrentUser.mockReturnValueOnce(true)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, {
-      initialState: {
-        ...initialState,
-        street: {}
-      }
+      initialState
     })
 
-    expect(wrapper.queryByText('Confirm location')).not.toBeInTheDocument()
+    expect(wrapper.queryByText('Clear location')).toBeInTheDocument()
   })
 
-  // TODO: Fix these tests
-  // the jest snapshot only shows a version of the component where geocoding isn't available
-  it.skip('allows a location to be confirmed when the current signed-in user is the street owner', () => {
+  it('allows a location to be added when the current user started this street', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(true)
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
-
-    expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
-  })
-
-  it.skip('allows a location to be confirmed when the current anonymous user started this street', () => {
-    isOwnedByCurrentUser.mockReturnValueOnce(true)
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
-
-    expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
-  })
-
-  it.skip('does not allow a location to be confirmed when the current signed-in user is not the street owner', () => {
-    isOwnedByCurrentUser.mockReturnValueOnce(false)
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
-
-    expect(wrapper.queryByText('Confirm location')).not.toBeInTheDocument()
-  })
-
-  it.skip('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
-    isOwnedByCurrentUser.mockReturnValueOnce(false)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, {
       initialState: {
         ...initialState,
         street: {
-          creatorId: 'foo',
+          creatorId: 'mayorofnullisland',
           location: null
         }
       }
@@ -92,6 +78,27 @@ describe('GeotagDialog', () => {
     expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
   })
 
+  /* neither confirm or clear location buttons should show up in this case */
+  it('does not allow a location to be cleared when the current user is not the street owner', () => {
+    isOwnedByCurrentUser.mockReturnValueOnce(false)
+    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
+    expect(wrapper.queryByTestId('locationEdit')).not.toBeInTheDocument()
+  })
+
+  it('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
+    isOwnedByCurrentUser.mockReturnValueOnce(false)
+    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, {
+      initialState: {
+        ...initialState,
+        street: {
+          creatorId: 'creatorMadeThisWithNoLocation',
+          location: null
+        }
+      }
+    })
+
+    expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
+  })
   it.todo('does not show error banner if geocoding services are available')
   it.todo('cripples dialog behavior if geocoding services are unavailable')
 })
