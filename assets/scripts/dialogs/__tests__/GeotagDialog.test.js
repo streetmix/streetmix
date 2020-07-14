@@ -60,7 +60,9 @@ describe('GeotagDialog', () => {
       initialState
     })
 
-    expect(wrapper.queryByText('Clear location')).toBeInTheDocument()
+    expect(
+      wrapper.queryByRole('button', { name: 'Clear location' })
+    ).toBeInTheDocument()
   })
 
   it('allows a location to be added when the current user started this street', () => {
@@ -74,15 +76,19 @@ describe('GeotagDialog', () => {
         }
       }
     })
-
-    expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
+    expect(
+      wrapper.queryByRole('button', { name: 'Confirm location' })
+    ).toBeInTheDocument()
   })
 
   /* neither confirm or clear location buttons should show up in this case */
-  it('does not allow a location to be cleared when the current user is not the street owner', () => {
+  it('does not allow a location to be edited when the current user is not the street owner', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(false)
     const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
-    expect(wrapper.queryByTestId('locationEdit')).not.toBeInTheDocument()
+    // in this case we want to make sure neither button shows up, so we use regex to check the button name
+    expect(
+      wrapper.queryByRole('button', { name: /Confirm location|Clear location/ })
+    ).not.toBeInTheDocument()
   })
 
   it('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
@@ -97,7 +103,9 @@ describe('GeotagDialog', () => {
       }
     })
 
-    expect(wrapper.queryByText('Confirm location')).toBeInTheDocument()
+    expect(
+      wrapper.queryByRole('button', { name: 'Confirm location' })
+    ).toBeInTheDocument()
   })
   it.todo('does not show error banner if geocoding services are available')
   it.todo('cripples dialog behavior if geocoding services are unavailable')
