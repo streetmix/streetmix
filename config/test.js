@@ -10,14 +10,9 @@ module.exports = {
   },
   db: {
     sequelize: {
-      logging: false,
       database: 'streetmix_test',
-      pool: {
-        max: 12,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-      }
+      host: process.env.PGHOST || '127.0.0.1',
+      port: process.env.PGPORT || 5432
     }
   },
   l10n: {

@@ -2,8 +2,6 @@
 const SequelizeMock = require('sequelize-mock')
 const DBConnectionMock = new SequelizeMock()
 const CONTAINS_KEY = 'CONTAINS_KEY'
-const AND_KEY = 'AND_KEY'
-const OR_KEY = 'OR_KEY'
 
 const StreetMock = DBConnectionMock.define('street', {
   creatorId: 'user1',
@@ -144,5 +142,5 @@ module.exports = {
   Street: StreetMock,
   Vote: VoteMock,
   User: UserMock,
-  Sequelize: { Op: { contains: CONTAINS_KEY, and: AND_KEY, or: OR_KEY } }
+  Sequelize: { Op: { contains: CONTAINS_KEY } }
 }

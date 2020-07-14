@@ -60,7 +60,6 @@ describe('api/v1/votes', function () {
       .type('json')
       .send(JSON.stringify(MOCK_VOTE_TWO))
       .then((response) => {
-        // console.log({ response });
         const { ballot } = response.body
         expect(response.statusCode).toEqual(200)
         expect(ballot.voterId).toEqual(TEST_USER_ONE)
@@ -115,6 +114,7 @@ describe('api/v1/votes', function () {
   })
 
   // TODO: implement this once we can test for the elimination of votes from the pool
+  // Specifically POSTing to all available votes should cause a 204 code to return
   // it('should return 204 if no votes remain', function () {
   //   jwtMock.mockReturnValueOnce(mockUser)
   //   return request(app)
