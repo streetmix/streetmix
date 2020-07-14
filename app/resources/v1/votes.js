@@ -11,7 +11,6 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
     let ballots
     const authUser = req.user || {}
     let user
-
     if (authUser.sub) {
       try {
         user = await User.findOne({ where: { auth0Id: authUser.sub } })
@@ -67,7 +66,6 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
             limit: 1
           })
         }
-
         if (ballots && ballots.length > 0) {
           const myBallot = ballots[0]
           const { streetId } = myBallot
@@ -111,7 +109,7 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
               await myBallot.save()
             }
           } else {
-            res
+            return res
               .status(500)
               .json({ status: 500, msg: 'Error fetching street for ballot.' })
           }
@@ -200,7 +198,6 @@ exports.put = async function (req, res) {
     res.status(403).json({ status: 403, msg: 'User not found.' })
     return
   }
-
   const ballot = await Vote.findOne({
     where: { id: id, voter_id: user.id }
   })
