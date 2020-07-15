@@ -23,18 +23,22 @@ export function loadSettings () {
   // Skip this if localStorage is corrupted
   let localSettings = {}
   try {
-    if (window.localStorage[LOCAL_STORAGE_SETTINGS_ID]) {
-      localSettings = JSON.parse(window.localStorage[LOCAL_STORAGE_SETTINGS_ID])
+    if (window.localStorage.getItem(LOCAL_STORAGE_SETTINGS_ID)) {
+      localSettings = JSON.parse(
+        window.localStorage.getItem(LOCAL_STORAGE_SETTINGS_ID)
+      )
     }
   } catch (e) {}
 
-  // Marge settings to a new object. Server settings take priority and will
+  // Merge settings to a new object. Server settings take priority and will
   // overwrite local settings.
+
   const settings = Object.assign({}, localSettings, serverSettings)
 
   // Except for last street settings -- if we've just signed in, local settings
   // take priority.
-  if (getMode() === MODES.JUST_SIGNED_IN) {
+  const currentMode = getMode()
+  if (currentMode === MODES.JUST_SIGNED_IN) {
     settings.lastStreetId = localSettings.lastStreetId
     settings.lastStreetNamespacedId = localSettings.lastStreetNamespacedId
     settings.lastStreetCreatorId = localSettings.lastStreetCreatorId
@@ -43,6 +47,7 @@ export function loadSettings () {
   // This is a temporary value used only for the "fetch last street"
   // functionality (this can happen either through the welcome panel)
   // or the /copy-last convenience URL.
+
   store.dispatch(
     setAppFlags({
       priorLastStreetId: settings.lastStreetId
@@ -62,7 +67,10 @@ export function loadSettings () {
  */
 function saveSettingsLocally (settings) {
   try {
-    window.localStorage[LOCAL_STORAGE_SETTINGS_ID] = JSON.stringify(settings)
+    window.localStorage.setItem(
+      LOCAL_STORAGE_SETTINGS_ID,
+      JSON.stringify(settings)
+    )
   } catch (err) {
     // Ignore localstorage write errors.
   }

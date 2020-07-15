@@ -162,6 +162,7 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
         return
       }
 
+      res.cookie('last_survey_url', candidateStreetUrl)
       return res.redirect(candidateStreetUrl)
     }
 

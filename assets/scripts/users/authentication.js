@@ -372,6 +372,16 @@ function _signInLoaded () {
   loadSettings()
   const street = store.getState().street
   let mode = getMode()
+
+  const surveyStreetId = Cookies.get('last_survey_url')
+
+  if (surveyStreetId) {
+    Cookies.remove('last_survey_url')
+    if (mode === MODES.JUST_SIGNED_IN) {
+      window.location = surveyStreetId
+    }
+  }
+
   if (
     mode === MODES.CONTINUE ||
     mode === MODES.JUST_SIGNED_IN ||
