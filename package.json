@@ -129,7 +129,7 @@
     "jwks-rsa": "1.8.0",
     "jwt-decode": "2.2.0",
     "leaflet": "1.6.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "newrelic": "6.8.0",
     "oauth": "0.9.15",
     "parcel-bundler": "1.12.4",
