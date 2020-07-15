@@ -141,7 +141,6 @@ export function getFetchStreetUrl () {
 
 export function fetchStreetFromServer () {
   var url = getFetchStreetUrl()
-  console.log('fetchStreetFromServer i', url, window.location.toString())
 
   window
     .fetch(url)
@@ -456,7 +455,7 @@ export function scheduleSavingStreetToServer () {
 
 export function fetchLastStreet () {
   const streetId = store.getState().app.priorLastStreetId
-  console.log('fetchLastStreet', { streetId })
+
   newBlockingAjaxRequest(
     'load',
     {

@@ -8,10 +8,11 @@ import './VoteReceipt.scss'
 
 VoteReceipt.propTypes = {
   score: PropTypes.number,
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  streetId: PropTypes.string
 }
 
-function VoteReceipt ({ score, handleClose }) {
+function VoteReceipt ({ score, handleClose, streetId }) {
   const doneEl = useRef(null)
 
   // When a score is received, we animate the background container
@@ -79,7 +80,7 @@ function VoteReceipt ({ score, handleClose }) {
                 defaultMessage="Tell us why:"
               />
             </p>
-            <VoteComment />
+            <VoteComment streetId={streetId} />
           </div>
         </div>
         <div className="sentiment-survey-done-buttons">

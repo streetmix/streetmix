@@ -13,10 +13,16 @@ import './SentimentSurvey.scss'
 SentimentSurvey.propTypes = {
   visible: PropTypes.bool,
   onClose: PropTypes.func,
-  handleVote: PropTypes.func.isRequired
+  handleVote: PropTypes.func.isRequired,
+  streetId: PropTypes.string
 }
 
-function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
+function SentimentSurvey ({
+  visible = false,
+  onClose = () => {},
+  handleVote,
+  streetId
+}) {
   const [score, setScore] = useState(null)
   const isUserSignedIn = useSelector((state) => state.user.signedIn)
   const dispatch = useDispatch()
@@ -121,7 +127,11 @@ function SentimentSurvey ({ visible = false, onClose = () => {}, handleVote }) {
                   />
                 </span>
               </p>
-              <VoteReceipt score={score} handleClose={onClose} />
+              <VoteReceipt
+                score={score}
+                handleClose={onClose}
+                streetId={streetId}
+              />
             </animated.div>
           )
       )}

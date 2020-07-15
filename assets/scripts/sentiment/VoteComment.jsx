@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import LoadingSpinner from '../ui/LoadingSpinner'
+import { putSentimentSurveyComment } from '../util/api'
 
 const MAX_COMMENT_LENGTH = 280
 
-function VoteComment (props) {
+VoteComment.propTypes = {
+  streetId: PropTypes.string
+}
+
+function VoteComment ({ streetId }) {
   const [comment, setComment] = useState('')
   const [isPending, setPending] = useState(false)
   const [isComplete, setComplete] = useState(false)
@@ -12,6 +18,17 @@ function VoteComment (props) {
 
   function handleSubmitComment (event) {
     setPending(true)
+    try {
+      // Only run if streetId is actually present.
+      if (streetId) {
+        putSentimentSurveyComment({
+          id: streetId,
+          comment: comment
+        })
+      }
+    } catch (error) {
+      console.error(error)
+    }
     // Post comment here
     window.setTimeout(() => {
       // Assume completion; fail silently on errors
