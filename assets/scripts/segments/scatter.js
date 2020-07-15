@@ -8,9 +8,10 @@ import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 // Buffer area to avoid rendering sprites in.
 // Will be applied to both edges of the segment.
 const SEGMENT_PADDING = 2 // in feet
+const DEFAULT_SELECTION_WEIGHT = 50
 
 /**
- * Given a pool of objects, with defined widths, get the maximum width value
+ * Given a pool of entities, with defined widths, get the maximum width value
  * This number is used during rendering to adjust sprites for center alignment
  *
  * @param {Array} pool - of objects to draw from
@@ -21,14 +22,61 @@ function getSpriteMaxWidth (pool) {
 }
 
 /**
- * Given a pool of objects, and a few parameters, draw continuously from that
+ * Using the random generator function, perform a weighted random selection
+ * from a pool of entities, then clone and return the object for that entity.
+ *
+ * @param {Array} pool - of entities to draw from. See the heredoc for
+ *    getRandomObjects() for the expected data structure of entities.
+ * @param {Function} randomGenerator - random generator function created
+ *    from randSeed. Do not recreate random generator function within a loop,
+ *    because that is not performant.
+ */
+function pickRandomEntityFromPool (pool, randomGenerator) {
+  const totalWeight = pool.reduce((sum, entity) => {
+    return sum + (entity.weight || DEFAULT_SELECTION_WEIGHT)
+  }, 0)
+  const randomNumber = Math.floor(randomGenerator() * totalWeight)
+
+  let pickedEntityIndex
+  let searchWeight = 0
+
+  for (let i = 0; i < pool.length; i++) {
+    const entity = pool[i]
+    searchWeight += entity.weight || DEFAULT_SELECTION_WEIGHT
+
+    if (randomNumber < searchWeight) {
+      pickedEntityIndex = i
+      break
+    }
+  }
+
+  // Clone the entity and return it
+  return Object.assign({}, pool[pickedEntityIndex])
+}
+
+/**
+ * Given a pool of entities, and a few parameters, draw continuously from that
  * pool until it has fully populated the given segment width. Because it uses
  * segment width to know when to stop drawing, this function also does double
  * duty by setting distances between objects.
  *
  * This function is exported for unit testing only.
  *
- * @param {Array} pool - of objects to draw from
+ * @param {Array} pool - of entities to draw from
+ *   Each entity is an object type with the following properties:
+ *     - id {string} - a unique identifier. For drawing segments, this `id`
+ *       corresponds to the sprite's "filename", but that association is not
+ *       particularly meaningful for picking objects.
+ *     - name {string} - (optional) human readable name of the entity
+ *     - width {number} - the width that this entity occupies
+ *     - weight {number} - (optional) affects the rarity of this entity. The
+ *       higher the value, the higher the chance of it being selected, relative
+ *       to others. The default weight value is 50. Lower numbers are rarer, higher
+ *       numbers are more common.
+ *     - disallowFirst {boolean} - (optional) if true, prevent this entity from
+ *       being selected first in a list (reserved for unique or special entities
+ *       that should not be the only object displayed if we only have space for
+ *       one object.)
  * @param {Number} width - of segment to populate, in feet
  * @param {Number} randSeed - ensures a consistent sequence of objects across renders
  * @param {Number} minSpacing - minimum spacing between each object, in feet (controls density)
@@ -36,7 +84,7 @@ function getSpriteMaxWidth (pool) {
  * @param {Number} maxSpriteWidth - maximum sprite width in the pool (via `getSpriteMaxWidth()`)
  * @param {Number} spacingAdjustment - additional value to adjust spacing, in feet
  */
-export function pickObjectsFromPool (
+export function getRandomObjects (
   pool,
   maxWidth,
   randSeed,
@@ -49,8 +97,8 @@ export function pickObjectsFromPool (
 
   const objects = []
   let runningWidth = 0
-  let previousIndex = null
-  let currentIndex = null
+  let previousEntityId = null
+  let currentEntityId = null
   let lastWidth = 0
 
   // Pick (draw) objects from the pool until we have at least one object, and
@@ -65,28 +113,22 @@ export function pickObjectsFromPool (
     // Special choosing logic only for larger pools.
     if (pool.length >= 4) {
       do {
-        const index = Math.floor(randomGenerator() * pool.length)
-        currentIndex = index
-
-        // Clone the object
-        object = Object.assign({}, pool[index])
+        object = pickRandomEntityFromPool(pool, randomGenerator)
+        currentEntityId = object.id
       } while (
         // Don't pick the same object twice in a row, and avoid picking
         // certain objects as the first object in a list. This is because
         // some objects are "special" and look strange when on their own,
         // but can diversify when included in a list.
-        currentIndex === previousIndex ||
+        currentEntityId === previousEntityId ||
         (objects.length === 0 && object.disallowFirst === true)
       )
     } else {
-      const index = Math.floor(randomGenerator() * pool.length)
-      currentIndex = index
-
-      // Clone the object
-      object = Object.assign({}, pool[index])
+      object = pickRandomEntityFromPool(pool, randomGenerator)
+      currentEntityId = object.id
     }
 
-    previousIndex = currentIndex
+    previousEntityId = currentEntityId
     object.left = runningWidth
 
     // Calculate the amount of space to allocate to this object,
@@ -142,9 +184,12 @@ export function pickObjectsFromPool (
  * @param {Number} width - width of segment to populate, in feet
  * @param {Number} offsetLeft
  * @param {Number} groundLevel - height at which to draw people
- * @param {Number} randSeed - ensures a consistent sequence of objects across renders
- * @param {Number} minSpacing - left spacing between each object, in feet (controls density)
- * @param {Number} maxSpacing - maximum right spacing between each object, in feet (controls density)
+ * @param {Number} randSeed - ensures a consistent sequence of objects across
+ *    renders
+ * @param {Number} minSpacing - left spacing between each object, in feet
+ *    (controls density)
+ * @param {Number} maxSpacing - maximum right spacing between each object, in
+ *    feet (controls density)
  * @param {Number} adjustment - further adjustment value
  * @param {Number} multiplier
  * @param {Number} dpi
@@ -179,7 +224,7 @@ export function drawScatteredSprites (
   })
 
   const maxSpriteWidth = getSpriteMaxWidth(pool)
-  const [objects, startLeft] = pickObjectsFromPool(
+  const [objects, startLeft] = getRandomObjects(
     pool,
     width,
     randSeed,

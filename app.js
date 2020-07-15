@@ -27,6 +27,7 @@ const apiRoutes = require('./app/api_routes')
 const serviceRoutes = require('./app/service_routes')
 const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
+const jwtCheck = require('./app/authentication')
 
 const client = initRedisClient()
 initCloudinary()
@@ -207,7 +208,7 @@ app.get('/help/about', (req, res) =>
   res.redirect('https://www.opencollective.com/streetmix/')
 )
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
-app.get('/survey', controllers.survey.get)
+app.get('/survey', jwtCheck, controllers.survey.get)
 app.post('/services/auth/refresh-login-token', cors(), controllers.refresh.post)
 
 app.get('/privacy-policy', (req, res) => res.render('privacy'))

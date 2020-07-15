@@ -8,6 +8,7 @@ import {
   URL_GLOBAL_GALLERY,
   URL_NO_USER,
   URL_RESERVED_PREFIX,
+  SURVEY_FINISHED,
   RESERVED_URLS
 } from './constants'
 import { normalizeSlug } from '../util/helpers'
@@ -63,6 +64,8 @@ export function processUrl () {
     // Global gallery
 
     setMode(MODES.GLOBAL_GALLERY)
+  } else if (urlParts.length === 1 && urlParts[0] === SURVEY_FINISHED) {
+    setMode(MODES.SURVEY_FINISHED)
   } else if (urlParts.length === 1 && urlParts[0]) {
     // User gallery
 

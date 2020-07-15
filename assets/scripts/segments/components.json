@@ -564,7 +564,8 @@
                   {
                     "id": "plants--flowers-orange",
                     "width": 4,
-                    "disallowFirst": true
+                    "disallowFirst": true,
+                    "weight": 20
                   },
                   {
                     "id": "plants--flowers-yellow",
@@ -574,12 +575,14 @@
                   {
                     "id": "plants--flowers-white",
                     "width": 4,
-                    "disallowFirst": true
+                    "disallowFirst": true,
+                    "weight": 20
                   },
                   {
                     "id": "plants--flowers-blue",
                     "width": 4,
-                    "disallowFirst": true
+                    "disallowFirst": true,
+                    "weight": 10
                   }
                 ],
                 "minSpacing": -3,
