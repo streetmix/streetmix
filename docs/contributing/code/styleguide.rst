@@ -40,7 +40,7 @@ Although it's popular, we do not use BEM framework/naming convention. Some good 
 
 JavaScript
 ~~~~~~~~~~
-ß
+
 Our JavaScript code style is `Standard JS`_. We enforce code style with a combination of `Prettier <https://prettier.io/>`_ and `ESLint <https://eslint.org/>`_.
 
 .. _Standard JS: https://standardjs.com/

@@ -40,6 +40,45 @@ Full integration tests happen in our continuous integration infrastructure. You'
 Frameworks
 ----------
 
+.. _unit-tests:
+
+Unit and integration tests
+++++++++++++++++++++++++++
+
+.. warning::
+
+   This section is incomplete and should be expanded.
+
+Our primary test framework is the `Jest <https://jestjs.io/>`_ test runner with `React Testing Library (RTL) <https://testing-library.com/docs/react-testing-library/intro>`_. (These do not do the same thing and are not interchangeable; these two systems work closely together to provide a full unit and integration test environment.) A number of resources already exist that fully document why and how we use these, see the resources list just below.
+
+Our goal is to be as close as possible to a community-designed "best practice" in order to simplify our understanding and comprehension of tests; *do not do anything exotic in these tests if you can avoid it.*
+
+Resources
+~~~~~~~~~
+
+- `Introducing the react-testing-library <https://kentcdodds.com/blog/introducing-the-react-testing-library>_` [Kent C. Dodds] - why RTL instead of Enzyme?
+- `How to use React Testing Library Tutorial <https://www.robinwieruch.de/react-testing-library>`_ [Robin Wieruch] - start here for the basics
+- `Common mistakes with React Testing Library <https://kentcdodds.com/blog/common-mistakes-with-react-testing-library>`_ [Kent C. Dodds]
+
+
+.. _e2e-tests:
+
+End-to-end tests
+++++++++++++++++
+
+.. warning::
+
+   This section is incomplete and should be expanded.
+
+We use `Cypress <https://www.cypress.io/>`_ sparingly. We do eventually want more tests to exist in Cypress, when appropriate, and can replace the unit or integration tests that end-to-end tests can cover.
+
+Cypress only runs in :ref:`our automated continuous integration test environment <continuous-integration>` by default, but can also be run locally:
+
+.. prompt :: bash $
+
+   npm run cypress:run
+
+
 .. _linting:
 
 Linting
@@ -74,13 +113,13 @@ TypeScript
 We have experimented with TypeScript in auxiliary codebases, but we've not incorporated it into Streetmix itself. Because we already compile code with Babel, adopting TypeScript piecemeal is doable. However, we have not yet run into a situation where the solution is specifically to adopt TypeScript. That being said, if and when a good case can be made for adopting it, we will likely jump on board. If a migration to TypeScript occurs in React components, it will supercede using PropTypes.
 
 
-.. _unit-tests:
-
 Device testing
 ++++++++++++++
 
 We do not currently implement device testing, but this is on our to-do list. We have a `Browserstack <https://www.browserstack.com/>`_ account for this purpose.
 
+
+.. _continuous-integration:
 
 Continuous integration (CI)
 ---------------------------
@@ -142,5 +181,7 @@ Because our test suite coverage is quite low at the moment, it is preferred that
 Resources
 ---------
 
-- https://kentcdodds.com/blog/write-tests/
+These additional resources from the developer community help guide our approach to testing. This is not an exhaustive list, and we'll keep updating this over time.
 
+- `Write tests. Not too many. Mostly integration. <https://kentcdodds.com/blog/write-tests/>`_ [Kent C. Dodds], on Guillermo Rauch's tweet.
+- `JavaScript & Node.js Testing Best Practices <https://github.com/goldbergyoni/javascript-testing-best-practices>`_ [Yoni Goldberg]
