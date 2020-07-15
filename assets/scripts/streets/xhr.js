@@ -455,6 +455,7 @@ export function scheduleSavingStreetToServer () {
 
 export function fetchLastStreet () {
   const streetId = store.getState().app.priorLastStreetId
+
   newBlockingAjaxRequest(
     'load',
     {

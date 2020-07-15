@@ -1,0 +1,36 @@
+@import "../../styles/variables.scss";
+
+.sentiment-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0;
+  border-radius: $border-radius-medium;
+  border: 0;
+  color: white;
+  font-size: 2em;
+  padding: 5px;
+  vertical-align: middle;
+  transition: transform 300ms cubic-bezier(0.5, 0, 0, 2.25);
+  transform: scale(1);
+  transform-origin: center center;
+
+  &.sentiment-1 {
+    background-color: #ff5b5b;
+  }
+
+  &.sentiment-2 {
+    background-color: rgb(251, 170, 56);
+  }
+
+  &.sentiment-3 {
+    background-color: #ffd755;
+  }
+
+  &.sentiment-4 {
+    background-color: rgb(130, 227, 218);
+  }
+
+  &.sentiment-5 {
+    background-color: $colour-emerald-400;
+  }
+}

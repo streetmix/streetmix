@@ -29,6 +29,10 @@ class APIClient {
   postSentimentSurveyVote = (payload) => {
     return this.client.post('/votes', payload)
   }
+
+  putSentimentSurveyComment = (payload) => {
+    return this.client.put('/votes', payload)
+  }
 }
 
 const client = new APIClient()
@@ -38,7 +42,8 @@ export const {
   getGalleryForUser,
   getGalleryForAllStreets,
   getSentimentSurveyStreet,
-  postSentimentSurveyVote
+  postSentimentSurveyVote,
+  putSentimentSurveyComment
 } = client
 
 export default client

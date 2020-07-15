@@ -9,6 +9,7 @@ const SURVEY_DELAY_BEFORE_APPEAR = 5000 // in ms
 function SentimentSurveyContainer (props) {
   const [isVisible, setVisible] = useState(false)
   const [isDismissed, setDismissed] = useState(false)
+  const [streetId, setStreetId] = useState(null)
   const street = useSelector((state) => state.street)
   const isEnabled = useSelector(
     (state) =>
@@ -48,16 +49,19 @@ function SentimentSurveyContainer (props) {
     setVisible(false)
   }
 
-  function handleVote (score) {
+  async function handleVote (score) {
     // Post the vote information immediately
     // Let's allow this to fail silently (if there is a problem, the user
     // doesn't need to know, but we still log the error internally)
     try {
-      postSentimentSurveyVote({
+      const response = await postSentimentSurveyVote({
         score,
         data: street,
         streetId: street.id
       })
+      if (response.status === 200) {
+        setStreetId(response.data.savedBallot.id)
+      }
     } catch (error) {
       console.error(error)
     }
@@ -71,6 +75,7 @@ function SentimentSurveyContainer (props) {
         visible={isVisible}
         onClose={handleClose}
         handleVote={handleVote}
+        streetId={streetId}
       />
     )
   }

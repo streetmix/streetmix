@@ -878,6 +878,7 @@ routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
  *               type: string
  */
 routes.post('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
+routes.put('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.put)
 
 // Catch all for all broken api paths, direct to 404 response.
 routes.get('/api/*', (req, res) => {

@@ -370,13 +370,24 @@ function errorReceiveSignOutConfirmationFromServer () {
 
 function _signInLoaded () {
   loadSettings()
-
   const street = store.getState().street
   let mode = getMode()
+
+  const surveyStreetId = Cookies.get('last_survey_url')
+
+  // hack to return user to the survey street after signing in
+  if (surveyStreetId) {
+    Cookies.remove('last_survey_url')
+    if (mode === MODES.JUST_SIGNED_IN) {
+      window.location = surveyStreetId
+    }
+  }
+
   if (
     mode === MODES.CONTINUE ||
     mode === MODES.JUST_SIGNED_IN ||
     mode === MODES.USER_GALLERY ||
+    mode === MODES.SURVEY_FINISHED ||
     mode === MODES.GLOBAL_GALLERY
   ) {
     const settings = store.getState().settings
@@ -394,6 +405,18 @@ function _signInLoaded () {
         setPromoteStreet(true)
       }
 
+      if (mode === MODES.SURVEY_FINISHED) {
+        store.dispatch(
+          addToast({
+            message: t(
+              'error.survey-finished',
+              'Survey complete. Congratulations and thank you!'
+            ),
+            duration: Infinity
+          })
+        )
+        setMode(MODES.CONTINUE)
+      }
       if (mode === MODES.JUST_SIGNED_IN) {
         setMode(MODES.CONTINUE)
       }

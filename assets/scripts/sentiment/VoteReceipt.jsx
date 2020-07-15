@@ -1,21 +1,19 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, useIntl } from 'react-intl'
-import find from 'lodash/find'
-import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
-import IMG_SENTIMENT_2 from '../../images/openmoji/color/1F641.svg'
-import IMG_SENTIMENT_3 from '../../images/openmoji/color/1F610.svg'
-import IMG_SENTIMENT_4 from '../../images/openmoji/color/1F60A.svg'
-import IMG_SENTIMENT_5 from '../../images/openmoji/color/1F60D.svg'
+import { FormattedMessage } from 'react-intl'
+import VoteComment from './VoteComment'
+import SentimentIcon from './SentimentIcon'
+import { getDataForScore } from './scores'
+import './VoteReceipt.scss'
 
 VoteReceipt.propTypes = {
   score: PropTypes.number,
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  streetId: PropTypes.string
 }
 
-function VoteReceipt ({ score, handleClose }) {
+function VoteReceipt ({ score, handleClose, streetId }) {
   const doneEl = useRef(null)
-  const intl = useIntl()
 
   // When a score is received, we animate the background container
   // in first (which "fades out" the original content, then fade in
@@ -33,58 +31,9 @@ function VoteReceipt ({ score, handleClose }) {
     }
   }, [score])
 
-  // TODO: Don't duplicate button data from <VoteButtons />
-  const voteButtonData = [
-    {
-      score: -1,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-1',
-        defaultMessage: 'Absolutely not'
-      }),
-      imgSrc: IMG_SENTIMENT_1,
-      className: 'sentiment-1'
-    },
-    {
-      score: -0.5,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-2',
-        defaultMessage: 'Not very much'
-      }),
-      imgSrc: IMG_SENTIMENT_2,
-      className: 'sentiment-2'
-    },
-    {
-      score: 0,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-3',
-        defaultMessage: 'It’s so-so'
-      }),
-      imgSrc: IMG_SENTIMENT_3,
-      className: 'sentiment-3'
-    },
-    {
-      score: 0.5,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-4',
-        defaultMessage: 'A little bit'
-      }),
-      imgSrc: IMG_SENTIMENT_4,
-      className: 'sentiment-4'
-    },
-    {
-      score: 1,
-      label: intl.formatMessage({
-        id: 'sentiment.answer.rating-5',
-        defaultMessage: 'Quite a lot'
-      }),
-      imgSrc: IMG_SENTIMENT_5,
-      className: 'sentiment-5'
-    }
-  ]
-
   if (score === null) return null
 
-  const vote = find(voteButtonData, { score })
+  const vote = getDataForScore(score)
 
   return (
     <div className="sentiment-survey-done-container" ref={doneEl}>
@@ -92,16 +41,14 @@ function VoteReceipt ({ score, handleClose }) {
         <h2>
           <FormattedMessage
             id="sentiment.thank-you"
-            defaultMessage="Thank you for participating in this survey!"
+            defaultMessage="Thank you!"
           />
         </h2>
-        <div className="sentiment-survey-done-receipt">
-          <div className="sentiment-survey-buttons">
-            <div className={`sentiment-button ${vote.className}`}>
-              <img src={vote.imgSrc} draggable="false" alt={vote.label} />
-            </div>
+        <div className="sentiment-survey-done-text">
+          <div>
+            <SentimentIcon {...vote} />
           </div>
-          <div className="sentiment-survey-done-text">
+          <div>
             <p>
               <strong>
                 <FormattedMessage
@@ -116,22 +63,26 @@ function VoteReceipt ({ score, handleClose }) {
             <p>
               <FormattedMessage
                 id="sentiment.done.response"
-                defaultMessage="You responded {score}. Your response will help us learn how people feel about streets!"
+                defaultMessage="You responded {score}."
                 values={{
-                  score: <strong>{vote.label}</strong>
+                  score: (
+                    <em>
+                      <FormattedMessage
+                        id={vote.label.localizationKey}
+                        defaultMessage={vote.label.defaultMessage}
+                      />
+                    </em>
+                  )
                 }}
+              />{' '}
+              <FormattedMessage
+                id="sentiment.comment.prompt"
+                defaultMessage="Tell us why:"
               />
             </p>
+            <VoteComment streetId={streetId} />
           </div>
         </div>
-        <p style={{ display: 'none' }}>
-          Tell us why:
-          <input
-            type="text"
-            placeholder="(for instance, “I liked the trees.”)"
-          />
-          <button className="button-secondary">Send</button>
-        </p>
         <div className="sentiment-survey-done-buttons">
           <a href="/survey" className="button-like button-primary">
             <FormattedMessage
@@ -139,7 +90,7 @@ function VoteReceipt ({ score, handleClose }) {
               defaultMessage="Vote on another!"
             />
           </a>
-          <button className="button-primary" onClick={handleClose}>
+          <button className="button-tertiary" onClick={handleClose}>
             <FormattedMessage
               id="sentiment.done.really-done"
               defaultMessage="All done!"
