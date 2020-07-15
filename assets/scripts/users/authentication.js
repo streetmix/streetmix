@@ -375,6 +375,7 @@ function _signInLoaded () {
 
   const surveyStreetId = Cookies.get('last_survey_url')
 
+  // hack to return user to the survey street after signing in
   if (surveyStreetId) {
     Cookies.remove('last_survey_url')
     if (mode === MODES.JUST_SIGNED_IN) {

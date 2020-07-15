@@ -162,6 +162,7 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
         return
       }
 
+      // hack to return user to the survey street after signing in
       res.cookie('last_survey_url', candidateStreetUrl)
       return res.redirect(candidateStreetUrl)
     }
