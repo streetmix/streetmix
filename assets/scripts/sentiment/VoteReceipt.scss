@@ -51,6 +51,10 @@
   .sentiment-icon {
     margin-right: 0.5em;
   }
+
+  div:last-child {
+    flex-grow: 1;
+  }
 }
 
 .sentiment-survey-done-comment {
