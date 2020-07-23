@@ -51,7 +51,6 @@
       "blog": "Посетить блог Streetmix",
       "discord": "Присоединиться к серверу Discord",
       "slack": "Присоединиться к чату Slack",
-      "minecraft": "Сыграть в Minecraft с нами!",
       "newsletter": "Подписаться на рассылку"
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "У нас проблемы с загрузкой этой улицы.",
     "reload-sign-in-title": "Вы вошли в другое окно.",
     "please-reload": "Пожалуйста, перезагрузите эту страницу, прежде чем продолжить.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Эта улица была удалена в другом месте.",
     "street-deleted-elsewhere-description": "Эта улица была удалена в другом браузере.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "Вы не вошли.",
     "access-denied-description": "Вы отменили процесс входа.",
     "auth-api-problem-title": "Возникла проблема со входом в систему.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Если вы перейдете по другой ссылке на определенную улицу, вы сможете просмотреть ее на своем телефоне, но пока не сможете создать новые улицы.",
     "generic-error-title": "Что-то пошло не так.",
     "generic-error-description": "Приносим извинение – что-то пошло не так.",
-    "error-code": "(Ошибка {code}.)"
+    "error-code": "(Ошибка {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Перезагрузить",

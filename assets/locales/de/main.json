@@ -51,7 +51,6 @@
       "blog": "Streetmix Blog ansehen",
       "discord": "",
       "slack": "Slack Chat beitreten",
-      "minecraft": "",
       "newsletter": ""
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Wir haben Probleme, diese Straße zu laden.",
     "reload-sign-in-title": "Du bist in einem anderen Fenster angemeldet.",
     "please-reload": "Bitte lade die Seite erneut, bevor du fortfährst.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Diese Straße wurde an einer anderen Stelle gelöscht.",
     "street-deleted-elsewhere-description": "Diese Straße wurde in einem anderen Browser gelöscht.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "Du bist nicht angemeldet.",
     "access-denied-description": "Du hast den Anmeldevorgang abgebrochen.",
     "auth-api-problem-title": "Beim Anmelden ist ein Problem aufgetreten.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Wenn du dem Link zu einer Straße folgst, kannst du sie auf deinem Smartphone ansehen - aber bisher kannst du dort noch keine neuen Straßen erstellen.",
     "generic-error-title": "Etwas ist schief gelaufen.",
     "generic-error-description": "Es tut uns leid - etwas ist schief gelaufen.",
-    "error-code": "(Fehler {code}.)"
+    "error-code": "(Fehler {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Neu laden",

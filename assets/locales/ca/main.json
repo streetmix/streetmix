@@ -51,7 +51,6 @@
       "blog": "Visiteu el bloc de Streetmix",
       "discord": "Entreu al xat de Discord",
       "slack": "Entreu al xat de Slack",
-      "minecraft": "Jugueu al Minecraft amb nosaltres!",
       "newsletter": "Subscriviu-vos al nostre butlletí"
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Tenim problemes carregant aquest carrer.",
     "reload-sign-in-title": "Heu iniciat la sessió en una altra finestra.",
     "please-reload": "Si us plau, refresqueu aquesta pàgina abans de continuar.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Aquest carrer ha estat eliminat des d'algun altre lloc.",
     "street-deleted-elsewhere-description": "Aquest carrer ha estat eliminat des d'un altre navegador.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "No heu iniciat sessió.",
     "access-denied-description": "Heu cancel·lat el procés d'inici de sessió.",
     "auth-api-problem-title": "Hi ha hagut un problema amb l'inici de sessió.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Si seguiu un altre enllaç a un carrer determinat, podeu veure'l des del vostre telèfon, però no podreu crear nous carrers.",
     "generic-error-title": "Alguna cosa ha anat malament.",
     "generic-error-description": "Ho sentim, alguna cosa ha anat malament.",
-    "error-code": "(Error {code}.)"
+    "error-code": "(Error {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Refresqueu",

@@ -51,7 +51,6 @@
       "blog": "زيارة مدونة Streetmix",
       "discord": "",
       "slack": "الانضمام إلى غرفة الدردشة الهادئة",
-      "minecraft": "",
       "newsletter": ""
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "حدثت مشكلة أثناء تحميل هذا الشارع.",
     "reload-sign-in-title": "لقد قمت بتسجيل الدخول من نافذة أخرى.",
     "please-reload": "يُرجى إعادة تحميل هذه الصفحة قبل الاستمرار.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "تم حذف هذا الشارع من مكان آخر.",
     "street-deleted-elsewhere-description": "تم حذف هذا الشارع من متصفح آخر.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "لم تقم بتسجيل الدخول.",
     "access-denied-description": "لقد قمت بإلغاء عملية تسجيل الدخول.",
     "auth-api-problem-title": "حدث خلل أثناء عملية تسجيل الدخول.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "إذا كنت تتبع رابطًا آخر إلى شارع معين، فيمكنك عرضه على هاتفك -ولكن لا يمكنك بعد إنشاء شوارع جديدة.",
     "generic-error-title": "هناك خطأ ما.",
     "generic-error-description": "نعتذر – هناك خطأ ما.",
-    "error-code": "(خطأ {code}.)"
+    "error-code": "(خطأ {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "إعادة التحميل",

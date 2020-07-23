@@ -51,7 +51,6 @@
       "blog": "스트리트믹스 블로그 방문",
       "discord": "Discord 채팅 참여",
       "slack": "Slack 채팅 참여",
-      "minecraft": "우리와 함께 Minecraft를 즐겨보세요!",
       "newsletter": "뉴스레터 구독"
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "스트리트를 로딩하는 데 문제가 있습니다.",
     "reload-sign-in-title": "다른 창에서 로그인 되었습니다.",
     "please-reload": "계속하기 전에 이 페이지를 새로고침 해주세요.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "이 스트리트는 다른 곳에서 삭제되었습니다.",
     "street-deleted-elsewhere-description": "이 스트리트는 다른 브라우저에서 삭제되었습니다.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "로그인 상태가 아닙니다.",
     "access-denied-description": "로그인 과정을 취소하였습니다.",
     "auth-api-problem-title": "로그인에 문제가 있습니다.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "핸드폰에서는 링크를 통해 특정 스트리트를 확인할 수는 있지만, 새로운 스트리트를 생성할 수는 없습니다.",
     "generic-error-title": "뭔가 잘못됐네요.",
     "generic-error-description": "죄송합니다 - 뭔가 잘못됐네요.",
-    "error-code": "(에러 {code}.)"
+    "error-code": "(에러 {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "새로고침",

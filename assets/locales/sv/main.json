@@ -51,7 +51,6 @@
       "blog": "Besök Streetmix-bloggen",
       "discord": "",
       "slack": "Gå med i Slack-chatten",
-      "minecraft": "",
       "newsletter": ""
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "",
     "reload-sign-in-title": "",
     "please-reload": "",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "",
     "street-deleted-elsewhere-description": "",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "",
     "access-denied-description": "",
     "auth-api-problem-title": "",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "",
     "generic-error-title": "",
     "generic-error-description": "",
-    "error-code": ""
+    "error-code": "",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Ladda om",

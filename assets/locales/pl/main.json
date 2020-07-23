@@ -51,7 +51,6 @@
       "blog": "Odwiedź blog Streetmiksa",
       "discord": "",
       "slack": "Dołącz do rozmów na Slacku",
-      "minecraft": "",
       "newsletter": ""
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Mamy problem z załadowaniem tej ulicy. ",
     "reload-sign-in-title": "Użytkownik został zalogowany w innym oknie.",
     "please-reload": "Odśwież stronę, zanim będziesz kontynuować. ",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Ta ulica została usunięta w innym miejscu. ",
     "street-deleted-elsewhere-description": "Ta ulica została usunięta w innej przeglądarce.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "Użytkownik nie jest zalogowany.",
     "access-denied-description": "Proces rejestracji został anulowany.",
     "auth-api-problem-title": "Wystąpił problem podczas próby zalogowania użytkownika.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Jeśli został otwarty inny link do określonej ulicy, możesz ją obejrzeć na telefonie, ale nie możesz tworzyć nowych ulic. ",
     "generic-error-title": "Coś poszło nie tak.",
     "generic-error-description": "Przepraszamy, coś poszło nie tak.",
-    "error-code": "(Błąd {code}.)"
+    "error-code": "(Błąd {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Odśwież",

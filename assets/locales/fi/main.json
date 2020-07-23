@@ -51,7 +51,6 @@
       "blog": "Vieraile Streetmix-blogissa",
       "discord": "Liity Discord-keskusteluun",
       "slack": "Liity Slack-keskusteluun",
-      "minecraft": "Pelaa kanssamme Minecraftia!",
       "newsletter": "Tilaa uutiskirje"
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Kadun lataaminen ei onnistu.",
     "reload-sign-in-title": "Kirjauduit sisään toisessa ikkunassa.",
     "please-reload": "Päivitä sivu ennen jatkamista.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "Et ole kirjautunut sisään.",
     "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Voit tarkastella linkistä avaamasi katua, mutta et voi muokata tai luoda uusia katuja.",
     "generic-error-title": "Jokin meni vikaan.",
     "generic-error-description": "Pahoittelut – jokin meni vikaan.",
-    "error-code": "(Virhe {code}.)"
+    "error-code": "(Virhe {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Päivitä",

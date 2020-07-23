@@ -51,7 +51,6 @@
       "blog": "Visitar o blog do Streetmix",
       "discord": "",
       "slack": "Participar no bate-papo do Slack",
-      "minecraft": "",
       "newsletter": ""
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Estamos com um problema para carregar esta rua.",
     "reload-sign-in-title": "Você já está conectado em outra janela.",
     "please-reload": "Por favor recarregue esta página antes de continuar.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Esta rua foi removida em outro lugar.",
     "street-deleted-elsewhere-description": "Esta rua foi removida em outro navegador.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "Você não está conectado.",
     "access-denied-description": "Você cancelou o processo de login.",
     "auth-api-problem-title": "Houve um problema com o seu login.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Se você segue outro link a uma rua específica, a pode ver no seu celular - mas aínda não pode criar ruas novas.",
     "generic-error-title": "Algo deu errado.",
     "generic-error-description": "Desculpe - algo deu errado.",
-    "error-code": "(Erro {code}.)"
+    "error-code": "(Erro {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Recarregar",

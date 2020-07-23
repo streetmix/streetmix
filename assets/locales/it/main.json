@@ -51,7 +51,6 @@
       "blog": "Visita il blog di Streetmix",
       "discord": "Unisciti alla chat su Discord",
       "slack": "Unisciti alla chat su Slack",
-      "minecraft": "Gioca a Minecraft con noi!",
       "newsletter": "Sottoscrivi la nostra newsletter"
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Abbiamo dei problemi nel caricamento di questa strada.",
     "reload-sign-in-title": "Ti sei già autenticato in un'altra finestra.",
     "please-reload": "Cortesemente ricarica questa pagina prima di continuare.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Questa strada è già stata cancellata da un'altra parte.",
     "street-deleted-elsewhere-description": "Questa strada è già stata cancellata in un altro browser.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "Non sei autenticato.",
     "access-denied-description": "Hai cancellato il processo di autenticazione.",
     "auth-api-problem-title": "C'è stato un problema di autenticazione.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Puoi connetterti ad un collegamento di una specifica strada e vederla sul tuo telefono - ma non puoi creare nuove strade.",
     "generic-error-title": "Qualcosa è andato storto.",
     "generic-error-description": "Siamo dispiaciuti - qualcosa è andato storto.",
-    "error-code": "(Errore{code}.)"
+    "error-code": "(Errore{code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Ricarica",

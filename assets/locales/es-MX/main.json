@@ -51,7 +51,6 @@
       "blog": "Visitar el blog de Streetmix",
       "discord": "Unirte al chat de Discord",
       "slack": "Unirte al chat de Slack",
-      "minecraft": "¡Juega Minecraft con nosotros!",
       "newsletter": "Suscribirte a nuestro boletín electrónico"
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Estamos teniendo problemas subiendo esta calle.",
     "reload-sign-in-title": "Has iniciado una sesión en otra ventana.",
     "please-reload": "Por favor, recarga esta página antes de continuar.",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "No estás ingresado.",
     "access-denied-description": "Cancelaste el proceso de ingresar.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Si sigues un enlace a una calle específica, se la podrá ver en un celular – pero todavía no se puede crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
     "generic-error-description": "Desculpe – algo salió mal.",
-    "error-code": "(Error {code}.)"
+    "error-code": "(Error {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "Recargar",
@@ -407,7 +409,7 @@
     "sign-in-prompt": "",
     "about-link": "",
     "about-text": "Esta encuesta nos ayuda a aprender cómo la gente siente sobre calles.",
-    "thank-you": "¡Gracias por participar en esta encuesta!",
+    "thank-you": "",
     "about-header": "",
     "about-article": {
       "paragraph-1": "",

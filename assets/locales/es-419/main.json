@@ -51,7 +51,6 @@
       "blog": "Ir al blog de Streetmix",
       "discord": "Unirse al chat de Discord",
       "slack": "Unirse al chat de Slack",
-      "minecraft": "¡Jugar Minecraft con nosotros!",
       "newsletter": "Suscribirse a nuestro boletín de noticias"
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "Hay problemas para cargar esta calle",
     "reload-sign-in-title": "Iniciaste sesión en otra ventana",
     "please-reload": "Por favor recargar esta página antes de continuar",
+    "survey-finished": "Lista la encuesta. ¡Felicitaciones y gracias!",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
     "auth-expired": "",
+    "sign-in-again": "Por favor vuelve a ingresar.",
     "access-denied-title": "No has iniciado sesión",
     "access-denied-description": "Has cancelado el inicio de sesión",
     "auth-api-problem-title": "Hubo un problema con el inicio de sesión",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "Si sigues el enlace de una calle en específico, puedes verla en tu teléfono – pero todavía no puedes crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
     "generic-error-description": "Lo sentimos – algo salió mal.",
-    "error-code": "(Error {code}.)"
+    "error-code": "(Error {code}.)",
+    "need-help-link": "¿Necesitas ayuda?"
   },
   "btn": {
     "reload": "Recargar",
@@ -407,7 +409,7 @@
     "sign-in-prompt": "Por favor ingresa para hacer que tu voz se oiga.",
     "about-link": "¿Por qué estoy viendo esto?",
     "about-text": "Esta encuesta nos ayuda a entender cómo se siente la gente sobre ciertas calles",
-    "thank-you": "¡Gracias por participar en esta encuesta!",
+    "thank-you": "¡Gracias!",
     "about-header": "Queremos entender cómo se siente la gente con las calles",
     "about-article": {
       "paragraph-1": "Muchas calles son diseñadas por ingenieros civiles, pero a nosotros nos parece que el diseño debería incluir el punto de vista de toda la gente. Con la <a>Alianza de la Nueva Movilidad Urbana</a> (NUMO por su sigla en inglés), estamos realizando esta encuesta de una pregunta para hacer eso justamente.",
@@ -415,15 +417,15 @@
       "paragraph-3": "Solo puede votar una vez por calle, pero puedes motivar a otras personas a que voten compartiendo tus calles o una calle aleatoria con el link <a>https://streetmix.net/survey/</a>."
     },
     "done": {
-      "response": "Respondiste {score}. Tu respuesta nos ayudará a aprender qué siente la gente con estas calles!",
-      "vote-another": "Vote otra calle!",
-      "really-done": "Listo!"
+      "response": "Respondiste {score}.",
+      "vote-another": "¡Vote otra calle!",
+      "really-done": "¡Listo!"
     },
     "comment": {
       "prompt": "Dinos por qué:",
       "example": "(por ejemplo: \"me gustaron los árboles\")",
       "submit": "Enviar",
-      "thanks": "Gracias!"
+      "thanks": "¡Listo!"
     }
   },
   "i18n": {

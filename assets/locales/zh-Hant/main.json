@@ -51,7 +51,6 @@
       "blog": "訪問Streetmix的博客",
       "discord": "",
       "slack": "加入Slack對話",
-      "minecraft": "",
       "newsletter": ""
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "我們在加載這條街道的時候遇到一點問題。",
     "reload-sign-in-title": "你已在另一個窗口登錄。",
     "please-reload": "請刷新此頁再繼續。",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "這條街道已在別處被刪除。",
     "street-deleted-elsewhere-description": "這條街道已在別的瀏覽器中被刪除。",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "你還沒有登錄。",
     "access-denied-description": "你取消了這次登錄。",
     "auth-api-problem-title": "在你登錄的過程中出了點小問題。",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "如果你通過另外一條鏈接來查看某條街道，你可以在手機上查看—但你暫時不能在上面創建街道",
     "generic-error-title": "出現問題",
     "generic-error-description": "很抱歉，出現了一點技術故障。",
-    "error-code": "(故障{code}.)"
+    "error-code": "(故障{code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "刷新",

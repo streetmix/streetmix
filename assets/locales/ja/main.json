@@ -51,7 +51,6 @@
       "blog": "Streetmixブログを表示",
       "discord": "",
       "slack": "Slackチャットに参加",
-      "minecraft": "",
       "newsletter": ""
     },
     "contribute": {
@@ -112,9 +111,11 @@
     "gallery-street-failure-description": "ストリートの読み込みに失敗しました。",
     "reload-sign-in-title": "別のウィンドウでサインインしました。",
     "please-reload": "編集を続けるにはページを再読込してください。",
+    "survey-finished": "",
     "street-deleted-elsewhere-title": "このストリートは削除されました。",
     "street-deleted-elsewhere-description": "このストリートは別のブラウザで削除されました。",
     "auth-expired": "",
+    "sign-in-again": "",
     "access-denied-title": "サインインしていません。",
     "access-denied-description": "サインイン処理を中断しました",
     "auth-api-problem-title": "サインインに失敗しました。",
@@ -128,7 +129,8 @@
     "cannot-create-new-street-on-phone-description": "リンクをたどってきた場合、ストリートは閲覧だけが可能です。新規のストリート作成はできません。",
     "generic-error-title": "どこかで処理に失敗しています。",
     "generic-error-description": "すみません、どこかで処理に失敗したようです。",
-    "error-code": "(Error {code}.)"
+    "error-code": "(Error {code}.)",
+    "need-help-link": ""
   },
   "btn": {
     "reload": "再読込",
