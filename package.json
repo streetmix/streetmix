@@ -104,7 +104,7 @@
     "axios": "0.19.2",
     "btoa": "1.2.1",
     "chalk": "4.0.0",
-    "cloudinary": "1.19.0",
+    "cloudinary": "1.23.0",
     "compression": "1.7.4",
     "config": "3.3.1",
     "cookie-parser": "1.4.5",
