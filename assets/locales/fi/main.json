@@ -111,11 +111,11 @@
     "gallery-street-failure-description": "Kadun lataaminen ei onnistu.",
     "reload-sign-in-title": "Kirjauduit sisään toisessa ikkunassa.",
     "please-reload": "Päivitä sivu ennen jatkamista.",
-    "survey-finished": "",
+    "survey-finished": "Kysely on päättynyt. Kiitos avustasi!",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
     "auth-expired": "",
-    "sign-in-again": "",
+    "sign-in-again": "Kirjaudu sisään uudelleen.",
     "access-denied-title": "Et ole kirjautunut sisään.",
     "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
@@ -130,7 +130,7 @@
     "generic-error-title": "Jokin meni vikaan.",
     "generic-error-description": "Pahoittelut – jokin meni vikaan.",
     "error-code": "(Virhe {code}.)",
-    "need-help-link": ""
+    "need-help-link": "Tarvitsetko apua?"
   },
   "btn": {
     "reload": "Päivitä",
@@ -144,7 +144,7 @@
     "close": "Sulje",
     "dismiss": "Ohita",
     "okay": "Selvä!",
-    "not-now": ""
+    "not-now": "Ei nyt"
   },
   "dialogs": {
     "error": {
@@ -395,37 +395,37 @@
   },
   "sentiment": {
     "prompt": {
-      "intro": "",
-      "joyful": "",
-      "choose-one": ""
+      "intro": "<strong>Pahoittelut keskeytyksestä!</strong> Haluaisimme kuulla mielipiteesi tästä kadusta.",
+      "joyful": "Kuvailisitko tätä katua adjektiivilla <em>leikkisä</em>?",
+      "choose-one": "(Valitse vaihtoehto)"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "Ei lainkaan",
+      "rating-2": "Eipä oikeastaan",
+      "rating-3": "Niin ja näin",
+      "rating-4": "Hieman",
+      "rating-5": "Paljon"
     },
-    "sign-in-prompt": "",
-    "about-link": "",
-    "about-text": "",
-    "thank-you": "",
-    "about-header": "",
+    "sign-in-prompt": "Anna palautetta kirjautumalla sisään.",
+    "about-link": "Miksi näen tämän?",
+    "about-text": "Selvitämme tällä kyselyllä ihmisten mielipiteitä kaduista.",
+    "thank-you": "Kiitos!",
+    "about-header": "Haluamme ymmärtää ihmisten mielipiteitä kaduista",
     "about-article": {
       "paragraph-1": "",
       "paragraph-2": "",
       "paragraph-3": ""
     },
     "done": {
-      "response": "",
-      "vote-another": "",
-      "really-done": ""
+      "response": "Vastasit kohteeseen {score}",
+      "vote-another": "Äänestä muitakin katuja!",
+      "really-done": "Kaikki valmista!"
     },
     "comment": {
-      "prompt": "",
-      "example": "",
-      "submit": "",
-      "thanks": ""
+      "prompt": "Kerro miksi:",
+      "example": "(esim. \"Pidin runsaasta puiden käytöstä\")",
+      "submit": "Lähetä",
+      "thanks": "Kiitos!"
     }
   },
   "i18n": {
