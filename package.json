@@ -126,7 +126,7 @@
     "intl-pluralrules": "1.2.0",
     "js-cookie": "2.2.1",
     "json2csv": "5.0.1",
-    "jwks-rsa": "1.8.0",
+    "jwks-rsa": "1.9.0",
     "jwt-decode": "2.2.0",
     "leaflet": "1.6.0",
     "lodash": "4.17.19",
