@@ -18,7 +18,7 @@ If Streetmix works in private mode, this means something in your browser cache h
 - `How to clear browsing data in Chrome <https://support.google.com/chrome/answer/2392709>`_
 - `How to clear cookies and site data in Firefox <https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website>`_
 
-If Streetmix does not work in private mode, or still does not work after clearing your browser's cache, please ensure that you are using the latest version of Chrome or Firefox. If you still need help, 
+If Streetmix does not work in private mode, or still does not work after clearing your browser's cache, please ensure that you are using the latest version of Chrome or Firefox. If you still need help, please :ref:`contact us <contact>`.
 
 
 When following an e-mail sign-in link, I see the "You cancelled the sign-in process" message.
