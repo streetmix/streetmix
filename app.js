@@ -216,14 +216,11 @@ app.get('/terms-of-service', (req, res) => res.render('tos'))
 
 app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
 app.get(
-  '/' + config.twitter.oauth_callback_path,
+  config.twitter.oauth_callback_path,
   controllers.twitter_sign_in_callback.get
 )
 // Auth0
-app.get(
-  '/' + config.auth0.callback_path,
-  controllers.auth0_sign_in_callback.get
-)
+app.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 
 // API routes
 app.use('', apiRoutes)
