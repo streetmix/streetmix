@@ -155,7 +155,7 @@ export async function loadSignIn () {
     expDate.setDate(expDate.getDate() - 1)
 
     if (currentDate >= expDate) {
-      await fetchFreshTokens(signInData.refreshToken)
+      await refreshLoginToken(signInData.refreshToken)
     }
     flagOverrides = await fetchSignInDetails(signInData.userId)
   } else {
@@ -177,7 +177,7 @@ export async function loadSignIn () {
  * @param {String} refreshToken
  * @returns {Object}
  */
-async function fetchFreshTokens (refreshToken) {
+async function refreshLoginToken (refreshToken) {
   const requestBody = JSON.stringify({ token: refreshToken })
   try {
     const response = await window.fetch('/services/auth/refresh-login-token', {
@@ -192,26 +192,13 @@ async function fetchFreshTokens (refreshToken) {
       throw response
     }
 
-    const json = await response.json()
-    const { token } = json
-
-    receiveFreshTokens({ token })
     return
   } catch (error) {
-    errorReceiveFreshTokens(error)
+    errorRefreshLoginToken(error)
   }
 }
 
-function receiveFreshTokens (freshTokens) {
-  const signInData = {
-    ...getSignInData(),
-    freshTokens
-  }
-  store.dispatch(setSignInData(signInData))
-  saveSignInDataLocally()
-}
-
-function errorReceiveFreshTokens (data) {
+function errorRefreshLoginToken (data) {
   if (data.status === 401) {
     trackEvent('ERROR', 'ERROR_RM1R', null, null, false)
 
