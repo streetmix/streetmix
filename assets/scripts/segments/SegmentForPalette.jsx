@@ -32,7 +32,7 @@ SegmentForPalette.propTypes = {
   type: PropTypes.string.isRequired,
   variantString: PropTypes.string.isRequired,
   onPointerOver: PropTypes.func,
-  randSeed: PropTypes.number,
+  randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
   tooltipTarget: PropTypes.object
 }
