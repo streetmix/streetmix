@@ -98,4 +98,15 @@ routes.get(
 // Auth0
 routes.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 
+/******************************************************************************
+ *  ERROR HANDLING
+ *****************************************************************************/
+
+// Catch all for all broken api paths, direct to 404 response.
+routes.all('/services/*', (req, res) => {
+  res
+    .status(404)
+    .json({ status: 404, error: 'Not found. Did you mispell something?' })
+})
+
 module.exports = routes

@@ -881,7 +881,7 @@ routes.post('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
 routes.put('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.put)
 
 // Catch all for all broken api paths, direct to 404 response.
-routes.get('/api/*', (req, res) => {
+routes.all('/api/*', (req, res) => {
   res
     .status(404)
     .json({ status: 404, error: 'Not found. Did you mispell something?' })
