@@ -29,7 +29,7 @@ describe('StreetEditable', () => {
   const updatePerspective = () => {}
   const type = 'streetcar'
   const variantString = 'inbound|regular'
-  const segment = { variantString, id: '1', width: 400, randSeed: 1, type }
+  const segment = { variantString, id: '1', width: 400, type }
 
   beforeEach(() => {
     const variant = SEGMENT_INFO[type].details[variantString]

@@ -5,7 +5,6 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
-import { generateRandSeed } from '../util/random'
 import { SegmentTypes, getSegmentInfo, getSegmentVariantInfo } from './info'
 import {
   RESIZE_TYPE_INITIAL,
@@ -435,13 +434,12 @@ export const segmentSource = {
     store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
 
     return {
+      id: props.segment.id,
       dataNo: props.dataNo,
       variantString: props.segment.variantString,
       type: props.segment.type,
       label: props.segment.label,
-      randSeed: props.segment.randSeed,
-      actualWidth: props.segment.width,
-      id: props.segment.id
+      actualWidth: props.segment.width
     }
   },
 
@@ -483,7 +481,6 @@ export const paletteSegmentSource = {
     return {
       variantString: Object.keys(segmentInfo.details).shift(),
       type: props.type,
-      randSeed: segmentInfo.needRandSeed && generateRandSeed(),
       actualWidth: segmentInfo.defaultWidth
     }
   },
@@ -654,12 +651,11 @@ function handleSegmentCanvasDrop (draggedItem, type) {
   }
 
   const newSegment = {
+    id: draggedItem.id ?? nanoid(),
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     type: draggedItem.type,
-    label: draggedItem.label,
-    randSeed: draggedItem.randSeed,
-    id: draggedItem.id ?? nanoid()
+    label: draggedItem.label
   }
 
   newSegment.variant =

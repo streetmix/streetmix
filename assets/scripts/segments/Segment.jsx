@@ -189,8 +189,9 @@ export class Segment extends React.Component {
     const isOldVariant = variantType === 'old'
     const { segment, connectDragSource, connectDropTarget } = this.props
 
-    // uses the segment UUID as seed if a randseed isn't available
-    const randSeed = segment.randSeed ?? segment.id
+    // The segment ID is a string that uniquely identifies the segment
+    // and can be used as a consistent and reliable seed for a PRNG
+    const randSeed = segment.id
 
     return connectDragSource(
       connectDropTarget(
@@ -402,9 +403,7 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment:
-      typeof state.ui.activeSegment === 'number'
-        ? state.ui.activeSegment
-        : null
+      typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
   }
 }
 

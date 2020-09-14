@@ -17,8 +17,7 @@ describe('WidthControl', () => {
       variantString: 'inbound|regular',
       segmentType: 'streetcar',
       id: '1',
-      width: 200,
-      randSeed: 1
+      width: 200
     }
   })
 

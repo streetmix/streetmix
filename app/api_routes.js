@@ -132,13 +132,14 @@ const jwtCheck = require('./authentication')
  *       - width
  *       - variantString
  *     properties:
+ *       id:
+ *         type: string
+ *         format: nanoid
  *       type:
  *         type: string
  *       variantString:
  *         type: string
  *       width:
- *         type: integer
- *       randSeed:
  *         type: integer
  *   StreetData:
  *     type: object
