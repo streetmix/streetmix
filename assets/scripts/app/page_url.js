@@ -6,15 +6,17 @@ import {
   JUST_SIGNED_IN_PATH,
   URL_ERROR,
   URL_GLOBAL_GALLERY,
-  URL_NO_USER,
   URL_RESERVED_PREFIX,
-  SURVEY_FINISHED,
+  URL_SURVEY_FINISHED,
   RESERVED_URLS
 } from './constants'
 import { normalizeSlug } from '../util/helpers'
 import store from '../store'
 import { setGalleryUserId } from '../store/slices/gallery'
 import { saveCreatorId, saveStreetId } from '../store/slices/street'
+
+// Used as a placeholder in URLs when the street is by an anonymous user
+export const ANONYMOUS_USER_ID_FRAGMENT = '-'
 
 let errorUrl = ''
 
@@ -23,69 +25,64 @@ export function getErrorUrl () {
 }
 
 export function processUrl () {
-  var url = window.location.pathname
+  // Get current pathname. The pathname will contain an initial `/` followed
+  // by the path of the URL. The root pathname should always be `/`. It may
+  // be possible for the URL to contain a trailing slash, but we don't want
+  // that, so remove it, if present. This will cause the root pathname to be
+  // an empty string.
+  const pathname = window.location.pathname.replace(/\/+$/, '')
 
-  // Remove heading slash
-  if (!url) {
-    url = '/'
-  }
-  url = url.substr(1)
+  // parts being split, although we really don't need to
+  // filter out empty string parts
+  const urlParts = pathname.split(/\//).filter((x) => x !== '')
 
-  // Remove trailing slashes
-  url = url.replace(/\/+$/, '')
-
-  var urlParts = url.split(/\//)
-
-  if (!url) {
-    // Continue where we left off… or start with a default (demo) street
-
+  // Continue where we left off… or start with a default (demo) street
+  if (pathname === '/' || pathname === '') {
     setMode(MODES.CONTINUE)
-  } else if (urlParts.length === 1 && urlParts[0] === URL_NEW_STREET) {
+
     // New street
-
+  } else if (pathname === URL_NEW_STREET) {
     setMode(MODES.NEW_STREET)
-  } else if (
-    urlParts.length === 1 &&
-    urlParts[0] === URL_NEW_STREET_COPY_LAST
-  ) {
+
     // New street (but start with copying last street)
-
+  } else if (pathname === URL_NEW_STREET_COPY_LAST) {
     setMode(MODES.NEW_STREET_COPY_LAST)
-  } else if (urlParts.length === 1 && urlParts[0] === JUST_SIGNED_IN_PATH) {
+
     // Coming back from a successful sign in
-
+  } else if (pathname === JUST_SIGNED_IN_PATH) {
     setMode(MODES.JUST_SIGNED_IN)
-  } else if (urlParts.length >= 1 && urlParts[0] === URL_ERROR) {
-    // Error
 
+    // Error
+  } else if (pathname.startsWith(URL_ERROR)) {
     setMode(MODES.ERROR)
     errorUrl = urlParts[1]
-  } else if (urlParts.length === 1 && urlParts[0] === URL_GLOBAL_GALLERY) {
+
     // Global gallery
-
+  } else if (pathname === URL_GLOBAL_GALLERY) {
     setMode(MODES.GLOBAL_GALLERY)
-  } else if (urlParts.length === 1 && urlParts[0] === SURVEY_FINISHED) {
+
+    // Survey finished
+  } else if (pathname === URL_SURVEY_FINISHED) {
     setMode(MODES.SURVEY_FINISHED)
-  } else if (urlParts.length === 1 && urlParts[0]) {
+
     // User gallery
-
+  } else if (urlParts.length === 1 && urlParts[0]) {
     store.dispatch(setGalleryUserId(urlParts[0]))
-
     setMode(MODES.USER_GALLERY)
-  } else if (
-    urlParts.length === 2 &&
-    urlParts[0] === URL_NO_USER &&
-    urlParts[1]
-  ) {
+
     // TODO add is integer urlParts[1]
     // Existing street by an anonymous person
-
+  } else if (
+    urlParts.length === 2 &&
+    urlParts[0] === ANONYMOUS_USER_ID_FRAGMENT &&
+    urlParts[1]
+  ) {
     store.dispatch(saveCreatorId(null))
     store.dispatch(saveStreetId(null, urlParts[1]))
-
     setMode(MODES.EXISTING_STREET)
-  } else if (urlParts.length >= 2 && urlParts[0] && urlParts[1]) {
+
     // Existing street by a user person
+  } else if (urlParts.length >= 2 && urlParts[0] && urlParts[1]) {
     let creatorId = urlParts[0]
 
     if (creatorId.charAt(0) === URL_RESERVED_PREFIX) {
@@ -102,6 +99,8 @@ export function processUrl () {
       store.dispatch(saveStreetId(null, urlParts[1]))
       setMode(MODES.EXISTING_STREET)
     }
+
+    // 404: Catch-all
   } else {
     setMode(MODES.NOT_FOUND)
   }
@@ -116,7 +115,7 @@ export function getStreetUrl (street) {
 
     url += street.creatorId
   } else {
-    url += URL_NO_USER
+    url += ANONYMOUS_USER_ID_FRAGMENT
   }
 
   url += '/'

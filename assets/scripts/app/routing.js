@@ -17,9 +17,9 @@ export function goHome () {
 
 export function goNewStreet (sameWindow) {
   if (sameWindow) {
-    window.location.replace('/' + URL_NEW_STREET)
+    window.location.replace(URL_NEW_STREET)
   } else {
-    window.location.href = '/' + URL_NEW_STREET
+    window.location.href = URL_NEW_STREET
   }
 }
 

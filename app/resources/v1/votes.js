@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid')
 const logger = require('../../../lib/logger.js')()
 
 const MAX_COMMENT_LENGTH = 280
-const SURVEY_FINISHED = 'survey-finished'
+const SURVEY_FINISHED_PATH = '/survey-finished'
 
 const generateRandomBallotFetch = ({ redirect = false }) => {
   return async function (req, res) {
@@ -118,7 +118,7 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
         if (!ballots || ballots.length === 0) {
           // no ballots remaining
           if (redirect) {
-            return res.redirect(`/${SURVEY_FINISHED}`)
+            return res.redirect(SURVEY_FINISHED_PATH)
           } else {
             return res.status(204).json({
               status: 204,

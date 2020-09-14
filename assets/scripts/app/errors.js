@@ -2,9 +2,9 @@ import { hideLoadingScreen } from './load_resources'
 import {
   URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
+  URL_ERROR_NO_ACCESS_TOKEN,
   URL_ERROR_AUTHENTICATION_API_PROBLEM,
-  URL_ERROR_ACCESS_DENIED,
-  URL_ERROR_NO_ACCESS_TOKEN
+  URL_ERROR_ACCESS_DENIED
 } from './constants'
 import store from '../store'
 import { showError as showErrorAction } from '../store/slices/errors'

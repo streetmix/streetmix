@@ -86,7 +86,7 @@ function GalleryContents (props) {
           <div className="gallery-user-buttons">
             <a
               className="button-like gallery-new-street"
-              href={`/${URL_NEW_STREET}`}
+              href={URL_NEW_STREET}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -98,7 +98,7 @@ function GalleryContents (props) {
             {selectedStreet !== null ? (
               <a
                 className="button-like gallery-copy-last-street"
-                href={`/${URL_NEW_STREET_COPY_LAST}`}
+                href={URL_NEW_STREET_COPY_LAST}
                 rel="noopener noreferrer"
                 target="_blank"
               >
