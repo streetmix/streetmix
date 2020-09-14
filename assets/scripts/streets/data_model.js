@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import { nanoid } from 'nanoid'
 import cloneDeep from 'lodash/cloneDeep'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import { getSegmentInfo } from '../segments/info'
@@ -307,7 +307,7 @@ export function updateToLatestSchemaVersion (street) {
 
     // Add uuids to segments
     if (!segment.id) {
-      segment.id = uuidv4()
+      segment.id = nanoid()
     }
 
     return segment
@@ -416,7 +416,7 @@ function fillDefaultSegments (units) {
 
   for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
     const segment = cloneDeep(DEFAULT_SEGMENTS[leftHandTraffic][i])
-    segment.id = uuidv4()
+    segment.id = nanoid()
     segment.warnings = []
     segment.variantString = getVariantString(segment.variant)
     segment.width = normalizeSegmentWidth(

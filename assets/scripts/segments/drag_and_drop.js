@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import { nanoid } from 'nanoid'
 import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../util/focus'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -659,7 +659,7 @@ function handleSegmentCanvasDrop (draggedItem, type) {
     type: draggedItem.type,
     label: draggedItem.label,
     randSeed: draggedItem.randSeed,
-    id: draggedItem.id ?? uuidv4()
+    id: draggedItem.id ?? nanoid()
   }
 
   newSegment.variant =
