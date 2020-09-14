@@ -40,7 +40,7 @@ describe('WelcomePanel', () => {
     const originalStreetId = '2'
     const type = 'streetcar'
     const variantString = 'inbound|regular'
-    const segment = { variantString, id: '1', width: 400, randSeed: 1, type }
+    const segment = { variantString, id: '1', width: 400, type }
     const street = {
       id: '3',
       namespaceId: '4',

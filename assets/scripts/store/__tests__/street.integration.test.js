@@ -130,7 +130,7 @@ describe('street integration test', () => {
     let apiMock
     const type = 'streetcar'
     const variantString = 'inbound|regular'
-    const segment = { variantString, id: '1', width: 400, randSeed: 1, type }
+    const segment = { variantString, id: '1', width: 400, type }
     const street = {
       segments: [segment],
       width: 100

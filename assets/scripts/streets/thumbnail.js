@@ -46,10 +46,7 @@ function drawWatermark (ctx, dpi, invert) {
     : images.get('/images/wordmark_black.svg')
 
   // Separate string so that we can render a wordmark with an image
-  const strings = text
-    .replace(/{/g, '||{{')
-    .replace(/}/g, '}}||')
-    .split('||')
+  const strings = text.replace(/{/g, '||{{').replace(/}/g, '}}||').split('||')
 
   // Set text render options
   ctx.textAlign = 'right'
@@ -449,6 +446,7 @@ export function drawStreetThumbnail (
           segment.variantString
         )
         const dimensions = getVariantInfoDimensions(variantInfo, segment.width)
+        const randSeed = segment.id
 
         drawSegmentContents(
           ctx,
@@ -457,7 +455,7 @@ export function drawStreetThumbnail (
           segment.width,
           offsetLeft + dimensions.left * TILE_SIZE * multiplier,
           groundLevel,
-          segment.randSeed,
+          randSeed,
           multiplier,
           dpi
         )

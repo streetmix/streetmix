@@ -5,7 +5,6 @@
     "owner": "PEDESTRIAN",
     "zIndex": 30,
     "defaultWidth": 6,
-    "needRandSeed": true,
     "rules": {
       "minWidth": 6
     },
@@ -2868,7 +2867,6 @@
     "owner": "CAR",
     "zIndex": 14,
     "defaultWidth": 10,
-    "needRandSeed": true,
     "rules": {
       "minWidth": 8,
       "maxWidth": 11.9

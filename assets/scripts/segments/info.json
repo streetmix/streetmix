@@ -5,7 +5,6 @@
     "owner": "PEDESTRIAN",
     "zIndex": 30,
     "defaultWidth": 6,
-    "needRandSeed": true,
     "variants": ["sidewalk-density"],
     "details": {
       "dense": {

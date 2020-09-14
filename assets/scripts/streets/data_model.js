@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid'
 import cloneDeep from 'lodash/cloneDeep'
 import { DEFAULT_SEGMENTS } from '../segments/default'
-import { getSegmentInfo } from '../segments/info'
 import {
   normalizeSegmentWidth,
   resolutionForResizeType,
@@ -11,7 +10,6 @@ import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getLeftHandTraffic } from '../users/localization'
-import { generateRandSeed } from '../util/random'
 import { DEFAULT_ENVIRONS } from './constants'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
 import { normalizeStreetWidth } from './width'
@@ -39,7 +37,7 @@ export function setLastStreet () {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
-const LATEST_SCHEMA_VERSION = 23
+const LATEST_SCHEMA_VERSION = 24
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -63,6 +61,7 @@ const LATEST_SCHEMA_VERSION = 23
 // 21: add sidewalk-level bikeshare docks
 // 22: add random seed to drive lanes for pedestrians
 // 23: add unique id to each segment
+// 24: remove random seed from any segment
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -215,6 +214,9 @@ function incrementSchemaVersion (street) {
       for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'sidewalk') {
+          // With schema version 24, we no longer need randseeds
+          // for segments, so don't bother generating a new one here,
+          // just fill this in for placeholder effect
           segment.randSeed = 35
         }
       }
@@ -271,7 +273,10 @@ function incrementSchemaVersion (street) {
       for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'drive-lane') {
-          segment.randSeed = generateRandSeed()
+          // With schema version 24, we no longer need randseeds
+          // for segments, so don't bother generating a new one here,
+          // just fill this in for placeholder effect
+          segment.randSeed = 36
         }
       }
       break
@@ -280,6 +285,14 @@ function incrementSchemaVersion (street) {
         segment = street.segments[i]
         if (!segment.id) {
           segment.id = nanoid()
+        }
+      }
+      break
+    case 23:
+      for (const i in street.segments) {
+        segment = street.segments[i]
+        if (segment.randSeed) {
+          delete segment.randSeed
         }
       }
       break
@@ -393,10 +406,6 @@ export function trimStreetData (street) {
         label: origSegment.label
       }
 
-      if (origSegment.randSeed) {
-        segment.randSeed = origSegment.randSeed
-      }
-
       return segment
     })
   }
@@ -421,11 +430,6 @@ function fillDefaultSegments (units) {
       segment.width,
       resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
     )
-
-    if (getSegmentInfo(segment.type).needRandSeed) {
-      segment.randSeed = generateRandSeed()
-    }
-
     segments.push(segment)
   }
 
