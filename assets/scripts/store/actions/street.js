@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { cloneDeep } from 'lodash'
 import {
   RESIZE_TYPE_INCREMENT,
@@ -122,7 +121,6 @@ const createStreetFromResponse = (response) => {
   street.location = response.data.street.location || null
   street.editCount = response.data.street.editCount || 0
   street.segments = street.segments.map((segment) => {
-    segment.id = nanoid()
     segment.warnings = []
     segment.variant = getVariantArray(segment.type, segment.variantString)
     return segment

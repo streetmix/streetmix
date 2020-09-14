@@ -39,7 +39,7 @@ export function setLastStreet () {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
-const LATEST_SCHEMA_VERSION = 22
+const LATEST_SCHEMA_VERSION = 23
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -62,6 +62,7 @@ const LATEST_SCHEMA_VERSION = 22
 // 20: add sidewalk-level bike lanes
 // 21: add sidewalk-level bikeshare docks
 // 22: add random seed to drive lanes for pedestrians
+// 23: add unique id to each segment
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -274,6 +275,14 @@ function incrementSchemaVersion (street) {
         }
       }
       break
+    case 22:
+      for (const i in street.segments) {
+        segment = street.segments[i]
+        if (!segment.id) {
+          segment.id = nanoid()
+        }
+      }
+      break
   }
 
   street.schemaVersion++
@@ -304,11 +313,6 @@ export function updateToLatestSchemaVersion (street) {
     // Alternate method of storing variants as object key-value pairs,
     // instead of a string. We might gradually migrate toward this.
     segment.variant = getVariantArray(segment.type, segment.variantString)
-
-    // Add uuids to segments
-    if (!segment.id) {
-      segment.id = nanoid()
-    }
 
     return segment
   })
@@ -362,7 +366,7 @@ export function saveStreetToServerIfNecessary () {
 }
 
 // Copies only the data necessary for save/undo.
-export function trimStreetData (street, saveSegmentId = true) {
+export function trimStreetData (street) {
   const newData = {
     schemaVersion: street.schemaVersion,
     showAnalytics: street.showAnalytics,
@@ -382,6 +386,7 @@ export function trimStreetData (street, saveSegmentId = true) {
     rightBuildingVariant: street.rightBuildingVariant,
     segments: street.segments.map((origSegment) => {
       const segment = {
+        id: origSegment.id,
         type: origSegment.type,
         variantString: origSegment.variantString,
         width: origSegment.width,
@@ -390,13 +395,6 @@ export function trimStreetData (street, saveSegmentId = true) {
 
       if (origSegment.randSeed) {
         segment.randSeed = origSegment.randSeed
-      }
-
-      // Segment id is used as a key in rendering so we know
-      // if a segment has the same identity as before. It is only
-      // saved for the view, it does not need to be saved on the server
-      if (saveSegmentId) {
-        segment.id = origSegment.id
       }
 
       return segment
