@@ -394,7 +394,7 @@ export function unpackServerStreetData (
 
 export function packServerStreetData () {
   var data = {}
-  data.street = trimStreetData(store.getState().street, false)
+  data.street = trimStreetData(store.getState().street)
 
   // Those go above data in the structure, so they need to be cleared here
   delete data.street.name

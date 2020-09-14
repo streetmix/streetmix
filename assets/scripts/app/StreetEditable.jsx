@@ -155,13 +155,14 @@ export class StreetEditable extends React.Component {
 
   renderStreetSegments = () => {
     const { segments, units, immediateRemoval } = this.props.street
+    const streetId = this.props.street.id
 
     return segments.map((segment, i) => {
       const segmentPos = this.calculateSegmentPos(i)
 
       const segmentEl = (
         <CSSTransition
-          key={segment.id}
+          key={`${streetId}.${segment.id}`}
           timeout={250}
           classNames="switching-away"
           exit={!immediateRemoval}
@@ -169,7 +170,6 @@ export class StreetEditable extends React.Component {
           unmountOnExit={true}
         >
           <Segment
-            key={segment.id}
             dataNo={i}
             segment={{ ...segment }}
             actualWidth={segment.width}
