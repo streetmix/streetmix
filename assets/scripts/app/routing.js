@@ -24,7 +24,7 @@ export function goNewStreet (sameWindow) {
 }
 
 export function goExampleStreet () {
-  window.location.href = '/' + URL_EXAMPLE_STREET
+  window.location.href = URL_EXAMPLE_STREET
 }
 
 export function goTwitterSignIn () {
@@ -36,7 +36,7 @@ export function goTwitterSignIn () {
       redirectUri: AUTH0_SIGN_IN_CALLBACK_URL
     })
   } else {
-    window.location.href = '/' + TWITTER_URL_SIGN_IN_REDIRECT
+    window.location.href = TWITTER_URL_SIGN_IN_REDIRECT
   }
 }
 

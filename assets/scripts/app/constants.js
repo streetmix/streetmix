@@ -47,22 +47,22 @@ export const URL_EXAMPLE_STREET = '/streetmix/7'
 // Since URLs like “streetmix.net/new” are reserved, but we still want
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
 export const RESERVED_URLS = [
-  'services',
+  '/services',
   TWITTER_SIGN_IN_PATH,
   TWITTER_SIGN_IN_CALLBACK_PATH,
   AUTH0_SIGN_IN_CALLBACK_PATH,
   JUST_SIGNED_IN_PATH,
   URL_NEW_STREET,
   URL_NEW_STREET_COPY_LAST,
-  URL_HELP,
   URL_GLOBAL_GALLERY,
   URL_ERROR,
+  URL_HELP,
   URL_SURVEY_FINISHED,
-  'streets',
-  'terms-of-service',
-  'privacy-policy',
-  'map',
-  'survey'
+  '/streets',
+  '/terms-of-service',
+  '/privacy-policy',
+  '/map',
+  '/survey'
 ]
 
 export const URL_RESERVED_PREFIX = '~'
