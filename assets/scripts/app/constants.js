@@ -33,7 +33,7 @@ export const URL_NEW_STREET_COPY_LAST = '/copy-last'
 export const URL_GLOBAL_GALLERY = '/gallery'
 export const URL_ERROR = '/error'
 export const URL_HELP = '/help'
-export const SURVEY_FINISHED = '/survey-finished'
+export const URL_SURVEY_FINISHED = '/survey-finished'
 
 // Error fragments that occur after /error/
 export const URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token'
@@ -57,7 +57,7 @@ export const RESERVED_URLS = [
   URL_HELP,
   URL_GLOBAL_GALLERY,
   URL_ERROR,
-  SURVEY_FINISHED,
+  URL_SURVEY_FINISHED,
   'streets',
   'terms-of-service',
   'privacy-policy',

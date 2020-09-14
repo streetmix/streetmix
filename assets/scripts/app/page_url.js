@@ -7,7 +7,7 @@ import {
   URL_ERROR,
   URL_GLOBAL_GALLERY,
   URL_RESERVED_PREFIX,
-  SURVEY_FINISHED,
+  URL_SURVEY_FINISHED,
   RESERVED_URLS
 } from './constants'
 import { normalizeSlug } from '../util/helpers'
@@ -62,7 +62,7 @@ export function processUrl () {
     setMode(MODES.GLOBAL_GALLERY)
 
     // Survey finished
-  } else if (pathname === SURVEY_FINISHED) {
+  } else if (pathname === URL_SURVEY_FINISHED) {
     setMode(MODES.SURVEY_FINISHED)
 
     // User gallery
