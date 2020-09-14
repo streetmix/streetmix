@@ -9,7 +9,6 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
-const cors = require('cors')
 const express = require('express')
 const helmet = require('helmet')
 const config = require('config')
@@ -209,18 +208,8 @@ app.get('/help/about', (req, res) =>
 )
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 app.get('/survey', jwtCheck, controllers.survey.get)
-app.post('/services/auth/refresh-login-token', cors(), controllers.refresh.post)
-
 app.get('/privacy-policy', (req, res) => res.render('privacy'))
 app.get('/terms-of-service', (req, res) => res.render('tos'))
-
-app.get('/twitter-sign-in', controllers.twitter_sign_in.get)
-app.get(
-  config.twitter.oauth_callback_path,
-  controllers.twitter_sign_in_callback.get
-)
-// Auth0
-app.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 
 // API routes
 app.use('', apiRoutes)

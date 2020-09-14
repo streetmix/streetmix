@@ -38,7 +38,7 @@ const AccessTokenHandler = function (req, res) {
           res.cookie('user_id', user.id || userAuthData, cookieOptions)
           res.cookie('refresh_token', refreshToken, cookieOptions)
           res.cookie('login_token', idToken, cookieOptions)
-          res.redirect('/just-signed-in')
+          res.redirect('/services/auth/just-signed-in')
         })
         .catch((error) => {
           logger.error('Error from auth0 API when signing in: ' + error)
