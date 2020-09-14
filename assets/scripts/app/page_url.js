@@ -109,7 +109,8 @@ export function processUrl () {
 export function getStreetUrl (street) {
   let url = '/'
   if (street.creatorId) {
-    if (RESERVED_URLS.indexOf(street.creatorId) !== -1) {
+    // Add a initial slash to the creator check to match reserved paths
+    if (RESERVED_URLS.indexOf('/' + street.creatorId) !== -1) {
       url += URL_RESERVED_PREFIX
     }
 
