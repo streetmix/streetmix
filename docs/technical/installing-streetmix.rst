@@ -100,7 +100,7 @@ You may already have some of these prerequisites installed. Skip or update the p
 
 3. Install `Node.js`_. The site should detect your system and provide you with the correct install executable, but you may download a specific package at http://nodejs.org/download/ (e.g. Windows 64-bit installer). In production, Streetmix uses the latest “Active LTS” release. Locally, you should be able to use any version of Node.js in the “Current” or “Active” state.
 
-4. Install PostgreSQL.You can `download Windows packages here <https://www.postgresql.org/download/windows/>`.
+4. Install PostgreSQL. You can `download Windows packages here <https://www.postgresql.org/download/windows/>`_.
 
 
 Clone and install Streetmix
