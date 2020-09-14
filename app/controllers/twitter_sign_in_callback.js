@@ -60,6 +60,6 @@ exports.get = function (req, res) {
       oauthAccessTokenHandler(req, res)
     )
   } else {
-    res.redirect('/twitter-sign-in')
+    res.redirect('/services/auth/twitter-sign-in')
   }
 }

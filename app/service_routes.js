@@ -1,25 +1,9 @@
 const routes = require('express').Router()
+const config = require('config')
 const cors = require('cors')
+const controllers = require('./controllers')
 const resources = require('./resources')
 const jwtCheck = require('./authentication')
-
-/**
- * @swagger
- *
- * definitions:
- *   NewSubscription:
- *     type: object
- *     properties:
- *       userId:
- *         type: string
- *       token:
- *         type: object
- *         properties:
- *           email:
- *             type: string
- *           id:
- *             type: string
- */
 
 /**
  * @swagger
@@ -94,5 +78,24 @@ routes.options('/services/images', cors())
  *               type: string
  */
 routes.get('/services/images', cors(), jwtCheck, resources.services.images.get)
+
+/******************************************************************************
+ *  AUTHENTICATION SERVICES
+ *****************************************************************************/
+
+routes.post(
+  '/services/auth/refresh-login-token',
+  cors(),
+  controllers.refresh.post
+)
+
+// Twitter (deprecated)
+routes.get('/services/auth/twitter-sign-in', controllers.twitter_sign_in.get)
+routes.get(
+  config.twitter.oauth_callback_path,
+  controllers.twitter_sign_in_callback.get
+)
+// Auth0
+routes.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 
 module.exports = routes

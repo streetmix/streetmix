@@ -1,11 +1,30 @@
 import {
+  TWITTER_SIGN_IN_CALLBACK_PATH,
+  AUTH0_SIGN_IN_CALLBACK_PATH,
+  USE_AUTH0
+} from './config'
+import {
   URL_NEW_STREET,
   URL_EXAMPLE_STREET,
-  AUTH0_SIGN_IN_CALLBACK_URL,
-  TWITTER_URL_SIGN_IN_REDIRECT
+  JUST_SIGNED_IN_URL
 } from './constants'
-import { USE_AUTH0 } from './config'
 import Authenticate from './auth0'
+
+const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
+  AUTH0_SIGN_IN_CALLBACK_PATH,
+  window.location.origin
+).href
+
+const TWITTER_SIGN_IN_CALLBACK_URL = new URL(
+  TWITTER_SIGN_IN_CALLBACK_PATH,
+  window.location.origin
+).href
+
+const TWITTER_URL_SIGN_IN_REDIRECT =
+  '/services/auth/twitter-sign-in?callbackUri=' +
+  TWITTER_SIGN_IN_CALLBACK_URL +
+  '&redirectUri=' +
+  JUST_SIGNED_IN_URL
 
 export function goReload () {
   window.location.reload()
