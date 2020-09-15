@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const resources = require('./resources')
 const jwtCheck = require('./authentication')
+const { Street } = require('./db/models')
+
 /**
  * @swagger
  *
@@ -879,6 +881,19 @@ routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
  */
 routes.post('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
 routes.put('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.put)
+
+routes.get('/api/streets/newimage/:street_id', (req, res) => {
+  const getStreet = async function (streetId) {
+    return Street.findOne({ where: { id: streetId } }).then((street) => {
+      const streetData = street.get().data.street
+      res.send(streetData)
+      // TODO: see if we can import the image drawing function here
+    })
+  }
+
+  getStreet(req.params.street_id)
+  // eslint-disable-next-line no-debugger
+})
 
 // Catch all for all broken api paths, direct to 404 response.
 routes.get('/api/*', (req, res) => {
