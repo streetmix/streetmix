@@ -243,6 +243,32 @@
       "title": "Shared bus/bike lane"
     }
   },
+  "brt-asphalt": {
+    "regular": {
+      "id": "asphalt",
+      "color": "#292a29",
+      "title": "Asphalt"
+    },
+    "red": {
+      "id": "asphalt",
+      "color": "#9b1f22",
+      "title": "Red lane"
+    }
+  },
+  "brt-station-orientation": {
+    "left": {
+      "id": "orientation-left",
+      "title": "Left"
+    },
+    "right": {
+      "id": "orientation-right",
+      "title": "Right"
+    },
+    "center": {
+      "id": "orientation-center",
+      "title": "Center"
+    }
+  },
   "bike-asphalt": {
     "regular": {
       "id": "asphalt",
@@ -451,5 +477,6 @@
       "color": "#ef9c74",
       "title": "Jersey barrier (plastic)"
     }
-  }
+  },
+  "brt-bus": {}
 }

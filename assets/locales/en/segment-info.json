@@ -39,6 +39,8 @@
     "streetcar": "Streetcar",
     "light-rail": "Light rail",
     "transit-shelter": "Transit shelter",
+    "brt-station": "Bus rapid transit (BRT) station",
+    "brt-bus-lane": "Rapid bus lane",
     "temporary-barrier": "Temporary barrier",
     "inception-train": "“Inception” train",
     "magic-carpet": "Magic carpet"
@@ -177,6 +179,9 @@
     "bus-asphalt|regular": "Asphalt",
     "bus-asphalt|colored": "Red lane",
     "bus-asphalt|shared": "Shared bus/bike lane",
+    "brt-station-orientation|left": "Left",
+    "brt-station-orientation|right": "Right",
+    "brt-station-orientation|center": "Center",
     "bike-asphalt|regular": "Asphalt",
     "bike-asphalt|green": "Green lane",
     "bike-asphalt|red": "Red lane",
