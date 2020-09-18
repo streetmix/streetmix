@@ -98,6 +98,10 @@ routes.get(
 // Auth0
 routes.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 
+// Callback route after signing in
+// This is handled by front-end
+routes.get('/services/auth/just-signed-in/', (req, res) => res.render('main'))
+
 /******************************************************************************
  *  ERROR HANDLING
  *****************************************************************************/
