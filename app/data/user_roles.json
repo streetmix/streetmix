@@ -28,6 +28,7 @@
     "flags": {
       "ENVIRONMENT_EDITOR": true,
       "LOCALES_LEVEL_1": true,
+      "SEGMENT_BRT": true,
       "SEGMENT_UTILITIES": true,
       "CUSTOM_SEGMENT_LABELS": true
     }

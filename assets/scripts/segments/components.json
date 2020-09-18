@@ -670,6 +670,31 @@
         }
       }
     },
+    "brt-station": {
+      "name": "Bus rapid transit (BRT) station",
+      "nameKey": "brt-station",
+      "owner": "TRANSIT",
+      "zIndex": 20,
+      "variants": {
+        "orientation": {
+          "left": {
+            "graphics": {
+              "left": "transit--brt-station-left"
+            }
+          },
+          "right": {
+            "graphics": {
+              "right": "transit--brt-station-right"
+            }
+          },
+          "center": {
+            "graphics": {
+              "center": "transit--brt-station-center"
+            }
+          }
+        }
+      }
+    },
     "traffic-cone": {
       "name": "Traffic cone",
       "nameKey": "traffic-cone",
@@ -1185,6 +1210,26 @@
           "outbound": {
             "graphics": {
               "center": "transit--bus-outbound"
+            }
+          }
+        }
+      }
+    },
+    "brt-bus": {
+      "name": "Rapid bus",
+      "nameKey": "brt-bus",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--brt-bus-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--brt-bus-outbound"
             }
           }
         }

@@ -65,6 +65,10 @@
     "label": "Segment — autonomous vehicles",
     "defaultValue": false
   },
+  "SEGMENT_BRT": {
+    "label": "Segment — BRT",
+    "defaultValue": false
+  },
   "SEGMENT_CAFE_SEATING": {
     "label": "Segment — café seating",
     "defaultValue": false

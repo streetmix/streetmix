@@ -4340,6 +4340,196 @@
       }
     }
   },
+  "brt-station": {
+    "name": "Bus rapid transit (BRT) station",
+    "nameKey": "brt-station",
+    "owner": "TRANSIT",
+    "zIndex": 20,
+    "defaultWidth": 12,
+    "enableWithFlag": "SEGMENT_BRT",
+    "paletteIcon": "center",
+    "rules": {
+      "minWidth": 12
+    },
+    "variants": ["brt-station-orientation"],
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "brt-station",
+              "variants": {
+                "orientation": ["left"]
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "brt-station",
+              "variants": {
+                "orientation": ["right"]
+              }
+            }
+          ]
+        }
+      },
+      "center": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "brt-station",
+              "variants": {
+                "orientation": ["center"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "brt-bus-lane": {
+    "name": "Rapid bus lane",
+    "nameKey": "brt-bus-lane",
+    "owner": "TRANSIT",
+    "zIndex": 15,
+    "defaultWidth": 12,
+    "enableWithFlag": "SEGMENT_BRT",
+    "rules": {
+      "minWidth": 10,
+      "maxWidth": 13
+    },
+    "variants": ["direction", "brt-asphalt"],
+    "details": {
+      "inbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|red": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|red": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
   "train": {
     "name": "“Inception” train",
     "nameKey": "inception-train",
