@@ -5,7 +5,6 @@ $tile-size: 12px;
 $canvas-height: 480px;
 $canvas-ground: 35px;
 $canvas-baseline: $canvas-height - $canvas-ground + 150px;
-$palette-height: 90px;
 $gallery-height: 180px;
 $thumbnail-width: 180px;
 $thumbnail-height: 110px;
@@ -129,8 +128,6 @@ $z-02-palette: $z-index-02;
 $z-02-menu-bar: $z-index-02;
 $z-03-street-name: $z-index-03;
 $z-03-gallery-message: $z-index-03;
-$z-04-palette-scroll: $z-index-04; // Match command menu
-$z-04-command-menu: $z-index-04;
 $z-05-welcome: $z-index-05;
 $z-06-info-bubble: $z-index-06;
 $z-06-drag-handle: $z-index-06;

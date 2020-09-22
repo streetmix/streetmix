@@ -1,13 +1,17 @@
 @import "../../styles/variables.scss";
 
+$palette-height: 64px;
+
 .palette-container {
   position: absolute;
   left: $left-right-inset;
   right: $left-right-inset;
-  height: $palette-height - 26px;
   bottom: 0;
+  height: $palette-height;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background: $palette-background;
-  text-align: center;
   z-index: $z-02-palette;
   user-select: none;
   touch-action: none;
@@ -20,17 +24,15 @@ body.read-only .palette-container {
 }
 
 .palette-commands {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  height: $palette-height - 50px;
-  vertical-align: top;
-  text-align: right;
-  z-index: $z-04-command-menu;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1em;
+  width: 120px;
 
   button {
-    height: $palette-height - 50px;
-    width: $palette-height - 50px;
+    height: 40px;
+    width: 40px;
     padding: 0;
   }
 
@@ -44,9 +46,8 @@ body.read-only .palette-container {
       margin-right: 0.25em;
     }
   }
+}
 
-  [dir="rtl"] & {
-    left: 10px;
-    right: auto;
-  }
+.palette-commands-right {
+  justify-content: flex-end;
 }

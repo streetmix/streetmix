@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import UndoRedo from './UndoRedo'
-import Palette from './Palette'
+import PaletteItems from './PaletteItems'
 import PaletteTrashcan from './PaletteTrashcan'
-import PaletteCommandsLeft from './PaletteCommandsLeft'
+import EnvironmentButton from './EnvironmentButton'
+import UndoRedo from './UndoRedo'
 import './PaletteContainer.scss'
 
 function PaletteContainer (props) {
@@ -17,12 +17,14 @@ function PaletteContainer (props) {
 
   return (
     <div className="palette-container">
-      <PaletteCommandsLeft />
-      <PaletteTrashcan />
-      <div className="palette-commands">
+      <div className="palette-commands palette-commands-left">
+        <EnvironmentButton />
+      </div>
+      <PaletteItems />
+      <div className="palette-commands palette-commands-right">
         <UndoRedo />
       </div>
-      <Palette />
+      <PaletteTrashcan />
     </div>
   )
 }

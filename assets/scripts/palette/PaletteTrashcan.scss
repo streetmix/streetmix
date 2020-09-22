@@ -1,4 +1,5 @@
 @import "../../styles/variables.scss";
+@import "./PaletteContainer.scss";
 
 // Contrast ratio of at least 3:1 compared to background
 $palette-text-color: rgb(108, 108, 108);
@@ -8,10 +9,10 @@ $palette-text-color: rgb(108, 108, 108);
   position: absolute;
   left: -$left-right-inset;
   right: -$left-right-inset;
+  bottom: 0;
 
-  // Cover the top "overhang" of palette items
-  top: -20px;
-  height: $palette-height - 5px;
+  // Tall enough to cover the top "overhang" of palette items
+  height: $palette-height + 30px;
 
   // Center text in box
   display: flex;

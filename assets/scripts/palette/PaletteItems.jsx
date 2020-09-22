@@ -11,9 +11,9 @@ import Tooltip, { useSingleton } from '../ui/Tooltip'
 import SegmentForPalette from '../segments/SegmentForPalette'
 import { getAllSegmentInfoArray } from '../segments/info'
 import { generateRandSeed } from '../util/random'
-import './Palette.scss'
+import './PaletteItems.scss'
 
-function Palette (props) {
+function PaletteItems (props) {
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
   const [source, target] = useSingleton()
@@ -70,7 +70,7 @@ function Palette (props) {
   return (
     <>
       <Tooltip source={source} />
-      <Scrollable className="palette" ref={scrollable}>
+      <Scrollable className="palette-items" ref={scrollable}>
         <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
           {displayedSegments}
         </IntlProvider>
@@ -79,4 +79,4 @@ function Palette (props) {
   )
 }
 
-export default React.memo(Palette)
+export default React.memo(PaletteItems)

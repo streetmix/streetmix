@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CloseButton from '../ui/CloseButton'
 import { ICON_TOOLS } from '../ui/icons'
 import { toggleToolbox } from '../store/slices/ui'
-import './PaletteCommandsLeft.scss'
+import './EnvironmentButton.scss'
 
-function PaletteCommandsLeft (props) {
+function EnvironmentButton (props) {
   const enable = useSelector((state) => state.flags.ENVIRONMENT_EDITOR.value)
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -66,11 +66,11 @@ function PaletteCommandsLeft (props) {
   ) : null
 
   return (
-    <div className="palette-commands-left">
+    <>
       {Button}
       {Tooltip}
-    </div>
+    </>
   )
 }
 
-export default React.memo(PaletteCommandsLeft)
+export default React.memo(EnvironmentButton)

@@ -1,31 +1,5 @@
 @import "../../styles/variables.scss";
 
-.palette-commands-left {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  height: $palette-height - 50px;
-  vertical-align: top;
-  text-align: left;
-  z-index: $z-04-command-menu;
-
-  button {
-    height: $palette-height - 50px;
-    width: $palette-height - 50px;
-    padding: 0;
-
-    // Icon style
-    font-size: 1em;
-  }
-}
-
-[dir="rtl"] {
-  .palette-commands-left {
-    right: 10px;
-    left: auto;
-  }
-}
-
 .supermoon-tooltip {
   padding: 1.25em;
   position: fixed;
@@ -39,6 +13,7 @@
   animation-duration: 1200ms;
   animation-fill-mode: both;
   animation-name: bounce;
+  z-index: 1;
 
   [dir="rtl"] & {
     left: auto;
