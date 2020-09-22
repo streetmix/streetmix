@@ -35,19 +35,6 @@
   height: $canvas-height + 80;
   text-align: left;
   touch-action: pan-x;
-
-  // Empty area
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 394px;
-    right: 0;
-    bottom: 120px;
-    pointer-events: none;
-    // Ensure that segments switching in stay above this
-    z-index: -1;
-  }
 }
 
 #street-section-canvas {
