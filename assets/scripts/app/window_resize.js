@@ -28,11 +28,7 @@ export function setStreetSectionTop () {
   }
 
   // TODO const
-  if (
-    streetSectionTop +
-      document.querySelector('#street-section-inner').offsetHeight >
-    paletteTop - 20 + 180
-  ) {
+  if (streetSectionTop + streetSectionHeight > paletteTop - 20 + 180) {
     // gallery height
     streetSectionTop = paletteTop - 20 - streetSectionHeight + 180
   }
