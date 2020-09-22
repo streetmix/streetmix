@@ -19,10 +19,6 @@ $palette-height: 64px;
   border-top-right-radius: $border-radius-large;
 }
 
-body.read-only .palette-container {
-  display: none;
-}
-
 .palette-commands {
   display: flex;
   flex-direction: row;

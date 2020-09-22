@@ -1,7 +1,7 @@
 /**
  * The Palette is the UI element at the bottom of the screen that shows all the
  * available street segments. Users can drag and drop segments from the palette
- * onto the sleep.
+ * onto the street.
  */
 import React, { useRef, useEffect } from 'react'
 import { IntlProvider } from 'react-intl'
@@ -14,6 +14,7 @@ import { generateRandSeed } from '../util/random'
 import './PaletteItems.scss'
 
 function PaletteItems (props) {
+  const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
   const [source, target] = useSingleton()
@@ -27,6 +28,11 @@ function PaletteItems (props) {
       window.setTimeout(scrollable.current.checkButtonVisibilityState, 0)
     }
   }, [])
+
+  // If the everythingLoaded state is false, bail. This is false when the image
+  // svg assets haven't loaded yet, and will cause rendering issues in child
+  // components. When this state updates, this component will be re-rendered.
+  if (!everythingLoaded) return null
 
   const segments = getAllSegmentInfoArray()
 

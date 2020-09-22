@@ -6,14 +6,16 @@ import EnvironmentButton from './EnvironmentButton'
 import UndoRedo from './UndoRedo'
 import './PaletteContainer.scss'
 
+// NOTE: The "palette-container" div element is used to recalculate layout
+// inside the global window resize handler. If you rename the element, you
+// must also update the querySelector in that handler. Also, please do not
+// introduce logic that conditionally renders the palette during app usage,
+// as it will not call the resize handler to update layout positioning.
 function PaletteContainer (props) {
-  const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
+  const readOnly = useSelector((state) => state.app.readOnly)
 
-  // Render an empty container before assets for palette items have loaded.
-  // (Another part of the app depends on this element for layout calculation.)
-  if (!everythingLoaded) {
-    return <div className="palette-container" />
-  }
+  // Do not render the palette if app is in read-only mode
+  if (readOnly) return null
 
   return (
     <div className="palette-container">
