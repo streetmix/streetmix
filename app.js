@@ -109,6 +109,7 @@ const csp = {
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
+      'plausible.io',
       (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],
