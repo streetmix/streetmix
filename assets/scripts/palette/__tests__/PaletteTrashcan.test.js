@@ -1,7 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
-import PaletteTrashcan from '../PaletteTrashcan'
+import { screen } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import PaletteTrashcan from '../PaletteTrashcan'
 
 describe('PaletteTrashcan', () => {
   it('renders when visible', () => {
@@ -19,7 +20,7 @@ describe('PaletteTrashcan', () => {
   })
 
   it('doesn’t render when no segment is being dragged', () => {
-    const { container } = renderWithReduxAndIntl(<PaletteTrashcan />, {
+    renderWithReduxAndIntl(<PaletteTrashcan />, {
       initialState: {
         ui: {
           draggingState: null
@@ -27,6 +28,6 @@ describe('PaletteTrashcan', () => {
       }
     })
 
-    expect(container.querySelector('.palette-trashcan-visible')).toBe(null)
+    expect(screen.getByText('Drag here to remove').hidden).toEqual(true)
   })
 })
