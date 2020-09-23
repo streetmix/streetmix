@@ -1,7 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
-import PaletteContainer from '../PaletteContainer'
+import { screen } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import PaletteContainer from '../PaletteContainer'
 
 jest.mock('../../segments/view', () => {
   const actual = jest.requireActual('../../segments/view')
@@ -39,11 +40,11 @@ describe('PaletteContainer', () => {
       }
     })
 
-    expect(container.querySelector('.palette-container')).toBe(null)
+    expect(container.firstChild).toBe(null)
   })
 
   it("doesn’t render items when sprites haven't loaded", () => {
-    const { container } = renderWithReduxAndIntl(<PaletteContainer />, {
+    renderWithReduxAndIntl(<PaletteContainer />, {
       initialState: {
         app: {
           everythingLoaded: false
@@ -51,6 +52,6 @@ describe('PaletteContainer', () => {
       }
     })
 
-    expect(container.querySelector('.palette-items')).toBe(null)
+    expect(screen.queryByRole('list')).toBe(null)
   })
 })
