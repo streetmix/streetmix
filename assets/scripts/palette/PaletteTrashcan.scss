@@ -19,6 +19,10 @@ $palette-text-color: rgb(108, 108, 108);
   align-items: center;
   justify-content: center;
 
+  // When visible
+  opacity: 1;
+  transform: translateY(0);
+
   // Rest of styles
   z-index: $z-07-trashcan;
   border-top: 2px dashed $palette-text-color;
@@ -27,12 +31,10 @@ $palette-text-color: rgb(108, 108, 108);
   font-weight: 400;
   background: lighten($bottom-background, 5%);
   pointer-events: none;
-  opacity: 0;
-  transform: translateY(150px);
   transition: transform 150ms, opacity 150ms;
 }
 
-.palette-trashcan-visible {
-  opacity: 1;
-  transform: translateY(0);
+.palette-trashcan[hidden] {
+  opacity: 0;
+  transform: translateY(150px);
 }

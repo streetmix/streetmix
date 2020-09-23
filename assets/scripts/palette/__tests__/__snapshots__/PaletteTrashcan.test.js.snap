@@ -3,7 +3,7 @@
 exports[`PaletteTrashcan renders when visible 1`] = `
 <DocumentFragment>
   <div
-    class="palette-trashcan palette-trashcan-visible"
+    class="palette-trashcan"
   >
     Drag here to remove
   </div>

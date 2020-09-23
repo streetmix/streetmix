@@ -15,14 +15,8 @@ function PaletteTrashcan (props) {
       Number.isInteger(state.ui.draggingState.draggedSegment)
   )
 
-  const classNames = ['palette-trashcan']
-
-  if (visible) {
-    classNames.push('palette-trashcan-visible')
-  }
-
   return (
-    <div className={classNames.join(' ')}>
+    <div className="palette-trashcan" hidden={!visible}>
       <FormattedMessage
         id="palette.remove"
         defaultMessage="Drag here to remove"
