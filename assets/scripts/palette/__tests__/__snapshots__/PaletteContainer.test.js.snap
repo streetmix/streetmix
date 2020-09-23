@@ -1,0 +1,472 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaletteContainer renders 1`] = `
+<DocumentFragment>
+  <div
+    class="palette-container"
+  >
+    <div
+      class="palette-commands palette-commands-left"
+    >
+      <button
+        title="Toggle tools"
+      >
+        <svg
+          class="svg-inline--fa fa-tools"
+        />
+      </button>
+      <div
+        class="supermoon-tooltip"
+      >
+        <button
+          class="close"
+          title="Dismiss"
+        >
+          <svg
+            class="svg-inline--fa fa-times"
+          />
+        </button>
+        <p>
+          <strong>
+            You’ve got some new tools!‎
+          </strong>
+           Click on this button to activate some new abilities.‎
+        </p>
+        <div
+          class="palette-tooltip-pointer-container"
+        >
+          <div
+            class="palette-tooltip-pointer"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="palette-items-scrollable-container"
+    >
+      <div
+        class="palette-items"
+      >
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 48px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 48px; height: 445px; left: 0px;"
+              width="48"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 40px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 40px; height: 445px; left: 0px;"
+              width="40"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 44px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 44px; height: 445px; left: 0px;"
+              width="44"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 40px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 40px; height: 445px; left: 0px;"
+              width="40"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette segment-disabled"
+          data-testid="segment-for-palette"
+          style="width: 56px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 56px; height: 445px; left: 0px;"
+              width="56"
+            />
+          </div>
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 40px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 40px; height: 445px; left: 0px;"
+              width="40"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 40px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 40px; height: 445px; left: 0px;"
+              width="40"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 56px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 56px; height: 445px; left: 0px;"
+              width="56"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 32px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 32px; height: 445px; left: 0px;"
+              width="32"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette segment-disabled"
+          data-testid="segment-for-palette"
+          style="width: 32px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 32px; height: 445px; left: 0px;"
+              width="32"
+            />
+          </div>
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 48px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 48px; height: 445px; left: 0px;"
+              width="48"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 52px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 52px; height: 445px; left: 0px;"
+              width="52"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 64px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 64px; height: 445px; left: 0px;"
+              width="64"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 52px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 52px; height: 445px; left: 0px;"
+              width="52"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 40px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 40px; height: 445px; left: 0px;"
+              width="40"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 52px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 52px; height: 445px; left: 0px;"
+              width="52"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 64px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 64px; height: 445px; left: 0px;"
+              width="64"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 64px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 64px; height: 445px; left: 0px;"
+              width="64"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 72px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 72px; height: 445px; left: 0px;"
+              width="72"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 72px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 72px; height: 445px; left: 0px;"
+              width="72"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 72px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 72px; height: 445px; left: 0px;"
+              width="72"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette"
+          data-testid="segment-for-palette"
+          style="width: 60px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 60px; height: 445px; left: 0px;"
+              width="60"
+            />
+          </div>
+        </div>
+        <div
+          class="segment segment-in-palette segment-disabled"
+          data-testid="segment-for-palette"
+          style="width: 64px;"
+        >
+          <div
+            style="height: 80px;"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 64px; height: 445px; left: 0px;"
+              width="64"
+            />
+          </div>
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </div>
+      </div>
+      <button
+        class="scrollable scroll-left"
+        style="left: -15px; opacity: 0; pointer-events: none;"
+      >
+        <svg
+          class="svg-inline--fa fa-chevron-left"
+        />
+      </button>
+      <button
+        class="scrollable scroll-right"
+        style="right: -15px; opacity: 0; pointer-events: none;"
+      >
+        <svg
+          class="svg-inline--fa fa-chevron-right"
+        />
+      </button>
+    </div>
+    <div
+      class="palette-commands palette-commands-right"
+    >
+      <button
+        disabled=""
+        title="Undo"
+      >
+        <svg
+          class="svg-inline--fa fa-undo"
+        />
+      </button>
+      <button
+        disabled=""
+        title="Redo"
+      >
+        <svg
+          class="svg-inline--fa fa-redo"
+        />
+      </button>
+    </div>
+    <div
+      class="palette-trashcan"
+    >
+      Drag here to remove
+    </div>
+  </div>
+</DocumentFragment>
+`;
