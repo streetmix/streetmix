@@ -13,6 +13,7 @@ import './PaletteContainer.scss'
 // as it will not call the resize handler to update layout positioning.
 function PaletteContainer (props) {
   const readOnly = useSelector((state) => state.app.readOnly)
+  const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
 
   // Do not render the palette if app is in read-only mode
   if (readOnly) return null
@@ -22,7 +23,7 @@ function PaletteContainer (props) {
       <div className="palette-commands palette-commands-left">
         <EnvironmentButton />
       </div>
-      <PaletteItems />
+      {everythingLoaded && <PaletteItems />}
       <div className="palette-commands palette-commands-right">
         <UndoRedo />
       </div>

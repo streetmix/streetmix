@@ -2,7 +2,7 @@
 
 exports[`SegmentForPalette renders width correctly depending on the dimension 1`] = `
 <DocumentFragment>
-  <div
+  <li
     class="segment segment-in-palette"
     data-testid="segment-for-palette"
     style="width: 424px;"
@@ -17,6 +17,6 @@ exports[`SegmentForPalette renders width correctly depending on the dimension 1`
         width="424"
       />
     </div>
-  </div>
+  </li>
 </DocumentFragment>
 `;

@@ -91,7 +91,7 @@ function SegmentForPalette (props) {
 
   if (props.disabled) {
     return (
-      <div
+      <li
         style={{
           width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
         }}
@@ -123,12 +123,12 @@ function SegmentForPalette (props) {
           </div>
         </Tooltip>
         <FontAwesomeIcon icon={ICON_LOCK} />
-      </div>
+      </li>
     )
   }
 
   return props.connectDragSource(
-    <div
+    <li
       style={{
         width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
       }}
@@ -149,7 +149,7 @@ function SegmentForPalette (props) {
           />
         </div>
       </Tooltip>
-    </div>
+    </li>
   )
 }
 
