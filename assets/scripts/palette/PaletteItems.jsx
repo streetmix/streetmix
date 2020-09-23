@@ -47,7 +47,8 @@ function PaletteItems (props) {
       // Accept segments with the `enableWithFlag` property, but only if
       // the flags have that value set to true.
       const enabledByFlag =
-        segment.enableWithFlag && flags[segment.enableWithFlag].value
+        (segment.enableWithFlag && flags[segment.enableWithFlag]?.value) ||
+        false
 
       return {
         ...segment,

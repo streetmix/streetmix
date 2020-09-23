@@ -16,9 +16,6 @@ describe('PaletteTrashcan', () => {
     })
 
     expect(asFragment()).toMatchSnapshot()
-    // expect(
-    //   container.querySelectorAll('.palette-trashcan-visible').length
-    // ).toEqual(1)
   })
 
   it('doesn’t render when no segment is being dragged', () => {

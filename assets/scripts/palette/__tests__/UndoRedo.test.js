@@ -9,13 +9,9 @@ jest.mock('../../streets/owner', () => ({
   isOwnedByCurrentUser: () => true
 }))
 
+// Note: "default" render snapshot is covered by a test on the parent
+// component. This test only covers interactions on this component.
 describe('UndoRedo', () => {
-  // TODO: Remove snapshot after having a snapshot on the parent component
-  it('renders two buttons', () => {
-    const wrapper = renderWithReduxAndIntl(<UndoRedo />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
-  })
-
   it('handles clicking undo button', () => {
     const wrapper = renderWithReduxAndIntl(<UndoRedo />, {
       initialState: {
