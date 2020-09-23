@@ -56,7 +56,7 @@ Our goal is to be as close as possible to a community-designed "best practice" i
 Resources
 ~~~~~~~~~
 
-- `Introducing the react-testing-library <https://kentcdodds.com/blog/introducing-the-react-testing-library>_` [Kent C. Dodds] - why RTL instead of Enzyme?
+- `Introducing the react-testing-library <https://kentcdodds.com/blog/introducing-the-react-testing-library>`_ [Kent C. Dodds] - why RTL instead of Enzyme?
 - `How to use React Testing Library Tutorial <https://www.robinwieruch.de/react-testing-library>`_ [Robin Wieruch] - start here for the basics
 - `Common mistakes with React Testing Library <https://kentcdodds.com/blog/common-mistakes-with-react-testing-library>`_ [Kent C. Dodds]
 
