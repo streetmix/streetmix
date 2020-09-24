@@ -15,7 +15,7 @@ import {
   drawSegmentContents,
   getLocaleSegmentName
 } from '../segments/view'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
@@ -38,15 +38,21 @@ const WORDMARK_MARGIN = 4
  * @modifies {CanvasRenderingContext2D}
  */
 function drawWatermark (ctx, dpi, invert) {
-  const text = 'Made with {streetmixWordmark}'
-  // TODO: fix text replacement issue with intl-messageformat
-  // const text = t('export.watermark', 'Made with {streetmixWordmark}')
+  const text = formatMessage(
+    'export.watermark',
+    'Made with {streetmixWordmark}',
+    {
+      // Replace the {placeholder} with itself. Later, this is used to
+      // render the logo image in place of the text.
+      streetmixWordmark: '{streetmixWordmark}'
+    }
+  )
   const wordmarkImage = invert
     ? images.get('/images/wordmark_white.svg')
     : images.get('/images/wordmark_black.svg')
 
   // Separate string so that we can render a wordmark with an image
-  const strings = text.replace(/{/g, '||{{').replace(/}/g, '}}||').split('||')
+  const strings = text.replace(/{/g, '||{').replace(/}/g, '}||').split('||')
 
   // Set text render options
   ctx.textAlign = 'right'
@@ -70,7 +76,7 @@ function drawWatermark (ctx, dpi, invert) {
     const string = strings[i]
 
     // If we see the wordmark placeholder, render the image.
-    if (string === '{{streetmixWordmark}}') {
+    if (string === '{streetmixWordmark}') {
       const margin = WORDMARK_MARGIN * dpi
       const logoLeftX = currentRightX - logoWidth - margin
       const logoTopY = startBottomY - logoHeight + dpi // Additional adjustment for visual alignment
@@ -565,7 +571,7 @@ export function drawStreetThumbnail (
   // Street name
 
   if (streetName) {
-    let text = street.name || t('street.default-name', 'Unnamed St')
+    let text = street.name || formatMessage('street.default-name', 'Unnamed St')
 
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
