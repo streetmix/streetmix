@@ -111,11 +111,11 @@
     "gallery-street-failure-description": "Estamos teniendo problemas subiendo esta calle.",
     "reload-sign-in-title": "Has iniciado una sesión en otra ventana.",
     "please-reload": "Por favor, recarga esta página antes de continuar.",
-    "survey-finished": "",
+    "survey-finished": "La encuesta es completa. ¡Felicitaciones y gracias!",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
-    "auth-expired": "",
-    "sign-in-again": "",
+    "auth-expired": "Tu autenticación ha expirado por inactividad.",
+    "sign-in-again": "Por favor, ingrésate de nuevo.",
     "access-denied-title": "No estás ingresado.",
     "access-denied-description": "Cancelaste el proceso de ingresar.",
     "auth-api-problem-title": "Hubo un problema con ingresar.",
@@ -130,7 +130,7 @@
     "generic-error-title": "Algo salió mal.",
     "generic-error-description": "Desculpe – algo salió mal.",
     "error-code": "(Error {code}.)",
-    "need-help-link": ""
+    "need-help-link": "¿Necesitas ayuda?"
   },
   "btn": {
     "reload": "Recargar",
@@ -144,7 +144,7 @@
     "close": "Cerrar",
     "dismiss": "Descartar",
     "okay": "¡Okey!",
-    "not-now": ""
+    "not-now": "Ahora no"
   },
   "dialogs": {
     "error": {
@@ -395,9 +395,9 @@
   },
   "sentiment": {
     "prompt": {
-      "intro": "",
-      "joyful": "",
-      "choose-one": ""
+      "intro": "<strong>Perdone.</strong> Nos encantaría oír su opinión sobre esta calle.",
+      "joyful": "¿Te parece <em>alegre</em> esta calle?",
+      "choose-one": "(escoger una)"
     },
     "answer": {
       "rating-1": "Absolutamente no",
@@ -406,26 +406,26 @@
       "rating-4": "Un poco",
       "rating-5": "Muchísimo"
     },
-    "sign-in-prompt": "",
-    "about-link": "",
+    "sign-in-prompt": "Por favor, ingrésate para compartir tu opinión.",
+    "about-link": "¿Por qué veo este mensaje?",
     "about-text": "Esta encuesta nos ayuda a aprender cómo la gente siente sobre calles.",
-    "thank-you": "",
-    "about-header": "",
+    "thank-you": "¡Gracias por participar en esta encuesta!",
+    "about-header": "Queremos entender cómo se siente la gente sobre calles",
     "about-article": {
-      "paragraph-1": "",
-      "paragraph-2": "",
-      "paragraph-3": ""
+      "paragraph-1": "Muchas calles son diseñadas por ingenieros civiles, pero creemos que el diseño debe incluir la perspectiva de todos. Junto con <a>New Urban Mobility Alliance</a> (NUMO), creamos esta encuestita de una pregunta para hacer precisamente eso.",
+      "paragraph-2": "Analizaremos las respuestas para poder inferir cuáles características de la calle inducen cuáles sentimientos. En el futuro, queremos incorporar estos resultados para recomendar diseños para los usuarios de Streetmix.",
+      "paragraph-3": "Solo se puede votar una vez por cada calle, pero es posible decirles a otros que voten también. Comparte tus calles o una calle al azar con el enlace <a>https://streetmix.net/survey/</a>."
     },
     "done": {
-      "response": "",
-      "vote-another": "",
-      "really-done": ""
+      "response": "Respondiste con {score}.",
+      "vote-another": "¡Vota por una otra calle!",
+      "really-done": "¡Completo!"
     },
     "comment": {
-      "prompt": "",
-      "example": "",
-      "submit": "",
-      "thanks": ""
+      "prompt": "Dinos por qué:",
+      "example": "(por ejemplo, \"me gustaban los árboles.\")",
+      "submit": "Enviar",
+      "thanks": "¡Entendido!"
     }
   },
   "i18n": {
