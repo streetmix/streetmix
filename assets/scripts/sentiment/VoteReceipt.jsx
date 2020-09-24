@@ -55,7 +55,7 @@ function VoteReceipt ({ score, handleClose, streetId }) {
                   id="sentiment.prompt.joyful"
                   defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
-                    em: (...chunks) => <em>{chunks}</em>
+                    em: (chunks) => <em>{chunks}</em>
                   }}
                 />
               </strong>

@@ -198,7 +198,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            a: (...chunks) => (
+                            a: (chunks) => (
                               <a
                                 href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
                                 target="_blank"
@@ -240,7 +240,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            a: (...chunks) => (
+                            a: (chunks) => (
                               <a
                                 href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
                                 target="_blank"
@@ -273,7 +273,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            a: (...chunks) => (
+                            a: (chunks) => (
                               <a
                                 href="https://creativecommons.org/licenses/by-sa/4.0/#"
                                 target="_blank"
@@ -306,7 +306,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            a: (...chunks) => (
+                            a: (chunks) => (
                               <a
                                 href="https://fontawesome.com/license/free"
                                 target="_blank"

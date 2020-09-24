@@ -70,7 +70,7 @@ function BlockingError (props) {
       id="error.please-try-again"
       defaultMessage="Please try again later or let us know via <email_link>email</email_link> or <tweet_link>Twitter</tweet_link>."
       values={{
-        email_link: (...chunks) => (
+        email_link: (chunks) => (
           <a
             href="mailto:hello@streetmix.net"
             target="_blank"
@@ -79,7 +79,7 @@ function BlockingError (props) {
             {chunks}
           </a>
         ),
-        tweet_link: (...chunks) => (
+        tweet_link: (chunks) => (
           <a
             href="https://twitter.com/intent/tweet?text=@streetmix"
             target="_blank"
@@ -479,7 +479,7 @@ function BlockingError (props) {
               id="error.unsupported-browser-description"
               defaultMessage="Sorry about that. You might want to try <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, or Safari."
               values={{
-                chrome_link: (...chunks) => (
+                chrome_link: (chunks) => (
                   <a
                     href="https://www.google.com/chrome"
                     target="_blank"
@@ -488,7 +488,7 @@ function BlockingError (props) {
                     {chunks}
                   </a>
                 ),
-                firefox_link: (...chunks) => (
+                firefox_link: (chunks) => (
                   <a
                     href="https://www.mozilla.org/firefox"
                     target="_blank"
@@ -497,7 +497,7 @@ function BlockingError (props) {
                     {chunks}
                   </a>
                 ),
-                edge_link: (...chunks) => (
+                edge_link: (chunks) => (
                   <a
                     href="https://www.microsoft.com/en-us/windows/microsoft-edge"
                     target="_blank"
@@ -514,7 +514,7 @@ function BlockingError (props) {
               id="error.unsupported-browser-internet-explorer"
               defaultMessage="Are you on Internet Explorer? <a>Find out more.</a>"
               values={{
-                a: (...chunks) => (
+                a: (chunks) => (
                   <a
                     href="https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer"
                     target="_blank"
@@ -531,7 +531,7 @@ function BlockingError (props) {
               id="error.unsupported-browser-contact-us"
               defaultMessage="If you think your browser should be supported, please contact us via <a>email</a>."
               values={{
-                a: (...chunks) => (
+                a: (chunks) => (
                   <a
                     href="'mailto:hello@streetmix.net"
                     target="_blank"

@@ -77,7 +77,7 @@ function SentimentSurvey ({
                   id="sentiment.prompt.intro"
                   defaultMessage="<strong>Pardon the interruption.</strong> We’d love your feedback on this street."
                   values={{
-                    strong: (...chunks) => <strong>{chunks}</strong>
+                    strong: (chunks) => <strong>{chunks}</strong>
                   }}
                 />
               </p>
@@ -86,7 +86,7 @@ function SentimentSurvey ({
                   id="sentiment.prompt.joyful"
                   defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
-                    em: (...chunks) => <em>{chunks}</em>
+                    em: (chunks) => <em>{chunks}</em>
                   }}
                 />
               </h2>
