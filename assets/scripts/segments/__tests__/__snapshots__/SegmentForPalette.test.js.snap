@@ -8,6 +8,7 @@ exports[`SegmentForPalette renders width correctly depending on the dimension 1`
   >
     <div
       style="height: 80px;"
+      tabindex="0"
     >
       <canvas
         class="segment-image"

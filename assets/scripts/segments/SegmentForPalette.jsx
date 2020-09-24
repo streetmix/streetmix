@@ -110,7 +110,7 @@ function SegmentForPalette (props) {
         >
           {/* Wrapper element necessary for <Tooltip /> (alternate solution is
               to forward ref) */}
-          <div style={{ height: '80px' }}>
+          <div style={{ height: '80px' }} tabIndex="0">
             <SegmentCanvas
               actualWidth={actualWidth}
               type={props.type}
@@ -135,8 +135,10 @@ function SegmentForPalette (props) {
     >
       <Tooltip target={props.tooltipTarget} label={getLabel(props)}>
         {/* Wrapper element necessary for <Tooltip /> (alternate solution is
-            to forward ref) */}
-        <div style={{ height: '80px' }}>
+            to forward ref)
+            This wrapper element is also the target for hover / focus
+            in order the activate the tooltip. */}
+        <div style={{ height: '80px' }} tabIndex="0">
           <SegmentCanvas
             actualWidth={actualWidth}
             type={props.type}
