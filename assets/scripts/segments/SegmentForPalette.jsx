@@ -96,7 +96,6 @@ function SegmentForPalette (props) {
           width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
         }}
         className="segment segment-in-palette segment-disabled"
-        data-testid="segment-for-palette"
       >
         <Tooltip
           target={props.tooltipTarget}
@@ -133,7 +132,6 @@ function SegmentForPalette (props) {
         width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
       }}
       className="segment segment-in-palette"
-      data-testid="segment-for-palette"
     >
       <Tooltip target={props.tooltipTarget} label={getLabel(props)}>
         {/* Wrapper element necessary for <Tooltip /> (alternate solution is
