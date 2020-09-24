@@ -10,7 +10,7 @@ import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goTwitterSignIn } from '../app/routing'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import { loadSettings } from './settings'
@@ -299,7 +299,7 @@ function errorReceiveSignInDetails (data) {
     // when a valid user who was previously signed in has been signed out.
     store.dispatch(
       addToast({
-        message: t(
+        message: formatMessage(
           'error.auth-expired',
           'We automatically signed you out due to inactivity. Please sign in again.'
         ),
@@ -408,7 +408,7 @@ function _signInLoaded () {
       if (mode === MODES.SURVEY_FINISHED) {
         store.dispatch(
           addToast({
-            message: t(
+            message: formatMessage(
               'error.survey-finished',
               'Survey complete. Congratulations and thank you!'
             ),

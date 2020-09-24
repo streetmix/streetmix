@@ -36,7 +36,7 @@ import {
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { trackEvent } from '../app/event_tracking'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 import { setActiveSegment } from '../store/slices/ui'
 import {
   incrementSegmentWidth,
@@ -271,7 +271,7 @@ export class Segment extends React.Component {
           this.props.clearSegmentsAction()
           infoBubble.hide()
           this.props.addToast({
-            message: t(
+            message: formatMessage(
               'toast.all-segments-deleted',
               'All segments have been removed.'
             ),
@@ -288,7 +288,7 @@ export class Segment extends React.Component {
           infoBubble.hide()
           infoBubble.hideSegment()
           this.props.addToast({
-            message: t(
+            message: formatMessage(
               'toast.segment-deleted',
               'The segment has been removed.'
             ),

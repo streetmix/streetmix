@@ -4,7 +4,7 @@ import { addToast } from '../slices/toasts'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { finishUndoOrRedo } from '../../streets/undo_stack'
 import { trimStreetData } from '../../streets/data_model'
-import { t } from '../../locales/locale'
+import { formatMessage } from '../../locales/locale'
 
 // These async thunks remain in a separate module because they import other
 // modules with deeply nested dependencies ... some of which will throw
@@ -28,7 +28,7 @@ export const handleUndo = createAsyncThunk('undo/handleUndo', function (
   } else {
     dispatch(
       addToast({
-        message: t('toast.no-undo', 'Nothing to undo.'),
+        message: formatMessage('toast.no-undo', 'Nothing to undo.'),
         duration: 4000
       })
     )
@@ -48,7 +48,7 @@ export const handleRedo = createAsyncThunk('undo/handleRedo', function (
   } else {
     dispatch(
       addToast({
-        message: t('toast.no-redo', 'Nothing to redo.'),
+        message: formatMessage('toast.no-redo', 'Nothing to redo.'),
         duration: 4000
       })
     )

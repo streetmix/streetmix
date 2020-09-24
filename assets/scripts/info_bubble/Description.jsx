@@ -6,7 +6,7 @@ import DescriptionPanel from './DescriptionPanel'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 import { showDescription, hideDescription } from '../store/slices/infoBubble'
 
 export class Description extends React.Component {
@@ -85,7 +85,7 @@ export class Description extends React.Component {
     if (!description || !this.props.infoBubbleEl) return null
 
     // If the description text doesn't exist or hasn't been translated, bail.
-    const text = t(`descriptions.${description.key}.text`, null, {
+    const text = formatMessage(`descriptions.${description.key}.text`, null, {
       ns: 'segment-info'
     })
     if (!text || this.isEmptyText(text)) return null
@@ -95,13 +95,17 @@ export class Description extends React.Component {
     )
 
     // TODO: use FormattedMessage
-    const prompt = t(`descriptions.${description.key}.prompt`, defaultPrompt, {
+    const prompt = formatMessage(
+      `descriptions.${description.key}.prompt`,
+      defaultPrompt,
+      {
+        ns: 'segment-info'
+      }
+    )
+    const lede = formatMessage(`descriptions.${description.key}.lede`, null, {
       ns: 'segment-info'
     })
-    const lede = t(`descriptions.${description.key}.lede`, null, {
-      ns: 'segment-info'
-    })
-    const imageCaption = t(
+    const imageCaption = formatMessage(
       `descriptions.${description.key}.imageCaption`,
       null,
       { ns: 'segment-info' }

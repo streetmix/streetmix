@@ -7,7 +7,7 @@ import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
 import { handleSegmentMoveCancel } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 import { showDialog } from '../store/slices/dialogs'
 import { addToast } from '../store/slices/toasts'
 import { handleUndo, handleRedo } from '../store/actions/undo'
@@ -43,7 +43,7 @@ export function registerKeypresses () {
     function () {
       store.dispatch(
         addToast({
-          message: t(
+          message: formatMessage(
             'toast.no-save',
             'No need to save by hand; Streetmix automatically saves your street!'
           )

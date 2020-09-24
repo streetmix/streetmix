@@ -1,5 +1,5 @@
 import { API_URL } from '../app/config'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 import { app } from '../preinit/app_settings'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
@@ -97,7 +97,7 @@ function receiveRemixedStreet (data) {
     if (isSignedIn()) {
       store.dispatch(
         addToast({
-          message: t(
+          message: formatMessage(
             'toast.remixing',
             'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.'
           )
@@ -106,7 +106,7 @@ function receiveRemixedStreet (data) {
     } else {
       store.dispatch(
         addToast({
-          message: t(
+          message: formatMessage(
             'toast.remixing-sign-in',
             'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'
           ),

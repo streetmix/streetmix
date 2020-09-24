@@ -100,18 +100,6 @@ export function formatMessage (key, fallback = '', options = {}) {
 }
 
 /**
- * Port of the old i18next `t` function, still used in some legacy spots
- * This is deprecated, and is only a wrapper around intl-messageformat's formatMessage().
- *
- * @param {string} key - translation id
- * @param {string} fallback - fallback / reference string
- * @param {object} options - options
- */
-export function t (key, fallback, options = {}) {
-  return formatMessage(key, fallback, options)
-}
-
-/**
  * Gets the current locale level. See `./constants.js` for a description
  * of what each level is.
  *

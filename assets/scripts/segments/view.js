@@ -1,5 +1,5 @@
 import { images } from '../app/load_resources'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
@@ -568,7 +568,7 @@ export function getLocaleSegmentName (type, variantString) {
   const nameKey = variantInfo.nameKey || segmentInfo.nameKey
   const key = `segments.${nameKey}`
 
-  return t(key, defaultName, { ns: 'segment-info' })
+  return formatMessage(key, defaultName, { ns: 'segment-info' })
 }
 
 /**
@@ -617,7 +617,10 @@ export function editSegmentLabel (segment, position) {
   const prevLabel =
     segment.label || getLocaleSegmentName(segment.type, segment.variantString)
   const label = normalizeSegmentLabel(
-    window.prompt(t('prompt.segment-label', 'New segment label:'), prevLabel)
+    window.prompt(
+      formatMessage('prompt.segment-label', 'New segment label:'),
+      prevLabel
+    )
   )
 
   if (label && label !== prevLabel) {

@@ -1,5 +1,5 @@
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 
 /**
  * Updates page title.
@@ -9,7 +9,10 @@ import { t } from '../locales/locale'
 export function updatePageTitle (street) {
   let title = ''
 
-  if (street.creatorId && (!isSignedIn() || (getSignInData().userId !== street.creatorId))) {
+  if (
+    street.creatorId &&
+    (!isSignedIn() || getSignInData().userId !== street.creatorId)
+  ) {
     title = getPageTitleWithAuthor(street)
   } else {
     title = getPageTitle(street)
@@ -25,7 +28,8 @@ export function updatePageTitle (street) {
  * e.g. Facebook sharing
  */
 export function getPageTitle (street) {
-  const streetName = street.name || t('street.default-name', 'Unnamed St')
+  const streetName =
+    street.name || formatMessage('street.default-name', 'Unnamed St')
   return `${streetName} – Streetmix`
 }
 
@@ -34,6 +38,7 @@ export function getPageTitle (street) {
  * Displayed when a street has an creator
  */
 export function getPageTitleWithAuthor (street) {
-  const streetName = street.name || t('street.default-name', 'Unnamed St')
+  const streetName =
+    street.name || formatMessage('street.default-name', 'Unnamed St')
   return `${streetName} (by ${street.creatorId}) – Streetmix`
 }

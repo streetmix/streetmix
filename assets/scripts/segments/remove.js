@@ -1,6 +1,6 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { segmentsChanged } from './view'
-import { t } from '../locales/locale'
+import { formatMessage } from '../locales/locale'
 import {
   removeSegment as removeSegmentActionCreator,
   clearSegments
@@ -28,7 +28,10 @@ export function removeSegment (position) {
 
   store.dispatch(
     addToast({
-      message: t('toast.segment-deleted', 'The segment has been removed.'),
+      message: formatMessage(
+        'toast.segment-deleted',
+        'The segment has been removed.'
+      ),
       component: 'TOAST_UNDO'
     })
   )
@@ -44,7 +47,7 @@ export function removeAllSegments () {
   infoBubble.hide()
   store.dispatch(
     addToast({
-      message: t(
+      message: formatMessage(
         'toast.all-segments-deleted',
         'All segments have been removed.'
       ),
