@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import PaletteContainer from '../PaletteContainer'
 
@@ -53,5 +54,25 @@ describe('PaletteContainer', () => {
     })
 
     expect(screen.queryByRole('list')).toBe(null)
+  })
+
+  it('displays tooltips on mouse hover', async () => {
+    renderWithReduxAndIntl(<PaletteContainer />, {
+      initialState: {
+        app: {
+          everythingLoaded: true
+        }
+      }
+    })
+
+    // Note: the tippyJS instance is actually on a child div of the listitem
+    // element, because we are unable to wrap the <li> with <Tooltip> and then
+    // send it to react-dnd. This limitation means we touch the implementation
+    // in order to test hover on the correct element.
+    userEvent.hover(screen.getAllByRole('listitem')[0].querySelector('div'))
+
+    await waitFor(() => {
+      expect(screen.getByText('Sidewalk')).toBeInTheDocument()
+    })
   })
 })
