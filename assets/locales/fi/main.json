@@ -114,7 +114,7 @@
     "survey-finished": "Kysely on päättynyt. Kiitos avustasi!",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
-    "auth-expired": "",
+    "auth-expired": "Sinut kirjattu automaattisesti ulos toimettumuuden vuoksi.",
     "sign-in-again": "Kirjaudu sisään uudelleen.",
     "access-denied-title": "Et ole kirjautunut sisään.",
     "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
@@ -412,9 +412,9 @@
     "thank-you": "Kiitos!",
     "about-header": "Haluamme ymmärtää ihmisten mielipiteitä kaduista",
     "about-article": {
-      "paragraph-1": "",
-      "paragraph-2": "",
-      "paragraph-3": ""
+      "paragraph-1": "Katuja suunnittelee lähinnä insinöörit, mutta meidän mielestämme suunnittelussa tulisi ottaa huomioon kaikkien ihmisten tarpeet. Selvitämme ihmisten mielipiteitä pikakyselyllä yhteistyössä <a>Uudenlaisen urbaanin liikkuvuuden allianssin</a> (New Urban Mobility Alliance) kanssa.",
+      "paragraph-2": "Keräämme tietoa siitä millaisia tuntemuksia erilaiset kadun ominaisuudet herättävät. Piakkoin suunnittelemme tarjoavan vastausten pohjalta kehitettyjä suunnittelusuosituksia Streetmixin käyttäjille.",
+      "paragraph-3": "Yhtä katua kohden voi antaa yhden äänen, mutta voit pyytää muita vastaamaan kyselyyn minkä tahansa kadun kohdalla jakamalla linkin <a>https://streetmix.net/survey/</a>."
     },
     "done": {
       "response": "Vastasit kohteeseen {score}",
