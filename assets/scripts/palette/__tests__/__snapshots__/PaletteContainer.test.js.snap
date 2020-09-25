@@ -44,6 +44,16 @@ exports[`PaletteContainer renders 1`] = `
     <div
       class="palette-items-scrollable-container"
     >
+      <button
+        class="scrollable scroll-left"
+        hidden="true"
+        style="left: -15px; opacity: 0; pointer-events: none;"
+        tabindex="-1"
+      >
+        <svg
+          class="svg-inline--fa fa-chevron-left"
+        />
+      </button>
       <div
         class="palette-items"
       >
@@ -428,16 +438,10 @@ exports[`PaletteContainer renders 1`] = `
         </ul>
       </div>
       <button
-        class="scrollable scroll-left"
-        style="left: -15px; opacity: 0; pointer-events: none;"
-      >
-        <svg
-          class="svg-inline--fa fa-chevron-left"
-        />
-      </button>
-      <button
         class="scrollable scroll-right"
+        hidden="true"
         style="right: -15px; opacity: 0; pointer-events: none;"
+        tabindex="-1"
       >
         <svg
           class="svg-inline--fa fa-chevron-right"
