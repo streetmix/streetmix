@@ -20,6 +20,16 @@ exports[`Gallery renders global gallery view 1`] = `
         <div
           class="streets-scrollable-container"
         >
+          <button
+            class="scrollable scroll-left"
+            hidden="true"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-left"
+            />
+          </button>
           <div
             class="streets"
           >
@@ -61,16 +71,10 @@ exports[`Gallery renders global gallery view 1`] = `
             </div>
           </div>
           <button
-            class="scrollable scroll-left"
-            style="left: -15px; opacity: 0; pointer-events: none;"
-          >
-            <svg
-              class="svg-inline--fa fa-chevron-left"
-            />
-          </button>
-          <button
             class="scrollable scroll-right"
+            hidden="true"
             style="right: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
           >
             <svg
               class="svg-inline--fa fa-chevron-right"
@@ -148,6 +152,16 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
         <div
           class="streets-scrollable-container"
         >
+          <button
+            class="scrollable scroll-left"
+            hidden="true"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-left"
+            />
+          </button>
           <div
             class="streets"
           >
@@ -184,16 +198,10 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
             </div>
           </div>
           <button
-            class="scrollable scroll-left"
-            style="left: -15px; opacity: 0; pointer-events: none;"
-          >
-            <svg
-              class="svg-inline--fa fa-chevron-left"
-            />
-          </button>
-          <button
             class="scrollable scroll-right"
+            hidden="true"
             style="right: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
           >
             <svg
               class="svg-inline--fa fa-chevron-right"
@@ -265,6 +273,16 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
         <div
           class="streets-scrollable-container"
         >
+          <button
+            class="scrollable scroll-left"
+            hidden="true"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
+          >
+            <svg
+              class="svg-inline--fa fa-chevron-left"
+            />
+          </button>
           <div
             class="streets"
           >
@@ -309,16 +327,10 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
             </div>
           </div>
           <button
-            class="scrollable scroll-left"
-            style="left: -15px; opacity: 0; pointer-events: none;"
-          >
-            <svg
-              class="svg-inline--fa fa-chevron-left"
-            />
-          </button>
-          <button
             class="scrollable scroll-right"
+            hidden="true"
             style="right: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
           >
             <svg
               class="svg-inline--fa fa-chevron-right"

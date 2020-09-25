@@ -93,9 +93,13 @@ const Scrollable = React.forwardRef((props, ref) => {
     if (el.scrollLeft === 0) {
       left.style.opacity = 0
       left.style.pointerEvents = 'none'
+      left.setAttribute('hidden', true)
+      left.setAttribute('tabindex', '-1')
     } else {
       left.style.opacity = 1
       left.style.pointerEvents = 'auto'
+      left.removeAttribute('hidden')
+      left.setAttribute('tabindex', '0')
     }
 
     // scrollLeft will be a negative value if direction is `rtl`,
@@ -104,9 +108,13 @@ const Scrollable = React.forwardRef((props, ref) => {
     if (Math.abs(el.scrollLeft) === el.scrollWidth - el.offsetWidth) {
       right.style.opacity = 0
       right.style.pointerEvents = 'none'
+      right.setAttribute('hidden', true)
+      right.setAttribute('tabindex', '-1')
     } else {
       right.style.opacity = 1
       right.style.pointerEvents = 'auto'
+      right.removeAttribute('hidden')
+      right.setAttribute('tabindex', '0')
     }
   }
 
@@ -116,6 +124,14 @@ const Scrollable = React.forwardRef((props, ref) => {
 
   return (
     <div className={containerClassName} ref={ref}>
+      {/* Buttons frame the content to preserve tab order */}
+      <button
+        className="scrollable scroll-left"
+        onClick={handleClickLeft}
+        ref={leftButtonEl}
+      >
+        <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
+      </button>
       <div
         className={className}
         onScroll={handleScrollContainer}
@@ -128,13 +144,6 @@ const Scrollable = React.forwardRef((props, ref) => {
       >
         {children}
       </div>
-      <button
-        className="scrollable scroll-left"
-        onClick={handleClickLeft}
-        ref={leftButtonEl}
-      >
-        <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
-      </button>
       <button
         className="scrollable scroll-right"
         onClick={handleClickRight}
