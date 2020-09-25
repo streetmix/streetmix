@@ -52,6 +52,9 @@
   overflow-y: hidden;
   white-space: nowrap;
 
+  // Keep palette items center aligned when the viewport is very wide
+  text-align: center;
+
   ul {
     margin: 0;
     padding: 0;
