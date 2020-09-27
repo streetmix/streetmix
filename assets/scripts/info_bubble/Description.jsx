@@ -18,6 +18,7 @@ export class Description extends React.Component {
     onMouseOver: PropTypes.func.isRequired,
     onMouseOut: PropTypes.func.isRequired,
     descriptionVisible: PropTypes.bool.isRequired,
+    noInternet: PropTypes.bool.isRequired,
     showDescription: PropTypes.func.isRequired,
     hideDescription: PropTypes.func.isRequired,
     infoBubbleEl: PropTypes.object
@@ -62,7 +63,7 @@ export class Description extends React.Component {
   }
 
   getDescriptionData (type, variantString) {
-    if (!type || !variantString) return null
+    if (!type) return null
 
     const segmentInfo = getSegmentInfo(type)
     const variantInfo = getSegmentVariantInfo(type, variantString)
@@ -84,11 +85,15 @@ export class Description extends React.Component {
 
     if (!description || !this.props.infoBubbleEl) return null
 
-    // If the description text doesn't exist or hasn't been translated, bail.
-    const text = formatMessage(`descriptions.${description.key}.text`, null, {
-      ns: 'segment-info'
-    })
-    if (!text || this.isEmptyText(text)) return null
+    // If the description content doesn't exist or hasn't been translated, bail.
+    const content = formatMessage(
+      `descriptions.${description.key}.content`,
+      null,
+      {
+        ns: 'segment-info'
+      }
+    )
+    if (!content || this.isEmptyText(content)) return null
 
     const defaultPrompt = (
       <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
@@ -102,9 +107,6 @@ export class Description extends React.Component {
         ns: 'segment-info'
       }
     )
-    const lede = formatMessage(`descriptions.${description.key}.lede`, null, {
-      ns: 'segment-info'
-    })
     const imageCaption = formatMessage(
       `descriptions.${description.key}.imageCaption`,
       null,
@@ -125,9 +127,9 @@ export class Description extends React.Component {
           visible={this.props.descriptionVisible}
           onClickHide={this.handleClickHide}
           image={description.image}
-          lede={lede}
-          text={text}
+          content={content}
           caption={imageCaption}
+          noInternet={this.props.noInternet}
           bubbleY={Number.parseInt(this.props.infoBubbleEl.style.top)}
         />
       </>
@@ -136,7 +138,8 @@ export class Description extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  descriptionVisible: state.infoBubble.descriptionVisible
+  descriptionVisible: state.infoBubble.descriptionVisible,
+  noInternet: state.system.noInternet
 })
 
 const mapDispatchToProps = {

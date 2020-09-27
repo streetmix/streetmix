@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import ReactMarkdown from 'react-markdown'
 import Transition from 'react-transition-group/Transition'
 import Triangle from './Triangle'
 import { getStreetSectionTop } from '../app/window_resize'
@@ -28,11 +29,11 @@ export default class DescriptionPanel extends React.Component {
   static propTypes = {
     visible: PropTypes.bool,
     image: PropTypes.string,
-    lede: PropTypes.string,
-    text: PropTypes.arrayOf(PropTypes.string),
+    content: PropTypes.string,
     caption: PropTypes.string,
     onClickHide: PropTypes.func,
-    bubbleY: PropTypes.number
+    bubbleY: PropTypes.number,
+    noInternet: PropTypes.bool
   }
 
   static defaultProps = {
@@ -43,19 +44,9 @@ export default class DescriptionPanel extends React.Component {
   constructor (props) {
     super(props)
 
-    this.text = null
-
     this.state = {
       highlightTriangle: false
     }
-  }
-
-  componentDidMount () {
-    this.retargetAnchors()
-  }
-
-  componentDidUpdate () {
-    this.retargetAnchors()
   }
 
   unhighlightTriangleDelayed = () => {
@@ -68,37 +59,9 @@ export default class DescriptionPanel extends React.Component {
     this.setState({ highlightTriangle: !this.state.highlightTriangle })
   }
 
-  /**
-   * After rendering, modify DOM output to ensure all links inside of
-   * description text opens in a new window
-   */
-  retargetAnchors = () => {
-    if (!this.text) return
-    const links = this.text.querySelectorAll('a')
-    for (const link of links) {
-      link.target = '_blank'
-      link.rel = 'noopener noreferrer'
-    }
-  }
-
   handleClickHide = (event) => {
     this.props.onClickHide()
     this.unhighlightTriangleDelayed()
-  }
-
-  /**
-   * Renders description text
-   *
-   * @param {Array} text - array of paragraphs (as strings)
-   */
-  renderText (text) {
-    if (!text) return null
-    return text.map((paragraph, index) => {
-      const html = {
-        __html: paragraph
-      }
-      return <p key={index} dangerouslySetInnerHTML={html} />
-    })
   }
 
   render () {
@@ -116,12 +79,7 @@ export default class DescriptionPanel extends React.Component {
               height
             }}
           >
-            <div
-              className="description"
-              ref={(ref) => {
-                this.text = ref
-              }}
-            >
+            <div className="description">
               <div className="description-content">
                 {/* TODO: add alt text and requisite a11y attributes */}
                 {this.props.image && (
@@ -130,13 +88,23 @@ export default class DescriptionPanel extends React.Component {
                   />
                 )}
                 <div className="description-text">
-                  {this.props.lede && (
-                    <p
-                      className="description-lede"
-                      dangerouslySetInnerHTML={{ __html: this.props.lede }}
-                    />
-                  )}
-                  {this.renderText(this.props.text)}
+                  <ReactMarkdown
+                    source={this.props.content}
+                    allowedTypes={[
+                      'root',
+                      'text',
+                      'paragraph',
+                      'emphasis',
+                      'strong',
+                      'list',
+                      'listItem',
+                      'blockquote',
+                      'heading',
+                      !this.props.noInternet && 'link'
+                    ]}
+                    unwrapDisallowed={true}
+                    linkTarget="_blank"
+                  />
                   {this.props.caption && (
                     <footer>
                       <FormattedMessage
