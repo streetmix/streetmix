@@ -81,10 +81,10 @@ export default class DescriptionPanel extends React.Component {
           >
             <div className="description">
               <div className="description-content">
-                {/* TODO: add alt text and requisite a11y attributes */}
                 {this.props.image && (
                   <img
                     src={`/images/info-bubble-examples/${this.props.image}`}
+                    alt={this.props.caption || ''}
                   />
                 )}
                 <div className="description-text">
