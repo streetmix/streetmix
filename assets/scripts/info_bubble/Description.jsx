@@ -1,129 +1,114 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import DescriptionPanel from './DescriptionPanel'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
-import { trackEvent } from '../app/event_tracking'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { formatMessage } from '../locales/locale'
 import { showDescription, hideDescription } from '../store/slices/infoBubble'
 
-export class Description extends React.Component {
-  static propTypes = {
-    type: PropTypes.string,
-    variantString: PropTypes.string,
-    updateHoverPolygon: PropTypes.func.isRequired,
-    updateBubbleDimensions: PropTypes.func.isRequired,
-    onMouseOver: PropTypes.func.isRequired,
-    onMouseOut: PropTypes.func.isRequired,
-    descriptionVisible: PropTypes.bool.isRequired,
-    noInternet: PropTypes.bool.isRequired,
-    showDescription: PropTypes.func.isRequired,
-    hideDescription: PropTypes.func.isRequired,
-    infoBubbleEl: PropTypes.object
+function getDescriptionData (type, variantString) {
+  if (!type) return null
+
+  const segmentInfo = getSegmentInfo(type)
+  const variantInfo = getSegmentVariantInfo(type, variantString)
+
+  if (variantInfo && variantInfo.description) {
+    return variantInfo.description
+  } else if (segmentInfo && segmentInfo.description) {
+    return segmentInfo.description
   }
 
-  handleClickShow = () => {
-    this.props.showDescription()
-    this.props.updateBubbleDimensions()
-    this.props.updateHoverPolygon()
+  return null
+}
 
-    registerKeypress('esc', this.handleClickHide)
-    trackEvent('INTERACTION', 'LEARN_MORE', this.props.type, null, false)
+Description.propTypes = {
+  type: PropTypes.string,
+  variantString: PropTypes.string,
+  updateHoverPolygon: PropTypes.func.isRequired,
+  updateBubbleDimensions: PropTypes.func.isRequired,
+  onMouseOver: PropTypes.func.isRequired,
+  onMouseOut: PropTypes.func.isRequired,
+  infoBubbleEl: PropTypes.object
+}
+
+function Description (props) {
+  const descriptionVisible = useSelector(
+    (state) => state.infoBubble.descriptionVisible
+  )
+  const noInternet = useSelector((state) => state.system.noInternet)
+  const dispatch = useDispatch()
+
+  function handleClickShow () {
+    dispatch(showDescription())
+    props.updateBubbleDimensions()
+    props.updateHoverPolygon()
+
+    registerKeypress('esc', handleClickHide)
   }
 
-  handleClickHide = () => {
-    this.props.hideDescription()
-    this.props.updateBubbleDimensions()
-    this.props.updateHoverPolygon()
+  function handleClickHide () {
+    dispatch(hideDescription())
+    props.updateBubbleDimensions()
+    props.updateHoverPolygon()
 
-    deregisterKeypress('esc', this.handleClickHide)
+    deregisterKeypress('esc', handleClickHide)
   }
 
-  getDescriptionData (type, variantString) {
-    if (!type) return null
+  const description = getDescriptionData(props.type, props.variantString)
 
-    const segmentInfo = getSegmentInfo(type)
-    const variantInfo = getSegmentVariantInfo(type, variantString)
+  if (!description || !props.infoBubbleEl) return null
 
-    if (variantInfo && variantInfo.description) {
-      return variantInfo.description
-    } else if (segmentInfo && segmentInfo.description) {
-      return segmentInfo.description
-    } else {
-      return null
+  // If the description content doesn't exist or hasn't been translated, bail.
+  const content = formatMessage(
+    `descriptions.${description.key}.content`,
+    null,
+    {
+      ns: 'segment-info'
     }
-  }
+  )
+  if (!content) return null
 
-  render () {
-    const description = this.getDescriptionData(
-      this.props.type,
-      this.props.variantString
-    )
+  const defaultPrompt = (
+    <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
+  )
 
-    if (!description || !this.props.infoBubbleEl) return null
+  // TODO: use FormattedMessage
+  const prompt = formatMessage(
+    `descriptions.${description.key}.prompt`,
+    defaultPrompt,
+    {
+      ns: 'segment-info'
+    }
+  )
+  const imageCaption = formatMessage(
+    `descriptions.${description.key}.imageCaption`,
+    null,
+    { ns: 'segment-info' }
+  )
 
-    // If the description content doesn't exist or hasn't been translated, bail.
-    const content = formatMessage(
-      `descriptions.${description.key}.content`,
-      null,
-      {
-        ns: 'segment-info'
-      }
-    )
-    if (!content) return null
-
-    const defaultPrompt = (
-      <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
-    )
-
-    // TODO: use FormattedMessage
-    const prompt = formatMessage(
-      `descriptions.${description.key}.prompt`,
-      defaultPrompt,
-      {
-        ns: 'segment-info'
-      }
-    )
-    const imageCaption = formatMessage(
-      `descriptions.${description.key}.imageCaption`,
-      null,
-      { ns: 'segment-info' }
-    )
-
-    return (
-      <>
-        <div
-          className="description-prompt"
-          onClick={this.handleClickShow}
-          onMouseOver={this.props.onMouseOver}
-          onMouseOut={this.props.onMouseOut}
-        >
-          {prompt}
-        </div>
-        <DescriptionPanel
-          visible={this.props.descriptionVisible}
-          onClickHide={this.handleClickHide}
-          image={description.image}
-          content={content}
-          caption={imageCaption}
-          noInternet={this.props.noInternet}
-          bubbleY={Number.parseInt(this.props.infoBubbleEl.style.top)}
-        />
-      </>
-    )
-  }
+  return (
+    <>
+      <div
+        className="description-prompt"
+        onClick={handleClickShow}
+        onMouseOver={props.onMouseOver}
+        onMouseOut={props.onMouseOut}
+      >
+        {prompt}
+      </div>
+      <DescriptionPanel
+        visible={descriptionVisible}
+        onClickHide={handleClickHide}
+        image={description.image}
+        content={content}
+        caption={imageCaption}
+        noInternet={noInternet}
+        bubbleY={Number.parseInt(props.infoBubbleEl.style.top)}
+      />
+    </>
+  )
 }
 
-const mapStateToProps = (state) => ({
-  descriptionVisible: state.infoBubble.descriptionVisible,
-  noInternet: state.system.noInternet
-})
-
-const mapDispatchToProps = {
-  showDescription,
-  hideDescription
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Description)
+export default Description

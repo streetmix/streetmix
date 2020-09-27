@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
@@ -25,111 +25,108 @@ const TRANSITION_STYLES = {
   }
 }
 
-export default class DescriptionPanel extends React.Component {
-  static propTypes = {
-    visible: PropTypes.bool,
-    image: PropTypes.string,
-    content: PropTypes.string,
-    caption: PropTypes.string,
-    onClickHide: PropTypes.func,
-    bubbleY: PropTypes.number,
-    noInternet: PropTypes.bool
-  }
+DescriptionPanel.propTypes = {
+  visible: PropTypes.bool,
+  image: PropTypes.string,
+  content: PropTypes.string,
+  caption: PropTypes.string,
+  onClickHide: PropTypes.func,
+  bubbleY: PropTypes.number,
+  noInternet: PropTypes.bool
+}
 
-  static defaultProps = {
-    visible: false,
-    onClickHide: () => {}
-  }
+function DescriptionPanel ({
+  visible = false,
+  image,
+  content,
+  caption,
+  onClickHide = () => {},
+  bubbleY,
+  noInternet = false
+}) {
+  const [highlightTriangle, setHighlightTriangle] = useState(false)
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      highlightTriangle: false
-    }
-  }
-
-  unhighlightTriangleDelayed = () => {
+  function unhighlightTriangleDelayed () {
     window.setTimeout(() => {
-      this.setState({ highlightTriangle: false })
+      setHighlightTriangle(false)
     }, 200)
   }
 
-  handleToggleHighlightTriangle = () => {
-    this.setState({ highlightTriangle: !this.state.highlightTriangle })
+  function handleToggleHighlightTriangle () {
+    setHighlightTriangle(!highlightTriangle)
   }
 
-  handleClickHide = (event) => {
-    this.props.onClickHide()
-    this.unhighlightTriangleDelayed()
+  function handleClickHide (event) {
+    onClickHide()
+    unhighlightTriangleDelayed()
   }
 
-  render () {
-    // TODO document magic numbers
-    const height = getStreetSectionTop() + 300 - this.props.bubbleY + 'px'
+  // TODO document magic numbers
+  const height = getStreetSectionTop() + 300 - bubbleY + 'px'
 
-    return (
-      <Transition in={this.props.visible} timeout={TRANSITION_DURATION}>
-        {(state) => (
-          <div
-            className="description-canvas"
-            style={{
-              ...DEFAULT_STYLE,
-              ...TRANSITION_STYLES[state],
-              height
-            }}
-          >
-            <div className="description">
-              <div className="description-content">
-                {this.props.image && (
-                  <img
-                    src={`/images/info-bubble-examples/${this.props.image}`}
-                    alt={this.props.caption || ''}
-                  />
+  return (
+    <Transition in={visible} timeout={TRANSITION_DURATION}>
+      {(state) => (
+        <div
+          className="description-canvas"
+          style={{
+            ...DEFAULT_STYLE,
+            ...TRANSITION_STYLES[state],
+            height
+          }}
+        >
+          <div className="description">
+            <div className="description-content">
+              {image && (
+                <img
+                  src={`/images/info-bubble-examples/${image}`}
+                  alt={caption || ''}
+                />
+              )}
+              <div className="description-text">
+                <ReactMarkdown
+                  source={content}
+                  allowedTypes={[
+                    'root',
+                    'text',
+                    'paragraph',
+                    'emphasis',
+                    'strong',
+                    'list',
+                    'listItem',
+                    'blockquote',
+                    'heading',
+                    !noInternet && 'link'
+                  ]}
+                  unwrapDisallowed={true}
+                  linkTarget="_blank"
+                />
+                {caption && (
+                  <footer>
+                    <FormattedMessage
+                      id="segments.description.photo-credit"
+                      defaultMessage="Photo:"
+                    />
+                    &nbsp;
+                    {caption}
+                  </footer>
                 )}
-                <div className="description-text">
-                  <ReactMarkdown
-                    source={this.props.content}
-                    allowedTypes={[
-                      'root',
-                      'text',
-                      'paragraph',
-                      'emphasis',
-                      'strong',
-                      'list',
-                      'listItem',
-                      'blockquote',
-                      'heading',
-                      !this.props.noInternet && 'link'
-                    ]}
-                    unwrapDisallowed={true}
-                    linkTarget="_blank"
-                  />
-                  {this.props.caption && (
-                    <footer>
-                      <FormattedMessage
-                        id="segments.description.photo-credit"
-                        defaultMessage="Photo:"
-                      />
-                      &nbsp;
-                      {this.props.caption}
-                    </footer>
-                  )}
-                </div>
               </div>
             </div>
-            <div
-              className="description-close"
-              onClick={this.handleClickHide}
-              onMouseOver={this.handleToggleHighlightTriangle}
-              onMouseOut={this.handleToggleHighlightTriangle}
-            >
-              <FormattedMessage id="btn.close" defaultMessage="Close" />
-            </div>
-            <Triangle highlight={this.state.highlightTriangle} />
           </div>
-        )}
-      </Transition>
-    )
-  }
+          <div
+            className="description-close"
+            onClick={handleClickHide}
+            onMouseOver={handleToggleHighlightTriangle}
+            onMouseOut={handleToggleHighlightTriangle}
+          >
+            <FormattedMessage id="btn.close" defaultMessage="Close" />
+          </div>
+          <Triangle highlight={highlightTriangle} />
+        </div>
+      )}
+    </Transition>
+  )
 }
+
+export default DescriptionPanel
