@@ -41,27 +41,6 @@ export class Description extends React.Component {
     deregisterKeypress('esc', this.handleClickHide)
   }
 
-  /**
-   * Given an array of strings, returns true if it's falsy, an empty array,
-   * or an array of empty strings.
-   *
-   * @param {Array} array
-   */
-  isEmptyText (array) {
-    if (!array) return true
-    if (Array.isArray(array)) {
-      if (array.length === 0) return true
-
-      let isEmpty = true
-      for (let i = 0; i < array.length; i++) {
-        if (array[i]) isEmpty = false
-      }
-      if (isEmpty) return true
-    }
-
-    return false
-  }
-
   getDescriptionData (type, variantString) {
     if (!type) return null
 
@@ -93,7 +72,7 @@ export class Description extends React.Component {
         ns: 'segment-info'
       }
     )
-    if (!content || this.isEmptyText(content)) return null
+    if (!content) return null
 
     const defaultPrompt = (
       <FormattedMessage id="segments.learn-more" defaultMessage="Learn more" />
