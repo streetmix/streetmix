@@ -125,7 +125,7 @@
     "intl-messageformat": "9.3.8",
     "intl-pluralrules": "1.2.0",
     "js-cookie": "2.2.1",
-    "json2csv": "5.0.1",
+    "json2csv": "5.0.3",
     "jwks-rsa": "1.9.0",
     "jwt-decode": "2.2.0",
     "leaflet": "1.6.0",
