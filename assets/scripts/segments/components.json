@@ -671,7 +671,7 @@
       }
     },
     "brt-station": {
-      "name": "Bus rapid transit (BRT) station",
+      "name": "BRT station",
       "nameKey": "brt-station",
       "owner": "TRANSIT",
       "zIndex": 20,
@@ -1216,7 +1216,7 @@
       }
     },
     "brt-bus": {
-      "name": "Rapid bus",
+      "name": "BRT",
       "nameKey": "brt-bus",
       "owner": "TRANSIT",
       "zIndex": 15,
