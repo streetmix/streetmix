@@ -80,3 +80,27 @@ export function animate (el, props, duration) {
     step: (state) => Object.assign(el, state)
   })
 }
+
+export function isExternalUrl (url) {
+  // Based on is-url-external
+  // @see: https://github.com/mrded/is-url-external
+  const { hostname } = window.location
+
+  const urlHostname = (function (url) {
+    if (/^https?:\/\//.test(url)) {
+      // Absolute URL
+
+      // The easy way to parse an URL, is to create <a> element.
+      // @see: https://gist.github.com/jlong/2428561
+      const parser = document.createElement('a')
+      parser.href = url
+
+      return parser.hostname
+    }
+
+    // Relative URL
+    return window.location.hostname
+  }(url))
+
+  return hostname !== urlHostname
+}

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExternalLink renders an <a> element with element child 1`] = `
+<DocumentFragment>
+  <a
+    href="https://example.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <div>
+      foo
+    </div>
+  </a>
+</DocumentFragment>
+`;
+
+exports[`ExternalLink renders an <a> element with string child 1`] = `
+<DocumentFragment>
+  <a
+    href="https://example.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    foo
+  </a>
+</DocumentFragment>
+`;
+
+exports[`ExternalLink renders element child without an <a> element in "no-internet" mode 1`] = `
+<DocumentFragment>
+  <div>
+    foo
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ExternalLink renders string child without an <a> element in "no-internet" mode 1`] = `
+<DocumentFragment>
+  foo
+</DocumentFragment>
+`;
