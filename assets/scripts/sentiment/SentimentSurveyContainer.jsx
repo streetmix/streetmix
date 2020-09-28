@@ -36,7 +36,9 @@ function SentimentSurveyContainer (props) {
         setVisible(true)
       }, SURVEY_DELAY_BEFORE_APPEAR)
     }
-  })
+    // only re-run the effect if the value of isDismissed has changed
+    // previously, the useEffect hook was getting called several times
+  }, [isDismissed])
 
   useEffect(() => {
     if (isEnabled) {
