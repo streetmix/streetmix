@@ -39,8 +39,8 @@
     "streetcar": "Streetcar",
     "light-rail": "Light rail",
     "transit-shelter": "Transit shelter",
-    "brt-station": "Bus rapid transit (BRT) station",
-    "brt-bus-lane": "Rapid bus lane",
+    "brt-station": "BRT station",
+    "brt-lane": "Bus rapid transit lane",
     "temporary-barrier": "Temporary barrier",
     "inception-train": "“Inception” train",
     "magic-carpet": "Magic carpet"

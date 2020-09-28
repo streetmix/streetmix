@@ -4341,7 +4341,7 @@
     }
   },
   "brt-station": {
-    "name": "Bus rapid transit (BRT) station",
+    "name": "BRT station",
     "nameKey": "brt-station",
     "owner": "TRANSIT",
     "zIndex": 20,
@@ -4415,15 +4415,15 @@
       }
     }
   },
-  "brt-bus-lane": {
-    "name": "Rapid bus lane",
-    "nameKey": "brt-bus-lane",
+  "brt-lane": {
+    "name": "Bus rapid transit lane",
+    "nameKey": "brt-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
     "defaultWidth": 12,
     "enableWithFlag": "SEGMENT_BRT",
     "rules": {
-      "minWidth": 10,
+      "minWidth": 11.5,
       "maxWidth": 13
     },
     "variants": ["direction", "brt-asphalt"],
