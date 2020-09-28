@@ -12,15 +12,15 @@ import {
   BUILDING_RIGHT_POSITION
 } from '../segments/constants'
 import {
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from './constants'
-import {
   setBuildingVariant,
   changeSegmentVariant
 } from '../store/slices/street'
 import { ICON_LOCK } from '../ui/icons'
+import {
+  INFO_BUBBLE_TYPE_SEGMENT,
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
 
 Variants.propTypes = {
   type: PropTypes.number,
@@ -144,15 +144,29 @@ function Variants (props) {
     })
     // Add a note to the tooltip when disabled
     if (isLocked) {
-      title +=
-        ' — ' +
-        intl.formatMessage({
-          id: 'plus.locked.user',
-          // Default message ends with a Unicode-only left-right order mark
-          // to allow for proper punctuation in `rtl` text direction
-          // This character is hidden from editors by default!
-          defaultMessage: 'Sign in to use!‎'
-        })
+      let enableConditionText
+      switch (icon.enableCondition) {
+        case 'SUBSCRIBE':
+          enableConditionText = intl.formatMessage({
+            id: 'plus.locked.sub',
+            // Default message ends with a Unicode-only left-right order mark
+            // to allow for proper punctuation in `rtl` text direction
+            // This character is hidden from editors by default!
+            defaultMessage: 'Subscribe to use!‎'
+          })
+          break
+        case 'SIGN_IN':
+        default:
+          enableConditionText = intl.formatMessage({
+            id: 'plus.locked.user',
+            // Default message ends with a Unicode-only left-right order mark
+            // to allow for proper punctuation in `rtl` text direction
+            // This character is hidden from editors by default!
+            defaultMessage: 'Sign in to use!‎'
+          })
+          break
+      }
+      title += ' — ' + enableConditionText
     }
 
     const isSelected = isVariantCurrentlySelected(set, selection)

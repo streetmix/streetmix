@@ -65,16 +65,24 @@
     "label": "Segment — autonomous vehicles",
     "defaultValue": false
   },
+  "SEGMENT_AV_SHUTTLE": {
+    "label": "Segment — autonomous shuttle",
+    "defaultValue": false
+  },
   "SEGMENT_BRT": {
     "label": "Segment — BRT",
     "defaultValue": false
   },
   "SEGMENT_CAFE_SEATING": {
-    "label": "Segment — café seating",
+    "label": "Segment — outdoor seating",
     "defaultValue": false
   },
   "SEGMENT_CONSTRUCTION": {
     "label": "Segment — construction items",
+    "defaultValue": false
+  },
+  "SEGMENT_DOUBLE_DECKER_BUS": {
+    "label": "Segment — double decker bus",
     "defaultValue": false
   },
   "SEGMENT_INCEPTION_TRAIN": {
@@ -87,6 +95,10 @@
   },
   "SEGMENT_MAGIC_CARPET": {
     "label": "Segment — magic carpet",
+    "defaultValue": false
+  },
+  "SEGMENT_MICROVAN": {
+    "label": "Segment — microvans",
     "defaultValue": false
   },
   "SEGMENT_PED_LANES": {

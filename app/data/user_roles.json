@@ -29,6 +29,9 @@
     "flags": {
       "ENVIRONMENT_EDITOR": true,
       "LOCALES_LEVEL_1": true,
+      "SEGMENT_AV_SHUTTLE": true,
+      "SEGMENT_DOUBLE_DECKER_BUS": true,
+      "SEGMENT_MICROVAN": true,
       "SEGMENT_UTILITIES": true,
       "CUSTOM_SEGMENT_LABELS": true
     }
