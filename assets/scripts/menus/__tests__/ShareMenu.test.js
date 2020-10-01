@@ -213,4 +213,12 @@ describe('ShareMenu', () => {
     fireEvent.click(wrapper.getByTitle('Copy to clipboard'))
     expect(copy).toBeCalledTimes(1)
   })
+
+  it('does not render external share links in no internet mode', () => {
+    const { asFragment } = renderWithReduxAndIntl(<ShareMenu />, {
+      initialState: { system: { noInternet: true } }
+    })
+
+    expect(asFragment()).toMatchSnapshot()
+  })
 })

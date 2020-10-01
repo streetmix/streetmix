@@ -14,6 +14,7 @@ import { startPrinting } from '../store/slices/app'
 import './ShareMenu.scss'
 
 function ShareMenu (props) {
+  const noInternet = useSelector((state) => state.system.noInternet)
   const signedIn = useSelector((state) => state.user.signedIn || false)
   const userId = useSelector((state) => state.user.signInData?.userId || '')
   const street = useSelector((state) => state.street)
@@ -176,57 +177,61 @@ function ShareMenu (props) {
 
   return (
     <Menu onShow={handleShow} className="share-menu" {...props}>
-      {signInPromo}
-      <div className="share-via-link-container">
-        <FormattedMessage
-          id="menu.share.link"
-          defaultMessage="Copy and paste this link to share:"
-        />
-        <div className="share-via-link-form">
-          <input
-            className="share-via-link"
-            type="text"
-            value={shareUrl}
-            spellCheck="false"
-            ref={shareViaLinkInputRef}
-            readOnly={true}
-          />
-          <button
-            title={intl.formatMessage({
-              id: 'menu.share.copy-to-clipboard',
-              defaultMessage: 'Copy to clipboard'
-            })}
-            onClick={(event) => {
-              event.preventDefault()
-              copy(shareUrl)
-            }}
+      {!noInternet && (
+        <>
+          {signInPromo}
+          <div className="share-via-link-container">
+            <FormattedMessage
+              id="menu.share.link"
+              defaultMessage="Copy and paste this link to share:"
+            />
+            <div className="share-via-link-form">
+              <input
+                className="share-via-link"
+                type="text"
+                value={shareUrl}
+                spellCheck="false"
+                ref={shareViaLinkInputRef}
+                readOnly={true}
+              />
+              <button
+                title={intl.formatMessage({
+                  id: 'menu.share.copy-to-clipboard',
+                  defaultMessage: 'Copy to clipboard'
+                })}
+                onClick={(event) => {
+                  event.preventDefault()
+                  copy(shareUrl)
+                }}
+              >
+                <Icon icon="copy" />
+              </button>
+            </div>
+          </div>
+          <ExternalLink
+            className="share-via-twitter"
+            href={twitterLink}
+            onClick={handleClickShareViaTwitter}
           >
-            <Icon icon="copy" />
-          </button>
-        </div>
-      </div>
-      <ExternalLink
-        className="share-via-twitter"
-        href={twitterLink}
-        onClick={handleClickShareViaTwitter}
-      >
-        <Icon icon="twitter" />
-        <FormattedMessage
-          id="menu.share.twitter"
-          defaultMessage="Share using Twitter"
-        />
-      </ExternalLink>
-      <ExternalLink
-        className="share-via-facebook"
-        href={facebookLink}
-        onClick={handleClickShareViaFacebook}
-      >
-        <Icon icon="facebook" />
-        <FormattedMessage
-          id="menu.share.facebook"
-          defaultMessage="Share using Facebook"
-        />
-      </ExternalLink>
+            <Icon icon="twitter" />
+            <FormattedMessage
+              id="menu.share.twitter"
+              defaultMessage="Share using Twitter"
+            />
+          </ExternalLink>
+          <ExternalLink
+            className="share-via-facebook"
+            href={facebookLink}
+            onClick={handleClickShareViaFacebook}
+          >
+            <Icon icon="facebook" />
+            <FormattedMessage
+              id="menu.share.facebook"
+              defaultMessage="Share using Facebook"
+            />
+          </ExternalLink>
+        </>
+      )}
       <a href="#" onClick={handleClickPrint}>
         <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
       </a>

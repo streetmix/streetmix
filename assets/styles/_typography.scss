@@ -1,13 +1,11 @@
-// Fonts
+//
+//  Typography
+//
+//  -------------------------------------------------------
 
 /* Set root font-size */
 html {
   font-size: $font-size-base;
-}
-
-@font-face {
-  font-family: "Roadgeek";
-  src: url("../fonts/roadgeek-2005-engschrift.otf");
 }
 
 body,
@@ -18,4 +16,100 @@ select,
 option {
   font-family: $font-family;
   font-size: 1rem;
+}
+
+// Local font files
+
+@font-face {
+  font-family: "Roadgeek";
+  src: url("../fonts/roadgeek-2005-engschrift.otf");
+}
+
+/**
+ * Rubik
+ */
+@font-face {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Rubik Regular"), local("Rubik-Regular"),
+    url("../fonts/rubik/Rubik-Regular.woff2") format("woff2"),
+    url("../fonts/rubik/Rubik-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Rubik Medium"), local("Rubik-Medium"),
+    url("../fonts/rubik/Rubik-Medium.woff2") format("woff2"),
+    url("../fonts/rubik/Rubik-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Rubik Italic"), local("Rubik-Italic"),
+    url("../fonts/rubik/Rubik-Italic.woff2") format("woff2"),
+    url("../fonts/rubik/Rubik-Italic.woff") format("woff");
+}
+
+/**
+ * Manrope
+ */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200;
+  src: url("../fonts/manrope/Manrope-ExtraLight.woff2") format("woff2"),
+    url("../fonts/manrope/Manrope-ExtraLight.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/manrope/Manrope-Light.woff2") format("woff2"),
+    url("../fonts/manrope/Manrope-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/manrope/Manrope-Regular.woff2") format("woff2"),
+    url("../fonts/manrope/Manrope-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/manrope/Manrope-Medium.woff2") format("woff2"),
+    url("../fonts/manrope/Manrope-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/manrope/Manrope-SemiBold.woff2") format("woff2"),
+    url("../fonts/manrope/Manrope-SemiBold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/manrope/Manrope-Bold.woff2") format("woff2"),
+    url("../fonts/manrope/Manrope-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 800;
+  src: url("../fonts/manrope/Manrope-ExtraBold.woff2") format("woff2"),
+    url("../fonts/manrope/Manrope-ExtraBold.woff") format("woff");
 }

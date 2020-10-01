@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ShareMenu does not render external share links in no internet mode 1`] = `
+<DocumentFragment>
+  <div
+    class="menu share-menu"
+  >
+    <a
+      href="#"
+    >
+      Print…
+    </a>
+    <a
+      href="#"
+      id="save-as-image"
+    >
+      Save as image…
+      <span
+        class="menu-item-subtext"
+      >
+        For including in a report, blog, etc.
+      </span>
+    </a>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`ShareMenu renders (user not signed in, anonymous user’s street, no street name) 1`] = `
 <DocumentFragment>
   <div
