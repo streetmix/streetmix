@@ -14,6 +14,18 @@ exports[`ExternalLink renders an <a> element with element child 1`] = `
 </DocumentFragment>
 `;
 
+exports[`ExternalLink renders an <a> element with mailto link 1`] = `
+<DocumentFragment>
+  <a
+    href="mailto:hello@streetmix.net"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    foo
+  </a>
+</DocumentFragment>
+`;
+
 exports[`ExternalLink renders an <a> element with string child 1`] = `
 <DocumentFragment>
   <a
