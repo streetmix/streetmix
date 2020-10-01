@@ -235,29 +235,8 @@ function observeStoreToUpdateBodyClasses () {
     document.body.classList.toggle('windows', state.system.windows)
     document.body.classList.toggle('safari', state.system.safari)
     document.body.classList.toggle('phone', state.system.phone)
-    document.body.classList.toggle('no-internet', state.system.noInternet)
     document.body.classList.toggle('read-only', state.app.readOnly)
-
-    // Disable links in no-internet mode
-    if (state.system.noInternet === true) {
-      document.body.addEventListener('click', blockLinksOnClick)
-    } else {
-      document.body.removeEventListener('click', blockLinksOnClick)
-    }
   }
 
   return observeStore(select, onChange)
-}
-
-/**
- * Disable all external links
- * CSS takes care of altering their appearance to resemble normal text
- */
-function blockLinksOnClick (event) {
-  if (
-    event.target.nodeName === 'A' &&
-    event.target.getAttribute('href').indexOf('http') === 0
-  ) {
-    event.preventDefault()
-  }
 }
