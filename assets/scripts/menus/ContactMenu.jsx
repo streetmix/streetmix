@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
+import ExternalLink from '../ui/ExternalLink'
 import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/slices/dialogs'
 
@@ -61,22 +62,15 @@ function ContactMenu (props) {
 
   return (
     <Menu {...props}>
-      <a
-        href="https://strt.mx/discord"
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={handleClickDiscord}
-      >
+      <ExternalLink href="https://strt.mx/discord" onClick={handleClickDiscord}>
         <Icon icon="discord" />
         <FormattedMessage
           id="menu.contact.discord"
           defaultMessage="Join Discord chat"
         />
-      </a>
-      <a
+      </ExternalLink>
+      <ExternalLink
         href="https://github.com/streetmix/streetmix/"
-        target="_blank"
-        rel="noopener noreferrer"
         onClick={handleClickGitHub}
       >
         <Icon icon="github" />
@@ -84,7 +78,7 @@ function ContactMenu (props) {
           id="menu.contact.github"
           defaultMessage="View source code on GitHub"
         />
-      </a>
+      </ExternalLink>
       <a
         href="#"
         onClick={(e) => {
@@ -97,10 +91,8 @@ function ContactMenu (props) {
           defaultMessage="Subscribe to our newsletter"
         />
       </a>
-      {/* <a
+      {/* <ExternalLink
         href="https://forums.streetmix.net/"
-        target="_blank"
-        rel="noopener noreferrer"
         onClick={handleClickForums}
       >
         <Icon icon="forums" />
@@ -108,11 +100,9 @@ function ContactMenu (props) {
           id="menu.contact.forums"
           defaultMessage="Discuss on the forums"
         />
-      </a>
-      <a
+      </ExternalLink>
+      <ExternalLink
         href="https://twitter.com/intent/tweet?text=@streetmix"
-        target="_blank"
-        rel="noopener noreferrer"
         onClick={handleClickTweet}
       >
         <Icon icon="twitter" />
@@ -120,7 +110,7 @@ function ContactMenu (props) {
           id="menu.contact.twitter"
           defaultMessage="Send a tweet to @streetmix"
         />
-      </a> */}
+      </ExternalLink> */}
     </Menu>
   )
 }
