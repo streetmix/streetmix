@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import copy from 'copy-to-clipboard'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import ShareMenu from '../ShareMenu'
@@ -178,39 +179,39 @@ describe('ShareMenu', () => {
     renderWithReduxAndIntl(<ShareMenu />, {
       initialState: { user: { signedIn: false } }
     })
-    fireEvent.click(screen.getByText('Sign in'))
+    userEvent.click(screen.getByText('Sign in'))
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('SIGN_IN')
   })
 
   it('handles clicking Twitter', () => {
     renderWithReduxAndIntl(<ShareMenu />)
-    fireEvent.click(screen.getByText('Twitter', { exact: false }))
+    userEvent.click(screen.getByText('Twitter', { exact: false }))
     expect(trackEvent).toBeCalledTimes(1)
   })
 
   it('handles clicking Facebook', () => {
     renderWithReduxAndIntl(<ShareMenu />)
-    fireEvent.click(screen.getByText('Facebook', { exact: false }))
+    userEvent.click(screen.getByText('Facebook', { exact: false }))
     expect(trackEvent).toBeCalledTimes(1)
   })
 
   it('handles clicking save as image', () => {
     renderWithReduxAndIntl(<ShareMenu />)
-    fireEvent.click(screen.getByText('Save as image', { exact: false }))
+    userEvent.click(screen.getByText('Save as image', { exact: false }))
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('SAVE_AS_IMAGE')
   })
 
   it('handles clicking print', () => {
     const { store } = renderWithReduxAndIntl(<ShareMenu />)
-    fireEvent.click(screen.getByText('Print', { exact: false }))
+    userEvent.click(screen.getByText('Print', { exact: false }))
     expect(store.getState().app.printing).toBe(true)
   })
 
   it('handles clicking copy to clipboard', () => {
     renderWithReduxAndIntl(<ShareMenu />)
-    fireEvent.click(screen.getByTitle('Copy to clipboard'))
+    userEvent.click(screen.getByTitle('Copy to clipboard'))
     expect(copy).toBeCalledTimes(1)
   })
 
