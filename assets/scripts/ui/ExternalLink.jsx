@@ -5,14 +5,11 @@ import { isExternalUrl } from '../util/helpers'
 const { ERRORS } = require('../../../lib/util')
 
 ExternalLink.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   href: PropTypes.string.isRequired
 }
 
-function ExternalLink ({ children, href }) {
+function ExternalLink ({ children, href, ...restProps }) {
   const noInternet = useSelector((state) => state.system.noInternet)
 
   if (!isExternalUrl(href)) {
@@ -24,7 +21,7 @@ function ExternalLink ({ children, href }) {
   }
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
+    <a href={href} target="_blank" rel="noopener noreferrer" {...restProps}>
       {children}
     </a>
   )
