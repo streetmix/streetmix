@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
+import ExternalLink from '../ui/ExternalLink'
 import './ErrorDialog.scss'
 
 /**
@@ -36,13 +37,9 @@ function ErrorDialog (props) {
                 defaultMessage="Something unexpected happened 😢. We’ve logged the error, but if you can remember what happened on the way here, <a>please tell us about it</a>. This could also be a temporary problem, so please try one more time."
                 values={{
                   a: (chunks) => (
-                    <a
-                      href="https://github.com/streetmix/streetmix/issues/new"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <ExternalLink href="https://github.com/streetmix/streetmix/issues/new">
                       {chunks}
-                    </a>
+                    </ExternalLink>
                   )
                 }}
               />

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
+import ExternalLink from '../ui/ExternalLink'
 import { trackEvent } from '../app/event_tracking'
 import './SentimentSurveyDialog.scss'
 
@@ -32,13 +33,9 @@ function SentimentSurveyDialog (props) {
                 defaultMessage="Many streets are designed by civil engineers, but we believe that design should include everyone’s point of view. In partnership with the <a>New Urban Mobility Alliance</a> (NUMO), we’re conducting this one-question survey to do just that."
                 values={{
                   a: (chunks) => (
-                    <a
-                      href="https://www.numo.global/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <ExternalLink href="https://www.numo.global/">
                       {chunks}
-                    </a>
+                    </ExternalLink>
                   )
                 }}
               />

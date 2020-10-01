@@ -113,16 +113,12 @@ function MenuBar (props) {
                 label="Donate"
                 translation="menu.contribute.donate"
                 url="https://opencollective.com/streetmix/"
-                target="_blank"
-                rel="noopener noreferrer"
               />
             )}
             <MenuBarItem
               label="Store"
               translation="menu.item.store"
               url="https://cottonbureau.com/people/streetmix"
-              target="_blank"
-              rel="noopener noreferrer"
             />
           </>
         )}

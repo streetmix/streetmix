@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import copy from 'copy-to-clipboard'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
+import ExternalLink from '../ui/ExternalLink'
 import { FACEBOOK_APP_ID } from '../app/config'
 import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
@@ -38,8 +39,7 @@ function ShareMenu (props) {
           message = intl.formatMessage(
             {
               id: 'menu.share.messages.my-street',
-              defaultMessage:
-                'Check out my street, {streetName}, on Streetmix!'
+              defaultMessage: 'Check out my street, {streetName}, on Streetmix!'
             },
             { streetName: street.name }
           )
@@ -205,11 +205,9 @@ function ShareMenu (props) {
           </button>
         </div>
       </div>
-      <a
+      <ExternalLink
         className="share-via-twitter"
         href={twitterLink}
-        target="_blank"
-        rel="noopener noreferrer"
         onClick={handleClickShareViaTwitter}
       >
         <Icon icon="twitter" />
@@ -217,12 +215,10 @@ function ShareMenu (props) {
           id="menu.share.twitter"
           defaultMessage="Share using Twitter"
         />
-      </a>
-      <a
+      </ExternalLink>
+      <ExternalLink
         className="share-via-facebook"
         href={facebookLink}
-        target="_blank"
-        rel="noopener noreferrer"
         onClick={handleClickShareViaFacebook}
       >
         <Icon icon="facebook" />
@@ -230,7 +226,7 @@ function ShareMenu (props) {
           id="menu.share.facebook"
           defaultMessage="Share using Facebook"
         />
-      </a>
+      </ExternalLink>
       <a href="#" onClick={handleClickPrint}>
         <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
       </a>

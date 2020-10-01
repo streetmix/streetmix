@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { Transition } from 'react-transition-group'
 import { FormattedMessage } from 'react-intl'
 import CloseButton from '../ui/CloseButton'
+import ExternalLink from '../ui/ExternalLink'
 import './NotificationBar.scss'
 
 const TRANSITION_DURATION = 250
@@ -97,16 +98,11 @@ function NotificationBar ({ notification = {} }) {
           </>
         )}
         {link && (
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="notification-bar-link"
-          >
+          <ExternalLink href={link} className="notification-bar-link">
             {linkText || (
               <FormattedMessage id="msg.more-info" defaultMessage="More info" />
             )}
-          </a>
+          </ExternalLink>
         )}
         <CloseButton onClick={handleClickDismiss} />
       </div>

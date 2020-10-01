@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import ExternalLink from '../ui/ExternalLink'
+import { isExternalUrl } from '../util/helpers'
 
 MenuBarItem.propTypes = {
   // Accepts children to render
@@ -32,13 +34,23 @@ export default function MenuBarItem (props) {
   )
 
   if (url) {
-    return (
-      <li>
-        <a href={url} onClick={onClick} {...restProps}>
-          {children}
-        </a>
-      </li>
-    )
+    if (isExternalUrl(url)) {
+      return (
+        <li>
+          <ExternalLink href={url} onClick={onClick} {...restProps}>
+            {children}
+          </ExternalLink>
+        </li>
+      )
+    } else {
+      return (
+        <li>
+          <a href={url} onClick={onClick} {...restProps}>
+            {children}
+          </a>
+        </li>
+      )
+    }
   } else {
     return (
       <li>

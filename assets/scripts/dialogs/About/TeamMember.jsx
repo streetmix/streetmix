@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ExternalLink from '../../ui/ExternalLink'
 import './TeamMember.scss'
 
 function TeamMember (props) {
@@ -10,9 +11,11 @@ function TeamMember (props) {
     style.backgroundImage = `url('/images/team/${mugshotFile}')`
   }
 
-  const displayName = (url)
-    ? <a target="_blank" rel="noopener noreferrer" href={url}>{name}</a>
-    : name
+  const displayName = url ? (
+    <ExternalLink href={url}>{name}</ExternalLink>
+  ) : (
+    name
+  )
 
   return (
     <div className="team-member">

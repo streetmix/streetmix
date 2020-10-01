@@ -996,7 +996,7 @@ exports[`BlockingError renders UNSUPPORTED_BROWSER 1`] = `
       <p>
         If you think your browser should be supported, please contact us via 
         <a
-          href="'mailto:hello@streetmix.net"
+          href="mailto:hello@streetmix.net"
           rel="noopener noreferrer"
           target="_blank"
         >

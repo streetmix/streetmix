@@ -9,10 +9,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
+import Checkbox from '../ui/Checkbox'
+import ExternalLink from '../ui/ExternalLink'
 import { FormatNumber } from '../util/formatting'
 import { trackEvent } from '../app/event_tracking'
 import { updateStreetAnalytics } from '../store/actions/street'
-import Checkbox from '../ui/Checkbox'
 
 import Terms from '../app/Terms'
 import {
@@ -162,14 +163,10 @@ function AnalyticsDialog (props) {
                   :
                 </strong>{' '}
                 <em>
-                  <a
-                    href="http://www.uncrd.or.jp/content/documents/5594Presentation%203%20-%20Module%201%20-%20Mr.%20Breithaupt.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <ExternalLink href="http://www.uncrd.or.jp/content/documents/5594Presentation%203%20-%20Module%201%20-%20Mr.%20Breithaupt.pdf">
                     Environmentally Sustainable Transport - Main Principles and
                     Impacts
-                  </a>
+                  </ExternalLink>
                 </em>
                 , Manfred Breithaupt, Deutsche Gesellschaft für Internationale
                 Zusammenarbeit (GIZ)

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import ExternalLink from '../ui/ExternalLink'
 
 Terms.propTypes = {
   locale: PropTypes.string
@@ -104,11 +105,7 @@ export default function Terms (props) {
 
   const renderCCLink = (locale) => {
     const { url, label } = getCCLinkByLocale(locale)
-    return (
-      <a href={url} target="_blank" rel="noopener noreferrer">
-        {label}&lrm;
-      </a>
-    )
+    return <ExternalLink href={url}>{label}&lrm;</ExternalLink>
   }
 
   return (
