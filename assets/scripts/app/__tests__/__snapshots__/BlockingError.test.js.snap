@@ -43,6 +43,38 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
 </DocumentFragment>
 `;
 
+exports[`BlockingError renders AUTH_EXPIRED 1`] = `
+<DocumentFragment>
+  <div
+    id="error"
+  >
+    <div
+      class="clouds-background"
+    >
+      <div
+        class="rear-clouds"
+      />
+      <div
+        class="front-clouds"
+      />
+    </div>
+    <div
+      class="error-content"
+    >
+      <h1>
+        We automatically signed you out due to inactivity.
+      </h1>
+      <p>
+        Please sign in again.
+      </p>
+      <button>
+        Sign in
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
 <DocumentFragment>
   <div
