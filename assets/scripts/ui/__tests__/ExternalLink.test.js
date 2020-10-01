@@ -76,6 +76,16 @@ describe('ExternalLink', () => {
     ).toThrow(ERRORS.INVALID_EXTERNAL_LINK)
   })
 
+  it('renders an <a> element with mailto link', () => {
+    const {
+      asFragment
+    } = renderWithReduxAndIntl(
+      <ExternalLink href="mailto:hello@streetmix.net">foo</ExternalLink>,
+      { initialState: initialStateForOnline }
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
   it('should pass other props to <a> element', () => {
     const { asFragment } = renderWithReduxAndIntl(
       <ExternalLink href="https://example.com" className="bar" title="foobar">
