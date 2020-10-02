@@ -5,7 +5,7 @@ import Flash from '../Flash'
 
 describe('Flash', () => {
   it('renders', () => {
-    const wrapper = renderWithRedux(<Flash />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithRedux(<Flash />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

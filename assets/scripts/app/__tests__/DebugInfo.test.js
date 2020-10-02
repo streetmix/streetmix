@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import DebugInfo from '../DebugInfo'
 
@@ -14,18 +14,15 @@ describe('DebugInfo', () => {
   }
 
   it('renders nothing by default', () => {
-    const wrapper = renderWithRedux(<DebugInfo />, { initialState })
-    expect(wrapper.asFragment().firstChild).toBe(null)
+    const { container } = renderWithRedux(<DebugInfo />, { initialState })
+    expect(container).toBeEmptyDOMElement()
   })
 
   it('is visible when opened with keyboard shortcut', () => {
-    const wrapper = renderWithRedux(<DebugInfo />, { initialState })
-    fireEvent.keyDown(window, {
-      key: 'D',
-      code: 'KeyD',
-      keyCode: 68,
-      shiftKey: true
+    const { container, asFragment } = renderWithRedux(<DebugInfo />, {
+      initialState
     })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    userEvent.type(container, '{shift}D')
+    expect(asFragment()).toMatchSnapshot()
   })
 })
