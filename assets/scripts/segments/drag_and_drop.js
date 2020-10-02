@@ -354,6 +354,18 @@ function doDropHeuristics (draggedItem, draggedItemType) {
     }
   }
 
+  // BRT station orientation
+
+  if (type === 'brt-station') {
+    // Default orientation is center
+    variant['brt-station-orientation'] = 'center'
+    if (left && leftOwner === SegmentTypes.TRANSIT) {
+      variant['brt-station-orientation'] = 'right'
+    } else if (right && rightOwner === SegmentTypes.TRANSIT) {
+      variant['brt-station-orientation'] = 'left'
+    }
+  }
+
   // Bike rack orientation
 
   if (type === 'sidewalk-bike-rack') {

@@ -4345,11 +4345,11 @@
     "nameKey": "brt-station",
     "owner": "TRANSIT",
     "zIndex": 20,
-    "defaultWidth": 12,
+    "defaultWidth": 13.3333,
     "enableWithFlag": "SEGMENT_BRT",
     "paletteIcon": "center",
     "rules": {
-      "minWidth": 12
+      "minWidth": 13.3333
     },
     "variants": ["brt-station-orientation"],
     "details": {
