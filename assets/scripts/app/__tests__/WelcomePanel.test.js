@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, waitFor } from '@testing-library/react'
+import { waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import MockAdapter from 'axios-mock-adapter'
 import WelcomePanel from '../WelcomePanel'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
@@ -25,7 +26,7 @@ describe('WelcomePanel', () => {
   })
 
   it('does not show if app is read-only', () => {
-    const wrapper = renderWithReduxAndIntl(<WelcomePanel />, {
+    const { container } = renderWithReduxAndIntl(<WelcomePanel />, {
       initialState: {
         app: {
           readOnly: true
@@ -33,7 +34,7 @@ describe('WelcomePanel', () => {
       }
     })
 
-    expect(wrapper.container.firstChild).toEqual(null)
+    expect(container).toBeInTheDocument()
   })
 
   describe('start with a copy of previous street', () => {
@@ -86,7 +87,7 @@ describe('WelcomePanel', () => {
 
       await waitFor(() => {
         const input = getByLabelText(/Start with a copy/)
-        fireEvent.click(input)
+        userEvent.click(input)
         expect(input.checked).toBe(true)
       })
     })

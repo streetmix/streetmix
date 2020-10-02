@@ -17,11 +17,10 @@ jest.mock('../../streets/image', () => ({
 
 describe('PrintContainer', () => {
   it('renders', () => {
-    const wrapper = renderWithRedux(<PrintContainer />, {
+    const { container } = renderWithRedux(<PrintContainer />, {
       initialState: { app: { printing: false } }
     })
-    const el = wrapper.container.querySelector('.print-container')
-    expect(el).toBeInTheDocument()
+    expect(container.querySelector('.print-container')).toBeInTheDocument()
   })
 
   it('renders image for printing', () => {

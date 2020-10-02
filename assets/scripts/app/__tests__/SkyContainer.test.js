@@ -9,27 +9,27 @@ jest.mock('../../streets/environs.json', () =>
 
 describe('SkyContainer', () => {
   it('renders', () => {
-    const wrapper = renderWithRedux(
+    const { asFragment } = renderWithRedux(
       <SkyContainer scrollPos={0} height={100} />,
       {
         initialState: { street: { environment: 'foo' } }
       }
     )
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders with objects', () => {
-    const wrapper = renderWithRedux(
+    const { asFragment } = renderWithRedux(
       <SkyContainer scrollPos={0} height={100} />,
       {
         initialState: { street: { environment: 'bar' } }
       }
     )
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders background animations', () => {
-    const wrapper = renderWithRedux(
+    const { container } = renderWithRedux(
       <SkyContainer scrollPos={0} height={100} />,
       {
         initialState: {
@@ -41,8 +41,8 @@ describe('SkyContainer', () => {
       }
     )
     expect(
-      wrapper.container
-        .querySelector('.street-section-sky')
+      container
+        .querySelector('section')
         .className.includes('environment-animations')
     ).toEqual(true)
   })

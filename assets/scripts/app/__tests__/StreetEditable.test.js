@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, getByTestId, waitFor } from '@testing-library/react'
+import { waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import StreetEditable from '../StreetEditable'
 import {
@@ -62,26 +63,32 @@ describe('StreetEditable', () => {
     describe('too large', () => {
       it('Pressing `+` does not increase the width of the segment', async () => {
         const street = { width: 400, segments: [segment] }
-        const wrapper = renderWithRedux(
+        const {
+          getByTestId,
+          store,
+          container,
+          asFragment
+        } = renderWithRedux(
           <StreetEditable
             setBuildingWidth={setBuildingWidth}
             updatePerspective={updatePerspective}
           />,
           { initialState: { street } }
         )
-        fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-        fireEvent.keyDown(document, { key: '+', code: 'Equal' })
+        userEvent.hover(getByTestId('segment'))
+        userEvent.type(container, '+')
         await waitFor(
           () => {
-            expect(wrapper.store.getState().street.segments[0].width).toEqual(
-              400
-            )
-            expect(
-              wrapper.store.getState().street.segments[0].warnings
-            ).toEqual([undefined, false, false, true])
-            expect(wrapper.asFragment()).toMatchSnapshot()
+            expect(store.getState().street.segments[0].width).toEqual(400)
+            expect(store.getState().street.segments[0].warnings).toEqual([
+              undefined,
+              false,
+              false,
+              true
+            ])
+            expect(asFragment()).toMatchSnapshot()
           },
-          { container: wrapper.container }
+          { container }
         )
       })
     })
