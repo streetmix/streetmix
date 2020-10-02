@@ -162,14 +162,10 @@ function AnalyticsDialog (props) {
                   />
                   :
                 </strong>{' '}
-                <em>
-                  <ExternalLink href="http://www.uncrd.or.jp/content/documents/5594Presentation%203%20-%20Module%201%20-%20Mr.%20Breithaupt.pdf">
-                    Environmentally Sustainable Transport - Main Principles and
-                    Impacts
-                  </ExternalLink>
-                </em>
-                , Manfred Breithaupt, Deutsche Gesellschaft für Internationale
-                Zusammenarbeit (GIZ)
+                <ExternalLink href="https://www.transformative-mobility.org/publications/passenger-capacity-of-different-transport-modes">
+                  Passenger capacity of different transport modes
+                </ExternalLink>
+                , Transformative Urban Mobility Initiative (TUMI)
               </p>
             </div>
             <div className="dialog-actions">
