@@ -39,6 +39,8 @@
     "streetcar": "",
     "light-rail": "",
     "transit-shelter": "",
+    "brt-station": "",
+    "brt-lane": "",
     "temporary-barrier": "",
     "inception-train": "",
     "magic-carpet": ""
@@ -46,42 +48,31 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Apreneu-ne més sobre rètols de direcció",
-      "lede": "Els rètols de direcció ajuden els vianants a obtenir destinacions comunes.",
-      "text": [
-        "Els urbanistes i els arquitectes s'han passat les últimes dècades intentant aprenent què pensa la gent quan s'imagina com anar d'un punt A a un punt B, o com esbrinen on es troba el punt A. Tan aviat com l'any 1960, l'urbanista Kevin Lynch va escriure sobre la llegibilitat de la ciutat al seu llibre <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">The Image of the City</a></em>, descrivint la creació d'itineraris com \"un ús i una organització coherents de senyals sensorials des del medi extern\". Podrien ser intangibles com l'olor, el tacte, una sensació de gravetat o fins i tot electricitat o magnetisme. O podria ser quelcom més físic, amb elements d'ajut a la creació d'itineraris com els mapes, la numeració dels domicilis o els rètols de direcció.",
-        "És sorprenent com d'acceptable és un gran desplegament de senyalització per als desplaçaments en cotxe, en relació amb una inversió menor per als vianants. Potser és perquè és més fàcil per a nosaltres quedar-nos quiets, fer un balanç del nostre entorn i fer servir els nostres sentits sense por de provocar accidentalment una pila de sis persones darrere nostre. De totes maneres, els urbanistes han apostat per una senyalització amable amb els vianants, especialment als barris comercials. Aquests signes han esdevingut oportunitats d'imatge corporativa, a més de ser funcionals. Per exemple, Nova York <a href=\"https://www.pentagram.com/work/walknyc/story\">va contractar un consultor de disseny de renom internacional</a>per a crear la senyalització ara omnipresent WalkNYC (Streetmix ha modelat els seus segments en base a aquests). D'altres municipis han adoptat un enfocament tradicional antic o cívic-formal (a la imatge superior), i alguns llocs han optat per utilitzar <a href=\"http://walkyourcity.org/\">tàctiques de guerrilla</a>.",
-        ""
-      ]
+      "content": "# Els rètols de direcció ajuden els vianants a obtenir destinacions comunes.\n\nEls urbanistes i els arquitectes s'han passat les últimes dècades intentant aprenent què pensa la gent quan s'imagina com anar d'un punt A a un punt B, o com esbrinen on es troba el punt A. Tan aviat com l'any 1960, l'urbanista Kevin Lynch va escriure sobre la llegibilitat de la ciutat al seu llibre _[The Image of the City](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, descrivint la creació d'itineraris com \"un ús i una organització coherents de senyals sensorials des del medi extern\". Podrien ser intangibles com l'olor, el tacte, una sensació de gravetat o fins i tot electricitat o magnetisme. O podria ser quelcom més físic, amb elements d'ajut a la creació d'itineraris com els mapes, la numeració dels domicilis o els rètols de direcció.\n\nÉs sorprenent com d'acceptable és un gran desplegament de senyalització per als desplaçaments en cotxe, en relació amb una inversió menor per als vianants. Potser és perquè és més fàcil per a nosaltres quedar-nos quiets, fer un balanç del nostre entorn i fer servir els nostres sentits sense por de provocar accidentalment una pila de sis persones darrere nostre. De totes maneres, els urbanistes han apostat per una senyalització amable amb els vianants, especialment als barris comercials. Aquests signes han esdevingut oportunitats d'imatge corporativa, a més de ser funcionals. Per exemple, Nova York [va contractar un consultor de disseny de renom internacional](https://www.pentagram.com/work/walknyc/story)per a crear la senyalització ara omnipresent WalkNYC (Streetmix ha modelat els seus segments en base a aquests). D'altres municipis han adoptat un enfocament tradicional antic o cívic-formal (a la imatge superior), i alguns llocs han optat per utilitzar [tàctiques de guerrilla](http://walkyourcity.org/)."
     },
     "parklet": {
       "prompt": "Apreneu-ne més sobre parklets",
       "imageCaption": "",
-      "lede": "Els parklets converteixen espais d'aparcament en espais públics temporals.",
-      "text": ["", ""]
+      "content": "# Els parklets converteixen espais d'aparcament en espais públics temporals."
     },
     "bike-lane": {
       "prompt": "Apreneu-ne més sobre carrils bici",
-      "lede": "Els carrils bici ajuden a mantenir els ciclistes segurs en un carril separat del trànsit rodat.",
-      "text": ["", "", ""]
+      "content": "# Els carrils bici ajuden a mantenir els ciclistes segurs en un carril separat del trànsit rodat."
     },
     "colored-bike-lane": {
       "prompt": "Apreneu-ne més sobre carrils bici pintats.",
-      "lede": "Els carrils bici pintats són més visibles i segurs per als ciclistes.",
-      "text": ["", "", ""]
+      "content": "# Els carrils bici pintats són més visibles i segurs per als ciclistes."
     },
     "sharrow": {
       "prompt": "Apreneu-ne més sobre ciclocarrils",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "transit-shelter-elevated": {
       "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "inception-train": {
-      "lede": "",
-      "text": [""]
+      "content": ""
     }
   },
   "buildings": {
@@ -158,6 +149,9 @@
     "bus-asphalt|regular": "",
     "bus-asphalt|colored": "",
     "bus-asphalt|shared": "",
+    "brt-station-orientation|left": "Esquerra",
+    "brt-station-orientation|right": "Dreta",
+    "brt-station-orientation|center": "",
     "bike-asphalt|regular": "",
     "bike-asphalt|green": "",
     "bike-asphalt|red": "",

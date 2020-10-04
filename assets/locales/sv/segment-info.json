@@ -39,6 +39,8 @@
     "streetcar": "",
     "light-rail": "",
     "transit-shelter": "",
+    "brt-station": "",
+    "brt-lane": "",
     "temporary-barrier": "",
     "inception-train": "",
     "magic-carpet": ""
@@ -46,42 +48,31 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Läs mer om vägvisningsskyltar",
-      "lede": "Vägvisningsskyltar hjälper fotgängare att hitta till vanliga målpunkter.",
-      "text": [
-        "Stadsplanerare och arkitekter har tillbringat årtionden med att försöka lära sig vad som händer i människors hjärnor när de försöker komma på hur man tar sig från punkt A till punkt B - eller hur de ens vet var punkt A är till att börja med. Redan 1960 skrev stadsplaneraren Kevin Lynch om \"legibility\" i sin bok <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\"> The Image of the City</a></em> genom \"ett konstant användande och organiserande av sinnenas ledtrådar från den omkringliggande miljön.\" Det kan vara immateriella - lukt, känsel, känsla av gravitation eller till och med elektriska eller magnetiska fält. Eller så kan det vara mycket mer fysiskt, med tillverkade redskap såsom kartor, gatunummer eller vägvisningsskyltar.",
-        "",
-        ""
-      ]
+      "content": "# Vägvisningsskyltar hjälper fotgängare att hitta till vanliga målpunkter.\n\nStadsplanerare och arkitekter har tillbringat årtionden med att försöka lära sig vad som händer i människors hjärnor när de försöker komma på hur man tar sig från punkt A till punkt B - eller hur de ens vet var punkt A är till att börja med. Redan 1960 skrev stadsplaneraren Kevin Lynch om \"legibility\" i sin bok _[The Image of the City](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_ genom \"ett konstant användande och organiserande av sinnenas ledtrådar från den omkringliggande miljön.\" Det kan vara immateriella - lukt, känsel, känsla av gravitation eller till och med elektriska eller magnetiska fält. Eller så kan det vara mycket mer fysiskt, med tillverkade redskap såsom kartor, gatunummer eller vägvisningsskyltar."
     },
     "parklet": {
       "prompt": "Läs mer om mikroparker",
       "imageCaption": "",
-      "lede": "",
-      "text": ["", ""]
+      "content": ""
     },
     "bike-lane": {
       "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "colored-bike-lane": {
       "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "sharrow": {
       "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "transit-shelter-elevated": {
       "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "inception-train": {
-      "lede": "",
-      "text": [""]
+      "content": ""
     }
   },
   "buildings": {
@@ -158,6 +149,9 @@
     "bus-asphalt|regular": "",
     "bus-asphalt|colored": "",
     "bus-asphalt|shared": "",
+    "brt-station-orientation|left": "Vänster",
+    "brt-station-orientation|right": "Höger",
+    "brt-station-orientation|center": "",
     "bike-asphalt|regular": "",
     "bike-asphalt|green": "",
     "bike-asphalt|red": "",

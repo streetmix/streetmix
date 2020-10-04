@@ -39,6 +39,8 @@
     "streetcar": "Bonde",
     "light-rail": "VLT",
     "transit-shelter": "Abrigo de transporte coletivo",
+    "brt-station": "",
+    "brt-lane": "",
     "temporary-barrier": "",
     "inception-train": "O trem do filme \"A Origem\"",
     "magic-carpet": ""
@@ -46,38 +48,31 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Saiba mais sobre sinais de orientação",
-      "lede": "Sinais de orientação ajudam os pedestres a navegar para seus destinos.",
-      "text": ["", "", ""]
+      "content": "# Sinais de orientação ajudam os pedestres a navegar para seus destinos."
     },
     "parklet": {
       "prompt": "Saiba mais sobre parklets",
       "imageCaption": "",
-      "lede": "",
-      "text": ["", ""]
+      "content": ""
     },
     "bike-lane": {
       "prompt": "Saiba mais sobre ciclovias ",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "colored-bike-lane": {
       "prompt": "Saiba mais sobre ciclovias coloridas",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "sharrow": {
       "prompt": "Saiba mais sobre ciclorrotas",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "transit-shelter-elevated": {
       "prompt": "Saiba mais sobre abrigos de transporte coletivo",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "inception-train": {
-      "lede": "É o trem do filme <em>A Origem</em> de Christopher Nolan.",
-      "text": ["O que mais você precisa saber?"]
+      "content": "# É o trem do filme _A Origem_ de Christopher Nolan.\n\nO que mais você precisa saber?"
     }
   },
   "buildings": {
@@ -154,6 +149,9 @@
     "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Faixa vermelha",
     "bus-asphalt|shared": "Faixa compartilhada: ônibus e bicicleta",
+    "brt-station-orientation|left": "Esquerda",
+    "brt-station-orientation|right": "Direita",
+    "brt-station-orientation|center": "Centro",
     "bike-asphalt|regular": "Asfalto",
     "bike-asphalt|green": "Faixa verde",
     "bike-asphalt|red": "Faixa vermelha",

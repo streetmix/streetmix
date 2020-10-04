@@ -39,6 +39,8 @@
     "streetcar": "",
     "light-rail": "",
     "transit-shelter": "",
+    "brt-station": "",
+    "brt-lane": "",
     "temporary-barrier": "",
     "inception-train": "",
     "magic-carpet": ""
@@ -46,42 +48,31 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Aprender más sobre señales de orientación",
-      "lede": "Señales de Orientación ayudan a los pedestres llegar a destinos comunes.",
-      "text": [
-        "Planificadores urbanos y arquitectos han pasado unas décadas intentando de aprender lo que pasa en los cerebros de personas cuando realizan cómo llegar de punto A a punto B - o cómo saben dónde está el punto de comenzar (punto A). Tan temprano como 1960, el planificador urbano Kevin Lynch escribió sobre el \"legibilidad\" de la ciudad en su libro <em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">\"The Image of the City\" (La Imagen de la Ciudad\")</a></em>, describiendo la señalización de orientación como \"un uso consistente y organización de señales sensoriales definidas del ambiente external.\" Podría ser intangible - olor, tacto, un sentido de gravedad o hasta campos eléctricos o magnéticos. O podría ser mucho más físico, con \"aparatos de orientación\" diseñados intencionalmente como mapas, números de la calle, o señales de rutas.",
-        "",
-        ""
-      ]
+      "content": "#Señales de Orientación ayudan a los pedestres llegar a destinos comunes.\n\nPlanificadores urbanos y arquitectos han pasado unas décadas intentando de aprender lo que pasa en los cerebros de personas cuando realizan cómo llegar de punto A a punto B - o cómo saben dónde está el punto de comenzar (punto A). Tan temprano como 1960, el planificador urbano Kevin Lynch escribió sobre el \"legibilidad\" de la ciudad en su libro _[\"The Image of the City\" (La Imagen de la Ciudad\")](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, describiendo la señalización de orientación como \"un uso consistente y organización de señales sensoriales definidas del ambiente external.\" Podría ser intangible - olor, tacto, un sentido de gravedad o hasta campos eléctricos o magnéticos. O podría ser mucho más físico, con \"aparatos de orientación\" diseñados intencionalmente como mapas, números de la calle, o señales de rutas."
     },
     "parklet": {
       "prompt": "Aprender más sobre parklets",
       "imageCaption": "",
-      "lede": "",
-      "text": ["", ""]
+      "content": ""
     },
     "bike-lane": {
       "prompt": "Aprender más sobre carriles de bici",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "colored-bike-lane": {
       "prompt": "Aprenda más sobre bicicarriles en color verde",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "sharrow": {
       "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "transit-shelter-elevated": {
       "prompt": "",
-      "lede": "",
-      "text": ["", "", ""]
+      "content": ""
     },
     "inception-train": {
-      "lede": "",
-      "text": ["¿Qué más necesita saber?"]
+      "content": ""
     }
   },
   "buildings": {
@@ -158,6 +149,9 @@
     "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Carril rojo",
     "bus-asphalt|shared": "Carril compartido de bús/bici",
+    "brt-station-orientation|left": "Izquierda",
+    "brt-station-orientation|right": "Derecha",
+    "brt-station-orientation|center": "Centro",
     "bike-asphalt|regular": "Asfalto",
     "bike-asphalt|green": "Carril verde",
     "bike-asphalt|red": "Carril rojo",

@@ -55,7 +55,6 @@
     },
     "contribute": {
       "donate": "Donner",
-      "stickers": "Acheter une feuille d'autocollant !",
       "opensource": "Contribuer à l'open source"
     },
     "feedback": {
@@ -130,7 +129,7 @@
     "generic-error-title": "Il y a un problème.",
     "generic-error-description": "Nous sommes désolés – il y a eu un problème.",
     "error-code": "(Code d'erreur {code}.)",
-    "need-help-link": ""
+    "need-help-link": "Besoin d'aide ?"
   },
   "btn": {
     "reload": "Recharger",

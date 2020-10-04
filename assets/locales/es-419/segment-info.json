@@ -39,6 +39,8 @@
     "streetcar": "Tranvía",
     "light-rail": "Tren ligero",
     "transit-shelter": "Paradero de transporte público",
+    "brt-station": "",
+    "brt-lane": "",
     "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de \"El Origen\"",
     "magic-carpet": "Alfombra mágica"
@@ -46,42 +48,31 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Aprende más sobre las señales de orientación",
-      "lede": "Las señales de orientación ayudan a los peatones a llegar a destinos frecuentes.",
-      "text": [
-        "Los planificadores urbanos y arquitectos han dedicado algunas décadas a tratar de aprender qué sucede en los cerebros de las personas mientras descifran cómo llegar del punto A al punto B – o incluso cómo saben dónde está el \"punto A\", para empezar. Desde 1960, el planificador urbano Kevin Lynch escribió sobre la \"legibilidad\" de la ciudad en su libro<em><a href=\"http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014\">La imagen de la ciudad</a></em>, y describió la orientación como \"un uso y organización consistente de las señales sensoriales del ambiente externo.\" Esta podía ser intangible – olfato, tacto, la sensación de la gravedad o incluso campos eléctricos o magnéticos. O podía ser mucho más física, con \"dispositivos de orientación\" diseñados intencionalmente como mapas, números o señales de ruta.",
-        "",
-        ""
-      ]
+      "content": "# Las señales de orientación ayudan a los peatones a llegar a destinos frecuentes.\n\nLos planificadores urbanos y arquitectos han dedicado algunas décadas a tratar de aprender qué sucede en los cerebros de las personas mientras descifran cómo llegar del punto A al punto B – o incluso cómo saben dónde está el \"punto A\", para empezar. Desde 1960, el planificador urbano Kevin Lynch escribió sobre la \"legibilidad\" de la ciudad en su libro_[La imagen de la ciudad](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, y describió la orientación como \"un uso y organización consistente de las señales sensoriales del ambiente externo.\" Esta podía ser intangible – olfato, tacto, la sensación de la gravedad o incluso campos eléctricos o magnéticos. O podía ser mucho más física, con \"dispositivos de orientación\" diseñados intencionalmente como mapas, números o señales de ruta."
     },
     "parklet": {
       "prompt": "Aprende más sobre los parklets",
       "imageCaption": "Parklet de 4033 Judah Street, cortesía del Departamento de Planeación de San Francisco.",
-      "lede": "Los parklets transforman los espacios de estacionamiento existentes en espacios públicos temporales.",
-      "text": ["", ""]
+      "content": "# Los parklets transforman los espacios de estacionamiento existentes en espacios públicos temporales."
     },
     "bike-lane": {
       "prompt": "Aprende más sobre los carriles para bicicleta",
-      "lede": "Los carriles para bicicleta ayudan a mantener a los ciclistas seguros en un carril separado de los vehículos motorizados.",
-      "text": ["", "", ""]
+      "content": "# Los carriles para bicicleta ayudan a mantener a los ciclistas seguros en un carril separado de los vehículos motorizados."
     },
     "colored-bike-lane": {
       "prompt": "Aprende más sobre los carriles de colores para bicicletas",
-      "lede": "Los carriles de colores para bicicletas son más visibles y seguros para los ciclistas.",
-      "text": ["", "", ""]
+      "content": "# Los carriles de colores para bicicletas son más visibles y seguros para los ciclistas."
     },
     "sharrow": {
       "prompt": "Aprende más sobre los carriles compartidos para bicicletas",
-      "lede": "Los carriles compartidos para bicicletas tienen marcas que indican que son utilizados por vehículos motorizados y bicicletas.",
-      "text": ["", "", ""]
+      "content": "# Los carriles compartidos para bicicletas tienen marcas que indican que son utilizados por vehículos motorizados y bicicletas."
     },
     "transit-shelter-elevated": {
       "prompt": "Aprende más sobre los paraderos de transporte público elevados",
-      "lede": "Los paraderos elevados funcionan con sistemas de trenes ligeros y BRT (bus rapid transit).",
-      "text": ["", "", ""]
+      "content": "# Los paraderos elevados funcionan con sistemas de trenes ligeros y BRT (bus rapid transit)."
     },
     "inception-train": {
-      "lede": "Es el tren de la película <em>El Origen</em> de Christopher Nolan.",
-      "text": ["¿Qué más necesitarías saber?"]
+      "content": "# Es el tren de la película <em>El Origen</em> de Christopher Nolan.\",\n\n¿Qué más necesitarías saber?"
     }
   },
   "buildings": {
@@ -158,6 +149,9 @@
     "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Carril rojo",
     "bus-asphalt|shared": "Carril compartido bus-bicicleta",
+    "brt-station-orientation|left": "Izquierda",
+    "brt-station-orientation|right": "Derecha",
+    "brt-station-orientation|center": "Centro",
     "bike-asphalt|regular": "Asfalto",
     "bike-asphalt|green": "Carril verde",
     "bike-asphalt|red": "Carril rojo",
