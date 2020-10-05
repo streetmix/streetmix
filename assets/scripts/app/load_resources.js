@@ -17,6 +17,7 @@ const IMAGES_TO_BE_LOADED = [
   '/images/sky-front.svg',
   '/images/sky-rear.svg',
   '/images/stars.svg',
+  '/images/holodeck-grid.svg',
   '/images/moon.svg'
 ]
 

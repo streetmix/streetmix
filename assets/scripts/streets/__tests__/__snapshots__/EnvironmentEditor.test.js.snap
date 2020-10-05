@@ -60,6 +60,10 @@ exports[`EnvironmentEditor renders 1`] = `
             style="background: rgb(226, 240, 242);"
             title="Foggy"
           />
+          <div
+            class="environment-select"
+            title="Holodeck"
+          />
         </div>
       </div>
     </div>
