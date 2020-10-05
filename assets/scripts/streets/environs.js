@@ -1,4 +1,5 @@
 import ENVIRONS from './environs.json'
+import { images } from '../app/load_resources'
 import { DEFAULT_ENVIRONS } from './constants'
 import { observeStore } from '../store'
 
@@ -42,7 +43,10 @@ export function makeCSSGradientDeclaration (array) {
  * @returns {String} - CSS value
  */
 function makeCSSBackgroundImageDeclaration (url) {
-  return `url('${url}') top/2000px repeat`
+  const asset = images.get(url)
+  if (asset) {
+    return `url('${asset.src}') top/${asset.width}px repeat`
+  }
 }
 
 /**
@@ -180,7 +184,10 @@ export function initEnvironsChangedListener () {
   })
   const onChange = (state) => {
     // `invertUITextColor` may not be defined, so coerce it to `false` with Boolean()
-    document.body.classList.toggle('dark-environs-invert-ui', Boolean(state.invertUITextColor))
+    document.body.classList.toggle(
+      'dark-environs-invert-ui',
+      Boolean(state.invertUITextColor)
+    )
   }
 
   return observeStore(select, onChange)

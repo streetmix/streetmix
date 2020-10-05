@@ -214,7 +214,7 @@ function drawBackgroundObjects (ctx, dpi, width, height, objects) {
 function drawClouds (ctx, dpi, width, height, env) {
   // Handle cloud opacity
   ctx.save()
-  ctx.globalAlpha = env.cloudOpacity || 1
+  ctx.globalAlpha = env.cloudOpacity ?? 1
 
   // Grab images
   const skyFrontImg = images.get('/images/sky-front.svg')
