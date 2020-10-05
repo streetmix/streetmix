@@ -27,11 +27,11 @@ function SkyContainer (props) {
   const environs = getEnvirons(environment)
   const frontCloudStyle = {
     ...getCloudPosition(true, scrollPos),
-    opacity: environs.cloudOpacity || null
+    opacity: environs.cloudOpacity ?? null
   }
   const rearCloudStyle = {
     ...getCloudPosition(false, scrollPos),
-    opacity: environs.cloudOpacity || null
+    opacity: environs.cloudOpacity ?? null
   }
 
   const foregroundStyle = {}
