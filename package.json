@@ -103,6 +103,7 @@
     "autoprefixer": "9.7.4",
     "axios": "0.19.2",
     "btoa": "1.2.1",
+    "canvas": "2.6.1",
     "chalk": "4.0.0",
     "cloudinary": "1.19.0",
     "compression": "1.7.4",

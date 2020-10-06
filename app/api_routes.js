@@ -3,7 +3,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const resources = require('./resources')
 const jwtCheck = require('./authentication')
-const { Street } = require('./db/models')
 
 /**
  * @swagger
@@ -882,17 +881,45 @@ routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
 routes.post('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
 routes.put('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.put)
 
-routes.get('/api/streets/newimage/:street_id', (req, res) => {
-  const getStreet = async function (streetId) {
-    return Street.findOne({ where: { id: streetId } }).then((street) => {
-      const streetData = street.get().data.street
-      res.send(streetData)
-      // TODO: see if we can import the image drawing function here
-    })
+routes.get('/api/streets/draw', (req, res) => {
+  const { createCanvas } = require('canvas')
+
+  const width = 500
+  const height = 500
+
+  const canvas = createCanvas(width, height)
+  const context = canvas.getContext('2d')
+  let radius = canvas.height / 2
+  context.translate(radius, radius)
+  radius = radius * 0.9
+
+  function drawFace (ctx, radius) {
+    var grad
+
+    ctx.beginPath()
+    ctx.arc(0, 0, radius, 0, 2 * Math.PI)
+    ctx.fillStyle = 'white'
+    ctx.fill()
+
+    grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05)
+    grad.addColorStop(0, '#333')
+    grad.addColorStop(0.5, 'white')
+    grad.addColorStop(1, '#333')
+    ctx.strokeStyle = grad
+    ctx.lineWidth = radius * 0.1
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.arc(0, 0, radius * 0.1, 0, 2 * Math.PI)
+    ctx.fillStyle = '#333'
+    ctx.fill()
   }
 
-  getStreet(req.params.street_id)
-  // eslint-disable-next-line no-debugger
+  drawFace(context, radius)
+
+  // stream out response
+  res.setHeader('Content-Type', 'image/png')
+  canvas.pngStream().pipe(res)
 })
 
 // Catch all for all broken api paths, direct to 404 response.
