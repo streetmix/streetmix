@@ -50,22 +50,8 @@
   },
   "night": {
     "name": "Night",
-    "enabled": false,
     "backgroundImage": "sky--stars",
     "_commentBackgroundColor": "Fall back to solid color in case image is broken",
-    "backgroundGradient": [
-      ["#01051600", 0],
-      ["#01081777", 0.33],
-      ["#031641", 0.66],
-      ["#061c45", 1]
-    ],
-    "backgroundColor": "#000928",
-    "cloudOpacity": 0.2,
-    "invertUITextColor": true
-  },
-  "supermoon": {
-    "name": "Night",
-    "backgroundImage": "sky--stars",
     "backgroundGradient": [
       ["#01051600", 0],
       ["#01081777", 0.33],
@@ -76,6 +62,29 @@
     "backgroundObjects": [
       {
         "image": "sky--moon",
+        "width": 116,
+        "height": 116,
+        "top": 0.2,
+        "left": 0.8
+      }
+    ],
+    "cloudOpacity": 0.2,
+    "invertUITextColor": true
+  },
+  "supermoon": {
+    "name": "Night",
+    "enabled": false,
+    "backgroundImage": "sky--stars",
+    "backgroundGradient": [
+      ["#01051600", 0],
+      ["#01081777", 0.33],
+      ["#031641", 0.66],
+      ["#061c45", 1]
+    ],
+    "backgroundColor": "#000928",
+    "backgroundObjects": [
+      {
+        "image": "sky--super-blood-wolf-moon",
         "width": 116,
         "height": 116,
         "top": 0.2,
