@@ -34,7 +34,7 @@ describe('WelcomePanel', () => {
       }
     })
 
-    expect(container).toBeInTheDocument()
+    expect(container).toBeEmptyDOMElement()
   })
 
   describe('start with a copy of previous street', () => {
