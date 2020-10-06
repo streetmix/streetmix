@@ -6,6 +6,7 @@ import Draggable from 'react-draggable'
 import CloseButton from '../ui/CloseButton'
 import { getAllEnvirons } from './environs'
 import { DEFAULT_ENVIRONS } from './constants'
+import { images } from '../app/load_resources'
 import { setEnvironment } from '../store/slices/street'
 import { toggleToolbox } from '../store/slices/ui'
 import emojiIcon from '../../images/openmoji/color/1F324.svg'
@@ -63,7 +64,7 @@ function EnvironmentEditor (props) {
               <div className="environment-editor-content">
                 <div className="environment-select-grid">
                   {envs.map((env) => {
-                    const { id, name, style } = env
+                    const { id, name, iconStyle } = env
                     const classNames = ['environment-select']
 
                     if (selected === id) {
@@ -76,10 +77,24 @@ function EnvironmentEditor (props) {
                       <div
                         className={classNames.join(' ')}
                         key={id}
-                        style={style}
+                        style={iconStyle}
                         title={name}
                         onClick={(event) => handleClick(event, env)}
-                      />
+                      >
+                        {env.iconImage && (
+                          <img
+                            src={images.get(env.iconImage)?.src}
+                            alt=""
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              pointerEvents: 'none',
+                              userSelect: 'none'
+                            }}
+                            draggable={false}
+                          />
+                        )}
+                      </div>
                     )
                   })}
                 </div>
