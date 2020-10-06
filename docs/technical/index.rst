@@ -17,4 +17,5 @@ This section describes the architecture of Streetmix.
    project
    tests/index
    segment-definitions
+   environs
    helpers
