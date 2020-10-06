@@ -55,9 +55,12 @@ function makeCSSBackgroundImageDeclaration (url) {
  * style prop, e.g. `<div style={style} />`
  *
  * @param {Object} - single environs data from environs.json
+ * @param {Boolean} - if `true`, add images to the style definition.
+ *   Images are not good for icons where the images won't be visible
+ *   and special images need to be used. Default value is `true`.
  * @returns {Object} - style object that can be passed to a `style` prop
  */
-function makeReactStyleObject (env) {
+function makeReactStyleObject (env, renderImages = true) {
   const style = {}
 
   // If an error causes `env` to be undefined, return an empty object.
@@ -69,8 +72,10 @@ function makeReactStyleObject (env) {
     background.push(makeCSSGradientDeclaration(env.backgroundGradient))
   }
 
-  if (env.backgroundImage) {
-    background.push(makeCSSBackgroundImageDeclaration(env.backgroundImage))
+  if (renderImages) {
+    if (env.backgroundImage) {
+      background.push(makeCSSBackgroundImageDeclaration(env.backgroundImage))
+    }
   }
 
   // Background colors must occur last in the `background` list
@@ -158,7 +163,8 @@ export function getEnvirons (id) {
   return {
     ...env,
     id,
-    style: makeReactStyleObject(env)
+    style: makeReactStyleObject(env),
+    iconStyle: makeReactStyleObject(env, false)
   }
 }
 

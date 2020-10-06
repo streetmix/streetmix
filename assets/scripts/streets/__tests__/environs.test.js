@@ -13,19 +13,29 @@ jest.mock('../constants', () => ({ DEFAULT_ENVIRONS: 'default' }))
 describe('environs helpers', () => {
   describe('makeCSSGradientDeclaration', () => {
     it('makes a CSS string', () => {
-      const result = makeCSSGradientDeclaration(MOCK_ENVIRONS.foo.backgroundGradient)
-      expect(result).toEqual('linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)')
+      const result = makeCSSGradientDeclaration(
+        MOCK_ENVIRONS.foo.backgroundGradient
+      )
+      expect(result).toEqual(
+        'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
+      )
     })
 
     it('makes a CSS string with stops', () => {
-      const result = makeCSSGradientDeclaration(MOCK_ENVIRONS.bar.backgroundGradient)
-      expect(result).toEqual('linear-gradient(#020b1a, #3e5879, #9ba5ae 40%, #dcb697, #fc7001)')
+      const result = makeCSSGradientDeclaration(
+        MOCK_ENVIRONS.bar.backgroundGradient
+      )
+      expect(result).toEqual(
+        'linear-gradient(#020b1a, #3e5879, #9ba5ae 40%, #dcb697, #fc7001)'
+      )
     })
   })
 
   describe('makeCanvasGradientStopArray', () => {
     it('fills in all empty stops', () => {
-      const result = makeCanvasGradientStopArray(MOCK_ENVIRONS.foo.backgroundGradient)
+      const result = makeCanvasGradientStopArray(
+        MOCK_ENVIRONS.foo.backgroundGradient
+      )
       expect(result).toEqual([
         ['#020b1a', 0.0],
         ['#3e5879', 0.14285714285714285],
@@ -39,7 +49,9 @@ describe('environs helpers', () => {
     })
 
     it('fills in empty stops between known stops', () => {
-      const result = makeCanvasGradientStopArray(MOCK_ENVIRONS.bar.backgroundGradient)
+      const result = makeCanvasGradientStopArray(
+        MOCK_ENVIRONS.bar.backgroundGradient
+      )
       expect(result).toEqual([
         ['#020b1a', 0.0],
         ['#3e5879', 0.2],
@@ -56,10 +68,24 @@ describe('environs helpers', () => {
       expect(result).toEqual({
         id: 'foo',
         name: 'Foo',
-        backgroundGradient: ['#020b1a', '#3e5879', ['#9ba5ae'], ['#dcb697'], ['#fc7001'], ['#dd723c'], ['#ad4a28'], ['#040308']],
+        backgroundGradient: [
+          '#020b1a',
+          '#3e5879',
+          ['#9ba5ae'],
+          ['#dcb697'],
+          ['#fc7001'],
+          ['#dd723c'],
+          ['#ad4a28'],
+          ['#040308']
+        ],
         cloudOpacity: 0.85,
+        iconStyle: {
+          background:
+            'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
+        },
         style: {
-          background: 'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
+          background:
+            'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
         }
       })
     })
