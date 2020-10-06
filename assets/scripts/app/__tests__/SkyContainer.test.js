@@ -7,6 +7,18 @@ jest.mock('../../streets/environs.json', () =>
   require('../../streets/__mocks__/environs.json')
 )
 
+// Mock the `images` object.
+// Note: in real life, this is a Map where the .get()
+// method looks up an object value by the `id` key.
+// The `src` property is normally a data-url.
+jest.mock('../../app/load_resources', () => ({
+  images: {
+    get: (id) => ({
+      src: 'bar.svg'
+    })
+  }
+}))
+
 describe('SkyContainer', () => {
   it('renders', () => {
     const { asFragment } = renderWithRedux(
