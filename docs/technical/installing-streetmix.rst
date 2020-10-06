@@ -40,6 +40,11 @@ You may already have some of these prerequisites installed. Skip or update the p
 
       brew install postgres
 
+5. Install PostGIS. You can `download MacOSX packages here <https://postgis.net/install/>`_ but just like above the easiest method would be to use Homebrew:
+
+   .. prompt:: bash $
+
+      brew install postgis
 
 Clone and install Streetmix
 +++++++++++++++++++++++++++
@@ -102,6 +107,8 @@ You may already have some of these prerequisites installed. Skip or update the p
 
 4. Install PostgreSQL. You can `download Windows packages here <https://www.postgresql.org/download/windows/>`_.
 
+5. Install PostGIS. You can `download Windows packages here <https://postgis.net/windows_downloads/>`_.
+
 
 Clone and install Streetmix
 +++++++++++++++++++++++++++
@@ -146,11 +153,13 @@ See :ref:`install-all`, below.
 On Linux
 ----------
 
-The primary requirements for this project are Node.js and PostgreSQL. You will need those installed if you do not have them already.
+The primary requirements for this project are Node.js, PostgreSQL and PostGIS. You will need those installed if you do not have them already.
 
 `Installing Node.js <https://www.ostechnix.com/install-node-js-linux/>`_
 
 `Installing Postgres <http://postgresguide.com/setup/install.html>`_
+
+`Installing PostGIS <https://postgis.net/install/>`_
 
 If you haven't installed Postgres on your machine before, you may need to set up some intial configuration. `Here is an example for ArchLinux <https://wiki.archlinux.org/index.php/PostgreSQL>`_.
 

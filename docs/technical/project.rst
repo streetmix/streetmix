@@ -9,6 +9,7 @@ Streetmix is a Node.js and JavaScript project. We use the following frameworks:
 
 - `Express <https://expressjs.com/>`_, a web application framework. This is basically the server side of Streetmix. It handles HTTP requests and serves files and data requested by the front end.
 - `PostgreSQL <https://www.postgresql.org/>`_, a relational database. All the data on the server is stored in PostgreSQL.
+- `PostGIS <https://postgis.net/>`_, PostGIS is a spatial database extender for PostgreSQL, adding support for geographic objects.
 - `Parcel <https://parceljs.org/>`_, a web application bundler. When Streetmix starts, it uses Parcel to bundle all the front end JavaScript and CSS.
 - `Babel <https://babeljs.io/>`_, a compiler which allows us to use modern JavaScript in browsers that do not yet support it.
 - `React <https://reactjs.org/>`_, a front-end user interface framework. Most UI is rendered with React.
