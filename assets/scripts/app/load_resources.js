@@ -15,10 +15,7 @@ const IMAGES_TO_BE_LOADED = [
   '/images/wordmark_black.svg',
   '/images/wordmark_white.svg',
   '/images/sky-front.svg',
-  '/images/sky-rear.svg',
-  '/images/stars.svg',
-  '/images/holodeck-grid.svg',
-  '/images/moon.svg'
+  '/images/sky-rear.svg'
 ]
 
 const SVGStagingEl = document.getElementById('svg')

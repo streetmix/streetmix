@@ -51,7 +51,7 @@
   "night": {
     "name": "Night",
     "enabled": false,
-    "backgroundImage": "/images/stars.svg",
+    "backgroundImage": "sky--stars",
     "_commentBackgroundColor": "Fall back to solid color in case image is broken",
     "backgroundGradient": [
       ["#01051600", 0],
@@ -65,7 +65,7 @@
   },
   "supermoon": {
     "name": "Night",
-    "backgroundImage": "/images/stars.svg",
+    "backgroundImage": "sky--stars",
     "backgroundGradient": [
       ["#01051600", 0],
       ["#01081777", 0.33],
@@ -75,7 +75,7 @@
     "backgroundColor": "#000928",
     "backgroundObjects": [
       {
-        "image": "/images/moon.svg",
+        "image": "sky--moon",
         "width": 116,
         "height": 116,
         "top": 0.2,
@@ -97,7 +97,7 @@
   "holodeck": {
     "name": "Holodeck",
     "backgroundColor": "#141414",
-    "backgroundImage": "/images/holodeck-grid.svg",
+    "backgroundImage": "sky--holodeck-grid",
     "cloudOpacity": 0,
     "invertUITextColor": true
   }
