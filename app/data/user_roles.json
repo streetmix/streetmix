@@ -10,7 +10,8 @@
       "SEGMENT_PED_LANES": true,
       "SEGMENT_CONSTRUCTION": true,
       "SEGMENT_MAGIC_CARPET": true,
-      "SEGMENT_CAFE_SEATING": true
+      "SEGMENT_CAFE_SEATING": true,
+      "SEGMENT_BRT": true
     }
   },
   "ADMIN": {
@@ -28,7 +29,6 @@
     "flags": {
       "ENVIRONMENT_EDITOR": true,
       "LOCALES_LEVEL_1": true,
-      "SEGMENT_BRT": true,
       "SEGMENT_UTILITIES": true,
       "CUSTOM_SEGMENT_LABELS": true
     }
