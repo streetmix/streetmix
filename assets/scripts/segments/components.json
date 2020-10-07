@@ -560,7 +560,7 @@
             "graphics": {
               "scatter": {
                 "sprites": [
-                  "plants--flowers",
+                  "plants--flowers-red",
                   {
                     "id": "plants--flowers-orange",
                     "width": 4,
