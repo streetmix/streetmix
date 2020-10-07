@@ -4347,6 +4347,7 @@
     "zIndex": 20,
     "defaultWidth": 13.3333,
     "enableWithFlag": "SEGMENT_BRT",
+    "alwaysShowInPalette": true,
     "paletteIcon": "center",
     "rules": {
       "minWidth": 13.3333
@@ -4420,8 +4421,9 @@
     "nameKey": "brt-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 12,
+    "defaultWidth": 11.66666,
     "enableWithFlag": "SEGMENT_BRT",
+    "alwaysShowInPalette": true,
     "rules": {
       "minWidth": 11.5,
       "maxWidth": 13
