@@ -1,0 +1,246 @@
+{
+  "sidewalk": {
+    "name": "Sidewalk",
+    "nameKey": "sidewalk",
+    "owner": "PEDESTRIAN",
+    "zIndex": 30,
+    "defaultWidth": 6,
+    "rules": {
+      "minWidth": 6
+    },
+    "variants": ["sidewalk-density"],
+    "details": {
+      "dense": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "dense"
+              }
+            }
+          ]
+        }
+      },
+      "normal": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "normal"
+              }
+            }
+          ]
+        }
+      },
+      "sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "sparse"
+              }
+            }
+          ]
+        }
+      },
+      "empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "outdoor-dining": {
+    "name": "Outdoor dining",
+    "nameKey": "outdoor-dining",
+    "owner": "PEDESTRIAN",
+    "zIndex": 24,
+    "defaultWidth": 8,
+    "enableWithFlag": "SEGMENT_CAFE_SEATING",
+    "alwaysShowInPalette": true,
+    "variants": ["occupants", "elevation"],
+    "details": {
+      "occupied|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "occupied"
+              }
+            }
+          ]
+        }
+      },
+      "empty|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "occupied|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "occupied"
+              }
+            }
+          ]
+        }
+      },
+      "empty|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "empty"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "utilities": {
+    "name": "Utility pole",
+    "nameKey": "utility-pole",
+    "owner": "NONE",
+    "zIndex": 10,
+    "defaultWidth": 4,
+    "enableWithFlag": "SEGMENT_UTILITIES",
+    "variants": ["orientation"],
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "utility-pole",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "utility-pole",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

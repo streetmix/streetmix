@@ -12,6 +12,9 @@ jest.mock('../../segments/view', () => {
     drawSegmentContents: jest.fn()
   }
 })
+jest.mock('../../segments/segment-lookup.json', () =>
+  require('../../segments/__mocks__/segment-lookup.json')
+)
 
 describe('PaletteContainer', () => {
   it('renders', () => {
