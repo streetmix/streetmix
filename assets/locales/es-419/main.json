@@ -113,7 +113,7 @@
     "survey-finished": "Lista la encuesta. ¡Felicitaciones y gracias!",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
-    "auth-expired": "",
+    "auth-expired": "Te hemos desconectado automáticamente por falta de actividad",
     "sign-in-again": "Por favor vuelve a ingresar.",
     "access-denied-title": "No has iniciado sesión",
     "access-denied-description": "Has cancelado el inicio de sesión",

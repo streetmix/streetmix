@@ -39,8 +39,8 @@
     "streetcar": "Tranvía",
     "light-rail": "Tren ligero",
     "transit-shelter": "Paradero de transporte público",
-    "brt-station": "",
-    "brt-lane": "",
+    "brt-station": "Estación de BRT",
+    "brt-lane": "Carril de bus rápido",
     "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de \"El Origen\"",
     "magic-carpet": "Alfombra mágica"
