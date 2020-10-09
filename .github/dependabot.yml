@@ -14,22 +14,3 @@ updates:
   labels:
   - dependencies
   versioning-strategy: increase-if-necessary
-  ignore:
-  - dependency-name: "@fortawesome/fontawesome-svg-core"
-    versions:
-    - "> 1.2.25"
-    - "< 1.3"
-  - dependency-name: mongoose
-    versions:
-    - "> 5.8.2"
-  - dependency-name: react-dnd-html5-backend
-    versions:
-    - ">= 9.3.2.a"
-    - "< 9.3.3"
-  - dependency-name: react-dnd-html5-backend-cjs
-    versions:
-    - "> 9.4.0"
-  - dependency-name: react-intl
-    versions:
-    - ">= 3.5.a"
-    - "< 3.6"
