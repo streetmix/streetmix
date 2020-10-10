@@ -12,6 +12,9 @@
   margin-top: -1px;
   margin-left: 3px;
   margin-right: 5px;
+
+  /* Prevent alt text from "leaking" from underneath the ::after pseudo-
+     element, when an image is broken */
   overflow: hidden;
 
   img {
@@ -27,7 +30,8 @@
   }
 
   /* Broken images will apply this pseudo-element, displaying a fallback image
-    An "after" pseudo-element overlaps alt text, which still displays on some browsers */
+     An ::after pseudo-element overlaps alt text, which still displays on some
+     browsers */
   img::after {
     content: "";
     position: absolute;
@@ -37,7 +41,7 @@
     left: 0;
     border-radius: 50%;
     box-shadow: inset 0 0 0 1px white;
-    background-image: url("../../images/avatar.png");
+    background-image: url("../../images/avatar.svg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
