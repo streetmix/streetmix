@@ -161,8 +161,73 @@ The primary requirements for this project are Node.js, PostgreSQL and PostGIS. Y
 
 `Installing PostGIS <https://postgis.net/install/>`_
 
-If you haven't installed Postgres on your machine before, you may need to set up some intial configuration. `Here is an example for ArchLinux <https://wiki.archlinux.org/index.php/PostgreSQL>`_.
+If you haven't installed Postgres on your machine before, you may need to set up some intial configuration.
 
+ArchLinux
++++++++++
+`Here is an example for ArchLinux <https://wiki.archlinux.org/index.php/PostgreSQL>`_.
+
+Ubuntu
+++++++
+If you've just installed Postgres:
+
+1. Add a user with sufficient permissions to Postgres:
+
+   .. prompt:: bash $
+
+      # Switch to postgres user to add users and permissions
+      sudo -iu postgres
+      
+      # create the new user (e.g., streetmix_user)
+      createuser streetmix_user
+      
+      # access postgres and give the user permission to create a DB
+      psql
+      ALTER USER streetmix_user PASSWORD 'streetmix';
+      ALTER USER streetmix_user CREATEDB;
+      
+      # leave the database
+      exit
+      
+      # switch back to original user
+      exit
+      
+2. You need to indicate to the installer how to access the postgres DB:
+
+   .. prompt:: bash $
+
+      # Using vim, but replace with your editor
+      vim app/db/config/config.js
+      
+      # below the line:
+      dialect: 'postgres',
+      # add the following two lines, based on the username and password you defined in the step above
+      username: 'streetmix_user',                                                                                                                                                                   
+      password: 'streetmix',
+      
+3. Run the 'Clone and install Streetmix' steps below. The instruction ```npx sequelize db:migrate``` will give an error. You will need to install the PostGIS extension to the database created from running the first npx instruction ```npx sequelize db:create```.
+
+   .. prompt:: bash $
+
+      # Switch to postgres user
+      sudo -iu postgres
+      
+      # connect to the streetmix_dev database
+      psql streetmix_dev
+      
+      # build the extension for this DB
+      CREATE EXTENSION postgis;
+      
+      # then quit
+      exit
+      # and again to return to your normal user
+      exit
+      
+      # Now try the instruction that failed again
+      npx sequelize db:migrate
+
+Other
++++++
 You may need to look for instructions more specific to your distro for setting up Postgres.
 
 We also welcome contributions to our documentation, so if you get Streetmix up and running on a different distro and would like to share how, please feel free!
