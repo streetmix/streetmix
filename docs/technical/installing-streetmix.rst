@@ -168,6 +168,38 @@ You may need to look for instructions more specific to your distro for setting u
 We also welcome contributions to our documentation, so if you get Streetmix up and running on a different distro and would like to share how, please feel free!
 
 
+Clone and install Streetmix
++++++++++++++++++++++++++++
+
+1. Clone the Streetmix repository to a folder on your computer.
+
+   .. prompt:: bash $
+
+      git clone https://github.com/streetmix/streetmix.git
+      
+      
+2. Change the directory to Streetmix's root directoy, and install project dependencies.
+
+   .. prompt:: bash $
+
+      cd streetmix
+      npm install
+      
+      
+3. Initialize Postgres database.
+
+   .. prompt:: bash $
+
+      npx sequelize db:create
+      npx sequelize db:migrate
+
+
+Run Streetmix
++++++++++++++
+
+See :ref:`install-all`, below.
+
+
 .. _install-all:
 
 Instructions for all systems
