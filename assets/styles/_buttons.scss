@@ -23,22 +23,22 @@ a.button-like {
   border: 0;
   border-radius: $border-radius-medium;
   padding: 0.75em 2em;
-  background-color: $colour-turquoise-200;
-  color: black;
+  background-color: $colour-turquoise-225;
+  color: $colour-midnight-700;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
 
   &:not([disabled]) .svg-inline--fa {
-    color: #231f20;
+    color: $colour-midnight-700;
   }
 
   &:hover {
-    background-color: $colour-turquoise-210;
+    background-color: $colour-turquoise-250;
   }
 
   &:active {
-    background-color: $colour-turquoise-220;
+    background-color: $colour-turquoise-250;
   }
 
   &[disabled] {

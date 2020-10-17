@@ -2,13 +2,28 @@
 
 .up-down-input-element {
   width: 50px;
-  margin: 0 3px;
   font-family: $font-family;
   text-align: center;
   background: $form-element-background;
   border: 1px solid $form-element-border;
+  border-left: 0;
+  border-right: 0;
   vertical-align: bottom;
   height: 30px;
   line-height: 22px;
   outline: none;
+}
+
+.up-down-input-decrement {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.up-down-input-increment {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.up-down-input button svg {
+  color: $colour-midnight-700 !important;
 }

@@ -5,31 +5,35 @@ exports[`WidthControl renders 1`] = `
   <div
     class="non-variant"
   >
-    <button
-      class="up-down-input-decrement"
-      disabled=""
-      tabindex="-1"
-      title="Decrease width (hold Shift for more precision)"
+    <div
+      class="up-down-input"
     >
-      <svg
-        class="svg-inline--fa fa-minus"
+      <button
+        class="up-down-input-decrement"
+        disabled=""
+        tabindex="-1"
+        title="Decrease width (hold Shift for more precision)"
+      >
+        <svg
+          class="svg-inline--fa fa-minus"
+        />
+      </button>
+      <input
+        class="up-down-input-element"
+        title="Change width of the segment"
+        type="text"
+        value="0 m"
       />
-    </button>
-    <input
-      class="up-down-input-element"
-      title="Change width of the segment"
-      type="text"
-      value="0 m"
-    />
-    <button
-      class="up-down-input-increment"
-      tabindex="-1"
-      title="Increase width (hold Shift for more precision)"
-    >
-      <svg
-        class="svg-inline--fa fa-plus"
-      />
-    </button>
+      <button
+        class="up-down-input-increment"
+        tabindex="-1"
+        title="Increase width (hold Shift for more precision)"
+      >
+        <svg
+          class="svg-inline--fa fa-plus"
+        />
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
