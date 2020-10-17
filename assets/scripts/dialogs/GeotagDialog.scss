@@ -1,6 +1,7 @@
 @import "../../styles/variables.scss";
 
 $geotag-dialog-background-color: $off-white;
+$geotag-error-banner-margin: 100px;
 
 .geotag-dialog {
   width: 90vw;
@@ -16,10 +17,24 @@ $geotag-dialog-background-color: $off-white;
 
 .geotag-error-banner {
   /* Very similar to the notification bar banner */
-  padding: 0.85em 2.5em;
+  padding: 0.75em 2.5em;
   text-align: center;
   background-color: $alert-background;
   border-bottom: $alert-border;
+  border-bottom-left-radius: $border-radius-medium;
+  border-bottom-right-radius: $border-radius-medium;
+
+  /* Place error banner above map */
+  position: absolute;
+  top: 0;
+
+  /* Place above leaflet tiles, which have a z-index of 400 */
+  z-index: 500;
+
+  /* Constrain width of banner to allow for zoom widget and close
+     dialog button */
+  width: calc(100% - #{$geotag-error-banner-margin * 2});
+  margin: 0 $geotag-error-banner-margin;
 }
 
 .geotag-input-container {
