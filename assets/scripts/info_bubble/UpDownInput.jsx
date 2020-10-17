@@ -230,7 +230,7 @@ function UpDownInput (props) {
   }
 
   return (
-    <>
+    <div className="up-down-input">
       <button
         className="up-down-input-decrement"
         title={downTooltip}
@@ -265,7 +265,7 @@ function UpDownInput (props) {
       >
         <FontAwesomeIcon icon={ICON_PLUS} />
       </button>
-    </>
+    </div>
   )
 }
 

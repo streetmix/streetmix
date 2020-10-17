@@ -17,35 +17,6 @@ $border-radius-medium: 4px;
 $border-radius-large: 6px;
 $menu-side-inset: $left-right-inset - 20px;
 
-// Colours
-$background-dirt-colour: rgb(53, 45, 39);
-$sky-colour: rgb(169, 204, 219);
-$ui-colour: lighten($sky-colour, 10%);
-$form-element-background: lighten($ui-colour, 10%);
-$form-element-border: $ui-colour;
-$button-border-colour: darken($ui-colour, 10%);
-$button-border: 1px solid $button-border-colour;
-$alert-background: #fff0c0;
-$alert-border-colour: #ffd755;
-$alert-border: 5px solid $alert-border-colour;
-$off-white: rgb(247, 247, 247);
-$palette-background: $off-white;
-$menu-bar-background: $off-white;
-$bottom-background: rgb(216, 211, 203);
-$warning-colour: rgb(220, 20, 20);
-$segment-text: rgb(40, 35, 30);
-$segment-hover-text: lighten($segment-text, 30%);
-$segment-warning-text: $warning-colour;
-$empty-segment-text: fade-out($segment-text, 0.5);
-$segment-hover-background: rgba(255, 255, 255, 0.2);
-$light-text-colour: rgb(240, 240, 240);
-$info-bubble-background: white;
-$segment-width-rule: rgb(160, 160, 160);
-$street-name-text: black;
-$street-name-background: white;
-$hr-colour: darken($ui-colour, 10%);
-$control-disabled-colour: gray;
-
 // Brand colours
 $colour-emerald-700: rgb(12, 62, 22);
 $colour-emerald-600: rgb(35, 113, 55);
@@ -76,8 +47,39 @@ $colour-midnight-300: rgb(166, 178, 200);
 $colour-midnight-200: rgb(212, 219, 231);
 $colour-midnight-100: rgb(230, 235, 244);
 
-$colour-turquoise-210: color.scale($colour-turquoise-200, $lightness: -2%);
-$colour-turquoise-220: color.scale($colour-turquoise-200, $lightness: -4%);
+$colour-turquoise-50: color.scale($colour-turquoise-100, $lightness: 20%);
+$colour-turquoise-150: color.scale($colour-turquoise-200, $lightness: 10%);
+$colour-turquoise-225: color.scale($colour-turquoise-200, $lightness: -5%);
+$colour-turquoise-250: color.scale($colour-turquoise-200, $lightness: -10%);
+$colour-turquoise-425: color.scale($colour-turquoise-400, $lightness: -5%);
+$colour-turquoise-450: color.scale($colour-turquoise-400, $lightness: -10%);
+
+// Colours
+$background-dirt-colour: rgb(53, 45, 39);
+$sky-colour: rgb(169, 204, 219);
+$ui-colour: lighten($sky-colour, 10%);
+$form-element-background: $colour-turquoise-50;
+$form-element-border: $colour-turquoise-200;
+$button-border: 1px solid $colour-turquoise-400;
+$alert-background: #fff0c0;
+$alert-border-colour: #ffd755;
+$alert-border: 5px solid $alert-border-colour;
+$off-white: rgb(247, 247, 247);
+$palette-background: $off-white;
+$menu-bar-background: $off-white;
+$bottom-background: rgb(216, 211, 203);
+$warning-colour: rgb(220, 20, 20);
+$segment-text: rgb(40, 35, 30);
+$segment-hover-text: lighten($segment-text, 30%);
+$segment-warning-text: $warning-colour;
+$empty-segment-text: fade-out($segment-text, 0.5);
+$segment-hover-background: rgba(255, 255, 255, 0.2);
+$light-text-colour: rgb(240, 240, 240);
+$info-bubble-background: white;
+$segment-width-rule: rgb(160, 160, 160);
+$street-name-text: black;
+$street-name-background: white;
+$control-disabled-colour: gray;
 
 // Layered UI box shadows
 $light-box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.075);

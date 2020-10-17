@@ -37,31 +37,35 @@ exports[`InfoBubble is visible 1`] = `
       <div
         class="non-variant"
       >
-        <button
-          class="up-down-input-decrement"
-          disabled=""
-          tabindex="-1"
-          title="Decrease width (hold Shift for more precision)"
+        <div
+          class="up-down-input"
         >
-          <svg
-            class="svg-inline--fa fa-minus"
+          <button
+            class="up-down-input-decrement"
+            disabled=""
+            tabindex="-1"
+            title="Decrease width (hold Shift for more precision)"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            title="Change width of the segment"
+            type="text"
+            value="0 m"
           />
-        </button>
-        <input
-          class="up-down-input-element"
-          title="Change width of the segment"
-          type="text"
-          value="0 m"
-        />
-        <button
-          class="up-down-input-increment"
-          tabindex="-1"
-          title="Increase width (hold Shift for more precision)"
-        >
-          <svg
-            class="svg-inline--fa fa-plus"
-          />
-        </button>
+          <button
+            class="up-down-input-increment"
+            tabindex="-1"
+            title="Increase width (hold Shift for more precision)"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,31 +109,35 @@ exports[`InfoBubble renders 1`] = `
       <div
         class="non-variant"
       >
-        <button
-          class="up-down-input-decrement"
-          disabled=""
-          tabindex="-1"
-          title="Decrease width (hold Shift for more precision)"
+        <div
+          class="up-down-input"
         >
-          <svg
-            class="svg-inline--fa fa-minus"
+          <button
+            class="up-down-input-decrement"
+            disabled=""
+            tabindex="-1"
+            title="Decrease width (hold Shift for more precision)"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            title="Change width of the segment"
+            type="text"
+            value="0 m"
           />
-        </button>
-        <input
-          class="up-down-input-element"
-          title="Change width of the segment"
-          type="text"
-          value="0 m"
-        />
-        <button
-          class="up-down-input-increment"
-          tabindex="-1"
-          title="Increase width (hold Shift for more precision)"
-        >
-          <svg
-            class="svg-inline--fa fa-plus"
-          />
-        </button>
+          <button
+            class="up-down-input-increment"
+            tabindex="-1"
+            title="Increase width (hold Shift for more precision)"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -267,33 +275,37 @@ exports[`InfoBubble shows building left info bubble 1`] = `
       <div
         class="non-variant building-height"
       >
-        <button
-          class="up-down-input-decrement"
-          disabled=""
-          tabindex="-1"
-          title="Remove floor"
+        <div
+          class="up-down-input"
         >
-          <svg
-            class="svg-inline--fa fa-minus"
+          <button
+            class="up-down-input-decrement"
+            disabled=""
+            tabindex="-1"
+            title="Remove floor"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            disabled=""
+            title="Change the number of floors"
+            type="text"
+            value=""
           />
-        </button>
-        <input
-          class="up-down-input-element"
-          disabled=""
-          title="Change the number of floors"
-          type="text"
-          value=""
-        />
-        <button
-          class="up-down-input-increment"
-          disabled=""
-          tabindex="-1"
-          title="Add floor"
-        >
-          <svg
-            class="svg-inline--fa fa-plus"
-          />
-        </button>
+          <button
+            class="up-down-input-increment"
+            disabled=""
+            tabindex="-1"
+            title="Add floor"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -431,33 +443,37 @@ exports[`InfoBubble shows building right info bubble 1`] = `
       <div
         class="non-variant building-height"
       >
-        <button
-          class="up-down-input-decrement"
-          disabled=""
-          tabindex="-1"
-          title="Remove floor"
+        <div
+          class="up-down-input"
         >
-          <svg
-            class="svg-inline--fa fa-minus"
+          <button
+            class="up-down-input-decrement"
+            disabled=""
+            tabindex="-1"
+            title="Remove floor"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            disabled=""
+            title="Change the number of floors"
+            type="text"
+            value=""
           />
-        </button>
-        <input
-          class="up-down-input-element"
-          disabled=""
-          title="Change the number of floors"
-          type="text"
-          value=""
-        />
-        <button
-          class="up-down-input-increment"
-          disabled=""
-          tabindex="-1"
-          title="Add floor"
-        >
-          <svg
-            class="svg-inline--fa fa-plus"
-          />
-        </button>
+          <button
+            class="up-down-input-increment"
+            disabled=""
+            tabindex="-1"
+            title="Add floor"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -501,31 +517,35 @@ exports[`InfoBubble shows description 1`] = `
       <div
         class="non-variant"
       >
-        <button
-          class="up-down-input-decrement"
-          disabled=""
-          tabindex="-1"
-          title="Decrease width (hold Shift for more precision)"
+        <div
+          class="up-down-input"
         >
-          <svg
-            class="svg-inline--fa fa-minus"
+          <button
+            class="up-down-input-decrement"
+            disabled=""
+            tabindex="-1"
+            title="Decrease width (hold Shift for more precision)"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            title="Change width of the segment"
+            type="text"
+            value="0 m"
           />
-        </button>
-        <input
-          class="up-down-input-element"
-          title="Change width of the segment"
-          type="text"
-          value="0 m"
-        />
-        <button
-          class="up-down-input-increment"
-          tabindex="-1"
-          title="Increase width (hold Shift for more precision)"
-        >
-          <svg
-            class="svg-inline--fa fa-plus"
-          />
-        </button>
+          <button
+            class="up-down-input-increment"
+            tabindex="-1"
+            title="Increase width (hold Shift for more precision)"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </div>

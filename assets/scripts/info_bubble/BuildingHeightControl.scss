@@ -1,4 +1,6 @@
-.building-height {
+@import "../../styles/variables.scss";
+
+.building-height .up-down-input {
   /* Re-organizes the up/down input so that elements are stacked
   veritcally, and flips the icons so that up above the element */
   display: flex;
@@ -7,16 +9,17 @@
 
   .up-down-input-element {
     width: 100px;
-    margin-top: 4px;
-    margin-bottom: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left: 1px solid $form-element-border;
+    border-right: 1px solid $form-element-border;
   }
 
   .up-down-input-decrement {
-    margin-top: 3px;
-    margin-bottom: 5px;
+    border-radius: $border-radius-medium;
   }
 
   .up-down-input-increment {
-    margin-bottom: 2px;
+    border-radius: $border-radius-medium;
   }
 }
