@@ -1,7 +1,15 @@
 /* eslint-env jest */
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import UpDownInput from '../UpDownInput'
+
+// Mock out lodash's `debounce` method so that the debounced
+// `onUpdatedValue` callback will be executed immediately when
+// called (we are not implementing the debounce in this test)
+jest.mock('lodash', () => ({
+  debounce: (fn) => fn
+}))
 
 const inputValueFormatter = jest.fn((value) => value)
 const displayValueFormatter = jest.fn((value) => value)
@@ -18,7 +26,6 @@ const defaultProps = {
   onClickUp: handleUp,
   onClickDown: handleDown,
   onUpdatedValue: handleUpdate,
-  inputTooltip: 'input',
   upTooltip: 'up',
   downTooltip: 'down'
 }
@@ -31,30 +38,29 @@ describe('UpDownInput', () => {
   })
 
   it('behaves', () => {
-    const wrapper = render(<UpDownInput {...defaultProps} />)
+    render(<UpDownInput {...defaultProps} />)
 
-    // const inputEl = wrapper.getByTitle('input')
-    const upButton = wrapper.getByTitle('up')
-    const downButton = wrapper.getByTitle('down')
+    const inputEl = screen.getByRole('textbox')
+    const upButton = screen.getByTitle('up')
+    const downButton = screen.getByTitle('down')
 
     // Ensure handler functions are called
-    fireEvent.click(upButton)
+    userEvent.click(upButton)
     expect(handleUp).toHaveBeenCalled()
 
-    fireEvent.click(downButton)
+    userEvent.click(downButton)
     expect(handleDown).toHaveBeenCalled()
 
-    // TODO: This is not being called
-    // fireEvent.keyDown(inputEl, { key: 'A' })
-    // expect(handleUpdate).toHaveBeenCalled()
+    userEvent.type(inputEl, 'abc')
+    expect(handleUpdate).toHaveBeenCalledTimes(3)
   })
 
   it('renders inputs as disabled', () => {
-    const wrapper = render(<UpDownInput {...defaultProps} disabled={true} />)
+    render(<UpDownInput {...defaultProps} disabled={true} />)
 
-    const inputEl = wrapper.getByTitle('input')
-    const upButton = wrapper.getByTitle('up')
-    const downButton = wrapper.getByTitle('down')
+    const inputEl = screen.getByRole('textbox')
+    const upButton = screen.getByTitle('up')
+    const downButton = screen.getByTitle('down')
 
     expect(inputEl).toBeDisabled()
     expect(upButton).toBeDisabled()
@@ -62,20 +68,20 @@ describe('UpDownInput', () => {
   })
 
   it('disables down button when value is the min value', () => {
-    const wrapper = render(<UpDownInput {...defaultProps} value={1} />)
+    render(<UpDownInput {...defaultProps} value={1} />)
 
-    const upButton = wrapper.getByTitle('up')
-    const downButton = wrapper.getByTitle('down')
+    const upButton = screen.getByTitle('up')
+    const downButton = screen.getByTitle('down')
 
     expect(upButton).not.toBeDisabled()
     expect(downButton).toBeDisabled()
   })
 
   it('disables up button when value is the max value', () => {
-    const wrapper = render(<UpDownInput {...defaultProps} value={10} />)
+    render(<UpDownInput {...defaultProps} value={10} />)
 
-    const upButton = wrapper.getByTitle('up')
-    const downButton = wrapper.getByTitle('down')
+    const upButton = screen.getByTitle('up')
+    const downButton = screen.getByTitle('down')
 
     expect(upButton).toBeDisabled()
     expect(downButton).not.toBeDisabled()

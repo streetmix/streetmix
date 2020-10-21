@@ -10,7 +10,6 @@ exports[`WidthControl renders 1`] = `
     >
       <button
         class="up-down-input-decrement"
-        disabled=""
         tabindex="-1"
         title="Decrease width (hold Shift for more precision)"
       >
@@ -22,7 +21,7 @@ exports[`WidthControl renders 1`] = `
         class="up-down-input-element"
         title="Change width of the segment"
         type="text"
-        value="0 m"
+        value="60 m"
       />
       <button
         class="up-down-input-increment"

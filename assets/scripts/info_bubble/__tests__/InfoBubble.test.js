@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import InfoBubble from '../InfoBubble'
 import {
@@ -35,7 +35,15 @@ const initialState = {
     activeSegment: 0
   },
   street: {
-    segments: [],
+    segments: [
+      {
+        type: 'streetcar',
+        variantString: 'inbound|regular',
+        segmentType: 'streetcar',
+        id: '1',
+        width: 200
+      }
+    ],
     leftBuildingVariant: 'grass',
     rightBuildingVariant: 'grass'
   },
@@ -47,13 +55,15 @@ const initialState = {
 
 describe('InfoBubble', () => {
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<InfoBubble />, { initialState })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
+      initialState
+    })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   // TODO: this passes, but it doesn't render the <Description /> child component.
   it('shows description', () => {
-    const wrapper = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
       initialState: {
         ...initialState,
         infoBubble: {
@@ -64,11 +74,11 @@ describe('InfoBubble', () => {
       }
     })
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('is visible', () => {
-    const wrapper = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
       initialState: {
         ...initialState,
         infoBubble: {
@@ -79,11 +89,11 @@ describe('InfoBubble', () => {
       }
     })
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows building left info bubble', () => {
-    const wrapper = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
       initialState: {
         ...initialState,
         ui: {
@@ -92,11 +102,11 @@ describe('InfoBubble', () => {
       }
     })
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows building right info bubble', () => {
-    const wrapper = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
       initialState: {
         ...initialState,
         ui: {
@@ -105,26 +115,18 @@ describe('InfoBubble', () => {
       }
     })
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
-  describe('interactions', () => {
-    it('set info bubble mouse inside', () => {
-      const { container, store } = renderWithReduxAndIntl(<InfoBubble />, {
-        initialState
-      })
-      fireEvent.mouseEnter(container.firstChild)
-
-      expect(store.getState().infoBubble.mouseInside).toEqual(true)
+  it('sets info bubble mouse inside', () => {
+    const { container, store } = renderWithReduxAndIntl(<InfoBubble />, {
+      initialState
     })
 
-    it('does not set info bubble mouse inside', () => {
-      const { container, store } = renderWithReduxAndIntl(<InfoBubble />, {
-        initialState
-      })
-      fireEvent.mouseLeave(container.firstChild)
+    userEvent.hover(container.firstChild)
+    expect(store.getState().infoBubble.mouseInside).toEqual(true)
 
-      expect(store.getState().infoBubble.mouseInside).toEqual(false)
-    })
+    userEvent.unhover(container.firstChild)
+    expect(store.getState().infoBubble.mouseInside).toEqual(false)
   })
 })
