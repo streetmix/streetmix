@@ -185,7 +185,7 @@
       "donate-link": "Aider nous financièrement",
       "github-link": "Contribuer à l'open source",
       "open-source-link": "Nous sommes open source !",
-      "guidebook-link": "",
+      "guidebook-link": "Guide",
       "tos-link": "Conditions d'utilisation",
       "privacy-link": "Politique de confidentialité",
       "acknowledgements": "Remerciements",
@@ -207,7 +207,7 @@
       "option-labels": "Les noms des éléments de voirie et leurs largeurs",
       "option-name": "Nom de rue",
       "option-sky": "Ciel transparent",
-      "option-watermark": "",
+      "option-watermark": "Filigrane",
       "loading": "Chargement…",
       "save-button": "Enregistrer sur votre ordinateur…",
       "license": "Cette image créée sur Streetmix peut être réutilisée n'importe où, pour n'importe quel usage, sous la licence {licenseLink}.",
@@ -224,7 +224,7 @@
       "confirm-location": "Confirmer l'emplacement",
       "clear-location": "Effacer l'emplacement",
       "unknown-location": "Emplacement inconnu",
-      "geotag-unavailable": ""
+      "geotag-unavailable": "Les services de géocodage sont actuellement indisponibles. Vous pouvez afficher la carte, mais vous ne pourrez pas modifier l'emplacement de cette rue."
     },
     "donate": {
       "heading": "Streetmix a besoin de votre aide !",
@@ -264,14 +264,14 @@
   "tools": {
     "tooltip": "",
     "environment": {
-      "heading": ""
+      "heading": "Environnement"
     }
   },
   "prompt": {
     "new-street": "Nouveau nom de rue :",
     "delete-street": "Êtes-vous sûr de vouloir supprimer {streetName} de manière permanente ? Ceci ne pourra être annulé.",
     "new-width": "Nouvelle largeur de rue (entre {minWidth} et {maxWidth}) :",
-    "segment-label": ""
+    "segment-label": "Nouveau nom du segment :"
   },
   "toast": {
     "segment-deleted": "Les éléments de voirie ont été enlevés.",
@@ -382,7 +382,7 @@
     "advisors": "Conseillers",
     "additional-illustrations": "",
     "additional-code": "",
-    "additional-contributors": "",
+    "additional-contributors": "Autres contributeurs",
     "special-thanks": "Remerciement spécial à",
     "translators": "Traducteurs"
   },
@@ -408,7 +408,7 @@
     "sign-in-prompt": "",
     "about-link": "",
     "about-text": "",
-    "thank-you": "",
+    "thank-you": "Merci !",
     "about-header": "",
     "about-article": {
       "paragraph-1": "",

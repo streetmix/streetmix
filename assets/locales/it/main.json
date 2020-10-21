@@ -110,11 +110,11 @@
     "gallery-street-failure-description": "Abbiamo dei problemi nel caricamento di questa strada.",
     "reload-sign-in-title": "Ti sei già autenticato in un'altra finestra.",
     "please-reload": "Cortesemente ricarica questa pagina prima di continuare.",
-    "survey-finished": "",
+    "survey-finished": "Indagine completata. Congratulazioni!",
     "street-deleted-elsewhere-title": "Questa strada è già stata cancellata da un'altra parte.",
     "street-deleted-elsewhere-description": "Questa strada è già stata cancellata in un altro browser.",
-    "auth-expired": "",
-    "sign-in-again": "",
+    "auth-expired": "Ti abbiamo scollegato a causa di prolungata inattività",
+    "sign-in-again": "Iinserisci di nuovo le tue credenziali.",
     "access-denied-title": "Non sei autenticato.",
     "access-denied-description": "Hai cancellato il processo di autenticazione.",
     "auth-api-problem-title": "C'è stato un problema di autenticazione.",
@@ -129,7 +129,7 @@
     "generic-error-title": "Qualcosa è andato storto.",
     "generic-error-description": "Siamo dispiaciuti - qualcosa è andato storto.",
     "error-code": "(Errore{code}.)",
-    "need-help-link": ""
+    "need-help-link": "Hai bisogno di aiuto?"
   },
   "btn": {
     "reload": "Ricarica",
@@ -143,7 +143,7 @@
     "close": "Chiudi",
     "dismiss": "Abbandona",
     "okay": "Okay!",
-    "not-now": ""
+    "not-now": "Non ora"
   },
   "dialogs": {
     "error": {
@@ -154,7 +154,7 @@
       "heading": "Benvenuti in Streetmix.",
       "new": {
         "intro": "Disegna, riassembla gli spazi e condividi la tua strada di vicinato. Aggiungi alberature, piste ciclabili, allarga i marciapiedi o le corsie stradali e scopri come le tue decisioni possono avere un'impatto positivo sulla comunità.",
-        "instruction": "",
+        "instruction": "Comincia a muovere alcuni segmenti.",
         "instruct": "Riposiziona alcuni segmenti con {pointer}.",
         "instruct-pointer-finger": "il tuo dito",
         "instruct-pointer-mouse": "il tuo mouse"
@@ -179,8 +179,8 @@
       "credits": "Un progetto collaterale del {cfaLink} 2013:",
       "team-heading": "Team di progetto e di manutentenzione",
       "view-source": "Esplora il codice sorgente",
-      "partners": "",
-      "sponsors": "",
+      "partners": "Partners",
+      "sponsors": "Sponsors",
       "sponsored-by": "Streetmix è sponsorizzata generosamente da:",
       "donate-link": "Supportaci finaziariamente",
       "github-link": "Contribuisci allo sviluppo open source",
@@ -188,11 +188,11 @@
       "guidebook-link": "Guida",
       "tos-link": "Termini del servizio",
       "privacy-link": "Informativa sulla privacy",
-      "acknowledgements": "",
-      "font-designed-by": "",
-      "emoji-by": "",
-      "icons-by": "",
-      "license-label": ""
+      "acknowledgements": "Riconoscimenti",
+      "font-designed-by": "{fontName} font disegnato da {fontAuthor}.",
+      "emoji-by": "Emoji di {author}.",
+      "icons-by": "Icone di {author}.",
+      "license-label": "(<a>Licenza</a>)"
     },
     "analytics": {
       "export-csv": "Esporta in CSV",
@@ -262,9 +262,9 @@
     }
   },
   "tools": {
-    "tooltip": "",
+    "tooltip": "Attiva/disattiva strumenti",
     "environment": {
-      "heading": ""
+      "heading": "Ambiente"
     }
   },
   "prompt": {
@@ -363,7 +363,7 @@
     "delete-street-tooltip": "Cancella la strada",
     "street-count": "{count, plural, one {numero di strada} other {numero di strade}}",
     "no-streets": "Nessuna strada ancora",
-    "thumbnail-error": ""
+    "thumbnail-error": "L'immagine in miniatura non è disponibile"
   },
   "users": {
     "anonymous": "Anonimo",
@@ -388,43 +388,43 @@
   },
   "plus": {
     "locked": {
-      "sub": "",
-      "user": ""
+      "sub": "Iscriviti per l'utilizzo!",
+      "user": "Accedi per l'utilizzo!"
     }
   },
   "sentiment": {
     "prompt": {
-      "intro": "",
-      "joyful": "",
-      "choose-one": ""
+      "intro": "<strong>Scusa per l'interruzione</strong> Ci piacerebbe ricevere la tua opinione su questa strada.",
+      "joyful": "Diresti che questa strada esprime <em>allegria</em>?",
+      "choose-one": "(una scelta)"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "Assolutamente no",
+      "rating-2": "Non molto",
+      "rating-3": "Così così",
+      "rating-4": "Un pochino",
+      "rating-5": "Abbastanza"
     },
-    "sign-in-prompt": "",
-    "about-link": "",
-    "about-text": "",
-    "thank-you": "",
-    "about-header": "",
+    "sign-in-prompt": "Accedi per far sentire la tua voce.",
+    "about-link": "Perchè sto vedendo questo?",
+    "about-text": "Questa indagine serve a capire come le persone percepiscono lo spazio stradale.",
+    "thank-you": "Grazie!",
+    "about-header": "Vogliamo capire come le persone percepiscono lo spazio stradale",
     "about-article": {
-      "paragraph-1": "",
-      "paragraph-2": "",
-      "paragraph-3": ""
+      "paragraph-1": "Molte strade sono progettate come un'opera di ingegneria, ma crediamo che la progettazione possa includere i punti di vista di tutti i cittadini interessati. A questo scopo stiamo svolgendo questa indagine In collaborazione con  <a>New Urban Mobility Alliance</a> (NUMO).",
+      "paragraph-2": "Analizzeremo le tue risposte in modo da capire quali caratteristiche dello spazio stradale inducono determinate percezioni. In futuro, abbiamo l'intenzione di incorporare questi approfondimenti nelle raccomandazioni progettuali per gli utenti di Streetmix.",
+      "paragraph-3": "Puoi votare una sola volta per ogni strada, ma puoi incoraggiare altre persone a farlo condividendo la tua strada o una strada a caso con il seguente collegamento: <a>https://streetmix.net/survey/</a>."
     },
     "done": {
-      "response": "",
-      "vote-another": "",
-      "really-done": ""
+      "response": "Hai risposto {score}.",
+      "vote-another": "Vota ancora!",
+      "really-done": "Finito!"
     },
     "comment": {
-      "prompt": "",
-      "example": "",
-      "submit": "",
-      "thanks": ""
+      "prompt": "Dicci il perchè:",
+      "example": "(per esempio, \"Mi piacciono gli alberi\")",
+      "submit": "Invia",
+      "thanks": "Ricevuto!"
     }
   },
   "i18n": {
