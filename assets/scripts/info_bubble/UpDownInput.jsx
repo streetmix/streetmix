@@ -67,10 +67,17 @@ function UpDownInput (props) {
 
   const [isEditing, setIsEditing] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+
   // If the initial `value` prop is `null` or undefined, the displayValue must
   // be initiated as an empty string, otherwise React throws a warning about
   // uncontrolled inputs when the value is changed later
+  // The display value is not necessarily the same as the raw `value`. It is
+  // usually the "pretty" formatted value.
   const [displayValue, setDisplayValue] = useState(value ?? '')
+
+  // This is the "dirty" user input value. This should be the input value when
+  // it's set, otherwise display the formatted `displayValue`. This can be an
+  // empty string, which is always valid user input.
   const [userInputValue, setUserInputValue] = useState(null)
 
   const debounceUpdateValue = debounce(onUpdatedValue, EDIT_INPUT_DELAY)
@@ -93,8 +100,8 @@ function UpDownInput (props) {
     // display the value without units. The `inputValueFormatter` function is
     // run, which takes into account the user's preferred units.
     if (isEditing || isHovered) {
-      if (userInputValue) {
-        // If there is user input, always display that
+      if (userInputValue !== null) {
+        // If there is user input, always display that.
         setDisplayValue(userInputValue)
       } else {
         // Otherwise, display the value from props
@@ -141,6 +148,9 @@ function UpDownInput (props) {
   }
 
   function handleInputClick (event) {
+    // Bail if already in editing mode.
+    if (isEditing) return
+
     setIsEditing(true)
   }
 
@@ -155,25 +165,18 @@ function UpDownInput (props) {
     debounceUpdateValue(value)
   }
 
-  function handleInputFocus (event) {
-    // Automatically select the value on focus so that it's easy to start
-    // typing new values. In React, this only works if the .select() is called
-    // at the end of the execution stack, so we put it inside a setTimeout()
-    // with a timeout of zero. We also must store the reference to the event
-    // target because the React synthetic event will not persist into the
-    // `setTimeout` function.
-    const target = event.target
-    if (document.activeElement !== target) {
-      window.setTimeout(() => {
-        target.select()
-      }, 0)
-    }
-  }
-
   function handleInputBlur (event) {
+    setIsHovered(false)
     setIsEditing(false)
   }
 
+  /**
+   * Necessary to prevent blur event from being called on a mousedown(?)
+   * The observed effect is that if a user is editing/focused on the input,
+   * and they click on it again, the blur event handler is called and the
+   * input value momentarily changes to the unblurred (prettified) value.
+   * Not sure what causes this, but this handler fixes that issue.
+   */
   function handleInputMouseDown (event) {
     // Bail if already in editing mode.
     if (isEditing) return
@@ -191,8 +194,11 @@ function UpDownInput (props) {
     setIsHovered(true)
 
     // Automatically select the value on hover so that it's easy to start
-    // typing new values. See comment in `handleInputFocus` about why we use
-    // a `setTimeout` with a 0 time value here.
+    // typing new values. In React, this only works if the .select() is called
+    // at the end of the execution stack, so we put it inside a setTimeout()
+    // with a timeout of zero. We also must store the reference to the event
+    // target because the React synthetic event will not persist into the
+    // `setTimeout` function.
     const target = event.target
     window.setTimeout(() => {
       target.focus()
@@ -207,7 +213,11 @@ function UpDownInput (props) {
     // Bail if already in editing mode.
     if (isEditing) return
 
+    // On mouse out, we want to blur but the onBlur handler is not
+    // called in a test environment. Just in case, we also reset the
+    // the isHovered and isEditing state here.
     setIsHovered(false)
+    setIsEditing(false)
 
     event.target.blur()
   }
@@ -257,7 +267,6 @@ function UpDownInput (props) {
         value={displayValue}
         onChange={handleInputChange}
         onClick={handleInputClick}
-        onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         onMouseDown={handleInputMouseDown}
         onMouseOver={handleInputMouseOver}
