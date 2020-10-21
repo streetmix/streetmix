@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "Marciapiede",
-    "pedestrian": "",
+    "pedestrian": "Pedonale",
     "sidewalk-tree": "Filare",
     "bike-rack": "Portabiciclette",
     "bench": "Panchina",
-    "outdoor-dining": "",
+    "outdoor-dining": "Plateatico",
     "cafe-seating": "Plateatico",
     "wayfinding-sign": "Segnaletica di orientamento",
     "sidewalk-lamp": "Lampione",
@@ -39,8 +39,8 @@
     "streetcar": "Tram",
     "light-rail": "Metropolitana leggera",
     "transit-shelter": "Pensilina",
-    "brt-station": "",
-    "brt-lane": "",
+    "brt-station": "Fermata autobus a transito rapido",
+    "brt-lane": "autobus a transito rapido",
     "temporary-barrier": "Barriera temporanea",
     "inception-train": "Treno di \"Inception\"",
     "magic-carpet": "Tappeto magico"
@@ -48,7 +48,7 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Apprendi di più sui cartelli di direzione",
-      "content": "# I cartelli di direzione aiutano i pedoni a raggiungere le destinazioni comuni.\n\nUrbanisti ed architetti hanno studiato per decenni tentando di capire cosa succede nella percezione delle persone quando immaginano di andare dal punto A al punto B - o anche solo cosa si debba considerare come \"punto A\" di partenza. Ai primi degli anni '60, l'urbanista Kevin Lynch ha scritto a riguardo della \"leggibilità\" dei luoghi urbani in _[L'immagine della città](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, descrivendo l'orientamento come “l'uso e l'organizzazione coerenti di predefiniti segnali sensoriali provenienti dall'ambiente esterno.” I quali possono essere intangibili - odore, tatto, il senso di gravità o anche campi magnetici o elettrici. Possono inoltre essere più fisici, progettati intenzionalmente come strumenti per l'orientamento come mappe, numeri civici o indicazioni stradali.\n\nE' sorprendente come sia facilmente accettabile che una segnaletica esauriente sia essenziale per il traffico veicolare, mentre meno investimenti vengono effettuati per lo spazio pedonale. Forse questo dipende dal fatto che fermarsi, dare un'occhio a quanto ci circonda ed usare i nostri sensi non rischia di creare un ingorgo di persone dietro di noi. Ad ogni modo i pianificatori hanno spinto per l'introduzione di segnaletica di orientamento per i pedoni quando questa diventa un'opportunità di sfruttamento commerciale e questi segnali sono diventati un'occasione di riconoscibilità e di visibilità oltre ad essere funzionali\\nPer esempio, la città di New York [ha incaricato un famoso grafico internazionale](https://www.pentagram.com/work/walknyc/story) per la creazione degli ormai omnipresenti segnali WalkNYC (Streetmix modellato i sui segmenti su questi segnali). Altre municipalità hanno adottato dei cartelli più tradizionali, all'antica, o formali secondo gli standard civici (nella foto sopra), e in altri luoghi hanno invece di usare [tattiche segnaletiche di guerriglia](http://walkyourcity.org/).\n\nAfter all, there’s nothing worse than being lost. As Lynch wrote: “The very word _lost_ in our language means much more than simple geographical uncertainty; it carries overtones of utter disaster.” And who wants to be on the street feeling like that?"
+      "content": "# I cartelli di direzione aiutano i pedoni a raggiungere le destinazioni comuni.\n\nUrbanisti ed architetti hanno studiato per decenni tentando di capire cosa succede nella percezione delle persone quando immaginano di andare dal punto A al punto B - o anche solo cosa si debba considerare come \"punto A\" di partenza. Ai primi degli anni '60, l'urbanista Kevin Lynch ha scritto a riguardo della \"leggibilità\" dei luoghi urbani in _[L'immagine della città](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, descrivendo l'orientamento come “l'uso e l'organizzazione coerenti di predefiniti segnali sensoriali provenienti dall'ambiente esterno.” I quali possono essere intangibili - odore, tatto, il senso di gravità o anche campi magnetici o elettrici. Possono inoltre essere più fisici, progettati intenzionalmente come strumenti per l'orientamento come mappe, numeri civici o indicazioni stradali.\n\nE' sorprendente come sia facilmente accettabile che una segnaletica esauriente sia essenziale per il traffico veicolare, mentre meno investimenti vengono effettuati per lo spazio pedonale. Forse questo dipende dal fatto che fermarsi, dare un'occhio a quanto ci circonda ed usare i nostri sensi non rischia di creare un ingorgo di persone dietro di noi. Ad ogni modo i pianificatori hanno spinto per l'introduzione di segnaletica di orientamento per i pedoni quando questa diventa un'opportunità di sfruttamento commerciale e questi segnali sono diventati un'occasione di riconoscibilità e di visibilità oltre ad essere funzionali. Per esempio, la città di New York [ha incaricato un famoso grafico internazionale](https://www.pentagram.com/work/walknyc/story) per la creazione degli ormai omnipresenti segnali WalkNYC (Streetmix modellato i sui segmenti su questi segnali). Altre municipalità hanno adottato dei cartelli più tradizionali, all'antica, o formali secondo gli standard civici (nella foto sopra), e in altri luoghi hanno invece di usare [tattiche segnaletiche di guerriglia](http://walkyourcity.org/).\n\nDopotutto, non c'è niente di peggio che sentirsi persi. Come ha scritto Lynch: \"La parola _perso_ nel nostro linguaggio significa molto di più di una incertezza geografica: è foriera di disastri peggiori:\" C'è qualcuno che vuole avere sensazioni come queste?"
     },
     "parklet": {
       "prompt": "Apprendi di più sui giardini lineari di strada",
@@ -98,7 +98,7 @@
       "name": "Edificio"
     },
     "arcade": {
-      "name": ""
+      "name": "Edificio porticato"
     }
   },
   "variant-icons": {
@@ -140,9 +140,9 @@
     "car-type|sharrow": "Corsia promiscua",
     "car-type|truck": "Automezzo pesante",
     "car-type|av": "Veicolo a guida autonoma",
-    "car-type|motorcycle": "",
-    "car-type|motorcycle-sidecar": "",
-    "car-type|pedestrian": "",
+    "car-type|motorcycle": "Motocicletta",
+    "car-type|motorcycle-sidecar": "Motocicletta con sidecar",
+    "car-type|pedestrian": "Pedonale",
     "public-transit-asphalt|regular": "Asfalto",
     "public-transit-asphalt|colored": "Corsia rossa",
     "public-transit-asphalt|grass": "Erba",
@@ -190,7 +190,7 @@
     "flex-type|taxi": "Taxi",
     "occupants|empty": "Vuoto",
     "occupants|full": "Pieno",
-    "occupants|occupied": "",
+    "occupants|occupied": "Occupato",
     "elevation|sidewalk": "Quota marciapiede",
     "elevation|road": "piattaforma a quota stradale",
     "temporary-barrier-type|traffic-cone": "Cono segnalatore",

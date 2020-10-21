@@ -39,8 +39,8 @@
     "streetcar": "Tramway",
     "light-rail": "Système léger sur rail",
     "transit-shelter": "Abris",
-    "brt-station": "",
-    "brt-lane": "",
+    "brt-station": "Station pour bus à haut niveau de service",
+    "brt-lane": "Voie de bus à haut niveau de service",
     "temporary-barrier": "Barrière temporaire",
     "inception-train": "Le train dans le film « Inception »",
     "magic-carpet": "Tapis magique"
