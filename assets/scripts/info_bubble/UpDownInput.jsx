@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_MINUS, ICON_PLUS } from '../ui/icons'
 import './UpDownInput.scss'
 
-const EDIT_INPUT_DELAY = 800
+const EDIT_INPUT_DELAY = 200
 
 UpDownInput.propTypes = {
   // Raw input value must always be a number type which can be
@@ -42,7 +42,12 @@ UpDownInput.propTypes = {
   // Tooltip text
   inputTooltip: PropTypes.string,
   upTooltip: PropTypes.string,
-  downTooltip: PropTypes.string
+  downTooltip: PropTypes.string,
+
+  // If enabled, allow auto-update of values during input. This can
+  // currently cause buggy and unexpected behavior, so it's disabled
+  // by default.
+  allowAutoUpdate: PropTypes.bool
 }
 
 function UpDownInput (props) {
@@ -59,7 +64,8 @@ function UpDownInput (props) {
     disabled = false,
     inputTooltip = 'Change value',
     upTooltip = 'Increment',
-    downTooltip = 'Decrement'
+    downTooltip = 'Decrement',
+    allowAutoUpdate = false
   } = props
 
   const oldValue = useRef(null)
@@ -80,6 +86,11 @@ function UpDownInput (props) {
   // empty string, which is always valid user input.
   const [userInputValue, setUserInputValue] = useState(null)
 
+  // If `allowAutoUpdate` is true, input updates call onUpdatedValue handler
+  // after a debounced amount of time. This can cause unexpected and buggy
+  // behavior right now because it seems that updating the value can reset the
+  // `isEditing` state internally, which makes it really hard for the user to
+  // use the text input element. TODO: look into what causes this!
   const debounceUpdateValue = debounce(onUpdatedValue, EDIT_INPUT_DELAY)
 
   // Depending on what happens, set the display value of the <input> element.
@@ -132,7 +143,7 @@ function UpDownInput (props) {
     if (isEditing === true) {
       oldValue.current = value
     } else {
-      // reset `userInputValue`
+      // reset dirty `userInputValue`
       setUserInputValue(null)
     }
     // We only want to save the old value once, not every time it changes
@@ -140,10 +151,12 @@ function UpDownInput (props) {
   }, [isEditing])
 
   function handleClickIncrement (event) {
+    setIsEditing(false)
     onClickUp(event)
   }
 
   function handleClickDecrement (event) {
+    setIsEditing(false)
     onClickDown(event)
   }
 
@@ -154,6 +167,14 @@ function UpDownInput (props) {
     setIsEditing(true)
   }
 
+  /**
+   * Somehow, the double-click to select all text is broken, so this
+   * manually puts it back
+   */
+  function handleInputDoubleClick (event) {
+    event.target.select()
+  }
+
   function handleInputChange (event) {
     const value = event.target.value
 
@@ -162,12 +183,18 @@ function UpDownInput (props) {
 
     // Send the value to the parent's handler function
     // using the debounced version of `onUpdatedValue`
-    debounceUpdateValue(value)
+    if (allowAutoUpdate) {
+      debounceUpdateValue(value)
+    }
   }
 
   function handleInputBlur (event) {
     setIsHovered(false)
     setIsEditing(false)
+
+    if (!allowAutoUpdate) {
+      onUpdatedValue(event.target.value)
+    }
   }
 
   /**
@@ -220,6 +247,10 @@ function UpDownInput (props) {
     setIsEditing(false)
 
     event.target.blur()
+
+    if (!allowAutoUpdate) {
+      onUpdatedValue(event.target.value)
+    }
   }
 
   function handleInputKeyDown (event) {
@@ -267,6 +298,7 @@ function UpDownInput (props) {
         value={displayValue}
         onChange={handleInputChange}
         onClick={handleInputClick}
+        onDoubleClick={handleInputDoubleClick}
         onBlur={handleInputBlur}
         onMouseDown={handleInputMouseDown}
         onMouseOver={handleInputMouseOver}
