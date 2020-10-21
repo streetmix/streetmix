@@ -171,7 +171,7 @@
     "swagger-ui-express": "4.1.4",
     "twitter": "1.7.1",
     "uuid": "8.3.0",
-    "whatwg-fetch": "3.0.0",
+    "whatwg-fetch": "3.4.1",
     "winston": "3.3.3"
   },
   "devDependencies": {
