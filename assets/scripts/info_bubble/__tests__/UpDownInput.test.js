@@ -34,7 +34,7 @@ describe('UpDownInput', () => {
   })
 
   it('behaves', () => {
-    render(<UpDownInput {...defaultProps} />)
+    render(<UpDownInput {...defaultProps} allowAutoUpdate={true} />)
 
     const inputEl = screen.getByRole('textbox')
     const upButton = screen.getByTitle('up')
@@ -172,5 +172,29 @@ describe('UpDownInput', () => {
 
     expect(upButton).toBeDisabled()
     expect(downButton).not.toBeDisabled()
+  })
+
+  // Fixes a bug where dirty input could be remembered between different
+  // types of UI interactions. This test is currently skipped.
+  // TODO: up/down handlers should affect and re-render component
+  it.skip('resets "dirty" input if user switches to +/- buttons', () => {
+    render(<UpDownInput {...defaultProps} />)
+
+    const inputEl = screen.getByRole('textbox')
+    const upButton = screen.getByTitle('up')
+
+    userEvent.clear(inputEl)
+    userEvent.type(inputEl, '6{enter}')
+    userEvent.click(upButton)
+    expect(inputEl.value).toBe('7')
+
+    // Expect value on hover to reflect new value (7), not previous "dirty"
+    // value (6)
+    userEvent.hover(inputEl)
+    expect(inputEl.value).toBe('7')
+
+    // User unhovers over the input
+    userEvent.unhover(inputEl)
+    expect(inputEl.value).toBe('7')
   })
 })
