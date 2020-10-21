@@ -67,7 +67,10 @@ function UpDownInput (props) {
 
   const [isEditing, setIsEditing] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
-  const [displayValue, setDisplayValue] = useState(value)
+  // If the initial `value` prop is `null` or undefined, the displayValue must
+  // be initiated as an empty string, otherwise React throws a warning about
+  // uncontrolled inputs when the value is changed later
+  const [displayValue, setDisplayValue] = useState(value ?? '')
   const [userInputValue, setUserInputValue] = useState(null)
 
   const debounceUpdateValue = debounce(onUpdatedValue, EDIT_INPUT_DELAY)
@@ -76,6 +79,12 @@ function UpDownInput (props) {
   useEffect(() => {
     // If component is disabled, display nothing
     if (disabled) {
+      setDisplayValue('')
+      return
+    }
+
+    // If the `value` prop is `null` or undefined, display nothing
+    if (value === null || typeof value === 'undefined') {
       setDisplayValue('')
       return
     }

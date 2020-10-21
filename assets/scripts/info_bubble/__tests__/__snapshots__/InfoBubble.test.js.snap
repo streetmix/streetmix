@@ -12,6 +12,7 @@ exports[`InfoBubble is visible 1`] = `
       <div
         class="info-bubble-label info-bubble-label-editable"
       >
+        Streetcar
         <span
           class="info-bubble-label-editable-icon"
         >
@@ -35,6 +36,82 @@ exports[`InfoBubble is visible 1`] = `
       class="info-bubble-controls"
     >
       <div
+        class="variants"
+      >
+        <button
+          class="variant-selected"
+          disabled=""
+          title="Inbound"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-inbound"
+            />
+          </svg>
+        </button>
+        <button
+          title="Outbound"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-outbound"
+            />
+          </svg>
+        </button>
+        <hr />
+        <button
+          class="variant-selected"
+          disabled=""
+          title="Asphalt"
+        >
+          <svg
+            class="icon"
+            style="fill: #292a29;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          title="Red lane"
+        >
+          <svg
+            class="icon"
+            style="fill: #9b1f22;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          title="Grass"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
         class="non-variant"
       >
         <div
@@ -42,7 +119,6 @@ exports[`InfoBubble is visible 1`] = `
         >
           <button
             class="up-down-input-decrement"
-            disabled=""
             tabindex="-1"
             title="Decrease width (hold Shift for more precision)"
           >
@@ -54,7 +130,7 @@ exports[`InfoBubble is visible 1`] = `
             class="up-down-input-element"
             title="Change width of the segment"
             type="text"
-            value="0 m"
+            value="60 m"
           />
           <button
             class="up-down-input-increment"
@@ -84,6 +160,7 @@ exports[`InfoBubble renders 1`] = `
       <div
         class="info-bubble-label info-bubble-label-editable"
       >
+        Streetcar
         <span
           class="info-bubble-label-editable-icon"
         >
@@ -107,6 +184,82 @@ exports[`InfoBubble renders 1`] = `
       class="info-bubble-controls"
     >
       <div
+        class="variants"
+      >
+        <button
+          class="variant-selected"
+          disabled=""
+          title="Inbound"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-inbound"
+            />
+          </svg>
+        </button>
+        <button
+          title="Outbound"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-outbound"
+            />
+          </svg>
+        </button>
+        <hr />
+        <button
+          class="variant-selected"
+          disabled=""
+          title="Asphalt"
+        >
+          <svg
+            class="icon"
+            style="fill: #292a29;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          title="Red lane"
+        >
+          <svg
+            class="icon"
+            style="fill: #9b1f22;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          title="Grass"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
         class="non-variant"
       >
         <div
@@ -114,7 +267,6 @@ exports[`InfoBubble renders 1`] = `
         >
           <button
             class="up-down-input-decrement"
-            disabled=""
             tabindex="-1"
             title="Decrease width (hold Shift for more precision)"
           >
@@ -126,7 +278,7 @@ exports[`InfoBubble renders 1`] = `
             class="up-down-input-element"
             title="Change width of the segment"
             type="text"
-            value="0 m"
+            value="60 m"
           />
           <button
             class="up-down-input-increment"
@@ -492,6 +644,7 @@ exports[`InfoBubble shows description 1`] = `
       <div
         class="info-bubble-label info-bubble-label-editable"
       >
+        Streetcar
         <span
           class="info-bubble-label-editable-icon"
         >
@@ -515,6 +668,82 @@ exports[`InfoBubble shows description 1`] = `
       class="info-bubble-controls"
     >
       <div
+        class="variants"
+      >
+        <button
+          class="variant-selected"
+          disabled=""
+          title="Inbound"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-inbound"
+            />
+          </svg>
+        </button>
+        <button
+          title="Outbound"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-outbound"
+            />
+          </svg>
+        </button>
+        <hr />
+        <button
+          class="variant-selected"
+          disabled=""
+          title="Asphalt"
+        >
+          <svg
+            class="icon"
+            style="fill: #292a29;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          title="Red lane"
+        >
+          <svg
+            class="icon"
+            style="fill: #9b1f22;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          title="Grass"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
         class="non-variant"
       >
         <div
@@ -522,7 +751,6 @@ exports[`InfoBubble shows description 1`] = `
         >
           <button
             class="up-down-input-decrement"
-            disabled=""
             tabindex="-1"
             title="Decrease width (hold Shift for more precision)"
           >
@@ -534,7 +762,7 @@ exports[`InfoBubble shows description 1`] = `
             class="up-down-input-element"
             title="Change width of the segment"
             type="text"
-            value="0 m"
+            value="60 m"
           />
           <button
             class="up-down-input-increment"

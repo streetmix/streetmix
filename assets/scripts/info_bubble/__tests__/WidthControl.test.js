@@ -1,8 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
-
 import WidthControl from '../WidthControl'
 
 jest.mock('../../app/routing', () => {})
@@ -22,35 +22,38 @@ describe('WidthControl', () => {
   })
 
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<WidthControl />, {
-      initialState: { street: { segments: [segment] } }
-    })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(
+      <WidthControl position={activeElement} />,
+      {
+        initialState: { street: { segments: [segment] } }
+      }
+    )
+    expect(asFragment()).toMatchSnapshot()
   })
 
   describe('increase width', () => {
     it('increaeses store width', () => {
-      const wrapper = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <WidthControl position={activeElement} />,
         { initialState: { street: { segments: [segment], units: 1 } } }
       )
-      fireEvent.click(wrapper.getByTitle(/Increase width/i))
-      expect(
-        wrapper.store.getState().street.segments[activeElement].width
-      ).toEqual(200.5)
+      userEvent.click(screen.getByTitle(/Increase width/i))
+      expect(store.getState().street.segments[activeElement].width).toEqual(
+        200.5
+      )
     })
   })
 
   describe('decrease width', () => {
     it('decreaeses store width', () => {
-      const wrapper = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <WidthControl position={activeElement} />,
         { initialState: { street: { segments: [segment], units: 1 } } }
       )
-      fireEvent.click(wrapper.getByTitle(/Decrease width/i))
-      expect(
-        wrapper.store.getState().street.segments[activeElement].width
-      ).toEqual(199.5)
+      userEvent.click(screen.getByTitle(/Decrease width/i))
+      expect(store.getState().street.segments[activeElement].width).toEqual(
+        199.5
+      )
     })
   })
 })
