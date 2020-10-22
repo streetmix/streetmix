@@ -13,7 +13,6 @@ const express = require('express')
 const helmet = require('helmet')
 const config = require('config')
 const path = require('path')
-const { v4: uuidv4 } = require('uuid')
 const controllers = require('./app/controllers')
 const requestHandlers = require('./lib/request_handlers')
 const initRedisClient = require('./lib/redis')
@@ -108,8 +107,7 @@ const csp = {
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
-      'plausible.io',
-      (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
+      'plausible.io'
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
@@ -127,7 +125,6 @@ const csp = {
     fontSrc: ["'self'", 'fonts.gstatic.com', '*.typekit.net'],
     connectSrc: [
       "'self'",
-      'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',
       'sentry.io',
@@ -159,7 +156,7 @@ app.use(requestHandlers.request_id_echo)
 app.use((req, res, next) => {
   // Generate nonces for inline scripts
   res.locals.nonce = {
-    mixpanel: uuidv4()
+    // Currently: we use none
   }
 
   // Set default metatag information for social sharing cards
