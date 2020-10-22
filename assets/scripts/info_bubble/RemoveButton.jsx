@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { trackEvent } from '../app/event_tracking'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import { ICON_TRASH } from '../ui/icons'
 import './RemoveButton.scss'
@@ -21,11 +20,9 @@ function RemoveButton ({ segment = null }) {
     // Power move: a shift key will remove all segments
     if (event.shiftKey) {
       removeAllSegments()
-      trackEvent('INTERACTION', 'REMOVE_ALL_SEGMENTS', 'BUTTON', null, true)
     } else {
       // Otherwise, remove one segment
       removeSegment(segment)
-      trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'BUTTON', null, true)
     }
   }
 
@@ -36,13 +33,13 @@ function RemoveButton ({ segment = null }) {
     <button
       className="info-bubble-remove"
       tabIndex={-1}
-      title={intl.formatMessage({ id: 'tooltip.remove-segment', defaultMessage: 'Remove segment' })}
+      title={intl.formatMessage({
+        id: 'tooltip.remove-segment',
+        defaultMessage: 'Remove segment'
+      })}
       onClick={handleClick}
     >
-      <FontAwesomeIcon
-        icon={ICON_TRASH}
-        className="remove-icon"
-      />
+      <FontAwesomeIcon icon={ICON_TRASH} className="remove-icon" />
       <FormattedMessage id="btn.remove" defaultMessage="Remove" />
     </button>
   )

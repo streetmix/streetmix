@@ -10,13 +10,8 @@ import {
   ICON_ARROW_LEFT
 } from '../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/slices/dialogs'
 import './HelpMenu.scss'
-
-function handleShow () {
-  trackEvent('Interaction', 'Open help menu', null, null, false)
-}
 
 const shiftKey = (
   <KeyboardKey>
@@ -39,7 +34,7 @@ function HelpMenu (props) {
   })
 
   return (
-    <Menu onShow={handleShow} {...props}>
+    <Menu {...props}>
       <a href="#" onClick={() => dispatch(showDialog('ABOUT'))}>
         <FormattedMessage
           id="menu.item.about"

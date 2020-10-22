@@ -1,4 +1,3 @@
-import { trackEvent } from '../app/event_tracking'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
@@ -138,13 +137,6 @@ export function handleSegmentResizeEnd (event) {
     draggingResize.segmentEl,
     INFO_BUBBLE_TYPE_SEGMENT
   )
-
-  if (
-    draggingResize.width &&
-    draggingResize.originalWidth !== draggingResize.width
-  ) {
-    trackEvent('INTERACTION', 'CHANGE_WIDTH', 'DRAGGING', null, true)
-  }
 }
 
 /**

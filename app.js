@@ -102,7 +102,6 @@ const csp = {
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
-      'https://www.google-analytics.com',
       'cdn.mxpnl.com',
       'streetmix.auth0.com',
       '*.basemaps.cartocdn.com',
@@ -110,7 +109,6 @@ const csp = {
       'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
       'plausible.io',
-      (req, res) => "'nonce-" + res.locals.nonce.google_analytics + "'",
       (req, res) => "'nonce-" + res.locals.nonce.mixpanel + "'"
     ],
     workerSrc: ["'self'"],
@@ -122,7 +120,6 @@ const csp = {
       'pbs.twimg.com',
       'syndication.twitter.com',
       's.gravatar.com',
-      'https://www.google-analytics.com',
       '*.basemaps.cartocdn.com',
       'https://res.cloudinary.com/',
       '*.stripe.com'
@@ -133,7 +130,6 @@ const csp = {
       'api.mixpanel.com',
       'api.geocode.earth',
       'syndication.twitter.com',
-      'https://www.google-analytics.com',
       'sentry.io',
       'streetmix.auth0.com',
       'checkout.stripe.com',
@@ -163,7 +159,6 @@ app.use(requestHandlers.request_id_echo)
 app.use((req, res, next) => {
   // Generate nonces for inline scripts
   res.locals.nonce = {
-    google_analytics: uuidv4(),
     mixpanel: uuidv4()
   }
 

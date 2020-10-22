@@ -4,75 +4,21 @@ import { FormattedMessage } from 'react-intl'
 import Menu from './Menu'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
-import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/slices/dialogs'
-
-function handleClickDiscord () {
-  trackEvent(
-    'INTERACTION',
-    '[Contact menu] Discord link clicked',
-    null,
-    null,
-    false
-  )
-}
-
-function handleClickGitHub () {
-  trackEvent(
-    'INTERACTION',
-    '[Contact menu] GitHub link clicked',
-    null,
-    null,
-    false
-  )
-}
-
-function handleClickNewsletter () {
-  trackEvent(
-    'INTERACTION',
-    '[Contact menu] Newsletter link clicked',
-    null,
-    null,
-    false
-  )
-}
-
-// function handleClickForums () {
-//   trackEvent(
-//     'INTERACTION',
-//     '[Contact menu] Forums link clicked',
-//     null,
-//     null,
-//     false
-//   )
-// }
-
-// function handleClickTweet () {
-//   trackEvent(
-//     'INTERACTION',
-//     '[Contact menu] Tweet link clicked',
-//     null,
-//     null,
-//     false
-//   )
-// }
 
 function ContactMenu (props) {
   const dispatch = useDispatch()
 
   return (
     <Menu {...props}>
-      <ExternalLink href="https://strt.mx/discord" onClick={handleClickDiscord}>
+      <ExternalLink href="https://strt.mx/discord">
         <Icon icon="discord" />
         <FormattedMessage
           id="menu.contact.discord"
           defaultMessage="Join Discord chat"
         />
       </ExternalLink>
-      <ExternalLink
-        href="https://github.com/streetmix/streetmix/"
-        onClick={handleClickGitHub}
-      >
+      <ExternalLink href="https://github.com/streetmix/streetmix/">
         <Icon icon="github" />
         <FormattedMessage
           id="menu.contact.github"
@@ -82,7 +28,6 @@ function ContactMenu (props) {
       <a
         href="#"
         onClick={(e) => {
-          handleClickNewsletter()
           dispatch(showDialog('NEWSLETTER'))
         }}
       >
@@ -93,7 +38,6 @@ function ContactMenu (props) {
       </a>
       {/* <ExternalLink
         href="https://forums.streetmix.net/"
-        onClick={handleClickForums}
       >
         <Icon icon="forums" />
         <FormattedMessage
@@ -103,7 +47,6 @@ function ContactMenu (props) {
       </ExternalLink>
       <ExternalLink
         href="https://twitter.com/intent/tweet?text=@streetmix"
-        onClick={handleClickTweet}
       >
         <Icon icon="twitter" />
         <FormattedMessage

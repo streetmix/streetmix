@@ -5,20 +5,15 @@ import userEvent from '@testing-library/user-event'
 import copy from 'copy-to-clipboard'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import ShareMenu from '../ShareMenu'
-import { trackEvent } from '../../app/event_tracking'
 import { showDialog } from '../../store/slices/dialogs'
 
 jest.mock('copy-to-clipboard')
-jest.mock('../../app/event_tracking', () => ({
-  trackEvent: jest.fn()
-}))
 jest.mock('../../store/slices/dialogs', () => ({
   showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('ShareMenu', () => {
   afterEach(() => {
-    trackEvent.mockClear()
     showDialog.mockClear()
   })
 
@@ -187,13 +182,11 @@ describe('ShareMenu', () => {
   it('handles clicking Twitter', () => {
     renderWithReduxAndIntl(<ShareMenu />)
     userEvent.click(screen.getByText('Twitter', { exact: false }))
-    expect(trackEvent).toBeCalledTimes(1)
   })
 
   it('handles clicking Facebook', () => {
     renderWithReduxAndIntl(<ShareMenu />)
     userEvent.click(screen.getByText('Facebook', { exact: false }))
-    expect(trackEvent).toBeCalledTimes(1)
   })
 
   it('handles clicking save as image', () => {

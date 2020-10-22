@@ -6,7 +6,6 @@ import { useIntl } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
 import Dialog from './Dialog'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
-import { trackEvent } from '../app/event_tracking'
 import ErrorBanner from './Geotag/ErrorBanner'
 import GeoSearch from './Geotag/GeoSearch'
 import LocationPopup from './Geotag/LocationPopup'
@@ -206,14 +205,6 @@ function GeotagDialog () {
       intersectionId: null
     }
 
-    trackEvent(
-      'Interaction',
-      'Geotag dialog: confirm chosen location',
-      null,
-      null,
-      true
-    )
-
     batch(() => {
       dispatch(addLocation(location))
       dispatch(saveStreetName(location.hierarchy.street, false))
@@ -221,13 +212,6 @@ function GeotagDialog () {
   }
 
   const handleClearLocation = (event) => {
-    trackEvent(
-      'Interaction',
-      'Geotag dialog: cleared existing location',
-      null,
-      null,
-      true
-    )
     dispatch(clearLocation())
   }
 
