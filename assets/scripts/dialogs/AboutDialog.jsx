@@ -4,13 +4,12 @@
  * Renders the "About" dialog box.
  *
  */
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import Dialog from './Dialog'
 import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
 import ExternalLink from '../ui/ExternalLink'
-import { trackEvent } from '../app/event_tracking'
 import logo from '../../images/logo_horizontal.svg'
 import numoLogo from '../../images/sponsors/numo.svg'
 import cfalogo from '../../images/sponsors/codeforamerica.png'
@@ -19,10 +18,6 @@ import './AboutDialog.scss'
 
 function AboutDialog (props) {
   const noInternet = useSelector((state) => state.system.noInternet)
-
-  useEffect(() => {
-    trackEvent('Interaction', 'Open about dialog box', null, null, false)
-  }, [])
 
   return (
     <Dialog>

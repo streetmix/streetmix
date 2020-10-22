@@ -6,7 +6,6 @@ import USER_ROLES from '../../../app/data/user_roles'
 import { app } from '../preinit/app_settings'
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
-import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { goTwitterSignIn } from '../app/routing'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
@@ -213,15 +212,11 @@ function receiveFreshTokens (freshTokens) {
 
 function errorReceiveFreshTokens (data) {
   if (data.status === 401) {
-    trackEvent('ERROR', 'ERROR_RM1R', null, null, false)
-
     signOut(true)
 
     showError(ERRORS.SIGN_IN_401, true)
     return
   } else if (data.status === 503) {
-    trackEvent('ERROR', 'ERROR_15AR', null, null, false)
-
     showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
     return
   }
@@ -289,8 +284,6 @@ function errorReceiveSignInDetails (data) {
   } */
 
   if (data.status === 401) {
-    trackEvent('ERROR', 'ERROR_RM1', null, null, false)
-
     signOut(true)
 
     // showError(ERRORS.SIGN_IN_401, true)
@@ -310,8 +303,6 @@ function errorReceiveSignInDetails (data) {
 
     return
   } else if (data.status === 503) {
-    trackEvent('ERROR', 'ERROR_15A', null, null, false)
-
     showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
     return
   }

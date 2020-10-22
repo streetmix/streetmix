@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import SentimentSurvey from './SentimentSurvey'
 import { postSentimentSurveyVote } from '../util/api'
-import { trackEvent } from '../app/event_tracking'
 
 const SURVEY_DELAY_BEFORE_APPEAR = 5000 // in ms
 
@@ -40,12 +39,6 @@ function SentimentSurveyContainer (props) {
     // previously, the useEffect hook was getting called several times
   }, [isDismissed])
 
-  useEffect(() => {
-    if (isEnabled) {
-      trackEvent('INTERACTION', 'Sentiment survey viewed', null, null, false)
-    }
-  })
-
   function handleClose () {
     setDismissed(true)
     setVisible(false)
@@ -67,8 +60,6 @@ function SentimentSurveyContainer (props) {
     } catch (error) {
       console.error(error)
     }
-
-    trackEvent('INTERACTION', 'Sentiment survey voted', null, score, false)
   }
 
   if (isEnabled) {

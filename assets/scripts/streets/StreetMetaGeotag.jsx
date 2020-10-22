@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { trackEvent } from '../app/event_tracking'
 import { showDialog } from '../store/slices/dialogs'
 
 function StreetMetaGeotag (props) {
@@ -16,12 +15,6 @@ function StreetMetaGeotag (props) {
 
   function handleClickGeotag (event) {
     event.preventDefault()
-
-    if (!street.location) {
-      trackEvent('Interaction', 'Clicked add location', null, null, true)
-    } else {
-      trackEvent('Interaction', 'Clicked existing location', null, null, true)
-    }
 
     dispatch(showDialog('GEOTAG'))
   }

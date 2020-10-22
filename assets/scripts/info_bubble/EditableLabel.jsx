@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { trackEvent } from '../app/event_tracking'
 import { editSegmentLabel } from '../segments/view'
 import { ICON_PENCIL, ICON_LOCK } from '../ui/icons'
 import {
@@ -27,16 +26,6 @@ function EditableLabel (props) {
     (state) => state.flags.CUSTOM_SEGMENT_LABELS.value || false
   )
 
-  const handleMouseEnterLabel = (event) => {
-    trackEvent(
-      'Interaction',
-      'InoBubble: Hover over editable label',
-      null,
-      null,
-      true
-    )
-  }
-
   const handleClick = (event) => {
     return customLabelEnabled && editSegmentLabel(segment, position)
   }
@@ -51,7 +40,6 @@ function EditableLabel (props) {
     <div
       className="info-bubble-label info-bubble-label-editable"
       onClick={handleClick}
-      onMouseEnter={handleMouseEnterLabel}
     >
       {label}
       <span className="info-bubble-label-editable-icon">

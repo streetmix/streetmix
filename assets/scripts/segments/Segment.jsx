@@ -35,7 +35,6 @@ import {
 } from './resizing'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { trackEvent } from '../app/event_tracking'
 import { formatMessage } from '../locales/locale'
 import { setActiveSegment } from '../store/slices/ui'
 import {
@@ -249,7 +248,6 @@ export class Segment extends React.Component {
 
         event.preventDefault()
         this.decrementSegmentWidth(this.props.dataNo, event.shiftKey)
-        trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
         break
       // Plus (+) may only triggered with shift key, so also check if
       // the same physical key (Equal) is pressed
@@ -259,7 +257,6 @@ export class Segment extends React.Component {
 
         event.preventDefault()
         this.incrementSegmentWidth(this.props.dataNo, event.shiftKey)
-        trackEvent('INTERACTION', 'CHANGE_WIDTH', 'KEYBOARD', null, true)
         break
       case 'Backspace':
       case 'Delete':
@@ -277,13 +274,6 @@ export class Segment extends React.Component {
             ),
             component: 'TOAST_UNDO'
           })
-          trackEvent(
-            'INTERACTION',
-            'REMOVE_ALL_SEGMENTS',
-            'KEYBOARD',
-            null,
-            true
-          )
         } else {
           infoBubble.hide()
           infoBubble.hideSegment()
@@ -295,7 +285,6 @@ export class Segment extends React.Component {
             component: 'TOAST_UNDO'
           })
           this.props.removeSegmentAction(this.props.dataNo, false)
-          trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'KEYBOARD', null, true)
         }
         break
       default:

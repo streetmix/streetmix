@@ -1,6 +1,4 @@
 import { cloneDeep } from 'lodash'
-
-import { trackEvent } from '../app/event_tracking'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import { setUpdateTimeToNow, updateEverything } from './data_model'
@@ -29,8 +27,6 @@ export function finishUndoOrRedo () {
   infoBubble.dontConsiderShowing()
 
   updateEverything(true)
-
-  trackEvent('INTERACTION', 'UNDO', null, null, true)
 }
 
 export function createNewUndoIfNecessary (lastStreet = {}, currentStreet) {

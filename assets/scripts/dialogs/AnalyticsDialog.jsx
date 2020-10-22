@@ -4,7 +4,7 @@
  * Renders the "Analytics" dialog box.
  *
  */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import Dialog from './Dialog'
@@ -12,7 +12,6 @@ import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
 import { FormatNumber } from '../util/formatting'
-import { trackEvent } from '../app/event_tracking'
 import { updateStreetAnalytics } from '../store/actions/street'
 
 import Terms from '../app/Terms'
@@ -67,10 +66,6 @@ function AnalyticsDialog (props) {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    trackEvent('Interaction', 'Open analytics dialog box', null, null, false)
-  }, [])
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
   const toggleVisible = () => {

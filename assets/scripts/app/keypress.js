@@ -13,7 +13,6 @@
  * @exports registerKeypress
  * @exports deregisterKeypress
  */
-import { trackEvent } from './event_tracking'
 import { isFocusOnBody } from '../util/focus'
 
 // Keep track of all registered commands here
@@ -43,7 +42,7 @@ export function startListening () {
  *    registerKeypress('esc', hide)
  * @example
  *    registerKeypress('shift d',
- *      { trackAction: 'Shift-D is pressed' },
+ *      { preventDefault: true },
  *      function () { console.log('Shift-D is pressed!') })
  * @param {(string|string[])} commands
  *    Human readable key or key combination to listen for, in the form of "a"
@@ -86,15 +85,6 @@ export function startListening () {
  *    on a specific element, like an input field.  Defaults to `true`, but as
  *    a special case, this is automatically set to `false` if the command is
  *    `esc`.
- * @param {(string)} [options.trackAction=null]
- *    If a string is provided, the action is logged in event tracking when
- *    triggered.
- * @param {(number)} [options.trackValue=null]
- *    If set, and an event is logged, this fills in the `value` property of a
- *    tracked event in Google Analytics.
- * @param {(boolean)} [options.trackOnce=true]
- *    If `true`, and an event is logged, further identical actions will not
- *    be logged.
  * @param {(function)} [options.onKeyPress]
  *    It is possible to set the callback function to execute on key press on
  *    the `options` object instead of in the `callback` parameter.
@@ -128,10 +118,7 @@ export function registerKeypress (commands, options, callback) {
     preventDefault: true,
     stopPropagation: false,
     requireFocusOnBody: true,
-    fireOnce: false,
-    trackAction: null,
-    trackValue: null,
-    trackOnce: true
+    fireOnce: false
   }
 
   // Check if the second argument is the options object or the callback function
@@ -400,15 +387,6 @@ function execute (input, event) {
   }
   if (event && input.stopPropagation) {
     event.stopPropagation()
-  }
-  if (input.trackAction) {
-    trackEvent(
-      'INTERACTION',
-      input.trackAction,
-      'KEYBOARD',
-      input.trackValue,
-      input.trackOnce
-    )
   }
 
   // Execute callback

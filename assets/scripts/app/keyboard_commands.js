@@ -35,22 +35,16 @@ export function onGlobalKeyDown (event) {
 export function registerKeypresses () {
   // In case anyone tries a save shortcut key out of reflex,
   // we inform the user that it's not necessary.
-  registerKeypress(
-    'ctrl s',
-    {
-      trackAction: 'Command-S or Ctrl-S save shortcut key pressed'
-    },
-    function () {
-      store.dispatch(
-        addToast({
-          message: formatMessage(
-            'toast.no-save',
-            'No need to save by hand; Streetmix automatically saves your street!'
-          )
-        })
-      )
-    }
-  )
+  registerKeypress('ctrl s', function () {
+    store.dispatch(
+      addToast({
+        message: formatMessage(
+          'toast.no-save',
+          'No need to save by hand; Streetmix automatically saves your street!'
+        )
+      })
+    )
+  })
 
   // Catch-all for the Ctrl-S shortcut from ever trying to
   // save the page contents

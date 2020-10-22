@@ -6,7 +6,6 @@ import Menu from './Menu'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
 import { FACEBOOK_APP_ID } from '../app/config'
-import { trackEvent } from '../app/event_tracking'
 import { getPageTitle } from '../app/page_title'
 import { getSharingUrl } from '../util/share_url'
 import { showDialog } from '../store/slices/dialogs'
@@ -100,14 +99,6 @@ function ShareMenu (props) {
       shareViaLinkInputRef.current.focus()
       shareViaLinkInputRef.current.select()
     }, 200)
-  }
-
-  function handleClickShareViaTwitter () {
-    trackEvent('SHARING', 'TWITTER', null, null, false)
-  }
-
-  function handleClickShareViaFacebook () {
-    trackEvent('SHARING', 'FACEBOOK', null, null, false)
   }
 
   function handleClickSaveAsImage (event) {
@@ -208,22 +199,14 @@ function ShareMenu (props) {
               </button>
             </div>
           </div>
-          <ExternalLink
-            className="share-via-twitter"
-            href={twitterLink}
-            onClick={handleClickShareViaTwitter}
-          >
+          <ExternalLink className="share-via-twitter" href={twitterLink}>
             <Icon icon="twitter" />
             <FormattedMessage
               id="menu.share.twitter"
               defaultMessage="Share using Twitter"
             />
           </ExternalLink>
-          <ExternalLink
-            className="share-via-facebook"
-            href={facebookLink}
-            onClick={handleClickShareViaFacebook}
-          >
+          <ExternalLink className="share-via-facebook" href={facebookLink}>
             <Icon icon="facebook" />
             <FormattedMessage
               id="menu.share.facebook"

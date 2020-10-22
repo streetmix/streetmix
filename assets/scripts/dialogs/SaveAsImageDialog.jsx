@@ -11,7 +11,6 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 import Dialog from './Dialog'
 import Checkbox from '../ui/Checkbox'
 import RangeSlider from '../ui/RangeSlider'
-import { trackEvent } from '../app/event_tracking'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
 import { updateSettings } from '../store/slices/settings'
@@ -58,8 +57,6 @@ class SaveAsImageDialog extends React.Component {
   }
 
   componentDidMount () {
-    trackEvent('Sharing', 'Save as image', null, null, false)
-
     this.updatePreview()
   }
 

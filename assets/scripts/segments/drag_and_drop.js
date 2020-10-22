@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid'
-import { trackEvent } from '../app/event_tracking'
 import { loseAnyFocus } from '../util/focus'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
@@ -466,7 +465,6 @@ export const segmentSource = {
       } else if (monitor.getItemType() === Types.SEGMENT) {
         // if existing segment is dropped outside canvas, delete it
         store.dispatch(removeSegment(props.dataNo))
-        trackEvent('INTERACTION', 'REMOVE_SEGMENT', 'DRAGGING', null, true)
       }
     }
 

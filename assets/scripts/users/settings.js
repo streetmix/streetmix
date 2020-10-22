@@ -1,6 +1,5 @@
 import debounce from 'lodash/debounce'
 import { API_URL } from '../app/config'
-import { trackEvent } from '../app/event_tracking'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import { getSignInData, isSignedIn } from './authentication'
@@ -101,8 +100,6 @@ function saveSettingsToServer (settings) {
 
 function errorSavingSettingsToServer (data) {
   if (!store.getState().errors.abortEverything && data.status === 401) {
-    trackEvent('ERROR', 'ERROR_RM2', null, null, false)
-
     setMode(MODES.FORCE_RELOAD_SIGN_OUT_401)
     processMode()
   }

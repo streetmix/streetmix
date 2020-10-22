@@ -1,21 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import Dialog from './Dialog'
 import ExternalLink from '../ui/ExternalLink'
-import { trackEvent } from '../app/event_tracking'
 import './SentimentSurveyDialog.scss'
 
 function SentimentSurveyDialog (props) {
-  useEffect(() => {
-    trackEvent(
-      'Interaction',
-      'Open sentiment survey "about" box',
-      null,
-      null,
-      false
-    )
-  }, [])
-
   return (
     <Dialog>
       {(closeDialog) => (
