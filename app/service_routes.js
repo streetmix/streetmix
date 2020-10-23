@@ -1,4 +1,5 @@
 const routes = require('express').Router()
+const bodyParser = require('body-parser')
 const config = require('config')
 const cors = require('cors')
 const controllers = require('./controllers')
@@ -105,6 +106,27 @@ routes.get('/services/auth/just-signed-in/', (req, res) => res.render('main'))
 /******************************************************************************
  *  ERROR HANDLING
  *****************************************************************************/
+
+/**
+ * @swagger
+ *
+ * /services/csp-report:
+ *   post:
+ *     description: Receives a Content Security Policy violation report
+ *     responses:
+ *       204:
+ *         description: Success (no response)
+ */
+routes.post(
+  '/services/csp-report',
+  // As of this implementation, the latest versions of Chrome, Firefox, and
+  // Safari all POST this content with the MIME type `application/csp-report`,
+  // although it looks like a JSON. If any browser is still POSTing
+  // `application/json`, Express should still be parsing that correctly, but
+  // this has not been verified.
+  bodyParser.json({ type: 'application/csp-report' }),
+  resources.services.csp.post
+)
 
 // Catch all for all broken api paths, direct to 404 response.
 routes.all('/services/*', (req, res) => {
