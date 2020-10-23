@@ -115,9 +115,12 @@ const csp = {
     imgSrc: [
       "'self'",
       'data:',
+      // Profile images
       'pbs.twimg.com',
       'syndication.twitter.com',
       's.gravatar.com',
+      // Auth0 default profile images
+      'https://i0.wp.com/cdn.auth0.com/',
       '*.basemaps.cartocdn.com',
       'https://res.cloudinary.com/',
       '*.stripe.com'
