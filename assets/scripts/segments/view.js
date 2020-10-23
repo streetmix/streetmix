@@ -154,6 +154,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
     }
   }
 
+  // what does graphics left, right mean?
+  // can we have examples of when this code is called?
   if (graphics.left) {
     const sprites = Array.isArray(graphics.left)
       ? graphics.left
@@ -329,6 +331,8 @@ export function drawSegmentContents (
     groundBaseline -
     multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0)
 
+  // think this is just for grass atm
+  // what does graphics.repeat mean in this context and whats an example of it being used
   if (graphics.repeat && !drawSegmentOnly) {
     let sprites = Array.isArray(graphics.repeat)
       ? graphics.repeat
