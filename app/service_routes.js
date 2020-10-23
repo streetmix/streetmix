@@ -87,7 +87,7 @@ routes.get('/services/images', cors(), jwtCheck, resources.services.images.get)
 routes.post(
   '/services/auth/refresh-login-token',
   cors(),
-  controllers.refresh.post
+  controllers.refresh_login_token.post
 )
 
 // Twitter (deprecated)
