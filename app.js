@@ -134,11 +134,21 @@ const csp = {
       'streetmix.auth0.com',
       'checkout.stripe.com',
       'plausible.io'
-    ]
-  }
+    ],
+    reportUri: '/services/csp-report/'
+  },
+  // Report (but do not block) CSP violations in development mode.
+  // This allows developers to work on new or experimental features without
+  // worrying about modifying CSP headers.
+  // !! WARNING !!
+  // Reported CSP violations should be addressed before releasing to
+  // production. IF A NEW FEATURE IS REPORTING A CSP VIOLATION, IT WILL
+  // FAIL IN PRODUCTION, EVEN THOUGH IT WORKS IN DEVELOPMENT MODE.
+  reportOnly: app.locals.config.env === 'development'
 }
 
-// Allows websockets for hot-module reloading (note: ports are assigned randomly by Parcel)
+// Allows websockets for hot-module reloading
+// (note: ports are assigned randomly by Parcel)
 if (app.locals.config.env === 'development') {
   csp.directives.scriptSrc.push("'unsafe-eval'")
   csp.directives.connectSrc.push('ws:')
