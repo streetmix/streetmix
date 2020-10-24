@@ -6,7 +6,7 @@ describe('debug reducer', () => {
     forceLeftHandTraffic: false,
     forceUnsupportedBrowser: false,
     forceNonRetina: false,
-    forceNoInternet: false,
+    forceOfflineMode: false,
     forceReadOnly: false,
     forceLiveUpdate: false
   }
@@ -28,7 +28,7 @@ describe('debug reducer', () => {
         forceLeftHandTraffic: false,
         forceUnsupportedBrowser: false,
         forceNonRetina: true,
-        forceNoInternet: false,
+        forceOfflineMode: false,
         forceReadOnly: false,
         forceLiveUpdate: false
       }
@@ -50,7 +50,7 @@ describe('debug reducer', () => {
         forceLeftHandTraffic: true,
         forceUnsupportedBrowser: false,
         forceNonRetina: true,
-        forceNoInternet: false,
+        forceOfflineMode: false,
         forceReadOnly: false,
         forceLiveUpdate: false
       }

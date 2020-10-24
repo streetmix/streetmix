@@ -13,7 +13,7 @@ import { startPrinting } from '../store/slices/app'
 import './ShareMenu.scss'
 
 function ShareMenu (props) {
-  const noInternet = useSelector((state) => state.system.noInternet)
+  const offline = useSelector((state) => state.system.offline)
   const signedIn = useSelector((state) => state.user.signedIn || false)
   const userId = useSelector((state) => state.user.signInData?.userId || '')
   const street = useSelector((state) => state.street)
@@ -168,7 +168,7 @@ function ShareMenu (props) {
 
   return (
     <Menu onShow={handleShow} className="share-menu" {...props}>
-      {!noInternet && (
+      {!offline && (
         <>
           {signInPromo}
           <div className="share-via-link-container">

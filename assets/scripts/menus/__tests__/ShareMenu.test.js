@@ -208,9 +208,9 @@ describe('ShareMenu', () => {
     expect(copy).toBeCalledTimes(1)
   })
 
-  it('does not render external share links in no internet mode', () => {
+  it('does not render external share links in offline mode', () => {
     const { asFragment } = renderWithReduxAndIntl(<ShareMenu />, {
-      initialState: { system: { noInternet: true } }
+      initialState: { system: { offline: true } }
     })
 
     expect(asFragment()).toMatchSnapshot()

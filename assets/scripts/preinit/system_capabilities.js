@@ -5,7 +5,7 @@
  * browser, connection, etc).
  *
  */
-import { NO_INTERNET_MODE } from '../app/config'
+import { OFFLINE_MODE } from '../app/config'
 import { debug } from './debug_settings'
 import store from '../store'
 import { setSystemFlags } from '../store/slices/system'
@@ -16,8 +16,8 @@ import { setSystemFlags } from '../store/slices/system'
 export function initSystemCapabilities () {
   const system = {}
 
-  if (debug.forceNoInternet || NO_INTERNET_MODE === true) {
-    system.noInternet = true
+  if (debug.forceOfflineMode || OFFLINE_MODE === true) {
+    system.offline = true
   }
 
   if (debug.forceNonRetina) {

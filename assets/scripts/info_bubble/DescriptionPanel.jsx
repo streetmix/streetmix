@@ -32,7 +32,7 @@ DescriptionPanel.propTypes = {
   caption: PropTypes.string,
   onClickHide: PropTypes.func,
   bubbleY: PropTypes.number,
-  noInternet: PropTypes.bool
+  offline: PropTypes.bool
 }
 
 function DescriptionPanel ({
@@ -42,7 +42,7 @@ function DescriptionPanel ({
   caption,
   onClickHide = () => {},
   bubbleY,
-  noInternet = false
+  offline = false
 }) {
   const [highlightTriangle, setHighlightTriangle] = useState(false)
 
@@ -96,7 +96,7 @@ function DescriptionPanel ({
                     'listItem',
                     'blockquote',
                     'heading',
-                    !noInternet && 'link'
+                    !offline && 'link'
                   ]}
                   unwrapDisallowed={true}
                   linkTarget="_blank"

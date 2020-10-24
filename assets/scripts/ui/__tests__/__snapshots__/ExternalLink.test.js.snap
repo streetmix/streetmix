@@ -38,7 +38,7 @@ exports[`ExternalLink renders an <a> element with string child 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ExternalLink renders element child without an <a> element in "no-internet" mode 1`] = `
+exports[`ExternalLink renders element child without an <a> element in "offline" mode 1`] = `
 <DocumentFragment>
   <div>
     foo
@@ -46,7 +46,7 @@ exports[`ExternalLink renders element child without an <a> element in "no-intern
 </DocumentFragment>
 `;
 
-exports[`ExternalLink renders string child without an <a> element in "no-internet" mode 1`] = `
+exports[`ExternalLink renders string child without an <a> element in "offline" mode 1`] = `
 <DocumentFragment>
   foo
 </DocumentFragment>

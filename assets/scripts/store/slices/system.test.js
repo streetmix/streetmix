@@ -6,7 +6,7 @@ describe('system reducer', () => {
     phone: false,
     safari: false,
     windows: false,
-    noInternet: false,
+    offline: false,
     devicePixelRatio: 1
   }
 
@@ -19,7 +19,7 @@ describe('system reducer', () => {
       system(
         initialState,
         setSystemFlags({
-          noInternet: true,
+          offline: true,
           devicePixelRatio: 2
         })
       )
@@ -27,7 +27,7 @@ describe('system reducer', () => {
       phone: false,
       safari: false,
       windows: false,
-      noInternet: true,
+      offline: true,
       devicePixelRatio: 2
     })
   })
