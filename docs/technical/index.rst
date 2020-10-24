@@ -15,6 +15,7 @@ This section describes the architecture of Streetmix.
 
    installing-streetmix
    project
+   csp
    tests/index
    segment-definitions
    environs

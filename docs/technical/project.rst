@@ -13,7 +13,7 @@ Streetmix is a Node.js and JavaScript project. We use the following frameworks:
 - `Parcel <https://parceljs.org/>`_, a web application bundler. When Streetmix starts, it uses Parcel to bundle all the front end JavaScript and CSS.
 - `Babel <https://babeljs.io/>`_, a compiler which allows us to use modern JavaScript in browsers that do not yet support it.
 - `React <https://reactjs.org/>`_, a front-end user interface framework. Most UI is rendered with React.
-- `Redux <https://redux.js.org/>`_, a state management framework that usually works alongside React. We maintain most application state in Redux.
+- `Redux <https://redux.js.org/>`_ (with `Redux Toolkit <https://redux-toolkit.js.org/>`_), a state management framework that usually works alongside React. We maintain most application state in Redux, using Redux Toolkit to help make it easier to write code for Redux.
 - `SCSS <https://sass-lang.com/>`_, an extension of CSS that allows us to use variables and calculate values.
 - `PostCSS <https://postcss.org/>`_, a CSS processor. We primarily use it to autoprefix certain CSS properties.
 
@@ -35,10 +35,6 @@ The tradeoff is that this introduces "upgrade noise". We are currently using `Gr
 Browser support
 ---------------
 
+Because of limited resources, browser support is any of the evergreen desktop browsers (e.g. Firefox, Chrome, Safari, and Edge). We do not support Internet Explorer. (See :ref:`faq-internet-explorer`)
 
-
-**See also**
-
-**Resources**
-
-
+Mobile support is also limited, because the application was not initially designed for mobile. However, we should be supporting tablet devices such as iPads and laptops with touchscreens.
