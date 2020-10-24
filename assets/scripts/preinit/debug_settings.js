@@ -15,7 +15,7 @@ export const debug = {
   forceLeftHandTraffic: false,
   forceUnsupportedBrowser: false,
   forceNonRetina: false,
-  forceNoInternet: false,
+  forceOfflineMode: false,
   forceReadOnly: false,
   forceLiveUpdate: false
 }
@@ -34,8 +34,8 @@ if (url.match(/[?&]debug-force-non-retina&?/)) {
   debug.forceNonRetina = true
 }
 
-if (url.match(/[?&]debug-force-no-internet&?/)) {
-  debug.forceNoInternet = true
+if (url.match(/[?&]debug-force-offline&?/)) {
+  debug.forceOfflineMode = true
 }
 
 if (url.match(/[?&]debug-force-read-only&?/)) {

@@ -6,13 +6,13 @@ import { ERRORS } from '../../../../lib/util'
 
 const initialStateForOnline = {
   system: {
-    noInternet: false
+    offline: false
   }
 }
 
 const initialStateForOffline = {
   system: {
-    noInternet: true
+    offline: true
   }
 }
 
@@ -47,7 +47,7 @@ describe('ExternalLink', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('renders string child without an <a> element in "no-internet" mode', () => {
+  it('renders string child without an <a> element in "offline" mode', () => {
     const {
       asFragment
     } = renderWithReduxAndIntl(
@@ -57,7 +57,7 @@ describe('ExternalLink', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('renders element child without an <a> element in "no-internet" mode', () => {
+  it('renders element child without an <a> element in "offline" mode', () => {
     const { asFragment } = renderWithReduxAndIntl(
       <ExternalLink href="https://example.com">
         <div>foo</div>

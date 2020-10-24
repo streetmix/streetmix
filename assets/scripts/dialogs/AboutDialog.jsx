@@ -17,7 +17,7 @@ import mozlogo from '../../images/sponsors/mozilla.svg'
 import './AboutDialog.scss'
 
 function AboutDialog (props) {
-  const noInternet = useSelector((state) => state.system.noInternet)
+  const offline = useSelector((state) => state.system.offline)
 
   return (
     <Dialog>
@@ -76,7 +76,7 @@ function AboutDialog (props) {
                     </ExternalLink>
                   </li>
                 </ul>
-                {!noInternet && (
+                {!offline && (
                   <>
                     <p>
                       <ExternalLink href="https://opencollective.com/streetmix/">

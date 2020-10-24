@@ -37,7 +37,7 @@ function Description (props) {
   const descriptionVisible = useSelector(
     (state) => state.infoBubble.descriptionVisible
   )
-  const noInternet = useSelector((state) => state.system.noInternet)
+  const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
 
   function handleClickShow () {
@@ -104,7 +104,7 @@ function Description (props) {
         image={description.image}
         content={content}
         caption={imageCaption}
-        noInternet={noInternet}
+        offline={offline}
         bubbleY={Number.parseInt(props.infoBubbleEl.style.top)}
       />
     </>

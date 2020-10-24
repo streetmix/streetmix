@@ -8,7 +8,7 @@ import './IdentityMenu.scss'
 
 function IdentityMenu (props) {
   const userId = useSelector((state) => state.user.signInData?.userId)
-  const noInternet = useSelector((state) => state.system.noInternet)
+  const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
   const handleClickMyStreets = useCallback(
     (event) => {
@@ -22,7 +22,7 @@ function IdentityMenu (props) {
 
   return (
     <Menu {...props} className="identity-menu">
-      {!noInternet && (
+      {!offline && (
         <a href={myStreetsLink} onClick={handleClickMyStreets}>
           <FormattedMessage
             id="menu.item.my-streets"

@@ -10,13 +10,13 @@ ExternalLink.propTypes = {
 }
 
 function ExternalLink ({ children, href, ...restProps }) {
-  const noInternet = useSelector((state) => state.system.noInternet)
+  const offline = useSelector((state) => state.system.offline)
 
   if (!href.startsWith('mailto:') && !isExternalUrl(href)) {
     throw new Error(ERRORS.INVALID_EXTERNAL_LINK)
   }
 
-  if (noInternet) {
+  if (offline) {
     return children
   }
 

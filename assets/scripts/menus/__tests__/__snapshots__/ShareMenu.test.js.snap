@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ShareMenu does not render external share links in no internet mode 1`] = `
+exports[`ShareMenu does not render external share links in offline mode 1`] = `
 <DocumentFragment>
   <div
     class="menu share-menu"

@@ -16,7 +16,7 @@ const systemSlice = createSlice({
         navigator.userAgent.indexOf('Chrome') === -1) ||
       false,
     windows: navigator.userAgent.indexOf('Windows') !== -1 || false,
-    noInternet: false,
+    offline: false,
     devicePixelRatio: window.devicePixelRatio || 1.0
   },
 

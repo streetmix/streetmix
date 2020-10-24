@@ -316,10 +316,10 @@ Every so often, you will need to update the project.
    Debug a migration on a Heroku application instance like so: ``heroku run 'DEBUG=sequelize* npx sequelize db:migrate' --app <heroku app id>`` (Note the quotation marks surrounding the command.)
 
 
-Setup in a no-internet environment
-----------------------------------
+Setup in an offline environment
+-------------------------------
 
-This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "no Internet mode", set your :envvar:`NODE_ENV` environment variable to ``demo``.
+This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "offline mode", set your :envvar:`NODE_ENV` environment variable to ``demo``.
 
 You may do this by editing the :file:`.env` file (see :ref:`install-env-vars` for more information about this file).
 
@@ -332,7 +332,7 @@ You can also do it one time by starting the server like this:
 
 .. caution::
 
-   "No Internet mode" is not a well-supported feature of Streetmix. Use it with care.
+   "Offline mode" is not a well-supported feature of Streetmix. Use it with care.
 
 
 .. tip::

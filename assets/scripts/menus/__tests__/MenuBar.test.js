@@ -23,7 +23,7 @@ describe('MenuBar', () => {
       {
         initialState: {
           system: {
-            noInternet: true
+            offline: true
           }
         }
       }

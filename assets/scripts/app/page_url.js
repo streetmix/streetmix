@@ -157,8 +157,8 @@ export function updatePageUrl (forceGalleryUrl, userId = null) {
   if (debug.forceLiveUpdate) {
     url += '&debug-force-live-update'
   }
-  if (debug.forceNoInternet) {
-    url += '&debug-force-no-internet'
+  if (debug.forceOfflineMode) {
+    url += '&debug-force-offline'
   }
 
   url = url.replace(/&/, '?')
