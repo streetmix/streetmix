@@ -125,7 +125,7 @@ routes.post(
   // `application/json`, Express should still be parsing that correctly, but
   // this has not been verified.
   bodyParser.json({ type: 'application/csp-report' }),
-  resources.services.csp.post
+  resources.services.csp_report.post
 )
 
 // Catch all for all broken api paths, direct to 404 response.
