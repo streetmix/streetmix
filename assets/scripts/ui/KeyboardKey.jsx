@@ -9,7 +9,7 @@ KeyboardKey.propTypes = {
 }
 
 function KeyboardKey ({ icon, children }) {
-  if (icon && typeof children === 'string') {
+  if (icon) {
     // The `title` property on <kbd> is suggested to provide
     // accessible text for the icon being displayed. In this
     // case we use the `children` prop as the `title`, which
