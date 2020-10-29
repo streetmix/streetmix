@@ -55,7 +55,7 @@ function SkyObjects ({ objects = [] }) {
         // TODO: Render placeholder ("dev") asset? That way it will be more
         // obvious that something is missing, and work on placement/size can
         // be done even if an actual asset isn't ready yet.
-        return <React.Fragment key={object.image}></React.Fragment>
+        return <React.Fragment key={object.image} />
       })}
     </TransitionGroup>
   )
