@@ -28,6 +28,7 @@ if (config.has('db.sequelize.url')) {
   })
 }
 
+// reads in files where we define other models
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (
@@ -35,7 +36,7 @@ fs.readdirSync(__dirname)
     )
   })
   .forEach((file) => {
-    const model = sequelize.import(path.join(__dirname, file))
+    const model = require(path.join(__dirname, file))
     if (!model) {
       throw new Error(`missing model for file: ${file}`)
     }
