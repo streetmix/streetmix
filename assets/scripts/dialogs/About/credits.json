@@ -1,6 +1,41 @@
 {
   "team": [
     {
+      "name": "Lou Huang",
+      "title": "project lead",
+      "mugshotFile": "lou.jpg",
+      "url": "https://louhuang.com",
+      "active": true
+    },
+    {
+      "name": "Katie Lewis",
+      "title": "art director, illustrator",
+      "mugshotFile": "katie.jpg",
+      "url": "https://twitter.com/klizlewis",
+      "active": true
+    },
+    {
+      "name": "Wendy Fok",
+      "title": "project management",
+      "mugshotFile": "wendy.jpg",
+      "url": "https://twitter.com/W_W_F",
+      "active": true
+    },
+    {
+      "name": "Eric Sherman",
+      "title": "engineer",
+      "mugshotFile": "eric.jpg",
+      "url": "https://twitter.com/OSGISOMG",
+      "active": true
+    },
+    {
+      "name": "Annabel Church",
+      "title": "engineer",
+      "mugshotFile": "annabel.jpg",
+      "url": "https://twitter.com/annabelchurch",
+      "active": true
+    },
+    {
       "name": "Anselm Bradford",
       "title": "media production",
       "mugshotFile": "anselm.jpg",
@@ -18,7 +53,7 @@
       "name": "Elizabeth Ferrao",
       "title": "product manager",
       "mugshotFile": "elizabeth.jpg",
-      "active": true
+      "active": false
     },
     {
       "name": "Ezra Spier",
@@ -26,20 +61,6 @@
       "mugshotFile": "ezra.jpg",
       "url": "http://ahhrrr.com",
       "active": false
-    },
-    {
-      "name": "Katie Lewis",
-      "title": "art director, illustrator",
-      "mugshotFile": "katie.jpg",
-      "url": "https://twitter.com/klizlewis",
-      "active": true
-    },
-    {
-      "name": "Lou Huang",
-      "title": "project lead",
-      "mugshotFile": "lou.jpg",
-      "url": "https://louhuang.com",
-      "active": true
     },
     {
       "name": "Mandy Kong",
@@ -105,7 +126,7 @@
       "mugshotFile": "whitman.jpg",
       "title": "engineer",
       "url": "https://whitmanschorn.com",
-      "active": true
+      "active": false
     }
   ],
   "contributors": {
