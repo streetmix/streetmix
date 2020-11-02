@@ -134,7 +134,7 @@
     "oauth": "0.9.15",
     "parcel-bundler": "1.12.4",
     "pelias-js": "0.0.8",
-    "pg": "8.2.1",
+    "pg": "8.4.2",
     "postcss": "7.0.31",
     "postcss-round-subpixels": "1.2.0",
     "prop-types": "15.7.2",
