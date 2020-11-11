@@ -1,0 +1,26 @@
+{
+  "streetmix": {
+    "id": "streetmix",
+    "segments": {
+      "magic-carpet": { "average": 2, "potential": 3 }
+    }
+  },
+  "giz": {
+    "id": "giz",
+    "source_title": "Passenger capacity of different transport modes",
+    "source_author": "Transformative Urban Mobility Initiative (TUMI)",
+    "source_url": "https://www.transformative-mobility.org/publications/passenger-capacity-of-different-transport-modes",
+    "typical_lane_width": 3.5,
+    "segments": {
+      "sidewalk": { "average": 15000, "potential": 15000 },
+      "drive-lane": { "average": 1500, "potential": 2000 },
+      "bike-lane": { "average": 12000, "potential": 12000 },
+      "scooter": { "average": 12000, "potential": 12000 },
+      "light-rail": { "average": 18000, "potential": 20000 },
+      "streetcar": { "average": 18000, "potential": 20000 },
+      "bus-lane": { "average": 5000, "potential": 8000 },
+      "brt-lane": { "average": 14000, "potential": 24000 },
+      "magic-carpet": { "average": 2, "potential": 3 }
+    }
+  }
+}

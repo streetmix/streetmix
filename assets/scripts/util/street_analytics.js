@@ -1,6 +1,7 @@
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
 // import store from '../store'
 import memoizeFormatConstructor from './memoized_formatting'
+import SOURCE_DATA from '../segments/capacity.json'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
@@ -52,16 +53,11 @@ const getAnalyticsFromStreet = (street, locale) => {
 const NO_CAPACITY = { average: 0, potential: 0 }
 const UNDEFINED_CAPACITY = { average: 0, potential: 0, display: false }
 
+const BASE_DATA_SOURCE = 'streetmix'
+const DEFAULT_DATA_SOURCE = 'giz'
 const CAPACITIES = {
-  sidewalk: { average: 19000, potential: 19000 },
-  'drive-lane': { average: 1500, potential: 2000 },
-  'bike-lane': { average: 14000, potential: 14000 },
-  scooter: { average: 14000, potential: 14000 },
-  'light-rail': { average: 18000, potential: 20000 },
-  streetcar: { average: 18000, potential: 20000 },
-  'bus-lane': { average: 5000, potential: 8000 },
-  'brt-lane': { average: 14000, potential: 24000 },
-  'magic-carpet': { average: 2, potential: 3 }
+  ...SOURCE_DATA[BASE_DATA_SOURCE].segments,
+  ...SOURCE_DATA[DEFAULT_DATA_SOURCE].segments
 }
 
 const hasCapacityType = (type) => {
