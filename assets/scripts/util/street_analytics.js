@@ -60,6 +60,10 @@ const CAPACITIES = {
   ...SOURCE_DATA[DEFAULT_DATA_SOURCE].segments
 }
 
+export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
+  return SOURCE_DATA[source]
+}
+
 const hasCapacityType = (type) => {
   return type in CAPACITIES
 }

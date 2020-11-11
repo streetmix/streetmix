@@ -16,6 +16,7 @@ import { updateStreetAnalytics } from '../store/actions/street'
 
 import Terms from '../app/Terms'
 import {
+  getCapacityData,
   getSegmentCapacity,
   capacitySum,
   saveCsv
@@ -74,6 +75,9 @@ function AnalyticsDialog (props) {
   }
 
   const intl = useIntl()
+
+  const capacityData = getCapacityData()
+
   const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
 
   const sumFunc = (total, num) => {
@@ -157,10 +161,10 @@ function AnalyticsDialog (props) {
                   />
                   :
                 </strong>{' '}
-                <ExternalLink href="https://www.transformative-mobility.org/publications/passenger-capacity-of-different-transport-modes">
-                  Passenger capacity of different transport modes
+                <ExternalLink href={capacityData.source_url}>
+                  {capacityData.source_title}
                 </ExternalLink>
-                , Transformative Urban Mobility Initiative (TUMI)
+                , {capacityData.source_author}
               </p>
             </div>
             <div className="dialog-actions">
