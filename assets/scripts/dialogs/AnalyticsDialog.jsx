@@ -24,14 +24,15 @@ import {
 import './AnalyticsDialog.scss'
 
 const addSegmentData = (segments) => {
-  // return segments.map(getSegmentCapacity)
-  return segments.map((item) => {
-    return {
-      type: item.type,
-      capacity: getSegmentCapacity(item).capacity,
-      segment: item
-    }
-  })
+  return segments
+    .map((item) => {
+      return {
+        type: item.type,
+        capacity: getSegmentCapacity(item),
+        segment: item
+      }
+    })
+    .filter((item) => item.capacity !== null)
 }
 
 const mergeSegments = (a, b) => ({

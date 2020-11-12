@@ -1,0 +1,18 @@
+{
+  "streetmix": {
+    "id": "streetmix",
+    "segments": {
+      "baz": { "average": 100, "potential": 200 }
+    }
+  },
+  "giz": {
+    "id": "giz",
+    "source_title": "Source title",
+    "source_author": "Source author",
+    "source_url": "https://www.example.com/",
+    "typical_lane_width": 3,
+    "segments": {
+      "foo": { "average": 999, "potential": 4747 }
+    }
+  }
+}

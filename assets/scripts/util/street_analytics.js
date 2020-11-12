@@ -48,9 +48,6 @@ const getAnalyticsFromStreet = (street, locale) => {
   return { segments, street }
 }
 
-const NO_CAPACITY = { average: 0, potential: 0 }
-const UNDEFINED_CAPACITY = { average: 0, potential: 0, display: false }
-
 const BASE_DATA_SOURCE = 'streetmix'
 const DEFAULT_DATA_SOURCE = 'giz'
 const CAPACITIES = {
@@ -62,32 +59,9 @@ export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
   return SOURCE_DATA[source]
 }
 
-const hasCapacityType = (type) => {
-  return type in CAPACITIES
-}
-
-export const getCapacity = (type) => {
-  return hasCapacityType(type) ? { ...CAPACITIES[type] } : UNDEFINED_CAPACITY
-}
-
 const sumFunc = (total, num) => {
   if (Number.isNaN(num)) return total
   return total + num
-}
-
-const addSegmentData = (item) => {
-  const hasZeroCapacityError =
-    item &&
-    hasCapacityType(item.type) &&
-    item.warnings &&
-    (item.warnings[SEGMENT_WARNING_OUTSIDE] ||
-      item.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
-
-  return {
-    label: `${item.variantString} ${item.type}`,
-    capacity: hasZeroCapacityError ? NO_CAPACITY : getCapacity(item.type),
-    segment: item
-  }
 }
 
 export const capacitySum = (a, b) => {
@@ -98,18 +72,57 @@ export const capacitySum = (a, b) => {
   }
 }
 
-export const getSegmentCapacity = (segment) => {
-  return addSegmentData(segment)
+/**
+ * Given a segment, and an optional data source, return capacity information
+ * if available. If no capacity information is defined, returns `null`.
+ * If a capacity is defined, there are some cases where the capacity for
+ * a specific segment will be dropped to zero. This can happen if the
+ * segment is located outside of the street, or if the segment is too
+ * small. We may, in the future, handle other cases that affect capacity,
+ * such as segment width or adjacent segment types.
+ *
+ * @todo handle data source argument.
+ * @param {Object} segment - the segment object to retrieve capacity for
+ * @param {string} source - data source ID to use
+ * @returns {Object} capacity information (or null if not defined)
+ */
+export function getSegmentCapacity (segment, source) {
+  // Clones capacity data so that the original definition cannot be modified.
+  const capacity = CAPACITIES[segment.type]
+
+  // If a segment has capacity data, but something makes it zero capacity,
+  // return modified values here.
+  if (
+    capacity &&
+    segment?.warnings &&
+    (segment.warnings[SEGMENT_WARNING_OUTSIDE] ||
+      segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
+  ) {
+    return {
+      average: 0,
+      potential: 0
+    }
+  }
+
+  if (capacity) {
+    // Clones capacity data so that the original definition cannot be modified.
+    return {
+      ...CAPACITIES[segment.type]
+    }
+  }
+
+  // Returns null value if capacity is not defined
+  return null
 }
 
 export const getStreetCapacity = (street) => {
   const { segments } = street
-  const segmentData = segments.map(addSegmentData)
+  const segmentData = segments.map(getSegmentCapacity)
   const averageTotal = segmentData
-    .map((item) => item.capacity.average || 0)
+    .map((capacity) => capacity?.average || 0)
     .reduce(sumFunc, 0)
   const potentialTotal = segmentData
-    .map((item) => item.capacity.potential || 0)
+    .map((capacity) => capacity?.potential || 0)
     .reduce(sumFunc, 0)
 
   return {

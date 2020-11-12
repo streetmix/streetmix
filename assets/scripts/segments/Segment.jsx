@@ -302,10 +302,7 @@ export class Segment extends React.Component {
     const displayName =
       segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
-    const {
-      capacity: { average, display = true }
-    } = getSegmentCapacity(segment)
-    const showCapacity = enableAnalytics && display
+    const average = getSegmentCapacity(segment)?.average ?? null
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + this.props.segmentPos + 'px)'
@@ -358,7 +355,7 @@ export class Segment extends React.Component {
           units={this.props.units}
           locale={this.props.locale}
           capacity={average}
-          showCapacity={showCapacity}
+          showCapacity={enableAnalytics}
         />
         <SegmentDragHandles width={elementWidth} />
         <CSSTransition
