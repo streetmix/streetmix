@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { getSegmentCapacity } from '../street_analytics'
+import { getSegmentCapacity, getStreetCapacity } from '../street_analytics'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
@@ -59,5 +59,57 @@ describe('segment capacity', () => {
     }
 
     expect(getSegmentCapacity(segment2)).toEqual(null)
+  })
+})
+
+describe('street capacity', () => {
+  it('returns capacity data for street', () => {
+    const street = {
+      segments: [
+        {
+          type: 'baz'
+        },
+        // Include two segments (both should be added)
+        {
+          type: 'foo'
+        },
+        {
+          type: 'foo'
+        },
+        // Include a segment without capacity (adds zero)
+        {
+          type: 'bar'
+        },
+        // Include a segment with warnings (adds zero)
+        {
+          type: 'baz',
+          warnings: [null, true, false, false]
+        }
+      ]
+    }
+
+    expect(getStreetCapacity(street)).toEqual({
+      average: 2098,
+      potential: 9694
+    })
+  })
+
+  it('returns capacity data for street without capacity', () => {
+    const street = {
+      segments: [
+        {
+          type: 'bar'
+        },
+        {
+          type: 'baz',
+          warnings: [null, true, false, false]
+        }
+      ]
+    }
+
+    expect(getStreetCapacity(street)).toEqual({
+      average: 0,
+      potential: 0
+    })
   })
 })

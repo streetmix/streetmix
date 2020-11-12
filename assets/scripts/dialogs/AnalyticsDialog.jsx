@@ -18,6 +18,7 @@ import Terms from '../app/Terms'
 import {
   getCapacityData,
   getSegmentCapacity,
+  getStreetCapacity,
   capacitySum,
   saveCsv
 } from '../util/street_analytics'
@@ -68,6 +69,7 @@ function AnalyticsDialog (props) {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
+  const intl = useIntl()
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
   const toggleVisible = () => {
@@ -75,23 +77,8 @@ function AnalyticsDialog (props) {
     dispatch(updateStreetAnalytics(!isVisible))
   }
 
-  const intl = useIntl()
-
   const capacityData = getCapacityData()
-
-  const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
-
-  const sumFunc = (total, num) => {
-    if (!Number.isInteger(num)) return total
-    return total + num
-  }
-
-  const averageTotal = segmentData
-    .map((item) => item.capacity.average)
-    .reduce(sumFunc, 0)
-  const potentialTotal = segmentData
-    .map((item) => item.capacity.potential)
-    .reduce(sumFunc, 0)
+  const capacity = getStreetCapacity(street)
   const options = { maximumSignificantDigits: 3 }
 
   const summary = (
@@ -99,8 +86,10 @@ function AnalyticsDialog (props) {
       id="dialogs.analytics.street-summary"
       defaultMessage="Your street has an estimated average traffic of {averageTotal} people per hour, and potential for up to {potentialTotal} people per hour."
       values={{
-        averageTotal: <b>{formatNumber(averageTotal, locale, options)}</b>,
-        potentialTotal: <b>{formatNumber(potentialTotal, locale, options)}</b>
+        averageTotal: <b>{formatNumber(capacity.average, locale, options)}</b>,
+        potentialTotal: (
+          <b>{formatNumber(capacity.potential, locale, options)}</b>
+        )
       }}
     />
   )
@@ -113,6 +102,7 @@ function AnalyticsDialog (props) {
     )
   }
 
+  const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
   const rolledUp = rollUpCategories(segmentData)
   const chartMax =
     Math.max(...rolledUp.map((item) => item.capacity.potential)) + 1000

@@ -10,17 +10,17 @@ function StreetMetaAnalytics (props) {
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
 
-  const averageTotal = getStreetCapacity(street).averageTotal
+  const averageCapacity = getStreetCapacity(street).average
 
   // If zero capacity, don't display anything
-  if (averageTotal > 0) {
+  if (averageCapacity > 0) {
     return (
       <span className="street-metadata-analytics">
         <a href="#" onClick={() => dispatch(showDialog('ANALYTICS'))}>
           <FormattedMessage
             id="capacity.ppl-per-hour"
             defaultMessage="{capacity} people/hr"
-            values={{ capacity: formatNumber(averageTotal, locale) }}
+            values={{ capacity: formatNumber(averageCapacity, locale) }}
           />
         </a>
       </span>

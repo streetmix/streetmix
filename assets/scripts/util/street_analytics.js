@@ -59,11 +59,6 @@ export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
   return SOURCE_DATA[source]
 }
 
-const sumFunc = (total, num) => {
-  if (Number.isNaN(num)) return total
-  return total + num
-}
-
 export const capacitySum = (a, b) => {
   return {
     ...a,
@@ -115,20 +110,33 @@ export function getSegmentCapacity (segment, source) {
   return null
 }
 
-export const getStreetCapacity = (street) => {
+/**
+ * Given a street, calculate how much capacity the entire street is capable of
+ * supporting, by summing up the capacity available on each segment.
+ *
+ * @param {Object} street - street data
+ * @returns {Object} capacity information. Unlike segment capacity, this will
+ *  always return an object. Values are set to zero if street has no capacity.
+ */
+export function getStreetCapacity (street) {
   const { segments } = street
-  const segmentData = segments.map(getSegmentCapacity)
-  const averageTotal = segmentData
+  const segmentCapacities = segments.map(getSegmentCapacity)
+
+  const sum = (total, num) => {
+    if (!Number.isInteger(num)) return total
+    return total + num
+  }
+
+  const average = segmentCapacities
     .map((capacity) => capacity?.average || 0)
-    .reduce(sumFunc, 0)
-  const potentialTotal = segmentData
+    .reduce(sum, 0)
+  const potential = segmentCapacities
     .map((capacity) => capacity?.potential || 0)
-    .reduce(sumFunc, 0)
+    .reduce(sum, 0)
 
   return {
-    segmentData,
-    averageTotal,
-    potentialTotal
+    average,
+    potential
   }
 }
 
