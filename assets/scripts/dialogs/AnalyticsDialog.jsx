@@ -11,7 +11,7 @@ import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
-import { FormatNumber } from '../util/formatting'
+import { formatNumber } from '../util/number_format'
 import { updateStreetAnalytics } from '../store/actions/street'
 
 import Terms from '../app/Terms'
@@ -91,14 +91,15 @@ function AnalyticsDialog (props) {
   const potentialTotal = segmentData
     .map((item) => item.capacity.potential)
     .reduce(sumFunc, 0)
+  const options = { maximumSignificantDigits: 3 }
 
   const summary = (
     <FormattedMessage
       id="dialogs.analytics.street-summary"
       defaultMessage="Your street has an estimated average traffic of {averageTotal} people per hour, and potential for up to {potentialTotal} people per hour."
       values={{
-        averageTotal: <b>{FormatNumber(locale, averageTotal)}</b>,
-        potentialTotal: <b>{FormatNumber(locale, potentialTotal)}</b>
+        averageTotal: <b>{formatNumber(averageTotal, locale, options)}</b>,
+        potentialTotal: <b>{formatNumber(potentialTotal, locale, options)}</b>
       }}
     />
   )

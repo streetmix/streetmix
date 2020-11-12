@@ -1,6 +1,4 @@
 import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-// import store from '../store'
-import memoizeFormatConstructor from './memoized_formatting'
 import SOURCE_DATA from '../segments/capacity.json'
 import {
   SEGMENT_WARNING_OUTSIDE,
@@ -98,12 +96,6 @@ export const capacitySum = (a, b) => {
     average: a.average + b.average,
     potential: a.potential + b.potential
   }
-}
-
-const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)
-
-export const formatCapacity = (amount, locale) => {
-  return NumberFormat(locale).format(amount)
 }
 
 export const getSegmentCapacity = (segment) => {

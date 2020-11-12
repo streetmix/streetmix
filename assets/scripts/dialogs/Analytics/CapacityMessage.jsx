@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import { FormatNumber } from '../../util/formatting'
+import { formatNumber } from '../../util/number_format'
 
 CapacityMessage.propTypes = {
   locale: PropTypes.string.isRequired,
@@ -17,15 +17,16 @@ function CapacityMessage ({ locale, average, potential }) {
   const id = isSingleAmount
     ? 'dialogs.analytics.segment-summary-single'
     : 'dialogs.analytics.segment-summary'
+  const options = { maximumSignificantDigits: 3 }
 
   return (
     <FormattedMessage
       id={id}
       defaultMessage={defaultMessage}
       values={{
-        amount: FormatNumber(locale, average),
-        average: FormatNumber(locale, average),
-        potential: FormatNumber(locale, potential)
+        amount: formatNumber(average, locale, options),
+        average: formatNumber(average, locale, options),
+        potential: formatNumber(potential, locale, options)
       }}
     />
   )

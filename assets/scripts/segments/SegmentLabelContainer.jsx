@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import MeasurementText from '../ui/MeasurementText'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
-import { formatCapacity } from '../util/street_analytics'
+import { formatNumber } from '../util/number_format'
 import './SegmentLabelContainer.scss'
 
 SegmentLabelContainer.propTypes = {
@@ -49,7 +49,7 @@ function SegmentLabelContainer (props) {
               id="capacity.ppl-per-hour"
               defaultMessage="{capacity} people/hr"
               values={{
-                capacity: formatCapacity(capacity, locale)
+                capacity: formatNumber(capacity, locale)
               }}
             />
           </p>
