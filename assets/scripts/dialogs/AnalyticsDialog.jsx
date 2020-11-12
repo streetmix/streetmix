@@ -9,61 +9,18 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
+import Terms from '../app/Terms'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
-import { formatNumber } from '../util/number_format'
 import { updateStreetAnalytics } from '../store/actions/street'
-
-import Terms from '../app/Terms'
+import { formatNumber } from '../util/number_format'
 import {
   getCapacityData,
-  getSegmentCapacity,
   getStreetCapacity,
-  capacitySum,
+  getRolledUpSegmentCapacities,
   saveCsv
 } from '../util/street_analytics'
 import './AnalyticsDialog.scss'
-
-const addSegmentData = (segments) => {
-  return segments
-    .map((item) => {
-      return {
-        type: item.type,
-        capacity: getSegmentCapacity(item),
-        segment: item
-      }
-    })
-    .filter((item) => item.capacity !== null)
-}
-
-const mergeSegments = (a, b) => ({
-  type: a.type,
-  segment: a.segment,
-  capacity: capacitySum(a.capacity, b.capacity)
-})
-
-const groupBy = (list, keyGetter) => {
-  const map = {}
-  list.forEach((item) => {
-    const key = keyGetter(item)
-    const record = map[key]
-    if (!record) {
-      map[key] = item
-    } else {
-      const newItem = mergeSegments(item, record)
-      map[key] = newItem
-    }
-  })
-  return Object.keys(map).map((key) => map[key])
-}
-
-const rollUpCategories = (arr) => {
-  return groupBy(arr, (item) => item.type)
-}
-
-const avgCapacityAscending = (a, b) => {
-  return a.capacity.average - b.capacity.average
-}
 
 function AnalyticsDialog (props) {
   const street = useSelector((state) => state.street)
@@ -94,18 +51,8 @@ function AnalyticsDialog (props) {
     />
   )
 
-  const displayCapacity = (item) => {
-    return (
-      item.capacity &&
-      item.capacity.display !== false &&
-      item.capacity.average > 0
-    )
-  }
-
-  const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
-  const rolledUp = rollUpCategories(segmentData)
-  const chartMax =
-    Math.max(...rolledUp.map((item) => item.capacity.potential)) + 1000
+  const rolledUp = getRolledUpSegmentCapacities(street)
+  const chartMax = Math.max(...rolledUp.map((item) => item.capacity.potential))
 
   function exportCSV () {
     const name =
@@ -132,19 +79,15 @@ function AnalyticsDialog (props) {
           <div className="dialog-content">
             <div className="analytics-dialog-content">
               <p>{summary}</p>
-              {rolledUp
-                .filter(displayCapacity)
-                .map(
-                  (item, index) =>
-                    item.capacity.average > 0 && (
-                      <SegmentAnalytics
-                        index={index}
-                        key={index}
-                        {...item}
-                        chartMax={chartMax}
-                      />
-                    )
-                )}
+              {rolledUp.map((item, index) => (
+                <SegmentAnalytics
+                  key={index}
+                  index={index}
+                  chartMax={chartMax}
+                  type={item.type}
+                  capacity={item.capacity}
+                />
+              ))}
               <p>
                 <strong>
                   <FormattedMessage

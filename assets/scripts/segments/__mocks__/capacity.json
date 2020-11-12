@@ -12,7 +12,9 @@
     "source_url": "https://www.example.com/",
     "typical_lane_width": 3,
     "segments": {
-      "foo": { "average": 999, "potential": 4747 }
+      "foo": { "average": 200, "potential": 300 },
+      "qux": { "average": 300, "potential": 300 },
+      "zed": { "inherit": "foo" }
     }
   }
 }

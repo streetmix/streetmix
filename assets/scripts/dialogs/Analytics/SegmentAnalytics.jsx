@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import SegmentForPalette from '../../segments/SegmentForPalette'
 import { getLocaleSegmentName } from '../../segments/view'
 import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
@@ -21,37 +20,25 @@ SegmentAnalytics.propTypes = {
   capacity: PropTypes.shape({
     average: PropTypes.number,
     potential: PropTypes.number
-  }).isRequired,
-  segment: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    variantString: PropTypes.string.isRequired
   }).isRequired
 }
 
-function SegmentAnalytics ({ type, capacity, segment, index, chartMax }) {
+function SegmentAnalytics ({ index, type, chartMax, capacity }) {
   const locale = useSelector((state) => state.locale.locale)
 
   const { average, potential } = capacity
   const label = getLocaleSegmentName(type, locale)
   const color = BAR_COLORS[index % BAR_COLORS.length]
   const widthPercent = `${
-    (Number.parseInt(potential, 10) / Number.parseInt(chartMax, 10)) *
-    (100 * BAR_MODIFIER)
+    (potential / (chartMax + 1000)) * (100 * BAR_MODIFIER)
   }`
   // leave 2% margin
   const widthPercentInv = `${98 - Number.parseFloat(widthPercent)}`
 
+  if (average === 0) return null
+
   return (
     <div className="segment-analytics">
-      <div className="segment-icon">
-        <SegmentForPalette
-          isIcon={true}
-          key={segment.id}
-          type={segment.type}
-          variantString={segment.variantString}
-        />
-      </div>
       <div className="capacity-bars" style={{ width: `${widthPercent}%` }}>
         <CapacityBar amount={average} max={potential} color={color.main} />
         <CapacityBar

@@ -1,5 +1,9 @@
 /* eslint-env jest */
-import { getSegmentCapacity, getStreetCapacity } from '../street_analytics'
+import {
+  getSegmentCapacity,
+  getStreetCapacity,
+  getRolledUpSegmentCapacities
+} from '../street_analytics'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
@@ -14,8 +18,8 @@ describe('segment capacity', () => {
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
-      average: 999,
-      potential: 4747
+      average: 200,
+      potential: 300
     })
   })
 
@@ -89,8 +93,8 @@ describe('street capacity', () => {
     }
 
     expect(getStreetCapacity(street)).toEqual({
-      average: 2098,
-      potential: 9694
+      average: 500,
+      potential: 800
     })
   })
 
@@ -111,5 +115,70 @@ describe('street capacity', () => {
       average: 0,
       potential: 0
     })
+  })
+})
+
+describe('rolled-up segment capacities', () => {
+  it('returns sorted, rolled-up capacity data for street', () => {
+    const street = {
+      segments: [
+        {
+          type: 'qux'
+        },
+        // Include two segments (both should be added)
+        // and sorted before 'qux'
+        {
+          type: 'foo'
+        },
+        {
+          type: 'foo'
+        },
+        // Result should sort 'baz' before 'foo'
+        {
+          type: 'baz'
+        },
+        {
+          type: 'qux'
+        },
+        // Include a segment without capacity (adds zero)
+        {
+          type: 'bar'
+        },
+        // Include a segment with warnings (adds zero)
+        {
+          type: 'baz',
+          warnings: [null, true, false, false]
+        }
+      ]
+    }
+
+    expect(getRolledUpSegmentCapacities(street)).toEqual([
+      {
+        type: 'baz',
+        capacity: { average: 100, potential: 200 }
+      },
+      // Results should have lower average sorted before higher average,
+      // when the potential values are the same
+      {
+        type: 'foo',
+        capacity: { average: 400, potential: 600 }
+      },
+      {
+        type: 'qux',
+        capacity: { average: 600, potential: 600 }
+      }
+    ])
+  })
+
+  it('returns empty array for street without capacity', () => {
+    const street = {
+      segments: [
+        {
+          type: 'bar'
+        }
+      ]
+    }
+
+    expect(getRolledUpSegmentCapacities(street)).toEqual([])
   })
 })

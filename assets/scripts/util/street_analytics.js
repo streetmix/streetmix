@@ -1,52 +1,9 @@
-import { getSegmentVariantInfo, getSegmentInfo } from '../segments/info'
-import SOURCE_DATA from '../segments/capacity.json'
+import { parse } from 'json2csv'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
 } from '../segments/constants'
-const { parse } = require('json2csv')
-
-const csvTransform = (item) => {
-  return {
-    type: item.type,
-    averageCapacity: item.capacity.average,
-    potentialCapacity: item.capacity.potential
-  }
-}
-
-export const saveCsv = (rows, streetName) => {
-  const fields = ['type', 'averageCapacity', 'potentialCapacity']
-  const opts = { fields }
-
-  const formattedData = rows.map(csvTransform)
-
-  try {
-    const csv = parse(formattedData, opts)
-    const downloadLink = document.createElement('a')
-    const blob = new Blob(['\ufeff', csv])
-    const url = URL.createObjectURL(blob)
-
-    downloadLink.href = url
-    downloadLink.download = `${streetName} capacity.csv`
-
-    document.body.appendChild(downloadLink)
-    downloadLink.click()
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-// take in a street and returns a list of segments with analytics info
-const getAnalyticsFromStreet = (street, locale) => {
-  const segments = street.segments.map((segment) => {
-    const variant = (
-      getSegmentVariantInfo(segment.type, segment.variantString) || {}
-    ).analytics
-    const type = (getSegmentInfo(segment.type) || {}).analytics
-    return { variant, type }
-  })
-  return { segments, street }
-}
+import SOURCE_DATA from '../segments/capacity.json'
 
 const BASE_DATA_SOURCE = 'streetmix'
 const DEFAULT_DATA_SOURCE = 'giz'
@@ -57,14 +14,6 @@ const CAPACITIES = {
 
 export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
   return SOURCE_DATA[source]
-}
-
-export const capacitySum = (a, b) => {
-  return {
-    ...a,
-    average: a.average + b.average,
-    potential: a.potential + b.potential
-  }
 }
 
 /**
@@ -140,4 +89,86 @@ export function getStreetCapacity (street) {
   }
 }
 
-export default getAnalyticsFromStreet
+/**
+ * Given a street, calculate the capacity for each type of segment, rolling
+ * up identical segment types together.
+ *
+ * @param {Object} street - the street to get summary capacity from
+ * @returns {Array} capacities - sorted array of segment types and capacities
+ */
+export function getRolledUpSegmentCapacities (street) {
+  const capacities = street.segments
+    // Iterate through each segment to determine its capacity
+    .map((segment) => ({
+      type: segment.type,
+      capacity: getSegmentCapacity(segment)
+    }))
+    // Drop all segments without capacity information
+    .filter((segment) => segment.capacity !== null)
+    // Combine capacity values of segments of the same type
+    .reduce((accumulator, { type, capacity }) => {
+      accumulator[type] = mergeCapacity(accumulator[type], capacity)
+      return accumulator
+    }, {})
+
+  // Convert object back to array and sort, first by increasing
+  // average, then by increasing potential
+  return Object.keys(capacities)
+    .map((key) => ({
+      type: key,
+      capacity: capacities[key]
+    }))
+    .sort(sortByCapacity)
+}
+
+function mergeCapacity (a = {}, b) {
+  return {
+    average: (a.average || 0) + b.average,
+    potential: (a.potential || 0) + b.potential
+  }
+}
+
+function sortByCapacity (a, b) {
+  const a1 = a.capacity.average
+  const b1 = b.capacity.average
+  const a2 = a.capacity.potential
+  const b2 = b.capacity.potential
+
+  if (a1 < b1) return -1
+  if (a1 > b1) return 1
+  if (a2 < b2) return -1
+  if (a2 > b2) return 1
+
+  return 0
+}
+
+/**
+ * Converts capacity data into a CSV file for exporting
+ *
+ * @param {Array} data - capacity data from getRolledUpSegmentCapacities()
+ * @param {string} streetName - string for file name
+ */
+export function saveCsv (data, streetName) {
+  const fields = ['type', 'averageCapacity', 'potentialCapacity']
+  const opts = { fields }
+  const formattedData = data.map((row) => ({
+    type: row.type,
+    averageCapacity: row.capacity.average,
+    potentialCapacity: row.capacity.potential
+  }))
+
+  try {
+    const csv = parse(formattedData, opts)
+    const downloadLink = document.createElement('a')
+    const blob = new Blob(['\ufeff', csv])
+    const url = URL.createObjectURL(blob)
+
+    downloadLink.href = url
+    downloadLink.download = `${streetName}_capacity.csv`
+
+    document.body.appendChild(downloadLink)
+    downloadLink.click()
+  } catch (err) {
+    console.error(err)
+  }
+}

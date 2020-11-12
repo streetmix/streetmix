@@ -253,44 +253,6 @@ function getGroundLevelOffset (elevation) {
 }
 
 /**
- * Draws a segment without any background elements
- *
- * @param {CanvasRenderingContext2D} ctx
- * @param {string} type
- * @param {string} variantString
- * @param {Number} actualWidth - The real-world width of a segment, in feet
- * @param {Number} offsetLeft
- * @param {Number} groundBaseline
- * @param {Number} randSeed
- * @param {Number} multiplier
- * @param {Number} dpi
- */
-export function drawSegmentPlain (
-  ctx,
-  type,
-  variantString,
-  actualWidth,
-  offsetLeft,
-  groundBaseline,
-  randSeed,
-  multiplier,
-  dpi
-) {
-  return drawSegmentContents(
-    ctx,
-    type,
-    variantString,
-    actualWidth,
-    offsetLeft,
-    groundBaseline,
-    randSeed,
-    multiplier,
-    dpi,
-    true
-  )
-}
-
-/**
  *
  * @param {CanvasRenderingContext2D} ctx
  * @param {string} type

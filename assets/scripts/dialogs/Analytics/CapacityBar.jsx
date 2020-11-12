@@ -10,7 +10,7 @@ CapacityBar.propTypes = {
 }
 
 function CapacityBar ({ amount, max, color }) {
-  const widthPercent = `${(Number.parseInt(amount, 10) / max) * 100}%`
+  const widthPercent = `${(amount / max) * 100}%`
 
   return (
     <div
