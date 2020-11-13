@@ -66,8 +66,12 @@ const streetSlice = createSlice({
       }
     },
 
-    updateAnalytics (state, action) {
+    updateShowAnalytics (state, action) {
       state.showAnalytics = action.payload
+    },
+
+    updateCapacitySource (state, action) {
+      state.capacitySource = action.payload
     },
 
     updateSegments: {
@@ -338,7 +342,8 @@ export const {
   removeSegment,
   moveSegment,
   updateSegments,
-  updateAnalytics,
+  updateShowAnalytics,
+  updateCapacitySource,
   clearSegments,
   changeSegmentWidth,
   changeSegmentVariant,

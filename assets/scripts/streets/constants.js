@@ -11,3 +11,5 @@ export const DEFAULT_ENVIRONS = 'day'
 export const STREET_WIDTH_CUSTOM = -1
 export const STREET_WIDTH_SWITCH_TO_METRIC = -2
 export const STREET_WIDTH_SWITCH_TO_IMPERIAL = -3
+
+export const DEFAULT_CAPACITY_SOURCE = 'giz'

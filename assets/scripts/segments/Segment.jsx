@@ -61,6 +61,7 @@ export class Segment extends React.Component {
     locale: PropTypes.string,
     descriptionVisible: PropTypes.bool,
     activeSegment: PropTypes.number,
+    capacitySource: PropTypes.string,
     setActiveSegment: PropTypes.func,
     incrementSegmentWidth: PropTypes.func,
     removeSegmentAction: PropTypes.func,
@@ -293,7 +294,7 @@ export class Segment extends React.Component {
   }
 
   render () {
-    const { segment, enableAnalytics = true } = this.props
+    const { segment, enableAnalytics = true, capacitySource } = this.props
 
     const segmentInfo = getSegmentInfo(segment.type)
 
@@ -302,7 +303,7 @@ export class Segment extends React.Component {
     const displayName =
       segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
-    const average = getSegmentCapacity(segment)?.average ?? null
+    const average = getSegmentCapacity(segment, capacitySource)?.average ?? null
     const actualWidth = this.calculateSegmentWidths()
     const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + this.props.segmentPos + 'px)'
@@ -389,7 +390,10 @@ function mapStateToProps (state) {
     locale: state.locale.locale,
     descriptionVisible: state.infoBubble.descriptionVisible,
     activeSegment:
-      typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
+      typeof state.ui.activeSegment === 'number'
+        ? state.ui.activeSegment
+        : null,
+    capacitySource: state.street.capacitySource
   }
 }
 

@@ -201,6 +201,7 @@
       "segment-summary": "{average} — {potential} people/hour",
       "segment-summary-single": "{amount} people/hour",
       "source": "Source",
+      "data-source": "Data source",
       "settings-notice": "Street owners can change these settings."
     },
     "save": {

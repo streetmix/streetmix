@@ -1,4 +1,5 @@
 import { parse } from 'json2csv'
+import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
@@ -6,16 +7,25 @@ import {
 import SOURCE_DATA from '../segments/capacity.json'
 
 const BASE_DATA_SOURCE = 'common'
-const DEFAULT_DATA_SOURCE = 'giz'
 const CAPACITIES = processCapacityData()
 
 /**
  * When this module is initialized, process SOURCE_DATA:
  * - Each data source should inherit values from "common".
  * - Each segment with inherited values should inherit those values
+ * - Add a special source for "none". This can be used as a backup
+ *   in case a source is specified but it no longer exists or becomes
+ *   removed in the future. Code that works with the entire capacity
+ *   source object should handle the "none" case manually.
  */
 function processCapacityData () {
-  const processed = {}
+  const processed = {
+    // Disabled; let's force use of capacity data for now.
+    // none: {
+    //   source_author: '(none)',
+    //   id: 'none'
+    // }
+  }
   const sourceKeys = Object.keys(SOURCE_DATA)
   for (let i = 0; i < sourceKeys.length; i++) {
     const sourceKey = sourceKeys[i]
@@ -61,7 +71,11 @@ function processCapacityData () {
   return processed
 }
 
-export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
+export function getAllCapacityDataSources () {
+  return CAPACITIES
+}
+
+export function getCapacityData (source = DEFAULT_CAPACITY_SOURCE) {
   return CAPACITIES[source]
 }
 
@@ -74,7 +88,6 @@ export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
  * small. We may, in the future, handle other cases that affect capacity,
  * such as segment width or adjacent segment types.
  *
- * @todo handle data source argument.
  * @param {Object} segment - the segment object to retrieve capacity for
  * @param {string} source - data source ID to use
  * @returns {Object} capacity information (or null if not defined)
@@ -118,9 +131,9 @@ export function getSegmentCapacity (segment, source) {
  *  always return an object. Values are set to zero if street has no capacity.
  */
 export function getStreetCapacity (street) {
-  const { segments } = street
+  const { segments, capacitySource } = street
   const segmentCapacities = segments.map((segment) =>
-    getSegmentCapacity(segment)
+    getSegmentCapacity(segment, capacitySource)
   )
 
   const sum = (total, num) => {
@@ -149,11 +162,12 @@ export function getStreetCapacity (street) {
  * @returns {Array} capacities - sorted array of segment types and capacities
  */
 export function getRolledUpSegmentCapacities (street) {
-  const capacities = street.segments
+  const { segments, capacitySource } = street
+  const capacities = segments
     // Iterate through each segment to determine its capacity
     .map((segment) => ({
       type: segment.type,
-      capacity: getSegmentCapacity(segment)
+      capacity: getSegmentCapacity(segment, capacitySource)
     }))
     // Drop all segments without capacity information
     .filter((segment) => segment.capacity !== null)

@@ -10,11 +10,12 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
+import CapacitySources from './Analytics/CapacitySources'
 import Terms from '../app/Terms'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
 import { ICON_QUESTION_CIRCLE } from '../ui/icons'
-import { updateStreetAnalytics } from '../store/actions/street'
+import { setShowAnalytics } from '../store/actions/street'
 import { isOwnedByCurrentUser } from '../streets/owner'
 import { formatNumber } from '../util/number_format'
 import {
@@ -34,10 +35,10 @@ function AnalyticsDialog (props) {
   const [isVisible, setVisible] = useState(street.showAnalytics)
   const toggleVisible = () => {
     setVisible(!isVisible)
-    dispatch(updateStreetAnalytics(!isVisible))
+    dispatch(setShowAnalytics(!isVisible))
   }
 
-  const capacityData = getCapacityData()
+  const capacityData = getCapacityData(street.capacitySource)
   const capacity = getStreetCapacity(street)
   const options = { maximumSignificantDigits: 3 }
 
@@ -99,14 +100,19 @@ function AnalyticsDialog (props) {
                   />
                   :
                 </strong>{' '}
-                <ExternalLink href={capacityData.source_url}>
-                  {capacityData.source_title}
-                </ExternalLink>
+                {capacityData.source_url ? (
+                  <ExternalLink href={capacityData.source_url}>
+                    {capacityData.source_title}
+                  </ExternalLink>
+                ) : (
+                  capacityData.source_title
+                )}
                 , {capacityData.source_author}
               </p>
             </div>
             <hr />
             <div className="dialog-actions">
+              <CapacitySources />
               <Checkbox
                 id="show-analytics"
                 checked={isVisible}
