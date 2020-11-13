@@ -105,6 +105,7 @@ function AnalyticsDialog (props) {
                 , {capacityData.source_author}
               </p>
             </div>
+            <hr />
             <div className="dialog-actions">
               <Checkbox
                 id="show-analytics"
