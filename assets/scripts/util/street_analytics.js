@@ -5,15 +5,64 @@ import {
 } from '../segments/constants'
 import SOURCE_DATA from '../segments/capacity.json'
 
-const BASE_DATA_SOURCE = 'streetmix'
+const BASE_DATA_SOURCE = 'common'
 const DEFAULT_DATA_SOURCE = 'giz'
-const CAPACITIES = {
-  ...SOURCE_DATA[BASE_DATA_SOURCE].segments,
-  ...SOURCE_DATA[DEFAULT_DATA_SOURCE].segments
+const CAPACITIES = processCapacityData()
+
+/**
+ * When this module is initialized, process SOURCE_DATA:
+ * - Each data source should inherit values from "common".
+ * - Each segment with inherited values should inherit those values
+ */
+function processCapacityData () {
+  const processed = {}
+  const sourceKeys = Object.keys(SOURCE_DATA)
+  for (let i = 0; i < sourceKeys.length; i++) {
+    const sourceKey = sourceKeys[i]
+    const data = SOURCE_DATA[sourceKey]
+
+    // Skip the "common" data source from processing
+    if (data.id === BASE_DATA_SOURCE) continue
+
+    // Set up a new segment object, clone "common" segments into it
+    const segments = {
+      ...SOURCE_DATA[BASE_DATA_SOURCE].segments
+    }
+
+    // Iterate through source segment data and process each.
+    const segmentKeys = Object.keys(data.segments)
+    for (let j = 0; j < segmentKeys.length; j++) {
+      const key = segmentKeys[j]
+      const segment = data.segments[key]
+
+      // Process inherited segments
+      // Processed segments clone original data to prevent
+      // other code from modifying the source
+      let newSegment
+      if (segment.inherits) {
+        newSegment = {
+          ...data.segments[segment.inherits]
+        }
+      } else {
+        newSegment = {
+          ...segment
+        }
+      }
+
+      segments[key] = newSegment
+    }
+
+    processed[sourceKey] = {
+      ...data,
+      segments
+    }
+  }
+
+  return processed
 }
 
 export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
-  return SOURCE_DATA[source]
+  return CAPACITIES[source]
 }
 
 /**
@@ -31,8 +80,7 @@ export function getCapacityData (source = DEFAULT_DATA_SOURCE) {
  * @returns {Object} capacity information (or null if not defined)
  */
 export function getSegmentCapacity (segment, source) {
-  // Clones capacity data so that the original definition cannot be modified.
-  const capacity = CAPACITIES[segment.type]
+  const capacity = getCapacityData(source).segments[segment.type]
 
   // If a segment has capacity data, but something makes it zero capacity,
   // return modified values here.
@@ -51,7 +99,9 @@ export function getSegmentCapacity (segment, source) {
   if (capacity) {
     // Clones capacity data so that the original definition cannot be modified.
     return {
-      ...CAPACITIES[segment.type]
+      ...capacity,
+      // Temporary: map minimum values to average
+      average: capacity.average ?? capacity.minimum ?? undefined
     }
   }
 
@@ -69,7 +119,9 @@ export function getSegmentCapacity (segment, source) {
  */
 export function getStreetCapacity (street) {
   const { segments } = street
-  const segmentCapacities = segments.map(getSegmentCapacity)
+  const segmentCapacities = segments.map((segment) =>
+    getSegmentCapacity(segment)
+  )
 
   const sum = (total, num) => {
     if (!Number.isInteger(num)) return total

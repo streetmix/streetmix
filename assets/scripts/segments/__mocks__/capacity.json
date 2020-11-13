@@ -1,6 +1,6 @@
 {
-  "streetmix": {
-    "id": "streetmix",
+  "common": {
+    "id": "common",
     "segments": {
       "baz": { "average": 100, "potential": 200 }
     }
@@ -14,7 +14,7 @@
     "segments": {
       "foo": { "average": 200, "potential": 300 },
       "qux": { "average": 300, "potential": 300 },
-      "zed": { "inherit": "foo" }
+      "zed": { "inherits": "foo" }
     }
   }
 }

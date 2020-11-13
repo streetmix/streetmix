@@ -23,6 +23,28 @@ describe('segment capacity', () => {
     })
   })
 
+  it('returns capacity data for segment with inherited data', () => {
+    const segment = {
+      type: 'zed'
+    }
+
+    expect(getSegmentCapacity(segment)).toEqual({
+      average: 200,
+      potential: 300
+    })
+  })
+
+  it('returns capacity data for segment from common data source', () => {
+    const segment = {
+      type: 'baz'
+    }
+
+    expect(getSegmentCapacity(segment)).toEqual({
+      average: 100,
+      potential: 200
+    })
+  })
+
   it('drops capacity to zero for segments outside the street', () => {
     const segment = {
       type: 'foo',
