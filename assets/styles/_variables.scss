@@ -15,6 +15,7 @@ $border-radius: 4px; // Deprecated. Use the following instead.
 $border-radius-small: 2px;
 $border-radius-medium: 4px;
 $border-radius-large: 6px;
+$border-radius-pill: 999em; // because 50% creates ovals, not pills
 $menu-side-inset: $left-right-inset - 20px;
 
 // Brand colours

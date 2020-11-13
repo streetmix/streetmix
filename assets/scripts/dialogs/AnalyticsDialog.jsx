@@ -7,12 +7,15 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import Terms from '../app/Terms'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
+import { ICON_QUESTION_CIRCLE } from '../ui/icons'
 import { updateStreetAnalytics } from '../store/actions/street'
+import { isOwnedByCurrentUser } from '../streets/owner'
 import { formatNumber } from '../util/number_format'
 import {
   getCapacityData,
@@ -107,13 +110,22 @@ function AnalyticsDialog (props) {
                 id="show-analytics"
                 checked={isVisible}
                 onChange={toggleVisible}
+                disabled={!isOwnedByCurrentUser()}
               >
                 <FormattedMessage
                   id="dialogs.analytics.toggle-visible"
                   defaultMessage="Show capacity counts in segment labels"
                 />
               </Checkbox>
-
+              {!isOwnedByCurrentUser() && (
+                <p className="analytics-settings-notice">
+                  <FontAwesomeIcon icon={ICON_QUESTION_CIRCLE} />
+                  <FormattedMessage
+                    id="dialogs.analytics.settings-notice"
+                    defaultMessage="Street owners can change these settings."
+                  />
+                </p>
+              )}
               <br />
               <button className="button-primary" onClick={exportCSV}>
                 <FormattedMessage

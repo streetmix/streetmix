@@ -25,13 +25,11 @@ export function isOwnedByCurrentUser () {
 
   if (!state) return false
 
-  const signedIn = (state.user && state.user.signedIn) || false
-  const creatorId = (state.street && state.street.creatorId) || null
-  const userId =
-    (state.user && state.user.signInData && state.user.signInData.userId) ||
-    null
+  const signedIn = state.user?.signedIn || false
+  const creatorId = state.street?.creatorId || null
+  const userId = state.user?.signInData?.userId || null
 
-  if (signedIn && creatorId === userId) {
+  if (signedIn && creatorId && creatorId === userId) {
     return true
   } else if (!creatorId && !signedIn && !getRemixOnFirstEdit()) {
     return true
