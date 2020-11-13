@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import HelpMenu from '../HelpMenu'
 import { showDialog } from '../../store/slices/dialogs'
@@ -18,25 +18,25 @@ describe('HelpMenu', () => {
   })
 
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<HelpMenu />)
+    const { asFragment } = renderWithReduxAndIntl(<HelpMenu />)
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows the About dialog when its link is clicked', () => {
-    const wrapper = renderWithReduxAndIntl(<HelpMenu />)
+    renderWithReduxAndIntl(<HelpMenu />)
 
-    fireEvent.click(wrapper.getByText('About Streetmix…'))
+    fireEvent.click(screen.getByText('About Streetmix…'))
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('ABOUT')
   })
 
   it('shows the What’s New dialog when its link is clicked', () => {
-    const wrapper = renderWithReduxAndIntl(<HelpMenu />)
+    renderWithReduxAndIntl(<HelpMenu />)
 
     fireEvent.click(
-      wrapper.getByText('What’s new in Streetmix?', { exact: false })
+      screen.getByText('What’s new in Streetmix?', { exact: false })
     )
 
     expect(showDialog).toBeCalledTimes(1)

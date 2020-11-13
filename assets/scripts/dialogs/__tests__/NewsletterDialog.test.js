@@ -8,7 +8,7 @@ jest.mock('../Newsletter/mailchimp.html', () => '<div>foo</div>')
 
 describe('NewsletterDialog', () => {
   it('renders snapshot', () => {
-    const wrapper = renderWithReduxAndIntl(<NewsletterDialog />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<NewsletterDialog />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

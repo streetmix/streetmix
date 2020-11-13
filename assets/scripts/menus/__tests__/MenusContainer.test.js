@@ -5,7 +5,7 @@ import MenusContainer from '../MenusContainer'
 
 describe('MenusContainer', () => {
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<MenusContainer />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<MenusContainer />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

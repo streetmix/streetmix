@@ -80,7 +80,7 @@ describe('Segment', () => {
   })
 
   it('renders correctly', () => {
-    const wrapper = renderWithRedux(
+    const { asFragment } = renderWithRedux(
       <Segment
         segment={segment}
         actualWidth={currentWidth}
@@ -95,11 +95,11 @@ describe('Segment', () => {
         }
       }
     )
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows the info bubble on mouseover', () => {
-    const wrapper = renderWithRedux(
+    renderWithRedux(
       <Segment
         segment={segment}
         actualWidth={currentWidth}
@@ -114,12 +114,12 @@ describe('Segment', () => {
         }
       }
     )
-    fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+    fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
     expect(infoBubble.considerShowing).toHaveBeenCalledTimes(1)
   })
 
   it('hides the info bubble on mouseleave', () => {
-    const wrapper = renderWithRedux(
+    renderWithRedux(
       <Segment
         segment={segment}
         actualWidth={currentWidth}
@@ -134,14 +134,14 @@ describe('Segment', () => {
         }
       }
     )
-    fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
-    fireEvent.mouseLeave(getByTestId(wrapper.container, 'segment'))
+    fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
+    fireEvent.mouseLeave(getByTestId(screen.container, 'segment'))
     expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
 
   describe('keyboard events', () => {
     it('decreases the width of the segment when minus key is pressed', () => {
-      const wrapper = renderWithRedux(
+      renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -156,15 +156,15 @@ describe('Segment', () => {
           }
         }
       )
-      fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
       fireEvent.keyDown(document, { key: '-' })
       expect(
-        wrapper.store.getState().street.segments[activeElement].width
+        screen.store.getState().street.segments[activeElement].width
       ).toEqual(currentWidth - increment)
     })
 
     it('increases the width of the segment when plus key is pressed', () => {
-      const wrapper = renderWithRedux(
+      renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -179,15 +179,15 @@ describe('Segment', () => {
           }
         }
       )
-      fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
       fireEvent.keyDown(document, { key: '+', code: 'Equal' })
       expect(
-        wrapper.store.getState().street.segments[activeElement].width
+        screen.store.getState().street.segments[activeElement].width
       ).toEqual(currentWidth + increment)
     })
 
     it('removes segment when delete key is pressed', () => {
-      const wrapper = renderWithRedux(
+      renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -203,15 +203,15 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Delete' })
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
-      expect(wrapper.store.getState().street.segments.length).toEqual(0)
+      expect(screen.store.getState().street.segments.length).toEqual(0)
     })
 
     it('removes all segments when shift+delete keys are pressed', () => {
-      const wrapper = renderWithRedux(
+      renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -227,11 +227,11 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      fireEvent.mouseOver(getByTestId(wrapper.container, 'segment'))
+      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
       fireEvent.keyDown(document, { key: 'Delete', shiftKey: true })
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
-      expect(wrapper.store.getState().street.segments.length).toEqual(0)
+      expect(screen.store.getState().street.segments.length).toEqual(0)
     })
   })
 })

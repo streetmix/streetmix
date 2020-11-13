@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
@@ -35,12 +35,12 @@ const initialState = {
 
 describe('Gallery', () => {
   it('renders main gallery view for user’s own streets', () => {
-    const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<Gallery />, { initialState })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders main gallery view for another user’s streets', () => {
-    const wrapper = renderWithReduxAndIntl(<Gallery />, {
+    const { asFragment } = renderWithReduxAndIntl(<Gallery />, {
       initialState: {
         ...initialState,
         user: {
@@ -51,7 +51,7 @@ describe('Gallery', () => {
         }
       }
     })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders global gallery view', () => {
@@ -69,8 +69,8 @@ describe('Gallery', () => {
       }
     }
 
-    const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<Gallery />, { initialState })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders loading', () => {
@@ -81,8 +81,8 @@ describe('Gallery', () => {
       }
     }
 
-    const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<Gallery />, { initialState })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders error', () => {
@@ -93,8 +93,8 @@ describe('Gallery', () => {
       }
     }
 
-    const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-    expect(wrapper.getByText('Failed to load the gallery.')).toBeInTheDocument()
+    renderWithReduxAndIntl(<Gallery />, { initialState })
+    expect(screen.getByText('Failed to load the gallery.')).toBeInTheDocument()
   })
 
   it('closes on shield click', () => {
@@ -105,8 +105,8 @@ describe('Gallery', () => {
       }
     }
 
-    const wrapper = renderWithReduxAndIntl(<Gallery />, { initialState })
-    fireEvent.click(wrapper.container.querySelector('.gallery-shield'))
+    renderWithReduxAndIntl(<Gallery />, { initialState })
+    fireEvent.click(screen.container.querySelector('.gallery-shield'))
     expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 
