@@ -26,8 +26,8 @@ function CapacitySources (props) {
     <p>
       <strong>
         <FormattedMessage
-          id="dialogs.analytics.data-source"
-          defaultMessage="Data source"
+          id="dialogs.analytics.capacity-data-source"
+          defaultMessage="Capacity data source"
         />
         :&lrm;
       </strong>{' '}

@@ -1,25 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const BAR_HEIGHT = '70px'
-
 CapacityBar.propTypes = {
   amount: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired
+  type: PropTypes.oneOf(['minimum', 'average', 'potential'])
 }
 
-function CapacityBar ({ amount, max, color }) {
-  const widthPercent = `${(amount / max) * 100}%`
+function CapacityBar ({ amount, max, type }) {
+  const classNames = ['capacity-bar']
+  if (type === 'minimum') {
+    classNames.push('capacity-bar-minimum')
+  } else if (type === 'average') {
+    classNames.push('capacity-bar-average')
+  } else if (type === 'potential') {
+    classNames.push('capacity-bar-potential')
+  }
 
   return (
     <div
-      className="capacity-bar"
+      className={classNames.join(' ')}
       style={{
-        height: BAR_HEIGHT,
-        background: color,
-        display: 'inline-block',
-        width: widthPercent
+        width: `${(amount / max) * 100}%`
       }}
     >
       &nbsp;

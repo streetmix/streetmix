@@ -39,5 +39,22 @@
       "light-rail": { "average": 10000, "potential": 25000 },
       "streetcar": { "inherits": "light-rail" }
     }
+  },
+  "vancouver": {
+    "id": "vancouver",
+    "source_title": "People Moving Capacity: Vancouver Urban Transportation Modes (2017)",
+    "source_author": "City of Vancouver",
+    "source_url": "https://twitter.com/BrentToderian/status/953085021744611328",
+    "typical_lane_width": 3,
+    "segments": {
+      "drive-lane": { "minimum": 700, "average": 850, "potential": 1000 },
+      "bus-lane": { "minimum": 1000, "average": 1700, "potential": 2000 },
+      "bike-lane": { "minimum": 2000, "potential": 3000 },
+      "scooter": { "inherits": "bike-lane" },
+      "brt-lane": { "minimum": 3000, "average": 3500, "potential": 4000 },
+      "sidewalk": { "minimum": 5000, "average": 5500, "potential": 6500 },
+      "light-rail": { "minimum": 2000, "potential": 2500 },
+      "streetcar": { "inherits": "light-rail" }
+    }
   }
 }

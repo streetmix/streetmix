@@ -114,7 +114,9 @@ export function getSegmentCapacity (segment, source) {
     return {
       ...capacity,
       // Temporary: map minimum values to average
-      average: capacity.average ?? capacity.minimum ?? undefined
+      average: capacity.average ?? capacity.minimum ?? undefined,
+      // Temporary: map undefined potential values from average
+      potential: capacity.potential ?? capacity.average ?? undefined
     }
   }
 

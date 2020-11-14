@@ -56,7 +56,7 @@ function AnalyticsDialog (props) {
   )
 
   const rolledUp = getRolledUpSegmentCapacities(street)
-  const chartMax = Math.max(...rolledUp.map((item) => item.capacity.potential))
+  const max = Math.max(...rolledUp.map((item) => item.capacity.potential))
 
   function exportCSV () {
     const name =
@@ -87,7 +87,7 @@ function AnalyticsDialog (props) {
                 <SegmentAnalytics
                   key={index}
                   index={index}
-                  chartMax={chartMax}
+                  max={max}
                   type={item.type}
                   capacity={item.capacity}
                 />
