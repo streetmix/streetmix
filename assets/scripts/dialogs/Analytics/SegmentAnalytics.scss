@@ -29,7 +29,6 @@ $color-4-em: $colour-midnight-400;
   display: inline-block;
   min-width: 25px;
   margin-left: 25px;
-  transition: width 300ms ease-out;
 }
 
 .capacity-icon {
@@ -96,7 +95,6 @@ $color-4-em: $colour-midnight-400;
   left: 0;
   height: 50px;
   border-radius: 0 25px 25px 0;
-  transition: width 300ms ease-out;
 }
 
 .capacity-bar.capacity-bar-average {

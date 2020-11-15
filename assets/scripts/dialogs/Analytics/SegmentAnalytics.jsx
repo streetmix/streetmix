@@ -7,7 +7,6 @@ import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
 import './SegmentAnalytics.scss'
 
-const BAR_MODIFIER = 0.65
 const BAR_COLORS = 4
 
 SegmentAnalytics.propTypes = {
@@ -26,7 +25,6 @@ function SegmentAnalytics ({ index, type, max, capacity }) {
   const { average, potential } = capacity
   const label = getLocaleSegmentName(type, locale)
   const colorScheme = (index % BAR_COLORS) + 1
-  const widthPercent = (potential / max) * BAR_MODIFIER * 100
 
   if (average === 0) return null
 
@@ -111,10 +109,7 @@ function SegmentAnalytics ({ index, type, max, capacity }) {
       <div className="capacity-icon">
         <div className="capacity-icon-image">{ImageElement}</div>
       </div>
-      <div className="capacity-bars" style={{ width: `${widthPercent}%` }}>
-        <CapacityBar amount={potential} max={potential} type="potential" />
-        <CapacityBar amount={average} max={potential} type="average" />
-      </div>
+      <CapacityBar average={average} potential={potential} max={max} />
       <div className="capacity-text">
         <div className="capacity-label">{label}</div>
         <div className="capacity-summary">
