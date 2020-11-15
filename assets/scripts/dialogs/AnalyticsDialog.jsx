@@ -23,7 +23,7 @@ import {
   getStreetCapacity,
   getRolledUpSegmentCapacities,
   saveCsv
-} from '../util/street_analytics'
+} from '../segments/capacity'
 import './AnalyticsDialog.scss'
 
 function AnalyticsDialog (props) {

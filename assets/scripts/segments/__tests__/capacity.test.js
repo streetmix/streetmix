@@ -3,12 +3,12 @@ import {
   getSegmentCapacity,
   getStreetCapacity,
   getRolledUpSegmentCapacities
-} from '../street_analytics'
+} from '../capacity'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
 jest.mock('../../segments/capacity.json', () =>
-  require('../../segments/__mocks__/capacity.json')
+  require('../__mocks__/capacity.json')
 )
 
 describe('segment capacity', () => {

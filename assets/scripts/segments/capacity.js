@@ -3,8 +3,8 @@ import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
-} from '../segments/constants'
-import SOURCE_DATA from '../segments/capacity.json'
+} from './constants'
+import SOURCE_DATA from './capacity.json'
 
 const BASE_DATA_SOURCE = 'common'
 const CAPACITIES = processCapacityData()

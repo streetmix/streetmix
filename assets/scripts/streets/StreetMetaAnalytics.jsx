@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { getStreetCapacity } from '../util/street_analytics'
+import { getStreetCapacity } from '../segments/capacity'
 import { formatNumber } from '../util/number_format'
 import { showDialog } from '../store/slices/dialogs'
 

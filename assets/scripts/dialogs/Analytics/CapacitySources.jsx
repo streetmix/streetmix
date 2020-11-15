@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector, useDispatch } from 'react-redux'
 import { DEFAULT_CAPACITY_SOURCE } from '../../streets/constants'
 import { isOwnedByCurrentUser } from '../../streets/owner'
-import { getAllCapacityDataSources } from '../../util/street_analytics'
+import { getAllCapacityDataSources } from '../../segments/capacity'
 import { setCapacitySource } from '../../store/actions/street'
 
 function CapacitySources (props) {

@@ -5,11 +5,11 @@ import { DragSource, DropTarget } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
-import { getSegmentCapacity } from '../util/street_analytics'
+import { getSegmentCapacity } from './capacity'
+import { getLocaleSegmentName } from './view'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
-import { getLocaleSegmentName } from '../segments/view'
 
 import {
   TILE_SIZE,
