@@ -1,29 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useSpring, animated } from 'react-spring'
 
-const BAR_HEIGHT = '70px'
+const BAR_MODIFIER = 0.65
 
 CapacityBar.propTypes = {
-  amount: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired
+  average: PropTypes.number.isRequired,
+  potential: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired
 }
 
-function CapacityBar ({ amount, max, color }) {
-  const widthPercent = `${(Number.parseInt(amount, 10) / max) * 100}%`
+function CapacityBar ({ average, potential, max }) {
+  // Like react-spring's pre-defined `config.slow` but with slightly
+  // less tension and friction
+  const sharedConfig = { mass: 1, tension: 250, friction: 40 }
+  const averageSpringProps = useSpring({
+    config: sharedConfig,
+    width: `${(average / potential) * 100}%`
+  })
+  const maxSpringProps = useSpring({
+    config: sharedConfig,
+    width: `${(potential / max) * BAR_MODIFIER * 100}%`
+  })
 
   return (
-    <div
-      className="capacity-bar"
-      style={{
-        height: BAR_HEIGHT,
-        background: color,
-        display: 'inline-block',
-        width: widthPercent
-      }}
-    >
-      &nbsp;
-    </div>
+    <animated.div className="capacity-bars" style={maxSpringProps}>
+      <div
+        className="capacity-bar capacity-bar-potential"
+        style={{ width: '100%' }}
+      >
+        &nbsp;
+      </div>
+      <animated.div
+        className="capacity-bar capacity-bar-average"
+        style={averageSpringProps}
+      >
+        &nbsp;
+      </animated.div>
+    </animated.div>
   )
 }
 

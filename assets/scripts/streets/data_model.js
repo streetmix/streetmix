@@ -383,6 +383,7 @@ export function trimStreetData (street) {
   const newData = {
     schemaVersion: street.schemaVersion,
     showAnalytics: street.showAnalytics,
+    capacitySource: street.capacitySource,
     width: street.width,
     name: street.name,
     id: street.id,

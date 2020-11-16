@@ -1,0 +1,143 @@
+@import "../../../styles/variables.scss";
+
+$color-1-main: $colour-emerald-350;
+$color-1-alt: $colour-emerald-150;
+$color-1-em: $colour-emerald-400;
+$color-2-main: $colour-turquoise-350;
+$color-2-alt: $colour-turquoise-150;
+$color-2-em: $colour-turquoise-400;
+$color-3-main: $colour-copper-350;
+$color-3-alt: $colour-copper-150;
+$color-3-em: $colour-copper-400;
+$color-4-main: $colour-midnight-350;
+$color-4-alt: $colour-midnight-150;
+$color-4-em: $colour-midnight-400;
+
+.segment-analytics {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.25em;
+
+  /* not a great no-wrap solution but we're trying it for now */
+  white-space: nowrap;
+}
+
+.capacity-bars {
+  position: relative;
+  height: 50px;
+  margin-right: 10px;
+  display: inline-block;
+  min-width: 25px;
+  margin-left: 25px;
+}
+
+.capacity-icon {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  z-index: 1;
+
+  [data-color="1"] & {
+    background-color: $color-1-main;
+  }
+
+  [data-color="2"] & {
+    background-color: $color-2-main;
+  }
+
+  [data-color="3"] & {
+    background-color: $color-3-main;
+  }
+
+  [data-color="4"] & {
+    background-color: $color-4-main;
+  }
+}
+
+.capacity-icon-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: white;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  margin-left: 4px;
+  margin-top: 4px;
+  border: 3px solid;
+  overflow: hidden;
+
+  [data-color="1"] & {
+    border-color: $color-1-em;
+  }
+
+  [data-color="2"] & {
+    border-color: $color-2-em;
+  }
+
+  [data-color="3"] & {
+    border-color: $color-3-em;
+  }
+
+  [data-color="4"] & {
+    border-color: $color-4-em;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.capacity-bar {
+  position: absolute;
+  left: 0;
+  height: 50px;
+  border-radius: 0 25px 25px 0;
+}
+
+.capacity-bar.capacity-bar-average {
+  [data-color="1"] & {
+    background-color: $color-1-main;
+  }
+
+  [data-color="2"] & {
+    background-color: $color-2-main;
+  }
+
+  [data-color="3"] & {
+    background-color: $color-3-main;
+  }
+
+  [data-color="4"] & {
+    background-color: $color-4-main;
+  }
+}
+
+.capacity-bar.capacity-bar-potential {
+  [data-color="1"] & {
+    background-color: $color-1-alt;
+  }
+
+  [data-color="2"] & {
+    background-color: $color-2-alt;
+  }
+
+  [data-color="3"] & {
+    background-color: $color-3-alt;
+  }
+
+  [data-color="4"] & {
+    background-color: $color-4-alt;
+  }
+}
+
+.capacity-text {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.capacity-text .capacity-label {
+  font-weight: bold;
+}

@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSegmentVariantInfo } from './info'
-import {
-  drawSegmentContents,
-  getVariantInfoDimensions,
-  drawSegmentPlain
-} from './view'
+import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { TILE_SIZE } from './constants'
 import './SegmentCanvas.scss'
 
@@ -14,11 +10,9 @@ const GROUND_BASELINE = 400
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
-const ICON_BASELINE = 80
 
 class SegmentCanvas extends React.PureComponent {
   static propTypes = {
-    isIcon: PropTypes.bool,
     actualWidth: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
@@ -68,31 +62,17 @@ class SegmentCanvas extends React.PureComponent {
     const canvas = this.canvasEl.current
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    if (this.props.isIcon) {
-      drawSegmentPlain(
-        ctx,
-        this.props.type,
-        this.props.variantString,
-        this.props.actualWidth,
-        0,
-        this.props.groundBaseline,
-        this.props.randSeed,
-        this.props.multiplier,
-        this.props.dpi
-      )
-    } else {
-      drawSegmentContents(
-        ctx,
-        this.props.type,
-        this.props.variantString,
-        this.props.actualWidth,
-        0,
-        this.props.groundBaseline,
-        this.props.randSeed,
-        this.props.multiplier,
-        this.props.dpi
-      )
-    }
+    drawSegmentContents(
+      ctx,
+      this.props.type,
+      this.props.variantString,
+      this.props.actualWidth,
+      0,
+      this.props.groundBaseline,
+      this.props.randSeed,
+      this.props.multiplier,
+      this.props.dpi
+    )
   }
 
   render () {
@@ -114,7 +94,7 @@ class SegmentCanvas extends React.PureComponent {
 
     // Determine dimensions to draw DOM element
     const elementWidth = displayWidth * TILE_SIZE * this.props.multiplier
-    const elementHeight = this.props.isIcon ? ICON_BASELINE : CANVAS_BASELINE
+    const elementHeight = CANVAS_BASELINE
 
     // Determine size of canvas
     const canvasWidth = Math.round(elementWidth * this.props.dpi)

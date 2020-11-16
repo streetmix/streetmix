@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import StreetMetaAnalytics from '../StreetMetaAnalytics'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
@@ -36,7 +36,7 @@ describe('StreetMetaAnalytics', () => {
       }
     })
 
-    fireEvent.click(getByText('24,000 people/hr'))
+    userEvent.click(getByText('20,000 people/hr'))
     expect(showDialog).toBeCalledTimes(1)
   })
 })
