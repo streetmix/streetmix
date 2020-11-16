@@ -186,7 +186,7 @@
     "@testing-library/user-event": "12.1.6",
     "axios-mock-adapter": "1.18.2",
     "babel-eslint": "10.1.0",
-    "babel-jest": "26.3.0",
+    "babel-jest": "26.6.3",
     "cypress": "4.9.0",
     "eslint": "6.8.0",
     "eslint-config-standard": "14.1.1",
