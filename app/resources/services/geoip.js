@@ -8,30 +8,51 @@ const util = require('../../../lib/util.js')
 const IP_GEOLOCATION_TIMEOUT = 500
 
 exports.get = function (req, res) {
+  // Check Cloudflare for country code (currently unused)
+  if (typeof req.headers['cf-ipcountry'] !== 'undefined') {
+    res.set('CF-IPCountry', req.headers['cf-ipcountry'])
+  } else {
+    res.set('CF-IPCountry', '')
+  }
+
   // Prevent this service from being accessed by third parties
-  if (req.headers.referer === undefined || new URL(req.headers.referer).host !== config.app_host_port) {
-    res.status(403).json({ status: 403, msg: 'I’m sorry — you do not have access to this service.' })
+  if (
+    req.headers.referer === undefined ||
+    new URL(req.headers.referer).host !== config.app_host_port
+  ) {
+    res.status(403).json({
+      status: 403,
+      msg: 'I’m sorry — you do not have access to this service.'
+    })
     return
   }
 
   // If API key environment variable has not been provided, return an error.
   if (!config.geoip.api_key) {
-    logger.warn(chalk.yellow(
-      'A request to ' + chalk.gray('/services/geoip') +
-      ' cannot be fulfilled because the ' + chalk.gray('IPSTACK_API_KEY') +
-      ' environment variable is not set.'
-    ))
-    res.status(500).json({ status: 500, msg: 'The server does not have access to the IP geolocation provider.' })
+    logger.warn(
+      chalk.yellow(
+        'A request to ' +
+          chalk.gray('/services/geoip') +
+          ' cannot be fulfilled because the ' +
+          chalk.gray('IPSTACK_API_KEY') +
+          ' environment variable is not set.'
+      )
+    )
+    res.status(500).json({
+      status: 500,
+      msg: 'The server does not have access to the IP geolocation provider.'
+    })
     return
   }
 
   const requestGeolocation = function (isRedisConnected = true) {
     let url = `${config.geoip.protocol}${config.geoip.host}`
-    url += (req.hostname === 'localhost') ? 'check' : ip
+    url += req.hostname === 'localhost' ? 'check' : ip
     url += `?access_key=${config.geoip.api_key}`
 
-    axios.get(url, { timeout: IP_GEOLOCATION_TIMEOUT })
-      .then(response => {
+    axios
+      .get(url, { timeout: IP_GEOLOCATION_TIMEOUT })
+      .then((response) => {
         const body = response.data
         const data = JSON.parse(body)
 
@@ -41,7 +62,10 @@ exports.get = function (req, res) {
         // not contain the `success` property. It is only present when it fails.
         if (data.success === false) {
           logger.error(data)
-          res.status(500).json({ status: 500, msg: 'The IP geolocation provider returned an error.' })
+          res.status(500).json({
+            status: 500,
+            msg: 'The IP geolocation provider returned an error.'
+          })
           return
         }
 
@@ -51,9 +75,12 @@ exports.get = function (req, res) {
 
         res.status(200).json(data)
       })
-      .catch(error => {
+      .catch((error) => {
         logger.error(error)
-        res.status(503).json({ status: 503, msg: 'The IP geolocation provider is unavailable.' })
+        res.status(503).json({
+          status: 503,
+          msg: 'The IP geolocation provider is unavailable.'
+        })
       })
   }
 
