@@ -4,7 +4,7 @@
  * Renders the "Analytics" dialog box.
  *
  */
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,6 +31,7 @@ function AnalyticsDialog (props) {
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
   const intl = useIntl()
+  const max = useRef(null)
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
   const toggleVisible = () => {
@@ -56,7 +57,21 @@ function AnalyticsDialog (props) {
   )
 
   const rolledUp = getRolledUpSegmentCapacities(street)
-  const max = Math.max(...rolledUp.map((item) => item.capacity.potential))
+
+  // Store the maximum capacity across renders, when the data source may
+  // change. This way, data sources with lower values show more intuitive
+  // animation between the relative differences. (Note: one downside of this
+  // method is that the 'max' is only calculated with data sources that are
+  // being tried - we don't calculate the max across _all_ data sources right
+  // away. The City of Vancouver data (with the lowest capacity numbers) will
+  // display at max width, even though it would be significantly shorter if
+  // you switched to the TUMI/GIZ data first and then back to Vancouver. This
+  // is a tradeoff I'm willing to live with, unless user feedback really
+  // requires us to chnage this.)
+  max.current = Math.max(
+    max.current,
+    ...rolledUp.map((item) => item.capacity.potential)
+  )
 
   function exportCSV () {
     const name =
@@ -87,7 +102,7 @@ function AnalyticsDialog (props) {
                 <SegmentAnalytics
                   key={index}
                   index={index}
-                  max={max}
+                  max={max.current}
                   type={item.type}
                   capacity={item.capacity}
                 />
