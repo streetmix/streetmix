@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import SettingsMenu from '../SettingsMenu'
 import {

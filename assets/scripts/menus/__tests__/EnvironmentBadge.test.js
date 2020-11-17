@@ -5,8 +5,8 @@ import EnvironmentBadge from '../EnvironmentBadge'
 
 describe('EnvironmentBadge', () => {
   it('renders nothing in standard conditions', () => {
-    render(<EnvironmentBadge />)
-    expect(screen.container.firstChild).toEqual(null)
+    const { container } = render(<EnvironmentBadge />)
+    expect(container.firstChild).toBe(null)
   })
 
   it('renders a specific label if given', () => {

@@ -12,9 +12,9 @@ jest.mock('react-leaflet', () => {
 
 describe('LocationPopup', () => {
   it('does not render if a location is not provided', () => {
-    renderWithIntl(<LocationPopup />)
+    const { container } = renderWithIntl(<LocationPopup />)
     // react-leaflet's <Popup /> should not exist
-    expect(screen.asFragment().firstChild).toBe(null)
+    expect(container.firstChild).toBe(null)
   })
 
   it('renders an address label', () => {

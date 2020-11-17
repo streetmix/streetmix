@@ -106,7 +106,7 @@ describe('Gallery', () => {
     }
 
     renderWithReduxAndIntl(<Gallery />, { initialState })
-    fireEvent.click(screen.container.querySelector('.gallery-shield'))
+    fireEvent.click(screen.getByTestId('gallery-shield'))
     expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 

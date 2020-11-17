@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, getByTestId } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import Segment from '../Segment'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
@@ -114,7 +114,7 @@ describe('Segment', () => {
         }
       }
     )
-    fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
+    fireEvent.mouseOver(screen.getByTestId('segment'))
     expect(infoBubble.considerShowing).toHaveBeenCalledTimes(1)
   })
 
@@ -134,14 +134,14 @@ describe('Segment', () => {
         }
       }
     )
-    fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
-    fireEvent.mouseLeave(getByTestId(screen.container, 'segment'))
+    fireEvent.mouseOver(screen.getByTestId('segment'))
+    fireEvent.mouseLeave(screen.getByTestId('segment'))
     expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
 
   describe('keyboard events', () => {
     it('decreases the width of the segment when minus key is pressed', () => {
-      renderWithRedux(
+      const { store } = renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -156,15 +156,15 @@ describe('Segment', () => {
           }
         }
       )
-      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
+      fireEvent.mouseOver(screen.getByTestId('segment'))
       fireEvent.keyDown(document, { key: '-' })
-      expect(
-        screen.store.getState().street.segments[activeElement].width
-      ).toEqual(currentWidth - increment)
+      expect(store.getState().street.segments[activeElement].width).toEqual(
+        currentWidth - increment
+      )
     })
 
     it('increases the width of the segment when plus key is pressed', () => {
-      renderWithRedux(
+      const { store } = renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -179,15 +179,15 @@ describe('Segment', () => {
           }
         }
       )
-      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
+      fireEvent.mouseOver(screen.getByTestId('segment'))
       fireEvent.keyDown(document, { key: '+', code: 'Equal' })
-      expect(
-        screen.store.getState().street.segments[activeElement].width
-      ).toEqual(currentWidth + increment)
+      expect(store.getState().street.segments[activeElement].width).toEqual(
+        currentWidth + increment
+      )
     })
 
     it('removes segment when delete key is pressed', () => {
-      renderWithRedux(
+      const { store } = renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -203,15 +203,15 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
+      fireEvent.mouseOver(screen.getByTestId('segment'))
       fireEvent.keyDown(document, { key: 'Delete' })
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
-      expect(screen.store.getState().street.segments.length).toEqual(0)
+      expect(store.getState().street.segments.length).toEqual(0)
     })
 
     it('removes all segments when shift+delete keys are pressed', () => {
-      renderWithRedux(
+      const { store } = renderWithRedux(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -227,11 +227,11 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      fireEvent.mouseOver(getByTestId(screen.container, 'segment'))
+      fireEvent.mouseOver(screen.getByTestId('segment'))
       fireEvent.keyDown(document, { key: 'Delete', shiftKey: true })
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
-      expect(screen.store.getState().street.segments.length).toEqual(0)
+      expect(store.getState().street.segments.length).toEqual(0)
     })
   })
 })

@@ -24,12 +24,12 @@ describe('KeyboardKey', () => {
   })
 
   it('renders a <kbd> element with icon and title', async () => {
-    const { asFragment } = renderWithReduxAndIntl(
+    const { container, asFragment } = renderWithReduxAndIntl(
       <KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>foo</KeyboardKey>
     )
 
     const elementWithTitle = await screen.getByTitle('foo')
-    const iconElement = screen.container.querySelector('svg')
+    const iconElement = container.querySelector('svg')
 
     expect(elementWithTitle).toBeDefined()
     expect(elementWithTitle.children).toHaveLength(1)
