@@ -20,13 +20,11 @@ import './SegmentForPalette.scss'
 const PALETTE_SEGMENT_EXTRA_PADDING = 6
 const PALETTE_GROUND_BASELINE = 65
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
-const ICON_MULTIPLIER = 1 / 2
 
 SegmentForPalette.propTypes = {
   // Provided by react-dnd
   connectDragSource: PropTypes.func,
   connectDragPreview: PropTypes.func,
-  isIcon: PropTypes.bool,
 
   // Provided by parent
   type: PropTypes.string.isRequired,
@@ -65,77 +63,34 @@ function SegmentForPalette (props) {
   }
   actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
 
-  if (props.isIcon) {
-    return (
-      <div
-        style={{
-          width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
-        }}
-        className="segment segment-icon"
-        data-testid="segment-icon"
-      >
-        <SegmentCanvas
-          actualWidth={actualWidth}
-          type={props.type}
-          isIcon={props.isIcon}
-          variantString={props.variantString}
-          randSeed={props.randSeed}
-          multiplier={
-            props.isIcon ? ICON_MULTIPLIER : PALETTE_SEGMENT_MULTIPLIER
-          }
-          groundBaseline={PALETTE_GROUND_BASELINE}
-        />
-      </div>
-    )
-  }
+  const classNames = ['segment', 'segment-in-palette']
+  let sublabel = null
 
   if (props.disabled) {
-    return (
-      <li
-        style={{
-          width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
-        }}
-        className="segment segment-in-palette segment-disabled"
-      >
-        <Tooltip
-          target={props.tooltipTarget}
-          label={getLabel(props)}
-          sublabel={intl.formatMessage({
-            id: 'plus.locked.user',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Sign in to use!‎'
-          })}
-        >
-          {/* Wrapper element necessary for <Tooltip /> (alternate solution is
-              to forward ref) */}
-          <div style={{ height: '80px' }} tabIndex="0">
-            <SegmentCanvas
-              actualWidth={actualWidth}
-              type={props.type}
-              variantString={props.variantString}
-              randSeed={props.randSeed}
-              multiplier={PALETTE_SEGMENT_MULTIPLIER}
-              groundBaseline={PALETTE_GROUND_BASELINE}
-            />
-          </div>
-        </Tooltip>
-        <FontAwesomeIcon icon={ICON_LOCK} />
-      </li>
-    )
+    classNames.push('segment-disabled')
+    sublabel = intl.formatMessage({
+      id: 'plus.locked.user',
+      // Default message ends with a Unicode-only left-right order mark
+      // to allow for proper punctuation in `rtl` text direction
+      // This character is hidden from editors by default!
+      defaultMessage: 'Sign in to use!‎'
+    })
   }
 
-  return props.connectDragSource(
+  const node = (
     <li
       style={{
         width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
       }}
-      className="segment segment-in-palette"
+      className={classNames.join(' ')}
     >
-      <Tooltip target={props.tooltipTarget} label={getLabel(props)}>
-        {/* Wrapper element necessary for <Tooltip /> (alternate solution is
-            to forward ref)
+      <Tooltip
+        target={props.tooltipTarget}
+        label={getLabel(props)}
+        sublabel={sublabel}
+      >
+        {/* Wrapper element necessary for <Tooltip />
+            (alternate solution is to forward ref)
             This wrapper element is also the target for hover / focus
             in order the activate the tooltip. */}
         <div style={{ height: '80px' }} tabIndex="0">
@@ -149,8 +104,17 @@ function SegmentForPalette (props) {
           />
         </div>
       </Tooltip>
+      {props.disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
     </li>
   )
+
+  // If disabled, return node only
+  if (props.disabled) {
+    return node
+  }
+
+  // Otherwise, return node wrapped with react-dnd abilities.
+  return props.connectDragSource(node)
 }
 
 export default DragSource(

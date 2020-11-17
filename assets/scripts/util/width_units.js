@@ -1,6 +1,9 @@
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../users/constants'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../users/constants'
 import store from '../store'
-import memoizeFormatConstructor from './memoized_formatting'
+import { formatNumber } from './number_format'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
@@ -50,22 +53,32 @@ export function processWidthInput (widthInput, units) {
 
   for (const i in IMPERIAL_VULGAR_FRACTIONS) {
     if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) !== -1) {
-      widthInput = widthInput.replace(new RegExp(IMPERIAL_VULGAR_FRACTIONS[i]), i)
+      widthInput = widthInput.replace(
+        new RegExp(IMPERIAL_VULGAR_FRACTIONS[i]),
+        i
+      )
     }
   }
 
   let width
 
   // The conditional makes sure we only split and parse separately when the input includes ' as any character except the last
-  if (widthInput.indexOf("'") !== -1 && widthInput.length > widthInput.indexOf("'") + 1) {
+  if (
+    widthInput.indexOf("'") !== -1 &&
+    widthInput.length > widthInput.indexOf("'") + 1
+  ) {
     widthInput = widthInput.split("'")
     widthInput[0] += "'" // Add the ' to the first value so the parser knows to convert in feet, not in unitless, when in metric
     width = widthInput.reduce(function (prev, cur) {
-      if (cur.indexOf('"') === -1) { // Assuming anything coming after feet is going to be inches
+      if (cur.indexOf('"') === -1) {
+        // Assuming anything coming after feet is going to be inches
         cur += '"'
       }
 
-      return parseStringForUnits(prev.toString()) + parseStringForUnits(cur.toString(), units)
+      return (
+        parseStringForUnits(prev.toString()) +
+        parseStringForUnits(cur.toString(), units)
+      )
     })
   } else {
     width = parseStringForUnits(widthInput, units)
@@ -100,7 +113,11 @@ export function prettifyWidth (width, units, locale) {
       break
     case SETTINGS_UNITS_METRIC:
     default:
-      widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC, locale)
+      widthText = stringifyMeasurementValue(
+        width,
+        SETTINGS_UNITS_METRIC,
+        locale
+      )
 
       // Locale-specific units
       switch (locale) {
@@ -124,15 +141,11 @@ export function prettifyWidth (width, units, locale) {
   return widthText
 }
 
-const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)
 /**
  * Returns a measurement value as a locale-sensitive string without units or formatting,
  * and converts to the desired units, if necessary.
  * Used primarily when converting input box values to a simple number format
  *
- * @todo Memoize the Intl.NumberFormat constructor, since this becomes very slow if many of
- *          these are called in succession. See https://github.com/yahoo/intl-format-cache
- *          for inspiration and reference.
  * @param {Number} value - original measurement value
  * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
  *          Defaults to metric.
@@ -151,12 +164,18 @@ export function stringifyMeasurementValue (value, units, locale) {
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL:
-      string = NumberFormat(locale, { style: 'decimal', maximumFractionDigits: IMPERIAL_PRECISION }).format(value)
+      string = formatNumber(value, locale, {
+        style: 'decimal',
+        maximumFractionDigits: IMPERIAL_PRECISION
+      })
       break
     case SETTINGS_UNITS_METRIC:
     default: {
       const convertedValue = convertImperialMeasurementToMetric(value)
-      string = NumberFormat(locale, { style: 'decimal', maximumFractionDigits: METRIC_PRECISION }).format(convertedValue)
+      string = formatNumber(convertedValue, locale, {
+        style: 'decimal',
+        maximumFractionDigits: METRIC_PRECISION
+      })
       break
     }
   }
@@ -191,7 +210,13 @@ export function getImperialMeasurementWithVulgarFractions (value, locale) {
   if (fraction) {
     // Non-zero trailing number
     if (Math.floor(value)) {
-      return stringifyMeasurementValue(Math.floor(value), SETTINGS_UNITS_IMPERIAL, locale) + fraction
+      return (
+        stringifyMeasurementValue(
+          Math.floor(value),
+          SETTINGS_UNITS_IMPERIAL,
+          locale
+        ) + fraction
+      )
     } else {
       return fraction
     }
@@ -229,7 +254,11 @@ function parseStringForUnits (widthInput, units) {
     }
 
     for (const i in WIDTH_INPUT_CONVERSION) {
-      if (widthInput.match(new RegExp('[\\d\\.]' + WIDTH_INPUT_CONVERSION[i].text + '$'))) {
+      if (
+        widthInput.match(
+          new RegExp('[\\d\\.]' + WIDTH_INPUT_CONVERSION[i].text + '$')
+        )
+      ) {
         multiplier = WIDTH_INPUT_CONVERSION[i].multiplier
         break
       }

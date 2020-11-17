@@ -21,7 +21,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faCopy,
-  faTimesCircle
+  faTimesCircle,
+  faQuestionCircle
 } from '@fortawesome/free-regular-svg-icons'
 import {
   faTwitter,
@@ -66,6 +67,7 @@ export const ICON_CROWN = faCrown
 export const ICON_PERSON = faMale
 export const ICON_PENCIL = faPencilAlt
 export const ICON_LOCK = faLock
+export const ICON_QUESTION_CIRCLE = faQuestionCircle
 
 export const ICON_TWITTER = faTwitter
 export const ICON_FACEBOOK = faFacebookSquare

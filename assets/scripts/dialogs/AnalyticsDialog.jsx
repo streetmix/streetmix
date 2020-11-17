@@ -4,112 +4,74 @@
  * Renders the "Analytics" dialog box.
  *
  */
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dialog from './Dialog'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
+import CapacitySources from './Analytics/CapacitySources'
+import Terms from '../app/Terms'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
-import { FormatNumber } from '../util/formatting'
-import { updateStreetAnalytics } from '../store/actions/street'
-
-import Terms from '../app/Terms'
+import { ICON_QUESTION_CIRCLE } from '../ui/icons'
+import { setShowAnalytics } from '../store/actions/street'
+import { isOwnedByCurrentUser } from '../streets/owner'
+import { formatNumber } from '../util/number_format'
 import {
-  getSegmentCapacity,
-  capacitySum,
+  getCapacityData,
+  getStreetCapacity,
+  getRolledUpSegmentCapacities,
   saveCsv
-} from '../util/street_analytics'
+} from '../segments/capacity'
 import './AnalyticsDialog.scss'
-
-const addSegmentData = (segments) => {
-  // return segments.map(getSegmentCapacity)
-  return segments.map((item) => {
-    return {
-      type: item.type,
-      capacity: getSegmentCapacity(item).capacity,
-      segment: item
-    }
-  })
-}
-
-const mergeSegments = (a, b) => ({
-  type: a.type,
-  segment: a.segment,
-  capacity: capacitySum(a.capacity, b.capacity)
-})
-
-const groupBy = (list, keyGetter) => {
-  const map = {}
-  list.forEach((item) => {
-    const key = keyGetter(item)
-    const record = map[key]
-    if (!record) {
-      map[key] = item
-    } else {
-      const newItem = mergeSegments(item, record)
-      map[key] = newItem
-    }
-  })
-  return Object.keys(map).map((key) => map[key])
-}
-
-const rollUpCategories = (arr) => {
-  return groupBy(arr, (item) => item.type)
-}
-
-const avgCapacityAscending = (a, b) => {
-  return a.capacity.average - b.capacity.average
-}
 
 function AnalyticsDialog (props) {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
+  const intl = useIntl()
+  const max = useRef(null)
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
   const toggleVisible = () => {
     setVisible(!isVisible)
-    dispatch(updateStreetAnalytics(!isVisible))
+    dispatch(setShowAnalytics(!isVisible))
   }
 
-  const intl = useIntl()
-  const segmentData = addSegmentData(street.segments).sort(avgCapacityAscending)
-
-  const sumFunc = (total, num) => {
-    if (!Number.isInteger(num)) return total
-    return total + num
-  }
-
-  const averageTotal = segmentData
-    .map((item) => item.capacity.average)
-    .reduce(sumFunc, 0)
-  const potentialTotal = segmentData
-    .map((item) => item.capacity.potential)
-    .reduce(sumFunc, 0)
+  const capacityData = getCapacityData(street.capacitySource)
+  const capacity = getStreetCapacity(street)
+  const options = { maximumSignificantDigits: 3 }
 
   const summary = (
     <FormattedMessage
       id="dialogs.analytics.street-summary"
       defaultMessage="Your street has an estimated average traffic of {averageTotal} people per hour, and potential for up to {potentialTotal} people per hour."
       values={{
-        averageTotal: <b>{FormatNumber(locale, averageTotal)}</b>,
-        potentialTotal: <b>{FormatNumber(locale, potentialTotal)}</b>
+        averageTotal: <b>{formatNumber(capacity.average, locale, options)}</b>,
+        potentialTotal: (
+          <b>{formatNumber(capacity.potential, locale, options)}</b>
+        )
       }}
     />
   )
 
-  const displayCapacity = (item) => {
-    return (
-      item.capacity &&
-      item.capacity.display !== false &&
-      item.capacity.average > 0
-    )
-  }
+  const rolledUp = getRolledUpSegmentCapacities(street)
 
-  const rolledUp = rollUpCategories(segmentData)
-  const chartMax =
-    Math.max(...rolledUp.map((item) => item.capacity.potential)) + 1000
+  // Store the maximum capacity across renders, when the data source may
+  // change. This way, data sources with lower values show more intuitive
+  // animation between the relative differences. (Note: one downside of this
+  // method is that the 'max' is only calculated with data sources that are
+  // being tried - we don't calculate the max across _all_ data sources right
+  // away. The City of Vancouver data (with the lowest capacity numbers) will
+  // display at max width, even though it would be significantly shorter if
+  // you switched to the TUMI/GIZ data first and then back to Vancouver. This
+  // is a tradeoff I'm willing to live with, unless user feedback really
+  // requires us to chnage this.)
+  max.current = Math.max(
+    max.current,
+    ...rolledUp.map((item) => item.capacity.potential)
+  )
 
   function exportCSV () {
     const name =
@@ -136,19 +98,15 @@ function AnalyticsDialog (props) {
           <div className="dialog-content">
             <div className="analytics-dialog-content">
               <p>{summary}</p>
-              {rolledUp
-                .filter(displayCapacity)
-                .map(
-                  (item, index) =>
-                    item.capacity.average > 0 && (
-                      <SegmentAnalytics
-                        index={index}
-                        key={index}
-                        {...item}
-                        chartMax={chartMax}
-                      />
-                    )
-                )}
+              {rolledUp.map((item, index) => (
+                <SegmentAnalytics
+                  key={index}
+                  index={index}
+                  max={max.current}
+                  type={item.type}
+                  capacity={item.capacity}
+                />
+              ))}
               <p>
                 <strong>
                   <FormattedMessage
@@ -157,24 +115,39 @@ function AnalyticsDialog (props) {
                   />
                   :
                 </strong>{' '}
-                <ExternalLink href="https://www.transformative-mobility.org/publications/passenger-capacity-of-different-transport-modes">
-                  Passenger capacity of different transport modes
-                </ExternalLink>
-                , Transformative Urban Mobility Initiative (TUMI)
+                {capacityData.source_url ? (
+                  <ExternalLink href={capacityData.source_url}>
+                    {capacityData.source_title}
+                  </ExternalLink>
+                ) : (
+                  capacityData.source_title
+                )}
+                , {capacityData.source_author}
               </p>
             </div>
+            <hr />
             <div className="dialog-actions">
+              <CapacitySources />
               <Checkbox
                 id="show-analytics"
                 checked={isVisible}
                 onChange={toggleVisible}
+                disabled={!isOwnedByCurrentUser()}
               >
                 <FormattedMessage
                   id="dialogs.analytics.toggle-visible"
                   defaultMessage="Show capacity counts in segment labels"
                 />
               </Checkbox>
-
+              {!isOwnedByCurrentUser() && (
+                <p className="analytics-settings-notice">
+                  <FontAwesomeIcon icon={ICON_QUESTION_CIRCLE} />
+                  <FormattedMessage
+                    id="dialogs.analytics.settings-notice"
+                    defaultMessage="Street owners can change these settings."
+                  />
+                </p>
+              )}
               <br />
               <button className="button-primary" onClick={exportCSV}>
                 <FormattedMessage

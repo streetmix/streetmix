@@ -10,6 +10,7 @@ exports.get = function (req, res) {
       status: 403,
       msg: 'I’m sorry — you do not have access to this service.'
     })
+
     return
   }
   const requestGeolocation = function () {
