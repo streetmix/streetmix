@@ -68,16 +68,6 @@ module.exports = {
       api_key: process.env.PELIAS_API_KEY || null
     }
   },
-  geoip: {
-    host: 'api.ipstack.com/',
-    api_key: process.env.IPSTACK_API_KEY || null,
-    protocol: 'http://'
-  },
-  redis: {
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD || '',
-    url: process.env.REDIS_URL || null
-  },
   cloudinary: {
     api_key: process.env.CLOUDINARY_API_KEY || null,
     api_secret: process.env.CLOUDINARY_API_SECRET || null

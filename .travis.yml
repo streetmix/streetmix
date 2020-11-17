@@ -19,9 +19,6 @@ env:
     - NODE_ENV=test
     - PELIAS_API_KEY=ge-iampelias
 
-services:
-  - redis
-
 before_script:
   # Start the server and run it in background process
   - node index &

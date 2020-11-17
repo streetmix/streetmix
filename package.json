@@ -153,7 +153,6 @@
     "react-spring": "8.0.27",
     "react-stripe-checkout": "2.6.3",
     "react-transition-group": "4.3.0",
-    "redis": "3.0.2",
     "regenerator-runtime": "0.13.5",
     "requireindex": "1.2.0",
     "sass": "1.26.5",

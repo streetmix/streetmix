@@ -20,10 +20,6 @@
       "plan": "heroku-postgresql:hobby-dev",
       "as": "DATABASE"
     },
-    {
-      "plan": "heroku-redis:hobby-dev",
-      "as": "REDIS"
-    },
     "papertrail:choklad",
     "newrelic:wayne"
   ],
