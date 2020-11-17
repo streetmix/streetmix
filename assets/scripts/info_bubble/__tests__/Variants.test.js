@@ -59,43 +59,37 @@ describe('Variants', () => {
     })
 
     it('handles switching segment variant', () => {
-      const container = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
-      fireEvent.click(container.getByTitle('Outbound'))
+      fireEvent.click(screen.getByTitle('Outbound'))
+      expect(store.getState().street.segments[0].variant.direction).toBe(
+        'outbound'
+      )
       expect(
-        container.store.getState().street.segments[0].variant.direction
-      ).toBe('outbound')
-      expect(
-        container.store.getState().street.segments[0].variant[
-          'public-transit-asphalt'
-        ]
+        store.getState().street.segments[0].variant['public-transit-asphalt']
       ).toBe('regular')
     })
   })
 
   describe('building variants', () => {
     it('handles switching left building', () => {
-      const container = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
         { initialState }
       )
-      fireEvent.click(container.getByTitle('Waterfront'))
-      expect(container.store.getState().street.leftBuildingVariant).toBe(
-        'waterfront'
-      )
+      fireEvent.click(screen.getByTitle('Waterfront'))
+      expect(store.getState().street.leftBuildingVariant).toBe('waterfront')
     })
 
     it('handles switching right building', () => {
-      const container = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
         { initialState }
       )
       fireEvent.click(screen.getByTitle('Waterfront'))
-      expect(container.store.getState().street.rightBuildingVariant).toBe(
-        'waterfront'
-      )
+      expect(store.getState().street.rightBuildingVariant).toBe('waterfront')
     })
   })
 
