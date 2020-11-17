@@ -2,6 +2,7 @@
 import React from 'react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import PrintContainer from '../PrintContainer'
+import { screen } from '@testing-library/react'
 
 // `matchMedia` is not available in test environment, so we mock it
 global.matchMedia = () => ({
@@ -20,7 +21,6 @@ describe('PrintContainer', () => {
     const { asFragment } = renderWithRedux(<PrintContainer />, {
       initialState: { app: { printing: false } }
     })
-    expect(asFragment.querySelector('.print-container')).toBeInTheDocument()
     expect(asFragment()).toMatchSnapshot()
   })
 
@@ -28,6 +28,7 @@ describe('PrintContainer', () => {
     renderWithRedux(<PrintContainer />, {
       initialState: { app: { printing: true } }
     })
+
     expect(screen.getByRole('img')).toBeInTheDocument()
   })
 })

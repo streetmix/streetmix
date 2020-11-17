@@ -22,7 +22,7 @@ describe('DebugHoverPolygon', () => {
   })
 
   it('renders nothing if disabled', () => {
-    renderWithRedux(<DebugHoverPolygon />, {
+    const { container } = renderWithRedux(<DebugHoverPolygon />, {
       initialState: {
         flags: {
           INFO_BUBBLE_HOVER_POLYGON: {
@@ -32,6 +32,6 @@ describe('DebugHoverPolygon', () => {
       }
     })
 
-    expect(screen.container.firstChild).toBeNull()
+    expect(container.firstChild).toBe(null)
   })
 })

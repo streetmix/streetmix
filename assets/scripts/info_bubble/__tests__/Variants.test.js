@@ -37,8 +37,8 @@ describe('Variants', () => {
   }
 
   it('does not render if props are missing', () => {
-    renderWithReduxAndIntl(<Variants />)
-    expect(screen.asFragment().firstChild).toBe(null)
+    const { container } = renderWithReduxAndIntl(<Variants />)
+    expect(container.firstChild).toBe(null)
   })
 
   describe('segment variants', () => {
@@ -54,20 +54,21 @@ describe('Variants', () => {
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
+
       expect(asFragment()).toMatchSnapshot()
     })
 
     it('handles switching segment variant', () => {
-      renderWithReduxAndIntl(
+      const container = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
-      fireEvent.click(screen.getByTitle('Outbound'))
-      expect(screen.store.getState().street.segments[0].variant.direction).toBe(
-        'outbound'
-      )
+      fireEvent.click(container.getByTitle('Outbound'))
       expect(
-        screen.store.getState().street.segments[0].variant[
+        container.store.getState().street.segments[0].variant.direction
+      ).toBe('outbound')
+      expect(
+        container.store.getState().street.segments[0].variant[
           'public-transit-asphalt'
         ]
       ).toBe('regular')
@@ -76,23 +77,23 @@ describe('Variants', () => {
 
   describe('building variants', () => {
     it('handles switching left building', () => {
-      renderWithReduxAndIntl(
+      const container = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
         { initialState }
       )
-      fireEvent.click(screen.getByTitle('Waterfront'))
-      expect(screen.store.getState().street.leftBuildingVariant).toBe(
+      fireEvent.click(container.getByTitle('Waterfront'))
+      expect(container.store.getState().street.leftBuildingVariant).toBe(
         'waterfront'
       )
     })
 
     it('handles switching right building', () => {
-      const { asFragment } = renderWithReduxAndIntl(
+      const container = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
         { initialState }
       )
       fireEvent.click(screen.getByTitle('Waterfront'))
-      expect(asFragment.store.getState().street.rightBuildingVariant).toBe(
+      expect(container.store.getState().street.rightBuildingVariant).toBe(
         'waterfront'
       )
     })
