@@ -1,8 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
+import { screen } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import PrintContainer from '../PrintContainer'
-import { screen } from '@testing-library/react'
 
 // `matchMedia` is not available in test environment, so we mock it
 global.matchMedia = () => ({
