@@ -31,10 +31,10 @@ button.close {
   user-select: none;
   background-color: transparent;
 
-  // Override font-awesome sizing
+  // Override Octicon sizing
   // A transform works better than overriding the width/height properties.
-  > .svg-inline--fa {
-    transform: scale(0.75);
+  > .octicon {
+    transform: scale(0.8);
   }
 
   &:hover {
