@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { removeSegment, removeAllSegments } from '../segments/remove'
-import { ICON_TRASH } from '../ui/icons'
+import Icon from '../ui/Icon'
 import './RemoveButton.scss'
 
 RemoveButton.propTypes = {
@@ -39,7 +38,7 @@ function RemoveButton ({ segment = null }) {
       })}
       onClick={handleClick}
     >
-      <FontAwesomeIcon icon={ICON_TRASH} className="remove-icon" />
+      <Icon icon="trash" />
       <FormattedMessage id="btn.remove" defaultMessage="Remove" />
     </button>
   )

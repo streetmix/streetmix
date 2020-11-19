@@ -2,12 +2,11 @@ import React, { useState, useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
 import StreetName from '../streets/StreetName'
 import { drawStreetThumbnail } from '../streets/thumbnail'
-import { ICON_TRASH } from '../ui/icons'
+import Icon from '../ui/Icon'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -159,7 +158,7 @@ function GalleryStreetItem (props) {
             defaultMessage: 'Delete street'
           })}
         >
-          <FontAwesomeIcon icon={ICON_TRASH} />
+          <Icon icon="trash" />
         </button>
       )}
     </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { TrashcanIcon } from '@primer/octicons-react'
 import {
   ICON_COPY,
   ICON_TWITTER,
@@ -39,6 +40,8 @@ function Icon ({ icon }) {
       return <img className="menu-item-icon" src={forumsIcon} alt="" />
     case 'google':
       return <img className="menu-item-icon" src={googleIcon} alt="" />
+    case 'trash':
+      return <TrashcanIcon size={16} />
     default:
       // Ancient fallback (should no longer be used)
       return (
