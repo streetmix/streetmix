@@ -3158,6 +3158,8 @@
         }
       },
       "inbound|pedestrian": {
+        "name": "Pedestrian",
+        "nameKey": "pedestrian",
         "components": {
           "lanes": [
             {
@@ -3183,6 +3185,8 @@
         }
       },
       "outbound|pedestrian": {
+        "name": "Pedestrian",
+        "nameKey": "pedestrian",
         "components": {
           "lanes": [
             {
