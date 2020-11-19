@@ -24,6 +24,7 @@ import {
   getRolledUpSegmentCapacities,
   saveCsv
 } from '../segments/capacity'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import './AnalyticsDialog.scss'
 
 function AnalyticsDialog (props) {
@@ -53,6 +54,28 @@ function AnalyticsDialog (props) {
           <b>{formatNumber(capacity.potential, locale, options)}</b>
         )
       }}
+    />
+  )
+
+  // Displays typical lane width from the data source, if present. Values are
+  // manually set for each unit type (metric or imperial) instead of using the
+  // `prettifyWidth` helper, which has imprecise rounding. While every data
+  // source we have right now does have an assumed lane width, this property
+  // is optional, in case of future data sources that calculate capacity using
+  // lane width as an input variable.
+  let laneWidth
+  if (capacityData.typical_lane_width) {
+    if (street.units === SETTINGS_UNITS_IMPERIAL) {
+      laneWidth = `${capacityData.typical_lane_width_ft} ft`
+    } else {
+      laneWidth = `${capacityData.typical_lane_width} m`
+    }
+  }
+  const widthText = laneWidth && (
+    <FormattedMessage
+      id="dialogs.analytics.typical-lane-width"
+      defaultMessage="Capacity values are based on {laneWidth}-wide lanes."
+      values={{ laneWidth }}
     />
   )
 
@@ -97,7 +120,9 @@ function AnalyticsDialog (props) {
           </header>
           <div className="dialog-content">
             <div className="analytics-dialog-content">
-              <p>{summary}</p>
+              <p>
+                {summary} {widthText}
+              </p>
               {rolledUp.map((item, index) => (
                 <SegmentAnalytics
                   key={index}
