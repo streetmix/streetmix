@@ -34,6 +34,20 @@ describe('segment capacity', () => {
     })
   })
 
+  it('returns capacity data for segment variant with inherited data', () => {
+    const segment = {
+      type: 'qux',
+      variant: {
+        var: 'foofoo'
+      }
+    }
+
+    expect(getSegmentCapacity(segment)).toEqual({
+      average: 200,
+      potential: 300
+    })
+  })
+
   it('returns capacity data for segment from common data source', () => {
     const segment = {
       type: 'baz'

@@ -13,7 +13,15 @@
     "typical_lane_width": 3,
     "segments": {
       "foo": { "average": 200, "potential": 300 },
-      "qux": { "average": 300, "potential": 300 },
+      "qux": {
+        "average": 300,
+        "potential": 300,
+        "variants": {
+          "var:foofoo": {
+            "inherits": "foo"
+          }
+        }
+      },
       "zed": { "inherits": "foo" }
     }
   }

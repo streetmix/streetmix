@@ -34,40 +34,58 @@ function processCapacityData () {
     // Skip the "common" data source from processing
     if (data.id === BASE_DATA_SOURCE) continue
 
-    // Set up a new segment object, clone "common" segments into it
-    const segments = {
-      ...SOURCE_DATA[BASE_DATA_SOURCE].segments
-    }
-
-    // Iterate through source segment data and process each.
-    const segmentKeys = Object.keys(data.segments)
-    for (let j = 0; j < segmentKeys.length; j++) {
-      const key = segmentKeys[j]
-      const segment = data.segments[key]
-
-      // Process inherited segments
-      // Processed segments clone original data to prevent
-      // other code from modifying the source
-      let newSegment
-      if (segment.inherits) {
-        newSegment = {
-          ...data.segments[segment.inherits]
-        }
-      } else {
-        newSegment = {
-          ...segment
-        }
-      }
-
-      segments[key] = newSegment
-    }
-
     processed[sourceKey] = {
       ...data,
-      segments
+      segments: {
+        // Clone "common" segments into our processed definition
+        ...SOURCE_DATA[BASE_DATA_SOURCE].segments,
+        // Iterate through source segment data and process each.
+        ...processInheritedValues(data.segments)
+      }
     }
   }
 
+  return processed
+}
+
+/**
+ * Utility function for processing inherited values. Accepts an object
+ * whose keys are segments and values are objects. If the value contains
+ * the "inherits" property it will replace the value with inherited values.
+ * Otherwise the object data is passed through.
+ *
+ * @param {Object} definitions - object to process
+ * @param {Object} inheritSource - optional source of inherited values
+ */
+function processInheritedValues (definitions, inheritSource) {
+  const processed = {}
+  const source = inheritSource || definitions
+  const keys = Object.keys(definitions)
+  for (let j = 0; j < keys.length; j++) {
+    const key = keys[j]
+    const segment = definitions[key]
+
+    // Process inherited segments
+    // Processed segments clone original data to prevent
+    // other code from modifying the source
+    let clone
+    if (segment.inherits) {
+      clone = {
+        ...source[segment.inherits]
+      }
+    } else {
+      clone = {
+        ...segment
+      }
+    }
+
+    // Process variants, if present
+    if (segment.variants) {
+      clone.variants = processInheritedValues(segment.variants, definitions)
+    }
+
+    processed[key] = clone
+  }
   return processed
 }
 
@@ -93,7 +111,17 @@ export function getCapacityData (source = DEFAULT_CAPACITY_SOURCE) {
  * @returns {Object} capacity information (or null if not defined)
  */
 export function getSegmentCapacity (segment, source) {
-  const capacity = getCapacityData(source).segments[segment.type]
+  let capacity = getCapacityData(source).segments[segment.type]
+
+  // If definition has variants, use that instead
+  if (capacity?.variants && segment.variant) {
+    Object.entries(segment.variant).forEach((entry) => {
+      const key = entry.join(':')
+      if (capacity.variants[key]) {
+        capacity = capacity.variants[key]
+      }
+    })
+  }
 
   // If a segment has capacity data, but something makes it zero capacity,
   // return modified values here.
@@ -110,9 +138,7 @@ export function getSegmentCapacity (segment, source) {
   }
 
   if (capacity) {
-    // Clones capacity data so that the original definition cannot be modified.
     return {
-      ...capacity,
       // Temporary: map minimum values to average
       average: capacity.average ?? capacity.minimum ?? undefined,
       // Temporary: map undefined potential values from average
