@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tooltip from '../ui/Tooltip'
 import CloseButton from '../ui/CloseButton'
-import { ICON_TOOLS } from '../ui/icons'
+import Icon from '../ui/Icon'
 import { toggleToolbox } from '../store/slices/ui'
 import './EnvironmentButton.scss'
 
@@ -50,7 +49,7 @@ function EnvironmentButton (props) {
     <Tooltip label={label}>
       {/* Keep title on button to be queryable by test */}
       <button onClick={handleClickTools} title={label}>
-        <FontAwesomeIcon icon={ICON_TOOLS} />
+        <Icon icon="tools" />
       </button>
     </Tooltip>
   )

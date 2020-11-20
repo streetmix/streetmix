@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { TrashcanIcon } from '@primer/octicons-react'
+import { CopyIcon, TrashcanIcon, ToolsIcon } from '@primer/octicons-react'
 import {
-  ICON_COPY,
   ICON_TWITTER,
   ICON_FACEBOOK,
   ICON_GITHUB,
@@ -21,7 +20,7 @@ Icon.propTypes = {
 function Icon ({ icon }) {
   switch (icon) {
     case 'copy':
-      return <FontAwesomeIcon icon={ICON_COPY} />
+      return <CopyIcon size={16} />
     case 'twitter':
       return <FontAwesomeIcon className="menu-item-icon" icon={ICON_TWITTER} />
     case 'facebook':
@@ -42,6 +41,8 @@ function Icon ({ icon }) {
       return <img className="menu-item-icon" src={googleIcon} alt="" />
     case 'trash':
       return <TrashcanIcon size={16} />
+    case 'tools':
+      return <ToolsIcon size={16} />
     default:
       // Ancient fallback (should no longer be used)
       return (
