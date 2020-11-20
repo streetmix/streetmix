@@ -198,9 +198,12 @@
       "export-csv": "CSV로 내보내기",
       "heading": "분석",
       "street-summary": "나의 스트리트에는 시간당 평균 {averageTotal} 명, 최대 {potentialTotal} 명의 트래픽이 예상됩니다.",
+      "typical-lane-width": "",
       "segment-summary": "{average} ~ {potential} 명/시간",
       "segment-summary-single": "{amount} 명/시간",
-      "source": "소스"
+      "source": "소스",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "이미지로 저장",

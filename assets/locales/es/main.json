@@ -4,16 +4,16 @@
       "help": "Ayuda",
       "about": "Sobre Streetmix…",
       "contact": "Contacto",
-      "community": "",
-      "contribute": "",
+      "community": "Comunidad",
+      "contribute": "Contribuir",
       "sign-in": "Acceder",
       "sign-out": "Desconectarse",
       "new-street": "Nueva calle",
       "my-streets": "Mis calles",
       "settings": "Ajustes",
       "share": "Compartir",
-      "store": "",
-      "upgrade": ""
+      "store": "Tienda",
+      "upgrade": "Actualizar"
     },
     "help": {
       "keyboard-label": "Teclas de acceso rápido:",
@@ -28,7 +28,7 @@
       "sign-in-twitter-link": "Acceder",
       "sign-in-link": "{signInLink} para mejores enlaces a tus calles y a tu galería de calles personal",
       "link": "Copiar y pegar este enlace para compartir:",
-      "copy-to-clipboard": "",
+      "copy-to-clipboard": "Copiar al portapapeles",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
       "print": "Imprimir…",
@@ -47,9 +47,9 @@
       "forums": "Discutir en los foros",
       "twitter": "Envía un tweet a @streetmix",
       "email": "Envía un correo electrónico al equipo de Streetmix",
-      "github": "",
+      "github": "Ver código fuente en GitHub",
       "blog": "Visita el blog de Streetmix",
-      "discord": "",
+      "discord": "Unirse al Discord Chat",
       "slack": "Participa en Slack chat",
       "newsletter": ""
     },
@@ -92,11 +92,11 @@
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
+      "home": "Ir a la página de inicio",
+      "sign-in": "Iniciar sesión de nuevo",
       "reload": "",
       "try-again": "Intenta de nuevo",
-      "view-example": ""
+      "view-example": "Ver una calle de ejemplo"
     },
     "page-not-found-title": "",
     "page-not-found-description": "",
@@ -198,9 +198,12 @@
       "export-csv": "",
       "heading": "",
       "street-summary": "",
+      "typical-lane-width": "",
       "segment-summary": "",
       "segment-summary-single": "",
-      "source": ""
+      "source": "",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "Guardar como imagen",

@@ -11,6 +11,13 @@
     "name": "Catalan",
     "value": "ca",
     "key": "i18n.lang.ca",
+    "level": 2
+  },
+  {
+    "label": "čeština",
+    "name": "Czech",
+    "value": "cs",
+    "key": "i18n.lang.cs",
     "level": 1
   },
   {
@@ -84,6 +91,13 @@
     "level": 3
   },
   {
+    "label": "Nederlands",
+    "name": "Dutch (Netherlands)",
+    "value": "nl-NL",
+    "key": "i18n.lang.nl-nl",
+    "level": 1
+  },
+  {
     "label": "Polski",
     "name": "Polish",
     "value": "pl",
@@ -98,6 +112,13 @@
     "level": 3
   },
   {
+    "label": "Roemeense",
+    "name": "Romanian",
+    "value": "ro-RO",
+    "key": "i18n.lang.ro-ro",
+    "level": 1
+  },
+  {
     "label": "Русский",
     "name": "Russian",
     "value": "ru",
@@ -110,6 +131,13 @@
     "value": "sv",
     "key": "i18n.lang.sv",
     "level": 1
+  },
+  {
+    "label": "Türkçe",
+    "name": "Turkish",
+    "value": "tr",
+    "key": "i18n.lang.tr",
+    "level": 2
   },
   {
     "label": "简体中文",

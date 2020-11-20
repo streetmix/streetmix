@@ -1,0 +1,199 @@
+{
+  "segments": {
+    "sidewalk": "Trotuar",
+    "pedestrian": "",
+    "sidewalk-tree": "Plantatie de aliniament",
+    "bike-rack": "Suport bicicletă",
+    "bench": "Bancă",
+    "outdoor-dining": "",
+    "cafe-seating": "",
+    "wayfinding-sign": "",
+    "sidewalk-lamp": "Iluminat public",
+    "parklet": "",
+    "divider": "",
+    "planting-strip": "",
+    "planter-box": "",
+    "median": "",
+    "bollard": "",
+    "dome": "",
+    "jersey-barrier": "Barieră",
+    "scooter": "Scuter electric",
+    "scooter-drop-zone": "",
+    "bike-lane": "",
+    "parking-lane": "",
+    "perpendicular-parking": "",
+    "angled-parking": "",
+    "flex-zone": "",
+    "taxi-pick-up": "",
+    "rideshare-pick-up": "",
+    "bikeshare-station": "",
+    "foodtruck": "",
+    "flex-zone-curb": "",
+    "drive-lane": "",
+    "sharrow": "",
+    "turn-lane": "",
+    "turn-lane-straight": "",
+    "turn-lane-center": "",
+    "bus-lane": "",
+    "bus-lane-shared": "",
+    "streetcar": "",
+    "light-rail": "",
+    "transit-shelter": "",
+    "brt-station": "",
+    "brt-lane": "",
+    "temporary-barrier": "",
+    "inception-train": "",
+    "magic-carpet": ""
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "",
+      "content": ""
+    },
+    "parklet": {
+      "prompt": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "bike-lane": {
+      "prompt": "",
+      "content": ""
+    },
+    "colored-bike-lane": {
+      "prompt": "",
+      "content": ""
+    },
+    "sharrow": {
+      "prompt": "",
+      "content": ""
+    },
+    "transit-shelter-elevated": {
+      "prompt": "",
+      "content": ""
+    },
+    "inception-train": {
+      "content": ""
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "Oglindă de apă"
+    },
+    "grass": {
+      "name": ""
+    },
+    "fence": {
+      "name": ""
+    },
+    "parking-lot": {
+      "name": ""
+    },
+    "residential": {
+      "name": "Casă"
+    },
+    "narrow": {
+      "name": "Clădire"
+    },
+    "wide": {
+      "name": "Clădire"
+    },
+    "arcade": {
+      "name": ""
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "Stânga",
+    "orientation|right": "Dreaptă",
+    "turn-lane-orientation|left": "Stânga",
+    "turn-lane-orientation|left-straight": "",
+    "turn-lane-orientation|straight": "Drept înainte",
+    "turn-lane-orientation|right-straight": "Dreapta si drept înainte",
+    "turn-lane-orientation|right": "Dreaptă",
+    "turn-lane-orientation|both": "Ambele",
+    "turn-lane-orientation|left-right-straight": "",
+    "turn-lane-orientation|shared": "",
+    "bench-orientation|left": "Stânga",
+    "bench-orientation|right": "Dreaptă",
+    "bench-orientation|center": "Centru",
+    "parking-lane-orientation|left": "Stânga",
+    "parking-lane-orientation|right": "Dreaptă",
+    "parking-lane-direction|inbound": "",
+    "parking-lane-direction|outbound": "",
+    "parking-lane-direction|sideways": "Perpendiculară",
+    "parking-lane-direction|angled-front-left": "",
+    "parking-lane-direction|angled-front-right": "",
+    "parking-lane-direction|angled-rear-left": "",
+    "parking-lane-direction|angled-rear-right": "",
+    "direction|inbound": "",
+    "direction|outbound": "",
+    "sidewalk-density|empty": "",
+    "sidewalk-density|sparse": "",
+    "sidewalk-density|normal": "",
+    "sidewalk-density|dense": "",
+    "lamp-orientation|left": "Stânga",
+    "lamp-orientation|both": "Ambele",
+    "lamp-orientation|right": "Dreaptă",
+    "lamp-type|traditional": "",
+    "lamp-type|modern": "",
+    "lamp-type|pride": "",
+    "car-type|car": "",
+    "car-type|sharrow": "",
+    "car-type|truck": "",
+    "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
+    "public-transit-asphalt|regular": "",
+    "public-transit-asphalt|colored": "",
+    "public-transit-asphalt|grass": "",
+    "bus-asphalt|regular": "",
+    "bus-asphalt|colored": "",
+    "bus-asphalt|shared": "",
+    "brt-station-orientation|left": "Stânga",
+    "brt-station-orientation|right": "Dreaptă",
+    "brt-station-orientation|center": "Centru",
+    "bike-asphalt|regular": "",
+    "bike-asphalt|green": "",
+    "bike-asphalt|red": "",
+    "tree-type|big": "",
+    "tree-type|palm-tree": "",
+    "divider-type|median": "",
+    "divider-type|striped-buffer": "",
+    "divider-type|planting-strip": "",
+    "divider-type|planter-box": "",
+    "divider-type|bush": "",
+    "divider-type|flowers": "",
+    "divider-type|big-tree": "",
+    "divider-type|palm-tree": "",
+    "divider-type|bollard": "",
+    "divider-type|dome": "",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
+    "transit-shelter-elevation|street-level": "",
+    "transit-shelter-elevation|light-rail": "",
+    "bike-rack-elevation|sidewalk-parallel": "",
+    "bike-rack-elevation|sidewalk": "",
+    "bike-rack-elevation|road": "",
+    "building|waterfront": "Oglindă de apă",
+    "building|grass": "",
+    "building|fence": "",
+    "building|parking-lot": "",
+    "building|residential": "Casă",
+    "building|narrow": "",
+    "building|wide": "",
+    "wayfinding-type|large": "",
+    "wayfinding-type|medium": "",
+    "wayfinding-type|small": "",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": "",
+    "occupants|empty": "",
+    "occupants|full": "",
+    "occupants|occupied": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
+  }
+}

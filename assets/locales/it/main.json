@@ -198,9 +198,12 @@
       "export-csv": "Esporta in CSV",
       "heading": "Analisi dei dati",
       "street-summary": "La tua strada ha un traffico medio stimato di {averageTotal} visitatori all'ora, e potenzialmente per {potentialTotal} visitatori all'ora.",
+      "typical-lane-width": "",
       "segment-summary": "{average} — {potential} visitatori/ora",
       "segment-summary-single": "{amount} visitatori/ora",
-      "source": "Sorgente"
+      "source": "Sorgente",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "Salva come immagine",

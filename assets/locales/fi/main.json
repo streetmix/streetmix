@@ -198,9 +198,12 @@
       "export-csv": "Vie CSV-tiedostoon",
       "heading": "Analyysi",
       "street-summary": "Kadun arvioitu liikenne on {averageTotal} kulkijaa tunnissa, ja käyttäjäpotentiaali on {potentialTotal} kulkijaa tunnissa.",
+      "typical-lane-width": "",
       "segment-summary": "{average} — {potential} ihmistä tunnissa",
       "segment-summary-single": "{amount} ihmistä tunnissa",
-      "source": "Lähde"
+      "source": "Lähde",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "Tallenna kuvana",

@@ -1,0 +1,199 @@
+{
+  "segments": {
+    "sidewalk": "Kaldırım",
+    "pedestrian": "Yaya",
+    "sidewalk-tree": "Kaldırım ağacı",
+    "bike-rack": "Bisiklet parkı",
+    "bench": "Oturma elemanı",
+    "outdoor-dining": "Açık havada yemek",
+    "cafe-seating": "Kafe oturma elemanı",
+    "wayfinding-sign": "Yön bulma tabelası",
+    "sidewalk-lamp": "Sokak Lambası",
+    "parklet": "Yaya durağı",
+    "divider": "Emniyet mesafesi",
+    "planting-strip": "Bitkilendirme şeridi",
+    "planter-box": "Çiçek saksısı",
+    "median": "Medyan",
+    "bollard": "Delinatör",
+    "dome": "Yol butonu",
+    "jersey-barrier": "Emniyet bariyeri",
+    "scooter": "Elektrikli scooter",
+    "scooter-drop-zone": "Scooter park yeri",
+    "bike-lane": "Bisiklet yolu",
+    "parking-lane": "Otopark şeridi",
+    "perpendicular-parking": "Dikey otopark",
+    "angled-parking": "Açılı otopark",
+    "flex-zone": "Esnek şerit",
+    "taxi-pick-up": "Taksi indirme-bindirme yeri",
+    "rideshare-pick-up": "Dolmuş indirme-bindirme yeri",
+    "bikeshare-station": "Paylaşımlı bisiklet istasyonu",
+    "foodtruck": "Mobil büfe",
+    "flex-zone-curb": "Bekleme alanı",
+    "drive-lane": "Araç şeridi",
+    "sharrow": "Paylaşımlı bisiklet yolu işareti",
+    "turn-lane": "Dönüş şeridi",
+    "turn-lane-straight": "Mecburi düz yön şeridi",
+    "turn-lane-center": "Orta dönüş şeridi",
+    "bus-lane": "Otobüs şeridi",
+    "bus-lane-shared": "Paylaşımlı bisiklet/otobüs şeridi",
+    "streetcar": "Tramvay",
+    "light-rail": "Hafif Raylı",
+    "transit-shelter": "Toplu ulaşım durağı",
+    "brt-station": "Metrobüs istasyonu",
+    "brt-lane": "Metrobüs şeridi",
+    "temporary-barrier": "Geçici bariyer",
+    "inception-train": "“Inception” treni",
+    "magic-carpet": "Uçan halı"
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "Yön bulma tabelaları ile ilgili daha fazla bilgi edinin",
+      "content": "# Yön bulma işaretleri, yayaların yaygın bilinen hedeflere ulaşmasına yardımcı olur.\n\nŞehir planlamacıları ve mimarlar, insanların A noktasından B noktasına nasıl gideceklerini, hatta \"A noktasının\" nereden başlayacağını bildiklerinde beyinlerinde neler olduğunu öğrenmek için birkaç on yıl harcadılar. Henüz 1960 yılında, şehir planlamacısı Kevin Lynch, kentin \"okunabilirliği\" hakkında yazmış  _[The Image of the City](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, ve yol bulmayı \"dış çevreden belirli duyusal ipuçlarının tutarlı bir kullanımı ve organizasyonu\" olarak tanımlamıştır. Koku, dokunma, yerçekimi hissi ve hatta elektrik veya manyetik alanlar gibi soyut olabilir. Ya da haritalar, sokak numaraları veya rota işaretleri gibi kasıtlı olarak tasarlanmış \"yön bulma araçları\" ile çok daha fiziksel olabilir.\n\nGeniş tabelaların araba seyahatinde ihtiyacı karşılaması ve bu yatırımın daha azının yaya düzeyinde yapılmasının kolay kabul edilebilir olması şaşırtıcı. Belki de öylece durmamız, çevremizin farkına varmamız ve arkamızda kazara altı kişilik bir kazaya neden olma korkusu olmadan duyularımızı kullanmamız daha kolay olduğu içindir. Her halde, kentsel tasarımcılar, özellikle yürünebilir ticari mahallelerde yaya dostu yol bulma tabelalarında ısrar ettiler ve bu işaretler, işlevsel olmanın yanı sıra markalaşma fırsatları haline geldi. Örneğin, New York City [uluslararası üne sahip bir tasarım danışmanı işe aldı](https://www.pentagram.com/work/walknyc/story), artık her yerde bulunan WalkNYC işaretlerini oluşturabildi. (Streetmix, bölümlerini bunlardan sonra modelledi). Diğer belediyeler, geleneksel bir eski şehir veya sivil resmi görüş (yukarıda resmedilmiştir) benimsemiştir ve bazı yerler [gerilla yön bulma taktiklerini] kullanmayı seçmiştir (http://walkyourcity.org/).\n\nSonuçta, kaybolmaktan daha kötü bir şey yoktur. Lynch'in yazdığı gibi: \"Dilimizdeki _kayıp_ kelimesi, basit coğrafi belirsizlikten çok daha fazlasını ifade eder; mutlak felaketin izlerini taşır.\" Ve kim böyle hissederek sokakta olmak ister ki?"
+    },
+    "parklet": {
+      "prompt": "Yaya durakları (parklets) ile ilgili daha fazla bilgi edinin",
+      "imageCaption": "4033 Judah Street Yaya Durağı, San Francisco Planlama Müdürlüğü'nün izniyle ",
+      "content": "# Yaya durakları, Parklets mevcut park yerlerini geçici kamusal alanlara dönüştürür.\n\n2005 yılında, San Francisco merkezli tasarım stüdyosu [Rebar] (http://rebargroup.org/), Mission Street şehir merkezindeki bir metrelik bir park alanını geçici olarak halka açık küçük bir parka dönüştürdü. İlk parklet basitti: Dikdörtgen bir çim parçası üzerinde sadece bir bank ve bir ağaç, beraberinde kısa bir kullanım kılavuzu ve başkalarının da kendilerininkini yapması için bir ücret içeriyordu. İnsanların bu kadar çok kamusal alanın gerçekten araba depolamaya ayrıldığını fark etmesiyle, uluslar arası bir hareket doğdu ve şimdi de [Park (ing) Day] (https://www.facebook.com/PARKing-Day-71298180414 ) her yıl dünya çapında geçici olarak dönüştürülmüş yaklaşık bin noktaya ev sahipliği yapıyor. \n\nBir fikirle karşılaştığında iyi olduğunu bilebilen San Francisco, 2010 yılında [Parklara Kaldırım programı] (http://sfpavement Otoparks.sfplanning.org/) ile parkletleri resmileştiren ilk şehir oldu. Günümüzde, Körfez Şehri çoğu artık Rebar'ın mütevazı prototipinin ötesinde çok daha gelişmiş mimari olarak tasarlanmış 50'den fazla Parklet'e sahip. San Francisco'nun en yoğun alışveriş koridorunun kalbinde iki blok uzunluğunda iddialı, kurumsal sponsorlu bir parklet ve ayrıca [Yerba Buena Community Benefit District] için tasarlanmış hareketli, parlak kırmızı \"parkmobiller\" (Streetmix'in varsayılan görünümü) koleksiyonu var (http://www.ybcbd.org/). Resmi parklet programları şu anda Kuzey Amerika'daki Philadelphia, Oakland, Kansas City, New York, Chicago ve Vancouver gibi diğer birçok şehirde var ve yakında birçok şehirde daha yer alacak."
+    },
+    "bike-lane": {
+      "prompt": "Bisiklet yolları ile ilgili daha fazla bilgi edinin",
+      "content": "# Bisiklet şeritleri bisikletlileri arabalardan ayrı bir şeritte güvende tutmaya yardımcı olur.\n\nKişisel ulaşım araçlarının tarihsel zaman çizelgesine göre - bir uçta atlar, diğer uçta Segway'ler - otomobiller ve bisikletler, neredeyse yüzyıldır halka açık sokakların baskın savaşan kabileleri olmuştur. Tüm arabaların çok fazla yer kaplamasına rağmen, dünyada her şeyden daha fazla bisiklet vardır. Bisikletin tüm seyahatlerin %32'sini oluşturduğu dünyada Worldometers tarafından tahmin edildiği gibi bir milyardan fazla ve halk türküleri sanatçısı [Katie Melua] 'ya göre, Pekin'de dokuz milyon (http://en.wikipedia.org/wiki/Nine_Million_Bicycles) bisiklet vardır.\n\nÇoğu hükümet, bisikletlerin yolu motorlu taşıtlarla paylaşmasına izin verirken (\"Bisiklete binen kişi… belirli bir durumda tüm haklara sahiptir ve bir aracın sürücüsüne uygulanan tüm hükümlere tabidir\" [Kaliforniya Araç Kodu'nun belirttiği gibi] (https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.)) çoğu bisikletçinin kendi şeridinde olmayı tercih ettiğini söylemeye gerek yoktur. Bir kere daha güvenli. Ve daha güvenli olduğu için, aslında daha fazla bisikletçiyi teşvik ediyor. Ve daha fazla bisikletçi, daha sağlıklı vatandaşlar, daha az karbon emisyonu, daha fazla trafik hacmi ve tıkanıklığın azaltılması anlamına gelir. [Ekonomik faydalar da artar] (https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf): Otomobil altyapısına (köprüler, yollar ve park etme gibi) daha az para harcanır ve bir yola daha fazla insan sığdırma becerisiyle, ticari koridorlarda daha fazla iş yapılmasına yol açılır.\n\nBisiklet şeridi tasarımı son derece çeşitli olabilir. Refüjler, büyük bitki saksıları, direkler ve hatta park şeritleri kullanmak bisikletler ve arabalar arasında daha iyi koruma sağlar. Şeritlerin yeşile boyanması şehirlerin sürekli bir bisiklet şeridine olan bağlılığını gösterir ve bisiklet duraklarını sınırlandıran senkronize sinyal ışığı zamanlaması \"yeşil dalga\" olarak adlandırılır.  Daha fazla bilgi için [NACTO Urban Bikeway Tasarım Kılavuzu] 'na (http://nacto.org/cities-for-cycling/design-guide/) bakın."
+    },
+    "colored-bike-lane": {
+      "prompt": "Renklendirilmiş bisiklet yolları ile ilgili daha fazla bilgi edinin",
+      "content": ""
+    },
+    "sharrow": {
+      "prompt": "Paylaşımlı bisiklet yolları ile ilgili daha fazla bilgi edinin",
+      "content": ""
+    },
+    "transit-shelter-elevated": {
+      "prompt": "Yükseltilmiş toplu taşıma durakları ile ilgili daha fazla bilgi edinin",
+      "content": ""
+    },
+    "inception-train": {
+      "content": "# Christopher Nolan _Inception_ filmindeki tren.\n\nDaha fazla ne bilmen gerekiyor?"
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "Sahil kenarı"
+    },
+    "grass": {
+      "name": "Çim"
+    },
+    "fence": {
+      "name": "Boş arazi"
+    },
+    "parking-lot": {
+      "name": "Otopark"
+    },
+    "residential": {
+      "name": "Ana sayfa"
+    },
+    "narrow": {
+      "name": "Bina"
+    },
+    "wide": {
+      "name": "Bina"
+    },
+    "arcade": {
+      "name": "Pasaj"
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "Sol",
+    "orientation|right": "Sağ",
+    "turn-lane-orientation|left": "Sol",
+    "turn-lane-orientation|left-straight": "Düz ya da sol dönüş",
+    "turn-lane-orientation|straight": "Düz",
+    "turn-lane-orientation|right-straight": "Düz ya da sağa dönüş",
+    "turn-lane-orientation|right": "Sağ",
+    "turn-lane-orientation|both": "İkisi de",
+    "turn-lane-orientation|left-right-straight": "Düz,sol ya da sağ",
+    "turn-lane-orientation|shared": "Paylaşımlı",
+    "bench-orientation|left": "Sol",
+    "bench-orientation|right": "Sağ",
+    "bench-orientation|center": "Orta",
+    "parking-lane-orientation|left": "Sol",
+    "parking-lane-orientation|right": "Sağ",
+    "parking-lane-direction|inbound": "İçe doğru",
+    "parking-lane-direction|outbound": "Dışa doğru",
+    "parking-lane-direction|sideways": "Dikey",
+    "parking-lane-direction|angled-front-left": "Açılı",
+    "parking-lane-direction|angled-front-right": "Açılı",
+    "parking-lane-direction|angled-rear-left": "Açılı",
+    "parking-lane-direction|angled-rear-right": "Açılı",
+    "direction|inbound": "İçe doğru",
+    "direction|outbound": "Dışa doğru",
+    "sidewalk-density|empty": "Boş",
+    "sidewalk-density|sparse": "Seyrek",
+    "sidewalk-density|normal": "Normal",
+    "sidewalk-density|dense": "Kalabalık",
+    "lamp-orientation|left": "Sol",
+    "lamp-orientation|both": "İkisi de",
+    "lamp-orientation|right": "Sağ",
+    "lamp-type|traditional": "Geleneksel",
+    "lamp-type|modern": "Modern",
+    "lamp-type|pride": "Modern - Gökkuşağı bayrağıyla",
+    "car-type|car": "Araba",
+    "car-type|sharrow": "Paylaşımlı bisiklet yolu işareti",
+    "car-type|truck": "Kamyon",
+    "car-type|av": "Sürücüsüz araç",
+    "car-type|motorcycle": "Motorsiklet",
+    "car-type|motorcycle-sidecar": "Sepetli motorsiklet",
+    "car-type|pedestrian": "Yaya",
+    "public-transit-asphalt|regular": "Asfalt",
+    "public-transit-asphalt|colored": "Kırmızı şerit",
+    "public-transit-asphalt|grass": "Çim",
+    "bus-asphalt|regular": "Asfalt",
+    "bus-asphalt|colored": "Kırmızı şerit",
+    "bus-asphalt|shared": "Paylaşımlı bisiklet/otobüs şeridi",
+    "brt-station-orientation|left": "Sol",
+    "brt-station-orientation|right": "Sağ",
+    "brt-station-orientation|center": "Orta",
+    "bike-asphalt|regular": "Asfalt",
+    "bike-asphalt|green": "Yeşil şerit",
+    "bike-asphalt|red": "Kırmızı şerit",
+    "tree-type|big": "Ağaç",
+    "tree-type|palm-tree": "Palmiye ağacı",
+    "divider-type|median": "Medyan",
+    "divider-type|striped-buffer": "Emniyet şeridi",
+    "divider-type|planting-strip": "Bitkilendirme şeridi",
+    "divider-type|planter-box": "Çiçek saksısı",
+    "divider-type|bush": "Üzerinde çalı olan peyzaj şeridi",
+    "divider-type|flowers": "Üzerinde çiçek olan peyzaj şeridi",
+    "divider-type|big-tree": "Üzerinde ağaç olan peyzaj şeridi",
+    "divider-type|palm-tree": "Üzerinde palmiye ağacı olan peyzaj şeridi",
+    "divider-type|bollard": "Delinatör",
+    "divider-type|dome": "Yol butonu",
+    "divider-type|jersey-barrier-concrete": "Şerit bariyeri (beton)",
+    "divider-type|jersey-barrier-plastic": "Emniyet bariyeri (plastik)",
+    "transit-shelter-elevation|street-level": "Sokak seviyesi",
+    "transit-shelter-elevation|light-rail": "Hafif raylı sistem durağı",
+    "bike-rack-elevation|sidewalk-parallel": "Yol üzeri paralel park, kaldırım seviyesi",
+    "bike-rack-elevation|sidewalk": "Dik park yeri, kaldırım seviyesi",
+    "bike-rack-elevation|road": "Dik otopark yeri, yol seviyesi",
+    "building|waterfront": "Sahil kenarı",
+    "building|grass": "Çim",
+    "building|fence": "Boş parsel",
+    "building|parking-lot": "Otopark",
+    "building|residential": "Ana sayfa",
+    "building|narrow": "Dar cepheli bina",
+    "building|wide": "Geniş cepheli bina",
+    "wayfinding-type|large": "Büyük",
+    "wayfinding-type|medium": "Orta",
+    "wayfinding-type|small": "Küçük",
+    "waiting-area|sparse": "Birisi",
+    "waiting-area|empty": "Hiç kimse",
+    "flex-type|rideshare": "Dolmuş",
+    "flex-type|taxi": "Taksi",
+    "occupants|empty": "Boş",
+    "occupants|full": "Dolu",
+    "occupants|occupied": "İşgal edilmiş",
+    "elevation|sidewalk": "Kaldırım seviyesi",
+    "elevation|road": "Yol seviyesi",
+    "temporary-barrier-type|traffic-cone": "Trafik dubası",
+    "temporary-barrier-type|barricade": "Barikat"
+  }
+}

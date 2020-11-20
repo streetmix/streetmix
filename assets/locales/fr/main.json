@@ -142,8 +142,8 @@
     "remove": "Retirer",
     "close": "Fermer",
     "dismiss": "Rejeter",
-    "okay": "",
-    "not-now": ""
+    "okay": "Ok !",
+    "not-now": "Pas maintenant"
   },
   "dialogs": {
     "error": {
@@ -198,9 +198,12 @@
       "export-csv": "Exporter en CSV",
       "heading": "",
       "street-summary": "",
+      "typical-lane-width": "",
       "segment-summary": "",
       "segment-summary-single": "{amount} personnes/heure",
-      "source": "Source"
+      "source": "Source",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "Sauver en tant qu'image",

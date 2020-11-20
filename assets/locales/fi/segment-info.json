@@ -39,8 +39,8 @@
     "streetcar": "Katuraitiotie",
     "light-rail": "Pikaraitiotie",
     "transit-shelter": "Pysäkkikatos",
-    "brt-station": "",
-    "brt-lane": "",
+    "brt-station": "Bussimetroasema",
+    "brt-lane": "Bussimetrokaista",
     "temporary-barrier": "Väliaikainen tiesulku",
     "inception-train": "Inception-juna",
     "magic-carpet": "Taikamatto"

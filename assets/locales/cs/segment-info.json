@@ -1,0 +1,199 @@
+{
+  "segments": {
+    "sidewalk": "Chodník",
+    "pedestrian": "Chodec",
+    "sidewalk-tree": "",
+    "bike-rack": "Stojan na jízdní kola",
+    "bench": "Lavíčka",
+    "outdoor-dining": "",
+    "cafe-seating": "Předzahrádka",
+    "wayfinding-sign": "Navigace",
+    "sidewalk-lamp": "Osvětlení",
+    "parklet": "",
+    "divider": "Dopravní stín",
+    "planting-strip": "",
+    "planter-box": "",
+    "median": "Střední dělicí pás",
+    "bollard": "Sloupek",
+    "dome": "",
+    "jersey-barrier": "City block",
+    "scooter": "E-koloběžka",
+    "scooter-drop-zone": "",
+    "bike-lane": "",
+    "parking-lane": "",
+    "perpendicular-parking": "Kolmé parkování",
+    "angled-parking": "Šikmé parkování",
+    "flex-zone": "",
+    "taxi-pick-up": "Výstup a nástup do taxíku",
+    "rideshare-pick-up": "",
+    "bikeshare-station": "",
+    "foodtruck": "",
+    "flex-zone-curb": "Čekací plocha",
+    "drive-lane": "",
+    "sharrow": "Piktokoridor",
+    "turn-lane": "",
+    "turn-lane-straight": "",
+    "turn-lane-center": "",
+    "bus-lane": "Pruh pro autobusy",
+    "bus-lane-shared": "Vyhrazený pruh pro autobusy a cyklisty",
+    "streetcar": "Tramvaj",
+    "light-rail": "Lehké metro",
+    "transit-shelter": "Zastávkový přístřešek",
+    "brt-station": "",
+    "brt-lane": "",
+    "temporary-barrier": "",
+    "inception-train": "",
+    "magic-carpet": "Létající koberec"
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "Více o navigace ve městě",
+      "content": ""
+    },
+    "parklet": {
+      "prompt": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "bike-lane": {
+      "prompt": "Více o cyklopruhách",
+      "content": ""
+    },
+    "colored-bike-lane": {
+      "prompt": "",
+      "content": ""
+    },
+    "sharrow": {
+      "prompt": "Více o piktokoridorech",
+      "content": ""
+    },
+    "transit-shelter-elevated": {
+      "prompt": "",
+      "content": ""
+    },
+    "inception-train": {
+      "content": ""
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "Nábřeží"
+    },
+    "grass": {
+      "name": "Travník"
+    },
+    "fence": {
+      "name": "Prazdná plocha"
+    },
+    "parking-lot": {
+      "name": "Parkoviště"
+    },
+    "residential": {
+      "name": "Dům"
+    },
+    "narrow": {
+      "name": "Budova"
+    },
+    "wide": {
+      "name": "Budova"
+    },
+    "arcade": {
+      "name": ""
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "",
+    "orientation|right": "",
+    "turn-lane-orientation|left": "",
+    "turn-lane-orientation|left-straight": "",
+    "turn-lane-orientation|straight": "",
+    "turn-lane-orientation|right-straight": "",
+    "turn-lane-orientation|right": "",
+    "turn-lane-orientation|both": "",
+    "turn-lane-orientation|left-right-straight": "",
+    "turn-lane-orientation|shared": "",
+    "bench-orientation|left": "",
+    "bench-orientation|right": "",
+    "bench-orientation|center": "",
+    "parking-lane-orientation|left": "",
+    "parking-lane-orientation|right": "",
+    "parking-lane-direction|inbound": "",
+    "parking-lane-direction|outbound": "",
+    "parking-lane-direction|sideways": "Kolmé",
+    "parking-lane-direction|angled-front-left": "Šikmé",
+    "parking-lane-direction|angled-front-right": "Šikmé",
+    "parking-lane-direction|angled-rear-left": "Šikmé",
+    "parking-lane-direction|angled-rear-right": "Šikmé",
+    "direction|inbound": "",
+    "direction|outbound": "",
+    "sidewalk-density|empty": "",
+    "sidewalk-density|sparse": "",
+    "sidewalk-density|normal": "",
+    "sidewalk-density|dense": "",
+    "lamp-orientation|left": "",
+    "lamp-orientation|both": "",
+    "lamp-orientation|right": "",
+    "lamp-type|traditional": "",
+    "lamp-type|modern": "",
+    "lamp-type|pride": "",
+    "car-type|car": "Automobíl",
+    "car-type|sharrow": "Piktokoridor",
+    "car-type|truck": "Nákladní automobil",
+    "car-type|av": "Autonomní vozidlo",
+    "car-type|motorcycle": "Motocykl",
+    "car-type|motorcycle-sidecar": "Motocykl s vozíkem",
+    "car-type|pedestrian": "Chodec",
+    "public-transit-asphalt|regular": "Asfalt",
+    "public-transit-asphalt|colored": "Cervený pruh",
+    "public-transit-asphalt|grass": "Travník",
+    "bus-asphalt|regular": "Asfalt",
+    "bus-asphalt|colored": "Cervený pruh",
+    "bus-asphalt|shared": "Vyhrazený pruh pro autobusy a cyklisty",
+    "brt-station-orientation|left": "",
+    "brt-station-orientation|right": "",
+    "brt-station-orientation|center": "",
+    "bike-asphalt|regular": "Asfalt",
+    "bike-asphalt|green": "",
+    "bike-asphalt|red": "Cervený pruh",
+    "tree-type|big": "",
+    "tree-type|palm-tree": "",
+    "divider-type|median": "Střední dělicí pás",
+    "divider-type|striped-buffer": "",
+    "divider-type|planting-strip": "",
+    "divider-type|planter-box": "",
+    "divider-type|bush": "",
+    "divider-type|flowers": "",
+    "divider-type|big-tree": "",
+    "divider-type|palm-tree": "",
+    "divider-type|bollard": "Sloupek",
+    "divider-type|dome": "",
+    "divider-type|jersey-barrier-concrete": "City blok (betonový)",
+    "divider-type|jersey-barrier-plastic": "City blok (plastový)",
+    "transit-shelter-elevation|street-level": "Úroveň vozovky",
+    "transit-shelter-elevation|light-rail": "Stanice lehkého metra",
+    "bike-rack-elevation|sidewalk-parallel": "",
+    "bike-rack-elevation|sidewalk": "",
+    "bike-rack-elevation|road": "",
+    "building|waterfront": "Nábřeží",
+    "building|grass": "Travník",
+    "building|fence": "Prazdná plocha",
+    "building|parking-lot": "Parkoviště",
+    "building|residential": "Dům",
+    "building|narrow": "Uzká budova",
+    "building|wide": "Široká budova",
+    "wayfinding-type|large": "",
+    "wayfinding-type|medium": "",
+    "wayfinding-type|small": "",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "Níkdo",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": "Taxi",
+    "occupants|empty": "",
+    "occupants|full": "",
+    "occupants|occupied": "",
+    "elevation|sidewalk": "Úroveň chodníku",
+    "elevation|road": "Úroveň vozovky",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": ""
+  }
+}

@@ -198,9 +198,12 @@
       "export-csv": "Экспортировать в CSV",
       "heading": "Аналитика",
       "street-summary": "Ваша улица имеет провозную способность {averageTotal} человек в час с потенциальным максимом {potentialTotal} человек в час.",
+      "typical-lane-width": "",
       "segment-summary": "{average} — {potential} чел./ч",
       "segment-summary-single": "{amount} чел./час",
-      "source": "Источник"
+      "source": "Источник",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "Сохранить как избражение",

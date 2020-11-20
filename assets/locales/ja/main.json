@@ -198,9 +198,12 @@
       "export-csv": "",
       "heading": "",
       "street-summary": "",
+      "typical-lane-width": "",
       "segment-summary": "",
       "segment-summary-single": "",
-      "source": ""
+      "source": "",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "画像として保存",

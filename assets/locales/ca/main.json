@@ -58,12 +58,12 @@
       "opensource": "Contribuïu al codi obert"
     },
     "feedback": {
-      "prompt": "",
-      "message-placeholder": "",
-      "email-placeholder": "",
-      "send": "",
-      "confirm": "",
-      "error": ""
+      "prompt": "Envieu-nos un missatge",
+      "message-placeholder": "Què en penseu de Streetmix ?",
+      "email-placeholder": "El vostre email (opcional)",
+      "send": "Envieu un missatge",
+      "confirm": "Ho tenim. Gràcies",
+      "error": "Ho sentim, hi ha hagut un problema en enviar comentaris en aquest moment. Siusplau, intenta-ho més tard."
     },
     "sign-in": {
       "twitter": "Entreu amb Twitter"
@@ -110,11 +110,11 @@
     "gallery-street-failure-description": "Tenim problemes carregant aquest carrer.",
     "reload-sign-in-title": "Heu iniciat la sessió en una altra finestra.",
     "please-reload": "Si us plau, refresqueu aquesta pàgina abans de continuar.",
-    "survey-finished": "",
+    "survey-finished": "Enquesta completa. Enhorabona i gràcies!",
     "street-deleted-elsewhere-title": "Aquest carrer ha estat eliminat des d'algun altre lloc.",
     "street-deleted-elsewhere-description": "Aquest carrer ha estat eliminat des d'un altre navegador.",
-    "auth-expired": "",
-    "sign-in-again": "",
+    "auth-expired": "Us hem tancat la sessió automàticament per inactivitat.",
+    "sign-in-again": "Torneu a iniciar la sessió.",
     "access-denied-title": "No heu iniciat sessió.",
     "access-denied-description": "Heu cancel·lat el procés d'inici de sessió.",
     "auth-api-problem-title": "Hi ha hagut un problema amb l'inici de sessió.",
@@ -129,7 +129,7 @@
     "generic-error-title": "Alguna cosa ha anat malament.",
     "generic-error-description": "Ho sentim, alguna cosa ha anat malament.",
     "error-code": "(Error {code}.)",
-    "need-help-link": ""
+    "need-help-link": "Necessiteu ajuda?"
   },
   "btn": {
     "reload": "Refresqueu",
@@ -143,7 +143,7 @@
     "close": "Tanqueu",
     "dismiss": "Descarteu",
     "okay": "Entesos!",
-    "not-now": ""
+    "not-now": "Ara no"
   },
   "dialogs": {
     "error": {
@@ -154,7 +154,7 @@
       "heading": "Benvinguts a Streetmix.",
       "new": {
         "intro": "Dissenyeu, remeneu i compartiu el carrer del vostre barri. Afegiu arbres o carrils bici, amples voreres o carrils per al trànsit, aprengueu com les vostres decisions poden impactar la comunitat.",
-        "instruction": "",
+        "instruction": "Comenceu movent segments.",
         "instruct": "Comenceu movent alguns segments amb {pointer}.",
         "instruct-pointer-finger": "el vostre dit",
         "instruct-pointer-mouse": "el vostre ratolí"
@@ -163,291 +163,294 @@
         "intro": "Això és {streetName}, fet per {creator}",
         "intro-without-creator": "Això és {streetName}.",
         "instruct": "Remeneu-lo movent alguns segments, o {startYourOwnStreet}",
-        "instruct-start-own-street": ""
+        "instruct-start-own-street": "Comença el teu propi carrer"
       }
     },
     "new-street": {
-      "heading": "",
-      "default": "",
-      "empty": "",
-      "last": ""
+      "heading": "Aquí està el teu nou carrer",
+      "default": "Comença amb un carrer d'exemple",
+      "empty": "Comença amb un carrer buit",
+      "last": "Comença amb una còpia del darrer carrer"
     },
     "about": {
-      "heading": "",
-      "description": "",
-      "thanks": "",
-      "credits": "",
-      "team-heading": "",
-      "view-source": "",
-      "partners": "",
-      "sponsors": "",
-      "sponsored-by": "",
-      "donate-link": "",
+      "heading": "Sobre Streetmix",
+      "description": "Dissenya, remescla i comparteix el teu carrer. Afegiu carrils bici, eixampleu voreres o carrils de circulació i obteniu informació sobre com tot això pot afectar la vostra comunitat.",
+      "thanks": "Moltes gràcies al personal i als companys de CfA del 2013 pel seu suport i paciència, l’equip de Blockee per obrir el camí i tots els nostres provadors pel seu temps i comentaris.",
+      "credits": "Un projecte paral·lel per als becaris del 2013{cfaLink}:",
+      "team-heading": "Equip del projecte i mantenidors",
+      "view-source": "Veure codi font",
+      "partners": "Socis",
+      "sponsors": "Patrocinadors",
+      "sponsored-by": "Streetmix esà patrocinat generosament per:",
+      "donate-link": "Ajudeu-nos econòmicament",
       "github-link": "Contribuïu al codi obert",
-      "open-source-link": "",
-      "guidebook-link": "",
-      "tos-link": "",
-      "privacy-link": "",
-      "acknowledgements": "",
-      "font-designed-by": "",
-      "emoji-by": "",
-      "icons-by": "",
-      "license-label": ""
+      "open-source-link": "Som de codi obert!",
+      "guidebook-link": "Guia",
+      "tos-link": "Condicions de servei",
+      "privacy-link": "Política de privacitat",
+      "acknowledgements": "Agraïments",
+      "font-designed-by": "{fontName}tipus de lletra dissenyat per{fontAuthor}",
+      "emoji-by": "Emoticona de {author}",
+      "icons-by": "Icones de {author}",
+      "license-label": "(<a>Llicència</a>)"
     },
     "analytics": {
-      "export-csv": "",
-      "heading": "",
-      "street-summary": "",
-      "segment-summary": "",
-      "segment-summary-single": "",
-      "source": ""
+      "export-csv": "Exportar a CSV",
+      "heading": "Analítica",
+      "street-summary": "El vostre carrer té un trànsit mitjà estimat de {averageTotal}persones per hora i pot arribar fins a{potentialTotal} persones per hora.",
+      "typical-lane-width": "",
+      "segment-summary": "{average}- {potential}persones / hora",
+      "segment-summary-single": "{amount}persones / hora",
+      "source": "Font",
+      "capacity-data-source": "Capacitat segons fonts de dades",
+      "settings-notice": "Els propietaris de carrers poden canviar aquesta configuració."
     },
     "save": {
-      "heading": "",
-      "option-labels": "",
-      "option-name": "",
-      "option-sky": "",
-      "option-watermark": "",
+      "heading": "Guarda com a imatge",
+      "option-labels": "Noms i amplades de tram",
+      "option-name": "Nom del carrer",
+      "option-sky": "Cel transparent",
+      "option-watermark": "Marca d'aigua",
       "loading": "Carregant...",
-      "save-button": "",
-      "license": "",
-      "error-preview": "",
-      "error-unavailable": "",
-      "preview-image-alt": ""
+      "save-button": "Guarda al teu ordinador",
+      "license": "Aquesta imatge creada per Streetmix es pot reutilitzar a qualsevol lloc, amb qualsevol propòsit, sota la llicència {licenseLink}.",
+      "error-preview": "S'ha produït un error al mostrar la previsualització d'imatge.",
+      "error-unavailable": "Desar a la imatge no està disponible en aquest navegador.",
+      "preview-image-alt": "Previsualització"
     },
     "geotag": {
-      "search": "",
-      "clear-search": "",
-      "zoom-in": "",
-      "zoom-out": "",
-      "add-location": "",
-      "confirm-location": "",
-      "clear-location": "",
-      "unknown-location": "",
-      "geotag-unavailable": ""
+      "search": "Cerca un indret",
+      "clear-search": "Neteja la cerca",
+      "zoom-in": "Acosta",
+      "zoom-out": "Allunya",
+      "add-location": "Afegeix indret",
+      "confirm-location": "Confirma indret",
+      "clear-location": "Esborra indret",
+      "unknown-location": "Indret desconegut",
+      "geotag-unavailable": "Actualment els serveis de geocodificació no estan disponibles. Podeu veure el mapa, però no podreu canviar la ubicació d’aquest carrer."
     },
     "donate": {
-      "heading": "",
-      "lede": "",
-      "text": "",
-      "button": "",
-      "cancel": ""
+      "heading": "Streetmix necessita la vostra ajuda!",
+      "lede": "Streetmix és un projecte amb suport comunitari. A diferència d'altres serveis \"gratuïts\" a Internet, no mostrem anuncis ni injectem rastrejadors que abusin de la vostra privadesa. En lloc d'això, depenem del vostre suport per mantenir Streetmix en funcionament.",
+      "text": "Si vos plau, considereu donar-nos suport amb una contribució puntual o periòdica. La vostra donació pagarà pels nostres servidors i infraestructures en el núvol, donant suport a altres organitzacions sense ànim de lucre, grups de defensa i estudiants que treballin per millorar els nostres carrers. S’invertiran ingressos addicionals en el desenvolupament de noves funcions. Les nostres despeses són totalment transparents, de manera que podeu veure exactament com utilitzen les vostres contribucions l’equip de Streetmix.",
+      "button": "Feu una donació a Streetmix",
+      "cancel": "No gràcies"
     },
     "sign-in": {
-      "heading": "",
-      "description": "",
-      "email-label": "",
-      "email-description": "",
-      "email-invalid": "",
-      "social-heading": "",
+      "heading": "Inicieu la sessió / Registreu-vos",
+      "description": "Deseu el vostre primer disseny o inicieu la sessió per accedir als vostres dissenys anteriors.",
+      "email-label": "Email",
+      "email-description": "Us enviarem un enllaç per iniciar la sessió. No cal cap contrasenya.",
+      "email-invalid": "Vatua l'olla! No sembla una adreça electrònica vàlida. Siusplau torna-ho a provar.",
+      "social-heading": "o",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "Continua amb email",
+        "twitter": "Continua amb Twiter",
+        "google": "Continua amb Google",
+        "facebook": "Continua amb Facebook"
       },
-      "tos": "",
-      "tos-link-label": "",
-      "privacy-link-label": "",
-      "loading-message": "",
-      "sent-message-with-email": "",
-      "email-unreceived": "",
-      "resend-email": ""
+      "tos": "En fer clic en un d'aquests botons, estic d'acord amb {tosLink} i {privacyLink}.",
+      "tos-link-label": "Concions de servei",
+      "privacy-link-label": "Política de privacitat",
+      "loading-message": "S'està iniciant la sessió ...",
+      "sent-message-with-email": "Hem enviat un correu electrònic a{email}. Seguiu les instruccions que hi ha per continuar iniciant la sessió.",
+      "email-unreceived": "No ho heu rebut ?",
+      "resend-email": "Re-envia email"
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "Novetats a Streetmix"
     },
     "newsletter": {
       "heading": "Subscriviu-vos al nostre butlletí"
     }
   },
   "tools": {
-    "tooltip": "",
+    "tooltip": "Eines intercanviables",
     "environment": {
-      "heading": ""
+      "heading": "Entorn"
     }
   },
   "prompt": {
-    "new-street": "",
-    "delete-street": "",
-    "new-width": "",
-    "segment-label": ""
+    "new-street": "Nom del nou carrer:",
+    "delete-street": "Esteu segur que voleu suprimir definitivament {streetName}? Això no es pot desfer.",
+    "new-width": "Amplada de nou carrer (de {minWidth}a {maxWidth}):",
+    "segment-label": "Etiqueta de nou tram:"
   },
   "toast": {
-    "segment-deleted": "",
-    "all-segments-deleted": "",
-    "no-undo": "",
-    "no-redo": "",
-    "no-save": "",
-    "remixing": "",
-    "remixing-sign-in": "",
-    "reloaded": ""
+    "segment-deleted": "El tram ha estat eliminat.",
+    "all-segments-deleted": "Tots el trams hans estat eliminats.",
+    "no-undo": "Res a desfer.",
+    "no-redo": "Res a des-desfer.",
+    "no-save": "No cal desar a mà; Streetmix desa automàticament el vostre carrer.",
+    "remixing": "Ara s’edita un duplicat acabat de fer del carrer original. El duplicat s'ha col·locat a la vostra galeria.",
+    "remixing-sign-in": "Ara s’edita un duplicat acabat de fer del carrer original. Inicieu la sessió per iniciar la vostra pròpia galeria de carrers.",
+    "reloaded": "El vostre carrer s'ha tornat a carregar des del servidor, tal com es va modificar anteriorment."
   },
   "palette": {
-    "remove": ""
+    "remove": "Arrossega aquí per eliminar-lo"
   },
   "width": {
-    "label": "",
-    "under": "",
-    "over": "",
-    "occupied": "",
-    "building": "",
-    "different": "",
-    "metric": "",
-    "imperial": ""
+    "label": "{width}amplada",
+    "under": "({width}habitacle o espai)",
+    "over": "( {width}per sobre)",
+    "occupied": "Amplada ocupada:",
+    "building": "Amplada entre façanes:",
+    "different": "Amplada diferent...",
+    "metric": "Canvia a unitats mètriques",
+    "imperial": "Canvia a unitats imperials (peus)"
   },
   "capacity": {
-    "ppl-per-hour": ""
+    "ppl-per-hour": "{capacity}persones / hora"
   },
   "datetime": {
-    "minutes-ago": "",
-    "seconds-ago": "",
-    "yesterday": "",
-    "today": ""
+    "minutes-ago": "Fa pocs minuts",
+    "seconds-ago": "Fa pocs segons",
+    "yesterday": "Ahir a les {time}",
+    "today": "Avui a les {time}"
   },
   "key": {
-    "backspace": "",
-    "shift": "",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "backspace": "Tecla enrera o backspace",
+    "shift": "Tecla Majúscules o Shift",
+    "plus": "Tecla +",
+    "minus": "Tecla -",
+    "left-arrow": "Fletxa esquerra",
+    "right-arrow": "Fletxa dreta"
   },
   "tooltip": {
-    "remove-segment": "",
-    "delete-street": "",
-    "segment-width": "",
-    "building-height": "",
-    "street-width": "",
-    "increase-width": "",
-    "decrease-width": "",
-    "add-floor": "",
-    "remove-floor": "",
-    "scroll-street-left": "",
-    "scroll-street-right": "",
-    "scroll-left": "",
-    "scroll-right": ""
+    "remove-segment": "Treu tram",
+    "delete-street": "Elimina tram",
+    "segment-width": "Canvia l'amplada del tram",
+    "building-height": "Canvia el nombre de plantes",
+    "street-width": "Canvia l'amplada del carrer",
+    "increase-width": "Augmenta l’amplada (manteniu premuda la tecla Maj per obtenir més precisió)",
+    "decrease-width": "Disminueix l’amplada (manteniu premuda la tecla Maj per obtenir més precisió)",
+    "add-floor": "Afegeix planta",
+    "remove-floor": "Treu planta",
+    "scroll-street-left": "Desplaceu-vos pel carrer cap a l'esquerra",
+    "scroll-street-right": "Desplaceu-vos pel carrer cap a la dreta",
+    "scroll-left": "Desplaceu-vos cap a l'esquerra",
+    "scroll-right": "Desplaceu-vos cap a la dreta"
   },
   "street": {
-    "default-name": "",
-    "rename": ""
+    "default-name": "Carrer sense nom",
+    "rename": "Clica per renombrar"
   },
   "building": {
-    "floors-count": "{count, plural, one {} other {}}"
+    "floors-count": "{count, plural, one {# nivell} other {# nivells}}"
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "",
-      "not-wide": "",
-      "too-wide": ""
+      "does-not-fit": "Aquest segment o tram no s’adapta al carrer.",
+      "not-wide": "És possible que aquest tram o segment no sigui prou ampli.",
+      "too-wide": "És possible que aquest tram o segment sigui massa ampli."
     },
-    "learn-more": "",
+    "learn-more": "Apreneu-ne més",
     "unknown": {
-      "label": ""
+      "label": "Desconegut"
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "Foto:"
     },
     "resize": {
-      "min": "",
-      "max": ""
+      "min": "Mín",
+      "max": "Màx"
     }
   },
   "section": {
-    "empty": ""
+    "empty": "Espai buit"
   },
   "gallery": {
-    "fail": "",
-    "all": "",
-    "twitter-link": "",
-    "delete-street-tooltip": "",
-    "street-count": "{count, plural, one {} other {}}",
-    "no-streets": "",
-    "thumbnail-error": ""
+    "fail": "No s'ha pogut carregar la galeria.",
+    "all": "Tots els carrers",
+    "twitter-link": "Perfil de Twitter",
+    "delete-street-tooltip": "Elimina tram",
+    "street-count": "{count, plural, one {# carrer} other {# carrers}}",
+    "no-streets": "Encara sense carrers",
+    "thumbnail-error": "Imatge en miniatura no disponible."
   },
   "users": {
-    "anonymous": "",
-    "byline": ""
+    "anonymous": "Anònim",
+    "byline": "per {user}"
   },
   "export": {
-    "watermark": ""
+    "watermark": "Fet amb {streetmixWordmark}"
   },
   "meta": {
-    "description": "",
-    "page-title": ""
+    "description": "Dissenya, remescla i comparteix el carrer del barri, tot al navegador. Afegiu arbres o carrils bici, eixampleu voreres o carrils de circulació i obteniu informació sobre com les vostres decisions poden afectar la vostra comunitat.",
+    "page-title": "{streetName}(per {author})"
   },
   "credits": {
-    "core-team-heading": "",
-    "past-team-heading": "",
-    "advisors": "",
-    "additional-illustrations": "",
-    "additional-code": "",
-    "additional-contributors": "",
-    "special-thanks": "",
-    "translators": ""
+    "core-team-heading": "Equip del projecte",
+    "past-team-heading": "Membres anteriors de l’equip",
+    "advisors": "Assessors",
+    "additional-illustrations": "Il·lustracions addicionals",
+    "additional-code": "Codi addicional",
+    "additional-contributors": "Col·laboradors addicionals",
+    "special-thanks": "Un agraïment especial a",
+    "translators": "Traductors"
   },
   "plus": {
     "locked": {
-      "sub": "",
-      "user": ""
+      "sub": "Subscriu-te per utilitzar !",
+      "user": "Inicieu la sessió per utilitzar-la!"
     }
   },
   "sentiment": {
     "prompt": {
-      "intro": "",
-      "joyful": "",
-      "choose-one": ""
+      "intro": "<strong>Perdoni la interrupció. </strong> Ens encantaria la vostra opinió sobre aquest carrer.",
+      "joyful": "Diríeu que aquest carrer se sent <em>alegre</em>?",
+      "choose-one": "(escolliu un una)"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "Rotundament no",
+      "rating-2": "No gaire",
+      "rating-3": "És així",
+      "rating-4": "Una mica",
+      "rating-5": "Bastant"
     },
-    "sign-in-prompt": "",
-    "about-link": "",
-    "about-text": "",
-    "thank-you": "",
-    "about-header": "",
+    "sign-in-prompt": "Inicieu la sessió ara per fer sentir la vostra veu.",
+    "about-link": "Per què ho estic veient ?",
+    "about-text": "Aquesta enquesta ens ajuda a entendre com se sent la gent sobre els carrers.",
+    "thank-you": "Gràcies!",
+    "about-header": "Volem entendre com se sent la gent sobre els carrers",
     "about-article": {
-      "paragraph-1": "",
-      "paragraph-2": "",
-      "paragraph-3": ""
+      "paragraph-1": "Molts carrers estan dissenyats per enginyers de camins, però creiem que el disseny hauria d’incloure el punt de vista de tothom. En col·laboració amb la <a>Nova Aliança per a la Mobilitat Urbana</a> (NUMO), estem realitzant aquesta enquesta amb una pregunta per fer-ho.",
+      "paragraph-2": "Analitzarem les vostres respostes perquè puguem deduir quines característiques del carrer induiran quins sentiments. En el futur, pensem tornar a incorporar aquestes estadístiques a les recomanacions de disseny per als usuaris de Streetmix.",
+      "paragraph-3": "Només podeu votar una vegada per carrer, però podeu animar els altres a votar compartint els vostres carrers o un carrer a l’atzar amb l’enllaç  <a>https://streetmix.net/survey/</a>."
     },
     "done": {
-      "response": "",
-      "vote-another": "",
-      "really-done": ""
+      "response": "Heu respos {score}.",
+      "vote-another": "Voteu-ne un altre!",
+      "really-done": "Fet !"
     },
     "comment": {
-      "prompt": "",
-      "example": "",
-      "submit": "",
-      "thanks": ""
+      "prompt": "Expliqueu-nos perquè",
+      "example": "(per exemple, \"m'agradaven els arbres\".)",
+      "submit": "Envieu",
+      "thanks": "Ho tinc !"
     }
   },
   "i18n": {
     "lang": {
-      "ar": "",
-      "ca": "",
-      "de": "",
-      "en": "",
-      "es": "",
-      "es-419": "",
-      "es-mx": "",
-      "fi": "",
-      "fr": "",
-      "it": "",
-      "ja": "",
-      "ko": "",
-      "pl": "",
-      "pt-br": "",
-      "ru": "",
-      "sv": "",
-      "zh": "",
-      "zh-hans": "",
-      "zh-hant": ""
+      "ar": "Àrab",
+      "ca": "Català",
+      "de": "Alemany",
+      "en": "Anglès",
+      "es": "Espanyol",
+      "es-419": "Espanyol(Amèrica llatina)",
+      "es-mx": "Espanyol(Mèxic)",
+      "fi": "Finlandès",
+      "fr": "Francès",
+      "it": "Italià",
+      "ja": "Japonès",
+      "ko": "Koreà",
+      "pl": "Polac",
+      "pt-br": "Portuguès (Brasil)",
+      "ru": "Rus",
+      "sv": "Suec",
+      "zh": "Xinès",
+      "zh-hans": "Xinès simplificat",
+      "zh-hant": "Xinès tradicional"
     }
   }
 }

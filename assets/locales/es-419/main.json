@@ -198,9 +198,12 @@
       "export-csv": "Exportar a CSV",
       "heading": "Estadísticas",
       "street-summary": "Tu calle tiene un tráfico estimado promedio de {averageTotal} personas por hora, y potencial de hasta {potentialTotal} personas por hora.",
+      "typical-lane-width": "",
       "segment-summary": "{average} — {potential} personas/hora",
       "segment-summary-single": "{amount} personas/hora",
-      "source": "Fuente"
+      "source": "Fuente",
+      "capacity-data-source": "",
+      "settings-notice": ""
     },
     "save": {
       "heading": "Guardar como imagen",
