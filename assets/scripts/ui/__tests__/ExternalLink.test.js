@@ -2,7 +2,6 @@
 import React from 'react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import ExternalLink from '../ExternalLink'
-import { ERRORS } from '../../../../lib/util'
 
 const initialStateForOnline = {
   system: {
@@ -65,15 +64,6 @@ describe('ExternalLink', () => {
       { initialState: initialStateForOffline }
     )
     expect(asFragment()).toMatchSnapshot()
-  })
-
-  it('should throw an error if href is not external', () => {
-    expect(() =>
-      renderWithReduxAndIntl(
-        <ExternalLink href="https://streetmix.net">foo</ExternalLink>,
-        { initialState: initialStateForOnline }
-      )
-    ).toThrow(ERRORS.INVALID_EXTERNAL_LINK)
   })
 
   it('renders an <a> element with mailto link', () => {
