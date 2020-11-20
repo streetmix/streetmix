@@ -1,69 +1,60 @@
 /* eslint-env jest */
 import { detectGeolocation, wasGeolocationAttempted } from '../geolocation'
 
-// A typical response from https://freegeoip.net/json/
+// GeoIP service gets country code from Cloudflare headers
 const geolocationResponse = {
-  ip: '50.202.200.121',
-  country_code: 'US',
-  country_name: 'United States',
-  region_code: 'MA',
-  region_name: 'Massachusetts',
-  city: 'Malden',
-  zip_code: '02148',
-  time_zone: 'America/New_York',
-  latitude: 42.4251,
-  longitude: -71.0662,
-  metro_code: 506
+  country_code: 'US'
 }
 
 // Mocks a successful response to geolocation.
-const successResponse = jest.fn(url =>
-  Promise.resolve(new window.Response(JSON.stringify(geolocationResponse), {
-    status: 200,
-    headers: {
-      'Content-type': 'application/json'
-    }
-  }))
+const successResponse = jest.fn((url) =>
+  Promise.resolve(
+    new window.Response(JSON.stringify(geolocationResponse), {
+      status: 200,
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+  )
 )
 
 // Mocks a failed response to geolocation.
-const failResponse = jest.fn(url =>
-  Promise.resolve(new window.Response(undefined, {
-    status: 404
-  }))
+const failResponse = jest.fn((url) =>
+  Promise.resolve(
+    new window.Response(undefined, {
+      status: 404
+    })
+  )
 )
 
 describe('geolocation', () => {
-  it('on request success, response contains lat/lng properties', (done) => {
+  it('on request success, response contains country code', (done) => {
     window.fetch = successResponse
 
-    return detectGeolocation()
-      .then(response => {
-        expect(response.latitude).toEqual(geolocationResponse.latitude)
-        expect(response.longitude).toEqual(geolocationResponse.longitude)
-        done()
-      })
+    return detectGeolocation().then((response) => {
+      expect(response.country_code).toEqual(geolocationResponse.country_code)
+      console.log(response.country_code)
+      done()
+    })
   })
 
   it('on request success, records geolocation service contact was attempted', (done) => {
     window.fetch = successResponse
 
-    return detectGeolocation()
-      .then(response => {
-        const state = wasGeolocationAttempted()
-        expect(state).toEqual(true)
-        done()
-      })
+    return detectGeolocation().then((response) => {
+      const state = wasGeolocationAttempted()
+      expect(state).toEqual(true)
+      done()
+    })
   })
 
   it('on request failure, records geolocation service contact was attempted', (done) => {
     window.fetch = failResponse
 
-    return detectGeolocation()
-      .then(() => {
-        const state = wasGeolocationAttempted()
-        expect(state).toEqual(true)
-        done()
-      })
+    return detectGeolocation().then(() => {
+      const state = wasGeolocationAttempted()
+      expect(state).toEqual(true)
+      done()
+    })
   })
 })

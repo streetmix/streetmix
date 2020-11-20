@@ -15,7 +15,6 @@ const config = require('config')
 const path = require('path')
 const controllers = require('./app/controllers')
 const requestHandlers = require('./lib/request_handlers')
-const initRedisClient = require('./lib/redis')
 const initCloudinary = require('./lib/cloudinary')
 const compileSVGSprites = require('./lib/svg-sprite')
 const exec = require('child_process').exec
@@ -27,7 +26,6 @@ const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
 const jwtCheck = require('./app/authentication')
 
-const client = initRedisClient()
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
 compileSVGSprites('assets/images/illustrations', 'illustrations', 'image')
@@ -47,14 +45,7 @@ process.on('uncaughtException', function (error) {
   logger.error(chalk`[process] {bold Uncaught exception:} ${error}`)
 
   console.trace()
-
-  if (client.connected) {
-    client.on('end', function () {
-      process.exit(1)
-    })
-  } else {
-    process.exit(1)
-  }
+  process.exit(1)
 })
 
 // Provide a message after a Ctrl-C
@@ -64,12 +55,7 @@ process.on('SIGINT', function () {
     logger.info(chalk`[express] {yellow.bold Stopping Streetmix!}`)
     exec('npm stop')
   }
-
-  if (client.connected) {
-    client.on('end', process.exit)
-  } else {
-    process.exit()
-  }
+  process.exit()
 })
 
 app.locals.config = config
@@ -187,12 +173,6 @@ app.use((req, res, next) => {
   res.locals.FACEBOOK_APP_ID = config.facebook_app_id
   res.locals.STRIPE_PUBLIC_KEY = config.STRIPE_PUBLIC_KEY
 
-  next()
-})
-
-// Set Redis client for when requesting the geoip
-app.use('/services/geoip', (req, res, next) => {
-  req.redisClient = client
   next()
 })
 

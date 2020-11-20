@@ -87,7 +87,7 @@ function getInitialState (props) {
     label = props.addressInformation.label
     // If there's no prior location data, use the user's location, if available
     // In this case, display the map view, but no marker or popup
-  } else if (props.userLocation) {
+  } else if (props.userLocation && props.userLocation.longitude) {
     mapCenter = {
       lat: props.userLocation.latitude,
       lng: props.userLocation.longitude

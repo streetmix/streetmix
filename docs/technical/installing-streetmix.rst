@@ -307,8 +307,6 @@ Streetmix will run without these keys. Some functionality will be limited, but t
 +===================================+==============================================+===========+
 | ``PELIAS_API_KEY``                | Geocoding (Pelias) API key                   | No        |
 +-----------------------------------+----------------------------------------------+-----------+
-| ``IPSTACK_API_KEY``               | Geolocation (IPStack) API key                | No        |
-+-----------------------------------+----------------------------------------------+-----------+
 | ``TRANSIFEX_API_TOKEN``           | Translations (Transifex) API token           | No        |
 +-----------------------------------+----------------------------------------------+-----------+
 | ``CLOUDINARY_API_KEY``            | Image cloud storage (Cloudinary) key         | No        |
