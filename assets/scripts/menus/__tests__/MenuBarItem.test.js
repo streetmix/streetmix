@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithIntl } from '../../../../test/helpers/render'
 import MenuBarItem from '../MenuBarItem'
 
@@ -17,7 +18,7 @@ describe('MenuBarItem', () => {
     const handleClick = jest.fn()
     renderWithIntl(<MenuBarItem onClick={handleClick}>label</MenuBarItem>)
 
-    fireEvent.click(screen.getByRole('button'))
+    userEvent.click(screen.getByRole('button'))
 
     expect(handleClick).toBeCalled()
   })
@@ -31,7 +32,7 @@ describe('MenuBarItem', () => {
     )
 
     // Expect an anchor tag element to be present, then click it
-    fireEvent.click(screen.getByRole('link'))
+    userEvent.click(screen.getByRole('link'))
 
     expect(handleClick).toBeCalled()
   })

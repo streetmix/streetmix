@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import Variants from '../Variants'
 import { getSegmentInfo } from '../../segments/info'
@@ -63,7 +64,7 @@ describe('Variants', () => {
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
-      fireEvent.click(screen.getByTitle('Outbound'))
+      userEvent.click(screen.getByTitle('Outbound'))
       expect(store.getState().street.segments[0].variant.direction).toBe(
         'outbound'
       )
@@ -79,7 +80,7 @@ describe('Variants', () => {
         <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
         { initialState }
       )
-      fireEvent.click(screen.getByTitle('Waterfront'))
+      userEvent.click(screen.getByTitle('Waterfront'))
       expect(store.getState().street.leftBuildingVariant).toBe('waterfront')
     })
 
@@ -88,7 +89,7 @@ describe('Variants', () => {
         <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
         { initialState }
       )
-      fireEvent.click(screen.getByTitle('Waterfront'))
+      userEvent.click(screen.getByTitle('Waterfront'))
       expect(store.getState().street.rightBuildingVariant).toBe('waterfront')
     })
   })

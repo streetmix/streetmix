@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetName from '../StreetName'
 
@@ -29,7 +30,7 @@ describe('StreetName', () => {
   it('responds to an onClick handler', () => {
     const handleClick = jest.fn()
     renderWithIntl(<StreetName onClick={handleClick} />)
-    fireEvent.click(screen.getByText('Unnamed St'))
+    userEvent.click(screen.getByText('Unnamed St'))
     expect(handleClick).toBeCalledTimes(1)
   })
 

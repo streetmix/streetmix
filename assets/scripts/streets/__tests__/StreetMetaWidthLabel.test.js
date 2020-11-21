@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthLabel from '../StreetMetaWidthLabel'
 
@@ -78,7 +79,7 @@ describe('StreetMetaWidthLabel', () => {
       />
     )
 
-    fireEvent.click(screen.getByTitle('Change width of the street'))
+    userEvent.click(screen.getByTitle('Change width of the street'))
     expect(handleClick).toBeCalled()
   })
 })

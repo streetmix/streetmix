@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import HelpMenu from '../HelpMenu'
 import { showDialog } from '../../store/slices/dialogs'
@@ -26,7 +27,7 @@ describe('HelpMenu', () => {
   it('shows the About dialog when its link is clicked', () => {
     renderWithReduxAndIntl(<HelpMenu />)
 
-    fireEvent.click(screen.getByText('About Streetmix…'))
+    userEvent.click(screen.getByText('About Streetmix…'))
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('ABOUT')
@@ -35,7 +36,7 @@ describe('HelpMenu', () => {
   it('shows the What’s New dialog when its link is clicked', () => {
     renderWithReduxAndIntl(<HelpMenu />)
 
-    fireEvent.click(
+    userEvent.click(
       screen.getByText('What’s new in Streetmix?', { exact: false })
     )
 

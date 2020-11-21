@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import StreetNameplateContainer from '../StreetNameplateContainer'
 
@@ -52,7 +53,7 @@ describe('StreetNameplateContainer', () => {
     renderWithReduxAndIntl(<StreetNameplateContainer />, {
       initialState
     })
-    fireEvent.click(screen.getByText('foo'))
+    userEvent.click(screen.getByText('foo'))
     expect(screen.getByText('bar')).toBeInTheDocument()
 
     // Restore mock
@@ -68,7 +69,7 @@ describe('StreetNameplateContainer', () => {
     renderWithReduxAndIntl(<StreetNameplateContainer />, {
       initialState
     })
-    fireEvent.click(screen.getByText('foo'))
+    userEvent.click(screen.getByText('foo'))
     expect(screen.getByText('foo')).toBeInTheDocument()
 
     // Restore mock

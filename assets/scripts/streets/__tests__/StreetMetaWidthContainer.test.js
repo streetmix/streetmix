@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthContainer from '../StreetMetaWidthContainer'
 
@@ -12,7 +13,7 @@ describe('StreetMetaWidthContainer', () => {
 
   it('renders selection dropdown on click', () => {
     const { asFragment } = renderWithReduxAndIntl(<StreetMetaWidthContainer />)
-    fireEvent.click(screen.getByTitle('Change width of the street'))
+    userEvent.click(screen.getByTitle('Change width of the street'))
     expect(asFragment()).toMatchSnapshot()
   })
 
@@ -29,7 +30,7 @@ describe('StreetMetaWidthContainer', () => {
         updateStreetWidth={updateStreetWidth}
       />
     )
-    fireEvent.click(screen.getByTitle('Change width of the street'))
+    userEvent.click(screen.getByTitle('Change width of the street'))
     fireEvent.change(screen.getByRole('listbox'), {
       target: { value: changeValue }
     })
@@ -52,7 +53,7 @@ describe('StreetMetaWidthContainer', () => {
         updateStreetWidth={jest.fn()}
       />
     )
-    fireEvent.click(screen.getByText('width', { exact: false }))
+    userEvent.click(screen.getByText('width', { exact: false }))
 
     expect(screen.getByRole('listbox')).toBe(null)
     expect(screen.getByText('width', { exact: false })).not.toBe(null)

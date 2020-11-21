@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../../test/helpers/render'
 import GeoSearch from '../GeoSearch'
 import autocompleteResponse from './fixtures/autocomplete.json'
@@ -76,7 +77,7 @@ describe('GeoSearch', () => {
     fireEvent.change(input, { target: { value: 'foo' } })
 
     // Simulates click on "clear search"
-    fireEvent.click(getByTitle('Clear search'))
+    userEvent.click(getByTitle('Clear search'))
 
     // The close button should be undefined now
     expect(queryByTitle('Clear search')).not.toBeInTheDocument()
