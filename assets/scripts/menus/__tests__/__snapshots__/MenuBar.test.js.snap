@@ -248,3 +248,91 @@ exports[`MenuBar renders minimal menu in offline mode 1`] = `
   </nav>
 </DocumentFragment>
 `;
+
+exports[`MenuBar renders upgrade funnel and handles click 1`] = `
+<DocumentFragment>
+  <nav
+    class="menu-bar"
+  >
+    <ul
+      class="menu-bar-left"
+    >
+      <li
+        class="menu-bar-title"
+      >
+        <img
+          alt="Streemix"
+          class="menu-bar-logo"
+          src="test-file-stub"
+        />
+        <h1>
+          Streetmix
+        </h1>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Help
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Contact
+        </button>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Upgrade
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://cottonbureau.com/people/streetmix"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Store
+        </a>
+      </li>
+    </ul>
+    <ul
+      class="menu-bar-right"
+    >
+      <li>
+        <a
+          href="/new"
+          target="_blank"
+        >
+          New street
+        </a>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Settings
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-attached"
+        >
+          Share
+        </button>
+      </li>
+      <li>
+        <button
+          class="menu-sign-in button-secondary"
+        >
+          Sign in
+        </button>
+      </li>
+    </ul>
+  </nav>
+</DocumentFragment>
+`;

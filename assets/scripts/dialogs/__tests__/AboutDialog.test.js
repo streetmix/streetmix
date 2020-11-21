@@ -9,7 +9,7 @@ jest.mock('../About/credits.json', () =>
 
 describe('AboutDialog', () => {
   it('renders snapshot', () => {
-    const wrapper = renderWithReduxAndIntl(<AboutDialog />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<AboutDialog />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

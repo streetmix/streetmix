@@ -9,8 +9,8 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, true]
     }
-    const wrapper = renderWithIntl(<Warnings segment={segment} />)
-    expect(wrapper.container).toHaveTextContent(
+    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    expect(container).toHaveTextContent(
       'This segment doesn’t fit within the street.'
     )
   })
@@ -19,8 +19,8 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, false, true, false]
     }
-    const wrapper = renderWithIntl(<Warnings segment={segment} />)
-    expect(wrapper.container).toHaveTextContent(
+    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    expect(container).toHaveTextContent(
       'This segment might not be wide enough.'
     )
   })
@@ -29,25 +29,21 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, false, false, true]
     }
-    const wrapper = renderWithIntl(<Warnings segment={segment} />)
-    expect(wrapper.container).toHaveTextContent(
-      'This segment might be too wide.'
-    )
+    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    expect(container).toHaveTextContent('This segment might be too wide.')
   })
 
   it('renders two warnings', () => {
     const segment = {
       warnings: [null, true, false, true]
     }
-    const wrapper = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = renderWithIntl(<Warnings segment={segment} />)
 
-    expect(wrapper.container).toHaveTextContent(
+    expect(container).toHaveTextContent(
       'This segment doesn’t fit within the street.'
     )
-    expect(wrapper.container).toHaveTextContent(
-      'This segment might be too wide.'
-    )
-    expect(wrapper.container).not.toHaveTextContent(
+    expect(container).toHaveTextContent('This segment might be too wide.')
+    expect(container).not.toHaveTextContent(
       'This segment might not be wide enough.'
     )
   })
@@ -56,15 +52,13 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, true, true, true]
     }
-    const wrapper = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = renderWithIntl(<Warnings segment={segment} />)
 
-    expect(wrapper.container).toHaveTextContent(
+    expect(container).toHaveTextContent(
       'This segment doesn’t fit within the street.'
     )
-    expect(wrapper.container).toHaveTextContent(
-      'This segment might be too wide.'
-    )
-    expect(wrapper.container).toHaveTextContent(
+    expect(container).toHaveTextContent('This segment might be too wide.')
+    expect(container).toHaveTextContent(
       'This segment might not be wide enough.'
     )
   })
@@ -73,30 +67,26 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, false, false, false]
     }
-    const wrapper = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = renderWithIntl(<Warnings segment={segment} />)
 
-    expect(wrapper.container).not.toHaveTextContent(
+    expect(container).not.toHaveTextContent(
       'This segment doesn’t fit within the street.'
     )
-    expect(wrapper.container).not.toHaveTextContent(
-      'This segment might be too wide.'
-    )
-    expect(wrapper.container).not.toHaveTextContent(
+    expect(container).not.toHaveTextContent('This segment might be too wide.')
+    expect(container).not.toHaveTextContent(
       'This segment might not be wide enough.'
     )
   })
 
   it('renders nothing if segment has no warnings', () => {
     const segment = {}
-    const wrapper = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = renderWithIntl(<Warnings segment={segment} />)
 
-    expect(wrapper.container).not.toHaveTextContent(
+    expect(container).not.toHaveTextContent(
       'This segment doesn’t fit within the street.'
     )
-    expect(wrapper.container).not.toHaveTextContent(
-      'This segment might be too wide.'
-    )
-    expect(wrapper.container).not.toHaveTextContent(
+    expect(container).not.toHaveTextContent('This segment might be too wide.')
+    expect(container).not.toHaveTextContent(
       'This segment might not be wide enough.'
     )
   })

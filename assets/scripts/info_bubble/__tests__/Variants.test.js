@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import Variants from '../Variants'
 import { getSegmentInfo } from '../../segments/info'
@@ -37,8 +37,8 @@ describe('Variants', () => {
   }
 
   it('does not render if props are missing', () => {
-    const wrapper = renderWithReduxAndIntl(<Variants />)
-    expect(wrapper.asFragment().firstChild).toBe(null)
+    const { container } = renderWithReduxAndIntl(<Variants />)
+    expect(container.firstChild).toBe(null)
   })
 
   describe('segment variants', () => {
@@ -50,51 +50,46 @@ describe('Variants', () => {
     })
 
     it('renders segment buttons', () => {
-      const wrapper = renderWithReduxAndIntl(
+      const { asFragment } = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
-      expect(wrapper.asFragment()).toMatchSnapshot()
+
+      expect(asFragment()).toMatchSnapshot()
     })
 
     it('handles switching segment variant', () => {
-      const wrapper = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
-      fireEvent.click(wrapper.getByTitle('Outbound'))
+      fireEvent.click(screen.getByTitle('Outbound'))
+      expect(store.getState().street.segments[0].variant.direction).toBe(
+        'outbound'
+      )
       expect(
-        wrapper.store.getState().street.segments[0].variant.direction
-      ).toBe('outbound')
-      expect(
-        wrapper.store.getState().street.segments[0].variant[
-          'public-transit-asphalt'
-        ]
+        store.getState().street.segments[0].variant['public-transit-asphalt']
       ).toBe('regular')
     })
   })
 
   describe('building variants', () => {
     it('handles switching left building', () => {
-      const wrapper = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
         { initialState }
       )
-      fireEvent.click(wrapper.getByTitle('Waterfront'))
-      expect(wrapper.store.getState().street.leftBuildingVariant).toBe(
-        'waterfront'
-      )
+      fireEvent.click(screen.getByTitle('Waterfront'))
+      expect(store.getState().street.leftBuildingVariant).toBe('waterfront')
     })
 
     it('handles switching right building', () => {
-      const wrapper = renderWithReduxAndIntl(
+      const { store } = renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
         { initialState }
       )
-      fireEvent.click(wrapper.getByTitle('Waterfront'))
-      expect(wrapper.store.getState().street.rightBuildingVariant).toBe(
-        'waterfront'
-      )
+      fireEvent.click(screen.getByTitle('Waterfront'))
+      expect(store.getState().street.rightBuildingVariant).toBe('waterfront')
     })
   })
 
@@ -107,7 +102,7 @@ describe('Variants', () => {
     })
 
     it('renders a button if flag is true', () => {
-      const wrapper = renderWithReduxAndIntl(
+      renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         {
           initialState: {
@@ -121,11 +116,11 @@ describe('Variants', () => {
         }
       )
 
-      expect(wrapper.getByTitle('Flagged variant')).toBeInTheDocument()
+      expect(screen.getByTitle('Flagged variant')).toBeInTheDocument()
     })
 
     it('does not render a button if flag is false', () => {
-      const wrapper = renderWithReduxAndIntl(
+      renderWithReduxAndIntl(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         {
           initialState: {
@@ -139,7 +134,7 @@ describe('Variants', () => {
         }
       )
 
-      expect(wrapper.queryByTitle('Flagged variant')).not.toBeInTheDocument()
+      expect(screen.queryByTitle('Flagged variant')).not.toBeInTheDocument()
     })
   })
 })

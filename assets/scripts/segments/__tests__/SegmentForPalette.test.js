@@ -11,10 +11,10 @@ describe('SegmentForPalette', () => {
     const dimensions = { left: 100, right: 200 }
     getVariantInfoDimensions.mockImplementation(() => dimensions)
 
-    const wrapper = renderWithReduxAndIntl(
+    const { asFragment } = renderWithReduxAndIntl(
       <SegmentForPalette type="" variantString="" randSeed={42} />
     )
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

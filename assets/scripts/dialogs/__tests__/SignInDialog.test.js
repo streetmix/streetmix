@@ -5,7 +5,7 @@ import SignInDialog from '../SignInDialog'
 
 describe('SignInDialog', () => {
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<SignInDialog />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<SignInDialog />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

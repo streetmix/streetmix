@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StreetName renders a name 1`] = `
+<DocumentFragment>
+  <div
+    class="street-name"
+  >
+    <div
+      class="street-name-text"
+    >
+      foo
+    </div>
+  </div>
+</DocumentFragment>
+`;

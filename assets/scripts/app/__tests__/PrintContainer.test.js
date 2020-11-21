@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
+import { screen } from '@testing-library/react'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import PrintContainer from '../PrintContainer'
 
@@ -17,16 +18,17 @@ jest.mock('../../streets/image', () => ({
 
 describe('PrintContainer', () => {
   it('renders', () => {
-    const { container } = renderWithRedux(<PrintContainer />, {
+    const { asFragment } = renderWithRedux(<PrintContainer />, {
       initialState: { app: { printing: false } }
     })
-    expect(container.querySelector('.print-container')).toBeInTheDocument()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders image for printing', () => {
-    const wrapper = renderWithRedux(<PrintContainer />, {
+    renderWithRedux(<PrintContainer />, {
       initialState: { app: { printing: true } }
     })
-    expect(wrapper.getByRole('img')).toBeInTheDocument()
+
+    expect(screen.getByRole('img')).toBeInTheDocument()
   })
 })

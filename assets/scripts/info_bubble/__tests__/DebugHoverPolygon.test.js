@@ -5,7 +5,7 @@ import DebugHoverPolygon from '../DebugHoverPolygon'
 
 describe('DebugHoverPolygon', () => {
   it('renders if enabled', () => {
-    const wrapper = renderWithRedux(<DebugHoverPolygon />, {
+    const { asFragment } = renderWithRedux(<DebugHoverPolygon />, {
       initialState: {
         flags: {
           INFO_BUBBLE_HOVER_POLYGON: {
@@ -18,11 +18,11 @@ describe('DebugHoverPolygon', () => {
       }
     })
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders nothing if disabled', () => {
-    const wrapper = renderWithRedux(<DebugHoverPolygon />, {
+    const { container } = renderWithRedux(<DebugHoverPolygon />, {
       initialState: {
         flags: {
           INFO_BUBBLE_HOVER_POLYGON: {
@@ -32,6 +32,6 @@ describe('DebugHoverPolygon', () => {
       }
     })
 
-    expect(wrapper.container.firstChild).toBeNull()
+    expect(container.firstChild).toBe(null)
   })
 })

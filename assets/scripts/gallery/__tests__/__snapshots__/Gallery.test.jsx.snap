@@ -85,6 +85,7 @@ exports[`Gallery renders global gallery view 1`] = `
     </div>
     <div
       class="gallery-shield"
+      data-testid="gallery-shield"
     />
   </div>
 </DocumentFragment>
@@ -111,6 +112,7 @@ exports[`Gallery renders loading 1`] = `
     </div>
     <div
       class="gallery-shield"
+      data-testid="gallery-shield"
     />
   </div>
 </DocumentFragment>
@@ -212,6 +214,7 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
     </div>
     <div
       class="gallery-shield"
+      data-testid="gallery-shield"
     />
   </div>
 </DocumentFragment>
@@ -341,6 +344,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
     </div>
     <div
       class="gallery-shield"
+      data-testid="gallery-shield"
     />
   </div>
 </DocumentFragment>

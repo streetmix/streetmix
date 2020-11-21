@@ -3,6 +3,7 @@ import React from 'react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import GeotagDialog from '../GeotagDialog'
 import { isOwnedByCurrentUser } from '../../streets/owner'
+import { screen } from '@testing-library/react'
 
 // Mock dependencies that could break tests
 jest.mock('../../streets/owner', () => ({
@@ -47,27 +48,27 @@ const initialState = {
 
 describe('GeotagDialog', () => {
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(
+    const { asFragment } = renderWithReduxAndIntl(
       <GeotagDialog renderPopup={true} />,
       { initialState }
     )
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('allows a location to be cleared when the street is owned by the current user', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(true)
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, {
+    renderWithReduxAndIntl(<GeotagDialog />, {
       initialState
     })
 
     expect(
-      wrapper.queryByRole('button', { name: 'Clear location' })
+      screen.queryByRole('button', { name: 'Clear location' })
     ).toBeInTheDocument()
   })
 
   it('allows a location to be added when the current user started this street', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(true)
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, {
+    renderWithReduxAndIntl(<GeotagDialog />, {
       initialState: {
         ...initialState,
         street: {
@@ -77,23 +78,25 @@ describe('GeotagDialog', () => {
       }
     })
     expect(
-      wrapper.queryByRole('button', { name: 'Confirm location' })
+      screen.queryByRole('button', { name: 'Confirm location' })
     ).toBeInTheDocument()
   })
 
   /* neither confirm or clear location buttons should show up in this case */
   it('does not allow a location to be edited when the current user is not the street owner', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(false)
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, { initialState })
+    renderWithReduxAndIntl(<GeotagDialog />, {
+      initialState
+    })
     // in this case we want to make sure neither button shows up, so we use regex to check the button name
     expect(
-      wrapper.queryByRole('button', { name: /Confirm location|Clear location/ })
+      screen.queryByRole('button', { name: /Confirm location|Clear location/ })
     ).not.toBeInTheDocument()
   })
 
   it('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(false)
-    const wrapper = renderWithReduxAndIntl(<GeotagDialog />, {
+    renderWithReduxAndIntl(<GeotagDialog />, {
       initialState: {
         ...initialState,
         street: {
@@ -104,7 +107,7 @@ describe('GeotagDialog', () => {
     })
 
     expect(
-      wrapper.queryByRole('button', { name: 'Confirm location' })
+      screen.queryByRole('button', { name: 'Confirm location' })
     ).toBeInTheDocument()
   })
   it.todo('does not show error banner if geocoding services are available')

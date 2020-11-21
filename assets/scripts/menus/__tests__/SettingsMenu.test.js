@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import SettingsMenu from '../SettingsMenu'
 import {
@@ -44,15 +44,17 @@ describe('SettingsMenu', () => {
   // Possible culprit is that something fails while it's actually
   // retrieving or setting locales.
   xit('handles locale selection', async () => {
-    const wrapper = renderWithReduxAndIntl(<SettingsMenu />, { initialState })
+    renderWithReduxAndIntl(<SettingsMenu />, {
+      initialState
+    })
 
     // Clicking this first should not trigger any selection handler
-    const selected = wrapper.getByText('English')
+    const selected = screen.getByText('English')
     fireEvent.click(selected)
     expect(selected.parentNode.getAttribute('aria-selected')).toBe('true')
 
     // Change the locale
-    const selected2 = wrapper.getByText('Finnish')
+    const selected2 = screen.getByText('Finnish')
     fireEvent.click(selected2)
 
     await waitFor(() => {
@@ -65,7 +67,7 @@ describe('SettingsMenu', () => {
   })
 
   it('handles metric units selection', () => {
-    const wrapper = renderWithReduxAndIntl(<SettingsMenu />, {
+    renderWithReduxAndIntl(<SettingsMenu />, {
       initialState: {
         ...initialState,
         // Set street units to imperial so that change is detected.
@@ -76,10 +78,10 @@ describe('SettingsMenu', () => {
     })
 
     // Clicking this first should not trigger any selection handler
-    fireEvent.click(wrapper.getByText('Imperial units', { exact: false }))
+    fireEvent.click(screen.getByText('Imperial units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(0)
 
-    fireEvent.click(wrapper.getByText('Metric units', { exact: false }))
+    fireEvent.click(screen.getByText('Metric units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(1)
     expect(updateUnits).toBeCalledWith(SETTINGS_UNITS_METRIC)
 
@@ -87,13 +89,15 @@ describe('SettingsMenu', () => {
   })
 
   it('handles imperial units selection', () => {
-    const wrapper = renderWithReduxAndIntl(<SettingsMenu />, { initialState })
+    renderWithReduxAndIntl(<SettingsMenu />, {
+      initialState
+    })
 
     // Clicking this first should not trigger any selection handler
-    fireEvent.click(wrapper.getByText('Metric units', { exact: false }))
+    fireEvent.click(screen.getByText('Metric units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(0)
 
-    fireEvent.click(wrapper.getByText('Imperial units', { exact: false }))
+    fireEvent.click(screen.getByText('Imperial units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(1)
     expect(updateUnits).toBeCalledWith(SETTINGS_UNITS_IMPERIAL)
 

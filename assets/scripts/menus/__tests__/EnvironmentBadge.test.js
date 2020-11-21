@@ -5,13 +5,13 @@ import EnvironmentBadge from '../EnvironmentBadge'
 
 describe('EnvironmentBadge', () => {
   it('renders nothing in standard conditions', () => {
-    const wrapper = render(<EnvironmentBadge />)
-    expect(wrapper.container.firstChild).toEqual(null)
+    const { container } = render(<EnvironmentBadge />)
+    expect(container.firstChild).toBe(null)
   })
 
   it('renders a specific label if given', () => {
-    const wrapper = render(<EnvironmentBadge label="foo" />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = render(<EnvironmentBadge label="foo" />)
+    expect(asFragment()).toMatchSnapshot()
   })
 
   // It's impossible (or very, very hard) in Jest to mock `ENV` (imported
@@ -21,17 +21,17 @@ describe('EnvironmentBadge', () => {
   // ensure that `props.env` and `ENV` are always intended to do the same
   // thing in the implementation.
   it('renders correctly in development environment', () => {
-    const wrapper = render(<EnvironmentBadge env="development" />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = render(<EnvironmentBadge env="development" />)
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders correctly in staging environment', () => {
-    const wrapper = render(<EnvironmentBadge env="staging" />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = render(<EnvironmentBadge env="staging" />)
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders correctly in sandbox environment', () => {
-    const wrapper = render(<EnvironmentBadge env="sandbox" />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = render(<EnvironmentBadge env="sandbox" />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

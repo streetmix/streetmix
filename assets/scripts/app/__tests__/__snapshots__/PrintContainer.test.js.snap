@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrintContainer renders 1`] = `
+<DocumentFragment>
+  <div
+    class="print-container"
+  />
+</DocumentFragment>
+`;

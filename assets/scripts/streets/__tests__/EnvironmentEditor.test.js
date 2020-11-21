@@ -14,10 +14,10 @@ describe('EnvironmentEditor', () => {
   }
 
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<EnvironmentEditor />, {
+    const { asFragment } = renderWithReduxAndIntl(<EnvironmentEditor />, {
       initialState
     })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it.todo('selects an environment')

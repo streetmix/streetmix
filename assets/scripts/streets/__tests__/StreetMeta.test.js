@@ -9,7 +9,7 @@ jest.mock('../../preinit/app_settings', () => {})
 
 describe('StreetMeta', () => {
   it('renders without crashing', () => {
-    const wrapper = renderWithReduxAndIntl(<StreetMeta />)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<StreetMeta />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

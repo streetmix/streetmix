@@ -35,10 +35,10 @@ const initialState = {
 
 describe('FeatureFlagDialog', () => {
   it('renders', () => {
-    const wrapper = renderWithReduxAndIntl(<FeatureFlagDialog />, {
+    const { asFragment } = renderWithReduxAndIntl(<FeatureFlagDialog />, {
       initialState
     })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it.todo('renders a disabled flag')

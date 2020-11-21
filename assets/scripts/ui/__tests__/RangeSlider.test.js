@@ -5,12 +5,12 @@ import RangeSlider from '../RangeSlider'
 
 describe('RangeSlider', () => {
   it('renders default snapshot', () => {
-    const wrapper = render(<RangeSlider>foo</RangeSlider>)
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = render(<RangeSlider>foo</RangeSlider>)
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders snapshot with all props', () => {
-    const wrapper = render(
+    const { asFragment } = render(
       <RangeSlider
         min={0}
         max={2000}
@@ -26,7 +26,7 @@ describe('RangeSlider', () => {
       </RangeSlider>
     )
 
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('handles value change', () => {

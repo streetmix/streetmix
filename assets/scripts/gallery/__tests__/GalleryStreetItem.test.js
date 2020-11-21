@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import GalleryStreetItem from '../GalleryStreetItem'
@@ -16,22 +16,22 @@ jest.mock('../../app/page_url', () => ({
 describe('GalleryStreetItem', () => {
   it('renders', () => {
     // This uses jsdom + canvas packages under the hood to render canvas element
-    const wrapper = renderWithReduxAndIntl(
+    const { asFragment } = renderWithReduxAndIntl(
       <GalleryStreetItem street={MOCK_STREET} />
     )
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('does not display street owner when we ask it not to', () => {
-    const wrapper = renderWithReduxAndIntl(
+    renderWithReduxAndIntl(
       <GalleryStreetItem street={MOCK_STREET} showStreetOwner={false} />
     )
 
-    expect(wrapper.queryByText(MOCK_STREET.creatorId)).not.toBeInTheDocument()
+    expect(screen.queryByText(MOCK_STREET.creatorId)).not.toBeInTheDocument()
   })
 
   it('displays "Unnamed St" without a street name', () => {
-    const wrapper = renderWithReduxAndIntl(
+    renderWithReduxAndIntl(
       <GalleryStreetItem
         street={{
           ...MOCK_STREET,
@@ -40,11 +40,11 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    expect(wrapper.getByText('Unnamed St')).toBeInTheDocument()
+    expect(screen.getByText('Unnamed St')).toBeInTheDocument()
   })
 
   it('displays "Anonymous" for anonymous streets', () => {
-    const wrapper = renderWithReduxAndIntl(
+    renderWithReduxAndIntl(
       <GalleryStreetItem
         street={{
           ...MOCK_STREET,
@@ -53,16 +53,16 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    expect(wrapper.getByText('Anonymous')).toBeInTheDocument()
+    expect(screen.getByText('Anonymous')).toBeInTheDocument()
   })
 
   it('handles select', () => {
     const doSelect = jest.fn()
-    const wrapper = renderWithReduxAndIntl(
+    renderWithReduxAndIntl(
       <GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />
     )
 
-    fireEvent.click(wrapper.getByText(MOCK_STREET.name))
+    fireEvent.click(screen.getByText(MOCK_STREET.name))
     expect(doSelect).toBeCalled()
   })
 
@@ -70,7 +70,7 @@ describe('GalleryStreetItem', () => {
     const doDelete = jest.fn()
     window.confirm = jest.fn(() => true)
 
-    const wrapper = renderWithReduxAndIntl(
+    renderWithReduxAndIntl(
       <GalleryStreetItem
         street={MOCK_STREET}
         doDelete={doDelete}
@@ -78,7 +78,7 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    fireEvent.click(wrapper.getByTitle('Delete street'))
+    fireEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).toBeCalled()
   })
 
@@ -86,7 +86,7 @@ describe('GalleryStreetItem', () => {
     const doDelete = jest.fn()
     window.confirm = jest.fn(() => false)
 
-    const wrapper = renderWithReduxAndIntl(
+    renderWithReduxAndIntl(
       <GalleryStreetItem
         street={MOCK_STREET}
         doDelete={doDelete}
@@ -94,7 +94,7 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    fireEvent.click(wrapper.getByTitle('Delete street'))
+    fireEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).not.toBeCalled()
   })
 })

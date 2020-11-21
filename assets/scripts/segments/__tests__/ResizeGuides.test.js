@@ -44,8 +44,10 @@ describe('ResizeGuides', () => {
   })
 
   it('renders while segment is resizing', () => {
-    const wrapper = renderWithReduxAndIntl(<ResizeGuides />, { initialState })
-    expect(wrapper.asFragment()).toMatchSnapshot()
+    const { asFragment } = renderWithReduxAndIntl(<ResizeGuides />, {
+      initialState
+    })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders only min guide', () => {
