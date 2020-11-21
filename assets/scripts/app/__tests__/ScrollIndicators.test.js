@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithIntl as render } from '../../../../test/helpers/render'
 import ScrollIndicators from '../ScrollIndicators'
@@ -47,7 +47,7 @@ describe('ScrollIndicators', () => {
     const scrollStreet = jest.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
-    fireEvent.keyDown(window, { key: 'ArrowLeft', code: 37 })
+    userEvent.type('{arrowleft}')
 
     expect(scrollStreet).toBeCalled()
   })

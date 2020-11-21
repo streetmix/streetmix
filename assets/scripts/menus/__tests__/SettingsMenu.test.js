@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import SettingsMenu from '../SettingsMenu'
 import {
@@ -50,12 +51,12 @@ describe('SettingsMenu', () => {
 
     // Clicking this first should not trigger any selection handler
     const selected = screen.getByText('English')
-    fireEvent.click(selected)
+    userEvent.click(selected)
     expect(selected.parentNode.getAttribute('aria-selected')).toBe('true')
 
     // Change the locale
     const selected2 = screen.getByText('Finnish')
-    fireEvent.click(selected2)
+    userEvent.click(selected2)
 
     await waitFor(() => {
       // Changing a locale is asynchronous, so we wait before testing
@@ -78,10 +79,10 @@ describe('SettingsMenu', () => {
     })
 
     // Clicking this first should not trigger any selection handler
-    fireEvent.click(screen.getByText('Imperial units', { exact: false }))
+    userEvent.click(screen.getByText('Imperial units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(0)
 
-    fireEvent.click(screen.getByText('Metric units', { exact: false }))
+    userEvent.click(screen.getByText('Metric units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(1)
     expect(updateUnits).toBeCalledWith(SETTINGS_UNITS_METRIC)
 
@@ -94,10 +95,10 @@ describe('SettingsMenu', () => {
     })
 
     // Clicking this first should not trigger any selection handler
-    fireEvent.click(screen.getByText('Metric units', { exact: false }))
+    userEvent.click(screen.getByText('Metric units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(0)
 
-    fireEvent.click(screen.getByText('Imperial units', { exact: false }))
+    userEvent.click(screen.getByText('Imperial units', { exact: false }))
     expect(updateUnits).toBeCalledTimes(1)
     expect(updateUnits).toBeCalledWith(SETTINGS_UNITS_IMPERIAL)
 

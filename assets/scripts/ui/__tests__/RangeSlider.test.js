@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import RangeSlider from '../RangeSlider'
 
 describe('RangeSlider', () => {
@@ -35,10 +35,8 @@ describe('RangeSlider', () => {
       // we are able to use the `.toHaveBeenCalledWith()` method below.
       event.persist()
     })
-    const { getByLabelText } = render(
-      <RangeSlider onChange={handleChange}>foo</RangeSlider>
-    )
-    const input = getByLabelText('foo')
+    render(<RangeSlider onChange={handleChange}>foo</RangeSlider>)
+    const input = screen.getByLabelText('foo')
 
     // Initial value is expected to be halfway between the default
     // mininum and maximum range, and per HTML spec, the value is
@@ -46,6 +44,8 @@ describe('RangeSlider', () => {
     expect(input.value).toBe('50')
 
     // Change the value
+    //  TODO: user-event library dosen't seem to have a way to do this
+    // or it isn't documented, check back later
     fireEvent.change(input, { target: { value: 5 } })
     expect(input.value).toBe('5')
 
