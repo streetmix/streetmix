@@ -58,7 +58,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
           title="Copy to clipboard"
         >
           <svg
-            class="svg-inline--fa fa-copy"
+            class="octicon"
           />
         </button>
       </div>
@@ -128,7 +128,7 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
           title="Copy to clipboard"
         >
           <svg
-            class="svg-inline--fa fa-copy"
+            class="octicon"
           />
         </button>
       </div>

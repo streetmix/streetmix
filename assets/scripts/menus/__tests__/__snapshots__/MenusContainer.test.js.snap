@@ -527,7 +527,7 @@ exports[`MenusContainer renders 1`] = `
             title="Copy to clipboard"
           >
             <svg
-              class="svg-inline--fa fa-copy"
+              class="octicon"
             />
           </button>
         </div>

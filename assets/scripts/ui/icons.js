@@ -9,7 +9,6 @@ import {
   faChevronLeft,
   faArrowRight,
   faArrowLeft,
-  faTimes,
   faUndo,
   faRedo,
   faTrashAlt,
@@ -19,11 +18,7 @@ import {
   faPencilAlt,
   faLock
 } from '@fortawesome/free-solid-svg-icons'
-import {
-  faCopy,
-  faTimesCircle,
-  faQuestionCircle
-} from '@fortawesome/free-regular-svg-icons'
+import { faCopy, faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
 import {
   faTwitter,
   faFacebookSquare,
@@ -56,8 +51,6 @@ export const ICON_TOOLS = faTools
 export const ICON_TRASH = faTrashAlt
 export const ICON_MINUS = faMinus
 export const ICON_PLUS = faPlus
-export const ICON_TIMES = faTimes
-export const ICON_TIMES_CIRCLE = faTimesCircle
 export const ICON_CHECK = faCheck
 export const ICON_ARROW_RIGHT = faArrowRight
 export const ICON_ARROW_LEFT = faArrowLeft

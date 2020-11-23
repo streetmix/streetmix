@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ICON_TIMES } from '../ui/icons'
+import { XIcon } from '@primer/octicons-react'
 import './CloseButton.scss'
 
 CloseButton.propTypes = {
@@ -25,7 +24,7 @@ function CloseButton (props) {
       title={title || defaultTitle}
       {...restProps}
     >
-      <FontAwesomeIcon icon={ICON_TIMES} />
+      <XIcon size={16} />
     </button>
   )
 }

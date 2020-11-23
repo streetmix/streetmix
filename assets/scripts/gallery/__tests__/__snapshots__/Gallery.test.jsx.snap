@@ -324,7 +324,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
                 title="Delete street"
               >
                 <svg
-                  class="svg-inline--fa fa-trash-alt"
+                  class="octicon"
                 />
               </button>
             </div>

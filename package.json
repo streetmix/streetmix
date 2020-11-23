@@ -93,6 +93,7 @@
     "@fortawesome/free-regular-svg-icons": "5.15.1",
     "@fortawesome/free-solid-svg-icons": "5.14.0",
     "@fortawesome/react-fontawesome": "0.1.11",
+    "@primer/octicons-react": "11.1.0",
     "@reduxjs/toolkit": "1.4.0",
     "@sentry/browser": "5.15.5",
     "@streetmix/illustrations": "1.0.1",

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { CopyIcon, TrashcanIcon, ToolsIcon } from '@primer/octicons-react'
 import {
-  ICON_COPY,
   ICON_TWITTER,
   ICON_FACEBOOK,
   ICON_GITHUB,
@@ -13,14 +13,22 @@ import forumsIcon from './icons/forums.svg'
 import googleIcon from './icons/google.svg'
 import slackIcon from './icons/slack.svg'
 
-Icon.propTypes = {
-  icon: PropTypes.string.isRequired
+const OCTICON_DEFAULT_CLASSNAME = 'octicon'
+
+// Preserve, don't replace default Octicon classname
+function octiconClassNames (className) {
+  return [OCTICON_DEFAULT_CLASSNAME, className].join(' ').trim()
 }
 
-function Icon ({ icon }) {
+Icon.propTypes = {
+  icon: PropTypes.string.isRequired,
+  className: PropTypes.string
+}
+
+function Icon ({ icon, className }) {
   switch (icon) {
     case 'copy':
-      return <FontAwesomeIcon icon={ICON_COPY} />
+      return <CopyIcon size={16} className={octiconClassNames(className)} />
     case 'twitter':
       return <FontAwesomeIcon className="menu-item-icon" icon={ICON_TWITTER} />
     case 'facebook':
@@ -39,6 +47,10 @@ function Icon ({ icon }) {
       return <img className="menu-item-icon" src={forumsIcon} alt="" />
     case 'google':
       return <img className="menu-item-icon" src={googleIcon} alt="" />
+    case 'trash':
+      return <TrashcanIcon size={16} className={octiconClassNames(className)} />
+    case 'tools':
+      return <ToolsIcon size={16} className={octiconClassNames(className)} />
     default:
       // Ancient fallback (should no longer be used)
       return (

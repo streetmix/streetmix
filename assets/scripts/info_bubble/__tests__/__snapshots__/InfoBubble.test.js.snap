@@ -27,7 +27,7 @@ exports[`InfoBubble is visible 1`] = `
         title="Remove segment"
       >
         <svg
-          class="svg-inline--fa remove-icon fa-trash-alt"
+          class="octicon remove-icon"
         />
         Remove
       </button>
@@ -175,7 +175,7 @@ exports[`InfoBubble renders 1`] = `
         title="Remove segment"
       >
         <svg
-          class="svg-inline--fa remove-icon fa-trash-alt"
+          class="octicon remove-icon"
         />
         Remove
       </button>
@@ -659,7 +659,7 @@ exports[`InfoBubble shows description 1`] = `
         title="Remove segment"
       >
         <svg
-          class="svg-inline--fa remove-icon fa-trash-alt"
+          class="octicon remove-icon"
         />
         Remove
       </button>

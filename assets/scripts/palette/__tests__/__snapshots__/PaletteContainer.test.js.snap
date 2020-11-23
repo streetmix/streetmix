@@ -12,7 +12,7 @@ exports[`PaletteContainer renders 1`] = `
         title="Toggle tools"
       >
         <svg
-          class="svg-inline--fa fa-tools"
+          class="octicon"
         />
       </button>
       <div
@@ -23,7 +23,7 @@ exports[`PaletteContainer renders 1`] = `
           title="Dismiss"
         >
           <svg
-            class="svg-inline--fa fa-times"
+            class="octicon"
           />
         </button>
         <p>
