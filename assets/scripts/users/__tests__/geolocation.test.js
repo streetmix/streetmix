@@ -33,7 +33,6 @@ describe('geolocation', () => {
 
     return detectGeolocation().then((response) => {
       expect(response.country_code).toEqual(geolocationResponse.country_code)
-      console.log(response.country_code)
       done()
     })
   })
