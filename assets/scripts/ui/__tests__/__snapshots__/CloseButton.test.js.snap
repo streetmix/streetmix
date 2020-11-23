@@ -7,7 +7,7 @@ exports[`CloseButton renders snapshot 1`] = `
     title="Dismiss"
   >
     <svg
-      class="svg-inline--fa fa-times"
+      class="octicon"
     />
   </button>
 </DocumentFragment>
@@ -22,7 +22,7 @@ exports[`CloseButton renders with custom title, class name, and other attributes
     title="foofoo"
   >
     <svg
-      class="svg-inline--fa fa-times"
+      class="octicon"
     />
   </button>
 </DocumentFragment>

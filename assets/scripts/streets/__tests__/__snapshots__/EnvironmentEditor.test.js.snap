@@ -24,7 +24,7 @@ exports[`EnvironmentEditor renders 1`] = `
           title="Dismiss"
         >
           <svg
-            class="svg-inline--fa fa-times"
+            class="octicon"
           />
         </button>
       </header>

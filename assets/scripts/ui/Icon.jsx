@@ -15,8 +15,9 @@ import slackIcon from './icons/slack.svg'
 
 const OCTICON_DEFAULT_CLASSNAME = 'octicon'
 
+// Preserve, don't replace default Octicon classname
 function octiconClassNames (className) {
-  return [OCTICON_DEFAULT_CLASSNAME, className].join(' ')
+  return [OCTICON_DEFAULT_CLASSNAME, className].join(' ').trim()
 }
 
 Icon.propTypes = {
