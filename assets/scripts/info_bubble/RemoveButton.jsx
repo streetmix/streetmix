@@ -38,7 +38,7 @@ function RemoveButton ({ segment = null }) {
       })}
       onClick={handleClick}
     >
-      <Icon icon="trash" />
+      <Icon icon="trash" className="remove-icon" />
       <FormattedMessage id="btn.remove" defaultMessage="Remove" />
     </button>
   )

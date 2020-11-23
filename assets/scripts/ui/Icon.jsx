@@ -13,14 +13,21 @@ import forumsIcon from './icons/forums.svg'
 import googleIcon from './icons/google.svg'
 import slackIcon from './icons/slack.svg'
 
-Icon.propTypes = {
-  icon: PropTypes.string.isRequired
+const OCTICON_DEFAULT_CLASSNAME = 'octicon'
+
+function octiconClassNames (className) {
+  return [OCTICON_DEFAULT_CLASSNAME, className].join(' ')
 }
 
-function Icon ({ icon }) {
+Icon.propTypes = {
+  icon: PropTypes.string.isRequired,
+  className: PropTypes.string
+}
+
+function Icon ({ icon, className }) {
   switch (icon) {
     case 'copy':
-      return <CopyIcon size={16} />
+      return <CopyIcon size={16} className={octiconClassNames(className)} />
     case 'twitter':
       return <FontAwesomeIcon className="menu-item-icon" icon={ICON_TWITTER} />
     case 'facebook':
@@ -40,9 +47,9 @@ function Icon ({ icon }) {
     case 'google':
       return <img className="menu-item-icon" src={googleIcon} alt="" />
     case 'trash':
-      return <TrashcanIcon size={16} />
+      return <TrashcanIcon size={16} className={octiconClassNames(className)} />
     case 'tools':
-      return <ToolsIcon size={16} />
+      return <ToolsIcon size={16} className={octiconClassNames(className)} />
     default:
       // Ancient fallback (should no longer be used)
       return (
