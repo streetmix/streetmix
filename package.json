@@ -126,7 +126,7 @@
     "js-cookie": "2.2.1",
     "json2csv": "5.0.3",
     "jwks-rsa": "1.9.0",
-    "jwt-decode": "2.2.0",
+    "jwt-decode": "3.1.2",
     "leaflet": "1.7.1",
     "lodash": "4.17.20",
     "nanoid": "3.1.12",
