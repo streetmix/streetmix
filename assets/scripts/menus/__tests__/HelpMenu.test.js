@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import HelpMenu from '../HelpMenu'
@@ -51,7 +51,7 @@ describe('HelpMenu', () => {
   it.skip('shows the About dialog when keyboard shortcut is pressed', () => {
     renderWithReduxAndIntl(<HelpMenu />)
 
-    fireEvent.keyDown(window, { key: '?' })
+    userEvent.type('?')
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('ABOUT')

@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithRedux } from '../../../../test/helpers/render'
 import Segment from '../Segment'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
@@ -114,7 +115,7 @@ describe('Segment', () => {
         }
       }
     )
-    fireEvent.mouseOver(screen.getByTestId('segment'))
+    userEvent.hover(screen.getByTestId('segment'))
     expect(infoBubble.considerShowing).toHaveBeenCalledTimes(1)
   })
 
@@ -134,8 +135,8 @@ describe('Segment', () => {
         }
       }
     )
-    fireEvent.mouseOver(screen.getByTestId('segment'))
-    fireEvent.mouseLeave(screen.getByTestId('segment'))
+    userEvent.hover(screen.getByTestId('segment'))
+    userEvent.unhover(screen.getByTestId('segment'))
     expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
 
@@ -156,7 +157,7 @@ describe('Segment', () => {
           }
         }
       )
-      fireEvent.mouseOver(screen.getByTestId('segment'))
+      userEvent.hover(screen.getByTestId('segment'))
       fireEvent.keyDown(document, { key: '-' })
       expect(store.getState().street.segments[activeElement].width).toEqual(
         currentWidth - increment
@@ -179,7 +180,8 @@ describe('Segment', () => {
           }
         }
       )
-      fireEvent.mouseOver(screen.getByTestId('segment'))
+      userEvent.hover(screen.getByTestId('segment'))
+      // could not convert this to userEvent
       fireEvent.keyDown(document, { key: '+', code: 'Equal' })
       expect(store.getState().street.segments[activeElement].width).toEqual(
         currentWidth + increment
@@ -203,7 +205,7 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      fireEvent.mouseOver(screen.getByTestId('segment'))
+      userEvent.hover(screen.getByTestId('segment'))
       fireEvent.keyDown(document, { key: 'Delete' })
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
@@ -227,7 +229,7 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      fireEvent.mouseOver(screen.getByTestId('segment'))
+      userEvent.hover(screen.getByTestId('segment'))
       fireEvent.keyDown(document, { key: 'Delete', shiftKey: true })
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)

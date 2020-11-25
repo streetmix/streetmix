@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetName from '../StreetName'
@@ -39,7 +39,7 @@ describe('StreetName', () => {
   // editable by default.
   it('is not editable by default', () => {
     renderWithIntl(<StreetName editable={false} />)
-    fireEvent.mouseOver(screen.getByText('Unnamed St'))
+    userEvent.hover(screen.getByText('Unnamed St'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 })

@@ -64,6 +64,7 @@ describe('StreetMetaWidthMenu', () => {
       />
     )
 
+    // cant change to user event becuase test relies on firing the change event
     fireEvent.change(screen.getByRole('combobox'), { target: { value: 40 } })
 
     // Return value is a string from <option value=""> attribute

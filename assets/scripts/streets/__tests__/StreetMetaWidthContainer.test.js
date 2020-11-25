@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthContainer from '../StreetMetaWidthContainer'
@@ -31,9 +31,7 @@ describe('StreetMetaWidthContainer', () => {
       />
     )
     userEvent.click(screen.getByTitle('Change width of the street'))
-    fireEvent.change(screen.getByRole('listbox'), {
-      target: { value: changeValue }
-    })
+    userEvent.type(screen.getByRole('listbox'), changeValue)
 
     expect(updateStreetWidth).toBeCalledWith(changeValue)
 
