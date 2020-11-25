@@ -434,6 +434,7 @@
     "lang": {
       "ar": "Árabe",
       "ca": "Catalán",
+      "cs": "",
       "de": "Alemán",
       "en": "Inglés",
       "es": "Español",
@@ -444,10 +445,13 @@
       "it": "Italiano",
       "ja": "Japonés",
       "ko": "Coreano",
+      "nl-nl": "",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
+      "ro-ro": "",
       "ru": "Ruso",
       "sv": "Sueco",
+      "tr": "",
       "zh": "Chino",
       "zh-hans": "Chino simplificado",
       "zh-hant": "Chino tradicional"

@@ -434,6 +434,7 @@
     "lang": {
       "ar": "Arapça",
       "ca": "Katalanca",
+      "cs": "",
       "de": "Almanca",
       "en": "İngilizce",
       "es": "İspanyolca",
@@ -444,10 +445,13 @@
       "it": "İtalyanca",
       "ja": "Japonca",
       "ko": "Korece",
+      "nl-nl": "",
       "pl": "Lehçe",
       "pt-br": "Portekizce (Brezilya)",
+      "ro-ro": "",
       "ru": "Rusça",
       "sv": "İsveççe",
+      "tr": "",
       "zh": "Çince",
       "zh-hans": "Basitleştirilmiş Çince",
       "zh-hant": "Geleneksel Çince"
