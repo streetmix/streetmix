@@ -374,12 +374,6 @@ Stopping the application
 
 To stop running Streetmix, press :kbd:`Ctrl-C`.
 
-In case it doesn't work, you can run this command to manually clean up background tasks:
-
-.. prompt:: bash $
-
-   npm stop
-
 
 Updating the application
 ++++++++++++++++++++++++
