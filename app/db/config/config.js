@@ -8,6 +8,8 @@ module.exports = {
   [config.env]: {
     // Dialect needs to be explicitly supplied as of sequelize v4.0.0
     dialect: 'postgres',
+    username: 'streetmix_user',
+    password: 'streetmix',
     ...config.db.sequelize
   }
 }

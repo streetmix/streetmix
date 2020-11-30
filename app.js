@@ -17,7 +17,6 @@ const controllers = require('./app/controllers')
 const requestHandlers = require('./lib/request_handlers')
 const initCloudinary = require('./lib/cloudinary')
 const compileSVGSprites = require('./lib/svg-sprite')
-const exec = require('child_process').exec
 const swaggerUi = require('swagger-ui-express')
 const swaggerJSDoc = require('swagger-jsdoc')
 const apiRoutes = require('./app/api_routes')
@@ -53,7 +52,6 @@ process.on('uncaughtException', function (error) {
 process.on('SIGINT', function () {
   if (app.locals.config.env === 'development') {
     logger.info(chalk`[express] {yellow.bold Stopping Streetmix!}`)
-    exec('npm stop')
   }
   process.exit()
 })
