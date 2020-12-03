@@ -31,7 +31,7 @@ describe('StreetMetaWidthContainer', () => {
       />
     )
     userEvent.click(screen.getByTitle('Change width of the street'))
-    userEvent.type(screen.getByRole('listbox'), changeValue)
+    userEvent.selectOptions(screen.getByRole('listbox'), changeValue)
 
     expect(updateStreetWidth).toBeCalledWith(changeValue)
 

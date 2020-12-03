@@ -205,6 +205,7 @@ describe('Segment', () => {
       )
       setLastStreet() // ToDo: needs to be refactored
       userEvent.hover(screen.getByTestId('segment'))
+      // cannot port this to userEvent yet, see: https://github.com/testing-library/user-event/issues/506
       fireEvent.keyDown(document, { key: 'Delete' })
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
@@ -229,6 +230,7 @@ describe('Segment', () => {
       )
       setLastStreet() // ToDo: needs to be refactored
       userEvent.hover(screen.getByTestId('segment'))
+      // cannot port this to userEvent yet, see: https://github.com/testing-library/user-event/issues/506
       fireEvent.keyDown(document, { key: 'Delete', shiftKey: true })
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
