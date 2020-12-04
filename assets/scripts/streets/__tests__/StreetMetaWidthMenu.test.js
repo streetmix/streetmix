@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithIntl } from '../../../../test/helpers/render'
 import StreetMetaWidthMenu from '../StreetMetaWidthMenu'
 
@@ -64,7 +65,7 @@ describe('StreetMetaWidthMenu', () => {
       />
     )
 
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 40 } })
+    userEvent.selectOptions(screen.getByRole('combobox'), '40')
 
     // Return value is a string from <option value=""> attribute
     expect(handleChange).toHaveReturnedWith('40')

@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Checkbox from '../Checkbox'
 
 describe('Checkbox', () => {
@@ -32,7 +33,7 @@ describe('Checkbox', () => {
     const { getByText } = render(
       <Checkbox onChange={handleChange}>foo</Checkbox>
     )
-    fireEvent.click(getByText('foo'))
+    userEvent.click(getByText('foo'))
     expect(handleChange).toHaveBeenCalledTimes(1)
   })
 })

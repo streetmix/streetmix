@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../../test/helpers/render'
 import GeoSearch from '../GeoSearch'
 import autocompleteResponse from './fixtures/autocomplete.json'
@@ -37,31 +38,29 @@ describe('GeoSearch', () => {
   window.fetch = mapzenSearchMock
 
   it('focuses the input after mounting', () => {
-    const { getByPlaceholderText } = renderWithReduxAndIntl(<GeoSearch />)
-    const input = getByPlaceholderText('Search for a location')
+    renderWithReduxAndIntl(<GeoSearch />)
+    const input = screen.getByPlaceholderText('Search for a location')
     expect(document.activeElement).toEqual(input)
   })
 
   it('displays a "clear search" button when there is input', () => {
-    const { queryByTitle, getByPlaceholderText } = renderWithReduxAndIntl(
-      <GeoSearch />
-    )
-    const input = getByPlaceholderText('Search for a location')
+    renderWithReduxAndIntl(<GeoSearch />)
+    const input = screen.getByPlaceholderText('Search for a location')
 
     // The close button should not render when the input is empty
-    expect(queryByTitle('Clear search')).not.toBeInTheDocument()
+    expect(screen.queryByTitle('Clear search')).not.toBeInTheDocument()
 
     // Simulates input, which should also trigger events
-    fireEvent.change(input, { target: { value: 'f' } })
+    userEvent.type(input, 'f')
 
     // The close button should appear after one keystroke
-    expect(queryByTitle('Clear search')).toBeInTheDocument()
+    expect(screen.queryByTitle('Clear search')).toBeInTheDocument()
 
     // Deletes input
-    fireEvent.change(input, { target: { value: '' } })
+    userEvent.clear(input)
 
     // The close button should now disappear
-    expect(queryByTitle('Clear search')).not.toBeInTheDocument()
+    expect(screen.queryByTitle('Clear search')).not.toBeInTheDocument()
   })
 
   it('clears and focuses input when "clear search" button is clicked', () => {
@@ -73,10 +72,10 @@ describe('GeoSearch', () => {
 
     // Simulates input
     const input = getByPlaceholderText('Search for a location')
-    fireEvent.change(input, { target: { value: 'foo' } })
+    userEvent.type(input, 'foo')
 
     // Simulates click on "clear search"
-    fireEvent.click(getByTitle('Clear search'))
+    userEvent.click(getByTitle('Clear search'))
 
     // The close button should be undefined now
     expect(queryByTitle('Clear search')).not.toBeInTheDocument()

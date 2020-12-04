@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithIntl as render } from '../../../../test/helpers/render'
 import CloseButton from '../CloseButton'
 
@@ -26,7 +26,7 @@ describe('CloseButton', () => {
   it('should call onClick function when button is clicked', () => {
     const onClick = jest.fn()
     const { getByTitle } = render(<CloseButton onClick={onClick} title="foo" />)
-    fireEvent.click(getByTitle('foo'))
+    userEvent.click(getByTitle('foo'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 })

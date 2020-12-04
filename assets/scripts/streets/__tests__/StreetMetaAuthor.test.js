@@ -4,7 +4,7 @@ import StreetMetaAuthor from '../StreetMetaAuthor'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { openGallery } from '../../store/actions/gallery'
-import { fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 // Enable mocking of the return value of `isOwnedByCurrentUser`
 jest.mock('../../streets/owner')
@@ -52,7 +52,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    fireEvent.click(getByText('foo'))
+    userEvent.click(getByText('foo'))
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
@@ -72,7 +72,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    fireEvent.click(getByText('foo'))
+    userEvent.click(getByText('foo'))
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })

@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MenuBar from '../MenuBar'
 import { showDialog } from '../../store/slices/dialogs'
@@ -64,7 +65,7 @@ describe('MenuBar', () => {
       }
     )
     expect(asFragment()).toMatchSnapshot()
-    fireEvent.click(screen.getByText('Upgrade'))
+    userEvent.click(screen.getByText('Upgrade'))
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('UPGRADE')
@@ -74,7 +75,7 @@ describe('MenuBar', () => {
     const handler = jest.fn()
     renderWithReduxAndIntl(<MenuBar onMenuDropdownClick={handler} />)
 
-    fireEvent.click(screen.getByText('Share'))
+    userEvent.click(screen.getByText('Share'))
 
     expect(handler).toBeCalledTimes(1)
   })

@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithIntl } from '../../../../../test/helpers/render'
 import LocationPopup from '../LocationPopup'
 
@@ -38,7 +39,7 @@ describe('LocationPopup', () => {
 
     // Button should exist and has the correct label
     // When button is clicked, `handleConfirm` should be called
-    fireEvent.click(screen.getByText('Confirm location'))
+    userEvent.click(screen.getByText('Confirm location'))
     expect(handleConfirm).toHaveBeenCalled()
     expect(handleClear).toHaveBeenCalledTimes(0)
   })
@@ -57,7 +58,7 @@ describe('LocationPopup', () => {
     )
     // Button should exist and has the correct label
     // When button is clicked, `handleClear` should be called
-    fireEvent.click(screen.getByText('Clear location'))
+    userEvent.click(screen.getByText('Clear location'))
     expect(handleClear).toHaveBeenCalled()
     expect(handleConfirm).toHaveBeenCalledTimes(0)
   })

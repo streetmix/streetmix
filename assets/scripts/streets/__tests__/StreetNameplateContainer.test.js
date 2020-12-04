@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import StreetNameplateContainer from '../StreetNameplateContainer'
 
@@ -52,7 +53,7 @@ describe('StreetNameplateContainer', () => {
     renderWithReduxAndIntl(<StreetNameplateContainer />, {
       initialState
     })
-    fireEvent.click(screen.getByText('foo'))
+    userEvent.click(screen.getByText('foo'))
     expect(screen.getByText('bar')).toBeInTheDocument()
 
     // Restore mock
@@ -68,7 +69,7 @@ describe('StreetNameplateContainer', () => {
     renderWithReduxAndIntl(<StreetNameplateContainer />, {
       initialState
     })
-    fireEvent.click(screen.getByText('foo'))
+    userEvent.click(screen.getByText('foo'))
     expect(screen.getByText('foo')).toBeInTheDocument()
 
     // Restore mock
@@ -80,10 +81,10 @@ describe('StreetNameplateContainer', () => {
       initialState
     })
 
-    fireEvent.mouseOver(screen.getByText('foo'))
+    userEvent.hover(screen.getByText('foo'))
     expect(screen.getByText('Click to rename')).toBeInTheDocument()
 
-    fireEvent.mouseOut(screen.getByText('foo'))
+    userEvent.unhover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 
@@ -100,10 +101,10 @@ describe('StreetNameplateContainer', () => {
       }
     })
 
-    fireEvent.mouseOver(screen.getByText('foo'))
+    userEvent.hover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
 
-    fireEvent.mouseOut(screen.getByText('foo'))
+    userEvent.unhover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 })

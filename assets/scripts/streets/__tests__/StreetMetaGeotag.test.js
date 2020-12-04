@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import StreetMetaGeotag from '../StreetMetaGeotag'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
@@ -22,7 +22,7 @@ describe('StreetMetaGeotag', () => {
       }
     })
 
-    fireEvent.click(getByText('Add location'))
+    userEvent.click(getByText('Add location'))
     expect(showDialog).toBeCalledTimes(1)
   })
 
@@ -55,7 +55,7 @@ describe('StreetMetaGeotag', () => {
       }
     })
 
-    fireEvent.click(getByText('foo, bar'))
+    userEvent.click(getByText('foo, bar'))
     expect(showDialog).toBeCalledTimes(1)
   })
 
@@ -75,7 +75,7 @@ describe('StreetMetaGeotag', () => {
       }
     })
 
-    fireEvent.click(getByText('foo, bar'))
+    userEvent.click(getByText('foo, bar'))
     expect(showDialog).toBeCalledTimes(0)
   })
 

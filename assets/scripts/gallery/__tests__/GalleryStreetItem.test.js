@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import GalleryStreetItem from '../GalleryStreetItem'
@@ -62,7 +63,7 @@ describe('GalleryStreetItem', () => {
       <GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />
     )
 
-    fireEvent.click(screen.getByText(MOCK_STREET.name))
+    userEvent.click(screen.getByText(MOCK_STREET.name))
     expect(doSelect).toBeCalled()
   })
 
@@ -78,7 +79,7 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    fireEvent.click(screen.getByTitle('Delete street'))
+    userEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).toBeCalled()
   })
 
@@ -94,7 +95,7 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    fireEvent.click(screen.getByTitle('Delete street'))
+    userEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).not.toBeCalled()
   })
 })

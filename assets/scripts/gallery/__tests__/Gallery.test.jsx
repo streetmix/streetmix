@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
@@ -106,7 +107,7 @@ describe('Gallery', () => {
     }
 
     renderWithReduxAndIntl(<Gallery />, { initialState })
-    fireEvent.click(screen.getByTestId('gallery-shield'))
+    userEvent.click(screen.getByTestId('gallery-shield'))
     expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 
@@ -115,7 +116,7 @@ describe('Gallery', () => {
       const { getByText } = renderWithReduxAndIntl(<Gallery />, {
         initialState
       })
-      fireEvent.click(getByText('Baz'))
+      userEvent.click(getByText('Baz'))
       expect(switchGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
     })
 
@@ -123,7 +124,7 @@ describe('Gallery', () => {
       const { getByTitle, queryByTitle } = renderWithReduxAndIntl(<Gallery />, {
         initialState
       })
-      fireEvent.click(getByTitle('Delete street'))
+      userEvent.click(getByTitle('Delete street'))
 
       // There's only one street "displayed" so we expect no "delete street"
       // button to be rendered anymore, since that street should be deleted.
