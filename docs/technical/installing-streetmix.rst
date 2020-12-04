@@ -196,15 +196,16 @@ If you've just installed Postgres:
 
    .. prompt:: bash $
 
+      # Make a copy of the environment variables file
+      cp .env.example .env
+
       # Using vim, but replace with your editor
-      vim app/db/config/config.js
+      vim .env
       
-      # below the line:
-      dialect: 'postgres',
-      # add the following two lines, based on the username and password you defined in the step above
-      username: 'streetmix_user',                                                                                                                                                                   
-      password: 'streetmix',
-      
+      # Uncomment these lines and set the username and password you defined in the step above
+      PGUSER=streetmix_user
+      PGPASSWORD=streetmix
+
 3. Run the 'Clone and install Streetmix' steps below. The instruction ```npx sequelize db:migrate``` will give an error. You will need to install the PostGIS extension to the database created from running the first npx instruction ```npx sequelize db:create```.
 
    .. prompt:: bash $
