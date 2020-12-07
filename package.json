@@ -136,7 +136,7 @@
     "parcel-bundler": "1.12.4",
     "pelias-js": "0.0.8",
     "pg": "8.5.1",
-    "postcss": "7.0.31",
+    "postcss": "8.1.14",
     "postcss-round-subpixels": "1.2.0",
     "prop-types": "15.7.2",
     "react": "16.13.1",
