@@ -1,3 +1,6 @@
+// This script can be loaded from the command line via
+// `npx sequelize`, so we still need to load environment variables
+require('dotenv').config()
 const config = require('config')
 
 // Export environment-specific Sequelize configuration
