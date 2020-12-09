@@ -79,7 +79,6 @@ const csp = {
       "'self'",
       "'unsafe-inline'",
       'fonts.googleapis.com',
-      '*.typekit.net',
       'checkout.stripe.com'
     ],
     scriptSrc: [
@@ -109,7 +108,7 @@ const csp = {
       'https://res.cloudinary.com/',
       '*.stripe.com'
     ],
-    fontSrc: ["'self'", 'fonts.gstatic.com', '*.typekit.net'],
+    fontSrc: ["'self'", 'fonts.gstatic.com'],
     connectSrc: [
       "'self'",
       'api.geocode.earth',
