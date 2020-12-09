@@ -35,12 +35,12 @@
       "save": "Guardar como imagen…",
       "save-byline": "Para incluir en un reporte, blog, etc",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "Dale un vistazo a mi calle, {streetName}, en Streetmix!",
+        "my-street-unnamed": "Dale un vistazo a mi calle en Streetmix!",
+        "someone-elses-street": "Dale un vistazo a {streetName}, de {streetCreator}en Streetmix!",
+        "someone-elses-street-unnamed": "Dale un vistazo a esta calle de {streetCreator} en Streetmix!",
+        "anonymous-creator-street": "Dale un vistazo a {streetName} en Streetmix!",
+        "anonymous-creator-street-unnamed": "Dale un vistazo a esta calle en Streetmix!"
       }
     },
     "contact": {
@@ -51,11 +51,11 @@
       "blog": "Visita el blog de Streetmix",
       "discord": "Unirse al Discord Chat",
       "slack": "Participa en Slack chat",
-      "newsletter": ""
+      "newsletter": "Suscríbete a nuestra newsletter"
     },
     "contribute": {
-      "donate": "",
-      "opensource": ""
+      "donate": "Donar",
+      "opensource": "Contribuir al código abierto"
     },
     "feedback": {
       "prompt": "Envianos un mensaje:",
@@ -183,7 +183,7 @@
       "sponsors": "",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": "",
+      "github-link": "Contribuir al código abierto",
       "open-source-link": "",
       "guidebook-link": "",
       "tos-link": "",
@@ -261,7 +261,7 @@
       "heading": ""
     },
     "newsletter": {
-      "heading": ""
+      "heading": "Suscríbete a nuestra newsletter"
     }
   },
   "tools": {
@@ -434,6 +434,7 @@
     "lang": {
       "ar": "",
       "ca": "",
+      "cs": "",
       "de": "Alemán",
       "en": "Inglés",
       "es": "Español",
@@ -444,10 +445,13 @@
       "it": "Italiano",
       "ja": "",
       "ko": "",
+      "nl-nl": "",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
+      "ro-ro": "",
       "ru": "",
       "sv": "",
+      "tr": "",
       "zh": "",
       "zh-hans": "",
       "zh-hant": ""

@@ -195,15 +195,15 @@
       "license-label": "(<a>Lisans</a>)"
     },
     "analytics": {
-      "export-csv": "",
+      "export-csv": "CSV olarak aktar",
       "heading": "Veriler",
       "street-summary": "Sokağınızın tahmini hacmi saat başına {averageTotal} kişidir ve saat başına {potentialTotal} kişiye kadar potansiyeli vardır.",
-      "typical-lane-width": "",
+      "typical-lane-width": "Kapasite değerleri {laneWidth} genişliğindeki şeritleri temel almıştır.",
       "segment-summary": "{average}—{potential} kişi/saat",
       "segment-summary-single": "{amount}kişi/saat",
       "source": "Kaynak",
-      "capacity-data-source": "",
-      "settings-notice": ""
+      "capacity-data-source": "Kapasite veri kaynağı",
+      "settings-notice": "Sokak sahipleri bu ayarları değiştirebilir"
     },
     "save": {
       "heading": "Görsel olarak kaydet",
@@ -290,9 +290,9 @@
     "remove": "Kaldırmak için buraya sürükleyin"
   },
   "width": {
-    "label": "{width}genişlik",
-    "under": "({width} oda)",
-    "over": "({width}fazla)",
+    "label": "{width} genişlik",
+    "under": "({width} daha yer var)",
+    "over": "({width} fazla)",
     "occupied": "Kullanılan genişlik:",
     "building": "Binadan binaya genişlik:",
     "different": "Farklı genişlik...",
@@ -336,7 +336,7 @@
     "rename": "Yeniden adlandırmak için tıklayın"
   },
   "building": {
-    "floors-count": "{count, plural, one {kat} other {kat}}"
+    "floors-count": "{count, plural, one {kat} other {# kat}}"
   },
   "segments": {
     "warnings": {
@@ -434,6 +434,7 @@
     "lang": {
       "ar": "Arapça",
       "ca": "Katalanca",
+      "cs": "Çekçe",
       "de": "Almanca",
       "en": "İngilizce",
       "es": "İspanyolca",
@@ -444,10 +445,13 @@
       "it": "İtalyanca",
       "ja": "Japonca",
       "ko": "Korece",
+      "nl-nl": "Hollandaca (Hollanda)",
       "pl": "Lehçe",
       "pt-br": "Portekizce (Brezilya)",
+      "ro-ro": "Romence",
       "ru": "Rusça",
       "sv": "İsveççe",
+      "tr": "Türkçe",
       "zh": "Çince",
       "zh-hans": "Basitleştirilmiş Çince",
       "zh-hant": "Geleneksel Çince"
