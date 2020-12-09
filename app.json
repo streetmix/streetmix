@@ -3,6 +3,7 @@
   "scripts": {},
   "repository": "https://github.com/streetmix/streetmix/",
   "website": "https://streetmix.net/",
+  "stack": "heroku-20",
   "env": {
     "COOKIE_SESSION_SECRET": {
       "description": "A secret key for verifying the integrity of signed cookies.",
