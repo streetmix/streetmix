@@ -65,7 +65,10 @@ function Menu ({
     }
   }, [isActive, menuItemNode, contentDirection, alignOpposite, onShow, onHide])
 
-  const classNames = ['menu', className]
+  const classNames = ['menu']
+  if (className) {
+    classNames.push(className)
+  }
 
   return (
     <CSSTransition
