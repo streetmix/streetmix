@@ -1,6 +1,7 @@
 import React, { useRef, useCallback, useEffect, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import './Menu.scss'
 
 Menu.propTypes = {
@@ -64,12 +65,24 @@ function Menu ({
     }
   }, [isActive, menuItemNode, contentDirection, alignOpposite, onShow, onHide])
 
-  const classNames = ['menu', isActive ? 'menu-visible' : null, className]
+  const classNames = ['menu']
+  if (className) {
+    classNames.push(className)
+  }
 
   return (
-    <div className={classNames.filter((x) => !!x).join(' ')} ref={ref}>
-      {children}
-    </div>
+    <CSSTransition
+      appear={true}
+      in={isActive}
+      timeout={100}
+      classNames="menu-visible"
+      mountOnEnter={true}
+      unmountOnExit={true}
+    >
+      <div className={classNames.join(' ')} ref={ref}>
+        {children}
+      </div>
+    </CSSTransition>
   )
 }
 

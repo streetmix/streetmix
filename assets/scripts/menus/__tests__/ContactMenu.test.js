@@ -12,12 +12,14 @@ jest.mock('../../store/slices/dialogs', () => ({
 
 describe('ContactMenu', () => {
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<ContactMenu />)
+    const { asFragment } = renderWithReduxAndIntl(
+      <ContactMenu isActive={true} />
+    )
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('handles clicked menu items', () => {
-    renderWithReduxAndIntl(<ContactMenu />)
+    renderWithReduxAndIntl(<ContactMenu isActive={true} />)
 
     userEvent.click(screen.getByText('Discord', { exact: false }))
     userEvent.click(screen.getByText('GitHub', { exact: false }))

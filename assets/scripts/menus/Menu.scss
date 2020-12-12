@@ -26,10 +26,15 @@ $menu-box-shadow: $medium-box-shadow;
   overflow-x: hidden;
   overflow-y: auto;
 
-  &.menu-visible {
+  &.menu-visible-enter-done {
     transform: rotateX(0);
     opacity: 1;
     pointer-events: auto;
+  }
+
+  &.menu-visible-exit {
+    transform: rotateX(-90deg);
+    opacity: 0;
   }
 
   > a {

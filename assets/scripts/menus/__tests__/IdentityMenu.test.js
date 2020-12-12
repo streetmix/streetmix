@@ -16,12 +16,14 @@ jest.mock('../../users/authentication', () => ({
 
 describe('IdentityMenu', () => {
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<IdentityMenu />)
+    const { asFragment } = renderWithReduxAndIntl(
+      <IdentityMenu isActive={true} />
+    )
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows "My streets" when its link is clicked', () => {
-    renderWithReduxAndIntl(<IdentityMenu />, {
+    renderWithReduxAndIntl(<IdentityMenu isActive={true} />, {
       initialState: {
         user: {
           signInData: {
@@ -38,7 +40,7 @@ describe('IdentityMenu', () => {
   })
 
   it('signs the user out when its link is clicked', () => {
-    renderWithReduxAndIntl(<IdentityMenu />)
+    renderWithReduxAndIntl(<IdentityMenu isActive={true} />)
 
     userEvent.click(screen.getByText('Sign out'))
 

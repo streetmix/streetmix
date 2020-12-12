@@ -18,9 +18,12 @@ describe('ShareMenu', () => {
   })
 
   it('renders (user not signed in, anonymous user’s street, no street name)', () => {
-    const { asFragment } = renderWithReduxAndIntl(<ShareMenu />, {
-      initialState: { user: { signedIn: false } }
-    })
+    const { asFragment } = renderWithReduxAndIntl(
+      <ShareMenu isActive={true} />,
+      {
+        initialState: { user: { signedIn: false } }
+      }
+    )
 
     // Check for proper sharing messages
     const message = 'Check out this street on Streetmix!'
@@ -33,20 +36,23 @@ describe('ShareMenu', () => {
   })
 
   it('renders (user signed in, own street, with name)', () => {
-    const { asFragment } = renderWithReduxAndIntl(<ShareMenu />, {
-      initialState: {
-        user: {
-          signedIn: true,
-          signInData: {
-            userId: 'foo'
+    const { asFragment } = renderWithReduxAndIntl(
+      <ShareMenu isActive={true} />,
+      {
+        initialState: {
+          user: {
+            signedIn: true,
+            signInData: {
+              userId: 'foo'
+            }
+          },
+          street: {
+            creatorId: 'foo',
+            name: 'bar'
           }
-        },
-        street: {
-          creatorId: 'foo',
-          name: 'bar'
         }
       }
-    })
+    )
 
     // Check for proper sharing messages
     const message = 'Check out my street, bar, on Streetmix!'
@@ -65,7 +71,7 @@ describe('ShareMenu', () => {
   // Test other share messages; no snapshots rendered
   describe('other share messages', () => {
     it('user signed in, own street, no street name', () => {
-      renderWithReduxAndIntl(<ShareMenu />, {
+      renderWithReduxAndIntl(<ShareMenu isActive={true} />, {
         initialState: {
           user: {
             signedIn: true,
@@ -88,7 +94,7 @@ describe('ShareMenu', () => {
     })
 
     it('another user’s street, with street name', () => {
-      renderWithReduxAndIntl(<ShareMenu />, {
+      renderWithReduxAndIntl(<ShareMenu isActive={true} />, {
         initialState: {
           user: {
             signedIn: true,
@@ -116,7 +122,7 @@ describe('ShareMenu', () => {
     })
 
     it('another user’s street, no street name', () => {
-      renderWithReduxAndIntl(<ShareMenu />, {
+      renderWithReduxAndIntl(<ShareMenu isActive={true} />, {
         initialState: {
           user: {
             signedIn: true,
@@ -143,7 +149,7 @@ describe('ShareMenu', () => {
     })
 
     it('anonymous user’s street, with street name', () => {
-      renderWithReduxAndIntl(<ShareMenu />, {
+      renderWithReduxAndIntl(<ShareMenu isActive={true} />, {
         initialState: {
           user: {
             signedIn: true,
@@ -171,7 +177,7 @@ describe('ShareMenu', () => {
   })
 
   it('handles clicking sign in link', () => {
-    renderWithReduxAndIntl(<ShareMenu />, {
+    renderWithReduxAndIntl(<ShareMenu isActive={true} />, {
       initialState: { user: { signedIn: false } }
     })
     userEvent.click(screen.getByText('Sign in'))
@@ -180,38 +186,41 @@ describe('ShareMenu', () => {
   })
 
   it('handles clicking Twitter', () => {
-    renderWithReduxAndIntl(<ShareMenu />)
+    renderWithReduxAndIntl(<ShareMenu isActive={true} />)
     userEvent.click(screen.getByText('Twitter', { exact: false }))
   })
 
   it('handles clicking Facebook', () => {
-    renderWithReduxAndIntl(<ShareMenu />)
+    renderWithReduxAndIntl(<ShareMenu isActive={true} />)
     userEvent.click(screen.getByText('Facebook', { exact: false }))
   })
 
   it('handles clicking save as image', () => {
-    renderWithReduxAndIntl(<ShareMenu />)
+    renderWithReduxAndIntl(<ShareMenu isActive={true} />)
     userEvent.click(screen.getByText('Save as image', { exact: false }))
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('SAVE_AS_IMAGE')
   })
 
   it('handles clicking print', () => {
-    const { store } = renderWithReduxAndIntl(<ShareMenu />)
+    const { store } = renderWithReduxAndIntl(<ShareMenu isActive={true} />)
     userEvent.click(screen.getByText('Print', { exact: false }))
     expect(store.getState().app.printing).toBe(true)
   })
 
   it('handles clicking copy to clipboard', () => {
-    renderWithReduxAndIntl(<ShareMenu />)
+    renderWithReduxAndIntl(<ShareMenu isActive={true} />)
     userEvent.click(screen.getByTitle('Copy to clipboard'))
     expect(copy).toBeCalledTimes(1)
   })
 
   it('does not render external share links in offline mode', () => {
-    const { asFragment } = renderWithReduxAndIntl(<ShareMenu />, {
-      initialState: { system: { offline: true } }
-    })
+    const { asFragment } = renderWithReduxAndIntl(
+      <ShareMenu isActive={true} />,
+      {
+        initialState: { system: { offline: true } }
+      }
+    )
 
     expect(asFragment()).toMatchSnapshot()
   })

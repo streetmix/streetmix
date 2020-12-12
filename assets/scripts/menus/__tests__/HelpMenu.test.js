@@ -19,13 +19,13 @@ describe('HelpMenu', () => {
   })
 
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<HelpMenu />)
+    const { asFragment } = renderWithReduxAndIntl(<HelpMenu isActive={true} />)
 
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows the About dialog when its link is clicked', () => {
-    renderWithReduxAndIntl(<HelpMenu />)
+    renderWithReduxAndIntl(<HelpMenu isActive={true} />)
 
     userEvent.click(screen.getByText('About Streetmix…'))
 
@@ -34,7 +34,7 @@ describe('HelpMenu', () => {
   })
 
   it('shows the What’s New dialog when its link is clicked', () => {
-    renderWithReduxAndIntl(<HelpMenu />)
+    renderWithReduxAndIntl(<HelpMenu isActive={true} />)
 
     userEvent.click(
       screen.getByText('What’s new in Streetmix?', { exact: false })
@@ -49,7 +49,7 @@ describe('HelpMenu', () => {
   // of scope for a unit test and should be captured in the
   // end-to-end acceptance testing instead.
   it.skip('shows the About dialog when keyboard shortcut is pressed', () => {
-    renderWithReduxAndIntl(<HelpMenu />)
+    renderWithReduxAndIntl(<HelpMenu isActive={true} />)
 
     userEvent.type('?')
 
