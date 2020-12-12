@@ -575,7 +575,7 @@ export function drawStreetThumbnail (
 
     ctx.textAlign = 'center'
     ctx.textBaseline = 'center'
-    ctx.font = `normal 700 ${70 * dpi}px interstate-condensed,sans-serif`
+    ctx.font = `normal 700 ${70 * dpi}px overpass,sans-serif`
 
     var measurement = ctx.measureText(text)
 

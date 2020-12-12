@@ -13,8 +13,9 @@ $street-name-size: 1.5;
   padding: 10px * $size 20px * $size;
   padding-top: 11px * $size;
   padding-bottom: 5px * $size;
-  font-size: 36px * $size;
-  line-height: 24px * $size;
+  font-size: 32px * $size;
+  line-height: 28px * $size;
+  letter-spacing: -0.025em;
 
   [dir="rtl"] {
     font-size: 30px * $size;
@@ -38,8 +39,7 @@ body.windows .street-name-text {
 .street-name-text {
   @include street-name-inside-mixin;
 
-  // TODO: fallback to Roadgeek at 60px high w/o internet
-  font-family: "Interstate Condensed", "interstate-condensed", sans-serif;
+  font-family: "Overpass", "Roadgeek", sans-serif;
   font-weight: 700;
   text-align: left;
   text-overflow: ellipsis;
