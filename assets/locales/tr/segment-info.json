@@ -13,7 +13,7 @@
     "divider": "Emniyet mesafesi",
     "planting-strip": "Bitkilendirme şeridi",
     "planter-box": "Çiçek saksısı",
-    "median": "Medyan",
+    "median": "Orta refüj",
     "bollard": "Delinatör",
     "dome": "Yol butonu",
     "jersey-barrier": "Emniyet bariyeri",
@@ -38,7 +38,7 @@
     "bus-lane-shared": "Paylaşımlı bisiklet/otobüs şeridi",
     "streetcar": "Tramvay",
     "light-rail": "Hafif Raylı",
-    "transit-shelter": "Toplu ulaşım durağı",
+    "transit-shelter": "Toplu taşıma durağı",
     "brt-station": "Metrobüs istasyonu",
     "brt-lane": "Metrobüs şeridi",
     "temporary-barrier": "Geçici bariyer",
@@ -61,7 +61,7 @@
     },
     "colored-bike-lane": {
       "prompt": "Renklendirilmiş bisiklet yolları ile ilgili daha fazla bilgi edinin",
-      "content": ""
+      "content": "Boyalı bisiklet yollarının görünürlüğü daha fazladır ve bisikletliler için daha güvenlidir.\n\nBisikletin gündelik kullanımı arttıkça şehir plancılarının bisikletlilerin güvenliğini tahsis etmesi gerekmektedir. Bunu yaparken de bisiklet ve özel araçlar arasındaki çarpışma riskini kaldırıp, aynı zamanda araçların yasal olmayan bir şekilde bisiklet yolunu işgal etmesinin önüne geçilmelidir. Sorun şu: Sürücüler her zaman bisikletlilerin farkında değiller. Çözümü basit: Bisikletlileri mümkün olduğunca görünür yapın. Ve bunun için bir strateji de bisiklet yollarını asfalttan farklı bir renkle boyamaktır.\n\nBoyalı bisiklet yollarının güvenlik getirileri bir çok araştırmada (https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities) kanıtlamasına rağmen hangi rengin kullanılması konusunda herkesin farklı bir görüşü var: Hollanda'da kırmızı, Danimarka'da mavi ve Fransa'da yeşil renk kullanılmaktadır. Birleşik Krallık'ta kırmızı ve yeşil bir arada kullanılırken, Amerika Birleşik Devletleri'ndeki belediyelerin çoğunluğu yeşili tercih etmektedir. Sadece Amerika'nın en bisiklet dostu şehirlerinden biri olan Portland 1990'lardan beri maviyi kullanmaktadır (http://www.portlandoregon.gov/transportation/article/58842)\n\nHangi rengi en çok sevdiğinizden bağımsız dikkat edilmesi gereken kural seçtiğiniz rengin diğer kullanılan işaretlerden farklı olması ve görsel olarak öne çıkmasıdır. Bunun dışında belediyelerin bütçesini zorlayan bir diğer faktör ise bakımdır. Şu anda en çok kullanılan boya çeşitlerinin hızlıca solduğunu ve eskidiğini görsek de boya teknolojisindeki gelişmeler ile daha dayanıklı uygulamalar da yapılmaktadır. Eğer sürekli bakımın bütçe açısından sıkıntı çıkaracağını düşünüyorsanız, en baştan koruyucu bariyerlere (http://peopleforbikes.org/green-lane-project/protected-bike-lanes-101) yatırım yaparak daha güvenli bir bisiklet yolu elde edebilirsiniz."
     },
     "sharrow": {
       "prompt": "Paylaşımlı bisiklet yolları ile ilgili daha fazla bilgi edinin",
@@ -69,7 +69,7 @@
     },
     "transit-shelter-elevated": {
       "prompt": "Yükseltilmiş toplu taşıma durakları ile ilgili daha fazla bilgi edinin",
-      "content": ""
+      "content": "Yükseltilmiş duraklar tramvay ve metrobüs hatlarında kullanılmaktadır.\n\nServis hızının çok önemli olduğu metrobüs ve bazı tramvay sistemlerinde yükseltilmiş duraklar çok işe yaramaktadır. Otobüse hemzemin bir şekilde erişim sağlayarak yolcuların (özellikle tekerlekli sandalyelilerin ve diğer özel ihtiyaçları olanların) otobüse binmesini hızlandırmaktadır. Bu aşamada kazanılan her saniye uzun vadede önemli bir zaman kazanımı olarak geri dönmektedir.\n\nVerimliliğe verilen önem nedeniyle, yükseltilmiş durak kullanan toplu taşıma araçları genellikle kendisine ayrılmış özel şeritlerde giderken, bu duraklar farklı yöne giden şeritler ortasındaki refüje yerleştirilmektedir. Bu sayede duraklar her iki yöne hizmet verebilecek şekilde tasarlanabilir. (Streetmix'de bu duraklardan iki tane kullanmanız gerekecektir)\n\nYükseltilmiş duraklar kimi zaman tren duraklarına benzer bir şekilde de tasarlanabilir. Böyle duraklarda yolcuları koruması için bir çatı elemanı içereceği gibi yoğun caddelerde durakların görünürlüğünü arttıracaktır. Bu özelliklerine rağmen diğer kaldırım kotundaki duraklara kıyasla daha pahalı bir altyapı yatırımıdır ve tekerlekli sandalyeliler için daha uzun rampa mekanı gerektirmektedir. Bu nedenle normal otobüs altyapısı gibi her yere uygulanamayabilir. Buna ek olarak düşük zeminli otobüslerin popülerliği arttıkça yükseltilmiş duraklara duyulan ihtiyaç da azalacaktır."
     },
     "inception-train": {
       "content": "# Christopher Nolan _Inception_ filmindeki tren.\n\nDaha fazla ne bilmen gerekiyor?"

@@ -434,6 +434,7 @@
     "lang": {
       "ar": "Arabia",
       "ca": "Katalaani",
+      "cs": "",
       "de": "Saksa",
       "en": "Englanti",
       "es": "Espanja",
@@ -444,10 +445,13 @@
       "it": "Italia",
       "ja": "Japani",
       "ko": "Korea",
+      "nl-nl": "",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",
+      "ro-ro": "",
       "ru": "Venäjä",
       "sv": "Ruotsi",
+      "tr": "",
       "zh": "Kiina",
       "zh-hans": "Kiina (yksinkertaistettu)",
       "zh-hant": "Kiina (perinteinen)"
