@@ -210,6 +210,38 @@ function AboutDialog (props) {
                       </li>
                       <li>
                         <FormattedMessage
+                          id="dialogs.about.font-designed-by"
+                          defaultMessage="{fontName} font designed by {fontAuthor}."
+                          values={{
+                            fontName: (
+                              <ExternalLink href="https://overpassfont.org/">
+                                Overpass
+                              </ExternalLink>
+                            ),
+                            fontAuthor: (
+                              <ExternalLink href="https://delvefonts.com/">
+                                Delve Fonts
+                              </ExternalLink>
+                            )
+                          }}
+                        />{' '}
+                        <FormattedMessage
+                          id="dialogs.about.license-label"
+                          defaultMessage="(<a>License</a>)"
+                          values={{
+                            a: (chunks) => (
+                              <ExternalLink
+                                href="https://github.com/RedHatOfficial/Overpass/blob/master/LICENSE.md"
+                                title="SIL Open Font License, Version 1.1 and LGPL 2.1 (dual license)"
+                              >
+                                {chunks}
+                              </ExternalLink>
+                            )
+                          }}
+                        />
+                      </li>
+                      <li>
+                        <FormattedMessage
                           id="dialogs.about.emoji-by"
                           defaultMessage="Emoji by {author}."
                           values={{

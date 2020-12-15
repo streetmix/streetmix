@@ -189,9 +189,9 @@
       "tos-link": "Kullanım şartları",
       "privacy-link": "Gizlilik politikası",
       "acknowledgements": "Teşekkürler",
-      "font-designed-by": "{fontName}adlı font {fontAuthor}tarafından tasarlanmıştır.",
-      "emoji-by": "Emoji {author}tarafından üretilmiştir.",
-      "icons-by": "İkonlar {author}tarafından üretilmiştir.",
+      "font-designed-by": "{fontName} adlı font {fontAuthor} tarafından tasarlanmıştır.",
+      "emoji-by": "Emoji {author} tarafından üretilmiştir.",
+      "icons-by": "İkonlar {author} tarafından üretilmiştir.",
       "license-label": "(<a>Lisans</a>)"
     },
     "analytics": {
