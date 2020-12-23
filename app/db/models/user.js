@@ -1,4 +1,8 @@
 'use strict'
+/*
+a little atypical setup here...'id' is usually a unique primary key value
+but in this app it is actually the username of the user
+*/
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -23,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'auth0_id'
       },
       email: { type: DataTypes.STRING, unique: true },
-      roles: DataTypes.ARRAY(DataTypes.TEXT),
+      roles: { type: DataTypes.ARRAY(DataTypes.TEXT), defaultValue: ['USER'] },
       profileImageUrl: {
         type: DataTypes.STRING,
         field: 'profile_image_url'
@@ -49,6 +53,38 @@ module.exports = (sequelize, DataTypes) => {
       ]
     }
   )
+
+  /*
+  example naive usage: user.addRole('ADMIN')
+
+  different users of streetmix can have different roles,
+  which can enable or disable certain features
+
+  We need to be able to:
+  * add roles
+  * remove roles
+  * potentially have a timestamp of when a role was last updated (?)
+  * check if a role _should_ be updated(added/removed) or not based on criteria(this might need to be its own method, that gets a list of JSON objects to test against).
+    this should be a function that accepts some parameters and
+    searches for a match in the user's model based on a linking field.
+      * if a linking attribute is found(returns a boolean), that give role can be updated (calls the 'add roles' method). returns an error if false (cant find a user) or breaks (can't perform the function for whatever else reason)
+      * if it is not found, the role should be removed(calls the 'remove roles' method) or user should be flagged for a semi-manual check
+        ( potentially this would be provisional, subject to manual approval?
+          just in case we accidentally remove functionality from people.
+          this might need a nice failsafe,
+          especially early on when our supporter list is small enough)
+*/
+
+  User.prototype.addRole = function (newRole) {
+    if (!this.roles.includes(newRole)) {
+      this.update(
+        {
+          roles: sequelize.fn('array_append', sequelize.col('roles'), newRole)
+        },
+        { where: { id: this.id }, returning: true }
+      )
+    }
+  }
 
   User.associate = function (models) {
     // associations can be defined here
