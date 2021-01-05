@@ -101,7 +101,7 @@
     "auth0": "2.28.0",
     "auth0-js": "9.13.2",
     "autoprefixer": "9.8.6",
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "btoa": "1.2.1",
     "chalk": "4.1.0",
     "cloudinary": "1.23.0",
