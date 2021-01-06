@@ -27,7 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         field: 'auth0_id'
       },
       email: { type: DataTypes.STRING, unique: true },
-      roles: { type: DataTypes.ARRAY(DataTypes.TEXT), defaultValue: ['USER'] },
+      roles: {
+        type: DataTypes.ARRAY(DataTypes.TEXT),
+        defaultValue: ['USER']
+      },
       profileImageUrl: {
         type: DataTypes.STRING,
         field: 'profile_image_url'
@@ -75,6 +78,7 @@ module.exports = (sequelize, DataTypes) => {
           especially early on when our supporter list is small enough)
 */
 
+  // ok this may be actually based on out of date info about sequelize
   User.prototype.addRole = function (newRole) {
     if (!this.roles.includes(newRole)) {
       this.update(

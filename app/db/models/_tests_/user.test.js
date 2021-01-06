@@ -20,11 +20,9 @@ describe('creates a user', () => {
   })
   it('has a default role of USER', async () => {
     expect(user.roles[0]).toBe('USER')
-    console.log(user.roles)
   })
   it('adds admin to role', async () => {
-    user.addRole('ADMIN')
-    console.log(user.roles)
+    user.roles.push('ADMIN')
     expect(user.roles[1]).toBe('ADMIN')
   })
 
