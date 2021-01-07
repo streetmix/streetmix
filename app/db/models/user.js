@@ -3,6 +3,8 @@
 a little atypical setup here...'id' is usually a unique primary key value
 but in this app it is actually the username of the user
 */
+const userRoles = require('../../data/user_roles.json')
+const roles = Object.keys(userRoles)
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -29,7 +31,13 @@ module.exports = (sequelize, DataTypes) => {
       email: { type: DataTypes.STRING, unique: true },
       roles: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
-        defaultValue: ['USER']
+        defaultValue: ['USER'],
+        validate: {
+          isIn: {
+            args: [roles],
+            msg: 'Role does not match list of valid roles'
+          }
+        }
       },
       profileImageUrl: {
         type: DataTypes.STRING,
