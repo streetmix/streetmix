@@ -39,6 +39,9 @@ before_script:
 script:
   # Note: don't run `npm test` here directly, it's intended for local testing.
   - commitlint-travis
+  - npm run db:create
+  - sequelize db:migrate
+  - sequelize db:seed:all
   - npm run jest
   - npm run lint
   - npm run cypress:run
