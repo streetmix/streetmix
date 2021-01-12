@@ -7,12 +7,25 @@ node_js:
 # dist: xenial
 # os: linux
 
+before_install:
+  - sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/11/main/postgresql.conf
+  - sudo cp /etc/postgresql/{10,11}/main/pg_hba.conf
+  - sudo service postgresql stop
+  - sudo service postgresql start 11
+
+services:
+  - postgresql
+
 addons:
   apt:
     packages:
       # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
       # Required for Cypress. https://docs.cypress.io/guides/guides/continuous-integration.html#Travis
       - libgconf-2-4
+      - postgresql-11
+      - postgresql-11-postgis-2.5
+      - postgresql-11-postgis-2.5-scripts
+  postgresql: "11"
 
 env:
   global:
