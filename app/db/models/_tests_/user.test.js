@@ -22,14 +22,21 @@ describe('creates a user', () => {
     expect(user.roles[0]).toBe('USER')
   })
   it('adds admin to role', async () => {
+    // fyi: sequelize dosen't actually pass this to the table until user.save() or update
+    // so...this isn't commiting to the database and isn't testing that the role actually exists
     user.roles.push('ADMIN')
     expect(user.roles[1]).toBe('ADMIN')
   })
   it('throws an error when role is invalid', async () => {
+    // see https://jestjs.io/docs/en/expect#expectassertionsnumber
+    // TODO: if the test says simple maybe we dont need the expect assertions
+    // I don't want to include it unlesss we really need it
+    expect.assertions(1)
     user.roles.push('SPACE')
-    expect(() => {
-      user.validate()
-    }).toThrow('Role does not match list of valid roles')
+    // see https://jestjs.io/docs/en/tutorial-async#rejects
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Role does not match list of valid roles'
+    )
   })
 
   // After all tests have finished, close the DB connection
