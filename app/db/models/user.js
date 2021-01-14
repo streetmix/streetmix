@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       email: { type: DataTypes.STRING, unique: true },
       roles: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
+        set (newRole) {
+          if (!this.roles.includes(newRole)) {
+            this.setDataValue('roles', this.roles.push(newRole))
+          }
+        },
         defaultValue: ['USER'],
         validate: {
           isIn: {
@@ -66,13 +71,12 @@ module.exports = (sequelize, DataTypes) => {
   )
 
   /*
-  example naive usage: user.addRole('ADMIN')
-
   different users of streetmix can have different roles,
-  which can enable or disable certain features
+  which can enable or disable certain features (see '../../data/user_roles.json')
 
   We need to be able to:
   * add roles
+
   * remove roles
   * potentially have a timestamp of when a role was last updated (?)
   * check if a role _should_ be updated(added/removed) or not based on criteria(this might need to be its own method, that gets a list of JSON objects to test against).
@@ -89,13 +93,13 @@ module.exports = (sequelize, DataTypes) => {
   // ok this may be actually based on out of date info about sequelize
   User.prototype.addRole = function (newRole) {
     if (!this.roles.includes(newRole)) {
-      this.update(
-        {
-          roles: sequelize.fn('array_append', sequelize.col('roles'), newRole)
-        },
-        { where: { id: this.id }, returning: true }
-      )
+      this.update(this.roles.push(newRole))
     }
+  }
+
+  User.prototype.removeRole = function (roleToRemove) {
+    const newRoles = this.roles.filter((item) => item !== roleToRemove)
+    this.update((this.roles = newRoles))
   }
 
   User.associate = function (models) {
