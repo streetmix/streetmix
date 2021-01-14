@@ -31,11 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       email: { type: DataTypes.STRING, unique: true },
       roles: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
-        set (newRole) {
-          if (!this.roles.includes(newRole)) {
-            this.setDataValue('roles', this.roles.push(newRole))
-          }
-        },
         defaultValue: ['USER'],
         validate: {
           isIn: {
