@@ -36,8 +36,6 @@ describe('creates a user', () => {
   })
   it('throws an error when role is invalid', async () => {
     // see https://jestjs.io/docs/en/expect#expectassertionsnumber
-    // TODO: if the test says simple maybe we dont need the expect assertions
-    // I don't want to include it unlesss we really need it
     expect.assertions(1)
     user.addRole('SPACE')
     // see https://jestjs.io/docs/en/tutorial-async#rejects

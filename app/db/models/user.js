@@ -78,19 +78,23 @@ module.exports = (sequelize, DataTypes) => {
   * add roles
 
   * remove roles
-  * potentially have a timestamp of when a role was last updated (?)
-  * check if a role _should_ be updated(added/removed) or not based on criteria(this might need to be its own method, that gets a list of JSON objects to test against).
-    this should be a function that accepts some parameters and
-    searches for a match in the user's model based on a linking field.
-      * if a linking attribute is found(returns a boolean), that give role can be updated (calls the 'add roles' method). returns an error if false (cant find a user) or breaks (can't perform the function for whatever else reason)
-      * if it is not found, the role should be removed(calls the 'remove roles' method) or user should be flagged for a semi-manual check
-        ( potentially this would be provisional, subject to manual approval?
-          just in case we accidentally remove functionality from people.
-          this might need a nice failsafe,
-          especially early on when our supporter list is small enough)
+  * check if a role _should_ be updated(added/removed) or not based on criteria(like a matching auth token from a given provider)
 */
 
-  // ok this may be actually based on out of date info about sequelize
+  /*
+  https://sequelize.org/master/manual/model-basics.html#taking-advantage-of-models-being-classes
+  https://github.com/sequelize/sequelize/blob/4478d74a3e5dc8cd30837d8a193754867d06ccf5/docs/upgrade-to-v4.md#config--options
+
+  code examples:
+  // Class Method
+  Model.associate = function (models) {
+      ...associate the models
+  };
+
+  // Instance Method
+  Model.prototype.someMethod = function () {..}
+*/
+
   User.prototype.addRole = function (newRole) {
     if (!this.roles.includes(newRole)) {
       this.update(this.roles.push(newRole))
