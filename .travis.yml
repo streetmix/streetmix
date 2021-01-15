@@ -7,6 +7,7 @@ node_js:
 # dist: xenial
 # os: linux
 
+# we have to do some extra setup to let travis use the newer version of postgres + postgis
 before_install:
   - sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
   - sudo cp /etc/postgresql/{10,12}/main/pg_hba.conf
