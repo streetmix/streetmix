@@ -5,7 +5,7 @@ const faker = require('faker')
 a factory to make a user
 by default it generates fake data, but you can pass in other props too
 */
-const user = async (props = {}) => {
+const user = (props = {}) => {
   const defaultProps = {
     id: faker.internet.userName(),
     email: faker.internet.email(),
@@ -15,4 +15,4 @@ const user = async (props = {}) => {
   return Object.assign({}, defaultProps, props)
 }
 
-export default async (props = {}) => User.create(await user(props))
+export default (props = {}) => User.create(user(props))
