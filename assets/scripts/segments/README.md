@@ -5,7 +5,7 @@ Each segment is an object. It is named with a string, e.g. 'parklet' that Street
 How to fill in the data for a segment:
 
 | property | type | required? | description |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | `name` | _String_ | required | Display name of a segment. Always use sentence case. 'Parking lot', not 'Parking Lot' |
 | `owner` | _String_ | optional | See `SegmentTypes` constant variable container. Segments without an owner or type should default to `SegmentTypes.NONE`. |
 | `zIndex` | _Integer_ | required | Layering priority. Higher numbers will always display overlapping those with lower numbers. If zIndex is equal, DOM order will determine what is overlapping something else. |
@@ -37,14 +37,15 @@ How to fill in the data for a segment:
 
 ## Graphics settings
 
-Each graphics object has sub-objects whose key names are how they are intended to display inside of the segment. There are four ways to display something:
+Each graphics object has sub-objects whose key names are how they are intended to display inside of the segment. There are five ways to display something:
 
-| property | description                                             |
-| -------- | ------------------------------------------------------- |
-| `center` | The sprite is centered inside the segment.              |
-| `repeat` | The sprite repeats horizontally across the segment.     |
-| `left`   | The sprite is aligned to the left side of the segment.  |
-| `right`  | The sprite is aligned to the right side of the segment. |
+| property  | description                                                |
+| --------- | ---------------------------------------------------------- |
+| `center`  | The sprite is centered inside the segment.                 |
+| `repeat`  | The sprite repeats horizontally across the segment.        |
+| `left`    | The sprite is aligned to the left side of the segment.     |
+| `right`   | The sprite is aligned to the right side of the segment.    |
+| `scatter` | Sprites are randomly selected from a pool and distributed. |
 
 Any combination of these can be applied at once, but there should always be at least one sprite. All graphic elements of a segment are defined here, and that includes not just the primary graphic element itself (like a car or a tree) but also the surface it's on (whether asphalt or sidewalk), and any road markings.
 
@@ -83,3 +84,45 @@ One thing to keep in mind that on our tilesheets, the scale is 24 pixels equals 
 | `id` | String | required | Refers to an SVG sprite |
 | `offsetX` | Number | optional | Units: pixels (24 pixels = 1 foot). Horizontal position to offset the sprite from the attachment spot. The 0 position depends on whether the sprite is attached to the left/right or center of segment. |
 | `offsetY` | Number | optional | Units: 1 = 24 pixels (1 feet)). Vertical position to offset the sprite. The attachment point is something like 10 feet above ground. A positive value pushes the sprite downward. |
+
+### Repeated sprites
+
+Properties that define the behavior of repeated (or tiled) sprites.
+
+| property | type | required? | description |
+| --- | --- | --- | --- |
+| `id` | String | required | Refers to an SVG sprite |
+| `padding` | Number | optional | Units: feet (24 pixels = 1 foot). Left and right side padding between the edge of the segment and the tileable space. |
+
+### Scattered sprites
+
+Scattered sprites are randomly chosen from a pool of available sprites and distributed randomly along the width of the segment. These are primarily used for people and plants, but can used for any pool of sprites.
+
+These properties define the behavior of scattered sprites.
+
+| property | type | required? | description |
+| --- | --- | --- | --- |
+| `sprites` | Array | required | An array of sprites. Sprites can be a text string ID or an object containing more properties (see below). To avoid redefining a pool of sprites for every component definition, you can use `pool` instead to refer to a predefined pool of sprites. |
+| `pool` | String | optional | A string Id referring to a predefined pool of sprites. Currently the only available value is `people`, and this pool is defined in `people.json`. |
+| `minSpacing` | Number | optional | The minimum spacing (in feet) between any two randomly drawn sprites. Default value is `0`. |
+| `maxSpacing` | Number | optional | The maximum spacing (in feet) between any two randomly drawn sprites. Default value is `3`. |
+| `padding` | Number | optional | Units: feet (24 pixels = 1 foot). Left and right side padding at the edges of the segment to avoid drawing any sprites. If a sprite is too close to the edge it will be cut off at the edge of the segment. Default value is `0`. |
+| `originY` | Number | optional | Units: pixels. An adjustment in vertical position that is applied to each sprite. |
+
+#### Scattered sprite properties
+
+Sprite definitions used in the `sprite` array can have the following properties.
+
+| property | type | required? | description |
+| --- | --- | --- | --- |
+| `id` | String | required | Refers to an SVG sprite |
+| `name` | String | optional | A human-readable name for the sprite |
+| `width` | Number | optional | Units: feet. Not all sprites need to have the same width. Specifying the width allows the renderer to properly calculate how much space to allocate to this sprite and maintain consistent spacing between this and other sprites. |
+| `disallowFirst` | Boolean | optional | If `true`, this sprite is never picked first from the pool. Default value is `false`. |
+| `weight` | Number | optional | Controls the relative weight of drawing this sprite from the pool. The default value is `50`. Lower values mean this sprite is drawn less frequently, and higher values mean this sprite is drawn more frequently. |
+
+### Quirks
+
+Quirks are additional properties that change the rendering logic for a particular segment. There is only one quirk, `minWidth`, which is not the same thing as a segment's legal minimim width. This is the segment's minimum renderable width. For a given segment that is narrower than this width (in feet), the component's graphical assets (not including ground textures, like asphalt) are rendered as if the width of the segment was the `quirks.minWidth` value.
+
+This was created to support the variable-width BRT station, which has left- and right-aligned assets. Below a certain width, the segment would begin to render the pieces of the station in an undesirable way. By specifying the `quirks.minWidth` value, the BRT station stops shrinking (and rendering strangely) below a width of 2 meters.

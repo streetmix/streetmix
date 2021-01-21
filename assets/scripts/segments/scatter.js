@@ -6,6 +6,8 @@ import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 
 const DEFAULT_SELECTION_WEIGHT = 50
+const DEFAULT_SCATTER_SPACING_MIN = 0
+const DEFAULT_SCATTER_SPACING_MAX = 3 // in feet
 
 /**
  * Given a pool of entities, with defined widths, get the maximum width value
@@ -198,8 +200,8 @@ export function drawScatteredSprites (
   offsetLeft,
   groundLevel,
   randSeed,
-  minSpacing,
-  maxSpacing,
+  minSpacing = DEFAULT_SCATTER_SPACING_MIN,
+  maxSpacing = DEFAULT_SCATTER_SPACING_MAX,
   adjustment = 0,
   padding = 0,
   multiplier,
