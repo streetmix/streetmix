@@ -57,10 +57,7 @@ function SegmentForPalette (props) {
   // Determine width to render at
   const dimensions = getVariantInfoDimensions(variant)
 
-  let actualWidth = dimensions.right - dimensions.left
-  if (!actualWidth) {
-    actualWidth = segment.defaultWidth
-  }
+  let actualWidth = segment.defaultWidth || dimensions.right - dimensions.left
   actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
 
   const classNames = ['segment', 'segment-in-palette']
