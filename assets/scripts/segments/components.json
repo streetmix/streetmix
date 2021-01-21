@@ -552,7 +552,8 @@
               "scatter": {
                 "sprites": ["plants--bush"],
                 "minSpacing": -3,
-                "maxSpacing": 3
+                "maxSpacing": 3,
+                "padding": 2
               }
             }
           },
@@ -586,7 +587,8 @@
                   }
                 ],
                 "minSpacing": -3,
-                "maxSpacing": 3
+                "maxSpacing": 3,
+                "padding": 2
               }
             }
           }
@@ -679,17 +681,53 @@
         "orientation": {
           "left": {
             "graphics": {
-              "left": "transit--brt-station-left"
+              "repeat": {
+                "id": "transit--brt-station-piece-center",
+                "padding": 1.5
+              },
+              "left": "transit--brt-station-piece-left-edge",
+              "right": "transit--brt-station-piece-right-platform",
+              "scatter": {
+                "pool": "people",
+                "minSpacing": 0,
+                "maxSpacing": 2.5,
+                "originY": -36,
+                "padding": 7
+              }
             }
           },
           "right": {
             "graphics": {
-              "right": "transit--brt-station-right"
+              "repeat": {
+                "id": "transit--brt-station-piece-center",
+                "padding": 1.5
+              },
+              "right": "transit--brt-station-piece-right-edge",
+              "left": "transit--brt-station-piece-left-platform",
+              "scatter": {
+                "pool": "people",
+                "minSpacing": 0,
+                "maxSpacing": 2.5,
+                "originY": -36,
+                "padding": 7
+              }
             }
           },
           "center": {
             "graphics": {
-              "center": "transit--brt-station-center"
+              "repeat": {
+                "id": "transit--brt-station-piece-center",
+                "padding": 1.5
+              },
+              "left": "transit--brt-station-piece-left-platform",
+              "right": "transit--brt-station-piece-right-platform",
+              "scatter": {
+                "pool": "people",
+                "minSpacing": 0,
+                "maxSpacing": 2.5,
+                "originY": -36,
+                "padding": 7
+              }
             }
           }
         }
@@ -755,7 +793,8 @@
               "scatter": {
                 "pool": "people",
                 "minSpacing": 0,
-                "maxSpacing": 5
+                "maxSpacing": 5,
+                "padding": 2
               }
             }
           },
@@ -764,7 +803,8 @@
               "scatter": {
                 "pool": "people",
                 "minSpacing": 0,
-                "maxSpacing": 1.5
+                "maxSpacing": 1.5,
+                "padding": 2
               }
             }
           },
@@ -773,7 +813,8 @@
               "scatter": {
                 "pool": "people",
                 "minSpacing": 3.5,
-                "maxSpacing": 11.8333
+                "maxSpacing": 11.8333,
+                "padding": 2
               }
             }
           }

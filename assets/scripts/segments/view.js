@@ -292,21 +292,30 @@ export function drawSegmentContents (
     multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0)
 
   if (graphics.repeat && !drawSegmentOnly) {
+    // Convert single string or object values to single-item array
     let sprites = Array.isArray(graphics.repeat)
       ? graphics.repeat
       : [graphics.repeat]
     if (drawSegmentOnly) {
       sprites = [sprites[sprites.length - 1]]
     }
+    // Convert array of strings into array of objects
+    // If already an object, pass through
+    sprites = sprites.map((def) =>
+      typeof def === 'string' ? { id: def } : def
+    )
+
     for (let l = 0; l < sprites.length; l++) {
-      const sprite = getSpriteDef(sprites[l])
+      const sprite = getSpriteDef(sprites[l].id)
       const svg = images.get(sprite.id)
 
       // Skip drawing if sprite is missing
       if (!svg) continue
 
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
-      const count = Math.floor(segmentWidth / (width * multiplier) + 1)
+      const padding = sprites[l].padding ?? 0
+      const drawWidth = segmentWidth - padding * TILE_SIZE * 2
+      const count = Math.floor(drawWidth / (width * multiplier) + 1)
       let repeatStartX
 
       if (left < 0) {
@@ -325,7 +334,7 @@ export function drawSegmentContents (
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          width = segmentWidth / multiplier - (count - 1) * width
+          width = drawWidth / multiplier - (count - 1) * width
         }
 
         // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the distance
@@ -338,6 +347,7 @@ export function drawSegmentContents (
           width,
           undefined,
           offsetLeft +
+            padding * TILE_SIZE * multiplier +
             (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
               multiplier,
           sprite.id.includes('ground')
@@ -482,11 +492,15 @@ export function drawSegmentContents (
   // Only used for random people generation right now
   if (graphics.scatter) {
     if (graphics.scatter.pool === 'people') {
+      const originY =
+        (graphics.scatter.originY ??
+          graphics.scatter.originY + PERSON_SPRITE_OFFSET_Y) ||
+        PERSON_SPRITE_OFFSET_Y
       const people = PEOPLE.map((person) => {
         return {
           ...person,
           id: `people--${person.id}`,
-          originY: PERSON_SPRITE_OFFSET_Y
+          originY
         }
       })
 
@@ -500,6 +514,7 @@ export function drawSegmentContents (
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
         PERSON_SPACING_ADJUSTMENT,
+        graphics.scatter.padding,
         multiplier,
         dpi
       )
@@ -516,6 +531,7 @@ export function drawSegmentContents (
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
         0,
+        graphics.scatter.padding,
         multiplier,
         dpi
       )
