@@ -333,7 +333,6 @@ exports.get = async function (req, res) {
     if (!user) {
       throw new Error(ERRORS.USER_NOT_FOUND)
     }
-
     return user
   }
 
