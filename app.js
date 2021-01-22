@@ -8,7 +8,6 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
 
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
-const cookieSession = require('cookie-session')
 const express = require('express')
 const helmet = require('helmet')
 const config = require('config')
@@ -24,6 +23,11 @@ const serviceRoutes = require('./app/service_routes')
 const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
 const jwtCheck = require('./app/authentication')
+// requirements for using passportjs
+const expressSession = require('express-session')
+const passport = require('passport')
+const Auth0Strategy = require('passport-auth0')
+const authRouter = require('./app/auth_routes')
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
@@ -33,6 +37,43 @@ compileSVGSprites(
   'images',
   'image'
 )
+
+// config express-session
+const theSession = {
+  secret: '72a1e6ba625661ee10dfd9610abb5499acc276da06375e56ed2d3789d0aa11ae',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true
+}
+
+if (config.env === 'production') {
+  // Use secure cookies in production (requires SSL/TLS)
+  theSession.cookie.secure = true
+
+  // Uncomment the line below if your application is behind a proxy (like on Heroku)
+  // or if you're encountering the error message:
+  // "Unable to verify authorization request state"
+  // app.set('trust proxy', 1);
+}
+
+// Configure Passport to use Auth0
+const auth0Strat = new Auth0Strategy(
+  {
+    domain: process.env.AUTH0_DOMAIN,
+    clientID: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    callbackURL:
+      process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
+  },
+  function (accessToken, refreshToken, extraParams, profile, done) {
+    // accessToken is the token to call Auth0 API (not needed in the most cases)
+    // extraParams.id_token has the JSON Web Token
+    // profile has all the information from the user
+    return done(null, profile)
+  }
+)
+
+passport.use(auth0Strat)
 
 const app = (module.exports = express())
 
@@ -142,9 +183,7 @@ app.use(helmet(helmetConfig))
 app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
-app.use(
-  cookieSession({ secret: config.cookie_session_secret, sameSite: 'strict' })
-)
+app.use(expressSession(theSession))
 
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
@@ -199,6 +238,7 @@ app.get('/terms-of-service', (req, res) => res.render('tos'))
 // API routes
 app.use('', apiRoutes)
 app.use('', serviceRoutes)
+app.use('/', authRouter)
 
 app.use(
   '/assets',
@@ -237,6 +277,9 @@ app.get(
   ['/:user_id/:namespacedId', '/:user_id/:namespacedId/:street_name'],
   requestHandlers.metatags
 )
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Catch-all
 app.use((req, res) => res.render('main'))
