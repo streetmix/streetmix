@@ -155,5 +155,11 @@
     "name": "Junebug",
     "disallowFirst": true,
     "weight": 5
+  },
+  {
+    "id": "bernie",
+    "width": 3,
+    "name": "Bernie",
+    "weight": 1
   }
 ]
