@@ -216,7 +216,7 @@
     "stylelint": "13.9.0",
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-standard": "20.0.0",
-    "stylelint-csstree-validator": "1.8.0",
+    "stylelint-csstree-validator": "1.9.0",
     "stylelint-prettier": "1.1.2",
     "stylelint-scss": "3.16.1",
     "supertest": "6.0.1"
