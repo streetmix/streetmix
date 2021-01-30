@@ -11,6 +11,14 @@ const data = {
   [config.env]: {
     // Dialect needs to be explicitly supplied as of sequelize v4.0.0
     dialect: 'postgres',
+    // Heroku explicitly requires ssl: true, otherwise connections may
+    // fail intermittently. `dialectOptions` is not well documented by
+    // the sequelize ORM, and this issue seems to be only guidance there is,
+    // even for Heroku support staff:
+    // https://github.com/sequelize/sequelize/issues/956#issuecomment-713296042
+    dialectOptions: {
+      ssl: true
+    },
     ...config.db.sequelize
   }
 }
