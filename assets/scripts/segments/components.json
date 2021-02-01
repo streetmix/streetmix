@@ -680,6 +680,7 @@
       "variants": {
         "orientation": {
           "left": {
+            "minWidth": 6.75,
             "graphics": {
               "repeat": {
                 "id": "transit--brt-station-piece-center",
@@ -697,6 +698,7 @@
             }
           },
           "right": {
+            "minWidth": 6.75,
             "graphics": {
               "repeat": {
                 "id": "transit--brt-station-piece-center",
@@ -714,6 +716,7 @@
             }
           },
           "center": {
+            "minWidth": 6.75,
             "graphics": {
               "repeat": {
                 "id": "transit--brt-station-piece-center",

@@ -4359,6 +4359,9 @@
     "variants": ["brt-station-orientation"],
     "details": {
       "left": {
+        "rules": {
+          "minWidth": 10
+        },
         "components": {
           "lanes": [
             {
@@ -4379,6 +4382,9 @@
         }
       },
       "right": {
+        "rules": {
+          "minWidth": 10
+        },
         "components": {
           "lanes": [
             {
