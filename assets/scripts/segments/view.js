@@ -315,7 +315,7 @@ export function drawSegmentContents (
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const padding = sprites[l].padding ?? 0
       const drawWidth = segmentWidth - padding * TILE_SIZE * 2
-      const count = Math.floor(drawWidth / (width * multiplier) + 1)
+      const count = Math.floor(drawWidth / width) + 1
       let repeatStartX
 
       if (left < 0) {
@@ -334,7 +334,7 @@ export function drawSegmentContents (
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          width = drawWidth / multiplier - (count - 1) * width
+          width = drawWidth - (count - 1) * width
         }
 
         // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the distance
