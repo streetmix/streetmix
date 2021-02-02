@@ -17,8 +17,10 @@ const data = {
     // even for Heroku support staff:
     // https://github.com/sequelize/sequelize/issues/956#issuecomment-713296042
     dialectOptions: {
-      ssl: true,
-      rejectUnauthorized: false
+      ssl: {
+        // Ref.: https://github.com/brianc/node-postgres/issues/2009
+        rejectUnauthorized: false
+      }
     },
     ...config.db.sequelize
   }
