@@ -11,12 +11,6 @@ module.exports = {
   [config.env]: {
     // Dialect needs to be explicitly supplied as of sequelize v4.0.0
     dialect: 'postgres',
-    dialectOptions: {
-      ssl: {
-        // Ref.: https://github.com/brianc/node-postgres/issues/2009
-        rejectUnauthorized: false
-      }
-    },
     ...config.db.sequelize
   }
 }
