@@ -23,9 +23,9 @@ module.exports = {
       },
       // Heroku requires SSL connections to Postgres. As of the date of this
       // commit, hobby-tier and some some older database instances do not yet
-      // enforce SSL. As a result, we also set the `rejectUnauthorized`
-      // property to `false` so we don't fail on the error message
-      // "self signed certificate".
+      // enforce SSL, which can cause the app's database to throw the error "self
+      // signed certificate." So we must enable SSL but also set `rejectUnauthorized`
+      // to `false` to handle those app instances.
       // Additional info:
       // https://help.heroku.com/tickets/955239#event_5b8da58d-e65f-4f18-8744-e96c0b7507f6
       dialectOptions: {
