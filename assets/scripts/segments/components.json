@@ -680,8 +680,10 @@
       "variants": {
         "orientation": {
           "left": {
-            "minWidth": 6.75,
             "graphics": {
+              "quirks": {
+                "minWidth": 6.75
+              },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
                 "padding": 1.5
@@ -698,8 +700,10 @@
             }
           },
           "right": {
-            "minWidth": 6.75,
             "graphics": {
+              "quirks": {
+                "minWidth": 6.75
+              },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
                 "padding": 1.5
@@ -716,8 +720,10 @@
             }
           },
           "center": {
-            "minWidth": 6.75,
             "graphics": {
+              "quirks": {
+                "minWidth": 6.75
+              },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
                 "padding": 1.5
