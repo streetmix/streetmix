@@ -91,18 +91,37 @@ export function drawSegmentImage (
   }
 
   try {
-    ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
-  } catch (e) {
-    // IE11 has some issues drawing SVG images soon after loading. https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
+    // Round all values to whole numbers when we render. Decimal values can
+    // introduce tiny "seams" at tiled assets, for example.
+    ctx.drawImage(
+      svg.img,
+      Math.round(sx),
+      Math.round(sy),
+      Math.round(sw),
+      Math.round(sh),
+      Math.round(dx),
+      Math.round(dy),
+      Math.round(dw),
+      Math.round(dh)
+    )
+  } catch (err) {
+    // IE11 has some issues drawing SVG images soon after loading.
+    // https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
     setTimeout(() => {
       console.error(
-        'drawImage failed for img id ' +
-          id +
-          ' with error: ' +
-          e +
-          ' - Retrying after 2 seconds'
+        `drawImage failed for img id ${id} with error: ${err} - Retrying after 2 seconds`
       )
-      ctx.drawImage(svg.img, sx, sy, sw, sh, dx, dy, dw, dh)
+      ctx.drawImage(
+        svg.img,
+        Math.round(sx),
+        Math.round(sy),
+        Math.round(sw),
+        Math.round(sh),
+        Math.round(dx),
+        Math.round(dy),
+        Math.round(dw),
+        Math.round(dh)
+      )
     }, 2000)
   }
 }
@@ -212,6 +231,17 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
     }
   }
 
+  // If a segment has a "minimum renderable width", the left and right values
+  // are overridden based on the `quirks.minWidth` property. This prevents
+  // left/right assets from rendering in strange positions.
+  if (graphics.quirks?.minWidth) {
+    const minDimension = graphics.quirks.minWidth * TILE_SIZE_ACTUAL
+    if (displayWidth < minDimension) {
+      left = (displayWidth - minDimension) / 2
+      right = (minDimension - displayWidth) / 2 + displayWidth
+    }
+  }
+
   return {
     left: left / TILE_SIZE_ACTUAL,
     right: right / TILE_SIZE_ACTUAL,
@@ -285,6 +315,7 @@ export function drawSegmentContents (
 
   const dimensions = getVariantInfoDimensions(variantInfo, actualWidth)
   const left = dimensions.left
+  const minWidthQuirk = graphics.quirks?.minWidth
 
   const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
   const groundLevel =
@@ -292,31 +323,70 @@ export function drawSegmentContents (
     multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0)
 
   if (graphics.repeat && !drawSegmentOnly) {
+    // Convert single string or object values to single-item array
     let sprites = Array.isArray(graphics.repeat)
       ? graphics.repeat
       : [graphics.repeat]
     if (drawSegmentOnly) {
       sprites = [sprites[sprites.length - 1]]
     }
+    // Convert array of strings into array of objects
+    // If already an object, pass through
+    sprites = sprites.map((def) =>
+      typeof def === 'string' ? { id: def } : def
+    )
+
     for (let l = 0; l < sprites.length; l++) {
-      const sprite = getSpriteDef(sprites[l])
+      const sprite = getSpriteDef(sprites[l].id)
       const svg = images.get(sprite.id)
 
       // Skip drawing if sprite is missing
       if (!svg) continue
 
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
-      const count = Math.floor(segmentWidth / (width * multiplier) + 1)
-      let repeatStartX
+      const padding = sprites[l].padding ?? 0
 
-      if (left < 0) {
-        repeatStartX = -left * TILE_SIZE
+      let drawWidth
+      // If quirks.minWidth is defined, and the segment width is less than that
+      // value, then the draw width is the minimum renderable width, not the
+      // segment width. Skip this for ground assets.
+      if (
+        minWidthQuirk &&
+        actualWidth < minWidthQuirk &&
+        !sprite.id.includes('ground')
+      ) {
+        drawWidth = minWidthQuirk * TILE_SIZE - padding * 2 * TILE_SIZE
       } else {
+        drawWidth = segmentWidth - padding * 2 * TILE_SIZE
+      }
+
+      const count = Math.floor(drawWidth / width) + 1
+
+      let repeatStartX
+      if (left < 0) {
+        // If quirks.minWidth is defined, and the segment width is less than
+        // that value, then render the left edge at minimum width boundary,
+        // don't reposition it along the segment's left edge. Skip this process
+        // if it's a ground asset.
+        if (
+          minWidthQuirk &&
+          actualWidth < minWidthQuirk &&
+          !sprite.id.includes('ground')
+        ) {
+          repeatStartX = 0
+        } else {
+          // This is for rendering beyond the left edge of the segment
+          repeatStartX = -left * TILE_SIZE
+        }
+      } else {
+        // This is the normal render logic.
         repeatStartX = 0
       }
 
-      // The distance between the top of the sprite and the ground is calculated by subtracting the height of the sprite with the # of pixels
-      // to get to the point of the sprite which should align with the ground.
+      // The distance between the top of the sprite and the ground is
+      // calculated by subtracting the height of the sprite with the # of
+      // pixels to get to the point of the sprite which should align with
+      // the ground.
       const distanceFromGround =
         multiplier *
         TILE_SIZE *
@@ -325,11 +395,12 @@ export function drawSegmentContents (
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          width = segmentWidth / multiplier - (count - 1) * width
+          width = drawWidth - (count - 1) * width
         }
 
-        // If the sprite being rendered is the ground, dy is equal to the groundLevel. If not, dy is equal to the groundLevel minus the distance
-        // the sprite will be from the ground.
+        // If the sprite being rendered is the ground, dy is equal to the
+        // groundLevel. If not, dy is equal to the groundLevel minus the
+        //  distance the sprite will be from the ground.
         drawSegmentImage(
           sprite.id,
           ctx,
@@ -338,6 +409,7 @@ export function drawSegmentContents (
           width,
           undefined,
           offsetLeft +
+            padding * TILE_SIZE * multiplier +
             (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
               multiplier,
           sprite.id.includes('ground')
@@ -364,11 +436,23 @@ export function drawSegmentContents (
       // Skip drawing if sprite is missing
       if (!svg) continue
 
-      const x =
-        0 +
-        (-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
-          TILE_SIZE *
-          multiplier
+      let x
+      // If quirks.minWidth is defined, and the segment width is less than that
+      // value, then render a left-aligned asset at minimum width boundary,
+      // don't reposition it along the segment's left edge.
+      // Note: this doesn't take into account the sprite.offsetX because no
+      // asset with quirks.minWidth has offsetX defined right now.
+      if (minWidthQuirk && actualWidth < minWidthQuirk) {
+        x = 0
+      } else {
+        // This is the normal render logic.
+        x =
+          0 +
+          (-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+            TILE_SIZE *
+            multiplier
+      }
+
       const distanceFromGround =
         multiplier *
         TILE_SIZE *
@@ -405,13 +489,28 @@ export function drawSegmentContents (
       // Skip drawing if sprite is missing
       if (!svg) continue
 
-      const x =
-        (-left +
-          actualWidth -
-          svg.width / TILE_SIZE_ACTUAL -
-          (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
-        TILE_SIZE *
-        multiplier
+      let x
+      // If quirks.minWidth is defined, and the segment width is less than that
+      // value, then render a right-aligned asset at minimum width boundary,
+      // don't reposition it along the segment's right edge.
+      // Note: this doesn't take into account the sprite.offsetX because no
+      // asset with quirks.minWidth has offsetX defined right now.
+      if (minWidthQuirk && actualWidth < minWidthQuirk) {
+        x =
+          (minWidthQuirk - svg.width / TILE_SIZE_ACTUAL) *
+          TILE_SIZE *
+          multiplier
+      } else {
+        // This is the normal render logic.
+        x =
+          (-left +
+            actualWidth -
+            svg.width / TILE_SIZE_ACTUAL -
+            (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+          TILE_SIZE *
+          multiplier
+      }
+
       const distanceFromGround =
         multiplier *
         TILE_SIZE *
@@ -482,11 +581,15 @@ export function drawSegmentContents (
   // Only used for random people generation right now
   if (graphics.scatter) {
     if (graphics.scatter.pool === 'people') {
+      const originY =
+        (graphics.scatter.originY ??
+          graphics.scatter.originY + PERSON_SPRITE_OFFSET_Y) ||
+        PERSON_SPRITE_OFFSET_Y
       const people = PEOPLE.map((person) => {
         return {
           ...person,
           id: `people--${person.id}`,
-          originY: PERSON_SPRITE_OFFSET_Y
+          originY
         }
       })
 
@@ -500,6 +603,7 @@ export function drawSegmentContents (
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
         PERSON_SPACING_ADJUSTMENT,
+        graphics.scatter.padding,
         multiplier,
         dpi
       )
@@ -516,6 +620,7 @@ export function drawSegmentContents (
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
         0,
+        graphics.scatter.padding,
         multiplier,
         dpi
       )

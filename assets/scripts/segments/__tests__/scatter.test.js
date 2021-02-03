@@ -39,7 +39,8 @@ describe('scatter objects in segments', () => {
       0,
       5,
       4,
-      -0.5
+      -0.5,
+      2
     )
 
     expect(people).toMatchSnapshot()
@@ -54,7 +55,8 @@ describe('scatter objects in segments', () => {
       3.5,
       11.8333,
       4,
-      -0.5
+      -0.5,
+      2
     )
 
     expect(people).toMatchSnapshot()
@@ -69,7 +71,8 @@ describe('scatter objects in segments', () => {
       0,
       1.5,
       4,
-      -0.5
+      -0.5,
+      2
     )
 
     expect(people).toMatchSnapshot()
@@ -80,7 +83,8 @@ describe('scatter objects in segments', () => {
     const scatter = {
       sprites: ['plants--bush'],
       minSpacing: -3,
-      maxSpacing: 3
+      maxSpacing: 3,
+      padding: 2
     }
     const pool = [
       {
@@ -96,7 +100,8 @@ describe('scatter objects in segments', () => {
       scatter.minSpacing,
       scatter.maxSpacing,
       5,
-      0
+      0,
+      scatter.padding
     )
 
     expect(objects).toMatchSnapshot()

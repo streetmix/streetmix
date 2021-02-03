@@ -6,6 +6,7 @@ Object {
   "scatter": Object {
     "maxSpacing": 5,
     "minSpacing": 0,
+    "padding": 2,
     "pool": "people",
   },
 }

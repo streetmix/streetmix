@@ -4353,12 +4353,16 @@
     "enableWithFlag": "SEGMENT_BRT",
     "alwaysShowInPalette": true,
     "paletteIcon": "center",
+    "paletteDefaultWidth": 10,
     "rules": {
       "minWidth": 13.3333
     },
     "variants": ["brt-station-orientation"],
     "details": {
       "left": {
+        "rules": {
+          "minWidth": 10
+        },
         "components": {
           "lanes": [
             {
@@ -4379,6 +4383,9 @@
         }
       },
       "right": {
+        "rules": {
+          "minWidth": 10
+        },
         "components": {
           "lanes": [
             {

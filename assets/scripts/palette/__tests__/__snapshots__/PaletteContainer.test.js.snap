@@ -60,7 +60,7 @@ exports[`PaletteContainer renders 1`] = `
         <ul>
           <li
             class="segment segment-in-palette"
-            style="width: 48px;"
+            style="width: 44px;"
           >
             <div
               style="height: 80px;"
@@ -69,14 +69,14 @@ exports[`PaletteContainer renders 1`] = `
               <canvas
                 class="segment-image"
                 height="445"
-                style="width: 48px; height: 445px; left: 0px;"
-                width="48"
+                style="width: 44px; height: 445px; left: 0px;"
+                width="44"
               />
             </div>
           </li>
           <li
             class="segment segment-in-palette segment-disabled"
-            style="width: 56px;"
+            style="width: 52px;"
           >
             <div
               style="height: 80px;"
@@ -85,8 +85,8 @@ exports[`PaletteContainer renders 1`] = `
               <canvas
                 class="segment-image"
                 height="445"
-                style="width: 56px; height: 445px; left: 0px;"
-                width="56"
+                style="width: 52px; height: 445px; left: 0px;"
+                width="52"
               />
             </div>
             <svg

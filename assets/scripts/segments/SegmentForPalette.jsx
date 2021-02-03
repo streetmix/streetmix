@@ -17,7 +17,7 @@ import Tooltip from '../ui/Tooltip'
 import { ICON_LOCK } from '../ui/icons'
 import './SegmentForPalette.scss'
 
-const PALETTE_SEGMENT_EXTRA_PADDING = 6
+const PALETTE_SEGMENT_EXTRA_PADDING = 5
 const PALETTE_GROUND_BASELINE = 65
 const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
@@ -57,11 +57,11 @@ function SegmentForPalette (props) {
   // Determine width to render at
   const dimensions = getVariantInfoDimensions(variant)
 
-  let actualWidth = dimensions.right - dimensions.left
-  if (!actualWidth) {
-    actualWidth = segment.defaultWidth
-  }
-  actualWidth += PALETTE_SEGMENT_EXTRA_PADDING
+  const actualWidth =
+    segment.paletteDefaultWidth ||
+    segment.defaultWidth ||
+    dimensions.right - dimensions.left
+  const iconWidth = actualWidth + PALETTE_SEGMENT_EXTRA_PADDING
 
   const classNames = ['segment', 'segment-in-palette']
   let sublabel = null
@@ -80,7 +80,7 @@ function SegmentForPalette (props) {
   const node = (
     <li
       style={{
-        width: actualWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
+        width: iconWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
       }}
       className={classNames.join(' ')}
     >
@@ -95,7 +95,7 @@ function SegmentForPalette (props) {
             in order the activate the tooltip. */}
         <div style={{ height: '80px' }} tabIndex="0">
           <SegmentCanvas
-            actualWidth={actualWidth}
+            actualWidth={iconWidth}
             type={props.type}
             variantString={props.variantString}
             randSeed={props.randSeed}

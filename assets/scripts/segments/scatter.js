@@ -5,9 +5,6 @@ import { drawSegmentImage } from './view'
 import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 
-// Buffer area to avoid rendering sprites in.
-// Will be applied to both edges of the segment.
-const SEGMENT_PADDING = 2 // in feet
 const DEFAULT_SELECTION_WEIGHT = 50
 
 /**
@@ -83,6 +80,7 @@ function pickRandomEntityFromPool (pool, randomGenerator) {
  * @param {Number} maxSpacing - maximt spacing between each object, in feet (controls density)
  * @param {Number} maxSpriteWidth - maximum sprite width in the pool (via `getSpriteMaxWidth()`)
  * @param {Number} spacingAdjustment - additional value to adjust spacing, in feet
+ * @param {Number} padding - buffer zone at segment sides to avoid drawing in
  */
 export function getRandomObjects (
   pool,
@@ -91,7 +89,8 @@ export function getRandomObjects (
   minSpacing,
   maxSpacing,
   maxSpriteWidth,
-  spacingAdjustment = 0
+  spacingAdjustment = 0,
+  padding = 0
 ) {
   const randomGenerator = seedrandom(randSeed)
 
@@ -102,12 +101,9 @@ export function getRandomObjects (
   let lastWidth = 0
 
   // Pick (draw) objects from the pool until we have at least one object, and
-  // until we hit the maximum width given. SEGMENT_PADDING is used to so that
+  // until we hit the maximum width given. `padding` is used to so that
   // we don't render objects too closely to the edge of a segment.
-  while (
-    objects.length === 0 ||
-    runningWidth < maxWidth - SEGMENT_PADDING * 2
-  ) {
+  while (objects.length === 0 || runningWidth < maxWidth - padding * 2) {
     let object
 
     // Special choosing logic only for larger pools.
@@ -190,7 +186,8 @@ export function getRandomObjects (
  *    (controls density)
  * @param {Number} maxSpacing - maximum right spacing between each object, in
  *    feet (controls density)
- * @param {Number} adjustment - further adjustment value
+ * @param {Number} adjustment - further spacing adjustment value
+ * @param {Number} padding - buffer zone at segments sides to avoid drawing in
  * @param {Number} multiplier
  * @param {Number} dpi
  */
@@ -204,6 +201,7 @@ export function drawScatteredSprites (
   minSpacing,
   maxSpacing,
   adjustment = 0,
+  padding = 0,
   multiplier,
   dpi
 ) {
@@ -231,7 +229,8 @@ export function drawScatteredSprites (
     minSpacing,
     maxSpacing,
     maxSpriteWidth,
-    adjustment
+    adjustment,
+    padding
   )
 
   for (const object of objects) {
