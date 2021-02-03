@@ -157,7 +157,7 @@
     "react-spring": "8.0.27",
     "react-stripe-checkout": "2.6.3",
     "react-transition-group": "4.3.0",
-    "regenerator-runtime": "0.13.5",
+    "regenerator-runtime": "0.13.7",
     "requireindex": "1.2.0",
     "sass": "1.26.5",
     "seedrandom": "3.0.5",
