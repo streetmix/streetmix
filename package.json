@@ -159,7 +159,7 @@
     "react-transition-group": "4.3.0",
     "regenerator-runtime": "0.13.7",
     "requireindex": "1.2.0",
-    "sass": "1.26.5",
+    "sass": "1.32.6",
     "seedrandom": "3.0.5",
     "sequelize": "6.3.5",
     "sequelize-cli": "6.2.0",
