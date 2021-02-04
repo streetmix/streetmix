@@ -20,11 +20,13 @@ passport.use(
       scope: 'users pledges-to-me my-campaign',
       passReqToCallback: true
     },
-    function (req, accessToken, refreshToken, profile, done) {
+    async function (req, accessToken, refreshToken, profile, done) {
       // this could find by patreon id, but we also need the existing user
-      // im not sure if this is the place to handle checking the DB or not
-      const user = findUser(req.query.state)
-      return done(null, user)
+      // im not sure if this is the best place to handle checking the DB or not
+      const DBuser = await findUser(req.query.state)
+      // passing profile along the request, probably another way to do this
+      req.profile = profile
+      return done(null, DBuser)
     }
   )
 )
@@ -43,11 +45,27 @@ passport.deserializeUser(function (id, done) {
 exports.get = (req, res, next) => {
   // at this point the request has user info from auth0
   // auth0 nickname == user.id in our internal db that we'll need later
-  passport.authorize('patreon', { state: req.user.nickname })(req, res, next)
+  // this might not be available if the user isn't signed in
+  // we could add error handiling for this, but also they _should_ only ever be
+  // getting here from a button that you only see when you're signed in..
+  passport.authorize('patreon', {
+    state: req.user.nickname,
+    failureRedirect: '/error'
+  })(req, res, next)
 }
 
 exports.callback = (req, res, next) => {
   passport.authorize('patreon', {
     failureRedirect: '/error'
   })(req, res, next)
+}
+
+exports.connectUser = (req, res) => {
+  // pass profile here, construct an object to save to user DB
+  const account = req.account
+  const identities = {
+    provider: req.profile.provider,
+    user_id: req.profile.id
+  }
+  res.redirect('/')
 }

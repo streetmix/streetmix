@@ -115,12 +115,8 @@ routes.get(
 routes.get(
   '/services/integrations/patreon/callback',
   resources.services.integrations.patreon.callback,
-  function (req, res) {
-    // this seems to still be a promise, not resolved
-    const account = req.account
-    console.log(account)
-    res.redirect('/')
-  }
+  resources.services.integrations.patreon.connectUser
+
 )
 
 /******************************************************************************
