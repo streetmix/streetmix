@@ -44,6 +44,14 @@ module.exports = (sequelize, DataTypes) => {
         {
           unique: true,
           fields: ['namespaced_id', 'creator_id']
+        },
+        {
+          unique: true,
+          fields: ['id']
+        },
+        {
+          unique: true,
+          fields: ['original_street_id']
         }
       ]
     },

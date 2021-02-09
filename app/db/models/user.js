@@ -60,6 +60,14 @@ module.exports = (sequelize, DataTypes) => {
         {
           unique: true,
           fields: ['email']
+        },
+        {
+          unique: true,
+          fields: ['auth0_id']
+        },
+        {
+          unique: true,
+          fields: ['id']
         }
       ]
     }
