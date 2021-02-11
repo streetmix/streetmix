@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
         {
           unique: true,
           fields: ['namespaced_id', 'creator_id']
+        },
+        {
+          unique: true,
+          fields: ['id']
         }
       ]
     },
