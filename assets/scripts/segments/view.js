@@ -616,7 +616,7 @@ export function drawSegmentContents (
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
         groundLevel,
-        randSeed ?? 9123984, // self defined randSeed if one is not provided.
+        randSeed,
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
         0,

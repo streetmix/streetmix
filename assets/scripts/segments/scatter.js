@@ -87,7 +87,7 @@ function pickRandomEntityFromPool (pool, randomGenerator) {
 export function getRandomObjects (
   pool,
   maxWidth,
-  randSeed,
+  randSeed = 9123984, // self defined randSeed if one is not provided
   minSpacing,
   maxSpacing,
   maxSpriteWidth,
