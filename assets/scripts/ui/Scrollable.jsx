@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animate } from '../util/helpers'
 import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import './Scrollable.scss'
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
