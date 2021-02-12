@@ -71,7 +71,7 @@ class SegmentDragLayer extends React.PureComponent {
         {isDragging &&
           (type === Types.SEGMENT || type === Types.PALETTE_SEGMENT) && (
             <div className="floating segment" ref={this.floatingEl}>
-              <SegmentCanvas {...item} />
+              <SegmentCanvas {...item} randSeed={item.id} />
             </div>
           )}
         {/* eslint-enable */}

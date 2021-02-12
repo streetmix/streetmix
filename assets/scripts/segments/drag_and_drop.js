@@ -35,6 +35,7 @@ import {
   setActiveSegment,
   setDraggingType
 } from '../store/slices/ui'
+import { generateRandSeed } from '../util/random'
 
 export var draggingResize = {
   segmentEl: null,
@@ -489,6 +490,7 @@ export const paletteSegmentSource = {
     const segmentInfo = getSegmentInfo(props.type)
 
     return {
+      id: generateRandSeed(),
       variantString: Object.keys(segmentInfo.details).shift(),
       type: props.type,
       actualWidth: segmentInfo.defaultWidth
