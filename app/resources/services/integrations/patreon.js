@@ -36,42 +36,55 @@ const findUser = async function (userId) {
   return user.dataValues
 }
 
-passport.use(
-  new PatreonStrategy(
-    {
-      clientID: process.env.PATREON_CLIENT_ID,
-      clientSecret: process.env.PATREON_CLIENT_SECRET,
-      callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/patreon/callback`,
-      scope: 'users pledges-to-me my-campaign',
-      passReqToCallback: true
-    },
-    async function (req, accessToken, refreshToken, profile, done) {
-      /*
-      this is what passport calls the 'verify callback'
-      our case is a little different since we already have a logged in user
-      not sure if this is the best place to handle checking the DB or not but it works
-       */
-      const databaseUser = await findUser(req.query.state)
-      // passing the profile data along the request, probably another way to do this
-      req.profile = profile
-      return done(null, databaseUser)
-    }
+const initPatreon = () => {
+  passport.use(
+    new PatreonStrategy(
+      {
+        clientID: process.env.PATREON_CLIENT_ID,
+        clientSecret: process.env.PATREON_CLIENT_SECRET,
+        callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/patreon/callback`,
+        scope: 'users pledges-to-me my-campaign',
+        passReqToCallback: true
+      },
+      async function (req, accessToken, refreshToken, profile, done) {
+        /*
+        this is what passport calls the 'verify callback'
+        our case is a little different since we already have a logged in user
+        not sure if this is the best place to handle checking the DB or not but it works
+         */
+        const databaseUser = await findUser(req.query.state)
+        // passing the profile data along the request, probably another way to do this
+        req.profile = profile
+        return done(null, databaseUser)
+      }
+    )
   )
-)
 
-// these aren't used yet, but would be if we start using persistent user sessions
-passport.serializeUser(function (user, done) {
-  done(null, user)
-})
+  // these aren't used yet, but would be if we start using persistent user sessions
+  passport.serializeUser(function (user, done) {
+    done(null, user)
+  })
 
-passport.deserializeUser(function (id, done) {
-  const user = async () => {
-    await User.findByPk(id)
-  }
-  done(null, user)
-})
+  passport.deserializeUser(function (id, done) {
+    const user = async () => {
+      await User.findByPk(id)
+    }
+    done(null, user)
+  })
+}
+
+// Only initialize Patreon auth strategy if the env vars are set.
+if (process.env.PATREON_CLIENT_ID && !process.env.PATREON_CLIENT_SECRET) {
+  initPatreon()
+}
 
 exports.get = (req, res, next) => {
+  if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
+    res
+      .status(500)
+      .json({ status: 500, msg: 'Patreon integration unavailable.' })
+  }
+
   /*
   at this point,the request has user info from auth0 that we passed to this route
   auth0 nickname == user.id in our internal db that we'll need later for lookup
@@ -87,6 +100,12 @@ exports.get = (req, res, next) => {
 }
 
 exports.callback = (req, res, next) => {
+  if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
+    res
+      .status(500)
+      .json({ status: 500, msg: 'Patreon integration unavailable.' })
+  }
+
   passport.authorize('patreon', {
     failureRedirect: '/error'
   })(req, res, next)

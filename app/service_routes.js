@@ -116,7 +116,6 @@ routes.get(
   '/services/integrations/patreon/callback',
   resources.services.integrations.patreon.callback,
   resources.services.integrations.patreon.connectUser
-
 )
 
 /******************************************************************************
