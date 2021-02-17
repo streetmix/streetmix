@@ -37,7 +37,7 @@ Submitting a pull request
 
 5. **Push your changes.** After pushing, we run continuous integration tests in the cloud to make sure commits pass. We recommend manually running tests locally as well. See :ref:`running-tests`.
 
-6. **Submit a pull request.** Ideally, pull requests contain small, self-contained changes with a few commits, which are easier to review. You can simplify a review and merge process by making sure your branch contains no conflicts with the ``master`` branch and is up-to-date (either by rebasing on ``master`` or merging it in) when the pull request is created. If the pull request addresses an open issue, be sure to reference it in your request's title or description.
+6. **Submit a pull request.** Ideally, pull requests contain small, self-contained changes with a few commits, which are easier to review. You can simplify a review and merge process by making sure your branch contains no conflicts with the ``main`` branch and is up-to-date (either by rebasing on ``main`` or merging it in) when the pull request is created. If the pull request addresses an open issue, be sure to reference it in your request's title or description.
 
 7. **Wait for a review.** A project maintainer will review your pull request and either approve, reject, or request changes on it. A well-written, small pull request that fixes an open issue is most likely to be approved and merged quickly. Once merged, a branch is deleted.
 

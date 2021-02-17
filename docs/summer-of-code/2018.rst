@@ -30,7 +30,7 @@ About the application
 
 We're looking for applicants that are eager to apply their programming skills to building civic technology and user interfaces that demystify a political, democratic process and to encourage more participation and collaboration within a community to design public space. We will be applying best practices in modern application architecture (with Javascript/Node.js) and user interface engineering to build a simple, responsive, and performance optimized user experience. Interest and experience in UI design, SVG and canvas rendering, databases, and open data are a plus. Candidates should be comfortable with HTML/CSS/Javascript and familiar with either MongoDB or Postgres.
 
-If you are considering applying to Streetmix, please explore our `GitHub repository <https://github.com/streetmix/streetmix>`_ and read our `contributing guidelines <https://github.com/streetmix/streetmix/blob/master/CONTRIBUTING.md>`_ to see if the project interests you. 
+If you are considering applying to Streetmix, please explore our `GitHub repository <https://github.com/streetmix/streetmix>`_ and read our `contributing guidelines <https://github.com/streetmix/streetmix/blob/main/CONTRIBUTING.md>`_ to see if the project interests you.
 
 We highly recommend joining our community on `Slack <https://streetmix-slack.herokuapp.com/>`_! When you do, introduce yourself and you may ask questions about Streetmix or the application process in the *#gsoc* channel.
 

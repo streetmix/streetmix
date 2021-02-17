@@ -146,7 +146,9 @@ CI can be skipped by appending ``[skip ci]`` to a commit message.
 Automatic deployment
 ++++++++++++++++++++
 
-The ``master`` branch is live: that means every commit or merged pull request that passes CI is automatically deployed to the production server.
+Every commit or merged pull request to the ``main`` branch that passes CI is automatically deployed to the staging server.
+
+Currently, there is no automatic deployment to the production server. We've noticed that each deploy introduces a small amount of lag while the server software restarts. As a result, we now manually trigger deployments to the production server.
 
 
 GitHub checks

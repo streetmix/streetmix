@@ -4,4 +4,4 @@ In the spirit of open source, **everyone** is encouraged to help improve this pr
 
 Streetmix adopts the [Contributor Code of Conduct][code_of_conduct]. By participating in this project you agree to abide by its terms.
 
-[code_of_conduct]: https://github.com/streetmix/streetmix/blob/master/CODE_OF_CONDUCT.md
+[code_of_conduct]: https://github.com/streetmix/streetmix/blob/main/CODE_OF_CONDUCT.md

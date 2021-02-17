@@ -3,7 +3,7 @@ Segment definitions
 
 .. attention::
 
-   This page is a work in progress. This is a draft specification of Streetmix's forthcoming segment definition schema. For documentation related to the legacy specification, see `this file <https://github.com/streetmix/streetmix/blob/master/assets/scripts/segments/README.md>`_.
+   This page is a work in progress. This is a draft specification of Streetmix's forthcoming segment definition schema. For documentation related to the legacy specification, see `this file <https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/README.md>`_.
    
    The schema and structure described here is subject to change and evolve.
 
@@ -91,7 +91,7 @@ Objects have the following defined characteristics:
 Components definitions
 ++++++++++++++++++++++
 
-Segment components are defined in https://github.com/streetmix/streetmix/blob/master/assets/scripts/segments/components.json 
+Segment components are defined in https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/components.json
 
 
 Segment definitions
@@ -99,7 +99,7 @@ Segment definitions
 
 .. admonition:: Background
 
-   Currently every object type (what we call "segments" internally) is defined here: https://github.com/streetmix/streetmix/blob/master/assets/scripts/segments/info.json
+   Currently every object type (what we call "segments" internally) is defined here: https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/info.json
 
    Its basic structure is very minimal. For every segment we have some properties attached to it (e.g. its display name, minimum / maximum recommended width, if any, and so on), and we also specify which image sprites represent the segment graphically. Each segment may also have variants, which come with its own properties.
 
@@ -107,7 +107,7 @@ Segment definitions
    
    Finally, there is the problem variants. Each segment variant combines with other varients so the total number of variants are multiplied together. This means each time a new variant is added, the data multiplies exponentially. Most segments have two variants, which is manageable. Once you have three or more, it's unworkable. It's one of the main reasons why we resisted putting in raised bike lanes despite it being one of the most requested segment features over the last few years. Doing so raised the complexity of our data, and so we need to consider how to implement it in a better way.
 
-Segments are now defined as an assemblage of components, with additional properties. See here: https://github.com/streetmix/streetmix/blob/master/assets/scripts/segments/segment-lookup.json
+Segments are now defined as an assemblage of components, with additional properties. See here: https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/segment-lookup.json
 
 
 Additional segment properties
