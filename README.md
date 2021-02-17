@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/master.svg?style=for-the-badge"></a>
+  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/main.svg?style=for-the-badge"></a>
   <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=for-the-badge"></a>
   <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/tech-debt/streetmix/streetmix.svg?style=for-the-badge"></a>
   <a href="https://codecov.io/gh/streetmix/streetmix"><img alt="Code Coverage" src="https://img.shields.io/codecov/c/gh/streetmix/streetmix.svg?label=test%20coverage&style=for-the-badge"></a>
@@ -33,7 +33,7 @@
 <hr>
 
 <p align="center">
-  <img src="https://github.com/streetmix/streetmix/raw/master/docs/images/screenshot-beta.jpg" alt="screenshot">
+  <img src="https://github.com/streetmix/streetmix/raw/main/docs/images/screenshot-beta.jpg" alt="screenshot">
 </p>
 
 ## About
@@ -83,4 +83,4 @@ See [LICENSE][] for details.
 
 [![Open Source Helpers](https://www.codetriage.com/codeforamerica/streetmix/badges/users.svg)](https://www.codetriage.com/codeforamerica/streetmix)
 
-[license]: https://github.com/streetmix/streetmix/blob/master/LICENSE.md
+[license]: https://github.com/streetmix/streetmix/blob/main/LICENSE.md

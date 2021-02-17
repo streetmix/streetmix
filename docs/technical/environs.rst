@@ -7,7 +7,7 @@ Environs definitions
 
 **Environs** is a setting that allows uers to change the "environment" that a street is in, which can include elements like time of day, weather, and background. In the UI, we prefer to use the term *environment*. Internally, we use *environs* to prevent confusion with the computing term *developer environment*.
 
-Environs definitions are contained in :file:`environs.json`. You can browse the `current environs definitions here <https://github.com/streetmix/streetmix/blob/master/assets/scripts/streets/environs.json>`_.
+Environs definitions are contained in :file:`environs.json`. You can browse the `current environs definitions here <https://github.com/streetmix/streetmix/blob/main/assets/scripts/streets/environs.json>`_.
 
 environs.json schema
 --------------------

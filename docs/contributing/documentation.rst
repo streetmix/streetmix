@@ -5,7 +5,7 @@ Documentation
 
 *You're looking at it!*
 
-Our documentation lives in the ``docs`` folder of `the Streetmix repository <https://github.com/streetmix/streetmix/tree/master/docs>`_. It's built and hosted by `Read the Docs <https://readthedocs.org/>`_.
+Our documentation lives in the ``docs`` folder of `the Streetmix repository <https://github.com/streetmix/streetmix/tree/main/docs>`_. It's built and hosted by `Read the Docs <https://readthedocs.org/>`_.
 
 We use the `reStructuredText (reST) syntax <http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_. While Markdown is a very common alternative, it's harder to format extensive technical documentation with it. 
 
@@ -102,4 +102,4 @@ Commit your changes and push to the upstream repository.
 5. Deploy
 +++++++++
 
-Once documentation have been committed to the Streetmix ``master`` branch, Read the Docs will automatically build and deploy the revised documentation to https://streetmix.readthedocs.io/. Read the Docs does not wait for continuous integration to pass, and a production build will be triggered on each commit.
+Once documentation have been committed to the Streetmix ``main`` branch, Read the Docs will automatically build and deploy the revised documentation to https://streetmix.readthedocs.io/. Read the Docs does not wait for continuous integration to pass, and a production build will be triggered on each commit.

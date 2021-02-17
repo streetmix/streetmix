@@ -6,7 +6,7 @@ Contributing
    The Streetmix team has adopted a `Contributor Code of Conduct`_.
    By participating in this project you agree to abide by its terms.
 
-   .. _Contributor Code of Conduct: https://github.com/streetmix/streetmix/blob/master/CODE_OF_CONDUCT.md
+   .. _Contributor Code of Conduct: https://github.com/streetmix/streetmix/blob/main/CODE_OF_CONDUCT.md
 
 
 In the spirit of open source, **everyone** is welcome to help! **You do not have to be a programmer to participate.** This section will help you make high quality contributions to Streetmix. Choose the activity you'd like to help with to learn more:

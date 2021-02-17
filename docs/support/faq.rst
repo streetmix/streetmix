@@ -18,7 +18,7 @@ The **Creative Commons license** governs the content in Streetmix, such as text 
 
 This is a basic overview of what these licenses mean. For more details, including how these licenses may apply to your specific use case, please refer to the license text or consult with a qualified legal advisor.
 
-.. _BSD license: https://github.com/streetmix/streetmix/blob/master/LICENSE.md
+.. _BSD license: https://github.com/streetmix/streetmix/blob/main/LICENSE.md
 .. _Creative Commons license: https://creativecommons.org/licenses/by-sa/4.0/
 
 
@@ -43,7 +43,7 @@ You sure can. If you are technically inclined, please refer to the `project repo
 
 If you are looking for someone to set up a whitelabeled instance of Streetmix, we can help! Shoot us an email to hello@streetmix.net and let's chat.
 
-.. _project repository README: https://github.com/streetmix/streetmix/blob/master/README.md
+.. _project repository README: https://github.com/streetmix/streetmix/blob/main/README.md
 
 
 .. _faq-internet-explorer:
