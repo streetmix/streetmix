@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'auth0_id'
       },
       email: { type: DataTypes.STRING, unique: true },
+      identities: DataTypes.JSON,
       roles: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
         defaultValue: ['USER'],

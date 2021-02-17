@@ -24,6 +24,7 @@ const serviceRoutes = require('./app/service_routes')
 const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
 const jwtCheck = require('./app/authentication')
+const passport = require('passport')
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
@@ -148,6 +149,8 @@ app.use(
 
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
+
+app.use(passport.initialize())
 
 // Set variables for use in view templates
 app.use((req, res, next) => {

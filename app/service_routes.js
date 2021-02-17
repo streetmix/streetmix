@@ -104,6 +104,22 @@ routes.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 routes.get('/services/auth/just-signed-in/', (req, res) => res.render('main'))
 
 /******************************************************************************
+ *  THIRD PARTY APP INTEGRATIONS
+ *****************************************************************************/
+
+routes.get(
+  '/services/integrations/patreon',
+  jwtCheck,
+  resources.services.integrations.patreon.get
+)
+routes.get(
+  '/services/integrations/patreon/callback',
+  resources.services.integrations.patreon.callback,
+  resources.services.integrations.patreon.connectUser
+
+)
+
+/******************************************************************************
  *  ERROR HANDLING
  *****************************************************************************/
 

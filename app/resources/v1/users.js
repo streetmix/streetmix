@@ -43,6 +43,7 @@ exports.post = async function (req, res) {
     res.status(200).send(userJson)
   } // END function - handleUpdateUser
 
+  // TODO: find out if this is called still and why its seperate from handleAuth0SignIn
   const handleAuth0TwitterSignIn = async function (credentials) {
     try {
       let user
@@ -133,6 +134,7 @@ exports.post = async function (req, res) {
     return profileImageUrl
   }
 
+  // TODO: pretty sure usage of findOrCreate would simplify much of this
   const handleAuth0SignIn = async function (credentials) {
     try {
       let user
@@ -316,6 +318,8 @@ exports.get = async function (req, res) {
     }
   }
 
+  // TODO this function seems like it could be replaced by
+  // sequelize findByPK
   const findUserById = async function (userId) {
     let user
     try {
@@ -363,6 +367,8 @@ exports.get = async function (req, res) {
   }
 
   try {
+    // seems odd to have these two functions chained together, when we
+    // have an ORM that can retrive the user details. is this code still used?
     const result = await findUserById(userId)
     handleFindUser(result)
   } catch (err) {

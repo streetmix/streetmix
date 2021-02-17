@@ -139,6 +139,8 @@
     "newrelic": "7.0.2",
     "oauth": "0.9.15",
     "parcel-bundler": "1.12.4",
+    "passport": "0.4.1",
+    "passport-patreon": "1.0.1",
     "pelias-js": "0.0.8",
     "pg": "8.5.1",
     "postcss-round-subpixels": "1.2.0",
