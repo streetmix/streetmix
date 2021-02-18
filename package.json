@@ -179,9 +179,9 @@
     "winston": "3.3.3"
   },
   "devDependencies": {
-    "@babel/core": "7.9.6",
+    "@babel/core": "7.12.17",
     "@babel/plugin-proposal-class-properties": "7.10.4",
-    "@babel/preset-env": "7.10.4",
+    "@babel/preset-env": "7.12.17",
     "@babel/preset-react": "7.12.13",
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-conventional": "11.0.0",
