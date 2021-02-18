@@ -193,7 +193,7 @@
     "axios-mock-adapter": "1.19.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
-    "cypress": "4.9.0",
+    "cypress": "4.12.1",
     "eslint": "7.20.0",
     "eslint-config-standard": "16.0.2",
     "eslint-config-standard-jsx": "10.0.0",
@@ -205,7 +205,7 @@
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-standard": "4.1.0",
-    "faker": "5.1.0",
+    "faker": "5.4.0",
     "husky": "4.3.8",
     "jest": "26.6.3",
     "jest-canvas-mock": "2.3.1",
@@ -222,6 +222,6 @@
     "stylelint-csstree-validator": "1.9.0",
     "stylelint-prettier": "1.1.2",
     "stylelint-scss": "3.19.0",
-    "supertest": "6.0.1"
+    "supertest": "6.1.3"
   }
 }
