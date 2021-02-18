@@ -44,14 +44,16 @@ function StreetMetaGeotag (props) {
   }
 
   // Determine what text label to render
-  const geotagText = street.location ? (
-    getGeotagText()
-  ) : (
-    <FormattedMessage
-      id="dialogs.geotag.add-location"
-      defaultMessage="Add location"
-    />
-  )
+  const geotagText = street.location
+    ? (
+        getGeotagText()
+      )
+    : (
+      <FormattedMessage
+        id="dialogs.geotag.add-location"
+        defaultMessage="Add location"
+      />
+      )
 
   return (
     <span className="street-metadata-map">

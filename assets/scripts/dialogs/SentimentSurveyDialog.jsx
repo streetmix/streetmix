@@ -21,6 +21,7 @@ function SentimentSurveyDialog (props) {
                 id="sentiment.about-article.paragraph-1"
                 defaultMessage="Many streets are designed by civil engineers, but we believe that design should include everyone’s point of view. In partnership with the <a>New Urban Mobility Alliance</a> (NUMO), we’re conducting this one-question survey to do just that."
                 values={{
+                  // eslint-disable-next-line react/display-name
                   a: (chunks) => (
                     <ExternalLink href="https://www.numo.global/">
                       {chunks}
@@ -40,6 +41,7 @@ function SentimentSurveyDialog (props) {
                 id="sentiment.about-article.paragraph-3"
                 defaultMessage="You can only vote once per street, but you can encourage others to cast their own vote by sharing your streets or a random street with the link <a>https://streetmix.net/survey/</a>."
                 values={{
+                  // eslint-disable-next-line react/display-name
                   a: (chunks) => (
                     <a
                       href="https://streetmix.net/survey/"

@@ -27,28 +27,30 @@ function FirstTimeExistingStreet (props) {
           Avatar components cannot exist inside a <p> */}
       <div className="paragraph">
         {/* Display street creator if creatorId is available. */}
-        {street.creatorId ? (
-          <FormattedMessage
-            id="dialogs.welcome.existing.intro"
-            defaultMessage="This is {streetName} made by {creator}."
-            values={{
-              streetName: <StreetName name={street.name} />,
-              creator: (
-                <>
-                  <Avatar userId={street.creatorId} /> {street.creatorId}
-                </>
-              )
-            }}
-          />
-        ) : (
-          <FormattedMessage
-            id="dialogs.welcome.existing.intro-without-creator"
-            defaultMessage="This is {streetName}."
-            values={{
-              streetName: <StreetName name={street.name} />
-            }}
-          />
-        )}
+        {street.creatorId
+          ? (
+            <FormattedMessage
+              id="dialogs.welcome.existing.intro"
+              defaultMessage="This is {streetName} made by {creator}."
+              values={{
+                streetName: <StreetName name={street.name} />,
+                creator: (
+                  <>
+                    <Avatar userId={street.creatorId} /> {street.creatorId}
+                  </>
+                )
+              }}
+            />
+            )
+          : (
+            <FormattedMessage
+              id="dialogs.welcome.existing.intro-without-creator"
+              defaultMessage="This is {streetName}."
+              values={{
+                streetName: <StreetName name={street.name} />
+              }}
+            />
+            )}
       </div>
       <p className="important">
         <FormattedMessage

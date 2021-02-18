@@ -28,25 +28,27 @@ const LocationPopup = (props) => {
     >
       <div className="geotag-location-label">{label}</div>
       {isEditable &&
-        (isClearable ? (
-          <div>
-            <button className="button-tertiary" onClick={handleClear}>
-              <FormattedMessage
-                id="dialogs.geotag.clear-location"
-                defaultMessage="Clear location"
-              />
-            </button>
-          </div>
-        ) : (
-          <div>
-            <button className="button-primary" onClick={handleConfirm}>
-              <FormattedMessage
-                id="dialogs.geotag.confirm-location"
-                defaultMessage="Confirm location"
-              />
-            </button>
-          </div>
-        ))}
+        (isClearable
+          ? (
+            <div>
+              <button className="button-tertiary" onClick={handleClear}>
+                <FormattedMessage
+                  id="dialogs.geotag.clear-location"
+                  defaultMessage="Clear location"
+                />
+              </button>
+            </div>
+            )
+          : (
+            <div>
+              <button className="button-primary" onClick={handleConfirm}>
+                <FormattedMessage
+                  id="dialogs.geotag.confirm-location"
+                  defaultMessage="Confirm location"
+                />
+              </button>
+            </div>
+            ))}
     </Popup>
   )
 }

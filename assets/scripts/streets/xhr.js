@@ -54,7 +54,7 @@ import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500
 
-var saveStreetTimerId = -1
+let saveStreetTimerId = -1
 let saveStreetIncomplete = false
 
 export function getSaveStreetIncomplete () {
@@ -65,9 +65,9 @@ export function setSaveStreetIncomplete (value) {
   saveStreetIncomplete = value
 }
 
-var uniqueRequestId = 0
+let uniqueRequestId = 0
 
-var latestRequestId
+let latestRequestId
 
 function getUniqueRequestHeader () {
   uniqueRequestId++
@@ -140,7 +140,7 @@ export function getFetchStreetUrl () {
 }
 
 export function fetchStreetFromServer () {
-  var url = getFetchStreetUrl()
+  const url = getFetchStreetUrl()
 
   window
     .fetch(url)
@@ -352,9 +352,9 @@ export function unpackServerStreetData (
   checkIfNeedsToBeRemixed
 ) {
   const street = unpackStreetDataFromServerTransmission(transmission)
-  var updatedSchema = updateToLatestSchemaVersion(street)
-  var undoStack = getUndoStack()
-  for (var i = 0; i < undoStack.length; i++) {
+  let updatedSchema = updateToLatestSchemaVersion(street)
+  const undoStack = getUndoStack()
+  for (let i = 0; i < undoStack.length; i++) {
     if (updateToLatestSchemaVersion(undoStack[i])) {
       updatedSchema = true
     }
@@ -393,7 +393,7 @@ export function unpackServerStreetData (
 }
 
 export function packServerStreetData () {
-  var data = {}
+  const data = {}
   data.street = trimStreetData(store.getState().street)
 
   // Those go above data in the structure, so they need to be cleared here
@@ -411,7 +411,7 @@ export function packServerStreetData () {
   }
 
   const street = store.getState().street
-  var transmission = {
+  const transmission = {
     name: street.name,
     originalStreetId: street.originalStreetId,
     data: data,

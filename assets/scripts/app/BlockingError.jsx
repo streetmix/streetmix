@@ -30,12 +30,14 @@ function BlockingError (props) {
     </button>
   )
   const linkToUser = (street) => {
-    return street && street.creatorId ? (
-      <a href={'/' + street.creatorId}>
-        <Avatar userId={street.creatorId} />
-        {street.creatorId}
-      </a>
-    ) : null
+    return street && street.creatorId
+      ? (
+        <a href={'/' + street.creatorId}>
+          <Avatar userId={street.creatorId} />
+          {street.creatorId}
+        </a>
+        )
+      : null
   }
   const sessionReloadButton = (
     <button onClick={goReloadClearSignIn}>
@@ -71,11 +73,13 @@ function BlockingError (props) {
       id="error.please-try-again"
       defaultMessage="Please try again later or let us know via <email_link>email</email_link> or <tweet_link>Twitter</tweet_link>."
       values={{
+        // eslint-disable-next-line react/display-name
         email_link: (chunks) => (
           <ExternalLink href="mailto:hello@streetmix.net">
             {chunks}
           </ExternalLink>
         ),
+        // eslint-disable-next-line react/display-name
         tweet_link: (chunks) => (
           <ExternalLink href="https://twitter.com/intent/tweet?text=@streetmix">
             {chunks}
@@ -468,16 +472,19 @@ function BlockingError (props) {
               id="error.unsupported-browser-description"
               defaultMessage="Sorry about that. You might want to try <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, or Safari."
               values={{
+                // eslint-disable-next-line react/display-name
                 chrome_link: (chunks) => (
                   <ExternalLink href="https://www.google.com/chrome">
                     {chunks}
                   </ExternalLink>
                 ),
+                // eslint-disable-next-line react/display-name
                 firefox_link: (chunks) => (
                   <ExternalLink href="https://www.mozilla.org/firefox">
                     {chunks}
                   </ExternalLink>
                 ),
+                // eslint-disable-next-line react/display-name
                 edge_link: (chunks) => (
                   <ExternalLink href="https://www.microsoft.com/en-us/windows/microsoft-edge">
                     {chunks}
@@ -491,6 +498,7 @@ function BlockingError (props) {
               id="error.unsupported-browser-internet-explorer"
               defaultMessage="Are you on Internet Explorer? <a>Find out more.</a>"
               values={{
+                // eslint-disable-next-line react/display-name
                 a: (chunks) => (
                   <ExternalLink href="https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer">
                     {chunks}
@@ -504,6 +512,7 @@ function BlockingError (props) {
               id="error.unsupported-browser-contact-us"
               defaultMessage="If you think your browser should be supported, please contact us via <a>email</a>."
               values={{
+                // eslint-disable-next-line react/display-name
                 a: (chunks) => (
                   <ExternalLink href="mailto:hello@streetmix.net">
                     {chunks}
@@ -562,18 +571,20 @@ function BlockingError (props) {
       break
   }
 
-  return errorType ? (
-    <div id="error">
-      <div className="clouds-background">
-        <div className="rear-clouds" />
-        <div className="front-clouds" />
+  return errorType
+    ? (
+      <div id="error">
+        <div className="clouds-background">
+          <div className="rear-clouds" />
+          <div className="front-clouds" />
+        </div>
+        <div className="error-content">
+          <h1>{title}</h1>
+          {description}
+        </div>
       </div>
-      <div className="error-content">
-        <h1>{title}</h1>
-        {description}
-      </div>
-    </div>
-  ) : null
+      )
+    : null
 }
 
 export default BlockingError

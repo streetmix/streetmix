@@ -46,7 +46,7 @@ if (
 // Display this after 10 seconds, but if the #loading container has already
 // been hidden, this will have no effect.
 window.setTimeout(function () {
-  var el = document.getElementById('loading-stuck-notice')
+  const el = document.getElementById('loading-stuck-notice')
   if (!el) return
   el.style.opacity = '1'
   el.style.transform = 'translateY(0)'

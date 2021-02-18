@@ -3,7 +3,7 @@
  * content has scrolled. This script is not included inline
  * because it conflicts with the server's Content Security Policy.
  */
-var el = document.createElement('div')
+const el = document.createElement('div')
 el.className = 'scroll-shade'
 document.body.appendChild(el)
 if (document.documentElement) {

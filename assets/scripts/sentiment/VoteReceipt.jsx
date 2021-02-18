@@ -55,6 +55,7 @@ function VoteReceipt ({ score, handleClose, streetId }) {
                   id="sentiment.prompt.joyful"
                   defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
+                    // eslint-disable-next-line react/display-name
                     em: (chunks) => <em>{chunks}</em>
                   }}
                 />

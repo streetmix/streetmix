@@ -1,8 +1,8 @@
-var config = require('config')
-var axios = require('axios')
-var oauth = require('../../lib/oauth.js')
+const config = require('config')
+const axios = require('axios')
+const oauth = require('../../lib/oauth.js')
 
-var oauthAccessTokenHandler = function (req, res) {
+const oauthAccessTokenHandler = function (req, res) {
   return function (err, oauthAccessTokenKey, oauthAccessTokenSecret, results) {
     if (err) {
       console.error('Error obtaining access token from Twitter:')
@@ -13,7 +13,7 @@ var oauthAccessTokenHandler = function (req, res) {
     }
 
     // Call REST API to sign-in via Twitter
-    var apiRequestBody = {
+    const apiRequestBody = {
       twitter: {
         userId: results.user_id,
         screenName: results.screen_name,
@@ -23,7 +23,7 @@ var oauthAccessTokenHandler = function (req, res) {
     }
 
     // Must be an absolute URI
-    var endpoint =
+    const endpoint =
       config.restapi.protocol +
       config.app_host_port +
       config.restapi.baseuri +
@@ -49,10 +49,10 @@ exports.get = function (req, res) {
     res.redirect('/error/twitter-access-denied')
   } else if (req.session.oauth) {
     req.session.oauth.verifier = req.query.oauth_verifier
-    var oa = req.session.oauth
+    const oa = req.session.oauth
 
     // Obtain access token from Twitter
-    var o = oauth()
+    const o = oauth()
     o.getOAuthAccessToken(
       oa.request_token,
       oa.request_token_secret,

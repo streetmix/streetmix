@@ -37,7 +37,7 @@ function preInit () {
   initSystemCapabilities()
   setIgnoreStreetChanges(true)
 
-  var language = window.navigator.userLanguage || window.navigator.language
+  let language = window.navigator.userLanguage || window.navigator.language
   if (language) {
     language = language.substr(0, 2).toUpperCase()
     updateSettingsFromCountryCode(language)
@@ -138,7 +138,7 @@ function onEverythingLoaded () {
 
   window.setTimeout(hideLoadingScreen, 0)
 
-  var mode = getMode()
+  const mode = getMode()
   if (mode === MODES.USER_GALLERY) {
     store.dispatch(
       openGallery({

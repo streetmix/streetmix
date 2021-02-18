@@ -290,7 +290,7 @@ export function drawStreetThumbnail (
     occupiedWidth += segment.width
   }
 
-  var offsetTop
+  let offsetTop
   if (bottomAligned) {
     offsetTop = thumbnailHeight - 180 * multiplier
   } else {
@@ -300,8 +300,9 @@ export function drawStreetThumbnail (
     offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier
   }
 
-  var offsetLeft = (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2
-  var buildingOffsetLeft =
+  const offsetLeft =
+    (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2
+  const buildingOffsetLeft =
     (thumbnailWidth - street.width * TILE_SIZE * multiplier) / 2
 
   const groundLevel = offsetTop + 135 * multiplier
@@ -427,7 +428,7 @@ export function drawStreetThumbnail (
 
   // Segments
 
-  var originalOffsetLeft = offsetLeft
+  const originalOffsetLeft = offsetLeft
 
   // Collect z-indexes
   const zIndexes = []
@@ -577,9 +578,9 @@ export function drawStreetThumbnail (
     ctx.textBaseline = 'center'
     ctx.font = `normal 700 ${70 * dpi}px overpass,sans-serif`
 
-    var measurement = ctx.measureText(text)
+    let measurement = ctx.measureText(text)
 
-    var needToBeElided = false
+    let needToBeElided = false
     while (measurement.width > (thumbnailWidth - 200) * dpi) {
       text = text.substr(0, text.length - 1)
       measurement = ctx.measureText(text)
