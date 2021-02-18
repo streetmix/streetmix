@@ -80,7 +80,9 @@ export function getStreetImage (
 // Save thumbnail if necessary every 30 minutes (1800000 ms)
 const SAVE_THUMBNAIL_TIME_INTERVAL = 1800000
 let _lastSavedTimestamp
-let _savedThumbnail // eslint-disable-line
+
+// Temporarily disabled. Commented out to prevent eslint errors.
+// let _savedThumbnail
 
 export const SAVE_THUMBNAIL_EVENTS = {
   INITIAL: 'INITIAL',
@@ -110,7 +112,7 @@ export function initStreetThumbnailSubscriber () {
   const onChange = () => {
     const timestamp = Date.now()
     const timeElapsed = timestamp - _lastSavedTimestamp
-    _savedThumbnail = false
+    // _savedThumbnail = false
 
     // Save street thumbnail every 30 minutes if any changes to street.
     if (timeElapsed && timeElapsed >= SAVE_THUMBNAIL_TIME_INTERVAL) {
