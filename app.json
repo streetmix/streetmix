@@ -14,6 +14,10 @@
     },
     "AUTH0_CLIENT_SECRET": {
       "required": true
+    },
+    "CYPRESS_INSTALL_BINARY": {
+      "description": "Skip installing Cypress in deployment environments. See https://docs.cypress.io/guides/getting-started/installing-cypress.html#Skipping-installation",
+      "value": "0"
     }
   },
   "addons": [
