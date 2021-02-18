@@ -77,6 +77,7 @@ function SentimentSurvey ({
                   id="sentiment.prompt.intro"
                   defaultMessage="<strong>Pardon the interruption.</strong> We’d love your feedback on this street."
                   values={{
+                    // eslint-disable-next-line react/display-name
                     strong: (chunks) => <strong>{chunks}</strong>
                   }}
                 />
@@ -86,6 +87,7 @@ function SentimentSurvey ({
                   id="sentiment.prompt.joyful"
                   defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
+                    // eslint-disable-next-line react/display-name
                     em: (chunks) => <em>{chunks}</em>
                   }}
                 />

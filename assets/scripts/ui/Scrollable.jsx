@@ -11,7 +11,7 @@ import './Scrollable.scss'
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
-const Scrollable = React.forwardRef((props, ref) => {
+const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
   const {
     className,
     onScroll = () => {},
@@ -156,11 +156,11 @@ const Scrollable = React.forwardRef((props, ref) => {
   )
 })
 
-Scrollable.propTypes = {
+WrappedScrollable.propTypes = {
   className: PropTypes.string,
   onScroll: PropTypes.func,
   allowKeyboardScroll: PropTypes.bool,
   children: PropTypes.node
 }
 
-export default Scrollable
+export default WrappedScrollable

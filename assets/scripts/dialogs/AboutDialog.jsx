@@ -165,6 +165,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
+                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
@@ -197,6 +198,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
+                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
@@ -229,6 +231,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
+                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://github.com/RedHatOfficial/Overpass/blob/master/LICENSE.md"
@@ -256,6 +259,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
+                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://creativecommons.org/licenses/by-sa/4.0/#"
@@ -283,6 +287,7 @@ function AboutDialog (props) {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
+                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://fontawesome.com/license/free"
