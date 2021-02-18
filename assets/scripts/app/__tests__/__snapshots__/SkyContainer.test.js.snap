@@ -45,7 +45,7 @@ exports[`SkyContainer renders with objects 1`] = `
       />
     </div>
     <div
-      style="width: 100px; height: 100px; position: absolute;"
+      style="width: 100px; height: 100px; position: absolute; left: calc(50% - (100px / 2); top: calc(50% - (100px / 2);"
     >
       <img
         src="bar.svg"
