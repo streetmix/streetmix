@@ -26,7 +26,7 @@ const AllTheProviders = ({ store = {}, children }) => {
 //
 // We adopt a pattern to pass props to the wrapper, as described here:
 // https://github.com/testing-library/react-testing-library/issues/780
-export const renderWithProviders = (ui, options = {}) => {
+const renderWithProviders = (ui, options = {}) => {
   const {
     initialState,
     store = createStore(initialState),
@@ -39,35 +39,19 @@ export const renderWithProviders = (ui, options = {}) => {
   }
 }
 
-export const renderWithRedux = function (
-  ui,
-  { initialState, store = createStore(initialState) } = {}
-) {
-  return {
-    ...render(<Provider store={store}>{ui}</Provider>),
-    store
-  }
-}
-
-export const renderWithIntl = function (ui) {
-  return {
-    ...render(<IntlProvider locale="en">{ui}</IntlProvider>)
-  }
-}
-
-export const renderWithReduxAndIntl = function (
-  ui,
-  { initialState, store = createStore(initialState) } = {}
-) {
-  return {
-    ...render(
-      <Provider store={store}>
-        <IntlProvider locale="en">{ui}</IntlProvider>
-      </Provider>
-    ),
-    store
-  }
-}
+// With a centralized render with providers, all other render functions
+// are now just aliases for the same thing. Yes, this means that some
+// wrapped components have more context than necessary, which is not
+// great, but the tradeoff is to write tests where someone needs to know
+// what contexts are required for not just the component is under test
+// but all other child components as well, which is also not a great
+// experience. In practice, making this change has resulted in zero
+// failing tests and no noticeable increase in testing time.
+// TODO: next steps are to replace instances of this in the code base
+// and then maybe this entire comment goes away.
+export const renderWithRedux = renderWithProviders
+export const renderWithIntl = renderWithProviders
+export const renderWithReduxAndIntl = renderWithProviders
 
 // Re-export everything
 // This is a pattern suggested by React Testing Library (see
