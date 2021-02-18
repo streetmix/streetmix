@@ -93,17 +93,19 @@ function SentimentSurvey ({
                 />
               </h2>
               <sub>
-                {isUserSignedIn ? (
+                {isUserSignedIn
+                  ? (
                   <FormattedMessage
                     id="sentiment.prompt.choose-one"
                     defaultMessage="(choose one)"
                   />
-                ) : (
+                    )
+                  : (
                   <FormattedMessage
                     id="sentiment.sign-in-prompt"
                     defaultMessage="Please sign in now to make your voice heard."
                   />
-                )}
+                    )}
               </sub>
               <div className="sentiment-survey-buttons">
                 <VoteButtons handleVote={handleClick} selectedScore={score} />

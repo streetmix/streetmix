@@ -290,14 +290,17 @@ class SaveAsImageDialog extends React.Component {
                 )}
               </div>
               <div className="save-as-image-download">
+                {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
                 {!this.state.errorMessage && !this.state.isSaving ? (
                   <a
                     className="button-like button-primary"
                     onClick={this.handleClickDownloadImage}
-                    // Sets the anchor's `download` attribute so that it saves a meaningful filename
+                    // Sets the anchor's `download` attribute so that it
+                    // saves a meaningful filename
                     // Note that this property is not supported in Safari/iOS
                     download={this.state.download.filename}
-                    // Link should refer to data URL, even though onClickDownloadImage() is used for direct download
+                    // Link should refer to data URL, even though
+                    // onClickDownloadImage() is used for direct download
                     href={this.state.download.dataUrl}
                   >
                     <FormattedMessage

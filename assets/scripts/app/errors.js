@@ -45,7 +45,7 @@ export function showError (errorType, newAbortEverything) {
 }
 
 export function showErrorFromUrl (errorUrl) {
-  var errorType
+  let errorType
 
   // TODO const
   switch (errorUrl) {

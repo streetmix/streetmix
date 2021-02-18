@@ -68,11 +68,11 @@ export class StreetEditable extends React.Component {
 
     const dragEvents = ['dragover', 'touchmove']
     if (!prevProps.draggingState && draggingState) {
-      dragEvents.map((type) => {
+      dragEvents.forEach((type) => {
         window.addEventListener(type, this.updateWithinCanvas)
       })
     } else if (prevProps.draggingState && !draggingState) {
-      dragEvents.map((type) => {
+      dragEvents.forEach((type) => {
         window.removeEventListener(type, this.updateWithinCanvas)
       })
     }

@@ -57,7 +57,7 @@ export function newNonblockingAjaxRequest (
 ) {
   nonblockingAjaxRequestTimer = 0
 
-  var signature = getAjaxRequestSignature(url, options)
+  const signature = getAjaxRequestSignature(url, options)
 
   removeNonblockingAjaxRequest(signature)
   nonblockingAjaxRequests.push({
@@ -99,7 +99,7 @@ function sendNextNonblockingAjaxRequest () {
   if (getNonblockingAjaxRequestCount()) {
     scheduleNoConnectionMessage()
 
-    var request = null
+    let request = null
 
     request = nonblockingAjaxRequests[0]
 
@@ -147,7 +147,7 @@ function scheduleNextNonblockingAjaxRequest () {
 }
 
 function removeNonblockingAjaxRequest (signature) {
-  for (var i in nonblockingAjaxRequests) {
+  for (const i in nonblockingAjaxRequests) {
     if (nonblockingAjaxRequests[i].signature === signature) {
       nonblockingAjaxRequests.splice(i, 1)
       break

@@ -144,8 +144,8 @@ export function updateUnits (newUnits) {
 
   // If the user converts and then straight converts back, we just reach
   // to undo stack instead of double conversion (which could be lossy).
-  var undoStack = getUndoStack()
-  var undoPosition = getUndoPosition()
+  const undoStack = getUndoStack()
+  const undoPosition = getUndoPosition()
   if (
     undoStack[undoPosition - 1] &&
     undoStack[undoPosition - 1].units === newUnits
@@ -162,7 +162,7 @@ export function updateUnits (newUnits) {
 
     if (street.remainingWidth === 0) {
       let width = 0
-      for (var i in street.segments) {
+      for (const i in street.segments) {
         width += street.segments[i].width
       }
       store.dispatch(updateStreetWidth(width))

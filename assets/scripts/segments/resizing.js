@@ -124,7 +124,7 @@ export function handleSegmentResizeEnd (event) {
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
-  var el = draggingResize.floatingEl
+  const el = draggingResize.floatingEl
   el.remove()
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
@@ -201,13 +201,14 @@ export function resolutionForResizeType (resizeType, units) {
     case RESIZE_TYPE_INITIAL:
     case RESIZE_TYPE_TYPING:
     case RESIZE_TYPE_PRECISE_DRAGGING:
-    default:
-      // Always return this resolution if `resizeType` is undefined or wrong value
       return getSegmentWidthResolution(units)
     case RESIZE_TYPE_INCREMENT:
       return getSegmentClickResizeResolution(units)
     case RESIZE_TYPE_DRAGGING:
       return getSegmentDragResizeResolution(units)
+    default:
+      // Always return this resolution if `resizeType` is undefined or wrong value
+      return getSegmentWidthResolution(units)
   }
 }
 

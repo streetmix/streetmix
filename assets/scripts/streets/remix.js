@@ -57,8 +57,8 @@ export function remixStreet () {
 
   unifyUndoStack()
 
-  var undoStack = getUndoStack()
-  var undoPosition = getUndoPosition()
+  const undoStack = getUndoStack()
+  const undoPosition = getUndoPosition()
   if (
     undoStack[undoPosition - 1] &&
     undoStack[undoPosition - 1].name !== street.name
@@ -74,7 +74,7 @@ export function remixStreet () {
     addRemixSuffixToName()
   }
 
-  var transmission = packServerStreetData()
+  const transmission = packServerStreetData()
 
   newBlockingAjaxRequest(
     'remix',

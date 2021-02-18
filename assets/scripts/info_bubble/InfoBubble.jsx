@@ -533,14 +533,16 @@ export class InfoBubble extends React.Component {
         break
     }
 
-    return id ? (
-      <IntlProvider
-        locale={this.props.locale.locale}
-        messages={this.props.locale.segmentInfo}
-      >
-        <FormattedMessage id={id} defaultMessage={defaultMessage} />
-      </IntlProvider>
-    ) : null
+    return id
+      ? (
+        <IntlProvider
+          locale={this.props.locale.locale}
+          messages={this.props.locale.segmentInfo}
+        >
+          <FormattedMessage id={id} defaultMessage={defaultMessage} />
+        </IntlProvider>
+        )
+      : null
   }
 
   render () {

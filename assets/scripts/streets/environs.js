@@ -13,11 +13,6 @@ import { observeStore } from '../store'
 export function makeCSSGradientDeclaration (array) {
   // Normalize all values
   const stops = array.map((item) => {
-    // If the value is a string, use it as is
-    if (typeof item === 'string') {
-      return item
-    }
-
     // If the value is an array, turn it into a string
     if (Array.isArray(item)) {
       const [color, position] = item
@@ -30,6 +25,9 @@ export function makeCSSGradientDeclaration (array) {
 
       return color + (percentage || '')
     }
+
+    // Otherwise assume it's a string and return as-is
+    return item
   })
 
   return `linear-gradient(${stops.join(', ')})`

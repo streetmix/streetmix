@@ -30,12 +30,14 @@ function BlockingError (props) {
     </button>
   )
   const linkToUser = (street) => {
-    return street && street.creatorId ? (
-      <a href={'/' + street.creatorId}>
-        <Avatar userId={street.creatorId} />
-        {street.creatorId}
-      </a>
-    ) : null
+    return street && street.creatorId
+      ? (
+        <a href={'/' + street.creatorId}>
+          <Avatar userId={street.creatorId} />
+          {street.creatorId}
+        </a>
+        )
+      : null
   }
   const sessionReloadButton = (
     <button onClick={goReloadClearSignIn}>
@@ -569,18 +571,20 @@ function BlockingError (props) {
       break
   }
 
-  return errorType ? (
-    <div id="error">
-      <div className="clouds-background">
-        <div className="rear-clouds" />
-        <div className="front-clouds" />
+  return errorType
+    ? (
+      <div id="error">
+        <div className="clouds-background">
+          <div className="rear-clouds" />
+          <div className="front-clouds" />
+        </div>
+        <div className="error-content">
+          <h1>{title}</h1>
+          {description}
+        </div>
       </div>
-      <div className="error-content">
-        <h1>{title}</h1>
-        {description}
-      </div>
-    </div>
-  ) : null
+      )
+    : null
 }
 
 export default BlockingError

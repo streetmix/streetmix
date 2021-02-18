@@ -58,14 +58,16 @@ function GalleryContents (props) {
     <>
       {/* Heading */}
       <div className="gallery-label" ref={galleryEl}>
-        {userId ? (
-          <>
-            <Avatar userId={userId} />
-            <div className="gallery-user-id">{userId}</div>
-          </>
-        ) : (
-          <FormattedMessage id="gallery.all" defaultMessage="All streets" />
-        )}
+        {userId
+          ? (
+            <>
+              <Avatar userId={userId} />
+              <div className="gallery-user-id">{userId}</div>
+            </>
+            )
+          : (
+            <FormattedMessage id="gallery.all" defaultMessage="All streets" />
+            )}
       </div>
 
       {/* Street count */}
@@ -95,20 +97,22 @@ function GalleryContents (props) {
                 defaultMessage="Create new street"
               />
             </a>
-            {selectedStreet !== null ? (
-              <a
-                className="button-like gallery-copy-last-street"
-                href={URL_NEW_STREET_COPY_LAST}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-              </a>
-            ) : (
-              <button className="gallery-copy-last-street" disabled={true}>
-                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-              </button>
-            )}
+            {selectedStreet !== null
+              ? (
+                <a
+                  className="button-like gallery-copy-last-street"
+                  href={URL_NEW_STREET_COPY_LAST}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+                </a>
+                )
+              : (
+                <button className="gallery-copy-last-street" disabled={true}>
+                  <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+                </button>
+                )}
           </div>
         )}
 

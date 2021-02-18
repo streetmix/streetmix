@@ -11,11 +11,13 @@ function TeamMember (props) {
     style.backgroundImage = `url('/images/team/${mugshotFile}')`
   }
 
-  const displayName = url ? (
-    <ExternalLink href={url}>{name}</ExternalLink>
-  ) : (
-    name
-  )
+  const displayName = url
+    ? (
+      <ExternalLink href={url}>{name}</ExternalLink>
+      )
+    : (
+        name
+      )
 
   return (
     <div className="team-member">

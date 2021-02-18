@@ -57,18 +57,20 @@ function EnvironmentButton (props) {
   // TODO: This was created and named before we had generalized <Tooltip>
   // UI elements. The "tooltip" variable and class naming is deprecated. If
   // we want to reuse this UI, let's name it something else ("popup"?) later.
-  const TutorialPopup = tooltip ? (
-    <div className="supermoon-tooltip">
-      <CloseButton onClick={handleDismissTooltip} />
-      <p>
-        <strong>You’ve got some new tools!&lrm;</strong> Click on this button to
-        activate some new abilities.&lrm;
-      </p>
-      <div className="palette-tooltip-pointer-container">
-        <div className="palette-tooltip-pointer" />
+  const TutorialPopup = tooltip
+    ? (
+      <div className="supermoon-tooltip">
+        <CloseButton onClick={handleDismissTooltip} />
+        <p>
+          <strong>You’ve got some new tools!&lrm;</strong> Click on this button to
+          activate some new abilities.&lrm;
+        </p>
+        <div className="palette-tooltip-pointer-container">
+          <div className="palette-tooltip-pointer" />
+        </div>
       </div>
-    </div>
-  ) : null
+      )
+    : null
 
   return (
     <>

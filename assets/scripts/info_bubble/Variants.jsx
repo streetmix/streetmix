@@ -212,12 +212,13 @@ function Variants (props) {
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        variantSets.map((building) => {
-          const el = renderButton('building', building)
-          variantEls.push(el)
-        })
+      case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
+        const els = variantSets.map((building) =>
+          renderButton('building', building)
+        )
+        variantEls.push(...els)
         break
+      }
       default:
         break
     }

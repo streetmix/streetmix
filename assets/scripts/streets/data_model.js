@@ -88,7 +88,7 @@ function incrementSchemaVersion (street) {
       street.rightBuildingVariant = DEFAULT_BUILDING_VARIANT_RIGHT
       break
     case 3:
-      for (var i in street.segments) {
+      for (const i in street.segments) {
         segment = street.segments[i]
         if (segment.type === 'transit-shelter') {
           variant = getVariantArray(segment.type, segment.variantString)
@@ -311,7 +311,7 @@ function incrementSchemaVersion (street) {
  * @param {Object} street
  */
 export function updateToLatestSchemaVersion (street) {
-  var updated = false
+  let updated = false
   while (
     !street.schemaVersion ||
     street.schemaVersion < LATEST_SCHEMA_VERSION
@@ -358,7 +358,7 @@ export function saveStreetToServerIfNecessary () {
   }
 
   const street = store.getState().street
-  var currentData = trimStreetData(street)
+  const currentData = trimStreetData(street)
 
   if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
     if (street.editCount !== null) {

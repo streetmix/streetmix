@@ -154,17 +154,19 @@ function ShareMenu (props) {
     </a>
   )
 
-  const signInPromo = !signedIn ? (
-    <div className="share-sign-in-promo">
-      <FormattedMessage
-        id="menu.share.sign-in-link"
-        defaultMessage="{signInLink} for nicer links to your streets and your personal street gallery"
-        values={{
-          signInLink
-        }}
-      />
-    </div>
-  ) : null
+  const signInPromo = !signedIn
+    ? (
+      <div className="share-sign-in-promo">
+        <FormattedMessage
+          id="menu.share.sign-in-link"
+          defaultMessage="{signInLink} for nicer links to your streets and your personal street gallery"
+          values={{
+            signInLink
+          }}
+        />
+      </div>
+      )
+    : null
 
   return (
     <Menu onShow={handleShow} className="share-menu" {...props}>

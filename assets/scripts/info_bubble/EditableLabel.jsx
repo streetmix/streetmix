@@ -43,11 +43,13 @@ function EditableLabel (props) {
     >
       {label}
       <span className="info-bubble-label-editable-icon">
-        {customLabelEnabled ? (
-          <FontAwesomeIcon icon={ICON_PENCIL} />
-        ) : (
-          <FontAwesomeIcon icon={ICON_LOCK} />
-        )}
+        {customLabelEnabled
+          ? (
+            <FontAwesomeIcon icon={ICON_PENCIL} />
+            )
+          : (
+            <FontAwesomeIcon icon={ICON_LOCK} />
+            )}
       </span>
     </div>
   )
