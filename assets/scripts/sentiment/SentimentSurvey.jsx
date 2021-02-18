@@ -58,7 +58,6 @@ function SentimentSurvey ({
     doSignIn()
   }
 
-  /* eslint-disable react/jsx-indent */
   return (
     <div className={classNames.join(' ')}>
       <div className="sentiment-survey-background" />
@@ -95,16 +94,16 @@ function SentimentSurvey ({
               <sub>
                 {isUserSignedIn
                   ? (
-                  <FormattedMessage
-                    id="sentiment.prompt.choose-one"
-                    defaultMessage="(choose one)"
-                  />
+                    <FormattedMessage
+                      id="sentiment.prompt.choose-one"
+                      defaultMessage="(choose one)"
+                    />
                     )
                   : (
-                  <FormattedMessage
-                    id="sentiment.sign-in-prompt"
-                    defaultMessage="Please sign in now to make your voice heard."
-                  />
+                    <FormattedMessage
+                      id="sentiment.sign-in-prompt"
+                      defaultMessage="Please sign in now to make your voice heard."
+                    />
                     )}
               </sub>
               <div className="sentiment-survey-buttons">

@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-env jest */
 import userFactory from '../../factories/user.js'
 const { User } = require('../../models')
 
