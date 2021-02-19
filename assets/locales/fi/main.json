@@ -175,7 +175,7 @@
     "about": {
       "heading": "Tietoja Streetmixistä.",
       "description": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
-      "thanks": "Tuhannet kiitokset työntekijöille ja vuoden 2013 CfA osallistujille heidän tuestaan ja kärsivällisyydestään, Blockee-ryhmälle teiden päällystämisestä ja lukemattomille testaajille ajastaan ja palautteestaan!",
+      "thanks": "Tuhannet kiitokset työntekijöille ja vuoden 2013 CfA-osallistujille heidän tuestaan ja kärsivällisyydestään, Blockee-ryhmälle teiden päällystämisestä ja lukemattomille testaajille ajastaan ja palautteestaan!",
       "credits": "Seuraavien {cfaLink} 2013 -osallistujien sivuprojekti:",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
       "view-source": "Tutustu lähdekoodiin",
@@ -197,13 +197,13 @@
     "analytics": {
       "export-csv": "Vie CSV-tiedostoon",
       "heading": "Analyysi",
-      "street-summary": "Kadun arvioitu liikenne on {averageTotal} kulkijaa tunnissa, ja käyttäjäpotentiaali on {potentialTotal} kulkijaa tunnissa.",
-      "typical-lane-width": "",
+      "street-summary": "Kadun arvioitu liikenne on {averageTotal} kulkijaa tunnissa ja käyttäjäpotentiaali {potentialTotal} kulkijaa tunnissa.",
+      "typical-lane-width": "Kapasiteettiarvio perustuu {laneWidth} levyisiin kaistoihin.",
       "segment-summary": "{average} — {potential} ihmistä tunnissa",
       "segment-summary-single": "{amount} ihmistä tunnissa",
       "source": "Lähde",
-      "capacity-data-source": "",
-      "settings-notice": ""
+      "capacity-data-source": "Kapasiteettiarvion lähde",
+      "settings-notice": "Tienpitäjä voi muuttaa asetuksia."
     },
     "save": {
       "heading": "Tallenna kuvana",
@@ -254,7 +254,7 @@
       "privacy-link-label": "tietosuojakäytännön",
       "loading-message": "Kirjaudutaan sisään...",
       "sent-message-with-email": "Olet saanut sähköpostia osoitteeseen {email}. Jatka kirjautumista seuraamalla viestin ohjeita.",
-      "email-unreceived": "Eikö tullut perille?",
+      "email-unreceived": "Eikö viesti tullut perille?",
       "resend-email": "Lähetä uudelleen"
     },
     "whatsnew": {
@@ -300,7 +300,7 @@
     "imperial": "Vaihda jalkoihin"
   },
   "capacity": {
-    "ppl-per-hour": "{capacity} ihmistä/t"
+    "ppl-per-hour": "{capacity} kulkijaa tunnissa"
   },
   "datetime": {
     "minutes-ago": "Muutama minuutti sitten",
@@ -392,7 +392,7 @@
   "plus": {
     "locked": {
       "sub": "Aloita käyttö tilaamalla uutiskirjeemme",
-      "user": "Aloita käyttö kirjautumalla sisään"
+      "user": "Vaatii sisäänkirjautumisen"
     }
   },
   "sentiment": {
@@ -434,7 +434,7 @@
     "lang": {
       "ar": "Arabia",
       "ca": "Katalaani",
-      "cs": "",
+      "cs": "Tšekki",
       "de": "Saksa",
       "en": "Englanti",
       "es": "Espanja",
@@ -445,13 +445,13 @@
       "it": "Italia",
       "ja": "Japani",
       "ko": "Korea",
-      "nl-nl": "",
+      "nl-nl": "Hollanti (Alankomaat)",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",
-      "ro-ro": "",
+      "ro-ro": "Romania",
       "ru": "Venäjä",
       "sv": "Ruotsi",
-      "tr": "",
+      "tr": "Turkki",
       "zh": "Kiina",
       "zh-hans": "Kiina (yksinkertaistettu)",
       "zh-hant": "Kiina (perinteinen)"
