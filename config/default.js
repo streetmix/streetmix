@@ -56,12 +56,6 @@ module.exports = {
   },
   log_level: 'debug',
   no_internet_mode: false,
-  l10n: {
-    transifex: {
-      api_token: process.env.TRANSIFEX_API_TOKEN
-    },
-    use_local: false
-  },
   geocode: {
     pelias: {
       host: 'api.geocode.earth',
