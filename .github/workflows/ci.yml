@@ -1,0 +1,62 @@
+name: Continuous integration (CI) testing
+
+on: [push, pull_request]
+
+jobs:
+  # Separate linting as a parallel test from unit/integration testing because it does not
+  # need to be run in multiple environments.
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    env:
+      CYPRESS_INSTALL_BINARY: "0"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    # Use the current LTS version of Node.js
+    - name: Use Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: npm ci
+    - run: npm run lint
+
+  test:
+    name: Unit and integration tests
+    runs-on: ubuntu-latest
+    container: node:lts-buster
+    strategy:
+      # Use current LTS, previous LTS and latest versions of Node.js
+      # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+      matrix:
+        node-version: [12.x, 14.x, 15.x]
+    env:
+      NODE_ENV: test
+      CYPRESS_INSTALL_BINARY: "0"
+      PGHOST: postgres
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    services:
+      postgres:
+        image: postgis/postgis
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: streetmix_test
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - name: Seed test database
+      run: npm run db:migrate
+    - name: Run tests
+      run: npm run jest
