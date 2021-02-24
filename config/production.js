@@ -35,9 +35,6 @@ module.exports = {
       }
     }
   },
-  l10n: {
-    use_local: true
-  },
   stripe: {
     tier1_plan_id: process.env.TIER1_PLAN_ID || 'plan_Fc2wCyqj2Azpbm'
   }

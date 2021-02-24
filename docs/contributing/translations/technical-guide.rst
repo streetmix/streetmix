@@ -22,9 +22,9 @@ When strings are deleted, Transifex deletes that string from all locales, *inclu
 Previewing translations 
 -----------------------
 
-In development and other testing environments, the strings for each language code are retrieved directly from the Transifex platform via its API. This means a translator can attempt different translations in real time and preview how it appears in Streetmix.
+Translators can preview translations from Transifex in instances of Streetmix where the `TRANSIFEX_API_TOKEN` environment variable is defined. When present, the strings for each language code are retrieved directly via the Transifex API. In this way, a translator can try different version of a translation in real time to see how it appears in Streetmix.
 
-To change this behavior, set the `l10n.use_local` configuration property in the desired environment in the :file:`config` folder.
+If you are an in instance where you do not want live translations from Transifex, unset the `TRANSIFEX_API_TOKEN` environment variable.
 
 
 Updating locale files

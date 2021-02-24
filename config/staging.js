@@ -17,8 +17,5 @@ module.exports = {
         idle: 10000
       }
     }
-  },
-  l10n: {
-    use_local: false
   }
 }
