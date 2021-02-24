@@ -60,3 +60,29 @@ jobs:
       run: npm run db:migrate
     - name: Run tests
       run: npm run jest
+
+  cypress:
+    name: End-to-end (E2E) tests
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node14.15.0-chrome86-ff82
+      # To run Firefox, use non-root user (Firefox security restriction)
+      # https://github.com/cypress-io/github-action#firefox
+      options: --user 1001
+    env:
+      # We need placeholder API keys to mock some third party integrations
+      PELIAS_API_KEY: ge-iampelias
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+          wait-on: 'http://localhost:8000'
+          # Specify browser since container image is compiled with Firefox
+          # We can (and should) also test in Chrome since it's a popular
+          # browser, so a future improvement is to test on multiple browsers
+          browser: firefox
