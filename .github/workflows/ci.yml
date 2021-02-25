@@ -13,6 +13,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        # Codecov reportgin needs fetch-depth > 1
+        fetch-depth: 2
     # Use the current LTS version of Node.js
     - name: Use Node.js 14
       uses: actions/setup-node@v2
