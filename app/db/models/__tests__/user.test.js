@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import userFactory from '../../factories/user.js'
-const { User } = require('../../models')
+const { User } = require('..')
 
 describe('creates a user', () => {
   let user
@@ -14,13 +14,16 @@ describe('creates a user', () => {
   beforeEach(async () => {
     user = await userFactory()
   })
+
   it('created user to match', async () => {
     user = await userFactory({ id: 'thefirstuser' })
     expect(user.id).toBe('thefirstuser')
   })
+
   it('has a default role of USER', async () => {
     expect(user.roles[0]).toBe('USER')
   })
+
   it('adds admin to roles', async () => {
     // fyi: sequelize dosen't actually pass this to the table until user.save() or update
     // so...this isn't commiting to the database and isn't testing that the role actually exists
@@ -30,10 +33,12 @@ describe('creates a user', () => {
     user.addRole('ADMIN')
     expect(user.roles[2]).not.toBe('ADMIN')
   })
+
   it('removes admin from roles', async () => {
     user.removeRole('ADMIN')
     expect(user.roles[1]).not.toBe('ADMIN')
   })
+
   it('throws an error when role is invalid', async () => {
     // see https://jestjs.io/docs/en/expect#expectassertionsnumber
     expect.assertions(1)
