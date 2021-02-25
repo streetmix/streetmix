@@ -24,10 +24,9 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/streetmix/streetmix"><img alt="Build Status" src="https://img.shields.io/travis/streetmix/streetmix/main.svg?style=for-the-badge"></a>
-  <a href="https://david-dm.org/streetmix/streetmix"><img alt="Dependency Status" src="https://img.shields.io/david/streetmix/streetmix.svg?style=for-the-badge"></a>
+  <a href="https://github.com/streetmix/streetmix/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/workflow/status/streetmix/streetmix/Continuous%20integration%20(CI)%20testing/main?style=for-the-badge"></a>
   <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/tech-debt/streetmix/streetmix.svg?style=for-the-badge"></a>
-  <a href="https://codecov.io/gh/streetmix/streetmix"><img alt="Code Coverage" src="https://img.shields.io/codecov/c/gh/streetmix/streetmix.svg?label=test%20coverage&style=for-the-badge"></a>
+  <a href="https://codecov.io/gh/streetmix/streetmix"><img alt="Code coverage" src="https://img.shields.io/codecov/c/gh/streetmix/streetmix.svg?label=test%20coverage&style=for-the-badge"></a>
 </p>
 
 <hr>
@@ -78,7 +77,7 @@ Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by 
 ### Copyright
 
 Copyright (c) 2013-2018 Code for America and contributors.  
-Copyright (c) 2019-2020 Streetmix LLC.  
+Copyright (c) 2019-2021 Streetmix LLC.  
 See [LICENSE][] for details.
 
 [![Open Source Helpers](https://www.codetriage.com/codeforamerica/streetmix/badges/users.svg)](https://www.codetriage.com/codeforamerica/streetmix)
