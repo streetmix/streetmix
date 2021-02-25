@@ -119,7 +119,7 @@
     "cors": "2.8.5",
     "dateformat": "4.5.1",
     "dotenv": "8.2.0",
-    "downshift": "5.0.4",
+    "downshift": "6.1.0",
     "downshift-pelias": "0.0.3-alpha",
     "express": "4.17.1",
     "express-jwt": "6.0.0",
