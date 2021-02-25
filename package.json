@@ -167,7 +167,7 @@
     "sequelize-cli": "6.2.0",
     "sequelize-mock": "0.10.2",
     "shifty": "2.12.0",
-    "slugify": "1.4.6",
+    "slugify": "1.4.7",
     "stripe": "8.81.0",
     "supervisor": "0.12.0",
     "svg-sprite": "1.5.0",
