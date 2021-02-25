@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import HelpMenu from '../HelpMenu'
 import { showDialog } from '../../store/slices/dialogs'
 
@@ -19,13 +19,13 @@ describe('HelpMenu', () => {
   })
 
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<HelpMenu isActive={true} />)
+    const { asFragment } = render(<HelpMenu isActive={true} />)
 
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows the About dialog when its link is clicked', () => {
-    renderWithReduxAndIntl(<HelpMenu isActive={true} />)
+    render(<HelpMenu isActive={true} />)
 
     userEvent.click(screen.getByText('About Streetmix…'))
 
@@ -34,7 +34,7 @@ describe('HelpMenu', () => {
   })
 
   it('shows the What’s New dialog when its link is clicked', () => {
-    renderWithReduxAndIntl(<HelpMenu isActive={true} />)
+    render(<HelpMenu isActive={true} />)
 
     userEvent.click(
       screen.getByText('What’s new in Streetmix?', { exact: false })
@@ -49,7 +49,7 @@ describe('HelpMenu', () => {
   // of scope for a unit test and should be captured in the
   // end-to-end acceptance testing instead.
   it.skip('shows the About dialog when keyboard shortcut is pressed', () => {
-    renderWithReduxAndIntl(<HelpMenu isActive={true} />)
+    render(<HelpMenu isActive={true} />)
 
     userEvent.type('?')
 

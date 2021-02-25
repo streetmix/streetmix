@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import InfoBubble from '../InfoBubble'
 import {
   BUILDING_LEFT_POSITION,
@@ -55,7 +55,7 @@ const initialState = {
 
 describe('InfoBubble', () => {
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = render(<InfoBubble />, {
       initialState
     })
     expect(asFragment()).toMatchSnapshot()
@@ -63,7 +63,7 @@ describe('InfoBubble', () => {
 
   // TODO: this passes, but it doesn't render the <Description /> child component.
   it('shows description', () => {
-    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = render(<InfoBubble />, {
       initialState: {
         ...initialState,
         infoBubble: {
@@ -78,7 +78,7 @@ describe('InfoBubble', () => {
   })
 
   it('is visible', () => {
-    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = render(<InfoBubble />, {
       initialState: {
         ...initialState,
         infoBubble: {
@@ -93,7 +93,7 @@ describe('InfoBubble', () => {
   })
 
   it('shows building left info bubble', () => {
-    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = render(<InfoBubble />, {
       initialState: {
         ...initialState,
         ui: {
@@ -106,7 +106,7 @@ describe('InfoBubble', () => {
   })
 
   it('shows building right info bubble', () => {
-    const { asFragment } = renderWithReduxAndIntl(<InfoBubble />, {
+    const { asFragment } = render(<InfoBubble />, {
       initialState: {
         ...initialState,
         ui: {
@@ -119,7 +119,7 @@ describe('InfoBubble', () => {
   })
 
   it('sets info bubble mouse inside', () => {
-    const { container, store } = renderWithReduxAndIntl(<InfoBubble />, {
+    const { container, store } = render(<InfoBubble />, {
       initialState
     })
 

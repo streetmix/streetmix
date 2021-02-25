@@ -1,11 +1,11 @@
 /* eslint-env jest */
 import React from 'react'
 import StreetMetaDate from '../StreetMetaDate'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 
 describe('StreetMetaDate', () => {
   it('renders', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaDate />, {
+    const { getByText } = render(<StreetMetaDate />, {
       initialState: {
         street: {
           updatedAt: '2014-01-18T12:00:00.000Z'
@@ -17,7 +17,7 @@ describe('StreetMetaDate', () => {
   })
 
   it('renders nothing if there is no updated timestamp', () => {
-    const { container } = renderWithReduxAndIntl(<StreetMetaDate />, {
+    const { container } = render(<StreetMetaDate />, {
       initialState: {
         street: {}
       }

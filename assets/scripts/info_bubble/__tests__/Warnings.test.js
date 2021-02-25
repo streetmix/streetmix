@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import Warnings from '../Warnings'
 
 describe('Warnings', () => {
@@ -9,7 +9,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, true]
     }
-    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent(
       'This segment doesn’t fit within the street.'
     )
@@ -19,7 +19,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, false, true, false]
     }
-    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent(
       'This segment might not be wide enough.'
     )
@@ -29,7 +29,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, false, false, true]
     }
-    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This segment might be too wide.')
   })
 
@@ -37,7 +37,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, true, false, true]
     }
-    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = render(<Warnings segment={segment} />)
 
     expect(container).toHaveTextContent(
       'This segment doesn’t fit within the street.'
@@ -52,7 +52,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, true, true, true]
     }
-    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = render(<Warnings segment={segment} />)
 
     expect(container).toHaveTextContent(
       'This segment doesn’t fit within the street.'
@@ -67,7 +67,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: [null, false, false, false]
     }
-    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = render(<Warnings segment={segment} />)
 
     expect(container).not.toHaveTextContent(
       'This segment doesn’t fit within the street.'
@@ -80,7 +80,7 @@ describe('Warnings', () => {
 
   it('renders nothing if segment has no warnings', () => {
     const segment = {}
-    const { container } = renderWithIntl(<Warnings segment={segment} />)
+    const { container } = render(<Warnings segment={segment} />)
 
     expect(container).not.toHaveTextContent(
       'This segment doesn’t fit within the street.'

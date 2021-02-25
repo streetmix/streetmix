@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../../test/helpers/render'
+import { render } from '../../../../../test/helpers/render'
 import GeoSearch from '../GeoSearch'
 import autocompleteResponse from './fixtures/autocomplete.json'
 import searchResponse from './fixtures/search.json'
@@ -38,13 +38,13 @@ describe('GeoSearch', () => {
   window.fetch = mapzenSearchMock
 
   it('focuses the input after mounting', () => {
-    renderWithReduxAndIntl(<GeoSearch />)
+    render(<GeoSearch />)
     const input = screen.getByPlaceholderText('Search for a location')
     expect(document.activeElement).toEqual(input)
   })
 
   it('displays a "clear search" button when there is input', () => {
-    renderWithReduxAndIntl(<GeoSearch />)
+    render(<GeoSearch />)
     const input = screen.getByPlaceholderText('Search for a location')
 
     // The close button should not render when the input is empty
@@ -64,11 +64,9 @@ describe('GeoSearch', () => {
   })
 
   it('clears and focuses input when "clear search" button is clicked', () => {
-    const {
-      getByTitle,
-      queryByTitle,
-      getByPlaceholderText
-    } = renderWithReduxAndIntl(<GeoSearch />)
+    const { getByTitle, queryByTitle, getByPlaceholderText } = render(
+      <GeoSearch />
+    )
 
     // Simulates input
     const input = getByPlaceholderText('Search for a location')

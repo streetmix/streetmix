@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import AnalyticsDialog from '../AnalyticsDialog'
 
 // Provide mock capacity data to prevent changes in production data from
@@ -40,7 +40,7 @@ const initialState = {
 
 describe('AnalyticsDialog', () => {
   it('renders snapshot', () => {
-    const wrapper = renderWithReduxAndIntl(<AnalyticsDialog />, {
+    const wrapper = render(<AnalyticsDialog />, {
       initialState
     })
     expect(wrapper.asFragment()).toMatchSnapshot()

@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import Avatar from '../Avatar'
 
 describe('Avatar', () => {
@@ -21,7 +21,7 @@ describe('Avatar', () => {
 
     // TODO: Mock fetch request for image.
 
-    const { getByAltText } = renderWithRedux(<Avatar userId={userId} />, {
+    const { getByAltText } = render(<Avatar userId={userId} />, {
       initialState
     })
     const el = getByAltText(userId)
@@ -32,7 +32,7 @@ describe('Avatar', () => {
 
   it('shows no source image if the avatar image is not a valid image file', () => {
     const userId = 'bar'
-    const { getByAltText } = renderWithRedux(<Avatar userId={userId} />)
+    const { getByAltText } = render(<Avatar userId={userId} />)
     const el = getByAltText(userId)
 
     // Expect image element to have empty `src`

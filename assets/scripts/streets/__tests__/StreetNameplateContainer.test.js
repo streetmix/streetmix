@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import StreetNameplateContainer from '../StreetNameplateContainer'
 
 const initialState = {
@@ -30,14 +30,14 @@ const initialState = {
 
 describe('StreetNameplateContainer', () => {
   it('renders', () => {
-    renderWithReduxAndIntl(<StreetNameplateContainer />, {
+    render(<StreetNameplateContainer />, {
       initialState
     })
     expect(screen.getByText('foo')).toBeInTheDocument()
   })
 
   it('renders default street name', () => {
-    renderWithReduxAndIntl(<StreetNameplateContainer />, {
+    render(<StreetNameplateContainer />, {
       ...initialState,
       street: { name: null }
     })
@@ -50,7 +50,7 @@ describe('StreetNameplateContainer', () => {
     mockPrompt.mockImplementation(() => 'bar')
 
     // Mount, mimic click interaction and expect street name to have changed
-    renderWithReduxAndIntl(<StreetNameplateContainer />, {
+    render(<StreetNameplateContainer />, {
       initialState
     })
     userEvent.click(screen.getByText('foo'))
@@ -66,7 +66,7 @@ describe('StreetNameplateContainer', () => {
     mockPrompt.mockImplementation(() => '')
 
     // Mount, mimic click interaction and expect street name to have changed
-    renderWithReduxAndIntl(<StreetNameplateContainer />, {
+    render(<StreetNameplateContainer />, {
       initialState
     })
     userEvent.click(screen.getByText('foo'))
@@ -77,7 +77,7 @@ describe('StreetNameplateContainer', () => {
   })
 
   it('shows a "Click to edit" message when mouse is hovering over it', () => {
-    renderWithReduxAndIntl(<StreetNameplateContainer />, {
+    render(<StreetNameplateContainer />, {
       initialState
     })
 
@@ -89,7 +89,7 @@ describe('StreetNameplateContainer', () => {
   })
 
   it('does not show a "Click to edit" message when street name is not editable', () => {
-    renderWithReduxAndIntl(<StreetNameplateContainer />, {
+    render(<StreetNameplateContainer />, {
       initialState: {
         ...initialState,
         flags: {

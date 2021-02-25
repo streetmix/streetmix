@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import GalleryStreetItem from '../GalleryStreetItem'
 
@@ -17,22 +17,18 @@ jest.mock('../../app/page_url', () => ({
 describe('GalleryStreetItem', () => {
   it('renders', () => {
     // This uses jsdom + canvas packages under the hood to render canvas element
-    const { asFragment } = renderWithReduxAndIntl(
-      <GalleryStreetItem street={MOCK_STREET} />
-    )
+    const { asFragment } = render(<GalleryStreetItem street={MOCK_STREET} />)
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('does not display street owner when we ask it not to', () => {
-    renderWithReduxAndIntl(
-      <GalleryStreetItem street={MOCK_STREET} showStreetOwner={false} />
-    )
+    render(<GalleryStreetItem street={MOCK_STREET} showStreetOwner={false} />)
 
     expect(screen.queryByText(MOCK_STREET.creatorId)).not.toBeInTheDocument()
   })
 
   it('displays "Unnamed St" without a street name', () => {
-    renderWithReduxAndIntl(
+    render(
       <GalleryStreetItem
         street={{
           ...MOCK_STREET,
@@ -45,7 +41,7 @@ describe('GalleryStreetItem', () => {
   })
 
   it('displays "Anonymous" for anonymous streets', () => {
-    renderWithReduxAndIntl(
+    render(
       <GalleryStreetItem
         street={{
           ...MOCK_STREET,
@@ -59,9 +55,7 @@ describe('GalleryStreetItem', () => {
 
   it('handles select', () => {
     const doSelect = jest.fn()
-    renderWithReduxAndIntl(
-      <GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />
-    )
+    render(<GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />)
 
     userEvent.click(screen.getByText(MOCK_STREET.name))
     expect(doSelect).toBeCalled()
@@ -71,7 +65,7 @@ describe('GalleryStreetItem', () => {
     const doDelete = jest.fn()
     window.confirm = jest.fn(() => true)
 
-    renderWithReduxAndIntl(
+    render(
       <GalleryStreetItem
         street={MOCK_STREET}
         doDelete={doDelete}
@@ -87,7 +81,7 @@ describe('GalleryStreetItem', () => {
     const doDelete = jest.fn()
     window.confirm = jest.fn(() => false)
 
-    renderWithReduxAndIntl(
+    render(
       <GalleryStreetItem
         street={MOCK_STREET}
         doDelete={doDelete}

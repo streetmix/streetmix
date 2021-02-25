@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import EnvironmentEditor from '../EnvironmentEditor'
 
 describe('EnvironmentEditor', () => {
@@ -14,7 +14,7 @@ describe('EnvironmentEditor', () => {
   }
 
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<EnvironmentEditor />, {
+    const { asFragment } = render(<EnvironmentEditor />, {
       initialState
     })
     expect(asFragment()).toMatchSnapshot()

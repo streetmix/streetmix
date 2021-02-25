@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import StreetMetaWidthLabel from '../StreetMetaWidthLabel'
 
 const dummyStreetObject = {
@@ -14,7 +14,7 @@ const dummyStreetObject = {
 
 describe('StreetMetaWidthLabel', () => {
   it('renders when editable', () => {
-    const { asFragment } = renderWithIntl(
+    const { asFragment } = render(
       <StreetMetaWidthLabel
         street={dummyStreetObject}
         editable={true}
@@ -26,7 +26,7 @@ describe('StreetMetaWidthLabel', () => {
   })
 
   it('renders when not editable', () => {
-    const { asFragment } = renderWithIntl(
+    const { asFragment } = render(
       <StreetMetaWidthLabel
         street={dummyStreetObject}
         editable={false}
@@ -38,7 +38,7 @@ describe('StreetMetaWidthLabel', () => {
   })
 
   it('renders with remaining width', () => {
-    const { asFragment } = renderWithIntl(
+    const { asFragment } = render(
       <StreetMetaWidthLabel
         street={{
           ...dummyStreetObject,
@@ -54,7 +54,7 @@ describe('StreetMetaWidthLabel', () => {
   })
 
   it('renders with over available width', () => {
-    const { asFragment } = renderWithIntl(
+    const { asFragment } = render(
       <StreetMetaWidthLabel
         street={{
           ...dummyStreetObject,
@@ -71,7 +71,7 @@ describe('StreetMetaWidthLabel', () => {
 
   it('calls onClick handler when clicked', () => {
     const handleClick = jest.fn()
-    renderWithIntl(
+    render(
       <StreetMetaWidthLabel
         street={dummyStreetObject}
         editable={true}

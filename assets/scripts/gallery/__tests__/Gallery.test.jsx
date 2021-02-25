@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
 import { switchGalleryStreet } from '../view'
@@ -36,12 +36,12 @@ const initialState = {
 
 describe('Gallery', () => {
   it('renders main gallery view for user’s own streets', () => {
-    const { asFragment } = renderWithReduxAndIntl(<Gallery />, { initialState })
+    const { asFragment } = render(<Gallery />, { initialState })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders main gallery view for another user’s streets', () => {
-    const { asFragment } = renderWithReduxAndIntl(<Gallery />, {
+    const { asFragment } = render(<Gallery />, {
       initialState: {
         ...initialState,
         user: {
@@ -70,7 +70,7 @@ describe('Gallery', () => {
       }
     }
 
-    const { asFragment } = renderWithReduxAndIntl(<Gallery />, { initialState })
+    const { asFragment } = render(<Gallery />, { initialState })
     expect(asFragment()).toMatchSnapshot()
   })
 
@@ -82,7 +82,7 @@ describe('Gallery', () => {
       }
     }
 
-    const { asFragment } = renderWithReduxAndIntl(<Gallery />, { initialState })
+    const { asFragment } = render(<Gallery />, { initialState })
     expect(asFragment()).toMatchSnapshot()
   })
 
@@ -94,7 +94,7 @@ describe('Gallery', () => {
       }
     }
 
-    renderWithReduxAndIntl(<Gallery />, { initialState })
+    render(<Gallery />, { initialState })
     expect(screen.getByText('Failed to load the gallery.')).toBeInTheDocument()
   })
 
@@ -106,14 +106,14 @@ describe('Gallery', () => {
       }
     }
 
-    renderWithReduxAndIntl(<Gallery />, { initialState })
+    render(<Gallery />, { initialState })
     userEvent.click(screen.getByTestId('gallery-shield'))
     expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 
   describe('street item', () => {
     it('selects street', () => {
-      const { getByText } = renderWithReduxAndIntl(<Gallery />, {
+      const { getByText } = render(<Gallery />, {
         initialState
       })
       userEvent.click(getByText('Baz'))
@@ -121,7 +121,7 @@ describe('Gallery', () => {
     })
 
     it('deletes street', () => {
-      const { getByTitle, queryByTitle } = renderWithReduxAndIntl(<Gallery />, {
+      const { getByTitle, queryByTitle } = render(<Gallery />, {
         initialState
       })
       userEvent.click(getByTitle('Delete street'))

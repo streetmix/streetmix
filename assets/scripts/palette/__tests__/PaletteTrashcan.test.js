@@ -1,12 +1,12 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen } from '@testing-library/react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import PaletteTrashcan from '../PaletteTrashcan'
 
 describe('PaletteTrashcan', () => {
   it('renders when visible', () => {
-    const { asFragment } = renderWithReduxAndIntl(<PaletteTrashcan />, {
+    const { asFragment } = render(<PaletteTrashcan />, {
       initialState: {
         ui: {
           draggingState: {
@@ -20,7 +20,7 @@ describe('PaletteTrashcan', () => {
   })
 
   it('doesn’t render when no segment is being dragged', () => {
-    renderWithReduxAndIntl(<PaletteTrashcan />, {
+    render(<PaletteTrashcan />, {
       initialState: {
         ui: {
           draggingState: null
