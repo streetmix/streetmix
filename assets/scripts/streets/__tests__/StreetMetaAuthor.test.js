@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import StreetMetaAuthor from '../StreetMetaAuthor'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { openGallery } from '../../store/actions/gallery'
 import userEvent from '@testing-library/user-event'
@@ -20,7 +20,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders nothing if you own the street', () => {
-    const { container } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
+    const { container } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
           creatorId: 'foo'
@@ -38,7 +38,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders street creator byline if you are signed in and it’s not yours', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
+    const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
           creatorId: 'foo'
@@ -58,7 +58,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders street creator byline if you are not signed in', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
+    const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
           creatorId: 'foo'
@@ -78,7 +78,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders anonymous byline if you are signed in', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
+    const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
           creatorId: null
@@ -97,7 +97,7 @@ describe('StreetMetaAuthor', () => {
 
   it('renders anonymous byline if you are not logged in and viewing an anonymous street', () => {
     isOwnedByCurrentUser.mockImplementationOnce(() => false)
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
+    const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
           creatorId: null
@@ -116,7 +116,7 @@ describe('StreetMetaAuthor', () => {
 
   it('renders nothing if you are a not-logged in user still editing an anonymous street', () => {
     isOwnedByCurrentUser.mockImplementationOnce(() => true)
-    const { container } = renderWithReduxAndIntl(<StreetMetaAuthor />, {
+    const { container } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
           creatorId: null

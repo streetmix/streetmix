@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import DebugInfo from '../DebugInfo'
 
 describe('DebugInfo', () => {
@@ -14,12 +14,12 @@ describe('DebugInfo', () => {
   }
 
   it('renders nothing by default', () => {
-    const { container } = renderWithRedux(<DebugInfo />, { initialState })
+    const { container } = render(<DebugInfo />, { initialState })
     expect(container).toBeEmptyDOMElement()
   })
 
   it('is visible when opened with keyboard shortcut', () => {
-    const { container, asFragment } = renderWithRedux(<DebugInfo />, {
+    const { container, asFragment } = render(<DebugInfo />, {
       initialState
     })
     userEvent.type(container, '{shift}D')

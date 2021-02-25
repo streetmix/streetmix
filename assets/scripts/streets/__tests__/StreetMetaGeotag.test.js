@@ -2,7 +2,7 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
 import StreetMetaGeotag from '../StreetMetaGeotag'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
 
 jest.mock('../../store/slices/dialogs', () => ({
@@ -16,7 +16,7 @@ describe('StreetMetaGeotag', () => {
   })
 
   it('renders placeholder label and opens dialog if location is editable (it is by default)', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+    const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {}
       }
@@ -27,7 +27,7 @@ describe('StreetMetaGeotag', () => {
   })
 
   it('renders nothing if location is not set and is not editable', () => {
-    const { queryByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+    const { queryByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {},
         app: { readOnly: true },
@@ -40,7 +40,7 @@ describe('StreetMetaGeotag', () => {
   })
 
   it('renders location label and opens dialog if location is editable', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+    const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {
           location: {
@@ -60,7 +60,7 @@ describe('StreetMetaGeotag', () => {
   })
 
   it('renders location label but does nothing on click if location is not editable', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaGeotag />, {
+    const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {
           location: {

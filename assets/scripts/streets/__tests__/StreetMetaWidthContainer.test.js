@@ -2,17 +2,17 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import StreetMetaWidthContainer from '../StreetMetaWidthContainer'
 
 describe('StreetMetaWidthContainer', () => {
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<StreetMetaWidthContainer />)
+    const { asFragment } = render(<StreetMetaWidthContainer />)
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders selection dropdown on click', () => {
-    const { asFragment } = renderWithReduxAndIntl(<StreetMetaWidthContainer />)
+    const { asFragment } = render(<StreetMetaWidthContainer />)
     userEvent.click(screen.getByTitle('Change width of the street'))
     expect(asFragment()).toMatchSnapshot()
   })
@@ -22,9 +22,9 @@ describe('StreetMetaWidthContainer', () => {
     const changeValue = 10
 
     // TODO: the `updateStreetWidth` function is not passed in because
-    // `renderWithReduxAndIntl()` does not allow props to override Redux connect
+    // `render()` does not allow props to override Redux connect
     // And the change value is called with the `40` not `changeValue`
-    renderWithReduxAndIntl(
+    render(
       <StreetMetaWidthContainer
         street={{}}
         updateStreetWidth={updateStreetWidth}
@@ -42,9 +42,9 @@ describe('StreetMetaWidthContainer', () => {
 
   it.skip('does not render selection dropdown on click when not editable', () => {
     // TODO: This should pass, but `editable={false}` is never set
-    // Either update `renderWithReduxAndIntl()` to allow props to override Redux connect,
+    // Either update `render()` to allow props to override Redux connect,
     // or set initial state (even though it tightly couples component specification to Redux store)
-    renderWithReduxAndIntl(
+    render(
       <StreetMetaWidthContainer
         street={{}}
         editable={false}

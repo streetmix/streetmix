@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import ResizeGuides from '../ResizeGuides'
 import { TILE_SIZE } from '../constants'
 import { getSegmentVariantInfo } from '../info'
@@ -32,7 +32,7 @@ const initialState = {
 
 describe('ResizeGuides', () => {
   it('does not render when nothing is being resized', () => {
-    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { container } = render(<ResizeGuides />, {
       initialState: {
         ui: {
           resizeGuidesVisible: false
@@ -44,7 +44,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders while segment is resizing', () => {
-    const { asFragment } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { asFragment } = render(<ResizeGuides />, {
       initialState
     })
     expect(asFragment()).toMatchSnapshot()
@@ -55,7 +55,7 @@ describe('ResizeGuides', () => {
       minWidth: 10
     }))
 
-    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { container } = render(<ResizeGuides />, {
       initialState
     })
     expect(container.querySelector('.resize-guide-min')).toBeInTheDocument()
@@ -79,7 +79,7 @@ describe('ResizeGuides', () => {
       maxWidth: 12
     }))
 
-    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { container } = render(<ResizeGuides />, {
       initialState
     })
     expect(container.querySelector('.resize-guide-min')).not.toBeInTheDocument()
@@ -104,7 +104,7 @@ describe('ResizeGuides', () => {
       maxWidth: 12
     }))
 
-    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { container } = render(<ResizeGuides />, {
       initialState
     })
     expect(container.querySelector('.resize-guide-min')).toBeInTheDocument()
@@ -139,7 +139,7 @@ describe('ResizeGuides', () => {
       }
     }
 
-    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { container } = render(<ResizeGuides />, {
       initialState
     })
 
@@ -177,7 +177,7 @@ describe('ResizeGuides', () => {
       }
     }
 
-    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { container } = render(<ResizeGuides />, {
       initialState
     })
 
@@ -202,7 +202,7 @@ describe('ResizeGuides', () => {
       }
     }
 
-    const { container } = renderWithReduxAndIntl(<ResizeGuides />, {
+    const { container } = render(<ResizeGuides />, {
       initialState
     })
 

@@ -1,35 +1,55 @@
 import React from 'react'
+import { render } from '@testing-library/react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { render } from '@testing-library/react'
+import { DndProvider } from 'react-dnd'
+import { TestBackend } from 'react-dnd-test-backend'
 import { createStore } from './store'
 
-export const renderWithRedux = function (
-  ui,
-  { initialState, store = createStore(initialState) } = {}
-) {
+// Define a wrapper component that includes all of our global context
+// providers from Redux, react-intl, react-dnd. The nesting order of these
+// components should match the actual order in the application.
+// Yes, this means that some wrapped components have more context than is
+// strictly necessary, but this is easier on the developer, as they don't
+// need to be aware of which contexts are required by the component or
+// by child components as well.
+// In practice, this has only a small impact on testing time, as well.
+/* eslint-disable react/prop-types */
+const AllTheProviders = ({ store = {}, children }) => {
+  return (
+    <Provider store={store}>
+      <IntlProvider locale="en">
+        <DndProvider backend={TestBackend}>{children}</DndProvider>
+      </IntlProvider>
+    </Provider>
+  )
+}
+
+// Define a custom render method which wraps our UI elements with the global
+// context providers, defined above as `AllTheProviders`. For more information:
+// https://testing-library.com/docs/react-testing-library/setup#custom-render
+//
+// We adopt a pattern to pass props to the wrapper, as described here:
+// https://github.com/testing-library/react-testing-library/issues/780
+const renderWithProviders = (ui, options = {}) => {
+  const {
+    initialState,
+    store = createStore(initialState),
+    ...restOpts
+  } = options
+  const wrapper = (props) => <AllTheProviders {...props} store={store} />
   return {
-    ...render(<Provider store={store}>{ui}</Provider>),
+    ...render(ui, { wrapper, ...restOpts }),
     store
   }
 }
 
-export const renderWithIntl = function (ui) {
-  return {
-    ...render(<IntlProvider locale="en">{ui}</IntlProvider>)
-  }
-}
+// Re-export everything
+// This is a pattern suggested by React Testing Library (see
+// https://testing-library.com/docs/react-testing-library/setup/)
+// so you can import the render and all other methods from just one
+// helper module (this one!)
+export * from '@testing-library/react'
 
-export const renderWithReduxAndIntl = function (
-  ui,
-  { initialState, store = createStore(initialState) } = {}
-) {
-  return {
-    ...render(
-      <Provider store={store}>
-        <IntlProvider locale="en">{ui}</IntlProvider>
-      </Provider>
-    ),
-    store
-  }
-}
+// Override render method so that test syntax can remain simple
+export { renderWithProviders as render }

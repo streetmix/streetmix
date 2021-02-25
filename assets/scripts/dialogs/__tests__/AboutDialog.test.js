@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import AboutDialog from '../AboutDialog'
 
 jest.mock('../About/credits.json', () =>
@@ -9,7 +9,7 @@ jest.mock('../About/credits.json', () =>
 
 describe('AboutDialog', () => {
   it('renders snapshot', () => {
-    const { asFragment } = renderWithReduxAndIntl(<AboutDialog />)
+    const { asFragment } = render(<AboutDialog />)
     expect(asFragment()).toMatchSnapshot()
   })
 })

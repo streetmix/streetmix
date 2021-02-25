@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render, waitFor } from '../../../../test/helpers/render'
 import StreetEditable from '../StreetEditable'
 import {
   getSpriteDef,
@@ -49,7 +48,7 @@ describe('StreetEditable', () => {
       segments: [segment],
       width: 100
     }
-    renderWithRedux(
+    render(
       <StreetEditable
         setBuildingWidth={setBuildingWidth}
         updatePerspective={updatePerspective}
@@ -68,7 +67,7 @@ describe('StreetEditable', () => {
           store,
           container,
           asFragment
-        } = renderWithRedux(
+        } = render(
           <StreetEditable
             setBuildingWidth={setBuildingWidth}
             updatePerspective={updatePerspective}

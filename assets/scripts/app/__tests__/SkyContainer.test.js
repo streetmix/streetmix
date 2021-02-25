@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import SkyContainer from '../SkyContainer'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 
 jest.mock('../../streets/environs.json', () =>
   require('../../streets/__mocks__/environs.json')
@@ -21,37 +21,28 @@ jest.mock('../../app/load_resources', () => ({
 
 describe('SkyContainer', () => {
   it('renders', () => {
-    const { asFragment } = renderWithRedux(
-      <SkyContainer scrollPos={0} height={100} />,
-      {
-        initialState: { street: { environment: 'foo' } }
-      }
-    )
+    const { asFragment } = render(<SkyContainer scrollPos={0} height={100} />, {
+      initialState: { street: { environment: 'foo' } }
+    })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders with objects', () => {
-    const { asFragment } = renderWithRedux(
-      <SkyContainer scrollPos={0} height={100} />,
-      {
-        initialState: { street: { environment: 'bar' } }
-      }
-    )
+    const { asFragment } = render(<SkyContainer scrollPos={0} height={100} />, {
+      initialState: { street: { environment: 'bar' } }
+    })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders background animations', () => {
-    const { container } = renderWithRedux(
-      <SkyContainer scrollPos={0} height={100} />,
-      {
-        initialState: {
-          street: { environment: 'bar' },
-          flags: {
-            ENVIRONMENT_ANIMATIONS: { value: true }
-          }
+    const { container } = render(<SkyContainer scrollPos={0} height={100} />, {
+      initialState: {
+        street: { environment: 'bar' },
+        flags: {
+          ENVIRONMENT_ANIMATIONS: { value: true }
         }
       }
-    )
+    })
     expect(
       container
         .querySelector('section')

@@ -2,21 +2,19 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import MenuBarItem from '../MenuBarItem'
 
 describe('MenuBarItem', () => {
   it('renders', () => {
-    const { asFragment } = renderWithIntl(
-      <MenuBarItem label="foo" translation="foo" />
-    )
+    const { asFragment } = render(<MenuBarItem label="foo" translation="foo" />)
 
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('handles the click on a button', () => {
     const handleClick = jest.fn()
-    renderWithIntl(<MenuBarItem onClick={handleClick}>label</MenuBarItem>)
+    render(<MenuBarItem onClick={handleClick}>label</MenuBarItem>)
 
     userEvent.click(screen.getByRole('button'))
 
@@ -25,7 +23,7 @@ describe('MenuBarItem', () => {
 
   it('handles the click on a link', () => {
     const handleClick = jest.fn()
-    renderWithIntl(
+    render(
       <MenuBarItem url="#" onClick={handleClick}>
         label
       </MenuBarItem>
@@ -38,7 +36,7 @@ describe('MenuBarItem', () => {
   })
 
   it('renders children instead of default label if provided', () => {
-    renderWithIntl(
+    render(
       <MenuBarItem>
         <span data-testid="foo">bar</span>
       </MenuBarItem>
@@ -49,7 +47,7 @@ describe('MenuBarItem', () => {
   })
 
   it('passes unhandled props to child elements', () => {
-    renderWithIntl(<MenuBarItem foo="bar">child</MenuBarItem>)
+    render(<MenuBarItem foo="bar">child</MenuBarItem>)
 
     expect(screen.getByText('child')).toHaveAttribute('foo', 'bar')
   })

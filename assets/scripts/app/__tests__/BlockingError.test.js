@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import BlockingError from '../BlockingError'
 import { ERRORS } from '../errors'
 
@@ -18,7 +18,7 @@ function getInitialState (errorType) {
 describe('BlockingError', () => {
   it.each(Object.keys(ERRORS))('renders %s', (error) => {
     const initialState = getInitialState(ERRORS[error])
-    const { asFragment } = renderWithReduxAndIntl(<BlockingError />, {
+    const { asFragment } = render(<BlockingError />, {
       initialState
     })
     expect(asFragment()).toMatchSnapshot()
@@ -26,7 +26,7 @@ describe('BlockingError', () => {
 
   it('renders nothing if no error provided', () => {
     const initialState = getInitialState(null)
-    const { container } = renderWithReduxAndIntl(<BlockingError />, {
+    const { container } = render(<BlockingError />, {
       initialState
     })
     expect(container.firstChild).toBeNull()

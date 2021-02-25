@@ -1,11 +1,11 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import DebugHoverPolygon from '../DebugHoverPolygon'
 
 describe('DebugHoverPolygon', () => {
   it('renders if enabled', () => {
-    const { asFragment } = renderWithRedux(<DebugHoverPolygon />, {
+    const { asFragment } = render(<DebugHoverPolygon />, {
       initialState: {
         flags: {
           INFO_BUBBLE_HOVER_POLYGON: {
@@ -22,7 +22,7 @@ describe('DebugHoverPolygon', () => {
   })
 
   it('renders nothing if disabled', () => {
-    const { container } = renderWithRedux(<DebugHoverPolygon />, {
+    const { container } = render(<DebugHoverPolygon />, {
       initialState: {
         flags: {
           INFO_BUBBLE_HOVER_POLYGON: {

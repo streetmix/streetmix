@@ -15,7 +15,7 @@ React Testing Library works directly with the rendered DOM. It provides utilitie
 Test the interaction rather than the way it looks. For example use ``fireAction`` from React Testing Library to simulate Mouse and Keyboard events.
 
 Use the render method, be aware that you need to ``wait`` for changes when the store is used. Due to the asynchronous nature of the store.
-The helper method ``renderWithRedux`` provides you with a wrapper around ``Provider`` and you can provide ``initialState``.
+The helper method ``render`` provides you with a wrapper around ``Provider`` and you can provide ``initialState``.
 
 
 Snapshot testing

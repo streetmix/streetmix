@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import UndoRedo from '../UndoRedo'
 
 // For the purposes of this test suite, assume user owns the street
@@ -14,7 +14,7 @@ jest.mock('../../streets/owner', () => ({
 // component. This test only covers interactions on this component.
 describe('UndoRedo', () => {
   it('handles clicking undo button', () => {
-    renderWithReduxAndIntl(<UndoRedo />, {
+    render(<UndoRedo />, {
       initialState: {
         undo: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
@@ -32,7 +32,7 @@ describe('UndoRedo', () => {
   })
 
   it('handles clicking redo button', () => {
-    renderWithReduxAndIntl(<UndoRedo />, {
+    render(<UndoRedo />, {
       initialState: {
         undo: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
