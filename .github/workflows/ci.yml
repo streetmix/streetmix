@@ -3,8 +3,8 @@ name: Continuous integration (CI) testing
 on: [push, pull_request]
 
 jobs:
-  # Separate linting as a parallel test from unit/integration testing because it does not
-  # need to be run in multiple environments.
+  # Separate linting as a parallel test from unit/integration testing because
+  # it does not need to be run in multiple environments.
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -13,9 +13,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        # Codecov reportgin needs fetch-depth > 1
-        fetch-depth: 2
     # Use the current LTS version of Node.js
     - name: Use Node.js 14
       uses: actions/setup-node@v2
@@ -54,6 +51,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        # Codecov reporting needs fetch-depth > 1
+        fetch-depth: 2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
