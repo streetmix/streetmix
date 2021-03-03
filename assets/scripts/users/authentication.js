@@ -7,7 +7,6 @@ import { app } from '../preinit/app_settings'
 import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { goTwitterSignIn } from '../app/routing'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
 import { formatMessage } from '../locales/locale'
 import { setPromoteStreet } from '../streets/remix'
@@ -30,15 +29,7 @@ const REFRESH_TOKEN_COOKIE = 'refresh_token'
 const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
 export function doSignIn () {
-  const state = store.getState()
-  const newAuthEnabled = state.flags.AUTHENTICATION_V2.value
-
-  // The sign in dialog is only limited to users where the UI has been localized
-  if (newAuthEnabled) {
-    store.dispatch(showDialog('SIGN_IN'))
-  } else {
-    goTwitterSignIn()
-  }
+  store.dispatch(showDialog('SIGN_IN'))
 }
 
 export function getSignInData () {
