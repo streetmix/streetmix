@@ -1,8 +1,17 @@
 .upgrade-dialog {
-  width: 440px;
-  min-height: 220px;
+  width: 620px;
+  min-height: 440px;
   max-height: 75vh;
-  padding: 20px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 0 0 0.75em 0;
+  }
 
   header {
     background-color: white;
@@ -13,14 +22,81 @@
       text-align: right;
     }
   }
-
-  .dialog-content {
-    overflow: hidden;
-    overflow-y: scroll;
-  }
 }
 
 .upgrade-dialog-content {
   display: flex;
   margin-bottom: 2em;
 }
+
+.upgrade-dialog-left {
+  flex-basis: 240px;
+  margin-right: 40px;
+  border-right: 1px solid #cde1ea;
+  padding-right: 40px;
+  position: fixed;
+  width: 280px;
+
+  [dir="rtl"] & {
+    margin-left: 40px;
+    margin-right: 0;
+    border-left: 1px solid #cde1ea;
+    border-right: 0;
+    padding-left: 40px;
+    padding-right: 0;
+  }
+
+  p:first-child {
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 1.5em;
+  }
+}
+
+.upgrade-dialog-right {
+  flex: 1;
+  margin-bottom: 15px;
+  margin-left: 320px;
+
+  [dir="rtl"] & {
+    margin-right: 320px;
+    margin-left: 0;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > h2 {
+    margin-top: 1.5em;
+  }
+}
+
+// .upgrade-dialog {
+//   width: 440px;
+//   min-height: 220px;
+//   max-height: 75vh;
+//   padding: 20px;
+
+//   header {
+//     background-color: white;
+//     padding: 0;
+//     text-align: left;
+
+//     [dir="rtl"] & {
+//       text-align: right;
+//     }
+//   }
+
+//   .dialog-content {
+//     overflow: hidden;
+//     overflow-y: scroll;
+//   }
+// }
+
+// .upgrade-dialog-content {
+//   display: flex;
+//   margin-bottom: 2em;
+// }

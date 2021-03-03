@@ -9,9 +9,6 @@ import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
 
-const DEFAULT_BODY =
-  'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
-
 const UpgradeDialog = ({ userId, roles }) => {
   const intl = useIntl()
   const [loading, setLoading] = useState(false)
@@ -84,9 +81,6 @@ const UpgradeDialog = ({ userId, roles }) => {
   } else {
     activePanel = (
       <>
-        <p>
-          <FormattedMessage id="upgrade.body" defaultMessage={DEFAULT_BODY} />
-        </p>
         <StripeCheckout
           amount={500}
           name={stripeName}
@@ -104,13 +98,86 @@ const UpgradeDialog = ({ userId, roles }) => {
   return (
     <Dialog>
       {(closeDialog) => (
-        <div className="upgrade-dialog" dir="ltr">
-          <header>
+        <div className="upgrade-dialog">
+          {/* <header>
             <h1>
               <FormattedMessage id="upgrade.title" defaultMessage="Upgrade" />
             </h1>
-          </header>
-          {activePanel}
+          </header> */}
+          <div className="dialog-content">
+            <div className="upgrade-dialog-content">
+              {/* <div className="upgrade-dialog-left"> */}
+              <div>
+                <header>
+                  <h2>
+                    <FormattedMessage
+                      id="upgrade.header"
+                      defaultMessage="Upgrade to Streetmix +"
+                    />
+                  </h2>
+                  <p role="doc-subtitle">
+                    <FormattedMessage
+                      id="upgrade.exciter"
+                      defaultMessage="For individuals that want to support and get new features"
+                    />
+                  </p>
+                </header>
+                <ul>
+                  <li>
+                    <FormattedMessage
+                      id="upgrade.feature.segment"
+                      defaultMessage="Rename street segments"
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="upgrade.feature.background"
+                      defaultMessage="Change background / environment"
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="upgrade.feature.export"
+                      defaultMessage="Export images and a higher resolution and without watermark"
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="upgrade.feature.subscriber"
+                      defaultMessage="Subscriber-only"
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="upgrade.teaser.discord"
+                      defaultMessage="Discord community"
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="upgrade.teaser.more"
+                      defaultMessage="And more to come!"
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="upgrade.teaser.prioritise"
+                      defaultMessage="Help us prioritise future features!"
+                    />
+                  </li>
+                </ul>
+                <p>
+                  <strong>
+                    <FormattedMessage
+                      id="upgrade.cost"
+                      defaultMessage="$10 USD / MONTH"
+                    />
+                  </strong>
+                </p>
+              </div>
+            </div>
+            {activePanel}
+          </div>
         </div>
       )}
     </Dialog>
