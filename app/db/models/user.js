@@ -16,14 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         type: DataTypes.STRING
       },
-      twitterId: {
-        type: DataTypes.STRING,
-        field: 'twitter_id'
-      },
-      twitterCredentials: {
-        type: DataTypes.JSON,
-        field: 'twitter_credentials'
-      },
       auth0Id: {
         type: DataTypes.STRING,
         field: 'auth0_id'
