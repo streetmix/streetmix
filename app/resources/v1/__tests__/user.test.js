@@ -3,7 +3,6 @@ import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import user from '../users'
 
-jest.mock('twitter')
 jest.mock('../../../db/models')
 jest.mock('../../../../lib/logger')
 
