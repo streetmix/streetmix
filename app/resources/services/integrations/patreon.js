@@ -74,7 +74,7 @@ const initPatreon = () => {
 }
 
 // Only initialize Patreon auth strategy if the env vars are set.
-if (process.env.PATREON_CLIENT_ID && !process.env.PATREON_CLIENT_SECRET) {
+if (process.env.PATREON_CLIENT_ID && process.env.PATREON_CLIENT_SECRET) {
   initPatreon()
 }
 
