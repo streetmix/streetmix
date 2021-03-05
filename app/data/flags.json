@@ -125,10 +125,6 @@
     "label": "Activate purchasing funnel",
     "defaultValue": false
   },
-  "AUTHENTICATION_V2": {
-    "label": "Authentication v2",
-    "defaultValue": true
-  },
   "SILLY_CLOWNS": {
     "label": "Silly clowns",
     "defaultValue": false

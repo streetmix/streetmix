@@ -90,12 +90,6 @@ routes.post(
   controllers.refresh_login_token.post
 )
 
-// Twitter (deprecated)
-routes.get('/services/auth/twitter-sign-in', controllers.twitter_sign_in.get)
-routes.get(
-  config.twitter.oauth_callback_path,
-  controllers.twitter_sign_in_callback.get
-)
 // Auth0
 routes.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 

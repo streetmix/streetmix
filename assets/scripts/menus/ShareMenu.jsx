@@ -8,6 +8,7 @@ import ExternalLink from '../ui/ExternalLink'
 import { FACEBOOK_APP_ID } from '../app/config'
 import { getPageTitle } from '../app/page_title'
 import { getSharingUrl } from '../util/share_url'
+import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
 import { startPrinting } from '../store/slices/app'
 import './ShareMenu.scss'
@@ -108,7 +109,7 @@ function ShareMenu (props) {
 
   function handleClickSignIn (event) {
     event.preventDefault()
-    dispatch(showDialog('SIGN_IN'))
+    doSignIn()
   }
 
   function handleClickPrint (event) {

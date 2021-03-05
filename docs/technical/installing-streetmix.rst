@@ -287,10 +287,6 @@ Streetmix will run without these keys. Some functionality will be limited, but t
 +-----------------------------------+----------------------------------------------+-----------+
 | ``CLOUDINARY_API_SECRET``         | Image cloud storage (Cloudinary) secret      | No        |
 +-----------------------------------+----------------------------------------------+-----------+
-| ``TWITTER_OAUTH_CONSUMER_KEY``    | Twitter OAuth consumer key *(deprecated)*    | No        |
-+-----------------------------------+----------------------------------------------+-----------+
-| ``TWITTER_OAUTH_CONSUMER_SECRET`` | Twitter OAuth consumer secret *(deprecated)* | No        |
-+-----------------------------------+----------------------------------------------+-----------+
 
 
 Optional database configuration (PostgreSQL)

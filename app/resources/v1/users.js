@@ -1,6 +1,4 @@
 const config = require('config')
-
-const Twitter = require('twitter')
 const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
@@ -225,80 +223,6 @@ exports.post = async function (req, res) {
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   const userId = req.params.user_id
-  const handleFindUser = function (user) {
-    let twitterApiClient
-    try {
-      twitterApiClient = new Twitter({
-        consumer_key: config.twitter.oauth_consumer_key,
-        consumer_secret: config.twitter.oauth_consumer_secret,
-        access_token_key: user.twitterCredentials.access_token_key,
-        access_token_secret: user.twitterCredentials.access_token_secret
-      })
-    } catch (e) {
-      logger.error('Could not initialize Twitter API client. Error:')
-      logger.error(e)
-    }
-
-    const sendUserJson = function (data) {
-      if (data && data.twitter_profile_image_url) {
-        user.profileImageUrl = data.twitter_profile_image_url
-      }
-      res.status(200).send(asUserJson(data || user))
-    }
-
-    let responseAlreadySent = false
-
-    const handleFetchUserProfileFromTwitter = function (err, res) {
-      if (err) {
-        logger.error('Twitter API call users/show returned error.')
-        logger.error(err)
-      }
-
-      if (responseAlreadySent) {
-        logger.debug(
-          { profileImageUrl: res.profileImageUrl },
-          'Twitter API users/show call returned but response already sent!'
-        )
-      } else {
-        logger.debug(
-          { profileImageUrl: res.profileImageUrl },
-          'Twitter API users/show call returned. Sending response with Twitter data.'
-        )
-        responseAlreadySent = true
-
-        if (!res) {
-          logger.error('Twitter API call users/show did not return any data.')
-        }
-
-        sendUserJson({
-          twitter_profileImageUrl: res.picture
-        })
-      }
-    } // END function - handleFetchUserProfileFromTwitter
-
-    if (twitterApiClient && !user.profileImageUrl) {
-      logger.debug(
-        'About to call Twitter API: /users/show.json?user_id=' + user.twitterId
-      )
-      twitterApiClient.get(
-        '/users/show.json',
-        { user_id: user.twitterId },
-        handleFetchUserProfileFromTwitter
-      )
-      setTimeout(function () {
-        if (!responseAlreadySent) {
-          logger.debug(
-            'Timing out Twitter API call after %d milliseconds and sending partial response.',
-            config.twitter.timeout_ms
-          )
-          responseAlreadySent = true
-          sendUserJson()
-        }
-      }, config.twitter.timeout_ms)
-    } else {
-      sendUserJson()
-    }
-  } // END function - handleFindUser
 
   const handleError = function (error) {
     switch (error) {
@@ -370,7 +294,7 @@ exports.get = async function (req, res) {
     // seems odd to have these two functions chained together, when we
     // have an ORM that can retrive the user details. is this code still used?
     const result = await findUserById(userId)
-    handleFindUser(result)
+    res.status(200).send(asUserJson(result))
   } catch (err) {
     handleError(err)
   }
