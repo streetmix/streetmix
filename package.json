@@ -102,7 +102,7 @@
     "@reduxjs/toolkit": "1.5.0",
     "@sentry/browser": "5.15.5",
     "@streetmix/illustrations": "1.1.0",
-    "@tippyjs/react": "4.2.0",
+    "@tippyjs/react": "4.2.3",
     "auth0": "2.33.0",
     "auth0-js": "9.13.2",
     "autoprefixer": "9.8.6",
