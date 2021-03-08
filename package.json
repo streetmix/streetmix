@@ -157,7 +157,7 @@
     "react-redux": "7.2.2",
     "react-spring": "8.0.27",
     "react-stripe-checkout": "2.6.3",
-    "react-transition-group": "4.3.0",
+    "react-transition-group": "4.4.1",
     "regenerator-runtime": "0.13.7",
     "requireindex": "1.2.0",
     "sass": "1.32.8",
