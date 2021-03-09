@@ -6,6 +6,10 @@ but in this app it is actually the username of the user
 const userRoles = require('../../data/user_roles.json')
 const roles = Object.keys(userRoles)
 
+// sequelize validator passes the userRoles value which is an array of what roles they have
+// for every value in the array, check if its valid against the set of valid roles
+// to do this we have a custom validator (see line 32)
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
@@ -26,9 +30,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ARRAY(DataTypes.TEXT),
         defaultValue: ['USER'],
         validate: {
-          isIn: {
-            args: [roles],
-            msg: 'Role does not match list of valid roles'
+          arrayIsValid (userRoles) {
+            if (!userRoles.every((value) => roles.includes(value))) {
+              throw new Error('Role does not match list of valid roles')
+            }
           }
         }
       },
