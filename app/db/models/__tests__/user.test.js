@@ -49,6 +49,27 @@ describe('creates a user', () => {
     )
   })
 
+  it('handles more than one value in the roles array when they all match', async () => {
+    // see https://jestjs.io/docs/en/expect#expectassertionsnumber
+    expect.assertions(1)
+    user.roles = ['ADMIN', 'BETA_TESTER']
+    // see https://jestjs.io/docs/en/tutorial-async#rejects
+    await expect(user.validate()).resolves.not.toThrow(
+      'Validation error: Role does not match list of valid roles'
+    )
+  })
+
+  it('throws an error when some roles are valid but at least one is not', async () => {
+    // see https://jestjs.io/docs/en/expect#expectassertionsnumber
+    expect.assertions(1)
+    // 'ALPHA_TESTER' does not match
+    user.roles = ['ADMIN', 'BETA_TESTER', 'ALPHA_TESTER']
+    // see https://jestjs.io/docs/en/tutorial-async#rejects
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Role does not match list of valid roles'
+    )
+  })
+
   // After all tests have finished, close the DB connection
   afterAll(async () => {
     await User.sequelize.close()
