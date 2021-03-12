@@ -140,6 +140,7 @@
     "newrelic": "7.3.0",
     "parcel-bundler": "1.12.4",
     "passport": "0.4.1",
+    "passport-oauth": "1.0.0",
     "passport-patreon": "1.0.1",
     "pelias-js": "0.0.8",
     "pg": "8.5.1",
