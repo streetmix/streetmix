@@ -112,6 +112,25 @@ routes.get(
   resources.services.integrations.patreon.connectUser
 )
 
+// Redirect the user to the OAuth 2.0 provider for authentication.  When
+// complete, the provider will redirect the user back to the application at
+//     /auth/provider/callback
+routes.get(
+  '/services/integrations/coil',
+  jwtCheck,
+  resources.services.integrations.coil.get
+)
+
+// The OAuth 2.0 provider has redirected the user back to the application.
+// Finish the authentication process by attempting to obtain an access
+// token.  If authorization was granted, the user will be logged in.
+// Otherwise, authentication has failed.
+routes.get(
+  '/services/integrations/coil/callback',
+  resources.services.integrations.coil.callback,
+  resources.services.integrations.coil.connectUser
+)
+
 /******************************************************************************
  *  ERROR HANDLING
  *****************************************************************************/
