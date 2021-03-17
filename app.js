@@ -23,11 +23,12 @@ const serviceRoutes = require('./app/service_routes')
 const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
 const jwtCheck = require('./app/authentication')
+
 // requirements for using passportjs
+const expressSession = require('express-session')
 const passport = require('passport')
 const Auth0Strategy = require('passport-auth0')
 const authRouter = require('./app/auth_routes')
-
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
