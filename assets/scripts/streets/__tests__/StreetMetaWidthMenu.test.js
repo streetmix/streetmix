@@ -2,12 +2,12 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import StreetMetaWidthMenu from '../StreetMetaWidthMenu'
 
 describe('StreetMetaWidthMenu', () => {
   it('renders (metric units, default width selected)', () => {
-    const { asFragment } = renderWithIntl(
+    const { asFragment } = render(
       <StreetMetaWidthMenu
         street={{
           units: 0,
@@ -22,7 +22,7 @@ describe('StreetMetaWidthMenu', () => {
   })
 
   it('renders (metric units, custom width selected)', () => {
-    const { asFragment } = renderWithIntl(
+    const { asFragment } = render(
       <StreetMetaWidthMenu
         street={{
           units: 0,
@@ -37,7 +37,7 @@ describe('StreetMetaWidthMenu', () => {
   })
 
   it('renders (imperial units, default width selected)', () => {
-    const { asFragment } = renderWithIntl(
+    const { asFragment } = render(
       <StreetMetaWidthMenu
         street={{
           units: 1,
@@ -53,7 +53,7 @@ describe('StreetMetaWidthMenu', () => {
 
   it('calls onChange handler when selection changed', () => {
     const handleChange = jest.fn((value) => value)
-    renderWithIntl(
+    render(
       <StreetMetaWidthMenu
         street={{
           units: 0,

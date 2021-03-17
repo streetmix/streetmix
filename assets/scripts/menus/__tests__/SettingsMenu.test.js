@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import SettingsMenu from '../SettingsMenu'
 import {
   SETTINGS_UNITS_IMPERIAL,
@@ -45,7 +45,7 @@ describe('SettingsMenu', () => {
   // Possible culprit is that something fails while it's actually
   // retrieving or setting locales.
   xit('handles locale selection', async () => {
-    renderWithReduxAndIntl(<SettingsMenu isActive={true} />, {
+    render(<SettingsMenu isActive={true} />, {
       initialState
     })
 
@@ -68,7 +68,7 @@ describe('SettingsMenu', () => {
   })
 
   it('handles metric units selection', () => {
-    renderWithReduxAndIntl(<SettingsMenu isActive={true} />, {
+    render(<SettingsMenu isActive={true} />, {
       initialState: {
         ...initialState,
         // Set street units to imperial so that change is detected.
@@ -90,7 +90,7 @@ describe('SettingsMenu', () => {
   })
 
   it('handles imperial units selection', () => {
-    renderWithReduxAndIntl(<SettingsMenu isActive={true} />, {
+    render(<SettingsMenu isActive={true} />, {
       initialState
     })
 

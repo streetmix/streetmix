@@ -104,22 +104,26 @@ function Credits (props) {
               </h3>
               <ul>
                 {value.sort().map((name) =>
-                  Array.isArray(name) ? (
-                    <li key={name[0]}>
-                      {name[0]}, <i>{name[1]}</i>
-                    </li>
-                  ) : typeof name === 'string' ? (
-                    <li key={name}>{name}</li>
-                  ) : (
-                    <li key={name.label}>
-                      <h4>{name.label}</h4>
-                      <ul>
-                        {name.people.map((person) => (
-                          <li key={person}>{person}</li>
-                        ))}
-                      </ul>
-                    </li>
-                  )
+                  Array.isArray(name)
+                    ? (
+                      <li key={name[0]}>
+                        {name[0]}, <i>{name[1]}</i>
+                      </li>
+                      )
+                    : typeof name === 'string'
+                      ? (
+                        <li key={name}>{name}</li>
+                        )
+                      : (
+                        <li key={name.label}>
+                          <h4>{name.label}</h4>
+                          <ul>
+                            {name.people.map((person) => (
+                              <li key={person}>{person}</li>
+                            ))}
+                          </ul>
+                        </li>
+                        )
                 )}
               </ul>
             </React.Fragment>
@@ -145,13 +149,15 @@ function Credits (props) {
                 </h4>
                 <ul>
                   {value.sort().map((name) =>
-                    Array.isArray(name) ? (
-                      <li key={name[0]}>
-                        {name[0]}, <i>{name[1]}</i>
-                      </li>
-                    ) : (
-                      <li key={name}>{name}</li>
-                    )
+                    Array.isArray(name)
+                      ? (
+                        <li key={name[0]}>
+                          {name[0]}, <i>{name[1]}</i>
+                        </li>
+                        )
+                      : (
+                        <li key={name}>{name}</li>
+                        )
                   )}
                 </ul>
               </li>

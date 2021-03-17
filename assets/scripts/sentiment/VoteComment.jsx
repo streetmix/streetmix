@@ -48,21 +48,25 @@ function VoteComment ({ streetId }) {
           defaultMessage: '(for instance, “I liked the trees.”)'
         })}
       />
-      {isComplete ? (
-        <FormattedMessage
-          id="sentiment.comment.thanks"
-          defaultMessage="Got it!"
-        />
-      ) : isPending ? (
-        <LoadingSpinner size="small" />
-      ) : (
-        <button className="button-secondary" onClick={handleSubmitComment}>
+      {isComplete
+        ? (
           <FormattedMessage
-            id="sentiment.comment.submit"
-            defaultMessage="Submit"
+            id="sentiment.comment.thanks"
+            defaultMessage="Got it!"
           />
-        </button>
-      )}
+          )
+        : isPending
+          ? (
+            <LoadingSpinner size="small" />
+            )
+          : (
+            <button className="button-secondary" onClick={handleSubmitComment}>
+              <FormattedMessage
+                id="sentiment.comment.submit"
+                defaultMessage="Submit"
+              />
+            </button>
+            )}
     </div>
   )
 }

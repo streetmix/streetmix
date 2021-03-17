@@ -1,7 +1,7 @@
 {
   "menu": {
     "item": {
-      "help": "",
+      "help": "Help",
       "about": "",
       "contact": "",
       "community": "",
@@ -11,8 +11,8 @@
       "new-street": "",
       "my-streets": "",
       "settings": "",
-      "share": "",
-      "store": "",
+      "share": "Deel",
+      "store": "Winkel",
       "upgrade": ""
     },
     "help": {
@@ -35,12 +35,12 @@
       "save": "",
       "save-byline": "",
       "messages": {
-        "my-street": "",
+        "my-street": "Kijk eens naar mijn straat, {streetName}, op Streetmix!",
         "my-street-unnamed": "",
         "someone-elses-street": "",
         "someone-elses-street-unnamed": "",
         "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "anonymous-creator-street-unnamed": "Kijk eens naar deze straat op Streetmix!"
       }
     },
     "contact": {
@@ -62,7 +62,7 @@
       "message-placeholder": "",
       "email-placeholder": "",
       "send": "",
-      "confirm": "",
+      "confirm": "We hebben het. Bedankt!",
       "error": ""
     },
     "sign-in": {
@@ -76,14 +76,14 @@
       "imperial": ""
     },
     "language": {
-      "label": ""
+      "label": "Taal"
     }
   },
   "msg": {
     "loading": "",
     "remixing": "",
     "having-trouble": "",
-    "no-street": "",
+    "no-street": "Geen straat geselecteerd.",
     "trouble-loading": "",
     "slow-connection-1": "",
     "slow-connection-2": "",
@@ -98,7 +98,7 @@
       "try-again": "",
       "view-example": ""
     },
-    "page-not-found-title": "",
+    "page-not-found-title": "Pagina niet gevonden.",
     "page-not-found-description": "",
     "street-not-found-title": "",
     "street-not-found-description": "",
@@ -160,7 +160,7 @@
         "instruct-pointer-mouse": ""
       },
       "existing": {
-        "intro": "",
+        "intro": "Dit is {streetName} gemaakt door {creator}",
         "intro-without-creator": "",
         "instruct": "",
         "instruct-start-own-street": ""
@@ -175,7 +175,7 @@
     "about": {
       "heading": "",
       "description": "",
-      "thanks": "",
+      "thanks": "Veel dank aan het personeel en 2013 CfA fellows voor hun steun en geduld, het Blockee team voor het mogelijk maken, en al onze test gebruikers voor hun tijd en terugkoppeling!",
       "credits": "",
       "team-heading": "",
       "view-source": "",
@@ -230,11 +230,11 @@
       "geotag-unavailable": ""
     },
     "donate": {
-      "heading": "",
+      "heading": "Streetmix heeft jouw hulp nodig!",
       "lede": "",
       "text": "",
       "button": "",
-      "cancel": ""
+      "cancel": "Nee bedankt"
     },
     "sign-in": {
       "heading": "",
@@ -242,7 +242,7 @@
       "email-label": "",
       "email-description": "",
       "email-invalid": "",
-      "social-heading": "",
+      "social-heading": "of",
       "button": {
         "email": "",
         "twitter": "",
@@ -258,7 +258,7 @@
       "resend-email": ""
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "Wat is er nieuw in Streetmix?"
     },
     "newsletter": {
       "heading": ""
@@ -271,9 +271,9 @@
     }
   },
   "prompt": {
-    "new-street": "",
+    "new-street": "Nieuwe straatnaam:",
     "delete-street": "",
-    "new-width": "",
+    "new-width": "Nieuwe straatbreedte (van {minWidth} tot {maxWidth}):",
     "segment-label": ""
   },
   "toast": {
@@ -290,7 +290,7 @@
     "remove": ""
   },
   "width": {
-    "label": "",
+    "label": "{width} breedte",
     "under": "",
     "over": "",
     "occupied": "",
@@ -304,9 +304,9 @@
   },
   "datetime": {
     "minutes-ago": "",
-    "seconds-ago": "",
-    "yesterday": "",
-    "today": ""
+    "seconds-ago": "Een paar seconden geleden",
+    "yesterday": "Gisteren om {time}",
+    "today": "Vandaag om{time}"
   },
   "key": {
     "backspace": "",
@@ -409,7 +409,7 @@
       "rating-5": ""
     },
     "sign-in-prompt": "",
-    "about-link": "",
+    "about-link": "Waarom zie ik dit?",
     "about-text": "",
     "thank-you": "",
     "about-header": "",
@@ -433,28 +433,28 @@
   "i18n": {
     "lang": {
       "ar": "",
-      "ca": "",
-      "cs": "",
+      "ca": "Catalaans",
+      "cs": "Tsjechisch",
       "de": "",
       "en": "",
       "es": "",
-      "es-419": "",
-      "es-mx": "",
-      "fi": "",
-      "fr": "",
+      "es-419": "Spaans (Latijns-Amerika)",
+      "es-mx": "Spaans (Mexico)",
+      "fi": "Fins",
+      "fr": "Frans",
       "it": "Italiaans",
       "ja": "",
-      "ko": "",
-      "nl-nl": "",
+      "ko": "Koreaans",
+      "nl-nl": "Nederlands (Nederland)",
       "pl": "",
       "pt-br": "",
-      "ro-ro": "",
-      "ru": "",
-      "sv": "",
-      "tr": "",
+      "ro-ro": "Roemeens",
+      "ru": "Russisch",
+      "sv": "Zweeds",
+      "tr": "Turks",
       "zh": "",
       "zh-hans": "",
-      "zh-hant": ""
+      "zh-hant": "traditioneel Chinees"
     }
   }
 }

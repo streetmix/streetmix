@@ -27,7 +27,9 @@ export function loadSettings () {
         window.localStorage.getItem(LOCAL_STORAGE_SETTINGS_ID)
       )
     }
-  } catch (e) {}
+  } catch (err) {
+    console.error(err)
+  }
 
   // Merge settings to a new object. Server settings take priority and will
   // overwrite local settings.

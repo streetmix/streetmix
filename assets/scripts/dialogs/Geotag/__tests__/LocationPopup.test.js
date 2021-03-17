@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithIntl } from '../../../../../test/helpers/render'
+import { render } from '../../../../../test/helpers/render'
 import LocationPopup from '../LocationPopup'
 
 // Mock the <Popup /> component of react-leaflet so that it doesn't
@@ -13,13 +13,13 @@ jest.mock('react-leaflet', () => {
 
 describe('LocationPopup', () => {
   it('does not render if a location is not provided', () => {
-    const { container } = renderWithIntl(<LocationPopup />)
+    const { container } = render(<LocationPopup />)
     // react-leaflet's <Popup /> should not exist
     expect(container.firstChild).toBe(null)
   })
 
   it('renders an address label', () => {
-    renderWithIntl(<LocationPopup position={{ lat: 0, lng: 0 }} label="foo" />)
+    render(<LocationPopup position={{ lat: 0, lng: 0 }} label="foo" />)
 
     // Expect the text to be visible
     expect(screen.getByText('foo')).not.toBe(null)
@@ -29,7 +29,7 @@ describe('LocationPopup', () => {
     const handleConfirm = jest.fn()
     const handleClear = jest.fn()
 
-    renderWithIntl(
+    render(
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
         isEditable={true}
@@ -48,7 +48,7 @@ describe('LocationPopup', () => {
     const handleConfirm = jest.fn()
     const handleClear = jest.fn()
 
-    renderWithIntl(
+    render(
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
         isEditable={true}

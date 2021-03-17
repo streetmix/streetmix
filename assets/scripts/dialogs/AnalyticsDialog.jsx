@@ -140,13 +140,15 @@ function AnalyticsDialog (props) {
                   />
                   :
                 </strong>{' '}
-                {capacityData.source_url ? (
-                  <ExternalLink href={capacityData.source_url}>
-                    {capacityData.source_title}
-                  </ExternalLink>
-                ) : (
-                  capacityData.source_title
-                )}
+                {capacityData.source_url
+                  ? (
+                    <ExternalLink href={capacityData.source_url}>
+                      {capacityData.source_title}
+                    </ExternalLink>
+                    )
+                  : (
+                      capacityData.source_title
+                    )}
                 , {capacityData.source_author}
               </p>
             </div>

@@ -4,7 +4,7 @@ import { waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import MockAdapter from 'axios-mock-adapter'
 import WelcomePanel from '../WelcomePanel'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import { getMode } from '../mode'
 import { isSignedIn } from '../../users/authentication'
 import apiClient from '../../util/api'
@@ -26,7 +26,7 @@ describe('WelcomePanel', () => {
   })
 
   it('does not show if app is read-only', () => {
-    const { container } = renderWithReduxAndIntl(<WelcomePanel />, {
+    const { container } = render(<WelcomePanel />, {
       initialState: {
         app: {
           readOnly: true
@@ -68,19 +68,16 @@ describe('WelcomePanel', () => {
     })
 
     it('copies the last street and highlights Start with a copy button', async () => {
-      const { getByLabelText, store } = renderWithReduxAndIntl(
-        <WelcomePanel />,
-        {
-          initialState: {
-            street,
-            app: {
-              readOnly: false,
-              everythingLoaded: false,
-              priorLastStreetId: '2'
-            }
+      const { getByLabelText, store } = render(<WelcomePanel />, {
+        initialState: {
+          street,
+          app: {
+            readOnly: false,
+            everythingLoaded: false,
+            priorLastStreetId: '2'
           }
         }
-      )
+      })
 
       store.dispatch(everythingLoaded())
       apiMock.onAny().reply(200, apiResponse)

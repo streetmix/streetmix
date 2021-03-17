@@ -3,7 +3,7 @@ import React from 'react'
 import EmptySegment from '../EmptySegment'
 import { TILE_SIZE } from '../../segments/constants'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 
 describe('EmptySegment', () => {
   const initialState = {
@@ -12,7 +12,7 @@ describe('EmptySegment', () => {
   }
 
   it('renders nothing when the width is 0', () => {
-    const { container } = renderWithReduxAndIntl(<EmptySegment width={0} />, {
+    const { container } = render(<EmptySegment width={0} />, {
       initialState
     })
 
@@ -20,10 +20,9 @@ describe('EmptySegment', () => {
   })
 
   it('renders a width, and at left position 0 by default', () => {
-    const { container } = renderWithReduxAndIntl(
-      <EmptySegment width={12.5} />,
-      { initialState }
-    )
+    const { container } = render(<EmptySegment width={12.5} />, {
+      initialState
+    })
 
     const el = container.firstChild
     expect(el.classList.contains('segment-empty')).toBeTruthy()
@@ -32,10 +31,9 @@ describe('EmptySegment', () => {
   })
 
   it('renders at width and left position given', () => {
-    const { container } = renderWithReduxAndIntl(
-      <EmptySegment width={15} left={33} />,
-      { initialState }
-    )
+    const { container } = render(<EmptySegment width={15} left={33} />, {
+      initialState
+    })
 
     const el = container.firstChild
     expect(el.classList.contains('segment-empty')).toBeTruthy()
@@ -44,7 +42,7 @@ describe('EmptySegment', () => {
   })
 
   it('renders text content', () => {
-    const { getByText } = renderWithReduxAndIntl(<EmptySegment width={15} />, {
+    const { getByText } = render(<EmptySegment width={15} />, {
       initialState
     })
 

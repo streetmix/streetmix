@@ -12,21 +12,3 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
-// Import commands.js using ES2015 syntax:
-import './commands'
-
-const whitelist = (xhr) => {
-  // this function receives the xhr object in question and
-  // will whitelist if it's a GET that appears to be a static resource
-  return xhr.method === 'GET' && /\.(jsx?|html|css|svg|ttf)(\?.*)?$/.test(xhr.url)
-}
-
-Cypress.Server.defaults({
-  delay: 500,
-  force404: false,
-  whitelist: whitelist
-})
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')

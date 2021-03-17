@@ -20,7 +20,13 @@
     }
   },
   "plugins": ["react", "cypress", "react-hooks"],
-  "extends": ["standard", "standard-react"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "standard",
+    "standard-jsx",
+    "standard-react"
+  ],
   "rules": {
     "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-boolean-value": ["error", "always"],

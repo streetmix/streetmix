@@ -71,15 +71,17 @@ function MenuBar (props) {
   }
 
   function renderUserAvatar (user) {
-    return user ? (
-      <li>
-        <AvatarMenu user={user} onClick={handleClickMenuButton('identity')} />
-      </li>
-    ) : (
-      <li>
-        <SignInButton onClick={doSignIn} />
-      </li>
-    )
+    return user
+      ? (
+        <li>
+          <AvatarMenu user={user} onClick={handleClickMenuButton('identity')} />
+        </li>
+        )
+      : (
+        <li>
+          <SignInButton onClick={doSignIn} />
+        </li>
+        )
   }
 
   return (
@@ -101,20 +103,22 @@ function MenuBar (props) {
               translation="menu.item.contact"
               onClick={handleClickMenuButton('contact')}
             />
-            {upgradeFunnel ? (
-              <MenuBarItem
-                url="#"
-                label="Upgrade"
-                translation="menu.upgrade"
-                onClick={handleClickUpgrade}
-              />
-            ) : (
-              <MenuBarItem
-                label="Donate"
-                translation="menu.contribute.donate"
-                url="https://opencollective.com/streetmix/"
-              />
-            )}
+            {upgradeFunnel
+              ? (
+                <MenuBarItem
+                  url="#"
+                  label="Upgrade"
+                  translation="menu.upgrade"
+                  onClick={handleClickUpgrade}
+                />
+                )
+              : (
+                <MenuBarItem
+                  label="Donate"
+                  translation="menu.contribute.donate"
+                  url="https://opencollective.com/streetmix/"
+                />
+                )}
             <MenuBarItem
               label="Store"
               translation="menu.item.store"

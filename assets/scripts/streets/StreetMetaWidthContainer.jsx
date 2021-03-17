@@ -98,18 +98,20 @@ function StreetMetaWidthContainer (props) {
 
   return (
     <span className="street-metadata-width">
-      {isEditing ? (
-        <StreetMetaWidthMenu
-          street={street}
-          onChange={handleChangeMenuSelection}
-        />
-      ) : (
-        <StreetMetaWidthLabel
-          street={street}
-          editable={editable}
-          onClick={handleClickLabel}
-        />
-      )}
+      {isEditing
+        ? (
+          <StreetMetaWidthMenu
+            street={street}
+            onChange={handleChangeMenuSelection}
+          />
+          )
+        : (
+          <StreetMetaWidthLabel
+            street={street}
+            editable={editable}
+            onClick={handleClickLabel}
+          />
+          )}
     </span>
   )
 }

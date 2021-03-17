@@ -2,7 +2,7 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
 import StreetMetaAnalytics from '../StreetMetaAnalytics'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
 
 jest.mock('../../store/slices/dialogs', () => ({
@@ -16,7 +16,7 @@ describe('StreetMetaAnalytics', () => {
   })
 
   it('renders analytics and opens a dialog when clicked', () => {
-    const { getByText } = renderWithReduxAndIntl(<StreetMetaAnalytics />, {
+    const { getByText } = render(<StreetMetaAnalytics />, {
       initialState: {
         street: {
           segments: [

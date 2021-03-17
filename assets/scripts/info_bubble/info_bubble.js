@@ -60,7 +60,7 @@ export const infoBubble = {
     if (infoBubble.segmentEl) {
       infoBubble.segmentEl.classList.remove('hover')
       store.dispatch(setActiveSegment(null))
-      var el = infoBubble.segmentEl
+      const el = infoBubble.segmentEl
       if (fast) {
         el.classList.add('immediate-show-drag-handles')
         window.setTimeout(function () {
@@ -96,7 +96,7 @@ export const infoBubble = {
       infoBubble.considerMouseX = event.pageX
       infoBubble.considerMouseY = event.pageY
     } else {
-      var pos = getElAbsolutePos(segmentEl)
+      const pos = getElAbsolutePos(segmentEl)
 
       infoBubble.considerMouseX =
         pos[0] - document.querySelector('#street-section-outer').scrollLeft
@@ -139,8 +139,8 @@ export const infoBubble = {
       return
     }
 
-    var segmentEl = infoBubble.considerSegmentEl
-    var type = infoBubble.considerType
+    const segmentEl = infoBubble.considerSegmentEl
+    const type = infoBubble.considerType
 
     if (
       segmentEl === infoBubble.segmentEl &&
@@ -181,18 +181,18 @@ export const infoBubble = {
 }
 
 function _isPointInPoly (vs = [], point) {
-  var x = point[0]
-  var y = point[1]
+  const x = point[0]
+  const y = point[1]
 
-  var inside = false
-  for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-    var xi = vs[i][0]
-    var yi = vs[i][1]
-    var xj = vs[j][0]
-    var yj = vs[j][1]
+  let inside = false
+  for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+    const xi = vs[i][0]
+    const yi = vs[i][1]
+    const xj = vs[j][0]
+    const yj = vs[j][1]
 
     // prettier-ignore
-    var intersect = ((yi > y) !== (yj > y)) &&
+    const intersect = ((yi > y) !== (yj > y)) &&
       (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi)
 
     if (intersect) inside = !inside

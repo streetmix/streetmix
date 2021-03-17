@@ -25,7 +25,7 @@ function FeatureFlagDialog (props) {
         .replace(/_/g, '-')}`
 
       // Bail if a defined flag is not in the store (e.g. in tests with mock stores)
-      if (!flags[id]) return
+      if (!flags[id]) return null
 
       // If the setting has changed, display it differently
       const isNotDefault = deets.defaultValue !== flags[id].value

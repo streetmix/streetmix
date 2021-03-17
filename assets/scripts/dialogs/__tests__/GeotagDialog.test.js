@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import GeotagDialog from '../GeotagDialog'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { screen } from '@testing-library/react'
@@ -48,16 +48,15 @@ const initialState = {
 
 describe('GeotagDialog', () => {
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(
-      <GeotagDialog renderPopup={true} />,
-      { initialState }
-    )
+    const { asFragment } = render(<GeotagDialog renderPopup={true} />, {
+      initialState
+    })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('allows a location to be cleared when the street is owned by the current user', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(true)
-    renderWithReduxAndIntl(<GeotagDialog />, {
+    render(<GeotagDialog />, {
       initialState
     })
 
@@ -68,7 +67,7 @@ describe('GeotagDialog', () => {
 
   it('allows a location to be added when the current user started this street', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(true)
-    renderWithReduxAndIntl(<GeotagDialog />, {
+    render(<GeotagDialog />, {
       initialState: {
         ...initialState,
         street: {
@@ -85,7 +84,7 @@ describe('GeotagDialog', () => {
   /* neither confirm or clear location buttons should show up in this case */
   it('does not allow a location to be edited when the current user is not the street owner', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(false)
-    renderWithReduxAndIntl(<GeotagDialog />, {
+    render(<GeotagDialog />, {
       initialState
     })
     // in this case we want to make sure neither button shows up, so we use regex to check the button name
@@ -96,7 +95,7 @@ describe('GeotagDialog', () => {
 
   it('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
     isOwnedByCurrentUser.mockReturnValueOnce(false)
-    renderWithReduxAndIntl(<GeotagDialog />, {
+    render(<GeotagDialog />, {
       initialState: {
         ...initialState,
         street: {

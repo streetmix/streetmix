@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import { renderWithIntl as render } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import CloseButton from '../CloseButton'
 
 describe('CloseButton', () => {

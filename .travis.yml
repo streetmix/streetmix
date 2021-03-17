@@ -7,12 +7,26 @@ node_js:
 # dist: xenial
 # os: linux
 
+# we have to do some extra setup to let travis use the newer version of postgres + postgis
+before_install:
+  - sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
+  - sudo cp /etc/postgresql/{10,12}/main/pg_hba.conf
+  - sudo service postgresql stop
+  - sudo service postgresql start 12
+
+services:
+  - postgresql
+
 addons:
   apt:
     packages:
       # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
       # Required for Cypress. https://docs.cypress.io/guides/guides/continuous-integration.html#Travis
       - libgconf-2-4
+      - postgresql-12
+      - postgresql-12-postgis-3
+      - postgresql-12-postgis-3-scripts
+  postgresql: "12"
 
 env:
   global:
@@ -26,6 +40,8 @@ before_script:
 script:
   # Note: don't run `npm test` here directly, it's intended for local testing.
   - commitlint-travis
+  - npm run db:create
+  - sequelize db:migrate
   - npm run jest
   - npm run lint
   - npm run cypress:run

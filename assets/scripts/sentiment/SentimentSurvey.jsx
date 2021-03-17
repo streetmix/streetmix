@@ -58,7 +58,6 @@ function SentimentSurvey ({
     doSignIn()
   }
 
-  /* eslint-disable react/jsx-indent */
   return (
     <div className={classNames.join(' ')}>
       <div className="sentiment-survey-background" />
@@ -77,6 +76,7 @@ function SentimentSurvey ({
                   id="sentiment.prompt.intro"
                   defaultMessage="<strong>Pardon the interruption.</strong> We’d love your feedback on this street."
                   values={{
+                    // eslint-disable-next-line react/display-name
                     strong: (chunks) => <strong>{chunks}</strong>
                   }}
                 />
@@ -86,22 +86,25 @@ function SentimentSurvey ({
                   id="sentiment.prompt.joyful"
                   defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
+                    // eslint-disable-next-line react/display-name
                     em: (chunks) => <em>{chunks}</em>
                   }}
                 />
               </h2>
               <sub>
-                {isUserSignedIn ? (
-                  <FormattedMessage
-                    id="sentiment.prompt.choose-one"
-                    defaultMessage="(choose one)"
-                  />
-                ) : (
-                  <FormattedMessage
-                    id="sentiment.sign-in-prompt"
-                    defaultMessage="Please sign in now to make your voice heard."
-                  />
-                )}
+                {isUserSignedIn
+                  ? (
+                    <FormattedMessage
+                      id="sentiment.prompt.choose-one"
+                      defaultMessage="(choose one)"
+                    />
+                    )
+                  : (
+                    <FormattedMessage
+                      id="sentiment.sign-in-prompt"
+                      defaultMessage="Please sign in now to make your voice heard."
+                    />
+                    )}
               </sub>
               <div className="sentiment-survey-buttons">
                 <VoteButtons handleVote={handleClick} selectedScore={score} />

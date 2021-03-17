@@ -64,12 +64,14 @@ function StreetMetaWidthMenu ({ street, onChange }) {
   // If the street width doesn't match any of the default widths,
   // render another choice representing the current width
   const CustomWidthOption =
-    defaultWidths.indexOf(Number.parseFloat(width)) === -1 ? (
-      <>
-        <option disabled={true} />
-        {renderOption(width, units)}
-      </>
-    ) : null
+    defaultWidths.indexOf(Number.parseFloat(width)) === -1
+      ? (
+        <>
+          <option disabled={true} />
+          {renderOption(width, units)}
+        </>
+        )
+      : null
 
   return (
     <select

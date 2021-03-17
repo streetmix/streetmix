@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen } from '@testing-library/react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import NotificationBar from '../NotificationBar'
 import userEvent from '@testing-library/user-event'
 
@@ -22,7 +22,7 @@ const initialState = {
 
 describe('NotificationBar', () => {
   it('renders snapshot', () => {
-    const { asFragment } = renderWithReduxAndIntl(
+    const { asFragment } = render(
       <NotificationBar notification={TEST_NOTIFICATION} />,
       { initialState }
     )
@@ -35,7 +35,7 @@ describe('NotificationBar', () => {
         display: true,
         link: TEST_NOTIFICATION.link
       }
-      renderWithReduxAndIntl(<NotificationBar notification={notification} />, {
+      render(<NotificationBar notification={notification} />, {
         initialState
       })
       expect(screen.getByRole('link')).toHaveTextContent('More info')
@@ -44,22 +44,20 @@ describe('NotificationBar', () => {
 
   describe('conditions that render nothing', () => {
     it('renders nothing if notification is not provided', () => {
-      const { container } = renderWithReduxAndIntl(<NotificationBar />, {
+      const { container } = render(<NotificationBar />, {
         initialState
       })
       expect(container).toBeEmptyDOMElement()
     })
 
     it('renders nothing if notification is the empty object', () => {
-      const { container } = renderWithReduxAndIntl(
-        <NotificationBar notification={{}} />
-      )
+      const { container } = render(<NotificationBar notification={{}} />)
       expect(container).toBeEmptyDOMElement()
     })
 
     it('renders nothing if notification’s display property is false', () => {
       const notification = { ...TEST_NOTIFICATION, display: false }
-      const { container } = renderWithReduxAndIntl(
+      const { container } = render(
         <NotificationBar notification={notification} />,
         { initialState }
       )
@@ -68,7 +66,7 @@ describe('NotificationBar', () => {
 
     it('renders nothing if notification’s display property is true but has no other properties', () => {
       const notification = { display: true }
-      const { container } = renderWithReduxAndIntl(
+      const { container } = render(
         <NotificationBar notification={notification} />,
         { initialState }
       )
@@ -77,7 +75,7 @@ describe('NotificationBar', () => {
 
     it('renders nothing if the locale is not English', () => {
       const notification = { display: true }
-      const { container } = renderWithReduxAndIntl(
+      const { container } = render(
         <NotificationBar locale="de" notification={notification} />,
         { initialState }
       )
@@ -87,10 +85,9 @@ describe('NotificationBar', () => {
 
   describe('dismiss', () => {
     it('is no longer rendered after clicking the close button', () => {
-      renderWithReduxAndIntl(
-        <NotificationBar notification={TEST_NOTIFICATION} />,
-        { initialState }
-      )
+      render(<NotificationBar notification={TEST_NOTIFICATION} />, {
+        initialState
+      })
       userEvent.click(screen.getByTitle('Dismiss'))
       expect(screen.queryByText(TEST_NOTIFICATION.lede)).toBeNull()
     })

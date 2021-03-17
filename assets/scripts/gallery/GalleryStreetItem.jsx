@@ -114,6 +114,7 @@ function GalleryStreetItem (props) {
   return (
     <div className={classNames.join(' ')}>
       <a href={getStreetUrl(street)} onClick={handleSelectStreet}>
+        {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
         {error ? (
           <div className="gallery-street-item-error">
             <FormattedMessage

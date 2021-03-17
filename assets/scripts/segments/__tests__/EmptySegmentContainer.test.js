@@ -1,22 +1,19 @@
 /* eslint-env jest */
 import React from 'react'
 import EmptySegmentContainer from '../EmptySegmentContainer'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import { TILE_SIZE } from '../../segments/constants'
 
 describe('EmptySegment', () => {
   it('renders two <EmptySegment /> components of equal width', () => {
-    const { getAllByText, container } = renderWithReduxAndIntl(
-      <EmptySegmentContainer />,
-      {
-        initialState: {
-          street: {
-            remainingWidth: 10,
-            occupiedWidth: 40
-          }
+    const { getAllByText, container } = render(<EmptySegmentContainer />, {
+      initialState: {
+        street: {
+          remainingWidth: 10,
+          occupiedWidth: 40
         }
       }
-    )
+    })
 
     expect(getAllByText(/empty space/i).length).toEqual(2)
 
@@ -26,24 +23,21 @@ describe('EmptySegment', () => {
   })
 
   it('renders one <EmptySegment /> component if street is totally empty', () => {
-    const { getAllByText, container } = renderWithReduxAndIntl(
-      <EmptySegmentContainer />,
-      {
-        initialState: {
-          street: {
-            remainingWidth: 50,
-            occupiedWidth: 0
-          }
+    const { getAllByText, container } = render(<EmptySegmentContainer />, {
+      initialState: {
+        street: {
+          remainingWidth: 50,
+          occupiedWidth: 0
         }
       }
-    )
+    })
 
     expect(getAllByText(/empty space/i).length).toEqual(1)
     expect(container.firstChild.style.width).toEqual(`${50 * TILE_SIZE}px`)
   })
 
   it('renders zero <EmptySegment /> components if street is fully occupied', () => {
-    const { container } = renderWithReduxAndIntl(<EmptySegmentContainer />, {
+    const { container } = render(<EmptySegmentContainer />, {
       initialState: {
         street: {
           remainingWidth: 0,
@@ -56,7 +50,7 @@ describe('EmptySegment', () => {
   })
 
   it('renders zero <EmptySegment /> components if street is over occupied', () => {
-    const { container } = renderWithReduxAndIntl(<EmptySegmentContainer />, {
+    const { container } = render(<EmptySegmentContainer />, {
       initialState: {
         street: {
           remainingWidth: -10,

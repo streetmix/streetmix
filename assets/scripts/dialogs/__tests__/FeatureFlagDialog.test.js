@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import FeatureFlagDialog from '../FeatureFlagDialog'
 
 // Mock flag data
@@ -35,7 +35,7 @@ const initialState = {
 
 describe('FeatureFlagDialog', () => {
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<FeatureFlagDialog />, {
+    const { asFragment } = render(<FeatureFlagDialog />, {
       initialState
     })
     expect(asFragment()).toMatchSnapshot()

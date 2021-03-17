@@ -1,8 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render, screen, fireEvent } from '../../../../test/helpers/render'
 import Segment from '../Segment'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
 import SEGMENT_INFO from '../info.json'
@@ -81,7 +80,7 @@ describe('Segment', () => {
   })
 
   it('renders correctly', () => {
-    const { asFragment } = renderWithRedux(
+    const { asFragment } = render(
       <Segment
         segment={segment}
         actualWidth={currentWidth}
@@ -100,7 +99,7 @@ describe('Segment', () => {
   })
 
   it('shows the info bubble on mouseover', () => {
-    renderWithRedux(
+    render(
       <Segment
         segment={segment}
         actualWidth={currentWidth}
@@ -116,11 +115,11 @@ describe('Segment', () => {
       }
     )
     userEvent.hover(screen.getByTestId('segment'))
-    expect(infoBubble.considerShowing).toHaveBeenCalledTimes(1)
+    expect(infoBubble.considerShowing).toHaveBeenCalled()
   })
 
   it('hides the info bubble on mouseleave', () => {
-    renderWithRedux(
+    render(
       <Segment
         segment={segment}
         actualWidth={currentWidth}
@@ -142,7 +141,7 @@ describe('Segment', () => {
 
   describe('keyboard events', () => {
     it('decreases the width of the segment when minus key is pressed', () => {
-      const { store } = renderWithRedux(
+      const { store } = render(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -165,7 +164,7 @@ describe('Segment', () => {
     })
 
     it('increases the width of the segment when plus key is pressed', () => {
-      const { store } = renderWithRedux(
+      const { store } = render(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -188,7 +187,7 @@ describe('Segment', () => {
     })
 
     it('removes segment when delete key is pressed', () => {
-      const { store } = renderWithRedux(
+      const { store } = render(
         <Segment
           segment={segment}
           actualWidth={currentWidth}
@@ -213,7 +212,7 @@ describe('Segment', () => {
     })
 
     it('removes all segments when shift+delete keys are pressed', () => {
-      const { store } = renderWithRedux(
+      const { store } = render(
         <Segment
           segment={segment}
           actualWidth={currentWidth}

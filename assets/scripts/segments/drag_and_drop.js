@@ -35,8 +35,9 @@ import {
   setActiveSegment,
   setDraggingType
 } from '../store/slices/ui'
+import { generateRandSeed } from '../util/random'
 
-export var draggingResize = {
+export const draggingResize = {
   segmentEl: null,
   floatingEl: null,
   mouseX: null,
@@ -151,9 +152,9 @@ function handleSegmentResizeMove (event) {
     y = event.pageY
   }
 
-  var deltaX = x - draggingResize.mouseX
+  const deltaX = x - draggingResize.mouseX
 
-  var deltaFromOriginal = draggingResize.elX - draggingResize.originalX
+  let deltaFromOriginal = draggingResize.elX - draggingResize.originalX
   if (!draggingResize.right) {
     deltaFromOriginal = -deltaFromOriginal
   }
@@ -166,7 +167,7 @@ function handleSegmentResizeMove (event) {
     document.querySelector('#street-section-outer').scrollLeft +
     'px'
 
-  var precise = event.shiftKey
+  const precise = event.shiftKey
 
   if (precise) {
     resizeType = RESIZE_TYPE_PRECISE_DRAGGING
@@ -250,7 +251,7 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 
   if (draggedItemType === Types.PALETTE_SEGMENT) {
     if (street.remainingWidth > 0 && actualWidth > street.remainingWidth) {
-      var segmentMinWidth =
+      const segmentMinWidth =
         getSegmentVariantInfo(type, variantString).minWidth || 0
 
       if (
@@ -268,27 +269,27 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   // Automatically figure out variants
   const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
 
-  var left =
+  const left =
     segmentAfterEl !== undefined ? street.segments[segmentAfterEl] : null
-  var right =
+  const right =
     segmentBeforeEl !== undefined ? street.segments[segmentBeforeEl] : null
 
-  var leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
-  var rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
+  const leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
+  const rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
 
-  var leftOwnerAsphalt =
+  const leftOwnerAsphalt =
     leftOwner === SegmentTypes.CAR ||
     leftOwner === SegmentTypes.BIKE ||
     leftOwner === SegmentTypes.TRANSIT
-  var rightOwnerAsphalt =
+  const rightOwnerAsphalt =
     rightOwner === SegmentTypes.CAR ||
     rightOwner === SegmentTypes.BIKE ||
     rightOwner === SegmentTypes.TRANSIT
 
-  var leftVariant = left && getVariantArray(left.type, left.variantString)
-  var rightVariant = right && getVariantArray(right.type, right.variantString)
+  const leftVariant = left && getVariantArray(left.type, left.variantString)
+  const rightVariant = right && getVariantArray(right.type, right.variantString)
 
-  var variant = getVariantArray(type, variantString)
+  const variant = getVariantArray(type, variantString)
   const segmentInfo = getSegmentInfo(type)
 
   // Direction
@@ -489,6 +490,7 @@ export const paletteSegmentSource = {
     const segmentInfo = getSegmentInfo(props.type)
 
     return {
+      id: generateRandSeed(),
       variantString: Object.keys(segmentInfo.details).shift(),
       type: props.type,
       actualWidth: segmentInfo.defaultWidth

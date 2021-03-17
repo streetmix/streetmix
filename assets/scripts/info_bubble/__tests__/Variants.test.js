@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import Variants from '../Variants'
 import { getSegmentInfo } from '../../segments/info'
 import {
@@ -38,7 +38,7 @@ describe('Variants', () => {
   }
 
   it('does not render if props are missing', () => {
-    const { container } = renderWithReduxAndIntl(<Variants />)
+    const { container } = render(<Variants />)
     expect(container.firstChild).toBe(null)
   })
 
@@ -51,7 +51,7 @@ describe('Variants', () => {
     })
 
     it('renders segment buttons', () => {
-      const { asFragment } = renderWithReduxAndIntl(
+      const { asFragment } = render(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
@@ -60,7 +60,7 @@ describe('Variants', () => {
     })
 
     it('handles switching segment variant', () => {
-      const { store } = renderWithReduxAndIntl(
+      const { store } = render(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
@@ -76,7 +76,7 @@ describe('Variants', () => {
 
   describe('building variants', () => {
     it('handles switching left building', () => {
-      const { store } = renderWithReduxAndIntl(
+      const { store } = render(
         <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
         { initialState }
       )
@@ -85,7 +85,7 @@ describe('Variants', () => {
     })
 
     it('handles switching right building', () => {
-      const { store } = renderWithReduxAndIntl(
+      const { store } = render(
         <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
         { initialState }
       )
@@ -103,37 +103,31 @@ describe('Variants', () => {
     })
 
     it('renders a button if flag is true', () => {
-      renderWithReduxAndIntl(
-        <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
-        {
-          initialState: {
-            ...initialState,
-            flags: {
-              FLAGGED_VARIANT: {
-                value: true
-              }
+      render(<Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />, {
+        initialState: {
+          ...initialState,
+          flags: {
+            FLAGGED_VARIANT: {
+              value: true
             }
           }
         }
-      )
+      })
 
       expect(screen.getByTitle('Flagged variant')).toBeInTheDocument()
     })
 
     it('does not render a button if flag is false', () => {
-      renderWithReduxAndIntl(
-        <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
-        {
-          initialState: {
-            ...initialState,
-            flags: {
-              FLAGGED_VARIANT: {
-                value: false
-              }
+      render(<Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />, {
+        initialState: {
+          ...initialState,
+          flags: {
+            FLAGGED_VARIANT: {
+              value: false
             }
           }
         }
-      )
+      })
 
       expect(screen.queryByTitle('Flagged variant')).not.toBeInTheDocument()
     })

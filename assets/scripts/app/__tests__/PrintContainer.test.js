@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen } from '@testing-library/react'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import PrintContainer from '../PrintContainer'
 
 // `matchMedia` is not available in test environment, so we mock it
@@ -18,14 +18,14 @@ jest.mock('../../streets/image', () => ({
 
 describe('PrintContainer', () => {
   it('renders', () => {
-    const { asFragment } = renderWithRedux(<PrintContainer />, {
+    const { asFragment } = render(<PrintContainer />, {
       initialState: { app: { printing: false } }
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders image for printing', () => {
-    renderWithRedux(<PrintContainer />, {
+    render(<PrintContainer />, {
       initialState: { app: { printing: true } }
     })
 

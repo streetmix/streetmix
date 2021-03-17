@@ -90,18 +90,27 @@ routes.post(
   controllers.refresh_login_token.post
 )
 
-// Twitter (deprecated)
-routes.get('/services/auth/twitter-sign-in', controllers.twitter_sign_in.get)
-routes.get(
-  config.twitter.oauth_callback_path,
-  controllers.twitter_sign_in_callback.get
-)
 // Auth0
 routes.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
 
 // Callback route after signing in
 // This is handled by front-end
 routes.get('/services/auth/just-signed-in/', (req, res) => res.render('main'))
+
+/******************************************************************************
+ *  THIRD PARTY APP INTEGRATIONS
+ *****************************************************************************/
+
+routes.get(
+  '/services/integrations/patreon',
+  jwtCheck,
+  resources.services.integrations.patreon.get
+)
+routes.get(
+  '/services/integrations/patreon/callback',
+  resources.services.integrations.patreon.callback,
+  resources.services.integrations.patreon.connectUser
+)
 
 /******************************************************************************
  *  ERROR HANDLING

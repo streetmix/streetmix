@@ -24,10 +24,10 @@ const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
 const jwtCheck = require('./app/authentication')
 // requirements for using passportjs
-const expressSession = require('express-session')
 const passport = require('passport')
 const Auth0Strategy = require('passport-auth0')
 const authRouter = require('./app/auth_routes')
+
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
@@ -187,6 +187,8 @@ app.use(expressSession(theSession))
 
 app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
+
+app.use(passport.initialize())
 
 // Set variables for use in view templates
 app.use((req, res, next) => {

@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithRedux } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import AvatarMenu from '../AvatarMenu'
 
 const user = {
@@ -11,7 +11,7 @@ const user = {
 
 describe('AvatarMenu', () => {
   it('renders user avatar', () => {
-    const { asFragment } = renderWithRedux(<AvatarMenu user={user} />)
+    const { asFragment } = render(<AvatarMenu user={user} />)
     expect(asFragment()).toMatchSnapshot()
   })
 
@@ -20,13 +20,13 @@ describe('AvatarMenu', () => {
       id: 'foo',
       roles: ['ADMIN']
     }
-    const { asFragment } = renderWithRedux(<AvatarMenu user={user} />)
+    const { asFragment } = render(<AvatarMenu user={user} />)
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('calls click handler', () => {
     const onClick = jest.fn()
-    renderWithRedux(<AvatarMenu user={user} onClick={onClick} />)
+    render(<AvatarMenu user={user} onClick={onClick} />)
     userEvent.click(screen.getByText(user.id))
     expect(onClick).toHaveBeenCalled()
   })

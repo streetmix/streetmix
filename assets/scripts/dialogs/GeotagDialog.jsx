@@ -280,16 +280,18 @@ function GeotagDialog () {
     <Dialog>
       {(closeDialog) => (
         <div className="geotag-dialog">
-          {geocodeAvailable ? (
-            <div className="geotag-input-container">
-              <GeoSearch
-                handleSearchResults={handleSearchResults}
-                focus={mapCenter}
-              />
-            </div>
-          ) : (
-            <ErrorBanner />
-          )}
+          {geocodeAvailable
+            ? (
+              <div className="geotag-input-container">
+                <GeoSearch
+                  handleSearchResults={handleSearchResults}
+                  focus={mapCenter}
+                />
+              </div>
+              )
+            : (
+              <ErrorBanner />
+              )}
           <Map
             center={mapCenter}
             zoomControl={false}

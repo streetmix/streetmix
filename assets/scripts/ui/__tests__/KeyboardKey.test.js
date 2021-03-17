@@ -1,20 +1,18 @@
 /* eslint-env jest */
 import React from 'react'
 import KeyboardKey from '../KeyboardKey'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import { screen } from '@testing-library/react'
 
 describe('KeyboardKey', () => {
   it('renders a <kbd> element with string child', () => {
-    const { asFragment } = renderWithReduxAndIntl(
-      <KeyboardKey>foo</KeyboardKey>
-    )
+    const { asFragment } = render(<KeyboardKey>foo</KeyboardKey>)
     expect(screen.getByText('foo').title).toBe('')
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders a <kbd> element with element child', () => {
-    const { asFragment } = renderWithReduxAndIntl(
+    const { asFragment } = render(
       <KeyboardKey>
         <strong>foo</strong>
       </KeyboardKey>
@@ -24,7 +22,7 @@ describe('KeyboardKey', () => {
   })
 
   it('renders a <kbd> element with icon and title', async () => {
-    const { container, asFragment } = renderWithReduxAndIntl(
+    const { container, asFragment } = render(
       <KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>foo</KeyboardKey>
     )
 

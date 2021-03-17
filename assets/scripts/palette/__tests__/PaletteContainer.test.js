@@ -2,7 +2,7 @@
 import React from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithReduxAndIntl } from '../../../../test/helpers/render'
+import { render } from '../../../../test/helpers/render'
 import PaletteContainer from '../PaletteContainer'
 
 jest.mock('../../segments/view', () => {
@@ -18,7 +18,7 @@ jest.mock('../../segments/segment-lookup.json', () =>
 
 describe('PaletteContainer', () => {
   it('renders', () => {
-    const { asFragment } = renderWithReduxAndIntl(<PaletteContainer />, {
+    const { asFragment } = render(<PaletteContainer />, {
       initialState: {
         app: {
           everythingLoaded: true
@@ -36,7 +36,7 @@ describe('PaletteContainer', () => {
   })
 
   it('doesn’t render in read-only mode', () => {
-    const { container } = renderWithReduxAndIntl(<PaletteContainer />, {
+    const { container } = render(<PaletteContainer />, {
       initialState: {
         app: {
           readOnly: true
@@ -48,7 +48,7 @@ describe('PaletteContainer', () => {
   })
 
   it("doesn’t render items when sprites haven't loaded", () => {
-    renderWithReduxAndIntl(<PaletteContainer />, {
+    render(<PaletteContainer />, {
       initialState: {
         app: {
           everythingLoaded: false
@@ -60,7 +60,7 @@ describe('PaletteContainer', () => {
   })
 
   it('displays tooltips on mouse hover', async () => {
-    renderWithReduxAndIntl(<PaletteContainer />, {
+    render(<PaletteContainer />, {
       initialState: {
         app: {
           everythingLoaded: true

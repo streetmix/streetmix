@@ -1,8 +1,4 @@
 export const JUST_SIGNED_IN_PATH = '/services/auth/just-signed-in'
-export const JUST_SIGNED_IN_URL = new URL(
-  JUST_SIGNED_IN_PATH,
-  window.location.origin
-).href
 
 // Path segments
 export const URL_NEW_STREET = '/new'
