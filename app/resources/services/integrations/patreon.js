@@ -137,3 +137,8 @@ exports.connectUser = async (req, res) => {
     res.redirect('/error')
   }
 }
+
+exports.webhook = (req, res, next) => {
+  console.log(JSON.stringify(req.body))
+  res.status(204).end()
+}
