@@ -1,4 +1,5 @@
 const config = require('config')
+const crypto = require('crypto')
 const logger = require('../../../../lib/logger.js')()
 
 const { User } = require('../../../db/models')
@@ -83,6 +84,7 @@ exports.get = (req, res, next) => {
     res
       .status(500)
       .json({ status: 500, msg: 'Patreon integration unavailable.' })
+    return
   }
 
   /*
@@ -104,6 +106,7 @@ exports.callback = (req, res, next) => {
     res
       .status(500)
       .json({ status: 500, msg: 'Patreon integration unavailable.' })
+    return
   }
 
   passport.authorize('patreon', {
@@ -147,6 +150,25 @@ exports.webhook = (req, res, next) => {
     typeof req.headers['x-patreon-event'] === 'undefined' ||
     typeof req.headers['x-patreon-signature'] === 'undefined'
   ) {
+    res.status(403).end()
+    return
+  }
+
+  // Verify that the sender is an authorized Patreon service. The message body
+  // is HMAC signed with MD5 using the webhook's secret key, which we obtain
+  // from Patreon and store in an environment variable. If the HEX digest
+  // matches, then we know the message is valid.
+  // If the webhook secret is not provided, we send a "Not implemented" code.
+  if (typeof process.env.PATREON_WEBHOOK_SECRET === 'undefined') {
+    res.status(501).end()
+    return
+  }
+
+  const hmac = crypto.createHmac('md5', process.env.PATREON_WEBHOOK_SECRET)
+  hmac.update(JSON.stringify(req.body))
+  const digest = hmac.digest('hex')
+
+  if (digest !== req.headers['x-patreon-signature']) {
     res.status(403).end()
     return
   }
