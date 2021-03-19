@@ -139,6 +139,21 @@ exports.connectUser = async (req, res) => {
 }
 
 exports.webhook = (req, res, next) => {
+  // Check for the existence of headers specified by Patreon Webhooks docs
+  // https://docs.patreon.com/#webhooks
+  // While the docs specify headers with capitalization, the actual headers
+  // we recieve are lowercase.
+  if (
+    typeof req.headers['x-patreon-event'] === 'undefined' ||
+    typeof req.headers['x-patreon-signature'] === 'undefined'
+  ) {
+    res.status(403).end()
+    return
+  }
+
   console.log(JSON.stringify(req.body))
+  console.log(req.headers['x-patreon-event'])
+  console.log(req.headers['x-patreon-signature'])
+
   res.status(204).end()
 }
