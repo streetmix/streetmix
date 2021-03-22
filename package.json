@@ -162,7 +162,7 @@
     "requireindex": "1.2.0",
     "sass": "1.32.8",
     "seedrandom": "3.0.5",
-    "sequelize": "6.3.5",
+    "sequelize": "6.6.1",
     "sequelize-cli": "6.2.0",
     "sequelize-mock": "0.10.2",
     "shifty": "2.15.2",
