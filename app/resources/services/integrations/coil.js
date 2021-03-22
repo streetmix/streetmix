@@ -37,6 +37,17 @@ const initCoil = () => {
       }
     )
   )
+  // these aren't used yet, but would be if we start using persistent user sessions
+  passport.serializeUser(function (user, done) {
+    done(null, user)
+  })
+
+  passport.deserializeUser(function (id, done) {
+    const user = async () => {
+      await User.findByPk(id)
+    }
+    done(null, user)
+  })
 }
 
 // Only initialize Patreon auth strategy if the env vars are set.
