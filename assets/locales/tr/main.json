@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount}kişi/saat",
       "source": "Kaynak",
       "capacity-data-source": "Kapasite veri kaynağı",
+      "toggle-visible": "",
       "settings-notice": "Sokak sahipleri bu ayarları değiştirebilir"
     },
     "save": {

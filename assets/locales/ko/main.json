@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount} 명/시간",
       "source": "소스",
       "capacity-data-source": "",
+      "toggle-visible": "",
       "settings-notice": ""
     },
     "save": {

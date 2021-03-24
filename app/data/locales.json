@@ -98,6 +98,13 @@
     "level": 1
   },
   {
+    "label": "Bokmål",
+    "name": "Norwegian Bokmål",
+    "value": "nb-NO",
+    "key": "i18n.lang.nb-no",
+    "level": 1
+  },
+  {
     "label": "Polski",
     "name": "Polish",
     "value": "pl",

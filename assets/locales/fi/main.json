@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount} ihmistä tunnissa",
       "source": "Lähde",
       "capacity-data-source": "Kapasiteettiarvion lähde",
+      "toggle-visible": "",
       "settings-notice": "Tienpitäjä voi muuttaa asetuksia."
     },
     "save": {
@@ -225,7 +226,7 @@
       "zoom-out": "Loitonna",
       "add-location": "Lisää sijainti",
       "confirm-location": "Vahvista sijainti",
-      "clear-location": "Tyhjennä sijainti",
+      "clear-location": "Poista sijainti",
       "unknown-location": "Tuntematon sijainti",
       "geotag-unavailable": "Sijaintipalvelut eivät ole käytettävissä. Voit tarkastella karttaa, mutta et vaihtaa kadun sijaintia."
     },
@@ -300,7 +301,7 @@
     "imperial": "Vaihda jalkoihin"
   },
   "capacity": {
-    "ppl-per-hour": "{capacity} kulkijaa tunnissa"
+    "ppl-per-hour": "{capacity} kulkijaa/t"
   },
   "datetime": {
     "minutes-ago": "Muutama minuutti sitten",
