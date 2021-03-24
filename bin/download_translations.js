@@ -4,6 +4,7 @@ require('dotenv').config()
 
 const fs = require('fs')
 const path = require('path')
+const mkdirp = require('mkdirp')
 const chalk = require('chalk')
 const getFromTransifex = require('../lib/transifex.js')
 const languages = require('../app/data/locales.json')
@@ -15,25 +16,27 @@ const downloadSuccess = function (locale, resource, label, data) {
   const translationFile = localeDir + '/' + resource + '.json'
   const translationText = JSON.stringify(JSON.parse(data), null, 2) + '\n' // Add trailing newline at end of file
 
-  fs.stat(localeDir, function (err, stats) {
+  mkdirp.sync(localeDir)
+  fs.writeFile(translationFile, translationText, function (err) {
     if (err) {
-      console.error(`Error accessing ${localeDir}.`)
+      console.error(
+        chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${err}}`
+      )
     }
-    if (!stats) {
-      fs.mkdirSync(localeDir)
-    }
-    fs.writeFile(translationFile, translationText, function (err) {
-      if (err) {
-        console.error(chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${err}}`)
-      }
 
-      console.log(chalk`{yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${translationFile.replace(process.cwd(), '.')}}`)
-    })
+    console.log(
+      chalk`{yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${translationFile.replace(
+        process.cwd(),
+        '.'
+      )}}`
+    )
   })
 }
 
 const downloadError = function (locale, resource, label, error) {
-  console.error(chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${error}}`)
+  console.error(
+    chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${error}}`
+  )
 }
 
 for (const r in resources) {
@@ -43,12 +46,26 @@ for (const r in resources) {
       continue
     }
 
-    getFromTransifex(languages[l].value, resources[r], process.env.TRANSIFEX_API_TOKEN)
+    getFromTransifex(
+      languages[l].value,
+      resources[r],
+      process.env.TRANSIFEX_API_TOKEN
+    )
       .then((data) => {
-        downloadSuccess(languages[l].value, resources[r], languages[l].label, data)
+        downloadSuccess(
+          languages[l].value,
+          resources[r],
+          languages[l].label,
+          data
+        )
       })
       .catch((error) => {
-        downloadError(languages[l].value, resources[r], languages[l].label, error)
+        downloadError(
+          languages[l].value,
+          resources[r],
+          languages[l].label,
+          error
+        )
       })
   }
 }
