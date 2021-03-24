@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount} people/hour",
       "source": "Source",
       "capacity-data-source": "Capacity data source",
+      "toggle-visible": "Show capacity counts in segment labels",
       "settings-notice": "Street owners can change these settings."
     },
     "save": {
