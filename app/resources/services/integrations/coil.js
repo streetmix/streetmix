@@ -1,74 +1,9 @@
-const axios = require('axios')
-const qs = require('qs')
-const btoa = require('btoa')
 const config = require('config')
 const logger = require('../../../../lib/logger.js')()
 
 const { User } = require('../../../db/models')
 const passport = require('passport')
-const OAuth2Strategy = require('passport-oauth2').Strategy
-
-if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
-  console.error('DEFINE ENV VARS PLEASE!')
-}
-
-function getBtp(oauthTokenResponse, res) {
-  const accessToken = oauthTokenResponse.data.access_token
-  axios
-    .post('https://api.coil.com/user/btp', '', {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: 'Bearer ' + accessToken
-      }
-    })
-    .then(function (btpResponse) {
-      console.log(btpResponse)
-
-      res.statusCode = 200
-      res.setHeader('Content-Type', 'application/json')
-      res.json(btpResponse.data)
-    })
-    .catch(function (error) {
-      console.error(error)
-      res.statusCode = 400
-      res.setHeader('Content-Type', 'application/json')
-      res.json(error.message)
-    })
-}
-
-function handler(req, res) {
-  const encodedAuth = Buffer.from(
-    process.env.COIL_CLIENT_ID +
-      ':' +
-      encodeURIComponent(process.env.COIL_CLIENT_SECRET)
-  ).toString('base64')
-
-  axios
-    .post(
-      'https://coil.com/oauth/token',
-      qs.stringify({
-        grant_type: 'authorization_code',
-        redirect_uri: `${config.restapi.protocol}${config.app_host_port}/services/integrations/coil/callback`,
-        code: req.query.code
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: 'Basic ' + encodedAuth
-        }
-      }
-    )
-    .then(function (oauthTokenResponse) {
-      console.log(oauthTokenResponse.data)
-      getBtp(oauthTokenResponse, res)
-    })
-    .catch(function (error) {
-      console.error(error)
-      res.statusCode = 400
-      res.setHeader('Content-Type', 'application/json')
-      res.json(error.message)
-    })
-}
+const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
 
 /**
  finds the database record for the given user
@@ -92,14 +27,7 @@ const initCoil = () => {
         clientSecret: process.env.COIL_CLIENT_SECRET,
         scope: 'simple_wm openid',
         callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/coil/callback`,
-        passReqToCallback: true,
-        customHeaders: {
-          authorization: `Basic ${btoa(
-            encodeURIComponent(process.env.COIL_CLIENT_ID) +
-              ':' +
-              encodeURIComponent(process.env.COIL_CLIENT_SECRET)
-          )}`
-        }
+        passReqToCallback: true
       },
       async function (req, accessToken, refreshToken, profile, done) {
         const databaseUser = await findUser(req.query.state)
@@ -140,7 +68,7 @@ exports.get = (req, res, next) => {
       we could add error handiling for this, but also they _should_ only ever be
       getting here from a button that you only see when you're signed in..
     */
-  passport.authenticate('coil', {
+  passport.authorize('coil', {
     state: req.user.nickname,
     failureRedirect: '/error'
   })(req, res, next)
@@ -150,7 +78,10 @@ exports.callback = (req, res, next) => {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
   }
-  handler(req, res)
+
+  passport.authorize('coil', {
+    failureRedirect: '/error'
+  })(req, res, next)
 }
 
 /**
@@ -158,7 +89,7 @@ exports.callback = (req, res, next) => {
  * pass third party profile data here, construct an object to save to user DB
  */
 exports.connectUser = async (req, res) => {
-  // in passport, using 'authenticate' attaches user data to 'account'
+  // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
   const databaseUser = req.account
   const identity = {
