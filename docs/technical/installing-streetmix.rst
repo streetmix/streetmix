@@ -233,6 +233,8 @@ Clone and install Streetmix
 
       npx sequelize db:create
       npx sequelize db:migrate
+      NODE_ENV=test npx sequelize db:create
+      NODE_ENV=test npx sequelize db:migrate
 
    .. tip::
 
@@ -242,7 +244,9 @@ Clone and install Streetmix
 
    In general, Sequelize will print a confirmation or an error after completing each command. If creating the database is successful, you should be able to see the database using psql, PgAdmin, or other tools. A modern, open source, and cross-platform database GUI tool is `Beekeeper Studio <https://www.beekeeperstudio.io/>`_. The database needs to successfully exist before migrations can occur.
 
-   Currently, you cannot run Streetmix without successfully creating a database, so this is an important step!
+   Notice that the database create and migrate commands are run a second time prepended with ``NODE_ENV=test``. This is because your local environment and a test environment use different database instances, and both of them need to be set up.
+
+   You cannot run Streetmix without successfully creating a database, so this is an important step!
 
 
 .. _install-env-vars:
