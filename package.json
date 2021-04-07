@@ -137,7 +137,7 @@
     "lodash": "4.17.20",
     "mkdirp": "0.5.5",
     "nanoid": "3.1.12",
-    "newrelic": "7.0.2",
+    "newrelic": "7.3.0",
     "parcel-bundler": "1.12.4",
     "passport": "0.4.1",
     "passport-patreon": "1.0.1",
