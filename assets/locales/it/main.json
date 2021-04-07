@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount} visitatori/ora",
       "source": "Sorgente",
       "capacity-data-source": "",
+      "toggle-visible": "",
       "settings-notice": ""
     },
     "save": {

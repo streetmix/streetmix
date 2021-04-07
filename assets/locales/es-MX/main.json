@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount} personas/hora",
       "source": "Citación",
       "capacity-data-source": "",
+      "toggle-visible": "",
       "settings-notice": ""
     },
     "save": {

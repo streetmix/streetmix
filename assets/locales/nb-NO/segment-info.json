@@ -1,0 +1,199 @@
+{
+  "segments": {
+    "sidewalk": "Fortau",
+    "pedestrian": "Fotgjenger",
+    "sidewalk-tree": "Gatetre",
+    "bike-rack": "Sykkelstativ",
+    "bench": "Benk",
+    "outdoor-dining": "Uteservering",
+    "cafe-seating": "Cafémøblering",
+    "wayfinding-sign": "Vegvisningsskilt",
+    "sidewalk-lamp": "Gatelykt",
+    "parklet": "Parklet",
+    "divider": "Rabatt",
+    "planting-strip": "Grønn rabatt",
+    "planter-box": "Plantekasse",
+    "median": "Rabatt",
+    "bollard": "Pullert",
+    "dome": "Pukler",
+    "jersey-barrier": "Betonggris",
+    "scooter": "Elsparkesykkel",
+    "scooter-drop-zone": "Parkeringsområde for elsparkesykler",
+    "bike-lane": "Sykkel",
+    "parking-lane": "Parkeringsfelt",
+    "perpendicular-parking": "Tverrstilt parkering",
+    "angled-parking": "Skråparkering",
+    "flex-zone": "Av- og påstigning",
+    "taxi-pick-up": "Taxiholdeplass",
+    "rideshare-pick-up": "Samkjøringsstasjon",
+    "bikeshare-station": "Bysykkelstativ",
+    "foodtruck": "Foodtruck",
+    "flex-zone-curb": "Venteområde",
+    "drive-lane": "Kjørefelt",
+    "sharrow": "Sharrow",
+    "turn-lane": "Svingefelt",
+    "turn-lane-straight": "Sving forbudt",
+    "turn-lane-center": "Midtstilt svingefelt",
+    "bus-lane": "Bussfelt",
+    "bus-lane-shared": "Buss og sykkel",
+    "streetcar": "Trikk",
+    "light-rail": "Bybane",
+    "transit-shelter": "Leskur",
+    "brt-station": "Superbuss-stasjon",
+    "brt-lane": "Superbussfelt",
+    "temporary-barrier": "Midlertidig sperring",
+    "inception-train": "Toget fra \"Inception\"",
+    "magic-carpet": "Flyvende teppe"
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "Lær mer om vegvisningsskilt",
+      "content": ""
+    },
+    "parklet": {
+      "prompt": "Lær mer om \"parklets\"",
+      "imageCaption": "",
+      "content": ""
+    },
+    "bike-lane": {
+      "prompt": "Lær mer om sykkelfelt",
+      "content": ""
+    },
+    "colored-bike-lane": {
+      "prompt": "Lær mer om fargede sykkelfelt",
+      "content": ""
+    },
+    "sharrow": {
+      "prompt": "Lær mer om sharrows",
+      "content": ""
+    },
+    "transit-shelter-elevated": {
+      "prompt": "Lær mer om opphøyde venteskur",
+      "content": ""
+    },
+    "inception-train": {
+      "content": ""
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "Strandkant"
+    },
+    "grass": {
+      "name": "Gress"
+    },
+    "fence": {
+      "name": "Ledig tomt"
+    },
+    "parking-lot": {
+      "name": "Parkeringsplass"
+    },
+    "residential": {
+      "name": "Bolig"
+    },
+    "narrow": {
+      "name": "Bygning"
+    },
+    "wide": {
+      "name": "Bygning"
+    },
+    "arcade": {
+      "name": "Bygning med søylegang"
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "Venstre",
+    "orientation|right": "Høyre",
+    "turn-lane-orientation|left": "Venstre",
+    "turn-lane-orientation|left-straight": "Venstre og rett fram",
+    "turn-lane-orientation|straight": "Rett fram",
+    "turn-lane-orientation|right-straight": "Høyre og rett fram",
+    "turn-lane-orientation|right": "Høyre",
+    "turn-lane-orientation|both": "Begge",
+    "turn-lane-orientation|left-right-straight": "Venstre, høyre og rett fram",
+    "turn-lane-orientation|shared": "Delt",
+    "bench-orientation|left": "Venstre",
+    "bench-orientation|right": "Høyre",
+    "bench-orientation|center": "Midt",
+    "parking-lane-orientation|left": "Venstre",
+    "parking-lane-orientation|right": "Høyre",
+    "parking-lane-direction|inbound": "Inngående",
+    "parking-lane-direction|outbound": "Utgående",
+    "parking-lane-direction|sideways": "Tverrstilt",
+    "parking-lane-direction|angled-front-left": "Skrå",
+    "parking-lane-direction|angled-front-right": "Skrå",
+    "parking-lane-direction|angled-rear-left": "Skrå",
+    "parking-lane-direction|angled-rear-right": "Skrå",
+    "direction|inbound": "Inngående",
+    "direction|outbound": "Utgående",
+    "sidewalk-density|empty": "Ingen",
+    "sidewalk-density|sparse": "Få",
+    "sidewalk-density|normal": "Flere",
+    "sidewalk-density|dense": "Mange",
+    "lamp-orientation|left": "Venstre",
+    "lamp-orientation|both": "Begge",
+    "lamp-orientation|right": "Høyre",
+    "lamp-type|traditional": "Tradisjonell",
+    "lamp-type|modern": "Moderne",
+    "lamp-type|pride": "Moderne med Pride-banner",
+    "car-type|car": "Bil",
+    "car-type|sharrow": "Sharrow",
+    "car-type|truck": "Lastebil",
+    "car-type|av": "Selvkjørende bil",
+    "car-type|motorcycle": "Motorsykkel",
+    "car-type|motorcycle-sidecar": "Motorsykkel med sidevogn",
+    "car-type|pedestrian": "Fotgjenger",
+    "public-transit-asphalt|regular": "Svart asfalt",
+    "public-transit-asphalt|colored": "Rød asfalt",
+    "public-transit-asphalt|grass": "Gress",
+    "bus-asphalt|regular": "Svart asfalt",
+    "bus-asphalt|colored": "Rød asfalt",
+    "bus-asphalt|shared": "Buss og sykkel",
+    "brt-station-orientation|left": "Venstre",
+    "brt-station-orientation|right": "Høyre",
+    "brt-station-orientation|center": "Midt",
+    "bike-asphalt|regular": "Asfalt",
+    "bike-asphalt|green": "Grønn asfalt",
+    "bike-asphalt|red": "Rød asfalt",
+    "tree-type|big": "Tre",
+    "tree-type|palm-tree": "Palme",
+    "divider-type|median": "Rabatt",
+    "divider-type|striped-buffer": "Sperrefelt",
+    "divider-type|planting-strip": "Grønn rabatt",
+    "divider-type|planter-box": "Plantekasse",
+    "divider-type|bush": "Rabatt med busk",
+    "divider-type|flowers": "Rabatt med blomster",
+    "divider-type|big-tree": "Rabatt med trær",
+    "divider-type|palm-tree": "Rabatt med palmer",
+    "divider-type|bollard": "Pullert",
+    "divider-type|dome": "Pukler",
+    "divider-type|jersey-barrier-concrete": "Trafikkdeler (betong)",
+    "divider-type|jersey-barrier-plastic": "Trafikkdeler (plast)",
+    "transit-shelter-elevation|street-level": "Gatenivå",
+    "transit-shelter-elevation|light-rail": "Bybaneplattform",
+    "bike-rack-elevation|sidewalk-parallel": "Parallellparkering, fortausnivå",
+    "bike-rack-elevation|sidewalk": "Tverrstilt parkering, fortausnivå",
+    "bike-rack-elevation|road": "Parallellparkering, kjørebanenivå",
+    "building|waterfront": "Havnefront",
+    "building|grass": "Gress",
+    "building|fence": "Ledig tomt",
+    "building|parking-lot": "Parkeringsplass",
+    "building|residential": "Boligbygning",
+    "building|narrow": "Smal bygning",
+    "building|wide": "Dyp bygning",
+    "wayfinding-type|large": "Stor",
+    "wayfinding-type|medium": "Middels",
+    "wayfinding-type|small": "Liten",
+    "waiting-area|sparse": "Noen",
+    "waiting-area|empty": "Ingen",
+    "flex-type|rideshare": "Samkjøring",
+    "flex-type|taxi": "Taxi",
+    "occupants|empty": "Tom",
+    "occupants|full": "Full",
+    "occupants|occupied": "Opptatt",
+    "elevation|sidewalk": "Fortausnivå",
+    "elevation|road": "Gatenivå",
+    "temporary-barrier-type|traffic-cone": "Varselkjegle",
+    "temporary-barrier-type|barricade": "Sperring"
+  }
+}

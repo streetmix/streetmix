@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount}persones / hora",
       "source": "Font",
       "capacity-data-source": "Capacitat segons fonts de dades",
+      "toggle-visible": "",
       "settings-notice": "Els propietaris de carrers poden canviar aquesta configuració."
     },
     "save": {

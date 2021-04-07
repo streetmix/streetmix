@@ -203,6 +203,7 @@
       "segment-summary-single": "{amount} чел./час",
       "source": "Источник",
       "capacity-data-source": "",
+      "toggle-visible": "",
       "settings-notice": ""
     },
     "save": {
