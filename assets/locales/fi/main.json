@@ -203,7 +203,7 @@
       "segment-summary-single": "{amount} ihmistä tunnissa",
       "source": "Lähde",
       "capacity-data-source": "Kapasiteettiarvion lähde",
-      "toggle-visible": "",
+      "toggle-visible": "Näytä kapasiteetti elementtien yhteydessä",
       "settings-notice": "Tienpitäjä voi muuttaa asetuksia."
     },
     "save": {

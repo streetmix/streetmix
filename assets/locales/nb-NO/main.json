@@ -16,12 +16,12 @@
       "upgrade": "Oppgrader"
     },
     "help": {
-      "keyboard-label": "Tastatursnarveier",
-      "remove-instruction": "Fjern delen du peker på",
+      "keyboard-label": "Tastatursnarveier:",
+      "remove-instruction": "Fjern segmentet du peker på",
       "remove-shift-instruction": "(hold {shiftKey}  inne for å fjerne alle)",
       "move-instruction": "Beveg deg rundt i gaten",
       "move-shift-instruction": "(hold {shiftKey} inne for å hoppe til ytterkantene)",
-      "change-instruction": "Endre bredden på en del du peker på",
+      "change-instruction": "Endre bredden på et segment du peker på",
       "change-shift-instruction": "(hold {shiftKey} inne for å øke presisjonen)"
     },
     "share": {
@@ -31,9 +31,9 @@
       "copy-to-clipboard": "Kopier til utklippstavlen",
       "twitter": "Del på Twitter",
       "facebook": "Del på Facebook",
-      "print": "Skriv ut...",
-      "save": "Lagre som et bilde...",
-      "save-byline": "Til en rapport, blog eller lignende",
+      "print": "Skriv ut…",
+      "save": "Lagre som et bilde…",
+      "save-byline": "Til en rapport, blogg eller lignende",
       "messages": {
         "my-street": "Sjekk ut gata mi, {streetName}, på Streetmix!",
         "my-street-unnamed": "Sjekk ut gata mi på Streetmix!",
@@ -46,20 +46,20 @@
     "contact": {
       "forums": "Diskutér i forumene",
       "twitter": "Send en tweet til @streetmix",
-      "email": "Send en epost til Streetmixteamet",
+      "email": "Send en epost til Streetmix-teamet",
       "github": "Se kildekoden på GitHub",
       "blog": "Besøk Streetmix-bloggen",
       "discord": "Bli med i Discord-samtalen",
-      "slack": "Bli med i Slacksamtalen",
+      "slack": "Bli med i Slack-samtalen",
       "newsletter": "Abonnér på nyhetsbrevet"
     },
     "contribute": {
-      "donate": "Gi penger",
+      "donate": "Støtt Streetmix",
       "opensource": "Bidra til åpen kildekode"
     },
     "feedback": {
       "prompt": "Send oss en melding: ",
-      "message-placeholder": "Hva synes du om Streetmix",
+      "message-placeholder": "Hva synes du om Streetmix?",
       "email-placeholder": "Din epost (frivillig)",
       "send": "Send melding",
       "confirm": "Vi fikk den. Takk!",
@@ -72,7 +72,7 @@
   "settings": {
     "units": {
       "label": "Enheter",
-      "metric": "Metriske enheter (meter)",
+      "metric": "SI-enheter (meter)",
       "imperial": "Britiske enheter (fot)"
     },
     "language": {
@@ -82,10 +82,10 @@
   "msg": {
     "loading": "Laster...",
     "remixing": "Remixer...",
-    "having-trouble": "Har problemer...",
+    "having-trouble": "Har problemer…",
     "no-street": "Ingen gate valgt.",
     "trouble-loading": "Vi sliter med å laste Streetmix.",
-    "slow-connection-1": "Streetmix har ikke klart å koble til Internett den siste tiden. ",
+    "slow-connection-1": "Streetmix har ikke klart å koble til internett den siste tiden. ",
     "slow-connection-2": "Det kan hende du bør laste inn siden på nytt og prøve en gang til. Vær oppmerksom på at du kan miste den siste endringen du gjorde. Beklager det!",
     "no-connection": "Streetmix sliter med å få koblet til internett. ",
     "more-info": "Mer info"
@@ -124,7 +124,7 @@
     "unsupported-browser-description": "Beklager det. Du kan prøve <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, eller Safari.",
     "unsupported-browser-internet-explorer": "Er du på Internet Explorer? <a>Finn ut mer.</a>",
     "unsupported-browser-contact-us": "Hvis du mener at nettleseren din burde vært støttet, vennligst ta kontakt på <a>epost</a>.",
-    "cannot-create-new-street-on-phone-title": "Streetmix virker bare på nettbrett og datamaskin. ",
+    "cannot-create-new-street-on-phone-title": "Streetmix virker bare på nettbrett og datamaskiner. ",
     "cannot-create-new-street-on-phone-description": "Hvis du følger en annen lenke til en bestemt gate kan du vise den på telefonen din, men foreløpig kan du ikke lage nye gater. ",
     "generic-error-title": "Noe gikk galt. ",
     "generic-error-description": "Beklager – noe gikk galt. ",
@@ -133,7 +133,7 @@
   },
   "btn": {
     "reload": "Last inn på nytt",
-    "undo": "Gjør om",
+    "undo": "Angre",
     "redo": "Gjør på nytt",
     "try-again": "Prøv på nytt",
     "cancel": "Avbryt",
@@ -148,13 +148,13 @@
   "dialogs": {
     "error": {
       "heading": "Oi da!",
-      "text": "Noe uventet skjedde 😢. Vi har loggført feilen, men hvis du husker hva som skjedde på veien hit, <a>vennligst fortell oss om det</a>. Det kan være et midlertidig problem, så vennligst prlv en gang til. "
+      "text": "Det skjedde noe uventet 😢. Vi har loggført feilen, men hvis du husker hva som skjedde på veien hit, <a>vennligst fortell oss om det</a>. Det kan være et midlertidig problem, så vennligst prøv en gang til. "
     },
     "welcome": {
       "heading": "Velkommen til Streetmix.",
       "new": {
         "intro": "Utform, remix og del din nabolagsgate. Legg til trær eller sykkelfelt, gjør fortauene eller kjørefeltene bredere og lær hvordan valgene dine kan påvirke felleskapet. ",
-        "instruction": "Begynn med å flytte rundt på noen deler. ",
+        "instruction": "Begynn med å flytte rundt på noen segmenter.",
         "instruct": "Begynn med å flytte deler med {pointer}.",
         "instruct-pointer-finger": "fingeren din",
         "instruct-pointer-mouse": "musen din"
@@ -175,8 +175,8 @@
     "about": {
       "heading": "Om Streetmix.",
       "description": "Utform, remix og del din gate. Legg til sykkelfelt, gjør fortauene eller kjørefeltene bredere og lær hvordan alt dette kan påvirke felleskapet. ",
-      "thanks": "",
-      "credits": "",
+      "thanks": "Takk så mye til ansatte og deltakere på CfA 2013 for støtte og tålmodighet, Blockee-teamet for å ha gått opp stien og alle testerne våre for tid og verdifulle tilbakemeldinger.",
+      "credits": "Dette er et hobbyprosjekt av {cfaLink}2013-deltakerne: ",
       "team-heading": "Prosjektteam og bidragsytere",
       "view-source": "Vis kildekode",
       "partners": "Partnere",
@@ -188,8 +188,8 @@
       "guidebook-link": "Veiledning",
       "tos-link": "Vilkår",
       "privacy-link": "Personvernerklæring",
-      "acknowledgements": "",
-      "font-designed-by": "",
+      "acknowledgements": "Anerkjennelser",
+      "font-designed-by": "{fontName} skrift utformet av {fontAuthor}",
       "emoji-by": "Emoji av {author}.",
       "icons-by": "Ikoner av {author}.",
       "license-label": "(<a>Lisens</a>)"
@@ -203,7 +203,7 @@
       "segment-summary-single": "{amount} personer/time",
       "source": "Kilde",
       "capacity-data-source": "Kilde for data om kapasitet",
-      "toggle-visible": "Vis kapasitet i beskrivelsen av delene",
+      "toggle-visible": "Vis kapasitet i beskrivelsen av segmentene",
       "settings-notice": "Eieren av gaten kan endre disse instillingene."
     },
     "save": {
@@ -212,9 +212,9 @@
       "option-name": "Gatenavn",
       "option-sky": "Gjennomsiktig himmel",
       "option-watermark": "Vannmerke",
-      "loading": "Laster...",
-      "save-button": "Lagre på datamaskinen...",
-      "license": "Dette Streetmiks-genererte bildet kan gjenbrukes hvor som helst, for ethvert formål, i tråd med {licenseLink}-lisensen.",
+      "loading": "Laster…",
+      "save-button": "Lagre på datamaskinen…",
+      "license": "Dette Streetmix-genererte bildet kan gjenbrukes hvor som helst, for ethvert formål, i tråd med {licenseLink}-lisensen.",
       "error-preview": "Det oppsto en feil med forhåndsvisningen. ",
       "error-unavailable": "Å lagre som bilde er ikke tilgjengelig i denne nettleseren. ",
       "preview-image-alt": "Forhåndsvisning"
@@ -232,9 +232,9 @@
     },
     "donate": {
       "heading": "Streetmix trenger din hjelp!",
-      "lede": "",
-      "text": "",
-      "button": "Bidra økonomisk til Streetmix",
+      "lede": "Streetmix er et prosjekt støttet av et fellesskap. Til forskjell fra andre \"gratistjenester\" på nettet viser vi ikke reklame, eller bruker sporing som går ut over personvernet ditt. I stedet er vi avhengige av din støtte for å kunne fortsette å tilby Streetmix. ",
+      "text": "Vær vennlig å vurder å støtte oss med et engangs- eller jevnlig bidrag. Støtten din vil betale for serverne våre og intrastruktur i skyen og vil støtte andre ideelle organisasjoner, grupperinger og studenter som arbeider for å forbedre gatene våre. Tilleggsinntekter vil investeres tilbake i videre utvikling av nye funksjoner. Vi er helt åpne om hvilke utgifter vi har, slik at du kan se nøyaktig hvordan dine bidrag brukes av Streetmix-teamet. ",
+      "button": "Støtt utviklingen av Streetmix",
       "cancel": "Nei takk"
     },
     "sign-in": {
@@ -253,7 +253,7 @@
       "tos": "Ved å trykke på en av disse knappene sier jeg meg enig i {tosLink} og {privacyLink}.",
       "tos-link-label": "vilkåer for tjenesten",
       "privacy-link-label": "personvernerklæringen",
-      "loading-message": "Logger deg inn...",
+      "loading-message": "Logger deg inn…",
       "sent-message-with-email": "Vi har sendt en epost til {email}. Vennligst følg instruksjonene der for å fortsette innloggingen!",
       "email-unreceived": "Fikk du den ikke?",
       "resend-email": "Send epost på nytt"
@@ -275,7 +275,7 @@
     "new-street": "Nytt gatenavn:",
     "delete-street": "Er du sikker på at du vil slette {streetName} permanent? Dette kan ikke angres. ",
     "new-width": "Ny gatebredde (fra {minWidth} til {maxWidth}):",
-    "segment-label": "Ny merkelapp for del: "
+    "segment-label": "Ny merkelapp for segment: "
   },
   "toast": {
     "segment-deleted": "Dette segmentet har blitt fjernet. ",
@@ -283,8 +283,8 @@
     "no-undo": "Ingenting å angre. ",
     "no-redo": "Ingenting å angre. ",
     "no-save": "Du trenger ikke å lagre manuelt; Streetmix lagrer gaten din automatisk!",
-    "remixing": "",
-    "remixing-sign-in": "",
+    "remixing": "Nå redigerer du en rykende fersk kopi av den opprinnelige gaten. Kopien er lagt til i galleriet ditt. ",
+    "remixing-sign-in": "Nå redigerer du en rykende fersk kopi av den opprinnelige gaten. Logg inn for å få et eget galleri over gatene du har laget. ",
     "reloaded": "Gaten din ble lastet inn på nytt fordi den ble endret et annet sted. "
   },
   "palette": {
@@ -296,8 +296,8 @@
     "over": "({width} for mye)",
     "occupied": "Samlet bredde:",
     "building": "Avstand fra fasade til fasade: ",
-    "different": "Annen bredde...",
-    "metric": "Bytt til metriske enheter",
+    "different": "Annen bredde…",
+    "metric": "Bytt til SI-enheter",
     "imperial": "Bytt til engelske enheter (fot)"
   },
   "capacity": {
@@ -318,7 +318,7 @@
     "right-arrow": "Høyrepil"
   },
   "tooltip": {
-    "remove-segment": "Fjern del",
+    "remove-segment": "Fjern segment",
     "delete-street": "Slett gate",
     "segment-width": "Endre bredden på delen",
     "building-height": "Endre antall etasjer",
@@ -341,9 +341,9 @@
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "Denne delen får ikke plass i gaten.",
-      "not-wide": "Denne delen er kanskje ikke bred nok.",
-      "too-wide": "Denne delen er kanskje for bred. "
+      "does-not-fit": "Dette segmentet får ikke plass i gaten.",
+      "not-wide": "Dette segmentet er kanskje ikke bredt nok.",
+      "too-wide": "Dette segmentet er kanskje for bredt."
     },
     "learn-more": "Lær mer",
     "unknown": {
@@ -377,58 +377,58 @@
     "watermark": "Laget med {streetmixWordmark}"
   },
   "meta": {
-    "description": "",
-    "page-title": ""
+    "description": "Design, remix og del din nabolagsgate – alt fra nettleseren din! Legg til trær eller sykkelfelt, gjør fortau eller kjørefelt bredere og lær hvordan valgene dine kan påvirke felleskapet. ",
+    "page-title": "{streetName} (av {author})"
   },
   "credits": {
     "core-team-heading": "Prosjektteam",
     "past-team-heading": "Tidligere team-medlemmer",
     "advisors": "Rådgivere",
-    "additional-illustrations": "",
-    "additional-code": "",
-    "additional-contributors": "",
-    "special-thanks": "",
-    "translators": ""
+    "additional-illustrations": "Ytterligere illustrasjoner",
+    "additional-code": "Ytterligere kode",
+    "additional-contributors": "Ytterligere bidragsytere",
+    "special-thanks": "Spesiell takk til",
+    "translators": "Oversettere"
   },
   "plus": {
     "locked": {
-      "sub": "",
-      "user": ""
+      "sub": "Abonnér for å ta i bruk!",
+      "user": "Logg inn for å ta i bruk!"
     }
   },
   "sentiment": {
     "prompt": {
-      "intro": "",
-      "joyful": "",
-      "choose-one": ""
+      "intro": "<strong>Beklager avbrytelsen.</strong> Vi håper du vil gi oss din tilbakemelding om denne gaten. ",
+      "joyful": "Vil du si at denne gaten bidrar til <em>glede</em>?",
+      "choose-one": "(velg én)"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "Absolutt ikke",
+      "rating-2": "Ikke spesielt mye",
+      "rating-3": "Sånn passe",
+      "rating-4": "Litt",
+      "rating-5": "Ganske mye"
     },
-    "sign-in-prompt": "",
-    "about-link": "",
-    "about-text": "",
-    "thank-you": "",
-    "about-header": "",
+    "sign-in-prompt": "Vennligst logg inn for å la din stemme telle. ",
+    "about-link": "Hvorfor ser jeg dette?",
+    "about-text": "Denne undersøkelsen hjelper oss å forstå hvordan mennsker opplever gatene. ",
+    "thank-you": "Takk!",
+    "about-header": "Vi ønsker å forstå hva mennesker føler om gater",
     "about-article": {
-      "paragraph-1": "",
-      "paragraph-2": "",
-      "paragraph-3": ""
+      "paragraph-1": "Gater utformes av fagfolk, men vi har tro på at alles synspunkter bør høres i prosessen. I samarbeid med <a>New Urban Mobility Alliance</a> (NUMO) gjennomfører vi denne undersøkelsen nettopp for å samle alles synspunkter. ",
+      "paragraph-2": "Vi analyserer svarene sånn at vi kan forstå hvilke kvaliteter ved gatene som påvirker din opplevelse av dem. I framtiden planlegger vi å bruke denne innsikten i de rådene vi gir om utforming i Streetmix. ",
+      "paragraph-3": "Du kan bare stemme én gang per gate, men du kan oppfordre andre til å gi sin stemme ved å dele dine egne gater eller en tilfeldig gate med linken <a>https://streetmix.net/survey/</a>"
     },
     "done": {
-      "response": "",
-      "vote-another": "",
-      "really-done": ""
+      "response": "Du svarte {score}.",
+      "vote-another": "Stem på enda en!",
+      "really-done": "Helt ferdig!"
     },
     "comment": {
-      "prompt": "",
+      "prompt": "Fortell oss hvorfor: ",
       "example": "(for eksempel, \"Jeg likte trærne.\")",
-      "submit": "",
-      "thanks": ""
+      "submit": "Send inn",
+      "thanks": "Forstått!"
     }
   },
   "i18n": {
@@ -448,7 +448,7 @@
       "ko": "Koreansk",
       "nl-nl": "Nederlandsk",
       "pl": "Polsk",
-      "pt-br": "Portugisisk",
+      "pt-br": "Portugisisk (Brazil)",
       "ro-ro": "Rumensk",
       "ru": "Russisk",
       "sv": "Svensk",

@@ -50,6 +50,7 @@ const UNTRANSLATED_LABELS = {
   it: 'Italian',
   ja: 'Japanese',
   ko: 'Korean',
+  'nb-no': 'Norwegian Bokmål',
   pl: 'Polish',
   'pt-br': 'Portuguese (Brazil)',
   ru: 'Russian',
