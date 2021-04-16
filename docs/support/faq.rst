@@ -10,16 +10,20 @@ Yes, absolutely! Use Streetmix however you like, but :ref:`please provide attrib
 What is the end user license?
 -----------------------------
 
-Streetmix has adopted two licenses: the **software** uses the `BSD license`_, while the **content** uses a `Creative Commons license`_. One or both of these licenses might apply to your situation. These licenses give you some essential rights for using Streetmix without having to explicitly ask us for permission.
+Streetmix has adopted two licenses: the **software** uses the `GNU Affero General Public License v3.0`_ (AGPL), while the **content** uses a `Creative Commons license`_. One or both of these licenses might apply to your situation. These licenses give you some essential rights for using Streetmix without having to explicitly ask us for permission.
 
-The **BSD license** is an open-source software license. This means you may copy, modify, and reuse the original code base, as long as the copyright remains with Streetmix LLC.
+The **AGPL license** is an open-source software license. This means you may copy, modify, and reuse the original code base, as long as the copyright remains with Streetmix LLC, and that you make your modified source code open if you host a publicly accessible service.
 
 The **Creative Commons license** governs the content in Streetmix, such as text or graphics, as well as any derived graphics or content. You may modify and republish anything you make in Streetmix as long as you :ref:`provide attribution to Streetmix <faq-attribution>`. You must also allow others to reuse or republish your Streetmix-created content.
 
 This is a basic overview of what these licenses mean. For more details, including how these licenses may apply to your specific use case, please refer to the license text or consult with a qualified legal advisor.
 
-.. _BSD license: https://github.com/streetmix/streetmix/blob/main/LICENSE.md
+.. _GNU Affero General Public License v3.0: https://github.com/streetmix/streetmix/blob/main/LICENSE
 .. _Creative Commons license: https://creativecommons.org/licenses/by-sa/4.0/
+
+.. note::
+
+   Previous versions of the Streetmix codebase was licensed under a **BSD 3-Clause license**. We are not lawyers and cannot offer legal advice, and if you believe your usage of Streetmix is affected by the change in license, please consult with your legal counsel.
 
 
 .. _faq-attribution:
@@ -30,7 +34,7 @@ How do I provide attribution to Streetmix?
 When you reuse or republish Streetmix content, you should mention the following:
 
   * That you created this content with Streetmix
-  * That the content is licensed under Creative Commons (or the BSD license, if the reproduction includes code)
+  * That the content is licensed under Creative Commons (or the AGPL license, if the reproduction includes code)
   * Include a link to Streetmix (https://streetmix.net/)
 
 We are flexible with attribution. You may be in a situation where you're not able to include all or some of those things. That's okay! But please use your best judgment about what form of attribution is viable for you.

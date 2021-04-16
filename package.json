@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/streetmix/streetmix.git"
   },
-  "license": "BSD-3-Clause",
+  "license": "AGPL-3.0-or-later",
   "engines": {
     "node": ">=14.x",
     "npm": ">=6.x"
