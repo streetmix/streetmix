@@ -1,6 +1,6 @@
 const config = require('config')
 const logger = require('../../../../lib/logger.js')()
-
+const btoa = require('btoa')
 const { User } = require('../../../db/models')
 const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
@@ -17,6 +17,11 @@ const findUser = async function (userId) {
 }
 
 const initCoil = () => {
+  const authToken = btoa(
+    process.env.COIL_CLIENT_ID +
+      ':' +
+      encodeURIComponent(process.env.COIL_CLIENT_SECRET)
+  )
   passport.use(
     'coil',
     new OAuth2Strategy(
@@ -27,11 +32,15 @@ const initCoil = () => {
         clientSecret: process.env.COIL_CLIENT_SECRET,
         scope: 'simple_wm openid',
         callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/coil/callback`,
-        passReqToCallback: true
+        passReqToCallback: true,
+        customHeaders: {
+          authorization: `Basic ${authToken}`
+        }
       },
       async function (req, accessToken, refreshToken, profile, done) {
         const databaseUser = await findUser(req.query.state)
         // passing the profile data along the request, probably another way to do this
+        // we get the access token here, which we may need to then pass to the next endpoint for coil to get the user info (subscriptions, etc)
         req.profile = profile
         return done(null, databaseUser)
       }
@@ -78,7 +87,7 @@ exports.callback = (req, res, next) => {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
   }
-
+  passport._strategies.coil._oauth2.setAuthMethod('BASIC')
   passport.authorize('coil', {
     failureRedirect: '/error'
   })(req, res, next)
@@ -91,6 +100,7 @@ exports.callback = (req, res, next) => {
 exports.connectUser = async (req, res) => {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
+  // TODO add coil info
   const databaseUser = req.account
   const identity = {
     provider: req.profile.provider,
