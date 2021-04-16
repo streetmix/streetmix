@@ -121,13 +121,19 @@ routes.get(
   resources.services.integrations.coil.get
 )
 
+routes.get(
+  '/services/integrations/coil-axios/',
+  jwtCheck,
+  resources.services.integrations.coil_axios.get
+)
+
 // The OAuth 2.0 provider has redirected the user back to the application.
 // Finish the authentication process by attempting to obtain an access
 // token.  If authorization was granted, the user will be logged in.
 // Otherwise, authentication has failed.
 routes.get(
   '/services/integrations/coil/callback',
-  resources.services.integrations.coil.callback,
+  resources.services.integrations.coil_axios.callback,
   resources.services.integrations.coil.connectUser
 )
 

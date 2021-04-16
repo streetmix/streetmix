@@ -4,7 +4,8 @@ const logger = require('../../../../lib/logger.js')()
 const { User } = require('../../../db/models')
 const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
-
+const querystring = require('querystring')
+const axios = require('axios')
 /**
  finds the database record for the given user
  */
@@ -74,11 +75,10 @@ exports.get = (req, res, next) => {
   })(req, res, next)
 }
 
-exports.callback = (req, res, next) => {
+exports.callback = async (req, res, next) => {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
   }
-
   passport.authorize('coil', {
     failureRedirect: '/error'
   })(req, res, next)
