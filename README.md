@@ -81,4 +81,4 @@ See [LICENSE][] for details.
 
 [![Open Source Helpers](https://www.codetriage.com/codeforamerica/streetmix/badges/users.svg)](https://www.codetriage.com/codeforamerica/streetmix)
 
-[license]: https://github.com/streetmix/streetmix/blob/main/LICENSE.md
+[license]: https://github.com/streetmix/streetmix/blob/main/LICENSE
