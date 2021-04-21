@@ -13,8 +13,6 @@ import {
 import { doSignInForUpgrade } from '../users/authentication'
 import { SignInToUpgradeButton } from '../menus/SignInButton'
 
-const DEFAULT_BODY =
-  'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
 const PATREON_RETURN_NO_SUBSCRIPTION = 'no subscription - go over here'
 
 const UpgradeDialog = ({ userId, roles }) => {
@@ -90,16 +88,102 @@ const UpgradeDialog = ({ userId, roles }) => {
       </p>
     )
   } else {
-    // begin the journey
+    // Default: begin upgrade journey with patreon
     activePanel = (
       <>
-        <p>
-          <FormattedMessage id="upgrade.body" defaultMessage={DEFAULT_BODY} />
-        </p>
+        <div className="dialog-content">
+          <div className="upgrade-dialog-content">
+            <div className="upgrade-dialog-left">
+              <header>
+                <h2>
+                  <FormattedMessage
+                    id="upgrade.header"
+                    defaultMessage="Streetmix PLUS"
+                  />
+                </h2>
+                <p role="subtitle">
+                  <FormattedMessage
+                    id="upgrade.exciter"
+                    defaultMessage="For individuals that want to support and get new features"
+                  />
+                </p>
+              </header>
+              <ul>
+                <li>
+                  <FormattedMessage
+                    id="upgrade.feature.segment"
+                    defaultMessage="Rename street segments"
+                  />
+                </li>
+                <li>
+                  <FormattedMessage
+                    id="upgrade.feature.background"
+                    defaultMessage="Change background / environment"
+                  />
+                </li>
+                <li>
+                  <FormattedMessage
+                    id="upgrade.feature.export"
+                    defaultMessage="Export images and a higher resolution and without watermark"
+                  />
+                </li>
+                <li>
+                  <FormattedMessage
+                    id="upgrade.feature.discord"
+                    defaultMessage="Subscriber-only Discord community"
+                  />
+                </li>
+                <li>
+                  <FormattedMessage
+                    id="upgrade.teaser.more"
+                    defaultMessage="More to come! "
+                  />
+                  <a href="">
+                    <FormattedMessage
+                      id="upgrade.teaser.help"
+                      defaultMessage="Help us"
+                    />
+                  </a>
+                  <FormattedMessage
+                    id="upgrade.teaser.prioritise"
+                    defaultMessage=" prioritise future features!"
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className="upgrade-dialog-right">
+              <p>
+                <FormattedMessage
+                  id="upgrade.support"
+                  defaultMessage="Support Streetmix for $10 per month, and gain access additional Streetmix Plus features!"
+                />
+              </p>
+              <p>
+                <FormattedMessage
+                  id="upgrade.cost"
+                  defaultMessage="By selecting upgrade you will be directed to Patreon to authorise Streetmix application with Patreon."
+                />
+              </p>
+              <p>
+                <strong>
+                  <FormattedMessage
+                    id="upgrade.cost"
+                    defaultMessage="$10 USD / MONTH"
+                  />
+                </strong>
+              </p>
 
-        <button id="patreon-btn" onClick={goToPatreon}>
-          Upgrade
-        </button>
+              <div>
+                <button id="=patreon-btn" onClick={goToPatreon}>
+                  <FormattedMessage
+                    id="upgrade.patreon-btn"
+                    defaultMessage="Upgrade"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
     )
   }
@@ -108,11 +192,6 @@ const UpgradeDialog = ({ userId, roles }) => {
     <Dialog>
       {(closeDialog) => (
         <div className="upgrade-dialog" dir="ltr">
-          <header>
-            <h1>
-              <FormattedMessage id="upgrade.title" defaultMessage="Upgrade" />
-            </h1>
-          </header>
           {activePanel}
         </div>
       )}
