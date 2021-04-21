@@ -55,6 +55,7 @@ const initPatreon = () => {
         const databaseUser = await findUser(req.query.state)
         // passing the profile data along the request, probably another way to do this
         req.profile = profile
+        req.refreshToken = refreshToken
         return done(null, databaseUser)
       }
     )
@@ -121,7 +122,8 @@ exports.connectUser = async (req, res) => {
   const databaseUser = req.account
   const identity = {
     provider: req.profile.provider,
-    user_id: req.profile.id
+    user_id: req.profile.id,
+    refreshToken: req.refreshToken
   }
   try {
     // TODO: what is coming back from the profile, has the user paid for the subscription,

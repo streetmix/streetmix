@@ -1,52 +1,50 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, useIntl } from 'react-intl'
-import StripeCheckout from 'react-stripe-checkout'
+import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
-import axios from 'axios'
-import { STRIPE_API_KEY } from '../app/config'
 import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
 
+const LOCAL_STORAGE_PATREON_SIGNIN_STATE = 'patreon-signin-state'
 const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
+const PATREON_RETURN_NO_SUBSCRIPTION = 'no subscription - go over here'
 
 const UpgradeDialog = ({ userId, roles }) => {
-  const intl = useIntl()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [data, setData] = useState(null)
+  // const [loading, setLoading] = useState(false)
+  // const [error, setError] = useState(null)
+  // const [data, setData] = useState(null)
+  const isReturningUser = useState(isReturningSignedInToPatreon())
+  // const dispatch = useDispatch()
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
-  async function onToken (token) {
-    const requestBody = { userId, token }
+  setIsReturningSignedInToPatreon('false')
 
-    setLoading(true)
-    try {
-      const { data } = await axios.post('/services/pay', requestBody)
-      setData(data)
-    } catch (err) {
-      setError(err)
-    }
-    setLoading(false)
+  const goToPatreon = () => {
+    // TODO: dispatch to store
+
+    // dispatch(updatePatreonClickState(true))
+    setIsReturningSignedInToPatreon('true')
+    window.location.href = '/services/integrations/patreon'
   }
 
-  const stripeName = intl.formatMessage({
-    id: 'upgrade.name',
-    defaultMessage: 'Streetmix Enthusiast Plan'
-  })
-  const stripeDescription = intl.formatMessage({
-    id: 'upgrade.description',
-    defaultMessage: 'stripe description goes here'
-  })
-  const stripeLabel = intl.formatMessage({
-    id: 'upgrade.label',
-    defaultMessage: 'Subscribe'
-  })
+  // async function onToken (token) {
+  //   const requestBody = { userId, token }
+
+  //   setLoading(true)
+  //   try {
+  //     const { data } = await axios.post('/services/pay', requestBody)
+  //     setData(data)
+  //   } catch (err) {
+  //     setError(err)
+  //   }
+  //   setLoading(false)
+  // }
 
   let activePanel
+  // Subscription successful
   if (hasTier1) {
     activePanel = (
       <p>
@@ -56,47 +54,50 @@ const UpgradeDialog = ({ userId, roles }) => {
         />
       </p>
     )
-  } else if (loading) {
-    activePanel = (
-      <p>
-        <FormattedMessage id="upgrade.loading" defaultMessage="Loading..." />
-      </p>
-    )
-  } else if (error) {
+  } else if (isReturningUser) {
     activePanel = (
       <p>
         <FormattedMessage
-          id="upgrade.error"
-          defaultMessage="We encountered an error:"
-        />
-        {error}
-      </p>
-    )
-  } else if (data) {
-    activePanel = (
-      <p>
-        <FormattedMessage
-          id="upgrade.success"
-          defaultMessage="Thank you! Please refresh this page to see your upgrades."
+          id="upgrade.upgradeNoCampaign"
+          defaultMessage={PATREON_RETURN_NO_SUBSCRIPTION}
         />
       </p>
     )
+    // } else if (loading) {
+    //   activePanel = (
+    //     <p>
+    //       <FormattedMessage id="upgrade.loading" defaultMessage="Loading..." />
+    //     </p>
+    //   )
+    // } else if (error) {
+    //   activePanel = (
+    //     <p>
+    //       <FormattedMessage
+    //         id="upgrade.error"
+    //         defaultMessage="We encountered an error:"
+    //       />
+    //       {error}
+    //     </p>
+    //   )
+    // } else if (data) {
+    //   activePanel = (
+    //     <p>
+    //       <FormattedMessage
+    //         id="upgrade.success"
+    //         defaultMessage="Thank you! Please refresh this page to see your upgrades."
+    //       />
+    //     </p>
+    //   )
   } else {
     activePanel = (
       <>
         <p>
           <FormattedMessage id="upgrade.body" defaultMessage={DEFAULT_BODY} />
         </p>
-        <StripeCheckout
-          amount={500}
-          name={stripeName}
-          description={stripeDescription}
-          label={stripeLabel}
-          locale="auto"
-          stripeKey={STRIPE_API_KEY}
-          token={onToken}
-          zipCode={true}
-        />
+
+        <button id="patreon-btn" onClick={goToPatreon}>
+          Upgrade
+        </button>
       </>
     )
   }
@@ -117,11 +118,22 @@ const UpgradeDialog = ({ userId, roles }) => {
   )
 }
 
+function setIsReturningSignedInToPatreon (value) {
+  window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = value
+}
+
+export function isReturningSignedInToPatreon () {
+  const localSetting = window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE]
+  // todo: modernise
+  return localSetting === 'true'
+}
+
 function mapStateToProps (state) {
   const { userId } = state.user.signInData || {}
   const roles = state.user.profileCache
     ? state.user.profileCache[userId].roles
     : []
+
   return {
     userId,
     roles

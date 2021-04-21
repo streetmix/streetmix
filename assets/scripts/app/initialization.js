@@ -26,6 +26,7 @@ import store, { observeStore } from '../store'
 import { openGallery } from '../store/actions/gallery'
 import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
+import { isReturningSignedInToPatreon } from '../dialogs/UpgradeDialog'
 
 let serverContacted
 
@@ -203,6 +204,10 @@ function onEverythingLoaded () {
     ) {
       store.dispatch(showDialog('WHATS_NEW'))
       window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP] = whatsNewTimestamp
+    }
+
+    if (isReturningSignedInToPatreon()) {
+      store.dispatch(showDialog('UPGRADE'))
     }
   }
 }
