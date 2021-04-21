@@ -4,7 +4,6 @@ const logger = require('../../../../lib/logger.js')()
 const { User } = require('../../../db/models')
 const passport = require('passport')
 const PatreonStrategy = require('passport-patreon').Strategy
-
 /*
 our use case makes this a little complicated,
 we basically have three user instances to check:
@@ -24,7 +23,7 @@ looks up the user in _our_ database, which then gets handled by the callback fun
 an subsequently links all this info together
 
 */
-
+const errorUrl = '/error/authorise-patreon-problem'
 /**
  finds the database record for the given user
  */
@@ -55,7 +54,6 @@ const initPatreon = () => {
         const databaseUser = await findUser(req.query.state)
         // passing the profile data along the request, probably another way to do this
         req.profile = profile
-        req.refreshToken = refreshToken
         return done(null, databaseUser)
       }
     )
@@ -96,7 +94,7 @@ exports.get = (req, res, next) => {
   */
   passport.authorize('patreon', {
     state: req.user.nickname,
-    failureRedirect: '/error'
+    failureRedirect: errorUrl
   })(req, res, next)
 }
 
@@ -108,7 +106,7 @@ exports.callback = (req, res, next) => {
   }
 
   passport.authorize('patreon', {
-    failureRedirect: '/error'
+    failureRedirect: errorUrl
   })(req, res, next)
 }
 
@@ -122,8 +120,7 @@ exports.connectUser = async (req, res) => {
   const databaseUser = req.account
   const identity = {
     provider: req.profile.provider,
-    user_id: req.profile.id,
-    refreshToken: req.refreshToken
+    user_id: req.profile.id
   }
   try {
     // TODO: what is coming back from the profile, has the user paid for the subscription,
@@ -145,10 +142,10 @@ exports.connectUser = async (req, res) => {
       { where: { id: databaseUser.id }, returning: true }
     )
 
-    res.redirect('/')
+    res.redirect(errorUrl)
   } catch (err) {
     // what would we want to do here?
     logger.error(err)
-    res.redirect('/error')
+    res.redirect(errorUrl)
   }
 }

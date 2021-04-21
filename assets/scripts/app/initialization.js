@@ -27,6 +27,7 @@ import { openGallery } from '../store/actions/gallery'
 import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
 import { isReturningSignedInToPatreon } from '../dialogs/UpgradeDialog'
+import { LOCAL_STORAGE_PATREON_SIGNIN_STATE } from './constants'
 
 let serverContacted
 
@@ -73,6 +74,12 @@ export async function initialize () {
   processMode()
   if (store.getState().errors.abortEverything) {
     return
+  }
+
+  if (getMode() === MODES.JUST_RETURNED_FROM_PAYMENT) {
+    // set local storage
+    window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = 'true'
+    window.location.href = '/'
   }
 
   // Asynchronously loading…

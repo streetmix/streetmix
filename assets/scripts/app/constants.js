@@ -15,6 +15,7 @@ export const URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token'
 export const URL_ERROR_NO_ACCESS_TOKEN = 'no-access-token'
 export const URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem'
 export const URL_ERROR_ACCESS_DENIED = 'access-denied'
+export const URL_ERROR_PATREON_AUTHORISE_PROBLEM = 'authorise-patreon-problem'
 
 export const URL_EXAMPLE_STREET = '/streetmix/7'
 
@@ -37,3 +38,6 @@ export const RESERVED_URLS = [
 ]
 
 export const URL_RESERVED_PREFIX = '~'
+
+// Local storage key
+export const LOCAL_STORAGE_PATREON_SIGNIN_STATE = 'patreon-signin-state'

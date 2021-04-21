@@ -5,47 +5,36 @@ import { connect } from 'react-redux'
 import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
+import { LOCAL_STORAGE_PATREON_SIGNIN_STATE } from '../app/constants'
 
-const LOCAL_STORAGE_PATREON_SIGNIN_STATE = 'patreon-signin-state'
 const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
 const PATREON_RETURN_NO_SUBSCRIPTION = 'no subscription - go over here'
 
 const UpgradeDialog = ({ userId, roles }) => {
-  // const [loading, setLoading] = useState(false)
-  // const [error, setError] = useState(null)
-  // const [data, setData] = useState(null)
-  const isReturningUser = useState(isReturningSignedInToPatreon())
-  // const dispatch = useDispatch()
+  const [isReturningUser] = useState(isReturningSignedInToPatreon())
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
-  setIsReturningSignedInToPatreon('false')
+  window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = null
 
   const goToPatreon = () => {
-    // TODO: dispatch to store
-
-    // dispatch(updatePatreonClickState(true))
-    setIsReturningSignedInToPatreon('true')
     window.location.href = '/services/integrations/patreon'
   }
 
-  // async function onToken (token) {
-  //   const requestBody = { userId, token }
-
-  //   setLoading(true)
-  //   try {
-  //     const { data } = await axios.post('/services/pay', requestBody)
-  //     setData(data)
-  //   } catch (err) {
-  //     setError(err)
-  //   }
-  //   setLoading(false)
-  // }
-
   let activePanel
-  // Subscription successful
-  if (hasTier1) {
+  // not logged in yets
+  if (userId === '') {
+    activePanel = (
+      <p>
+        <FormattedMessage
+          id="upgrade.hasTier1"
+          defaultMessage="go sign in first"
+        />
+      </p>
+    )
+  } else if (hasTier1 && isReturningUser) {
+    // subscription successful
     activePanel = (
       <p>
         <FormattedMessage
@@ -54,7 +43,18 @@ const UpgradeDialog = ({ userId, roles }) => {
         />
       </p>
     )
+  } else if (hasTier1) {
+    // already a subscriber
+    activePanel = (
+      <p>
+        <FormattedMessage
+          id="upgrade.hasTier1"
+          defaultMessage="You are already suscribed what else do you wanna do?"
+        />
+      </p>
+    )
   } else if (isReturningUser) {
+    // authorised but
     activePanel = (
       <p>
         <FormattedMessage
@@ -63,32 +63,8 @@ const UpgradeDialog = ({ userId, roles }) => {
         />
       </p>
     )
-    // } else if (loading) {
-    //   activePanel = (
-    //     <p>
-    //       <FormattedMessage id="upgrade.loading" defaultMessage="Loading..." />
-    //     </p>
-    //   )
-    // } else if (error) {
-    //   activePanel = (
-    //     <p>
-    //       <FormattedMessage
-    //         id="upgrade.error"
-    //         defaultMessage="We encountered an error:"
-    //       />
-    //       {error}
-    //     </p>
-    //   )
-    // } else if (data) {
-    //   activePanel = (
-    //     <p>
-    //       <FormattedMessage
-    //         id="upgrade.success"
-    //         defaultMessage="Thank you! Please refresh this page to see your upgrades."
-    //       />
-    //     </p>
-    //   )
   } else {
+    // begin the journey
     activePanel = (
       <>
         <p>
@@ -118,10 +94,6 @@ const UpgradeDialog = ({ userId, roles }) => {
   )
 }
 
-function setIsReturningSignedInToPatreon (value) {
-  window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = value
-}
-
 export function isReturningSignedInToPatreon () {
   const localSetting = window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE]
   // todo: modernise
@@ -129,10 +101,8 @@ export function isReturningSignedInToPatreon () {
 }
 
 function mapStateToProps (state) {
-  const { userId } = state.user.signInData || {}
-  const roles = state.user.profileCache
-    ? state.user.profileCache[userId].roles
-    : []
+  const { userId } = state.user.signInData || { userId: '' }
+  const { roles } = (userId && state.user.profileCache[userId]) || { roles: [] }
 
   return {
     userId,
