@@ -7,6 +7,7 @@ export const URL_GLOBAL_GALLERY = '/gallery'
 export const URL_ERROR = '/error'
 export const URL_HELP = '/help'
 export const URL_SURVEY_FINISHED = '/survey-finished'
+export const URL_RETURNED_FROM_PAYMENT = '/returned-from-payment-provider'
 
 // Error fragments that occur after /error/
 export const URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token'
@@ -27,6 +28,7 @@ export const RESERVED_URLS = [
   URL_ERROR,
   URL_HELP,
   URL_SURVEY_FINISHED,
+  URL_RETURNED_FROM_PAYMENT,
   '/streets',
   '/terms-of-service',
   '/privacy-policy',

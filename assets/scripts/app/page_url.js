@@ -8,6 +8,7 @@ import {
   URL_GLOBAL_GALLERY,
   URL_RESERVED_PREFIX,
   URL_SURVEY_FINISHED,
+  URL_RETURNED_FROM_PAYMENT,
   RESERVED_URLS
 } from './constants'
 import { normalizeSlug } from '../util/helpers'
@@ -51,6 +52,12 @@ export function processUrl () {
     // Coming back from a successful sign in
   } else if (pathname === JUST_SIGNED_IN_PATH) {
     setMode(MODES.JUST_SIGNED_IN)
+
+    // When we try to pay with patreon, we want to display the
+    // upgrade dialogue again for the user, so we need to know
+    // that they are back in the frontend
+  } else if (pathname === URL_RETURNED_FROM_PAYMENT) {
+    setMode(MODES.JUST_RETURNED_FROM_PAYMENT)
 
     // Error
   } else if (pathname.startsWith(URL_ERROR)) {
