@@ -6,8 +6,9 @@ import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
 import {
-  LOCAL_STORAGE_PATREON_SIGNIN_STATE,
-  LOCAL_STORAGE_CONTINUE_PAYMENT_STATE
+  LSKEY_PATREON_SIGNIN_STATE,
+  LSKEY_CONTINUE_PAYMENT_STATE,
+  LSKEY_PROMPT_UPGRADE
 } from '../app/constants'
 import { doSignInForUpgrade } from '../users/authentication'
 import { SignInToUpgradeButton } from '../menus/SignInButton'
@@ -23,8 +24,9 @@ const UpgradeDialog = ({ userId, roles }) => {
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
-  window.localStorage.removeItem(LOCAL_STORAGE_PATREON_SIGNIN_STATE)
-  window.localStorage.removeItem(LOCAL_STORAGE_CONTINUE_PAYMENT_STATE)
+  window.localStorage.removeItem(LSKEY_PATREON_SIGNIN_STATE)
+  window.localStorage.removeItem(LSKEY_CONTINUE_PAYMENT_STATE)
+  window.localStorage.removeItem(LSKEY_PROMPT_UPGRADE)
 
   const goToPatreon = () => {
     window.location.href = '/services/integrations/patreon'
@@ -119,17 +121,17 @@ const UpgradeDialog = ({ userId, roles }) => {
 }
 
 export function isReturningFromPatreon () {
-  const localSetting = window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE]
+  const localSetting = window.localStorage[LSKEY_PATREON_SIGNIN_STATE]
   return localSetting != null
 }
 
 export function isReturningFailedToAuthorise () {
-  const localSetting = window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE]
+  const localSetting = window.localStorage[LSKEY_PATREON_SIGNIN_STATE]
   return localSetting === 'error'
 }
 
 export function isReturningFromSignin () {
-  const localSetting = window.localStorage[LOCAL_STORAGE_CONTINUE_PAYMENT_STATE]
+  const localSetting = window.localStorage[LSKEY_CONTINUE_PAYMENT_STATE]
   return localSetting === 'true'
 }
 

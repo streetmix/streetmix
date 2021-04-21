@@ -8,6 +8,7 @@ export const URL_ERROR = '/error'
 export const URL_HELP = '/help'
 export const URL_SURVEY_FINISHED = '/survey-finished'
 export const URL_RETURNED_FROM_PAYMENT = '/returned-from-payment-provider'
+export const URL_EXTERNAL_UPGRADE_PATH = '/upgrade'
 
 // Error fragments that occur after /error/
 export const URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token'
@@ -30,6 +31,7 @@ export const RESERVED_URLS = [
   URL_HELP,
   URL_SURVEY_FINISHED,
   URL_RETURNED_FROM_PAYMENT,
+  URL_EXTERNAL_UPGRADE_PATH,
   '/streets',
   '/terms-of-service',
   '/privacy-policy',
@@ -40,6 +42,6 @@ export const RESERVED_URLS = [
 export const URL_RESERVED_PREFIX = '~'
 
 // Local storage key
-export const LOCAL_STORAGE_PATREON_SIGNIN_STATE = 'patreon-signin-state'
-export const LOCAL_STORAGE_CONTINUE_PAYMENT_STATE =
-  'upgrade-continue-after-signin'
+export const LSKEY_PATREON_SIGNIN_STATE = 'patreon-signin-state'
+export const LSKEY_CONTINUE_PAYMENT_STATE = 'upgrade-continue-after-signin'
+export const LSKEY_PROMPT_UPGRADE = 'upgrade-prompt'
