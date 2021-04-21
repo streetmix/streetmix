@@ -41,3 +41,5 @@ export const URL_RESERVED_PREFIX = '~'
 
 // Local storage key
 export const LOCAL_STORAGE_PATREON_SIGNIN_STATE = 'patreon-signin-state'
+export const LOCAL_STORAGE_CONTINUE_PAYMENT_STATE =
+  'upgrade-continue-after-signin'

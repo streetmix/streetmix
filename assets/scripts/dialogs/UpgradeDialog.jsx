@@ -5,7 +5,12 @@ import { connect } from 'react-redux'
 import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
-import { LOCAL_STORAGE_PATREON_SIGNIN_STATE } from '../app/constants'
+import {
+  LOCAL_STORAGE_PATREON_SIGNIN_STATE,
+  LOCAL_STORAGE_CONTINUE_PAYMENT_STATE
+} from '../app/constants'
+import { doSignInForUpgrade } from '../users/authentication'
+import { SignInToUpgradeButton } from '../menus/SignInButton'
 
 const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
@@ -14,10 +19,12 @@ const PATREON_RETURN_NO_SUBSCRIPTION = 'no subscription - go over here'
 const UpgradeDialog = ({ userId, roles }) => {
   const [isReturningUser] = useState(isReturningFromPatreon())
   const [hasPatreonError] = useState(isReturningFailedToAuthorise())
+  const [continueUpgrade] = useState(isReturningFromSignin())
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
   window.localStorage.removeItem(LOCAL_STORAGE_PATREON_SIGNIN_STATE)
+  window.localStorage.removeItem(LOCAL_STORAGE_CONTINUE_PAYMENT_STATE)
 
   const goToPatreon = () => {
     window.location.href = '/services/integrations/patreon'
@@ -31,6 +38,16 @@ const UpgradeDialog = ({ userId, roles }) => {
         <FormattedMessage
           id="upgrade.hasTier1"
           defaultMessage="go sign in first"
+        />
+        <SignInToUpgradeButton onClick={doSignInForUpgrade} />
+      </p>
+    )
+  } else if (continueUpgrade) {
+    activePanel = (
+      <p>
+        <FormattedMessage
+          id="upgrade.patreonError"
+          defaultMessage="you signed in yay, now upgrade"
         />
       </p>
     )
@@ -109,6 +126,11 @@ export function isReturningFromPatreon () {
 export function isReturningFailedToAuthorise () {
   const localSetting = window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE]
   return localSetting === 'error'
+}
+
+export function isReturningFromSignin () {
+  const localSetting = window.localStorage[LOCAL_STORAGE_CONTINUE_PAYMENT_STATE]
+  return localSetting === 'true'
 }
 
 function mapStateToProps (state) {
