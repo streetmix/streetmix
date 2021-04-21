@@ -111,6 +111,10 @@ routes.get(
   resources.services.integrations.patreon.callback,
   resources.services.integrations.patreon.connectUser
 )
+routes.post(
+  '/services/integrations/patreon/webhook',
+  resources.services.integrations.patreon.webhook
+)
 
 /******************************************************************************
  *  ERROR HANDLING
