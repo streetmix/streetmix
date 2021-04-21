@@ -26,7 +26,7 @@ import store, { observeStore } from '../store'
 import { openGallery } from '../store/actions/gallery'
 import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
-import { isReturningSignedInToPatreon } from '../dialogs/UpgradeDialog'
+import { isReturningFromPatreon } from '../dialogs/UpgradeDialog'
 import { LOCAL_STORAGE_PATREON_SIGNIN_STATE } from './constants'
 
 let serverContacted
@@ -78,7 +78,10 @@ export async function initialize () {
 
   if (getMode() === MODES.JUST_RETURNED_FROM_PAYMENT) {
     // set local storage
-    window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = 'true'
+    window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = 'success'
+    window.location.href = '/'
+  } else if (getMode() === MODES.JUST_RETURNED_FROM_PAYMENT_ERROR) {
+    window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = 'error'
     window.location.href = '/'
   }
 
@@ -213,7 +216,7 @@ function onEverythingLoaded () {
       window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP] = whatsNewTimestamp
     }
 
-    if (isReturningSignedInToPatreon()) {
+    if (isReturningFromPatreon()) {
       store.dispatch(showDialog('UPGRADE'))
     }
   }

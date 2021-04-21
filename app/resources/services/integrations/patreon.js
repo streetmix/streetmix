@@ -23,7 +23,9 @@ looks up the user in _our_ database, which then gets handled by the callback fun
 an subsequently links all this info together
 
 */
-const errorUrl = '/error/authorise-patreon-problem'
+
+const successUrl = '/returned-from-payment-provider'
+const errorUrl = successUrl + '?error=true'
 /**
  finds the database record for the given user
  */
@@ -141,8 +143,7 @@ exports.connectUser = async (req, res) => {
       },
       { where: { id: databaseUser.id }, returning: true }
     )
-
-    res.redirect(errorUrl)
+    res.redirect(successUrl)
   } catch (err) {
     // what would we want to do here?
     logger.error(err)

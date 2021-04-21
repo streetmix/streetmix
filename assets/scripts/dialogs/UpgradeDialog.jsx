@@ -12,18 +12,19 @@ const DEFAULT_BODY =
 const PATREON_RETURN_NO_SUBSCRIPTION = 'no subscription - go over here'
 
 const UpgradeDialog = ({ userId, roles }) => {
-  const [isReturningUser] = useState(isReturningSignedInToPatreon())
+  const [isReturningUser] = useState(isReturningFromPatreon())
+  const [hasPatreonError] = useState(isReturningFailedToAuthorise())
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
-  window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE] = null
+  window.localStorage.removeItem(LOCAL_STORAGE_PATREON_SIGNIN_STATE)
 
   const goToPatreon = () => {
     window.location.href = '/services/integrations/patreon'
   }
 
   let activePanel
-  // not logged in yets
+  // not logged in yet
   if (userId === '') {
     activePanel = (
       <p>
@@ -31,6 +32,12 @@ const UpgradeDialog = ({ userId, roles }) => {
           id="upgrade.hasTier1"
           defaultMessage="go sign in first"
         />
+      </p>
+    )
+  } else if (hasPatreonError) {
+    activePanel = (
+      <p>
+        <FormattedMessage id="upgrade.patreonError" defaultMessage="oh no" />
       </p>
     )
   } else if (hasTier1 && isReturningUser) {
@@ -94,10 +101,14 @@ const UpgradeDialog = ({ userId, roles }) => {
   )
 }
 
-export function isReturningSignedInToPatreon () {
+export function isReturningFromPatreon () {
   const localSetting = window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE]
-  // todo: modernise
-  return localSetting === 'true'
+  return localSetting != null
+}
+
+export function isReturningFailedToAuthorise () {
+  const localSetting = window.localStorage[LOCAL_STORAGE_PATREON_SIGNIN_STATE]
+  return localSetting === 'error'
 }
 
 function mapStateToProps (state) {
