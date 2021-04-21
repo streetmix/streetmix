@@ -116,9 +116,7 @@ routes.post(
   resources.services.integrations.patreon.webhook
 )
 
-// Redirect the user to the OAuth 2.0 provider for authentication.  When
-// complete, the provider will redirect the user back to the application at
-//     /auth/provider/callback
+// Redirect the user to the OAuth 2.0 provider for authentication.
 routes.get(
   '/services/integrations/coil',
   jwtCheck,
@@ -127,8 +125,10 @@ routes.get(
 
 // The OAuth 2.0 provider has redirected the user back to the application.
 // Finish the authentication process by attempting to obtain an access
-// token.  If authorization was granted, the user will be logged in.
-// Otherwise, authentication has failed.
+// token.
+// If authorization was granted, the user's account data will be updated
+// and a BTP token will be issued
+
 routes.get(
   '/services/integrations/coil/callback',
   resources.services.integrations.coil.callback,

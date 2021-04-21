@@ -39,18 +39,16 @@ const coilStrategy = new OAuth2Strategy(
   },
   async function (req, accessToken, refreshToken, params, profile, done) {
     // params are returned by passport from the request
-    // coil instructs us to store the refresh token
-
-    // we still need to actually get the user profile data
     const databaseUser = await findUser(req.query.state)
     // passing the profile data along the request, probably another way to do this
     // we get the access token here, which we may need to then pass to the next endpoint for coil to get the user info (subscriptions, etc)
     req.profile = profile
+    profile.refresh_token = refreshToken
     return done(null, databaseUser)
   }
 )
 
-const fetchUserInfo = async (accessToken, done) => {
+const getUserInfo = async (accessToken, done) => {
   try {
     const requestConfig = {
       method: 'post',
@@ -66,19 +64,19 @@ const fetchUserInfo = async (accessToken, done) => {
     profile.access_token = accessToken
     done(null, profile)
   } catch (error) {
+    logger.error(error)
     return done(new InternalOAuthError('failed to fetch user profile', error))
   }
 }
 
-// make a custom function get userProfile data
+// make a custom function get userProfile data (passport oauth default is nothing)
 coilStrategy.userProfile = function (accessToken, done) {
-  fetchUserInfo(accessToken, done)
+  getUserInfo(accessToken, done)
 }
 
 const initCoil = () => {
   passport.use('coil', coilStrategy)
 
-  // these aren't used yet, but would be if we start using persistent user sessions
   passport.serializeUser(function (user, done) {
     done(null, user)
   })
@@ -125,19 +123,42 @@ exports.callback = (req, res, next) => {
   })(req, res, next)
 }
 
+const getBTPToken = async (accessToken) => {
+  try {
+    const requestConfig = {
+      method: 'post',
+      url: 'https://api.coil.com/user/btp',
+      headers: {
+        Authorization: 'Bearer ' + accessToken,
+        content_type: 'application/x-www-form-urlencoded'
+      }
+    }
+    const response = await axios(requestConfig)
+    const token = response.data.btpToken
+    return token
+  } catch (error) {
+    logger.error(error)
+  }
+}
+
 /**
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
  */
-exports.connectUser = async (req, res) => {
+exports.connectUser = async (req, res, next) => {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
-  // TODO add coil info
   const databaseUser = req.account
   const identity = {
     provider: req.profile.provider,
-    user_id: req.profile.id
+    user_id: req.profile.id,
+    access_token: req.profile.access_token,
+    refresh_token: req.profile.refresh_token
   }
+  // TODO: put this in the template somehow, for now in request session (or maybe cookie?)
+  // TODO this returns a 403
+  const btpToken = await getBTPToken(req.profile.access_token)
+  req.session.btpToken = btpToken
   try {
     await User.update(
       {
@@ -145,10 +166,11 @@ exports.connectUser = async (req, res) => {
       },
       { where: { id: databaseUser.id }, returning: true }
     )
-    res.redirect('/')
-  } catch (err) {
+    // todo: should we call next() here instead of redirect to root?
+    next()
+  } catch (error) {
     // what would we want to do here?
-    logger.error(err)
+    logger.error(error)
     res.redirect('/error')
   }
 }
