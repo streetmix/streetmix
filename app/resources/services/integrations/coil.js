@@ -6,17 +6,7 @@ const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
 const axios = require('axios')
 const InternalOAuthError = require('passport-oauth2').InternalOAuthError
-
-/**
- finds the database record for the given user
- */
-const findUser = async function (userId) {
-  const user = await User.findByPk(userId)
-  if (user === null) {
-    return 'user not found'
-  }
-  return user.dataValues
-}
+const { findUser } = require('./findUser')
 
 const authToken = btoa(
   process.env.COIL_CLIENT_ID +
@@ -108,7 +98,7 @@ exports.get = (req, res, next) => {
       getting here from a button that you only see when you're signed in..
     */
   passport.authorize('coil', {
-    state: req.user.nickname,
+    state: req.user.sub,
     failureRedirect: '/error'
   })(req, res, next)
 }
@@ -155,16 +145,17 @@ exports.connectUser = async (req, res, next) => {
     access_token: req.profile.access_token,
     refresh_token: req.profile.refresh_token
   }
-  // TODO: put this in the template somehow, for now in request session (or maybe cookie?)
-  // TODO this returns a 403
-  const btpToken = await getBTPToken(req.profile.access_token)
-  req.session.btpToken = btpToken
+
   try {
+    // TODO: put this in the template somehow, for now in request session (or maybe cookie?)
+    // TODO this returns a 403 (maybe 404, thats what I'm getting on the router now)
+    const btpToken = await getBTPToken(req.profile.access_token)
+    req.session.btpToken = btpToken
     await User.update(
       {
         identities: [identity]
       },
-      { where: { id: databaseUser.id }, returning: true }
+      { where: { auth0Id: databaseUser.auth0Id }, returning: true }
     )
     // todo: should we call next() here instead of redirect to root?
     next()
