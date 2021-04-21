@@ -124,12 +124,25 @@ exports.connectUser = async (req, res) => {
     user_id: req.profile.id
   }
   try {
+    // TODO: what is coming back from the profile, has the user paid for the subscription,
+    // if user has paid (set db to say users role is tier1)
+    // profile.pledges
+    // save refresh token for patreon auth - allws check for patreon
+    const pledges = req.profile._json.relationships.pledges
+    let role = 'USER'
+
+    if (pledges.length > 0) {
+      role = 'SUBSCRIBER_1'
+    }
+
     await User.update(
       {
-        identities: [identity]
+        identities: [identity],
+        roles: [role]
       },
       { where: { id: databaseUser.id }, returning: true }
     )
+
     res.redirect('/')
   } catch (err) {
     // what would we want to do here?
