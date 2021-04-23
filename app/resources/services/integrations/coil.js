@@ -7,6 +7,7 @@ const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
 const axios = require('axios')
 const InternalOAuthError = require('passport-oauth2').InternalOAuthError
 const { findUser } = require('./findUser')
+const { syncAccountStatus } = require('./syncAccountStatus')
 
 const authToken = btoa(
   process.env.COIL_CLIENT_ID +
@@ -145,20 +146,21 @@ exports.connectUser = async (req, res, next) => {
     access_token: req.profile.access_token,
     refresh_token: req.profile.refresh_token
   }
-
+  // if we get the BTP Token, thats good enough to add the Role
+  // later we might need to check, refresh
   try {
-    // TODO: put this in the template somehow, for now in request session (or maybe cookie?)
-    // TODO this returns a 403 (maybe 404, thats what I'm getting on the router now)
+    // we pass the token to the request session, so it should persist as long as the user has their browser open
     const btpToken = await getBTPToken(req.profile.access_token)
     req.session.btpToken = btpToken
+    await syncAccountStatus(databaseUser.auth0Id)
     await User.update(
       {
         identities: [identity]
       },
       { where: { auth0Id: databaseUser.auth0Id }, returning: true }
     )
-    // todo: should we call next() here instead of redirect to root?
-    next()
+    // first you redirect, the token dosen't seem present, but its in the session thereafter..
+    res.redirect('/')
   } catch (error) {
     // what would we want to do here?
     logger.error(error)

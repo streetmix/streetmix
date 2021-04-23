@@ -46,9 +46,10 @@
     {{! Do not track parameter }}
     <meta name="twitter:dnt" content="on">
 
-    {{! Web Monetization, if a payment pointer is provider (experimental) }}
+    {{! Web Monetization, if a payment pointer is provider (experimental)
+    TODO: figure out how to pass the content from .env or config }}
     {{#config.monetization}}
-      <meta name="monetization" content="{{WEB_MONETIZATION_PAYMENT_POINTER}}">
+      <meta name="monetization" content="$ilp.uphold.com/fnEfjW3apWmJ">
     {{/config.monetization}}
     <script>
       if (document.monetization) {
@@ -118,7 +119,9 @@
     <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/main.{{cacheTimestamp}}.js"></script>
     <script>
-      document.coilMonetizationPolyfill.init({ btpToken: {{ session.btpToken }} })
+      document.coilMonetizationPolyfill.init({ btpToken: {{btpToken}} })
+
+
     </script>
   </body>
 

@@ -92,7 +92,9 @@ const csp = {
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
-      'plausible.io'
+      'plausible.io',
+      'cdn.coil.com',
+      "'unsafe-inline'"
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
@@ -241,5 +243,8 @@ app.get(
   requestHandlers.metatags
 )
 
-// Catch-all
-app.use((req, res) => res.render('main'))
+// Catch-all, also passes a btpToken for coil integration of streaming payments
+app.use(function (req, res) {
+  res.locals.btpToken = req.session.btpToken
+  res.render('main')
+})
