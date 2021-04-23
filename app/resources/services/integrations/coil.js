@@ -25,7 +25,7 @@ const coilStrategy = new OAuth2Strategy(
     passReqToCallback: true,
     customHeaders: {
       authorization: `Basic ${authToken}`,
-      content_type: 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded'
     }
   },
   async function (req, accessToken, refreshToken, params, profile, done) {
@@ -46,7 +46,7 @@ const getUserInfo = async (accessToken, done) => {
       url: 'https://api.coil.com/user/info',
       headers: {
         Authorization: 'Bearer ' + accessToken,
-        content_type: 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded'
       }
     }
     const response = await axios(requestConfig)
@@ -121,7 +121,7 @@ const getBTPToken = async (accessToken) => {
       url: 'https://api.coil.com/user/btp',
       headers: {
         Authorization: 'Bearer ' + accessToken,
-        content_type: 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded'
       }
     }
     const response = await axios(requestConfig)
