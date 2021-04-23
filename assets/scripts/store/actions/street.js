@@ -140,6 +140,8 @@ export const getLastStreet = () => {
     const lastStreetId = getState().app.priorLastStreetId
     const { id, namespacedId } = getState().street
     try {
+      // check this later
+      // eslint-disable-next-line import/no-named-as-default-member
       const response = await apiClient.getStreet(lastStreetId)
       const street = createStreetFromResponse(response)
       setIgnoreStreetChanges(true)

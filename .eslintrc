@@ -25,9 +25,13 @@
     "plugin:react/recommended",
     "standard",
     "standard-jsx",
-    "standard-react"
+    "standard-react",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
   "rules": {
+    "import/no-unresolved": 0, 
+    "import/order": 1,
     "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-boolean-value": ["error", "always"],
     "no-restricted-globals": [
