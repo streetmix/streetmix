@@ -1,13 +1,19 @@
 const config = require('config')
-const logger = require('../../../../lib/logger.js')()
+
 const btoa = require('btoa')
-const { User } = require('../../../db/models')
+
 const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
-const axios = require('axios')
 const InternalOAuthError = require('passport-oauth2').InternalOAuthError
-const { findUser } = require('./findUser')
-const { syncAccountStatus } = require('./syncAccountStatus')
+const axios = require('axios')
+const { User } = require('../../../db/models')
+const logger = require('../../../../lib/logger.js')()
+
+const {
+  findUser,
+  addOrUpdateByProviderName,
+  syncAccountStatus
+} = require('./helpers')
 
 const authToken = btoa(
   process.env.COIL_CLIENT_ID +
@@ -139,26 +145,34 @@ const getBTPToken = async (accessToken) => {
 exports.connectUser = async (req, res, next) => {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
+
   const databaseUser = req.account
+  const identities = req.account.identities
   const identity = {
     provider: req.profile.provider,
     user_id: req.profile.id,
     access_token: req.profile.access_token,
     refresh_token: req.profile.refresh_token
   }
+
+  // if provider exists, should update that item
+  // if not, should add to the object list
+  //
+  addOrUpdateByProviderName(identities, identity)
+
   // if we get the BTP Token, thats good enough to add the Role
   // later we might need to check, refresh
   try {
     // we pass the token to the request session, so it should persist as long as the user has their browser open
     const btpToken = await getBTPToken(req.profile.access_token)
     req.session.btpToken = btpToken
-    await syncAccountStatus(databaseUser.auth0Id)
     await User.update(
       {
-        identities: [identity]
+        identities: identities
       },
       { where: { auth0Id: databaseUser.auth0Id }, returning: true }
     )
+    await syncAccountStatus(databaseUser.auth0Id)
     // first you redirect, the token dosen't seem present, but its in the session thereafter..
     res.redirect('/')
   } catch (error) {
