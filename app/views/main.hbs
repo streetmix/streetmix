@@ -51,16 +51,7 @@
     {{#config.monetization}}
       <meta name="monetization" content="$ilp.uphold.com/fnEfjW3apWmJ">
     {{/config.monetization}}
-    <script>
-      if (document.monetization) {
-        document.monetizationExtensionInstalled = true
-      } else {
-        document.monetization = document.createElement('div')
-        document.monetization.state = 'stopped'
-      }
-    </script>
-    <script src="https://cdn.coil.com/coil-oauth-wm.v7.beta.js" defer>
-    </script>
+
 
 
 
@@ -118,11 +109,6 @@
 
     <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/main.{{cacheTimestamp}}.js"></script>
-    <script>
-      document.coilMonetizationPolyfill.init({ btpToken: {{btpToken}} })
-
-
-    </script>
   </body>
 
 </html>
