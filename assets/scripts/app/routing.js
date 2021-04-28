@@ -1,6 +1,7 @@
 import { AUTH0_SIGN_IN_CALLBACK_PATH } from './config'
 import { URL_NEW_STREET, URL_EXAMPLE_STREET } from './constants'
 import Authenticate from './auth0'
+import store from '../store'
 
 const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
   AUTH0_SIGN_IN_CALLBACK_PATH,
@@ -51,6 +52,17 @@ export function goGoogleSignIn () {
     responseType: 'code',
     connection: 'google-oauth2',
     redirectUri: AUTH0_SIGN_IN_CALLBACK_URL
+  })
+}
+
+export function goUniversalSignIn (loginHint, screenHint) {
+  const auth0 = Authenticate()
+  auth0.authorize({
+    responseType: 'code',
+    redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,
+    loginHint,
+    screenHint,
+    uiLocales: store.getState().locale.locale
   })
 }
 

@@ -53,15 +53,26 @@ exports[`SignInDialog renders 1`] = `
             <p
               class="sign-in-email-password-note"
             >
-              <small>
-                We’ll send you a link to sign in. No password is required.
-              </small>
+              👋 
+              <strong>
+                You can now sign in with a password!
+              </strong>
+               If you don't have a password yet, 
+              <a>
+                sign up here
+              </a>
+               with your existing email. (All your streets will carry over.) You can use either method at any time.
             </p>
             <button
               class="button-primary sign-in-button sign-in-email-button"
               type="submit"
             >
-              Continue with email
+              Continue with password
+            </button>
+            <button
+              class="button-tertiary sign-in-button sign-in-email-button"
+            >
+              Continue with email link
             </button>
           </form>
           <div
