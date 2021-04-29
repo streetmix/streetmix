@@ -46,10 +46,9 @@
     {{! Do not track parameter }}
     <meta name="twitter:dnt" content="on">
 
-    {{! Web Monetization, if a payment pointer is provider (experimental)
-    TODO: figure out how to pass the content from .env or config }}
+    {{! Web Monetization, if a payment pointer is provider (experimental)}}
     {{#config.monetization}}
-      <meta name="monetization" content="$ilp.uphold.com/fnEfjW3apWmJ">
+      <meta name="monetization" content={{.}}>
     {{/config.monetization}}
 
 

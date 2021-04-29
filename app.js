@@ -6,22 +6,22 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
+const path = require('path')
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const express = require('express')
 const helmet = require('helmet')
 const config = require('config')
-const path = require('path')
+const swaggerUi = require('swagger-ui-express')
+const swaggerJSDoc = require('swagger-jsdoc')
+const chalk = require('chalk')
 const controllers = require('./app/controllers')
 const requestHandlers = require('./lib/request_handlers')
 const initCloudinary = require('./lib/cloudinary')
 const compileSVGSprites = require('./lib/svg-sprite')
-const swaggerUi = require('swagger-ui-express')
-const swaggerJSDoc = require('swagger-jsdoc')
 const apiRoutes = require('./app/api_routes')
 const serviceRoutes = require('./app/service_routes')
-const chalk = require('chalk')
 const logger = require('./lib/logger.js')()
 const jwtCheck = require('./app/authentication')
 const passport = require('passport')
@@ -93,8 +93,7 @@ const csp = {
       'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
       'plausible.io',
-      'cdn.coil.com',
-      "'unsafe-inline'"
+      'cdn.coil.com'
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
