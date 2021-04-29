@@ -1,10 +1,11 @@
-const config = require('config')
 const crypto = require('crypto')
+const config = require('config')
 const logger = require('../../../../lib/logger.js')()
 
 const { User } = require('../../../db/models')
 const passport = require('passport')
 const PatreonStrategy = require('passport-patreon').Strategy
+const { findUser } = require('./helpers')
 
 /*
 our use case makes this a little complicated,
@@ -23,19 +24,7 @@ which passes along the account id/name (and errors if no one is signed in)
 We then pass this to our passport strategy, which grabs third party data and
 looks up the user in _our_ database, which then gets handled by the callback function
 an subsequently links all this info together
-
 */
-
-/**
- finds the database record for the given user
- */
-const findUser = async function (userId) {
-  const user = await User.findByPk(userId)
-  if (user === null) {
-    return 'user not found'
-  }
-  return user.dataValues
-}
 
 const initPatreon = () => {
   passport.use(
@@ -96,7 +85,7 @@ exports.get = (req, res, next) => {
     getting here from a button that you only see when you're signed in..
   */
   passport.authorize('patreon', {
-    state: req.user.nickname,
+    state: req.user.sub,
     failureRedirect: '/error'
   })(req, res, next)
 }
@@ -131,7 +120,7 @@ exports.connectUser = async (req, res) => {
       {
         identities: [identity]
       },
-      { where: { id: databaseUser.id }, returning: true }
+      { where: { auth0Id: databaseUser.auth0Id }, returning: true }
     )
     res.redirect('/')
   } catch (err) {

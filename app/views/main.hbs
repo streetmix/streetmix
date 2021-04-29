@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <title>Streetmix</title>
 
     <meta charset="utf-8">
     <meta http-equiv="Content-Language" content="en">
     <meta name="title" content="{{STREETMIX_TITLE}}">
-    <meta name="description" content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
+    <meta name="description"
+      content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
 
     {{! Preview content for search engines, social media, chat apps }}
     {{! Open Graph / Facebook }}
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{STREETMIX_URL}}">
     <meta property="og:title" content="{{STREETMIX_TITLE}}">
-    <meta property="og:description" content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
+    <meta property="og:description"
+      content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
     <meta property="og:image" content="{{STREETMIX_IMAGE.image}}">
     <meta property="og:image:width" content="{{STREETMIX_IMAGE.width}}">
     <meta property="og:image:height" content="{{STREETMIX_IMAGE.height}}">
@@ -25,7 +28,8 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{STREETMIX_URL}}">
     <meta property="twitter:title" content="{{STREETMIX_TITLE}}">
-    <meta property="twitter:description" content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
+    <meta property="twitter:description"
+      content="A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.">
     <meta property="twitter:image" content="{{STREETMIX_IMAGE.image}}">
 
     {{! Display at 50% on mobile devices only; should not affect desktop browsers }}
@@ -42,10 +46,13 @@
     {{! Do not track parameter }}
     <meta name="twitter:dnt" content="on">
 
-    {{! Web Monetization, if a payment pointer is provider (experimental) }}
+    {{! Web Monetization, if a payment pointer is provider (experimental)}}
     {{#config.monetization}}
-    <meta name="monetization" content="{{.}}">
+      <meta name="monetization" content="{{.}}">
     {{/config.monetization}}
+
+
+
 
     <link rel="canonical" href="{{STREETMIX_URL}}">
 
@@ -62,19 +69,22 @@
     <meta name="theme-color" content="#1a914e">
 
     {{! Fonts and other styles }}
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Rubik:ital,wght@0,400;0,500;1,500&family=Overpass:wght@700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Rubik:ital,wght@0,400;0,500;1,500&family=Overpass:wght@700&display=swap"
+      rel="stylesheet">
     <link href="/assets/main.{{cacheTimestamp}}.css" rel="stylesheet">
- 
+
     {{#config.pinterest}}
-    {{! Pinterest domain verification }}
-    <meta name="p:domain_verify" content="{{.}}"/>
+      {{! Pinterest domain verification }}
+      <meta name="p:domain_verify" content="{{.}}" />
     {{/config.pinterest}}
 
     {{#config.plausible}}
-    {{! Plausible.io analytics }}
-    <script async defer data-domain="{{domain}}" src="https://plausible.io/js/plausible.js"></script>
+      {{! Plausible.io analytics }}
+      <script async defer data-domain="{{domain}}" src="https://plausible.io/js/plausible.js"></script>
     {{/config.plausible}}
   </head>
+
   <body tabindex="1">
 
     {{! SVG staging area }}
@@ -86,9 +96,11 @@
       <div class="loading-spinner"></div>
       <div class="loading-stuck" id="loading-stuck-notice" aria-hidden="true">
         <strong>Not loading?</strong>
-        <a href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/" target="_blank" rel="noopener noreferer">Troubleshooting tips</a>
+        <a href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/" target="_blank"
+          rel="noopener noreferer">Troubleshooting tips</a>
       </div>
-      <noscript>To use Streetmix,&nbsp;<a href="https://www.enable-javascript.com/">please enable JavaScript</a>.</noscript>
+      <noscript>To use Streetmix,&nbsp;<a href="https://www.enable-javascript.com/">please enable
+          JavaScript</a>.</noscript>
     </div>
 
     {{! Mount point for React }}
@@ -97,4 +109,5 @@
     <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/main.{{cacheTimestamp}}.js"></script>
   </body>
+
 </html>

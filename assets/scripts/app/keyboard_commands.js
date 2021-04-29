@@ -1,9 +1,9 @@
 import { noop } from 'lodash'
 
 import USER_ROLES from '../../../app/data/user_roles'
-import { ENV } from './config'
-import { registerKeypress } from './keypress'
 import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
+// check looks like this dosen't exist anymore
+// eslint-disable-next-line import/named
 import { handleSegmentMoveCancel } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
 import { getSignInData, isSignedIn } from '../users/authentication'
@@ -12,6 +12,8 @@ import { showDialog } from '../store/slices/dialogs'
 import { addToast } from '../store/slices/toasts'
 import { handleUndo, handleRedo } from '../store/actions/undo'
 import store from '../store'
+import { registerKeypress } from './keypress'
+import { ENV } from './config'
 
 export function onGlobalKeyDown (event) {
   const { draggingType } = store.getState().ui
