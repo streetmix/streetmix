@@ -15,63 +15,62 @@ const {
   syncAccountStatus
 } = require('./helpers')
 
-const authToken = btoa(
-  process.env.COIL_CLIENT_ID +
-    ':' +
-    encodeURIComponent(process.env.COIL_CLIENT_SECRET)
-)
-const coilStrategy = new OAuth2Strategy(
-  {
-    authorizationURL: 'https://coil.com/oauth/auth',
-    tokenURL: 'https://coil.com/oauth/token',
-    clientID: process.env.COIL_CLIENT_ID,
-    clientSecret: process.env.COIL_CLIENT_SECRET,
-    scope: 'simple_wm openid',
-    callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/coil/callback`,
-    passReqToCallback: true,
-    customHeaders: {
-      authorization: `Basic ${authToken}`,
-      'content-type': 'application/x-www-form-urlencoded'
-    }
-  },
-  async function (req, accessToken, refreshToken, params, profile, done) {
-    // params are returned by passport from the request
-    const databaseUser = await findUser(req.query.state)
-    // passing the profile data along the request, probably another way to do this
-    // we get the access token here, which we may need to then pass to the next endpoint for coil to get the user info (subscriptions, etc)
-    req.profile = profile
-    profile.refresh_token = refreshToken
-    return done(null, databaseUser)
-  }
-)
-
-const getUserInfo = async (accessToken, done) => {
-  try {
-    const requestConfig = {
-      method: 'post',
-      url: 'https://api.coil.com/user/info',
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
+const initCoil = () => {
+  const authToken = btoa(
+    process.env.COIL_CLIENT_ID +
+      ':' +
+      encodeURIComponent(process.env.COIL_CLIENT_SECRET)
+  )
+  const coilStrategy = new OAuth2Strategy(
+    {
+      authorizationURL: 'https://coil.com/oauth/auth',
+      tokenURL: 'https://coil.com/oauth/token',
+      clientID: process.env.COIL_CLIENT_ID,
+      clientSecret: process.env.COIL_CLIENT_SECRET,
+      scope: 'simple_wm openid',
+      callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/coil/callback`,
+      passReqToCallback: true,
+      customHeaders: {
+        authorization: `Basic ${authToken}`,
         'content-type': 'application/x-www-form-urlencoded'
       }
+    },
+    async function (req, accessToken, refreshToken, params, profile, done) {
+      // params are returned by passport from the request
+      const databaseUser = await findUser(req.query.state)
+      // passing the profile data along the request, probably another way to do this
+      // we get the access token here, which we may need to then pass to the next endpoint for coil to get the user info (subscriptions, etc)
+      req.profile = profile
+      profile.refresh_token = refreshToken
+      return done(null, databaseUser)
     }
-    const response = await axios(requestConfig)
-    const profile = { provider: 'coil' }
-    profile.id = response.data.sub
-    profile.access_token = accessToken
-    done(null, profile)
-  } catch (error) {
-    logger.error(error)
-    return done(new InternalOAuthError('failed to fetch user profile', error))
+  )
+
+  const getUserInfo = async (accessToken, done) => {
+    try {
+      const requestConfig = {
+        method: 'post',
+        url: 'https://api.coil.com/user/info',
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+          'content-type': 'application/x-www-form-urlencoded'
+        }
+      }
+      const response = await axios(requestConfig)
+      const profile = { provider: 'coil' }
+      profile.id = response.data.sub
+      profile.access_token = accessToken
+      done(null, profile)
+    } catch (error) {
+      logger.error(error)
+      return done(new InternalOAuthError('failed to fetch user profile', error))
+    }
   }
-}
 
-// make a custom function get userProfile data (passport oauth default is nothing)
-coilStrategy.userProfile = function (accessToken, done) {
-  getUserInfo(accessToken, done)
-}
-
-const initCoil = () => {
+  // make a custom function get userProfile data (passport oauth default is nothing)
+  coilStrategy.userProfile = function (accessToken, done) {
+    getUserInfo(accessToken, done)
+  }
   passport.use('coil', coilStrategy)
 
   passport.serializeUser(function (user, done) {
