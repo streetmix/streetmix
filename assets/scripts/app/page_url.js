@@ -8,6 +8,8 @@ import {
   URL_GLOBAL_GALLERY,
   URL_RESERVED_PREFIX,
   URL_SURVEY_FINISHED,
+  URL_RETURNED_FROM_PAYMENT,
+  URL_EXTERNAL_UPGRADE_PATH,
   RESERVED_URLS
 } from './constants'
 import { normalizeSlug } from '../util/helpers'
@@ -36,6 +38,8 @@ export function processUrl () {
   // filter out empty string parts
   const urlParts = pathname.split(/\//).filter((x) => x !== '')
 
+  const queryString = new URLSearchParams(window.location.search)
+
   // Continue where we left off… or start with a default (demo) street
   if (pathname === '/' || pathname === '') {
     setMode(MODES.CONTINUE)
@@ -51,6 +55,22 @@ export function processUrl () {
     // Coming back from a successful sign in
   } else if (pathname === JUST_SIGNED_IN_PATH) {
     setMode(MODES.JUST_SIGNED_IN)
+
+    // When we try to pay with Patreon, we want to display the
+    // upgrade dialogue again for the user, so we need to know
+    // that they have returned in the frontend
+  } else if (pathname === URL_RETURNED_FROM_PAYMENT) {
+    setMode(MODES.JUST_RETURNED_FROM_PAYMENT)
+
+    // There may have been a Patreon error
+    if (queryString.get('error')) {
+      setMode(MODES.JUST_RETURNED_FROM_PAYMENT_ERROR)
+    }
+
+    // Prompt user to upgrade if they have come from the
+    // website to upgrade
+  } else if (pathname === URL_EXTERNAL_UPGRADE_PATH) {
+    setMode(MODES.PROMPT_UPGRADE)
 
     // Error
   } else if (pathname.startsWith(URL_ERROR)) {

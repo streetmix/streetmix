@@ -5,7 +5,6 @@ const logger = require('../../../../lib/logger.js')()
 const { User } = require('../../../db/models')
 const passport = require('passport')
 const PatreonStrategy = require('passport-patreon').Strategy
-
 /*
 our use case makes this a little complicated,
 we basically have three user instances to check:
@@ -26,6 +25,8 @@ an subsequently links all this info together
 
 */
 
+const successUrl = '/returned-from-payment-provider'
+const errorUrl = successUrl + '?error=true'
 /**
  finds the database record for the given user
  */
@@ -97,7 +98,7 @@ exports.get = (req, res, next) => {
   */
   passport.authorize('patreon', {
     state: req.user.nickname,
-    failureRedirect: '/error'
+    failureRedirect: errorUrl
   })(req, res, next)
 }
 
@@ -110,7 +111,7 @@ exports.callback = (req, res, next) => {
   }
 
   passport.authorize('patreon', {
-    failureRedirect: '/error'
+    failureRedirect: errorUrl
   })(req, res, next)
 }
 
@@ -127,17 +128,29 @@ exports.connectUser = async (req, res) => {
     user_id: req.profile.id
   }
   try {
+    // TODO: what is coming back from the profile, has the user paid for the subscription,
+    // if user has paid (set db to say users role is tier1)
+    // profile.pledges
+    // save refresh token for patreon auth - allws check for patreon
+    const pledges = req.profile._json.relationships.pledges
+    let role = 'USER'
+
+    if (pledges.length > 0) {
+      role = 'SUBSCRIBER_1'
+    }
+
     await User.update(
       {
-        identities: [identity]
+        identities: [identity],
+        roles: [role]
       },
       { where: { id: databaseUser.id }, returning: true }
     )
-    res.redirect('/')
+    res.redirect(successUrl)
   } catch (err) {
     // what would we want to do here?
     logger.error(err)
-    res.redirect('/error')
+    res.redirect(errorUrl)
   }
 }
 

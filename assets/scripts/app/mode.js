@@ -22,7 +22,10 @@ export const MODES = {
   STREET_410_BUT_LINK_TO_USER: 17,
   ABOUT: 18,
   AUTH_EXPIRED: 19,
-  SURVEY_FINISHED: 20
+  SURVEY_FINISHED: 20,
+  JUST_RETURNED_FROM_PAYMENT: 21,
+  JUST_RETURNED_FROM_PAYMENT_ERROR: 22,
+  PROMPT_UPGRADE: 23
 }
 
 let mode
@@ -90,6 +93,15 @@ export function processMode () {
       setServerContacted(false)
       break
     case MODES.EXISTING_STREET:
+      setServerContacted(false)
+      break
+    case MODES.JUST_RETURNED_FROM_PAYMENT:
+      setServerContacted(false)
+      break
+    case MODES.JUST_RETURNED_FROM_PAYMENT_ERROR:
+      setServerContacted(false)
+      break
+    case MODES.PROMPT_UPGRADE:
       setServerContacted(false)
       break
   }

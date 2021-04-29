@@ -22,6 +22,7 @@ import {
 import { showDialog } from '../store/slices/dialogs'
 import { updateStreetIdMetadata } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
+import { LOCAL_STORAGE_CONTINUE_PAYMENT_STATE } from '../app/constants'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -29,6 +30,11 @@ const REFRESH_TOKEN_COOKIE = 'refresh_token'
 const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
 export function doSignIn () {
+  store.dispatch(showDialog('SIGN_IN'))
+}
+
+export function doSignInForUpgrade () {
+  window.localStorage.setItem(LOCAL_STORAGE_CONTINUE_PAYMENT_STATE, 'true')
   store.dispatch(showDialog('SIGN_IN'))
 }
 

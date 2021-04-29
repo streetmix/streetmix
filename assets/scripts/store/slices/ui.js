@@ -13,7 +13,8 @@ const uiSlice = createSlice({
     activeSegment: null,
     draggingState: null,
     draggingType: 0,
-    resizeGuidesVisible: false
+    resizeGuidesVisible: false,
+    clickedPatreonUpdgrade: false
   },
 
   reducers: {
@@ -58,6 +59,10 @@ const uiSlice = createSlice({
 
     toggleToolbox (state, action) {
       state.toolboxVisible = !state.toolboxVisible
+    },
+
+    updatePatreonClickState (state, action) {
+      state.clickedPatreonUpdgrade = action.payload
     }
   }
 })
@@ -70,7 +75,8 @@ export const {
   updateDraggingState,
   clearDraggingState,
   setDraggingType,
-  toggleToolbox
+  toggleToolbox,
+  updatePatreonClickState
 } = uiSlice.actions
 
 export default uiSlice.reducer

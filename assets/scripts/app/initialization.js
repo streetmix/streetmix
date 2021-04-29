@@ -26,6 +26,11 @@ import store, { observeStore } from '../store'
 import { openGallery } from '../store/actions/gallery'
 import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
+import {
+  LSKEY_PATREON_SIGNIN_STATE,
+  LSKEY_CONTINUE_PAYMENT_STATE,
+  LSKEY_PROMPT_UPGRADE
+} from './constants'
 
 let serverContacted
 
@@ -72,6 +77,18 @@ export async function initialize () {
   processMode()
   if (store.getState().errors.abortEverything) {
     return
+  }
+
+  // Upgrade dialog states
+  if (getMode() === MODES.PROMPT_UPGRADE) {
+    window.localStorage[LSKEY_PROMPT_UPGRADE] = 'true'
+    window.location.href = '/'
+  } else if (getMode() === MODES.JUST_RETURNED_FROM_PAYMENT) {
+    window.localStorage[LSKEY_PATREON_SIGNIN_STATE] = 'success'
+    window.location.href = '/'
+  } else if (getMode() === MODES.JUST_RETURNED_FROM_PAYMENT_ERROR) {
+    window.localStorage[LSKEY_PATREON_SIGNIN_STATE] = 'error'
+    window.location.href = '/'
   }
 
   // Asynchronously loading…
@@ -203,6 +220,18 @@ function onEverythingLoaded () {
     ) {
       store.dispatch(showDialog('WHATS_NEW'))
       window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP] = whatsNewTimestamp
+    }
+
+    const signedinContinueUpgrade =
+      window.localStorage[LSKEY_CONTINUE_PAYMENT_STATE]
+    if (signedinContinueUpgrade) {
+      store.dispatch(showDialog('UPGRADE'))
+    }
+
+    const promptUpgradeForExternalUser =
+      window.localStorage[LSKEY_PROMPT_UPGRADE]
+    if (promptUpgradeForExternalUser) {
+      store.dispatch(showDialog('UPGRADE'))
     }
   }
 }
