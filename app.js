@@ -93,7 +93,8 @@ const csp = {
       'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
       'plausible.io',
-      'cdn.coil.com'
+      'cdn.coil.com',
+      "'unsafe-inline'"
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
