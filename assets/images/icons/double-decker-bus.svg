@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1.03133,0,0,1.03133,-0.751832,-0.442867)">
+        <g id="double-decker-bus">
+            <path d="M11.202,39.215L10.98,3.531L13.014,1.4L35.033,1.4L37.13,3.556L36.566,39.215L32.574,39.234L32.17,41.461L36.547,41.456L36.517,43.478L36.271,46.059L33.691,46.059L33.164,43.478L14.569,43.478L14.041,46.059L11.461,46.059L11.22,43.478L11.209,41.439L15.568,41.434L15.154,39.217L11.202,39.215ZM13.48,23.047L13.534,35.576L34.331,35.52L34.56,23.058L13.48,23.047ZM13.33,5.676L13.385,15.16L34.602,15.105L34.787,5.672L13.33,5.676Z"/>
+        </g>
+    </g>
+</svg>

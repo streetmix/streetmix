@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="bus">
+        <path d="M41.131,39.685L41.024,42.431L40.996,42.434L40.69,45.943L37.181,45.943L36.464,42.431L11.173,42.431L10.455,45.943L6.946,45.943L6.641,42.434L6.618,42.431L6.548,39.659L11.895,39.652L11.331,36.956L6.505,36.952L5.75,5.6L10.406,2.701L39.126,2.701L42.366,5.6L41.197,36.966L36.299,36.979L35.75,39.689L41.131,39.685ZM23.159,10.918L7.784,10.756L8.127,28.947L23.122,28.978L23.159,10.918ZM25.145,10.904L24.993,28.957L39.689,28.872L40.338,10.946L25.145,10.904Z"/>
+    </g>
+</svg>

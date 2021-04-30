@@ -245,11 +245,11 @@
   },
   "bus-type": {
     "typical": {
-      "id": "bus-typical",
+      "id": "bus",
       "title": "Typical bus"
     },
     "double-decker": {
-      "id": "bus-double-decker",
+      "id": "double-decker-bus",
       "title": "Double decker bus",
       "enableWithFlag": "SEGMENT_DOUBLE_DECKER_BUS",
       "enableCondition": "SUBSCRIBE"
