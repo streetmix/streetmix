@@ -9,6 +9,9 @@
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret"
     },
+    "AUTH0_DOMAIN": {
+      "required": true
+    },
     "AUTH0_CLIENT_ID": {
       "required": true
     },
