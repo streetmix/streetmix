@@ -87,7 +87,7 @@ const csp = {
       "'self'",
       'platform.twitter.com',
       'cdn.mxpnl.com',
-      'streetmix.auth0.com',
+      process.env.AUTH0_DOMAIN,
       '*.basemaps.cartocdn.com',
       'api.geocode.earth',
       'downloads.mailchimp.com.s3.amazonaws.com',
@@ -117,7 +117,7 @@ const csp = {
       'api.geocode.earth',
       'syndication.twitter.com',
       'sentry.io',
-      'streetmix.auth0.com',
+      process.env.AUTH0_DOMAIN,
       'checkout.stripe.com',
       'plausible.io'
     ],

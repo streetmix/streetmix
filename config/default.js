@@ -7,11 +7,11 @@ module.exports = {
   app_host_port: 'localhost:' + port,
   header_host_port: 'localhost:' + port,
   auth0: {
-    domain: 'streetmix.auth0.com',
+    domain: process.env.AUTH0_DOMAIN || null,
     client_id: process.env.AUTH0_CLIENT_ID || null,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
-    token_api_url: 'https://streetmix.auth0.com/oauth/token',
-    audience: 'https://streetmix.auth0.com/api/v2/',
+    token_api_url: `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
+    audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
     screen_name_custom_claim: 'https://twitter.com/screen_name',
     management_scope: 'read:users write:users',
     callback_path: '/services/auth/sign-in-callback'

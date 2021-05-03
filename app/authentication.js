@@ -7,13 +7,13 @@ const secret = jwksRsa.expressJwtSecret({
   cache: true,
   rateLimit: true,
   jwksRequestsPerMinute: 5,
-  jwksUri: 'http://streetmix.auth0.com/.well-known/jwks.json'
+  jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
 })
 
 const jwtCheck = jwt({
   algorithms: ['RS256'],
   secret,
-  issuer: 'https://streetmix.auth0.com/',
+  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   audience: config.auth0.client_id,
   credentialsRequired: false,
   getToken: function fromCookies (req) {

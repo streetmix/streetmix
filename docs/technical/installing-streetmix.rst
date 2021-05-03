@@ -269,6 +269,8 @@ The only required environment variables are the keys used for the Auth0 authenti
 +-----------------------------------+----------------------------------------------+-----------+
 | Variable name                     | Description                                  | Required  |
 +===================================+==============================================+===========+
+| ``AUTH0_DOMAIN``                  | Authentication service (Auth0) domain        | Yes       |
++-----------------------------------+----------------------------------------------+-----------+
 | ``AUTH0_CLIENT_ID``               | Authentication service (Auth0) client ID     | Yes       |
 +-----------------------------------+----------------------------------------------+-----------+
 | ``AUTH0_CLIENT_SECRET``           | Authentication service (Auth0) client secret | Yes       |
