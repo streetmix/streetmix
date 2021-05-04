@@ -147,13 +147,20 @@ function Variants (props) {
       let enableConditionText
       switch (icon.enableCondition) {
         case 'SUBSCRIBE':
-          enableConditionText = intl.formatMessage({
-            id: 'plus.locked.sub',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Upgrade to Streetmix+ to use!‎'
-          })
+          if (flags.BUSINESS_PLAN?.value === true) {
+            enableConditionText = intl.formatMessage({
+              id: 'plus.locked.sub',
+              // Default message ends with a Unicode-only left-right order mark
+              // to allow for proper punctuation in `rtl` text direction
+              // This character is hidden from editors by default!
+              defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+            })
+          } else {
+            enableConditionText = intl.formatMessage({
+              id: 'plus.locked.soon',
+              defaultMessage: 'Coming soon!‎'
+            })
+          }
           break
         case 'SIGN_IN':
         default:
