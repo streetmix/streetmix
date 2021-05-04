@@ -243,9 +243,9 @@
       "email-label": "Email",
       "email-description": "We’ll send you a link to sign in. No password is required.",
       "email-invalid": "Oops! That didn’t look like a valid email address. Please try again.",
-      "password-transition": "👋 {callout} If you don't have a password yet, {signUpLink} with your existing email. (All your streets will carry over.) You can use either method at any time.",
-      "password-transition-callout": "You can now sign in with a password!",
-      "password-transition-sign-up-link-label": "sign up here",
+      "password-transition": "👋 {callout} Don’t have a password yet? {signUpLink} with your existing email, and all your streets will carry over.",
+      "password-transition-callout": "Heads up, email users. You now sign in with a password!",
+      "password-transition-sign-up-link-label": "Sign up",
       "social-heading": "or",
       "button": {
         "email": "Continue with email",

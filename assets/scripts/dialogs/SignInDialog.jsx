@@ -1,7 +1,9 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import {
-  goEmailSignIn,
+  // DEPRECATED: We are disabling magic link login, and will remove it as soon as the dust settles.
+  //             See https://github.com/streetmix/streetmix/issues/2023
+  // goEmailSignIn,
   goTwitterSignIn,
   goFacebookSignIn,
   goGoogleSignIn,
@@ -73,22 +75,24 @@ export default class SignInDialog extends React.Component {
     goTwitterSignIn()
   }
 
-  handleMagicLinkClick = (event) => {
-    event.preventDefault()
+  // DEPRECATED: We are disabling magic link login, and will remove it as soon as the dust settles.
+  //             See https://github.com/streetmix/streetmix/issues/2023
+  // handleMagicLinkClick = (event) => {
+  //   event.preventDefault()
 
-    // Since this is not the native form submission, we manually trigger the native validation.
-    if (!this.emailFormEl.current.reportValidity()) {
-      return
-    }
+  //   // Since this is not the native form submission, we manually trigger the native validation.
+  //   if (!this.emailFormEl.current.reportValidity()) {
+  //     return
+  //   }
 
-    const { email } = this.state
+  //   const { email } = this.state
 
-    goEmailSignIn(email, this.handleGoEmailSignIn)
+  //   goEmailSignIn(email, this.handleGoEmailSignIn)
 
-    this.setState({
-      sendingEmail: true
-    })
-  }
+  //   this.setState({
+  //     sendingEmail: true
+  //   })
+  // }
 
   handleGoEmailSignIn = (error, res) => {
     if (error) {
@@ -301,15 +305,14 @@ export default class SignInDialog extends React.Component {
                 <p className="sign-in-email-password-note">
                   <FormattedMessage
                     id="dialogs.sign-in.password-transition"
-                    defaultMessage="👋 {callout} If you don't have a password yet, {signUpLink} with
-                      your existing email. (All your streets will carry over.) You can use either
-                      method at any time."
+                    defaultMessage="👋 {callout} Don’t have a password yet? {signUpLink} with
+                      your existing email, and all your streets will carry over."
                     values={{
                       callout: (
                         <strong>
                           <FormattedMessage
                             id="dialogs.sign-in.password-transition-callout"
-                            defaultMessage="You can now sign in with a password!"
+                            defaultMessage="Heads up, email users. You now sign in with a password!"
                           />
                         </strong>
                       ),
@@ -317,7 +320,7 @@ export default class SignInDialog extends React.Component {
                         <a onClick={this.handleSignUpClick}>
                           <FormattedMessage
                             id="dialogs.sign-in.password-transition-sign-up-link-label"
-                            defaultMessage="sign up here"
+                            defaultMessage="Sign up"
                           />
                         </a>
                       )
@@ -335,7 +338,11 @@ export default class SignInDialog extends React.Component {
                   />
                 </button>
 
-                <button
+                {/*
+                  DEPRECATED: We are disabling magic link login, and will remove it as soon as the
+                              dust settles. See https://github.com/streetmix/streetmix/issues/2023
+                */}
+                {/* <button
                   className="button-tertiary sign-in-button sign-in-email-button"
                   onClick={this.handleMagicLinkClick}
                 >
@@ -343,7 +350,7 @@ export default class SignInDialog extends React.Component {
                     id="dialogs.sign-in.button.magic-link"
                     defaultMessage="Continue with email link"
                   />
-                </button>
+                </button> */}
               </form>
 
               <div className="sign-in-social-heading">
