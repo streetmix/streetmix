@@ -55,24 +55,19 @@ exports[`SignInDialog renders 1`] = `
             >
               👋 
               <strong>
-                You can now sign in with a password!
+                Heads up, email users. You now sign in with a password!
               </strong>
-               If you don't have a password yet, 
+               Don’t have a password yet? 
               <a>
-                sign up here
+                Sign up
               </a>
-               with your existing email. (All your streets will carry over.) You can use either method at any time.
+               with your existing email, and all your streets will carry over.
             </p>
             <button
               class="button-primary sign-in-button sign-in-email-button"
               type="submit"
             >
               Continue with password
-            </button>
-            <button
-              class="button-tertiary sign-in-button sign-in-email-button"
-            >
-              Continue with email link
             </button>
           </form>
           <div
