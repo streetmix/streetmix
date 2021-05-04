@@ -144,15 +144,36 @@ function Variants (props) {
     })
     // Add a note to the tooltip when disabled
     if (isLocked) {
-      title +=
-        ' — ' +
-        intl.formatMessage({
-          id: 'plus.locked.user',
-          // Default message ends with a Unicode-only left-right order mark
-          // to allow for proper punctuation in `rtl` text direction
-          // This character is hidden from editors by default!
-          defaultMessage: 'Sign in to use!‎'
-        })
+      let enableConditionText
+      switch (icon.enableCondition) {
+        case 'SUBSCRIBE':
+          if (flags.BUSINESS_PLAN?.value === true) {
+            enableConditionText = intl.formatMessage({
+              id: 'plus.locked.sub',
+              // Default message ends with a Unicode-only left-right order mark
+              // to allow for proper punctuation in `rtl` text direction
+              // This character is hidden from editors by default!
+              defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+            })
+          } else {
+            enableConditionText = intl.formatMessage({
+              id: 'plus.locked.soon',
+              defaultMessage: 'Coming soon!‎'
+            })
+          }
+          break
+        case 'SIGN_IN':
+        default:
+          enableConditionText = intl.formatMessage({
+            id: 'plus.locked.user',
+            // Default message ends with a Unicode-only left-right order mark
+            // to allow for proper punctuation in `rtl` text direction
+            // This character is hidden from editors by default!
+            defaultMessage: 'Sign in to use!‎'
+          })
+          break
+      }
+      title += ' — ' + enableConditionText
     }
 
     const isSelected = isVariantCurrentlySelected(set, selection)

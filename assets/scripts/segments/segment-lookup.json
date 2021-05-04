@@ -3057,6 +3057,56 @@
           ]
         }
       },
+      "inbound|microvan": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "microvan",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|microvan": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "microvan",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
       "inbound|av": {
         "components": {
           "lanes": [
@@ -3646,9 +3696,9 @@
       "minWidth": 10,
       "maxWidth": 13
     },
-    "variants": ["direction", "bus-asphalt"],
+    "variants": ["direction", "bus-asphalt", "bus-type"],
     "details": {
-      "inbound|regular": {
+      "inbound|regular|typical": {
         "components": {
           "lanes": [
             {
@@ -3673,7 +3723,7 @@
           ]
         }
       },
-      "outbound|regular": {
+      "outbound|regular|typical": {
         "components": {
           "lanes": [
             {
@@ -3698,7 +3748,7 @@
           ]
         }
       },
-      "inbound|colored": {
+      "inbound|colored|typical": {
         "components": {
           "lanes": [
             {
@@ -3723,7 +3773,7 @@
           ]
         }
       },
-      "outbound|colored": {
+      "outbound|colored|typical": {
         "components": {
           "lanes": [
             {
@@ -3748,7 +3798,7 @@
           ]
         }
       },
-      "inbound|shared": {
+      "inbound|shared|typical": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
         "defaultWidth": 14,
@@ -3793,7 +3843,7 @@
           ]
         }
       },
-      "outbound|shared": {
+      "outbound|shared|typical": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
         "defaultWidth": 14,
@@ -3824,6 +3874,386 @@
           "vehicles": [
             {
               "id": "bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": -30,
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|regular|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|shared|double-decker": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": 14,
+        "rules": {
+          "minWidth": 12,
+          "maxWidth": 14
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-inbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": 30,
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|shared|double-decker": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": 14,
+        "rules": {
+          "minWidth": 12,
+          "maxWidth": 14
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-outbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": -30,
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|regular|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|shared|av-shuttle": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": 14,
+        "rules": {
+          "minWidth": 12,
+          "maxWidth": 14
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-inbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": 30,
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|shared|av-shuttle": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": 14,
+        "rules": {
+          "minWidth": 12,
+          "maxWidth": 14
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-outbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
               "variants": {
                 "direction": "outbound"
               }

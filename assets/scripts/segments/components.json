@@ -1125,6 +1125,26 @@
         }
       }
     },
+    "microvan": {
+      "name": "Microvan",
+      "nameKey": "microvan",
+      "owner": "CAR",
+      "zIndex": 14,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "vehicles--microvan-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "vehicles--microvan-outbound"
+            }
+          }
+        }
+      }
+    },
     "av": {
       "name": "Autonomous vehicle",
       "nameKey": "av",
@@ -1280,6 +1300,46 @@
           "outbound": {
             "graphics": {
               "center": "transit--brt-bus-outbound"
+            }
+          }
+        }
+      }
+    },
+    "double-decker-bus": {
+      "name": "Double decker bus",
+      "nameKey": "double-decker",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--double-decker-bus-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--double-decker-bus-outbound"
+            }
+          }
+        }
+      }
+    },
+    "av-shuttle": {
+      "name": "Autonomous shuttle",
+      "nameKey": "av-shuttle",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--av-shuttle-inbound"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--av-shuttle-outbound"
             }
           }
         }

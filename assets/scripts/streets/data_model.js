@@ -37,7 +37,7 @@ export function setLastStreet () {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
-const LATEST_SCHEMA_VERSION = 24
+const LATEST_SCHEMA_VERSION = 25
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -62,6 +62,7 @@ const LATEST_SCHEMA_VERSION = 24
 // 22: add random seed to drive lanes for pedestrians
 // 23: add unique id to each segment
 // 24: remove random seed from any segment
+// 25: add bus type
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -293,6 +294,16 @@ function incrementSchemaVersion (street) {
         segment = street.segments[i]
         if (segment.randSeed) {
           delete segment.randSeed
+        }
+      }
+      break
+    case 24:
+      for (const i in street.segments) {
+        segment = street.segments[i]
+        if (segment.type === 'bus-lane') {
+          variant = getVariantArray(segment.type, segment.variantString)
+          variant['bus-type'] = 'typical'
+          segment.variantString = getVariantString(variant)
         }
       }
       break

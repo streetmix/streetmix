@@ -392,7 +392,8 @@
   },
   "plus": {
     "locked": {
-      "sub": "Subscribe to use!",
+      "soon": "Coming soon!",
+      "sub": "Upgrade to Streetmix+ to use!",
       "user": "Sign-in to use!"
     }
   },
