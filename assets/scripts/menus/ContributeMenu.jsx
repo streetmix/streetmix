@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import Menu from './Menu'
 import ExternalLink from '../ui/ExternalLink'
+import Menu from './Menu'
 
 function ContributeMenu (props) {
   return (

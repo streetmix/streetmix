@@ -1,5 +1,5 @@
-import { getRemixOnFirstEdit } from './remix'
 import store from '../store'
+import { getRemixOnFirstEdit } from './remix'
 
 /**
  * A helper function that tells us whether the current street is

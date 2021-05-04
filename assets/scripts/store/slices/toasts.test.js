@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import toasts, { addToast, destroyToast } from './toasts'
 import { advanceTo, advanceBy, clear } from 'jest-date-mock'
+import toasts, { addToast, destroyToast } from './toasts'
 
 describe('toasts reducer', () => {
   it('should handle initial state', () => {

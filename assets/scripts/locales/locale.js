@@ -4,10 +4,10 @@
  *
  */
 import IntlMessageFormat from 'intl-messageformat'
-import { DEFAULT_LOCALE } from './constants'
 import store, { observeStore } from '../store'
 import { changeLocale } from '../store/slices/locale'
 import LOCALES from '../../../app/data/locales.json'
+import { DEFAULT_LOCALE } from './constants'
 
 // Polyfill Intl API support for IE11, Edge & Safari 12
 import 'intl-pluralrules'

@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import Dialog from './Dialog'
 import {
   goEmailSignIn,
   goTwitterSignIn,
@@ -9,6 +8,7 @@ import {
 } from '../app/routing'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import Icon from '../ui/Icon'
+import Dialog from './Dialog'
 import './SignInDialog.scss'
 
 export default class SignInDialog extends React.Component {

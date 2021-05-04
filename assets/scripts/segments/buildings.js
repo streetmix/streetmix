@@ -7,8 +7,8 @@ import {
   TILESET_POINT_PER_PIXEL,
   BUILDING_LEFT_POSITION
 } from '../segments/constants'
-import { drawSegmentImage } from './view'
 import store from '../store'
+import { drawSegmentImage } from './view'
 
 const MAX_CANVAS_HEIGHT = 2048
 

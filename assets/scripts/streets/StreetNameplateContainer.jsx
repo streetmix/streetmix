@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+import { saveStreetName } from '../store/slices/street'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
-import { saveStreetName } from '../store/slices/street'
 import './StreetNameplateContainer.scss'
 
 function StreetNameplateContainer (props) {

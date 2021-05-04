@@ -1,8 +1,10 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
-import { draggingResize } from './drag_and_drop'
-import { segmentsChanged } from './view'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
+import store from '../store'
+import { changeSegmentWidth } from '../store/slices/street'
+import { setDraggingType } from '../store/slices/ui'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -16,10 +18,8 @@ import {
   SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
   BUILDING_SPACE
 } from './constants'
-import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import store from '../store'
-import { changeSegmentWidth } from '../store/slices/street'
-import { setDraggingType } from '../store/slices/ui'
+import { segmentsChanged } from './view'
+import { draggingResize } from './drag_and_drop'
 
 const SHORT_DELAY = 100
 

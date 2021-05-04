@@ -2,10 +2,10 @@ import debounce from 'lodash/debounce'
 import { API_URL } from '../app/config'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
-import { getSignInData, isSignedIn } from './authentication'
 import store, { observeStore } from '../store'
 import { updateSettings } from '../store/slices/settings'
 import { setAppFlags } from '../store/slices/app'
+import { getSignInData, isSignedIn } from './authentication'
 
 const LOCAL_STORAGE_SETTINGS_ID = 'settings'
 const SAVE_SETTINGS_DELAY = 500

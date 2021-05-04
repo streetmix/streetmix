@@ -1,7 +1,7 @@
+import { uniq, isNumber, pickBy } from 'lodash'
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
-import { uniq, isNumber, pickBy } from 'lodash'
 
 export const COMPONENT_GROUPS = {
   LANES: 'lanes',

@@ -10,10 +10,6 @@ import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { getLeftHandTraffic } from '../users/localization'
-import { DEFAULT_ENVIRONS } from './constants'
-import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
-import { normalizeStreetWidth } from './width'
-import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import {
   setUpdateTime,
   saveCreatorId,
@@ -22,6 +18,10 @@ import {
 } from '../store/slices/street'
 import { resetUndoStack } from '../store/slices/undo'
 import store from '../store'
+import { DEFAULT_ENVIRONS } from './constants'
+import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
+import { normalizeStreetWidth } from './width'
+import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 
 const DEFAULT_BUILDING_HEIGHT_LEFT = 4
 const DEFAULT_BUILDING_HEIGHT_RIGHT = 3

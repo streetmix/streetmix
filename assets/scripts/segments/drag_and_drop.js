@@ -4,6 +4,16 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
+import store, { observeStore } from '../store'
+import { addSegment, removeSegment, moveSegment } from '../store/slices/street'
+import {
+  initDraggingState,
+  updateDraggingState,
+  clearDraggingState,
+  setActiveSegment,
+  setDraggingType
+} from '../store/slices/ui'
+import { generateRandSeed } from '../util/random'
 import { SegmentTypes, getSegmentInfo, getSegmentVariantInfo } from './info'
 import {
   RESIZE_TYPE_INITIAL,
@@ -26,16 +36,6 @@ import {
   DRAGGING_TYPE_RESIZE
 } from './constants'
 import { segmentsChanged } from './view'
-import store, { observeStore } from '../store'
-import { addSegment, removeSegment, moveSegment } from '../store/slices/street'
-import {
-  initDraggingState,
-  updateDraggingState,
-  clearDraggingState,
-  setActiveSegment,
-  setDraggingType
-} from '../store/slices/ui'
-import { generateRandSeed } from '../util/random'
 
 export const draggingResize = {
   segmentEl: null,

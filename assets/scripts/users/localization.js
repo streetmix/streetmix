@@ -1,6 +1,5 @@
 import { cloneDeep } from 'lodash'
 
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants'
 import { debug } from '../preinit/debug_settings'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
@@ -18,6 +17,7 @@ import {
   updateSegments
 } from '../store/slices/street'
 import { setUserUnits } from '../store/slices/settings'
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants'
 
 const COUNTRIES_IMPERIAL_UNITS = ['US']
 

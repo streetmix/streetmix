@@ -1,8 +1,8 @@
 import { MODES, getMode } from '../app/mode'
 import { updateToLatestSchemaVersion } from '../streets/data_model'
 import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
-import { fetchGalleryStreet } from './fetch_street'
 import store from '../store'
+import { fetchGalleryStreet } from './fetch_street'
 
 export function receiveGalleryData (transmission) {
   // Prepare data object

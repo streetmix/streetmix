@@ -3,9 +3,6 @@ import { formatMessage } from '../locales/locale'
 import { app } from '../preinit/app_settings'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
-import { setStreetCreatorId } from './data_model'
-import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
-import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
 import store from '../store'
 import {
   saveStreetName,
@@ -13,6 +10,9 @@ import {
   saveOriginalStreetId
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
+import { setStreetCreatorId } from './data_model'
+import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
+import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false

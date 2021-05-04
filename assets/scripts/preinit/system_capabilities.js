@@ -6,9 +6,9 @@
  *
  */
 import { OFFLINE_MODE } from '../app/config'
-import { debug } from './debug_settings'
 import store from '../store'
 import { setSystemFlags } from '../store/slices/system'
+import { debug } from './debug_settings'
 
 // Default settings
 // TODO: move everything to Redux store, if possible.

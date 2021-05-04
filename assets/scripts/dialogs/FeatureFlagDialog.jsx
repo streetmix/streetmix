@@ -6,10 +6,10 @@
  */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import Dialog from './Dialog'
 import Checkbox from '../ui/Checkbox'
 import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/slices/flags'
+import Dialog from './Dialog'
 import './FeatureFlagDialog.scss'
 
 function FeatureFlagDialog (props) {

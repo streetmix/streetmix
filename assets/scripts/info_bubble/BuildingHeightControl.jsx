@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
-import UpDownInput from './UpDownInput'
 import { BUILDINGS, prettifyHeight } from '../segments/buildings'
 import {
   MAX_BUILDING_HEIGHT,
@@ -14,6 +13,7 @@ import {
   removeBuildingFloor,
   setBuildingFloorValue
 } from '../store/slices/street'
+import UpDownInput from './UpDownInput'
 import './BuildingHeightControl.scss'
 
 BuildingHeightControl.propTypes = {

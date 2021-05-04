@@ -1,10 +1,10 @@
 /* eslint-env jest */
 import React from 'react'
+import userEvent from '@testing-library/user-event'
 import StreetMetaAuthor from '../StreetMetaAuthor'
 import { render } from '../../../../test/helpers/render'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { openGallery } from '../../store/actions/gallery'
-import userEvent from '@testing-library/user-event'
 
 // Enable mocking of the return value of `isOwnedByCurrentUser`
 jest.mock('../../streets/owner')

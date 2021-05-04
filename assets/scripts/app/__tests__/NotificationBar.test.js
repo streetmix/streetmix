@@ -1,9 +1,9 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import NotificationBar from '../NotificationBar'
-import userEvent from '@testing-library/user-event'
 
 const TEST_NOTIFICATION = {
   display: true,

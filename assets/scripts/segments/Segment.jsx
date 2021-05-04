@@ -5,6 +5,16 @@ import { DragSource, DropTarget } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
+import { infoBubble } from '../info_bubble/info_bubble'
+import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
+import { formatMessage } from '../locales/locale'
+import { setActiveSegment } from '../store/slices/ui'
+import {
+  incrementSegmentWidth,
+  removeSegmentAction,
+  clearSegmentsAction
+} from '../store/actions/street'
+import { addToast } from '../store/slices/toasts'
 import { getSegmentCapacity } from './capacity'
 import { getLocaleSegmentName } from './view'
 import SegmentCanvas from './SegmentCanvas'
@@ -33,16 +43,6 @@ import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_INCREMENT
 } from './resizing'
-import { infoBubble } from '../info_bubble/info_bubble'
-import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
-import { formatMessage } from '../locales/locale'
-import { setActiveSegment } from '../store/slices/ui'
-import {
-  incrementSegmentWidth,
-  removeSegmentAction,
-  clearSegmentsAction
-} from '../store/actions/street'
-import { addToast } from '../store/slices/toasts'
 import './Segment.scss'
 
 export class Segment extends React.Component {

@@ -12,15 +12,15 @@ import {
   BUILDING_RIGHT_POSITION
 } from '../segments/constants'
 import {
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from './constants'
-import {
   setBuildingVariant,
   changeSegmentVariant
 } from '../store/slices/street'
 import { ICON_LOCK } from '../ui/icons'
+import {
+  INFO_BUBBLE_TYPE_SEGMENT,
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
 
 Variants.propTypes = {
   type: PropTypes.number,

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import Transition from 'react-transition-group/Transition'
-import Triangle from './Triangle'
 import { getStreetSectionTop } from '../app/window_resize'
+import Triangle from './Triangle'
 import './DescriptionPanel.scss'
 
 const TRANSITION_DURATION = 250

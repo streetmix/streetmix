@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../users/constants'
+import { updateUnits } from '../users/localization'
+import { processWidthInput, prettifyWidth } from '../util/width_units'
+import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
 import StreetMetaWidthLabel from './StreetMetaWidthLabel'
 import StreetMetaWidthMenu from './StreetMetaWidthMenu'
 import {
@@ -10,14 +17,7 @@ import {
   STREET_WIDTH_SWITCH_TO_METRIC,
   STREET_WIDTH_SWITCH_TO_IMPERIAL
 } from './constants'
-import {
-  SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
-} from '../users/constants'
-import { updateUnits } from '../users/localization'
 import { normalizeStreetWidth } from './width'
-import { processWidthInput, prettifyWidth } from '../util/width_units'
-import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
 
 function StreetMetaWidthContainer (props) {
   const street = useSelector((state) => state.street)

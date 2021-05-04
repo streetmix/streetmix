@@ -1,15 +1,15 @@
 import {
-  MIN_CUSTOM_STREET_WIDTH,
-  MAX_CUSTOM_STREET_WIDTH,
-  WIDTH_ROUNDING
-} from './constants'
-import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
+import {
+  MIN_CUSTOM_STREET_WIDTH,
+  MAX_CUSTOM_STREET_WIDTH,
+  WIDTH_ROUNDING
+} from './constants'
 
 /**
  * Given an input width value, constrains the value to the
@@ -84,18 +84,24 @@ export function recalculateWidth (street) {
   // The position is the left pixel position of each segment. This is initialized
   // with the left pixel of the first segment and will be modified when looking at
   // each subsequent segment.
-  let position = (street.width / 2) - (occupiedWidth / 2)
+  let position = street.width / 2 - occupiedWidth / 2
 
   // Creates an empty array so that we can clone original segments into it.
   const segments = []
 
   street.segments.forEach((segment) => {
-    const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+    const variantInfo = getSegmentVariantInfo(
+      segment.type,
+      segment.variantString
+    )
     const warnings = []
 
     // If any portion of the segment will be outside the street width,
     // apply a warning that the segment is outside the street.
-    if ((remainingWidth < 0) && ((position < 0) || ((position + segment.width) > street.width))) {
+    if (
+      remainingWidth < 0 &&
+      (position < 0 || position + segment.width > street.width)
+    ) {
       warnings[SEGMENT_WARNING_OUTSIDE] = true
     } else {
       warnings[SEGMENT_WARNING_OUTSIDE] = false
@@ -103,7 +109,7 @@ export function recalculateWidth (street) {
 
     // If segment width is less than the minimum width set for the segment type,
     // apply a warning.
-    if (variantInfo.minWidth && (segment.width < variantInfo.minWidth)) {
+    if (variantInfo.minWidth && segment.width < variantInfo.minWidth) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
@@ -111,7 +117,7 @@ export function recalculateWidth (street) {
 
     // If segment width is greater than the maximum width set for the segment type,
     // apply a warning.
-    if (variantInfo.maxWidth && (segment.width > variantInfo.maxWidth)) {
+    if (variantInfo.maxWidth && segment.width > variantInfo.maxWidth) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false

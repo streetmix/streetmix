@@ -1,9 +1,9 @@
 import { API_URL } from '../app/config'
-import { trimStreetData } from './data_model'
-import { drawStreetThumbnail } from './thumbnail'
 import { getBuildingImageHeight } from '../segments/buildings'
 import { TILE_SIZE, BUILDING_SPACE } from '../segments/constants'
 import store, { observeStore } from '../store'
+import { drawStreetThumbnail } from './thumbnail'
+import { trimStreetData } from './data_model'
 
 // This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0

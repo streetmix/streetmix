@@ -1,4 +1,8 @@
 /* eslint-env jest */
+import {
+  DRAGGING_TYPE_NONE,
+  DRAGGING_TYPE_RESIZE
+} from '../../segments/constants'
 import ui, {
   setWelcomePanelVisible,
   setWelcomePanelDismissed,
@@ -9,10 +13,6 @@ import ui, {
   setDraggingType,
   toggleToolbox
 } from './ui'
-import {
-  DRAGGING_TYPE_NONE,
-  DRAGGING_TYPE_RESIZE
-} from '../../segments/constants'
 
 describe('ui reducer', () => {
   const initialState = {

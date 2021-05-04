@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
+import { destroyToast } from '../../store/slices/toasts'
 import Toast from './Toast'
 import ToastUndo from './ToastUndo'
 import ToastSignIn from './ToastSignIn'
 import ToastNoConnection from './ToastNoConnection'
-import { destroyToast } from '../../store/slices/toasts'
 import './ToastContainer.scss'
 
 const TOAST_SPRING_CONFIG = {

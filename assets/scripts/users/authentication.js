@@ -11,7 +11,6 @@ import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
 import { formatMessage } from '../locales/locale'
 import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
-import { loadSettings } from './settings'
 import store from '../store'
 import { updateSettings } from '../store/slices/settings'
 import {
@@ -22,6 +21,7 @@ import {
 import { showDialog } from '../store/slices/dialogs'
 import { updateStreetIdMetadata } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
+import { loadSettings } from './settings'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'

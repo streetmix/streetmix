@@ -3,20 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import { debounce } from 'lodash'
-import EditableLabel from './EditableLabel'
-import Triangle from './Triangle'
-import RemoveButton from './RemoveButton'
-import Variants from './Variants'
-import WidthControl from './WidthControl'
-import BuildingHeightControl from './BuildingHeightControl'
-import Warnings from './Warnings'
-import Description from './Description'
-import { infoBubble } from './info_bubble'
-import {
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from './constants'
 import { registerKeypress } from '../app/keypress'
 import { BUILDINGS } from '../segments/buildings'
 import {
@@ -31,6 +17,20 @@ import {
   setInfoBubbleMouseInside,
   updateHoverPolygon
 } from '../store/slices/infoBubble'
+import EditableLabel from './EditableLabel'
+import Triangle from './Triangle'
+import RemoveButton from './RemoveButton'
+import Variants from './Variants'
+import WidthControl from './WidthControl'
+import BuildingHeightControl from './BuildingHeightControl'
+import Warnings from './Warnings'
+import Description from './Description'
+import { infoBubble } from './info_bubble'
+import {
+  INFO_BUBBLE_TYPE_SEGMENT,
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
 import './InfoBubble.scss'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20

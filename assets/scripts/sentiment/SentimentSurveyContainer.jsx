@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import SentimentSurvey from './SentimentSurvey'
 import { postSentimentSurveyVote } from '../util/api'
+import SentimentSurvey from './SentimentSurvey'
 
 const SURVEY_DELAY_BEFORE_APPEAR = 5000 // in ms
 

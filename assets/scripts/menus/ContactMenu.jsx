@@ -1,10 +1,10 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import Menu from './Menu'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
 import { showDialog } from '../store/slices/dialogs'
+import Menu from './Menu'
 
 function ContactMenu (props) {
   const dispatch = useDispatch()

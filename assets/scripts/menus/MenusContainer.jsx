@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import { showMenu, clearMenus } from '../store/slices/menus'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
 import ContactMenu from './ContactMenu'
@@ -8,8 +10,6 @@ import ContributeMenu from './ContributeMenu'
 import IdentityMenu from './IdentityMenu'
 import SettingsMenu from './SettingsMenu'
 import ShareMenu from './ShareMenu'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { showMenu, clearMenus } from '../store/slices/menus'
 import './MenusContainer.scss'
 
 class MenusContainer extends React.PureComponent {

@@ -8,9 +8,6 @@ import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Dialog from './Dialog'
-import SegmentAnalytics from './Analytics/SegmentAnalytics'
-import CapacitySources from './Analytics/CapacitySources'
 import Terms from '../app/Terms'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
@@ -25,6 +22,9 @@ import {
   saveCsv
 } from '../segments/capacity'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
+import CapacitySources from './Analytics/CapacitySources'
+import SegmentAnalytics from './Analytics/SegmentAnalytics'
+import Dialog from './Dialog'
 import './AnalyticsDialog.scss'
 
 function AnalyticsDialog (props) {

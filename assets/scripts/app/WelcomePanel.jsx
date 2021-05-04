@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { isSignedIn } from '../users/authentication'
-import { registerKeypress, deregisterKeypress } from './keypress'
-import { MODES, getMode } from './mode'
 import CloseButton from '../ui/CloseButton'
-import WelcomeNewStreet from './WelcomePanel/NewStreet'
-import WelcomeFirstTimeExistingStreet from './WelcomePanel/FirstTimeExistingStreet'
-import WelcomeFirstTimeNewStreet from './WelcomePanel/FirstTimeNewStreet'
-import './WelcomePanel.scss'
 import {
   setWelcomePanelVisible,
   setWelcomePanelDismissed
 } from '../store/slices/ui'
+import { registerKeypress, deregisterKeypress } from './keypress'
+import { MODES, getMode } from './mode'
+import WelcomeNewStreet from './WelcomePanel/NewStreet'
+import WelcomeFirstTimeExistingStreet from './WelcomePanel/FirstTimeExistingStreet'
+import WelcomeFirstTimeNewStreet from './WelcomePanel/FirstTimeNewStreet'
+import './WelcomePanel.scss'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
