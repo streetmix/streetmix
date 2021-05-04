@@ -1,7 +1,6 @@
 import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
-import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from './image'
 import { getEnvirons, makeCanvasGradientStopArray } from '../streets/environs'
 import {
   BUILDINGS,
@@ -16,6 +15,7 @@ import {
   getLocaleSegmentName
 } from '../segments/view'
 import { formatMessage } from '../locales/locale'
+import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from './image'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'

@@ -1,5 +1,4 @@
 import { infoBubble } from '../info_bubble/info_bubble'
-import { segmentsChanged } from './view'
 import { formatMessage } from '../locales/locale'
 import {
   removeSegment as removeSegmentActionCreator,
@@ -7,6 +6,7 @@ import {
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
 import store from '../store'
+import { segmentsChanged } from './view'
 
 /**
  * Removes a segment, given the element to remove

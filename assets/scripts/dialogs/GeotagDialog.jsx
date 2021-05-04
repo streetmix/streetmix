@@ -4,11 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
-import Dialog from './Dialog'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
-import ErrorBanner from './Geotag/ErrorBanner'
-import GeoSearch from './Geotag/GeoSearch'
-import LocationPopup from './Geotag/LocationPopup'
 import { isOwnedByCurrentUser } from '../streets/owner'
 import { setMapState } from '../store/slices/map'
 import {
@@ -16,6 +12,10 @@ import {
   clearLocation,
   saveStreetName
 } from '../store/slices/street'
+import Dialog from './Dialog'
+import ErrorBanner from './Geotag/ErrorBanner'
+import GeoSearch from './Geotag/GeoSearch'
+import LocationPopup from './Geotag/LocationPopup'
 import './GeotagDialog.scss'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`

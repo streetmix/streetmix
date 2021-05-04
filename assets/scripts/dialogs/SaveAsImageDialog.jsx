@@ -8,17 +8,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl } from 'react-intl'
-import Dialog from './Dialog'
+import { saveAs } from 'file-saver'
 import Checkbox from '../ui/Checkbox'
 import RangeSlider from '../ui/RangeSlider'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
 import { updateSettings } from '../store/slices/settings'
 import { normalizeSlug } from '../util/helpers'
+import Dialog from './Dialog'
 import './SaveAsImageDialog.scss'
 
 // Require save-as polyfills
-import { saveAs } from 'file-saver'
 
 // Verify how this lines up with 150dpi, 300dpi, 600dpi, etc.
 const DEFAULT_IMAGE_DPI = 2

@@ -1,5 +1,8 @@
 import { debug } from '../preinit/debug_settings'
-import { setMode, MODES } from './mode'
+import { normalizeSlug } from '../util/helpers'
+import store from '../store'
+import { setGalleryUserId } from '../store/slices/gallery'
+import { saveCreatorId, saveStreetId } from '../store/slices/street'
 import {
   URL_NEW_STREET,
   URL_NEW_STREET_COPY_LAST,
@@ -10,10 +13,7 @@ import {
   URL_SURVEY_FINISHED,
   RESERVED_URLS
 } from './constants'
-import { normalizeSlug } from '../util/helpers'
-import store from '../store'
-import { setGalleryUserId } from '../store/slices/gallery'
-import { saveCreatorId, saveStreetId } from '../store/slices/street'
+import { setMode, MODES } from './mode'
 
 // Used as a placeholder in URLs when the street is by an anonymous user
 export const ANONYMOUS_USER_ID_FRAGMENT = '-'

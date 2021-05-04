@@ -20,6 +20,16 @@ import {
   newNonblockingAjaxRequest,
   getNonblockingAjaxRequestCount
 } from '../util/fetch_nonblocking'
+import store from '../store'
+import { updateSettings } from '../store/slices/settings'
+import {
+  saveStreetId,
+  saveOriginalStreetId,
+  updateEditCount,
+  updateStreetData
+} from '../store/slices/street'
+import { addToast } from '../store/slices/toasts'
+import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
 import { makeDefaultStreet } from './creation'
 import { NEW_STREET_EMPTY } from './constants'
 import {
@@ -40,16 +50,6 @@ import {
   addRemixSuffixToName
 } from './remix'
 import { getUndoStack, unifyUndoStack } from './undo_stack'
-import store from '../store'
-import { updateSettings } from '../store/slices/settings'
-import {
-  saveStreetId,
-  saveOriginalStreetId,
-  updateEditCount,
-  updateStreetData
-} from '../store/slices/street'
-import { addToast } from '../store/slices/toasts'
-import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
 import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500

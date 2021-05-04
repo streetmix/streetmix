@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import Dialog from './Dialog'
 import ExternalLink from '../ui/ExternalLink'
+import Dialog from './Dialog'
 import './SentimentSurveyDialog.scss'
 
 function SentimentSurveyDialog (props) {

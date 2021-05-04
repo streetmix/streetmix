@@ -1,10 +1,11 @@
 const crypto = require('crypto')
 const config = require('config')
+const passport = require('passport')
+const PatreonStrategy = require('passport-patreon').Strategy
 const logger = require('../../../../lib/logger.js')()
 
 const { User } = require('../../../db/models')
-const passport = require('passport')
-const PatreonStrategy = require('passport-patreon').Strategy
+
 const { findUser } = require('./helpers')
 
 /*

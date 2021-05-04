@@ -7,13 +7,13 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
-import Dialog from './Dialog'
-import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
 import ExternalLink from '../ui/ExternalLink'
 import logo from '../../images/logo_horizontal.svg'
 import numoLogo from '../../images/sponsors/numo.svg'
 import cfalogo from '../../images/sponsors/codeforamerica.png'
 import mozlogo from '../../images/sponsors/mozilla.svg'
+import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
+import Dialog from './Dialog'
 import './AboutDialog.scss'
 
 function AboutDialog (props) {

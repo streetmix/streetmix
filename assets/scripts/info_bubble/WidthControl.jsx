@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
-import UpDownInput from './UpDownInput'
 import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '../segments/constants'
 import { RESIZE_TYPE_TYPING, resizeSegment } from '../segments/resizing'
 import {
@@ -11,6 +10,7 @@ import {
   processWidthInput
 } from '../util/width_units'
 import { incrementSegmentWidth } from '../store/actions/street'
+import UpDownInput from './UpDownInput'
 
 WidthControl.propTypes = {
   position: PropTypes.number

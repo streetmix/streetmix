@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import Menu from './Menu'
 import { onSignOutClick } from '../users/authentication'
 import { openGallery } from '../store/actions/gallery'
+import Menu from './Menu'
 import './IdentityMenu.scss'
 
 function IdentityMenu (props) {

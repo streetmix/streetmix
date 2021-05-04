@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import GalleryPanel from './GalleryPanel'
-import GalleryShield from './GalleryShield'
 import { closeGallery } from '../store/actions/gallery'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import GalleryPanel from './GalleryPanel'
+import GalleryShield from './GalleryShield'
 import './Gallery.scss'
 
 function Gallery (props) {

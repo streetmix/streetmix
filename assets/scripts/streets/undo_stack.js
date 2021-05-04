@@ -1,10 +1,10 @@
 import { cloneDeep } from 'lodash'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
-import { setUpdateTimeToNow, updateEverything } from './data_model'
 import store from '../store'
 import { updateStreetData } from '../store/slices/street'
 import { createNewUndo, unifyStack } from '../store/slices/undo'
+import { setUpdateTimeToNow, updateEverything } from './data_model'
 
 export function getUndoStack () {
   return cloneDeep(store.getState().undo.stack)

@@ -9,8 +9,8 @@
  */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { goReload } from './routing'
 import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
+import { goReload } from './routing'
 import './BlockingShield.scss'
 
 const BLOCKING_SHIELD_DARKEN_DELAY = 800

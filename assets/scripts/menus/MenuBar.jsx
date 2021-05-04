@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
+import { doSignIn } from '../users/authentication'
+import { showDialog } from '../store/slices/dialogs'
+import logo from '../../images/logo_horizontal.svg'
 import EnvironmentBadge from './EnvironmentBadge'
 import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import AvatarMenu from './AvatarMenu'
-import { doSignIn } from '../users/authentication'
-import { showDialog } from '../store/slices/dialogs'
-import logo from '../../images/logo_horizontal.svg'
 import './MenuBar.scss'
 
 MenuBar.propTypes = {

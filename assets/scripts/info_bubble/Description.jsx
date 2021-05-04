@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import DescriptionPanel from './DescriptionPanel'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { formatMessage } from '../locales/locale'
 import { showDescription, hideDescription } from '../store/slices/infoBubble'
+import DescriptionPanel from './DescriptionPanel'
 
 function getDescriptionData (type, variantString) {
   if (!type) return null

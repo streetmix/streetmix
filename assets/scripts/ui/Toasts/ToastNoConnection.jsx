@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
-import Toast from './Toast'
 import { nonblockingAjaxTryAgain } from '../../util/fetch_nonblocking'
+import Toast from './Toast'
 
 // Renders a specific type of Toast for no-connection message.
 ToastNoConnection.propTypes = {

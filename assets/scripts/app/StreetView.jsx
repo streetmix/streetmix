@@ -8,10 +8,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import StreetEditable from './StreetEditable'
-import StreetViewDirt from './StreetViewDirt'
-import SkyContainer from './SkyContainer'
-import ScrollIndicators from './ScrollIndicators'
 import Building from '../segments/Building'
 import ResizeGuides from '../segments/ResizeGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
@@ -24,6 +20,10 @@ import {
   BUILDING_SPACE
 } from '../segments/constants'
 import { updateStreetMargin } from '../segments/resizing'
+import ScrollIndicators from './ScrollIndicators'
+import SkyContainer from './SkyContainer'
+import StreetViewDirt from './StreetViewDirt'
+import StreetEditable from './StreetEditable'
 import './StreetView.scss'
 
 const SEGMENT_RESIZED = 1

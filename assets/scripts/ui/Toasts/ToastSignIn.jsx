@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
-import Toast from './Toast'
 import { doSignIn } from '../../users/authentication'
+import Toast from './Toast'
 
 // Renders a specific type of Toast with Sign in button.
 ToastSignIn.propTypes = {

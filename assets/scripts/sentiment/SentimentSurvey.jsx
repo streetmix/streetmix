@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
-import VoteButtons from './VoteButtons'
-import VoteReceipt from './VoteReceipt'
 import CloseButton from '../ui/CloseButton'
 import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
+import VoteReceipt from './VoteReceipt'
+import VoteButtons from './VoteButtons'
 import './SentimentSurvey.scss'
 
 SentimentSurvey.propTypes = {

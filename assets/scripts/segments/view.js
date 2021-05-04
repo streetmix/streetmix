@@ -2,6 +2,8 @@ import { images } from '../app/load_resources'
 import { formatMessage } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
+import store from '../store'
+import { updateSegments, changeSegmentProperties } from '../store/slices/street'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawScatteredSprites } from './scatter'
 import {
@@ -12,8 +14,6 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from './constants'
-import store from '../store'
-import { updateSegments, changeSegmentProperties } from '../store/slices/street'
 import PEOPLE from './people.json'
 
 // Adjust spacing between people to be slightly closer

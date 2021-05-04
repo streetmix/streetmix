@@ -1,14 +1,14 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import GalleryStreetItem from './GalleryStreetItem'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
-import { switchGalleryStreet } from './view'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
 import { deleteGalleryStreet } from '../store/slices/gallery'
+import { switchGalleryStreet } from './view'
+import GalleryStreetItem from './GalleryStreetItem'
 
 function GalleryContents (props) {
   const userId = useSelector((state) => state.gallery.userId)

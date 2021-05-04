@@ -1,9 +1,5 @@
 import { app } from '../preinit/app_settings'
 import {
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from './constants'
-import {
   DRAGGING_TYPE_NONE,
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
@@ -12,6 +8,10 @@ import { getElAbsolutePos } from '../util/helpers'
 import store from '../store'
 import { showInfoBubble, hideInfoBubble } from '../store/slices/infoBubble'
 import { setActiveSegment } from '../store/slices/ui'
+import {
+  INFO_BUBBLE_TYPE_LEFT_BUILDING,
+  INFO_BUBBLE_TYPE_RIGHT_BUILDING
+} from './constants'
 
 function isInfoBubbleVisible () {
   return store.getState().infoBubble.visible

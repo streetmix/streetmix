@@ -1,5 +1,5 @@
-const config = require('config')
 const path = require('path')
+const config = require('config')
 const Bundler = require('parcel-bundler')
 
 // Add config variables to process.env which get injected into JS bundle

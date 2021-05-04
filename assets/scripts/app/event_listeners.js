@@ -4,10 +4,10 @@ import {
   onBodyMouseUp
 } from '../segments/drag_and_drop'
 import { onStorageChange } from '../users/authentication'
+import { onWindowBeforeUnload } from '../util/fetch_nonblocking'
 import { onGlobalKeyDown } from './keyboard_commands'
 import { onResize } from './window_resize'
 import { addPageVisibilityChangeListeners } from './focus'
-import { onWindowBeforeUnload } from '../util/fetch_nonblocking'
 
 export function addEventListeners () {
   window.addEventListener('storage', onStorageChange)

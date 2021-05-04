@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import SegmentLabelContainer from './SegmentLabelContainer'
 import { TILE_SIZE } from '../segments/constants'
+import SegmentLabelContainer from './SegmentLabelContainer'
 import './EmptySegment.scss'
 
 /**

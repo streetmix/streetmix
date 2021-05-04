@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import SkyBackground from './SkyBackground'
-import SkyObjects from './SkyObjects'
 import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
 import { DEFAULT_ENVIRONS } from '../streets/constants'
+import SkyBackground from './SkyBackground'
+import SkyObjects from './SkyObjects'
 import './SkyContainer.scss'
 
 const REAR_CLOUD_PARALLAX_SPEED = 0.25

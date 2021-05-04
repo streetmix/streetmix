@@ -1,7 +1,7 @@
-import ENVIRONS from './environs.json'
 import { images } from '../app/load_resources'
-import { DEFAULT_ENVIRONS } from './constants'
 import { observeStore } from '../store'
+import ENVIRONS from './environs.json'
+import { DEFAULT_ENVIRONS } from './constants'
 
 /**
  * Converts information from environs.json to create a string value

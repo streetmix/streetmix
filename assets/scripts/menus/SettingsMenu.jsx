@@ -2,8 +2,6 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Menu from './Menu'
-import LocaleSelect from './LocaleSelect'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
@@ -12,6 +10,8 @@ import { updateUnits } from '../users/localization'
 import { changeLocale } from '../store/slices/locale'
 import { clearMenus } from '../store/slices/menus'
 import { ICON_CHECK } from '../ui/icons'
+import LocaleSelect from './LocaleSelect'
+import Menu from './Menu'
 
 function SettingsMenu (props) {
   const units = useSelector((state) => state.street.units)

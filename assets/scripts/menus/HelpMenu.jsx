@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import Menu from './Menu'
 import KeyboardKey from '../ui/KeyboardKey'
 import {
   ICON_MINUS,
@@ -11,6 +10,7 @@ import {
 } from '../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showDialog } from '../store/slices/dialogs'
+import Menu from './Menu'
 import './HelpMenu.scss'
 
 const shiftKey = (

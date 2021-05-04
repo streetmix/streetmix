@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
-import Toast from './Toast'
 import { handleUndo } from '../../store/actions/undo'
+import Toast from './Toast'
 
 // Renders a specific type of Toast with Undo button.
 ToastUndo.propTypes = {

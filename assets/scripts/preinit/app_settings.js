@@ -5,9 +5,9 @@
  * debug and system settings.
  *
  */
-import { debug } from './debug_settings'
 import { setAppFlags } from '../store/slices/app'
 import store from '../store'
+import { debug } from './debug_settings'
 
 // Just set readOnly
 const system = store.getState().system

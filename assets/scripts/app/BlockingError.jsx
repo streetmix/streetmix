@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import ExternalLink from '../ui/ExternalLink'
 import Avatar from '../users/Avatar'
-import { goReload, goHome, goNewStreet, goExampleStreet } from './routing'
 import { goReloadClearSignIn, doSignIn } from '../users/authentication'
+import { goReload, goHome, goNewStreet, goExampleStreet } from './routing'
 import { ERRORS } from './errors'
 
 function BlockingError (props) {

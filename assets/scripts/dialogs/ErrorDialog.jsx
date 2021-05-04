@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import Dialog from './Dialog'
 import ExternalLink from '../ui/ExternalLink'
+import Dialog from './Dialog'
 import './ErrorDialog.scss'
 
 /**

@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
-import { createBuilding, BUILDINGS } from './buildings'
-import { BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION } from './constants'
 import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { addBuildingFloor, removeBuildingFloor } from '../store/slices/street'
+import { BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION } from './constants'
+import { createBuilding, BUILDINGS } from './buildings'
 
 class Building extends React.Component {
   static propTypes = {
