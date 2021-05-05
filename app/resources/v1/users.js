@@ -251,7 +251,10 @@ exports.get = async function (req, res) {
     if (coilData !== undefined) {
       // fetch and return btpToken
       const btpToken = await getBTPToken(coilData.access_token)
+      // express-seesion seems to indicate this line is all that would be needed to add to cookies
       req.session.btpToken = btpToken
+      // ..but it dosen't work unless we do this:
+      res.cookie('btpToken', btpToken)
     }
   }
 

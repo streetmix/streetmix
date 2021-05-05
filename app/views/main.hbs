@@ -59,8 +59,7 @@
         document.monetization.state = 'stopped'
       }
     </script>
-    <script src="https://cdn.coil.com/coil-oauth-wm.v7.beta.js" defer>
-    </script>
+
 
 
 
@@ -119,10 +118,8 @@
     <div id="react-app" class="app"></div>
     <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/main.{{cacheTimestamp}}.js"></script>
-    <script defer>
-      document.addEventListener("load", document.coilMonetizationPolyfill.init({ btpToken: '{{btpToken}}' }));
-      
-    </script>
+    <script src="https://cdn.coil.com/coil-oauth-wm.v7.beta.js">
+    </script> 
   </body>
 
 </html>
