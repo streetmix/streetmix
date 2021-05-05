@@ -3,7 +3,6 @@ const config = require('config')
 const Bundler = require('parcel-bundler')
 
 // Add config variables to process.env which get injected into JS bundle
-process.env.APP_HOST_PORT = config.get('app_host_port')
 process.env.FACEBOOK_APP_ID = config.get('facebook_app_id')
 process.env.API_URL = config.get('restapi_proxy_baseuri_rel')
 process.env.PELIAS_HOST_NAME = config.get('geocode.pelias.host')

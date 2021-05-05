@@ -5,7 +5,6 @@ module.exports = {
   env: process.env.NODE_ENV,
   port: port,
   app_host_port: 'localhost:' + port,
-  header_host_port: 'localhost:' + port,
   auth0: {
     domain: process.env.AUTH0_DOMAIN || null,
     client_id: process.env.AUTH0_CLIENT_ID || null,
