@@ -1,5 +1,5 @@
 module.exports = {
-  app_host_port: 'streetmix-staging.herokuapp.com',
+  app_host_port: process.env.APP_DOMAIN || 'streetmix-staging.herokuapp.com',
   restapi: {
     baseuri: '/api',
     protocol: 'https://'
