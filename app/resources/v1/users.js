@@ -2,6 +2,7 @@ const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')
 const { User } = require('../../db/models')
+const { getBTPToken } = require('../services/integrations/coil')
 
 exports.post = async function (req, res) {
   const handleCreateUser = function (user) {
@@ -244,6 +245,18 @@ exports.get = async function (req, res) {
     }
   }
 
+  const BTPTokenCheck = async function (userData) {
+    // check for coil provider to set access token to stream payments
+    const coilData = userData.identities.find(
+      (item) => item.provider === 'coil'
+    )
+    if (coilData !== undefined) {
+      // fetch and return btpToken
+      const btpToken = await getBTPToken(coilData.access_token)
+      req.session.btpToken = btpToken
+    }
+  }
+
   // TODO this function seems like it could be replaced by
   // sequelize findByPK
   const findUserById = async function (userId) {
@@ -296,6 +309,7 @@ exports.get = async function (req, res) {
     // seems odd to have these two functions chained together, when we
     // have an ORM that can retrive the user details. is this code still used?
     const result = await findUserById(userId)
+    await BTPTokenCheck(result)
     res.status(200).send(asUserJson(result))
   } catch (err) {
     handleError(err)

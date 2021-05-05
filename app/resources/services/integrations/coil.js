@@ -133,6 +133,8 @@ const getBTPToken = async (accessToken) => {
   }
 }
 
+exports.getBTPToken = getBTPToken
+
 /**
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
