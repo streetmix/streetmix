@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 if (document.monetization) {
   document.monetizationExtensionInstalled = true
 } else {
@@ -7,5 +9,15 @@ if (document.monetization) {
 
 document.addEventListener(
   'load',
-  document.coilMonetizationPolyfill.init({ btpToken: '{{btpToken}}' })
+  document.coilMonetizationPolyfill.init({ btpToken: passToken() })
 )
+
+function passToken () {
+  const cookies = Cookies.get()
+  if (cookies.btpToken !== undefined) {
+    const btpToken = cookies.btpToken
+    return btpToken
+  } else {
+    return null
+  }
+}
