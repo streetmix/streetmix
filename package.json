@@ -134,7 +134,7 @@
     "jwks-rsa": "1.9.0",
     "jwt-decode": "3.1.2",
     "leaflet": "1.7.1",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "mkdirp": "0.5.5",
     "nanoid": "3.1.12",
     "newrelic": "7.3.0",
