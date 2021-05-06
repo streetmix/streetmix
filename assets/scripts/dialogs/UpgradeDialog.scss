@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .upgrade-dialog {
   width: 620px;
   min-height: 380px;
@@ -13,7 +15,7 @@
     }
 
     [role="subtitle"] {
-      color: #1b914e;
+      color: $colour-emerald-500;
     }
   }
 }
@@ -26,7 +28,7 @@
 .upgrade-dialog-left {
   flex-basis: 240px;
   margin-right: 40px;
-  border-right: 1px solid #cde1ea;
+  border-right: 1px solid $colour-turquoise-200;
   padding-right: 40px;
   padding-bottom: 16px;
   position: fixed;
@@ -35,7 +37,7 @@
   [dir="rtl"] & {
     margin-left: 40px;
     margin-right: 0;
-    border-left: 1px solid #cde1ea;
+    border-left: 1px solid $colour-turquoise-200;
     border-right: 0;
     padding-left: 40px;
     padding-right: 0;
