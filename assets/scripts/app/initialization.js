@@ -222,15 +222,15 @@ function onEverythingLoaded () {
       window.localStorage[LSKEY_WHATSNEW_LAST_TIMESTAMP] = whatsNewTimestamp
     }
 
+    // Display upgrade dialog when necessary
     const signedinContinueUpgrade =
       window.localStorage[LSKEY_CONTINUE_PAYMENT_STATE]
-    if (signedinContinueUpgrade) {
-      store.dispatch(showDialog('UPGRADE'))
-    }
-
     const promptUpgradeForExternalUser =
       window.localStorage[LSKEY_PROMPT_UPGRADE]
-    if (promptUpgradeForExternalUser) {
+    const patreonState =
+      window.localStorage[LSKEY_PATREON_SIGNIN_STATE]
+    debugger
+    if (signedinContinueUpgrade || promptUpgradeForExternalUser || patreonState) {
       store.dispatch(showDialog('UPGRADE'))
     }
   }
