@@ -83,6 +83,9 @@ export async function initialize () {
   if (getMode() === MODES.PROMPT_UPGRADE) {
     window.localStorage[LSKEY_PROMPT_UPGRADE] = 'true'
     window.location.href = '/'
+  } else if (getMode() === MODES.JUST_SIGNED_IN) {
+    window.localStorage[LSKEY_CONTINUE_PAYMENT_STATE] = 'true'
+    window.location.href = '/'
   } else if (getMode() === MODES.JUST_RETURNED_FROM_PAYMENT) {
     window.localStorage[LSKEY_PATREON_SIGNIN_STATE] = 'success'
     window.location.href = '/'
@@ -227,10 +230,10 @@ function onEverythingLoaded () {
       window.localStorage[LSKEY_CONTINUE_PAYMENT_STATE]
     const promptUpgradeForExternalUser =
       window.localStorage[LSKEY_PROMPT_UPGRADE]
-    const patreonState =
+    const patreonProcessState =
       window.localStorage[LSKEY_PATREON_SIGNIN_STATE]
-    debugger
-    if (signedinContinueUpgrade || promptUpgradeForExternalUser || patreonState) {
+  
+    if (signedinContinueUpgrade || promptUpgradeForExternalUser || patreonProcessState) {
       store.dispatch(showDialog('UPGRADE'))
     }
   }
