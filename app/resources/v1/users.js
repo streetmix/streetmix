@@ -2,7 +2,10 @@ const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')
 const { User } = require('../../db/models')
-const { getBTPToken } = require('../services/integrations/coil')
+const {
+  refreshAccessToken,
+  getBTPToken
+} = require('../services/integrations/coil')
 
 exports.post = async function (req, res) {
   const handleCreateUser = function (user) {
@@ -252,16 +255,24 @@ exports.get = async function (req, res) {
     )
     if (coilData !== undefined) {
       // fetch and return btpToken
-      const btpToken = await getBTPToken(coilData.access_token)
-      // express-seesion seems to indicate this line is all that would be needed to add to cookies
-      req.session.btpToken = btpToken
-      // ..but it dosen't work unless we do this:
-      res.cookie('btpToken', btpToken)
+      try {
+        const btpToken = await getBTPToken(coilData.access_token)
+        // express-sesion seems to indicate this line is all that would be needed to add to cookies
+        req.session.btpToken = btpToken
+        // ..but it dosen't work unless we do this:
+        res.cookie('btpToken', btpToken)
+      } catch (error) {
+        if (error.response.status === 401) {
+          await refreshAccessToken(coilData.access_token)
+          const btpToken = await getBTPToken(coilData.access_token)
+          res.cookie('btpToken', btpToken)
+        }
+        logger.error(error)
+      }
     }
   }
 
-  // TODO this function seems like it could be replaced by
-  // sequelize findByPK
+  // this function seems like it could be replaced by sequelize findByPK
   const findUserById = async function (userId) {
     let user
     try {
@@ -309,8 +320,6 @@ exports.get = async function (req, res) {
   }
 
   try {
-    // seems odd to have these two functions chained together, when we
-    // have an ORM that can retrive the user details. is this code still used?
     const result = await findUserById(userId)
     await BTPTokenCheck(result)
     res.status(200).send(asUserJson(result))

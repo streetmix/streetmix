@@ -115,6 +115,34 @@ exports.callback = (req, res, next) => {
   })(req, res, next)
 }
 
+const refreshAccessToken = async (refreshToken) => {
+  try {
+    const encodedAuth = btoa(
+      `${process.env.COIL_CLIENT_ID}:${encodeURIComponent(
+        process.env.COIL_CLIENT_SECRET
+      )}`
+    )
+    const requestConfig = {
+      method: 'post',
+      url: 'https://api.coil.com/user/btp',
+      headers: {
+        Authorization: `Basic ${encodedAuth}`,
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken
+      }
+    }
+    const response = await axios(requestConfig)
+    return response.data
+  } catch (error) {
+    logger.error(error)
+  }
+}
+
+exports.refreshAccessToken = refreshAccessToken
+
 const getBTPToken = async (accessToken) => {
   try {
     const requestConfig = {
@@ -150,6 +178,7 @@ exports.connectUser = async (req, res, next) => {
   try {
     // we pass the token to the request session, so it should persist as long as the user has their browser open
     const btpToken = await getBTPToken(req.profile.access_token)
+    // if 401, refresh
     req.session.btpToken = btpToken
 
     await addUserConnection(account, profile)
