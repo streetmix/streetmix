@@ -2,13 +2,7 @@ const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')
 const { User } = require('../../db/models')
-const {
-  refreshAccessToken,
-  getBTPToken
-} = require('../services/integrations/coil')
-const {
-  addOrUpdateByProviderName
-} = require('../services/integrations/helpers')
+
 exports.post = async function (req, res) {
   const handleCreateUser = function (user) {
     if (!user) {
@@ -250,38 +244,6 @@ exports.get = async function (req, res) {
     }
   }
 
-  const BTPTokenCheck = async function (userData) {
-    // check for coil provider to set access token to stream payments
-    const coilData = userData.identities.find(
-      (item) => item.provider === 'coil'
-    )
-    if (coilData !== undefined) {
-      // fetch and return btpToken
-      let btpToken = await getBTPToken(coilData.access_token)
-      if (typeof btpToken === 'undefined') {
-        // token may be expired, so lets refresh and try
-        const newAccessToken = await refreshAccessToken(coilData.refresh_token)
-
-        const identities = userData.identities
-        coilData.access_token = newAccessToken
-        addOrUpdateByProviderName(identities, coilData)
-        await User.update(
-          {
-            identities: identities
-          },
-          { where: { auth0Id: userData.auth0Id }, returning: true }
-        )
-        // return btp token after updating access token
-        btpToken = await getBTPToken(newAccessToken)
-      }
-
-      // express-sesion seems to indicate this line is all that would be needed to add to cookies
-      req.session.btpToken = btpToken
-      // ..but it dosen't work unless we do this:
-      res.cookie('btpToken', btpToken)
-    }
-  }
-
   // this function seems like it could be replaced by sequelize findByPK
   const findUserById = async function (userId) {
     let user
@@ -331,7 +293,6 @@ exports.get = async function (req, res) {
 
   try {
     const result = await findUserById(userId)
-    await BTPTokenCheck(result)
     res.status(200).send(asUserJson(result))
   } catch (err) {
     handleError(err)
