@@ -1,3 +1,4 @@
+const querystring = require('querystring')
 const btoa = require('btoa')
 const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
@@ -115,27 +116,29 @@ exports.callback = (req, res, next) => {
   })(req, res, next)
 }
 
+// passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourself
 const refreshAccessToken = async (refreshToken) => {
   try {
     const encodedAuth = btoa(
-      `${process.env.COIL_CLIENT_ID}:${encodeURIComponent(
-        process.env.COIL_CLIENT_SECRET
-      )}`
+      process.env.COIL_CLIENT_ID +
+        ':' +
+        encodeURIComponent(process.env.COIL_CLIENT_SECRET)
     )
+    const data = querystring.stringify({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    })
     const requestConfig = {
       method: 'post',
-      url: 'https://api.coil.com/user/btp',
+      url: 'https://coil.com/oauth/token',
       headers: {
         Authorization: `Basic ${encodedAuth}`,
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken
-      }
+      data: data
     }
     const response = await axios(requestConfig)
-    return response.data
+    return response.data.access_token
   } catch (error) {
     logger.error(error)
   }
