@@ -1,4 +1,4 @@
-const { User } = require('../../../db/models')
+const { User, UserConnections, sequelize } = require('../../../db/models')
 
 /**
  finds the database record for the given user
@@ -41,4 +41,66 @@ const syncAccountStatus = async function (userId) {
   }
 }
 
-module.exports = { findUser, addOrUpdateByProviderName, syncAccountStatus }
+/**
+ * When a user has successfully connected their Streetmix account with a third-
+ * party identity provider, record that connected identity with the user's
+ * Streetmix data in the UserConnection table.
+ *
+ * @todo Remove first attempt at storing identity information as a JSON blob
+ *        on a User model
+ * @param {Object} account - User's Streetmix account information
+ * @param {Object} profile - User's connected identity information
+ * @returns {Promise}
+ */
+function addUserConnection (account, profile) {
+  const identities = account.identities
+  const identity = {
+    provider: profile.provider,
+    user_id: profile.id,
+    access_token: profile.access_token || undefined, // Coil
+    refresh_token: profile.refresh_token || undefined // Coil
+  }
+
+  // if provider exists, should update that item
+  // if not, should add to the object list
+  // TODO: Deprecated
+  addOrUpdateByProviderName(identities, identity)
+
+  return sequelize.transaction(async (t) => {
+    // This is a previous attempt, where we saved connected identity
+    // information to a JSON field in the User model. A newer method (using
+    // the UserConnection table) is used below. Both are currently used to
+    // test concurrent data validity. In time, the User.update() method should
+    // be removed.
+    await User.update(
+      {
+        identities: identities
+      },
+      { where: { auth0Id: account.auth0Id }, returning: true, transaction: t }
+    )
+
+    await UserConnections.findOrCreate({
+      where: {
+        user_id: account.id,
+        provider: profile.provider
+      },
+      transaction: t
+    })
+    return await UserConnections.update(
+      {
+        provider_user_id: profile.id,
+        metadata: profile
+      },
+      {
+        where: {
+          user_id: account.id,
+          provider: profile.provider
+        },
+        returning: true,
+        transaction: t
+      }
+    )
+  })
+}
+
+module.exports = { findUser, syncAccountStatus, addUserConnection }

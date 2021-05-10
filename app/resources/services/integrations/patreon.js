@@ -6,7 +6,7 @@ const logger = require('../../../../lib/logger.js')()
 
 const { User } = require('../../../db/models')
 
-const { findUser } = require('./helpers')
+const { findUser, addUserConnection } = require('./helpers')
 
 /*
 our use case makes this a little complicated,
@@ -111,21 +111,13 @@ exports.callback = (req, res, next) => {
 exports.connectUser = async (req, res) => {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
-  const databaseUser = req.account
-  const identity = {
-    provider: req.profile.provider,
-    user_id: req.profile.id
-  }
+  const account = req.account
+  const profile = req.profile
+
   try {
-    await User.update(
-      {
-        identities: [identity]
-      },
-      { where: { auth0Id: databaseUser.auth0Id }, returning: true }
-    )
+    await addUserConnection(account, profile)
     res.redirect('/')
   } catch (err) {
-    // what would we want to do here?
     logger.error(err)
     res.redirect('/error')
   }
