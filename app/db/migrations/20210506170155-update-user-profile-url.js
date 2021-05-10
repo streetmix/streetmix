@@ -18,15 +18,35 @@ module.exports = {
     // If rolling back, this should set the column back to the original STRING
     // definition, with a maximum value of 255 characters.
     //
+    // Be aware that this will cause data loss if there is a URL longer than
+    // 255 characters, as we will have to truncate it in order to restore the
+    // original column length.
+    //
     // According to PostgreSQL documentation:
-    // "...an over-length value will be truncated to n characters without
-    // raising an error. (This too is required by the SQL standard.)"
+    // "An attempt to store a longer string into a column of these types will
+    // result in an error, unless the excess characters are all spaces, in
+    // which case the string will be truncated to the maximum length. (This
+    // somewhat bizarre exception is required by the SQL standard.)"
     // https://www.postgresql.org/docs/current/datatype-character.html
     //
-    // Thus, be aware that this can cause data loss if there is a long URL that
-    // becomes truncated by this rollback.
-    await queryInterface.changeColumn('Users', 'profile_image_url', {
-      type: Sequelize.STRING
+    // Thus, this migration reversal requires two steps, wrapped in a
+    // transaction for safety:
+    // 1. First, we manually truncate all URLs longer than 255 to 255.
+    // 2. Then, we change the column type to the original length.
+    //
+    // Apologies for the raw SQL. If Sequelize has an interface for this query,
+    // please do replace.
+    return queryInterface.sequelize.transaction(t => {
+      return Promise.all([
+        queryInterface.sequelize.query(`
+          UPDATE "Users"
+          SET profile_image_url = profile_image_url::varchar(255)
+          WHERE CHAR_LENGTH(profile_image_url) > 255
+        `, { transaction: t }),
+        queryInterface.changeColumn('Users', 'profile_image_url', {
+          type: Sequelize.STRING
+        }, { transaction: t })
+      ])
     })
   }
 }
