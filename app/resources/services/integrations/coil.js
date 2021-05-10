@@ -114,7 +114,42 @@ exports.callback = (req, res, next) => {
   })(req, res, next)
 }
 
-// passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourself
+exports.BTPTokenCheck = async (req, res, next) => {
+  // check for coil provider to set access token to stream payments
+  const userData = await User.findByPk(req.user.nickname)
+
+  const coilData = userData.identities.find((item) => item.provider === 'coil')
+  if (coilData !== undefined) {
+    // fetch and return btpToken
+    let btpToken = await getBTPToken(coilData.access_token)
+    if (typeof btpToken === 'undefined') {
+      // token may be expired, so lets refresh and try
+      const newAccessToken = await refreshAccessToken(coilData.refresh_token)
+
+      const identities = userData.identities
+      coilData.access_token = newAccessToken
+      addOrUpdateByProviderName(identities, coilData)
+      await User.update(
+        {
+          identities: identities
+        },
+        { where: { auth0Id: userData.auth0Id }, returning: true }
+      )
+      // return btp token after updating access token
+      btpToken = await getBTPToken(newAccessToken)
+    }
+
+    // express-sesion seems to indicate this line is all that would be needed to add to cookies
+    req.session.btpToken = btpToken
+    // ..but it dosen't work unless we do this:
+    res.cookie('btpToken', btpToken)
+    return next()
+  } else {
+    logger.warn('No coil account found for this user')
+  }
+}
+
+// passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourselves
 const refreshAccessToken = async (refreshToken) => {
   try {
     const encodedAuth = btoa(
@@ -174,12 +209,9 @@ exports.connectUser = async (req, res, next) => {
   const account = req.account
   const profile = req.profile
 
-  // if we get the BTP Token, thats good enough to add the Role
-  // later we might need to check, refresh
   try {
     // we pass the token to the request session, so it should persist as long as the user has their browser open
     const btpToken = await getBTPToken(req.profile.access_token)
-    // if 401, refresh
     req.session.btpToken = btpToken
 
     await addUserConnection(account, profile)
@@ -188,7 +220,6 @@ exports.connectUser = async (req, res, next) => {
     // first you redirect, the token dosen't seem present, but its in the session thereafter..
     res.redirect('/')
   } catch (error) {
-    // what would we want to do here?
     logger.error(error)
     res.redirect('/error')
   }
