@@ -7,7 +7,9 @@ const {
   refreshAccessToken,
   getBTPToken
 } = require('../services/integrations/coil')
-
+const {
+  addOrUpdateByProviderName
+} = require('../services/integrations/helpers')
 exports.post = async function (req, res) {
   const handleCreateUser = function (user) {
     if (!user) {
@@ -253,20 +255,28 @@ exports.get = async function (req, res) {
     )
     if (coilData !== undefined) {
       // fetch and return btpToken
-      try {
-        const btpToken = await getBTPToken(coilData.access_token)
-        // express-sesion seems to indicate this line is all that would be needed to add to cookies
-        req.session.btpToken = btpToken
-        // ..but it dosen't work unless we do this:
-        res.cookie('btpToken', btpToken)
-      } catch (error) {
-        if (error.response.status === 401) {
-          await refreshAccessToken(coilData.access_token)
-          const btpToken = await getBTPToken(coilData.access_token)
-          res.cookie('btpToken', btpToken)
-        }
-        logger.error(error)
+      let btpToken = await getBTPToken(coilData.access_token)
+      if (typeof btpToken === 'undefined') {
+        // token may be expired, so lets refresh and try
+        const newAccessToken = await refreshAccessToken(coilData.refresh_token)
+
+        const identities = userData.identities
+        coilData.access_token = newAccessToken
+        addOrUpdateByProviderName(identities, coilData)
+        await User.update(
+          {
+            identities: identities
+          },
+          { where: { auth0Id: userData.auth0Id }, returning: true }
+        )
+        // return btp token after updating access token
+        btpToken = await getBTPToken(newAccessToken)
       }
+
+      // express-sesion seems to indicate this line is all that would be needed to add to cookies
+      req.session.btpToken = btpToken
+      // ..but it dosen't work unless we do this:
+      res.cookie('btpToken', btpToken)
     }
   }
 
