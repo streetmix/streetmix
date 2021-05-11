@@ -1,4 +1,5 @@
 'use strict'
+
 /*
 a little atypical setup here...'id' is usually a unique primary key value
 but in this app it is actually the username of the user
@@ -107,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   User.associate = function (models) {
-    // associations can be defined here
+    User.hasMany(models.UserConnections)
   }
 
   return User
