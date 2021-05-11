@@ -8,7 +8,12 @@ const { User } = require('../../../db/models')
 const appURL = require('../../../../lib/url.js')
 const logger = require('../../../../lib/logger.js')
 
-const { findUser, addUserConnection, syncAccountStatus } = require('./helpers')
+const {
+  findUser,
+  addUserConnection,
+  syncAccountStatus,
+  addOrUpdateByProviderName
+} = require('./helpers')
 
 const initCoil = () => {
   const authToken = btoa(
