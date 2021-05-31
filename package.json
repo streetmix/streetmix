@@ -27,6 +27,7 @@
     "docs:build": "cd docs && make dirhtml",
     "docs:serve": "npx http-server docs/_build/dirhtml",
     "db:migrate": "npx sequelize-cli db:migrate",
+    "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "db:create": "npx sequelize-cli db:create",
     "pretest:models": "NODE_ENV=test npm run db:migrate",
     "test:models": "NODE_ENV=test jest --watchAll --testPathPattern=app/db/models/_tests_",

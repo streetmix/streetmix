@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       profileImageUrl: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1024),
         field: 'profile_image_url'
       },
       flags: DataTypes.JSON,
