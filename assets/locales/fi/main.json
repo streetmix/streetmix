@@ -392,7 +392,8 @@
   },
   "plus": {
     "locked": {
-      "sub": "Aloita käyttö tilaamalla uutiskirjeemme",
+      "soon": "Tulossa pian!",
+      "sub": "Toiminto sisältyy Streetmix+-tilaukseen",
       "user": "Vaatii sisäänkirjautumisen"
     }
   },
@@ -446,6 +447,7 @@
       "it": "Italia",
       "ja": "Japani",
       "ko": "Korea",
+      "nb-no": "Norja (kirjanorja)",
       "nl-nl": "Hollanti (Alankomaat)",
       "pl": "Puola",
       "pt-br": "Portugali (Brasilia)",

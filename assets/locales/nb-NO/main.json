@@ -392,7 +392,8 @@
   },
   "plus": {
     "locked": {
-      "sub": "Abonnér for å ta i bruk!",
+      "soon": "",
+      "sub": "",
       "user": "Logg inn for å ta i bruk!"
     }
   },
@@ -446,6 +447,7 @@
       "it": "Italiensk",
       "ja": "Japansk",
       "ko": "Koreansk",
+      "nb-no": "Norsk bokmål",
       "nl-nl": "Nederlandsk",
       "pl": "Polsk",
       "pt-br": "Portugisisk (Brazil)",

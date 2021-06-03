@@ -392,7 +392,8 @@
   },
   "plus": {
     "locked": {
-      "sub": "Subscriu-te per utilitzar !",
+      "soon": "",
+      "sub": "",
       "user": "Inicieu la sessió per utilitzar-la!"
     }
   },
@@ -446,6 +447,7 @@
       "it": "Italià",
       "ja": "Japonès",
       "ko": "Koreà",
+      "nb-no": "",
       "nl-nl": "Neerlandès (Països Baixos)",
       "pl": "Polac",
       "pt-br": "Portuguès (Brasil)",

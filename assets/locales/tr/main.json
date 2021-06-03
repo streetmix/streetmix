@@ -392,7 +392,8 @@
   },
   "plus": {
     "locked": {
-      "sub": "Kullanmak için kayıt olun!",
+      "soon": "",
+      "sub": "",
       "user": "Kullanmak için oturum açın!"
     }
   },
@@ -446,6 +447,7 @@
       "it": "İtalyanca",
       "ja": "Japonca",
       "ko": "Korece",
+      "nb-no": "",
       "nl-nl": "Hollandaca (Hollanda)",
       "pl": "Lehçe",
       "pt-br": "Portekizce (Brezilya)",

@@ -392,6 +392,7 @@
   },
   "plus": {
     "locked": {
+      "soon": "",
       "sub": "",
       "user": ""
     }
@@ -446,6 +447,7 @@
       "it": "Italiano",
       "ja": "Japonês",
       "ko": "",
+      "nb-no": "",
       "nl-nl": "",
       "pl": "Polonês",
       "pt-br": "Português (Brasil)",
