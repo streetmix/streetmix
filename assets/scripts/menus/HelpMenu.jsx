@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import KeyboardKey from '../ui/KeyboardKey'
 import {
@@ -20,6 +20,9 @@ const shiftKey = (
 )
 
 function HelpMenu (props) {
+  const upgradeFunnel = useSelector(
+    (state) => state.flags.BUSINESS_PLAN.value || false
+  )
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -35,12 +38,26 @@ function HelpMenu (props) {
 
   return (
     <Menu {...props}>
-      <a href="#" onClick={() => dispatch(showDialog('ABOUT'))}>
-        <FormattedMessage
-          id="menu.item.about"
-          defaultMessage="About Streetmix…"
-        />
-      </a>
+      {/* When Patreon upgrade path is active, about link should go to
+          the new landing page. We can try this for a while and update
+          or replace the About dialog later if necessary. */}
+      {upgradeFunnel
+        ? (
+          <a href="https://about.streetmix.net/" target="_blank" rel="noreferrer">
+            <FormattedMessage
+              id="menu.item.about"
+              defaultMessage="About Streetmix…"
+            />
+          </a>
+          )
+        : (
+          <a href="#" onClick={() => dispatch(showDialog('ABOUT'))}>
+            <FormattedMessage
+              id="menu.item.about"
+              defaultMessage="About Streetmix…"
+            />
+          </a>
+          )}
       <a href="#" onClick={() => dispatch(showDialog('WHATS_NEW'))}>
         <FormattedMessage
           id="dialogs.whatsnew.heading"
