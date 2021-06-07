@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CopyIcon, TrashIcon, ToolsIcon } from '@primer/octicons-react'
+import { DuplicateIcon, TrashIcon, ToolsIcon } from '@primer/octicons-react'
 import {
   ICON_TWITTER,
   ICON_FACEBOOK,
@@ -28,7 +28,9 @@ Icon.propTypes = {
 function Icon ({ icon, className }) {
   switch (icon) {
     case 'copy':
-      return <CopyIcon size={16} className={octiconClassNames(className)} />
+      return (
+        <DuplicateIcon size={16} className={octiconClassNames(className)} />
+      )
     case 'twitter':
       return <FontAwesomeIcon className="menu-item-icon" icon={ICON_TWITTER} />
     case 'facebook':
