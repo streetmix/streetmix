@@ -197,8 +197,12 @@ app.get('/help/about', (req, res) =>
 )
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 app.get('/survey', jwtCheck, controllers.survey.get)
-app.get('/privacy-policy', (req, res) => res.render('privacy'))
-app.get('/terms-of-service', (req, res) => res.render('tos'))
+app.get('/privacy-policy', (req, res) =>
+  res.redirect('https://about.streetmix.net/privacy-policy/')
+)
+app.get('/terms-of-service', (req, res) =>
+  res.redirect('https://about.streetmix.net/terms-of-use/')
+)
 
 // API routes
 app.use('', apiRoutes)
