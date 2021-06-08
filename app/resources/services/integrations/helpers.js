@@ -103,4 +103,9 @@ function addUserConnection (account, profile) {
   })
 }
 
-module.exports = { findUser, syncAccountStatus, addUserConnection }
+module.exports = {
+  findUser,
+  syncAccountStatus,
+  addUserConnection,
+  addOrUpdateByProviderName
+}

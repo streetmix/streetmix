@@ -21,6 +21,7 @@ const initCoil = () => {
       ':' +
       encodeURIComponent(process.env.COIL_CLIENT_SECRET)
   )
+
   const coilStrategy = new OAuth2Strategy(
     {
       authorizationURL: 'https://coil.com/oauth/auth',
@@ -121,39 +122,49 @@ exports.callback = (req, res, next) => {
   })(req, res, next)
 }
 
+// Check for coil provider to set access token to stream payments
 exports.BTPTokenCheck = async (req, res, next) => {
-  // check for coil provider to set access token to stream payments
-  const userData = await User.findByPk(req.user.nickname)
-
-  const coilData = userData.identities.find((item) => item.provider === 'coil')
-  if (coilData !== undefined) {
-    // fetch and return btpToken
-    let btpToken = await getBTPToken(coilData.access_token)
-    if (typeof btpToken === 'undefined') {
-      // token may be expired, so lets refresh and try
-      const newAccessToken = await refreshAccessToken(coilData.refresh_token)
-
-      const identities = userData.identities
-      coilData.access_token = newAccessToken
-      addOrUpdateByProviderName(identities, coilData)
-      await User.update(
-        {
-          identities: identities
-        },
-        { where: { auth0Id: userData.auth0Id }, returning: true }
-      )
-      // return btp token after updating access token
-      btpToken = await getBTPToken(newAccessToken)
-    }
-
-    // express-sesion seems to indicate this line is all that would be needed to add to cookies
-    req.session.btpToken = btpToken
-    // ..but it dosen't work unless we do this:
-    res.cookie('btpToken', btpToken)
+  if (!req.user || !req.user.sub) {
     return next()
-  } else {
-    logger.warn('No coil account found for this user')
   }
+  const userData = await User.findOne({ where: { auth0_id: req.user.sub } })
+
+  // Move on if no identities
+  if (!userData.identities) {
+    return next()
+  }
+
+  // Find Coil as identity provider. Move on if coil not found
+  const coilData = userData.identities.find((item) => item.provider === 'coil')
+  if (!coilData) {
+    return next()
+  }
+
+  // fetch and return btpToken
+  let btpToken = await getBTPToken(coilData.access_token)
+  if (typeof btpToken === 'undefined') {
+    // token may be expired, so lets refresh and try
+    const newAccessToken = await refreshAccessToken(coilData.refresh_token)
+
+    const identities = userData.identities
+    coilData.access_token = newAccessToken
+    addOrUpdateByProviderName(identities, coilData)
+    await User.update(
+      {
+        identities: identities
+      },
+      { where: { auth0Id: userData.auth0Id }, returning: true }
+    )
+    // return btp token after updating access token
+    btpToken = await getBTPToken(newAccessToken)
+  }
+
+  // express-sesion seems to indicate this line is all that would be needed to add to cookies
+  req.session.btpToken = btpToken
+  // ..but it dosen't work unless we do this:
+  res.cookie('btpToken', btpToken)
+  console.log(btpToken)
+  return next()
 }
 
 // passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourselves
