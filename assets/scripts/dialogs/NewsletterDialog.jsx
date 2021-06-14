@@ -4,7 +4,18 @@ import { useForm } from 'react-hook-form'
 import Dialog from './Dialog'
 import './NewsletterDialog.scss'
 
-function jsonToFormBody (data) {
+/**
+ * Converts a JavaScript object of key-value pairs (which is the format of
+ * a given payload from react-hook-form's `handleSubmit()`) into a string
+ * that would normally be submitted by a form to an endpoint that expects
+ * a 'application/x-www-form-urlencoded' MIME-type. This function is generic
+ * and can be ported to a common utility module if we ever need it in more
+ * than one place.
+ *
+ * @param {Object} data - provided by react-hook-form's `handleSubmit()`
+ * @returns {string} - data expected by the newsletter POST endpoint
+ */
+function jsObjectToFormBody (data) {
   const formBody = []
   for (const property in data) {
     const encodedKey = encodeURIComponent(property)
@@ -25,7 +36,7 @@ const NewsletterDialog = (props) => {
 
   const onSubmit = async (data) => {
     setSubmitState('PENDING')
-    const formBody = jsonToFormBody(data)
+    const formBody = jsObjectToFormBody(data)
     const res = await window.fetch(
       'https://buttondown.email/api/emails/embed-subscribe/streetmix',
       {

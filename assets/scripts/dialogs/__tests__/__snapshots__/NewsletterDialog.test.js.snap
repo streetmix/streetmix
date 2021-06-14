@@ -31,11 +31,41 @@ exports[`NewsletterDialog renders snapshot 1`] = `
         <div
           class="dialog-content"
         >
-          <div>
-            <div>
-              foo
+          <p>
+            We send occasional email updates through our newsletter, just several times a year. Sign up to ensure you don’t miss a thing!
+          </p>
+          <form>
+            <label
+              for="bd-email"
+            >
+              Enter your email
+            </label>
+            <input
+              id="bd-email"
+              name="email"
+              placeholder="test@example.com"
+              type="email"
+            />
+            <input
+              name="tag"
+              type="hidden"
+              value="via app"
+            />
+            <input
+              name="embed"
+              type="hidden"
+              value="1"
+            />
+            <div
+              class="subscribe-buttons"
+            >
+              <input
+                class="button-primary"
+                type="submit"
+                value="Subscribe"
+              />
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
