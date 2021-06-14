@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useForm } from 'react-hook-form'
 import Dialog from './Dialog'
 import './NewsletterDialog.scss'
@@ -15,6 +15,7 @@ function jsonToFormBody (data) {
 }
 
 const NewsletterDialog = (props) => {
+  const { formatMessage } = useIntl()
   const {
     register,
     handleSubmit,
@@ -44,25 +45,6 @@ const NewsletterDialog = (props) => {
     }
   }
 
-  let submitDisplay
-  switch (submitState) {
-    case 'PENDING':
-      submitDisplay = 'Loading...'
-      break
-    case 'OK':
-      submitDisplay =
-        'Thank you! You’re almost subscribed. We’ve sent you an email to confirm your address. Click it and you’re in!'
-      break
-    case 'ERROR':
-      submitDisplay =
-        'Uh oh! Something went wrong with the subscription process. This might be a temporary system error. Please try again later!'
-      break
-    case 'DEFAULT':
-    default:
-      submitDisplay = null
-      break
-  }
-
   return (
     <Dialog>
       {(closeDialog) => {
@@ -78,11 +60,18 @@ const NewsletterDialog = (props) => {
             </header>
             <div className="dialog-content">
               <p>
-                We send occasional email updates through our newsletter, only
-                several times a year. Sign up to ensure you won’t miss a thing!
+                <FormattedMessage
+                  id="dialogs.newsletter.description"
+                  defaultMessage="We send occasional email updates through our newsletter, just several times a year. Sign up to ensure you don’t miss a thing!"
+                />
               </p>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor="bd-email">Enter your email</label>
+                <label htmlFor="bd-email">
+                  <FormattedMessage
+                    id="dialogs.newsletter.email-label"
+                    defaultMessage="Enter your email"
+                  />
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -92,7 +81,12 @@ const NewsletterDialog = (props) => {
                   {...register('email', { required: true })}
                 />
                 {errors.email && (
-                  <p className="subscribe-error">This field is required.</p>
+                  <p className="subscribe-error">
+                    <FormattedMessage
+                      id="dialogs.newsletter.field-required-error"
+                      defaultMessage="This field is required."
+                    />
+                  </p>
                 )}
                 <input
                   type="hidden"
@@ -106,15 +100,69 @@ const NewsletterDialog = (props) => {
                   value="1"
                   {...register('embed')}
                 />
-                <div className="subscribe-buttons">
-                  <input
-                    type="submit"
-                    value="Subscribe"
-                    className="button-primary"
-                  />
-                </div>
+                {submitState === 'DEFAULT' && (
+                  <div className="subscribe-buttons">
+                    <input
+                      type="submit"
+                      value={formatMessage({
+                        id: 'dialogs.newsletter.subscribe',
+                        defaultMessage: 'Subscribe'
+                      })}
+                      className="button-primary"
+                    />
+                  </div>
+                )}
+                {submitState === 'PENDING' && (
+                  <div className="subscribe-buttons">
+                    <button disabled={true}>
+                      <FormattedMessage
+                        id="dialogs.newsletter.subscribe-pending"
+                        defaultMessage="Please wait..."
+                      />
+                    </button>
+                  </div>
+                )}
+                {submitState === 'OK' && (
+                  <>
+                    <p>
+                      <FormattedMessage
+                        id="dialogs.newsletter.ok-message"
+                        defaultMessage="<strong>Thank you! You’re almost subscribed.</strong> We’ve sent you an email to confirm your address. Click it and you’re in!"
+                        values={{
+                          // eslint-disable-next-line react/display-name
+                          strong: (chunks) => <strong>{chunks}</strong>
+                        }}
+                      />
+                    </p>
+                    <div className="subscribe-buttons">
+                      <button onClick={closeDialog}>
+                        <FormattedMessage
+                          id="btn.close"
+                          defaultMessage="Close"
+                        />
+                      </button>
+                    </div>
+                  </>
+                )}
+                {submitState === 'ERROR' && (
+                  <>
+                    <p className="subscribe-error">
+                      <FormattedMessage
+                        id="dialogs.newsletter.error-message"
+                        defaultMessage="Uh oh! Something went wrong with the subscription process. This might be a temporary system error. Please try again later!"
+                      />
+                    </p>
+                    <div className="subscribe-buttons">
+                      {/* Display button for retry, rather than cancel or close */}
+                      <input
+                        type="submit"
+                        value="Subscribe"
+                        className="button-primary"
+                      />
+                    </div>
+                  </>
+                )}
               </form>
-              {submitDisplay}
             </div>
           </div>
         )
