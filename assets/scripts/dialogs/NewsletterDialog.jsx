@@ -78,8 +78,8 @@ const NewsletterDialog = (props) => {
             </header>
             <div className="dialog-content">
               <p>
-                We send very occasional email updates through our newsletter,
-                about once a quarter. Sign up to ensure you won’t miss a thing!
+                We send occasional email updates through our newsletter, only
+                several times a year. Sign up to ensure you won’t miss a thing!
               </p>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="bd-email">Enter your email</label>
@@ -87,12 +87,12 @@ const NewsletterDialog = (props) => {
                   type="email"
                   name="email"
                   id="bd-email"
+                  placeholder="test@example.com"
+                  className={errors.email ? 'subscribe-input-error' : null}
                   {...register('email', { required: true })}
                 />
                 {errors.email && (
-                  <span className="subscribe-error">
-                    This field is required
-                  </span>
+                  <p className="subscribe-error">This field is required.</p>
                 )}
                 <input
                   type="hidden"
@@ -106,7 +106,13 @@ const NewsletterDialog = (props) => {
                   value="1"
                   {...register('embed')}
                 />
-                <input type="submit" value="Subscribe" />
+                <div className="subscribe-buttons">
+                  <input
+                    type="submit"
+                    value="Subscribe"
+                    className="button-primary"
+                  />
+                </div>
               </form>
               {submitDisplay}
             </div>
