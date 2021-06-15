@@ -13,7 +13,7 @@ import {
   faRedo,
   faTrashAlt,
   faTools,
-  faCrown,
+  faBolt,
   faMale,
   faPencilAlt,
   faLock
@@ -56,7 +56,7 @@ export const ICON_ARROW_RIGHT = faArrowRight
 export const ICON_ARROW_LEFT = faArrowLeft
 export const ICON_CHEVRON_RIGHT = faChevronRight
 export const ICON_CHEVRON_LEFT = faChevronLeft
-export const ICON_CROWN = faCrown
+export const ICON_BOLT = faBolt
 export const ICON_PERSON = faMale
 export const ICON_PENCIL = faPencilAlt
 export const ICON_LOCK = faLock

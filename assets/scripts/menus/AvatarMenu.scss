@@ -1,4 +1,14 @@
+.menu-avatar-badge {
+  margin-left: 0.25em;
+}
+
 .menu-avatar-admin {
-  margin-right: 0.25em;
   color: #ffb010 !important;
+}
+
+.menu-avatar-subscriber {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  vertical-align: -0.2em;
 }
