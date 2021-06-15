@@ -6,7 +6,7 @@ import 'jest-date-mock'
 import LocalStorageMock from './__mocks__/LocalStorageMock'
 
 // Add mocks for global methods
-global.fetch = fetch
+fetch.enableMocks()
 global.localStorage = new LocalStorageMock()
 
 // Add stubs for global methods

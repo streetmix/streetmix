@@ -37,21 +37,30 @@ const NewsletterDialog = (props) => {
   const onSubmit = async (data) => {
     setSubmitState('PENDING')
     const formBody = jsObjectToFormBody(data)
-    const res = await window.fetch(
-      'https://buttondown.email/api/emails/embed-subscribe/streetmix',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formBody
-      }
-    )
 
-    if (res.status === 200) {
-      setSubmitState('OK')
-    } else {
-      // Errors are generic for now.
+    try {
+      const res = await window.fetch(
+        'https://buttondown.email/api/emails/embed-subscribe/streetmix',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: formBody
+        }
+      )
+
+      if (res.status === 200) {
+        setSubmitState('OK')
+      } else {
+        // Errors are generic for now.
+        setSubmitState('ERROR')
+      }
+    } catch (err) {
+      // The error handling in the try block handles failures on the remote
+      // server (e.g. 404, 500, etc). The error handling in the catch block
+      // handles failures if the fetch fails on the client side (e.g. user is
+      // offline). Both situations will display the same generic error for now.
       setSubmitState('ERROR')
     }
   }
