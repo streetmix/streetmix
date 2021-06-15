@@ -262,7 +262,14 @@
       "heading": "What’s new in Streetmix?"
     },
     "newsletter": {
-      "heading": "Subscribe to our newsletter"
+      "heading": "Subscribe to our newsletter",
+      "description": "We send occasional email updates through our newsletter, just several times a year. Sign up to ensure you don’t miss a thing!",
+      "email-label": "Enter your email",
+      "field-required-error": "This field is required.",
+      "subscribe": "Subscribe",
+      "subscribe-pending": "Please wait...",
+      "ok-message": "<strong>Thank you! You’re almost subscribed.</strong> We’ve sent you an email to confirm your address. Click it and you’re in!",
+      "error-message": "Uh oh! Something went wrong with the subscription process. This might be a temporary system error. Please try again later!"
     }
   },
   "tools": {

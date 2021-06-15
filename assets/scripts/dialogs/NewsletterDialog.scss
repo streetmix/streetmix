@@ -1,42 +1,53 @@
 @import "../../styles/variables.scss";
 
 .newsletter-dialog {
-  min-width: 450px;
-  max-width: 600px;
+  min-width: 400px;
+  max-width: 520px;
 }
 
-/* Mailchimp overrides */
-#mc_embed_signup form {
-  padding: 0;
+.newsletter-dialog label {
+  display: block;
+  font-weight: 700;
+  font-size: 1.2em;
+  margin-bottom: 0.25em;
 }
 
-#mc_embed_signup h2 {
-  display: none;
+.newsletter-dialog form {
+  margin-top: 1.5em;
 }
 
-/* Hard codes replacement button styles */
-#mc_embed_signup .button {
-  // Match UI button style
-  background-color: $colour-emerald-400;
-  padding: 0.75em 2em;
-  margin-top: 1em;
-  color: white;
-  font-weight: bold;
+.newsletter-dialog input[type="email"] {
+  display: block;
 
-  // Override styles supplied by mailchimp.css
-  transition: none;
-  height: auto;
-  font-size: inherit;
-  line-height: inherit;
+  /* Reusing styles from .sign-in-input */
+  border-radius: 3px;
+  padding: 0.75em;
+  width: 100%;
+  border: $button-border;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.07);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s;
 
-  // Match UI button hover style
-  &:hover {
-    background-color: mix($colour-emerald-400, $colour-emerald-500, 75%);
+  &:focus {
+    border-color: $colour-turquoise-425;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.07),
+      0 0 8px opacify($colour-turquoise-450, 0.1);
+  }
+
+  &.subscribe-input-error {
+    border: 1px solid red !important;
   }
 }
 
-/* Centers the subscribe button */
-#mc_embed_signup .clear {
-  width: 100%;
+.subscribe-error {
+  color: red;
+  font-weight: bold;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.subscribe-buttons {
   text-align: center;
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
