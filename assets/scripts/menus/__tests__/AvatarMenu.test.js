@@ -20,8 +20,17 @@ describe('AvatarMenu', () => {
       id: 'foo',
       roles: ['ADMIN']
     }
-    const { asFragment } = render(<AvatarMenu user={user} />)
-    expect(asFragment()).toMatchSnapshot()
+    render(<AvatarMenu user={user} />)
+    expect(screen.queryByTitle('Admin')).toBeInTheDocument()
+  })
+
+  it('renders user avatar for subscriber', () => {
+    const user = {
+      id: 'foo',
+      roles: ['SUBSCRIBER_1']
+    }
+    render(<AvatarMenu user={user} />)
+    expect(screen.queryByTitle('Streetmix+ subscriber')).toBeInTheDocument()
   })
 
   it('calls click handler', () => {

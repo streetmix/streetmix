@@ -378,7 +378,11 @@
   },
   "users": {
     "anonymous": "Anonymous",
-    "byline": "by {user}"
+    "byline": "by {user}",
+    "roles": {
+      "admin": "Admin",
+      "subscriber": "Streetmix+ subscriber"
+    }
   },
   "export": {
     "watermark": "Made with {streetmixWordmark}"

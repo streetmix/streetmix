@@ -20,27 +20,3 @@ exports[`AvatarMenu renders user avatar 1`] = `
   </button>
 </DocumentFragment>
 `;
-
-exports[`AvatarMenu renders user avatar for admin 1`] = `
-<DocumentFragment>
-  <button
-    class="menu-attached menu-avatar"
-  >
-    <span
-      class="avatar"
-    >
-      <img
-        alt="foo"
-      />
-    </span>
-    <svg
-      class="svg-inline--fa menu-avatar-admin fa-crown"
-    />
-    <span
-      class="user-id"
-    >
-      foo
-    </span>
-  </button>
-</DocumentFragment>
-`;
