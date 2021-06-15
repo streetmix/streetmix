@@ -19,7 +19,7 @@ FontAwesomeIcon.propTypes = {
 }
 
 export function FontAwesomeIcon (props) {
-  const { icon, className } = props
+  const { icon, className, ...restProps } = props
   const classNames = ['svg-inline--fa']
 
   if (className) {
@@ -32,5 +32,5 @@ export function FontAwesomeIcon (props) {
     classNames.push(`fa-${icon.iconName}`)
   }
 
-  return <svg className={classNames.join(' ')} />
+  return <svg className={classNames.join(' ')} {...restProps} />
 }
