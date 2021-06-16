@@ -59,14 +59,23 @@ function WelcomePanel (props) {
   // If app has not fully loaded yet
   // If user has dismissed the panel this session
   // If the welcome type is WELCOME_NONE
-  if (
-    !readOnly &&
-    everythingLoaded &&
-    !isDismissed &&
-    welcomeType !== WELCOME_NONE
-  ) {
-    dispatch(setWelcomePanelVisible())
-  }
+  //
+  // When rendering, the dispatch call below affects the state of another
+  // component (`StreetNameplateContainer`), which throws an error in React.
+  // This is considered a bug, despite the functionality behaving as expected.
+  // The fix is to wrap this in `useEffect` so that the dispatch call occurs
+  // after the render is done. For more information see the discussion at
+  // https://github.com/streetmix/streetmix/issues/2324
+  useEffect(() => {
+    if (
+      !readOnly &&
+      everythingLoaded &&
+      !isDismissed &&
+      welcomeType !== WELCOME_NONE
+    ) {
+      dispatch(setWelcomePanelVisible())
+    }
+  })
 
   const handleWelcomeDismissed = useCallback(() => {
     // Certain events will dismiss the welcome panel. If already
