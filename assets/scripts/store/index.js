@@ -20,11 +20,24 @@
  * For more info: https://redux-toolkit.js.org/
  *
  */
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import reducers from './reducers'
 
 const store = configureStore({
-  reducer: reducers
+  reducer: reducers,
+  // Disable these checks in development mode, as they can be performance-
+  // heavy and create a lot warning spam in console. See this issue for info:
+  // https://github.com/reduxjs/redux-toolkit/issues/415
+  // Yes, this means the checks don't run at all. They can be helpful when
+  // writing new reducers, or refactoring them, so it's fine to temporarily
+  // re-enable them when you need them. Otherwise, leave it false so that
+  // the development experience isn't unnecessarily crippled.
+  middleware: [
+    ...getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false
+    })
+  ]
 })
 
 export default store
