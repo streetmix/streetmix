@@ -1,6 +1,6 @@
-import { API_URL } from '../app/config'
 import { getBuildingImageHeight } from '../segments/buildings'
 import { TILE_SIZE, BUILDING_SPACE } from '../segments/constants'
+import { deleteStreetImage } from '../util/api'
 import store, { observeStore } from '../store'
 import { drawStreetThumbnail } from './thumbnail'
 import { trimStreetData } from './data_model'
@@ -173,21 +173,11 @@ export async function saveStreetThumbnail (street, event) {
 
 // Handles removing street thumbnail from cloudinary.
 export async function deleteStreetThumbnail (streetId) {
-  const url = API_URL + 'v1/streets/images/' + streetId
-
-  const options = {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'text/plain'
-    }
-  }
-
   try {
-    const response = await window.fetch(url, options)
-    if (!response.ok) {
-      throw response
-    }
+    // As this function returns a Promise, awaiting it allows rejected
+    // Promises to be caught by the `catch` block below.
+    await deleteStreetImage(streetId)
   } catch (error) {
-    console.log('Unable to delete street thumbnail', error)
+    console.error('Unable to delete street thumbnail.', error)
   }
 }
