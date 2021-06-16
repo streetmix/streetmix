@@ -174,8 +174,10 @@ export async function saveStreetThumbnail (street, event) {
 // Handles removing street thumbnail from cloudinary.
 export async function deleteStreetThumbnail (streetId) {
   try {
-    deleteStreetImage(streetId)
+    // As this function returns a Promise, awaiting it allows rejected
+    // Promises to be caught by the `catch` block below.
+    await deleteStreetImage(streetId)
   } catch (error) {
-    console.log('Unable to delete street thumbnail', error)
+    console.error('Unable to delete street thumbnail.', error)
   }
 }
