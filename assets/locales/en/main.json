@@ -407,6 +407,10 @@
       "soon": "Coming soon!",
       "sub": "Upgrade to Streetmix+ to use!",
       "user": "Sign-in to use!"
+    },
+    "prompt": {
+      "text": "This feature is only available to Streetmix+ users!",
+      "action": "Upgrade to unlock"
     }
   },
   "sentiment": {
