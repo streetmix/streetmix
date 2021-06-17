@@ -5,6 +5,7 @@ import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
 import USER_ROLES from '../../../app/data/user_roles'
 import CloseButton from '../ui/CloseButton'
+import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
 import { setEnvironment } from '../store/slices/street'
 import { toggleToolbox } from '../store/slices/ui'
@@ -19,6 +20,7 @@ function EnvironmentEditor (props) {
   )
   const show = useSelector((state) => state.ui.toolboxVisible || false)
   const user = useSelector((state) => state.user.signInData?.details || null)
+  const signedIn = useSelector((state) => state.user.signedIn || false)
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
@@ -26,6 +28,11 @@ function EnvironmentEditor (props) {
 
   function handleClose (event) {
     dispatch(toggleToolbox())
+  }
+
+  function handleClickSignIn (event) {
+    event.preventDefault()
+    doSignIn()
   }
 
   function handleClickUpgrade (event) {
@@ -87,12 +94,26 @@ function EnvironmentEditor (props) {
                       id="plus.prompt.text"
                       defaultMessage="This feature is only available to Streetmix+ users!"
                     />
-                    <button onClick={handleClickUpgrade}>
-                      <FormattedMessage
-                        id="plus.prompt.action"
-                        defaultMessage="Upgrade to unlock"
-                      />
-                    </button>
+                    {/* If users are not signed in, they must sign in first
+                        If they're signed in, and are not a subscriber, show
+                        the upgrade button */}
+                    {signedIn
+                      ? (
+                        <button onClick={handleClickUpgrade}>
+                          <FormattedMessage
+                            id="plus.prompt.action"
+                            defaultMessage="Upgrade to unlock"
+                          />
+                        </button>
+                        )
+                      : (
+                        <button onClick={handleClickSignIn}>
+                          <FormattedMessage
+                            id="menu.item.sign-in"
+                            defaultMessage="Sign in"
+                          />
+                        </button>
+                        )}
                   </div>
                 )}
               </div>

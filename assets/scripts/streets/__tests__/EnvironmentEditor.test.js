@@ -60,10 +60,22 @@ describe('EnvironmentEditor', () => {
     render(<EnvironmentEditor />, {
       initialState: {
         ...initialState,
-        user: {}
+        user: {
+          signedIn: true
+        }
       }
     })
     expect(screen.queryByText('Upgrade to unlock')).toBeInTheDocument()
+  })
+
+  it('shows sign in button for unsubscribed, unsigned-in users', () => {
+    render(<EnvironmentEditor />, {
+      initialState: {
+        ...initialState,
+        user: {}
+      }
+    })
+    expect(screen.queryByText('Sign in')).toBeInTheDocument()
   })
 
   it.todo('does not select an environment for unsubscribed users')
