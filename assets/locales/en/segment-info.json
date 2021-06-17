@@ -199,5 +199,14 @@
     "elevation|road": "Street level",
     "temporary-barrier-type|traffic-cone": "Traffic cone",
     "temporary-barrier-type|barricade": "Barricade"
+  },
+  "environs": {
+    "day": "Day",
+    "twilight": "Twilight",
+    "dusk": "Dusk",
+    "dawn": "Dawn",
+    "night": "Night",
+    "karl": "Fog",
+    "holodeck": "Holodeck"
   }
 }

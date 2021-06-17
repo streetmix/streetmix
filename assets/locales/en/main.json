@@ -275,6 +275,7 @@
   "tools": {
     "tooltip": "Toggle tools",
     "environment": {
+      "tooltip": "Environment editor",
       "heading": "Environment"
     }
   },
