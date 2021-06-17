@@ -41,15 +41,15 @@ function EnvironmentButton (props) {
   if (!enable) return null
 
   const label = intl.formatMessage({
-    id: 'tools.tooltip',
-    defaultMessage: 'Toggle tools'
+    id: 'tools.environment.tooltip',
+    defaultMessage: 'Environment editor'
   })
 
   const Button = (
     <Tooltip label={label}>
       {/* Keep title on button to be queryable by test */}
       <button onClick={handleClickTools} title={label}>
-        <Icon icon="tools" />
+        <Icon icon="sun" />
       </button>
     </Tooltip>
   )

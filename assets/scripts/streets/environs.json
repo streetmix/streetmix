@@ -39,7 +39,19 @@
     "invertUITextColor": true
   },
   "sunrise": {
+    "_comment": "Renamed to 'Dawn'",
+    "enabled": false,
     "name": "Sunrise",
+    "backgroundGradient": [
+      "#a9ccdb",
+      "#b7d6fd",
+      "#fbce96",
+      ["#dd771e", 0.9],
+      "#58151a"
+    ]
+  },
+  "dawn": {
+    "name": "Dawn",
     "backgroundGradient": [
       "#a9ccdb",
       "#b7d6fd",
@@ -97,7 +109,7 @@
     "invertUITextColor": true
   },
   "karl": {
-    "name": "Foggy",
+    "name": "Fog",
     "backgroundColor": "#e2f0f2",
     "foregroundGradient": [
       ["rgba(255,255,255,0.85)", 0],
