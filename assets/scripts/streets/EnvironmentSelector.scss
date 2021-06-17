@@ -2,7 +2,7 @@
 
 $selection-highlight-colour: $colour-copper-500;
 
-.environment-select-grid {
+.environment-selector {
   display: grid;
   height: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -11,7 +11,7 @@ $selection-highlight-colour: $colour-copper-500;
   padding: 1em;
 }
 
-.environment-select {
+.environment-item {
   position: relative;
   width: 40px;
   height: 40px;
@@ -20,12 +20,12 @@ $selection-highlight-colour: $colour-copper-500;
   transition: 120ms box-shadow;
 }
 
-.environment-select.environment-active {
+.environment-item.environment-active {
   box-shadow: 0 0 0 2px $selection-highlight-colour,
     inset 0 0 0 2px rgba(255, 255, 255, 1);
 }
 
-.environment-select.environment-disabled {
+.environment-item.environment-disabled {
   cursor: default;
 
   .environment-disabled-overlay {

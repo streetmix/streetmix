@@ -27,10 +27,10 @@ function EnvironmentSelector ({ enabled, selected, handleSelect }) {
   const envs = getAllEnvirons()
 
   return (
-    <div className="environment-select-grid">
+    <div className="environment-selector">
       {envs.map((env) => {
         const { id, name, iconStyle } = env
-        const classNames = ['environment-select']
+        const classNames = ['environment-item']
         const label = intl.formatMessage({
           id: `environs.${name}`,
           defaultMessage: name

@@ -83,9 +83,15 @@ function EnvironmentEditor (props) {
                 </IntlProvider>
                 {!isSubscriber && (
                   <div className="environment-upgrade-box">
-                    This feature is available to Streetmix+ users!
+                    <FormattedMessage
+                      id="plus.prompt.text"
+                      defaultMessage="This feature is only available to Streetmix+ users!"
+                    />
                     <button onClick={handleClickUpgrade}>
-                      Upgrade to unlock
+                      <FormattedMessage
+                        id="plus.prompt.action"
+                        defaultMessage="Upgrade to unlock"
+                      />
                     </button>
                   </div>
                 )}
