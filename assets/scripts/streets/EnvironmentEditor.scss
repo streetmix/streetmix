@@ -69,6 +69,15 @@ $header-text-colour: $colour-turquoise-700;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1em;
+
+  .octicon {
+    margin-right: 0.5em;
+
+    [dir="rtl"] & {
+      margin-left: 0.5em;
+      margin-right: auto;
+    }
+  }
 }
 
 .environment-editor-content {

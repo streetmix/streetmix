@@ -5,11 +5,12 @@ import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
 import USER_ROLES from '../../../app/data/user_roles'
 import CloseButton from '../ui/CloseButton'
+import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
 import { setEnvironment } from '../store/slices/street'
 import { toggleToolbox } from '../store/slices/ui'
-import emojiIcon from '../../images/openmoji/color/1F324.svg'
+// import emojiIcon from '../../images/openmoji/color/1F324.svg'
 import { DEFAULT_ENVIRONS } from './constants'
 import EnvironmentSelector from './EnvironmentSelector'
 import './EnvironmentEditor.scss'
@@ -64,12 +65,13 @@ function EnvironmentEditor (props) {
               style={props}
             >
               <header>
-                <img
+                {/* <img
                   src={emojiIcon}
                   alt="Sun behind rain cloud"
                   draggable="false"
-                />
+                /> */}
                 <h3>
+                  <Icon icon="sun" />
                   <FormattedMessage
                     id="tools.environment.heading"
                     defaultMessage="Environment"
@@ -92,7 +94,7 @@ function EnvironmentEditor (props) {
                   <div className="environment-upgrade-box">
                     <FormattedMessage
                       id="plus.prompt.text"
-                      defaultMessage="This feature is only available to Streetmix+ users!"
+                      defaultMessage="This feature is only available to Streetmix+ users!&lrm;"
                     />
                     {/* If users are not signed in, they must sign in first
                         If they're signed in, and are not a subscriber, show
