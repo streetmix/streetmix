@@ -9,7 +9,7 @@ exports[`PaletteContainer renders 1`] = `
       class="palette-commands palette-commands-left"
     >
       <button
-        title="Toggle tools"
+        title="Environment editor"
       >
         <svg
           class="octicon"
