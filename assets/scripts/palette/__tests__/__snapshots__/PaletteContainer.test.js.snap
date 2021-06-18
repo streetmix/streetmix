@@ -9,37 +9,12 @@ exports[`PaletteContainer renders 1`] = `
       class="palette-commands palette-commands-left"
     >
       <button
-        title="Toggle tools"
+        title="Environment editor"
       >
         <svg
           class="octicon"
         />
       </button>
-      <div
-        class="supermoon-tooltip"
-      >
-        <button
-          class="close"
-          title="Dismiss"
-        >
-          <svg
-            class="octicon"
-          />
-        </button>
-        <p>
-          <strong>
-            You’ve got some new tools!‎
-          </strong>
-           Click on this button to activate some new abilities.‎
-        </p>
-        <div
-          class="palette-tooltip-pointer-container"
-        >
-          <div
-            class="palette-tooltip-pointer"
-          />
-        </div>
-      </div>
     </div>
     <div
       class="palette-items-scrollable-container"

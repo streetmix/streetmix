@@ -69,6 +69,7 @@ $form-element-background: $colour-turquoise-50;
 $form-element-border: $colour-turquoise-200;
 $button-border: 1px solid $colour-turquoise-400;
 $alert-background: #fff0c0;
+$alert-background-light: color.scale($alert-background, $lightness: 15%);
 $alert-border-colour: #ffd755;
 $alert-border: 5px solid $alert-border-colour;
 $off-white: rgb(247 247 247);

@@ -29,7 +29,7 @@
   },
   "ENVIRONMENT_EDITOR": {
     "label": "Environment editor",
-    "defaultValue": false
+    "defaultValue": true
   },
   "ENVIRONMENT_ANIMATIONS": {
     "label": "Environment animations",
