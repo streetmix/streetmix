@@ -94,7 +94,7 @@ function EnvironmentEditor (props) {
                   <div className="environment-upgrade-box">
                     <FormattedMessage
                       id="plus.prompt.text"
-                      defaultMessage="This feature is only available to Streetmix+ users!&lrm;"
+                      defaultMessage="This feature is only available to Streetmix+ users.&lrm;"
                     />
                     {/* If users are not signed in, they must sign in first
                         If they're signed in, and are not a subscriber, show
