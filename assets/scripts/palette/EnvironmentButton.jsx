@@ -4,7 +4,6 @@ import { useIntl } from 'react-intl'
 import Tooltip from '../ui/Tooltip'
 import Icon from '../ui/Icon'
 import { toggleToolbox } from '../store/slices/ui'
-import './EnvironmentButton.scss'
 
 function EnvironmentButton (props) {
   const enable = useSelector((state) => state.flags.ENVIRONMENT_EDITOR.value)
