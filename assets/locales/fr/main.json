@@ -262,12 +262,20 @@
       "heading": "Qu'est-ce qu'il y a de nouveau dans Streetmix ?"
     },
     "newsletter": {
-      "heading": "S'inscrire à notre newsletter"
+      "heading": "S'inscrire à notre newsletter",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "",
     "environment": {
+      "tooltip": "",
       "heading": "Environnement"
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "Anonyme",
-    "byline": "par {user}"
+    "byline": "par {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": "Fait avec {streetmixWordmark}"
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": "Se connecter pour utiliser !"
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

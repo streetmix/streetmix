@@ -199,5 +199,14 @@
     "elevation|road": "Poziom jezdni",
     "temporary-barrier-type|traffic-cone": "",
     "temporary-barrier-type|barricade": ""
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

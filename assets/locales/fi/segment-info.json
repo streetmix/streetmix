@@ -199,5 +199,14 @@
     "elevation|road": "Katutaso",
     "temporary-barrier-type|traffic-cone": "Liikennekartio",
     "temporary-barrier-type|barricade": "Tiesulku"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

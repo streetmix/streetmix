@@ -262,12 +262,20 @@
       "heading": "Streetmixin uudet ominaisuudet"
     },
     "newsletter": {
-      "heading": "Tilaa uutiskirje"
+      "heading": "Tilaa uutiskirje",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "Muuta asetuksia",
     "environment": {
+      "tooltip": "",
       "heading": "Ympäristö"
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "Tuntematon",
-    "byline": "käyttäjältä {user}"
+    "byline": "käyttäjältä {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": "{streetmixWordmark}-suunnitelma"
@@ -395,6 +407,10 @@
       "soon": "Tulossa pian!",
       "sub": "Toiminto sisältyy Streetmix+-tilaukseen",
       "user": "Vaatii sisäänkirjautumisen"
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

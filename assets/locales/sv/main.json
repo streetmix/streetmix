@@ -4,43 +4,43 @@
       "help": "Hjälp",
       "about": "Om Streetmix…",
       "contact": "Kontakt",
-      "community": "",
-      "contribute": "",
+      "community": "Gemenskap",
+      "contribute": "Bidra",
       "sign-in": "Logga in",
       "sign-out": "Logga ut",
       "new-street": "Ny gata",
       "my-streets": "Mina gator",
       "settings": "Inställningar",
       "share": "Dela",
-      "store": "",
-      "upgrade": ""
+      "store": "Butik",
+      "upgrade": "Uppgradera"
     },
     "help": {
       "keyboard-label": "Snabbkommandon:",
       "remove-instruction": "Ta bort ett segment du pekar på",
       "remove-shift-instruction": "(håll inne {shiftKey} för att ta bort alla)",
       "move-instruction": "",
-      "move-shift-instruction": "",
-      "change-instruction": "",
+      "move-shift-instruction": "(håll in {shiftKey} för att hoppa till kanter)",
+      "change-instruction": "Ändra bredd på ett segment du pekar på",
       "change-shift-instruction": ""
     },
     "share": {
       "sign-in-twitter-link": "Logga in",
       "sign-in-link": "{signInLink} för bättre koppling till ditt personliga gatubibliotek",
       "link": "Kopiera och klistra in denna länk för att dela:",
-      "copy-to-clipboard": "",
+      "copy-to-clipboard": "Kopiera till urklipp",
       "twitter": "Dela på Twitter",
       "facebook": "Dela på Facebook",
       "print": "Skriv ut…",
       "save": "Spara som bild…",
       "save-byline": "För att inkludera i en rapport, blogg etc.",
       "messages": {
-        "my-street": "",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
-        "anonymous-creator-street-unnamed": ""
+        "my-street": "Kolla in min gata, {streetName}, på Streetmix!",
+        "my-street-unnamed": "Kolla in min gata på Streetmix!",
+        "someone-elses-street": "Kolla in {streetName} av {streetCreator} på Streetmix!",
+        "someone-elses-street-unnamed": "Kolla in den här gatan av {streetCreator} på Streetmix!",
+        "anonymous-creator-street": "Kolla in {streetName} på Streetmix!",
+        "anonymous-creator-street-unnamed": "Kolla in den här gatan på Streetmix!"
       }
     },
     "contact": {
@@ -49,12 +49,12 @@
       "email": "Skicka e-post till Streetmix-teamet",
       "github": "Visa källkod på GitHub",
       "blog": "Besök Streetmix-bloggen",
-      "discord": "",
+      "discord": "Gå med i Dischord-chatten",
       "slack": "Gå med i Slack-chatten",
-      "newsletter": ""
+      "newsletter": "Prenumerera på vårt nyhetsbrev"
     },
     "contribute": {
-      "donate": "",
+      "donate": "Donera",
       "opensource": ""
     },
     "feedback": {
@@ -71,9 +71,9 @@
   },
   "settings": {
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "Enheter",
+      "metric": "Meterenheter (meter)",
+      "imperial": "Imperiala enheter (fot)"
     },
     "language": {
       "label": "Språk"
@@ -88,48 +88,48 @@
     "slow-connection-1": "Streetmix har inte kunnat kontakta internet på ett tag nu.",
     "slow-connection-2": "Du kan prova att ladda om sidan och försöka igen. Vänligen notera att du kan förlora dina senaste ändringar. Ursäkta!",
     "no-connection": "Streetmix har problem med uppkopplingen till internet.",
-    "more-info": ""
+    "more-info": "Mer information"
   },
   "error": {
     "button": {
       "home": "",
-      "sign-in": "",
-      "reload": "",
+      "sign-in": "Logga in igen",
+      "reload": "Ladda om sidan",
       "try-again": "Försök igen",
-      "view-example": ""
+      "view-example": "Visa en exempelgata"
     },
-    "page-not-found-title": "",
-    "page-not-found-description": "",
-    "street-not-found-title": "",
-    "street-not-found-description": "",
-    "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
-    "street-deleted-description": "",
-    "sign-out-title": "",
-    "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
-    "reload-sign-in-title": "",
-    "please-reload": "",
-    "survey-finished": "",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
-    "auth-expired": "",
-    "sign-in-again": "",
-    "access-denied-title": "",
-    "access-denied-description": "",
-    "auth-api-problem-title": "",
+    "page-not-found-title": "Sidan hittades inte",
+    "page-not-found-description": "Ojdå! Det finns ingen sida med den här adressen!",
+    "street-not-found-title": "Gatan hittades inte",
+    "street-not-found-description": "Ojdå! Det finns ingen gata med den här länken!",
+    "street-not-found-but-user-description": "Det finns ingen gata med den här länken! Men du kan titta på andra gator av {user}",
+    "street-deleted-title": "Den här gatan har tagits bort",
+    "street-deleted-description": "Det finns inte längre någon gata med den här länken, men du kan titta på andra gator av {user}",
+    "sign-out-title": "Nu är du utloggad.",
+    "reload-sign-out-title": "Du loggade ut i ett annat fönster.",
+    "gallery-street-failure-description": "Vi har problem med att ladda den här gatan.",
+    "reload-sign-in-title": "Du loggade in i ett annat fönster.",
+    "please-reload": "Var vänlig uppdatera den här sidan innan du fortsätter.",
+    "survey-finished": "Undersökning avklarad. Grattis och tack!",
+    "street-deleted-elsewhere-title": "Den här gatan har tagits bort från annan plats.",
+    "street-deleted-elsewhere-description": "Den här gatan har tagits bort i en annan webbläsare.",
+    "auth-expired": "Vi loggade ut dig automatiskt på grund av inaktivitet.",
+    "sign-in-again": "Var vänlig logga in igen.",
+    "access-denied-title": "Du är inte inloggad",
+    "access-denied-description": "Du avbröt inloggningsprocessen.",
+    "auth-api-problem-title": "Det uppstod ett problem med din inloggning.",
     "auth-api-problem-description": "",
     "please-try-again": "",
-    "unsupported-browser-title": "",
+    "unsupported-browser-title": "Streetmix fungerar inte på din webbläsare.",
     "unsupported-browser-description": "",
     "unsupported-browser-internet-explorer": "",
     "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "",
     "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
+    "generic-error-title": "Något gick fel.",
+    "generic-error-description": "Vi beklagar – något gick fel.",
     "error-code": "",
-    "need-help-link": ""
+    "need-help-link": "Behöver du hjälp?"
   },
   "btn": {
     "reload": "Ladda om",
@@ -140,14 +140,14 @@
     "create": "Skapa ny gata",
     "copy": "Gör en kopia",
     "remove": "Ta bort",
-    "close": "",
+    "close": "Stäng",
     "dismiss": "",
     "okay": "",
-    "not-now": ""
+    "not-now": "Inte nu"
   },
   "dialogs": {
     "error": {
-      "heading": "",
+      "heading": "Ojdå!",
       "text": ""
     },
     "welcome": {
@@ -180,7 +180,7 @@
       "team-heading": "",
       "view-source": "Visa källkod",
       "partners": "",
-      "sponsors": "",
+      "sponsors": "Sponsorer",
       "sponsored-by": "",
       "donate-link": "",
       "github-link": "",
@@ -190,12 +190,12 @@
       "privacy-link": "",
       "acknowledgements": "",
       "font-designed-by": "",
-      "emoji-by": "",
-      "icons-by": "",
+      "emoji-by": "Emoji av {author}.",
+      "icons-by": "Ikoner av {author}.",
       "license-label": ""
     },
     "analytics": {
-      "export-csv": "",
+      "export-csv": "Exportera som CSV",
       "heading": "",
       "street-summary": "",
       "typical-lane-width": "",
@@ -221,39 +221,39 @@
     },
     "geotag": {
       "search": "",
-      "clear-search": "",
-      "zoom-in": "",
-      "zoom-out": "",
-      "add-location": "",
-      "confirm-location": "",
-      "clear-location": "",
-      "unknown-location": "",
+      "clear-search": "Rensa sökning",
+      "zoom-in": "Zooma in",
+      "zoom-out": "Zooma ut",
+      "add-location": "Lägg till plats",
+      "confirm-location": "Bekräfta plats",
+      "clear-location": "Rensa plats",
+      "unknown-location": "Okänd plats",
       "geotag-unavailable": ""
     },
     "donate": {
-      "heading": "",
+      "heading": "Streetmix behöver din hjälp!",
       "lede": "",
       "text": "",
-      "button": "",
-      "cancel": ""
+      "button": "Donera till Streetmix",
+      "cancel": "Nej tack"
     },
     "sign-in": {
-      "heading": "",
+      "heading": "Logga in / Registrera",
       "description": "",
-      "email-label": "",
+      "email-label": "Epost",
       "email-description": "",
       "email-invalid": "",
-      "social-heading": "",
+      "social-heading": "eller",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "Fortsätt med e-post",
+        "twitter": "Fortsätt med Twitter",
+        "google": "Fortsätt med Google",
+        "facebook": "Fortsätt med Facebook"
       },
       "tos": "",
-      "tos-link-label": "",
+      "tos-link-label": "användarvillkor",
       "privacy-link-label": "",
-      "loading-message": "",
+      "loading-message": "Loggar in dig...",
       "sent-message-with-email": "",
       "email-unreceived": "",
       "resend-email": ""
@@ -262,12 +262,20 @@
       "heading": ""
     },
     "newsletter": {
-      "heading": ""
+      "heading": "Prenumerera på vårt nyhetsbrev",
+      "description": "",
+      "email-label": "Skriv in din e-post",
+      "field-required-error": "Detta fält är obligatoriskt.",
+      "subscribe": "Prenumerera",
+      "subscribe-pending": "Var vänlig vänta...",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "",
     "environment": {
+      "tooltip": "",
       "heading": ""
     }
   },
@@ -291,9 +299,9 @@
     "remove": "Dra hit för att ta bort"
   },
   "width": {
-    "label": "",
-    "under": "",
-    "over": "",
+    "label": "{width} bredd",
+    "under": "({width} kvar)",
+    "over": "({width} för mycket)",
     "occupied": "Använd bredd:",
     "building": "Vägg-till-vägg-bredd:",
     "different": "Annan bredd…",
@@ -301,21 +309,21 @@
     "imperial": "Ändra till brittiska enheter (fot)"
   },
   "capacity": {
-    "ppl-per-hour": ""
+    "ppl-per-hour": "{capacity} personer/h"
   },
   "datetime": {
-    "minutes-ago": "",
-    "seconds-ago": "",
-    "yesterday": "",
-    "today": ""
+    "minutes-ago": "Några minuter sen",
+    "seconds-ago": "Några sekunder sen",
+    "yesterday": "Igår klockan {time}",
+    "today": "Idag klockan {time}"
   },
   "key": {
     "backspace": "Backsteg",
     "shift": "Shift",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "plus": "Plus",
+    "minus": "Minus",
+    "left-arrow": "Vänsterpil",
+    "right-arrow": "Högerpil"
   },
   "tooltip": {
     "remove-segment": "Ta bort segment",
@@ -327,17 +335,17 @@
     "decrease-width": "Minska bredd (håll inne Shift för ökad precision)",
     "add-floor": "Lägg till våning",
     "remove-floor": "Ta bort våning",
-    "scroll-street-left": "",
-    "scroll-street-right": "",
-    "scroll-left": "",
-    "scroll-right": ""
+    "scroll-street-left": "Panorera vänster",
+    "scroll-street-right": "Panorera höger",
+    "scroll-left": "Scrolla vänster",
+    "scroll-right": "Scrolla höger"
   },
   "street": {
     "default-name": "Namnlös gata",
-    "rename": ""
+    "rename": "Klicka för att ändra namn"
   },
   "building": {
-    "floors-count": "{count, plural, one {} other {}}"
+    "floors-count": "{count, plural, one {# våning} other {# våningar}}"
   },
   "segments": {
     "warnings": {
@@ -347,14 +355,14 @@
     },
     "learn-more": "",
     "unknown": {
-      "label": ""
+      "label": "Okänd"
     },
     "description": {
-      "photo-credit": ""
+      "photo-credit": "Foto:"
     },
     "resize": {
-      "min": "",
-      "max": ""
+      "min": "Min",
+      "max": "Max"
     }
   },
   "section": {
@@ -371,14 +379,18 @@
   },
   "users": {
     "anonymous": "Anonym",
-    "byline": ""
+    "byline": "av {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": "Streetmix+ användare"
+    }
   },
   "export": {
-    "watermark": ""
+    "watermark": "Skapad med {streetmixWordmark}"
   },
   "meta": {
     "description": "Designa, ändra och dela din gata - allt i din webbläsare! Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde.",
-    "page-title": ""
+    "page-title": "{streetName} (av {author})"
   },
   "credits": {
     "core-team-heading": "",
@@ -388,32 +400,36 @@
     "additional-code": "",
     "additional-contributors": "",
     "special-thanks": "",
-    "translators": ""
+    "translators": "Översättare"
   },
   "plus": {
     "locked": {
-      "soon": "",
-      "sub": "",
-      "user": ""
+      "soon": "Kommer snart!",
+      "sub": "Uppgradera till Streetmix+ för att använda!",
+      "user": "Logga in för att använda!"
+    },
+    "prompt": {
+      "text": "",
+      "action": "Uppgradera för att låsa upp"
     }
   },
   "sentiment": {
     "prompt": {
       "intro": "",
       "joyful": "",
-      "choose-one": ""
+      "choose-one": "(välj en)"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "Absolut inte",
+      "rating-2": "Inte så mycket",
+      "rating-3": "Ok",
+      "rating-4": "En del",
+      "rating-5": "Väldigt mycket"
     },
     "sign-in-prompt": "",
-    "about-link": "",
-    "about-text": "",
-    "thank-you": "",
+    "about-link": "Varför ser jag det här?",
+    "about-text": "Den här undersökningen hjälper oss att få reda på vad användarna tycker om streets.",
+    "thank-you": "Tack!",
     "about-header": "",
     "about-article": {
       "paragraph-1": "",
@@ -429,35 +445,35 @@
       "prompt": "",
       "example": "",
       "submit": "",
-      "thanks": ""
+      "thanks": "Uppfattat!"
     }
   },
   "i18n": {
     "lang": {
-      "ar": "",
-      "ca": "",
-      "cs": "",
+      "ar": "Arabiska",
+      "ca": "Katalanska",
+      "cs": "Tjeckiska",
       "de": "Tyska",
       "en": "Engelska",
       "es": "Spanska",
-      "es-419": "",
+      "es-419": "Spanska (Latinamerika)",
       "es-mx": "Spanska (Mexiko)",
       "fi": "Finska",
-      "fr": "",
+      "fr": "Franska",
       "it": "Italiensk",
-      "ja": "",
-      "ko": "",
-      "nb-no": "",
-      "nl-nl": "",
+      "ja": "Japanska",
+      "ko": "Koreanska",
+      "nb-no": "Norskt Bokmål",
+      "nl-nl": "Nederländska",
       "pl": "Polska",
       "pt-br": "Portugisiska (Brasilien)",
-      "ro-ro": "",
-      "ru": "",
+      "ro-ro": "Rumänska",
+      "ru": "Ryska",
       "sv": "Svenska",
-      "tr": "",
-      "zh": "",
-      "zh-hans": "",
-      "zh-hant": ""
+      "tr": "Turkiska",
+      "zh": "Kinesiska",
+      "zh-hans": "Förenklad kinesiska",
+      "zh-hant": "Traditionell kinesiska"
     }
   }
 }

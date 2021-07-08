@@ -19,21 +19,21 @@
       "title": "project management",
       "mugshotFile": "wendy.jpg",
       "url": "https://twitter.com/W_W_F",
-      "active": true
+      "active": false
     },
     {
       "name": "Eric Sherman",
       "title": "engineer",
       "mugshotFile": "eric.jpg",
       "url": "https://twitter.com/OSGISOMG",
-      "active": true
+      "active": false
     },
     {
       "name": "Annabel Church",
       "title": "engineer",
       "mugshotFile": "annabel.jpg",
       "url": "https://twitter.com/annabelchurch",
-      "active": true
+      "active": false
     },
     {
       "name": "Anselm Bradford",
@@ -239,7 +239,7 @@
     "ru": ["Artem Savin", "Olya Arakhouskaya"],
     "es-419": ["Lina Marcela Quiñones"],
     "es-mx": ["David Soto Padín", "Paco Marquez", "Patricio M. Ruiz Abrín"],
-    "sv": ["Jakob Fahlstedt"],
+    "sv": ["Jakob Fahlstedt", "Dennis Haagensen"],
     "tr": ["Hayrettin Günç", "Hande Sığın"]
   }
 }

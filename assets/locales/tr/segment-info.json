@@ -199,5 +199,14 @@
     "elevation|road": "Yol seviyesi",
     "temporary-barrier-type|traffic-cone": "Trafik dubası",
     "temporary-barrier-type|barricade": "Barikat"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

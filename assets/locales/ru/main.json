@@ -262,12 +262,20 @@
       "heading": "Что нового в Streetmix?"
     },
     "newsletter": {
-      "heading": "Подписаться на рассылку"
+      "heading": "Подписаться на рассылку",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "Переключить инструменты",
     "environment": {
+      "tooltip": "",
       "heading": "Окружающая среда"
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "Аноним",
-    "byline": "от {user}"
+    "byline": "от {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": "Создано с {streetmixWordmark}"
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": "Войдите для использования!"
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

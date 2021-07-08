@@ -199,5 +199,14 @@
     "elevation|road": "Gatenivå",
     "temporary-barrier-type|traffic-cone": "Varselkjegle",
     "temporary-barrier-type|barricade": "Sperring"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

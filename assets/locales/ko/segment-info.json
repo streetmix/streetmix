@@ -199,5 +199,14 @@
     "elevation|road": "도로 높이",
     "temporary-barrier-type|traffic-cone": "안전 콘",
     "temporary-barrier-type|barricade": "바리케이드"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

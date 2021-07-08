@@ -262,12 +262,20 @@
       "heading": "Novetats a Streetmix"
     },
     "newsletter": {
-      "heading": "Subscriviu-vos al nostre butlletí"
+      "heading": "Subscriviu-vos al nostre butlletí",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "Eines intercanviables",
     "environment": {
+      "tooltip": "",
       "heading": "Entorn"
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "Anònim",
-    "byline": "per {user}"
+    "byline": "per {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": "Fet amb {streetmixWordmark}"
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": "Inicieu la sessió per utilitzar-la!"
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

@@ -262,12 +262,20 @@
       "heading": ""
     },
     "newsletter": {
-      "heading": ""
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "",
     "environment": {
+      "tooltip": "",
       "heading": ""
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "مجهول",
-    "byline": "من قبل {user}"
+    "byline": "من قبل {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": ""
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": ""
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

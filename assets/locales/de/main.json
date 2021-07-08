@@ -262,12 +262,20 @@
       "heading": "Was gibt es Neues bei Streetmix?"
     },
     "newsletter": {
-      "heading": ""
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "",
     "environment": {
+      "tooltip": "",
       "heading": ""
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "Anonym",
-    "byline": "erstellt von {user}"
+    "byline": "erstellt von {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": ""
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": ""
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

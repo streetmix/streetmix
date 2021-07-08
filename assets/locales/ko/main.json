@@ -262,12 +262,20 @@
       "heading": "스트리트믹스의 새로운 기능"
     },
     "newsletter": {
-      "heading": "뉴스레터 구독"
+      "heading": "뉴스레터 구독",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "",
     "environment": {
+      "tooltip": "",
       "heading": ""
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "익명",
-    "byline": "{user} "
+    "byline": "{user} ",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": "Made with {streetmixWordmark}"
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": ""
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

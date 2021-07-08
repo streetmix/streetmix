@@ -262,12 +262,20 @@
       "heading": "Streetmix'te yeni neler var?"
     },
     "newsletter": {
-      "heading": "Haber bültenimize kayıt ol"
+      "heading": "Haber bültenimize kayıt ol",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "Araçları karıştır",
     "environment": {
+      "tooltip": "",
       "heading": "Çevre"
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "Anonim",
-    "byline": "{user}tarafından"
+    "byline": "{user}tarafından",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": "{streetmixWordmark}ile yapılmıştır."
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": "Kullanmak için oturum açın!"
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

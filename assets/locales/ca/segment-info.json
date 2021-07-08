@@ -199,5 +199,14 @@
     "elevation|road": "Nivell de carrer",
     "temporary-barrier-type|traffic-cone": "Con senyalitzador trànsit",
     "temporary-barrier-type|barricade": "Tanca separadora"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

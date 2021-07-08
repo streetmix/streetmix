@@ -199,5 +199,14 @@
     "elevation|road": "piattaforma a quota stradale",
     "temporary-barrier-type|traffic-cone": "Cono segnalatore",
     "temporary-barrier-type|barricade": "barricata"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

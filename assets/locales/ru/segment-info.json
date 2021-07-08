@@ -199,5 +199,14 @@
     "elevation|road": "Уровень улицы",
     "temporary-barrier-type|traffic-cone": "Уличный конус",
     "temporary-barrier-type|barricade": "Заграждение"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }

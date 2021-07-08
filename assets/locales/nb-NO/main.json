@@ -262,12 +262,20 @@
       "heading": "Hva er nytt i Streetmix"
     },
     "newsletter": {
-      "heading": "Abonnér på nyhetsbrevet"
+      "heading": "Abonnér på nyhetsbrevet",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
     }
   },
   "tools": {
     "tooltip": "Bytt mellom verktøy",
     "environment": {
+      "tooltip": "",
       "heading": "Omgivelser"
     }
   },
@@ -371,7 +379,11 @@
   },
   "users": {
     "anonymous": "Anonym",
-    "byline": "av {user}"
+    "byline": "av {user}",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
   },
   "export": {
     "watermark": "Laget med {streetmixWordmark}"
@@ -395,6 +407,10 @@
       "soon": "",
       "sub": "",
       "user": "Logg inn for å ta i bruk!"
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
     }
   },
   "sentiment": {

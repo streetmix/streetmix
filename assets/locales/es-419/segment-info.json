@@ -199,5 +199,14 @@
     "elevation|road": "Nivel de calle",
     "temporary-barrier-type|traffic-cone": "Cono de tránsito",
     "temporary-barrier-type|barricade": "Barricada"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
   }
 }
