@@ -137,12 +137,10 @@ exports.post = async function (req, res) {
 
   const handleFindStreetWithCreator = async function (street) {
     if (!(req.user && req.user.sub)) {
-      res
-        .status(401)
-        .json({
-          status: 401,
-          msg: 'Sign in to upload street thumnail for owned street.'
-        })
+      res.status(401).json({
+        status: 401,
+        msg: 'Sign in to upload street thumnail for owned street.'
+      })
       return
     }
 
@@ -282,10 +280,16 @@ exports.get = async function (req, res) {
     const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
-    logger.error(error)
-    res
-      .status(500)
-      .json({ status: 500, msg: 'Error finding street thumbnail.' })
+    if (error?.error?.http_code === 404) {
+      res
+        .status(404)
+        .json({ status: 404, msg: 'Could not find street thumbnail.' })
+    } else {
+      logger.error(error)
+      res
+        .status(500)
+        .json({ status: 500, msg: 'Error finding street thumbnail.' })
+    }
     return
   }
 
