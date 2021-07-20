@@ -49,7 +49,7 @@
       "email": "Skicka e-post till Streetmix-teamet",
       "github": "Visa källkod på GitHub",
       "blog": "Besök Streetmix-bloggen",
-      "discord": "Gå med i Dischord-chatten",
+      "discord": "Gå med i Discord-chatten",
       "slack": "Gå med i Slack-chatten",
       "newsletter": "Prenumerera på vårt nyhetsbrev"
     },
@@ -168,7 +168,7 @@
     },
     "new-street": {
       "heading": "Här är din nya gata.",
-      "default": "Börja med en typgata",
+      "default": "Börja med en exempelgata",
       "empty": "Börja med en tom gata",
       "last": "Börja med en kopia av din senaste gata"
     },
@@ -259,7 +259,7 @@
       "resend-email": ""
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "Vad är nytt i Streetmix?"
     },
     "newsletter": {
       "heading": "Prenumerera på vårt nyhetsbrev",

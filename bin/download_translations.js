@@ -11,6 +11,11 @@ const languages = require('../app/data/locales.json')
 
 const resources = ['main', 'segment-info']
 
+if (!process.env.TRANSIFEX_API_TOKEN) {
+  console.error('Error: please provide a Transifex API token.')
+  process.exit()
+}
+
 const downloadSuccess = function (locale, resource, label, data) {
   const localeDir = path.join(__dirname, '/../assets/locales/', locale)
   const translationFile = localeDir + '/' + resource + '.json'

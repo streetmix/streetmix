@@ -263,19 +263,19 @@
     },
     "newsletter": {
       "heading": "Tilaa uutiskirje",
-      "description": "",
-      "email-label": "",
-      "field-required-error": "",
-      "subscribe": "",
-      "subscribe-pending": "",
-      "ok-message": "",
-      "error-message": ""
+      "description": "Sähköpostitse joitakin kertoja vuodessa lähetettävällä uutiskirjeellä kerromme ajankohtaisista asioista. Uutiskirje on englanniksi. Tilaamalla uutiskirjeen pysyt ajan tasalla!",
+      "email-label": "Kirjoita sähköpostiosoite",
+      "field-required-error": "Kentän täyttäminen vaaditaan",
+      "subscribe": "Tilaa",
+      "subscribe-pending": "Pieni hetki...",
+      "ok-message": "<strong>Kiitos tilauksesta, vielä yksi vaihe!</strong>Napsauta sähköpostiisi lähetetyn viestin vahvistuslinkkiä.",
+      "error-message": "Oho! Uutiskirjeen tilaaminen epäonnistui väliaikaisen järjestelmävirheen takia. Yritäthän myöhemmin uudelleen."
     }
   },
   "tools": {
     "tooltip": "Muuta asetuksia",
     "environment": {
-      "tooltip": "",
+      "tooltip": "Ympäristömuokkain",
       "heading": "Ympäristö"
     }
   },
@@ -381,8 +381,8 @@
     "anonymous": "Tuntematon",
     "byline": "käyttäjältä {user}",
     "roles": {
-      "admin": "",
-      "subscriber": ""
+      "admin": "Ylläpitäjä",
+      "subscriber": "Streetmix+-tilaaja"
     }
   },
   "export": {
@@ -404,13 +404,13 @@
   },
   "plus": {
     "locked": {
-      "soon": "Tulossa pian!",
+      "soon": "Tulossa pian",
       "sub": "Toiminto sisältyy Streetmix+-tilaukseen",
       "user": "Vaatii sisäänkirjautumisen"
     },
     "prompt": {
-      "text": "",
-      "action": ""
+      "text": "Toiminto on vain Streetmix+-käyttäjille.",
+      "action": "Ota käyttöön tilaamalla"
     }
   },
   "sentiment": {

@@ -201,12 +201,12 @@
     "temporary-barrier-type|barricade": "Tiesulku"
   },
   "environs": {
-    "day": "",
-    "twilight": "",
-    "dusk": "",
-    "dawn": "",
-    "night": "",
-    "karl": "",
+    "day": "Päivä",
+    "twilight": "Iltahämärä",
+    "dusk": "Hämärä",
+    "dawn": "Aamunkoitto",
+    "night": "Yö",
+    "karl": "Sumu",
     "holodeck": ""
   }
 }
