@@ -18,7 +18,11 @@ export const DEFAULT_SEGMENTS = {
     },
     {
       type: 'bus-lane',
-      variant: { direction: 'inbound', 'bus-asphalt': 'shared' },
+      variant: {
+        direction: 'inbound',
+        'bus-asphalt': 'shared',
+        'bus-type': 'typical'
+      },
       width: 12
     },
     {
@@ -104,7 +108,11 @@ export const DEFAULT_SEGMENTS = {
     },
     {
       type: 'bus-lane',
-      variant: { direction: 'inbound', 'bus-asphalt': 'shared' },
+      variant: {
+        direction: 'inbound',
+        'bus-asphalt': 'shared',
+        'bus-type': 'typical'
+      },
       width: 12
     },
     {
