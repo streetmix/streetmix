@@ -394,7 +394,9 @@
   },
   "credits": {
     "core-team-heading": "Project team",
+    "original-team-heading": "Original project team",
     "past-team-heading": "Past team members",
+    "core-contributors": "Core contributors",
     "advisors": "Advisors",
     "additional-illustrations": "Additional illustrations",
     "additional-code": "Additional code",

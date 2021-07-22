@@ -5,42 +5,24 @@
       "title": "project lead",
       "mugshotFile": "lou.jpg",
       "url": "https://louhuang.com",
-      "active": true
+      "active": true,
+      "original": true
     },
     {
       "name": "Katie Lewis",
       "title": "art director, illustrator",
       "mugshotFile": "katie.jpg",
       "url": "https://twitter.com/klizlewis",
-      "active": true
-    },
-    {
-      "name": "Wendy Fok",
-      "title": "project management",
-      "mugshotFile": "wendy.jpg",
-      "url": "https://twitter.com/W_W_F",
-      "active": false
-    },
-    {
-      "name": "Eric Sherman",
-      "title": "engineer",
-      "mugshotFile": "eric.jpg",
-      "url": "https://twitter.com/OSGISOMG",
-      "active": false
-    },
-    {
-      "name": "Annabel Church",
-      "title": "engineer",
-      "mugshotFile": "annabel.jpg",
-      "url": "https://twitter.com/annabelchurch",
-      "active": false
+      "active": true,
+      "original": true
     },
     {
       "name": "Anselm Bradford",
       "title": "media production",
       "mugshotFile": "anselm.jpg",
       "url": "https://twitter.com/anselmbradford",
-      "active": false
+      "active": false,
+      "original": true
     },
     {
       "name": "Drew Dara-Abrams",
@@ -60,7 +42,8 @@
       "title": "engineer, marketing",
       "mugshotFile": "ezra.jpg",
       "url": "http://ahhrrr.com",
-      "active": false
+      "active": false,
+      "original": true
     },
     {
       "name": "Mandy Kong",
@@ -73,14 +56,16 @@
       "title": "design anthropologist",
       "mugshotFile": "marc.jpg",
       "url": "https://www.linkedin.com/pub/marc-hebert/1/2bb/66",
-      "active": false
+      "active": false,
+      "original": true
     },
     {
       "name": "Marcin Wichary",
       "title": "designer, project manager",
       "mugshotFile": "marcin.jpg",
       "url": "https://aresluna.org",
-      "active": false
+      "active": false,
+      "original": true
     },
     {
       "name": "Oluwaseun Omoyajowo",
@@ -100,7 +85,8 @@
       "title": "backend engineer",
       "mugshotFile": "shaunak.jpg",
       "url": "https://twitter.com/shaunak",
-      "active": false
+      "active": false,
+      "original": true
     },
     {
       "name": "Shemar Dacosta",
@@ -143,6 +129,7 @@
       "Alex Ellis",
       "Ali Idrees",
       "André Lins",
+      "Annabel Church",
       "Anton Panasenko",
       "Andrew Gilbert",
       "Ayush Rawal",
@@ -150,6 +137,7 @@
       "Cody Moss",
       "Don McCurdy",
       "Dwiki Arlan",
+      "Eric Sherman",
       "Joe James-Rodriguez",
       "Kieran Farr",
       "Maciej Kus",
@@ -167,7 +155,8 @@
       ["Justine Braisted", "branding"],
       ["Lisa Ratner", "user experience"],
       ["Mebrak Tareke", "communications"],
-      ["Nick Doiron", "right-to-left localization"]
+      ["Nick Doiron", "right-to-left localization"],
+      ["Wendy Fok", "project manager"]
     ],
     "special-thanks": [
       ["Billy Riggs", "ReStreet"],

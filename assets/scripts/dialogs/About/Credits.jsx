@@ -63,14 +63,14 @@ function Credits (props) {
     <>
       <h2>
         <FormattedMessage
-          id="credits.core-team-heading"
-          defaultMessage="Project team"
+          id="credits.original-team-heading"
+          defaultMessage="Original project team"
         />
       </h2>
 
-      <div className="credits-team">
+      <div className="credits-team credits-team-past">
         {CREDITS.team
-          .filter((person) => person.active)
+          .filter((person) => person.original === true)
           .sort(alphabetizeNames)
           .map((person) => (
             <TeamMember {...person} key={person.name} />
@@ -79,14 +79,14 @@ function Credits (props) {
 
       <h2>
         <FormattedMessage
-          id="credits.past-team-heading"
-          defaultMessage="Past team members"
+          id="credits.core-contributors"
+          defaultMessage="Core contributors"
         />
       </h2>
 
       <div className="credits-team credits-team-past">
         {CREDITS.team
-          .filter((person) => !person.active)
+          .filter((person) => !person.original)
           .sort(alphabetizeNames)
           .map((person) => (
             <TeamMember {...person} key={person.name} />
