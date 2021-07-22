@@ -41,20 +41,25 @@ exports.post = async function (req, res) {
     res.status(200).send(userJson)
   } // END function - handleUpdateUser
 
+  /**
+   * Create or update a user account based on Twitter sign-in.
+   *
+   * @param {Object} credentials - The `auth0_twitter` object created from
+   *    auth0_sign_in_callback.
+   */
   const handleAuth0TwitterSignIn = async function (credentials) {
     try {
-      let user
-      if (credentials.screenName) {
-        user = await User.findOne({ where: { id: credentials.screenName } })
-      }
+      const user = await User.findOne({ where: { id: credentials.screenName } })
+
       if (!user) {
         const newUserData = {
           id: credentials.screenName,
           auth0Id: credentials.auth0Id,
           profileImageUrl: credentials.profileImageUrl
         }
+
         try {
-          User.create(newUserData).then(handleCreateUser)
+          await User.create(newUserData).then(handleCreateUser)
         } catch (err) {
           handleCreateUserError(err)
         }
@@ -67,16 +72,14 @@ exports.post = async function (req, res) {
           const [numUsersUpdated, updatedUser] = await User.update(
             userUpdates,
             {
-              where: { auth0Id: credentials.auth0Id },
+              where: { id: credentials.screenName },
               returning: true
             }
           )
 
-          if (numUsersUpdated !== 1) {
-            logger.info(
-              `Updated data for ${numUsersUpdated} users based on auth0 credentials`
-            )
-          }
+          logger.info(
+            `Updated data for ${numUsersUpdated} users based on auth0 credentials`
+          )
           handleUpdateUser(updatedUser)
         } catch (err) {
           handleUpdateUserError(err)
@@ -153,7 +156,7 @@ exports.post = async function (req, res) {
             profileImageUrl: credentials.profileImageUrl
           }
           try {
-            User.create(newUserData).then(handleCreateUser)
+            await User.create(newUserData).then(handleCreateUser)
           } catch (err) {
             handleCreateUserError(err)
           }
@@ -165,7 +168,7 @@ exports.post = async function (req, res) {
             email: credentials.email,
             profileImageUrl: credentials.profileImageUrl
           }
-          User.create(newUserData).then(handleCreateUser)
+          await User.create(newUserData).then(handleCreateUser)
         }
       } else {
         const profileImageUrl = await handleUserProfileImage(user, credentials)
