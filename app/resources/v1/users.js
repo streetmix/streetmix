@@ -41,12 +41,11 @@ exports.post = async function (req, res) {
     res.status(200).send(userJson)
   } // END function - handleUpdateUser
 
-  // TODO: find out if this is called still and why its seperate from handleAuth0SignIn
   const handleAuth0TwitterSignIn = async function (credentials) {
     try {
       let user
       if (credentials.screenName) {
-        user = await User.findOne({ where: { auth0Id: credentials.auth0Id } })
+        user = await User.findOne({ where: { id: credentials.screenName } })
       }
       if (!user) {
         const newUserData = {
@@ -91,6 +90,7 @@ exports.post = async function (req, res) {
       })
     }
   } // END function - handleAuth0TwitterSignIn
+
   /**
    * Returns a randomly-generated 4-digit string of a number between 0000 and 9999
    *
