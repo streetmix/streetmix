@@ -8,6 +8,7 @@ import { useIntl } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { images } from '../app/load_resources'
 import Tooltip from '../ui/Tooltip'
 import { ICON_LOCK } from '../ui/icons'
 import SegmentCanvas from './SegmentCanvas'
@@ -29,6 +30,7 @@ SegmentForPalette.propTypes = {
   // Provided by parent
   type: PropTypes.string.isRequired,
   variantString: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string,
   onPointerOver: PropTypes.func,
   randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
@@ -77,36 +79,61 @@ function SegmentForPalette (props) {
     })
   }
 
-  const node = (
-    <li
-      style={{
-        width: iconWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
-      }}
-      className={classNames.join(' ')}
-    >
-      <Tooltip
-        target={props.tooltipTarget}
-        label={getLabel(props)}
-        sublabel={sublabel}
+  let node
+  if (props.thumbnail) {
+    node = (
+      <li className={classNames.join(' ')}>
+        <Tooltip
+          target={props.tooltipTarget}
+          label={getLabel(props)}
+          sublabel={sublabel}
+        >
+          {/* Wrapper element necessary for <Tooltip />
+              (alternate solution is to forward ref)
+              This wrapper element is also the target for hover / focus
+              in order the activate the tooltip. */}
+          <div tabIndex="0">
+            <img
+              className="segment-image"
+              src={images.get(props.thumbnail).src}
+            />
+          </div>
+        </Tooltip>
+        {props.disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
+      </li>
+    )
+  } else {
+    node = (
+      <li
+        style={{
+          width: iconWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
+        }}
+        className={classNames.join(' ')}
       >
-        {/* Wrapper element necessary for <Tooltip />
-            (alternate solution is to forward ref)
-            This wrapper element is also the target for hover / focus
-            in order the activate the tooltip. */}
-        <div style={{ height: '80px' }} tabIndex="0">
-          <SegmentCanvas
-            actualWidth={iconWidth}
-            type={props.type}
-            variantString={props.variantString}
-            randSeed={props.randSeed}
-            multiplier={PALETTE_SEGMENT_MULTIPLIER}
-            groundBaseline={PALETTE_GROUND_BASELINE}
-          />
-        </div>
-      </Tooltip>
-      {props.disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
-    </li>
-  )
+        <Tooltip
+          target={props.tooltipTarget}
+          label={getLabel(props)}
+          sublabel={sublabel}
+        >
+          {/* Wrapper element necessary for <Tooltip />
+              (alternate solution is to forward ref)
+              This wrapper element is also the target for hover / focus
+              in order the activate the tooltip. */}
+          <div tabIndex="0">
+            <SegmentCanvas
+              actualWidth={iconWidth}
+              type={props.type}
+              variantString={props.variantString}
+              randSeed={props.randSeed}
+              multiplier={PALETTE_SEGMENT_MULTIPLIER}
+              groundBaseline={PALETTE_GROUND_BASELINE}
+            />
+          </div>
+        </Tooltip>
+        {props.disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
+      </li>
+    )
+  }
 
   // If disabled, return node only
   if (props.disabled) {

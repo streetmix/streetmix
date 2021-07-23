@@ -62,6 +62,7 @@ function PaletteItems (props) {
             ? segment.paletteIcon
             : Object.keys(segment.details).shift()
         }
+        thumbnail={segment.paletteThumbnail}
         randSeed={randSeed.current}
         disabled={segment.disabled}
         tooltipTarget={target}

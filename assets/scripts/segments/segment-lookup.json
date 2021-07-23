@@ -733,7 +733,9 @@
     "zIndex": 10,
     "defaultWidth": 4,
     "enableWithFlag": "SEGMENT_UTILITIES",
+    "alwaysShowInPalette": true,
     "variants": ["orientation"],
+    "paletteThumbnail": "thumbnails--utility-pole",
     "details": {
       "left": {
         "components": {
