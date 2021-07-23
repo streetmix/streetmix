@@ -487,13 +487,11 @@ export const paletteSegmentSource = {
     // dispatch to reduce batch renders.
     store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
-    const segmentInfo = getSegmentInfo(props.type)
-
     return {
       id: generateRandSeed(),
-      variantString: Object.keys(segmentInfo.details).shift(),
-      type: props.type,
-      actualWidth: segmentInfo.defaultWidth
+      variantString: Object.keys(props.segment.details).shift(),
+      type: props.segment.id,
+      actualWidth: props.segment.defaultWidth
     }
   },
 

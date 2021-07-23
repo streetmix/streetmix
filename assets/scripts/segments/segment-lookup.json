@@ -735,7 +735,6 @@
     "enableWithFlag": "SEGMENT_UTILITIES",
     "alwaysShowInPalette": true,
     "variants": ["orientation"],
-    "paletteThumbnail": "thumbnails--utility-pole",
     "details": {
       "left": {
         "components": {

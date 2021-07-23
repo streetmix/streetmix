@@ -70,7 +70,9 @@ function SegmentForPalette ({
   }
 
   let node
-  if (segment.paletteThumbnail) {
+  const thumbnail = images.get(`thumbnails--${segment.id}`)?.src
+
+  if (thumbnail) {
     node = (
       <li className={classNames.join(' ')}>
         <Tooltip
@@ -83,10 +85,7 @@ function SegmentForPalette ({
               This wrapper element is also the target for hover / focus
               in order the activate the tooltip. */}
           <div tabIndex="0">
-            <img
-              className="segment-image"
-              src={images.get(segment.paletteThumbnail).src}
-            />
+            <img className="segment-image" src={thumbnail} />
           </div>
         </Tooltip>
         {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
