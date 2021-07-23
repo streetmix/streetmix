@@ -14,7 +14,7 @@ import { ICON_LOCK } from '../ui/icons'
 import SegmentCanvas from './SegmentCanvas'
 import { TILE_SIZE } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
-import { getSegmentVariantInfo, getSegmentInfo } from './info'
+import { getSegmentVariantInfo } from './info'
 import { getVariantInfoDimensions } from './view'
 import './SegmentForPalette.scss'
 
@@ -28,23 +28,25 @@ SegmentForPalette.propTypes = {
   connectDragPreview: PropTypes.func,
 
   // Provided by parent
-  type: PropTypes.string.isRequired,
-  variantString: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string,
-  onPointerOver: PropTypes.func,
-  randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  segment: PropTypes.object,
   disabled: PropTypes.bool,
+  randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   tooltipTarget: PropTypes.object
 }
 
-function SegmentForPalette (props) {
+function SegmentForPalette ({
+  segment,
+  disabled,
+  randSeed,
+  tooltipTarget,
+  ...props
+}) {
   const intl = useIntl()
 
   props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
 
-  function getLabel (props) {
-    // Get localized display names
-    const segment = getSegmentInfo(props.type)
+  // Get localized display names
+  function getLabel (segment) {
     const defaultMessage = segment.name
 
     return intl.formatMessage({
@@ -53,22 +55,10 @@ function SegmentForPalette (props) {
     })
   }
 
-  const segment = getSegmentInfo(props.type)
-  const variant = getSegmentVariantInfo(props.type, props.variantString)
-
-  // Determine width to render at
-  const dimensions = getVariantInfoDimensions(variant)
-
-  const actualWidth =
-    segment.paletteDefaultWidth ||
-    segment.defaultWidth ||
-    dimensions.right - dimensions.left
-  const iconWidth = actualWidth + PALETTE_SEGMENT_EXTRA_PADDING
-
   const classNames = ['segment', 'segment-in-palette']
   let sublabel = null
 
-  if (props.disabled) {
+  if (disabled) {
     classNames.push('segment-disabled')
     sublabel = intl.formatMessage({
       id: 'plus.locked.user',
@@ -80,12 +70,12 @@ function SegmentForPalette (props) {
   }
 
   let node
-  if (props.thumbnail) {
+  if (segment.paletteThumbnail) {
     node = (
       <li className={classNames.join(' ')}>
         <Tooltip
-          target={props.tooltipTarget}
-          label={getLabel(props)}
+          target={tooltipTarget}
+          label={getLabel(segment)}
           sublabel={sublabel}
         >
           {/* Wrapper element necessary for <Tooltip />
@@ -95,14 +85,28 @@ function SegmentForPalette (props) {
           <div tabIndex="0">
             <img
               className="segment-image"
-              src={images.get(props.thumbnail).src}
+              src={images.get(segment.paletteThumbnail).src}
             />
           </div>
         </Tooltip>
-        {props.disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
+        {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
       </li>
     )
   } else {
+    const variantString = segment.paletteIcon
+      ? segment.paletteIcon
+      : Object.keys(segment.details).shift()
+    const variant = getSegmentVariantInfo(segment.id, variantString)
+
+    // Determine width to render at
+    const dimensions = getVariantInfoDimensions(variant)
+
+    const actualWidth =
+      segment.paletteDefaultWidth ||
+      segment.defaultWidth ||
+      dimensions.right - dimensions.left
+    const iconWidth = actualWidth + PALETTE_SEGMENT_EXTRA_PADDING
+
     node = (
       <li
         style={{
@@ -111,8 +115,8 @@ function SegmentForPalette (props) {
         className={classNames.join(' ')}
       >
         <Tooltip
-          target={props.tooltipTarget}
-          label={getLabel(props)}
+          target={tooltipTarget}
+          label={getLabel(segment)}
           sublabel={sublabel}
         >
           {/* Wrapper element necessary for <Tooltip />
@@ -122,21 +126,21 @@ function SegmentForPalette (props) {
           <div tabIndex="0">
             <SegmentCanvas
               actualWidth={iconWidth}
-              type={props.type}
-              variantString={props.variantString}
-              randSeed={props.randSeed}
+              type={segment.id}
+              variantString={variantString}
+              randSeed={randSeed}
               multiplier={PALETTE_SEGMENT_MULTIPLIER}
               groundBaseline={PALETTE_GROUND_BASELINE}
             />
           </div>
         </Tooltip>
-        {props.disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
+        {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
       </li>
     )
   }
 
   // If disabled, return node only
-  if (props.disabled) {
+  if (disabled) {
     return node
   }
 

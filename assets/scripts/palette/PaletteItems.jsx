@@ -56,15 +56,9 @@ function PaletteItems (props) {
     .map((segment) => (
       <SegmentForPalette
         key={segment.id}
-        type={segment.id}
-        variantString={
-          segment.paletteIcon
-            ? segment.paletteIcon
-            : Object.keys(segment.details).shift()
-        }
-        thumbnail={segment.paletteThumbnail}
-        randSeed={randSeed.current}
+        segment={segment}
         disabled={segment.disabled}
+        randSeed={randSeed.current}
         tooltipTarget={target}
       />
     ))
