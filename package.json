@@ -182,6 +182,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
+    "@babel/eslint-parser": "7.14.7",
     "@babel/plugin-proposal-class-properties": "7.10.4",
     "@babel/preset-env": "7.12.17",
     "@babel/preset-react": "7.12.13",
@@ -193,7 +194,6 @@
     "@testing-library/react": "11.2.5",
     "@testing-library/user-event": "12.8.0",
     "axios-mock-adapter": "1.19.0",
-    "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
     "cypress": "6.6.0",
     "eslint": "7.20.0",
