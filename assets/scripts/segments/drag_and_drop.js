@@ -481,15 +481,19 @@ export const paletteSegmentSource = {
   beginDrag (props, monitor, component) {
     handleSegmentDragStart()
 
-    // Initialize an empty draggingState object in Redux for palette segments in order to
-    // add event listener in StreetEditable once dragging begins.
-    // Also set the dragging type to MOVE. We use one action creator here and one
-    // dispatch to reduce batch renders.
+    // Initialize an empty draggingState object in Redux for palette segments
+    // in order to add event listener in StreetEditable once dragging begins.
+    // Also set the dragging type to MOVE. We use one action creator here and
+    // one dispatch to reduce batch renders.
     store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
     return {
       id: generateRandSeed(),
-      variantString: Object.keys(props.segment.details).shift(),
+      // The preview drag should match artwork in the thumbnail. The variant
+      // string is specified by `paletteIcon`. If the property isn't present,
+      // use the first defined variant in segment details.
+      variantString:
+        props.segment.paletteIcon || Object.keys(props.segment.details).shift(),
       type: props.segment.id,
       actualWidth: props.segment.defaultWidth
     }
