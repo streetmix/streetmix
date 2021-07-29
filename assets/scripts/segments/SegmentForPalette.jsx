@@ -11,16 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { images } from '../app/load_resources'
 import Tooltip from '../ui/Tooltip'
 import { ICON_LOCK } from '../ui/icons'
-import SegmentCanvas from './SegmentCanvas'
-import { TILE_SIZE } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
-import { getSegmentVariantInfo } from './info'
-import { getVariantInfoDimensions } from './view'
 import './SegmentForPalette.scss'
-
-const PALETTE_SEGMENT_EXTRA_PADDING = 5
-const PALETTE_GROUND_BASELINE = 65
-const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
 SegmentForPalette.propTypes = {
   // Provided by react-dnd
@@ -69,82 +61,35 @@ function SegmentForPalette ({
     })
   }
 
-  let node
-  const thumbnail = images.get(`thumbnails--${segment.id}`)?.src
-
-  if (thumbnail) {
-    node = (
-      <li className={classNames.join(' ')}>
-        <Tooltip
-          target={tooltipTarget}
-          label={getLabel(segment)}
-          sublabel={sublabel}
-        >
-          {/* Wrapper element necessary for <Tooltip />
-              (alternate solution is to forward ref)
-              This wrapper element is also the target for hover / focus
-              in order the activate the tooltip. */}
-          <div tabIndex="0">
-            <img className="segment-image" src={thumbnail} />
-          </div>
-        </Tooltip>
-        {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
-      </li>
-    )
-  } else {
-    const variantString = segment.paletteIcon
-      ? segment.paletteIcon
-      : Object.keys(segment.details).shift()
-    const variant = getSegmentVariantInfo(segment.id, variantString)
-
-    // Determine width to render at
-    const dimensions = getVariantInfoDimensions(variant)
-
-    const actualWidth =
-      segment.paletteDefaultWidth ||
-      segment.defaultWidth ||
-      dimensions.right - dimensions.left
-    const iconWidth = actualWidth + PALETTE_SEGMENT_EXTRA_PADDING
-
-    node = (
-      <li
-        style={{
-          width: iconWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
-        }}
-        className={classNames.join(' ')}
+  const thumbnail =
+    images.get(`thumbnails--${segment.id}`)?.src ||
+    images.get('thumbnails--missing')?.src
+  const node = (
+    <li className={classNames.join(' ')}>
+      <Tooltip
+        target={tooltipTarget}
+        label={getLabel(segment)}
+        sublabel={sublabel}
       >
-        <Tooltip
-          target={tooltipTarget}
-          label={getLabel(segment)}
-          sublabel={sublabel}
-        >
-          {/* Wrapper element necessary for <Tooltip />
-              (alternate solution is to forward ref)
-              This wrapper element is also the target for hover / focus
-              in order the activate the tooltip. */}
-          <div tabIndex="0">
-            <SegmentCanvas
-              actualWidth={iconWidth}
-              type={segment.id}
-              variantString={variantString}
-              randSeed={randSeed}
-              multiplier={PALETTE_SEGMENT_MULTIPLIER}
-              groundBaseline={PALETTE_GROUND_BASELINE}
-            />
-          </div>
-        </Tooltip>
-        {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
-      </li>
-    )
-  }
+        {/* Wrapper element necessary for <Tooltip />
+            (alternate solution is to forward ref)
+            This wrapper element is also the target for hover / focus
+            in order the activate the tooltip. */}
+        <div tabIndex="0">
+          <img className="segment-image" src={thumbnail} />
+        </div>
+      </Tooltip>
+      {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
+    </li>
+  )
 
-  // If disabled, return node only
+  // If disabled, return node as-is.
+  // Otherwise, return node wrapped with react-dnd abilities.
   if (disabled) {
     return node
+  } else {
+    return props.connectDragSource(node)
   }
-
-  // Otherwise, return node wrapped with react-dnd abilities.
-  return props.connectDragSource(node)
 }
 
 export default DragSource(
