@@ -5,19 +5,21 @@
       "title": "regional manager",
       "mugshotFile": "michael.jpg",
       "url": "https://dunder-mifflin.com",
-      "active": true
+      "active": true,
+      "original": true
     },
     {
       "name": "Dwight Schrute",
       "title": "assistant to the regional manager",
       "mugshotFile": "dwight.jpg",
-      "active": true
+      "active": false,
+      "original": true
     },
     {
       "name": "Pam Beesly",
       "title": "office administrator",
       "mugshotFile": "pam.jpg",
-      "active": false
+      "active": true
     },
     {
       "name": "Jim Halpert",
@@ -28,67 +30,31 @@
     }
   ],
   "contributors": {
-    "advisors": [
-      "Jan Levinson",
-      "Robert California"
-    ],
+    "advisors": ["Jan Levinson", "Robert California"],
     "additional-illustrations": [
       "Stanley Hudson",
       "Kevin Malone",
       "Meredith Palmer"
     ],
-    "additional-code": [
-      "Angela Martin",
-      "Oscar Martinez",
-      "Phyllis Lapin"
-    ],
+    "additional-code": ["Angela Martin", "Oscar Martinez", "Phyllis Lapin"],
     "additional-contributors": [
-      [
-        "Kelly Kapoor",
-        "customer service"
-      ],
-      [
-        "Toby Flenderson",
-        "human resources"
-      ],
+      ["Kelly Kapoor", "customer service"],
+      ["Toby Flenderson", "human resources"],
       "Creed Bratton"
     ],
     "special-thanks": [
       "Darryl Philbin",
       "Kelly Erin Hannon",
-      [
-        "Ryan Howard",
-        "WUPHF"
-      ],
-      [
-        "Andy Bernard",
-        "Cornell"
-      ],
+      ["Ryan Howard", "WUPHF"],
+      ["Andy Bernard", "Cornell"],
       {
         "label": "Dunder Mifflin",
-        "people": [
-          "David Wallace",
-          "Nellie Bertram",
-          "Holly Flax"
-        ]
+        "people": ["David Wallace", "Nellie Bertram", "Holly Flax"]
       }
     ]
   },
   "translators": {
-    "ar": [
-      "Karen Filippelli",
-      "Charles Miner"
-    ],
-    "de": [
-      "Todd Packer",
-      [
-        "Gabe Lewis",
-        "Sabre"
-      ],
-      [
-        "Jo Bennett",
-        "Sabre"
-      ]
-    ]
+    "ar": ["Karen Filippelli", "Charles Miner"],
+    "de": ["Todd Packer", ["Gabe Lewis", "Sabre"], ["Jo Bennett", "Sabre"]]
   }
 }

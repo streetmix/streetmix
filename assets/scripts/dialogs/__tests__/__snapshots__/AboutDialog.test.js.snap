@@ -150,10 +150,10 @@ exports[`AboutDialog renders snapshot 1`] = `
               class="about-dialog-right"
             >
               <h2>
-                Project team
+                Original project team
               </h2>
               <div
-                class="credits-team"
+                class="credits-team credits-team-past"
               >
                 <div
                   class="team-member"
@@ -199,7 +199,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                 </div>
               </div>
               <h2>
-                Past team members
+                Core contributors
               </h2>
               <div
                 class="credits-team credits-team-past"
