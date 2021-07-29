@@ -17,14 +17,12 @@ class SegmentCanvas extends React.PureComponent {
     type: PropTypes.string.isRequired,
     variantString: PropTypes.string.isRequired,
     randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    multiplier: PropTypes.number,
     groundBaseline: PropTypes.number,
     dpi: PropTypes.number,
     updatePerspective: PropTypes.func
   }
 
   static defaultProps = {
-    multiplier: 1,
     groundBaseline: GROUND_BASELINE,
     updatePerspective: () => {}
   }
@@ -70,7 +68,7 @@ class SegmentCanvas extends React.PureComponent {
       0,
       this.props.groundBaseline,
       this.props.randSeed,
-      this.props.multiplier,
+      1,
       this.props.dpi
     )
   }
@@ -93,7 +91,7 @@ class SegmentCanvas extends React.PureComponent {
       totalWidth > this.props.actualWidth ? totalWidth : this.props.actualWidth
 
     // Determine dimensions to draw DOM element
-    const elementWidth = displayWidth * TILE_SIZE * this.props.multiplier
+    const elementWidth = displayWidth * TILE_SIZE
     const elementHeight = CANVAS_BASELINE
 
     // Determine size of canvas
@@ -102,7 +100,7 @@ class SegmentCanvas extends React.PureComponent {
     const canvasStyle = {
       width: Math.round(elementWidth),
       height: elementHeight,
-      left: dimensions.left * TILE_SIZE * this.props.multiplier
+      left: dimensions.left * TILE_SIZE
     }
 
     return (

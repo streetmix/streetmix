@@ -8,18 +8,11 @@ import { useIntl } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { images } from '../app/load_resources'
 import Tooltip from '../ui/Tooltip'
 import { ICON_LOCK } from '../ui/icons'
-import SegmentCanvas from './SegmentCanvas'
-import { TILE_SIZE } from './constants'
 import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
-import { getSegmentVariantInfo, getSegmentInfo } from './info'
-import { getVariantInfoDimensions } from './view'
 import './SegmentForPalette.scss'
-
-const PALETTE_SEGMENT_EXTRA_PADDING = 5
-const PALETTE_GROUND_BASELINE = 65
-const PALETTE_SEGMENT_MULTIPLIER = 1 / 3
 
 SegmentForPalette.propTypes = {
   // Provided by react-dnd
@@ -27,22 +20,25 @@ SegmentForPalette.propTypes = {
   connectDragPreview: PropTypes.func,
 
   // Provided by parent
-  type: PropTypes.string.isRequired,
-  variantString: PropTypes.string.isRequired,
-  onPointerOver: PropTypes.func,
-  randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  segment: PropTypes.object,
   disabled: PropTypes.bool,
+  randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   tooltipTarget: PropTypes.object
 }
 
-function SegmentForPalette (props) {
+function SegmentForPalette ({
+  segment,
+  disabled,
+  randSeed,
+  tooltipTarget,
+  ...props
+}) {
   const intl = useIntl()
 
   props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
 
-  function getLabel (props) {
-    // Get localized display names
-    const segment = getSegmentInfo(props.type)
+  // Get localized display names
+  function getLabel (segment) {
     const defaultMessage = segment.name
 
     return intl.formatMessage({
@@ -51,22 +47,10 @@ function SegmentForPalette (props) {
     })
   }
 
-  const segment = getSegmentInfo(props.type)
-  const variant = getSegmentVariantInfo(props.type, props.variantString)
-
-  // Determine width to render at
-  const dimensions = getVariantInfoDimensions(variant)
-
-  const actualWidth =
-    segment.paletteDefaultWidth ||
-    segment.defaultWidth ||
-    dimensions.right - dimensions.left
-  const iconWidth = actualWidth + PALETTE_SEGMENT_EXTRA_PADDING
-
   const classNames = ['segment', 'segment-in-palette']
   let sublabel = null
 
-  if (props.disabled) {
+  if (disabled) {
     classNames.push('segment-disabled')
     sublabel = intl.formatMessage({
       id: 'plus.locked.user',
@@ -77,44 +61,35 @@ function SegmentForPalette (props) {
     })
   }
 
+  const thumbnail =
+    images.get(`thumbnails--${segment.id}`)?.src ||
+    images.get('thumbnails--missing')?.src
   const node = (
-    <li
-      style={{
-        width: iconWidth * TILE_SIZE * PALETTE_SEGMENT_MULTIPLIER + 'px'
-      }}
-      className={classNames.join(' ')}
-    >
+    <li className={classNames.join(' ')}>
       <Tooltip
-        target={props.tooltipTarget}
-        label={getLabel(props)}
+        target={tooltipTarget}
+        label={getLabel(segment)}
         sublabel={sublabel}
       >
         {/* Wrapper element necessary for <Tooltip />
             (alternate solution is to forward ref)
             This wrapper element is also the target for hover / focus
             in order the activate the tooltip. */}
-        <div style={{ height: '80px' }} tabIndex="0">
-          <SegmentCanvas
-            actualWidth={iconWidth}
-            type={props.type}
-            variantString={props.variantString}
-            randSeed={props.randSeed}
-            multiplier={PALETTE_SEGMENT_MULTIPLIER}
-            groundBaseline={PALETTE_GROUND_BASELINE}
-          />
+        <div tabIndex="0">
+          <img className="segment-image" src={thumbnail} />
         </div>
       </Tooltip>
-      {props.disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
+      {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
     </li>
   )
 
-  // If disabled, return node only
-  if (props.disabled) {
-    return node
-  }
-
+  // If disabled, return node as-is.
   // Otherwise, return node wrapped with react-dnd abilities.
-  return props.connectDragSource(node)
+  if (disabled) {
+    return node
+  } else {
+    return props.connectDragSource(node)
+  }
 }
 
 export default DragSource(

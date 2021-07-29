@@ -11,8 +11,13 @@ describe('SegmentForPalette', () => {
     const dimensions = { left: 100, right: 200 }
     getVariantInfoDimensions.mockImplementation(() => dimensions)
 
+    const segment = {
+      id: 'streetcar',
+      name: 'Streetcar',
+      nameKey: 'streetcar'
+    }
     const { asFragment } = render(
-      <SegmentForPalette type="" variantString="" randSeed={42} />
+      <SegmentForPalette segment={segment} randSeed={42} />
     )
 
     expect(asFragment()).toMatchSnapshot()

@@ -3,8 +3,9 @@
 .segment.segment-in-palette {
   display: inline-block;
   position: relative;
-  margin: 12px 0;
+  margin: 14px 0;
   height: 80px;
+  width: 60px;
   top: 0;
   background-color: fade-out($sky-colour, 0.3);
   margin-right: 1px;
@@ -12,11 +13,18 @@
   transition: transform 50ms !important;
 }
 
+/* Wrapper element for Tooltip */
+.segment.segment-in-palette > div {
+  height: 100%; // Must provide this for proper tooltip positioning
+  width: 100%;
+  text-align: center;
+}
+
 .segment.segment-in-palette:not(.segment-disabled):hover {
   background: fade-out($sky-colour, 0.05);
   z-index: 1;
 
-  canvas {
+  .segment-image {
     transform: scale(1.15);
     transform-origin: 50% 75px;
   }
@@ -29,9 +37,9 @@
 .segment.segment-disabled {
   background: desaturate(fade-out($sky-colour, 0.3), 100%);
 
-  canvas {
+  .segment-image {
     filter: grayscale(0.8);
-    opacity: 0.4;
+    opacity: 0.5;
   }
 
   .fa-lock {

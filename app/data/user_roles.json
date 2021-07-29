@@ -6,12 +6,13 @@
     "flags": {
       "ANALYTICS": true,
       "SEGMENT_AV": true,
-      "SEGMENT_KRZ": true,
-      "SEGMENT_PED_LANES": true,
-      "SEGMENT_CONSTRUCTION": true,
-      "SEGMENT_MAGIC_CARPET": true,
+      "SEGMENT_BRT": true,
       "SEGMENT_CAFE_SEATING": true,
-      "SEGMENT_BRT": true
+      "SEGMENT_CONSTRUCTION": true,
+      "SEGMENT_KRZ": true,
+      "SEGMENT_MAGIC_CARPET": true,
+      "SEGMENT_PED_LANES": true,
+      "SEGMENT_UTILITIES": true
     }
   },
   "ADMIN": {
@@ -32,7 +33,6 @@
       "SEGMENT_AV_SHUTTLE": true,
       "SEGMENT_DOUBLE_DECKER_BUS": true,
       "SEGMENT_MICROVAN": true,
-      "SEGMENT_UTILITIES": true,
       "CUSTOM_SEGMENT_LABELS": true
     }
   },

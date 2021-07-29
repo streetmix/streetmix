@@ -733,6 +733,7 @@
     "zIndex": 10,
     "defaultWidth": 4,
     "enableWithFlag": "SEGMENT_UTILITIES",
+    "alwaysShowInPalette": true,
     "variants": ["orientation"],
     "details": {
       "left": {
@@ -840,7 +841,7 @@
     "owner": "NATURE",
     "zIndex": 20,
     "defaultWidth": 2,
-    "paletteIcon": "planting-strip",
+    "paletteIcon": "flowers",
     "variants": ["divider-type"],
     "details": {
       "planting-strip": {
@@ -1122,7 +1123,7 @@
     "nameKey": "temporary-barrier",
     "zIndex": 20,
     "defaultWidth": 2,
-    "paletteIcon": "barricade",
+    "paletteIcon": "traffic-cone",
     "enableWithFlag": "SEGMENT_CONSTRUCTION",
     "alwaysShowInPalette": true,
     "variants": ["temporary-barrier-type"],
@@ -4672,7 +4673,7 @@
     "owner": "TRANSIT",
     "zIndex": 20,
     "defaultWidth": 9,
-    "paletteIcon": "right|light-rail",
+    "paletteIcon": "right|street-level",
     "rules": {
       "minWidth": 9
     },
@@ -5017,6 +5018,7 @@
     "defaultWidth": 10,
     "enableWithFlag": "SEGMENT_MAGIC_CARPET",
     "alwaysShowInPalette": true,
+    "paletteIcon": "jasmine-aladdin",
     "variants": ["magic-carpet-occupants"],
     "details": {
       "aladdin": {

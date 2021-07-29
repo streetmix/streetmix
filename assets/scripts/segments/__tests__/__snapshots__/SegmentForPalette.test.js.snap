@@ -4,17 +4,12 @@ exports[`SegmentForPalette renders width correctly depending on the dimension 1`
 <DocumentFragment>
   <li
     class="segment segment-in-palette"
-    style="width: 420px;"
   >
     <div
-      style="height: 80px;"
       tabindex="0"
     >
-      <canvas
+      <img
         class="segment-image"
-        height="445"
-        style="width: 420px; height: 445px; left: 400px;"
-        width="420"
       />
     </div>
   </li>
