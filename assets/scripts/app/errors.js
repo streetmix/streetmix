@@ -6,7 +6,8 @@ import {
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
   URL_ERROR_NO_ACCESS_TOKEN,
   URL_ERROR_AUTHENTICATION_API_PROBLEM,
-  URL_ERROR_ACCESS_DENIED
+  URL_ERROR_ACCESS_DENIED,
+  URL_ERROR_UNVERIFIED_EMAIL
 } from './constants'
 
 export const ERRORS = {
@@ -33,7 +34,8 @@ export const ERRORS = {
   STREET_DATA_FAILURE: 21,
   GALLERY_STREET_FAILURE: 22,
   AUTH_PROBLEM_NO_ACCESS_TOKEN: 23,
-  AUTH_EXPIRED: 24
+  AUTH_EXPIRED: 24,
+  AUTH_PROBLEM_UNVERIFIED_EMAIL: 25
 }
 
 export function showError (errorType, newAbortEverything) {
@@ -63,6 +65,9 @@ export function showErrorFromUrl (errorUrl) {
       break
     case URL_ERROR_ACCESS_DENIED:
       errorType = ERRORS.ACCESS_DENIED
+      break
+    case URL_ERROR_UNVERIFIED_EMAIL:
+      errorType = ERRORS.AUTH_PROBLEM_UNVERIFIED_EMAIL
       break
     default:
       errorType = ERRORS.GENERIC_ERROR

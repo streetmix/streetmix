@@ -18,6 +18,10 @@ const AccessTokenHandler = function (req, res) {
       const accessToken = body.access_token
       const user = await auth0.getProfile(accessToken)
 
+      if (user.email && !user.emailVerified) {
+        res.redirect('/error/unverified-email')
+      }
+
       const apiRequestBody = getUserInfo(user)
       const endpoint = `${config.restapi.protocol}${req.headers.host}/api/v1/users`
       const apiRequestOptions = {
@@ -70,6 +74,7 @@ const getUserAuth0Info = function (user) {
       nickname: user.nickname,
       auth0Id: user.sub,
       email: user.email,
+      emailVerified: user.email_verified,
       profileImageUrl: user.picture
     }
   }

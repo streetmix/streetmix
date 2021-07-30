@@ -135,6 +135,12 @@ exports.post = async function (req, res) {
   // TODO: pretty sure usage of findOrCreate would simplify much of this
   const handleAuth0SignIn = async function (credentials) {
     try {
+      if (!credentials.emailVerified) {
+        res.status(401).json({ status: 401, msg: 'Email has not been verified.' })
+        // showError(APP_ERRORS.AUTH_PROBLEM_UNVERIFIED_EMAIL, true)
+        return
+      }
+
       let user
       if (credentials.auth0Id) {
         user = await User.findOne({ where: { auth0Id: credentials.auth0Id } })

@@ -21,6 +21,11 @@ function BlockingError (props) {
   let title = ''
   let description = ''
 
+  function doResendVerificationEmail () {
+    alert('Need to wire this up.')
+    return false
+  }
+
   const homeButton = (
     <button onClick={goHome}>
       <FormattedMessage
@@ -454,6 +459,31 @@ function BlockingError (props) {
             &nbsp;{pleaseLetUsKnow}
           </p>
           {homeButton}
+          {needHelpLink}
+        </>
+      )
+      break
+    case ERRORS.AUTH_PROBLEM_UNVERIFIED_EMAIL:
+      title = (
+        <FormattedMessage
+          id="error.auth-unverified-email-title"
+          defaultMessage="Please verify your email address."
+        />
+      )
+      description = (
+        <>
+          <p>
+            <FormattedMessage
+              id="error.auth-unverified-email-description"
+              defaultMessage="Check your email inbox for a Streetmix verification link. If you need to, you can request a new verification email."
+            />
+          </p>
+          <button onClick={doResendVerificationEmail}>
+            <FormattedMessage
+              id="error.button.resend-verification"
+              defaultMessage="Send new verification email"
+            />
+          </button>
           {needHelpLink}
         </>
       )
