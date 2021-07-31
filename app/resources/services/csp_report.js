@@ -2,7 +2,7 @@ const chalk = require('chalk')
 const logger = require('../../../lib/logger.js')()
 
 exports.post = (req, res) => {
-  const cspReport = req.body.cspReport
+  const cspReport = req.body['csp-report']
 
   // Early exit if a POST did not contain the report body
   if (!cspReport) {
@@ -10,10 +10,13 @@ exports.post = (req, res) => {
     return
   }
 
-  // Some scripts are intentionally blocked. When that's the case we silence
-  // the report instead of logging it. This might be expanded to handle
+  // Some scripts are intentionally blocked. Therefore, logging the report
+  // every time they occur is not useful. This might be expanded to handle
   // multiple use cases abstractly, but for now, we handle cases specifically
-  if (cspReport['blocked-uri'] === 'https://platform.twitter.com') {
+  if (
+    cspReport['blocked-uri'].startsWith('https://platform.twitter.com') ||
+    cspReport['source-file'] === 'moz-extension'
+  ) {
     res.status(204).end()
     return
   }
