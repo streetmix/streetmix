@@ -38,6 +38,6 @@ The tradeoff is that this introduces "upgrade noise". We have used [Dependabot](
 
 ## Browser support
 
-Because of limited resources, browser support is any of the evergreen desktop browsers (e.g. Firefox, Chrome, Safari, and Edge). We do not support Internet Explorer. (See `faq-internet-explorer`{.interpreted-text role="ref"})
+Because of limited resources, browser support is any of the evergreen desktop browsers (e.g. Firefox, Chrome, Safari, and Edge). We [do not support Internet Explorer](/docs/user-guide/support/faq#internet-explorer).
 
 Mobile support is also limited, because the application was not initially designed for mobile. However, we should be supporting tablet devices such as iPads and laptops with touchscreens.
