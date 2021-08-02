@@ -66,7 +66,7 @@ npm run cypress:run
 
 ## Linting {#linting}
 
-We use [ESLint](https://eslint.org/) and [Stylelint](https://stylelint.io/) to lint JavaScript and CSS, respectively. There is a commit hook that automatically runs the linter on each commit. If the lint fails, you will need to fix your code and try your commit again, or force it to ignore the lint errors. For more information, see the [Code styleguide](../code-styleguide).
+We use [ESLint](https://eslint.org/) and [Stylelint](https://stylelint.io/) to lint JavaScript and CSS, respectively. There is a commit hook that automatically runs the linter on each commit. If the lint fails, you will need to fix your code and try your commit again, or force it to ignore the lint errors. For more information, see the [Code styleguide](../styleguide).
 
 We also use [Prettier](https://github.com/prettier/prettier) to automatically format code in a standardized way. It will only run on changed files.
 
