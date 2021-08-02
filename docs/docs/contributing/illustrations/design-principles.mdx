@@ -15,10 +15,10 @@ export function IllustrationCompare ({ yep, nope }) {
       <tbody valign="top">
         <tr>
           <td className="stmx-compare-image">
-            <img alt={nope.imgAlt} src={`_images/${nope.imgSrc}`} />
+            <img alt={nope.imgAlt} src={`/img/illustrations/${nope.imgSrc}`} />
           </td>
           <td className="stmx-compare-image">
-            <img alt={yep.imgAlt} src={`_images/${yep.imgSrc}`} />
+            <img alt={yep.imgAlt} src={`/img/illustrations/${yep.imgSrc}`} />
           </td>
         </tr>
         <tr>
@@ -45,7 +45,7 @@ export function IllustrationSingle ({ src, alt, small }) {
   }
   return (
     <div class={classNames.join(' ')}>
-      <img alt={alt} src={`_images/${src}`} />
+      <img alt={alt} src={`/img/illustrations/${src}`} />
     </div>
   )
 }
