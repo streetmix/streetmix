@@ -10,10 +10,23 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  min-height: calc(100vh - var(--ifm-navbar-height));
+
+  background-color: #374475;
+  background-image: url("/img/background.jpg");
+  background-position: center center;
+  background-size: cover;
+
+  color: white;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (max-width: 966px) {
   .heroBanner {
     padding: 2rem;
   }
+}
+
+.heroImage {
+  max-height: 140px;
 }

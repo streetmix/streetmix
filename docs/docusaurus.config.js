@@ -22,7 +22,7 @@ module.exports = {
       title: 'Streetmix Docs',
       logo: {
         alt: 'Streetmix Documentation Logo',
-        src: 'img/logo.svg'
+        src: 'img/bookshelf-small.svg'
       },
       items: [
         {

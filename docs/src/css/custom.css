@@ -35,6 +35,11 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   font-family: var(--streetmix-font), sans-serif;
 }
 
+/* I like breathing room down there */
+.footer__bottom {
+  margin: 4em auto 2em;
+}
+
 .gsoc-apply-container {
   text-align: center;
   margin: 1em 0;
@@ -102,6 +107,10 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   color: #d32f2f;
 }
 
+html[data-theme="dark"] .stmx-compare-yep strong {
+  color: #f42727;
+}
+
 .stmx-compare-yep {
   padding-top: 0.5em;
   margin-top: 0.75em !important;
@@ -114,6 +123,10 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   color: #2e7b32;
 }
 
+html[data-theme="dark"] .stmx-compare-yep strong {
+  color: #4caf50;
+}
+
 /* Illustration example container */
 .stmx-illustration-container {
   padding: 2em;
@@ -121,6 +134,10 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   margin-bottom: 1em;
   border-radius: 5px;
   text-align: center;
+}
+
+html[data-theme="dark"] .stmx-illustration-container {
+  background-color: #555;
 }
 
 .stmx-illustration-small img {

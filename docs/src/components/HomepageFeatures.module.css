@@ -1,13 +1,16 @@
 /* stylelint-disable docusaurus/copyright-header */
 
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
+.featureCard {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  color: white;
+  height: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.featureCard:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.featureLink:hover {
+  text-decoration: none;
 }
