@@ -37,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "postcss": {
+    "_note": "This dummy config should block postcss-loader from loading the wrong config in the parent directory. (Required for Netlify deploy process)"
   }
 }
