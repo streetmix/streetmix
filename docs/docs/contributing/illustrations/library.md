@@ -6,7 +6,11 @@ sidebar_position: 10
 
 Here is an overview of many (though not all) of the illustrations created for Streetmix so far, for reference.
 
-:::caution Under construction This section is a work in progress. :::
+:::caution Under construction
+
+This section is a work in progress.
+
+:::
 
 ## bikes
 

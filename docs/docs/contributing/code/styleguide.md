@@ -24,11 +24,19 @@ We use the SCSS flavor of [Sass](https://sass-lang.com/), which makes it easier 
 
 SCSS files should live adjacent to the components that they apply to, and will be imported by each component. SCSS files are not global, so variables and mixins need to be imported from other SCSS files. However, the compiled CSS will be global, instead of being scoped to the component. _Don't be afraid of the cascade!_
 
-:::info In the future... We may investigate adopting scoped CSS. However, we would strongly prefer solutions that don't require writing "CSS-in-JS," which makes it hard to convert from a standard CSS syntax to JavaScript, and vice-versa. :::
+:::info In the future...
+
+We may investigate adopting scoped CSS. However, we would strongly prefer solutions that don't require writing "CSS-in-JS," which makes it hard to convert from a standard CSS syntax to JavaScript, and vice-versa.
+
+:::
 
 Avoid styling elements using `id` attribute selectors. Instead, use class names (alongside pseudo-selectors and attribute selectors, if necessary). Namespace all classnames. If there's a component called `palette`, a good class name could be `palette-container`. Avoid writing generic class names like `large`. Styles are not scoped, so generic class names without namespaces will inevitably cause collisions.
 
-:::info In the future... We may make a stronger move toward [Tailwind CSS](https://tailwindcss.com/)-style composition of utility classes instead of relying on Sass mixins, extends, or copy-pasting duplicate CSS code across class names. Generic class names will then be used for utility classes. :::
+:::info In the future...
+
+We may make a stronger move toward [Tailwind CSS](https://tailwindcss.com/)-style composition of utility classes instead of relying on Sass mixins, extends, or copy-pasting duplicate CSS code across class names. Generic class names will then be used for utility classes.
+
+:::
 
 We do not use a strict BEM framework/naming convention for class names. Some good resources which have generally informed our approach to CSS organization (but have not dictated it) include [Scalable and Modular Architecture for CSS (SMACSS)](http://smacss.com/) and parts of the [Reasonable System for CSS Stylesheet Structure (rscss)](https://rscss.io/).
 
@@ -106,7 +114,11 @@ window.addEventListener("click", (e) => {
 
 We extend the Standard JS ESLint rules with the [eslint-config-standard-react](https://github.com/standard/eslint-config-standard-react/) package.
 
-:::info We have only overridden one rule, [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes), to prefer double quotation marks in JSX attributes. This is because, unlike regular JavaScript, double quotation marks are _more_ typical in HTML, and this convention has carried over to JSX. You can see single quotes in JavaScript and double quotes for JSX attributes coexisting in [React documentation](https://reactjs.org/docs/introducing-jsx.html), and we believe developers expect this to be typical across the React ecosystem. This is a rare instance where we disagree with Standard JS's rule. :::
+:::info
+
+We have only overridden one rule, [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes), to prefer double quotation marks in JSX attributes. This is because, unlike regular JavaScript, double quotation marks are _more_ typical in HTML, and this convention has carried over to JSX. You can see single quotes in JavaScript and double quotes for JSX attributes coexisting in [React documentation](https://reactjs.org/docs/introducing-jsx.html), and we believe developers expect this to be typical across the React ecosystem. This is a rare instance where we disagree with Standard JS's rule.
+
+:::
 
 ### Additional guidelines
 
@@ -138,9 +150,17 @@ This is flexible and new types may be adopted over time. Sometimes a commit may 
 
 We use [commitlint](https://commitlint.js.org) to automatically check your commit messages for validity. If they're not valid, the check will fail. This check is hooked into each commit, and our CI test will also check your commit messages.
 
-:::tip If your development style is to make quick, small commits whenever you've made progress, there's no need to change your development workflow right away to adopt the Conventional Commit style. You can always clean up the commit history on your branch when you're ready to make a pull request. [You can use git rebase to do this (tutorial)](https://egghead.io/lessons/tools-practical-git-clean-up-commits-with-git-rebase). :::
+:::tip
 
-:::info In the future... ...we may use commit messages to help with [automated releases](https://github.com/semantic-release/semantic-release). :::
+If your development style is to make quick, small commits whenever you've made progress, there's no need to change your development workflow right away to adopt the Conventional Commit style. You can always clean up the commit history on your branch when you're ready to make a pull request. [You can use git rebase to do this (tutorial)](https://egghead.io/lessons/tools-practical-git-clean-up-commits-with-git-rebase).
+
+:::
+
+:::info
+
+In the future... ...we may use commit messages to help with [automated releases](https://github.com/semantic-release/semantic-release).
+
+:::
 
 ### GitHub issues
 

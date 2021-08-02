@@ -6,7 +6,11 @@ sidebar_position: 1
 
 In the spirit of open source, **everyone** is welcome to help! **You do not have to be a programmer to participate.** Our documentation is here to help you make high quality contributions to Streetmix.
 
-:::info The Streetmix team has adopted a [Contributor Code of Conduct](https://github.com/streetmix/streetmix/blob/main/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms. :::
+:::info
+
+The Streetmix team has adopted a [Contributor Code of Conduct](https://github.com/streetmix/streetmix/blob/main/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+:::
 
 What would you like to help with?
 

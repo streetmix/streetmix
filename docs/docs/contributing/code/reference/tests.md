@@ -4,7 +4,11 @@ Tests are extremely important to the health and stability of Streetmix. We have 
 
 We do not have a strict test-driven development (TDD) methodology, although individual engineers may use this approach if that's the development pattern they are most comfortable with. Also, while we do measure code coverage, our goal is not necessarily to reach 100%. We're looking for "enough" coverage to have confidence that new features or refactoring will not create new bugs, which can be more of a subjective approach. As Guillermo Rauch says, ["Write tests. Not too many. Mostly integration."](https://twitter.com/rauchg/status/807626710350839808)
 
-:::info For context... We did not have _any_ test infrastructure in the early phases of Streetmix. Tests have been added over time and are constantly improving. This document reflects our current thoughts about _how_ we should test, but you'll find lots of moments in the codebase where tests are incomplete or non-existent. We could always use some help with writing tests! :::
+:::info For context...
+
+We did not have _any_ test infrastructure in the early phases of Streetmix. Tests have been added over time and are constantly improving. This document reflects our current thoughts about _how_ we should test, but you'll find lots of moments in the codebase where tests are incomplete or non-existent. We could always use some help with writing tests!
+
+:::
 
 ## Running tests locally {#running-tests}
 

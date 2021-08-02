@@ -14,7 +14,11 @@ The **Creative Commons CC-BY-SA license** governs the content in Streetmix, such
 
 This is a basic overview of what these licenses mean. For more details, including how these licenses may apply to your specific use case, please refer to the license text or consult with a qualified legal advisor.
 
-:::info Previous versions of the Streetmix codebase was licensed under a **BSD 3-Clause license**. We are not lawyers and cannot offer legal advice, and if you believe your usage of Streetmix is affected by the change in license, please consult with your legal counsel. :::
+:::info
+
+Previous versions of the Streetmix codebase was licensed under a **BSD 3-Clause license**. We are not lawyers and cannot offer legal advice, and if you believe your usage of Streetmix is affected by the change in license, please consult with your legal counsel.
+
+:::
 
 ## How do I provide attribution to Streetmix? {#attribution}
 

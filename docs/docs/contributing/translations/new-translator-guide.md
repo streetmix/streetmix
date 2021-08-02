@@ -4,7 +4,11 @@ sidebar_position: 2
 
 # New translator guide
 
-:::warning This page requires a complete overhaul. :::
+:::warning
+
+This page requires a complete overhaul.
+
+:::
 
 Welcome to the Streetmix translation team! Your contributions are invaluable in making Streetmix accessible to non-English-speaking countries around the world, and for communities that speak languages other than English. Let's help you get started!
 
@@ -84,7 +88,11 @@ If you are not logged in or don't have an account yet, you will need to click th
 
 ![image](_images/949b3d9-Screen_Shot_2018-03-14_at_4.02.59_PM.png)
 
-:::caution The Transifex interface can take some getting used to. If something doesn't match a screenshot, let us know. It's most likely that there's some permissions problems, like we did not give you the correct editing privileges for your account. If it's because something in their interface actually changed, we'll update this accordingly. :::
+:::caution
+
+The Transifex interface can take some getting used to. If something doesn't match a screenshot, let us know. It's most likely that there's some permissions problems, like we did not give you the correct editing privileges for your account. If it's because something in their interface actually changed, we'll update this accordingly.
+
+:::
 
 Once you create your account, you may have to confirm your email address. Then, navigate back to <https://www.transifex.com/streetmix/streetmix/> and you should see a blue button that says "Join Team".
 

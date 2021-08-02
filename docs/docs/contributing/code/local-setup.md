@@ -26,7 +26,11 @@ You may already have some of these prerequisites installed. Skip or update the p
 brew install nodejs
 ```
 
-:::tip If you do a lot of Node.js development and want to manage multiple versions (e.g. for working on different projects) we recommend installing Node.js with [nvm](https://github.com/nvm-sh/nvm) instead of Homebrew. :::
+:::tip
+
+If you do a lot of Node.js development and want to manage multiple versions (e.g. for working on different projects) we recommend installing Node.js with [nvm](https://github.com/nvm-sh/nvm) instead of Homebrew.
+
+:::
 
 4. Install **PostgreSQL**. You can [download a MacOSX package](https://www.postgresql.org/download/macosx/) or use the [Postgres app](https://postgresapp.com/), but the easiest method would be to use Homebrew, again:
 
@@ -48,7 +52,11 @@ After prerequisites are installed, continue to [Instructions for all systems](#s
 
 These instructions below will assume that the user has basic familiarity with Git, GitHub, and the Git Bash or Windows Powershell command line interface, and has administrative permissions to install software on the machine.
 
-:::warning Streetmix was not developed on a Windows platform, and testing is limited. These instructions may go out of date without warning. :::
+:::warning
+
+Streetmix was not developed on a Windows platform, and testing is limited. These instructions may go out of date without warning.
+
+:::
 
 ### Prerequisites
 
@@ -134,7 +142,11 @@ After prerequisites are installed, continue to [Instructions for all systems](#s
 
 After installing all prerequisites, you can now install and run Streetmix. The following command-line instructions below should be common for all platforms.
 
-:::tip Tip for Windows We recommend using [Git Bash](https://gitforwindows.org/) or [Windows Powershell](https://docs.microsoft.com/en-us/powershell/), instead of the default Command Prompt, for command-line interactions. :::
+:::tip Tip for Windows
+
+We recommend using [Git Bash](https://gitforwindows.org/) or [Windows Powershell](https://docs.microsoft.com/en-us/powershell/), instead of the default Command Prompt, for command-line interactions.
+
+:::
 
 ### Clone and install Streetmix
 
@@ -150,7 +162,11 @@ git clone https://github.com/streetmix/streetmix.git
 cd streetmix && npm install
 ```
 
-:::caution We are not using the **Yarn** package manager. Installing with Yarn may cause unpredictable errors. :::
+:::caution
+
+We are not using the **Yarn** package manager. Installing with Yarn may cause unpredictable errors.
+
+:::
 
 3. (Optional) If necessary, create a `.env` file and set PostgreSQL credentials. _By default, this is not required by most environments._ For more information, see [Setting environment variables](#env-vars).
 
@@ -161,7 +177,11 @@ PGUSER=streetmix_user
 PGPASSWORD=streetmix
 ```
 
-:::tip If the PostgreSQL username is the same as your operating system's current username, `PGUSER` will be set to it by default, and you won't need to specify it explicitly. :::
+:::tip
+
+If the PostgreSQL username is the same as your operating system's current username, `PGUSER` will be set to it by default, and you won't need to specify it explicitly.
+
+:::
 
 4. Initialize the PostgreSQL database.
 
@@ -176,7 +196,9 @@ We create two databases, one for your development environment and one for a test
 
 Sequelize will print a confirmation or an error message after completing each command. Once this is completed, you should be able to inspect the databases using `psql` or [pgAdmin](https://www.pgadmin.org/). A modern, open source, and cross-platform database GUI tool is [Beekeeper Studio](https://www.beekeeperstudio.io/).
 
-:::tip If you run into issues creating or migrating the database, you can access "verbose" debug output from Sequelize (which is, unfortunately, not well-documented). Prepend the affected command with the `DEBUG` variable, like so:
+:::tip 
+
+If you run into issues creating or migrating the database, you can access "verbose" debug output from Sequelize (which is, unfortunately, not well-documented). Prepend the affected command with the `DEBUG` variable, like so:
 
 ```
 DEBUG=sequelize* npx sequelize db:migrate
@@ -295,7 +317,11 @@ npx sequelize db:migrate
 
 ## Setup in an offline environment
 
-:::caution "Offline mode" is not a well-supported feature of Streetmix. Use it with care. :::
+:::caution
+
+"Offline mode" is not a well-supported feature of Streetmix. Use it with care.
+
+:::
 
 This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "offline mode", set your `NODE_ENV` environment variable to `demo`.
 
@@ -307,7 +333,11 @@ You can also do it one time by starting the server like this:
 NODE_ENV=demo npm start
 ```
 
-:::tip When you are running Streetmix offline, you do not need to provide environment variables for external third-party services such as Auth0. :::
+:::tip
+
+When you are running Streetmix offline, you do not need to provide environment variables for external third-party services such as Auth0.
+
+:::
 
 ## Troubleshooting
 

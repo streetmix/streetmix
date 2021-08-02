@@ -55,7 +55,11 @@ For consistency, these words or phrases should always be written in the same way
 - **email** is one word. Do not hyphenate or capitalize (unless at the start of a sentence).
 - The URL to our website is **<https://streetmix.net/>**, which uses the more secure **https** protocol, and does not have the `www.` prefix in the domain name.
 
-:::info Additional guidance for text used in the Streetmix interface may be found in our translation system. :::
+:::info
+
+Additional guidance for text used in the Streetmix interface may be found in our translation system.
+
+:::
 
 ## Typography
 
@@ -74,9 +78,13 @@ Translators should consider cultural and contextual differences in typography an
 
 By default, use the metric system. We support the imperial system only in the United States for users who are more familiar with it.
 
-:::note When writing distances in the imperial system, [feet and inches](https://practicaltypography.com/foot-and-inch-marks.html) should use the prime `′` and double prime `″` marks respectively, instead of the straight quotes `'` and `"`.
+:::note
 
-When processing input, quotes and prime marks should both be accepted as valid. :::
+When writing distances in the imperial system, [feet and inches](https://practicaltypography.com/foot-and-inch-marks.html) should use the prime `′` and double prime `″` marks respectively, instead of the straight quotes `'` and `"`.
+
+When processing input, quotes and prime marks should both be accepted as valid.
+
+:::
 
 ### Distance
 

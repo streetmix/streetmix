@@ -4,7 +4,11 @@ sidebar_position: 5
 
 # Environs
 
-:::caution Under construction This is a draft specification of Streetmix's forthcoming environs feature. The schema and structure described here is subject to change. :::
+:::caution Under construction
+
+This is a draft specification of Streetmix's forthcoming environs feature. The schema and structure described here is subject to change.
+
+:::
 
 **Environs** is a setting that allows uers to change the "environment" that a street is in, which can include elements like time of day, weather, and background. In the UI, we prefer to use the term _environment_. Internally, we use _environs_ to prevent confusion with the computing term _developer environment_.
 
@@ -22,7 +26,11 @@ The definitions file exports a single JavaScript object. Each key on the object 
 "name": "Night"
 ```
 
-:::caution We have not determined a method for retrieving translated names in other locales. :::
+:::caution
+
+We have not determined a method for retrieving translated names in other locales.
+
+:::
 
 ### `enabled`
 
@@ -32,7 +40,11 @@ The definitions file exports a single JavaScript object. Each key on the object 
 "enabled": false
 ```
 
-:::note We use `enabled` as the property name instead of `disabled` because code such as `if (environs.enabled)` is easier to read than `if (!environs.disabled)`, which becomes a double negative. It's also easier to use read and use filters in this way. :::
+:::note
+
+We use `enabled` as the property name instead of `disabled` because code such as `if (environs.enabled)` is easier to read than `if (!environs.disabled)`, which becomes a double negative. It's also easier to use read and use filters in this way.
+
+:::
 
 ### `iconImage`
 

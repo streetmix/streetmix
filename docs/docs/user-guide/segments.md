@@ -4,9 +4,17 @@ sidebar_position: 20
 
 # Segments
 
-:::caution Under construction This section is a work in progress. It has been ported from an older document and is very many years out of date. :::
+:::caution Under construction
 
-:::info In the future... We may rename "segments" to something else, e.g. "slices," to avoid confusion with "street segments." :::
+This section is a work in progress. It has been ported from an older document and is very many years out of date.
+
+:::
+
+:::info In the future...
+
+We may rename "segments" to something else, e.g. "slices," to avoid confusion with "street segments."
+
+:::
 
 Notes on segments, which are the elements that comprise a street section. [See Issue #7 for discussion around more street segments.](https://github.com/codeforamerica/streetmix/issues/7)
 

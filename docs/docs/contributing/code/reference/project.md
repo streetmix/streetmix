@@ -4,7 +4,11 @@ sidebar_position: 1
 
 # Project architecture and organization
 
-:::caution Under construction This page is a work in progress. :::
+:::caution Under construction
+
+This page is a work in progress.
+
+:::
 
 ## Our stack
 

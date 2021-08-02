@@ -5,7 +5,11 @@ sidebar_position: 1
 
 # Translations
 
-:::caution Under construction This section is a work in progress. :::
+:::caution Under construction
+
+This section is a work in progress.
+
+:::
 
 We're translating Streetmix into different languages! As a civic engagement tool, we are constantly improving accessibility to users of different needs, and this includes communities that speak a language other than English. Some of these communities may be in predominantly English-speaking countries like the United States, but we also have users all over the world in predominantly non-English speaking countries, as well.
 

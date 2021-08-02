@@ -25,7 +25,11 @@ This can happen when an organization-managed e-mail service blocks or tampers wi
 
 ## Error codes
 
-:::caution Under construction This section is a work in progress. :::
+:::caution Under construction
+
+This section is a work in progress.
+
+:::
 
 These are error codes that may occur while using Streetmix.
 

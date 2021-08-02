@@ -4,7 +4,11 @@ sidebar_position: 2
 
 # Helpers and utilities
 
-:::caution Under construction This page is a work in progress. :::
+:::caution Under construction
+
+This page is a work in progress.
+
+:::
 
 We use the following utilities to solve common programming problems.
 
@@ -36,7 +40,11 @@ function doThingsWithThePRNG() {
 
 When `seedrandom()` is called, it returns a function that will return a consistent sequence of numbers each time it is called, for the given `seed`. The sequence returned is local to that function.
 
-:::note Although the `seed` can be any type of value, like a string, `generateRandSeed()` returns only integer values so that when we store seeds in a data model we can check for type consistency. :::
+:::note
+
+Although the `seed` can be any type of value, like a string, `generateRandSeed()` returns only integer values so that when we store seeds in a data model we can check for type consistency.
+
+:::
 
 In the above example, we call `seedrandom()` twice, with the same `seed`, so that we can create the same sequence of pseudo-random numbers in two different scenarios. This example is contrived because the pseudo-random number generators are used in the same function, and in reality the `seedrandom()` call may happen in separate parts of the application.
 
