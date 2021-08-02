@@ -7,7 +7,7 @@ import styles from './HomepageFeatures.module.css'
 export default function HomepageFeatures() {
   return (
     <div className="row margin-vert--lg">
-      <div className="col col--4 col--offset-2">
+      <div className="col col--4 col--offset-2" style={{ marginBottom: '1em' }}>
         <div
           className="text--center padding-horiz--md"
           style={{ height: '100%' }}
@@ -18,7 +18,7 @@ export default function HomepageFeatures() {
           >
             <div className={clsx('card', styles.featureCard)}>
               <div className="card__header">
-                <h3>For developers and designers</h3>
+                <h3>Coders and designers</h3>
               </div>
               <div className="card__body">
                 <p>
@@ -30,7 +30,7 @@ export default function HomepageFeatures() {
           </Link>
         </div>
       </div>
-      <div className="col col--4">
+      <div className="col col--4" style={{ marginBottom: '1em' }}>
         <div
           className="text--center padding-horiz--md"
           style={{ height: '100%' }}
@@ -41,12 +41,12 @@ export default function HomepageFeatures() {
           >
             <div className={clsx('card', styles.featureCard)}>
               <div className="card__header">
-                <h3>For planners and urbanists</h3>
+                <h3>Planners and urbanists</h3>
               </div>
               <div className="card__body">
                 <p>
-                  Are you using Streetmix for civic engagement? Find tips,
-                  tricks, and examples here.
+                  Are you using Streetmix for civic engagement? Find hints,
+                  tips, and examples here.
                 </p>
               </div>
             </div>

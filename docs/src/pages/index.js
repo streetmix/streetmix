@@ -30,14 +30,14 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext()
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={siteConfig.title}
+      description="Documentation for the makers and the users of Streetmix."
     >
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap"
           rel="stylesheet"
         />
       </Head>
