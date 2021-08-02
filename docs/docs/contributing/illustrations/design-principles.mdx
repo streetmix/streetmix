@@ -1,0 +1,344 @@
+---
+sidebar_position: 2
+---
+# Design principles
+
+Streetmix illustrations use the following principles to achieve its simple, unique style.
+
+export function IllustrationCompare ({ yep, nope }) {
+  return (
+    <table className="stmx-illustration-compare">
+      <colgroup>
+        <col width="50%" />
+        <col width="50%" />
+      </colgroup>
+      <tbody valign="top">
+        <tr>
+          <td className="stmx-compare-image">
+            <img alt={nope.imgAlt} src={`_images/${nope.imgSrc}`} />
+          </td>
+          <td className="stmx-compare-image">
+            <img alt={yep.imgAlt} src={`_images/${yep.imgSrc}`} />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div className="stmx-compare-nope">
+              <strong>Nope.</strong> {nope.text}
+            </div>
+          </td>
+          <td>
+            <div className="stmx-compare-yep">
+              <strong>Yes!</strong> {yep.text}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  )
+}
+
+export function IllustrationSingle ({ src, alt, small }) {
+  const classNames = ['stmx-illustration-container']
+  if (small) {
+    classNames.push('stmx-illustration-small')
+  }
+  return (
+    <div class={classNames.join(' ')}>
+      <img alt={alt} src={`_images/${src}`} />
+    </div>
+  )
+}
+
+
+## Simplified forms and reduced details
+
+The complexity of form is reduced to a simple silhouette and each object contains minimal details. Good rule of thumb: if you don't need a particular detail to identify the item, don't add it. This reduction helps each illustration scale to small sizes.
+
+<IllustrationCompare
+  yep={{
+    imgSrc: 'simplified-forms-02.svg',
+    imgAlt: 'Vehicle with ideal amount of detail',
+    text: 'This silhouette has less vertices, and extraneous details are removed or simplified.'
+  }}
+  nope={{
+    imgSrc: 'simplified-forms-01.svg',
+    imgAlt: 'Vehicle with too much detail',
+    text: 'The extra details aren’t visible at a small scale and the more complicated silhouette makes the car look clunky.'
+  }}
+/>
+
+
+## Sharp angles
+
+All of the illustrations are comprised of sharp angles, with a minimal use of perfect circles.
+
+<IllustrationCompare
+  yep={{
+    imgSrc: 'sharp-angles-02.svg',
+    imgAlt: 'Vehicle with sharp angles',
+    text: 'Edges should meet at sharp angles.'
+  }}
+  nope={{
+    imgSrc: 'sharp-angles-01.svg',
+    imgAlt: 'Vehicle with round angles',
+    text: 'Don\'t draw rounded corners or bulby shapes.'
+  }}
+/>
+
+
+## Few orthogonal lines
+
+There are very few entirely straight vertical lines. All of the objects slant in or out in a trapezoidal way, unless it makes the illustration look too funky.
+
+<IllustrationCompare
+  yep={{
+    imgSrc: 'trapezoid-shapes-02.svg',
+    imgAlt: 'Vehicle with trapezoidal shapes',
+    text: 'Shapes should be trapezoidal.'
+  }}
+  nope={{
+    imgSrc: 'trapezoid-shapes-01.svg',
+    imgAlt: 'Vehicle with rectangular shapes',
+    text: 'Avoid rectangular shapes.'
+  }}
+/>
+
+<IllustrationCompare
+  yep={{
+    imgSrc: 'trapezoid-shapes-04.svg',
+    imgAlt: 'Object with trapezoidal shape',
+    text: 'Slight tapers are awesome!'
+  }}
+  nope={{
+    imgSrc: 'trapezoid-shapes-03.svg',
+    imgAlt: 'Object with rectangular shape',
+    text: 'Lines shouldn\'t be straight up and down.'
+  }}
+/>
+
+Lines that appear to be exactly vertical or horizontal will not actually be precisely level or plumb. This isn't an engineering drawing. Lines can be slightly "off," with some exceptions.
+
+One example of such an exception is for building walls. Since buildings can be multi-story, lines that continue from one floor to the next must be vertically straight so that each floor aligns properly.
+
+## Recurring elements
+
+Shapes that recur throughout illustrations helps everything read as part of the same unified family. However, these should be subtle--don't overdo these, or force them into existence. Use them when they make sense.
+
+### 45-degree angles
+
+Some angled elements can be drawn at exactly 45 degrees. These work well for window reflections and shadows.
+
+<IllustrationSingle src="45-degree-angles.svg" alt="45-degree angled elements" />
+
+### The "brick"
+
+This is a simple trapezoidal shape of similar size and proportion that can be used as a small object, detail, or addition to a larger shape.
+
+<IllustrationSingle src="brick.svg" alt='The "brick"' small={true} />
+
+<IllustrationSingle src="brick-example.svg" alt='Example usage of the "brick"' />
+
+### The "platter"
+
+Similar to the Brick, the Platter is a trapezoidal shape but much longer and flatter.
+
+<IllustrationSingle src="platter.svg" alt='The "platter"' small={true} />
+
+<IllustrationSingle src="platter-example.svg" alt='Example usage of the "platter"' />
+
+
+## Letters and words
+
+Avoid using actual words or letters in illustrations. Streetmix is used all over the world, and we want to avoid making illustrations that are English-only (or specific to your preferred language).
+
+One notable exception to this is the use of numbers or letters as transportation route identifiers.
+
+
+## Brands, logos, and other recognizable features
+
+Similarly, avoid specific brands and logos, whether that's commercial businesses (like transportation network companies or chain restaurants) or public agencies (like transportation agencies). However, some illustrations are clearly homages to actual elements that come from specific parts of the world, like New York City's wayfinding pylons, or San Francisco's deep-red "Yerba Buena" parklet. We like that these recognizable elements can be dropped anywhere around the world, but logos tie the elements to its regional source too strongly.
+
+:::info In the future...
+...we may be able to relax these guidelines by localizing illustrations to specific regions. For now, prefer abstractions that make an illustration look generic, even if it's an homage to a real place.
+:::
+
+
+## Color palette
+
+Colors are mostly soft, with hints of brightness. They should have sufficient contrast against a light-medium blue background (the sky).
+
+Colors are not necessarily "true to life." (For instance, we're not using the "actual" color of a taillight.) Use colors from the following color palette whenever possible, instead of using custom colors, so that illustrations appear unified. But if the palette just doesn't work, you may choose a new color that does. Some illustrations may have already chosen a color not shown below, so it's best to sample colors that have already been used elsewhere, even if it's not part of the official palette.
+
+export const ColorSwatch = function ({ hex, name }) {
+  const parsed = hex.replace('#', '').match(/.{1,2}/g)
+  const rgb = [
+    parseInt(parsed[0], 16),
+    parseInt(parsed[1], 16),
+    parseInt(parsed[2], 16)
+  ]
+  return (
+    <div className={`stmx-color-swatch stmx-color-${name}`}>
+      <div className="line-block">
+        <div className="line"><strong>R</strong> {rgb[0]}</div>
+        <div className="line"><strong>G</strong> {rgb[1]}</div>
+        <div className="line"><strong>B</strong> {rgb[2]}</div>
+      </div>
+      <p>{hex}</p>
+    </div>
+  )
+}
+
+### Skin tones
+
+<ColorSwatch hex="#553f37" name="skintone-5" />
+<ColorSwatch hex="#72594b" name="skintone-4" />
+<ColorSwatch hex="#aa8b7e" name="skintone-3" />
+<ColorSwatch hex="#ceac98" name="skintone-2" />
+<ColorSwatch hex="#e1c5b5" name="skintone-1" />
+
+To keep people recognizable, use skin tone colors only for people.
+
+### Beiges
+
+<ColorSwatch hex="#cead80" name="beige-4" />
+<ColorSwatch hex="#e0cea8" name="beige-3" />
+<ColorSwatch hex="#ecdbb1" name="beige-2" />
+<ColorSwatch hex="#f6f1e1" name="beige-1" />
+
+Recommended for: walls, stucco, plaster, pavement, sand
+
+### Off-whites
+
+<ColorSwatch hex="#d8d3cb" name="greige-3" />
+<ColorSwatch hex="#e7e6de" name="greige-2" />
+<ColorSwatch hex="#f5f3e9" name="greige-1" />
+
+Recommended for: walls, metal, concrete
+
+#### Greens
+
+<ColorSwatch hex="#35813f" name="green-3" />
+<ColorSwatch hex="#679a45" name="green-2" />
+<ColorSwatch hex="#89ba6a" name="green-1" />
+
+Recommended for: foliage, trees, plants
+
+### Browns
+
+<ColorSwatch hex="#352d27" name="brown-4" />
+<ColorSwatch hex="#645849" name="brown-3" />
+<ColorSwatch hex="#7c705a" name="brown-2" />
+<ColorSwatch hex="#988a74" name="brown-1" />
+
+Recommended for: wood, dirt
+
+### Grayscale
+
+<ColorSwatch hex="#2a2b2a" name="grayscale-5" />
+<ColorSwatch hex="#5c5e5f" name="grayscale-4" />
+<ColorSwatch hex="#c1bebb" name="grayscale-3" />
+<ColorSwatch hex="#e4e2dc" name="grayscale-2" />
+<ColorSwatch hex="#f4f2ed" name="grayscale-1" />
+
+Recommended for: asphalt, metal, road markings
+
+### Indigos
+
+<ColorSwatch hex="#252947" name="indigo-3" />
+<ColorSwatch hex="#313156" name="indigo-2" />
+<ColorSwatch hex="#494a72" name="indigo-1" />
+
+Recommend for: windows, reflective surfaces
+
+### Blues
+
+<ColorSwatch hex="#234c6b" name="blue-3" />
+<ColorSwatch hex="#366387" name="blue-2" />
+<ColorSwatch hex="#4f83a3" name="blue-1" />
+
+Recommended for: water
+
+### Reds / Oranges
+
+<ColorSwatch hex="#720e1a" name="red-4" />
+<ColorSwatch hex="#ae2025" name="red-3" />
+<ColorSwatch hex="#ef9c74" name="red-2" />
+<ColorSwatch hex="#ffeecc" name="red-1" />
+
+Recommended for: lights, flowers
+
+### Brights
+
+<ColorSwatch hex="#e7673c" name="orange" />
+<ColorSwatch hex="#f8bb1c" name="yellow-2" />
+<ColorSwatch hex="#fcd157" name="yellow-1" />
+<ColorSwatch hex="#109ba8" name="bright-blue" />
+
+Bright colors are used sparingly and as highlights when the colors above won't do.
+
+:::tip
+You can download a palette swatch for use in your favorite graphics editing program.
+
+- [Adobe Swatch Exchange (ASE) format](https://github.com/streetmix/illustrations/raw/main/swatches/streetmix.ase) can be used in Adobe Illustrator or Affinity Designer.
+- [GIMP GPL format](https://github.com/streetmix/illustrations/raw/main/swatches/streetmix.gpl) can be used in open-source image editing applications such as GIMP, Krita, or Inkscape.
+:::
+
+
+## Shadows and highlights
+
+Many elements have one solid color with a highlight and a low light. Exceptions include objects with more details, like the bus. Because the bus contains detail elements (lights, windshield, mirrors, route number, etc), adding shading to the metal would make the object too busy. Similarly, details don't need shadows or highlights--they wouldn't be visible at a small scale anyway. All of the shading should be done with one solid color, without feathered shadows or gradients. (The only exception is the sky.)
+
+<IllustrationCompare
+  yep={{
+    imgSrc: 'shadows-highlights-02.svg',
+    imgAlt: 'Bus with less shadows & highlights',
+    text: 'The shading and highlighting is used only on the most prominent element, the windshield.'
+  }}
+  nope={{
+    imgSrc: 'shadows-highlights-01.svg',
+    imgAlt: 'Bus with many shadows & highlights',
+    text: 'The image is over-complicated by the number of shadows and highlights.'
+  }}
+/>
+
+<IllustrationCompare
+  yep={{
+    imgSrc: 'gradients-02.svg',
+    imgAlt: 'Tree without gradient shading',
+    text: 'No gradients. No drop shadows.'
+  }}
+  nope={{
+    imgSrc: 'gradients-01.svg',
+    imgAlt: 'Tree with gradient shading',
+    text: 'Don\'t use gradients to blend shadows and highlights.'
+  }}
+/>
+
+
+## Contrast
+
+Some illustrations are smaller in nature, so they require more contrast between adjacent colors to be clearer. For example, the pedestrian's pants need more contrast than the building.
+
+<IllustrationCompare
+  yep={{
+    imgSrc: 'contrast-02.svg',
+    imgAlt: 'Tree without gradient shading',
+    text: 'This actually looks like too much contrast close up, but is just right when scaled down.'
+  }}
+  nope={{
+    imgSrc: 'contrast-01.svg',
+    imgAlt: 'Tree with gradient shading',
+    text: 'This looks good as a larger image, but the shadow is not really visible when scaled down.'
+  }}
+/>
+
+## Workflow
+
+For instructions on how to work on illustrations, see the instructions in the [illustrations repository](https://github.com/streetmix/illustrations).
+
+:::tip
+The illustrations used here in this documentation are also located in the `illustrations` repository! If you want to update the graphics used here, please make sure to process the exported SVG files through [SVGOMG](https://jakearchibald.github.io/svgomg/) so that they're optimized, making them faster to load.
+:::
+
+You can also see a collection of illustrations in our [reference library](library).
