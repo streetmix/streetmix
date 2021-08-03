@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import Layout from '@theme/Layout'
 import Head from '@docusaurus/Head'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import styles from './index.module.css'
 import HomepageFeatures from '../components/HomepageFeatures'
+import styles from './index.module.css'
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
@@ -27,15 +27,15 @@ function HomepageHeader() {
 }
 
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext()
   return (
-    <Layout
-      title={siteConfig.title}
-      description="Documentation for the makers and the users of Streetmix."
-    >
+    <Layout description="Documentation for the makers and the users of Streetmix.">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin={true}
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap"
           rel="stylesheet"
