@@ -15,7 +15,7 @@ Before writing any new feature or code, it's best to have a brief conversation w
 
 You can also [join our Discord server](https://strt.mx/discord) and talk with us there. A little bit of communication will go a long way, making it more likely that we're able to accept your work when it's ready!
 
-## Submitting a pull request
+## Submitting a pull request {#pull-request}
 
 1. **Fork the project**, if you do not already have write access to the repository. Individuals making significant and valuable contributions will be given write access.
 2. **Create a new branch.** Changes should always be made in a new feature branch. The branch should be named in the format `username/feature-name`.

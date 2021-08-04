@@ -2,7 +2,7 @@
 
 .featureCard {
   background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  border: 3px solid rgba(255, 255, 255, 0.75);
   color: white;
   height: 100%;
 }
