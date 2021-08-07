@@ -12,10 +12,7 @@ export default function HomepageFeatures() {
           className="text--center padding-horiz--md"
           style={{ height: '100%' }}
         >
-          <Link
-            to="/docs/contributing/intro"
-            className={clsx(styles.featureLink)}
-          >
+          <Link to="/contributing/intro" className={clsx(styles.featureLink)}>
             <div className={clsx('card', styles.featureCard)}>
               <div className="card__header">
                 <h3>Coders and designers</h3>
@@ -35,10 +32,7 @@ export default function HomepageFeatures() {
           className="text--center padding-horiz--md"
           style={{ height: '100%' }}
         >
-          <Link
-            to="/docs/user-guide/intro"
-            className={clsx(styles.featureLink)}
-          >
+          <Link to="/user-guide/intro" className={clsx(styles.featureLink)}>
             <div className={clsx('card', styles.featureCard)}>
               <div className="card__header">
                 <h3>Planners and urbanists</h3>
