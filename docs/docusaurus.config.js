@@ -5,8 +5,8 @@ const remarkSmartypants = require('@silvenon/remark-smartypants')
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'Streetmix Documentation',
-  tagline: 'For the makers and the users of Streetmix',
-  url: 'https://docs.streetmix.net/',
+  tagline: 'A guidebook for the makers and the users of Streetmix.',
+  url: 'https://docs.streetmix.net',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -21,6 +21,7 @@ module.exports = {
     'https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap'
   ],
   themeConfig: {
+    image: 'thumbnail.png',
     navbar: {
       title: 'Streetmix Docs',
       logo: {

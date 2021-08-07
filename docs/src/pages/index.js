@@ -28,8 +28,9 @@ function HomepageHeader() {
 
 export default function Home() {
   return (
-    <Layout description="Documentation for the makers and the users of Streetmix.">
+    <Layout description="A guidebook for the makers and the users of Streetmix.">
       <Head>
+        {/* Note: most meta tags are handled by theme, and these only exist on this page */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
