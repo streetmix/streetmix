@@ -51,7 +51,7 @@ module.exports = {
           position: 'right',
           dropdownItemsAfter: [
             {
-              href: '/docs/contributing/translations/overview',
+              href: '/contributing/translations/overview',
               label: 'Help us translate'
             }
           ]
@@ -71,11 +71,11 @@ module.exports = {
           items: [
             {
               label: 'Contributor docs',
-              to: '/docs/contributing/intro'
+              to: '/contributing/intro'
             },
             {
               label: 'User guide',
-              to: '/docs/user-guide/intro'
+              to: '/user-guide/intro'
             }
           ]
         },
@@ -114,6 +114,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/streetmix/streetmix/edit/main/docs/',
           remarkPlugins: [remarkSmartypants]
