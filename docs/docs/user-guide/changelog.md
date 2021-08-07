@@ -1,8 +1,15 @@
 ---
+sidebar_label: Changelog
 sidebar_position: 2
 ---
 
-# Changelog
+# What's new in Streetmix?
+
+## August 7, 2021
+
+### 🎨 Improvements
+
+- **Fresh new look and feel for documentation!** We called all our friends last week and told them if they help us move they get free pizza and beer. Same old content, but now in a modern apartment, which also let us reorganize a little and make things more intuitive to find! Please update your links and address books. [If you'd like to contribute to documentation, let us know!](/contributing/documentation)
 
 ## July 29, 2021
 
