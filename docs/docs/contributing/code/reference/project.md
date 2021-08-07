@@ -4,12 +4,6 @@ sidebar_position: 1
 
 # Project architecture and organization
 
-:::caution Under construction
-
-This page is a work in progress.
-
-:::
-
 ## Our stack
 
 Streetmix is a Node.js and JavaScript project. We use the following frameworks:

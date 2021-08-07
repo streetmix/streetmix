@@ -4,12 +4,6 @@ sidebar_position: 2
 
 # New translator guide
 
-:::warning
-
-This page requires a complete overhaul.
-
-:::
-
 Welcome to the Streetmix translation team! Your contributions are invaluable in making Streetmix accessible to non-English-speaking countries around the world, and for communities that speak languages other than English. Let's help you get started!
 
 ## Overview

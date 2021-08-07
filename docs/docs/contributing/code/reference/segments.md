@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Segments
 
-:::caution Under construction
+:::caution Draft
 
 This is a draft specification of Streetmix's forthcoming segment definition schema. For documentation related to the legacy specification, see [this file](https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/README.md).
 

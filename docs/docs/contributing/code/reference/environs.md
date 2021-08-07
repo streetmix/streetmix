@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Environs
 
-:::caution Under construction
+:::caution Draft
 
 This is a draft specification of Streetmix's forthcoming environs feature. The schema and structure described here is subject to change.
 

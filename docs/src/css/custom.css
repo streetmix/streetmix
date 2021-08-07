@@ -154,6 +154,11 @@ html[data-theme="dark"] .stmx-compare-yep strong {
   color: #4caf50;
 }
 
+.stmx-illustration-reference {
+  max-height: 240px;
+  max-width: 360px;
+}
+
 /* Illustration example container */
 .stmx-illustration-container {
   padding: 2em;
