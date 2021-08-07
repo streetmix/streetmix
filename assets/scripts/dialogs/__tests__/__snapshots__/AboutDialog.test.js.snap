@@ -121,7 +121,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                 </a>
                 <br />
                 <a
-                  href="https://streetmix.readthedocs.io/en/latest/guidebook/"
+                  href="https://docs.streetmix.net/user-guide/intro"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

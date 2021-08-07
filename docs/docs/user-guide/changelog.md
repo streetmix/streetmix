@@ -1,0 +1,342 @@
+---
+sidebar_label: Changelog
+sidebar_position: 2
+---
+
+# What's new in Streetmix?
+
+## August 7, 2021
+
+### 🎨 Improvements
+
+- **Fresh new look and feel for documentation!** We called all our friends last week and told them if they help us move they get free pizza and beer. Same old content, but now in a modern apartment, which also let us reorganize a little and make things more intuitive to find! Please update your links and address books. [If you'd like to contribute to documentation, let us know!](/contributing/documentation)
+
+## July 29, 2021
+
+### ✨ New features
+
+- **Added a utility pole.** Now, you have _the power!_ Overhead wires and birds not included. Thanks to Brian Wamsley of Hamilton County Planning and Development (USA) for contributing original artwork toward making this segment! ![Utility pole](/img/changelog/utility-pole.png)
+
+### 🎨 Improvements
+
+- **Palette UI improvements.** Icons are now larger and have standardized widths, making them easier to see and interact with.
+
+## July 22, 2021
+
+### 🐛 Bug fixes
+
+- Fixed a bug where buses were noping out of existence on new streets.
+- Fixed a bug preventing a handful of old Twitter-based accounts from signing in when we haven’t seen them in a long time.
+
+## July 7, 2021
+
+### ✨ New features
+
+- **Added Swedish translation.** Thanks to our translators, Jakob Fahlstedt and Dennis Haagensen!
+
+## April 7, 2021
+
+### ✨ New features
+
+- **Added Norwegian Bokmål language.** Thanks to our translators Anders Hartmann and Børge A. Roum!
+
+## February 3, 2021
+
+### 🎨 Improvements
+
+- **Bus rapid transit (BRT) stations now expand and contract with segment width.** Get yourself a bit of social distance when waiting for a bus: it's the healthier, more comfortable thing to do. ![Variable-width BRT station](/img/changelog/brt-variable-width.gif)
+
+## December 17, 2020
+
+### 🎨 Improvements
+
+- Small tweaks to the food truck: fixed the color and reflection direction on the windows, slightly reduced the height of the human ordering food, and while we’re at it, make a palette-swap human variant.
+
+## December 15, 2020
+
+### ✨ New features
+
+- **Added languages: Turkish and Catalan.** _Şerefe!_ and _Salut!_ Thanks to our translators: Hande Sığın, Hayrettin Günç, Ignasi Gustems, and Max Eritja.
+
+### 🎮 UI improvements
+
+- Updated the “trash can” icon into a cleaner, easier-to-read design. As well as a couple other icons you’d never notice.
+- Updated the street nameplate font to something with an open-source license, the excellent [Overpass](https://overpassfont.org/) by Delve Fonts.
+
+## November 19, 2020
+
+### ✨ New features
+
+- **We have a big street capacity metrics update for you!** You can now switch between different data sources. We’ve also overhauled our infographic visuals, so it looks like this now: ![Capacity analysis infographics demo](/img/changelog/capacity-chart.gif)
+
+### 🎮 UI improvements
+
+- As part of this update, users are no longer able to fork someone else's street by changing settings in the analytics window. (It felt weird.)
+
+## October 22, 2020
+
+### ✨ New features
+
+- **Switched our user analytics provider.** We no longer feed the ad-beast that is Google (although they’re probably still tracking you in other ways outside of our control), opting to use the open source, privacy-minded [Plausible](https://plausible.io/) instead. Does this affect your usage of Streetmix? No, not really. So why is it a new feature? I mean. Like a better Internet _isn’t_?
+
+### 🐛 Bug fixes
+
+- Fixed a bug that caused manual width inputs on some segments to update the wrong segment. 😱
+
+### 🎮 UI improvements
+
+- While fixing that last bug we also made some tweaks to how the input works:
+  - The plus and minus buttons are now visually grouped with the input box and have been given a bit of a color scheme upgrade.
+  - Editing that input box no longer auto-updates the segment width visually, which was causing some unexpected issues with the input. We want to put it back eventually, once some underlying wrinkles have been ironed out!
+- Updates to French, Italian and Spanish (Latin America) translations.
+
+## October 7, 2020
+
+### ✨ New features
+
+- **Added bus rapid transit (BRT) station and bus segments.** Tired of slow buses waiting in traffic? Never settle for second best. Or third best. Go for the best best. Choose the most rapid type of bus, today. ![Bus rapid transit (BRT)](/img/changelog/brt.png)
+
+## September 29, 2020
+
+### 🐛 Bug fixes
+
+- Fixed a bug could cause the sentiment survey to reappear multiple times after it has been dismissed.
+
+## July 23, 2020
+
+### 🐛 Bug fixes
+
+- Fixed tooltips on the sentiment survey popup to be properly translated into other languages.
+- Fixed a bug that caused sentiment survey text to be laid out improperly after being translated.
+
+## July 15, 2020
+
+### ✨ New features
+
+- **You can now vote on someone else’s street!** We’re just asking one question right now: _how joyful is it?_ If a street gives you the warm fuzzies, let us know by giving it a few kudos. And if your inner critic has something to say, smash that angry face button. ![Sentiment survey](/img/changelog/sentiment-survey.png)
+
+## July 8, 2020
+
+### 🐛 Bug fixes
+
+- Fixed additional authentication-related issues that prevented certain users from being able to log in successfully.
+
+## June 19, 2020
+
+### 📣 Service notice
+
+In the past month, you might have seen a lot of scary-looking “Unable to load Streetmix, Error: RM1” error messages when returning to Streetmix, forcing you to log in more than once.
+
+This was inadvertently caused a behind-the-scenes update we made to make authentication more secure, but by replacing an older process, it introduced side effects and bugs that took some time to track down and squash.
+
+As of today, we think we’ve resolved most cases of this problem. A few accounts may still have lingering issues, and if you’re affected, try reloading the browser tab and logging in again.
+
+If you are someone who continues to see this problem repeatedly, then we want to know more about your situation. In that case, please reach out to at [hello@streetmix.net](mailto:hello@streetmix.net) and tell us more.
+
+We are continuing to monitor the errors and apologize for any inconvenience this may have caused. Thank you!
+
+## May 27, 2020
+
+### ✨ New features
+
+- **Added outdoor dining.** Support your local restaurants, when it’s safe to go outside again. ![Outdoor dining](/img/changelog/outdoor-dining.png)
+
+### 🎮 UI improvements
+
+- Selecting somewhere in the geolocation search bar now zooms in to that location.
+
+### 🐛 Bug fixes
+
+- Fixed a bug that caused tooltips to appear in the wrong place on Edge browsers.
+
+## May 19, 2020
+
+### 📣 Service notice
+
+We’ve upgraded our sign-in authentication system behind the scenes. As a side effect of the update, we had to sign everyone out of Streetmix. You may see a cryptic error message the next time you return (if not already!). When this happens, please reload the page and sign in again! Thanks!
+
+### ✨ New features
+
+- **You can now remove capacity counts from view.** Hush, you scary numbers!
+
+## May 7, 2020
+
+### ✨ New features
+
+- **Added historical European-style arcade buildings.** No, not like, video game arcades. A series of arches. Actually, there’s some really interesting history with that word: it used to mean a building façade with a series of exterior arches that formed a semi-open but protected walkway that made it ideal for shops and games for “amusement”, but then over time as these retail uses moved indoors they were still called arcades even if they didn't use arches anymore, and then when the “amusement centres” inside of arcades got digital gaming machines they were called _arcade games_ and the venues themselves became _arcades_ and that’s what we think of when we say that word now. Oh, and did you know that the word _arch_ is itself derived from _architecture_ because they literally had no other word for a curved structural element? Language is fascinating! ![Arcade buildings](/img/changelog/arcade.png)
+
+## April 18, 2020
+
+### 🎮 UI improvements
+
+- **Upgraded “toast” notifications.** Did you know they’re called “toasts” because ... they _pop up?_ Haha! Get it?
+- **Buttons universally have rounded corners now.** Like your house chores, we were eventually getting to all of them. And with that done, we’ve fired our entire user interface engineering team for that terrible toast pun.
+
+## April 16, 2020
+
+### ✨ New features
+
+- **Planting strips now grow more bushes and (colorful!) flowers.** You know what they say about April showers... ![Flowers!](/img/changelog/flowers.png)
+
+## April 8, 2020
+
+### ✨ New features
+
+- **People can now walk around in the street.** Quarantine Update Part II is brought to you by empty streets, fresher air, and cabin fever. Everywhere’s a walking path now. Social distancing not included: please continue to stay two meters (six feet) away from each other outside, but here in Streetmix-land we can still dream, can’t we? ![Occupy Any Street](/img/changelog/street-people.png)
+
+### 🐛 Bug fixes
+
+- Temporary barriers no longer display a different item when dragging one out of the palette.
+
+## April 2, 2020
+
+### ✨ New features
+
+- **Added temporary barriers, like traffic cones, barricades, and jersey barriers.** We can see what’s happening from our second-story bedroom window. No one’s outside. No one’s driving anywhere. And if you’re on a vehicle that helps you stay away from other people — a bicycle, perhaps? — where are you going to ride it, in the ample car lane that suddenly has way less cars in it? Yeah. We thought so. Here, some of these traffic cones might help. ![Jersey barriers, barricades, and traffic cones, oh my](/img/changelog/temporary-barriers.png)
+
+### 🎮 UI improvements
+
+- **Segments (and its variants) that require sign-in to use are now shown when signed out.** If you don’t have an account yet, we’re cranking up your FOMO.
+
+### 🐛 Bug fixes
+
+- Fixed a bug where some users had features incorrectly turned off in their account.
+
+## March 19, 2020
+
+### 🛠️ Improvements
+
+- **We’ve completed our migration from MongoDB to PostgreSQL.** Wait, what? Okay, look, this is too cool not to talk about. We’ve been working on changing our database behind-the-scenes for years now, and today, it’s finally done. _And you didn’t even notice!_ It’s like we changed all the upholstery in your car, while you were driving it, and suddenly you look down and not only does it look nicer and cost less to maintain, but it is also, weirdly enough, a _map_. (This enables better geospatial support, so stay tuned!)
+
+### 🐛 Bug fixes
+
+- Fixed a bug where typing a capital-letter D in the e-mail sign-in input (or anywhere, really), would give you TMI about application state.
+- Fixed a bug where the gallery would crash if you opened it right away.
+
+## March 11, 2020
+
+### ✨ New features
+
+- **Raised bike lanes!** All right, you can ride your bike on the sidewalk. Watch out for those pedestrians, though!
+- **...also for bike share stations!** These are also often on the sidewalk, too!
+
+## January 29, 2020
+
+### ✨ New features
+
+- **Added an outbound autonomous vehicle illustration.** When you hate to see them go, but you love to watch them drive away. (Note: only available for signed-in users.)
+- **Added a motorcycle with sidecar to the drive lane.** And introducing a cameo by [Junebug and Johnny](http://kentuckyroutezero.com/). (Note: only available for signed-in users.)
+- **Added languages: Italian, Korean, and Latin American Spanish.** _Cin cin!_ _건배!_ _¡Salud!_ The latter is especially important, as we can now support a much larger community of Spanish speakers throughout all of Latin America. Many thanks to our translators, Enrico Ferreguti, Sunha Park, and Lina Marcela Quiñones, with reviewers Marco Scarselli, Hanbyul Jo, and Carlos Pardo.
+
+### 🎮 UI improvements
+
+- **Remodeled the personal street gallery interface.** Some notable changes:
+  - The selected street now has a more visible border, making it easier to see.
+  - The “Delete street” button has been relocated to make room for longer street names, and changed from an “x” symbol to a more context-sensitive trash can icon.
+  - Thumbnails that cannot be rendered (for instance, because the street contains data that hasn’t been implemented yet) now show an error message in place of the thumbnail, instead of crashing the entire gallery component.
+
+### 🐛 Bug fixes
+
+- Fixed a bug where attempting to make a copy of a deleted street would crash the app.
+- Fixed a bug where the current street would not be shown as selected when opening the street gallery.
+- Fixed a bug where capacity count summaries would not be localized.
+- Fixed broken right-to-left layout in the street gallery.
+- Fixed certain styling issues that would occur as a result of rounding errors.
+
+## January 18, 2020
+
+### ✨ New features
+
+- Users in any language can now sign in with e-mail, Facebook and Google single-sign-on options, in addition to Twitter. (Although they haven't all been translated yet.)
+
+### 🎮 UI improvements
+
+- **New UI font!** If you’re into typography, say hello to [Rubik](https://hubertfischer.com/work/type-rubik) by [Hubert & Fischer](https://hubertfischer.com/).
+
+### 🐛 Bug fixes
+
+- Fixed a regression that caused a crash whenever a new segment was dragged out from the palette.
+- Fixed a regression where streets would show a “Updated seconds ago” timestamp when being edited.
+
+## January 8, 2020
+
+**Happy new year!** We have a few updates!
+
+### ✨ New features
+
+- We added a variant of turn lane that has all three left turn, right turn and straight arrows. They're uncommon, but they do exist in the wild!
+
+### 🐛 Bug fixes
+
+- We fixed a bug that could cause a browser to navigate forward or back a page if you scrolled too far on a wide street.
+
+## October 14, 2019
+
+![Streetmix logo 2019](/img/changelog/logo.svg)
+
+**OH DANG NEW LOGO HYPE.** We’ve started to tighten up our branding and have slowly transitioned to it over the past few months, like adopting a new wardrobe. If you like it, send notes of appreciation to our talented designer, [Justine Braisted](https://justinebraisted.com/)!
+
+## September 24, 2019
+
+![Autonomous vehicles, magic carpets, and analytics OH MY](/img/changelog/av-carpet.png)
+
+- **Autonomous vehicles!** The car of the future? Look, you decide. Drive lanes now have a cute, friendly “Firefly”-inspired model as an option. They don’t exist anymore, but we’ll still know what you mean.
+- **Magic carpets!** Speaking about fantasy vehicles _(oooh, sick burn)_, why not a rug that hovers in the air, carrying a maximum of two people and a tiger? (The tiger is optional.)
+- **Street capacity summaries.** And while we’re on the subject of capacity, lanes now estimate how many people you can push through per hour. With charts! (Tigers not included.)
+
+Thanks to our friends at the [New Urban Mobility Alliance (NUMO)](https://www.numo.global/) for supporting these new perks for our users. (Sign in to access these!)
+
+## May 21, 2019
+
+- **Get your scoot on!** Electric scooters are all the rage, so dim your road rage with some ragin’ scooters. ![Scooters](/img/changelog/scooters.png)
+
+## January 4, 2019
+
+- **Streetmix has been translated to Arabic!** Particularly impressive from a technical standpoint, as we had to mirror the entire UI to make this possible. ![Arabic translation](/img/changelog/arabic.jpg)
+
+## December 19, 2018
+
+- **We have a Minecraft server!** So if you want to build more than just streets, find us on [minecraft.streetmix.net](http://minecraft.streetmix.net/).
+- **Forums have been reset.** It regenerated, like a Time Lord.
+
+## October 24, 2018
+
+- **Additional sign-in methods are now available in Spanish.**
+
+## October 10, 2018
+
+- **Our community chatroom is now on Discord!** [Click here to join us!](https://strt.mx/discord)
+
+## October 9, 2018
+
+- **And now we've got Russian!** На здоровье!
+
+## September 24, 2018
+
+- **German localization is now complete!** Prost!
+
+## September 17, 2018
+
+- **You can now sign in with Google, Facebook, or e-mail!** It doesn’t matter what social media service you’ve deleted, you can still use Streetmix. (Note: this is only available in English, Finnish, French and Polish right now. We’ll get to you soon, rest of world!) ![New sign-in screen](/img/changelog/sign-in-v2.png)
+- **Along with that, we’ve also created [terms of service](https://streetmix.net/terms-of-service/) and [privacy policy](https://streetmix.net/privacy-policy/) documents.** With great power comes great legal responsibility. Pour yourself a glass of wine and give ’em a read, will you?
+
+## September 9, 2018
+
+- **Light rail and streetcars (tramways) can now travel on grass.** Here are [some](https://commons.wikimedia.org/wiki/File:Tram_3b_La_Villette_tram_et_train.jpg) [examples](https://commons.wikimedia.org/wiki/File:Bilbao_Euskotran_404.jpg) [from](https://inhabitat.com/europes-grass-lined-green-railways-good-urban-design/) [around](https://commons.wikimedia.org/wiki/File:Tram_Linz_077_2_Hillerstrasse.jpg) [the](https://www.flickr.com/photos/aceofnothing/3614873460/) [world!](https://www.urbanghostsmedia.com/2013/06/green-transport-grass-tramway-kagoshima/) ![Light rail and streetcar tramways with grass](/img/changelog/grass-tramways.png)
+
+## August 28, 2018
+
+- **We made this “What’s new” box.** Now you know that when something changes, we did it on purpose!
+- **Added “flex zone” items,** which are modern uses of curb space that include taxi and rideshare pickup/dropoff, food trucks, bikeshare stations, and a waiting area where a guy just stands around looking at his modern portable device. ![Bike share, taxi and rideshare pickup/dropoff, food truck](/img/changelog/flex-items.png)
+- **Tooltips on the street component palette** now help you differentiate between all the cars that look the same.
+- **Fixed a crash bug** that sometimes happens right after moving a street component around, which is literally the worst time for it to crash.
+
+## August 20, 2018
+
+- **The “My streets” gallery is only accessible when you sign in.** Click on your username to see it!
+- **Filled in the backstory in this “What’s new” window.** None of this text actually existed at this time, but think of it like we’re writing a prequel.
+
+## August 10, 2018
+
+- **Chinese localization is here!** Multilingual Streetmix continues on with both traditional and simplified Chinese. 饮胜！
+- **New blog!** [Check it out here.](https://medium.com/streetmixology)

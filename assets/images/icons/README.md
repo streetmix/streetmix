@@ -1,3 +1,3 @@
 # Icons
 
-See documentation here: https://streetmix.readthedocs.io/en/latest/contributing/ui/icons/
+See documentation here: https://docs.streetmix.net/contributing/design/icons

@@ -32,7 +32,7 @@ exports.post = (req, res) => {
         'If this is unexpected, please add this resource to the CSP directive. See '
       ) +
       chalk.yellowBright.underline(
-        'https://streetmix.readthedocs.io/en/latest/technical/csp'
+        'https://docs.streetmix.net/contributing/code/reference/csp'
       )
   )
   res.status(204).end()

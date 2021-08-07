@@ -100,7 +100,7 @@ function AboutDialog (props) {
                         />
                       </ExternalLink>
                       <br />
-                      <ExternalLink href="https://streetmix.readthedocs.io/en/latest/guidebook/">
+                      <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
                         <FormattedMessage
                           id="dialogs.about.guidebook-link"
                           defaultMessage="Guidebook"

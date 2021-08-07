@@ -1,0 +1,16 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+.featureCard {
+  background-color: transparent;
+  border: 3px solid rgba(255, 255, 255, 0.75);
+  color: white;
+  height: 100%;
+}
+
+.featureCard:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.featureLink:hover {
+  text-decoration: none;
+}

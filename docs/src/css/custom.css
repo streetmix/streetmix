@@ -1,0 +1,552 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: rgb(33, 175, 144);
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-code-font-size: 95%;
+
+  --streetmix-font: "Manrope";
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme="dark"] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.navbar__title,
+.hero__title {
+  font-family: var(--streetmix-font), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+footer {
+  font-family: var(--streetmix-font), sans-serif;
+}
+
+html[data-theme="light"] .navbar__title {
+  color: #1a914e;
+}
+
+html[data-theme="dark"] .navbar__title {
+  color: #93dba9;
+}
+
+footer.footer--dark {
+  background-color: #182549;
+}
+
+.footer__title {
+  font-family: var(--streetmix-font), sans-serif;
+}
+
+/* I like breathing room down there */
+.footer__bottom {
+  margin: 4em auto 2em;
+}
+
+.gsoc-apply-container {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.gsoc-apply-button {
+  width: 80%;
+  padding: 1em;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #5b9dbd;
+  border: 0;
+  color: white !important;
+  font-size: 1.2em;
+  border-bottom: 2px solid #34677f;
+  text-decoration: none !important;
+  display: block;
+  margin: 0 auto;
+}
+
+.gsoc-apply-button:active {
+  border-bottom: 0;
+  border-top: 2px solid white;
+}
+
+.stmx-illustration-compare {
+  border-collapse: separate;
+  border-spacing: 1em 0;
+  width: calc(100% + 2em);
+  margin-left: -1em;
+  margin-right: -1em;
+  display: table; /* override */
+}
+
+.stmx-illustration-compare td {
+  border: 0;
+  padding: 0;
+}
+
+.stmx-illustration-compare tr:nth-child(2n) {
+  background-color: transparent;
+}
+
+.stmx-compare-image {
+  background-color: #a9ccdb;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2em !important;
+}
+
+.stmx-compare-image img {
+  max-height: 500px;
+}
+
+.stmx-compare-nope {
+  padding-top: 0.5em;
+  margin-top: 0.75em !important;
+  border-top: 10px solid;
+  border-top-color: currentcolor;
+  border-color: #d32f2f;
+}
+
+.stmx-compare-nope strong {
+  color: #d32f2f;
+}
+
+html[data-theme="dark"] .stmx-compare-yep strong {
+  color: #f42727;
+}
+
+.stmx-compare-yep {
+  padding-top: 0.5em;
+  margin-top: 0.75em !important;
+  border-top: 10px solid;
+  border-top-color: currentcolor;
+  border-color: #4caf50;
+}
+
+.stmx-compare-yep strong {
+  color: #2e7b32;
+}
+
+html[data-theme="dark"] .stmx-compare-yep strong {
+  color: #4caf50;
+}
+
+.stmx-illustration-reference {
+  max-height: 240px;
+  max-width: 360px;
+}
+
+/* Illustration example container */
+.stmx-illustration-container {
+  padding: 2em;
+  background-color: whitesmoke;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  text-align: center;
+}
+
+html[data-theme="dark"] .stmx-illustration-container {
+  background-color: #555;
+}
+
+.stmx-illustration-small img {
+  max-height: 50px;
+}
+
+.stmx-color-swatch-container {
+  width: 100%;
+}
+
+.stmx-color-swatch {
+  width: 120px;
+  height: 120px;
+  padding: 0.75em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  display: inline-flex;
+  flex-direction: column;
+  word-wrap: normal; /* Overrides body */
+}
+
+.stmx-color-swatch strong {
+  width: 1em;
+  display: inline-block;
+}
+
+.stmx-color-swatch .line-block {
+  line-height: 1.4;
+  margin-bottom: 0 !important; /* Overrides `.rst-content .line-block` */
+  flex-grow: 1;
+}
+
+.stmx-color-swatch p,
+.stmx-color-swatch .line {
+  font-size: 0.75em;
+}
+
+.stmx-color-swatch p {
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.stmx-color-swatch-table {
+  width: 100%;
+}
+
+.stmx-color-swatch-label {
+  font-weight: bold;
+}
+
+.stmx-color-skintone-5 {
+  background-color: #553f37;
+  color: white;
+}
+
+.stmx-color-skintone-4 {
+  background-color: #735a4c;
+  color: white;
+}
+
+.stmx-color-skintone-3 {
+  background-color: #aa8b7e;
+  color: white;
+}
+
+.stmx-color-skintone-2 {
+  background-color: #ceac98;
+  color: black;
+}
+
+.stmx-color-skintone-1 {
+  background-color: #e1c5b5;
+  color: black;
+}
+
+.stmx-color-beige-4 {
+  background-color: #cead80;
+  color: black;
+}
+
+.stmx-color-beige-3 {
+  background-color: #e0cea8;
+  color: black;
+}
+
+.stmx-color-beige-2 {
+  background-color: #ecdbb1;
+  color: black;
+}
+
+.stmx-color-beige-1 {
+  background-color: #f6f1e1;
+  color: black;
+}
+
+.stmx-color-greige-3 {
+  background-color: #d8d3cb;
+  color: black;
+}
+
+.stmx-color-greige-2 {
+  background-color: #e7e6de;
+  color: black;
+}
+
+.stmx-color-greige-1 {
+  background-color: #f5f3e9;
+  color: black;
+}
+
+.stmx-color-green-3 {
+  background-color: #35813f;
+  color: white;
+}
+
+.stmx-color-green-2 {
+  background-color: #679a45;
+  color: white;
+}
+
+.stmx-color-green-1 {
+  background-color: #89ba6a;
+  color: black;
+}
+
+.stmx-color-brown-4 {
+  background-color: #352d27;
+  color: white;
+}
+
+.stmx-color-brown-3 {
+  background-color: #645849;
+  color: white;
+}
+
+.stmx-color-brown-2 {
+  background-color: #7c705a;
+  color: white;
+}
+
+.stmx-color-brown-1 {
+  background-color: #988a74;
+  color: white;
+}
+
+.stmx-color-grayscale-5 {
+  background-color: #2a2b2a;
+  color: white;
+}
+
+.stmx-color-grayscale-4 {
+  background-color: #5c5e5f;
+  color: white;
+}
+
+.stmx-color-grayscale-3 {
+  background-color: #c1bebb;
+  color: black;
+}
+
+.stmx-color-grayscale-2 {
+  background-color: #e4e2dc;
+  color: black;
+}
+
+.stmx-color-grayscale-1 {
+  background-color: #f4f2ed;
+  color: black;
+}
+
+.stmx-color-indigo-3 {
+  background-color: #252947;
+  color: white;
+}
+
+.stmx-color-indigo-2 {
+  background-color: #313156;
+  color: white;
+}
+
+.stmx-color-indigo-1 {
+  background-color: #494a72;
+  color: white;
+}
+
+.stmx-color-blue-3 {
+  background-color: #234c6b;
+  color: white;
+}
+
+.stmx-color-blue-2 {
+  background-color: #376489;
+  color: white;
+}
+
+.stmx-color-blue-1 {
+  background-color: #4f83a3;
+  color: white;
+}
+
+.stmx-color-red-4 {
+  background-color: #720e1a;
+  color: white;
+}
+
+.stmx-color-red-3 {
+  background-color: #ae2025;
+  color: white;
+}
+
+.stmx-color-red-2 {
+  background-color: #ef9c74;
+  color: black;
+}
+
+.stmx-color-red-1 {
+  background-color: #ffeecc;
+  color: black;
+}
+
+.stmx-color-orange {
+  background-color: #e7673c;
+  color: black;
+}
+
+.stmx-color-yellow-2 {
+  background-color: #f8bb1c;
+  color: black;
+}
+
+.stmx-color-yellow-1 {
+  background-color: #fcd157;
+  color: black;
+}
+
+.stmx-color-bright-blue {
+  background-color: #109ba8;
+  color: black;
+}
+
+.stmx-brand-color-emerald-700 {
+  background-color: #093f14;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-emerald-600 {
+  background-color: #1f7234;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-emerald-500 {
+  background-color: #1a914e;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-emerald-400 {
+  background-color: #5bc17d;
+  color: #e7f7ea;
+}
+
+.stmx-brand-color-emerald-300 {
+  background-color: #93dba9;
+  color: #093f14;
+}
+
+.stmx-brand-color-emerald-200 {
+  background-color: #c8edd1;
+  color: #093f14;
+}
+
+.stmx-brand-color-emerald-100 {
+  background-color: #e7f7ea;
+  color: #093f14;
+}
+
+.stmx-brand-color-turquoise-700 {
+  background-color: #154447;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-turquoise-600 {
+  background-color: #306c72;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-turquoise-500 {
+  background-color: #52a2af;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-turquoise-400 {
+  background-color: #89c1ce;
+  color: #ebf9fc;
+}
+
+.stmx-brand-color-turquoise-300 {
+  background-color: #c1ebf7;
+  color: #154447;
+}
+
+.stmx-brand-color-turquoise-200 {
+  background-color: #dcf3f9;
+  color: #154447;
+}
+
+.stmx-brand-color-turquoise-100 {
+  background-color: #ebf9fc;
+  color: #154447;
+}
+
+.stmx-brand-color-copper-700 {
+  background-color: #562211;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-copper-600 {
+  background-color: #894528;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-copper-500 {
+  background-color: #b56d48;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-copper-400 {
+  background-color: #d88d64;
+  color: #f9eee8;
+}
+
+.stmx-brand-color-copper-300 {
+  background-color: #f8b890;
+  color: #562211;
+}
+
+.stmx-brand-color-copper-200 {
+  background-color: #f9d5c0;
+  color: #562211;
+}
+
+.stmx-brand-color-copper-100 {
+  background-color: #f9eee8;
+  color: #562211;
+}
+
+.stmx-brand-color-midnight-700 {
+  background-color: #182549;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-midnight-600 {
+  background-color: #354377;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-midnight-500 {
+  background-color: #536491;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-midnight-400 {
+  background-color: #7b8bad;
+  color: #e6ebf4;
+}
+
+.stmx-brand-color-midnight-300 {
+  background-color: #a6b2c9;
+  color: #182549;
+}
+
+.stmx-brand-color-midnight-200 {
+  background-color: #d4dbe8;
+  color: #182549;
+}
+
+.stmx-brand-color-midnight-100 {
+  background-color: #e6ebf4;
+  color: #182549;
+}

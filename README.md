@@ -19,7 +19,7 @@
 
 <p align="center">
   <b>We welcome contributions!</b>
-  <br>Please see our <a href="https://streetmix.readthedocs.io/en/latest/contributing/">contributor guidelines</a>.
+  <br>Please see our <a href="https://docs.streetmix.net/contributing/intro">contributor guidelines</a>.
 </p>
 
 <p align="center">
@@ -65,7 +65,7 @@ Streetmix started as a [Code for America][cfa] hackathon project in January 2013
 
 #### How do I install / set up Streetmix myself?
 
-Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by [following these instructions](https://streetmix.readthedocs.io/en/latest/technical/installing-streetmix)!
+Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by [following these instructions](https://docs.streetmix.net/contributing/code/local-setup)!
 
 ## Sponsors
 

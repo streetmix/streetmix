@@ -90,7 +90,7 @@ function BlockingError (props) {
   )
   const needHelpLink = (
     <p className="error-help-link">
-      <ExternalLink href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/">
+      <ExternalLink href="https://docs.streetmix.net/user-guide/support/troubleshooting">
         <FormattedMessage
           id="error.need-help-link"
           defaultMessage="Need help?"
@@ -500,7 +500,7 @@ function BlockingError (props) {
               values={{
                 // eslint-disable-next-line react/display-name
                 a: (chunks) => (
-                  <ExternalLink href="https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer">
+                  <ExternalLink href="https://docs.streetmix.net/user-guide/support/faq#internet-explorer">
                     {chunks}
                   </ExternalLink>
                 )
