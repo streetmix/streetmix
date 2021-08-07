@@ -31,7 +31,7 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -122,7 +122,7 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -181,7 +181,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -240,7 +240,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -299,7 +299,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -549,7 +549,7 @@ exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -652,7 +652,7 @@ exports[`BlockingError renders SIGN_IN_401 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -697,7 +697,7 @@ exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -891,7 +891,7 @@ exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/troubleshooting/"
+          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -986,7 +986,7 @@ exports[`BlockingError renders UNSUPPORTED_BROWSER 1`] = `
       <p>
         Are you on Internet Explorer? 
         <a
-          href="https://streetmix.readthedocs.io/en/latest/support/faq/#does-streetmix-support-internet-explorer"
+          href="https://docs.streetmix.net/user-guide/support/faq#internet-explorer"
           rel="noopener noreferrer"
           target="_blank"
         >
