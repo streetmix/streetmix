@@ -15,7 +15,7 @@ export default function HomepageFeatures() {
           <Link to="/contributing/intro" className={clsx(styles.featureLink)}>
             <div className={clsx('card', styles.featureCard)}>
               <div className="card__header">
-                <h3>Coders and designers</h3>
+                <h3>Programmers and designers</h3>
               </div>
               <div className="card__body">
                 <p>
