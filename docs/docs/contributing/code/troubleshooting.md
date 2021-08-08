@@ -22,4 +22,4 @@ This section is for troubleshooting specific issues.
 
 ## If you need more help
 
-Talk to us in the `#tech` channel on [Discord](https://strt.mx/discord/).
+Talk to us in the `#tech` channel on [Discord](https://strt.mx/discord).

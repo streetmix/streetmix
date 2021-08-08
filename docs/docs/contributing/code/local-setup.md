@@ -96,7 +96,7 @@ Different Linux distros may require an additional configuration step for Postgre
 
 #### ArchLinux
 
-Here is [additional setup instructions for ArchLinux](https://wiki.archlinux.org/index.php/PostgreSQL).
+Here are [additional setup instructions for ArchLinux](https://wiki.archlinux.org/index.php/PostgreSQL).
 
 #### Debian/Ubuntu
 
