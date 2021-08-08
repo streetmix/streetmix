@@ -31,7 +31,7 @@
 <hr>
 
 <p align="center">
-  <img src="https://github.com/streetmix/streetmix/raw/main/docs/static/screenshot-beta.jpg" alt="screenshot">
+  <img src="https://github.com/streetmix/streetmix/raw/main/docs/static/screenshot.jpg" alt="screenshot">
 </p>
 
 ## About
