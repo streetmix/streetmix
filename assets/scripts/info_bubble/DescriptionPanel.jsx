@@ -85,22 +85,22 @@ function DescriptionPanel ({
               )}
               <div className="description-text">
                 <ReactMarkdown
-                  source={content}
-                  allowedTypes={[
-                    'root',
-                    'text',
-                    'paragraph',
-                    'emphasis',
+                  allowedElements={[
+                    'p',
+                    'em',
                     'strong',
-                    'list',
-                    'listItem',
+                    'ol',
+                    'ul',
+                    'li',
                     'blockquote',
-                    'heading',
-                    !offline && 'link'
+                    'h1',
+                    !offline && 'a'
                   ]}
                   unwrapDisallowed={true}
                   linkTarget="_blank"
-                />
+                >
+                  {content}
+                </ReactMarkdown>
                 {caption && (
                   <footer>
                     <FormattedMessage
