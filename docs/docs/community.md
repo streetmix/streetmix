@@ -8,7 +8,7 @@ The [primary Streetmix code repository is on GitHub](https://github.coms/streetm
 
 ## Discord {#contact-discord}
 
-We have [a public chat room on Discord](https://strt.mx/discord). Contributors to Streetmix coordinate here, and it\'s a great place to hang out with others in the Streetmix community. If you have seen a serious bug on Streetmix, the best place to get a quick response is to notify us on Discord first.
+We have [a public chat room on Discord](https://strt.mx/discord). Contributors to Streetmix coordinate here, and it's a great place to hang out with others in the Streetmix community. If you have seen a serious bug on Streetmix, the best place to get a quick response is to notify us on Discord first.
 
 ## Twitter {#contact-twitter}
 

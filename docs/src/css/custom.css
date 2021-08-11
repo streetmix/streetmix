@@ -7,13 +7,21 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --colour-emerald-700: rgb(9, 63, 20);
+  --colour-emerald-600: rgb(31, 114, 52);
+  --colour-emerald-500: rgb(26, 145, 78);
+  --colour-emerald-400: rgb(91, 193, 125);
+  --colour-emerald-300: rgb(147, 219, 169);
+  --colour-emerald-200: rgb(200, 237, 209);
+  --colour-emerald-100: rgb(231, 247, 234);
+
+  --ifm-color-primary: var(--colour-emerald-400);
+  --ifm-color-primary-dark: var(--colour-emerald-500);
+  --ifm-color-primary-darker: var(--colour-emerald-600);
+  --ifm-color-primary-darkest: var(--colour-emerald-700);
+  --ifm-color-primary-light: var(--colour-emerald-300);
+  --ifm-color-primary-lighter: var(--colour-emerald-200);
+  --ifm-color-primary-lightest: var(--colour-emerald-100);
   --ifm-code-font-size: 95%;
 
   --streetmix-font: "Manrope";
@@ -47,11 +55,11 @@ footer {
 }
 
 html[data-theme="light"] .navbar__title {
-  color: #1a914e;
+  color: var(--colour-emerald-500);
 }
 
 html[data-theme="dark"] .navbar__title {
-  color: #93dba9;
+  color: var(--colour-emerald-300);
 }
 
 footer.footer--dark {
