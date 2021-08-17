@@ -16,9 +16,9 @@ const AccessTokenHandler = function (req, res) {
       const refreshToken = body.refresh_token
       const idToken = body.id_token
       const accessToken = body.access_token
-      const user = await auth0.getProfile(accessToken)
+      const auth0User = await auth0.getProfile(accessToken)
 
-      const apiRequestBody = getUserInfo(user)
+      const apiRequestBody = getUserInfo(auth0User)
       const endpoint = `${config.restapi.protocol}${req.headers.host}/api/v1/users`
       const apiRequestOptions = {
         headers: {
