@@ -96,7 +96,8 @@
       "sign-in": "Sign in again",
       "reload": "Reload the page",
       "try-again": "Try again",
-      "view-example": "View an example street"
+      "view-example": "View an example street",
+      "resend-verification": "Resend verification email"
     },
     "page-not-found-title": "Page not found.",
     "page-not-found-description": "Oh, boy. There is no page with this address!",
@@ -119,6 +120,8 @@
     "access-denied-description": "You cancelled the sign in process.",
     "auth-api-problem-title": "There was a problem with signing you in.",
     "auth-api-problem-description": "There was a problem with authentication.",
+    "auth-unverified-email-title": "Please verify your email address.",
+    "auth-unverified-email-description": "Check your email inbox for a Streetmix verification link. If you need to, you can request a new verification email.",
     "please-try-again": "Please try again later or let us know via <email_link>email</email_link> or <tweet_link>Twitter</tweet_link>.",
     "unsupported-browser-title": "Streetmix doesn’t work on your browser.",
     "unsupported-browser-description": "Sorry about that. You might want to try <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, or Safari.",
