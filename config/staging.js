@@ -4,7 +4,6 @@ module.exports = {
     baseuri: '/api',
     protocol: 'https://'
   },
-  facebook_app_id: '175861739245183',
   db: {
     sequelize: {
       // The `url` property is documented in sequelize-cli readme but not in Sequelize core

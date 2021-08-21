@@ -244,12 +244,14 @@ The only required environment variables are the keys used for the [Auth0](https:
 
 Streetmix will run without these keys. Some non-critical functionality may be limited.
 
-| Variable name           | Description                             | Required |
-| ----------------------- | --------------------------------------- | -------- |
-| `PELIAS_API_KEY`        | Geocoding (Pelias) API key              | No       |
-| `TRANSIFEX_API_TOKEN`   | Translations (Transifex) API token      | No       |
-| `CLOUDINARY_API_KEY`    | Image cloud storage (Cloudinary) key    | No       |
-| `CLOUDINARY_API_SECRET` | Image cloud storage (Cloudinary) secret | No       |
+| Variable name | Description | Required |
+| --- | --- | --- |
+| `CLOUDINARY_API_KEY` | Image cloud storage (Cloudinary) key | No |
+| `CLOUDINARY_API_SECRET` | Image cloud storage (Cloudinary) secret | No |
+| `FACEBOOK_APP_ID` | Facebook app ID for social sharing | No |
+| `PELIAS_API_KEY` | Geocoding (Pelias) API key | No |
+| `TRANSIFEX_API_TOKEN` | Translations (Transifex) API token | No |
+| `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No |
 
 #### Optional database configuration (PostgreSQL)
 
