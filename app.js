@@ -58,6 +58,10 @@ process.on('SIGINT', function () {
 })
 
 app.locals.config = config
+app.locals.env = {
+  FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+  WEB_MONETIZATION_PAYMENT_POINTER: process.env.WEB_MONETIZATION_PAYMENT_POINTER
+}
 
 // Not all headers from `helmet` are on by default. These turns on specific
 // off-by-default headers for better security as recommended by https://securityheaders.io/
@@ -171,10 +175,6 @@ app.use((req, res, next) => {
   res.locals.STREETMIX_TITLE = 'Streetmix'
   res.locals.STREETMIX_URL =
     config.restapi.protocol + config.app_host_port + '/'
-
-  // Make required Facebook app ID available to metatags
-  res.locals.FACEBOOK_APP_ID = config.facebook_app_id
-  res.locals.STRIPE_PUBLIC_KEY = config.STRIPE_PUBLIC_KEY
 
   next()
 })

@@ -15,8 +15,6 @@ module.exports = {
     management_scope: 'read:users write:users',
     callback_path: '/services/auth/sign-in-callback'
   },
-  monetization: process.env.WEB_MONETIZATION_PAYMENT_POINTER,
-  facebook_app_id: '204327799717656',
   cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
   restapi_proxy_baseuri_rel: '/api',
   restapi: {
@@ -42,13 +40,6 @@ module.exports = {
     }
   },
   log_level: 'debug',
-  no_internet_mode: false,
-  geocode: {
-    pelias: {
-      host: 'api.geocode.earth',
-      api_key: process.env.PELIAS_API_KEY || null
-    }
-  },
   cloudinary: {
     api_key: process.env.CLOUDINARY_API_KEY || null,
     api_secret: process.env.CLOUDINARY_API_SECRET || null

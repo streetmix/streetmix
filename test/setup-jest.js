@@ -18,3 +18,4 @@ global.confirm = jest.fn(() => true)
 global.HTMLElement.prototype.scrollIntoView = jest.fn()
 
 process.env.PELIAS_API_KEY = process.env.PELIAS_API_KEY || 'ge-iampelias'
+process.env.PELIAS_HOST_NAME = 'dummy.pelias.com'

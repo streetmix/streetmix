@@ -11,7 +11,7 @@ context('User saves a new street', () => {
     cy.intercept('PUT', '/api/v1/streets/*', {
       statusCode: 204
     }).as('streetPut')
-    cy.intercept('https://api.geocode.earth/v1/reverse*', {
+    cy.intercept(`https://${Cypress.env('PELIAS_HOST_NAME')}/v1/reverse*`, {
       fixture: 'reverse-location'
     }).as('locationService')
 

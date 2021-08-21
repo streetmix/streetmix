@@ -140,7 +140,7 @@ function GeotagDialog () {
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
   const intl = useIntl()
 
-  const geocodeAvailable = !!PELIAS_API_KEY
+  const geocodeAvailable = !!PELIAS_API_KEY && !!PELIAS_HOST_NAME
 
   // `dpi` is a bad name for what is supposed to be referring to the devicePixelRatio
   // value. A devicePixelRatio higher than 1 (e.g. Retina or 4k monitors) will load

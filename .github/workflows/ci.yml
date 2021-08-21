@@ -78,6 +78,7 @@ jobs:
     env:
       # We need placeholder API keys to mock some third party integrations
       PELIAS_API_KEY: ge-iampelias
+      PELIAS_HOST_NAME: dummy.pelias.com
     steps:
       - name: Checkout
         uses: actions/checkout@v2

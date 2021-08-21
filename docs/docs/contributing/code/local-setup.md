@@ -244,12 +244,16 @@ The only required environment variables are the keys used for the [Auth0](https:
 
 Streetmix will run without these keys. Some non-critical functionality may be limited.
 
-| Variable name           | Description                             | Required |
-| ----------------------- | --------------------------------------- | -------- |
-| `PELIAS_API_KEY`        | Geocoding (Pelias) API key              | No       |
-| `TRANSIFEX_API_TOKEN`   | Translations (Transifex) API token      | No       |
-| `CLOUDINARY_API_KEY`    | Image cloud storage (Cloudinary) key    | No       |
-| `CLOUDINARY_API_SECRET` | Image cloud storage (Cloudinary) secret | No       |
+| Variable name | Description | Required |
+| --- | --- | --- |
+| `CLOUDINARY_API_KEY` | Image cloud storage (Cloudinary) key | No |
+| `CLOUDINARY_API_SECRET` | Image cloud storage (Cloudinary) secret | No |
+| `FACEBOOK_APP_ID` | Facebook app ID for social sharing | No |
+| `PELIAS_API_KEY` | Geocoding (Pelias) API key | No |
+| `PELIAS_HOST_NAME` | Geocoding (Pelias) API server | No |
+| `PLAUSIBLE_DOMAIN` | Analytics (Plausible) domain to track | No |
+| `TRANSIFEX_API_TOKEN` | Translations (Transifex) API token | No |
+| `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No |
 
 #### Optional database configuration (PostgreSQL)
 
@@ -271,6 +275,7 @@ A sample `.env` file looks like this:
 AUTH0_CLIENT_ID=1234567890
 AUTH0_CLIENT_SECRET=abcdefghij
 PELIAS_API_KEY=a2c4e6g8i
+PELIAS_HOST_NAME=api.geocode.earth
 ```
 
 ### Starting the application
@@ -323,14 +328,14 @@ npx sequelize db:migrate
 
 :::
 
-This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "offline mode", set your `NODE_ENV` environment variable to `demo`.
+This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "offline mode", set the `OFFLINE_MODE` environment variable to `true`.
 
 You may do this by editing the `.env` file (see [Setting environment variables](#env-vars) for more information).
 
 You can also do it one time by starting the server like this:
 
 ```shell-session
-NODE_ENV=demo npm start
+OFFLINE_MODE=true npm start
 ```
 
 :::tip
