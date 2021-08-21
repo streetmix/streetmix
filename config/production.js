@@ -4,9 +4,6 @@ module.exports = {
     protocol: 'https://',
     baseuri: '/api'
   },
-  plausible: {
-    domain: 'streetmix.net'
-  },
   db: {
     sequelize: {
       // The `url` property is documented in sequelize-cli readme but not in Sequelize core

@@ -251,6 +251,7 @@ Streetmix will run without these keys. Some non-critical functionality may be li
 | `FACEBOOK_APP_ID` | Facebook app ID for social sharing | No |
 | `PELIAS_API_KEY` | Geocoding (Pelias) API key | No |
 | `PELIAS_HOST_NAME` | Geocoding (Pelias) API server | No |
+| `PLAUSIBLE_DOMAIN` | Analytics (Plausible) domain to track | No |
 | `TRANSIFEX_API_TOKEN` | Translations (Transifex) API token | No |
 | `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No |
 

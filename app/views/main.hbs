@@ -100,11 +100,11 @@
     <link href="/assets/main.{{cacheTimestamp}}.css" rel="stylesheet" />
 
     {{! Plausible.io analytics }}
-    {{#if config.plausible}}
+    {{#if env.PLAUSIBLE_DOMAIN}}
     <script
       async
       defer
-      data-domain="{{config.plausible.domain}}"
+      data-domain="{{env.PLAUSIBLE_DOMAIN}}"
       src="https://plausible.io/js/plausible.js"
     ></script>
     {{/if}}
