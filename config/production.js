@@ -7,7 +7,6 @@ module.exports = {
   plausible: {
     domain: 'streetmix.net'
   },
-  pinterest: '0175a0c658a16a45e7c1f6b7cefaa34f',
   db: {
     sequelize: {
       // The `url` property is documented in sequelize-cli readme but not in Sequelize core
