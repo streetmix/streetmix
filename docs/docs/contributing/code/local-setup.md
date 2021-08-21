@@ -250,6 +250,7 @@ Streetmix will run without these keys. Some non-critical functionality may be li
 | `CLOUDINARY_API_SECRET` | Image cloud storage (Cloudinary) secret | No |
 | `FACEBOOK_APP_ID` | Facebook app ID for social sharing | No |
 | `PELIAS_API_KEY` | Geocoding (Pelias) API key | No |
+| `PELIAS_HOST_NAME` | Geocoding (Pelias) API server | No |
 | `TRANSIFEX_API_TOKEN` | Translations (Transifex) API token | No |
 | `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No |
 
@@ -273,6 +274,7 @@ A sample `.env` file looks like this:
 AUTH0_CLIENT_ID=1234567890
 AUTH0_CLIENT_SECRET=abcdefghij
 PELIAS_API_KEY=a2c4e6g8i
+PELIAS_HOST_NAME=api.geocode.earth
 ```
 
 ### Starting the application

@@ -41,12 +41,6 @@ module.exports = {
   },
   log_level: 'debug',
   no_internet_mode: false,
-  geocode: {
-    pelias: {
-      host: 'api.geocode.earth',
-      api_key: process.env.PELIAS_API_KEY || null
-    }
-  },
   cloudinary: {
     api_key: process.env.CLOUDINARY_API_KEY || null,
     api_secret: process.env.CLOUDINARY_API_SECRET || null
