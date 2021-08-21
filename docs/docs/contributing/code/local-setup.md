@@ -327,14 +327,14 @@ npx sequelize db:migrate
 
 :::
 
-This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "offline mode", set your `NODE_ENV` environment variable to `demo`.
+This is for a special case where you may need to deploy Streetmix onto machines that are going to be running in an environment without Internet access, such as a public space without Wi-Fi, or a conference center with very limited Wi-Fi. To put Streetmix into "offline mode", set the `OFFLINE_MODE` environment variable to `true`.
 
 You may do this by editing the `.env` file (see [Setting environment variables](#env-vars) for more information).
 
 You can also do it one time by starting the server like this:
 
 ```shell-session
-NODE_ENV=demo npm start
+OFFLINE_MODE=true npm start
 ```
 
 :::tip

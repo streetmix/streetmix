@@ -9,7 +9,6 @@ process.env.AUTH0_DOMAIN = config.get('auth0.domain')
 process.env.AUTH0_CLIENT_ID = config.get('auth0.client_id')
 process.env.STRIPE_API_KEY = config.get('stripe.api_key')
 process.env.ENV = config.get('env')
-process.env.OFFLINE_MODE = config.get('no_internet_mode')
 
 async function runBundle (app) {
   const bundler = new Bundler(

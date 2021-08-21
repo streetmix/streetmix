@@ -245,6 +245,11 @@ exports[`MenuBar renders minimal menu in offline mode 1`] = `
         </button>
       </li>
     </ul>
+    <div
+      class="environment-badge environment-label-demo"
+    >
+      Demo
+    </div>
   </nav>
 </DocumentFragment>
 `;
