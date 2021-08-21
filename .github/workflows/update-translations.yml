@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TRANSIFEX_API_TOKEN: ${{ secrets.TRANSIFEX_API_TOKEN }}
+      CYPRESS_INSTALL_BINARY: "0"
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -20,7 +21,9 @@ jobs:
       with:
         node-version: '14'
     - name: Install necessary dependencies
-      run: npm install dotenv chalk
+      # Disabling the package-lock prevents it from installing
+      # unecessary dependencies. This may break in npm v7.
+      run: npm install dotenv chalk --package-lock=false
     - name: Download translations
       run: node ./bin/download_translations.js
     - name: Check status

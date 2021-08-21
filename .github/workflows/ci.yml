@@ -58,7 +58,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
+      # Ignore scripts to prevent husky installation, which can break
+    - run: npm ci --ignore-scripts
     - name: Seed test database
       run: npm run db:migrate
     - name: Run tests
