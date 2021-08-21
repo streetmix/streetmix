@@ -7,6 +7,7 @@
 // You can read more here:
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
+require('dotenv').config()
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -14,4 +15,11 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  // copy any needed variables from process.env to config.env
+  config.env.PELIAS_HOST_NAME = process.env.PELIAS_HOST_NAME
+
+  // do not forget to return the changed config object!
+  return config
 }
+// plugins/index.js
