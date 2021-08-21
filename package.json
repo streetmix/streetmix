@@ -28,13 +28,8 @@
     "db:create": "npx sequelize-cli db:create",
     "pretest:models": "NODE_ENV=test npm run db:migrate",
     "test:models": "NODE_ENV=test jest --watchAll --testPathPattern=app/db/models/_tests_",
-    "posttest:models": "NODE_ENV=test npm run db:reset"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "posttest:models": "NODE_ENV=test npm run db:reset",
+    "prepare": "husky install"
   },
   "jest": {
     "roots": [
@@ -204,7 +199,7 @@
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "faker": "5.4.0",
-    "husky": "4.3.8",
+    "husky": "7.0.1",
     "jest": "26.6.3",
     "jest-canvas-mock": "2.3.1",
     "jest-date-mock": "1.0.8",
