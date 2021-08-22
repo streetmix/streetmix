@@ -1,9 +1,8 @@
-const config = require('config')
-const stripe = require('stripe')(config.stripe.api_secret)
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const User = require('../../db/models/user.js')
 const roles = require('../../data/user_roles.json')
 const logger = require('../../../lib/logger.js')()
-const tier1PlanId = config.stripe.tier1_plan_id
+const tier1PlanId = process.env.STRIPE_TIER1_PLAN_ID
 
 const planMap = {
   [tier1PlanId]: roles.SUBSCRIBER_1

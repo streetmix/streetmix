@@ -37,10 +37,5 @@ module.exports = {
         idle: 10000
       }
     }
-  },
-  stripe: {
-    api_key: process.env.STRIPE_PUBLIC_KEY || null,
-    api_secret: process.env.STRIPE_SECRET_KEY || null,
-    tier1_plan_id: process.env.TIER1_PLAN_ID || 'plan_Fc2mb0eKhaEzu5'
   }
 }
