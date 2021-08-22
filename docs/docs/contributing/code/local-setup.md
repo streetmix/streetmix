@@ -259,13 +259,20 @@ Streetmix will run without these keys. Some non-critical functionality may be li
 
 Environment variables are the preferred way for PostgreSQL to access the database. If you have a local database that are not using default values, you can set these here as well. Usually, you won't need to specify these at all.
 
-| Variable name | Description               | Default value          |
-| ------------- | ------------------------- | ---------------------- |
-| `PGUSER`      | PostgreSQL username       | (your system username) |
-| `PGPASSWORD`  | PostgreSQL password       | (none)                 |
-| `PGDATABASE`  | PostgreSQL database name  | `streetmix_dev`        |
-| `PGHOST`      | PostgreSQL server host IP | `127.0.0.1`            |
-| `PGPORT`      | PostgreSQL server port    | `5432`                 |
+| Variable name  | Description               | Default value          |
+| -------------- | ------------------------- | ---------------------- |
+| `PGUSER`       | PostgreSQL username       | (your system username) |
+| `PGPASSWORD`   | PostgreSQL password       | (none)                 |
+| `PGDATABASE`   | PostgreSQL database name  | `streetmix_dev`        |
+| `PGHOST`       | PostgreSQL server host IP | `127.0.0.1`            |
+| `PGPORT`       | PostgreSQL server port    | `5432`                 |
+| `DATABASE_URL` | Database connection URL   | (none)                 |
+
+:::info
+
+A `DATABASE_URL` may be provided by hosting services with database add-ons, like Heroku. If a URL is provided, its properties will take precedence over any PostgreSQL configuration variables.
+
+:::
 
 #### Optional environment variables for additional configuration
 

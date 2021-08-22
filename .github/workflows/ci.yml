@@ -36,6 +36,7 @@ jobs:
       PGHOST: postgres
       PGUSER: postgres
       PGPASSWORD: postgres
+      PGDATABASE: streetmix_test
     services:
       postgres:
         image: postgis/postgis

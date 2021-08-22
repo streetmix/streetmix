@@ -20,22 +20,5 @@ module.exports = {
     port: port,
     protocol: 'http://',
     baseuri: '/api'
-  },
-  db: {
-    sequelize: {
-      logging: false,
-      database: 'streetmix_dev',
-      host: process.env.PGHOST || '127.0.0.1',
-      port: process.env.PGPORT || 5432,
-      // surely there is a way to inherit these defaults to other config files?
-      // heroku hobby tier has max connections of 20, so this is a conservative setting
-      // you'll see h22 errors if its too high: https://devcenter.heroku.com/articles/error-codes#h22-connection-limit-reached
-      pool: {
-        max: 12,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-      }
-    }
   }
 }
