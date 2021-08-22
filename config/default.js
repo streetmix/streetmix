@@ -38,10 +38,6 @@ module.exports = {
       }
     }
   },
-  cloudinary: {
-    api_key: process.env.CLOUDINARY_API_KEY || null,
-    api_secret: process.env.CLOUDINARY_API_SECRET || null
-  },
   stripe: {
     api_key: process.env.STRIPE_PUBLIC_KEY || null,
     api_secret: process.env.STRIPE_SECRET_KEY || null,
