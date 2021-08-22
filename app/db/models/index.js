@@ -13,13 +13,9 @@ let sequelize
 // Although sequelize-cli documents the `url` property as a valid
 // option, Sequelize core does not use it.
 if (configEnv.url) {
-  sequelize = new Sequelize(configEnv.url, {
-    ...configEnv
-  })
+  sequelize = new Sequelize(configEnv.url, configEnv)
 } else {
-  sequelize = new Sequelize({
-    ...configEnv
-  })
+  sequelize = new Sequelize(configEnv)
 }
 
 // Set up each model

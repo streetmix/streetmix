@@ -93,7 +93,7 @@ const csp = {
       'cdn.mxpnl.com',
       process.env.AUTH0_DOMAIN,
       '*.basemaps.cartocdn.com',
-      'api.geocode.earth',
+      process.env.PELIAS_HOST_NAME,
       'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
       'plausible.io',
@@ -118,7 +118,7 @@ const csp = {
     fontSrc: ["'self'", 'fonts.gstatic.com'],
     connectSrc: [
       "'self'",
-      'api.geocode.earth',
+      process.env.PELIAS_HOST_NAME,
       'syndication.twitter.com',
       'sentry.io',
       process.env.AUTH0_DOMAIN,

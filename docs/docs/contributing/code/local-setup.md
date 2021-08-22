@@ -281,7 +281,8 @@ These optional keys may be set to adjust functionality.
 | Variable name | Description | Required |
 | --- | --- | --- |
 | `COOKIE_SESSION_SECRET` | A secret key for verifying the integrity of signed cookies. If your environment can securely generate or rotate secrets, do that. | No |
-| `OFFLINE_MODE` | Set ["offline mode"](#offline-mode) for instances without Internet access. | No |
+| `DEBUG` | If `true`, turns on verbose debug logging. | No |
+| `OFFLINE_MODE` | If `true`, set ["offline mode"](#offline-mode) to make the app work without Internet access. | No |
 
 #### Sample .env
 
