@@ -150,7 +150,10 @@ app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
 app.use(
-  cookieSession({ secret: config.cookie_session_secret, sameSite: 'strict' })
+  cookieSession({
+    secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
+    sameSite: 'strict'
+  })
 )
 
 app.use(requestHandlers.request_log)

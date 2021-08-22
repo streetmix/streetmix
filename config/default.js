@@ -15,7 +15,6 @@ module.exports = {
     management_scope: 'read:users write:users',
     callback_path: '/services/auth/sign-in-callback'
   },
-  cookie_session_secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
   restapi_proxy_baseuri_rel: '/api',
   restapi: {
     port: port,
@@ -39,7 +38,6 @@ module.exports = {
       }
     }
   },
-  log_level: 'debug',
   cloudinary: {
     api_key: process.env.CLOUDINARY_API_KEY || null,
     api_secret: process.env.CLOUDINARY_API_SECRET || null
