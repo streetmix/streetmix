@@ -1,5 +1,4 @@
 const axios = require('axios')
-const config = require('config')
 const logger = require('../../lib/logger.js')()
 
 // Refreshes auth0 token so user doesn't need to sign in every 30 days
@@ -9,12 +8,12 @@ exports.post = function (req, res) {
     return
   }
 
-  const endpoint = config.auth0.token_api_url
+  const endpoint = `https://${process.env.AUTH0_DOMAIN}/oauth/token`
   const apiRequestBody = {
     grant_type: 'refresh_token',
     refresh_token: req.body.token,
-    client_id: config.auth0.client_id,
-    client_secret: config.auth0.client_secret
+    client_id: process.env.AUTH0_CLIENT_ID,
+    client_secret: process.env.AUTH0_CLIENT_SECRET
   }
 
   axios

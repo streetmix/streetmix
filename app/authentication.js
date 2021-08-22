@@ -1,5 +1,4 @@
 const jwt = require('express-jwt')
-const config = require('config')
 const jwksRsa = require('jwks-rsa')
 const logger = require('../lib/logger.js')()
 
@@ -14,7 +13,7 @@ const jwtCheck = jwt({
   algorithms: ['RS256'],
   secret,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  audience: config.auth0.client_id,
+  audience: process.env.AUTH0_CLIENT_ID,
   credentialsRequired: false,
   getToken: function fromCookies (req) {
     if (req.cookies && req.cookies.login_token) {

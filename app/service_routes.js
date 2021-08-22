@@ -1,6 +1,5 @@
 const routes = require('express').Router()
 const bodyParser = require('body-parser')
-const config = require('config')
 const cors = require('cors')
 const controllers = require('./controllers')
 const resources = require('./resources')
@@ -91,7 +90,10 @@ routes.post(
 )
 
 // Auth0
-routes.get(config.auth0.callback_path, controllers.auth0_sign_in_callback.get)
+routes.get(
+  '/services/auth/sign-in-callback',
+  controllers.auth0_sign_in_callback.get
+)
 
 // Callback route after signing in
 // This is handled by front-end

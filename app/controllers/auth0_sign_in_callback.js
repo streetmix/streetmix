@@ -78,7 +78,7 @@ const getUserAuth0Info = function (user) {
 const getUserTwitterAuth0Info = function (user) {
   return {
     auth0_twitter: {
-      screenName: user[`${config.auth0.screen_name_custom_claim}`],
+      screenName: user['https://twitter.com/screen_name'],
       auth0Id: user.sub,
       profileImageUrl: user.picture
     }
@@ -94,9 +94,9 @@ exports.get = function (req, res) {
 
   const code = req.query.code
 
-  const redirectUri = `${config.restapi.protocol}${req.headers.host}${config.auth0.callback_path}`
+  const redirectUri = `${config.restapi.protocol}${req.headers.host}/services/auth/sign-in-callback`
 
-  const tokenUrl = config.auth0.token_api_url
+  const tokenUrl = `https://${process.env.AUTH0_DOMAIN}/oauth/token`
   const options = {
     headers: { 'content-type': 'application/json' },
     json: true
@@ -104,8 +104,8 @@ exports.get = function (req, res) {
 
   const body = {
     grant_type: 'authorization_code',
-    client_id: config.auth0.client_id,
-    client_secret: config.auth0.client_secret,
+    client_id: process.env.AUTH0_CLIENT_ID,
+    client_secret: process.env.AUTH0_CLIENT_SECRET,
     code: code,
     redirect_uri: redirectUri
   }
