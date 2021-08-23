@@ -96,7 +96,8 @@
       "sign-in": "Sign in again",
       "reload": "Reload the page",
       "try-again": "Try again",
-      "view-example": "View an example street"
+      "view-example": "View an example street",
+      "resend-verification": "Resend verification email"
     },
     "page-not-found-title": "Page not found.",
     "page-not-found-description": "Oh, boy. There is no page with this address!",
@@ -119,6 +120,8 @@
     "access-denied-description": "You cancelled the sign in process.",
     "auth-api-problem-title": "There was a problem with signing you in.",
     "auth-api-problem-description": "There was a problem with authentication.",
+    "auth-unverified-email-title": "Please verify your email address.",
+    "auth-unverified-email-description": "Check your email inbox for a Streetmix verification link. If you need to, you can request a new verification email.",
     "please-try-again": "Please try again later or let us know via <email_link>email</email_link> or <tweet_link>Twitter</tweet_link>.",
     "unsupported-browser-title": "Streetmix doesn’t work on your browser.",
     "unsupported-browser-description": "Sorry about that. You might want to try <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, or Safari.",
@@ -243,17 +246,23 @@
       "email-label": "Email",
       "email-description": "We’ll send you a link to sign in. No password is required.",
       "email-invalid": "Oops! That didn’t look like a valid email address. Please try again.",
+      "password-transition": "👋 {callout} Don’t have a password yet? {signUpLink} with your existing email, and all your streets will carry over.",
+      "password-transition-callout": "Heads up, email users. You now sign in with a password!",
+      "password-transition-sign-up-link-label": "Sign up",
       "social-heading": "or",
       "button": {
         "email": "Continue with email",
         "twitter": "Continue with Twitter",
         "google": "Continue with Google",
-        "facebook": "Continue with Facebook"
+        "facebook": "Continue with Facebook",
+        "magic-link": "Continue with email link",
+        "password": "Continue with password"
       },
       "tos": "By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}.",
       "tos-link-label": "terms of service",
       "privacy-link-label": "privacy policy",
       "loading-message": "Signing you in…",
+      "loading-message-sign-up": "Signing you up…",
       "sent-message-with-email": "We’ve sent an email to {email}. Please follow the instructions there to continue signing in!",
       "email-unreceived": "Didn’t receive it?",
       "resend-email": "Resend email"

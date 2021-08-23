@@ -16,9 +16,15 @@ const AccessTokenHandler = function (req, res) {
       const refreshToken = body.refresh_token
       const idToken = body.id_token
       const accessToken = body.access_token
-      const user = await auth0.getProfile(accessToken)
+      const auth0User = await auth0.getProfile(accessToken)
 
-      const apiRequestBody = getUserInfo(user)
+      if (auth0User.email && !auth0User.email_verified) {
+        // TODO: We don't actually want to send _all_ unverified users there, just the ones we know
+        //       will need to be linked to existing social accounts. #2023
+        res.redirect('/error/unverified-email')
+      }
+
+      const apiRequestBody = getUserInfo(auth0User)
       const endpoint = `${config.restapi.protocol}${req.headers.host}/api/v1/users`
       const apiRequestOptions = {
         headers: {
@@ -70,6 +76,7 @@ const getUserAuth0Info = function (user) {
       nickname: user.nickname,
       auth0Id: user.sub,
       email: user.email,
+      emailVerified: user.email_verified,
       profileImageUrl: user.picture
     }
   }
