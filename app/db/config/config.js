@@ -21,7 +21,7 @@ const envConfig = {
 }
 
 // If the `DATABASE_URL` env var is present use it, otherwise use individual
-// `PG*` values. he `url` property is documented in sequelize-cli readme but
+// `PG*` values. The `url` property is documented in sequelize-cli readme but
 // not in Sequelize core
 if (process.env.DATABASE_URL) {
   envConfig.url = process.env.DATABASE_URL
