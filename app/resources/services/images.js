@@ -1,5 +1,4 @@
 const cloudinary = require('cloudinary')
-const config = require('config')
 const User = require('../../db/models/user.js')
 const logger = require('../../../lib/logger.js')()
 
@@ -37,7 +36,7 @@ exports.get = async function (req, res) {
   try {
     signature = await cloudinary.utils.api_sign_request(
       query,
-      config.cloudinary.api_secret
+      process.env.CLOUDINARY_API_SECRET
     )
   } catch (error) {
     logger.error(error)
@@ -51,7 +50,7 @@ exports.get = async function (req, res) {
   const payload = {
     signature: signature,
     timestamp: query.timestamp,
-    api_key: config.cloudinary.api_key
+    api_key: process.env.CLOUDINARY_API_KEY
   }
 
   res.status(200).json(payload)

@@ -30,7 +30,4 @@ export const PELIAS_API_KEY = parse(process.env.PELIAS_API_KEY)
 export const PELIAS_HOST_NAME = parse(process.env.PELIAS_HOST_NAME)
 export const AUTH0_CLIENT_ID = parse(process.env.AUTH0_CLIENT_ID)
 export const AUTH0_DOMAIN = parse(process.env.AUTH0_DOMAIN)
-export const AUTH0_SIGN_IN_CALLBACK_PATH = parse(
-  process.env.AUTH0_CALLBACK_PATH
-)
-export const STRIPE_API_KEY = parse(process.env.STRIPE_API_KEY)
+export const STRIPE_PUBLIC_KEY = parse(process.env.STRIPE_PUBLIC_KEY)

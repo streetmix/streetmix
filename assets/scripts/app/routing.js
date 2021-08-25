@@ -1,9 +1,8 @@
-import { AUTH0_SIGN_IN_CALLBACK_PATH } from './config'
 import { URL_NEW_STREET, URL_EXAMPLE_STREET } from './constants'
 import Authenticate from './auth0'
 
 const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
-  AUTH0_SIGN_IN_CALLBACK_PATH,
+  '/services/auth/sign-in-callback',
   window.location.origin
 ).href
 

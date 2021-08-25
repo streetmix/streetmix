@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import StripeCheckout from 'react-stripe-checkout'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { STRIPE_API_KEY } from '../app/config'
+import { STRIPE_PUBLIC_KEY } from '../app/config'
 import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
@@ -93,7 +93,7 @@ const UpgradeDialog = ({ userId, roles }) => {
           description={stripeDescription}
           label={stripeLabel}
           locale="auto"
-          stripeKey={STRIPE_API_KEY}
+          stripeKey={STRIPE_PUBLIC_KEY}
           token={onToken}
           zipCode={true}
         />

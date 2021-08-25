@@ -4,10 +4,6 @@ const Bundler = require('parcel-bundler')
 
 // Add config variables to process.env which get injected into JS bundle
 process.env.API_URL = config.get('restapi_proxy_baseuri_rel')
-process.env.AUTH0_CALLBACK_PATH = config.get('auth0.callback_path')
-process.env.AUTH0_DOMAIN = config.get('auth0.domain')
-process.env.AUTH0_CLIENT_ID = config.get('auth0.client_id')
-process.env.STRIPE_API_KEY = config.get('stripe.api_key')
 process.env.ENV = config.get('env')
 
 async function runBundle (app) {

@@ -240,7 +240,7 @@ The only required environment variables are the keys used for the [Auth0](https:
 | `AUTH0_CLIENT_ID` | Authentication service (Auth0) client ID | Yes |
 | `AUTH0_CLIENT_SECRET` | Authentication service (Auth0) client secret | Yes |
 
-#### Optional environment variables
+#### Optional environment variables for third-party services
 
 Streetmix will run without these keys. Some non-critical functionality may be limited.
 
@@ -255,17 +255,34 @@ Streetmix will run without these keys. Some non-critical functionality may be li
 | `TRANSIFEX_API_TOKEN` | Translations (Transifex) API token | No |
 | `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No |
 
-#### Optional database configuration (PostgreSQL)
+#### Optional environment variables for PostgreSQL database configuration
 
 Environment variables are the preferred way for PostgreSQL to access the database. If you have a local database that are not using default values, you can set these here as well. Usually, you won't need to specify these at all.
 
-| Variable name | Description               | Default value          |
-| ------------- | ------------------------- | ---------------------- |
-| `PGUSER`      | PostgreSQL username       | (your system username) |
-| `PGPASSWORD`  | PostgreSQL password       | (none)                 |
-| `PGDATABASE`  | PostgreSQL database name  | `streetmix_dev`        |
-| `PGHOST`      | PostgreSQL server host IP | `127.0.0.1`            |
-| `PGPORT`      | PostgreSQL server port    | `5432`                 |
+| Variable name  | Description               | Default value          |
+| -------------- | ------------------------- | ---------------------- |
+| `PGUSER`       | PostgreSQL username       | (your system username) |
+| `PGPASSWORD`   | PostgreSQL password       | (none)                 |
+| `PGDATABASE`   | PostgreSQL database name  | `streetmix_dev`        |
+| `PGHOST`       | PostgreSQL server host IP | `127.0.0.1`            |
+| `PGPORT`       | PostgreSQL server port    | `5432`                 |
+| `DATABASE_URL` | Database connection URL   | (none)                 |
+
+:::info
+
+A `DATABASE_URL` may be provided by hosting services with database add-ons, like Heroku. If a URL is provided, its properties will take precedence over any PostgreSQL configuration variables.
+
+:::
+
+#### Optional environment variables for additional configuration
+
+These optional keys may be set to adjust functionality.
+
+| Variable name | Description | Required |
+| --- | --- | --- |
+| `COOKIE_SESSION_SECRET` | A secret key for verifying the integrity of signed cookies. If your environment can securely generate or rotate secrets, do that. | No |
+| `DEBUG` | If `true`, turns on verbose debug logging. | No |
+| `OFFLINE_MODE` | If `true`, set ["offline mode"](#offline-mode) to make the app work without Internet access. | No |
 
 #### Sample .env
 
@@ -320,7 +337,7 @@ npm install
 npx sequelize db:migrate
 ```
 
-## Setup in an offline environment
+## Setup in an offline environment {#offline-mode}
 
 :::caution
 

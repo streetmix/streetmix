@@ -1,11 +1,10 @@
 'use strict'
 
 const Sequelize = require('sequelize')
-const config = require('config')
 const models = require('requireindex')(__dirname)
+const config = require('../config/config')
+const configEnv = config[process.env.NODE_ENV]
 const db = {}
-
-const configDb = config.get('db.sequelize')
 
 let sequelize
 
@@ -13,17 +12,10 @@ let sequelize
 // be passed in as the first argument to the Sequelize constructor.
 // Although sequelize-cli documents the `url` property as a valid
 // option, Sequelize core does not use it.
-if (config.has('db.sequelize.url')) {
-  const url = config.get('db.sequelize.url')
-  sequelize = new Sequelize(url, {
-    dialect: 'postgres',
-    ...configDb
-  })
+if (configEnv.url) {
+  sequelize = new Sequelize(configEnv.url, configEnv)
 } else {
-  sequelize = new Sequelize({
-    dialect: 'postgres',
-    ...configDb
-  })
+  sequelize = new Sequelize(configEnv)
 }
 
 // Set up each model
