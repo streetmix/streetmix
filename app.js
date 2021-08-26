@@ -1,12 +1,19 @@
 process.title = 'streetmix'
-require('dotenv').config()
+const path = require('path')
+const dotenv = require('dotenv').config({
+  debug: process.env.DEBUG
+})
+
+// Error parsing .env file
+if (dotenv.error) {
+  throw dotenv.error
+}
 
 // Run this before other modules
 if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-const path = require('path')
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
