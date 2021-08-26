@@ -29,7 +29,7 @@ jobs:
       # Use current LTS, previous LTS and latest versions of Node.js
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        node-version: [14.x, 16.x, 17.x]
+        node-version: [12.x, 14.x, 16.x]
     env:
       NODE_ENV: test
       CYPRESS_INSTALL_BINARY: "0"
