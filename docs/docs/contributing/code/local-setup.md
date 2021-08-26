@@ -240,6 +240,17 @@ The only required environment variables are the keys used for the [Auth0](https:
 | `AUTH0_CLIENT_ID` | Authentication service (Auth0) client ID | Yes |
 | `AUTH0_CLIENT_SECRET` | Authentication service (Auth0) client secret | Yes |
 
+#### Server configuration environment variables
+
+These environment variables configure the Node.js environment and the URL (hostname, port, and protocol) used for creating canonical URLs to an instance of Streetmix. By default, Streetmix assumes it is running in a local, development environment.
+
+| Variable name | Description | Default value | Required |
+| --- | --- | --- | --- |
+| `NODE_ENV` | Name of the Node.js environment. `production` is used for live services. `test` is used for local testing and continuous integration. | `development` | No |
+| `APP_DOMAIN` | Domain name hosting this instance | `localhost` | No |
+| `APP_PROTOCOL` | URL protocol for this instance, either `http` or `https`. | `http` for `localhost`; `https` for all other domains | No |
+| `PORT` | Domain port for this instance | `8000` | No |
+
 #### Optional environment variables for third-party services
 
 Streetmix will run without these keys. Some non-critical functionality may be limited.
@@ -249,6 +260,7 @@ Streetmix will run without these keys. Some non-critical functionality may be li
 | `CLOUDINARY_API_KEY` | Image cloud storage (Cloudinary) key | No |
 | `CLOUDINARY_API_SECRET` | Image cloud storage (Cloudinary) secret | No |
 | `FACEBOOK_APP_ID` | Facebook app ID for social sharing | No |
+| `NEW_RELIC_LICENSE_KEY` | New Relic monitoring API key | No |
 | `PELIAS_API_KEY` | Geocoding (Pelias) API key | No |
 | `PELIAS_HOST_NAME` | Geocoding (Pelias) API server | No |
 | `PLAUSIBLE_DOMAIN` | Analytics (Plausible) domain to track | No |
