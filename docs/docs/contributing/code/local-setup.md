@@ -295,6 +295,10 @@ PELIAS_API_KEY=a2c4e6g8i
 PELIAS_HOST_NAME=api.geocode.earth
 ```
 
+#### Resources
+
+- [Store config in the environment](https://12factor.net/config) [The Twelve-Factor App] &mdash; This is why we use environment variables, and not configuration files, to configure each instance of Streetmix.
+
 ### Starting the application
 
 1. Start the PostgreSQL service. (Note: the method for doing this may differ depending on your operating system and how you installed PostgreSQL.)
