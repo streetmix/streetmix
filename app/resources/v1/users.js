@@ -15,7 +15,7 @@ exports.post = async function (req, res) {
     }
     const userJson = { id: user.id }
     logger.info({ user: userJson }, 'New user created.')
-    res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
+    res.header('Location', '/api/v1/users/' + user.id)
     res.status(201).send(userJson)
   } // END function - handleCreateUser
 
@@ -37,7 +37,7 @@ exports.post = async function (req, res) {
     const userJson = { id: user.id }
     logger.info({ user: userJson }, 'Existing user logged in.')
 
-    res.header('Location', config.restapi.baseuri + '/v1/users/' + user.id)
+    res.header('Location', '/api/v1/users/' + user.id)
     res.status(200).send(userJson)
   } // END function - handleUpdateUser
 

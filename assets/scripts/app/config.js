@@ -22,9 +22,8 @@ function parse (value) {
   }
 }
 
-export const API_URL = process.env.API_URL + '/'
-export const FACEBOOK_APP_ID = parse(process.env.FACEBOOK_APP_ID)
 export const ENV = process.env.NODE_ENV
+export const FACEBOOK_APP_ID = parse(process.env.FACEBOOK_APP_ID)
 export const OFFLINE_MODE = parse(process.env.OFFLINE_MODE)
 export const PELIAS_API_KEY = parse(process.env.PELIAS_API_KEY)
 export const PELIAS_HOST_NAME = parse(process.env.PELIAS_HOST_NAME)

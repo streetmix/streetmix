@@ -2,7 +2,6 @@
 
 const fs = require('fs')
 const util = require('util')
-const config = require('config')
 const logger = require('../../../lib/logger.js')()
 const getFromTransifex = require('../../../lib/transifex.js')
 
@@ -18,19 +17,15 @@ async function getLocalTranslation (res, locale, resource) {
     logger.error(err)
 
     if (err.code === 'ENOENT') {
-      res
-        .status(404)
-        .json({
-          status: 404,
-          msg: 'No translation found with locale code: ' + locale
-        })
+      res.status(404).json({
+        status: 404,
+        msg: 'No translation found with locale code: ' + locale
+      })
     } else {
-      res
-        .status(500)
-        .json({
-          status: 500,
-          msg: 'Could not retrieve translation for locale: ' + locale
-        })
+      res.status(500).json({
+        status: 500,
+        msg: 'Could not retrieve translation for locale: ' + locale
+      })
     }
   }
 }
@@ -38,8 +33,7 @@ async function getLocalTranslation (res, locale, resource) {
 function sendSuccessResponse (res, locale, resource, translation) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
-    Location:
-      config.restapi.baseuri + '/v1/translate/' + locale + '/' + resource,
+    Location: '/api/v1/translate/' + locale + '/' + resource,
     'Cache-Control': 'max-age=86400'
   })
 
@@ -70,12 +64,10 @@ exports.get = async (req, res) => {
   } catch (err) {
     logger.error(err)
 
-    res
-      .status(500)
-      .json({
-        status: 500,
-        msg: 'Could not retrieve translation for locale: ' + locale
-      })
+    res.status(500).json({
+      status: 500,
+      msg: 'Could not retrieve translation for locale: ' + locale
+    })
   }
 
   if (translation) {

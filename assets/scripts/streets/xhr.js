@@ -1,5 +1,4 @@
 import { cloneDeep } from 'lodash'
-import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import {
   checkIfEverythingIsLoaded,
@@ -93,7 +92,7 @@ export function createNewStreetOnServer () {
 
   // TODO const url
   window
-    .fetch(API_URL + 'v1/streets', options)
+    .fetch('/api/v1/streets', options)
     .then((response) => {
       if (!response.ok) {
         throw response
@@ -124,16 +123,13 @@ export function getFetchStreetUrl () {
   const street = store.getState().street
   if (street.creatorId) {
     url =
-      API_URL +
-      'v1/streets?namespacedId=' +
+      '/api/v1/streets?namespacedId=' +
       encodeURIComponent(street.namespacedId) +
       '&creatorId=' +
       encodeURIComponent(street.creatorId)
   } else {
     url =
-      API_URL +
-      'v1/streets?namespacedId=' +
-      encodeURIComponent(street.namespacedId)
+      '/api/v1/streets?namespacedId=' + encodeURIComponent(street.namespacedId)
   }
 
   return url
@@ -188,7 +184,7 @@ export function saveStreetToServer (initial) {
 
   const transmission = packServerStreetData()
   const street = store.getState().street
-  const url = API_URL + 'v1/streets/' + street.id
+  const url = '/api/v1/streets/' + street.id
   const options = {
     method: 'PUT',
     body: transmission,
@@ -460,7 +456,7 @@ export function fetchLastStreet () {
     'load',
     {
       // TODO const
-      url: API_URL + 'v1/streets/' + streetId,
+      url: '/api/v1/streets/' + streetId,
       method: 'GET'
     },
     receiveLastStreet,
@@ -520,7 +516,7 @@ export function sendDeleteStreetToServer (id) {
 
   // TODO const url
   newNonblockingAjaxRequest(
-    API_URL + 'v1/streets/' + id,
+    '/api/v1/streets/' + id,
     {
       method: 'DELETE'
     },

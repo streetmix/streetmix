@@ -1,5 +1,4 @@
 import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
-import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { unpackServerStreetData } from '../streets/xhr'
@@ -16,7 +15,7 @@ export function fetchGalleryStreet (streetId) {
 
   lastRequestedStreetId = streetId
 
-  const url = API_URL + 'v1/streets/' + streetId
+  const url = '/api/v1/streets/' + streetId
 
   window
     .fetch(url)

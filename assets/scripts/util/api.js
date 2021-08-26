@@ -1,10 +1,9 @@
 import axios from 'axios'
-import { API_URL } from '../app/config'
 
 class APIClient {
   constructor () {
     this.client = axios.create({
-      baseURL: API_URL + 'v1/',
+      baseURL: '/api/v1/',
       responseType: 'json'
     })
   }

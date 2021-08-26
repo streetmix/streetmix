@@ -1,5 +1,4 @@
 import debounce from 'lodash/debounce'
-import { API_URL } from '../app/config'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import store, { observeStore } from '../store'
@@ -86,7 +85,7 @@ function saveSettingsToServer (settings) {
 
   // TODO const url
   newNonblockingAjaxRequest(
-    API_URL + 'v1/users/' + getSignInData().userId,
+    '/api/v1/users/' + getSignInData().userId,
     {
       method: 'PUT',
       body: transmission,

@@ -1,4 +1,3 @@
-import { API_URL } from '../app/config'
 import { formatMessage } from '../locales/locale'
 import { app } from '../preinit/app_settings'
 import { getSignInData, isSignedIn } from '../users/authentication'
@@ -80,7 +79,7 @@ export function remixStreet () {
     'remix',
     {
       // TODO const
-      url: API_URL + 'v1/streets',
+      url: '/api/v1/streets',
       method: 'POST',
       body: transmission,
       credentials: 'include',

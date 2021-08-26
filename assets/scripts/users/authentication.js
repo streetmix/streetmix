@@ -4,7 +4,6 @@ import * as Sentry from '@sentry/browser'
 
 import USER_ROLES from '../../../app/data/user_roles'
 import { app } from '../preinit/app_settings'
-import { API_URL } from '../app/config'
 import { showError, ERRORS } from '../app/errors'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
@@ -210,7 +209,7 @@ function errorRefreshLoginToken (data) {
  */
 async function fetchSignInDetails (userId) {
   try {
-    const response = await window.fetch(API_URL + 'v1/users/' + userId)
+    const response = await window.fetch('/api/v1/users/' + userId)
 
     if (!response.ok) {
       throw response
@@ -316,7 +315,7 @@ function sendSignOutToServer (quiet) {
 
   // TODO const
   window
-    .fetch(API_URL + 'v1/users/' + signInData.userId + '/login-token', {
+    .fetch('/api/v1/users/' + signInData.userId + '/login-token', {
       method: 'DELETE'
     })
     .then((response) => {
