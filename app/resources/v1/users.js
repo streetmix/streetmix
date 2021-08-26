@@ -1,4 +1,3 @@
-const config = require('config')
 const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')()
@@ -111,7 +110,7 @@ exports.post = async function (req, res) {
   }
 
   const handleUserProfileImage = async function (user, credentials) {
-    const publicId = `${config.env}/profile_image/${user.id}`
+    const publicId = `${process.env.NODE_ENV}/profile_image/${user.id}`
     let profileImageUrl
 
     // Check if user has profile image already cached in cloudinary

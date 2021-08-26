@@ -2,10 +2,10 @@ const chalk = require('chalk')
 const app = require('./app')
 const logger = require('./lib/logger.js')()
 
-app.listen(app.locals.config.port, () => {
+app.listen(process.env.PORT, () => {
   if (process.env.NODE_ENV === 'development') {
     logger.info(
-      chalk`[express] {yellow.bold Streetmix is starting!} {white.bold Go here in your browser:} {greenBright.bold http://localhost:${app.locals.config.port}}`
+      chalk`[express] {yellow.bold Streetmix is starting!} {white.bold Go here in your browser:} {greenBright.bold http://localhost:${process.env.PORT}}`
     )
   } else {
     logger.info(chalk`[express] {yellow.bold Streetmix is starting!}`)

@@ -1,5 +1,4 @@
 const path = require('path')
-const config = require('config')
 const Bundler = require('parcel-bundler')
 
 async function runBundle (app) {
@@ -12,7 +11,7 @@ async function runBundle (app) {
     }
   )
 
-  if (config.env === 'production') {
+  if (process.env.NODE_ENV === 'production') {
     await bundler.bundle()
   } else {
     if (app) {
@@ -25,7 +24,7 @@ async function runBundle (app) {
 }
 
 // In production bundle immediately and exit.
-if (config.env === 'production') {
+if (process.env.NODE_ENV === 'production') {
   runBundle()
 }
 

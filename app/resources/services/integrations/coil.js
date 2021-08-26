@@ -1,10 +1,10 @@
-const config = require('config')
 const btoa = require('btoa')
 const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
 const InternalOAuthError = require('passport-oauth2').InternalOAuthError
 const axios = require('axios')
 const { User } = require('../../../db/models')
+const appURL = require('../../../../lib/url.js')
 const logger = require('../../../../lib/logger.js')()
 
 const { findUser, addUserConnection, syncAccountStatus } = require('./helpers')
@@ -22,7 +22,7 @@ const initCoil = () => {
       clientID: process.env.COIL_CLIENT_ID,
       clientSecret: process.env.COIL_CLIENT_SECRET,
       scope: 'simple_wm openid',
-      callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/coil/callback`,
+      callbackURL: `${appURL.origin}/services/integrations/coil/callback`,
       passReqToCallback: true,
       customHeaders: {
         authorization: `Basic ${authToken}`,

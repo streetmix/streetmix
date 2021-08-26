@@ -1,10 +1,10 @@
-const config = require('config')
+const appURL = require('../../../lib/url')
 
 exports.get = function (req, res) {
   // Prevent this service from being accessed by third parties
   if (
     req.headers.referer === undefined ||
-    new URL(req.headers.referer).host !== config.app_host_port
+    new URL(req.headers.referer).host !== appURL.host
   ) {
     res.status(403).json({
       status: 403,
