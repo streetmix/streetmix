@@ -13,7 +13,8 @@ if (require.main.filename.endsWith('sequelize')) {
   })
 
   // Error parsing .env file
-  if (env.error) {
+  // It's okay to skip if we can't find it
+  if (env.error && dotenv.error.code !== 'ENOENT') {
     throw env.error
   }
 }

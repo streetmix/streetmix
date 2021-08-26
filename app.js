@@ -5,7 +5,8 @@ const dotenv = require('dotenv').config({
 })
 
 // Error parsing .env file
-if (dotenv.error) {
+// It's okay to skip if we can't find it
+if (dotenv.error && dotenv.error.code !== 'ENOENT') {
   throw dotenv.error
 }
 
