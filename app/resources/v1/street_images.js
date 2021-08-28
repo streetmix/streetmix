@@ -1,7 +1,5 @@
 const cloudinary = require('cloudinary')
-const config = require('config')
 const { User, Street } = require('../../db/models')
-
 const logger = require('../../../lib/logger.js')()
 const { SAVE_THUMBNAIL_EVENTS } = require('../../../lib/util.js')
 
@@ -48,7 +46,8 @@ exports.post = async function (req, res) {
   }
 
   const publicId =
-    `${config.env}/street_thumbnails/` + (streetType || req.params.street_id)
+    `${process.env.NODE_ENV}/street_thumbnails/` +
+    (streetType || req.params.street_id)
 
   const details = {
     public_id: publicId,
@@ -162,13 +161,12 @@ exports.post = async function (req, res) {
     if (street.creatorId.toString() !== user.id.toString()) {
       res.status(403).json({
         status: 403,
-        msg:
-          'User does not have the right permissions to upload street thumbnail.'
+        msg: 'User does not have the right permissions to upload street thumbnail.'
       })
       return
     }
 
-    const publicId = `${config.env}/street_thumbnails/${street.id}`
+    const publicId = `${process.env.NODE_ENV}/street_thumbnails/${street.id}`
     return publicId
   }
 
@@ -194,8 +192,7 @@ exports.post = async function (req, res) {
   } else {
     res.status(403).json({
       status: 403,
-      msg:
-        'User does not have the right permissions to upload street thumbnail.'
+      msg: 'User does not have the right permissions to upload street thumbnail.'
     })
   }
 }
@@ -254,7 +251,7 @@ exports.delete = async function (req, res) {
   }
 
   // 4) Delete street thumbnail from cloudinary.
-  const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
+  const publicId = `${process.env.NODE_ENV}/street_thumbnails/${req.params.street_id}`
   cloudinary.v2.uploader.destroy(publicId, function (error, result) {
     if (error) {
       logger.error(error)
@@ -277,7 +274,7 @@ exports.get = async function (req, res) {
   let resource
 
   try {
-    const publicId = `${config.env}/street_thumbnails/${req.params.street_id}`
+    const publicId = `${process.env.NODE_ENV}/street_thumbnails/${req.params.street_id}`
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     if (error?.error?.http_code === 404) {

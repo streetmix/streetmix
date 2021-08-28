@@ -1,6 +1,5 @@
 const fs = require('fs')
 const util = require('util')
-const config = require('config')
 const logger = require('../../../lib/logger.js')()
 
 const readFile = util.promisify(fs.readFile)
@@ -24,7 +23,7 @@ async function readFlags (res) {
 function sendSuccessResponse (res, flags) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
-    Location: config.restapi.baseuri + '/v1/flags',
+    Location: '/api/v1/flags',
     'Cache-Control': 'max-age=86400'
   })
 

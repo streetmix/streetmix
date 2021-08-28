@@ -1,18 +1,35 @@
 process.title = 'streetmix'
-require('dotenv').config()
+const path = require('path')
+const dotenv = require('dotenv').config({
+  debug: process.env.DEBUG
+})
+
+// Error parsing .env file
+// It's okay to skip if we can't find it
+if (dotenv.error && dotenv.error.code !== 'ENOENT') {
+  throw dotenv.error
+}
 
 // Run this before other modules
 if (process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic')
 }
 
-const path = require('path')
+// Set some defaults for env vars, if not set
+// This must be set after `dotenv` loads
+process.env.APP_DOMAIN = process.env.APP_DOMAIN || 'localhost'
+process.env.APP_PROTOCOL =
+  process.env.PROTOCOL || process.env.APP_DOMAIN === 'localhost'
+    ? 'http'
+    : 'https'
+process.env.PORT = process.env.PORT || 8000
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const express = require('express')
 const helmet = require('helmet')
-const config = require('config')
 const swaggerUi = require('swagger-ui-express')
 const swaggerJSDoc = require('swagger-jsdoc')
 const chalk = require('chalk')
@@ -21,6 +38,7 @@ const controllers = require('./app/controllers')
 const requestHandlers = require('./lib/request_handlers')
 const initCloudinary = require('./lib/cloudinary')
 const compileSVGSprites = require('./lib/svg-sprite')
+const appURL = require('./lib/url')
 const apiRoutes = require('./app/api_routes')
 const serviceRoutes = require('./app/service_routes')
 const logger = require('./lib/logger.js')()
@@ -51,13 +69,13 @@ process.on('uncaughtException', function (error) {
 // Provide a message after a Ctrl-C
 // Note: various sources tell us that this does not work on Windows
 process.on('SIGINT', function () {
-  if (app.locals.config.env === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     logger.info(chalk`[express] {yellow.bold Stopping Streetmix!}`)
   }
   process.exit()
 })
 
-app.locals.config = config
+// Pass environment variables to handlebars templates
 app.locals.env = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
   WEB_MONETIZATION_PAYMENT_POINTER: process.env.WEB_MONETIZATION_PAYMENT_POINTER
@@ -135,12 +153,12 @@ const csp = {
   // Reported CSP violations should be addressed before releasing to
   // production. IF A NEW FEATURE IS REPORTING A CSP VIOLATION, IT WILL
   // FAIL IN PRODUCTION, EVEN THOUGH IT WORKS IN DEVELOPMENT MODE.
-  reportOnly: app.locals.config.env === 'development'
+  reportOnly: process.env.NODE_ENV === 'development'
 }
 
 // Allows websockets for hot-module reloading
 // (note: ports are assigned randomly by Parcel)
-if (app.locals.config.env === 'development') {
+if (process.env.NODE_ENV === 'development') {
   csp.directives.scriptSrc.push("'unsafe-eval'")
   csp.directives.connectSrc.push('ws:')
 }
@@ -176,8 +194,7 @@ app.use((req, res, next) => {
   }
 
   res.locals.STREETMIX_TITLE = 'Streetmix'
-  res.locals.STREETMIX_URL =
-    config.restapi.protocol + config.app_host_port + '/'
+  res.locals.STREETMIX_URL = appURL.href
 
   next()
 })
@@ -221,7 +238,7 @@ app.use(express.static(path.join(__dirname, '/public')))
 // Allow hot-module reloading (HMR)
 // and attach API docs
 // in non-production environments
-if (config.env !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   const runBundle = require('./app/bundle')
   runBundle(app)
 

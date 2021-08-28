@@ -104,7 +104,6 @@
     "chalk": "4.1.0",
     "cloudinary": "1.25.0",
     "compression": "1.7.4",
-    "config": "3.3.4",
     "cookie-parser": "1.4.5",
     "cookie-session": "1.4.0",
     "copy-to-clipboard": "3.3.1",

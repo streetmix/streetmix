@@ -1,10 +1,5 @@
 const path = require('path')
-const config = require('config')
 const Bundler = require('parcel-bundler')
-
-// Add config variables to process.env which get injected into JS bundle
-process.env.API_URL = config.get('restapi_proxy_baseuri_rel')
-process.env.ENV = config.get('env')
 
 async function runBundle (app) {
   const bundler = new Bundler(
@@ -16,7 +11,7 @@ async function runBundle (app) {
     }
   )
 
-  if (config.env === 'production') {
+  if (process.env.NODE_ENV === 'production') {
     await bundler.bundle()
   } else {
     if (app) {
@@ -29,7 +24,7 @@ async function runBundle (app) {
 }
 
 // In production bundle immediately and exit.
-if (config.env === 'production') {
+if (process.env.NODE_ENV === 'production') {
   runBundle()
 }
 

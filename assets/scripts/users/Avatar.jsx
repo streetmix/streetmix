@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import Axios from 'axios'
-import { API_URL } from '../app/config'
 import { rememberUserProfile } from '../store/slices/user'
 import './Avatar.scss'
 
@@ -26,7 +25,7 @@ function Avatar ({ userId }) {
       // component unmounts (this can happen e.g. in tests)
       // https://www.youtube.com/watch?v=_TleXX0mxaY
       try {
-        const response = await Axios.get(API_URL + 'v1/users/' + userId, {
+        const response = await Axios.get('/api/v1/users/' + userId, {
           cancelToken: source.token
         })
 

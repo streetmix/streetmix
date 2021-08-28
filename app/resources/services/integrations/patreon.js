@@ -1,8 +1,8 @@
 const crypto = require('crypto')
-const config = require('config')
 const passport = require('passport')
 const PatreonStrategy = require('passport-patreon').Strategy
 const logger = require('../../../../lib/logger.js')()
+const appURL = require('../../../../lib/url.js')
 
 const { User } = require('../../../db/models')
 
@@ -33,7 +33,7 @@ const initPatreon = () => {
       {
         clientID: process.env.PATREON_CLIENT_ID,
         clientSecret: process.env.PATREON_CLIENT_SECRET,
-        callbackURL: `${config.restapi.protocol}${config.app_host_port}/services/integrations/patreon/callback`,
+        callbackURL: `${appURL.origin}/services/integrations/patreon/callback`,
         scope: 'users pledges-to-me my-campaign',
         passReqToCallback: true
       },

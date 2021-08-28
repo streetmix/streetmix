@@ -1,6 +1,7 @@
-const config = require('config')
 const axios = require('axios')
 const logger = require('../../lib/logger.js')()
+const appURL = require('../../lib/url.js')
+
 const { Authentication } = require('../../lib/auth0')
 
 const AccessTokenHandler = function (req, res) {
@@ -19,7 +20,7 @@ const AccessTokenHandler = function (req, res) {
       const user = await auth0.getProfile(accessToken)
 
       const apiRequestBody = getUserInfo(user)
-      const endpoint = `${config.restapi.protocol}${req.headers.host}/api/v1/users`
+      const endpoint = `${appURL.origin}/api/v1/users`
       const apiRequestOptions = {
         headers: {
           Cookie: `login_token=${idToken};`
@@ -94,7 +95,7 @@ exports.get = function (req, res) {
 
   const code = req.query.code
 
-  const redirectUri = `${config.restapi.protocol}${req.headers.host}/services/auth/sign-in-callback`
+  const redirectUri = `${appURL.origin}/services/auth/sign-in-callback`
 
   const tokenUrl = `https://${process.env.AUTH0_DOMAIN}/oauth/token`
   const options = {

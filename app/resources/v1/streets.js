@@ -1,4 +1,3 @@
-const config = require('config')
 const { v1: uuidv1 } = require('uuid')
 const { isArray } = require('lodash')
 const { ERRORS, asStreetJson } = require('../../../lib/util')
@@ -117,7 +116,7 @@ exports.post = async function (req, res) {
   const handleCreatedStreet = (s) => {
     s = asStreetJson(s)
     logger.info({ street: s }, 'New street created.')
-    res.header('Location', config.restapi.baseuri + '/v1/streets/' + s.id)
+    res.header('Location', '/api/v1/streets/' + s.id)
     res.status(201).json(s)
   }
 
@@ -286,7 +285,7 @@ exports.get = async function (req, res) {
   }
   street = asStreetJson(street)
   res.set('Access-Control-Allow-Origin', '*')
-  res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
+  res.set('Location', '/api/v1/streets/' + street.id)
   res.status(200).json(street)
 } // END function - exports.get
 
@@ -362,7 +361,7 @@ exports.find = async function (req, res) {
       handleErrors(ERRORS.STREET_DELETED)
     }
     res.set('Access-Control-Allow-Origin', '*')
-    res.set('Location', config.restapi.baseuri + '/v1/streets/' + street.id)
+    res.set('Location', '/api/v1/streets/' + street.id)
     res.set('Content-Length', 0)
     res.status(307).end()
   } // END function - handleFindStreet
@@ -371,8 +370,7 @@ exports.find = async function (req, res) {
     const totalNumStreets = results.count
     const streets = results.rows
 
-    const selfUri =
-      config.restapi.baseuri + '/v1/streets?start=' + start + '&count=' + count
+    const selfUri = '/api/v1/streets?start=' + start + '&count=' + count
 
     const json = {
       meta: {
@@ -393,11 +391,7 @@ exports.find = async function (req, res) {
         prevCount = start
       }
       json.meta.links.prev =
-        config.restapi.baseuri +
-        '/v1/streets?start=' +
-        prevStart +
-        '&count=' +
-        prevCount
+        '/api/v1/streets?start=' + prevStart + '&count=' + prevCount
     }
 
     if (start + streets.length < totalNumStreets) {
@@ -407,11 +401,7 @@ exports.find = async function (req, res) {
         totalNumStreets - start - streets.length
       )
       json.meta.links.next =
-        config.restapi.baseuri +
-        '/v1/streets?start=' +
-        nextStart +
-        '&count=' +
-        nextCount
+        '/api/v1/streets?start=' + nextStart + '&count=' + nextCount
     }
     res.status(200).send(json)
   } // END function - handleFindStreets
