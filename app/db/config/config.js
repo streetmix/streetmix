@@ -14,7 +14,7 @@ if (require.main.filename.endsWith('sequelize')) {
 
   // Error parsing .env file
   // It's okay to skip if we can't find it
-  if (env.error && dotenv.error.code !== 'ENOENT') {
+  if (env.error && env.error.code !== 'ENOENT') {
     throw env.error
   }
 }
@@ -47,6 +47,9 @@ if (process.env.DATABASE_URL) {
   dbConfig.host = process.env.PGHOST || '127.0.0.1'
   dbConfig.port = process.env.PGPORT || 5432
 }
+
+// Fallback: set NODE_ENV when run from command line and it's not set
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 // Heroku requires SSL connections to Postgres. As of the date of this
 // commit, hobby-tier and some some older database instances do not yet
