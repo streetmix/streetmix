@@ -10,4 +10,10 @@ app.listen(process.env.PORT, () => {
   } else {
     logger.info(chalk`[express] {yellow.bold Streetmix is starting!}`)
   }
+
+  if (process.env.OFFLINE_MODE === 'true') {
+    logger.info(
+      chalk`[express] {cyan.bold Offline mode is} {white.bold ON}{cyan.bold .}`
+    )
+  }
 })
