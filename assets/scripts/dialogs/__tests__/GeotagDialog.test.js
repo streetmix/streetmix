@@ -131,8 +131,6 @@ describe('GeotagDialog', () => {
       const origApiKey = constants.PELIAS_API_KEY
       constants.PELIAS_API_KEY = undefined // eslint-disable-line
 
-      console.log(constants.PELIAS_HOST_NAME)
-
       render(<GeotagDialog />, { initialState })
 
       expect(screen.getByText(errorText, { exact: false })).toBeInTheDocument()
@@ -148,8 +146,6 @@ describe('GeotagDialog', () => {
       // Set imported config constants to undefined
       const origHostHame = constants.PELIAS_HOST_NAME
       constants.PELIAS_HOST_NAME = undefined // eslint-disable-line
-
-      console.log(constants.PELIAS_HOST_NAME)
 
       render(<GeotagDialog />, { initialState })
 
