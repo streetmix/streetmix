@@ -28,3 +28,6 @@ newrelic_agent.log
 
 # Ignore code coverage folder
 coverage
+
+# Ignore test artifacts
+cypress/screenshots
