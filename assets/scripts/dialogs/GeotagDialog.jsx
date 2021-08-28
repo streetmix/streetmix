@@ -54,7 +54,8 @@ GeotagDialog.propTypes = {
   userLocation: PropTypes.shape({
     latitude: PropTypes.number,
     longitude: PropTypes.number
-  })
+  }),
+  offline: PropTypes.bool
 }
 
 function getInitialState (props) {
@@ -126,7 +127,8 @@ function GeotagDialog () {
     street: useSelector((state) => state.street),
     markerLocation: useSelector((state) => state.map.markerLocation),
     addressInformation: useSelector((state) => state.map.addressInformation),
-    userLocation: useSelector((state) => state.user.geolocation.data)
+    userLocation: useSelector((state) => state.user.geolocation.data),
+    offline: useSelector((state) => state.system.offline)
   }
 
   const dispatch = useDispatch()
@@ -140,7 +142,8 @@ function GeotagDialog () {
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
   const intl = useIntl()
 
-  const geocodeAvailable = !!PELIAS_API_KEY && !!PELIAS_HOST_NAME
+  const geocodeAvailable =
+    !!PELIAS_API_KEY && !!PELIAS_HOST_NAME && !props.offline
 
   // `dpi` is a bad name for what is supposed to be referring to the devicePixelRatio
   // value. A devicePixelRatio higher than 1 (e.g. Retina or 4k monitors) will load
@@ -342,4 +345,5 @@ function GeotagDialog () {
     </Dialog>
   )
 }
+
 export default GeotagDialog

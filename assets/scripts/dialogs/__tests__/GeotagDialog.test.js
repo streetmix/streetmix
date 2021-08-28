@@ -1,9 +1,11 @@
 /* eslint-env jest */
 import React from 'react'
+import { cloneDeep } from 'lodash'
 import { screen } from '@testing-library/react'
 import { render } from '../../../../test/helpers/render'
 import GeotagDialog from '../GeotagDialog'
 import { isOwnedByCurrentUser } from '../../streets/owner'
+import * as constants from '../../app/config'
 
 // Mock dependencies that could break tests
 jest.mock('../../streets/owner', () => ({
@@ -42,7 +44,8 @@ const initialState = {
     }
   },
   system: {
-    devicePixelRatio: 1
+    devicePixelRatio: 1,
+    offline: false
   }
 }
 
@@ -61,7 +64,7 @@ describe('GeotagDialog', () => {
     })
 
     expect(
-      screen.queryByRole('button', { name: 'Clear location' })
+      screen.getByRole('button', { name: 'Clear location' })
     ).toBeInTheDocument()
   })
 
@@ -77,7 +80,7 @@ describe('GeotagDialog', () => {
       }
     })
     expect(
-      screen.queryByRole('button', { name: 'Confirm location' })
+      screen.getByRole('button', { name: 'Confirm location' })
     ).toBeInTheDocument()
   })
 
@@ -106,9 +109,71 @@ describe('GeotagDialog', () => {
     })
 
     expect(
-      screen.queryByRole('button', { name: 'Confirm location' })
+      screen.getByRole('button', { name: 'Confirm location' })
     ).toBeInTheDocument()
   })
-  it.todo('does not show error banner if geocoding services are available')
-  it.todo('cripples dialog behavior if geocoding services are unavailable')
+
+  describe('geocoding availability', () => {
+    const errorText = 'Geocoding services are currently unavailable'
+    const placeholderText = 'Search for a location'
+
+    it('does not show error banner if geocoding services are available', () => {
+      render(<GeotagDialog />, { initialState })
+
+      expect(
+        screen.queryByText(errorText, { exact: false })
+      ).not.toBeInTheDocument()
+      expect(screen.getByPlaceholderText(placeholderText)).toBeInTheDocument()
+    })
+
+    it('shows geocoding is unavailable if geocoder key is unset', () => {
+      // Set imported config constants to undefined
+      const origApiKey = constants.PELIAS_API_KEY
+      constants.PELIAS_API_KEY = undefined // eslint-disable-line
+
+      console.log(constants.PELIAS_HOST_NAME)
+
+      render(<GeotagDialog />, { initialState })
+
+      expect(screen.getByText(errorText, { exact: false })).toBeInTheDocument()
+      expect(
+        screen.queryByPlaceholderText(placeholderText)
+      ).not.toBeInTheDocument()
+
+      // Restore constants
+      constants.PELIAS_API_KEY = origApiKey // eslint-disable-line
+    })
+
+    it('shows geocoding is unavailable if geocoder host name is not set', () => {
+      // Set imported config constants to undefined
+      const origHostHame = constants.PELIAS_HOST_NAME
+      constants.PELIAS_HOST_NAME = undefined // eslint-disable-line
+
+      console.log(constants.PELIAS_HOST_NAME)
+
+      render(<GeotagDialog />, { initialState })
+
+      expect(screen.getByText(errorText, { exact: false })).toBeInTheDocument()
+      expect(
+        screen.queryByPlaceholderText(placeholderText)
+      ).not.toBeInTheDocument()
+
+      // Restore constants
+      constants.PELIAS_HOST_NAME = origHostHame // eslint-disable-line
+    })
+
+    it('shows geocoding is unavailable if offline mode is on', () => {
+      const newInitialState = cloneDeep(initialState)
+      newInitialState.system.offline = true
+
+      render(<GeotagDialog />, {
+        initialState: newInitialState
+      })
+
+      expect(screen.getByText(errorText, { exact: false })).toBeInTheDocument()
+      expect(
+        screen.queryByPlaceholderText(placeholderText)
+      ).not.toBeInTheDocument()
+    })
+  })
 })
