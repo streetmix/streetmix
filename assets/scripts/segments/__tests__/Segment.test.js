@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import { render, screen, fireEvent } from '../../../../test/helpers/render'
+import { render, screen } from '../../../../test/helpers/render'
 import Segment from '../Segment'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
 import SEGMENT_INFO from '../info.json'
@@ -204,8 +204,7 @@ describe('Segment', () => {
       )
       setLastStreet() // ToDo: needs to be refactored
       userEvent.hover(screen.getByTestId('segment'))
-      // cannot port this to userEvent yet, see: https://github.com/testing-library/user-event/issues/506
-      fireEvent.keyDown(document, { key: 'Delete' })
+      userEvent.keyboard('{Delete}') // Now Ported to userEvent
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)
@@ -229,8 +228,7 @@ describe('Segment', () => {
       )
       setLastStreet() // ToDo: needs to be refactored
       userEvent.hover(screen.getByTestId('segment'))
-      // cannot port this to userEvent yet, see: https://github.com/testing-library/user-event/issues/506
-      fireEvent.keyDown(document, { key: 'Delete', shiftKey: true })
+      userEvent.keyboard('{shift}{Delete}{/shift}') // Now Ported to userEvent
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)
