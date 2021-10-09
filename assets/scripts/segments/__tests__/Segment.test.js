@@ -204,7 +204,7 @@ describe('Segment', () => {
       )
       setLastStreet() // ToDo: needs to be refactored
       userEvent.hover(screen.getByTestId('segment'))
-      userEvent.keyboard('{Delete}') // Now Ported to userEvent
+      userEvent.keyboard('{Delete}')
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)
@@ -228,7 +228,7 @@ describe('Segment', () => {
       )
       setLastStreet() // ToDo: needs to be refactored
       userEvent.hover(screen.getByTestId('segment'))
-      userEvent.keyboard('{shift}{Delete}{/shift}') // Now Ported to userEvent
+      userEvent.keyboard('{shift}{Delete}{/shift}')
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)
