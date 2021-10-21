@@ -132,3 +132,9 @@ option {
   src: url("../fonts/manrope/Manrope-ExtraBold.woff2") format("woff2"),
     url("../fonts/manrope/Manrope-ExtraBold.woff") format("woff");
 }
+
+/* Locale-specific rules */
+
+html[lang="ko"] {
+  word-break: keep-all;
+}
