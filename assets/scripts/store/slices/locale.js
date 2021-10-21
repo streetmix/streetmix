@@ -63,6 +63,8 @@ const localeSlice = createSlice({
       state.segmentInfo = flattenObject(segmentInfo)
       state.isLoading = false
       state.requestedLocale = null
+
+      document.querySelector('html').lang = locale
     },
 
     [changeLocale.rejected]: (state, action) => {
