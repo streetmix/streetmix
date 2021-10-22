@@ -25,9 +25,7 @@ exports[`ContactMenu renders 1`] = `
       />
       View source code on GitHub
     </a>
-    <a
-      href="#"
-    >
+    <a>
       Subscribe to our newsletter
     </a>
   </div>

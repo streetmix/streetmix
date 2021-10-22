@@ -5,13 +5,10 @@ exports[`ShareMenu does not render external share links in offline mode 1`] = `
   <div
     class="menu share-menu"
   >
-    <a
-      href="#"
-    >
+    <a>
       Print…
     </a>
     <a
-      href="#"
       id="save-as-image"
     >
       Save as image…
@@ -33,9 +30,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
     <div
       class="share-sign-in-promo"
     >
-      <a
-        href="#"
-      >
+      <a>
         Sign in
       </a>
        for nicer links to your streets and your personal street gallery
@@ -85,13 +80,10 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       />
       Share using Facebook
     </a>
-    <a
-      href="#"
-    >
+    <a>
       Print…
     </a>
     <a
-      href="#"
       id="save-as-image"
     >
       Save as image…
@@ -155,13 +147,10 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       />
       Share using Facebook
     </a>
-    <a
-      href="#"
-    >
+    <a>
       Print…
     </a>
     <a
-      href="#"
       id="save-as-image"
     >
       Save as image…

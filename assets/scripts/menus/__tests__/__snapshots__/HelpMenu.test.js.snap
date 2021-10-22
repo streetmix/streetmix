@@ -5,14 +5,10 @@ exports[`HelpMenu renders 1`] = `
   <div
     class="menu"
   >
-    <a
-      href="#"
-    >
+    <a>
       About Streetmix…
     </a>
-    <a
-      href="#"
-    >
+    <a>
       What’s new in Streetmix? [en]‎
     </a>
     <div

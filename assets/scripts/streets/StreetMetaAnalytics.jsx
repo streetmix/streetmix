@@ -16,7 +16,7 @@ function StreetMetaAnalytics (props) {
   if (averageCapacity > 0) {
     return (
       <span className="street-metadata-analytics">
-        <a href="#" onClick={() => dispatch(showDialog('ANALYTICS'))}>
+        <a onClick={() => dispatch(showDialog('ANALYTICS'))}>
           <FormattedMessage
             id="capacity.ppl-per-hour"
             defaultMessage="{capacity} people/hr"
