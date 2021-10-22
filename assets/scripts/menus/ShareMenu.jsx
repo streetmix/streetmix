@@ -147,7 +147,7 @@ function ShareMenu (props) {
     encodeURIComponent(shareText)
 
   const signInLink = (
-    <a onClick={handleClickSignIn} href="#">
+    <a onClick={handleClickSignIn}>
       <FormattedMessage
         defaultMessage="Sign in"
         id="menu.share.sign-in-twitter-link"
@@ -218,10 +218,10 @@ function ShareMenu (props) {
           </ExternalLink>
         </>
       )}
-      <a href="#" onClick={handleClickPrint}>
+      <a onClick={handleClickPrint}>
         <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
       </a>
-      <a id="save-as-image" href="#" onClick={handleClickSaveAsImage}>
+      <a id="save-as-image" onClick={handleClickSaveAsImage}>
         <FormattedMessage
           id="menu.share.save"
           defaultMessage="Save as image…"

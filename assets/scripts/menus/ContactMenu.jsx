@@ -26,7 +26,6 @@ function ContactMenu (props) {
         />
       </ExternalLink>
       <a
-        href="#"
         onClick={(e) => {
           dispatch(showDialog('NEWSLETTER'))
         }}
