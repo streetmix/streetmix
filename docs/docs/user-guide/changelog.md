@@ -5,6 +5,14 @@ sidebar_position: 2
 
 # What's new in Streetmix?
 
+## October 21, 2021
+
+### 🎨 Improvements
+
+- **Fixed word breaks in Korean.** Did you know brow sers will break Korean wo rds whe never it feels lik e it? It's l ike readin g sente nces like t his. Annoyi ng, right? Anyway, we fixed it!
+
+P.S. We’re still looking for someone to help us finish Korean translations, so if that’s you, [please reach out!](mailto:hello@streetmix.net?subject=Korean%20translations)
+
 ## August 7, 2021
 
 ### 🎨 Improvements
