@@ -5,9 +5,15 @@ sidebar_position: 2
 
 # What's new in Streetmix?
 
-## October 21, 2021
+## November 3, 2021
 
 ### 🎨 Improvements
+
+- Updates to Finnish and Swedish translations.
+
+## October 21, 2021
+
+### 🎮 UI improvements
 
 - **Fixed word breaks in Korean.** Did you know brow sers will break Korean wo rds whe never it feels lik e it? It's l ike readin g sente nces like t his. Annoyi ng, right? Anyway, we fixed it!
 
