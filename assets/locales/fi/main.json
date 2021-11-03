@@ -394,7 +394,9 @@
   },
   "credits": {
     "core-team-heading": "Kehitysryhmä",
+    "original-team-heading": "Alkuvaiheen kehitystiimi",
     "past-team-heading": "Entiset kehittäjät",
+    "core-contributors": "Pääkehittäjät",
     "advisors": "Konsultit",
     "additional-illustrations": "Graafikot",
     "additional-code": "Ohjelmoijat",
