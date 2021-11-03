@@ -394,7 +394,9 @@
   },
   "credits": {
     "core-team-heading": "프로젝트 팀",
+    "original-team-heading": "",
     "past-team-heading": "지난 팀 멤버",
+    "core-contributors": "",
     "advisors": "어드바이저",
     "additional-illustrations": "추가 일러스트레이션",
     "additional-code": "추가 코드",

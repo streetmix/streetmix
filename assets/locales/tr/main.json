@@ -394,7 +394,9 @@
   },
   "credits": {
     "core-team-heading": "Proje ekibi",
+    "original-team-heading": "",
     "past-team-heading": "Eski ekip üyeleri",
+    "core-contributors": "",
     "advisors": "Danışmanlar",
     "additional-illustrations": "Ek ilüstrasyonlar",
     "additional-code": "Ek kod",

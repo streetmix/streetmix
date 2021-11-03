@@ -9,6 +9,7 @@
     "cafe-seating": "Kahvilaterassi",
     "wayfinding-sign": "Opastetaulu",
     "sidewalk-lamp": "Valaisin",
+    "utility-pole": "Voimajohtopylväs",
     "parklet": "Puistoruutu",
     "divider": "Erotuskaista",
     "planting-strip": "Viherkaista",
@@ -207,6 +208,6 @@
     "dawn": "Aamunkoitto",
     "night": "Yö",
     "karl": "Sumu",
-    "holodeck": ""
+    "holodeck": "Holokansi"
   }
 }

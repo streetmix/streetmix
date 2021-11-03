@@ -394,7 +394,9 @@
   },
   "credits": {
     "core-team-heading": "Prosjektteam",
+    "original-team-heading": "",
     "past-team-heading": "Tidligere team-medlemmer",
+    "core-contributors": "",
     "advisors": "Rådgivere",
     "additional-illustrations": "Ytterligere illustrasjoner",
     "additional-code": "Ytterligere kode",

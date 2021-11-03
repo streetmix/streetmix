@@ -394,7 +394,9 @@
   },
   "credits": {
     "core-team-heading": "Equipo de proyecto",
+    "original-team-heading": "",
     "past-team-heading": "Miembros del equipo en el pasado",
+    "core-contributors": "",
     "advisors": "Asesores",
     "additional-illustrations": "Ilustraciones adicionales",
     "additional-code": "Código adicional",

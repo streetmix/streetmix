@@ -394,7 +394,9 @@
   },
   "credits": {
     "core-team-heading": "Команда",
+    "original-team-heading": "",
     "past-team-heading": "Предыдущие участники",
+    "core-contributors": "",
     "advisors": "Консультанты",
     "additional-illustrations": "Дополнительные иллюстрации",
     "additional-code": "Дополнительный код",
