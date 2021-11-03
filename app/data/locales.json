@@ -1,5 +1,12 @@
 [
   {
+    "label": "አማርኛ",
+    "name": "Amharic",
+    "value": "am",
+    "key": "i18n.lang.am",
+    "level": 1
+  },
+  {
     "label": "لغة عربية",
     "name": "Arabic",
     "value": "ar",
@@ -35,6 +42,13 @@
     "level": 4
   },
   {
+    "label": "English (United Kingdom)",
+    "name": "English (United Kingdom)",
+    "value": "en-GB",
+    "key": "i18n.lang.en-gb",
+    "level": 1
+  },
+  {
     "label": "Español",
     "name": "Spanish",
     "value": "es",
@@ -47,6 +61,13 @@
     "value": "es-419",
     "key": "i18n.lang.es-419",
     "level": 3
+  },
+  {
+    "label": "Español (España)",
+    "name": "Spanish (Spain)",
+    "value": "es-ES",
+    "key": "i18n.lang.es-es",
+    "level": 1
   },
   {
     "label": "Español (México)",
