@@ -1,0 +1,213 @@
+{
+  "segments": {
+    "sidewalk": "የመንገድ ዳር የእግረኛ መንገድ ",
+    "pedestrian": "እግረኛ",
+    "sidewalk-tree": "የመንገድ ዳር ዛፍ",
+    "bike-rack": "የብስክሌት ማቆሚያ",
+    "bench": "አግዳሚ ወንበር",
+    "outdoor-dining": "ከቤት ውጪ መመገብ",
+    "cafe-seating": "የካፌ መቀመጫ ",
+    "wayfinding-sign": "የመንገድ ማግኛ ምልክቶች ",
+    "sidewalk-lamp": "አምፖል",
+    "utility-pole": "የመሠረተ ልማት ምሰሶ",
+    "parklet": "ፓርክ",
+    "divider": "ማቋት",
+    "planting-strip": "ጠፍጣፋ መትከያ",
+    "planter-box": "መትከያ ሳጥን",
+    "median": "የመንገድ ላይ አጋcሽ ክፍል",
+    "bollard": "ቦላርዶች",
+    "dome": "የትራፊክ ማግለያ ዶም",
+    "jersey-barrier": "ጀርሲ ማገጃ",
+    "scooter": "የኤሌክትሪክ ስኩተር",
+    "scooter-drop-zone": "ስኩተር ማስቀመጫ ዞን",
+    "bike-lane": "የብስክሌት መስመር",
+    "parking-lane": "የመኪና ማቆሚያ መስመር",
+    "perpendicular-parking": "ፔርፔዲኮላር የመኪና ማቆሚያ",
+    "angled-parking": "አንግልድ የመኪና ማቆሚያ",
+    "flex-zone": "ተለዋዋጭ ዞን",
+    "taxi-pick-up": "የታክሲ ጭነት ዞን",
+    "rideshare-pick-up": "የጉዞ መጋራት ዞን",
+    "bikeshare-station": "የብስክሌት መጋራት ጣቢያ",
+    "foodtruck": "የምግብ ጭነት መኪና",
+    "flex-zone-curb": "መጠበቅያ ቦታዎች",
+    "drive-lane": "የማሽከርከሪያ መስመር",
+    "sharrow": "የመንገድ ምልክት",
+    "turn-lane": "የመዞሪያ መስመር ",
+    "turn-lane-straight": "የመዞሪያ መስመር ",
+    "turn-lane-center": "የመሃል ማዞሪያ መስመር",
+    "bus-lane": "የአውቶቡስ መስመር",
+    "bus-lane-shared": "የተጋራ አውቶቡስ / ብስክሌት መስመር",
+    "streetcar": "የመኪና መንገድ ",
+    "light-rail": "የቀላል ባቡር",
+    "transit-shelter": "የመጓጓዣ መጠለ",
+    "brt-station": "የፈጣን አውቶቡስ መጓጓዣ ",
+    "brt-lane": "የፈጣን አውቶቡስ መጓጓዣ መስመር",
+    "temporary-barrier": "ጊዜያዊ እንቅፋት",
+    "inception-train": "“ግንዛቤ” ባቡር",
+    "magic-carpet": "አስማታዊ ምንጣፍ"
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "ስለ መንገድ ማግኛ ምልክቶች የበለጠ ይወቁ",
+      "content": " የመንገድ ማግኛ ምልክቶች እግረኞች ወደተለመዱ ቦታዎች እንዲደርሱ ያግዟቸዋል፡፡ የከተማ አቃጆች (ኧርባን ፕላነርስ) እና አርኪቴክተቶች ከነጥብ ሀ ወደ ነጥብ ለ እንዴት መድረስ እንደሚችሉ ወይም ነጥብ “ሀ” ከየት እንደሚጀምር እንዴት ለማወቅት እንደሚችሉ ሲያስቡ በሰዎች አዕምሮ ውስጥ ምን እንደሚካሄድ ለማወቅ በመሞከር ጥቂት አስርት አመታትን አሳልፈዋል፡፡ አስቀድሞ በ1960 የከተማ አቃጁ  (ኧርባን ፕላነርስ) ኬቪን ሊንች ዘ ኢሜጅ ኦፍ ዘ ሲቲ (The Image of the City]\n\n(http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, ስለ ከተማ “ተገቢነት” የጻፈ ሲሆን ዌይፋይንዲንግ (መንገድ ማግኘት) “ከውጫዊ ከባቢ በሚገኙ ፍንጮች ጥርት ያለ ሴንሰሪን በወጥነት እና በተደራጀ መንገድ መጠቀም” ሲል ይገልጸዋል፡፡ የማይጨበጥ ሊሆን ይችላል-ሽታ፣ መንካት፣ የግራቪቲ ስሜት ወይም ሌላው ቀርቶ የኤሌክትሪክ ወይም ማግኔቲክ ፊልዶች ሆን ተብለው ዲዛይን ተደረጉ ካርታዎችን፣ የመንገድ ቁጥሮች፣ ወይም የመንገድ ምልክቶች በመሳሰሉ “ዌይፋይንዲንግ መሳሪያዎች” የበለጠ አካላዊ ሊሆን ይችላል፡፡ የመኪና ጉዞ ለማስተናገድ በቂ የሆኑ ምልክቶች መኖራቸው ተቀባይነት ማግኘቱን እና ይህ ኢንቨስትመንት በእግረኞች ደረጃ ዝቅተኛ መሆኑ የሚስደንቅ ነው፡፡ ምንአልባት ያለ እንቅስቃሴ ለመቆም፣ አካባቢችንን መቃኝት እና ከኋላችን ስድስት ሰዎች ይደረደራሉ የሚል ስጋት ሳይኖርብን ስሜቶቻችንን ለመጠም ቀላል ስለሆነ ሊሆን ይችላል፡፡ በማንኛውም ደረጃ የከተማ ዲዛይነሮች ለእግረኞች አመቺ የሆኑ የመንገድ ማግኛ ምልክቶች እንዲኖሩ የሚተጉ ሲሆን በተለይም በእግር ለመጓዝ በሚቻልባቸው የንግድ ስራ አካባቢዎች እነዚህን ምልክቶች ከተግባራዊነታቸው በተጨማሪ ብራንድን የማስተዋወቂያ እድሎች ይሆናሉ፡፡ ለምሳሌ፡- ኒውዮርክ ሲቲ [አለማቀፍ እውቅና ያለው የዲዛይን አማካሪ ቀጥራለች] \n\n(https://www.pentagram.com/work/walknyc/story) አሁን በጣም ታዋቂ የሆኑት የዎል ኤንዋይሲ ምልክቶች (ስትሪትሚክስ አነስተኛ ክፍሎቹን የቀረጸው በነዚህ መሰረት ነው)፡፡ ሌላ ማዘጋጃ ቤቶች ባህላዊ የሆኑ የጥንታዊ ከተሞች ወይም ሲቪክ-መደበኛ አካሄድ (ምስሉ ከላይ የሰፈረ) የተከተሉ ሲሆን አንዳንድ ቦታዎች (https://www.pentagram.com/work/walknyc/story).\n\n[guerrilla wayfinding tactics]\n\n(http://walkyourcity.org/).+J+J) ይህ እንዳለ ሆኖ፤ ከመጥፋት ወይም ቦታን ካለማወቅ የከፋ ነገር የለም፡፡ ሊንች እንደጻፈው “በቋንቋችን ውስጥ መጥፋት የሚለው ቃል መልከአ ምድራዊ እርግጠኛነትን ማጣት ከሚለውም የላቀ ነወ፤ ከባድ አደጋ የሚል ቅላፄ ያስከትላል” ማን ነው መንገድ ላይ ሆኖ እንደዚያ አይነት ስሜት እንዲሰማው የሚፈልግ?                    "
+    },
+    "parklet": {
+      "prompt": "ስለፓርክሌትስ የበለጠ ይወቁ",
+      "imageCaption": "4033 ጁዳ መንገድ ፓርክሌት፤ ከሳንፍራንሲስኮ ፕላኒንግ ዲፓርትመንት",
+      "content": " #ፓርክሌት በጊዜያዊ የህዝብ መሰብሰቢያ ቦታዎች የመኪና ማቆሚያ ቦታዎች ይሆናሉ፡፡\n\nበ2005 ተቀማጭነቱን ሳንፍራንሲስኮ ያደረገው የዲዛይን ስቱዲዮ ([Rebar](http://rebargroup.org/)በዳውን ታውን ሚሽን ስትሪት የሚገኘውን በክፍያ የሚሰራ አንድ የፓርኪግ ቦታ በጊዜያዊነት ወደ አንድ ትንሽ የህዝብ ፓርክነት ለውጦት ነበር፡፡ የመጀመሪያው ፓርክሌት ቀላል ነበር፡- ባለአራት ማዕዘን ቁራጭ ቦታ ላይ አግዳሚ ወንበር እና ዛፍ፤ ነገር ግን አጭር የመመሪያ ማኑዋል የሚያካትት ሲሆን ሌሎች የራሳቸውን ለመስራት ክፍያ መፈጸም አለባቸው፡፡ ሰዎች ሰፊ የህዝብ ቦታዎች ለመኪና ማቆሚያነት መሆናቸውን ሲረዱ አለማቀፍ ንቅናቄ ተወልዷል፡፡ በአሁኑ ወቅት በብዙ ሺዎች የሚቆጠሩ በጊዜያዊነት የተቀየሩ ቦታዎች በየአመቱ በአለም ዙሪያ ይገኛሉ:: [Park(ing) Day](https://www.facebook.com/PARKing-Day-71298180414)\n\nጥሩ ሀሳብን እንዳየሁት ወዲያውኑ አውቀዋለሁ፡፡ ሳንፍራንሲስኮ በ2010 ፓርክሌቶችን በይፋ እውቅና በመስጠት የመጀመሪያዋ ከተማ ለመሆን ችላለች ([Pavement to Parks program](http://sfpavementtoparks.sfplanning.org/) )፡፡ በአሁኑ ወቅት ይህች የባህር ዳርቻ ከተማ ከ50 በላይ ፓርክሌቶች ያሏት ሲሆን፤ አብዛኞቹ ከሪባር የታወቀ የመጀሪያ ስሪት ውጪ የተሻሻሉ የአርኪቴክቸር ዲዛይን ውጤቶች ናቸው፡፡ በሳንፍራንሲስኮ ወከባ የበዛባቸው የገበያ ኮሪደሮች መሀል በድፍረት የተሞላ እና በኮርፖሬት ስፖንሰር የተደረገ ባለ ሁለት ብሎክ ርዝመት ያላቸው ፓርክሌት የይገኛል፡፡ ከዚህ በተጨማሪ ለየርባ ቡዌና ማህበረሰብ ጥቅም ዲዛይን የተደረጉ በርካታ ተንቀሳቃሽ እና ብሩህ ቀይ “ተንቀሳቃሽ ፓርኮች” ይገኛሉ [Yerba Buena Community Benefit District](http://www.ybcbd.org/)፡፡ ይፋዊ የፓርክሌት ፕሮግራሞች በአሁኑ ወቅት በሌላ ፊላደልፊያ፤ ኦክላንድ፤ ካንሳስ ሲቲ፤ ኒውዮርክ፣ ቺካጎ እና ቫንኮቨር በመሳሰሉ የሰሜን አሜሪካ ከተሞች እየተካሄዱ ይገኛሉ፡፡ ሌላ በርካታ ከተማዎችም በቅርቡ ይህንን ይከተላሉ፡፡           "
+    },
+    "bike-lane": {
+      "prompt": "የብስክልት መንገዶችን በተመለከተ የበለጠ ይቁ",
+      "content": " #የብስክሌት መንገዶች ብስክሌቶች ጋላቢዎች ከተሽከርካሪዎች በተለየ የተናጠል መንገድ በደህንነት እንዲጓዙ ያስችላቸዋል፡፡ \n\n\nበግል የማጓጓዣ ተሽከርካሪዎች ታሪካዊ ጊዜ- ፈረሶች በአንድ በኩል አውቶሞቢሎች እና ብስክሌቶች ቢያንስ ለአንድ ክፍለ ዘመን ያህል የህዝብ መንገዶች ላይ በጉልህ የሚንቀሳቀሱ ናቸው፡፡ ምንም እንኳን መኪናዎች አብዛኛውን ቦታ ቢይዙም በወርልድ ሜትርስ በተሰራው ግምት መሰረት በአለም ላይ ከማንኛውም ነገር በላይ ብስክሌቶች በብዛት ይገኛሉ (ከአንድ ቢሊዮን በላይ)፤ እንደ ባህል ዘፋኙ ዘጠኝ ሚሊዮኑ የሁሉም ጉዞዎች 32% በብስክሌት በሆነባት ቤጂንግ ውስጥ ናቸው:: ([Katie Melua] (http://en.wikipedia.org/wiki/Nine_Million_Bicycles).\n\nአብዛኛዎቹ ቦታዎች በብስክሌቶች ከሞተር ተሽከርካሪዎች ጋር መንገድ እንዲጋሩ በፈቅዱም (ብሰክሌተት የሚጋልብ ሰው ሁሉም መብቶች ያሉት ሲሆን የመኪና ተሽከርካሪ ላይ ተፈጻሚ የሚደረጉ ድንጋጌዎችም ተፈጻሚ ይደረጉበታል) ሲል የካሊፎርኒያ የተሽከርካሪ ህግ ይጠቅሳል ([says the California Vehicle Code](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.):: አብዛኛዎቹ ብስክሌት ጋላቢዎች በራሳቸው መንገድ (ሌን) ውስጥ መሆንን ይመርጣሉ፡፡ የዚህ ምክንያት ደህንነቱ የተጠበቀ መሆኑ እና ብስክሌት ጋላቢዎችን የሚያበረታታ መሆኑ ነው፡፡ በርካታ ብስክሌት ጋላቢዎች አሉ ማለት ጤናማ ዜጋ አለ ማለት ከመሆኑ በተጨማሪ የካርቦን ልቀትን ይቀንሳል፣ የትራፊክ መጨናነቅን ያስቀራል፡፡ (ከዚህ በተጨማሪ ኢኮኖሚያዊ ጥቅምም አለው)፡፡\n\n(https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf) በአውቶሞቢል መሰረተ ልማቶች ላይ የሚውለው ገንዘብ አነስተኛ ነው (እንደ ድልድዮች፣ የመንገድ መተላለፊያዎች እና ፓርኪንግ) ይህም በመንገድ ላይ ብዙ ሰዎችን ለመያዝ የሚችል ሲሆን በንግድ ኮሪደሮች ላይ የበለጠ ስራ እንዲኖር ያደርጋል፡፡\n\nየብስክሌት መንገዶች ዲዛይኖች እጅግ የተለያዩ ሊሆኑ ይችላሉ፡፡ [economic benefits accrue as well](https://bikeleague.org/sites/default/files/Bicycling_and_the_Economy-Econ_Impact_Studies_web.pdf): ሌላው ቀርቶ የመኪና ማቆሚያ መስመሮች በብስክሌቶች እና በመኪናዎች መካከል የተሻለ ከለላ ለመፍጠር ይችላሉ፡፡ የመጓዣ መስመሮች አረንጓዴ ከተቀቡ የከተማው ማህበረሰብ ለብስክሌት መንገዶች ያለውን ቁርጠኝነት የሚያሳይ ሲሆን የብስክሌቶችን ገደብን በተመለከተ “አረንጓዴ” ሞገድ ተብሎ ይታወቃል፡፡ ለበለጠ መረጃ ([NACTO Urban Bikeway Design Guide](http://nacto.org/cities-for-cycling/design-guide/).\n\n) ይመልከቱ::"
+    },
+    "colored-bike-lane": {
+      "prompt": "ስለ ባለ ቀለም የብስክሌት መንገዶች የበለጠ ይወቁ ",
+      "content": " # ባለ ቀለም የብስክሌት መንገዶች የበለጠ የሚታዩ እና ለብስክሌት ጋላቢዎች ደህንነት ጥሩ ናቸው፡፡\n\n \n\nብስክሌት ግልቢያ የእለት ተዕለት መጓጓዣ መሆኑ የበለጠ የተስፋፋ ሲሆን እቅድ አውጪዎች የብስክሌት ጋላቢዎችን ደህንነት ማረጋገጥ፣ በብስክሌቶች እና መኪናዎች መካከል ግጭ እንዳይኖር ማድረግ እና መኪናዎች በህገ ወጥ መንገድ ለብስክሌቶች የተመደበውን ቦታ እንዳይወስዱ መከላከል ያስፈልጋቸዋል፡፡ ችግሩ መኪና አሽከርካሪዎች ሁል ጊዜም ሙሉ በሙሉ ስለ ብስክሌት ጋላቢዎች አለማወቃቸው ነው፡፡ መፍትሄው በተቻለ መጠን ብስክሌት ጋላቢዎች እይታ ውስጥ እንዲገቡ ማድረግ ነው፡፡ አንዱ የዚህ ስትራቴጂ የብስክሌት መንገዶች ከተቀረው አስፋልት ሙሉ በሙሉ የተለየ ቀለም እንዲኖራቸው ማድረግ ነው፡፡\n\nምንም እንኳን ባለ ቀለም የብስክሌት መስመሮች የደህንነት ጥቅም ያላቸው መሆኑ የተረጋገጠ ቢሆንም (https://nacto.org/publication/urban-bikeway-design-guide/bikeway-signing-marking/colored-bike-facilities) እያንዳንዱ የትኛውን ቀለም እንደሚጠቀም የራሱ አመለካከት አለው፡፡ ኔዘርላንዶች ቀይ የብስክሌት መስመሮችን፣ ዴን ማርክ ሰማያዊ እና ሳንፍራንሲስኮ አረንጓዴ ይጠቀማሉ፡፡ ዩናይትድ ኪንግደም የቀይ እና አረንጓዴ ስብጥር ሲኖራት አብዛኞቹ የዩናይትድ ስቴትስ ማዘጋጃ ቤቶች አረንጓዴ ይጠቀማሉ (እንደአጋጣሚ ሁሉም አንዳቸው ከአንዳቸው የሚቀዱ ናቸው)፤ ምንም እንኳን ፖርት ላንድ አሜሪካ ውስጥ የበለጠ ብስክሌት የሚዘወተርባት ብትሆንም ከ1990ዎቹ ጀምሮ የምትጠቀመው ሰማያዊ መስመሮችን ነው (http://www.portlandoregon.gov/transportation/article/58842)፡፡ \n\n \n\nየምትወደው ቀለም የትኛውም ሆነ አልሆነ፣ አጠቃላይ ህጉ በአካባቢህ ከሌላ ምልክቶች ጋር የማይመሳሰል እና ጎልቶ የሚወጣ ነገር ማስቀመጥ ነው፡፡ ከዚህም በላይ ለበርካቶች ከተሞች የበጀት ጫና የሚያሳድረባቸው የጥገና ሁኔታ ነው፡፡ ምንም እንኳን በቀለም ላይ የተደረጉ አዲስ ማሻሻያዎች የበለጠ ለረጅም ጊዜ ሊያገለግል የሚችል ቢያደርጉትም፤ በአሁኑ ወቅት በዋነኝነት ጥቅም ላይ የሚውለው ቀለም ደብዛዛ እና ወዲያውኑ የሚላላጥ ነው፡፡ የሚወጡት ወጪዎች በጉልህ መንገድ አሳሳቢ ከሆኑ ይህ ከደህንነት ሁኔታዎች የበለጠ እንዲሆን አያድርጉት፡፡ ከዚያ ይልቅ በመከላከያ /ገዳቢዎች አማካኝነት ወጪን ማስተናገድ ይቻላል (http://peopleforbikes.org./gren-lane-project/protected-bike-lanes-101)  "
+    },
+    "sharrow": {
+      "prompt": "ስለሻሮውስ የበለጠ ይወቁ",
+      "content": " # ሻሮውስ በሁለቱም ማለትም በተሽከርካሪዎችም በብስክሌቶችም ጥቅም ላይ የሚውሉ የመጓዣ መስመሮች ናቸው፡፡\n\nበትራንስፖርት እቅድ ውስጥ ይፋዊ በሆነ መንገድ “የጋራ መስመሮች ምልክት” ተብለው የሚታወቁት ሻሮውስ (ሼርድ እና አሮው ከሚለው የተገኙ) የሰፈረባቸውን የቀስት ምልክቶች የሚያሳዩ ሲሆን ነገር ግን በመሰረቱ ልዩ አይነት መስመሮች አይደሉም፡፡ በብዙ ቦታዎች ብስክሌቶች በማንኛውም የተሽከርካሪዎች መንገዶች ላይ መጓዝ የሚፈቀድላቸው ሲሆን በተመሳሳይ ህግ ይገዛሉ፡፡\n\n \n\nይህ ማለት ብስክሌቶች እና ተሽከርካሪዎች የተለያየ ባህሪ ያላቸው መሆኑን ለማወቅ የሮኬት ሳይንቲስት መሆን አይጠበቅብህም ማለት ነው፤ በመሆኑም በተለይ የሚኖሩ የብስክሌት መስመሮች (http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-way/) ለብስክሌቶች ደህንነት እና ለመኪና አሽከርካሪዎች ጤና መልካም ነው፡፡ ነገር ግን ለእነዚህ የብስክሌት መስመሮች የሚበቃ መንገድ የማይኖር ከሆነ ለአብዛኞቹ ብስክሌት ጋላቢዎች ሻሮውስ ከምንም ይሻላሉ፡፡ የመኪና አሽከርካሪዎች ሌላ አይነት ተሽከርካሪ እንዳለ ይረሳሉ፤ እናም ብስክሌት ጋላቢዎች ባገኙት አጋጣሚ ስለመኖራቸው እና በሰላም አብረው መኖር እንደሚችሉ ለመኪና አሽከርካሪዎች ለማሳወቅ ይወዳሉ፡፡ ብስክሌት ጋላቢዎች በተሻለ ሁኔታ መስመሩን እንዲጠቀምበት ማድረግ ከቆሙ መኪናዎች በተለይም ደግሞ ብስክሌት ጋላቢዎች “ጌቲንግ ዶርድ” ብለው ከሚጠሩት አደጋ ይከላከልላቸዋል፡፡\n\n \n\nየብስክሌት መስመር ከመገንባት ይልቅ ቀለም ርካሽ በመሆኑ እና በፖለቲካ አንጻርም ሲታይ ትርፋማ በመሆኑ የሻሮውስ ምልክቶች የብስክሌት ጋላቢዎች በተሻለ እንዲታዩ ሊያደርጓቸው ይችላሉ፡፡ ይሁን እንጂ በደህንነት ላይ የተደረጉ ጥናቶች (2012BMJ study) (http://injuryprovontion.bmj.com/content/carly/2013/02/13/ijuryprev 2012040561.full.pdf) "
+    },
+    "transit-shelter-elevated": {
+      "prompt": "ቋሚ የትራንዚት መጠለያዎችን በተመለከተ የበለጠ ይወቁ፡፡  ",
+      "content": " # ከፍ ያለ ቦታ ሼልተሮች እንደ ቀላል ባቡር እና የአውቶቡስ ፈጣን መሸጋገሪያ መቆሚያዎች ያገለግላሉ፡፡\n\nፈጣን አገልግሎት በከፍተኛ ደረጃ ቅድሚያ በሚሰጥባቸው የተወሰኑ የቀላል ባቡር ስርዓቶች እና የአውቶቡስ መሸጋገሪያ ስርዓቶች ከፍ ያለ ቦታ ሼልተር አስፈላጊውን ሚና ይጫወታሉ፡፡ ይህ መንገደኞች ከአውቶቡሱ አንፃር ከፍታ ካለው ቦታ ላይ ለመሳፈር የሚችሉ ሲሆን ይህም የመሳፈር ሂደቱን በማቀላጠፍ (በተለይ ለዊልቸሮች እና ሌላ ይህንን መሰሎች) በጉዞ ወቅት ወሳኝ ሰከንዶችን በማትረፍ በተጨማሪ ሰዓት ላይ ያክላል፡፡\n\nበዚህ የፍጥነት ትኩረት የተነሳ ከፍ ያለ ፕላትፎርም ያላቸው የትራንዚት ተሽከርካሪዎች በመደበኝነት በራሳቸው የተመደበላቸው መስመር ላይ የሚጓዙ ሲሆኑ እነዚህ ፕላት ፎርሞች እነዚህን ሌሎች በቀላሉ ጥቅም ላይ መዋል ይችላሉ፡፡ በተቃራኒ አቅጣጫ በሚጓዙ መስመሮች መካከል በሚደረጉበት ጊዜ በሁለቱም ፕላትፎርም በኩል የሚገኙትን መንገደኞች ይጠቅማሉ፡፡ (ሁለቱንም በስትሪትሚክስ ውስጥ ማስቀመጥ ያስፈልጋል)\n\n \n\nከፍ ያለ ቦታ ላይ ያሉ ሼልተሮች አንዳንድ ጊዜ ለከባድ ባቡር ጣቢያዎች ዲዛይን የሚደረጉ ሲሆን ከአንዳንድ ነገሮች መንገደኞችን ለመከላከል ጣሪያ ሊኖራቸው የሚችል ሲሆን በተጨናነቀ መንገድ ውስጥ ለእይታ ጠቀሜታ ያላቸው ናቸው፡፡ ነገር ግን ከሼልተሮች ጋር ሲነፃፀሩ ውድ መሰረተ ልማቶች የመሆን አዝማሚያ ያላቸው ከመሆኑ በተጨማሪ ለዊልቸር ራምፖች የበለጠ ቦታ ይወስዳሉ፡፡ ከዚህ በተጨማሪ ዝቅ ላይ ወለል ያላቸው አውቶቡሶች የበለጠ እየተለመዱ በመምጣታቸው ከፍ ያሉ ፕላትፎርሞች ፍላጎት መቀነስ ጀምሯል:"
+    },
+    "inception-train": {
+      "content": "# ከክሪስቶፈር ኖላን ፊልም _ግንዛቤ_ የመጣ ባቡር ነው።.\n\nምን ተጨማሪ ማወቅ ያስፈልግዎታል?"
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "ዋተር ፍሮንት"
+    },
+    "grass": {
+      "name": "ሳር"
+    },
+    "fence": {
+      "name": "ባዶ የመኪና ማቆሚያ ቦታ"
+    },
+    "parking-lot": {
+      "name": "የመኪና ማቆሚያ "
+    },
+    "residential": {
+      "name": "ቤት"
+    },
+    "narrow": {
+      "name": "ህንፃ "
+    },
+    "wide": {
+      "name": "ህንፃ "
+    },
+    "arcade": {
+      "name": "ክፍት ቦታ በህንፃ ስር"
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "ግራ ",
+    "orientation|right": "ቀኝ",
+    "turn-lane-orientation|left": "ግራ ",
+    "turn-lane-orientation|left-straight": "ግራ እና መንገድ",
+    "turn-lane-orientation|straight": "ቀጥታ ",
+    "turn-lane-orientation|right-straight": "ቀኝ እና ቀጥ",
+    "turn-lane-orientation|right": "ቀኝ",
+    "turn-lane-orientation|both": "ሁለቱም",
+    "turn-lane-orientation|left-right-straight": "ግራ ፣ ቀኝ እና ቀጥ",
+    "turn-lane-orientation|shared": "የተጋራ",
+    "bench-orientation|left": "ግራ ",
+    "bench-orientation|right": "ቀኝ",
+    "bench-orientation|center": "ማእከል",
+    "parking-lane-orientation|left": "ግራ ",
+    "parking-lane-orientation|right": "ቀኝ",
+    "parking-lane-direction|inbound": "ወደ ውስጥ ",
+    "parking-lane-direction|outbound": "ወደ ውጭ",
+    "parking-lane-direction|sideways": "ፔርፔዲኮላር",
+    "parking-lane-direction|angled-front-left": "አንግልድ",
+    "parking-lane-direction|angled-front-right": "አንግልድ",
+    "parking-lane-direction|angled-rear-left": "አንግልድ",
+    "parking-lane-direction|angled-rear-right": "አንግልድ",
+    "direction|inbound": "ወደ ውስጥ ",
+    "direction|outbound": "ወደ ውጭ",
+    "sidewalk-density|empty": "ባዶ",
+    "sidewalk-density|sparse": "የተበታተነ",
+    "sidewalk-density|normal": "መደበኛ",
+    "sidewalk-density|dense": "ጥቅጥቅ ያለ",
+    "lamp-orientation|left": "ግራ ",
+    "lamp-orientation|both": "ሁለቱም",
+    "lamp-orientation|right": "ቀኝ",
+    "lamp-type|traditional": "ባህላዊ",
+    "lamp-type|modern": "ዘመናዊ",
+    "lamp-type|pride": "በኩራት ሰንደቅ ዘመናዊ",
+    "car-type|car": "መኪና",
+    "car-type|sharrow": "የመንገድ ምልክት",
+    "car-type|truck": "የጭነት መኪና",
+    "car-type|microvan": "ጣቢያ",
+    "car-type|av": "አሽከርካሪ የሌለው ተሽከርካሪ",
+    "car-type|motorcycle": "ሞተር ብስክሌት",
+    "car-type|motorcycle-sidecar": "ከጎን መኪና ጋር ሞተር ብስክሌት",
+    "car-type|pedestrian": "እግረኛ",
+    "public-transit-asphalt|regular": "አስፋልት",
+    "public-transit-asphalt|colored": "ቀይ መስመር",
+    "public-transit-asphalt|grass": "ሳር",
+    "bus-asphalt|regular": "አስፋልት",
+    "bus-asphalt|colored": "ቀይ መስመር",
+    "bus-asphalt|shared": "የተጋራ አውቶቡስ / ብስክሌት መስመር",
+    "bus-type|typical": "የተለመደው አውቶቡስ",
+    "bus-type|double-decker": "ድርብ ዲከር አውቶቡስ",
+    "bus-type|av-shuttle": "አሽከርካሪ የሌለው አውቶቡስ",
+    "brt-station-orientation|left": "ግራ ",
+    "brt-station-orientation|right": "ቀኝ",
+    "brt-station-orientation|center": "ማእከል",
+    "bike-asphalt|regular": "አስፋልት",
+    "bike-asphalt|green": "አረንጓዴ መስመር",
+    "bike-asphalt|red": "ቀይ መስመር",
+    "tree-type|big": "ዛፍ",
+    "tree-type|palm-tree": "የዘንባባ ዛፍ",
+    "divider-type|median": "የመንገድ ላይ አጋcሽ ክፍል",
+    "divider-type|striped-buffer": "የታጠቀ ቋት",
+    "divider-type|planting-strip": "ጠፍጣፋ መትከያ",
+    "divider-type|planter-box": "መትከያ ሳጥን",
+    "divider-type|bush": "የአበባ ማስቀመጫ ሳጥን ቁጥቋጦ",
+    "divider-type|flowers": "የአበባ ማስቀመጫ ከአበባ ጋር",
+    "divider-type|big-tree": "የአበባ ማስቀመጫ መስመር ከዛፍ ጋር",
+    "divider-type|palm-tree": "የአበባ ማስቀመጫ መስመር ከዘንባባ ዛፍ ጋር",
+    "divider-type|bollard": "ቦላርዶች",
+    "divider-type|dome": "የትራፊክ ማግለያ ዶም",
+    "divider-type|jersey-barrier-concrete": "ጀርሲ አጥር (ተጨባጭ)",
+    "divider-type|jersey-barrier-plastic": "ጀርሲ አጥር (ፕላስቲክ)",
+    "transit-shelter-elevation|street-level": "የጎዳና ደረጃ",
+    "transit-shelter-elevation|light-rail": "ቀላል የባቡር መድረክ",
+    "bike-rack-elevation|sidewalk-parallel": "ትይዩ የመኪና ማቆሚያ ፣ የእግረኛ መንገድ ደረጃ",
+    "bike-rack-elevation|sidewalk": "ፔርፔዲኮላር የመኪና ማቆሚያ የእግረኛ መንገድ ደረጃ",
+    "bike-rack-elevation|road": "ፔርፔዲኮላር የመኪና ማቆሚያ የመንገድ ደረጃ",
+    "building|waterfront": "ዋተር ፍሮንት",
+    "building|grass": "ሳር",
+    "building|fence": "ባዶ የመኪና ማቆሚያ ቦታ",
+    "building|parking-lot": "የመኪና ማቆሚያ ",
+    "building|residential": "ቤት",
+    "building|narrow": "ጠባብ ግንባታ",
+    "building|wide": "ሰፊ ሕንፃ",
+    "wayfinding-type|large": "ትልቅ",
+    "wayfinding-type|medium": "መካከለኛ",
+    "wayfinding-type|small": "ትንሽ",
+    "waiting-area|sparse": "አንድ ሰው",
+    "waiting-area|empty": "ማንም",
+    "flex-type|rideshare": "ጉዞ መጋራት",
+    "flex-type|taxi": "ታክሲ",
+    "occupants|empty": "ባዶ",
+    "occupants|full": "ሙሉ",
+    "occupants|occupied": "ተይዟል",
+    "elevation|sidewalk": "የእግረኛ መንገድ",
+    "elevation|road": "የጎዳና ደረጃ",
+    "temporary-barrier-type|traffic-cone": "የትራፊክ ኮን",
+    "temporary-barrier-type|barricade": "ባርኮድ"
+  },
+  "environs": {
+    "day": "ቀን",
+    "twilight": "ትዋይላይት ",
+    "dusk": "ደንገዝገዝ ሲል ",
+    "dawn": "ንጋት",
+    "night": "ሌሊት",
+    "karl": "ጭጋግ",
+    "holodeck": "ሆሎክክ"
+  }
+}

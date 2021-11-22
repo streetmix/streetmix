@@ -452,13 +452,16 @@
   },
   "i18n": {
     "lang": {
+      "am": "Amhara",
       "ar": "Arabia",
       "ca": "Katalaani",
       "cs": "Tšekki",
       "de": "Saksa",
       "en": "Englanti",
+      "en-gb": "Englanti (Yhdistynyt kuningaskunta)",
       "es": "Espanja",
       "es-419": "Espanja (Latinalainen Amerikka)",
+      "es-es": "Espanja (Espanja)",
       "es-mx": "Espanja (Meksiko)",
       "fi": "Suomi",
       "fr": "Ranska",

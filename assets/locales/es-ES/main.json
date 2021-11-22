@@ -1,18 +1,18 @@
 {
   "menu": {
     "item": {
-      "help": "Ajutor",
-      "about": "Despre Steetmix..",
+      "help": "",
+      "about": "",
       "contact": "",
-      "community": "Comunitate",
-      "contribute": "Contribuie",
+      "community": "",
+      "contribute": "",
       "sign-in": "",
       "sign-out": "",
-      "new-street": "Strada nouă",
-      "my-streets": "Străzile mele",
-      "settings": "Setări",
-      "share": "Împărtășește",
-      "store": "Magazin",
+      "new-street": "",
+      "my-streets": "",
+      "settings": "",
+      "share": "",
+      "store": "",
       "upgrade": ""
     },
     "help": {
@@ -345,7 +345,7 @@
     "rename": ""
   },
   "building": {
-    "floors-count": "{count, plural, one {} few {} other {}}"
+    "floors-count": "{count, plural, one {} other {}}"
   },
   "segments": {
     "warnings": {
@@ -373,7 +373,7 @@
     "all": "",
     "twitter-link": "",
     "delete-street-tooltip": "",
-    "street-count": "{count, plural, one {} few {} other {}}",
+    "street-count": "{count, plural, one {} other {}}",
     "no-streets": "",
     "thumbnail-error": ""
   },

@@ -452,13 +452,16 @@
   },
   "i18n": {
     "lang": {
+      "am": "",
       "ar": "Arabisch",
       "ca": "",
       "cs": "",
       "de": "Deutsch",
       "en": "Englisch",
+      "en-gb": "",
       "es": "Spanisch",
       "es-419": "",
+      "es-es": "",
       "es-mx": "Spanisch (Mexiko)",
       "fi": "Finnisch",
       "fr": "Französisch",
