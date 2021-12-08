@@ -5,6 +5,12 @@ sidebar_position: 2
 
 # What's new in Streetmix?
 
+## December 9, 2021
+
+### ✨ New features
+
+- **Added Amharic translation.** Thanks to our translators, Gashaw Aberra and Carolyne Mimano of [ITDP Africa](https://africa.itdp.org)!
+
 ## November 3, 2021
 
 ### 🎨 Improvements
