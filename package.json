@@ -172,11 +172,11 @@
     "winston": "3.3.3"
   },
   "devDependencies": {
-    "@babel/core": "7.13.15",
-    "@babel/eslint-parser": "7.14.7",
-    "@babel/plugin-proposal-class-properties": "7.10.4",
-    "@babel/preset-env": "7.12.17",
-    "@babel/preset-react": "7.12.13",
+    "@babel/core": "7.16.7",
+    "@babel/eslint-parser": "7.16.5",
+    "@babel/plugin-proposal-class-properties": "7.16.7",
+    "@babel/preset-env": "7.13.8",
+    "@babel/preset-react": "7.16.7",
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
     "@commitlint/travis-cli": "13.1.0",
