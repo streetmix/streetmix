@@ -44,6 +44,7 @@ exports[`NewsletterDialog renders snapshot 1`] = `
               id="bd-email"
               name="email"
               placeholder="test@example.com"
+              required=""
               type="email"
             />
             <input
