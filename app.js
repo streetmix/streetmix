@@ -179,6 +179,7 @@ app.use(requestHandlers.request_log)
 app.use(requestHandlers.request_id_echo)
 
 app.use(passport.initialize())
+app.use(passport.session())
 
 // Set variables for use in view templates
 app.use((req, res, next) => {
