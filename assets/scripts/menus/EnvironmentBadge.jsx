@@ -9,34 +9,34 @@ EnvironmentBadge.propTypes = {
   env: PropTypes.string
 }
 
-function EnvironmentBadge (props) {
+function EnvironmentBadge ({ label, env }) {
   const offline = useSelector((state) => state.system.offline)
 
   const classNames = ['environment-badge']
-  const { label, className } = getDetails(props, offline)
+  const details = getDetails(label, env, offline)
 
-  if (className) {
-    classNames.push(className)
+  if (details.className) {
+    classNames.push(details.className)
   }
 
   // Displays a label. Nothing happens if there isn't one.
-  if (label) {
-    return <div className={classNames.join(' ')}>{label}</div>
+  if (details.label) {
+    return <div className={classNames.join(' ')}>{details.label}</div>
   } else {
     return null
   }
 }
 
-function getDetails (props, offline) {
+function getDetails (label, env, offline) {
   // If a label is not provided, determine one
-  if (!props.label) {
+  if (!label) {
     if (offline) {
       return {
         label: 'Demo',
         className: 'environment-label-demo'
       }
     } else {
-      switch (props.env || ENV) {
+      switch (env || ENV) {
         case 'development':
           return {
             label: 'Dev',
@@ -59,7 +59,7 @@ function getDetails (props, offline) {
   }
 
   return {
-    label: props.label
+    label: label
   }
 }
 

@@ -25,7 +25,6 @@ export default function MenuBarItem (props) {
     label = '',
     url,
     onClick = () => {},
-    dispatch,
     ...restProps
   } = props
 
