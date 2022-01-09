@@ -31,7 +31,7 @@ describe('geolocation', () => {
   it('on request success, response contains country code', (done) => {
     window.fetch = successResponse
 
-    return detectGeolocation().then((response) => {
+    detectGeolocation().then((response) => {
       expect(response.country_code).toEqual(geolocationResponse.country_code)
       done()
     })
@@ -40,7 +40,7 @@ describe('geolocation', () => {
   it('on request success, records geolocation service contact was attempted', (done) => {
     window.fetch = successResponse
 
-    return detectGeolocation().then((response) => {
+    detectGeolocation().then((response) => {
       const state = wasGeolocationAttempted()
       expect(state).toEqual(true)
       done()
@@ -50,7 +50,7 @@ describe('geolocation', () => {
   it('on request failure, records geolocation service contact was attempted', (done) => {
     window.fetch = failResponse
 
-    return detectGeolocation().then(() => {
+    detectGeolocation().then(() => {
       const state = wasGeolocationAttempted()
       expect(state).toEqual(true)
       done()
