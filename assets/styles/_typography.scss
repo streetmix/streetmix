@@ -1,7 +1,8 @@
-//
-//  Typography
-//
-//  -------------------------------------------------------
+/**
+ *
+ *  Typography
+ *
+ *  ------------------------------------------------------- */
 
 /* Set root font-size */
 html {
@@ -21,7 +22,7 @@ option {
 // Local font files
 
 @font-face {
-  font-family: "Roadgeek";
+  font-family: Roadgeek;
   src: url("../fonts/roadgeek-2005-engschrift.otf");
 }
 
@@ -29,7 +30,7 @@ option {
  * Overpass
  */
 @font-face {
-  font-family: "Overpass";
+  font-family: Overpass;
   font-style: normal;
   font-weight: 700;
   src: url("../fonts/overpass/overpass-bold-webfont.woff2") format("woff2"),
@@ -37,7 +38,7 @@ option {
 }
 
 @font-face {
-  font-family: "Overpass";
+  font-family: Overpass;
   font-style: normal;
   font-weight: 800;
   src: url("../fonts/overpass/overpass-extrabold-webfont.woff2") format("woff2"),
@@ -48,7 +49,7 @@ option {
  * Rubik
  */
 @font-face {
-  font-family: "Rubik";
+  font-family: Rubik;
   font-style: normal;
   font-weight: 400;
   src: local("Rubik Regular"), local("Rubik-Regular"),
@@ -57,7 +58,7 @@ option {
 }
 
 @font-face {
-  font-family: "Rubik";
+  font-family: Rubik;
   font-style: normal;
   font-weight: 600;
   src: local("Rubik Medium"), local("Rubik-Medium"),
@@ -66,7 +67,7 @@ option {
 }
 
 @font-face {
-  font-family: "Rubik";
+  font-family: Rubik;
   font-style: italic;
   font-weight: 400;
   src: local("Rubik Italic"), local("Rubik-Italic"),
@@ -78,7 +79,7 @@ option {
  * Manrope
  */
 @font-face {
-  font-family: "Manrope";
+  font-family: Manrope;
   font-style: normal;
   font-weight: 200;
   src: url("../fonts/manrope/Manrope-ExtraLight.woff2") format("woff2"),
@@ -86,7 +87,7 @@ option {
 }
 
 @font-face {
-  font-family: "Manrope";
+  font-family: Manrope;
   font-style: normal;
   font-weight: 300;
   src: url("../fonts/manrope/Manrope-Light.woff2") format("woff2"),
@@ -94,7 +95,7 @@ option {
 }
 
 @font-face {
-  font-family: "Manrope";
+  font-family: Manrope;
   font-style: normal;
   font-weight: 400;
   src: url("../fonts/manrope/Manrope-Regular.woff2") format("woff2"),
@@ -102,7 +103,7 @@ option {
 }
 
 @font-face {
-  font-family: "Manrope";
+  font-family: Manrope;
   font-style: normal;
   font-weight: 500;
   src: url("../fonts/manrope/Manrope-Medium.woff2") format("woff2"),
@@ -110,7 +111,7 @@ option {
 }
 
 @font-face {
-  font-family: "Manrope";
+  font-family: Manrope;
   font-style: normal;
   font-weight: 600;
   src: url("../fonts/manrope/Manrope-SemiBold.woff2") format("woff2"),
@@ -118,7 +119,7 @@ option {
 }
 
 @font-face {
-  font-family: "Manrope";
+  font-family: Manrope;
   font-style: normal;
   font-weight: 700;
   src: url("../fonts/manrope/Manrope-Bold.woff2") format("woff2"),
@@ -126,7 +127,7 @@ option {
 }
 
 @font-face {
-  font-family: "Manrope";
+  font-family: Manrope;
   font-style: normal;
   font-weight: 800;
   src: url("../fonts/manrope/Manrope-ExtraBold.woff2") format("woff2"),

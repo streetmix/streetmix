@@ -1,10 +1,10 @@
-@import "../../../styles/variables.scss";
+@import "../../../styles/variables";
 
 .toast {
   position: relative;
   overflow: hidden;
   border-radius: 4px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
 
   // Note: width and height must be set in JavaScript to
   // match exact width and height of .toast-content child
@@ -80,12 +80,12 @@ $close-icon-colour-hover: $colour-copper-600;
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgb(255 255 255 / 50%);
     color: $close-icon-colour-hover;
   }
 
   &:active {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgb(255 255 255 / 75%);
   }
 }
 

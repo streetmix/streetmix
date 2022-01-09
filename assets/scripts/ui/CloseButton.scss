@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 $close-button-margin: 2px;
 $close-button-size: 34px;
@@ -38,12 +38,12 @@ button.close {
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgb(255 255 255 / 50%);
     color: $close-icon-colour-hover;
   }
 
   &:active {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgb(255 255 255 / 75%);
   }
 
   // !important overrides higher-level specificity on font awesome

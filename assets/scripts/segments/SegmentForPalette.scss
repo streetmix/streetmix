@@ -1,4 +1,5 @@
-@import "../../styles/variables.scss";
+@use "sass:color";
+@import "../../styles/variables";
 
 .segment.segment-in-palette {
   display: inline-block;
@@ -35,7 +36,7 @@
 }
 
 .segment.segment-disabled {
-  background: desaturate(fade-out($sky-colour, 0.3), 100%);
+  background: color.adjust(fade-out($sky-colour, 0.3), $saturation: -100%);
 
   .segment-image {
     filter: grayscale(0.8);

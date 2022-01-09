@@ -1,4 +1,5 @@
-@import "../../styles/variables.scss";
+@use "sass:color";
+@import "../../styles/variables";
 
 $gallery-border-radius: $border-radius;
 $gallery-box-shadow: $medium-box-shadow;
@@ -113,7 +114,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   top: 12px;
   font-size: 1.75em;
   font-weight: 300;
-  color: rgb(128, 128, 128);
+  color: rgb(128 128 128);
 
   [dir="rtl"] & {
     left: 16px;
@@ -176,6 +177,7 @@ body:not(.safari).gallery-visible .street-section-sky {
     top: 0;
     width: $thumbnail-width;
     height: $thumbnail-height;
+
     // TODO: this causes rendering weirdness in Firefox.
     border-radius: $border-radius-medium;
   }
@@ -186,9 +188,9 @@ body:not(.safari).gallery-visible .street-section-sky {
 }
 
 .gallery-street-item.gallery-selected > a {
-  background: darken($ui-colour, 10%);
+  background: color.adjust($ui-colour, $lightness: -10%);
   box-shadow: 0 0 0 2px $selection-highlight-colour,
-    inset 0 0 0 2px rgba(255, 255, 255, 1);
+    inset 0 0 0 2px rgb(255 255 255 / 100%);
 
   canvas {
     opacity: 1;
@@ -244,11 +246,11 @@ body:not(.safari).gallery-visible .street-section-sky {
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgb(255 255 255 / 50%);
   }
 
   &:active {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgb(255 255 255 / 75%);
   }
 
   svg {

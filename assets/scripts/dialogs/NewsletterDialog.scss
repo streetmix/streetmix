@@ -1,4 +1,5 @@
-@import "../../styles/variables.scss";
+@use "sass:color";
+@import "../../styles/variables";
 
 .newsletter-dialog {
   min-width: 400px;
@@ -24,14 +25,14 @@
   padding: 0.75em;
   width: 100%;
   border: $button-border;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.07);
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 7%);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s;
 
   &:focus {
     border-color: $colour-turquoise-425;
     outline: 0;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.07),
-      0 0 8px opacify($colour-turquoise-450, 0.1);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 7%),
+      0 0 8px color.adjust($colour-turquoise-450, $alpha: -0.1);
   }
 
   &.subscribe-input-error {

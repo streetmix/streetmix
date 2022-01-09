@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 .environment-badge {
   z-index: $z-02-menu-bar;
@@ -19,7 +19,7 @@
 
   &.environment-label-development {
     display: inline-block;
-    background-color: rgb(200, 0, 0);
+    background-color: rgb(200 0 0);
   }
 
   &.environment-label-staging,
@@ -30,7 +30,7 @@
 
   &.environment-label-demo {
     display: inline-block;
-    background-color: rgb(28, 189, 209);
+    background-color: rgb(28 189 209);
   }
 }
 

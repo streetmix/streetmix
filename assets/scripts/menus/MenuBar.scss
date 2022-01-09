@@ -1,13 +1,10 @@
-//
-// Menu bar
-//
-// --------------------------------------------------------
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
+@use "sass:color";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 $menu-bar-text-color: $segment-text;
-$menu-bar-text-color-hover: darken($ui-colour, 30%);
-$menu-bar-text-color-active: darken($ui-colour, 40%);
+$menu-bar-text-color-hover: color.adjust($ui-colour, $lightness: -30%);
+$menu-bar-text-color-active: color.adjust($ui-colour, $lightness: -40%);
 $menu-bar-border-radius: $border-radius;
 $menu-bar-box-shadow: $light-box-shadow;
 

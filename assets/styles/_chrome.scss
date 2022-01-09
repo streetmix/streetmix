@@ -103,7 +103,7 @@ body.phone #loading {
   will-change: opacity;
 
   // Slightly lighter than sky colour, and closer to the blue of new colour scheme
-  background-color: rgb(178, 211, 226);
+  background-color: rgb(178 211 226);
 
   &.hidden {
     opacity: 0;
@@ -139,20 +139,22 @@ body.phone #loading {
   top: -30px; // Height of spinner element; positions it closer to center
 
   &::before {
-    border-left-color: rgba(255, 255, 255, 0.75);
-    border-right-color: rgba(255, 255, 255, 0.75);
-    border-bottom-color: rgba(255, 255, 255, 0.75);
+    border-left-color: rgb(255 255 255 / 75%);
+    border-right-color: rgb(255 255 255 / 75%);
+    border-bottom-color: rgb(255 255 255 / 75%);
   }
 }
 
 #loading noscript {
   width: 100%;
   height: 60px;
+
   // Position over the loading spinner
   margin-top: -80px;
   background-color: $sky-colour;
   text-align: center;
   z-index: 1;
+
   // Center display if flexbox is supported
   display: flex;
   justify-content: center;

@@ -8,7 +8,7 @@
   margin-left: -0.25em;
   margin-top: 0.15em;
   margin-bottom: 0.15em;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgb(255 255 255 / 0%);
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -25,7 +25,7 @@
 
   &:hover {
     cursor: text;
-    background-color: rgba(255, 255, 255, 0.125);
+    background-color: rgb(255 255 255 / 12.5%);
     transition: background-color 120ms ease-in;
 
     .info-bubble-label-editable-icon {

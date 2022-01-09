@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 $street-name-size: 1.5;
 
@@ -39,7 +39,7 @@ body.windows .street-name-text {
 .street-name-text {
   @include street-name-inside-mixin;
 
-  font-family: "Overpass", "Roadgeek", sans-serif;
+  font-family: Overpass, Roadgeek, sans-serif;
   font-weight: 700;
   text-align: left;
   text-overflow: ellipsis;
@@ -82,7 +82,7 @@ body.segment-move-dragging .street-nameplate-container .street-name {
   align-items: center;
   justify-content: center;
   color: black;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255 255 255 / 80%);
   cursor: pointer;
   white-space: normal;
 }

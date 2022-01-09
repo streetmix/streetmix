@@ -1,3 +1,5 @@
+@use "sass:color";
+
 button.scroll,
 .scrollable {
   @include tap-highlight-color(transparent);
@@ -29,6 +31,7 @@ a.button-like {
   text-align: center;
   text-decoration: none;
 
+  // stylelint-disable-next-line selector-class-pattern
   &:not([disabled]) .svg-inline--fa {
     color: $colour-midnight-700;
   }
@@ -42,16 +45,23 @@ a.button-like {
   }
 
   &[disabled] {
-    background-color: desaturate(fade-out($ui-colour, 0.7), 100%) !important;
+    background-color: color.adjust(
+      fade-out($ui-colour, 0.7),
+      $saturation: -100%
+    ) !important;
     color: #999 !important;
     cursor: auto;
 
+    // stylelint-disable-next-line selector-class-pattern
     .svg-inline--fa {
       color: #999 !important;
     }
 
     &:hover {
-      background-color: desaturate(fade-out($ui-colour, 0.7), 100%) !important;
+      background-color: color.adjust(
+        fade-out($ui-colour, 0.7),
+        $saturation: -100%
+      ) !important;
     }
   }
 
@@ -60,7 +70,11 @@ a.button-like {
     color: white;
 
     &:hover {
-      background-color: mix($colour-emerald-400, $colour-emerald-500, 75%);
+      background-color: color.mix(
+        $colour-emerald-400,
+        $colour-emerald-500,
+        75%
+      );
     }
   }
 
@@ -69,7 +83,11 @@ a.button-like {
     color: white;
 
     &:hover {
-      background-color: mix($colour-turquoise-500, $colour-turquoise-600, 75%);
+      background-color: color.mix(
+        $colour-turquoise-500,
+        $colour-turquoise-600,
+        75%
+      );
     }
   }
 

@@ -1,4 +1,5 @@
-@import "../../styles/variables.scss";
+@use "sass:color";
+@import "../../styles/variables";
 
 .description-prompt,
 .description-close {
@@ -8,15 +9,15 @@
   text-align: center;
   padding: 1em 2em;
   user-select: none;
-  color: darken($ui-colour, 20%);
+  color: color.adjust($ui-colour, $lightness: -20%);
   cursor: pointer;
   overflow: hidden;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
 
   &:hover {
-    color: darken($ui-colour, 40%);
-    background: mix($ui-colour, white, 50%);
+    color: color.adjust($ui-colour, $lightness: -40%);
+    background: color.mix($ui-colour, white, 50%);
   }
 }
 
@@ -55,7 +56,7 @@
   }
 
   footer {
-    color: rgb(160, 160, 160);
+    color: rgb(160 160 160);
     font-size: 0.8em;
     margin: 1em 0;
   }

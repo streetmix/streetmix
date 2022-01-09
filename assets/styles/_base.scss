@@ -1,3 +1,5 @@
+@use "sass:color";
+
 html {
   height: 100%;
   overflow: hidden;
@@ -14,8 +16,6 @@ html {
 }
 
 body {
-  @include text-size-adjust(none);
-
   margin: 0;
   padding: 0;
   width: 100%;
@@ -24,6 +24,7 @@ body {
   position: relative; // Fixes iOS Safari overflow: hidden not working bug
   background: white;
   overscroll-behavior: none;
+  text-size-adjust: none;
 
   &:not(.safari) {
     perspective: 500px;
@@ -52,14 +53,14 @@ body {
 
 a,
 .link-like {
-  color: darken($ui-colour, 30%);
+  color: color.adjust($ui-colour, $lightness: -30%);
 
   &:hover {
-    color: darken($ui-colour, 50%);
+    color: color.adjust($ui-colour, $lightness: -50%);
   }
 
   &:active {
-    color: darken($ui-colour, 70%);
+    color: color.adjust($ui-colour, $lightness: -70%);
   }
 }
 
@@ -80,8 +81,11 @@ textarea {
   padding: 3px;
 
   &[disabled] {
-    background: desaturate(fade-out($ui-colour, 0.7), 100%) !important;
-    border-color: desaturate($ui-colour, 100%) !important;
+    background: color.adjust(
+      fade-out($ui-colour, 0.7),
+      $saturation: -100%
+    ) !important;
+    border-color: color.adjust($ui-colour, $saturation: -100%) !important;
   }
 }
 

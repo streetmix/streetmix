@@ -1,9 +1,5 @@
-//
-// Menus
-//
-// --------------------------------------------------------
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 $menu-border-radius: $border-radius;
 $menu-box-shadow: $medium-box-shadow;
@@ -163,7 +159,7 @@ body.safari .menu {
   margin-top: 4px;
   margin-bottom: 4px;
   line-height: 8px;
-  color: rgb(128, 128, 128);
+  color: rgb(128 128 128);
   font-size: 0.8em;
 }
 

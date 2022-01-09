@@ -1,4 +1,5 @@
-@import "../../styles/variables.scss";
+@use "sass:color";
+@import "../../styles/variables";
 
 .info-bubble-triangle {
   position: absolute;
@@ -24,5 +25,5 @@
 }
 
 .info-bubble-triangle-highlight::before {
-  background: mix($ui-colour, white, 50%);
+  background: color.mix($ui-colour, white, 50%);
 }
