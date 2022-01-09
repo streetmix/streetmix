@@ -65,9 +65,9 @@
     ]
   },
   "browserslist": [
+    "> 0.5%",
     "last 2 versions",
-    "IE 11",
-    "not IE <= 10"
+    "not dead"
   ],
   "postcss": {
     "modules": false,
