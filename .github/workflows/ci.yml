@@ -14,10 +14,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     # Use the current LTS version of Node.js
-    - name: Use Node.js 14
+    - name: Use Node.js 16
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
     - run: npm ci
     - run: npm run lint
 
@@ -26,10 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     container: node:lts-buster
     strategy:
-      # Use current LTS, previous LTS and latest versions of Node.js
+      # Use current LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        node-version: [12.x, 14.x, 15.x]
+        node-version: [16.x, 17.x]
     env:
       NODE_ENV: test
       CYPRESS_INSTALL_BINARY: "0"
