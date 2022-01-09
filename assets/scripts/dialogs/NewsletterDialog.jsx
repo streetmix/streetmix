@@ -31,7 +31,9 @@ const NewsletterDialog = (props) => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    shouldUseNativeValidation: true
+  })
   const [submitState, setSubmitState] = useState('DEFAULT')
 
   const onSubmit = async (data) => {

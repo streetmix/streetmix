@@ -38,7 +38,7 @@ If you are looking for someone to set up a whitelabeled instance of Streetmix, w
 
 ## Does Streetmix support Internet Explorer? {#internet-explorer}
 
-Our unique interface means Streetmix is designed with the most recent web technology in mind. We do not support the Internet Explorer browser, and we are deprecating support for Internet Explorer 11 in favor of the newer [Microsoft Edge browser](https://www.microsoft.com/en-us/windows/microsoft-edge).
+Our unique interface means Streetmix is designed with the most recent web technology in mind. We no longer support any Internet Explorer browser, so if you are on a Windows device please use the [Microsoft Edge browser](https://www.microsoft.com/en-us/windows/microsoft-edge) instead.
 
 We also support the common "evergreen" browsers [Chrome, Firefox, and Safari](http://browsehappy.com/).
 
