@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 .supermoon-tooltip {
   padding: 1.25em;
@@ -9,7 +9,7 @@
   line-height: 1.4;
   width: 230px;
   left: 50px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
   animation-duration: 1200ms;
   animation-fill-mode: both;
   animation-name: bounce;
@@ -69,7 +69,7 @@
     transform: rotate(45deg);
     background: #fff;
     box-shadow: none;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
   }
 }
 

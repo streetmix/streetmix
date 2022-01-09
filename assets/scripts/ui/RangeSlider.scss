@@ -1,10 +1,9 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 $range-handle-color: $colour-midnight-500 !default;
 $range-handle-color-hover: $colour-turquoise-500 !default;
 $range-handle-color-focus: $colour-turquoise-500 !default;
 $range-handle-size: 16px !default;
-
 $range-track-color: transparent !default;
 $range-track-border-color: $colour-midnight-300 !default;
 $range-track-height: 6px !default;

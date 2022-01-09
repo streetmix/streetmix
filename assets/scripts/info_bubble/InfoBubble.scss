@@ -1,5 +1,6 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
+@use "sass:color";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 // TODO: Further refactoring / splitting up of these styles
 $info-bubble-border-radius: $border-radius;
@@ -35,7 +36,7 @@ $info-bubble-border-radius: $border-radius;
     font-size: 1.2em;
     font-weight: 300;
     color: white;
-    background: darken($ui-colour, 20%);
+    background: color.adjust($ui-colour, $lightness: -20%);
     border-top-left-radius: $info-bubble-border-radius;
     border-top-right-radius: $info-bubble-border-radius;
   }
@@ -51,6 +52,7 @@ $info-bubble-border-radius: $border-radius;
     fill: #231f20;
   }
 
+  // stylelint-disable-next-line selector-class-pattern
   .svg-inline--fa {
     vertical-align: -0.1em;
     height: 11px;
@@ -175,7 +177,7 @@ $info-bubble-border-radius: $border-radius;
     right: -40px;
     width: 0;
     height: 0;
-    border-top: 40px solid darken($ui-colour, 20%);
+    border-top: 40px solid color.adjust($ui-colour, $lightness: -20%);
     border-right: 40px solid transparent;
 
     [dir="rtl"] & {

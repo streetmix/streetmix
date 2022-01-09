@@ -1,13 +1,7 @@
-//
-// Environment editor
-//
-// --------------------------------------------------------
-
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 $environment-editor-border-radius: $border-radius-large;
 $environment-editor-box-shadow: $medium-box-shadow;
-
 $header-background-colour: $colour-turquoise-200;
 $header-text-colour: $colour-turquoise-700;
 $selection-highlight-colour: $colour-copper-500;
@@ -93,7 +87,7 @@ $selection-highlight-colour: $colour-copper-500;
 
 .environment-select.environment-active {
   box-shadow: 0 0 0 2px $selection-highlight-colour,
-    inset 0 0 0 2px rgba(255, 255, 255, 1);
+    inset 0 0 0 2px rgb(255 255 255 / 100%);
 }
 
 /* Close button overrides */

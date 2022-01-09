@@ -5,12 +5,6 @@
   tap-highlight-color: $value; // stylelint-disable-line property-no-unknown
 }
 
-@mixin text-size-adjust($value: none) {
-  -webkit-text-size-adjust: none;
-  -moz-text-size-adjust: none;
-  text-size-adjust: none;
-}
-
 // Shared style mixins
 
 // Position and layout for error, loading, and blocking shield

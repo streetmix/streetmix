@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 // UI color ramp
 $color-1: $colour-midnight-300 !default;
@@ -49,7 +49,7 @@ $label-outline-color: $color-2;
        Furthermore, absolute positioning with `left` can cause issues when
        the document is in rtl text direction on Chrome. See also
        https://github.com/streetmix/streetmix/issues/1424 */
-    opacity: 0.00001;
+    opacity: 0.00001; // stylelint-disable-line number-max-precision
     appearance: none;
     z-index: 2;
   }

@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 $geotag-dialog-background-color: $off-white;
 $geotag-error-banner-margin: 100px;
@@ -50,7 +50,7 @@ $geotag-error-banner-margin: 100px;
   width: 30vw;
   min-width: 220px;
   margin: 0 auto;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 4px rgb(255 255 255 / 85%);
   pointer-events: auto;
 }
 
@@ -122,7 +122,7 @@ $geotag-error-banner-margin: 100px;
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 15%);
 }
 
 .leaflet-popup-tip-container {

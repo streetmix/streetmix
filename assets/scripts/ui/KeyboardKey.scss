@@ -8,12 +8,14 @@
   border-radius: 4px;
   font-size: 0.8em;
   font-weight: bold;
-  // Mac OS X default monospace font has different sized left/right arrows, so use Menlo instead
-  font-family: "Menlo", monospace;
+
+  // Mac OS X default monospace font has different sized left/right
+  // arrows, so use Menlo instead
+  font-family: Menlo, monospace;
   background: #f4f4f4;
-  color: rgb(64, 64, 64);
+  color: rgb(64 64 64);
   text-shadow: #fff 0 1px 0;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 0 #fff inset;
+  box-shadow: 0 1px 0 rgb(0 0 0 / 20%), 0 1px 0 0 #fff inset;
   white-space: nowrap;
 }
 

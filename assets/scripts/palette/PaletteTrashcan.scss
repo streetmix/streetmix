@@ -1,8 +1,9 @@
-@import "../../styles/variables.scss";
-@import "./PaletteContainer.scss";
+@use "sass:color";
+@import "../../styles/variables";
+@import "./PaletteContainer";
 
 // Contrast ratio of at least 3:1 compared to background
-$palette-text-color: rgb(108, 108, 108);
+$palette-text-color: rgb(108 108 108);
 
 .palette-trashcan {
   // Stretch out to fit the width of the viewport
@@ -29,7 +30,7 @@ $palette-text-color: rgb(108, 108, 108);
   color: $palette-text-color;
   font-size: 1.75rem;
   font-weight: 400;
-  background: lighten($bottom-background, 5%);
+  background: color.adjust($bottom-background, $lightness: 5%);
   pointer-events: none;
   transition: transform 150ms, opacity 150ms;
 }

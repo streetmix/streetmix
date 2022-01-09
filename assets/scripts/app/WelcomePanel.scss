@@ -1,6 +1,7 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
-@import "../streets/StreetName.scss";
+@use "sass:color";
+@import "../../styles/variables";
+@import "../../styles/mixins";
+@import "../streets/StreetName";
 
 $welcome-panel-border-radius: $border-radius;
 $welcome-panel-box-shadow: $medium-box-shadow;
@@ -24,7 +25,7 @@ $welcome-panel-box-shadow: $medium-box-shadow;
   background: white;
   text-align: center;
   font-size: 1.2rem;
-  color: rgb(64, 64, 64);
+  color: rgb(64 64 64);
   pointer-events: auto;
   border-bottom-left-radius: $welcome-panel-border-radius;
   border-bottom-right-radius: $welcome-panel-border-radius;
@@ -66,7 +67,7 @@ $welcome-panel-box-shadow: $medium-box-shadow;
     &:not(:first-child)::before {
       content: "·";
       margin: 0 5px;
-      color: darken($ui-colour, 40%);
+      color: color.adjust($ui-colour, $lightness: -40%);
       padding-left: 0;
     }
   }

@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 .sentiment-icon {
   width: 60px;
@@ -19,7 +19,7 @@
   }
 
   &.sentiment-2 {
-    background-color: rgb(251, 170, 56);
+    background-color: rgb(251 170 56);
   }
 
   &.sentiment-3 {
@@ -27,7 +27,7 @@
   }
 
   &.sentiment-4 {
-    background-color: rgb(130, 227, 218);
+    background-color: rgb(130 227 218);
   }
 
   &.sentiment-5 {

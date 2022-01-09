@@ -1,11 +1,5 @@
-//
-// Dialog boxes
-//
-// Base styles for dialog boxes
-// --------------------------------------------------------
-
-@import "../../styles/variables.scss";
-@import "../../styles/mixins.scss";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 $dialog-border-radius: $border-radius-large;
 $header-background-colour: $colour-turquoise-200;
@@ -39,6 +33,7 @@ $header-text-colour: $colour-turquoise-700;
 
 .dialog-box {
   position: relative;
+
   // balance the dialog by making it slightly north of center
   margin-top: -3%;
   padding: 0;
@@ -50,7 +45,7 @@ $header-text-colour: $colour-turquoise-700;
   /* New styles! Let's try it! */
   border-radius: $dialog-border-radius;
   overflow: hidden;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.075);
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);
 
   /* Transitions */
   transition: opacity 80ms ease-in-out, transform 80ms ease-in-out;
@@ -79,7 +74,7 @@ $header-text-colour: $colour-turquoise-700;
   footer {
     padding: 1rem 2rem;
     margin-top: 0;
-    color: rgb(160, 160, 160);
+    color: rgb(160 160 160);
     font-size: 0.85em;
 
     > p:first-child {
@@ -91,7 +86,7 @@ $header-text-colour: $colour-turquoise-700;
     }
 
     a:hover {
-      color: rgb(120, 120, 120);
+      color: rgb(120 120 120);
     }
   }
 

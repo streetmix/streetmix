@@ -1,21 +1,18 @@
 {
   "extends": [
     "stylelint-config-standard",
+    "stylelint-config-standard-scss",
     "stylelint-config-prettier"
   ],
   "plugins": [
     "stylelint-csstree-validator",
-    "stylelint-prettier",
-    "stylelint-scss"
+    "stylelint-prettier"
   ],
   "rules": {
-    "at-rule-no-unknown": null,
-    "csstree/validator": true,
+    "csstree/validator": {
+      "syntaxExtensions": ["sass"]
+    },
     "no-descending-specificity": null,
-    "prettier/prettier": true,
-    "scss/at-import-no-partial-leading-underscore": true,
-    "scss/at-mixin-argumentless-call-parentheses": "never",
-    "scss/at-rule-no-unknown": true,
-    "scss/selector-no-redundant-nesting-selector": true
+    "prettier/prettier": true
   }
 }
