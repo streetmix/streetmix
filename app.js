@@ -86,6 +86,7 @@ app.locals.env = {
 const helmetConfig = {
   frameguard: false, // Allow Streetmix to be iframed in 3rd party sites
   contentSecurityPolicy: false, // These are set explicitly later
+  crossOriginEmbedderPolicy: false, // Load external assets
   hsts: {
     maxAge: 5184000, // 60 days
     includeSubDomains: false // we don't have a wildcard ssl cert
