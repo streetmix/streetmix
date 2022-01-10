@@ -1,14 +1,5 @@
 process.title = 'streetmix'
 const path = require('path')
-const dotenv = require('dotenv').config({
-  debug: process.env.DEBUG
-})
-
-// Error parsing .env file
-// It's okay to skip if we can't find it
-if (dotenv.error && dotenv.error.code !== 'ENOENT') {
-  throw dotenv.error
-}
 
 // Run this before other modules
 if (process.env.NEW_RELIC_LICENSE_KEY) {
