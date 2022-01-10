@@ -3,17 +3,17 @@
     "short_name": "Streetmix",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png?v=BGmmRPlxzQ",
+            "src": "/android-chrome-192x192.png?v=BGmmRPlxyQ",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/android-chrome-512x512.png?v=BGmmRPlxzQ",
+            "src": "/android-chrome-512x512.png?v=BGmmRPlxyQ",
             "sizes": "512x512",
             "type": "image/png"
         }
     ],
-    "theme_color": "#1a914e",
-    "background_color": "#1a914e",
+    "theme_color": "#5bc17d",
+    "background_color": "#5bc17d",
     "display": "standalone"
 }
