@@ -159,7 +159,7 @@
     "requireindex": "1.2.0",
     "sass": "1.47.0",
     "seedrandom": "3.0.5",
-    "sequelize": "6.12.5",
+    "sequelize": "6.13.0",
     "sequelize-cli": "6.3.0",
     "sequelize-mock": "0.10.2",
     "shifty": "2.17.1",
@@ -170,7 +170,7 @@
     "swagger-ui-express": "4.3.0",
     "uuid": "8.3.2",
     "whatwg-fetch": "3.6.2",
-    "winston": "3.3.3"
+    "winston": "3.4.0"
   },
   "devDependencies": {
     "@babel/core": "7.16.7",
@@ -214,6 +214,6 @@
     "stylelint-config-standard-scss": "3.0.0",
     "stylelint-csstree-validator": "2.0.0",
     "stylelint-prettier": "2.0.0",
-    "supertest": "6.1.6"
+    "supertest": "6.2.0"
   }
 }
