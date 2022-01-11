@@ -27,7 +27,6 @@ exports.post = async function (req, res) {
     }
     // TODO: Validation
     street.name = body.name
-    street.namespacedId = body.data.namespacedId
     street.clientUpdatedAt = body.clientUpdatedAt
     street.data = body.data
     street.creatorIp = requestIp(req)
@@ -115,7 +114,6 @@ exports.post = async function (req, res) {
 
   const handleCreatedStreet = (s) => {
     s = asStreetJson(s)
-    logger.info({ street: s }, 'New street created.')
     res.header('Location', '/api/v1/streets/' + s.id)
     res.status(201).json(s)
   }
