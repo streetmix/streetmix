@@ -34,5 +34,8 @@
 
   .message {
     @include large-message-text;
+
+    margin-top: 2em;
+    margin-bottom: 2em;
   }
 }

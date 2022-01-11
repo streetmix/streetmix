@@ -35,6 +35,9 @@ $welcome-panel-box-shadow: $medium-box-shadow;
 .welcome-panel-content {
   h1 {
     @include large-message-text;
+
+    margin-top: 8px;
+    margin-bottom: 12px;
   }
 
   button {

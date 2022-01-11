@@ -17,7 +17,9 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
       <p>
         You cancelled the sign in process.
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
       <p
@@ -53,7 +55,9 @@ exports[`BlockingError renders AUTH_EXPIRED 1`] = `
       <p>
         Please sign in again.
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Sign in
       </button>
     </div>
@@ -94,7 +98,9 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
         </a>
         .
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
       <p
@@ -146,7 +152,9 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
         </a>
         .
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
       <p
@@ -198,7 +206,9 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
         </a>
         .
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
       <p
@@ -250,7 +260,9 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
         </a>
         .
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
       <p
@@ -286,7 +298,9 @@ exports[`BlockingError renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
       <p>
         If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         View an example street
       </button>
     </div>
@@ -311,7 +325,9 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_IN 1`] = `
       <p>
         Please reload this page before continuing.
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Reload the page
       </button>
     </div>
@@ -336,7 +352,9 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
       <p>
         Please reload this page before continuing.
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Reload the page
       </button>
     </div>
@@ -363,7 +381,9 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT_401 1`] = `
         <br />
         (Error RM2.)
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Reload the page
       </button>
     </div>
@@ -426,7 +446,9 @@ exports[`BlockingError renders GENERIC_ERROR 1`] = `
         </a>
         .
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
     </div>
@@ -451,7 +473,9 @@ exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
       <p>
         We’re having trouble loading Streetmix.
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Try again
       </button>
       <p
@@ -478,9 +502,6 @@ exports[`BlockingError renders NO_STREET 1`] = `
     <div
       class="error-content"
     >
-      <div
-        class="streetmix-logo"
-      />
       <h1>
         No street selected.
       </h1>
@@ -506,7 +527,9 @@ exports[`BlockingError renders NOT_FOUND 1`] = `
       <p>
         Oh, boy. There is no page with this address!
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
     </div>
@@ -533,7 +556,9 @@ exports[`BlockingError renders SIGN_IN_401 1`] = `
         <br />
         (Error RM1.)
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Try again
       </button>
       <p
@@ -571,7 +596,9 @@ exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
         <br />
         (Error 15A.)
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Try again
       </button>
       <p
@@ -604,7 +631,9 @@ exports[`BlockingError renders SIGN_OUT 1`] = `
       <h1>
         You are now signed out.
       </h1>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
     </div>
@@ -629,7 +658,9 @@ exports[`BlockingError renders STREET_404 1`] = `
       <p>
         Oh, boy. There is no street with this link!
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
     </div>
@@ -666,7 +697,9 @@ exports[`BlockingError renders STREET_404_BUT_LINK_TO_USER 1`] = `
           foo
         </a>
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
     </div>
@@ -703,7 +736,9 @@ exports[`BlockingError renders STREET_410_BUT_LINK_TO_USER 1`] = `
           foo
         </a>
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
     </div>
@@ -730,7 +765,9 @@ exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
         <br />
         (Error 9B.)
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Try again
       </button>
       <p
@@ -766,7 +803,9 @@ exports[`BlockingError renders STREET_DELETED_ELSEWHERE 1`] = `
       <p>
         This street has been deleted in another browser.
       </p>
-      <button>
+      <button
+        class="button-primary"
+      >
         Go to the homepage
       </button>
     </div>

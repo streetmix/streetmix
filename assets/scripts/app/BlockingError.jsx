@@ -22,7 +22,7 @@ function BlockingError (props) {
   let description = ''
 
   const homeButton = (
-    <button onClick={goHome}>
+    <button onClick={goHome} className="button-primary">
       <FormattedMessage
         id="error.button.home"
         defaultMessage="Go to the homepage"
@@ -40,7 +40,7 @@ function BlockingError (props) {
       : null
   }
   const sessionReloadButton = (
-    <button onClick={goReloadClearSignIn}>
+    <button onClick={goReloadClearSignIn} className="button-primary">
       <FormattedMessage
         id="error.button.reload"
         defaultMessage="Reload the page"
@@ -48,7 +48,7 @@ function BlockingError (props) {
     </button>
   )
   const reloadButton = (
-    <button onClick={goReload}>
+    <button onClick={goReload} className="button-primary">
       <FormattedMessage
         id="error.button.reload"
         defaultMessage="Reload the page"
@@ -56,7 +56,7 @@ function BlockingError (props) {
     </button>
   )
   const tryAgainButton = (
-    <button onClick={goNewStreet}>
+    <button onClick={goNewStreet} className="button-primary">
       <FormattedMessage
         id="error.button.try-again"
         defaultMessage="Try again"
@@ -64,7 +64,7 @@ function BlockingError (props) {
     </button>
   )
   const signInButton = (
-    <button onClick={doSignIn}>
+    <button onClick={doSignIn} className="button-primary">
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
     </button>
   )
@@ -539,7 +539,7 @@ function BlockingError (props) {
               defaultMessage="If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets."
             />
           </p>
-          <button onClick={goExampleStreet}>
+          <button onClick={goExampleStreet} className="button-primary">
             <FormattedMessage
               id="error.button.view-example"
               defaultMessage="View an example street"
@@ -575,7 +575,7 @@ function BlockingError (props) {
     ? (
       <div id="error">
         <div className="error-content">
-          <div className="streetmix-logo" />
+          {errorType !== ERRORS.NO_STREET && <div className="streetmix-logo" />}
           <h1>{title}</h1>
           {description}
         </div>

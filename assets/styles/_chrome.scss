@@ -40,6 +40,9 @@ body.phone #loading {
 
   h1 {
     @include large-message-text;
+
+    margin-top: 2em;
+    margin-bottom: 2em;
   }
 }
 
@@ -67,11 +70,6 @@ body.phone #loading {
   a {
     color: black;
     white-space: nowrap;
-  }
-
-  button,
-  a.button-like {
-    margin-top: 1em;
   }
 
   button + button {

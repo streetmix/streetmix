@@ -80,7 +80,7 @@ exports[`MenuBar renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-sign-in button-secondary"
+          class="menu-sign-in button-primary"
         >
           Sign in
         </button>
@@ -332,7 +332,7 @@ exports[`MenuBar renders upgrade funnel and handles click 1`] = `
       </li>
       <li>
         <button
-          class="menu-sign-in button-secondary"
+          class="menu-sign-in button-primary"
         >
           Sign in
         </button>

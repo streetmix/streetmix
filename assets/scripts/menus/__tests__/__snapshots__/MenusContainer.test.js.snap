@@ -80,7 +80,7 @@ exports[`MenusContainer renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-sign-in button-secondary"
+          class="menu-sign-in button-primary"
         >
           Sign in
         </button>

@@ -9,7 +9,7 @@ SignInButton.propTypes = {
 
 function SignInButton ({ onClick = () => {} }) {
   return (
-    <button className="menu-sign-in button-secondary" onClick={onClick}>
+    <button className="menu-sign-in button-primary" onClick={onClick}>
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
     </button>
   )
