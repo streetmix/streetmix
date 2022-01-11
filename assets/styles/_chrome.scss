@@ -41,8 +41,7 @@ body.phone #loading {
   h1 {
     @include large-message-text;
 
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin: 0;
   }
 }
 
@@ -74,6 +73,11 @@ body.phone #loading {
 
   button + button {
     margin-left: 1em;
+  }
+
+  .error-text {
+    margin-top: 4em;
+    margin-bottom: 4em;
   }
 
   .error-help-link {
@@ -133,7 +137,7 @@ body.phone #loading {
 
 .error-content .streetmix-logo {
   height: 60px;
-  margin: 0 auto 80px;
+  margin: 0 auto;
 }
 
 #loading .loading-spinner {

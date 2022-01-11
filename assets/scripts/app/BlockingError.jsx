@@ -20,6 +20,7 @@ function BlockingError (props) {
 
   let title = ''
   let description = ''
+  let cta = ''
 
   const homeButton = (
     <button onClick={goHome} className="button-primary">
@@ -108,16 +109,14 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.page-not-found-description"
-              defaultMessage="Oh, boy. There is no page with this address!"
-            />
-          </p>
-          {homeButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.page-not-found-description"
+            defaultMessage="Oh, boy. There is no page with this address!"
+          />
+        </p>
       )
+      cta = homeButton
       break
     case ERRORS.STREET_404:
       title = (
@@ -127,16 +126,14 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.street-not-found-description"
-              defaultMessage="Oh, boy. There is no street with this link!"
-            />
-          </p>
-          {homeButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.street-not-found-description"
+            defaultMessage="Oh, boy. There is no street with this link!"
+          />
+        </p>
       )
+      cta = homeButton
       break
     case ERRORS.STREET_404_BUT_LINK_TO_USER:
       title = (
@@ -146,19 +143,17 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.street-not-found-but-user-description"
-              defaultMessage="There is no street with this link! But you can look at other streets by {user}"
-              values={{
-                user: linkToUser(street)
-              }}
-            />
-          </p>
-          {homeButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.street-not-found-but-user-description"
+            defaultMessage="There is no street with this link! But you can look at other streets by {user}"
+            values={{
+              user: linkToUser(street)
+            }}
+          />
+        </p>
       )
+      cta = homeButton
       break
     case ERRORS.STREET_410_BUT_LINK_TO_USER:
       title = (
@@ -168,19 +163,17 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.street-deleted-description"
-              defaultMessage="There is no longer a street with this link, but you can look at other streets by {user}"
-              values={{
-                user: linkToUser(street)
-              }}
-            />
-          </p>
-          {homeButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.street-deleted-description"
+            defaultMessage="There is no longer a street with this link, but you can look at other streets by {user}"
+            values={{
+              user: linkToUser(street)
+            }}
+          />
+        </p>
       )
+      cta = homeButton
       break
     case ERRORS.SIGN_OUT:
       title = (
@@ -189,7 +182,7 @@ function BlockingError (props) {
           defaultMessage="You are now signed out."
         />
       )
-      description = homeButton
+      cta = homeButton
       break
     case ERRORS.NO_STREET:
       title = (
@@ -223,16 +216,14 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.please-reload"
-              defaultMessage="Please reload this page before continuing."
-            />
-          </p>
-          {reloadButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.please-reload"
+            defaultMessage="Please reload this page before continuing."
+          />
+        </p>
       )
+      cta = reloadButton
       break
     case ERRORS.FORCE_RELOAD_SIGN_OUT_401:
       title = (
@@ -242,22 +233,20 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.please-reload"
-              defaultMessage="Please reload this page before continuing."
-            />
-            <br />
-            <FormattedMessage
-              id="error.error-code"
-              defaultMessage="(Error {code}.)"
-              values={{ code: 'RM2' }}
-            />
-          </p>
-          {sessionReloadButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.please-reload"
+            defaultMessage="Please reload this page before continuing."
+          />
+          <br />
+          <FormattedMessage
+            id="error.error-code"
+            defaultMessage="(Error {code}.)"
+            values={{ code: 'RM2' }}
+          />
+        </p>
       )
+      cta = sessionReloadButton
       break
     case ERRORS.FORCE_RELOAD_SIGN_IN:
       title = (
@@ -267,16 +256,14 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.please-reload"
-              defaultMessage="Please reload this page before continuing."
-            />
-          </p>
-          {reloadButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.please-reload"
+            defaultMessage="Please reload this page before continuing."
+          />
+        </p>
       )
+      cta = reloadButton
       break
     case ERRORS.AUTH_EXPIRED:
       title = (
@@ -286,16 +273,14 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.sign-in-again"
-              defaultMessage="Please sign in again."
-            />
-          </p>
-          {signInButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.sign-in-again"
+            defaultMessage="Please sign in again."
+          />
+        </p>
       )
+      cta = signInButton
       break
     case ERRORS.STREET_DELETED_ELSEWHERE:
       title = (
@@ -305,16 +290,14 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.street-deleted-elsewhere-description"
-              defaultMessage="This street has been deleted in another browser."
-            />
-          </p>
-          {homeButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.street-deleted-elsewhere-description"
+            defaultMessage="This street has been deleted in another browser."
+          />
+        </p>
       )
+      cta = homeButton
       break
     case ERRORS.NEW_STREET_SERVER_FAILURE:
       title = (
@@ -324,13 +307,15 @@ function BlockingError (props) {
         />
       )
       description = (
+        <p>
+          <FormattedMessage
+            id="msg.trouble-loading"
+            defaultMessage="We’re having trouble loading Streetmix."
+          />
+        </p>
+      )
+      cta = (
         <>
-          <p>
-            <FormattedMessage
-              id="msg.trouble-loading"
-              defaultMessage="We’re having trouble loading Streetmix."
-            />
-          </p>
           {tryAgainButton}
           {needHelpLink}
         </>
@@ -344,19 +329,21 @@ function BlockingError (props) {
         />
       )
       description = (
+        <p>
+          <FormattedMessage
+            id="msg.trouble-loading"
+            defaultMessage="We’re having trouble loading Streetmix."
+          />
+          <br />
+          <FormattedMessage
+            id="error.error-code"
+            defaultMessage="(Error {code}.)"
+            values={{ code: '15A' }}
+          />
+        </p>
+      )
+      cta = (
         <>
-          <p>
-            <FormattedMessage
-              id="msg.trouble-loading"
-              defaultMessage="We’re having trouble loading Streetmix."
-            />
-            <br />
-            <FormattedMessage
-              id="error.error-code"
-              defaultMessage="(Error {code}.)"
-              values={{ code: '15A' }}
-            />
-          </p>
           {tryAgainButton}
           {needHelpLink}
         </>
@@ -370,19 +357,21 @@ function BlockingError (props) {
         />
       )
       description = (
+        <p>
+          <FormattedMessage
+            id="msg.trouble-loading"
+            defaultMessage="We’re having trouble loading Streetmix."
+          />
+          <br />
+          <FormattedMessage
+            id="error.error-code"
+            defaultMessage="(Error {code}.)"
+            values={{ code: 'RM1' }}
+          />
+        </p>
+      )
+      cta = (
         <>
-          <p>
-            <FormattedMessage
-              id="msg.trouble-loading"
-              defaultMessage="We’re having trouble loading Streetmix."
-            />
-            <br />
-            <FormattedMessage
-              id="error.error-code"
-              defaultMessage="(Error {code}.)"
-              values={{ code: 'RM1' }}
-            />
-          </p>
           {tryAgainButton}
           {needHelpLink}
         </>
@@ -396,19 +385,21 @@ function BlockingError (props) {
         />
       )
       description = (
+        <p>
+          <FormattedMessage
+            id="msg.trouble-loading"
+            defaultMessage="We’re having trouble loading Streetmix."
+          />
+          <br />
+          <FormattedMessage
+            id="error.error-code"
+            defaultMessage="(Error {code}.)"
+            values={{ code: '9B' }}
+          />
+        </p>
+      )
+      cta = (
         <>
-          <p>
-            <FormattedMessage
-              id="msg.trouble-loading"
-              defaultMessage="We’re having trouble loading Streetmix."
-            />
-            <br />
-            <FormattedMessage
-              id="error.error-code"
-              defaultMessage="(Error {code}.)"
-              values={{ code: '9B' }}
-            />
-          </p>
           {tryAgainButton}
           {needHelpLink}
         </>
@@ -422,13 +413,15 @@ function BlockingError (props) {
         />
       )
       description = (
+        <p>
+          <FormattedMessage
+            id="error.access-denied-description"
+            defaultMessage="You cancelled the sign in process."
+          />
+        </p>
+      )
+      cta = (
         <>
-          <p>
-            <FormattedMessage
-              id="error.access-denied-description"
-              defaultMessage="You cancelled the sign in process."
-            />
-          </p>
           {homeButton}
           {needHelpLink}
         </>
@@ -445,14 +438,16 @@ function BlockingError (props) {
         />
       )
       description = (
+        <p>
+          <FormattedMessage
+            id="error.auth-api-problem-description"
+            defaultMessage="There was a problem with authentication."
+          />
+          &nbsp;{pleaseLetUsKnow}
+        </p>
+      )
+      cta = (
         <>
-          <p>
-            <FormattedMessage
-              id="error.auth-api-problem-description"
-              defaultMessage="There was a problem with authentication."
-            />
-            &nbsp;{pleaseLetUsKnow}
-          </p>
           {homeButton}
           {needHelpLink}
         </>
@@ -532,20 +527,20 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.cannot-create-new-street-on-phone-description"
-              defaultMessage="If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets."
-            />
-          </p>
-          <button onClick={goExampleStreet} className="button-primary">
-            <FormattedMessage
-              id="error.button.view-example"
-              defaultMessage="View an example street"
-            />
-          </button>
-        </>
+        <p>
+          <FormattedMessage
+            id="error.cannot-create-new-street-on-phone-description"
+            defaultMessage="If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets."
+          />
+        </p>
+      )
+      cta = (
+        <button onClick={goExampleStreet} className="button-primary">
+          <FormattedMessage
+            id="error.button.view-example"
+            defaultMessage="View an example street"
+          />
+        </button>
       )
       break
     default:
@@ -557,17 +552,15 @@ function BlockingError (props) {
         />
       )
       description = (
-        <>
-          <p>
-            <FormattedMessage
-              id="error.generic-error-description"
-              defaultMessage="We’re sorry – something went wrong."
-            />
-            &nbsp;{pleaseLetUsKnow}
-          </p>
-          {homeButton}
-        </>
+        <p>
+          <FormattedMessage
+            id="error.generic-error-description"
+            defaultMessage="We’re sorry – something went wrong."
+          />
+          &nbsp;{pleaseLetUsKnow}
+        </p>
       )
+      cta = homeButton
       break
   }
 
@@ -576,8 +569,11 @@ function BlockingError (props) {
       <div id="error">
         <div className="error-content">
           {errorType !== ERRORS.NO_STREET && <div className="streetmix-logo" />}
-          <h1>{title}</h1>
-          {description}
+          <div className="error-text">
+            <h1>{title}</h1>
+            {description}
+          </div>
+          {cta}
         </div>
       </div>
       )
