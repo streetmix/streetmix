@@ -9,25 +9,6 @@
   opacity: 1;
 }
 
-// Used on #error
-.clouds-background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-
-  // Position of clouds is % based because it needs to be aligned with
-  // viewport, not attached to the horizon line
-  .rear-clouds {
-    bottom: calc(50% - 50px);
-  }
-
-  .front-clouds {
-    bottom: calc(50% - 250px);
-  }
-}
-
 .rear-clouds,
 .front-clouds {
   position: absolute;

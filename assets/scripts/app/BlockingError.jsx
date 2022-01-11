@@ -574,11 +574,8 @@ function BlockingError (props) {
   return errorType
     ? (
       <div id="error">
-        <div className="clouds-background">
-          <div className="rear-clouds" />
-          <div className="front-clouds" />
-        </div>
         <div className="error-content">
+          <div className="streetmix-logo" />
           <h1>{title}</h1>
           {description}
         </div>
