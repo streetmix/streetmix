@@ -6,18 +6,11 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         You are not signed in.
       </h1>
@@ -49,18 +42,11 @@ exports[`BlockingError renders AUTH_EXPIRED 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         We automatically signed you out due to inactivity.
       </h1>
@@ -81,18 +67,11 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         There was a problem with signing you in.
       </h1>
@@ -140,18 +119,11 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         There was a problem with signing you in.
       </h1>
@@ -199,18 +171,11 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         There was a problem with signing you in.
       </h1>
@@ -258,18 +223,11 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         There was a problem with signing you in.
       </h1>
@@ -317,18 +275,11 @@ exports[`BlockingError renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Streetmix works on tablets and desktops only.
       </h1>
@@ -349,18 +300,11 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_IN 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         You signed in in another window.
       </h1>
@@ -381,18 +325,11 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         You signed out in another window.
       </h1>
@@ -413,18 +350,11 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT_401 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         You signed out in another window.
       </h1>
@@ -447,18 +377,11 @@ exports[`BlockingError renders GALLERY_STREET_FAILURE 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Having trouble…
       </h1>
@@ -476,18 +399,11 @@ exports[`BlockingError renders GENERIC_ERROR 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Something went wrong.
       </h1>
@@ -524,18 +440,11 @@ exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Having trouble…
       </h1>
@@ -567,18 +476,11 @@ exports[`BlockingError renders NO_STREET 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         No street selected.
       </h1>
@@ -593,18 +495,11 @@ exports[`BlockingError renders NOT_FOUND 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Page not found.
       </h1>
@@ -625,18 +520,11 @@ exports[`BlockingError renders SIGN_IN_401 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Having trouble…
       </h1>
@@ -670,18 +558,11 @@ exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Having trouble…
       </h1>
@@ -715,18 +596,11 @@ exports[`BlockingError renders SIGN_OUT 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         You are now signed out.
       </h1>
@@ -744,18 +618,11 @@ exports[`BlockingError renders STREET_404 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Street not found.
       </h1>
@@ -776,18 +643,11 @@ exports[`BlockingError renders STREET_404_BUT_LINK_TO_USER 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Street not found.
       </h1>
@@ -820,18 +680,11 @@ exports[`BlockingError renders STREET_410_BUT_LINK_TO_USER 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         This street has been deleted.
       </h1>
@@ -864,18 +717,11 @@ exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Having trouble…
       </h1>
@@ -909,18 +755,11 @@ exports[`BlockingError renders STREET_DELETED_ELSEWHERE 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         This street has been deleted elsewhere.
       </h1>
@@ -941,18 +780,11 @@ exports[`BlockingError renders UNSUPPORTED_BROWSER 1`] = `
     id="error"
   >
     <div
-      class="clouds-background"
-    >
-      <div
-        class="rear-clouds"
-      />
-      <div
-        class="front-clouds"
-      />
-    </div>
-    <div
       class="error-content"
     >
+      <div
+        class="streetmix-logo"
+      />
       <h1>
         Streetmix doesn’t work on your browser.
       </h1>

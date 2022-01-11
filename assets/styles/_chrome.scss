@@ -36,8 +36,7 @@ body.phone #loading {
 
 #error,
 #loading {
-  background-color: $sky-colour;
-  color: black;
+  color: $colour-turquoise-700;
 
   h1 {
     @include large-message-text;
@@ -48,6 +47,7 @@ body.phone #loading {
   @include blocking-shield;
 
   z-index: $z-09-error;
+  background-color: $colour-turquoise-200;
 
   // Errors may be displayed on old browsers without flexbox.
   // This forces vertical centering
@@ -101,9 +101,7 @@ body.phone #loading {
   transition: opacity 120ms;
   opacity: 1;
   will-change: opacity;
-
-  // Slightly lighter than sky colour, and closer to the blue of new colour scheme
-  background-color: rgb(178 211 226);
+  background-color: $colour-emerald-200;
 
   &.hidden {
     opacity: 0;
@@ -133,6 +131,11 @@ body.phone #loading {
   height: 100px;
   max-height: 100px;
   background-position: center center;
+}
+
+.error-content .streetmix-logo {
+  height: 60px;
+  margin: 0 auto 80px;
 }
 
 #loading .loading-spinner {

@@ -8,6 +8,20 @@ const jwtCheck = require('./authentication')
 /**
  * @swagger
  *
+ * /services/changelog:
+ *   post:
+ *     description: Gets changelog in Markdown
+ *     produces:
+ *       - text/plain
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+routes.get('/services/changelog', resources.services.changelog.get)
+
+/**
+ * @swagger
+ *
  * /services/pay:
  *   post:
  *     description: Creates a payment for a streetmix subscription

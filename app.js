@@ -222,11 +222,16 @@ app.get('/terms-of-service', (req, res) =>
 app.use('', apiRoutes)
 app.use('', serviceRoutes)
 
-app.use(
-  '/assets',
-  express.static(path.join(__dirname, '/build'), { fallthrough: false })
-)
+app.use('/assets', express.static(path.join(__dirname, '/build')))
 app.use(express.static(path.join(__dirname, '/public')))
+
+// Catch-all for broken asset paths.
+app.all('/images/*', (req, res) => {
+  res.status(404).render('404')
+})
+app.all('/assets/*', (req, res) => {
+  res.status(404).render('404')
+})
 
 // Allow hot-module reloading (HMR)
 // and attach API docs
