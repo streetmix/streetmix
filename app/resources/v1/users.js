@@ -364,7 +364,7 @@ exports.put = async function (req, res) {
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
   }
 
-  if (!user || !req.user.sub) {
+  if (!user || !req.user?.sub) {
     res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }

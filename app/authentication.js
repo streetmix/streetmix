@@ -33,7 +33,7 @@ const wrappedCheck = (req, res, next) => {
       ) {
         if (req.method === 'POST' || req.method === 'PUT') {
           logger.error(
-            `Expired token ${req.cookies.login_token} sent for authenticated route - ${req.method} ${req.url}`
+            `Expired token sent for authenticated route - ${req.method} ${req.url}`
           )
           logger.error(err)
         }
