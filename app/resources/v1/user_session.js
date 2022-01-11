@@ -1,4 +1,4 @@
-const logger = require('../../../lib/logger.js')()
+const logger = require('../../../lib/logger.js')
 
 exports.delete = async function (req, res) {
   if (!req.user) {

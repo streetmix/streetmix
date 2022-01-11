@@ -1,5 +1,5 @@
 const axios = require('axios')
-const logger = require('../../lib/logger.js')()
+const logger = require('../../lib/logger.js')
 
 // Refreshes auth0 token so user doesn't need to sign in every 30 days
 exports.post = function (req, res) {

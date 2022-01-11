@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary')
 const User = require('../../db/models/user.js')
-const logger = require('../../../lib/logger.js')()
+const logger = require('../../../lib/logger.js')
 
 exports.get = async function (req, res) {
   const query = req.query
