@@ -1,14 +1,11 @@
-const fs = require('fs')
-const util = require('util')
+const fs = require('fs/promises')
 const logger = require('../../../lib/logger.js')
-
-const readFile = util.promisify(fs.readFile)
 
 async function readFlags (res) {
   const flagFile = `${process.cwd()}/app/data/flags.json`
 
   try {
-    return await readFile(flagFile, 'utf8')
+    return await fs.readFile(flagFile, 'utf8')
   } catch (err) {
     logger.error(err)
 

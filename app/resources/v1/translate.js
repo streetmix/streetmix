@@ -1,18 +1,13 @@
-'use strict'
-
-const fs = require('fs')
-const util = require('util')
+const fs = require('fs/promises')
 const logger = require('../../../lib/logger.js')
 const getFromTransifex = require('../../../lib/transifex.js')
-
-const readFile = util.promisify(fs.readFile)
 
 async function getLocalTranslation (res, locale, resource) {
   const translationFile =
     process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
 
   try {
-    return await readFile(translationFile, 'utf8')
+    return await fs.readFile(translationFile, 'utf8')
   } catch (err) {
     logger.error(err)
 
