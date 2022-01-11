@@ -1,5 +1,5 @@
 const axios = require('axios')
-const logger = require('../../lib/logger.js')()
+const logger = require('../../lib/logger.js')
 const appURL = require('../../lib/url.js')
 
 const { Authentication } = require('../../lib/auth0')

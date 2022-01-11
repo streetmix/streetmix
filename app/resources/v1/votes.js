@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const { v4: uuidv4 } = require('uuid')
 const { User, Vote, Street } = require('../../db/models')
-const logger = require('../../../lib/logger.js')()
+const logger = require('../../../lib/logger.js')
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'

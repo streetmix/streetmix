@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const logger = require('../../../lib/logger.js')()
+const logger = require('../../../lib/logger.js')
 
 exports.post = (req, res) => {
   const cspReport = req.body['csp-report']

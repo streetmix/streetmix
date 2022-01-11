@@ -1,6 +1,6 @@
 const { User, Street } = require('../../db/models')
 const { ERRORS } = require('../../../lib/util')
-const logger = require('../../../lib/logger.js')()
+const logger = require('../../../lib/logger.js')
 
 function handleErrors (error, res) {
   switch (error) {
@@ -60,10 +60,7 @@ exports.get = async function (req, res) {
 
   const handleFindUserStreets = function (streets) {
     const json = { streets: streets }
-    res
-      .status(200)
-      .json(json)
-      .end()
+    res.status(200).json(json).end()
   } // END function - handleFindUserStreets
 
   function handleErrors (error) {

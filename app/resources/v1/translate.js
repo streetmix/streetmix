@@ -2,7 +2,7 @@
 
 const fs = require('fs')
 const util = require('util')
-const logger = require('../../../lib/logger.js')()
+const logger = require('../../../lib/logger.js')
 const getFromTransifex = require('../../../lib/transifex.js')
 
 const readFile = util.promisify(fs.readFile)
