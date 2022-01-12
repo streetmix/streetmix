@@ -26,22 +26,19 @@ const jwtCheck = jwt({
 const wrappedCheck = (req, res, next) => {
   const handleErrorNext = (err) => {
     if (
-      err &&
-      err.name === 'UnauthorizedError' &&
-      err.inner.name === 'TokenExpiredError' &&
-      req.cookies.login_token
+      err?.name === 'UnauthorizedError' &&
+      err?.inner.name === 'TokenExpiredError' &&
+      (req.method === 'POST' || req.method === 'PUT')
     ) {
-      if (req.method === 'POST' || req.method === 'PUT') {
-        logger.error(
-          `Expired token sent for authenticated route - ${req.method} ${req.url}`
-        )
-        logger.error(err)
-      }
+      logger.error(
+        `Expired token sent for authenticated route - ${req.method} ${req.url}`
+      )
+      logger.error(err)
     }
-    next()
+    next(err)
   }
 
-  jwtCheck(req, res, handleErrorNext)
+  return jwtCheck(req, res, handleErrorNext)
 }
 
 module.exports = wrappedCheck
