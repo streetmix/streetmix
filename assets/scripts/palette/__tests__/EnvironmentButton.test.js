@@ -25,7 +25,7 @@ describe('EnvironmentButton', () => {
     })
 
     // Click the tools button
-    userEvent.click(screen.getByTitle('Toggle tools'))
+    userEvent.click(screen.getByTitle('Environment editor'))
 
     expect(toggleToolbox).toBeCalled()
   })

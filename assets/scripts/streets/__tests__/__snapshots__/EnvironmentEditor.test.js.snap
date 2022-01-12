@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EnvironmentEditor renders 1`] = `
+exports[`EnvironmentEditor renders for subscribers 1`] = `
 <DocumentFragment>
   <div
     class="environment-editor environment-editor-container-outer react-draggable"
@@ -11,12 +11,10 @@ exports[`EnvironmentEditor renders 1`] = `
       style="opacity: 0; transform: scale(0.75); pointer-events: none;"
     >
       <header>
-        <img
-          alt="Sun behind rain cloud"
-          draggable="false"
-          src="test-file-stub"
-        />
         <h3>
+          <svg
+            class="octicon"
+          />
           Environment
         </h3>
         <button
@@ -32,28 +30,23 @@ exports[`EnvironmentEditor renders 1`] = `
         class="environment-editor-content"
       >
         <div
-          class="environment-select-grid"
+          class="environment-selector"
         >
           <div
-            class="environment-select environment-active"
+            class="environment-item environment-active"
             style="background: rgb(169, 204, 219);"
-            title="Day"
           />
           <div
-            class="environment-select"
-            title="Twilight"
+            class="environment-item"
           />
           <div
-            class="environment-select"
-            title="Dusk"
+            class="environment-item"
           />
           <div
-            class="environment-select"
-            title="Sunrise"
+            class="environment-item"
           />
           <div
-            class="environment-select"
-            title="Night"
+            class="environment-item"
           >
             <img
               alt=""
@@ -62,14 +55,12 @@ exports[`EnvironmentEditor renders 1`] = `
             />
           </div>
           <div
-            class="environment-select"
+            class="environment-item"
             style="background: rgb(226, 240, 242);"
-            title="Foggy"
           />
           <div
-            class="environment-select"
+            class="environment-item"
             style="background: rgb(20, 20, 20);"
-            title="Holodeck"
           >
             <img
               alt=""

@@ -1,7 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DuplicateIcon, TrashIcon, ToolsIcon } from '@primer/octicons-react'
+import {
+  DuplicateIcon,
+  TrashIcon,
+  ToolsIcon,
+  SunIcon
+} from '@primer/octicons-react'
 import {
   ICON_TWITTER,
   ICON_FACEBOOK,
@@ -53,6 +58,8 @@ function Icon ({ icon, className }) {
       return <TrashIcon size={16} className={octiconClassNames(className)} />
     case 'tools':
       return <ToolsIcon size={16} className={octiconClassNames(className)} />
+    case 'sun':
+      return <SunIcon size={16} className={octiconClassNames(className)} />
     default:
       // Ancient fallback (should no longer be used)
       return (
