@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 $selection-highlight-colour: $colour-copper-500;
 
@@ -35,7 +35,7 @@ $selection-highlight-colour: $colour-copper-500;
     width: 100%;
     height: 100%;
     border-radius: $border-radius-large;
-    background-color: rgba(221, 221, 221, 0.65);
+    background-color: rgba(221 221 221 / 65%);
   }
 
   .fa-lock {
