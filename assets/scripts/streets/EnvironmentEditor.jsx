@@ -27,6 +27,9 @@ function EnvironmentEditor (props) {
 
   const isSubscriber = user?.roles.includes(USER_ROLES.SUBSCRIBER_1.value)
 
+  // Temporarily disabled.
+  const isEnabled = false
+
   function handleClose (event) {
     dispatch(toggleToolbox())
   }
@@ -96,26 +99,33 @@ function EnvironmentEditor (props) {
                       id="plus.prompt.text"
                       defaultMessage="This feature is only available to Streetmix+ users.&lrm;"
                     />
+                    <button disabled={true}>
+                      <FormattedMessage
+                        id="plus.locked.soon"
+                        defaultMessage="Coming soon!&lrm;"
+                      />
+                    </button>
                     {/* If users are not signed in, they must sign in first
                         If they're signed in, and are not a subscriber, show
                         the upgrade button */}
-                    {signedIn
-                      ? (
-                        <button onClick={handleClickUpgrade}>
-                          <FormattedMessage
-                            id="plus.prompt.action"
-                            defaultMessage="Upgrade to unlock"
-                          />
-                        </button>
-                        )
-                      : (
-                        <button onClick={handleClickSignIn}>
-                          <FormattedMessage
-                            id="menu.item.sign-in"
-                            defaultMessage="Sign in"
-                          />
-                        </button>
-                        )}
+                    {isEnabled &&
+                      (signedIn
+                        ? (
+                          <button onClick={handleClickUpgrade}>
+                            <FormattedMessage
+                              id="plus.prompt.action"
+                              defaultMessage="Upgrade to unlock"
+                            />
+                          </button>
+                          )
+                        : (
+                          <button onClick={handleClickSignIn}>
+                            <FormattedMessage
+                              id="menu.item.sign-in"
+                              defaultMessage="Sign in"
+                            />
+                          </button>
+                          ))}
                   </div>
                 )}
               </div>

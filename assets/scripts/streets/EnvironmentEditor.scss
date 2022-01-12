@@ -1,3 +1,4 @@
+@use "sass:color";
 @import "../../styles/variables";
 
 $environment-editor-border-radius: $border-radius-large;
@@ -97,6 +98,10 @@ $header-text-colour: $colour-turquoise-700;
     font-weight: bold;
     background-color: transparent;
     color: $colour-copper-600;
+
+    &:disabled {
+      border: 1px solid color.adjust($colour-copper-200, $saturation: -50%);
+    }
 
     &:hover {
       background-color: transparent;
