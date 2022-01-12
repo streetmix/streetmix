@@ -38,6 +38,7 @@ exports.post = async function (req, res) {
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding street.' })
+    return
   }
 
   if (!street) {
@@ -215,6 +216,7 @@ exports.delete = async function (req, res) {
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
+    return
   }
 
   if (!user) {

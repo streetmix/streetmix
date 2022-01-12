@@ -87,6 +87,7 @@ if (process.env.COIL_CLIENT_ID && process.env.COIL_CLIENT_SECRET) {
 exports.get = (req, res, next) => {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
+    return
   }
 
   /*
@@ -106,6 +107,7 @@ exports.get = (req, res, next) => {
 exports.callback = (req, res, next) => {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
+    return
   }
   passport._strategies.coil._oauth2.setAuthMethod('BASIC')
   passport.authorize('coil', {

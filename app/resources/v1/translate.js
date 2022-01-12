@@ -63,6 +63,7 @@ exports.get = async (req, res) => {
       status: 500,
       msg: 'Could not retrieve translation for locale: ' + locale
     })
+    return
   }
 
   if (translation) {

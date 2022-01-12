@@ -28,7 +28,8 @@ function sendSuccessResponse (res, content) {
   const mdContent = content.split('---\n')[2]
 
   if (!mdContent) {
-    res.status(500).json({ status: 500, msg: 'Could not retrieve changelog..' })
+    res.status(500).json({ status: 500, msg: 'Could not retrieve changelog.' })
+    return
   }
 
   res.status(200).send(mdContent.trim())

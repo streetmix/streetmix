@@ -352,6 +352,7 @@ exports.put = async function (req, res) {
 
   if (!(req.user && req.user.sub)) {
     res.status(401).json({ status: 401, msg: 'User auth not found.' })
+    return
   }
 
   const userId = req.params.user_id
@@ -362,6 +363,7 @@ exports.put = async function (req, res) {
   } catch (err) {
     logger.error(err)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
+    return
   }
 
   if (!user || !req.user?.sub) {

@@ -37,6 +37,7 @@ exports.get = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
+    return
   }
 
   const findUserStreets = async function (userId) {
@@ -99,6 +100,7 @@ exports.get = async function (req, res) {
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.CANNOT_GET_STREET)
+    return
   }
 
   if (!user) {
@@ -118,10 +120,12 @@ exports.delete = async function (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
+    return
   } else if (!req.user) {
     res
       .status(400)
       .json({ status: 400, msg: 'Please provide a logged in user' })
+    return
   }
 
   let requestUser
@@ -131,6 +135,7 @@ exports.delete = async function (req, res) {
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
+    return
   }
 
   if (!requestUser) {
@@ -161,6 +166,7 @@ exports.delete = async function (req, res) {
     } catch (error) {
       logger.error(error)
       res.status(500).json({ status: 500, msg: 'Error finding user.' })
+      return
     }
 
     if (!targetUser) {
@@ -175,6 +181,7 @@ exports.delete = async function (req, res) {
     if (error) {
       logger.error(error)
       handleErrors(ERRORS.CANNOT_UPDATE_STREET, res)
+      return
     }
 
     res.status(204).end()
