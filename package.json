@@ -110,7 +110,7 @@
     "copy-to-clipboard": "3.3.1",
     "core-js": "3.20.2",
     "cors": "2.8.5",
-    "dotenv": "10.0.0",
+    "dotenv": "11.0.0",
     "downshift": "6.1.7",
     "downshift-pelias": "0.0.3-alpha",
     "express": "4.17.2",
@@ -128,7 +128,7 @@
     "leaflet": "1.7.1",
     "lodash": "4.17.21",
     "mkdirp": "1.0.4",
-    "nanoid": "3.1.30",
+    "nanoid": "3.1.31",
     "newrelic": "8.7.0",
     "nodemon": "2.0.15",
     "parcel-bundler": "1.12.4",
@@ -150,7 +150,7 @@
     "react-hook-form": "7.22.5",
     "react-intl": "5.24.2",
     "react-leaflet": "2.7.0",
-    "react-markdown": "6.0.3",
+    "react-markdown": "7.1.2",
     "react-redux": "7.2.6",
     "react-spring": "8.0.27",
     "react-stripe-checkout": "2.6.3",
@@ -186,7 +186,7 @@
     "@testing-library/user-event": "13.5.0",
     "axios-mock-adapter": "1.20.0",
     "babel-jest": "27.4.6",
-    "cypress": "9.2.0",
+    "cypress": "9.2.1",
     "eslint": "7.32.0",
     "eslint-config-standard": "16.0.3",
     "eslint-config-standard-jsx": "10.0.0",
@@ -214,6 +214,6 @@
     "stylelint-config-standard-scss": "3.0.0",
     "stylelint-csstree-validator": "2.0.0",
     "stylelint-prettier": "2.0.0",
-    "supertest": "6.2.0"
+    "supertest": "6.2.1"
   }
 }
