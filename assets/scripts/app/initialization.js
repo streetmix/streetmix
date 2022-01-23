@@ -75,6 +75,8 @@ export async function initialize () {
     return
   }
 
+  initCoil()
+
   // Asynchronously loading…
 
   // Geolocation
@@ -114,8 +116,6 @@ function onEverythingLoaded () {
   if (getMode() === MODES.NEW_STREET_COPY_LAST) {
     fetchLastStreet()
   }
-
-  initCoil()
 
   segmentsChanged()
 

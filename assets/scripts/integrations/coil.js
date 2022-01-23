@@ -1,15 +1,27 @@
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
+import store from '../store'
+import { setCoilPluginSubscriber } from '../store/slices/user'
 
 export function initCoil () {
   // Run this if browser has the monetization plugin installed. Logged-in
   // users will automatically get subscription benefits regardless of any
   // connected monetization providers
   if (document.monetization) {
-    document.monetizationExtensionInstalled = true
-    document.monetization.addEventListener('monetizationstart', () => {
-      console.log('monetization start!')
+    document.monetization.addEventListener('monetizationstart', (event) => {
+      console.log('monetization start!', event.detail)
+      store.dispatch(setCoilPluginSubscriber(true))
     })
+    document.monetization.addEventListener('monetizationstop', (event) => {
+      console.log('monetization stop!', event.detail)
+      store.dispatch(setCoilPluginSubscriber(false))
+    })
+    document.monetization.addEventListener('monetizationpending', (event) => {
+      console.log('monetization pending!', event.detail)
+    })
+    // document.monetization.addEventListener('monetizationprogress', (event) => {
+    //   console.log('monetization progress!', event.detail)
+    // })
     // Otherwise, create a placeholder monetization object. The Coil OAuth Web
     // Monetization (OWM) script relies on this.
   } else {

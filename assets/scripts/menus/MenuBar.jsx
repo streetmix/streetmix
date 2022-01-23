@@ -16,6 +16,7 @@ MenuBar.propTypes = {
 
 function MenuBar (props) {
   const user = useSelector((state) => state.user.signInData?.details || null)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const offline = useSelector((state) => state.system.offline)
   const upgradeFunnel = useSelector(
     (state) => state.flags.BUSINESS_PLAN.value || false
@@ -63,8 +64,8 @@ function MenuBar (props) {
     window.dispatchEvent(
       new CustomEvent('stmx:menu_bar_resized', {
         detail: {
-          rightMenuBarLeftPos: menuBarRightEl.current.getBoundingClientRect()
-            .left
+          rightMenuBarLeftPos:
+            menuBarRightEl.current.getBoundingClientRect().left
         }
       })
     )
@@ -74,7 +75,11 @@ function MenuBar (props) {
     return user
       ? (
         <li>
-          <AvatarMenu user={user} onClick={handleClickMenuButton('identity')} />
+          <AvatarMenu
+            user={user}
+            isSubscriber={isSubscriber}
+            onClick={handleClickMenuButton('identity')}
+          />
         </li>
         )
       : (
@@ -144,7 +149,7 @@ function MenuBar (props) {
           translation="menu.item.share"
           onClick={handleClickMenuButton('share')}
         />
-        {!offline && renderUserAvatar(user)}
+        {!offline && renderUserAvatar(user, isSubscriber)}
       </ul>
       <EnvironmentBadge />
     </nav>

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
-import USER_ROLES from '../../../app/data/user_roles'
 import CloseButton from '../ui/CloseButton'
 import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
@@ -20,12 +19,10 @@ function EnvironmentEditor (props) {
     (state) => state.street.environment || DEFAULT_ENVIRONS
   )
   const show = useSelector((state) => state.ui.toolboxVisible || false)
-  const user = useSelector((state) => state.user.signInData?.details || null)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber || false)
   const signedIn = useSelector((state) => state.user.signedIn || false)
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
-
-  const isSubscriber = user?.roles.includes(USER_ROLES.SUBSCRIBER_1.value)
 
   // Temporarily disabled.
   const isEnabled = false
