@@ -20,7 +20,7 @@
  * For more info: https://redux-toolkit.js.org/
  *
  */
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import reducers from './reducers'
 
 const store = configureStore({
@@ -32,12 +32,11 @@ const store = configureStore({
   // writing new reducers, or refactoring them, so it's fine to temporarily
   // re-enable them when you need them. Otherwise, leave it false so that
   // the development experience isn't unnecessarily crippled.
-  middleware: [
-    ...getDefaultMiddleware({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false
     })
-  ]
 })
 
 export default store
