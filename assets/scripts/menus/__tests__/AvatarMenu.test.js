@@ -29,7 +29,7 @@ describe('AvatarMenu', () => {
       id: 'foo',
       roles: ['SUBSCRIBER_1']
     }
-    render(<AvatarMenu user={user} />)
+    render(<AvatarMenu user={user} isSubscriber={true} />)
     expect(screen.queryByTitle('Streetmix+ subscriber')).toBeInTheDocument()
   })
 

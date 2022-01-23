@@ -12,15 +12,15 @@ AvatarMenu.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
     roles: PropTypes.arrayOf(PropTypes.string)
-  }).isRequired,
+  }),
+  isSubscriber: PropTypes.bool,
   onClick: PropTypes.func
 }
 
 function AvatarMenu (props) {
-  const { user, onClick = () => {} } = props
+  const { user, isSubscriber = false, onClick = () => {} } = props
   const { id, roles = [] } = user
   const isAdmin = roles.includes(USER_ROLES.ADMIN.value)
-  const isSubscriber = roles.includes(USER_ROLES.SUBSCRIBER_1.value)
   const { formatMessage } = useIntl()
 
   const adminLabel =

@@ -19,11 +19,7 @@ describe('EnvironmentEditor', () => {
       toolboxVisible: true
     },
     user: {
-      signInData: {
-        details: {
-          roles: ['SUBSCRIBER_1']
-        }
-      }
+      isSubscriber: true
     }
   }
 

@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+import USER_ROLES from '../../../../app/data/user_roles.json'
 
 const initialState = {
   signInData: null,
   signedIn: false,
+  isSubscriber: false,
+  isCoilPluginSubscriber: false,
   geolocation: {
     attempted: false,
     data: null
@@ -18,11 +21,19 @@ const userSlice = createSlice({
     setSignInData (state, action) {
       state.signInData = action.payload
       state.signedIn = true
+
+      if (
+        action.payload.details?.roles?.includes(USER_ROLES.SUBSCRIBER_1.value)
+      ) {
+        state.isSubscriber = true
+      }
     },
 
     clearSignInData (state, action) {
       state.signInData = null
       state.signedIn = false
+      state.isSubscriber = false
+      state.isCoilPluginSubscriber = false
     },
 
     setGeolocationAttempted (state, action) {
@@ -31,6 +42,23 @@ const userSlice = createSlice({
 
     setGeolocationData (state, action) {
       state.geolocation.data = action.payload
+    },
+
+    setCoilPluginSubscriber (state, action) {
+      state.isCoilPluginSubscriber = action.payload
+
+      if (action.payload === true) {
+        state.isSubscriber = true
+      } else {
+        // Unset isSubscriber only if the user doesn't have the role elsewhere
+        if (
+          !state.signInData.details?.roles?.includes(
+            USER_ROLES.SUBSCRIBER_1.value
+          )
+        ) {
+          state.isSubscriber = false
+        }
+      }
     },
 
     rememberUserProfile (state, action) {
@@ -49,6 +77,7 @@ export const {
   clearSignInData,
   setGeolocationAttempted,
   setGeolocationData,
+  setCoilPluginSubscriber,
   rememberUserProfile
 } = userSlice.actions
 
