@@ -259,7 +259,8 @@
       "resend-email": ""
     },
     "whatsnew": {
-      "heading": "Vad är nytt i Streetmix?"
+      "heading": "Vad är nytt i Streetmix?",
+      "english-only": ""
     },
     "newsletter": {
       "heading": "Prenumerera på vårt nyhetsbrev",

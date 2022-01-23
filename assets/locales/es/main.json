@@ -259,7 +259,8 @@
       "resend-email": ""
     },
     "whatsnew": {
-      "heading": ""
+      "heading": "",
+      "english-only": ""
     },
     "newsletter": {
       "heading": "Suscríbete a nuestra newsletter",

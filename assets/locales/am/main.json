@@ -259,7 +259,8 @@
       "resend-email": "ኢሜይል በድጋሚ ይላኩ "
     },
     "whatsnew": {
-      "heading": "ስትሪትሚክስ ጋር ምን አዲስ ነገር አለ? "
+      "heading": "ስትሪትሚክስ ጋር ምን አዲስ ነገር አለ? ",
+      "english-only": ""
     },
     "newsletter": {
       "heading": "በራሪ ጽሑፋችን ላይ ይመዝገቡ ፡፡",

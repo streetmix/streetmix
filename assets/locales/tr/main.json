@@ -259,7 +259,8 @@
       "resend-email": "E-postayı yeniden gönder"
     },
     "whatsnew": {
-      "heading": "Streetmix'te yeni neler var?"
+      "heading": "Streetmix'te yeni neler var?",
+      "english-only": ""
     },
     "newsletter": {
       "heading": "Haber bültenimize kayıt ol",

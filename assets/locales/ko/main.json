@@ -259,7 +259,8 @@
       "resend-email": "이메일 재전송"
     },
     "whatsnew": {
-      "heading": "스트리트믹스의 새로운 기능"
+      "heading": "스트리트믹스의 새로운 기능",
+      "english-only": ""
     },
     "newsletter": {
       "heading": "뉴스레터 구독",

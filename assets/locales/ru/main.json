@@ -259,7 +259,8 @@
       "resend-email": "Послать письмо снова"
     },
     "whatsnew": {
-      "heading": "Что нового в Streetmix?"
+      "heading": "Что нового в Streetmix?",
+      "english-only": ""
     },
     "newsletter": {
       "heading": "Подписаться на рассылку",

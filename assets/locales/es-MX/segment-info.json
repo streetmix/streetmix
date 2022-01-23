@@ -9,7 +9,7 @@
     "cafe-seating": "Asientos de cafetería",
     "wayfinding-sign": "Señales y letreros",
     "sidewalk-lamp": "Poste de luz",
-    "utility-pole": "",
+    "utility-pole": "Poste",
     "parklet": "Estacionaparquecito ",
     "divider": "Carga",
     "planting-strip": "Línea para plantar",
@@ -40,8 +40,8 @@
     "streetcar": "Tranvía",
     "light-rail": "Tren ligero",
     "transit-shelter": "Refugio de colectivo",
-    "brt-station": "",
-    "brt-lane": "",
+    "brt-station": "Station de BTR",
+    "brt-lane": "Carril de buses de tránsito rápido",
     "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de \"El Origen\"",
     "magic-carpet": "Alfombra mágica"
@@ -140,7 +140,7 @@
     "car-type|car": "Carro",
     "car-type|sharrow": "Biciflecha",
     "car-type|truck": "Camión",
-    "car-type|microvan": "",
+    "car-type|microvan": "Pan de molde camioneta",
     "car-type|av": "Vehículo autónomo",
     "car-type|motorcycle": "Moto",
     "car-type|motorcycle-sidecar": "Moto con sidecar",
@@ -151,9 +151,9 @@
     "bus-asphalt|regular": "Asfalto",
     "bus-asphalt|colored": "Carril rojo",
     "bus-asphalt|shared": "Carril compartido bus/bici ",
-    "bus-type|typical": "",
-    "bus-type|double-decker": "",
-    "bus-type|av-shuttle": "",
+    "bus-type|typical": "Autobús típico",
+    "bus-type|double-decker": "Autobús de dos pisos",
+    "bus-type|av-shuttle": "Autobús lanzadera autónoma",
     "brt-station-orientation|left": "Izquierda",
     "brt-station-orientation|right": "Derecha",
     "brt-station-orientation|center": "En medio",
@@ -202,12 +202,12 @@
     "temporary-barrier-type|barricade": "Barricada"
   },
   "environs": {
-    "day": "",
-    "twilight": "",
-    "dusk": "",
-    "dawn": "",
-    "night": "",
-    "karl": "",
-    "holodeck": ""
+    "day": "Día",
+    "twilight": "Crepúsculo",
+    "dusk": "Anochecer",
+    "dawn": "Amanecer",
+    "night": "Noche",
+    "karl": "Niebla",
+    "holodeck": "\"Holodeck\""
   }
 }

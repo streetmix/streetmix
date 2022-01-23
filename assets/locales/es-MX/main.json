@@ -198,13 +198,13 @@
       "export-csv": "Exportar a CSV",
       "heading": "Analítica",
       "street-summary": "Se estima que tu calle tiene una capacidad media de {averageTotal} personas/hora, con potencial de hasta {potentialTotal} personas/hora.",
-      "typical-lane-width": "",
+      "typical-lane-width": "Datos de capacidad son basados a {laneWidth}-ancho carriles",
       "segment-summary": "{average} — {potential} personas/hora",
       "segment-summary-single": "{amount} personas/hora",
       "source": "Citación",
-      "capacity-data-source": "",
-      "toggle-visible": "",
-      "settings-notice": ""
+      "capacity-data-source": "Fuente de datos",
+      "toggle-visible": "Mostrar capacidad en etiquetas de segmento.",
+      "settings-notice": "Dueños de las calles pueden cambiar estas configuraciones."
     },
     "save": {
       "heading": "Guardar como imagen",
@@ -259,23 +259,24 @@
       "resend-email": "Reenviar correo electrónico"
     },
     "whatsnew": {
-      "heading": "¿Qué es nuevo en Streetmix?"
+      "heading": "¿Qué es nuevo en Streetmix?",
+      "english-only": "Esta información se provee solamente en el inglés."
     },
     "newsletter": {
       "heading": "Suscribirte a nuestro boletín electrónico",
-      "description": "",
-      "email-label": "",
-      "field-required-error": "",
-      "subscribe": "",
-      "subscribe-pending": "",
-      "ok-message": "",
-      "error-message": ""
+      "description": "Enviamos correos ocasionales a través de nuestro boletín, unas veces durante el año. ¡Suscríbete para no faltar nada!",
+      "email-label": "Rellena tu correo electrónico",
+      "field-required-error": "Se requiere completar este campo.",
+      "subscribe": "Suscribirse",
+      "subscribe-pending": "Espera por favor...",
+      "ok-message": "<strong>Gracias! Casi estás suscrito.</strong> Te hemos enviado un correo electrónico para confirmar tu dirección. ¡Haz clic y ja está completo!",
+      "error-message": "¡Ay! Hay algo que no funcionó con inscribirse. Éste podría ser un error temporal, así que por favor, intenta de nuevo al rato."
     }
   },
   "tools": {
     "tooltip": "Cambiar herramientas",
     "environment": {
-      "tooltip": "",
+      "tooltip": "Editor del ambiente",
       "heading": "Entorno"
     }
   },
@@ -381,8 +382,8 @@
     "anonymous": "Anónimo",
     "byline": "por {user}",
     "roles": {
-      "admin": "",
-      "subscriber": ""
+      "admin": "Administrativo",
+      "subscriber": "Streetmix+ usuario"
     }
   },
   "export": {
@@ -394,9 +395,9 @@
   },
   "credits": {
     "core-team-heading": "Equipo del proyecto",
-    "original-team-heading": "",
+    "original-team-heading": "Equipo original del proyecto",
     "past-team-heading": "Miembros anteriores del equipo",
-    "core-contributors": "",
+    "core-contributors": "Contribuyentes principales",
     "advisors": "Consejeros",
     "additional-illustrations": "Ilustraciones adicionales",
     "additional-code": "Código adicional",
@@ -406,13 +407,13 @@
   },
   "plus": {
     "locked": {
-      "soon": "",
-      "sub": "",
+      "soon": "¡Disponible muy pronto!",
+      "sub": "¡Actualizar a Streetmix+ para usar!",
       "user": "¡Ingrésate para usar!"
     },
     "prompt": {
-      "text": "",
-      "action": ""
+      "text": "Esta característica sólo es disponible a usuarios de Streetmix+.",
+      "action": "Actualizar para acceder"
     }
   },
   "sentiment": {
@@ -452,30 +453,30 @@
   },
   "i18n": {
     "lang": {
-      "am": "",
+      "am": "Amárico",
       "ar": "Árabe",
       "ca": "Catalán",
-      "cs": "",
+      "cs": "Checo",
       "de": "Alemán",
       "en": "Inglés",
-      "en-gb": "",
+      "en-gb": "Inglés (Reino Unido)",
       "es": "Español",
       "es-419": "Español (Latinoamérica)",
-      "es-es": "",
+      "es-es": "Español (España)",
       "es-mx": "Español (México)",
       "fi": "Finlandés",
       "fr": "Francés",
       "it": "Italiano",
       "ja": "Japonés",
       "ko": "Coreano",
-      "nb-no": "",
-      "nl-nl": "",
+      "nb-no": "Noruego Bokmål",
+      "nl-nl": "Holandés (Países Bajos)",
       "pl": "Polaco",
       "pt-br": "Portugués (Brasil)",
-      "ro-ro": "",
+      "ro-ro": "Rumano",
       "ru": "Ruso",
       "sv": "Sueco",
-      "tr": "",
+      "tr": "Turco",
       "zh": "Chino",
       "zh-hans": "Chino simplificado",
       "zh-hant": "Chino tradicional"

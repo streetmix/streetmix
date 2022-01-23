@@ -259,7 +259,8 @@
       "resend-email": "Volver a enviar el correo electrónico"
     },
     "whatsnew": {
-      "heading": "¿Qué hay de nuevo en Streetmix?"
+      "heading": "¿Qué hay de nuevo en Streetmix?",
+      "english-only": ""
     },
     "newsletter": {
       "heading": "Suscribirse a nuestro boletín de noticias",

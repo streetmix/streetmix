@@ -259,7 +259,8 @@
       "resend-email": "Lähetä uudelleen"
     },
     "whatsnew": {
-      "heading": "Streetmixin uudet ominaisuudet"
+      "heading": "Streetmixin uudet ominaisuudet",
+      "english-only": "Sisältö on saatavilla vain englanniksi."
     },
     "newsletter": {
       "heading": "Tilaa uutiskirje",
