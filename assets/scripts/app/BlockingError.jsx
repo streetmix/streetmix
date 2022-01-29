@@ -71,18 +71,12 @@ function BlockingError (props) {
   )
   const pleaseLetUsKnow = (
     <FormattedMessage
-      id="error.please-try-again"
-      defaultMessage="Please try again later or let us know via <email_link>email</email_link> or <tweet_link>Twitter</tweet_link>."
+      id="error.please-try-again-contact-us"
+      defaultMessage="Please try again later. If you still need help, please <a>contact us</a>."
       values={{
         // eslint-disable-next-line react/display-name
-        email_link: (chunks) => (
-          <ExternalLink href="mailto:hello@streetmix.net">
-            {chunks}
-          </ExternalLink>
-        ),
-        // eslint-disable-next-line react/display-name
-        tweet_link: (chunks) => (
-          <ExternalLink href="https://twitter.com/intent/tweet?text=@streetmix">
+        a: (chunks) => (
+          <ExternalLink href="https://docs.streetmix.net/community">
             {chunks}
           </ExternalLink>
         )
@@ -505,11 +499,11 @@ function BlockingError (props) {
           <p>
             <FormattedMessage
               id="error.unsupported-browser-contact-us"
-              defaultMessage="If you think your browser should be supported, please contact us via <a>email</a>."
+              defaultMessage="If you think your browser should be supported, please <a>contact us</a>."
               values={{
                 // eslint-disable-next-line react/display-name
                 a: (chunks) => (
-                  <ExternalLink href="mailto:hello@streetmix.net">
+                  <ExternalLink href="https://docs.streetmix.net/community">
                     {chunks}
                   </ExternalLink>
                 )

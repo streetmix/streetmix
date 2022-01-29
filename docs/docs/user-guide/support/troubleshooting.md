@@ -27,6 +27,16 @@ If Streetmix works in private mode, this means something in your browser cache h
 
 If Streetmix does not work in private mode, or still does not work after clearing your browser's cache, please ensure that you are using the latest version of Chrome or Firefox. If you still need help, please [contact us](/community).
 
+### I requested a sign-in link via e-mail, but never received it.
+
+There are few situations that can prevent a sign-in link from being received.
+
+- Check to see if the e-mail was blocked or was sent to spam. The e-mail will have the subject heading "Welcome to Streetmix! Your sign-in link is here." and will be sent from hello@streetmix.net.
+- You may have an anti-spam feature that requires first-time senders to do something to prove they're not a robot. Since the e-mail link is an automated system, you will need to disable it for our e-mail.
+- In very rare instances, our third-party e-mail system may be down. You can check [e-mail system status here](https://status.mailgun.com/). If the systems are down, please wait for the issues to resolve.
+
+If you still need help, please [contact us](/community).
+
 ## Error codes
 
 :::caution Under construction
