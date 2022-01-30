@@ -8,7 +8,7 @@ We have [a public chat room on Discord](https://strt.mx/discord). Contributors t
 
 ## GitHub {#contact-github}
 
-Our [code repository is on GitHub](https://github.coms/streetmix/streetmix). Most development-related conversations happen here. You can file bug reports or feature requests on the [issues page](https://github.com/streetmix/streetmix/issues).
+Our [code repository is on GitHub](https://github.com/streetmix/streetmix). Most development-related conversations happen here. You can file bug reports or feature requests on the [issues page](https://github.com/streetmix/streetmix/issues).
 
 ## Twitter {#contact-twitter}
 
