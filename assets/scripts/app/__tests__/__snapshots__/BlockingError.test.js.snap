@@ -24,7 +24,7 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
       <p
         class="error-help-link"
@@ -105,7 +105,7 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
       <p
         class="error-help-link"
@@ -155,7 +155,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
       <p
         class="error-help-link"
@@ -205,7 +205,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
       <p
         class="error-help-link"
@@ -255,7 +255,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
       <p
         class="error-help-link"
@@ -322,7 +322,7 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_IN 1`] = `
           You signed in in another window.
         </h1>
         <p>
-          Please reload this page before continuing.
+          Please reload this page to return to Streetmix.
         </p>
       </div>
       <button
@@ -353,7 +353,7 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
           You signed out in another window.
         </h1>
         <p>
-          Please reload this page before continuing.
+          Please reload this page to return to Streetmix.
         </p>
       </div>
       <button
@@ -384,7 +384,7 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT_401 1`] = `
           You signed out in another window.
         </h1>
         <p>
-          Please reload this page before continuing.
+          Please reload this page to return to Streetmix.
           <br />
           (Error RM2.)
         </p>
@@ -457,7 +457,7 @@ exports[`BlockingError renders GENERIC_ERROR 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
     </div>
   </div>
@@ -550,7 +550,7 @@ exports[`BlockingError renders NOT_FOUND 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
     </div>
   </div>
@@ -666,7 +666,7 @@ exports[`BlockingError renders SIGN_OUT 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
     </div>
   </div>
@@ -697,7 +697,7 @@ exports[`BlockingError renders STREET_404 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
     </div>
   </div>
@@ -740,7 +740,7 @@ exports[`BlockingError renders STREET_404_BUT_LINK_TO_USER 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
     </div>
   </div>
@@ -783,7 +783,7 @@ exports[`BlockingError renders STREET_410_BUT_LINK_TO_USER 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
     </div>
   </div>
@@ -858,7 +858,7 @@ exports[`BlockingError renders STREET_DELETED_ELSEWHERE 1`] = `
       <button
         class="button-primary"
       >
-        Go to the homepage
+        Return to Streetmix
       </button>
     </div>
   </div>

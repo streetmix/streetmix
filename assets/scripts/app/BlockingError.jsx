@@ -25,8 +25,8 @@ function BlockingError (props) {
   const homeButton = (
     <button onClick={goHome} className="button-primary">
       <FormattedMessage
-        id="error.button.home"
-        defaultMessage="Go to the homepage"
+        id="error.button.return"
+        defaultMessage="Return to Streetmix"
       />
     </button>
   )
@@ -213,7 +213,7 @@ function BlockingError (props) {
         <p>
           <FormattedMessage
             id="error.please-reload"
-            defaultMessage="Please reload this page before continuing."
+            defaultMessage="Please reload this page to return to Streetmix."
           />
         </p>
       )
@@ -230,7 +230,7 @@ function BlockingError (props) {
         <p>
           <FormattedMessage
             id="error.please-reload"
-            defaultMessage="Please reload this page before continuing."
+            defaultMessage="Please reload this page to return to Streetmix."
           />
           <br />
           <FormattedMessage
@@ -253,7 +253,7 @@ function BlockingError (props) {
         <p>
           <FormattedMessage
             id="error.please-reload"
-            defaultMessage="Please reload this page before continuing."
+            defaultMessage="Please reload this page to return to Streetmix."
           />
         </p>
       )
