@@ -52,7 +52,7 @@ const userSlice = createSlice({
       } else {
         // Unset isSubscriber only if the user doesn't have the role elsewhere
         if (
-          !state.signInData.details?.roles?.includes(
+          !state.signInData?.details?.roles?.includes(
             USER_ROLES.SUBSCRIBER_1.value
           )
         ) {
