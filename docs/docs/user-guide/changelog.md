@@ -1,6 +1,6 @@
 ---
 sidebar_label: Changelog
-sidebar_position: 2
+sidebar_position: 5
 ---
 
 # What's new in Streetmix?

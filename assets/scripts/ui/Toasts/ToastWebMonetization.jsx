@@ -57,7 +57,7 @@ function ToastWebMonetization (props) {
           values={{
             // eslint-disable-next-line react/display-name
             a: (chunks) => (
-              <ExternalLink href="https://docs.streetmix.net/user-guide/">
+              <ExternalLink href="https://docs.streetmix.net/user-guide/streetmix-plus">
                 {chunks}
               </ExternalLink>
             )
