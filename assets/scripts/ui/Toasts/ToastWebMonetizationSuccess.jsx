@@ -1,28 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { doSignIn } from '../../users/authentication'
 import wmIcon from '../../../images/wm-icon-animated.svg'
-import ExternalLink from '../../ui/ExternalLink'
 import Toast from './Toast'
-import './ToastWebMonetization.scss'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-ToastWebMonetization.propTypes = {
+ToastWebMonetizationSuccess.propTypes = {
   item: PropTypes.shape({
-    component: PropTypes.oneOf(['TOAST_WEB_MONETIZATION']),
+    component: PropTypes.oneOf(['TOAST_WEB_MONETIZATION_SUCCESS']),
     action: PropTypes.string
   }),
   setRef: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired
 }
 
-function ToastWebMonetization (props) {
+function ToastWebMonetizationSuccess (props) {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
   function handleAction (event) {
-    doSignIn()
+    window.open('https://docs.streetmix.net/user-guide/', '_blank')
     handleClose(event)
   }
 
@@ -36,8 +33,8 @@ function ToastWebMonetization (props) {
         ...item,
         mode: 'success',
         action: intl.formatMessage({
-          id: 'menu.item.sign-in',
-          defaultMessage: 'Sign in'
+          id: 'plus.web-monetization.learn-more',
+          defaultMessage: 'Learn more'
         })
       }}
     >
@@ -52,20 +49,12 @@ function ToastWebMonetization (props) {
       </div>
       <p>
         <FormattedMessage
-          id="plus.web-monetization.not-signed-in"
-          defaultMessage="Your browser is sending Web Monetization payments. Sign in now to access your Streetmix+ benefits! <a>Learn more.</a>&lrm;"
-          values={{
-            // eslint-disable-next-line react/display-name
-            a: (chunks) => (
-              <ExternalLink href="https://docs.streetmix.net/user-guide/">
-                {chunks}
-              </ExternalLink>
-            )
-          }}
+          id="plus.web-monetization.signed-in"
+          defaultMessage="Your Web Monetization subscription gives you full access to Streetmix+ features.&lrm;"
         />
       </p>
     </Toast>
   )
 }
 
-export default ToastWebMonetization
+export default ToastWebMonetizationSuccess

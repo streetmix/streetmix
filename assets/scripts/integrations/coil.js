@@ -21,6 +21,16 @@ export function initCoil () {
             duration: Infinity
           })
         )
+        window.localStorage.setItem('wm-sign-in-notification', 'true')
+      } else {
+        if (window.localStorage.getItem('wm-sign-in-notification') === 'true') {
+          store.dispatch(
+            addToast({
+              component: 'TOAST_WEB_MONETIZATION_SUCCESS'
+            })
+          )
+          window.localStorage.removeItem('wm-sign-in-notification')
+        }
       }
     })
     document.monetization.addEventListener('monetizationstop', (event) => {
