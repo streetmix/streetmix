@@ -19,36 +19,38 @@
 .toast-content {
   position: relative;
   display: inline-block; // Variable width toast
-  max-width: 300px;
+  max-width: 330px;
   min-width: 200px;
-  padding: 0.75em 1em;
-  padding-right: 40px; // Space for close button
+  padding: 1em 1.25em;
   font-size: 13px;
   border-top: $alert-border;
   background-color: $alert-background;
-
-  [dir="rtl"] & {
-    padding-left: 40px; // Space for close button
-    padding-right: 1em;
-  }
 
   // Restore line-height after being unset by parent element
   line-height: 1.4;
 }
 
-.toast p {
-  margin: 0;
+.toast-body {
+  padding-right: 20px; // Space for close button
+
+  [dir="rtl"] & {
+    padding-left: 20px; // Space for close button
+    padding-right: 0;
+  }
 }
 
-.toast-action {
+.toast-message {
+  margin-top: 0;
+}
+
+.toast-action button {
   display: block;
   border: 1px solid $colour-copper-400;
   border-radius: $border-radius-medium;
   padding: 0.25em 0.5em;
   margin: 0;
-  margin-top: 0.75em;
-  margin-bottom: 0.25em;
   width: 100%;
+  min-height: 32px;
   font-weight: bold;
   background-color: transparent;
   color: $colour-copper-600;
@@ -112,7 +114,7 @@ $close-icon-colour-hover: $colour-copper-600;
     }
   }
 
-  .toast-action {
+  .toast-action button {
     color: $colour-emerald-600;
     border-color: $colour-emerald-500;
 
@@ -140,7 +142,7 @@ $close-icon-colour-hover: $colour-copper-600;
     }
   }
 
-  .toast-action {
+  .toast-action button {
     color: #c10000;
     border-color: #c10000;
 

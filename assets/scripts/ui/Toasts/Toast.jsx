@@ -13,28 +13,41 @@ Toast.propTypes = {
   setRef: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleAction: PropTypes.func,
+  className: PropTypes.string,
   children: PropTypes.node
 }
 
 function Toast (props) {
-  const { item, setRef, handleClose, handleAction = () => {}, children } = props
+  const {
+    item,
+    setRef,
+    handleClose,
+    handleAction = () => {},
+    className,
+    children
+  } = props
   const { mode, title, message, action } = item
 
   const classNames = ['toast']
   if (mode) {
     classNames.push('toast-' + mode)
   }
+  if (className) {
+    classNames.push(className)
+  }
 
   return (
     <div className={classNames.join(' ')} ref={setRef}>
       <div className="toast-content">
         <CloseButton onClick={handleClose} />
-        {title && <h3>{title}</h3>}
-        <p>{children || message}</p>
+        <div className="toast-body">
+          {title && <h3>{title}</h3>}
+          {children || <p className="toast-message">{message}</p>}
+        </div>
         {action && (
-          <button className="toast-action" onClick={handleAction}>
-            {action}
-          </button>
+          <div className="toast-action">
+            <button onClick={handleAction}>{action}</button>
+          </div>
         )}
       </div>
     </div>
