@@ -4,7 +4,8 @@
   position: absolute;
   top: 40px;
   right: 30px;
-  width: 300px;
+  min-width: 300px;
+  max-width: 330px;
   z-index: $z-07-toasts;
 
   // Align all toasts to right edge

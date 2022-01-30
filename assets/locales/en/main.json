@@ -416,6 +416,10 @@
     "prompt": {
       "text": "This feature is only available to Streetmix+ users.",
       "action": "Upgrade to unlock"
+    },
+    "web-monetization": {
+      "thanks": "Thanks for your support!",
+      "not-signed-in": "Your browser is sending Web Monetization payments. Sign in now to access your Streetmix+ benefits! <a>Learn more</a>."
     }
   },
   "sentiment": {

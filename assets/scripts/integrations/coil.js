@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 import store from '../store'
+import { addToast } from '../store/slices/toasts'
 import { setCoilPluginSubscriber } from '../store/slices/user'
 
 export function initCoil () {
@@ -11,6 +12,16 @@ export function initCoil () {
     document.monetization.addEventListener('monetizationstart', (event) => {
       console.log('monetization start!', event.detail)
       store.dispatch(setCoilPluginSubscriber(true))
+
+      const signedIn = store.getState().user.signedIn
+      if (!signedIn) {
+        store.dispatch(
+          addToast({
+            component: 'TOAST_WEB_MONETIZATION',
+            duration: Infinity
+          })
+        )
+      }
     })
     document.monetization.addEventListener('monetizationstop', (event) => {
       console.log('monetization stop!', event.detail)

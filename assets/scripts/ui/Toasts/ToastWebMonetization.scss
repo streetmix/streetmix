@@ -1,0 +1,34 @@
+@import "../../../styles/variables";
+
+.toast-web-monetization {
+  img.wm-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.75em;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 0.75em;
+    }
+  }
+
+  a,
+  a:visited {
+    color: $colour-emerald-600;
+  }
+
+  a:hover,
+  a:active {
+    color: $colour-emerald-500;
+  }
+}
+
+.toast-icon-header {
+  display: flex;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    line-height: 1.2;
+  }
+}
