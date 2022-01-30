@@ -1,0 +1,22 @@
+@import "../../styles/variables";
+
+.menu-bar .menu-upgrade {
+  margin-left: 0.75em;
+  margin-right: 0;
+  padding: 0.5em 1em;
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 0.75em;
+  }
+
+  .menu-avatar-subscriber {
+    margin-left: 0;
+    margin-right: 0.25em;
+
+    [dir="rtl"] & {
+      margin-left: 0.75em;
+      margin-right: 0;
+    }
+  }
+}

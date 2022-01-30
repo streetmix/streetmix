@@ -30,7 +30,7 @@ describe('AvatarMenu', () => {
       roles: ['SUBSCRIBER_1']
     }
     render(<AvatarMenu user={user} isSubscriber={true} />)
-    expect(screen.queryByTitle('Streetmix+ subscriber')).toBeInTheDocument()
+    expect(screen.queryByTitle('Streetmix+ member')).toBeInTheDocument()
   })
 
   it('calls click handler', () => {

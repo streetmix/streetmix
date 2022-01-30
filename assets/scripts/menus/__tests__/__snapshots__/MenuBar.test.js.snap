@@ -34,24 +34,16 @@ exports[`MenuBar renders 1`] = `
           Contact
         </button>
       </li>
-      <li>
-        <a
-          href="https://opencollective.com/streetmix/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Donate
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-        </a>
-      </li>
+      <button
+        class="menu-upgrade button-tertiary"
+      >
+        <img
+          alt="Streetmix+"
+          class="menu-avatar-badge menu-avatar-subscriber"
+          src="test-file-stub"
+        />
+        Get Streetmix+‎
+      </button>
     </ul>
     <ul
       class="menu-bar-right"
@@ -124,24 +116,16 @@ exports[`MenuBar renders logged in user 1`] = `
           Contact
         </button>
       </li>
-      <li>
-        <a
-          href="https://opencollective.com/streetmix/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Donate
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-        </a>
-      </li>
+      <button
+        class="menu-upgrade button-tertiary"
+      >
+        <img
+          alt="Streetmix+"
+          class="menu-avatar-badge menu-avatar-subscriber"
+          src="test-file-stub"
+        />
+        Get Streetmix+‎
+      </button>
     </ul>
     <ul
       class="menu-bar-right"
@@ -288,22 +272,16 @@ exports[`MenuBar renders upgrade funnel and handles click 1`] = `
           Contact
         </button>
       </li>
-      <li>
-        <a
-          href="#"
-        >
-          Upgrade
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-        </a>
-      </li>
+      <button
+        class="menu-upgrade button-tertiary"
+      >
+        <img
+          alt="Streetmix+"
+          class="menu-avatar-badge menu-avatar-subscriber"
+          src="test-file-stub"
+        />
+        Get Streetmix+‎
+      </button>
     </ul>
     <ul
       class="menu-bar-right"

@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
+// import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { doSignIn } from '../users/authentication'
-import { showDialog } from '../store/slices/dialogs'
+// import { showDialog } from '../store/slices/dialogs'
 import logo from '../../images/logo_horizontal.svg'
 import EnvironmentBadge from './EnvironmentBadge'
 import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
+import UpgradeButton from './UpgradeButton'
 import AvatarMenu from './AvatarMenu'
 import './MenuBar.scss'
 
@@ -16,12 +18,11 @@ MenuBar.propTypes = {
 
 function MenuBar (props) {
   const user = useSelector((state) => state.user.signInData?.details || null)
-  const isSubscriber = useSelector((state) => state.user.isSubscriber)
-  const offline = useSelector((state) => state.system.offline)
-  const upgradeFunnel = useSelector(
-    (state) => state.flags.BUSINESS_PLAN.value || false
+  const isSubscriber = useSelector(
+    (state) => state.user.signedIn && state.user.isSubscriber
   )
-  const dispatch = useDispatch()
+  const offline = useSelector((state) => state.system.offline)
+  // const dispatch = useDispatch()
   const menuBarRightEl = useRef(null)
 
   useEffect(() => {
@@ -54,8 +55,11 @@ function MenuBar (props) {
   }
 
   function handleClickUpgrade (event) {
-    event.preventDefault()
-    dispatch(showDialog('UPGRADE'))
+    // dispatch(showDialog('UPGRADE'))
+    window.open(
+      'https://docs.streetmix.net/user-guide/streetmix-plus',
+      '_blank'
+    )
   }
 
   function handleWindowResize () {
@@ -108,27 +112,25 @@ function MenuBar (props) {
               translation="menu.item.contact"
               onClick={handleClickMenuButton('contact')}
             />
-            {upgradeFunnel
-              ? (
-                <MenuBarItem
-                  url="#"
-                  label="Upgrade"
-                  translation="menu.upgrade"
-                  onClick={handleClickUpgrade}
-                />
-                )
-              : (
-                <MenuBarItem
-                  label="Donate"
-                  translation="menu.contribute.donate"
-                  url="https://opencollective.com/streetmix/"
-                />
-                )}
+            {!isSubscriber && <UpgradeButton onClick={handleClickUpgrade} />}
+            {isSubscriber && (
+              // just wanted something back on the menu when subscribed
+              <MenuBarItem
+                label="Store"
+                translation="menu.item.store"
+                url="https://cottonbureau.com/people/streetmix"
+              />
+            )}
+            {/* <MenuBarItem
+              label="Donate"
+              translation="menu.contribute.donate"
+              url="https://opencollective.com/streetmix/"
+            />
             <MenuBarItem
               label="Store"
               translation="menu.item.store"
               url="https://cottonbureau.com/people/streetmix"
-            />
+            /> */}
           </>
         )}
       </ul>

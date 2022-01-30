@@ -13,7 +13,8 @@
       "settings": "Settings",
       "share": "Share",
       "store": "Store",
-      "upgrade": "Upgrade"
+      "upgrade": "Upgrade",
+      "streetmix-plus": "Get Streetmix+"
     },
     "help": {
       "keyboard-label": "Keyboard shortcuts:",
@@ -385,7 +386,7 @@
     "byline": "by {user}",
     "roles": {
       "admin": "Admin",
-      "subscriber": "Streetmix+ subscriber"
+      "subscriber": "Streetmix+ member"
     }
   },
   "export": {
