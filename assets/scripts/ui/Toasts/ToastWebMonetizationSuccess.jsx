@@ -19,7 +19,10 @@ function ToastWebMonetizationSuccess (props) {
   const intl = useIntl()
 
   function handleAction (event) {
-    window.open('https://docs.streetmix.net/user-guide/', '_blank')
+    window.open(
+      'https://docs.streetmix.net/user-guide/streetmix-plus',
+      '_blank'
+    )
     handleClose(event)
   }
 
