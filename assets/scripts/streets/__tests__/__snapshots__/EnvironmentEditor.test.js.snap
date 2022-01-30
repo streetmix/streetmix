@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EnvironmentEditor renders for subscribers 1`] = `
+exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
 <DocumentFragment>
   <div
     class="environment-editor environment-editor-container-outer react-draggable"
