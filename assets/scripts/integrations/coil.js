@@ -26,7 +26,8 @@ export function initCoil () {
         if (window.localStorage.getItem('wm-sign-in-notification') === 'true') {
           store.dispatch(
             addToast({
-              component: 'TOAST_WEB_MONETIZATION_SUCCESS'
+              component: 'TOAST_WEB_MONETIZATION_SUCCESS',
+              duration: 10000
             })
           )
           window.localStorage.removeItem('wm-sign-in-notification')

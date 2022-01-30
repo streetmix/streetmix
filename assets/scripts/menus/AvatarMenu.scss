@@ -1,6 +1,11 @@
 .menu-avatar-badge {
   margin-left: 0.35em;
   vertical-align: -0.175em; /* Tweak to balance alignment with username */
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 0.35em;
+  }
 }
 
 .menu-avatar-admin {

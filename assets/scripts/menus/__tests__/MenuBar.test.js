@@ -43,18 +43,11 @@ describe('MenuBar', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('renders upgrade funnel and handles click', () => {
-    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />, {
-      initialState: {
-        flags: {
-          BUSINESS_PLAN: {
-            value: true
-          }
-        }
-      }
-    })
+  // Skipping because the dialog is disabled for now
+  it.skip('renders upgrade funnel and handles click', () => {
+    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />)
     expect(asFragment()).toMatchSnapshot()
-    userEvent.click(screen.getByText('Upgrade'))
+    userEvent.click(screen.getByText('Get Streetmix+', { exact: false }))
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('UPGRADE')

@@ -33,7 +33,7 @@ function AvatarMenu (props) {
     isSubscriber &&
     formatMessage({
       id: 'users.roles.subscriber',
-      defaultMessage: 'Streetmix+ subscriber'
+      defaultMessage: 'Streetmix+ member'
     })
 
   return (

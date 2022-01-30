@@ -133,10 +133,6 @@
     "label": "Always display the What’s New dialog",
     "defaultValue": false
   },
-  "BUSINESS_PLAN": {
-    "label": "Activate purchasing funnel",
-    "defaultValue": false
-  },
   "SILLY_CLOWNS": {
     "label": "Silly clowns",
     "defaultValue": false
