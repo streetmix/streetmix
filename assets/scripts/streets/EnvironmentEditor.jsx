@@ -24,9 +24,6 @@ function EnvironmentEditor (props) {
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
-  // Temporarily disabled.
-  const isEnabled = false
-
   function handleClose (event) {
     dispatch(toggleToolbox())
   }
@@ -90,39 +87,32 @@ function EnvironmentEditor (props) {
                     handleSelect={handleSelect}
                   />
                 </IntlProvider>
-                {!isSubscriber && (
+
+                {/* If users are not signed in, they must sign in first
+                    If they're signed in, and are not a subscriber, show
+                    the upgrade button */}
+                {(!signedIn || (signedIn && !isSubscriber)) && (
                   <div className="environment-upgrade-box">
                     <FormattedMessage
                       id="plus.prompt.text"
                       defaultMessage="This feature is only available to Streetmix+ users.&lrm;"
                     />
-                    <button disabled={true}>
-                      <FormattedMessage
-                        id="plus.locked.soon"
-                        defaultMessage="Coming soon!&lrm;"
-                      />
-                    </button>
-                    {/* If users are not signed in, they must sign in first
-                        If they're signed in, and are not a subscriber, show
-                        the upgrade button */}
-                    {isEnabled &&
-                      (signedIn
-                        ? (
-                          <button onClick={handleClickUpgrade}>
-                            <FormattedMessage
-                              id="plus.prompt.action"
-                              defaultMessage="Upgrade to unlock"
-                            />
-                          </button>
-                          )
-                        : (
-                          <button onClick={handleClickSignIn}>
-                            <FormattedMessage
-                              id="menu.item.sign-in"
-                              defaultMessage="Sign in"
-                            />
-                          </button>
-                          ))}
+                    {!signedIn && (
+                      <button onClick={handleClickSignIn}>
+                        <FormattedMessage
+                          id="menu.item.sign-in"
+                          defaultMessage="Sign in"
+                        />
+                      </button>
+                    )}
+                    {signedIn && !isSubscriber && (
+                      <button onClick={handleClickUpgrade}>
+                        <FormattedMessage
+                          id="plus.prompt.action"
+                          defaultMessage="Upgrade to unlock"
+                        />
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
