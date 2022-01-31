@@ -30,11 +30,11 @@ Our preferred method for signing up for Streetmix+ is through [Coil](https://coi
 
 1. **[Sign up or log in to an existing account through Coil](https://coil.com/).** A Coil membership is only $5 / month.
 2. **Install the Coil Browser Extension.** It works for all major browsers!
-3. **Enjoy Streetmix+!** You'll get all the features listed above.
+3. **Enjoy Streetmix+!** Make sure you're signed your Streetmix user account while the extension is active, and you'll get all the features listed above.
 
 ### OpenCollective
 
-We're looking into a way to automatically link Streetmix+ membership to [OpenCollective](https://opencollective.com/streetmix) contributors. If you are a past or current OpenCollective contributor, and are interested in opting in to Streetmix+, please reach out to us at hello@streetmix.net.
+We're looking into a way to automatically link Streetmix+ membership to [OpenCollective](https://opencollective.com/streetmix) contributors. If you are a past or current OpenCollective contributor at $5 / month or above, you can manually opt into Streetmix+ by reaching out to us at hello@streetmix.net. Please let us know the Streetmix account username you would like to associate with a Streetmix+ membership.
 
 ## Confirming your membership
 
