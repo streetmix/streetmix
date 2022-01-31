@@ -5,13 +5,10 @@
     "value": "USER",
     "flags": {
       "ANALYTICS": true,
-      "SEGMENT_AV": true,
       "SEGMENT_BRT": true,
       "SEGMENT_CAFE_SEATING": true,
       "SEGMENT_CONSTRUCTION": true,
-      "SEGMENT_KRZ": true,
       "SEGMENT_MAGIC_CARPET": true,
-      "SEGMENT_PED_LANES": true,
       "SEGMENT_UTILITIES": true
     }
   },
@@ -28,10 +25,7 @@
     "text": "Beta tester",
     "value": "BETA_TESTER",
     "flags": {
-      "LOCALES_LEVEL_1": true,
-      "SEGMENT_AV_SHUTTLE": true,
-      "SEGMENT_DOUBLE_DECKER_BUS": true,
-      "SEGMENT_MICROVAN": true
+      "LOCALES_LEVEL_1": true
     }
   },
   "TRANSLATOR": {
@@ -47,9 +41,6 @@
     "text": "Subscriber tier 1",
     "value": "SUBSCRIBER_1",
     "flags": {
-      "SEGMENT_AV_SHUTTLE": true,
-      "SEGMENT_DOUBLE_DECKER_BUS": true,
-      "SEGMENT_MICROVAN": true,
       "SAVE_AS_IMAGE_CUSTOM_DPI": true
     }
   },
