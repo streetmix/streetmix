@@ -47,7 +47,8 @@ const userSlice = createSlice({
     setCoilPluginSubscriber (state, action) {
       state.isCoilPluginSubscriber = action.payload
 
-      if (action.payload === true) {
+      // Also set `isSubscriber` if the user is signed in.
+      if (action.payload === true && state.signedIn === true) {
         state.isSubscriber = true
       } else {
         // Unset isSubscriber only if the user doesn't have the role elsewhere
