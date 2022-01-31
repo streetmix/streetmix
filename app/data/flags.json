@@ -125,10 +125,6 @@
     "label": "Save images at custom DPI",
     "defaultValue": false
   },
-  "EXPORT_WATERMARK": {
-    "label": "Allow exporting images without watermark",
-    "defaultValue": false
-  },
   "ALWAYS_DISPLAY_WHATS_NEW": {
     "label": "Always display the What’s New dialog",
     "defaultValue": false

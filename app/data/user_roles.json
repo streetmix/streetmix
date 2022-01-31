@@ -54,8 +54,7 @@
       "SEGMENT_DOUBLE_DECKER_BUS": true,
       "SEGMENT_MICROVAN": true,
       "CUSTOM_SEGMENT_LABELS": true,
-      "SAVE_AS_IMAGE_CUSTOM_DPI": true,
-      "EXPORT_WATERMARK": true
+      "SAVE_AS_IMAGE_CUSTOM_DPI": true
     }
   },
   "SUBSCRIBER_2": {
