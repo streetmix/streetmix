@@ -27,10 +27,6 @@
     "label": "Survey sentiment",
     "defaultValue": true
   },
-  "ENVIRONMENT_EDITOR": {
-    "label": "Environment editor",
-    "defaultValue": true
-  },
   "ENVIRONMENT_ANIMATIONS": {
     "label": "Environment animations",
     "defaultValue": false
@@ -115,10 +111,6 @@
   },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
-    "defaultValue": false
-  },
-  "CUSTOM_SEGMENT_LABELS": {
-    "label": "Custom segment labels",
     "defaultValue": false
   },
   "SAVE_AS_IMAGE_CUSTOM_DPI": {

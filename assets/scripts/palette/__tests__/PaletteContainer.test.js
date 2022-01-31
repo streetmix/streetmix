@@ -23,10 +23,7 @@ describe('PaletteContainer', () => {
         app: {
           everythingLoaded: true
         },
-        // Assume the environment editor is enabled. This will render
-        // the <EnvironmentEditor /> button for test coverage.
         flags: {
-          ENVIRONMENT_EDITOR: { value: true },
           DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false } // for SegmentForPalette
         }
       }
