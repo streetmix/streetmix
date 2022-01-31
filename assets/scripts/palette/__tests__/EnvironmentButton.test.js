@@ -16,13 +16,7 @@ jest.mock('../../store/slices/ui', () => ({
 // component. This test only covers interactions on this component.
 describe('EnvironmentButton', () => {
   it('handles click action', () => {
-    render(<EnvironmentButton />, {
-      initialState: {
-        flags: {
-          ENVIRONMENT_EDITOR: { value: true }
-        }
-      }
-    })
+    render(<EnvironmentButton />)
 
     // Click the tools button
     userEvent.click(screen.getByTitle('Environment editor'))
