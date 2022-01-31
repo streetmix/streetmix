@@ -32,6 +32,16 @@ function ToastWebMonetization (props) {
     }
   }, [signedIn, handleClose])
 
+  // Monetization can stop in certain cases, such as when a user switches
+  // to another tab. In that event, close the toast.
+  useEffect(() => {
+    document.monetization.addEventListener('monetizationstop', handleClose)
+
+    return () => {
+      document.monetization.removeEventListener('monetizationstop', handleClose)
+    }
+  })
+
   function handleAction (event) {
     doSignIn()
     handleClose(event)

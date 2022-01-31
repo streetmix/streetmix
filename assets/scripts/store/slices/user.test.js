@@ -155,10 +155,32 @@ describe('user reducer', () => {
     })
   })
 
-  it('should handle setCoilPluginSubscriber()', () => {
+  it('should handle setCoilPluginSubscriber() for not-signed-in user', () => {
     expect(user(initialState, setCoilPluginSubscriber(true))).toEqual({
       signInData: null,
       signedIn: false,
+      isSubscriber: false,
+      isCoilPluginSubscriber: true,
+      geolocation: {
+        attempted: false,
+        data: null
+      },
+      profileCache: {}
+    })
+  })
+
+  it('should handle setCoilPluginSubscriber() for signed-in user', () => {
+    expect(
+      user(
+        {
+          ...initialState,
+          signedIn: true
+        },
+        setCoilPluginSubscriber(true)
+      )
+    ).toEqual({
+      signInData: null,
+      signedIn: true,
       isSubscriber: true,
       isCoilPluginSubscriber: true,
       geolocation: {
