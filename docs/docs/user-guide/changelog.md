@@ -5,6 +5,19 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## January 31, 2022
+
+### ✨ New features
+
+**Announcing Streetmix+, a [monthly membership subscription](https://docs.streetmix.net/user-guide/streetmix-plus) that supports us _and_ gets you access to new features.** Here's a quick summary of the new shinies that Streetmix+ members get:
+
+- **Rename street segments.** We get it: it's not a "drive lane," you want to call it an "obstacle course." But in all seriousness, a lot of people have different names for things in different parts of the world, and we could only have chosen one. Now you can choose another.
+- **Change environmental backgrounds.** Because science tells us the sky isn't really blue, that's why.
+- **Export images without watermark.** Some of you actually crop the watermark out when you publish an image from Streetmix. We see you. Our eyes are everywhere. Now you can do it with our permission.
+- **New segments:** double decker bus, microvan, and autonomous shuttles. Oh my.
+
+We'll have more to come, so head on over to [our documentation](https://docs.streetmix.net/user-guide/streetmix-plus) for more details and instructions for signing up.
+
 ## December 9, 2021
 
 ### ✨ New features

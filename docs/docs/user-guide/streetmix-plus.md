@@ -11,12 +11,13 @@ _Streetmix+ is currently in early beta._
 
 ## Features
 
-Streetmix+ members will Here's some of the features that are currently available to Streetmix+ members, with more to come!
+Here's some of the features that are currently available to Streetmix+ members, with more to come!
 
 - Rename street segments
-- Change background & environment
+- Change environmental backgrounds
 - Export images without watermark
 - New segments: double decker bus, microvan, and autonomous shuttles
+- Unlimited streets (Technically, everyone does have unlimited streets already, but this creates some data storage problems on our end, so we need to start setting caps. We'll do this in a fair way. Stay tuned for more.)
 - **Coming soon:** Export images at print-ready resolutions
 - **Coming soon:** Member-only Discord community
 
