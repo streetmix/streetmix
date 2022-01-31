@@ -9,8 +9,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ICON_LOCK } from '../ui/icons'
 import Checkbox from '../ui/Checkbox'
 import RangeSlider from '../ui/RangeSlider'
+import Tooltip from '../ui/Tooltip'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
 import { updateSettings } from '../store/slices/settings'
@@ -36,7 +39,7 @@ class SaveAsImageDialog extends React.Component {
     street: PropTypes.object.isRequired,
     name: PropTypes.string,
     allowCustomDpi: PropTypes.bool,
-    allowControlWatermark: PropTypes.bool,
+    isSubscriber: PropTypes.bool,
     updateSettings: PropTypes.func
   }
 
@@ -237,16 +240,44 @@ class SaveAsImageDialog extends React.Component {
                   />
                 </Checkbox>
 
-                <Checkbox
-                  onChange={this.handleChangeOptionWatermark}
-                  checked={this.props.watermark}
-                  disabled={!this.props.allowControlWatermark}
-                >
-                  <FormattedMessage
-                    id="dialogs.save.option-watermark"
-                    defaultMessage="Watermark"
-                  />
-                </Checkbox>
+                {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
+                {this.props.isSubscriber ? (
+                  <Checkbox
+                    onChange={this.handleChangeOptionWatermark}
+                    checked={this.props.watermark}
+                  >
+                    <FormattedMessage
+                      id="dialogs.save.option-watermark"
+                      defaultMessage="Watermark"
+                    />
+                  </Checkbox>
+                ) : (
+                  <Tooltip
+                    label={this.props.intl.formatMessage({
+                      id: 'plus.locked.sub',
+                      // Default message ends with a Unicode-only left-right order mark
+                      // to allow for proper punctuation in `rtl` text direction
+                      // This character is hidden from editors by default!
+                      defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+                    })}
+                  >
+                    {/* div shim for Tooltip child element */}
+                    <div className="checkbox-item">
+                      <Checkbox
+                        onChange={this.handleChangeOptionWatermark}
+                        checked={this.props.watermark}
+                        disabled={!this.props.isSubscriber}
+                      >
+                        <FormattedMessage
+                          id="dialogs.save.option-watermark"
+                          defaultMessage="Watermark"
+                        />
+                        &nbsp;
+                        <FontAwesomeIcon icon={ICON_LOCK} />
+                      </Checkbox>
+                    </div>
+                  </Tooltip>
+                )}
               </div>
               {this.props.allowCustomDpi && (
                 <div className="save-as-image-options">
@@ -335,14 +366,12 @@ function mapStateToProps (state) {
     transparentSky: state.settings.saveAsImageTransparentSky,
     segmentNames: state.settings.saveAsImageSegmentNamesAndWidths,
     streetName: state.settings.saveAsImageStreetName,
-    // Even if watermarks are off, override with flag value if EXPORT_WATERMARK is `false`.
-    watermark:
-      state.settings.saveAsImageWatermark ||
-      !state.flags.EXPORT_WATERMARK.value,
+    // Even if watermarks are off, override if user isn't subscribed
+    watermark: state.settings.saveAsImageWatermark || !state.user.isSubscriber,
     street: state.street,
     name: state.street.name,
     allowCustomDpi: state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value,
-    allowControlWatermark: state.flags.EXPORT_WATERMARK.value
+    isSubscriber: state.user.isSubscriber
   }
 }
 

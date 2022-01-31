@@ -88,21 +88,28 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
             <div
               class="checkbox-item"
             >
-              <input
-                checked=""
-                disabled=""
-                id="checkbox-id-4"
-                type="checkbox"
-                value=""
-              />
-              <label
-                for="checkbox-id-4"
+              <div
+                class="checkbox-item"
               >
-                Watermark
-              </label>
-              <svg
-                class="svg-inline--fa fa-check"
-              />
+                <input
+                  checked=""
+                  disabled=""
+                  id="checkbox-id-4"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  for="checkbox-id-4"
+                >
+                  Watermark 
+                  <svg
+                    class="svg-inline--fa fa-lock"
+                  />
+                </label>
+                <svg
+                  class="svg-inline--fa fa-check"
+                />
+              </div>
             </div>
           </div>
           <div

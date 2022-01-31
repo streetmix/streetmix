@@ -23,9 +23,11 @@ const initialState = {
   street: {
     name: 'foo'
   },
+  user: {
+    isSubscriber: false
+  },
   flags: {
-    SAVE_AS_IMAGE_CUSTOM_DPI: { value: false },
-    EXPORT_WATERMARK: { value: false }
+    SAVE_AS_IMAGE_CUSTOM_DPI: { value: false }
   }
 }
 

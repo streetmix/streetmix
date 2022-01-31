@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { doSignIn } from '../../users/authentication'
@@ -19,7 +20,17 @@ ToastWebMonetization.propTypes = {
 
 function ToastWebMonetization (props) {
   const { item, setRef, handleClose } = props
+  const signedIn = useSelector((state) => state.user.signedIn)
   const intl = useIntl()
+
+  // It's possible to encounter a race condition where a user's signed-in
+  // state becomes `true` after this toast has already displayed. If that
+  // happens, this automatically closes the toast.
+  useEffect(() => {
+    if (signedIn) {
+      handleClose()
+    }
+  }, [signedIn, handleClose])
 
   function handleAction (event) {
     doSignIn()
