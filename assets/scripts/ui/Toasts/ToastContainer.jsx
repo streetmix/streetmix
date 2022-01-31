@@ -121,7 +121,10 @@ function ToastContainer (props) {
         } = message
         const setRef = (ref) => ref && refMap.set(item, ref)
         const handleClose = (event) => {
-          event.stopPropagation()
+          // Not all instances of this function is called by an event handler
+          if (event) {
+            event.stopPropagation()
+          }
           cancelMap.has(item) && cancelMap.get(item)()
         }
 
