@@ -49,6 +49,8 @@ function Variants (props) {
     }
   })
   const flags = useSelector((state) => state.flags)
+  const isSignedIn = useSelector((state) => state.user.signedIn)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -126,47 +128,52 @@ function Variants (props) {
 
     if (!icon) return null
 
-    // Segments that are only enabled with a flag checks to see if flag
-    // is set to true. If not, we'll show in a disabled state.
-    // Note: This is currently different from palette items in that
-    // no variants are currently experimental and so all disabled
-    // variants will be visible to any user. We will need to update
-    // this code in the future.
-    let isLocked = false
+    // If a variant is disabled by feature flag, skip it
     if (icon.enableWithFlag) {
       const flag = flags[icon.enableWithFlag]
-      isLocked = !flag || !flag.value
+      if (!flag || !flag.value) return null
     }
 
     let title = intl.formatMessage({
       id: `variant-icons.${set}|${selection}`,
       defaultMessage: icon.title
     })
-    // Add a note to the tooltip when disabled
-    if (isLocked) {
+
+    let isLocked = false
+
+    // Add a note to the tooltip if for a particular disabled
+    if (icon.enableCondition) {
       let enableConditionText
       switch (icon.enableCondition) {
         case 'SUBSCRIBE':
-          enableConditionText = intl.formatMessage({
-            id: 'plus.locked.sub',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Upgrade to Streetmix+ to use!‎'
-          })
+          if (!isSubscriber) {
+            isLocked = true
+            enableConditionText = intl.formatMessage({
+              id: 'plus.locked.sub',
+              // Default message ends with a Unicode-only left-right order mark
+              // to allow for proper punctuation in `rtl` text direction
+              // This character is hidden from editors by default!
+              defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+            })
+          }
           break
         case 'SIGN_IN':
         default:
-          enableConditionText = intl.formatMessage({
-            id: 'plus.locked.user',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Sign in to use!‎'
-          })
+          if (!isSignedIn) {
+            isLocked = true
+            enableConditionText = intl.formatMessage({
+              id: 'plus.locked.user',
+              // Default message ends with a Unicode-only left-right order mark
+              // to allow for proper punctuation in `rtl` text direction
+              // This character is hidden from editors by default!
+              defaultMessage: 'Sign in to use!‎'
+            })
+          }
           break
       }
-      title += ' — ' + enableConditionText
+      if (enableConditionText) {
+        title += ' — ' + enableConditionText
+      }
     }
 
     const isSelected = isVariantCurrentlySelected(set, selection)

@@ -251,13 +251,11 @@
     "double-decker": {
       "id": "double-decker-bus",
       "title": "Double decker bus",
-      "enableWithFlag": "SEGMENT_DOUBLE_DECKER_BUS",
       "enableCondition": "SUBSCRIBE"
     },
     "av-shuttle": {
       "id": "av-shuttle",
       "title": "Autonomous shuttle",
-      "enableWithFlag": "SEGMENT_AV_SHUTTLE",
       "enableCondition": "SUBSCRIBE"
     }
   },
@@ -344,25 +342,21 @@
     "microvan": {
       "id": "microvan",
       "title": "Microvan",
-      "enableWithFlag": "SEGMENT_MICROVAN",
       "enableCondition": "SUBSCRIBE"
     },
     "av": {
       "id": "rideshare",
       "title": "Autonomous vehicle",
-      "enableWithFlag": "SEGMENT_AV",
       "enableCondition": "SIGN_IN"
     },
     "motorcycle-sidecar": {
       "id": "motorcycle-sidecar",
       "title": "Motorcycle with sidecar",
-      "enableWithFlag": "SEGMENT_KRZ",
       "enableCondition": "SIGN_IN"
     },
     "pedestrian": {
       "id": "sidewalk-density-normal",
       "title": "Pedestrian",
-      "enableWithFlag": "SEGMENT_PED_LANES",
       "enableCondition": "SIGN_IN"
     }
   },

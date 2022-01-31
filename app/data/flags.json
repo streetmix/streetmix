@@ -57,14 +57,6 @@
     "defaultValue": false,
     "enabled": false
   },
-  "SEGMENT_AV": {
-    "label": "Segment — autonomous vehicles",
-    "defaultValue": false
-  },
-  "SEGMENT_AV_SHUTTLE": {
-    "label": "Segment — autonomous shuttle",
-    "defaultValue": false
-  },
   "SEGMENT_BRT": {
     "label": "Segment — BRT",
     "defaultValue": false
@@ -85,20 +77,8 @@
     "label": "Segment — the train from “Inception”",
     "defaultValue": false
   },
-  "SEGMENT_KRZ": {
-    "label": "Segment — Junebug’s motorbike",
-    "defaultValue": false
-  },
   "SEGMENT_MAGIC_CARPET": {
     "label": "Segment — magic carpet",
-    "defaultValue": false
-  },
-  "SEGMENT_MICROVAN": {
-    "label": "Segment — microvans",
-    "defaultValue": false
-  },
-  "SEGMENT_PED_LANES": {
-    "label": "Segment — pedestrians in drive lanes",
     "defaultValue": false
   },
   "SEGMENT_SCOOTERS": {
