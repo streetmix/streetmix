@@ -68,6 +68,12 @@ exports[`BlockingError renders AUTH_EXPIRED 1`] = `
       >
         Sign in
       </button>
+       
+      <button
+        class="button-primary"
+      >
+        Return to Streetmix
+      </button>
     </div>
   </div>
 </DocumentFragment>

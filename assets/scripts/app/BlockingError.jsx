@@ -274,7 +274,13 @@ function BlockingError (props) {
           />
         </p>
       )
-      cta = signInButton
+      cta = (
+        <>
+          {signInButton}
+          &nbsp;
+          {homeButton}
+        </>
+      )
       break
     case ERRORS.STREET_DELETED_ELSEWHERE:
       title = (
