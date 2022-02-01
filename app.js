@@ -193,7 +193,7 @@ app.use((req, res, next) => {
 })
 
 // Set CSP directives
-// app.use(helmet.contentSecurityPolicy(csp))
+app.use(helmet.contentSecurityPolicy(csp))
 
 // Rewrite requests with timestamp
 app.use((req, res, next) => {
