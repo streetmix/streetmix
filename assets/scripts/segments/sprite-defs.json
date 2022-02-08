@@ -129,35 +129,29 @@
   },
   "lamps--lamp-modern-left": {
     "id": "lamps--lamp-modern-left",
-    "offsetX": -248
-  },
-  "lamps--lamp-modern-both": {
-    "id": "lamps--lamp-modern-both"
+    "offsetX": -315
   },
   "lamps--lamp-modern-right": {
     "id": "lamps--lamp-modern-right",
-    "offsetX": -248
+    "offsetX": -315
   },
   "lamps--lamp-traditional-right": {
     "id": "lamps--lamp-traditional-right",
-    "offsetX": -36
-  },
-  "lamps--lamp-traditional-center": {
-    "id": "lamps--lamp-traditional-center"
+    "offsetX": -45
   },
   "lamps--lamp-traditional-left": {
     "id": "lamps--lamp-traditional-left",
-    "offsetX": -36
+    "offsetX": -45
   },
   "lamps--pride-banner-right": {
     "id": "lamps--pride-banner-right",
-    "offsetX": -60,
-    "originY": -423
+    "offsetX": -75,
+    "originY": -540
   },
   "lamps--pride-banner-left": {
     "id": "lamps--pride-banner-left",
-    "offsetX": -60,
-    "originY": -423
+    "offsetX": -75,
+    "originY": -540
   },
   "missing": {
     "id": "missing"
