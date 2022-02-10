@@ -251,8 +251,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
 const GROUND_LEVEL_OFFSETY = {
   ASPHALT: 0,
-  CURB: 14,
-  RAISED_CURB: 74
+  CURB: 18,
+  RAISED_CURB: 94
 }
 
 /**
@@ -320,7 +320,7 @@ export function drawSegmentContents (
   const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
   const groundLevel =
     groundBaseline -
-    multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0)
+    multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)
 
   if (graphics.repeat && !drawSegmentOnly) {
     // Convert single string or object values to single-item array
