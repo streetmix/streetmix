@@ -2516,7 +2516,7 @@
           "vehicles": [
             {
               "id": "car",
-              "offsetX": 6,
+              "offsetX": -80,
               "variants": {
                 "direction|orientation": ["inbound", "left"]
               }
@@ -2542,6 +2542,7 @@
           "vehicles": [
             {
               "id": "car",
+              "offsetX": -80,
               "variants": {
                 "direction|orientation": ["inbound", "right"]
               }
@@ -2567,7 +2568,7 @@
           "vehicles": [
             {
               "id": "car",
-              "offsetX": 6,
+              "offsetX": -80,
               "variants": {
                 "direction|orientation": ["outbound", "left"]
               }
@@ -2593,6 +2594,7 @@
           "vehicles": [
             {
               "id": "car",
+              "offsetX": -80,
               "variants": {
                 "direction|orientation": ["outbound", "right"]
               }
