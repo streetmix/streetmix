@@ -145,13 +145,13 @@
   },
   "lamps--pride-banner-right": {
     "id": "lamps--pride-banner-right",
-    "offsetX": -75,
-    "originY": -540
+    "offsetX": -83,
+    "originY": -536
   },
   "lamps--pride-banner-left": {
     "id": "lamps--pride-banner-left",
-    "offsetX": -75,
-    "originY": -540
+    "offsetX": -83,
+    "originY": -536
   },
   "missing": {
     "id": "missing"
