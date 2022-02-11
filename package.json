@@ -95,7 +95,7 @@
     "@primer/octicons-react": "16.2.0",
     "@reduxjs/toolkit": "1.7.1",
     "@sentry/browser": "6.16.1",
-    "@streetmix/illustrations": "github:streetmix/illustrations#5135a59dbfb6d773fae8546039a6703b27598f36",
+    "@streetmix/illustrations": "github:streetmix/illustrations#15f9a3460f226ce3263edb82bc589c3434420600",
     "@tippyjs/react": "4.2.6",
     "auth0": "2.37.0",
     "auth0-js": "9.18.0",
