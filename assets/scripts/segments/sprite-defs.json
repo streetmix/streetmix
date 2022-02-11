@@ -1,131 +1,131 @@
 {
   "markings--straight-inbound-light": {
     "id": "markings--straight-inbound-light",
-    "originY": 96
+    "originY": 120
   },
   "markings--straight-outbound-light": {
     "id": "markings--straight-outbound-light",
-    "originY": 96
+    "originY": 120
   },
   "markings--straight-inbound": {
     "id": "markings--straight-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--straight-outbound": {
     "id": "markings--straight-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--left-inbound": {
     "id": "markings--left-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--left-outbound": {
     "id": "markings--left-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--left-straight-inbound": {
     "id": "markings--left-straight-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--left-straight-outbound": {
     "id": "markings--left-straight-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--right-inbound": {
     "id": "markings--right-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--right-outbound": {
     "id": "markings--right-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--right-straight-inbound": {
     "id": "markings--right-straight-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--right-straight-outbound": {
     "id": "markings--right-straight-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--both-inbound": {
     "id": "markings--both-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--both-outbound": {
     "id": "markings--both-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--left-right-straight-inbound": {
     "id": "markings--left-right-straight-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--left-right-straight-outbound": {
     "id": "markings--left-right-straight-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--shared-inbound": {
     "id": "markings--shared-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--shared-outbound": {
     "id": "markings--shared-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--sharrow-inbound": {
     "id": "markings--sharrow-inbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--sharrow-outbound": {
     "id": "markings--sharrow-outbound",
-    "originY": 96
+    "originY": 120
   },
   "markings--lane-left": {
     "id": "markings--lane-left",
-    "originY": 102
+    "originY": 120
   },
   "markings--lane-right": {
     "id": "markings--lane-right",
-    "originY": 102
+    "originY": 120
   },
   "markings--lane-left-half": {
     "id": "markings--lane-left-half",
-    "originY": 102
+    "originY": 120
   },
   "markings--lane-right-half": {
     "id": "markings--lane-right-half",
-    "originY": 102
+    "originY": 120
   },
   "markings--lane-horiz": {
     "id": "markings--lane-horiz",
-    "originY": 102
+    "originY": 120
   },
   "markings--center-lane-left": {
     "id": "markings--center-lane-left",
-    "originY": 102
+    "originY": 120
   },
   "markings--center-lane-right": {
     "id": "markings--center-lane-right",
-    "originY": 102
+    "originY": 120
   },
   "markings--parking-left": {
     "id": "markings--parking-left",
-    "originY": 96
+    "originY": 120
   },
   "markings--parking-right": {
     "id": "markings--parking-right",
-    "originY": 96
+    "originY": 120
   },
   "markings--streetcar-track-01": {
     "id": "markings--streetcar-track-01",
-    "originY": 96
+    "originY": 120
   },
   "markings--streetcar-track-02": {
     "id": "markings--streetcar-track-02",
-    "originY": 96
+    "originY": 120
   },
   "markings--stripes-diagonal": {
     "id": "markings--stripes-diagonal",
-    "originY": 113
+    "originY": 120
   },
   "lamps--lamp-modern-left": {
     "id": "lamps--lamp-modern-left",
