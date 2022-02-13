@@ -85,9 +85,9 @@ export const BUILDINGS = {
     hasFloors: true,
     variantsCount: 1,
     floorHeight: 10,
-    roofHeight: 2,
+    roofHeight: 2.2, // fudge factor from converting to metric
     mainFloorHeight: 14,
-    overhangWidth: 16
+    overhangWidth: 17
   },
   wide: {
     id: 'wide',
@@ -96,9 +96,9 @@ export const BUILDINGS = {
     hasFloors: true,
     variantsCount: 1,
     floorHeight: 10,
-    roofHeight: 2,
+    roofHeight: 2.2, // fudge factor from converting to metric
     mainFloorHeight: 14,
-    overhangWidth: 20
+    overhangWidth: 22
   },
   arcade: {
     id: 'arcade',
@@ -109,7 +109,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 6,
     mainFloorHeight: 14,
-    overhangWidth: 13
+    overhangWidth: 15
   }
 }
 
