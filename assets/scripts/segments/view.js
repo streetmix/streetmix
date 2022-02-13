@@ -396,9 +396,7 @@ export function drawSegmentContents (
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          // The +1 at the end helps with rounding issues so that ground
-          // textures should always meet seamlessly with the next segment
-          width = drawWidth - (count - 1) * width + 1
+          width = drawWidth - (count - 1) * width
         }
 
         // If the sprite being rendered is the ground, dy is equal to the
