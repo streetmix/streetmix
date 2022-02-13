@@ -85,7 +85,7 @@ export const BUILDINGS = {
     hasFloors: true,
     variantsCount: 1,
     floorHeight: 10,
-    roofHeight: 2.2, // fudge factor from converting to metric
+    roofHeight: 2,
     mainFloorHeight: 14,
     overhangWidth: 17
   },
@@ -96,7 +96,7 @@ export const BUILDINGS = {
     hasFloors: true,
     variantsCount: 1,
     floorHeight: 10,
-    roofHeight: 2.2, // fudge factor from converting to metric
+    roofHeight: 2,
     mainFloorHeight: 14,
     overhangWidth: 22
   },
@@ -334,7 +334,13 @@ export function drawBuilding (
       spriteId,
       ctx,
       0,
-      0,
+      height -
+        building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL -
+        building.floorHeight *
+          TILE_SIZE *
+          building.variantsCount *
+          TILESET_POINT_PER_PIXEL -
+        building.roofHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL,
       undefined,
       building.roofHeight * TILE_SIZE,
       offsetLeft + leftPosShift * multiplier,
