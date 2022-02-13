@@ -1001,7 +1001,7 @@
         "graphics": {
           "left": {
             "id": "vehicles--car-inbound",
-            "offsetX": 6
+            "offsetX": -80
           },
           "repeat": "ground--asphalt",
           "right": "markings--parking-left"
@@ -1012,7 +1012,10 @@
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
-          "right": "vehicles--car-inbound",
+          "right": {
+            "id": "vehicles--car-inbound",
+            "offsetX": -80
+          },
           "repeat": "ground--asphalt",
           "left": "markings--parking-right"
         }
@@ -1024,7 +1027,7 @@
         "graphics": {
           "left": {
             "id": "vehicles--car-outbound",
-            "offsetX": 6
+            "offsetX": -80
           },
           "repeat": "ground--asphalt",
           "right": "markings--parking-left"
@@ -1035,7 +1038,10 @@
         "minWidth": 7,
         "maxWidth": 10,
         "graphics": {
-          "right": "vehicles--car-outbound",
+          "right": {
+            "id": "vehicles--car-outbound",
+            "offsetX": -80
+          },
           "repeat": "ground--asphalt",
           "left": "markings--parking-right"
         }

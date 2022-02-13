@@ -101,8 +101,9 @@ export function drawSegmentImage (
       Math.round(sh),
       Math.round(dx),
       Math.round(dy),
-      Math.round(dw),
-      Math.round(dh)
+      // destination sprites round up to prevent gaps in tiled sprites
+      Math.ceil(dw),
+      Math.ceil(dh)
     )
   } catch (err) {
     // IE11 has some issues drawing SVG images soon after loading.
@@ -119,8 +120,8 @@ export function drawSegmentImage (
         Math.round(sh),
         Math.round(dx),
         Math.round(dy),
-        Math.round(dw),
-        Math.round(dh)
+        Math.ceil(dw),
+        Math.ceil(dh)
       )
     }, 2000)
   }
@@ -251,8 +252,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
 const GROUND_LEVEL_OFFSETY = {
   ASPHALT: 0,
-  CURB: 14,
-  RAISED_CURB: 74
+  CURB: 18,
+  RAISED_CURB: 94
 }
 
 /**
@@ -320,7 +321,7 @@ export function drawSegmentContents (
   const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
   const groundLevel =
     groundBaseline -
-    multiplier * TILE_SIZE * (groundLevelOffset / TILE_SIZE_ACTUAL || 0)
+    multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)
 
   if (graphics.repeat && !drawSegmentOnly) {
     // Convert single string or object values to single-item array
@@ -395,12 +396,14 @@ export function drawSegmentContents (
       for (let i = 0; i < count; i++) {
         // remainder
         if (i === count - 1) {
-          width = drawWidth - (count - 1) * width
+          // The +1 at the end helps with rounding issues so that ground
+          // textures should always meet seamlessly with the next segment
+          width = drawWidth - (count - 1) * width + 1
         }
 
         // If the sprite being rendered is the ground, dy is equal to the
         // groundLevel. If not, dy is equal to the groundLevel minus the
-        //  distance the sprite will be from the ground.
+        // distance the sprite will be from the ground.
         drawSegmentImage(
           sprite.id,
           ctx,

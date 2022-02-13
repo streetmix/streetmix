@@ -1,7 +1,7 @@
 // Originally, our images were drawn at 2x for Retina display.
 // As we've moved to vector images, "2x" is meaningless, but the intrinsic
 // height/width dimensions have not changed.
-export const TILESET_POINT_PER_PIXEL = 2.0
+export const TILESET_POINT_PER_PIXEL = 2.0 * 1.27
 export const TILE_SIZE = 12 // pixels
 export const TILE_SIZE_ACTUAL = TILE_SIZE * TILESET_POINT_PER_PIXEL // pixels
 

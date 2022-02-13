@@ -87,7 +87,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 2,
     mainFloorHeight: 14,
-    overhangWidth: 16
+    overhangWidth: 17
   },
   wide: {
     id: 'wide',
@@ -98,7 +98,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 2,
     mainFloorHeight: 14,
-    overhangWidth: 20
+    overhangWidth: 22
   },
   arcade: {
     id: 'arcade',
@@ -109,7 +109,7 @@ export const BUILDINGS = {
     floorHeight: 10,
     roofHeight: 6,
     mainFloorHeight: 14,
-    overhangWidth: 13
+    overhangWidth: 15
   }
 }
 
@@ -334,7 +334,13 @@ export function drawBuilding (
       spriteId,
       ctx,
       0,
-      0,
+      height -
+        building.mainFloorHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL -
+        building.floorHeight *
+          TILE_SIZE *
+          building.variantsCount *
+          TILESET_POINT_PER_PIXEL -
+        building.roofHeight * TILE_SIZE * TILESET_POINT_PER_PIXEL,
       undefined,
       building.roofHeight * TILE_SIZE,
       offsetLeft + leftPosShift * multiplier,

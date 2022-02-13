@@ -488,7 +488,7 @@
             "graphics": {
               "center": {
                 "id": "lamps--pride-banner-left",
-                "offsetX": 36
+                "offsetX": 49
               }
             }
           }
@@ -1355,7 +1355,7 @@
             "graphics": {
               "center": {
                 "id": "vehicles--magic-carpet-aladdin",
-                "originY": -256
+                "originY": -325
               }
             }
           },
@@ -1363,7 +1363,7 @@
             "graphics": {
               "center": {
                 "id": "vehicles--magic-carpet-jasmine",
-                "originY": -256
+                "originY": -325
               }
             }
           },
@@ -1371,7 +1371,7 @@
             "graphics": {
               "center": {
                 "id": "vehicles--magic-carpet-aladdin-jasmine",
-                "originY": -256
+                "originY": -325
               }
             }
           },
@@ -1379,7 +1379,7 @@
             "graphics": {
               "center": {
                 "id": "vehicles--magic-carpet-jasmine-aladdin",
-                "originY": -256
+                "originY": -325
               }
             }
           }
