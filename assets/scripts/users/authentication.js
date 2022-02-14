@@ -76,6 +76,24 @@ function removeSignInCookies () {
   Cookies.remove(USER_ID_COOKIE)
 }
 
+/**
+ * Displays a toast notification when a user has been signed
+ * out automatically due to expired or invalid credentials.
+ */
+function showSignedOutNotification () {
+  console.log('what')
+  store.dispatch(
+    addToast({
+      message: formatMessage(
+        'error.auth-expired',
+        'We automatically signed you out due to inactivity. Please sign in again.'
+      ),
+      component: 'TOAST_SIGN_IN',
+      duration: Infinity
+    })
+  )
+}
+
 export async function loadSignIn () {
   const signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   const refreshCookie = Cookies.get(REFRESH_TOKEN_COOKIE)
@@ -94,9 +112,11 @@ export async function loadSignIn () {
   } else if (window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
     // old login data is in localstorage but we don't have the cookies we need
     clearAllClientSignInData()
+    // showSignedOutNotification()
     setMode(MODES.AUTH_EXPIRED)
-    processMode()
-    return true
+    // processMode()
+
+    return
   }
 
   const signInData = getSignInData()
@@ -114,9 +134,9 @@ export async function loadSignIn () {
   } catch (error) {
     Sentry.captureMessage('Error parsing jwt token ', signInData?.token)
     clearAllClientSignInData()
+    // showSignedOutNotification()
     setMode(MODES.AUTH_EXPIRED)
-    processMode()
-    return true
+    return
   }
 
   const storage = JSON.parse(window.localStorage.getItem('flags'))
@@ -149,8 +169,6 @@ export async function loadSignIn () {
   applyFlagOverrides(store.getState().flags, ...flagOverrides, sessionOverrides)
 
   _signInLoaded()
-
-  return true
 }
 
 /**
@@ -242,17 +260,7 @@ function errorReceiveSignInDetails (data) {
     // TODO: Check to make sure that this is the correct place to display
     // this. Currently, this will display for all 401 errors, not just
     // when a valid user who was previously signed in has been signed out.
-    store.dispatch(
-      addToast({
-        message: formatMessage(
-          'error.auth-expired',
-          'We automatically signed you out due to inactivity. Please sign in again.'
-        ),
-        component: 'TOAST_SIGN_IN',
-        duration: Infinity
-      })
-    )
-
+    showSignedOutNotification()
     return
   } else if (data.status === 503) {
     showError(ERRORS.SIGN_IN_SERVER_FAILURE, true)
@@ -342,6 +350,7 @@ function _signInLoaded () {
       )
 
       if (mode === MODES.JUST_SIGNED_IN && !street.creatorId) {
+        console.log(street, street.creatorId)
         setPromoteStreet(true)
       }
 
@@ -367,6 +376,9 @@ function _signInLoaded () {
   mode = getMode()
 
   switch (mode) {
+    case MODES.AUTH_EXPIRED:
+      showSignedOutNotification()
+      break
     case MODES.EXISTING_STREET:
     case MODES.CONTINUE:
     case MODES.USER_GALLERY:
