@@ -13,7 +13,8 @@
       "settings": "Asetukset",
       "share": "Jaa",
       "store": "Kauppa",
-      "upgrade": "Päivitä"
+      "upgrade": "Päivitä",
+      "streetmix-plus": "Hanki Streetmix+"
     },
     "help": {
       "keyboard-label": "Pikanäppäimet:",
@@ -95,6 +96,7 @@
       "home": "Siirry aloitussivulle",
       "sign-in": "Kirjaudu sisään uudelleen",
       "reload": "Lataa sivu uudelleen",
+      "return": "Takaisin Streetmixiin",
       "try-again": "Yritä uudelleen",
       "view-example": "Näytä esimerkkikatu"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Kirjauduit ulos toisessa ikkunassa.",
     "gallery-street-failure-description": "Kadun lataaminen ei onnistu.",
     "reload-sign-in-title": "Kirjauduit sisään toisessa ikkunassa.",
-    "please-reload": "Päivitä sivu ennen jatkamista.",
+    "please-reload": "Palaa takaisin Streetmixiin päivittämällä sivu.",
     "survey-finished": "Kysely on päättynyt. Kiitos avustasi!",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
     "auth-api-problem-description": "Tunnistautuminen epäonnistui.",
     "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <email_link>sähköpostitse</email_link> tai <tweet_link>Twitterissä</tweet_link>.",
+    "please-try-again-contact-us": "Yritä myöhemmin uudelleen. <a>Ota tarvittaessa yhteyttä</a>.",
     "unsupported-browser-title": "Streetmix ei toimi tässä selaimessa.",
     "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <chrome_link>Chromea</chrome_link>, <firefox_link>Firefoxia</firefox_link>, <edge_link>Microsoft Edgeä</edge_link> tai Safaria.",
     "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a>Lue lisätietoja.</a>",
-    "unsupported-browser-contact-us": "Jos tämä ilmoitus on virheellinen, tee vikailmoitus <a>sähköpostitse</a>.",
+    "unsupported-browser-contact-us": "Jos selaimen pitäisi täyttää vähimmäisvaatimukset, <a>ota yhteyttä</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix toimii vain tabletilla ja tietokoneella.",
     "cannot-create-new-street-on-phone-description": "Voit tarkastella linkistä avaamasi katua, mutta et voi muokata tai luoda uusia katuja.",
     "generic-error-title": "Jokin meni vikaan.",
@@ -383,7 +386,7 @@
     "byline": "käyttäjältä {user}",
     "roles": {
       "admin": "Ylläpitäjä",
-      "subscriber": "Streetmix+-tilaaja"
+      "subscriber": "Streetmix+-jäsen"
     }
   },
   "export": {
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "Tulossa pian",
       "sub": "Toiminto sisältyy Streetmix+-tilaukseen",
+      "sub-edit": "Muokkaa päivittämällä Streetmix+-jäsenyyteen",
       "user": "Vaatii sisäänkirjautumisen"
     },
     "prompt": {
       "text": "Toiminto on vain Streetmix+-käyttäjille.",
       "action": "Ota käyttöön tilaamalla"
+    },
+    "web-monetization": {
+      "thanks": "Kiitos tuesta!",
+      "not-signed-in": "Selain suorittaa Web Monetization -maksua. Ota Streetmix+ käyttöön nyt kirjautumalla sisään, <a>lisätietoja</a>.",
+      "signed-in": "Web Monetization -tilaus sisältää kaikki Streetmix+-ominaisuudet.",
+      "learn-more": "Lue lisää"
     }
   },
   "sentiment": {
