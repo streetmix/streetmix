@@ -25,7 +25,8 @@
     "text": "Beta tester",
     "value": "BETA_TESTER",
     "flags": {
-      "LOCALES_LEVEL_1": true
+      "LOCALES_LEVEL_1": true,
+      "VARIANT_TWOWAY_BIKES": true
     }
   },
   "TRANSLATOR": {

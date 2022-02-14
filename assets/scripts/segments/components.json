@@ -239,6 +239,40 @@
       "graphics": {
         "left": "markings--parking-right"
       }
+    },
+    "markings--twoway-left": {
+      "graphics": {
+        "center": [
+          {
+            "id": "markings--center-lane"
+          },
+          {
+            "id": "markings--straight-inbound-light",
+            "offsetX": -65
+          },
+          {
+            "id": "markings--straight-outbound-light",
+            "offsetX": 65
+          }
+        ]
+      }
+    },
+    "markings--twoway-right": {
+      "graphics": {
+        "center": [
+          {
+            "id": "markings--center-lane"
+          },
+          {
+            "id": "markings--straight-inbound-light",
+            "offsetX": 65
+          },
+          {
+            "id": "markings--straight-outbound-light",
+            "offsetX": -65
+          }
+        ]
+      }
     }
   },
   "objects": {

@@ -99,6 +99,10 @@
     "id": "markings--lane-horiz",
     "originY": 120
   },
+  "markings--center-lane": {
+    "id": "markings--center-lane",
+    "originY": 120
+  },
   "markings--center-lane-left": {
     "id": "markings--center-lane-left",
     "originY": 120
