@@ -24,7 +24,20 @@
           }
         }
       },
-      "bike-lane": { "average": 12000, "potential": 12000 },
+      "bike-lane": {
+        "average": 12000,
+        "potential": 12000,
+        "variants": {
+          "bike-direction:twoway-left": {
+            "average": 24000,
+            "potential": 24000
+          },
+          "bike-direction:twoway-right": {
+            "average": 24000,
+            "potential": 24000
+          }
+        }
+      },
       "scooter": { "inherits": "bike-lane" },
       "light-rail": { "average": 18000, "potential": 20000 },
       "streetcar": { "inherits": "light-rail" },
@@ -50,7 +63,17 @@
         }
       },
       "bus-lane": { "minimum": 1000, "potential": 2800 },
-      "bike-lane": { "average": 7500 },
+      "bike-lane": {
+        "average": 3750,
+        "variants": {
+          "bike-direction:twoway-left": {
+            "average": 7500
+          },
+          "bike-direction:twoway-right": {
+            "average": 7500
+          }
+        }
+      },
       "scooter": { "inherits": "bike-lane" },
       "brt-lane": { "minimum": 4000, "potential": 8000 },
       "sidewalk": { "average": 9000 },
@@ -77,7 +100,20 @@
         }
       },
       "bus-lane": { "minimum": 1000, "average": 1700, "potential": 2000 },
-      "bike-lane": { "minimum": 2000, "potential": 3000 },
+      "bike-lane": {
+        "minimum": 2000,
+        "potential": 3000,
+        "variants": {
+          "bike-direction:twoway-left": {
+            "minimum": 4000,
+            "potential": 6000
+          },
+          "bike-direction:twoway-right": {
+            "minimum": 4000,
+            "potential": 6000
+          }
+        }
+      },
       "scooter": { "inherits": "bike-lane" },
       "brt-lane": { "minimum": 3000, "average": 3500, "potential": 4000 },
       "sidewalk": { "minimum": 5000, "average": 5500, "potential": 6500 },

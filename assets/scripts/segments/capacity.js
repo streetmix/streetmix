@@ -117,7 +117,7 @@ export function getSegmentCapacity (segment, source) {
   if (capacity?.variants && segment.variant) {
     Object.entries(segment.variant).forEach((entry) => {
       const key = entry.join(':')
-      if (capacity.variants[key]) {
+      if (capacity.variants?.[key]) {
         capacity = capacity.variants[key]
       }
     })

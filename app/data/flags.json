@@ -89,6 +89,10 @@
     "label": "Segment — utility pole",
     "defaultValue": false
   },
+  "VARIANT_TWOWAY_BIKES": {
+    "label": "Variant — two-way bike lanes",
+    "defaultValue": false
+  },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
     "defaultValue": false
