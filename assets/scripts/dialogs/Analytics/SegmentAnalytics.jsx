@@ -32,14 +32,17 @@ function SegmentAnalytics ({ index, type, max, capacity }) {
   switch (type) {
     case 'magic-carpet':
       ImageElement = (
-        <img src={images.get('vehicles--magic-carpet-jasmine').src} />
+        <img
+          src={images.get('vehicles--magic-carpet-jasmine').src}
+          style={{ width: '100%', marginTop: '-22%' }}
+        />
       )
       break
     case 'drive-lane':
       ImageElement = (
         <img
           src={images.get('vehicles--car-inbound').src}
-          style={{ width: '80%', marginTop: '-120%' }}
+          style={{ width: '100%', marginTop: '-10%' }}
         />
       )
       break
@@ -47,7 +50,7 @@ function SegmentAnalytics ({ index, type, max, capacity }) {
       ImageElement = (
         <img
           src={images.get('bikes--biker-01-inbound').src}
-          style={{ width: '50%', marginTop: '-40%' }}
+          style={{ width: '45%', marginTop: '0%' }}
         />
       )
       break
@@ -74,7 +77,7 @@ function SegmentAnalytics ({ index, type, max, capacity }) {
       ImageElement = (
         <img
           src={images.get('scooters--scooter-inbound').src}
-          style={{ width: '45%', marginTop: '-10%' }}
+          style={{ width: '38%', marginTop: '0%' }}
         />
       )
       break
@@ -82,7 +85,7 @@ function SegmentAnalytics ({ index, type, max, capacity }) {
       ImageElement = (
         <img
           src={images.get('transit--light-rail-inbound').src}
-          style={{ width: '70%', marginTop: '-20%' }}
+          style={{ width: '65%', marginTop: '-15%' }}
         />
       )
       break
@@ -98,7 +101,7 @@ function SegmentAnalytics ({ index, type, max, capacity }) {
       ImageElement = (
         <img
           src={images.get('transit--streetcar-inbound').src}
-          style={{ width: '80%', marginTop: '-30%' }}
+          style={{ width: '80%', marginTop: '-15%' }}
         />
       )
       break
