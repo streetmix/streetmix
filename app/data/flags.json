@@ -89,6 +89,10 @@
     "label": "Segment — utility pole",
     "defaultValue": false
   },
+  "VARIANT_MIXED_DRIVE_LANES": {
+    "label": "Variant — mixed-traffic drive lanes",
+    "defaultValue": false
+  },
   "VARIANT_TWOWAY_BIKES": {
     "label": "Variant — two-way bike lanes",
     "defaultValue": false

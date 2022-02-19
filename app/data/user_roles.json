@@ -29,6 +29,15 @@
       "VARIANT_TWOWAY_BIKES": true
     }
   },
+  "ITDP": {
+    "key": "itdp",
+    "text": "ITDP user",
+    "value": "ITDP",
+    "flags": {
+      "VARIANT_TWOWAY_BIKES": true,
+      "VARIANT_MIXED_DRIVE_LANES": true
+    }
+  },
   "TRANSLATOR": {
     "key": "translator",
     "text": "Translator",

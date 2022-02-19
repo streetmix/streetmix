@@ -3414,6 +3414,146 @@
           ]
         }
       },
+      "inbound|car-with-bus": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "rules": {
+          "minWidth": 10
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus-alt",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|car-with-bus": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "rules": {
+          "minWidth": 10
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus-alt",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|car-with-bike": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": 30,
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|car-with-bike": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": -30,
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      },
       "inbound|sharrow": {
         "name": "Sharrow",
         "nameKey": "sharrow",

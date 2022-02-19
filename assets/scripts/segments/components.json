@@ -1319,6 +1319,26 @@
         }
       }
     },
+    "bus-alt": {
+      "name": "Bus",
+      "nameKey": "bus",
+      "owner": "TRANSIT",
+      "zIndex": 15,
+      "variants": {
+        "direction": {
+          "inbound": {
+            "graphics": {
+              "center": "transit--bus-inbound-alt"
+            }
+          },
+          "outbound": {
+            "graphics": {
+              "center": "transit--bus-outbound-alt"
+            }
+          }
+        }
+      }
+    },
     "brt-bus": {
       "name": "BRT",
       "nameKey": "brt-bus",
