@@ -354,7 +354,7 @@
     "car-with-bus": {
       "id": "car-with-bus",
       "title": "Car with bus",
-      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES"
+      "enableWithFlag": "XVARIANT_MIXED_DRIVE_LANES"
     },
     "car-with-bike": {
       "id": "car-with-bike",
@@ -364,6 +364,11 @@
     "sharrow": {
       "id": "sharrow",
       "title": "Sharrow"
+    },
+    "bus": {
+      "id": "bus",
+      "title": "Bus",
+      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES"
     },
     "truck": {
       "id": "truck",

@@ -3638,6 +3638,62 @@
           ]
         }
       },
+      "inbound|bus": {
+        "rules": {
+          "minWidth": 10
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|bus": {
+        "rules": {
+          "minWidth": 10
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
       "inbound|truck": {
         "components": {
           "lanes": [
