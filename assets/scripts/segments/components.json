@@ -77,6 +77,18 @@
           }
         }
       }
+    },
+    "drainage": {
+      "elevation": -2,
+      "variants": {
+        "color": {
+          "regular": {
+            "graphics": {
+              "repeat": "ground--concrete"
+            }
+          }
+        }
+      }
     }
   },
   "markings": {
@@ -847,6 +859,32 @@
           "default": {
             "graphics": {
               "center": "construction--barricade"
+            }
+          }
+        }
+      }
+    },
+    "open-drain": {
+      "variants": {
+        "drainage-sides": {
+          "slanted": {
+            "graphics": {
+              "quirks": {
+                "minWidth": 3.3333
+              },
+              "repeat": "utilities--drainage-channel-piece-center",
+              "left": "utilities--drainage-channel-piece-left-slanted",
+              "right": "utilities--drainage-channel-piece-right-slanted"
+            }
+          },
+          "vertical": {
+            "graphics": {
+              "quirks": {
+                "minWidth": 2.8
+              },
+              "repeat": "utilities--drainage-channel-piece-center",
+              "left": "utilities--drainage-channel-piece-left-vertical",
+              "right": "utilities--drainage-channel-piece-right-vertical"
             }
           }
         }

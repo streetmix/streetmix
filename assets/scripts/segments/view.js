@@ -233,7 +233,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 const GROUND_LEVEL_OFFSETY = {
   ASPHALT: 0,
   CURB: 18,
-  RAISED_CURB: 94
+  RAISED_CURB: 94,
+  DRAINAGE: -50
 }
 
 /**
@@ -252,6 +253,8 @@ const GROUND_LEVEL_OFFSETY = {
  */
 function getGroundLevelOffset (elevation) {
   switch (elevation) {
+    case -2:
+      return GROUND_LEVEL_OFFSETY.DRAINAGE
     case 0:
       return GROUND_LEVEL_OFFSETY.ASPHALT
     case 1:

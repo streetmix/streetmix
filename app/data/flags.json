@@ -69,6 +69,10 @@
     "label": "Segment — construction items",
     "defaultValue": false
   },
+  "SEGMENT_DRAINAGE_CHANNEL": {
+    "label": "Segment — drainage channel",
+    "defaultValue": false
+  },
   "SEGMENT_DOUBLE_DECKER_BUS": {
     "label": "Segment — double decker bus",
     "defaultValue": false

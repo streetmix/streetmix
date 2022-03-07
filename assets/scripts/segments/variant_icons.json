@@ -544,6 +544,16 @@
       "title": "Jersey barrier (plastic)"
     }
   },
+  "drainage-sides": {
+    "slanted": {
+      "id": "drainage-slanted",
+      "title": "Slanted sides"
+    },
+    "vertical": {
+      "id": "drainage-vertical",
+      "title": "Vertical sides"
+    }
+  },
   "brt-bus": {},
   "vendor-type": {
     "handcart": {

@@ -27,6 +27,7 @@
     "value": "BETA_TESTER",
     "flags": {
       "LOCALES_LEVEL_1": true,
+      "SEGMENT_DRAINAGE_CHANNEL": true,
       "SEGMENT_STREET_VENDOR": true,
       "VARIANT_BUILDING_COMPOUND_WALL": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
@@ -39,6 +40,7 @@
     "text": "ITDP user",
     "value": "ITDP",
     "flags": {
+      "SEGMENT_DRAINAGE_CHANNEL": true,
       "SEGMENT_STREET_VENDOR": true,
       "VARIANT_BUILDING_COMPOUND_WALL": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,

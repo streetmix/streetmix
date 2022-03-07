@@ -1316,6 +1316,56 @@
       }
     }
   },
+  "drainage-channel": {
+    "name": "Drainage channel",
+    "nameKey": "drainage-channel",
+    "owner": "UTILITY",
+    "enableWithFlag": "SEGMENT_DRAINAGE_CHANNEL",
+    "defaultWidth": 3.333,
+    "variants": ["drainage-sides"],
+    "details": {
+      "slanted": {
+        "components": {
+          "lanes": [
+            {
+              "id": "drainage",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "open-drain",
+              "variants": {
+                "drainage-sides": ["slanted"]
+              }
+            }
+          ]
+        }
+      },
+      "vertical": {
+        "components": {
+          "lanes": [
+            {
+              "id": "drainage",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "open-drain",
+              "variants": {
+                "drainage-sides": ["vertical"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
   "scooter": {
     "name": "Electric scooter",
     "nameKey": "scooter",
