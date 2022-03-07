@@ -93,6 +93,10 @@
     "label": "Segment — utility pole",
     "defaultValue": false
   },
+  "VARIANT_BUILDING_COMPOUND_WALL": {
+    "label": "Variant — compound wall",
+    "defaultValue": false
+  },
   "VARIANT_MIXED_DRIVE_LANES": {
     "label": "Variant — mixed-traffic drive lane (with bus)",
     "defaultValue": false

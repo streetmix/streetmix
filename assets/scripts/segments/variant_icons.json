@@ -31,6 +31,12 @@
     "arcade": {
       "id": "building-arcade",
       "title": "Arcade building"
+    },
+    "compound-wall": {
+      "id": "compound-wall",
+      "title": "Compound wall",
+      "enableWithFlag": "VARIANT_BUILDING_COMPOUND_WALL",
+      "enableCondition": "SIGN_IN"
     }
   },
   "direction": {

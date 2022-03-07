@@ -110,6 +110,12 @@ export const BUILDINGS = {
     roofHeight: 6,
     mainFloorHeight: 14,
     overhangWidth: 15
+  },
+  'compound-wall': {
+    id: 'compound-wall',
+    label: 'Compound wall',
+    spriteId: 'buildings--compound-wall',
+    hasFloors: false
   }
 }
 

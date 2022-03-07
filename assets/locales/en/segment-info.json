@@ -103,6 +103,9 @@
     },
     "arcade": {
       "name": "Arcade building"
+    },
+    "compound-wall": {
+      "name": "Compound wall"
     }
   },
   "variant-icons": {
