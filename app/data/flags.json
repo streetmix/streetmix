@@ -85,6 +85,10 @@
     "label": "Segment — scooters",
     "defaultValue": true
   },
+  "SEGMENT_STREET_VENDOR": {
+    "label": "Segment — street vendor",
+    "defaultValue": false
+  },
   "SEGMENT_UTILITIES": {
     "label": "Segment — utility pole",
     "defaultValue": false

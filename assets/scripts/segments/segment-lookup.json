@@ -835,6 +835,104 @@
       }
     }
   },
+  "street-vendor": {
+    "name": "Street vendor",
+    "nameKey": "street-vendor",
+    "owner": "PEDESTRIAN",
+    "zIndex": 24,
+    "defaultWidth": 4,
+    "rules": {
+      "minWidth": 4
+    },
+    "enableWithFlag": "SEGMENT_STREET_VENDOR",
+    "paletteIcon": "table",
+    "variants": ["vendor-type"],
+    "details": {
+      "handcart": {
+        "rules": {
+          "minWidth": 3
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "handcart"
+              }
+            }
+          ]
+        }
+      },
+      "table": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "table"
+              }
+            }
+          ]
+        }
+      },
+      "tarp": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "tarp"
+              }
+            }
+          ]
+        }
+      },
+      "platform": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "platform"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
   "divider": {
     "name": "Buffer",
     "nameKey": "divider",

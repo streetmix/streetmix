@@ -27,6 +27,7 @@
     "value": "BETA_TESTER",
     "flags": {
       "LOCALES_LEVEL_1": true,
+      "SEGMENT_STREET_VENDOR": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true
@@ -37,6 +38,7 @@
     "text": "ITDP user",
     "value": "ITDP",
     "flags": {
+      "SEGMENT_STREET_VENDOR": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true,
       "VARIANT_MIXED_DRIVE_LANES_3": true

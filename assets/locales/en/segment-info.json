@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Lamp",
     "utility-pole": "Utility pole",
     "parklet": "Parklet",
+    "street-vendor": "Street vendor",
     "divider": "Buffer",
     "planting-strip": "Planting strip",
     "planter-box": "Planter box",
@@ -205,7 +206,11 @@
     "elevation|sidewalk": "Sidewalk level",
     "elevation|road": "Street level",
     "temporary-barrier-type|traffic-cone": "Traffic cone",
-    "temporary-barrier-type|barricade": "Barricade"
+    "temporary-barrier-type|barricade": "Barricade",
+    "vendor-type|handcart": "Vendor with hand cart",
+    "vendor-type|table": "Vendor at table",
+    "vendor-type|tarp": "Vendor on tarp on ground",
+    "vendor-type|platform": "Vendor at platform"
   },
   "environs": {
     "day": "Day",

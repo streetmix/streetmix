@@ -538,5 +538,23 @@
       "title": "Jersey barrier (plastic)"
     }
   },
-  "brt-bus": {}
+  "brt-bus": {},
+  "vendor-type": {
+    "handcart": {
+      "id": "vendor-handcart",
+      "title": "Vendor with hand cart"
+    },
+    "table": {
+      "id": "vendor-table",
+      "title": "Vendor at table"
+    },
+    "tarp": {
+      "id": "vendor-tarp",
+      "title": "Vendor on tarp on ground"
+    },
+    "platform": {
+      "id": "vendor-platform",
+      "title": "Vendor at platform"
+    }
+  }
 }

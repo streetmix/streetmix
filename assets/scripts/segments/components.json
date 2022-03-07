@@ -549,6 +549,35 @@
         }
       }
     },
+    "street-vendor": {
+      "name": "Street vendor",
+      "nameKey": "street-vendor",
+      "zIndex": 24,
+      "variants": {
+        "vendor-type": {
+          "handcart": {
+            "graphics": {
+              "center": "vendors--vendor-handcart"
+            }
+          },
+          "platform": {
+            "graphics": {
+              "center": "vendors--vendor-platform"
+            }
+          },
+          "table": {
+            "graphics": {
+              "center": "vendors--vendor-table"
+            }
+          },
+          "tarp": {
+            "graphics": {
+              "center": "vendors--vendor-tarp"
+            }
+          }
+        }
+      }
+    },
     "bikeshare": {
       "name": "Bikeshare station",
       "nameKey": "bikeshare-station",
