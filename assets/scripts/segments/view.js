@@ -356,7 +356,7 @@ export function drawSegmentContents (
         drawWidth = segmentWidth - padding * 2 * TILE_SIZE
       }
 
-      const count = Math.floor(drawWidth / width) + 1
+      const countX = Math.floor(drawWidth / width) + 1
 
       let repeatStartX
       if (left < 0) {
@@ -388,34 +388,43 @@ export function drawSegmentContents (
         TILE_SIZE *
         ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
 
-      for (let i = 0; i < count; i++) {
+      // Right now only ground items repeat in the Y direction
+      const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
+      // countY should always be at minimum 1.
+      const countY = sprite.id.startsWith('ground--')
+        ? Math.ceil((ctx.canvas.height / dpi - groundLevel) / height)
+        : 1
+
+      for (let i = 0; i < countX; i++) {
         // remainder
-        if (i === count - 1) {
-          width = drawWidth - (count - 1) * width
+        if (i === countX - 1) {
+          width = drawWidth - (countX - 1) * width
         }
 
-        // If the sprite being rendered is the ground, dy is equal to the
-        // groundLevel. If not, dy is equal to the groundLevel minus the
-        // distance the sprite will be from the ground.
-        drawSegmentImage(
-          sprite.id,
-          ctx,
-          undefined,
-          undefined,
-          width,
-          undefined,
-          offsetLeft +
-            padding * TILE_SIZE * multiplier +
-            (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
-              multiplier,
-          sprite.id.includes('ground')
-            ? groundLevel
-            : groundLevel - distanceFromGround,
-          width,
-          undefined,
-          multiplier,
-          dpi
-        )
+        for (let j = 0; j < countY; j++) {
+          // If the sprite being rendered is the ground, dy is equal to the
+          // groundLevel. If not, dy is equal to the groundLevel minus the
+          // distance the sprite will be from the ground.
+          drawSegmentImage(
+            sprite.id,
+            ctx,
+            undefined,
+            undefined,
+            width,
+            undefined,
+            offsetLeft +
+              padding * TILE_SIZE * multiplier +
+              (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
+                multiplier,
+            sprite.id.startsWith('ground--')
+              ? groundLevel + height * j
+              : groundLevel - distanceFromGround,
+            width,
+            undefined,
+            multiplier,
+            dpi
+          )
+        }
       }
     }
   }
