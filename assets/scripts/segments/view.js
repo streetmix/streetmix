@@ -294,7 +294,6 @@ function getGroundLevelOffset (elevation) {
  * @param {Number} randSeed
  * @param {Number} multiplier
  * @param {Number} dpi
- * @param {Number} drawSegmentOnly - If true, skips drawing background elements
  */
 export function drawSegmentContents (
   ctx,
@@ -305,8 +304,7 @@ export function drawSegmentContents (
   groundBaseline,
   randSeed,
   multiplier,
-  dpi,
-  drawSegmentOnly = false
+  dpi
 ) {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
@@ -323,14 +321,11 @@ export function drawSegmentContents (
     groundBaseline -
     multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)
 
-  if (graphics.repeat && !drawSegmentOnly) {
+  if (graphics.repeat) {
     // Convert single string or object values to single-item array
     let sprites = Array.isArray(graphics.repeat)
       ? graphics.repeat
       : [graphics.repeat]
-    if (drawSegmentOnly) {
-      sprites = [sprites[sprites.length - 1]]
-    }
     // Convert array of strings into array of objects
     // If already an object, pass through
     sprites = sprites.map((def) =>
@@ -426,10 +421,9 @@ export function drawSegmentContents (
   }
 
   if (graphics.left) {
-    let sprites = Array.isArray(graphics.left) ? graphics.left : [graphics.left]
-    if (drawSegmentOnly) {
-      sprites = [sprites[sprites.length - 1]]
-    }
+    const sprites = Array.isArray(graphics.left)
+      ? graphics.left
+      : [graphics.left]
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -477,12 +471,9 @@ export function drawSegmentContents (
   }
 
   if (graphics.right) {
-    let sprites = Array.isArray(graphics.right)
+    const sprites = Array.isArray(graphics.right)
       ? graphics.right
       : [graphics.right]
-    if (drawSegmentOnly) {
-      sprites = [sprites[sprites.length - 1]]
-    }
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -535,12 +526,9 @@ export function drawSegmentContents (
   }
 
   if (graphics.center) {
-    let sprites = Array.isArray(graphics.center)
+    const sprites = Array.isArray(graphics.center)
       ? graphics.center
       : [graphics.center]
-    if (drawSegmentOnly) {
-      sprites = [sprites[sprites.length - 1]]
-    }
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
