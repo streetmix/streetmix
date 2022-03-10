@@ -72,7 +72,7 @@
         "type": {
           "default": {
             "graphics": {
-              "repeat": "ground--concrete-raised"
+              "repeat": "ground--concrete"
             }
           }
         }
