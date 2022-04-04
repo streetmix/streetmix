@@ -1711,7 +1711,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "components": {
           "lanes": [
@@ -1749,7 +1749,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "components": {
           "lanes": [
@@ -1845,7 +1845,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
@@ -1887,7 +1887,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
@@ -1987,7 +1987,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2029,7 +2029,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2121,7 +2121,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "components": {
           "lanes": [
@@ -2159,7 +2159,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "components": {
           "lanes": [
@@ -2255,7 +2255,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2297,7 +2297,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2397,7 +2397,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2439,7 +2439,7 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 8
+          "minWidth": 10
         },
         "description": {
           "key": "colored-bike-lane",
