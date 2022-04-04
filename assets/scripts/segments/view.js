@@ -4,6 +4,7 @@ import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import store from '../store'
 import { updateSegments, changeSegmentProperties } from '../store/slices/street'
+import { percentToNumber } from '../util/number'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawScatteredSprites } from './scatter'
 import {
@@ -546,11 +547,17 @@ export function drawSegmentContents (
       if (!svg) continue
 
       const center = dimensions.center
+      const offsetByPercentage =
+        sprite.offsetX &&
+        typeof sprite.offsetX === 'string' &&
+        sprite.offsetX.endsWith('%')
+      const offsetX = offsetByPercentage ? 0 : sprite.offsetX
       const x =
         (center -
           svg.width / TILE_SIZE_ACTUAL / 2 -
           left -
-          (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+          (offsetByPercentage ? percentToNumber(sprite.offsetX) * center : 0) -
+          (offsetX / TILE_SIZE_ACTUAL || 0)) *
         TILE_SIZE *
         multiplier
       const distanceFromGround =

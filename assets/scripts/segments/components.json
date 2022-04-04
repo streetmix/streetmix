@@ -248,11 +248,11 @@
           },
           {
             "id": "markings--straight-inbound-light",
-            "offsetX": -65
+            "offsetX": "-50%"
           },
           {
             "id": "markings--straight-outbound-light",
-            "offsetX": 65
+            "offsetX": "50%"
           }
         ]
       }
@@ -265,11 +265,11 @@
           },
           {
             "id": "markings--straight-inbound-light",
-            "offsetX": 65
+            "offsetX": "50%"
           },
           {
             "id": "markings--straight-outbound-light",
-            "offsetX": -65
+            "offsetX": "-50%"
           }
         ]
       }
