@@ -1,4 +1,4 @@
-import { uniq, isNumber, pickBy } from 'lodash'
+import { uniq } from 'lodash'
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
@@ -69,8 +69,7 @@ function applyOffsetsIfAnyToSprites (graphics, offsetX, offsetY) {
   if (!offsetX && !offsetY) return graphics
 
   return Object.entries(graphics).reduce((graphicsWithOffsets, [key, id]) => {
-    const offsets = pickBy({ offsetX, offsetY }, isNumber)
-    graphicsWithOffsets[key] = { id, ...offsets }
+    graphicsWithOffsets[key] = { id, offsetX, offsetY }
     return graphicsWithOffsets
   }, {})
 }

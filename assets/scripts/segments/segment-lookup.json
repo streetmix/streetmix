@@ -1733,14 +1733,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             }
           ]
         }
@@ -1771,14 +1771,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             }
           ]
         }
@@ -1871,14 +1871,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             }
           ]
         }
@@ -1913,14 +1913,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             }
           ]
         }
@@ -2013,14 +2013,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             }
           ]
         }
@@ -2055,14 +2055,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             }
           ]
         }
@@ -2143,14 +2143,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             }
           ]
         }
@@ -2181,14 +2181,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             }
           ]
         }
@@ -2281,14 +2281,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             }
           ]
         }
@@ -2323,14 +2323,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             }
           ]
         }
@@ -2423,14 +2423,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             }
           ]
         }
@@ -2465,14 +2465,14 @@
               "variants": {
                 "type|direction": ["biker-02", "inbound"]
               },
-              "offsetX": 70
+              "offsetX": "50%"
             },
             {
               "id": "bike",
               "variants": {
                 "type|direction": ["biker-01", "outbound"]
               },
-              "offsetX": -70
+              "offsetX": "-50%"
             }
           ]
         }
