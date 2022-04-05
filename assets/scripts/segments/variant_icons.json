@@ -55,12 +55,16 @@
     "twoway-left": {
       "id": "direction-twoway-left",
       "title": "Two-way (left-hand)",
-      "enableWithFlag": "VARIANT_TWOWAY_BIKES"
+      "enableWithFlag": "VARIANT_TWOWAY_BIKES",
+      "unlockWithFlag": "VARIANT_TWOWAY_BIKES_UNLOCKED",
+      "enableCondition": "SUBSCRIBE"
     },
     "twoway-right": {
       "id": "direction-twoway-right",
       "title": "Two-way (right-hand)",
-      "enableWithFlag": "VARIANT_TWOWAY_BIKES"
+      "enableWithFlag": "VARIANT_TWOWAY_BIKES",
+      "unlockWithFlag": "VARIANT_TWOWAY_BIKES_UNLOCKED",
+      "enableCondition": "SUBSCRIBE"
     }
   },
   "parking-lane-direction": {

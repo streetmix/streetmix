@@ -94,7 +94,11 @@
     "defaultValue": false
   },
   "VARIANT_TWOWAY_BIKES": {
-    "label": "Variant — two-way bike lanes",
+    "label": "Variant — two-way bike lanes (enabled)",
+    "defaultValue": true
+  },
+  "VARIANT_TWOWAY_BIKES_UNLOCKED": {
+    "label": "Variant — two-way bike lanes (unlocked)",
     "defaultValue": false
   },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {

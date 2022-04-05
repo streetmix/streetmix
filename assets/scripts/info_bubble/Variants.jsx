@@ -141,8 +141,14 @@ function Variants (props) {
 
     let isLocked = false
 
-    // Add a note to the tooltip if for a particular disabled
-    if (icon.enableCondition) {
+    // If there is an enable condition, add a note to the tooltip if it
+    // is locked for a reason (e.g. must sign in, must be a subscriber)
+    // If an "unlock flag" is set, enable the thing
+    if (
+      icon.enableCondition &&
+      icon.unlockWithFlag &&
+      flags[icon.unlockWithFlag]?.value === false
+    ) {
       let enableConditionText
       switch (icon.enableCondition) {
         case 'SUBSCRIBE':
