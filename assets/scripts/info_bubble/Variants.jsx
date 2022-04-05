@@ -146,8 +146,7 @@ function Variants (props) {
     // If an "unlock flag" is set, enable the thing
     if (
       icon.enableCondition &&
-      icon.unlockWithFlag &&
-      flags[icon.unlockWithFlag]?.value === false
+      !(icon.unlockWithFlag && flags[icon.unlockWithFlag]?.value === true)
     ) {
       let enableConditionText
       switch (icon.enableCondition) {
