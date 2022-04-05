@@ -55,12 +55,16 @@
     "twoway-left": {
       "id": "direction-twoway-left",
       "title": "Two-way (left-hand)",
-      "enableWithFlag": "VARIANT_TWOWAY_BIKES"
+      "enableWithFlag": "VARIANT_TWOWAY_BIKES",
+      "unlockWithFlag": "VARIANT_TWOWAY_BIKES_UNLOCKED",
+      "enableCondition": "SUBSCRIBE"
     },
     "twoway-right": {
       "id": "direction-twoway-right",
       "title": "Two-way (right-hand)",
-      "enableWithFlag": "VARIANT_TWOWAY_BIKES"
+      "enableWithFlag": "VARIANT_TWOWAY_BIKES",
+      "unlockWithFlag": "VARIANT_TWOWAY_BIKES_UNLOCKED",
+      "enableCondition": "SUBSCRIBE"
     }
   },
   "parking-lane-direction": {
@@ -351,9 +355,24 @@
       "id": "car",
       "title": "Car"
     },
+    "car-with-bus": {
+      "id": "car-with-bus",
+      "title": "Car with bus",
+      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES"
+    },
+    "car-with-bike": {
+      "id": "car-with-bike",
+      "title": "Car with bike",
+      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES_2"
+    },
     "sharrow": {
       "id": "sharrow",
       "title": "Sharrow"
+    },
+    "bus": {
+      "id": "bus",
+      "title": "Bus",
+      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES_3"
     },
     "truck": {
       "id": "truck",
