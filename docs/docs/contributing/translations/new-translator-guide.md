@@ -32,19 +32,11 @@ Sometimes, there are updates or additions to the original, or _source_, English 
 
 ## Seeing translations live
 
-The most important part about translating is seeing your hard work in Transifex show up live in the application! You can do this by visiting the staging server at <http://streetmix-staging.herokuapp.com> and toggling on the locales feature:
+The most important part about translating is seeing your hard work in Transifex show up live in the application! You can do this by visiting the staging server at <http://streetmix-staging.herokuapp.com> and logging in to view or create your user account there. (Because it's a staging server, it uses a separate database and different user accounts from the main instance.)
 
-Once at the staging server, you can toggle on your language by doing the following:
+Let someone on the team know your user account name on the staging server so that we can give you "translator" role.
 
-- **Press "shift-f"** (make sure the app is focused and no text box or developer tool window is selected). This displays a dialog box with some checkboxes. _(Note that this is just intended for testing and viewing your work, so please don't share it publicly.)_ Choose which box to check based on the locale descriptions below.
-
-We have 3 levels of locales (languages). Levels are lower bounds and inclusive. In other words, level 1 means all locales 1 or higher are enabled. You cannot only turn on level 1 but not level 2 for example. Based on which languages you want to see, check one of the following boxes:
-
-- **Level 1+ (in progress)**: Incomplete or in progress, available for translators to test, but not for end-users.
-- **Level 2+ (complete, in testing)**: Complete or nearly complete, available for quality assurance & feedback with small group of users.
-- **Level 3 (complete, final)**: Finished and shipped to production, for public use.
-
-Once you've checked the appropriate locale box, you can change to your language via the **"Settings" dropdown menu** in the upper right.
+Once you have the "translator" role on the staging server, all incomplete or in-progress languages are available for translators to test! You can view them in the **"Settings" dropdown menu** in the upper right.
 
 ![image](_images/b3e8306-Settings_bar.png)
 
