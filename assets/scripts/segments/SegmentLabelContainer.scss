@@ -80,12 +80,10 @@ the width element is inside the street layout which is forced `ltr` */
   pointer-events: none;
 
   // Creates grid lines
-  // The last value is required for IE11
   background-image: linear-gradient(
     90deg,
     $segment-width-rule 1px,
-    transparent 1px,
-    transparent
+    transparent 1px
   );
   background-repeat: repeat-x;
 
