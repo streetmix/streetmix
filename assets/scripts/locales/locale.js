@@ -9,26 +9,6 @@ import { changeLocale } from '../store/slices/locale'
 import LOCALES from '../../../app/data/locales.json'
 import { DEFAULT_LOCALE } from './constants'
 
-// Polyfill Intl API support for IE11, Edge & Safari 12
-import 'intl-pluralrules'
-import '@formatjs/intl-relativetimeformat/polyfill'
-
-// For the Intl. polyfill, we must import locale data for all
-// locales we support. See more here:
-// https://github.com/formatjs/formatjs/tree/master/packages/intl-relativetimeformat#usage
-import '@formatjs/intl-relativetimeformat/locale-data/ar'
-import '@formatjs/intl-relativetimeformat/locale-data/es'
-import '@formatjs/intl-relativetimeformat/locale-data/de'
-import '@formatjs/intl-relativetimeformat/locale-data/en'
-import '@formatjs/intl-relativetimeformat/locale-data/fi'
-import '@formatjs/intl-relativetimeformat/locale-data/fr'
-import '@formatjs/intl-relativetimeformat/locale-data/ja'
-import '@formatjs/intl-relativetimeformat/locale-data/pl'
-import '@formatjs/intl-relativetimeformat/locale-data/pt'
-import '@formatjs/intl-relativetimeformat/locale-data/ru'
-import '@formatjs/intl-relativetimeformat/locale-data/sv'
-import '@formatjs/intl-relativetimeformat/locale-data/zh'
-
 /**
  * Initialize i18n / localization
  */
