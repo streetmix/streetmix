@@ -91,41 +91,20 @@ export function drawSegmentImage (
     ctx.fillRect(dx, dy, dw, dh)
   }
 
-  try {
-    // Round all values to whole numbers when we render. Decimal values can
-    // introduce tiny "seams" at tiled assets, for example.
-    ctx.drawImage(
-      svg.img,
-      Math.round(sx),
-      Math.round(sy),
-      Math.round(sw),
-      Math.round(sh),
-      Math.round(dx),
-      Math.round(dy),
-      // destination sprites round up to prevent gaps in tiled sprites
-      Math.ceil(dw),
-      Math.ceil(dh)
-    )
-  } catch (err) {
-    // IE11 has some issues drawing SVG images soon after loading.
-    // https://stackoverflow.com/questions/25214395/unexpected-call-to-method-or-property-access-while-drawing-svg-image-onto-canvas
-    setTimeout(() => {
-      console.error(
-        `drawImage failed for img id ${id} with error: ${err} - Retrying after 2 seconds`
-      )
-      ctx.drawImage(
-        svg.img,
-        Math.round(sx),
-        Math.round(sy),
-        Math.round(sw),
-        Math.round(sh),
-        Math.round(dx),
-        Math.round(dy),
-        Math.ceil(dw),
-        Math.ceil(dh)
-      )
-    }, 2000)
-  }
+  // Round all values to whole numbers when we render. Decimal values can
+  // introduce tiny "seams" at tiled assets, for example.
+  ctx.drawImage(
+    svg.img,
+    Math.round(sx),
+    Math.round(sy),
+    Math.round(sw),
+    Math.round(sh),
+    Math.round(dx),
+    Math.round(dy),
+    // destination sprites round up to prevent gaps in tiled sprites
+    Math.ceil(dw),
+    Math.ceil(dh)
+  )
 }
 
 /**
