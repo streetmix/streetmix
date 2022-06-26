@@ -19,6 +19,7 @@ import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from './image'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
+const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
 const WATERMARK_TEXT_SIZE = 24
 const WATERMARK_RIGHT_MARGIN = 15
@@ -29,15 +30,570 @@ const WATERMARK_LIGHT_COLOR = '#cccccc'
 const WORDMARK_MARGIN = 4
 
 /**
+ * Draws sky.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Object} street - street data
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - width of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Number} horizonLine - vertical height of horizon
+ * @param {Number} groundLevel - vertical height of ground
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawSky (ctx, street, width, height, dpi, horizonLine, groundLevel) {
+  const env = getEnvirons(street.environment)
+
+  // Solid color fill
+  if (env.backgroundColor) {
+    drawBackgroundColor(ctx, width, horizonLine, dpi, env.backgroundColor)
+  }
+
+  // Background image fill
+  if (env.backgroundImage) {
+    drawBackgroundImage(ctx, width, height, dpi, env.backgroundImage)
+  }
+
+  // Gradient fill
+  if (env.backgroundGradient) {
+    drawBackgroundGradient(ctx, width, horizonLine, dpi, env.backgroundGradient)
+  }
+
+  // Background objects
+  if (env.backgroundObjects) {
+    drawBackgroundObjects(ctx, width, height, dpi, env.backgroundObjects)
+  }
+
+  // Clouds
+  drawClouds(ctx, width, groundLevel, dpi, env)
+}
+
+/**
+ * Draws a layer of background color
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {string} color - color to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundColor (ctx, width, height, dpi, color) {
+  ctx.fillStyle = color
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws background image as a repeating pattern.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Object} imageId - image ID to render
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundImage (ctx, width, height, dpi, imageId) {
+  const img = images.get(imageId)
+
+  for (let i = 0; i < Math.floor(height / img.height) + 1; i++) {
+    for (let j = 0; j < Math.floor(width / img.width) + 1; j++) {
+      ctx.drawImage(
+        img.img,
+        0,
+        0,
+        img.width,
+        img.height,
+        j * img.width * dpi,
+        i * img.height * dpi,
+        img.width * dpi,
+        img.height * dpi
+      )
+    }
+  }
+}
+
+/**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Array} backgroundGradient - environs definition of gradient
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundGradient (ctx, width, height, dpi, backgroundGradient) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, height * dpi)
+
+  // Make color stops
+  const stops = makeCanvasGradientStopArray(backgroundGradient)
+  for (let i = 0; i < stops.length; i++) {
+    const [color, stop] = stops[i]
+    gradient.addColorStop(stop, color)
+  }
+
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws background linear gradient.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Number} dpi - scale factor of image
+ * @param {Array} objects - environs definition of background objects
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBackgroundObjects (ctx, width, height, dpi, objects) {
+  objects.forEach((object) => {
+    const {
+      image: imageId,
+      width: imageWidth,
+      height: imageHeight,
+      top,
+      left
+    } = object
+    const image = images.get(imageId).img
+    ctx.drawImage(
+      image,
+      // Left and top values are "percentage" values
+      // and sets where the center of the image is
+      (left * width - imageWidth / 2) * dpi,
+      (top * height - imageHeight / 2) * dpi,
+      imageWidth * dpi,
+      imageHeight * dpi
+    )
+  })
+}
+
+/**
+ * Draws clouds.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Object} env - environs settings
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawClouds (ctx, width, height, dpi, env) {
+  // Handle cloud opacity
+  ctx.save()
+  ctx.globalAlpha = env.cloudOpacity ?? 1
+
+  // Grab images
+  const skyFrontImg = images.get('/images/sky-front.svg')
+  const skyRearImg = images.get('/images/sky-rear.svg')
+
+  // Source images are 2x what they need to be for the math to work
+  // so until we resize the intrinsic size of the images, we have to
+  // do this and then size it back up later
+  const skyFrontWidth = skyFrontImg.width / 2
+  const skyFrontHeight = skyFrontImg.height / 2
+  const skyRearWidth = skyRearImg.width / 2
+  const skyRearHeight = skyRearImg.height / 2
+
+  // TODO document magic numbers
+  // y1 = top edge of sky-front image
+  const y1 = height - skyFrontHeight
+
+  for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
+    ctx.drawImage(
+      skyFrontImg.img,
+      0,
+      0,
+      skyFrontWidth * 2,
+      skyFrontHeight * 2, // todo: change intrinsic size
+      i * skyFrontWidth * dpi,
+      y1 * dpi,
+      skyFrontWidth * dpi,
+      skyFrontHeight * dpi
+    )
+  }
+
+  // TODO document magic numbers
+  // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
+  const y2 = height - skyFrontHeight - 120
+
+  for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
+    ctx.drawImage(
+      skyRearImg.img,
+      0,
+      0,
+      skyRearWidth * 2,
+      skyRearHeight * 2, // todo: change intrinsic size
+      i * skyRearWidth * dpi,
+      y2 * dpi,
+      skyRearWidth * dpi,
+      skyRearHeight * dpi
+    )
+  }
+
+  // Restore global opacity
+  ctx.restore()
+}
+
+/**
+ * Draws ground.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Object} street - street data
+ * @param {Number} width - width of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Number} multiplier - scale factor of image
+ * @param {Number} horizonLine - vertical height of horizon
+ * @param {Number} groundLevel - vertical height of ground
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawGround (
+  ctx,
+  street,
+  width,
+  dpi,
+  multiplier,
+  horizonLine,
+  groundLevel
+) {
+  ctx.fillStyle = BACKGROUND_DIRT_COLOUR
+  ctx.fillRect(0, horizonLine * dpi, width * dpi, 25 * multiplier * dpi)
+
+  ctx.fillRect(
+    0,
+    groundLevel * dpi,
+    (width / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
+    20 * multiplier * dpi
+  )
+
+  ctx.fillRect(
+    (width / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
+    groundLevel * dpi,
+    width * dpi,
+    20 * multiplier * dpi
+  )
+}
+
+/**
+ * Draws buildings.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Object} street - street data
+ * @param {Number} width - width of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Number} multiplier - scale factor of image
+ * @param {Number} groundLevel - vertical height of ground
+ * @param {Number} buildingOffsetLeft
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawBuildings (
+  ctx,
+  street,
+  width,
+  dpi,
+  multiplier,
+  groundLevel,
+  buildingOffsetLeft
+) {
+  const buildingWidth = buildingOffsetLeft / multiplier
+
+  // Left building
+  const x1 = width / 2 - (street.width * TILE_SIZE * multiplier) / 2
+  const leftBuilding = BUILDINGS[street.leftBuildingVariant]
+  const leftOverhang =
+    typeof leftBuilding.overhangWidth === 'number'
+      ? leftBuilding.overhangWidth
+      : 0
+  drawBuilding(
+    ctx,
+    street.leftBuildingVariant,
+    street.leftBuildingHeight,
+    'left',
+    buildingWidth,
+    groundLevel,
+    x1 - (buildingWidth - leftOverhang) * multiplier,
+    multiplier,
+    dpi
+  )
+
+  // Right building
+  const x2 = width / 2 + (street.width * TILE_SIZE * multiplier) / 2
+  const rightBuilding = BUILDINGS[street.rightBuildingVariant]
+  const rightOverhang =
+    typeof rightBuilding.overhangWidth === 'number'
+      ? rightBuilding.overhangWidth
+      : 0
+  drawBuilding(
+    ctx,
+    street.rightBuildingVariant,
+    street.rightBuildingHeight,
+    'right',
+    buildingWidth,
+    groundLevel,
+    x2 - rightOverhang * multiplier,
+    multiplier,
+    dpi
+  )
+}
+
+/**
+ * Draws segments.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Object} street - street data
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Number} multiplier - scale factor of image
+ * @param {Number} groundLevel - vertical height of ground
+ * @param {Number} offsetLeft - left position to start from
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawSegments (ctx, street, dpi, multiplier, groundLevel, offsetLeft) {
+  // Collect z-indexes
+  const zIndexes = []
+  for (const segment of street.segments) {
+    const segmentInfo = getSegmentInfo(segment.type)
+
+    if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
+      zIndexes.push(segmentInfo.zIndex)
+    }
+  }
+
+  // Render objects at each z-index level
+  for (const zIndex of zIndexes) {
+    let currentOffsetLeft = offsetLeft
+
+    for (const segment of street.segments) {
+      const segmentInfo = getSegmentInfo(segment.type)
+
+      if (segmentInfo.zIndex === zIndex) {
+        const variantInfo = getSegmentVariantInfo(
+          segment.type,
+          segment.variantString
+        )
+        const dimensions = getVariantInfoDimensions(variantInfo, segment.width)
+        const randSeed = segment.id
+
+        drawSegmentContents(
+          ctx,
+          segment.type,
+          segment.variantString,
+          segment.width,
+          currentOffsetLeft + dimensions.left * TILE_SIZE * multiplier,
+          groundLevel,
+          randSeed,
+          multiplier,
+          dpi
+        )
+      }
+
+      currentOffsetLeft += segment.width * TILE_SIZE * multiplier
+    }
+  }
+}
+
+/**
+ * Draws the segment names background.
+ *
+ *  * Draws segments.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Number} multiplier - scale factor of image
+ * @param {Number} groundLevel - vertical height of ground
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawSegmentNamesBackground (
+  ctx,
+  width,
+  height,
+  dpi,
+  multiplier,
+  groundLevel
+) {
+  ctx.fillStyle = BOTTOM_BACKGROUND
+  ctx.fillRect(
+    0,
+    (groundLevel + GROUND_BASELINE_HEIGHT * multiplier) * dpi,
+    width * dpi,
+    (height - groundLevel - GROUND_BASELINE_HEIGHT * multiplier) * dpi
+  )
+}
+
+/**
+ * Draws segment names and widths.
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} dpi - pixel density of canvas
+ * @param {Number} multiplier - scale factor of image
+ * @param {Number} groundLevel - vertical height of ground
+ * @param {Number} offsetLeft - left position to start from
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawSegmentNamesAndWidths (
+  ctx,
+  street,
+  dpi,
+  multiplier,
+  groundLevel,
+  offsetLeft
+) {
+  ctx.save()
+
+  // TODO const
+  ctx.strokeStyle = 'black'
+  ctx.lineWidth = 0.25 * dpi
+  ctx.font = `normal 400 ${12 * dpi}px Rubik`
+  ctx.fillStyle = 'black'
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'top'
+
+  for (const i in street.segments) {
+    const segment = street.segments[i]
+    const availableWidth = segment.width * TILE_SIZE * multiplier
+
+    let left = offsetLeft
+
+    if (i === 0) {
+      left--
+    }
+
+    // Left line
+    drawLine(
+      ctx,
+      left,
+      groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
+      left,
+      groundLevel + 125 * multiplier,
+      dpi
+    )
+
+    const x = (offsetLeft + availableWidth / 2) * dpi
+
+    // Width label
+    let text = prettifyWidth(segment.width, street.units)
+    let textWidth = ctx.measureText(text).width / dpi
+
+    while (
+      textWidth > availableWidth - 10 * multiplier &&
+      text.indexOf(' ') !== -1
+    ) {
+      text = text.substr(0, text.lastIndexOf(' '))
+      textWidth = ctx.measureText(text).width / dpi
+    }
+
+    ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
+
+    // Segment name label
+    const name =
+      segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+    const nameWidth = ctx.measureText(name).width / dpi
+
+    if (nameWidth <= availableWidth - 10 * multiplier) {
+      ctx.fillText(name, x, (groundLevel + 83 * multiplier) * dpi)
+    }
+
+    offsetLeft += availableWidth
+  }
+
+  // Final right-hand side line
+  const left = offsetLeft + 1
+  drawLine(
+    ctx,
+    left,
+    groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
+    left,
+    groundLevel + 125 * multiplier,
+    dpi
+  )
+
+  ctx.restore()
+}
+
+/**
+ * Turns drawn objects on canvas into a single-colour silhouette
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Number} width - width of area to draw
+ * @param {Number} height - height of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawSilhouette (ctx, width, height, dpi) {
+  ctx.globalCompositeOperation = 'source-atop'
+  ctx.fillStyle = SILHOUETTE_FILL_COLOUR
+  ctx.fillRect(0, 0, width * dpi, height * dpi)
+}
+
+/**
+ * Draws street nameplate
+ *
+ * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
+ * @param {Object} street - street data
+ * @param {Number} width - width of area to draw
+ * @param {Number} dpi - pixel density of canvas
+ * @modifies {CanvasRenderingContext2D} ctx
+ */
+function drawStreetNameplate (ctx, street, width, dpi) {
+  let text = street.name || formatMessage('street.default-name', 'Unnamed St')
+
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'center'
+  ctx.font = `normal 700 ${70 * dpi}px overpass,sans-serif`
+
+  // Handles long names
+  let measurement = ctx.measureText(text)
+
+  let needToBeElided = false
+  while (measurement.width > (width - 200) * dpi) {
+    text = text.substr(0, text.length - 1)
+    measurement = ctx.measureText(text)
+    needToBeElided = true
+  }
+  if (needToBeElided) {
+    text += '…'
+  }
+
+  // Street nameplate
+  ctx.fillStyle = 'white'
+  const x1 = (width * dpi) / 2 - (measurement.width / 2 + 45 * dpi)
+  const x2 = (width * dpi) / 2 + (measurement.width / 2 + 45 * dpi)
+  const y1 = (75 - 60) * dpi
+  const y2 = (75 + 60) * dpi
+  ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
+
+  // Street nameplate border
+  ctx.strokeStyle = 'black'
+  ctx.lineWidth = 5 * dpi
+  ctx.strokeRect(
+    x1 + 5 * dpi * 2,
+    y1 + 5 * dpi * 2,
+    x2 - x1 - 5 * dpi * 4,
+    y2 - y1 - 5 * dpi * 4
+  )
+
+  const x = (width * dpi) / 2
+
+  const baselineCorrection = 27
+  const y = (75 + baselineCorrection) * dpi
+
+  ctx.strokeStyle = 'transparent'
+  ctx.fillStyle = 'black'
+  ctx.fillText(text, x, y)
+}
+
+/**
  * Draws a "made with Streetmix" watermark on the lower right of the image.
  *
  * @todo Make it work with rtl
  * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on.
- * @param {Number} dpi - scale factor of image.
+ * @param {Number} dpi - pixel density of canvas
  * @param {Boolean} invert - if `true`, render light text for dark background
  * @modifies {CanvasRenderingContext2D}
  */
-function drawWatermark (ctx, dpi, invert) {
+function drawWatermark (ctx, dpi, invert = false) {
   const text = formatMessage(
     'export.watermark',
     'Made with {streetmixWordmark}',
@@ -101,179 +657,29 @@ function drawWatermark (ctx, dpi, invert) {
 }
 
 /**
- * Draws a layer of background color
+ * Draws street image to 2D canvas element.
  *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} dpi - scale factor of image
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {string} color - color to render
+ * @param {CanvasRenderingContext2D} ctx - 2D canvas context to draw on
+ * @param {Object} street - Street data
+ * @param {Object} params
+ * @param {Number} params.width - Width of resulting image
+ * @param {Number} params.height - Height of resulting image
+ * @param {Number} params.dpi - Pixel density of canvas
+ * @param {Number} params.multiplier - Scale factor of image
+ * @param {Boolean} params.silhouette - If `true`, image is a silhouette
+ * @param {Boolean} params.bottomAligned - TODO: Document this
+ * @param {Boolean} params.transparentSky - If `true`, sky is transparent
+ * @param {Boolean} params.segmentNamesAndWidths - If `true`, include segment names and widths
+ * @param {Boolean} params.streetName - If `true`, include street nameplate
+ * @param {Boolean} params.watermark - If `true`, include Streetmix watermark
  * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBackgroundColor (ctx, dpi, width, height, color) {
-  ctx.fillStyle = color
-  ctx.fillRect(0, 0, width * dpi, height * dpi)
-}
-
-/**
- * Draws background image as a repeating pattern.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} dpi - scale factor of image
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Object} imageId - image ID to render
- * @modifies {CanvasRenderingContext2D} ctx
- */
-function drawBackgroundImage (ctx, dpi, width, height, imageId) {
-  const img = images.get(imageId)
-
-  for (let i = 0; i < Math.floor(height / img.height) + 1; i++) {
-    for (let j = 0; j < Math.floor(width / img.width) + 1; j++) {
-      ctx.drawImage(
-        img.img,
-        0,
-        0,
-        img.width,
-        img.height,
-        j * img.width * dpi,
-        i * img.height * dpi,
-        img.width * dpi,
-        img.height * dpi
-      )
-    }
-  }
-}
-
-/**
- * Draws background linear gradient.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} dpi - scale factor of image
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Array} backgroundGradient - environs definition of gradient
- * @modifies {CanvasRenderingContext2D} ctx
- */
-function drawBackgroundGradient (ctx, dpi, width, height, backgroundGradient) {
-  const gradient = ctx.createLinearGradient(0, 0, 0, height * dpi)
-
-  // Make color stops
-  const stops = makeCanvasGradientStopArray(backgroundGradient)
-  for (let i = 0; i < stops.length; i++) {
-    const [color, stop] = stops[i]
-    gradient.addColorStop(stop, color)
-  }
-
-  ctx.fillStyle = gradient
-  ctx.fillRect(0, 0, width * dpi, height * dpi)
-}
-
-/**
- * Draws background linear gradient.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} dpi - scale factor of image
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Array} objects - environs definition of background objects
- * @modifies {CanvasRenderingContext2D} ctx
- */
-function drawBackgroundObjects (ctx, dpi, width, height, objects) {
-  objects.forEach((object) => {
-    const {
-      image: imageId,
-      width: imageWidth,
-      height: imageHeight,
-      top,
-      left
-    } = object
-    const image = images.get(imageId).img
-    ctx.drawImage(
-      image,
-      // Left and top values are "percentage" values
-      // and sets where the center of the image is
-      (left * width - imageWidth / 2) * dpi,
-      (top * height - imageHeight / 2) * dpi,
-      imageWidth * dpi,
-      imageHeight * dpi
-    )
-  })
-}
-
-/**
- * Draws clouds.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw o
- * @param {Number} dpi - scale factor of image
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Object} env - environs settings
- * @modifies {CanvasRenderingContext2D} ctx
- */
-function drawClouds (ctx, dpi, width, height, env) {
-  // Handle cloud opacity
-  ctx.save()
-  ctx.globalAlpha = env.cloudOpacity ?? 1
-
-  // Grab images
-  const skyFrontImg = images.get('/images/sky-front.svg')
-  const skyRearImg = images.get('/images/sky-rear.svg')
-
-  // Source images are 2x what they need to be for the math to work
-  // so until we resize the intrinsic size of the images, we have to
-  // do this and then size it back up later
-  const skyFrontWidth = skyFrontImg.width / 2
-  const skyFrontHeight = skyFrontImg.height / 2
-  const skyRearWidth = skyRearImg.width / 2
-  const skyRearHeight = skyRearImg.height / 2
-
-  // TODO document magic numbers
-  // y1 = top edge of sky-front image
-  const y1 = height - skyFrontHeight
-
-  for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
-    ctx.drawImage(
-      skyFrontImg.img,
-      0,
-      0,
-      skyFrontWidth * 2,
-      skyFrontHeight * 2, // todo: change intrinsic size
-      i * skyFrontWidth * dpi,
-      y1 * dpi,
-      skyFrontWidth * dpi,
-      skyFrontHeight * dpi
-    )
-  }
-
-  // TODO document magic numbers
-  // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
-  const y2 = height - skyFrontHeight - 120
-
-  for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
-    ctx.drawImage(
-      skyRearImg.img,
-      0,
-      0,
-      skyRearWidth * 2,
-      skyRearHeight * 2, // todo: change intrinsic size
-      i * skyRearWidth * dpi,
-      y2 * dpi,
-      skyRearWidth * dpi,
-      skyRearHeight * dpi
-    )
-  }
-
-  // Restore global opacity
-  ctx.restore()
-}
-
 export function drawStreetThumbnail (
   ctx,
   street,
   {
-    width: thumbnailWidth,
-    height: thumbnailHeight,
+    width,
+    height,
     dpi,
     multiplier,
     silhouette,
@@ -294,338 +700,71 @@ export function drawStreetThumbnail (
 
   let offsetTop
   if (bottomAligned) {
-    offsetTop = thumbnailHeight - 180 * multiplier
+    offsetTop = height - 180 * multiplier
   } else {
-    offsetTop = (thumbnailHeight + 5 * TILE_SIZE * multiplier) / 2
+    offsetTop = (height + 5 * TILE_SIZE * multiplier) / 2
   }
   if (segmentNamesAndWidths) {
     offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier
   }
 
-  const offsetLeft =
-    (thumbnailWidth - occupiedWidth * TILE_SIZE * multiplier) / 2
-  const buildingOffsetLeft =
-    (thumbnailWidth - street.width * TILE_SIZE * multiplier) / 2
+  const offsetLeft = (width - occupiedWidth * TILE_SIZE * multiplier) / 2
+  const buildingOffsetLeft = (width - street.width * TILE_SIZE * multiplier) / 2
 
   const groundLevel = offsetTop + 135 * multiplier
   const horizonLine = groundLevel + 20 * multiplier
 
   // Sky
   if (!transparentSky) {
-    const env = getEnvirons(street.environment)
-
-    // Solid color fill
-    if (env.backgroundColor) {
-      drawBackgroundColor(
-        ctx,
-        dpi,
-        thumbnailWidth,
-        horizonLine,
-        env.backgroundColor
-      )
-    }
-
-    // Background image fill
-    if (env.backgroundImage) {
-      drawBackgroundImage(
-        ctx,
-        dpi,
-        thumbnailWidth,
-        thumbnailHeight,
-        env.backgroundImage
-      )
-    }
-
-    // Gradient fill
-    if (env.backgroundGradient) {
-      drawBackgroundGradient(
-        ctx,
-        dpi,
-        thumbnailWidth,
-        horizonLine,
-        env.backgroundGradient
-      )
-    }
-
-    // Background objects
-    if (env.backgroundObjects) {
-      drawBackgroundObjects(
-        ctx,
-        dpi,
-        thumbnailWidth,
-        thumbnailHeight,
-        env.backgroundObjects
-      )
-    }
-
-    // Cluds
-    drawClouds(ctx, dpi, thumbnailWidth, groundLevel, env)
+    drawSky(ctx, street, width, height, dpi, horizonLine, groundLevel)
   }
 
-  // Dirt
-
-  ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(
-    0,
-    horizonLine * dpi,
-    thumbnailWidth * dpi,
-    25 * multiplier * dpi
-  )
-
-  ctx.fillRect(
-    0,
-    groundLevel * dpi,
-    (thumbnailWidth / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    20 * multiplier * dpi
-  )
-
-  ctx.fillRect(
-    (thumbnailWidth / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    groundLevel * dpi,
-    thumbnailWidth * dpi,
-    20 * multiplier * dpi
-  )
+  // Ground
+  drawGround(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
 
   // Buildings
-
-  const buildingWidth = buildingOffsetLeft / multiplier
-
-  // Left building
-  const x1 = thumbnailWidth / 2 - (street.width * TILE_SIZE * multiplier) / 2
-  const leftBuilding = BUILDINGS[street.leftBuildingVariant]
-  const leftOverhang =
-    typeof leftBuilding.overhangWidth === 'number'
-      ? leftBuilding.overhangWidth
-      : 0
-  drawBuilding(
+  drawBuildings(
     ctx,
-    street.leftBuildingVariant,
-    street.leftBuildingHeight,
-    'left',
-    buildingWidth,
-    groundLevel,
-    x1 - (buildingWidth - leftOverhang) * multiplier,
+    street,
+    width,
+    dpi,
     multiplier,
-    dpi
-  )
-
-  // Right building
-  const x2 = thumbnailWidth / 2 + (street.width * TILE_SIZE * multiplier) / 2
-  const rightBuilding = BUILDINGS[street.rightBuildingVariant]
-  const rightOverhang =
-    typeof rightBuilding.overhangWidth === 'number'
-      ? rightBuilding.overhangWidth
-      : 0
-  drawBuilding(
-    ctx,
-    street.rightBuildingVariant,
-    street.rightBuildingHeight,
-    'right',
-    buildingWidth,
     groundLevel,
-    x2 - rightOverhang * multiplier,
-    multiplier,
-    dpi
+    buildingOffsetLeft
   )
 
   // Segments
-
-  const originalOffsetLeft = offsetLeft
-
-  // Collect z-indexes
-  const zIndexes = []
-  for (const segment of street.segments) {
-    const segmentInfo = getSegmentInfo(segment.type)
-
-    if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
-      zIndexes.push(segmentInfo.zIndex)
-    }
-  }
-
-  // Render objects at each z-index level
-  for (const zIndex of zIndexes) {
-    let offsetLeft = originalOffsetLeft
-
-    for (const segment of street.segments) {
-      const segmentInfo = getSegmentInfo(segment.type)
-
-      if (segmentInfo.zIndex === zIndex) {
-        const variantInfo = getSegmentVariantInfo(
-          segment.type,
-          segment.variantString
-        )
-        const dimensions = getVariantInfoDimensions(variantInfo, segment.width)
-        const randSeed = segment.id
-
-        drawSegmentContents(
-          ctx,
-          segment.type,
-          segment.variantString,
-          segment.width,
-          offsetLeft + dimensions.left * TILE_SIZE * multiplier,
-          groundLevel,
-          randSeed,
-          multiplier,
-          dpi
-        )
-      }
-
-      offsetLeft += segment.width * TILE_SIZE * multiplier
-    }
-  }
+  drawSegments(ctx, street, dpi, multiplier, groundLevel, offsetLeft)
 
   // Segment names background
   if (segmentNamesAndWidths || silhouette) {
-    ctx.fillStyle = BOTTOM_BACKGROUND
-    ctx.fillRect(
-      0,
-      (groundLevel + GROUND_BASELINE_HEIGHT * multiplier) * dpi,
-      thumbnailWidth * dpi,
-      (thumbnailHeight - groundLevel - GROUND_BASELINE_HEIGHT * multiplier) *
-        dpi
-    )
+    drawSegmentNamesBackground(ctx, width, height, dpi, multiplier, groundLevel)
   }
 
   // Segment names
   if (segmentNamesAndWidths) {
-    let offsetLeft = originalOffsetLeft
-    ctx.save()
-
-    // TODO const
-    ctx.strokeStyle = 'black'
-    ctx.lineWidth = 0.25 * dpi
-    ctx.font = `normal 400 ${12 * dpi}px Rubik`
-    ctx.fillStyle = 'black'
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'top'
-
-    for (const i in street.segments) {
-      const segment = street.segments[i]
-      const availableWidth = segment.width * TILE_SIZE * multiplier
-
-      let left = offsetLeft
-
-      if (i === 0) {
-        left--
-      }
-
-      // Left line
-      drawLine(
-        ctx,
-        left,
-        groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
-        left,
-        groundLevel + 125 * multiplier,
-        dpi
-      )
-
-      const x = (offsetLeft + availableWidth / 2) * dpi
-
-      // Width label
-      let text = prettifyWidth(segment.width, street.units)
-      let textWidth = ctx.measureText(text).width / dpi
-
-      while (
-        textWidth > availableWidth - 10 * multiplier &&
-        text.indexOf(' ') !== -1
-      ) {
-        text = text.substr(0, text.lastIndexOf(' '))
-        textWidth = ctx.measureText(text).width / dpi
-      }
-
-      ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
-
-      // Segment name label
-      const name =
-        segment.label ||
-        getLocaleSegmentName(segment.type, segment.variantString)
-      const nameWidth = ctx.measureText(name).width / dpi
-
-      if (nameWidth <= availableWidth - 10 * multiplier) {
-        ctx.fillText(name, x, (groundLevel + 83 * multiplier) * dpi)
-      }
-
-      offsetLeft += availableWidth
-    }
-
-    // Final right-hand side line
-    const left = offsetLeft + 1
-    drawLine(
+    drawSegmentNamesAndWidths(
       ctx,
-      left,
-      groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
-      left,
-      groundLevel + 125 * multiplier,
-      dpi
+      street,
+      dpi,
+      multiplier,
+      groundLevel,
+      offsetLeft
     )
-
-    ctx.restore()
   }
 
   // Silhouette
-
   if (silhouette) {
-    ctx.globalCompositeOperation = 'source-atop'
-    // TODO const
-    ctx.fillStyle = 'rgb(240, 240, 240)'
-    ctx.fillRect(0, 0, thumbnailWidth * dpi, thumbnailHeight * dpi)
+    drawSilhouette(ctx, width, height, dpi)
   }
 
-  // Street name
-
+  // Street nameplate
   if (streetName) {
-    let text = street.name || formatMessage('street.default-name', 'Unnamed St')
-
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'center'
-    ctx.font = `normal 700 ${70 * dpi}px overpass,sans-serif`
-
-    let measurement = ctx.measureText(text)
-
-    let needToBeElided = false
-    while (measurement.width > (thumbnailWidth - 200) * dpi) {
-      text = text.substr(0, text.length - 1)
-      measurement = ctx.measureText(text)
-      needToBeElided = true
-    }
-    if (needToBeElided) {
-      text += '…'
-    }
-
-    // Street nameplate
-    ctx.fillStyle = 'white'
-    const x1 = (thumbnailWidth * dpi) / 2 - (measurement.width / 2 + 45 * dpi)
-    const x2 = (thumbnailWidth * dpi) / 2 + (measurement.width / 2 + 45 * dpi)
-    const y1 = (75 - 60) * dpi
-    const y2 = (75 + 60) * dpi
-    ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
-
-    // Street nameplate border
-    ctx.strokeStyle = 'black'
-    ctx.lineWidth = 5 * dpi
-    ctx.strokeRect(
-      x1 + 5 * dpi * 2,
-      y1 + 5 * dpi * 2,
-      x2 - x1 - 5 * dpi * 4,
-      y2 - y1 - 5 * dpi * 4
-    )
-
-    const x = (thumbnailWidth * dpi) / 2
-
-    const baselineCorrection = 27
-    const y = (75 + baselineCorrection) * dpi
-
-    ctx.strokeStyle = 'transparent'
-    ctx.fillStyle = 'black'
-    ctx.fillText(text, x, y)
+    drawStreetNameplate(ctx, street, width, dpi)
   }
 
   // Watermark
   if (watermark) {
-    if (segmentNamesAndWidths) {
-      drawWatermark(ctx, dpi)
-    } else {
-      drawWatermark(ctx, dpi, true)
-    }
+    drawWatermark(ctx, dpi, !segmentNamesAndWidths)
   }
 }
