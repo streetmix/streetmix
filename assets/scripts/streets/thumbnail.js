@@ -271,16 +271,18 @@ function drawClouds (ctx, dpi, width, height, env) {
 export function drawStreetThumbnail (
   ctx,
   street,
-  thumbnailWidth,
-  thumbnailHeight,
-  dpi,
-  multiplier,
-  silhouette,
-  bottomAligned,
-  transparentSky,
-  segmentNamesAndWidths,
-  streetName,
-  watermark = true
+  {
+    width: thumbnailWidth,
+    height: thumbnailHeight,
+    dpi,
+    multiplier,
+    silhouette,
+    bottomAligned,
+    transparentSky,
+    segmentNamesAndWidths,
+    streetName,
+    watermark = true
+  }
 ) {
   // Calculations
 

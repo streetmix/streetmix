@@ -59,20 +59,18 @@ export function getStreetImage (
 
   const ctx = el.getContext('2d')
 
-  drawStreetThumbnail(
-    ctx,
-    street,
+  drawStreetThumbnail(ctx, street, {
     width,
     height,
     dpi,
-    1.0,
-    false,
-    true,
+    multiplier: 1.0,
+    silhouette: false,
+    bottomAligned: true,
     transparentSky,
     segmentNamesAndWidths,
     streetName,
     watermark
-  )
+  })
 
   return el
 }
