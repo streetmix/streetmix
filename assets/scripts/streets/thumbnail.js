@@ -21,7 +21,17 @@ const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
-const WATERMARK_TEXT_SIZE = 24
+const SEGMENT_NAME_FONT = 'Rubik'
+const SEGMENT_NAME_FONT_SIZE = 12
+const SEGMENT_NAME_FONT_WEIGHT = '400'
+
+const STREET_NAME_FONT = 'overpass'
+const STREET_NAME_FONT_SIZE = 70
+const STREET_NAME_FONT_WEIGHT = '700'
+
+const WATERMARK_FONT = 'Rubik'
+const WATERMARK_FONT_SIZE = 24
+const WATERMARK_FONT_WEIGHT = '600'
 const WATERMARK_RIGHT_MARGIN = 15
 const WATERMARK_BOTTOM_MARGIN = 15
 const WATERMARK_DARK_COLOR = '#333333'
@@ -442,10 +452,11 @@ function drawSegmentNamesAndWidths (
 ) {
   ctx.save()
 
-  // TODO const
   ctx.strokeStyle = 'black'
   ctx.lineWidth = 0.25 * dpi
-  ctx.font = `normal 400 ${12 * dpi}px Rubik`
+  ctx.font = `normal ${SEGMENT_NAME_FONT_WEIGHT} ${
+    SEGMENT_NAME_FONT_SIZE * dpi
+  }px ${SEGMENT_NAME_FONT},sans-serif`
   ctx.fillStyle = 'black'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
@@ -541,7 +552,9 @@ function drawStreetNameplate (ctx, street, width, dpi) {
 
   ctx.textAlign = 'center'
   ctx.textBaseline = 'center'
-  ctx.font = `normal 700 ${70 * dpi}px overpass,sans-serif`
+  ctx.font = `normal ${STREET_NAME_FONT_WEIGHT} ${
+    STREET_NAME_FONT_SIZE * dpi
+  }px ${STREET_NAME_FONT},sans-serif`
 
   // Handles long names
   let measurement = ctx.measureText(text)
@@ -613,7 +626,9 @@ function drawWatermark (ctx, dpi, invert = false) {
   // Set text render options
   ctx.textAlign = 'right'
   ctx.textBaseline = 'alphabetic'
-  ctx.font = `normal 600 ${WATERMARK_TEXT_SIZE * dpi}px Rubik,sans-serif`
+  ctx.font = `normal ${WATERMARK_FONT_WEIGHT} ${
+    WATERMARK_FONT_SIZE * dpi
+  }px ${WATERMARK_FONT},sans-serif`
   ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR
 
   // Set starting X/Y positions so that watermark is aligned right and bottom of image
