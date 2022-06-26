@@ -45,21 +45,19 @@ function GalleryStreetItem (props) {
     const ctx = thumbnailEl.current.getContext('2d')
 
     try {
-      // TODO: document magic number 2
-      drawStreetThumbnail(
-        ctx,
-        street.data.street,
-        THUMBNAIL_WIDTH * 2,
-        THUMBNAIL_HEIGHT * 2,
+      drawStreetThumbnail(ctx, street.data.street, {
+        // TODO: document magic number 2
+        width: THUMBNAIL_WIDTH * 2,
+        height: THUMBNAIL_HEIGHT * 2,
         dpi,
-        THUMBNAIL_MULTIPLIER,
-        true,
-        false,
-        true,
-        false,
-        false,
-        false
-      )
+        multiplier: THUMBNAIL_MULTIPLIER,
+        silhouette: true,
+        bottomAligned: false,
+        transparentSky: true,
+        segmentNamesAndWidths: false,
+        streetName: false,
+        watermark: false
+      })
     } catch (error) {
       if (error) {
         setError(error)
