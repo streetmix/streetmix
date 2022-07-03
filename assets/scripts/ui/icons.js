@@ -1,24 +1,25 @@
 /**
  * Imports FontAwesome icons
  */
-import {
-  faCheck,
-  faMinus,
-  faPlus,
-  faChevronRight,
-  faChevronLeft,
-  faArrowRight,
-  faArrowLeft,
-  faUndo,
-  faRedo,
-  faTrashAlt,
-  faTools,
-  faBolt,
-  faMale,
-  faPencilAlt,
-  faLock
-} from '@fortawesome/free-solid-svg-icons'
-import { faCopy, faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
+// "deep import" style to workaround a "Maximum call stack exceeded" issue
+// that only happens with the `free-solid-svg-icons` package.
+// for instance: https://github.com/FortAwesome/react-native-fontawesome/issues/123
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
+import { faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons/faArrowRotateLeft'
+import { faArrowRotateRight } from '@fortawesome/free-solid-svg-icons/faArrowRotateRight'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan'
+import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons/faScrewdriverWrench'
+import { faBolt } from '@fortawesome/free-solid-svg-icons/faBolt'
+import { faPerson } from '@fortawesome/free-solid-svg-icons/faPerson'
+import { faPencil } from '@fortawesome/free-solid-svg-icons/faPencil'
+import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
+import { faCopy, faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
 import {
   faTwitter,
   faFacebookSquare,
@@ -45,10 +46,10 @@ import {
 // Furthermore, this is easier to mock for any tests where <FontAwesomeIcon>
 // is a child of the component under test.
 export const ICON_COPY = faCopy
-export const ICON_UNDO = faUndo
-export const ICON_REDO = faRedo
-export const ICON_TOOLS = faTools
-export const ICON_TRASH = faTrashAlt
+export const ICON_UNDO = faArrowRotateLeft
+export const ICON_REDO = faArrowRotateRight
+export const ICON_TOOLS = faScrewdriverWrench
+export const ICON_TRASH = faTrashCan
 export const ICON_MINUS = faMinus
 export const ICON_PLUS = faPlus
 export const ICON_CHECK = faCheck
@@ -57,10 +58,10 @@ export const ICON_ARROW_LEFT = faArrowLeft
 export const ICON_CHEVRON_RIGHT = faChevronRight
 export const ICON_CHEVRON_LEFT = faChevronLeft
 export const ICON_BOLT = faBolt
-export const ICON_PERSON = faMale
-export const ICON_PENCIL = faPencilAlt
+export const ICON_PERSON = faPerson
+export const ICON_PENCIL = faPencil
 export const ICON_LOCK = faLock
-export const ICON_QUESTION_CIRCLE = faQuestionCircle
+export const ICON_QUESTION_CIRCLE = faCircleQuestion
 
 export const ICON_TWITTER = faTwitter
 export const ICON_FACEBOOK = faFacebookSquare
