@@ -2,9 +2,6 @@ import { noop } from 'lodash'
 
 import USER_ROLES from '../../../app/data/user_roles'
 import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
-// check looks like this dosen't exist anymore
-// eslint-disable-next-line import/named
-import { handleSegmentMoveCancel } from '../segments/drag_and_drop'
 import { handleSegmentResizeCancel } from '../segments/resizing'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { formatMessage } from '../locales/locale'
@@ -16,21 +13,24 @@ import { registerKeypress } from './keypress'
 import { ENV } from './config'
 
 export function onGlobalKeyDown (event) {
-  const { draggingType } = store.getState().ui
-
   switch (event.key) {
     case 'Esc': // IE/Edge specific value
-    case 'Escape':
+    case 'Escape': {
+      const { draggingType } = store.getState().ui
+
       if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()
       } else if (draggingType === DRAGGING_TYPE_MOVE) {
-        handleSegmentMoveCancel()
+        // We don't handle this here anymore
+        // TODO: Double check on side effects of not handling this
+        return
       } else {
         return
       }
 
       event.preventDefault()
       break
+    }
   }
 }
 
