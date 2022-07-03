@@ -16,7 +16,8 @@ npm-debug.log*
 
 # Ignore built assets
 build
-.cache
+dist
+.parcel-cache
 
 .env
 

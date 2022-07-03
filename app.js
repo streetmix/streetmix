@@ -50,8 +50,15 @@ const app = (module.exports = express())
 const cacheTimestamp = Date.now()
 app.locals.cacheTimestamp = cacheTimestamp
 
+let devParcelWatcher
+
+async function exitCleanup () {
+  await devParcelWatcher.unsubscribe()
+}
+
 process.on('uncaughtException', function (error) {
   logger.error(chalk`[process] {bold Uncaught exception:} ${error}`)
+  exitCleanup()
 
   console.trace()
   process.exit(1)
@@ -63,6 +70,8 @@ process.on('SIGINT', function () {
   if (process.env.NODE_ENV === 'development') {
     logger.info(chalk`[express] {yellow.bold Stopping Streetmix!}`)
   }
+  exitCleanup()
+
   process.exit()
 })
 
@@ -222,7 +231,7 @@ app.get('/terms-of-service', (req, res) =>
 app.use('', apiRoutes)
 app.use('', serviceRoutes)
 
-app.use('/assets', express.static(path.join(__dirname, '/build')))
+app.use('/assets', express.static(path.join(__dirname, '/dist')))
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Catch-all for broken asset paths.
@@ -233,13 +242,19 @@ app.all('/assets/*', (req, res) => {
   res.status(404).render('404')
 })
 
-// Allow hot-module reloading (HMR)
-// and attach API docs
-// in non-production environments
-if (process.env.NODE_ENV !== 'production') {
-  const runBundle = require('./app/bundle')
-  runBundle(app)
+function runParcel () {
+  const parcel = require('./app/bundle.js')
+  if (process.env.NODE_ENV === 'production') {
+    parcel.bundleProduction()
+  } else {
+    devParcelWatcher = parcel.bundleDevelopment()
+  }
+}
 
+runParcel()
+
+// Attach API docs in non-production environments
+if (process.env.NODE_ENV !== 'production') {
   const options = {
     definition: {
       info: {
