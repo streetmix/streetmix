@@ -79,7 +79,7 @@ exports[`PaletteContainer renders 1`] = `
         title="Undo"
       >
         <svg
-          class="svg-inline--fa fa-undo"
+          class="svg-inline--fa fa-arrow-rotate-left"
         />
       </button>
       <button
@@ -87,7 +87,7 @@ exports[`PaletteContainer renders 1`] = `
         title="Redo"
       >
         <svg
-          class="svg-inline--fa fa-redo"
+          class="svg-inline--fa fa-arrow-rotate-right"
         />
       </button>
     </div>
