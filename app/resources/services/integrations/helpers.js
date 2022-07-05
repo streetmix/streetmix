@@ -74,7 +74,7 @@ function addUserConnection (account, profile) {
     // be removed.
     await User.update(
       {
-        identities: identities
+        identities
       },
       { where: { auth0Id: account.auth0Id }, returning: true, transaction: t }
     )

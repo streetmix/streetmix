@@ -305,13 +305,13 @@ exports.find = async function (req, res) {
       throw new Error(ERRORS.USER_NOT_FOUND)
     }
     return Street.findOne({
-      where: { namespacedId: namespacedId, creatorId: user.id }
+      where: { namespacedId, creatorId: user.id }
     })
   } // END function - findStreetWithCreatorId
 
   const findStreetWithNamespacedId = async function (namespacedId) {
     return Street.findOne({
-      where: { namespacedId: namespacedId, creatorId: null }
+      where: { namespacedId, creatorId: null }
     })
   }
 
@@ -376,7 +376,7 @@ exports.find = async function (req, res) {
           self: selfUri
         }
       },
-      streets: streets
+      streets
     }
 
     if (start > 0) {

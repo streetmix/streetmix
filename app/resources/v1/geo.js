@@ -32,7 +32,7 @@ exports.get = async function (req, res) {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: coordinates
+        coordinates
       },
       properties: result
     }

@@ -58,7 +58,7 @@ export function goEmailSignIn (email, callback) {
   auth0.passwordlessStart(
     {
       send: 'link',
-      email: email,
+      email,
       connection: 'email',
       authParams: {
         redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,

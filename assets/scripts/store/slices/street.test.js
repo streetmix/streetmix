@@ -417,7 +417,7 @@ describe('street reducer', () => {
 
     it('should handle addLocation()', () => {
       expect(street({ location: null }, addLocation(location))).toEqual({
-        location: location
+        location
       })
     })
 

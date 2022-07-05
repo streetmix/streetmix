@@ -76,7 +76,7 @@ export function animate (el, props, duration) {
   tween({
     from: initialProps,
     to: props,
-    duration: duration,
+    duration,
     step: (state) => Object.assign(el, state)
   })
 }
@@ -100,7 +100,7 @@ export function isExternalUrl (url) {
 
     // Relative URL
     return window.location.hostname
-  }(url))
+  })(url)
 
   return hostname !== urlHostname
 }

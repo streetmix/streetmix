@@ -173,7 +173,7 @@ describe('ResizeGuides', () => {
       },
       street: {
         segments: [{ width: segmentWidth }],
-        remainingWidth: remainingWidth
+        remainingWidth
       }
     }
 
@@ -198,7 +198,7 @@ describe('ResizeGuides', () => {
       },
       street: {
         segments: [{ width: segmentWidth }],
-        remainingWidth: remainingWidth
+        remainingWidth
       }
     }
 

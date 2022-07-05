@@ -201,7 +201,7 @@ exports.put = async function (req, res) {
     return
   }
   const ballot = await Vote.findOne({
-    where: { id: id, voter_id: user.id }
+    where: { id, voter_id: user.id }
   })
 
   if (!ballot) {
@@ -295,7 +295,7 @@ exports.post = async function (req, res) {
     res.status(500).json({ status: 500, msg: 'Error filling ballot.' })
     return
   }
-  const payload = { ballot, savedBallot, updates: updates }
+  const payload = { ballot, savedBallot, updates }
 
   res.status(200).json(payload)
 }

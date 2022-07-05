@@ -7,7 +7,7 @@ import { ERRORS } from '../errors'
 function getInitialState (errorType) {
   return {
     errors: {
-      errorType: errorType
+      errorType
     },
     street: {
       creatorId: 'foo'

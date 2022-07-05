@@ -171,7 +171,7 @@ class SaveAsImageDialog extends React.Component {
       this.setState({
         download: {
           filename: this.makeFilename(),
-          dataUrl: dataUrl
+          dataUrl
         },
         errorMessage: null
       })

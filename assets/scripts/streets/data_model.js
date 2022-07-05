@@ -452,7 +452,7 @@ export function prepareDefaultStreet () {
   const units = store.getState().settings.units
   const currentDate = new Date().toISOString()
   const defaultStreet = {
-    units: units,
+    units,
     location: null,
     name: null,
     showAnalytics: true,
@@ -482,7 +482,7 @@ export function prepareEmptyStreet () {
   const units = store.getState().settings.units
   const currentDate = new Date().toISOString()
   const emptyStreet = {
-    units: units,
+    units,
     location: null,
     name: null,
     showAnalytics: true,

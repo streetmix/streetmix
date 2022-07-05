@@ -53,7 +53,7 @@ exports.post = async function (req, res) {
   const details = {
     public_id: publicId,
     street_type: streetType,
-    creatorId: creatorId,
+    creatorId,
     edit_count: editCount
   }
 

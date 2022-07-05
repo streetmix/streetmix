@@ -410,7 +410,7 @@ export function packServerStreetData () {
   const transmission = {
     name: street.name,
     originalStreetId: street.originalStreetId,
-    data: data,
+    data,
     clientUpdatedAt: street.clientUpdatedAt
   }
 

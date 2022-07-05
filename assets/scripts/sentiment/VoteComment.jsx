@@ -23,7 +23,7 @@ function VoteComment ({ streetId }) {
       if (streetId) {
         putSentimentSurveyComment({
           id: streetId,
-          comment: comment
+          comment
         })
       }
     } catch (error) {
