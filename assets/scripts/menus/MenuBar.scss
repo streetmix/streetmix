@@ -68,7 +68,6 @@ $menu-bar-box-shadow: $light-box-shadow;
     padding-right: 10px;
     outline: none;
     text-decoration: none;
-    text-rendering: optimizeLegibility;
     color: inherit;
 
     &:hover {
@@ -87,7 +86,6 @@ $menu-bar-box-shadow: $light-box-shadow;
     border: 0;
     font-size: inherit;
     font-weight: inherit;
-    text-rendering: optimizeLegibility;
     background-color: transparent;
     color: inherit;
     cursor: pointer;
