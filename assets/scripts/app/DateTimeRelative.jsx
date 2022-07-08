@@ -13,9 +13,9 @@ const SECONDS_AGO = 1000 * 60
  */
 function isSameDay (a, b) {
   return (
-    (a.getFullYear() === b.getFullYear()) &&
-    (a.getMonth() === b.getMonth()) &&
-    (a.getDate() === b.getDate())
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
   )
 }
 
@@ -28,7 +28,10 @@ export default function DateTimeRelative (props) {
     if (diff < SECONDS_AGO) {
       return (
         <time dateTime={props.value} title={props.value}>
-          <FormattedMessage id="datetime.seconds-ago" defaultMessage="A few seconds ago" />
+          <FormattedMessage
+            id="datetime.seconds-ago"
+            defaultMessage="A few seconds ago"
+          />
         </time>
       )
     }
@@ -36,7 +39,10 @@ export default function DateTimeRelative (props) {
     if (diff < MINUTES_AGO) {
       return (
         <time dateTime={props.value} title={props.value}>
-          <FormattedMessage id="datetime.minutes-ago" defaultMessage="A few minutes ago" />
+          <FormattedMessage
+            id="datetime.minutes-ago"
+            defaultMessage="A few minutes ago"
+          />
         </time>
       )
     }
@@ -90,11 +96,7 @@ export default function DateTimeRelative (props) {
   if (now.getFullYear() === date.getFullYear()) {
     return (
       <time dateTime={props.value} title={props.value}>
-        <FormattedDate
-          value={props.value}
-          month="long"
-          day="numeric"
-        />
+        <FormattedDate value={props.value} month="long" day="numeric" />
       </time>
     )
   }
@@ -114,12 +116,22 @@ export default function DateTimeRelative (props) {
 DateTimeRelative.propTypes = {
   // prop should match an ISO date string, e.g. "2018-04-24T23:37:55.21Z"
   value: (props, propName, componentName) => {
-    if (!/^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+Z$/.test(props[propName]) &&
-      typeof props[propName] !== 'undefined') {
+    if (
+      !/^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+Z$/.test(
+        props[propName]
+      ) &&
+      typeof props[propName] !== 'undefined'
+    ) {
       return new Error(
-        'Invalid prop `' + propName + '` supplied to' +
-        ' `' + componentName + '`. It should be an ISO date string.' +
-        ' Validation failed. Value: `' + props[propName] + '`'
+        'Invalid prop `' +
+          propName +
+          '` supplied to' +
+          ' `' +
+          componentName +
+          '`. It should be an ISO date string.' +
+          ' Validation failed. Value: `' +
+          props[propName] +
+          '`'
       )
     }
   },

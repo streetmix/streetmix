@@ -27,11 +27,12 @@ describe('ExternalLink', () => {
   })
 
   it('renders an <a> element with string child', () => {
-    const {
-      asFragment
-    } = render(<ExternalLink href="https://example.com">foo</ExternalLink>, {
-      initialState: initialStateForOnline
-    })
+    const { asFragment } = render(
+      <ExternalLink href="https://example.com">foo</ExternalLink>,
+      {
+        initialState: initialStateForOnline
+      }
+    )
     expect(asFragment()).toMatchSnapshot()
   })
 
@@ -46,11 +47,12 @@ describe('ExternalLink', () => {
   })
 
   it('renders string child without an <a> element in "offline" mode', () => {
-    const {
-      asFragment
-    } = render(<ExternalLink href="https://example.com">foo</ExternalLink>, {
-      initialState: initialStateForOffline
-    })
+    const { asFragment } = render(
+      <ExternalLink href="https://example.com">foo</ExternalLink>,
+      {
+        initialState: initialStateForOffline
+      }
+    )
     expect(asFragment()).toMatchSnapshot()
   })
 
@@ -65,9 +67,7 @@ describe('ExternalLink', () => {
   })
 
   it('renders an <a> element with mailto link', () => {
-    const {
-      asFragment
-    } = render(
+    const { asFragment } = render(
       <ExternalLink href="mailto:hello@streetmix.net">foo</ExternalLink>,
       { initialState: initialStateForOnline }
     )

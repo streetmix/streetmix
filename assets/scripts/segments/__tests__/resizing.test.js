@@ -1,5 +1,9 @@
 /* eslint-env jest */
-import { normalizeSegmentWidth, normalizeAllSegmentWidths, resolutionForResizeType } from '../resizing'
+import {
+  normalizeSegmentWidth,
+  normalizeAllSegmentWidths,
+  resolutionForResizeType
+} from '../resizing'
 
 describe('normalizeSegmentWidth', () => {
   it('constrains to minimum segment width', () => {

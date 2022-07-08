@@ -13,7 +13,9 @@ describe('get api/v1/flags', function () {
       .get('/api/v1/flags')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
-        expect(response.get('Content-Type').toLowerCase()).toEqual('application/json; charset=utf-8')
+        expect(response.get('Content-Type').toLowerCase()).toEqual(
+          'application/json; charset=utf-8'
+        )
         expect(response.body.GEOTAG.label).toEqual('UI — Geotagging')
       })
   })

@@ -36,16 +36,24 @@ module.exports = {
     //
     // Apologies for the raw SQL. If Sequelize has an interface for this query,
     // please do replace.
-    return queryInterface.sequelize.transaction(t => {
+    return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
-        queryInterface.sequelize.query(`
+        queryInterface.sequelize.query(
+          `
           UPDATE "Users"
           SET profile_image_url = profile_image_url::varchar(255)
           WHERE CHAR_LENGTH(profile_image_url) > 255
-        `, { transaction: t }),
-        queryInterface.changeColumn('Users', 'profile_image_url', {
-          type: Sequelize.STRING
-        }, { transaction: t })
+        `,
+          { transaction: t }
+        ),
+        queryInterface.changeColumn(
+          'Users',
+          'profile_image_url',
+          {
+            type: Sequelize.STRING
+          },
+          { transaction: t }
+        )
       ])
     })
   }

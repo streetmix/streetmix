@@ -38,9 +38,7 @@ const Flash = (props) => {
     }
   })
 
-  return (
-    <div className="flash" ref={el} />
-  )
+  return <div className="flash" ref={el} />
 }
 
 export default Flash

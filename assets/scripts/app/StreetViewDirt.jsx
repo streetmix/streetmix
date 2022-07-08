@@ -10,8 +10,8 @@ function getDirtElementHeight () {
 
 const StreetViewDirt = ({ buildingWidth }) => {
   const dirtStyle = {
-    marginLeft: (-buildingWidth) + 'px',
-    marginRight: (-buildingWidth) + 'px',
+    marginLeft: -buildingWidth + 'px',
+    marginRight: -buildingWidth + 'px',
     height: getDirtElementHeight() + 'px'
   }
   const width = `${buildingWidth}px`

@@ -11,8 +11,9 @@ export function getStreetSectionTop () {
 // TODO: document all magic numbers
 export function setStreetSectionTop () {
   const viewportHeight = window.innerHeight
-  const streetSectionHeight = document.querySelector('#street-section-inner')
-    .offsetHeight
+  const streetSectionHeight = document.querySelector(
+    '#street-section-inner'
+  ).offsetHeight
   // Find the top of the palette element. If element is not present (it
   // not be rendered in some cases, e.g. when the app is in read-only mode),
   // use the viewport height.

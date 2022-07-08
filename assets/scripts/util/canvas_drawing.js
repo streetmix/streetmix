@@ -17,8 +17,8 @@ export function drawArrowLine (ctx, x1, y1, x2, y2, text, dpi) {
   drawLine(ctx, x1, y1, x2, y2, dpi)
 
   if (text) {
-    ctx.font = (12 * dpi) + 'px Arial'
+    ctx.font = 12 * dpi + 'px Arial'
     ctx.textAlign = 'center'
-    ctx.fillText(text, (x1 + x2) / 2 * dpi, (y1 * dpi) - 10)
+    ctx.fillText(text, ((x1 + x2) / 2) * dpi, y1 * dpi - 10)
   }
 }

@@ -7,15 +7,16 @@ import { saveStreetToServerIfNecessary } from './data_model'
  */
 export function initStreetDataChangedListener () {
   // We create a string representation of the values we need to compare
-  const select = (state) => JSON.stringify({
-    leftBuildingHeight: state.street.leftBuildingHeight,
-    leftBuildingVariant: state.street.leftBuildingVariant,
-    rightBuildingHeight: state.street.rightBuildingHeight,
-    rightBuildingVariant: state.street.rightBuildingVariant,
-    name: state.street.name,
-    location: state.street.location,
-    environment: state.street.environment
-  })
+  const select = (state) =>
+    JSON.stringify({
+      leftBuildingHeight: state.street.leftBuildingHeight,
+      leftBuildingVariant: state.street.leftBuildingVariant,
+      rightBuildingHeight: state.street.rightBuildingHeight,
+      rightBuildingVariant: state.street.rightBuildingVariant,
+      name: state.street.name,
+      location: state.street.location,
+      environment: state.street.environment
+    })
 
   const onChange = () => {
     saveStreetToServerIfNecessary()

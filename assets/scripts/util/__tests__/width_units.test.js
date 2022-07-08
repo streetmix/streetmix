@@ -1,6 +1,9 @@
 /* eslint-env jest */
 import { processWidthInput, prettifyWidth } from '../width_units'
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from '../../users/constants'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../../users/constants'
 
 // Use this when it doesn't matter what the unit is.
 // TODO: Switch default units to metric
@@ -32,8 +35,8 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(3)
   })
 
-  it('parses a value with a prime symbol (3\')', () => {
-    const value = '3\''
+  it("parses a value with a prime symbol (3')", () => {
+    const value = "3'"
 
     // Even in metric mode, the prime symbol should cause the value to be interpreted as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
@@ -74,8 +77,8 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(3.75)
   })
 
-  it('parses a decimal with prime symbol (3.75\')', () => {
-    const value = '3.75\''
+  it("parses a decimal with prime symbol (3.75')", () => {
+    const value = "3.75'"
 
     // Even in metric mode, the prime symbol should cause the value to be
     // interpreted as imperial units
@@ -183,7 +186,7 @@ describe('processWidthInput()', () => {
   })
 
   it('parses feet and inches with prime and double-prime symbols (3\'9")', () => {
-    const value = "3'9\""
+    const value = '3\'9"'
 
     // Even in metric mode, the `ft` should cause the value to be interpreted
     // as imperial units
@@ -194,7 +197,7 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(3.75)
   })
 
-  it('parses feet and inches with prime symbol, lacking a final double-prime symbol (3\'9)', () => {
+  it("parses feet and inches with prime symbol, lacking a final double-prime symbol (3'9)", () => {
     const value = "3'9"
 
     // Even in metric mode, the `ft` should cause the value to be interpreted
@@ -207,7 +210,7 @@ describe('processWidthInput()', () => {
   })
 
   it('parses feet and inches with prime and double-prime symbols and hyphen separator (3\'-9")', () => {
-    const value = "3'-9\""
+    const value = '3\'-9"'
 
     // Even in metric mode, the `ft` should cause the value to be interpreted
     // as imperial units
@@ -218,7 +221,7 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(3.75)
   })
 
-  it('parses feet and inches with prime and hyphen separator, lacking a final double-prime symbol (3\'-9)', () => {
+  it("parses feet and inches with prime and hyphen separator, lacking a final double-prime symbol (3'-9)", () => {
     const value = "3'-9"
 
     // Even in metric mode, the `ft` should cause the value to be interpreted
@@ -231,7 +234,7 @@ describe('processWidthInput()', () => {
   })
 
   it('parses feet and inches with prime and double-prime symbols and space separator (3\' 9")', () => {
-    const value = "3' 9\""
+    const value = '3\' 9"'
 
     // Even in metric mode, the `ft` should cause the value to be interpreted
     // as imperial units
@@ -242,7 +245,7 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(3.75)
   })
 
-  it('parses feet and inches with prime and space separator, lacking a final double-prime symbol (3\' 9)', () => {
+  it("parses feet and inches with prime and space separator, lacking a final double-prime symbol (3' 9)", () => {
     const value = "3' 9"
 
     // Even in metric mode, the `ft` should cause the value to be interpreted

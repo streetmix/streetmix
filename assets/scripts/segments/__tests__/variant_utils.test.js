@@ -4,7 +4,10 @@ import { getVariantArray, getVariantString } from '../variant_utils'
 describe('getVariantArray', () => {
   it('returns an object', () => {
     const result = getVariantArray('streetcar', 'inbound|regular')
-    expect(result).toEqual({ direction: 'inbound', 'public-transit-asphalt': 'regular' })
+    expect(result).toEqual({
+      direction: 'inbound',
+      'public-transit-asphalt': 'regular'
+    })
   })
 
   it('returns an empty object if the segment is not found', () => {

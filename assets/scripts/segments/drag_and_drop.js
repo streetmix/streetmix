@@ -126,9 +126,8 @@ function handleSegmentResizeStart (event) {
   draggingResize.elY = pos[1]
 
   draggingResize.originalX = draggingResize.elX
-  draggingResize.originalWidth = store.getState().street.segments[
-    el.parentNode.dataNo
-  ].width
+  draggingResize.originalWidth =
+    store.getState().street.segments[el.parentNode.dataNo].width
   draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')

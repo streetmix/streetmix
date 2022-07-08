@@ -44,10 +44,8 @@ const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
 
 function WelcomePanel (props) {
   const { readOnly, everythingLoaded } = useSelector((state) => state.app)
-  const {
-    welcomePanelVisible: isVisible,
-    welcomePanelDismissed: isDismissed
-  } = useSelector((state) => state.ui)
+  const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
+    useSelector((state) => state.ui)
   const dispatch = useDispatch()
   const [welcomeType, setWelcomeType] = useState(WELCOME_NONE)
   const [isReturningUser, setIsReturningUser] = useState(
