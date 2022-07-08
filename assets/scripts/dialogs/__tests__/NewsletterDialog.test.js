@@ -17,16 +17,6 @@ describe('NewsletterDialog', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('handles an email validating error', async () => {
-    render(<NewsletterDialog />)
-
-    userEvent.click(screen.getByText('Subscribe'))
-
-    await waitFor(() => {
-      expect(screen.queryByText('This field is required.')).toBeInTheDocument()
-    })
-  })
-
   it('disables a submit button while pending subscription', async () => {
     // Mock the response to have a delay so we can test the pending state
     fetch.mockResponse(
