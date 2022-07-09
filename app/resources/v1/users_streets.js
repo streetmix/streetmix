@@ -60,7 +60,7 @@ exports.get = async function (req, res) {
   } // END function - handleFindUserstreets
 
   const handleFindUserStreets = function (streets) {
-    const json = { streets: streets }
+    const json = { streets }
     res.status(200).json(json).end()
   } // END function - handleFindUserStreets
 

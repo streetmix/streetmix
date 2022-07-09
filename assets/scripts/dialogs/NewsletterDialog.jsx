@@ -27,11 +27,7 @@ function jsObjectToFormBody (data) {
 
 const NewsletterDialog = (props) => {
   const { formatMessage } = useIntl()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true
   })
   const [submitState, setSubmitState] = useState('DEFAULT')
@@ -99,17 +95,8 @@ const NewsletterDialog = (props) => {
                   name="email"
                   id="bd-email"
                   placeholder="test@example.com"
-                  className={errors.email ? 'subscribe-input-error' : null}
                   {...register('email', { required: true })}
                 />
-                {errors.email && (
-                  <p className="subscribe-error">
-                    <FormattedMessage
-                      id="dialogs.newsletter.field-required-error"
-                      defaultMessage="This field is required."
-                    />
-                  </p>
-                )}
                 <input
                   type="hidden"
                   name="tag"

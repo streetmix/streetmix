@@ -62,12 +62,7 @@ describe('StreetEditable', () => {
     describe('too large', () => {
       it('Pressing `+` does not increase the width of the segment', async () => {
         const street = { width: 400, segments: [segment] }
-        const {
-          getByTestId,
-          store,
-          container,
-          asFragment
-        } = render(
+        const { getByTestId, store, container, asFragment } = render(
           <StreetEditable
             setBuildingWidth={setBuildingWidth}
             updatePerspective={updatePerspective}

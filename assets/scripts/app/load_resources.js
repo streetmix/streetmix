@@ -175,8 +175,8 @@ function cacheSVGObject (id, svg, svgHTML) {
   // Store properties on svg cache, using its simplified id as the key
   images.set(id, {
     el: svg,
-    src: src,
-    img: img,
+    src,
+    img,
     width: svg.viewBox.baseVal.width,
     height: svg.viewBox.baseVal.height
   })

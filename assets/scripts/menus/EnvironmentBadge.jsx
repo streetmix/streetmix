@@ -59,7 +59,7 @@ function getDetails (label, env, offline) {
   }
 
   return {
-    label: label
+    label
   }
 }
 

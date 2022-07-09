@@ -151,7 +151,7 @@ exports.BTPTokenCheck = async (req, res, next) => {
     addOrUpdateByProviderName(identities, coilData)
     await User.update(
       {
-        identities: identities
+        identities
       },
       { where: { auth0Id: userData.auth0Id }, returning: true }
     )
@@ -186,7 +186,7 @@ const refreshAccessToken = async (refreshToken) => {
         Authorization: `Basic ${encodedAuth}`,
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: data
+      data
     }
     const response = await axios(requestConfig)
     return response.data.access_token

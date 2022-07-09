@@ -162,7 +162,7 @@ exports.post = async function (req, res) {
         } else {
           const id = generateId(credentials.nickname)
           const newUserData = {
-            id: id,
+            id,
             auth0Id: credentials.auth0Id,
             email: credentials.email,
             profileImageUrl: credentials.profileImageUrl

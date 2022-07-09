@@ -33,11 +33,7 @@ describe('recalculateWidth', () => {
   it('calculates a full street', () => {
     const street = {
       width: 50,
-      segments: [
-        { width: 10 },
-        { width: 20 },
-        { width: 20 }
-      ]
+      segments: [{ width: 10 }, { width: 20 }, { width: 20 }]
     }
     expect(recalculateWidth(street)).toEqual({
       occupiedWidth: 50,
@@ -53,10 +49,7 @@ describe('recalculateWidth', () => {
   it('calculates an underoccupied street', () => {
     const street = {
       width: 50,
-      segments: [
-        { width: 10 },
-        { width: 30 }
-      ]
+      segments: [{ width: 10 }, { width: 30 }]
     }
     expect(recalculateWidth(street)).toEqual({
       occupiedWidth: 40,
@@ -71,11 +64,7 @@ describe('recalculateWidth', () => {
   it('calculates an overoccupied street', () => {
     const street = {
       width: 50,
-      segments: [
-        { width: 30 },
-        { width: 10 },
-        { width: 30 }
-      ]
+      segments: [{ width: 30 }, { width: 10 }, { width: 30 }]
     }
     expect(recalculateWidth(street)).toEqual({
       occupiedWidth: 70,
@@ -91,11 +80,7 @@ describe('recalculateWidth', () => {
   it('calculates an overoccupied street', () => {
     const street = {
       width: 50,
-      segments: [
-        { width: 30 },
-        { width: 10 },
-        { width: 30 }
-      ]
+      segments: [{ width: 30 }, { width: 10 }, { width: 30 }]
     }
     expect(recalculateWidth(street)).toEqual({
       occupiedWidth: 70,
@@ -121,9 +106,24 @@ describe('recalculateWidth', () => {
       occupiedWidth: 30,
       remainingWidth: 20,
       segments: [
-        { width: 2, type: 'sidewalk', variantString: 'normal', warnings: [undefined, false, true, false] },
-        { width: 10, type: 'divider', variantString: 'bush', warnings: [undefined, false, false, false] },
-        { width: 18, type: 'parking-lane', variantString: 'inbound|left', warnings: [undefined, false, false, true] }
+        {
+          width: 2,
+          type: 'sidewalk',
+          variantString: 'normal',
+          warnings: [undefined, false, true, false]
+        },
+        {
+          width: 10,
+          type: 'divider',
+          variantString: 'bush',
+          warnings: [undefined, false, false, false]
+        },
+        {
+          width: 18,
+          type: 'parking-lane',
+          variantString: 'inbound|left',
+          warnings: [undefined, false, false, true]
+        }
       ]
     })
   })

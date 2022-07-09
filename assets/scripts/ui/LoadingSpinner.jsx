@@ -27,9 +27,7 @@ function LoadingSpinner ({ size }) {
     classNames.push('loading-spinner-small')
   }
 
-  return (
-    <div className={classNames.join(' ')} />
-  )
+  return <div className={classNames.join(' ')} />
 }
 
 export default LoadingSpinner

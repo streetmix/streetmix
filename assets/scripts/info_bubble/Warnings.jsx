@@ -41,7 +41,9 @@ const Warnings = (props) => {
   if (messages.length > 0) {
     return (
       <div className="info-bubble-warnings">
-        {messages.map((message) => (<p key={message.props.id}>{message}</p>))}
+        {messages.map((message) => (
+          <p key={message.props.id}>{message}</p>
+        ))}
       </div>
     )
   }

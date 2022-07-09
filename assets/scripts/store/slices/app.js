@@ -47,11 +47,7 @@ const appSlice = createSlice({
   }
 })
 
-export const {
-  setAppFlags,
-  startPrinting,
-  stopPrinting,
-  everythingLoaded
-} = appSlice.actions
+export const { setAppFlags, startPrinting, stopPrinting, everythingLoaded } =
+  appSlice.actions
 
 export default appSlice.reducer

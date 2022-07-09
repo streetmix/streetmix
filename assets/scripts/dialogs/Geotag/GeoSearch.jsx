@@ -13,10 +13,7 @@ GeoSearch.propTypes = {
   })
 }
 
-function GeoSearch ({
-  handleSearchResults,
-  focus = { lat: 0, lng: 0 }
-}) {
+function GeoSearch ({ handleSearchResults, focus = { lat: 0, lng: 0 } }) {
   const intl = useIntl()
   const inputEl = useRef()
 

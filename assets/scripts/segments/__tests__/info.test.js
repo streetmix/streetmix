@@ -73,7 +73,8 @@ describe('segment info', () => {
       expect(segment.unknown).toBeFalsy()
 
       const { details, rules, ...segmentInfo } = segment
-      const { details: original, ...originalSegmentInfo } = SEGMENT_INFO.sidewalk
+      const { details: original, ...originalSegmentInfo } =
+        SEGMENT_INFO.sidewalk
       expect(segmentInfo).toEqual(originalSegmentInfo)
     })
   })

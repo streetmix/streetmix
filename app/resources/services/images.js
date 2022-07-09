@@ -48,7 +48,7 @@ exports.get = async function (req, res) {
   }
 
   const payload = {
-    signature: signature,
+    signature,
     timestamp: query.timestamp,
     api_key: process.env.CLOUDINARY_API_KEY
   }

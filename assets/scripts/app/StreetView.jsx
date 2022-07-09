@@ -124,7 +124,7 @@ class StreetView extends React.Component {
     )
 
     if (marginUpdated) {
-      this.setState({ resizeType: resizeType })
+      this.setState({ resizeType })
     }
   }
 

@@ -21,6 +21,10 @@
     "CYPRESS_INSTALL_BINARY": {
       "description": "Skip installing Cypress in deployment environments. See https://docs.cypress.io/guides/getting-started/installing-cypress.html#Skipping-installation",
       "value": "0"
+    },
+    "HUSKY": {
+      "description": "Skip installing Husky (v8+).",
+      "value": "0"
     }
   },
   "addons": [
