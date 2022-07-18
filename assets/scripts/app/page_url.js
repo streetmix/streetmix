@@ -145,9 +145,6 @@ export function updatePageUrl (forceGalleryUrl, userId = null) {
   if (debug.forceLeftHandTraffic) {
     url += '&debug-force-left-hand-traffic'
   }
-  if (debug.forceUnsupportedBrowser) {
-    url += '&debug-force-unsupported-browser'
-  }
   if (debug.forceNonRetina) {
     url += '&debug-force-non-retina'
   }

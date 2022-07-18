@@ -453,6 +453,7 @@ function BlockingError (props) {
         </>
       )
       break
+    // Deprecated.
     case ERRORS.UNSUPPORTED_BROWSER:
       title = (
         <FormattedMessage

@@ -4,7 +4,6 @@ import debug, { setDebugFlags } from './debug'
 describe('debug reducer', () => {
   const initialState = {
     forceLeftHandTraffic: false,
-    forceUnsupportedBrowser: false,
     forceNonRetina: false,
     forceOfflineMode: false,
     forceReadOnly: false,
@@ -26,7 +25,6 @@ describe('debug reducer', () => {
 
       const result = {
         forceLeftHandTraffic: false,
-        forceUnsupportedBrowser: false,
         forceNonRetina: true,
         forceOfflineMode: false,
         forceReadOnly: false,
@@ -48,7 +46,6 @@ describe('debug reducer', () => {
 
       const result = {
         forceLeftHandTraffic: true,
-        forceUnsupportedBrowser: false,
         forceNonRetina: true,
         forceOfflineMode: false,
         forceReadOnly: false,

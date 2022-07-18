@@ -21,7 +21,7 @@ import { openGallery } from '../store/actions/gallery'
 import { showDialog } from '../store/slices/dialogs'
 import { everythingLoaded } from '../store/slices/app'
 import { addEventListeners } from './event_listeners'
-import { getMode, setMode, MODES, processMode } from './mode'
+import { getMode, MODES, processMode } from './mode'
 import { processUrl } from './page_url'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
@@ -54,18 +54,6 @@ function preInit () {
 
 export async function initialize () {
   preInit()
-  if (!debug.forceUnsupportedBrowser) {
-    // TODO temporary ban
-    if (
-      navigator.userAgent.indexOf('Opera') !== -1 ||
-      navigator.userAgent.indexOf('Internet Explorer') !== -1 ||
-      navigator.userAgent.indexOf('MSIE') !== -1
-    ) {
-      setMode(MODES.UNSUPPORTED_BROWSER)
-      processMode()
-      return
-    }
-  }
 
   window.dispatchEvent(new window.CustomEvent('stmx:init'))
 

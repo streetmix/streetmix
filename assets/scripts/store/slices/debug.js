@@ -4,7 +4,6 @@ const debugSlice = createSlice({
   name: 'debug',
   initialState: {
     forceLeftHandTraffic: false,
-    forceUnsupportedBrowser: false,
     forceNonRetina: false,
     forceOfflineMode: false,
     forceReadOnly: false,

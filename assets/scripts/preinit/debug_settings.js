@@ -13,7 +13,6 @@ import { setDebugFlags } from '../store/slices/debug'
 
 export const debug = {
   forceLeftHandTraffic: false,
-  forceUnsupportedBrowser: false,
   forceNonRetina: false,
   forceOfflineMode: false,
   forceReadOnly: false,
@@ -24,10 +23,6 @@ const url = window.location.search
 
 if (url.match(/[?&]debug-force-left-hand-traffic&?/)) {
   debug.forceLeftHandTraffic = true
-}
-
-if (url.match(/[?&]debug-force-unsupported-browser&?/)) {
-  debug.forceUnsupportedBrowser = true
 }
 
 if (url.match(/[?&]debug-force-non-retina&?/)) {

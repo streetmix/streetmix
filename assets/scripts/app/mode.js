@@ -16,7 +16,7 @@ export const MODES = {
   GLOBAL_GALLERY: 11,
   FORCE_RELOAD_SIGN_OUT_401: 12,
   ERROR: 13,
-  UNSUPPORTED_BROWSER: 14,
+  UNSUPPORTED_BROWSER: 14, // Deprecated. Do not use.
   STREET_404: 15,
   STREET_404_BUT_LINK_TO_USER: 16,
   STREET_410_BUT_LINK_TO_USER: 17,
@@ -42,6 +42,7 @@ export function processMode () {
     case MODES.ERROR:
       showErrorFromUrl(getErrorUrl())
       break
+    // Deprecated
     case MODES.UNSUPPORTED_BROWSER:
       showError(ERRORS.UNSUPPORTED_BROWSER, true)
       break
