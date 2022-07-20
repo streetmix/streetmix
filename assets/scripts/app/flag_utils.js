@@ -1,4 +1,3 @@
-import FEATURE_FLAGS from '../../../app/data/flags'
 import store, { observeStore } from '../store'
 import { setFlagOverrides } from '../store/slices/flags'
 
@@ -15,19 +14,19 @@ export function initializeFlagSubscribers () {
 }
 
 function whatAreTheFlagsWeNeedToSave (flags) {
-  // convert to array
-  const array = Object.entries(flags)
-  // filter out all non-user set flags
-  const filter1 = array.filter((item) => item[1].source === 'session')
-  // filter out flags that equal default values
-  const filter2 = filter1.filter(
-    (item) => item[1].value !== FEATURE_FLAGS[item[0]].defaultValue
+  return (
+    Object.entries(flags)
+      // filter out all non-user set flags
+      .filter(([key, flag]) => flag.source === 'session')
+      // filter out flags that equal default values
+      .filter(([key, flag]) => flag.value !== flag.defaultValue)
+      // convert back to obj but simplify it to just the value
+      .reduce((obj, [key, flag]) => {
+        obj[key] = flag.value
+        console.log(obj)
+        return obj
+      }, {})
   )
-  // convert back to obj but simplify it to just the value
-  return filter2.reduce((obj, item) => {
-    obj[item[0]] = item[1].value
-    return obj
-  }, {})
 }
 
 function initLocalStorageUpdateListener () {

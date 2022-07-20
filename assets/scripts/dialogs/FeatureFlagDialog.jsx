@@ -7,7 +7,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Checkbox from '../ui/Checkbox'
-import FEATURE_FLAGS from '../../../app/data/flags'
 import { setFeatureFlag } from '../store/slices/flags'
 import Dialog from './Dialog'
 import './FeatureFlagDialog.scss'
@@ -17,36 +16,30 @@ function FeatureFlagDialog (props) {
   const dispatch = useDispatch()
 
   function renderFlagList () {
-    return Object.entries(FEATURE_FLAGS).map((item) => {
-      const id = item[0]
-      const deets = item[1]
-      const htmlLabel = `feature-flag__input--${id
-        .toLowerCase()
-        .replace(/_/g, '-')}`
-
-      // Bail if a defined flag is not in the store (e.g. in tests with mock stores)
-      if (!flags[id]) return null
+    return Object.entries(flags).map(([key, flag]) => {
+      const slugifyKey = key.toLowerCase().replace(/_/g, '-')
+      const htmlLabel = `feature-flag__input--${slugifyKey}`
 
       // If the setting has changed, display it differently
-      const isNotDefault = deets.defaultValue !== flags[id].value
+      const isNotDefault = flag.defaultValue !== flag.value
       const labelClassName = isNotDefault ? 'feature-flag-label-modified' : ''
 
       return (
-        <li key={id}>
+        <li key={key}>
           <Checkbox
             id={htmlLabel}
             onChange={(event) => {
               dispatch(
                 setFeatureFlag({
-                  flag: id,
+                  flag: key,
                   value: event.target.checked
                 })
               )
             }}
-            checked={flags[id].value}
-            disabled={deets.enabled === false}
+            checked={flags[key].value}
+            disabled={flag.enabled === false}
           >
-            <span className={labelClassName}>{deets.label}</span>
+            <span className={labelClassName}>{flag.label}</span>
           </Checkbox>
         </li>
       )
