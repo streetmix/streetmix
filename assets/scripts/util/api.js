@@ -8,6 +8,10 @@ class APIClient {
     })
   }
 
+  getFlags = async () => {
+    return this.client.get('/flags')
+  }
+
   getStreet = async (streetId) => {
     const { data } = await this.client.get(`/streets/${streetId}`)
     return data
@@ -41,6 +45,7 @@ class APIClient {
 const client = new APIClient()
 
 export const {
+  getFlags,
   getStreet,
   deleteStreetImage,
   getGalleryForUser,

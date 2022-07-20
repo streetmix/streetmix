@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import FEATURE_FLAGS from '../../../../app/data/flags'
+import { getFlags } from '../../util/api'
 
 function generateInitialFlags (flags) {
   return Object.entries(flags).reduce((obj, item) => {
@@ -16,8 +17,18 @@ function generateInitialFlags (flags) {
   }, {})
 }
 
+export const getInitialFlags = createAsyncThunk(
+  'flags/getInitialFlags',
+  async () => {
+    const response = await getFlags()
+    return response.data
+  }
+)
+
 const flagsSlice = createSlice({
   name: 'flags',
+  // TODO: Remove static initial flag setting and only rely on API
+  // can't be removed right now because there are other dependencies of this
   initialState: generateInitialFlags(FEATURE_FLAGS),
 
   reducers: {
@@ -35,6 +46,12 @@ const flagsSlice = createSlice({
         ...state,
         ...action.payload
       }
+    }
+  },
+
+  extraReducers: {
+    [getInitialFlags.fulfilled]: (state, action) => {
+      state = generateInitialFlags(action.payload)
     }
   }
 })
