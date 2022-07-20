@@ -9,7 +9,6 @@ import {
 import { getVariantArray } from '../../segments/variant_utils'
 import { ERRORS } from '../../app/errors'
 import { showError } from '../slices/errors'
-import { hideLoadingScreen } from '../../app/load_resources'
 import { recalculateWidth } from '../../streets/width'
 import { saveStreetToServer } from '../../streets/xhr'
 import {
@@ -165,7 +164,6 @@ export const getLastStreet = () => {
       saveStreetToServer(false)
     } catch (error) {
       dispatch(showError(ERRORS.NEW_STREET_SERVER_FAILURE, true))
-      hideLoadingScreen()
     }
   }
 }

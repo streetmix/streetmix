@@ -115,25 +115,9 @@
     {{! SVG staging area }}
     <div id="svg"></div>
 
-    {{! Blocking elements pre-React }}
-    <div id="loading">
-      <div class="streetmix-logo"></div>
-      <div class="loading-spinner"></div>
-      <div class="loading-stuck" id="loading-stuck-notice" aria-hidden="true">
-        <strong>Not loading?</strong>
-        <a
-          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
-          target="_blank"
-          rel="noopener noreferer"
-        >Troubleshooting tips</a>
-      </div>
-      <noscript>To use Streetmix,&nbsp;<a
-          href="https://www.enable-javascript.com/"
-        >please enable JavaScript</a>.</noscript>
-    </div>
-
     {{! Mount point for React }}
     <div id="react-app" class="app"></div>
+    <noscript>To use Streetmix,&nbsp;<a href="https://www.enable-javascript.com/">please enable JavaScript</a>.</noscript>
 
     <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/main.{{cacheTimestamp}}.js"></script>
