@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { DndProvider } from 'react-dnd'
 import MultiBackend from 'react-dnd-multi-backend'
@@ -16,6 +16,7 @@ import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import ToastContainer from '../ui/Toasts/ToastContainer'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
+import { getInitialFlags } from '../store/slices/flags'
 import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import BlockingShield from './BlockingShield'
@@ -27,11 +28,34 @@ import NotificationBar from './NotificationBar'
 import { setStreetSectionTop } from './window_resize'
 
 function App () {
+  const [isLoading, setLoading] = useState(true)
   const locale = useSelector((state) => state.locale)
+  const dispatch = useDispatch()
 
+  // TODO: Move other initialization methods here.
   useEffect(() => {
-    setStreetSectionTop()
+    const init = async () => {
+      // Initialize feature flags
+      await dispatch(getInitialFlags())
+
+      // Turn off loading after initial loading is done
+      setLoading(false)
+    }
+    init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // After loading, do ancient DOM stuff
+  useEffect(() => {
+    if (!isLoading) {
+      setStreetSectionTop()
+    }
+  }, [isLoading])
+
+  if (isLoading) {
+    // TODO: add loading UI here.
+    return null
+  }
 
   return (
     <IntlProvider
