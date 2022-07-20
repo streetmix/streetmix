@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { DEFAULT_LOCALE } from '../../locales/constants'
-import { fetchTranslationMessages } from '../../locales/fetch'
+import { getAppTranslations, getSegmentTranslations } from '../../util/api'
 
 // Flattens a nested object from translation response, e.g.
 // { key1: { key2: "string" }} => { "key1.key2": "string" }
@@ -27,11 +27,15 @@ function flattenObject (obj) {
 export const changeLocale = createAsyncThunk(
   'locale/changeLocale',
   async (locale, thunkAPI) => {
-    const translation = await fetchTranslationMessages(locale)
+    const messages = await getAppTranslations(locale)
+    const segmentInfo = await getSegmentTranslations(locale)
 
     return {
       locale,
-      translation
+      translation: {
+        messages: messages.data,
+        segmentInfo: segmentInfo.data
+      }
     }
   }
 )

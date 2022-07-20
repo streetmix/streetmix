@@ -35,7 +35,7 @@ function Loading ({ isLoading = true }) {
         className="loading-stuck"
         aria-hidden="true"
       >
-        <strong>Not loading?</strong>
+        <strong>Not loading?</strong>{' '}
         <a
           href="https://docs.streetmix.net/user-guide/support/troubleshooting"
           target="_blank"
