@@ -20,5 +20,3 @@ const loadImages = (id) => {
   })
 }
 loadImages('markings--straight-inbound')
-
-export const hideLoadingScreen = jest.fn()

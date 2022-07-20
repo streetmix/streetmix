@@ -1,6 +1,5 @@
 import store from '../store'
 import { showError as showErrorAction } from '../store/slices/errors'
-import { hideLoadingScreen } from './load_resources'
 import {
   URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
@@ -40,7 +39,6 @@ export function showError (errorType, newAbortEverything) {
   // NOTE:
   // This function might be called on very old browsers. Please make
   // sure not to use modern faculties.
-  hideLoadingScreen()
   store.dispatch(showErrorAction(errorType, newAbortEverything))
 }
 

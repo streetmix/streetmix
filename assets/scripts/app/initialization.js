@@ -26,7 +26,7 @@ import { processUrl } from './page_url'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
 import { scheduleNextLiveUpdateCheck } from './live_update'
-import { hideLoadingScreen, loadImages } from './load_resources'
+import { loadImages } from './load_resources'
 
 let serverContacted
 
@@ -126,8 +126,6 @@ function onEverythingLoaded () {
   if (debug.forceLiveUpdate) {
     scheduleNextLiveUpdateCheck()
   }
-
-  window.setTimeout(hideLoadingScreen, 0)
 
   const mode = getMode()
   if (mode === MODES.USER_GALLERY) {

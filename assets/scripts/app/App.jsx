@@ -26,10 +26,12 @@ import PrintContainer from './PrintContainer'
 import WelcomePanel from './WelcomePanel'
 import NotificationBar from './NotificationBar'
 import { setStreetSectionTop } from './window_resize'
+import Loading from './Loading'
 
 function App () {
   const [isLoading, setLoading] = useState(true)
   const locale = useSelector((state) => state.locale)
+  const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const dispatch = useDispatch()
 
   // TODO: Move other initialization methods here.
@@ -47,52 +49,52 @@ function App () {
 
   // After loading, do ancient DOM stuff
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && everythingLoaded) {
       setStreetSectionTop()
     }
-  }, [isLoading])
-
-  if (isLoading) {
-    // TODO: add loading UI here.
-    return null
-  }
+  }, [isLoading, everythingLoaded])
 
   return (
-    <IntlProvider
-      locale={locale.locale}
-      key={locale.locale}
-      messages={locale.messages}
-    >
-      {/* The prop context={window} prevents crash errors with hot-module reloading */}
-      <DndProvider
-        backend={MultiBackend}
-        options={HTML5toTouch}
-        context={window}
-      >
-        {/* DndProvider allows multiple children; IntlProvider does not */}
-        <NotificationBar notification={NOTIFICATION} />
-        <BlockingShield />
-        <BlockingError />
-        <Gallery />
-        <DialogRoot />
-        <Flash />
-        <DebugInfo />
-        <PrintContainer />
-        <div className="main-screen">
-          <MenusContainer />
-          <StreetNameplateContainer />
-          <InfoBubble />
-          <DebugHoverPolygon />
-          <WelcomePanel />
-          <PaletteContainer />
-          <EnvironmentEditor />
-          <SegmentDragLayer />
-          <StreetView />
-          <ToastContainer />
-          <SentimentSurveyContainer />
-        </div>
-      </DndProvider>
-    </IntlProvider>
+    <>
+      <Loading isLoading={isLoading || !everythingLoaded} />
+      {!isLoading && everythingLoaded && (
+        <IntlProvider
+          locale={locale.locale}
+          key={locale.locale}
+          messages={locale.messages}
+        >
+          {/* The prop context={window} prevents crash errors with hot-module reloading */}
+          <DndProvider
+            backend={MultiBackend}
+            options={HTML5toTouch}
+            context={window}
+          >
+            {/* DndProvider allows multiple children; IntlProvider does not */}
+            <NotificationBar notification={NOTIFICATION} />
+            <BlockingShield />
+            <BlockingError />
+            <Gallery />
+            <DialogRoot />
+            <Flash />
+            <DebugInfo />
+            <PrintContainer />
+            <div className="main-screen">
+              <MenusContainer />
+              <StreetNameplateContainer />
+              <InfoBubble />
+              <DebugHoverPolygon />
+              <WelcomePanel />
+              <PaletteContainer />
+              <EnvironmentEditor />
+              <SegmentDragLayer />
+              <StreetView />
+              <ToastContainer />
+              <SentimentSurveyContainer />
+            </div>
+          </DndProvider>
+        </IntlProvider>
+      )}
+    </>
   )
 }
 

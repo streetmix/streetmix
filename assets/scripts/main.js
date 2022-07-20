@@ -42,18 +42,6 @@ if (
   })
 }
 
-// A "not loading" troubleshooting popup to provide a "way out" of totally
-// frozen UIs. This uses very backwards-compatible JavaScript on purpose.
-// Display this after 10 seconds, but if the #loading container has already
-// been hidden, this will have no effect.
-window.setTimeout(function () {
-  const el = document.getElementById('loading-stuck-notice')
-  if (!el) return
-  el.style.opacity = '1'
-  el.style.transform = 'translateY(0)'
-  el.setAttribute('aria-hidden', 'false')
-}, 10000)
-
 // Accept HMR in Parcel
 if (module && module.hot) {
   module.hot.accept()
