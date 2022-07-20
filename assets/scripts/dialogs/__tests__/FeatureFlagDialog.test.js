@@ -3,33 +3,33 @@ import React from 'react'
 import { render } from '../../../../test/helpers/render'
 import FeatureFlagDialog from '../FeatureFlagDialog'
 
-// Mock flag data
-jest.mock('../../../../app/data/flags', () => ({
-  FOO_BAR: {
-    label: 'FOO_BAR',
-    defaultValue: true
-  },
-  BAZ_QUX: {
-    label: 'BAZ_QUX',
-    defaultValue: true
-  },
-  FOO_BAZ: {
-    label: 'FOO_BAZ',
-    defaultValue: true
-  },
-  BAZ_BAR: {
-    label: 'BAZ_BAR',
-    defaultValue: true,
-    enabled: false
-  }
-}))
-
 const initialState = {
   flags: {
-    FOO_BAR: { value: true, source: 'initial' },
-    BAZ_QUX: { value: false, source: 'initial' },
-    FOO_BAZ: { value: true, source: 'initial' },
-    BAZ_BAR: { value: false, source: 'initial' }
+    FOO_BAR: {
+      label: 'FOO_BAR',
+      defaultValue: true,
+      value: true,
+      source: 'initial'
+    },
+    BAZ_QUX: {
+      label: 'BAZ_QUX',
+      defaultValue: true,
+      value: false,
+      source: 'initial'
+    },
+    FOO_BAZ: {
+      label: 'FOO_BAZ',
+      defaultValue: true,
+      value: true,
+      source: 'initial'
+    },
+    BAZ_BAR: {
+      label: 'BAZ_BAR',
+      defaultValue: true,
+      enabled: false,
+      value: false,
+      source: 'initial'
+    }
   }
 }
 

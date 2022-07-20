@@ -5,6 +5,9 @@ function generateInitialFlags (flags) {
   return Object.entries(flags).reduce((obj, item) => {
     const [key, value] = item
     obj[key] = {
+      // Keep all original properties
+      ...value,
+      // Add new ones
       value: value.defaultValue,
       source: 'initial'
     }
@@ -19,7 +22,9 @@ const flagsSlice = createSlice({
 
   reducers: {
     setFeatureFlag (state, action) {
+      const flag = state[action.payload.flag]
       state[action.payload.flag] = {
+        ...flag,
         value: action.payload.value,
         source: 'session'
       }

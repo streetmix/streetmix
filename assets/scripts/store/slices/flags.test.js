@@ -18,10 +18,14 @@ describe('flags reducer', () => {
   it('should handle initial state', () => {
     expect(flags(undefined, {})).toEqual({
       BAZ_QUX: {
+        label: 'baz — qux',
+        defaultValue: true,
         source: 'initial',
         value: true
       },
       FOO_BAR: {
+        label: 'foo — bar',
+        defaultValue: false,
         source: 'initial',
         value: false
       }
