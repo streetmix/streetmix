@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { nonblockingAjaxTryAgain } from '../../util/fetch_nonblocking'
 import Toast from './Toast'
 
 // Renders a specific type of Toast for no-connection message.
@@ -24,30 +23,25 @@ function ToastNoConnection (props) {
   // automatically when the connection is restored or re-attempted.
   // This event listener handles that.
   useEffect(() => {
-    window.addEventListener('stmx:connection_reattempt', handleClose)
+    window.addEventListener('online', handleClose)
 
     return () => {
-      window.removeEventListener('stmx:connection_reattempt', handleClose)
+      window.removeEventListener('online', handleClose)
     }
   })
-
-  function handleAction (event) {
-    nonblockingAjaxTryAgain()
-    handleClose(event)
-  }
 
   return (
     <Toast
       setRef={setRef}
       handleClose={handleClose}
-      handleAction={handleAction}
+      handleAction={handleClose}
       item={{
         ...item,
         action:
           item.action ||
           intl.formatMessage({
-            id: 'btn.try-again',
-            defaultMessage: 'Try again'
+            id: 'btn.dismiss',
+            defaultMessage: 'Dismiss'
           })
       }}
     >
