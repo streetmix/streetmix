@@ -1,10 +1,17 @@
 import axios from 'axios'
+import axiosRetry, { exponentialDelay } from 'axios-retry'
 
 class APIClient {
   constructor () {
     this.client = axios.create({
       baseURL: '/api/v1/',
       responseType: 'json'
+    })
+
+    // Adds exponential backoff to requests
+    axiosRetry(this.client, {
+      retries: 3,
+      retryDelay: exponentialDelay
     })
   }
 
