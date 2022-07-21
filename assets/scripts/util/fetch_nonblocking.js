@@ -16,37 +16,6 @@ const NON_BLOCKING_AJAX_REQUEST_BACKOFF_RANGE = 60000
 const nonblockingAjaxRequests = []
 let nonblockingAjaxRequestTimer = 0
 
-// Amount of time to retry connection before showing a no-connection toast
-const NO_CONNECTION_MESSAGE_TIMEOUT = 10000
-let noConnectionMessageTimer = -1
-
-function scheduleNoConnectionMessage () {
-  if (noConnectionMessageTimer === -1) {
-    noConnectionMessageTimer = window.setTimeout(
-      showNoConnectionMessage,
-      NO_CONNECTION_MESSAGE_TIMEOUT
-    )
-  }
-}
-
-function showNoConnectionMessage () {
-  store.dispatch(
-    addToast({
-      component: 'TOAST_NO_CONNECTION',
-      mode: 'warning',
-      duration: Infinity
-    })
-  )
-}
-
-function hideNoConnectionMessage () {
-  window.dispatchEvent(new window.CustomEvent('stmx:connection_reattempt'))
-
-  // Cleanup
-  window.clearTimeout(noConnectionMessageTimer)
-  noConnectionMessageTimer = -1
-}
-
 export function newNonblockingAjaxRequest (
   url,
   options,
@@ -83,22 +52,12 @@ function getAjaxRequestSignature (url, request) {
   return request.method + ' ' + url
 }
 
-export function nonblockingAjaxTryAgain () {
-  hideNoConnectionMessage()
-
-  nonblockingAjaxRequestTimer = 0
-
-  scheduleNextNonblockingAjaxRequest()
-}
-
 function sendNextNonblockingAjaxRequest () {
   if (store.getState().errors.abortEverything) {
     return
   }
 
   if (getNonblockingAjaxRequestCount()) {
-    scheduleNoConnectionMessage()
-
     let request = null
 
     request = nonblockingAjaxRequests[0]
@@ -168,7 +127,6 @@ function errorNonblockingAjaxRequest (data, request) {
   // Abort resending if the max number of tries has been hit.
   if (request.maxRetries && request.tryCount >= request.maxRetries) {
     nonblockingAjaxRequestTimer = 0
-    hideNoConnectionMessage()
     removeNonblockingAjaxRequest(request.signature)
     if (request.errorFunc) {
       request.errorFunc(data)
@@ -179,8 +137,6 @@ function errorNonblockingAjaxRequest (data, request) {
 function successNonblockingAjaxRequest (data, request) {
   nonblockingAjaxRequestTimer = 0
 
-  hideNoConnectionMessage()
-
   removeNonblockingAjaxRequest(request.signature)
 
   if (request.doneFunc) {
@@ -188,6 +144,23 @@ function successNonblockingAjaxRequest (data, request) {
   }
 
   scheduleNextNonblockingAjaxRequest()
+}
+
+export function onNoConnection (event) {
+  const state = store.getState()
+
+  // Don't display this in offline mode
+  if (state.system.offline) {
+    return
+  }
+
+  store.dispatch(
+    addToast({
+      component: 'TOAST_NO_CONNECTION',
+      mode: 'warning',
+      duration: Infinity
+    })
+  )
 }
 
 // Non-blocking AJAX requests are checked to see if any are

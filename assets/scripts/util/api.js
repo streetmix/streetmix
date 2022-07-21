@@ -1,6 +1,8 @@
 import axios from 'axios'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
 
+const MAX_API_RETRY = 3
+
 class APIClient {
   constructor () {
     this.client = axios.create({
@@ -10,8 +12,19 @@ class APIClient {
 
     // Adds exponential backoff to requests
     axiosRetry(this.client, {
-      retries: 3,
-      retryDelay: exponentialDelay
+      retries: MAX_API_RETRY,
+      retryDelay: exponentialDelay,
+      onRetry: function (retryCount, error, requestConfig) {
+        // Displays the "no connection" toast after maximum retry count
+        // has been hit.
+        // TODO: differentiate between "no internet connection"
+        // and "server is down" errors.
+        if (retryCount >= MAX_API_RETRY) {
+          window.dispatchEvent(
+            new window.CustomEvent('stmx:api_max_connection')
+          )
+        }
+      }
     })
   }
 

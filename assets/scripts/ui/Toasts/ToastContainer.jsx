@@ -31,6 +31,7 @@ function ToastContainer (props) {
   const dispatch = useDispatch()
 
   // TODO: Truncation doesn't work
+  // TODO: Also handle duplicate toasts
   const truncatedToasts =
     toasts.length >= TOAST_MAX_TO_DISPLAY
       ? toasts.slice(toasts.length - TOAST_MAX_TO_DISPLAY)
