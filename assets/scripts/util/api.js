@@ -45,6 +45,10 @@ class APIClient {
     return data
   }
 
+  deleteStreet = (streetId) => {
+    return this.client.delete(`/streets/${streetId}`)
+  }
+
   deleteStreetImage = (streetId) => {
     return this.client.delete(`/streets/images/${streetId}`)
   }
@@ -78,9 +82,10 @@ const client = new APIClient()
 
 export const {
   getFlags,
-  getStreet,
   getAppTranslations,
   getSegmentTranslations,
+  getStreet,
+  deleteStreet,
   deleteStreetImage,
   putUserSettings,
   getGalleryForUser,

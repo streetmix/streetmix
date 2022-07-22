@@ -11,6 +11,7 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
+import { deleteStreet } from '../util/api'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -498,7 +499,10 @@ function receiveLastStreet (transmission) {
 }
 
 export function sendDeleteStreetToServer (id) {
-  // Delete street thumbnail.
+  deleteStreet(id)
+
+  // Delete street thumbnail from Cloudinary.
+  // TODO: handle this from the backend!
   deleteStreetThumbnail(id)
 
   // Prevents new street submenu from showing the last street
@@ -513,13 +517,4 @@ export function sendDeleteStreetToServer (id) {
       })
     )
   }
-
-  // TODO const url
-  newNonblockingAjaxRequest(
-    '/api/v1/streets/' + id,
-    {
-      method: 'DELETE'
-    },
-    false
-  )
 }
