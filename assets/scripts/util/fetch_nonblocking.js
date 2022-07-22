@@ -197,18 +197,26 @@ function checkIfChangesSaved () {
       store.getState().street,
       SAVE_THUMBNAIL_EVENTS.BEFOREUNLOAD
     )
-    return 'Your changes have not been saved yet. Please return to the page, check your Internet connection, and wait a little while to allow the changes to be saved.'
+
+    // Custom text prompts are no longer displayed in most browsers.
+    // This just needs to be _any_ string (no translation necessary)
+    return 'Your changes have not been saved yet.'
   }
 }
 
 export function onWindowBeforeUnload (event) {
-  const text = checkIfChangesSaved()
+  const shouldPrompt = checkIfChangesSaved()
 
-  // NOTE: custom text is no longer returned as a message in many browsers,
-  // e.g. Chrome 51. see:
-  // https://developers.google.com/web/updates/2016/04/chrome-51-deprecations?hl=en#remove_custom_messages_in_onbeforeunload_dialogs
-  if (text) {
-    event.returnValue = text
-    return text
+  if (shouldPrompt) {
+    // HTML specification for prompting users if they want to leave
+    // Not supported in all browsers
+    event.preventDefault()
+
+    // Custom text prompts are no longer displayed in most browsers. See:
+    // https://developers.google.com/web/updates/2016/04/chrome-51-deprecations?hl=en#remove_custom_messages_in_onbeforeunload_dialogs
+    // If the `returnValue` is set to any value, or a string is returned,
+    // a browser-defined prompt will display instead.
+    event.returnValue = shouldPrompt
+    return shouldPrompt
   }
 }
