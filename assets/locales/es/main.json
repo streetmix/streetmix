@@ -13,7 +13,8 @@
       "settings": "Ajustes",
       "share": "Compartir",
       "store": "Tienda",
-      "upgrade": "Actualizar"
+      "upgrade": "Actualizar",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Teclas de acceso rápido:",
@@ -95,6 +96,7 @@
       "home": "Ir a la página de inicio",
       "sign-in": "Iniciar sesión de nuevo",
       "reload": "",
+      "return": "",
       "try-again": "Intenta de nuevo",
       "view-example": "Ver una calle de ejemplo"
     },
@@ -120,6 +122,7 @@
     "auth-api-problem-title": "",
     "auth-api-problem-description": "",
     "please-try-again": "",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "",
     "unsupported-browser-description": "",
     "unsupported-browser-internet-explorer": "",
@@ -346,7 +349,7 @@
     "rename": ""
   },
   "building": {
-    "floors-count": "{count, plural, one {# piso} other {# pisos}}"
+    "floors-count": "{count, plural, one {# piso} many {# pisos} other {# pisos}}"
   },
   "segments": {
     "warnings": {
@@ -374,7 +377,7 @@
     "all": "Todas las calles",
     "twitter-link": "",
     "delete-street-tooltip": "Eliminar la calle",
-    "street-count": "{count, plural, one {# calle} other {# calles}}",
+    "street-count": "{count, plural, one {# calle} many {# calles} other {# calles}}",
     "no-streets": "",
     "thumbnail-error": ""
   },
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": ""
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": ""
     }
   },
   "sentiment": {

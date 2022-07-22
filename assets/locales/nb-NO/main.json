@@ -13,7 +13,8 @@
       "settings": "Innstillinger",
       "share": "Del",
       "store": "Butikk",
-      "upgrade": "Oppgrader"
+      "upgrade": "Oppgrader",
+      "streetmix-plus": "Oppgrader til Streetmix+"
     },
     "help": {
       "keyboard-label": "Tastatursnarveier:",
@@ -95,6 +96,7 @@
       "home": "Gå til hjemmesiden",
       "sign-in": "Logg inn igjen",
       "reload": "Last inn siden på nytt",
+      "return": "Tilbake til Streetmix",
       "try-again": "Prøv på nytt",
       "view-example": "Se en eksempelgate"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Du logget ut i et annet vindu.",
     "gallery-street-failure-description": "Vi har problemer med å laste inn denne gaten.",
     "reload-sign-in-title": "Du logget inn i et annet vindu. ",
-    "please-reload": "Vennligst last inn denne siden på nytt før du fortsetter. ",
+    "please-reload": "Last inn siden på nytt for å gå tilbake til Streetmix.",
     "survey-finished": "Undersøkelsen er fullført. Gratulerer og takk!",
     "street-deleted-elsewhere-title": "Denne gaten har blitt slettet et annet sted. ",
     "street-deleted-elsewhere-description": "Denne gaten har blitt slettet i en annen nettleser. ",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Det oppstod et problem med å logge deg inn. ",
     "auth-api-problem-description": "Det oppstod et problem med autentiseringen. ",
     "please-try-again": "Vennligst prøv igjen senere eller fortell oss om det via <email_link>epost</email_link> eller <tweet_link>Twitter</tweet_link>.",
+    "please-try-again-contact-us": "Prøv igjen senere. Dersom du trenger hjelp, <a>kontakt oss</a>.",
     "unsupported-browser-title": "Streetmix virker ikke i nettleseren din. ",
     "unsupported-browser-description": "Beklager det. Du kan prøve <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, eller Safari.",
     "unsupported-browser-internet-explorer": "Er du på Internet Explorer? <a>Finn ut mer.</a>",
-    "unsupported-browser-contact-us": "Hvis du mener at nettleseren din burde vært støttet, vennligst ta kontakt på <a>epost</a>.",
+    "unsupported-browser-contact-us": "Hvis du mener at nettleseren din bør støttes, vennligst <a>kontakt oss</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix virker bare på nettbrett og datamaskiner. ",
     "cannot-create-new-street-on-phone-description": "Hvis du følger en annen lenke til en bestemt gate kan du vise den på telefonen din, men foreløpig kan du ikke lage nye gater. ",
     "generic-error-title": "Noe gikk galt. ",
@@ -260,23 +263,23 @@
     },
     "whatsnew": {
       "heading": "Hva er nytt i Streetmix",
-      "english-only": ""
+      "english-only": "Denne informasjonen finnes kun på engelsk."
     },
     "newsletter": {
       "heading": "Abonnér på nyhetsbrevet",
-      "description": "",
-      "email-label": "",
-      "field-required-error": "",
-      "subscribe": "",
-      "subscribe-pending": "",
-      "ok-message": "",
-      "error-message": ""
+      "description": "Vi sender sporadiske e-postoppdateringer gjennom vårt nyhetsbrev, bare flere ganger i året. Registrer deg for å sikre at du ikke går glipp av noe!",
+      "email-label": "Skriv inn din e-postadresse",
+      "field-required-error": "Dette feltet er obligatorisk.",
+      "subscribe": "Abonnere",
+      "subscribe-pending": "Vennligst vent...",
+      "ok-message": "<strong>Takk skal du ha! Du er nesten abonnent.</strong> Vi har sendt deg en e-post for å bekrefte adressen din. Klikk på den og du er abonnent!",
+      "error-message": "Oj! Noe gikk galt. Dette kan være en midlertidig systemfeil. Prøv igjen senere!"
     }
   },
   "tools": {
     "tooltip": "Bytt mellom verktøy",
     "environment": {
-      "tooltip": "",
+      "tooltip": "Miljøvariablereditor",
       "heading": "Omgivelser"
     }
   },
@@ -382,8 +385,8 @@
     "anonymous": "Anonym",
     "byline": "av {user}",
     "roles": {
-      "admin": "",
-      "subscriber": ""
+      "admin": "Administrator",
+      "subscriber": "Streetmix+ medlem"
     }
   },
   "export": {
@@ -395,9 +398,9 @@
   },
   "credits": {
     "core-team-heading": "Prosjektteam",
-    "original-team-heading": "",
+    "original-team-heading": "Opprinnelig prosjektgruppe",
     "past-team-heading": "Tidligere team-medlemmer",
-    "core-contributors": "",
+    "core-contributors": "Kjernebidragsytere",
     "advisors": "Rådgivere",
     "additional-illustrations": "Ytterligere illustrasjoner",
     "additional-code": "Ytterligere kode",
@@ -407,13 +410,20 @@
   },
   "plus": {
     "locked": {
-      "soon": "",
-      "sub": "",
+      "soon": "Kommer snart!",
+      "sub": "Oppgrader til Streetmix+ for å bruke!",
+      "sub-edit": "Oppgrader til Streetmix+ for å redigere",
       "user": "Logg inn for å ta i bruk!"
     },
     "prompt": {
-      "text": "",
-      "action": ""
+      "text": "Denne funksjonen er kun tilgjengelig for brukere med Streetmix+.",
+      "action": "Oppgrader for å låse opp"
+    },
+    "web-monetization": {
+      "thanks": "Takk for din støtte!",
+      "not-signed-in": "Din nettleser sender Web Monetization betalinger. Logg inn nå for å få tilgang til dine Streetmix+ goder! <a>Lær mer </a>.",
+      "signed-in": "Ditt abonnement på Web Monetization gir deg full tilgang til alle Streetmix+ funksjoner.",
+      "learn-more": "Lær mer"
     }
   },
   "sentiment": {
@@ -453,16 +463,16 @@
   },
   "i18n": {
     "lang": {
-      "am": "",
+      "am": "Amharic",
       "ar": "Arabisk",
       "ca": "Katalansk",
       "cs": "Tsjekkisk",
       "de": "Tysk",
       "en": "Engelsk",
-      "en-gb": "",
+      "en-gb": "Engelsk (Storbritannia)",
       "es": "Spansk",
       "es-419": "Spansk (Latinamerika)",
-      "es-es": "",
+      "es-es": "Spansk (Spania)",
       "es-mx": "Spansk (Mexico)",
       "fi": "Finsk",
       "fr": "Fransk",

@@ -13,7 +13,8 @@
       "settings": "إعدادات",
       "share": "مشاركة",
       "store": "",
-      "upgrade": ""
+      "upgrade": "",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "اختصارات لوحة المفاتيح:",
@@ -95,6 +96,7 @@
       "home": "الانتقال إلى الصفحة الرئيسية",
       "sign-in": "تسجيل الدخول من جديد",
       "reload": "إعادة تحميل الصفحة",
+      "return": "",
       "try-again": "حاول من جديد",
       "view-example": "عرض شارع كمثال"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "لقد قمت بتسجيل الخروج من نافذة أخرى.",
     "gallery-street-failure-description": "حدثت مشكلة أثناء تحميل هذا الشارع.",
     "reload-sign-in-title": "لقد قمت بتسجيل الدخول من نافذة أخرى.",
-    "please-reload": "يُرجى إعادة تحميل هذه الصفحة قبل الاستمرار.",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "تم حذف هذا الشارع من مكان آخر.",
     "street-deleted-elsewhere-description": "تم حذف هذا الشارع من متصفح آخر.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "حدث خلل أثناء عملية تسجيل الدخول.",
     "auth-api-problem-description": "حدث خلل أثناء المصادقة.",
     "please-try-again": "يُرجى المحاولة لاحقاً، أو إبلاغنا من خلال البريد <email_link>الإلكتروني</email_link> أو <tweet_link>تويتر</tweet_link>.",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix لا يعمل على المتصفح الخاص بك.",
     "unsupported-browser-description": "آسف بشأن ذلك. ربما ترغب في تجربة متصفح <chrome_link>كروم</chrome_link>، <firefox_link>فايرفوكس</firefox_link>، <edge_link>ميكروسوفت ايدج</edge_link>، أو سافاري.",
     "unsupported-browser-internet-explorer": "هل تستخدم متصفح انترنت اكسبلورر الآن؟ <a>يمكنك العثور على المزيد من النتائج.</a>",
-    "unsupported-browser-contact-us": "إذا كنت تعتقد أن متصفحك يجب أن يكون مدعومًا، فالرجاء الاتصال بنا عبر البريد <a>الإلكتروني</a>.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "لا يعمل Streetmix إلا على الأجهزة اللوحية وأجهزة الكمبيوتر.",
     "cannot-create-new-street-on-phone-description": "إذا كنت تتبع رابطًا آخر إلى شارع معين، فيمكنك عرضه على هاتفك -ولكن لا يمكنك بعد إنشاء شوارع جديدة.",
     "generic-error-title": "هناك خطأ ما.",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": ""
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "اعرف المزيد"
     }
   },
   "sentiment": {
