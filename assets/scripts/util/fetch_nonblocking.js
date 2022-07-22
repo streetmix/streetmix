@@ -44,7 +44,7 @@ export function newNonblockingAjaxRequest (
   scheduleNextNonblockingAjaxRequest()
 }
 
-export function getNonblockingAjaxRequestCount () {
+function getNonblockingAjaxRequestCount () {
   return nonblockingAjaxRequests.length
 }
 

@@ -16,10 +16,7 @@ import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
 } from '../util/fetch_blocking'
-import {
-  newNonblockingAjaxRequest,
-  getNonblockingAjaxRequestCount
-} from '../util/fetch_nonblocking'
+import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import store from '../store'
 import { updateSettings } from '../store/slices/settings'
 import {
@@ -216,8 +213,10 @@ function clearScheduledSavingStreetToServer () {
 
 export function fetchStreetForVerification () {
   // Don’t do it with any network services pending
+  // NOTE: this used to check for all nonblocking requests,
+  // but this system is getting refactored away -- so we're
+  // not really checking against all pending requests anymore.
   if (
-    getNonblockingAjaxRequestCount() ||
     isblockingAjaxRequestInProgress() ||
     saveStreetIncomplete ||
     store.getState().errors.abortEverything ||
