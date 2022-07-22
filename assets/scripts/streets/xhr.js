@@ -182,16 +182,16 @@ export function saveStreetToServer (initial) {
   const transmission = packServerStreetDataRaw()
   const street = store.getState().street
 
-  if (initial) {
-    putStreet(street.id, transmission).then(confirmSaveStreetToServerInitial)
-  } else {
-    putStreet(street.id, transmission)
-  }
+  putStreet(street.id, transmission).then(() => {
+    setSaveStreetIncomplete(false)
+
+    if (initial) {
+      confirmSaveStreetToServerInitial()
+    }
+  })
 }
 
 function confirmSaveStreetToServerInitial () {
-  setSaveStreetIncomplete(false)
-
   setServerContacted(true)
   checkIfEverythingIsLoaded()
 }
