@@ -45,6 +45,10 @@ class APIClient {
     return data
   }
 
+  putStreet = (streetId, payload) => {
+    return this.client.put(`/streets/${streetId}`, payload)
+  }
+
   deleteStreet = (streetId) => {
     return this.client.delete(`/streets/${streetId}`)
   }
@@ -85,6 +89,7 @@ export const {
   getAppTranslations,
   getSegmentTranslations,
   getStreet,
+  putStreet,
   deleteStreet,
   deleteStreetImage,
   putUserSettings,

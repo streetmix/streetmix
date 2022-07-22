@@ -11,12 +11,11 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { deleteStreet } from '../util/api'
+import { deleteStreet, putStreet } from '../util/api'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
 } from '../util/fetch_blocking'
-import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
 import store from '../store'
 import { updateSettings } from '../store/slices/settings'
 import {
@@ -180,23 +179,13 @@ export function saveStreetToServer (initial) {
     return
   }
 
-  const transmission = packServerStreetData()
+  const transmission = packServerStreetDataRaw()
   const street = store.getState().street
-  const url = '/api/v1/streets/' + street.id
-  const options = {
-    method: 'PUT',
-    body: transmission,
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
 
   if (initial) {
-    // blocking
-    window.fetch(url, options).then(confirmSaveStreetToServerInitial)
+    putStreet(street.id, transmission).then(confirmSaveStreetToServerInitial)
   } else {
-    newNonblockingAjaxRequest(url, options, false)
+    putStreet(street.id, transmission)
   }
 }
 
@@ -388,7 +377,7 @@ export function unpackServerStreetData (
   }
 }
 
-export function packServerStreetData () {
+export function packServerStreetDataRaw () {
   const data = {}
   data.street = trimStreetData(store.getState().street)
 
@@ -414,6 +403,13 @@ export function packServerStreetData () {
     clientUpdatedAt: street.clientUpdatedAt
   }
 
+  return transmission
+}
+
+// Legacy: converts raw JS objects to JSON.
+// axios-based requests do this automatically.
+export function packServerStreetData () {
+  const transmission = packServerStreetDataRaw()
   return JSON.stringify(transmission)
 }
 
