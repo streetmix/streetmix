@@ -14,7 +14,6 @@ export const MODES = {
   FORCE_RELOAD_SIGN_OUT: 9,
   USER_GALLERY: 10,
   GLOBAL_GALLERY: 11,
-  FORCE_RELOAD_SIGN_OUT_401: 12,
   ERROR: 13,
   UNSUPPORTED_BROWSER: 14, // Deprecated. Do not use.
   STREET_404: 15,
@@ -66,9 +65,6 @@ export function processMode () {
       break
     case MODES.FORCE_RELOAD_SIGN_OUT:
       showError(ERRORS.FORCE_RELOAD_SIGN_OUT, true)
-      break
-    case MODES.FORCE_RELOAD_SIGN_OUT_401:
-      showError(ERRORS.FORCE_RELOAD_SIGN_OUT_401, true)
       break
     case MODES.FORCE_RELOAD_SIGN_IN:
       showError(ERRORS.FORCE_RELOAD_SIGN_IN, true)

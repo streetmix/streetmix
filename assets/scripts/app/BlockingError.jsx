@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import ExternalLink from '../ui/ExternalLink'
 import Avatar from '../users/Avatar'
-import { goReloadClearSignIn, doSignIn } from '../users/authentication'
+import { doSignIn } from '../users/authentication'
 import { goReload, goHome, goNewStreet, goExampleStreet } from './routing'
 import { ERRORS } from './errors'
 
@@ -40,14 +40,6 @@ function BlockingError (props) {
         )
       : null
   }
-  const sessionReloadButton = (
-    <button onClick={goReloadClearSignIn} className="button-primary">
-      <FormattedMessage
-        id="error.button.reload"
-        defaultMessage="Reload the page"
-      />
-    </button>
-  )
   const reloadButton = (
     <button onClick={goReload} className="button-primary">
       <FormattedMessage
@@ -218,29 +210,6 @@ function BlockingError (props) {
         </p>
       )
       cta = reloadButton
-      break
-    case ERRORS.FORCE_RELOAD_SIGN_OUT_401:
-      title = (
-        <FormattedMessage
-          id="error.reload-sign-out-title"
-          defaultMessage="You signed out in another window."
-        />
-      )
-      description = (
-        <p>
-          <FormattedMessage
-            id="error.please-reload"
-            defaultMessage="Please reload this page to return to Streetmix."
-          />
-          <br />
-          <FormattedMessage
-            id="error.error-code"
-            defaultMessage="(Error {code}.)"
-            values={{ code: 'RM2' }}
-          />
-        </p>
-      )
-      cta = sessionReloadButton
       break
     case ERRORS.FORCE_RELOAD_SIGN_IN:
       title = (
