@@ -372,39 +372,6 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT_401 1`] = `
-<DocumentFragment>
-  <div
-    id="error"
-  >
-    <div
-      class="error-content"
-    >
-      <div
-        class="streetmix-logo"
-      />
-      <div
-        class="error-text"
-      >
-        <h1>
-          You signed out in another window.
-        </h1>
-        <p>
-          Please reload this page to return to Streetmix.
-          <br />
-          (Error RM2.)
-        </p>
-      </div>
-      <button
-        class="button-primary"
-      >
-        Reload the page
-      </button>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`BlockingError renders GALLERY_STREET_FAILURE 1`] = `
 <DocumentFragment>
   <div

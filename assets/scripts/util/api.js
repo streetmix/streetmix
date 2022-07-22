@@ -49,6 +49,10 @@ class APIClient {
     return this.client.delete(`/streets/images/${streetId}`)
   }
 
+  putUserSettings = (userId, payload) => {
+    return this.client.put(`/users/${userId}`, payload)
+  }
+
   getGalleryForUser = (userId) => {
     return this.client.get(`/users/${userId}/streets`)
   }
@@ -78,6 +82,7 @@ export const {
   getAppTranslations,
   getSegmentTranslations,
   deleteStreetImage,
+  putUserSettings,
   getGalleryForUser,
   getGalleryForAllStreets,
   getSentimentSurveyStreet,

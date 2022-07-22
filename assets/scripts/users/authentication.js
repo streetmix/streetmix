@@ -45,15 +45,10 @@ export function isSignedIn () {
  * Do not use this to sign out a user. For that, use signOut(), which ensures
  * that sign out data is also sent to the server.
  */
-export function clearAllClientSignInData () {
+function clearAllClientSignInData () {
   store.dispatch(clearSignInData())
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
   removeSignInCookies()
-}
-
-export function goReloadClearSignIn () {
-  clearAllClientSignInData()
-  window.location.reload()
 }
 
 export function onStorageChange () {

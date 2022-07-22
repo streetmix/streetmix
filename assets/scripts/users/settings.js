@@ -1,9 +1,9 @@
 import debounce from 'lodash/debounce'
-import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { newNonblockingAjaxRequest } from '../util/fetch_nonblocking'
+import { MODES, getMode } from '../app/mode'
 import store, { observeStore } from '../store'
 import { updateSettings } from '../store/slices/settings'
 import { setAppFlags } from '../store/slices/app'
+import { putUserSettings } from '../util/api'
 import { getSignInData, isSignedIn } from './authentication'
 
 const LOCAL_STORAGE_SETTINGS_ID = 'settings'
@@ -81,29 +81,8 @@ function saveSettingsToServer (settings) {
     return
   }
 
-  const transmission = JSON.stringify({ data: settings })
-
-  // TODO const url
-  newNonblockingAjaxRequest(
-    '/api/v1/users/' + getSignInData().userId,
-    {
-      method: 'PUT',
-      body: transmission,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    },
-    true,
-    null,
-    errorSavingSettingsToServer
-  )
-}
-
-function errorSavingSettingsToServer (data) {
-  if (!store.getState().errors.abortEverything && data.status === 401) {
-    setMode(MODES.FORCE_RELOAD_SIGN_OUT_401)
-    processMode()
-  }
+  const userId = getSignInData().userId
+  putUserSettings(userId, { data: settings })
 }
 
 function persistSettingsToBackends (settings) {
@@ -112,11 +91,6 @@ function persistSettingsToBackends (settings) {
   // signed in).
   saveSettingsLocally(settings)
   saveSettingsToServer(settings)
-
-  // Temporary: clean up old localstorage entries
-  // TODO: Remove these lines in about a year (May 2021)
-  window.localStorage.removeItem('locale')
-  window.localStorage.removeItem('settings-units')
 }
 
 /**
