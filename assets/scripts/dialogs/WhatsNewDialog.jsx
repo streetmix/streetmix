@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import LoadingSpinner from '../ui/LoadingSpinner'
+import { getChangelog } from '../util/api'
 import Dialog from './Dialog'
 import './WhatsNewDialog.scss'
 
@@ -26,10 +27,10 @@ const WhatsNewDialog = () => {
 
   async function getContent () {
     try {
-      const res = await window.fetch('/services/changelog')
+      const response = await getChangelog()
 
-      if (res.status === 200) {
-        setContent(await res.text())
+      if (response.status === 200) {
+        setContent(response.data)
         setSubmitState('OK')
       } else {
         // Errors are generic for now.

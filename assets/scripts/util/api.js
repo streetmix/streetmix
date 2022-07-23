@@ -2,11 +2,12 @@ import axios from 'axios'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
 
 const MAX_API_RETRY = 3
+const BASE_URL_API_V1 = '/api/v1'
+const BASE_URL_SERVICES = '/services'
 
 class APIClient {
   constructor () {
     this.client = axios.create({
-      baseURL: '/api/v1/',
       responseType: 'json'
     })
 
@@ -29,60 +30,68 @@ class APIClient {
   }
 
   getFlags = async () => {
-    return this.client.get('/flags')
+    return this.client.get(`${BASE_URL_API_V1}/flags`)
   }
 
   getAppTranslations = async (locale) => {
-    return this.client.get(`translate/${locale}/main`)
+    return this.client.get(`${BASE_URL_API_V1}/translate/${locale}/main`)
   }
 
   getSegmentTranslations = async (locale) => {
-    return this.client.get(`translate/${locale}/segment-info`)
+    return this.client.get(
+      `${BASE_URL_API_V1}/translate/${locale}/segment-info`
+    )
   }
 
   getStreet = async (streetId) => {
-    const { data } = await this.client.get(`/streets/${streetId}`)
+    const { data } = await this.client.get(
+      `${BASE_URL_API_V1}/streets/${streetId}`
+    )
     return data
   }
 
   postStreet = (payload) => {
-    return this.client.post('/streets', payload)
+    return this.client.post(`${BASE_URL_API_V1}/streets`, payload)
   }
 
   putStreet = (streetId, payload) => {
-    return this.client.put(`/streets/${streetId}`, payload)
+    return this.client.put(`${BASE_URL_API_V1}/streets/${streetId}`, payload)
   }
 
   deleteStreet = (streetId) => {
-    return this.client.delete(`/streets/${streetId}`)
+    return this.client.delete(`${BASE_URL_API_V1}/streets/${streetId}`)
   }
 
   deleteStreetImage = (streetId) => {
-    return this.client.delete(`/streets/images/${streetId}`)
+    return this.client.delete(`${BASE_URL_API_V1}/streets/images/${streetId}`)
   }
 
   putUserSettings = (userId, payload) => {
-    return this.client.put(`/users/${userId}`, payload)
+    return this.client.put(`${BASE_URL_API_V1}/users/${userId}`, payload)
   }
 
   getGalleryForUser = (userId) => {
-    return this.client.get(`/users/${userId}/streets`)
+    return this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
   }
 
   getGalleryForAllStreets = () => {
-    return this.client.get('/streets?count=200')
+    return this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
   }
 
   getSentimentSurveyStreet = () => {
-    return this.client.get('/votes')
+    return this.client.get(`${BASE_URL_API_V1}/votes`)
   }
 
   postSentimentSurveyVote = (payload) => {
-    return this.client.post('/votes', payload)
+    return this.client.post(`${BASE_URL_API_V1}/votes`, payload)
   }
 
   putSentimentSurveyComment = (payload) => {
-    return this.client.put('/votes', payload)
+    return this.client.put(`${BASE_URL_API_V1}/votes`, payload)
+  }
+
+  getChangelog = () => {
+    return this.client.get(`${BASE_URL_SERVICES}/changelog`)
   }
 }
 
@@ -102,7 +111,8 @@ export const {
   getGalleryForAllStreets,
   getSentimentSurveyStreet,
   postSentimentSurveyVote,
-  putSentimentSurveyComment
+  putSentimentSurveyComment,
+  getChangelog
 } = client
 
 export default client
