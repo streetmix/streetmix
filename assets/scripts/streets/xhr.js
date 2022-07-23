@@ -13,6 +13,7 @@ import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import {
   deleteStreet,
+  getStreet,
   getStreetWithParams,
   postStreet,
   putStreet
@@ -66,14 +67,7 @@ export function setSaveStreetIncomplete (value) {
   saveStreetIncomplete = value
 }
 
-let uniqueRequestId = 0
-
 let latestRequestId
-
-function getUniqueRequestHeader () {
-  uniqueRequestId++
-  return uniqueRequestId
-}
 
 export async function createNewStreetOnServer () {
   const settings = store.getState().settings
@@ -128,7 +122,7 @@ export async function fetchStreetFromServer () {
       street.creatorId,
       street.namespacedId
     )
-    receiveStreet(response)
+    receiveStreet(response.data)
   } catch (error) {
     errorReceiveStreet(error)
   }
@@ -188,7 +182,7 @@ function clearScheduledSavingStreetToServer () {
   window.clearTimeout(saveStreetTimerId)
 }
 
-export function fetchStreetForVerification () {
+export async function fetchStreetForVerification () {
   // Don’t do it with any network services pending
   // NOTE: this used to check for all nonblocking requests,
   // but this system is getting refactored away -- so we're
@@ -202,41 +196,31 @@ export function fetchStreetForVerification () {
     return
   }
 
-  const url = getFetchStreetUrl()
+  latestRequestId = Date.now()
+  const streetId = store.getState().street.id
 
-  latestRequestId = getUniqueRequestHeader()
+  try {
+    const response = await getStreet(streetId, {
+      headers: { 'x-streetmix-request-id': latestRequestId }
+    })
 
-  const options = {
-    headers: { 'X-Streetmix-Request-Id': latestRequestId }
+    // Response headers are lower-case via Axios
+    const requestId = response.headers['x-streetmix-request-id']
+    // Throw an error if response is stale
+    if (latestRequestId !== Number.parseInt(requestId, 10)) {
+      throw new Error('1')
+    }
+
+    // Handle response data
+    receiveStreetForVerification(response.data)
+  } catch (error) {
+    // Silently throw away stale responses
+    if (error.message === '1') return
+
+    // Otherwise, handle the error
+    console.log(error)
+    errorReceiveStreetForVerification(error.response)
   }
-
-  window
-    .fetch(url, options)
-    .then((response) => {
-      if (!response.ok) {
-        throw response
-      }
-
-      const requestId = Number.parseInt(
-        response.headers.get('X-Streetmix-Request-Id'),
-        10
-      )
-
-      if (requestId !== latestRequestId) {
-        throw new Error('1')
-      } else {
-        return response.json()
-      }
-    })
-    .then((transmission) => {
-      receiveStreetForVerification(transmission)
-    })
-    .catch((error) => {
-      // Early exit if requestId does not equal the latestRequestId
-      if (error.message !== '1') return
-
-      errorReceiveStreetForVerification(error)
-    })
 }
 
 /**
