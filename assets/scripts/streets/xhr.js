@@ -11,7 +11,12 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { deleteStreet, postStreet, putStreet } from '../util/api'
+import {
+  deleteStreet,
+  getStreetWithParams,
+  postStreet,
+  putStreet
+} from '../util/api'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -115,22 +120,22 @@ export function getFetchStreetUrl () {
   return url
 }
 
-export function fetchStreetFromServer () {
-  const url = getFetchStreetUrl()
+export async function fetchStreetFromServer () {
+  const street = store.getState().street
 
-  window
-    .fetch(url)
-    .then(function (response) {
-      if (!response.ok) {
-        throw response
-      }
-      return response.json()
-    })
-    .then(receiveStreet)
-    .catch(errorReceiveStreet)
+  try {
+    const response = await getStreetWithParams(
+      street.creatorId,
+      street.namespacedId
+    )
+    receiveStreet(response)
+  } catch (error) {
+    errorReceiveStreet(error)
+  }
 }
 
-function errorReceiveStreet (data) {
+function errorReceiveStreet (error) {
+  const data = error.response.data
   const mode = getMode()
   if (
     mode === MODES.CONTINUE ||

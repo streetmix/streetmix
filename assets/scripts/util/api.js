@@ -50,6 +50,23 @@ class APIClient {
     return data
   }
 
+  // Internally, getting street data with UUID (above) is preferred, but
+  // public URLs provide only creator ID and namespaced ID for cleaner URLs.
+  // Use this method if all we have are those
+  getStreetWithParams = async (creatorId, namespacedId) => {
+    const params = new URLSearchParams({
+      namespacedId: encodeURIComponent(namespacedId)
+    })
+    // creatorId can be undefined (e.g. anonymous streets)
+    if (creatorId) {
+      params.append('creatorId', encodeURIComponent(creatorId))
+    }
+    const { data } = await this.client.get(
+      `${BASE_URL_API_V1}/streets/?${params.toString()}`
+    )
+    return data
+  }
+
   postStreet = (payload) => {
     return this.client.post(`${BASE_URL_API_V1}/streets`, payload)
   }
@@ -102,6 +119,7 @@ export const {
   getAppTranslations,
   getSegmentTranslations,
   getStreet,
+  getStreetWithParams,
   postStreet,
   putStreet,
   deleteStreet,
