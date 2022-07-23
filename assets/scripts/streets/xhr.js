@@ -11,7 +11,7 @@ import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
-import { deleteStreet, putStreet } from '../util/api'
+import { deleteStreet, postStreet, putStreet } from '../util/api'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest
@@ -70,7 +70,7 @@ function getUniqueRequestHeader () {
   return uniqueRequestId
 }
 
-export function createNewStreetOnServer () {
+export async function createNewStreetOnServer () {
   const settings = store.getState().settings
 
   if (settings.newStreetPreference === NEW_STREET_EMPTY) {
@@ -79,35 +79,18 @@ export function createNewStreetOnServer () {
     prepareDefaultStreet()
   }
 
-  const options = {
-    method: 'POST',
-    body: packServerStreetData(),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
+  const transmission = packServerStreetDataRaw()
 
-  // TODO const url
-  window
-    .fetch('/api/v1/streets', options)
-    .then((response) => {
-      if (!response.ok) {
-        throw response
-      }
-      return response.json()
-    })
-    .then(receiveNewStreet)
-    .catch(errorReceiveNewStreet)
+  postStreet(transmission).then(receiveNewStreet).catch(errorReceiveNewStreet)
 }
 
-function receiveNewStreet (data) {
+function receiveNewStreet ({ data }) {
   setStreetId(data.id, data.namespacedId)
-
   saveStreetToServer(true)
 }
 
-function errorReceiveNewStreet (data) {
-  if (data.status === 401) {
+function errorReceiveNewStreet ({ response }) {
+  if (response.status === 401) {
     showError(ERRORS.AUTH_EXPIRED, true)
   } else {
     showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)

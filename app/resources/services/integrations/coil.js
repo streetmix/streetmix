@@ -1,4 +1,3 @@
-const querystring = require('querystring')
 const btoa = require('btoa')
 const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
@@ -175,7 +174,7 @@ const refreshAccessToken = async (refreshToken) => {
         ':' +
         encodeURIComponent(process.env.COIL_CLIENT_SECRET)
     )
-    const data = querystring.stringify({
+    const data = new URLSearchParams({
       grant_type: 'refresh_token',
       refresh_token: refreshToken
     })
