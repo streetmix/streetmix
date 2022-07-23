@@ -29,31 +29,30 @@ class APIClient {
     })
   }
 
-  getFlags = async () => {
+  getFlags = () => {
     return this.client.get(`${BASE_URL_API_V1}/flags`)
   }
 
-  getAppTranslations = async (locale) => {
+  getAppTranslations = (locale) => {
     return this.client.get(`${BASE_URL_API_V1}/translate/${locale}/main`)
   }
 
-  getSegmentTranslations = async (locale) => {
+  getSegmentTranslations = (locale) => {
     return this.client.get(
       `${BASE_URL_API_V1}/translate/${locale}/segment-info`
     )
   }
 
-  getStreet = async (streetId) => {
-    const { data } = await this.client.get(
-      `${BASE_URL_API_V1}/streets/${streetId}`
-    )
-    return data
+  // Optional config is allowed for situations where we need to send a
+  // custom header
+  getStreet = (streetId, config = {}) => {
+    return this.client.get(`${BASE_URL_API_V1}/streets/${streetId}`, config)
   }
 
   // Internally, getting street data with UUID (above) is preferred, but
   // public URLs provide only creator ID and namespaced ID for cleaner URLs.
   // Use this method if all we have are those
-  getStreetWithParams = async (creatorId, namespacedId) => {
+  getStreetWithParams = (creatorId, namespacedId) => {
     const params = new URLSearchParams({
       namespacedId: encodeURIComponent(namespacedId)
     })
@@ -61,10 +60,7 @@ class APIClient {
     if (creatorId) {
       params.append('creatorId', encodeURIComponent(creatorId))
     }
-    const { data } = await this.client.get(
-      `${BASE_URL_API_V1}/streets/?${params.toString()}`
-    )
-    return data
+    return this.client.get(`${BASE_URL_API_V1}/streets/?${params.toString()}`)
   }
 
   postStreet = (payload) => {

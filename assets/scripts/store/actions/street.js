@@ -142,7 +142,7 @@ export const getLastStreet = () => {
       // check this later
       // eslint-disable-next-line import/no-named-as-default-member
       const response = await apiClient.getStreet(lastStreetId)
-      const street = createStreetFromResponse(response)
+      const street = createStreetFromResponse(response.data)
       setIgnoreStreetChanges(true)
       await dispatch(
         updateSettings({
