@@ -15,8 +15,7 @@ export const debug = {
   forceLeftHandTraffic: false,
   forceNonRetina: false,
   forceOfflineMode: false,
-  forceReadOnly: false,
-  forceLiveUpdate: false
+  forceReadOnly: false
 }
 
 const url = window.location.search
@@ -35,10 +34,6 @@ if (url.match(/[?&]debug-force-offline&?/)) {
 
 if (url.match(/[?&]debug-force-read-only&?/)) {
   debug.forceReadOnly = true
-}
-
-if (url.match(/[?&]debug-force-live-update&?/)) {
-  debug.forceLiveUpdate = true
 }
 
 store.dispatch(

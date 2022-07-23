@@ -17,7 +17,6 @@ import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import ToastContainer from '../ui/Toasts/ToastContainer'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
 import { getInitialFlags } from '../store/slices/flags'
-import Flash from './Flash'
 import DebugInfo from './DebugInfo'
 import BlockingShield from './BlockingShield'
 import BlockingError from './BlockingError'
@@ -75,7 +74,6 @@ function App () {
             <BlockingError />
             <Gallery />
             <DialogRoot />
-            <Flash />
             <DebugInfo />
             <PrintContainer />
             <div className="main-screen">

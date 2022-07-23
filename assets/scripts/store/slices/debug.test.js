@@ -6,8 +6,7 @@ describe('debug reducer', () => {
     forceLeftHandTraffic: false,
     forceNonRetina: false,
     forceOfflineMode: false,
-    forceReadOnly: false,
-    forceLiveUpdate: false
+    forceReadOnly: false
   }
 
   it('should handle initial state', () => {
@@ -27,8 +26,7 @@ describe('debug reducer', () => {
         forceLeftHandTraffic: false,
         forceNonRetina: true,
         forceOfflineMode: false,
-        forceReadOnly: false,
-        forceLiveUpdate: false
+        forceReadOnly: false
       }
 
       expect(action).toEqual(result)
@@ -48,8 +46,7 @@ describe('debug reducer', () => {
         forceLeftHandTraffic: true,
         forceNonRetina: true,
         forceOfflineMode: false,
-        forceReadOnly: false,
-        forceLiveUpdate: false
+        forceReadOnly: false
       }
 
       expect(action).toEqual(result)

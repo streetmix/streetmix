@@ -1,4 +1,3 @@
-import { debug } from '../preinit/debug_settings'
 import { initSystemCapabilities } from '../preinit/system_capabilities'
 import { initializeFlagSubscribers } from '../app/flag_utils'
 import { initCoil } from '../integrations/coil'
@@ -25,7 +24,6 @@ import { getMode, MODES, processMode } from './mode'
 import { processUrl } from './page_url'
 import { startListening } from './keypress'
 import { registerKeypresses } from './keyboard_commands'
-import { scheduleNextLiveUpdateCheck } from './live_update'
 import { loadImages } from './load_resources'
 
 let serverContacted
@@ -122,10 +120,6 @@ function onEverythingLoaded () {
   showConsoleMessage()
 
   store.dispatch(everythingLoaded())
-
-  if (debug.forceLiveUpdate) {
-    scheduleNextLiveUpdateCheck()
-  }
 
   const mode = getMode()
   if (mode === MODES.USER_GALLERY) {
