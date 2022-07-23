@@ -302,7 +302,8 @@ exports.find = async function (req, res) {
     }
 
     if (!user) {
-      throw new Error(ERRORS.USER_NOT_FOUND)
+      handleErrors(ERRORS.USER_NOT_FOUND)
+      return
     }
     return Street.findOne({
       where: { namespacedId, creatorId: user.id }
@@ -324,6 +325,9 @@ exports.find = async function (req, res) {
     })
   } // END function - findStreets
 
+  // TODO: There is a bug here where errors thrown by `new Error` will have
+  // its value in `error.message`, not error! We should figure out how to
+  // make this be consistent
   function handleErrors (error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
