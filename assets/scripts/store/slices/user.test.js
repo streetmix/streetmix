@@ -2,8 +2,6 @@
 import user, {
   setSignInData,
   clearSignInData,
-  setGeolocationAttempted,
-  setGeolocationData,
   setCoilPluginSubscriber,
   rememberUserProfile
 } from './user'
@@ -16,7 +14,8 @@ describe('user reducer', () => {
     isCoilPluginSubscriber: false,
     geolocation: {
       attempted: false,
-      data: null
+      data: null,
+      error: null
     },
     profileCache: {}
   }
@@ -52,7 +51,8 @@ describe('user reducer', () => {
       isCoilPluginSubscriber: false,
       geolocation: {
         attempted: false,
-        data: null
+        data: null,
+        error: null
       },
       profileCache: {}
     })
@@ -85,7 +85,8 @@ describe('user reducer', () => {
       isCoilPluginSubscriber: false,
       geolocation: {
         attempted: false,
-        data: null
+        data: null,
+        error: null
       },
       profileCache: {}
     })
@@ -108,7 +109,8 @@ describe('user reducer', () => {
           isCoilPluginSubscriber: true,
           geolocation: {
             attempted: true,
-            data: null
+            data: null,
+            error: null
           },
           profileCache: {}
         },
@@ -121,35 +123,8 @@ describe('user reducer', () => {
       isCoilPluginSubscriber: false,
       geolocation: {
         attempted: true,
-        data: null
-      },
-      profileCache: {}
-    })
-  })
-
-  it('should handle setGeolocationAttempted()', () => {
-    expect(user(initialState, setGeolocationAttempted(true))).toEqual({
-      signInData: null,
-      signedIn: false,
-      isSubscriber: false,
-      isCoilPluginSubscriber: false,
-      geolocation: {
-        attempted: true,
-        data: null
-      },
-      profileCache: {}
-    })
-  })
-
-  it('should handle setGeolocationData()', () => {
-    expect(user(initialState, setGeolocationData({}))).toEqual({
-      signInData: null,
-      signedIn: false,
-      isSubscriber: false,
-      isCoilPluginSubscriber: false,
-      geolocation: {
-        attempted: false,
-        data: {}
+        data: null,
+        error: null
       },
       profileCache: {}
     })
@@ -163,7 +138,8 @@ describe('user reducer', () => {
       isCoilPluginSubscriber: true,
       geolocation: {
         attempted: false,
-        data: null
+        data: null,
+        error: null
       },
       profileCache: {}
     })
@@ -185,7 +161,8 @@ describe('user reducer', () => {
       isCoilPluginSubscriber: true,
       geolocation: {
         attempted: false,
-        data: null
+        data: null,
+        error: null
       },
       profileCache: {}
     })
@@ -208,7 +185,8 @@ describe('user reducer', () => {
           isCoilPluginSubscriber: true,
           geolocation: {
             attempted: true,
-            data: null
+            data: null,
+            error: null
           },
           profileCache: {}
         },
@@ -228,7 +206,8 @@ describe('user reducer', () => {
       isCoilPluginSubscriber: false,
       geolocation: {
         attempted: true,
-        data: null
+        data: null,
+        error: null
       },
       profileCache: {}
     })
@@ -252,7 +231,8 @@ describe('user reducer', () => {
       isCoilPluginSubscriber: false,
       geolocation: {
         attempted: false,
-        data: null
+        data: null,
+        error: null
       },
       profileCache: {
         foo: {

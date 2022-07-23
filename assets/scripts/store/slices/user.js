@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import USER_ROLES from '../../../../app/data/user_roles.json'
+import { getGeoIp } from '../../util/api'
 
 const initialState = {
   signInData: null,
@@ -8,10 +9,19 @@ const initialState = {
   isCoilPluginSubscriber: false,
   geolocation: {
     attempted: false,
-    data: null
+    data: null,
+    error: null
   },
   profileCache: {}
 }
+
+export const detectGeolocation = createAsyncThunk(
+  'user/detectGeolocation',
+  async () => {
+    const response = await getGeoIp()
+    return response.data
+  }
+)
 
 const userSlice = createSlice({
   name: 'user',
@@ -34,14 +44,6 @@ const userSlice = createSlice({
       state.signedIn = false
       state.isSubscriber = false
       state.isCoilPluginSubscriber = false
-    },
-
-    setGeolocationAttempted (state, action) {
-      state.geolocation.attempted = action.payload
-    },
-
-    setGeolocationData (state, action) {
-      state.geolocation.data = action.payload
     },
 
     setCoilPluginSubscriber (state, action) {
@@ -70,14 +72,33 @@ const userSlice = createSlice({
 
       state.profileCache[profile.id] = profile
     }
+  },
+
+  extraReducers: {
+    [detectGeolocation.pending]: (state) => {
+      // Reset state when pending
+      state.geolocation.attempted = false
+      state.geolocation.data = null
+      state.geolocation.error = null
+    },
+
+    [detectGeolocation.fulfilled]: (state, action) => {
+      state.geolocation.attempted = true
+      state.geolocation.data = action.payload
+      state.geolocation.error = false
+    },
+
+    [detectGeolocation.rejected]: (state, action) => {
+      state.geolocation.attempted = true
+      state.geolocation.data = null
+      state.geolocation.error = action.error.message || action.error
+    }
   }
 })
 
 export const {
   setSignInData,
   clearSignInData,
-  setGeolocationAttempted,
-  setGeolocationData,
   setCoilPluginSubscriber,
   rememberUserProfile
 } = userSlice.actions
