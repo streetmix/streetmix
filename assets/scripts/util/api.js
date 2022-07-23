@@ -106,6 +106,10 @@ class APIClient {
   getChangelog = () => {
     return this.client.get(`${BASE_URL_SERVICES}/changelog`)
   }
+
+  getGeoIp = () => {
+    return this.client.get(`${BASE_URL_SERVICES}/geoip`)
+  }
 }
 
 const client = new APIClient()
@@ -126,7 +130,8 @@ export const {
   getSentimentSurveyStreet,
   postSentimentSurveyVote,
   putSentimentSurveyComment,
-  getChangelog
+  getChangelog,
+  getGeoIp
 } = client
 
 export default client
