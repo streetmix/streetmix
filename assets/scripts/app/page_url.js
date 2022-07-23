@@ -151,9 +151,6 @@ export function updatePageUrl (forceGalleryUrl, userId = null) {
   if (debug.forceReadOnly) {
     url += '&debug-force-read-only'
   }
-  if (debug.forceLiveUpdate) {
-    url += '&debug-force-live-update'
-  }
   if (debug.forceOfflineMode) {
     url += '&debug-force-offline'
   }

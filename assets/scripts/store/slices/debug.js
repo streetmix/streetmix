@@ -6,8 +6,7 @@ const debugSlice = createSlice({
     forceLeftHandTraffic: false,
     forceNonRetina: false,
     forceOfflineMode: false,
-    forceReadOnly: false,
-    forceLiveUpdate: false
+    forceReadOnly: false
   },
 
   reducers: {

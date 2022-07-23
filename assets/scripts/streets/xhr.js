@@ -96,24 +96,6 @@ function errorReceiveNewStreet ({ response }) {
   }
 }
 
-export function getFetchStreetUrl () {
-  // TODO const
-  let url
-  const street = store.getState().street
-  if (street.creatorId) {
-    url =
-      '/api/v1/streets?namespacedId=' +
-      encodeURIComponent(street.namespacedId) +
-      '&creatorId=' +
-      encodeURIComponent(street.creatorId)
-  } else {
-    url =
-      '/api/v1/streets?namespacedId=' + encodeURIComponent(street.namespacedId)
-  }
-
-  return url
-}
-
 export async function fetchStreetFromServer () {
   const street = store.getState().street
 
