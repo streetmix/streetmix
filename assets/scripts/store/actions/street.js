@@ -142,12 +142,13 @@ export const getLastStreet = () => {
       // check this later
       // eslint-disable-next-line import/no-named-as-default-member
       const response = await apiClient.getStreet(lastStreetId)
-      const street = createStreetFromResponse(response.data)
+      const data = response.data
+      const street = createStreetFromResponse(data)
       setIgnoreStreetChanges(true)
       await dispatch(
         updateSettings({
-          lastStreetId: response.id,
-          lastStreetNamespacedId: response.namespacedId,
+          lastStreetId: data.id,
+          lastStreetNamespacedId: data.namespacedId,
           lastStreetCreatorId: street.creatorId
         })
       )
@@ -155,7 +156,7 @@ export const getLastStreet = () => {
       if (id) {
         dispatch(saveStreetId(id, namespacedId))
       } else {
-        dispatch(saveStreetId(response.id, response.namespacedId))
+        dispatch(saveStreetId(data.id, data.namespacedId))
       }
       dispatch(saveOriginalStreetId(lastStreetId))
       await dispatch(segmentsChanged())
