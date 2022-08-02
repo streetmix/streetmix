@@ -5,10 +5,10 @@ import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
 import Gallery from '../Gallery'
-import { switchGalleryStreet } from '../view'
+import { switchGalleryStreet } from '../index'
 import { closeGallery } from '../../store/actions/gallery'
 
-jest.mock('../view')
+jest.mock('../index')
 jest.mock('../../app/errors')
 jest.mock('../../streets/thumbnail')
 jest.mock('../../streets/xhr')

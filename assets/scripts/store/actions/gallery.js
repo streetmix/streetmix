@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { hideControls } from '../../segments/resizing'
-import { fetchGalleryData } from '../../gallery/fetch_data'
+import { fetchGalleryData } from '../../gallery/index'
 import { updatePageUrl } from '../../app/page_url'
 import { showError, ERRORS } from '../../app/errors'
 import { MODES, getMode, setMode } from '../../app/mode'
