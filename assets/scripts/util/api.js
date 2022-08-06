@@ -43,6 +43,10 @@ class APIClient {
     )
   }
 
+  getUser = (userId) => {
+    return this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
+  }
+
   // Optional config is allowed for situations where we need to send a
   // custom header
   getStreet = (streetId, config = {}) => {
@@ -118,6 +122,7 @@ export const {
   getFlags,
   getAppTranslations,
   getSegmentTranslations,
+  getUser,
   getStreet,
   getStreetWithParams,
   postStreet,
