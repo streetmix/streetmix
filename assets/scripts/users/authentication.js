@@ -20,7 +20,7 @@ import {
 import { showDialog } from '../store/slices/dialogs'
 import { updateStreetIdMetadata } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
-import { getUser } from '../util/api'
+import { getUser, deleteUserLoginToken } from '../util/api'
 import { loadSettings } from './settings'
 
 const USER_ID_COOKIE = 'user_id'
@@ -292,6 +292,7 @@ export function onSignOutClick (event) {
 }
 
 function signOut (quiet) {
+  const signInData = getSignInData()
   store.dispatch(
     updateSettings({
       lastStreetId: null,
@@ -300,25 +301,21 @@ function signOut (quiet) {
     })
   )
 
-  removeSignInCookies()
-  window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
-  sendSignOutToServer(quiet)
+  sendSignOutToServer(signInData.userId, quiet)
 }
 
-function sendSignOutToServer (quiet) {
-  const signInData = getSignInData()
-
-  // TODO const
-  window
-    .fetch('/api/v1/users/' + signInData.userId + '/login-token', {
-      method: 'DELETE'
-    })
+function sendSignOutToServer (userId, quiet) {
+  return deleteUserLoginToken(userId)
     .then((response) => {
       if (!quiet) {
         receiveSignOutConfirmationFromServer()
       }
     })
     .catch(errorReceiveSignOutConfirmationFromServer)
+    .finally(() => {
+      removeSignInCookies()
+      window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
+    })
 }
 
 function receiveSignOutConfirmationFromServer () {

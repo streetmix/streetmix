@@ -47,6 +47,10 @@ class APIClient {
     return this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
   }
 
+  deleteUserLoginToken = (userId) => {
+    return this.client.delete(`${BASE_URL_API_V1}/users/${userId}/login-token`)
+  }
+
   // Optional config is allowed for situations where we need to send a
   // custom header
   getStreet = (streetId, config = {}) => {
@@ -123,6 +127,7 @@ export const {
   getAppTranslations,
   getSegmentTranslations,
   getUser,
+  deleteUserLoginToken,
   getStreet,
   getStreetWithParams,
   postStreet,
