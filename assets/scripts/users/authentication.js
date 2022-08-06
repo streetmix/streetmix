@@ -20,6 +20,7 @@ import {
 import { showDialog } from '../store/slices/dialogs'
 import { updateStreetIdMetadata } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
+import { getUser } from '../util/api'
 import { loadSettings } from './settings'
 
 const USER_ID_COOKIE = 'user_id'
@@ -204,14 +205,13 @@ function errorRefreshLoginToken (data) {
  */
 async function fetchSignInDetails (userId) {
   try {
-    const response = await window.fetch('/api/v1/users/' + userId)
+    const response = await getUser(userId)
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw response
     }
 
-    const json = await response.json()
-    const { flags, roles = [] } = json
+    const { flags, roles = [] } = response.data
 
     const flagOverrides = [
       // all role flag overrides
@@ -222,7 +222,7 @@ async function fetchSignInDetails (userId) {
       generateFlagOverrides(flags, 'user')
     ]
 
-    receiveSignInDetails(json)
+    receiveSignInDetails(response.data)
     return flagOverrides
   } catch (error) {
     errorReceiveSignInDetails(error)
