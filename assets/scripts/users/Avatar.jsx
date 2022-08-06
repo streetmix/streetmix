@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
-import Axios from 'axios'
 import { rememberUserProfile } from '../store/slices/user'
+import { getUser } from '../util/api'
 import './Avatar.scss'
 
 Avatar.propTypes = {
@@ -18,15 +18,15 @@ function Avatar ({ userId }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const source = Axios.CancelToken.source()
+    const controller = new AbortController()
 
     async function fetchData () {
       // We need to be able to cancel the Axios request when the
       // component unmounts (this can happen e.g. in tests)
-      // https://www.youtube.com/watch?v=_TleXX0mxaY
+      // https://axios-http.com/docs/cancellation
       try {
-        const response = await Axios.get('/api/v1/users/' + userId, {
-          cancelToken: source.token
+        const response = await getUser(userId, {
+          signal: controller.signal
         })
 
         // Responses are cached so that multiple Avatar components that
@@ -36,11 +36,8 @@ function Avatar ({ userId }) {
           dispatch(rememberUserProfile(response.data))
         }
       } catch (error) {
-        if (Axios.isCancel(error)) {
-          // Quietly swallow a cancelled request
-        } else {
-          throw error
-        }
+        // Quietly swallow a cancelled request
+        controller.abort()
       }
     }
 
@@ -49,7 +46,7 @@ function Avatar ({ userId }) {
     }
 
     return () => {
-      source.cancel()
+      controller.abort()
     }
   }, [userId, imageUrl, dispatch])
 

@@ -43,8 +43,8 @@ class APIClient {
     )
   }
 
-  getUser = (userId) => {
-    return this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
+  getUser = (userId, config = {}) => {
+    return this.client.get(`${BASE_URL_API_V1}/users/${userId}`, config)
   }
 
   deleteUserLoginToken = (userId) => {
