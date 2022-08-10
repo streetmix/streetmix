@@ -6,7 +6,7 @@ import Draggable from 'react-draggable'
 import CloseButton from '../ui/CloseButton'
 import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
-import { showDialog } from '../store/slices/dialogs'
+// import { showDialog } from '../store/slices/dialogs'
 import { setEnvironment } from '../store/slices/street'
 import { toggleToolbox } from '../store/slices/ui'
 // import emojiIcon from '../../images/openmoji/color/1F324.svg'
@@ -35,7 +35,11 @@ function EnvironmentEditor (props) {
 
   function handleClickUpgrade (event) {
     event.preventDefault()
-    dispatch(showDialog('UPGRADE'))
+    // dispatch(showDialog('UPGRADE'))
+    window.open(
+      'https://docs.streetmix.net/user-guide/streetmix-plus',
+      '_blank'
+    )
   }
 
   function handleSelect (id) {
