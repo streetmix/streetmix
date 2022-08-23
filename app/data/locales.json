@@ -25,7 +25,7 @@
     "name": "Czech",
     "value": "cs",
     "key": "i18n.lang.cs",
-    "level": 1
+    "level": 3
   },
   {
     "label": "Deutsch",
@@ -67,7 +67,7 @@
     "name": "Spanish (Spain)",
     "value": "es-ES",
     "key": "i18n.lang.es-es",
-    "level": 1
+    "level": 3
   },
   {
     "label": "Español (México)",

@@ -5,6 +5,16 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## August 25, 2022
+
+### ✨ New features
+
+- **Added Czech and Spanish (Spain) translations.** Thanks to our translators, [Jiří Podhorecký](https://spotter.ngo) and Pau Martí Talens!
+
+### 🎨 Improvements
+
+- Updates to Finnish and Norwegian translations.
+
 ## January 31, 2022
 
 ### ✨ New features
