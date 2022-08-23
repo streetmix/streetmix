@@ -14,6 +14,8 @@ This section is a work in progress. It has been ported from an older document an
 
 We may rename "segments" to something else, e.g. "slices," to avoid confusion with "street segments."
 
+On the other hand, CROW's _Design Manual for Bicycle Traffic_ (2016) uses the term "dimensional segments" for a similar purpose, so additional clarity could be achieved by leaning into a more technical term when needed.
+
 :::
 
 Notes on segments, which are the elements that comprise a street section. [See Issue #7 for discussion around more street segments.](https://github.com/codeforamerica/streetmix/issues/7)
@@ -130,10 +132,32 @@ In [a California study](http://dc.streetsblog.org/2013/06/13/in-california-citie
 
 ### Cycletrack (bike lane + median or buffer)
 
-- **Subtypes:** One-way, two-way
+- **Subtypes:** One-way, two-way (bidirectional)
+- **Minimum width**: 3m (10 ft) (for bidirectional, one-way uses regular bike lane dimensions not including buffer)
+  - CROW, _Design Manual for Bicycle Traffic_ (2016)
+    - Dimensions of bidirectional paths, at different volumes of bicycle traffic, range from 2.5m to 4m (page 237, "V16: Segregated cycle path")
+    - Verges alongside cycle paths of at least 0.5m must be maintained (page 185, "Verges and plants", and page 241, "V18: Segregation verge cycle path -- carriageway")
+  - NACTO, _Urban Bikeway Design Guide_ (Second Edition, 2014)
+    - One-way cycle track, not including buffer (page 32, "Design Guidance: One-Way Protected Cycle Tracks")
+      > The minimum desired width for a cycle track should be 5 feet. In areas with high bicyclist volumes or uphill sections, the minimum desired width should be 7 feet to allow for bicyclists passing each other.
+    - Two-way cycle track, not including buffer (page 44, "Design Guidance: Two-Way Protected Cycle Tracks")
+      > The desirable two-way cycle track width is 12 feet. Minimum width in constrained locations is 8 feet.
+  - _Boston Complete Streets Guidelines_ (2013)
+    - Cycle tracks (page 128)
+      > "The minimum width of a one-way cycletrack is 5' to 7', and a two-way cycletrack is 8'. When adjacent to on-street parking, a minimum 2' to 3' buffer should be provided between parking and cycle track."
+- **Maximum width**: None
 
-- Painted buffer. 2 solid white lines with diagonal hatching. 2 feet minimum because it would be impractical to paint a buffer area less than this. 3-feet buffer seems to be a pretty appropriate starting default. Buffer can be included with the bike lane as the total "bike lane width" (so a 2-ft buffer + 5-ft bike lane, or 3-ft buffer + 4-ft bike lane = 7-ft bike lane).
-  - Source: NACTO Urban Bikeway Design Guide (April 2011) pp 20-22
+#### Note on widths
+
+There is no "preferred" cycletrack width that works for every scenario. Ideal cycletrack widths should take into account volume of bicycle traffic, classification of the motorway, and adjacent segments (like parking or sidewalks), not to mention constraints, such as available right-of-way, that make any dedicated cycle path better than none at all. Furthermore, a cycle path should be buffered from adjacent uses, which can be anything from a painted surface to a planting strip. Whether those are included in the width of the cycletrack itself or should be drawn as a separate segment depends on what needs to be communicated.
+
+For the "default" use case in Streetmix for _two-way (bidirectional) cycletracks_, our convention (developed in collaboration with The Institute for Transportation & Development Policy) is to use a minimum width of 3m (10 ft). This accounts for the 2.5m (approximately 8 ft) minimum width specified in source guidelines with a minimum 0.5m "verge" buffer. For instance, CROW's _Design Manual for Bicycle Traffic_ notes that bidirectional paths "up to 2.50 m wide a path will have a verge on both sides which can be ridden on, giving cyclists room to swerve" (page 237) and that "verges alongside cycle paths must be ... an obstacle-free space of at least 0.50 m" (page 185).
+
+#### Painted buffer (not currently automatic)
+
+2 solid white lines with diagonal hatching. 2 feet minimum because it would be impractical to paint a buffer area less than this. 3-feet buffer seems to be a pretty appropriate starting default. Buffer can be included with the bike lane as the total "bike lane width" (so a 2-ft buffer + 5-ft bike lane, or 3-ft buffer + 4-ft bike lane = 7-ft bike lane).
+
+- Source: NACTO Urban Bikeway Design Guide (April 2011) pp 20-22
 
 ### Other types of bike lanes
 
