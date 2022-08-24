@@ -116,7 +116,6 @@
     }
   ],
   "contributors": {
-    "advisors": ["Adrian Mak", "Jeff Speck", "Molly King"],
     "additional-illustrations": [
       "Brian Wamsley",
       "Claudio Olivares Medina",
@@ -159,6 +158,9 @@
       ["Wendy Fok", "project manager"]
     ],
     "special-thanks": [
+      "Adrian Mak",
+      "Jeff Speck",
+      "Molly King",
       ["Billy Riggs", "ReStreet"],
       ["Michael Boswell", "ReStreet"],
       ["Pia Mancini", "OpenCollective"],
@@ -199,6 +201,7 @@
     "am": ["Gashaw Aberra", "Carolyne Mimano"],
     "ar": ["Diana M. Alhaj", "Zakaria Shekhreet"],
     "ca": ["Max Eritja", "Ignasi Gustems"],
+    "cs": ["Jiří Podhorecký"],
     "zh": [
       "Crystal Xing",
       "Maggie Dong",
@@ -228,6 +231,7 @@
     ],
     "ru": ["Artem Savin", "Olya Arakhouskaya"],
     "es-419": ["Lina Marcela Quiñones"],
+    "es-es": ["Pau Martí Talens"],
     "es-mx": ["David Soto Padín", "Paco Marquez", "Patricio M. Ruiz Abrín"],
     "sv": ["Jakob Fahlstedt", "Dennis Haagensen"],
     "tr": ["Hayrettin Günç", "Hande Sığın"]

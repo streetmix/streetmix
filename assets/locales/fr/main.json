@@ -13,7 +13,8 @@
       "settings": "Paramètres",
       "share": "Partager",
       "store": "Magasin",
-      "upgrade": "Mettre à jour"
+      "upgrade": "Mettre à jour",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Raccourcis claviers :",
@@ -95,6 +96,7 @@
       "home": "Aller à la page d'accueil",
       "sign-in": "Se connecter de nouveau",
       "reload": "Recharger la page",
+      "return": "",
       "try-again": "Ré-essayer",
       "view-example": "Voir un exemple de rue"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Vous vous êtes déconnecté dans une autre fenêtre.",
     "gallery-street-failure-description": "Nous avons rencontré des problèmes lors du chargement de cette rue.",
     "reload-sign-in-title": "Vous vous êtes connecté dans une autre fenêtre.",
-    "please-reload": "Veuillez recharger cette page avant de continuer.",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "Cette rue a été supprimée ailleurs.",
     "street-deleted-elsewhere-description": "Cette rue a été supprimée dans un autre navigateur.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Il y a eu un problème avec votre identification.",
     "auth-api-problem-description": "Il y a eu un problème avec l'authentification.",
     "please-try-again": "Veuillez réessayer plus tard ou nous le signaler via <email_link>email</email_link> ou <tweet_link>Twitter</tweet_link>.",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix ne fonctionne pas sur votre navigateur.",
     "unsupported-browser-description": "Nous sommes désolés. Vous pouvez essayer <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, ou Safari.",
     "unsupported-browser-internet-explorer": "Êtes-vous sur Internet Explorer? <a>En savoir plus.</a>",
-    "unsupported-browser-contact-us": "Si vous pensez que votre navigateur devrait être pris en charge, veuillez nous contacter via <a>email</a>.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix fonctionne uniquement sur les tablettes et les ordinateurs de bureau.",
     "cannot-create-new-street-on-phone-description": "Si vous suivez un autre lien vers une rue spécifique, vous pouvez l'afficher sur votre téléphone - mais vous ne pouvez pas encore créer de nouvelles rues.",
     "generic-error-title": "Il y a un problème.",
@@ -346,7 +349,7 @@
     "rename": "Cliquez pour renommer"
   },
   "building": {
-    "floors-count": "{count, plural, one {# étage} other {# étages}}"
+    "floors-count": "{count, plural, one {# étage} many {# étages} other {# étages}}"
   },
   "segments": {
     "warnings": {
@@ -374,7 +377,7 @@
     "all": "Toutes les rues",
     "twitter-link": "Profil Twitter",
     "delete-street-tooltip": "Supprimer la rue",
-    "street-count": "{count, plural, one {# rue} other {# rues}}",
+    "street-count": "{count, plural, one {# rue} many {# rues} other {# rues}}",
     "no-streets": "Aucune rue pour le moment",
     "thumbnail-error": ""
   },
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": "Se connecter pour utiliser !"
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "Apprenez en davantage"
     }
   },
   "sentiment": {

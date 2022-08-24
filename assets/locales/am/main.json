@@ -13,7 +13,8 @@
       "settings": "ቅንብሮች",
       "share": "አጋሩ",
       "store": "ማከማቻ",
-      "upgrade": "ማሻሻያ"
+      "upgrade": "ማሻሻያ",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "የኪቦርድ አቋራጮች",
@@ -95,6 +96,7 @@
       "home": "ወደ ሆምፔጅ ይለፉ ",
       "sign-in": "በድጋሚ ይግቡ /ሳይን ኢን ያድርጉ/",
       "reload": "ገጹን በድጋሚ ይጫኑ ",
+      "return": "",
       "try-again": "በድጋሚ ይሞክሩ ",
       "view-example": "በምሳሌነት የሚያገለግል መንገድ ይመልከቱ "
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "በሌላ መስኮት ከገፁ ወጥተዋል ",
     "gallery-street-failure-description": "ይህንን መንገድ ለመጫን ችግር አጋጥሞናል::  ",
     "reload-sign-in-title": "በሌላ መስኮት ገብተዋል (ሳይን ኢን አድርገዋል)",
-    "please-reload": "እባክዎ ከመቀጠልዎ በፊት ይህንን ገጽ በድጋሚ ይጫኑ ",
+    "please-reload": "",
     "survey-finished": "ፍለጋው ተጠናቋል፡፡ እንኳን ደስ ያለዎ ፣ እናመሰግናለን!",
     "street-deleted-elsewhere-title": "ይህ መንገድ የሆነ ቦታ ላይ ተሰርዟል",
     "street-deleted-elsewhere-description": "ይህ መንገድ በሌላ ብሮዘር ተሰርዟል",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "እርስዎን ለማስገባት ችግር አጋጥሞ ነበር ",
     "auth-api-problem-description": "ማረጋገጫን በተመለከተ ችግር አጋጥሞ ነበር ",
     "please-try-again": "እባክዎን ጥቂት ቆይተው ይሞክሩ ወይም<email_link>በኢሜይል</email_link>ወይም<tweet_link>ትዊተር</tweet_link>አማካኝነት ያሳወቁን ",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "ስትሪትሚክስ በእርስዎ ብሮዘር ላይ አይሰራም ",
     "unsupported-browser-description": "ስለዚህ ሁኔታ ይቅርታ እንጠይቃለን፡፡ <chrome_link>ክሮም፣</chrome_link><firefox_link>ፋየርፎክስ፣</firefox_link>ማይክሮሶፍት<edge_link>ኤይጅ</edge_link>ወይም ሳፋሪ መሞከር ሊያስፈልግዎ ይችላሉ\n",
     "unsupported-browser-internet-explorer": "እርስዎ በኢንተርኔት ፈላጊ (ኤክስፕሎረር) ላይ ነዎትን?<a>የበለጠ ይወቁ </a>",
-    "unsupported-browser-contact-us": "የኢንተርኔት አሳሽዎ መደገፍ አለበት ብለው የሚያስቡ ከሆነ እባክዎን<a>በኢሜይል </a>በኩል ያግኙን።",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "ስትሪትሚክስ የሚሰራው በታብሌት እና በዴስክቶፕ ላይ ብቻ ነው፡፡",
     "cannot-create-new-street-on-phone-description": "ተለይቶ ለተጠቀሰ መንገድ ሌላ ማገናኛ (ሊንክ) የሚከተሉ ከሆነ በስልክዎ ለማየት ይችላሉ- ነገር ግን አዳዲስ መንገዶችን ለመፍጠር አይችሉም።   ",
     "generic-error-title": "የሆነ ነገር ተሳስቷል ",
@@ -383,7 +386,7 @@
     "byline": "በ {user}",
     "roles": {
       "admin": "አስተዳዳሪ",
-      "subscriber": "ስትሪትሚክስ + ተመዝጋቢ"
+      "subscriber": ""
     }
   },
   "export": {
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "በቅርቡ ይመጣል",
       "sub": "ለመጠቀም ወደ ስትሪትሚክስ + ያሻሽሉ!",
+      "sub-edit": "",
       "user": "ለመጠቀም ይመዝገቡ!"
     },
     "prompt": {
       "text": "ይህ ባህሪ ለስትሪትሚክስ + ተጠቃሚዎች ብቻ ይገኛል።.",
       "action": "ለመክፈት ያሻሽሉ"
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "የበለጠ ይወቁ"
     }
   },
   "sentiment": {

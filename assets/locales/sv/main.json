@@ -13,7 +13,8 @@
       "settings": "Inställningar",
       "share": "Dela",
       "store": "Butik",
-      "upgrade": "Uppgradera"
+      "upgrade": "Uppgradera",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Snabbkommandon:",
@@ -95,6 +96,7 @@
       "home": "",
       "sign-in": "Logga in igen",
       "reload": "Ladda om sidan",
+      "return": "",
       "try-again": "Försök igen",
       "view-example": "Visa en exempelgata"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Du loggade ut i ett annat fönster.",
     "gallery-street-failure-description": "Vi har problem med att ladda den här gatan.",
     "reload-sign-in-title": "Du loggade in i ett annat fönster.",
-    "please-reload": "Var vänlig uppdatera den här sidan innan du fortsätter.",
+    "please-reload": "",
     "survey-finished": "Undersökning avklarad. Grattis och tack!",
     "street-deleted-elsewhere-title": "Den här gatan har tagits bort från annan plats.",
     "street-deleted-elsewhere-description": "Den här gatan har tagits bort i en annan webbläsare.",
@@ -120,6 +122,7 @@
     "auth-api-problem-title": "Det uppstod ett problem med din inloggning.",
     "auth-api-problem-description": "",
     "please-try-again": "",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix fungerar inte på din webbläsare.",
     "unsupported-browser-description": "",
     "unsupported-browser-internet-explorer": "",
@@ -383,7 +386,7 @@
     "byline": "av {user}",
     "roles": {
       "admin": "",
-      "subscriber": "Streetmix+ användare"
+      "subscriber": ""
     }
   },
   "export": {
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "Kommer snart!",
       "sub": "Uppgradera till Streetmix+ för att använda!",
+      "sub-edit": "",
       "user": "Logga in för att använda!"
     },
     "prompt": {
       "text": "",
       "action": "Uppgradera för att låsa upp"
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": ""
     }
   },
   "sentiment": {

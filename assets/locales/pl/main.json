@@ -13,7 +13,8 @@
       "settings": "Ustawienia",
       "share": "Udostępnij",
       "store": "",
-      "upgrade": ""
+      "upgrade": "",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Skróty klawiszowe:",
@@ -95,6 +96,7 @@
       "home": "Idź do strony głównej",
       "sign-in": "Zaloguj się ponownie",
       "reload": "Odśwież stronę",
+      "return": "",
       "try-again": "Spróbuj ponownie",
       "view-example": "Obejrzyj przykładową ulicę"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Użytkownik został wylogowany w innym oknie.",
     "gallery-street-failure-description": "Mamy problem z załadowaniem tej ulicy. ",
     "reload-sign-in-title": "Użytkownik został zalogowany w innym oknie.",
-    "please-reload": "Odśwież stronę, zanim będziesz kontynuować. ",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "Ta ulica została usunięta w innym miejscu. ",
     "street-deleted-elsewhere-description": "Ta ulica została usunięta w innej przeglądarce.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Wystąpił problem podczas próby zalogowania użytkownika.",
     "auth-api-problem-description": "Wystąpił problem z uwierzytelnianiem. ",
     "please-try-again": "Spróbuj ponownie później lub daj nam znać poprzez <email_link>email</email_link> lub <tweet_link>Twittera</tweet_link>.",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix nie działa na Twojej przeglądarce.",
     "unsupported-browser-description": "Przepraszamy za to. Możesz spróbować na przeglądarce <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> lub Safari.",
     "unsupported-browser-internet-explorer": "Używasz przeglądarki Internet Explorer? <a>Dowiedz się więcej.</a>",
-    "unsupported-browser-contact-us": "Jeśli uważasz, że Twoja przeglądarka powinna być wspierana, skontaktuj się z nami poprzez <a>email</a>.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix działa tylko na tabletach oraz komputerach.",
     "cannot-create-new-street-on-phone-description": "Jeśli został otwarty inny link do określonej ulicy, możesz ją obejrzeć na telefonie, ale nie możesz tworzyć nowych ulic. ",
     "generic-error-title": "Coś poszło nie tak.",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": ""
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "Dowiedz się więcej"
     }
   },
   "sentiment": {

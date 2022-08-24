@@ -13,7 +13,8 @@
       "settings": "Einstellungen",
       "share": "Teilen",
       "store": "",
-      "upgrade": ""
+      "upgrade": "",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Tastatur-Shortcuts:",
@@ -95,6 +96,7 @@
       "home": "Gehe zur Homepage",
       "sign-in": "Noch einmal anmelden",
       "reload": "Die Seite erneut laden",
+      "return": "",
       "try-again": "Noch einmal versuchen",
       "view-example": "Eine Beispiel-Straße ansehen"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Du hast dich in einem anderen Fenster abgemeldet.",
     "gallery-street-failure-description": "Wir haben Probleme, diese Straße zu laden.",
     "reload-sign-in-title": "Du bist in einem anderen Fenster angemeldet.",
-    "please-reload": "Bitte lade die Seite erneut, bevor du fortfährst.",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "Diese Straße wurde an einer anderen Stelle gelöscht.",
     "street-deleted-elsewhere-description": "Diese Straße wurde in einem anderen Browser gelöscht.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Beim Anmelden ist ein Problem aufgetreten.",
     "auth-api-problem-description": "Beim Bestätigen ist ein Problem aufgetreten.",
     "please-try-again": "Bitte versuche es später noch einmal oder sag uns über <email_link>E-Mail</email_link> oder <tweet_link>Twitter</tweet_link> Bescheid.",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix läuft nicht in deinem Browser.",
     "unsupported-browser-description": "Das tut uns leid. Probiere es doch einmal mit <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> oder Safari.",
     "unsupported-browser-internet-explorer": "Bist du im Internet Explorer? <a>Erfahre mehr.</a>",
-    "unsupported-browser-contact-us": "Wenn du findest, dass dein Browser unterstützt werden sollte, kontaktiere uns bitte über <a>E-Mail</a>.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix läuft nur auf Tablets und PCs.",
     "cannot-create-new-street-on-phone-description": "Wenn du dem Link zu einer Straße folgst, kannst du sie auf deinem Smartphone ansehen - aber bisher kannst du dort noch keine neuen Straßen erstellen.",
     "generic-error-title": "Etwas ist schief gelaufen.",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": ""
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "Erfahre mehr"
     }
   },
   "sentiment": {

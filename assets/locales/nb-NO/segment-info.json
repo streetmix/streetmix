@@ -9,7 +9,7 @@
     "cafe-seating": "Cafémøblering",
     "wayfinding-sign": "Vegvisningsskilt",
     "sidewalk-lamp": "Gatelykt",
-    "utility-pole": "",
+    "utility-pole": "Stolpe",
     "parklet": "Parklet",
     "divider": "Rabatt",
     "planting-strip": "Grønn rabatt",
@@ -21,6 +21,7 @@
     "scooter": "Elsparkesykkel",
     "scooter-drop-zone": "Parkeringsområde for elsparkesykler",
     "bike-lane": "Sykkel",
+    "twoway-bike-lane": "Toveis sykkelvei",
     "parking-lane": "Parkeringsfelt",
     "perpendicular-parking": "Tverrstilt parkering",
     "angled-parking": "Skråparkering",
@@ -31,6 +32,7 @@
     "foodtruck": "Foodtruck",
     "flex-zone-curb": "Venteområde",
     "drive-lane": "Kjørefelt",
+    "mixed-drive-lane": "Samkjøringsfelt",
     "sharrow": "Sharrow",
     "turn-lane": "Svingefelt",
     "turn-lane-straight": "Sving forbudt",
@@ -53,7 +55,7 @@
     },
     "parklet": {
       "prompt": "Lær mer om \"parklets\"",
-      "imageCaption": "",
+      "imageCaption": "4033 Judah Street Parklet, tatt av San Francisco Planning Department.",
       "content": ""
     },
     "bike-lane": {
@@ -73,7 +75,7 @@
       "content": ""
     },
     "inception-train": {
-      "content": ""
+      "content": "# Det er toget fra Christopher Nolan film _Inception_.\n\nHva mer må du vite?"
     }
   },
   "buildings": {
@@ -127,6 +129,10 @@
     "parking-lane-direction|angled-rear-right": "Skrå",
     "direction|inbound": "Inngående",
     "direction|outbound": "Utgående",
+    "bike-direction|inbound": "Inngående",
+    "bike-direction|outbound": "Utgående",
+    "bike-direction|twoway-left": "Toveis sykkelvei (venstre)",
+    "bike-direction|twoway-right": "Toveis sykkelvei (høyre)",
     "sidewalk-density|empty": "Ingen",
     "sidewalk-density|sparse": "Få",
     "sidewalk-density|normal": "Flere",
@@ -140,7 +146,7 @@
     "car-type|car": "Bil",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Lastebil",
-    "car-type|microvan": "",
+    "car-type|microvan": "Liten varebil",
     "car-type|av": "Selvkjørende bil",
     "car-type|motorcycle": "Motorsykkel",
     "car-type|motorcycle-sidecar": "Motorsykkel med sidevogn",
@@ -151,9 +157,9 @@
     "bus-asphalt|regular": "Svart asfalt",
     "bus-asphalt|colored": "Rød asfalt",
     "bus-asphalt|shared": "Buss og sykkel",
-    "bus-type|typical": "",
-    "bus-type|double-decker": "",
-    "bus-type|av-shuttle": "",
+    "bus-type|typical": "Typisk buss",
+    "bus-type|double-decker": "Dobbeltdekkerbuss",
+    "bus-type|av-shuttle": "Autonom skyttelbuss",
     "brt-station-orientation|left": "Venstre",
     "brt-station-orientation|right": "Høyre",
     "brt-station-orientation|center": "Midt",
@@ -202,12 +208,12 @@
     "temporary-barrier-type|barricade": "Sperring"
   },
   "environs": {
-    "day": "",
-    "twilight": "",
-    "dusk": "",
-    "dawn": "",
-    "night": "",
-    "karl": "",
-    "holodeck": ""
+    "day": "Dag",
+    "twilight": "Skumring",
+    "dusk": "Solnedgang",
+    "dawn": "Soloppgang",
+    "night": "Natt",
+    "karl": "Tåke",
+    "holodeck": " \"Holodeck\""
   }
 }

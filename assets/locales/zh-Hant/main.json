@@ -13,7 +13,8 @@
       "settings": "設置",
       "share": "分享",
       "store": "",
-      "upgrade": ""
+      "upgrade": "",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "快捷鍵：",
@@ -95,6 +96,7 @@
       "home": "回到主頁",
       "sign-in": "再一次登入",
       "reload": "刷新網頁",
+      "return": "",
       "try-again": "再試一次",
       "view-example": "查看示例街道"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "你在另一個窗口已經登出。",
     "gallery-street-failure-description": "我們在加載這條街道的時候遇到一點問題。",
     "reload-sign-in-title": "你已在另一個窗口登錄。",
-    "please-reload": "請刷新此頁再繼續。",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "這條街道已在別處被刪除。",
     "street-deleted-elsewhere-description": "這條街道已在別的瀏覽器中被刪除。",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "在你登錄的過程中出了點小問題。",
     "auth-api-problem-description": "在確認你身份的過程中出了點小問題。",
     "please-try-again": "請稍後再試，或通過<email_link>電郵</email_link>或<tweet_link>推特</tweet_link>聯繫我們。",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix無法在這個瀏覽器上運行。",
     "unsupported-browser-description": "很抱歉！ 你可以嘗試使用<chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, 或Safari.",
     "unsupported-browser-internet-explorer": "你在使用Internet Explorer嗎? <a>了解更多</a>",
-    "unsupported-browser-contact-us": "如果你認為Streetmix應該兼容你的瀏覽器， 請通過<a>電郵</a>聯繫我們。",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix只能在平板電腦和台式電腦上運行。",
     "cannot-create-new-street-on-phone-description": "如果你通過另外一條鏈接來查看某條街道，你可以在手機上查看—但你暫時不能在上面創建街道",
     "generic-error-title": "出現問題",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": ""
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "了解更多"
     }
   },
   "sentiment": {

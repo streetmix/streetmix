@@ -13,7 +13,8 @@
       "settings": "Ayarlar",
       "share": "Paylaş",
       "store": "Dükkan",
-      "upgrade": "Yükseltme"
+      "upgrade": "Yükseltme",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Klavye kısayolları:",
@@ -95,6 +96,7 @@
       "home": "Ana sayfaya git",
       "sign-in": "Tekrar oturum aç",
       "reload": "Sayfayı yenile",
+      "return": "",
       "try-again": "Tekrar dene",
       "view-example": "Örnek bir sokak görüntüle"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Başka bir pencerede çıkış yaptınız",
     "gallery-street-failure-description": "Bu sokağı yüklemede sorun yaşıyoruz.",
     "reload-sign-in-title": "Başka bir pencerede oturum açtınız.",
-    "please-reload": "Devam etmeden önce lütfen sayfayı yenileyin.",
+    "please-reload": "",
     "survey-finished": "Form tamamlandı. Tebrikler ve teşekkürler!",
     "street-deleted-elsewhere-title": "Bu sokak başka bir yerde silinmiş.",
     "street-deleted-elsewhere-description": "Bu sokak başka bir tarayıcı üzerinde silinmiş.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Oturum açarken bir sorun oluştu.",
     "auth-api-problem-description": "Doğrulamada bir problem oluştu.",
     "please-try-again": "Lütfen daha sonra tekrar deneyin veya <email_link>e-posta</email_link> veya <tweet_link>Twitter</tweet_link> üzerinden bizimle iletişime geçin.",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix kullandığınız tarayıcı da çalışmıyor.",
     "unsupported-browser-description": "Üzgünüz.<chrome_link>Chrome</chrome_link>,<firefox_link>Firefox</firefox_link>,<edge_link>Microsoft Edge</edge_link> veya Safari kullanmayı deneyin.",
     "unsupported-browser-internet-explorer": "Internet Explorer'da mısınız? <a>Daha fazla keşfet.</a>",
-    "unsupported-browser-contact-us": "Tarayıcınızın desteklenmesi gerektiğini düşünüyorsanız lütfen bizimle <a>e-posta</a> aracılığıyla iletişime geçin.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix sadece masaüstü bilgisayarlarda ve tabletlerde çalışır.",
     "cannot-create-new-street-on-phone-description": "Belirli bir sokağa giden başka bir bağlantıyı takip ederseniz, telefonunuzda görüntüleyebilirsiniz - fakat yeni sokaklar oluşturamazsınız",
     "generic-error-title": "Yolunda gitmeyen bir şeyler var.",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": "Kullanmak için oturum açın!"
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "Daha fazla öğren"
     }
   },
   "sentiment": {

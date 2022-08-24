@@ -13,7 +13,8 @@
       "settings": "Настройки",
       "share": "Поделиться",
       "store": "Магазин",
-      "upgrade": "Поддержка"
+      "upgrade": "Поддержка",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Сочетания клавиш:",
@@ -95,6 +96,7 @@
       "home": "Перейти на главную страницу",
       "sign-in": "Войти снова",
       "reload": "Перезагрузить страницу",
+      "return": "",
       "try-again": "Попробовать снова",
       "view-example": "Просмотреть примерную улицу"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Вы вышли через другое окно.",
     "gallery-street-failure-description": "У нас проблемы с загрузкой этой улицы.",
     "reload-sign-in-title": "Вы вошли в другое окно.",
-    "please-reload": "Пожалуйста, перезагрузите эту страницу, прежде чем продолжить.",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "Эта улица была удалена в другом месте.",
     "street-deleted-elsewhere-description": "Эта улица была удалена в другом браузере.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Возникла проблема со входом в систему.",
     "auth-api-problem-description": "Возникла проблема с аутентификацией.",
     "please-try-again": "Пожалуйста, повторите попытку позже или сообщите нам через <email_link>почта</email_link> or <tweet_link>Twitter</tweet_link>.",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix не поддерживает ваш браузер.",
     "unsupported-browser-description": "Приносим извинения. Возможно, вы захотите попробовать <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, или Safari.",
     "unsupported-browser-internet-explorer": "Вы используете Internet Explorer? <a>Узнайте больше.</a>",
-    "unsupported-browser-contact-us": "Если вы считаете, что ваш браузер должен поддерживаться, свяжитесь с нами через <a>почту</a>.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix поддерживает только планшеты и десктоп.",
     "cannot-create-new-street-on-phone-description": "Если вы перейдете по другой ссылке на определенную улицу, вы сможете просмотреть ее на своем телефоне, но пока не сможете создать новые улицы.",
     "generic-error-title": "Что-то пошло не так.",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": "Войдите для использования!"
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "Узнать больше"
     }
   },
   "sentiment": {

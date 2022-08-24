@@ -13,7 +13,8 @@
       "settings": "Opções",
       "share": "Compartilhar",
       "store": "",
-      "upgrade": ""
+      "upgrade": "",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Teclas de atalho:",
@@ -95,6 +96,7 @@
       "home": "Ir á página principal",
       "sign-in": "Faça o login de novo",
       "reload": "Recarregue a página",
+      "return": "",
       "try-again": "Tente novamente",
       "view-example": "Ver uma rua modelo"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Você desconectou em outra janela.",
     "gallery-street-failure-description": "Estamos com um problema para carregar esta rua.",
     "reload-sign-in-title": "Você já está conectado em outra janela.",
-    "please-reload": "Por favor recarregue esta página antes de continuar.",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "Esta rua foi removida em outro lugar.",
     "street-deleted-elsewhere-description": "Esta rua foi removida em outro navegador.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Houve um problema com o seu login.",
     "auth-api-problem-description": "Houve um problema com a autenticação.",
     "please-try-again": "Por favor tente novamente mais tarde ou contate-nos via <email_link>e-mail</email_link> ou <tweet_link>Twitter</tweet_link>.",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix não funciona no seu navegador.",
     "unsupported-browser-description": "Desculpe. Você talvez deve tentar <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, ou Safari.",
     "unsupported-browser-internet-explorer": "Você está usando o Internet Explorer? <a>Descubra mais.</a>",
-    "unsupported-browser-contact-us": "Se você acha que o seu navegador deve ser suportado, por favor contate-nos via <a>e-mail</a>.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix só funciona em tablets e desktops.",
     "cannot-create-new-street-on-phone-description": "Se você segue outro link a uma rua específica, a pode ver no seu celular - mas aínda não pode criar ruas novas.",
     "generic-error-title": "Algo deu errado.",
@@ -346,7 +349,7 @@
     "rename": "Clique para renomear"
   },
   "building": {
-    "floors-count": "{count, plural, one {andar} other {# andares}}"
+    "floors-count": "{count, plural, one {andar} many {# andares} other {# andares}}"
   },
   "segments": {
     "warnings": {
@@ -374,7 +377,7 @@
     "all": "Todas as ruas",
     "twitter-link": "Perfil do Twitter",
     "delete-street-tooltip": "Deletar esta rua",
-    "street-count": "{count, plural, one {# rua} other {# ruas}}",
+    "street-count": "{count, plural, one {# rua} many {# ruas} other {# ruas}}",
     "no-streets": "Ainda não tem ruas",
     "thumbnail-error": ""
   },
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": ""
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "Saiba mais"
     }
   },
   "sentiment": {

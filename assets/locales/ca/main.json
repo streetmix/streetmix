@@ -13,7 +13,8 @@
       "settings": "Paràmetres",
       "share": "Compartiu",
       "store": "Botiga",
-      "upgrade": "Millora"
+      "upgrade": "Millora",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "Dreceres del teclat:",
@@ -95,6 +96,7 @@
       "home": "Vés a la pàgina",
       "sign-in": "Entreu de nou",
       "reload": "Refresqueu la pàgina",
+      "return": "",
       "try-again": "Intenteu-ho de nou",
       "view-example": "Vegeu un carrer d'exemple"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "Heu tancat la sessió en una altra finestra.",
     "gallery-street-failure-description": "Tenim problemes carregant aquest carrer.",
     "reload-sign-in-title": "Heu iniciat la sessió en una altra finestra.",
-    "please-reload": "Si us plau, refresqueu aquesta pàgina abans de continuar.",
+    "please-reload": "",
     "survey-finished": "Enquesta completa. Enhorabona i gràcies!",
     "street-deleted-elsewhere-title": "Aquest carrer ha estat eliminat des d'algun altre lloc.",
     "street-deleted-elsewhere-description": "Aquest carrer ha estat eliminat des d'un altre navegador.",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "Hi ha hagut un problema amb l'inici de sessió.",
     "auth-api-problem-description": "Hi ha hagut un problema amb l'autenticació.",
     "please-try-again": "Si us plau, intenteu-ho de nou o feu-nos-ho saber per <email_link>correu</email_link> o <tweet_link>Twitter</tweet_link>",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix no funciona amb el vostre navegador.",
     "unsupported-browser-description": "Ho sentim. Podeu intentar-ho des de <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> o Safari.",
     "unsupported-browser-internet-explorer": "Feu servir Internet Explorer? <a>Sabeu-ne més.</a>",
-    "unsupported-browser-contact-us": "Si creieu que el vostre navegador hauria de ser suportat, si us plau, contacteu-nos per <a>correu</a>.",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix només funciona amb tauletes i ordinadors.",
     "cannot-create-new-street-on-phone-description": "Si seguiu un altre enllaç a un carrer determinat, podeu veure'l des del vostre telèfon, però no podreu crear nous carrers.",
     "generic-error-title": "Alguna cosa ha anat malament.",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": "Inicieu la sessió per utilitzar-la!"
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "Apreneu-ne més"
     }
   },
   "sentiment": {
@@ -462,7 +472,7 @@
       "en-gb": "",
       "es": "Espanyol",
       "es-419": "Espanyol(Amèrica llatina)",
-      "es-es": "",
+      "es-es": "Espanyol (Espanya)",
       "es-mx": "Espanyol(Mèxic)",
       "fi": "Finlandès",
       "fr": "Francès",

@@ -13,7 +13,8 @@
       "settings": "设置",
       "share": "分享",
       "store": "",
-      "upgrade": ""
+      "upgrade": "",
+      "streetmix-plus": ""
     },
     "help": {
       "keyboard-label": "快捷键：",
@@ -95,6 +96,7 @@
       "home": "回到主页",
       "sign-in": "重新登录",
       "reload": "刷新网页",
+      "return": "",
       "try-again": "再试一次",
       "view-example": "查看街道示例"
     },
@@ -109,7 +111,7 @@
     "reload-sign-out-title": "你已在另一个窗口退出登录。",
     "gallery-street-failure-description": "我们在加载这条街道时遇到一些问题。",
     "reload-sign-in-title": "你已在另一个窗口登录。",
-    "please-reload": "请刷新此页面再继续。",
+    "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "这条街道已在别处被删除。",
     "street-deleted-elsewhere-description": "这条街道已在另一个浏览器中被删除。",
@@ -120,10 +122,11 @@
     "auth-api-problem-title": "你在登录过程中遇到了一点小问题。",
     "auth-api-problem-description": "我们在确认你身份的过程中遇到了一点小问题。",
     "please-try-again": "请稍后再试。请通过<email_link>电子邮件</email_link>或者<tweet_link>推特</tweet_link>联系我们。",
+    "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix无法在这个浏览器中运行。",
     "unsupported-browser-description": "非常抱歉。你可以尝试使用<chrome_link>Chrome</chrome_link>、<firefox_link>火狐</firefox_link>、<edge_link>Microsoft Edge</edge_link>，或者Safari。",
     "unsupported-browser-internet-explorer": "你在使用Internet Explorer吗？<a>了解更多。</a>",
-    "unsupported-browser-contact-us": "如果你认为Streetmix应该兼容你的浏览器，请通过<a>电子邮箱</a>联系我们。",
+    "unsupported-browser-contact-us": "",
     "cannot-create-new-street-on-phone-title": "Streetmix只能在平板电脑和台式电脑上运行。",
     "cannot-create-new-street-on-phone-description": "如果你通过另一个链接来查看某条街道，你可以在手机上查看，但是现在暂时还无法在手机上创建新的街道。",
     "generic-error-title": "我们出现了一些技术故障。",
@@ -409,11 +412,18 @@
     "locked": {
       "soon": "",
       "sub": "",
+      "sub-edit": "",
       "user": ""
     },
     "prompt": {
       "text": "",
       "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": "了解更多"
     }
   },
   "sentiment": {
