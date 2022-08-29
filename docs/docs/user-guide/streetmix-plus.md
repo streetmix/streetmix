@@ -3,11 +3,15 @@ sidebar_label: Sign up for Streetmix+
 sidebar_position: 2
 ---
 
-# Sign up for Streetmix+
+# Sign up for Streetmix+ (beta)
 
-Streetmix is an ad-free and free-to-use platform that makes street design available to anyone in the world, and you can help us keep it that way! Sign up for **Streetmix+**, a membership-based monthly subscription tier, to support hosting costs and ongoing development. Members will also get exclusive access to new and improved features in Streetmix!
+Streetmix is an ad-free, spyware-free, and free-to-use platform that makes street design available to anyone in the world, and you can help us keep it that way! When you sign up for **Streetmix+**, a membership-based monthly subscription, you can help support our hosting costs and ongoing development. In return, members also get exclusive access to new and improved features in Streetmix!
 
-_Streetmix+ is currently in early beta._
+:::info
+
+**Streetmix+ is in early beta.** We are still experimenting and building out the infrastructure to make membership seamless and easy to join. Please pardon our dust and we thank you for your patience as we work out the kinks!
+
+:::
 
 ## Features
 
@@ -45,6 +49,14 @@ _Coming soon!_
 
 ### Coil
 
+:::caution Deprecated
+
+**Coil support is becoming deprecated.** Some users are experiencing issues connecting through the Coil plugin, and our team is also experiencing problems collecting funds through the Coil ecosystem. As a result, we are beginning the process of deprecating Coil support and encourage users to try OpenCollective or other platforms listed above.
+
+If Coil already works for you, you will continue to receive Streetmix+ benefits through it until further notice.
+
+:::
+
 You may also sign up for Streetmix+ membership through [Coil](https://coil.com/). Built on the open [Web Monetization protocol](https://webmonetization.org/), Coil subscribers automatically get access to Streetmix+ membership, as well as many other services across the web. Here's how to sign up and activate Streetmix+ through Coil.
 
 1. **[Sign up or log in to an existing account through Coil](https://coil.com/).** A Coil membership is only $5 / month.
@@ -66,6 +78,14 @@ When your Streetmix+ membership is active, you'll see an icon beside your user a
 If you have trouble accessing Streetmix+ features, here are some troubleshooting tips.
 
 ### Troubleshooting Coil
+
+:::caution Deprecated
+
+**Coil support is becoming deprecated.** Some users are experiencing issues connecting through the Coil plugin, and our team is also experiencing problems collecting funds through the Coil ecosystem. As a result, we are beginning the process of deprecating Coil support and encourage users to try OpenCollective or other platforms listed above.
+
+If Coil already works for you, you will continue to receive Streetmix+ benefits through it until further notice.
+
+:::
 
 - **Make sure that the Coil Browser Extension is installed and active.**
   - You should see a Coil browser extension in the menu bar of your browser. If you don't see it, check your browser's extensions.
