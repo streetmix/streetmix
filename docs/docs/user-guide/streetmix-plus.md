@@ -37,11 +37,19 @@ You can sign up for Streetmix+ membership through multiple platforms:
 
 Streetmix+ membership does not activate immediately (_this is something we're working on!_), but someone on our team will reach out to you to activate Streetmix+ on your Streetmix account within one week. If you do not hear from us, or if you are a past or current OpenCollective contributor, please contact us at hello@streetmix.net.
 
+<div className="stmx-cta-container">
+  <a className="stmx-cta-button" href="https://opencollective.com/streetmix/contribute/streetmix-membership-monthly-1274" target="_blank">Sign up with OpenCollective</a>
+</div>
+
 ### Patreon
 
 [Patreon](https://www.patreon.com/streetmix) is a great option for members that are already supporting other artists or creators on Patreon.
 
 Streetmix+ membership does not activate immediately (_this is something we're working on!_), but someone on our team will reach out to you to activate Streetmix+ on your Streetmix account within one week. If you do not hear from us, please contact us at hello@streetmix.net.
+
+<div className="stmx-cta-container">
+  <a className="stmx-cta-button" href="https://www.patreon.com/streetmix" target="_blank">Sign up with Patreon</a>
+</div>
 
 ### GitHub Sponsors
 
@@ -69,7 +77,7 @@ If you have issues with Coil, please see the [Troubleshooting](#troubleshooting-
 
 ## Confirming your membership
 
-When your Streetmix+ membership is active, you'll see an icon beside your user account name, like so:
+When your Streetmix+ membership is active, you'll see an icon beside your user account name, like this:
 
 ![Menu bar with Streetmix+ icon](/img/streetmix-plus/member-icon.png)
 

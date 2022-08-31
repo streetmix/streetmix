@@ -101,6 +101,34 @@ footer.footer--dark {
   border-top: 2px solid white;
 }
 
+.stmx-cta-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  margin: 1em 0;
+}
+
+.stmx-cta-button {
+  padding: 0.8em 4em;
+  border-radius: 9999px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid var(--colour-emerald-400);
+  color: var(--colour-emerald-400);
+  font-size: 1em;
+  text-decoration: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.stmx-cta-button:hover {
+  background-color: var(--colour-emerald-400);
+  color: white;
+  text-decoration: none;
+}
+
 .stmx-illustration-compare {
   border-collapse: separate;
   border-spacing: 1em 0;
