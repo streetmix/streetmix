@@ -77,6 +77,14 @@ When your Streetmix+ membership is active, you'll see an icon beside your user a
 
 If you have trouble accessing Streetmix+ features, here are some troubleshooting tips.
 
+### Troubleshooting OpenCollective
+
+If you have signed up for a Streetmix+ membership but have not been contacted about activating it, please e-mail us at hello@streetmix.net. This may happen for the following reasons:
+
+- You have been a contributor since before August 2022. We are slowly reaching out to existing contributors to set up access.
+- You may have signed up for OpenCollective using a guest account. Unfortunately we have no way of contacting people with guest accounts. In order to verify that you are subscribing, please set up an OpenCollective account.
+- Please allow up to one week if you have recently signed up. We appreciate the patience!
+
 ### Troubleshooting Coil
 
 :::caution Deprecated
