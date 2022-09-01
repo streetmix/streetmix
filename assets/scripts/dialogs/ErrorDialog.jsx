@@ -1,22 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import ExternalLink from '../ui/ExternalLink'
 import Dialog from './Dialog'
 import './ErrorDialog.scss'
 
 /**
- * The error dialog is displayed in place of another dialog if something goes wrong
- * in the other dialog. It requires a special "reset" function to be passed in as a prop
- * from the parent <DialogRoot /> component, which resets <DialogRoot />'s error state.
- * (Otherwise, this dialog could never be closed.)
+ * The error dialog is displayed in place of another dialog if something
+ * goes wrong in the other dialog.
  *
  * If _this_ component throws an error, the universe blows up.
  */
-ErrorDialog.propTypes = {
-  reset: PropTypes.func.isRequired
-}
-
 function ErrorDialog (props) {
   return (
     <Dialog>
@@ -46,13 +39,7 @@ function ErrorDialog (props) {
               />
             </p>
           </div>
-          <button
-            className="dialog-primary-action"
-            onClick={() => {
-              props.reset()
-              closeDialog()
-            }}
-          >
+          <button className="dialog-primary-action" onClick={closeDialog}>
             <FormattedMessage id="btn.close" defaultMessage="Close" />
           </button>
         </div>
