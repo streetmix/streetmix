@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import ErrorBoundary from '../util/ErrorBoundary'
 
 // Import all dialogs here
 import AboutDialog from './AboutDialog'
@@ -16,79 +16,33 @@ import SentimentSurveyDialog from './SentimentSurveyDialog'
 import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
-  ABOUT: {
-    id: AboutDialog
-  },
-  ANALYTICS: {
-    id: AnalyticsDialog
-  },
-  FEATURE_FLAGS: {
-    id: FeatureFlagDialog
-  },
-  GEOTAG: {
-    id: GeotagDialog
-  },
-  SAVE_AS_IMAGE: {
-    id: SaveAsImageDialog
-  },
-  SIGN_IN: {
-    id: SignInDialog
-  },
-  WHATS_NEW: {
-    id: WhatsNewDialog
-  },
-  NEWSLETTER: {
-    id: NewsletterDialog
-  },
-  UPGRADE: {
-    id: UpgradeDialog
-  },
-  SENTIMENT_SURVEY: {
-    id: SentimentSurveyDialog
-  }
+  ABOUT: AboutDialog,
+  ANALYTICS: AnalyticsDialog,
+  FEATURE_FLAGS: FeatureFlagDialog,
+  GEOTAG: GeotagDialog,
+  SAVE_AS_IMAGE: SaveAsImageDialog,
+  SIGN_IN: SignInDialog,
+  WHATS_NEW: WhatsNewDialog,
+  NEWSLETTER: NewsletterDialog,
+  UPGRADE: UpgradeDialog,
+  SENTIMENT_SURVEY: SentimentSurveyDialog
 }
 
-class DialogRoot extends Component {
-  static propTypes = {
-    name: PropTypes.string
-  }
+function DialogRoot (props) {
+  const name = useSelector((state) => state.dialogs.name)
 
-  state = {
-    error: false
-  }
+  // Bail if no dialog name is provided
+  if (!name) return null
 
-  static getDerivedStateFromError () {
-    return {
-      error: true
-    }
-  }
+  // Get the dialog we want, then render it
+  const Dialog = DIALOG_COMPONENTS[name]
 
-  resetError = () => {
-    this.setState({
-      error: false
-    })
-  }
-
-  render () {
-    const { name } = this.props
-
-    // Bail if no dialog name is provided
-    if (!name) return null
-
-    // If there is an error, display the error dialog and
-    // give it a function to reset state when it closes
-    if (this.state.error) return <ErrorDialog reset={this.resetError} />
-
-    // Get the dialog we want, then render it
-    try {
-      const { id: Dialog } = DIALOG_COMPONENTS[name]
-      return <Dialog />
-    } catch (err) {
-      // Render the error dialog if we are unable to find the dialog
-      console.error('[DialogRoot]', `Unable to find dialog id \`${name}\``)
-      return <ErrorDialog reset={this.resetError} />
-    }
-  }
+  // Wrap Dialog with an ErrorBoundary wrapper to catch errors
+  return (
+    <ErrorBoundary fallbackElement={<ErrorDialog />}>
+      <Dialog />
+    </ErrorBoundary>
+  )
 }
 
-export default connect((state) => state.dialogs)(DialogRoot)
+export default DialogRoot
