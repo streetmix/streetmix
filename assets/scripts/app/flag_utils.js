@@ -23,7 +23,6 @@ function whatAreTheFlagsWeNeedToSave (flags) {
       // convert back to obj but simplify it to just the value
       .reduce((obj, [key, flag]) => {
         obj[key] = flag.value
-        console.log(obj)
         return obj
       }, {})
   )
