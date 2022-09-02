@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { StarIcon, ExitIcon } from '@radix-ui/react-icons'
 import { onSignOutClick } from '../users/authentication'
 import { openGallery } from '../store/actions/gallery'
 import Menu from './Menu'
@@ -24,6 +25,7 @@ function IdentityMenu (props) {
     <Menu {...props} className="identity-menu">
       {!offline && (
         <a href={myStreetsLink} onClick={handleClickMyStreets}>
+          <StarIcon className="menu-item-icon-radix" />
           <FormattedMessage
             id="menu.item.my-streets"
             defaultMessage="My streets"
@@ -31,6 +33,7 @@ function IdentityMenu (props) {
         </a>
       )}
       <a className="menu-item" onClick={onSignOutClick}>
+        <ExitIcon className="menu-item-icon-radix" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
       </a>
     </Menu>

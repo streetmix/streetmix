@@ -1,7 +1,7 @@
 .help-menu-shortcuts {
-  padding: 0.5em 1em 1em 2.5em;
+  padding: 0.8em 1em 1em 2.5em;
   max-width: 400px;
-  line-height: 18px;
+  position: relative;
 
   [dir="rtl"] & {
     padding-left: 1em;
@@ -13,16 +13,22 @@
   }
 
   table {
+    margin-top: 0.5em;
     border-collapse: collapse;
-    margin: -5px;
 
     td {
       vertical-align: top;
-      padding: 5px;
+      padding: 0.25em;
     }
 
     td:first-child {
       min-width: 60px;
+      padding-left: 0;
+
+      [dir="rtl"] & {
+        padding-left: 0.25em;
+        padding-right: 0;
+      }
     }
   }
 }

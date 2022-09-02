@@ -8,11 +8,17 @@ exports[`IdentityMenu renders 1`] = `
     <a
       href=""
     >
+      <svg
+        class="menu-item-icon-radix"
+      />
       My streets
     </a>
     <a
       class="menu-item"
     >
+      <svg
+        class="menu-item-icon-radix"
+      />
       Sign out
     </a>
   </div>

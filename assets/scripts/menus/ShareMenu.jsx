@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
+import {
+  Link2Icon,
+  DownloadIcon,
+  ExternalLinkIcon
+} from '@radix-ui/react-icons'
 import copy from 'copy-to-clipboard'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
@@ -175,6 +180,7 @@ function ShareMenu (props) {
         <>
           {signInPromo}
           <div className="share-via-link-container">
+            <Link2Icon className="menu-item-icon-radix" />
             <FormattedMessage
               id="menu.share.link"
               defaultMessage="Copy and paste this link to share:"
@@ -208,6 +214,7 @@ function ShareMenu (props) {
               id="menu.share.twitter"
               defaultMessage="Share using Twitter"
             />
+            <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
           <ExternalLink className="share-via-facebook" href={facebookLink}>
             <Icon icon="facebook" />
@@ -215,6 +222,7 @@ function ShareMenu (props) {
               id="menu.share.facebook"
               defaultMessage="Share using Facebook"
             />
+            <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
         </>
       )}
@@ -222,6 +230,7 @@ function ShareMenu (props) {
         <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
       </a>
       <a id="save-as-image" onClick={handleClickSaveAsImage}>
+        <DownloadIcon className="menu-item-icon-radix" />
         <FormattedMessage
           id="menu.share.save"
           defaultMessage="Save as image…"

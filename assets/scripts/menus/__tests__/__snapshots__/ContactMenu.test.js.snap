@@ -14,6 +14,9 @@ exports[`ContactMenu renders 1`] = `
         class="svg-inline--fa menu-item-icon fa-discord"
       />
       Join Discord chat
+      <svg
+        class="menu-item-external-link"
+      />
     </a>
     <a
       href="https://github.com/streetmix/streetmix/"
@@ -24,8 +27,14 @@ exports[`ContactMenu renders 1`] = `
         class="svg-inline--fa menu-item-icon fa-github"
       />
       View source code on GitHub
+      <svg
+        class="menu-item-external-link"
+      />
     </a>
     <a>
+      <svg
+        class="menu-item-icon-radix"
+      />
       Subscribe to our newsletter
     </a>
   </div>

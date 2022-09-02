@@ -11,6 +11,9 @@ exports[`ShareMenu does not render external share links in offline mode 1`] = `
     <a
       id="save-as-image"
     >
+      <svg
+        class="menu-item-icon-radix"
+      />
       Save as image…
       <span
         class="menu-item-subtext"
@@ -38,6 +41,9 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
     <div
       class="share-via-link-container"
     >
+      <svg
+        class="menu-item-icon-radix"
+      />
       Copy and paste this link to share:
       <div
         class="share-via-link-form"
@@ -68,6 +74,9 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
         class="svg-inline--fa menu-item-icon fa-twitter"
       />
       Share using Twitter
+      <svg
+        class="menu-item-external-link"
+      />
     </a>
     <a
       class="share-via-facebook"
@@ -79,6 +88,9 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
         class="svg-inline--fa menu-item-icon fa-facebook-square"
       />
       Share using Facebook
+      <svg
+        class="menu-item-external-link"
+      />
     </a>
     <a>
       Print…
@@ -86,6 +98,9 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
     <a
       id="save-as-image"
     >
+      <svg
+        class="menu-item-icon-radix"
+      />
       Save as image…
       <span
         class="menu-item-subtext"
@@ -105,6 +120,9 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
     <div
       class="share-via-link-container"
     >
+      <svg
+        class="menu-item-icon-radix"
+      />
       Copy and paste this link to share:
       <div
         class="share-via-link-form"
@@ -135,6 +153,9 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
         class="svg-inline--fa menu-item-icon fa-twitter"
       />
       Share using Twitter
+      <svg
+        class="menu-item-external-link"
+      />
     </a>
     <a
       class="share-via-facebook"
@@ -146,6 +167,9 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
         class="svg-inline--fa menu-item-icon fa-facebook-square"
       />
       Share using Facebook
+      <svg
+        class="menu-item-external-link"
+      />
     </a>
     <a>
       Print…
@@ -153,6 +177,9 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
     <a
       id="save-as-image"
     >
+      <svg
+        class="menu-item-icon-radix"
+      />
       Save as image…
       <span
         class="menu-item-subtext"
