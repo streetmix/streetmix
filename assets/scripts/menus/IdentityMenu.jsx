@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { StarIcon, ExitIcon } from '@radix-ui/react-icons'
+import { StarIcon, MixerHorizontalIcon, ExitIcon } from '@radix-ui/react-icons'
 import { onSignOutClick } from '../users/authentication'
 import { openGallery } from '../store/actions/gallery'
+import { showDialog } from '../store/slices/dialogs'
 import Menu from './Menu'
 import './IdentityMenu.scss'
 
@@ -32,6 +33,10 @@ function IdentityMenu (props) {
           />
         </a>
       )}
+      <a onClick={() => dispatch(showDialog('SETTINGS'))}>
+        <MixerHorizontalIcon className="menu-item-icon-radix" />
+        <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
+      </a>
       <a className="menu-item" onClick={onSignOutClick}>
         <ExitIcon className="menu-item-icon-radix" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />

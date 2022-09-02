@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .about-dialog {
   width: 820px;
   min-height: 660px;
@@ -43,7 +45,7 @@
 .about-dialog-left {
   flex-basis: 240px;
   margin-right: 40px;
-  border-right: 1px solid #cde1ea;
+  border-right: 1px solid $colour-turquoise-350;
   padding-right: 40px;
   position: fixed;
   width: 280px;
@@ -51,7 +53,7 @@
   [dir="rtl"] & {
     margin-left: 40px;
     margin-right: 0;
-    border-left: 1px solid #cde1ea;
+    border-left: 1px solid $colour-turquoise-350;
     border-right: 0;
     padding-left: 40px;
     padding-right: 0;
