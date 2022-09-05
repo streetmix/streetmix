@@ -1,3 +1,13 @@
+.menu-avatar {
+  position: relative;
+  padding-left: calc(1.25em + 20px) !important;
+}
+
+.menu-avatar .avatar {
+  position: absolute;
+  left: 0.5em;
+}
+
 .menu-avatar-badge {
   margin-left: 0.35em;
   vertical-align: -0.175em; /* Tweak to balance alignment with username */

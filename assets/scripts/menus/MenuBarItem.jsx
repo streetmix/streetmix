@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import { ChevronDownIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import ExternalLink from '../ui/ExternalLink'
 import { isExternalUrl } from '../util/helpers'
 
@@ -38,6 +39,7 @@ export default function MenuBarItem (props) {
         <li>
           <ExternalLink href={url} onClick={onClick} {...restProps}>
             {children}
+            <ExternalLinkIcon className="menu-external-link" />
           </ExternalLink>
         </li>
       )
@@ -46,6 +48,7 @@ export default function MenuBarItem (props) {
         <li>
           <a href={url} onClick={onClick} {...restProps}>
             {children}
+            <ExternalLinkIcon className="menu-external-link" />
           </a>
         </li>
       )
@@ -55,6 +58,7 @@ export default function MenuBarItem (props) {
       <li>
         <button className="menu-attached" onClick={onClick} {...restProps}>
           {children}
+          <ChevronDownIcon className="menu-carat-down" />
         </button>
       </li>
     )

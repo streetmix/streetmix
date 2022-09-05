@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 // import { useSelector, useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import { IoLanguage } from 'react-icons/io5'
 import { doSignIn } from '../users/authentication'
 // import { showDialog } from '../store/slices/dialogs'
 import logo from '../../images/logo_horizontal.svg'
@@ -142,15 +143,13 @@ function MenuBar (props) {
           target="_blank"
         />
         <MenuBarItem
-          label="Settings"
-          translation="menu.item.settings"
-          onClick={handleClickMenuButton('settings')}
-        />
-        <MenuBarItem
           label="Share"
           translation="menu.item.share"
           onClick={handleClickMenuButton('share')}
         />
+        <MenuBarItem onClick={handleClickMenuButton('settings')}>
+          <IoLanguage />
+        </MenuBarItem>
         {!offline && renderUserAvatar(user, isSubscriber)}
       </ul>
       <EnvironmentBadge />
