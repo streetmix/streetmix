@@ -7,6 +7,9 @@ exports[`MenuBarItem renders 1`] = `
       class="menu-attached"
     >
       foo
+      <svg
+        class="menu-carat-down"
+      />
     </button>
   </li>
 </DocumentFragment>

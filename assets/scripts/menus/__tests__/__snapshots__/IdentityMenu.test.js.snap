@@ -13,6 +13,12 @@ exports[`IdentityMenu renders 1`] = `
       />
       My streets
     </a>
+    <a>
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Settings
+    </a>
     <a
       class="menu-item"
     >

@@ -1,7 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { changeLocale } from '../store/slices/locale'
+import { clearMenus } from '../store/slices/menus'
 import { DEFAULT_LOCALE } from '../locales/constants'
 import {
   getAvailableLocales,
@@ -9,21 +11,27 @@ import {
 } from '../locales/locale'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { ICON_CHECK } from '../ui/icons'
+import Menu from './Menu'
 
-LocaleSelect.propTypes = {
-  locale: PropTypes.string,
-  requestedLocale: PropTypes.string,
-  selectLocale: PropTypes.func
-}
-
-function LocaleSelect (props) {
-  const {
-    locale = DEFAULT_LOCALE,
-    requestedLocale,
-    selectLocale = () => {}
-  } = props
+function LocaleMenu (props) {
+  const locale = useSelector((state) => state.locale.locale || DEFAULT_LOCALE)
+  const requestedLocale = useSelector((state) => state.locale.requestedLocale)
+  const dispatch = useDispatch()
   const filteredLocales = getAvailableLocales()
   const actuallySelectedLocale = getActualLocaleFromRequested(locale)
+
+  async function selectLocale (newLocale) {
+    if (locale === newLocale) return
+
+    await dispatch(changeLocale(newLocale))
+
+    // Hide the menu after a locale is selected.
+    // Note: because the application's tree is actually remounted with new
+    // locale context, the menu doesn't animate away. It just disappears.
+    // We still have to dispatch the clearMenus() so that the Redux store
+    // knows that the menu has closed.
+    dispatch(clearMenus())
+  }
 
   function renderLocaleOptions () {
     // Render each option
@@ -59,14 +67,16 @@ function LocaleSelect (props) {
   }
 
   return (
-    <ul
-      className="menu-item-group"
-      role="listbox"
-      aria-labelledby="settings-menu-language-select"
-    >
-      {renderLocaleOptions()}
-    </ul>
+    <Menu {...props}>
+      <ul
+        className="menu-item-group"
+        role="listbox"
+        aria-labelledby="settings-menu-language-select"
+      >
+        {renderLocaleOptions()}
+      </ul>
+    </Menu>
   )
 }
 
-export default LocaleSelect
+export default LocaleMenu

@@ -25,6 +25,9 @@ exports[`MenuBar renders 1`] = `
           class="menu-attached"
         >
           Help
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <li>
@@ -32,6 +35,9 @@ exports[`MenuBar renders 1`] = `
           class="menu-attached"
         >
           Contact
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <button
@@ -54,20 +60,29 @@ exports[`MenuBar renders 1`] = `
           target="_blank"
         >
           New street
+          <svg
+            class="menu-external-link"
+          />
         </a>
       </li>
       <li>
         <button
           class="menu-attached"
         >
-          Settings
+          Share
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <li>
         <button
           class="menu-attached"
         >
-          Share
+          <svg />
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <li>
@@ -107,6 +122,9 @@ exports[`MenuBar renders logged in user 1`] = `
           class="menu-attached"
         >
           Help
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <li>
@@ -114,6 +132,9 @@ exports[`MenuBar renders logged in user 1`] = `
           class="menu-attached"
         >
           Contact
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <button
@@ -136,20 +157,29 @@ exports[`MenuBar renders logged in user 1`] = `
           target="_blank"
         >
           New street
+          <svg
+            class="menu-external-link"
+          />
         </a>
       </li>
       <li>
         <button
           class="menu-attached"
         >
-          Settings
+          Share
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <li>
         <button
           class="menu-attached"
         >
-          Share
+          <svg />
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <li>
@@ -168,6 +198,9 @@ exports[`MenuBar renders logged in user 1`] = `
           >
             foo
           </span>
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
     </ul>
@@ -200,6 +233,9 @@ exports[`MenuBar renders minimal menu in offline mode 1`] = `
           class="menu-attached"
         >
           Help
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
     </ul>
@@ -212,20 +248,29 @@ exports[`MenuBar renders minimal menu in offline mode 1`] = `
           target="_blank"
         >
           New street
+          <svg
+            class="menu-external-link"
+          />
         </a>
       </li>
       <li>
         <button
           class="menu-attached"
         >
-          Settings
+          Share
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
       <li>
         <button
           class="menu-attached"
         >
-          Share
+          <svg />
+          <svg
+            class="menu-carat-down"
+          />
         </button>
       </li>
     </ul>

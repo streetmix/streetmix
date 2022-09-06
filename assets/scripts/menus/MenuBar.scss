@@ -75,7 +75,7 @@ $menu-bar-box-shadow: $light-box-shadow;
     border-radius: 6px;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba(0 0 0 / 5%);
     }
 
     &:active {
@@ -110,7 +110,7 @@ $menu-bar-box-shadow: $light-box-shadow;
     }
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba(0 0 0 / 5%);
     }
 
     &:active {

@@ -15,7 +15,8 @@
   box-shadow: 0 0 0 1px $colour-turquoise-500;
   transition: background-color 120ms;
   border-radius: 9999px;
-  --webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  --webkit-tap-highlight-color: rgba(0 0 0 / 0%);
 
   &:focus,
   &:active:not(:disabled) {
