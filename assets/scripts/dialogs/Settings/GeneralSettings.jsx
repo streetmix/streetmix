@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import { setFeatureFlag } from '../../store/slices/flags'
 import Switch from '../../ui/Switch'
 import UnitSettings from './UnitSettings'
@@ -8,14 +9,24 @@ function GeneralSettings (props) {
   return (
     <>
       <section>
-        <h2>General</h2>
+        <h2>
+          <FormattedMessage
+            id="settings.general.label"
+            defaultMessage="General"
+          />
+        </h2>
         <hr />
       </section>
 
       <UnitSettings />
 
       <section>
-        <h2>Miscellaneous</h2>
+        <h2>
+          <FormattedMessage
+            id="settings.misc.label"
+            defaultMessage="Miscellaneous"
+          />
+        </h2>
         <SillyClownSetting />
       </section>
     </>
@@ -40,7 +51,10 @@ function SillyClownSetting (props) {
 
   return (
     <Switch onCheckedChange={handleCheckedChange} checked={flag.value}>
-      Silly clowns
+      <FormattedMessage
+        id="settings.misc.silly-clowns"
+        defaultMessage="Silly clowns"
+      />
     </Switch>
   )
 }

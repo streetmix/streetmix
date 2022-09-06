@@ -63,7 +63,9 @@ function SettingsDialog ({ category = 'general' }) {
           <header>
             <h1>
               <FormattedMessage
-                id="dialogs.settings.heading"
+                // TODO: Rename translation key
+                // id="settings.heading"
+                id="menu.item.settings"
                 defaultMessage="Settings"
               />
             </h1>
@@ -79,7 +81,10 @@ function SettingsDialog ({ category = 'general' }) {
                     }
                   >
                     <MixerHorizontalIcon className="settings-menu-icon" />
-                    General
+                    <FormattedMessage
+                      id="settings.general.label"
+                      defaultMessage="General"
+                    />
                   </li>
                   {/* <li
                     onClick={() => handleSelectCategory('units')}
@@ -88,7 +93,10 @@ function SettingsDialog ({ category = 'general' }) {
                     }
                   >
                     <RulerSquareIcon className="settings-menu-icon" />
-                    Units
+                    <FormattedMessage
+                      id="settings.units.label"
+                      defaultMessage="Units"
+                    />
                   </li> */}
                   <li
                     onClick={() => handleSelectCategory('language')}
@@ -99,7 +107,10 @@ function SettingsDialog ({ category = 'general' }) {
                     }
                   >
                     <GlobeIcon className="settings-menu-icon" />
-                    Language
+                    <FormattedMessage
+                      id="settings.language.label"
+                      defaultMessage="Language"
+                    />
                   </li>
                   {showFlags && (
                     <li
@@ -111,6 +122,7 @@ function SettingsDialog ({ category = 'general' }) {
                       }
                     >
                       <LightningBoltIcon className="settings-menu-icon" />
+                      {/* Not translated, on purpose */}
                       Feature flags
                     </li>
                   )}
@@ -120,7 +132,7 @@ function SettingsDialog ({ category = 'general' }) {
             </div>
           </div>
           <button className="dialog-primary-action" onClick={closeDialog}>
-            Close
+            <FormattedMessage id="btn.close" defaultMessage="Close" />
           </button>
         </div>
       )}

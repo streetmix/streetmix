@@ -23,6 +23,12 @@ function MenuBar (props) {
     (state) => state.user.signedIn && state.user.isSubscriber
   )
   const offline = useSelector((state) => state.system.offline)
+  const enableLocaleSettings = useSelector(
+    (state) =>
+      state.flags.LOCALES_LEVEL_1.value ||
+      state.flags.LOCALES_LEVEL_2.value ||
+      state.flags.LOCALES_LEVEL_3.value
+  )
   // const dispatch = useDispatch()
   const menuBarRightEl = useRef(null)
 
@@ -147,9 +153,11 @@ function MenuBar (props) {
           translation="menu.item.share"
           onClick={handleClickMenuButton('share')}
         />
-        <MenuBarItem onClick={handleClickMenuButton('settings')}>
-          <IoLanguage />
-        </MenuBarItem>
+        {enableLocaleSettings && (
+          <MenuBarItem onClick={handleClickMenuButton('settings')}>
+            <IoLanguage />
+          </MenuBarItem>
+        )}
         {!offline && renderUserAvatar(user, isSubscriber)}
       </ul>
       <EnvironmentBadge />
