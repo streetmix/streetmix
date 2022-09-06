@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import * as RadixSwitch from '@radix-ui/react-switch'
+import * as SwitchPrimitive from '@radix-ui/react-switch'
 import './Switch.scss'
 
 // This stores an incrementing number for unique IDs.
@@ -45,16 +45,16 @@ function Switch (props) {
   }
 
   return (
-    <>
-      <RadixSwitch.Root
+    <div className="switch-item">
+      <SwitchPrimitive.Root
         id={elementId.current}
         className={classNames.join(' ')}
         {...restProps}
       >
-        <RadixSwitch.Thumb className="switch-thumb" />
-      </RadixSwitch.Root>
+        <SwitchPrimitive.Thumb className="switch-thumb" />
+      </SwitchPrimitive.Root>
       <label htmlFor={elementId.current}>{children}</label>
-    </>
+    </div>
   )
 }
 

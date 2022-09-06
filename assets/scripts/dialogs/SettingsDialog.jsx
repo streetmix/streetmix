@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import {
   LightningBoltIcon,
   GlobeIcon,
-  RulerSquareIcon,
+  // RulerSquareIcon,
   MixerHorizontalIcon
 } from '@radix-ui/react-icons'
 import USER_ROLES from '../../../app/data/user_roles'
@@ -81,7 +81,7 @@ function SettingsDialog ({ category = 'general' }) {
                     <MixerHorizontalIcon className="settings-menu-icon" />
                     General
                   </li>
-                  <li
+                  {/* <li
                     onClick={() => handleSelectCategory('units')}
                     className={
                       activeCategory === 'units' ? 'settings-menu-active' : ''
@@ -89,7 +89,7 @@ function SettingsDialog ({ category = 'general' }) {
                   >
                     <RulerSquareIcon className="settings-menu-icon" />
                     Units
-                  </li>
+                  </li> */}
                   <li
                     onClick={() => handleSelectCategory('language')}
                     className={

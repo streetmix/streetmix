@@ -12,6 +12,7 @@ $menu-bar-box-shadow: $light-box-shadow;
   z-index: $z-02-menu-bar;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   position: absolute;
   left: $menu-side-inset;
   right: $menu-side-inset;

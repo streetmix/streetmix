@@ -17,23 +17,22 @@ function FeatureFlagSettings (props) {
       const labelClassName = isNotDefault ? 'feature-flag-label-modified' : ''
 
       return (
-        <div className="settings-item" key={key}>
-          <Switch
-            id={htmlLabel}
-            onCheckedChange={(checked) => {
-              dispatch(
-                setFeatureFlag({
-                  flag: key,
-                  value: checked
-                })
-              )
-            }}
-            checked={flags[key].value}
-            disabled={flag.enabled === false}
-          >
-            <span className={labelClassName}>{flag.label}</span>
-          </Switch>
-        </div>
+        <Switch
+          key={key}
+          id={htmlLabel}
+          onCheckedChange={(checked) => {
+            dispatch(
+              setFeatureFlag({
+                flag: key,
+                value: checked
+              })
+            )
+          }}
+          checked={flags[key].value}
+          disabled={flag.enabled === false}
+        >
+          <span className={labelClassName}>{flag.label}</span>
+        </Switch>
       )
     })
   }
@@ -41,9 +40,9 @@ function FeatureFlagSettings (props) {
     <>
       <h2>Feature flags</h2>
       <p>
-        <strong>Note:</strong> Feature flags are administrator-level settings
-        that can dramatically change Streetmix functionality, and they can
-        change at any time. Use at your own risk.
+        Feature flags are administrator-level settings that can adjust or toggle
+        Streetmix functionality. They can change at any time. Use at your own
+        risk.
       </p>
       <hr />
       {renderFlagList()}

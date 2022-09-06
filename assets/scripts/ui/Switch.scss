@@ -1,5 +1,11 @@
 @import "../../styles/variables";
 
+.switch-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
 .switch-root {
   position: relative;
   padding: 0;
@@ -36,6 +42,16 @@
     &:focus,
     &:active:not(:disabled) {
       box-shadow: 0 0 0 2px $colour-turquoise-500;
+    }
+  }
+
+  + label {
+    margin-left: 0.75em;
+    user-select: none;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 0.75em;
     }
   }
 }

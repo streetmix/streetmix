@@ -2,12 +2,22 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setFeatureFlag } from '../../store/slices/flags'
 import Switch from '../../ui/Switch'
+import UnitSettings from './UnitSettings'
 
 function GeneralSettings (props) {
   return (
     <>
-      <h2>General</h2>
-      <SillyClownSetting />
+      <section>
+        <h2>General</h2>
+        <hr />
+      </section>
+
+      <UnitSettings />
+
+      <section>
+        <h2>Miscellaneous</h2>
+        <SillyClownSetting />
+      </section>
     </>
   )
 }
@@ -29,11 +39,9 @@ function SillyClownSetting (props) {
   }
 
   return (
-    <div className="settings-item">
-      <Switch onCheckedChange={handleCheckedChange} checked={flag.value}>
-        Silly clowns
-      </Switch>
-    </div>
+    <Switch onCheckedChange={handleCheckedChange} checked={flag.value}>
+      Silly clowns
+    </Switch>
   )
 }
 

@@ -55,6 +55,10 @@
   h2:first-child {
     margin-top: 0;
   }
+
+  section {
+    margin-bottom: 2em;
+  }
 }
 
 .settings-menu-active {
@@ -70,15 +74,5 @@
 
   [dir="rtl"] & {
     margin-left: 0.5em;
-  }
-}
-
-.settings-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1em;
-
-  .switch-root {
-    margin-right: 1em;
   }
 }

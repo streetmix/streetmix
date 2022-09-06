@@ -132,6 +132,7 @@ export function updateUnitSettings (countryCode) {
   store.dispatch(setUserUnits(unitType))
 }
 
+// Only changes the units of the street, not the user.
 export function updateUnits (newUnits) {
   let fromUndo
   const street = store.getState().street
@@ -139,7 +140,6 @@ export function updateUnits (newUnits) {
     return
   }
 
-  store.dispatch(setUserUnits(newUnits))
   store.dispatch(setUnits(newUnits))
 
   // If the user converts and then straight converts back, we just reach

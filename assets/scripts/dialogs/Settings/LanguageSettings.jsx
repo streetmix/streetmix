@@ -3,12 +3,11 @@ import Switch from '../../ui/Switch'
 
 function LanguageSettings (props) {
   return (
-    <>
+    <section>
       <h2>Language</h2>
-      <div className="settings-item">
-        <Switch>Z</Switch>
-      </div>
-    </>
+      <hr />
+      <Switch>Z</Switch>
+    </section>
   )
 }
 
