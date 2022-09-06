@@ -24,8 +24,6 @@ function UnitSettings (props) {
     }
   }
 
-  // TODO:
-  // &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages
   return (
     <section>
       <h2>
