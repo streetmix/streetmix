@@ -146,7 +146,7 @@ class MenusContainer extends React.PureComponent {
             menuItemNode={activeMenuItemNode}
           />
           <LocaleMenu
-            isActive={activeMenu === 'settings'}
+            isActive={activeMenu === 'locale'}
             menuItemNode={activeMenuItemNode}
           />
           <ShareMenu

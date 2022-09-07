@@ -2,7 +2,9 @@ import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 // import { useSelector, useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import { useIntl } from 'react-intl'
 import { IoLanguage } from 'react-icons/io5'
+import AccessibleIcon from '../ui/AccessibleIcon'
 import { doSignIn } from '../users/authentication'
 // import { showDialog } from '../store/slices/dialogs'
 import logo from '../../images/logo_horizontal.svg'
@@ -31,6 +33,7 @@ function MenuBar (props) {
   )
   // const dispatch = useDispatch()
   const menuBarRightEl = useRef(null)
+  const intl = useIntl()
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize)
@@ -154,8 +157,15 @@ function MenuBar (props) {
           onClick={handleClickMenuButton('share')}
         />
         {enableLocaleSettings && (
-          <MenuBarItem onClick={handleClickMenuButton('settings')}>
-            <IoLanguage />
+          <MenuBarItem onClick={handleClickMenuButton('locale')}>
+            <AccessibleIcon
+              label={intl.formatMessage({
+                id: 'settings.language.label',
+                defaultMessage: 'Language'
+              })}
+            >
+              <IoLanguage />
+            </AccessibleIcon>
           </MenuBarItem>
         )}
         {!offline && renderUserAvatar(user, isSubscriber)}
