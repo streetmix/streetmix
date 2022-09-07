@@ -21,6 +21,7 @@ RadioGroup.propTypes = {
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
+      sublabel: PropTypes.string,
       disabled: PropTypes.bool,
       required: PropTypes.bool
     })
@@ -68,6 +69,7 @@ RadioGroupItem.propTypes = {
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  sublabel: PropTypes.string,
   disabled: PropTypes.bool,
   required: PropTypes.bool
 }
@@ -76,6 +78,7 @@ function RadioGroupItem ({
   id,
   value,
   label,
+  sublabel,
   disabled = false,
   required = false
 }) {
@@ -90,7 +93,10 @@ function RadioGroupItem ({
       >
         <RadioGroupPrimitive.Indicator className="radio-group-indicator" />
       </RadioGroupPrimitive.Item>
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id}>
+        <span className="radio-group-label">{label}</span>
+        {sublabel && <span className="radio-group-sublabel">{sublabel}</span>}
+      </label>
     </div>
   )
 }

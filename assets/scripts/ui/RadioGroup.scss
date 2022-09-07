@@ -2,13 +2,13 @@
 
 .radio-group-item {
   display: flex;
-  align-items: center;
   margin: 0.8em 0;
 }
 
 .radio-group-radio {
   position: relative;
   padding: 0;
+  margin-top: -2px;
   width: 21px;
   height: 21px;
   background-color: white;
@@ -63,4 +63,13 @@
     border-radius: 50%;
     background-color: $colour-turquoise-500;
   }
+}
+
+.radio-group-sublabel {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  line-height: 8px;
+  color: rgb(128 128 128);
+  font-size: 0.8em;
 }

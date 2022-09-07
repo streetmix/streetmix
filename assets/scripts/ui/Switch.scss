@@ -2,13 +2,13 @@
 
 .switch-item {
   display: flex;
-  align-items: center;
   margin-bottom: 1em;
 }
 
 .switch-root {
   position: relative;
   padding: 0;
+  margin-top: -2px;
   width: 39px;
   height: 21px;
   background-color: white;
