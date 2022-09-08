@@ -13,7 +13,7 @@ describe('StreetMetaWidthContainer', () => {
 
   it('renders selection dropdown on click', () => {
     const { asFragment } = render(<StreetMetaWidthContainer />)
-    userEvent.click(screen.getByTitle('Change width of the street'))
+    userEvent.click(screen.getByText('0 m width'))
     expect(asFragment()).toMatchSnapshot()
   })
 

@@ -10,9 +10,11 @@ exports[`StreetMeta renders without crashing 1`] = `
     >
       <span
         class="street-width street-width-editable"
-        title="Change width of the street"
       >
         0 m width
+        <svg
+          class="menu-carat-down"
+        />
       </span>
     </span>
     <span

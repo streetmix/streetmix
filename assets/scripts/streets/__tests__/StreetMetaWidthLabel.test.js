@@ -79,7 +79,7 @@ describe('StreetMetaWidthLabel', () => {
       />
     )
 
-    userEvent.click(screen.getByTitle('Change width of the street'))
+    userEvent.click(screen.getByText('3 m width'))
     expect(handleClick).toBeCalled()
   })
 })

@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { showDialog } from '../store/slices/dialogs'
+import Tooltip from '../ui/Tooltip'
 
 function StreetMetaGeotag (props) {
   const street = useSelector((state) => state.street)
@@ -9,6 +10,7 @@ function StreetMetaGeotag (props) {
     (state) => !state.app.readOnly && state.flags.GEOTAG.value
   )
   const dispatch = useDispatch()
+  const intl = useIntl()
 
   // Render nothing if there is no street location, and geolocation is not enabled
   if (!editable && !street.location) return null
@@ -55,11 +57,22 @@ function StreetMetaGeotag (props) {
       />
       )
 
-  return (
-    <span className="street-metadata-map">
-      {editable ? <a onClick={handleClickGeotag}>{geotagText}</a> : geotagText}
-    </span>
-  )
+  const title = intl.formatMessage({
+    id: 'tooltip.geotag',
+    defaultMessage: 'Change location'
+  })
+
+  if (editable) {
+    return (
+      <Tooltip label={title} placement="bottom">
+        <span className="street-metadata-map">
+          <a onClick={handleClickGeotag}>{geotagText}</a>
+        </span>
+      </Tooltip>
+    )
+  }
+
+  return <span className="street-metadata-map">{geotagText}</span>
 }
 
 export default StreetMetaGeotag

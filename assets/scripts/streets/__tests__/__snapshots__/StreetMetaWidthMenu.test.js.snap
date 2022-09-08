@@ -4,7 +4,6 @@ exports[`StreetMetaWidthMenu renders (imperial units, default width selected) 1`
 <DocumentFragment>
   <select
     class="street-width-select"
-    title="Change width of the street"
   >
     <option
       disabled=""
@@ -68,7 +67,6 @@ exports[`StreetMetaWidthMenu renders (metric units, custom width selected) 1`] =
 <DocumentFragment>
   <select
     class="street-width-select"
-    title="Change width of the street"
   >
     <option
       disabled=""
@@ -139,7 +137,6 @@ exports[`StreetMetaWidthMenu renders (metric units, default width selected) 1`] 
 <DocumentFragment>
   <select
     class="street-width-select"
-    title="Change width of the street"
   >
     <option
       disabled=""
