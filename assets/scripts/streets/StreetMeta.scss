@@ -2,15 +2,33 @@
 @import "../../styles/variables";
 
 .street-metadata {
-  padding-top: 0.5em;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.75em;
   color: black;
   user-select: none;
   pointer-events: auto;
   transition: color $environment-transition;
-  font-size: 0.9rem; /* Match segment labels */
+  font-size: 0.95rem;
 
   a {
     color: inherit;
+  }
+
+  > span {
+    display: flex;
+    align-items: center;
+  }
+
+  > span:not(:first-child) {
+    margin-left: 1em;
+  }
+
+  span > svg:first-child {
+    transform: scale(1); // Override
+    margin-right: 0.3em;
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -23,13 +41,18 @@ body.read-only .street-metadata-author a {
   cursor: default;
 }
 
-.street-metadata-analytics:not(:empty)::before,
-.street-metadata-author:not(:empty)::before,
-.street-metadata-date:not(:empty)::before,
-.street-metadata-map:not(:empty)::before {
-  content: " · ";
-  color: color.adjust($ui-colour, $lightness: -40%);
-  margin: 0 4px;
+.street-metadata-author .avatar {
+  margin: 0 0.5em; // Hack for not showing space around <Avatar> component
+}
+
+.street-metadata-date time {
+  margin: 0 0.25em; // Hack for not showing space around <time> element
+}
+
+.street-metadata-width > span > svg:first-child {
+  /* Radix UI optimized width/height */
+  width: 15px;
+  height: 15px;
 }
 
 .street-metadata-analytics a,

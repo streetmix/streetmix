@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { ChevronDownIcon } from '@radix-ui/react-icons'
+import { ChevronDownIcon, RulerHorizontalIcon } from '@radix-ui/react-icons'
 import Tooltip from '../ui/Tooltip'
 import { prettifyWidth } from '../util/width_units'
 import './StreetMetaWidthLabel.scss'
@@ -65,6 +65,7 @@ function StreetMetaWidthLabel (props) {
 
   const component = (
     <span className={className} onClick={onClick}>
+      <RulerHorizontalIcon />
       <FormattedMessage
         id="width.label"
         defaultMessage="{width} width"

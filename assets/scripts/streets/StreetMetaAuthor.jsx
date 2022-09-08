@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { IoBrushOutline } from 'react-icons/io5'
 import { openGallery } from '../store/actions/gallery'
 import Avatar from '../users/Avatar'
 import { isOwnedByCurrentUser } from './owner'
@@ -37,6 +38,7 @@ function StreetMetaAuthor (props) {
 
   return (
     <span className="street-metadata-author">
+      <IoBrushOutline />
       <FormattedMessage
         id="users.byline"
         defaultMessage="by {user}"

@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { showDialog } from '../store/slices/dialogs'
+import { IoLocationOutline } from 'react-icons/io5'
 import Tooltip from '../ui/Tooltip'
+import { showDialog } from '../store/slices/dialogs'
 
 function StreetMetaGeotag (props) {
   const street = useSelector((state) => state.street)
@@ -66,6 +67,7 @@ function StreetMetaGeotag (props) {
     return (
       <Tooltip label={title} placement="bottom">
         <span className="street-metadata-map">
+          <IoLocationOutline />
           <a onClick={handleClickGeotag}>{geotagText}</a>
         </span>
       </Tooltip>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { IoPodiumOutline } from 'react-icons/io5'
 import Tooltip from '../ui/Tooltip'
 import { getStreetCapacity } from '../segments/capacity'
 import { formatNumber } from '../util/number_format'
@@ -23,6 +24,7 @@ function StreetMetaAnalytics (props) {
     return (
       <Tooltip label={title} placement="bottom">
         <span className="street-metadata-analytics">
+          <IoPodiumOutline />
           <a onClick={() => dispatch(showDialog('ANALYTICS'))}>
             <FormattedMessage
               id="capacity.ppl-per-hour"
