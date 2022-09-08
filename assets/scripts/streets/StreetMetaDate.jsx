@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { IoTimeOutline } from 'react-icons/io5'
 import DateTimeRelative from '../app/DateTimeRelative'
 import { isOwnedByCurrentUser } from './owner'
 
@@ -20,6 +21,7 @@ function StreetMetaDate (props) {
 
   return (
     <span className="street-metadata-date">
+      <IoTimeOutline />
       <DateTimeRelative value={updatedAt} />
     </span>
   )

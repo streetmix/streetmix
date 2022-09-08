@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Discuss on the forums",
-      "twitter": "Send a tweet to @streetmix",
       "email": "Send an email to Streetmix team",
       "github": "View source code on GitHub",
       "blog": "Visit Streetmix blog",
@@ -71,13 +70,21 @@
     }
   },
   "settings": {
+    "heading": "Settings",
+    "general": {
+      "label": "General"
+    },
+    "language": {
+      "label": "Language"
+    },
+    "misc": {
+      "label": "Miscellaneous",
+      "silly-clowns": "Silly clowns"
+    },
     "units": {
       "label": "Units",
       "metric": "Metric units (meters)",
       "imperial": "Imperial units (feet)"
-    },
-    "language": {
-      "label": "Language"
     }
   },
   "msg": {
@@ -334,7 +341,8 @@
     "delete-street": "Delete street",
     "segment-width": "Change width of the segment",
     "building-height": "Change the number of floors",
-    "street-width": "Change width of the street",
+    "street-width": "Change street width",
+    "geotag": "Change location",
     "increase-width": "Increase width (hold Shift for more precision)",
     "decrease-width": "Decrease width (hold Shift for more precision)",
     "add-floor": "Add floor",

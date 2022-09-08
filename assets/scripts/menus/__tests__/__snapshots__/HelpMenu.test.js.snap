@@ -6,17 +6,24 @@ exports[`HelpMenu renders 1`] = `
     class="menu"
   >
     <a>
+      <svg
+        class="menu-item-icon-radix"
+      />
       About Streetmix…
     </a>
     <a>
+      <svg
+        class="menu-item-icon-radix"
+      />
       What’s new in Streetmix? [en]‎
     </a>
     <div
       class="help-menu-shortcuts"
     >
-      <p>
-        Keyboard shortcuts:
-      </p>
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Keyboard shortcuts:
       <table>
         <tbody>
           <tr>

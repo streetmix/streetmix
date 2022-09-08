@@ -8,6 +8,7 @@ import AnalyticsDialog from './AnalyticsDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
 import GeotagDialog from './GeotagDialog'
 import SaveAsImageDialog from './SaveAsImageDialog'
+import SettingsDialog from './SettingsDialog'
 import SignInDialog from './SignInDialog'
 import WhatsNewDialog from './WhatsNewDialog'
 import NewsletterDialog from './NewsletterDialog'
@@ -21,6 +22,7 @@ const DIALOG_COMPONENTS = {
   FEATURE_FLAGS: FeatureFlagDialog,
   GEOTAG: GeotagDialog,
   SAVE_AS_IMAGE: SaveAsImageDialog,
+  SETTINGS: SettingsDialog,
   SIGN_IN: SignInDialog,
   WHATS_NEW: WhatsNewDialog,
   NEWSLETTER: NewsletterDialog,

@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 // import { useSelector, useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import { useIntl } from 'react-intl'
+import { IoLanguage } from 'react-icons/io5'
+import AccessibleIcon from '../ui/AccessibleIcon'
 import { doSignIn } from '../users/authentication'
 // import { showDialog } from '../store/slices/dialogs'
 import logo from '../../images/logo_horizontal.svg'
@@ -22,8 +25,20 @@ function MenuBar (props) {
     (state) => state.user.signedIn && state.user.isSubscriber
   )
   const offline = useSelector((state) => state.system.offline)
+  const enableLocaleSettings = useSelector(
+    (state) =>
+      state.flags.LOCALES_LEVEL_1.value ||
+      state.flags.LOCALES_LEVEL_2.value ||
+      state.flags.LOCALES_LEVEL_3.value
+  )
   // const dispatch = useDispatch()
   const menuBarRightEl = useRef(null)
+  const intl = useIntl()
+
+  const languageLabel = intl.formatMessage({
+    id: 'settings.language.label',
+    defaultMessage: 'Language'
+  })
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize)
@@ -142,15 +157,20 @@ function MenuBar (props) {
           target="_blank"
         />
         <MenuBarItem
-          label="Settings"
-          translation="menu.item.settings"
-          onClick={handleClickMenuButton('settings')}
-        />
-        <MenuBarItem
           label="Share"
           translation="menu.item.share"
           onClick={handleClickMenuButton('share')}
         />
+        {enableLocaleSettings && (
+          <MenuBarItem
+            onClick={handleClickMenuButton('locale')}
+            tooltip={languageLabel}
+          >
+            <AccessibleIcon label={languageLabel}>
+              <IoLanguage />
+            </AccessibleIcon>
+          </MenuBarItem>
+        )}
         {!offline && renderUserAvatar(user, isSubscriber)}
       </ul>
       <EnvironmentBadge />

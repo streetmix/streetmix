@@ -8,7 +8,7 @@ import HelpMenu from './HelpMenu'
 import ContactMenu from './ContactMenu'
 import ContributeMenu from './ContributeMenu'
 import IdentityMenu from './IdentityMenu'
-import SettingsMenu from './SettingsMenu'
+import LocaleMenu from './LocaleMenu'
 import ShareMenu from './ShareMenu'
 import './MenusContainer.scss'
 
@@ -145,8 +145,8 @@ class MenusContainer extends React.PureComponent {
             isActive={activeMenu === 'contribute'}
             menuItemNode={activeMenuItemNode}
           />
-          <SettingsMenu
-            isActive={activeMenu === 'settings'}
+          <LocaleMenu
+            isActive={activeMenu === 'locale'}
             menuItemNode={activeMenuItemNode}
           />
           <ShareMenu

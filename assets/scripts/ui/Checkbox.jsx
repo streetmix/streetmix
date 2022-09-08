@@ -34,7 +34,7 @@ Checkbox.propTypes = {
 
   // An `id` is associates a `label` with an `input` element. If you don't
   // provide one, the component automatically generates a unique ID. IDs
-  // are meant "for internal use only".
+  // are "for internal use only".
   id: PropTypes.string
 }
 

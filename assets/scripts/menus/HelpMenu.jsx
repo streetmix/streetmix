@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import {
+  InfoCircledIcon,
+  RocketIcon,
+  KeyboardIcon
+} from '@radix-ui/react-icons'
 import KeyboardKey from '../ui/KeyboardKey'
 import {
   ICON_MINUS,
@@ -42,24 +47,25 @@ function HelpMenu (props) {
         />
       </a> */}
       <a onClick={() => dispatch(showDialog('ABOUT'))}>
+        <InfoCircledIcon className="menu-item-icon-radix" />
         <FormattedMessage
           id="menu.item.about"
           defaultMessage="About Streetmix…"
         />
       </a>
       <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
+        <RocketIcon className="menu-item-icon-radix" />
         <FormattedMessage
           id="dialogs.whatsnew.heading"
           defaultMessage="What’s new in Streetmix? [en]&lrm;"
         />
       </a>
       <div className="help-menu-shortcuts">
-        <p>
-          <FormattedMessage
-            id="menu.help.keyboard-label"
-            defaultMessage="Keyboard shortcuts:"
-          />
-        </p>
+        <KeyboardIcon className="menu-item-icon-radix" />
+        <FormattedMessage
+          id="menu.help.keyboard-label"
+          defaultMessage="Keyboard shortcuts:"
+        />
         <table>
           <tbody>
             <tr>

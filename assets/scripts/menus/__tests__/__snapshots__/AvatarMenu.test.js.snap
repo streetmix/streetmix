@@ -17,6 +17,9 @@ exports[`AvatarMenu renders user avatar 1`] = `
     >
       foo
     </span>
+    <svg
+      class="menu-carat-down"
+    />
   </button>
 </DocumentFragment>
 `;

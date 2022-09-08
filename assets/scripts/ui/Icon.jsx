@@ -50,7 +50,7 @@ function Icon ({ icon, className }) {
       )
     case 'slack':
       return <img className="menu-item-icon" src={slackIcon} alt="" />
-    case 'forums':
+    case 'forums': // Deprecated
       return <img className="menu-item-icon" src={forumsIcon} alt="" />
     case 'google':
       return <img className="menu-item-icon" src={googleIcon} alt="" />

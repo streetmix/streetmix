@@ -1,0 +1,81 @@
+@import "../../styles/variables";
+
+.switch-item {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.switch-root {
+  position: relative;
+  padding: 0;
+  margin-top: -2px;
+  width: 39px;
+  height: 21px;
+  background-color: white;
+  box-shadow: 0 0 0 1px $colour-turquoise-500;
+  transition: background-color 120ms;
+  border-radius: 9999px;
+
+  --webkit-tap-highlight-color: rgba(0 0 0 / 0%);
+
+  &:focus,
+  &:active:not(:disabled) {
+    box-shadow: 0 0 0 2px $colour-turquoise-500;
+  }
+
+  // Override stock button hover
+  &:hover {
+    background-color: white;
+  }
+
+  &:disabled {
+    box-shadow: 0 0 0 1px lightgray;
+
+    & + label {
+      color: darkgray;
+    }
+  }
+
+  &[data-state="checked"] {
+    background-color: $colour-turquoise-150;
+    box-shadow: 0 0 0 1px $colour-turquoise-500;
+
+    &:focus,
+    &:active:not(:disabled) {
+      box-shadow: 0 0 0 2px $colour-turquoise-500;
+    }
+  }
+
+  + label {
+    margin-left: 0.75em;
+    user-select: none;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 0.75em;
+    }
+  }
+}
+
+.switch-thumb {
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: $colour-midnight-150;
+  border-radius: 9999px;
+  transition: transform 100ms, background-color 120ms;
+  transform: translateX(3px);
+  will-change: transform;
+  position: absolute;
+  top: 3px;
+  left: 0;
+
+  &[data-state="checked"] {
+    transform: translateX(21px);
+    background-color: $colour-turquoise-450;
+  }
+
+  &[data-disabled] {
+    background-color: rgba(0 0 0 / 10%);
+  }
+}

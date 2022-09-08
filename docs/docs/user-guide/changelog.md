@@ -5,6 +5,14 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## September 8, 2022
+
+### 🎮 UI improvements
+
+- **Added a new settings menu.** It doesn't do much yet, but it makes it easier to add more options in the future. It's accessible in your user menu (for signed-in users). The old settings menu is removed.
+- A new language selection menu is added where the old settings menu used to be. (It's mostly what the old settings menu did, anyway.)
+- Icons and tooltips added to various parts of the menu bar and street metadata UI (below the street name).
+
 ## August 24, 2022
 
 ### ✨ New features

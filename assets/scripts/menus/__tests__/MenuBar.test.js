@@ -12,7 +12,15 @@ jest.mock('../../store/slices/dialogs', () => ({
 
 describe('MenuBar', () => {
   it('renders', () => {
-    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />)
+    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />, {
+      initialState: {
+        flags: {
+          LOCALES_LEVEL_1: { value: true },
+          LOCALES_LEVEL_2: { value: true },
+          LOCALES_LEVEL_3: { value: true }
+        }
+      }
+    })
     expect(asFragment()).toMatchSnapshot()
   })
 

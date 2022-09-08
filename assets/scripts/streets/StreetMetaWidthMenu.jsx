@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
+import Tooltip from '../ui/Tooltip'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
@@ -74,61 +75,65 @@ function StreetMetaWidthMenu ({ street, onChange }) {
       : null
 
   return (
-    <select
-      // Focus the <select> element after mounting
-      ref={useFocus()}
-      onChange={handleChange}
-      value={width}
-      className="street-width-select"
-      title={formatMessage({
+    <Tooltip
+      label={formatMessage({
         id: 'tooltip.street-width',
         defaultMessage: 'Change width of the street'
       })}
+      placement="bottom"
     >
-      <option disabled={true}>
-        {formatMessage({
-          id: 'width.occupied',
-          defaultMessage: 'Occupied width:'
-        })}
-      </option>
-      <option disabled={true}>{prettifyWidth(occupiedWidth, units)}</option>
-      <option disabled={true} />
-      <option disabled={true}>
-        {formatMessage({
-          id: 'width.building',
-          defaultMessage: 'Building-to-building width:'
-        })}
-      </option>
-      {DefaultWidthOptions}
-      {CustomWidthOption}
-      <option value={STREET_WIDTH_CUSTOM}>
-        {formatMessage({
-          id: 'width.different',
-          defaultMessage: 'Different width…'
-        })}
-      </option>
-      <option disabled={true} />
-      <option
-        id="switch-to-imperial-units"
-        value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
-        disabled={units === SETTINGS_UNITS_IMPERIAL}
+      <select
+        // Focus the <select> element after mounting
+        ref={useFocus()}
+        onChange={handleChange}
+        value={width}
+        className="street-width-select"
       >
-        {formatMessage({
-          id: 'width.imperial',
-          defaultMessage: 'Switch to imperial units (feet)'
-        })}
-      </option>
-      <option
-        id="switch-to-metric-units"
-        value={STREET_WIDTH_SWITCH_TO_METRIC}
-        disabled={units === SETTINGS_UNITS_METRIC}
-      >
-        {formatMessage({
-          id: 'width.metric',
-          defaultMessage: 'Switch to metric units'
-        })}
-      </option>
-    </select>
+        <option disabled={true}>
+          {formatMessage({
+            id: 'width.occupied',
+            defaultMessage: 'Occupied width:'
+          })}
+        </option>
+        <option disabled={true}>{prettifyWidth(occupiedWidth, units)}</option>
+        <option disabled={true} />
+        <option disabled={true}>
+          {formatMessage({
+            id: 'width.building',
+            defaultMessage: 'Building-to-building width:'
+          })}
+        </option>
+        {DefaultWidthOptions}
+        {CustomWidthOption}
+        <option value={STREET_WIDTH_CUSTOM}>
+          {formatMessage({
+            id: 'width.different',
+            defaultMessage: 'Different width…'
+          })}
+        </option>
+        <option disabled={true} />
+        <option
+          id="switch-to-imperial-units"
+          value={STREET_WIDTH_SWITCH_TO_IMPERIAL}
+          disabled={units === SETTINGS_UNITS_IMPERIAL}
+        >
+          {formatMessage({
+            id: 'width.imperial',
+            defaultMessage: 'Switch to imperial units (feet)'
+          })}
+        </option>
+        <option
+          id="switch-to-metric-units"
+          value={STREET_WIDTH_SWITCH_TO_METRIC}
+          disabled={units === SETTINGS_UNITS_METRIC}
+        >
+          {formatMessage({
+            id: 'width.metric',
+            defaultMessage: 'Switch to metric units'
+          })}
+        </option>
+      </select>
+    </Tooltip>
   )
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { EnvelopeClosedIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
 import { showDialog } from '../store/slices/dialogs'
@@ -17,6 +18,7 @@ function ContactMenu (props) {
           id="menu.contact.discord"
           defaultMessage="Join Discord chat"
         />
+        <ExternalLinkIcon className="menu-item-external-link" />
       </ExternalLink>
       <ExternalLink href="https://github.com/streetmix/streetmix/">
         <Icon icon="github" />
@@ -24,35 +26,19 @@ function ContactMenu (props) {
           id="menu.contact.github"
           defaultMessage="View source code on GitHub"
         />
+        <ExternalLinkIcon className="menu-item-external-link" />
       </ExternalLink>
       <a
         onClick={(e) => {
           dispatch(showDialog('NEWSLETTER'))
         }}
       >
+        <EnvelopeClosedIcon className="menu-item-icon-radix" />
         <FormattedMessage
           id="menu.contact.newsletter"
           defaultMessage="Subscribe to our newsletter"
         />
       </a>
-      {/* <ExternalLink
-        href="https://forums.streetmix.net/"
-      >
-        <Icon icon="forums" />
-        <FormattedMessage
-          id="menu.contact.forums"
-          defaultMessage="Discuss on the forums"
-        />
-      </ExternalLink>
-      <ExternalLink
-        href="https://twitter.com/intent/tweet?text=@streetmix"
-      >
-        <Icon icon="twitter" />
-        <FormattedMessage
-          id="menu.contact.twitter"
-          defaultMessage="Send a tweet to @streetmix"
-        />
-      </ExternalLink> */}
     </Menu>
   )
 }
