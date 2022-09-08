@@ -6,6 +6,7 @@ import {
   DownloadIcon,
   ExternalLinkIcon
 } from '@radix-ui/react-icons'
+import { IoPrintOutline } from 'react-icons/io5'
 import copy from 'copy-to-clipboard'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
@@ -227,6 +228,7 @@ function ShareMenu (props) {
         </>
       )}
       <a onClick={handleClickPrint}>
+        <IoPrintOutline className="menu-item-icon" />
         <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
       </a>
       <a id="save-as-image" onClick={handleClickSaveAsImage}>

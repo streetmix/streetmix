@@ -6,6 +6,9 @@ exports[`ShareMenu does not render external share links in offline mode 1`] = `
     class="menu share-menu"
   >
     <a>
+      <svg
+        class="menu-item-icon"
+      />
       Print…
     </a>
     <a
@@ -93,6 +96,9 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       />
     </a>
     <a>
+      <svg
+        class="menu-item-icon"
+      />
       Print…
     </a>
     <a
@@ -172,6 +178,9 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       />
     </a>
     <a>
+      <svg
+        class="menu-item-icon"
+      />
       Print…
     </a>
     <a
