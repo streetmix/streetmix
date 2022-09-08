@@ -35,6 +35,11 @@ function MenuBar (props) {
   const menuBarRightEl = useRef(null)
   const intl = useIntl()
 
+  const languageLabel = intl.formatMessage({
+    id: 'settings.language.label',
+    defaultMessage: 'Language'
+  })
+
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize)
 
@@ -157,13 +162,11 @@ function MenuBar (props) {
           onClick={handleClickMenuButton('share')}
         />
         {enableLocaleSettings && (
-          <MenuBarItem onClick={handleClickMenuButton('locale')}>
-            <AccessibleIcon
-              label={intl.formatMessage({
-                id: 'settings.language.label',
-                defaultMessage: 'Language'
-              })}
-            >
+          <MenuBarItem
+            onClick={handleClickMenuButton('locale')}
+            tooltip={languageLabel}
+          >
+            <AccessibleIcon label={languageLabel}>
               <IoLanguage />
             </AccessibleIcon>
           </MenuBarItem>
