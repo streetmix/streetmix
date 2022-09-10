@@ -53,7 +53,13 @@ Streetmix+ membership does not activate immediately (_this is something we're wo
 
 ### GitHub Sponsors
 
-_Coming soon!_
+[GitHub Sponsors](https://github.com/sponsors/streetmix) is also available for members that are familiar with contributing to open source organizations through GitHub.
+
+Streetmix+ membership does not activate immediately (_this is something we're working on!_), but someone on our team will reach out to you to activate Streetmix+ on your Streetmix account within one week. If you do not hear from us, please contact us at hello@streetmix.net.
+
+<div className="stmx-cta-container">
+  <a className="stmx-cta-button" href="https://github.com/sponsors/streetmix" target="_blank">Sign up with GitHub Sponsors</a>
+</div>
 
 ### Coil
 
