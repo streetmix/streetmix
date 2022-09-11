@@ -87,9 +87,9 @@ function GalleryContents (props) {
         {/* Display these buttons for a user viewing their own gallery */}
         {isOwnedByCurrentUser && (
           <div className="gallery-user-buttons">
-            <a
-              className="button-like gallery-new-street"
+            <Button
               href={URL_NEW_STREET}
+              className="gallery-new-street"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -97,17 +97,17 @@ function GalleryContents (props) {
                 id="btn.create"
                 defaultMessage="Create new street"
               />
-            </a>
+            </Button>
             {selectedStreet !== null
               ? (
-                <a
-                  className="button-like gallery-copy-last-street"
+                <Button
                   href={URL_NEW_STREET_COPY_LAST}
+                  className="gallery-copy-last-street"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-                </a>
+                </Button>
                 )
               : (
                 <Button className="gallery-copy-last-street" disabled={true}>

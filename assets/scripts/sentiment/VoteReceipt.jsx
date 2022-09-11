@@ -86,12 +86,12 @@ function VoteReceipt ({ score, handleClose, streetId }) {
           </div>
         </div>
         <div className="sentiment-survey-done-buttons">
-          <a href="/survey" className="button-like button-primary">
+          <Button primary={true} href="/survey">
             <FormattedMessage
               id="sentiment.done.vote-another"
               defaultMessage="Vote on another!"
             />
-          </a>
+          </Button>
           <Button tertiary={true} onClick={handleClose}>
             <FormattedMessage
               id="sentiment.done.really-done"
