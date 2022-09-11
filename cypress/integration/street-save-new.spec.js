@@ -46,6 +46,6 @@ context('User saves a new street', () => {
       'have.text',
       '12572 Fm 586 S, Brookesmith, TX, USA'
     )
-    cy.get('.leaflet-popup-content .button-primary').click({ force: true })
+    cy.get('.leaflet-popup-content .btn-primary').click({ force: true })
   })
 })
