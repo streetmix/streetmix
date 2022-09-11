@@ -49,9 +49,11 @@ if (module && module.hot) {
 
 // Mount React components
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('react-app')
 )
 
