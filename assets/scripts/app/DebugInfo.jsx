@@ -62,10 +62,19 @@ function DebugInfo (props) {
       window.setTimeout(() => {
         textareaEl.current.scrollTop = 0
       }, 0)
-    } else {
-      loseAnyFocus()
     }
   }, [isVisible, settings, street, flags, undo, user])
+
+  // This should only be called when the debug window becomes invisible.
+  // This will also be called once during component initialization, that
+  // __should__ be okay.
+  useLayoutEffect(() => {
+    if (!isVisible) {
+      // This is a very aggressive focus puller. Don't ever call this in
+      // an effect that has other dependencies!
+      loseAnyFocus()
+    }
+  }, [isVisible])
 
   // Set up handler to close dialogs when clicking outside of it
   useOnClickOutside(textareaEl, () => setVisible(false))
