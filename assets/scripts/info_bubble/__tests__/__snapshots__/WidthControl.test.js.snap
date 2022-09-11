@@ -9,9 +9,10 @@ exports[`WidthControl renders 1`] = `
       class="up-down-input"
     >
       <button
-        class="up-down-input-decrement"
+        class="btn up-down-input-decrement"
         tabindex="-1"
         title="Decrease width (hold Shift for more precision)"
+        type="button"
       >
         <svg
           class="svg-inline--fa fa-minus"
@@ -24,9 +25,10 @@ exports[`WidthControl renders 1`] = `
         value="60 m"
       />
       <button
-        class="up-down-input-increment"
+        class="btn up-down-input-increment"
         tabindex="-1"
         title="Increase width (hold Shift for more precision)"
+        type="button"
       >
         <svg
           class="svg-inline--fa fa-plus"

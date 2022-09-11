@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Terms from '../app/Terms'
+import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
 import { ICON_QUESTION_CIRCLE } from '../ui/icons'
@@ -176,12 +177,12 @@ function AnalyticsDialog (props) {
                 </p>
               )}
               <br />
-              <button className="button-primary" onClick={exportCSV}>
+              <Button primary={true} onClick={exportCSV}>
                 <FormattedMessage
                   id="dialogs.analytics.export-csv"
                   defaultMessage="Export as CSV"
                 />
-              </button>
+              </Button>
               <footer>
                 <Terms locale={locale} />
               </footer>

@@ -9,6 +9,7 @@
  */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import Button from '../ui/Button'
 import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
 import { goReload } from './routing'
 import './BlockingShield.scss'
@@ -154,13 +155,13 @@ export default class BlockingShield extends React.Component {
                 defaultMessage="Streetmix is having trouble connecting to the Internet."
               />
             </p>
-            <button onClick={this.handleClickTryAgain}>
+            <Button onClick={this.handleClickTryAgain}>
               <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
-            </button>
+            </Button>
             {this.state.showCancel && (
-              <button onClick={this.handleClickCancel}>
+              <Button onClick={this.handleClickCancel}>
                 <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -179,9 +180,9 @@ export default class BlockingShield extends React.Component {
                     you might lose the latest change to the street. Sorry!"
               />
             </p>
-            <button onClick={goReload}>
+            <Button onClick={goReload}>
               <FormattedMessage id="btn.reload" defaultMessage="Reload" />
-            </button>
+            </Button>
           </div>
         )}
       </div>

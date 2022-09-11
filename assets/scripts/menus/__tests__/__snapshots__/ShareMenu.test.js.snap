@@ -59,7 +59,9 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
           value="http://localhost/"
         />
         <button
+          class="btn"
           title="Copy to clipboard"
+          type="button"
         >
           <svg
             class="octicon"
@@ -141,7 +143,9 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
           value="http://localhost/"
         />
         <button
+          class="btn"
           title="Copy to clipboard"
+          type="button"
         >
           <svg
             class="octicon"

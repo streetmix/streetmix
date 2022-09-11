@@ -182,7 +182,8 @@ exports[`AnalyticsDialog renders snapshot 1`] = `
             </div>
             <br />
             <button
-              class="button-primary"
+              class="btn btn-primary"
+              type="button"
             >
               Export as CSV
             </button>

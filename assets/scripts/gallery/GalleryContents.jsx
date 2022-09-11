@@ -1,6 +1,7 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import Button from '../ui/Button'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import { sendDeleteStreetToServer } from '../streets/xhr'
@@ -109,9 +110,9 @@ function GalleryContents (props) {
                 </a>
                 )
               : (
-                <button className="gallery-copy-last-street" disabled={true}>
+                <Button className="gallery-copy-last-street" disabled={true}>
                   <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-                </button>
+                </Button>
                 )}
           </div>
         )}

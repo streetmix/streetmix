@@ -53,6 +53,9 @@ body {
 
 a,
 .link-like {
+  @include tap-highlight-color("transparent !important");
+
+  cursor: pointer;
   color: color.adjust($ui-colour, $lightness: -30%);
 
   &:hover {
@@ -62,13 +65,6 @@ a,
   &:active {
     color: color.adjust($ui-colour, $lightness: -70%);
   }
-}
-
-a,
-.link-like {
-  @include tap-highlight-color("transparent !important");
-
-  cursor: pointer;
 }
 
 .link-like {

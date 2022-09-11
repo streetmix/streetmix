@@ -10,6 +10,7 @@ import LoadingSpinner from '../ui/LoadingSpinner'
 import Icon from '../ui/Icon'
 import Dialog from './Dialog'
 import './SignInDialog.scss'
+import Button from '../ui/Button'
 
 export default class SignInDialog extends React.Component {
   constructor (props) {
@@ -253,15 +254,16 @@ export default class SignInDialog extends React.Component {
                   </small>
                 </p>
 
-                <button
+                <Button
                   type="submit"
-                  className="button-primary sign-in-button sign-in-email-button"
+                  primary={true}
+                  className="sign-in-button sign-in-email-button"
                 >
                   <FormattedMessage
                     id="dialogs.sign-in.button.email"
                     defaultMessage="Continue with email"
                   />
-                </button>
+                </Button>
               </form>
 
               <div className="sign-in-social-heading">
@@ -274,8 +276,9 @@ export default class SignInDialog extends React.Component {
                 </span>
               </div>
 
-              <button
-                className="button-tertiary sign-in-button sign-in-social-button sign-in-twitter-button"
+              <Button
+                tertiary={true}
+                className="sign-in-button sign-in-social-button sign-in-twitter-button"
                 onClick={this.handleTwitterSignIn}
               >
                 <Icon icon="twitter" />
@@ -283,10 +286,11 @@ export default class SignInDialog extends React.Component {
                   id="dialogs.sign-in.button.twitter"
                   defaultMessage="Continue with Twitter"
                 />
-              </button>
+              </Button>
 
-              <button
-                className="button-tertiary sign-in-button sign-in-social-button sign-in-google-button"
+              <Button
+                tertiary={true}
+                className="sign-in-button sign-in-social-button sign-in-google-button"
                 onClick={this.handleGoogleSignIn}
               >
                 <Icon icon="google" />
@@ -294,10 +298,11 @@ export default class SignInDialog extends React.Component {
                   id="dialogs.sign-in.button.google"
                   defaultMessage="Continue with Google"
                 />
-              </button>
+              </Button>
 
-              <button
-                className="button-tertiary sign-in-button sign-in-social-button sign-in-facebook-button"
+              <Button
+                tertiary={true}
+                className="sign-in-button sign-in-social-button sign-in-facebook-button"
                 onClick={this.handleFacebookSignIn}
               >
                 <Icon icon="facebook" />
@@ -305,7 +310,7 @@ export default class SignInDialog extends React.Component {
                   id="dialogs.sign-in.button.facebook"
                   defaultMessage="Continue with Facebook"
                 />
-              </button>
+              </Button>
             </div>
 
             <footer>

@@ -6,9 +6,10 @@ exports[`Variants segment variants renders segment buttons 1`] = `
     class="variants"
   >
     <button
-      class="variant-selected"
+      class="btn variant-selected"
       disabled=""
       title="Inbound"
+      type="button"
     >
       <svg
         class="icon"
@@ -21,7 +22,9 @@ exports[`Variants segment variants renders segment buttons 1`] = `
       </svg>
     </button>
     <button
+      class="btn"
       title="Outbound"
+      type="button"
     >
       <svg
         class="icon"
@@ -34,7 +37,9 @@ exports[`Variants segment variants renders segment buttons 1`] = `
       </svg>
     </button>
     <button
+      class="btn"
       title="No one"
+      type="button"
     >
       <svg
         class="icon"

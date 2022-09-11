@@ -86,7 +86,7 @@ $menu-bar-box-shadow: $light-box-shadow;
   button.menu-attached {
     @include tap-highlight-color(transparent);
 
-    display: flex !important; // Override button inline !important
+    display: flex;
     align-items: center;
     appearance: none;
     border: 0;

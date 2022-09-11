@@ -2,6 +2,7 @@
 
 button.scrollable {
   @include tap-highlight-color(transparent);
+
   position: absolute;
   top: 0;
   width: 25px;
