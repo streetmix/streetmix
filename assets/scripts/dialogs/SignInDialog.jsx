@@ -6,11 +6,11 @@ import {
   goFacebookSignIn,
   goGoogleSignIn
 } from '../app/routing'
-import LoadingSpinner from '../ui/LoadingSpinner'
+import Button from '../ui/Button'
 import Icon from '../ui/Icon'
+import LoadingSpinner from '../ui/LoadingSpinner'
 import Dialog from './Dialog'
 import './SignInDialog.scss'
-import Button from '../ui/Button'
 
 export default class SignInDialog extends React.Component {
   constructor (props) {
