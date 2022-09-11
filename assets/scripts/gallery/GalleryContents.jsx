@@ -1,6 +1,7 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import Button from '../ui/Button'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import { sendDeleteStreetToServer } from '../streets/xhr'
@@ -86,9 +87,9 @@ function GalleryContents (props) {
         {/* Display these buttons for a user viewing their own gallery */}
         {isOwnedByCurrentUser && (
           <div className="gallery-user-buttons">
-            <a
-              className="button-like gallery-new-street"
+            <Button
               href={URL_NEW_STREET}
+              className="gallery-new-street"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -96,22 +97,22 @@ function GalleryContents (props) {
                 id="btn.create"
                 defaultMessage="Create new street"
               />
-            </a>
+            </Button>
             {selectedStreet !== null
               ? (
-                <a
-                  className="button-like gallery-copy-last-street"
+                <Button
                   href={URL_NEW_STREET_COPY_LAST}
+                  className="gallery-copy-last-street"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-                </a>
+                </Button>
                 )
               : (
-                <button className="gallery-copy-last-street" disabled={true}>
+                <Button className="gallery-copy-last-street" disabled={true}>
                   <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-                </button>
+                </Button>
                 )}
           </div>
         )}

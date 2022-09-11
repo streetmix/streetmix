@@ -95,12 +95,8 @@ $header-text-colour: $colour-turquoise-700;
   }
 
   // Button placement
-  button.button-primary,
-  button.button-secondary,
-  button.button-tertiary,
-  a.button-like.button-primary,
-  a.button-like.button-secondary,
-  a.button-like.button-tertiary {
+  button.btn,
+  a.btn {
     margin: 0 auto;
     margin-top: 1em;
   }
@@ -139,6 +135,7 @@ $header-text-colour: $colour-turquoise-700;
 }
 
 button.dialog-primary-action {
+  border: 0;
   border-top: 1px solid $colour-turquoise-350;
   border-radius: 0;
   background-color: white;
@@ -147,6 +144,7 @@ button.dialog-primary-action {
   text-align: center;
   color: $colour-turquoise-600;
   min-height: 46px;
+  cursor: pointer;
 
   /* override .dialog-box button */
   margin-top: 0 !important;

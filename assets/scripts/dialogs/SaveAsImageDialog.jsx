@@ -11,6 +11,7 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_LOCK } from '../ui/icons'
+import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
 import RangeSlider from '../ui/RangeSlider'
 import Tooltip from '../ui/Tooltip'
@@ -323,30 +324,23 @@ class SaveAsImageDialog extends React.Component {
               <div className="save-as-image-download">
                 {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
                 {!this.state.errorMessage && !this.state.isSaving ? (
-                  <a
-                    className="button-like button-primary"
+                  <Button
+                    primary={true}
                     onClick={this.handleClickDownloadImage}
-                    // Sets the anchor's `download` attribute so that it
-                    // saves a meaningful filename
-                    // Note that this property is not supported in Safari/iOS
-                    download={this.state.download.filename}
-                    // Link should refer to data URL, even though
-                    // onClickDownloadImage() is used for direct download
-                    href={this.state.download.dataUrl}
                   >
                     <FormattedMessage
                       id="dialogs.save.save-button"
                       defaultMessage="Save to your computer…"
                     />
-                  </a>
+                  </Button>
                 ) : (
                   // TODO: When saving, show busy cursor and "Please wait"
-                  <button disabled={true} className="button-primary">
+                  <Button primary={true} disabled={true}>
                     <FormattedMessage
                       id="dialogs.save.save-button"
                       defaultMessage="Save to your computer…"
                     />
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>

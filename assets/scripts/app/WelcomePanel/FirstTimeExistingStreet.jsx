@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import Button from '../../ui/Button'
 import StreetName from '../../streets/StreetName'
 import Avatar from '../../users/Avatar'
 import { goNewStreet } from '../routing'
@@ -58,12 +59,12 @@ function FirstTimeExistingStreet (props) {
           defaultMessage="Remix it by moving some segments around, or {startYourOwnStreet}."
           values={{
             startYourOwnStreet: (
-              <button onClick={handleGoNewStreet}>
+              <Button onClick={handleGoNewStreet}>
                 <FormattedMessage
                   id="dialogs.welcome.existing.instruct-start-own-street"
                   defaultMessage="Start your own street"
                 />
-              </button>
+              </Button>
             )
           }}
         />

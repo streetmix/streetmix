@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
+import Button from '../ui/Button'
 import CloseButton from '../ui/CloseButton'
 import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
@@ -102,20 +103,20 @@ function EnvironmentEditor (props) {
                       defaultMessage="This feature is only available to Streetmix+ users.&lrm;"
                     />
                     {!signedIn && (
-                      <button onClick={handleClickSignIn}>
+                      <Button onClick={handleClickSignIn}>
                         <FormattedMessage
                           id="menu.item.sign-in"
                           defaultMessage="Sign in"
                         />
-                      </button>
+                      </Button>
                     )}
                     {signedIn && !isSubscriber && (
-                      <button onClick={handleClickUpgrade}>
+                      <Button onClick={handleClickUpgrade}>
                         <FormattedMessage
                           id="plus.prompt.action"
                           defaultMessage="Upgrade to unlock"
                         />
-                      </button>
+                      </Button>
                     )}
                   </div>
                 )}

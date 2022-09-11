@@ -1,26 +1,12 @@
 @use "sass:color";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
-button.scroll,
-.scrollable {
-  @include tap-highlight-color(transparent);
+.btn,
+a.btn {
+  @include tap-highlight-color("transparent !important");
 
-  position: absolute;
-  top: 0;
-  width: 25px;
-  height: 40px;
-  padding: 0;
-  cursor: pointer;
-
-  &[disabled] {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-
-input[type="submit"],
-button,
-a.button-like {
-  display: inline-block !important;
+  display: inline-block;
   outline: none;
   border: 0;
   border-radius: $border-radius-medium;
@@ -30,6 +16,7 @@ a.button-like {
   font-weight: bold;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
 
   // stylelint-disable-next-line selector-class-pattern
   &:not([disabled]) .svg-inline--fa {
@@ -65,7 +52,7 @@ a.button-like {
     }
   }
 
-  &.button-primary {
+  &.btn-primary {
     background-color: $colour-emerald-400;
     color: white;
 
@@ -78,7 +65,7 @@ a.button-like {
     }
   }
 
-  &.button-secondary {
+  &.btn-secondary {
     background-color: $colour-turquoise-500;
     color: white;
 
@@ -91,7 +78,7 @@ a.button-like {
     }
   }
 
-  &.button-tertiary {
+  &.btn-tertiary {
     border: 1px solid $colour-turquoise-400;
     background-color: transparent;
     color: $colour-turquoise-600;

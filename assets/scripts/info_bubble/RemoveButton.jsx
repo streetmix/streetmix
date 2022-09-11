@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { removeSegment, removeAllSegments } from '../segments/remove'
+import Button from '../ui/Button'
 import Icon from '../ui/Icon'
 import './RemoveButton.scss'
 
@@ -29,7 +30,7 @@ function RemoveButton ({ segment = null }) {
   if (typeof segment === 'undefined' || segment === null) return null
 
   return (
-    <button
+    <Button
       className="info-bubble-remove"
       tabIndex={-1}
       title={intl.formatMessage({
@@ -40,7 +41,7 @@ function RemoveButton ({ segment = null }) {
     >
       <Icon icon="trash" className="remove-icon" />
       <FormattedMessage id="btn.remove" defaultMessage="Remove" />
-    </button>
+    </Button>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
+import Button from '../ui/Button'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { putSentimentSurveyComment } from '../util/api'
 
@@ -60,12 +61,12 @@ function VoteComment ({ streetId }) {
             <LoadingSpinner size="small" />
             )
           : (
-            <button className="button-secondary" onClick={handleSubmitComment}>
+            <Button secondary={true} onClick={handleSubmitComment}>
               <FormattedMessage
                 id="sentiment.comment.submit"
                 defaultMessage="Submit"
               />
-            </button>
+            </Button>
             )}
     </div>
   )

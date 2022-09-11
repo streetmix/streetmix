@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { useTransition, animated, config } from 'react-spring'
+import Button from '../ui/Button'
 import CloseButton from '../ui/CloseButton'
 import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
@@ -110,25 +111,22 @@ function SentimentSurvey ({
                 <VoteButtons handleVote={handleClick} selectedScore={score} />
                 {!isUserSignedIn && (
                   <div className="sentiment-survey-sign-in-prompt">
-                    <button
-                      className="button-primary"
-                      onClick={handleClickSignIn}
-                    >
+                    <Button primary={true} onClick={handleClickSignIn}>
                       <FormattedMessage
                         id="menu.item.sign-in"
                         defaultMessage="Sign in"
                       />
-                    </button>
+                    </Button>
                   </div>
                 )}
               </div>
               <p className="sentiment-survey-about-link">
-                <span className="link-like" onClick={handleClickAbout}>
+                <button className="link-like" onClick={handleClickAbout}>
                   <FormattedMessage
                     id="sentiment.about-link"
                     defaultMessage="Why am I seeing this?"
                   />
-                </span>
+                </button>
               </p>
               <VoteReceipt
                 score={score}

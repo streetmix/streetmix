@@ -8,6 +8,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import Button from '../ui/Button'
 import ExternalLink from '../ui/ExternalLink'
 import Avatar from '../users/Avatar'
 import { doSignIn } from '../users/authentication'
@@ -23,12 +24,12 @@ function BlockingError (props) {
   let cta = ''
 
   const homeButton = (
-    <button onClick={goHome} className="button-primary">
+    <Button primary={true} onClick={goHome}>
       <FormattedMessage
         id="error.button.return"
         defaultMessage="Return to Streetmix"
       />
-    </button>
+    </Button>
   )
   const linkToUser = (street) => {
     return street && street.creatorId
@@ -41,25 +42,25 @@ function BlockingError (props) {
       : null
   }
   const reloadButton = (
-    <button onClick={goReload} className="button-primary">
+    <Button primary={true} onClick={goReload}>
       <FormattedMessage
         id="error.button.reload"
         defaultMessage="Reload the page"
       />
-    </button>
+    </Button>
   )
   const tryAgainButton = (
-    <button onClick={goNewStreet} className="button-primary">
+    <Button primary={true} onClick={goNewStreet}>
       <FormattedMessage
         id="error.button.try-again"
         defaultMessage="Try again"
       />
-    </button>
+    </Button>
   )
   const signInButton = (
-    <button onClick={doSignIn} className="button-primary">
+    <Button primary={true} onClick={doSignIn}>
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
-    </button>
+    </Button>
   )
   const pleaseLetUsKnow = (
     <FormattedMessage
@@ -505,12 +506,12 @@ function BlockingError (props) {
         </p>
       )
       cta = (
-        <button onClick={goExampleStreet} className="button-primary">
+        <Button primary={true} onClick={goExampleStreet}>
           <FormattedMessage
             id="error.button.view-example"
             defaultMessage="View an example street"
           />
-        </button>
+        </Button>
       )
       break
     default:

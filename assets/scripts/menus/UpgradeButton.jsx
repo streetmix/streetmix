@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import Button from '../ui/Button'
 import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
 import './UpgradeButton.scss'
 
@@ -10,7 +11,7 @@ UpgradeButton.propTypes = {
 
 function UpgradeButton ({ onClick = () => {} }) {
   return (
-    <button className="menu-upgrade button-tertiary" onClick={onClick}>
+    <Button tertiary={true} className="menu-upgrade" onClick={onClick}>
       <img
         className="menu-avatar-badge menu-avatar-subscriber"
         src={streetmixPlusIcon}
@@ -20,7 +21,7 @@ function UpgradeButton ({ onClick = () => {} }) {
         id="menu.item.streetmix-plus"
         defaultMessage="Get Streetmix+&lrm;"
       />
-    </button>
+    </Button>
   )
 }
 

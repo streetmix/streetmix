@@ -22,9 +22,10 @@ exports[`InfoBubble is visible 1`] = `
         </span>
       </div>
       <button
-        class="info-bubble-remove"
+        class="btn info-bubble-remove"
         tabindex="-1"
         title="Remove segment"
+        type="button"
       >
         <svg
           class="octicon remove-icon"
@@ -39,9 +40,10 @@ exports[`InfoBubble is visible 1`] = `
         class="variants"
       >
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Inbound"
+          type="button"
         >
           <svg
             class="icon"
@@ -54,7 +56,9 @@ exports[`InfoBubble is visible 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Outbound"
+          type="button"
         >
           <svg
             class="icon"
@@ -68,9 +72,10 @@ exports[`InfoBubble is visible 1`] = `
         </button>
         <hr />
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Asphalt"
+          type="button"
         >
           <svg
             class="icon"
@@ -84,7 +89,9 @@ exports[`InfoBubble is visible 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Red lane"
+          type="button"
         >
           <svg
             class="icon"
@@ -98,7 +105,9 @@ exports[`InfoBubble is visible 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Grass"
+          type="button"
         >
           <svg
             class="icon"
@@ -118,9 +127,10 @@ exports[`InfoBubble is visible 1`] = `
           class="up-down-input"
         >
           <button
-            class="up-down-input-decrement"
+            class="btn up-down-input-decrement"
             tabindex="-1"
             title="Decrease width (hold Shift for more precision)"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-minus"
@@ -133,9 +143,10 @@ exports[`InfoBubble is visible 1`] = `
             value="60 m"
           />
           <button
-            class="up-down-input-increment"
+            class="btn up-down-input-increment"
             tabindex="-1"
             title="Increase width (hold Shift for more precision)"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-plus"
@@ -170,9 +181,10 @@ exports[`InfoBubble renders 1`] = `
         </span>
       </div>
       <button
-        class="info-bubble-remove"
+        class="btn info-bubble-remove"
         tabindex="-1"
         title="Remove segment"
+        type="button"
       >
         <svg
           class="octicon remove-icon"
@@ -187,9 +199,10 @@ exports[`InfoBubble renders 1`] = `
         class="variants"
       >
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Inbound"
+          type="button"
         >
           <svg
             class="icon"
@@ -202,7 +215,9 @@ exports[`InfoBubble renders 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Outbound"
+          type="button"
         >
           <svg
             class="icon"
@@ -216,9 +231,10 @@ exports[`InfoBubble renders 1`] = `
         </button>
         <hr />
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Asphalt"
+          type="button"
         >
           <svg
             class="icon"
@@ -232,7 +248,9 @@ exports[`InfoBubble renders 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Red lane"
+          type="button"
         >
           <svg
             class="icon"
@@ -246,7 +264,9 @@ exports[`InfoBubble renders 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Grass"
+          type="button"
         >
           <svg
             class="icon"
@@ -266,9 +286,10 @@ exports[`InfoBubble renders 1`] = `
           class="up-down-input"
         >
           <button
-            class="up-down-input-decrement"
+            class="btn up-down-input-decrement"
             tabindex="-1"
             title="Decrease width (hold Shift for more precision)"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-minus"
@@ -281,9 +302,10 @@ exports[`InfoBubble renders 1`] = `
             value="60 m"
           />
           <button
-            class="up-down-input-increment"
+            class="btn up-down-input-increment"
             tabindex="-1"
             title="Increase width (hold Shift for more precision)"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-plus"
@@ -318,7 +340,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
         class="variants"
       >
         <button
+          class="btn"
           title="Waterfront"
+          type="button"
         >
           <svg
             class="icon"
@@ -331,9 +355,10 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Grass"
+          type="button"
         >
           <svg
             class="icon"
@@ -346,7 +371,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Empty lot"
+          type="button"
         >
           <svg
             class="icon"
@@ -359,7 +386,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Parking lot"
+          type="button"
         >
           <svg
             class="icon"
@@ -372,7 +401,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Home"
+          type="button"
         >
           <svg
             class="icon"
@@ -385,7 +416,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Narrow building"
+          type="button"
         >
           <svg
             class="icon"
@@ -398,7 +431,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Wide building"
+          type="button"
         >
           <svg
             class="icon"
@@ -411,7 +446,9 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Arcade building"
+          type="button"
         >
           <svg
             class="icon"
@@ -431,10 +468,11 @@ exports[`InfoBubble shows building left info bubble 1`] = `
           class="up-down-input"
         >
           <button
-            class="up-down-input-decrement"
+            class="btn up-down-input-decrement"
             disabled=""
             tabindex="-1"
             title="Remove floor"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-minus"
@@ -448,10 +486,11 @@ exports[`InfoBubble shows building left info bubble 1`] = `
             value=""
           />
           <button
-            class="up-down-input-increment"
+            class="btn up-down-input-increment"
             disabled=""
             tabindex="-1"
             title="Add floor"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-plus"
@@ -486,7 +525,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
         class="variants"
       >
         <button
+          class="btn"
           title="Waterfront"
+          type="button"
         >
           <svg
             class="icon"
@@ -499,9 +540,10 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Grass"
+          type="button"
         >
           <svg
             class="icon"
@@ -514,7 +556,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Empty lot"
+          type="button"
         >
           <svg
             class="icon"
@@ -527,7 +571,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Parking lot"
+          type="button"
         >
           <svg
             class="icon"
@@ -540,7 +586,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Home"
+          type="button"
         >
           <svg
             class="icon"
@@ -553,7 +601,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Narrow building"
+          type="button"
         >
           <svg
             class="icon"
@@ -566,7 +616,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Wide building"
+          type="button"
         >
           <svg
             class="icon"
@@ -579,7 +631,9 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Arcade building"
+          type="button"
         >
           <svg
             class="icon"
@@ -599,10 +653,11 @@ exports[`InfoBubble shows building right info bubble 1`] = `
           class="up-down-input"
         >
           <button
-            class="up-down-input-decrement"
+            class="btn up-down-input-decrement"
             disabled=""
             tabindex="-1"
             title="Remove floor"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-minus"
@@ -616,10 +671,11 @@ exports[`InfoBubble shows building right info bubble 1`] = `
             value=""
           />
           <button
-            class="up-down-input-increment"
+            class="btn up-down-input-increment"
             disabled=""
             tabindex="-1"
             title="Add floor"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-plus"
@@ -654,9 +710,10 @@ exports[`InfoBubble shows description 1`] = `
         </span>
       </div>
       <button
-        class="info-bubble-remove"
+        class="btn info-bubble-remove"
         tabindex="-1"
         title="Remove segment"
+        type="button"
       >
         <svg
           class="octicon remove-icon"
@@ -671,9 +728,10 @@ exports[`InfoBubble shows description 1`] = `
         class="variants"
       >
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Inbound"
+          type="button"
         >
           <svg
             class="icon"
@@ -686,7 +744,9 @@ exports[`InfoBubble shows description 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Outbound"
+          type="button"
         >
           <svg
             class="icon"
@@ -700,9 +760,10 @@ exports[`InfoBubble shows description 1`] = `
         </button>
         <hr />
         <button
-          class="variant-selected"
+          class="btn variant-selected"
           disabled=""
           title="Asphalt"
+          type="button"
         >
           <svg
             class="icon"
@@ -716,7 +777,9 @@ exports[`InfoBubble shows description 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Red lane"
+          type="button"
         >
           <svg
             class="icon"
@@ -730,7 +793,9 @@ exports[`InfoBubble shows description 1`] = `
           </svg>
         </button>
         <button
+          class="btn"
           title="Grass"
+          type="button"
         >
           <svg
             class="icon"
@@ -750,9 +815,10 @@ exports[`InfoBubble shows description 1`] = `
           class="up-down-input"
         >
           <button
-            class="up-down-input-decrement"
+            class="btn up-down-input-decrement"
             tabindex="-1"
             title="Decrease width (hold Shift for more precision)"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-minus"
@@ -765,9 +831,10 @@ exports[`InfoBubble shows description 1`] = `
             value="60 m"
           />
           <button
-            class="up-down-input-increment"
+            class="btn up-down-input-increment"
             tabindex="-1"
             title="Increase width (hold Shift for more precision)"
+            type="button"
           >
             <svg
               class="svg-inline--fa fa-plus"

@@ -9,7 +9,9 @@ exports[`PaletteContainer renders 1`] = `
       class="palette-commands palette-commands-left"
     >
       <button
+        class="btn"
         title="Environment editor"
+        type="button"
       >
         <svg
           class="octicon"
@@ -20,10 +22,11 @@ exports[`PaletteContainer renders 1`] = `
       class="palette-items-scrollable-container"
     >
       <button
-        class="scrollable scroll-left"
+        class="btn scrollable scroll-left"
         hidden="true"
         style="left: -15px; opacity: 0; pointer-events: none;"
         tabindex="-1"
+        type="button"
       >
         <svg
           class="svg-inline--fa fa-chevron-left"
@@ -61,10 +64,11 @@ exports[`PaletteContainer renders 1`] = `
         </ul>
       </div>
       <button
-        class="scrollable scroll-right"
+        class="btn scrollable scroll-right"
         hidden="true"
         style="right: -15px; opacity: 0; pointer-events: none;"
         tabindex="-1"
+        type="button"
       >
         <svg
           class="svg-inline--fa fa-chevron-right"
@@ -75,16 +79,20 @@ exports[`PaletteContainer renders 1`] = `
       class="palette-commands palette-commands-right"
     >
       <button
+        class="btn"
         disabled=""
         title="Undo"
+        type="button"
       >
         <svg
           class="svg-inline--fa fa-arrow-rotate-left"
         />
       </button>
       <button
+        class="btn"
         disabled=""
         title="Redo"
+        type="button"
       >
         <svg
           class="svg-inline--fa fa-arrow-rotate-right"

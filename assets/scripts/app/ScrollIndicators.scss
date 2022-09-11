@@ -12,6 +12,8 @@
     height: 80px;
     margin-top: -80px;
     padding: 0 0.2em;
+    border: 0;
+    background-color: transparent;
     opacity: 0.25;
     font-size: 80px;
     font-weight: normal;
@@ -20,9 +22,6 @@
     cursor: pointer;
     user-select: none;
     z-index: $z-07-street-scroll;
-
-    // Override default button styles
-    background-color: transparent !important;
 
     &:hover {
       opacity: 0.45;

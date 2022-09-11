@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Button from '../ui/Button'
 import { ICON_MINUS, ICON_PLUS } from '../ui/icons'
 import './UpDownInput.scss'
 
@@ -281,7 +282,7 @@ function UpDownInput (props) {
 
   return (
     <div className="up-down-input">
-      <button
+      <Button
         className="up-down-input-decrement"
         title={downTooltip}
         tabIndex={-1}
@@ -289,7 +290,7 @@ function UpDownInput (props) {
         disabled={disabled || (minValue ? value <= minValue : false)}
       >
         <FontAwesomeIcon icon={ICON_MINUS} />
-      </button>
+      </Button>
       <input
         type="text"
         className="up-down-input-element"
@@ -306,7 +307,7 @@ function UpDownInput (props) {
         onKeyDown={handleInputKeyDown}
         ref={inputEl}
       />
-      <button
+      <Button
         className="up-down-input-increment"
         title={upTooltip}
         tabIndex={-1}
@@ -314,7 +315,7 @@ function UpDownInput (props) {
         disabled={disabled || (maxValue ? value >= maxValue : false)}
       >
         <FontAwesomeIcon icon={ICON_PLUS} />
-      </button>
+      </Button>
     </div>
   )
 }

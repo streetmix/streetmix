@@ -8,6 +8,7 @@ import {
 } from '@radix-ui/react-icons'
 import { IoPrintOutline } from 'react-icons/io5'
 import copy from 'copy-to-clipboard'
+import Button from '../ui/Button'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
 import { FACEBOOK_APP_ID } from '../app/config'
@@ -195,7 +196,7 @@ function ShareMenu (props) {
                 ref={shareViaLinkInputRef}
                 readOnly={true}
               />
-              <button
+              <Button
                 title={intl.formatMessage({
                   id: 'menu.share.copy-to-clipboard',
                   defaultMessage: 'Copy to clipboard'
@@ -206,7 +207,7 @@ function ShareMenu (props) {
                 }}
               >
                 <Icon icon="copy" />
-              </button>
+              </Button>
             </div>
           </div>
           <ExternalLink className="share-via-twitter" href={twitterLink}>

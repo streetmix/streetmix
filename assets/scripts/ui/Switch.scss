@@ -11,21 +11,18 @@
   margin-top: -2px;
   width: 39px;
   height: 21px;
+  border: 0;
   background-color: white;
   box-shadow: 0 0 0 1px $colour-turquoise-500;
   transition: background-color 120ms;
   border-radius: 9999px;
+  cursor: pointer;
 
   --webkit-tap-highlight-color: rgba(0 0 0 / 0%);
 
   &:focus,
   &:active:not(:disabled) {
     box-shadow: 0 0 0 2px $colour-turquoise-500;
-  }
-
-  // Override stock button hover
-  &:hover {
-    background-color: white;
   }
 
   &:disabled {

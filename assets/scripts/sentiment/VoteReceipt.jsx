@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+import Button from '../ui/Button'
 import VoteComment from './VoteComment'
 import SentimentIcon from './SentimentIcon'
 import { getDataForScore } from './scores'
@@ -85,18 +86,18 @@ function VoteReceipt ({ score, handleClose, streetId }) {
           </div>
         </div>
         <div className="sentiment-survey-done-buttons">
-          <a href="/survey" className="button-like button-primary">
+          <Button primary={true} href="/survey">
             <FormattedMessage
               id="sentiment.done.vote-another"
               defaultMessage="Vote on another!"
             />
-          </a>
-          <button className="button-tertiary" onClick={handleClose}>
+          </Button>
+          <Button tertiary={true} onClick={handleClose}>
             <FormattedMessage
               id="sentiment.done.really-done"
               defaultMessage="All done!"
             />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

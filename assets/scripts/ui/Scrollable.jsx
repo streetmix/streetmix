@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { animate } from '../util/helpers'
 import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import Button from './Button'
 import './Scrollable.scss'
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
@@ -126,13 +127,13 @@ const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
   return (
     <div className={containerClassName} ref={ref}>
       {/* Buttons frame the content to preserve tab order */}
-      <button
+      <Button
         className="scrollable scroll-left"
         onClick={handleClickLeft}
         ref={leftButtonEl}
       >
         <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
-      </button>
+      </Button>
       <div
         className={className}
         onScroll={handleScrollContainer}
@@ -145,13 +146,13 @@ const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
       >
         {children}
       </div>
-      <button
+      <Button
         className="scrollable scroll-right"
         onClick={handleClickRight}
         ref={rightButtonEl}
       >
         <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
-      </button>
+      </Button>
     </div>
   )
 })

@@ -22,7 +22,8 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -64,13 +65,15 @@ exports[`BlockingError renders AUTH_EXPIRED 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Sign in
       </button>
        
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -109,7 +112,8 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -159,7 +163,8 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -209,7 +214,8 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -259,7 +265,8 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -301,7 +308,8 @@ exports[`BlockingError renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         View an example street
       </button>
@@ -332,7 +340,8 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_IN 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Reload the page
       </button>
@@ -363,7 +372,8 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Reload the page
       </button>
@@ -428,7 +438,8 @@ exports[`BlockingError renders GENERIC_ERROR 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -459,7 +470,8 @@ exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Try again
       </button>
@@ -521,7 +533,8 @@ exports[`BlockingError renders NOT_FOUND 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -554,7 +567,8 @@ exports[`BlockingError renders SIGN_IN_401 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Try again
       </button>
@@ -598,7 +612,8 @@ exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Try again
       </button>
@@ -637,7 +652,8 @@ exports[`BlockingError renders SIGN_OUT 1`] = `
         </h1>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -668,7 +684,8 @@ exports[`BlockingError renders STREET_404 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -711,7 +728,8 @@ exports[`BlockingError renders STREET_404_BUT_LINK_TO_USER 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -754,7 +772,8 @@ exports[`BlockingError renders STREET_410_BUT_LINK_TO_USER 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
@@ -787,7 +806,8 @@ exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Try again
       </button>
@@ -829,7 +849,8 @@ exports[`BlockingError renders STREET_DELETED_ELSEWHERE 1`] = `
         </p>
       </div>
       <button
-        class="button-primary"
+        class="btn btn-primary"
+        type="button"
       >
         Return to Streetmix
       </button>
