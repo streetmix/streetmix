@@ -65,8 +65,7 @@ a,
 }
 
 a,
-.link-like,
-button {
+.link-like {
   @include tap-highlight-color("transparent !important");
 
   cursor: pointer;

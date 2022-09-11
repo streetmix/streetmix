@@ -12,6 +12,43 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Button.scss'
 
+const Button = React.forwardRef(
+  (
+    {
+      children,
+      className = '',
+      type = 'button',
+      primary,
+      secondary,
+      tertiary,
+      ...props
+    },
+    ref
+  ) => {
+    const classNames = ['btn']
+    if (primary) {
+      classNames.push('btn-primary')
+    }
+    if (secondary) {
+      classNames.push('btn-secondary')
+    }
+    if (tertiary) {
+      classNames.push('btn-tertiary')
+    }
+    if (className) {
+      classNames.push(className)
+    }
+
+    return (
+      <button ref={ref} type={type} className={classNames.join(' ')} {...props}>
+        {children}
+      </button>
+    )
+  }
+)
+
+Button.displayName = 'Button'
+
 Button.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
@@ -23,36 +60,6 @@ Button.propTypes = {
   primary: PropTypes.bool,
   secondary: PropTypes.bool,
   tertiary: PropTypes.bool
-}
-
-function Button ({
-  children,
-  className = '',
-  type = 'button',
-  primary,
-  secondary,
-  tertiary,
-  ...props
-}) {
-  const classNames = ['btn']
-  if (primary) {
-    classNames.push('btn-primary')
-  }
-  if (secondary) {
-    classNames.push('btn-secondary')
-  }
-  if (tertiary) {
-    classNames.push('btn-tertiary')
-  }
-  if (className) {
-    classNames.push(className)
-  }
-
-  return (
-    <button type={type} className={classNames.join(' ')} {...props}>
-      {children}
-    </button>
-  )
 }
 
 export default Button

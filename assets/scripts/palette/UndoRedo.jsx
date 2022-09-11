@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Button from '../ui/Button'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import { ICON_UNDO, ICON_REDO } from '../ui/icons'
 import { isOwnedByCurrentUser } from '../streets/owner'
@@ -35,26 +36,26 @@ function UndoRedo (props) {
         label={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
       >
         {/* Keep title on button to be queryable by test */}
-        <button
+        <Button
           onClick={() => dispatch(handleUndo())}
           disabled={!isUndoAvailable()}
           title={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
         >
           <FontAwesomeIcon icon={ICON_UNDO} />
-        </button>
+        </Button>
       </Tooltip>
       <Tooltip
         target={target}
         label={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
       >
         {/* Keep title on button to be queryable by test */}
-        <button
+        <Button
           onClick={() => dispatch(handleRedo())}
           disabled={!isRedoAvailable()}
           title={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
         >
           <FontAwesomeIcon icon={ICON_REDO} />
-        </button>
+        </Button>
       </Tooltip>
     </>
   )

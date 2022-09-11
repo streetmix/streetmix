@@ -1,4 +1,19 @@
-// Buttons need to make sure they're above the scrolled items
+@import "../../styles/mixins";
+
 button.scrollable {
+  @include tap-highlight-color(transparent);
+  position: absolute;
+  top: 0;
+  width: 25px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+
+  // Buttons need to make sure they're above the scrolled items
   z-index: 1;
+
+  &[disabled] {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
