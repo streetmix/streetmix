@@ -107,7 +107,7 @@ class MenusContainer extends React.PureComponent {
    */
   onBodyMouseDown = (event) => {
     if (!event.target.closest('.menu, .menu-attached')) {
-      this.props.clearMenus()
+      this.hideAllMenus()
     }
   }
 
