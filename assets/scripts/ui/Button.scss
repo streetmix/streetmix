@@ -2,7 +2,8 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
-.btn {
+.btn,
+a.btn {
   @include tap-highlight-color("transparent !important");
 
   display: inline-block;

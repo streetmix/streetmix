@@ -261,7 +261,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
           class="gallery-user-buttons"
         >
           <a
-            class="btn gallery-new-street btn-like"
+            class="btn gallery-new-street"
             href="/new"
             rel="noopener noreferrer"
             target="_blank"
@@ -269,7 +269,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
             Create new street
           </a>
           <a
-            class="btn gallery-copy-last-street btn-like"
+            class="btn gallery-copy-last-street"
             href="/copy-last"
             rel="noopener noreferrer"
             target="_blank"

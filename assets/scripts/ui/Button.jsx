@@ -44,8 +44,6 @@ const Button = React.forwardRef(
     // a button. Not sure if this is something we should continue to use
     // but it's been around forever
     if (href) {
-      classNames.push('btn-like')
-
       return (
         <a ref={ref} href={href} className={classNames.join(' ')} {...props}>
           {children}

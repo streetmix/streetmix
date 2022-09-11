@@ -95,12 +95,8 @@ $header-text-colour: $colour-turquoise-700;
   }
 
   // Button placement
-  button.btn-primary,
-  button.btn-secondary,
-  button.btn-tertiary,
-  a.btn-like.btn-primary,
-  a.btn-like.btn-secondary,
-  a.btn-like.btn-tertiary {
+  button.btn,
+  a.btn {
     margin: 0 auto;
     margin-top: 1em;
   }
