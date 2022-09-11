@@ -15,6 +15,7 @@ import {
   setBuildingVariant,
   changeSegmentVariant
 } from '../store/slices/street'
+import Button from '../ui/Button'
 import { ICON_LOCK } from '../ui/icons'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
@@ -184,7 +185,7 @@ function Variants (props) {
     const isSelected = isVariantCurrentlySelected(set, selection)
 
     return (
-      <button
+      <Button
         key={set + '.' + selection}
         title={title}
         className={isSelected ? 'variant-selected' : null}
@@ -201,7 +202,7 @@ function Variants (props) {
           <use xlinkHref={`#icon-${icon.id}`} />
         </svg>
         {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
-      </button>
+      </Button>
     )
   }
 
