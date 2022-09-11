@@ -60,11 +60,12 @@ exports[`NewsletterDialog renders snapshot 1`] = `
             <div
               class="subscribe-buttons"
             >
-              <input
-                class="button-primary"
+              <button
+                class="btn btn-primary"
                 type="submit"
-                value="Subscribe"
-              />
+              >
+                Subscribe
+              </button>
             </div>
           </form>
         </div>

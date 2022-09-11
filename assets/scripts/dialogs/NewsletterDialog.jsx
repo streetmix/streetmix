@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { useForm } from 'react-hook-form'
+import Button from '../ui/Button'
 import Dialog from './Dialog'
 import './NewsletterDialog.scss'
 
@@ -26,7 +27,6 @@ function jsObjectToFormBody (data) {
 }
 
 const NewsletterDialog = (props) => {
-  const { formatMessage } = useIntl()
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true
   })
@@ -111,24 +111,22 @@ const NewsletterDialog = (props) => {
                 />
                 {submitState === 'DEFAULT' && (
                   <div className="subscribe-buttons">
-                    <input
-                      type="submit"
-                      value={formatMessage({
-                        id: 'dialogs.newsletter.subscribe',
-                        defaultMessage: 'Subscribe'
-                      })}
-                      className="button-primary"
-                    />
+                    <Button primary={true} type="submit">
+                      <FormattedMessage
+                        id="dialogs.newsletter.subscribe"
+                        defaultMessage="Subscribe"
+                      />
+                    </Button>
                   </div>
                 )}
                 {submitState === 'PENDING' && (
                   <div className="subscribe-buttons">
-                    <button disabled={true}>
+                    <Button disabled={true}>
                       <FormattedMessage
                         id="dialogs.newsletter.subscribe-pending"
                         defaultMessage="Please wait..."
                       />
-                    </button>
+                    </Button>
                   </div>
                 )}
                 {submitState === 'OK' && (
@@ -144,12 +142,12 @@ const NewsletterDialog = (props) => {
                       />
                     </p>
                     <div className="subscribe-buttons">
-                      <button onClick={closeDialog}>
+                      <Button onClick={closeDialog}>
                         <FormattedMessage
                           id="btn.close"
                           defaultMessage="Close"
                         />
-                      </button>
+                      </Button>
                     </div>
                   </>
                 )}
@@ -163,11 +161,12 @@ const NewsletterDialog = (props) => {
                     </p>
                     <div className="subscribe-buttons">
                       {/* Display button for retry, rather than cancel or close */}
-                      <input
-                        type="submit"
-                        value="Subscribe"
-                        className="button-primary"
-                      />
+                      <Button primary={true} type="submit">
+                        <FormattedMessage
+                          id="dialogs.newsletter.subscribe"
+                          defaultMessage="Subscribe"
+                        />
+                      </Button>
                     </div>
                   </>
                 )}

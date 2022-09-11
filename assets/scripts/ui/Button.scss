@@ -1,31 +1,8 @@
 @use "sass:color";
+@import "../../styles/variables";
 
-button.scroll,
-.scrollable {
-  @include tap-highlight-color(transparent);
-
-  position: absolute;
-  top: 0;
-  width: 25px;
-  height: 40px;
-  padding: 0;
-  cursor: pointer;
-
-  &[disabled] {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-
-/* Note: deprecating this.
-Instead of attaching styles to global button, use <Button> component instead.
-<button> should remain generic so that it can be used in cases where semantically
-or for acessibility we want <button> mechanics without the UI styling.
-Also: for inputs, <button type="button"> should be used. */
-input[type="submit"],
-button,
-a.button-like {
-  display: inline-block !important;
+.btn {
+  display: inline-block;
   outline: none;
   border: 0;
   border-radius: $border-radius-medium;
@@ -70,7 +47,7 @@ a.button-like {
     }
   }
 
-  &.button-primary {
+  &.btn-primary {
     background-color: $colour-emerald-400;
     color: white;
 
@@ -83,7 +60,7 @@ a.button-like {
     }
   }
 
-  &.button-secondary {
+  &.btn-secondary {
     background-color: $colour-turquoise-500;
     color: white;
 
@@ -96,7 +73,7 @@ a.button-like {
     }
   }
 
-  &.button-tertiary {
+  &.btn-tertiary {
     border: 1px solid $colour-turquoise-400;
     background-color: transparent;
     color: $colour-turquoise-600;
