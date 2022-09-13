@@ -35,7 +35,9 @@ You can sign up for Streetmix+ membership through multiple platforms:
 
 [OpenCollective](https://opencollective.com/streetmix) is a platform where individuals and organizations can support open source projects such as Streetmix. Both monthly and yearly memberships are available. **We prefer OpenCollective because funds received through this platform can be used by Streetmix immediately, compared to other support platforms.**
 
-Streetmix+ membership does not activate immediately (_this is something we're working on!_), but someone on our team will reach out to you to activate Streetmix+ on your Streetmix account within one week. If you do not hear from us, or if you are a past or current OpenCollective contributor, please contact us at hello@streetmix.net.
+Streetmix+ membership does not activate immediately (_this is something we're working on!_), but someone on our team will reach out to you to activate Streetmix+ on your Streetmix account within one week. For fastest results, please e-mail hello@streetmix.net with a copy of your payment receipt and your username on Streetmix. **Please note that if you sign up using a guest account on OpenCollective, we will not be able to reach you, and you _must_ e-mail us first.** To claim a guest account, [you can follow these instructions](https://docs.opencollective.com/help/financial-contributors/payments#claiming-a-guest-account).
+
+If you have previously been an OpenCollective contributor, we can credit your account for an equivalent amount of time. Please contact us at hello@streetmix.net with the information above.
 
 <div className="stmx-cta-container">
   <a className="stmx-cta-button" href="https://opencollective.com/streetmix/contribute/streetmix-membership-monthly-1274" target="_blank">Sign up with OpenCollective</a>
