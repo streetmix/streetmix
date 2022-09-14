@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { setFeatureFlag } from '../../store/slices/flags'
 import Switch from '../../ui/Switch'
 import UnitSettings from './UnitSettings'
+import SettingPopover from './SettingPopover'
 
 function GeneralSettings (props) {
   return (
@@ -50,12 +51,20 @@ function SillyClownSetting (props) {
   }
 
   return (
-    <Switch onCheckedChange={handleCheckedChange} checked={flag.value}>
-      <FormattedMessage
-        id="settings.misc.silly-clowns"
-        defaultMessage="Silly clowns"
-      />
-    </Switch>
+    <div className="settings-item">
+      <Switch onCheckedChange={handleCheckedChange} checked={flag.value}>
+        <FormattedMessage
+          id="settings.misc.silly-clowns"
+          defaultMessage="Silly clowns"
+        />
+      </Switch>
+      <SettingPopover>
+        <FormattedMessage
+          id="settings.misc.silly-clowns-description"
+          defaultMessage="Enables Easter eggs."
+        />
+      </SettingPopover>
+    </div>
   )
 }
 

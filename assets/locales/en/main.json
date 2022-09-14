@@ -71,6 +71,7 @@
   },
   "settings": {
     "heading": "Settings",
+    "info-tooltip": "Description",
     "general": {
       "label": "General"
     },
@@ -79,7 +80,8 @@
     },
     "misc": {
       "label": "Miscellaneous",
-      "silly-clowns": "Silly clowns"
+      "silly-clowns": "Silly clowns",
+      "silly-clowns-description": "Enables Easter eggs."
     },
     "units": {
       "label": "Units",

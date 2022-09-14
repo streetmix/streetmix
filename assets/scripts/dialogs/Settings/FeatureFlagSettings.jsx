@@ -17,22 +17,23 @@ function FeatureFlagSettings (props) {
       const labelClassName = isNotDefault ? 'feature-flag-label-modified' : ''
 
       return (
-        <Switch
-          key={key}
-          id={htmlLabel}
-          onCheckedChange={(checked) => {
-            dispatch(
-              setFeatureFlag({
-                flag: key,
-                value: checked
-              })
-            )
-          }}
-          checked={flags[key].value}
-          disabled={flag.enabled === false}
-        >
-          <span className={labelClassName}>{flag.label}</span>
-        </Switch>
+        <div className="settings-item" key={key}>
+          <Switch
+            id={htmlLabel}
+            onCheckedChange={(checked) => {
+              dispatch(
+                setFeatureFlag({
+                  flag: key,
+                  value: checked
+                })
+              )
+            }}
+            checked={flags[key].value}
+            disabled={flag.enabled === false}
+          >
+            <span className={labelClassName}>{flag.label}</span>
+          </Switch>
+        </div>
       )
     })
   }
