@@ -35,7 +35,9 @@ You can sign up for Streetmix+ membership through multiple platforms:
 
 [OpenCollective](https://opencollective.com/streetmix) is a platform where individuals and organizations can support open source projects such as Streetmix. Both monthly and yearly memberships are available. **We prefer OpenCollective because funds received through this platform can be used by Streetmix immediately, compared to other support platforms.**
 
-Streetmix+ membership does not activate immediately (_this is something we're working on!_), but someone on our team will reach out to you to activate Streetmix+ on your Streetmix account within one week. For fastest results, please e-mail hello@streetmix.net with a copy of your payment receipt and your username on Streetmix. **Please note that if you sign up using a guest account on OpenCollective, we will not be able to reach you, and you _must_ e-mail us first.** To claim a guest account, [you can follow these instructions](https://docs.opencollective.com/help/financial-contributors/payments#claiming-a-guest-account).
+Streetmix+ membership does not activate immediately (_this is something we're working on!_). If the e-mail address you have at OpenCollective matches the one you use to log into Streetmix, we will be able to activate Streetmix+ within one week.
+
+If you do not use e-mail login, or you used a different e-mail address on OpenCollective, we will reach out to you to ask for Streetmix account information. For fastest results, you can contact us proactively at hello@streetmix.net with a copy of your payment receipt and your username on Streetmix. **Please note that if you sign up using a guest account on OpenCollective, we will not be able to reach you, and you _must_ e-mail us first.** To claim a guest account, [you can follow these instructions](https://docs.opencollective.com/help/financial-contributors/payments#claiming-a-guest-account).
 
 If you have previously been an OpenCollective contributor, we can credit your account for an equivalent amount of time. Please contact us at hello@streetmix.net with the information above.
 
