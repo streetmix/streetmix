@@ -32,7 +32,8 @@
       "VARIANT_BUILDING_COMPOUND_WALL": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
-      "VARIANT_MIXED_DRIVE_LANES_2": true
+      "VARIANT_MIXED_DRIVE_LANES_2": true,
+      "VARIANT_MIXED_DRIVE_LANES_3": true
     }
   },
   "ITDP": {
