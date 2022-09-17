@@ -68,7 +68,7 @@
     "zIndex": 23,
     "defaultWidth": 5,
     "variants": ["orientation", "bike-rack-elevation"],
-    "paletteIcon": "left|sidewalk",
+    "defaultVariant": "left|sidewalk",
     "details": {
       "left|sidewalk-parallel": {
         "elevation": 1,
@@ -187,7 +187,7 @@
     "zIndex": 19,
     "defaultWidth": 4,
     "variants": ["lamp-orientation", "lamp-type"],
-    "paletteIcon": "both|traditional",
+    "defaultVariant": "both|traditional",
     "details": {
       "right|modern": {
         "elevation": 1,
@@ -322,7 +322,7 @@
     "zIndex": 20,
     "defaultWidth": 2,
     "variants": ["divider-type"],
-    "paletteIcon": "planting-strip",
+    "defaultVariant": "planting-strip",
     "details": {
       "planting-strip": {
         "elevation": 1,
@@ -506,7 +506,7 @@
     "defaultWidth": 5,
     "enableWithFlag": "SEGMENT_SCOOTERS",
     "variants": ["orientation", "scooter-elevation", "scooter-riders"],
-    "paletteIcon": "right|sidewalk|empty",
+    "defaultVariant": "right|sidewalk|empty",
     "details": {
       "left|sidewalk|empty": {
         "elevation": 1,
@@ -1718,7 +1718,7 @@
     "zIndex": 20,
     "defaultWidth": 9,
     "variants": ["orientation", "transit-shelter-elevation"],
-    "paletteIcon": "right|light-rail",
+    "defaultVariant": "right|light-rail",
     "details": {
       "left|street-level": {
         "elevation": 1,

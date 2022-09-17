@@ -489,10 +489,11 @@ export const paletteSegmentSource = {
     return {
       id: generateRandSeed(),
       // The preview drag should match artwork in the thumbnail. The variant
-      // string is specified by `paletteIcon`. If the property isn't present,
+      // string is specified by `defaultVariant`. If the property isn't present,
       // use the first defined variant in segment details.
       variantString:
-        props.segment.paletteIcon || Object.keys(props.segment.details).shift(),
+        props.segment.defaultVariant ||
+        Object.keys(props.segment.details).shift(),
       type: props.segment.id,
       actualWidth: props.segment.defaultWidth
     }
