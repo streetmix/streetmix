@@ -69,6 +69,10 @@
     "label": "Segment — construction items",
     "defaultValue": false
   },
+  "SEGMENT_DRAINAGE_CHANNEL": {
+    "label": "Segment — drainage channel",
+    "defaultValue": false
+  },
   "SEGMENT_DOUBLE_DECKER_BUS": {
     "label": "Segment — double decker bus",
     "defaultValue": false
@@ -85,8 +89,16 @@
     "label": "Segment — scooters",
     "defaultValue": true
   },
+  "SEGMENT_STREET_VENDOR": {
+    "label": "Segment — street vendor",
+    "defaultValue": false
+  },
   "SEGMENT_UTILITIES": {
     "label": "Segment — utility pole",
+    "defaultValue": false
+  },
+  "VARIANT_BUILDING_COMPOUND_WALL": {
+    "label": "Variant — compound wall",
     "defaultValue": false
   },
   "VARIANT_MIXED_DRIVE_LANES": {

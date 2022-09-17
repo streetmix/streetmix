@@ -10,7 +10,9 @@
     "wayfinding-sign": "Wayfinding sign",
     "sidewalk-lamp": "Lamp",
     "utility-pole": "Utility pole",
+    "drainage-channel": "Drainage channel",
     "parklet": "Parklet",
+    "street-vendor": "Street vendor",
     "divider": "Buffer",
     "planting-strip": "Planting strip",
     "planter-box": "Planter box",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "Arcade building"
+    },
+    "compound-wall": {
+      "name": "Compound wall"
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Traditional",
     "lamp-type|modern": "Modern",
     "lamp-type|pride": "Modern with pride banner",
+    "drainage-sides|slanted": "Slanted sides",
+    "drainage-sides|vertical": "Vertical sides",
     "car-type|car": "Car",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Truck",
@@ -205,7 +212,11 @@
     "elevation|sidewalk": "Sidewalk level",
     "elevation|road": "Street level",
     "temporary-barrier-type|traffic-cone": "Traffic cone",
-    "temporary-barrier-type|barricade": "Barricade"
+    "temporary-barrier-type|barricade": "Barricade",
+    "vendor-type|handcart": "Vendor with hand cart",
+    "vendor-type|table": "Vendor at table",
+    "vendor-type|tarp": "Vendor on tarp on ground",
+    "vendor-type|platform": "Vendor at platform"
   },
   "environs": {
     "day": "Day",

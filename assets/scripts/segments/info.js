@@ -21,7 +21,8 @@ export const SegmentTypes = {
   PEDESTRIAN: 'pedestrian',
   TRANSIT: 'transit',
   NATURE: 'nature',
-  FLEX: 'flex'
+  FLEX: 'flex',
+  UTILITY: 'utility'
 }
 
 /**
