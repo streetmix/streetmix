@@ -101,7 +101,7 @@
     "@radix-ui/react-switch": "1.0.0",
     "@reduxjs/toolkit": "1.7.1",
     "@sentry/browser": "7.5.0",
-    "@streetmix/illustrations": "2.0.0-alpha.3",
+    "@streetmix/illustrations": "2.0.0",
     "@tippyjs/react": "4.2.6",
     "auth0": "2.42.0",
     "auth0-js": "9.19.0",
