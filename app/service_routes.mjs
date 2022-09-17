@@ -132,6 +132,12 @@ router.post(
   services.integrations.patreon.webhook
 )
 
+routes.get(
+  '/services/integrations/opencollective',
+  jwtCheck,
+  resources.services.integrations.opencollective.get
+)
+
 // Redirect the user to the OAuth 2.0 provider for authentication.
 router.get('/integrations/coil', jwtCheck, services.integrations.coil.get)
 
