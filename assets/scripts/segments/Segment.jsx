@@ -203,6 +203,7 @@ export class Segment extends React.Component {
               isOldVariant ? this.state.oldVariant : segment.variantString
             }
             randSeed={randSeed}
+            elevation={segment.elevation}
             updatePerspective={this.props.updatePerspective}
           />
         </div>

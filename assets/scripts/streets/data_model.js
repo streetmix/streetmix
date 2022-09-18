@@ -18,6 +18,7 @@ import {
 } from '../store/slices/street'
 import { resetUndoStack } from '../store/slices/undo'
 import store from '../store'
+import { getSegmentVariantInfo } from '../segments/info'
 import { DEFAULT_ENVIRONS } from './constants'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
 import { normalizeStreetWidth } from './width'
@@ -37,7 +38,7 @@ export function setLastStreet () {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
-const LATEST_SCHEMA_VERSION = 25
+const LATEST_SCHEMA_VERSION = 26
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -307,6 +308,16 @@ function incrementSchemaVersion (street) {
         }
       }
       break
+    case 25:
+      for (const i in street.segments) {
+        segment = street.segments[i]
+        const variantInfo = getSegmentVariantInfo(
+          segment.type,
+          segment.variantString
+        )
+        segment.elevation = variantInfo.elevation
+      }
+      break
   }
 
   street.schemaVersion++
@@ -415,6 +426,7 @@ export function trimStreetData (street) {
         type: origSegment.type,
         variantString: origSegment.variantString,
         width: origSegment.width,
+        elevation: origSegment.elevation,
         label: origSegment.label
       }
 
