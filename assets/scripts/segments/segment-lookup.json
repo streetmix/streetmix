@@ -8,6 +8,7 @@
     "rules": {
       "minWidth": 6
     },
+    "enableElevation": true,
     "variants": ["sidewalk-density"],
     "details": {
       "dense": {

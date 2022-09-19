@@ -22,6 +22,7 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
+import ElevationControl from './ElevationControl'
 
 Variants.propTypes = {
   type: PropTypes.number,
@@ -44,9 +45,9 @@ function Variants (props) {
       return state.street.segments[position].variantString
     }
   })
-  const segmentType = useSelector((state) => {
+  const segment = useSelector((state) => {
     if (Number.isInteger(position) && state.street.segments[position]) {
-      return state.street.segments[position].type
+      return state.street.segments[position]
     }
   })
   const flags = useSelector((state) => state.flags)
@@ -56,11 +57,15 @@ function Variants (props) {
   const intl = useIntl()
 
   let variantSets = []
+  let elevationToggle = false
   switch (type) {
     case INFO_BUBBLE_TYPE_SEGMENT: {
-      const segmentInfo = getSegmentInfo(segmentType)
+      const segmentInfo = getSegmentInfo(segment.type)
       if (segmentInfo) {
         variantSets = segmentInfo.variants
+      }
+      if (segmentInfo?.enableElevation) {
+        elevationToggle = true
       }
       break
     }
@@ -80,7 +85,7 @@ function Variants (props) {
 
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const obj = getVariantArray(segmentType, variant)
+        const obj = getVariantArray(segment.type, variant)
         bool = selection === obj[set]
         break
       }
@@ -236,6 +241,14 @@ function Variants (props) {
             variantEls.push(el)
           }
         }
+
+        if (elevationToggle === true) {
+          variantEls.push(<hr key="elevation" />)
+          variantEls.push(
+            <ElevationControl position={position} segment={segment} />
+          )
+        }
+
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
