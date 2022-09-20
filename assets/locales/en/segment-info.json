@@ -216,7 +216,9 @@
     "vendor-type|handcart": "Vendor with hand cart",
     "vendor-type|table": "Vendor at table",
     "vendor-type|tarp": "Vendor on tarp on ground",
-    "vendor-type|platform": "Vendor at platform"
+    "vendor-type|platform": "Vendor at platform",
+    "ground|concrete": "Concrete",
+    "ground|asphalt": "Asphalt"
   },
   "environs": {
     "day": "Day",

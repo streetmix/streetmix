@@ -8,6 +8,7 @@
     "rules": {
       "minWidth": 6
     },
+    "defaultElevation": 1,
     "enableElevation": true,
     "variants": ["sidewalk-density"],
     "details": {
@@ -845,11 +846,13 @@
     "rules": {
       "minWidth": 4
     },
+    "defaultElevation": 1,
+    "enableElevation": true,
     "enableWithFlag": "SEGMENT_STREET_VENDOR",
-    "defaultVariant": "table|sidewalk",
-    "variants": ["vendor-type", "elevation"],
+    "defaultVariant": "table|concrete",
+    "variants": ["vendor-type", "ground"],
     "details": {
-      "handcart|sidewalk": {
+      "handcart|concrete": {
         "rules": {
           "minWidth": 3
         },
@@ -872,7 +875,7 @@
           ]
         }
       },
-      "table|sidewalk": {
+      "table|concrete": {
         "components": {
           "lanes": [
             {
@@ -892,7 +895,7 @@
           ]
         }
       },
-      "tarp|sidewalk": {
+      "tarp|concrete": {
         "components": {
           "lanes": [
             {
@@ -912,7 +915,7 @@
           ]
         }
       },
-      "platform|sidewalk": {
+      "platform|concrete": {
         "components": {
           "lanes": [
             {
@@ -932,7 +935,7 @@
           ]
         }
       },
-      "handcart|road": {
+      "handcart|asphalt": {
         "rules": {
           "minWidth": 3
         },
@@ -955,7 +958,7 @@
           ]
         }
       },
-      "table|road": {
+      "table|asphalt": {
         "components": {
           "lanes": [
             {
@@ -975,7 +978,7 @@
           ]
         }
       },
-      "tarp|road": {
+      "tarp|asphalt": {
         "components": {
           "lanes": [
             {
@@ -995,7 +998,7 @@
           ]
         }
       },
-      "platform|road": {
+      "platform|asphalt": {
         "components": {
           "lanes": [
             {

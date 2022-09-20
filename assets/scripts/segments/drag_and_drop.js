@@ -496,8 +496,13 @@ export const paletteSegmentSource = {
       props.segment.defaultVariant || Object.keys(props.segment.details).shift()
 
     // This allows dropped segment to be created with the correct elevation value
-    const variantInfo = getSegmentVariantInfo(type, variantString)
-    const elevation = variantInfo.elevation
+    let elevation = 0
+    if (props.segment.defaultElevation !== undefined) {
+      elevation = props.segment.defaultElevation
+    } else {
+      const variantInfo = getSegmentVariantInfo(type, variantString)
+      elevation = variantInfo.elevation
+    }
 
     return {
       id: generateRandSeed(),
