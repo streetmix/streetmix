@@ -6,7 +6,7 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from '../../segments/constants'
-import { getSegmentVariantInfo } from '../../segments/info'
+import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 
 const streetSlice = createSlice({
   name: 'street',
@@ -127,11 +127,15 @@ const streetSlice = createSlice({
         // When an element is changed, we also need to set the segment's
         // elevation from the new variant information. Sometimes a
         // variant has different elevations, see "divider" type for example
+        // NOTE: skip this if `enableElevation` is on
+        const segmentInfo = getSegmentInfo(segment.type)
         const variantInfo = getSegmentVariantInfo(
           segment.type,
           segment.variantString
         )
-        segment.elevation = variantInfo.elevation
+        if (segmentInfo.enableElevation !== true) {
+          segment.elevation = variantInfo.elevation
+        }
       },
       prepare (index, set, selection) {
         return {
