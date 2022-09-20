@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import Variants from '../Variants'
-import { getSegmentInfo } from '../../segments/info'
+import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
@@ -48,6 +48,9 @@ describe('Variants', () => {
     beforeEach(() => {
       segment = { variants: ['direction', 'public-transit-asphalt'] } // coming from info.json
       getSegmentInfo.mockImplementation(() => segment)
+      getSegmentVariantInfo.mockImplementation(() => ({
+        elevation: 0
+      }))
     })
 
     it('renders segment buttons', () => {

@@ -5,6 +5,7 @@
     "owner": "PEDESTRIAN",
     "zIndex": 30,
     "defaultWidth": 6,
+    "enableElevation": true,
     "variants": ["sidewalk-density"],
     "details": {
       "dense": {
