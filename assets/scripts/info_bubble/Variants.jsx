@@ -64,7 +64,10 @@ function Variants (props) {
       if (segmentInfo) {
         variantSets = segmentInfo.variants
       }
-      if (segmentInfo?.enableElevation) {
+      if (
+        segmentInfo?.enableElevation &&
+        flags.ELEVATION_CONTROLS.value === true
+      ) {
         elevationToggle = true
       }
       break
