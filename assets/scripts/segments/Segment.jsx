@@ -127,6 +127,16 @@ export class Segment extends React.Component {
       this.handleSwitchSegments(prevProps.segment.variantString)
     }
 
+    // Also animate the switching if elevation changes.
+    // Maybe we don't always do this forever, but it makes it match
+    // existing elevation variant behavior
+    if (
+      prevProps.segment.elevation !== undefined &&
+      prevProps.segment.elevation !== this.props.segment.elevation
+    ) {
+      this.handleSwitchSegments(prevProps.segment.variantString)
+    }
+
     this.props.updateSegmentData(
       this.streetSegment,
       this.props.dataNo,
@@ -203,6 +213,7 @@ export class Segment extends React.Component {
               isOldVariant ? this.state.oldVariant : segment.variantString
             }
             randSeed={randSeed}
+            elevation={segment.elevation}
             updatePerspective={this.props.updatePerspective}
           />
         </div>

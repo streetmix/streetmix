@@ -450,7 +450,8 @@ export const segmentSource = {
       variantString: props.segment.variantString,
       type: props.segment.type,
       label: props.segment.label,
-      actualWidth: props.segment.width
+      actualWidth: props.segment.width,
+      elevation: props.segment.elevation
     }
   },
 
@@ -486,15 +487,29 @@ export const paletteSegmentSource = {
     // one dispatch to reduce batch renders.
     store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
+    const type = props.segment.id
+
+    // The preview drag should match artwork in the thumbnail. The variant
+    // string is specified by `defaultVariant`. If the property isn't present,
+    // use the first defined variant in segment details.
+    const variantString =
+      props.segment.defaultVariant || Object.keys(props.segment.details).shift()
+
+    // This allows dropped segment to be created with the correct elevation value
+    let elevation = 0
+    if (props.segment.defaultElevation !== undefined) {
+      elevation = props.segment.defaultElevation
+    } else {
+      const variantInfo = getSegmentVariantInfo(type, variantString)
+      elevation = variantInfo.elevation
+    }
+
     return {
       id: generateRandSeed(),
-      // The preview drag should match artwork in the thumbnail. The variant
-      // string is specified by `paletteIcon`. If the property isn't present,
-      // use the first defined variant in segment details.
-      variantString:
-        props.segment.paletteIcon || Object.keys(props.segment.details).shift(),
-      type: props.segment.id,
-      actualWidth: props.segment.defaultWidth
+      type,
+      variantString,
+      actualWidth: props.segment.defaultWidth,
+      elevation
     }
   },
 
@@ -665,9 +680,10 @@ function handleSegmentCanvasDrop (draggedItem, type) {
 
   const newSegment = {
     id: draggedItem.id ?? nanoid(),
+    type: draggedItem.type,
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
-    type: draggedItem.type,
+    elevation: draggedItem.elevation,
     label: draggedItem.label
   }
 

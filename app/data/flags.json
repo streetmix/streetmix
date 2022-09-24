@@ -40,6 +40,10 @@
     "label": "Info bubble — [debug] show Tognazzini zone",
     "defaultValue": false
   },
+  "ELEVATION_CONTROLS": {
+    "label": "Info bubble — elevation property controls",
+    "defaultValue": false
+  },
   "LOCALES_LEVEL_1": {
     "label": "Locales — level 1+ (in progress)",
     "defaultValue": false

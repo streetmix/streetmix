@@ -205,6 +205,7 @@ describe('street reducer', () => {
             { type: 'foo' },
             { type: 'bar' },
             {
+              elevation: 0,
               type: 'drive-lane',
               variantString: 'inbound|car',
               variant: {
@@ -221,6 +222,7 @@ describe('street reducer', () => {
         { type: 'foo' },
         { type: 'bar' },
         {
+          elevation: 0,
           type: 'drive-lane',
           variantString: 'outbound|car',
           variant: {

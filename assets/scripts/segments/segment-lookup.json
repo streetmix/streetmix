@@ -8,6 +8,8 @@
     "rules": {
       "minWidth": 6
     },
+    "defaultElevation": 1,
+    "enableElevation": true,
     "variants": ["sidewalk-density"],
     "details": {
       "dense": {
@@ -140,7 +142,7 @@
     "owner": "BIKE",
     "zIndex": 23,
     "defaultWidth": 5,
-    "paletteIcon": "left|sidewalk",
+    "defaultVariant": "left|sidewalk",
     "variants": ["orientation", "bike-rack-elevation"],
     "details": {
       "left|sidewalk-parallel": {
@@ -523,7 +525,7 @@
     "owner": "PEDESTRIAN",
     "zIndex": 19,
     "defaultWidth": 4,
-    "paletteIcon": "both|traditional",
+    "defaultVariant": "both|traditional",
     "variants": ["lamp-orientation", "lamp-type"],
     "details": {
       "right|modern": {
@@ -844,11 +846,13 @@
     "rules": {
       "minWidth": 4
     },
+    "defaultElevation": 1,
+    "enableElevation": true,
     "enableWithFlag": "SEGMENT_STREET_VENDOR",
-    "paletteIcon": "table",
-    "variants": ["vendor-type"],
+    "defaultVariant": "table|concrete",
+    "variants": ["vendor-type", "ground"],
     "details": {
-      "handcart": {
+      "handcart|concrete": {
         "rules": {
           "minWidth": 3
         },
@@ -871,7 +875,7 @@
           ]
         }
       },
-      "table": {
+      "table|concrete": {
         "components": {
           "lanes": [
             {
@@ -891,7 +895,7 @@
           ]
         }
       },
-      "tarp": {
+      "tarp|concrete": {
         "components": {
           "lanes": [
             {
@@ -911,11 +915,94 @@
           ]
         }
       },
-      "platform": {
+      "platform|concrete": {
         "components": {
           "lanes": [
             {
               "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "platform"
+              }
+            }
+          ]
+        }
+      },
+      "handcart|asphalt": {
+        "rules": {
+          "minWidth": 3
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "handcart"
+              }
+            }
+          ]
+        }
+      },
+      "table|asphalt": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "table"
+              }
+            }
+          ]
+        }
+      },
+      "tarp|asphalt": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "tarp"
+              }
+            }
+          ]
+        }
+      },
+      "platform|asphalt": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
               "variants": {
                 "color": "regular"
               }
@@ -939,7 +1026,7 @@
     "owner": "NATURE",
     "zIndex": 20,
     "defaultWidth": 2,
-    "paletteIcon": "flowers",
+    "defaultVariant": "flowers",
     "variants": ["divider-type"],
     "details": {
       "planting-strip": {
@@ -1221,7 +1308,7 @@
     "nameKey": "temporary-barrier",
     "zIndex": 20,
     "defaultWidth": 2,
-    "paletteIcon": "traffic-cone",
+    "defaultVariant": "traffic-cone",
     "enableWithFlag": "SEGMENT_CONSTRUCTION",
     "alwaysShowInPalette": true,
     "variants": ["temporary-barrier-type"],
@@ -1537,7 +1624,7 @@
     "zIndex": 21,
     "defaultWidth": 5,
     "enableWithFlag": "SEGMENT_SCOOTERS",
-    "paletteIcon": "right|sidewalk|empty",
+    "defaultVariant": "right|sidewalk|empty",
     "variants": ["orientation", "scooter-elevation", "scooter-riders"],
     "details": {
       "left|sidewalk|empty": {
@@ -5507,7 +5594,7 @@
     "owner": "TRANSIT",
     "zIndex": 20,
     "defaultWidth": 9,
-    "paletteIcon": "right|street-level",
+    "defaultVariant": "right|street-level",
     "rules": {
       "minWidth": 9
     },
@@ -5617,7 +5704,7 @@
     "defaultWidth": 13.3333,
     "enableWithFlag": "SEGMENT_BRT",
     "alwaysShowInPalette": true,
-    "paletteIcon": "center",
+    "defaultVariant": "center",
     "paletteDefaultWidth": 10,
     "rules": {
       "minWidth": 13.3333
@@ -5852,7 +5939,7 @@
     "defaultWidth": 10,
     "enableWithFlag": "SEGMENT_MAGIC_CARPET",
     "alwaysShowInPalette": true,
-    "paletteIcon": "jasmine-aladdin",
+    "defaultVariant": "jasmine-aladdin",
     "variants": ["magic-carpet-occupants"],
     "details": {
       "aladdin": {

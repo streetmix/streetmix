@@ -285,6 +285,7 @@ export function drawSegmentContents (
   actualWidth,
   offsetLeft,
   groundBaseline,
+  elevation = 0,
   randSeed,
   multiplier,
   dpi
@@ -299,7 +300,7 @@ export function drawSegmentContents (
   const left = dimensions.left
   const minWidthQuirk = graphics.quirks?.minWidth
 
-  const groundLevelOffset = getGroundLevelOffset(variantInfo.elevation)
+  const groundLevelOffset = getGroundLevelOffset(elevation)
   const groundLevel =
     groundBaseline -
     multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)

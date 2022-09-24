@@ -39,6 +39,18 @@
       "enableCondition": "SIGN_IN"
     }
   },
+  "ground": {
+    "concrete": {
+      "id": "concrete",
+      "color": "#ff0000",
+      "title": "Concrete"
+    },
+    "asphalt": {
+      "id": "asphalt",
+      "color": "#292a29",
+      "title": "Asphalt"
+    }
+  },
   "direction": {
     "inbound": {
       "id": "direction-inbound",

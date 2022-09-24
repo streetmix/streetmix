@@ -6,6 +6,7 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from '../../segments/constants'
+import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 
 const streetSlice = createSlice({
   name: 'street',
@@ -110,18 +111,31 @@ const streetSlice = createSlice({
       reducer (state, action) {
         const { index, set, selection } = action.payload
 
+        const segment = state.segments[index]
+
         // Monkey-patch
         // Address a situation where the .variant property may not
         // exist. Ideally, it should always be present and be an
         // object. If it doesn't exist, create an empty object now.
         // TODO: Guarantee that segment always the `variant` property
         // and remove this.
-        state.segments[index].variant = state.segments[index].variant || {}
+        segment.variant = segment.variant || {}
 
-        state.segments[index].variant[set] = selection
-        state.segments[index].variantString = getVariantString(
-          state.segments[index].variant
+        segment.variant[set] = selection
+        segment.variantString = getVariantString(segment.variant)
+
+        // When an element is changed, we also need to set the segment's
+        // elevation from the new variant information. Sometimes a
+        // variant has different elevations, see "divider" type for example
+        // NOTE: skip this if `enableElevation` is on
+        const segmentInfo = getSegmentInfo(segment.type)
+        const variantInfo = getSegmentVariantInfo(
+          segment.type,
+          segment.variantString
         )
+        if (segmentInfo.enableElevation !== true) {
+          segment.elevation = variantInfo.elevation
+        }
       },
       prepare (index, set, selection) {
         return {

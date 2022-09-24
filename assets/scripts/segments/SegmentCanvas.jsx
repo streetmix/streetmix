@@ -18,6 +18,7 @@ class SegmentCanvas extends React.PureComponent {
     variantString: PropTypes.string.isRequired,
     randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     groundBaseline: PropTypes.number,
+    elevation: PropTypes.number,
     dpi: PropTypes.number,
     updatePerspective: PropTypes.func
   }
@@ -67,6 +68,7 @@ class SegmentCanvas extends React.PureComponent {
       this.props.actualWidth,
       0,
       this.props.groundBaseline,
+      this.props.elevation,
       this.props.randSeed,
       1,
       this.props.dpi
