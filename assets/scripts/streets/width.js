@@ -1,7 +1,8 @@
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE
+  SEGMENT_WARNING_WIDTH_TOO_LARGE,
+  SEGMENT_WARNING_DANGEROUS_EXISTING
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
@@ -96,8 +97,8 @@ export function recalculateWidth (street) {
     )
     const warnings = []
 
-    // If any portion of the segment will be outside the street width,
-    // apply a warning that the segment is outside the street.
+    // Apply a warning if any portion of the segment exceeds the boundaries of
+    // the street.
     if (
       remainingWidth < 0 &&
       (position < 0 || position + segment.width > street.width)
@@ -107,20 +108,28 @@ export function recalculateWidth (street) {
       warnings[SEGMENT_WARNING_OUTSIDE] = false
     }
 
-    // If segment width is less than the minimum width set for the segment type,
-    // apply a warning.
+    // Apply a warning if segment width is less than the minimum width
+    // defined for this segment type.
     if (variantInfo.minWidth && segment.width < variantInfo.minWidth) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
     }
 
-    // If segment width is greater than the maximum width set for the segment type,
-    // apply a warning.
+    // Apply a warning if segment width is greater than the maximum width
+    // defined for this segment type.
     if (variantInfo.maxWidth && segment.width > variantInfo.maxWidth) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
+    }
+
+    // Apply a warning if the segment type and variant is the mixed-use
+    // drive lane with bicycle, which is a dangerous existing condition
+    if (variantInfo.dangerous === true) {
+      warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] = true
+    } else {
+      warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] = false
     }
 
     // Increment the position counter.

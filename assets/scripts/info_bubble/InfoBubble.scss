@@ -202,16 +202,42 @@ $info-bubble-border-radius: $border-radius;
 
 .info-bubble-warnings {
   margin-top: 1px;
-  padding: 0.5em 1.5em;
   border-top: 1px solid $ui-colour;
+  padding: 0.5em 1.5em 0.5em 1em;
   white-space: normal;
   color: $warning-colour;
-  text-align: center;
 
-  > p {
-    width: 100%;
-    margin: 0.5em auto; /* Ensure centering of text if not wide enough to fill width of bubble */
+  ul {
     padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+    text-align: center;
+  }
+}
+
+.info-bubble-warning-alert {
+  color: $alert-text-colour;
+
+  img {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: bottom;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.info-bubble-warning-error {
+  img {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: bottom;
+    position: relative;
+    top: 1px;
   }
 }
 
