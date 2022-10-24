@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_LOCK } from '../ui/icons'
 import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
-import RangeSlider from '../ui/RangeSlider'
+import Slider from '../ui/Slider'
 import Tooltip from '../ui/Tooltip'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
@@ -137,8 +137,7 @@ class SaveAsImageDialog extends React.Component {
     })
   }
 
-  handleChangeDpiInput = (event) => {
-    const value = event.target.value
+  handleChangeDpiInput = ([value]) => {
     const validDpi =
       Math.min(
         Math.max(MIN_IMAGE_DPI, Number.parseInt(value, MAX_IMAGE_DPI)),
@@ -282,14 +281,14 @@ class SaveAsImageDialog extends React.Component {
               </div>
               {this.props.allowCustomDpi && (
                 <div className="save-as-image-options">
-                  <RangeSlider
+                  <label htmlFor="test">Custom DPI (min 2x, max 10x):</label>
+                  <Slider
+                    id="test"
                     min={MIN_IMAGE_DPI}
                     max={MAX_IMAGE_DPI}
-                    value={this.state.dpi}
-                    onChange={this.handleChangeDpiInput}
-                  >
-                    Custom DPI (min 2x, max 10x):
-                  </RangeSlider>
+                    value={[this.state.dpi]}
+                    onValueChange={this.handleChangeDpiInput}
+                  />
                 </div>
               )}
               <div className="save-as-image-preview">
