@@ -95,6 +95,11 @@
   padding: 3em;
 }
 
+.save-as-image-too-large-error {
+  font-weight: bold;
+  color: $warning-colour;
+}
+
 .save-as-image-download {
   text-align: center;
 

@@ -224,12 +224,16 @@
       "option-name": "Street name",
       "option-sky": "Transparent sky",
       "option-watermark": "Watermark",
+      "option-custom-scale": "Custom scale",
       "loading": "Loading…",
       "save-button": "Save to your computer…",
       "license": "This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink} license.",
       "error-preview": "There was an error displaying a preview image.",
       "error-unavailable": "Saving to image is not available on this browser.",
-      "preview-image-alt": "Preview"
+      "error-too-large": "This image is too big and we were not able to create it. Please try a smaller custom size.",
+      "preview-image-alt": "Preview",
+      "print-size": "Print size",
+      "digital-size": "Digital size"
     },
     "geotag": {
       "search": "Search for a location",
