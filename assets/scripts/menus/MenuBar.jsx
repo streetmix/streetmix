@@ -127,25 +127,12 @@ function MenuBar (props) {
               translation="menu.item.contact"
               onClick={handleClickMenuButton('contact')}
             />
-            {!isSubscriber && <UpgradeButton onClick={handleClickUpgrade} />}
-            {isSubscriber && (
-              // just wanted something back on the menu when subscribed
-              <MenuBarItem
-                label="Store"
-                translation="menu.item.store"
-                url="https://cottonbureau.com/people/streetmix"
-              />
-            )}
-            {/* <MenuBarItem
-              label="Donate"
-              translation="menu.contribute.donate"
-              url="https://opencollective.com/streetmix/"
-            />
             <MenuBarItem
               label="Store"
               translation="menu.item.store"
               url="https://cottonbureau.com/people/streetmix"
-            /> */}
+            />
+            {!isSubscriber && <UpgradeButton onClick={handleClickUpgrade} />}
           </>
         )}
       </ul>
