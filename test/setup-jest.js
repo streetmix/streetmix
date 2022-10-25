@@ -13,6 +13,11 @@ require('dotenv').config({
 // Add mocks for global methods
 fetch.enableMocks()
 global.localStorage = new LocalStorageMock()
+global.ResizeObserver = class ResizeObserver {
+  observe () {} // noop
+  unobserve () {} // noop
+  disconnect () {} // noop
+}
 
 // Add stubs for global methods
 global.print = jest.fn()

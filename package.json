@@ -98,6 +98,7 @@
     "@radix-ui/react-icons": "1.1.1",
     "@radix-ui/react-popover": "1.0.0",
     "@radix-ui/react-radio-group": "1.0.0",
+    "@radix-ui/react-slider": "1.1.0",
     "@radix-ui/react-switch": "1.0.0",
     "@reduxjs/toolkit": "1.7.1",
     "@sentry/browser": "7.5.0",

@@ -13,21 +13,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_LOCK } from '../ui/icons'
 import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
-import RangeSlider from '../ui/RangeSlider'
 import Tooltip from '../ui/Tooltip'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
 import { updateSettings } from '../store/slices/settings'
 import { normalizeSlug } from '../util/helpers'
+import CustomScale from './SaveAsImage/CustomScale'
 import Dialog from './Dialog'
 import './SaveAsImageDialog.scss'
 
-// Require save-as polyfills
-
-// Verify how this lines up with 150dpi, 300dpi, 600dpi, etc.
 const DEFAULT_IMAGE_DPI = 2
-const MIN_IMAGE_DPI = DEFAULT_IMAGE_DPI
-const MAX_IMAGE_DPI = 10
 
 class SaveAsImageDialog extends React.Component {
   static propTypes = {
@@ -39,7 +34,6 @@ class SaveAsImageDialog extends React.Component {
     watermark: PropTypes.bool.isRequired,
     street: PropTypes.object.isRequired,
     name: PropTypes.string,
-    allowCustomDpi: PropTypes.bool,
     isSubscriber: PropTypes.bool,
     updateSettings: PropTypes.func
   }
@@ -48,7 +42,7 @@ class SaveAsImageDialog extends React.Component {
     super(props)
 
     this.state = {
-      dpi: DEFAULT_IMAGE_DPI,
+      scale: 1,
       isLoading: false,
       isShowingPreview: false,
       isSaving: false,
@@ -56,7 +50,9 @@ class SaveAsImageDialog extends React.Component {
       download: {
         filename: '',
         dataUrl: ''
-      }
+      },
+      baseWidth: 0,
+      baseHeight: 0
     }
   }
 
@@ -100,6 +96,13 @@ class SaveAsImageDialog extends React.Component {
     this.setState({ isLoading: true })
   }
 
+  handleChangeScale = (value) => {
+    this.setState({
+      errorMessage2: false, // Clears "too big" error if present
+      scale: value
+    })
+  }
+
   handlePreviewLoaded = () => {
     this.setState({ isLoading: false })
   }
@@ -124,8 +127,20 @@ class SaveAsImageDialog extends React.Component {
     this.setState({
       isSaving: true
     })
-    // Update the image with the actual dpi before saving.
-    this.updatePreviewImage(this.state.dpi)
+
+    try {
+      // Update the image with the actual size before saving.
+      // Images that are too large can throw an error, so catch it
+      // and show an error
+      this.updatePreviewImage(this.state.scale)
+    } catch (err) {
+      this.setState({
+        isSaving: false,
+        errorMessage2: true
+      })
+      return
+    }
+
     this.imageCanvas.toBlob((blob) => {
       const filename = this.makeFilename()
       saveAs(blob, filename)
@@ -137,33 +152,24 @@ class SaveAsImageDialog extends React.Component {
     })
   }
 
-  handleChangeDpiInput = (event) => {
-    const value = event.target.value
-    const validDpi =
-      Math.min(
-        Math.max(MIN_IMAGE_DPI, Number.parseInt(value, MAX_IMAGE_DPI)),
-        MAX_IMAGE_DPI
-      ) || DEFAULT_IMAGE_DPI
-
-    this.setState({
-      dpi: validDpi
-    })
-  }
-
-  updatePreviewImage = (dpi = DEFAULT_IMAGE_DPI) => {
-    // The preview is rendered at the default DPI at first.
+  updatePreviewImage = (scale = 1) => {
+    // The preview is rendered at the default scale at first.
     this.imageCanvas = getStreetImage(
       this.props.street,
       this.props.transparentSky,
       this.props.segmentNames,
       this.props.streetName,
-      dpi,
+      DEFAULT_IMAGE_DPI * scale,
       this.props.watermark
     )
   }
 
   updatePreview = () => {
-    this.updatePreviewImage(DEFAULT_IMAGE_DPI)
+    this.updatePreviewImage(1)
+    this.setState({
+      baseWidth: this.imageCanvas?.width,
+      baseHeight: this.imageCanvas?.height
+    })
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
@@ -280,18 +286,6 @@ class SaveAsImageDialog extends React.Component {
                   </Tooltip>
                 )}
               </div>
-              {this.props.allowCustomDpi && (
-                <div className="save-as-image-options">
-                  <RangeSlider
-                    min={MIN_IMAGE_DPI}
-                    max={MAX_IMAGE_DPI}
-                    value={this.state.dpi}
-                    onChange={this.handleChangeDpiInput}
-                  >
-                    Custom DPI (min 2x, max 10x):
-                  </RangeSlider>
-                </div>
-              )}
               <div className="save-as-image-preview">
                 {!this.state.errorMessage && (
                   <div className="save-as-image-preview-image">
@@ -321,7 +315,21 @@ class SaveAsImageDialog extends React.Component {
                   </div>
                 )}
               </div>
+              <CustomScale
+                scale={this.state.scale}
+                width={this.state.baseWidth}
+                height={this.state.baseHeight}
+                onChange={this.handleChangeScale}
+              />
               <div className="save-as-image-download">
+                {this.state.errorMessage2 && (
+                  <span className="save-as-image-too-large-error">
+                    <FormattedMessage
+                      id="dialogs.save.error-too-large"
+                      defaultMessage="This image is too big and we were not able to create it. Please try a smaller custom size."
+                    />
+                  </span>
+                )}
                 {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
                 {!this.state.errorMessage && !this.state.isSaving ? (
                   <Button
@@ -364,7 +372,6 @@ function mapStateToProps (state) {
     watermark: state.settings.saveAsImageWatermark || !state.user.isSubscriber,
     street: state.street,
     name: state.street.name,
-    allowCustomDpi: state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value,
     isSubscriber: state.user.isSubscriber
   }
 }

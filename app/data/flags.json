@@ -130,7 +130,7 @@
     "defaultValue": false
   },
   "SAVE_AS_IMAGE_CUSTOM_DPI": {
-    "label": "Save images at custom DPI",
+    "label": "Save images at custom scale",
     "defaultValue": false
   },
   "ALWAYS_DISPLAY_WHATS_NEW": {

@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## Octoer 25, 2022
+
+### 🎮 UI improvements
+
+- **The custom scale slider in the "Save as image" dialog is now 500% more useful.** We sort of stealth-released a "custom scale" feature that let you save images at 500% the original size, for when you needed super crisp magazine spreads or 10-foot wide hero banners. The problem is, we just used placeholder developer labels on it with no other explanation. It'll now tell you what size a saved image will be at in percentage terms, as well as pixel resolution and typical print dimensions. **Note: This is a Streetmix+ member feature, so if you'd like to use it, grab a [monthly membership subscription](https://docs.streetmix.net/user-guide/streetmix-plus) today!**
+
 ## September 8, 2022
 
 ### 🎮 UI improvements
