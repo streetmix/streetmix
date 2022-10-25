@@ -139,7 +139,7 @@
     "newrelic": "8.14.1",
     "nodemon": "2.0.15",
     "parcel-bundler": "1.12.4",
-    "passport": "0.5.2",
+    "passport": "0.6.0",
     "passport-oauth": "1.0.0",
     "passport-patreon": "1.0.1",
     "pelias-js": "0.0.8",
