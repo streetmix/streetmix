@@ -12,12 +12,13 @@ import './CustomScale.scss'
 const MIN_IMAGE_MULTIPLIER = 1
 const MAX_IMAGE_MULTIPLIER = 5
 
-function CustomScale ({ scale, width = 0, height = 0, onChange = () => {} }) {
+function CustomScale ({ scale, baseDimensions = {}, onChange = () => {} }) {
   const units = useSelector((state) => state.settings.units)
   const allowCustomScale = useSelector(
     (state) => state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value
   )
   const intl = useIntl()
+  const { width = 0, height = 0 } = baseDimensions
 
   function handleChangeScale ([value]) {
     // Make sure value is within range
@@ -112,8 +113,10 @@ function CustomScale ({ scale, width = 0, height = 0, onChange = () => {} }) {
 
 CustomScale.propTypes = {
   scale: PropTypes.number.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  baseDimensions: PropTypes.shape({
+    width: PropTypes.number,
+    height: PropTypes.number
+  }).isRequired,
   onChange: PropTypes.func
 }
 
