@@ -7,6 +7,7 @@
 }
 
 .custom-scale-label {
+  display: flex;
   flex-grow: unset;
   font-weight: bold;
   margin-right: 1em;
@@ -16,6 +17,10 @@
     margin-left: 1em;
     margin-right: 0;
   }
+}
+
+.custom-scale-popover {
+  margin-top: -0.2em;
 }
 
 .custom-scale-control {

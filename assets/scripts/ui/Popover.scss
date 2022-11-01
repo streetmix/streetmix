@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import "../../styles/variables";
 
 .popover-trigger {
   display: flex;
@@ -22,11 +22,19 @@
 .popover-content {
   max-width: 200px;
   padding: 0.8em 1.2em;
-  color: rgba(15 15 15);
+  color: rgba(65 65 65);
   background-color: white;
   border-radius: $border-radius-large;
   box-shadow: rgba(24 37 73 / 15%) 0 5px 20px 0,
     rgba(24 37 73 / 5%) 0 10px 20px -5px;
+  font-weight: normal;
+  text-align: center;
+  overflow: hidden;
+
+  &:focus {
+    box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+      hsl(206 22% 7% / 20%) 0px 10px 20px -15px, 0 0 0 3px rgb(82 162 175 / 20%);
+  }
 }
 
 .popover-arrow {

@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid'
-import { loseAnyFocus } from '../util/focus'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
@@ -188,8 +187,6 @@ export function onBodyMouseDown (event) {
   if (app.readOnly || (event.touches && event.touches.length !== 1)) {
     return
   }
-
-  loseAnyFocus()
 
   if (event.target.closest('.drag-handle')) {
     handleSegmentResizeStart(event)

@@ -2,9 +2,9 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { setFeatureFlag } from '../../store/slices/flags'
+import Popover from '../../ui/Popover'
 import Switch from '../../ui/Switch'
 import UnitSettings from './UnitSettings'
-import SettingPopover from './SettingPopover'
 
 function GeneralSettings (props) {
   return (
@@ -58,12 +58,12 @@ function SillyClownSetting (props) {
           defaultMessage="Silly clowns"
         />
       </Switch>
-      <SettingPopover>
+      <Popover>
         <FormattedMessage
           id="settings.misc.silly-clowns-description"
           defaultMessage="Enables Easter eggs."
         />
-      </SettingPopover>
+      </Popover>
     </div>
   )
 }
