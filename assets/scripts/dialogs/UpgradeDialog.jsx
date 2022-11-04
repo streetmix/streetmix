@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { STRIPE_PUBLIC_KEY } from '../app/config'
 import userRoles from '../../../app/data/user_roles.json'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './UpgradeDialog.scss'
 
 const DEFAULT_BODY =

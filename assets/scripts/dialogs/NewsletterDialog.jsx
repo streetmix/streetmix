@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useForm } from 'react-hook-form'
 import Button from '../ui/Button'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './NewsletterDialog.scss'
 
 /**
@@ -76,7 +76,7 @@ const NewsletterDialog = (props) => {
                 />
               </h1>
             </header>
-            <div className="dialog-content">
+            <div className="legacy-dialog-content">
               <p>
                 <FormattedMessage
                   id="dialogs.newsletter.description"

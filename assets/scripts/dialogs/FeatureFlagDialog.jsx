@@ -8,7 +8,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Checkbox from '../ui/Checkbox'
 import { setFeatureFlag } from '../store/slices/flags'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './FeatureFlagDialog.scss'
 
 function FeatureFlagDialog (props) {
@@ -53,7 +53,7 @@ function FeatureFlagDialog (props) {
           <header>
             <h1>Feature flags</h1>
           </header>
-          <div className="dialog-content">
+          <div className="legacy-dialog-content">
             <ul>{renderFlagList()}</ul>
           </div>
           <button className="dialog-primary-action" onClick={closeDialog}>

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { getChangelog } from '../util/api'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './WhatsNewDialog.scss'
 
 const WhatsNewDialog = () => {
@@ -58,7 +58,7 @@ const WhatsNewDialog = () => {
               />
             </div>
           )}
-          <div className="dialog-content dialog-content-bleed">
+          <div className="legacy-dialog-content dialog-content-bleed">
             <div className="whats-new-content" onScroll={onScroll}>
               {state === 'OK' && (
                 <ReactMarkdown

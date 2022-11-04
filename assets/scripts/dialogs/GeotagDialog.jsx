@@ -12,7 +12,7 @@ import {
   clearLocation,
   saveStreetName
 } from '../store/slices/street'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import ErrorBanner from './Geotag/ErrorBanner'
 import GeoSearch from './Geotag/GeoSearch'
 import LocationPopup from './Geotag/LocationPopup'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import ExternalLink from '../ui/ExternalLink'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './ErrorDialog.scss'
 
 /**
@@ -23,7 +23,7 @@ function ErrorDialog (props) {
               />
             </h1>
           </header>
-          <div className="dialog-content">
+          <div className="legacy-dialog-content">
             <p>
               <FormattedMessage
                 id="dialogs.error.text"

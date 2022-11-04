@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import ExternalLink from '../ui/ExternalLink'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './SentimentSurveyDialog.scss'
 
 function SentimentSurveyDialog (props) {
@@ -9,7 +9,7 @@ function SentimentSurveyDialog (props) {
     <Dialog>
       {(closeDialog) => (
         <div className="sentiment-survey-about-dialog">
-          <div className="dialog-content">
+          <div className="legacy-dialog-content">
             <h3>
               <FormattedMessage
                 id="sentiment.about-header"

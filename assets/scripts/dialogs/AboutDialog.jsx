@@ -13,7 +13,7 @@ import numoLogo from '../../images/sponsors/numo.svg'
 import cfalogo from '../../images/sponsors/codeforamerica.png'
 import mozlogo from '../../images/sponsors/mozilla.svg'
 import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './AboutDialog.scss'
 
 function AboutDialog (props) {
@@ -36,7 +36,7 @@ function AboutDialog (props) {
               />
             </h1>
           </header>
-          <div className="dialog-content">
+          <div className="legacy-dialog-content">
             <div className="about-dialog-content">
               <div className="about-dialog-left">
                 <p>

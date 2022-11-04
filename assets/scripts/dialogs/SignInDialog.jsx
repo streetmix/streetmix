@@ -9,7 +9,7 @@ import {
 import Button from '../ui/Button'
 import Icon from '../ui/Icon'
 import LoadingSpinner from '../ui/LoadingSpinner'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './SignInDialog.scss'
 
 export default class SignInDialog extends React.Component {
@@ -131,7 +131,7 @@ export default class SignInDialog extends React.Component {
               </h1>
             </header>
             <div
-              className="dialog-content sign-in-loading"
+              className="legacy-dialog-content sign-in-loading"
               aria-live="polite"
               aria-busy="true"
             >
@@ -156,7 +156,7 @@ export default class SignInDialog extends React.Component {
                 />
               </h1>
             </header>
-            <div className="dialog-content sign-in-email-sent">
+            <div className="legacy-dialog-content sign-in-email-sent">
               <p>
                 <FormattedMessage
                   id="dialogs.sign-in.sent-message-with-email"
@@ -209,7 +209,7 @@ export default class SignInDialog extends React.Component {
                 />
               </h1>
             </header>
-            <div className="dialog-content">
+            <div className="legacy-dialog-content">
               <p>
                 <FormattedMessage
                   id="dialogs.sign-in.description"

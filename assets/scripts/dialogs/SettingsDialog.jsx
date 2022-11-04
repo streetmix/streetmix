@@ -10,7 +10,7 @@ import {
 } from '@radix-ui/react-icons'
 import USER_ROLES from '../../../app/data/user_roles'
 import { ENV } from '../app/config'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import FeatureFlagSettings from './Settings/FeatureFlagSettings'
 import GeneralSettings from './Settings/GeneralSettings'
 import LanguageSettings from './Settings/LanguageSettings'
@@ -70,7 +70,7 @@ function SettingsDialog ({ category = 'general' }) {
               />
             </h1>
           </header>
-          <div className="dialog-content dialog-content-bleed">
+          <div className="legacy-dialog-content dialog-content-bleed">
             <div className="settings-dialog-content">
               <div className="settings-dialog-left">
                 <ul>

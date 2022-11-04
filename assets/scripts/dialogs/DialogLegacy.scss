@@ -5,7 +5,7 @@ $dialog-border-radius: $border-radius-large;
 $header-background-colour: $colour-turquoise-200;
 $header-text-colour: $colour-turquoise-700;
 
-.dialog-box-container {
+.legacy-dialog-box-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,7 @@ $header-text-colour: $colour-turquoise-700;
   left: 0;
 }
 
-.dialog-box-backdrop {
+.legacy-dialog-box-backdrop {
   z-index: $z-08-dialog-box-backdrop;
   position: absolute;
   left: 0;
@@ -31,7 +31,7 @@ $header-text-colour: $colour-turquoise-700;
   opacity: 0;
 }
 
-.dialog-box {
+.legacy-dialog-box {
   position: relative;
 
   // balance the dialog by making it slightly north of center
@@ -103,25 +103,25 @@ $header-text-colour: $colour-turquoise-700;
 }
 
 /* Transitions */
-.dialog-transition-enter-done .dialog-box {
+.legacy-dialog-transition-enter-done .legacy-dialog-box {
   opacity: 1;
   transform: scale(1);
 }
 
-.dialog-transition-exit .dialog-box {
+.legacy-dialog-transition-exit .legacy-dialog-box {
   opacity: 0;
   transform: scale(0.9);
 }
 
-.dialog-transition-enter-done .dialog-box-backdrop {
+.legacy-dialog-transition-enter-done .legacy-dialog-box-backdrop {
   opacity: 1;
 }
 
-.dialog-transition-exit .dialog-box-backdrop {
+.legacy-dialog-transition-exit .legacy-dialog-box-backdrop {
   opacity: 0;
 }
 
-.dialog-content {
+.legacy-dialog-box .legacy-dialog-content {
   flex-grow: 1;
   position: relative;
 
@@ -134,7 +134,7 @@ $header-text-colour: $colour-turquoise-700;
   }
 }
 
-button.dialog-primary-action {
+.legacy-dialog-box button.dialog-primary-action {
   border: 0;
   border-top: 1px solid $colour-turquoise-350;
   border-radius: 0;

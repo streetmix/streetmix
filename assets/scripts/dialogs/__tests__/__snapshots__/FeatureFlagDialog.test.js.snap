@@ -3,13 +3,13 @@
 exports[`FeatureFlagDialog renders 1`] = `
 <DocumentFragment>
   <div
-    class="dialog-box-container"
+    class="legacy-dialog-box-container"
   >
     <div
-      class="dialog-box-backdrop"
+      class="legacy-dialog-box-backdrop"
     />
     <div
-      class="dialog-box"
+      class="legacy-dialog-box"
       role="dialog"
     >
       <button
@@ -30,7 +30,7 @@ exports[`FeatureFlagDialog renders 1`] = `
           </h1>
         </header>
         <div
-          class="dialog-content"
+          class="legacy-dialog-content"
         >
           <ul>
             <li>

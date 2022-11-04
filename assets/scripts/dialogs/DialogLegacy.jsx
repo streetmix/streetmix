@@ -21,7 +21,7 @@ import CloseButton from '../ui/CloseButton'
 import { useOnClickOutside } from '../ui/useOnClickOutside'
 import { clearDialogs } from '../store/slices/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import './Dialog.scss'
+import './DialogLegacy.scss'
 
 Dialog.propTypes = {
   children: PropTypes.func.isRequired
@@ -60,12 +60,12 @@ function Dialog ({ children }) {
       appear={true}
       in={appear}
       timeout={80}
-      classNames="dialog-transition"
+      classNames="legacy-dialog-transition"
       onExited={handleExit}
     >
-      <div className="dialog-box-container">
-        <div className="dialog-box-backdrop" />
-        <div className="dialog-box" role="dialog" ref={dialogEl}>
+      <div className="legacy-dialog-box-container">
+        <div className="legacy-dialog-box-backdrop" />
+        <div className="legacy-dialog-box" role="dialog" ref={dialogEl}>
           <CloseButton onClick={handleClose} />
           {children(handleClose)}
         </div>

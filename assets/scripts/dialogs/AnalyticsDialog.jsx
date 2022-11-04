@@ -25,7 +25,7 @@ import {
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import CapacitySources from './Analytics/CapacitySources'
 import SegmentAnalytics from './Analytics/SegmentAnalytics'
-import Dialog from './Dialog'
+import Dialog from './DialogLegacy'
 import './AnalyticsDialog.scss'
 
 function AnalyticsDialog (props) {
@@ -119,7 +119,7 @@ function AnalyticsDialog (props) {
               />
             </h1>
           </header>
-          <div className="dialog-content">
+          <div className="legacy-dialog-content">
             <div className="analytics-dialog-content">
               <p>
                 {summary} {widthText}
