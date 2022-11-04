@@ -53,48 +53,13 @@ describe('EnvironmentEditor', () => {
     expect(uiSlice.toggleToolbox).toBeCalled()
   })
 
-  it('shows upgrade prompt for signed-in, unsubscribed users', () => {
+  it('shows Streetmix+ prompt', () => {
     render(<EnvironmentEditor />, {
       initialState: {
-        ...initialState,
-        user: {
-          signedIn: true,
-          isSubscriber: false
-        }
+        ...initialState
       }
     })
-    expect(screen.queryByText('Upgrade to unlock')).toBeInTheDocument()
-    expect(screen.queryByText('Sign in')).not.toBeInTheDocument()
-  })
-
-  it('shows sign in button for unsigned-in, unsubscribed users', () => {
-    render(<EnvironmentEditor />, {
-      initialState: {
-        ...initialState,
-        user: {
-          signedIn: false,
-          isSubscriber: false
-        }
-      }
-    })
-    expect(screen.queryByText('Upgrade to unlock')).not.toBeInTheDocument()
-    expect(screen.queryByText('Sign in')).toBeInTheDocument()
-  })
-
-  // This can happen for Coil plugin subscribers - the plugin is active, but
-  // user is not yet signed in to Streetmix
-  it('shows sign in button for unsigned-in, subscribed users', () => {
-    render(<EnvironmentEditor />, {
-      initialState: {
-        ...initialState,
-        user: {
-          signedIn: false,
-          isSubscriber: true
-        }
-      }
-    })
-    expect(screen.queryByText('Upgrade to unlock')).not.toBeInTheDocument()
-    expect(screen.queryByText('Sign in')).toBeInTheDocument()
+    expect(screen.queryByText('Get Streetmix+')).not.toBeInTheDocument()
   })
 
   it.todo('does not select an environment for unsubscribed users')
