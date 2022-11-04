@@ -122,19 +122,37 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
             </div>
           </div>
           <div
-            class="custom-scale custom-scale-disabled"
+            class="custom-scale"
           >
             <div
               class="custom-scale-label"
             >
               Custom scale
-              <svg
-                class="svg-inline--fa fa-lock"
-                style="margin: 0px 0.25em;"
-              />
+              <span
+                class="custom-scale-popover"
+              >
+                <button
+                  aria-controls="radix-0"
+                  aria-expanded="false"
+                  aria-haspopup="dialog"
+                  class="popover-trigger"
+                  data-state="closed"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                  />
+                  <span
+                    style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
+                  >
+                    Description
+                  </span>
+                </button>
+              </span>
             </div>
             <div
-              class="custom-scale-control"
+              class="custom-scale-control custom-scale-disabled"
             >
               <span
                 aria-disabled="true"

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import { InfoCircledIcon } from '@radix-ui/react-icons'
-import AccessibleIcon from '../../ui/AccessibleIcon'
-import './SettingPopover.scss'
+import AccessibleIcon from './AccessibleIcon'
+import './Popover.scss'
 
 const PopoverContent = React.forwardRef(
   ({ children, ...props }, forwardedRef) => (
@@ -20,18 +20,20 @@ PopoverContent.propTypes = {
   children: PropTypes.node
 }
 
-function SettingPopover ({ children }) {
+function Popover ({ label, children }) {
   const intl = useIntl()
-  const label = intl.formatMessage({
-    id: 'settings.info-tooltip',
-    defaultMessage: 'Description'
-  })
+  const a11yLabel =
+    label ||
+    intl.formatMessage({
+      id: 'settings.info-tooltip',
+      defaultMessage: 'Description'
+    })
 
   return (
     <PopoverPrimitive.Root>
       <PopoverPrimitive.Trigger asChild={true}>
         <button className="popover-trigger">
-          <AccessibleIcon label={label}>
+          <AccessibleIcon label={a11yLabel}>
             <InfoCircledIcon />
           </AccessibleIcon>
         </button>
@@ -48,8 +50,9 @@ function SettingPopover ({ children }) {
   )
 }
 
-SettingPopover.propTypes = {
+Popover.propTypes = {
+  label: PropTypes.string,
   children: PropTypes.node
 }
 
-export default SettingPopover
+export default Popover

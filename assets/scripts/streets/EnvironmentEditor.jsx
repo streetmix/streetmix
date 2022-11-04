@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from 'react-spring'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
-import Button from '../ui/Button'
 import CloseButton from '../ui/CloseButton'
 import Icon from '../ui/Icon'
-import { doSignIn } from '../users/authentication'
+import StreetmixPlusPrompt from '../app/StreetmixPlusPrompt'
 // import { showDialog } from '../store/slices/dialogs'
 import { setEnvironment } from '../store/slices/street'
 import { toggleToolbox } from '../store/slices/ui'
@@ -21,26 +20,11 @@ function EnvironmentEditor (props) {
   )
   const show = useSelector((state) => state.ui.toolboxVisible || false)
   const isSubscriber = useSelector((state) => state.user.isSubscriber || false)
-  const signedIn = useSelector((state) => state.user.signedIn || false)
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
   function handleClose (event) {
     dispatch(toggleToolbox())
-  }
-
-  function handleClickSignIn (event) {
-    event.preventDefault()
-    doSignIn()
-  }
-
-  function handleClickUpgrade (event) {
-    event.preventDefault()
-    // dispatch(showDialog('UPGRADE'))
-    window.open(
-      'https://docs.streetmix.net/user-guide/streetmix-plus',
-      '_blank'
-    )
   }
 
   function handleSelect (id) {
@@ -93,31 +77,14 @@ function EnvironmentEditor (props) {
                   />
                 </IntlProvider>
 
-                {/* If users are not signed in, they must sign in first
-                    If they're signed in, and are not a subscriber, show
-                    the upgrade button */}
-                {(!signedIn || (signedIn && !isSubscriber)) && (
+                {!isSubscriber && (
                   <div className="environment-upgrade-box">
-                    <FormattedMessage
-                      id="plus.prompt.text"
-                      defaultMessage="This feature is only available to Streetmix+ users.&lrm;"
-                    />
-                    {!signedIn && (
-                      <Button onClick={handleClickSignIn}>
-                        <FormattedMessage
-                          id="menu.item.sign-in"
-                          defaultMessage="Sign in"
-                        />
-                      </Button>
-                    )}
-                    {signedIn && !isSubscriber && (
-                      <Button onClick={handleClickUpgrade}>
-                        <FormattedMessage
-                          id="plus.prompt.action"
-                          defaultMessage="Upgrade to unlock"
-                        />
-                      </Button>
-                    )}
+                    <StreetmixPlusPrompt>
+                      <FormattedMessage
+                        id="plus.prompt.text"
+                        defaultMessage="This feature is only available to Streetmix+ users.&lrm;"
+                      />
+                    </StreetmixPlusPrompt>
                   </div>
                 )}
               </div>
