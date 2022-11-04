@@ -48,12 +48,13 @@ function SaveAsImageDialog (props) {
   )
   const street = useSelector((state) => state.street)
   const name = useSelector((state) => state.street.name)
-  const isSubscriber = useSelector((state) => state.user.isSubscribe)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
   const dispatch = useDispatch()
 
   useEffect(() => {
     updatePreview()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -64,6 +65,7 @@ function SaveAsImageDialog (props) {
     window.setTimeout(() => {
       updatePreview()
     }, 100)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transparentSky, segmentNames, streetName, watermark])
 
   function makeFilename () {
@@ -163,6 +165,9 @@ function SaveAsImageDialog (props) {
 
   const updatePreview = () => {
     updatePreviewImage(1)
+    // Only set base dimensions when preview is generated at scale = 1.
+    // The custom slider will update target dimensions by multiplying base * scale
+    // which is faster than rendering the entire image and reading its dimensions.
     setBaseDimensions({
       width: imageCanvas.current?.width,
       height: imageCanvas.current?.height
