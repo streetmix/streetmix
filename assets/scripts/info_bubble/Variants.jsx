@@ -247,9 +247,13 @@ function Variants (props) {
 
         if (elevationToggle === true) {
           // React wants a unique key here
-          variantEls.push(<hr key="elevation_control" />)
+          variantEls.push(<hr key="elevation_divider" />)
           variantEls.push(
-            <ElevationControl position={position} segment={segment} />
+            <ElevationControl
+              position={position}
+              segment={segment}
+              key="elevation_control"
+            />
           )
         }
 
