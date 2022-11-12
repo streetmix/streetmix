@@ -1,6 +1,7 @@
 const { Street } = require('../../db/models')
 const { ERRORS } = require('../../../lib/util')
 const logger = require('../../../lib/logger.js')
+const { streetsToCSV } = require('../../lib/streets_export.js')
 
 exports.get = async function (req, res) {
   // Flag error if user ID is not provided
@@ -30,7 +31,11 @@ exports.get = async function (req, res) {
 
   const handleFindRemixedStreets = function (streets) {
     const json = { streets }
-    res.status(200).json(json).end()
+    const csv = streetsToCSV(json)
+    // For now, this sends CSV directly for export.
+    // In future we might want to send JSON also for a UI.
+    res.set('Content-Type', 'text/csv')
+    res.status(200).send(csv).end()
   } // END function - handleFindUserStreets
 
   function handleErrors (error) {
