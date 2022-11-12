@@ -174,16 +174,21 @@ body:not(.safari).gallery-visible .street-section-sky {
   canvas {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 2px; // Positioning to cover gaps below ground
     width: $thumbnail-width;
     height: $thumbnail-height;
+    transform: scale(1.35); // Crops excess space for most streets
+    opacity: 0.45;
+    filter: grayscale(0.75);
+    transition: opacity 45ms, filter 45ms;
 
     // TODO: this causes rendering weirdness in Firefox.
     border-radius: $border-radius-medium;
   }
 
-  &:hover {
-    background: fade-out($ui-colour, 0.1);
+  &:hover canvas {
+    opacity: 1;
+    filter: grayscale(0);
   }
 }
 
@@ -192,8 +197,44 @@ body:not(.safari).gallery-visible .street-section-sky {
   box-shadow: 0 0 0 2px $selection-highlight-colour,
     inset 0 0 0 2px rgb(255 255 255 / 100%);
 
+  .gallery-street-item-canvas > div {
+    transform: scale(1.05);
+  }
+
   canvas {
     opacity: 1;
+    filter: grayscale(0);
+  }
+}
+
+.gallery-street-item-canvas {
+  position: absolute;
+  top: 2px; // Live within the border area
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+
+  > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 45ms ease-in-out;
+    transform-origin: center 80px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .gallery-street-item-ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    background-color: #f0f0f0;
   }
 }
 
@@ -221,6 +262,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  pointer-events: none;
 }
 
 .gallery-street-item-delete {

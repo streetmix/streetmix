@@ -47,11 +47,21 @@ const WORDMARK_MARGIN = 4
  * @param {Number} width - width of area to draw
  * @param {Number} height - width of area to draw
  * @param {Number} dpi - pixel density of canvas
+ * @param {Number} multiplier - scale factor of image
  * @param {Number} horizonLine - vertical height of horizon
  * @param {Number} groundLevel - vertical height of ground
  * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawSky (ctx, street, width, height, dpi, horizonLine, groundLevel) {
+function drawSky (
+  ctx,
+  street,
+  width,
+  height,
+  dpi,
+  multiplier,
+  horizonLine,
+  groundLevel
+) {
   const env = getEnvirons(street.environment)
 
   // Solid color fill
@@ -61,7 +71,14 @@ function drawSky (ctx, street, width, height, dpi, horizonLine, groundLevel) {
 
   // Background image fill
   if (env.backgroundImage) {
-    drawBackgroundImage(ctx, width, height, dpi, env.backgroundImage)
+    drawBackgroundImage(
+      ctx,
+      width,
+      height,
+      dpi,
+      multiplier,
+      env.backgroundImage
+    )
   }
 
   // Gradient fill
@@ -71,7 +88,14 @@ function drawSky (ctx, street, width, height, dpi, horizonLine, groundLevel) {
 
   // Background objects
   if (env.backgroundObjects) {
-    drawBackgroundObjects(ctx, width, height, dpi, env.backgroundObjects)
+    drawBackgroundObjects(
+      ctx,
+      width,
+      height,
+      dpi,
+      multiplier,
+      env.backgroundObjects
+    )
   }
 
   // Clouds
@@ -103,21 +127,21 @@ function drawBackgroundColor (ctx, width, height, dpi, color) {
  * @param {Object} imageId - image ID to render
  * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBackgroundImage (ctx, width, height, dpi, imageId) {
+function drawBackgroundImage (ctx, width, height, dpi, multiplier, imageId) {
   const img = images.get(imageId)
 
-  for (let i = 0; i < Math.floor(height / img.height) + 1; i++) {
-    for (let j = 0; j < Math.floor(width / img.width) + 1; j++) {
+  for (let i = 0; i < Math.floor((height / img.height) * multiplier) + 1; i++) {
+    for (let j = 0; j < Math.floor((width / img.width) * multiplier) + 1; j++) {
       ctx.drawImage(
         img.img,
         0,
         0,
         img.width,
         img.height,
-        j * img.width * dpi,
-        i * img.height * dpi,
-        img.width * dpi,
-        img.height * dpi
+        j * img.width * dpi * multiplier,
+        i * img.height * dpi * multiplier,
+        img.width * dpi * multiplier,
+        img.height * dpi * multiplier
       )
     }
   }
@@ -157,7 +181,8 @@ function drawBackgroundGradient (ctx, width, height, dpi, backgroundGradient) {
  * @param {Array} objects - environs definition of background objects
  * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBackgroundObjects (ctx, width, height, dpi, objects) {
+function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
+  console.log(multiplier)
   objects.forEach((object) => {
     const {
       image: imageId,
@@ -171,10 +196,10 @@ function drawBackgroundObjects (ctx, width, height, dpi, objects) {
       image,
       // Left and top values are "percentage" values
       // and sets where the center of the image is
-      (left * width - imageWidth / 2) * dpi,
-      (top * height - imageHeight / 2) * dpi,
-      imageWidth * dpi,
-      imageHeight * dpi
+      (left * width - imageWidth / 2) * dpi * multiplier,
+      (top * height - imageHeight / 2) * dpi * multiplier,
+      imageWidth * dpi * multiplier,
+      imageHeight * dpi * multiplier
     )
   })
 }
@@ -732,7 +757,16 @@ export function drawStreetThumbnail (
 
   // Sky
   if (!transparentSky) {
-    drawSky(ctx, street, width, height, dpi, horizonLine, groundLevel)
+    drawSky(
+      ctx,
+      street,
+      width,
+      height,
+      dpi,
+      multiplier,
+      horizonLine,
+      groundLevel
+    )
   }
 
   // Ground

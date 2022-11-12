@@ -40,10 +40,19 @@ exports[`Gallery renders global gallery view 1`] = `
               <a
                 href="/foo/435/baz"
               >
-                <canvas
-                  height="220"
-                  width="360"
-                />
+                <div
+                  class="gallery-street-item-canvas"
+                >
+                  <div>
+                    <canvas
+                      height="220"
+                      width="360"
+                    />
+                    <div
+                      class="gallery-street-item-ground"
+                    />
+                  </div>
+                </div>
                 <div
                   class="street-name"
                 >
@@ -176,10 +185,19 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
               <a
                 href="/foo/435/baz"
               >
-                <canvas
-                  height="220"
-                  width="360"
-                />
+                <div
+                  class="gallery-street-item-canvas"
+                >
+                  <div>
+                    <canvas
+                      height="220"
+                      width="360"
+                    />
+                    <div
+                      class="gallery-street-item-ground"
+                    />
+                  </div>
+                </div>
                 <div
                   class="street-name"
                 >
@@ -300,10 +318,19 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
               <a
                 href="/foo/435/baz"
               >
-                <canvas
-                  height="220"
-                  width="360"
-                />
+                <div
+                  class="gallery-street-item-canvas"
+                >
+                  <div>
+                    <canvas
+                      height="220"
+                      width="360"
+                    />
+                    <div
+                      class="gallery-street-item-ground"
+                    />
+                  </div>
+                </div>
                 <div
                   class="street-name"
                 >

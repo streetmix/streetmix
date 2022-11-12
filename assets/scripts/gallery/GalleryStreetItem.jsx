@@ -51,9 +51,9 @@ function GalleryStreetItem (props) {
         height: THUMBNAIL_HEIGHT * 2,
         dpi,
         multiplier: THUMBNAIL_MULTIPLIER,
-        silhouette: true,
+        silhouette: false,
         bottomAligned: false,
-        transparentSky: true,
+        transparentSky: false,
         segmentNamesAndWidths: false,
         streetName: false,
         watermark: false
@@ -122,11 +122,16 @@ function GalleryStreetItem (props) {
           </div>
         ) : (
           /* TODO: document magic number 2 */
-          <canvas
-            width={THUMBNAIL_WIDTH * dpi * 2}
-            height={THUMBNAIL_HEIGHT * dpi * 2}
-            ref={thumbnailEl}
-          />
+          <div className="gallery-street-item-canvas">
+            <div>
+              <canvas
+                width={THUMBNAIL_WIDTH * dpi * 2}
+                height={THUMBNAIL_HEIGHT * dpi * 2}
+                ref={thumbnailEl}
+              />
+              <div className="gallery-street-item-ground" />
+            </div>
+          </div>
         )}
 
         <StreetName name={street.name} />
