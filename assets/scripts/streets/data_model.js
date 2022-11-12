@@ -38,7 +38,7 @@ export function setLastStreet () {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
-const LATEST_SCHEMA_VERSION = 26
+const LATEST_SCHEMA_VERSION = 27
 // 1: starting point
 // 2: adding leftBuildingHeight and rightBuildingHeight
 // 3: adding leftBuildingVariant and rightBuildingVariant
@@ -64,6 +64,8 @@ const LATEST_SCHEMA_VERSION = 26
 // 23: add unique id to each segment
 // 24: remove random seed from any segment
 // 25: add bus type
+// 26: add elevation properties to segments
+// 27: bugfix missing elevation properties from previous schema
 
 function incrementSchemaVersion (street) {
   let segment, variant
@@ -318,6 +320,20 @@ function incrementSchemaVersion (street) {
         segment.elevation = variantInfo.elevation
       }
       break
+    // Fixes a bug in the previous schema version where new streets would
+    // be created without elevation properties, this migration backfills them
+    case 26:
+      for (const i in street.segments) {
+        segment = street.segments[i]
+        if (typeof segment.elevation === 'undefined') {
+          const variantInfo = getSegmentVariantInfo(
+            segment.type,
+            segment.variantString
+          )
+          segment.elevation = variantInfo.elevation
+        }
+      }
+      break
   }
 
   street.schemaVersion++
@@ -447,13 +463,22 @@ function fillDefaultSegments (units) {
 
   for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
     const segment = cloneDeep(DEFAULT_SEGMENTS[leftHandTraffic][i])
-    segment.id = nanoid()
-    segment.warnings = []
+
     segment.variantString = getVariantString(segment.variant)
+
+    const variantInfo = getSegmentVariantInfo(
+      segment.type,
+      segment.variantString
+    )
+
+    segment.id = nanoid()
     segment.width = normalizeSegmentWidth(
       segment.width,
       resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
     )
+    segment.elevation = variantInfo.elevation
+    segment.warnings = []
+
     segments.push(segment)
   }
 
