@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Обсудить на форумах",
-      "twitter": "Послать твит к @streetmix",
       "email": "Отправить письмо команде Streetmix",
       "github": "Посмотреть исходники на GitHub",
       "blog": "Посетить блог Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Настройки",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Язык"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Единицы измерения",
       "metric": "Метрическая система (метры)",
       "imperial": "Английская система (футы)"
-    },
-    "language": {
-      "label": "Язык"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Название улицы",
       "option-sky": "Прозрачное небо",
       "option-watermark": "Водяной знак",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Загрузка…",
       "save-button": "Сохранить на компьютер…",
       "license": "Это изображение, созданное через Streetmix может быть переиспользовано везде для любых целей под лицензией {licenseLink}.",
       "error-preview": "Ошибка отображения изображения предварительного просмотра.",
       "error-unavailable": "Сохранение в изображение недоступно в этом браузере.",
-      "preview-image-alt": "Предварительный просмотр"
+      "error-too-large": "",
+      "preview-image-alt": "Предварительный просмотр",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Поиск локации",
@@ -334,7 +348,8 @@
     "delete-street": "Удалить улицу",
     "segment-width": "Изменить ширину сегмента",
     "building-height": "Изменить количество этажей",
-    "street-width": "Изменить ширину улицы",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Увеличить ширину (зажмите Shift для большей точности)",
     "decrease-width": "Уменьшить ширину (зажмите Shift для большей точности)",
     "add-floor": "Добавить уровень",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": "Войдите для использования!"
+      "user": "Войдите для использования!",
+      "action": ""
     },
     "prompt": {
       "text": "",

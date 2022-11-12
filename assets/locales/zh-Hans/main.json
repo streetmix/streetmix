@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "在Streetmix论坛上进行讨论",
-      "twitter": "发送一条推特给@streetmix",
       "email": "给Streetmix团队发送邮件",
       "github": "在GitHub上查看源代码",
       "blog": "访问Streetmix的博客",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "设置",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "语言"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "单位",
       "metric": "公制（米）",
       "imperial": "英制（尺）"
-    },
-    "language": {
-      "label": "语言"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "街道名称",
       "option-sky": "无天空背景",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "加载中......",
       "save-button": "保存到你的电脑上......",
       "license": "根据{licenseLink}，这张由Streetmix生成的图片可以被用于任何地方，任何目的。",
       "error-preview": "我们在显示预览图时出现了故障。",
       "error-unavailable": "此浏览器不支持收藏图片功能。",
-      "preview-image-alt": "预览"
+      "error-too-large": "",
+      "preview-image-alt": "预览",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "搜索位置",
@@ -334,7 +348,8 @@
     "delete-street": "删除街道",
     "segment-width": "更改街道部分的宽度",
     "building-height": "更改层数",
-    "street-width": "更改街道宽度",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "增加宽度（长按Shift键来微调）",
     "decrease-width": "减少宽度（长按Shift键来微调）",
     "add-floor": "增加楼层",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

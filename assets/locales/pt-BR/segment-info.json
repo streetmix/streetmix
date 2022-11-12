@@ -10,7 +10,9 @@
     "wayfinding-sign": "Sinal de orientação",
     "sidewalk-lamp": "Poste",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "Parklet",
+    "street-vendor": "",
     "divider": "Zona de amortecimento",
     "planting-strip": "Faixa de plantio",
     "planter-box": "Vaso de plantas",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": ""
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Tradicional",
     "lamp-type|modern": "Moderno",
     "lamp-type|pride": "Moderno com bandeira LGBT",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "Carro",
     "car-type|sharrow": "Ciclorrota",
     "car-type|truck": "Caminhão",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "",
     "elevation|road": "Nível da rua",
     "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|barricade": "",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Asfalto"
   },
   "environs": {
     "day": "",

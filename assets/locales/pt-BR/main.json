@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Discutir em os foros",
-      "twitter": "Enviar um tweet para @streetmix",
       "email": "Enviar e-mail para a equipe do Streetmix",
       "github": "Ver código fonte no GitHub",
       "blog": "Visitar o blog do Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Opções",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Idioma"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Unidades",
       "metric": "Unidade métrica (metros)",
       "imperial": "Unidade imperial (pés)"
-    },
-    "language": {
-      "label": "Idioma"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Nome da rua",
       "option-sky": "Céu transparente",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Carregando…",
       "save-button": "Salvar no seu computador…",
       "license": "Esta imagem criada pelo Streetmix poderá ser reutilizada em qualquer lugar, para qualquer propósito, sob a {licenseLink}.",
       "error-preview": "Houve um erro ao exibir a pre-visualização da imagem.",
       "error-unavailable": "Salvar imagem não está disponível neste navegador.",
-      "preview-image-alt": "Pre-visualização"
+      "error-too-large": "",
+      "preview-image-alt": "Pre-visualização",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Busque uma localização",
@@ -334,7 +348,8 @@
     "delete-street": "Deletar esta rua",
     "segment-width": "Alterar largura do segmento",
     "building-height": "Alterar número de andares",
-    "street-width": "Alterar largura da rua",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Aumentar largura (segure o Shift para mais precisão)",
     "decrease-width": "Diminuir largura (segure o Shift para mais precisão)",
     "add-floor": "Adicionar andar",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

@@ -10,7 +10,9 @@
     "wayfinding-sign": "Navigace",
     "sidewalk-lamp": "Osvětlení",
     "utility-pole": "Sloupek pro inženýrské sítě",
+    "drainage-channel": "Odvodňovací kanál",
     "parklet": "Doplněk chodníku",
+    "street-vendor": "Pouliční prodavač",
     "divider": "Dopravní stín",
     "planting-strip": "Pás výsadby",
     "planter-box": "Truhlík na květináče",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "Arkádová budova"
+    },
+    "compound-wall": {
+      "name": "Složená zeď"
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Tradiční",
     "lamp-type|modern": "Moderní",
     "lamp-type|pride": "Moderní s hrdým bannerem",
+    "drainage-sides|slanted": "Zkosené strany",
+    "drainage-sides|vertical": "Svislé boční strany",
     "car-type|car": "Automobíl",
     "car-type|sharrow": "Piktokoridor",
     "car-type|truck": "Nákladní automobil",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "Úroveň chodníku",
     "elevation|road": "Úroveň vozovky",
     "temporary-barrier-type|traffic-cone": "Dopravní kužel",
-    "temporary-barrier-type|barricade": "Zábrana"
+    "temporary-barrier-type|barricade": "Zábrana",
+    "vendor-type|handcart": "Prodejce s příručním vozíkem",
+    "vendor-type|table": "Prodejce u stolku",
+    "vendor-type|tarp": "Prodejce na plachtě na zemi",
+    "vendor-type|platform": "Prodejce na nástupišti",
+    "ground|concrete": "Beton",
+    "ground|asphalt": "Asfalt"
   },
   "environs": {
     "day": "Den",

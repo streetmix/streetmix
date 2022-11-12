@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "مناقشة المجريات",
-      "twitter": "أرسل تغريدة إلى @streetmix",
       "email": "أرسل بريد إلكتروني إلى فريق Streetmix",
       "github": "إظهار شيفرة المصدر على GitHub",
       "blog": "زيارة مدونة Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "إعدادات",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "اللغة"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "الوحدات",
       "metric": "الوحدات المترية (بالمتر)",
       "imperial": "الوحدات الإمبريالية (بالقدم)"
-    },
-    "language": {
-      "label": "اللغة"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "اسم الشارع",
       "option-sky": "سماء شفافة",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "تحميل…",
       "save-button": "حفظ في جهاز الكمبيوتر الخاص بك…",
       "license": "قد يتم إعادة استخدام هذه الصورة التي تم إنشائها باستخدام Streetmix في أي مكان ولأي غرص بموجب {licenseLink}.",
       "error-preview": "فشل عرض صورة المعاينة.",
       "error-unavailable": "تعذر الحفظ على الصورة في هذا المتصفح.",
-      "preview-image-alt": "عرض مسبق"
+      "error-too-large": "",
+      "preview-image-alt": "عرض مسبق",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "البحث عن موقع",
@@ -334,7 +348,8 @@
     "delete-street": "شطب الشارع",
     "segment-width": "تغيير عرض الجزء",
     "building-height": "تغيير عدد الطوابق",
-    "street-width": "تغيير عرض الشارع",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "زيادة العرض (لمزيد من الدقة إضغط على المفتاح Shift)",
     "decrease-width": "تقليل العرض (لمزيد من الدقة إضغط على المفتاح Shift)",
     "add-floor": "إضافة طابق",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

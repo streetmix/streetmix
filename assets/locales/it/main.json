@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Parliamone nei forum",
-      "twitter": "Invia un tweet a @streetmix",
       "email": "Invia un'email al team di Steetmix",
       "github": "Esamina il codice sorgente su GitHub",
       "blog": "Visita il blog di Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Configurazione",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Lingua"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Unità di misura",
       "metric": "Unità metriche (metri)",
       "imperial": "Unità imperiali (piedi)"
-    },
-    "language": {
-      "label": "Lingua"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Nome della strada",
       "option-sky": "Cielo trasparente",
       "option-watermark": "Sovrimpressione",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Caricamento",
       "save-button": "Salva sul tuo computer...",
       "license": "Questa immagine, creata con Streemix, può essere riusata ovunque e per qualunque scopo, secondo i termini della licenza {licenseLink}.",
       "error-preview": "C'è stato un errore visualizzando l'immagine di anteprima",
       "error-unavailable": "Il salvataggio come immagine non è disponibile su questo browser.",
-      "preview-image-alt": "Anteprima"
+      "error-too-large": "",
+      "preview-image-alt": "Anteprima",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Cerca un luogo",
@@ -334,7 +348,8 @@
     "delete-street": "Cancella la strada",
     "segment-width": "Cambia la larghezza del segmento",
     "building-height": "Cambia il numero dei piani",
-    "street-width": "Cambia la larghezza della strada",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Incrementa la larghezza (premi Shift per una maggiore precisione)",
     "decrease-width": "Decrementa la larghezza (premi Shift per una maggiore precisione)",
     "add-floor": "Aggiungi un piano",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": "Accedi per l'utilizzo!"
+      "user": "Accedi per l'utilizzo!",
+      "action": ""
     },
     "prompt": {
       "text": "",

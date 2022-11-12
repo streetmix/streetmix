@@ -10,7 +10,9 @@
     "wayfinding-sign": "路標",
     "sidewalk-lamp": "路燈",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "微型公園",
+    "street-vendor": "",
     "divider": "禁停區",
     "planting-strip": "綠化帶",
     "planter-box": "種花箱",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": ""
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "傳統樣式",
     "lamp-type|modern": "現代樣式",
     "lamp-type|pride": "有同志驕傲旗幟的現代樣式",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "汽車",
     "car-type|sharrow": "共用車道",
     "car-type|truck": "卡車",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "",
     "elevation|road": "街面",
     "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|barricade": "",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "瀝青"
   },
   "environs": {
     "day": "",

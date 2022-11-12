@@ -10,7 +10,9 @@
     "wayfinding-sign": "Vägvisningsskylt",
     "sidewalk-lamp": "Belysning",
     "utility-pole": "Elstolpe",
+    "drainage-channel": "",
     "parklet": "Mikropark",
+    "street-vendor": "",
     "divider": "Buffert",
     "planting-strip": "Planteringsremsa",
     "planter-box": "Planteringslåda",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "Arkad"
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Traditionell",
     "lamp-type|modern": "Modern",
     "lamp-type|pride": "Modern med prideflagga",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "Bil",
     "car-type|sharrow": "Delat körfält",
     "car-type|truck": "Lastbil",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "Upphöjd",
     "elevation|road": "Gatunivå",
     "temporary-barrier-type|traffic-cone": "Trafikkon",
-    "temporary-barrier-type|barricade": "Avspärrning"
+    "temporary-barrier-type|barricade": "Avspärrning",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Asfalt"
   },
   "environs": {
     "day": "Dag",

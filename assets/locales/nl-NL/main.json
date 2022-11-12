@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "",
-      "twitter": "",
       "email": "",
       "github": "",
       "blog": "",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Taal"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "",
       "metric": "",
       "imperial": ""
-    },
-    "language": {
-      "label": "Taal"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "",
       "option-sky": "",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "",
       "save-button": "",
       "license": "",
       "error-preview": "",
       "error-unavailable": "",
-      "preview-image-alt": ""
+      "error-too-large": "",
+      "preview-image-alt": "",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "",
@@ -335,6 +349,7 @@
     "segment-width": "",
     "building-height": "",
     "street-width": "",
+    "geotag": "",
     "increase-width": "",
     "decrease-width": "",
     "add-floor": "",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

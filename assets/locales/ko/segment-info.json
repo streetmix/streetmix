@@ -10,7 +10,9 @@
     "wayfinding-sign": "길찾기 표지판",
     "sidewalk-lamp": "가로등",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "파클렛",
+    "street-vendor": "",
     "divider": "안전지대",
     "planting-strip": "식수대",
     "planter-box": "화분 상자",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": ""
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "전통적인",
     "lamp-type|modern": "현대적인",
     "lamp-type|pride": "현대적인, 프라이드 배너",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "자동차",
     "car-type|sharrow": "섀로우",
     "car-type|truck": "트럭",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "보도 높이",
     "elevation|road": "도로 높이",
     "temporary-barrier-type|traffic-cone": "안전 콘",
-    "temporary-barrier-type|barricade": "바리케이드"
+    "temporary-barrier-type|barricade": "바리케이드",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "아스팔트"
   },
   "environs": {
     "day": "",

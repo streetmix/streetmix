@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "フォーラムで相談",
-      "twitter": "@streetmixにツイート",
       "email": "Streetmixチームにメール",
       "github": "Githubでコードを確認",
       "blog": "Streetmixブログを表示",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "設定",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "言語設定"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "単位",
       "metric": "メートル表記",
       "imperial": "フィート表示"
-    },
-    "language": {
-      "label": "言語設定"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "ストリートの名称",
       "option-sky": "空を透明化",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "ロード中…",
       "save-button": "コンピュータに保存中…",
       "license": "Streetmixで作成した画像は {licenseLink} のもとで自由にお使いいただけます。",
       "error-preview": "プレビュー画像の表示に失敗しました。",
       "error-unavailable": "ブラウザが画像の保存に対応していません。",
-      "preview-image-alt": "プレビュー"
+      "error-too-large": "",
+      "preview-image-alt": "プレビュー",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "場所を検索",
@@ -334,7 +348,8 @@
     "delete-street": "ストリート削除",
     "segment-width": "セグメントの幅を変更",
     "building-height": "階数変更",
-    "street-width": "ストリートの道路幅変更",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "幅を増やす (Shiftを押すと微調整可)",
     "decrease-width": "幅を減らす (Shiftを押すと微調整可)",
     "add-floor": "階数を追加",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

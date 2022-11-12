@@ -10,7 +10,9 @@
     "wayfinding-sign": "",
     "sidewalk-lamp": "",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "",
+    "street-vendor": "",
     "divider": "",
     "planting-strip": "",
     "planter-box": "",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": ""
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "",
     "lamp-type|modern": "",
     "lamp-type|pride": "",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "",
     "car-type|sharrow": "",
     "car-type|truck": "",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "",
     "elevation|road": "",
     "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|barricade": "",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": ""
   },
   "environs": {
     "day": "",

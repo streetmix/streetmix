@@ -10,7 +10,9 @@
     "wayfinding-sign": "Panneaux directionnels",
     "sidewalk-lamp": "Lampadaire",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "« Parklet »",
+    "street-vendor": "",
     "divider": "Zone tampon",
     "planting-strip": "Banquette",
     "planter-box": "Pots de fleurs",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "Bâtiment avec des arcades"
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Traditionnel",
     "lamp-type|modern": "Moderne",
     "lamp-type|pride": "Moderne avec la bannière de la fierté gaie",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "Voiture",
     "car-type|sharrow": "Chaussée désignée",
     "car-type|truck": "Camion",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "Hauteur du trottoir",
     "elevation|road": "Au niveau de la rue",
     "temporary-barrier-type|traffic-cone": "Cône de signalisation",
-    "temporary-barrier-type|barricade": "Barricade"
+    "temporary-barrier-type|barricade": "Barricade",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Asphalte"
   },
   "environs": {
     "day": "",

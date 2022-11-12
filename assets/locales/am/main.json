@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "በመድረኮች ላይ ይወያዩ ፡፡",
-      "twitter": "ወደ @streetmix ይላኩ።",
       "email": "ወደ ስትሪትሚክስ ቡድን ኢሜል ይላኩ።",
       "github": "በ ጂትሆብ ላይ የኮዱን ምንጭ ይመልከቱ።",
       "blog": "የስትሪትሚክስ ብሎግን ይጎብኙ",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "ቅንብሮች",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "ቋንቋ"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "ክፍሎች።",
       "metric": "የሜትር አሃዶች (በሜትር)",
       "imperial": "የኢምፔሪያል አሃዶች (በጫማ)"
-    },
-    "language": {
-      "label": "ቋንቋ"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "የመንገድ ስም ",
       "option-sky": "ግልጽ ሰማይ ",
       "option-watermark": "ዋተርማርክ",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "በመጫን ላይ...",
       "save-button": "ኮምፒዩተርዎ ላይ ሴቭ ያድርጉ…",
       "license": "ይህ የስትሪትሚክስ የጎዳና-አምሳያ ምስል በየትኛውም ቦታ ፣ ለማንኛውም ዓላማ ፣ በ {licenseLink} ፈቃድ ስር ጥቅም ላይ ሊውል ይችላል።.",
       "error-preview": "የቀድሞ ምልከታ ምስል ማሳየት ላይ ስህተት አለ ",
       "error-unavailable": "ወደ ምስል ሴቭ ማድረጊያ በእርስዎ ብሮዘር ላይ የለም",
-      "preview-image-alt": "የቅድመ ምልከታ "
+      "error-too-large": "",
+      "preview-image-alt": "የቅድመ ምልከታ ",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "ቦታን መፈለግ ",
@@ -334,7 +348,8 @@
     "delete-street": "መንገድ ሰርዝ",
     "segment-width": "የመንገዱን ክፍልስፋት ይለውጡ",
     "building-height": "የወለሎችን ብዛት ይለውጡ",
-    "street-width": "የመንገዱን ስፋት ይለውጡ",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "ስፋትን ይጨምሩ (ለተጨማሪ ትክክለኛነት ሺፍትን ይያዙ)",
     "decrease-width": "ስፋትን ይቀንሱ (ለተጨማሪ ትክክለኛነት ሺፍትን ይያዙ)",
     "add-floor": "ወለል ያክሉ",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "በቅርቡ ይመጣል",
       "sub": "ለመጠቀም ወደ ስትሪትሚክስ + ያሻሽሉ!",
       "sub-edit": "",
-      "user": "ለመጠቀም ይመዝገቡ!"
+      "user": "ለመጠቀም ይመዝገቡ!",
+      "action": ""
     },
     "prompt": {
       "text": "ይህ ባህሪ ለስትሪትሚክስ + ተጠቃሚዎች ብቻ ይገኛል።.",

@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Discutir en los foros",
-      "twitter": "Enviar un tuit a @streetmix",
       "email": "Enviar un correo electrónico al equipo de Streetmix",
       "github": "Ver el código fuente en GitHub",
       "blog": "Ir al blog de Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Configuración",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Idioma"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Unidades",
       "metric": "Unidades métricas (metros)",
       "imperial": "Unidades imperiales (pies)"
-    },
-    "language": {
-      "label": "Idioma"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo transparente",
       "option-watermark": "Marca de agua",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Cargando...",
       "save-button": "Guardar en tu equipo...",
       "license": "Esta imagen creada con Streetmix puede ser reutilizada en otros lugares, para cualquier propósito, bajo la licencia {licenseLink} .",
       "error-preview": "Hubo un error al mostrar la vista previa.",
       "error-unavailable": "La función de guardar como imagen no está disponible en este navegador.",
-      "preview-image-alt": "Vista previa"
+      "error-too-large": "",
+      "preview-image-alt": "Vista previa",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Buscar ubicación",
@@ -334,7 +348,8 @@
     "delete-street": "Borrar calle",
     "segment-width": "Cambiar ancho del segmento",
     "building-height": "Cambiar el número de pisos",
-    "street-width": "Cambiar el ancho de la calle",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Aumentar el ancho (matén oprimida la tecla Shift para mayor precisión)",
     "decrease-width": "Disminuir el ancho (mantén oprimida la tecla Shift para mayor precisión)",
     "add-floor": "Añadir un piso",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": "¡Ingrese para usar!"
+      "user": "¡Ingrese para usar!",
+      "action": ""
     },
     "prompt": {
       "text": "",

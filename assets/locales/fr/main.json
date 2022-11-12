@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Discuter sur les forums",
-      "twitter": "Envoyez un tweet à @streetmix",
       "email": "Envoyer un e-mail à la team Streetmix",
       "github": "Voir le code source sur GitHub",
       "blog": "Visitez le blog Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Paramètres",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Langue"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Unités",
       "metric": "Unités métriques (mètres)",
       "imperial": "Unités impériales (pieds)"
-    },
-    "language": {
-      "label": "Langue"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Nom de rue",
       "option-sky": "Ciel transparent",
       "option-watermark": "Filigrane",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Chargement…",
       "save-button": "Enregistrer sur votre ordinateur…",
       "license": "Cette image créée sur Streetmix peut être réutilisée n'importe où, pour n'importe quel usage, sous la licence {licenseLink}.",
       "error-preview": "Une erreur s'est produite lors de l'affichage de l’aperçu.",
       "error-unavailable": "L'enregistrement en tant qu'image n'est pas possible sur ce navigateur.",
-      "preview-image-alt": "Aperçu"
+      "error-too-large": "",
+      "preview-image-alt": "Aperçu",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Chercher un emplacement",
@@ -334,7 +348,8 @@
     "delete-street": "Supprimer la rue",
     "segment-width": "Changer la largeur de l'élément de voirie",
     "building-height": "Changer le nombre d'étages",
-    "street-width": "Changer la largeur de la rue",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Augmenter la largeur (Maintenir Shift enfoncé pour obtenir plus de précision)",
     "decrease-width": "Diminuer la largeur (maintenir Shift enfoncé pour obtenir plus de précision)",
     "add-floor": "Ajouter un étage",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": "Se connecter pour utiliser !"
+      "user": "Se connecter pour utiliser !",
+      "action": ""
     },
     "prompt": {
       "text": "",

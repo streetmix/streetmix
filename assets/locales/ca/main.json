@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Discutiu als fòrums",
-      "twitter": "Envieu un tuit a @streetmix",
       "email": "Envieu un correu a l'equip de Streetmix",
       "github": "Vegeu el codi font a GitHub",
       "blog": "Visiteu el bloc de Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Paràmetres",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Idioma"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Unitats",
       "metric": "Unitats mètriques (metres)",
       "imperial": "Unitats imperials (peus)"
-    },
-    "language": {
-      "label": "Idioma"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Nom del carrer",
       "option-sky": "Cel transparent",
       "option-watermark": "Marca d'aigua",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Carregant...",
       "save-button": "Guarda al teu ordinador",
       "license": "Aquesta imatge creada per Streetmix es pot reutilitzar a qualsevol lloc, amb qualsevol propòsit, sota la llicència {licenseLink}.",
       "error-preview": "S'ha produït un error al mostrar la previsualització d'imatge.",
       "error-unavailable": "Desar a la imatge no està disponible en aquest navegador.",
-      "preview-image-alt": "Previsualització"
+      "error-too-large": "",
+      "preview-image-alt": "Previsualització",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Cerca un indret",
@@ -334,7 +348,8 @@
     "delete-street": "Elimina tram",
     "segment-width": "Canvia l'amplada del tram",
     "building-height": "Canvia el nombre de plantes",
-    "street-width": "Canvia l'amplada del carrer",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Augmenta l’amplada (manteniu premuda la tecla Maj per obtenir més precisió)",
     "decrease-width": "Disminueix l’amplada (manteniu premuda la tecla Maj per obtenir més precisió)",
     "add-floor": "Afegeix planta",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": "Inicieu la sessió per utilitzar-la!"
+      "user": "Inicieu la sessió per utilitzar-la!",
+      "action": ""
     },
     "prompt": {
       "text": "",

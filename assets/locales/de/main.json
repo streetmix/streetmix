@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Diskutiere im Forum",
-      "twitter": "Sende einen Tweet an @streetmix",
       "email": "Sende eine E-Mail an das Streetmix-Team",
       "github": "Quellcode auf GitHub ansehen",
       "blog": "Streetmix Blog ansehen",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Einstellungen",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Sprache"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Einheiten",
       "metric": "Metrisches System (Meter)",
       "imperial": "Angloamerikanisches System (Feet)"
-    },
-    "language": {
-      "label": "Sprache"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Straßenname",
       "option-sky": "Transparenter Himmel",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Laden…",
       "save-button": "Auf deinem Computer speichern…",
       "license": "Dieses mit Streetmix erstellte Bild darf überall, für jeden Zweck unter der {licenseLink} Linzenz verwendet werden.",
       "error-preview": "Beim Anzeigen der Vorschau ist ein Fehler aufgetreten.",
       "error-unavailable": "Das Bild kann in diesem Browser nicht gespeichert werden.",
-      "preview-image-alt": "Vorschau"
+      "error-too-large": "",
+      "preview-image-alt": "Vorschau",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Suche nach einem Ort",
@@ -334,7 +348,8 @@
     "delete-street": "Straße löschen",
     "segment-width": "Breite des Elements ändern",
     "building-height": "Anzahl der Stockwerke ändern",
-    "street-width": "Breite der Straße ändern",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Breite vergrößern (Shift gedrückt halten für eine höhere Genauigkeit)",
     "decrease-width": "Breite verkleinern (Shift gedrückt halten für eine höhere Genauigkeit)",
     "add-floor": "Stockwerk hinzufügen",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

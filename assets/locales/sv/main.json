@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Diskutera i forumen",
-      "twitter": "Skicka en tweet till @streetmix",
       "email": "Skicka e-post till Streetmix-teamet",
       "github": "Visa källkod på GitHub",
       "blog": "Besök Streetmix-bloggen",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Inställningar",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Språk"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Enheter",
       "metric": "Meterenheter (meter)",
       "imperial": "Imperiala enheter (fot)"
-    },
-    "language": {
-      "label": "Språk"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Gatunamn",
       "option-sky": "Transparent himmel",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Laddar…",
       "save-button": "Sparar till din dator…",
       "license": "Denna av Streetmix skapade bild kan användas var som helst, oavsett syfte, i enlighet med {licenseLink}.",
       "error-preview": "",
       "error-unavailable": "",
-      "preview-image-alt": ""
+      "error-too-large": "",
+      "preview-image-alt": "",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "",
@@ -334,7 +348,8 @@
     "delete-street": "Ta bort gata",
     "segment-width": "Ändra bredd på segmentet",
     "building-height": "Ändra antal våningar",
-    "street-width": "Ändra gatans bredd",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Öka bredd (håll inne Shift för ökad precision)",
     "decrease-width": "Minska bredd (håll inne Shift för ökad precision)",
     "add-floor": "Lägg till våning",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "Kommer snart!",
       "sub": "Uppgradera till Streetmix+ för att använda!",
       "sub-edit": "",
-      "user": "Logga in för att använda!"
+      "user": "Logga in för att använda!",
+      "action": ""
     },
     "prompt": {
       "text": "",

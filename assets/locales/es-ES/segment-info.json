@@ -10,7 +10,9 @@
     "wayfinding-sign": "Señal de orientación",
     "sidewalk-lamp": "Farola",
     "utility-pole": "Poste de la luz",
+    "drainage-channel": "",
     "parklet": "'Parklet'",
+    "street-vendor": "",
     "divider": "Separación",
     "planting-strip": "Franja de vegetación",
     "planter-box": "Macetero",
@@ -68,11 +70,11 @@
     },
     "sharrow": {
       "prompt": "Saber más acerca de los carriles compartidos",
-      "content": "# Los carriles compartidos son carriles vehiculares compartidos entre coches y bicicletas.\n\nConocidos coloquialmente en inglés como _sharrows_ (una combinación de _shared_ y _arrow_, refiriéndose a las marcas viales que los desginan), los carriles compartidos no son verdaderamente un _tipo_ distinto de carril. En muchos lugares, se permite a las bicicletas utilizar los carriles vehiculares convencionales de las calles y deben seguir las mismas normas que los coches.\n\nNo obstante, no es necesario ser muy listo para darse cuenta de que los coches y las bicicletas se comportan de manera muy diferente, por lo que separar coches de bicicletas en carriles segregados resulta [mucho más preferible](http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/) tanto para la seguridad de los ciclistas como para la tranquilidad de los conductores. Pero para muchos ciclistas, cuando no hay suficiente espacio en la calle para carriles bici, hacer carriles compartidos es mejor que nada. Los conductores tienden a olvidar que comparten la calzada con otros tipos de vehículos, por lo que toda oportunidad de recordarles la existencia de los ciclistas y que pueden coexistir pacíficamente es algo a valorar; y dar a las bicicletas la capacidad de usar todo el ancho del carril también puede protegerlos mejor de los _puertazos_ de los coches estacionados. Además, en España y otros países, los carriles compartidos también implican limitaciones de velocidad específicas para disminuir la peligrosidad a la que se exponen los ciclistas, contribuyendo indirectamente a la pacificación del tráfico.\n\nLas marcas viales que designan los carriles compartidos son una forma más sencilla de dar más visibilidad a los ciclistas que construir un carril bici dedicado, y en muchos casos, más aceptable políticamente. Sin embargo, algunos estudios sobre seguridad (como [el realizado en 2012 por el BMJ](http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf) sobre ciclistas heridos en Vancouver y Toronto, Canadá) señalaron una ligera mayor posibilidad de accidente en carriles compartidos en comparación con los carriles bici segregados. ¿La moraleja de la historia?: ocúpese de los ciclistas tratando de meterlos en un carril bici normal antes de pensar en recurrir a carriles compartidos."
+      "content": "# Los carriles compartidos son carriles vehiculares compartidos entre coches y bicicletas.\n\nConocidos coloquialmente en inglés como _sharrows_ (una combinación de _shared_ y _arrow_, refiriéndose a las marcas viales que los designan), los carriles compartidos no son verdaderamente un _tipo_ distinto de carril. En muchos lugares, se permite a las bicicletas utilizar los carriles vehiculares convencionales de las calles y deben seguir las mismas normas que los coches.\n\nNo obstante, no es necesario ser muy listo para darse cuenta de que los coches y las bicicletas se comportan de manera muy diferente, por lo que separar coches de bicicletas en carriles segregados resulta [mucho más preferible](http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/) tanto para la seguridad de los ciclistas como para la tranquilidad de los conductores. Pero para muchos ciclistas, cuando no hay suficiente espacio en la calle para carriles bici, hacer carriles compartidos es mejor que nada. Los conductores tienden a olvidar que comparten la calzada con otros tipos de vehículos, por lo que toda oportunidad de recordarles la existencia de los ciclistas y que pueden coexistir pacíficamente es algo a valorar; y dar a las bicicletas la capacidad de usar todo el ancho del carril también puede protegerlas mejor de los _puertazos_ de los coches estacionados. Además, en España y otros países los carriles compartidos también implican limitaciones de velocidad específicas para disminuir la peligrosidad a la que se exponen los ciclistas, contribuyendo indirectamente a la pacificación del tráfico.\n\nLas marcas viales que designan los carriles compartidos son una forma más sencilla de dar más visibilidad a los ciclistas que construir un carril bici dedicado, y en muchos casos, más aceptable políticamente. Sin embargo, algunos estudios sobre seguridad (como [el realizado en 2012 por el BMJ](http://injuryprevention.bmj.com/content/early/2013/02/13/injuryprev-2012-040561.full.pdf) sobre ciclistas heridos en Vancouver y Toronto, Canadá) señalaron una ligera mayor posibilidad de accidente en carriles compartidos en comparación con los carriles bici segregados. ¿La moraleja de la historia?: ocúpese de los ciclistas tratando de meterlos en un carril bici normal antes de pensar en recurrir a carriles compartidos."
     },
     "transit-shelter-elevated": {
       "prompt": "Saber más acerca de paradas de transporte elevadas",
-      "content": "# Las paradas elevadas de transporte público sirven al metro ligero y al metrobús.\n\nPara algunos sistemas de metro ligero y metrobús, donde la velocidad de servicio es una gran prioridad, las paradas elevadas son la clave. Permiten a los viajeros embarcar al mismo nivel que el vehículo, lo cual acelera el proceso (especialmente para usuarios de sillas de ruedas y otras personas con necesidades de acceso especiales) y ahorra unos segundos cruciales que, en conjunto, permiten un servicio más rápido.\n\nDebido a ese foco en la eficiencia, los modos de transporte público que emplean paradas elevadas también suelen circular por carriles segregados, colocándose las paradas en lugares que permitan acceder a los mismos fácilmente, como en medianas. Si se instalan entre dos sentidos de circulación, pueden servir a pasajeros de ambos (y necesitará poner dos en Streetmix).\n\nLas paradas elevadas se diseñan a veces como los apeaderos del ferrocarril, cerradas o con un tejado para proteger a los usuarios de la intemperie, y son un buen punto de referencia en calles bulliciosas. No obstante, comparadas con las paradas convencionales en la acera, suelen sen más caras y ocupar más espacio, lo cual induce a los servicios de transporte público que las emplean a ser menos flexibles que si operaran con paradas convencionales. En cualquier caso, con vehículos con suelos cada vez más bajos, la necesidad de paradas elevadas cada vez es menor."
+      "content": "# Las paradas elevadas de transporte público sirven al metro ligero y al metrobús.\n\nPara algunos sistemas de metro ligero y metrobús, donde la velocidad de servicio es una gran prioridad, las paradas elevadas son la clave. Permiten a los viajeros embarcar al mismo nivel que el vehículo, lo cual acelera el proceso (especialmente para usuarios de sillas de ruedas y otras personas con necesidades de acceso especiales) y ahorran unos segundos cruciales que, en conjunto, permiten un servicio más rápido.\n\nDebido a ese foco en la eficiencia, los modos de transporte público que emplean paradas elevadas también suelen circular por carriles segregados, colocándose las paradas en lugares que permitan acceder a los mismos fácilmente, como en medianas. Si se instalan entre dos sentidos de circulación, pueden servir a pasajeros de ambos (y necesitará poner dos en Streetmix).\n\nLas paradas elevadas se diseñan a veces como los apeaderos del ferrocarril, cerradas o con un tejado para proteger a los usuarios de la intemperie, y son un buen punto de referencia en calles bulliciosas. No obstante, comparadas con las paradas convencionales en la acera, suelen ser más caras y ocupar más espacio, lo cual induce a los servicios de transporte público que las emplean a ser menos flexibles que si operaran con paradas convencionales. En cualquier caso, con vehículos con suelos cada vez más bajos, la necesidad de paradas elevadas cada vez es menor."
     },
     "inception-train": {
       "content": "# Es el tren de la película de Christopher Nolan  _Inception_.\n\n¿Qué más quiere saber?"
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "Edificio con soportales"
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Clásica",
     "lamp-type|modern": "Moderna",
     "lamp-type|pride": "Moderna con bandera del orgullo",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "Coche",
     "car-type|sharrow": "Carril compartido",
     "car-type|truck": "Camión",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "Nivel de las aceras",
     "elevation|road": "Nivel de la calzada",
     "temporary-barrier-type|traffic-cone": "Cono",
-    "temporary-barrier-type|barricade": "Barrera"
+    "temporary-barrier-type|barricade": "Barrera",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Asfalto"
   },
   "environs": {
     "day": "Día",

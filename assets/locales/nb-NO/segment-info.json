@@ -10,7 +10,9 @@
     "wayfinding-sign": "Vegvisningsskilt",
     "sidewalk-lamp": "Gatelykt",
     "utility-pole": "Stolpe",
+    "drainage-channel": "",
     "parklet": "Parklet",
+    "street-vendor": "",
     "divider": "Rabatt",
     "planting-strip": "Grønn rabatt",
     "planter-box": "Plantekasse",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "Bygning med søylegang"
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Tradisjonell",
     "lamp-type|modern": "Moderne",
     "lamp-type|pride": "Moderne med Pride-banner",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "Bil",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Lastebil",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "Fortausnivå",
     "elevation|road": "Gatenivå",
     "temporary-barrier-type|traffic-cone": "Varselkjegle",
-    "temporary-barrier-type|barricade": "Sperring"
+    "temporary-barrier-type|barricade": "Sperring",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Svart asfalt"
   },
   "environs": {
     "day": "Dag",

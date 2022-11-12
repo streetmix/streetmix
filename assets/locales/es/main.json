@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Discutir en los foros",
-      "twitter": "Envía un tweet a @streetmix",
       "email": "Envía un correo electrónico al equipo de Streetmix",
       "github": "Ver código fuente en GitHub",
       "blog": "Visita el blog de Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Ajustes",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Idioma"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Unidades",
       "metric": "Unidades Métricas (metros)",
       "imperial": "Unidades inglesas (pies)"
-    },
-    "language": {
-      "label": "Idioma"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo Transparente",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Cargando…",
       "save-button": "Grabar en tu computador…",
       "license": "Esta imagen creada con Streetmix puede ser reusada en cualquier sitio, para cualquier propósito, bajo la licencia {licenseLink}.",
       "error-preview": "",
       "error-unavailable": "",
-      "preview-image-alt": ""
+      "error-too-large": "",
+      "preview-image-alt": "",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "",
@@ -334,7 +348,8 @@
     "delete-street": "Eliminar la calle",
     "segment-width": "Cambiar la anchura del segmento",
     "building-height": "Cambiar el número de pisos",
-    "street-width": "Cambiar la anchura de la calle",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Incrementar la anchura (presione la tecla Shift para tener más precisión)",
     "decrease-width": "Reducir anchura (presione la tecla Shift para tener más precisión)",
     "add-floor": "Adherir un piso",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

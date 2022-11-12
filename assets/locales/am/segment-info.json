@@ -10,7 +10,9 @@
     "wayfinding-sign": "የመንገድ ማግኛ ምልክቶች ",
     "sidewalk-lamp": "የመንገድ መብራት",
     "utility-pole": "የመሠረተ ልማት ምሰሶ",
+    "drainage-channel": "",
     "parklet": "ፓርክ",
+    "street-vendor": "",
     "divider": "የመንገድ ቋት",
     "planting-strip": "ጠፍጣፋ ዛፍ መትከያ",
     "planter-box": "መትከያ ሳጥን",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "ክፍት ቦታ በህንፃ ስር"
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "ባህላዊ",
     "lamp-type|modern": "ዘመናዊ",
     "lamp-type|pride": "ዘመናዊ የኩራት ሰንደቅ ጋር",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "መኪና",
     "car-type|sharrow": "የመንገድ ምልክት",
     "car-type|truck": "የጭነት መኪና",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "የእግረኛ መንገድ",
     "elevation|road": "የጎዳና ደረጃ",
     "temporary-barrier-type|traffic-cone": "የትራፊክ ኮን",
-    "temporary-barrier-type|barricade": "ባርኮድ"
+    "temporary-barrier-type|barricade": "ባርኮድ",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "አስፋልት"
   },
   "environs": {
     "day": "ቀን",

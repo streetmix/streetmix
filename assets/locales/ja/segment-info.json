@@ -10,7 +10,9 @@
     "wayfinding-sign": "道路名標識",
     "sidewalk-lamp": "街灯",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "パークレット",
+    "street-vendor": "",
     "divider": "バッファーゾーン",
     "planting-strip": "緑地・花壇",
     "planter-box": "プランター",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": ""
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "伝統的",
     "lamp-type|modern": "現代風",
     "lamp-type|pride": "虹色表記つきの現代風",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "車両",
     "car-type|sharrow": "共用",
     "car-type|truck": "トラック",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "",
     "elevation|road": "ストリートの段差",
     "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|barricade": "",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "アスファルト"
   },
   "environs": {
     "day": "",

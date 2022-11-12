@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Dyskutuj na forum",
-      "twitter": "Wyślij tweeta do @streetmix",
       "email": "Wyślij maila do zespołu Streetmix",
       "github": "Obejrzyj kod źródłowy na GitHubie",
       "blog": "Odwiedź blog Streetmiksa",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Ustawienia",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "Język"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Jednostki",
       "metric": "System metryczny (metry)",
       "imperial": "System imperialny (stopy)"
-    },
-    "language": {
-      "label": "Język"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Nazwa ulicy",
       "option-sky": "Czyste niebo",
       "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Ładuję…",
       "save-button": "Zapisz na swoim komputerze…",
       "license": "Obrazy tworzone w Streetmiksie mogą być ponownie użytkowane gdziekolwiek i w jakimkolwiek celu na licencji {licenseLink}.",
       "error-preview": "Wystąpił błąd podczas wyświetlania podglądu obrazu.",
       "error-unavailable": "Zapis do obrazu nie jest dostępny na tej przeglądarce.",
-      "preview-image-alt": "Podgląd"
+      "error-too-large": "",
+      "preview-image-alt": "Podgląd",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Szukaj lokalizacji",
@@ -334,7 +348,8 @@
     "delete-street": "Usuń ulicę",
     "segment-width": "Zmień szerokość segmentu",
     "building-height": "Zmień liczbę pięter",
-    "street-width": "Zmień szerokość ulicy",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "Zwiększ szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "decrease-width": "Zmniejsz szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
     "add-floor": "Dodaj piętro",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

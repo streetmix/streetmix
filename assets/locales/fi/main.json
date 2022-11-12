@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Osallistu keskusteluun",
-      "twitter": "Twiittaa käyttäjälle @streetmix",
       "email": "Lähetä sähköpostia Streetmix-kehittäjille",
       "github": "Näytä lähdekoodi GitHub-palvelussa",
       "blog": "Vieraile Streetmix-blogissa",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
-    "units": {
-      "label": "Yksiköt",
-      "metric": "Metrit",
-      "imperial": "Jalat"
+    "heading": "Asetukset",
+    "info-tooltip": "Kuvaus",
+    "general": {
+      "label": "Yleiset"
     },
     "language": {
       "label": "Kieli"
+    },
+    "misc": {
+      "label": "Sekalaiset",
+      "silly-clowns": "Typerät pellet",
+      "silly-clowns-description": "Pääsiäismunat käyttöön."
+    },
+    "units": {
+      "label": "Mittayksikkö",
+      "metric": "Metrit",
+      "imperial": "Jalat"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Kadunnimi",
       "option-sky": "Läpinäkyvä taivas",
       "option-watermark": "Streetmix-logo",
+      "option-custom-scale": "Mukautettu mittakaava",
+      "option-custom-scale-description": "Lataa jopa kuvia jopa viisi kertaa suurempina.",
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
       "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen {licenseLink} -lisenssin ehtojen mukaisesti.",
       "error-preview": "Esikatselukuvan näyttäminen epäonnistui.",
       "error-unavailable": "Tallentaminen kuvana ei ole mahdollista tässä selaimessa.",
-      "preview-image-alt": "Esikatselu"
+      "error-too-large": "Kuva on liian suuri, yritä uudelleen pienemmällä kuvalla.",
+      "preview-image-alt": "Esikatselu",
+      "print-size": "Koko tulostettuna",
+      "digital-size": "Koko näytöllä"
     },
     "geotag": {
       "search": "Etsi sijaintia",
@@ -335,6 +349,7 @@
     "segment-width": "Muuta elementin leveyttä",
     "building-height": "Muuta kerroslukua",
     "street-width": "Muuta kadun leveyttä",
+    "geotag": "Vaihda sijainti",
     "increase-width": "Levennä (tarkempi ote pitämällä Shiftiä pohjassa)",
     "decrease-width": "Kavenna (tarkempi ote pitämällä Shiftiä pohjassa)",
     "add-floor": "Lisää kerros",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "Lukittu",
       "soon": "Tulossa pian",
       "sub": "Toiminto sisältyy Streetmix+-tilaukseen",
       "sub-edit": "Muokkaa päivittämällä Streetmix+-jäsenyyteen",
-      "user": "Vaatii sisäänkirjautumisen"
+      "user": "Vaatii sisäänkirjautumisen",
+      "action": "Hanki Streetmix+"
     },
     "prompt": {
       "text": "Toiminto on vain Streetmix+-käyttäjille.",

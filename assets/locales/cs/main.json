@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Diskutujte na fóru",
-      "twitter": "Odeslat tweet na @streetmix",
       "email": "Odeslat e-mail týmu Streetmix",
       "github": "Zobrazit zdrojový kód na GitHubu",
       "blog": "Navštivte blog Streetmix",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Nastavení",
+    "info-tooltip": "Popis",
+    "general": {
+      "label": "Obecné"
+    },
+    "language": {
+      "label": "Jazyk"
+    },
+    "misc": {
+      "label": "Různé",
+      "silly-clowns": "Blázniví klauni",
+      "silly-clowns-description": "Povoluje velikonoční vajíčka."
+    },
     "units": {
       "label": "Jednotky",
       "metric": "Metrické jednotky (metry)",
       "imperial": "Imperiální jednotky (stopy)"
-    },
-    "language": {
-      "label": "Jazyk"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Název ulice",
       "option-sky": "Průhledná obloha",
       "option-watermark": "Vodoznak",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Načítání...",
       "save-button": "Uložit do počítače...",
       "license": "Tento obrázek vytvořený ve Streetmix lze v rámci {licenseLink} licence použít kdekoli a k jakémukoli účelu.",
       "error-preview": "Došlo k chybě při zobrazování náhledu obrázku.",
       "error-unavailable": "Uložení do obrázku není v tomto prohlížeči k dispozici.",
-      "preview-image-alt": "Náhled"
+      "error-too-large": "",
+      "preview-image-alt": "Náhled",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Hledat umístění",
@@ -335,6 +349,7 @@
     "segment-width": "Změna šířky segmentu",
     "building-height": "Změnit počet podlaží",
     "street-width": "Změnit šířku ulice",
+    "geotag": "Změnit polohu",
     "increase-width": "Zvětšení šířky (pro větší přesnost podržte Shift)",
     "decrease-width": "Zmenšení šířky (pro větší přesnost podržte Shift)",
     "add-floor": "Přidat podlaží",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "Již brzy!",
       "sub": "Upgradujte na Streetmix+ a používejte ho!",
       "sub-edit": "Přejděte na Streetmix+ a upravujte",
-      "user": "Přihlaste se a používejte!"
+      "user": "Přihlaste se a používejte!",
+      "action": "Získejte Streetmix+"
     },
     "prompt": {
       "text": "Tato funkce je k dispozici pouze uživatelům služby Streetmix+.",

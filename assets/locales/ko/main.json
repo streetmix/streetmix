@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "포럼에서 토론하기",
-      "twitter": "@streetmix 로 트윗 전송",
       "email": "스트리트믹스 팀에게 이메일 전송",
       "github": "GitHub에서 소스 코드 확인",
       "blog": "스트리트믹스 블로그 방문",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "설정",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": "언어"
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "단위",
       "metric": "미터법 단위 (미터)",
       "imperial": "영국식 단위 (피트)"
-    },
-    "language": {
-      "label": "언어"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "스트리트 이름",
       "option-sky": "투명 하늘",
       "option-watermark": "워터마크",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "로딩 중...",
       "save-button": "컴퓨터에 저장하기...",
       "license": "스트리트믹스에서 만든 해당 이미지는 {licenseLink} 라이센스에 따라 어떤 목적으로도 재사용 할 수 있습니다.",
       "error-preview": "미리보기 이미지를 표시하는 중 오류가 발생했습니다.",
       "error-unavailable": "이 브라우저에서는 이미지로 저장할 수 없습니다.",
-      "preview-image-alt": "미리보기"
+      "error-too-large": "",
+      "preview-image-alt": "미리보기",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "위치 검색",
@@ -334,7 +348,8 @@
     "delete-street": "스트리트 삭제",
     "segment-width": "세그먼트의 폭 변경",
     "building-height": "층 개수 변경",
-    "street-width": "스트리트 폭 변경",
+    "street-width": "",
+    "geotag": "",
     "increase-width": "폭 늘리기 (정확도를 높이려면 Shift 키를 누르세요)",
     "decrease-width": "폭 줄이기 (정확도를 높이려면 Shift 키를 누르세요)",
     "add-floor": "층 추가",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "",
       "sub": "",
       "sub-edit": "",
-      "user": ""
+      "user": "",
+      "action": ""
     },
     "prompt": {
       "text": "",

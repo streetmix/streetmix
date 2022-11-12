@@ -46,7 +46,6 @@
     },
     "contact": {
       "forums": "Diskutér i forumene",
-      "twitter": "Send en tweet til @streetmix",
       "email": "Send en epost til Streetmix-teamet",
       "github": "Se kildekoden på GitHub",
       "blog": "Besøk Streetmix-bloggen",
@@ -71,13 +70,23 @@
     }
   },
   "settings": {
+    "heading": "Innstillinger",
+    "info-tooltip": "",
+    "general": {
+      "label": "Generell"
+    },
+    "language": {
+      "label": "Språk"
+    },
+    "misc": {
+      "label": "Diverse",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
     "units": {
       "label": "Enheter",
       "metric": "SI-enheter (meter)",
       "imperial": "Britiske enheter (fot)"
-    },
-    "language": {
-      "label": "Språk"
     }
   },
   "msg": {
@@ -215,12 +224,17 @@
       "option-name": "Gatenavn",
       "option-sky": "Gjennomsiktig himmel",
       "option-watermark": "Vannmerke",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
       "loading": "Laster…",
       "save-button": "Lagre på datamaskinen…",
       "license": "Dette Streetmix-genererte bildet kan gjenbrukes hvor som helst, for ethvert formål, i tråd med {licenseLink}-lisensen.",
       "error-preview": "Det oppsto en feil med forhåndsvisningen. ",
       "error-unavailable": "Å lagre som bilde er ikke tilgjengelig i denne nettleseren. ",
-      "preview-image-alt": "Forhåndsvisning"
+      "error-too-large": "",
+      "preview-image-alt": "Forhåndsvisning",
+      "print-size": "",
+      "digital-size": ""
     },
     "geotag": {
       "search": "Søk etter et sted",
@@ -334,7 +348,8 @@
     "delete-street": "Slett gate",
     "segment-width": "Endre bredden på delen",
     "building-height": "Endre antall etasjer",
-    "street-width": "Endre bredden på gaten",
+    "street-width": "Endre gatebredde",
+    "geotag": "Endre sted",
     "increase-width": "Øk bredden (hold Shift inne for mindre intervaller)",
     "decrease-width": "Reduser bredden (hold Shift inne for mindre intervaller)",
     "add-floor": "Legg til etasje",
@@ -410,10 +425,12 @@
   },
   "plus": {
     "locked": {
+      "label": "",
       "soon": "Kommer snart!",
       "sub": "Oppgrader til Streetmix+ for å bruke!",
       "sub-edit": "Oppgrader til Streetmix+ for å redigere",
-      "user": "Logg inn for å ta i bruk!"
+      "user": "Logg inn for å ta i bruk!",
+      "action": "Oppgrader til Streetmix+"
     },
     "prompt": {
       "text": "Denne funksjonen er kun tilgjengelig for brukere med Streetmix+.",

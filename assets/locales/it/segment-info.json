@@ -10,7 +10,9 @@
     "wayfinding-sign": "Segnaletica di orientamento",
     "sidewalk-lamp": "Lampione",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "Giardino lineare di strada",
+    "street-vendor": "",
     "divider": "Fascia non transitabile",
     "planting-strip": "Fascia piantumata",
     "planter-box": "Contenitore per piante",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": "Edificio porticato"
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Tradizionale",
     "lamp-type|modern": "Moderno",
     "lamp-type|pride": "Moderno con bandiera pride",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "Automobile",
     "car-type|sharrow": "Corsia promiscua",
     "car-type|truck": "Automezzo pesante",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "Quota marciapiede",
     "elevation|road": "piattaforma a quota stradale",
     "temporary-barrier-type|traffic-cone": "Cono segnalatore",
-    "temporary-barrier-type|barricade": "barricata"
+    "temporary-barrier-type|barricade": "barricata",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Asfalto"
   },
   "environs": {
     "day": "",

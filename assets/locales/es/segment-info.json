@@ -10,7 +10,9 @@
     "wayfinding-sign": "Señal de orientación",
     "sidewalk-lamp": "Farola",
     "utility-pole": "",
+    "drainage-channel": "",
     "parklet": "Parklet (Parquecito en la calle)",
+    "street-vendor": "",
     "divider": "Zona de amortiguación",
     "planting-strip": "",
     "planter-box": "",
@@ -102,6 +104,9 @@
     },
     "arcade": {
       "name": ""
+    },
+    "compound-wall": {
+      "name": ""
     }
   },
   "variant-icons": {
@@ -143,6 +148,8 @@
     "lamp-type|traditional": "Tradicional",
     "lamp-type|modern": "Moderno",
     "lamp-type|pride": "",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
     "car-type|car": "Carro",
     "car-type|sharrow": "",
     "car-type|truck": "Camión",
@@ -205,7 +212,13 @@
     "elevation|sidewalk": "",
     "elevation|road": "Nivel de la calle",
     "temporary-barrier-type|traffic-cone": "",
-    "temporary-barrier-type|barricade": ""
+    "temporary-barrier-type|barricade": "",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Asfalto"
   },
   "environs": {
     "day": "",
