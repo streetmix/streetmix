@@ -5,6 +5,16 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## November 12, 2022
+
+### 🎮 UI improvements
+
+- **Improvements to gallery view.** Those tiny gray pixels? Gone. Thumbnails look great now!
+
+### 🎨 Improvements
+
+- Updates to Finnish and Czech translations.
+
 ## Octoer 25, 2022
 
 ### 🎮 UI improvements
