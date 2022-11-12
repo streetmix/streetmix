@@ -1,7 +1,7 @@
 const request = require('request')
-const { User, Street } = require('../../app/db/models')
-const logger = require('../../app/lib/logger.js')
-const appURL = require('../../app/lib/url')
+const { User, Street } = require('../../db/models')
+const logger = require('../logger.js')
+const appURL = require('../url')
 
 const ANON_CREATOR = '-'
 

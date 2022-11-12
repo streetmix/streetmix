@@ -1,4 +1,4 @@
-const logger = require('../../app/lib/logger.js')
+const logger = require('../logger.js')
 
 module.exports = function (req, res, next) {
   const contentType = req.headers['content-type'] || ''
