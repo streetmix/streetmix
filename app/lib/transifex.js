@@ -2,7 +2,7 @@
 
 const btoa = require('btoa')
 const axios = require('axios')
-const logger = require('../app/lib/logger.js')
+const logger = require('./logger.js')
 
 const API_BASE_URI =
   'https://www.transifex.com/api/2/project/streetmix/resource/'
