@@ -71,6 +71,12 @@ a,
   text-decoration: underline;
 }
 
+button.link-like {
+  appearance: none;
+  border: 0;
+  background-color: transparent;
+}
+
 input[type="text"],
 textarea {
   padding: 3px;
