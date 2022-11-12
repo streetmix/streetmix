@@ -1,8 +1,7 @@
 const axios = require('axios')
+const { Authentication } = require('../lib/auth0')
 const logger = require('../../lib/logger.js')
 const appURL = require('../lib/url')
-
-const { Authentication } = require('../../lib/auth0')
 
 const AccessTokenHandler = function (req, res) {
   return async (response) => {
