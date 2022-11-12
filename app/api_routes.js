@@ -777,6 +777,38 @@ routes.get(
 
 /**
  * @swagger
+ * /api/v1/streets/{street_id}/remixes:
+ *   get:
+ *     description: Returns all remixes of a street
+ *     tags:
+ *       - streets
+ *       - remixes
+ *     parameters:
+ *      - in: path
+ *        name: street_id
+ *        schema:
+ *          type: string
+ *          format: uuid
+ *        required: true
+ *        description: ID of the street
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: user streets
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/Street'
+ */
+routes.get(
+  '/api/v1/streets/:street_id/remixes',
+  jwtCheck,
+  resources.v1.street_remixes.get
+)
+
+/**
+ * @swagger
  * /api/v1/translate/{locale_code}/{resource_name}:
  *   get:
  *     description: Returns geolocation data for the current user
