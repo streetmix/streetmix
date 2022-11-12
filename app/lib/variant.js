@@ -1,4 +1,4 @@
-const SEGMENT_INFO = require('../assets/scripts/segments/info.json')
+const SEGMENT_INFO = require('../../assets/scripts/segments/info.json')
 
 const VARIANT_SEPARATOR = '|'
 

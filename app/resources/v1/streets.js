@@ -1,8 +1,8 @@
 const { v1: uuidv1 } = require('uuid')
 const { isArray } = require('lodash')
-const { ERRORS, asStreetJson } = require('../../../lib/util')
-const logger = require('../../../lib/logger.js')
 const { User, Street, Sequence } = require('../../db/models')
+const logger = require('../../lib/logger.js')
+const { ERRORS, asStreetJson } = require('../../lib/util')
 
 exports.post = async function (req, res) {
   let body

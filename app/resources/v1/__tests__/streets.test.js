@@ -3,7 +3,7 @@ import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import streets from '../streets'
 jest.mock('../../../db/models')
-jest.mock('../../../../lib/logger')
+jest.mock('../../../lib/logger')
 
 const street = {
   status: 'ACTIVE',

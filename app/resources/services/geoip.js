@@ -1,4 +1,4 @@
-const appURL = require('../../../lib/url')
+const appURL = require('../../lib/url')
 
 exports.get = function (req, res) {
   // Prevent this service from being accessed by third parties

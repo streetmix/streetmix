@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp')
 const chalk = require('chalk')
-const getFromTransifex = require('../lib/transifex.js')
+const getFromTransifex = require('../app/lib/transifex.js')
 const languages = require('../app/data/locales.json')
 
 const resources = ['main', 'segment-info']

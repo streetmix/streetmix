@@ -1,6 +1,6 @@
 const { User, Street } = require('../../db/models')
-const { ERRORS } = require('../../../lib/util')
-const logger = require('../../../lib/logger.js')
+const { ERRORS } = require('../../lib/util')
+const logger = require('../../lib/logger.js')
 
 function handleErrors (error, res) {
   switch (error) {

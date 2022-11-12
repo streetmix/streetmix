@@ -1,6 +1,6 @@
 const chalk = require('chalk')
 const app = require('./app')
-const logger = require('./lib/logger.js')
+const logger = require('./app/lib/logger.js')
 
 app.listen(process.env.PORT, () => {
   if (process.env.NODE_ENV === 'development') {

@@ -4,7 +4,7 @@ import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import users from '../users'
 
 jest.mock('../../../db/models')
-jest.mock('../../../../lib/logger')
+jest.mock('../../../lib/logger')
 
 // Fake user info to test the API
 const emailUser = {

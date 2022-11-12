@@ -1,7 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const User = require('../../db/models/user.js')
 const roles = require('../../data/user_roles.json')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 const tier1PlanId = process.env.STRIPE_TIER1_PLAN_ID
 
 const planMap = {

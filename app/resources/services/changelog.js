@@ -1,5 +1,5 @@
 const fs = require('fs/promises')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 
 const flagFile = `${process.cwd()}/docs/docs/user-guide/changelog.md`
 

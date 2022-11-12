@@ -9,7 +9,7 @@ const TEST_STREET_TWO = 'testStreetId2'
 const TEST_VOTE_ONE = 'vote1'
 
 jest.mock('../../../db/models')
-jest.mock('../../../../lib/logger')
+jest.mock('../../../lib/logger')
 
 const TEST_COMMENT = 'some nice comment goes here :)'
 const TEST_COMMENT_MAX_LEN =

@@ -1,4 +1,4 @@
-const appURL = require('../../lib/url')
+const appURL = require('./url')
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
