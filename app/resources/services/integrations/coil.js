@@ -4,7 +4,7 @@ const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
 const InternalOAuthError = require('passport-oauth2').InternalOAuthError
 const axios = require('axios')
 const { User } = require('../../../db/models')
-const appURL = require('../../../../lib/url.js')
+const appURL = require('../../../lib/url.js')
 const logger = require('../../../../lib/logger.js')
 
 const {
