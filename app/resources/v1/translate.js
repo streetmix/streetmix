@@ -1,5 +1,5 @@
 const fs = require('fs/promises')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 const getFromTransifex = require('../../../lib/transifex.js')
 
 async function getLocalTranslation (res, locale, resource) {

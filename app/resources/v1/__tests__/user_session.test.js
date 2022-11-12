@@ -4,7 +4,7 @@ import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import session from '../user_session'
 
 jest.mock('../../../db/models')
-jest.mock('../../../../lib/logger')
+jest.mock('../../../lib/logger')
 jest.mock('../../../lib/auth0', () => {
   return {
     Authentication: () => ({

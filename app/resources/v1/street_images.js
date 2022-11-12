@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary')
 const { User, Street } = require('../../db/models')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 const { SAVE_THUMBNAIL_EVENTS } = require('../../../lib/util.js')
 
 const ALLOW_ANON_STREET_THUMBNAILS = false

@@ -1,5 +1,5 @@
 const Street = require('../../db/models/street.js')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 
 exports.get = async function (req, res) {
   let results

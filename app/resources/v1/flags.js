@@ -1,5 +1,5 @@
 const fs = require('fs/promises')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 
 async function readFlags (res) {
   const flagFile = `${process.cwd()}/app/data/flags.json`

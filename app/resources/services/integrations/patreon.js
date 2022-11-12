@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const passport = require('passport')
 const PatreonStrategy = require('passport-patreon').Strategy
-const logger = require('../../../../lib/logger.js')
+const logger = require('../../../lib/logger.js')
 const appURL = require('../../../lib/url.js')
 
 const { User } = require('../../../db/models')

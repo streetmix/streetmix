@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary')
 const { ERRORS, asUserJson } = require('../../../lib/util')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 const { User } = require('../../db/models')
 
 exports.post = async function (req, res) {

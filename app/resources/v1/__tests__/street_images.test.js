@@ -5,7 +5,7 @@ import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import images from '../street_images'
 
 jest.mock('../../../db/models')
-jest.mock('../../../../lib/logger')
+jest.mock('../../../lib/logger')
 jest.mock('cloudinary')
 
 const street = {

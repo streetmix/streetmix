@@ -32,7 +32,7 @@ const compileSVGSprites = require('./lib/svg-sprite')
 const appURL = require('./app/lib/url')
 const apiRoutes = require('./app/api_routes')
 const serviceRoutes = require('./app/service_routes')
-const logger = require('./lib/logger.js')
+const logger = require('./app/lib/logger.js')
 const jwtCheck = require('./app/authentication')
 
 initCloudinary()

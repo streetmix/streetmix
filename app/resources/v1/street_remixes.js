@@ -1,6 +1,6 @@
 const { Street } = require('../../db/models')
 const { ERRORS } = require('../../../lib/util')
-const logger = require('../../../lib/logger.js')
+const logger = require('../../lib/logger.js')
 const { streetsToCSV } = require('../../lib/streets_export.js')
 
 exports.get = async function (req, res) {
