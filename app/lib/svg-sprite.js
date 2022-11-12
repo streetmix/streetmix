@@ -5,7 +5,7 @@ const mkdirp = require('mkdirp')
 const Vinyl = require('vinyl')
 const SVGSpriter = require('svg-sprite')
 const chalk = require('chalk')
-const logger = require('../app/lib/logger.js')
+const logger = require('./logger.js')
 
 /**
  * Compile SVG sprites into a single .svg file with <symbol>s in the project
