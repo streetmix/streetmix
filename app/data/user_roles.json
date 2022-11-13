@@ -9,7 +9,9 @@
       "SEGMENT_CAFE_SEATING": true,
       "SEGMENT_CONSTRUCTION": true,
       "SEGMENT_MAGIC_CARPET": true,
+      "SEGMENT_STREET_VENDOR": true,
       "SEGMENT_UTILITIES": true,
+      "VARIANT_BUILDING_COMPOUND_WALL": true,
       "VARIANT_TWOWAY_BIKES": true
     }
   },
@@ -29,8 +31,6 @@
       "LOCALES_LEVEL_1": true,
       "ELEVATION_CONTROLS": true,
       "SEGMENT_DRAINAGE_CHANNEL": true,
-      "SEGMENT_STREET_VENDOR": true,
-      "VARIANT_BUILDING_COMPOUND_WALL": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true
@@ -43,8 +43,6 @@
     "flags": {
       "ELEVATION_CONTROLS": true,
       "SEGMENT_DRAINAGE_CHANNEL": true,
-      "SEGMENT_STREET_VENDOR": true,
-      "VARIANT_BUILDING_COMPOUND_WALL": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true

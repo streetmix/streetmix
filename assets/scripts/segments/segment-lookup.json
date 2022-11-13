@@ -849,6 +849,7 @@
     "defaultElevation": 1,
     "enableElevation": true,
     "enableWithFlag": "SEGMENT_STREET_VENDOR",
+    "alwaysShowInPalette": true,
     "defaultVariant": "table|concrete",
     "variants": ["vendor-type", "ground"],
     "details": {
