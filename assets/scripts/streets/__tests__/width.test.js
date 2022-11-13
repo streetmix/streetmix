@@ -39,9 +39,9 @@ describe('recalculateWidth', () => {
       occupiedWidth: 50,
       remainingWidth: 0,
       segments: [
-        { width: 10, warnings: [undefined, false, false, false] },
-        { width: 20, warnings: [undefined, false, false, false] },
-        { width: 20, warnings: [undefined, false, false, false] }
+        { width: 10, warnings: [undefined, false, false, false, false] },
+        { width: 20, warnings: [undefined, false, false, false, false] },
+        { width: 20, warnings: [undefined, false, false, false, false] }
       ]
     })
   })
@@ -55,8 +55,8 @@ describe('recalculateWidth', () => {
       occupiedWidth: 40,
       remainingWidth: 10,
       segments: [
-        { width: 10, warnings: [undefined, false, false, false] },
-        { width: 30, warnings: [undefined, false, false, false] }
+        { width: 10, warnings: [undefined, false, false, false, false] },
+        { width: 30, warnings: [undefined, false, false, false, false] }
       ]
     })
   })
@@ -70,9 +70,9 @@ describe('recalculateWidth', () => {
       occupiedWidth: 70,
       remainingWidth: -20,
       segments: [
-        { width: 30, warnings: [undefined, true, false, false] },
-        { width: 10, warnings: [undefined, false, false, false] },
-        { width: 30, warnings: [undefined, true, false, false] }
+        { width: 30, warnings: [undefined, true, false, false, false] },
+        { width: 10, warnings: [undefined, false, false, false, false] },
+        { width: 30, warnings: [undefined, true, false, false, false] }
       ]
     })
   })
@@ -86,9 +86,9 @@ describe('recalculateWidth', () => {
       occupiedWidth: 70,
       remainingWidth: -20,
       segments: [
-        { width: 30, warnings: [undefined, true, false, false] },
-        { width: 10, warnings: [undefined, false, false, false] },
-        { width: 30, warnings: [undefined, true, false, false] }
+        { width: 30, warnings: [undefined, true, false, false, false] },
+        { width: 10, warnings: [undefined, false, false, false, false] },
+        { width: 30, warnings: [undefined, true, false, false, false] }
       ]
     })
   })
@@ -110,19 +110,19 @@ describe('recalculateWidth', () => {
           width: 2,
           type: 'sidewalk',
           variantString: 'normal',
-          warnings: [undefined, false, true, false]
+          warnings: [undefined, false, true, false, false]
         },
         {
           width: 10,
           type: 'divider',
           variantString: 'bush',
-          warnings: [undefined, false, false, false]
+          warnings: [undefined, false, false, false, false]
         },
         {
           width: 18,
           type: 'parking-lane',
           variantString: 'inbound|left',
-          warnings: [undefined, false, false, true]
+          warnings: [undefined, false, false, true, false]
         }
       ]
     })

@@ -105,16 +105,12 @@
     "label": "Variant — compound wall",
     "defaultValue": false
   },
-  "VARIANT_MIXED_DRIVE_LANES": {
-    "label": "Variant — mixed-traffic drive lane (with bus)",
+  "VARIANT_MIXED_DRIVE_LANES_1": {
+    "label": "Variant — mixed-traffic drive lane (with bus) (unlocked)",
     "defaultValue": false
   },
   "VARIANT_MIXED_DRIVE_LANES_2": {
-    "label": "Variant — mixed-traffic drive lane (with bike)",
-    "defaultValue": false
-  },
-  "VARIANT_MIXED_DRIVE_LANES_3": {
-    "label": "Variant — mixed-traffic drive lane (bus only)",
+    "label": "Variant — mixed-traffic drive lane (with bike) (unlocked)",
     "defaultValue": false
   },
   "VARIANT_TWOWAY_BIKES": {

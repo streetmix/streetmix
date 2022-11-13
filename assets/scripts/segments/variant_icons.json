@@ -376,21 +376,18 @@
     "car-with-bus": {
       "id": "car-with-bus",
       "title": "Car with bus",
-      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES"
+      "enableCondition": "SUBSCRIBE",
+      "unlockWithFlag": "VARIANT_MIXED_DRIVE_LANES_1"
     },
     "car-with-bike": {
       "id": "car-with-bike",
       "title": "Car with bike",
-      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES_2"
+      "enableCondition": "SUBSCRIBE",
+      "unlockWithFlag": "VARIANT_MIXED_DRIVE_LANES_2"
     },
     "sharrow": {
       "id": "sharrow",
       "title": "Sharrow"
-    },
-    "bus": {
-      "id": "bus",
-      "title": "Bus",
-      "enableWithFlag": "VARIANT_MIXED_DRIVE_LANES_3"
     },
     "truck": {
       "id": "truck",

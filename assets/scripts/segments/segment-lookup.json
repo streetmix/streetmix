@@ -3724,6 +3724,9 @@
       "inbound|car-with-bike": {
         "name": "Mixed-traffic drive lane",
         "nameKey": "mixed-drive-lane",
+        "rules": {
+          "dangerous": true
+        },
         "components": {
           "lanes": [
             {
@@ -3758,6 +3761,9 @@
       "outbound|car-with-bike": {
         "name": "Mixed-traffic drive lane",
         "nameKey": "mixed-drive-lane",
+        "rules": {
+          "dangerous": true
+        },
         "components": {
           "lanes": [
             {
