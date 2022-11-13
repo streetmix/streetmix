@@ -64,10 +64,7 @@ function Variants (props) {
       if (segmentInfo) {
         variantSets = segmentInfo.variants
       }
-      if (
-        segmentInfo?.enableElevation &&
-        flags.ELEVATION_CONTROLS.value === true
-      ) {
+      if (segmentInfo?.enableElevation) {
         elevationToggle = true
       }
       break
@@ -246,6 +243,10 @@ function Variants (props) {
         }
 
         if (elevationToggle === true) {
+          // Street vendors always have enabled elevation controls
+          // regardless of subscriber state
+          const forceEnable = segment.type === 'street-vendor'
+
           // React wants a unique key here
           variantEls.push(<hr key="elevation_divider" />)
           variantEls.push(
@@ -253,6 +254,7 @@ function Variants (props) {
               position={position}
               segment={segment}
               key="elevation_control"
+              forceEnable={forceEnable}
             />
           )
         }
