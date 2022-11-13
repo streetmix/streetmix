@@ -3755,6 +3755,15 @@
                 "type|direction": ["biker-02", "inbound"]
               }
             }
+          ],
+          "effects": [
+            {
+              "id": "biker-stress",
+              "offsetX": 20,
+              "variants": {
+                "type": "sweat-drop"
+              }
+            }
           ]
         }
       },

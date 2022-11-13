@@ -1507,5 +1507,20 @@
         }
       }
     }
+  },
+  "effects": {
+    "biker-stress": {
+      "name": "Biker stress",
+      "nameKey": "biker-stress",
+      "variants": {
+        "type": {
+          "sweat-drop": {
+            "graphics": {
+              "center": "effects--sweat-drop"
+            }
+          }
+        }
+      }
+    }
   }
 }
