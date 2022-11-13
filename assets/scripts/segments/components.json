@@ -880,7 +880,7 @@
           "vertical": {
             "graphics": {
               "quirks": {
-                "minWidth": 2.8
+                "minWidth": 2.6666
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-vertical",
