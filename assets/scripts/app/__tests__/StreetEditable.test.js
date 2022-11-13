@@ -78,7 +78,8 @@ describe('StreetEditable', () => {
               undefined,
               false,
               false,
-              true
+              true,
+              false
             ])
             expect(asFragment()).toMatchSnapshot()
           },
