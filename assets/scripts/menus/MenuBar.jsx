@@ -33,6 +33,7 @@ function MenuBar (props) {
   )
   // const dispatch = useDispatch()
   const menuBarRightEl = useRef(null)
+  const menuBarLeftEl = useRef(null)
   const intl = useIntl()
 
   const languageLabel = intl.formatMessage({
@@ -80,11 +81,15 @@ function MenuBar (props) {
   function handleWindowResize () {
     // Throw this event so that the StreetName can figure out if it needs
     // to push itself lower than the menubar
+    const rightMenuBarLeftPos =
+      menuBarRightEl.current.getBoundingClientRect().left
+    const leftMenuBarRightPos =
+      menuBarLeftEl.current.getBoundingClientRect().right
     window.dispatchEvent(
       new CustomEvent('stmx:menu_bar_resized', {
         detail: {
-          rightMenuBarLeftPos:
-            menuBarRightEl.current.getBoundingClientRect().left
+          rightMenuBarLeftPos,
+          leftMenuBarRightPos
         }
       })
     )
@@ -110,7 +115,7 @@ function MenuBar (props) {
 
   return (
     <nav className="menu-bar">
-      <ul className="menu-bar-left">
+      <ul className="menu-bar-left" ref={menuBarLeftEl}>
         <li className="menu-bar-title">
           <img src={logo} alt="Streemix" className="menu-bar-logo" />
           <h1>Streetmix</h1>

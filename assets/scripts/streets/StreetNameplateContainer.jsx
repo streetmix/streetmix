@@ -16,7 +16,7 @@ function StreetNameplateContainer (props) {
   const intl = useIntl()
   const streetNameEl = useRef(null)
   const lastSentCoords = useRef(null)
-  const [rightMenuBarLeftPos, setRightMenuBarLeftPos] = useState(0)
+  const [menuCoords, setMenuCoords] = useState({})
   const [streetNameCoords, setStreetNameCoords] = useState({
     left: 0,
     width: 0
@@ -30,7 +30,8 @@ function StreetNameplateContainer (props) {
       window.removeEventListener('resize', updateCoords)
       window.removeEventListener('stmx:menu_bar_resized', updatePositions)
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const updateCoords = useCallback(() => {
     const rect = streetNameEl.current.getBoundingClientRect()
@@ -53,7 +54,8 @@ function StreetNameplateContainer (props) {
   // prevents excessive cascading renders
   useEffect(() => {
     updateCoords()
-  }, [streetName, updateCoords])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [streetName])
 
   function handleResizeStreetName (coords) {
     setStreetNameCoords({
@@ -63,15 +65,19 @@ function StreetNameplateContainer (props) {
   }
 
   function updatePositions (event) {
-    if (event.detail && event.detail.rightMenuBarLeftPos) {
-      setRightMenuBarLeftPos(event.detail.rightMenuBarLeftPos)
+    if (event.detail) {
+      setMenuCoords(event.detail)
     }
   }
 
   function determineClassNames () {
     const classNames = ['street-nameplate-container']
 
-    if (streetNameCoords.left + streetNameCoords.width > rightMenuBarLeftPos) {
+    if (
+      streetNameCoords.left < menuCoords.leftMenuBarRightPos ||
+      streetNameCoords.left + streetNameCoords.width >
+        menuCoords.rightMenuBarLeftPos
+    ) {
       classNames.push('move-down-for-menu')
     }
 
