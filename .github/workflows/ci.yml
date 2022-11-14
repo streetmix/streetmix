@@ -72,6 +72,11 @@ jobs:
     name: End-to-end (E2E) tests
     runs-on: ubuntu-latest
     container:
+      # make is not included in newer cypress/browsers images, and some
+      # npm packages require it during install. This the latest cypress
+      # image that works, if a little outdated. Can't update unless we
+      # figure out how to add `make` or remove the package `deasync`
+      # (a sub-depedency of parcel-bundler, which is also outdated.)
       image: cypress/browsers:node16.5.0-chrome97-ff96
       # To run Firefox, use non-root user (Firefox security restriction)
       # https://github.com/cypress-io/github-action#firefox
