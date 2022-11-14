@@ -72,7 +72,7 @@ jobs:
     name: End-to-end (E2E) tests
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node14.17.0-chrome91-ff89
+      image: cypress/browsers:node16.5.0-chrome97-ff96
       # To run Firefox, use non-root user (Firefox security restriction)
       # https://github.com/cypress-io/github-action#firefox
       options: --user 1001
@@ -86,7 +86,7 @@ jobs:
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           start: npm start
           wait-on: 'http://localhost:8000'
