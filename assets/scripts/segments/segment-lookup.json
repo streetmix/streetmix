@@ -343,8 +343,7 @@
     "owner": "PEDESTRIAN",
     "zIndex": 24,
     "defaultWidth": 8,
-    "enableWithFlag": "SEGMENT_CAFE_SEATING",
-    "alwaysShowInPalette": true,
+    "unlockCondition": "SIGN_IN",
     "variants": ["occupants", "elevation"],
     "details": {
       "occupied|sidewalk": {
@@ -734,8 +733,7 @@
     "owner": "NONE",
     "zIndex": 10,
     "defaultWidth": 4,
-    "enableWithFlag": "SEGMENT_UTILITIES",
-    "alwaysShowInPalette": true,
+    "unlockCondition": "SIGN_IN",
     "variants": ["orientation"],
     "details": {
       "left": {
@@ -848,7 +846,7 @@
     },
     "defaultElevation": 1,
     "enableElevation": true,
-    "enableWithFlag": "SEGMENT_STREET_VENDOR",
+    "unlockCondition": "SIGN_IN",
     "defaultVariant": "table|concrete",
     "variants": ["vendor-type", "ground"],
     "details": {
@@ -1309,8 +1307,7 @@
     "zIndex": 20,
     "defaultWidth": 2,
     "defaultVariant": "traffic-cone",
-    "enableWithFlag": "SEGMENT_CONSTRUCTION",
-    "alwaysShowInPalette": true,
+    "unlockCondition": "SIGN_IN",
     "variants": ["temporary-barrier-type"],
     "details": {
       "barricade": {
@@ -1407,7 +1404,8 @@
     "name": "Drainage channel",
     "nameKey": "drainage-channel",
     "owner": "UTILITY",
-    "enableWithFlag": "SEGMENT_DRAINAGE_CHANNEL",
+    "unlockWithFlag": "SEGMENT_DRAINAGE_CHANNEL_UNLOCK",
+    "unlockCondition": "SUBSCRIBE",
     "defaultWidth": 3.333,
     "variants": ["drainage-sides"],
     "details": {
@@ -1458,7 +1456,6 @@
     "nameKey": "scooter",
     "owner": "BIKE",
     "zIndex": 16,
-    "enableWithFlag": "SEGMENT_SCOOTERS",
     "defaultWidth": 5,
     "rules": {
       "minWidth": 4
@@ -1623,7 +1620,6 @@
     "owner": "FLEX",
     "zIndex": 21,
     "defaultWidth": 5,
-    "enableWithFlag": "SEGMENT_SCOOTERS",
     "defaultVariant": "right|sidewalk|empty",
     "variants": ["orientation", "scooter-elevation", "scooter-riders"],
     "details": {
@@ -3755,6 +3751,15 @@
                 "type|direction": ["biker-02", "inbound"]
               }
             }
+          ],
+          "effects": [
+            {
+              "id": "biker-stress",
+              "offsetX": 20,
+              "variants": {
+                "type": "sweat-drop"
+              }
+            }
           ]
         }
       },
@@ -5708,8 +5713,7 @@
     "owner": "TRANSIT",
     "zIndex": 20,
     "defaultWidth": 13.3333,
-    "enableWithFlag": "SEGMENT_BRT",
-    "alwaysShowInPalette": true,
+    "unlockCondition": "SIGN_IN",
     "defaultVariant": "center",
     "paletteDefaultWidth": 10,
     "rules": {
@@ -5791,8 +5795,7 @@
     "owner": "TRANSIT",
     "zIndex": 15,
     "defaultWidth": 11.66666,
-    "enableWithFlag": "SEGMENT_BRT",
-    "alwaysShowInPalette": true,
+    "unlockCondition": "SIGN_IN",
     "rules": {
       "minWidth": 11.5,
       "maxWidth": 13
@@ -5943,8 +5946,7 @@
     "name": "Magic carpet",
     "nameKey": "magic-carpet",
     "defaultWidth": 10,
-    "enableWithFlag": "SEGMENT_MAGIC_CARPET",
-    "alwaysShowInPalette": true,
+    "unlockCondition": "SIGN_IN",
     "defaultVariant": "jasmine-aladdin",
     "variants": ["magic-carpet-occupants"],
     "details": {

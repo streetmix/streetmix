@@ -880,7 +880,7 @@
           "vertical": {
             "graphics": {
               "quirks": {
-                "minWidth": 2.8
+                "minWidth": 2.6666
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-vertical",
@@ -1502,6 +1502,21 @@
                 "id": "vehicles--magic-carpet-jasmine-aladdin",
                 "originY": -325
               }
+            }
+          }
+        }
+      }
+    }
+  },
+  "effects": {
+    "biker-stress": {
+      "name": "Biker stress",
+      "nameKey": "biker-stress",
+      "variants": {
+        "type": {
+          "sweat-drop": {
+            "graphics": {
+              "center": "effects--sweat-drop"
             }
           }
         }

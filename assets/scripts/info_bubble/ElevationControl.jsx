@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import VARIANT_ICONS from '../segments/variant_icons.json'
 import { segmentsChanged } from '../segments/view'
 import { changeSegmentProperties } from '../store/slices/street'
 import Button from '../ui/Button'
+import { ICON_LOCK } from '../ui/icons'
 
-function ElevationControl ({ position, segment }) {
+function ElevationControl ({ position, segment, forceEnable = false }) {
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -53,10 +56,25 @@ function ElevationControl ({ position, segment }) {
 
     if (!icon) return null
 
-    const title = intl.formatMessage({
+    let title = intl.formatMessage({
       id: `variant-icons.${set}|${selection}`,
       defaultMessage: icon.title
     })
+
+    // Only subscribers can do this
+    let isLocked = false
+
+    if (!isSubscriber && !forceEnable) {
+      isLocked = true
+      const unlockConditionText = intl.formatMessage({
+        id: 'plus.locked.sub',
+        // Default message ends with a Unicode-only left-right order mark
+        // to allow for proper punctuation in `rtl` text direction
+        // This character is hidden from editors by default!
+        defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+      })
+      title += ' — ' + unlockConditionText
+    }
 
     const isSelected = isVariantCurrentlySelected(set, selection)
 
@@ -64,7 +82,7 @@ function ElevationControl ({ position, segment }) {
       <Button
         title={title}
         className={isSelected ? 'variant-selected' : null}
-        disabled={isSelected}
+        disabled={isSelected || isLocked}
         onClick={getButtonOnClickHandler(set, selection)}
       >
         <svg
@@ -75,6 +93,7 @@ function ElevationControl ({ position, segment }) {
           {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
           <use xlinkHref={`#icon-${icon.id}`} />
         </svg>
+        {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
       </Button>
     )
   }
@@ -91,7 +110,8 @@ ElevationControl.propTypes = {
   position: PropTypes.number,
   segment: PropTypes.shape({
     elevation: PropTypes.number
-  })
+  }),
+  forceEnable: PropTypes.bool
 }
 
 export default ElevationControl

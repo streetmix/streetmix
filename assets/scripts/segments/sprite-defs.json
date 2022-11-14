@@ -157,6 +157,10 @@
     "offsetX": -83,
     "originY": -536
   },
+  "effects--sweat-drop": {
+    "id": "effects--sweat-drop",
+    "originY": -160
+  },
   "missing": {
     "id": "missing"
   }

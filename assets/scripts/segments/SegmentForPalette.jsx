@@ -4,6 +4,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
@@ -21,18 +22,20 @@ SegmentForPalette.propTypes = {
 
   // Provided by parent
   segment: PropTypes.object,
-  disabled: PropTypes.bool,
+  unlockCondition: PropTypes.oneOf(['SIGN_IN', 'SUBSCRIBE']),
   randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   tooltipTarget: PropTypes.object
 }
 
 function SegmentForPalette ({
   segment,
-  disabled,
+  unlockCondition,
   randSeed,
   tooltipTarget,
   ...props
 }) {
+  const isSignedIn = useSelector((state) => state.user.signedIn)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
 
   props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
@@ -48,17 +51,39 @@ function SegmentForPalette ({
   }
 
   const classNames = ['segment', 'segment-in-palette']
+  let isLocked = false
   let sublabel = null
 
-  if (disabled) {
-    classNames.push('segment-disabled')
-    sublabel = intl.formatMessage({
-      id: 'plus.locked.user',
-      // Default message ends with a Unicode-only left-right order mark
-      // to allow for proper punctuation in `rtl` text direction
-      // This character is hidden from editors by default!
-      defaultMessage: 'Sign in to use!‎'
-    })
+  if (unlockCondition) {
+    switch (unlockCondition) {
+      case 'SUBSCRIBE':
+        if (!isSubscriber) {
+          classNames.push('segment-disabled')
+          isLocked = true
+          sublabel = intl.formatMessage({
+            id: 'plus.locked.sub',
+            // Default message ends with a Unicode-only left-right order mark
+            // to allow for proper punctuation in `rtl` text direction
+            // This character is hidden from editors by default!
+            defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+          })
+        }
+        break
+      case 'SIGN_IN':
+      default:
+        if (!isSignedIn) {
+          classNames.push('segment-disabled')
+          isLocked = true
+          sublabel = intl.formatMessage({
+            id: 'plus.locked.user',
+            // Default message ends with a Unicode-only left-right order mark
+            // to allow for proper punctuation in `rtl` text direction
+            // This character is hidden from editors by default!
+            defaultMessage: 'Sign in to use!‎'
+          })
+        }
+        break
+    }
   }
 
   const thumbnail =
@@ -79,13 +104,13 @@ function SegmentForPalette ({
           <img className="segment-image" src={thumbnail} />
         </div>
       </Tooltip>
-      {disabled && <FontAwesomeIcon icon={ICON_LOCK} />}
+      {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
     </li>
   )
 
   // If disabled, return node as-is.
   // Otherwise, return node wrapped with react-dnd abilities.
-  if (disabled) {
+  if (isLocked) {
     return node
   } else {
     return props.connectDragSource(node)

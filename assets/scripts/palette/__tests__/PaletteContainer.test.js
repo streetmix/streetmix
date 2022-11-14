@@ -24,7 +24,10 @@ describe('PaletteContainer', () => {
           everythingLoaded: true
         },
         flags: {
-          DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false } // for SegmentForPalette
+          // For SegmentForPalette
+          DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false },
+          // Tests flag filter + unlock condition
+          SEGMENT_CAFE_SEATING: { value: true }
         }
       }
     })

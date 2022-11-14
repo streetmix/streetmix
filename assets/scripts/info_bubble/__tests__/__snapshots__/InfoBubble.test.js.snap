@@ -460,6 +460,25 @@ exports[`InfoBubble shows building left info bubble 1`] = `
             />
           </svg>
         </button>
+        <button
+          class="btn"
+          disabled=""
+          title="Compound wall — Sign in to use!‎"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-compound-wall"
+            />
+          </svg>
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </button>
       </div>
       <div
         class="non-variant building-height"
@@ -644,6 +663,25 @@ exports[`InfoBubble shows building right info bubble 1`] = `
               xlink:href="#icon-building-arcade"
             />
           </svg>
+        </button>
+        <button
+          class="btn"
+          disabled=""
+          title="Compound wall — Sign in to use!‎"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-compound-wall"
+            />
+          </svg>
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
         </button>
       </div>
       <div

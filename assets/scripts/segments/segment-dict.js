@@ -7,7 +7,8 @@ export const COMPONENT_GROUPS = {
   LANES: 'lanes',
   MARKINGS: 'markings',
   OBJECTS: 'objects',
-  VEHICLES: 'vehicles'
+  VEHICLES: 'vehicles',
+  EFFECTS: 'effects'
 }
 
 /**

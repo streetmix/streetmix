@@ -35,8 +35,7 @@
     "compound-wall": {
       "id": "compound-wall",
       "title": "Compound wall",
-      "enableWithFlag": "VARIANT_BUILDING_COMPOUND_WALL",
-      "enableCondition": "SIGN_IN"
+      "unlockCondition": "SIGN_IN"
     }
   },
   "ground": {
@@ -75,14 +74,14 @@
       "title": "Two-way (left-hand)",
       "enableWithFlag": "VARIANT_TWOWAY_BIKES",
       "unlockWithFlag": "VARIANT_TWOWAY_BIKES_UNLOCKED",
-      "enableCondition": "SUBSCRIBE"
+      "unlockCondition": "SUBSCRIBE"
     },
     "twoway-right": {
       "id": "direction-twoway-right",
       "title": "Two-way (right-hand)",
       "enableWithFlag": "VARIANT_TWOWAY_BIKES",
       "unlockWithFlag": "VARIANT_TWOWAY_BIKES_UNLOCKED",
-      "enableCondition": "SUBSCRIBE"
+      "unlockCondition": "SUBSCRIBE"
     }
   },
   "parking-lane-direction": {
@@ -293,12 +292,12 @@
     "double-decker": {
       "id": "double-decker-bus",
       "title": "Double decker bus",
-      "enableCondition": "SUBSCRIBE"
+      "unlockCondition": "SUBSCRIBE"
     },
     "av-shuttle": {
       "id": "av-shuttle",
       "title": "Autonomous shuttle",
-      "enableCondition": "SUBSCRIBE"
+      "unlockCondition": "SUBSCRIBE"
     }
   },
   "brt-asphalt": {
@@ -376,13 +375,13 @@
     "car-with-bus": {
       "id": "car-with-bus",
       "title": "Car with bus",
-      "enableCondition": "SUBSCRIBE",
+      "unlockCondition": "SUBSCRIBE",
       "unlockWithFlag": "VARIANT_MIXED_DRIVE_LANES_1"
     },
     "car-with-bike": {
       "id": "car-with-bike",
       "title": "Car with bike",
-      "enableCondition": "SUBSCRIBE",
+      "unlockCondition": "SUBSCRIBE",
       "unlockWithFlag": "VARIANT_MIXED_DRIVE_LANES_2"
     },
     "sharrow": {
@@ -396,22 +395,22 @@
     "microvan": {
       "id": "microvan",
       "title": "Microvan",
-      "enableCondition": "SUBSCRIBE"
+      "unlockCondition": "SUBSCRIBE"
     },
     "av": {
       "id": "rideshare",
       "title": "Autonomous vehicle",
-      "enableCondition": "SIGN_IN"
+      "unlockCondition": "SIGN_IN"
     },
     "motorcycle-sidecar": {
       "id": "motorcycle-sidecar",
       "title": "Motorcycle with sidecar",
-      "enableCondition": "SIGN_IN"
+      "unlockCondition": "SIGN_IN"
     },
     "pedestrian": {
       "id": "sidewalk-density-normal",
       "title": "Pedestrian",
-      "enableCondition": "SIGN_IN"
+      "unlockCondition": "SIGN_IN"
     }
   },
   "sidewalk-density": {

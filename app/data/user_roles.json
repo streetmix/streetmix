@@ -5,11 +5,6 @@
     "value": "USER",
     "flags": {
       "ANALYTICS": true,
-      "SEGMENT_BRT": true,
-      "SEGMENT_CAFE_SEATING": true,
-      "SEGMENT_CONSTRUCTION": true,
-      "SEGMENT_MAGIC_CARPET": true,
-      "SEGMENT_UTILITIES": true,
       "VARIANT_TWOWAY_BIKES": true
     }
   },
@@ -27,10 +22,8 @@
     "value": "BETA_TESTER",
     "flags": {
       "LOCALES_LEVEL_1": true,
-      "ELEVATION_CONTROLS": true,
-      "SEGMENT_DRAINAGE_CHANNEL": true,
-      "SEGMENT_STREET_VENDOR": true,
-      "VARIANT_BUILDING_COMPOUND_WALL": true,
+      "ELEVATION_CONTROLS_UNLOCKED": true,
+      "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true
@@ -41,10 +34,8 @@
     "text": "ITDP user",
     "value": "ITDP",
     "flags": {
-      "ELEVATION_CONTROLS": true,
-      "SEGMENT_DRAINAGE_CHANNEL": true,
-      "SEGMENT_STREET_VENDOR": true,
-      "VARIANT_BUILDING_COMPOUND_WALL": true,
+      "ELEVATION_CONTROLS_UNLOCKED": true,
+      "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true
