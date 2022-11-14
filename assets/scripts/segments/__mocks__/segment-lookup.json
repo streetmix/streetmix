@@ -92,7 +92,7 @@
     "zIndex": 24,
     "defaultWidth": 8,
     "enableWithFlag": "SEGMENT_CAFE_SEATING",
-    "alwaysShowInPalette": true,
+    "unlockCondition": "SIGN_IN",
     "variants": ["occupants", "elevation"],
     "details": {
       "occupied|sidewalk": {

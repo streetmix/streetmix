@@ -61,48 +61,12 @@
     "defaultValue": false,
     "enabled": false
   },
-  "SEGMENT_BRT": {
-    "label": "Segment — BRT",
-    "defaultValue": false
-  },
-  "SEGMENT_CAFE_SEATING": {
-    "label": "Segment — outdoor seating",
-    "defaultValue": false
-  },
-  "SEGMENT_CONSTRUCTION": {
-    "label": "Segment — construction items",
-    "defaultValue": false
-  },
-  "SEGMENT_DRAINAGE_CHANNEL": {
-    "label": "Segment — drainage channel",
-    "defaultValue": false
-  },
-  "SEGMENT_DOUBLE_DECKER_BUS": {
-    "label": "Segment — double decker bus",
+  "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": {
+    "label": "Segment — drainage channel (unlocked)",
     "defaultValue": false
   },
   "SEGMENT_INCEPTION_TRAIN": {
     "label": "Segment — the train from “Inception”",
-    "defaultValue": false
-  },
-  "SEGMENT_MAGIC_CARPET": {
-    "label": "Segment — magic carpet",
-    "defaultValue": false
-  },
-  "SEGMENT_SCOOTERS": {
-    "label": "Segment — scooters",
-    "defaultValue": true
-  },
-  "SEGMENT_STREET_VENDOR": {
-    "label": "Segment — street vendor",
-    "defaultValue": false
-  },
-  "SEGMENT_UTILITIES": {
-    "label": "Segment — utility pole",
-    "defaultValue": false
-  },
-  "VARIANT_BUILDING_COMPOUND_WALL": {
-    "label": "Variant — compound wall",
     "defaultValue": false
   },
   "VARIANT_MIXED_DRIVE_LANES_1": {

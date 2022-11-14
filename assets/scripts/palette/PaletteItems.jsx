@@ -19,7 +19,8 @@ function PaletteItems (props) {
   const [source, target] = useSingleton()
   const scrollable = useRef()
 
-  // `randSeed` is stored as a ref so that its value does not change on every re-render
+  // `randSeed` is stored as a ref so that its value does not change
+  // on every re-render
   const randSeed = useRef(generateRandSeed())
 
   useEffect(() => {
@@ -30,34 +31,19 @@ function PaletteItems (props) {
 
   const segments = getAllSegmentInfoArray()
 
-  // For each segment, set "disabled" property instead that indicates
-  // whether this segment is in a disabled state for this user
-  // Then filter out disabled segments that do not have the
-  // `alwaysShowInPalette` property set to `true`
+  // For each segment, filter out the ones that have been disabled
+  // by feature flag
   const displayedSegments = segments
-    .map((segment) => {
-      // Accept segments that don't have the `enableWithFlag` property
-      const enabledByDefault = !segment.enableWithFlag
-      // Accept segments with the `enableWithFlag` property, but only if
-      // the flags have that value set to true.
-      const enabledByFlag =
-        (segment.enableWithFlag && flags[segment.enableWithFlag]?.value) ||
-        false
-
-      return {
-        ...segment,
-        disabled: !(enabledByDefault || enabledByFlag)
-      }
-    })
     .filter(
       (segment) =>
-        !segment.disabled || (segment.disabled && segment.alwaysShowInPalette)
+        !segment.enableWithFlag ||
+        (segment.enableWithFlag && flags[segment.enableWithFlag]?.value)
     )
     .map((segment) => (
       <SegmentForPalette
         key={segment.id}
         segment={segment}
-        disabled={segment.disabled}
+        unlockCondition={segment.unlockCondition}
         randSeed={randSeed.current}
         tooltipTarget={target}
       />
