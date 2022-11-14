@@ -1404,7 +1404,7 @@
     "name": "Drainage channel",
     "nameKey": "drainage-channel",
     "owner": "UTILITY",
-    "unlockWithFlag": "SEGMENT_DRAINAGE_CHANNEL_UNLOCK",
+    "unlockWithFlag": "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED",
     "unlockCondition": "SUBSCRIBE",
     "defaultWidth": 3.333,
     "variants": ["drainage-sides"],

@@ -245,7 +245,9 @@ function Variants (props) {
         if (elevationToggle === true) {
           // Street vendors always have enabled elevation controls
           // regardless of subscriber state
-          const forceEnable = segment.type === 'street-vendor'
+          const forceEnable =
+            segment.type === 'street-vendor' ||
+            flags.ELEVATION_CONTROLS_UNLOCKED.value === true
 
           // React wants a unique key here
           variantEls.push(<hr key="elevation_divider" />)
