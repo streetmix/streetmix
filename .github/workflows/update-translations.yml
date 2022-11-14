@@ -14,10 +14,10 @@ jobs:
       CYPRESS_INSTALL_BINARY: "0"
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     # Use the current LTS version of Node.js
     - name: Use Node.js 14
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '14'
     - name: Install necessary dependencies
