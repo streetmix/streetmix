@@ -34,6 +34,7 @@ function SegmentForPalette ({
   tooltipTarget,
   ...props
 }) {
+  const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
@@ -54,7 +55,10 @@ function SegmentForPalette ({
   let isLocked = false
   let sublabel = null
 
-  if (unlockCondition) {
+  if (
+    unlockCondition &&
+    !(segment.unlockWithFlag && flags[segment.unlockWithFlag]?.value === true)
+  ) {
     switch (unlockCondition) {
       case 'SUBSCRIBE':
         if (!isSubscriber) {
