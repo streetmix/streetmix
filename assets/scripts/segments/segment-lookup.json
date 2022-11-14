@@ -1409,6 +1409,7 @@
     "nameKey": "drainage-channel",
     "owner": "UTILITY",
     "enableWithFlag": "SEGMENT_DRAINAGE_CHANNEL",
+    "alwaysShowInPalette": true,
     "defaultWidth": 3.333,
     "variants": ["drainage-sides"],
     "details": {

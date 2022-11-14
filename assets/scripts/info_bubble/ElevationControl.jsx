@@ -66,14 +66,14 @@ function ElevationControl ({ position, segment, forceEnable = false }) {
 
     if (!isSubscriber && !forceEnable) {
       isLocked = true
-      const enableConditionText = intl.formatMessage({
+      const unlockConditionText = intl.formatMessage({
         id: 'plus.locked.sub',
         // Default message ends with a Unicode-only left-right order mark
         // to allow for proper punctuation in `rtl` text direction
         // This character is hidden from editors by default!
         defaultMessage: 'Upgrade to Streetmix+ to use!‎'
       })
-      title += ' — ' + enableConditionText
+      title += ' — ' + unlockConditionText
     }
 
     const isSelected = isVariantCurrentlySelected(set, selection)

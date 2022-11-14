@@ -151,15 +151,15 @@ function Variants (props) {
     // is locked for a reason (e.g. must sign in, must be a subscriber)
     // If an "unlock flag" is set, enable the thing
     if (
-      icon.enableCondition &&
+      icon.unlockCondition &&
       !(icon.unlockWithFlag && flags[icon.unlockWithFlag]?.value === true)
     ) {
-      let enableConditionText
-      switch (icon.enableCondition) {
+      let unlockConditionText
+      switch (icon.unlockCondition) {
         case 'SUBSCRIBE':
           if (!isSubscriber) {
             isLocked = true
-            enableConditionText = intl.formatMessage({
+            unlockConditionText = intl.formatMessage({
               id: 'plus.locked.sub',
               // Default message ends with a Unicode-only left-right order mark
               // to allow for proper punctuation in `rtl` text direction
@@ -172,7 +172,7 @@ function Variants (props) {
         default:
           if (!isSignedIn) {
             isLocked = true
-            enableConditionText = intl.formatMessage({
+            unlockConditionText = intl.formatMessage({
               id: 'plus.locked.user',
               // Default message ends with a Unicode-only left-right order mark
               // to allow for proper punctuation in `rtl` text direction
@@ -182,8 +182,8 @@ function Variants (props) {
           }
           break
       }
-      if (enableConditionText) {
-        title += ' — ' + enableConditionText
+      if (unlockConditionText) {
+        title += ' — ' + unlockConditionText
       }
     }
 
