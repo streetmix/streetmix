@@ -5,6 +5,27 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## November 15, 2022
+
+### ✨ New features
+
+We stealth-launched two-way cycletracks a few months ago, but this is its official announcement! We've also added a handful of new features, coming from our friends at [ITDP Africa](https://africa.itdp.org)!
+
+![New features gallery](/img/changelog/itdp-africa.png)
+
+#### Available for [Streetmix+](https://strt.mx/plus) members:
+
+- **Two-way bi-directional cycletracks.** You no longer have to put together two bike lanes together by hand! Just plop down a cycletrack _and_ get a nice painted yellow line down its middle.
+- **Mixed-use traffic lane (with bus).** Let's be real, you often get busses and cars in the same lane. Why not show that?
+- **Mixed-use traffic lane (with bicyclist).** Let's be even realer: too often, bikers are stuck on drive lanes too. But I don't think these bikers are too happy about it.
+- **Drainage channel.** It's been too long since we gave the stormwater management people some love. This is just the beginning. We know there's so much more to drainage than just a groove in a street.
+- **Elevation toggle for sidewalk.** You can now make some pedestrian areas not have a curb.
+
+### Available for all logged in users:
+
+- **Street vendors.** Add some small-business commercial activity to your street!
+- **Compound wall.** Sometimes, buildings are located behind a wall. Like this one.
+
 ## November 12, 2022
 
 ### 🎮 UI improvements
@@ -19,7 +40,7 @@ sidebar_position: 5
 
 ### 🎮 UI improvements
 
-- **The custom scale slider in the "Save as image" dialog is now 500% more useful.** We sort of stealth-released a "custom scale" feature that let you save images at 500% the original size, for when you needed super crisp magazine spreads or 10-foot wide hero banners. The problem is, we just used placeholder developer labels on it with no other explanation. It'll now tell you what size a saved image will be at in percentage terms, as well as pixel resolution and typical print dimensions. **Note: This is a Streetmix+ member feature, so if you'd like to use it, grab a [monthly membership subscription](https://docs.streetmix.net/user-guide/streetmix-plus) today!**
+- **The custom scale slider in the "Save as image" dialog is now 500% more useful.** We sort of stealth-released a "custom scale" feature that let you save images at 500% the original size, for when you needed super crisp magazine spreads or 10-foot wide hero banners. The problem is, we just used placeholder developer labels on it with no other explanation. It'll now tell you what size a saved image will be at in percentage terms, as well as pixel resolution and typical print dimensions. **Note: This is a Streetmix+ member feature, so if you'd like to use it, grab a [monthly membership subscription](https://strt.mx/plus) today!**
 
 ## September 8, 2022
 
@@ -43,14 +64,14 @@ sidebar_position: 5
 
 ### ✨ New features
 
-**Announcing Streetmix+, a [monthly membership subscription](https://docs.streetmix.net/user-guide/streetmix-plus) that supports us _and_ gets you access to new features.** Here's a quick summary of the new shinies that Streetmix+ members get:
+**Announcing Streetmix+, a [monthly membership subscription](https://strt.mx/plus) that supports us _and_ gets you access to new features.** Here's a quick summary of the new shinies that Streetmix+ members get:
 
 - **Rename street segments.** We get it: it's not a "drive lane," you want to call it an "obstacle course." But in all seriousness, a lot of people have different names for things in different parts of the world, and we could only have chosen one. Now you can choose another.
 - **Change environmental backgrounds.** Because science tells us the sky isn't really blue, that's why.
 - **Export images without watermark.** Some of you actually crop the watermark out when you publish an image from Streetmix. We see you. Our eyes are everywhere. Now you can do it with our permission.
 - **New segments:** double decker bus, microvan, and autonomous shuttles. Oh my.
 
-We'll have more to come, so head on over to [our documentation](https://docs.streetmix.net/user-guide/streetmix-plus) for more details and instructions for signing up.
+We'll have more to come, so head on over to [our documentation](https://strt.mx/plus) for more details and instructions for signing up.
 
 ## December 9, 2021
 
