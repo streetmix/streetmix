@@ -28,6 +28,11 @@ exports[`Segment renders correctly 1`] = `
         >
           Segment
         </p>
+        <p
+          class="segment-capacity"
+        >
+          18,000 people/hr
+        </p>
       </div>
     </div>
     <span

@@ -32,6 +32,11 @@ exports[`StreetEditable segment warnings too large Pressing \`+\` does not incre
           >
             Segment
           </p>
+          <p
+            class="segment-capacity"
+          >
+            18,000 people/hr
+          </p>
         </div>
       </div>
       <span

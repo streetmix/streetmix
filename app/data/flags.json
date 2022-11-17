@@ -5,7 +5,7 @@
   },
   "ANALYTICS": {
     "label": "UI — Street analytics",
-    "defaultValue": false
+    "defaultValue": true
   },
   "EDIT_STREET_WIDTH": {
     "label": "UI — Edit street width",
