@@ -1,11 +1,10 @@
 name: Update translations
 
-on: [push]
-# on:
-#   schedule:
-#     # Daily at a specific time (7:30 chosen arbitrarily)
-#     - cron: "30 7 * * *"
-#   workflow_dispatch:
+on:
+  schedule:
+    # Daily at a specific time (7:30 chosen arbitrarily)
+    - cron: "30 7 * * *"
+  workflow_dispatch:
 
 jobs:
   translations:
