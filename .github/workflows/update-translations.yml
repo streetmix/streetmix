@@ -16,15 +16,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     # Use the current LTS version of Node.js
-    - name: Use Node.js 14
+    - name: Use Node.js 16
       uses: actions/setup-node@v3
       with:
-        node-version: '14'
-    - name: Install necessary dependencies
-      # Disabling the package-lock prevents it from installing
-      # unecessary dependencies. This may break in npm v7.
-      run: npm install dotenv chalk mkdirp --package-lock=false
+        node-version: '16'
+    # TODO: only install necessary dependencies
+    - name: Install dependencies
+      run: npm install
     - name: Download translations
       run: npm run translations:download
-    - name: Check status
-      run: git status
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v4.2.0
