@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## November 19, 2022
+
+### 🐛 Bug fix
+
+- Fixed a bug in Safari browsers where artwork would not be drawn unless the street was either interacted with or reloaded.
+
 ## November 15, 2022
 
 ### ✨ New features
