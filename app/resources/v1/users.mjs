@@ -402,3 +402,52 @@ export async function put (req, res) {
         .json({ status: 500, msg: 'Could not update user information.' })
     })
 } // END function - put
+
+export async function patch (req, res) {
+  let body
+  try {
+    body = req.body
+  } catch (e) {
+    res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
+    return
+  }
+
+  if (!req.auth?.sub) {
+    res.status(401).json({ status: 401, msg: 'User auth not found.' })
+    return
+  }
+
+  const userId = req.params.user_id
+  let user
+
+  try {
+    user = await User.findOne({ where: { id: userId } })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
+    return
+  }
+
+  if (!user || !req.auth?.sub) {
+    res.status(404).json({ status: 404, msg: 'User not found.' })
+    return
+  }
+
+  // Only allowed to update one field, all others are dropped
+  // if they are present in the body
+  User.update(
+    {
+      displayName: body.displayName || null
+    },
+    { where: { id: user.id }, returning: true }
+  )
+    .then((result) => {
+      res.status(204).end()
+    })
+    .catch((err) => {
+      logger.error(err)
+      res
+        .status(500)
+        .json({ status: 500, msg: 'Could not update user information.' })
+    })
+} // END function - patch

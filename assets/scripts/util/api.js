@@ -47,8 +47,22 @@ class APIClient {
     return this.client.get(`${BASE_URL_API_V1}/users/${userId}`, config)
   }
 
+  // Replaces (puts) the `data` object representing user settings
+  putUserSettings = (userId, payload) => {
+    return this.client.put(`${BASE_URL_API_V1}/users/${userId}`, payload)
+  }
+
+  // Patches user account information (if allowed)
+  patchUser = (userId, payload) => {
+    return this.client.patch(`${BASE_URL_API_V1}/users/${userId}`, payload)
+  }
+
   deleteUserLoginToken = (userId) => {
     return this.client.delete(`${BASE_URL_API_V1}/users/${userId}/login-token`)
+  }
+
+  getGalleryForUser = (userId) => {
+    return this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
   }
 
   // Optional config is allowed for situations where we need to send a
@@ -87,14 +101,6 @@ class APIClient {
     return this.client.delete(`${BASE_URL_API_V1}/streets/images/${streetId}`)
   }
 
-  putUserSettings = (userId, payload) => {
-    return this.client.put(`${BASE_URL_API_V1}/users/${userId}`, payload)
-  }
-
-  getGalleryForUser = (userId) => {
-    return this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
-  }
-
   getGalleryForAllStreets = () => {
     return this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
   }
@@ -127,6 +133,9 @@ export const {
   getAppTranslations,
   getSegmentTranslations,
   getUser,
+  putUserSettings,
+  patchUser,
+  getGalleryForUser,
   deleteUserLoginToken,
   getStreet,
   getStreetWithParams,
@@ -134,8 +143,6 @@ export const {
   putStreet,
   deleteStreet,
   deleteStreetImage,
-  putUserSettings,
-  getGalleryForUser,
   getGalleryForAllStreets,
   getSentimentSurveyStreet,
   postSentimentSurveyVote,

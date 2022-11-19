@@ -71,6 +71,12 @@ const userSlice = createSlice({
       if (!profile || !profile.id) return
 
       state.profileCache[profile.id] = profile
+    },
+
+    updateDisplayName (state, action) {
+      if (state.signInData?.details) {
+        state.signInData.details.displayName = action.payload
+      }
     }
   },
 
@@ -101,7 +107,8 @@ export const {
   setSignInData,
   clearSignInData,
   setCoilPluginSubscriber,
-  rememberUserProfile
+  rememberUserProfile,
+  updateDisplayName
 } = userSlice.actions
 
 export default userSlice.reducer
