@@ -40,7 +40,17 @@ class SegmentCanvas extends React.PureComponent {
 
   componentDidMount () {
     this.props.updatePerspective(this.canvasEl.current)
+
     this.drawSegment()
+    // Normally this.drawSegment() on its own works just fine, except in
+    // Safari where the canvases are missing assets unless something is
+    // interacted with, after which all canvases are redrawn. This doesn't
+    // seem to be an asset loading issue, this is a Safari bug. By putting
+    // drawSegment() in a setTimeout() we're trying to force a second
+    // canvas render on mount in order to unstick the Safari bug.
+    window.setTimeout(() => {
+      this.drawSegment()
+    }, 0)
   }
 
   componentDidUpdate (prevProps) {
