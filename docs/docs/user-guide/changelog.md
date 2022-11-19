@@ -7,9 +7,10 @@ sidebar_position: 5
 
 ## November 19, 2022
 
-### 🐛 Bug fix
+### 🐛 Bug fixes
 
 - Fixed a bug in Safari browsers where artwork would not be drawn unless the street was either interacted with or reloaded.
+- Fixed a bug in Safari browsers where menus would be positioned incorrectly.
 
 ## November 15, 2022
 
