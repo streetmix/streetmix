@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { COLOR_MODE_LIGHT } from '../../app/constants'
 import { NEW_STREET_DEFAULT } from '../../streets/constants'
 import { changeLocale } from './locale'
 
@@ -13,6 +14,7 @@ const settingsSlice = createSlice({
     saveAsImageSegmentNamesAndWidths: false,
     saveAsImageStreetName: false,
     saveAsImageWatermark: true,
+    colorMode: COLOR_MODE_LIGHT,
     locale: null,
     units: null
   },
@@ -28,6 +30,11 @@ const settingsSlice = createSlice({
     setUserUnits (state, action) {
       const units = action.payload
       state.units = units
+    },
+
+    setUserColorMode (state, action) {
+      const mode = action.payload
+      state.colorMode = mode
     }
   },
 
@@ -38,6 +45,7 @@ const settingsSlice = createSlice({
   }
 })
 
-export const { updateSettings, setUserUnits } = settingsSlice.actions
+export const { updateSettings, setUserUnits, setUserColorMode } =
+  settingsSlice.actions
 
 export default settingsSlice.reducer

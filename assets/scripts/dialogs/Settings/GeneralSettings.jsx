@@ -4,9 +4,12 @@ import { FormattedMessage } from 'react-intl'
 import { setFeatureFlag } from '../../store/slices/flags'
 import Popover from '../../ui/Popover'
 import Switch from '../../ui/Switch'
+import AppearanceSettings from './AppearanceSettings'
 import UnitSettings from './UnitSettings'
 
 function GeneralSettings (props) {
+  const flags = useSelector((state) => state.flags)
+
   return (
     <>
       <section>
@@ -20,6 +23,9 @@ function GeneralSettings (props) {
       </section>
 
       <UnitSettings />
+
+      {/* This might be a new side panel when we have more settings */}
+      {flags.COLOR_MODE_TOGGLE.value && <AppearanceSettings />}
 
       <section>
         <h2>
