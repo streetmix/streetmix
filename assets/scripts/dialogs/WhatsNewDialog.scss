@@ -2,9 +2,11 @@
 @import "../../styles/variables";
 
 .whats-new-dialog {
-  width: 500px;
-  height: 70vh;
+  width: 550px;
+  height: 80vh;
   max-height: 800px;
+  font-family: Inter, Rubik, sans-serif;
+  font-size: 14px;
 }
 
 .whats-new-content {
@@ -21,7 +23,7 @@
   h2 {
     color: $colour-turquoise-600;
     font-weight: normal;
-    font-size: 1.65rem;
+    font-size: 1.75rem;
   }
 
   h2:not(:first-of-type) {

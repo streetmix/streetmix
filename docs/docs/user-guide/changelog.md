@@ -28,7 +28,7 @@ We stealth-launched two-way cycletracks a few months ago, but this is its offici
 - **Drainage channel.** It's been too long since we gave the stormwater management people some love. This is just the beginning. We know there's so much more to drainage than just a groove in a street.
 - **Elevation toggle for sidewalk.** You can now make some pedestrian areas not have a curb.
 
-### Available for all logged in users:
+### Available for all signed-in users:
 
 - **Street vendors.** Add some small-business commercial activity to your street!
 - **Compound wall.** Sometimes, buildings are located behind a wall. Like this one.
@@ -43,7 +43,7 @@ We stealth-launched two-way cycletracks a few months ago, but this is its offici
 
 - Updates to Finnish and Czech translations.
 
-## Octoer 25, 2022
+## October 25, 2022
 
 ### 🎮 UI improvements
 
@@ -104,7 +104,7 @@ P.S. We’re still looking for someone to help us finish Korean translations, so
 
 ### 🎨 Improvements
 
-- **Fresh new look and feel for documentation!** We called all our friends last week and told them if they help us move they get free pizza and beer. Same old content, but now in a modern apartment, which also let us reorganize a little and make things more intuitive to find! Please update your links and address books. [If you'd like to contribute to documentation, let us know!](/contributing/documentation)
+- **Fresh new look and feel for documentation!** We called all our friends last week and told them if they help us move they get free pizza and beer. Same old content, but now in a modern apartment, which also let us reorganize a little and make things more intuitive to find! Please update your links and address books. [If you'd like to contribute to documentation, let us know!](https://docs.streetmix.net/contributing/documentation/)
 
 ## July 29, 2021
 
