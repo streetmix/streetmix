@@ -77,7 +77,7 @@ function Menu ({
       timeout={100}
       classNames="menu-visible"
       mountOnEnter={true}
-      unmountOnExit={true}
+      unmountOnExit={false}
     >
       <div className={classNames.join(' ')} ref={ref}>
         {children}

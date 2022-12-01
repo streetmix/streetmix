@@ -1,0 +1,150 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+$dialog-border-radius: $border-radius-large;
+$header-background-colour: $colour-turquoise-200;
+$header-text-colour: $colour-turquoise-700;
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: fade-out($sky-colour, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-08-dialog;
+  animation: overlay-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dialog-content {
+  /* Position */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  // balance the dialog by making it slightly north of center
+  margin-top: -3%;
+  padding: 0;
+  background: white;
+  line-height: 1.4;
+  z-index: $z-09-dialog-box;
+  touch-action: none;
+
+  /* New styles! Let's try it! */
+  border-radius: $dialog-border-radius;
+  overflow: hidden;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);
+
+  /* Transitions */
+  animation: content-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Containing child element */
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 1.75rem 1em;
+    text-align: center;
+    background-color: $header-background-colour;
+    color: $header-text-colour;
+  }
+
+  h1 {
+    @include large-message-text;
+
+    margin: 0;
+  }
+
+  footer {
+    padding: 1rem 2rem;
+    margin-top: 0;
+    color: rgb(160 160 160);
+    font-size: 0.85em;
+
+    > p:first-child {
+      margin-top: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:hover {
+      color: rgb(120 120 120);
+    }
+  }
+
+  button.close {
+    z-index: $z-09-dialog-box;
+  }
+
+  // Button placement
+  button.btn,
+  a.btn {
+    margin: 0 auto;
+    margin-top: 1em;
+  }
+}
+
+.dialog-body {
+  flex-grow: 1;
+  position: relative;
+
+  &:not(.dialog-content-bleed) {
+    padding: 1rem 2rem;
+  }
+
+  > p:first-child {
+    margin-top: 0;
+  }
+}
+
+button.dialog-primary-action {
+  border: 0;
+  border-top: 1px solid $colour-turquoise-350;
+  border-radius: 0;
+  background-color: white;
+  font-weight: normal;
+  width: 100%;
+  text-align: center;
+  color: $colour-turquoise-600;
+  min-height: 46px;
+  cursor: pointer;
+
+  /* override .dialog-box button */
+  margin-top: 0 !important;
+
+  &:hover {
+    background-color: $colour-turquoise-100;
+    color: $colour-turquoise-700;
+  }
+}
+
+@keyframes overlay-show {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes content-show {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

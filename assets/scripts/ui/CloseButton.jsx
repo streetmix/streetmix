@@ -4,14 +4,8 @@ import { useIntl } from 'react-intl'
 import { XIcon } from '@primer/octicons-react'
 import './CloseButton.scss'
 
-CloseButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  className: PropTypes.string
-}
-
-function CloseButton (props) {
-  const { title, className = 'close', onClick, ...restProps } = props
+const CloseButton = React.forwardRef((props, ref) => {
+  const { title, className = 'close', onClick = () => {}, ...restProps } = props
   const defaultTitle = useIntl().formatMessage({
     id: 'btn.dismiss',
     defaultMessage: 'Dismiss'
@@ -19,6 +13,7 @@ function CloseButton (props) {
 
   return (
     <button
+      ref={ref}
       className={className}
       onClick={onClick}
       title={title || defaultTitle}
@@ -27,6 +22,13 @@ function CloseButton (props) {
       <XIcon size={16} />
     </button>
   )
+})
+
+CloseButton.displayName = 'CloseButton'
+CloseButton.propTypes = {
+  onClick: PropTypes.func,
+  title: PropTypes.string,
+  className: PropTypes.string
 }
 
-export default React.memo(CloseButton)
+export default CloseButton

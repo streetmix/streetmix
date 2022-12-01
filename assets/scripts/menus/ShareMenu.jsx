@@ -8,15 +8,17 @@ import {
 } from '@radix-ui/react-icons'
 import { IoPrintOutline } from 'react-icons/io5'
 import copy from 'copy-to-clipboard'
+import { startPrinting } from '../store/slices/app'
+import { clearMenus } from '../store/slices/menus'
 import Button from '../ui/Button'
-import Icon from '../ui/Icon'
+import { DialogRoot, DialogTrigger } from '../ui/Dialog'
 import ExternalLink from '../ui/ExternalLink'
+import Icon from '../ui/Icon'
+import SaveAsImageDialog from '../dialogs/SaveAsImageDialog'
 import { FACEBOOK_APP_ID } from '../app/config'
 import { getPageTitle } from '../app/page_title'
 import { getSharingUrl } from '../util/share_url'
 import { doSignIn } from '../users/authentication'
-import { showDialog } from '../store/slices/dialogs'
-import { startPrinting } from '../store/slices/app'
 import Menu from './Menu'
 import './ShareMenu.scss'
 
@@ -109,9 +111,9 @@ function ShareMenu (props) {
     }, 200)
   }
 
-  function handleClickSaveAsImage (event) {
-    event.preventDefault()
-    dispatch(showDialog('SAVE_AS_IMAGE'))
+  // When a dialog opens, close the menu
+  function handleOpenDialog (event) {
+    dispatch(clearMenus())
   }
 
   function handleClickSignIn (event) {
@@ -232,19 +234,28 @@ function ShareMenu (props) {
         <IoPrintOutline className="menu-item-icon" />
         <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
       </a>
-      <a id="save-as-image" onClick={handleClickSaveAsImage}>
-        <DownloadIcon className="menu-item-icon-radix" />
-        <FormattedMessage
-          id="menu.share.save"
-          defaultMessage="Save as image…"
-        />
-        <span className="menu-item-subtext">
-          <FormattedMessage
-            id="menu.share.save-byline"
-            defaultMessage="For including in a report, blog, etc."
-          />
-        </span>
-      </a>
+      <DialogRoot>
+        <DialogTrigger
+          className="text-green-darker"
+          asChild={true}
+          onClick={handleOpenDialog}
+        >
+          <a id="save-as-image">
+            <DownloadIcon className="menu-item-icon-radix" />
+            <FormattedMessage
+              id="menu.share.save"
+              defaultMessage="Save as image…"
+            />
+            <span className="menu-item-subtext">
+              <FormattedMessage
+                id="menu.share.save-byline"
+                defaultMessage="For including in a report, blog, etc."
+              />
+            </span>
+          </a>
+        </DialogTrigger>
+        <SaveAsImageDialog />
+      </DialogRoot>
     </Menu>
   )
 }

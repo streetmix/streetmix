@@ -12,13 +12,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ICON_LOCK } from '../ui/icons'
 import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
+import { DialogContent } from '../ui/Dialog'
 import Tooltip from '../ui/Tooltip'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
 import { updateSettings } from '../store/slices/settings'
 import { normalizeSlug } from '../util/helpers'
 import CustomScale from './SaveAsImage/CustomScale'
-import Dialog from './DialogLegacy'
 import './SaveAsImageDialog.scss'
 
 const DEFAULT_IMAGE_DPI = 2
@@ -189,157 +189,150 @@ function SaveAsImageDialog (props) {
     }
   }
 
+  const title = intl.formatMessage({
+    id: 'dialogs.save.heading',
+    defaultMessage: 'Save as image'
+  })
+
   return (
-    <Dialog>
-      {() => (
-        <div className="save-as-image-dialog">
-          <header>
-            <h1>
+    <DialogContent title={title}>
+      <div className="save-as-image-dialog">
+        <div className="dialog-body">
+          <div className="save-as-image-options">
+            <Checkbox
+              onChange={handleChangeOptionSegmentNames}
+              checked={segmentNames}
+            >
               <FormattedMessage
-                id="dialogs.save.heading"
-                defaultMessage="Save as image"
+                id="dialogs.save.option-labels"
+                defaultMessage="Segment names and widths"
               />
-            </h1>
-          </header>
-          <div className="dialog-content">
-            <div className="save-as-image-options">
+            </Checkbox>
+
+            <Checkbox
+              onChange={handleChangeOptionStreetName}
+              checked={streetName}
+            >
+              <FormattedMessage
+                id="dialogs.save.option-name"
+                defaultMessage="Street name"
+              />
+            </Checkbox>
+
+            <Checkbox
+              onChange={handleChangeOptionTransparentSky}
+              checked={transparentSky}
+            >
+              <FormattedMessage
+                id="dialogs.save.option-sky"
+                defaultMessage="Transparent sky"
+              />
+            </Checkbox>
+
+            {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
+            {isSubscriber ? (
               <Checkbox
-                onChange={handleChangeOptionSegmentNames}
-                checked={segmentNames}
+                onChange={handleChangeOptionWatermark}
+                checked={watermark}
               >
                 <FormattedMessage
-                  id="dialogs.save.option-labels"
-                  defaultMessage="Segment names and widths"
+                  id="dialogs.save.option-watermark"
+                  defaultMessage="Watermark"
                 />
               </Checkbox>
-
-              <Checkbox
-                onChange={handleChangeOptionStreetName}
-                checked={streetName}
+            ) : (
+              <Tooltip
+                label={intl.formatMessage({
+                  id: 'plus.locked.sub',
+                  // Default message ends with a Unicode-only left-right order mark
+                  // to allow for proper punctuation in `rtl` text direction
+                  // This character is hidden from editors by default!
+                  defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+                })}
               >
-                <FormattedMessage
-                  id="dialogs.save.option-name"
-                  defaultMessage="Street name"
-                />
-              </Checkbox>
-
-              <Checkbox
-                onChange={handleChangeOptionTransparentSky}
-                checked={transparentSky}
-              >
-                <FormattedMessage
-                  id="dialogs.save.option-sky"
-                  defaultMessage="Transparent sky"
-                />
-              </Checkbox>
-
-              {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
-              {isSubscriber ? (
-                <Checkbox
-                  onChange={handleChangeOptionWatermark}
-                  checked={watermark}
-                >
-                  <FormattedMessage
-                    id="dialogs.save.option-watermark"
-                    defaultMessage="Watermark"
-                  />
-                </Checkbox>
-              ) : (
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'plus.locked.sub',
-                    // Default message ends with a Unicode-only left-right order mark
-                    // to allow for proper punctuation in `rtl` text direction
-                    // This character is hidden from editors by default!
-                    defaultMessage: 'Upgrade to Streetmix+ to use!‎'
-                  })}
-                >
-                  {/* div shim for Tooltip child element */}
-                  <div className="checkbox-item">
-                    <Checkbox
-                      onChange={handleChangeOptionWatermark}
-                      checked={watermark}
-                      disabled={!isSubscriber}
-                    >
-                      <FormattedMessage
-                        id="dialogs.save.option-watermark"
-                        defaultMessage="Watermark"
-                      />
-                      &nbsp;
-                      <FontAwesomeIcon icon={ICON_LOCK} />
-                    </Checkbox>
-                  </div>
-                </Tooltip>
-              )}
-            </div>
-            <div className="save-as-image-preview">
-              {!errorMessage && (
-                <div className="save-as-image-preview-image">
-                  <div
-                    className="save-as-image-preview-loading"
-                    style={{ display: !isLoading && 'none' }}
+                {/* div shim for Tooltip child element */}
+                <div className="checkbox-item">
+                  <Checkbox
+                    onChange={handleChangeOptionWatermark}
+                    checked={watermark}
+                    disabled={!isSubscriber}
                   >
                     <FormattedMessage
-                      id="dialogs.save.loading"
-                      defaultMessage="Loading…"
+                      id="dialogs.save.option-watermark"
+                      defaultMessage="Watermark"
                     />
-                  </div>
-                  <img
-                    src={downloadDataUrl}
-                    onLoad={handlePreviewLoaded}
-                    onError={handlePreviewError}
-                    alt={intl.formatMessage({
-                      id: 'dialogs.save.preview-image-alt',
-                      defaultMessage: 'Preview'
-                    })}
-                  />
+                    &nbsp;
+                    <FontAwesomeIcon icon={ICON_LOCK} />
+                  </Checkbox>
                 </div>
-              )}
-              {errorMessage && (
-                <div className="save-as-image-preview-error">
-                  {errorMessage}
-                </div>
-              )}
-            </div>
-            <CustomScale
-              scale={scale}
-              baseDimensions={baseDimensions}
-              onChange={handleChangeScale}
-            />
-            <div className="save-as-image-download">
-              {errorMessage2 && (
-                <span className="save-as-image-too-large-error">
-                  <FormattedMessage
-                    id="dialogs.save.error-too-large"
-                    defaultMessage="This image is too big and we were not able to create it. Please try a smaller custom size."
-                  />
-                </span>
-              )}
-              {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
-              {!errorMessage && !isSaving ? (
-                <Button primary={true} onClick={handleClickDownloadImage}>
-                  <FormattedMessage
-                    id="dialogs.save.save-button"
-                    defaultMessage="Save to your computer…"
-                  />
-                </Button>
-              ) : (
-                // TODO: When saving, show busy cursor and "Please wait"
-                <Button primary={true} disabled={true}>
-                  <FormattedMessage
-                    id="dialogs.save.save-button"
-                    defaultMessage="Save to your computer…"
-                  />
-                </Button>
-              )}
-            </div>
+              </Tooltip>
+            )}
           </div>
-          <footer>
-            <Terms locale={locale} />
-          </footer>
+          <div className="save-as-image-preview">
+            {!errorMessage && (
+              <div className="save-as-image-preview-image">
+                <div
+                  className="save-as-image-preview-loading"
+                  style={{ display: !isLoading && 'none' }}
+                >
+                  <FormattedMessage
+                    id="dialogs.save.loading"
+                    defaultMessage="Loading…"
+                  />
+                </div>
+                <img
+                  src={downloadDataUrl}
+                  onLoad={handlePreviewLoaded}
+                  onError={handlePreviewError}
+                  alt={intl.formatMessage({
+                    id: 'dialogs.save.preview-image-alt',
+                    defaultMessage: 'Preview'
+                  })}
+                />
+              </div>
+            )}
+            {errorMessage && (
+              <div className="save-as-image-preview-error">{errorMessage}</div>
+            )}
+          </div>
+          <CustomScale
+            scale={scale}
+            baseDimensions={baseDimensions}
+            onChange={handleChangeScale}
+          />
+          <div className="save-as-image-download">
+            {errorMessage2 && (
+              <span className="save-as-image-too-large-error">
+                <FormattedMessage
+                  id="dialogs.save.error-too-large"
+                  defaultMessage="This image is too big and we were not able to create it. Please try a smaller custom size."
+                />
+              </span>
+            )}
+            {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
+            {!errorMessage && !isSaving ? (
+              <Button primary={true} onClick={handleClickDownloadImage}>
+                <FormattedMessage
+                  id="dialogs.save.save-button"
+                  defaultMessage="Save to your computer…"
+                />
+              </Button>
+            ) : (
+              // TODO: When saving, show busy cursor and "Please wait"
+              <Button primary={true} disabled={true}>
+                <FormattedMessage
+                  id="dialogs.save.save-button"
+                  defaultMessage="Save to your computer…"
+                />
+              </Button>
+            )}
+          </div>
         </div>
-      )}
-    </Dialog>
+        <footer>
+          <Terms locale={locale} />
+        </footer>
+      </div>
+    </DialogContent>
   )
 }
 
