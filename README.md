@@ -73,12 +73,12 @@ Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by 
   <a href="https://opencollective.com/streetmix"><img src="https://opencollective.com/streetmix/sponsors.svg" alt="Become a sponsor"></a>
 </p>
 
-### Copyright
+## Copyright
 
 Copyright (c) 2013-2018 Code for America and contributors.  
-Copyright (c) 2019-2021 Streetmix LLC.  
+Copyright (c) 2019-2023 Streetmix LLC.  
 See [LICENSE][] for details.
 
-[![Open Source Helpers](https://www.codetriage.com/codeforamerica/streetmix/badges/users.svg)](https://www.codetriage.com/codeforamerica/streetmix)
-
 [license]: https://github.com/streetmix/streetmix/blob/main/LICENSE
+
+Streetmix is maintained by [Bad Idea Factory](https://biffud.com/) with the support of many contributors.
