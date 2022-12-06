@@ -59,3 +59,51 @@ DialogContent.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node
 }
+
+
+
+/**
+ * eperimental: a Dialog conmpoent that does all the things, similar to before...
+ * maybe helps with transitionsetc
+ * can also help with unit tests -- how to trigger individual dialog test mount?
+ * @param param0 
+ * @returns 
+ */
+ function Dialog ({ children }) {
+  // Appear state controls transition in/out
+  const [appear, setAppear] = useState(true)
+  const [open, setOpen] = useState(true)
+  const dispatch = useDispatch()
+
+  // On "close", we animate the dialog out
+  function handleClose () {
+    setAppear(false)
+  }
+
+  // When the animation is complete, then we clear dialog state
+  function handleExit () {
+    dispatch(clearDialogs())
+  }
+
+  return (
+    <CSSTransition
+      appear={true}
+      in={appear}
+      timeout={80}
+      classNames="legacy-dialog-transition"
+      onExited={handleExit}
+    >
+      <DialogRoot open={open} onOpenChange={setOpen}>
+        {/* children(handleClose) */}
+        {children}
+      </DialogRoot>
+    </CSSTransition>
+  )
+}
+
+Dialog.propTypes = {
+  children: PropTypes.func.isRequired
+}
+
+export default Dialog
+
