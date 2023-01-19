@@ -121,7 +121,7 @@
     "dotenv": "11.0.0",
     "downshift": "6.1.7",
     "downshift-pelias": "0.0.3-alpha",
-    "express": "4.17.2",
+    "express": "4.17.3",
     "express-jwt": "6.1.0",
     "file-saver": "2.0.5",
     "handjs": "1.3.11",
