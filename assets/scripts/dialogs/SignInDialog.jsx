@@ -4,6 +4,7 @@ import {
   goEmailSignIn,
   goTwitterSignIn,
   goFacebookSignIn,
+  goPasswordSignIn,
   goGoogleSignIn
 } from '../app/routing'
 import Button from '../ui/Button'
@@ -340,6 +341,7 @@ export default class SignInDialog extends React.Component {
                 />
               </p>
             </footer>
+            <button onClick={goPasswordSignIn}>Auth0 Sign-In</button>
           </div>
         )}
       </Dialog>
