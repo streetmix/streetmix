@@ -2,12 +2,21 @@
 
 $palette-height: 64px;
 
-.palette-container {
+.palette-container-outer {
   position: absolute;
-  left: $left-right-inset;
-  right: $left-right-inset;
   bottom: 0;
+  width: 100%;
   height: $palette-height;
+  padding-left: $left-right-inset;
+  padding-right: $left-right-inset;
+  display: flex;
+  justify-content: center;
+}
+
+.palette-container {
+  position: relative;
+  width: 100%;
+  min-width: $breakpoint-md;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -17,6 +26,20 @@ $palette-height: 64px;
   touch-action: none;
   border-top-left-radius: $border-radius-large;
   border-top-right-radius: $border-radius-large;
+}
+
+@media only screen and (max-width: $breakpoint-md) {
+  .palette-container-outer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .palette-container {
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    min-width: 100%;
+  }
 }
 
 .palette-commands {

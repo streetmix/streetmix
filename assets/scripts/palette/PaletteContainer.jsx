@@ -19,15 +19,17 @@ function PaletteContainer (props) {
   if (readOnly) return null
 
   return (
-    <div className="palette-container">
-      <div className="palette-commands palette-commands-left">
-        <EnvironmentButton />
+    <div className="palette-container-outer">
+      <div className="palette-container">
+        <div className="palette-commands palette-commands-left">
+          <EnvironmentButton />
+        </div>
+        {everythingLoaded && <PaletteItems />}
+        <div className="palette-commands palette-commands-right">
+          <UndoRedo />
+        </div>
+        <PaletteTrashcan />
       </div>
-      {everythingLoaded && <PaletteItems />}
-      <div className="palette-commands palette-commands-right">
-        <UndoRedo />
-      </div>
-      <PaletteTrashcan />
     </div>
   )
 }

@@ -9,6 +9,8 @@ $header-text-colour: $colour-turquoise-700;
 .environment-editor-container-outer {
   z-index: $z-07-environment-editor;
   position: absolute;
+  // TODO: use button trigger to set initial position,
+  // and remember position on a per-session basis
   bottom: 90px;
   left: 50px;
   max-width: 216px; /* prevent upgrade text from expanding width */
