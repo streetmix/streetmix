@@ -27,6 +27,7 @@ import WelcomePanel from './WelcomePanel'
 import NotificationBar from './NotificationBar'
 import { setStreetSectionTop } from './window_resize'
 import Loading from './Loading'
+import SponsorBanner from './SponsorBanner'
 
 function App (): React.ReactElement {
   const [isLoading, setLoading] = useState(true)
@@ -103,6 +104,7 @@ function App (): React.ReactElement {
                 <ToastContainer />
                 <SentimentSurveyContainer />
               </div>
+              <SponsorBanner />
             </DndProvider>
           </IntlProvider>
         </DirectionProvider>
