@@ -438,7 +438,7 @@
     },
     "web-monetization": {
       "thanks": "Takk for din støtte!",
-      "not-signed-in": "Din nettleser sender Web Monetization betalinger. Logg inn nå for å få tilgang til dine Streetmix+ goder! <a>Lær mer </a>.",
+      "not-signed-in": "Din nettleser sender Web Monetization betalinger. Logg inn nå for å få tilgang til dine Streetmix+ goder!",
       "signed-in": "Ditt abonnement på Web Monetization gir deg full tilgang til alle Streetmix+ funksjoner.",
       "learn-more": "Lær mer"
     }

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import wmIcon from '../../../images/wm-icon-animated.svg'
+import ExternalLink from '../ExternalLink'
 import Toast from './Toast'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
@@ -53,8 +54,16 @@ function ToastWebMonetizationSuccess (props) {
       <p>
         <FormattedMessage
           id="plus.web-monetization.signed-in"
-          defaultMessage="Your Web Monetization subscription gives you full access to Streetmix+ features.&lrm;"
+          defaultMessage="Your Web Monetization subscription gives you full access to Streetmix+ benefits.&lrm;"
         />
+      </p>
+      <p>
+        <strong>Deprecation warning:</strong> The Coil plugin has been
+        discontinued since February 2, 2023. We encourage all Coil plugin users
+        to migrate to another service for Streetmix+ benefits.
+        <ExternalLink href="https://strt.mx/plus#coil">
+          Learn more.
+        </ExternalLink>
       </p>
     </Toast>
   )
