@@ -438,7 +438,7 @@
     },
     "web-monetization": {
       "thanks": "¡Gracias por su apoyo!",
-      "not-signed-in": "Su navegador está enviando pagos de Web Monetization. ¡Inicie sesión para acceder a sus ventajas Streetmix+! <a>Saber más</a>.",
+      "not-signed-in": "Su navegador está enviando pagos de Web Monetization. ¡Inicie sesión para acceder a sus ventajas Streetmix+!",
       "signed-in": "Su suscripción Web Monetization le da acceso completo a las características de Streetmix+.",
       "learn-more": "Saber más"
     }

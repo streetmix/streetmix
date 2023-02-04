@@ -438,7 +438,7 @@
     },
     "web-monetization": {
       "thanks": "Děkujeme za vaši podporu!",
-      "not-signed-in": "Váš prohlížeč odesílá platby za zpeněžení webu. Přihlaste se a získejte přístup k výhodám Streetmix+! <a>Zjistěte více</a>.",
+      "not-signed-in": "Váš prohlížeč odesílá platby za zpeněžení webu. Přihlaste se a získejte přístup k výhodám Streetmix+!",
       "signed-in": "Předplatné služby Web Monetization vám dává plný přístup k funkcím služby Streetmix+.",
       "learn-more": "Zjistěte více"
     }

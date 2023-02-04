@@ -438,7 +438,7 @@
     },
     "web-monetization": {
       "thanks": "Kiitos tuesta!",
-      "not-signed-in": "Selain suorittaa Web Monetization -maksua. Ota Streetmix+ käyttöön nyt kirjautumalla sisään, <a>lisätietoja</a>.",
+      "not-signed-in": "Selain suorittaa Web Monetization -maksua. Ota Streetmix+ käyttöön nyt kirjautumalla sisään.",
       "signed-in": "Web Monetization -tilaus sisältää kaikki Streetmix+-ominaisuudet.",
       "learn-more": "Lue lisää"
     }

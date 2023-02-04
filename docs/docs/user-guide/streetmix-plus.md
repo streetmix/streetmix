@@ -69,9 +69,9 @@ Streetmix+ membership does not activate immediately (_this is something we're wo
 
 :::caution Deprecated
 
-**Coil support is becoming deprecated.** Some users are experiencing issues connecting through the Coil plugin, and our team is also experiencing problems collecting funds through the Coil ecosystem. As a result, we are beginning the process of deprecating Coil support and encourage users to try OpenCollective or other platforms listed above.
+**Coil support is deprecated.** [Coil has sunsetted its products](https://coil.com/) as of February 2, 2023 and are no longer existing new member sign-ups. The service will be discontinued for all existing users on March 15, 2023.
 
-If Coil already works for you, you will continue to receive Streetmix+ benefits through it until further notice.
+Streetmix+ subscribers using the Coil plugin will continue to receive benefits until it is completely discontinued. We encourage all existing Coil users to migrate to OpenCollective or Patreon as early as possible.
 
 :::
 
@@ -107,9 +107,9 @@ If you have signed up for a Streetmix+ membership but have not been contacted ab
 
 :::caution Deprecated
 
-**Coil support is becoming deprecated.** Some users are experiencing issues connecting through the Coil plugin, and our team is also experiencing problems collecting funds through the Coil ecosystem. As a result, we are beginning the process of deprecating Coil support and encourage users to try OpenCollective or other platforms listed above.
+**Coil support is deprecated.** [Coil has sunsetted its products](https://coil.com/) as of February 2, 2023 and are no longer existing new member sign-ups. The service will be discontinued for all existing users on March 15, 2023.
 
-If Coil already works for you, you will continue to receive Streetmix+ benefits through it until further notice.
+Streetmix+ subscribers using the Coil plugin will continue to receive benefits until it is completely discontinued. We encourage all existing Coil users to migrate to OpenCollective or Patreon as early as possible.
 
 :::
 

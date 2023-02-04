@@ -74,16 +74,16 @@ function ToastWebMonetization (props) {
       <p>
         <FormattedMessage
           id="plus.web-monetization.not-signed-in"
-          defaultMessage="Your browser is sending Web Monetization payments. Sign in now to access your Streetmix+ benefits! <a>Learn more.</a>&lrm;"
-          values={{
-            // eslint-disable-next-line react/display-name
-            a: (chunks) => (
-              <ExternalLink href="https://docs.streetmix.net/user-guide/streetmix-plus">
-                {chunks}
-              </ExternalLink>
-            )
-          }}
+          defaultMessage="Your browser is sending Web Monetization payments. Sign in now to access your Streetmix+ benefits!&lrm;"
         />
+      </p>
+      <p>
+        <strong>Deprecation warning:</strong> The Coil plugin has been
+        discontinued since February 2, 2023. We encourage all Coil plugin users
+        to migrate to another service for Streetmix+ benefits.
+        <ExternalLink href="https://strt.mx/plus#coil">
+          Learn more.
+        </ExternalLink>
       </p>
     </Toast>
   )
