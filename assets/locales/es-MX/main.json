@@ -14,7 +14,7 @@
       "share": "Compartir",
       "store": "Tienda",
       "upgrade": "Subir cuenta",
-      "streetmix-plus": ""
+      "streetmix-plus": "Consigue Streetmix+"
     },
     "help": {
       "keyboard-label": "Atajos del teclado:",
@@ -71,17 +71,17 @@
   },
   "settings": {
     "heading": "Configuración",
-    "info-tooltip": "",
+    "info-tooltip": "Descripción",
     "general": {
-      "label": ""
+      "label": "General"
     },
     "language": {
       "label": "Idioma"
     },
     "misc": {
-      "label": "",
-      "silly-clowns": "",
-      "silly-clowns-description": ""
+      "label": "Varios",
+      "silly-clowns": "Payasadas",
+      "silly-clowns-description": "Activa los huevos de pascua"
     },
     "units": {
       "label": "Unidades",
@@ -105,7 +105,7 @@
       "home": "Ir a la página principal",
       "sign-in": "Ingresar de nuevo",
       "reload": "Recarga la página",
-      "return": "",
+      "return": "Regresar a Streetmix",
       "try-again": "Intenta de nuevo",
       "view-example": "Ver una calle ejemplo"
     },
@@ -120,7 +120,7 @@
     "reload-sign-out-title": "Has finalizado la sesión en otra ventana.",
     "gallery-street-failure-description": "Estamos teniendo problemas subiendo esta calle.",
     "reload-sign-in-title": "Has iniciado una sesión en otra ventana.",
-    "please-reload": "",
+    "please-reload": "Por favor vuelve a cargar esta página para regresar a Streetmix.",
     "survey-finished": "La encuesta es completa. ¡Felicitaciones y gracias!",
     "street-deleted-elsewhere-title": "Esta calle se ha borrado en otro lugar.",
     "street-deleted-elsewhere-description": "Esta calle se ha borrado en otro navegador.",
@@ -131,11 +131,11 @@
     "auth-api-problem-title": "Hubo un problema con ingresar.",
     "auth-api-problem-description": "Hubo un problema con la autenticación.",
     "please-try-again": "Por favor, intenta de nuevo más tarde o cuéntanos via <email_link>correo electrónico</email_link> o <tweet_link>Twitter</tweet_link>.",
-    "please-try-again-contact-us": "",
+    "please-try-again-contact-us": "Por favor inténtalo de nuevo más tarde. Si aún necesitas ayuda, por favor <a>contáctanos</a>.",
     "unsupported-browser-title": "Streetmix no funciona en su navegador.",
     "unsupported-browser-description": "Desculpe. Tal vez debes probar <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, o Safari.",
     "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a>Descubre más.</a>",
-    "unsupported-browser-contact-us": "",
+    "unsupported-browser-contact-us": "Si piensas que tu navegador debería ser soportado, por favor <a>contáctanos</a>.",
     "cannot-create-new-street-on-phone-title": "Streetmix solamente funciona en tabletas y computadoras de escritorio.",
     "cannot-create-new-street-on-phone-description": "Si sigues un enlace a una calle específica, se la podrá ver en un celular – pero todavía no se puede crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
@@ -224,17 +224,17 @@
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo transparente",
       "option-watermark": "Filigrana",
-      "option-custom-scale": "",
-      "option-custom-scale-description": "",
+      "option-custom-scale": "Escala personalizada",
+      "option-custom-scale-description": "Descarga una imagen hasta 500% del tamaño original.",
       "loading": "Cargando…",
       "save-button": "Guardar a tu computadora…",
       "license": "Esta imagen-creada-por-Streetmix puede ser reusada en cualquier otra parte, por culaquier otro uso, bajo la licencia {licenseLink}.",
       "error-preview": "Hubo un error al visualizar una imagen de vista previa.",
       "error-unavailable": "No se puede guardar imagen en este navegador de internet.",
-      "error-too-large": "",
+      "error-too-large": "Esta imagen es demasiado grande y no podemos crearla. Por favor intenta un tamaño personalizado más pequeño.",
       "preview-image-alt": "Vista previa",
-      "print-size": "",
-      "digital-size": ""
+      "print-size": "Tamaño de la impresión",
+      "digital-size": "Tamaño digital"
     },
     "geotag": {
       "search": "Buscar una ubicación",
@@ -348,8 +348,8 @@
     "delete-street": "Eliminar calle",
     "segment-width": "Cambiar el ancho del segmento",
     "building-height": "Cambiar el numero de niveles",
-    "street-width": "",
-    "geotag": "",
+    "street-width": "Cambiar el ancho de la calle",
+    "geotag": "Cambiar ubicación",
     "increase-width": "Aumentar el ancho (mantén presionada Mayús para mayor precisión)",
     "decrease-width": "Reducir el ancho (mantén presionada Mayús para mayor precisión)",
     "add-floor": "Adherir piso",
@@ -360,7 +360,7 @@
     "scroll-right": "Desplazarse hacia derecha"
   },
   "street": {
-    "default-name": "Calle desconocida",
+    "default-name": "Calle sin nombre",
     "rename": "Hacer clic para poner un nombre nuevo"
   },
   "building": {
@@ -401,7 +401,7 @@
     "byline": "por {user}",
     "roles": {
       "admin": "Administrativo",
-      "subscriber": ""
+      "subscriber": "Miembro de Streetmix+"
     }
   },
   "export": {
@@ -425,21 +425,21 @@
   },
   "plus": {
     "locked": {
-      "label": "",
+      "label": "Bloqueado",
       "soon": "¡Disponible muy pronto!",
       "sub": "¡Actualizar a Streetmix+ para usar!",
-      "sub-edit": "",
+      "sub-edit": "Obtén Streetmix+ para editar.",
       "user": "¡Ingrésate para usar!",
-      "action": ""
+      "action": "Consigue Streetmix+"
     },
     "prompt": {
       "text": "Esta característica sólo es disponible a usuarios de Streetmix+.",
       "action": "Actualizar para acceder"
     },
     "web-monetization": {
-      "thanks": "",
-      "not-signed-in": "",
-      "signed-in": "",
+      "thanks": "¡Gracias por tu apoyo!",
+      "not-signed-in": "Su navegador está enviando pagos de Web Monetization. ¡Inicie sesión para acceder a sus ventajas Streetmix+! <a>Saber más</a>.",
+      "signed-in": "Su suscripción Web Monetization le da acceso completo a las características de Streetmix+.",
       "learn-more": "Aprender más"
     }
   },

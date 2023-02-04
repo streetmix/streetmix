@@ -224,17 +224,17 @@
       "option-name": "Název ulice",
       "option-sky": "Průhledná obloha",
       "option-watermark": "Vodoznak",
-      "option-custom-scale": "",
-      "option-custom-scale-description": "",
+      "option-custom-scale": "Vlastní měřítko",
+      "option-custom-scale-description": "Stáhněte si obrázek až do velikosti 500 % původní velikosti.",
       "loading": "Načítání...",
       "save-button": "Uložit do počítače...",
       "license": "Tento obrázek vytvořený ve Streetmix lze v rámci {licenseLink} licence použít kdekoli a k jakémukoli účelu.",
       "error-preview": "Došlo k chybě při zobrazování náhledu obrázku.",
       "error-unavailable": "Uložení do obrázku není v tomto prohlížeči k dispozici.",
-      "error-too-large": "",
+      "error-too-large": "Tento obrázek je příliš velký a nepodařilo se nám ho vytvořit. Zkuste prosím menší vlastní velikost.",
       "preview-image-alt": "Náhled",
-      "print-size": "",
-      "digital-size": ""
+      "print-size": "Velikost tisku",
+      "digital-size": "Digitální formát"
     },
     "geotag": {
       "search": "Hledat umístění",
@@ -425,7 +425,7 @@
   },
   "plus": {
     "locked": {
-      "label": "",
+      "label": "Uzamčeno",
       "soon": "Již brzy!",
       "sub": "Upgradujte na Streetmix+ a používejte ho!",
       "sub-edit": "Přejděte na Streetmix+ a upravujte",
