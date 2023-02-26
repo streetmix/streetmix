@@ -15,11 +15,11 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "postinstall": "npm run build",
-    "start": "concurrently \"npm:dev-server\" \"npm:dev-client\"",
-    "serve": "nodemon index.js",
+    "start": "concurrently --names \"SERVER,CLIENT\" -c \"bgBlueBright.bold,bgMagentaBright.bold\" \"npm:dev-server\" \"npm:dev-client\"",
+    "serve": "nodemon -r newrelic index.mjs",
     "build": "parcel build assets/scripts/main.js --dist-dir build --public-url /assets",
     "dev-client": "parcel watch assets/scripts/main.js --dist-dir build --public-url /assets",
-    "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.mjs --watch app.js index.mjs",
+    "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.mjs --watch app.mjs index.mjs",
     "test": "npm run lint && npm run jest:watch",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
@@ -49,8 +49,8 @@
       "./test/integration"
     ],
     "collectCoverageFrom": [
-      "app.js",
-      "app/**/*.{js,jsx}",
+      "app.mjs",
+      "app/**/*.{js,mjs}",
       "assets/scripts/**/*.{js,jsx}",
       "!assets/scripts/vendor/**/*.{js,jsx}"
     ],
