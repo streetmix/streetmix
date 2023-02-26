@@ -1,35 +1,24 @@
-// TODO: Refactor where we set these for ESM
-process.title = 'streetmix'
-
-// Set some defaults for env vars, if not set
-// This must be set after `dotenv` loads
-process.env.APP_DOMAIN = process.env.APP_DOMAIN || 'localhost'
-process.env.APP_PROTOCOL =
-  process.env.PROTOCOL || process.env.APP_DOMAIN === 'localhost'
-    ? 'http'
-    : 'https'
-process.env.PORT = process.env.PORT || 8000
-process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-
-const path = require('path')
-const compression = require('compression')
-const cookieParser = require('cookie-parser')
-const cookieSession = require('cookie-session')
-const express = require('express')
-const helmet = require('helmet')
-const swaggerUi = require('swagger-ui-express')
-const swaggerJSDoc = require('swagger-jsdoc')
-const chalk = require('chalk')
-const passport = require('passport')
-const controllers = require('./app/controllers/index.js')
-const requestHandlers = require('./app/lib/request_handlers/index.js')
-const initCloudinary = require('./app/lib/cloudinary.js')
-const compileSVGSprites = require('./app/lib/svg-sprite.js')
-const appURL = require('./app/lib/url.js')
-const apiRoutes = require('./app/api_routes.js')
-const serviceRoutes = require('./app/service_routes.js')
-const logger = require('./app/lib/logger.js')
-const jwtCheck = require('./app/authentication.js')
+import './app/globals.js'
+import path from 'node:path'
+import url from 'node:url'
+import compression from 'compression'
+import cookieParser from 'cookie-parser'
+import cookieSession from 'cookie-session'
+import express from 'express'
+import helmet from 'helmet'
+import swaggerUi from 'swagger-ui-express'
+import swaggerJSDoc from 'swagger-jsdoc'
+import chalk from 'chalk'
+import passport from 'passport'
+import controllers from './app/controllers/index.js'
+import requestHandlers from './app/lib/request_handlers/index.js'
+import initCloudinary from './app/lib/cloudinary.js'
+import compileSVGSprites from './app/lib/svg-sprite.js'
+import appURL from './app/lib/url.js'
+import apiRoutes from './app/api_routes.js'
+import serviceRoutes from './app/service_routes.js'
+import logger from './app/lib/logger.js'
+import jwtCheck from './app/authentication.js'
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
@@ -40,7 +29,11 @@ compileSVGSprites(
   'image'
 )
 
-const app = (module.exports = express())
+const app = express()
+export default app
+
+// Set __dirname (no longer automatically globally accessible in ESM)
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 // Get the timestamp of this server's start time to use as a cachebusting filename.
 const cacheTimestamp = Date.now()
@@ -229,8 +222,11 @@ app.all('/assets/*', (req, res) => {
   res.status(404).render('404')
 })
 
-// Attach API docs in non-production environments
-if (process.env.NODE_ENV !== 'production') {
+// Allow hot-module reloading (HMR)
+// and attach API docs
+// in non-production environments
+// In production bundle immediately and exit.
+if (process.env.NODE_ENV === 'production') {
   const options = {
     definition: {
       info: {
