@@ -22,7 +22,7 @@
     "lint:js": "eslint --ext .jsx,.js .",
     "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
-    "translations:download": "node -r dotenv/config bin/download_translations.js",
+    "translations:download": "node -r dotenv/config bin/download_translations.mjs",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "db:create": "npx sequelize-cli db:create",
