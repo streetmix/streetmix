@@ -1,10 +1,5 @@
+// TODO: Refactor where we set these for ESM
 process.title = 'streetmix'
-const path = require('path')
-
-// Run this before other modules
-if (process.env.NEW_RELIC_LICENSE_KEY) {
-  require('newrelic')
-}
 
 // Set some defaults for env vars, if not set
 // This must be set after `dotenv` loads
@@ -16,6 +11,7 @@ process.env.APP_PROTOCOL =
 process.env.PORT = process.env.PORT || 8000
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
+const path = require('path')
 const compression = require('compression')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
@@ -25,15 +21,15 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerJSDoc = require('swagger-jsdoc')
 const chalk = require('chalk')
 const passport = require('passport')
-const controllers = require('./app/controllers')
-const requestHandlers = require('./app/lib/request_handlers')
-const initCloudinary = require('./app/lib/cloudinary')
-const compileSVGSprites = require('./app/lib/svg-sprite')
-const appURL = require('./app/lib/url')
-const apiRoutes = require('./app/api_routes')
-const serviceRoutes = require('./app/service_routes')
+const controllers = require('./app/controllers/index.js')
+const requestHandlers = require('./app/lib/request_handlers/index.js')
+const initCloudinary = require('./app/lib/cloudinary.js')
+const compileSVGSprites = require('./app/lib/svg-sprite.js')
+const appURL = require('./app/lib/url.js')
+const apiRoutes = require('./app/api_routes.js')
+const serviceRoutes = require('./app/service_routes.js')
 const logger = require('./app/lib/logger.js')
-const jwtCheck = require('./app/authentication')
+const jwtCheck = require('./app/authentication.js')
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
