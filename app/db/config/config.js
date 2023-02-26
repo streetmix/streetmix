@@ -1,7 +1,8 @@
 // This script can be loaded from the command line via
 // `npx sequelize`, so we still need to load environment variables
 // Only run if the entry point of the script is `sequelize`.
-if (require.main.filename.endsWith('sequelize')) {
+// `require.main` will be undefined in the app when entry point is ESM
+if (require.main?.filename.endsWith('sequelize')) {
   const path = require('path')
   const dotenv = require('dotenv')
   const env = dotenv.config({
