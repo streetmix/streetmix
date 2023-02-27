@@ -1,6 +1,7 @@
 const fs = require('fs/promises')
 const logger = require('../../lib/logger.js')
-const getFromTransifex = require('../../lib/transifex.js')
+// TODO: put this back when we can support ESM here
+// const getFromTransifex = require('../../lib/transifex.mjs')
 
 async function getLocalTranslation (res, locale, resource) {
   const translationFile =
@@ -44,27 +45,29 @@ exports.get = async (req, res) => {
     return
   }
 
-  let translation
+  const translation = await getLocalTranslation(res, locale, resource)
 
-  try {
-    if (typeof process.env.TRANSIFEX_API_TOKEN === 'undefined') {
-      translation = await getLocalTranslation(res, locale, resource)
-    } else {
-      translation = await getFromTransifex(
-        locale,
-        resource,
-        process.env.TRANSIFEX_API_TOKEN
-      )
-    }
-  } catch (err) {
-    logger.error(err)
+  // let translation
 
-    res.status(500).json({
-      status: 500,
-      msg: 'Could not retrieve translation for locale: ' + locale
-    })
-    return
-  }
+  // try {
+  //   if (typeof process.env.TRANSIFEX_API_TOKEN === 'undefined') {
+  //     translation = await getLocalTranslation(res, locale, resource)
+  //   } else {
+  //     translation = await getFromTransifex(
+  //       locale,
+  //       resource,
+  //       process.env.TRANSIFEX_API_TOKEN
+  //     )
+  //   }
+  // } catch (err) {
+  //   logger.error(err)
+
+  //   res.status(500).json({
+  //     status: 500,
+  //     msg: 'Could not retrieve translation for locale: ' + locale
+  //   })
+  //   return
+  // }
 
   if (translation) {
     sendSuccessResponse(res, locale, resource, translation)

@@ -1,0 +1,512 @@
+{
+  "menu": {
+    "item": {
+      "help": "Tulong",
+      "about": "",
+      "contact": "",
+      "community": "Pamayanan",
+      "contribute": "Tumulong",
+      "sign-in": "Mag-sign in",
+      "sign-out": "Mag-sign out",
+      "new-street": "",
+      "my-streets": "",
+      "settings": "",
+      "share": "Ibahagi",
+      "store": "",
+      "upgrade": "",
+      "streetmix-plus": ""
+    },
+    "help": {
+      "keyboard-label": "",
+      "remove-instruction": "",
+      "remove-shift-instruction": "",
+      "move-instruction": "",
+      "move-shift-instruction": "",
+      "change-instruction": "",
+      "change-shift-instruction": ""
+    },
+    "share": {
+      "sign-in-twitter-link": "Mag-sign in",
+      "sign-in-link": "",
+      "link": "",
+      "copy-to-clipboard": "",
+      "twitter": "",
+      "facebook": "",
+      "print": "I-print",
+      "save": "",
+      "save-byline": "Upang isama sa isang ulat, blog, atbp.",
+      "messages": {
+        "my-street": "Tingnan ang aking kalsada, {streetName}, sa Streetmix!",
+        "my-street-unnamed": "",
+        "someone-elses-street": "Tingnan ang {streetName} ni {streetCreator} sa Streetmix!",
+        "someone-elses-street-unnamed": "Tingnan ang kalsadang ito ni {streetCreator} sa Streetmix!",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": "Tingnan ang kalsadang ito sa Streetmix!"
+      }
+    },
+    "contact": {
+      "forums": "Pag-usapan sa mga forum",
+      "email": "",
+      "github": "Tingnan ang source code sa GitHub",
+      "blog": "",
+      "discord": "",
+      "slack": "",
+      "newsletter": ""
+    },
+    "contribute": {
+      "donate": "",
+      "opensource": ""
+    },
+    "feedback": {
+      "prompt": "Magpadala ng mensahe sa amin:",
+      "message-placeholder": "",
+      "email-placeholder": "",
+      "send": "",
+      "confirm": "Nakuha namin ito. Salamat!",
+      "error": ""
+    },
+    "sign-in": {
+      "twitter": ""
+    }
+  },
+  "settings": {
+    "heading": "",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "language": {
+      "label": ""
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
+    }
+  },
+  "msg": {
+    "loading": "Naglo-load...",
+    "remixing": "",
+    "having-trouble": "",
+    "no-street": "Walang piniling kalsada.",
+    "trouble-loading": "",
+    "slow-connection-1": "",
+    "slow-connection-2": "",
+    "no-connection": "",
+    "more-info": ""
+  },
+  "error": {
+    "button": {
+      "home": "",
+      "sign-in": "",
+      "reload": "",
+      "return": "",
+      "try-again": "",
+      "view-example": "Tumingin sa halimbawang kalsada"
+    },
+    "page-not-found-title": "Hindi nahanap ang page.",
+    "page-not-found-description": "",
+    "street-not-found-title": "",
+    "street-not-found-description": "Hala, walang kalsadang may link nito!",
+    "street-not-found-but-user-description": "",
+    "street-deleted-title": "",
+    "street-deleted-description": "",
+    "sign-out-title": "Naka-sign out ka na.",
+    "reload-sign-out-title": "Nag-sign out ka sa ibang window",
+    "gallery-street-failure-description": "",
+    "reload-sign-in-title": "Nag-sign in ka sa ibang window.",
+    "please-reload": "",
+    "survey-finished": "",
+    "street-deleted-elsewhere-title": "",
+    "street-deleted-elsewhere-description": "",
+    "auth-expired": "",
+    "sign-in-again": "",
+    "access-denied-title": "",
+    "access-denied-description": "",
+    "auth-api-problem-title": "Nagkaroon ng problema sa pag-sign in.",
+    "auth-api-problem-description": "",
+    "please-try-again": "",
+    "please-try-again-contact-us": "",
+    "unsupported-browser-title": "",
+    "unsupported-browser-description": "",
+    "unsupported-browser-internet-explorer": "",
+    "unsupported-browser-contact-us": "",
+    "cannot-create-new-street-on-phone-title": "",
+    "cannot-create-new-street-on-phone-description": "Kung susundin mo ang ibang link sa isang tiyak na kalsada, maaari mo itong tingnan sa iyong telepono, ngunit hindi ka makagagawa ng mga bagong kalsada.",
+    "generic-error-title": "May nagkamali.",
+    "generic-error-description": "",
+    "error-code": "",
+    "need-help-link": ""
+  },
+  "btn": {
+    "reload": "",
+    "undo": "",
+    "redo": "Gawin ulit",
+    "try-again": "",
+    "cancel": "Ikansela",
+    "create": "Gumawa ng bagong kalsada",
+    "copy": "",
+    "remove": "Tanggalin",
+    "close": "Isara",
+    "dismiss": "",
+    "okay": "",
+    "not-now": ""
+  },
+  "dialogs": {
+    "error": {
+      "heading": "",
+      "text": ""
+    },
+    "welcome": {
+      "heading": "",
+      "new": {
+        "intro": "",
+        "instruction": "",
+        "instruct": "",
+        "instruct-pointer-finger": "",
+        "instruct-pointer-mouse": ""
+      },
+      "existing": {
+        "intro": "Ito ang {streetName} na ginawa ni {creator}.",
+        "intro-without-creator": "",
+        "instruct": "",
+        "instruct-start-own-street": "Gumawa ng sariling kalsada"
+      }
+    },
+    "new-street": {
+      "heading": "",
+      "default": "Magsimula sa halimbawang kalsada",
+      "empty": "",
+      "last": ""
+    },
+    "about": {
+      "heading": "",
+      "description": "Idibuho, i-remix, at ipamahagi ang iyong kalsada. Maglagay ng mga daanan ng bisikleta, palakihin ang mga bangketa at daanan ng trapik, at matuto kung paano nakaaapekto ang mga ito sa iyong pamayanan.",
+      "thanks": "Maraming salamat sa mga tauhan at kasamahan sa 2013 CfA sa kanilang tulong at tiyaga, ang Blockee sa pagbigay-daan dito, at sa lahat ng aming mga tagasiyasat sa kanilang oras at komento!",
+      "credits": "",
+      "team-heading": "",
+      "view-source": "Tingnan ang source code",
+      "partners": "",
+      "sponsors": "",
+      "sponsored-by": "",
+      "donate-link": "",
+      "github-link": "",
+      "open-source-link": "",
+      "guidebook-link": "",
+      "tos-link": "",
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
+    },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "typical-lane-width": "",
+      "segment-summary": "",
+      "segment-summary-single": "",
+      "source": "",
+      "capacity-data-source": "",
+      "toggle-visible": "",
+      "settings-notice": ""
+    },
+    "save": {
+      "heading": "",
+      "option-labels": "Mga pangalan at lawak ng mga bahagi ng kalsada",
+      "option-name": "Pangalan ng kalsada",
+      "option-sky": "",
+      "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
+      "loading": "Naglo-load...",
+      "save-button": "I-save sa iyong kompyuter...",
+      "license": "",
+      "error-preview": "Nagkaroon ng problema sa pagpakita ng preview ng larawan.",
+      "error-unavailable": "",
+      "error-too-large": "",
+      "preview-image-alt": "Preview",
+      "print-size": "",
+      "digital-size": ""
+    },
+    "geotag": {
+      "search": "",
+      "clear-search": "",
+      "zoom-in": "Palakihin",
+      "zoom-out": "",
+      "add-location": "",
+      "confirm-location": "",
+      "clear-location": "",
+      "unknown-location": "",
+      "geotag-unavailable": ""
+    },
+    "donate": {
+      "heading": "Kailangan ng Streetmix ang iyong tulong!",
+      "lede": "",
+      "text": "",
+      "button": "Magbigay sa Streetmix",
+      "cancel": "Salamat na lang"
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": "",
+      "english-only": ""
+    },
+    "newsletter": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
+    }
+  },
+  "tools": {
+    "tooltip": "",
+    "environment": {
+      "tooltip": "",
+      "heading": ""
+    }
+  },
+  "prompt": {
+    "new-street": "Pangalan ng bagong kalsada:",
+    "delete-street": "",
+    "new-width": "Bagong lawak ng kalsada (mula {minWidth} hanggang {maxWidth}):",
+    "segment-label": ""
+  },
+  "toast": {
+    "segment-deleted": "",
+    "all-segments-deleted": "",
+    "no-undo": "",
+    "no-redo": "",
+    "no-save": "",
+    "remixing": "",
+    "remixing-sign-in": "",
+    "reloaded": ""
+  },
+  "palette": {
+    "remove": ""
+  },
+  "width": {
+    "label": "{width} lawak",
+    "under": "",
+    "over": "",
+    "occupied": "",
+    "building": "Lawak ng gusali sa gusali",
+    "different": "",
+    "metric": "",
+    "imperial": ""
+  },
+  "capacity": {
+    "ppl-per-hour": ""
+  },
+  "datetime": {
+    "minutes-ago": "",
+    "seconds-ago": "Ilang segundo ang nakaraan",
+    "yesterday": "Kahapon noong {time}",
+    "today": "Ngayong araw ng {time}"
+  },
+  "key": {
+    "backspace": "",
+    "shift": "",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
+  },
+  "tooltip": {
+    "remove-segment": "",
+    "delete-street": "",
+    "segment-width": "Palitan ang lawak ng bahagi",
+    "building-height": "",
+    "street-width": "",
+    "geotag": "",
+    "increase-width": "",
+    "decrease-width": "Bawasan ang lapad (ihawak ang Shift upang matumpak)",
+    "add-floor": "",
+    "remove-floor": "",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
+  },
+  "street": {
+    "default-name": "",
+    "rename": "Pindutin upang baguhin ang pangalan"
+  },
+  "building": {
+    "floors-count": "{count, plural, one {} other {}}"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "Hindi kasya ang bahaging ito sa kalsada.",
+      "not-wide": "",
+      "too-wide": ""
+    },
+    "learn-more": "",
+    "unknown": {
+      "label": "Hindi kilala"
+    },
+    "description": {
+      "photo-credit": ""
+    },
+    "resize": {
+      "min": "",
+      "max": ""
+    }
+  },
+  "section": {
+    "empty": ""
+  },
+  "gallery": {
+    "fail": "",
+    "all": "",
+    "twitter-link": "Twitter profile",
+    "delete-street-tooltip": "",
+    "street-count": "{count, plural, one {} other {}}",
+    "no-streets": "Wala pang kalsada",
+    "thumbnail-error": ""
+  },
+  "users": {
+    "anonymous": "Hindi kilala",
+    "byline": "",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
+  },
+  "export": {
+    "watermark": ""
+  },
+  "meta": {
+    "description": "",
+    "page-title": ""
+  },
+  "credits": {
+    "core-team-heading": "",
+    "original-team-heading": "",
+    "past-team-heading": "",
+    "core-contributors": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
+  "plus": {
+    "locked": {
+      "label": "",
+      "soon": "",
+      "sub": "",
+      "sub-edit": "",
+      "user": "",
+      "action": ""
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": ""
+    }
+  },
+  "sentiment": {
+    "prompt": {
+      "intro": "",
+      "joyful": "",
+      "choose-one": ""
+    },
+    "answer": {
+      "rating-1": "",
+      "rating-2": "",
+      "rating-3": "",
+      "rating-4": "",
+      "rating-5": ""
+    },
+    "sign-in-prompt": "",
+    "about-link": "",
+    "about-text": "",
+    "thank-you": "",
+    "about-header": "",
+    "about-article": {
+      "paragraph-1": "",
+      "paragraph-2": "",
+      "paragraph-3": ""
+    },
+    "done": {
+      "response": "",
+      "vote-another": "",
+      "really-done": ""
+    },
+    "comment": {
+      "prompt": "",
+      "example": "",
+      "submit": "",
+      "thanks": ""
+    }
+  },
+  "i18n": {
+    "lang": {
+      "am": "",
+      "ar": "",
+      "ca": "",
+      "cs": "",
+      "de": "",
+      "en": "",
+      "en-gb": "",
+      "es": "",
+      "es-419": "",
+      "es-es": "",
+      "es-mx": "Espanyol (Mexico)",
+      "fi": "Finnish",
+      "fr": "Pranses",
+      "it": "",
+      "ja": "",
+      "ko": "",
+      "nb-no": "",
+      "nl-nl": "",
+      "pl": "",
+      "pt-br": "",
+      "ro-ro": "",
+      "ru": "",
+      "sv": "Swedish",
+      "tr": "",
+      "zh": "",
+      "zh-hans": "",
+      "zh-hant": "Tradisyunal na Intsik"
+    }
+  }
+}

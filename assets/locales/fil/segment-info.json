@@ -1,0 +1,232 @@
+{
+  "segments": {
+    "sidewalk": "",
+    "pedestrian": "",
+    "sidewalk-tree": "",
+    "bike-rack": "",
+    "bench": "",
+    "outdoor-dining": "",
+    "cafe-seating": "",
+    "wayfinding-sign": "",
+    "sidewalk-lamp": "",
+    "utility-pole": "",
+    "drainage-channel": "",
+    "parklet": "",
+    "street-vendor": "",
+    "divider": "",
+    "planting-strip": "",
+    "planter-box": "",
+    "median": "Kalahatian",
+    "bollard": "",
+    "dome": "",
+    "jersey-barrier": "",
+    "scooter": "",
+    "scooter-drop-zone": "",
+    "bike-lane": "",
+    "twoway-bike-lane": "",
+    "parking-lane": "",
+    "perpendicular-parking": "",
+    "angled-parking": "",
+    "flex-zone": "",
+    "taxi-pick-up": "",
+    "rideshare-pick-up": "",
+    "bikeshare-station": "",
+    "foodtruck": "",
+    "flex-zone-curb": "",
+    "drive-lane": "",
+    "mixed-drive-lane": "",
+    "sharrow": "",
+    "turn-lane": "",
+    "turn-lane-straight": "",
+    "turn-lane-center": "",
+    "bus-lane": "",
+    "bus-lane-shared": "",
+    "streetcar": "",
+    "light-rail": "",
+    "transit-shelter": "",
+    "brt-station": "",
+    "brt-lane": "",
+    "temporary-barrier": "",
+    "inception-train": "",
+    "magic-carpet": ""
+  },
+  "descriptions": {
+    "wayfinding-sign": {
+      "prompt": "",
+      "content": ""
+    },
+    "parklet": {
+      "prompt": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "bike-lane": {
+      "prompt": "",
+      "content": ""
+    },
+    "colored-bike-lane": {
+      "prompt": "",
+      "content": ""
+    },
+    "sharrow": {
+      "prompt": "",
+      "content": ""
+    },
+    "transit-shelter-elevated": {
+      "prompt": "",
+      "content": ""
+    },
+    "inception-train": {
+      "content": ""
+    }
+  },
+  "buildings": {
+    "waterfront": {
+      "name": "Aplaya"
+    },
+    "grass": {
+      "name": "Damo"
+    },
+    "fence": {
+      "name": "Bakanteng lote"
+    },
+    "parking-lot": {
+      "name": "Paradahan"
+    },
+    "residential": {
+      "name": "Bahay"
+    },
+    "narrow": {
+      "name": "Gusali"
+    },
+    "wide": {
+      "name": "Gusali"
+    },
+    "arcade": {
+      "name": ""
+    },
+    "compound-wall": {
+      "name": ""
+    }
+  },
+  "variant-icons": {
+    "orientation|left": "Kaliwa",
+    "orientation|right": "Kanan",
+    "turn-lane-orientation|left": "Kaliwa",
+    "turn-lane-orientation|left-straight": "Kaliwa at diretso",
+    "turn-lane-orientation|straight": "Diretso",
+    "turn-lane-orientation|right-straight": "Kanan at diretso",
+    "turn-lane-orientation|right": "Kanan",
+    "turn-lane-orientation|both": "Pareho",
+    "turn-lane-orientation|left-right-straight": "",
+    "turn-lane-orientation|shared": "",
+    "bench-orientation|left": "Kaliwa",
+    "bench-orientation|right": "Kanan",
+    "bench-orientation|center": "Gitna",
+    "parking-lane-orientation|left": "Kaliwa",
+    "parking-lane-orientation|right": "Kanan",
+    "parking-lane-direction|inbound": "Papasok",
+    "parking-lane-direction|outbound": "Palabas",
+    "parking-lane-direction|sideways": "Perpendikular",
+    "parking-lane-direction|angled-front-left": "Nakaangulo",
+    "parking-lane-direction|angled-front-right": "Nakaangulo",
+    "parking-lane-direction|angled-rear-left": "Nakaangulo",
+    "parking-lane-direction|angled-rear-right": "Nakaangulo",
+    "direction|inbound": "Papasok",
+    "direction|outbound": "Palabas",
+    "bike-direction|inbound": "Papasok",
+    "bike-direction|outbound": "Palabas",
+    "bike-direction|twoway-left": "",
+    "bike-direction|twoway-right": "",
+    "sidewalk-density|empty": "",
+    "sidewalk-density|sparse": "",
+    "sidewalk-density|normal": "",
+    "sidewalk-density|dense": "",
+    "lamp-orientation|left": "Kaliwa",
+    "lamp-orientation|both": "Pareho",
+    "lamp-orientation|right": "Kanan",
+    "lamp-type|traditional": "Tradisyonal",
+    "lamp-type|modern": "Moderno",
+    "lamp-type|pride": "Moderno na may pride banner",
+    "drainage-sides|slanted": "",
+    "drainage-sides|vertical": "",
+    "car-type|car": "Kotse",
+    "car-type|sharrow": "",
+    "car-type|truck": "Trak",
+    "car-type|microvan": "",
+    "car-type|av": "",
+    "car-type|motorcycle": "",
+    "car-type|motorcycle-sidecar": "",
+    "car-type|pedestrian": "",
+    "public-transit-asphalt|regular": "Aspalto",
+    "public-transit-asphalt|colored": "Pulang daanan",
+    "public-transit-asphalt|grass": "Damo",
+    "bus-asphalt|regular": "Aspalto",
+    "bus-asphalt|colored": "Pulang daanan",
+    "bus-asphalt|shared": "",
+    "bus-type|typical": "",
+    "bus-type|double-decker": "",
+    "bus-type|av-shuttle": "",
+    "brt-station-orientation|left": "Kaliwa",
+    "brt-station-orientation|right": "Kanan",
+    "brt-station-orientation|center": "Gitna",
+    "bike-asphalt|regular": "Aspalto",
+    "bike-asphalt|green": "Berdeng daanan",
+    "bike-asphalt|red": "Pulang daanan",
+    "tree-type|big": "Puno",
+    "tree-type|palm-tree": "Puno ng niyog",
+    "divider-type|median": "Kalahatian",
+    "divider-type|striped-buffer": "",
+    "divider-type|planting-strip": "",
+    "divider-type|planter-box": "",
+    "divider-type|bush": "",
+    "divider-type|flowers": "",
+    "divider-type|big-tree": "",
+    "divider-type|palm-tree": "",
+    "divider-type|bollard": "",
+    "divider-type|dome": "",
+    "divider-type|jersey-barrier-concrete": "",
+    "divider-type|jersey-barrier-plastic": "",
+    "transit-shelter-elevation|street-level": "",
+    "transit-shelter-elevation|light-rail": "",
+    "bike-rack-elevation|sidewalk-parallel": "",
+    "bike-rack-elevation|sidewalk": "",
+    "bike-rack-elevation|road": "",
+    "building|waterfront": "Aplaya",
+    "building|grass": "Damo",
+    "building|fence": "Bakanteng lote",
+    "building|parking-lot": "Paradahan",
+    "building|residential": "Bahay",
+    "building|narrow": "Makitid na gusali",
+    "building|wide": "Malawak na gusali",
+    "wayfinding-type|large": "Malaki",
+    "wayfinding-type|medium": "Katamtaman",
+    "wayfinding-type|small": "Maliit",
+    "waiting-area|sparse": "",
+    "waiting-area|empty": "",
+    "flex-type|rideshare": "",
+    "flex-type|taxi": "",
+    "occupants|empty": "",
+    "occupants|full": "",
+    "occupants|occupied": "",
+    "elevation|sidewalk": "",
+    "elevation|road": "",
+    "temporary-barrier-type|traffic-cone": "",
+    "temporary-barrier-type|barricade": "",
+    "vendor-type|handcart": "",
+    "vendor-type|table": "",
+    "vendor-type|tarp": "",
+    "vendor-type|platform": "",
+    "ground|concrete": "",
+    "ground|asphalt": "Aspalto"
+  },
+  "environs": {
+    "day": "",
+    "twilight": "",
+    "dusk": "",
+    "dawn": "",
+    "night": "",
+    "karl": "",
+    "holodeck": ""
+  }
+}
