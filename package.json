@@ -192,6 +192,7 @@
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
+    "@transifex/api": "5.1.0",
     "axios-mock-adapter": "1.21.1",
     "babel-jest": "28.1.2",
     "cypress": "11.0.1",

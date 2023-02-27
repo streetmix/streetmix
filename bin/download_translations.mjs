@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises'
 import chalk from 'chalk'
 import mkdirp from 'mkdirp'
-import getFromTransifex from '../app/lib/transifex.js'
+import { getFromTransifex } from '../app/lib/transifex.mjs'
 
 const languages = JSON.parse(
   await fs.readFile(new URL('../app/data/locales.json', import.meta.url))
@@ -22,7 +22,7 @@ const downloadSuccess = async function (locale, resource, label, data) {
   )
 
   // Add trailing newline at end of file
-  const translationText = JSON.stringify(JSON.parse(data), null, 2) + '\n'
+  const translationText = JSON.stringify(data, null, 2) + '\n'
 
   mkdirp.sync(localePath)
 
@@ -35,7 +35,7 @@ const downloadSuccess = async function (locale, resource, label, data) {
   }
 
   console.log(
-    chalk`{yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${translationFile.href.replace(
+    chalk`Downloaded: {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${translationFile.href.replace(
       `file://${process.cwd()}`,
       '.'
     )}}`
@@ -48,33 +48,28 @@ const downloadError = function (locale, resource, label, error) {
   )
 }
 
-for (const r in resources) {
-  for (const l in languages) {
-    // Skip English
-    if (languages[l].value === 'en') {
-      continue
-    }
+for (const l in languages) {
+  const locale = languages[l].value
+  const label = languages[l].label
 
-    getFromTransifex(
-      languages[l].value,
-      resources[r],
-      process.env.TRANSIFEX_API_TOKEN
+  // Skip English
+  if (languages[l].value === 'en') {
+    continue
+  }
+
+  for (const r in resources) {
+    const resource = resources[r]
+
+    console.log(
+      chalk`Queued: {yellowBright ${label} (${locale})} · {magentaBright ${resource}}`
     )
+
+    getFromTransifex(locale, resource, process.env.TRANSIFEX_API_TOKEN)
       .then((data) => {
-        downloadSuccess(
-          languages[l].value,
-          resources[r],
-          languages[l].label,
-          data
-        )
+        downloadSuccess(locale, resource, label, data)
       })
       .catch((error) => {
-        downloadError(
-          languages[l].value,
-          resources[r],
-          languages[l].label,
-          error
-        )
+        downloadError(locale, resource, label, error)
       })
   }
 }
