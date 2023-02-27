@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import path from 'path'
+import { setImmediate, clearImmediate } from 'timers'
 import '@testing-library/jest-dom/extend-expect'
 import fetch from 'jest-fetch-mock'
 import 'jest-canvas-mock'
@@ -18,6 +19,11 @@ global.ResizeObserver = class ResizeObserver {
   unobserve () {} // noop
   disconnect () {} // noop
 }
+
+// Imports timers from Node because jsdom doesn't have them
+// These are used by a subdependency (degenerator) of cloudinary
+global.setImmediate = setImmediate
+global.clearImmediate = clearImmediate
 
 // Add stubs for global methods
 global.print = jest.fn()
