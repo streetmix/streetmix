@@ -105,7 +105,7 @@ exports.get = (req, res, next) => {
       getting here from a button that you only see when you're signed in..
     */
   passport.authorize('coil', {
-    state: req.user.sub,
+    state: req.auth.sub,
     failureRedirect: '/error'
   })(req, res, next)
 }
@@ -123,10 +123,10 @@ exports.callback = (req, res, next) => {
 
 // Check for coil provider to set access token to stream payments
 exports.BTPTokenCheck = async (req, res, next) => {
-  if (!req.user || !req.user.sub) {
+  if (!req.auth?.sub) {
     return next()
   }
-  const userData = await User.findOne({ where: { auth0_id: req.user.sub } })
+  const userData = await User.findOne({ where: { auth0_id: req.auth.sub } })
 
   // Move on if no identities
   if (!userData.identities) {

@@ -26,7 +26,7 @@ const mockAdminUser = {
 
 const jwtMock = jest.fn() // returns a user
 const mockUserMiddleware = (req, res, next) => {
-  req.user = jwtMock()
+  req.auth = jwtMock()
   next()
 }
 

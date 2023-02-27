@@ -64,8 +64,8 @@ exports.post = async function (req, res) {
   const makeNamespacedId = async function () {
     let namespacedId
     try {
-      if (req.user && req.user.sub) {
-        const user = await updateUserLastStreetId(req.user.sub)
+      if (req.auth?.sub) {
+        const user = await updateUserLastStreetId(req.auth.sub)
         namespacedId = user && user.lastStreetId ? user.lastStreetId : 1
       } else {
         const sequence = await updateSequence()
@@ -141,11 +141,11 @@ exports.post = async function (req, res) {
     }
   }
 
-  if (req.user) {
+  if (req.auth) {
     let user
     try {
       user = await User.findOne({
-        where: { auth0_id: req.user.sub }
+        where: { auth0_id: req.auth.sub }
       })
     } catch (err) {
       logger.error(err)
@@ -164,7 +164,7 @@ exports.post = async function (req, res) {
 }
 
 exports.delete = async function (req, res) {
-  if (!req.user) {
+  if (!req.auth) {
     res.status(401).end()
     return
   }
@@ -176,13 +176,13 @@ exports.delete = async function (req, res) {
 
   async function deleteStreet (street) {
     let user
-    if (!req.user) {
+    if (!req.auth) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
 
     try {
       user = await User.findOne({
-        where: { auth0_id: req.user.sub }
+        where: { auth0_id: req.auth.sub }
       })
     } catch (err) {
       logger.error(err)
@@ -546,13 +546,13 @@ exports.put = async function (req, res) {
       })
       .catch(handleErrors)
   } else {
-    if (!req.user) {
+    if (!req.auth) {
       res.status(401).end()
       return
     }
 
     const user = await User.findOne({
-      where: { auth0_id: req.user.sub }
+      where: { auth0_id: req.auth.sub }
     })
 
     const isOwner = user && user.id === street.creatorId

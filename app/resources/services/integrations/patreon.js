@@ -86,7 +86,7 @@ exports.get = (req, res, next) => {
     getting here from a button that you only see when you're signed in..
   */
   passport.authorize('patreon', {
-    state: req.user.sub,
+    state: req.auth.sub,
     failureRedirect: '/error'
   })(req, res, next)
 }

@@ -255,7 +255,7 @@ exports.get = async function (req, res) {
     }
 
     // blocks users from learning about each other (e.g. user galleries)
-    // if (!req.user || !req.user.sub || req.user.sub !== user.id) {
+    // if (!req.auth?.sub || req.auth.sub !== user.id) {
     //   res.status(401).end()
     //   return
     // }
@@ -266,14 +266,14 @@ exports.get = async function (req, res) {
   }
 
   if (!userId) {
-    if (!req.user || !req.user.sub) {
+    if (!req.auth?.sub) {
       res
         .status(401)
         .json({ status: 401, msg: 'Please sign in to get all users.' })
     }
 
     const callingUser = await User.findOne({
-      where: { auth0_id: req.user.sub }
+      where: { auth0_id: req.auth.sub }
     })
 
     const isAdmin =
@@ -315,7 +315,7 @@ exports.delete = async function (req, res) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.user.sub }
+    where: { auth0_id: req.auth.sub }
   })
 
   const isAdmin =
@@ -347,7 +347,7 @@ exports.put = async function (req, res) {
     return
   }
 
-  if (!(req.user && req.user.sub)) {
+  if (!req.auth?.sub) {
     res.status(401).json({ status: 401, msg: 'User auth not found.' })
     return
   }
@@ -363,13 +363,13 @@ exports.put = async function (req, res) {
     return
   }
 
-  if (!user || !req.user?.sub) {
+  if (!user || !req.auth?.sub) {
     res.status(404).json({ status: 404, msg: 'User not found.' })
     return
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.user.sub }
+    where: { auth0_id: req.auth.sub }
   })
 
   const isAdmin =

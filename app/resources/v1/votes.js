@@ -9,7 +9,7 @@ const SURVEY_FINISHED_PATH = '/survey-finished'
 const generateRandomBallotFetch = ({ redirect = false }) => {
   return async function (req, res) {
     let ballots
-    const authUser = req.user || {}
+    const authUser = req.auth || {}
     let user
     if (authUser.sub) {
       try {
@@ -24,7 +24,7 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
     try {
       let hasValidStreet = false
       while (!hasValidStreet) {
-        if (!req.user) {
+        if (!req.auth) {
           ballots = await Vote.findAll({
             where: {
               voterId: {
@@ -178,7 +178,7 @@ exports.generateRandomBallotFetch = generateRandomBallotFetch
 exports.get = generateRandomBallotFetch({ redirect: false })
 
 exports.put = async function (req, res) {
-  const authUser = req.user || {}
+  const authUser = req.auth || {}
   const { id, comment } = req.body
 
   if (!authUser.sub) {
@@ -230,7 +230,7 @@ exports.put = async function (req, res) {
 }
 
 exports.post = async function (req, res) {
-  const authUser = req.user || {}
+  const authUser = req.auth || {}
 
   if (!authUser.sub) {
     res.status(401).json({ status: 401, msg: 'Please provide user ID.' })

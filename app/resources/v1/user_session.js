@@ -3,7 +3,7 @@ const logger = require('../../lib/logger.js')
 exports.delete = async function (req, res) {
   // In order to sign out, make sure the user's session cookies
   // are part of the request.
-  if (!req.user) {
+  if (!req.auth) {
     res.status(400).json({ status: 400, msg: 'Must have user to logout.' })
     return
   }

@@ -121,7 +121,7 @@ exports.delete = async function (req, res) {
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
-  } else if (!req.user) {
+  } else if (!req.auth) {
     res
       .status(400)
       .json({ status: 400, msg: 'Please provide a logged in user' })
@@ -131,7 +131,7 @@ exports.delete = async function (req, res) {
   let requestUser
 
   try {
-    requestUser = await User.findOne({ where: { auth0_id: req.user.sub } })
+    requestUser = await User.findOne({ where: { auth0_id: req.auth.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
