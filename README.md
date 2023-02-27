@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/streetmix/streetmix/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/workflow/status/streetmix/streetmix/Continuous%20integration%20(CI)%20testing/main?style=for-the-badge"></a>
+  <a href="https://github.com/streetmix/streetmix/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/streetmix/streetmix/ci.yml?branch=main&style=for-the-badge"></a>
   <a href="https://codeclimate.com/github/streetmix/streetmix"><img alt="Code Climate" src="https://img.shields.io/codeclimate/tech-debt/streetmix/streetmix.svg?style=for-the-badge"></a>
   <a href="https://codecov.io/gh/streetmix/streetmix"><img alt="Code coverage" src="https://img.shields.io/codecov/c/gh/streetmix/streetmix.svg?label=test%20coverage&style=for-the-badge"></a>
 </p>
