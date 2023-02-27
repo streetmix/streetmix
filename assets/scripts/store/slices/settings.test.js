@@ -4,6 +4,7 @@ import { changeLocale } from './locale'
 
 describe('settings reducer', () => {
   const initialState = {
+    colorMode: 'light',
     lastStreetId: null,
     lastStreetNamespacedId: null,
     lastStreetCreatorId: null,
@@ -30,6 +31,7 @@ describe('settings reducer', () => {
         })
       )
     ).toEqual({
+      colorMode: 'light',
       lastStreetId: null,
       lastStreetNamespacedId: null,
       lastStreetCreatorId: null,
@@ -52,6 +54,7 @@ describe('settings reducer', () => {
 
   it('should handle setUserUnits()', () => {
     expect(settings(initialState, setUserUnits(2))).toEqual({
+      colorMode: 'light',
       lastStreetId: null,
       lastStreetNamespacedId: null,
       lastStreetCreatorId: null,
@@ -74,6 +77,7 @@ describe('settings reducer', () => {
         })
       )
     ).toEqual({
+      colorMode: 'light',
       lastStreetId: null,
       lastStreetNamespacedId: null,
       lastStreetCreatorId: null,

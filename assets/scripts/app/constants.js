@@ -35,3 +35,8 @@ export const RESERVED_URLS = [
 ]
 
 export const URL_RESERVED_PREFIX = '~'
+
+// Color modes
+export const COLOR_MODE_LIGHT = 'light'
+export const COLOR_MODE_DARK = 'dark'
+export const COLOR_MODE_AUTO = 'auto'

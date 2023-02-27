@@ -33,6 +33,7 @@ function App () {
   const locale = useSelector((state) => state.locale)
   const dir = useSelector((state) => state.app.contentDirection)
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
+  const colorMode = useSelector((state) => state.settings.colorMode)
   const dispatch = useDispatch()
 
   // TODO: Move other initialization methods here.
@@ -54,6 +55,11 @@ function App () {
       setStreetSectionTop()
     }
   }, [isLoading, everythingLoaded])
+
+  // Set color mode on top level DOM element
+  useEffect(() => {
+    document.querySelector('html').dataset.colorMode = colorMode
+  }, [colorMode])
 
   return (
     <>

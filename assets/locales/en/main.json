@@ -75,6 +75,9 @@
     "general": {
       "label": "General"
     },
+    "appearance": {
+      "label": "Appearance"
+    },
     "language": {
       "label": "Language"
     },
@@ -82,6 +85,13 @@
       "label": "Miscellaneous",
       "silly-clowns": "Silly clowns",
       "silly-clowns-description": "Enables Easter eggs."
+    },
+    "theme": {
+      "label": "Theme",
+      "description": "Sets user interface color scheme.",
+      "light": "Light theme",
+      "dark": "Dark theme",
+      "system": "Use system preference"
     },
     "units": {
       "label": "Units",

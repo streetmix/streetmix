@@ -1,4 +1,8 @@
 {
+  "COLOR_MODE_TOGGLE": {
+    "label": "UI — Color mode (e.g. dark mode) themes",
+    "defaultValue": false
+  },
   "GEOTAG": {
     "label": "UI — Geotagging",
     "defaultValue": true

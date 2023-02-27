@@ -1,9 +1,10 @@
 @import "../../styles/variables";
 
 .popover-trigger {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  vertical-align: bottom;
   width: 23px;
   height: 23px;
   border: 0;
@@ -27,6 +28,8 @@
   border-radius: $border-radius-large;
   box-shadow: rgba(24 37 73 / 15%) 0 5px 20px 0,
     rgba(24 37 73 / 5%) 0 10px 20px -5px;
+  font-family: $font-family;
+  font-size: $font-size-base;
   font-weight: normal;
   text-align: center;
   overflow: hidden;

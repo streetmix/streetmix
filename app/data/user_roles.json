@@ -12,7 +12,8 @@
     "text": "Administrator",
     "value": "ADMIN",
     "flags": {
-      "LOCALES_LEVEL_1": true
+      "LOCALES_LEVEL_1": true,
+      "COLOR_MODE_TOGGLE": true
     }
   },
   "BETA_TESTER": {
@@ -25,7 +26,8 @@
       "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
-      "VARIANT_MIXED_DRIVE_LANES_2": true
+      "VARIANT_MIXED_DRIVE_LANES_2": true,
+      "COLOR_MODE_TOGGLE": true
     }
   },
   "ITDP": {
