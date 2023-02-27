@@ -84,6 +84,13 @@
     "level": 3
   },
   {
+    "label": "Filipino",
+    "name": "Filipino",
+    "value": "fil",
+    "key": "i18n.lang.fil",
+    "level": 1
+  },
+  {
     "label": "Français",
     "name": "French",
     "value": "fr",
