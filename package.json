@@ -14,8 +14,10 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "postinstall": "node app/bundle.js",
+    "postinstall": "npm run build",
     "start": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js",
+    "serve": "nodemon index.js",
+    "build": "parcel build assets/scripts/main.js --out-dir build --public-url /assets",
     "test": "npm run lint && npm run jest:watch",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",

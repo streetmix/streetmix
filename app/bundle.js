@@ -11,9 +11,7 @@ async function runBundle (app) {
     }
   )
 
-  if (process.env.NODE_ENV === 'production') {
-    await bundler.bundle()
-  } else {
+  if (process.env.NODE_ENV !== 'production') {
     if (app) {
       // Also runs .bundle()
       app.use(bundler.middleware())
@@ -21,11 +19,6 @@ async function runBundle (app) {
       await bundler.serve()
     }
   }
-}
-
-// In production bundle immediately and exit.
-if (process.env.NODE_ENV === 'production') {
-  runBundle()
 }
 
 module.exports = runBundle
