@@ -233,13 +233,8 @@ app.all('/assets/*', (req, res) => {
   res.status(404).render('404')
 })
 
-// Allow hot-module reloading (HMR)
-// and attach API docs
-// in non-production environments
+// Attach API docs in non-production environments
 if (process.env.NODE_ENV !== 'production') {
-  const runBundle = require('./app/bundle')
-  runBundle(app)
-
   const options = {
     definition: {
       info: {
