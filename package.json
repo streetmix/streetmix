@@ -17,8 +17,8 @@
     "postinstall": "npm run build",
     "start": "concurrently \"npm:dev-server\" \"npm:dev-client\"",
     "serve": "nodemon index.js",
-    "build": "parcel build assets/scripts/main.js --out-dir build --public-url /assets",
-    "dev-client": "parcel watch assets/scripts/main.js --out-dir build --public-url /assets",
+    "build": "parcel build assets/scripts/main.js --dist-dir build --public-url /assets",
+    "dev-client": "parcel watch assets/scripts/main.js --dist-dir build --public-url /assets",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js",
     "test": "npm run lint && npm run jest:watch",
     "lint": "npm run lint:css && npm run lint:js",
@@ -77,7 +77,6 @@
   "postcss": {
     "modules": false,
     "plugins": {
-      "autoprefixer": {},
       "postcss-round-subpixels": {}
     }
   },
@@ -89,6 +88,11 @@
     "*.{json,scss,css,md}": [
       "prettier --write"
     ]
+  },
+  "alias": {
+    "process": {
+      "global": "process"
+    }
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.1.1",
@@ -142,7 +146,7 @@
     "nanoid": "3.1.31",
     "newrelic": "8.14.1",
     "nodemon": "2.0.20",
-    "parcel-bundler": "1.12.4",
+    "parcel": "2.8.3",
     "passport": "0.6.0",
     "passport-oauth": "1.0.0",
     "passport-patreon": "1.0.1",
@@ -192,6 +196,7 @@
     "@babel/preset-react": "7.16.7",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
+    "@parcel/transformer-sass": "2.8.3",
     "@testing-library/dom": "8.14.0",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "12.1.2",

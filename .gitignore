@@ -16,6 +16,9 @@ npm-debug.log*
 
 # Ignore built assets
 build
+# Current parcel cache
+.parcel-cache
+# Legacy parcel-bundler cache
 .cache
 
 .env

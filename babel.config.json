@@ -1,6 +1,9 @@
 {
+  // Note: Parcel config no longer reads from Babel config.
+  // This is still being used for Jest
   "presets": [
-    // This `target` syntax is required for jest v24, which no longer injects regenerator-runtime
+    // This `target` syntax is required for Jest v24, which no
+    // longer injects regenerator-runtime
     [
       "@babel/preset-env",
       {
