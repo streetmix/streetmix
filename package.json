@@ -23,7 +23,7 @@
     "test": "npm run lint && npm run jest:watch",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
-    "lint:js": "eslint --ext .jsx,.js .",
+    "lint:js": "eslint --ext .jsx,.js,.mjs,.cjs .",
     "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
     "translations:download": "node -r dotenv/config bin/download_translations.mjs",
@@ -50,7 +50,7 @@
     ],
     "collectCoverageFrom": [
       "app.mjs",
-      "app/**/*.{js,mjs}",
+      "app/**/*.{js,mjs,cjs}",
       "assets/scripts/**/*.{js,jsx}",
       "!assets/scripts/vendor/**/*.{js,jsx}"
     ],
@@ -65,7 +65,8 @@
       "ts",
       "tsx",
       "node",
-      "mjs"
+      "mjs",
+      "cjs"
     ],
     "resolver": "<rootDir>/test/resolver.js"
   },
