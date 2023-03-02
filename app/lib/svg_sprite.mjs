@@ -1,11 +1,11 @@
-const fs = require('fs')
-const path = require('path')
-const glob = require('glob')
-const mkdirp = require('mkdirp')
-const Vinyl = require('vinyl')
-const SVGSpriter = require('svg-sprite')
-const chalk = require('chalk')
-const logger = require('./logger.js')
+import fs from 'node:fs'
+import path from 'node:path'
+import glob from 'glob'
+import mkdirp from 'mkdirp'
+import Vinyl from 'vinyl'
+import SVGSpriter from 'svg-sprite'
+import chalk from 'chalk'
+import logger from './logger.js'
 
 /**
  * Compile SVG sprites into a single .svg file with <symbol>s in the project
@@ -15,7 +15,7 @@ const logger = require('./logger.js')
  * @param {String} filename - destination filename, without .svg extension
  * @param {String} namespace - prefix to be used to namespace ids
  */
-function compileSVGSprites (source, filename, namespace) {
+export function compileSVGSprites (source, filename, namespace) {
   // glob pattern to be matched (see `glob` syntax)
   const pattern = path.join(source, '/**/*.svg')
 
@@ -114,5 +114,3 @@ function compileSVGSprites (source, filename, namespace) {
     })
   })
 }
-
-module.exports = compileSVGSprites
