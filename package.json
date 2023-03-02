@@ -16,7 +16,7 @@
     "cypress:run": "cypress run",
     "postinstall": "npm run build",
     "start": "concurrently \"npm:dev-server\" \"npm:dev-client\"",
-    "serve": "nodemon index.js",
+    "serve": "nodemon -r newrelic index.mjs",
     "build": "parcel build assets/scripts/main.js --dist-dir build --public-url /assets",
     "dev-client": "parcel watch assets/scripts/main.js --dist-dir build --public-url /assets",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.mjs --watch app.mjs index.mjs",
