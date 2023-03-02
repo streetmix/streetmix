@@ -1,4 +1,4 @@
-import './app/globals.js'
+import './app/globals.mjs'
 import path from 'node:path'
 import url from 'node:url'
 import compression from 'compression'
@@ -15,10 +15,10 @@ import requestHandlers from './app/lib/request_handlers/index.js'
 import { initCloudinary } from './app/lib/cloudinary.mjs'
 import { compileSVGSprites } from './app/lib/svg_sprite.mjs'
 import appURL from './app/lib/url.js'
-import apiRoutes from './app/api_routes.js'
-import serviceRoutes from './app/service_routes.js'
+import apiRoutes from './app/api_routes.mjs'
+import serviceRoutes from './app/service_routes.mjs'
 import logger from './app/lib/logger.js'
-import jwtCheck from './app/authentication.js'
+import jwtCheck from './app/authentication.mjs'
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')

@@ -1,9 +1,12 @@
-const routes = require('express').Router()
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const controllers = require('./controllers')
-const resources = require('./resources')
-const jwtCheck = require('./authentication')
+import { Router } from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import controllers from './controllers/index.js'
+import resources from './resources/index.js'
+import jwtCheck from './authentication.mjs'
+
+// Base path of router is `/services` (see app.mjs)
+const router = Router()
 
 /**
  * @swagger
@@ -17,7 +20,7 @@ const jwtCheck = require('./authentication')
  *       200:
  *         description: Success
  */
-routes.get('/changelog', resources.services.changelog.get)
+router.get('/changelog', resources.services.changelog.get)
 
 /**
  * @swagger
@@ -41,7 +44,7 @@ routes.get('/changelog', resources.services.changelog.get)
  *       200:
  *         description: Success
  */
-routes.post('/pay', resources.services.payments.post)
+router.post('/pay', resources.services.payments.post)
 
 /**
  * @swagger
@@ -60,9 +63,9 @@ routes.post('/pay', resources.services.payments.post)
  *           items:
  *             $ref: '#/definitions/GeolocationResponse'
  */
-routes.get('/geoip', resources.services.geoip.get)
+router.get('/geoip', resources.services.geoip.get)
 
-routes.options('/images', cors())
+router.options('/images', cors())
 
 /**
  * @swagger
@@ -91,46 +94,46 @@ routes.options('/images', cors())
  *             api_key:
  *               type: string
  */
-routes.get('/images', cors(), jwtCheck, resources.services.images.get)
+router.get('/images', cors(), jwtCheck, resources.services.images.get)
 
 /******************************************************************************
  *  AUTHENTICATION SERVICES
  *****************************************************************************/
 
-routes.post(
+router.post(
   '/auth/refresh-login-token',
   cors(),
   controllers.refresh_login_token.post
 )
 
 // Auth0
-routes.get('/auth/sign-in-callback', controllers.auth0_sign_in_callback.get)
+router.get('/auth/sign-in-callback', controllers.auth0_sign_in_callback.get)
 
 // Callback route after signing in
 // This is handled by front-end
-routes.get('/auth/just-signed-in/', (req, res) => res.render('main'))
+router.get('/auth/just-signed-in/', (req, res) => res.render('main'))
 
 /******************************************************************************
  *  THIRD PARTY APP INTEGRATIONS
  *****************************************************************************/
 
-routes.get(
+router.get(
   '/integrations/patreon',
   jwtCheck,
   resources.services.integrations.patreon.get
 )
-routes.get(
+router.get(
   '/integrations/patreon/callback',
   resources.services.integrations.patreon.callback,
   resources.services.integrations.patreon.connectUser
 )
-routes.post(
+router.post(
   '/integrations/patreon/webhook',
   resources.services.integrations.patreon.webhook
 )
 
 // Redirect the user to the OAuth 2.0 provider for authentication.
-routes.get(
+router.get(
   '/integrations/coil',
   jwtCheck,
   resources.services.integrations.coil.get
@@ -142,7 +145,7 @@ routes.get(
 // If authorization was granted, the user's account data will be updated
 // and a BTP token will be issued
 
-routes.get(
+router.get(
   '/integrations/coil/callback',
   resources.services.integrations.coil.callback,
   resources.services.integrations.coil.connectUser
@@ -162,7 +165,7 @@ routes.get(
  *       204:
  *         description: Success (no response)
  */
-routes.post(
+router.post(
   '/csp-report',
   // As of this implementation, the latest versions of Chrome, Firefox, and
   // Safari all POST this content with the MIME type `application/csp-report`,
@@ -174,10 +177,10 @@ routes.post(
 )
 
 // Catch all for all broken api paths, direct to 404 response.
-routes.all('*', (req, res) => {
+router.all('*', (req, res) => {
   res
     .status(404)
     .json({ status: 404, error: 'Not found. Did you mispell something?' })
 })
 
-module.exports = routes
+export default router
