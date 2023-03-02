@@ -1,7 +1,7 @@
-const { AuthenticationClient } = require('auth0')
+import auth0 from 'auth0'
 
-exports.Authentication = function (scope) {
-  return new AuthenticationClient({
+export const Authentication = function (scope) {
+  return new auth0.AuthenticationClient({
     domain: process.env.AUTH0_DOMAIN,
     clientId: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import controllers from './controllers/index.js'
+import * as controllers from './controllers/index.mjs'
 import resources from './resources/index.js'
 import jwtCheck from './authentication.mjs'
 
@@ -103,11 +103,11 @@ router.get('/images', cors(), jwtCheck, resources.services.images.get)
 router.post(
   '/auth/refresh-login-token',
   cors(),
-  controllers.refresh_login_token.post
+  controllers.refreshLoginToken.post
 )
 
 // Auth0
-router.get('/auth/sign-in-callback', controllers.auth0_sign_in_callback.get)
+router.get('/auth/sign-in-callback', controllers.auth0SignInCallback.get)
 
 // Callback route after signing in
 // This is handled by front-end
