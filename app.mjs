@@ -208,8 +208,8 @@ app.get('/terms-of-service', (req, res) =>
 )
 
 // API routes
-app.use('', apiRoutes)
-app.use('', serviceRoutes)
+app.use('/api', apiRoutes)
+app.use('/services', serviceRoutes)
 
 app.use('/assets', express.static(path.join(__dirname, '/build')))
 app.use(express.static(path.join(__dirname, '/public')))

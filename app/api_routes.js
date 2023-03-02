@@ -4,6 +4,7 @@ const cors = require('cors')
 const resources = require('./resources')
 const jwtCheck = require('./authentication')
 const { BTPTokenCheck } = require('./resources/services/integrations/coil')
+
 /**
  * @swagger
  *
@@ -246,7 +247,7 @@ const { BTPTokenCheck } = require('./resources/services/integrations/coil')
  */
 
 // Enable CORS for all OPTIONs "pre-flight" requests
-routes.options('/api/*', cors())
+routes.options('*', cors())
 
 // API: all users
 
@@ -274,7 +275,7 @@ routes.options('/api/*', cors())
  *         schema:
  *           $ref: '#/definitions/User'
  */
-routes.post('/api/v1/users', cors(), jwtCheck, resources.v1.users.post)
+routes.post('/v1/users', cors(), jwtCheck, resources.v1.users.post)
 
 /**
  * @swagger
@@ -299,7 +300,7 @@ routes.post('/api/v1/users', cors(), jwtCheck, resources.v1.users.post)
  *           items:
  *             $ref: '#/definitions/User'
  */
-routes.get('/api/v1/users', cors(), jwtCheck, resources.v1.users.get)
+routes.get('/v1/users', cors(), jwtCheck, resources.v1.users.get)
 
 // API: single user
 
@@ -390,19 +391,14 @@ routes.get('/api/v1/users', cors(), jwtCheck, resources.v1.users.get)
  *
  */
 routes.get(
-  '/api/v1/users/:user_id',
+  '/v1/users/:user_id',
   cors(),
   jwtCheck,
   BTPTokenCheck,
   resources.v1.users.get
 )
-routes.put('/api/v1/users/:user_id', cors(), jwtCheck, resources.v1.users.put)
-routes.delete(
-  '/api/v1/users/:user_id',
-  cors(),
-  jwtCheck,
-  resources.v1.users.delete
-)
+routes.put('/v1/users/:user_id', cors(), jwtCheck, resources.v1.users.put)
+routes.delete('/v1/users/:user_id', cors(), jwtCheck, resources.v1.users.delete)
 
 /**
  * @swagger
@@ -426,7 +422,7 @@ routes.delete(
  *         description: succesfully logged out user
  */
 routes.delete(
-  '/api/v1/users/:user_id/login-token',
+  '/v1/users/:user_id/login-token',
   cors(),
   jwtCheck,
   resources.v1.user_session.delete
@@ -475,16 +471,12 @@ routes.delete(
  *             $ref: '#/definitions/Street'
  */
 routes.delete(
-  '/api/v1/users/:user_id/streets',
+  '/v1/users/:user_id/streets',
   cors(),
   jwtCheck,
   resources.v1.users_streets.delete
 )
-routes.get(
-  '/api/v1/users/:user_id/streets',
-  cors(),
-  resources.v1.users_streets.get
-)
+routes.get('/v1/users/:user_id/streets', cors(), resources.v1.users_streets.get)
 
 /**
  * @swagger
@@ -510,7 +502,7 @@ routes.get(
  *         schema:
  *           $ref: '#/definitions/Street'
  */
-routes.post('/api/v1/streets', jwtCheck, resources.v1.streets.post)
+routes.post('/v1/streets', jwtCheck, resources.v1.streets.post)
 
 /**
  * @swagger
@@ -580,8 +572,8 @@ routes.post('/api/v1/streets', jwtCheck, resources.v1.streets.post)
  *           items:
  *             $ref: '#/definitions/Street'
  */
-routes.get('/api/v1/streets', jwtCheck, resources.v1.streets.find)
-routes.head('/api/v1/streets', jwtCheck, resources.v1.streets.find)
+routes.get('/v1/streets', jwtCheck, resources.v1.streets.find)
+routes.head('/v1/streets', jwtCheck, resources.v1.streets.find)
 
 /**
  * @swagger
@@ -680,14 +672,10 @@ routes.head('/api/v1/streets', jwtCheck, resources.v1.streets.find)
  *           $ref: '#/definitions/Street'
  *
  */
-routes.delete(
-  '/api/v1/streets/:street_id',
-  jwtCheck,
-  resources.v1.streets.delete
-)
-routes.head('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
-routes.get('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
-routes.put('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
+routes.delete('/v1/streets/:street_id', jwtCheck, resources.v1.streets.delete)
+routes.head('/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
+routes.get('/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
+routes.put('/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
 
 /**
  * @swagger
@@ -759,18 +747,18 @@ routes.put('/api/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
  *
  */
 routes.post(
-  '/api/v1/streets/:street_id/images',
+  '/v1/streets/:street_id/images',
   bodyParser.text({ limit: '3mb' }),
   jwtCheck,
   resources.v1.street_images.post
 )
 routes.delete(
-  '/api/v1/streets/:street_id/images',
+  '/v1/streets/:street_id/images',
   jwtCheck,
   resources.v1.street_images.delete
 )
 routes.get(
-  '/api/v1/streets/:street_id/images',
+  '/v1/streets/:street_id/images',
   jwtCheck,
   resources.v1.street_images.get
 )
@@ -802,7 +790,7 @@ routes.get(
  *             $ref: '#/definitions/Street'
  */
 routes.get(
-  '/api/v1/streets/:street_id/remixes',
+  '/v1/streets/:street_id/remixes',
   jwtCheck,
   resources.v1.street_remixes.get
 )
@@ -830,7 +818,7 @@ routes.get(
  *         description: Translations for streetmix resources. Shape depends on resource.
  */
 routes.get(
-  '/api/v1/translate/:locale_code/:resource_name',
+  '/v1/translate/:locale_code/:resource_name',
   resources.v1.translate.get
 )
 
@@ -849,7 +837,7 @@ routes.get(
  *         schema:
  *           $ref: '#/definitions/Flags'
  */
-routes.get('/api/v1/flags', cors(), resources.v1.flags.get)
+routes.get('/v1/flags', cors(), resources.v1.flags.get)
 
 /**
  * @swagger
@@ -877,7 +865,7 @@ routes.get('/api/v1/flags', cors(), resources.v1.flags.get)
  *             voterId:
  *               type: string
  */
-routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
+routes.get('/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
 /**
  * @swagger
  * /api/v1/votes:
@@ -917,11 +905,11 @@ routes.get('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
  *             voterId:
  *               type: string
  */
-routes.post('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
-routes.put('/api/v1/votes', cors(), jwtCheck, resources.v1.votes.put)
+routes.post('/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
+routes.put('/v1/votes', cors(), jwtCheck, resources.v1.votes.put)
 
 // Catch all for all broken api paths, direct to 404 response.
-routes.all('/api/*', (req, res) => {
+routes.all('*', (req, res) => {
   res
     .status(404)
     .json({ status: 404, error: 'Not found. Did you mispell something?' })
