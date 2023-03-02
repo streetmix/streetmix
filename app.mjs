@@ -11,7 +11,7 @@ import swaggerJSDoc from 'swagger-jsdoc'
 import chalk from 'chalk'
 import passport from 'passport'
 import controllers from './app/controllers/index.js'
-import requestHandlers from './app/lib/request_handlers/index.js'
+import * as requestHandlers from './app/lib/request_handlers/index.mjs'
 import { initCloudinary } from './app/lib/cloudinary.mjs'
 import { compileSVGSprites } from './app/lib/svg_sprite.mjs'
 import appURL from './app/lib/url.js'
@@ -155,8 +155,8 @@ app.use(
   })
 )
 
-app.use(requestHandlers.request_log)
-app.use(requestHandlers.request_id_echo)
+app.use(requestHandlers.requestLog)
+app.use(requestHandlers.requestIdEcho)
 
 app.use(passport.initialize())
 app.use(passport.session())

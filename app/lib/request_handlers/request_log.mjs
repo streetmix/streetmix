@@ -1,6 +1,6 @@
-const logger = require('../logger.js')
+import logger from '../logger.js'
 
-module.exports = function (req, res, next) {
+export default function (req, res, next) {
   const contentType = req.headers['content-type'] || ''
 
   logger.debug({
