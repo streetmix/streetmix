@@ -22,10 +22,7 @@ export function compileSVGSprites (source, filename, namespace) {
   // svg-sprite configuration object
   const config = {
     dest: 'build/',
-    // Logger formatting is broken.
-    // This is the pull request to fix it:
-    // https://github.com/jkphl/svg-sprite/pull/291
-    // log: 'verbose',
+    log: 'info',
     shape: {
       id: {
         // SVGs are created with an `id` attribute so that it can
@@ -76,19 +73,6 @@ export function compileSVGSprites (source, filename, namespace) {
       })
 
       spriter.add(svg)
-
-      // Re-create the symbol `id` that `svg-sprite` will create
-      // TODO: Consider removing / refactoring this log when svg-sprite log
-      // is fixed
-      const id = `${namespace}-${svg.relative
-        .replace('/', '--')
-        .replace(/.svg$/, '')}`
-
-      logger.verbose(
-        chalk`[svg-sprite] {cyan Compiling} {gray ${file.substring(
-          source.length
-        )}} {cyan as} {white ${id}}`
-      )
     })
 
     spriter.compile(function (error, result, data) {
