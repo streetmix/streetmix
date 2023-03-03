@@ -1,11 +1,12 @@
-const request = require('request')
-const { User, Street } = require('../../db/models')
-const logger = require('../logger.js')
-const appURL = require('../url')
+import request from 'request'
+import models from '../../db/models/index.js'
+import logger from '../logger.js'
+import appURL from '../url.js'
 
 const ANON_CREATOR = '-'
+const { User, Street } = models
 
-module.exports = async function (req, res, next) {
+export default async function (req, res, next) {
   const userId = req.params.user_id
   const namespacedId = req.params.namespacedId
 

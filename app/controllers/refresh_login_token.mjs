@@ -1,8 +1,8 @@
-const axios = require('axios')
-const logger = require('../lib/logger.js')
+import axios from 'axios'
+import logger from '../lib/logger.js'
 
 // Refreshes auth0 token so user doesn't need to sign in every 30 days
-exports.post = function (req, res) {
+export function post (req, res) {
   if (!req.body || !req.body.token) {
     res.status(401).json({ status: 401, msg: 'Refresh token is required.' })
     return

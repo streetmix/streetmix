@@ -1,6 +1,6 @@
-const cloudinary = require('cloudinary')
+import cloudinary from 'cloudinary'
 
-module.exports = function () {
+export function initCloudinary () {
   cloudinary.config({
     cloud_name: 'streetmix',
     api_key: process.env.CLOUDINARY_API_KEY,

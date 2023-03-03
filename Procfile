@@ -1,2 +1,2 @@
-web: nodemon index.js
+web: npm run serve
 release: ./bin/release_tasks.sh

@@ -1,4 +1,4 @@
-module.exports = function (req, res, next) {
+export default function (req, res, next) {
   const requestId = req.header('X-Streetmix-Request-Id')
 
   if (requestId) {

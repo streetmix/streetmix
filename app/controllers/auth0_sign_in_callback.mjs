@@ -1,7 +1,7 @@
-const axios = require('axios')
-const { Authentication } = require('../lib/auth0')
-const logger = require('../lib/logger.js')
-const appURL = require('../lib/url')
+import axios from 'axios'
+import { Authentication } from '../lib/auth0.mjs'
+import logger from '../lib/logger.js'
+import appURL from '../lib/url.js'
 
 const AccessTokenHandler = function (req, res) {
   return async (response) => {
@@ -85,7 +85,7 @@ const getUserTwitterAuth0Info = function (user) {
   }
 }
 
-exports.get = function (req, res) {
+export function get (req, res) {
   if (req.query.error) {
     logger.error('Auth0 encountered an error: ' + req.query.error)
     res.redirect('/error/access-denied')
