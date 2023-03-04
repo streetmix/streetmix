@@ -216,7 +216,7 @@ function AboutDialog (props) {
                           defaultMessage="{fontName} font designed by {fontAuthor}."
                           values={{
                             fontName: (
-                              <ExternalLink href="https://overpassfont.org/">
+                              <ExternalLink href="https://delvefonts.com/fonts/overpass/">
                                 Overpass
                               </ExternalLink>
                             ),
@@ -234,8 +234,8 @@ function AboutDialog (props) {
                             // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
-                                href="https://github.com/RedHatOfficial/Overpass/blob/master/LICENSE.md"
-                                title="SIL Open Font License, Version 1.1 and LGPL 2.1 (dual license)"
+                                href="https://github.com/RedHatOfficial/Overpass/blob/master/OFL.txt"
+                                title="SIL Open Font License, Version 1.1"
                               >
                                 {chunks}
                               </ExternalLink>
