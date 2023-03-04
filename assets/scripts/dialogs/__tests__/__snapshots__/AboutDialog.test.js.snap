@@ -461,7 +461,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     </li>
                     <li>
                       <a
-                        href="https://overpassfont.org/"
+                        href="https://delvefonts.com/fonts/overpass/"
                         rel="noopener noreferrer"
                         target="_blank"
                       >
@@ -477,10 +477,10 @@ exports[`AboutDialog renders snapshot 1`] = `
                       </a>
                       . (
                       <a
-                        href="https://github.com/RedHatOfficial/Overpass/blob/master/LICENSE.md"
+                        href="https://github.com/RedHatOfficial/Overpass/blob/master/OFL.txt"
                         rel="noopener noreferrer"
                         target="_blank"
-                        title="SIL Open Font License, Version 1.1 and LGPL 2.1 (dual license)"
+                        title="SIL Open Font License, Version 1.1"
                       >
                         License
                       </a>
