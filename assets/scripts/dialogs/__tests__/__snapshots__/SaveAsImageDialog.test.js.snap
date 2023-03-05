@@ -132,7 +132,7 @@ exports[`SaveAsImageDialog renders snapshot 1`] = `
                 class="custom-scale-popover"
               >
                 <button
-                  aria-controls="radix-0"
+                  aria-controls="radix-:r0:"
                   aria-expanded="false"
                   aria-haspopup="dialog"
                   class="popover-trigger"
