@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage, useIntl } from 'react-intl'
-import StripeCheckout from 'react-stripe-checkout'
+import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { STRIPE_PUBLIC_KEY } from '../app/config'
 import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
@@ -13,14 +11,14 @@ const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
 
 const UpgradeDialog = ({ userId, roles }) => {
-  const intl = useIntl()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
-  async function onToken (token) {
+  // eslint-disable-next-line
+  async function onToken(token) {
     const requestBody = { userId, token }
 
     setLoading(true)
@@ -32,19 +30,6 @@ const UpgradeDialog = ({ userId, roles }) => {
     }
     setLoading(false)
   }
-
-  const stripeName = intl.formatMessage({
-    id: 'upgrade.name',
-    defaultMessage: 'Streetmix Enthusiast Plan'
-  })
-  const stripeDescription = intl.formatMessage({
-    id: 'upgrade.description',
-    defaultMessage: 'stripe description goes here'
-  })
-  const stripeLabel = intl.formatMessage({
-    id: 'upgrade.label',
-    defaultMessage: 'Subscribe'
-  })
 
   let activePanel
   if (hasTier1) {
@@ -87,16 +72,6 @@ const UpgradeDialog = ({ userId, roles }) => {
         <p>
           <FormattedMessage id="upgrade.body" defaultMessage={DEFAULT_BODY} />
         </p>
-        <StripeCheckout
-          amount={500}
-          name={stripeName}
-          description={stripeDescription}
-          label={stripeLabel}
-          locale="auto"
-          stripeKey={STRIPE_PUBLIC_KEY}
-          token={onToken}
-          zipCode={true}
-        />
       </>
     )
   }
