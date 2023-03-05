@@ -184,7 +184,7 @@
     "svg-sprite": "2.0.2",
     "swagger-jsdoc": "6.1.0",
     "swagger-ui-express": "4.3.0",
-    "uuid": "8.3.2",
+    "uuid": "9.0.0",
     "web-monetization-polyfill": "2.0.0",
     "whatwg-fetch": "3.6.2",
     "winston": "3.4.0"
