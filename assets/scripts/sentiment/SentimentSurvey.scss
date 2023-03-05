@@ -122,7 +122,7 @@
 /* Modified version of `tada` from animate.css
    https://animate.style/ */
 @keyframes tada {
-  from {
+  0% {
     transform: scale3d(1.2, 1.2, 1.2);
   }
 
@@ -144,7 +144,7 @@
     transform: scale3d(1.4, 1.4, 1.4) rotate3d(0, 0, 1, -3deg);
   }
 
-  to {
+  100% {
     transform: scale3d(1.2, 1.2, 1.2);
   }
 }
