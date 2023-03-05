@@ -165,7 +165,7 @@
     "react-hook-form": "7.22.5",
     "react-icons": "4.4.0",
     "react-intl": "5.24.2",
-    "react-leaflet": "2.7.0",
+    "react-leaflet": "3.2.5",
     "react-markdown": "7.1.2",
     "react-redux": "7.2.6",
     "react-spring": "8.0.27",
