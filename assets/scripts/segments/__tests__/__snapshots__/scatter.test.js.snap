@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`scatter objects in segments picks from a pool of one single string id 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "plants--bush",
     "left": 0,
     "width": 5,
   },
-  Object {
+  {
     "id": "plants--bush",
     "left": 2.5174780997211976,
     "width": 5,
   },
-  Object {
+  {
     "id": "plants--bush",
     "left": 7.687586461069147,
     "width": 5,
   },
-  Object {
+  {
     "id": "plants--bush",
     "left": 11.138584601278607,
     "width": 5,
@@ -26,30 +26,30 @@ Array [
 `;
 
 exports[`scatter objects in segments picks people at dense density 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "The thicc one",
     "left": 0,
     "width": 3,
   },
-  Object {
+  {
     "id": "The boisterous one",
     "left": 3.7407393094867594,
     "weight": 65,
     "width": 3,
   },
-  Object {
+  {
     "id": "The thicc one",
     "left": 6.615210042353208,
     "width": 3,
   },
-  Object {
+  {
     "id": "The boisterous one",
     "left": 9.860021493652411,
     "weight": 65,
     "width": 3,
   },
-  Object {
+  {
     "disallowFirst": true,
     "id": "character-04",
     "left": 12.762151044236404,
@@ -57,24 +57,24 @@ Array [
     "weight": 20,
     "width": 2,
   },
-  Object {
+  {
     "id": "The thicc one",
     "left": 15.475059644902876,
     "width": 3,
   },
-  Object {
+  {
     "id": "character-05",
     "left": 19.110244481261418,
     "name": "The popular one",
     "weight": 100,
     "width": 2,
   },
-  Object {
+  {
     "id": "The regular one",
     "left": 21.565549615693314,
     "width": 2,
   },
-  Object {
+  {
     "disallowFirst": true,
     "id": "character-03",
     "left": 24.361170221247555,
@@ -85,30 +85,30 @@ Array [
 `;
 
 exports[`scatter objects in segments picks people at normal density 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "The thicc one",
     "left": 0,
     "width": 3,
   },
-  Object {
+  {
     "id": "The boisterous one",
     "left": 6.6357976982892,
     "weight": 65,
     "width": 3,
   },
-  Object {
+  {
     "id": "The thicc one",
     "left": 10.384033474510698,
     "width": 3,
   },
-  Object {
+  {
     "id": "The boisterous one",
     "left": 15.36673831217471,
     "weight": 65,
     "width": 3,
   },
-  Object {
+  {
     "disallowFirst": true,
     "id": "character-04",
     "left": 19.207170147454686,
@@ -120,19 +120,19 @@ Array [
 `;
 
 exports[`scatter objects in segments picks people at sparse density 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "The thicc one",
     "left": 0,
     "width": 3,
   },
-  Object {
+  {
     "id": "The boisterous one",
     "left": 12.892968591830677,
     "weight": 65,
     "width": 3,
   },
-  Object {
+  {
     "id": "The thicc one",
     "left": 20.973353230628,
     "width": 3,
