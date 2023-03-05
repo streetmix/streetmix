@@ -90,7 +90,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-facebook-square"
+        class="svg-inline--fa menu-item-icon fa-square-facebook"
       />
       Share using Facebook
       <svg
@@ -174,7 +174,7 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-facebook-square"
+        class="svg-inline--fa menu-item-icon fa-square-facebook"
       />
       Share using Facebook
       <svg
