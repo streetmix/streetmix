@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { waitFor } from '@testing-library/react'
+import { waitFor, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import MockAdapter from 'axios-mock-adapter'
 import WelcomePanel from '../WelcomePanel'
@@ -79,8 +79,11 @@ describe('WelcomePanel', () => {
         }
       })
 
-      store.dispatch(everythingLoaded())
-      apiMock.onAny().reply(200, apiResponse)
+      // Our actions must be wrapped in `act` because of state changes
+      act(() => {
+        store.dispatch(everythingLoaded())
+        apiMock.onAny().reply(200, apiResponse)
+      })
 
       await waitFor(() => {
         const input = getByLabelText(/Start with a copy/)

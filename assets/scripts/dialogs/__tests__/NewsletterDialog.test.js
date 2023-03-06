@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, waitFor, act } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import NewsletterDialog from '../NewsletterDialog'
@@ -24,13 +24,10 @@ describe('NewsletterDialog', () => {
         new Promise((resolve) => setTimeout(() => resolve({ status: 200 }), 2))
     )
 
-    // Our actions must be wrapped in `act` because of state changes
-    act(() => {
-      render(<NewsletterDialog />)
-      userEvent.type(screen.getByRole('textbox'), 'lou@louhuang.com')
-      userEvent.click(screen.getByText('Subscribe'))
-      jest.advanceTimersByTime(1)
-    })
+    render(<NewsletterDialog />)
+    userEvent.type(screen.getByRole('textbox'), 'lou@louhuang.com')
+    userEvent.click(screen.getByText('Subscribe'))
+    jest.advanceTimersByTime(1)
 
     await waitFor(() => {
       expect(screen.queryByText('Please wait...')).toBeDisabled()
