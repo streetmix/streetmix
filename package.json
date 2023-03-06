@@ -14,7 +14,6 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "postinstall": "npm run build",
     "start": "concurrently --names \"SERVER,CLIENT\" -c \"bgBlueBright.bold,bgMagentaBright.bold\" \"npm:dev-server\" \"npm:dev-client\"",
     "serve": "nodemon -r newrelic index.mjs",
     "build": "parcel build assets/scripts/main.js --dist-dir build --public-url /assets",
