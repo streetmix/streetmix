@@ -1,4 +1,4 @@
-const btoa = require('btoa')
+const { Buffer } = require('node:buffer')
 const passport = require('passport')
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
 const InternalOAuthError = require('passport-oauth2').InternalOAuthError
@@ -13,6 +13,19 @@ const {
   syncAccountStatus,
   addOrUpdateByProviderName
 } = require('./helpers')
+
+/**
+ * One-liner implementation of `btoa()` (which is available globally)
+ * in browsers, but not in Node.js. This is only used here on the server
+ * and means we don't need to import a specific `btoa` package to
+ * cover this. If needed, we can either extract this to a separate utility
+ * module or look into importing it from core-js.
+ *
+ * @param {String} str
+ */
+function btoa (str) {
+  Buffer.from(str.toString(), 'binary').toString('base64')
+}
 
 const initCoil = () => {
   const authToken = btoa(
