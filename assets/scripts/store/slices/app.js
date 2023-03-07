@@ -36,14 +36,14 @@ const appSlice = createSlice({
     }
   },
 
-  extraReducers: {
-    [changeLocale.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(changeLocale.fulfilled, (state, action) => {
       const direction =
         ['ar', 'dv', 'fa', 'he'].indexOf(action.payload.locale) > -1
           ? 'rtl'
           : 'ltr'
       state.contentDirection = direction
-    }
+    })
   }
 })
 

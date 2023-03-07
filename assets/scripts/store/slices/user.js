@@ -74,25 +74,26 @@ const userSlice = createSlice({
     }
   },
 
-  extraReducers: {
-    [detectGeolocation.pending]: (state) => {
-      // Reset state when pending
-      state.geolocation.attempted = false
-      state.geolocation.data = null
-      state.geolocation.error = null
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(detectGeolocation.pending, (state) => {
+        // Reset state when pending
+        state.geolocation.attempted = false
+        state.geolocation.data = null
+        state.geolocation.error = null
+      })
 
-    [detectGeolocation.fulfilled]: (state, action) => {
-      state.geolocation.attempted = true
-      state.geolocation.data = action.payload
-      state.geolocation.error = false
-    },
+      .addCase(detectGeolocation.fulfilled, (state, action) => {
+        state.geolocation.attempted = true
+        state.geolocation.data = action.payload
+        state.geolocation.error = false
+      })
 
-    [detectGeolocation.rejected]: (state, action) => {
-      state.geolocation.attempted = true
-      state.geolocation.data = null
-      state.geolocation.error = action.error.message || action.error
-    }
+      .addCase(detectGeolocation.rejected, (state, action) => {
+        state.geolocation.attempted = true
+        state.geolocation.data = null
+        state.geolocation.error = action.error.message || action.error
+      })
   }
 })
 

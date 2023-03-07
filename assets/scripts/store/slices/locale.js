@@ -52,29 +52,30 @@ const localeSlice = createSlice({
 
   reducers: {},
 
-  extraReducers: {
-    [changeLocale.pending]: (state, action) => {
-      state.isLoading = true
-      state.requestedLocale = action.meta.arg
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(changeLocale.pending, (state, action) => {
+        state.isLoading = true
+        state.requestedLocale = action.meta.arg
+      })
 
-    [changeLocale.fulfilled]: (state, action) => {
-      const { locale, translation } = action.payload
-      const { messages, segmentInfo = {} } = translation
+      .addCase(changeLocale.fulfilled, (state, action) => {
+        const { locale, translation } = action.payload
+        const { messages, segmentInfo = {} } = translation
 
-      state.locale = locale
-      state.messages = flattenObject(messages)
-      state.segmentInfo = flattenObject(segmentInfo)
-      state.isLoading = false
-      state.requestedLocale = null
+        state.locale = locale
+        state.messages = flattenObject(messages)
+        state.segmentInfo = flattenObject(segmentInfo)
+        state.isLoading = false
+        state.requestedLocale = null
 
-      document.querySelector('html').lang = locale
-    },
+        document.querySelector('html').lang = locale
+      })
 
-    [changeLocale.rejected]: (state, action) => {
-      state.isLoading = false
-      state.requestedLocale = null
-    }
+      .addCase(changeLocale.rejected, (state, action) => {
+        state.isLoading = false
+        state.requestedLocale = null
+      })
   }
 })
 

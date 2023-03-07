@@ -49,10 +49,10 @@ const flagsSlice = createSlice({
     }
   },
 
-  extraReducers: {
-    [getInitialFlags.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getInitialFlags.fulfilled, (state, action) => {
       state = generateInitialFlags(action.payload)
-    }
+    })
   }
 })
 

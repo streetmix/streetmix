@@ -75,12 +75,12 @@ const infoBubbleSlice = createSlice({
     }
   },
 
-  extraReducers: {
-    [startPrinting]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(startPrinting, (state, action) => {
       state.visible = false
       state.descriptionVisible = false
       state.mouseInside = false
-    }
+    })
   }
 })
 
