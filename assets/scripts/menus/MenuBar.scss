@@ -53,39 +53,40 @@ $menu-bar-box-shadow: $light-box-shadow;
     white-space: nowrap;
   }
 
-  li + li {
-    margin-left: 0.25em;
-
-    [dir="rtl"] & {
-      margin-right: 0.25em;
-      margin-left: 0;
-    }
-  }
-
   a {
     @include tap-highlight-color(transparent);
 
+    position: relative;
     display: flex;
     align-items: center;
-    padding: 0 0.75em;
     outline: none;
     text-decoration: none;
     color: inherit;
     height: 32px;
-    border-radius: 6px;
-
-    &:hover {
-      background-color: rgba(0 0 0 / 5%);
-    }
+    padding: 0 10px;
 
     &:active {
       color: $menu-bar-text-color-active;
+    }
+
+    // Button "hover" state is actually wider than the button
+    &:hover::after {
+      content: "";
+      background-color: rgba(0 0 0 / 5%);
+      position: absolute;
+      top: 0;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: 100%;
+      border-radius: 6px;
+      pointer-events: none;
     }
   }
 
   button.menu-attached {
     @include tap-highlight-color(transparent);
 
+    position: relative;
     display: flex;
     align-items: center;
     appearance: none;
@@ -96,8 +97,7 @@ $menu-bar-box-shadow: $light-box-shadow;
     color: inherit;
     cursor: pointer;
     height: 32px;
-    padding: 0 0.75em;
-    border-radius: 6px;
+    padding: 0 10px;
 
     // Dropdown carat style
     svg {
@@ -109,12 +109,37 @@ $menu-bar-box-shadow: $light-box-shadow;
       }
     }
 
-    &:hover {
-      background-color: rgba(0 0 0 / 5%);
-    }
-
     &:active {
       color: $menu-bar-text-color-active;
+    }
+
+    // Button "hover" state is actually wider than the button
+    &:hover::after {
+      content: "";
+      background-color: rgba(0 0 0 / 5%);
+      position: absolute;
+      top: 0;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: 100%;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+  }
+}
+
+.menu-bar-left {
+  padding-right: 0.25em !important;
+  padding-left: 0.25em !important;
+
+  // First button gets special hover treatment
+  li:nth-child(2) button.menu-attached:hover::after {
+    width: calc(100% + 4px);
+    left: 0;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0;
     }
   }
 }
@@ -122,6 +147,15 @@ $menu-bar-box-shadow: $light-box-shadow;
 .menu-bar-right {
   padding-right: 0.25em !important;
   padding-left: 0.25em !important;
+
+  // Last button gets special hover treatment
+  li:last-child button.menu-attached:hover::after {
+    width: calc(100% + 4px);
+
+    [dir="rtl"] & {
+      left: 0;
+    }
+  }
 }
 
 .menu-bar-title {
@@ -146,9 +180,21 @@ $menu-bar-box-shadow: $light-box-shadow;
 
 .menu-external-link {
   margin-left: 0.25em;
+  margin-right: -0.2em;
   transform: scale(0.8);
+
+  [dir="rtl"] & {
+    margin-left: -0.2em;
+    margin-right: 0.25em;
+  }
 }
 
 .menu-carat-down {
   margin-left: 0.25em;
+  margin-right: -0.25em;
+
+  [dir="rtl"] & {
+    margin-left: -0.25em;
+    margin-right: 0.25em;
+  }
 }
