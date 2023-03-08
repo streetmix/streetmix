@@ -194,18 +194,22 @@ function onEverythingLoaded () {
 function showConsoleMessage () {
   console.log(
     `%c
-          ____  _    %cWelcome to%c   _             _      _
-         / ___|| |_ _ __ ___  ___| |_ _ __ ___ (_)_  _| |
-         \\___ \\| __| '__/ _ \\/ _ \\ __| '_ \` _ \\| \\ \\/ / |
-          ___) | |_| | |  __/  __/ |_| | | | | | |>  <|_|
-         |____/ \\__|_|  \\___|\\___|\\__|_| |_| |_|_/_/\\_(_)
-%c..:  We’re looking for contributors!  https://github.com/streetmix/streetmix  :..
-%c..:  Support us financially at        https://opencollective.com/streetmix    :..`,
-    'color: green',
-    'color:gray',
-    'color: green',
-    'color: blue',
-    'color: red'
+  ____  _    %cWelcome to%c   _             _      _
+ / ___|| |_ _ __ ___  ___| |_ _ __ ___ (_)_  _| |
+ \\___ \\| __| '__/ _ \\/ _ \\ __| '_ \` _ \\| \\ \\/ / |
+  ___) | |_| | |  __/  __/ |_| | | | | | |>  <|_|
+ |____/ \\__|_|  \\___|\\___|\\__|_| |_| |_|_/_/\\_(_)
+%c..:                                            :..
+..:    Contribute to our open-source code!     :..
+..:   https://github.com/streetmix/streetmix   :..
+%c..:                                            :..
+..:          Please sponsor our work!          :..
+..:    https://opencollective.com/streetmix    :..`,
+    'font-family: monospace; color: green',
+    'font-family: monospace; color: gray',
+    'font-family: monospace; color: green',
+    'font-family: monospace; color: blue',
+    'font-family: monospace; color: red'
   )
 }
 

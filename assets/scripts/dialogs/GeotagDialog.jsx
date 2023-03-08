@@ -3,7 +3,12 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useIntl } from 'react-intl'
-import { Map, TileLayer, ZoomControl, Marker } from 'react-leaflet'
+import {
+  MapContainer,
+  TileLayer,
+  ZoomControl,
+  useMapEvents
+} from 'react-leaflet'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { isOwnedByCurrentUser } from '../streets/owner'
 import { setMapState } from '../store/slices/map'
@@ -16,6 +21,7 @@ import Dialog from './Dialog'
 import ErrorBanner from './Geotag/ErrorBanner'
 import GeoSearch from './Geotag/GeoSearch'
 import LocationPopup from './Geotag/LocationPopup'
+import LocationMarker from './Geotag/LocationMarker'
 import './GeotagDialog.scss'
 
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
@@ -42,21 +48,6 @@ L.Icon.Default.mergeOptions({
   iconUrl: '/images/marker-icon.png',
   shadowUrl: '/images/marker-shadow.png'
 })
-
-GeotagDialog.propTypes = {
-  // Provided by Redux store
-  street: PropTypes.object,
-  markerLocation: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number
-  }),
-  addressInformation: PropTypes.object,
-  userLocation: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number
-  }),
-  offline: PropTypes.bool
-}
 
 function getInitialState (props) {
   // Determine initial map center, and what to display
@@ -151,24 +142,26 @@ function GeotagDialog () {
   const dpi = useSelector((state) => state.system.devicePixelRatio || 1.0)
   const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
 
-  const handleMapClick = (event) => {
-    // get the new latlng of the clicked position
-    const latlng = {
-      lat: event.latlng.lat,
-      lng: event.latlng.lng
-    }
+  // Child component to handle click events in MapContainer
+  function MapClick (props) {
+    const map = useMapEvents({
+      click (event) {
+        if (!geocodeAvailable) return
 
-    // this is in the context of a a map click or drag, we don't want to switch up
-    // the zoom level on the user
-    const zoom = event.target.getZoom()
-    reverseGeocode(latlng).then((res) => {
-      const latlng = {
-        lat: res.features[0].geometry.coordinates[1],
-        lng: res.features[0].geometry.coordinates[0]
+        const latlng = event.latlng
+        const zoom = map.getZoom()
+        reverseGeocode(latlng).then((res) => {
+          const latlng = {
+            lat: res.features[0].geometry.coordinates[1],
+            lng: res.features[0].geometry.coordinates[0]
+          }
+          setZoom(zoom)
+          updateMap(latlng, res.features[0].properties, res.features[0].label)
+        })
       }
-      setZoom(zoom)
-      updateMap(latlng, res.features[0].properties, res.features[0].label)
     })
+
+    return null
   }
 
   const handleMarkerDragStart = (event) => {
@@ -176,15 +169,7 @@ function GeotagDialog () {
   }
 
   const handleMarkerDragEnd = (event) => {
-    /* method of updating coords is different here(as opposed to onClick) since we're
-     moving a leaflet object
-    keeping the data shape of latlng in line with how its used in child components
-    */
-    let latlng = event.target.getLatLng()
-    latlng = {
-      lat: latlng.lat,
-      lng: latlng.lng
-    }
+    const latlng = event.target.getLatLng()
     reverseGeocode(latlng).then((res) => {
       updateMap(latlng, res.features[0].properties, res.features[0].label)
     })
@@ -295,13 +280,7 @@ function GeotagDialog () {
             : (
               <ErrorBanner />
               )}
-          <Map
-            center={mapCenter}
-            zoomControl={false}
-            zoom={zoom}
-            onClick={geocodeAvailable ? handleMapClick : null}
-            useFlyTo={true}
-          >
+          <MapContainer center={mapCenter} zoomControl={false} zoom={zoom}>
             <TileLayer attribution={MAP_ATTRIBUTION} url={tileUrl} />
             <ZoomControl
               zoomInTitle={intl.formatMessage({
@@ -331,19 +310,33 @@ function GeotagDialog () {
               />
             )}
 
-            {markerLocation && (
-              <Marker
-                position={markerLocation}
-                onDragEnd={handleMarkerDragEnd}
-                onDragStart={handleMarkerDragStart}
-                draggable={geocodeAvailable}
-              />
-            )}
-          </Map>
+            <LocationMarker
+              position={markerLocation}
+              geocodeAvailable={geocodeAvailable}
+              onDragStart={handleMarkerDragStart}
+              onDragEnd={handleMarkerDragEnd}
+            />
+            <MapClick />
+          </MapContainer>
         </div>
       )}
     </Dialog>
   )
+}
+
+GeotagDialog.propTypes = {
+  // Provided by Redux store
+  street: PropTypes.object,
+  markerLocation: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number
+  }),
+  addressInformation: PropTypes.object,
+  userLocation: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number
+  }),
+  offline: PropTypes.bool
 }
 
 export default GeotagDialog

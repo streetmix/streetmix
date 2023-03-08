@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
+import { flushSync } from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { startPrinting, stopPrinting } from '../store/slices/app'
 import { getStreetImage } from '../streets/image'
@@ -8,49 +9,46 @@ function PrintContainer (props) {
   const isPrinting = useSelector((state) => state.app.printing)
   const street = useSelector((state) => state.street)
   const dispatch = useDispatch()
+  const printImage = useRef(null)
 
   useEffect(() => {
-    function mediaQueryChangeHandler (mql) {
-      if (mql.matches) {
+    const beforeprintHandler = () => {
+      // `flushSync` is a rarely used React feature that forces updates to
+      // synchronously "flush" to DOM in order to play nicely with the
+      // browser. We *need* to do this during the `beforeprint` event
+      // otherwise there's nothing to print!
+      // https://beta.reactjs.org/reference/react-dom/flushSync
+      flushSync(() => {
         dispatch(startPrinting())
-      } else {
-        dispatch(stopPrinting())
-      }
+      })
     }
-
-    const beforeprintHandler = () => dispatch(startPrinting())
     const afterprintHandler = () => dispatch(stopPrinting())
 
     // Add event listeners to handle a print event
     window.addEventListener('beforeprint', beforeprintHandler)
     window.addEventListener('afterprint', afterprintHandler)
 
-    // Some older browsers (Chrome < 63, current Safari) do not
-    // have the 'beforeprint' or 'afterprint' events
-    // We listen for media query changes in another way
-    const mediaQueryList = window.matchMedia('print')
-    mediaQueryList.addListener(mediaQueryChangeHandler)
-
     // Clean up listeners
     return () => {
       window.removeEventListener('beforeprint', beforeprintHandler)
       window.removeEventListener('afterprint', afterprintHandler)
-      mediaQueryList.removeListener(mediaQueryChangeHandler)
     }
   }, [dispatch])
 
-  function createPrintImage () {
-    if (isPrinting) {
-      const dataUrl = getStreetImage(street, true, true, false).toDataURL(
-        'image/png'
-      )
-      return <img src={dataUrl} />
-    }
-
-    return null
+  if (isPrinting) {
+    // Caches the image to a ref. This DOM element is only visible in a print
+    // media query, but leaving it around after printing is over allows
+    // debugging the print result after the print action is done.
+    printImage.current = getStreetImage(street, true, true, false).toDataURL(
+      'image/png'
+    )
   }
 
-  return <div className="print-container">{createPrintImage()}</div>
+  return (
+    <div className="print-container">
+      {printImage.current && <img src={printImage.current} />}
+    </div>
+  )
 }
 
 export default PrintContainer

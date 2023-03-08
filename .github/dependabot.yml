@@ -4,13 +4,9 @@ updates:
   directory: "/"
   schedule:
     interval: weekly
-    time: "08:00"
-    timezone: America/New_York
   open-pull-requests-limit: 10
   reviewers:
   - louh
-  - easherma
-  - arc64
   labels:
   - dependencies
   versioning-strategy: increase-if-necessary

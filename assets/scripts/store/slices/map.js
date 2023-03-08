@@ -24,9 +24,9 @@ const mapSlice = createSlice({
     }
   },
 
-  extraReducers: {
+  extraReducers: (builder) => {
     // If location is cleared from the street, also reset map state.
-    [clearLocation]: (state) => initialState
+    builder.addCase(clearLocation, (state) => initialState)
   }
 })
 

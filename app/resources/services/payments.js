@@ -1,4 +1,3 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const User = require('../../db/models/user.js')
 const roles = require('../../data/user_roles.json')
 const logger = require('../../lib/logger.js')
@@ -15,24 +14,24 @@ exports.post = async (req, res) => {
   try {
     userId = req.body.userId
     logger.info(`submitting payment for ${userId}`)
-    const {
-      token: { email, id }
-    } = req.body
+    // const {
+    //   token: { email, id }
+    // } = req.body
 
-    customer = await stripe.customers.create({
-      email,
-      source: id,
-      description: `Subscriber for ${userId}`
-    })
+    // customer = await stripe.customers.create({
+    //   email,
+    //   source: id,
+    //   description: `Subscriber for ${userId}`
+    // })
 
-    subscription = await stripe.subscriptions.create({
-      customer: customer.id,
-      items: [
-        {
-          plan: tier1PlanId
-        }
-      ]
-    })
+    // subscription = await stripe.subscriptions.create({
+    //   customer: customer.id,
+    //   items: [
+    //     {
+    //       plan: tier1PlanId
+    //     }
+    //   ]
+    // })
   } catch (err) {
     logger.error(err)
     res

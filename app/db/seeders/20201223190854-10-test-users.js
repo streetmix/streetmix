@@ -1,5 +1,5 @@
 'use strict'
-const faker = require('faker')
+const faker = require('@faker-js/faker')
 const users = [...Array(10)].map((user) => ({
   id: faker.internet.userName(),
   email: faker.internet.email(),

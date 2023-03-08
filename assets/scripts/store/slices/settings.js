@@ -38,10 +38,10 @@ const settingsSlice = createSlice({
     }
   },
 
-  extraReducers: {
-    [changeLocale.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(changeLocale.fulfilled, (state, action) => {
       state.locale = action.payload.locale
-    }
+    })
   }
 })
 

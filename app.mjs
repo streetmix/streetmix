@@ -58,7 +58,8 @@ process.on('SIGINT', function () {
 // Pass environment variables to handlebars templates
 app.locals.env = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
-  WEB_MONETIZATION_PAYMENT_POINTER: process.env.WEB_MONETIZATION_PAYMENT_POINTER
+  WEB_MONETIZATION_PAYMENT_POINTER:
+    process.env.WEB_MONETIZATION_PAYMENT_POINTER
 }
 
 // Not all headers from `helmet` are on by default. These turns on specific
@@ -182,13 +183,17 @@ app.use((req, res, next) => {
 })
 
 // Set CSP directives
+// eslint-disable-next-line import/no-named-as-default-member
 app.use(helmet.contentSecurityPolicy(csp))
 
 // Rewrite requests with timestamp
 app.use((req, res, next) => {
   // Matches a filename like styles.2395934243.css
   // Accepts optional `?29090424` query string used by Parcel's hot-module reloader
-  req.url = req.url.replace(/\/([^/]+)\.[0-9]+\.(css|js)(\?[0-9]+)?$/, '/$1.$2')
+  req.url = req.url.replace(
+    /\/([^/]+)\.[0-9]+\.(css|js)(\?[0-9]+)?$/,
+    '/$1.$2'
+  )
   next()
 })
 
