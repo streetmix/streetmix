@@ -144,7 +144,7 @@
     "mkdirp": "2.1.5",
     "nanoid": "3.1.31",
     "newrelic": "9.10.2",
-    "nodemon": "2.0.20",
+    "nodemon": "2.0.21",
     "parcel": "2.8.3",
     "passport": "0.6.0",
     "passport-oauth": "1.0.0",
