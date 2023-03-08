@@ -1,11 +1,11 @@
-const fs = require('fs')
-const path = require('path')
-const glob = require('glob')
-const mkdirp = require('mkdirp')
-const Vinyl = require('vinyl')
-const SVGSpriter = require('svg-sprite')
-const chalk = require('chalk')
-const logger = require('./logger.js')
+import fs from 'node:fs'
+import path from 'node:path'
+import glob from 'glob'
+import mkdirp from 'mkdirp'
+import Vinyl from 'vinyl'
+import SVGSpriter from 'svg-sprite'
+import chalk from 'chalk'
+import logger from './logger.js'
 
 /**
  * Compile SVG sprites into a single .svg file with <symbol>s in the project
@@ -15,17 +15,14 @@ const logger = require('./logger.js')
  * @param {String} filename - destination filename, without .svg extension
  * @param {String} namespace - prefix to be used to namespace ids
  */
-function compileSVGSprites (source, filename, namespace) {
+export function compileSVGSprites (source, filename, namespace) {
   // glob pattern to be matched (see `glob` syntax)
   const pattern = path.join(source, '/**/*.svg')
 
   // svg-sprite configuration object
   const config = {
     dest: 'build/',
-    // Logger formatting is broken.
-    // This is the pull request to fix it:
-    // https://github.com/jkphl/svg-sprite/pull/291
-    // log: 'verbose',
+    log: 'info',
     shape: {
       id: {
         // SVGs are created with an `id` attribute so that it can
@@ -76,19 +73,6 @@ function compileSVGSprites (source, filename, namespace) {
       })
 
       spriter.add(svg)
-
-      // Re-create the symbol `id` that `svg-sprite` will create
-      // TODO: Consider removing / refactoring this log when svg-sprite log
-      // is fixed
-      const id = `${namespace}-${svg.relative
-        .replace('/', '--')
-        .replace(/.svg$/, '')}`
-
-      logger.verbose(
-        chalk`[svg-sprite] {cyan Compiling} {gray ${file.substring(
-          source.length
-        )}} {cyan as} {white ${id}}`
-      )
     })
 
     spriter.compile(function (error, result, data) {
@@ -114,5 +98,3 @@ function compileSVGSprites (source, filename, namespace) {
     })
   })
 }
-
-module.exports = compileSVGSprites

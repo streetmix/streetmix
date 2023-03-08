@@ -1,4 +1,4 @@
-const { v1: uuidv1 } = require('uuid')
+const { v4: uuidv4 } = require('uuid')
 const { isArray } = require('lodash')
 const { User, Street, Sequence } = require('../../db/models')
 const logger = require('../../lib/logger.js')
@@ -7,7 +7,7 @@ const { ERRORS, asStreetJson } = require('../../lib/util')
 exports.post = async function (req, res) {
   let body
   const street = {}
-  street.id = uuidv1()
+  street.id = uuidv4()
   const requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
       return req.headers['x-forwarded-for'].split(', ')[0]

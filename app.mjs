@@ -1,4 +1,4 @@
-import './app/globals.js'
+import './app/globals.mjs'
 import path from 'node:path'
 import url from 'node:url'
 import compression from 'compression'
@@ -10,15 +10,15 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
 import chalk from 'chalk'
 import passport from 'passport'
-import controllers from './app/controllers/index.js'
-import requestHandlers from './app/lib/request_handlers/index.js'
-import initCloudinary from './app/lib/cloudinary.js'
-import compileSVGSprites from './app/lib/svg-sprite.js'
+import * as controllers from './app/controllers/index.mjs'
+import * as requestHandlers from './app/lib/request_handlers/index.mjs'
+import { initCloudinary } from './app/lib/cloudinary.mjs'
+import { compileSVGSprites } from './app/lib/svg_sprite.mjs'
 import appURL from './app/lib/url.js'
-import apiRoutes from './app/api_routes.js'
-import serviceRoutes from './app/service_routes.js'
+import apiRoutes from './app/api_routes.mjs'
+import serviceRoutes from './app/service_routes.mjs'
 import logger from './app/lib/logger.js'
-import jwtCheck from './app/authentication.js'
+import jwtCheck from './app/authentication.mjs'
 
 initCloudinary()
 compileSVGSprites('assets/images/icons/', 'icons', 'icon')
@@ -155,8 +155,8 @@ app.use(
   })
 )
 
-app.use(requestHandlers.request_log)
-app.use(requestHandlers.request_id_echo)
+app.use(requestHandlers.requestLog)
+app.use(requestHandlers.requestIdEcho)
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -208,8 +208,8 @@ app.get('/terms-of-service', (req, res) =>
 )
 
 // API routes
-app.use('', apiRoutes)
-app.use('', serviceRoutes)
+app.use('/api', apiRoutes)
+app.use('/services', serviceRoutes)
 
 app.use('/assets', express.static(path.join(__dirname, '/build')))
 app.use(express.static(path.join(__dirname, '/public')))
