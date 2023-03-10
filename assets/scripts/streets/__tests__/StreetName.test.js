@@ -27,19 +27,19 @@ describe('StreetName', () => {
     expect(screen.getByText('Unnamed St')).toBeInTheDocument()
   })
 
-  it('responds to an onClick handler', () => {
+  it('responds to an onClick handler', async () => {
     const handleClick = jest.fn()
     render(<StreetName onClick={handleClick} />)
-    userEvent.click(screen.getByText('Unnamed St'))
+    await userEvent.click(screen.getByText('Unnamed St'))
     expect(handleClick).toBeCalledTimes(1)
   })
 
   // Editable state is tested at the StreetNameplateContainer component level.
   // However, we do include a test here to ensure that StreetName is never
   // editable by default.
-  it('is not editable by default', () => {
+  it('is not editable by default', async () => {
     render(<StreetName editable={false} />)
-    userEvent.hover(screen.getByText('Unnamed St'))
+    await userEvent.hover(screen.getByText('Unnamed St'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 })

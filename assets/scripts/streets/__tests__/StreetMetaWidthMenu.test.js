@@ -51,8 +51,10 @@ describe('StreetMetaWidthMenu', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('calls onChange handler when selection changed', () => {
+  it('calls onChange handler when selection changed', async () => {
     const handleChange = jest.fn((value) => value)
+    const user = userEvent.setup()
+
     render(
       <StreetMetaWidthMenu
         street={{
@@ -65,7 +67,7 @@ describe('StreetMetaWidthMenu', () => {
       />
     )
 
-    userEvent.selectOptions(screen.getByRole('combobox'), '40')
+    await user.selectOptions(screen.getByRole('combobox'), '40')
 
     // Return value is a string from <option value=""> attribute
     expect(handleChange).toHaveReturnedWith('40')

@@ -33,7 +33,7 @@ describe('UpDownInput', () => {
     handleUpdate.mockClear()
   })
 
-  it('behaves', () => {
+  it('behaves', async () => {
     render(<UpDownInput {...defaultProps} allowAutoUpdate={true} />)
 
     const inputEl = screen.getByRole('textbox')
@@ -44,13 +44,13 @@ describe('UpDownInput', () => {
     expect(inputEl.value).toBe('5')
 
     // Ensure handler functions are called
-    userEvent.click(upButton)
+    await userEvent.click(upButton)
     expect(handleUp).toHaveBeenCalled()
 
-    userEvent.click(downButton)
+    await userEvent.click(downButton)
     expect(handleDown).toHaveBeenCalled()
 
-    userEvent.type(inputEl, 'abc')
+    await userEvent.type(inputEl, 'abc')
     expect(handleUpdate).toHaveBeenCalledTimes(3)
   })
 
@@ -69,7 +69,7 @@ describe('UpDownInput', () => {
     expect(screen.getByRole('textbox').value).toBe('')
   })
 
-  it('formats values using `inputValueFormatter` and `displayValueFormatter`', () => {
+  it('formats values using `inputValueFormatter` and `displayValueFormatter`', async () => {
     render(
       <UpDownInput
         {...defaultProps}
@@ -83,17 +83,17 @@ describe('UpDownInput', () => {
     expect(inputEl.value).toBe('5 bar')
 
     // User clicks on the input, so the input formatter is called
-    userEvent.click(inputEl)
+    await userEvent.click(inputEl)
     expect(inputEl.value).toBe('5')
 
     // User clicks outside the input, setting active element elsewhere.
     // The display formatter should now be called again
-    userEvent.click(inputEl.parentNode)
+    await userEvent.click(inputEl.parentNode)
     expect(inputEl.value).toBe('5 bar')
   })
 
   // Same as above, but with mouse interaction
-  it('formats values when hovering over or out on the input element', () => {
+  it('formats values when hovering over or out on the input element', async () => {
     render(
       <UpDownInput
         {...defaultProps}
@@ -108,33 +108,33 @@ describe('UpDownInput', () => {
 
     // User hovers over the input, so the input formatter is called
     // Note: the input content is also selected, but we are not testing for that
-    userEvent.hover(inputEl)
+    await userEvent.hover(inputEl)
     expect(inputEl.value).toBe('5')
 
     // User unhovers over the input
     // The display formatter should now be called again
-    userEvent.unhover(inputEl)
+    await userEvent.unhover(inputEl)
     expect(inputEl.value).toBe('5 bar')
   })
 
-  it('handles "Enter" key as confirm action', () => {
+  it('handles "Enter" key as confirm action', async () => {
     render(<UpDownInput {...defaultProps} />)
 
     const inputEl = screen.getByRole('textbox')
 
-    userEvent.clear(inputEl)
-    userEvent.type(inputEl, '3{enter}')
+    await userEvent.clear(inputEl)
+    await userEvent.type(inputEl, '3{enter}')
 
     expect(handleUpdate).toHaveBeenLastCalledWith('3')
   })
 
-  it('handles "Escape" key to revert input', () => {
+  it('handles "Escape" key to revert input', async () => {
     render(<UpDownInput {...defaultProps} />)
 
     const inputEl = screen.getByRole('textbox')
 
-    userEvent.clear(inputEl)
-    userEvent.type(inputEl, '3{esc}')
+    await userEvent.clear(inputEl)
+    await userEvent.type(inputEl, '3{Escape}')
 
     // When this is reverted, the `handleUpdate` callback is called
     // with the original value, which is a number type, rather than
@@ -177,24 +177,24 @@ describe('UpDownInput', () => {
   // Fixes a bug where dirty input could be remembered between different
   // types of UI interactions. This test is currently skipped.
   // TODO: up/down handlers should affect and re-render component
-  it.skip('resets "dirty" input if user switches to +/- buttons', () => {
+  it.skip('resets "dirty" input if user switches to +/- buttons', async () => {
     render(<UpDownInput {...defaultProps} />)
 
     const inputEl = screen.getByRole('textbox')
     const upButton = screen.getByTitle('up')
 
-    userEvent.clear(inputEl)
-    userEvent.type(inputEl, '6{enter}')
-    userEvent.click(upButton)
+    await userEvent.clear(inputEl)
+    await userEvent.type(inputEl, '6{enter}')
+    await userEvent.click(upButton)
     expect(inputEl.value).toBe('7')
 
     // Expect value on hover to reflect new value (7), not previous "dirty"
     // value (6)
-    userEvent.hover(inputEl)
+    await userEvent.hover(inputEl)
     expect(inputEl.value).toBe('7')
 
     // User unhovers over the input
-    userEvent.unhover(inputEl)
+    await userEvent.unhover(inputEl)
     expect(inputEl.value).toBe('7')
   })
 })

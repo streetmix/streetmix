@@ -25,7 +25,7 @@ describe('LocationPopup', () => {
     expect(screen.getByText('foo')).not.toBe(null)
   })
 
-  it('renders a confirm button if location is editable', () => {
+  it('renders a confirm button if location is editable', async () => {
     const handleConfirm = jest.fn()
     const handleClear = jest.fn()
 
@@ -39,12 +39,12 @@ describe('LocationPopup', () => {
 
     // Button should exist and has the correct label
     // When button is clicked, `handleConfirm` should be called
-    userEvent.click(screen.getByText('Confirm location'))
+    await userEvent.click(screen.getByText('Confirm location'))
     expect(handleConfirm).toHaveBeenCalled()
     expect(handleClear).toHaveBeenCalledTimes(0)
   })
 
-  it('renders a clear button if location is clearable', () => {
+  it('renders a clear button if location is clearable', async () => {
     const handleConfirm = jest.fn()
     const handleClear = jest.fn()
 
@@ -58,7 +58,7 @@ describe('LocationPopup', () => {
     )
     // Button should exist and has the correct label
     // When button is clicked, `handleClear` should be called
-    userEvent.click(screen.getByText('Clear location'))
+    await userEvent.click(screen.getByText('Clear location'))
     expect(handleClear).toHaveBeenCalled()
     expect(handleConfirm).toHaveBeenCalledTimes(0)
   })

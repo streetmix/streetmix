@@ -52,20 +52,20 @@ describe('MenuBar', () => {
   })
 
   // Skipping because the dialog is disabled for now
-  it.skip('renders upgrade funnel and handles click', () => {
+  it.skip('renders upgrade funnel and handles click', async () => {
     const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />)
     expect(asFragment()).toMatchSnapshot()
-    userEvent.click(screen.getByText('Get Streetmix+', { exact: false }))
+    await userEvent.click(screen.getByText('Get Streetmix+', { exact: false }))
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('UPGRADE')
   })
 
-  it('handles a menu item click', () => {
+  it('handles a menu item click', async () => {
     const handler = jest.fn()
     render(<MenuBar onMenuDropdownClick={handler} />)
 
-    userEvent.click(screen.getByText('Share'))
+    await userEvent.click(screen.getByText('Share'))
 
     expect(handler).toBeCalledTimes(1)
   })

@@ -20,7 +20,7 @@ describe('IdentityMenu', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('shows "My streets" when its link is clicked', () => {
+  it('shows "My streets" when its link is clicked', async () => {
     render(<IdentityMenu isActive={true} />, {
       initialState: {
         user: {
@@ -31,16 +31,16 @@ describe('IdentityMenu', () => {
       }
     })
 
-    userEvent.click(screen.getByText('My streets'))
+    await userEvent.click(screen.getByText('My streets'))
 
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
 
-  it('signs the user out when its link is clicked', () => {
+  it('signs the user out when its link is clicked', async () => {
     render(<IdentityMenu isActive={true} />)
 
-    userEvent.click(screen.getByText('Sign out'))
+    await userEvent.click(screen.getByText('Sign out'))
 
     expect(onSignOutClick).toBeCalledTimes(1)
   })

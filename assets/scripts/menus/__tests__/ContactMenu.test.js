@@ -16,12 +16,12 @@ describe('ContactMenu', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('handles clicked menu items', () => {
+  it('handles clicked menu items', async () => {
     render(<ContactMenu isActive={true} />)
 
-    userEvent.click(screen.getByText('Discord', { exact: false }))
-    userEvent.click(screen.getByText('GitHub', { exact: false }))
-    userEvent.click(screen.getByText('newsletter', { exact: false }))
+    await userEvent.click(screen.getByText('Discord', { exact: false }))
+    await userEvent.click(screen.getByText('GitHub', { exact: false }))
+    await userEvent.click(screen.getByText('newsletter', { exact: false }))
 
     expect(showDialog).toBeCalledTimes(1)
   })

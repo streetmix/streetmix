@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import * as uiSlice from '../../store/slices/ui'
@@ -33,7 +33,7 @@ describe('EnvironmentEditor', () => {
 
   it.todo('selects an environment')
 
-  it.skip('closes when close button is clicked', () => {
+  it.skip('closes when close button is clicked', async () => {
     render(<EnvironmentEditor />, { initialState })
 
     // Mock the single action creator to test if it's called
@@ -46,9 +46,7 @@ describe('EnvironmentEditor', () => {
     // eslint-disable-next-line
     uiSlice.toggleToolbox = jest.fn().mockReturnValue({ type: 'MOCK_ACTION' })
 
-    waitFor(() => {
-      userEvent.click(screen.getByTitle('Dismiss'))
-    })
+    await userEvent.click(screen.getByTitle('Dismiss'))
 
     expect(uiSlice.toggleToolbox).toBeCalled()
   })

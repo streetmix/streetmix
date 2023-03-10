@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import NewsletterDialog from '../NewsletterDialog'
@@ -9,7 +9,6 @@ describe('NewsletterDialog', () => {
   beforeEach(() => {
     fetch.resetMocks()
     fetch.doMock()
-    jest.useFakeTimers()
   })
 
   it('renders snapshot', () => {
@@ -23,64 +22,63 @@ describe('NewsletterDialog', () => {
       () =>
         new Promise((resolve) => setTimeout(() => resolve({ status: 200 }), 2))
     )
+    const user = userEvent.setup()
 
     render(<NewsletterDialog />)
-    userEvent.type(screen.getByRole('textbox'), 'lou@louhuang.com')
-    userEvent.click(screen.getByText('Subscribe'))
-    jest.advanceTimersByTime(1)
 
-    await waitFor(() => {
-      expect(screen.queryByText('Please wait...')).toBeDisabled()
-    })
+    const input = screen.getByRole('textbox')
+    await user.click(input)
+    await user.keyboard('test@example.com')
+
+    expect(screen.getByRole('textbox')).toHaveValue('test@example.com')
+
+    await user.click(screen.getByText('Subscribe'))
+
+    expect(screen.queryByText('Please wait...')).toBeDisabled()
   })
 
   it('displays content on success state', async () => {
+    const user = userEvent.setup()
+
     render(<NewsletterDialog />)
 
-    userEvent.type(screen.getByRole('textbox'), 'lou@louhuang.com')
-    userEvent.click(screen.getByText('Subscribe'))
+    await user.type(screen.getByRole('textbox'), 'test@example.com')
+    await user.click(screen.getByText('Subscribe'))
 
-    await waitFor(() => {
-      expect(
-        screen.queryByText('Thank you!', { exact: false })
-      ).toBeInTheDocument()
-      expect(screen.queryByText('Subscribe')).not.toBeInTheDocument()
-      expect(screen.queryByText('Close')).toBeInTheDocument()
-    })
+    expect(
+      screen.queryByText('Thank you!', { exact: false })
+    ).toBeInTheDocument()
+    expect(screen.queryByText('Subscribe')).not.toBeInTheDocument()
+    expect(screen.queryByText('Close')).toBeInTheDocument()
   })
 
   it('displays content on error state from subscription endpoint', async () => {
     fetch.mockResponse('', { status: 500 })
+    const user = userEvent.setup()
+
     render(<NewsletterDialog />)
 
-    userEvent.type(screen.getByRole('textbox'), 'test@foo.com')
-    userEvent.click(screen.getByText('Subscribe'))
+    await user.type(screen.getByRole('textbox'), 'test@foo.com')
+    await user.click(screen.getByText('Subscribe'))
 
-    await waitFor(() => {
-      expect(
-        screen.queryByText('Something went wrong', { exact: false })
-      ).toBeInTheDocument()
-      expect(screen.queryByText('Subscribe')).toBeInTheDocument()
-    })
+    expect(
+      screen.queryByText('Something went wrong', { exact: false })
+    ).toBeInTheDocument()
+    expect(screen.queryByText('Subscribe')).toBeInTheDocument()
   })
 
   it('displays content on error state from client failure', async () => {
     fetch.mockReject(new Error('fake error message'))
+    const user = userEvent.setup()
+
     render(<NewsletterDialog />)
 
-    userEvent.type(screen.getByRole('textbox'), 'test@foo.com')
-    userEvent.click(screen.getByText('Subscribe'))
+    await user.type(screen.getByRole('textbox'), 'test@foo.com')
+    await user.click(screen.getByText('Subscribe'))
 
-    await waitFor(() => {
-      expect(
-        screen.queryByText('Something went wrong', { exact: false })
-      ).toBeInTheDocument()
-      expect(screen.queryByText('Subscribe')).toBeInTheDocument()
-    })
-  })
-
-  afterEach(() => {
-    jest.runOnlyPendingTimers()
-    jest.useRealTimers()
+    expect(
+      screen.queryByText('Something went wrong', { exact: false })
+    ).toBeInTheDocument()
+    expect(screen.queryByText('Subscribe')).toBeInTheDocument()
   })
 })

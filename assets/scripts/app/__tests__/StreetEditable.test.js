@@ -69,8 +69,8 @@ describe('StreetEditable', () => {
           />,
           { initialState: { street } }
         )
-        userEvent.hover(getByTestId('segment'))
-        userEvent.type(container, '+')
+        await userEvent.hover(getByTestId('segment'))
+        await userEvent.type(container, '+')
         await waitFor(
           () => {
             expect(store.getState().street.segments[0].width).toEqual(400)

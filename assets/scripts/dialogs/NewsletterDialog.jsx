@@ -179,4 +179,4 @@ const NewsletterDialog = (props) => {
   )
 }
 
-export default React.memo(NewsletterDialog)
+export default NewsletterDialog

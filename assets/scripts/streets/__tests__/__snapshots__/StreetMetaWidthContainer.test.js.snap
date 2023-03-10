@@ -24,6 +24,7 @@ exports[`StreetMetaWidthContainer renders selection dropdown on click 1`] = `
     class="street-metadata-width"
   >
     <select
+      aria-describedby="tippy-3"
       class="street-width-select"
     >
       <option

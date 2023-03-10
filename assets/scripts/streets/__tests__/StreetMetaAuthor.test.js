@@ -37,7 +37,7 @@ describe('StreetMetaAuthor', () => {
     expect(container.firstChild).toBe(null)
   })
 
-  it('renders street creator byline if you are signed in and it’s not yours', () => {
+  it('renders street creator byline if you are signed in and it’s not yours', async () => {
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
@@ -52,12 +52,12 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    userEvent.click(getByText('foo'))
+    await userEvent.click(getByText('foo'))
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
 
-  it('renders street creator byline if you are not signed in', () => {
+  it('renders street creator byline if you are not signed in', async () => {
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
@@ -72,7 +72,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    userEvent.click(getByText('foo'))
+    await userEvent.click(getByText('foo'))
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })

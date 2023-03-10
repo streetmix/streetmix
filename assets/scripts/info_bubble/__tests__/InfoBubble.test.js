@@ -118,15 +118,15 @@ describe('InfoBubble', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('sets info bubble mouse inside', () => {
+  it('sets info bubble mouse inside', async () => {
     const { container, store } = render(<InfoBubble />, {
       initialState
     })
 
-    userEvent.hover(container.firstChild)
+    await userEvent.hover(container.firstChild)
     expect(store.getState().infoBubble.mouseInside).toEqual(true)
 
-    userEvent.unhover(container.firstChild)
+    await userEvent.unhover(container.firstChild)
     expect(store.getState().infoBubble.mouseInside).toEqual(false)
   })
 })

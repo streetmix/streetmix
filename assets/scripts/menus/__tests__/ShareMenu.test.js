@@ -170,41 +170,41 @@ describe('ShareMenu', () => {
     })
   })
 
-  it('handles clicking sign in link', () => {
+  it('handles clicking sign in link', async () => {
     render(<ShareMenu isActive={true} />, {
       initialState: { user: { signedIn: false } }
     })
-    userEvent.click(screen.getByText('Sign in'))
+    await userEvent.click(screen.getByText('Sign in'))
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('SIGN_IN')
   })
 
-  it('handles clicking Twitter', () => {
+  it('handles clicking Twitter', async () => {
     render(<ShareMenu isActive={true} />)
-    userEvent.click(screen.getByText('Twitter', { exact: false }))
+    await userEvent.click(screen.getByText('Twitter', { exact: false }))
   })
 
-  it('handles clicking Facebook', () => {
+  it('handles clicking Facebook', async () => {
     render(<ShareMenu isActive={true} />)
-    userEvent.click(screen.getByText('Facebook', { exact: false }))
+    await userEvent.click(screen.getByText('Facebook', { exact: false }))
   })
 
-  it('handles clicking save as image', () => {
+  it('handles clicking save as image', async () => {
     render(<ShareMenu isActive={true} />)
-    userEvent.click(screen.getByText('Save as image', { exact: false }))
+    await userEvent.click(screen.getByText('Save as image', { exact: false }))
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('SAVE_AS_IMAGE')
   })
 
-  it('handles clicking print', () => {
+  it('handles clicking print', async () => {
     const { store } = render(<ShareMenu isActive={true} />)
-    userEvent.click(screen.getByText('Print', { exact: false }))
+    await userEvent.click(screen.getByText('Print', { exact: false }))
     expect(store.getState().app.printing).toBe(true)
   })
 
-  it('handles clicking copy to clipboard', () => {
+  it('handles clicking copy to clipboard', async () => {
     render(<ShareMenu isActive={true} />)
-    userEvent.click(screen.getByTitle('Copy to clipboard'))
+    await userEvent.click(screen.getByTitle('Copy to clipboard'))
     expect(copy).toBeCalledTimes(1)
   })
 
