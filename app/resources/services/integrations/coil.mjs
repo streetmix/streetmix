@@ -1,18 +1,19 @@
-const { Buffer } = require('node:buffer')
-const passport = require('passport')
-const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
-const InternalOAuthError = require('passport-oauth2').InternalOAuthError
-const axios = require('axios')
-const { User } = require('../../../db/models')
-const appURL = require('../../../lib/url.js')
-const logger = require('../../../lib/logger.js')
-
-const {
+import { Buffer } from 'node:buffer'
+import passport from 'passport'
+import { OAuth2Strategy } from 'passport-oauth'
+import { InternalOAuthError } from 'passport-oauth2'
+import axios from 'axios'
+import models from '../../../db/models/index.js'
+import appURL from '../../../lib/url.js'
+import logger from '../../../lib/logger.js'
+import {
   findUser,
   addUserConnection,
   syncAccountStatus,
   addOrUpdateByProviderName
-} = require('./helpers')
+} from './helpers.mjs'
+
+const { User } = models
 
 /**
  * One-liner implementation of `btoa()` (which is available globally)
@@ -76,7 +77,9 @@ const initCoil = () => {
       done(null, profile)
     } catch (error) {
       logger.error(error)
-      return done(new InternalOAuthError('failed to fetch user profile', error))
+      return done(
+        new InternalOAuthError('failed to fetch user profile', error)
+      )
     }
   }
 
@@ -103,7 +106,7 @@ if (process.env.COIL_CLIENT_ID && process.env.COIL_CLIENT_SECRET) {
   initCoil()
 }
 
-exports.get = (req, res, next) => {
+export function get (req, res, next) {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
     return
@@ -123,7 +126,7 @@ exports.get = (req, res, next) => {
   })(req, res, next)
 }
 
-exports.callback = (req, res, next) => {
+export function callback (req, res, next) {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
     return
@@ -135,7 +138,7 @@ exports.callback = (req, res, next) => {
 }
 
 // Check for coil provider to set access token to stream payments
-exports.BTPTokenCheck = async (req, res, next) => {
+export async function BTPTokenCheck (req, res, next) {
   if (!req.auth?.sub) {
     return next()
   }
@@ -180,7 +183,7 @@ exports.BTPTokenCheck = async (req, res, next) => {
 }
 
 // passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourselves
-const refreshAccessToken = async (refreshToken) => {
+export async function refreshAccessToken (refreshToken) {
   try {
     const encodedAuth = btoa(
       process.env.COIL_CLIENT_ID +
@@ -207,9 +210,7 @@ const refreshAccessToken = async (refreshToken) => {
   }
 }
 
-exports.refreshAccessToken = refreshAccessToken
-
-const getBTPToken = async (accessToken) => {
+export async function getBTPToken (accessToken) {
   try {
     const requestConfig = {
       method: 'post',
@@ -227,13 +228,11 @@ const getBTPToken = async (accessToken) => {
   }
 }
 
-exports.getBTPToken = getBTPToken
-
 /**
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
  */
-exports.connectUser = async (req, res, next) => {
+export async function connectUser (req, res, next) {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
   const account = req.account

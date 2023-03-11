@@ -1,5 +1,5 @@
-const fs = require('fs/promises')
-const logger = require('../../lib/logger.js')
+import * as fs from 'node:fs/promises'
+import logger from '../../lib/logger.js'
 
 const flagFile = `${process.cwd()}/docs/docs/user-guide/changelog.md`
 
@@ -35,7 +35,7 @@ function sendSuccessResponse (res, content) {
   res.status(200).send(mdContent.trim())
 }
 
-exports.get = async function (req, res) {
+export async function get (req, res) {
   const content = await getFileContent(res)
 
   if (content) {

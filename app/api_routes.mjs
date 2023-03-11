@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import resources from './resources/index.js'
+import v1 from './resources/v1/index.js'
 import jwtCheck from './authentication.mjs'
-import { BTPTokenCheck } from './resources/services/integrations/coil.js'
+import { BTPTokenCheck } from './resources/services/integrations/coil.mjs'
 
 // Base path of router is `/api` (see app.mjs)
 const router = Router()
@@ -278,7 +278,7 @@ router.options('*', cors())
  *         schema:
  *           $ref: '#/definitions/User'
  */
-router.post('/v1/users', cors(), jwtCheck, resources.v1.users.post)
+router.post('/v1/users', cors(), jwtCheck, v1.users.post)
 
 /**
  * @swagger
@@ -303,7 +303,7 @@ router.post('/v1/users', cors(), jwtCheck, resources.v1.users.post)
  *           items:
  *             $ref: '#/definitions/User'
  */
-router.get('/v1/users', cors(), jwtCheck, resources.v1.users.get)
+router.get('/v1/users', cors(), jwtCheck, v1.users.get)
 
 // API: single user
 
@@ -393,15 +393,9 @@ router.get('/v1/users', cors(), jwtCheck, resources.v1.users.get)
  *           $ref: '#/definitions/User'
  *
  */
-router.get(
-  '/v1/users/:user_id',
-  cors(),
-  jwtCheck,
-  BTPTokenCheck,
-  resources.v1.users.get
-)
-router.put('/v1/users/:user_id', cors(), jwtCheck, resources.v1.users.put)
-router.delete('/v1/users/:user_id', cors(), jwtCheck, resources.v1.users.delete)
+router.get('/v1/users/:user_id', cors(), jwtCheck, BTPTokenCheck, v1.users.get)
+router.put('/v1/users/:user_id', cors(), jwtCheck, v1.users.put)
+router.delete('/v1/users/:user_id', cors(), jwtCheck, v1.users.delete)
 
 /**
  * @swagger
@@ -428,7 +422,7 @@ router.delete(
   '/v1/users/:user_id/login-token',
   cors(),
   jwtCheck,
-  resources.v1.user_session.delete
+  v1.user_session.delete
 )
 
 /**
@@ -477,9 +471,9 @@ router.delete(
   '/v1/users/:user_id/streets',
   cors(),
   jwtCheck,
-  resources.v1.users_streets.delete
+  v1.users_streets.delete
 )
-router.get('/v1/users/:user_id/streets', cors(), resources.v1.users_streets.get)
+router.get('/v1/users/:user_id/streets', cors(), v1.users_streets.get)
 
 /**
  * @swagger
@@ -505,7 +499,7 @@ router.get('/v1/users/:user_id/streets', cors(), resources.v1.users_streets.get)
  *         schema:
  *           $ref: '#/definitions/Street'
  */
-router.post('/v1/streets', jwtCheck, resources.v1.streets.post)
+router.post('/v1/streets', jwtCheck, v1.streets.post)
 
 /**
  * @swagger
@@ -575,8 +569,8 @@ router.post('/v1/streets', jwtCheck, resources.v1.streets.post)
  *           items:
  *             $ref: '#/definitions/Street'
  */
-router.get('/v1/streets', jwtCheck, resources.v1.streets.find)
-router.head('/v1/streets', jwtCheck, resources.v1.streets.find)
+router.get('/v1/streets', jwtCheck, v1.streets.find)
+router.head('/v1/streets', jwtCheck, v1.streets.find)
 
 /**
  * @swagger
@@ -675,10 +669,10 @@ router.head('/v1/streets', jwtCheck, resources.v1.streets.find)
  *           $ref: '#/definitions/Street'
  *
  */
-router.delete('/v1/streets/:street_id', jwtCheck, resources.v1.streets.delete)
-router.head('/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
-router.get('/v1/streets/:street_id', jwtCheck, resources.v1.streets.get)
-router.put('/v1/streets/:street_id', jwtCheck, resources.v1.streets.put)
+router.delete('/v1/streets/:street_id', jwtCheck, v1.streets.delete)
+router.head('/v1/streets/:street_id', jwtCheck, v1.streets.get)
+router.get('/v1/streets/:street_id', jwtCheck, v1.streets.get)
+router.put('/v1/streets/:street_id', jwtCheck, v1.streets.put)
 
 /**
  * @swagger
@@ -753,18 +747,14 @@ router.post(
   '/v1/streets/:street_id/images',
   bodyParser.text({ limit: '3mb' }),
   jwtCheck,
-  resources.v1.street_images.post
+  v1.street_images.post
 )
 router.delete(
   '/v1/streets/:street_id/images',
   jwtCheck,
-  resources.v1.street_images.delete
+  v1.street_images.delete
 )
-router.get(
-  '/v1/streets/:street_id/images',
-  jwtCheck,
-  resources.v1.street_images.get
-)
+router.get('/v1/streets/:street_id/images', jwtCheck, v1.street_images.get)
 
 /**
  * @swagger
@@ -792,11 +782,7 @@ router.get(
  *           items:
  *             $ref: '#/definitions/Street'
  */
-router.get(
-  '/v1/streets/:street_id/remixes',
-  jwtCheck,
-  resources.v1.street_remixes.get
-)
+router.get('/v1/streets/:street_id/remixes', jwtCheck, v1.street_remixes.get)
 
 /**
  * @swagger
@@ -818,12 +804,9 @@ router.get(
  *       - application/json
  *     responses:
  *       200:
- *         description: Translations for streetmix resources. Shape depends on resource.
+ *         description: Translations for streetmix  Shape depends on resource.
  */
-router.get(
-  '/v1/translate/:locale_code/:resource_name',
-  resources.v1.translate.get
-)
+router.get('/v1/translate/:locale_code/:resource_name', v1.translate.get)
 
 /**
  * @swagger
@@ -840,7 +823,7 @@ router.get(
  *         schema:
  *           $ref: '#/definitions/Flags'
  */
-router.get('/v1/flags', cors(), resources.v1.flags.get)
+router.get('/v1/flags', cors(), v1.flags.get)
 
 /**
  * @swagger
@@ -868,7 +851,7 @@ router.get('/v1/flags', cors(), resources.v1.flags.get)
  *             voterId:
  *               type: string
  */
-router.get('/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
+router.get('/v1/votes', cors(), jwtCheck, v1.votes.get)
 
 /**
  * @swagger
@@ -909,8 +892,8 @@ router.get('/v1/votes', cors(), jwtCheck, resources.v1.votes.get)
  *             voterId:
  *               type: string
  */
-router.post('/v1/votes', cors(), jwtCheck, resources.v1.votes.post)
-router.put('/v1/votes', cors(), jwtCheck, resources.v1.votes.put)
+router.post('/v1/votes', cors(), jwtCheck, v1.votes.post)
+router.put('/v1/votes', cors(), jwtCheck, v1.votes.put)
 
 // Catch all for all broken api paths, direct to 404 response.
 router.all('*', (req, res) => {

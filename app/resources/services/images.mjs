@@ -1,8 +1,8 @@
-const cloudinary = require('cloudinary')
-const User = require('../../db/models/user.js')
-const logger = require('../../lib/logger.js')
+import cloudinary from 'cloudinary'
+import User from '../../db/models/user.js'
+import logger from '../../lib/logger.js'
 
-exports.get = async function (req, res) {
+export async function get (req, res) {
   const query = req.query
 
   if (!req.auth?.sub) {
