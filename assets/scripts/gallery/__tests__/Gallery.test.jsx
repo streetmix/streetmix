@@ -98,7 +98,7 @@ describe('Gallery', () => {
     expect(screen.getByText('Failed to load the gallery.')).toBeInTheDocument()
   })
 
-  it('closes on shield click', () => {
+  it('closes on shield click', async () => {
     const initialState = {
       gallery: {
         visible: true,
@@ -107,24 +107,24 @@ describe('Gallery', () => {
     }
 
     render(<Gallery />, { initialState })
-    userEvent.click(screen.getByTestId('gallery-shield'))
+    await userEvent.click(screen.getByTestId('gallery-shield'))
     expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 
   describe('street item', () => {
-    it('selects street', () => {
+    it('selects street', async () => {
       const { getByText } = render(<Gallery />, {
         initialState
       })
-      userEvent.click(getByText('Baz'))
+      await userEvent.click(getByText('Baz'))
       expect(switchGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
     })
 
-    it('deletes street', () => {
+    it('deletes street', async () => {
       const { getByTitle, queryByTitle } = render(<Gallery />, {
         initialState
       })
-      userEvent.click(getByTitle('Delete street'))
+      await userEvent.click(getByTitle('Delete street'))
 
       // There's only one street "displayed" so we expect no "delete street"
       // button to be rendered anymore, since that street should be deleted.

@@ -12,16 +12,16 @@ describe('MenuBarItem', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('handles the click on a button', () => {
+  it('handles the click on a button', async () => {
     const handleClick = jest.fn()
     render(<MenuBarItem onClick={handleClick}>label</MenuBarItem>)
 
-    userEvent.click(screen.getByRole('button'))
+    await userEvent.click(screen.getByRole('button'))
 
     expect(handleClick).toBeCalled()
   })
 
-  it('handles the click on a link', () => {
+  it('handles the click on a link', async () => {
     const handleClick = jest.fn()
     render(
       <MenuBarItem url="#" onClick={handleClick}>
@@ -30,7 +30,7 @@ describe('MenuBarItem', () => {
     )
 
     // Expect an anchor tag element to be present, then click it
-    userEvent.click(screen.getByRole('link'))
+    await userEvent.click(screen.getByRole('link'))
 
     expect(handleClick).toBeCalled()
   })

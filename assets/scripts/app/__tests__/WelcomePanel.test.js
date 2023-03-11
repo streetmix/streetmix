@@ -85,9 +85,9 @@ describe('WelcomePanel', () => {
         apiMock.onAny().reply(200, apiResponse)
       })
 
-      await waitFor(() => {
+      await waitFor(async () => {
         const input = getByLabelText(/Start with a copy/)
-        userEvent.click(input)
+        await userEvent.click(input)
         expect(input.checked).toBe(true)
       })
     })

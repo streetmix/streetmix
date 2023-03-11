@@ -69,7 +69,7 @@ describe('StreetMetaWidthLabel', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('calls onClick handler when clicked', () => {
+  it('calls onClick handler when clicked', async () => {
     const handleClick = jest.fn()
     render(
       <StreetMetaWidthLabel
@@ -79,7 +79,7 @@ describe('StreetMetaWidthLabel', () => {
       />
     )
 
-    userEvent.click(screen.getByText('3 m width'))
+    await userEvent.click(screen.getByText('3 m width'))
     expect(handleClick).toBeCalled()
   })
 })

@@ -98,7 +98,8 @@ describe('Segment', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('shows the info bubble on mouseover', () => {
+  it('shows the info bubble on mouseover', async () => {
+    const user = userEvent.setup()
     render(
       <Segment
         segment={segment}
@@ -114,11 +115,12 @@ describe('Segment', () => {
         }
       }
     )
-    userEvent.hover(screen.getByTestId('segment'))
+    await user.hover(screen.getByTestId('segment'))
     expect(infoBubble.considerShowing).toHaveBeenCalled()
   })
 
-  it('hides the info bubble on mouseleave', () => {
+  it('hides the info bubble on mouseleave', async () => {
+    const user = userEvent.setup()
     render(
       <Segment
         segment={segment}
@@ -134,13 +136,14 @@ describe('Segment', () => {
         }
       }
     )
-    userEvent.hover(screen.getByTestId('segment'))
-    userEvent.unhover(screen.getByTestId('segment'))
+    await user.hover(screen.getByTestId('segment'))
+    await user.unhover(screen.getByTestId('segment'))
     expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
 
   describe('keyboard events', () => {
-    it('decreases the width of the segment when minus key is pressed', () => {
+    it('decreases the width of the segment when minus key is pressed', async () => {
+      const user = userEvent.setup()
       const { store } = render(
         <Segment
           segment={segment}
@@ -156,14 +159,15 @@ describe('Segment', () => {
           }
         }
       )
-      userEvent.hover(screen.getByTestId('segment'))
-      userEvent.type(document.body, '-')
+      await user.hover(screen.getByTestId('segment'))
+      await user.keyboard('-')
       expect(store.getState().street.segments[activeElement].width).toEqual(
         currentWidth - increment
       )
     })
 
-    it('increases the width of the segment when plus key is pressed', () => {
+    it('increases the width of the segment when plus key is pressed', async () => {
+      const user = userEvent.setup()
       const { store } = render(
         <Segment
           segment={segment}
@@ -179,14 +183,15 @@ describe('Segment', () => {
           }
         }
       )
-      userEvent.hover(screen.getByTestId('segment'))
-      userEvent.type(document.body, '+')
+      await user.hover(screen.getByTestId('segment'))
+      await user.keyboard('+')
       expect(store.getState().street.segments[activeElement].width).toEqual(
         currentWidth + increment
       )
     })
 
-    it('removes segment when delete key is pressed', () => {
+    it('removes segment when delete key is pressed', async () => {
+      const user = userEvent.setup()
       const { store } = render(
         <Segment
           segment={segment}
@@ -203,14 +208,15 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      userEvent.hover(screen.getByTestId('segment'))
-      userEvent.keyboard('{Delete}')
+      await user.hover(screen.getByTestId('segment'))
+      await user.keyboard('{Delete}')
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)
     })
 
-    it('removes all segments when shift+delete keys are pressed', () => {
+    it('removes all segments when shift+delete keys are pressed', async () => {
+      const user = userEvent.setup()
       const { store } = render(
         <Segment
           segment={segment}
@@ -227,8 +233,8 @@ describe('Segment', () => {
         }
       )
       setLastStreet() // ToDo: needs to be refactored
-      userEvent.hover(screen.getByTestId('segment'))
-      userEvent.keyboard('{shift}{Delete}{/shift}')
+      await user.hover(screen.getByTestId('segment'))
+      await user.keyboard('{Shift>}{Delete}{/Shift}')
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)

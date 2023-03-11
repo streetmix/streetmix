@@ -62,12 +62,12 @@ describe('Variants', () => {
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('handles switching segment variant', () => {
+    it('handles switching segment variant', async () => {
       const { store } = render(
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
-      userEvent.click(screen.getByTitle('Outbound'))
+      await userEvent.click(screen.getByTitle('Outbound'))
       expect(store.getState().street.segments[0].variant.direction).toBe(
         'outbound'
       )
@@ -78,21 +78,21 @@ describe('Variants', () => {
   })
 
   describe('building variants', () => {
-    it('handles switching left building', () => {
+    it('handles switching left building', async () => {
       const { store } = render(
         <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
         { initialState }
       )
-      userEvent.click(screen.getByTitle('Waterfront'))
+      await userEvent.click(screen.getByTitle('Waterfront'))
       expect(store.getState().street.leftBuildingVariant).toBe('waterfront')
     })
 
-    it('handles switching right building', () => {
+    it('handles switching right building', async () => {
       const { store } = render(
         <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
         { initialState }
       )
-      userEvent.click(screen.getByTitle('Waterfront'))
+      await userEvent.click(screen.getByTitle('Waterfront'))
       expect(store.getState().street.rightBuildingVariant).toBe('waterfront')
     })
   })

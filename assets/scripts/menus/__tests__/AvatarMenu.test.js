@@ -33,10 +33,10 @@ describe('AvatarMenu', () => {
     expect(screen.queryByTitle('Streetmix+ member')).toBeInTheDocument()
   })
 
-  it('calls click handler', () => {
+  it('calls click handler', async () => {
     const onClick = jest.fn()
     render(<AvatarMenu user={user} onClick={onClick} />)
-    userEvent.click(screen.getByText(user.id))
+    await userEvent.click(screen.getByText(user.id))
     expect(onClick).toHaveBeenCalled()
   })
 })

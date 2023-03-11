@@ -72,7 +72,9 @@ describe('PaletteContainer', () => {
     // element, because we are unable to wrap the <li> with <Tooltip> and then
     // send it to react-dnd. This limitation means we touch the implementation
     // in order to test hover on the correct element.
-    userEvent.hover(screen.getAllByRole('listitem')[0].querySelector('div'))
+    await userEvent.hover(
+      screen.getAllByRole('listitem')[0].querySelector('div')
+    )
 
     await waitFor(() => {
       expect(screen.getByText('Sidewalk')).toBeInTheDocument()

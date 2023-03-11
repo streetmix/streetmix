@@ -18,11 +18,11 @@ describe('DebugInfo', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('is visible when opened with keyboard shortcut', () => {
+  it('is visible when opened with keyboard shortcut', async () => {
     const { container, asFragment } = render(<DebugInfo />, {
       initialState
     })
-    userEvent.type(container, '{shift}D')
+    await userEvent.type(container, '{shift}D')
     expect(asFragment()).toMatchSnapshot()
   })
 })

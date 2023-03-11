@@ -15,7 +15,7 @@ describe('StreetMetaAnalytics', () => {
     showDialog.mockClear()
   })
 
-  it('renders analytics and opens a dialog when clicked', () => {
+  it('renders analytics and opens a dialog when clicked', async () => {
     const { getByText } = render(<StreetMetaAnalytics />, {
       initialState: {
         street: {
@@ -36,7 +36,7 @@ describe('StreetMetaAnalytics', () => {
       }
     })
 
-    userEvent.click(getByText('20,000 people/hr'))
+    await userEvent.click(getByText('20,000 people/hr'))
     expect(showDialog).toBeCalledTimes(1)
   })
 })

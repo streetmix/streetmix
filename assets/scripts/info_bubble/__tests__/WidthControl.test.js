@@ -29,11 +29,11 @@ describe('WidthControl', () => {
   })
 
   describe('increase width', () => {
-    it('increaeses store width', () => {
+    it('increaeses store width', async () => {
       const { store } = render(<WidthControl position={activeElement} />, {
         initialState: { street: { segments: [segment], units: 1 } }
       })
-      userEvent.click(screen.getByTitle(/Increase width/i))
+      await userEvent.click(screen.getByTitle(/Increase width/i))
       expect(store.getState().street.segments[activeElement].width).toEqual(
         200.5
       )
@@ -41,11 +41,11 @@ describe('WidthControl', () => {
   })
 
   describe('decrease width', () => {
-    it('decreaeses store width', () => {
+    it('decreaeses store width', async () => {
       const { store } = render(<WidthControl position={activeElement} />, {
         initialState: { street: { segments: [segment], units: 1 } }
       })
-      userEvent.click(screen.getByTitle(/Decrease width/i))
+      await userEvent.click(screen.getByTitle(/Decrease width/i))
       expect(store.getState().street.segments[activeElement].width).toEqual(
         199.5
       )

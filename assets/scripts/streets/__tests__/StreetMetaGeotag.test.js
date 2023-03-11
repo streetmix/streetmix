@@ -15,14 +15,14 @@ describe('StreetMetaGeotag', () => {
     showDialog.mockClear()
   })
 
-  it('renders placeholder label and opens dialog if location is editable (it is by default)', () => {
+  it('renders placeholder label and opens dialog if location is editable (it is by default)', async () => {
     const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {}
       }
     })
 
-    userEvent.click(getByText('Add location'))
+    await userEvent.click(getByText('Add location'))
     expect(showDialog).toBeCalledTimes(1)
   })
 
@@ -39,7 +39,7 @@ describe('StreetMetaGeotag', () => {
     expect(showDialog).toBeCalledTimes(0)
   })
 
-  it('renders location label and opens dialog if location is editable', () => {
+  it('renders location label and opens dialog if location is editable', async () => {
     const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {
@@ -55,11 +55,11 @@ describe('StreetMetaGeotag', () => {
       }
     })
 
-    userEvent.click(getByText('foo, bar'))
+    await userEvent.click(getByText('foo, bar'))
     expect(showDialog).toBeCalledTimes(1)
   })
 
-  it('renders location label but does nothing on click if location is not editable', () => {
+  it('renders location label but does nothing on click if location is not editable', async () => {
     const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {
@@ -75,7 +75,7 @@ describe('StreetMetaGeotag', () => {
       }
     })
 
-    userEvent.click(getByText('foo, bar'))
+    await userEvent.click(getByText('foo, bar'))
     expect(showDialog).toBeCalledTimes(0)
   })
 

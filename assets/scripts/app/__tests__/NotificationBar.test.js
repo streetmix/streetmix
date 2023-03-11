@@ -83,11 +83,11 @@ describe('NotificationBar', () => {
   })
 
   describe('dismiss', () => {
-    it('is no longer rendered after clicking the close button', () => {
+    it('is no longer rendered after clicking the close button', async () => {
       render(<NotificationBar notification={TEST_NOTIFICATION} />, {
         initialState
       })
-      userEvent.click(screen.getByTitle('Dismiss'))
+      await userEvent.click(screen.getByTitle('Dismiss'))
       expect(screen.queryByText(TEST_NOTIFICATION.lede)).toBeNull()
     })
   })

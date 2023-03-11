@@ -44,7 +44,7 @@ describe('StreetNameplateContainer', () => {
     expect(screen.getByText('Unnamed St')).toBeInTheDocument()
   })
 
-  it('handles click and name change', () => {
+  it('handles click and name change', async () => {
     // Mock window.prompt() and have it return a new name
     const mockPrompt = jest.spyOn(window, 'prompt')
     mockPrompt.mockImplementation(() => 'bar')
@@ -53,14 +53,14 @@ describe('StreetNameplateContainer', () => {
     render(<StreetNameplateContainer />, {
       initialState
     })
-    userEvent.click(screen.getByText('foo'))
+    await userEvent.click(screen.getByText('foo'))
     expect(screen.getByText('bar')).toBeInTheDocument()
 
     // Restore mock
     mockPrompt.mockRestore()
   })
 
-  it('doesn’t change the name if prompt returns empty string', () => {
+  it('doesn’t change the name if prompt returns empty string', async () => {
     // Mock window.prompt() and have it return a new name
     const mockPrompt = jest.spyOn(window, 'prompt')
     mockPrompt.mockImplementation(() => '')
@@ -69,26 +69,26 @@ describe('StreetNameplateContainer', () => {
     render(<StreetNameplateContainer />, {
       initialState
     })
-    userEvent.click(screen.getByText('foo'))
+    await userEvent.click(screen.getByText('foo'))
     expect(screen.getByText('foo')).toBeInTheDocument()
 
     // Restore mock
     mockPrompt.mockRestore()
   })
 
-  it('shows a "Click to edit" message when mouse is hovering over it', () => {
+  it('shows a "Click to edit" message when mouse is hovering over it', async () => {
     render(<StreetNameplateContainer />, {
       initialState
     })
 
-    userEvent.hover(screen.getByText('foo'))
+    await userEvent.hover(screen.getByText('foo'))
     expect(screen.getByText('Click to rename')).toBeInTheDocument()
 
-    userEvent.unhover(screen.getByText('foo'))
+    await userEvent.unhover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 
-  it('does not show a "Click to edit" message when street name is not editable', () => {
+  it('does not show a "Click to edit" message when street name is not editable', async () => {
     render(<StreetNameplateContainer />, {
       initialState: {
         ...initialState,
@@ -101,10 +101,10 @@ describe('StreetNameplateContainer', () => {
       }
     })
 
-    userEvent.hover(screen.getByText('foo'))
+    await userEvent.hover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
 
-    userEvent.unhover(screen.getByText('foo'))
+    await userEvent.unhover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 })

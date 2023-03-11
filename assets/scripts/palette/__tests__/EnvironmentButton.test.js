@@ -15,11 +15,11 @@ jest.mock('../../store/slices/ui', () => ({
 // Note: "default" render snapshot is covered by a test on the parent
 // component. This test only covers interactions on this component.
 describe('EnvironmentButton', () => {
-  it('handles click action', () => {
+  it('handles click action', async () => {
     render(<EnvironmentButton />)
 
     // Click the tools button
-    userEvent.click(screen.getByTitle('Environment editor'))
+    await userEvent.click(screen.getByTitle('Environment editor'))
 
     expect(toggleToolbox).toBeCalled()
   })

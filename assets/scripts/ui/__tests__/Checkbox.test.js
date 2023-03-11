@@ -28,12 +28,12 @@ describe('Checkbox', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('handles click on the label text', () => {
+  it('handles click on the label text', async () => {
     const handleChange = jest.fn()
     const { getByText } = render(
       <Checkbox onChange={handleChange}>foo</Checkbox>
     )
-    userEvent.click(getByText('foo'))
+    await userEvent.click(getByText('foo'))
     expect(handleChange).toHaveBeenCalledTimes(1)
   })
 })

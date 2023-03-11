@@ -53,15 +53,15 @@ describe('GalleryStreetItem', () => {
     expect(screen.getByText('Anonymous')).toBeInTheDocument()
   })
 
-  it('handles select', () => {
+  it('handles select', async () => {
     const doSelect = jest.fn()
     render(<GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />)
 
-    userEvent.click(screen.getByText(MOCK_STREET.name))
+    await userEvent.click(screen.getByText(MOCK_STREET.name))
     expect(doSelect).toBeCalled()
   })
 
-  it('handles delete when confirmed', () => {
+  it('handles delete when confirmed', async () => {
     const doDelete = jest.fn()
     window.confirm = jest.fn(() => true)
 
@@ -73,11 +73,11 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    userEvent.click(screen.getByTitle('Delete street'))
+    await userEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).toBeCalled()
   })
 
-  it('does not delete when confirmation is cancelled', () => {
+  it('does not delete when confirmation is cancelled', async () => {
     const doDelete = jest.fn()
     window.confirm = jest.fn(() => false)
 
@@ -89,7 +89,7 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    userEvent.click(screen.getByTitle('Delete street'))
+    await userEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).not.toBeCalled()
   })
 })

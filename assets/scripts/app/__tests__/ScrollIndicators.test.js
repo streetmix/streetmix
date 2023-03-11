@@ -24,30 +24,30 @@ describe('ScrollIndicators', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('handles scroll left on click', () => {
+  it('handles scroll left on click', async () => {
     const scrollStreet = jest.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
-    userEvent.click(screen.getByText('‹'))
+    await userEvent.click(screen.getByText('‹'))
 
     expect(scrollStreet).toBeCalled()
   })
 
-  it('handles scroll right on click', () => {
+  it('handles scroll right on click', async () => {
     const scrollStreet = jest.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
-    userEvent.click(screen.getByText('›››'))
+    await userEvent.click(screen.getByText('›››'))
 
     expect(scrollStreet).toBeCalled()
   })
 
   // TODO: figure out how to make keypress tests work
-  it.skip('handles scroll left on keypress', () => {
+  it.skip('handles scroll left on keypress', async () => {
     const scrollStreet = jest.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
-    userEvent.type('{arrowleft}')
+    await userEvent.type('{arrowleft}')
 
     expect(scrollStreet).toBeCalled()
   })

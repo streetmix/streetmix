@@ -24,19 +24,19 @@ describe('HelpMenu', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('shows the About dialog when its link is clicked', () => {
+  it('shows the About dialog when its link is clicked', async () => {
     render(<HelpMenu isActive={true} />)
 
-    userEvent.click(screen.getByText('About Streetmix…'))
+    await userEvent.click(screen.getByText('About Streetmix…'))
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('ABOUT')
   })
 
-  it('shows the What’s New dialog when its link is clicked', () => {
+  it('shows the What’s New dialog when its link is clicked', async () => {
     render(<HelpMenu isActive={true} />)
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByText('What’s new in Streetmix?', { exact: false })
     )
 
@@ -48,10 +48,10 @@ describe('HelpMenu', () => {
   // event is listened to on the window. It's possible this is out
   // of scope for a unit test and should be captured in the
   // end-to-end acceptance testing instead.
-  it.skip('shows the About dialog when keyboard shortcut is pressed', () => {
+  it.skip('shows the About dialog when keyboard shortcut is pressed', async () => {
     render(<HelpMenu isActive={true} />)
 
-    userEvent.type('?')
+    await userEvent.type('?')
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('ABOUT')

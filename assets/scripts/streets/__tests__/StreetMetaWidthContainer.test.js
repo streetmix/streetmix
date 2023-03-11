@@ -11,13 +11,13 @@ describe('StreetMetaWidthContainer', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('renders selection dropdown on click', () => {
+  it('renders selection dropdown on click', async () => {
     const { asFragment } = render(<StreetMetaWidthContainer />)
-    userEvent.click(screen.getByText('0 m width'))
+    await userEvent.click(screen.getByText('0 m width'))
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it.skip('updates street label on selection change', () => {
+  it.skip('updates street label on selection change', async () => {
     const updateStreetWidth = jest.fn()
     const changeValue = 10
 
@@ -30,7 +30,7 @@ describe('StreetMetaWidthContainer', () => {
         updateStreetWidth={updateStreetWidth}
       />
     )
-    userEvent.click(screen.getByTitle('Change width of the street'))
+    await userEvent.click(screen.getByTitle('Change width of the street'))
     userEvent.selectOptions(screen.getByRole('listbox'), changeValue)
 
     expect(updateStreetWidth).toBeCalledWith(changeValue)
@@ -40,7 +40,7 @@ describe('StreetMetaWidthContainer', () => {
     expect(screen.getByTitle('Change width of the street')).not.toBe(null)
   })
 
-  it.skip('does not render selection dropdown on click when not editable', () => {
+  it.skip('does not render selection dropdown on click when not editable', async () => {
     // TODO: This should pass, but `editable={false}` is never set
     // Either update `render()` to allow props to override Redux connect,
     // or set initial state (even though it tightly couples component specification to Redux store)
@@ -51,7 +51,7 @@ describe('StreetMetaWidthContainer', () => {
         updateStreetWidth={jest.fn()}
       />
     )
-    userEvent.click(screen.getByText('width', { exact: false }))
+    await userEvent.click(screen.getByText('width', { exact: false }))
 
     expect(screen.getByRole('listbox')).toBe(null)
     expect(screen.getByText('width', { exact: false })).not.toBe(null)

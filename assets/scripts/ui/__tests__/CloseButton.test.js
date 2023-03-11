@@ -23,10 +23,10 @@ describe('CloseButton', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should call onClick function when button is clicked', () => {
+  it('should call onClick function when button is clicked', async () => {
     const onClick = jest.fn()
     const { getByTitle } = render(<CloseButton onClick={onClick} title="foo" />)
-    userEvent.click(getByTitle('foo'))
+    await userEvent.click(getByTitle('foo'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 })
