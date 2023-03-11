@@ -104,6 +104,7 @@ function ShareMenu (props) {
 
     // Auto-focus and select link when share menu is active
     window.setTimeout(() => {
+      if (!shareViaLinkInputRef.current) return
       shareViaLinkInputRef.current.focus()
       shareViaLinkInputRef.current.select()
     }, 200)
