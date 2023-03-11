@@ -1,6 +1,6 @@
-const logger = require('../../lib/logger.js')
+import logger from '../../lib/logger.js'
 
-exports.delete = async function (req, res) {
+export async function del (req, res) {
   // In order to sign out, make sure the user's session cookies
   // are part of the request.
   if (!req.auth) {

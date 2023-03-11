@@ -1,11 +1,12 @@
-const cloudinary = require('cloudinary')
-const { User, Street } = require('../../db/models')
-const logger = require('../../lib/logger.js')
-const { SAVE_THUMBNAIL_EVENTS } = require('../../lib/util.js')
+import cloudinary from 'cloudinary'
+import models from '../../db/models/index.js'
+import logger from '../../lib/logger.js'
+import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
 
+const { User, Street } = models
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
-exports.post = async function (req, res) {
+export async function post (req, res) {
   let json
 
   // The request payload is a stringified JSON due to the data URL for the street thumbnail being too large.
@@ -198,7 +199,7 @@ exports.post = async function (req, res) {
   }
 }
 
-exports.delete = async function (req, res) {
+export async function del (req, res) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -267,7 +268,7 @@ exports.delete = async function (req, res) {
   })
 }
 
-exports.get = async function (req, res) {
+export async function get (req, res) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
     return

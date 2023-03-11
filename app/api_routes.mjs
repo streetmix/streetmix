@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import v1 from './resources/v1/index.js'
-import jwtCheck from './authentication.mjs'
+import * as v1 from './resources/v1/index.mjs'
 import { BTPTokenCheck } from './resources/services/integrations/coil.mjs'
+import jwtCheck from './authentication.mjs'
 
 // Base path of router is `/api` (see app.mjs)
 const router = Router()
@@ -395,7 +395,7 @@ router.get('/v1/users', cors(), jwtCheck, v1.users.get)
  */
 router.get('/v1/users/:user_id', cors(), jwtCheck, BTPTokenCheck, v1.users.get)
 router.put('/v1/users/:user_id', cors(), jwtCheck, v1.users.put)
-router.delete('/v1/users/:user_id', cors(), jwtCheck, v1.users.delete)
+router.delete('/v1/users/:user_id', cors(), jwtCheck, v1.users.del)
 
 /**
  * @swagger
@@ -422,7 +422,7 @@ router.delete(
   '/v1/users/:user_id/login-token',
   cors(),
   jwtCheck,
-  v1.user_session.delete
+  v1.userSession.del
 )
 
 /**
@@ -471,9 +471,9 @@ router.delete(
   '/v1/users/:user_id/streets',
   cors(),
   jwtCheck,
-  v1.users_streets.delete
+  v1.usersStreets.del
 )
-router.get('/v1/users/:user_id/streets', cors(), v1.users_streets.get)
+router.get('/v1/users/:user_id/streets', cors(), v1.usersStreets.get)
 
 /**
  * @swagger
@@ -669,7 +669,7 @@ router.head('/v1/streets', jwtCheck, v1.streets.find)
  *           $ref: '#/definitions/Street'
  *
  */
-router.delete('/v1/streets/:street_id', jwtCheck, v1.streets.delete)
+router.delete('/v1/streets/:street_id', jwtCheck, v1.streets.del)
 router.head('/v1/streets/:street_id', jwtCheck, v1.streets.get)
 router.get('/v1/streets/:street_id', jwtCheck, v1.streets.get)
 router.put('/v1/streets/:street_id', jwtCheck, v1.streets.put)
@@ -747,14 +747,10 @@ router.post(
   '/v1/streets/:street_id/images',
   bodyParser.text({ limit: '3mb' }),
   jwtCheck,
-  v1.street_images.post
+  v1.streetImages.post
 )
-router.delete(
-  '/v1/streets/:street_id/images',
-  jwtCheck,
-  v1.street_images.delete
-)
-router.get('/v1/streets/:street_id/images', jwtCheck, v1.street_images.get)
+router.delete('/v1/streets/:street_id/images', jwtCheck, v1.streetImages.del)
+router.get('/v1/streets/:street_id/images', jwtCheck, v1.streetImages.get)
 
 /**
  * @swagger
@@ -782,7 +778,7 @@ router.get('/v1/streets/:street_id/images', jwtCheck, v1.street_images.get)
  *           items:
  *             $ref: '#/definitions/Street'
  */
-router.get('/v1/streets/:street_id/remixes', jwtCheck, v1.street_remixes.get)
+router.get('/v1/streets/:street_id/remixes', jwtCheck, v1.streetRemixes.get)
 
 /**
  * @swagger
