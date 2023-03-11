@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 
 export function post (req, res) {
   const cspReport = req.body['csp-report']

@@ -1,4 +1,4 @@
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 
 export async function del (req, res) {
   // In order to sign out, make sure the user's session cookies

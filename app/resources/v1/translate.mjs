@@ -1,5 +1,5 @@
 import * as fs from 'node:fs/promises'
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 import { getFromTransifex } from '../../lib/transifex.mjs'
 
 async function getLocalTranslation (res, locale, resource) {

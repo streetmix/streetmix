@@ -1,5 +1,5 @@
 import Street from '../../db/models/street.js'
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 
 export async function get (req, res) {
   let results

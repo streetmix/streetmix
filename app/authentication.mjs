@@ -1,6 +1,6 @@
 import { expressjwt } from 'express-jwt'
 import jwksRsa from 'jwks-rsa'
-import logger from './lib/logger.js'
+import logger from './lib/logger.mjs'
 
 const secret = jwksRsa.expressJwtSecret({
   cache: true,

@@ -4,8 +4,8 @@ import { OAuth2Strategy } from 'passport-oauth'
 import { InternalOAuthError } from 'passport-oauth2'
 import axios from 'axios'
 import models from '../../../db/models/index.js'
-import appURL from '../../../lib/url.js'
-import logger from '../../../lib/logger.js'
+import appURL from '../../../lib/url.mjs'
+import logger from '../../../lib/logger.mjs'
 import {
   findUser,
   addUserConnection,

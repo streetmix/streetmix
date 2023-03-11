@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 
 async function readFlags (res) {
   const flagFile = `${process.cwd()}/app/data/flags.json`

@@ -1,7 +1,7 @@
 import cloudinary from 'cloudinary'
 import models from '../../db/models/index.js'
-import logger from '../../lib/logger.js'
-import { ERRORS, asUserJson } from '../../lib/util.js'
+import logger from '../../lib/logger.mjs'
+import { ERRORS, asUserJson } from '../../lib/util.mjs'
 
 const { User } = models
 

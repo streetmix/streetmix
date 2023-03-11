@@ -1,6 +1,6 @@
 import models from '../../db/models/index.js'
-import { ERRORS } from '../../lib/util.js'
-import logger from '../../lib/logger.js'
+import { ERRORS } from '../../lib/util.mjs'
+import logger from '../../lib/logger.mjs'
 
 const { User, Street } = models
 
@@ -24,12 +24,10 @@ function handleErrors (error, res) {
       res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
       break
     case ERRORS.FORBIDDEN_REQUEST:
-      res
-        .status(403)
-        .json({
-          status: 403,
-          msg: 'Signed-in user cannot delete this street.'
-        })
+      res.status(403).json({
+        status: 403,
+        msg: 'Signed-in user cannot delete this street.'
+      })
       break
     default:
       // Log unknown error.
@@ -160,12 +158,10 @@ export async function del (req, res) {
     requestUser.roles && requestUser.roles.indexOf('ADMIN') !== -1
   if (targetUserId !== requestUser.id) {
     if (!requestUserIsAdmin) {
-      res
-        .status(401)
-        .json({
-          status: 401,
-          msg: 'Unable to delete streets by another user.'
-        })
+      res.status(401).json({
+        status: 401,
+        msg: 'Unable to delete streets by another user.'
+      })
       return
     }
 

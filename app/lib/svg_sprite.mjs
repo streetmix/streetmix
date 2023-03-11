@@ -5,7 +5,7 @@ import mkdirp from 'mkdirp'
 import Vinyl from 'vinyl'
 import SVGSpriter from 'svg-sprite'
 import chalk from 'chalk'
-import logger from './logger.js'
+import logger from './logger.mjs'
 
 /**
  * Compile SVG sprites into a single .svg file with <symbol>s in the project

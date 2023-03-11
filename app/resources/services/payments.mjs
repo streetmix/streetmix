@@ -1,6 +1,6 @@
 import * as fs from 'node:fs/promises'
 import User from '../../db/models/user.js'
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 
 const roles = JSON.parse(
   await fs.readFile(new URL('../../data/user_roles.json', import.meta.url))

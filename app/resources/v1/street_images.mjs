@@ -1,7 +1,7 @@
 import cloudinary from 'cloudinary'
 import models from '../../db/models/index.js'
-import logger from '../../lib/logger.js'
-import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
+import logger from '../../lib/logger.mjs'
+import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.mjs'
 
 const { User, Street } = models
 const ALLOW_ANON_STREET_THUMBNAILS = false

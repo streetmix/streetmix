@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import models from '../../db/models/index.js'
-import logger from '../../lib/logger.js'
-import { ERRORS, asStreetJson } from '../../lib/util.js'
+import logger from '../../lib/logger.mjs'
+import { ERRORS, asStreetJson } from '../../lib/util.mjs'
 
 const { User, Street, Sequence } = models
 

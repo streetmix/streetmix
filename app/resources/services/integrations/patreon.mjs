@@ -1,8 +1,8 @@
 import crypto from 'node:crypto'
 import passport from 'passport'
 import { Strategy as PatreonStrategy } from 'passport-patreon'
-import logger from '../../../lib/logger.js'
-import appURL from '../../../lib/url.js'
+import logger from '../../../lib/logger.mjs'
+import appURL from '../../../lib/url.mjs'
 import models from '../../../db/models/index.js'
 import { findUser, addUserConnection } from './helpers.mjs'
 

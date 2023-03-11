@@ -1,4 +1,4 @@
-import logger from '../logger.js'
+import logger from '../logger.mjs'
 
 export default function (req, res, next) {
   const contentType = req.headers['content-type'] || ''

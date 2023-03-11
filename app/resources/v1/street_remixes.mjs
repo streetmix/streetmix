@@ -1,7 +1,7 @@
 import models from '../../db/models/index.js'
-import logger from '../../lib/logger.js'
-import { streetsToCSV } from '../../lib/streets_export.js'
-import { ERRORS } from '../../lib/util.js'
+import logger from '../../lib/logger.mjs'
+import { streetsToCSV } from '../../lib/streets_export.mjs'
+import { ERRORS } from '../../lib/util.mjs'
 
 const { Street } = models
 

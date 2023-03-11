@@ -1,5 +1,5 @@
 import * as fs from 'node:fs/promises'
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 
 const flagFile = `${process.cwd()}/docs/docs/user-guide/changelog.md`
 

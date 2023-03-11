@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 import User from '../../db/models/user.js'
-import logger from '../../lib/logger.js'
+import logger from '../../lib/logger.mjs'
 
 export async function get (req, res) {
   const query = req.query
