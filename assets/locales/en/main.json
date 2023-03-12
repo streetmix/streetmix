@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "This segment doesn’t fit within the street.",
       "not-wide": "This segment might not be wide enough.",
-      "too-wide": "This segment might be too wide."
+      "too-wide": "This segment might be too wide.",
+      "dangerous": "This segment represents a dangerous existing condition."
     },
     "learn-more": "Learn more",
     "unknown": {
