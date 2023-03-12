@@ -30,7 +30,7 @@ const downloadSuccess = async function (locale, resource, label, data) {
 
     // createDir is undefined if the folder already exists.
     if (createDir) {
-      console.info(chalk`Created folder: {magentaBright ${createDir}}`)
+      console.info('Created folder:', chalk.magentaBright(createDir))
     }
   } catch (err) {
     console.error(err.message)
@@ -41,21 +41,33 @@ const downloadSuccess = async function (locale, resource, label, data) {
     await fs.writeFile(translationFile, translationText)
   } catch (err) {
     console.error(
-      chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${err}}`
+      chalk.redBright('Error:'),
+      chalk.yellowBright(`${label} (${locale})`),
+      '·',
+      chalk.magentaBright(resource),
+      '→',
+      chalk.gray(err)
     )
   }
 
   console.log(
-    chalk`Downloaded: {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${translationFile.href.replace(
-      `file://${process.cwd()}`,
-      '.'
-    )}}`
+    'Downloaded:',
+    chalk.yellowBright(`${label} (${locale})`),
+    '·',
+    chalk.magentaBright(resource),
+    '→',
+    chalk.gray(translationFile.href.replace(`file://${process.cwd()}`, '.'))
   )
 }
 
 const downloadError = function (locale, resource, label, error) {
   console.error(
-    chalk`{redBright Error:} {yellowBright ${label} (${locale})} · {magentaBright ${resource}} → {gray ${error}}`
+    chalk.redBright('Error:'),
+    chalk.yellowBright(`${label} (${locale})}`),
+    '·',
+    chalk.magentaBright(resource),
+    '→',
+    chalk.gray(error)
   )
 }
 
@@ -72,7 +84,10 @@ for (const l in languages) {
     const resource = resources[r]
 
     console.log(
-      chalk`Queued: {yellowBright ${label} (${locale})} · {magentaBright ${resource}}`
+      'Queued:',
+      chalk.yellowBright(`${label} (${locale})`),
+      '·',
+      chalk.magentaBright(resource)
     )
 
     getFromTransifex(locale, resource, process.env.TRANSIFEX_API_TOKEN)

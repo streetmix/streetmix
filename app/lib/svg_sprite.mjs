@@ -51,12 +51,17 @@ export function compileSVGSprites (source, filename, namespace) {
   glob(pattern, function (error, files) {
     if (error) {
       logger.error(
-        chalk`[glob] {red.bold ✗} {red Error reading SVG files: ${error}}`
+        '[svg-sprite] ' +
+          chalk.redBright.bold('✗ ') +
+          chalk.red(`Error reading SVG files: ${error}`)
       )
     }
 
     logger.info(
-      chalk`[svg-sprite] {cyan Compiling SVG sprites from} ${source} {cyan ...}`
+      '[svg-sprite] ' +
+        chalk.cyan('Compiling SVG sprites from ') +
+        chalk.gray(source) +
+        chalk.cyan('...')
     )
 
     files.forEach(function (file) {
@@ -77,7 +82,9 @@ export function compileSVGSprites (source, filename, namespace) {
     spriter.compile(function (error, result, data) {
       if (error) {
         logger.error(
-          chalk`[svg-sprite] {red.bold ✗} {red Error compiling SVG sprites: ${error}}`
+          '[svg-sprite] ' +
+            chalk.redBright.bold('✗ ') +
+            chalk.red(`Error compiling SVG sprites: ${error}`)
         )
       }
 
@@ -95,11 +102,17 @@ export function compileSVGSprites (source, filename, namespace) {
 
             if (createDir) {
               logger.info(
-                chalk`[svg-sprite] {yellow.bold !} {yellow Created directory: ${createDir}}`
+                '[svg-sprite] ' +
+                  chalk.yellowBright.bold('! ') +
+                  chalk.yellow(`Created directory: ${createDir}`)
               )
             }
           } catch (err) {
-            logger.error(chalk`[svg-sprite] {red.bold ✗} ${err.message}`)
+            logger.error(
+              '[svg-sprite] ' +
+                chalk.redBright.bold('✗ ') +
+                chalk.red(err.message)
+            )
           }
 
           // Write sprites content
@@ -108,7 +121,11 @@ export function compileSVGSprites (source, filename, namespace) {
           // Create shortened version of the path for logging
           const dest = sprites.path.replace(process.cwd(), '.')
           logger.info(
-            chalk`[svg-sprite] {green.bold ✓} {cyan SVG sprites written} → {gray ${dest}}`
+            '[svg-sprite] ' +
+              chalk.greenBright.bold('✓ ') +
+              chalk.green('SVG sprites written ') +
+              '→ ' +
+              chalk.gray(dest)
           )
         }
       }
