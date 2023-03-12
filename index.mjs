@@ -5,15 +5,21 @@ import logger from './app/lib/logger.mjs'
 app.listen(process.env.PORT, () => {
   if (process.env.NODE_ENV === 'development') {
     logger.info(
-      chalk`[express] {yellow.bold Streetmix is starting!} {white.bold Go here in your browser:} {greenBright.bold http://localhost:${process.env.PORT}}`
+      '[express] ' +
+        chalk.yellowBright.bold('Streetmix is starting! ') +
+        chalk.whiteBright.bold('Go here in your browser: ') +
+        chalk.greenBright.bold(`http://localhost:${process.env.PORT}`)
     )
   } else {
-    logger.info(chalk`[express] {yellow.bold Streetmix is starting!}`)
+    logger.info('[express]', chalk.yellow.bold('Streetmix is starting!'))
   }
 
   if (process.env.OFFLINE_MODE === 'true') {
     logger.info(
-      chalk`[express] {cyan.bold Offline mode is} {white.bold ON}{cyan.bold .}`
+      '[express] ' +
+        chalk.cyan.bold('Offline mode is ') +
+        chalk.greenBright.bold('ON') +
+        chalk.cyan.bold('.')
     )
   }
 })
