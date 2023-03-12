@@ -47,7 +47,12 @@ export async function get (req, res) {
   let translation
 
   try {
-    if (typeof process.env.TRANSIFEX_API_TOKEN === 'undefined') {
+    // Transifex v3 won't return the English source language via the
+    // download API. For English, use local resources.
+    if (
+      typeof process.env.TRANSIFEX_API_TOKEN === 'undefined' ||
+      locale === 'en'
+    ) {
       translation = await getLocalTranslation(res, locale, resource)
     } else {
       // TODO: Fall back to local translation if remote resource fails
