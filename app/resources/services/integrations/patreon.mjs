@@ -1,12 +1,12 @@
-const crypto = require('crypto')
-const passport = require('passport')
-const PatreonStrategy = require('passport-patreon').Strategy
-const logger = require('../../../lib/logger.js')
-const appURL = require('../../../lib/url.js')
+import crypto from 'node:crypto'
+import passport from 'passport'
+import { Strategy as PatreonStrategy } from 'passport-patreon'
+import logger from '../../../lib/logger.mjs'
+import appURL from '../../../lib/url.mjs'
+import models from '../../../db/models/index.js'
+import { findUser, addUserConnection } from './helpers.mjs'
 
-const { User } = require('../../../db/models')
-
-const { findUser, addUserConnection } = require('./helpers')
+const { User } = models
 
 /*
 our use case makes this a little complicated,
@@ -69,7 +69,7 @@ if (process.env.PATREON_CLIENT_ID && process.env.PATREON_CLIENT_SECRET) {
   initPatreon()
 }
 
-exports.get = (req, res, next) => {
+export function get (req, res, next) {
   if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
     res
       .status(500)
@@ -91,7 +91,7 @@ exports.get = (req, res, next) => {
   })(req, res, next)
 }
 
-exports.callback = (req, res, next) => {
+export function callback (req, res, next) {
   if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
     res
       .status(500)
@@ -108,7 +108,7 @@ exports.callback = (req, res, next) => {
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
  */
-exports.connectUser = async (req, res) => {
+export async function connectUser (req, res) {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
   const account = req.account
@@ -123,7 +123,7 @@ exports.connectUser = async (req, res) => {
   }
 }
 
-exports.webhook = (req, res, next) => {
+export function webhook (req, res, next) {
   // Check for the existence of headers specified by Patreon Webhooks docs
   // https://docs.patreon.com/#webhooks
   // While the docs specify headers with capitalization, the actual headers

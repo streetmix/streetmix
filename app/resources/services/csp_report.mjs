@@ -1,7 +1,7 @@
-const chalk = require('chalk')
-const logger = require('../../lib/logger.js')
+import chalk from 'chalk'
+import logger from '../../lib/logger.mjs'
 
-exports.post = (req, res) => {
+export function post (req, res) {
   const cspReport = req.body['csp-report']
 
   // Early exit if a POST did not contain the report body

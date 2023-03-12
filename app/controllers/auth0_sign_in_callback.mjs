@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Authentication } from '../lib/auth0.mjs'
-import logger from '../lib/logger.js'
-import appURL from '../lib/url.js'
+import logger from '../lib/logger.mjs'
+import appURL from '../lib/url.mjs'
 
 const AccessTokenHandler = function (req, res) {
   return async (response) => {

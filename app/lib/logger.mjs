@@ -1,4 +1,4 @@
-const winston = require('winston')
+import winston from 'winston'
 
 // Custom formatter stringifies JavaScript object messages because
 // winston@3.0.0 doesn't do this automatically with simple formatting anymore
@@ -44,4 +44,6 @@ const createLogger = function () {
   return logger
 }
 
-module.exports = createLogger()
+const logger = createLogger()
+
+export default logger

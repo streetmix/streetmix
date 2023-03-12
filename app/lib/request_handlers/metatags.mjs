@@ -1,7 +1,7 @@
 import request from 'request'
 import models from '../../db/models/index.js'
-import logger from '../logger.js'
-import appURL from '../url.js'
+import logger from '../logger.mjs'
+import appURL from '../url.mjs'
 
 const ANON_CREATOR = '-'
 const { User, Street } = models

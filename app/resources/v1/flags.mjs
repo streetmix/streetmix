@@ -1,5 +1,5 @@
-const fs = require('fs/promises')
-const logger = require('../../lib/logger.js')
+import fs from 'node:fs/promises'
+import logger from '../../lib/logger.mjs'
 
 async function readFlags (res) {
   const flagFile = `${process.cwd()}/app/data/flags.json`
@@ -27,7 +27,7 @@ function sendSuccessResponse (res, flags) {
   res.status(200).send(flags)
 }
 
-exports.get = async function (req, res) {
+export async function get (req, res) {
   const flags = await readFlags(res)
 
   if (flags) {

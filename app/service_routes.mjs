@@ -2,7 +2,7 @@ import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as controllers from './controllers/index.mjs'
-import resources from './resources/index.js'
+import * as services from './resources/services/index.mjs'
 import jwtCheck from './authentication.mjs'
 
 // Base path of router is `/services` (see app.mjs)
@@ -20,7 +20,7 @@ const router = Router()
  *       200:
  *         description: Success
  */
-router.get('/changelog', resources.services.changelog.get)
+router.get('/changelog', services.changelog.get)
 
 /**
  * @swagger
@@ -44,7 +44,7 @@ router.get('/changelog', resources.services.changelog.get)
  *       200:
  *         description: Success
  */
-router.post('/pay', resources.services.payments.post)
+router.post('/pay', services.payments.post)
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ router.post('/pay', resources.services.payments.post)
  *           items:
  *             $ref: '#/definitions/GeolocationResponse'
  */
-router.get('/geoip', resources.services.geoip.get)
+router.get('/geoip', services.geoip.get)
 
 router.options('/images', cors())
 
@@ -94,7 +94,7 @@ router.options('/images', cors())
  *             api_key:
  *               type: string
  */
-router.get('/images', cors(), jwtCheck, resources.services.images.get)
+router.get('/images', cors(), jwtCheck, services.images.get)
 
 /******************************************************************************
  *  AUTHENTICATION SERVICES
@@ -120,24 +120,20 @@ router.get('/auth/just-signed-in/', (req, res) => res.render('main'))
 router.get(
   '/integrations/patreon',
   jwtCheck,
-  resources.services.integrations.patreon.get
+  services.integrations.patreon.get
 )
 router.get(
   '/integrations/patreon/callback',
-  resources.services.integrations.patreon.callback,
-  resources.services.integrations.patreon.connectUser
+  services.integrations.patreon.callback,
+  services.integrations.patreon.connectUser
 )
 router.post(
   '/integrations/patreon/webhook',
-  resources.services.integrations.patreon.webhook
+  services.integrations.patreon.webhook
 )
 
 // Redirect the user to the OAuth 2.0 provider for authentication.
-router.get(
-  '/integrations/coil',
-  jwtCheck,
-  resources.services.integrations.coil.get
-)
+router.get('/integrations/coil', jwtCheck, services.integrations.coil.get)
 
 // The OAuth 2.0 provider has redirected the user back to the application.
 // Finish the authentication process by attempting to obtain an access
@@ -147,8 +143,8 @@ router.get(
 
 router.get(
   '/integrations/coil/callback',
-  resources.services.integrations.coil.callback,
-  resources.services.integrations.coil.connectUser
+  services.integrations.coil.callback,
+  services.integrations.coil.connectUser
 )
 
 /******************************************************************************
@@ -173,7 +169,7 @@ router.post(
   // `application/json`, Express should still be parsing that correctly, but
   // this has not been verified.
   bodyParser.json({ type: 'application/csp-report' }),
-  resources.services.csp_report.post
+  services.cspReport.post
 )
 
 // Catch all for all broken api paths, direct to 404 response.

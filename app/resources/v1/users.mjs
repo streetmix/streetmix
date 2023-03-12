@@ -1,9 +1,11 @@
-const cloudinary = require('cloudinary')
-const { User } = require('../../db/models')
-const logger = require('../../lib/logger.js')
-const { ERRORS, asUserJson } = require('../../lib/util')
+import cloudinary from 'cloudinary'
+import models from '../../db/models/index.js'
+import logger from '../../lib/logger.mjs'
+import { ERRORS, asUserJson } from '../../lib/util.mjs'
 
-exports.post = async function (req, res) {
+const { User } = models
+
+export async function post (req, res) {
   const handleCreateUser = function (user) {
     if (!user) {
       res.status(500).json({
@@ -48,7 +50,9 @@ exports.post = async function (req, res) {
    */
   const handleAuth0TwitterSignIn = async function (credentials) {
     try {
-      const user = await User.findOne({ where: { id: credentials.screenName } })
+      const user = await User.findOne({
+        where: { id: credentials.screenName }
+      })
 
       if (!user) {
         const newUserData = {
@@ -220,9 +224,9 @@ exports.post = async function (req, res) {
   } else {
     res.status(400).json({ status: 400, msg: 'Unknown sign-in method used.' })
   }
-} // END function - exports.post
+} // END function - post
 
-exports.get = async function (req, res) {
+export async function get (req, res) {
   // Flag error if user ID is not provided
   const userId = req.params.user_id
 
@@ -297,9 +301,9 @@ exports.get = async function (req, res) {
   } catch (err) {
     handleError(err)
   }
-} // END function - exports.get
+} // END function - get
 
-exports.delete = async function (req, res) {
+export async function del (req, res) {
   const userId = req.params.user_id
   let user
   try {
@@ -336,9 +340,9 @@ exports.delete = async function (req, res) {
       logger.error(err)
       res.status(500).json({ status: 500, msg: 'Could not sign-out user.' })
     })
-} // END function - exports.delete
+} // END function - delete
 
-exports.put = async function (req, res) {
+export async function put (req, res) {
   let body
   try {
     body = req.body
@@ -397,4 +401,4 @@ exports.put = async function (req, res) {
         .status(500)
         .json({ status: 500, msg: 'Could not update user information.' })
     })
-} // END function - exports.put
+} // END function - put

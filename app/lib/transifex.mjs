@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { transifexApi } from '@transifex/api'
-import logger from './logger.js'
+import logger from './logger.mjs'
 
 const ORGANIZATION_SLUG = 'streetmix'
 const PROJECT_SLUG = 'streetmix'

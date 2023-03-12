@@ -1,6 +1,6 @@
-const appURL = require('../../lib/url')
+import appURL from '../../lib/url.mjs'
 
-exports.get = function (req, res) {
+export function get (req, res) {
   // Prevent this service from being accessed by third parties
   if (
     req.headers.referer === undefined ||

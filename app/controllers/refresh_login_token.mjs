@@ -1,5 +1,5 @@
 import axios from 'axios'
-import logger from '../lib/logger.js'
+import logger from '../lib/logger.mjs'
 
 // Refreshes auth0 token so user doesn't need to sign in every 30 days
 export function post (req, res) {

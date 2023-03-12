@@ -1,12 +1,14 @@
-const Sequelize = require('sequelize')
-const { v4: uuidv4 } = require('uuid')
-const { User, Vote, Street } = require('../../db/models')
-const logger = require('../../lib/logger.js')
+import Sequelize from 'sequelize'
+import { v4 as uuidv4 } from 'uuid'
+import models from '../../db/models/index.js'
+import logger from '../../lib/logger.mjs'
+
+const { User, Vote, Street } = models
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
 
-const generateRandomBallotFetch = ({ redirect = false }) => {
+export function generateRandomBallotFetch ({ redirect = false }) {
   return async function (req, res) {
     let ballots
     const authUser = req.auth || {}
@@ -173,11 +175,9 @@ const generateRandomBallotFetch = ({ redirect = false }) => {
   }
 }
 
-exports.generateRandomBallotFetch = generateRandomBallotFetch
+export const get = generateRandomBallotFetch({ redirect: false })
 
-exports.get = generateRandomBallotFetch({ redirect: false })
-
-exports.put = async function (req, res) {
+export async function put (req, res) {
   const authUser = req.auth || {}
   const { id, comment } = req.body
 
@@ -229,7 +229,7 @@ exports.put = async function (req, res) {
   res.status(200).json(ballot)
 }
 
-exports.post = async function (req, res) {
+export async function post (req, res) {
   const authUser = req.auth || {}
 
   if (!authUser.sub) {

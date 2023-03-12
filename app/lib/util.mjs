@@ -1,4 +1,4 @@
-exports.asStreetJson = function (street) {
+export function asStreetJson (street) {
   const json = {
     id: street.id,
     namespacedId: street.namespacedId,
@@ -17,7 +17,7 @@ exports.asStreetJson = function (street) {
   return json
 }
 
-exports.asUserJson = function (user) {
+export function asUserJson (user) {
   const userJson = {
     id: user.id,
     profileImageUrl: user.profileImageUrl,
@@ -35,7 +35,7 @@ exports.asUserJson = function (user) {
   return userJson
 }
 
-exports.ERRORS = {
+export const ERRORS = {
   USER_NOT_FOUND: 'USER_NOT_FOUND',
   INTERNAL_ERROR: 'INTERNAL_ERROR',
   STREET_NOT_FOUND: 'STREET_NOT_FOUND',
@@ -49,7 +49,7 @@ exports.ERRORS = {
   CANNOT_CREATE_USER: 'CANNOT_CREATE_USER'
 }
 
-exports.SAVE_THUMBNAIL_EVENTS = {
+export const SAVE_THUMBNAIL_EVENTS = {
   INITIAL: 'INITIAL',
   SHARE: 'SHARE',
   TIMER: 'TIMER',
@@ -58,7 +58,7 @@ exports.SAVE_THUMBNAIL_EVENTS = {
   TEST: 'TEST'
 }
 
-exports.requestIp = function (req) {
+export function requestIp (req) {
   if (req.headers['x-forwarded-for'] !== undefined) {
     return req.headers['x-forwarded-for'].split(', ')[0]
   } else {

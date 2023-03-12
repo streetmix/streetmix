@@ -1,7 +1,6 @@
-const fs = require('fs/promises')
-const logger = require('../../lib/logger.js')
-// TODO: put this back when we can support ESM here
-// const getFromTransifex = require('../../lib/transifex.mjs')
+import * as fs from 'node:fs/promises'
+import logger from '../../lib/logger.mjs'
+import { getFromTransifex } from '../../lib/transifex.mjs'
 
 async function getLocalTranslation (res, locale, resource) {
   const translationFile =
@@ -36,7 +35,7 @@ function sendSuccessResponse (res, locale, resource, translation) {
   res.status(200).send(translation)
 }
 
-exports.get = async (req, res) => {
+export async function get (req, res) {
   const locale = req.params.locale_code
   const resource = req.params.resource_name
 
@@ -45,29 +44,33 @@ exports.get = async (req, res) => {
     return
   }
 
-  const translation = await getLocalTranslation(res, locale, resource)
+  let translation
 
-  // let translation
+  try {
+    // Transifex v3 won't return the English source language via the
+    // download API. For English, use local resources.
+    if (
+      typeof process.env.TRANSIFEX_API_TOKEN === 'undefined' ||
+      locale === 'en'
+    ) {
+      translation = await getLocalTranslation(res, locale, resource)
+    } else {
+      // TODO: Fall back to local translation if remote resource fails
+      translation = await getFromTransifex(
+        locale,
+        resource,
+        process.env.TRANSIFEX_API_TOKEN
+      )
+    }
+  } catch (err) {
+    logger.error(err)
 
-  // try {
-  //   if (typeof process.env.TRANSIFEX_API_TOKEN === 'undefined') {
-  //     translation = await getLocalTranslation(res, locale, resource)
-  //   } else {
-  //     translation = await getFromTransifex(
-  //       locale,
-  //       resource,
-  //       process.env.TRANSIFEX_API_TOKEN
-  //     )
-  //   }
-  // } catch (err) {
-  //   logger.error(err)
-
-  //   res.status(500).json({
-  //     status: 500,
-  //     msg: 'Could not retrieve translation for locale: ' + locale
-  //   })
-  //   return
-  // }
+    res.status(500).json({
+      status: 500,
+      msg: 'Could not retrieve translation for locale: ' + locale
+    })
+    return
+  }
 
   if (translation) {
     sendSuccessResponse(res, locale, resource, translation)

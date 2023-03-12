@@ -1,6 +1,8 @@
-const { User, Street } = require('../../db/models')
-const { ERRORS } = require('../../lib/util')
-const logger = require('../../lib/logger.js')
+import models from '../../db/models/index.js'
+import { ERRORS } from '../../lib/util.mjs'
+import logger from '../../lib/logger.mjs'
+
+const { User, Street } = models
 
 function handleErrors (error, res) {
   switch (error) {
@@ -22,9 +24,10 @@ function handleErrors (error, res) {
       res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
       break
     case ERRORS.FORBIDDEN_REQUEST:
-      res
-        .status(403)
-        .json({ status: 403, msg: 'Signed-in user cannot delete this street.' })
+      res.status(403).json({
+        status: 403,
+        msg: 'Signed-in user cannot delete this street.'
+      })
       break
     default:
       // Log unknown error.
@@ -33,7 +36,7 @@ function handleErrors (error, res) {
   }
 } // END function - handleErrors
 
-exports.get = async function (req, res) {
+export async function get (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
@@ -116,7 +119,7 @@ exports.get = async function (req, res) {
   }
 }
 
-exports.delete = async function (req, res) {
+export async function del (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
@@ -155,9 +158,10 @@ exports.delete = async function (req, res) {
     requestUser.roles && requestUser.roles.indexOf('ADMIN') !== -1
   if (targetUserId !== requestUser.id) {
     if (!requestUserIsAdmin) {
-      res
-        .status(401)
-        .json({ status: 401, msg: 'Unable to delete streets by another user.' })
+      res.status(401).json({
+        status: 401,
+        msg: 'Unable to delete streets by another user.'
+      })
       return
     }
 

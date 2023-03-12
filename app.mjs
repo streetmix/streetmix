@@ -14,10 +14,10 @@ import * as controllers from './app/controllers/index.mjs'
 import * as requestHandlers from './app/lib/request_handlers/index.mjs'
 import { initCloudinary } from './app/lib/cloudinary.mjs'
 import { compileSVGSprites } from './app/lib/svg_sprite.mjs'
-import appURL from './app/lib/url.js'
+import appURL from './app/lib/url.mjs'
 import apiRoutes from './app/api_routes.mjs'
 import serviceRoutes from './app/service_routes.mjs'
-import logger from './app/lib/logger.js'
+import logger from './app/lib/logger.mjs'
 import jwtCheck from './app/authentication.mjs'
 
 initCloudinary()

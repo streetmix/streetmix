@@ -1,10 +1,11 @@
-const { v4: uuidv4 } = require('uuid')
-const { isArray } = require('lodash')
-const { User, Street, Sequence } = require('../../db/models')
-const logger = require('../../lib/logger.js')
-const { ERRORS, asStreetJson } = require('../../lib/util')
+import { v4 as uuidv4 } from 'uuid'
+import models from '../../db/models/index.js'
+import logger from '../../lib/logger.mjs'
+import { ERRORS, asStreetJson } from '../../lib/util.mjs'
 
-exports.post = async function (req, res) {
+const { User, Street, Sequence } = models
+
+export async function post (req, res) {
   let body
   const street = {}
   street.id = uuidv4()
@@ -69,7 +70,8 @@ exports.post = async function (req, res) {
         namespacedId = user && user.lastStreetId ? user.lastStreetId : 1
       } else {
         const sequence = await updateSequence()
-        if (isArray(sequence)) {
+
+        if (Array.isArray(sequence)) {
           namespacedId = sequence[1][0].seq
         } else {
           namespacedId = sequence.seq
@@ -124,7 +126,9 @@ exports.post = async function (req, res) {
         res.status(404).json({ status: 404, msg: 'User not found.' })
         return
       case ERRORS.STREET_NOT_FOUND:
-        res.status(404).json({ status: 404, msg: 'Original street not found.' })
+        res
+          .status(404)
+          .json({ status: 404, msg: 'Original street not found.' })
         return
       case ERRORS.CANNOT_CREATE_STREET:
         res
@@ -163,7 +167,7 @@ exports.post = async function (req, res) {
   }
 }
 
-exports.delete = async function (req, res) {
+export async function del (req, res) {
   if (!req.auth) {
     res.status(401).end()
     return
@@ -231,7 +235,9 @@ exports.delete = async function (req, res) {
   let targetStreet
 
   try {
-    targetStreet = await Street.findOne({ where: { id: req.params.street_id } })
+    targetStreet = await Street.findOne({
+      where: { id: req.params.street_id }
+    })
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.STREET_NOT_FOUND)
@@ -247,9 +253,9 @@ exports.delete = async function (req, res) {
       res.status(204).end()
     })
     .catch(handleErrors)
-} // END function - exports.delete
+} // END function - export delete
 
-exports.get = async function (req, res) {
+export async function get (req, res) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -285,9 +291,9 @@ exports.get = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*')
   res.set('Location', '/api/v1/streets/' + street.id)
   res.status(200).json(street)
-} // END function - exports.get
+} // END function - export get
 
-exports.find = async function (req, res) {
+export async function find (req, res) {
   const creatorId = req.query.creatorId
   const namespacedId = req.query.namespacedId
   const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
@@ -427,7 +433,7 @@ exports.find = async function (req, res) {
   }
 }
 
-exports.put = async function (req, res) {
+export async function put (req, res) {
   let body
 
   if (req.body) {
@@ -457,7 +463,9 @@ exports.put = async function (req, res) {
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
         return
       case ERRORS.STREET_NOT_FOUND:
-        res.status(404).json({ status: 404, msg: 'Original street not found.' })
+        res
+          .status(404)
+          .json({ status: 404, msg: 'Original street not found.' })
         return
       case ERRORS.STREET_DELETED:
         res.status(410).json({ status: 410, msg: 'Could not find street.' })
@@ -567,4 +575,4 @@ exports.put = async function (req, res) {
       })
       .catch(handleErrors)
   }
-} // END function - exports.put
+} // END function - export put

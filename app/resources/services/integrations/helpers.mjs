@@ -1,4 +1,6 @@
-const { User, UserConnections, sequelize } = require('../../../db/models')
+import models from '../../../db/models/index.js'
+
+const { User, UserConnections, sequelize } = models
 
 /**
  finds the database record for the given user
@@ -6,7 +8,7 @@ const { User, UserConnections, sequelize } = require('../../../db/models')
 // might be better to do something besides return null
 // we can actually probably get rid of this function if we want, but it might help
 // keep some of the other code clean
-const findUser = async function (userId) {
+export async function findUser (userId) {
   const user = await User.findOne({ where: { auth0Id: userId } })
   if (user === null) {
     return null
@@ -16,7 +18,7 @@ const findUser = async function (userId) {
 
 // if the provider we're trying to find exists
 // return its index value or -1 if not found
-const addOrUpdateByProviderName = function (array, item) {
+export function addOrUpdateByProviderName (array, item) {
   const indexValue = array.findIndex(
     (_item) => _item.provider === item.provider
   )
@@ -34,7 +36,7 @@ const addOrUpdateByProviderName = function (array, item) {
  TODO: make this less permissive(maybe add a status field or have logic depending on the provider), tested,
  and remove the role if we're confident we should (probably shouldn't worry about this for MVP)
  */
-const syncAccountStatus = async function (userId) {
+export async function syncAccountStatus (userId) {
   const databaseUser = await User.findOne({ where: { auth0Id: userId } })
   if (databaseUser.identities.some((identity) => 'user_id' in identity)) {
     databaseUser.addRole('SUBSCRIBER_1')
@@ -52,7 +54,7 @@ const syncAccountStatus = async function (userId) {
  * @param {Object} profile - User's connected identity information
  * @returns {Promise}
  */
-function addUserConnection (account, profile) {
+export function addUserConnection (account, profile) {
   const identities = account.identities
   const identity = {
     provider: profile.provider,
@@ -101,11 +103,4 @@ function addUserConnection (account, profile) {
       }
     )
   })
-}
-
-module.exports = {
-  findUser,
-  syncAccountStatus,
-  addUserConnection,
-  addOrUpdateByProviderName
 }

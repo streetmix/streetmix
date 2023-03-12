@@ -1,9 +1,11 @@
-const { Street } = require('../../db/models')
-const logger = require('../../lib/logger.js')
-const { streetsToCSV } = require('../../lib/streets_export.js')
-const { ERRORS } = require('../../lib/util')
+import models from '../../db/models/index.js'
+import logger from '../../lib/logger.mjs'
+import { streetsToCSV } from '../../lib/streets_export.mjs'
+import { ERRORS } from '../../lib/util.mjs'
 
-exports.get = async function (req, res) {
+const { Street } = models
+
+export async function get (req, res) {
   // Flag error if user ID is not provided
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })

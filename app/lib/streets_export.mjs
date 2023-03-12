@@ -1,4 +1,4 @@
-const appURL = require('./url')
+import appURL from './url.mjs'
 
 const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
 const METRIC_PRECISION = 3
@@ -16,7 +16,7 @@ function convertImperialMeasurementToMetric (value) {
   return round(value * IMPERIAL_METRIC_MULTIPLIER, METRIC_PRECISION)
 }
 
-function streetsToCSV (json) {
+export function streetsToCSV (json) {
   const SEGMENT_REPLACE_HEADER = '<segments>'
   const streets = json.streets
 
@@ -126,8 +126,4 @@ function getStreetUrl (street) {
   url += street.namespacedId
 
   return url
-}
-
-module.exports = {
-  streetsToCSV
 }
