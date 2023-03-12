@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import glob from 'glob'
-import mkdirp from 'mkdirp'
 import Vinyl from 'vinyl'
 import SVGSpriter from 'svg-sprite'
 import chalk from 'chalk'
@@ -85,11 +84,29 @@ export function compileSVGSprites (source, filename, namespace) {
       for (const mode in result) {
         for (const resource in result[mode]) {
           const sprites = result[mode][resource]
-          const dest = sprites.path.replace(process.cwd(), '.')
 
-          mkdirp.sync(path.dirname(sprites.path))
+          try {
+            // Get just the destination directory
+            const spriteDest = path.parse(sprites.path).dir
+
+            // Create the directory if it doesn't exist
+            const buildPath = new URL(spriteDest, import.meta.url)
+            const createDir = fs.mkdirSync(buildPath, { recursive: true })
+
+            if (createDir) {
+              logger.info(
+                chalk`[svg-sprite] {yellow.bold !} {yellow Created directory: ${createDir}}`
+              )
+            }
+          } catch (err) {
+            logger.error(chalk`[svg-sprite] {red.bold ✗} ${err.message}`)
+          }
+
+          // Write sprites content
           fs.writeFileSync(sprites.path, sprites.contents)
 
+          // Create shortened version of the path for logging
+          const dest = sprites.path.replace(process.cwd(), '.')
           logger.info(
             chalk`[svg-sprite] {green.bold ✓} {cyan SVG sprites written} → {gray ${dest}}`
           )
