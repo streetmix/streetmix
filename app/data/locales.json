@@ -98,6 +98,13 @@
     "level": 3
   },
   {
+    "label": "bahasa Indonesia",
+    "name": "Indonesian",
+    "value": "id",
+    "key": "i18n.lang.id",
+    "level": 2
+  },
+  {
     "label": "Italiano",
     "name": "Italian",
     "value": "it",

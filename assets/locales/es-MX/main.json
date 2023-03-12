@@ -75,6 +75,9 @@
     "general": {
       "label": "General"
     },
+    "appearance": {
+      "label": ""
+    },
     "language": {
       "label": "Idioma"
     },
@@ -82,6 +85,13 @@
       "label": "Varios",
       "silly-clowns": "Payasadas",
       "silly-clowns-description": "Activa los huevos de pascua"
+    },
+    "theme": {
+      "label": "",
+      "description": "",
+      "light": "",
+      "dark": "",
+      "system": ""
     },
     "units": {
       "label": "Unidades",
