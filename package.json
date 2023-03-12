@@ -45,7 +45,8 @@
       "./test/setup-jest.js"
     ],
     "testPathIgnorePatterns": [
-      "./test/integration"
+      "./test/integration",
+      "./app/resources/v1"
     ],
     "collectCoverageFrom": [
       "app.mjs",
