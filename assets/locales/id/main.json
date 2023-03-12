@@ -1,0 +1,522 @@
+{
+  "menu": {
+    "item": {
+      "help": "Bantuan",
+      "about": "Tentang Streetmix...",
+      "contact": "Kontak",
+      "community": "Komunitas",
+      "contribute": "Berkontribusi",
+      "sign-in": "Masuk",
+      "sign-out": "Keluar",
+      "new-street": "Jalan baru",
+      "my-streets": "Jalanku",
+      "settings": "Pengaturan",
+      "share": "Bagikan",
+      "store": "Toko",
+      "upgrade": "Tingkatkan",
+      "streetmix-plus": "Dapatkan Streetmix+"
+    },
+    "help": {
+      "keyboard-label": "Pintasan papan tombol",
+      "remove-instruction": "Hapus ruas yang Anda tunjuk",
+      "remove-shift-instruction": "(tahan {shiftKey} untuk menghapus semua)",
+      "move-instruction": "Bergerak di sekitar jalan",
+      "move-shift-instruction": "(tahan {shiftKey} untuk melompat ke tepi)",
+      "change-instruction": "Ubah lebar ruas yang Anda tunjuk",
+      "change-shift-instruction": "(tahan {shiftKey} untuk lebih presisi)"
+    },
+    "share": {
+      "sign-in-twitter-link": "Masuk",
+      "sign-in-link": "{signInLink} untuk tautan yang lebih bagus ke jalan Anda dan galeri jalan pribadi Anda",
+      "link": "Salin dan tempel tautan ini untuk berbagi:",
+      "copy-to-clipboard": "Salin ke papan klip",
+      "twitter": "Bagikan menggunakan Twitter",
+      "facebook": "Bagikan menggunakan Facebook",
+      "print": "Cetak...",
+      "save": "Simpan sebagai gambar...",
+      "save-byline": "Untuk dimasukkan dalam laporan, blog, dll.",
+      "messages": {
+        "my-street": "Periksa jalan saya, {streetName}, di Streetmix!",
+        "my-street-unnamed": "Periksa jalan saya di Streetmix!",
+        "someone-elses-street": "Periksa {streetName} oleh {streetCreator} di Streetmix!",
+        "someone-elses-street-unnamed": "Periksa jalan ini oleh {streetCreator} di Streetmix!",
+        "anonymous-creator-street": "Periksa {streetName} di Streetmix!",
+        "anonymous-creator-street-unnamed": "Periksa jalan ini di Streetmix!"
+      }
+    },
+    "contact": {
+      "forums": "Diskusikan di forum",
+      "email": "Kirim surel ke tim Streetmix",
+      "github": "Lihat kode sumber di GitHub",
+      "blog": "Kunjungi blog Streetmix",
+      "discord": "Bergabung dengan obrolan Discord",
+      "slack": "Bergabung dengan obrolan Slack",
+      "newsletter": "Berlangganan buletin kami"
+    },
+    "contribute": {
+      "donate": "Menyumbang",
+      "opensource": "Berkontribusi untuk sumber terbuka"
+    },
+    "feedback": {
+      "prompt": "",
+      "message-placeholder": "",
+      "email-placeholder": "",
+      "send": "",
+      "confirm": "",
+      "error": ""
+    },
+    "sign-in": {
+      "twitter": "Masuk dengan Twitter"
+    }
+  },
+  "settings": {
+    "heading": "Pengaturan",
+    "info-tooltip": "Deskripsi",
+    "general": {
+      "label": "Umum"
+    },
+    "appearance": {
+      "label": "Tampilan"
+    },
+    "language": {
+      "label": "Bahasa"
+    },
+    "misc": {
+      "label": "Lain-lain",
+      "silly-clowns": "Badut konyol",
+      "silly-clowns-description": "Mengaktifkan telur Paskah."
+    },
+    "theme": {
+      "label": "Tema",
+      "description": "Mengatur skema warna antarmuka pengguna.",
+      "light": "Tema terang",
+      "dark": "Tema gelap",
+      "system": "Gunakan preferensi sistem"
+    },
+    "units": {
+      "label": "Satuan",
+      "metric": "Satuan metrik (meter)",
+      "imperial": "Satuan imperial (kaki)"
+    }
+  },
+  "msg": {
+    "loading": "Memuat...",
+    "remixing": "Baur ulang...",
+    "having-trouble": "Mengalami masalah...",
+    "no-street": "Tidak ada jalan yang dipilih.",
+    "trouble-loading": "Kami mengalami masalah saat memuat Streetmix.",
+    "slow-connection-1": "Streetmix sudah lama tidak dapat terhubung ke internet.",
+    "slow-connection-2": "Anda mungkin ingin memuat ulang laman dan mencoba lagi. Harap dicatat bahwa Anda mungkin kehilangan perubahan terbaru ke jalan. Maaf!",
+    "no-connection": "Streetmix mengalami masalah saat menghubungkan ke internet.",
+    "more-info": "Info lebih lanjut"
+  },
+  "error": {
+    "button": {
+      "home": "Pergi ke beranda",
+      "sign-in": "Masuk lagi",
+      "reload": "Muat ulang laman",
+      "return": "Kembali ke Streetmix",
+      "try-again": "Coba lagi",
+      "view-example": "Lihat contoh jalan"
+    },
+    "page-not-found-title": "Laman tidak ditemukan.",
+    "page-not-found-description": "Ya ampun. Tidak ada laman dengan alamat ini!",
+    "street-not-found-title": "Jalan tidak ditemukan.",
+    "street-not-found-description": "Ya ampun. Tidak ada jalan dengan tautan ini!",
+    "street-not-found-but-user-description": "Tidak ada jalan dengan tautan ini! Tetapi Anda dapat melihat jalan-jalan lain oleh {user}",
+    "street-deleted-title": "Jalan ini telah dihapus.",
+    "street-deleted-description": "Tidak ada lagi jalan dengan tautan ini, tetapi Anda dapat melihat jalan lain oleh{user}",
+    "sign-out-title": "Anda sekarang sudah keluar.",
+    "reload-sign-out-title": "Anda keluar di jendela lain.",
+    "gallery-street-failure-description": "Kami mengalami masalah saat memuat jalan ini.",
+    "reload-sign-in-title": "Anda masuk di jendela lain.",
+    "please-reload": "Silakan muat ulang laman ini untuk kembali ke Streetmix.",
+    "survey-finished": "Survey selesai. Selamat dan terima kasih!",
+    "street-deleted-elsewhere-title": "Jalan ini telah dihapus di tempat lain.",
+    "street-deleted-elsewhere-description": "Jalan ini telah dihapus di peramban lain.",
+    "auth-expired": "Kami secara otomatis mengeluarkan Anda karena tidak aktif.",
+    "sign-in-again": "Silakan masuk lagi.",
+    "access-denied-title": "Anda belum masuk.",
+    "access-denied-description": "Anda membatalkan proses masuk.",
+    "auth-api-problem-title": "Ada masalah dengan pendaftaran Anda.",
+    "auth-api-problem-description": "Ada masalah dengan autentikasi.",
+    "please-try-again": "Silakan coba lagi nanti atau beri tahu kami melalui <email_link>email</email_link> atau <tweet_link>Twitter</tweet_link>.",
+    "please-try-again-contact-us": "Silakan coba lagi nanti. Jika Anda masih membutuhkan bantuan, silakan <a>hubungi kami</a>.",
+    "unsupported-browser-title": "Streetmix tidak bekerja di peramban Anda.",
+    "unsupported-browser-description": "Maaf tentang itu. Anda mungkin ingin mencoba <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, atau Safari.",
+    "unsupported-browser-internet-explorer": "Apakah Anda menggunakan Internet Explorer? <a>Cari tahu lebih lanjut.</a>",
+    "unsupported-browser-contact-us": "Jika menurut Anda peramban Anda harus didukung, silakan <a>hubungi kami</a>.",
+    "cannot-create-new-street-on-phone-title": "Streetmix hanya berfungsi di tablet dan desktop.",
+    "cannot-create-new-street-on-phone-description": "Jika Anda mengikuti tautan lain ke jalan tertentu, Anda dapat melihatnya di ponsel Anda - tetapi Anda belum dapat membuat jalan baru.",
+    "generic-error-title": "Ada yang tidak beres.",
+    "generic-error-description": "Maaf – ada yang tidak beres.",
+    "error-code": "(Kesalahan {code}.)",
+    "need-help-link": "Butuh bantuan?"
+  },
+  "btn": {
+    "reload": "Muat ulang",
+    "undo": "Membatalkan",
+    "redo": "Mengembalikan",
+    "try-again": "Coba lagi",
+    "cancel": "Membatalkan",
+    "create": "Buat jalan baru",
+    "copy": "Buat salinan",
+    "remove": "Memindahkan",
+    "close": "Tutup",
+    "dismiss": "Membubarkan",
+    "okay": "Oke!",
+    "not-now": "Tidak sekarang"
+  },
+  "dialogs": {
+    "error": {
+      "heading": "Oops!",
+      "text": "Sesuatu yang tidak terduga terjadi 😢. Kami telah mencatat kesalahannya, tetapi jika Anda dapat mengingat apa yang terjadi dalam perjalanan ke sini, <a>tolong beri tahu kami tentang hal itu</a>. Ini juga bisa jadi merupakan masalah sementara, jadi silakan coba sekali lagi."
+    },
+    "welcome": {
+      "heading": "Selamat datang di Streetmix.",
+      "new": {
+        "intro": "Desain, baur ulang, dan bagikan jalan lingkungan Anda. Tambahkan pohon atau jalur sepeda, trotoar yang lebar atau jalur lalu lintas, pelajari bagaimana keputusan Anda dapat memengaruhi komunitas Anda.",
+        "instruction": "Mulailah dengan memindahkan beberapa ruas.",
+        "instruct": "Mulailah dengan memindahkan beberapa ruas dengan {pointer}.",
+        "instruct-pointer-finger": "jarimu",
+        "instruct-pointer-mouse": "tetikusmu"
+      },
+      "existing": {
+        "intro": "Ini adalah {streetName} yang dibuat oleh {creator}.",
+        "intro-without-creator": "Ini adalah {streetName}.",
+        "instruct": "Baur ulang dengan memindahkan beberapa ruas di sekitar, atau {startYourOwnStreet}.",
+        "instruct-start-own-street": "Mulai jalanmu sendiri"
+      }
+    },
+    "new-street": {
+      "heading": "Ini jalan barumu.",
+      "default": "Mulailah dengan contoh jalan",
+      "empty": "Mulailah dengan jalan kosong",
+      "last": "Mulailah dengan salinan jalan terakhir"
+    },
+    "about": {
+      "heading": "Tentang Streetmix.",
+      "description": "Desain, baur ulang, dan bagikan jalan Anda. Tambahkan jalur sepeda, trotoar yang lebar, atau jalur lalu lintas, pelajari bagaimana semua ini dapat memengaruhi komunitas Anda.",
+      "thanks": "",
+      "credits": "",
+      "team-heading": "Tim proyek dan pengelola",
+      "view-source": "Lihat kode sumber",
+      "partners": "Partner",
+      "sponsors": "Sponsor",
+      "sponsored-by": "Streetmix dengan murah hati disponsori oleh:",
+      "donate-link": "Dukung kami secara finansial",
+      "github-link": "Berkontribusi untuk sumber terbuka",
+      "open-source-link": "Kami adalah sumber terbuka!",
+      "guidebook-link": "Buku panduan",
+      "tos-link": "Ketentuan layanan",
+      "privacy-link": "Kebijakan privasi",
+      "acknowledgements": "Ucapan Terima Kasih",
+      "font-designed-by": "{fontName} fon didesain oleh {fontAuthor}.",
+      "emoji-by": "Emoji oleh {author}.",
+      "icons-by": "Ikon oleh {author}.",
+      "license-label": "(<a>Lisensi</a>)"
+    },
+    "analytics": {
+      "export-csv": "Ekspor sebagai CSV",
+      "heading": "Analitis",
+      "street-summary": "Jalan Anda memiliki perkiraan lalu lintas rata-rata {averageTotal} orang per jam, dan potensi hingga {potentialTotal} orang per jam.",
+      "typical-lane-width": "Nilai kapasitas didasarkan pada  {laneWidth}-lebar jalur.",
+      "segment-summary": "{average} — {potential} orang/jam",
+      "segment-summary-single": "{amount} orang/jam",
+      "source": "Sumber",
+      "capacity-data-source": "Sumber data kapasitas",
+      "toggle-visible": "Tampilkan jumlah kapasitas dalam label ruas",
+      "settings-notice": "Pemilik jalan dapat mengubah pengaturan ini."
+    },
+    "save": {
+      "heading": "Simpan sebagai gambar",
+      "option-labels": "Nama dan lebar ruas",
+      "option-name": "Nama jalan",
+      "option-sky": "Langit transparan",
+      "option-watermark": "Tanda air",
+      "option-custom-scale": "Skala khusus",
+      "option-custom-scale-description": "Unduh gambar hingga 500% dari ukuran asli.",
+      "loading": "Memuat...",
+      "save-button": "Simpan ke komputer Anda...",
+      "license": "Gambar yang dibuat Streetmix ini dapat digunakan kembali di mana saja, untuk tujuan apa pun, di bawah lisensi {licenseLink}.",
+      "error-preview": "Terjadi kesalahan saat menampilkan gambar pratinjau.",
+      "error-unavailable": "Menyimpan ke gambar tidak tersedia di peramban ini.",
+      "error-too-large": "Gambar ini terlalu besar dan kami tidak dapat membuatnya. Silakan coba ukuran khusus yang lebih kecil.",
+      "preview-image-alt": "Pratinjau",
+      "print-size": "Ukuran cetak",
+      "digital-size": "Ukuran digital"
+    },
+    "geotag": {
+      "search": "Cari lokasi",
+      "clear-search": "Hapus pencarian",
+      "zoom-in": "Perbesar",
+      "zoom-out": "Perkecil",
+      "add-location": "Tambahkan lokasi",
+      "confirm-location": "Konfirmasi lokasi",
+      "clear-location": "Hapus lokasi",
+      "unknown-location": "Lokasi tidak diketahui",
+      "geotag-unavailable": "Layanan geocoding saat ini tidak tersedia. Anda dapat melihat peta, tetapi Anda tidak akan dapat mengubah lokasi jalan ini."
+    },
+    "donate": {
+      "heading": "Streetmix membutuhkan bantuan Anda!",
+      "lede": "Streetmix adalah proyek yang didukung komunitas. Tidak seperti layanan \"gratis\" lainnya di Internet, kami tidak menampilkan iklan atau menyuntikkan pelacak yang menyalahgunakan privasi Anda. Sebagai gantinya, kami bergantung pada dukungan Anda untuk menjaga Streetmix tetap aktif dan berjalan.",
+      "text": "Mohon pertimbangkan untuk mendukung kami dengan kontribusi satu kali atau berulang. Donasi Anda akan membayar server dan infrastruktur awan kami, mendukung nirlaba lainnya, kelompok advokasi, dan siswa yang bekerja untuk memperbaiki jalan kami. Pendapatan tambahan akan diinvestasikan ke dalam pengembangan lebih lanjut dari fitur-fitur baru. Pengeluaran kami benar-benar transparan, sehingga Anda dapat melihat dengan tepat bagaimana kontribusi Anda digunakan oleh tim Streetmix.",
+      "button": "Donasi ke Streetmix",
+      "cancel": "Tidak terima kasih"
+    },
+    "sign-in": {
+      "heading": "Masuk / Daftar",
+      "description": "Simpan desain pertama Anda atau masuk untuk mengakses desain Anda sebelumnya.",
+      "email-label": "Surel",
+      "email-description": "Kami akan mengirimkan Anda tautan untuk masuk. Tidak diperlukan kata sandi.",
+      "email-invalid": "Oops! Itu tidak terlihat seperti alamat email yang valid. Silakan coba lagi.",
+      "social-heading": "atau",
+      "button": {
+        "email": "Lanjutkan dengan email",
+        "twitter": "Lanjutkan dengan Twitter",
+        "google": "Lanjutkan dengan Google",
+        "facebook": "Lanjutkan dengan Facebook"
+      },
+      "tos": "Dengan mengklik salah satu tombol ini, saya setuju dengan {tosLink} dan {privacyLink}.",
+      "tos-link-label": "ketentuan layanan",
+      "privacy-link-label": "kebijakan privasi",
+      "loading-message": "Memasukkan Anda...",
+      "sent-message-with-email": "Kami telah mengirim email ke {email}. Silakan ikuti instruksi di sana untuk melanjutkan masuk!",
+      "email-unreceived": "Tidak menerimanya?",
+      "resend-email": "Kirim ulang surel"
+    },
+    "whatsnew": {
+      "heading": "Apa yang baru di Streetmix?",
+      "english-only": "Informasi ini hanya disediakan dalam bahasa Inggris."
+    },
+    "newsletter": {
+      "heading": "Berlangganan buletin kami",
+      "description": "Kami mengirim pembaruan surel sesekali melalui buletin kami, hanya beberapa kali dalam setahun. Daftar untuk memastikan Anda tidak melewatkan apa pun!",
+      "email-label": "Masukkan surel Anda",
+      "field-required-error": "Bidang ini wajib diisi.",
+      "subscribe": "Berlangganan",
+      "subscribe-pending": "Mohon tunggu...",
+      "ok-message": "<strong>Terima kasih! Anda hampir berlangganan.</strong> Kami telah mengirimi Anda surel untuk mengonfirmasi alamat Anda. Klik dan Anda masuk!",
+      "error-message": "Eh oh! Ada yang tidak beres dengan proses berlangganan. Ini mungkin kesalahan sistem sementara. Silakan coba lagi nanti!"
+    }
+  },
+  "tools": {
+    "tooltip": "Beralih alat",
+    "environment": {
+      "tooltip": "Editor lingkungan",
+      "heading": "Lingkungan"
+    }
+  },
+  "prompt": {
+    "new-street": "Nama jalan baru:",
+    "delete-street": "Apakah Anda yakin ingin menghapus {streetName} secara permanen? Ini tidak bisa dibatalkan.",
+    "new-width": "Lebar jalan baru (dari {minWidth} hingga {maxWidth}):",
+    "segment-label": "Label segmen baru:"
+  },
+  "toast": {
+    "segment-deleted": "Ruas telah dihapus.",
+    "all-segments-deleted": "Semua ruas telah dihapus.",
+    "no-undo": "Tidak ada yang bisa dibatalkan.",
+    "no-redo": "Tidak ada yang perlu diulang.",
+    "no-save": "Tidak perlu menyimpan dengan tangan; Streetmix secara otomatis menyimpan jalan Anda!",
+    "remixing": "Sekarang mengedit duplikat yang baru dibuat dari jalan asli. Duplikasi telah dimasukkan ke dalam galeri Anda.",
+    "remixing-sign-in": "Sekarang mengedit duplikat yang baru dibuat dari jalan asli. Masuk untuk memulai galeri jalanan Anda sendiri.",
+    "reloaded": "Jalan Anda dimuat ulang dari server saat dimodifikasi di tempat lain."
+  },
+  "palette": {
+    "remove": "Seret ke sini untuk menghapus"
+  },
+  "width": {
+    "label": "{width} lebar",
+    "under": "({width} ruang)",
+    "over": "({width} lebih)",
+    "occupied": "Lebar yang ditempati:",
+    "building": "Lebar bangunan-ke-bangunan:",
+    "different": "Lebar yang berbeda...",
+    "metric": "Beralih ke satuan metrik",
+    "imperial": "Beralih ke satuan imperial (kaki)"
+  },
+  "capacity": {
+    "ppl-per-hour": "{capacity} orang/jam"
+  },
+  "datetime": {
+    "minutes-ago": "Beberapa menit yang lalu",
+    "seconds-ago": "Beberapa detik yang lalu",
+    "yesterday": "Kemarin di {time}",
+    "today": "Hari ini di {time}"
+  },
+  "key": {
+    "backspace": "Backspace",
+    "shift": "Shift",
+    "plus": "Tambah",
+    "minus": "Kurang",
+    "left-arrow": "Panah kiri",
+    "right-arrow": "Panah kanan"
+  },
+  "tooltip": {
+    "remove-segment": "Hapus ruas",
+    "delete-street": "Hapus jalan",
+    "segment-width": "Ubah lebar ruas",
+    "building-height": "Ubah jumlah lantai",
+    "street-width": "Ubah lebar jalan",
+    "geotag": "Ubah lokasi",
+    "increase-width": "Perbesar lebar (tahan Shift untuk presisi lebih)",
+    "decrease-width": "Kurangi lebar (tahan Shift untuk presisi lebih)",
+    "add-floor": "Tambahkan lantai",
+    "remove-floor": "Hapus lantai",
+    "scroll-street-left": "Gulir jalan ke kiri",
+    "scroll-street-right": "Gulir jalan ke kanan",
+    "scroll-left": "Gulir ke kiri",
+    "scroll-right": "Gulir ke kanan"
+  },
+  "street": {
+    "default-name": "Jl. Unnamed",
+    "rename": "Klik untuk mengganti nama"
+  },
+  "building": {
+    "floors-count": "{count, plural, other {# lantai}}"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "Ruas ini tidak muat di dalam jalan.",
+      "not-wide": "Ruas ini mungkin tidak cukup lebar.",
+      "too-wide": "Ruas ini mungkin terlalu lebar."
+    },
+    "learn-more": "Pelajari lebih lanjut",
+    "unknown": {
+      "label": "Tidak dikenal"
+    },
+    "description": {
+      "photo-credit": "Foto:"
+    },
+    "resize": {
+      "min": "Min",
+      "max": "Maks"
+    }
+  },
+  "section": {
+    "empty": "Ruang kosong"
+  },
+  "gallery": {
+    "fail": "Gagal memuat galeri.",
+    "all": "Semua jalan",
+    "twitter-link": "Profil Twitter",
+    "delete-street-tooltip": "Hapus jalan",
+    "street-count": "{count, plural, other {# jalan}}",
+    "no-streets": "Belum ada jalan",
+    "thumbnail-error": "Gambar mini tidak tersedia."
+  },
+  "users": {
+    "anonymous": "Anonim",
+    "byline": "oleh {user}",
+    "roles": {
+      "admin": "Admin",
+      "subscriber": "Anggota Streetmix+"
+    }
+  },
+  "export": {
+    "watermark": "Dibuat dengan {streetmixWordmark}"
+  },
+  "meta": {
+    "description": "Desain, baur ulang, dan bagikan jalan lingkungan Anda - semuanya ada di peramban Anda! Tambahkan pohon atau jalur sepeda, trotoar atau jalur lalu lintas, pelajari bagaimana keputusan Anda dapat memengaruhi komunitas Anda.",
+    "page-title": "{streetName} (by {author})"
+  },
+  "credits": {
+    "core-team-heading": "Tim proyek",
+    "original-team-heading": "Tim proyek orisinal",
+    "past-team-heading": "Anggota tim sebelumnya",
+    "core-contributors": "Kontributor inti",
+    "advisors": "Penasihat",
+    "additional-illustrations": "Ilustrasi tambahan",
+    "additional-code": "Kode tambahan",
+    "additional-contributors": "Kontributor tambahan",
+    "special-thanks": "Terima kasih spesial untuk",
+    "translators": "Penerjemah"
+  },
+  "plus": {
+    "locked": {
+      "label": "Terkunci",
+      "soon": "Segera hadir!",
+      "sub": "Tingkatkan ke Streetmix+ untuk menggunakan!",
+      "sub-edit": "Tingkatkan ke Streetmix+ untuk mengedit",
+      "user": "Masuk untuk menggunakan!",
+      "action": "Dapatkan Streetmix+"
+    },
+    "prompt": {
+      "text": "Fitur ini hanya tersedia untuk pengguna Streetmix+.",
+      "action": "Tingkatkan untuk membuka kunci"
+    },
+    "web-monetization": {
+      "thanks": "Terima kasih atas dukungan Anda!",
+      "not-signed-in": "Peramban Anda mengirimkan pembayaran Monetisasi Web. Masuk sekarang untuk mengakses manfaat Streetmix+ Anda!",
+      "signed-in": "Langganan Monetisasi Web Anda memberi Anda akses penuh ke manfaat Streetmix+.",
+      "learn-more": "Pelajari lebih lanjut"
+    }
+  },
+  "sentiment": {
+    "prompt": {
+      "intro": "<strong>Maafkan gangguannya.</strong> Kami ingin tanggapan Anda tentang jalan ini.",
+      "joyful": "Apakah Anda akan mengatakan jalan ini terasa <em>riang</em>?",
+      "choose-one": "(pilih satu)"
+    },
+    "answer": {
+      "rating-1": "Sama sekali tidak",
+      "rating-2": "Tidak terlalu banyak",
+      "rating-3": "Biasa saja",
+      "rating-4": "Sedikit",
+      "rating-5": "Cukup banyak"
+    },
+    "sign-in-prompt": "Silakan masuk sekarang untuk membuat suara Anda didengar.",
+    "about-link": "Mengapa saya melihat ini?",
+    "about-text": "Survei ini membantu kita mempelajari bagaimana perasaan orang tentang jalanan.",
+    "thank-you": "Terima kasih!",
+    "about-header": "Kami ingin memahami bagaimana perasaan orang-orang tentang jalanan",
+    "about-article": {
+      "paragraph-1": "Banyak jalan dirancang oleh insinyur sipil, tetapi kami percaya bahwa desain harus mencakup sudut pandang semua orang. Dalam kemitraan dengan <a>New Urban Mobility Alliance</a> (NUMO), kami sedang melakukan survei satu pertanyaan ini untuk melakukan hal itu.",
+      "paragraph-2": "Kami akan menganalisis tanggapan Anda sehingga kami dapat menyimpulkan karakteristik jalan mana yang akan mendorong perasaan mana. Di masa depan, kami berencana untuk memasukkan kembali wawasan ini ke dalam rekomendasi desain untuk pengguna Streetmix.",
+      "paragraph-3": "Anda hanya dapat memilih sekali per jalan, tetapi Anda dapat mendorong orang lain untuk memberikan suara mereka dengan membagikan jalan Anda atau jalan acak dengan tautan <a>https://streetmix.net/survey/</a>."
+    },
+    "done": {
+      "response": "Anda menjawab {score}.",
+      "vote-another": "Pilih yang lain!",
+      "really-done": "Semua selesai!"
+    },
+    "comment": {
+      "prompt": "Beri tahu kami alasannya:",
+      "example": "(misalnya, \"Aku menyukai pepohonan.\")",
+      "submit": "Kirim",
+      "thanks": "Mengerti!"
+    }
+  },
+  "i18n": {
+    "lang": {
+      "am": "Bahasa Amharik",
+      "ar": "Bahasa Arab",
+      "ca": "Bahasa Catalan",
+      "cs": "Bahasa Ceko",
+      "de": "Bahasa Jerman",
+      "en": "Bahasa Inggris",
+      "en-gb": "Bahasa Inggris (Inggris Raya)",
+      "es": "Bahasa Spanyol",
+      "es-419": "Bahasa Spanyol (Amerika Latin)",
+      "es-es": "Bahasa Spanyol (Spanyol)",
+      "es-mx": "Bahasa Spanyol (Meksiko)",
+      "fi": "Bahasa Finlandia",
+      "fr": "Bahasa Perancis",
+      "it": "Bahasa Italia",
+      "ja": "Bahasa Jepang",
+      "ko": "Bahasa Korea",
+      "nb-no": "Bahasa Norwegia Bokmål",
+      "nl-nl": "Bahasa Belanda (Belanda)",
+      "pl": "Bahasa Polandia",
+      "pt-br": "Bahasa Portugis (Brasil)",
+      "ro-ro": "Bahasa Rumania",
+      "ru": "Bahasa Rusia",
+      "sv": "Bahasa Swedia",
+      "tr": "Bahasa Turki",
+      "zh": "Bahasa Mandarin",
+      "zh-hans": "Bahasa Mandarin Sederhana",
+      "zh-hant": "Bahasa Mandarin Tradisional"
+    }
+  }
+}

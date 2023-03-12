@@ -75,6 +75,9 @@
     "general": {
       "label": "Yleiset"
     },
+    "appearance": {
+      "label": ""
+    },
     "language": {
       "label": "Kieli"
     },
@@ -82,6 +85,13 @@
       "label": "Sekalaiset",
       "silly-clowns": "Typerät pellet",
       "silly-clowns-description": "Pääsiäismunat käyttöön."
+    },
+    "theme": {
+      "label": "",
+      "description": "",
+      "light": "",
+      "dark": "",
+      "system": ""
     },
     "units": {
       "label": "Mittayksikkö",

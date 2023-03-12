@@ -75,6 +75,9 @@
     "general": {
       "label": ""
     },
+    "appearance": {
+      "label": ""
+    },
     "language": {
       "label": "Dil"
     },
@@ -82,6 +85,13 @@
       "label": "",
       "silly-clowns": "",
       "silly-clowns-description": ""
+    },
+    "theme": {
+      "label": "",
+      "description": "",
+      "light": "",
+      "dark": "",
+      "system": ""
     },
     "units": {
       "label": "Birimler",

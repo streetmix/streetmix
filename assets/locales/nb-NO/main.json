@@ -75,6 +75,9 @@
     "general": {
       "label": "Generell"
     },
+    "appearance": {
+      "label": ""
+    },
     "language": {
       "label": "Språk"
     },
@@ -82,6 +85,13 @@
       "label": "Diverse",
       "silly-clowns": "",
       "silly-clowns-description": ""
+    },
+    "theme": {
+      "label": "",
+      "description": "",
+      "light": "",
+      "dark": "",
+      "system": ""
     },
     "units": {
       "label": "Enheter",
