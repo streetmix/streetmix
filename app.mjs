@@ -40,7 +40,9 @@ const cacheTimestamp = Date.now()
 app.locals.cacheTimestamp = cacheTimestamp
 
 process.on('uncaughtException', function (error) {
-  logger.error(chalk`[process] {bold Uncaught exception:} ${error}`)
+  logger.error(
+    '[process] ' + chalk.redBright.bold('Uncaught exception: ') + error
+  )
 
   console.trace()
   process.exit(1)
@@ -50,7 +52,7 @@ process.on('uncaughtException', function (error) {
 // Note: various sources tell us that this does not work on Windows
 process.on('SIGINT', function () {
   if (process.env.NODE_ENV === 'development') {
-    logger.info(chalk`[express] {yellow.bold Stopping Streetmix!}`)
+    logger.info('[express] ' + chalk.yellowBright.bold('Stopping Streetmix!'))
   }
   process.exit()
 })
