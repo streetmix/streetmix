@@ -1,6 +1,5 @@
 import * as fs from 'node:fs/promises'
 import chalk from 'chalk'
-import mkdirp from 'mkdirp'
 import { getFromTransifex } from '../app/lib/transifex.mjs'
 
 const languages = JSON.parse(
@@ -24,8 +23,20 @@ const downloadSuccess = async function (locale, resource, label, data) {
   // Add trailing newline at end of file
   const translationText = JSON.stringify(data, null, 2) + '\n'
 
-  mkdirp.sync(localePath)
+  // Create the folder path, if it doesn't already exist
+  try {
+    const projectFolder = new URL(localePath, import.meta.url)
+    const createDir = await fs.mkdir(projectFolder, { recursive: true })
 
+    // createDir is undefined if the folder already exists.
+    if (createDir) {
+      console.info(chalk`Created folder: {magentaBright ${createDir}}`)
+    }
+  } catch (err) {
+    console.error(err.message)
+  }
+
+  // Write translation files
   try {
     await fs.writeFile(translationFile, translationText)
   } catch (err) {
