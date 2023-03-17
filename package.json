@@ -230,6 +230,6 @@
     "stylelint-config-standard-scss": "7.0.1",
     "stylelint-csstree-validator": "2.1.0",
     "stylelint-prettier": "3.0.0",
-    "supertest": "6.2.4"
+    "supertest": "6.3.3"
   }
 }
