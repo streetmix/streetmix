@@ -9,6 +9,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     env:
+      HUSKY: "0"
       CYPRESS_INSTALL_BINARY: "0"
     steps:
     - name: Checkout
@@ -32,6 +33,7 @@ jobs:
         node-version: [16.x, 18.x]
     env:
       NODE_ENV: test
+      HUSKY: "0"
       CYPRESS_INSTALL_BINARY: "0"
       PGHOST: postgres
       PGUSER: postgres
@@ -59,8 +61,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-      # Ignore scripts to prevent husky installation, which can break
-    - run: npm ci --ignore-scripts
+    - run: npm ci
     - name: Seed test database
       run: npm run db:migrate
     - name: Run tests
@@ -77,6 +78,7 @@ jobs:
       # https://github.com/cypress-io/github-action#firefox
       options: --user 1001
     env:
+      HUSKY: "0"
       # We need placeholder API keys to mock some third party integrations
       PELIAS_API_KEY: ge-iampelias
       PELIAS_HOST_NAME: dummy.pelias.com
