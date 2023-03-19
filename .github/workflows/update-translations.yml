@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TRANSIFEX_API_TOKEN: ${{ secrets.TRANSIFEX_API_TOKEN }}
+      HUSKY: "0"
       CYPRESS_INSTALL_BINARY: "0"
     steps:
     - name: Checkout
