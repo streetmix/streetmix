@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Este segmento no cabe en la calle.",
       "not-wide": "Es posible que este segmento no tenga una anchura suficiente.",
-      "too-wide": "Es posible que este segmento sea demasiado ancho."
+      "too-wide": "Es posible que este segmento sea demasiado ancho.",
+      "dangerous": ""
     },
     "learn-more": "Saber más",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Español (México)",
       "fi": "Finlandés",
       "fr": "Francés",
+      "id": "",
       "it": "Italiano",
       "ja": "Japonés",
       "ko": "Coreano",

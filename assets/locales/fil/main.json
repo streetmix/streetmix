@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Hindi kasya ang bahaging ito sa kalsada.",
       "not-wide": "",
-      "too-wide": ""
+      "too-wide": "",
+      "dangerous": ""
     },
     "learn-more": "",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Espanyol (Mexico)",
       "fi": "Finnish",
       "fr": "Pranses",
+      "id": "",
       "it": "",
       "ja": "",
       "ko": "",

@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Tento úsek se do ulice nevejde.",
       "not-wide": "Tento segment nemusí být dostatečně široký.",
-      "too-wide": "Tento segment může být příliš široký."
+      "too-wide": "Tento segment může být příliš široký.",
+      "dangerous": ""
     },
     "learn-more": "Zjistěte více",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Španělština (Mexiko)",
       "fi": "Finština",
       "fr": "Francouzština",
+      "id": "",
       "it": "Italština",
       "ja": "Japonština",
       "ko": "Korejština",

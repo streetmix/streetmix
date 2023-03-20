@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Segmentet passar inte inom gatubredden.",
       "not-wide": "Detta segment är kanske inte tillräckligt brett.",
-      "too-wide": "Detta segment kan vara för brett."
+      "too-wide": "Detta segment kan vara för brett.",
+      "dangerous": ""
     },
     "learn-more": "",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Spanska (Mexiko)",
       "fi": "Finska",
       "fr": "Franska",
+      "id": "",
       "it": "Italiensk",
       "ja": "Japanska",
       "ko": "Koreanska",

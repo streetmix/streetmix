@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Dieses Element passt nicht mehr in die Straße hinein.",
       "not-wide": "Dieses Element könnte zu schmal sein.",
-      "too-wide": "Dieses Element könnte zu breit sein."
+      "too-wide": "Dieses Element könnte zu breit sein.",
+      "dangerous": ""
     },
     "learn-more": "Erfahre mehr",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Spanisch (Mexiko)",
       "fi": "Finnisch",
       "fr": "Französisch",
+      "id": "",
       "it": "Italienisch",
       "ja": "Japanisch",
       "ko": "",

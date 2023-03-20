@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Ruas ini tidak muat di dalam jalan.",
       "not-wide": "Ruas ini mungkin tidak cukup lebar.",
-      "too-wide": "Ruas ini mungkin terlalu lebar."
+      "too-wide": "Ruas ini mungkin terlalu lebar.",
+      "dangerous": "Ruas ini mewakili kondisi berbahaya yang ada."
     },
     "learn-more": "Pelajari lebih lanjut",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Bahasa Spanyol (Meksiko)",
       "fi": "Bahasa Finlandia",
       "fr": "Bahasa Perancis",
+      "id": "Bahasa Indonesia",
       "it": "Bahasa Italia",
       "ja": "Bahasa Jepang",
       "ko": "Bahasa Korea",

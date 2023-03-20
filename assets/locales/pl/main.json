@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Segment nie mieści się na tej ulicy.",
       "not-wide": "Segment może nie być wystarczająco szeroki.",
-      "too-wide": "Ten segment może być zbyt szeroki."
+      "too-wide": "Ten segment może być zbyt szeroki.",
+      "dangerous": ""
     },
     "learn-more": "Dowiedz się więcej",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Hiszpański (Meksyk)",
       "fi": "Fiński",
       "fr": "Francuski",
+      "id": "",
       "it": "Włoski",
       "ja": "Japoński",
       "ko": "",

@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "",
       "not-wide": "",
-      "too-wide": ""
+      "too-wide": "",
+      "dangerous": ""
     },
     "learn-more": "",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "Spaans (Mexico)",
       "fi": "Fins",
       "fr": "Frans",
+      "id": "",
       "it": "Italiaans",
       "ja": "",
       "ko": "Koreaans",

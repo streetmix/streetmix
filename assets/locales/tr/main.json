@@ -380,7 +380,8 @@
     "warnings": {
       "does-not-fit": "Bu kısım sokağa sığmıyor.",
       "not-wide": "Bu kısmın genişliği yeterli olmayabilir.",
-      "too-wide": "Bu kısım fazla geniş olabilir."
+      "too-wide": "Bu kısım fazla geniş olabilir.",
+      "dangerous": ""
     },
     "learn-more": "Daha fazla öğren",
     "unknown": {
@@ -503,6 +504,7 @@
       "es-mx": "İspanyolca (Meksika) ",
       "fi": "Fince",
       "fr": "Fransızca",
+      "id": "",
       "it": "İtalyanca",
       "ja": "Japonca",
       "ko": "Korece",
