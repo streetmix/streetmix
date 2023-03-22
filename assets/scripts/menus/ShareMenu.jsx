@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import {
   Link2Icon,
+  CubeIcon,
   DownloadIcon,
   ExternalLinkIcon
 } from '@radix-ui/react-icons'
@@ -211,7 +212,7 @@ function ShareMenu (props) {
               </Button>
             </div>
           </div>
-          <ExternalLink className="share-via-twitter" href={twitterLink}>
+          <ExternalLink href={twitterLink}>
             <Icon icon="twitter" />
             <FormattedMessage
               id="menu.share.twitter"
@@ -219,11 +220,19 @@ function ShareMenu (props) {
             />
             <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
-          <ExternalLink className="share-via-facebook" href={facebookLink}>
+          <ExternalLink href={facebookLink}>
             <Icon icon="facebook" />
             <FormattedMessage
               id="menu.share.facebook"
               defaultMessage="Share using Facebook"
+            />
+            <ExternalLinkIcon className="menu-item-external-link" />
+          </ExternalLink>
+          <ExternalLink href={`https://3dstreet.app/#${window.location.href}`}>
+            <CubeIcon className="menu-item-icon-radix" />
+            <FormattedMessage
+              id="menu.share.3dstreet"
+              defaultMessage="Open in 3DStreet"
             />
             <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
