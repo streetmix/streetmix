@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## March 23, 2023
+
+### ✨ New features
+
+- **Export directly to 3DStreet!** If you've ever wanted a plan view or a 3D view of your street, then [3DStreet](https://www.3dstreet.org/) is the tool you're looking for. They have supported importing from Streetmix for a long time, and now you can also send your street directly to 3DStreet with one click from the Share menu.
+
 ## November 19, 2022
 
 ### 🐛 Bug fixes

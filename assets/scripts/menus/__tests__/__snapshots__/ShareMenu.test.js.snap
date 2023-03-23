@@ -70,7 +70,6 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       </div>
     </div>
     <a
-      class="share-via-twitter"
       href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%2F"
       rel="noopener noreferrer"
       target="_blank"
@@ -84,7 +83,6 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       />
     </a>
     <a
-      class="share-via-facebook"
       href="https://www.facebook.com/dialog/feed?app_id=undefined&redirect_uri=http%3A%2F%2Flocalhost%2F&link=http%3A%2F%2Flocalhost%2F&name=Unnamed%20St%20%E2%80%93%20Streetmix&description=Check%20out%20this%20street%20on%20Streetmix!"
       rel="noopener noreferrer"
       target="_blank"
@@ -93,6 +91,19 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
         class="svg-inline--fa menu-item-icon fa-square-facebook"
       />
       Share using Facebook
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://3dstreet.app/#http://localhost/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Open in 3DStreet
       <svg
         class="menu-item-external-link"
       />
@@ -154,7 +165,6 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       </div>
     </div>
     <a
-      class="share-via-twitter"
       href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%2F"
       rel="noopener noreferrer"
       target="_blank"
@@ -168,7 +178,6 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       />
     </a>
     <a
-      class="share-via-facebook"
       href="https://www.facebook.com/dialog/feed?app_id=undefined&redirect_uri=http%3A%2F%2Flocalhost%2F&link=http%3A%2F%2Flocalhost%2F&name=bar%20%E2%80%93%20Streetmix&description=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!"
       rel="noopener noreferrer"
       target="_blank"
@@ -177,6 +186,19 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
         class="svg-inline--fa menu-item-icon fa-square-facebook"
       />
       Share using Facebook
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://3dstreet.app/#http://localhost/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Open in 3DStreet
       <svg
         class="menu-item-external-link"
       />
