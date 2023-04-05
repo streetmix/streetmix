@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Kopyala",
       "twitter": "Twitter aracılığıyla paylaş",
       "facebook": "Facebook aracılığıyla paylaş",
+      "3dstreet": "",
       "print": "Yazdır...",
       "save": "Görseli farklı kaydet...",
       "save-byline": "Rapor, blog vs. de referans vermek için",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Bu kısım sokağa sığmıyor.",
       "not-wide": "Bu kısmın genişliği yeterli olmayabilir.",
-      "too-wide": "Bu kısım fazla geniş olabilir."
+      "too-wide": "Bu kısım fazla geniş olabilir.",
+      "dangerous": ""
     },
     "learn-more": "Daha fazla öğren",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "İspanyolca (Meksika) ",
       "fi": "Fince",
       "fr": "Fransızca",
+      "id": "",
       "it": "İtalyanca",
       "ja": "Japonca",
       "ko": "Korece",

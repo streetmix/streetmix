@@ -32,6 +32,7 @@
       "copy-to-clipboard": "",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
+      "3dstreet": "",
       "print": "Drukuj…",
       "save": "Zapisz jako obrazek…",
       "save-byline": "Dla włączenia do raportu, bloga itp.",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Segment nie mieści się na tej ulicy.",
       "not-wide": "Segment może nie być wystarczająco szeroki.",
-      "too-wide": "Ten segment może być zbyt szeroki."
+      "too-wide": "Ten segment może być zbyt szeroki.",
+      "dangerous": ""
     },
     "learn-more": "Dowiedz się więcej",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Hiszpański (Meksyk)",
       "fi": "Fiński",
       "fr": "Francuski",
+      "id": "",
       "it": "Włoski",
       "ja": "Japoński",
       "ko": "",

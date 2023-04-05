@@ -32,6 +32,7 @@
       "copy-to-clipboard": "",
       "twitter": "Über Twitter teilen",
       "facebook": "Über Facebook teilen",
+      "3dstreet": "",
       "print": "Drucken...",
       "save": "Als Bild speichern…",
       "save-byline": "Um deine Straße in einem Bericht, Blog etc. zu verwenden",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Dieses Element passt nicht mehr in die Straße hinein.",
       "not-wide": "Dieses Element könnte zu schmal sein.",
-      "too-wide": "Dieses Element könnte zu breit sein."
+      "too-wide": "Dieses Element könnte zu breit sein.",
+      "dangerous": ""
     },
     "learn-more": "Erfahre mehr",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Spanisch (Mexiko)",
       "fi": "Finnisch",
       "fr": "Französisch",
+      "id": "",
       "it": "Italienisch",
       "ja": "Japanisch",
       "ko": "",

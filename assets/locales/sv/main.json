@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Kopiera till urklipp",
       "twitter": "Dela på Twitter",
       "facebook": "Dela på Facebook",
+      "3dstreet": "",
       "print": "Skriv ut…",
       "save": "Spara som bild…",
       "save-byline": "För att inkludera i en rapport, blogg etc.",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Segmentet passar inte inom gatubredden.",
       "not-wide": "Detta segment är kanske inte tillräckligt brett.",
-      "too-wide": "Detta segment kan vara för brett."
+      "too-wide": "Detta segment kan vara för brett.",
+      "dangerous": ""
     },
     "learn-more": "",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Spanska (Mexiko)",
       "fi": "Finska",
       "fr": "Franska",
+      "id": "",
       "it": "Italiensk",
       "ja": "Japanska",
       "ko": "Koreanska",

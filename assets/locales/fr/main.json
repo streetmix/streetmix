@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Copier dans le presse-papier",
       "twitter": "Partager via Twitter",
       "facebook": "Partager via Facebook",
+      "3dstreet": "",
       "print": "Imprimer…",
       "save": "Sauver en tant qu'image…",
       "save-byline": "Pour inclure dans un rapport, un blogue, etc.",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Cet élément de voirie ne s'insère pas dans la route.",
       "not-wide": "Cet élément de voirie pourrait ne pas être suffisant.",
-      "too-wide": "Cet élément de voirie pourrait être trop large."
+      "too-wide": "Cet élément de voirie pourrait être trop large.",
+      "dangerous": ""
     },
     "learn-more": "Apprenez en davantage",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Espagnol (Mexique)",
       "fi": "Finlandais",
       "fr": "Français",
+      "id": "",
       "it": "Italien",
       "ja": "Japonais",
       "ko": "Coréen",

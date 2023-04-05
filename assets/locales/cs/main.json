@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Kopírovat do schránky",
       "twitter": "Sdílet pomocí Twitteru",
       "facebook": "Sdílet přes Facebook",
+      "3dstreet": "",
       "print": "Tisk...",
       "save": "Uložit jako obrázek...",
       "save-byline": "Pro zahrnutí do zprávy, blogu apod.",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Tento úsek se do ulice nevejde.",
       "not-wide": "Tento segment nemusí být dostatečně široký.",
-      "too-wide": "Tento segment může být příliš široký."
+      "too-wide": "Tento segment může být příliš široký.",
+      "dangerous": ""
     },
     "learn-more": "Zjistěte více",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Španělština (Mexiko)",
       "fi": "Finština",
       "fr": "Francouzština",
+      "id": "",
       "it": "Italština",
       "ja": "Japonština",
       "ko": "Korejština",

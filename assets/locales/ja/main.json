@@ -32,6 +32,7 @@
       "copy-to-clipboard": "",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
+      "3dstreet": "",
       "print": "印刷",
       "save": "画像として保存",
       "save-byline": "レポートやブログなどにお使いください",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "このセグメントは道路からはみ出しています。",
       "not-wide": "十分な幅が設定されていません。",
-      "too-wide": "セグメントが大きすぎます。"
+      "too-wide": "セグメントが大きすぎます。",
+      "dangerous": ""
     },
     "learn-more": "詳細",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "スペイン語（メキシコ）",
       "fi": "フィンランド語",
       "fr": "フランス語",
+      "id": "",
       "it": "イタリア語",
       "ja": "日本語",
       "ko": "",

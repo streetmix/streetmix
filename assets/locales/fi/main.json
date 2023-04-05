@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Kopioi leikepöydälle",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
+      "3dstreet": "",
       "print": "Tulosta…",
       "save": "Tallenna kuvana…",
       "save-byline": "Blogiin, liitteeksi raporttiin...",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Elementti ei mahdu kadulle.",
       "not-wide": "Elementti ei ehkä ole riittävän leveä.",
-      "too-wide": "Elementti saattaa olla leveä."
+      "too-wide": "Elementti saattaa olla leveä.",
+      "dangerous": ""
     },
     "learn-more": "Lue lisää",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Espanja (Meksiko)",
       "fi": "Suomi",
       "fr": "Ranska",
+      "id": "",
       "it": "Italia",
       "ja": "Japani",
       "ko": "Korea",

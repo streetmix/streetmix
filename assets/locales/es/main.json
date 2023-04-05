@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Copiar al portapapeles",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
+      "3dstreet": "",
       "print": "Imprimir…",
       "save": "Guardar como imagen…",
       "save-byline": "Para incluir en un reporte, blog, etc",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "",
       "not-wide": "",
-      "too-wide": ""
+      "too-wide": "",
+      "dangerous": ""
     },
     "learn-more": "",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Español (México)",
       "fi": "Finlandés",
       "fr": "",
+      "id": "",
       "it": "Italiano",
       "ja": "",
       "ko": "",
