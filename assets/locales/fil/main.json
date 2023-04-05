@@ -32,6 +32,7 @@
       "copy-to-clipboard": "",
       "twitter": "",
       "facebook": "",
+      "3dstreet": "",
       "print": "I-print",
       "save": "",
       "save-byline": "Upang isama sa isang ulat, blog, atbp.",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Hindi kasya ang bahaging ito sa kalsada.",
       "not-wide": "",
-      "too-wide": ""
+      "too-wide": "",
+      "dangerous": ""
     },
     "learn-more": "",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Espanyol (Mexico)",
       "fi": "Finnish",
       "fr": "Pranses",
+      "id": "",
       "it": "",
       "ja": "",
       "ko": "",

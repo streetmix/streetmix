@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Copieu al porta-retalls",
       "twitter": "Compartiu per Twitter",
       "facebook": "Compartiu per Facebook",
+      "3dstreet": "",
       "print": "Imprimiu...",
       "save": "Deseu com a imatge...",
       "save-byline": "Per a incloure a un informe, bloc, etc.",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Aquest segment o tram no s’adapta al carrer.",
       "not-wide": "És possible que aquest tram o segment no sigui prou ampli.",
-      "too-wide": "És possible que aquest tram o segment sigui massa ampli."
+      "too-wide": "És possible que aquest tram o segment sigui massa ampli.",
+      "dangerous": ""
     },
     "learn-more": "Apreneu-ne més",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Espanyol(Mèxic)",
       "fi": "Finlandès",
       "fr": "Francès",
+      "id": "",
       "it": "Italià",
       "ja": "Japonès",
       "ko": "Koreà",

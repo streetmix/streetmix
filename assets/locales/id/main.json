@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Salin ke papan klip",
       "twitter": "Bagikan menggunakan Twitter",
       "facebook": "Bagikan menggunakan Facebook",
+      "3dstreet": "Buka di 3DStreet",
       "print": "Cetak...",
       "save": "Simpan sebagai gambar...",
       "save-byline": "Untuk dimasukkan dalam laporan, blog, dll.",
@@ -155,8 +156,8 @@
   },
   "btn": {
     "reload": "Muat ulang",
-    "undo": "Membatalkan",
-    "redo": "Mengembalikan",
+    "undo": "Membalikkan",
+    "redo": "Mengulangi",
     "try-again": "Coba lagi",
     "cancel": "Membatalkan",
     "create": "Buat jalan baru",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Ruas ini tidak muat di dalam jalan.",
       "not-wide": "Ruas ini mungkin tidak cukup lebar.",
-      "too-wide": "Ruas ini mungkin terlalu lebar."
+      "too-wide": "Ruas ini mungkin terlalu lebar.",
+      "dangerous": "Ruas ini mewakili kondisi berbahaya yang ada."
     },
     "learn-more": "Pelajari lebih lanjut",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Bahasa Spanyol (Meksiko)",
       "fi": "Bahasa Finlandia",
       "fr": "Bahasa Perancis",
+      "id": "Bahasa Indonesia",
       "it": "Bahasa Italia",
       "ja": "Bahasa Jepang",
       "ko": "Bahasa Korea",

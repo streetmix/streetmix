@@ -32,6 +32,7 @@
       "copy-to-clipboard": "",
       "twitter": "分享到推特",
       "facebook": "分享到臉書",
+      "3dstreet": "",
       "print": "打印",
       "save": "存為圖片",
       "save-byline": "將連接內嵌在報告，博客等等",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "此街道无法容纳这个部分。",
       "not-wide": "這部分可能不夠寬。",
-      "too-wide": " 這個部分可能太寬了。"
+      "too-wide": " 這個部分可能太寬了。",
+      "dangerous": ""
     },
     "learn-more": "了解更多",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "西班牙文 (墨西哥)",
       "fi": "芬蘭語",
       "fr": "法文",
+      "id": "",
       "it": "義大利文",
       "ja": "日文",
       "ko": "",

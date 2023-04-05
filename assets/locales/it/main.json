@@ -32,6 +32,7 @@
       "copy-to-clipboard": "Copia negli appunti",
       "twitter": "Condividi con Twitter",
       "facebook": "Condividi con Facebook",
+      "3dstreet": "",
       "print": "Stampa...",
       "save": "Salva come immagine...",
       "save-byline": "Da includere in un documento, in un blog etc...",
@@ -380,7 +381,8 @@
     "warnings": {
       "does-not-fit": "Il segmento non si adatta alla strada.",
       "not-wide": "Questo segmento non è abbastanza largo",
-      "too-wide": "Il segmento è troppo largo"
+      "too-wide": "Il segmento è troppo largo",
+      "dangerous": ""
     },
     "learn-more": "Per saperne di più",
     "unknown": {
@@ -503,6 +505,7 @@
       "es-mx": "Spagnolo (Messico)",
       "fi": "Finlandese",
       "fr": "Francese",
+      "id": "",
       "it": "Italiano",
       "ja": "Giapponese",
       "ko": "Coreano",
