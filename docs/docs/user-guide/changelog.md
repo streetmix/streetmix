@@ -5,6 +5,14 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## April 19, 2023
+
+### ✨ New features
+
+- **Added Indonesian support.** Thanks to Fuad Alghaffary for contributing these translations!
+
+Language support is contributed by our users around the world. If you have any feedback or want to help, [you can learn more about how to help translate Streetmix](https://docs.streetmix.net/contributing/translations/overview).
+
 ## March 23, 2023
 
 ### ✨ New features
