@@ -125,7 +125,7 @@
     "cookie-parser": "1.4.6",
     "cookie-session": "2.0.0",
     "copy-to-clipboard": "3.3.3",
-    "core-js": "3.29.0",
+    "core-js": "3.30.1",
     "cors": "2.8.5",
     "dotenv": "16.0.3",
     "downshift": "7.3.0",
