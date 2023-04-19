@@ -221,7 +221,7 @@
       "export-csv": "Ekspor sebagai CSV",
       "heading": "Analitis",
       "street-summary": "Jalan Anda memiliki perkiraan lalu lintas rata-rata {averageTotal} orang per jam, dan potensi hingga {potentialTotal} orang per jam.",
-      "typical-lane-width": "Nilai kapasitas didasarkan pada  {laneWidth}-lebar jalur.",
+      "typical-lane-width": "Nilai kapasitas didasarkan pada  {laneWidth}-lebar lajur.",
       "segment-summary": "{average} — {potential} orang/jam",
       "segment-summary-single": "{amount} orang/jam",
       "source": "Sumber",
