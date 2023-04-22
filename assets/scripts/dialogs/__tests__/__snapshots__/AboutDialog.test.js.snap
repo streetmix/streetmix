@@ -56,7 +56,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     title="GitHub"
                   >
                     <svg
-                      class="svg-inline--fa fa-github"
+                      class="svg-inline--fa social-github fa-github"
                     />
                   </a>
                 </li>
@@ -68,7 +68,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     title="Discord"
                   >
                     <svg
-                      class="svg-inline--fa fa-discord"
+                      class="svg-inline--fa social-discord fa-discord"
                     />
                   </a>
                 </li>
@@ -80,7 +80,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     title="Mastodon"
                   >
                     <svg
-                      class="svg-inline--fa fa-mastodon"
+                      class="svg-inline--fa social-mastodon fa-mastodon"
                     />
                   </a>
                 </li>
@@ -92,7 +92,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     title="Twitter"
                   >
                     <svg
-                      class="svg-inline--fa fa-twitter"
+                      class="svg-inline--fa social-twitter fa-twitter"
                     />
                   </a>
                 </li>
@@ -104,7 +104,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                     title="Instagram"
                   >
                     <svg
-                      class="svg-inline--fa fa-instagram"
+                      class="svg-inline--fa social-instagram fa-instagram"
                     />
                   </a>
                 </li>

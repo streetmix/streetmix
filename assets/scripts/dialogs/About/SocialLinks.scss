@@ -19,3 +19,43 @@
     height: 1.5em;
   }
 }
+
+.social-github {
+  color: $social-github;
+
+  &:hover {
+    color: $social-github-hover;
+  }
+}
+
+.social-discord {
+  color: $social-discord;
+
+  &:hover {
+    color: $social-discord-hover;
+  }
+}
+
+.social-mastodon {
+  color: $social-mastodon;
+
+  &:hover {
+    color: $social-mastodon-hover;
+  }
+}
+
+.social-twitter {
+  color: $social-twitter;
+
+  &:hover {
+    color: $social-twitter-hover;
+  }
+}
+
+.social-instagram {
+  color: $social-instagram;
+
+  &:hover {
+    color: $social-instagram-hover;
+  }
+}

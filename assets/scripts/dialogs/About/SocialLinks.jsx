@@ -19,7 +19,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faGithub} />
+          <FontAwesomeIcon icon={faGithub} className="social-github" />
         </a>
       </li>
       <li>
@@ -29,7 +29,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faDiscord} />
+          <FontAwesomeIcon icon={faDiscord} className="social-discord" />
         </a>
       </li>
       <li>
@@ -43,7 +43,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="me noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faMastodon} />
+          <FontAwesomeIcon icon={faMastodon} className="social-mastodon" />
         </a>
       </li>
       <li>
@@ -53,7 +53,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faTwitter} />
+          <FontAwesomeIcon icon={faTwitter} className="social-twitter" />
         </a>
       </li>
       <li>
@@ -63,7 +63,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faInstagram} />
+          <FontAwesomeIcon icon={faInstagram} className="social-instagram" />
         </a>
       </li>
     </ul>
