@@ -10,3 +10,10 @@ updates:
   labels:
   - dependencies
   versioning-strategy: increase-if-necessary
+
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+  reviewers:
+  - louh
