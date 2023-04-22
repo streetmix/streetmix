@@ -28,10 +28,10 @@ function SentimentSurvey ({
   const isUserSignedIn = useSelector((state) => state.user.signedIn)
   const dispatch = useDispatch()
 
-  const transitions = useTransition(visible, null, {
-    from: { transform: 'translateY(-50px)', opacity: 0 },
-    enter: { transform: 'translateY(0px)', opacity: 1 },
-    leave: { transform: 'translateY(-50px)', opacity: 0 },
+  const transitions = useTransition(visible, {
+    from: { y: -50, opacity: 0 },
+    enter: { y: 0, opacity: 1 },
+    leave: { y: -50, opacity: 0 },
     config: config.wobbly
   })
 
@@ -63,14 +63,10 @@ function SentimentSurvey ({
     <div className={classNames.join(' ')}>
       <div className="sentiment-survey-background" />
 
-      {transitions.map(
-        ({ item, key, props }) =>
+      {transitions(
+        (style, item) =>
           item && (
-            <animated.div
-              className="sentiment-survey-dialog"
-              key={key}
-              style={props}
-            >
+            <animated.div className="sentiment-survey-dialog" style={style}>
               <CloseButton onClick={onClose} />
               <p>
                 <FormattedMessage
