@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useTransition, animated } from 'react-spring'
+import { useTransition, animated } from '@react-spring/web'
 import { getEnvirons } from '../streets/environs'
 import './SkyBackground.scss'
 
@@ -11,7 +11,7 @@ SkyBackground.propTypes = {
 function SkyBackground (props) {
   const { environment } = props
 
-  const transitions = useTransition(environment, (key) => key, {
+  const transitions = useTransition(environment, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -22,11 +22,10 @@ function SkyBackground (props) {
 
   return (
     <div className="sky-background">
-      {transitions.map(({ item, props, key }) => (
+      {transitions((style, item) => (
         <animated.div
-          key={key}
           className="sky-background-color"
-          style={{ ...props, ...getEnvirons(item).style }}
+          style={{ ...style, ...getEnvirons(item).style }}
         />
       ))}
     </div>
