@@ -131,7 +131,7 @@
     "core-js": "3.30.1",
     "cors": "2.8.5",
     "dotenv": "16.0.3",
-    "downshift": "7.3.0",
+    "downshift": "7.6.0",
     "downshift-pelias": "0.0.3-alpha",
     "express": "4.18.2",
     "express-jwt": "8.4.1",
