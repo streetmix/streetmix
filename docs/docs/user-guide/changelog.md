@@ -5,6 +5,14 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## April 22, 2023
+
+### ✨ New features
+
+- **Added "Share using Mastodon" option.** Birdsite isn't quite dead, but elephantsite is open source and has some nice things going for it. It's worth supporting, so we're starting with some basic share functionality. When you share to Mastodon, we'll have to ask you what your Mastodon instance's domain is, since there are so many of them.
+
+You can also now find us on the Fediverse at [@streetmix@urbanists.social](https://urbanists.social/@streetmix)!
+
 ## April 19, 2023
 
 ### ✨ New features

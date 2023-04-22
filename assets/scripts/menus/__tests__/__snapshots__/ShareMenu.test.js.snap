@@ -69,6 +69,15 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
         </button>
       </div>
     </div>
+    <a>
+      <svg
+        class="svg-inline--fa menu-item-icon fa-mastodon"
+      />
+      Share using Mastodon
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
     <a
       href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%2F"
       rel="noopener noreferrer"
@@ -164,6 +173,15 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
         </button>
       </div>
     </div>
+    <a>
+      <svg
+        class="svg-inline--fa menu-item-icon fa-mastodon"
+      />
+      Share using Mastodon
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
     <a
       href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%2F"
       rel="noopener noreferrer"
