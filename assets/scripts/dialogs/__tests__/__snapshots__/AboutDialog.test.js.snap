@@ -97,27 +97,11 @@ exports[`AboutDialog renders snapshot 1`] = `
               </ul>
               <p>
                 <a
-                  href="https://opencollective.com/streetmix/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Support us financially
-                </a>
-                <br />
-                <a
                   href="https://github.com/streetmix/streetmix/"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   We’re open source!‎
-                </a>
-                <br />
-                <a
-                  href="https://medium.com/streetmixology"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Visit Streetmix blog
                 </a>
               </p>
               <p>

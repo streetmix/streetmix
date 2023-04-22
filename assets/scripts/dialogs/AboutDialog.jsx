@@ -79,24 +79,10 @@ function AboutDialog (props) {
                 {!offline && (
                   <>
                     <p>
-                      <ExternalLink href="https://opencollective.com/streetmix/">
-                        <FormattedMessage
-                          id="dialogs.about.donate-link"
-                          defaultMessage="Support us financially"
-                        />
-                      </ExternalLink>
-                      <br />
                       <ExternalLink href="https://github.com/streetmix/streetmix/">
                         <FormattedMessage
                           id="dialogs.about.open-source-link"
                           defaultMessage="We’re open source!&lrm;"
-                        />
-                      </ExternalLink>
-                      <br />
-                      <ExternalLink href="https://medium.com/streetmixology">
-                        <FormattedMessage
-                          id="menu.contact.blog"
-                          defaultMessage="Visit Streetmix blog"
                         />
                       </ExternalLink>
                     </p>
