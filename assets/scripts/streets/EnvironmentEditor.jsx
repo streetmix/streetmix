@@ -6,10 +6,8 @@ import Draggable from 'react-draggable'
 import CloseButton from '../ui/CloseButton'
 import Icon from '../ui/Icon'
 import StreetmixPlusPrompt from '../app/StreetmixPlusPrompt'
-// import { showDialog } from '../store/slices/dialogs'
 import { setEnvironment } from '../store/slices/street'
 import { toggleToolbox } from '../store/slices/ui'
-// import emojiIcon from '../../images/openmoji/color/1F324.svg'
 import { DEFAULT_ENVIRONS } from './constants'
 import EnvironmentSelector from './EnvironmentSelector'
 import './EnvironmentEditor.scss'
@@ -51,11 +49,6 @@ function EnvironmentEditor (props) {
               style={props}
             >
               <header>
-                {/* <img
-                  src={emojiIcon}
-                  alt="Sun behind rain cloud"
-                  draggable="false"
-                /> */}
                 <h3>
                   <Icon icon="sun" />
                   <FormattedMessage
