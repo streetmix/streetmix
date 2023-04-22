@@ -5,7 +5,6 @@ import '@testing-library/jest-dom/extend-expect'
 import fetch from 'jest-fetch-mock'
 import 'jest-canvas-mock'
 import 'jest-date-mock'
-import LocalStorageMock from './__mocks__/LocalStorageMock'
 
 require('dotenv').config({
   path: path.resolve(process.cwd(), '.env.test')
@@ -13,7 +12,6 @@ require('dotenv').config({
 
 // Add mocks for global methods
 fetch.enableMocks()
-global.localStorage = new LocalStorageMock()
 global.ResizeObserver = class ResizeObserver {
   observe () {} // noop
   unobserve () {} // noop
