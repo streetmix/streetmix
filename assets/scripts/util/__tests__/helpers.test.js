@@ -58,16 +58,6 @@ describe('normalizeSlug()', () => {
 })
 
 describe('isExternalUrl()', () => {
-  beforeAll(() => {
-    global.window = Object.create(window)
-
-    Object.defineProperty(window, 'location', {
-      value: {
-        hostname: 'streetmix.net'
-      }
-    })
-  })
-
   it('handles same hostname cases', () => {
     expect(isExternalUrl('http://streetmix.net')).toBeFalsy()
     expect(isExternalUrl('http://streetmix.net/with/path/params')).toBeFalsy()
