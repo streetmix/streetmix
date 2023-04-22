@@ -36,6 +36,9 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
+    "testEnvironmentOptions": {
+      "url": "https://streetmix.net/"
+    },
     "roots": [
       "app",
       "assets/scripts",

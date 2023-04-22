@@ -16,16 +16,6 @@ const initialStateForOffline = {
 }
 
 describe('ExternalLink', () => {
-  beforeAll(() => {
-    global.window = Object.create(window)
-
-    Object.defineProperty(window, 'location', {
-      value: {
-        hostname: 'streetmix.net'
-      }
-    })
-  })
-
   it('renders an <a> element with string child', () => {
     const { asFragment } = render(
       <ExternalLink href="https://example.com">foo</ExternalLink>,
