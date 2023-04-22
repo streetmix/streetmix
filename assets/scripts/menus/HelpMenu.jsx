@@ -64,7 +64,7 @@ function HelpMenu (props) {
       </a>
       <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
         {/* This is not the best icon; TODO: replace it */}
-        <Icon icon="book" />
+        <Icon icon="book" className="menu-item-icon" />
         <FormattedMessage
           id="menu.help.guidebook-link"
           defaultMessage="Guidebook"

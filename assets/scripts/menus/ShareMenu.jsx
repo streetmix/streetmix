@@ -213,7 +213,7 @@ function ShareMenu (props) {
             </div>
           </div>
           <ExternalLink href={twitterLink}>
-            <Icon icon="twitter" />
+            <Icon icon="twitter" className="menu-item-icon" />
             <FormattedMessage
               id="menu.share.twitter"
               defaultMessage="Share using Twitter"
@@ -221,7 +221,7 @@ function ShareMenu (props) {
             <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
           <ExternalLink href={facebookLink}>
-            <Icon icon="facebook" />
+            <Icon icon="facebook" className="menu-item-icon" />
             <FormattedMessage
               id="menu.share.facebook"
               defaultMessage="Share using Facebook"

@@ -8,11 +8,12 @@ import {
   SunIcon
 } from '@primer/octicons-react'
 import {
-  ICON_TWITTER,
+  ICON_DISCORD,
   ICON_FACEBOOK,
   ICON_GITHUB,
-  ICON_DISCORD,
-  ICON_PERSON,
+  ICON_INSTAGRAM,
+  ICON_MASTODON,
+  ICON_TWITTER,
   ICON_BOOK
 } from './icons'
 import forumsIcon from './icons/forums.svg'
@@ -26,37 +27,32 @@ function octiconClassNames (className) {
   return [OCTICON_DEFAULT_CLASSNAME, className].join(' ').trim()
 }
 
-Icon.propTypes = {
-  icon: PropTypes.string.isRequired,
-  className: PropTypes.string
-}
-
 function Icon ({ icon, className }) {
   switch (icon) {
     case 'copy':
       return (
         <DuplicateIcon size={16} className={octiconClassNames(className)} />
       )
-    case 'twitter':
-      return <FontAwesomeIcon className="menu-item-icon" icon={ICON_TWITTER} />
-    case 'facebook':
-      return <FontAwesomeIcon className="menu-item-icon" icon={ICON_FACEBOOK} />
-    case 'github':
-      return <FontAwesomeIcon className="menu-item-icon" icon={ICON_GITHUB} />
     case 'discord':
-      return <FontAwesomeIcon className="menu-item-icon" icon={ICON_DISCORD} />
+      return <FontAwesomeIcon className={className} icon={ICON_DISCORD} />
+    case 'facebook':
+      return <FontAwesomeIcon className={className} icon={ICON_FACEBOOK} />
+    case 'github':
+      return <FontAwesomeIcon className={className} icon={ICON_GITHUB} />
+    case 'instagram':
+      return <FontAwesomeIcon className={className} icon={ICON_INSTAGRAM} />
+    case 'mastodon':
+      return <FontAwesomeIcon className={className} icon={ICON_MASTODON} />
+    case 'twitter':
+      return <FontAwesomeIcon className={className} icon={ICON_TWITTER} />
     case 'book':
-      return <FontAwesomeIcon className="menu-item-icon" icon={ICON_BOOK} />
-    case 'person':
-      return (
-        <FontAwesomeIcon icon={ICON_PERSON} className="icon-person" size="md" />
-      )
-    case 'slack':
-      return <img className="menu-item-icon" src={slackIcon} alt="" />
+      return <FontAwesomeIcon className={className} icon={ICON_BOOK} />
+    case 'slack': // Deprecated
+      return <img className={className} src={slackIcon} alt="" />
     case 'forums': // Deprecated
-      return <img className="menu-item-icon" src={forumsIcon} alt="" />
+      return <img className={className} src={forumsIcon} alt="" />
     case 'google':
-      return <img className="menu-item-icon" src={googleIcon} alt="" />
+      return <img className={className} src={googleIcon} alt="" />
     case 'trash':
       return <TrashIcon size={16} className={octiconClassNames(className)} />
     case 'tools':
@@ -66,11 +62,16 @@ function Icon ({ icon, className }) {
     default:
       // Ancient fallback (should no longer be used)
       return (
-        <svg className="menu-item-icon">
-          <use xlinkHref={`#icon-${this.props.icon}`} />
+        <svg className={className}>
+          <use xlinkHref={`#icon-${icon}`} />
         </svg>
       )
   }
+}
+
+Icon.propTypes = {
+  icon: PropTypes.string.isRequired,
+  className: PropTypes.string
 }
 
 export default Icon

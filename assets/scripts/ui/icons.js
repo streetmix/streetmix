@@ -22,10 +22,12 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
 import { faBook } from '@fortawesome/free-solid-svg-icons/faBook'
 import { faCopy, faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
 import {
-  faTwitter,
+  faDiscord,
   faFacebookSquare,
   faGithub,
-  faDiscord
+  faInstagram,
+  faMastodon,
+  faTwitter
 } from '@fortawesome/free-brands-svg-icons'
 
 // FontAwesome documentation recommends adding icons to a "library" object
@@ -65,7 +67,10 @@ export const ICON_LOCK = faLock
 export const ICON_BOOK = faBook
 export const ICON_QUESTION_CIRCLE = faCircleQuestion
 
-export const ICON_TWITTER = faTwitter
+// Social icons
+export const ICON_DISCORD = faDiscord
 export const ICON_FACEBOOK = faFacebookSquare
 export const ICON_GITHUB = faGithub
-export const ICON_DISCORD = faDiscord
+export const ICON_INSTAGRAM = faInstagram
+export const ICON_MASTODON = faMastodon
+export const ICON_TWITTER = faTwitter

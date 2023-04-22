@@ -13,7 +13,7 @@ function ContactMenu (props) {
   return (
     <Menu {...props}>
       <ExternalLink href="https://strt.mx/discord">
-        <Icon icon="discord" />
+        <Icon icon="discord" className="menu-item-icon" />
         <FormattedMessage
           id="menu.contact.discord"
           defaultMessage="Join Discord chat"
@@ -21,7 +21,7 @@ function ContactMenu (props) {
         <ExternalLinkIcon className="menu-item-external-link" />
       </ExternalLink>
       <ExternalLink href="https://github.com/streetmix/streetmix/">
-        <Icon icon="github" />
+        <Icon icon="github" className="menu-item-icon" />
         <FormattedMessage
           id="menu.contact.github"
           defaultMessage="View source code on GitHub"

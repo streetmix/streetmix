@@ -1,12 +1,5 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faTwitter,
-  faGithub,
-  faDiscord,
-  faInstagram,
-  faMastodon
-} from '@fortawesome/free-brands-svg-icons'
+import Icon from '../../ui/Icon'
 import './SocialLinks.scss'
 
 function SocialLinks (props) {
@@ -19,7 +12,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faGithub} className="social-github" />
+          <Icon icon="github" className="social-github" />
         </a>
       </li>
       <li>
@@ -29,7 +22,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faDiscord} className="social-discord" />
+          <Icon icon="discord" className="social-discord" />
         </a>
       </li>
       <li>
@@ -43,7 +36,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="me noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faMastodon} className="social-mastodon" />
+          <Icon icon="mastodon" className="social-mastodon" />
         </a>
       </li>
       <li>
@@ -53,7 +46,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faTwitter} className="social-twitter" />
+          <Icon icon="twitter" className="social-twitter" />
         </a>
       </li>
       <li>
@@ -63,7 +56,7 @@ function SocialLinks (props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faInstagram} className="social-instagram" />
+          <Icon icon="instagram" className="social-instagram" />
         </a>
       </li>
     </ul>
