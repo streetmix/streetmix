@@ -17,6 +17,7 @@
       "streetmix-plus": "Get Streetmix+"
     },
     "help": {
+      "guidebook-link": "Guidebook",
       "keyboard-label": "Keyboard shortcuts:",
       "remove-instruction": "Remove a segment you’re pointing at",
       "remove-shift-instruction": "(hold {shiftKey} to remove all)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Copy to clipboard",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
+      "mastodon": "Share using Mastodon",
       "3dstreet": "Open in 3DStreet",
       "print": "Print…",
       "save": "Save as image…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "About Streetmix.",
       "description": "Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.",
-      "thanks": "Many thanks to the staff and 2013 CfA fellows for their support and patience, the Blockee team for paving the way, and all of our testers for their time and feedback!",
-      "credits": "A side project by {cfaLink} 2013 fellows:",
       "team-heading": "Project team and maintainers",
-      "view-source": "View source code",
       "partners": "Partners",
       "sponsors": "Sponsors",
       "sponsored-by": "Streetmix is generously sponsored by:",
       "donate-link": "Support us financially",
-      "github-link": "Contribute to open source",
-      "open-source-link": "We’re open source!",
-      "guidebook-link": "Guidebook",
       "tos-link": "Terms of service",
       "privacy-link": "Privacy policy",
       "acknowledgements": "Acknowledgements",

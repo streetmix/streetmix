@@ -5,6 +5,14 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## April 22, 2023
+
+### ✨ New features
+
+- **Added "Share using Mastodon" option.** Birdsite isn't quite dead, but elephantsite is open source and has some nice things going for it. It's worth supporting, so we're starting with some basic share functionality. When you share to Mastodon, we'll have to ask you what your Mastodon instance's domain is, since there are so many of them.
+
+You can also now find us on the Fediverse at [@streetmix@urbanists.social](https://urbanists.social/@streetmix)!
+
 ## April 19, 2023
 
 ### ✨ New features
@@ -12,6 +20,12 @@ sidebar_position: 5
 - **Added Indonesian support.** Thanks to Fuad Alghaffary for contributing these translations!
 
 Language support is contributed by our users around the world. If you have any feedback or want to help, [you can learn more about how to help translate Streetmix](https://docs.streetmix.net/contributing/translations/overview).
+
+## April 11, 2023
+
+### 🐛 Bug fixes
+
+- Fixed broken "Share using Facebook" functionality.
 
 ## March 23, 2023
 

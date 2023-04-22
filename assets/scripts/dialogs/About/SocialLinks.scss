@@ -1,0 +1,61 @@
+@import "../../../styles/variables";
+
+.social-links {
+  li {
+    display: inline-block;
+    margin-right: 1em;
+  }
+
+  a {
+    color: $colour-midnight-400;
+
+    &:hover {
+      color: $colour-midnight-500;
+    }
+  }
+
+  svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
+
+.social-github {
+  color: $social-github;
+
+  &:hover {
+    color: $social-github-hover;
+  }
+}
+
+.social-discord {
+  color: $social-discord;
+
+  &:hover {
+    color: $social-discord-hover;
+  }
+}
+
+.social-mastodon {
+  color: $social-mastodon;
+
+  &:hover {
+    color: $social-mastodon-hover;
+  }
+}
+
+.social-twitter {
+  color: $social-twitter;
+
+  &:hover {
+    color: $social-twitter-hover;
+  }
+}
+
+.social-instagram {
+  color: $social-instagram;
+
+  &:hover {
+    color: $social-instagram-hover;
+  }
+}

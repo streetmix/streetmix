@@ -92,13 +92,11 @@
 }
 
 .sign-in-twitter-button .fa-twitter {
-  color: #1da1f2 !important;
-  font-size: 27px;
+  color: $social-twitter !important;
 }
 
 .sign-in-facebook-button .fa-square-facebook {
-  color: #3d5b94 !important;
-  font-size: 27px;
+  color: $social-facebook !important;
 }
 
 .sign-in-disclaimer {

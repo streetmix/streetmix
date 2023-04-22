@@ -45,6 +45,70 @@ exports[`AboutDialog renders snapshot 1`] = `
               <p>
                 Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.
               </p>
+              <ul
+                class="social-links"
+              >
+                <li>
+                  <a
+                    href="https://github.com/streetmix/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="GitHub"
+                  >
+                    <svg
+                      class="svg-inline--fa social-github fa-github"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://strt.mx/discord"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="Discord"
+                  >
+                    <svg
+                      class="svg-inline--fa social-discord fa-discord"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://urbanists.social/@streetmix"
+                    rel="me noopener noreferrer"
+                    target="_blank"
+                    title="Mastodon"
+                  >
+                    <svg
+                      class="svg-inline--fa social-mastodon fa-mastodon"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://twitter.com/streetmix"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="Twitter"
+                  >
+                    <svg
+                      class="svg-inline--fa social-twitter fa-twitter"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/streetmixapp/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="Instagram"
+                  >
+                    <svg
+                      class="svg-inline--fa social-instagram fa-instagram"
+                    />
+                  </a>
+                </li>
+              </ul>
               <h3>
                 Partners
               </h3>
@@ -95,39 +159,6 @@ exports[`AboutDialog renders snapshot 1`] = `
                   </a>
                 </li>
               </ul>
-              <p>
-                <a
-                  href="https://opencollective.com/streetmix/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Support us financially
-                </a>
-                <br />
-                <a
-                  href="https://github.com/streetmix/streetmix/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  We’re open source!‎
-                </a>
-                <br />
-                <a
-                  href="https://medium.com/streetmixology"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Visit Streetmix blog
-                </a>
-                <br />
-                <a
-                  href="https://docs.streetmix.net/user-guide/intro"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Guidebook
-                </a>
-              </p>
               <p>
                 <a
                   href="https://streetmix.net/terms-of-service/"

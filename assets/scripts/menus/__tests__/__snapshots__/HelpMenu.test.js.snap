@@ -17,6 +17,16 @@ exports[`HelpMenu renders 1`] = `
       />
       What’s new in Streetmix? [en]‎
     </a>
+    <a
+      href="https://docs.streetmix.net/user-guide/intro"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="svg-inline--fa menu-item-icon fa-book"
+      />
+      Guidebook
+    </a>
     <div
       class="help-menu-shortcuts"
     >

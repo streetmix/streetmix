@@ -13,6 +13,7 @@ import numoLogo from '../../images/sponsors/numo.svg'
 import cfalogo from '../../images/sponsors/codeforamerica.png'
 import mozlogo from '../../images/sponsors/mozilla.svg'
 import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
+import SocialLinks from './About/SocialLinks'
 import Dialog from './Dialog'
 import './AboutDialog.scss'
 
@@ -45,6 +46,7 @@ function AboutDialog (props) {
                     defaultMessage="Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community."
                   />
                 </p>
+                <SocialLinks />
                 <h3>
                   <FormattedMessage
                     id="dialogs.about.partners"
@@ -77,60 +79,29 @@ function AboutDialog (props) {
                   </li>
                 </ul>
                 {!offline && (
-                  <>
-                    <p>
-                      <ExternalLink href="https://opencollective.com/streetmix/">
-                        <FormattedMessage
-                          id="dialogs.about.donate-link"
-                          defaultMessage="Support us financially"
-                        />
-                      </ExternalLink>
-                      <br />
-                      <ExternalLink href="https://github.com/streetmix/streetmix/">
-                        <FormattedMessage
-                          id="dialogs.about.open-source-link"
-                          defaultMessage="We’re open source!&lrm;"
-                        />
-                      </ExternalLink>
-                      <br />
-                      <ExternalLink href="https://medium.com/streetmixology">
-                        <FormattedMessage
-                          id="menu.contact.blog"
-                          defaultMessage="Visit Streetmix blog"
-                        />
-                      </ExternalLink>
-                      <br />
-                      <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
-                        <FormattedMessage
-                          id="dialogs.about.guidebook-link"
-                          defaultMessage="Guidebook"
-                        />
-                      </ExternalLink>
-                    </p>
-                    <p>
-                      <a
-                        href="https://streetmix.net/terms-of-service/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FormattedMessage
-                          id="dialogs.about.tos-link"
-                          defaultMessage="Terms of service"
-                        />
-                      </a>
-                      <br />
-                      <a
-                        href="https://streetmix.net/privacy-policy/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FormattedMessage
-                          id="dialogs.about.privacy-link"
-                          defaultMessage="Privacy policy"
-                        />
-                      </a>
-                    </p>
-                  </>
+                  <p>
+                    <a
+                      href="https://streetmix.net/terms-of-service/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FormattedMessage
+                        id="dialogs.about.tos-link"
+                        defaultMessage="Terms of service"
+                      />
+                    </a>
+                    <br />
+                    <a
+                      href="https://streetmix.net/privacy-policy/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FormattedMessage
+                        id="dialogs.about.privacy-link"
+                        defaultMessage="Privacy policy"
+                      />
+                    </a>
+                  </p>
                 )}
               </div>
               <div className="about-dialog-right">
