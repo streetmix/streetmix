@@ -179,15 +179,21 @@ body.safari .menu {
   font-size: 0.8em;
 }
 
-.fa-facebook,
-.fa-square-facebook {
-  color: $social-facebook;
-}
+.menu-item-icon {
+  &.fa-facebook,
+  &.fa-square-facebook {
+    color: $social-facebook;
+  }
 
-.fa-twitter {
-  color: $social-twitter;
-}
+  &.fa-twitter {
+    color: $social-twitter;
+  }
 
-.fa-discord {
-  color: $social-discord;
+  &.fa-discord {
+    color: $social-discord;
+  }
+
+  &.fa-github {
+    color: $social-github;
+  }
 }
