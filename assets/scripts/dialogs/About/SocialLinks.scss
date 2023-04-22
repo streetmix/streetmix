@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+
+.social-links {
+  li {
+    display: inline-block;
+    margin-right: 1em;
+  }
+
+  a {
+    color: $colour-midnight-400;
+
+    &:hover {
+      color: $colour-midnight-500;
+    }
+  }
+
+  svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
