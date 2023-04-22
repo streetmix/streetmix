@@ -12,7 +12,8 @@ import {
   ICON_FACEBOOK,
   ICON_GITHUB,
   ICON_DISCORD,
-  ICON_PERSON
+  ICON_PERSON,
+  ICON_BOOK
 } from './icons'
 import forumsIcon from './icons/forums.svg'
 import googleIcon from './icons/google.svg'
@@ -44,6 +45,8 @@ function Icon ({ icon, className }) {
       return <FontAwesomeIcon className="menu-item-icon" icon={ICON_GITHUB} />
     case 'discord':
       return <FontAwesomeIcon className="menu-item-icon" icon={ICON_DISCORD} />
+    case 'book':
+      return <FontAwesomeIcon className="menu-item-icon" icon={ICON_BOOK} />
     case 'person':
       return (
         <FontAwesomeIcon icon={ICON_PERSON} className="icon-person" size="md" />

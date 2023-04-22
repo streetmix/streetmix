@@ -17,6 +17,7 @@
       "streetmix-plus": "Get Streetmix+"
     },
     "help": {
+      "guidebook-link": "Guidebook",
       "keyboard-label": "Keyboard shortcuts:",
       "remove-instruction": "Remove a segment you’re pointing at",
       "remove-shift-instruction": "(hold {shiftKey} to remove all)",
@@ -208,7 +209,6 @@
       "donate-link": "Support us financially",
       "github-link": "Contribute to open source",
       "open-source-link": "We’re open source!",
-      "guidebook-link": "Guidebook",
       "tos-link": "Terms of service",
       "privacy-link": "Privacy policy",
       "acknowledgements": "Acknowledgements",

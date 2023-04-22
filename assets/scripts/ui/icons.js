@@ -19,6 +19,7 @@ import { faBolt } from '@fortawesome/free-solid-svg-icons/faBolt'
 import { faPerson } from '@fortawesome/free-solid-svg-icons/faPerson'
 import { faPencil } from '@fortawesome/free-solid-svg-icons/faPencil'
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
+import { faBook } from '@fortawesome/free-solid-svg-icons/faBook'
 import { faCopy, faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
 import {
   faTwitter,
@@ -61,6 +62,7 @@ export const ICON_BOLT = faBolt
 export const ICON_PERSON = faPerson
 export const ICON_PENCIL = faPencil
 export const ICON_LOCK = faLock
+export const ICON_BOOK = faBook
 export const ICON_QUESTION_CIRCLE = faCircleQuestion
 
 export const ICON_TWITTER = faTwitter

@@ -119,14 +119,6 @@ exports[`AboutDialog renders snapshot 1`] = `
                 >
                   Visit Streetmix blog
                 </a>
-                <br />
-                <a
-                  href="https://docs.streetmix.net/user-guide/intro"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Guidebook
-                </a>
               </p>
               <p>
                 <a

@@ -6,6 +6,8 @@ import {
   RocketIcon,
   KeyboardIcon
 } from '@radix-ui/react-icons'
+import ExternalLink from '../ui/ExternalLink'
+import Icon from '../ui/Icon'
 import KeyboardKey from '../ui/KeyboardKey'
 import {
   ICON_MINUS,
@@ -60,6 +62,14 @@ function HelpMenu (props) {
           defaultMessage="What’s new in Streetmix? [en]&lrm;"
         />
       </a>
+      <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
+        {/* This is not the best icon; TODO: replace it */}
+        <Icon icon="book" />
+        <FormattedMessage
+          id="menu.help.guidebook-link"
+          defaultMessage="Guidebook"
+        />
+      </ExternalLink>
       <div className="help-menu-shortcuts">
         <KeyboardIcon className="menu-item-icon-radix" />
         <FormattedMessage

@@ -99,13 +99,6 @@ function AboutDialog (props) {
                           defaultMessage="Visit Streetmix blog"
                         />
                       </ExternalLink>
-                      <br />
-                      <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
-                        <FormattedMessage
-                          id="dialogs.about.guidebook-link"
-                          defaultMessage="Guidebook"
-                        />
-                      </ExternalLink>
                     </p>
                     <p>
                       <a
