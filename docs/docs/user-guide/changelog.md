@@ -13,6 +13,12 @@ sidebar_position: 5
 
 Language support is contributed by our users around the world. If you have any feedback or want to help, [you can learn more about how to help translate Streetmix](https://docs.streetmix.net/contributing/translations/overview).
 
+## April 11, 2023
+
+### 🐛 Bug fixes
+
+- Fixed broken "Share using Facebook" functionality.
+
 ## March 23, 2023
 
 ### ✨ New features
