@@ -44,9 +44,9 @@ export function normalizeSlug (slug) {
 
   // Remove certain replacements mapped by slugify
   slugify.extend({
-    '|': null,
-    '%': null,
-    $: null
+    '|': '',
+    '%': '',
+    $: ''
   })
 
   const slugified = slugify(slug, {
