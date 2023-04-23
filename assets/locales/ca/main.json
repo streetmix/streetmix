@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "Guia",
       "keyboard-label": "Dreceres del teclat:",
       "remove-instruction": "Elimineu un segment seleccionat",
       "remove-shift-instruction": "(premeu {shiftKey} per a eliminar-ho tot)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Copieu al porta-retalls",
       "twitter": "Compartiu per Twitter",
       "facebook": "Compartiu per Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Imprimiu...",
       "save": "Deseu com a imatge...",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Sobre Streetmix",
       "description": "Dissenya, remescla i comparteix el teu carrer. Afegiu carrils bici, eixampleu voreres o carrils de circulació i obteniu informació sobre com tot això pot afectar la vostra comunitat.",
-      "thanks": "Moltes gràcies al personal i als companys de CfA del 2013 pel seu suport i paciència, l’equip de Blockee per obrir el camí i tots els nostres provadors pel seu temps i comentaris.",
-      "credits": "Un projecte paral·lel per als becaris del 2013{cfaLink}:",
       "team-heading": "Equip del projecte i mantenidors",
-      "view-source": "Veure codi font",
       "partners": "Socis",
       "sponsors": "Patrocinadors",
       "sponsored-by": "Streetmix esà patrocinat generosament per:",
       "donate-link": "Ajudeu-nos econòmicament",
-      "github-link": "Contribuïu al codi obert",
-      "open-source-link": "Som de codi obert!",
-      "guidebook-link": "Guia",
       "tos-link": "Condicions de servei",
       "privacy-link": "Política de privacitat",
       "acknowledgements": "Agraïments",

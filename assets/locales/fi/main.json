@@ -17,6 +17,7 @@
       "streetmix-plus": "Hanki Streetmix+"
     },
     "help": {
+      "guidebook-link": "Käyttöopas",
       "keyboard-label": "Pikanäppäimet:",
       "remove-instruction": "Poista osoittimen alla oleva elementti",
       "remove-shift-instruction": "(poista kaikki pitämällä {shiftKey} pohjassa)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Kopioi leikepöydälle",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Tulosta…",
       "save": "Tallenna kuvana…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Tietoja Streetmixistä.",
       "description": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
-      "thanks": "Tuhannet kiitokset työntekijöille ja vuoden 2013 CfA-osallistujille heidän tuestaan ja kärsivällisyydestään, Blockee-ryhmälle teiden päällystämisestä ja lukemattomille testaajille ajastaan ja palautteestaan!",
-      "credits": "Seuraavien {cfaLink} 2013 -osallistujien sivuprojekti:",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
-      "view-source": "Tutustu lähdekoodiin",
       "partners": "Yhteistyössä",
       "sponsors": "Sponsorit",
       "sponsored-by": "Streetmixin avokätiset sponsorit:",
       "donate-link": "Tue meitä taloudellisesti",
-      "github-link": "Osallistu avoimen lähdekoodin kehittämiseen",
-      "open-source-link": "Avointa lähdekoodia",
-      "guidebook-link": "Käyttöopas",
       "tos-link": "Käyttöehdot",
       "privacy-link": "Tietosuojakäytäntö",
       "acknowledgements": "Kiitokset",

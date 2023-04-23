@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "Guide",
       "keyboard-label": "Raccourcis claviers :",
       "remove-instruction": "Enlever un élément de voirie que vous pointez",
       "remove-shift-instruction": "(maintenir la touche {shiftKey} enfoncée pour tout enlever)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Copier dans le presse-papier",
       "twitter": "Partager via Twitter",
       "facebook": "Partager via Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Imprimer…",
       "save": "Sauver en tant qu'image…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Au sujet de Streetmix.",
       "description": "Concevez, modifiez et partagez votre rue. Ajoutez chemins piétons, trottoirs et voirie automobile, apprenez comment cela peut impacter votre communauté.",
-      "thanks": "Nous remercions beaucoup l'équipe et  les collègues du 2013 CfA pour leur support et leur patience, l'équipe Blockee pour avoir ouvert la voie à cette application et tous les testeurs pour leur temps et leur retours !",
-      "credits": "Un projet parallèle par {cfaLink} 2013 collaborateurs :",
       "team-heading": "Équipe de projet et mainteneurs",
-      "view-source": "Voir le code source",
       "partners": "Partenaires",
       "sponsors": "Sponsors",
       "sponsored-by": "Streetmix est généreusement sponsorisé par :",
       "donate-link": "Aider nous financièrement",
-      "github-link": "Contribuer à l'open source",
-      "open-source-link": "Nous sommes open source !",
-      "guidebook-link": "Guide",
       "tos-link": "Conditions d'utilisation",
       "privacy-link": "Politique de confidentialité",
       "acknowledgements": "Remerciements",

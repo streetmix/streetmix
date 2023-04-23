@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "キーボードショートカット:",
       "remove-instruction": "選択中のセグメントを削除します",
       "remove-shift-instruction": "({shiftKey}を押すと全削除)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
+      "mastodon": "",
       "3dstreet": "",
       "print": "印刷",
       "save": "画像として保存",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Streetmixについて",
       "description": "あなたの身近な道路をデザインし、リミックスし、シェアしましょう。街路樹や自転車レーン、歩道や車道を追加してみて、あなたのアイデアで地域コミュニティがどう変わるのかを試してみましょう。",
-      "thanks": "辛抱強くサポートを続けてくれた2013年のCfAフェローに、道をならしてくれたBlockeeチームに、そして自分の時間をさいてテストとフィードバックをしてくれたすべてのテスターに、ほんとうにありがとうございます！",
-      "credits": "{cfaLink} 2013フェローによる他のプロジェクト:",
       "team-heading": "プロジェクトチームとメンテナ",
-      "view-source": "ソースコードを表示",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "Streetmixスポンサー:",
       "donate-link": "財務支援",
-      "github-link": "オープンなソースで貢献",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",

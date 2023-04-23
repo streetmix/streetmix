@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "Tastatur-Shortcuts:",
       "remove-instruction": "Entferne das Element, auf das du zeigst",
       "remove-shift-instruction": "(halte {shiftKey} gedrückt, um alle zu entfernen)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "Über Twitter teilen",
       "facebook": "Über Facebook teilen",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Drucken...",
       "save": "Als Bild speichern…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Über Streetmix.",
       "description": "Entwerfe, remixe und teile deine Straße. Füge Radwege hinzu, verbreitere Gehwege oder Fahrstreifen und finde heraus, wie das deine Gemeinde beeinflusst.",
-      "thanks": "Vielen Dank an unsere MitarbeiterInnen und die CfA-Mitglieder 2013 für ihre Unterstützung und Geduld, an das Blockee-Team für das Ebnen des Weges und an alle unsere TesterInnen für ihre Zeit und ihr Feedback!",
-      "credits": "Ein Nebenprojekt der {cfaLink}-Mitglieder 2013.",
       "team-heading": "Projektteam und UnterstützerInnen",
-      "view-source": "Quellcode ansehen",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "Streetmix wird großzügigerweise gesponsert von:",
       "donate-link": "Unterstütze uns finanziell",
-      "github-link": "Trage zu Open Source bei",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "Geschäftsbedingungen",
       "privacy-link": "Datenschutzrichtlinie",
       "acknowledgements": "",

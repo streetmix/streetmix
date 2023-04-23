@@ -17,6 +17,7 @@
       "streetmix-plus": "Oppgrader til Streetmix+"
     },
     "help": {
+      "guidebook-link": "Veiledning",
       "keyboard-label": "Tastatursnarveier:",
       "remove-instruction": "Fjern segmentet du peker på",
       "remove-shift-instruction": "(hold {shiftKey}  inne for å fjerne alle)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Kopier til utklippstavlen",
       "twitter": "Del på Twitter",
       "facebook": "Del på Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Skriv ut…",
       "save": "Lagre som et bilde…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Om Streetmix.",
       "description": "Utform, remix og del din gate. Legg til sykkelfelt, gjør fortauene eller kjørefeltene bredere og lær hvordan alt dette kan påvirke felleskapet. ",
-      "thanks": "Takk så mye til ansatte og deltakere på CfA 2013 for støtte og tålmodighet, Blockee-teamet for å ha gått opp stien og alle testerne våre for tid og verdifulle tilbakemeldinger.",
-      "credits": "Dette er et hobbyprosjekt av {cfaLink}2013-deltakerne: ",
       "team-heading": "Prosjektteam og bidragsytere",
-      "view-source": "Vis kildekode",
       "partners": "Partnere",
       "sponsors": "Sponsorer",
       "sponsored-by": "Streetmix er sponset av: ",
       "donate-link": "Støtt oss økonomisk",
-      "github-link": "Bidra til åpen kildekode",
-      "open-source-link": "Vi bruker åpen kildekode",
-      "guidebook-link": "Veiledning",
       "tos-link": "Vilkår",
       "privacy-link": "Personvernerklæring",
       "acknowledgements": "Anerkjennelser",

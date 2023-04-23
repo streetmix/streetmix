@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "Manual",
       "keyboard-label": "Métodos abreviados de teclado:",
       "remove-instruction": "Quitar el segmento al que estás apuntando",
       "remove-shift-instruction": "(mantén presionada la tecla {shiftKey} para eliminar todo)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Copiar al portapapeles",
       "twitter": "Compartir en Twitter",
       "facebook": "Compartir en Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Imprimir...",
       "save": "Guardar como imagen...",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Acerca de Streetmix.",
       "description": "Diseña, cambia y comparte tu calle. Añade carriles para bicicleta, ensancha las aceras o los carriles de tránsito, aprende cómo todo esto puede impactar a tu comunidad.",
-      "thanks": "",
-      "credits": "",
       "team-heading": "Equipo de proyecto y mantenimiento",
-      "view-source": "Ver el código fuente",
       "partners": "Aliados",
       "sponsors": "",
       "sponsored-by": "Streetmix es patrocinado generosamente por:",
       "donate-link": "Apóyanos financieramente",
-      "github-link": "Contribuir al código abierto",
-      "open-source-link": "¡Somos de código abierto!",
-      "guidebook-link": "Manual",
       "tos-link": "Términos de servicio",
       "privacy-link": "Política de privacidad",
       "acknowledgements": "Agradecimientos",

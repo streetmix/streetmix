@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "",
       "remove-instruction": "",
       "remove-shift-instruction": "",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "",
       "facebook": "",
+      "mastodon": "",
       "3dstreet": "",
       "print": "",
       "save": "",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "",
       "description": "",
-      "thanks": "",
-      "credits": "",
       "team-heading": "",
-      "view-source": "",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": "",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",

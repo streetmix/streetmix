@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "가이드북",
       "keyboard-label": "키보드 단축키:",
       "remove-instruction": "선택한 세그먼트 제거",
       "remove-shift-instruction": "(전체를 제거하려면 {shiftKey} 키를 누르세요)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "클립보드로 복사",
       "twitter": "트위터로 공유",
       "facebook": "페이스북으로 공유",
+      "mastodon": "",
       "3dstreet": "",
       "print": "인쇄",
       "save": "이미지로 저장",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "스트리트믹스 소개",
       "description": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 자전거 도로를 추가하고, 보도나 차선를 넓히고, 이 모든 것들이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
-      "thanks": "Many thanks to the staff and 2013 CfA fellows for their support and patience, the Blockee team for paving the way, and all of our testers for their time and feedback!",
-      "credits": "A side project by {cfaLink} 2013 fellows:",
       "team-heading": "프로젝트 팀 및 관리자",
-      "view-source": "소스 코드 확인",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "스트리트믹스는 다음에 의해 후원됩니다:",
       "donate-link": "재정 지원하기",
-      "github-link": "오픈 소스에 기여하기",
-      "open-source-link": "우리는 오픈 소스입니다!",
-      "guidebook-link": "가이드북",
       "tos-link": "서비스 약관",
       "privacy-link": "개인 보호 정책",
       "acknowledgements": "",

@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "快捷鍵：",
       "remove-instruction": "移除你現在所指的部分",
       "remove-shift-instruction": "（長按{shiftKey}來移除所有的部分）",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "分享到推特",
       "facebook": "分享到臉書",
+      "mastodon": "",
       "3dstreet": "",
       "print": "打印",
       "save": "存為圖片",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "關於Streetmix。",
       "description": "設計，重組和分享你創建的街道。在添加自行車道，拓寬人行道或車道的過程中，發現這些改變對社區的影響。",
-      "thanks": "衷心感謝所有的員工和參加2013 CfA的朋友所作出的努力和他們的耐心，以及Blockee組成員做的準備工作，還有所有調試人員付出的時間及提供的反饋！",
-      "credits": "由參加2013 CfA 的朋友所創建的項目{cfaLink}：",
       "team-heading": "項目團隊及技術維護員",
-      "view-source": "查看源代碼",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "Streetmix 由以下組織及公司慷慨贊助：",
       "donate-link": "贊助我們",
-      "github-link": "貢獻源代碼",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",
