@@ -45,7 +45,7 @@ exports[`GeotagDialog renders 1`] = `
           </div>
         </div>
         <div
-          class="leaflet-container leaflet-grab leaflet-touch-drag"
+          class="leaflet-container leaflet-touch leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
           style="position: relative;"
           tabindex="0"
         >
@@ -67,13 +67,15 @@ exports[`GeotagDialog renders 1`] = `
                   <img
                     alt=""
                     class="leaflet-tile"
-                    role="presentation"
                     src="https://c.basemaps.cartocdn.com/rastertiles/voyager/12/2047/2047.png"
                     style="width: 256px; height: 256px; left: -251px; top: -221px;"
                   />
                 </div>
               </div>
             </div>
+            <div
+              class="leaflet-pane leaflet-overlay-pane"
+            />
             <div
               class="leaflet-pane leaflet-shadow-pane"
             >
@@ -85,14 +87,12 @@ exports[`GeotagDialog renders 1`] = `
               />
             </div>
             <div
-              class="leaflet-pane leaflet-overlay-pane"
-            />
-            <div
               class="leaflet-pane leaflet-marker-pane"
             >
               <img
-                alt=""
+                alt="Marker"
                 class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive leaflet-marker-draggable"
+                role="button"
                 src="/images/marker-icon.png"
                 style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; left: 5px; top: 35px; z-index: 35;"
                 tabindex="0"
@@ -142,22 +142,32 @@ exports[`GeotagDialog renders 1`] = `
                 class="leaflet-control-zoom leaflet-bar leaflet-control"
               >
                 <a
+                  aria-disabled="false"
                   aria-label="Zoom in"
                   class="leaflet-control-zoom-in"
                   href="#"
                   role="button"
                   title="Zoom in"
                 >
-                  +
+                  <span
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
                 </a>
                 <a
+                  aria-disabled="false"
                   aria-label="Zoom out"
                   class="leaflet-control-zoom-out"
                   href="#"
                   role="button"
                   title="Zoom out"
                 >
-                  −
+                  <span
+                    aria-hidden="true"
+                  >
+                    −
+                  </span>
                 </a>
               </div>
             </div>
@@ -175,19 +185,52 @@ exports[`GeotagDialog renders 1`] = `
               >
                 <a
                   href="https://leafletjs.com"
-                  title="A JS library for interactive maps"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="A JavaScript library for interactive maps"
                 >
-                  Leaflet
+                  <svg
+                    aria-hidden="true"
+                    class="leaflet-attribution-flag"
+                    height="8"
+                    viewBox="0 0 12 8"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h12v4H0z"
+                      fill="#4C7BE1"
+                    />
+                    <path
+                      d="M0 4h12v3H0z"
+                      fill="#FFD500"
+                    />
+                    <path
+                      d="M0 7h12v1H0z"
+                      fill="#E0BC00"
+                    />
+                  </svg>
+                   Leaflet
                 </a>
-                 | © 
+                 
+                <span
+                  aria-hidden="true"
+                >
+                  |
+                </span>
+                 © 
                 <a
                   href="https://www.openstreetmap.org/copyright"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   OpenStreetMap
                 </a>
                 , © 
                 <a
                   href="https://carto.com/attribution"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   CARTO
                 </a>

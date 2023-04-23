@@ -7,8 +7,10 @@ import {
   MapContainer,
   TileLayer,
   ZoomControl,
+  AttributionControl,
   useMapEvents
 } from 'react-leaflet'
+// import { AttributionControl } from 'react-leaflet/AttributionControl'
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
 import { isOwnedByCurrentUser } from '../streets/owner'
 import { setMapState } from '../store/slices/map'
@@ -24,6 +26,8 @@ import LocationPopup from './Geotag/LocationPopup'
 import LocationMarker from './Geotag/LocationMarker'
 import './GeotagDialog.scss'
 
+const ukrainianFlag =
+  '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>'
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
 const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KEY}`
 const MAP_TILES =
@@ -31,7 +35,11 @@ const MAP_TILES =
 const MAP_TILES_2X =
   'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
 const MAP_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+  '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution" target="_blank" rel="noopener noreferrer">CARTO</a>'
+// This is the same attribution prefix as Leaflet v1.9.3, except that we set
+// link target and rel properties. Have to keep this up to date, or possibly
+// propose features to Leaflet.
+const MAP_ATTRIBUTION_PREFIX = `<a href="https://leafletjs.com" title="A JavaScript library for interactive maps" target="_blank" rel="noopener noreferrer">${ukrainianFlag} Leaflet</a>`
 // zoom level for a closer, 'street' zoom level
 const MAP_LOCATION_ZOOM = 12
 // Default location if geo IP not detected; this hovers over the Atlantic Ocean
@@ -280,7 +288,12 @@ function GeotagDialog () {
             : (
               <ErrorBanner />
               )}
-          <MapContainer center={mapCenter} zoomControl={false} zoom={zoom}>
+          <MapContainer
+            center={mapCenter}
+            zoomControl={false}
+            attributionControl={false}
+            zoom={zoom}
+          >
             <TileLayer attribution={MAP_ATTRIBUTION} url={tileUrl} />
             <ZoomControl
               zoomInTitle={intl.formatMessage({
@@ -317,6 +330,7 @@ function GeotagDialog () {
               onDragEnd={handleMarkerDragEnd}
             />
             <MapClick />
+            <AttributionControl prefix={MAP_ATTRIBUTION_PREFIX} />
           </MapContainer>
         </div>
       )}
