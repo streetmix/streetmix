@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { useTransition, animated, config } from 'react-spring'
+import { useTransition, animated, config } from '@react-spring/web'
 import Button from '../ui/Button'
 import CloseButton from '../ui/CloseButton'
 import { doSignIn } from '../users/authentication'
@@ -10,13 +10,6 @@ import { showDialog } from '../store/slices/dialogs'
 import VoteReceipt from './VoteReceipt'
 import VoteButtons from './VoteButtons'
 import './SentimentSurvey.scss'
-
-SentimentSurvey.propTypes = {
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
-  handleVote: PropTypes.func.isRequired,
-  streetId: PropTypes.string
-}
 
 function SentimentSurvey ({
   visible = false,
@@ -28,10 +21,10 @@ function SentimentSurvey ({
   const isUserSignedIn = useSelector((state) => state.user.signedIn)
   const dispatch = useDispatch()
 
-  const transitions = useTransition(visible, null, {
-    from: { transform: 'translateY(-50px)', opacity: 0 },
-    enter: { transform: 'translateY(0px)', opacity: 1 },
-    leave: { transform: 'translateY(-50px)', opacity: 0 },
+  const transitions = useTransition(visible, {
+    from: { y: -50, opacity: 0 },
+    enter: { y: 0, opacity: 1 },
+    leave: { y: -50, opacity: 0 },
     config: config.wobbly
   })
 
@@ -63,14 +56,10 @@ function SentimentSurvey ({
     <div className={classNames.join(' ')}>
       <div className="sentiment-survey-background" />
 
-      {transitions.map(
-        ({ item, key, props }) =>
+      {transitions(
+        (style, item) =>
           item && (
-            <animated.div
-              className="sentiment-survey-dialog"
-              key={key}
-              style={props}
-            >
+            <animated.div className="sentiment-survey-dialog" style={style}>
               <CloseButton onClick={onClose} />
               <p>
                 <FormattedMessage
@@ -138,6 +127,13 @@ function SentimentSurvey ({
       )}
     </div>
   )
+}
+
+SentimentSurvey.propTypes = {
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+  handleVote: PropTypes.func.isRequired,
+  streetId: PropTypes.string
 }
 
 export default SentimentSurvey

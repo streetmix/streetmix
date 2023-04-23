@@ -1,15 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useTransition, animated } from 'react-spring'
+import { useTransition, animated } from '@react-spring/web'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
 import CloseButton from '../ui/CloseButton'
 import Icon from '../ui/Icon'
 import StreetmixPlusPrompt from '../app/StreetmixPlusPrompt'
-// import { showDialog } from '../store/slices/dialogs'
 import { setEnvironment } from '../store/slices/street'
 import { toggleToolbox } from '../store/slices/ui'
-// import emojiIcon from '../../images/openmoji/color/1F324.svg'
 import { DEFAULT_ENVIRONS } from './constants'
 import EnvironmentSelector from './EnvironmentSelector'
 import './EnvironmentEditor.scss'
@@ -31,31 +29,26 @@ function EnvironmentEditor (props) {
     dispatch(setEnvironment(id))
   }
 
-  const transitions = useTransition(show, null, {
-    from: { opacity: 0, transform: 'scale(0.75)', pointerEvents: 'none' },
-    enter: { opacity: 1, transform: 'scale(1)', pointerEvents: 'auto' },
-    leave: { opacity: 0, transform: 'scale(0.85)', pointerEvents: 'none' },
-    config: { tension: 600, velocity: 20, clamp: true }
+  const transitions = useTransition(show, {
+    from: { opacity: 0, scale: 0.75, pointerEvents: 'none' },
+    enter: { opacity: 1, scale: 1, pointerEvents: 'auto' },
+    leave: { opacity: 0, scale: 0.85, pointerEvents: 'none' },
+    config: { tension: 300, friction: 5, clamp: true }
   })
 
-  return transitions.map(
-    ({ item, key, props }) =>
+  return transitions(
+    (style, item) =>
       item && (
-        <Draggable bounds="parent" handle="header" cancel=".close" key={key}>
+        <Draggable bounds="parent" handle="header" cancel=".close">
           {/* Two containers are necessary because different libraries are applying CSS transforms */}
           {/* Outer container is transformed by Draggable's position */}
           <div className="environment-editor environment-editor-container-outer">
             {/* Inner container contains transition styles from Transition */}
             <animated.div
               className="environment-editor-container-inner"
-              style={props}
+              style={style}
             >
               <header>
-                {/* <img
-                  src={emojiIcon}
-                  alt="Sun behind rain cloud"
-                  draggable="false"
-                /> */}
                 <h3>
                   <Icon icon="sun" />
                   <FormattedMessage
