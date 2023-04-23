@@ -5,17 +5,6 @@ import { useIntl } from 'react-intl'
 import { handleUndo } from '../../store/actions/undo'
 import Toast from './Toast'
 
-// Renders a specific type of Toast with Undo button.
-ToastUndo.propTypes = {
-  item: PropTypes.shape({
-    component: PropTypes.oneOf(['TOAST_UNDO']),
-    message: PropTypes.string.isRequired,
-    action: PropTypes.string
-  }),
-  setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired
-}
-
 function ToastUndo (props) {
   const { item, setRef, handleClose } = props
   const dispatch = useDispatch()
@@ -55,6 +44,17 @@ function ToastUndo (props) {
       }}
     />
   )
+}
+
+// Renders a specific type of Toast with Undo button.
+ToastUndo.propTypes = {
+  item: PropTypes.shape({
+    component: PropTypes.oneOf(['TOAST_UNDO']),
+    message: PropTypes.string.isRequired,
+    action: PropTypes.string
+  }),
+  setRef: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
 }
 
 export default ToastUndo

@@ -1,14 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 
 const BAR_MODIFIER = 0.65
-
-CapacityBar.propTypes = {
-  average: PropTypes.number.isRequired,
-  potential: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired
-}
 
 function CapacityBar ({ average, potential, max }) {
   // Like react-spring's pre-defined `config.slow` but with slightly
@@ -39,6 +33,12 @@ function CapacityBar ({ average, potential, max }) {
       </animated.div>
     </animated.div>
   )
+}
+
+CapacityBar.propTypes = {
+  average: PropTypes.number.isRequired,
+  potential: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired
 }
 
 export default CapacityBar

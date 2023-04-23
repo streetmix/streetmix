@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { useTransition, animated, config } from 'react-spring'
+import { useTransition, animated, config } from '@react-spring/web'
 import Button from '../ui/Button'
 import CloseButton from '../ui/CloseButton'
 import { doSignIn } from '../users/authentication'
@@ -10,13 +10,6 @@ import { showDialog } from '../store/slices/dialogs'
 import VoteReceipt from './VoteReceipt'
 import VoteButtons from './VoteButtons'
 import './SentimentSurvey.scss'
-
-SentimentSurvey.propTypes = {
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
-  handleVote: PropTypes.func.isRequired,
-  streetId: PropTypes.string
-}
 
 function SentimentSurvey ({
   visible = false,
@@ -134,6 +127,13 @@ function SentimentSurvey ({
       )}
     </div>
   )
+}
+
+SentimentSurvey.propTypes = {
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+  handleVote: PropTypes.func.isRequired,
+  streetId: PropTypes.string
 }
 
 export default SentimentSurvey

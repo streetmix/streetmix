@@ -4,10 +4,6 @@ import { useTransition, animated } from '@react-spring/web'
 import { getEnvirons } from '../streets/environs'
 import './SkyBackground.scss'
 
-SkyBackground.propTypes = {
-  environment: PropTypes.string
-}
-
 function SkyBackground (props) {
   const { environment } = props
 
@@ -30,6 +26,10 @@ function SkyBackground (props) {
       ))}
     </div>
   )
+}
+
+SkyBackground.propTypes = {
+  environment: PropTypes.string
 }
 
 export default React.memo(SkyBackground)
