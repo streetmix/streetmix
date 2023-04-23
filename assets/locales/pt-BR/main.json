@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "Teclas de atalho:",
       "remove-instruction": "Remover um segmento que você está apontando",
       "remove-shift-instruction": "(segure {shiftKey} para remover tudo)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "Compartilhar usando Twitter",
       "facebook": "Compartilhar usando Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Imprimir…",
       "save": "Salvar como imagem…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Sobre o Streetmix.",
       "description": "Construa, personalize e compartilhe as rua da sua vizinhança. Inclua árvores, ciclovias, alargue as calçadas ou vias de tráfego e aprenda como tudo isso pode impactar sua comunidade.",
-      "thanks": "Muito obrigado ao pessoal e aos companheiros CfA 2013, pelo apoio e paciência, também à equipe Blockee pela pavimentação do caminho, e a todos os nossos testadores por seu tempo e feedback!",
-      "credits": "Um outro projeto de {cfaLink} 2013:",
       "team-heading": "Equipe de projeto e manutenção",
-      "view-source": "Ver código fonte",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "Streetmix é generosamente patrocinado por:",
       "donate-link": "Apoie-nos financeiramente",
-      "github-link": "Contribua para o código aberto",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",

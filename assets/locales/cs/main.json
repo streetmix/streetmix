@@ -17,6 +17,7 @@
       "streetmix-plus": "Získejte Streetmix+"
     },
     "help": {
+      "guidebook-link": "Příručka",
       "keyboard-label": "Klávesové zkratky:",
       "remove-instruction": "Odstranění segmentu, na který ukazujete",
       "remove-shift-instruction": "(podržte {shiftKey} pro odstranění všech)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Kopírovat do schránky",
       "twitter": "Sdílet pomocí Twitteru",
       "facebook": "Sdílet přes Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Tisk...",
       "save": "Uložit jako obrázek...",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "O Streetmixu.",
       "description": "Navrhněte, remixujte a sdílejte své ulice. Přidejte cyklostezky, rozšiřte chodníky nebo jízdní pruhy a zjistěte, jaký to může mít dopad na vaši obec.",
-      "thanks": "",
-      "credits": "",
       "team-heading": "Projektový tým a správci",
-      "view-source": "Zobrazit zdrojový kód",
       "partners": "Partneři",
       "sponsors": "Sponzoři",
       "sponsored-by": "Streetmix je velkoryse sponzorován:",
       "donate-link": "Podpořte nás finančně",
-      "github-link": "Přispívejte do open source",
-      "open-source-link": "Máme otevřený zdrojový kód!",
-      "guidebook-link": "Příručka",
       "tos-link": "Podmínky služby",
       "privacy-link": "Zásady ochrany osobních údajů",
       "acknowledgements": "Poděkování",

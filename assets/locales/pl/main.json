@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "Skróty klawiszowe:",
       "remove-instruction": "Usuń wskazany segment",
       "remove-shift-instruction": "(przytrzymaj {shiftKey}, aby usunąć wszystko)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Drukuj…",
       "save": "Zapisz jako obrazek…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "O aplikacji Streetmix.",
       "description": "Projektuj, zmieniaj i udostępniaj projekty ulic. Dodawaj ścieżki rowerowe, poszerzaj chodniki lub jezdnie. Zobacz, jak wszystko to wpłynie na lokalną społeczność.",
-      "thanks": "Serdeczne podziękowania dla zespołu i członków 2013 CfA za ich wsparcie i cierpliwość, dla zespołu Blokee, który przecierał ścieżki i dla wszystkich naszych testerów za ich czas i wkład!",
-      "credits": "Projekt poboczny od {cfaLink} członków 2013:",
       "team-heading": "Zespół projektowy oraz utrzymaniowy",
-      "view-source": "Zobacz kod źródłowy",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "Streetmix jest hojnie wspierany przez:",
       "donate-link": "Wesprzyj nas finansowo",
-      "github-link": "Współtwórz otwarte oprogramowanie",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "Warunki korzystania z usługi",
       "privacy-link": "Polityka prywatności",
       "acknowledgements": "",

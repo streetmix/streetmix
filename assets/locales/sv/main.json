@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "Snabbkommandon:",
       "remove-instruction": "Ta bort ett segment du pekar på",
       "remove-shift-instruction": "(håll inne {shiftKey} för att ta bort alla)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Kopiera till urklipp",
       "twitter": "Dela på Twitter",
       "facebook": "Dela på Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Skriv ut…",
       "save": "Spara som bild…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Om Streetmix.",
       "description": "Designa, ändra och dela din gata. Lägg till träd eller cykelbanor. Bredda gångbanor eller körbanor. Lär hur allt detta kan påverka ditt närområde.",
-      "thanks": "Stort tack till alla från 2013 års CfA för er support och tålamod, till Blockee-teamet för att ni ledde vägen och till alla våra testare för er tid och återkoppling!",
-      "credits": "",
       "team-heading": "",
-      "view-source": "Visa källkod",
       "partners": "",
       "sponsors": "Sponsorer",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": "",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",

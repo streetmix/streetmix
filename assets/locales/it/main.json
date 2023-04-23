@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "Guida",
       "keyboard-label": "Scorciatoie da tastiera",
       "remove-instruction": "Cancella il segmento indicato con il mouse",
       "remove-shift-instruction": "(premi {shiftKey} per cancellare tutto)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Copia negli appunti",
       "twitter": "Condividi con Twitter",
       "facebook": "Condividi con Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Stampa...",
       "save": "Salva come immagine...",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "A proposito si Streetmix.",
       "description": "Disegna, riassembla gli spazi e condividi la tua strada di vicinato. Aggiungi piste ciclabili, allarga i marciapiedi o le corsie stradali e scopri come le tue decisioni possono avere un'impatto positivo sulla comunità.",
-      "thanks": "Grazie infinite allo staff ed alla gente del 2013 CfA per il loro supporto e la loro pazienza, al team di Blockee per aver spianato la strada, e a tutti i nostri collaudatori per il loro tempo e i loro contributi!",
-      "credits": "Un progetto collaterale del {cfaLink} 2013:",
       "team-heading": "Team di progetto e di manutentenzione",
-      "view-source": "Esplora il codice sorgente",
       "partners": "Partners",
       "sponsors": "Sponsors",
       "sponsored-by": "Streetmix è sponsorizzata generosamente da:",
       "donate-link": "Supportaci finaziariamente",
-      "github-link": "Contribuisci allo sviluppo open source",
-      "open-source-link": "E' tutto open source!",
-      "guidebook-link": "Guida",
       "tos-link": "Termini del servizio",
       "privacy-link": "Informativa sulla privacy",
       "acknowledgements": "Riconoscimenti",

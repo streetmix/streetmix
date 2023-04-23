@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "",
       "remove-instruction": "",
       "remove-shift-instruction": "",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "",
       "facebook": "",
+      "mastodon": "",
       "3dstreet": "",
       "print": "I-print",
       "save": "",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "",
       "description": "Idibuho, i-remix, at ipamahagi ang iyong kalsada. Maglagay ng mga daanan ng bisikleta, palakihin ang mga bangketa at daanan ng trapik, at matuto kung paano nakaaapekto ang mga ito sa iyong pamayanan.",
-      "thanks": "Maraming salamat sa mga tauhan at kasamahan sa 2013 CfA sa kanilang tulong at tiyaga, ang Blockee sa pagbigay-daan dito, at sa lahat ng aming mga tagasiyasat sa kanilang oras at komento!",
-      "credits": "",
       "team-heading": "",
-      "view-source": "Tingnan ang source code",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": "",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",

@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "Rehber",
       "keyboard-label": "Klavye kısayolları:",
       "remove-instruction": "İşaret etiğiniz kısımı kaldırın",
       "remove-shift-instruction": "(Hepsini kaldırmak için {shiftKey}basılı tutun)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Kopyala",
       "twitter": "Twitter aracılığıyla paylaş",
       "facebook": "Facebook aracılığıyla paylaş",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Yazdır...",
       "save": "Görseli farklı kaydet...",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Streetmix hakkında",
       "description": "Sokağınızı tasarlayın, yeniden düzenleyin ve paylaşın. Bisiklet yolları ekleyin, kaldırımları ya da trafik şeritlerini genişletin, tüm bunların topluluğunuzu nasıl etkileyebileceğini öğrenin.",
-      "thanks": "Bütün çalışanlara ve 2013 CfA bursiyerlerine destekleri ve gösterdikleri sabır için, Blockee ekibine vesile oldukları için ve bütün test edenlere zamanları ve geri dönüşleri için teşekkürler.",
-      "credits": "{cfaLink}2013 bursiyerleri tarafından yapılmış ek proje:",
       "team-heading": "Proje ekibi ve bakıcılar",
-      "view-source": "Kaynak kodu gör",
       "partners": "Ortaklar",
       "sponsors": "Sponsorlar",
       "sponsored-by": "Streetmix'i destekleyenler:",
       "donate-link": "Finansal olarak bizi destekle",
-      "github-link": "Açık kaynağa destek ol",
-      "open-source-link": "Biz açık kaynağız!",
-      "guidebook-link": "Rehber",
       "tos-link": "Kullanım şartları",
       "privacy-link": "Gizlilik politikası",
       "acknowledgements": "Teşekkürler",

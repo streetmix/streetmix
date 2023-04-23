@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "快捷键：",
       "remove-instruction": "移除鼠标所指的部分",
       "remove-shift-instruction": "（长按{shiftKey}来移除所有的部分）",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "分享到推特",
       "facebook": "分享到脸书",
+      "mastodon": "",
       "3dstreet": "",
       "print": "打印",
       "save": "存为图片......",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "关于Streetmix",
       "description": "重新设计并共享你所在社区的街道。你可以添加自行车道，拓宽人行道或机动车道，并从中探索这些改变将会如何影响你的社区。",
-      "thanks": "衷心感谢工作人员和参加2013 CfA的朋友们所作出的努力以及他们的耐心，感谢Blockee团队成员们做的准备工作，以及所有调试人员付出的宝贵时间及提供的反馈意见！",
-      "credits": "由参加2013 CfA 的朋友们所创建的项目：{cfaLink}",
       "team-heading": "项目组团队及技术维护员",
-      "view-source": "查看源代码",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "Streetmix由以下组织及公司慷慨赞助：",
       "donate-link": "赞助我们",
-      "github-link": "贡献源代码",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",

@@ -17,6 +17,7 @@
       "streetmix-plus": "Dapatkan Streetmix+"
     },
     "help": {
+      "guidebook-link": "Buku panduan",
       "keyboard-label": "Pintasan papan tombol",
       "remove-instruction": "Hapus ruas yang Anda tunjuk",
       "remove-shift-instruction": "(tahan {shiftKey} untuk menghapus semua)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Salin ke papan klip",
       "twitter": "Bagikan menggunakan Twitter",
       "facebook": "Bagikan menggunakan Facebook",
+      "mastodon": "",
       "3dstreet": "Buka di 3DStreet",
       "print": "Cetak...",
       "save": "Simpan sebagai gambar...",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Tentang Streetmix.",
       "description": "Desain, baur ulang, dan bagikan jalan Anda. Tambahkan jalur sepeda, trotoar yang lebar, atau jalur lalu lintas, pelajari bagaimana semua ini dapat memengaruhi komunitas Anda.",
-      "thanks": "",
-      "credits": "",
       "team-heading": "Tim proyek dan pengelola",
-      "view-source": "Lihat kode sumber",
       "partners": "Partner",
       "sponsors": "Sponsor",
       "sponsored-by": "Streetmix dengan murah hati disponsori oleh:",
       "donate-link": "Dukung kami secara finansial",
-      "github-link": "Berkontribusi untuk sumber terbuka",
-      "open-source-link": "Kami adalah sumber terbuka!",
-      "guidebook-link": "Buku panduan",
       "tos-link": "Ketentuan layanan",
       "privacy-link": "Kebijakan privasi",
       "acknowledgements": "Ucapan Terima Kasih",

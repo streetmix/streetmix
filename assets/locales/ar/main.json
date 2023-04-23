@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "اختصارات لوحة المفاتيح:",
       "remove-instruction": "إزالة الجزء الذي تُشير إليه",
       "remove-shift-instruction": "(إضغط مفتاح {shiftKey} لإزالة الكل)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "",
       "twitter": "مشاركة باستخدام تويتر",
       "facebook": "مشاركة باستخدام الفيسبوك",
+      "mastodon": "",
       "3dstreet": "",
       "print": "طباعة…",
       "save": "حفظ كصورة…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "حول Streetmix.",
       "description": "قم بتصميم وإعادة توزيع الشارع ومشاركته. أضف أشجار أو مسارات الدراجات، قم بتوسيع الأرصفة أو الممرات المرورية، تعلم كيف يمكن لقراراتك التأثير في مجتمعك.",
-      "thanks": "شكراً جزيلاً للعاملين والزملاء في معهد CfA 2013 لدعمهم وصبرهم، ولفريق Blockee لتمهيدهم للطريق، ولجميع المختبرين لدينا لتعليقاتهم ووقتهم الذي منحونا إياه!",
-      "credits": "مشروع جانبي بحلول عام {cfaLink} 2013:",
       "team-heading": "فريق المشروع والمشرفين",
-      "view-source": "إظهار شيفرة المصدر",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "مشروع Streetmix برعاية سخيّة من:",
       "donate-link": "إدعمنا مالياً",
-      "github-link": "مساهمة في فتح شيفرة المصدر",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",

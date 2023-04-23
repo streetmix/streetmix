@@ -17,6 +17,7 @@
       "streetmix-plus": ""
     },
     "help": {
+      "guidebook-link": "",
       "keyboard-label": "Teclas de acceso rápido:",
       "remove-instruction": "Remover un segmento al que esté apuntando",
       "remove-shift-instruction": "(mantén presionada la tecla {shiftKey} para remover todo)",
@@ -32,6 +33,7 @@
       "copy-to-clipboard": "Copiar al portapapeles",
       "twitter": "Compartir utilizando Twitter",
       "facebook": "Compartir utilizando Facebook",
+      "mastodon": "",
       "3dstreet": "",
       "print": "Imprimir…",
       "save": "Guardar como imagen…",
@@ -198,17 +200,11 @@
     "about": {
       "heading": "Sobre Streetmix",
       "description": "Diseña, mezcla y comparte tu calle. Agrega vias para bicicletas, ensancha aceras o carriles de circulacion, analiza como impactan todo esto a tu comunidad",
-      "thanks": "Muchas gracias al equipo y amigos del CFA 2013 por su apoyo y paciencia, el equipo de Blckee por pavimentar el camino y todos nuestros evaluadores por su tiempo y retroalimentacion",
-      "credits": "Un proyecto paralelo de amigos {cfaLink} 2013:",
       "team-heading": "",
-      "view-source": "Ver codigo fuente",
       "partners": "",
       "sponsors": "",
       "sponsored-by": "",
       "donate-link": "",
-      "github-link": "Contribuir al código abierto",
-      "open-source-link": "",
-      "guidebook-link": "",
       "tos-link": "",
       "privacy-link": "",
       "acknowledgements": "",
