@@ -6,10 +6,6 @@ import { render } from '../../../../test/helpers/render'
 import * as uiSlice from '../../store/slices/ui'
 import EnvironmentEditor from '../EnvironmentEditor'
 
-// jest.mock('../../store/slices/ui', () => ({
-//   toggleToolbox: jest.fn(() => ({ type: 'MOCK_ACTION' }))
-// }))
-
 describe('EnvironmentEditor', () => {
   const initialState = {
     street: {
@@ -31,9 +27,19 @@ describe('EnvironmentEditor', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it.todo('selects an environment')
+  it('selects an environment', async () => {
+    render(<EnvironmentEditor />, { initialState })
 
-  it.skip('closes when close button is clicked', async () => {
+    // Initial state
+    expect(screen.getByLabelText('Day')).toHaveClass('environment-active')
+
+    await userEvent.click(screen.getByLabelText('Dusk'))
+
+    // New state
+    expect(screen.getByLabelText('Dusk')).toHaveClass('environment-active')
+  })
+
+  it('closes when close button is clicked', async () => {
     render(<EnvironmentEditor />, { initialState })
 
     // Mock the single action creator to test if it's called
@@ -60,5 +66,26 @@ describe('EnvironmentEditor', () => {
     expect(screen.queryByText('Get Streetmix+')).not.toBeInTheDocument()
   })
 
-  it.todo('does not select an environment for unsubscribed users')
+  it('does not select an environment for unsubscribed users', async () => {
+    render(<EnvironmentEditor />, {
+      initialState: {
+        ...initialState,
+        user: {
+          signedIn: true,
+          isSubscriber: false
+        }
+      }
+    })
+
+    // Initial state
+    expect(screen.getByLabelText('Day')).toHaveClass('environment-active')
+    expect(screen.getByLabelText('Dusk')).toHaveClass('environment-disabled')
+
+    await userEvent.click(screen.getByLabelText('Dusk'))
+
+    // State should not change!
+    expect(screen.getByLabelText('Day')).toHaveClass('environment-active')
+    expect(screen.getByLabelText('Dusk')).not.toHaveClass('environment-active')
+    expect(screen.getByLabelText('Dusk')).toHaveClass('environment-disabled')
+  })
 })

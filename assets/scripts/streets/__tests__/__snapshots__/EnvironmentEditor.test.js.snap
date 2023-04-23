@@ -32,20 +32,25 @@ exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
         <div
           class="environment-selector"
         >
-          <div
+          <button
+            aria-label="Day"
             class="environment-item environment-active"
             style="background: rgb(169, 204, 219);"
           />
-          <div
+          <button
+            aria-label="Twilight"
             class="environment-item"
           />
-          <div
+          <button
+            aria-label="Dusk"
             class="environment-item"
           />
-          <div
+          <button
+            aria-label="Dawn"
             class="environment-item"
           />
-          <div
+          <button
+            aria-label="Night"
             class="environment-item"
           >
             <img
@@ -53,12 +58,14 @@ exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
               draggable="false"
               style="width: 100%; height: 100%; pointer-events: none; user-select: none;"
             />
-          </div>
-          <div
+          </button>
+          <button
+            aria-label="Fog"
             class="environment-item"
             style="background: rgb(226, 240, 242);"
           />
-          <div
+          <button
+            aria-label="Holodeck"
             class="environment-item"
             style="background: rgb(20, 20, 20);"
           >
@@ -67,7 +74,7 @@ exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
               draggable="false"
               style="width: 100%; height: 100%; pointer-events: none; user-select: none;"
             />
-          </div>
+          </button>
         </div>
       </div>
     </div>
