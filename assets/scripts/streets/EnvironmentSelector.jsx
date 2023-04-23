@@ -51,7 +51,8 @@ function EnvironmentSelector ({ enabled, selected, handleSelect }) {
 
           return (
             <Tooltip label={label} key={id} placement="bottom">
-              <div
+              <button
+                aria-label={label}
                 className={classNames.join(' ')}
                 style={iconStyle}
                 onClick={(event) => handleClick(event, env)}
@@ -75,7 +76,7 @@ function EnvironmentSelector ({ enabled, selected, handleSelect }) {
                     draggable={false}
                   />
                 )}
-              </div>
+              </button>
             </Tooltip>
           )
         })}
