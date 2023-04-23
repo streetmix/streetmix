@@ -8,7 +8,7 @@ exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
   >
     <div
       class="environment-editor-container-inner"
-      style="opacity: 0; transform: scale(0.75); pointer-events: none;"
+      style="opacity: 0; pointer-events: none; transform: scale(0.75);"
     >
       <header>
         <h3>
