@@ -1,6 +1,7 @@
 @import "../../styles/variables";
 
 $selection-highlight-colour: $colour-copper-500;
+$selection-focus-colour: $colour-turquoise-500;
 
 .environment-selector {
   display: grid;
@@ -18,6 +19,15 @@ $selection-highlight-colour: $colour-copper-500;
   border-radius: $border-radius-large;
   cursor: pointer;
   transition: 120ms box-shadow;
+
+  // These are functionally buttons, reset appearance
+  appearance: none;
+  border: 0;
+
+  &:focus {
+    box-shadow: 0 0 0 2px $selection-focus-colour,
+      inset 0 0 0 2px rgb(255 255 255 / 100%);
+  }
 }
 
 .environment-item.environment-active {
