@@ -131,6 +131,14 @@
     "id": "markings--stripes-diagonal",
     "originY": 120
   },
+  "markings--crosswalk-zebra": {
+    "id": "markings--crosswalk-zebra",
+    "originY": 120
+  },
+  "markings--crosswalk-zebra-bike": {
+    "id": "markings--crosswalk-zebra-bike",
+    "originY": 120
+  },
   "lamps--lamp-modern-left": {
     "id": "lamps--lamp-modern-left",
     "offsetX": -315

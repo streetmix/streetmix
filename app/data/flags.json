@@ -65,6 +65,10 @@
     "defaultValue": false,
     "enabled": false
   },
+  "SEGMENT_CROSSWALK": {
+    "label": "Segment — crosswalk",
+    "defaultValue": false
+  },
   "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": {
     "label": "Segment — drainage channel (unlocked)",
     "defaultValue": false

@@ -242,6 +242,16 @@
       "title": "Traffic exclusion dome"
     }
   },
+  "crosswalk-type": {
+    "zebra-crossing": {
+      "id": "buffer",
+      "title": "Crosswalk"
+    },
+    "zebra-crossing-bike": {
+      "id": "buffer",
+      "title": "Bike crossing"
+    }
+  },
   "orientation": {
     "left": {
       "id": "orientation-left",
