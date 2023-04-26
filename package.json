@@ -197,7 +197,7 @@
     "@babel/preset-react": "7.18.6",
     "@commitlint/cli": "17.4.4",
     "@commitlint/config-conventional": "17.4.4",
-    "@faker-js/faker": "5.5.3",
+    "@faker-js/faker": "7.6.0",
     "@parcel/transformer-sass": "2.8.3",
     "@testing-library/dom": "9.2.0",
     "@testing-library/jest-dom": "5.16.5",
