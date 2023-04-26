@@ -224,7 +224,7 @@
     "jest-date-mock": "1.0.8",
     "jest-environment-jsdom": "29.5.0",
     "jest-fetch-mock": "3.0.3",
-    "lint-staged": "13.1.2",
+    "lint-staged": "13.2.2",
     "prettier": "2.8.4",
     "react-dnd-test-backend": "14.0.1",
     "redux-mock-store": "1.5.4",
