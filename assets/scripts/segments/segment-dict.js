@@ -1,4 +1,4 @@
-import { uniq } from 'lodash'
+import { unique } from '../util/unique'
 import SEGMENT_COMPONENTS from './components.json'
 import SEGMENT_LOOKUP from './segment-lookup.json'
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
@@ -136,7 +136,7 @@ function appendVariantSprites (target, source) {
   const sourceArray = Array.isArray(source) ? source : [source]
 
   const graphicsInfo = targetArray.concat(sourceArray)
-  return uniq(graphicsInfo)
+  return unique(graphicsInfo)
 }
 
 /**
