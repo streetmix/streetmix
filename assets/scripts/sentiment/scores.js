@@ -1,4 +1,3 @@
-import find from 'lodash/find'
 import IMG_SENTIMENT_1 from '../../images/openmoji/color/1F620.svg'
 import IMG_SENTIMENT_2 from '../../images/openmoji/color/1F641.svg'
 import IMG_SENTIMENT_3 from '../../images/openmoji/color/1F610.svg'
@@ -54,7 +53,7 @@ const SCORE_DATA = [
 ]
 
 export function getDataForScore (score) {
-  return find(SCORE_DATA, { score })
+  return SCORE_DATA.find((d) => d.score === score)
 }
 
 export function getAllScoreData () {
