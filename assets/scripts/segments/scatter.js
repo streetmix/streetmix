@@ -1,6 +1,6 @@
 import seedrandom from 'seedrandom'
-import maxBy from 'lodash/maxBy'
 import { images } from '../app/load_resources'
+import { maxBy } from '../util/maxBy'
 import { drawSegmentImage } from './view'
 import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
@@ -17,7 +17,7 @@ const DEFAULT_SCATTER_SPACING_MAX = 3 // in feet
  * @returns {Number} - maximum street width in feet
  */
 function getSpriteMaxWidth (pool) {
-  return maxBy(pool, 'width').width
+  return maxBy(pool, (s) => s.width).width
 }
 
 /**
