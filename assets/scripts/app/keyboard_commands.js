@@ -1,5 +1,3 @@
-import { noop } from 'lodash'
-
 import USER_ROLES from '../../../app/data/user_roles'
 import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
 import { handleSegmentResizeCancel } from '../segments/resizing'
@@ -56,7 +54,7 @@ export function registerKeypresses () {
       preventDefault: true,
       requireFocusOnBody: false
     },
-    noop
+    () => {} // noop
   )
 
   // Catch-all for the backspace or delete buttons to prevent
@@ -67,7 +65,7 @@ export function registerKeypresses () {
       preventDefault: true,
       requireFocusOnBody: true
     },
-    noop
+    () => {} // noop
   )
 
   // Secret menu to toggle feature flags
