@@ -1,5 +1,4 @@
-import { cloneDeep } from 'lodash'
-
+import clone from 'just-clone'
 import { debug } from '../preinit/debug_settings'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
@@ -172,7 +171,7 @@ export function updateUnits (newUnits) {
       )
     }
   } else {
-    store.dispatch(updateStreetData(cloneDeep(undoStack[undoPosition - 1])))
+    store.dispatch(updateStreetData(clone(undoStack[undoPosition - 1])))
   }
   segmentsChanged()
 

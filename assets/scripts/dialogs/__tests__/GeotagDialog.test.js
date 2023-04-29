@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { cloneDeep } from 'lodash'
+import clone from 'just-clone'
 import { screen } from '@testing-library/react'
 import { render } from '../../../../test/helpers/render'
 import GeotagDialog from '../GeotagDialog'
@@ -159,7 +159,7 @@ describe('GeotagDialog', () => {
     })
 
     it('shows geocoding is unavailable if offline mode is on', () => {
-      const newInitialState = cloneDeep(initialState)
+      const newInitialState = clone(initialState)
       newInitialState.system.offline = true
 
       render(<GeotagDialog />, {

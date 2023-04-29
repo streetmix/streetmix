@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import clone from 'just-clone'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import store from '../store'
@@ -7,7 +7,7 @@ import { createNewUndo, unifyStack } from '../store/slices/undo'
 import { setUpdateTimeToNow, updateEverything } from './data_model'
 
 export function getUndoStack () {
-  return cloneDeep(store.getState().undo.stack)
+  return clone(store.getState().undo.stack)
 }
 
 export function getUndoPosition () {
@@ -17,7 +17,7 @@ export function getUndoPosition () {
 export function finishUndoOrRedo () {
   // set current street to the thing we just updated
   const { position, stack } = store.getState().undo
-  store.dispatch(updateStreetData(cloneDeep(stack[position])))
+  store.dispatch(updateStreetData(clone(stack[position])))
   cancelSegmentResizeTransitions()
 
   setUpdateTimeToNow()
@@ -35,7 +35,7 @@ export function createNewUndoIfNecessary (lastStreet = {}, currentStreet) {
     return
   }
 
-  store.dispatch(createNewUndo(cloneDeep(lastStreet)))
+  store.dispatch(createNewUndo(clone(lastStreet)))
 }
 
 export function unifyUndoStack () {

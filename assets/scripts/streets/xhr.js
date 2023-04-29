@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import clone from 'just-clone'
 import { showError, ERRORS } from '../app/errors'
 import {
   checkIfEverythingIsLoaded,
@@ -264,7 +264,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
     return
   }
 
-  const street = cloneDeep(transmission.data.street)
+  const street = clone(transmission.data.street)
   street.creatorId = (transmission.creator && transmission.creator.id) || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
@@ -304,7 +304,7 @@ export function unpackServerStreetData (
   if (transmission.data.undoStack) {
     store.dispatch(
       replaceUndoStack({
-        stack: cloneDeep(transmission.data.undoStack),
+        stack: clone(transmission.data.undoStack),
         position: transmission.data.undoPosition
       })
     )
@@ -345,7 +345,7 @@ export function packServerStreetDataRaw () {
   delete data.street.creatorId
 
   if (store.getState().flags.SAVE_UNDO.value === true) {
-    data.undoStack = cloneDeep(store.getState().undo.stack)
+    data.undoStack = clone(store.getState().undo.stack)
     data.undoPosition = store.getState().undo.position
   }
 
