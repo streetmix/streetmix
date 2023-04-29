@@ -1,5 +1,4 @@
 /* eslint-env jest */
-import { differenceWith, isEqual, isEqualWith } from 'lodash'
 import SEGMENT_INFO from '../info.json'
 import SPRITE_DEFS from '../sprite-defs.json'
 import {
@@ -100,15 +99,10 @@ describe('segment info', () => {
       expect(variant.unknown).toBeFalsy()
 
       const original = SEGMENT_INFO['turn-lane'].details['inbound|straight']
+      // Sort original array to pass equality check
+      original.graphics.center.sort()
 
-      const checkArrayEquality = (origValue, testValue) => {
-        if (Array.isArray(origValue) && Array.isArray(testValue)) {
-          return !differenceWith(origValue, testValue, isEqual).length
-        }
-      }
-
-      const correct = isEqualWith(original, variant, checkArrayEquality)
-      expect(correct).toEqual(true)
+      expect(variant).toEqual(original)
     })
   })
 })
