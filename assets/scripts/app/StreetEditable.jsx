@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
-import flow from 'lodash/flow'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { flow } from '../util/flow'
 import Segment from '../segments/Segment'
 import {
   TILE_SIZE,
@@ -220,11 +220,11 @@ function mapStateToProps (state) {
   }
 }
 
-export default flow(
+export default flow([
   DropTarget(
     [Types.SEGMENT, Types.PALETTE_SEGMENT],
     canvasTarget,
     collectDropTarget
   ),
   connect(mapStateToProps)
-)(StreetEditable)
+])(StreetEditable)

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragSource, DropTarget } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
-import flow from 'lodash/flow'
 import { CSSTransition } from 'react-transition-group'
+import { flow } from '../util/flow'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { formatMessage } from '../locales/locale'
@@ -416,7 +416,7 @@ const mapDispatchToProps = {
   addToast
 }
 
-export default flow(
+export default flow([
   DragSource(Types.SEGMENT, segmentSource, collectDragSource),
   DropTarget(
     [Types.SEGMENT, Types.PALETTE_SEGMENT],
@@ -424,4 +424,4 @@ export default flow(
     collectDropTarget
   ),
   connect(mapStateToProps, mapDispatchToProps)
-)(Segment)
+])(Segment)
