@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { IntlProvider, FormattedMessage } from 'react-intl'
-import { debounce } from 'lodash'
+import debounce from 'just-debounce-it'
 import { registerKeypress } from '../app/keypress'
 import { BUILDINGS } from '../segments/buildings'
 import {

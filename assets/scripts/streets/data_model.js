@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import cloneDeep from 'lodash/cloneDeep'
+import clone from 'just-clone'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import {
   normalizeSegmentWidth,
@@ -462,7 +462,7 @@ function fillDefaultSegments (units) {
   const leftHandTraffic = getLeftHandTraffic()
 
   for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
-    const segment = cloneDeep(DEFAULT_SEGMENTS[leftHandTraffic][i])
+    const segment = clone(DEFAULT_SEGMENTS[leftHandTraffic][i])
 
     segment.variantString = getVariantString(segment.variant)
 

@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce'
+import debounce from 'just-debounce-it'
 import { MODES, getMode } from '../app/mode'
 import store, { observeStore } from '../store'
 import { updateSettings } from '../store/slices/settings'

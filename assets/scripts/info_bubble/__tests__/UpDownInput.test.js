@@ -4,12 +4,10 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import UpDownInput from '../UpDownInput'
 
-// Mock out lodash's `debounce` method so that the debounced
-// `onUpdatedValue` callback will be executed immediately when
-// called (we are not implementing the debounce in this test)
-jest.mock('lodash', () => ({
-  debounce: (fn) => fn
-}))
+// Mock the `debounce` method so that the debounced `onUpdatedValue` callback
+// will be executed immediately when called (we are not implementing the
+// debounce in this test)
+jest.mock('just-debounce-it', () => jest.fn((fn) => fn))
 
 const handleUp = jest.fn()
 const handleDown = jest.fn()

@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import clone from 'just-clone'
 import {
   RESIZE_TYPE_INCREMENT,
   RESIZE_TYPE_PRECISE_DRAGGING,
@@ -119,7 +119,7 @@ export const incrementSegmentWidth = (
 }
 
 const createStreetFromResponse = (response) => {
-  const street = cloneDeep(response.data.street)
+  const street = clone(response.data.street)
   street.creatorId = (response.creator && response.creator.id) || null
   street.originalStreetId = response.originalStreetId || null
   street.updatedAt = response.updatedAt || null
