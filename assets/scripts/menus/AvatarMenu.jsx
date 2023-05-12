@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ChevronDownIcon } from '@radix-ui/react-icons'
 import USER_ROLES from '../../../app/data/user_roles'
 import Avatar from '../users/Avatar'
 import { ICON_BOLT } from '../ui/icons'
@@ -40,7 +39,6 @@ function AvatarMenu (props) {
   return (
     <button className="menu-attached menu-avatar" onClick={onClick}>
       <Avatar userId={id} />
-      <span className="user-id">{id}</span>
       {isAdmin && (
         <FontAwesomeIcon
           icon={ICON_BOLT}
@@ -57,7 +55,6 @@ function AvatarMenu (props) {
           title={subscriberLabel}
         />
       )}
-      <ChevronDownIcon className="menu-carat-down" />
     </button>
   )
 }

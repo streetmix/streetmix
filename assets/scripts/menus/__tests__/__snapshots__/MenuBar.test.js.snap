@@ -236,14 +236,6 @@ exports[`MenuBar renders logged in user 1`] = `
               alt="foo"
             />
           </span>
-          <span
-            class="user-id"
-          >
-            foo
-          </span>
-          <svg
-            class="menu-carat-down"
-          />
         </button>
       </li>
     </ul>

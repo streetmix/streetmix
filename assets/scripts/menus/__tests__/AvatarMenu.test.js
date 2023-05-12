@@ -36,7 +36,7 @@ describe('AvatarMenu', () => {
   it('calls click handler', async () => {
     const onClick = jest.fn()
     render(<AvatarMenu user={user} onClick={onClick} />)
-    await userEvent.click(screen.getByText(user.id))
+    await userEvent.click(screen.getByRole('button'))
     expect(onClick).toHaveBeenCalled()
   })
 })
