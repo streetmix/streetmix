@@ -15,21 +15,26 @@ jest.mock('../../users/authentication', () => ({
 }))
 
 describe('IdentityMenu', () => {
+  const initialState = {
+    user: {
+      signInData: {
+        details: {
+          id: 'foo',
+          displayName: 'bar'
+        }
+      }
+    }
+  }
+
   it('renders', () => {
-    const { asFragment } = render(<IdentityMenu isActive={true} />)
+    const { asFragment } = render(<IdentityMenu isActive={true} />, {
+      initialState
+    })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows "My streets" when its link is clicked', async () => {
-    render(<IdentityMenu isActive={true} />, {
-      initialState: {
-        user: {
-          signInData: {
-            userId: 'foo'
-          }
-        }
-      }
-    })
+    render(<IdentityMenu isActive={true} />, { initialState })
 
     await userEvent.click(screen.getByText('My streets'))
 
@@ -38,7 +43,7 @@ describe('IdentityMenu', () => {
   })
 
   it('signs the user out when its link is clicked', async () => {
-    render(<IdentityMenu isActive={true} />)
+    render(<IdentityMenu isActive={true} />, { initialState })
 
     await userEvent.click(screen.getByText('Sign out'))
 

@@ -182,7 +182,6 @@ function drawBackgroundGradient (ctx, width, height, dpi, backgroundGradient) {
  * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
-  console.log(multiplier)
   objects.forEach((object) => {
     const {
       image: imageId,

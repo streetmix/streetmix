@@ -5,8 +5,46 @@ exports[`IdentityMenu renders 1`] = `
   <div
     class="menu identity-menu"
   >
+    <div
+      class="identity-section"
+    >
+      <div
+        class="identity-avatar-name"
+      >
+        <div
+          class="identity-avatar-name-left"
+        >
+          <span
+            class="avatar"
+          >
+            <img
+              alt="foo"
+            />
+          </span>
+        </div>
+        <div
+          class="identity-avatar-name-right"
+        >
+          <div
+            class="identity-avatar-display-name"
+          >
+            bar
+          </div>
+          <div
+            class="menu-item-subtext"
+          >
+            foo
+          </div>
+        </div>
+      </div>
+      <div
+        class="identity-roles"
+      >
+        <ul />
+      </div>
+    </div>
     <a
-      href=""
+      href="/foo"
     >
       <svg
         class="menu-item-icon-radix"

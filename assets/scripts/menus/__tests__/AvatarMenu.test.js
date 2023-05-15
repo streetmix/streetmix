@@ -15,15 +15,6 @@ describe('AvatarMenu', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('renders user avatar for admin', () => {
-    const user = {
-      id: 'foo',
-      roles: ['ADMIN']
-    }
-    render(<AvatarMenu user={user} />)
-    expect(screen.queryByTitle('Admin')).toBeInTheDocument()
-  })
-
   it('renders user avatar for subscriber', () => {
     const user = {
       id: 'foo',

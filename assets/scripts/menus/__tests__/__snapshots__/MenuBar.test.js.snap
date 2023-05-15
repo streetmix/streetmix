@@ -58,7 +58,7 @@ exports[`MenuBar renders 1`] = `
       >
         <img
           alt="Streetmix+"
-          class="menu-avatar-badge menu-avatar-subscriber"
+          class="menu-avatar-subscriber"
           src="test-file-stub"
         />
         Get Streetmix+‎
@@ -177,7 +177,7 @@ exports[`MenuBar renders logged in user 1`] = `
       >
         <img
           alt="Streetmix+"
-          class="menu-avatar-badge menu-avatar-subscriber"
+          class="menu-avatar-subscriber"
           src="test-file-stub"
         />
         Get Streetmix+‎

@@ -8,35 +8,26 @@
 
 .menu-avatar .avatar {
   position: relative;
-  left: -2px;
+  left: -2px; /* Position tweaking to center in highlight */
   width: 2rem;
   height: 2rem;
   margin: 0;
-}
-
-.menu-avatar-badge {
-  margin-left: 0.35em;
-  vertical-align: -0.175em; /* Tweak to balance alignment with username */
 
   [dir="rtl"] & {
-    margin-left: 0;
-    margin-right: 0.35em;
+    left: 1px;
   }
 }
 
-.menu-avatar-admin {
-  color: #ffb010 !important;
-}
-
-/* Styles for this element are cribbed from FontAwesome equivalent */
-.menu-avatar-subscriber {
-  display: inline-block;
-  font-size: inherit;
-  height: 1em;
-}
-
-.menu-avatar .menu-avatar-subscriber {
+.menu-avatar .menu-avatar-badge {
   position: absolute;
-  left: 50%;
+  left: calc(50% + 4px);
   top: 1px;
+
+  [dir="rtl"] & {
+    left: calc(50% + 6px);
+  }
+}
+
+.menu-avatar-subscriber {
+  height: 1em;
 }
