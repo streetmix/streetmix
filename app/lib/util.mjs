@@ -20,6 +20,7 @@ export function asStreetJson (street) {
 export function asUserJson (user) {
   const userJson = {
     id: user.id,
+    displayName: user.displayName || null,
     profileImageUrl: user.profileImageUrl,
     flags: user.flags || {},
     roles: user.roles || [],
