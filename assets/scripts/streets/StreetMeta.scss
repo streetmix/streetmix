@@ -3,6 +3,7 @@
 
 .street-metadata {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding-top: 0.75em;
   color: black;
@@ -18,6 +19,8 @@
   > span {
     display: flex;
     align-items: center;
+    white-space: nowrap;
+    margin-bottom: 0.25em;
   }
 
   > span:not(:first-child) {
