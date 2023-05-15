@@ -36,6 +36,16 @@ export function asUserJson (user) {
   return userJson
 }
 
+export function asUserJsonBasic (user) {
+  const userJson = {
+    id: user.id,
+    displayName: user.displayName || null,
+    profileImageUrl: user.profileImageUrl
+  }
+
+  return userJson
+}
+
 export const ERRORS = {
   USER_NOT_FOUND: 'USER_NOT_FOUND',
   INTERNAL_ERROR: 'INTERNAL_ERROR',

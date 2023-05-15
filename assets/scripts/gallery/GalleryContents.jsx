@@ -13,13 +13,13 @@ import { switchGalleryStreet } from './index'
 import './GalleryContents.scss'
 
 function GalleryContents (props) {
-  const userId = useSelector((state) => state.gallery.userId)
+  const user = useSelector((state) => state.gallery.user)
   const streets = useSelector((state) => state.gallery.streets || [])
   const currentStreetId = useSelector((state) => state.street.id)
   const isOwnedByCurrentUser = useSelector(
     (state) =>
       state.user.signedIn &&
-      state.gallery.userId === state.user.signInData.userId
+      state.gallery.user.id === state.user.signInData.userId
   )
   const dispatch = useDispatch()
 
@@ -62,14 +62,14 @@ function GalleryContents (props) {
     <>
       {/* Heading */}
       <div className="gallery-header" ref={galleryEl}>
-        {userId && <Avatar userId={userId} />}
+        {user.id && <Avatar userId={user.id} />}
         <div className="gallery-label">
-          {userId || (
+          {user.displayName || user.id || (
             <FormattedMessage id="gallery.all" defaultMessage="All streets" />
           )}
         </div>
         {/* Street count */}
-        {userId && (
+        {user.id && (
           <div className="gallery-street-count">
             <FormattedMessage
               id="gallery.street-count"
@@ -123,7 +123,7 @@ function GalleryContents (props) {
               selected={selectedStreet === item.id}
               doSelect={selectStreet}
               doDelete={deleteStreet}
-              showStreetOwner={!userId || !(userId === item.creatorId)}
+              showStreetOwner={!user.id || !(user.id === item.creatorId)}
               allowDelete={isOwnedByCurrentUser}
             />
           ))}

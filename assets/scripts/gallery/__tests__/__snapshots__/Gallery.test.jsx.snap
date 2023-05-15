@@ -155,7 +155,7 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
         <div
           class="gallery-label"
         >
-          foo
+          bar
         </div>
         <div
           class="gallery-street-count"
@@ -268,7 +268,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
         <div
           class="gallery-label"
         >
-          foo
+          bar
         </div>
         <div
           class="gallery-street-count"
