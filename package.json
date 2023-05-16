@@ -149,7 +149,7 @@
     "leaflet": "1.9.3",
     "nanoid": "3.1.31",
     "newrelic": "10.1.1",
-    "nodemon": "2.0.21",
+    "nodemon": "2.0.22",
     "parcel": "2.8.3",
     "passport": "0.6.0",
     "passport-oauth": "1.0.0",
