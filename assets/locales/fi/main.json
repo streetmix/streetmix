@@ -33,8 +33,8 @@
       "copy-to-clipboard": "Kopioi leikepöydälle",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
-      "mastodon": "",
-      "3dstreet": "",
+      "mastodon": "Jaa Mastodonissa",
+      "3dstreet": "Avaa 3DStreetissä",
       "print": "Tulosta…",
       "save": "Tallenna kuvana…",
       "save-byline": "Blogiin, liitteeksi raporttiin...",
@@ -79,7 +79,7 @@
       "label": "Yleiset"
     },
     "appearance": {
-      "label": ""
+      "label": "Ulkoasu"
     },
     "language": {
       "label": "Kieli"
@@ -90,11 +90,11 @@
       "silly-clowns-description": "Pääsiäismunat käyttöön."
     },
     "theme": {
-      "label": "",
-      "description": "",
-      "light": "",
-      "dark": "",
-      "system": ""
+      "label": "Teema",
+      "description": "Käyttöliittymän värimaailma",
+      "light": "Vaalea teema",
+      "dark": "Tumma Teema",
+      "system": "Käyttöjärjestelmäasetus"
     },
     "units": {
       "label": "Mittayksikkö",
@@ -231,8 +231,8 @@
       "option-name": "Kadunnimi",
       "option-sky": "Läpinäkyvä taivas",
       "option-watermark": "Streetmix-logo",
-      "option-custom-scale": "Mukautettu mittakaava",
-      "option-custom-scale-description": "Lataa jopa kuvia jopa viisi kertaa suurempina.",
+      "option-custom-scale": "Mittakaava",
+      "option-custom-scale-description": "Lataa kuvia jopa viisi kertaa suurempina.",
       "loading": "Ladataan…",
       "save-button": "Tallenna tietokoneelle…",
       "license": "Tätä Streetmixillä luotua kuvaa saa käyttää missä tahansa mihin tahansa tarkoitukseen {licenseLink} -lisenssin ehtojen mukaisesti.",
@@ -378,7 +378,7 @@
       "does-not-fit": "Elementti ei mahdu kadulle.",
       "not-wide": "Elementti ei ehkä ole riittävän leveä.",
       "too-wide": "Elementti saattaa olla leveä.",
-      "dangerous": ""
+      "dangerous": "Segmentti kuvastaa nykytilan mukaista vaarallista ratkaisua."
     },
     "learn-more": "Lue lisää",
     "unknown": {
@@ -501,7 +501,7 @@
       "es-mx": "Espanja (Meksiko)",
       "fi": "Suomi",
       "fr": "Ranska",
-      "id": "",
+      "id": "Indonesia",
       "it": "Italia",
       "ja": "Japani",
       "ko": "Korea",
