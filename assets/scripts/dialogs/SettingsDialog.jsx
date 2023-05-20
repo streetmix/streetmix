@@ -15,9 +15,9 @@ import Dialog from './Dialog'
 import FeatureFlagSettings from './Settings/FeatureFlagSettings'
 import GeneralSettings from './Settings/GeneralSettings'
 import LanguageSettings from './Settings/LanguageSettings'
+import ProfileSettings from './Settings/ProfileSettings'
 import UnitSettings from './Settings/UnitSettings'
 import './SettingsDialog.scss'
-import ProfileSettings from './Settings/ProfileSettings'
 
 SettingsDialog.propTypes = {
   category: PropTypes.string
