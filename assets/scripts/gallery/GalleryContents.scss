@@ -12,7 +12,7 @@
     height: 32px;
     margin-right: 0.5em;
 
-    [dir="rtl"] {
+    [dir="rtl"] & {
       margin-left: 0.5em;
       margin-right: 0;
     }
