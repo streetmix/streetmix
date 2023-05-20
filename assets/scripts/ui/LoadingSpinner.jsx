@@ -7,10 +7,6 @@ const SPINNER_SIZES = {
   SMALL: 'small'
 }
 
-LoadingSpinner.propTypes = {
-  size: PropTypes.oneOf(Object.values(SPINNER_SIZES))
-}
-
 /**
  * The <LoadingSpinner /> is an element that only displays a visual spinner.
  * It is up to the parent element or component to handle placement
@@ -28,6 +24,10 @@ function LoadingSpinner ({ size }) {
   }
 
   return <div className={classNames.join(' ')} />
+}
+
+LoadingSpinner.propTypes = {
+  size: PropTypes.oneOf(Object.values(SPINNER_SIZES))
 }
 
 export default LoadingSpinner

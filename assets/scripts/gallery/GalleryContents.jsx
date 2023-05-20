@@ -10,15 +10,16 @@ import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
 import { deleteGalleryStreet } from '../store/slices/gallery'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet } from './index'
+import './GalleryContents.scss'
 
 function GalleryContents (props) {
-  const userId = useSelector((state) => state.gallery.userId)
+  const user = useSelector((state) => state.gallery.user)
   const streets = useSelector((state) => state.gallery.streets || [])
   const currentStreetId = useSelector((state) => state.street.id)
   const isOwnedByCurrentUser = useSelector(
     (state) =>
       state.user.signedIn &&
-      state.gallery.userId === state.user.signInData.userId
+      state.gallery.user.id === state.user.signInData.userId
   )
   const dispatch = useDispatch()
 
@@ -32,6 +33,8 @@ function GalleryContents (props) {
       if (selectedEl) {
         // Note: smooth scroll is not supported in all browsers
         selectedEl.scrollIntoView({ behavior: 'smooth', inline: 'nearest' })
+        // We need this to prevent scrollIntoView from moving things
+        // upward and trying to reveal the hidden scrollbar area
         galleryEl.current.parentNode.scrollTop = 0
       }
     }
@@ -58,29 +61,24 @@ function GalleryContents (props) {
   return (
     <>
       {/* Heading */}
-      <div className="gallery-label" ref={galleryEl}>
-        {userId
-          ? (
-            <>
-              <Avatar userId={userId} />
-              <div className="gallery-user-id">{userId}</div>
-            </>
-            )
-          : (
+      <div className="gallery-header" ref={galleryEl}>
+        {user.id && <Avatar userId={user.id} />}
+        <div className="gallery-label">
+          {user.displayName || user.id || (
             <FormattedMessage id="gallery.all" defaultMessage="All streets" />
-            )}
-      </div>
-
-      {/* Street count */}
-      {userId && (
-        <div className="gallery-street-count">
-          <FormattedMessage
-            id="gallery.street-count"
-            defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
-            values={{ count: streets.length }}
-          />
+          )}
         </div>
-      )}
+        {/* Street count */}
+        {user.id && (
+          <div className="gallery-street-count">
+            <FormattedMessage
+              id="gallery.street-count"
+              defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
+              values={{ count: streets.length }}
+            />
+          </div>
+        )}
+      </div>
 
       {/* Gallery selection */}
       <div className="gallery-streets-container">
@@ -125,7 +123,7 @@ function GalleryContents (props) {
               selected={selectedStreet === item.id}
               doSelect={selectStreet}
               doDelete={deleteStreet}
-              showStreetOwner={!userId || !(userId === item.creatorId)}
+              showStreetOwner={!user.id || !(user.id === item.creatorId)}
               allowDelete={isOwnedByCurrentUser}
             />
           ))}

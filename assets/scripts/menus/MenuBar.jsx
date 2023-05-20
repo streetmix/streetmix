@@ -15,10 +15,6 @@ import UpgradeButton from './UpgradeButton'
 import AvatarMenu from './AvatarMenu'
 import './MenuBar.scss'
 
-MenuBar.propTypes = {
-  onMenuDropdownClick: PropTypes.func.isRequired
-}
-
 function MenuBar (props) {
   const user = useSelector((state) => state.user.signInData?.details || null)
   const isSubscriber = useSelector(
@@ -168,6 +164,10 @@ function MenuBar (props) {
       <EnvironmentBadge />
     </nav>
   )
+}
+
+MenuBar.propTypes = {
+  onMenuDropdownClick: PropTypes.func.isRequired
 }
 
 export default MenuBar

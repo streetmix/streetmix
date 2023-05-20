@@ -7,19 +7,11 @@ import DateTimeRelative from '../app/DateTimeRelative'
 import StreetName from '../streets/StreetName'
 import { drawStreetThumbnail } from '../streets/thumbnail'
 import Icon from '../ui/Icon'
+import './GalleryStreetItem.scss'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
-
-GalleryStreetItem.propTypes = {
-  street: PropTypes.object.isRequired,
-  showStreetOwner: PropTypes.bool,
-  selected: PropTypes.bool,
-  allowDelete: PropTypes.bool,
-  doSelect: PropTypes.func,
-  doDelete: PropTypes.func
-}
 
 function GalleryStreetItem (props) {
   // Destructure and set default props
@@ -167,6 +159,15 @@ function GalleryStreetItem (props) {
       )}
     </div>
   )
+}
+
+GalleryStreetItem.propTypes = {
+  street: PropTypes.object.isRequired,
+  showStreetOwner: PropTypes.bool,
+  selected: PropTypes.bool,
+  allowDelete: PropTypes.bool,
+  doSelect: PropTypes.func,
+  doDelete: PropTypes.func
 }
 
 export default GalleryStreetItem

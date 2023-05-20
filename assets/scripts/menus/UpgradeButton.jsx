@@ -5,15 +5,11 @@ import Button from '../ui/Button'
 import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
 import './UpgradeButton.scss'
 
-UpgradeButton.propTypes = {
-  onClick: PropTypes.func
-}
-
 function UpgradeButton ({ onClick = () => {} }) {
   return (
     <Button tertiary={true} className="menu-upgrade" onClick={onClick}>
       <img
-        className="menu-avatar-badge menu-avatar-subscriber"
+        className="menu-avatar-subscriber"
         src={streetmixPlusIcon}
         alt="Streetmix+"
       />
@@ -23,6 +19,10 @@ function UpgradeButton ({ onClick = () => {} }) {
       />
     </Button>
   )
+}
+
+UpgradeButton.propTypes = {
+  onClick: PropTypes.func
 }
 
 export default UpgradeButton

@@ -19,6 +19,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         field: 'auth0_id'
       },
+      displayName: {
+        type: DataTypes.STRING,
+        field: 'display_name',
+        validate: {
+          len: [0, 30]
+        }
+      },
       email: { type: DataTypes.STRING, unique: true },
       identities: DataTypes.JSON,
       roles: {

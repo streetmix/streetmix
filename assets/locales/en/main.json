@@ -84,6 +84,16 @@
     "language": {
       "label": "Language"
     },
+    "profile": {
+      "label": "Profile",
+      "username": "Username",
+      "username-description": "Your username is a unique account identifier.",
+      "display-name": "Display name",
+      "display-name-description": "Your display name is how you appear to other users in Streetmix.",
+      "display-name-not-set": "You have not added a display name yet.",
+      "display-name-error": "Display name could not be saved",
+      "display-name-characters-remaining": "Characters remaining: {currentNum} ({maxNum} maximum)"
+    },
     "misc": {
       "label": "Miscellaneous",
       "silly-clowns": "Silly clowns",
@@ -168,7 +178,9 @@
     "close": "Close",
     "dismiss": "Dismiss",
     "okay": "Okay!",
-    "not-now": "Not now"
+    "not-now": "Not now",
+    "save": "Save",
+    "edit": "Edit"
   },
   "dialogs": {
     "error": {

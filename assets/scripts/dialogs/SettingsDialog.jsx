@@ -6,7 +6,8 @@ import {
   LightningBoltIcon,
   GlobeIcon,
   // RulerSquareIcon,
-  MixerHorizontalIcon
+  MixerHorizontalIcon,
+  PersonIcon
 } from '@radix-ui/react-icons'
 import USER_ROLES from '../../../app/data/user_roles'
 import { ENV } from '../app/config'
@@ -14,6 +15,7 @@ import Dialog from './Dialog'
 import FeatureFlagSettings from './Settings/FeatureFlagSettings'
 import GeneralSettings from './Settings/GeneralSettings'
 import LanguageSettings from './Settings/LanguageSettings'
+import ProfileSettings from './Settings/ProfileSettings'
 import UnitSettings from './Settings/UnitSettings'
 import './SettingsDialog.scss'
 
@@ -26,7 +28,7 @@ SettingsDialog.propTypes = {
  * Users that are not signed in (anonymous) are applied for the browser
  * session. Don't use this for street-level settings.
  */
-function SettingsDialog ({ category = 'general' }) {
+function SettingsDialog ({ category = 'profile' }) {
   const user = useSelector((state) => state.user?.signInData?.details || {})
   const [activeCategory, setActiveCategory] = useState(category)
 
@@ -48,6 +50,9 @@ function SettingsDialog ({ category = 'general' }) {
       break
     case 'language':
       SettingsPanel = <LanguageSettings />
+      break
+    case 'profile':
+      SettingsPanel = <ProfileSettings />
       break
     case 'units':
       SettingsPanel = <UnitSettings />
@@ -74,6 +79,19 @@ function SettingsDialog ({ category = 'general' }) {
             <div className="settings-dialog-content">
               <div className="settings-dialog-left">
                 <ul>
+                  <li
+                    onClick={() => handleSelectCategory('profile')}
+                    className={
+                      activeCategory === 'profile' ? 'settings-menu-active' : ''
+                    }
+                  >
+                    <PersonIcon className="settings-menu-icon" />
+                    <FormattedMessage
+                      id="settings.profile.label"
+                      defaultMessage="Profile"
+                    />
+                  </li>
+
                   <li
                     onClick={() => handleSelectCategory('general')}
                     className={

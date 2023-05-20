@@ -1,0 +1,192 @@
+@use "sass:color";
+@import "../../styles/variables";
+
+$selection-highlight-colour: $colour-copper-500;
+
+.gallery-street-item {
+  display: inline-block;
+  position: relative;
+  width: $thumbnail-width;
+  height: $thumbnail-height;
+  border-radius: $border-radius-medium;
+
+  /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
+  padding: 5px;
+  box-sizing: content-box;
+
+  /* reset child box sizing */
+  > * {
+    box-sizing: border-box;
+  }
+
+  &:first-child {
+    padding-left: 2px;
+  }
+
+  &:last-child {
+    padding-right: 2px;
+  }
+}
+
+.gallery-street-item > a {
+  display: block;
+  color: black;
+  text-decoration: none;
+  background: fade-out($sky-colour, 0.2);
+  text-align: center;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius-medium;
+
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 2px; // Positioning to cover gaps below ground
+    width: $thumbnail-width;
+    height: $thumbnail-height;
+    transform: scale(1.35); // Crops excess space for most streets
+    opacity: 0.45;
+    filter: grayscale(0.75);
+    transition: opacity 45ms, filter 45ms;
+
+    // TODO: this causes rendering weirdness in Firefox.
+    border-radius: $border-radius-medium;
+  }
+
+  &:hover canvas {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+}
+
+.gallery-street-item.gallery-selected > a {
+  background: color.adjust($ui-colour, $lightness: -10%);
+  box-shadow: 0 0 0 2px $selection-highlight-colour,
+    inset 0 0 0 2px rgb(255 255 255 / 100%);
+
+  .gallery-street-item-canvas > div {
+    transform: scale(1.05);
+  }
+
+  canvas {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+}
+
+.gallery-street-item-canvas {
+  position: absolute;
+  top: 2px; // Live within the border area
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+
+  > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 45ms ease-in-out;
+    transform-origin: center 80px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .gallery-street-item-ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    background-color: #f0f0f0;
+  }
+}
+
+.gallery-street-item-creator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  text-align: center;
+  display: block;
+  font-size: 0.8em;
+  color: black;
+}
+
+.gallery-street-item-date {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 5px;
+  text-align: center;
+  display: block;
+  font-size: 0.8em;
+  color: black;
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.gallery-street-item-delete {
+  position: absolute;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  bottom: 7px;
+  right: 7px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+  line-height: 25px;
+  user-select: none;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.65em;
+
+  [dir="rtl"] & {
+    left: 7px;
+    right: auto;
+  }
+
+  &:hover {
+    background-color: rgb(255 255 255 / 50%);
+  }
+
+  &:active {
+    background-color: rgb(255 255 255 / 75%);
+  }
+
+  svg {
+    color: $colour-turquoise-500 !important;
+    width: 12px;
+  }
+
+  &:hover svg {
+    color: $colour-turquoise-600 !important;
+  }
+}
+
+.gallery-street-item-error {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius-medium;
+  color: $colour-turquoise-600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+}

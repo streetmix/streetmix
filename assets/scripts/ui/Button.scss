@@ -79,9 +79,12 @@ a.btn {
   }
 
   &.btn-tertiary {
-    border: 1px solid $colour-turquoise-400;
     background-color: transparent;
     color: $colour-turquoise-600;
+
+    &:not(:disabled) {
+      border: 1px solid $colour-turquoise-400;
+    }
 
     &:hover {
       background-color: $colour-turquoise-100;

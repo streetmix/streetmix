@@ -1,6 +1,8 @@
 @import "../../styles/variables";
 
 .menu-bar .menu-upgrade {
+  display: flex;
+  align-items: center;
   margin-left: 0.75em;
   margin-right: 0;
   padding: 0.5em 1em;
@@ -10,12 +12,12 @@
     margin-right: 0.75em;
   }
 
-  .menu-avatar-subscriber {
+  img {
     margin-left: 0;
-    margin-right: 0.25em;
+    margin-right: 0.5em;
 
     [dir="rtl"] & {
-      margin-left: 0.75em;
+      margin-left: 0.5em;
       margin-right: 0;
     }
   }

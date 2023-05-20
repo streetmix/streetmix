@@ -7,6 +7,7 @@ export const gallerySlice = createSlice({
     visible: false,
     instant: false,
     userId: null,
+    user: {}, // Stores user data from server
     mode: GALLERY_MODES.NONE,
     streets: []
   },
@@ -30,6 +31,7 @@ export const gallerySlice = createSlice({
 
     setGalleryUserId (state, action) {
       state.userId = action.payload
+      state.user = {}
     }
   },
 
@@ -49,7 +51,8 @@ export const gallerySlice = createSlice({
 
       .addCase('gallery/openGallery/fulfilled', (state, action) => {
         state.mode = GALLERY_MODES.GALLERY
-        state.streets = action.payload
+        state.user = action.payload.user
+        state.streets = action.payload.streets
       })
 
       .addCase('gallery/openGallery/rejected', (state, action) => {

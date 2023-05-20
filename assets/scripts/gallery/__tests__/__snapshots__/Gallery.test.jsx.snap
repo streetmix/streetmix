@@ -10,9 +10,13 @@ exports[`Gallery renders global gallery view 1`] = `
       class="gallery-panel"
     >
       <div
-        class="gallery-label"
+        class="gallery-header"
       >
-        All streets
+        <div
+          class="gallery-label"
+        >
+          All streets
+        </div>
       </div>
       <div
         class="gallery-streets-container"
@@ -139,7 +143,7 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
       class="gallery-panel"
     >
       <div
-        class="gallery-label"
+        class="gallery-header"
       >
         <span
           class="avatar"
@@ -149,15 +153,15 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
           />
         </span>
         <div
-          class="gallery-user-id"
+          class="gallery-label"
         >
-          foo
+          bar
         </div>
-      </div>
-      <div
-        class="gallery-street-count"
-      >
-        1 street
+        <div
+          class="gallery-street-count"
+        >
+          1 street
+        </div>
       </div>
       <div
         class="gallery-streets-container"
@@ -252,7 +256,7 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
       class="gallery-panel"
     >
       <div
-        class="gallery-label"
+        class="gallery-header"
       >
         <span
           class="avatar"
@@ -262,15 +266,15 @@ exports[`Gallery renders main gallery view for user’s own streets 1`] = `
           />
         </span>
         <div
-          class="gallery-user-id"
+          class="gallery-label"
         >
-          foo
+          bar
         </div>
-      </div>
-      <div
-        class="gallery-street-count"
-      >
-        1 street
+        <div
+          class="gallery-street-count"
+        >
+          1 street
+        </div>
       </div>
       <div
         class="gallery-streets-container"

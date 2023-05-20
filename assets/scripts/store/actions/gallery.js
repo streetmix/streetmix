@@ -5,6 +5,7 @@ import { updatePageUrl } from '../../app/page_url'
 import { showError, ERRORS } from '../../app/errors'
 import { MODES, getMode, setMode } from '../../app/mode'
 import { onWindowFocus } from '../../app/focus'
+import { getUser } from '../../util/api'
 
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
@@ -23,7 +24,9 @@ export const openGallery = createAsyncThunk(
 
     // Fetch data and catch errors if fetch goes wrong
     try {
-      return await fetchGalleryData(userId)
+      const user = await getUser(userId)
+      const streets = await fetchGalleryData(userId)
+      return { user: user.data, streets }
     } catch (error) {
       // If the server error is 404, special rejection value
       // to display a "not-found" screen without the gallery

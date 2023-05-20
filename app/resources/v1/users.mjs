@@ -1,7 +1,7 @@
 import cloudinary from 'cloudinary'
 import models from '../../db/models/index.js'
 import logger from '../../lib/logger.mjs'
-import { ERRORS, asUserJson } from '../../lib/util.mjs'
+import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.mjs'
 
 const { User } = models
 
@@ -251,6 +251,7 @@ export async function get (req, res) {
   // this function seems like it could be replaced by sequelize findByPK
   const findUserById = async function (userId) {
     let user
+
     try {
       user = await User.findOne({ where: { id: userId } })
     } catch (err) {
@@ -258,14 +259,10 @@ export async function get (req, res) {
       throw new Error(ERRORS.CANNOT_GET_USER)
     }
 
-    // blocks users from learning about each other (e.g. user galleries)
-    // if (!req.auth?.sub || req.auth.sub !== user.id) {
-    //   res.status(401).end()
-    //   return
-    // }
     if (!user) {
       throw new Error(ERRORS.USER_NOT_FOUND)
     }
+
     return user
   }
 
@@ -280,10 +277,7 @@ export async function get (req, res) {
       where: { auth0_id: req.auth.sub }
     })
 
-    const isAdmin =
-      callingUser &&
-      callingUser.roles &&
-      callingUser.roles.indexOf('ADMIN') !== -1
+    const isAdmin = callingUser?.roles?.indexOf('ADMIN') !== -1
 
     if (isAdmin) {
       const userList = await User.findAll({ raw: true })
@@ -297,7 +291,13 @@ export async function get (req, res) {
 
   try {
     const result = await findUserById(userId)
-    res.status(200).send(asUserJson(result))
+
+    // Only send the full user object if it matches the requesting user
+    if (req.auth?.sub === result.auth0Id) {
+      res.status(200).send(asUserJson(result))
+    } else {
+      res.status(200).send(asUserJsonBasic(result))
+    }
   } catch (err) {
     handleError(err)
   }
@@ -402,3 +402,52 @@ export async function put (req, res) {
         .json({ status: 500, msg: 'Could not update user information.' })
     })
 } // END function - put
+
+export async function patch (req, res) {
+  let body
+  try {
+    body = req.body
+  } catch (e) {
+    res.status(400).json({ status: 400, msg: 'Could not parse body as JSON.' })
+    return
+  }
+
+  if (!req.auth?.sub) {
+    res.status(401).json({ status: 401, msg: 'User auth not found.' })
+    return
+  }
+
+  const userId = req.params.user_id
+  let user
+
+  try {
+    user = await User.findOne({ where: { id: userId } })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).json({ status: 500, msg: 'Error finding user.' })
+    return
+  }
+
+  if (!user || !req.auth?.sub) {
+    res.status(404).json({ status: 404, msg: 'User not found.' })
+    return
+  }
+
+  // Only allowed to update one field, all others are dropped
+  // if they are present in the body
+  User.update(
+    {
+      displayName: body.displayName || null
+    },
+    { where: { id: user.id }, returning: true }
+  )
+    .then((result) => {
+      res.status(204).end()
+    })
+    .catch((err) => {
+      logger.error(err)
+      res
+        .status(500)
+        .json({ status: 500, msg: 'Could not update user information.' })
+    })
+} // END function - patch

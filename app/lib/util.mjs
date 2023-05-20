@@ -20,6 +20,7 @@ export function asStreetJson (street) {
 export function asUserJson (user) {
   const userJson = {
     id: user.id,
+    displayName: user.displayName || null,
     profileImageUrl: user.profileImageUrl,
     flags: user.flags || {},
     roles: user.roles || [],
@@ -30,6 +31,16 @@ export function asUserJson (user) {
   if (!userJson.roles.includes('USER')) {
     // Also, make USER appear first in the list consistently
     userJson.roles.unshift('USER')
+  }
+
+  return userJson
+}
+
+export function asUserJsonBasic (user) {
+  const userJson = {
+    id: user.id,
+    displayName: user.displayName || null,
+    profileImageUrl: user.profileImageUrl
   }
 
   return userJson

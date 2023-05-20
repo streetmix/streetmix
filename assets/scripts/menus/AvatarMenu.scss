@@ -1,30 +1,33 @@
 .menu-avatar {
-  position: relative;
-  padding-left: calc(1.25em + 20px) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  padding: 0;
 }
 
 .menu-avatar .avatar {
-  position: absolute;
-  left: 0.5em;
-}
-
-.menu-avatar-badge {
-  margin-left: 0.35em;
-  vertical-align: -0.175em; /* Tweak to balance alignment with username */
+  position: relative;
+  left: -2px; /* Position tweaking to center in highlight */
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
 
   [dir="rtl"] & {
-    margin-left: 0;
-    margin-right: 0.35em;
+    left: 1px;
   }
 }
 
-.menu-avatar-admin {
-  color: #ffb010 !important;
+.menu-avatar .menu-avatar-badge {
+  position: absolute;
+  left: calc(50% + 4px);
+  top: 1px;
+
+  [dir="rtl"] & {
+    left: calc(50% + 6px);
+  }
 }
 
-/* Styles for this element are cribbed from FontAwesome equivalent */
 .menu-avatar-subscriber {
-  display: inline-block;
-  font-size: inherit;
   height: 1em;
 }

@@ -395,6 +395,7 @@ router.get('/v1/users', cors(), jwtCheck, v1.users.get)
  */
 router.get('/v1/users/:user_id', cors(), jwtCheck, BTPTokenCheck, v1.users.get)
 router.put('/v1/users/:user_id', cors(), jwtCheck, v1.users.put)
+router.patch('/v1/users/:user_id', cors(), jwtCheck, v1.users.patch)
 router.delete('/v1/users/:user_id', cors(), jwtCheck, v1.users.del)
 
 /**

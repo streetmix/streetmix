@@ -19,6 +19,10 @@ jest.mock('../../store/actions/gallery', () => ({
 const initialState = {
   gallery: {
     userId: 'foo',
+    user: {
+      id: 'foo',
+      displayName: 'bar'
+    },
     visible: true,
     mode: 'GALLERY',
     streets: [MOCK_STREET]
@@ -58,6 +62,7 @@ describe('Gallery', () => {
   it('renders global gallery view', () => {
     const initialState = {
       gallery: {
+        user: {},
         visible: true,
         mode: 'GALLERY',
         streets: [MOCK_STREET]
@@ -101,6 +106,7 @@ describe('Gallery', () => {
   it('closes on shield click', async () => {
     const initialState = {
       gallery: {
+        user: {},
         visible: true,
         mode: 'GALLERY'
       }
