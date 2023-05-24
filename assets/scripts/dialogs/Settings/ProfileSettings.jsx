@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-// import { useForm } from 'react-hook-form'
 import { updateDisplayName } from '../../store/slices/user'
 import Button from '../../ui/Button'
 import LoadingSpinner from '../../ui/LoadingSpinner'
@@ -80,6 +79,11 @@ function ProfileSettings (props) {
     }
   }
 
+  function handleSubmit (event) {
+    event.preventDefault()
+    handleSaveDisplayName(event)
+  }
+
   // Not signed-in users shouldn't see this,
   // but if they somehow access it, just refuse to render
   if (!user) {
@@ -151,10 +155,12 @@ function ProfileSettings (props) {
 
       <div className="profile-settings-item">
         <h3>
-          <FormattedMessage
-            id="settings.profile.display-name"
-            defaultMessage="Display name"
-          />
+          <label htmlFor="display-name-input">
+            <FormattedMessage
+              id="settings.profile.display-name"
+              defaultMessage="Display name"
+            />
+          </label>
           <Popover>
             <FormattedMessage
               id="settings.profile.display-name-description"
@@ -165,37 +171,40 @@ function ProfileSettings (props) {
         {/* eslint-disable-next-line */}
         {isEditing ? (
           <div className="profile-settings-editable">
-            <p>
-              <input
-                ref={displayNameInputRef}
-                type="text"
-                value={displayNameValue}
-                onChange={handleChangeDisplayName}
-                disabled={isPending}
-                maxLength={DISPLAY_NAME_MAX_CHARS}
-              />
-            </p>
-            <div className="profile-settings-button">
-              <Button
-                onClick={handleSaveDisplayName}
-                primary={true}
-                disabled={isPending}
-              >
-                <FormattedMessage id="btn.save" defaultMessage="Save" />
-                {isPending && (
-                  <div className="profile-settings-pending">
-                    <LoadingSpinner size="small" />
-                  </div>
-                )}
-              </Button>
-              <Button
-                onClick={handleResetDisplayName}
-                tertiary={true}
-                disabled={isPending}
-              >
-                <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
-              </Button>
-            </div>
+            <form onSubmit={handleSubmit}>
+              <p>
+                <input
+                  ref={displayNameInputRef}
+                  id="display-name-input"
+                  type="text"
+                  value={displayNameValue}
+                  onChange={handleChangeDisplayName}
+                  disabled={isPending}
+                  maxLength={DISPLAY_NAME_MAX_CHARS}
+                />
+              </p>
+              <div className="profile-settings-button">
+                <Button
+                  onClick={handleSaveDisplayName}
+                  primary={true}
+                  disabled={isPending}
+                >
+                  <FormattedMessage id="btn.save" defaultMessage="Save" />
+                  {isPending && (
+                    <div className="profile-settings-pending">
+                      <LoadingSpinner size="small" />
+                    </div>
+                  )}
+                </Button>
+                <Button
+                  onClick={handleResetDisplayName}
+                  tertiary={true}
+                  disabled={isPending}
+                >
+                  <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
+                </Button>
+              </div>
+            </form>
           </div>
         ) : (
           <div className="profile-settings-editable">

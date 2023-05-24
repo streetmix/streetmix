@@ -12,10 +12,12 @@
   }
 }
 
-.profile-settings-editable {
+.profile-settings-editable,
+.profile-settings-editable > form {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 
   > *:not(:last-child) {
     margin-right: 0.5em;
