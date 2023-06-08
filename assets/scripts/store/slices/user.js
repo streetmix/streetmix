@@ -11,8 +11,7 @@ const initialState = {
     attempted: false,
     data: null,
     error: null
-  },
-  profileCache: {}
+  }
 }
 
 export const detectGeolocation = createAsyncThunk(
@@ -64,15 +63,6 @@ const userSlice = createSlice({
       }
     },
 
-    rememberUserProfile (state, action) {
-      const profile = action.payload
-
-      // Prevent a case where a bad action results in a corrupted cache
-      if (!profile || !profile.id) return
-
-      state.profileCache[profile.id] = profile
-    },
-
     updateDisplayName (state, action) {
       if (state.signInData?.details) {
         state.signInData.details.displayName = action.payload
@@ -107,7 +97,6 @@ export const {
   setSignInData,
   clearSignInData,
   setCoilPluginSubscriber,
-  rememberUserProfile,
   updateDisplayName
 } = userSlice.actions
 

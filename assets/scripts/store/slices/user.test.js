@@ -2,8 +2,7 @@
 import user, {
   setSignInData,
   clearSignInData,
-  setCoilPluginSubscriber,
-  rememberUserProfile
+  setCoilPluginSubscriber
 } from './user'
 
 describe('user reducer', () => {
@@ -16,8 +15,7 @@ describe('user reducer', () => {
       attempted: false,
       data: null,
       error: null
-    },
-    profileCache: {}
+    }
   }
 
   it('should handle initial state', () => {
@@ -53,8 +51,7 @@ describe('user reducer', () => {
         attempted: false,
         data: null,
         error: null
-      },
-      profileCache: {}
+      }
     })
   })
 
@@ -87,8 +84,7 @@ describe('user reducer', () => {
         attempted: false,
         data: null,
         error: null
-      },
-      profileCache: {}
+      }
     })
   })
 
@@ -111,8 +107,7 @@ describe('user reducer', () => {
             attempted: true,
             data: null,
             error: null
-          },
-          profileCache: {}
+          }
         },
         clearSignInData()
       )
@@ -125,8 +120,7 @@ describe('user reducer', () => {
         attempted: true,
         data: null,
         error: null
-      },
-      profileCache: {}
+      }
     })
   })
 
@@ -140,8 +134,7 @@ describe('user reducer', () => {
         attempted: false,
         data: null,
         error: null
-      },
-      profileCache: {}
+      }
     })
   })
 
@@ -163,8 +156,7 @@ describe('user reducer', () => {
         attempted: false,
         data: null,
         error: null
-      },
-      profileCache: {}
+      }
     })
   })
 
@@ -187,8 +179,7 @@ describe('user reducer', () => {
             attempted: true,
             data: null,
             error: null
-          },
-          profileCache: {}
+          }
         },
         setCoilPluginSubscriber(false)
       )
@@ -208,39 +199,6 @@ describe('user reducer', () => {
         attempted: true,
         data: null,
         error: null
-      },
-      profileCache: {}
-    })
-  })
-
-  it('should handle rememberUserProfile()', () => {
-    expect(
-      user(
-        initialState,
-        rememberUserProfile({
-          id: 'foo',
-          profileImageUrl: 'image.gif',
-          flags: {},
-          roles: ['USER']
-        })
-      )
-    ).toEqual({
-      signInData: null,
-      signedIn: false,
-      isSubscriber: false,
-      isCoilPluginSubscriber: false,
-      geolocation: {
-        attempted: false,
-        data: null,
-        error: null
-      },
-      profileCache: {
-        foo: {
-          id: 'foo',
-          profileImageUrl: 'image.gif',
-          flags: {},
-          roles: ['USER']
-        }
       }
     })
   })

@@ -22,9 +22,13 @@
  */
 import { configureStore } from '@reduxjs/toolkit'
 import reducers from './reducers'
+import { streetmixApi } from './services/api'
 
 const store = configureStore({
-  reducer: reducers,
+  reducer: {
+    ...reducers,
+    [streetmixApi.reducerPath]: streetmixApi.reducer
+  },
   // Disable these checks in development mode, as they can be performance-
   // heavy and create a lot warning spam in console. See this issue for info:
   // https://github.com/reduxjs/redux-toolkit/issues/415
@@ -36,7 +40,7 @@ const store = configureStore({
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false
-    })
+    }).concat(streetmixApi.middleware)
 })
 
 export default store
