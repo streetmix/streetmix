@@ -1,4 +1,5 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
+import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import Button from '../ui/Button'
@@ -12,14 +13,13 @@ import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet } from './index'
 import './GalleryContents.scss'
 
-function GalleryContents (props) {
-  const user = useSelector((state) => state.gallery.user)
+function GalleryContents ({ user }) {
   const streets = useSelector((state) => state.gallery.streets || [])
   const currentStreetId = useSelector((state) => state.street.id)
   const isOwnedByCurrentUser = useSelector(
     (state) =>
       state.user.signedIn &&
-      state.gallery.user.id === state.user.signInData.userId
+      state.gallery.userId === state.user.signInData.userId
   )
   const dispatch = useDispatch()
 
@@ -131,6 +131,10 @@ function GalleryContents (props) {
       </div>
     </>
   )
+}
+
+GalleryContents.propTypes = {
+  user: PropTypes.object
 }
 
 export default GalleryContents
