@@ -94,9 +94,8 @@ const UpgradeDialog = ({ userId, roles }) => {
 
 function mapStateToProps (state) {
   const { userId } = state.user.signInData || {}
-  const roles = state.user.profileCache
-    ? state.user.profileCache[userId].roles
-    : []
+  const roles = state.user.signInData?.details?.roles || []
+
   return {
     userId,
     roles
