@@ -92,14 +92,11 @@ const csp = {
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
-      'cdn.mxpnl.com',
       process.env.AUTH0_DOMAIN,
       '*.basemaps.cartocdn.com',
       process.env.PELIAS_HOST_NAME,
-      'downloads.mailchimp.com.s3.amazonaws.com',
       'checkout.stripe.com',
-      'plausible.io',
-      'cdn.coil.com'
+      'plausible.io'
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
@@ -111,10 +108,9 @@ const csp = {
       'pbs.twimg.com',
       'syndication.twitter.com',
       's.gravatar.com',
-      // Auth0 default profile images
-      'https://i0.wp.com/cdn.auth0.com/',
+      '*.wp.com/cdn.auth0.com', // Auth0 default profile images
       '*.basemaps.cartocdn.com',
-      'https://res.cloudinary.com/',
+      'res.cloudinary.com',
       '*.stripe.com'
     ],
     fontSrc: ["'self'", 'fonts.gstatic.com'],
