@@ -108,6 +108,7 @@ const csp = {
       'pbs.twimg.com',
       'syndication.twitter.com',
       's.gravatar.com',
+      'lh3.googleusercontent.com',
       '*.wp.com/cdn.auth0.com', // Auth0 default profile images
       '*.basemaps.cartocdn.com',
       'res.cloudinary.com',
