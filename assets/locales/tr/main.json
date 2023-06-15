@@ -84,6 +84,16 @@
     "language": {
       "label": "Dil"
     },
+    "profile": {
+      "label": "",
+      "username": "",
+      "username-description": "",
+      "display-name": "",
+      "display-name-description": "",
+      "display-name-not-set": "",
+      "display-name-error": "",
+      "display-name-characters-remaining": ""
+    },
     "misc": {
       "label": "",
       "silly-clowns": "",
@@ -168,7 +178,9 @@
     "close": "Kapa",
     "dismiss": "Son ver",
     "okay": "Tamam!",
-    "not-now": "Şimdi değil"
+    "not-now": "Şimdi değil",
+    "save": "",
+    "edit": ""
   },
   "dialogs": {
     "error": {

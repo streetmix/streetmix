@@ -84,6 +84,16 @@
     "language": {
       "label": "Bahasa"
     },
+    "profile": {
+      "label": "",
+      "username": "",
+      "username-description": "",
+      "display-name": "",
+      "display-name-description": "",
+      "display-name-not-set": "",
+      "display-name-error": "",
+      "display-name-characters-remaining": ""
+    },
     "misc": {
       "label": "Lain-lain",
       "silly-clowns": "Badut konyol",
@@ -168,7 +178,9 @@
     "close": "Tutup",
     "dismiss": "Membubarkan",
     "okay": "Oke!",
-    "not-now": "Tidak sekarang"
+    "not-now": "Tidak sekarang",
+    "save": "",
+    "edit": ""
   },
   "dialogs": {
     "error": {
