@@ -1,0 +1,306 @@
+{
+  "geocoding": {
+    "version": "0.2",
+    "attribution": "http://pelias.mapzen.com/v1/attribution",
+    "query": {
+      "text": "foo",
+      "parsed_text": {},
+      "tokens": ["foo"],
+      "size": 10,
+      "private": false,
+      "lang": {
+        "name": "English",
+        "iso6391": "en",
+        "iso6393": "eng",
+        "defaulted": false
+      }
+    },
+    "engine": {
+      "name": "Pelias",
+      "author": "Mapzen",
+      "version": "1.0"
+    },
+    "timestamp": 1503202926706
+  },
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.362583, 48.425692]
+      },
+      "properties": {
+        "id": "way:236486957",
+        "gid": "openstreetmap:venue:way:236486957",
+        "layer": "venue",
+        "source": "openstreetmap",
+        "source_id": "way:236486957",
+        "name": "Foo",
+        "accuracy": "point",
+        "country": "Canada",
+        "country_gid": "whosonfirst:country:85633041",
+        "country_a": "CAN",
+        "region": "British Columbia",
+        "region_gid": "whosonfirst:region:85682117",
+        "region_a": "BC",
+        "locality": "Victoria",
+        "locality_gid": "whosonfirst:locality:101740879",
+        "neighbourhood": "Harris Green",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85875089",
+        "label": "Foo, Victoria, BC, Canada"
+      },
+      "bbox": [-123.36264, 48.425649, -123.362503, 48.42572]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-101.63816, 19.511447]
+      },
+      "properties": {
+        "id": "polyline:16971332",
+        "gid": "openstreetmap:street:polyline:16971332",
+        "layer": "street",
+        "source": "openstreetmap",
+        "source_id": "polyline:16971332",
+        "name": "foo",
+        "street": "foo",
+        "accuracy": "centroid",
+        "country": "Mexico",
+        "country_gid": "whosonfirst:country:85633293",
+        "country_a": "MEX",
+        "region": "Michoacán de Ocampo",
+        "region_gid": "whosonfirst:region:85686595",
+        "county": "Pátzcuaro",
+        "county_gid": "whosonfirst:county:102074965",
+        "label": "foo, Mexico"
+      },
+      "bbox": [-101.639061, 19.511226, -101.637093, 19.512186]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.92624, 1.26348]
+      },
+      "properties": {
+        "id": "2308927",
+        "gid": "geonames:locality:2308927",
+        "layer": "locality",
+        "source": "geonames",
+        "source_id": "2308927",
+        "name": "Foo",
+        "accuracy": "centroid",
+        "country": "Equatorial Guinea",
+        "country_gid": "whosonfirst:country:85632287",
+        "country_a": "GNQ",
+        "region": "Wele-Nzás",
+        "region_gid": "whosonfirst:region:85671591",
+        "locality": "Foo",
+        "locality_gid": "geonames:locality:2308927",
+        "label": "Foo, Equatorial Guinea"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [33.41667, -13.33333]
+      },
+      "properties": {
+        "id": "929852",
+        "gid": "geonames:locality:929852",
+        "layer": "locality",
+        "source": "geonames",
+        "source_id": "929852",
+        "name": "Foo",
+        "accuracy": "centroid",
+        "country": "Malawi",
+        "country_gid": "whosonfirst:country:85632383",
+        "country_a": "MWI",
+        "region": "Kasungu",
+        "region_gid": "whosonfirst:region:85675011",
+        "locality": "Foo",
+        "locality_gid": "geonames:locality:929852",
+        "label": "Foo, Malawi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-114.071733, 51.034644]
+      },
+      "properties": {
+        "id": "node:4733120031",
+        "gid": "openstreetmap:venue:node:4733120031",
+        "layer": "venue",
+        "source": "openstreetmap",
+        "source_id": "node:4733120031",
+        "name": "Foo",
+        "accuracy": "point",
+        "country": "Canada",
+        "country_gid": "whosonfirst:country:85633041",
+        "country_a": "CAN",
+        "region": "Alberta",
+        "region_gid": "whosonfirst:region:85682091",
+        "region_a": "AB",
+        "locality": "Calgary",
+        "locality_gid": "whosonfirst:locality:890458845",
+        "neighbourhood": "Cliff Bungalow",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85874533",
+        "label": "Foo, Calgary, AB, Canada"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-96.713399, 33.199221]
+      },
+      "properties": {
+        "id": "85868913",
+        "gid": "whosonfirst:neighbourhood:85868913",
+        "layer": "neighbourhood",
+        "source": "whosonfirst",
+        "source_id": "85868913",
+        "name": "Foot",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Texas",
+        "region_gid": "whosonfirst:region:85688753",
+        "region_a": "TX",
+        "county": "Collin County",
+        "county_gid": "whosonfirst:county:102086765",
+        "locality": "McKinney",
+        "locality_gid": "whosonfirst:locality:101726035",
+        "neighbourhood": "Foot",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85868913",
+        "label": "Foot, McKinney, TX, USA"
+      },
+      "bbox": [-96.783632, 33.137622, -96.607524, 33.403015]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-112.020572, 40.504124]
+      },
+      "properties": {
+        "id": "85819751",
+        "gid": "whosonfirst:neighbourhood:85819751",
+        "layer": "neighbourhood",
+        "source": "whosonfirst",
+        "source_id": "85819751",
+        "name": "Foothills",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "Utah",
+        "region_gid": "whosonfirst:region:85688567",
+        "region_a": "UT",
+        "county": "Salt Lake County",
+        "county_gid": "whosonfirst:county:102082877",
+        "locality": "Herriman",
+        "locality_gid": "whosonfirst:locality:101728047",
+        "neighbourhood": "Foothills",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85819751",
+        "label": "Foothills, Herriman, UT, USA"
+      },
+      "bbox": [-112.106202, 40.444214, -111.967322, 40.536986]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-106.501664, 35.125821]
+      },
+      "properties": {
+        "id": "85871887",
+        "gid": "whosonfirst:neighbourhood:85871887",
+        "layer": "neighbourhood",
+        "source": "whosonfirst",
+        "source_id": "85871887",
+        "name": "Foothills",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "New Mexico",
+        "region_gid": "whosonfirst:region:85688493",
+        "region_a": "NM",
+        "county": "Bernalillo County",
+        "county_gid": "whosonfirst:county:102081199",
+        "locality": "Albuquerque",
+        "locality_gid": "whosonfirst:locality:85976715",
+        "neighbourhood": "Foothills",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85871887",
+        "label": "Foothills, Albuquerque, NM, USA"
+      },
+      "bbox": [-106.535829, 35.072225, -106.413953, 35.182724]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [144.897486, -37.797632]
+      },
+      "properties": {
+        "id": "85769297",
+        "gid": "whosonfirst:neighbourhood:85769297",
+        "layer": "neighbourhood",
+        "source": "whosonfirst",
+        "source_id": "85769297",
+        "name": "Footscray",
+        "accuracy": "centroid",
+        "country": "Australia",
+        "country_gid": "whosonfirst:country:85632793",
+        "country_a": "AUS",
+        "region": "Victoria",
+        "region_gid": "whosonfirst:region:85681497",
+        "county": "Maribyrnong (C)",
+        "county_gid": "whosonfirst:county:102049341",
+        "localadmin": "Footscray",
+        "localadmin_gid": "whosonfirst:localadmin:404538595",
+        "locality": "Footscray",
+        "locality_gid": "whosonfirst:locality:101932949",
+        "neighbourhood": "Footscray",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:85769297",
+        "label": "Footscray, Australia"
+      },
+      "bbox": [144.876708984, -37.8011036906, 144.906921387, -37.7837400414]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.35114, 38.67877]
+      },
+      "properties": {
+        "id": "5349803",
+        "gid": "geonames:locality:5349803",
+        "layer": "locality",
+        "source": "geonames",
+        "source_id": "5349803",
+        "name": "Foothill Farms",
+        "accuracy": "centroid",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "California",
+        "region_gid": "whosonfirst:region:85688637",
+        "region_a": "CA",
+        "county": "Sacramento County",
+        "county_gid": "whosonfirst:county:102082889",
+        "locality": "Foothill Farms",
+        "locality_gid": "geonames:locality:5349803",
+        "label": "Foothill Farms, CA, USA"
+      }
+    }
+  ],
+  "bbox": [-123.36264, -37.8011036906, 144.906921387, 51.034644]
+}

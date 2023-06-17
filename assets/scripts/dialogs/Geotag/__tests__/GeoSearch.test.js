@@ -4,39 +4,8 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../../test/helpers/render'
 import GeoSearch from '../GeoSearch'
-import autocompleteResponse from './fixtures/autocomplete.json'
-import searchResponse from './fixtures/search.json'
-
-// Mocks an Mapzen Search request
-const mapzenSearchMock = jest.fn((url) => {
-  let response
-  if (url.indexOf('/autocomplete?') > 0) {
-    response = autocompleteResponse
-  } else if (url.indexOf('/search?') > 0) {
-    response = searchResponse
-  }
-
-  if (response) {
-    return Promise.resolve(
-      new window.Response(JSON.stringify(response), {
-        status: 200,
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-    )
-  } else {
-    return Promise.resolve(
-      new window.Response(undefined, {
-        status: 500
-      })
-    )
-  }
-})
 
 describe('GeoSearch', () => {
-  window.fetch = mapzenSearchMock
-
   it('focuses the input after mounting', () => {
     render(<GeoSearch />)
     const input = screen.getByPlaceholderText('Search for a location')

@@ -28,10 +28,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -99.194399,
-          19.539893
-        ]
+        "coordinates": [-99.194399, 19.539893]
       },
       "properties": {
         "id": "85884361",
@@ -55,21 +52,13 @@
         "neighbourhood_gid": "whosonfirst:neighbourhood:85884361",
         "label": "Tlalnepantla de Baz, Tlalnepantla, Mexico"
       },
-      "bbox": [
-        -99.2083032226,
-        19.5213186796,
-        -99.1828100586,
-        19.5529667079
-      ]
+      "bbox": [-99.2083032226, 19.5213186796, -99.1828100586, 19.5529667079]
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          34.808275,
-          31.371269
-        ]
+        "coordinates": [34.808275, 31.371269]
       },
       "properties": {
         "id": "polyline:15594909",
@@ -90,21 +79,13 @@
         "county_gid": "whosonfirst:county:1108720817",
         "label": "Baz, Israel"
       },
-      "bbox": [
-        34.808052,
-        31.370464,
-        34.808376,
-        31.372087
-      ]
+      "bbox": [34.808052, 31.370464, 34.808376, 31.372087]
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          46.35828,
-          39.45831
-        ]
+        "coordinates": [46.35828, 39.45831]
       },
       "properties": {
         "id": "11328484",
@@ -127,10 +108,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          70.59517,
-          52.72283
-        ]
+        "coordinates": [70.59517, 52.72283]
       },
       "properties": {
         "id": "11113318",
@@ -155,10 +133,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -104.665472,
-          24.016799
-        ]
+        "coordinates": [-104.665472, 24.016799]
       },
       "properties": {
         "id": "polyline:16738075",
@@ -181,21 +156,13 @@
         "locality_gid": "whosonfirst:locality:101994335",
         "label": "Baz, Victoria de Durango, Mexico"
       },
-      "bbox": [
-        -104.666016,
-        24.015689,
-        -104.665001,
-        24.017885
-      ]
+      "bbox": [-104.666016, 24.015689, -104.665001, 24.017885]
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          35.293189,
-          32.900224
-        ]
+        "coordinates": [35.293189, 32.900224]
       },
       "properties": {
         "id": "polyline:15091288",
@@ -216,21 +183,13 @@
         "county_gid": "whosonfirst:county:1108720807",
         "label": "Baz, Israel"
       },
-      "bbox": [
-        35.287712,
-        32.899486,
-        35.293243,
-        32.902278
-      ]
+      "bbox": [35.287712, 32.899486, 35.293243, 32.902278]
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          34.910165,
-          32.529012
-        ]
+        "coordinates": [34.910165, 32.529012]
       },
       "properties": {
         "id": "polyline:15217988",
@@ -251,21 +210,13 @@
         "county_gid": "whosonfirst:county:1108720819",
         "label": "Baz, Israel"
       },
-      "bbox": [
-        34.90982,
-        32.528457,
-        34.910499,
-        32.529571
-      ]
+      "bbox": [34.90982, 32.528457, 34.910499, 32.529571]
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          19.92917,
-          41.63194
-        ]
+        "coordinates": [19.92917, 41.63194]
       },
       "properties": {
         "id": "3186103",
@@ -292,10 +243,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          57.69567,
-          37.10593
-        ]
+        "coordinates": [57.69567, 37.10593]
       },
       "properties": {
         "id": "7336397",
@@ -320,10 +268,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          34.898561,
-          31.990583
-        ]
+        "coordinates": [34.898561, 31.990583]
       },
       "properties": {
         "id": "polyline:15487547",
@@ -344,18 +289,8 @@
         "county_gid": "whosonfirst:county:1108720815",
         "label": "Baz, Israel"
       },
-      "bbox": [
-        34.89767,
-        31.99051,
-        34.899501,
-        31.990982
-      ]
+      "bbox": [34.89767, 31.99051, 34.899501, 31.990982]
     }
   ],
-  "bbox": [
-    -104.666016,
-    19.5213186796,
-    70.59517,
-    52.72283
-  ]
+  "bbox": [-104.666016, 19.5213186796, 70.59517, 52.72283]
 }
