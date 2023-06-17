@@ -172,8 +172,6 @@ async function refreshLoginToken (refreshToken) {
     if (!response.ok) {
       throw response
     }
-
-    return
   } catch (error) {
     errorRefreshLoginToken(error)
   }

@@ -83,8 +83,6 @@ export async function post (req, res) {
       logger.info({ upgradedUser, subscription }, 'added user subscription')
       res.status(200).json({ user: upgradedUser, subscription })
     })
-
-    return
   } catch (err) {
     logger.error(err)
     res
