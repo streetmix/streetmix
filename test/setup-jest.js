@@ -5,10 +5,16 @@ import '@testing-library/jest-dom/extend-expect'
 import fetch from 'jest-fetch-mock'
 import 'jest-canvas-mock'
 import 'jest-date-mock'
+import { server } from './server/index.js'
 
 require('dotenv').config({
   path: path.resolve(process.cwd(), '.env.test')
 })
+
+// Set up listeners on API with mock-service-worker
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 // Add mocks for global methods
 fetch.enableMocks()
