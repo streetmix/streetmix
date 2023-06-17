@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
+import { waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import StreetMetaAuthor from '../StreetMetaAuthor'
 import { render } from '../../../../test/helpers/render'
@@ -19,7 +20,7 @@ describe('StreetMetaAuthor', () => {
     openGallery.mockClear()
   })
 
-  it('renders nothing if you own the street', () => {
+  it('renders nothing if you own the street', async () => {
     const { container } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
@@ -34,7 +35,9 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    expect(container.firstChild).toBe(null)
+    await waitFor(() => {
+      expect(container.firstChild).toBe(null)
+    })
   })
 
   it('renders street creator byline if you are signed in and it’s not yours', async () => {
@@ -77,7 +80,7 @@ describe('StreetMetaAuthor', () => {
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
 
-  it('renders anonymous byline if you are signed in', () => {
+  it('renders anonymous byline if you are signed in', async () => {
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
@@ -92,10 +95,12 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    expect(getByText('by Anonymous')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(getByText('by Anonymous')).toBeInTheDocument()
+    })
   })
 
-  it('renders anonymous byline if you are not logged in and viewing an anonymous street', () => {
+  it('renders anonymous byline if you are not logged in and viewing an anonymous street', async () => {
     isOwnedByCurrentUser.mockImplementationOnce(() => false)
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
@@ -111,7 +116,9 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    expect(getByText('by Anonymous')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(getByText('by Anonymous')).toBeInTheDocument()
+    })
   })
 
   it('renders nothing if you are a not-logged in user still editing an anonymous street', () => {
