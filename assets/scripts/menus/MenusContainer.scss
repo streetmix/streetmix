@@ -2,10 +2,7 @@
 
 .menus-container {
   position: absolute;
-  left: $menu-side-inset;
-  right: $menu-side-inset;
-  top: 0;
-  bottom: 0;
+  inset: 0 $menu-side-inset;
   pointer-events: none;
   z-index: $z-07-menu;
 

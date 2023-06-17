@@ -155,10 +155,7 @@ body.phone #loading {
 .debug-hover-polygon {
   position: absolute;
   z-index: $z-07-debug-hover-polygon;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   pointer-events: none;
 
   canvas {

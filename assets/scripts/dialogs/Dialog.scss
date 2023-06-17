@@ -19,10 +19,7 @@ $header-text-colour: $colour-turquoise-700;
 .dialog-box-backdrop {
   z-index: $z-08-dialog-box-backdrop;
   position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: fade-out($sky-colour, 0.5);
   touch-action: none;
 
