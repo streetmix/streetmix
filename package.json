@@ -174,7 +174,7 @@
     "react-redux": "8.0.5",
     "react-spring": "9.7.1",
     "react-transition-group": "4.4.5",
-    "regenerator-runtime": "0.13.9",
+    "regenerator-runtime": "0.13.11",
     "requireindex": "1.2.0",
     "sass": "1.58.3",
     "seedrandom": "3.0.5",
