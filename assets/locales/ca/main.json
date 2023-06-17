@@ -84,6 +84,16 @@
     "language": {
       "label": "Idioma"
     },
+    "profile": {
+      "label": "",
+      "username": "",
+      "username-description": "",
+      "display-name": "",
+      "display-name-description": "",
+      "display-name-not-set": "",
+      "display-name-error": "",
+      "display-name-characters-remaining": ""
+    },
     "misc": {
       "label": "",
       "silly-clowns": "",
@@ -168,7 +178,9 @@
     "close": "Tanqueu",
     "dismiss": "Descarteu",
     "okay": "Entesos!",
-    "not-now": "Ara no"
+    "not-now": "Ara no",
+    "save": "",
+    "edit": ""
   },
   "dialogs": {
     "error": {

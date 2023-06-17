@@ -84,6 +84,16 @@
     "language": {
       "label": "ቋንቋ"
     },
+    "profile": {
+      "label": "",
+      "username": "",
+      "username-description": "",
+      "display-name": "",
+      "display-name-description": "",
+      "display-name-not-set": "",
+      "display-name-error": "",
+      "display-name-characters-remaining": ""
+    },
     "misc": {
       "label": "",
       "silly-clowns": "",
@@ -168,7 +178,9 @@
     "close": "ይዝጉ ",
     "dismiss": "ያስወጡ ",
     "okay": "ትክክል ነው! ",
-    "not-now": "አሁን አይደለም "
+    "not-now": "አሁን አይደለም ",
+    "save": "",
+    "edit": ""
   },
   "dialogs": {
     "error": {

@@ -84,6 +84,16 @@
     "language": {
       "label": "Lingua"
     },
+    "profile": {
+      "label": "",
+      "username": "",
+      "username-description": "",
+      "display-name": "",
+      "display-name-description": "",
+      "display-name-not-set": "",
+      "display-name-error": "",
+      "display-name-characters-remaining": ""
+    },
     "misc": {
       "label": "",
       "silly-clowns": "",
@@ -168,7 +178,9 @@
     "close": "Chiudi",
     "dismiss": "Abbandona",
     "okay": "Okay!",
-    "not-now": "Non ora"
+    "not-now": "Non ora",
+    "save": "",
+    "edit": ""
   },
   "dialogs": {
     "error": {

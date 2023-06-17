@@ -84,6 +84,16 @@
     "language": {
       "label": "Jazyk"
     },
+    "profile": {
+      "label": "",
+      "username": "",
+      "username-description": "",
+      "display-name": "",
+      "display-name-description": "",
+      "display-name-not-set": "",
+      "display-name-error": "",
+      "display-name-characters-remaining": ""
+    },
     "misc": {
       "label": "Různé",
       "silly-clowns": "Blázniví klauni",
@@ -168,7 +178,9 @@
     "close": "Zavřít",
     "dismiss": "Odmítnout",
     "okay": "OK",
-    "not-now": "Teď ne"
+    "not-now": "Teď ne",
+    "save": "",
+    "edit": ""
   },
   "dialogs": {
     "error": {
