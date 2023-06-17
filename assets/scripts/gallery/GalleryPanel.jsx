@@ -26,11 +26,13 @@ function GalleryPanel (props) {
   if (mode === 'LOADING' || isLoading) {
     childElements = <GalleryLoading />
   } else if (mode === 'ERROR' || isError) {
-    childElements = <GalleryError />
-  } else if (mode === 'GALLERY' && user) {
+    childElements = <GalleryError showTryAgain={true} />
+  } else if (mode === 'GALLERY') {
+    // It is not necessary to have a user property to load the gallery
     childElements = <GalleryContents user={user} />
   } else {
-    childElements = null
+    // If we see this -- then something went really wrong
+    childElements = <GalleryError showTryAgain={false} />
   }
 
   return <div className="gallery-panel">{childElements}</div>

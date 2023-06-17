@@ -13,7 +13,7 @@ import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet } from './index'
 import './GalleryContents.scss'
 
-function GalleryContents ({ user }) {
+function GalleryContents ({ user = {} }) {
   const streets = useSelector((state) => state.gallery.streets || [])
   const currentStreetId = useSelector((state) => state.street.id)
   const isOwnedByCurrentUser = useSelector(
