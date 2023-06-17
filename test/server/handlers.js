@@ -1,3 +1,4 @@
+import { URLSearchParams } from 'node:url'
 import { rest } from 'msw'
 
 export const handlers = [
@@ -20,5 +21,33 @@ export const handlers = [
         data: {}
       })
     )
-  })
+  }),
+
+  // EXTERNAL REQUESTS
+  rest.post(
+    'https://buttondown.email/api/emails/embed-subscribe/streetmix',
+    async (req, res, ctx) => {
+      // Read submitted email address and conditionally respond
+      const text = await req.text()
+      const params = new URLSearchParams(text)
+
+      // Mock response with a 500 error
+      if (params.get('email') === 'error_500@foo.com') {
+        return res(ctx.status(500))
+      }
+
+      // Mock response for miscellaneous failure
+      if (params.get('email') === 'error_client@foo.com') {
+        return res(ctx.status(404))
+      }
+
+      // Mocks a success response with a "realistic" server delay
+      if (params.get('email') === 'test_pending@example.com') {
+        return res(ctx.delay(), ctx.status(200))
+      }
+
+      // Success response
+      return res(ctx.status(200))
+    }
+  )
 ]
