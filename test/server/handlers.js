@@ -10,6 +10,14 @@ export const handlers = [
 
   rest.get('api/v1/users/:userId', (req, res, ctx) => {
     const { userId } = req.params
+
+    // If provided with this user id, create a mock server error
+    // The actual error code does not matter
+    if (userId === 'error_user') {
+      return res(ctx.status(403))
+    }
+
+    // In all other cases, return a mock user with the provided user id
     return res(
       ctx.status(200),
       ctx.json({

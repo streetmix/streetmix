@@ -4,22 +4,12 @@ import { useGetUserQuery } from '../store/services/api'
 import './Avatar.scss'
 
 function Avatar ({ userId }) {
-  const { data, error, isLoading, isError } = useGetUserQuery(userId)
+  const { data } = useGetUserQuery(userId)
 
-  // TODO: Handle loading state
-  if (isLoading) {
-    return null
-  }
-
-  // TODO: Handle error state
-  if (isError) {
-    console.error(error.toString())
-    return null
-  }
-
+  // Loading and error states will declare an empty `src` property
   return (
     <span className="avatar">
-      <img src={data.profileImageUrl} alt={userId} />
+      <img src={data?.profileImageUrl || undefined} alt={userId} />
     </span>
   )
 }
