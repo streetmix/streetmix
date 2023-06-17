@@ -1,5 +1,7 @@
 import { URLSearchParams } from 'node:url'
 import { rest } from 'msw'
+import autocompleteResponse from '../fixtures/geocode/autocomplete.json'
+import searchResponse from '../fixtures/geocode/search.json'
 
 export const handlers = [
   rest.get('/api/v1/flags', (req, res, ctx) => {
@@ -49,5 +51,13 @@ export const handlers = [
       // Success response
       return res(ctx.status(200))
     }
-  )
+  ),
+
+  rest.get('https://api.geocode.earth/v1/autocomplete', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(autocompleteResponse))
+  }),
+
+  rest.get('https://api.geocode.earth/v1/search', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(searchResponse))
+  })
 ]
