@@ -81,10 +81,7 @@ $selection-highlight-colour: $colour-copper-500;
 
 .gallery-street-item-canvas {
   position: absolute;
-  top: 2px; // Live within the border area
-  left: 2px;
-  right: 2px;
-  bottom: 2px;
+  inset: 2px; // Live within the border area
   border-radius: 2px;
   overflow: hidden;
 

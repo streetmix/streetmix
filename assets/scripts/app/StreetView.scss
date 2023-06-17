@@ -5,10 +5,7 @@
 #street-section-outer {
   position: absolute;
   display: block;
-  left: 0;
-  right: 0;
-  top: -$gallery-height;
-  bottom: -20px; // To hide the scrollbar
+  inset: -$gallery-height 0 -20px; // Bottom inset hides the scrollbar
   overflow-x: scroll;
   overflow-y: hidden;
   touch-action: pan-x;
@@ -59,10 +56,7 @@
   .hover-bk {
     position: absolute;
     z-index: -1;
-    left: 0;
-    top: -1000px;
-    bottom: 45px;
-    right: 0;
+    inset: -1000px 0 45px;
   }
 
   &.hover .hover-bk {
