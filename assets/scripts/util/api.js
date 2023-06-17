@@ -43,8 +43,9 @@ class APIClient {
     )
   }
 
-  getUser = (userId, config = {}) => {
-    return this.client.get(`${BASE_URL_API_V1}/users/${userId}`, config)
+  // DEPRECATED: Use RTK Query's api, which caches user data
+  getUser = (userId) => {
+    return this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
   }
 
   // Replaces (puts) the `data` object representing user settings

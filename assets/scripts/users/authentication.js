@@ -12,11 +12,7 @@ import { setPromoteStreet } from '../streets/remix'
 import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
 import store from '../store'
 import { updateSettings } from '../store/slices/settings'
-import {
-  setSignInData,
-  clearSignInData,
-  rememberUserProfile
-} from '../store/slices/user'
+import { setSignInData, clearSignInData } from '../store/slices/user'
 import { showDialog } from '../store/slices/dialogs'
 import { updateStreetIdMetadata } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
@@ -205,6 +201,8 @@ function errorRefreshLoginToken (data) {
  */
 async function fetchSignInDetails (userId) {
   try {
+    // TODO: See if it's possible to use RTK Query's implementation of getUser
+    // because that will cache user details.
     const response = await getUser(userId)
 
     if (response.status !== 200) {
@@ -236,9 +234,6 @@ function receiveSignInDetails (details) {
   }
   store.dispatch(setSignInData(signInData))
   saveSignInDataLocally()
-
-  // cache the users profile image so we don't have to request it later
-  store.dispatch(rememberUserProfile(details))
 }
 
 function errorReceiveSignInDetails (data) {

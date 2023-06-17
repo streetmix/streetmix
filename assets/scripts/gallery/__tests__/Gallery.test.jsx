@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
@@ -39,27 +39,39 @@ const initialState = {
 }
 
 describe('Gallery', () => {
-  it('renders main gallery view for user’s own streets', () => {
-    const { asFragment } = render(<Gallery />, { initialState })
-    expect(asFragment()).toMatchSnapshot()
+  it('renders main gallery view for user’s own streets', async () => {
+    const { getByAltText, asFragment } = render(<Gallery />, { initialState })
+
+    await waitFor(() => {
+      // Wait for profile image to load with user id in alt text
+      expect(getByAltText('foo')).toBeInTheDocument()
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
-  it('renders main gallery view for another user’s streets', () => {
-    const { asFragment } = render(<Gallery />, {
+  it('renders main gallery view for another user’s streets', async () => {
+    const { getByAltText, asFragment } = render(<Gallery />, {
       initialState: {
         ...initialState,
         user: {
           signedIn: true,
           signInData: {
-            userId: 'bar'
+            // We are signed in as user 'baz'
+            // We're displaying the gallery for user 'foo'
+            userId: 'baz'
           }
         }
       }
     })
-    expect(asFragment()).toMatchSnapshot()
+
+    await waitFor(() => {
+      // Wait for profile image to load with user id in alt text
+      expect(getByAltText('foo')).toBeInTheDocument()
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
-  it('renders global gallery view', () => {
+  it('renders global gallery view', async () => {
     const initialState = {
       gallery: {
         user: {},
@@ -75,8 +87,12 @@ describe('Gallery', () => {
       }
     }
 
-    const { asFragment } = render(<Gallery />, { initialState })
-    expect(asFragment()).toMatchSnapshot()
+    const { getByText, asFragment } = render(<Gallery />, { initialState })
+
+    await waitFor(() => {
+      expect(getByText('All streets')).toBeInTheDocument()
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
   it('renders loading', () => {
@@ -122,19 +138,25 @@ describe('Gallery', () => {
       const { getByText } = render(<Gallery />, {
         initialState
       })
-      await userEvent.click(getByText('Baz'))
-      expect(switchGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
+
+      await waitFor(async () => {
+        await userEvent.click(getByText('Baz'))
+        expect(switchGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
+      })
     })
 
     it('deletes street', async () => {
       const { getByTitle, queryByTitle } = render(<Gallery />, {
         initialState
       })
-      await userEvent.click(getByTitle('Delete street'))
 
-      // There's only one street "displayed" so we expect no "delete street"
-      // button to be rendered anymore, since that street should be deleted.
-      expect(queryByTitle('Delete street')).not.toBeInTheDocument()
+      await waitFor(async () => {
+        await userEvent.click(getByTitle('Delete street'))
+
+        // There's only one street "displayed" so we expect no "delete street"
+        // button to be rendered anymore, since that street should be deleted.
+        expect(queryByTitle('Delete street')).not.toBeInTheDocument()
+      })
     })
   })
 })
