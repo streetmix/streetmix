@@ -242,19 +242,6 @@ function receiveSignInDetails (details) {
 }
 
 function errorReceiveSignInDetails (data) {
-  // If we get data.status === 0, it means that the user opened the page and
-  // closed is quickly, so the request was aborted. We choose to do nothing
-  // instead of clobbering sign in data below and effectively signing the
-  // user out. Issue #302.
-
-  // It also, unfortunately, might mean regular server failure, too. Marcin
-  // doesn’t know what to do with it yet. Open issue #339.
-
-  /* if (data.status === 0) {
-    showError(ERRORS.NEW_STREET_SERVER_FAILURE, true)
-    return
-  } */
-
   if (data.status === 401) {
     signOut(true)
 
