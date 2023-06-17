@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import * as uiSlice from '../../store/slices/ui'
@@ -33,7 +33,9 @@ describe('EnvironmentEditor', () => {
     // Initial state
     expect(screen.getByLabelText('Day')).toHaveClass('environment-active')
 
-    await userEvent.click(screen.getByLabelText('Dusk'))
+    // waitFor animation to remove `pointer-events: none` from parent element
+    // This test is flaky if we don't wait.
+    await waitFor(() => userEvent.click(screen.getByLabelText('Dusk')))
 
     // New state
     expect(screen.getByLabelText('Dusk')).toHaveClass('environment-active')
@@ -52,7 +54,9 @@ describe('EnvironmentEditor', () => {
     // eslint-disable-next-line
     uiSlice.toggleToolbox = jest.fn().mockReturnValue({ type: 'MOCK_ACTION' })
 
-    await userEvent.click(screen.getByTitle('Dismiss'))
+    // waitFor animation to remove `pointer-events: none` from parent element
+    // This test is flaky if we don't wait.
+    await waitFor(() => userEvent.click(screen.getByTitle('Dismiss')))
 
     expect(uiSlice.toggleToolbox).toBeCalled()
   })
@@ -81,7 +85,9 @@ describe('EnvironmentEditor', () => {
     expect(screen.getByLabelText('Day')).toHaveClass('environment-active')
     expect(screen.getByLabelText('Dusk')).toHaveClass('environment-disabled')
 
-    await userEvent.click(screen.getByLabelText('Dusk'))
+    // waitFor animation to remove `pointer-events: none` from parent element
+    // This test is flaky if we don't wait.
+    await waitFor(() => userEvent.click(screen.getByLabelText('Dusk')))
 
     // State should not change!
     expect(screen.getByLabelText('Day')).toHaveClass('environment-active')
