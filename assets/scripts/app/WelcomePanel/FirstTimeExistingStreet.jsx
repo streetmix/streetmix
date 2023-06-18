@@ -10,9 +10,7 @@ import { useGetUserQuery } from '../../store/services/api'
 
 function FirstTimeExistingStreet (props) {
   const street = useSelector((state) => state.street)
-  const { data: creatorProfile } = useGetUserQuery(street.creatorId, {
-    skip: !street.creatorId // Do not query if creatorId value is falsy
-  })
+  const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
   function handleGoNewStreet (event) {
     setIsReturningUserInLocalStorage()

@@ -19,9 +19,7 @@ import { ERRORS } from './errors'
 function BlockingError (props) {
   const errorType = useSelector((state) => state.errors.errorType)
   const street = useSelector((state) => state.street)
-  const { data: creatorProfile } = useGetUserQuery(street.creatorId, {
-    skip: !street.creatorId // Do not query if creatorId value is falsy
-  })
+  const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
   let title = ''
   let description = ''

@@ -14,7 +14,13 @@ export const streetmixApi = createApi({
   }),
   endpoints: (builder) => ({
     getUser: builder.query({
-      query: (userId) => `users/${userId}`
+      queryFn: (userId, _api, _extraOptions, baseQuery) => {
+        if (!userId) {
+          return { data: {} }
+        } else {
+          return baseQuery(`users/${userId}`)
+        }
+      }
     })
   })
 })
