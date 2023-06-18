@@ -3,7 +3,7 @@
 exports[`GalleryStreetItem renders 1`] = `
 <DocumentFragment>
   <div
-    class="gallery-street-item"
+    class="gallery-street-item gallery-with-owner"
   >
     <a>
       <div

@@ -102,6 +102,9 @@ function GalleryStreetItem (props) {
   if (selected) {
     classNames.push('gallery-selected')
   }
+  if (showStreetOwner) {
+    classNames.push('gallery-with-owner')
+  }
 
   return (
     <div className={classNames.join(' ')}>

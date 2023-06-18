@@ -64,6 +64,10 @@ $selection-highlight-colour: $colour-copper-500;
   }
 }
 
+.gallery-with-owner.gallery-street-item > a canvas {
+  top: -10px;
+}
+
 .gallery-street-item.gallery-selected > a {
   background: color.adjust($ui-colour, $lightness: -10%);
   box-shadow: 0 0 0 2px $selection-highlight-colour,
@@ -104,6 +108,10 @@ $selection-highlight-colour: $colour-copper-500;
     width: 100%;
     height: 22px;
     background-color: #f0f0f0;
+
+    .gallery-with-owner & {
+      height: 32px;
+    }
   }
 }
 

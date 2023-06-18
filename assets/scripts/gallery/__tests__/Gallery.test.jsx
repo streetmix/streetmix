@@ -95,7 +95,7 @@ describe('Gallery', () => {
     })
   })
 
-  it('renders loading', () => {
+  it('renders loading', async () => {
     const initialState = {
       gallery: {
         visible: true,
@@ -104,10 +104,13 @@ describe('Gallery', () => {
     }
 
     const { asFragment } = render(<Gallery />, { initialState })
-    expect(asFragment()).toMatchSnapshot()
+
+    await waitFor(() => {
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
-  it('renders error', () => {
+  it('renders error', async () => {
     const initialState = {
       gallery: {
         visible: true,
@@ -116,7 +119,12 @@ describe('Gallery', () => {
     }
 
     render(<Gallery />, { initialState })
-    expect(screen.getByText('Failed to load the gallery.')).toBeInTheDocument()
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Failed to load the gallery.')
+      ).toBeInTheDocument()
+    })
   })
 
   it('closes on shield click', async () => {

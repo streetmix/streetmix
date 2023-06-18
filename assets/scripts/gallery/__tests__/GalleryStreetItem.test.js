@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import MOCK_STREET from '../../../../test/fixtures/street.json'
@@ -40,7 +40,7 @@ describe('GalleryStreetItem', () => {
     expect(screen.getByText('Unnamed St')).toBeInTheDocument()
   })
 
-  it('displays "Anonymous" for anonymous streets', () => {
+  it('displays "Anonymous" for anonymous streets', async () => {
     render(
       <GalleryStreetItem
         street={{
@@ -50,7 +50,9 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    expect(screen.getByText('Anonymous')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText('Anonymous')).toBeInTheDocument()
+    })
   })
 
   it('handles select', async () => {
