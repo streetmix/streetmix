@@ -1,4 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
+// Normally, `fetchBaseQuery` can be exported from '@reduxjs/toolkit/query/react'
+// but it must be exported from this package path for Parcel's production
+// bundle. See https://github.com/reduxjs/redux-toolkit/issues/3533 and others.
+import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 
 export const streetmixApi = createApi({
   reducerPath: 'streetmixApi',
