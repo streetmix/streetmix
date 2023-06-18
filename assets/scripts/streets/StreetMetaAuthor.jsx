@@ -11,9 +11,7 @@ function StreetMetaAuthor (props) {
   const creatorId = useSelector((state) => state.street.creatorId)
   const signedIn = useSelector((state) => state.user.signedIn)
   const userId = useSelector((state) => state.user.signInData?.userId || '')
-  const { data: creatorProfile } = useGetUserQuery(creatorId, {
-    skip: !creatorId // Do not query if creatorId value is falsy
-  })
+  const { data: creatorProfile } = useGetUserQuery(creatorId)
   const dispatch = useDispatch()
 
   function handleClickAuthor (event) {

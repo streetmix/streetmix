@@ -4,11 +4,11 @@ import { waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import StreetMetaAuthor from '../StreetMetaAuthor'
 import { render } from '../../../../test/helpers/render'
-import { isOwnedByCurrentUser } from '../../streets/owner'
+import { getRemixOnFirstEdit } from '../../streets/remix'
 import { openGallery } from '../../store/actions/gallery'
 
-// Enable mocking of the return value of `isOwnedByCurrentUser`
-jest.mock('../../streets/owner')
+// Enable mocking of the return value of `getRemixOnFirstEdit`
+jest.mock('../../streets/remix')
 
 jest.mock('../../store/actions/gallery', () => ({
   openGallery: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
@@ -18,6 +18,8 @@ describe('StreetMetaAuthor', () => {
   afterEach(() => {
     // Resets mock call counter between tests
     openGallery.mockClear()
+    // Resets mock return values
+    getRemixOnFirstEdit.mockClear()
   })
 
   it('renders nothing if you own the street', async () => {
@@ -100,8 +102,9 @@ describe('StreetMetaAuthor', () => {
     })
   })
 
-  it('renders anonymous byline if you are not logged in and viewing an anonymous street', async () => {
-    isOwnedByCurrentUser.mockImplementationOnce(() => false)
+  it('renders anonymous byline if you are not signed in and viewing an anonymous street', async () => {
+    getRemixOnFirstEdit.mockReturnValue(true)
+
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
@@ -121,8 +124,9 @@ describe('StreetMetaAuthor', () => {
     })
   })
 
-  it('renders nothing if you are a not-logged in user still editing an anonymous street', () => {
-    isOwnedByCurrentUser.mockImplementationOnce(() => true)
+  it('renders nothing if you are a not-signed in user still editing an anonymous street', async () => {
+    getRemixOnFirstEdit.mockReturnValue(false)
+
     const { container } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
@@ -137,6 +141,8 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    expect(container.firstChild).toBe(null)
+    await waitFor(() => {
+      expect(container.firstChild).toBe(null)
+    })
   })
 })
