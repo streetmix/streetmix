@@ -8,6 +8,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { useGetUserQuery } from '../store/services/api'
 import Button from '../ui/Button'
 import ExternalLink from '../ui/ExternalLink'
 import Avatar from '../users/Avatar'
@@ -18,6 +19,7 @@ import { ERRORS } from './errors'
 function BlockingError (props) {
   const errorType = useSelector((state) => state.errors.errorType)
   const street = useSelector((state) => state.street)
+  const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
   let title = ''
   let description = ''
@@ -36,7 +38,7 @@ function BlockingError (props) {
       ? (
         <a href={'/' + street.creatorId}>
           <Avatar userId={street.creatorId} />
-          {street.creatorId}
+          {creatorProfile?.displayName || street.creatorId}
         </a>
         )
       : null

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { IoBrushOutline } from 'react-icons/io5'
 import { openGallery } from '../store/actions/gallery'
+import { useGetUserQuery } from '../store/services/api'
 import Avatar from '../users/Avatar'
 import { isOwnedByCurrentUser } from './owner'
 
@@ -10,6 +11,7 @@ function StreetMetaAuthor (props) {
   const creatorId = useSelector((state) => state.street.creatorId)
   const signedIn = useSelector((state) => state.user.signedIn)
   const userId = useSelector((state) => state.user.signInData?.userId || '')
+  const { data: creatorProfile } = useGetUserQuery(creatorId)
   const dispatch = useDispatch()
 
   function handleClickAuthor (event) {
@@ -26,7 +28,7 @@ function StreetMetaAuthor (props) {
       <>
         <Avatar userId={creatorId} />
         <a href={'/' + creatorId} onClick={handleClickAuthor}>
-          {creatorId}
+          {creatorProfile?.displayName || creatorId}
         </a>
       </>
     )

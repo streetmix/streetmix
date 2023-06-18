@@ -6,9 +6,11 @@ import StreetName from '../../streets/StreetName'
 import Avatar from '../../users/Avatar'
 import { goNewStreet } from '../routing'
 import { setIsReturningUserInLocalStorage } from '../WelcomePanel'
+import { useGetUserQuery } from '../../store/services/api'
 
 function FirstTimeExistingStreet (props) {
   const street = useSelector((state) => state.street)
+  const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
   function handleGoNewStreet (event) {
     setIsReturningUserInLocalStorage()
@@ -37,7 +39,8 @@ function FirstTimeExistingStreet (props) {
                 streetName: <StreetName name={street.name} />,
                 creator: (
                   <>
-                    <Avatar userId={street.creatorId} /> {street.creatorId}
+                    <Avatar userId={street.creatorId} />{' '}
+                    {creatorProfile?.displayName || street.creatorId}
                   </>
                 )
               }}

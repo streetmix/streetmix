@@ -15,7 +15,7 @@ function Avatar ({ userId }) {
 }
 
 Avatar.propTypes = {
-  userId: PropTypes.string.isRequired
+  userId: PropTypes.string
 }
 
-export default React.memo(Avatar)
+export default Avatar

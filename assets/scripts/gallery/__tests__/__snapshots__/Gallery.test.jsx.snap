@@ -39,7 +39,7 @@ exports[`Gallery renders global gallery view 1`] = `
             class="streets"
           >
             <div
-              class="gallery-street-item gallery-selected"
+              class="gallery-street-item gallery-selected gallery-with-owner"
             >
               <a
                 href="/foo/435/baz"

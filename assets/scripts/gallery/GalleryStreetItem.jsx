@@ -2,6 +2,7 @@ import React, { useState, useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { useIntl, FormattedMessage } from 'react-intl'
+import { useGetUserQuery } from '../store/services/api'
 import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
 import StreetName from '../streets/StreetName'
@@ -24,6 +25,7 @@ function GalleryStreetItem (props) {
     doDelete = () => {} // no-op
   } = props
   const dpi = useSelector((state) => state.system.devicePixelRatio || 1)
+  const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
   // Set hooks
   const [error, setError] = useState(null)
@@ -100,6 +102,9 @@ function GalleryStreetItem (props) {
   if (selected) {
     classNames.push('gallery-selected')
   }
+  if (showStreetOwner) {
+    classNames.push('gallery-with-owner')
+  }
 
   return (
     <div className={classNames.join(' ')}>
@@ -135,7 +140,8 @@ function GalleryStreetItem (props) {
         {/* Show street creator (owner) or 'Anonymous' */}
         {showStreetOwner && (
           <span className="gallery-street-item-creator">
-            {street.creatorId ||
+            {creatorProfile?.displayName ||
+              street.creatorId ||
               intl.formatMessage({
                 id: 'users.anonymous',
                 defaultMessage: 'Anonymous'

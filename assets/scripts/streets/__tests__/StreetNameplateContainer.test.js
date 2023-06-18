@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import StreetNameplateContainer from '../StreetNameplateContainer'
@@ -29,19 +29,25 @@ const initialState = {
 }
 
 describe('StreetNameplateContainer', () => {
-  it('renders', () => {
+  it('renders', async () => {
     render(<StreetNameplateContainer />, {
       initialState
     })
-    expect(screen.getByText('foo')).toBeInTheDocument()
+
+    await waitFor(() => {
+      expect(screen.getByText('foo')).toBeInTheDocument()
+    })
   })
 
-  it('renders default street name', () => {
+  it('renders default street name', async () => {
     render(<StreetNameplateContainer />, {
       ...initialState,
       street: { name: null }
     })
-    expect(screen.getByText('Unnamed St')).toBeInTheDocument()
+
+    await waitFor(() => {
+      expect(screen.getByText('Unnamed St')).toBeInTheDocument()
+    })
   })
 
   it('handles click and name change', async () => {

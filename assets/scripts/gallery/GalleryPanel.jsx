@@ -12,14 +12,7 @@ function GalleryPanel (props) {
   // There might be a better way of combining these requests!
   const mode = useSelector((state) => state.gallery.mode)
   const userId = useSelector((state) => state.gallery.userId)
-  const {
-    data: user,
-    isError,
-    isLoading
-  } = useGetUserQuery(userId, {
-    // Only queries for user data if `userId` is truthy.
-    skip: !userId
-  })
+  const { data: user, isError, isLoading } = useGetUserQuery(userId)
 
   let childElements
 
