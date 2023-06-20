@@ -5,6 +5,16 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## June 20, 2023
+
+### ✨ New features
+
+**You can now set a display name for your account!** A display name is a more descriptive way to identify and personalize your account, and it's now the way you appear to other users on Streetmix, if you have one. You'll still have a pre-set username, which is what the system uses to identify you (for instance, in links to your street). In the future, you'll also be able to change your username, also!
+
+![Display name in the UI](/img/changelog/display-name.png)
+
+To get started, click on your profile image on the top right, then select **Settings**. Make sure the **Profile** settings tab is selected, then under **Display name**, tap the **Edit** button. You can change your display name as often as you'd like, so feel free to try something new!
+
 ## April 22, 2023
 
 ### ✨ New features
