@@ -18,21 +18,26 @@ export const debug = {
   forceReadOnly: false
 }
 
-const url = window.location.search
+const params = new URLSearchParams(window.location.search)
 
-if (url.match(/[?&]debug-force-left-hand-traffic&?/)) {
+// Historically, params were valueless and they we had our own string
+// parsing code, but now we use the `URLSearchParams` global interface.
+// For backwards compatibility, only the presence of a key indicates
+// truthiness. Recent usage will upgrade truthy values to `1`. However,
+// the value doesn't mean anything for these keys, for now.
+if (params.has('debug-force-left-hand-traffic')) {
   debug.forceLeftHandTraffic = true
 }
 
-if (url.match(/[?&]debug-force-non-retina&?/)) {
+if (params.has('debug-force-non-retina')) {
   debug.forceNonRetina = true
 }
 
-if (url.match(/[?&]debug-force-offline&?/)) {
+if (params.has('debug-force-offline')) {
   debug.forceOfflineMode = true
 }
 
-if (url.match(/[?&]debug-force-read-only&?/)) {
+if (params.has('debug-force-read-only')) {
   debug.forceReadOnly = true
 }
 
