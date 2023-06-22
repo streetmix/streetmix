@@ -3,7 +3,7 @@
  * handles internationalization (i18n)
  *
  */
-import IntlMessageFormat from 'intl-messageformat'
+import { IntlMessageFormat } from 'intl-messageformat'
 import store, { observeStore } from '../store'
 import { changeLocale } from '../store/slices/locale'
 import LOCALES from '../../../app/data/locales.json'
@@ -13,16 +13,21 @@ import { DEFAULT_LOCALE } from './constants'
  * Initialize i18n / localization
  */
 export async function initLocale () {
+  // See if there is a requested locale via the lang param
+  const paramLocale = new URLSearchParams(window.location.search).get('lang')
+
   // Default language is set by browser, or is English if undetermined
   const defaultLocale = navigator.language || DEFAULT_LOCALE
 
   // Current language is the one set by Streetmix or is the browser default, if unset
   let requestedLocale
 
-  // Try to read a stored value from LocalStorage; if it fails (access denied, etc)
-  // then ignore this error and go with the browser's locale or default
+  // Try to read locale from param first; second, a stored value from LocalStorage;
+  // if it fails (access denied, etc) then ignore this error and go with the browser's
+  // locale or default
   try {
     requestedLocale =
+      paramLocale ||
       JSON.parse(window.localStorage.getItem('settings')).locale ||
       defaultLocale
   } catch (err) {

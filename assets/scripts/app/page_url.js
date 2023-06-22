@@ -142,20 +142,28 @@ export function updatePageUrl (forceGalleryUrl, userId = null) {
     url = getStreetUrl(store.getState().street)
   }
 
+  const params = new URLSearchParams(window.location.search)
+
+  // Historically, params were valueless and they we had our own string
+  // parsing code, but now we use the `URLSearchParams` global interface.
+  // For clarity, truthy values are set to the value of 1.
   if (debug.forceLeftHandTraffic) {
-    url += '&debug-force-left-hand-traffic'
+    params.set('debug-force-left-hand-traffic', 1)
   }
   if (debug.forceNonRetina) {
-    url += '&debug-force-non-retina'
+    params.set('debug-force-non-retina', 1)
   }
   if (debug.forceReadOnly) {
-    url += '&debug-force-read-only'
+    params.set('debug-force-read-only', 1)
   }
   if (debug.forceOfflineMode) {
-    url += '&debug-force-offline'
+    params.set('debug-force-offline', 1)
   }
 
-  url = url.replace(/&/, '?')
+  // If we have params, append to the URL
+  if (params.size > 0) {
+    url += `?${params.toString()}`
+  }
 
-  window.history.replaceState(null, null, url)
+  window.history.replaceState(null, '', url)
 }
