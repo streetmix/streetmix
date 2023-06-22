@@ -160,5 +160,10 @@ export function updatePageUrl (forceGalleryUrl, userId = null) {
     params.set('debug-force-offline', 1)
   }
 
-  window.history.replaceState(null, '', `${url}?${params.toString()}`)
+  // If we have params, append to the URL
+  if (params.size > 0) {
+    url += `?${params.toString()}`
+  }
+
+  window.history.replaceState(null, '', url)
 }
