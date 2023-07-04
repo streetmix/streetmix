@@ -33,8 +33,8 @@
       "copy-to-clipboard": "Kopírovat do schránky",
       "twitter": "Sdílet pomocí Twitteru",
       "facebook": "Sdílet přes Facebook",
-      "mastodon": "",
-      "3dstreet": "",
+      "mastodon": "Sdílet pomocí Mastodon",
+      "3dstreet": "Otevřít v 3DStreet",
       "print": "Tisk...",
       "save": "Uložit jako obrázek...",
       "save-byline": "Pro zahrnutí do zprávy, blogu apod.",
@@ -79,20 +79,20 @@
       "label": "Obecné"
     },
     "appearance": {
-      "label": ""
+      "label": "Vzhled"
     },
     "language": {
       "label": "Jazyk"
     },
     "profile": {
-      "label": "",
-      "username": "",
-      "username-description": "",
-      "display-name": "",
-      "display-name-description": "",
-      "display-name-not-set": "",
-      "display-name-error": "",
-      "display-name-characters-remaining": ""
+      "label": "Profil",
+      "username": "Uživatelské jméno",
+      "username-description": "Vaše uživatelské jméno je jedinečný identifikátor účtu.",
+      "display-name": "Zobrazované jméno",
+      "display-name-description": "Vaše zobrazované jméno je způsob, jakým se zobrazujete ostatním uživatelům ve službě Streetmix.",
+      "display-name-not-set": "Zatím jste nepřidali zobrazované jméno.",
+      "display-name-error": "Zobrazované jméno nelze uložit",
+      "display-name-characters-remaining": "Zbývající znaky: {currentNum} ({maxNum} maximálně)"
     },
     "misc": {
       "label": "Různé",
@@ -100,11 +100,11 @@
       "silly-clowns-description": "Povoluje velikonoční vajíčka."
     },
     "theme": {
-      "label": "",
-      "description": "",
-      "light": "",
-      "dark": "",
-      "system": ""
+      "label": "Motiv",
+      "description": "Nastaví barevné schéma uživatelského rozhraní.",
+      "light": "Světlý motiv",
+      "dark": "Tmavý motiv",
+      "system": "Použít systémové předvolby"
     },
     "units": {
       "label": "Jednotky",
@@ -179,8 +179,8 @@
     "dismiss": "Odmítnout",
     "okay": "OK",
     "not-now": "Teď ne",
-    "save": "",
-    "edit": ""
+    "save": "Uložit",
+    "edit": "Upravit"
   },
   "dialogs": {
     "error": {
@@ -390,7 +390,7 @@
       "does-not-fit": "Tento úsek se do ulice nevejde.",
       "not-wide": "Tento segment nemusí být dostatečně široký.",
       "too-wide": "Tento segment může být příliš široký.",
-      "dangerous": ""
+      "dangerous": "Tento úsek představuje nebezpečný stávající stav."
     },
     "learn-more": "Zjistěte více",
     "unknown": {
@@ -513,7 +513,7 @@
       "es-mx": "Španělština (Mexiko)",
       "fi": "Finština",
       "fr": "Francouzština",
-      "id": "",
+      "id": "Indonéština",
       "it": "Italština",
       "ja": "Japonština",
       "ko": "Korejština",
