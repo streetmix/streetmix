@@ -185,7 +185,7 @@
     "slugify": "1.6.6",
     "svg-sprite": "2.0.2",
     "swagger-jsdoc": "6.2.8",
-    "swagger-ui-express": "4.6.2",
+    "swagger-ui-express": "4.6.3",
     "uuid": "9.0.0",
     "web-monetization-polyfill": "2.0.0",
     "whatwg-fetch": "3.6.2",
