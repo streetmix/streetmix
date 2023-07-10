@@ -172,7 +172,7 @@
     "react-leaflet": "3.2.5",
     "react-markdown": "8.0.7",
     "react-redux": "8.0.5",
-    "react-spring": "9.7.1",
+    "react-spring": "9.7.2",
     "react-transition-group": "4.4.5",
     "regenerator-runtime": "0.13.11",
     "requireindex": "1.2.0",
