@@ -16,8 +16,8 @@
     "cypress:run": "cypress run",
     "start": "concurrently --names \"SERVER,CLIENT\" -c \"bgBlueBright.bold,bgMagentaBright.bold\" \"npm:dev-server\" \"npm:dev-client\"",
     "serve": "nodemon -r newrelic index.mjs",
-    "build": "parcel build assets/scripts/main.js --dist-dir build --public-url /assets",
-    "dev-client": "parcel watch assets/scripts/main.js --dist-dir build --public-url /assets",
+    "build": "parcel build assets/scripts/main.tsx --dist-dir build --public-url /assets",
+    "dev-client": "parcel watch assets/scripts/main.tsx --dist-dir build --public-url /assets",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.mjs --watch app.mjs index.mjs",
     "test": "npm run lint && npm run jest:watch",
     "lint": "npm run lint:css && npm run lint:js",
@@ -204,6 +204,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
+    "@types/webpack-env": "1.18.1",
     "axios-mock-adapter": "1.21.5",
     "babel-jest": "29.5.0",
     "concurrently": "7.6.0",
@@ -235,6 +236,7 @@
     "stylelint-config-standard-scss": "7.0.1",
     "stylelint-csstree-validator": "2.1.0",
     "stylelint-prettier": "3.0.0",
-    "supertest": "6.3.3"
+    "supertest": "6.3.3",
+    "typescript": "5.1.6"
   }
 }

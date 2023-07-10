@@ -58,7 +58,7 @@ function App () {
 
   // Set color mode on top level DOM element
   useEffect(() => {
-    document.querySelector('html').dataset.colorMode = colorMode
+    document.querySelector('html')!.dataset.colorMode = colorMode
   }, [colorMode])
 
   return (
