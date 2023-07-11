@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { DndProvider } from 'react-dnd'
-import { DirectionProvider } from '@radix-ui/react-direction'
+import { DirectionProvider, Direction } from '@radix-ui/react-direction'
 import MultiBackend from 'react-dnd-multi-backend'
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'
 import NOTIFICATION from '../../../app/data/notification.json'
@@ -17,6 +16,7 @@ import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import ToastContainer from '../ui/Toasts/ToastContainer'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
+import { useSelector, useDispatch } from '../store/hooks'
 import { getInitialFlags } from '../store/slices/flags'
 import DebugInfo from './DebugInfo'
 import BlockingShield from './BlockingShield'
@@ -31,7 +31,7 @@ import Loading from './Loading'
 function App () {
   const [isLoading, setLoading] = useState(true)
   const locale = useSelector((state) => state.locale)
-  const dir = useSelector((state) => state.app.contentDirection)
+  const dir: Direction = useSelector((state) => state.app.contentDirection as Direction) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
   const dispatch = useDispatch()

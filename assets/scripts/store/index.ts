@@ -45,13 +45,18 @@ const store = configureStore({
 
 export default store
 
+// Export types
+// https://redux.js.org/usage/usage-with-typescript#define-root-state-and-dispatch-types
+export type RootState = ReturnType<typeof store.getState>
+export type Dispatch = typeof store.dispatch
+
 // https://redux.js.org/docs/api/Store.html#subscribelistener
 // https://github.com/reactjs/redux/issues/303#issuecomment-125184409
 // It differs from above in the sense that it assumes the store from this module
 // and it does _not_ call handleChange() immediately upon invocation
 // (where it is guaranteed to execute because it has not cached previous state)
-export function observeStore (select, onChange) {
-  let currentState
+export function observeStore (select: (state: RootState) => any, onChange: Function) {
+  let currentState: any
 
   function handleChange () {
     const nextState = select(store.getState())
