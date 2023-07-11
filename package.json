@@ -22,7 +22,7 @@
     "test": "npm run lint && npm run jest:watch",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
-    "lint:js": "eslint --ext .jsx,.js,.mjs,.cjs .",
+    "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.mjs,.cjs .",
     "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
     "translations:download": "node -r dotenv/config bin/download_translations.mjs",
@@ -54,8 +54,8 @@
     "collectCoverageFrom": [
       "app.mjs",
       "app/**/*.{js,mjs,cjs}",
-      "assets/scripts/**/*.{js,jsx}",
-      "!assets/scripts/vendor/**/*.{js,jsx}"
+      "assets/scripts/**/*.{js,jsx,ts,tsx}",
+      "!assets/scripts/vendor/**/*.js"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
@@ -85,7 +85,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,cjs,mjs}": [
+    "*.{js,jsx,ts,tsx,cjs,mjs}": [
       "prettier --write",
       "eslint --fix"
     ],
