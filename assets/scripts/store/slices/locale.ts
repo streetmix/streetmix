@@ -26,7 +26,7 @@ function flattenObject (obj) {
 
 export const changeLocale = createAsyncThunk(
   'locale/changeLocale',
-  async (locale, thunkAPI) => {
+  async (locale) => {
     const messages = await getAppTranslations(locale)
     const segmentInfo = await getSegmentTranslations(locale)
 
@@ -72,7 +72,7 @@ const localeSlice = createSlice({
         document.querySelector('html').lang = locale
       })
 
-      .addCase(changeLocale.rejected, (state, action) => {
+      .addCase(changeLocale.rejected, (state) => {
         state.isLoading = false
         state.requestedLocale = null
       })

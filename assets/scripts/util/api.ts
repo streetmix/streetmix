@@ -1,11 +1,20 @@
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
+import {
+  SentimentComment,
+  SentimentVote,
+  StreetData,
+  UserProfile,
+  UserSettingsData
+} from '../types'
 
 const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'
 const BASE_URL_SERVICES = '/services'
 
 class APIClient {
+  client: AxiosInstance
+
   constructor () {
     this.client = axios.create({
       responseType: 'json'
@@ -15,7 +24,7 @@ class APIClient {
     axiosRetry(this.client, {
       retries: MAX_API_RETRY,
       retryDelay: exponentialDelay,
-      onRetry: function (retryCount, error, requestConfig) {
+      onRetry: function (retryCount) {
         // Displays the "no connection" toast after maximum retry count
         // has been hit.
         // TODO: differentiate between "no internet connection"
@@ -33,49 +42,49 @@ class APIClient {
     return this.client.get(`${BASE_URL_API_V1}/flags`)
   }
 
-  getAppTranslations = (locale) => {
+  getAppTranslations = (locale: string) => {
     return this.client.get(`${BASE_URL_API_V1}/translate/${locale}/main`)
   }
 
-  getSegmentTranslations = (locale) => {
+  getSegmentTranslations = (locale: string) => {
     return this.client.get(
       `${BASE_URL_API_V1}/translate/${locale}/segment-info`
     )
   }
 
   // DEPRECATED: Use RTK Query's api, which caches user data
-  getUser = (userId) => {
+  getUser = (userId: string) => {
     return this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
   }
 
   // Replaces (puts) the `data` object representing user settings
-  putUserSettings = (userId, payload) => {
+  putUserSettings = (userId: string, payload: UserSettingsData) => {
     return this.client.put(`${BASE_URL_API_V1}/users/${userId}`, payload)
   }
 
   // Patches user account information (if allowed)
-  patchUser = (userId, payload) => {
+  patchUser = (userId: string, payload: Partial<UserProfile>) => {
     return this.client.patch(`${BASE_URL_API_V1}/users/${userId}`, payload)
   }
 
-  deleteUserLoginToken = (userId) => {
+  deleteUserLoginToken = (userId: string) => {
     return this.client.delete(`${BASE_URL_API_V1}/users/${userId}/login-token`)
   }
 
-  getGalleryForUser = (userId) => {
+  getGalleryForUser = (userId: string) => {
     return this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
   }
 
   // Optional config is allowed for situations where we need to send a
   // custom header
-  getStreet = (streetId, config = {}) => {
+  getStreet = (streetId: string, config = {}) => {
     return this.client.get(`${BASE_URL_API_V1}/streets/${streetId}`, config)
   }
 
   // Internally, getting street data with UUID (above) is preferred, but
   // public URLs provide only creator ID and namespaced ID for cleaner URLs.
   // Use this method if all we have are those
-  getStreetWithParams = (creatorId, namespacedId) => {
+  getStreetWithParams = (creatorId: string, namespacedId: string) => {
     const params = new URLSearchParams({
       namespacedId: encodeURIComponent(namespacedId)
     })
@@ -86,19 +95,19 @@ class APIClient {
     return this.client.get(`${BASE_URL_API_V1}/streets/?${params.toString()}`)
   }
 
-  postStreet = (payload) => {
+  postStreet = (payload: StreetData) => {
     return this.client.post(`${BASE_URL_API_V1}/streets`, payload)
   }
 
-  putStreet = (streetId, payload) => {
+  putStreet = (streetId: string, payload: StreetData) => {
     return this.client.put(`${BASE_URL_API_V1}/streets/${streetId}`, payload)
   }
 
-  deleteStreet = (streetId) => {
+  deleteStreet = (streetId: string) => {
     return this.client.delete(`${BASE_URL_API_V1}/streets/${streetId}`)
   }
 
-  deleteStreetImage = (streetId) => {
+  deleteStreetImage = (streetId: string) => {
     return this.client.delete(`${BASE_URL_API_V1}/streets/images/${streetId}`)
   }
 
@@ -110,11 +119,11 @@ class APIClient {
     return this.client.get(`${BASE_URL_API_V1}/votes`)
   }
 
-  postSentimentSurveyVote = (payload) => {
+  postSentimentSurveyVote = (payload: SentimentVote) => {
     return this.client.post(`${BASE_URL_API_V1}/votes`, payload)
   }
 
-  putSentimentSurveyComment = (payload) => {
+  putSentimentSurveyComment = (payload: SentimentComment) => {
     return this.client.put(`${BASE_URL_API_V1}/votes`, payload)
   }
 

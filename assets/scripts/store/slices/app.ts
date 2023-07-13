@@ -23,15 +23,15 @@ const appSlice = createSlice({
       }
     },
 
-    startPrinting (state, action) {
+    startPrinting (state) {
       state.printing = true
     },
 
-    stopPrinting (state, action) {
+    stopPrinting (state) {
       state.printing = false
     },
 
-    everythingLoaded (state, action) {
+    everythingLoaded (state) {
       state.everythingLoaded = true
     }
   },
