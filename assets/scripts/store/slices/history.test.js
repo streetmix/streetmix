@@ -7,7 +7,7 @@ import reducer, {
   undo,
   redo,
   MAX_UNDO_LIMIT
-} from './undo'
+} from './history'
 
 describe('undo reducer', () => {
   const initialState = {

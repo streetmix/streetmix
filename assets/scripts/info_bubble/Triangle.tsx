@@ -1,12 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import './Triangle.scss'
 
-Triangle.propTypes = {
-  highlight: PropTypes.bool
+interface Props {
+  highlight: boolean;
 }
 
-function Triangle ({ highlight = false }) {
+function Triangle ({ highlight = false }: Props) {
   const triangleClassNames = ['info-bubble-triangle']
 
   if (highlight === true) {

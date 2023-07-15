@@ -16,7 +16,7 @@ import {
   updateStreetData,
   updateEditCount
 } from '../store/slices/street'
-import { resetUndoStack } from '../store/slices/undo'
+import { resetUndoStack } from '../store/slices/history'
 import store from '../store'
 import { getSegmentVariantInfo } from '../segments/info'
 import { DEFAULT_ENVIRONS } from './constants'

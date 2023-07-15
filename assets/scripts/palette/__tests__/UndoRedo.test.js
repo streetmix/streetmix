@@ -16,7 +16,7 @@ describe('UndoRedo', () => {
   it('handles clicking undo button', async () => {
     render(<UndoRedo />, {
       initialState: {
-        undo: {
+        history: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 1
         }
@@ -34,7 +34,7 @@ describe('UndoRedo', () => {
   it('handles clicking redo button', async () => {
     render(<UndoRedo />, {
       initialState: {
-        undo: {
+        history: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 0
         }

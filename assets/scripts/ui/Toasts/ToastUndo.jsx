@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
-import { handleUndo } from '../../store/actions/undo'
+import { handleUndo } from '../../store/actions/history'
 import Toast from './Toast'
 
 function ToastUndo (props) {

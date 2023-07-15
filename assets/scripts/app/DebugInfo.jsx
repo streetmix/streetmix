@@ -18,7 +18,7 @@ function DebugInfo (props) {
   const settings = useSelector((state) => state.settings || {})
   const street = useSelector((state) => state.street || {})
   const flags = useSelector((state) => state.flags || {})
-  const undo = useSelector((state) => state.undo || {})
+  const history = useSelector((state) => state.history || {})
   const user = useSelector((state) => state.user || {})
 
   // Register keyboard input for show (shift-D)
@@ -51,7 +51,7 @@ function DebugInfo (props) {
   useLayoutEffect(() => {
     if (isVisible) {
       textareaEl.current.value = JSON.stringify(
-        { street, user, settings, flags, undo },
+        { street, user, settings, flags, history },
         null,
         2
       )
@@ -63,7 +63,7 @@ function DebugInfo (props) {
         textareaEl.current.scrollTop = 0
       }, 0)
     }
-  }, [isVisible, settings, street, flags, undo, user])
+  }, [isVisible, settings, street, flags, history, user])
 
   // This should only be called when the debug window becomes invisible.
   // This will also be called once during component initialization, that
