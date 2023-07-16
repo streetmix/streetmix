@@ -2,13 +2,13 @@ import React from 'react'
 import './Triangle.scss'
 
 interface Props {
-  highlight: boolean;
+  highlight: boolean
 }
 
-function Triangle ({ highlight = false }: Props) {
+function Triangle ({ highlight = false }: Props): React.ReactElement {
   const triangleClassNames = ['info-bubble-triangle']
 
-  if (highlight === true) {
+  if (highlight) {
     triangleClassNames.push('info-bubble-triangle-highlight')
   }
 

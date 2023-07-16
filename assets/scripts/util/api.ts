@@ -1,16 +1,18 @@
-import axios, { AxiosInstance } from 'axios'
+import axios, { type AxiosInstance, type AxiosResponse } from 'axios'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
 import {
-  SentimentComment,
-  SentimentVote,
-  StreetData,
-  UserProfile,
-  UserSettingsData
+  type SentimentComment,
+  type SentimentVote,
+  type StreetData,
+  type UserProfile,
+  type UserSettingsData
 } from '../types'
 
 const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'
 const BASE_URL_SERVICES = '/services'
+
+type APIResponse = Promise<AxiosResponse<any, any>>
 
 class APIClient {
   client: AxiosInstance
@@ -38,53 +40,59 @@ class APIClient {
     })
   }
 
-  getFlags = () => {
-    return this.client.get(`${BASE_URL_API_V1}/flags`)
+  getFlags = async (): APIResponse => {
+    return await this.client.get(`${BASE_URL_API_V1}/flags`)
   }
 
-  getAppTranslations = (locale: string) => {
-    return this.client.get(`${BASE_URL_API_V1}/translate/${locale}/main`)
+  getAppTranslations = async (locale: string): APIResponse => {
+    return await this.client.get(`${BASE_URL_API_V1}/translate/${locale}/main`)
   }
 
-  getSegmentTranslations = (locale: string) => {
-    return this.client.get(
+  getSegmentTranslations = async (locale: string): APIResponse => {
+    return await this.client.get(
       `${BASE_URL_API_V1}/translate/${locale}/segment-info`
     )
   }
 
   // DEPRECATED: Use RTK Query's api, which caches user data
-  getUser = (userId: string) => {
-    return this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
+  getUser = async (userId: string): APIResponse => {
+    return await this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
   }
 
   // Replaces (puts) the `data` object representing user settings
-  putUserSettings = (userId: string, payload: UserSettingsData) => {
-    return this.client.put(`${BASE_URL_API_V1}/users/${userId}`, payload)
+  putUserSettings = async (
+    userId: string,
+    payload: UserSettingsData
+  ): APIResponse => {
+    return await this.client.put(`${BASE_URL_API_V1}/users/${userId}`, payload)
   }
 
   // Patches user account information (if allowed)
-  patchUser = (userId: string, payload: Partial<UserProfile>) => {
-    return this.client.patch(`${BASE_URL_API_V1}/users/${userId}`, payload)
+  patchUser = async (userId: string, payload: Partial<UserProfile>): APIResponse => {
+    return await this.client.patch(`${BASE_URL_API_V1}/users/${userId}`, payload)
   }
 
-  deleteUserLoginToken = (userId: string) => {
-    return this.client.delete(`${BASE_URL_API_V1}/users/${userId}/login-token`)
+  deleteUserLoginToken = async (userId: string): APIResponse => {
+    return await this.client.delete(`${BASE_URL_API_V1}/users/${userId}/login-token`)
   }
 
-  getGalleryForUser = (userId: string) => {
-    return this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
+  getGalleryForUser = async (userId: string): APIResponse => {
+    return await this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
   }
 
   // Optional config is allowed for situations where we need to send a
   // custom header
-  getStreet = (streetId: string, config = {}) => {
-    return this.client.get(`${BASE_URL_API_V1}/streets/${streetId}`, config)
+  getStreet = async (streetId: string, config = {}): APIResponse => {
+    return await this.client.get(`${BASE_URL_API_V1}/streets/${streetId}`, config)
   }
 
   // Internally, getting street data with UUID (above) is preferred, but
   // public URLs provide only creator ID and namespaced ID for cleaner URLs.
   // Use this method if all we have are those
-  getStreetWithParams = (creatorId: string, namespacedId: string) => {
+  getStreetWithParams = async (
+    creatorId: string,
+    namespacedId: string
+  ): APIResponse => {
     const params = new URLSearchParams({
       namespacedId: encodeURIComponent(namespacedId)
     })
@@ -92,47 +100,47 @@ class APIClient {
     if (creatorId) {
       params.append('creatorId', encodeURIComponent(creatorId))
     }
-    return this.client.get(`${BASE_URL_API_V1}/streets/?${params.toString()}`)
+    return await this.client.get(`${BASE_URL_API_V1}/streets/?${params.toString()}`)
   }
 
-  postStreet = (payload: StreetData) => {
-    return this.client.post(`${BASE_URL_API_V1}/streets`, payload)
+  postStreet = async (payload: StreetData): APIResponse => {
+    return await this.client.post(`${BASE_URL_API_V1}/streets`, payload)
   }
 
-  putStreet = (streetId: string, payload: StreetData) => {
-    return this.client.put(`${BASE_URL_API_V1}/streets/${streetId}`, payload)
+  putStreet = async (streetId: string, payload: StreetData): APIResponse => {
+    return await this.client.put(`${BASE_URL_API_V1}/streets/${streetId}`, payload)
   }
 
-  deleteStreet = (streetId: string) => {
-    return this.client.delete(`${BASE_URL_API_V1}/streets/${streetId}`)
+  deleteStreet = async (streetId: string): APIResponse => {
+    return await this.client.delete(`${BASE_URL_API_V1}/streets/${streetId}`)
   }
 
-  deleteStreetImage = (streetId: string) => {
-    return this.client.delete(`${BASE_URL_API_V1}/streets/images/${streetId}`)
+  deleteStreetImage = async (streetId: string): APIResponse => {
+    return await this.client.delete(`${BASE_URL_API_V1}/streets/images/${streetId}`)
   }
 
-  getGalleryForAllStreets = () => {
-    return this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
+  getGalleryForAllStreets = async (): APIResponse => {
+    return await this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
   }
 
-  getSentimentSurveyStreet = () => {
-    return this.client.get(`${BASE_URL_API_V1}/votes`)
+  getSentimentSurveyStreet = async (): APIResponse => {
+    return await this.client.get(`${BASE_URL_API_V1}/votes`)
   }
 
-  postSentimentSurveyVote = (payload: SentimentVote) => {
-    return this.client.post(`${BASE_URL_API_V1}/votes`, payload)
+  postSentimentSurveyVote = async (payload: SentimentVote): APIResponse => {
+    return await this.client.post(`${BASE_URL_API_V1}/votes`, payload)
   }
 
-  putSentimentSurveyComment = (payload: SentimentComment) => {
-    return this.client.put(`${BASE_URL_API_V1}/votes`, payload)
+  putSentimentSurveyComment = async (payload: SentimentComment): APIResponse => {
+    return await this.client.put(`${BASE_URL_API_V1}/votes`, payload)
   }
 
-  getChangelog = () => {
-    return this.client.get(`${BASE_URL_SERVICES}/changelog`)
+  getChangelog = async (): APIResponse => {
+    return await this.client.get(`${BASE_URL_SERVICES}/changelog`)
   }
 
-  getGeoIp = () => {
-    return this.client.get(`${BASE_URL_SERVICES}/geoip`)
+  getGeoIp = async (): APIResponse => {
+    return await this.client.get(`${BASE_URL_SERVICES}/geoip`)
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { DndProvider } from 'react-dnd'
-import { DirectionProvider, Direction } from '@radix-ui/react-direction'
+import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import MultiBackend from 'react-dnd-multi-backend'
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'
 import NOTIFICATION from '../../../app/data/notification.json'
@@ -28,24 +28,27 @@ import NotificationBar from './NotificationBar'
 import { setStreetSectionTop } from './window_resize'
 import Loading from './Loading'
 
-function App () {
+function App (): React.ReactElement {
   const [isLoading, setLoading] = useState(true)
   const locale = useSelector((state) => state.locale)
-  const dir: Direction = useSelector((state) => state.app.contentDirection as Direction) // TODO use real type
+  const dir: Direction = useSelector(
+    (state) => state.app.contentDirection as Direction
+  ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
   const dispatch = useDispatch()
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
-    const init = async () => {
+    const init = async (): Promise<void> => {
       // Initialize feature flags
       await dispatch(getInitialFlags())
 
       // Turn off loading after initial loading is done
       setLoading(false)
     }
-    init()
+
+    void init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -58,6 +61,8 @@ function App () {
 
   // Set color mode on top level DOM element
   useEffect(() => {
+    // Element is guaranteed to exist
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.querySelector('html')!.dataset.colorMode = colorMode
   }, [colorMode])
 

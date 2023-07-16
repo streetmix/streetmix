@@ -8,7 +8,7 @@ import { getAppTranslations, getSegmentTranslations } from '../../util/api'
 // ES6-ported function from https://gist.github.com/penguinboy/762197
 // Ignores arrays and passes them through unchanged.
 // Does not address null values, since the responses from the server will not be containing those.
-function flattenObject (obj) {
+function flattenObject (obj): object {
   const toReturn = {}
   let flatObject
   Object.keys(obj).forEach((i) => {

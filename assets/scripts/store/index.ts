@@ -20,7 +20,7 @@
  * For more info: https://redux-toolkit.js.org/
  *
  */
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, type Unsubscribe } from '@reduxjs/toolkit'
 import reducers from './reducers'
 import { streetmixApi } from './services/api'
 
@@ -47,8 +47,8 @@ export default store
 
 // Export types
 // https://redux.js.org/usage/usage-with-typescript#define-root-state-and-dispatch-types
-export type RootState = ReturnType<typeof store.getState>;
-export type Dispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type Dispatch = typeof store.dispatch
 
 // https://redux.js.org/docs/api/Store.html#subscribelistener
 // https://github.com/reactjs/redux/issues/303#issuecomment-125184409
@@ -58,10 +58,10 @@ export type Dispatch = typeof store.dispatch;
 export function observeStore<T> (
   select: (state: RootState) => T,
   onChange: (selected: T) => void
-) {
+): Unsubscribe {
   let currentState: T | undefined
 
-  function handleChange () {
+  function handleChange (): void {
     const nextState = select(store.getState())
     if (nextState !== currentState) {
       currentState = nextState

@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react'
+import React, { type MouseEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import Button from '../ui/Button'
@@ -6,13 +6,13 @@ import Icon from '../ui/Icon'
 import './RemoveButton.scss'
 
 interface Props {
-  segment: number;
+  segment: number
 }
 
-function RemoveButton ({ segment }: Props) {
+function RemoveButton ({ segment }: Props): React.ReactElement {
   const intl = useIntl()
 
-  const handleClick = (event: MouseEvent) => {
+  const handleClick = (event: MouseEvent): void => {
     // Prevent this “leaking” to a segment below
     event.preventDefault()
 

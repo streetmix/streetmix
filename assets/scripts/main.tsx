@@ -48,6 +48,7 @@ if (module?.hot) {
 }
 
 // Mount React components
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('react-app')!
 const root = createRoot(container)
 root.render(
@@ -56,4 +57,4 @@ root.render(
   </Provider>
 )
 
-initialize()
+void initialize()
