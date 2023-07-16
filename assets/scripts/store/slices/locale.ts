@@ -8,7 +8,7 @@ import { getAppTranslations, getSegmentTranslations } from '../../util/api'
 // ES6-ported function from https://gist.github.com/penguinboy/762197
 // Ignores arrays and passes them through unchanged.
 // Does not address null values, since the responses from the server will not be containing those.
-function flattenObject (obj) {
+function flattenObject (obj): object {
   const toReturn = {}
   let flatObject
   Object.keys(obj).forEach((i) => {
@@ -26,7 +26,7 @@ function flattenObject (obj) {
 
 export const changeLocale = createAsyncThunk(
   'locale/changeLocale',
-  async (locale, thunkAPI) => {
+  async (locale) => {
     const messages = await getAppTranslations(locale)
     const segmentInfo = await getSegmentTranslations(locale)
 
@@ -72,7 +72,7 @@ const localeSlice = createSlice({
         document.querySelector('html').lang = locale
       })
 
-      .addCase(changeLocale.rejected, (state, action) => {
+      .addCase(changeLocale.rejected, (state) => {
         state.isLoading = false
         state.requestedLocale = null
       })

@@ -16,13 +16,13 @@
     "cypress:run": "cypress run",
     "start": "concurrently --names \"SERVER,CLIENT\" -c \"bgBlueBright.bold,bgMagentaBright.bold\" \"npm:dev-server\" \"npm:dev-client\"",
     "serve": "nodemon -r newrelic index.mjs",
-    "build": "parcel build assets/scripts/main.js --dist-dir build --public-url /assets",
-    "dev-client": "parcel watch assets/scripts/main.js --dist-dir build --public-url /assets",
+    "build": "parcel build assets/scripts/main.tsx --dist-dir build --public-url /assets",
+    "dev-client": "parcel watch assets/scripts/main.tsx --dist-dir build --public-url /assets",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.mjs --watch app.mjs index.mjs",
     "test": "npm run lint && npm run jest:watch",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
-    "lint:js": "eslint --ext .jsx,.js,.mjs,.cjs .",
+    "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.mjs,.cjs .",
     "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
     "translations:download": "node -r dotenv/config bin/download_translations.mjs",
@@ -54,8 +54,8 @@
     "collectCoverageFrom": [
       "app.mjs",
       "app/**/*.{js,mjs,cjs}",
-      "assets/scripts/**/*.{js,jsx}",
-      "!assets/scripts/vendor/**/*.{js,jsx}"
+      "assets/scripts/**/*.{js,jsx,ts,tsx}",
+      "!assets/scripts/vendor/**/*.js"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
@@ -85,7 +85,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,cjs,mjs}": [
+    "*.{js,jsx,ts,tsx,cjs,mjs}": [
       "prettier --write",
       "eslint --fix"
     ],
@@ -117,6 +117,7 @@
     "@streetmix/illustrations": "2.1.1",
     "@tippyjs/react": "4.2.6",
     "@transifex/api": "5.1.0",
+    "@types/auth0-js": "9.21.0",
     "auth0": "3.3.0",
     "auth0-js": "9.21.0",
     "autoprefixer": "10.4.13",
@@ -196,6 +197,7 @@
     "@babel/eslint-parser": "7.21.3",
     "@babel/preset-env": "7.21.5",
     "@babel/preset-react": "7.22.5",
+    "@babel/preset-typescript": "7.22.5",
     "@commitlint/cli": "17.6.5",
     "@commitlint/config-conventional": "17.6.3",
     "@faker-js/faker": "8.0.2",
@@ -204,6 +206,10 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
+    "@types/jest": "29.5.3",
+    "@types/webpack-env": "1.18.1",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
     "axios-mock-adapter": "1.21.5",
     "babel-jest": "29.5.0",
     "concurrently": "7.6.0",
@@ -212,6 +218,8 @@
     "eslint-config-standard": "17.1.0",
     "eslint-config-standard-jsx": "11.0.0",
     "eslint-config-standard-react": "13.0.0",
+    "eslint-config-standard-with-typescript": "36.1.0",
+    "eslint-import-resolver-typescript": "3.5.5",
     "eslint-plugin-cypress": "2.13.2",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-n": "16.0.0",
@@ -235,6 +243,7 @@
     "stylelint-config-standard-scss": "7.0.1",
     "stylelint-csstree-validator": "2.1.0",
     "stylelint-prettier": "3.0.0",
-    "supertest": "6.3.3"
+    "supertest": "6.3.3",
+    "typescript": "5.1.6"
   }
 }

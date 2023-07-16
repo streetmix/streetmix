@@ -13,7 +13,7 @@ import street from '../slices/street'
 import system from '../slices/system'
 import toasts from '../slices/toasts'
 import ui from '../slices/ui'
-import undo from '../slices/undo'
+import history from '../slices/history'
 import user from '../slices/user'
 
 const reducers = {
@@ -23,6 +23,7 @@ const reducers = {
   errors,
   flags,
   gallery,
+  history,
   infoBubble,
   locale,
   map,
@@ -32,7 +33,6 @@ const reducers = {
   system,
   toasts,
   ui,
-  undo,
   user
 }
 

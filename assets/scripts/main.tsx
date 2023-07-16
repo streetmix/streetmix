@@ -38,17 +38,18 @@ if (
 ) {
   Sentry.init({
     dsn: 'https://fac2c23600414d2fb78c128cdbdeaf6f@sentry.io/82756',
-    whitelistUrls: [/streetmix\.net/, /www\.streetmix\.net/]
+    allowUrls: [/streetmix\.net/, /www\.streetmix\.net/]
   })
 }
 
 // Accept HMR in Parcel
-if (module && module.hot) {
+if (module?.hot) {
   module.hot.accept()
 }
 
 // Mount React components
-const container = document.getElementById('react-app')
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const container = document.getElementById('react-app')!
 const root = createRoot(container)
 root.render(
   <Provider store={store}>
@@ -56,4 +57,4 @@ root.render(
   </Provider>
 )
 
-initialize()
+void initialize()

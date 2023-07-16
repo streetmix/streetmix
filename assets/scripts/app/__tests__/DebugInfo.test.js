@@ -9,7 +9,7 @@ describe('DebugInfo', () => {
     settings: {},
     street: {},
     flags: {},
-    undo: {},
+    history: {},
     user: {}
   }
 

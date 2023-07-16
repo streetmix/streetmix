@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { DndProvider } from 'react-dnd'
-import { DirectionProvider } from '@radix-ui/react-direction'
+import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import MultiBackend from 'react-dnd-multi-backend'
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'
 import NOTIFICATION from '../../../app/data/notification.json'
@@ -17,6 +16,7 @@ import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import ToastContainer from '../ui/Toasts/ToastContainer'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
+import { useSelector, useDispatch } from '../store/hooks'
 import { getInitialFlags } from '../store/slices/flags'
 import DebugInfo from './DebugInfo'
 import BlockingShield from './BlockingShield'
@@ -28,24 +28,27 @@ import NotificationBar from './NotificationBar'
 import { setStreetSectionTop } from './window_resize'
 import Loading from './Loading'
 
-function App () {
+function App (): React.ReactElement {
   const [isLoading, setLoading] = useState(true)
   const locale = useSelector((state) => state.locale)
-  const dir = useSelector((state) => state.app.contentDirection)
+  const dir: Direction = useSelector(
+    (state) => state.app.contentDirection as Direction
+  ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
   const dispatch = useDispatch()
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
-    const init = async () => {
+    const init = async (): Promise<void> => {
       // Initialize feature flags
       await dispatch(getInitialFlags())
 
       // Turn off loading after initial loading is done
       setLoading(false)
     }
-    init()
+
+    void init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -58,7 +61,9 @@ function App () {
 
   // Set color mode on top level DOM element
   useEffect(() => {
-    document.querySelector('html').dataset.colorMode = colorMode
+    // Element is guaranteed to exist
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    document.querySelector('html')!.dataset.colorMode = colorMode
   }, [colorMode])
 
   return (

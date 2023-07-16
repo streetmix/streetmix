@@ -6,11 +6,11 @@ import Button from '../ui/Button'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import { ICON_UNDO, ICON_REDO } from '../ui/icons'
 import { isOwnedByCurrentUser } from '../streets/owner'
-import { handleUndo, handleRedo } from '../store/actions/undo'
+import { handleUndo, handleRedo } from '../store/actions/history'
 
 function UndoRedo (props) {
-  const undoPosition = useSelector((state) => state.undo.position)
-  const undoStack = useSelector((state) => state.undo.stack)
+  const undoPosition = useSelector((state) => state.history.position)
+  const undoStack = useSelector((state) => state.history.stack)
   const [source, target] = useSingleton()
   const dispatch = useDispatch()
   const intl = useIntl()

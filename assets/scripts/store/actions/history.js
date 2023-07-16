@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { undo, redo } from '../slices/undo'
+import { undo, redo } from '../slices/history'
 import { addToast } from '../slices/toasts'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { finishUndoOrRedo } from '../../streets/undo_stack'
@@ -13,9 +13,9 @@ import { formatMessage } from '../../locales/locale'
 // So we can't define these actions alongside the slice.
 
 export const handleUndo = createAsyncThunk(
-  'undo/handleUndo',
+  'history/handleUndo',
   function (arg, { dispatch, getState }) {
-    const { position } = getState().undo
+    const { position } = getState().history
     const { street } = getState()
 
     // Don’t allow undo/redo unless you own the street
@@ -36,9 +36,9 @@ export const handleUndo = createAsyncThunk(
 )
 
 export const handleRedo = createAsyncThunk(
-  'undo/handleRedo',
+  'history/handleRedo',
   function (arg, { dispatch, getState }) {
-    const { position, stack } = getState().undo
+    const { position, stack } = getState().history
 
     // Don’t allow undo/redo unless you own the street
     if (

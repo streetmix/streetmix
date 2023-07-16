@@ -1,10 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import './LoadingSpinner.scss'
 
-const SPINNER_SIZES = {
-  NORMAL: 'normal',
-  SMALL: 'small'
+interface Props {
+  size: 'normal' | 'small'
 }
 
 /**
@@ -16,18 +14,14 @@ const SPINNER_SIZES = {
  * The `size` prop allows you to create a smaller spinner ideal for inline
  * UI situations, but the size can also be overriden via CSS (see stylesheet).
  */
-function LoadingSpinner ({ size }) {
+function LoadingSpinner ({ size }: Props): React.ReactElement {
   const classNames = ['loading-spinner']
 
-  if (size === SPINNER_SIZES.SMALL) {
+  if (size === 'small') {
     classNames.push('loading-spinner-small')
   }
 
   return <div className={classNames.join(' ')} />
-}
-
-LoadingSpinner.propTypes = {
-  size: PropTypes.oneOf(Object.values(SPINNER_SIZES))
 }
 
 export default LoadingSpinner

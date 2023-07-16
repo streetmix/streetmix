@@ -31,7 +31,7 @@ import {
   updateStreetData
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
-import { resetUndoStack, replaceUndoStack } from '../store/slices/undo'
+import { resetUndoStack, replaceUndoStack } from '../store/slices/history'
 import { makeDefaultStreet } from './creation'
 import { NEW_STREET_EMPTY } from './constants'
 import {

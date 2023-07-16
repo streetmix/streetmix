@@ -1,13 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../store/hooks'
 
-ExternalLink.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
-  href: PropTypes.string.isRequired
+interface Props {
+  children: React.ReactNode
+  href: string
 }
 
-function ExternalLink ({ children, href, ...restProps }) {
+function ExternalLink ({
+  children,
+  href,
+  ...restProps
+}: Props): React.ReactNode {
   const offline = useSelector((state) => state.system.offline)
 
   if (offline) {
