@@ -66,13 +66,25 @@
       "plugins": ["@typescript-eslint", "import"],
       "extends": [
         "plugin:@typescript-eslint/recommended",
-        "plugin:import/typescript"
+        "plugin:import/typescript",
+        "standard-with-typescript"
       ],
       "settings": {
         "import/resolver": {
           "typescript": true,
           "node": true
         }
+      },
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
+      "rules": {
+        "@typescript-eslint/strict-boolean-expressions": [
+          2,
+          {
+            "allowString": true
+          }
+        ]
       }
     }
   ],

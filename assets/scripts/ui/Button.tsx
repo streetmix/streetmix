@@ -15,18 +15,18 @@ import './Button.scss'
 
 interface Props
   extends Partial<
-    React.ButtonHTMLAttributes<HTMLButtonElement> &
-      React.AnchorHTMLAttributes<HTMLAnchorElement>
+  React.ButtonHTMLAttributes<HTMLButtonElement> &
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
   > {
-  children?: React.ReactNode;
-  className?: string;
-  type?: 'button' | 'submit';
-  href?: string;
+  children?: React.ReactNode
+  className?: string
+  type?: 'button' | 'submit'
+  href?: string
   // Warning: while in theory these are mutually exclusive,
   // nothing enforces it!
-  primary?: boolean;
-  secondary?: boolean;
-  tertiary?: boolean;
+  primary?: boolean
+  secondary?: boolean
+  tertiary?: boolean
 }
 
 const Button = forwardRef(
@@ -35,10 +35,10 @@ const Button = forwardRef(
       children,
       className = '',
       type = 'button',
-      href,
-      primary,
-      secondary,
-      tertiary,
+      href = '',
+      primary = false,
+      secondary = false,
+      tertiary = false,
       ...props
     }: Props,
     ref: React.Ref<HTMLButtonElement | HTMLAnchorElement>
