@@ -12,10 +12,10 @@ const systemSlice = createSlice({
             .matches)) ||
       false,
     safari:
-      (navigator.userAgent.indexOf('Safari') !== -1 &&
-        navigator.userAgent.indexOf('Chrome') === -1) ||
+      (navigator.userAgent.includes('Safari') &&
+        !navigator.userAgent.includes('Chrome')) ||
       false,
-    windows: navigator.userAgent.indexOf('Windows') !== -1 || false,
+    windows: navigator.userAgent.includes('Windows') || false,
     offline: false,
     devicePixelRatio: window.devicePixelRatio || 1.0
   },
