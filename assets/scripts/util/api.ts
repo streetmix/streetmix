@@ -12,7 +12,7 @@ const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'
 const BASE_URL_SERVICES = '/services'
 
-type APIResponse = Promise<AxiosResponse<any, any>>
+type APIResponse = Promise<AxiosResponse>
 
 class APIClient {
   client: AxiosInstance
@@ -68,12 +68,20 @@ class APIClient {
   }
 
   // Patches user account information (if allowed)
-  patchUser = async (userId: string, payload: Partial<UserProfile>): APIResponse => {
-    return await this.client.patch(`${BASE_URL_API_V1}/users/${userId}`, payload)
+  patchUser = async (
+    userId: string,
+    payload: Partial<UserProfile>
+  ): APIResponse => {
+    return await this.client.patch(
+      `${BASE_URL_API_V1}/users/${userId}`,
+      payload
+    )
   }
 
   deleteUserLoginToken = async (userId: string): APIResponse => {
-    return await this.client.delete(`${BASE_URL_API_V1}/users/${userId}/login-token`)
+    return await this.client.delete(
+      `${BASE_URL_API_V1}/users/${userId}/login-token`
+    )
   }
 
   getGalleryForUser = async (userId: string): APIResponse => {
@@ -83,7 +91,10 @@ class APIClient {
   // Optional config is allowed for situations where we need to send a
   // custom header
   getStreet = async (streetId: string, config = {}): APIResponse => {
-    return await this.client.get(`${BASE_URL_API_V1}/streets/${streetId}`, config)
+    return await this.client.get(
+      `${BASE_URL_API_V1}/streets/${streetId}`,
+      config
+    )
   }
 
   // Internally, getting street data with UUID (above) is preferred, but
@@ -100,7 +111,9 @@ class APIClient {
     if (creatorId) {
       params.append('creatorId', encodeURIComponent(creatorId))
     }
-    return await this.client.get(`${BASE_URL_API_V1}/streets/?${params.toString()}`)
+    return await this.client.get(
+      `${BASE_URL_API_V1}/streets/?${params.toString()}`
+    )
   }
 
   postStreet = async (payload: StreetData): APIResponse => {
@@ -108,7 +121,10 @@ class APIClient {
   }
 
   putStreet = async (streetId: string, payload: StreetData): APIResponse => {
-    return await this.client.put(`${BASE_URL_API_V1}/streets/${streetId}`, payload)
+    return await this.client.put(
+      `${BASE_URL_API_V1}/streets/${streetId}`,
+      payload
+    )
   }
 
   deleteStreet = async (streetId: string): APIResponse => {
@@ -116,7 +132,9 @@ class APIClient {
   }
 
   deleteStreetImage = async (streetId: string): APIResponse => {
-    return await this.client.delete(`${BASE_URL_API_V1}/streets/images/${streetId}`)
+    return await this.client.delete(
+      `${BASE_URL_API_V1}/streets/images/${streetId}`
+    )
   }
 
   getGalleryForAllStreets = async (): APIResponse => {
@@ -131,7 +149,9 @@ class APIClient {
     return await this.client.post(`${BASE_URL_API_V1}/votes`, payload)
   }
 
-  putSentimentSurveyComment = async (payload: SentimentComment): APIResponse => {
+  putSentimentSurveyComment = async (
+    payload: SentimentComment
+  ): APIResponse => {
     return await this.client.put(`${BASE_URL_API_V1}/votes`, payload)
   }
 
