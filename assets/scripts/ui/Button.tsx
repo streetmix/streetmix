@@ -13,7 +13,7 @@
 import React, { forwardRef } from 'react'
 import './Button.scss'
 
-interface ButtonProps
+interface Props
   extends Partial<
     React.ButtonHTMLAttributes<HTMLButtonElement> &
       React.AnchorHTMLAttributes<HTMLAnchorElement>
@@ -40,7 +40,7 @@ const Button = forwardRef(
       secondary,
       tertiary,
       ...props
-    }: ButtonProps,
+    }: Props,
     ref: React.Ref<HTMLButtonElement | HTMLAnchorElement>
   ) => {
     const classNames = ['btn']
