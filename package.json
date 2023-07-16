@@ -189,7 +189,7 @@
     "uuid": "9.0.0",
     "web-monetization-polyfill": "2.0.0",
     "whatwg-fetch": "3.6.2",
-    "winston": "3.8.2"
+    "winston": "3.9.0"
   },
   "devDependencies": {
     "@babel/core": "7.21.0",
