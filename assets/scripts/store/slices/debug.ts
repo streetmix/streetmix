@@ -1,16 +1,26 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
+
+interface DebugState {
+  forceLeftHandTraffic: boolean
+  forceNonRetina: boolean
+  forceOfflineMode: boolean
+  forceReadOnly: boolean
+}
+
+const initialState: DebugState = {
+  forceLeftHandTraffic: false,
+  forceNonRetina: false,
+  forceOfflineMode: false,
+  forceReadOnly: false
+}
 
 const debugSlice = createSlice({
   name: 'debug',
-  initialState: {
-    forceLeftHandTraffic: false,
-    forceNonRetina: false,
-    forceOfflineMode: false,
-    forceReadOnly: false
-  },
+  initialState,
 
   reducers: {
-    setDebugFlags (state, action) {
+    setDebugFlags (state, action: PayloadAction<DebugState>) {
       return {
         ...state,
         ...action.payload

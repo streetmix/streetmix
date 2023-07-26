@@ -1,34 +1,46 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
+import type { StreetClass } from '../../types'
 import { GALLERY_MODES } from '../../gallery/constants'
+
+interface GalleryState {
+  visible: boolean
+  instant: boolean
+  userId: string | null
+  mode: string
+  streets: StreetClass[]
+}
+
+const initialState: GalleryState = {
+  visible: false,
+  instant: false,
+  userId: null,
+  mode: GALLERY_MODES.NONE,
+  streets: []
+}
 
 export const gallerySlice = createSlice({
   name: 'gallery',
-  initialState: {
-    visible: false,
-    instant: false,
-    userId: null,
-    mode: GALLERY_MODES.NONE,
-    streets: []
-  },
+  initialState,
 
   reducers: {
-    showGallery (state, action) {
+    showGallery (state, action: PayloadAction<GalleryState['userId']>) {
       state.visible = true
       state.userId = action.payload
       state.mode = GALLERY_MODES.NONE
     },
 
-    hideGallery (state, action) {
+    hideGallery (state, action: PayloadAction<undefined>) {
       state.visible = false
     },
 
-    deleteGalleryStreet (state, action) {
+    deleteGalleryStreet (state, action: PayloadAction<StreetClass['id']>) {
       state.streets = state.streets.filter((street) => {
         return street.id !== action.payload
       })
     },
 
-    setGalleryUserId (state, action) {
+    setGalleryUserId (state, action: PayloadAction<GalleryState['userId']>) {
       state.userId = action.payload
     }
   },

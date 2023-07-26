@@ -1,23 +1,31 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
+
+interface ErrorState {
+  errorType: number | null
+  abortEverything: boolean
+}
+
+const initialState: ErrorState = {
+  errorType: null,
+  abortEverything: false
+}
 
 const errorsSlice = createSlice({
   name: 'errors',
-  initialState: {
-    errorType: null,
-    abortEverything: false
-  },
+  initialState,
 
   reducers: {
     showError: {
-      reducer (state, action) {
+      reducer (state, action: PayloadAction<ErrorState>) {
         state.errorType = action.payload.errorType
         state.abortEverything = action.payload.abortEverything
       },
-      prepare (errorType, abortEverything) {
+      prepare (errorType: number | null, abortEverything: boolean) {
         return {
           payload: {
             errorType,
-            abortEverything: !!abortEverything
+            abortEverything
           }
         }
       }

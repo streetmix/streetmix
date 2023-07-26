@@ -2,19 +2,42 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { DEFAULT_LOCALE } from '../../locales/constants'
 import { getAppTranslations, getSegmentTranslations } from '../../util/api'
 
+interface LocaleState {
+  locale: string
+  messages: object
+  segmentInfo: object
+  isLoading: boolean
+  requestedLocale: string | null
+}
+
+const initialState: LocaleState = {
+  locale: DEFAULT_LOCALE,
+  messages: {},
+  segmentInfo: {},
+  isLoading: false,
+  requestedLocale: null
+}
+
 // Flattens a nested object from translation response, e.g.
 // { key1: { key2: "string" }} => { "key1.key2": "string" }
 // This is because react-intl expects to look up translations this way.
 // ES6-ported function from https://gist.github.com/penguinboy/762197
 // Ignores arrays and passes them through unchanged.
 // Does not address null values, since the responses from the server will not be containing those.
-function flattenObject (obj): object {
-  const toReturn = {}
-  let flatObject
-  Object.keys(obj).forEach((i) => {
+// type NestedObjectValues = string | string[] | Record<string, NestedObjectValues>
+
+type NestedObjectValues = string | string[] | NestedStringObject
+interface NestedStringObject extends Record<string, NestedObjectValues> {}
+
+function flattenObject (
+  obj: NestedObjectValues
+): Record<string, string | string[]> {
+  const toReturn: Record<string, string | string[]> = {}
+  let flatObject: Record<string, string | string[]>
+  Object.keys(obj).forEach((i: string) => {
     if (typeof obj[i] === 'object' && !Array.isArray(obj[i])) {
       flatObject = flattenObject(obj[i])
-      Object.keys(flatObject).forEach((x) => {
+      Object.keys(flatObject).forEach((x: string) => {
         toReturn[i + '.' + x] = flatObject[x]
       })
     } else {
@@ -26,7 +49,7 @@ function flattenObject (obj): object {
 
 export const changeLocale = createAsyncThunk(
   'locale/changeLocale',
-  async (locale) => {
+  async (locale: string) => {
     const messages = await getAppTranslations(locale)
     const segmentInfo = await getSegmentTranslations(locale)
 
@@ -42,13 +65,7 @@ export const changeLocale = createAsyncThunk(
 
 const localeSlice = createSlice({
   name: 'locale',
-  initialState: {
-    locale: DEFAULT_LOCALE,
-    messages: {},
-    segmentInfo: {},
-    isLoading: false,
-    requestedLocale: null
-  },
+  initialState,
 
   reducers: {},
 
@@ -69,7 +86,10 @@ const localeSlice = createSlice({
         state.isLoading = false
         state.requestedLocale = null
 
-        document.querySelector('html').lang = locale
+        const el = document.querySelector('html')
+        if (el) {
+          el.lang = locale
+        }
       })
 
       .addCase(changeLocale.rejected, (state) => {

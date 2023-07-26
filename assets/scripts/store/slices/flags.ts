@@ -1,9 +1,18 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import FEATURE_FLAGS from '../../../../app/data/flags'
+import type { FeatureFlagDefinition, FeatureFlags } from '../../types'
+import FEATURE_FLAGS from '../../../../app/data/flags.json'
 import { getFlags } from '../../util/api'
 
-function generateInitialFlags (flags) {
-  return Object.entries(flags).reduce((obj, item) => {
+interface FeatureFlagSetting extends FeatureFlagDefinition {
+  value: boolean
+  source: 'initial' | 'session'
+}
+
+interface FeatureFlagState extends Record<string, FeatureFlagSetting> {}
+
+function generateInitialFlags (flags: FeatureFlags): FeatureFlagState {
+  return Object.entries(flags).reduce((obj: FeatureFlagState, item) => {
     const [key, value] = item
     obj[key] = {
       // Keep all original properties
@@ -32,7 +41,10 @@ const flagsSlice = createSlice({
   initialState: generateInitialFlags(FEATURE_FLAGS),
 
   reducers: {
-    setFeatureFlag (state, action) {
+    setFeatureFlag (
+      state,
+      action: PayloadAction<{ flag: string, value: boolean }>
+    ) {
       const flag = state[action.payload.flag]
       state[action.payload.flag] = {
         ...flag,
@@ -41,7 +53,7 @@ const flagsSlice = createSlice({
       }
     },
 
-    setFlagOverrides (state, action) {
+    setFlagOverrides (state, action: PayloadAction<FeatureFlagState>) {
       return {
         ...state,
         ...action.payload

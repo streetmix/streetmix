@@ -81,3 +81,26 @@ export interface SentimentComment {
   id: string
   comment: string
 }
+
+export interface LatLngObject {
+  lat: number
+  lng: number
+}
+
+export interface ToastItem {
+  mode?: string
+  component?: string
+  title?: string
+  message: string
+  action?: string
+  duration?: number
+  timestamp: number
+}
+
+export interface FeatureFlagDefinition {
+  label: string
+  defaultValue: boolean
+  enabled?: boolean
+}
+
+export interface FeatureFlags extends Record<string, FeatureFlagDefinition> {}
