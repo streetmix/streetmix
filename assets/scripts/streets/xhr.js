@@ -265,7 +265,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   const street = clone(transmission.data.street)
-  street.creatorId = (transmission.creator && transmission.creator.id) || null
+  street.creatorId = transmission.creatorId || null
   street.originalStreetId = transmission.originalStreetId || null
   street.updatedAt = transmission.updatedAt || null
   street.clientUpdatedAt = transmission.clientUpdatedAt || null

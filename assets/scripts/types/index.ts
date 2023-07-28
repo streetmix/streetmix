@@ -25,10 +25,6 @@ export interface UserProfile {
   data: UserSettings
 }
 
-export interface StreetCreator {
-  id: string
-}
-
 export interface Segment {
   id: string
   type: string
@@ -68,7 +64,7 @@ export interface Street {
   createdAt: Date
   updatedAt: Date
   originalStreetId: string
-  creator: StreetCreator
+  creatorId: string
 }
 
 export interface SentimentVote {
