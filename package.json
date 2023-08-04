@@ -16,7 +16,7 @@
     "cypress:run": "cypress run",
     "start": "concurrently --names \"SERVER,CLIENT\" -c \"bgBlueBright.bold,bgMagentaBright.bold\" \"npm:dev-server\" \"npm:dev-client\"",
     "serve": "nodemon -r newrelic index.mjs",
-    "build": "parcel build assets/scripts/main.tsx --dist-dir build --public-url /assets",
+    "build": "parcel build assets/scripts/main.tsx --dist-dir build --public-url /assets && npm run sentry:sourcemaps",
     "dev-client": "parcel watch assets/scripts/main.tsx --dist-dir build --public-url /assets",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.mjs --watch app.mjs index.mjs",
     "test": "npm run lint && npm run jest:watch",
@@ -32,7 +32,8 @@
     "pretest:models": "NODE_ENV=test npm run db:migrate",
     "test:models": "NODE_ENV=test jest --watchAll --testPathPattern=app/db/models/_tests_",
     "posttest:models": "NODE_ENV=test npm run db:reset",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ./build && sentry-cli sourcemaps upload --org streetmix --project streetmix ./build"
   },
   "jest": {
     "testEnvironment": "jsdom",
