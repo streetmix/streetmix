@@ -99,4 +99,4 @@ export interface FeatureFlagDefinition {
   enabled?: boolean
 }
 
-export interface FeatureFlags extends Record<string, FeatureFlagDefinition> {}
+export type FeatureFlags = Record<string, FeatureFlagDefinition>
