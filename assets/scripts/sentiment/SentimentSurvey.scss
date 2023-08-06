@@ -82,6 +82,7 @@
     padding: 0 0.5em;
     transition: 300ms opacity;
     opacity: 1;
+    border: 0;
   }
 
   button.sentiment-button:not(:disabled):hover .sentiment-icon,
