@@ -211,6 +211,30 @@ app.get('/terms-of-service', (req, res) =>
   res.redirect('https://about.streetmix.net/terms-of-use/')
 )
 
+// Attach API docs in non-production environments
+if (process.env.NODE_ENV !== 'production') {
+  const options = {
+    definition: {
+      info: {
+        title: 'Streetmix',
+        version: process.env.npm_package_version
+      }
+    },
+    apis: ['app/api_routes.mjs', 'app/service_routes.mjs']
+  }
+  const displayOptions = {
+    customCss: '.swagger-ui .topbar { display: none }'
+  }
+  const swaggerSpec = swaggerJSDoc(options)
+
+  // This route must be defined before the catch-all handler of `/api/*`
+  app.use(
+    '/api/docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, displayOptions)
+  )
+}
+
 // API routes
 app.use('/api', apiRoutes)
 app.use('/services', serviceRoutes)
@@ -225,31 +249,6 @@ app.all('/images/*', (req, res) => {
 app.all('/assets/*', (req, res) => {
   res.status(404).render('404')
 })
-
-// Allow hot-module reloading (HMR)
-// and attach API docs
-// in non-production environments
-// In production bundle immediately and exit.
-if (process.env.NODE_ENV === 'production') {
-  const options = {
-    definition: {
-      info: {
-        title: 'Streetmix', // Title (required)
-        version: '0.1.0' // Version (required)
-      }
-    },
-    apis: ['./app/api_routes.js', './app/service_routes.js']
-  }
-  const displayOptions = {
-    customCss: '.swagger-ui .topbar { display: none }'
-  }
-  const swaggerSpec = swaggerJSDoc(options)
-  app.use(
-    '/api-docs',
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerSpec, displayOptions)
-  )
-}
 
 app.get(
   ['/:user_id/:namespacedId', '/:user_id/:namespacedId/:street_name'],
