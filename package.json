@@ -8,8 +8,8 @@
   },
   "license": "AGPL-3.0-or-later",
   "engines": {
-    "node": ">=16.x",
-    "npm": ">=8.x"
+    "node": ">=18.x",
+    "npm": ">=9.x"
   },
   "scripts": {
     "cypress:open": "cypress open",

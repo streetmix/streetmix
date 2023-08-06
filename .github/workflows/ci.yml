@@ -15,10 +15,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     # Use the current LTS version of Node.js
-    - name: Use Node.js 18
+    - name: Use Node.js 20
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '20'
     - run: npm ci
     - run: npm run lint
 
@@ -30,7 +30,7 @@ jobs:
       # Use current LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [18.x, 20.x]
     env:
       NODE_ENV: test
       HUSKY: "0"
