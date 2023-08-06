@@ -115,6 +115,7 @@
     "@radix-ui/react-switch": "1.0.3",
     "@reduxjs/toolkit": "1.9.3",
     "@sentry/browser": "7.49.0",
+    "@sentry/cli": "2.20.4",
     "@streetmix/illustrations": "2.1.1",
     "@tippyjs/react": "4.2.6",
     "@transifex/api": "5.1.0",
