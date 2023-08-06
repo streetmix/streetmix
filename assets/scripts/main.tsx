@@ -43,7 +43,7 @@ if (
 }
 
 // Accept HMR in Parcel
-if (typeof module !== 'undefined' && module?.hot) {
+if (module?.hot) {
   module.hot.accept()
 }
 
