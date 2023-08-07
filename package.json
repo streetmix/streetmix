@@ -121,7 +121,7 @@
     "@transifex/api": "5.1.0",
     "@types/auth0-js": "9.21.0",
     "auth0": "3.6.0",
-    "auth0-js": "9.21.0",
+    "auth0-js": "9.22.1",
     "autoprefixer": "10.4.13",
     "axios": "1.4.0",
     "axios-retry": "3.5.0",
