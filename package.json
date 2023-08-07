@@ -215,7 +215,7 @@
     "axios-mock-adapter": "1.21.5",
     "babel-jest": "29.6.2",
     "concurrently": "7.6.0",
-    "cypress": "12.17.2",
+    "cypress": "12.17.3",
     "eslint": "8.43.0",
     "eslint-config-standard": "17.1.0",
     "eslint-config-standard-jsx": "11.0.0",
