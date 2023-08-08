@@ -74,9 +74,9 @@
   },
   "settings": {
     "heading": "설정",
-    "info-tooltip": "",
+    "info-tooltip": "설명",
     "general": {
-      "label": ""
+      "label": "일반"
     },
     "appearance": {
       "label": ""
@@ -85,8 +85,8 @@
       "label": "언어"
     },
     "profile": {
-      "label": "",
-      "username": "",
+      "label": "프로필",
+      "username": "사용자 이름",
       "username-description": "",
       "display-name": "",
       "display-name-description": "",
@@ -100,10 +100,10 @@
       "silly-clowns-description": ""
     },
     "theme": {
-      "label": "",
+      "label": "테마",
       "description": "",
-      "light": "",
-      "dark": "",
+      "light": "라이트 모드",
+      "dark": "다크 모드",
       "system": ""
     },
     "units": {
@@ -143,11 +143,11 @@
     "reload-sign-out-title": "다른 창에서 로그아웃 되었습니다.",
     "gallery-street-failure-description": "스트리트를 로딩하는 데 문제가 있습니다.",
     "reload-sign-in-title": "다른 창에서 로그인 되었습니다.",
-    "please-reload": "",
+    "please-reload": "스트리트믹스로 돌아가기 위해 새로고침 해주세요.",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "이 스트리트는 다른 곳에서 삭제되었습니다.",
     "street-deleted-elsewhere-description": "이 스트리트는 다른 브라우저에서 삭제되었습니다.",
-    "auth-expired": "",
+    "auth-expired": "장시간 활동이 없어 자동으로 로그아웃 되었습니다.",
     "sign-in-again": "",
     "access-denied-title": "로그인 상태가 아닙니다.",
     "access-denied-description": "로그인 과정을 취소하였습니다.",
@@ -158,7 +158,7 @@
     "unsupported-browser-title": "다른 브라우저를 사용해주세요.",
     "unsupported-browser-description": "죄송합니다. <chrome_link>크롬</chrome_link>, <firefox_link>파이어폭스</firefox_link>, <edge_link>마이크로소프트 엣지</edge_link>, 또는 사파리로 시도해주세요.",
     "unsupported-browser-internet-explorer": "인터넷 익스플로러를 사용하고 계신가요? <a>그럼 여기서 더 알아보세요.</a>",
-    "unsupported-browser-contact-us": "",
+    "unsupported-browser-contact-us": "브라우저 지원을 원하시면<a>이메일</a>로 연락주세요.",
     "cannot-create-new-street-on-phone-title": "스트리트믹스는 태블릿과 데스크탑에서만 작동합니다.",
     "cannot-create-new-street-on-phone-description": "핸드폰에서는 링크를 통해 특정 스트리트를 확인할 수는 있지만, 새로운 스트리트를 생성할 수는 없습니다.",
     "generic-error-title": "뭔가 잘못됐네요.",
@@ -179,8 +179,8 @@
     "dismiss": "무시하기",
     "okay": "오케이!",
     "not-now": "",
-    "save": "",
-    "edit": ""
+    "save": "저장",
+    "edit": "수정"
   },
   "dialogs": {
     "error": {
@@ -191,7 +191,7 @@
       "heading": "스트리트믹스에 오신 것을 환영합니다.",
       "new": {
         "intro": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 나무나 자전거 도로를 추가하거나, 보도나 차선를 넓히는 나의 디자인이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
-        "instruction": "",
+        "instruction": "세그먼트를 이동하여 시작하세요.",
         "instruct": "{pointer}로 일부 세그먼트를 이동하여 시작하세요.",
         "instruct-pointer-finger": "손가락",
         "instruct-pointer-mouse": "마우스"
@@ -213,17 +213,17 @@
       "heading": "스트리트믹스 소개",
       "description": "스트리트를 디자인하고, 리믹스하고, 공유해보세요. 자전거 도로를 추가하고, 보도나 차선를 넓히고, 이 모든 것들이 커뮤니티에 어떤 영향을 줄 수 있는지 알아보세요.",
       "team-heading": "프로젝트 팀 및 관리자",
-      "partners": "",
-      "sponsors": "",
+      "partners": "파트너",
+      "sponsors": "스폰서",
       "sponsored-by": "스트리트믹스는 다음에 의해 후원됩니다:",
       "donate-link": "재정 지원하기",
       "tos-link": "서비스 약관",
       "privacy-link": "개인 보호 정책",
-      "acknowledgements": "",
-      "font-designed-by": "",
-      "emoji-by": "",
-      "icons-by": "",
-      "license-label": ""
+      "acknowledgements": "알림문",
+      "font-designed-by": "{fontAuthor}의 {fontName} 폰트",
+      "emoji-by": "{author}의 이모지.",
+      "icons-by": "{author}의 아이콘",
+      "license-label": "(<a>라이센스</a>)"
     },
     "analytics": {
       "export-csv": "CSV로 내보내기",
@@ -303,17 +303,17 @@
       "description": "",
       "email-label": "",
       "field-required-error": "",
-      "subscribe": "",
-      "subscribe-pending": "",
+      "subscribe": "구독",
+      "subscribe-pending": "기다려 주세요...",
       "ok-message": "",
       "error-message": ""
     }
   },
   "tools": {
-    "tooltip": "",
+    "tooltip": "토글 툴",
     "environment": {
       "tooltip": "",
-      "heading": ""
+      "heading": "환경"
     }
   },
   "prompt": {
@@ -367,8 +367,8 @@
     "delete-street": "스트리트 삭제",
     "segment-width": "세그먼트의 폭 변경",
     "building-height": "층 개수 변경",
-    "street-width": "",
-    "geotag": "",
+    "street-width": "거리 폭 변경",
+    "geotag": "장소 변경",
     "increase-width": "폭 늘리기 (정확도를 높이려면 Shift 키를 누르세요)",
     "decrease-width": "폭 줄이기 (정확도를 높이려면 Shift 키를 누르세요)",
     "add-floor": "층 추가",
@@ -447,9 +447,9 @@
     "locked": {
       "label": "",
       "soon": "",
-      "sub": "",
+      "sub": "스트리트믹스+ 로 업그레이드하세요!",
       "sub-edit": "",
-      "user": "",
+      "user": "로그인 해주세요!",
       "action": ""
     },
     "prompt": {
@@ -466,20 +466,20 @@
   "sentiment": {
     "prompt": {
       "intro": "",
-      "joyful": "",
-      "choose-one": ""
+      "joyful": "지금 이 거리는 얼마나 <em>행복</em>해 보이시나요?",
+      "choose-one": "(하나를 선택해주세요)"
     },
     "answer": {
-      "rating-1": "",
-      "rating-2": "",
-      "rating-3": "",
-      "rating-4": "",
-      "rating-5": ""
+      "rating-1": "절대 아님",
+      "rating-2": "너무 많지 않게",
+      "rating-3": "그럭저럭",
+      "rating-4": "조금",
+      "rating-5": "꽤 많이"
     },
     "sign-in-prompt": "",
-    "about-link": "",
-    "about-text": "",
-    "thank-you": "",
+    "about-link": "이건 뭔가요?",
+    "about-text": "해당 설문은 사람들이 어떻게 거리를 바라보는 지 도와줍니다.",
+    "thank-you": "감사합니다!",
     "about-header": "",
     "about-article": {
       "paragraph-1": "",
@@ -489,12 +489,12 @@
     "done": {
       "response": "",
       "vote-another": "",
-      "really-done": ""
+      "really-done": "완료!"
     },
     "comment": {
       "prompt": "",
-      "example": "",
-      "submit": "",
+      "example": "(예를 들어, \"나무들이 좋아요.\")",
+      "submit": "제출",
       "thanks": ""
     }
   },
@@ -503,7 +503,7 @@
       "am": "",
       "ar": "아랍어",
       "ca": "카탈로니아어",
-      "cs": "",
+      "cs": "체코어",
       "de": "독일어",
       "en": "영어",
       "en-gb": "",
@@ -513,7 +513,7 @@
       "es-mx": "스페인어 (멕시코)",
       "fi": "핀란드어",
       "fr": "프랑스어",
-      "id": "",
+      "id": "인도네시아어",
       "it": "이탈리아어",
       "ja": "일본어",
       "ko": "한국어",
@@ -521,10 +521,10 @@
       "nl-nl": "",
       "pl": "폴란드어",
       "pt-br": "포르투갈어 (브라질)",
-      "ro-ro": "",
+      "ro-ro": "루마니아어",
       "ru": "러시아어",
       "sv": "스웨덴어",
-      "tr": "",
+      "tr": "터키어",
       "zh": "중국어",
       "zh-hans": "중국어 간체",
       "zh-hant": "중국어 번체"
