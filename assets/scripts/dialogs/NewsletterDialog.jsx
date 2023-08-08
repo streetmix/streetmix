@@ -28,7 +28,7 @@ function jsObjectToFormBody (data) {
 
 const NewsletterDialog = (props) => {
   const { register, handleSubmit } = useForm({
-    shouldUseNativeValidation: true
+    progressive: true
   })
   const [submitState, setSubmitState] = useState('DEFAULT')
 
