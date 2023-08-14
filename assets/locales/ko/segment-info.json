@@ -1,11 +1,11 @@
 {
   "segments": {
     "sidewalk": "보도",
-    "pedestrian": "",
+    "pedestrian": "보행자",
     "sidewalk-tree": "가로수",
     "bike-rack": "자전거 거치대",
     "bench": "벤치",
-    "outdoor-dining": "",
+    "outdoor-dining": "야외 다이닝",
     "cafe-seating": "카페 좌석",
     "wayfinding-sign": "길찾기 표지판",
     "sidewalk-lamp": "가로등",
@@ -103,7 +103,7 @@
       "name": "건물"
     },
     "arcade": {
-      "name": ""
+      "name": "아케이드 건물"
     },
     "compound-wall": {
       "name": ""
@@ -157,14 +157,14 @@
     "car-type|av": "자율주행차",
     "car-type|motorcycle": "오토바이",
     "car-type|motorcycle-sidecar": "사이드카",
-    "car-type|pedestrian": "",
+    "car-type|pedestrian": "보행자",
     "public-transit-asphalt|regular": "아스팔트",
     "public-transit-asphalt|colored": "적색 차선",
     "public-transit-asphalt|grass": "풀",
     "bus-asphalt|regular": "아스팔트",
     "bus-asphalt|colored": "적색 차선",
     "bus-asphalt|shared": "버스/자전거 공유 차로",
-    "bus-type|typical": "",
+    "bus-type|typical": "일반 버스",
     "bus-type|double-decker": "",
     "bus-type|av-shuttle": "",
     "brt-station-orientation|left": "왼쪽 방향",
@@ -208,7 +208,7 @@
     "flex-type|taxi": "택시",
     "occupants|empty": "비어있는",
     "occupants|full": "가득찬",
-    "occupants|occupied": "",
+    "occupants|occupied": "사용 중",
     "elevation|sidewalk": "보도 높이",
     "elevation|road": "도로 높이",
     "temporary-barrier-type|traffic-cone": "안전 콘",
@@ -217,16 +217,16 @@
     "vendor-type|table": "",
     "vendor-type|tarp": "",
     "vendor-type|platform": "",
-    "ground|concrete": "",
+    "ground|concrete": "콘크리트",
     "ground|asphalt": "아스팔트"
   },
   "environs": {
-    "day": "",
-    "twilight": "",
-    "dusk": "",
-    "dawn": "",
-    "night": "",
-    "karl": "",
-    "holodeck": ""
+    "day": "낮",
+    "twilight": "어스름",
+    "dusk": "해질녘",
+    "dawn": "새벽",
+    "night": "밤",
+    "karl": "안개",
+    "holodeck": "홀로덱"
   }
 }
