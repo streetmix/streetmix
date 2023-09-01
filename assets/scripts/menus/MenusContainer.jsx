@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from 'react'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/slices/menus'
+import { useSelector, useDispatch } from '../store/hooks'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
 import ContactMenu from './ContactMenu'
@@ -12,74 +11,40 @@ import LocaleMenu from './LocaleMenu'
 import ShareMenu from './ShareMenu'
 import './MenusContainer.scss'
 
-class MenusContainer extends React.PureComponent {
-  static propTypes = {
-    showMenu: PropTypes.func.isRequired,
-    clearMenus: PropTypes.func.isRequired,
-    activeMenu: PropTypes.string
-  }
+function MenusContainer () {
+  const activeMenu = useSelector((state) => state.menus)
+  const [activeMenuItemNode, setActiveMenuItemNode] = useState(null)
+  const dispatch = useDispatch()
 
-  static defaultProps = {
-    activeMenu: ''
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      activeMenuItemNode: null
-    }
-  }
-
-  static getDerivedStateFromProps (nextProps, prevState) {
-    // If menus are being cleared, handle this. Since active menu is a prop, it
-    // can be cleared from anywhere, so this handles changes in active menu state.
-    // Clear active menu state only if props have changed from an active menu
-    // state to a no-menu state, this prevents side effects from running needlessly.
-    if (prevState.activeMenuItemNode && !nextProps.activeMenu) {
-      return {
-        activeMenuItemNode: null
-      }
-    }
-
-    return null
-  }
-
-  componentDidMount () {
+  useEffect(() => {
     // Hide menus if page loses visibility.
-    document.addEventListener(
-      'visibilitychange',
-      this.handleVisibilityChange,
-      false
-    )
+    document.addEventListener('visibilitychange', handleVisibilityChange, false)
 
     // Hide menus if a click occurs outside of a menu or menu button
-    document.addEventListener('pointerdown', this.onBodyMouseDown)
+    document.addEventListener('pointerdown', onBodyMouseDown)
 
     // Set up keypress listener to hide menus if visible
-    registerKeypress('esc', this.hideAllMenus)
-  }
+    registerKeypress('esc', hideAllMenus)
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
-    // Force document.body to become the active element when there is no longer an active menu.
-    if (prevProps.activeMenu && !this.props.activeMenu) {
+    return () => {
+      document.removeEventListener(
+        'visibilitychange',
+        handleVisibilityChange,
+        false
+      )
+      document.removeEventListener('pointerdown', onBodyMouseDown)
+      deregisterKeypress('esc', hideAllMenus)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Force document.body to become the active element when there is no longer
+  // an open menu.
+  useEffect(() => {
+    if (!activeMenu) {
       document.body.focus()
     }
-  }
-
-  componentWillUnmount () {
-    document.removeEventListener(
-      'visibilitychange',
-      this.handleVisibilityChange,
-      false
-    )
-    document.removeEventListener('pointerdown', this.onBodyMouseDown)
-    deregisterKeypress('esc', this.hideAllMenus)
-  }
-
-  componentDidCatch (error) {
-    console.log(error)
-  }
+  }, [activeMenu])
 
   /**
    * Callback function passed to the MenuBar component.
@@ -90,13 +55,15 @@ class MenusContainer extends React.PureComponent {
    * @param {string} menu - name of the menu that was clicked
    * @param {HTMLElement} node - reference to the menu item button, used to position menu
    */
-  handleMenuDropdownClick = (menu, node) => {
+  function handleMenuDropdownClick (menu, node) {
     // If the clicked menu is already active, it's toggled off.
-    const activeMenu = this.props.activeMenu === menu ? null : menu
-    this.setState({
-      activeMenuItemNode: activeMenu ? node : null
-    })
-    this.props.showMenu(activeMenu)
+    if (activeMenu === menu) {
+      setActiveMenuItemNode(null)
+      dispatch(showMenu(null))
+    } else {
+      setActiveMenuItemNode(node)
+      dispatch(showMenu(menu))
+    }
   }
 
   /**
@@ -105,74 +72,56 @@ class MenusContainer extends React.PureComponent {
    * This remains in use despite the useOnClickOutside() hook, which
    * can't apply in this situation because we need to listen on two elements.
    */
-  onBodyMouseDown = (event) => {
+  function onBodyMouseDown (event) {
     if (!event.target.closest('.menu, .menu-attached')) {
-      this.hideAllMenus()
+      hideAllMenus()
     }
   }
 
-  handleVisibilityChange = () => {
-    if (document.hidden === true) {
-      this.hideAllMenus()
+  function handleVisibilityChange () {
+    if (document.hidden) {
+      hideAllMenus()
     }
   }
 
-  hideAllMenus = () => {
-    // Only act if there is currently an active menu.
-    if (this.props.activeMenu) {
-      this.props.clearMenus()
-    }
+  function hideAllMenus () {
+    dispatch(clearMenus())
+    setActiveMenuItemNode(null)
   }
 
-  render () {
-    const { activeMenu } = this.props
-    const { activeMenuItemNode } = this.state
-
-    return (
-      <>
-        <MenuBar onMenuDropdownClick={this.handleMenuDropdownClick} />
-        {/* Menus exist on a different z-index layer from the menu bar */}
-        <div className="menus-container">
-          <HelpMenu
-            isActive={activeMenu === 'help'}
-            menuItemNode={activeMenuItemNode}
-          />
-          <ContactMenu
-            isActive={activeMenu === 'contact'}
-            menuItemNode={activeMenuItemNode}
-          />
-          <ContributeMenu
-            isActive={activeMenu === 'contribute'}
-            menuItemNode={activeMenuItemNode}
-          />
-          <LocaleMenu
-            isActive={activeMenu === 'locale'}
-            menuItemNode={activeMenuItemNode}
-          />
-          <ShareMenu
-            isActive={activeMenu === 'share'}
-            menuItemNode={activeMenuItemNode}
-          />
-          <IdentityMenu
-            isActive={activeMenu === 'identity'}
-            menuItemNode={activeMenuItemNode}
-            alignOpposite={true}
-          />
-        </div>
-      </>
-    )
-  }
+  return (
+    <>
+      <MenuBar onMenuDropdownClick={handleMenuDropdownClick} />
+      {/* Menus exist on a different z-index layer from the menu bar */}
+      <div className="menus-container">
+        <HelpMenu
+          isActive={activeMenu === 'help'}
+          menuItemNode={activeMenuItemNode}
+        />
+        <ContactMenu
+          isActive={activeMenu === 'contact'}
+          menuItemNode={activeMenuItemNode}
+        />
+        <ContributeMenu
+          isActive={activeMenu === 'contribute'}
+          menuItemNode={activeMenuItemNode}
+        />
+        <LocaleMenu
+          isActive={activeMenu === 'locale'}
+          menuItemNode={activeMenuItemNode}
+        />
+        <ShareMenu
+          isActive={activeMenu === 'share'}
+          menuItemNode={activeMenuItemNode}
+        />
+        <IdentityMenu
+          isActive={activeMenu === 'identity'}
+          menuItemNode={activeMenuItemNode}
+          alignOpposite={true}
+        />
+      </div>
+    </>
+  )
 }
 
-function mapStateToProps (state) {
-  return {
-    activeMenu: state.menus
-  }
-}
-
-const mapDispatchToProps = {
-  showMenu,
-  clearMenus
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MenusContainer)
+export default MenusContainer
