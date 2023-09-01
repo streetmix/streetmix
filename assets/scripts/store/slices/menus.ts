@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import { showDialog } from './dialogs'
 import { startPrinting } from './app'
 
+const initialState: string | null = null
+
 const menusSlice = createSlice({
   name: 'menus',
-  initialState: null,
+  initialState,
 
   reducers: {
     showMenu (state, action) {

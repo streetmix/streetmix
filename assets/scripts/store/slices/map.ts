@@ -1,7 +1,17 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
+import type { LatLngObject } from '../../types'
 import { clearLocation } from './street'
 
-const initialState = {
+interface MapState {
+  markerLocation: LatLngObject | null
+  // See here for example response format (should we type it?)
+  // https://geocode.earth/docs/reference/response_format/
+  addressInformation: object
+  rawInputString: string | null
+}
+
+const initialState: MapState = {
   markerLocation: null,
   addressInformation: {},
   rawInputString: null
@@ -12,14 +22,14 @@ const mapSlice = createSlice({
   initialState,
 
   reducers: {
-    setMapState (state, action) {
+    setMapState (state, action: PayloadAction<MapState>) {
       return {
         ...state,
         ...action.payload
       }
     },
 
-    resetMapState (state, action) {
+    resetMapState () {
       return initialState
     }
   },

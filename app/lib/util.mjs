@@ -7,9 +7,11 @@ export function asStreetJson (street) {
     data: street.data,
     createdAt: street.createdAt,
     updatedAt: street.updatedAt,
-    originalStreetId: street.originalStreetId
+    originalStreetId: street.originalStreetId,
+    creatorId: street.creatorId
   }
 
+  // Deprecated creator id, do not use.
   if (street.creatorId) {
     json.creator = { id: street.creatorId }
   }

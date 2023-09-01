@@ -25,10 +25,6 @@ export interface UserProfile {
   data: UserSettings
 }
 
-export interface StreetCreator {
-  id: string
-}
-
 export interface Segment {
   id: string
   type: string
@@ -68,7 +64,7 @@ export interface Street {
   createdAt: Date
   updatedAt: Date
   originalStreetId: string
-  creator: StreetCreator
+  creatorId: string
 }
 
 export interface SentimentVote {
@@ -81,3 +77,26 @@ export interface SentimentComment {
   id: string
   comment: string
 }
+
+export interface LatLngObject {
+  lat: number
+  lng: number
+}
+
+export interface ToastItem {
+  mode?: string
+  component?: string
+  title?: string
+  message: string
+  action?: string
+  duration?: number
+  timestamp: number
+}
+
+export interface FeatureFlagDefinition {
+  label: string
+  defaultValue: boolean
+  enabled?: boolean
+}
+
+export type FeatureFlags = Record<string, FeatureFlagDefinition>

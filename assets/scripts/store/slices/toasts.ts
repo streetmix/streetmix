@@ -1,4 +1,6 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
+import type { ToastItem } from '../../types'
 
 /**
  * Toasts are objects with the following signature.
@@ -24,16 +26,18 @@ import { createSlice } from '@reduxjs/toolkit'
  *    TODO: collisions on this are possible, but we can ignore that for now
  */
 
+const initialState: ToastItem[] = []
+
 const toastsSlice = createSlice({
   name: 'toasts',
-  initialState: [],
+  initialState,
 
   reducers: {
     addToast: {
-      reducer (state, action) {
+      reducer (state, action: PayloadAction<ToastItem>) {
         state.push(action.payload)
       },
-      prepare (toast) {
+      prepare (toast: Omit<ToastItem, 'timestamp'>) {
         return {
           payload: {
             ...toast,
@@ -47,7 +51,7 @@ const toastsSlice = createSlice({
       }
     },
 
-    destroyToast (state, action) {
+    destroyToast (state, action: PayloadAction<ToastItem['timestamp']>) {
       return state.filter((item) => item.timestamp !== action.payload)
     }
   }

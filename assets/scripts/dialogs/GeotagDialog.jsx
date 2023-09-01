@@ -179,7 +179,7 @@ function GeotagDialog () {
   const handleMarkerDragEnd = (event) => {
     const latlng = event.target.getLatLng()
     reverseGeocode(latlng).then((res) => {
-      updateMap(latlng, res.features[0].properties, res.features[0].label)
+      updateMap(latlng, res.features[0].properties)
     })
   }
 

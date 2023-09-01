@@ -120,7 +120,7 @@ export const incrementSegmentWidth = (
 
 const createStreetFromResponse = (response) => {
   const street = clone(response.data.street)
-  street.creatorId = (response.creator && response.creator.id) || null
+  street.creatorId = response.creatorId || null
   street.originalStreetId = response.originalStreetId || null
   street.updatedAt = response.updatedAt || null
   street.name = response.name || null

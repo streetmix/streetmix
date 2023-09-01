@@ -1,22 +1,33 @@
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { changeLocale } from './locale'
 
+interface AppState {
+  readOnly: boolean
+  printing: boolean
+  everythingLoaded: boolean
+  contentDirection: 'ltr' | 'rtl'
+  priorLastStreetId: string | null
+}
+
+const initialState: AppState = {
+  readOnly: false,
+  printing: false,
+  everythingLoaded: false,
+  contentDirection: 'ltr',
+
+  // Used to remember the "last street" ID when making a copy of a street
+  // looked at in a previous tab. Its value is copied from the `lastStreetId`
+  // value from the `settings` reducer, so that it can be remembered
+  priorLastStreetId: null
+}
+
 const appSlice = createSlice({
   name: 'app',
-  initialState: {
-    readOnly: false,
-    printing: false,
-    everythingLoaded: false,
-    contentDirection: 'ltr',
-
-    // Used to remember the "last street" ID when making a copy of a street
-    // looked at in a previous tab. Its value is copied from the `lastStreetId`
-    // value from the `settings` reducer, so that it can be remembered
-    priorLastStreetId: null
-  },
+  initialState,
 
   reducers: {
-    setAppFlags (state, action) {
+    setAppFlags (state, action: PayloadAction<AppState>) {
       return {
         ...state,
         ...action.payload
@@ -38,10 +49,9 @@ const appSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(changeLocale.fulfilled, (state, action) => {
-      const direction =
-        ['ar', 'dv', 'fa', 'he'].includes(action.payload.locale)
-          ? 'rtl'
-          : 'ltr'
+      const direction = ['ar', 'dv', 'fa', 'he'].includes(action.payload.locale)
+        ? 'rtl'
+        : 'ltr'
       state.contentDirection = direction
     })
   }
