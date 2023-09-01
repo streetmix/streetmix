@@ -1,19 +1,43 @@
 @import "../../styles/variables";
 
-.debug-info {
+.debug-container {
   position: fixed;
   inset: 0;
   padding: 30px;
   z-index: $z-09-debug;
   background-color: rgb(192 192 192 / 50%);
+  backdrop-filter: blur(4px);
 
-  > textarea {
+  .debug-panel {
     width: 100%;
     height: 100%;
     border: 1px solid lightgray;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
     background-color: whitesmoke;
-    font-family: monospace;
     resize: none;
     box-shadow: 0 0 0 10px white;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 1em;
+      font-family: monospace;
+      resize: none;
+      background-color: #222;
+      color: #35f035;
+
+      &::selection {
+        background-color: #35f035;
+        color: #222;
+      }
+    }
   }
 }

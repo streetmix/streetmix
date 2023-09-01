@@ -1,25 +1,18 @@
-/**
- * DebugInfo.jsx
- *
- * Displays a debugging overlay that shows the current state of the application.
- *
- * @module DebugInfo
- * @requires keypress
- */
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../store/hooks'
 import { loseAnyFocus } from '../util/focus'
 import { useOnClickOutside } from '../ui/useOnClickOutside'
 import './DebugInfo.scss'
 
-function DebugInfo (props) {
-  const textareaEl = useRef(null)
+function DebugInfo (): React.ReactElement | null {
+  const panelEl = useRef<HTMLDivElement>(null)
+  const textareaEl = useRef<HTMLTextAreaElement>(null)
   const [isVisible, setVisible] = useState(false)
-  const settings = useSelector((state) => state.settings || {})
-  const street = useSelector((state) => state.street || {})
-  const flags = useSelector((state) => state.flags || {})
-  const history = useSelector((state) => state.history || {})
-  const user = useSelector((state) => state.user || {})
+  const settings = useSelector((state) => state.settings)
+  const street = useSelector((state) => state.street)
+  const flags = useSelector((state) => state.flags)
+  const history = useSelector((state) => state.history)
+  const user = useSelector((state) => state.user)
 
   // Register keyboard input for show (shift-D)
   useEffect(() => {
@@ -49,6 +42,8 @@ function DebugInfo (props) {
   // Handle DOM effects when show / hide
   // useLayoutEffect helps with timing issues with DOM manipulation
   useLayoutEffect(() => {
+    if (textareaEl.current === null) return
+
     if (isVisible) {
       textareaEl.current.value = JSON.stringify(
         { street, user, settings, flags, history },
@@ -60,7 +55,9 @@ function DebugInfo (props) {
       // Prevent scrolling to bottom of textarea after select
       // NOTE: this is still not 100% deterministic, not sure why
       window.setTimeout(() => {
-        textareaEl.current.scrollTop = 0
+        if (textareaEl.current) {
+          textareaEl.current.scrollTop = 0
+        }
       }, 0)
     }
   }, [isVisible, settings, street, flags, history, user])
@@ -77,28 +74,32 @@ function DebugInfo (props) {
   }, [isVisible])
 
   // Set up handler to close dialogs when clicking outside of it
-  useOnClickOutside(textareaEl, () => setVisible(false))
+  useOnClickOutside(panelEl, () => {
+    setVisible(false)
+  })
 
-  function showDebugInfo (event) {
+  function showDebugInfo (event: KeyboardEvent): void {
+    const el = event.target as HTMLElement
+
     // Do not display debug info when the key combo is pressed inside of an input element
-    if (
-      event.key === 'D' &&
-      /input|textarea/i.test(event.target.tagName) === false
-    ) {
+    if (event.key === 'D' && !/input|textarea/i.test(el?.tagName)) {
       setVisible(true)
     }
   }
 
-  function hideDebugInfo (event) {
+  function hideDebugInfo (event: KeyboardEvent): void {
     if (event.key === 'Esc' || event.key === 'Escape') {
       setVisible(false)
     }
   }
 
-  if (isVisible === true) {
+  if (isVisible) {
     return (
-      <div className="debug-info">
-        <textarea readOnly={true} wrap="off" ref={textareaEl} />
+      <div className="debug-container">
+        <div className="debug-panel" ref={panelEl}>
+          <h2>Debug</h2>
+          <textarea readOnly={true} wrap="off" ref={textareaEl} />
+        </div>
       </div>
     )
   }
