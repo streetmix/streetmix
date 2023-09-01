@@ -3,37 +3,35 @@
  * functionality common to Streetmix's implementation of it
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import Tippy, { useSingleton } from '@tippyjs/react'
+import type { TippyProps } from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/animations/shift-toward.css'
 import './Tooltip.scss'
 
-const TOOLTIP_DEFAULT_PLACEMENT = 'top'
-const TOOLTIP_OFFSET = [0, 10]
-const TOOLTIP_DURATION = 100
-const TOOLTIP_ANIMATION = 'shift-toward'
-const TOOLTIP_DELAY = [150, 0]
+const TOOLTIP_DEFAULT_PLACEMENT: TippyProps['placement'] = 'top'
+const TOOLTIP_OFFSET: TippyProps['offset'] = [0, 10]
+const TOOLTIP_DURATION: TippyProps['duration'] = 100
+const TOOLTIP_ANIMATION: TippyProps['animation'] = 'shift-toward'
+const TOOLTIP_DELAY: TippyProps['delay'] = [150, 0]
 
-Tooltip.propTypes = {
-  placement: PropTypes.string,
-  source: PropTypes.object,
-  target: PropTypes.object,
-  label: PropTypes.string,
-  sublabel: PropTypes.string,
-  children: PropTypes.any
+interface TooltipProps extends TippyProps {
+  source?: TippyProps['singleton']
+  target?: TippyProps['singleton']
+  label?: string
+  sublabel?: string
 }
 
 function Tooltip ({
-  placement = TOOLTIP_DEFAULT_PLACEMENT,
   source,
   target,
   label,
   sublabel,
+  placement = TOOLTIP_DEFAULT_PLACEMENT,
   children,
   ...props
-}) {
-  const renderContent = (label, sublabel) => (
+}: TooltipProps): React.ReactElement {
+  const renderContent = (label = '', sublabel = ''): React.ReactElement => (
     <>
       {label}
       {sublabel && <p>{sublabel}</p>}
@@ -63,7 +61,7 @@ function Tooltip ({
   // We define our standard behavior but these can be overwritten with
   // any of Tippy's props.
   // https://github.com/atomiks/tippyjs-react#-props
-  if (source) {
+  if (typeof source !== 'undefined') {
     return (
       <Tippy
         placement={placement}
@@ -81,7 +79,7 @@ function Tooltip ({
   // hook) we return a <Tippy /> higher-order component (HOC) that wraps the
   // reference element where a tooltip should be displayed. When <Tippy />
   // is used in this way, it doesn't take the same tooltip behavior props.
-  if (target) {
+  if (typeof target !== 'undefined') {
     return (
       <Tippy content={renderContent(label, sublabel)} singleton={target}>
         {children}
