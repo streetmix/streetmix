@@ -19,7 +19,7 @@ const errorsSlice = createSlice({
     showError: {
       reducer (state, action: PayloadAction<ErrorState>) {
         state.errorType = action.payload.errorType
-        state.abortEverything = action.payload.abortEverything
+        state.abortEverything = action.payload.abortEverything || false
       },
       prepare (errorType: number | null, abortEverything: boolean) {
         return {

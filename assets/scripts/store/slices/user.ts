@@ -51,7 +51,6 @@ const userSlice = createSlice({
     setSignInData (state, action: PayloadAction<UserSignInDetails>) {
       state.signInData = action.payload
       state.signedIn = true
-      console.log(action.payload)
 
       if (
         action.payload.details?.roles?.includes(USER_ROLES.SUBSCRIBER_1.value)
