@@ -13,8 +13,10 @@ interface MenuBarItemProps {
   // Otherwise, uses a <FormattedMessage /> component to render menu label
   translation?: string
   label?: string
-  // Tooltip string (optional)
+  // Other optional props
   tooltip?: string
+  target?: string
+  onClick?: (event: React.MouseEvent) => void
 }
 
 export default function MenuBarItem ({
@@ -26,6 +28,7 @@ export default function MenuBarItem ({
   ...restProps
 }: MenuBarItemProps): React.ReactElement {
   let component
+
   if (url !== undefined) {
     if (isExternalUrl(url)) {
       component = (

@@ -1,12 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
-// import { useSelector, useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { IoLanguage } from 'react-icons/io5'
+import type { UserProfile } from '../types'
+import { useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
 import { doSignIn } from '../users/authentication'
-// import { showDialog } from '../store/slices/dialogs'
 import logo from '../../images/logo_horizontal.svg'
 import EnvironmentBadge from './EnvironmentBadge'
 import MenuBarItem from './MenuBarItem'
@@ -15,8 +13,12 @@ import UpgradeButton from './UpgradeButton'
 import AvatarMenu from './AvatarMenu'
 import './MenuBar.scss'
 
-function MenuBar (props) {
-  const user = useSelector((state) => state.user.signInData?.details || null)
+interface MenuBarProps {
+  onMenuDropdownClick: (menu: string, node: HTMLElement) => void
+}
+
+function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
+  const user = useSelector((state) => state.user.signInData?.details)
   const isSubscriber = useSelector(
     (state) => state.user.signedIn && state.user.isSubscriber
   )
@@ -27,9 +29,8 @@ function MenuBar (props) {
       state.flags.LOCALES_LEVEL_2.value ||
       state.flags.LOCALES_LEVEL_3.value
   )
-  // const dispatch = useDispatch()
-  const menuBarRightEl = useRef(null)
-  const menuBarLeftEl = useRef(null)
+  const menuBarRightEl = useRef<HTMLUListElement>(null)
+  const menuBarLeftEl = useRef<HTMLUListElement>(null)
   const intl = useIntl()
 
   const languageLabel = intl.formatMessage({
@@ -59,14 +60,18 @@ function MenuBar (props) {
    * Pass in the name of this menu, and it returns (curries) a function
    * that handles the event.
    */
-  function handleClickMenuButton (menu) {
-    return (event) => {
-      const el = event.target.closest('button')
-      props.onMenuDropdownClick(menu, el)
+  function handleClickMenuButton (
+    menu: string
+  ): (event: React.MouseEvent) => void {
+    return (event: React.MouseEvent) => {
+      const el = (event.target as HTMLElement).closest('button')
+      if (el !== null) {
+        onMenuDropdownClick(menu, el)
+      }
     }
   }
 
-  function handleClickUpgrade (event) {
+  function handleClickUpgrade (): void {
     // dispatch(showDialog('UPGRADE'))
     window.open(
       'https://docs.streetmix.net/user-guide/streetmix-plus',
@@ -74,13 +79,13 @@ function MenuBar (props) {
     )
   }
 
-  function handleWindowResize () {
+  function handleWindowResize (): void {
     // Throw this event so that the StreetName can figure out if it needs
     // to push itself lower than the menubar
     const rightMenuBarLeftPos =
-      menuBarRightEl.current.getBoundingClientRect().left
+      menuBarRightEl.current?.getBoundingClientRect().left
     const leftMenuBarRightPos =
-      menuBarLeftEl.current.getBoundingClientRect().right
+      menuBarLeftEl.current?.getBoundingClientRect().right
     window.dispatchEvent(
       new CustomEvent('stmx:menu_bar_resized', {
         detail: {
@@ -91,14 +96,14 @@ function MenuBar (props) {
     )
   }
 
-  function renderUserAvatar (user) {
+  function renderUserAvatar (user?: UserProfile): React.ReactElement {
     return user
       ? (
         <li>
           <AvatarMenu
             user={user}
             isSubscriber={isSubscriber}
-            onClick={handleClickMenuButton('identity')}
+            onClick={() => handleClickMenuButton('identity')}
           />
         </li>
         )
@@ -159,15 +164,11 @@ function MenuBar (props) {
             </AccessibleIcon>
           </MenuBarItem>
         )}
-        {!offline && renderUserAvatar(user, isSubscriber)}
+        {!offline && renderUserAvatar(user)}
       </ul>
       <EnvironmentBadge />
     </nav>
   )
-}
-
-MenuBar.propTypes = {
-  onMenuDropdownClick: PropTypes.func.isRequired
 }
 
 export default MenuBar
