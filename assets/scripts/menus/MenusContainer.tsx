@@ -11,14 +11,19 @@ import LocaleMenu from './LocaleMenu'
 import ShareMenu from './ShareMenu'
 import './MenusContainer.scss'
 
-function MenusContainer () {
-  const activeMenu = useSelector((state) => state.menus)
-  const [activeMenuItemNode, setActiveMenuItemNode] = useState(null)
+function MenusContainer (): React.ReactElement {
+  const activeMenu = useSelector((state): string | null => state.menus)
+  const [activeMenuItemNode, setActiveMenuItemNode] =
+    useState<HTMLElement | null>(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
     // Hide menus if page loses visibility.
-    document.addEventListener('visibilitychange', handleVisibilityChange, false)
+    document.addEventListener(
+      'visibilitychange',
+      handleVisibilityChange,
+      false
+    )
 
     // Hide menus if a click occurs outside of a menu or menu button
     document.addEventListener('pointerdown', onBodyMouseDown)
@@ -41,7 +46,7 @@ function MenusContainer () {
   // Force document.body to become the active element when there is no longer
   // an open menu.
   useEffect(() => {
-    if (!activeMenu) {
+    if (activeMenu === null) {
       document.body.focus()
     }
   }, [activeMenu])
@@ -55,7 +60,7 @@ function MenusContainer () {
    * @param {string} menu - name of the menu that was clicked
    * @param {HTMLElement} node - reference to the menu item button, used to position menu
    */
-  function handleMenuDropdownClick (menu, node) {
+  function handleMenuDropdownClick (menu: string, node: HTMLElement): void {
     // If the clicked menu is already active, it's toggled off.
     if (activeMenu === menu) {
       setActiveMenuItemNode(null)
@@ -72,19 +77,21 @@ function MenusContainer () {
    * This remains in use despite the useOnClickOutside() hook, which
    * can't apply in this situation because we need to listen on two elements.
    */
-  function onBodyMouseDown (event) {
-    if (!event.target.closest('.menu, .menu-attached')) {
+  function onBodyMouseDown (event: Event): void {
+    if (
+      (event.target as HTMLElement).closest('.menu, .menu-attached') === null
+    ) {
       hideAllMenus()
     }
   }
 
-  function handleVisibilityChange () {
+  function handleVisibilityChange (): void {
     if (document.hidden) {
       hideAllMenus()
     }
   }
 
-  function hideAllMenus () {
+  function hideAllMenus (): void {
     dispatch(clearMenus())
     setActiveMenuItemNode(null)
   }

@@ -13,7 +13,7 @@ const menusSlice = createSlice({
       return action.payload
     },
 
-    clearMenus (state, action) {
+    clearMenus (state) {
       return null
     }
   },
