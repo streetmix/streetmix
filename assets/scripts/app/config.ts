@@ -14,6 +14,8 @@ function parseBoolean (value: string | undefined): boolean {
 }
 
 export const ENV: string | undefined = process.env.NODE_ENV
+export const STREETMIX_INSTANCE: string | undefined =
+  process.env.STREETMIX_INSTANCE
 export const FACEBOOK_APP_ID: string | undefined = process.env.FACEBOOK_APP_ID
 export const OFFLINE_MODE: boolean = parseBoolean(process.env.OFFLINE_MODE)
 export const PELIAS_API_KEY: string | undefined = process.env.PELIAS_API_KEY

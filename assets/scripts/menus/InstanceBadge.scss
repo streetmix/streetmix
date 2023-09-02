@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.environment-badge {
+.instance-badge {
   z-index: $z-02-menu-bar;
   display: none;
   position: absolute;
@@ -17,25 +17,25 @@
   background-color: gray;
   pointer-events: none;
 
-  &.environment-label-development {
+  &.instance-label-development {
     display: inline-block;
     background-color: rgb(200 0 0);
   }
 
-  &.environment-label-staging,
-  &.environment-label-sandbox {
+  &.instance-label-staging,
+  &.instance-label-sandbox {
     display: inline-block;
     background-color: green;
   }
 
-  &.environment-label-demo {
+  &.instance-label-demo {
     display: inline-block;
     background-color: rgb(28 189 209);
   }
 }
 
 [dir="rtl"] {
-  .environment-badge {
+  .instance-badge {
     right: 16px;
     left: auto;
   }

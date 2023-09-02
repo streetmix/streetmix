@@ -6,7 +6,7 @@ import { useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
 import { doSignIn } from '../users/authentication'
 import logo from '../../images/logo_horizontal.svg'
-import EnvironmentBadge from './EnvironmentBadge'
+import InstanceBadge from './InstanceBadge'
 import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import UpgradeButton from './UpgradeButton'
@@ -166,7 +166,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
         )}
         {!offline && renderUserAvatar(user)}
       </ul>
-      <EnvironmentBadge />
+      <InstanceBadge />
     </nav>
   )
 }
