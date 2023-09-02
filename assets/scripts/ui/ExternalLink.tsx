@@ -10,11 +10,11 @@ function ExternalLink ({
   children,
   href,
   ...restProps
-}: Props): React.ReactNode {
+}: Props): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
 
   if (offline) {
-    return children
+    return <>{children}</>
   }
 
   return (

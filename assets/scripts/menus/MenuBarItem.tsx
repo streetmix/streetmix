@@ -1,49 +1,36 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { ChevronDownIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import ExternalLink from '../ui/ExternalLink'
 import Tooltip from '../ui/Tooltip'
 import { isExternalUrl } from '../util/helpers'
 
-MenuBarItem.propTypes = {
+interface MenuBarItemProps {
   // Accepts children to render
-  children: PropTypes.any,
-
+  children?: React.ReactNode
   // If URL is provided, renders using anchor tags intead of buttons
-  url: PropTypes.string,
-
+  url?: string
   // Otherwise, uses a <FormattedMessage /> component to render menu label
-  translation: PropTypes.string,
-  label: PropTypes.string,
-
+  translation?: string
+  label?: string
   // Tooltip string (optional)
-  tooltip: PropTypes.string,
-
-  // Event handlers
-  onClick: PropTypes.func
+  tooltip?: string
 }
 
-export default function MenuBarItem (props) {
-  const {
-    translation = '',
-    label = '',
-    tooltip,
-    url,
-    onClick = () => {},
-    ...restProps
-  } = props
-
-  const children = props.children || (
-    <FormattedMessage id={translation} defaultMessage={label} />
-  )
-
+export default function MenuBarItem ({
+  translation = '',
+  label = '',
+  tooltip,
+  url,
+  children = <FormattedMessage id={translation} defaultMessage={label} />,
+  ...restProps
+}: MenuBarItemProps): React.ReactElement {
   let component
-  if (url) {
+  if (url !== undefined) {
     if (isExternalUrl(url)) {
       component = (
         <li>
-          <ExternalLink href={url} onClick={onClick} {...restProps}>
+          <ExternalLink href={url} {...restProps}>
             {children}
             <ExternalLinkIcon className="menu-external-link" />
           </ExternalLink>
@@ -52,7 +39,7 @@ export default function MenuBarItem (props) {
     } else {
       component = (
         <li>
-          <a href={url} onClick={onClick} {...restProps}>
+          <a href={url} {...restProps}>
             {children}
             <ExternalLinkIcon className="menu-external-link" />
           </a>
@@ -62,7 +49,7 @@ export default function MenuBarItem (props) {
   } else {
     component = (
       <li>
-        <button className="menu-attached" onClick={onClick} {...restProps}>
+        <button className="menu-attached" {...restProps}>
           {children}
           <ChevronDownIcon className="menu-carat-down" />
         </button>
@@ -70,7 +57,7 @@ export default function MenuBarItem (props) {
     )
   }
 
-  if (tooltip) {
+  if (tooltip !== undefined) {
     return (
       <Tooltip label={tooltip} placement="bottom">
         {component}
