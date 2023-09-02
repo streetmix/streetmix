@@ -1,13 +1,13 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { EnvelopeClosedIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
+import { useDispatch } from '../store/hooks'
 import { showDialog } from '../store/slices/dialogs'
 import Menu from './Menu'
 
-function ContactMenu (props) {
+function ContactMenu (props: Record<string, unknown>): React.ReactElement {
   const dispatch = useDispatch()
 
   return (
@@ -43,4 +43,4 @@ function ContactMenu (props) {
   )
 }
 
-export default React.memo(ContactMenu)
+export default ContactMenu

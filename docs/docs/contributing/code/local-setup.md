@@ -295,6 +295,7 @@ These optional keys may be set to adjust functionality.
 | `COOKIE_SESSION_SECRET` | A secret key for verifying the integrity of signed cookies. If your environment can securely generate or rotate secrets, do that. | No |
 | `DEBUG` | If `true`, turns on verbose debug logging. | No |
 | `OFFLINE_MODE` | If `true`, set ["offline mode"](#offline-mode) to make the app work without Internet access. | No |
+| `STREETMIX_INSTANCE` | Streetmix instance identifier | No |
 
 #### Sample .env
 

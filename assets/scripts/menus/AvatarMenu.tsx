@@ -1,20 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
+import type { UserProfile } from '../types'
 import Avatar from '../users/Avatar'
 import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
 import './AvatarMenu.scss'
 
-function AvatarMenu (props) {
-  const { user, isSubscriber = false, onClick = () => {} } = props
+interface AvatarMenuProps {
+  user: UserProfile
+  isSubscriber?: boolean
+  onClick?: () => void
+}
+
+function AvatarMenu ({
+  user,
+  isSubscriber = false,
+  onClick = () => undefined
+}: AvatarMenuProps): React.ReactElement {
   const { formatMessage } = useIntl()
 
-  const subscriberLabel =
-    isSubscriber &&
-    formatMessage({
+  const subscriberLabel = isSubscriber
+    ? formatMessage({
       id: 'users.roles.subscriber',
       defaultMessage: 'Streetmix+ member'
     })
+    : ''
 
   return (
     <button className="menu-attached menu-avatar" onClick={onClick}>
@@ -29,15 +38,6 @@ function AvatarMenu (props) {
       )}
     </button>
   )
-}
-
-AvatarMenu.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    roles: PropTypes.arrayOf(PropTypes.string)
-  }),
-  isSubscriber: PropTypes.bool,
-  onClick: PropTypes.func
 }
 
 export default AvatarMenu

@@ -1,14 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import Button from '../ui/Button'
 import './SignInButton.scss'
 
-SignInButton.propTypes = {
-  onClick: PropTypes.func
+interface SignInButtonProps {
+  onClick: () => void
 }
 
-function SignInButton ({ onClick = () => {} }) {
+function SignInButton ({
+  onClick = () => undefined
+}: SignInButtonProps): React.ReactElement {
   return (
     <Button primary={true} className="menu-sign-in" onClick={onClick}>
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />

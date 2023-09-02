@@ -3,12 +3,19 @@
 exports[`DebugInfo is visible when opened with keyboard shortcut 1`] = `
 <DocumentFragment>
   <div
-    class="debug-info"
+    class="debug-container"
   >
-    <textarea
-      readonly=""
-      wrap="off"
-    />
+    <div
+      class="debug-panel"
+    >
+      <h2>
+        Debug
+      </h2>
+      <textarea
+        readonly=""
+        wrap="off"
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;
