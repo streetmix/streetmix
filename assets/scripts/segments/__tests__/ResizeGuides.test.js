@@ -13,6 +13,11 @@ jest.mock('../view', () => ({
   })
 }))
 
+jest.mock('../../util/helpers', () => ({
+  // Returns mock position information
+  getElRelativePos: () => [50, 0]
+}))
+
 jest.mock('../info', () => ({
   // Function returns mock segment variant info of nothing
   // Specific tests can use `mockImplementation` to make it return other info

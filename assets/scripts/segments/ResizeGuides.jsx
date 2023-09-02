@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { getElRelativePos } from '../util/helpers'
 import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
 import { getSegmentVariantInfo } from './info'
 import { getSegmentEl } from './view'
@@ -50,10 +51,11 @@ function ResizeGuides (props) {
         shouldUseRemainingWidth || Number.isFinite(variantInfo.maxWidth)
 
       // Calculate the centerline of the segment (its left offset plus half its width)
-      // Adjusting the centerline by 1px to the left seems to "look" better
       const el = getSegmentEl(activeSegment)
-      const centerline =
-        el.offsetLeft + (el.cssTransformLeft || 0) + el.offsetWidth / 2 - 1
+      // Get its X position and account for CSS transform position, if any
+      const [posX] = getElRelativePos(el)
+
+      const centerline = posX + el.offsetWidth / 2
 
       setDisplay({
         style: { left: centerline },
