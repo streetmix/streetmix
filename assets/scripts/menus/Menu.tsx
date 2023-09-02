@@ -1,17 +1,27 @@
-import React, { useRef, useCallback, useEffect, useLayoutEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import React, {
+  useRef,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  memo
+} from 'react'
 import { CSSTransition } from 'react-transition-group'
+import { useSelector } from '../store/hooks'
 import './Menu.scss'
 
-Menu.propTypes = {
-  className: PropTypes.string,
-  isActive: PropTypes.bool,
-  menuItemNode: PropTypes.instanceOf(Element),
-  alignOpposite: PropTypes.bool,
-  onShow: PropTypes.func,
-  onHide: PropTypes.func,
-  children: PropTypes.node
+interface MenuProps {
+  className?: string
+  isActive?: boolean
+  menuItemNode?: HTMLDivElement
+  alignOpposite?: boolean
+  onShow?: () => void
+  onHide?: () => void
+  children?: React.ReactNode
+}
+
+interface MenuPosition {
+  left: number
+  top: number
 }
 
 function Menu ({
@@ -19,11 +29,11 @@ function Menu ({
   isActive = false,
   menuItemNode,
   alignOpposite,
-  onShow = () => {},
-  onHide = () => {},
+  onShow = () => undefined,
+  onHide = () => undefined,
   children
-}) {
-  const ref = useRef(null)
+}: MenuProps): React.ReactElement {
+  const ref = useRef<HTMLDivElement>(null)
   const contentDirection = useSelector((state) => state.app.contentDirection)
   const handleResize = useCallback(() => {
     updateMenuPosition(
@@ -88,20 +98,15 @@ function Menu ({
 
 /**
  * Determines actual position of the menu, based on the menu item position prop
- * passed in by <MenuBar />
- *
- * @param {Node} el - menu container element
- * @param {Node} menuItemNode - menu content element
- * @param {String} contentDirection - either `ltr` or `rtl`
- * @param {Boolean} alignOpposite - whether element is right-aligned
- * @returns {Object} an object with {left, top} values used for absolute positioning
+ * passed in by <MenuBar />, and returns an object with left and top values for
+ * absolute positioning.
  */
 function getMenuPosition (
-  el,
-  menuItemNode,
-  contentDirection = 'ltr',
-  alignOpposite = false
-) {
+  el: HTMLDivElement | null, // menu container element
+  menuItemNode: HTMLDivElement | undefined, // menu content element
+  contentDirection: 'ltr' | 'rtl' = 'ltr',
+  alignOpposite = false // whether element is right-aligned
+): MenuPosition | undefined {
   if (!el || !menuItemNode) return
 
   // Calculate left position
@@ -112,7 +117,7 @@ function getMenuPosition (
     // If the menu width exceeds the left-most edge, or the `alignOpposite`
     // prop is true, the menu is aligned to the left-most edge
     const right = menuItemNode.offsetLeft + menuItemNode.offsetWidth
-    if (right - el.offsetWidth < 0 || alignOpposite === true) {
+    if (right - el.offsetWidth < 0 || alignOpposite) {
       left = 0
     } else {
       // Otherwise, align menu with the right edge of the menu item
@@ -121,14 +126,12 @@ function getMenuPosition (
   } else {
     // `ltr` content alignment (default)
     // Get maximum (right-most) edge of menu bar
-    const maxXPos = el.parentNode.offsetWidth
+    const parent = el.parentNode as HTMLDivElement
+    const maxXPos = parent?.offsetWidth
 
     // If the menu width exceeds the right-most edge, or the `alignOpposite`
     // prop is true, the menu is aligned to the right-most edge
-    if (
-      menuItemNode.offsetLeft + el.offsetWidth > maxXPos ||
-      alignOpposite === true
-    ) {
+    if (menuItemNode.offsetLeft + el.offsetWidth > maxXPos || alignOpposite) {
       left = maxXPos - el.offsetWidth
     } else {
       // Otherwise, align menu with the left edge of the menu item
@@ -146,23 +149,24 @@ function getMenuPosition (
   }
 }
 
-/**
- * Updates menu position
- *
- * @param {Node} el - menu element
- * @param {Node} menuItemNode - menu content element
- * @param {String} contentDirection - either `ltr` or `rtl`
- * @param {Boolean} alignOpposite - whether element is right-aligned
- * @returns {Object} an object with {left, top} values used for absolute positioning
- */
-function updateMenuPosition (el, menuItemNode, contentDirection, alignOpposite) {
-  const pos = getMenuPosition(el, menuItemNode, contentDirection, alignOpposite)
+function updateMenuPosition (
+  el: HTMLDivElement | null, // menu container element
+  menuItemNode: HTMLDivElement | undefined, // menu content element
+  contentDirection: 'ltr' | 'rtl' = 'ltr',
+  alignOpposite = false // whether element is right-aligned
+): void {
+  const pos = getMenuPosition(
+    el,
+    menuItemNode,
+    contentDirection,
+    alignOpposite
+  )
 
   // Set element position and make it visible
-  if (el && pos) {
-    el.style.left = pos.left + 'px'
-    el.style.top = pos.top + 'px'
+  if (el && pos !== undefined) {
+    el.style.left = pos.left.toString() + 'px'
+    el.style.top = pos.top.toString() + 'px'
   }
 }
 
-export default React.memo(Menu)
+export default memo(Menu)
