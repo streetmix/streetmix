@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import {
   Link2Icon,
@@ -9,6 +8,7 @@ import {
 } from '@radix-ui/react-icons'
 import { IoPrintOutline } from 'react-icons/io5'
 import copy from 'copy-to-clipboard'
+import { useSelector, useDispatch } from '../store/hooks'
 import Button from '../ui/Button'
 import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
@@ -24,25 +24,25 @@ import './ShareMenu.scss'
 const LS_SHARE_MASTODON = 'share:mastodon-domain'
 const MASTODON_DEFAULT_DOMAIN = 'mastodon.social'
 
-function ShareMenu (props) {
+function ShareMenu (props: Record<string, unknown>): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
   const signedIn = useSelector((state) => state.user.signedIn || false)
-  const userId = useSelector((state) => state.user.signInData?.userId || '')
+  const userId = useSelector((state) => state.user.signInData?.userId ?? '')
   const street = useSelector((state) => state.street)
   const dispatch = useDispatch()
   const [shareUrl, setShareUrl] = useState('')
-  const shareViaLinkInputRef = useRef(null)
+  const shareViaLinkInputRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
   useEffect(() => {
     updateLinks()
   })
 
-  function updateLinks () {
+  function updateLinks (): void {
     setShareUrl(getSharingUrl())
   }
 
-  function getSharingMessage () {
+  function getSharingMessage (): string {
     let message = ''
 
     if (street.creatorId) {
@@ -102,7 +102,7 @@ function ShareMenu (props) {
     return message
   }
 
-  function handleShow () {
+  function handleShow (): void {
     // Make sure links are updated when the menu is opened
     updateLinks()
 
@@ -114,17 +114,17 @@ function ShareMenu (props) {
     }, 200)
   }
 
-  function handleClickSaveAsImage (event) {
+  function handleClickSaveAsImage (event: React.MouseEvent): void {
     event.preventDefault()
     dispatch(showDialog('SAVE_AS_IMAGE'))
   }
 
-  function handleClickSignIn (event) {
+  function handleClickSignIn (event: React.MouseEvent): void {
     event.preventDefault()
     doSignIn()
   }
 
-  function handleClickPrint (event) {
+  function handleClickPrint (event: React.MouseEvent): void {
     event.preventDefault()
 
     // Manually dispatch printing state here. Workaround for Chrome bug where
@@ -137,18 +137,18 @@ function ShareMenu (props) {
     }, 0)
   }
 
-  function handleShareToMastodon (event) {
+  function handleShareToMastodon (event: React.MouseEvent): void {
     // Get the Mastodon domain. User might have specified one in localstorage,
     // so use it if specified, otherwise use the "main" Mastodon instance
     const domain = window.prompt(
       'Enter your Mastodon instance domain',
-      window.localStorage.getItem(LS_SHARE_MASTODON) || MASTODON_DEFAULT_DOMAIN
+      window.localStorage.getItem(LS_SHARE_MASTODON) ?? MASTODON_DEFAULT_DOMAIN
     )
 
     // Remember the value for later, because a person is likely to be
     // using the same instance for every share
     try {
-      if (domain) {
+      if (domain !== null) {
         window.localStorage.setItem(LS_SHARE_MASTODON, domain)
       } else {
         window.localStorage.removeItem(LS_SHARE_MASTODON)
@@ -159,7 +159,7 @@ function ShareMenu (props) {
     }
 
     // Bail if we don't have a domain
-    if (!domain) return
+    if (domain === null) return
 
     // Build the URL
     const url =
@@ -185,7 +185,7 @@ function ShareMenu (props) {
   const facebookLink =
     'https://www.facebook.com/dialog/feed' +
     '?app_id=' +
-    encodeURIComponent(FACEBOOK_APP_ID) +
+    encodeURIComponent(FACEBOOK_APP_ID ?? '') +
     '&redirect_uri=' +
     encodeURIComponent(shareUrl) +
     '&link=' +
