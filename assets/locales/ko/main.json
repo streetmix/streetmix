@@ -14,7 +14,7 @@
       "share": "공유",
       "store": "스토어",
       "upgrade": "업그레이드",
-      "streetmix-plus": ""
+      "streetmix-plus": "스트리트믹스+ 시작하기"
     },
     "help": {
       "guidebook-link": "가이드북",
@@ -33,8 +33,8 @@
       "copy-to-clipboard": "클립보드로 복사",
       "twitter": "트위터로 공유",
       "facebook": "페이스북으로 공유",
-      "mastodon": "",
-      "3dstreet": "",
+      "mastodon": "Mastodon을 사용하여 공유",
+      "3dstreet": "3DStreet에서 열기",
       "print": "인쇄",
       "save": "이미지로 저장",
       "save-byline": "보고서, 블로그 등에 포함시키기 위한 방법",
@@ -79,7 +79,7 @@
       "label": "일반"
     },
     "appearance": {
-      "label": ""
+      "label": "외관"
     },
     "language": {
       "label": "언어"
@@ -87,24 +87,24 @@
     "profile": {
       "label": "프로필",
       "username": "사용자 이름",
-      "username-description": "",
-      "display-name": "",
-      "display-name-description": "",
-      "display-name-not-set": "",
-      "display-name-error": "",
-      "display-name-characters-remaining": ""
+      "username-description": "당신의 사용자명으로 고유한 계정을 식별합니다.",
+      "display-name": "닉네임",
+      "display-name-description": "상대방에게는 당신의 닉네임으로 표시됩니다.",
+      "display-name-not-set": "아직 닉네임을 설정하지 않았습니다.",
+      "display-name-error": "닉네임을 저장할 수 없습니다.",
+      "display-name-characters-remaining": "남은 문자 수: {currentNum} (최대 {maxNum})"
     },
     "misc": {
-      "label": "",
-      "silly-clowns": "",
-      "silly-clowns-description": ""
+      "label": "기타",
+      "silly-clowns": "광대들",
+      "silly-clowns-description": "부활절 달걀 활성화"
     },
     "theme": {
       "label": "테마",
-      "description": "",
+      "description": "사용자 인터페이스 색 구성표를 설정합니다.",
       "light": "라이트 모드",
       "dark": "다크 모드",
-      "system": ""
+      "system": "시스템 설정 사용"
     },
     "units": {
       "label": "단위",
@@ -128,7 +128,7 @@
       "home": "홈페이지로 이동",
       "sign-in": "다시 로그인",
       "reload": "페이지 새로고침",
-      "return": "",
+      "return": "스트리트믹스로 돌아가기",
       "try-again": "다시 시도",
       "view-example": "예시 스트리트 보기"
     },
@@ -144,17 +144,17 @@
     "gallery-street-failure-description": "스트리트를 로딩하는 데 문제가 있습니다.",
     "reload-sign-in-title": "다른 창에서 로그인 되었습니다.",
     "please-reload": "스트리트믹스로 돌아가기 위해 새로고침 해주세요.",
-    "survey-finished": "",
+    "survey-finished": "설문조사 완료. 감사합니다!",
     "street-deleted-elsewhere-title": "이 스트리트는 다른 곳에서 삭제되었습니다.",
     "street-deleted-elsewhere-description": "이 스트리트는 다른 브라우저에서 삭제되었습니다.",
     "auth-expired": "장시간 활동이 없어 자동으로 로그아웃 되었습니다.",
-    "sign-in-again": "",
+    "sign-in-again": "다시 로그인해 주세요.",
     "access-denied-title": "로그인 상태가 아닙니다.",
     "access-denied-description": "로그인 과정을 취소하였습니다.",
     "auth-api-problem-title": "로그인에 문제가 있습니다.",
     "auth-api-problem-description": "인증에 문제가 있습니다.",
     "please-try-again": "나중에 다시 시도해주시거나 <email_link>이메일</email_link> 또는 <tweet_link>트위터</tweet_link>로 알려주세요.",
-    "please-try-again-contact-us": "",
+    "please-try-again-contact-us": "잠시 후 다시 시도 해주십시오. 도움이 필요하시면, <a>저희에게</a> 연락 해주세요.",
     "unsupported-browser-title": "다른 브라우저를 사용해주세요.",
     "unsupported-browser-description": "죄송합니다. <chrome_link>크롬</chrome_link>, <firefox_link>파이어폭스</firefox_link>, <edge_link>마이크로소프트 엣지</edge_link>, 또는 사파리로 시도해주세요.",
     "unsupported-browser-internet-explorer": "인터넷 익스플로러를 사용하고 계신가요? <a>그럼 여기서 더 알아보세요.</a>",
@@ -164,7 +164,7 @@
     "generic-error-title": "뭔가 잘못됐네요.",
     "generic-error-description": "죄송합니다 - 뭔가 잘못됐네요.",
     "error-code": "(에러 {code}.)",
-    "need-help-link": ""
+    "need-help-link": "도움이 필요하신가요?"
   },
   "btn": {
     "reload": "새로고침",
@@ -178,7 +178,7 @@
     "close": "닫기",
     "dismiss": "무시하기",
     "okay": "오케이!",
-    "not-now": "",
+    "not-now": "지금은 아닙니다.",
     "save": "저장",
     "edit": "수정"
   },
@@ -229,13 +229,13 @@
       "export-csv": "CSV로 내보내기",
       "heading": "분석",
       "street-summary": "나의 스트리트에는 시간당 평균 {averageTotal} 명, 최대 {potentialTotal} 명의 트래픽이 예상됩니다.",
-      "typical-lane-width": "",
+      "typical-lane-width": "수용량은 {laneWidth}을 근거로 합니다.",
       "segment-summary": "{average} ~ {potential} 명/시간",
       "segment-summary-single": "{amount} 명/시간",
       "source": "소스",
-      "capacity-data-source": "",
-      "toggle-visible": "",
-      "settings-notice": ""
+      "capacity-data-source": "수용량 데이터 소스",
+      "toggle-visible": "세그먼트 레이블에 수용량 표시",
+      "settings-notice": "거리 소유자는 이러한 설정을 변경할 수 있습니다."
     },
     "save": {
       "heading": "이미지로 저장",
@@ -243,17 +243,17 @@
       "option-name": "스트리트 이름",
       "option-sky": "투명 하늘",
       "option-watermark": "워터마크",
-      "option-custom-scale": "",
-      "option-custom-scale-description": "",
+      "option-custom-scale": "맞춤형 규모",
+      "option-custom-scale-description": "원본 크기의 최대 500%까지 이미지를 다운로드하세요.",
       "loading": "로딩 중...",
       "save-button": "컴퓨터에 저장하기...",
       "license": "스트리트믹스에서 만든 해당 이미지는 {licenseLink} 라이센스에 따라 어떤 목적으로도 재사용 할 수 있습니다.",
       "error-preview": "미리보기 이미지를 표시하는 중 오류가 발생했습니다.",
       "error-unavailable": "이 브라우저에서는 이미지로 저장할 수 없습니다.",
-      "error-too-large": "",
+      "error-too-large": "이미지가 너무 커서 만들 수 없습니다. 더 작은 크기를 시도해 보세요.",
       "preview-image-alt": "미리보기",
-      "print-size": "",
-      "digital-size": ""
+      "print-size": "인쇄 크기",
+      "digital-size": "디지털 크기"
     },
     "geotag": {
       "search": "위치 검색",
@@ -296,23 +296,23 @@
     },
     "whatsnew": {
       "heading": "스트리트믹스의 새로운 기능",
-      "english-only": ""
+      "english-only": "이 정보는 영어로만 제공됩니다."
     },
     "newsletter": {
       "heading": "뉴스레터 구독",
-      "description": "",
-      "email-label": "",
-      "field-required-error": "",
+      "description": "일년에 몇 번씩 뉴스레터를 통해 가끔 이메일을 보냅니다. 아무것도 놓치지 않으려면 등록하세요!",
+      "email-label": "이메일을 입력해 주세요",
+      "field-required-error": "이 필드는 필수입니다.",
       "subscribe": "구독",
       "subscribe-pending": "기다려 주세요...",
-      "ok-message": "",
-      "error-message": ""
+      "ok-message": "<strong>감사합니다! 구독이 거의 완료되었습니다. </strong> 주소를 확인하기 위해 이메일을 보냈습니다. 클릭하여 완료해 주세요!",
+      "error-message": "구독 프로세스에 문제가 발생했어요! 일시적인 시스템 오류일 수 있으니, 잠시 후에 다시 시도해 주세요!"
     }
   },
   "tools": {
     "tooltip": "토글 툴",
     "environment": {
-      "tooltip": "",
+      "tooltip": "환경 에디터",
       "heading": "환경"
     }
   },
@@ -390,7 +390,7 @@
       "does-not-fit": "이 세그먼트는 스트리트 폭에 맞지 않습니다.",
       "not-wide": "이 세그먼트의 폭이 충분히 넓지 않습니다.",
       "too-wide": "이 세그먼트의 폭이 너무 넓은 것 같네요.",
-      "dangerous": ""
+      "dangerous": "이 세그먼트는 위험한 기존 상태를 나타냅니다."
     },
     "learn-more": "더 알아보기",
     "unknown": {
@@ -420,8 +420,8 @@
     "anonymous": "익명",
     "byline": "{user} ",
     "roles": {
-      "admin": "",
-      "subscriber": ""
+      "admin": "관리자",
+      "subscriber": "스트리트믹스+ 멤버"
     }
   },
   "export": {
@@ -433,9 +433,9 @@
   },
   "credits": {
     "core-team-heading": "프로젝트 팀",
-    "original-team-heading": "",
+    "original-team-heading": "오리지널 프로젝트 팀",
     "past-team-heading": "지난 팀 멤버",
-    "core-contributors": "",
+    "core-contributors": "핵심 참여자",
     "advisors": "어드바이저",
     "additional-illustrations": "추가 일러스트레이션",
     "additional-code": "추가 코드",
@@ -445,27 +445,27 @@
   },
   "plus": {
     "locked": {
-      "label": "",
-      "soon": "",
+      "label": "잠김",
+      "soon": "곧 출시됩니다!",
       "sub": "스트리트믹스+ 로 업그레이드하세요!",
-      "sub-edit": "",
+      "sub-edit": "편집을 위해 스트리트믹스+로 업그레이드",
       "user": "로그인 해주세요!",
-      "action": ""
+      "action": "스트리트믹스+ 시작하기"
     },
     "prompt": {
-      "text": "",
-      "action": ""
+      "text": "이 기능은 스트리트믹스+ 멤버에게만 제공됩니다.",
+      "action": "잠금 해제위해 업그레이드"
     },
     "web-monetization": {
-      "thanks": "",
-      "not-signed-in": "",
-      "signed-in": "",
+      "thanks": "당신의 지원에 감사드립니다!",
+      "not-signed-in": "브라우저가 웹 수익 창출 결제를 보내고 있습니다. 지금 로그인하여 스트리트믹스+ 혜택을 누리세요!",
+      "signed-in": "웹 수익 창출을 구독하면 스트리트믹스+ 혜택을 모두 누릴 수 있습니다.",
       "learn-more": "더 알아보기"
     }
   },
   "sentiment": {
     "prompt": {
-      "intro": "",
+      "intro": "<strong>방해했다면 죄송해요.</strong> 이 거리에 대한 여러분의 의견을 환영합니다.",
       "joyful": "지금 이 거리는 얼마나 <em>행복</em>해 보이시나요?",
       "choose-one": "(하나를 선택해주세요)"
     },
@@ -476,40 +476,40 @@
       "rating-4": "조금",
       "rating-5": "꽤 많이"
     },
-    "sign-in-prompt": "",
+    "sign-in-prompt": "지금 로그인하여 여러분의 목소리를 들려주세요.",
     "about-link": "이건 뭔가요?",
     "about-text": "해당 설문은 사람들이 어떻게 거리를 바라보는 지 도와줍니다.",
     "thank-you": "감사합니다!",
-    "about-header": "",
+    "about-header": "사람들이 거리에 대해 어떻게 느끼는지 알고 싶습니다.",
     "about-article": {
-      "paragraph-1": "",
-      "paragraph-2": "",
-      "paragraph-3": ""
+      "paragraph-1": "많은 거리가 토목 기술자에 의해 설계되지만, 우리는 디자인이 모든 사람의 시각을 포함해야 한다고 믿습니다. 우리는 <a>New Urban Mobility Alliance</a>(NUMO)와 협력하여, 이를 수행하기 위해 하나의 질문으로 구성된 설문조사를 실시하고 있습니다.",
+      "paragraph-2": "여러분의 답변을 분석하여 해당 거리의 특성이 어떤 감정을 불러일으킬지 분석할 예정입니다. 또한, 해당 자료를 스트리트믹스 유저분들을 위한 디자인 결정에 활용할 계획입니다.",
+      "paragraph-3": "한 거리당 한 번 투표할 수 있으나, 아래 링크를 통해 친구들에게 해당 거리 또는 응원하는 거리를 공유하여 힘을 실어주세요.<a>https://streetmix.net/survey/</a>"
     },
     "done": {
-      "response": "",
-      "vote-another": "",
+      "response": "{score} 로 응답하셨습니다.",
+      "vote-another": "다른 곳에 투표하세요!",
       "really-done": "완료!"
     },
     "comment": {
-      "prompt": "",
+      "prompt": "이유을 알려주세요:",
       "example": "(예를 들어, \"나무들이 좋아요.\")",
       "submit": "제출",
-      "thanks": ""
+      "thanks": "됐습니다!"
     }
   },
   "i18n": {
     "lang": {
-      "am": "",
+      "am": "암하라어",
       "ar": "아랍어",
       "ca": "카탈로니아어",
       "cs": "체코어",
       "de": "독일어",
       "en": "영어",
-      "en-gb": "",
+      "en-gb": "영어(영국)",
       "es": "스페인어",
       "es-419": "스페인어 (라틴 아메리카)",
-      "es-es": "",
+      "es-es": "스페인어(스페인)",
       "es-mx": "스페인어 (멕시코)",
       "fi": "핀란드어",
       "fr": "프랑스어",
@@ -517,8 +517,8 @@
       "it": "이탈리아어",
       "ja": "일본어",
       "ko": "한국어",
-      "nb-no": "",
-      "nl-nl": "",
+      "nb-no": "노르웨이어 복몰어",
+      "nl-nl": "네덜란드어(네덜란드)",
       "pl": "폴란드어",
       "pt-br": "포르투갈어 (브라질)",
       "ro-ro": "루마니아어",
