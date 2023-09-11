@@ -153,7 +153,7 @@
     "nanoid": "3.1.31",
     "newrelic": "10.1.1",
     "nodemon": "2.0.22",
-    "parcel": "2.8.3",
+    "parcel": "2.9.3",
     "passport": "0.6.0",
     "passport-oauth": "1.0.0",
     "passport-patreon": "1.0.1",
