@@ -1,17 +1,32 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunkTyped as createAsyncThunk } from '../createAsyncThunk'
 import { startPrinting } from './app'
+
+interface InfoBubbleState {
+  visible: boolean
+  mouseInside: boolean
+  descriptionVisible: boolean
+  hoverPolygon: number[]
+}
+
+const initialState: InfoBubbleState = {
+  visible: false,
+  mouseInside: false,
+  descriptionVisible: false,
+  hoverPolygon: []
+}
 
 /**
  * Conditionally dispatches show() only if info bubble is not visible.
  */
 export const showInfoBubble = createAsyncThunk(
   'infoBubble/showInfoBubble',
-  (arg, { dispatch, getState }) => {
+  (_, { dispatch }) => {
     dispatch(infoBubbleSlice.actions.show())
   },
   {
-    condition: (arg, { getState, extra }) => {
-      if (getState().infoBubble.visible === true) {
+    condition: (_, { getState }) => {
+      if (getState().infoBubble.visible) {
         return false
       }
     }
@@ -23,12 +38,12 @@ export const showInfoBubble = createAsyncThunk(
  */
 export const hideInfoBubble = createAsyncThunk(
   'infoBubble/showInfoBubble',
-  (arg, { dispatch, getState }) => {
+  (_, { dispatch }) => {
     dispatch(infoBubbleSlice.actions.hide())
   },
   {
-    condition: (arg, { getState, extra }) => {
-      if (getState().infoBubble.visible === false) {
+    condition: (_, { getState }) => {
+      if (!getState().infoBubble.visible) {
         return false
       }
     }
@@ -37,22 +52,17 @@ export const hideInfoBubble = createAsyncThunk(
 
 const infoBubbleSlice = createSlice({
   name: 'infoBubble',
-  initialState: {
-    visible: false,
-    mouseInside: false,
-    descriptionVisible: false,
-    hoverPolygon: []
-  },
+  initialState,
 
   reducers: {
-    show (state, action) {
+    show (state) {
       state.visible = true
 
       // When show is requested, hide description
       state.descriptionVisible = false
     },
 
-    hide (state, action) {
+    hide (state) {
       state.visible = false
       state.descriptionVisible = false
       state.mouseInside = false
@@ -66,17 +76,17 @@ const infoBubbleSlice = createSlice({
       state.mouseInside = action.payload
     },
 
-    showDescription (state, action) {
+    showDescription (state) {
       state.descriptionVisible = true
     },
 
-    hideDescription (state, action) {
+    hideDescription (state) {
       state.descriptionVisible = false
     }
   },
 
   extraReducers: (builder) => {
-    builder.addCase(startPrinting, (state, action) => {
+    builder.addCase(startPrinting, (state) => {
       state.visible = false
       state.descriptionVisible = false
       state.mouseInside = false
