@@ -150,7 +150,7 @@
     "jwks-rsa": "3.0.1",
     "jwt-decode": "3.1.2",
     "leaflet": "1.9.4",
-    "nanoid": "3.1.31",
+    "nanoid": "3.3.6",
     "newrelic": "10.1.1",
     "nodemon": "2.0.22",
     "parcel": "2.8.3",
