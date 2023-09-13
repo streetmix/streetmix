@@ -12,12 +12,12 @@
       "my-streets": "我的街道",
       "settings": "設置",
       "share": "分享",
-      "store": "",
-      "upgrade": "",
-      "streetmix-plus": ""
+      "store": "商店",
+      "upgrade": "版本升級",
+      "streetmix-plus": "取得Streetmix+"
     },
     "help": {
-      "guidebook-link": "",
+      "guidebook-link": "指南",
       "keyboard-label": "快捷鍵：",
       "remove-instruction": "移除你現在所指的部分",
       "remove-shift-instruction": "（長按{shiftKey}來移除所有的部分）",
@@ -30,12 +30,12 @@
       "sign-in-twitter-link": "登錄",
       "sign-in-link": "{signInLink}你所創建的街道和個人街道圖集的鏈接",
       "link": "複製和粘貼這個鏈接來分享：",
-      "copy-to-clipboard": "",
+      "copy-to-clipboard": "複製到剪貼簿",
       "twitter": "分享到推特",
       "facebook": "分享到臉書",
-      "mastodon": "",
-      "3dstreet": "",
-      "print": "打印",
+      "mastodon": "分享到Mastodon",
+      "3dstreet": "在3DStreet打開",
+      "print": "列印",
       "save": "存為圖片",
       "save-byline": "將連接內嵌在報告，博客等等",
       "messages": {
@@ -52,9 +52,9 @@
       "email": "給Streetmix團隊發郵件",
       "github": "在GitHub上查看源代碼",
       "blog": "訪問Streetmix的博客",
-      "discord": "",
-      "slack": "加入Slack對話",
-      "newsletter": ""
+      "discord": "加入Discord聊天群",
+      "slack": "加入Slack頻道",
+      "newsletter": "訂閱電子報"
     },
     "contribute": {
       "donate": "資助我們",
@@ -73,38 +73,38 @@
     }
   },
   "settings": {
-    "heading": "設置",
-    "info-tooltip": "",
+    "heading": "設定",
+    "info-tooltip": "描述",
     "general": {
-      "label": ""
+      "label": "一般"
     },
     "appearance": {
-      "label": ""
+      "label": "外觀"
     },
     "language": {
       "label": "語言"
     },
     "profile": {
       "label": "",
-      "username": "",
-      "username-description": "",
-      "display-name": "",
-      "display-name-description": "",
-      "display-name-not-set": "",
-      "display-name-error": "",
-      "display-name-characters-remaining": ""
+      "username": "使用者名稱",
+      "username-description": "用戶名為帳戶唯一ID",
+      "display-name": "顯示名稱",
+      "display-name-description": "顯示名稱為展示給其他Streetmix使用者的名稱",
+      "display-name-not-set": "顯示名稱尚未設定",
+      "display-name-error": "無法儲存顯示名稱",
+      "display-name-characters-remaining": "剩餘字元: {currentNum}(最多{maxNum}字元)"
     },
     "misc": {
       "label": "",
-      "silly-clowns": "",
-      "silly-clowns-description": ""
+      "silly-clowns": "搞笑小丑",
+      "silly-clowns-description": "啟動復活節彩蛋"
     },
     "theme": {
-      "label": "",
+      "label": "主題",
       "description": "",
-      "light": "",
-      "dark": "",
-      "system": ""
+      "light": "明亮主題",
+      "dark": "暗黑主題",
+      "system": "使用系統設定"
     },
     "units": {
       "label": "單位",
@@ -128,21 +128,21 @@
       "home": "回到主頁",
       "sign-in": "再一次登入",
       "reload": "刷新網頁",
-      "return": "",
+      "return": "回到Streetmix",
       "try-again": "再試一次",
-      "view-example": "查看示例街道"
+      "view-example": "查看範例街道"
     },
     "page-not-found-title": "找不到網頁。",
     "page-not-found-description": "哎呀，這個地址不存在哦！",
     "street-not-found-title": "找不到街道。",
-    "street-not-found-description": "哎呀，這條連接中沒有街道哦！",
-    "street-not-found-but-user-description": "這條鏈接中沒有街道哦！但你可以看看{user}所創建的其他街道。",
+    "street-not-found-description": "哎呀，這個網址中沒有街道哦！",
+    "street-not-found-but-user-description": "這個網址中沒有街道哦！但你可以看看{user}所創建的其他街道。",
     "street-deleted-title": "這條街道已經被刪除。",
-    "street-deleted-description": "這條鏈接中的街道已經不見了哦！但你可以看看{user}所創建的其他街道。",
+    "street-deleted-description": "這個網址中的街道已經不見了哦！但你可以看看{user}所創建的其他街道。",
     "sign-out-title": "你已經登出。",
-    "reload-sign-out-title": "你在另一個窗口已經登出。",
-    "gallery-street-failure-description": "我們在加載這條街道的時候遇到一點問題。",
-    "reload-sign-in-title": "你已在另一個窗口登錄。",
+    "reload-sign-out-title": "你在另一個視窗已經登出。",
+    "gallery-street-failure-description": "我們在載入這條街道的時候遇到一點問題。",
+    "reload-sign-in-title": "你已在另一個視窗登入。",
     "please-reload": "",
     "survey-finished": "",
     "street-deleted-elsewhere-title": "這條街道已在別處被刪除。",
@@ -299,7 +299,7 @@
       "english-only": ""
     },
     "newsletter": {
-      "heading": "",
+      "heading": "訂閱電子報",
       "description": "",
       "email-label": "",
       "field-required-error": "",
@@ -450,7 +450,7 @@
       "sub": "",
       "sub-edit": "",
       "user": "",
-      "action": ""
+      "action": "取得Streetmix+"
     },
     "prompt": {
       "text": "",

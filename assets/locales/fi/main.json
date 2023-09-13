@@ -85,14 +85,14 @@
       "label": "Kieli"
     },
     "profile": {
-      "label": "",
-      "username": "",
-      "username-description": "",
-      "display-name": "",
-      "display-name-description": "",
-      "display-name-not-set": "",
-      "display-name-error": "",
-      "display-name-characters-remaining": ""
+      "label": "Profiili",
+      "username": "Käyttäjänimi",
+      "username-description": "Käyttäjänimi on yksilöllinen ja käyttäjätunnuskohtainen.",
+      "display-name": "Näytettävä nimi",
+      "display-name-description": "Näytettävä nimi näkyy muille Streetmixin käyttäjille.",
+      "display-name-not-set": "Näytettävää nimeä ei ole vielä määritetty.",
+      "display-name-error": "Näytettävän nimen määrittäminen epäonnistui.",
+      "display-name-characters-remaining": "{currentNum}/{maxNum} merkkiä jäljellä"
     },
     "misc": {
       "label": "Sekalaiset",
@@ -179,8 +179,8 @@
     "dismiss": "Ohita",
     "okay": "Selvä!",
     "not-now": "Ei nyt",
-    "save": "",
-    "edit": ""
+    "save": "Tallenna",
+    "edit": "Muokkaa"
   },
   "dialogs": {
     "error": {
