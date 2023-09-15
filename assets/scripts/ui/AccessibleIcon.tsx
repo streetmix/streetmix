@@ -1,8 +1,9 @@
 import React from 'react'
+import type { AccessibleIconProps } from '@radix-ui/react-accessible-icon'
 import * as AccessibleIconPrimitive from '@radix-ui/react-accessible-icon'
 
-type Props = AccessibleIconPrimitive.AccessibleIconProps
-
-export default function AccessibleIcon (props: Props): React.ReactElement {
+export default function AccessibleIcon (
+  props: AccessibleIconProps
+): React.ReactElement {
   return <AccessibleIconPrimitive.Root {...props} />
 }

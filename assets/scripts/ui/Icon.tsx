@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   DuplicateIcon,
@@ -20,14 +19,33 @@ import forumsIcon from './icons/forums.svg'
 import googleIcon from './icons/google.svg'
 import slackIcon from './icons/slack.svg'
 
+interface IconProps {
+  icon:
+  | 'copy'
+  | 'discord'
+  | 'facebook'
+  | 'github'
+  | 'instagram'
+  | 'mastodon'
+  | 'twitter'
+  | 'book'
+  | 'slack'
+  | 'forums'
+  | 'google'
+  | 'trash'
+  | 'tools'
+  | 'sun'
+  className?: string
+}
+
 const OCTICON_DEFAULT_CLASSNAME = 'octicon'
 
 // Preserve, don't replace default Octicon classname
-function octiconClassNames (className) {
+function octiconClassNames (className: string): string {
   return [OCTICON_DEFAULT_CLASSNAME, className].join(' ').trim()
 }
 
-function Icon ({ icon, className }) {
+function Icon ({ icon, className = '' }: IconProps): React.ReactElement | null {
   switch (icon) {
     case 'copy':
       return (
@@ -59,19 +77,11 @@ function Icon ({ icon, className }) {
       return <ToolsIcon size={16} className={octiconClassNames(className)} />
     case 'sun':
       return <SunIcon size={16} className={octiconClassNames(className)} />
-    default:
-      // Ancient fallback (should no longer be used)
-      return (
-        <svg className={className}>
-          <use xlinkHref={`#icon-${icon}`} />
-        </svg>
-      )
+    // default:
+    //   // You TypeScript
+    //   // Ancient fallback (should no longer be used)
+    //   return null
   }
-}
-
-Icon.propTypes = {
-  icon: PropTypes.string.isRequired,
-  className: PropTypes.string
 }
 
 export default Icon
