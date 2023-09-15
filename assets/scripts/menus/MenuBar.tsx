@@ -103,7 +103,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
           <AvatarMenu
             user={user}
             isSubscriber={isSubscriber}
-            onClick={() => handleClickMenuButton('identity')}
+            onClick={handleClickMenuButton('identity')}
           />
         </li>
         )

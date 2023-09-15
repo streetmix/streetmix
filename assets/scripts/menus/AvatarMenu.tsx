@@ -7,14 +7,14 @@ import './AvatarMenu.scss'
 
 interface AvatarMenuProps {
   user: UserProfile
-  isSubscriber?: boolean
-  onClick?: () => void
+  isSubscriber: boolean
+  onClick: (event: React.MouseEvent) => void
 }
 
 function AvatarMenu ({
   user,
   isSubscriber = false,
-  onClick = () => undefined
+  onClick
 }: AvatarMenuProps): React.ReactElement {
   const { formatMessage } = useIntl()
 
