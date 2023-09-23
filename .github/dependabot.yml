@@ -10,6 +10,31 @@ updates:
   labels:
   - dependencies
   versioning-strategy: increase-if-necessary
+  groups:
+    react:
+      patterns:
+        - "react"
+        - "react-dom"
+        - "@types/react"
+        - "@types/react-dom"
+    eslint:
+      patterns:
+        - "eslint"
+        - "eslint-*"
+    babel:
+      patterns:
+        - "@babel/*"
+    font-awesome:
+      patterns:
+        - "@fortawesome/*"
+    radix-ui:
+      patterns:
+        - "@radix-ui/*"
+    auth0:
+      patterns:
+        - "auth0"
+        - "auth0-js"
+        - "@types/auth0-js"
 
 - package-ecosystem: github-actions
   directory: "/"
