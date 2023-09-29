@@ -35,6 +35,9 @@
     "prepare": "husky install",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ./build && sentry-cli sourcemaps upload --org streetmix --project streetmix ./build"
   },
+  "@parcel/resolver-default": {
+    "packageExports": true
+  },
   "jest": {
     "testEnvironment": "jsdom",
     "testEnvironmentOptions": {
