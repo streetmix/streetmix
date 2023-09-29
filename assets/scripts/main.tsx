@@ -14,7 +14,6 @@ import '../styles/styles.scss'
 // Polyfills
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import 'whatwg-fetch' // fetch API
 import 'handjs' // microsoft's pointer events / touch-action spec
 import 'web-monetization-polyfill'
 import './vendor/canvas-toBlob.js'
