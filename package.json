@@ -217,7 +217,7 @@
     "@types/webpack-env": "1.18.1",
     "@typescript-eslint/eslint-plugin": "6.7.3",
     "@typescript-eslint/parser": "6.7.3",
-    "axios-mock-adapter": "1.21.5",
+    "axios-mock-adapter": "1.22.0",
     "babel-jest": "29.6.2",
     "concurrently": "8.2.0",
     "cypress": "13.2.0",
