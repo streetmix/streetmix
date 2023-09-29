@@ -23,7 +23,9 @@ context('User saves a new street', () => {
   })
 
   it('lets users create a new blank street', () => {
-    cy.wait(['@streetPost', '@streetPut'])
+    // Extend timeout to first API call to wait for app to finish building
+    // (this feels like a temporary solution ...)
+    cy.wait(['@streetPost', '@streetPut'], { timeout: 60000 })
     cy.get('.welcome-panel', { timeout: 10000 }).contains(
       'Welcome to Streetmix'
     )
