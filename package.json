@@ -203,7 +203,7 @@
     "@commitlint/cli": "17.6.5",
     "@commitlint/config-conventional": "17.6.3",
     "@faker-js/faker": "8.0.2",
-    "@parcel/transformer-sass": "2.8.3",
+    "@parcel/transformer-sass": "2.9.3",
     "@testing-library/dom": "9.2.0",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "14.0.0",
