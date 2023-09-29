@@ -2,6 +2,7 @@ import { defineConfig } from 'cypress'
 import initPlugins from './cypress/plugins/index.js'
 
 export default defineConfig({
+  projectId: '2bmjk3',
   viewportWidth: 1280,
   viewportHeight: 720,
   video: false,
