@@ -194,7 +194,6 @@
     "swagger-ui-express": "5.0.0",
     "uuid": "9.0.0",
     "web-monetization-polyfill": "2.0.0",
-    "whatwg-fetch": "3.6.19",
     "winston": "3.10.0"
   },
   "devDependencies": {
