@@ -72,7 +72,10 @@
       "mjs",
       "cjs"
     ],
-    "resolver": "<rootDir>/test/resolver.js"
+    "resolver": "<rootDir>/test/resolver.js",
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-leaflet)/"
+    ]
   },
   "browserslist": [
     "> 0.5%",
