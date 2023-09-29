@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Authentication } from '../lib/auth0.mjs'
+import { userClient } from '../lib/auth0.mjs'
 import logger from '../lib/logger.mjs'
 import appURL from '../lib/url.mjs'
 
@@ -12,13 +12,11 @@ const AccessTokenHandler = function (req, res) {
       return
     }
 
-    const auth0 = Authentication()
-
     try {
       const refreshToken = body.refresh_token
       const idToken = body.id_token
       const accessToken = body.access_token
-      const user = await auth0.getProfile(accessToken)
+      const { data: user } = await userClient.getUserInfo(accessToken)
       const apiRequestBody = getUserInfo(user)
       const endpoint = `${appURL.origin}/api/v1/users`
       const apiRequestOptions = {
