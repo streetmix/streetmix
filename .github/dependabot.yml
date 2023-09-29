@@ -36,6 +36,10 @@ updates:
         - "auth0"
         - "auth0-js"
         - "@types/auth0-js"
+    parcel:
+      patterns:
+        - "parcel"
+        - "@parcel/*"
 
 - package-ecosystem: github-actions
   directory: "/"
