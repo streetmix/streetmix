@@ -118,7 +118,7 @@
     "@sentry/cli": "2.20.5",
     "@streetmix/illustrations": "2.1.1",
     "@tippyjs/react": "4.2.6",
-    "@transifex/api": "5.4.0",
+    "@transifex/api": "6.0.0",
     "@types/auth0-js": "9.21.0",
     "auth0": "3.7.1",
     "auth0-js": "9.22.1",
