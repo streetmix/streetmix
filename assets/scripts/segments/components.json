@@ -285,6 +285,16 @@
           }
         ]
       }
+    },
+    "markings--crosswalk-zebra": {
+      "graphics": {
+        "repeat": "markings--crosswalk-zebra"
+      }
+    },
+    "markings--crosswalk-zebra-bike": {
+      "graphics": {
+        "repeat": "markings--crosswalk-zebra-bike"
+      }
     }
   },
   "objects": {

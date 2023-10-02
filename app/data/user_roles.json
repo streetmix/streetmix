@@ -23,6 +23,7 @@
     "flags": {
       "LOCALES_LEVEL_1": true,
       "ELEVATION_CONTROLS_UNLOCKED": true,
+      "SEGMENT_CROSSWALK": true,
       "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,

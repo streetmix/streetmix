@@ -1301,6 +1301,52 @@
       }
     }
   },
+  "crosswalk": {
+    "name": "Crosswalk",
+    "nameKey": "crosswalk",
+    "defaultWidth": 10,
+    "defaultVariant": "zebra-crossing",
+    "defaultElevation": 0,
+    "enableElevation": true,
+    "enableWithFlag": "SEGMENT_CROSSWALK",
+    "variants": ["crosswalk-type"],
+    "details": {
+      "zebra-crossing": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--crosswalk-zebra"
+            }
+          ]
+        }
+      },
+      "zebra-crossing-bike": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--crosswalk-zebra-bike"
+            }
+          ]
+        }
+      }
+    }
+  },
   "temporary": {
     "name": "Temporary barrier",
     "nameKey": "temporary-barrier",
