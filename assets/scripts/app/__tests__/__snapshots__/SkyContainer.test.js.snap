@@ -4,7 +4,6 @@ exports[`SkyContainer renders 1`] = `
 <DocumentFragment>
   <section
     class="street-section-sky"
-    style="height: 100px;"
   >
     <div
       class="sky-background"
@@ -34,7 +33,6 @@ exports[`SkyContainer renders with objects 1`] = `
 <DocumentFragment>
   <section
     class="street-section-sky"
-    style="height: 100px;"
   >
     <div
       class="sky-background"
