@@ -109,21 +109,30 @@ export interface FeatureFlagDefinition {
 
 export type FeatureFlags = Record<string, FeatureFlagDefinition>
 
+export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
+export type CSSGradientDeclaration = CSSGradientStop[]
+
 export interface Environs {
   name: string
-  enabled: boolean
-  iconImage: string // Illustration asset ID
-  backgroundColor: string // CSS color string
-  backgroundImage: string // Illustration asset ID
-  backgroundGradient: Array<[string, number?]> // [CSS color string, opacity]
-  backgroundObjects: Array<{
+  enabled?: boolean
+  iconImage?: string // Illustration asset ID
+  backgroundColor?: string // CSS color string
+  backgroundImage?: string // Illustration asset ID
+  backgroundGradient?: CSSGradientDeclaration
+  backgroundObjects?: Array<{
     image: string // Illustration asset ID
     width: number // in pixels
     height: number // in pixels
     top: number // Percentage as decimal
     left: number // Percentage as decimal
   }>
-  foregroundGradient: Array<[string, number?]> // [CSS color string, opacity]
-  cloudOpacity: number // Percentage as decimal
-  invertUITextColor: boolean
+  foregroundGradient?: CSSGradientDeclaration
+  cloudOpacity?: number // Percentage as decimal
+  invertUITextColor?: boolean
+}
+
+export interface EnvironsRender extends Environs {
+  id: string
+  style: React.CSSProperties
+  iconStyle: React.CSSProperties
 }

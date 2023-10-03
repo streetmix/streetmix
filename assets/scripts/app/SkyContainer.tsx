@@ -1,5 +1,4 @@
 import React from 'react'
-import type { Environs } from '../types'
 import { useSelector } from '../store/hooks'
 import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
 import { DEFAULT_ENVIRONS } from '../streets/constants'
@@ -16,25 +15,25 @@ interface SkyContainerProps {
 
 function SkyContainer (props: SkyContainerProps): React.ReactElement {
   const { scrollPos = 0 } = props
-  const environment = useSelector(
+  const environment: string = useSelector(
     (state) => state.street.environment || DEFAULT_ENVIRONS
   )
   const animations = useSelector(
     (state) => state.flags.ENVIRONMENT_ANIMATIONS?.value || false
   )
 
-  const environs = getEnvirons(environment) as Environs
-  const frontCloudStyle = {
+  const environs = getEnvirons(environment)
+  const frontCloudStyle: React.CSSProperties = {
     ...getCloudPosition(true, scrollPos),
-    opacity: environs.cloudOpacity ?? null
+    opacity: environs.cloudOpacity
   }
-  const rearCloudStyle = {
+  const rearCloudStyle: React.CSSProperties = {
     ...getCloudPosition(false, scrollPos),
-    opacity: environs.cloudOpacity ?? null
+    opacity: environs.cloudOpacity
   }
 
   const foregroundStyle: React.CSSProperties = {}
-  if (typeof environs.foregroundGradient !== 'undefined') {
+  if (environs.foregroundGradient !== undefined) {
     foregroundStyle.backgroundImage = makeCSSGradientDeclaration(
       environs.foregroundGradient
     )
