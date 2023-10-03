@@ -50,8 +50,6 @@ class StreetView extends React.Component {
         right: 0
       },
 
-      skyHeight: 0,
-
       resizeType: null,
       buildingWidth: 0
     }
@@ -152,27 +150,11 @@ class StreetView extends React.Component {
     let streetSectionTop
     const streetSectionHeight = this.sectionInnerEl.current.offsetHeight
 
-    if (viewportHeight - streetSectionHeight > 450) {
-      streetSectionTop =
-        (viewportHeight - streetSectionHeight - 450) / 2 + 450 + 80
-    } else {
-      streetSectionTop = viewportHeight - streetSectionHeight + 70
-    }
+    streetSectionTop = viewportHeight - streetSectionHeight + 70
 
     if (this.props.readOnly) {
       streetSectionTop += 80
     }
-
-    // Not sure what 255 does, but it keeps it from getting too tall
-    // `skyHeight` is needed so that when gallery opens and the
-    // street slides down, there is some more sky to show
-    let skyHeight = streetSectionTop - 255
-    if (skyHeight < 0) {
-      skyHeight = 0
-    }
-    // 605 is tweaked by adding 10 to 595px, the value of $canvas-baseline in CSS.
-    // TODO: consolidate hardcoded numbers
-    skyHeight += 605
 
     const streetWidth = this.props.street.width * TILE_SIZE
     let streetSectionCanvasLeft =
@@ -186,7 +168,6 @@ class StreetView extends React.Component {
     this.sectionInnerEl.current.style.top = streetSectionTop + 'px'
 
     return {
-      skyHeight,
       resizeType: STREETVIEW_RESIZED
     }
   }
@@ -362,10 +343,7 @@ class StreetView extends React.Component {
             />
           </section>
         </section>
-        <SkyContainer
-          scrollPos={this.state.scrollPos}
-          height={this.state.skyHeight}
-        />
+        <SkyContainer scrollPos={this.state.scrollPos} />
       </>
     )
   }
