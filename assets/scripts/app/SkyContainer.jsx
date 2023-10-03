@@ -11,12 +11,11 @@ const REAR_CLOUD_PARALLAX_SPEED = 0.25
 const FRONT_CLOUD_PARALLAX_SPEED = 0.5
 
 SkyContainer.propTypes = {
-  scrollPos: PropTypes.number,
-  height: PropTypes.number.isRequired
+  scrollPos: PropTypes.number
 }
 
 function SkyContainer (props) {
-  const { scrollPos = 0, height } = props
+  const { scrollPos = 0 } = props
   const environment = useSelector(
     (state) => state.street.environment || DEFAULT_ENVIRONS
   )
@@ -50,7 +49,7 @@ function SkyContainer (props) {
   }
 
   return (
-    <section className={classes.join(' ')} style={{ height: `${height}px` }}>
+    <section className={classes.join(' ')}>
       <SkyBackground environment={environment} />
       <SkyObjects objects={environs.backgroundObjects} />
       <div className="rear-clouds" style={rearCloudStyle} />
