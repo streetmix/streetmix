@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import type { Environs } from '../types'
+import { useSelector } from '../store/hooks'
 import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
 import { DEFAULT_ENVIRONS } from '../streets/constants'
 import SkyBackground from './SkyBackground'
@@ -10,11 +10,11 @@ import './SkyContainer.scss'
 const REAR_CLOUD_PARALLAX_SPEED = 0.25
 const FRONT_CLOUD_PARALLAX_SPEED = 0.5
 
-SkyContainer.propTypes = {
-  scrollPos: PropTypes.number
+interface SkyContainerProps {
+  scrollPos?: number
 }
 
-function SkyContainer (props) {
+function SkyContainer (props: SkyContainerProps): React.ReactElement {
   const { scrollPos = 0 } = props
   const environment = useSelector(
     (state) => state.street.environment || DEFAULT_ENVIRONS
@@ -23,7 +23,7 @@ function SkyContainer (props) {
     (state) => state.flags.ENVIRONMENT_ANIMATIONS?.value || false
   )
 
-  const environs = getEnvirons(environment)
+  const environs = getEnvirons(environment) as Environs
   const frontCloudStyle = {
     ...getCloudPosition(true, scrollPos),
     opacity: environs.cloudOpacity ?? null
@@ -33,8 +33,8 @@ function SkyContainer (props) {
     opacity: environs.cloudOpacity ?? null
   }
 
-  const foregroundStyle = {}
-  if (environs.foregroundGradient) {
+  const foregroundStyle: React.CSSProperties = {}
+  if (typeof environs.foregroundGradient !== 'undefined') {
     foregroundStyle.backgroundImage = makeCSSGradientDeclaration(
       environs.foregroundGradient
     )
@@ -59,8 +59,13 @@ function SkyContainer (props) {
   )
 }
 
-function getCloudPosition (isFront, scrollPos) {
-  const speed = isFront ? FRONT_CLOUD_PARALLAX_SPEED : REAR_CLOUD_PARALLAX_SPEED
+function getCloudPosition (
+  isFront: boolean,
+  scrollPos: number
+): React.CSSProperties {
+  const speed = isFront
+    ? FRONT_CLOUD_PARALLAX_SPEED
+    : REAR_CLOUD_PARALLAX_SPEED
   const pos = scrollPos * speed
 
   return {
