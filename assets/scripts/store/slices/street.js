@@ -12,6 +12,7 @@ const streetSlice = createSlice({
   name: 'street',
   initialState: {
     segments: [],
+    remainingWidth: 0,
     environment: DEFAULT_ENVIRONS,
     immediateRemoval: true
   },

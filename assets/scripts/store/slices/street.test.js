@@ -31,6 +31,7 @@ import street, {
 describe('street reducer', () => {
   const initialState = {
     segments: [],
+    remainingWidth: 0,
     environment: 'day',
     immediateRemoval: true
   }
@@ -51,6 +52,7 @@ describe('street reducer', () => {
       )
     ).toEqual({
       segments: [1, 2, 3],
+      remainingWidth: 0,
       name: 'foo',
       userUpdated: true,
       environment: 'day',
@@ -62,6 +64,7 @@ describe('street reducer', () => {
     // Add a segment at index 0 from initial state
     expect(street(initialState, addSegment(0, { type: 'foo' }))).toEqual({
       segments: [{ type: 'foo' }],
+      remainingWidth: 0,
       environment: 'day',
       immediateRemoval: true
     })
@@ -348,6 +351,7 @@ describe('street reducer', () => {
       )
     ).toEqual({
       segments: [],
+      remainingWidth: 0,
       environment: 'day',
       immediateRemoval: true,
       creatorId: 'foo',
@@ -793,6 +797,7 @@ describe('street reducer', () => {
   it('should handle setEnvironment()', () => {
     expect(street(initialState, setEnvironment('foo'))).toEqual({
       segments: [],
+      remainingWidth: 0,
       environment: 'foo',
       immediateRemoval: true
     })
