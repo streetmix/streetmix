@@ -253,6 +253,6 @@
     "stylelint-csstree-validator": "2.1.0",
     "stylelint-prettier": "3.0.0",
     "supertest": "6.3.3",
-    "typescript": "5.1.6"
+    "typescript": "5.2.2"
   }
 }
