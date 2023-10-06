@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { getElRelativePos } from '../util/helpers'
@@ -9,66 +9,25 @@ import './ResizeGuides.scss'
 
 function ResizeGuides (props) {
   const isVisible = useSelector((state) => state.ui.resizeGuidesVisible)
-  const activeSegment = useSelector((state) =>
+  const segmentId = useSelector((state) =>
     typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
   )
   const segment = useSelector(
-    (state) => state.street.segments[state.ui.activeSegment] || null
+    (state) => state.street.segments[segmentId] || null
   )
   const remainingWidth = useSelector((state) => state.street.remainingWidth)
-  const [display, setDisplay] = useState({})
 
-  // Calculate render position once, only when the resize guides become visible.
-  // Only updates on a change in value of the `isVisible` prop (which
-  // shows/hides the guides), to prevent continuous re-renders during a
-  // resize drag input. Its appearance should remain the same throughout the
+  // Calculate render position when the resize guides become visible.
+  // The position is memoized to prevent unnecessary re-renders during a
+  // resize drag action. Its appearance should remain the same throughout the
   // entire drag action.
   //
   // The `segment` and `remainingWidth` values may change during the resizing,
   // but they should NOT update this calculation.
-  useEffect(() => {
-    if (isVisible && segment) {
-      const variantInfo = getSegmentVariantInfo(
-        segment.type,
-        segment.variantString
-      )
-
-      // Maximum-width guides are displayed based on recommended maximum widths
-      // of the segment variant, if provided, but this is also limited by the
-      // remaining space of the street. If no maximum-width recommendations
-      // are provided, the maximum width would be any remaining width of the street.
-      const actualRemainingWidth = remainingWidth + segment.width
-      const shouldUseRemainingWidth =
-        actualRemainingWidth &&
-        ((!variantInfo.minWidth && actualRemainingWidth >= MIN_SEGMENT_WIDTH) ||
-          actualRemainingWidth >= variantInfo.minWidth) &&
-        (!variantInfo.maxWidth || actualRemainingWidth <= variantInfo.maxWidth)
-
-      // Render minimum-width guides if minimum widths are recommended by the
-      // segment variant
-      const shouldRenderMinGuide = Number.isFinite(variantInfo.minWidth)
-      const shouldRenderMaxGuide =
-        shouldUseRemainingWidth || Number.isFinite(variantInfo.maxWidth)
-
-      // Calculate the centerline of the segment (its left offset plus half its width)
-      const el = getSegmentEl(activeSegment)
-      // Get its X position and account for CSS transform position, if any
-      const [posX] = getElRelativePos(el)
-
-      const centerline = posX + el.offsetWidth / 2
-
-      setDisplay({
-        style: { left: centerline },
-        minGuide: shouldRenderMinGuide,
-        minGuideStyle: getStyle(variantInfo.minWidth),
-        maxGuide: shouldRenderMaxGuide,
-        maxGuideStyle: getStyle(
-          shouldUseRemainingWidth ? actualRemainingWidth : variantInfo.maxWidth
-        )
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVisible])
+  const display = React.useMemo(
+    () => calculate(isVisible, segment, segmentId, remainingWidth),
+    [isVisible, segmentId]
+  )
 
   if (!isVisible || !segment) return null
 
@@ -102,6 +61,46 @@ function ResizeGuides (props) {
       )}
     </div>
   )
+}
+
+function calculate (isVisible, segment, segmentId, remainingWidth) {
+  if (!isVisible) return {}
+
+  const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
+
+  // Maximum-width guides are displayed based on recommended maximum widths
+  // of the segment variant, if provided, but this is also limited by the
+  // remaining space of the street. If no maximum-width recommendations
+  // are provided, the maximum width would be any remaining width of the street.
+  const actualRemainingWidth = remainingWidth + segment.width
+  const shouldUseRemainingWidth =
+    actualRemainingWidth &&
+    ((!variantInfo.minWidth && actualRemainingWidth >= MIN_SEGMENT_WIDTH) ||
+      actualRemainingWidth >= variantInfo.minWidth) &&
+    (!variantInfo.maxWidth || actualRemainingWidth <= variantInfo.maxWidth)
+
+  // Render minimum-width guides if minimum widths are recommended by the
+  // segment variant
+  const shouldRenderMinGuide = Number.isFinite(variantInfo.minWidth)
+  const shouldRenderMaxGuide =
+    shouldUseRemainingWidth || Number.isFinite(variantInfo.maxWidth)
+
+  // Calculate the centerline of the segment (its left offset plus half its width)
+  const el = getSegmentEl(segmentId)
+  // Get its X position and account for CSS transform position, if any
+  const [posX] = getElRelativePos(el)
+
+  const centerline = posX + el.offsetWidth / 2
+
+  return {
+    style: { left: centerline },
+    minGuide: shouldRenderMinGuide,
+    minGuideStyle: getStyle(variantInfo.minWidth),
+    maxGuide: shouldRenderMaxGuide,
+    maxGuideStyle: getStyle(
+      shouldUseRemainingWidth ? actualRemainingWidth : variantInfo.maxWidth
+    )
+  }
 }
 
 function getStyle (width) {

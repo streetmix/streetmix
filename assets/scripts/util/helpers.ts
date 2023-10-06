@@ -41,14 +41,12 @@ export function getElAbsolutePos (
   includeScroll = false
 ): [number, number] {
   const pos: [number, number] = [0, 0]
-  const style = window.getComputedStyle(el)
-  const matrix = new DOMMatrixReadOnly(style.transform)
-  const cssTransformLeft = matrix.m41
-  const cssTransformTop = matrix.m42
 
   do {
-    pos[0] += el.offsetLeft + cssTransformLeft
-    pos[1] += el.offsetTop + cssTransformTop
+    const [x, y] = getElRelativePos(el)
+
+    pos[0] += x
+    pos[1] += y
 
     const parent = el.offsetParent as HTMLElement | undefined
 
