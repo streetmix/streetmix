@@ -161,7 +161,7 @@
     "passport-oauth": "1.0.0",
     "passport-patreon": "1.0.1",
     "pelias-js": "0.0.8",
-    "pg": "8.7.1",
+    "pg": "8.11.3",
     "postcss": "8.4.31",
     "postcss-round-subpixels": "2.0.0",
     "prop-types": "15.8.1",
