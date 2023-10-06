@@ -12,16 +12,12 @@ import slugify from 'slugify'
  *    from the top of the viewport.
  */
 export function getElRelativePos (el: HTMLElement): [number, number] {
-  const pos: [number, number] = [0, 0]
+  // In addition to the DOM's left and top offset properties, we also
+  // account for CSS transforms, via the `matrix` object
   const style = window.getComputedStyle(el)
   const matrix = new DOMMatrixReadOnly(style.transform)
-  const cssTransformLeft = matrix.m41
-  const cssTransformTop = matrix.m42
 
-  pos[0] = el.offsetLeft + cssTransformLeft
-  pos[1] = el.offsetTop + cssTransformTop
-
-  return pos
+  return [el.offsetLeft + matrix.m41, el.offsetTop + matrix.m42]
 }
 
 /**
