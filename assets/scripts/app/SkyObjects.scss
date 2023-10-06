@@ -10,7 +10,9 @@
 .sky-background-objects > div {
   opacity: 0;
   transform: translateY(-14px);
-  transition: opacity $environment-transition, transform $environment-transition;
+  transition:
+    opacity $environment-transition,
+    transform $environment-transition;
 }
 
 .sky-background-object-enter-done {

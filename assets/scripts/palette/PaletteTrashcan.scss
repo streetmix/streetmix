@@ -32,7 +32,9 @@ $palette-text-color: rgb(108 108 108);
   font-weight: 400;
   background: color.adjust($bottom-background, $lightness: 5%);
   pointer-events: none;
-  transition: transform 150ms, opacity 150ms;
+  transition:
+    transform 150ms,
+    opacity 150ms;
 }
 
 .palette-trashcan[hidden] {

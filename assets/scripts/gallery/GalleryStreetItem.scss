@@ -52,7 +52,9 @@ $selection-highlight-colour: $colour-copper-500;
     transform: scale(1.35); // Crops excess space for most streets
     opacity: 0.45;
     filter: grayscale(0.75);
-    transition: opacity 45ms, filter 45ms;
+    transition:
+      opacity 45ms,
+      filter 45ms;
 
     // TODO: this causes rendering weirdness in Firefox.
     border-radius: $border-radius-medium;
@@ -70,7 +72,8 @@ $selection-highlight-colour: $colour-copper-500;
 
 .gallery-street-item.gallery-selected > a {
   background: color.adjust($ui-colour, $lightness: -10%);
-  box-shadow: 0 0 0 2px $selection-highlight-colour,
+  box-shadow:
+    0 0 0 2px $selection-highlight-colour,
     inset 0 0 0 2px rgb(255 255 255 / 100%);
 
   .gallery-street-item-canvas > div {

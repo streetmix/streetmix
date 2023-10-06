@@ -22,7 +22,9 @@ body.segment-resize-dragging * {
   pointer-events: none;
   background: $info-bubble-background;
   cursor: col-resize;
-  transition: transform 150ms, opacity 150ms;
+  transition:
+    transform 150ms,
+    opacity 150ms;
   opacity: 0;
 
   &:hover {

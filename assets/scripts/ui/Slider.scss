@@ -65,7 +65,9 @@ $slider-range-color: $colour-turquoise-350 !default;
   }
 
   &:focus:not([data-disabled]) {
-    box-shadow: inset 0 0 0 1px white, 0 0 0 1px white,
+    box-shadow:
+      inset 0 0 0 1px white,
+      0 0 0 1px white,
       /* Match background color */ 0 0 0 3px $colour-turquoise-500;
   }
 }

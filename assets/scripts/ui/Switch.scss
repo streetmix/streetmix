@@ -59,7 +59,9 @@
   height: 15px;
   background-color: $colour-midnight-150;
   border-radius: 9999px;
-  transition: transform 100ms, background-color 120ms;
+  transition:
+    transform 100ms,
+    background-color 120ms;
   transform: translateX(3px);
   will-change: transform;
   position: absolute;

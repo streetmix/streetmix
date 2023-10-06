@@ -68,7 +68,11 @@
     linear-gradient(45deg, transparent 75%, #eee 75%),
     linear-gradient(-45deg, transparent 75%, #eee 75%);
   background-size: 24px 24px;
-  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+  background-position:
+    0 0,
+    0 12px,
+    12px -12px,
+    -12px 0;
 
   img {
     /* Images may have variable dimensions. Use max-width/max-height
