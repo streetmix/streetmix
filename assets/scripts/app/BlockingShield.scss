@@ -25,7 +25,9 @@
   }
 
   &.darken {
-    transition: background 1500ms, color 1500ms;
+    transition:
+      background 1500ms,
+      color 1500ms;
   }
 
   &.darken-immediately {

@@ -12,7 +12,11 @@ $info-bubble-border-radius: $border-radius;
   background: $info-bubble-background;
   border-radius: $info-bubble-border-radius;
   box-shadow: $light-box-shadow;
-  transition: transform 100ms, margin-top 150ms, height 150ms, opacity 150ms;
+  transition:
+    transform 100ms,
+    margin-top 150ms,
+    height 150ms,
+    opacity 150ms;
   transform: rotateX(-80deg);
   perspective: 1200px;
   z-index: $z-06-info-bubble;

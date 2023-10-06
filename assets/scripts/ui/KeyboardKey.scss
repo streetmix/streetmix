@@ -16,7 +16,9 @@
   background: #f4f4f4;
   color: rgb(64 64 64);
   text-shadow: #fff 0 1px 0;
-  box-shadow: 0 1px 0 rgb(0 0 0 / 20%), 0 1px 0 0 #fff inset;
+  box-shadow:
+    0 1px 0 rgb(0 0 0 / 20%),
+    0 1px 0 0 #fff inset;
   white-space: nowrap;
 }
 

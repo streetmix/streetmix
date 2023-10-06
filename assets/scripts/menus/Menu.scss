@@ -12,7 +12,9 @@ $menu-box-shadow: $medium-box-shadow;
   background: white;
   transform-origin: 50% 0;
   transform: rotateX(-90deg);
-  transition: transform 100ms, opacity 100ms;
+  transition:
+    transform 100ms,
+    opacity 100ms;
   pointer-events: none;
   border-radius: $menu-border-radius;
   box-shadow: $menu-box-shadow;

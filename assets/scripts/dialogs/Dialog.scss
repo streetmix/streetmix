@@ -45,7 +45,9 @@ $header-text-colour: $colour-turquoise-700;
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);
 
   /* Transitions */
-  transition: opacity 80ms ease-in-out, transform 80ms ease-in-out;
+  transition:
+    opacity 80ms ease-in-out,
+    transform 80ms ease-in-out;
   opacity: 0;
   transform: scale(0.9);
 

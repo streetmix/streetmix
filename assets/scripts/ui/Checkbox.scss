@@ -76,7 +76,9 @@ $label-outline-color: $color-2;
     border-radius: $border-radius-small;
     border: 1px solid $input-default-border-color;
     color: inherit;
-    transition: background-color 60ms, color 60ms;
+    transition:
+      background-color 60ms,
+      color 60ms;
   }
 
   /* Stylized checkbox, when checked */

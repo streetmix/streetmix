@@ -22,7 +22,10 @@ body.segment-move-dragging .segment-empty {
 }
 
 body:not(.segment-resize-dragging) .segment {
-  transition: width 150ms, left 150ms, transform 150ms;
+  transition:
+    width 150ms,
+    left 150ms,
+    transform 150ms;
 }
 
 body.immediate-segment-resize .segment {
@@ -68,7 +71,9 @@ body.not-within-canvas * {
 }
 
 body.segment-move-dragging #street-section-editable .segment {
-  transition: left 100ms, transform 300ms;
+  transition:
+    left 100ms,
+    transform 300ms;
   height: $canvas-height + 85px + 30px + 90px;
 }
 
@@ -85,7 +90,8 @@ body.segment-move-dragging #street-section-editable .segment {
 }
 
 .switching-away-exit-active canvas {
-  transition: transform $segment-switching-time ease-in,
+  transition:
+    transform $segment-switching-time ease-in,
     opacity $segment-switching-time ease-in !important;
   transform: rotateX(-60deg);
   transform-origin: 50% 120%;
@@ -109,6 +115,8 @@ body.segment-move-dragging #street-section-editable .segment {
 
 .switching-in-enter-active canvas {
   opacity: 1;
-  transition: transform $segment-switching-time, opacity $segment-switching-time !important;
+  transition:
+    transform $segment-switching-time,
+    opacity $segment-switching-time !important;
   transform: none;
 }
