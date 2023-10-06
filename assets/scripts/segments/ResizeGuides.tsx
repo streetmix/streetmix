@@ -10,11 +10,9 @@ import './ResizeGuides.scss'
 
 function ResizeGuides (): React.ReactElement | null {
   const isVisible = useSelector(({ ui }) => ui.resizeGuidesVisible)
-  const segmentId = useSelector(({ ui }) =>
-    typeof ui.activeSegment === 'number' ? ui.activeSegment : null
-  )
-  const segment = useSelector(({ street }) =>
-    typeof segmentId === 'number' ? street.segments[segmentId] : null
+  const segmentId = useSelector(({ ui }) => ui.activeSegment)
+  const segment: Segment | null = useSelector(({ street }) =>
+    segmentId !== null ? street.segments[segmentId] : null
   )
   const remainingWidth = useSelector(({ street }) => street.remainingWidth)
 
@@ -23,14 +21,14 @@ function ResizeGuides (): React.ReactElement | null {
   // resize drag action. Its appearance should remain the same throughout the
   // entire drag action.
   const display = useMemo(
-    () => calculate(isVisible, segment, segmentId, remainingWidth),
-    // The `segment` and `remainingWidth` values may change during the resizing,
-    // but they should NOT update this calculation.
+    () => calculateStyles(isVisible, segmentId, segment, remainingWidth),
+    // The `segment` and `remainingWidth` values may change during the resize
+    // action, but they should NOT update this calculation.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isVisible, segmentId]
   )
 
-  if (isVisible === null || segment === null) return null
+  if (!isVisible || segment === null) return null
 
   return (
     <div className="resize-guides" style={display.style}>
@@ -64,17 +62,17 @@ function ResizeGuides (): React.ReactElement | null {
   )
 }
 
-function calculate (
+function calculateStyles (
   isVisible: boolean,
-  segment: Segment | null,
   segmentId: number | null,
+  segment: Segment | null,
   remainingWidth: number
 ): {
     style?: React.CSSProperties
     minGuideStyle?: React.CSSProperties
     maxGuideStyle?: React.CSSProperties
   } {
-  if (!isVisible || segment === null || segmentId === null) return {}
+  if (!isVisible || segmentId === null || segment === null) return {}
 
   // TODO: fix type of variantInfo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -83,10 +81,18 @@ function calculate (
     segment.variantString
   )
 
-  // Maximum-width guides are displayed based on recommended maximum widths
-  // of the segment variant, if provided, but this is also limited by the
-  // remaining space of the street. If no maximum-width recommendations
-  // are provided, the maximum width would be any remaining width of the street.
+  // If the variant has a minimum width defined, we show minimum-width guides
+  const minWidth: number | undefined = variantInfo.minWidth ?? undefined
+
+  // Maximum-width guides are based on several factors:
+  // - If the variant does not have a maximum width defined, then the segment's
+  //   maximum width is the remaining width of the street, if any
+  // - If the variant has a maximum width defined, then the segment is limited
+  //   to that definition, or the remaining width of the street, whichever is
+  //   is lower.
+  // - Lastly, there is an edge case. If the segment has a _minimum_ width
+  //   defined, but there isn't any remaining space after the segment has hit
+  //   the minimum width, then we don't show the maximum guide at all.
   const actualRemainingWidth = remainingWidth + segment.width
   const shouldUseRemainingWidth =
     actualRemainingWidth > 0 &&
@@ -96,31 +102,24 @@ function calculate (
     (typeof variantInfo.maxWidth === 'undefined' ||
       actualRemainingWidth <= variantInfo.maxWidth)
 
-  // Render minimum-width guides if minimum widths are recommended by the
-  // segment variant
-  const shouldRenderMinGuide = Number.isFinite(variantInfo.minWidth)
-  const shouldRenderMaxGuide =
-    shouldUseRemainingWidth || Number.isFinite(variantInfo.maxWidth)
-
   // Calculate the centerline of the segment (its left offset plus half its width)
   const el = getSegmentEl(segmentId)
   const [posX] = getElRelativePos(el)
   const centerline = posX + el.offsetWidth / 2
 
+  // Returns styles used to position the guides
   return {
     style: { left: centerline },
-    minGuideStyle: shouldRenderMinGuide
-      ? getStyle(variantInfo.minWidth)
-      : undefined,
-    maxGuideStyle: shouldRenderMaxGuide
-      ? getStyle(
-        shouldUseRemainingWidth ? actualRemainingWidth : variantInfo.maxWidth
-      )
-      : undefined
+    minGuideStyle: getStyle(minWidth),
+    maxGuideStyle: shouldUseRemainingWidth
+      ? getStyle(actualRemainingWidth)
+      : getStyle(variantInfo.maxWidth)
   }
 }
 
-function getStyle (width: number): React.CSSProperties {
+function getStyle (width: number | undefined): React.CSSProperties | undefined {
+  if (typeof width !== 'number') return undefined
+
   const pixelWidth = width * TILE_SIZE
 
   return {
