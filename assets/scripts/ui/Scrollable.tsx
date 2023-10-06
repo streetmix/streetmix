@@ -1,27 +1,36 @@
 /**
  * Adds scroll buttons to UI elements.
  */
-import React, { useEffect, useRef, useLayoutEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef, useEffect, useRef, useLayoutEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { animate } from '../util/helpers'
-import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
+import { animate } from '../util/helpers'
+import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from './icons'
 import Button from './Button'
 import './Scrollable.scss'
 
+interface ScrollableProps {
+  className?: string
+  onScroll?: (event: React.UIEvent<HTMLDivElement>) => void
+  allowKeyboardScroll?: boolean
+  children?: React.ReactNode
+}
+
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
-const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
+const WrappedScrollable = forwardRef(function Scrollable (
+  props: ScrollableProps,
+  ref: React.Ref<HTMLDivElement>
+): React.ReactElement {
   const {
     className,
-    onScroll = () => {},
+    onScroll = () => undefined,
     allowKeyboardScroll = false,
     children
   } = props
-  const scrollerEl = useRef()
-  const leftButtonEl = useRef()
-  const rightButtonEl = useRef()
+  const scrollerEl = useRef<HTMLDivElement>(null)
+  const leftButtonEl = useRef<HTMLButtonElement>(null)
+  const rightButtonEl = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     window.addEventListener('resize', checkButtonVisibilityState)
@@ -33,13 +42,13 @@ const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
   })
 
   useEffect(() => {
-    if (allowKeyboardScroll === true) {
+    if (allowKeyboardScroll) {
       registerKeypress('left', handleClickLeft)
       registerKeypress('right', handleClickRight)
     }
 
     return () => {
-      if (allowKeyboardScroll === true) {
+      if (allowKeyboardScroll) {
         deregisterKeypress('left', handleClickLeft)
         deregisterKeypress('right', handleClickRight)
       }
@@ -47,21 +56,29 @@ const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
   })
 
   useLayoutEffect(() => {
-    leftButtonEl.current.style.left = '-15px'
-    rightButtonEl.current.style.right = '-15px'
+    if (leftButtonEl.current) {
+      leftButtonEl.current.style.left = '-15px'
+    }
+    if (rightButtonEl.current) {
+      rightButtonEl.current.style.right = '-15px'
+    }
   })
 
-  function handleClickLeft (event) {
+  function handleClickLeft (
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ): void {
     const el = scrollerEl.current
 
-    if (!el) return
+    if (el === null) return
 
     const position = el.scrollLeft - (el.offsetWidth - 150) // TODO: document magic number
 
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  function handleClickRight (event) {
+  function handleClickRight (
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ): void {
     const el = scrollerEl.current
 
     if (!el) return
@@ -71,14 +88,14 @@ const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  function handleScrollContainer (event) {
+  function handleScrollContainer (event: React.UIEvent<HTMLDivElement>): void {
     checkButtonVisibilityState()
 
     // If parent has provided its own onScroll handler function, call that now.
     onScroll(event)
   }
 
-  function checkButtonVisibilityState () {
+  function checkButtonVisibilityState (): void {
     const el = scrollerEl.current
 
     if (!el) return
@@ -92,37 +109,40 @@ const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
     // We set styles manually instead of setting `disabled` as before; it's
     // because a button in a disabled state doesn't seem to get onClick
     // handlers attached.
-    if (el.scrollLeft === 0) {
-      left.style.opacity = 0
-      left.style.pointerEvents = 'none'
-      left.setAttribute('hidden', true)
-      left.setAttribute('tabindex', '-1')
-    } else {
-      left.style.opacity = 1
-      left.style.pointerEvents = 'auto'
-      left.removeAttribute('hidden')
-      left.setAttribute('tabindex', '0')
+    if (left) {
+      if (el.scrollLeft === 0) {
+        left.style.opacity = '0'
+        left.style.pointerEvents = 'none'
+        left.setAttribute('hidden', 'true')
+        left.setAttribute('tabindex', '-1')
+      } else {
+        left.style.opacity = '1'
+        left.style.pointerEvents = 'auto'
+        left.removeAttribute('hidden')
+        left.setAttribute('tabindex', '0')
+      }
     }
 
     // scrollLeft will be a negative value if direction is `rtl`,
     // and a positive value if direction is `ltr`.
     // Math.abs() is used to guarantee a positive value for the comparison.
-    if (Math.abs(el.scrollLeft) === el.scrollWidth - el.offsetWidth) {
-      right.style.opacity = 0
-      right.style.pointerEvents = 'none'
-      right.setAttribute('hidden', true)
-      right.setAttribute('tabindex', '-1')
-    } else {
-      right.style.opacity = 1
-      right.style.pointerEvents = 'auto'
-      right.removeAttribute('hidden')
-      right.setAttribute('tabindex', '0')
+    if (right) {
+      if (Math.abs(el.scrollLeft) === el.scrollWidth - el.offsetWidth) {
+        right.style.opacity = '0'
+        right.style.pointerEvents = 'none'
+        right.setAttribute('hidden', 'true')
+        right.setAttribute('tabindex', '-1')
+      } else {
+        right.style.opacity = '1'
+        right.style.pointerEvents = 'auto'
+        right.removeAttribute('hidden')
+        right.setAttribute('tabindex', '0')
+      }
     }
   }
 
-  const containerClassName = className
-    ? `${className}-scrollable-container`
-    : ''
+  const containerClassName =
+    className !== undefined ? `${className}-scrollable-container` : ''
 
   return (
     <div className={containerClassName} ref={ref}>
@@ -156,12 +176,5 @@ const WrappedScrollable = React.forwardRef(function Scrollable (props, ref) {
     </div>
   )
 })
-
-WrappedScrollable.propTypes = {
-  className: PropTypes.string,
-  onScroll: PropTypes.func,
-  allowKeyboardScroll: PropTypes.bool,
-  children: PropTypes.node
-}
 
 export default WrappedScrollable
