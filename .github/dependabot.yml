@@ -40,6 +40,10 @@ updates:
       patterns:
         - "parcel"
         - "@parcel/*"
+    stylelint:
+      patterns:
+        - "stylelint"
+        - "stylelint-*"
 
 - package-ecosystem: github-actions
   directory: "/"
