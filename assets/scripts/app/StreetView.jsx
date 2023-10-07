@@ -31,13 +31,8 @@ const STREETVIEW_RESIZED = 2
 
 class StreetView extends React.Component {
   static propTypes = {
-    readOnly: PropTypes.bool,
     street: PropTypes.object.isRequired,
     draggingType: PropTypes.number
-  }
-
-  static defaultProps = {
-    readOnly: false
   }
 
   constructor (props) {
@@ -55,7 +50,6 @@ class StreetView extends React.Component {
     }
 
     this.sectionEl = React.createRef()
-    this.sectionInnerEl = React.createRef()
     this.sectionCanvasEl = React.createRef()
   }
 
@@ -143,29 +137,19 @@ class StreetView extends React.Component {
   }
 
   onResize = () => {
-    if (!this.sectionInnerEl.current || !this.sectionCanvasEl.current) return
+    if (!this.sectionCanvasEl.current) return
 
-    const viewportHeight = window.innerHeight
     const viewportWidth = window.innerWidth
-    let streetSectionTop
-    const streetSectionHeight = this.sectionInnerEl.current.offsetHeight
-
-    streetSectionTop = viewportHeight - streetSectionHeight + 70
-
-    if (this.props.readOnly) {
-      streetSectionTop += 80
-    }
-
     const streetWidth = this.props.street.width * TILE_SIZE
     let streetSectionCanvasLeft =
       (viewportWidth - streetWidth) / 2 - BUILDING_SPACE
+
     if (streetSectionCanvasLeft < 0) {
       streetSectionCanvasLeft = 0
     }
 
     this.sectionCanvasEl.current.style.width = streetWidth + 'px'
     this.sectionCanvasEl.current.style.left = streetSectionCanvasLeft + 'px'
-    this.sectionInnerEl.current.style.top = streetSectionTop + 'px'
 
     return {
       resizeType: STREETVIEW_RESIZED
@@ -314,7 +298,7 @@ class StreetView extends React.Component {
           onScroll={this.handleStreetScroll}
           ref={this.sectionEl}
         >
-          <section id="street-section-inner" ref={this.sectionInnerEl}>
+          <section id="street-section-inner">
             <section id="street-section-canvas" ref={this.sectionCanvasEl}>
               <Building
                 position="left"
@@ -351,7 +335,6 @@ class StreetView extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    readOnly: state.app.readOnly,
     street: state.street,
     draggingType: state.ui.draggingType
   }
