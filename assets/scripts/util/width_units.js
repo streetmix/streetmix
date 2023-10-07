@@ -95,7 +95,7 @@ export function processWidthInput (widthInput, units) {
  * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
  *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
  *            assume metric.
- * @param {Number} locale - string
+ * @param {string} locale - string
  * @returns {string}
  */
 export function prettifyWidth (width, units, locale) {

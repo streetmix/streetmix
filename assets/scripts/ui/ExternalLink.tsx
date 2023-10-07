@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from '../store/hooks'
 
-interface Props {
+interface ExternalLinkProps {
   children: React.ReactNode
   href: string
 }
@@ -10,7 +10,7 @@ function ExternalLink ({
   children,
   href,
   ...restProps
-}: Props): React.ReactElement {
+}: ExternalLinkProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
 
   if (offline) {

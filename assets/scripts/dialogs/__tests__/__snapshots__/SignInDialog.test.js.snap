@@ -87,6 +87,7 @@ exports[`SignInDialog renders 1`] = `
           >
             <img
               alt=""
+              class=""
               src="test-file-stub"
             />
             Continue with Google

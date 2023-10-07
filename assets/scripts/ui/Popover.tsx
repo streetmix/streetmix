@@ -1,14 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react'
 import { useIntl } from 'react-intl'
+import type { PopoverContentProps } from '@radix-ui/react-popover'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import { InfoCircledIcon } from '@radix-ui/react-icons'
 import AccessibleIcon from './AccessibleIcon'
 import './Popover.scss'
 
-const PopoverContent = React.forwardRef(
-  ({ children, ...props }, forwardedRef) => (
-    <PopoverPrimitive.Content {...props} ref={forwardedRef}>
+interface PopoverProps {
+  label: string
+  children: React.ReactElement
+}
+
+const PopoverContent = forwardRef(
+  (
+    { children, ...props }: PopoverContentProps,
+    ref: React.Ref<HTMLDivElement>
+  ) => (
+    <PopoverPrimitive.Content {...props} ref={ref}>
       {children}
       <PopoverPrimitive.Arrow className="popover-arrow" />
     </PopoverPrimitive.Content>
@@ -16,11 +24,8 @@ const PopoverContent = React.forwardRef(
 )
 
 PopoverContent.displayName = 'PopoverContent'
-PopoverContent.propTypes = {
-  children: PropTypes.node
-}
 
-function Popover ({ label, children }) {
+function Popover ({ label, children }: PopoverProps): React.ReactElement {
   const intl = useIntl()
   const a11yLabel =
     label ||
@@ -48,11 +53,6 @@ function Popover ({ label, children }) {
       </PopoverContent>
     </PopoverPrimitive.Root>
   )
-}
-
-Popover.propTypes = {
-  label: PropTypes.string,
-  children: PropTypes.node
 }
 
 export default Popover

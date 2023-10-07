@@ -1,15 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './KeyboardKey.scss'
 
-KeyboardKey.propTypes = {
-  children: PropTypes.any,
-  icon: PropTypes.object
+interface KeyboardKeyWithIconProps {
+  icon: IconDefinition
+  children: string
 }
 
-function KeyboardKey ({ icon, children }) {
-  if (icon) {
+interface KeyboardKeyWithoutIconProps {
+  icon: undefined
+  children: React.ReactNode
+}
+
+type KeyboardKeyProps = KeyboardKeyWithIconProps | KeyboardKeyWithoutIconProps
+
+function KeyboardKey ({ icon, children }: KeyboardKeyProps): React.ReactElement {
+  if (icon !== undefined) {
     // The `title` property on <kbd> is suggested to provide
     // accessible text for the icon being displayed. In this
     // case we use the `children` prop as the `title`, which
