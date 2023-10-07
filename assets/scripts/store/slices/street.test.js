@@ -33,6 +33,9 @@ describe('street reducer', () => {
     segments: [],
     remainingWidth: 0,
     environment: 'day',
+    userUpdated: false,
+    leftBuildingHeight: 0,
+    rightBuildingHeight: 0,
     immediateRemoval: true
   }
 
@@ -55,6 +58,8 @@ describe('street reducer', () => {
       remainingWidth: 0,
       name: 'foo',
       userUpdated: true,
+      leftBuildingHeight: 0,
+      rightBuildingHeight: 0,
       environment: 'day',
       immediateRemoval: true
     })
@@ -66,6 +71,9 @@ describe('street reducer', () => {
       segments: [{ type: 'foo' }],
       remainingWidth: 0,
       environment: 'day',
+      userUpdated: false,
+      leftBuildingHeight: 0,
+      rightBuildingHeight: 0,
       immediateRemoval: true
     })
 
@@ -160,6 +168,9 @@ describe('street reducer', () => {
       occupiedWidth: 10,
       remainingWidth: 20,
       environment: 'day',
+      userUpdated: false,
+      leftBuildingHeight: 0,
+      rightBuildingHeight: 0,
       immediateRemoval: true
     })
   })
@@ -353,6 +364,9 @@ describe('street reducer', () => {
       segments: [],
       remainingWidth: 0,
       environment: 'day',
+      userUpdated: false,
+      leftBuildingHeight: 0,
+      rightBuildingHeight: 0,
       immediateRemoval: true,
       creatorId: 'foo',
       id: 'bar',
@@ -799,6 +813,9 @@ describe('street reducer', () => {
       segments: [],
       remainingWidth: 0,
       environment: 'foo',
+      userUpdated: false,
+      leftBuildingHeight: 0,
+      rightBuildingHeight: 0,
       immediateRemoval: true
     })
   })
