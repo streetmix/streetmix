@@ -1,28 +1,10 @@
 import React, { useRef } from 'react'
+import type { SwitchProps } from '@radix-ui/react-switch'
 import * as SwitchPrimitive from '@radix-ui/react-switch'
 import './Switch.scss'
 
 // This stores an incrementing number for unique IDs.
 let idCounter = 1
-
-interface SwitchProps {
-  // Child nodes are wrapped in <label> when rendered.
-  children: React.ReactNode
-
-  // Class name applied to root switch element. Will be combined with
-  // the default `switch-root` class name.
-  className?: string
-
-  // An `id` is associates a `label` with an `input` element. If you don't
-  // provide one, the component automatically generates a unique ID. IDs
-  // are "for internal use only".
-  id?: string
-
-  // Note:
-  // For all other accepted props, see the Radix UI documentation at
-  // https://www.radix-ui.com/docs/primitives/components/switch
-  // Use Radix root API to get/set checked state, for example.
-}
 
 function Switch (props: SwitchProps): React.ReactElement {
   const { id, className, children, ...restProps } = props

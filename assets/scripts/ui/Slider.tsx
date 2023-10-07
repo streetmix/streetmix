@@ -1,12 +1,7 @@
 import React, { forwardRef } from 'react'
+import type { SliderProps } from '@radix-ui/react-slider'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import './Slider.scss'
-
-interface SliderProps {
-  value?: number[]
-  defaultValue?: number[]
-  className?: string
-}
 
 // eslint-disable-next-line react/display-name
 const Slider = forwardRef(

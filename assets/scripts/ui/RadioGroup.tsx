@@ -1,45 +1,28 @@
 import React, { useRef } from 'react'
+import type {
+  RadioGroupProps,
+  RadioGroupItemProps
+} from '@radix-ui/react-radio-group'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import './RadioGroup.scss'
 
 // This stores an incrementing number for unique IDs.
 let idCounter = 1
 
-interface RadioGroupProps {
-  // Class name applied to root switch element. Will be combined with
-  // the default `switch-root` class name.
-  className?: string
-
-  // An `id` is associates a `label` with an `input` element. If you don't
-  // provide one, the component automatically generates a unique ID. IDs
-  // are "for internal use only".
-  id?: string
-
-  // Values are array of objects that specify what the options should be
-  values: Array<{
-    value: string
-    label: string
-    sublabel?: string
-    disabled?: boolean
-    required?: boolean
-  }>
-
-  // Note:
-  // For all other accepted props, see the Radix UI documentation at
-  // https://www.radix-ui.com/docs/primitives/components/radio-group
-  // Use Radix root API to get/set values and handle changes, for example.
+// Note:
+// For all other accepted props, see the Radix UI documentation at
+// https://www.radix-ui.com/docs/primitives/components/radio-group
+// Use Radix root API to get/set values and handle changes, for example.
+interface RadioProps extends RadioGroupProps {
+  values: RadioItemProps[]
 }
 
-interface RadioGroupItemProps {
-  id: string
-  value: string
+interface RadioItemProps extends RadioGroupItemProps {
   label: string
   sublabel?: string
-  disabled?: boolean
-  required?: boolean
 }
 
-function RadioGroup (props: RadioGroupProps): React.ReactElement {
+function RadioGroup (props: RadioProps): React.ReactElement {
   const { id, className = '', values, ...restProps } = props
 
   // An `id` associates a `label` with the Radix UI RadioGroup component.
@@ -79,7 +62,7 @@ function RadioGroupItem ({
   sublabel = '',
   disabled = false,
   required = false
-}: RadioGroupItemProps): React.ReactElement {
+}: RadioItemProps): React.ReactElement {
   return (
     <div className="radio-group-item">
       <RadioGroupPrimitive.Item
