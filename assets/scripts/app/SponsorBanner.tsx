@@ -1,45 +1,58 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { useSelector } from '../store/hooks'
 import ExternalLink from '../ui/ExternalLink'
 import { SPONSOR_BANNER } from './config'
 import './SponsorBanner.scss'
 
-function SponsorBanner () {
+interface SponsorBannerProps {
+  lede?: string
+  text?: string
+  link?: string // URL
+  linkText?: string
+}
+
+function SponsorBanner (): React.ReactElement | null {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
 
   // Subscribers don't see sponsor banners
   if (isSubscriber) return null
 
-  let banner = {}
-  if (SPONSOR_BANNER !== undefined) {
-    try {
-      banner = JSON.parse(SPONSOR_BANNER)
-    } catch (err) {
-      console.log('Unable to parse sponsor banner configuration:', err)
-    }
+  // Bail if configuration is undefined
+  if (SPONSOR_BANNER === undefined) return null
+
+  let banner: SponsorBannerProps = {}
+  try {
+    banner = JSON.parse(SPONSOR_BANNER)
+  } catch (err) {
+    console.log('Unable to parse sponsor banner configuration:', err)
   }
 
   const { lede, text, link, linkText } = banner
 
+  // If we're missing all the pieces, bail
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!lede && !text && !link) return null
 
   return (
     <div className="sponsor-banner">
       <span className="sponsor-title">Sponsor</span>
+      {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
       {lede && (
         <>
           <strong className="notification-bar-intro">{lede}</strong>{' '}
         </>
       )}
+      {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
       {text && (
         <>
           <span className="notification-bar-text">{text}</span>{' '}
         </>
       )}
+      {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
       {link && (
         <ExternalLink href={link} className="notification-bar-link">
-          {linkText || (
+          {linkText ?? (
             <FormattedMessage id="msg.more-info" defaultMessage="More info" />
           )}
         </ExternalLink>
