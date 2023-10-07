@@ -45,13 +45,14 @@ function ShareMenu (props: Record<string, unknown>): React.ReactElement {
   function getSharingMessage (): string {
     let message = ''
 
-    if (street.creatorId) {
+    if (typeof street.creatorId === 'string') {
       if (signedIn && street.creatorId === userId) {
-        if (street.name) {
+        if (typeof street.name === 'string') {
           message = intl.formatMessage(
             {
               id: 'menu.share.messages.my-street',
-              defaultMessage: 'Check out my street, {streetName}, on Streetmix!'
+              defaultMessage:
+                'Check out my street, {streetName}, on Streetmix!'
             },
             { streetName: street.name }
           )
@@ -62,7 +63,7 @@ function ShareMenu (props: Record<string, unknown>): React.ReactElement {
           })
         }
       } else {
-        if (street.name) {
+        if (typeof street.name === 'string') {
           message = intl.formatMessage(
             {
               id: 'menu.share.messages.someone-elses-street',
@@ -83,7 +84,7 @@ function ShareMenu (props: Record<string, unknown>): React.ReactElement {
         }
       }
     } else {
-      if (street.name) {
+      if (typeof street.name === 'string') {
         message = intl.formatMessage(
           {
             id: 'menu.share.messages.anonymous-creator-street',
