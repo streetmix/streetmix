@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
-interface SystemSlice {
+interface SystemState {
   phone: boolean
   safari: boolean
   windows: boolean
@@ -9,7 +9,7 @@ interface SystemSlice {
   devicePixelRatio: number
 }
 
-const initialState: SystemSlice = {
+const initialState: SystemState = {
   // "Phone" detection is based on "max screen size"
   phone:
     (typeof window.matchMedia !== 'undefined' &&
@@ -31,7 +31,7 @@ const systemSlice = createSlice({
   initialState,
 
   reducers: {
-    setSystemFlags (state, action: PayloadAction<SystemSlice>) {
+    setSystemFlags (state, action: PayloadAction<SystemState>) {
       return {
         ...state,
         ...action.payload

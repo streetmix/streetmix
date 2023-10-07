@@ -31,6 +31,8 @@ export interface Segment {
   variantString: string
   width: number
   elevation: number
+  variant: Record<string, string>
+  warnings: Array<boolean | null>
 }
 
 export interface StreetClass {
@@ -40,7 +42,7 @@ export interface StreetClass {
   id: string
   namespacedId: number
   units: number
-  location: null
+  location: StreetLocation | null
   userUpdated: boolean
   environment: string
   leftBuildingHeight: number
@@ -65,6 +67,12 @@ export interface Street {
   updatedAt: Date
   originalStreetId: string
   creatorId: string
+}
+
+export interface StreetLocation {
+  lntlng: LatLngObject
+  wofId: string
+  label: string
 }
 
 export interface SentimentVote {
