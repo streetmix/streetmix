@@ -1,0 +1,38 @@
+name: Argos CI Screenshots
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+defaults:
+  run:
+    working-directory: ./docs
+    
+jobs:
+  take-screenshots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: current
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build the website
+        run: npm run build
+
+      - name: Take screenshots with Playwright
+        run: npx playwright test
+
+      - name: Upload screenshots to Argos
+        run: npx argos upload ./screenshots
