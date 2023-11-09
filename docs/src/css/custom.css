@@ -212,16 +212,15 @@ html[data-theme="dark"] .stmx-illustration-container {
   max-height: 50px;
 }
 
-.stmx-color-swatch-container {
-  width: 100%;
+.stmx-swatch-group > div {
+  margin-right: 1em;
+  margin-bottom: 1em;
 }
 
 .stmx-color-swatch {
   width: 120px;
   height: 120px;
   padding: 0.75em;
-  margin-right: 1em;
-  margin-bottom: 1em;
   border-radius: 5px;
   display: inline-flex;
   flex-direction: column;
