@@ -10,10 +10,14 @@ We have [a public chat room on Discord](https://strt.mx/discord). Contributors t
 
 Our [code repository is on GitHub](https://github.com/streetmix/streetmix). Most development-related conversations happen here. You can file bug reports or feature requests on the [issues page](https://github.com/streetmix/streetmix/issues).
 
+## Mastodon {#contact-mastodon}
+
+You can reach us on Mastodon at [@streetmix@urbanists.social](https://urbanists.social/@streetmix).
+
 ## Twitter {#contact-twitter}
 
 You can reach us on Twitter at [@streetmix](https://twitter.com/streetmix).
 
 ## E-mail {#contact-email}
 
-For business inquiries, or to report code of conduct violations, email us at <hello@streetmix.net>. _This is not a customer support e-mail address_.
+For business inquiries, or to report code of conduct violations, email us at hello@streetmix.net. _This is not a customer support e-mail address_.

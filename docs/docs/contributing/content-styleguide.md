@@ -53,7 +53,7 @@ For consistency, these words or phrases should always be written in the same way
 - **NEW INC** is always in uppercase.
 - **open source** is two words, never hyphenated.
 - **email** is one word. Do not hyphenate or capitalize (unless at the start of a sentence).
-- The URL to our website is **<https://streetmix.net/>**, which uses the more secure **https** protocol, and does not have the `www.` prefix in the domain name.
+- The URL to our website is **`https://streetmix.net/`**, which uses the more secure **https** protocol, and does not have the `www.` prefix in the domain name.
 
 :::info
 

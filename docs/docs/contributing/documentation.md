@@ -86,4 +86,4 @@ Our continuous integration tests work on the main app, not the documentation. So
 
 If you have made changes to documentation in a branch, [create a pull request](code/overview#pull-request) so that a member of the Streetmix team can review and approve.
 
-Once documentation have been merged or committed to the `main` branch, Netlify will automatically build and deploy the revised documentation to <https://docs.streetmix.net/>. Netlify does not wait for continuous integration to pass, and a production build will be triggered on each commit.
+Once documentation have been merged or committed to the `main` branch, Netlify will automatically build and deploy the revised documentation to [https://docs.streetmix.net/](https://docs.streetmix.net/). Netlify does not wait for continuous integration to pass, and a production build will be triggered on each commit.
