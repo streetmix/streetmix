@@ -170,6 +170,8 @@ Colors are mostly soft, with hints of brightness. They should have sufficient co
 
 Colors are not necessarily "true to life." (For instance, we're not using the "actual" color of a taillight.) Use colors from the following color palette whenever possible, instead of using custom colors, so that illustrations appear unified. But if the palette just doesn't work, you may choose a new color that does. Some illustrations may have already chosen a color not shown below, so it's best to sample colors that have already been used elsewhere, even if it's not part of the official palette.
 
+import SwatchGroup from '@site/src/components/SwatchGroup'
+
 export const ColorSwatch = function ({ hex, name }) {
   const parsed = hex.replace('#', '').match(/.{1,2}/g)
   const rgb = [
@@ -191,89 +193,109 @@ export const ColorSwatch = function ({ hex, name }) {
 
 ### Skin tones
 
-<ColorSwatch hex="#553f37" name="skintone-5" />
-<ColorSwatch hex="#72594b" name="skintone-4" />
-<ColorSwatch hex="#aa8b7e" name="skintone-3" />
-<ColorSwatch hex="#ceac98" name="skintone-2" />
-<ColorSwatch hex="#e1c5b5" name="skintone-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#553f37" name="skintone-5" />
+  <ColorSwatch hex="#72594b" name="skintone-4" />
+  <ColorSwatch hex="#aa8b7e" name="skintone-3" />
+  <ColorSwatch hex="#ceac98" name="skintone-2" />
+  <ColorSwatch hex="#e1c5b5" name="skintone-1" />
+</SwatchGroup>
 
 To keep people recognizable, use skin tone colors only for people.
 
 ### Beiges
 
-<ColorSwatch hex="#cead80" name="beige-4" />
-<ColorSwatch hex="#e0cea8" name="beige-3" />
-<ColorSwatch hex="#ecdbb1" name="beige-2" />
-<ColorSwatch hex="#f6f1e1" name="beige-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#cead80" name="beige-4" />
+  <ColorSwatch hex="#e0cea8" name="beige-3" />
+  <ColorSwatch hex="#ecdbb1" name="beige-2" />
+  <ColorSwatch hex="#f6f1e1" name="beige-1" />
+</SwatchGroup>
 
 Recommended for: walls, stucco, plaster, pavement, sand
 
 ### Off-whites
 
-<ColorSwatch hex="#d8d3cb" name="greige-3" />
-<ColorSwatch hex="#e7e6de" name="greige-2" />
-<ColorSwatch hex="#f5f3e9" name="greige-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#d8d3cb" name="greige-3" />
+  <ColorSwatch hex="#e7e6de" name="greige-2" />
+  <ColorSwatch hex="#f5f3e9" name="greige-1" />
+</SwatchGroup>
 
 Recommended for: walls, metal, concrete
 
 #### Greens
 
-<ColorSwatch hex="#35813f" name="green-3" />
-<ColorSwatch hex="#679a45" name="green-2" />
-<ColorSwatch hex="#89ba6a" name="green-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#35813f" name="green-3" />
+  <ColorSwatch hex="#679a45" name="green-2" />
+  <ColorSwatch hex="#89ba6a" name="green-1" />
+</SwatchGroup>
 
 Recommended for: foliage, trees, plants
 
 ### Browns
 
-<ColorSwatch hex="#352d27" name="brown-4" />
-<ColorSwatch hex="#645849" name="brown-3" />
-<ColorSwatch hex="#7c705a" name="brown-2" />
-<ColorSwatch hex="#988a74" name="brown-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#352d27" name="brown-4" />
+  <ColorSwatch hex="#645849" name="brown-3" />
+  <ColorSwatch hex="#7c705a" name="brown-2" />
+  <ColorSwatch hex="#988a74" name="brown-1" />
+</SwatchGroup>
 
 Recommended for: wood, dirt
 
 ### Grayscale
 
-<ColorSwatch hex="#2a2b2a" name="grayscale-5" />
-<ColorSwatch hex="#5c5e5f" name="grayscale-4" />
-<ColorSwatch hex="#c1bebb" name="grayscale-3" />
-<ColorSwatch hex="#e4e2dc" name="grayscale-2" />
-<ColorSwatch hex="#f4f2ed" name="grayscale-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#2a2b2a" name="grayscale-5" />
+  <ColorSwatch hex="#5c5e5f" name="grayscale-4" />
+  <ColorSwatch hex="#c1bebb" name="grayscale-3" />
+  <ColorSwatch hex="#e4e2dc" name="grayscale-2" />
+  <ColorSwatch hex="#f4f2ed" name="grayscale-1" />
+</SwatchGroup>
 
 Recommended for: asphalt, metal, road markings
 
 ### Indigos
 
-<ColorSwatch hex="#252947" name="indigo-3" />
-<ColorSwatch hex="#313156" name="indigo-2" />
-<ColorSwatch hex="#494a72" name="indigo-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#252947" name="indigo-3" />
+  <ColorSwatch hex="#313156" name="indigo-2" />
+  <ColorSwatch hex="#494a72" name="indigo-1" />
+</SwatchGroup>
 
 Recommend for: windows, reflective surfaces
 
 ### Blues
 
-<ColorSwatch hex="#234c6b" name="blue-3" />
-<ColorSwatch hex="#366387" name="blue-2" />
-<ColorSwatch hex="#4f83a3" name="blue-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#234c6b" name="blue-3" />
+  <ColorSwatch hex="#366387" name="blue-2" />
+  <ColorSwatch hex="#4f83a3" name="blue-1" />
+</SwatchGroup>
 
 Recommended for: water
 
 ### Reds / Oranges
 
-<ColorSwatch hex="#720e1a" name="red-4" />
-<ColorSwatch hex="#ae2025" name="red-3" />
-<ColorSwatch hex="#ef9c74" name="red-2" />
-<ColorSwatch hex="#ffeecc" name="red-1" />
+<SwatchGroup>
+  <ColorSwatch hex="#720e1a" name="red-4" />
+  <ColorSwatch hex="#ae2025" name="red-3" />
+  <ColorSwatch hex="#ef9c74" name="red-2" />
+  <ColorSwatch hex="#ffeecc" name="red-1" />
+</SwatchGroup>
 
 Recommended for: lights, flowers
 
 ### Brights
 
-<ColorSwatch hex="#e7673c" name="orange" />
-<ColorSwatch hex="#f8bb1c" name="yellow-2" />
-<ColorSwatch hex="#fcd157" name="yellow-1" />
-<ColorSwatch hex="#109ba8" name="bright-blue" />
+<SwatchGroup>
+  <ColorSwatch hex="#e7673c" name="orange" />
+  <ColorSwatch hex="#f8bb1c" name="yellow-2" />
+  <ColorSwatch hex="#fcd157" name="yellow-1" />
+  <ColorSwatch hex="#109ba8" name="bright-blue" />
+</SwatchGroup>
 
 Bright colors are used sparingly and as highlights when the colors above won't do.
 

@@ -32,7 +32,7 @@ Sometimes, there are updates or additions to the original, or _source_, English 
 
 ## Seeing translations live
 
-The most important part about translating is seeing your hard work in Transifex show up live in the application! You can do this by visiting the staging server at <http://streetmix-staging.herokuapp.com> and logging in to view or create your user account there. (Because it's a staging server, it uses a separate database and different user accounts from the main instance.)
+The most important part about translating is seeing your hard work in Transifex show up live in the application! You can do this by visiting [the staging server](http://streetmix-staging.herokuapp.com) and logging in to view or create your user account there. (Because it's a staging server, it uses a separate database and different user accounts from the main instance.)
 
 Let someone on the team know your user account name on the staging server so that we can give you "translator" role.
 
@@ -68,7 +68,7 @@ Before you get started, here are some terms that you should get familiar with.
 
 ### Join the team
 
-Start here: <https://www.transifex.com/streetmix/streetmix/>
+Start by going our [Transifex project page](https://www.transifex.com/streetmix/streetmix/).
 
 If you are not logged in or don't have an account yet, you will need to click the "Help Translate Streetmix" button and you will be prompted to log in or create an account.
 
@@ -80,7 +80,7 @@ The Transifex interface can take some getting used to. If something doesn't matc
 
 :::
 
-Once you create your account, you may have to confirm your email address. Then, navigate back to <https://www.transifex.com/streetmix/streetmix/> and you should see a blue button that says "Join Team".
+Once you create your account, you may have to confirm your email address. Then, navigate back to the [Transifex project page](https://www.transifex.com/streetmix/streetmix/) and you should see a blue button that says "Join Team".
 
 ![image](_images/4769b7f-2-join-team.png)
 
@@ -94,7 +94,7 @@ After requesting to join a language, you should receive a confirmation message. 
 
 ### Getting started
 
-Once your request has been approved, you should see the following when you go back to [Streetmix's Transifex homepage](https://www.transifex.com/streetmix/streetmix/). From here, select _Languages_.
+Once your request has been approved, you should see the following when you go back to the [Transifex project page](https://www.transifex.com/streetmix/streetmix/). From here, select _Languages_.
 
 ![image](_images/3e4f5bc-5-success-dashboard.png)
 
@@ -154,6 +154,6 @@ If there is a difficult or confusing string, please add a comment on Transifex. 
 
 For issues that are larger than one specific string, please bring this up to the Streetmix community. There are two ways you can do this:
 
-1. Tell us on the Streetmix Discord in the _#translations_ channel. You can join our Discord server here: <https://strt.mx/discord>.
+1. Join our [Discord server](https://strt.mx/discord) and post in the _#translations_ channel.
 
-2. Create an issue on GitHub ([learn more](https://help.github.com/articles/creating-an-issue/)). Our issues are located here: <https://github.com/streetmix/streetmix/issues/new>
+2. [Create an issue on GitHub](https://github.com/streetmix/streetmix/issues/new).

@@ -1,9 +1,9 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const darkCodeTheme = require('prism-react-renderer/themes/dracula')
-const remarkSmartypants = require('@silvenon/remark-smartypants')
+import type { Config } from '@docusaurus/types'
+import type { Options, ThemeConfig } from '@docusaurus/preset-classic'
+import { themes } from 'prism-react-renderer/'
+import remarkSmartypants from '@silvenon/remark-smartypants'
 
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-module.exports = {
+const config: Config = {
   title: 'Streetmix Documentation',
   tagline: 'A guidebook for the makers and the users of Streetmix.',
   url: 'https://docs.streetmix.net',
@@ -106,10 +106,10 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} Streetmix. Built with Docusaurus.`
     },
     prism: {
-      theme: lightCodeTheme,
-      darkTheme: darkCodeTheme
+      theme: themes.github,
+      darkTheme: themes.dracula
     }
-  },
+  } satisfies ThemeConfig,
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -129,7 +129,9 @@ module.exports = {
         theme: {
           customCss: require.resolve('./src/css/custom.css')
         }
-      }
+      } satisfies Options
     ]
   ]
 }
+
+export default config

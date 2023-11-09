@@ -1,19 +1,19 @@
-import React from 'react'
-import clsx from 'clsx'
-import Link from '@docusaurus/Link'
+import React from "react";
+import clsx from "clsx";
+import Link from "@docusaurus/Link";
 
-import styles from './HomepageFeatures.module.css'
+import styles from "./HomepageFeatures.module.css";
 
 export default function HomepageFeatures() {
   return (
     <div className="row margin-vert--lg">
-      <div className="col col--4 col--offset-2" style={{ marginBottom: '1em' }}>
+      <div className="col col--4 col--offset-2" style={{ marginBottom: "1em" }}>
         <div
           className="text--center padding-horiz--md"
-          style={{ height: '100%' }}
+          style={{ height: "100%" }}
         >
           <Link to="/contributing/intro" className={clsx(styles.featureLink)}>
-            <div className={clsx('card', styles.featureCard)}>
+            <div className={clsx("card", styles.featureCard)}>
               <div className="card__header">
                 <h3>Programmers and designers</h3>
               </div>
@@ -27,13 +27,13 @@ export default function HomepageFeatures() {
           </Link>
         </div>
       </div>
-      <div className="col col--4" style={{ marginBottom: '1em' }}>
+      <div className="col col--4" style={{ marginBottom: "1em" }}>
         <div
           className="text--center padding-horiz--md"
-          style={{ height: '100%' }}
+          style={{ height: "100%" }}
         >
           <Link to="/user-guide/intro" className={clsx(styles.featureLink)}>
-            <div className={clsx('card', styles.featureCard)}>
+            <div className={clsx("card", styles.featureCard)}>
               <div className="card__header">
                 <h3>Planners and urbanists</h3>
               </div>
@@ -48,5 +48,5 @@ export default function HomepageFeatures() {
         </div>
       </div>
     </div>
-  )
+  );
 }

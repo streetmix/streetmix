@@ -30,6 +30,6 @@ What would you like to help with?
   - [Code styleguide](./code/styleguide)
 - I want to support Streetmix **financially**.
   - [Support us on OpenCollective.](https://opencollective.com/streetmix/)
-  - For partnerships and business inquiries, email <hello@streetmix.net>.
+  - For partnerships and business inquiries, email hello@streetmix.net.
 - I want to **stay in touch**, meet others in the community, or find other ways to help!
   - Join us on [Discord](https://strt.mx/discord)!
