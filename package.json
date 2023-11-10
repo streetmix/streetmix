@@ -130,7 +130,7 @@
     "auth0-js": "9.23.2",
     "autoprefixer": "10.4.16",
     "axios": "1.5.1",
-    "axios-retry": "3.5.0",
+    "axios-retry": "3.8.1",
     "chalk": "5.3.0",
     "cloudinary": "1.41.0",
     "compression": "1.7.4",
