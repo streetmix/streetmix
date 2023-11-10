@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+// Importing 'property-information' is a workaround for Parcel + React-Markdown bug
+// https://github.com/parcel-bundler/parcel/discussions/9113
+import 'property-information'
 import ReactMarkdown from 'react-markdown'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { getChangelog } from '../util/api'
@@ -77,9 +80,8 @@ const WhatsNewDialog = () => {
                     'img'
                   ]}
                   unwrapDisallowed={true}
-                  linkTarget="_blank"
-                  transformImageUri={(src) => {
-                    return src.replace('/img/', '/images/')
+                  urlTransform={(url) => {
+                    return url.replace('/img/', '/images/')
                   }}
                 >
                   {content}

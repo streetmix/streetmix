@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+// Importing 'property-information' is a workaround for Parcel + React-Markdown bug
+// https://github.com/parcel-bundler/parcel/discussions/9113
+import 'property-information'
 import ReactMarkdown from 'react-markdown'
 import Transition from 'react-transition-group/Transition'
 import { getStreetSectionTop } from '../app/window_resize'
@@ -97,7 +100,6 @@ function DescriptionPanel ({
                     !offline && 'a'
                   ]}
                   unwrapDisallowed={true}
-                  linkTarget="_blank"
                 >
                   {content}
                 </ReactMarkdown>
