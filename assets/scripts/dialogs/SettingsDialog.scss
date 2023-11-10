@@ -17,8 +17,7 @@
 .settings-dialog-left {
   width: 180px;
   border-right: 1px solid $colour-turquoise-350;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden auto;
 
   [dir="rtl"] & {
     border-left: 1px solid $colour-turquoise-350;
@@ -44,8 +43,7 @@
 .settings-dialog-right {
   flex: 1;
   padding: 2em;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden auto;
 
   h2 {
     color: $colour-turquoise-600;

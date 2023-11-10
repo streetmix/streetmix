@@ -6,8 +6,7 @@
   position: absolute;
   display: block;
   inset: -$gallery-height 0 -20px; // Bottom inset hides the scrollbar
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: scroll hidden;
   touch-action: pan-x;
 
   /* Prevent overscroll from doing forward/back navigation on some browsers */

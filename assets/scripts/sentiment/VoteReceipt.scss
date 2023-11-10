@@ -60,9 +60,7 @@
 .sentiment-survey-done-comment {
   display: flex;
   flex-direction: row;
-  align-content: center;
-  justify-content: center;
-  justify-content: space-between;
+  place-content: center space-between;
   align-items: center;
   margin: 0;
 
