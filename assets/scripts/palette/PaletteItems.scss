@@ -49,8 +49,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: scroll hidden;
   white-space: nowrap;
 
   // Keep palette items center aligned when the viewport is very wide

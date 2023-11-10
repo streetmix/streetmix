@@ -22,8 +22,7 @@ $menu-box-shadow: $medium-box-shadow;
 
   /* Allows scrolling if the menu length is longer than height of viewport */
   max-height: calc(100% - 100px);
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 
   &.menu-visible-enter-done {
     transform: rotateX(0);
