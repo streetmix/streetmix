@@ -1,7 +1,12 @@
 {
   "name": "streetmix-docs",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "This website is built using [Docusaurus 3](https://docusaurus.io/), a modern static website generator.",
   "private": true,
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
