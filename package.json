@@ -11,6 +11,9 @@
     "node": "^18.x || ^20.x",
     "npm": ">=9.x"
   },
+  "workspaces": [
+    "docs"
+  ],
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
