@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl'
 // https://github.com/parcel-bundler/parcel/discussions/9113
 import 'property-information'
 import ReactMarkdown from 'react-markdown'
+import rehypeExternalLinks from 'rehype-external-links'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { getChangelog } from '../util/api'
 import Dialog from './Dialog'
@@ -83,6 +84,12 @@ const WhatsNewDialog = () => {
                   urlTransform={(url) => {
                     return url.replace('/img/', '/images/')
                   }}
+                  rehypePlugins={[
+                    [
+                      rehypeExternalLinks,
+                      { rel: 'noopener noreferrer', target: '_blank' }
+                    ]
+                  ]}
                 >
                   {content}
                 </ReactMarkdown>

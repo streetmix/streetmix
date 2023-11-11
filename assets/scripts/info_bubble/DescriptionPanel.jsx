@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl'
 // https://github.com/parcel-bundler/parcel/discussions/9113
 import 'property-information'
 import ReactMarkdown from 'react-markdown'
+import rehypeExternalLinks from 'rehype-external-links'
 import Transition from 'react-transition-group/Transition'
 import { getStreetSectionTop } from '../app/window_resize'
 import Triangle from './Triangle'
@@ -100,6 +101,12 @@ function DescriptionPanel ({
                     !offline && 'a'
                   ]}
                   unwrapDisallowed={true}
+                  rehypePlugins={[
+                    [
+                      rehypeExternalLinks,
+                      { rel: 'noopener noreferrer', target: '_blank' }
+                    ]
+                  ]}
                 >
                   {content}
                 </ReactMarkdown>

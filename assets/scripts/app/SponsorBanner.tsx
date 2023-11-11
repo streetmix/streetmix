@@ -62,7 +62,7 @@ function SponsorBanner (): React.ReactElement | null {
         <a
           href="https://about.streetmix.net/sponsorship/"
           target="_blank"
-          rel="noopener noreferer noreferrer"
+          rel="noopener noreferrer"
         >
           (What are sponsors?)
         </a>
