@@ -204,11 +204,11 @@
     "winston": "3.10.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.2",
-    "@babel/eslint-parser": "7.22.15",
-    "@babel/preset-env": "7.23.2",
-    "@babel/preset-react": "7.22.15",
-    "@babel/preset-typescript": "7.23.2",
+    "@babel/core": "7.23.3",
+    "@babel/eslint-parser": "7.23.3",
+    "@babel/preset-env": "7.23.3",
+    "@babel/preset-react": "7.23.3",
+    "@babel/preset-typescript": "7.23.3",
     "@commitlint/cli": "17.6.5",
     "@commitlint/config-conventional": "18.1.0",
     "@faker-js/faker": "8.2.0",
