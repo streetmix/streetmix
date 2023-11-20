@@ -318,13 +318,13 @@
   },
   "prompt": {
     "new-street": "Kadun uusi nimi:",
-    "delete-street": "Haluatko varmasti poistaa kohteen {streetName} pysyvästi?",
+    "delete-street": "Poistetaanko {streetName} pysyvästi?",
     "new-width": "Uusi kadunleveys ({minWidth}-{maxWidth}):",
     "segment-label": "Uuden elementin nimi:"
   },
   "toast": {
-    "segment-deleted": "Tämä elementti on poistettu.",
-    "all-segments-deleted": "Kaikki elementit on poistettu.",
+    "segment-deleted": "Elementti poistettiin.",
+    "all-segments-deleted": "Kaikki elementit poistettiin.",
     "no-undo": "Ei toimintohistoriaa.",
     "no-redo": "Ei toimintohistoriaa.",
     "no-save": "Ei Tallenna-painiketta: Streetmix tallentaa muutokset automaattisesti!",
