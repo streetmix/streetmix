@@ -3,10 +3,10 @@
  * handles internationalization (i18n)
  *
  */
+import LOCALES from '@streetmix/i18n'
 import { IntlMessageFormat } from 'intl-messageformat'
 import store, { observeStore } from '../store'
 import { changeLocale } from '../store/slices/locale'
-import LOCALES from '../../../app/data/locales.json'
 import { DEFAULT_LOCALE } from './constants'
 
 /**

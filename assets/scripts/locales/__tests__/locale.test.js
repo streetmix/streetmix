@@ -1,23 +1,6 @@
 /* eslint-env jest */
 import { getActualLocaleFromRequested } from '../locale'
 
-jest.mock('../../../../app/data/locales.json', () => {
-  return [
-    {
-      value: 'en',
-      level: 4
-    },
-    {
-      value: 'ja',
-      level: 4
-    },
-    {
-      value: 'pt-BR',
-      level: 4
-    }
-  ]
-})
-
 describe('localization', () => {
   describe('getActualLocaleFromRequested', () => {
     it('returns an exact match for an available locale', () => {

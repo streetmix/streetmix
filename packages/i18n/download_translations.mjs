@@ -1,9 +1,9 @@
 import * as fs from 'node:fs/promises'
 import chalk from 'chalk'
-import { getFromTransifex } from '../app/lib/transifex.mjs'
+import { getFromTransifex } from '../../app/lib/transifex.mjs'
 
 const languages = JSON.parse(
-  await fs.readFile(new URL('../app/data/locales.json', import.meta.url))
+  await fs.readFile(new URL('./locales.json', import.meta.url))
 )
 
 const resources = ['main', 'segment-info']
@@ -14,7 +14,7 @@ if (!process.env.TRANSIFEX_API_TOKEN) {
 }
 
 const downloadSuccess = async function (locale, resource, label, data) {
-  const localePath = `../assets/locales/${locale}`
+  const localePath = `./locales/${locale}`
   const translationFile = new URL(
     `${localePath}/${resource}.json`,
     import.meta.url

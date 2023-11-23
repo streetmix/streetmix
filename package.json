@@ -12,7 +12,8 @@
     "npm": ">=9.x"
   },
   "workspaces": [
-    "docs"
+    "docs",
+    "packages/*"
   ],
   "scripts": {
     "cypress:open": "cypress open",
@@ -28,7 +29,7 @@
     "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.mjs,.cjs .",
     "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
-    "translations:download": "node -r dotenv/config bin/download_translations.mjs",
+    "translations:download": "node -r dotenv/config packages/i18n/download_translations.mjs",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "db:create": "npx sequelize-cli db:create",

@@ -4,7 +4,12 @@ import { getFromTransifex } from '../../lib/transifex.mjs'
 
 async function getLocalTranslation (res, locale, resource) {
   const translationFile =
-    process.cwd() + '/assets/locales/' + locale + '/' + resource + '.json'
+    process.cwd() +
+    '/packages/i18n/locales/' +
+    locale +
+    '/' +
+    resource +
+    '.json'
 
   try {
     return await fs.readFile(translationFile, 'utf8')
