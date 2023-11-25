@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## November 25, 2023
+
+### 🎨 Improvements
+
+- Updates to Korean translations. Thanks to our translator, Jaeheon Kim, and our reviewer, Hanbyul Jo!
+
 ## June 20, 2023
 
 ### ✨ New features
