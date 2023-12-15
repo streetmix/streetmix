@@ -1,22 +1,19 @@
 {
   "name": "@streetmix/illustrations",
-  "version": "2.1.2",
-  "description": "Streemix artwork SVG build process",
+  "version": "2.1.3",
+  "description": "Streemix artwork",
   "repository": {
     "type": "git",
-    "url": "https://github.com/streetmix/illustrations.git"
+    "url": "https://github.com/streetmix/streetmix.git",
+    "directory": "packages/illustrations"
   },
+  "license": "CC-BY-SA-4.0",
   "files": [
     "images",
     "swatches"
   ],
   "scripts": {
     "start": "echo Nothing to run!"
-  },
-  "license": "CC-BY-SA-4.0",
-  "engines": {
-    "node": ">=16.x",
-    "npm": ">=8.x"
   },
   "devDependencies": {}
 }

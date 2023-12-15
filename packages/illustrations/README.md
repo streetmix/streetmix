@@ -6,7 +6,7 @@ These images were converted to SVG from original source illustrations in Adobe I
 
 ## Styleguide
 
-**For design guidelines and colors see the [Illustration guide](https://streetmix.readthedocs.io/en/latest/contributing/illustrations/).**
+**For design guidelines and colors see the [Illustration guide](https://docs.streetmix.net/contributing/illustrations/overview).**
 
 - Swatches are provided in Adobe Swatch Exchange (ASE) format in the `swatches` folder. ASE files can be imported to Illustrator and Affinity Designer.
 - We've also added a palette in the GIMP GPL format, which is compatible with open source image editors (e.g. GIMP, Inkscape, Krita).
@@ -58,4 +58,4 @@ Opening them in Affinity Design and then saving it back out at SVG seems to affe
 
 This work is licensed under a [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License](https://creativecommons.org/licenses/by-sa/4.0/).
 
-More on [licensing](https://streetmix.readthedocs.io/en/latest/support/faq/#what-is-the-end-user-license).
+More on [licensing](https://docs.streetmix.net/user-guide/support/faq#what-is-the-end-user-license).

@@ -1,6 +1,8 @@
-# v2.1.2
+# v2.1.2 - v2.1.3
 
-- Move package location to Streetmix repository (under `/packages`). No other changes.
+- Move package location to Streetmix repository (under `/packages`).
+- Update `repository` metadata for `package.json`.
+- This is an organizational change only; no developer- or user-facing changes.
 
 # v2.1.1
 
