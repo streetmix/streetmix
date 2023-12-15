@@ -1,0 +1,43 @@
+GIMP Palette
+Name: Streetmix illustrations
+Columns: 4
+# Colours used for Streetmix illustrations
+# https://github.com/streetmix/illustrations
+85	63	55	Skintone 5
+114	89	75	Skintone 4
+170	139	126	Skintone 3
+206	172	152	Skintone 2
+225	197	181	Skintone 1
+206	173	128	Beige 4
+224	206	168	Beige 3
+236	219	177	Beige 2
+246	241	225	Beige 1
+216	211	203	Greige 3
+231	230	222	Greige 2
+245	243	233	Greige 1
+53	129	63	Green 3
+103	154	69	Green 2
+136	186	106	Green 1
+53	45	39	Brown 4 (dirt)
+100	88	73	Brown 3
+124	112	90	Brown 2
+152	138	116	Brown 1
+42	43	42	Grayscale 5
+92	94	95	Grayscale 4
+193	190	187	Grayscale 3
+228	226	220	Grayscale 2
+244	242	237	Grayscale 1
+37	41	71	Indigo 3
+49	49	86	Indigo 2
+73	74	114	Indigo 1
+35	76	107	Blue 3
+54	99	135	Blue 2
+79	131	163	Blue 1
+114	14	26	Red 4
+174	32	37	Red 3
+239	156	116	Red 2
+255	238	204	Red 1
+231	103	60	Orange
+248	187	28	Yellow 2
+252	209	87	Yellow 1
+16	155	168	Bright Blue

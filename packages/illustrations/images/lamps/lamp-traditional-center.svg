@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 120 460" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="lamppost-center" transform="matrix(0.635,0,0,0.635,-0.96,-27.68)">
+        <g id="post">
+            <g transform="matrix(1,0,0,1,47.5,0)">
+                <path d="M34.918,768L61.081,768L57.272,206.549L38.733,201.21L34.918,768Z" style="fill:rgb(92,94,95);fill-rule:nonzero;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,47.5,0)">
+                <path d="M34.918,768L61.081,768L36.297,564.604L34.918,768Z" style="fill:rgb(42,43,42);fill-rule:nonzero;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,47.5,0)">
+                <path d="M56.507,350.535L40.736,201.21L57.274,201.567L56.507,350.535Z" style="fill:rgb(42,43,42);fill-rule:nonzero;"/>
+            </g>
+        </g>
+        <g id="lantern">
+            <g id="Lamp">
+                <g transform="matrix(1,0,0,1,47.5,0)">
+                    <path d="M30.918,201.5L9,132.5L39.5,112.25L35.736,94.841L48.507,82.571L61.334,94.529L57.25,112.75L88,132.334L63.667,201.833" style="fill:rgb(92,94,95);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(1,0,0,1,47.5,0)">
+                    <path d="M88,133L24.148,133L57.25,113.25L88,133Z" style="fill:rgb(42,43,42);fill-rule:nonzero;"/>
+                </g>
+            </g>
+            <g id="Light-Window" serif:id="Light Window">
+                <g transform="matrix(1,0,0,1,47.5,0)">
+                    <path d="M24.148,137L36.99,194L58.334,194L73.06,137L24.148,137Z" style="fill:rgb(246,241,225);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(1,0,0,1,47.5,0)">
+                    <path d="M24.148,136.69L31.433,168.92L60.037,136.66L24.148,136.69Z" style="fill:rgb(236,219,177);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(1,0,0,1,47.5,0)">
+                    <path d="M36.99,194L35.66,187.867L69.735,149.562L58.334,194L36.99,194Z" style="fill:rgb(236,219,177);fill-rule:nonzero;"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
