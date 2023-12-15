@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 20 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="bike-lane-divider" transform="matrix(1.27,0,0,1.27,-5.24,-133.36)">
+        <path d="M5,168L19,168L15,164L14.745,117.752L9.3,117.58L9,164L5,168Z" style="fill:rgb(228,226,220);"/>
+        <g transform="matrix(1,0,0,1,0,8)">
+            <path d="M9.3,114L14.838,114L14.838,118L9.2,118L9.3,114Z" style="fill:rgb(72,121,158);"/>
+        </g>
+        <g transform="matrix(1,0,0,1,0,16.1286)">
+            <path d="M9.3,114L14.838,114L14.838,118L9.2,118L9.3,114Z" style="fill:rgb(72,121,158);"/>
+        </g>
+        <path d="M5,168L9,164L9.2,139.566L15,162.224L15,164L19,168L5,168Z" style="fill:rgb(193,190,187);"/>
+    </g>
+</svg>

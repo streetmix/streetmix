@@ -1,0 +1,4 @@
+# Do not place this file at project root
+# otherwise it will not override package.json's
+# `files` property.
+*.afdesign

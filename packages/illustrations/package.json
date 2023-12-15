@@ -1,0 +1,19 @@
+{
+  "name": "@streetmix/illustrations",
+  "version": "2.1.3",
+  "description": "Streemix artwork",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/streetmix/streetmix.git",
+    "directory": "packages/illustrations"
+  },
+  "license": "CC-BY-SA-4.0",
+  "files": [
+    "images",
+    "swatches"
+  ],
+  "scripts": {
+    "start": "echo Nothing to run!"
+  },
+  "devDependencies": {}
+}
