@@ -1,3 +1,7 @@
+# v2.1.2
+
+- Move package location to Streetmix repository (under `/packages`). No other changes.
+
 # v2.1.1
 
 - Minor fix: npm no longer warns on Node.js engines greater than v16
