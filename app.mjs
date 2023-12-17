@@ -21,13 +21,9 @@ import logger from './app/lib/logger.mjs'
 import jwtCheck from './app/authentication.mjs'
 
 initCloudinary()
-compileSVGSprites('assets/images/icons/', 'icons', 'icon')
+compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon')
 compileSVGSprites('assets/images/illustrations', 'illustrations', 'image')
-compileSVGSprites(
-  'node_modules/@streetmix/illustrations/images/',
-  'images',
-  'image'
-)
+compileSVGSprites('packages/illustrations/images/', 'images', 'image')
 
 const app = express()
 export default app
