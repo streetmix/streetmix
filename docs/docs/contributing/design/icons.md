@@ -8,7 +8,7 @@ Icons generally should not be used on their own. They should have a text label f
 
 ## Streetmix segment icons
 
-We've created custom icons to select between different variants of street segments (for instance, inbound or outbound lanes). The source files for these icons are in SVG and are located in `/assets/images/icons`.
+We've created custom icons to select between different variants of street segments (for instance, inbound or outbound lanes). The source files for these icons are in SVG and are located in `/packages/variant-icons`.
 
 ### Working with icons
 
@@ -23,7 +23,7 @@ These are our guidelines for icons:
 
 ### Build pipeline
 
-All the current SVGs are exported from Affinity Designer. They have a very easy to use exporter that doesn't insert a lot of the extra meta-gunk that Adobe Illustrator does. This file is located at `/assets/images/icons/icons.afdesign`.
+All the current SVGs are exported from Affinity Designer. They have a very easy to use exporter that doesn't insert a lot of the extra meta-gunk that Adobe Illustrator does. This file is located at `/packages/variant-icons/src/icons.afdesign`.
 
 If you don't have Affinity Designer or would rather use Adobe Illustrator or another vector file editor, the actual software used to create or export the SVGs are no longer as important, since we also minify these icons during Streetmix application's start-up process. Icons are compiled into a single, compressed `icons.svg` file. Streetmix does not use the raw, source SVG files.
 

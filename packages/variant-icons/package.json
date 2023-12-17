@@ -1,0 +1,15 @@
+{
+  "name": "@streetmix/variant-icons",
+  "version": "1.0.0",
+  "description": "Variant icons",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/streetmix/streetmix.git",
+    "directory": "packages/illustrations"
+  },
+  "scripts": {
+    "start": "echo Nothing to run!",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "CC-BY-SA-4.0"
+}
