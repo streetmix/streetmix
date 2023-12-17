@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { Transition } from 'react-transition-group'
 import { FormattedMessage } from 'react-intl'
+import { useSelector } from '../../store/hooks'
 import CloseButton from '../../ui/CloseButton'
 import ExternalLink from '../../ui/ExternalLink'
 import './NotificationBar.scss'
@@ -16,18 +15,24 @@ const TRANSITION_BASE_STYLE = {
 // const LSKEY_NOTIFICATION_TOS = 'notification-tos-dismissed'
 // const LSKEY_NOTIFICATION_STORE = 'notification-store-dismissed'
 
-NotificationBar.propTypes = {
-  notification: PropTypes.shape({
-    display: PropTypes.bool,
-    lede: PropTypes.string,
-    text: PropTypes.string,
-    link: PropTypes.string,
-    linkText: PropTypes.string,
-    localStorageKey: PropTypes.string
-  })
+interface NotificationConfig {
+  display?: boolean
+  lede?: string
+  text?: string
+  link?: string
+  linkText?: string
+  localStorageKey?: string
 }
 
-function NotificationBar ({ notification = {} }) {
+interface NotificationBarProps {
+  notification?: NotificationConfig
+}
+
+// NOTE: Notification is passed in as a prop, rather than directly imported
+// from notification.json in this file, in order to make it easier to test.
+function NotificationBar ({
+  notification = {}
+}: NotificationBarProps): React.ReactNode {
   const locale = useSelector((state) => state.locale)
   const {
     display = false,
@@ -41,24 +46,30 @@ function NotificationBar ({ notification = {} }) {
   let shouldDisplay = display
 
   // If dismissed, don't display again.
-  if (window.localStorage[localStorageKey]) {
-    shouldDisplay = !JSON.parse(window.localStorage[localStorageKey])
+  if (
+    localStorageKey !== undefined &&
+    window.localStorage[localStorageKey] !== undefined &&
+    JSON.parse(window.localStorage[localStorageKey]) === true
+  ) {
+    shouldDisplay = false
   }
 
   const [show, setShow] = useState(shouldDisplay)
   const [height, setHeight] = useState(0)
-  const el = useRef(null)
+  const el = useRef<HTMLDivElement>(null)
 
-  const handleClickDismiss = (event) => {
+  const handleClickDismiss = (): void => {
+    if (el.current === null) return
+
     const height = el.current.getBoundingClientRect().height
 
     setHeight(height)
     setShow(false)
   }
 
-  const handleExited = () => {
+  const handleExited = (): void => {
     try {
-      if (localStorageKey) {
+      if (localStorageKey !== undefined) {
         window.localStorage[localStorageKey] = JSON.stringify(true)
       }
     } catch (error) {
@@ -67,7 +78,10 @@ function NotificationBar ({ notification = {} }) {
   }
 
   // If no one turns this on explicitly, don't display anything
-  if (!display || (!lede && !text && !link)) return null
+  if (
+    !display ||
+    (lede === undefined && text === undefined && link === undefined)
+  ) { return null }
 
   // If locale isn't English, don't display; we don't localize these messages
   if (locale.locale !== 'en') return null
@@ -87,19 +101,19 @@ function NotificationBar ({ notification = {} }) {
           marginTop: `-${height}px`
         }}
       >
-        {lede && (
+        {lede !== undefined && (
           <>
             <strong className="notification-bar-intro">{lede}</strong>{' '}
           </>
         )}
-        {text && (
+        {text !== undefined && (
           <>
             <span className="notification-bar-text">{text}</span>{' '}
           </>
         )}
-        {link && (
+        {link !== undefined && (
           <ExternalLink href={link} className="notification-bar-link">
-            {linkText || (
+            {linkText ?? (
               <FormattedMessage id="msg.more-info" defaultMessage="More info" />
             )}
           </ExternalLink>
