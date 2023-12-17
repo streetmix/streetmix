@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { Transition } from 'react-transition-group'
 import { FormattedMessage } from 'react-intl'
-import CloseButton from '../ui/CloseButton'
-import ExternalLink from '../ui/ExternalLink'
+import CloseButton from '../../ui/CloseButton'
+import ExternalLink from '../../ui/ExternalLink'
 import './NotificationBar.scss'
 
 const TRANSITION_DURATION = 250
