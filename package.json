@@ -204,9 +204,9 @@
     "winston": "3.10.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.3",
+    "@babel/core": "7.23.6",
     "@babel/eslint-parser": "7.23.3",
-    "@babel/preset-env": "7.23.3",
+    "@babel/preset-env": "7.23.6",
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.23.3",
     "@commitlint/cli": "17.6.5",
