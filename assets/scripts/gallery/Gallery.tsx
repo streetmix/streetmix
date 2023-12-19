@@ -1,15 +1,17 @@
 import React, { useEffect, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from '../store/hooks'
 import { closeGallery } from '../store/actions/gallery'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import GalleryPanel from './GalleryPanel'
 import GalleryShield from './GalleryShield'
 import './Gallery.scss'
 
-function Gallery (props) {
+function Gallery (): React.ReactNode {
   const { visible, instant } = useSelector((state) => state.gallery)
   const dispatch = useDispatch()
-  const hide = useCallback((e) => dispatch(closeGallery()), [dispatch])
+  const hide = useCallback(() => {
+    void dispatch(closeGallery())
+  }, [dispatch])
 
   useEffect(() => {
     // Only register the esc keybind when Gallery is visible
