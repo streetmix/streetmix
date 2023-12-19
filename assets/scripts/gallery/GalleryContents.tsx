@@ -26,7 +26,7 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactNode {
       state.gallery.userId === state.user.signInData?.userId
   )
   const dispatch = useDispatch()
-  const galleryEl = useRef(null)
+  const galleryEl = useRef<HTMLDivElement>(null)
   const [selectedStreet, setSelectedStreet] = useState<string | null>(
     currentStreetId
   )
@@ -40,7 +40,9 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactNode {
         selectedEl.scrollIntoView({ behavior: 'smooth', inline: 'nearest' })
         // We need this to prevent scrollIntoView from moving things
         // upward and trying to reveal the hidden scrollbar area
-        galleryEl.current.parentNode.scrollTop = 0
+        if (galleryEl.current?.parentElement) {
+          galleryEl.current.parentElement.scrollTop = 0
+        }
       }
     }
   }, [selectedStreet])
