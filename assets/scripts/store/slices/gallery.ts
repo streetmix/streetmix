@@ -1,13 +1,13 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import type { StreetClass } from '../../types'
+import type { Street } from '../../types'
 
 interface GalleryState {
   visible: boolean
   instant: boolean
   userId: string | null
   mode: 'none' | 'loading' | 'gallery' | 'error'
-  streets: StreetClass[]
+  streets: Street[]
 }
 
 const initialState: GalleryState = {
@@ -33,7 +33,7 @@ export const gallerySlice = createSlice({
       state.visible = false
     },
 
-    deleteGalleryStreet (state, action: PayloadAction<StreetClass['id']>) {
+    deleteGalleryStreet (state, action: PayloadAction<Street['id']>) {
       state.streets = state.streets.filter((street) => {
         return street.id !== action.payload
       })

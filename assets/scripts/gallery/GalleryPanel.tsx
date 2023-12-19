@@ -12,7 +12,7 @@ function GalleryPanel (): React.ReactNode {
   // There might be a better way of combining these requests!
   const mode = useSelector((state) => state.gallery.mode)
   const userId = useSelector((state) => state.gallery.userId)
-  const { data: user, isError, isLoading } = useGetUserQuery(userId)
+  const { data, isError, isLoading } = useGetUserQuery(userId)
 
   let childElements
 
@@ -22,7 +22,7 @@ function GalleryPanel (): React.ReactNode {
     childElements = <GalleryError />
   } else if (mode === 'gallery') {
     // It is not necessary to have a user property to load the gallery
-    childElements = <GalleryContents user={user} />
+    childElements = <GalleryContents user={data} />
   } else {
     childElements = null
   }

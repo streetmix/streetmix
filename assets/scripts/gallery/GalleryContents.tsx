@@ -1,33 +1,38 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import type { UserProfile } from '../types'
+import { useSelector, useDispatch } from '../store/hooks'
+import { deleteGalleryStreet } from '../store/slices/gallery'
 import Button from '../ui/Button'
 import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
-import { deleteGalleryStreet } from '../store/slices/gallery'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet } from './index'
 import './GalleryContents.scss'
 
-function GalleryContents ({ user = {} }) {
-  const streets = useSelector((state) => state.gallery.streets || [])
-  const currentStreetId = useSelector((state) => state.street.id)
+interface GalleryContentsProps {
+  user?: UserProfile
+}
+
+function GalleryContents ({ user }: GalleryContentsProps): React.ReactNode {
+  const streets = useSelector((state) => state.gallery.streets ?? [])
+  const currentStreetId = useSelector((state) => state.street.id ?? null)
   const isOwnedByCurrentUser = useSelector(
     (state) =>
       state.user.signedIn &&
-      state.gallery.userId === state.user.signInData.userId
+      state.gallery.userId === state.user.signInData?.userId
   )
   const dispatch = useDispatch()
-
   const galleryEl = useRef(null)
-  const [selectedStreet, setSelectedStreet] = useState(currentStreetId)
+  const [selectedStreet, setSelectedStreet] = useState<string | null>(
+    currentStreetId
+  )
 
   useLayoutEffect(() => {
-    if (selectedStreet) {
+    if (selectedStreet !== undefined) {
       const selectedEl = document.querySelector('.gallery-selected')
       // Make sure the element exists -- sometimes it hasn't rendered yet
       if (selectedEl) {
@@ -40,12 +45,12 @@ function GalleryContents ({ user = {} }) {
     }
   }, [selectedStreet])
 
-  function selectStreet (streetId) {
+  function selectStreet (streetId: string): void {
     setSelectedStreet(streetId)
     switchGalleryStreet(streetId)
   }
 
-  function deleteStreet (streetId) {
+  function deleteStreet (streetId: string): void {
     if (streetId === currentStreetId) {
       setSelectedStreet(null)
       showError(ERRORS.NO_STREET, false)
@@ -62,14 +67,14 @@ function GalleryContents ({ user = {} }) {
     <>
       {/* Heading */}
       <div className="gallery-header" ref={galleryEl}>
-        {user.id && <Avatar userId={user.id} />}
+        {user?.id !== undefined && <Avatar userId={user.id} />}
         <div className="gallery-label">
-          {user.displayName || user.id || (
+          {user?.displayName ?? user?.id ?? (
             <FormattedMessage id="gallery.all" defaultMessage="All streets" />
           )}
         </div>
         {/* Street count */}
-        {user.id && (
+        {user?.id ?? (
           <div className="gallery-street-count">
             <FormattedMessage
               id="gallery.street-count"
@@ -123,7 +128,9 @@ function GalleryContents ({ user = {} }) {
               selected={selectedStreet === item.id}
               doSelect={selectStreet}
               doDelete={deleteStreet}
-              showStreetOwner={!user.id || !(user.id === item.creatorId)}
+              showStreetOwner={
+                user?.id !== undefined || !(user?.id === item?.creatorId)
+              }
               allowDelete={isOwnedByCurrentUser}
             />
           ))}
@@ -131,10 +138,6 @@ function GalleryContents ({ user = {} }) {
       </div>
     </>
   )
-}
-
-GalleryContents.propTypes = {
-  user: PropTypes.object
 }
 
 export default GalleryContents
