@@ -24,7 +24,6 @@ interface GalleryStreetItemProps {
 }
 
 function GalleryStreetItem (props: GalleryStreetItemProps): React.ReactNode {
-  // Destructure and set default props
   const {
     street,
     showStreetOwner = true,
@@ -35,8 +34,6 @@ function GalleryStreetItem (props: GalleryStreetItemProps): React.ReactNode {
   } = props
   const dpi = useSelector((state) => state.system.devicePixelRatio || 1)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
-
-  // Set hooks
   const [isError, setError] = useState<boolean>(false)
   const thumbnailEl = useRef<HTMLCanvasElement>(null)
   const intl = useIntl()

@@ -76,7 +76,7 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactNode {
           )}
         </div>
         {/* Street count */}
-        {user?.id ?? (
+        {user?.id !== undefined && (
           <div className="gallery-street-count">
             <FormattedMessage
               id="gallery.street-count"
@@ -130,9 +130,7 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactNode {
               selected={selectedStreet === item.id}
               doSelect={selectStreet}
               doDelete={deleteStreet}
-              showStreetOwner={
-                user?.id !== undefined || !(user?.id === item?.creatorId)
-              }
+              showStreetOwner={!user || !(user?.id === item.creatorId)}
               allowDelete={isOwnedByCurrentUser}
             />
           ))}
