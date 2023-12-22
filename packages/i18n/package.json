@@ -2,6 +2,7 @@
   "name": "@streetmix/i18n",
   "version": "1.0.0",
   "description": "localization interfaces",
+  "type": "module",
   "main": "locales.json",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

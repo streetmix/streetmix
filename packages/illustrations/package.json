@@ -12,6 +12,7 @@
     "images",
     "swatches"
   ],
+  "type": "module",
   "scripts": {
     "start": "echo Nothing to run!"
   },
