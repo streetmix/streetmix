@@ -1,5 +1,5 @@
-'use strict'
-const faker = require('@faker-js/faker')
+import { faker } from '@faker-js/faker'
+
 const users = [...Array(10)].map((user) => ({
   id: faker.internet.userName(),
   email: faker.internet.email(),
@@ -7,7 +7,7 @@ const users = [...Array(10)].map((user) => ({
   updated_at: new Date()
 }))
 
-module.exports = {
+export default {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', users, {})
   },
