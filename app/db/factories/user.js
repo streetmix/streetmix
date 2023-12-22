@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker')
-const { User } = require('../../db/models')
+const { User } = require('../models/index.mjs')
 
 /*
 a factory to make a user

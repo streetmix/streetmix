@@ -1,5 +1,5 @@
 import request from 'request'
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.mjs'
 import logger from '../logger.mjs'
 import appURL from '../url.mjs'
 

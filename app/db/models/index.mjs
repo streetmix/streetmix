@@ -1,8 +1,11 @@
-'use strict'
+import Sequelize from 'sequelize'
+import config from '../config/config.mjs'
+import sequence from './sequence.js'
+import street from './street.js'
+import user from './user.js'
+import userconnections from './userconnections.js'
+import vote from './vote.js'
 
-const Sequelize = require('sequelize')
-const models = require('requireindex')(__dirname)
-const config = require('../config/config')
 const configEnv = config[process.env.NODE_ENV]
 const db = {}
 
@@ -19,6 +22,16 @@ if (configEnv.url) {
 }
 
 // Set up each model
+// This was ported from an older `requireindex` pattern, might
+// need a refactor.
+const models = {
+  sequence,
+  street,
+  user,
+  userconnections,
+  vote
+}
+
 Object.values(models).forEach((modelDefiner) => {
   const model = modelDefiner(sequelize, Sequelize.DataTypes)
 
@@ -38,4 +51,4 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize
 
-module.exports = db
+export default db

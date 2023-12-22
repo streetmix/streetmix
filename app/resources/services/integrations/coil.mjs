@@ -3,7 +3,7 @@ import passport from 'passport'
 import { OAuth2Strategy } from 'passport-oauth'
 import { InternalOAuthError } from 'passport-oauth2'
 import axios from 'axios'
-import models from '../../../db/models/index.js'
+import models from '../../../db/models/index.mjs'
 import appURL from '../../../lib/url.mjs'
 import logger from '../../../lib/logger.mjs'
 import {

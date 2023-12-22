@@ -1,24 +1,15 @@
+import path from 'node:path'
+import dotenv from 'dotenv'
+
 // This script can be loaded from the command line via
 // `npx sequelize`, so we still need to load environment variables
-// Only run if the entry point of the script is `sequelize`.
-// `require.main` will be undefined in the app when entry point is ESM
-if (require.main?.filename.endsWith('sequelize')) {
-  const path = require('path')
-  const dotenv = require('dotenv')
-  const env = dotenv.config({
-    debug: process.env.DEBUG,
-    path:
-      process.env.NODE_ENV === 'test'
-        ? path.resolve(process.cwd(), '.env.test')
-        : path.resolve(process.cwd(), '.env') // Default .env location
-  })
-
-  // Error parsing .env file
-  // It's okay to skip if we can't find it
-  if (env.error && env.error.code !== 'ENOENT') {
-    throw env.error
-  }
-}
+dotenv.config({
+  debug: process.env.DEBUG,
+  path:
+    process.env.NODE_ENV === 'test'
+      ? path.resolve(process.cwd(), '.env.test')
+      : path.resolve(process.cwd(), '.env') // Default .env location
+})
 
 // Export environment-specific Sequelize configuration
 // Set via environment variables
@@ -67,7 +58,9 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
-module.exports = {
+const config = {
   // Property needs to match the environment sequelize is used in
   [process.env.NODE_ENV]: dbConfig
 }
+
+export default config

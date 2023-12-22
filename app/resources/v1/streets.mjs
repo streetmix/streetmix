@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.mjs'
 import logger from '../../lib/logger.mjs'
 import { ERRORS, asStreetJson } from '../../lib/util.mjs'
 

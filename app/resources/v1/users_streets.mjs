@@ -1,4 +1,4 @@
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.mjs'
 import { ERRORS } from '../../lib/util.mjs'
 import logger from '../../lib/logger.mjs'
 

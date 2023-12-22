@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.mjs'
 import logger from '../../lib/logger.mjs'
 
 const { User, Vote, Street } = models
