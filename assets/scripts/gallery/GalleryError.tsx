@@ -1,16 +1,15 @@
 import React, { useCallback } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+import { useSelector, useDispatch } from '../store/hooks'
 import { openGallery } from '../store/actions/gallery'
 import Button from '../ui/Button'
 
-function GalleryError ({ showTryAgain = true }) {
+function GalleryError (): React.ReactNode {
   const userId = useSelector((state) => state.gallery.userId)
   const dispatch = useDispatch()
 
   const handleRetry = useCallback(() => {
-    dispatch(openGallery({ userId }))
+    void dispatch(openGallery({ userId }))
   }, [userId, dispatch])
 
   return (
@@ -21,17 +20,11 @@ function GalleryError ({ showTryAgain = true }) {
           defaultMessage="Failed to load the gallery."
         />
       </p>
-      {showTryAgain && (
-        <Button onClick={handleRetry}>
-          <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
-        </Button>
-      )}
+      <Button onClick={handleRetry}>
+        <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
+      </Button>
     </div>
   )
-}
-
-GalleryError.propTypes = {
-  showTryAgain: PropTypes.bool
 }
 
 export default GalleryError

@@ -11,7 +11,7 @@ describe('gallery reducer', () => {
     visible: false,
     instant: false,
     userId: null,
-    mode: 'NONE',
+    mode: 'none',
     streets: []
   }
 
@@ -24,7 +24,7 @@ describe('gallery reducer', () => {
       visible: true,
       instant: false,
       userId: 'userId',
-      mode: 'NONE',
+      mode: 'none',
       streets: []
     })
   })
@@ -35,7 +35,7 @@ describe('gallery reducer', () => {
         {
           visible: true,
           userId: null,
-          mode: 'NONE',
+          mode: 'none',
           streets: []
         },
         hideGallery()
@@ -43,7 +43,7 @@ describe('gallery reducer', () => {
     ).toEqual({
       visible: false,
       userId: null,
-      mode: 'NONE',
+      mode: 'none',
       streets: []
     })
   })
@@ -54,7 +54,7 @@ describe('gallery reducer', () => {
         {
           visible: false,
           userId: null,
-          mode: 'GALLERY',
+          mode: 'gallery',
           streets: [{ id: 1 }, { id: 2 }, { id: 3 }]
         },
         deleteGalleryStreet(2)
@@ -62,7 +62,7 @@ describe('gallery reducer', () => {
     ).toEqual({
       visible: false,
       userId: null,
-      mode: 'GALLERY',
+      mode: 'gallery',
       streets: [{ id: 1 }, { id: 3 }]
     })
   })
@@ -72,7 +72,7 @@ describe('gallery reducer', () => {
       visible: false,
       instant: false,
       userId: 'foo',
-      mode: 'NONE',
+      mode: 'none',
       streets: []
     })
   })

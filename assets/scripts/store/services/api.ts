@@ -5,6 +5,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 // This may be a Parcel issue, filed here:
 // https://github.com/parcel-bundler/parcel/issues/7622#issuecomment-1027569976
 import { fetchBaseQuery } from '@reduxjs/toolkit/query'
+import type { UserProfile } from '../../types'
 
 export const streetmixApi = createApi({
   reducerPath: 'streetmixApi',
@@ -13,10 +14,10 @@ export const streetmixApi = createApi({
     baseUrl: '/api/v1/'
   }),
   endpoints: (builder) => ({
-    getUser: builder.query({
-      queryFn: (userId: string, _api, _extraOptions, baseQuery) => {
-        if (!userId) {
-          return { data: {} }
+    getUser: builder.query<UserProfile, string | null>({
+      queryFn: (userId, _api, _extraOptions, baseQuery) => {
+        if (userId === null) {
+          return { data: null }
         } else {
           return baseQuery(`users/${userId}`)
         }

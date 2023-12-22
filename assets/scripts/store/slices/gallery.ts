@@ -1,21 +1,20 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import type { StreetClass } from '../../types'
-import { GALLERY_MODES } from '../../gallery/constants'
+import type { Street } from '../../types'
 
 interface GalleryState {
   visible: boolean
   instant: boolean
   userId: string | null
-  mode: string
-  streets: StreetClass[]
+  mode: 'none' | 'loading' | 'gallery' | 'error'
+  streets: Street[]
 }
 
 const initialState: GalleryState = {
   visible: false,
   instant: false,
   userId: null,
-  mode: GALLERY_MODES.NONE,
+  mode: 'none',
   streets: []
 }
 
@@ -27,14 +26,14 @@ export const gallerySlice = createSlice({
     showGallery (state, action: PayloadAction<GalleryState['userId']>) {
       state.visible = true
       state.userId = action.payload
-      state.mode = GALLERY_MODES.NONE
+      state.mode = 'none'
     },
 
     hideGallery (state, action: PayloadAction<undefined>) {
       state.visible = false
     },
 
-    deleteGalleryStreet (state, action: PayloadAction<StreetClass['id']>) {
+    deleteGalleryStreet (state, action: PayloadAction<Street['id']>) {
       state.streets = state.streets.filter((street) => {
         return street.id !== action.payload
       })
@@ -56,11 +55,11 @@ export const gallerySlice = createSlice({
         state.visible = true
         state.instant = action.meta.arg.instant ?? false
         state.userId = action.meta.arg.userId ?? null
-        state.mode = GALLERY_MODES.LOADING
+        state.mode = 'loading'
       })
 
       .addCase('gallery/openGallery/fulfilled', (state, action) => {
-        state.mode = GALLERY_MODES.GALLERY
+        state.mode = 'gallery'
         state.streets = action.payload.streets
       })
 
@@ -68,7 +67,7 @@ export const gallerySlice = createSlice({
         // Log this error because otherwise it's swallowed
         console.error('gallery/openGallery/rejected', action.error.stack)
 
-        state.mode = GALLERY_MODES.ERROR
+        state.mode = 'error'
 
         // A rejection occurs with an optional value. The `killGallery` value
         // can be sent, which means we want to close the gallery immediately.

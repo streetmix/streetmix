@@ -1,7 +1,7 @@
 import React, { useState, useRef, useLayoutEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { useIntl, FormattedMessage } from 'react-intl'
+import type { Street } from '../types'
+import { useSelector } from '../store/hooks'
 import { useGetUserQuery } from '../store/services/api'
 import { getStreetUrl } from '../app/page_url'
 import DateTimeRelative from '../app/DateTimeRelative'
@@ -14,29 +14,36 @@ const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
-function GalleryStreetItem (props) {
-  // Destructure and set default props
+interface GalleryStreetItemProps {
+  street: Street
+  showStreetOwner: boolean
+  selected: boolean
+  allowDelete: boolean
+  doSelect: (id: string) => void
+  doDelete: (id: string) => void
+}
+
+function GalleryStreetItem (props: GalleryStreetItemProps): React.ReactNode {
   const {
     street,
     showStreetOwner = true,
     selected = false,
     allowDelete = false,
-    doSelect = () => {}, // no-op
-    doDelete = () => {} // no-op
+    doSelect,
+    doDelete
   } = props
   const dpi = useSelector((state) => state.system.devicePixelRatio || 1)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
-
-  // Set hooks
-  const [error, setError] = useState(null)
-  const thumbnailEl = useRef(null)
+  const [isError, setError] = useState<boolean>(false)
+  const thumbnailEl = useRef<HTMLCanvasElement>(null)
   const intl = useIntl()
 
   // Effect hook draws thumbnail to canvas element after mounting
   useLayoutEffect(() => {
-    if (!street.data) return
+    if (thumbnailEl.current === null) return
 
     const ctx = thumbnailEl.current.getContext('2d')
+    if (ctx === null) return
 
     try {
       drawStreetThumbnail(ctx, street.data.street, {
@@ -53,20 +60,18 @@ function GalleryStreetItem (props) {
         watermark: false
       })
     } catch (error) {
-      if (error) {
-        setError(error)
-      }
+      setError(true)
     }
   }, [thumbnailEl, street, dpi])
 
   // Define event handlers
-  function handleSelectStreet (event) {
+  function handleSelectStreet (event: React.MouseEvent): void {
     event.preventDefault()
     if (event.shiftKey || event.ctrlKey || event.metaKey) return
     doSelect(street.id)
   }
 
-  function handleDeleteStreet (event) {
+  function handleDeleteStreet (event: React.MouseEvent): void {
     event.preventDefault()
     event.stopPropagation()
 
@@ -78,7 +83,7 @@ function GalleryStreetItem (props) {
       },
       {
         streetName:
-          street.name ||
+          street.name ??
           intl.formatMessage({
             id: 'street.default-name',
             defaultMessage: 'Unnamed St'
@@ -93,7 +98,7 @@ function GalleryStreetItem (props) {
 
   // Bail if there is no street data
   // TODO: handle data errors better
-  if (!street.data) {
+  if (street.data === undefined) {
     console.error('No street data!', street)
     return null
   }
@@ -110,7 +115,7 @@ function GalleryStreetItem (props) {
     <div className={classNames.join(' ')}>
       <a href={getStreetUrl(street)} onClick={handleSelectStreet}>
         {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
-        {error ? (
+        {isError ? (
           <div className="gallery-street-item-error">
             <FormattedMessage
               id="gallery.thumbnail-error"
@@ -140,8 +145,8 @@ function GalleryStreetItem (props) {
         {/* Show street creator (owner) or 'Anonymous' */}
         {showStreetOwner && (
           <span className="gallery-street-item-creator">
-            {creatorProfile?.displayName ||
-              street.creatorId ||
+            {creatorProfile?.displayName ??
+              street.creatorId ??
               intl.formatMessage({
                 id: 'users.anonymous',
                 defaultMessage: 'Anonymous'
@@ -165,15 +170,6 @@ function GalleryStreetItem (props) {
       )}
     </div>
   )
-}
-
-GalleryStreetItem.propTypes = {
-  street: PropTypes.object.isRequired,
-  showStreetOwner: PropTypes.bool,
-  selected: PropTypes.bool,
-  allowDelete: PropTypes.bool,
-  doSelect: PropTypes.func,
-  doDelete: PropTypes.func
 }
 
 export default GalleryStreetItem
