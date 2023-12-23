@@ -1,4 +1,4 @@
-import roles from '../../data/user_roles.json' with { type: 'json' }
+import roles from '../../data/user_roles.json' assert { type: 'json' }
 
 const validUserRoles = Object.keys(roles)
 
