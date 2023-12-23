@@ -1,11 +1,12 @@
-'use strict'
+import roles from '../../data/user_roles.json' with { type: 'json' }
+
+const validUserRoles = Object.keys(roles)
+
 /*
 a little atypical setup here...'id' is usually a unique primary key value
 but in this app it is actually the username of the user
 */
-const validUserRoles = Object.keys(require('../../data/user_roles.json'))
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {

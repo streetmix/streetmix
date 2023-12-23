@@ -1,10 +1,10 @@
-import Sequelize from 'sequelize'
+import { Sequelize, DataTypes } from 'sequelize'
 import config from '../config/config.mjs'
-import sequence from './sequence.js'
-import street from './street.js'
-import user from './user.js'
-import userconnections from './userconnections.js'
-import vote from './vote.js'
+import sequence from './sequence.mjs'
+import street from './street.mjs'
+import user from './user.mjs'
+import userconnections from './userconnections.mjs'
+import vote from './vote.mjs'
 
 const configEnv = config[process.env.NODE_ENV]
 const db = {}
@@ -33,7 +33,7 @@ const models = {
 }
 
 Object.values(models).forEach((modelDefiner) => {
-  const model = modelDefiner(sequelize, Sequelize.DataTypes)
+  const model = modelDefiner(sequelize, DataTypes)
 
   if (!model) {
     throw new Error(`missing model for file: ${modelDefiner}`)

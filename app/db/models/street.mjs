@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Street = sequelize.define(
     'Street',
     {

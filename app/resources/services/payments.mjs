@@ -1,5 +1,5 @@
 import * as fs from 'node:fs/promises'
-import User from '../../db/models/user.js'
+import User from '../../db/models/user.mjs'
 import logger from '../../lib/logger.mjs'
 
 const roles = JSON.parse(
