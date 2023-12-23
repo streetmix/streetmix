@@ -188,7 +188,6 @@
     "react-transition-group": "4.4.5",
     "regenerator-runtime": "0.13.11",
     "rehype-external-links": "3.0.0",
-    "requireindex": "1.2.0",
     "sass": "1.69.5",
     "seedrandom": "3.0.5",
     "sequelize": "6.35.2",
