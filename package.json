@@ -161,7 +161,7 @@
     "jwt-decode": "3.1.2",
     "leaflet": "1.9.4",
     "nanoid": "5.0.4",
-    "newrelic": "11.3.0",
+    "newrelic": "11.7.0",
     "nodemon": "3.0.1",
     "parcel": "2.10.3",
     "passport": "0.6.0",
