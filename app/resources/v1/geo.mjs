@@ -1,4 +1,4 @@
-import Street from '../../db/models/street.js'
+import Street from '../../db/models/street.mjs'
 import logger from '../../lib/logger.mjs'
 
 export async function get (req, res) {

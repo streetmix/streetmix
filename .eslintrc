@@ -5,6 +5,17 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
+    },
+    "babelOptions": {
+      "plugins": [
+        // Import attributes are required to import JSON
+        // Deprecated syntax must be used to support Node < 20.10.0
+        // We cannot switch to "with" syntax until "assert" is fully removed
+        [
+          "@babel/plugin-syntax-import-attributes",
+          { "deprecatedAssertSyntax": true }
+        ]
+      ]
     }
   },
   "env": {

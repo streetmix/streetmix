@@ -1,8 +1,6 @@
-'use strict'
-
 const MAX_COMMENT_LENGTH = 280
 
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Vote = sequelize.define(
     'Vote',
     {

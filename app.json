@@ -3,7 +3,7 @@
   "scripts": {},
   "repository": "https://github.com/streetmix/streetmix/",
   "website": "https://streetmix.net/",
-  "stack": "heroku-20",
+  "stack": "heroku-22",
   "env": {
     "COOKIE_SESSION_SECRET": {
       "description": "A secret key for verifying the integrity of signed cookies.",
@@ -29,7 +29,7 @@
   },
   "addons": [
     {
-      "plan": "heroku-postgresql:hobby-dev",
+      "plan": "heroku-postgresql:mini",
       "as": "DATABASE"
     },
     "papertrail:choklad",
@@ -37,7 +37,7 @@
   ],
   "buildpacks": [
     {
-      "url": "urn:buildpack:heroku/nodejs"
+      "url": "heroku/nodejs"
     }
   ]
 }

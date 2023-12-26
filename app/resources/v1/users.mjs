@@ -1,5 +1,5 @@
 import cloudinary from 'cloudinary'
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.mjs'
 import logger from '../../lib/logger.mjs'
 import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.mjs'
 
