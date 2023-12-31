@@ -17,7 +17,6 @@ import ToastContainer from '../ui/Toasts/ToastContainer'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
 import { useSelector, useDispatch } from '../store/hooks'
 import { getInitialFlags } from '../store/slices/flags'
-import NOTIFICATION from './NotificationBar/notification.json'
 import DebugInfo from './DebugInfo'
 import BlockingShield from './BlockingShield'
 import BlockingError from './BlockingError'
@@ -84,7 +83,7 @@ function App (): React.ReactElement {
               context={window}
             >
               {/* DndProvider allows multiple children; IntlProvider does not */}
-              <NotificationBar notification={NOTIFICATION} />
+              <NotificationBar />
               <BlockingShield />
               <BlockingError />
               <Gallery />
