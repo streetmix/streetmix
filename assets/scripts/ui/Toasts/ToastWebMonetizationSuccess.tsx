@@ -1,25 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
 import wmIcon from '../../../images/wm-icon-animated.svg'
 import ExternalLink from '../ExternalLink'
-import Toast from './Toast'
+import Toast, { type ToastProps, type ToastItemProps } from './Toast'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-ToastWebMonetizationSuccess.propTypes = {
-  item: PropTypes.shape({
-    component: PropTypes.oneOf(['TOAST_WEB_MONETIZATION_SUCCESS']),
-    action: PropTypes.string
-  }),
-  setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired
+interface ToastWebMonetizationSuccessProps extends ToastProps {
+  item: ToastItemProps & {
+    component: 'TOAST_WEB_MONETIZATION_SUCCESS'
+  }
 }
 
-function ToastWebMonetizationSuccess (props) {
+function ToastWebMonetizationSuccess (
+  props: ToastWebMonetizationSuccessProps
+): React.ReactNode {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
-  function handleAction (event) {
+  function handleAction (event: React.MouseEvent): void {
     window.open(
       'https://docs.streetmix.net/user-guide/streetmix-plus',
       '_blank'
