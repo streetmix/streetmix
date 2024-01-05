@@ -1,14 +1,12 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { doSignIn } from '../../users/authentication'
-import Toast, { type ToastProps } from './Toast'
+import Toast, { type ToastProps, type ToastItemProps } from './Toast'
 
 // Renders a specific type of Toast with Sign in button.
 interface ToastSignInProps extends ToastProps {
-  item: {
+  item: ToastItemProps & {
     component: 'TOAST_SIGN_IN'
-    message: string
-    action?: string
   }
 }
 

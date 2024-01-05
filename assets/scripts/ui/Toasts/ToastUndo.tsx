@@ -2,14 +2,12 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useDispatch } from '../../store/hooks'
 import { handleUndo } from '../../store/actions/history'
-import Toast, { type ToastProps } from './Toast'
+import Toast, { type ToastProps, type ToastItemProps } from './Toast'
 
 // Renders a specific type of Toast with Undo button.
 interface ToastUndoProps extends ToastProps {
-  item: {
+  item: ToastItemProps & {
     component: 'TOAST_UNDO'
-    message: string
-    action?: string
   }
 }
 

@@ -2,16 +2,18 @@ import React from 'react'
 import CloseButton from '../CloseButton'
 import './Toast.scss'
 
+export interface ToastItemProps {
+  mode?: 'success' | 'warning'
+  component?: string
+  title?: string
+  message?: string
+  action?: string
+}
+
 export interface ToastProps {
-  item: {
-    mode?: 'success' | 'warning'
-    component?: string
-    title?: string
-    message: string
-    action?: string
-  }
+  item: ToastItemProps
   setRef: () => void
-  handleClose: (event: React.MouseEvent) => void
+  handleClose: (event: React.MouseEvent | Event) => void
   handleAction: (event: React.MouseEvent) => void
   className?: string
   children?: React.ReactNode
