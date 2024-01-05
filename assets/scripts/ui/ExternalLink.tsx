@@ -4,7 +4,7 @@ import { useSelector } from '../store/hooks'
 interface ExternalLinkProps {
   children: React.ReactNode
   href: string
-  className: string
+  className?: string
 }
 
 function ExternalLink ({

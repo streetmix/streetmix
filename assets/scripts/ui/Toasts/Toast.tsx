@@ -13,7 +13,7 @@ export interface ToastItemProps {
 export interface ToastProps {
   item: ToastItemProps
   setRef: () => void
-  handleClose: (event: React.MouseEvent | Event) => void
+  handleClose: (event?: React.MouseEvent | Event) => void
   handleAction: (event: React.MouseEvent) => void
   className?: string
   children?: React.ReactNode
