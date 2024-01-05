@@ -2,18 +2,19 @@ import React from 'react'
 import CloseButton from '../CloseButton'
 import './Toast.scss'
 
-interface ToastProps {
+export interface ToastProps {
   item: {
-    mode: 'success' | 'warning'
+    mode?: 'success' | 'warning'
+    component?: string
+    title?: string
     message: string
-    title: string
-    action: string
+    action?: string
   }
   setRef: () => void
-  handleClose: () => void
-  handleAction: () => void
-  className: string
-  children: React.ReactNode
+  handleClose: (event: React.MouseEvent) => void
+  handleAction: (event: React.MouseEvent) => void
+  className?: string
+  children?: React.ReactNode
 }
 
 function Toast (props: ToastProps): React.ReactNode {
@@ -31,7 +32,7 @@ function Toast (props: ToastProps): React.ReactNode {
   if (mode) {
     classNames.push('toast-' + mode)
   }
-  if (className) {
+  if (className !== undefined) {
     classNames.push(className)
   }
 
@@ -40,10 +41,10 @@ function Toast (props: ToastProps): React.ReactNode {
       <div className="toast-content">
         <CloseButton onClick={handleClose} />
         <div className="toast-body">
-          {title && <h3>{title}</h3>}
+          {title !== undefined && <h3>{title}</h3>}
           {children !== undefined || <p className="toast-message">{message}</p>}
         </div>
-        {action && (
+        {action !== undefined && (
           <div className="toast-action">
             <button onClick={handleAction}>{action}</button>
           </div>
