@@ -5,7 +5,7 @@ import './Toast.scss'
 
 export interface ToastProps {
   item: ToastItem
-  setRef: <T>(ref: React.Ref<T>) => void
+  setRef: <T>(ref: T | null) => void
   handleClose: (event?: React.MouseEvent | Event) => void
   handleAction?: (event: React.MouseEvent) => void
   className?: string

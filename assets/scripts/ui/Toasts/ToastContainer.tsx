@@ -85,8 +85,8 @@ function ToastContainer (): React.ReactNode {
   return (
     <div className="toast-container">
       {transitions(({ life, ...style }, item) => {
-        function setRef<T> (ref: React.Ref<T>): void {
-          ref !== undefined && refMap.set(item, ref)
+        function setRef<T> (ref: T | null): void {
+          ref !== null && refMap.set(item, ref)
         }
 
         function handleClose (event?: React.MouseEvent | Event): void {
