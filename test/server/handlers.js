@@ -4,10 +4,6 @@ import autocompleteResponse from '../fixtures/geocode/autocomplete.json'
 import searchResponse from '../fixtures/geocode/search.json'
 
 export const handlers = [
-  rest.get('/api/v1/flags', (req, res, ctx) => {
-    return res(ctx.status(200))
-  }),
-
   rest.get('api/v1/users/:userId', (req, res, ctx) => {
     const { userId } = req.params
 

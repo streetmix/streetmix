@@ -40,10 +40,6 @@ class APIClient {
     })
   }
 
-  getFlags = async (): APIResponse => {
-    return await this.client.get(`${BASE_URL_API_V1}/flags`)
-  }
-
   getAppTranslations = async (locale: string): APIResponse => {
     return await this.client.get(`${BASE_URL_API_V1}/translate/${locale}/main`)
   }
@@ -167,7 +163,6 @@ class APIClient {
 const client = new APIClient()
 
 export const {
-  getFlags,
   getAppTranslations,
   getSegmentTranslations,
   getUser,
