@@ -1,4 +1,3 @@
-export * as flags from './flags.mjs'
 export * as geo from './geo.mjs'
 export * as streetImages from './street_images.mjs'
 export * as streetRemixes from './street_remixes.mjs'

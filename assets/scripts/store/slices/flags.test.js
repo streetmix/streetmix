@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import flags, { setFeatureFlag, setFlagOverrides } from './flags'
 
-jest.mock('../../../../app/data/flags', () => {
+jest.mock('@streetmix/feature-flags', () => {
   return {
     FOO_BAR: {
       label: 'foo — bar',

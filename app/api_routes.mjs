@@ -807,23 +807,6 @@ router.get('/v1/translate/:locale_code/:resource_name', v1.translate.get)
 
 /**
  * @swagger
- * /api/v1/flags:
- *   get:
- *     description: Returns a list of feature flags and its global toggle state
- *     tags:
- *       - flags
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: List of feature flags
- *         schema:
- *           $ref: '#/definitions/Flags'
- */
-router.get('/v1/flags', cors(), v1.flags.get)
-
-/**
- * @swagger
  * /api/v1/votes:
  *   get:
  *     description: Returns a candidate street for the user to vote on

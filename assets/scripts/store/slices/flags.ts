@@ -1,8 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { FeatureFlagDefinition, FeatureFlags } from '../../types'
-import FEATURE_FLAGS from '../../../../app/data/flags.json'
-import { getFlags } from '../../util/api'
+import FEATURE_FLAGS from '@streetmix/feature-flags'
 
 interface FeatureFlagSetting extends FeatureFlagDefinition {
   value: boolean
@@ -25,14 +24,6 @@ function generateInitialFlags (flags: FeatureFlags): FeatureFlagState {
     return obj
   }, {})
 }
-
-export const getInitialFlags = createAsyncThunk(
-  'flags/getInitialFlags',
-  async () => {
-    const response = await getFlags()
-    return response.data
-  }
-)
 
 const flagsSlice = createSlice({
   name: 'flags',
@@ -59,12 +50,6 @@ const flagsSlice = createSlice({
         ...action.payload
       }
     }
-  },
-
-  extraReducers: (builder) => {
-    builder.addCase(getInitialFlags.fulfilled, (state, action) => {
-      state = generateInitialFlags(action.payload)
-    })
   }
 })
 

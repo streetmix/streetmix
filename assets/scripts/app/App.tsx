@@ -15,8 +15,7 @@ import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import ToastContainer from '../ui/Toasts/ToastContainer'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
-import { useSelector, useDispatch } from '../store/hooks'
-import { getInitialFlags } from '../store/slices/flags'
+import { useSelector } from '../store/hooks'
 import DebugInfo from './DebugInfo'
 import BlockingShield from './BlockingShield'
 import BlockingError from './BlockingError'
@@ -36,13 +35,11 @@ function App (): React.ReactElement {
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
-  const dispatch = useDispatch()
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
     const init = async (): Promise<void> => {
-      // Initialize feature flags
-      await dispatch(getInitialFlags())
+      // Holding spot for other init functions, currently empty
 
       // Turn off loading after initial loading is done
       setLoading(false)
