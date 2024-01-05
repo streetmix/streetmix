@@ -1,20 +1,13 @@
 import React from 'react'
+import { type ToastItem } from '../../types'
 import CloseButton from '../CloseButton'
 import './Toast.scss'
 
-export interface ToastItemProps {
-  mode?: 'success' | 'warning'
-  component?: string
-  title?: string
-  message?: string
-  action?: string
-}
-
 export interface ToastProps {
-  item: ToastItemProps
-  setRef: () => void
+  item: ToastItem
+  setRef: <T>(ref: React.Ref<T>) => void
   handleClose: (event?: React.MouseEvent | Event) => void
-  handleAction: (event: React.MouseEvent) => void
+  handleAction?: (event: React.MouseEvent) => void
   className?: string
   children?: React.ReactNode
 }
@@ -31,7 +24,7 @@ function Toast (props: ToastProps): React.ReactNode {
   const { mode, title, message, action } = item
 
   const classNames = ['toast']
-  if (mode) {
+  if (mode !== undefined) {
     classNames.push('toast-' + mode)
   }
   if (className !== undefined) {

@@ -92,7 +92,7 @@ export interface LatLngObject {
 }
 
 export interface ToastItem {
-  mode?: string
+  mode?: 'success' | 'warning'
   component?: string
   title?: string
   message: string

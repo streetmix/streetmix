@@ -2,18 +2,10 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import wmIcon from '../../../images/wm-icon-animated.svg'
 import ExternalLink from '../ExternalLink'
-import Toast, { type ToastProps, type ToastItemProps } from './Toast'
+import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-interface ToastWebMonetizationSuccessProps extends ToastProps {
-  item: ToastItemProps & {
-    component: 'TOAST_WEB_MONETIZATION_SUCCESS'
-  }
-}
-
-function ToastWebMonetizationSuccess (
-  props: ToastWebMonetizationSuccessProps
-): React.ReactNode {
+function ToastWebMonetizationSuccess (props: ToastProps): React.ReactNode {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 

@@ -4,19 +4,11 @@ import { useSelector } from '../../store/hooks'
 import { doSignIn } from '../../users/authentication'
 import wmIcon from '../../../images/wm-icon-animated.svg'
 import ExternalLink from '../ExternalLink'
-import Toast, { type ToastItemProps, type ToastProps } from './Toast'
+import Toast, { type ToastProps } from './Toast'
 import './ToastWebMonetization.scss'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-interface ToastWebMonetizationProps extends ToastProps {
-  item: ToastItemProps & {
-    component: 'TOAST_WEB_MONETIZATION'
-  }
-}
-
-function ToastWebMonetization (
-  props: ToastWebMonetizationProps
-): React.ReactNode {
+function ToastWebMonetization (props: ToastProps): React.ReactNode {
   const { item, setRef, handleClose } = props
   const signedIn = useSelector((state) => state.user.signedIn)
   const intl = useIntl()

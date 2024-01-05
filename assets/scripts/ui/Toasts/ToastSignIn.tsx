@@ -1,16 +1,10 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { doSignIn } from '../../users/authentication'
-import Toast, { type ToastProps, type ToastItemProps } from './Toast'
+import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast with Sign in button.
-interface ToastSignInProps extends ToastProps {
-  item: ToastItemProps & {
-    component: 'TOAST_SIGN_IN'
-  }
-}
-
-function ToastSignIn (props: ToastSignInProps): React.ReactNode {
+function ToastSignIn (props: ToastProps): React.ReactNode {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 

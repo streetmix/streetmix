@@ -1,15 +1,9 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import Toast, { type ToastProps, type ToastItemProps } from './Toast'
+import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast for no-connection message.
-interface ToastNoConnectionProps extends ToastProps {
-  item: ToastItemProps & {
-    component: 'TOAST_NO_CONNECTION'
-  }
-}
-
-function ToastNoConnection (props: ToastNoConnectionProps): React.ReactNode {
+function ToastNoConnection (props: ToastProps): React.ReactNode {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
