@@ -37,7 +37,7 @@ function Toast (props: ToastProps): React.ReactNode {
         <CloseButton onClick={handleClose} />
         <div className="toast-body">
           {title !== undefined && <h3>{title}</h3>}
-          {children !== undefined || <p className="toast-message">{message}</p>}
+          {children ?? <p className="toast-message">{message}</p>}
         </div>
         {action !== undefined && (
           <div className="toast-action">
