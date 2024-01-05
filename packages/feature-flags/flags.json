@@ -48,6 +48,10 @@
     "label": "Info bubble — elevation property controls (unlocked)",
     "defaultValue": false
   },
+  "TOAST_LIFE_BAR": {
+    "label": "Toasts — show life bar",
+    "defaultValue": false
+  },
   "LOCALES_LEVEL_1": {
     "label": "Locales — level 1+ (in progress)",
     "defaultValue": false

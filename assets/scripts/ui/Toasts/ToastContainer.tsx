@@ -28,6 +28,9 @@ function ToastContainer (): React.ReactNode {
   const [cancelMap] = useState(() => new WeakMap())
   const toasts = useSelector((state) => state.toasts)
   const contentDirection = useSelector((state) => state.app.contentDirection)
+  const showLifeBar = useSelector(
+    (state) => state.flags.TOAST_LIFE_BAR?.value ?? false
+  )
   const dispatch = useDispatch()
 
   const items =
@@ -157,18 +160,10 @@ function ToastContainer (): React.ReactNode {
         return (
           <animated.div style={style}>
             {childComponent}
-            {/* lifebar debugger */}
-            {/* <animated.div
-              style={{
-                position: 'absolute',
-                bottom: '10px',
-                left: '0px',
-                right: life,
-                width: 'auto',
-                height: '5px',
-                backgroundColor: 'blue'
-              }}
-            /> */}
+            {/* Toast countdown debugger */}
+            {showLifeBar && (
+              <animated.div className="toast-lifebar" style={{ right: life }} />
+            )}
           </animated.div>
         )
       })}
