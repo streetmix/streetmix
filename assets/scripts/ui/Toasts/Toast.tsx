@@ -1,23 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import CloseButton from '../CloseButton'
 import './Toast.scss'
 
-Toast.propTypes = {
-  item: PropTypes.shape({
-    mode: PropTypes.oneOf(['success', 'warning']),
-    message: PropTypes.string,
-    title: PropTypes.string,
-    action: PropTypes.string
-  }),
-  setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleAction: PropTypes.func,
-  className: PropTypes.string,
-  children: PropTypes.node
+interface ToastProps {
+  item: {
+    mode: 'success' | 'warning'
+    message: string
+    title: string
+    action: string
+  }
+  setRef: () => void
+  handleClose: () => void
+  handleAction: () => void
+  className: string
+  children: React.ReactNode
 }
 
-function Toast (props) {
+function Toast (props: ToastProps): React.ReactNode {
   const {
     item,
     setRef,
@@ -42,7 +41,7 @@ function Toast (props) {
         <CloseButton onClick={handleClose} />
         <div className="toast-body">
           {title && <h3>{title}</h3>}
-          {children || <p className="toast-message">{message}</p>}
+          {children !== undefined || <p className="toast-message">{message}</p>}
         </div>
         {action && (
           <div className="toast-action">
