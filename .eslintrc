@@ -90,6 +90,10 @@
         "project": "./tsconfig.json"
       },
       "rules": {
+        // This was added as an error in eslint-config-standard-with-typescript
+        // v42.0.0 and is much too strict while parts of the app are still in JS
+        // Warnings indicate opportunities for typescript porting
+        "@typescript-eslint/no-unsafe-argument": "warn",
         "@typescript-eslint/strict-boolean-expressions": [
           2,
           {
