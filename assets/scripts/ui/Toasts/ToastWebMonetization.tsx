@@ -25,17 +25,13 @@ function ToastWebMonetization (props: ToastProps): React.ReactNode {
   // Monetization can stop in certain cases, such as when a user switches
   // to another tab. In that event, close the toast.
   useEffect(() => {
-    if (document.monetization !== undefined) {
-      document.monetization.addEventListener('monetizationstop', handleClose)
-    }
+    document.monetization?.addEventListener('monetizationstop', handleClose)
 
     return () => {
-      if (document.monetization !== undefined) {
-        document.monetization.removeEventListener(
-          'monetizationstop',
-          handleClose
-        )
-      }
+      document.monetization?.removeEventListener(
+        'monetizationstop',
+        handleClose
+      )
     }
   })
 
