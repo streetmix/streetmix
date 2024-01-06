@@ -44,7 +44,7 @@ export function getElAbsolutePos (
     pos[0] += x
     pos[1] += y
 
-    const parent = el.offsetParent as HTMLElement | undefined
+    const parent = el.offsetParent
 
     if (includeScroll && parent) {
       pos[0] -= parent.scrollLeft
@@ -52,7 +52,7 @@ export function getElAbsolutePos (
     }
 
     el = parent as HTMLElement
-  } while (el) // eslint-disable-line @typescript-eslint/strict-boolean-expressions
+  } while (el !== null)
 
   return pos
 }
