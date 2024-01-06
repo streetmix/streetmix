@@ -48,8 +48,7 @@ function NotificationBar ({
   // If dismissed, don't display again.
   if (
     localStorageKey !== undefined &&
-    window.localStorage[localStorageKey] !== undefined &&
-    JSON.parse(window.localStorage[localStorageKey]) === true
+    JSON.parse(window.localStorage.getItem(localStorageKey) ?? '') === true
   ) {
     shouldDisplay = false
   }
@@ -81,7 +80,9 @@ function NotificationBar ({
   if (
     !display ||
     (lede === undefined && text === undefined && link === undefined)
-  ) { return null }
+  ) {
+    return null
+  }
 
   // If locale isn't English, don't display; we don't localize these messages
   if (locale.locale !== 'en') return null
