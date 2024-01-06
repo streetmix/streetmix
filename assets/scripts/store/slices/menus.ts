@@ -22,7 +22,10 @@ const menusSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase('gallery/openGallery/pending', (state) => null)
-      .addCase(showDialog, (state) => null)
+      // This is a workaround for Jest, because many tests are using a mock
+      // showDialog action, which breaks addCase since the `type` will be
+      // undefined. If it's not there, pass the string action name instead
+      .addCase(showDialog.type ?? 'dialogs/showDialog', (state) => null)
       .addCase(startPrinting, (state) => null)
   }
 })
