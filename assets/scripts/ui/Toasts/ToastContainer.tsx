@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from '@react-spring/web'
+import { useSelector, useDispatch } from '../../store/hooks'
 import { destroyToast } from '../../store/slices/toasts'
 import Toast from './Toast'
 import ToastUndo from './ToastUndo'
@@ -22,12 +22,15 @@ const TOAST_MAX_TO_DISPLAY = 5
  * Based on react-spring "Notification hub" example.
  * https://codesandbox.io/s/v1i1t
  */
-function ToastContainer (props) {
+function ToastContainer (): React.ReactNode {
   const config = TOAST_SPRING_CONFIG
   const [refMap] = useState(() => new WeakMap())
   const [cancelMap] = useState(() => new WeakMap())
   const toasts = useSelector((state) => state.toasts)
   const contentDirection = useSelector((state) => state.app.contentDirection)
+  const showLifeBar = useSelector(
+    (state) => state.flags.TOAST_LIFE_BAR?.value ?? false
+  )
   const dispatch = useDispatch()
 
   const items =
@@ -85,10 +88,13 @@ function ToastContainer (props) {
   return (
     <div className="toast-container">
       {transitions(({ life, ...style }, item) => {
-        const setRef = (ref) => ref && refMap.set(item, ref)
-        const handleClose = (event) => {
+        function setRef<T> (ref: T | null): void {
+          ref !== null && refMap.set(item, ref)
+        }
+
+        function handleClose (event?: React.MouseEvent | Event): void {
           // Not all instances of this function is called by an event handler
-          if (event) {
+          if (event !== undefined) {
             event.stopPropagation()
           }
           if (cancelMap.has(item) && life.get() !== '0%') {
@@ -119,7 +125,11 @@ function ToastContainer (props) {
             break
           case 'TOAST_WEB_MONETIZATION':
             childComponent = (
-              <ToastWebMonetization setRef={setRef} handleClose={handleClose} />
+              <ToastWebMonetization
+                setRef={setRef}
+                handleClose={handleClose}
+                item={item}
+              />
             )
             break
           case 'TOAST_WEB_MONETIZATION_SUCCESS':
@@ -127,6 +137,7 @@ function ToastContainer (props) {
               <ToastWebMonetizationSuccess
                 setRef={setRef}
                 handleClose={handleClose}
+                item={item}
               />
             )
             break
@@ -149,18 +160,10 @@ function ToastContainer (props) {
         return (
           <animated.div style={style}>
             {childComponent}
-            {/* lifebar debugger */}
-            {/* <animated.div
-              style={{
-                position: 'absolute',
-                bottom: '10px',
-                left: '0px',
-                right: life,
-                width: 'auto',
-                height: '5px',
-                backgroundColor: 'blue'
-              }}
-            /> */}
+            {/* Toast countdown debugger */}
+            {showLifeBar && (
+              <animated.div className="toast-lifebar" style={{ right: life }} />
+            )}
           </animated.div>
         )
       })}

@@ -1,24 +1,14 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useSelector } from '../../store/hooks'
 import { doSignIn } from '../../users/authentication'
 import wmIcon from '../../../images/wm-icon-animated.svg'
-import ExternalLink from '../../ui/ExternalLink'
-import Toast from './Toast'
+import ExternalLink from '../ExternalLink'
+import Toast, { type ToastProps } from './Toast'
 import './ToastWebMonetization.scss'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-ToastWebMonetization.propTypes = {
-  item: PropTypes.shape({
-    component: PropTypes.oneOf(['TOAST_WEB_MONETIZATION']),
-    action: PropTypes.string
-  }),
-  setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired
-}
-
-function ToastWebMonetization (props) {
+function ToastWebMonetization (props: ToastProps): React.ReactNode {
   const { item, setRef, handleClose } = props
   const signedIn = useSelector((state) => state.user.signedIn)
   const intl = useIntl()
@@ -35,14 +25,17 @@ function ToastWebMonetization (props) {
   // Monetization can stop in certain cases, such as when a user switches
   // to another tab. In that event, close the toast.
   useEffect(() => {
-    document.monetization.addEventListener('monetizationstop', handleClose)
+    document.monetization?.addEventListener('monetizationstop', handleClose)
 
     return () => {
-      document.monetization.removeEventListener('monetizationstop', handleClose)
+      document.monetization?.removeEventListener(
+        'monetizationstop',
+        handleClose
+      )
     }
   })
 
-  function handleAction (event) {
+  function handleAction (event: React.MouseEvent): void {
     doSignIn()
     handleClose(event)
   }

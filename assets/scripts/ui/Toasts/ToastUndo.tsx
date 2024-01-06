@@ -1,11 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+import { useDispatch } from '../../store/hooks'
 import { handleUndo } from '../../store/actions/history'
-import Toast from './Toast'
+import Toast, { type ToastProps } from './Toast'
 
-function ToastUndo (props) {
+// Renders a specific type of Toast with Undo button.
+function ToastUndo (props: ToastProps): React.ReactNode {
   const { item, setRef, handleClose } = props
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -23,8 +23,8 @@ function ToastUndo (props) {
   // Otherwise the undo action is rendered inert.
   // We can't do this right now because undos don't have an ID to key off of.
 
-  function handleAction (event) {
-    dispatch(handleUndo())
+  function handleAction (event: React.MouseEvent): void {
+    void dispatch(handleUndo())
     handleClose(event)
   }
 
@@ -36,7 +36,7 @@ function ToastUndo (props) {
       item={{
         ...item,
         action:
-          item.action ||
+          item.action ??
           intl.formatMessage({
             id: 'btn.undo',
             defaultMessage: 'Undo'
@@ -44,17 +44,6 @@ function ToastUndo (props) {
       }}
     />
   )
-}
-
-// Renders a specific type of Toast with Undo button.
-ToastUndo.propTypes = {
-  item: PropTypes.shape({
-    component: PropTypes.oneOf(['TOAST_UNDO']),
-    message: PropTypes.string.isRequired,
-    action: PropTypes.string
-  }),
-  setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired
 }
 
 export default ToastUndo

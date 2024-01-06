@@ -1,23 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { type ToastItem } from '../../types'
 import CloseButton from '../CloseButton'
 import './Toast.scss'
 
-Toast.propTypes = {
-  item: PropTypes.shape({
-    mode: PropTypes.oneOf(['success', 'warning']),
-    message: PropTypes.string,
-    title: PropTypes.string,
-    action: PropTypes.string
-  }),
-  setRef: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleAction: PropTypes.func,
-  className: PropTypes.string,
-  children: PropTypes.node
+export interface ToastProps {
+  item: ToastItem
+  setRef: <T>(ref: T | null) => void
+  handleClose: (event?: React.MouseEvent | Event) => void
+  handleAction?: (event: React.MouseEvent) => void
+  className?: string
+  children?: React.ReactNode
 }
 
-function Toast (props) {
+function Toast (props: ToastProps): React.ReactNode {
   const {
     item,
     setRef,
@@ -29,10 +24,10 @@ function Toast (props) {
   const { mode, title, message, action } = item
 
   const classNames = ['toast']
-  if (mode) {
+  if (mode !== undefined) {
     classNames.push('toast-' + mode)
   }
-  if (className) {
+  if (className !== undefined) {
     classNames.push(className)
   }
 
@@ -41,10 +36,10 @@ function Toast (props) {
       <div className="toast-content">
         <CloseButton onClick={handleClose} />
         <div className="toast-body">
-          {title && <h3>{title}</h3>}
-          {children || <p className="toast-message">{message}</p>}
+          {title !== undefined && <h3>{title}</h3>}
+          {children ?? <p className="toast-message">{message}</p>}
         </div>
-        {action && (
+        {action !== undefined && (
           <div className="toast-action">
             <button onClick={handleAction}>{action}</button>
           </div>

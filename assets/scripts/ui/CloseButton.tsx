@@ -6,7 +6,7 @@ import './CloseButton.scss'
 interface CloseButtonProps {
   title?: string
   className?: string
-  onClick: () => void
+  onClick: (event: React.MouseEvent) => void
 }
 
 function CloseButton ({
