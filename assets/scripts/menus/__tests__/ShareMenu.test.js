@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import copy from 'copy-to-clipboard'
 import { render } from '../../../../test/helpers/render'
 import ShareMenu from '../ShareMenu'
