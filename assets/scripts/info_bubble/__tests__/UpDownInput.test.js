@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import UpDownInput from '../UpDownInput'
 
 // Mock the `debounce` method so that the debounced `onUpdatedValue` callback

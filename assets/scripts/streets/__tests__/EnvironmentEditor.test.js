@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import * as uiSlice from '../../store/slices/ui'
 import EnvironmentEditor from '../EnvironmentEditor'

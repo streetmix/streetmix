@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
 import { waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import StreetMetaAuthor from '../StreetMetaAuthor'
 import { render } from '../../../../test/helpers/render'
 import { getRemixOnFirstEdit } from '../../streets/remix'

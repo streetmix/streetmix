@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import { render, screen } from '../../../../test/helpers/render'
 import Segment from '../Segment'
 import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
