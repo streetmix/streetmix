@@ -95,7 +95,10 @@
           {
             "allowString": true
           }
-        ]
+        ],
+        // Turns off an error that was only reporting for useIntl
+        // see https://github.com/formatjs/formatjs/issues/4133
+        "@typescript-eslint/unbound-method": "off"
       }
     }
   ],
