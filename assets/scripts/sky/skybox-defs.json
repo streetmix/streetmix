@@ -62,7 +62,7 @@
   },
   "night": {
     "name": "Night",
-    "iconImage": "environs--icon-night",
+    "iconImage": "sky--icon-night",
     "backgroundImage": "sky--stars",
     "_commentBackgroundColor": "Fall back to solid color in case image is broken",
     "backgroundGradient": [
@@ -87,7 +87,7 @@
   "supermoon": {
     "name": "Night",
     "enabled": false,
-    "iconImage": "environs--icon-night",
+    "iconImage": "sky--icon-night",
     "backgroundImage": "sky--stars",
     "backgroundGradient": [
       ["#01051600", 0],
@@ -119,7 +119,7 @@
   },
   "holodeck": {
     "name": "Holodeck",
-    "iconImage": "environs--icon-holodeck",
+    "iconImage": "sky--icon-holodeck",
     "backgroundColor": "#141414",
     "backgroundImage": "sky--holodeck-grid",
     "cloudOpacity": 0,

@@ -1,3 +1,7 @@
+# v2.2.0
+
+- Moved `environs` icons into the `sky` namespace.
+
 # v2.1.2 - v2.1.3
 
 - Move package location to Streetmix repository (under `/packages`).
