@@ -4,7 +4,7 @@ import { getEnvirons, makeCSSGradientDeclaration } from '../environs'
 import { DEFAULT_ENVIRONS } from '../constants'
 import SkyBackground from './SkyBackground'
 import SkyObjects from './SkyObjects'
-import './SkyContainer.scss'
+import './SkyBox.scss'
 
 const REAR_CLOUD_PARALLAX_SPEED = 0.25
 const FRONT_CLOUD_PARALLAX_SPEED = 0.5

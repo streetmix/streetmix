@@ -1,7 +1,7 @@
 import { expect, jest } from '@jest/globals'
 import React from 'react'
 import { render } from '../../../../test/helpers/render'
-import SkyContainer from './SkyContainer'
+import SkyBox from './SkyBox'
 
 jest.mock('../environ-defs.json', () => require('../__mocks__/environs.json'))
 
@@ -17,23 +17,23 @@ jest.mock('../../app/load_resources', () => ({
   }
 }))
 
-describe('SkyContainer', () => {
+describe('SkyBox', () => {
   it('renders', () => {
-    const { asFragment } = render(<SkyContainer scrollPos={0} />, {
+    const { asFragment } = render(<SkyBox scrollPos={0} />, {
       initialState: { street: { environment: 'foo' } }
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders with objects', () => {
-    const { asFragment } = render(<SkyContainer scrollPos={0} />, {
+    const { asFragment } = render(<SkyBox scrollPos={0} />, {
       initialState: { street: { environment: 'bar' } }
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders background animations', () => {
-    const { container } = render(<SkyContainer scrollPos={0} />, {
+    const { container } = render(<SkyBox scrollPos={0} />, {
       initialState: {
         street: { environment: 'bar' },
         flags: {
@@ -44,7 +44,7 @@ describe('SkyContainer', () => {
     expect(
       container
         .querySelector('section')
-        .className.includes('environment-animations')
+        ?.className.includes('environment-animations')
     ).toEqual(true)
   })
 })

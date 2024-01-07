@@ -1,1 +1,1 @@
-export { default } from './SkyContainer'
+export { default } from './SkyBox'
