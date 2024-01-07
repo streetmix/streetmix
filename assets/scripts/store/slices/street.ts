@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import type { Segment, StreetLocation } from '../../types'
 import { getVariantString } from '../../segments/variant_utils'
-import { DEFAULT_SKY } from '../../sky/constants'
+import { DEFAULT_SKYBOX } from '../../sky/constants'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION,
@@ -43,7 +43,7 @@ interface StreetState {
 const initialState: StreetState = {
   segments: [],
   remainingWidth: 0,
-  environment: DEFAULT_SKY,
+  environment: DEFAULT_SKYBOX,
   userUpdated: false,
   leftBuildingHeight: 0,
   rightBuildingHeight: 0,

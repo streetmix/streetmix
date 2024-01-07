@@ -5,16 +5,16 @@ import {
   getEnvirons,
   getAllEnvirons
 } from './environs'
-import MOCK_ENVIRONS from './__mocks__/environs.json'
+import MOCK_SKY_DEFS from './__mocks__/skybox-defs.json'
 
-jest.mock('./environ-defs.json', () => require('./__mocks__/environs.json'))
-jest.mock('./constants', () => ({ DEFAULT_SKY: 'default' }))
+jest.mock('./skybox-defs.json', () => require('./__mocks__/skybox-defs.json'))
+jest.mock('./constants', () => ({ DEFAULT_SKYBOX: 'default' }))
 
 describe('environs helpers', () => {
   describe('makeCSSGradientDeclaration', () => {
     it('makes a CSS string', () => {
       const result = makeCSSGradientDeclaration(
-        MOCK_ENVIRONS.foo.backgroundGradient as Array<
+        MOCK_SKY_DEFS.foo.backgroundGradient as Array<
         string | [string, number?]
         >
       )
@@ -25,7 +25,7 @@ describe('environs helpers', () => {
 
     it('makes a CSS string with stops', () => {
       const result = makeCSSGradientDeclaration(
-        MOCK_ENVIRONS.bar.backgroundGradient as Array<
+        MOCK_SKY_DEFS.bar.backgroundGradient as Array<
         string | [string, number?]
         >
       )
@@ -38,7 +38,7 @@ describe('environs helpers', () => {
   describe('makeCanvasGradientStopArray', () => {
     it('fills in all empty stops', () => {
       const result = makeCanvasGradientStopArray(
-        MOCK_ENVIRONS.foo.backgroundGradient as Array<
+        MOCK_SKY_DEFS.foo.backgroundGradient as Array<
         string | [string, number?]
         >
       )
@@ -56,7 +56,7 @@ describe('environs helpers', () => {
 
     it('fills in empty stops between known stops', () => {
       const result = makeCanvasGradientStopArray(
-        MOCK_ENVIRONS.bar.backgroundGradient as Array<
+        MOCK_SKY_DEFS.bar.backgroundGradient as Array<
         string | [string, number?]
         >
       )

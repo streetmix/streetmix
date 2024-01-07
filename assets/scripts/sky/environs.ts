@@ -1,8 +1,8 @@
 import type { Unsubscribe } from '@reduxjs/toolkit'
 import { observeStore, type RootState } from '../store'
 import { images } from '../app/load_resources'
-import { DEFAULT_SKY } from './constants'
-import ENVIRONS from './environ-defs.json'
+import { DEFAULT_SKYBOX } from './constants'
+import ENVIRONS from './skybox-defs.json'
 
 export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
 export type CSSGradientDeclaration = CSSGradientStop[]
@@ -33,7 +33,7 @@ export interface EnvironsRender extends Environs {
 }
 
 /**
- * Converts information from environs.json to create a string value
+ * Converts information from skybox-defs.json to create a string value
  * for a linear gradient that be accepted by the CSS `background-image` property.
  */
 export function makeCSSGradientDeclaration (
@@ -62,7 +62,7 @@ export function makeCSSGradientDeclaration (
 }
 
 /**
- * Converts information from environs.json to create a string that can
+ * Converts information from skybox-defs.json to create a string that can
  * be accepted by the CSS `background` property.
  */
 function makeCSSBackgroundImageDeclaration (url: string): string {
@@ -75,7 +75,7 @@ function makeCSSBackgroundImageDeclaration (url: string): string {
 }
 
 /**
- * Converts information from environs.json to create a style object
+ * Converts information from skybox-defs.json to create a style object
  * that can be used directly in React for elements that accept the
  * style prop, e.g. `<div style={style} />`
  */
@@ -181,8 +181,8 @@ export function getEnvirons (id: string): EnvironsRender {
   let env = ENVIRONS[id as keyof typeof ENVIRONS] as Environs
 
   if (env === undefined) {
-    env = ENVIRONS[DEFAULT_SKY]
-    id = DEFAULT_SKY
+    env = ENVIRONS[DEFAULT_SKYBOX]
+    id = DEFAULT_SKYBOX
   }
 
   return {

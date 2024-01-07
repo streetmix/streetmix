@@ -1,1 +1,1 @@
-export const DEFAULT_SKY = 'day'
+export const DEFAULT_SKYBOX = 'day'

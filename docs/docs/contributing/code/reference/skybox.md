@@ -2,39 +2,33 @@
 sidebar_position: 5
 ---
 
-# Environs
+# Skybox
 
 :::caution Draft
 
-This is a draft specification of Streetmix's forthcoming environs feature. The schema and structure described here is subject to change.
+This is a draft specification of Streetmix's skybox feature. The schema and structure described here is subject to change.
 
 :::
 
-**Environs** is a setting that allows uers to change the "environment" that a street is in, which can include elements like time of day, weather, and background. In the UI, we prefer to use the term _environment_. Internally, we use _environs_ to prevent confusion with the computing term _developer environment_.
+The **Skybox** allows users to change the "environment" of a street, which can include elements like time of day, weather, and background.
 
-Environs definitions are contained in `environ-defs.json`. You can browse the [current environs definitions here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/streets/environ-defs.json).
+Skybox definitions are contained in `skybox-defs.json`. You can browse the [current environs definitions here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/streets/skybox-defs.json).
 
-## `environs.json` schema
+## `skybox-defs.json` schema
 
-The definitions file exports a single JavaScript object. Each key on the object describes an environ. The key name is an identifier, and its value is an object with the following properties:
+`skybox-defs.json` exports a single JavaScript object, where each key on the object is a skybox definition. The key name is an identifier, and its value is an object with the following properties:
 
 ### `name`
 
-**Required.** A string that is the English-locale display name for the environs.
+**Required.** A string that is the English-locale display name for the skybox definition.
 
 ```js
 "name": "Night"
 ```
 
-:::caution
-
-We have not determined a method for retrieving translated names in other locales.
-
-:::
-
 ### `enabled`
 
-**Optional.** A boolean value, which determines whether the environs is available for the user to choose. If this property is not set, its default value is `true`. If set to `false`, the environs will not be accessible in the UI. However, streets that have already been set to a disabled environs may still render that environs.
+**Optional.** A boolean value, which determines whether the skybox definition is available to be picked. If this property is not set, its default value is `true`. If set to `false`, the skybox definition will not be accessible in the UI. However, streets that have already been set to a disabled skybox definition may still render it.
 
 ```js
 "enabled": false
@@ -42,16 +36,16 @@ We have not determined a method for retrieving translated names in other locales
 
 :::note
 
-We use `enabled` as the property name instead of `disabled` because code such as `if (environs.enabled)` is easier to read than `if (!environs.disabled)`, which becomes a double negative. It's also easier to use read and use filters in this way.
+We use `enabled` as the property name instead of `disabled` because code such as `if (skybox.enabled)` is easier to read than `if (!skybox.disabled)`, which becomes a double negative. It's also easier to use read and use filters in this way.
 
 :::
 
 ### `iconImage`
 
-**Optional**. A string that refers to a custom icon image to be used when displaying a graphic icon for the environs. The image is retrieved from the application's image cache. If this property is not defined, no custom image will be displayed.
+**Optional**. A string that refers to a custom icon image to be used when displaying a graphic icon for the skybox definition. The image is retrieved from the application's image cache. If this property is not defined, no custom image will be displayed.
 
 ```js
-"iconImage": "environs--icon-night"
+"iconImage": "skybox--icon-night"
 ```
 
 ### `backgroundImage`
@@ -59,7 +53,7 @@ We use `enabled` as the property name instead of `disabled` because code such as
 **Optional**. A string that refers to an image that is displayed in the background of the street. The image is retrieved from the application's image cache. If this property is not defined, no background image will be displayed. Background images display at 1:1 pixel scale and will be tiled to repeat in all directions.
 
 ```js
-"backgroundImage": "sky--stars"
+"backgroundImage": "skybox--stars"
 ```
 
 ### `backgroundGradient`
@@ -145,7 +139,7 @@ Images that cannot be retrieved from the cache will not be displayed.
 ```js
 "backgroundObjects": [
   {
-    "image": "sky--moon",
+    "image": "skybox--moon",
     "width": 116,
     "height": 116,
     "top": 0.2,

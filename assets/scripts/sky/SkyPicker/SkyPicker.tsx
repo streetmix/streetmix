@@ -8,13 +8,13 @@ import StreetmixPlusPrompt from '../../app/StreetmixPlusPrompt'
 import { useSelector, useDispatch } from '../../store/hooks'
 import { setEnvironment } from '../../store/slices/street'
 import { toggleToolbox } from '../../store/slices/ui'
-import { DEFAULT_SKY } from '../constants'
+import { DEFAULT_SKYBOX } from '../constants'
 import SkyOptions from './SkyOptions'
 import './SkyPicker.scss'
 
 function SkyPicker (): React.ReactElement {
   const selected = useSelector(
-    (state) => state.street.environment || DEFAULT_SKY
+    (state) => state.street.environment || DEFAULT_SKYBOX
   )
   const show = useSelector((state) => state.ui.toolboxVisible || false)
   const isSubscriber = useSelector((state) => state.user.isSubscriber || false)

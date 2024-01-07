@@ -3,7 +3,9 @@ import React from 'react'
 import { render } from '../../../../test/helpers/render'
 import SkyBox from './SkyBox'
 
-jest.mock('../environ-defs.json', () => require('../__mocks__/environs.json'))
+jest.mock('../skybox-defs.json', () =>
+  require('../__mocks__/skybox-defs.json')
+)
 
 // Mock the `images` object.
 // Note: in real life, this is a Map where the .get()

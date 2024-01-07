@@ -5,7 +5,7 @@ import { useSelector } from '../../store/hooks'
 import Tooltip from '../../ui/Tooltip'
 import { ICON_LOCK } from '../../ui/icons'
 import { images } from '../../app/load_resources'
-import { DEFAULT_SKY } from '../constants'
+import { DEFAULT_SKYBOX } from '../constants'
 import { getAllEnvirons, type EnvironsRender } from '../environs'
 import './SkyOptions.scss'
 
@@ -44,7 +44,7 @@ function SkyOptions ({
 
           if (selected === id) {
             classNames.push('sky-selected')
-          } else if (!selected && id === DEFAULT_SKY) {
+          } else if (!selected && id === DEFAULT_SKYBOX) {
             classNames.push('sky-selected')
           }
 
