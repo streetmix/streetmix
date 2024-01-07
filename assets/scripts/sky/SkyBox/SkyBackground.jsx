@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useTransition, animated } from '@react-spring/web'
-import { getEnvirons } from '../streets/environs'
+import { getEnvirons } from '../environs'
 import './SkyBackground.scss'
 
 function SkyBackground (props) {

@@ -19,7 +19,7 @@ import {
 import { resetUndoStack } from '../store/slices/history'
 import store from '../store'
 import { getSegmentVariantInfo } from '../segments/info'
-import { DEFAULT_ENVIRONS } from './constants'
+import { DEFAULT_ENVIRONS } from '../sky/constants'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
 import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'

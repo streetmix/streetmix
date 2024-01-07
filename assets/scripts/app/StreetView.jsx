@@ -20,8 +20,8 @@ import {
   BUILDING_SPACE
 } from '../segments/constants'
 import { updateStreetMargin } from '../segments/resizing'
+import SkyBox from '../sky/SkyBox'
 import ScrollIndicators from './ScrollIndicators'
-import SkyContainer from './SkyContainer'
 import StreetViewDirt from './StreetViewDirt'
 import StreetEditable from './StreetEditable'
 import './StreetView.scss'
@@ -327,7 +327,7 @@ class StreetView extends React.Component {
             />
           </section>
         </section>
-        <SkyContainer scrollPos={this.state.scrollPos} />
+        <SkyBox scrollPos={this.state.scrollPos} />
       </>
     )
   }

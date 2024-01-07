@@ -1,7 +1,7 @@
 import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
-import { getEnvirons, makeCanvasGradientStopArray } from '../streets/environs'
+import { getEnvirons, makeCanvasGradientStopArray } from '../sky/environs'
 import {
   BUILDINGS,
   GROUND_BASELINE_HEIGHT,

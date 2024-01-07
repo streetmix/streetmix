@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { images } from '../app/load_resources'
+import { images } from '../../app/load_resources'
 import './SkyObjects.scss'
 
 SkyObjects.propTypes = {

@@ -1,11 +1,9 @@
 /* eslint-env jest */
 import React from 'react'
-import SkyContainer from '../SkyContainer'
 import { render } from '../../../../test/helpers/render'
+import SkyContainer from './SkyContainer'
 
-jest.mock('../../streets/environ-defs.json', () =>
-  require('../../streets/__mocks__/environs.json')
-)
+jest.mock('../environ-defs.json', () => require('../__mocks__/environs.json'))
 
 // Mock the `images` object.
 // Note: in real life, this is a Map where the .get()

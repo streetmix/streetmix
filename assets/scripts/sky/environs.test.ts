@@ -4,11 +4,11 @@ import {
   makeCanvasGradientStopArray,
   getEnvirons,
   getAllEnvirons
-} from '../environs'
-import MOCK_ENVIRONS from '../__mocks__/environs.json'
+} from './environs'
+import MOCK_ENVIRONS from './__mocks__/environs.json'
 
-jest.mock('../environ-defs.json', () => require('../__mocks__/environs.json'))
-jest.mock('../constants', () => ({ DEFAULT_ENVIRONS: 'default' }))
+jest.mock('./environ-defs.json', () => require('./__mocks__/environs.json'))
+jest.mock('./constants', () => ({ DEFAULT_ENVIRONS: 'default' }))
 
 describe('environs helpers', () => {
   describe('makeCSSGradientDeclaration', () => {

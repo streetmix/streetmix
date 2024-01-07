@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import type { Segment, StreetLocation } from '../../types'
 import { getVariantString } from '../../segments/variant_utils'
-import { DEFAULT_ENVIRONS } from '../../streets/constants'
+import { DEFAULT_ENVIRONS } from '../../sky/constants'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION,
