@@ -1,11 +1,11 @@
 import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import type { Environs } from '../environs'
+import type { SkyboxDefinition } from '../environs'
 import { images } from '../../app/load_resources'
 import './SkyObjects.scss'
 
 interface SkyObjectsProps {
-  objects: Environs['backgroundObjects']
+  objects: SkyboxDefinition['backgroundObjects']
 }
 
 function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {

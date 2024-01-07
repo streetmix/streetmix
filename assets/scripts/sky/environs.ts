@@ -2,12 +2,12 @@ import type { Unsubscribe } from '@reduxjs/toolkit'
 import { observeStore, type RootState } from '../store'
 import { images } from '../app/load_resources'
 import { DEFAULT_SKYBOX } from './constants'
-import ENVIRONS from './skybox-defs.json'
+import SKYBOX_DEFS from './skybox-defs.json'
 
 export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
 export type CSSGradientDeclaration = CSSGradientStop[]
 
-export interface Environs {
+export interface SkyboxDefinition {
   name: string
   enabled?: boolean
   iconImage?: string // Illustration asset ID
@@ -26,7 +26,7 @@ export interface Environs {
   invertUITextColor?: boolean
 }
 
-export interface EnvironsRender extends Environs {
+export interface SkyboxDefWithStyles extends SkyboxDefinition {
   id: string
   style: React.CSSProperties
   iconStyle: React.CSSProperties
@@ -80,7 +80,7 @@ function makeCSSBackgroundImageDeclaration (url: string): string {
  * style prop, e.g. `<div style={style} />`
  */
 function makeReactStyleObject (
-  env: Environs,
+  env: SkyboxDefinition,
   renderImages = true
 ): React.CSSProperties {
   const style: React.CSSProperties = {}
@@ -175,13 +175,13 @@ export function makeCanvasGradientStopArray (
 }
 
 /**
- * Gets a single environs with a React-ready style object.
+ * Gets a single skybox definition with a React-ready style object.
  */
-export function getEnvirons (id: string): EnvironsRender {
-  let env = ENVIRONS[id as keyof typeof ENVIRONS] as Environs
+export function getSkyboxDef (id: string): SkyboxDefWithStyles {
+  let env = SKYBOX_DEFS[id as keyof typeof SKYBOX_DEFS] as SkyboxDefinition
 
   if (env === undefined) {
-    env = ENVIRONS[DEFAULT_SKYBOX]
+    env = SKYBOX_DEFS[DEFAULT_SKYBOX]
     id = DEFAULT_SKYBOX
   }
 
@@ -194,12 +194,14 @@ export function getEnvirons (id: string): EnvironsRender {
 }
 
 /**
- * Gets all environs with React-ready style objects.
+ * Gets all skybox definitions with React-ready style objects.
  */
-export function getAllEnvirons (): EnvironsRender[] {
-  return Object.entries(ENVIRONS as unknown as Record<keyof Environs, Environs>)
+export function getAllSkyboxDefs (): SkyboxDefWithStyles[] {
+  return Object.entries(
+    SKYBOX_DEFS as unknown as Record<keyof SkyboxDefinition, SkyboxDefinition>
+  )
     .filter(([_, value]) => value.enabled !== false)
-    .map(([key, _]: [string, Environs]) => getEnvirons(key))
+    .map(([key, _]: [string, SkyboxDefinition]) => getSkyboxDef(key))
 }
 
 /**
@@ -207,11 +209,11 @@ export function getAllEnvirons (): EnvironsRender[] {
  * dark skybox. UI elements that are placed on top of the dark background
  * should use this classname to invert its colors.
  */
-export function initEnvironsChangedListener (): Unsubscribe {
-  const select = (state: RootState): EnvironsRender => ({
-    ...getEnvirons(state.street.environment)
+export function initSkyboxChangedListener (): Unsubscribe {
+  const select = (state: RootState): SkyboxDefWithStyles => ({
+    ...getSkyboxDef(state.street.environment)
   })
-  const onChange = (state: Environs): void => {
+  const onChange = (state: SkyboxDefinition): void => {
     // `invertUITextColor` may not be defined, so coerce it to `false` with Boolean()
     document.body.classList.toggle(
       'dark-skybox-invert-ui',

@@ -1,7 +1,7 @@
 import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
-import { getEnvirons, makeCanvasGradientStopArray } from '../sky/environs'
+import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky/environs'
 import {
   BUILDINGS,
   GROUND_BASELINE_HEIGHT,
@@ -62,7 +62,7 @@ function drawSky (
   horizonLine,
   groundLevel
 ) {
-  const env = getEnvirons(street.environment)
+  const env = getSkyboxDef(street.environment)
 
   // Solid color fill
   if (env.backgroundColor) {

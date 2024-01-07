@@ -7,7 +7,7 @@ import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
 import { initStreetThumbnailSubscriber } from '../streets/image'
 import { initStreetDataChangedListener } from '../streets/street'
-import { initEnvironsChangedListener } from '../sky/environs'
+import { initSkyboxChangedListener } from '../sky/environs'
 import { initDragTypeSubscriber } from '../segments/drag_and_drop'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { fetchLastStreet } from '../streets/xhr'
@@ -114,7 +114,7 @@ function onEverythingLoaded () {
   initStreetThumbnailSubscriber()
 
   initStreetNameChangeListener()
-  initEnvironsChangedListener()
+  initSkyboxChangedListener()
   initDragTypeSubscriber()
 
   addEventListeners()

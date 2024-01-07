@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTransition, animated } from '@react-spring/web'
-import { getEnvirons } from '../environs'
+import { getSkyboxDef } from '../environs'
 import './SkyBackground.scss'
 
 interface SkyBackgroundProps {
@@ -24,7 +24,7 @@ function SkyBackground (props: SkyBackgroundProps): React.ReactElement {
       {transitions((style, item) => (
         <animated.div
           className="sky-background-color"
-          style={{ ...style, ...getEnvirons(item).style }}
+          style={{ ...style, ...getSkyboxDef(item).style }}
         />
       ))}
     </div>

@@ -2,15 +2,15 @@ import { expect, jest } from '@jest/globals'
 import {
   makeCSSGradientDeclaration,
   makeCanvasGradientStopArray,
-  getEnvirons,
-  getAllEnvirons
+  getSkyboxDef,
+  getAllSkyboxDefs
 } from './environs'
 import MOCK_SKY_DEFS from './__mocks__/skybox-defs.json'
 
 jest.mock('./skybox-defs.json', () => require('./__mocks__/skybox-defs.json'))
 jest.mock('./constants', () => ({ DEFAULT_SKYBOX: 'default' }))
 
-describe('environs helpers', () => {
+describe('skybox helpers', () => {
   describe('makeCSSGradientDeclaration', () => {
     it('makes a CSS string', () => {
       const result = makeCSSGradientDeclaration(
@@ -70,9 +70,9 @@ describe('environs helpers', () => {
     })
   })
 
-  describe('getEnvirons', () => {
-    it('gets info for a single environs, with React-ready style object', () => {
-      const result = getEnvirons('foo')
+  describe('getSkyboxDef', () => {
+    it('gets info for a single skybox, with React-ready style object', () => {
+      const result = getSkyboxDef('foo')
       expect(result).toEqual({
         id: 'foo',
         name: 'Foo',
@@ -98,15 +98,15 @@ describe('environs helpers', () => {
       })
     })
 
-    it('returns default environs if specified environs id does not exist', () => {
-      const result = getEnvirons('qux')
+    it('returns default skybox if specified skybox id does not exist', () => {
+      const result = getSkyboxDef('qux')
       expect(result.id).toEqual('default')
     })
   })
 
-  describe('getAllEnvirons', () => {
-    it('gets all environs, with React-ready style object', () => {
-      const results = getAllEnvirons()
+  describe('getAllSkyboxDefs', () => {
+    it('gets all skyboxes, with React-ready style object', () => {
+      const results = getAllSkyboxDefs()
       expect(results.length).toBeGreaterThan(0)
       expect(results[results.length - 1].style).toBeDefined()
     })

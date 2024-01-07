@@ -6,7 +6,7 @@ import Tooltip from '../../ui/Tooltip'
 import { ICON_LOCK } from '../../ui/icons'
 import { images } from '../../app/load_resources'
 import { DEFAULT_SKYBOX } from '../constants'
-import { getAllEnvirons, type EnvironsRender } from '../environs'
+import { getAllSkyboxDefs, type SkyboxDefWithStyles } from '../environs'
 import './SkyOptions.scss'
 
 interface SkyOptionsProps {
@@ -23,13 +23,16 @@ function SkyOptions ({
   const locale = useSelector((state) => state.locale)
   const intl = useIntl()
 
-  function handleClick (event: React.MouseEvent, env: EnvironsRender): void {
+  function handleClick (
+    event: React.MouseEvent,
+    env: SkyboxDefWithStyles
+  ): void {
     if (enabled) {
       handleSelect(env.id)
     }
   }
 
-  const envs = getAllEnvirons()
+  const envs = getAllSkyboxDefs()
 
   return (
     <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>

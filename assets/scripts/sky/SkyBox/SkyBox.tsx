@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from '../../store/hooks'
-import { getEnvirons, makeCSSGradientDeclaration } from '../environs'
+import { getSkyboxDef, makeCSSGradientDeclaration } from '../environs'
 import { DEFAULT_SKYBOX } from '../constants'
 import SkyBackground from './SkyBackground'
 import SkyObjects from './SkyObjects'
@@ -22,20 +22,20 @@ function SkyContainer (props: SkyContainerProps): React.ReactElement {
     (state) => state.flags.SKY_ANIMATED_CLOUDS?.value || false
   )
 
-  const environs = getEnvirons(environment)
+  const skybox = getSkyboxDef(environment)
   const frontCloudStyle: React.CSSProperties = {
     ...getCloudPosition(true, scrollPos),
-    opacity: environs.cloudOpacity
+    opacity: skybox.cloudOpacity
   }
   const rearCloudStyle: React.CSSProperties = {
     ...getCloudPosition(false, scrollPos),
-    opacity: environs.cloudOpacity
+    opacity: skybox.cloudOpacity
   }
 
   const foregroundStyle: React.CSSProperties = {}
-  if (environs.foregroundGradient !== undefined) {
+  if (skybox.foregroundGradient !== undefined) {
     foregroundStyle.backgroundImage = makeCSSGradientDeclaration(
-      environs.foregroundGradient
+      skybox.foregroundGradient
     )
     foregroundStyle.opacity = 1
   } else {
@@ -50,7 +50,7 @@ function SkyContainer (props: SkyContainerProps): React.ReactElement {
   return (
     <section className={classes.join(' ')}>
       <SkyBackground environment={environment} />
-      <SkyObjects objects={environs.backgroundObjects} />
+      <SkyObjects objects={skybox.backgroundObjects} />
       <div className="rear-clouds" style={rearCloudStyle} />
       <div className="front-clouds" style={frontCloudStyle} />
       <div className="sky-foreground" style={foregroundStyle} />
