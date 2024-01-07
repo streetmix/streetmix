@@ -1,29 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import type { Environs } from '../environs'
 import { images } from '../../app/load_resources'
 import './SkyObjects.scss'
 
-SkyObjects.propTypes = {
-  objects: PropTypes.arrayOf(
-    PropTypes.shape({
-      images: PropTypes.string,
-      width: PropTypes.number,
-      height: PropTypes.number,
-      top: PropTypes.number,
-      left: PropTypes.number
-    })
-  )
+interface SkyObjectsProps {
+  objects: Environs['backgroundObjects']
 }
 
-function SkyObjects ({ objects = [] }) {
+function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
   return (
     <TransitionGroup className="sky-background-objects">
       {objects.map((object) => {
         const img = images.get(object.image)
 
         // Render only if asset is found
-        if (img) {
+        if (img !== undefined) {
           return (
             <CSSTransition
               key={object.image}

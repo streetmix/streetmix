@@ -1,14 +1,36 @@
 import type { Unsubscribe } from '@reduxjs/toolkit'
-import type {
-  Environs,
-  EnvironsRender,
-  CSSGradientDeclaration,
-  CSSGradientStop
-} from '../types'
 import { observeStore, type RootState } from '../store'
 import { images } from '../app/load_resources'
 import { DEFAULT_ENVIRONS } from './constants'
 import ENVIRONS from './environ-defs.json'
+
+export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
+export type CSSGradientDeclaration = CSSGradientStop[]
+
+export interface Environs {
+  name: string
+  enabled?: boolean
+  iconImage?: string // Illustration asset ID
+  backgroundColor?: string // CSS color string
+  backgroundImage?: string // Illustration asset ID
+  backgroundGradient?: CSSGradientDeclaration
+  backgroundObjects?: Array<{
+    image: string // Illustration asset ID
+    width: number // in pixels
+    height: number // in pixels
+    top: number // Percentage as decimal
+    left: number // Percentage as decimal
+  }>
+  foregroundGradient?: CSSGradientDeclaration
+  cloudOpacity?: number // Percentage as decimal
+  invertUITextColor?: boolean
+}
+
+export interface EnvironsRender extends Environs {
+  id: string
+  style: React.CSSProperties
+  iconStyle: React.CSSProperties
+}
 
 /**
  * Converts information from environs.json to create a string value
