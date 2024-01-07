@@ -220,7 +220,7 @@
     "ground|concrete": "Beton",
     "ground|asphalt": "Asfalt"
   },
-  "environs": {
+  "skybox": {
     "day": "Den",
     "twilight": "Soumrak",
     "dusk": "Soumrak",

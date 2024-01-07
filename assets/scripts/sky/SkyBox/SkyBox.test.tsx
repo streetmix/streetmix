@@ -1,10 +1,10 @@
-/* eslint-env jest */
+import { expect, jest } from '@jest/globals'
 import React from 'react'
-import SkyContainer from '../SkyContainer'
 import { render } from '../../../../test/helpers/render'
+import SkyBox from './SkyBox'
 
-jest.mock('../../streets/environs.json', () =>
-  require('../../streets/__mocks__/environs.json')
+jest.mock('../skybox-defs.json', () =>
+  require('../__mocks__/skybox-defs.json')
 )
 
 // Mock the `images` object.
@@ -13,40 +13,38 @@ jest.mock('../../streets/environs.json', () =>
 // The `src` property is normally a data-url.
 jest.mock('../../app/load_resources', () => ({
   images: {
-    get: (id) => ({
+    get: (id: string) => ({
       src: 'bar.svg'
     })
   }
 }))
 
-describe('SkyContainer', () => {
+describe('SkyBox', () => {
   it('renders', () => {
-    const { asFragment } = render(<SkyContainer scrollPos={0} height={100} />, {
+    const { asFragment } = render(<SkyBox scrollPos={0} />, {
       initialState: { street: { environment: 'foo' } }
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders with objects', () => {
-    const { asFragment } = render(<SkyContainer scrollPos={0} height={100} />, {
+    const { asFragment } = render(<SkyBox scrollPos={0} />, {
       initialState: { street: { environment: 'bar' } }
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders background animations', () => {
-    const { container } = render(<SkyContainer scrollPos={0} height={100} />, {
+    const { container } = render(<SkyBox scrollPos={0} />, {
       initialState: {
         street: { environment: 'bar' },
         flags: {
-          ENVIRONMENT_ANIMATIONS: { value: true }
+          SKY_ANIMATED_CLOUDS: { value: true }
         }
       }
     })
     expect(
-      container
-        .querySelector('section')
-        .className.includes('environment-animations')
+      container.querySelector('section')?.className.includes('sky-animations')
     ).toEqual(true)
   })
 })

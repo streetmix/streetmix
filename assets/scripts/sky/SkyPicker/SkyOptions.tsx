@@ -1,52 +1,58 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { IntlProvider, useIntl } from 'react-intl'
-import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Tooltip from '../ui/Tooltip'
-import { ICON_LOCK } from '../ui/icons'
-import { images } from '../app/load_resources'
-import { DEFAULT_ENVIRONS } from './constants'
-import { getAllEnvirons } from './environs'
-import './EnvironmentSelector.scss'
+import { useSelector } from '../../store/hooks'
+import Tooltip from '../../ui/Tooltip'
+import { ICON_LOCK } from '../../ui/icons'
+import { images } from '../../app/load_resources'
+import { DEFAULT_SKYBOX } from '../constants'
+import { getAllSkyboxDefs, type SkyboxDefWithStyles } from '..'
+import './SkyOptions.scss'
 
-EnvironmentSelector.propTypes = {
-  enabled: PropTypes.bool,
-  selected: PropTypes.string,
-  handleSelect: PropTypes.func
+interface SkyOptionsProps {
+  enabled: boolean
+  selected: string
+  handleSelect: (id: string) => void
 }
 
-function EnvironmentSelector ({ enabled, selected, handleSelect }) {
+function SkyOptions ({
+  enabled,
+  selected,
+  handleSelect
+}: SkyOptionsProps): React.ReactElement {
   const locale = useSelector((state) => state.locale)
   const intl = useIntl()
 
-  function handleClick (event, env) {
+  function handleClick (
+    event: React.MouseEvent,
+    env: SkyboxDefWithStyles
+  ): void {
     if (enabled) {
       handleSelect(env.id)
     }
   }
 
-  const envs = getAllEnvirons()
+  const envs = getAllSkyboxDefs()
 
   return (
     <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-      <div className="environment-selector">
+      <div className="sky-options">
         {envs.map((env) => {
           const { id, name, iconStyle } = env
-          const classNames = ['environment-item']
+          const classNames = ['sky-option-item']
           const label = intl.formatMessage({
-            id: `environs.${id}`,
+            id: `skybox.${id}`,
             defaultMessage: name
           })
 
           if (selected === id) {
-            classNames.push('environment-active')
-          } else if (!selected && id === DEFAULT_ENVIRONS) {
-            classNames.push('environment-active')
+            classNames.push('sky-selected')
+          } else if (!selected && id === DEFAULT_SKYBOX) {
+            classNames.push('sky-selected')
           }
 
           if (!enabled && selected !== id) {
-            classNames.push('environment-disabled')
+            classNames.push('sky-disabled')
           }
 
           return (
@@ -55,15 +61,17 @@ function EnvironmentSelector ({ enabled, selected, handleSelect }) {
                 aria-label={label}
                 className={classNames.join(' ')}
                 style={iconStyle}
-                onClick={(event) => handleClick(event, env)}
+                onClick={(event) => {
+                  handleClick(event, env)
+                }}
               >
                 {!enabled && selected !== id && (
                   <>
-                    <div className="environment-disabled-overlay" />
+                    <div className="sky-disabled-overlay" />
                     <FontAwesomeIcon icon={ICON_LOCK} />
                   </>
                 )}
-                {env.iconImage && (
+                {env.iconImage !== undefined && (
                   <img
                     src={images.get(env.iconImage)?.src}
                     alt=""
@@ -85,4 +93,4 @@ function EnvironmentSelector ({ enabled, selected, handleSelect }) {
   )
 }
 
-export default EnvironmentSelector
+export default SkyOptions

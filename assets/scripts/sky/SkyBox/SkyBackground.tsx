@@ -1,10 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useTransition, animated } from '@react-spring/web'
-import { getEnvirons } from '../streets/environs'
+import { getSkyboxDef } from '..'
 import './SkyBackground.scss'
 
-function SkyBackground (props) {
+interface SkyBackgroundProps {
+  environment: string
+}
+
+function SkyBackground (props: SkyBackgroundProps): React.ReactElement {
   const { environment } = props
 
   const transitions = useTransition(environment, {
@@ -21,15 +24,11 @@ function SkyBackground (props) {
       {transitions((style, item) => (
         <animated.div
           className="sky-background-color"
-          style={{ ...style, ...getEnvirons(item).style }}
+          style={{ ...style, ...getSkyboxDef(item).style }}
         />
       ))}
     </div>
   )
 }
 
-SkyBackground.propTypes = {
-  environment: PropTypes.string
-}
-
-export default React.memo(SkyBackground)
+export default SkyBackground

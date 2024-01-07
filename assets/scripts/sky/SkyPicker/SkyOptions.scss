@@ -1,9 +1,9 @@
-@import "../../styles/variables";
+@import "../../../styles/variables";
 
 $selection-highlight-colour: $colour-copper-500;
 $selection-focus-colour: $colour-turquoise-500;
 
-.environment-selector {
+.sky-options {
   display: grid;
   height: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -12,7 +12,7 @@ $selection-focus-colour: $colour-turquoise-500;
   padding: 1em;
 }
 
-.environment-item {
+.sky-option-item {
   position: relative;
   width: 40px;
   height: 40px;
@@ -31,16 +31,16 @@ $selection-focus-colour: $colour-turquoise-500;
   }
 }
 
-.environment-item.environment-active {
+.sky-option-item.sky-selected {
   box-shadow:
     0 0 0 2px $selection-highlight-colour,
     inset 0 0 0 2px rgb(255 255 255 / 100%);
 }
 
-.environment-item.environment-disabled {
+.sky-option-item.sky-disabled {
   cursor: default;
 
-  .environment-disabled-overlay {
+  .sky-disabled-overlay {
     position: absolute;
     top: 0;
     left: 0;

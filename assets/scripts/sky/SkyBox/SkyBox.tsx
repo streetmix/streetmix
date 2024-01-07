@@ -1,11 +1,10 @@
 import React from 'react'
-import type { Environs } from '../types'
-import { useSelector } from '../store/hooks'
-import { getEnvirons, makeCSSGradientDeclaration } from '../streets/environs'
-import { DEFAULT_ENVIRONS } from '../streets/constants'
+import { useSelector } from '../../store/hooks'
+import { getSkyboxDef, makeCSSGradientDeclaration } from '..'
+import { DEFAULT_SKYBOX } from '../constants'
 import SkyBackground from './SkyBackground'
 import SkyObjects from './SkyObjects'
-import './SkyContainer.scss'
+import './SkyBox.scss'
 
 const REAR_CLOUD_PARALLAX_SPEED = 0.25
 const FRONT_CLOUD_PARALLAX_SPEED = 0.5
@@ -16,27 +15,27 @@ interface SkyContainerProps {
 
 function SkyContainer (props: SkyContainerProps): React.ReactElement {
   const { scrollPos = 0 } = props
-  const environment = useSelector(
-    (state) => state.street.environment || DEFAULT_ENVIRONS
+  const environment: string = useSelector(
+    (state) => state.street.environment || DEFAULT_SKYBOX
   )
   const animations = useSelector(
-    (state) => state.flags.ENVIRONMENT_ANIMATIONS?.value || false
+    (state) => state.flags.SKY_ANIMATED_CLOUDS?.value || false
   )
 
-  const environs = getEnvirons(environment) as Environs
-  const frontCloudStyle = {
+  const skybox = getSkyboxDef(environment)
+  const frontCloudStyle: React.CSSProperties = {
     ...getCloudPosition(true, scrollPos),
-    opacity: environs.cloudOpacity ?? null
+    opacity: skybox.cloudOpacity
   }
-  const rearCloudStyle = {
+  const rearCloudStyle: React.CSSProperties = {
     ...getCloudPosition(false, scrollPos),
-    opacity: environs.cloudOpacity ?? null
+    opacity: skybox.cloudOpacity
   }
 
   const foregroundStyle: React.CSSProperties = {}
-  if (typeof environs.foregroundGradient !== 'undefined') {
+  if (skybox.foregroundGradient !== undefined) {
     foregroundStyle.backgroundImage = makeCSSGradientDeclaration(
-      environs.foregroundGradient
+      skybox.foregroundGradient
     )
     foregroundStyle.opacity = 1
   } else {
@@ -45,13 +44,13 @@ function SkyContainer (props: SkyContainerProps): React.ReactElement {
 
   const classes = ['street-section-sky']
   if (animations) {
-    classes.push('environment-animations')
+    classes.push('sky-animations')
   }
 
   return (
     <section className={classes.join(' ')}>
       <SkyBackground environment={environment} />
-      <SkyObjects objects={environs.backgroundObjects} />
+      <SkyObjects objects={skybox.backgroundObjects} />
       <div className="rear-clouds" style={rearCloudStyle} />
       <div className="front-clouds" style={frontCloudStyle} />
       <div className="sky-foreground" style={foregroundStyle} />

@@ -9,7 +9,7 @@ import StreetNameplateContainer from '../streets/StreetNameplateContainer'
 import InfoBubble from '../info_bubble/InfoBubble'
 import PaletteContainer from '../palette/PaletteContainer'
 import DialogRoot from '../dialogs/DialogRoot'
-import EnvironmentEditor from '../streets/EnvironmentEditor'
+import SkyPicker from '../sky/SkyPicker'
 import Gallery from '../gallery/Gallery'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
 import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
@@ -94,7 +94,7 @@ function App (): React.ReactElement {
                 <DebugHoverPolygon />
                 <WelcomePanel />
                 <PaletteContainer />
-                <EnvironmentEditor />
+                <SkyPicker />
                 <SegmentDragLayer />
                 <StreetView />
                 <ToastContainer />

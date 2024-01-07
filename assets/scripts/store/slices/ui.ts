@@ -80,7 +80,7 @@ const uiSlice = createSlice({
       state.resizeGuidesVisible = action.payload === DRAGGING_TYPE_RESIZE
     },
 
-    toggleToolbox (state, action) {
+    toggleToolbox (state) {
       state.toolboxVisible = !state.toolboxVisible
     }
   }

@@ -220,7 +220,7 @@
     "ground|concrete": "콘크리트",
     "ground|asphalt": "아스팔트"
   },
-  "environs": {
+  "skybox": {
     "day": "낮",
     "twilight": "어스름",
     "dusk": "해질녘",

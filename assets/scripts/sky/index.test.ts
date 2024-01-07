@@ -1,20 +1,22 @@
-/* eslint-env jest */
+import { expect, jest } from '@jest/globals'
+import MOCK_SKY_DEFS from './__mocks__/skybox-defs.json'
 import {
   makeCSSGradientDeclaration,
   makeCanvasGradientStopArray,
-  getEnvirons,
-  getAllEnvirons
-} from '../environs'
-import MOCK_ENVIRONS from '../__mocks__/environs.json'
+  getSkyboxDef,
+  getAllSkyboxDefs
+} from '.'
 
-jest.mock('../environs.json', () => require('../__mocks__/environs.json'))
-jest.mock('../constants', () => ({ DEFAULT_ENVIRONS: 'default' }))
+jest.mock('./skybox-defs.json', () => require('./__mocks__/skybox-defs.json'))
+jest.mock('./constants', () => ({ DEFAULT_SKYBOX: 'default' }))
 
-describe('environs helpers', () => {
+describe('skybox helpers', () => {
   describe('makeCSSGradientDeclaration', () => {
     it('makes a CSS string', () => {
       const result = makeCSSGradientDeclaration(
-        MOCK_ENVIRONS.foo.backgroundGradient
+        MOCK_SKY_DEFS.foo.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual(
         'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
@@ -23,7 +25,9 @@ describe('environs helpers', () => {
 
     it('makes a CSS string with stops', () => {
       const result = makeCSSGradientDeclaration(
-        MOCK_ENVIRONS.bar.backgroundGradient
+        MOCK_SKY_DEFS.bar.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual(
         'linear-gradient(#020b1a, #3e5879, #9ba5ae 40%, #dcb697, #fc7001)'
@@ -34,7 +38,9 @@ describe('environs helpers', () => {
   describe('makeCanvasGradientStopArray', () => {
     it('fills in all empty stops', () => {
       const result = makeCanvasGradientStopArray(
-        MOCK_ENVIRONS.foo.backgroundGradient
+        MOCK_SKY_DEFS.foo.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual([
         ['#020b1a', 0.0],
@@ -50,7 +56,9 @@ describe('environs helpers', () => {
 
     it('fills in empty stops between known stops', () => {
       const result = makeCanvasGradientStopArray(
-        MOCK_ENVIRONS.bar.backgroundGradient
+        MOCK_SKY_DEFS.bar.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual([
         ['#020b1a', 0.0],
@@ -62,9 +70,9 @@ describe('environs helpers', () => {
     })
   })
 
-  describe('getEnvirons', () => {
-    it('gets info for a single environs, with React-ready style object', () => {
-      const result = getEnvirons('foo')
+  describe('getSkyboxDef', () => {
+    it('gets info for a single skybox, with React-ready style object', () => {
+      const result = getSkyboxDef('foo')
       expect(result).toEqual({
         id: 'foo',
         name: 'Foo',
@@ -90,15 +98,15 @@ describe('environs helpers', () => {
       })
     })
 
-    it('returns default environs if specified environs id does not exist', () => {
-      const result = getEnvirons('qux')
+    it('returns default skybox if specified skybox id does not exist', () => {
+      const result = getSkyboxDef('qux')
       expect(result.id).toEqual('default')
     })
   })
 
-  describe('getAllEnvirons', () => {
-    it('gets all environs, with React-ready style object', () => {
-      const results = getAllEnvirons()
+  describe('getAllSkyboxDefs', () => {
+    it('gets all skyboxes, with React-ready style object', () => {
+      const results = getAllSkyboxDefs()
       expect(results.length).toBeGreaterThan(0)
       expect(results[results.length - 1].style).toBeDefined()
     })

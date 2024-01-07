@@ -220,7 +220,7 @@
     "ground|concrete": "",
     "ground|asphalt": "沥青路面"
   },
-  "environs": {
+  "skybox": {
     "day": "",
     "twilight": "",
     "dusk": "",

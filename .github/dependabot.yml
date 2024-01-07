@@ -44,6 +44,12 @@ updates:
       patterns:
         - "stylelint"
         - "stylelint-*"
+    jest:
+      patterns:
+        - "jest"
+        - "jest-environment-jsdom"
+        - "babel-jest"
+        - "@jest/globals"
 
 - package-ecosystem: github-actions
   directory: "/"

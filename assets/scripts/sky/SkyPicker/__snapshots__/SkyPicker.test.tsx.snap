@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
+exports[`SkyPicker renders for signed-in subscribers 1`] = `
 <DocumentFragment>
   <div
-    class="environment-editor environment-editor-container-outer react-draggable"
+    class="sky-picker sky-picker-container-outer react-draggable"
     style="transform: translate(0px,0px);"
   >
     <div
-      class="environment-editor-container-inner"
+      class="sky-picker-container-inner"
       style="opacity: 0; pointer-events: none; transform: scale(0.75);"
     >
       <header>
@@ -27,31 +27,31 @@ exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
         </button>
       </header>
       <div
-        class="environment-editor-content"
+        class="sky-picker-content"
       >
         <div
-          class="environment-selector"
+          class="sky-options"
         >
           <button
             aria-label="Day"
-            class="environment-item environment-active"
+            class="sky-option-item sky-selected"
             style="background: rgb(169, 204, 219);"
           />
           <button
             aria-label="Twilight"
-            class="environment-item"
+            class="sky-option-item"
           />
           <button
             aria-label="Dusk"
-            class="environment-item"
+            class="sky-option-item"
           />
           <button
             aria-label="Dawn"
-            class="environment-item"
+            class="sky-option-item"
           />
           <button
             aria-label="Night"
-            class="environment-item"
+            class="sky-option-item"
           >
             <img
               alt=""
@@ -61,12 +61,12 @@ exports[`EnvironmentEditor renders for signed-in subscribers 1`] = `
           </button>
           <button
             aria-label="Fog"
-            class="environment-item"
+            class="sky-option-item"
             style="background: rgb(226, 240, 242);"
           />
           <button
             aria-label="Holodeck"
-            class="environment-item"
+            class="sky-option-item"
             style="background: rgb(20, 20, 20);"
           >
             <img
