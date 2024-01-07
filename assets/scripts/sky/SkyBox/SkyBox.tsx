@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from '../../store/hooks'
 import { getEnvirons, makeCSSGradientDeclaration } from '../environs'
-import { DEFAULT_ENVIRONS } from '../constants'
+import { DEFAULT_SKY } from '../constants'
 import SkyBackground from './SkyBackground'
 import SkyObjects from './SkyObjects'
 import './SkyBox.scss'
@@ -16,7 +16,7 @@ interface SkyContainerProps {
 function SkyContainer (props: SkyContainerProps): React.ReactElement {
   const { scrollPos = 0 } = props
   const environment: string = useSelector(
-    (state) => state.street.environment || DEFAULT_ENVIRONS
+    (state) => state.street.environment || DEFAULT_SKY
   )
   const animations = useSelector(
     (state) => state.flags.SKY_ANIMATED_CLOUDS?.value || false

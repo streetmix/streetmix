@@ -19,7 +19,7 @@ import {
 import { resetUndoStack } from '../store/slices/history'
 import store from '../store'
 import { getSegmentVariantInfo } from '../segments/info'
-import { DEFAULT_ENVIRONS } from '../sky/constants'
+import { DEFAULT_SKY } from '../sky/constants'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
 import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
@@ -250,7 +250,7 @@ function incrementSchemaVersion (street) {
       break
     case 18:
       if (!street.environment) {
-        street.environment = DEFAULT_ENVIRONS
+        street.environment = DEFAULT_SKY
       }
       break
     case 19:
@@ -496,7 +496,7 @@ export function prepareDefaultStreet () {
     userUpdated: false,
     editCount: 0,
     width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
-    environment: DEFAULT_ENVIRONS,
+    environment: DEFAULT_SKY,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
@@ -526,7 +526,7 @@ export function prepareEmptyStreet () {
     userUpdated: false,
     editCount: 0,
     width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
-    environment: DEFAULT_ENVIRONS,
+    environment: DEFAULT_SKY,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,

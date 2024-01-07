@@ -1,1 +1,1 @@
-export const DEFAULT_ENVIRONS = 'day'
+export const DEFAULT_SKY = 'day'

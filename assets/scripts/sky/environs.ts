@@ -1,7 +1,7 @@
 import type { Unsubscribe } from '@reduxjs/toolkit'
 import { observeStore, type RootState } from '../store'
 import { images } from '../app/load_resources'
-import { DEFAULT_ENVIRONS } from './constants'
+import { DEFAULT_SKY } from './constants'
 import ENVIRONS from './environ-defs.json'
 
 export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
@@ -181,8 +181,8 @@ export function getEnvirons (id: string): EnvironsRender {
   let env = ENVIRONS[id as keyof typeof ENVIRONS] as Environs
 
   if (env === undefined) {
-    env = ENVIRONS[DEFAULT_ENVIRONS]
-    id = DEFAULT_ENVIRONS
+    env = ENVIRONS[DEFAULT_SKY]
+    id = DEFAULT_SKY
   }
 
   return {
