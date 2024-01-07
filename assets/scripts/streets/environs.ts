@@ -8,7 +8,7 @@ import type {
 import { observeStore, type RootState } from '../store'
 import { images } from '../app/load_resources'
 import { DEFAULT_ENVIRONS } from './constants'
-import ENVIRONS from './environs.json'
+import ENVIRONS from './environ-defs.json'
 
 /**
  * Converts information from environs.json to create a string value

@@ -3,7 +3,7 @@ import React from 'react'
 import SkyContainer from '../SkyContainer'
 import { render } from '../../../../test/helpers/render'
 
-jest.mock('../../streets/environs.json', () =>
+jest.mock('../../streets/environ-defs.json', () =>
   require('../../streets/__mocks__/environs.json')
 )
 

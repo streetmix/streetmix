@@ -12,7 +12,7 @@ This is a draft specification of Streetmix's forthcoming environs feature. The s
 
 **Environs** is a setting that allows uers to change the "environment" that a street is in, which can include elements like time of day, weather, and background. In the UI, we prefer to use the term _environment_. Internally, we use _environs_ to prevent confusion with the computing term _developer environment_.
 
-Environs definitions are contained in `environs.json`. You can browse the [current environs definitions here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/streets/environs.json).
+Environs definitions are contained in `environ-defs.json`. You can browse the [current environs definitions here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/streets/environ-defs.json).
 
 ## `environs.json` schema
 

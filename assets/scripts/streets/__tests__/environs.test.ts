@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, jest } from '@jest/globals'
 import {
   makeCSSGradientDeclaration,
   makeCanvasGradientStopArray,
@@ -7,14 +7,16 @@ import {
 } from '../environs'
 import MOCK_ENVIRONS from '../__mocks__/environs.json'
 
-jest.mock('../environs.json', () => require('../__mocks__/environs.json'))
+jest.mock('../environ-defs.json', () => require('../__mocks__/environs.json'))
 jest.mock('../constants', () => ({ DEFAULT_ENVIRONS: 'default' }))
 
 describe('environs helpers', () => {
   describe('makeCSSGradientDeclaration', () => {
     it('makes a CSS string', () => {
       const result = makeCSSGradientDeclaration(
-        MOCK_ENVIRONS.foo.backgroundGradient
+        MOCK_ENVIRONS.foo.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual(
         'linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308)'
@@ -23,7 +25,9 @@ describe('environs helpers', () => {
 
     it('makes a CSS string with stops', () => {
       const result = makeCSSGradientDeclaration(
-        MOCK_ENVIRONS.bar.backgroundGradient
+        MOCK_ENVIRONS.bar.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual(
         'linear-gradient(#020b1a, #3e5879, #9ba5ae 40%, #dcb697, #fc7001)'
@@ -34,7 +38,9 @@ describe('environs helpers', () => {
   describe('makeCanvasGradientStopArray', () => {
     it('fills in all empty stops', () => {
       const result = makeCanvasGradientStopArray(
-        MOCK_ENVIRONS.foo.backgroundGradient
+        MOCK_ENVIRONS.foo.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual([
         ['#020b1a', 0.0],
@@ -50,7 +56,9 @@ describe('environs helpers', () => {
 
     it('fills in empty stops between known stops', () => {
       const result = makeCanvasGradientStopArray(
-        MOCK_ENVIRONS.bar.backgroundGradient
+        MOCK_ENVIRONS.bar.backgroundGradient as Array<
+        string | [string, number?]
+        >
       )
       expect(result).toEqual([
         ['#020b1a', 0.0],
