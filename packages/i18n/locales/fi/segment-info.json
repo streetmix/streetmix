@@ -220,7 +220,7 @@
     "ground|concrete": "Betoni",
     "ground|asphalt": "Asfaltti"
   },
-  "environs": {
+  "skybox": {
     "day": "Päivä",
     "twilight": "Iltahämärä",
     "dusk": "Hämärä",

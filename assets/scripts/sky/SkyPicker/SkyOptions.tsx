@@ -41,7 +41,7 @@ function SkyOptions ({
           const { id, name, iconStyle } = env
           const classNames = ['sky-option-item']
           const label = intl.formatMessage({
-            id: `environs.${id}`,
+            id: `skybox.${id}`,
             defaultMessage: name
           })
 
