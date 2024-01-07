@@ -9,10 +9,10 @@ import { useSelector, useDispatch } from '../../store/hooks'
 import { setEnvironment } from '../../store/slices/street'
 import { toggleToolbox } from '../../store/slices/ui'
 import { DEFAULT_ENVIRONS } from '../constants'
-import EnvironmentSelector from './EnvironmentSelector'
-import './EnvironmentEditor.scss'
+import SkyOptions from './SkyOptions'
+import './SkyPicker.scss'
 
-function EnvironmentEditor (): React.ReactElement {
+function SkyPicker (): React.ReactElement {
   const selected = useSelector(
     (state) => state.street.environment || DEFAULT_ENVIRONS
   )
@@ -42,12 +42,9 @@ function EnvironmentEditor (): React.ReactElement {
         <Draggable bounds="parent" handle="header" cancel=".close">
           {/* Two containers are necessary because different libraries are applying CSS transforms */}
           {/* Outer container is transformed by Draggable's position */}
-          <div className="environment-editor environment-editor-container-outer">
+          <div className="sky-picker sky-picker-container-outer">
             {/* Inner container contains transition styles from Transition */}
-            <animated.div
-              className="environment-editor-container-inner"
-              style={style}
-            >
+            <animated.div className="sky-picker-container-inner" style={style}>
               <header>
                 <h3>
                   <Icon icon="sun" />
@@ -58,12 +55,12 @@ function EnvironmentEditor (): React.ReactElement {
                 </h3>
                 <CloseButton onClick={handleClose} />
               </header>
-              <div className="environment-editor-content">
+              <div className="sky-picker-content">
                 <IntlProvider
                   locale={locale.locale}
                   messages={locale.segmentInfo}
                 >
-                  <EnvironmentSelector
+                  <SkyOptions
                     enabled={isSubscriber}
                     selected={selected}
                     handleSelect={handleSelect}
@@ -71,7 +68,7 @@ function EnvironmentEditor (): React.ReactElement {
                 </IntlProvider>
 
                 {!isSubscriber && (
-                  <div className="environment-upgrade-box">
+                  <div className="sky-picker-upgrade">
                     <StreetmixPlusPrompt>
                       <FormattedMessage
                         id="plus.prompt.text"
@@ -88,4 +85,4 @@ function EnvironmentEditor (): React.ReactElement {
   )
 }
 
-export default EnvironmentEditor
+export default SkyPicker

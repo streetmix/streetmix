@@ -7,19 +7,19 @@ import { ICON_LOCK } from '../../ui/icons'
 import { images } from '../../app/load_resources'
 import { DEFAULT_ENVIRONS } from '../constants'
 import { getAllEnvirons, type EnvironsRender } from '../environs'
-import './EnvironmentSelector.scss'
+import './SkyOptions.scss'
 
-interface EnvironmentSelectorProps {
+interface SkyOptionsProps {
   enabled: boolean
   selected: string
   handleSelect: (id: string) => void
 }
 
-function EnvironmentSelector ({
+function SkyOptions ({
   enabled,
   selected,
   handleSelect
-}: EnvironmentSelectorProps): React.ReactElement {
+}: SkyOptionsProps): React.ReactElement {
   const locale = useSelector((state) => state.locale)
   const intl = useIntl()
 
@@ -33,23 +33,23 @@ function EnvironmentSelector ({
 
   return (
     <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-      <div className="environment-selector">
+      <div className="sky-options">
         {envs.map((env) => {
           const { id, name, iconStyle } = env
-          const classNames = ['environment-item']
+          const classNames = ['sky-option-item']
           const label = intl.formatMessage({
             id: `environs.${id}`,
             defaultMessage: name
           })
 
           if (selected === id) {
-            classNames.push('environment-active')
+            classNames.push('sky-selected')
           } else if (!selected && id === DEFAULT_ENVIRONS) {
-            classNames.push('environment-active')
+            classNames.push('sky-selected')
           }
 
           if (!enabled && selected !== id) {
-            classNames.push('environment-disabled')
+            classNames.push('sky-disabled')
           }
 
           return (
@@ -64,7 +64,7 @@ function EnvironmentSelector ({
               >
                 {!enabled && selected !== id && (
                   <>
-                    <div className="environment-disabled-overlay" />
+                    <div className="sky-disabled-overlay" />
                     <FontAwesomeIcon icon={ICON_LOCK} />
                   </>
                 )}
@@ -90,4 +90,4 @@ function EnvironmentSelector ({
   )
 }
 
-export default EnvironmentSelector
+export default SkyOptions

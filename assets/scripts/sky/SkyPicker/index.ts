@@ -1,1 +1,1 @@
-export { default } from './EnvironmentEditor'
+export { default } from './SkyPicker'

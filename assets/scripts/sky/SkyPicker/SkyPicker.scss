@@ -1,13 +1,13 @@
 @use "sass:color";
 @import "../../../styles/variables";
 
-$environment-editor-border-radius: $border-radius-large;
-$environment-editor-box-shadow: $medium-box-shadow;
+$sky-picker-border-radius: $border-radius-large;
+$sky-picker-box-shadow: $medium-box-shadow;
 $header-background-colour: $colour-turquoise-200;
 $header-text-colour: $colour-turquoise-700;
 
-.environment-editor-container-outer {
-  z-index: $z-07-environment-editor;
+.sky-picker-container-outer {
+  z-index: $z-07-sky-picker;
   position: absolute;
 
   // TODO: use button trigger to set initial position,
@@ -17,11 +17,11 @@ $header-text-colour: $colour-turquoise-700;
   max-width: 216px; /* prevent upgrade text from expanding width */
 }
 
-.environment-editor-container-inner {
+.sky-picker-container-inner {
   background-color: white;
-  border-radius: $environment-editor-border-radius;
+  border-radius: $sky-picker-border-radius;
   overflow: hidden;
-  box-shadow: $environment-editor-box-shadow;
+  box-shadow: $sky-picker-box-shadow;
   user-select: none;
 
   [dir="rtl"] & {
@@ -30,7 +30,7 @@ $header-text-colour: $colour-turquoise-700;
   }
 }
 
-.environment-editor header {
+.sky-picker header {
   padding: 0.5em;
   background-color: $header-background-colour;
   color: $header-text-colour;
@@ -38,16 +38,16 @@ $header-text-colour: $colour-turquoise-700;
   align-items: center;
 }
 
-.environment-editor.react-draggable header {
+.sky-picker.react-draggable header {
   cursor: move; /* fallback if grab cursor is unsupported */
   cursor: grab;
 }
 
-.environment-editor.react-draggable-dragging header {
+.sky-picker.react-draggable-dragging header {
   cursor: grabbing;
 }
 
-.environment-editor header img {
+.sky-picker header img {
   height: 16px;
   width: auto;
   margin-left: 0.5em;
@@ -59,7 +59,7 @@ $header-text-colour: $colour-turquoise-700;
   }
 }
 
-.environment-editor header h3 {
+.sky-picker header h3 {
   flex: 1;
   min-width: 0;
   margin: 0 0.25em;
@@ -78,11 +78,11 @@ $header-text-colour: $colour-turquoise-700;
   }
 }
 
-.environment-editor-content {
+.sky-picker-content {
   padding: 0;
 }
 
-.environment-upgrade-box {
+.sky-picker-upgrade {
   padding: 0.75em 1em;
   background-color: $alert-background-light;
   font-size: 1rem;
@@ -114,7 +114,7 @@ $header-text-colour: $colour-turquoise-700;
 }
 
 /* Close button overrides */
-.environment-editor .close {
+.sky-picker .close {
   position: relative;
   width: 24px;
   height: 24px;
