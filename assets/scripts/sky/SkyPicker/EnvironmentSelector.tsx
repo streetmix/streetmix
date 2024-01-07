@@ -1,26 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { IntlProvider, useIntl } from 'react-intl'
-import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector } from '../../store/hooks'
 import Tooltip from '../../ui/Tooltip'
 import { ICON_LOCK } from '../../ui/icons'
 import { images } from '../../app/load_resources'
 import { DEFAULT_ENVIRONS } from '../constants'
-import { getAllEnvirons } from '../environs'
+import { getAllEnvirons, type EnvironsRender } from '../environs'
 import './EnvironmentSelector.scss'
 
-EnvironmentSelector.propTypes = {
-  enabled: PropTypes.bool,
-  selected: PropTypes.string,
-  handleSelect: PropTypes.func
+interface EnvironmentSelectorProps {
+  enabled: boolean
+  selected: string
+  handleSelect: (id: string) => void
 }
 
-function EnvironmentSelector ({ enabled, selected, handleSelect }) {
+function EnvironmentSelector ({
+  enabled,
+  selected,
+  handleSelect
+}: EnvironmentSelectorProps): React.ReactElement {
   const locale = useSelector((state) => state.locale)
   const intl = useIntl()
 
-  function handleClick (event, env) {
+  function handleClick (event: React.MouseEvent, env: EnvironsRender): void {
     if (enabled) {
       handleSelect(env.id)
     }
@@ -55,7 +58,9 @@ function EnvironmentSelector ({ enabled, selected, handleSelect }) {
                 aria-label={label}
                 className={classNames.join(' ')}
                 style={iconStyle}
-                onClick={(event) => handleClick(event, env)}
+                onClick={(event) => {
+                  handleClick(event, env)
+                }}
               >
                 {!enabled && selected !== id && (
                   <>
@@ -63,7 +68,7 @@ function EnvironmentSelector ({ enabled, selected, handleSelect }) {
                     <FontAwesomeIcon icon={ICON_LOCK} />
                   </>
                 )}
-                {env.iconImage && (
+                {env.iconImage !== undefined && (
                   <img
                     src={images.get(env.iconImage)?.src}
                     alt=""

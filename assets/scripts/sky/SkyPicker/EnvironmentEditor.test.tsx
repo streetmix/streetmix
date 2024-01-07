@@ -1,10 +1,10 @@
-/* eslint-env jest */
+import { expect, jest } from '@jest/globals'
 import React from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import * as uiSlice from '../../store/slices/ui'
-import EnvironmentEditor from '../../sky/SkyPicker/EnvironmentEditor'
+import EnvironmentEditor from './EnvironmentEditor'
 
 describe('EnvironmentEditor', () => {
   const initialState = {
@@ -35,7 +35,7 @@ describe('EnvironmentEditor', () => {
 
     // waitFor animation to remove `pointer-events: none` from parent element
     // This test is flaky if we don't wait.
-    await waitFor(() => userEvent.click(screen.getByLabelText('Dusk')))
+    await waitFor(async () => { await userEvent.click(screen.getByLabelText('Dusk')) })
 
     // New state
     expect(screen.getByLabelText('Dusk')).toHaveClass('environment-active')
@@ -52,11 +52,13 @@ describe('EnvironmentEditor', () => {
     // The action creator itself doesn't do anything but it must still return
     // a plain object or the dispatch() throws an error
     // eslint-disable-next-line
-    uiSlice.toggleToolbox = jest.fn().mockReturnValue({ type: 'MOCK_ACTION' })
+    uiSlice.toggleToolbox = jest.fn().mockReturnValue({ type: "MOCK_ACTION" });
 
     // waitFor animation to remove `pointer-events: none` from parent element
     // This test is flaky if we don't wait.
-    await waitFor(() => userEvent.click(screen.getByTitle('Dismiss')))
+    await waitFor(async () => {
+      await userEvent.click(screen.getByTitle('Dismiss'))
+    })
 
     expect(uiSlice.toggleToolbox).toBeCalled()
   })
@@ -87,7 +89,9 @@ describe('EnvironmentEditor', () => {
 
     // waitFor animation to remove `pointer-events: none` from parent element
     // This test is flaky if we don't wait.
-    await waitFor(() => userEvent.click(screen.getByLabelText('Dusk')))
+    await waitFor(async () => {
+      await userEvent.click(screen.getByLabelText('Dusk'))
+    })
 
     // State should not change!
     expect(screen.getByLabelText('Day')).toHaveClass('environment-active')

@@ -1,18 +1,18 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useTransition, animated } from '@react-spring/web'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
 import CloseButton from '../../ui/CloseButton'
 import Icon from '../../ui/Icon'
 import StreetmixPlusPrompt from '../../app/StreetmixPlusPrompt'
+import { useSelector, useDispatch } from '../../store/hooks'
 import { setEnvironment } from '../../store/slices/street'
 import { toggleToolbox } from '../../store/slices/ui'
 import { DEFAULT_ENVIRONS } from '../constants'
 import EnvironmentSelector from './EnvironmentSelector'
 import './EnvironmentEditor.scss'
 
-function EnvironmentEditor (props) {
+function EnvironmentEditor (): React.ReactElement {
   const selected = useSelector(
     (state) => state.street.environment || DEFAULT_ENVIRONS
   )
@@ -21,11 +21,11 @@ function EnvironmentEditor (props) {
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
-  function handleClose (event) {
+  function handleClose (event: React.MouseEvent): void {
     dispatch(toggleToolbox())
   }
 
-  function handleSelect (id) {
+  function handleSelect (id: string): void {
     dispatch(setEnvironment(id))
   }
 
