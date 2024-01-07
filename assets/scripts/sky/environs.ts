@@ -203,8 +203,8 @@ export function getAllEnvirons (): EnvironsRender[] {
 }
 
 /**
- * Toggles the `dark-environs-invert-ui` on the <body> element when there is a dark
- * sky (environs). UI elements that are placed on top of the dark background
+ * Toggles the `dark-skybox-invert-ui` on the <body> element when there is a
+ * dark skybox. UI elements that are placed on top of the dark background
  * should use this classname to invert its colors.
  */
 export function initEnvironsChangedListener (): Unsubscribe {
@@ -214,7 +214,7 @@ export function initEnvironsChangedListener (): Unsubscribe {
   const onChange = (state: Environs): void => {
     // `invertUITextColor` may not be defined, so coerce it to `false` with Boolean()
     document.body.classList.toggle(
-      'dark-environs-invert-ui',
+      'dark-skybox-invert-ui',
       Boolean(state.invertUITextColor)
     )
   }
