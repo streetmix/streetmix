@@ -1,6 +1,6 @@
 import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import type { SkyboxDefinition } from '../environs'
+import type { SkyboxDefinition } from '..'
 import { images } from '../../app/load_resources'
 import './SkyObjects.scss'
 

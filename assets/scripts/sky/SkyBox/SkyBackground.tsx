@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTransition, animated } from '@react-spring/web'
-import { getSkyboxDef } from '../environs'
+import { getSkyboxDef } from '..'
 import './SkyBackground.scss'
 
 interface SkyBackgroundProps {

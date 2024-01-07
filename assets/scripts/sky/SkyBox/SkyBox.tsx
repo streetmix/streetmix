@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from '../../store/hooks'
-import { getSkyboxDef, makeCSSGradientDeclaration } from '../environs'
+import { getSkyboxDef, makeCSSGradientDeclaration } from '..'
 import { DEFAULT_SKYBOX } from '../constants'
 import SkyBackground from './SkyBackground'
 import SkyObjects from './SkyObjects'

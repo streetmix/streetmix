@@ -6,7 +6,7 @@ import Tooltip from '../../ui/Tooltip'
 import { ICON_LOCK } from '../../ui/icons'
 import { images } from '../../app/load_resources'
 import { DEFAULT_SKYBOX } from '../constants'
-import { getAllSkyboxDefs, type SkyboxDefWithStyles } from '../environs'
+import { getAllSkyboxDefs, type SkyboxDefWithStyles } from '..'
 import './SkyOptions.scss'
 
 interface SkyOptionsProps {

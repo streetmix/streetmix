@@ -1,11 +1,11 @@
 import { expect, jest } from '@jest/globals'
+import MOCK_SKY_DEFS from './__mocks__/skybox-defs.json'
 import {
   makeCSSGradientDeclaration,
   makeCanvasGradientStopArray,
   getSkyboxDef,
   getAllSkyboxDefs
-} from './environs'
-import MOCK_SKY_DEFS from './__mocks__/skybox-defs.json'
+} from '.'
 
 jest.mock('./skybox-defs.json', () => require('./__mocks__/skybox-defs.json'))
 jest.mock('./constants', () => ({ DEFAULT_SKYBOX: 'default' }))

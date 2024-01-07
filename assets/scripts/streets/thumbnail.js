@@ -1,7 +1,7 @@
 import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
-import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky/environs'
+import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
 import {
   BUILDINGS,
   GROUND_BASELINE_HEIGHT,
@@ -154,7 +154,7 @@ function drawBackgroundImage (ctx, width, height, dpi, multiplier, imageId) {
  * @param {Number} width - width of area to draw
  * @param {Number} height - height of area to draw
  * @param {Number} dpi - pixel density of canvas
- * @param {Array} backgroundGradient - environs definition of gradient
+ * @param {Array} backgroundGradient - skybox definition of gradient
  * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawBackgroundGradient (ctx, width, height, dpi, backgroundGradient) {
@@ -178,7 +178,7 @@ function drawBackgroundGradient (ctx, width, height, dpi, backgroundGradient) {
  * @param {Number} width - width of area to draw
  * @param {Number} height - height of area to draw
  * @param {Number} dpi - scale factor of image
- * @param {Array} objects - environs definition of background objects
+ * @param {Array} objects - skybox definition of background objects
  * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
@@ -210,7 +210,7 @@ function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
  * @param {Number} width - width of area to draw
  * @param {Number} height - height of area to draw
  * @param {Number} dpi - pixel density of canvas
- * @param {Object} env - environs settings
+ * @param {Object} env - skybox settings
  * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawClouds (ctx, width, height, dpi, env) {
