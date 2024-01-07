@@ -31,8 +31,8 @@
     "label": "Sentiment surveys",
     "defaultValue": false
   },
-  "ENVIRONMENT_ANIMATIONS": {
-    "label": "Environment animations",
+  "SKY_ANIMATED_CLOUDS": {
+    "label": "Sky — animated clouds",
     "defaultValue": false
   },
   "SAVE_UNDO": {

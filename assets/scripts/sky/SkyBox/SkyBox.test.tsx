@@ -37,14 +37,12 @@ describe('SkyBox', () => {
       initialState: {
         street: { environment: 'bar' },
         flags: {
-          ENVIRONMENT_ANIMATIONS: { value: true }
+          SKY_ANIMATED_CLOUDS: { value: true }
         }
       }
     })
     expect(
-      container
-        .querySelector('section')
-        ?.className.includes('environment-animations')
+      container.querySelector('section')?.className.includes('sky-animations')
     ).toEqual(true)
   })
 })

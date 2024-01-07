@@ -19,7 +19,7 @@ function SkyContainer (props: SkyContainerProps): React.ReactElement {
     (state) => state.street.environment || DEFAULT_ENVIRONS
   )
   const animations = useSelector(
-    (state) => state.flags.ENVIRONMENT_ANIMATIONS?.value || false
+    (state) => state.flags.SKY_ANIMATED_CLOUDS?.value || false
   )
 
   const environs = getEnvirons(environment)
@@ -44,7 +44,7 @@ function SkyContainer (props: SkyContainerProps): React.ReactElement {
 
   const classes = ['street-section-sky']
   if (animations) {
-    classes.push('environment-animations')
+    classes.push('sky-animations')
   }
 
   return (
