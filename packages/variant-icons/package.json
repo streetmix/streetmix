@@ -7,9 +7,10 @@
     "url": "git+https://github.com/streetmix/streetmix.git",
     "directory": "packages/illustrations"
   },
+  "license": "CC-BY-SA-4.0",
+  "type": "module",
   "scripts": {
     "start": "echo Nothing to run!",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "license": "CC-BY-SA-4.0"
+  }
 }
