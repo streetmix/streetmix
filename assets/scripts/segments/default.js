@@ -51,7 +51,7 @@ export const DEFAULT_SEGMENTS = {
     {
       type: 'bike-lane',
       variant: {
-        direction: 'outbound',
+        'bike-direction': 'outbound',
         'bike-asphalt': 'green',
         elevation: 'road'
       },
@@ -77,7 +77,7 @@ export const DEFAULT_SEGMENTS = {
     {
       type: 'bike-lane',
       variant: {
-        direction: 'outbound',
+        'bike-direction': 'outbound',
         'bike-asphalt': 'green',
         elevation: 'road'
       },
