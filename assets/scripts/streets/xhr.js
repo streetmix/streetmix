@@ -39,7 +39,7 @@ import {
   prepareDefaultStreet,
   trimStreetData,
   updateEverything,
-  updateToLatestSchemaVersion,
+  addAltVariantObject,
   setStreetCreatorId,
   setUpdateTimeToNow,
   setLastStreet,
@@ -291,7 +291,7 @@ export function unpackServerStreetData (
   checkIfNeedsToBeRemixed
 ) {
   const street = unpackStreetDataFromServerTransmission(transmission)
-  const updatedSchema = updateToLatestSchemaVersion(street)
+  addAltVariantObject(street)
 
   store.dispatch(updateStreetData(street))
   store.dispatch(resetUndoStack())
@@ -309,7 +309,7 @@ export function unpackServerStreetData (
       setRemixOnFirstEdit(false)
     }
 
-    if (updatedSchema && !getRemixOnFirstEdit()) {
+    if (!getRemixOnFirstEdit()) {
       saveStreetToServer()
     }
   }
