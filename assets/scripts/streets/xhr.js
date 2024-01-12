@@ -31,7 +31,7 @@ import {
   updateStreetData
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
-import { resetUndoStack, replaceUndoStack } from '../store/slices/history'
+import { resetUndoStack } from '../store/slices/history'
 import { makeDefaultStreet } from './creation'
 import { NEW_STREET_EMPTY } from './constants'
 import {
@@ -51,7 +51,7 @@ import {
   remixStreet,
   addRemixSuffixToName
 } from './remix'
-import { getUndoStack, unifyUndoStack } from './undo_stack'
+import { unifyUndoStack } from './undo_stack'
 import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500
@@ -291,26 +291,10 @@ export function unpackServerStreetData (
   checkIfNeedsToBeRemixed
 ) {
   const street = unpackStreetDataFromServerTransmission(transmission)
-  let updatedSchema = updateToLatestSchemaVersion(street)
-  const undoStack = getUndoStack()
-  for (let i = 0; i < undoStack.length; i++) {
-    if (updateToLatestSchemaVersion(undoStack[i])) {
-      updatedSchema = true
-    }
-  }
+  const updatedSchema = updateToLatestSchemaVersion(street)
 
   store.dispatch(updateStreetData(street))
-
-  if (transmission.data.undoStack) {
-    store.dispatch(
-      replaceUndoStack({
-        stack: clone(transmission.data.undoStack),
-        position: transmission.data.undoPosition
-      })
-    )
-  } else {
-    store.dispatch(resetUndoStack())
-  }
+  store.dispatch(resetUndoStack())
 
   if (id) {
     setStreetId(id, namespacedId)
