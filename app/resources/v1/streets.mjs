@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import models from '../../db/models/index.mjs'
 import logger from '../../lib/logger.mjs'
 import { ERRORS, asStreetJson } from '../../lib/util.mjs'
+import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.mjs'
 
 const { User, Street, Sequence } = models
 
@@ -287,10 +288,20 @@ export async function get (req, res) {
     res.status(204).end()
     return
   }
-  street = asStreetJson(street)
+
+  // Run schema update on street
+  const [isUpdated, updatedStreet] = updateToLatestSchemaVersion(
+    street.data.street
+  )
+  if (isUpdated) {
+    // TODO: save back to server
+    street.data.street = updatedStreet
+  }
+
+  const streetJson = asStreetJson(street)
   res.set('Access-Control-Allow-Origin', '*')
   res.set('Location', '/api/v1/streets/' + street.id)
-  res.status(200).json(street)
+  res.status(200).json(streetJson)
 } // END function - export get
 
 export async function find (req, res) {
