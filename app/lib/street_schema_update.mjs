@@ -14,6 +14,7 @@
  * are hardcoding most values rather than use constants or perform
  * lookups.
  */
+import { nanoid } from 'nanoid'
 
 const LATEST_SCHEMA_VERSION = 27
 // 1: starting point
@@ -263,8 +264,165 @@ function incrementSchemaVersion (street) {
         street.environment = 'day'
       }
       break
-
-    // TODO: Remainder of updates
+    case 19:
+      // 20: add sidewalk-level bike lanes
+      // Existing bike lanes are "road" level variants
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (segment.type === 'bike-lane') {
+          segment.variantString += '|road'
+        }
+      }
+      break
+    case 20:
+      // 21: add sidewalk-level bikeshare docks
+      // Existing bikeshare docks are "road" level variants
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (segment.type === 'bikeshare') {
+          segment.variantString += '|road'
+        }
+      }
+      break
+    case 21:
+      // 22: add random seed to drive lanes for pedestrians
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (segment.type === 'drive-lane') {
+          // With schema version 24, we no longer need randseeds
+          // for segments, so don't bother generating a new one here,
+          // just fill this in for placeholder effect
+          segment.randSeed = 37
+        }
+      }
+      break
+    case 22:
+      // 23: add unique id to each segment
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (!segment.id) {
+          segment.id = nanoid()
+        }
+      }
+      break
+    case 23:
+      // 24: remove random seed from any segment
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (segment.randSeed) {
+          delete segment.randSeed
+        }
+      }
+      break
+    case 24:
+      // 25: add bus type
+      // Existing bus lanes are "typical" variant
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (segment.type === 'bus-lane') {
+          segment.variantString += '|typical'
+        }
+      }
+      break
+    case 25:
+      // 26: add elevation properties to segments
+      // No-op, superceded by schema version 27
+      break
+    case 26:
+      // 27: bugfix missing elevation properties from previous schema
+      // When the previous schema version was added, there was a bug where new
+      // streets could be created without elevation properties. Bumping the
+      // schema version + running the update again forces streets created
+      // under schema version 26 to properly backfill elevation data.
+      // This makes schema version 26 a no-op
+      // This is manually hard-coded to avoid doing segment info lookups!
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (typeof segment.elevation === 'undefined') {
+          // TODO manually hard code lookup
+          // const variantInfo = getSegmentVariantInfo(
+          //   segment.type,
+          //   segment.variantString
+          // )
+          switch (segment.type) {
+            // Segments that are always elevation 1
+            case 'sidewalk': // default elevation, if nonexistent, is 1
+            case 'sidewalk-tree':
+            case 'sidewalk-bench':
+            case 'sidewalk-wayfinding':
+            case 'sidewalk-lamp':
+            case 'utilities':
+            case 'street-vendor': // default elevation is 1
+            case 'flex-zone-curb':
+            case 'brt-station':
+              segment.elevation = 1
+              break
+            // Segments that are always elevation 0
+            case 'parklet':
+            case 'temporary':
+            case 'scooter':
+            case 'food-truck':
+            case 'flex-zone':
+            case 'parking-lane':
+            case 'drive-lane':
+            case 'turn-lane':
+            case 'bus-lane':
+            case 'streetcar':
+            case 'light-rail':
+            case 'brt-lane':
+            case 'train':
+            case 'magic-carpet':
+              segment.elevation = 0
+              break
+            // Segment that is always elevation -2
+            case 'drainage-channel':
+              segment.elevation = -2
+              break
+            // Conditional elevations
+            // For these segment types, if the variant string includes "road",
+            // assume they are road elevation (0), otherwise sidewalk elevation
+            case 'sidewalk-bike-rack':
+            case 'outdoor-dining':
+            case 'scooter-drop-zone':
+            case 'bike-lane':
+            case 'bikeshare':
+              if (segment.variantString.includes('road')) {
+                segment.elevation = 0
+              } else {
+                segment.elevation = 1
+              }
+              break
+            // The one conditional segment that can be elevation 2
+            case 'transit-shelter':
+              if (segment.variantString.includes('light-rail')) {
+                segment.elevation = 2
+              } else {
+                segment.elevation = 1
+              }
+              break
+            // Condition based on type
+            case 'divider':
+              switch (segment.variantString) {
+                case 'median':
+                case 'planting-strip':
+                case 'bush':
+                case 'flowers':
+                case 'big-tree':
+                case 'palm-tree':
+                  segment.elevation = 1
+                  break
+                default:
+                  segment.elevation = 0
+                  break
+              }
+              break
+            default:
+              segment.elevation = 0
+              break
+          }
+        }
+      }
+      break
   }
 
   street.schemaVersion++
