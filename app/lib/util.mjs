@@ -16,10 +16,6 @@ export function asStreetJson (street) {
     json.creator = { id: street.creatorId }
   }
 
-  // Deprecated undoStack and undoPosition values, delete if present
-  delete json.data.undoStack
-  delete json.data.undoPosition
-
   return json
 }
 

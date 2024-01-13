@@ -289,13 +289,21 @@ export async function get (req, res) {
     return
   }
 
+  // Deprecated undoStack and undoPosition values, delete if present
+  delete street.data.undoStack
+  delete street.data.undoPosition
+
   // Run schema update on street
   const [isUpdated, updatedStreet] = updateToLatestSchemaVersion(
     street.data.street
   )
   if (isUpdated) {
-    // TODO: save back to server
     street.data.street = updatedStreet
+    // Sequelize does not detect nested data changes, so we have to
+    // manually mark the data as changed. We only save to database
+    // if we've actually changed the data
+    street.changed('data', true)
+    await street.save()
   }
 
   const streetJson = asStreetJson(street)

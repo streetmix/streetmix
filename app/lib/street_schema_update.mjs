@@ -15,6 +15,7 @@
  * lookups.
  */
 import { nanoid } from 'nanoid'
+import logger from './logger.mjs'
 
 const LATEST_SCHEMA_VERSION = 27
 // 1: starting point
@@ -49,13 +50,24 @@ export function updateToLatestSchemaVersion (street) {
   // Clone original street
   let updatedStreet = JSON.parse(JSON.stringify(street))
   let updated = false
+  let originalVersion
 
   while (
     updatedStreet.schemaVersion === undefined ||
     updatedStreet.schemaVersion < LATEST_SCHEMA_VERSION
   ) {
+    if (originalVersion === undefined) {
+      logger.info(`Updating schema for street ${updatedStreet.id} ...`)
+      originalVersion = updatedStreet.schemaVersion
+    }
     updatedStreet = incrementSchemaVersion(updatedStreet)
     updated = true
+  }
+
+  if (updated) {
+    logger.info(
+      `Schema updated for street ${updatedStreet.id} from ${originalVersion} → ${LATEST_SCHEMA_VERSION}`
+    )
   }
 
   return [updated, updatedStreet]
