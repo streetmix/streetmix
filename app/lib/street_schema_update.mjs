@@ -17,7 +17,7 @@
 import { nanoid } from 'nanoid'
 import logger from './logger.mjs'
 
-const LATEST_SCHEMA_VERSION = 27
+const LATEST_SCHEMA_VERSION = 28
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -45,6 +45,7 @@ const LATEST_SCHEMA_VERSION = 27
 // 25: add bus type
 // 26: add elevation properties to segments
 // 27: bugfix missing elevation properties from previous schema
+// 28: add editCount property if it doesn't exist
 
 export function updateToLatestSchemaVersion (street) {
   // Clone original street
@@ -434,6 +435,18 @@ function incrementSchemaVersion (street) {
           }
         }
       }
+      break
+    case 27:
+      // 28: add editCount property if it doesn't exist
+      // This should have always existed, adding it now removes a client-side
+      // monkey-patch that forces it to be there.
+      // If unknown, value is 0
+      if (street.editCount === undefined) {
+        street.editcount = 0
+      }
+      break
+    default:
+      // no-op
       break
   }
 

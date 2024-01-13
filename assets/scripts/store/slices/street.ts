@@ -31,7 +31,7 @@ interface StreetState {
   rightBuildingHeight: number
   leftBuildingVariant?: string
   rightBuildingVariant?: string
-  editCount?: number
+  editCount: number
   originalStreetId?: string | null // UUID, if set
   updatedAt?: string // Datetime string
   clientUpdatedAt?: string // Datetime string
@@ -47,7 +47,8 @@ const initialState: StreetState = {
   userUpdated: false,
   leftBuildingHeight: 0,
   rightBuildingHeight: 0,
-  immediateRemoval: true
+  immediateRemoval: true,
+  editCount: 0
 }
 
 const streetSlice = createSlice({

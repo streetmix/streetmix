@@ -265,21 +265,13 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   const street = clone(transmission.data.street)
-  street.creatorId = transmission.creatorId || null
-  street.originalStreetId = transmission.originalStreetId || null
-  street.updatedAt = transmission.updatedAt || null
-  street.clientUpdatedAt = transmission.clientUpdatedAt || null
-  street.name = transmission.name || null
-  street.location = transmission.data.street.location || null
-
-  // FIXME just read it and do 0 otherwise
-  if (typeof transmission.data.street.editCount === 'undefined') {
-    // console.log('editCount read is empty')
-    street.editCount = null
-  } else {
-    street.editCount = transmission.data.street.editCount
-    // console.log('editCount read is', street.editCount)
-  }
+  street.creatorId = transmission.creatorId ?? null
+  street.originalStreetId = transmission.originalStreetId ?? null
+  street.updatedAt = transmission.updatedAt ?? null
+  street.clientUpdatedAt = transmission.clientUpdatedAt ?? null
+  street.name = transmission.name ?? null
+  street.location = transmission.data.street.location ?? null
+  street.editCount = transmission.data.street.editCount ?? 0
 
   return street
 }
