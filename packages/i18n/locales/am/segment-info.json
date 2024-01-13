@@ -220,7 +220,7 @@
     "ground|concrete": "",
     "ground|asphalt": "አስፋልት"
   },
-  "skybox": {
+  "environs": {
     "day": "ቀን",
     "twilight": "ትዋይላይት ",
     "dusk": "ደንገዝገዝ ሲል ",

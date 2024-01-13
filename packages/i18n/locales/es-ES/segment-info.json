@@ -220,7 +220,7 @@
     "ground|concrete": "",
     "ground|asphalt": "Asfalto"
   },
-  "skybox": {
+  "environs": {
     "day": "Día",
     "twilight": "Crepúsculo",
     "dusk": "Crepúsculo",
