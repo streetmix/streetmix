@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "Přepínání nástrojů",
-    "environment": {
+    "skybox": {
       "tooltip": "Editor prostředí",
       "heading": "Prostředí"
     }

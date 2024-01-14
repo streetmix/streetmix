@@ -62,44 +62,44 @@ function drawSky (
   horizonLine,
   groundLevel
 ) {
-  const env = getSkyboxDef(street.environment)
+  const sky = getSkyboxDef(street.skybox)
 
   // Solid color fill
-  if (env.backgroundColor) {
-    drawBackgroundColor(ctx, width, horizonLine, dpi, env.backgroundColor)
+  if (sky.backgroundColor) {
+    drawBackgroundColor(ctx, width, horizonLine, dpi, sky.backgroundColor)
   }
 
   // Background image fill
-  if (env.backgroundImage) {
+  if (sky.backgroundImage) {
     drawBackgroundImage(
       ctx,
       width,
       height,
       dpi,
       multiplier,
-      env.backgroundImage
+      sky.backgroundImage
     )
   }
 
   // Gradient fill
-  if (env.backgroundGradient) {
-    drawBackgroundGradient(ctx, width, horizonLine, dpi, env.backgroundGradient)
+  if (sky.backgroundGradient) {
+    drawBackgroundGradient(ctx, width, horizonLine, dpi, sky.backgroundGradient)
   }
 
   // Background objects
-  if (env.backgroundObjects) {
+  if (sky.backgroundObjects) {
     drawBackgroundObjects(
       ctx,
       width,
       height,
       dpi,
       multiplier,
-      env.backgroundObjects
+      sky.backgroundObjects
     )
   }
 
   // Clouds
-  drawClouds(ctx, width, groundLevel, dpi, env)
+  drawClouds(ctx, width, groundLevel, dpi, sky)
 }
 
 /**
@@ -210,13 +210,13 @@ function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
  * @param {Number} width - width of area to draw
  * @param {Number} height - height of area to draw
  * @param {Number} dpi - pixel density of canvas
- * @param {Object} env - skybox settings
+ * @param {Object} sky - skybox settings
  * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawClouds (ctx, width, height, dpi, env) {
+function drawClouds (ctx, width, height, dpi, sky) {
   // Handle cloud opacity
   ctx.save()
-  ctx.globalAlpha = env.cloudOpacity ?? 1
+  ctx.globalAlpha = sky.cloudOpacity ?? 1
 
   // Grab images
   const skyFrontImg = images.get('/images/sky-front.svg')

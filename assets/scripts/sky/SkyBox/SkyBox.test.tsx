@@ -22,14 +22,14 @@ jest.mock('../../app/load_resources', () => ({
 describe('SkyBox', () => {
   it('renders', () => {
     const { asFragment } = render(<SkyBox scrollPos={0} />, {
-      initialState: { street: { environment: 'foo' } }
+      initialState: { street: { skybox: 'foo' } }
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders with objects', () => {
     const { asFragment } = render(<SkyBox scrollPos={0} />, {
-      initialState: { street: { environment: 'bar' } }
+      initialState: { street: { skybox: 'bar' } }
     })
     expect(asFragment()).toMatchSnapshot()
   })
@@ -37,7 +37,7 @@ describe('SkyBox', () => {
   it('renders background animations', () => {
     const { container } = render(<SkyBox scrollPos={0} />, {
       initialState: {
-        street: { environment: 'bar' },
+        street: { skybox: 'bar' },
         flags: {
           SKY_ANIMATED_CLOUDS: { value: true }
         }

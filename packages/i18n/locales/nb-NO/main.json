@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "Bytt mellom verktøy",
-    "environment": {
+    "skybox": {
       "tooltip": "Miljøvariablereditor",
       "heading": "Omgivelser"
     }

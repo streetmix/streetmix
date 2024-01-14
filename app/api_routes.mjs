@@ -165,7 +165,7 @@ const router = Router()
  *             type: object
  *           userUpdated:
  *             type: boolean
- *           environment:
+ *           skybox:
  *             type: string
  *           leftBuildingHeight:
  *             type: string

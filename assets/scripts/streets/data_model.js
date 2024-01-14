@@ -38,7 +38,7 @@ export function setLastStreet () {
 }
 
 // Server is now the source of truth of this value
-const LATEST_SCHEMA_VERSION = 28
+const LATEST_SCHEMA_VERSION = 29
 
 // Do some work to update segment data, although they're not technically
 // part of the schema (yet?) -- carried over after moving bulk of
@@ -113,7 +113,7 @@ export function trimStreetData (street) {
     units: street.units,
     location: street.location,
     userUpdated: street.userUpdated,
-    environment: street.environment,
+    skybox: street.skybox,
     leftBuildingHeight: street.leftBuildingHeight,
     rightBuildingHeight: street.rightBuildingHeight,
     leftBuildingVariant: street.leftBuildingVariant,
@@ -178,7 +178,7 @@ export function prepareDefaultStreet () {
     userUpdated: false,
     editCount: 0,
     width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
-    environment: DEFAULT_SKYBOX,
+    skybox: DEFAULT_SKYBOX,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
@@ -208,7 +208,7 @@ export function prepareEmptyStreet () {
     userUpdated: false,
     editCount: 0,
     width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
-    environment: DEFAULT_SKYBOX,
+    skybox: DEFAULT_SKYBOX,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,

@@ -15,7 +15,7 @@ function EnvironmentButton (props) {
   }
 
   const label = intl.formatMessage({
-    id: 'tools.environment.tooltip',
+    id: 'tools.skybox.tooltip',
     defaultMessage: 'Environment editor'
   })
 

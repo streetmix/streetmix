@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "Переключить инструменты",
-    "environment": {
+    "skybox": {
       "tooltip": "",
       "heading": "Окружающая среда"
     }
