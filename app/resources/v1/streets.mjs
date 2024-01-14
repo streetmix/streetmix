@@ -303,7 +303,8 @@ export async function get (req, res) {
     // manually mark the data as changed. We only save to database
     // if we've actually changed the data
     street.changed('data', true)
-    await street.save()
+    // Update, but not the updated_at field
+    await street.save({ silent: true })
   }
 
   const streetJson = asStreetJson(street)
