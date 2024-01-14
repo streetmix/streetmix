@@ -1,18 +1,6 @@
 /**
  * Updates street data object to newer schemas.
  *
- * This used to reside on the client, but it's better on the server.
- * The most important reason is that any external API read should
- * produce the most recent street data.
- *
- * This will likely be a staged refactor: the server takes the schema
- * update only so far, and the client takes it the rest of the way.
- * Eventually the server should do the entire update.
- *
- * The primary goal is to ensure that the street JSON has the correct
- * shape and value types. In order to make the refactor easier, we
- * are hardcoding most values rather than use constants or perform
- * lookups.
  */
 import { nanoid } from 'nanoid'
 import logger from './logger.mjs'
@@ -352,11 +340,6 @@ function incrementSchemaVersion (street) {
       for (const i in street.segments) {
         const segment = street.segments[i]
         if (typeof segment.elevation === 'undefined') {
-          // TODO manually hard code lookup
-          // const variantInfo = getSegmentVariantInfo(
-          //   segment.type,
-          //   segment.variantString
-          // )
           switch (segment.type) {
             // Segments that are always elevation 1
             case 'sidewalk': // default elevation, if nonexistent, is 1
@@ -413,7 +396,7 @@ function incrementSchemaVersion (street) {
                 segment.elevation = 1
               }
               break
-            // Condition based on type
+            // Conditional based on type
             case 'divider':
               switch (segment.variantString) {
                 case 'median':
