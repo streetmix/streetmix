@@ -36,7 +36,8 @@ describe('street reducer', () => {
     userUpdated: false,
     leftBuildingHeight: 0,
     rightBuildingHeight: 0,
-    immediateRemoval: true
+    immediateRemoval: true,
+    editCount: 0
   }
 
   it('should handle initial state', () => {
@@ -61,7 +62,8 @@ describe('street reducer', () => {
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
       environment: 'day',
-      immediateRemoval: true
+      immediateRemoval: true,
+      editCount: 0
     })
   })
 
@@ -74,7 +76,8 @@ describe('street reducer', () => {
       userUpdated: false,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
-      immediateRemoval: true
+      immediateRemoval: true,
+      editCount: 0
     })
 
     // Insert a segment at index 0 for an existing street
@@ -171,7 +174,8 @@ describe('street reducer', () => {
       userUpdated: false,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
-      immediateRemoval: true
+      immediateRemoval: true,
+      editCount: 0
     })
   })
 
@@ -368,6 +372,7 @@ describe('street reducer', () => {
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
       immediateRemoval: true,
+      editCount: 0,
       creatorId: 'foo',
       id: 'bar',
       namespacedId: 'baz'
@@ -816,7 +821,8 @@ describe('street reducer', () => {
       userUpdated: false,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
-      immediateRemoval: true
+      immediateRemoval: true,
+      editCount: 0
     })
   })
 })
