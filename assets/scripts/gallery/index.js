@@ -2,11 +2,7 @@ import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
 import { showError, ERRORS } from '../app/errors'
 import { MODES, processMode, setMode, getMode } from '../app/mode'
 import { segmentsChanged } from '../segments/view'
-import {
-  setLastStreet,
-  setIgnoreStreetChanges,
-  updateToLatestSchemaVersion
-} from '../streets/data_model'
+import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
 import { unpackServerStreetData } from '../streets/xhr'
 import store from '../store'
@@ -108,9 +104,6 @@ function receiveGalleryData (transmission) {
     // There is a bug where sometimes street data is non-existent for an
     // unknown reason. Skip over so that the rest of gallery will display
     if (!street.data) return {}
-
-    // This mutates street data in place (not preferred; TODO: fix later)
-    updateToLatestSchemaVersion(street.data.street)
 
     return street
   })

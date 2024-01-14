@@ -31,7 +31,7 @@ import {
   updateStreetData
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
-import { resetUndoStack, replaceUndoStack } from '../store/slices/history'
+import { resetUndoStack } from '../store/slices/history'
 import { makeDefaultStreet } from './creation'
 import { NEW_STREET_EMPTY } from './constants'
 import {
@@ -39,7 +39,7 @@ import {
   prepareDefaultStreet,
   trimStreetData,
   updateEverything,
-  updateToLatestSchemaVersion,
+  addAltVariantObject,
   setStreetCreatorId,
   setUpdateTimeToNow,
   setLastStreet,
@@ -51,7 +51,7 @@ import {
   remixStreet,
   addRemixSuffixToName
 } from './remix'
-import { getUndoStack, unifyUndoStack } from './undo_stack'
+import { unifyUndoStack } from './undo_stack'
 import { deleteStreetThumbnail } from './image'
 
 const SAVE_STREET_DELAY = 500
@@ -265,21 +265,13 @@ function unpackStreetDataFromServerTransmission (transmission) {
   }
 
   const street = clone(transmission.data.street)
-  street.creatorId = transmission.creatorId || null
-  street.originalStreetId = transmission.originalStreetId || null
-  street.updatedAt = transmission.updatedAt || null
-  street.clientUpdatedAt = transmission.clientUpdatedAt || null
-  street.name = transmission.name || null
-  street.location = transmission.data.street.location || null
-
-  // FIXME just read it and do 0 otherwise
-  if (typeof transmission.data.street.editCount === 'undefined') {
-    // console.log('editCount read is empty')
-    street.editCount = null
-  } else {
-    street.editCount = transmission.data.street.editCount
-    // console.log('editCount read is', street.editCount)
-  }
+  street.creatorId = transmission.creatorId ?? null
+  street.originalStreetId = transmission.originalStreetId ?? null
+  street.updatedAt = transmission.updatedAt ?? null
+  street.clientUpdatedAt = transmission.clientUpdatedAt ?? null
+  street.name = transmission.name ?? null
+  street.location = transmission.data.street.location ?? null
+  street.editCount = transmission.data.street.editCount ?? 0
 
   return street
 }
@@ -291,26 +283,10 @@ export function unpackServerStreetData (
   checkIfNeedsToBeRemixed
 ) {
   const street = unpackStreetDataFromServerTransmission(transmission)
-  let updatedSchema = updateToLatestSchemaVersion(street)
-  const undoStack = getUndoStack()
-  for (let i = 0; i < undoStack.length; i++) {
-    if (updateToLatestSchemaVersion(undoStack[i])) {
-      updatedSchema = true
-    }
-  }
+  addAltVariantObject(street)
 
   store.dispatch(updateStreetData(street))
-
-  if (transmission.data.undoStack) {
-    store.dispatch(
-      replaceUndoStack({
-        stack: clone(transmission.data.undoStack),
-        position: transmission.data.undoPosition
-      })
-    )
-  } else {
-    store.dispatch(resetUndoStack())
-  }
+  store.dispatch(resetUndoStack())
 
   if (id) {
     setStreetId(id, namespacedId)
@@ -325,7 +301,7 @@ export function unpackServerStreetData (
       setRemixOnFirstEdit(false)
     }
 
-    if (updatedSchema && !getRemixOnFirstEdit()) {
+    if (!getRemixOnFirstEdit()) {
       saveStreetToServer()
     }
   }
