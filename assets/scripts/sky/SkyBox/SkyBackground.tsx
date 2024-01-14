@@ -4,13 +4,13 @@ import { getSkyboxDef } from '..'
 import './SkyBackground.scss'
 
 interface SkyBackgroundProps {
-  environment: string
+  skybox: string
 }
 
 function SkyBackground (props: SkyBackgroundProps): React.ReactElement {
-  const { environment } = props
+  const { skybox } = props
 
-  const transitions = useTransition(environment, {
+  const transitions = useTransition(skybox, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },

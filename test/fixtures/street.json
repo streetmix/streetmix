@@ -18,7 +18,7 @@
         "intersectionId": null
       },
       "userUpdated": false,
-      "environment": "day",
+      "skybox": "day",
       "leftBuildingHeight": 3,
       "rightBuildingHeight": 2,
       "leftBuildingVariant": "narrow",

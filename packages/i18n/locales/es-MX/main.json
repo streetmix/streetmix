@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "Cambiar herramientas",
-    "environment": {
+    "skybox": {
       "tooltip": "Editor del ambiente",
       "heading": "Entorno"
     }

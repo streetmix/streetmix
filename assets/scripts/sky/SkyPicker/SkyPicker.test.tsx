@@ -9,7 +9,7 @@ import SkyPicker from './SkyPicker'
 describe('SkyPicker', () => {
   const initialState = {
     street: {
-      environment: null
+      skybox: null
     },
     ui: {
       toolboxVisible: true
@@ -27,7 +27,7 @@ describe('SkyPicker', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('selects an environment', async () => {
+  it('selects a skybox', async () => {
     render(<SkyPicker />, { initialState })
 
     // Initial state
@@ -74,7 +74,7 @@ describe('SkyPicker', () => {
     expect(screen.queryByText('Get Streetmix+')).not.toBeInTheDocument()
   })
 
-  it('does not select an environment for unsubscribed users', async () => {
+  it('does not select a skybox for unsubscribed users', async () => {
     render(<SkyPicker />, {
       initialState: {
         ...initialState,

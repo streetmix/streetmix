@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "ቶግል ቱልስ ",
-    "environment": {
+    "skybox": {
       "tooltip": "የአካባቢ ማስተካከያ ",
       "heading": "አካባቢ "
     }

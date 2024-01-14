@@ -33,7 +33,7 @@
 .street-width-under {
   margin-left: 0.25em;
   color: rgb(96 96 96);
-  transition: color $environment-transition;
+  transition: color $skybox-transition;
 
   [dir="rtl"] & {
     margin-right: 0.25em;

@@ -25,14 +25,14 @@ import street, {
   removeBuildingFloor,
   setBuildingFloorValue,
   setBuildingVariant,
-  setEnvironment
+  setSkybox
 } from './street'
 
 describe('street reducer', () => {
   const initialState = {
     segments: [],
     remainingWidth: 0,
-    environment: 'day',
+    skybox: 'day',
     userUpdated: false,
     leftBuildingHeight: 0,
     rightBuildingHeight: 0,
@@ -61,7 +61,7 @@ describe('street reducer', () => {
       userUpdated: true,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
-      environment: 'day',
+      skybox: 'day',
       immediateRemoval: true,
       editCount: 0
     })
@@ -72,7 +72,7 @@ describe('street reducer', () => {
     expect(street(initialState, addSegment(0, { type: 'foo' }))).toEqual({
       segments: [{ type: 'foo' }],
       remainingWidth: 0,
-      environment: 'day',
+      skybox: 'day',
       userUpdated: false,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
@@ -170,7 +170,7 @@ describe('street reducer', () => {
       segments: [1, 2, 3],
       occupiedWidth: 10,
       remainingWidth: 20,
-      environment: 'day',
+      skybox: 'day',
       userUpdated: false,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
@@ -367,7 +367,7 @@ describe('street reducer', () => {
     ).toEqual({
       segments: [],
       remainingWidth: 0,
-      environment: 'day',
+      skybox: 'day',
       userUpdated: false,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,
@@ -813,11 +813,11 @@ describe('street reducer', () => {
     })
   })
 
-  it('should handle setEnvironment()', () => {
-    expect(street(initialState, setEnvironment('foo'))).toEqual({
+  it('should handle setSkybox()', () => {
+    expect(street(initialState, setSkybox('foo'))).toEqual({
       segments: [],
       remainingWidth: 0,
-      environment: 'foo',
+      skybox: 'foo',
       userUpdated: false,
       leftBuildingHeight: 0,
       rightBuildingHeight: 0,

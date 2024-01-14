@@ -211,7 +211,7 @@ export function getAllSkyboxDefs (): SkyboxDefWithStyles[] {
  */
 export function initSkyboxChangedListener (): Unsubscribe {
   const select = (state: RootState): SkyboxDefWithStyles => ({
-    ...getSkyboxDef(state.street.environment)
+    ...getSkyboxDef(state.street.skybox)
   })
   const onChange = (state: SkyboxDefinition): void => {
     // `invertUITextColor` may not be defined, so coerce it to `false` with Boolean()

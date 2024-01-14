@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "Beralih alat",
-    "environment": {
+    "skybox": {
       "tooltip": "Editor lingkungan",
       "heading": "Lingkungan"
     }

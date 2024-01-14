@@ -44,7 +44,7 @@ export interface StreetClass {
   units: number
   location: StreetLocation | null
   userUpdated: boolean
-  environment: string
+  skybox: string
   leftBuildingHeight: number
   rightBuildingHeight: number
   leftBuildingVariant: string

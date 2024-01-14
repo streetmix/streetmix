@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "Muuta asetuksia",
-    "environment": {
+    "skybox": {
       "tooltip": "Ympäristömuokkain",
       "heading": "Ympäristö"
     }

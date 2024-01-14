@@ -16,7 +16,7 @@ import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 interface StreetState {
   segments: Segment[]
   remainingWidth: number
-  environment: string
+  skybox: string
   immediateRemoval: boolean
   creatorId?: string | null
   namespacedId?: number
@@ -43,7 +43,7 @@ interface StreetState {
 const initialState: StreetState = {
   segments: [],
   remainingWidth: 0,
-  environment: DEFAULT_SKYBOX,
+  skybox: DEFAULT_SKYBOX,
   userUpdated: false,
   leftBuildingHeight: 0,
   rightBuildingHeight: 0,
@@ -424,8 +424,8 @@ const streetSlice = createSlice({
       }
     },
 
-    setEnvironment (state, action) {
-      state.environment = action.payload
+    setSkybox (state, action) {
+      state.skybox = action.payload
     }
   }
 })
@@ -458,7 +458,7 @@ export const {
   removeBuildingFloor,
   setBuildingFloorValue,
   setBuildingVariant,
-  setEnvironment
+  setSkybox
 } = streetSlice.actions
 
 export default streetSlice.reducer

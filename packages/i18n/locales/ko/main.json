@@ -311,7 +311,7 @@
   },
   "tools": {
     "tooltip": "토글 도구",
-    "environment": {
+    "skybox": {
       "tooltip": "환경 에디터",
       "heading": "환경"
     }
