@@ -1,6 +1,6 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import type { Street } from '../../types'
+import type { PayloadAction } from '@reduxjs/toolkit'
+import type { Street } from '@streetmix/types'
 
 interface GalleryState {
   visible: boolean

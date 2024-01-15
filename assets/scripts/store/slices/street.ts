@@ -1,6 +1,5 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import type { Segment, StreetLocation } from '../../types'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { getVariantString } from '../../segments/variant_utils'
 import { DEFAULT_SKYBOX } from '../../sky/constants'
 import {
@@ -9,6 +8,7 @@ import {
   BUILDING_RIGHT_POSITION
 } from '../../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
+import type { Segment, StreetLocation } from '@streetmix/types'
 
 // TODO: many of these values were "optional" but it might be worthwhile to
 // convert most of them to values that cannot be "undefined" to make it easier

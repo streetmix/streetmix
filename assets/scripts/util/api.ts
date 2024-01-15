@@ -3,10 +3,10 @@ import axiosRetry, { exponentialDelay } from 'axios-retry'
 import {
   type SentimentComment,
   type SentimentVote,
-  type StreetData,
   type UserProfile,
   type UserSettingsData
 } from '../types'
+import type { StreetData } from '@streetmix/types'
 
 const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'

@@ -1,3 +1,8 @@
+import type { StreetData } from '@streetmix/types'
+
+// TODO: Only use this for client-side types
+// Shared types should move to @streetmix/types
+
 export interface UserSettings {
   colorMode: string
   lastStreetCreatorId: string
@@ -25,56 +30,6 @@ export interface UserProfile {
   data: UserSettings
 }
 
-export interface Segment {
-  id: string
-  type: string
-  variantString: string
-  width: number
-  elevation: number
-  variant: Record<string, string>
-  warnings: Array<boolean | null>
-}
-
-export interface StreetClass {
-  schemaVersion: number
-  showAnalytics: boolean
-  width: number
-  id: string
-  namespacedId: number
-  units: number
-  location: StreetLocation | null
-  userUpdated: boolean
-  skybox: string
-  leftBuildingHeight: number
-  rightBuildingHeight: number
-  leftBuildingVariant: string
-  rightBuildingVariant: string
-  segments: Segment[]
-  editCount: number
-}
-
-export interface StreetData {
-  street: StreetClass
-}
-
-export interface Street {
-  id: string
-  namespacedId: number
-  name: null
-  clientUpdatedAt: Date
-  data: StreetData
-  createdAt: Date
-  updatedAt: Date
-  originalStreetId: string
-  creatorId: string
-}
-
-export interface StreetLocation {
-  lntlng: LatLngObject
-  wofId: string
-  label: string
-}
-
 export interface SentimentVote {
   score: number
   data: StreetData
@@ -84,11 +39,6 @@ export interface SentimentVote {
 export interface SentimentComment {
   id: string
   comment: string
-}
-
-export interface LatLngObject {
-  lat: number
-  lng: number
 }
 
 export interface ToastItem {

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useLayoutEffect } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import type { Street } from '../types'
 import { useSelector } from '../store/hooks'
 import { useGetUserQuery } from '../store/services/api'
 import { getStreetUrl } from '../app/page_url'
@@ -8,6 +7,7 @@ import DateTimeRelative from '../app/DateTimeRelative'
 import StreetName from '../streets/StreetName'
 import { drawStreetThumbnail } from '../streets/thumbnail'
 import Icon from '../ui/Icon'
+import type { Street } from '@streetmix/types'
 import './GalleryStreetItem.scss'
 
 const THUMBNAIL_WIDTH = 180

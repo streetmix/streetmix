@@ -2,10 +2,10 @@ import React, { useMemo } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useSelector } from '../store/hooks'
 import { getElRelativePos } from '../util/helpers'
-import type { Segment } from '../types'
 import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
 import { getSegmentVariantInfo } from './info'
 import { getSegmentEl } from './view'
+import type { Segment } from '@streetmix/types'
 import './ResizeGuides.scss'
 
 function ResizeGuides (): React.ReactElement | null {
