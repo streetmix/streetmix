@@ -15,12 +15,8 @@ import '../styles/styles.scss'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import 'handjs' // microsoft's pointer events / touch-action spec
-import 'web-monetization-polyfill'
 import './vendor/canvas-toBlob.js'
 import './vendor/Blob.js'
-import './vendor/polyfills/customevent' // customEvent in IE
-import './vendor/polyfills/Element.closest'
-import './vendor/polyfills/Element.remove'
 
 // Redux
 import store from './store'
