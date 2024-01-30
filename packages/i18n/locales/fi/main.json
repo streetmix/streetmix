@@ -147,7 +147,7 @@
     "survey-finished": "Kysely on päättynyt. Kiitos avustasi!",
     "street-deleted-elsewhere-title": "Katu on poistettu muualla.",
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
-    "auth-expired": "Sinut kirjattu automaattisesti ulos toimettumuuden vuoksi.",
+    "auth-expired": "Sinut kirjattu automaattisesti ulos toimettomuuden vuoksi.",
     "sign-in-again": "Kirjaudu sisään uudelleen.",
     "access-denied-title": "Et ole kirjautunut sisään.",
     "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
