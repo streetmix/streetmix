@@ -40,24 +40,26 @@ exports[`PaletteContainer renders 1`] = `
         >
           <ul>
             <li
-              class="segment segment-in-palette"
+              class="palette-item"
             >
               <div
                 tabindex="0"
               >
                 <img
-                  class="segment-image"
+                  class="palette-item-image"
+                  draggable="false"
                 />
               </div>
             </li>
             <li
-              class="segment segment-in-palette segment-disabled"
+              class="palette-item palette-item-disabled"
             >
               <div
                 tabindex="0"
               >
                 <img
-                  class="segment-image"
+                  class="palette-item-image"
+                  draggable="false"
                 />
               </div>
               <svg
@@ -65,13 +67,14 @@ exports[`PaletteContainer renders 1`] = `
               />
             </li>
             <li
-              class="segment segment-in-palette"
+              class="palette-item"
             >
               <div
                 tabindex="0"
               >
                 <img
-                  class="segment-image"
+                  class="palette-item-image"
+                  draggable="false"
                 />
               </div>
             </li>

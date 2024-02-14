@@ -2,11 +2,11 @@
 import React from 'react'
 import { render } from '../../../test/helpers/render'
 import { getVariantInfoDimensions } from '../segments/view'
-import SegmentForPalette from './SegmentForPalette'
+import PaletteItem from './PaletteItem'
 
 jest.mock('../segments/view')
 
-describe('SegmentForPalette', () => {
+describe('PaletteItem', () => {
   it('renders width correctly depending on the dimension', () => {
     const dimensions = { left: 100, right: 200 }
     getVariantInfoDimensions.mockImplementation(() => dimensions)
@@ -17,7 +17,7 @@ describe('SegmentForPalette', () => {
       nameKey: 'streetcar'
     }
     const { asFragment } = render(
-      <SegmentForPalette segment={segment} randSeed={42} />
+      <PaletteItem segment={segment} randSeed={42} />
     )
 
     expect(asFragment()).toMatchSnapshot()

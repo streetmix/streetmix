@@ -1,15 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SegmentForPalette renders width correctly depending on the dimension 1`] = `
+exports[`PaletteItem renders width correctly depending on the dimension 1`] = `
 <DocumentFragment>
   <li
-    class="segment segment-in-palette"
+    class="palette-item"
   >
     <div
       tabindex="0"
     >
       <img
-        class="segment-image"
+        class="palette-item-image"
+        draggable="false"
       />
     </div>
   </li>

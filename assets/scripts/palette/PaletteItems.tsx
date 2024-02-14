@@ -10,7 +10,7 @@ import Scrollable from '../ui/Scrollable'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import { getAllSegmentInfoArray } from '../segments/info'
 import { generateRandSeed } from '../util/random'
-import SegmentForPalette from './SegmentForPalette'
+import PaletteItem from './PaletteItem'
 import './PaletteItems.scss'
 
 function PaletteItems (): React.ReactElement {
@@ -34,7 +34,7 @@ function PaletteItems (): React.ReactElement {
           flags[segment.enableWithFlag]?.value)
     )
     .map((segment) => (
-      <SegmentForPalette
+      <PaletteItem
         key={segment.id}
         segment={segment}
         unlockCondition={segment.unlockCondition}

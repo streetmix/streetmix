@@ -22,9 +22,9 @@ import {
   collectDragSource
 } from '../segments/drag_and_drop'
 import type { SegmentDefinition } from '@streetmix/types'
-import './SegmentForPalette.scss'
+import './PaletteItem.scss'
 
-interface SegmentForPaletteProps {
+interface PaletteItemProps {
   // Provided by react-dnd HOC
   connectDragSource: ConnectDragSource
   connectDragPreview: ConnectDragPreview
@@ -36,13 +36,13 @@ interface SegmentForPaletteProps {
   tooltipTarget: TippyProps['singleton']
 }
 
-function SegmentForPalette ({
+function PaletteItem ({
   segment,
   unlockCondition,
   randSeed,
   tooltipTarget,
   ...props
-}: SegmentForPaletteProps): React.ReactElement | null {
+}: PaletteItemProps): React.ReactElement | null {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
@@ -60,7 +60,7 @@ function SegmentForPalette ({
     })
   }
 
-  const classNames = ['segment', 'segment-in-palette']
+  const classNames = ['palette-item']
   let isLocked = false
   let sublabel
 
@@ -74,7 +74,7 @@ function SegmentForPalette ({
     switch (unlockCondition) {
       case 'SUBSCRIBE':
         if (!isSubscriber) {
-          classNames.push('segment-disabled')
+          classNames.push('palette-item-disabled')
           isLocked = true
           sublabel = intl.formatMessage({
             id: 'plus.locked.sub',
@@ -88,7 +88,7 @@ function SegmentForPalette ({
       case 'SIGN_IN':
       default:
         if (!isSignedIn) {
-          classNames.push('segment-disabled')
+          classNames.push('palette-item-disabled')
           isLocked = true
           sublabel = intl.formatMessage({
             id: 'plus.locked.user',
@@ -117,7 +117,11 @@ function SegmentForPalette ({
             This wrapper element is also the target for hover / focus
             in order the activate the tooltip. */}
         <div tabIndex={0}>
-          <img className="segment-image" src={thumbnail} />
+          <img
+            className="palette-item-image"
+            src={thumbnail}
+            draggable={false}
+          />
         </div>
       </Tooltip>
       {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
@@ -137,4 +141,4 @@ export default DragSource(
   Types.PALETTE_SEGMENT,
   paletteSegmentSource,
   collectDragSource
-)(SegmentForPalette)
+)(PaletteItem)

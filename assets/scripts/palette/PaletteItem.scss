@@ -1,7 +1,7 @@
 @use "sass:color";
 @import "../../styles/variables";
 
-.segment.segment-in-palette {
+.palette-item {
   display: inline-block;
   position: relative;
   margin: 14px 0;
@@ -15,30 +15,26 @@
 }
 
 /* Wrapper element for Tooltip */
-.segment.segment-in-palette > div {
+.palette-item > div {
   height: 100%; // Must provide this for proper tooltip positioning
   width: 100%;
   text-align: center;
 }
 
-.segment.segment-in-palette:not(.segment-disabled):hover {
+.palette-item:not(.palette-item-disabled):hover {
   background: fade-out($sky-colour, 0.05);
   z-index: 1;
 
-  .segment-image {
+  .palette-item-image {
     transform: scale(1.15);
     transform-origin: 50% 75px;
   }
 }
 
-.segment.segment-in-palette .segment-image {
-  top: 0;
-}
-
-.segment.segment-disabled {
+.palette-item-disabled {
   background: color.adjust(fade-out($sky-colour, 0.3), $saturation: -100%);
 
-  .segment-image {
+  .palette-item-image {
     filter: grayscale(0.8);
     opacity: 0.5;
   }
