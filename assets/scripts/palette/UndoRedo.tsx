@@ -1,14 +1,14 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector, useDispatch } from '../store/hooks'
+import { handleUndo, handleRedo } from '../store/actions/history'
 import Button from '../ui/Button'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import { ICON_UNDO, ICON_REDO } from '../ui/icons'
 import { isOwnedByCurrentUser } from '../streets/owner'
-import { handleUndo, handleRedo } from '../store/actions/history'
 
-function UndoRedo (props) {
+function UndoRedo (): React.ReactElement {
   const undoPosition = useSelector((state) => state.history.position)
   const undoStack = useSelector((state) => state.history.stack)
   const [source, target] = useSingleton()
@@ -16,11 +16,11 @@ function UndoRedo (props) {
   const intl = useIntl()
 
   // Don’t allow undo/redo unless you own the street
-  function isUndoAvailable () {
+  function isUndoAvailable (): boolean {
     return undoPosition > 0 && isOwnedByCurrentUser()
   }
 
-  function isRedoAvailable () {
+  function isRedoAvailable (): boolean {
     return (
       undoPosition >= 0 &&
       undoPosition < undoStack.length - 1 &&
@@ -61,4 +61,4 @@ function UndoRedo (props) {
   )
 }
 
-export default React.memo(UndoRedo)
+export default UndoRedo
