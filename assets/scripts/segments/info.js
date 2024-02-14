@@ -63,7 +63,7 @@ export function getAllSegmentInfo () {
  * Returns all segment data as an array.
  * Object keys are converted to an `id` property for each segment.
  *
- * @returns {Object}
+ * @returns {SegmentDefinition[]}
  */
 export function getAllSegmentInfoArray () {
   return Object.keys(SEGMENT_LOOKUP).map((id) => {

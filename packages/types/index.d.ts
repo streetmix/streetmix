@@ -58,6 +58,31 @@ export interface LatLngObject {
   lng: number
 }
 
+// TODO: May be incomplete. Update with segment-lookup.json values
+export interface SegmentDefinition {
+  id: string
+  name: string
+  nameKey: string
+  owner: string
+  zIndex: number
+  defaultWidth: number
+  defaultVariant: string
+  defaultElevation?: number
+  enableElevation?: boolean
+  enableWithFlag?: string
+  unlockWithFlag?: string
+  unlockCondition?: string
+  description?: {
+    key: string
+    image: string
+  }
+  rules?: {
+    minWidth?: number
+  }
+  variants: string[]
+  details: object
+}
+
 export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
