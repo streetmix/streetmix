@@ -21,13 +21,24 @@
   text-align: center;
 }
 
-.palette-item:not(.palette-item-disabled):hover {
+.palette-item:not(.palette-item-disabled):hover,
+.palette-item:not(.palette-item-disabled) > div:focus {
   background: fade-out($sky-colour, 0.05);
   z-index: 1;
 
   .palette-item-image {
     transform: scale(1.15);
-    transform-origin: 50% 75px;
+  }
+}
+
+.palette-item-image {
+  transform-origin: 50% 75px;
+  transition: transform 0.08s cubic-bezier(0, 2.5, 1, 1);
+}
+
+@media (prefers-reduced-motion) {
+  .palette-item-image {
+    transition: none;
   }
 }
 
