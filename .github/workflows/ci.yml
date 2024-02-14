@@ -67,7 +67,7 @@ jobs:
     - name: Run tests
       run: npm run jest
     - name: Report code coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
 
   cypress:
     name: End-to-end (E2E) tests
