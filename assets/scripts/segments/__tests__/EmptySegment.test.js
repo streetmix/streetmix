@@ -12,15 +12,15 @@ describe('EmptySegment', () => {
   }
 
   it('renders nothing when the width is 0', () => {
-    const { container } = render(<EmptySegment width={0} />, {
+    const { container } = render(<EmptySegment width={0} left={0} />, {
       initialState
     })
 
     expect(container.firstChild).toBeNull()
   })
 
-  it('renders a width, and at left position 0 by default', () => {
-    const { container } = render(<EmptySegment width={12.5} />, {
+  it('renders a width, and at left position 0', () => {
+    const { container } = render(<EmptySegment width={12.5} left={0} />, {
       initialState
     })
 

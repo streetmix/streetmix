@@ -8,12 +8,14 @@ import {
   BUILDING_RIGHT_POSITION
 } from '../../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
+import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 import type { Segment, StreetLocation } from '@streetmix/types'
 
 // TODO: many of these values were "optional" but it might be worthwhile to
 // convert most of them to values that cannot be "undefined" to make it easier
 // to work with as more TypeScript is adopted.
 interface StreetState {
+  id?: string // UUID
   segments: Segment[]
   remainingWidth: number
   skybox: string
@@ -23,8 +25,7 @@ interface StreetState {
   schemaVersion?: number
   showAnalytics?: boolean
   width?: number
-  id?: string // UUID
-  units?: number // Enum
+  units: number // Enum
   location?: StreetLocation | null
   userUpdated: boolean
   leftBuildingHeight: number
@@ -44,6 +45,7 @@ const initialState: StreetState = {
   segments: [],
   remainingWidth: 0,
   skybox: DEFAULT_SKYBOX,
+  units: SETTINGS_UNITS_METRIC,
   userUpdated: false,
   leftBuildingHeight: 0,
   rightBuildingHeight: 0,

@@ -9,6 +9,7 @@ import {
   getSegmentVariantInfo
 } from '../../segments/info'
 import SEGMENT_INFO from '../../segments/info.json'
+import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 
 jest.mock('../../app/load_resources')
 jest.mock('../../segments/info')
@@ -34,6 +35,7 @@ describe('StreetEditable', () => {
   beforeEach(() => {
     const variant = SEGMENT_INFO[type].details[variantString]
     const segmentInfo = { name: 'Segment', nameKey: 'key', zIndex: 1 }
+
     getSegmentInfo.mockImplementation(() => segmentInfo)
     getSegmentVariantInfo.mockImplementation(() => variant)
     getSpriteDef.mockImplementation(() => ({
@@ -46,8 +48,10 @@ describe('StreetEditable', () => {
   it('calls setBuildingsWidth', () => {
     const street = {
       segments: [segment],
-      width: 100
+      width: 100,
+      units: SETTINGS_UNITS_METRIC
     }
+
     render(
       <StreetEditable
         setBuildingWidth={setBuildingWidth}
@@ -55,13 +59,19 @@ describe('StreetEditable', () => {
       />,
       { street }
     )
+
     expect(setBuildingWidth).toHaveBeenCalledTimes(1)
   })
 
   describe('segment warnings', () => {
     describe('too large', () => {
       it('Pressing `+` does not increase the width of the segment', async () => {
-        const street = { width: 400, segments: [segment] }
+        const street = {
+          segments: [segment],
+          width: 400,
+          units: SETTINGS_UNITS_METRIC
+        }
+
         const { getByTestId, store, container, asFragment } = render(
           <StreetEditable
             setBuildingWidth={setBuildingWidth}
@@ -69,6 +79,7 @@ describe('StreetEditable', () => {
           />,
           { initialState: { street } }
         )
+
         await userEvent.hover(getByTestId('segment'))
         await userEvent.type(container, '+')
         await waitFor(

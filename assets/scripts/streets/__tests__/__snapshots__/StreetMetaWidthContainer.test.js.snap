@@ -81,6 +81,7 @@ exports[`StreetMetaWidthContainer renders selection dropdown on click 1`] = `
         Switch to imperial units (feet)
       </option>
       <option
+        disabled=""
         id="switch-to-metric-units"
         value="-2"
       >
