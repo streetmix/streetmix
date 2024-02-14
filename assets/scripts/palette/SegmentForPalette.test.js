@@ -1,10 +1,10 @@
 /* eslint-env jest */
 import React from 'react'
-import { render } from '../../../../test/helpers/render'
-import SegmentForPalette from '../SegmentForPalette'
-import { getVariantInfoDimensions } from '../view'
+import { render } from '../../../test/helpers/render'
+import { getVariantInfoDimensions } from '../segments/view'
+import SegmentForPalette from './SegmentForPalette'
 
-jest.mock('../view')
+jest.mock('../segments/view')
 
 describe('SegmentForPalette', () => {
   it('renders width correctly depending on the dimension', () => {

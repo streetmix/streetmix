@@ -12,7 +12,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { images } from '../app/load_resources'
 import Tooltip from '../ui/Tooltip'
 import { ICON_LOCK } from '../ui/icons'
-import { Types, paletteSegmentSource, collectDragSource } from './drag_and_drop'
+import {
+  Types,
+  paletteSegmentSource,
+  collectDragSource
+} from '../segments/drag_and_drop'
 import './SegmentForPalette.scss'
 
 SegmentForPalette.propTypes = {

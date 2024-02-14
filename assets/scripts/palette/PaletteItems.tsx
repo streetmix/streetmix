@@ -8,9 +8,9 @@ import { IntlProvider } from 'react-intl'
 import { useSelector } from '../store/hooks'
 import Scrollable from '../ui/Scrollable'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
-import SegmentForPalette from '../segments/SegmentForPalette'
 import { getAllSegmentInfoArray } from '../segments/info'
 import { generateRandSeed } from '../util/random'
+import SegmentForPalette from './SegmentForPalette'
 import './PaletteItems.scss'
 
 function PaletteItems (): React.ReactElement {
