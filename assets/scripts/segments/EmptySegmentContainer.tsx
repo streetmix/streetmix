@@ -11,7 +11,7 @@ function EmptySegmentContainer (): React.ReactElement[] {
   if (remainingWidth > 0) {
     // If street is not occupied by any segments, then only display one empty segment
     // at the full width of the street (which equals `remainingWidth`)
-    if (occupiedWidth === 0 || typeof occupiedWidth === 'undefined') {
+    if (occupiedWidth === 0 || occupiedWidth === undefined) {
       emptySegments.push({ width: remainingWidth, left: 0 })
     } else {
       // If the street has segments, then we display 2 segments of equal width at the

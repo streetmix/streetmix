@@ -1,14 +1,18 @@
 /**
- * Segments in the Palette component render differently (and have differen
+ * Segments in the Palette component render differently (and have different
  * logic and behavior) to segments rendered on the street.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { useIntl } from 'react-intl'
-import { DragSource } from 'react-dnd'
+import {
+  DragSource,
+  type ConnectDragPreview,
+  type ConnectDragSource
+} from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { TippyProps } from '@tippyjs/react'
+import { useSelector } from '../store/hooks'
 import { images } from '../app/load_resources'
 import Tooltip from '../ui/Tooltip'
 import { ICON_LOCK } from '../ui/icons'
@@ -17,18 +21,19 @@ import {
   paletteSegmentSource,
   collectDragSource
 } from '../segments/drag_and_drop'
+import type { SegmentDefinition } from '@streetmix/types'
 import './SegmentForPalette.scss'
 
-SegmentForPalette.propTypes = {
-  // Provided by react-dnd
-  connectDragSource: PropTypes.func,
-  connectDragPreview: PropTypes.func,
+interface SegmentForPaletteProps {
+  // Provided by react-dnd HOC
+  connectDragSource: ConnectDragSource
+  connectDragPreview: ConnectDragPreview
 
   // Provided by parent
-  segment: PropTypes.object,
-  unlockCondition: PropTypes.oneOf(['SIGN_IN', 'SUBSCRIBE']),
-  randSeed: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  tooltipTarget: PropTypes.object
+  segment: SegmentDefinition
+  unlockCondition: 'SIGN_IN' | 'SUBSCRIBE'
+  randSeed: number | string
+  tooltipTarget: TippyProps['singleton']
 }
 
 function SegmentForPalette ({
@@ -37,7 +42,7 @@ function SegmentForPalette ({
   randSeed,
   tooltipTarget,
   ...props
-}) {
+}: SegmentForPaletteProps): React.ReactElement | null {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
@@ -46,7 +51,7 @@ function SegmentForPalette ({
   props.connectDragPreview(getEmptyImage(), { captureDraggingState: true })
 
   // Get localized display names
-  function getLabel (segment) {
+  function getLabel (segment: SegmentDefinition): string {
     const defaultMessage = segment.name
 
     return intl.formatMessage({
@@ -57,11 +62,14 @@ function SegmentForPalette ({
 
   const classNames = ['segment', 'segment-in-palette']
   let isLocked = false
-  let sublabel = null
+  let sublabel
 
   if (
     unlockCondition &&
-    !(segment.unlockWithFlag && flags[segment.unlockWithFlag]?.value === true)
+    !(
+      segment.unlockWithFlag !== undefined &&
+      flags[segment.unlockWithFlag]?.value
+    )
   ) {
     switch (unlockCondition) {
       case 'SUBSCRIBE':
@@ -95,7 +103,7 @@ function SegmentForPalette ({
   }
 
   const thumbnail =
-    images.get(`thumbnails--${segment.id}`)?.src ||
+    images.get(`thumbnails--${segment.id}`)?.src ??
     images.get('thumbnails--missing')?.src
   const node = (
     <li className={classNames.join(' ')}>
@@ -108,7 +116,7 @@ function SegmentForPalette ({
             (alternate solution is to forward ref)
             This wrapper element is also the target for hover / focus
             in order the activate the tooltip. */}
-        <div tabIndex="0">
+        <div tabIndex={0}>
           <img className="segment-image" src={thumbnail} />
         </div>
       </Tooltip>
