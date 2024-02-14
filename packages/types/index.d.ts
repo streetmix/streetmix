@@ -86,3 +86,9 @@ export interface SegmentDefinition {
 export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
+
+export interface VariantInfoDimensions {
+  left: number
+  right: number
+  center: number
+}

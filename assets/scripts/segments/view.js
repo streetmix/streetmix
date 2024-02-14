@@ -117,7 +117,7 @@ export function drawSegmentImage (
  *
  * @param {Object} variantInfo - segment variant info
  * @param {Number} actualWidth - segment's actual real life width
- * @returns {Object}
+ * @returns {VariantInfoDimensions}
  */
 export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   // Convert actualWidth to units that work with images' intrinsic dimensions
@@ -274,7 +274,7 @@ function getGroundLevelOffset (elevation) {
  * @param {Number} actualWidth - The real-world width of a segment, in feet
  * @param {Number} offsetLeft
  * @param {Number} groundBaseline
- * @param {Number} randSeed
+ * @param {string} randSeed
  * @param {Number} multiplier
  * @param {Number} dpi
  */
