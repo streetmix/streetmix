@@ -13,7 +13,7 @@ interface GalleryShieldProps {
 function GalleryShield ({
   visible = false,
   onClick = () => {}
-}: GalleryShieldProps): React.ReactNode {
+}: GalleryShieldProps): React.ReactElement | null {
   if (visible) {
     return (
       <div

@@ -6,7 +6,7 @@ import GalleryLoading from './GalleryLoading'
 import GalleryContents from './GalleryContents'
 
 // This component only handles switching between display modes
-function GalleryPanel (): React.ReactNode {
+function GalleryPanel (): React.ReactElement {
   // Mode is set in state after streets have loaded
   // We use RTK Query to load user data in this component
   // There might be a better way of combining these requests!

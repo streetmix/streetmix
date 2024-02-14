@@ -4,7 +4,7 @@ import { doSignIn } from '../../users/authentication'
 import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast with Sign in button.
-function ToastSignIn (props: ToastProps): React.ReactNode {
+function ToastSignIn (props: ToastProps): React.ReactElement {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
