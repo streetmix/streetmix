@@ -2,11 +2,11 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import UndoRedo from '../UndoRedo'
+import { render } from '../../../test/helpers/render'
+import UndoRedo from './UndoRedo'
 
 // For the purposes of this test suite, assume user owns the street
-jest.mock('../../streets/owner', () => ({
+jest.mock('../streets/owner', () => ({
   isOwnedByCurrentUser: () => true
 }))
 
