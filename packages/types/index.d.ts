@@ -1,3 +1,8 @@
+import type {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '../../assets/scripts/users/constants'
+
 export interface Segment {
   id: string
   type: string
@@ -52,3 +57,7 @@ export interface LatLngObject {
   lat: number
   lng: number
 }
+
+export type UnitsSetting =
+  | typeof SETTINGS_UNITS_METRIC
+  | typeof SETTINGS_UNITS_IMPERIAL

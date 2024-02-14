@@ -1,18 +1,15 @@
 import React, { memo } from 'react'
-import {
-  SETTINGS_UNITS_METRIC,
-  type SETTINGS_UNITS_IMPERIAL
-} from '../users/constants'
 import { prettifyWidth } from '../util/width_units'
+import type { UnitsSetting } from '@streetmix/types'
 
 interface MeasurementTextProps {
   value: number
-  units?: typeof SETTINGS_UNITS_METRIC | typeof SETTINGS_UNITS_IMPERIAL
+  units: UnitsSetting
   locale: string
 }
 
 function MeasurementText (props: MeasurementTextProps): React.ReactElement {
-  const { value, units = SETTINGS_UNITS_METRIC, locale } = props
+  const { value, units, locale } = props
 
   return <span>{prettifyWidth(value, units, locale)}</span>
 }

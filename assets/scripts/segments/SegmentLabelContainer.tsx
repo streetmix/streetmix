@@ -1,30 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import MeasurementText from '../ui/MeasurementText'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { formatNumber } from '../util/number_format'
+import type { UnitsSetting } from '@streetmix/types'
 import './SegmentLabelContainer.scss'
 
-SegmentLabelContainer.propTypes = {
-  // Label can be a string or a React element, e.g. <FormattedMessage />.
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  showCapacity: PropTypes.bool,
-  capacity: PropTypes.number,
-  width: PropTypes.number.isRequired,
-  units: PropTypes.number,
-  locale: PropTypes.string.isRequired
+interface SegmentLabelContainerProps {
+  label: string | React.ReactElement
+  locale: string
+  width: number
+  units: UnitsSetting
+  showCapacity?: boolean
+  capacity?: number
 }
 
-function SegmentLabelContainer (props) {
-  const {
-    label,
-    showCapacity = false,
-    capacity,
-    width,
-    units = SETTINGS_UNITS_METRIC,
-    locale
-  } = props
+function SegmentLabelContainer (
+  props: SegmentLabelContainerProps
+): React.ReactElement {
+  const { label, locale, width, units, showCapacity = false, capacity } = props
 
   const gridClassNames = ['segment-grid']
 
