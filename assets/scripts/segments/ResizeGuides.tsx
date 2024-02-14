@@ -96,10 +96,10 @@ function calculateStyles (
   const actualRemainingWidth = remainingWidth + segment.width
   const shouldUseRemainingWidth =
     actualRemainingWidth > 0 &&
-    ((typeof variantInfo.minWidth === 'undefined' &&
+    ((variantInfo.minWidth === undefined &&
       actualRemainingWidth >= MIN_SEGMENT_WIDTH) ||
       actualRemainingWidth >= variantInfo.minWidth) &&
-    (typeof variantInfo.maxWidth === 'undefined' ||
+    (variantInfo.maxWidth === undefined ||
       actualRemainingWidth <= variantInfo.maxWidth)
 
   // Calculate the centerline of the segment (its left offset plus half its width)

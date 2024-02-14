@@ -5,7 +5,7 @@ import ExternalLink from '../ExternalLink'
 import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-function ToastWebMonetizationSuccess (props: ToastProps): React.ReactNode {
+function ToastWebMonetizationSuccess (props: ToastProps): React.ReactElement {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 

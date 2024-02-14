@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from '../store/hooks'
 import { openGallery } from '../store/actions/gallery'
 import Button from '../ui/Button'
 
-function GalleryError (): React.ReactNode {
+function GalleryError (): React.ReactElement {
   const userId = useSelector((state) => state.gallery.userId)
   const dispatch = useDispatch()
 

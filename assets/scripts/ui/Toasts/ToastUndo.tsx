@@ -5,7 +5,7 @@ import { handleUndo } from '../../store/actions/history'
 import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast with Undo button.
-function ToastUndo (props: ToastProps): React.ReactNode {
+function ToastUndo (props: ToastProps): React.ReactElement {
   const { item, setRef, handleClose } = props
   const dispatch = useDispatch()
   const intl = useIntl()

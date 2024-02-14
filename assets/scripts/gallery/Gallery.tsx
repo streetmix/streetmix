@@ -6,7 +6,7 @@ import GalleryPanel from './GalleryPanel'
 import GalleryShield from './GalleryShield'
 import './Gallery.scss'
 
-function Gallery (): React.ReactNode {
+function Gallery (): React.ReactElement {
   const { visible, instant } = useSelector((state) => state.gallery)
   const dispatch = useDispatch()
   const hide = useCallback(() => {

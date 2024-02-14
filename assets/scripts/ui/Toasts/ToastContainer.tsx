@@ -22,7 +22,7 @@ const TOAST_MAX_TO_DISPLAY = 5
  * Based on react-spring "Notification hub" example.
  * https://codesandbox.io/s/v1i1t
  */
-function ToastContainer (): React.ReactNode {
+function ToastContainer (): React.ReactElement {
   const config = TOAST_SPRING_CONFIG
   const [refMap] = useState(() => new WeakMap())
   const [cancelMap] = useState(() => new WeakMap())

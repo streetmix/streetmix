@@ -7,6 +7,7 @@ import { getSpriteDef, getSegmentInfo, getSegmentVariantInfo } from '../info'
 import SEGMENT_INFO from '../info.json'
 import { infoBubble } from '../../info_bubble/info_bubble'
 import { setLastStreet } from '../../streets/data_model'
+import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 
 // Replace all increment resolution with a simple value of 1
 const __TEST_RESIZE_INCREMENT = 1
@@ -70,6 +71,7 @@ describe('Segment', () => {
       randSeed: 1
     }
     const segmentInfo = { name: 'Segment', nameKey: 'key', zIndex: 1 }
+
     getSegmentInfo.mockImplementation(() => segmentInfo)
     getSegmentVariantInfo.mockImplementation(() => variant)
     getSpriteDef.mockImplementation(() => ({
@@ -84,6 +86,7 @@ describe('Segment', () => {
       <Segment
         segment={segment}
         actualWidth={currentWidth}
+        units={SETTINGS_UNITS_METRIC}
         dataNo={activeElement}
         updateSegmentData={jest.fn()}
         connectDragPreview={jest.fn()}
@@ -95,11 +98,13 @@ describe('Segment', () => {
         }
       }
     )
+
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows the info bubble on mouseover', async () => {
     const user = userEvent.setup()
+
     render(
       <Segment
         segment={segment}
@@ -115,12 +120,15 @@ describe('Segment', () => {
         }
       }
     )
+
     await user.hover(screen.getByTestId('segment'))
+
     expect(infoBubble.considerShowing).toHaveBeenCalled()
   })
 
   it('hides the info bubble on mouseleave', async () => {
     const user = userEvent.setup()
+
     render(
       <Segment
         segment={segment}
@@ -136,8 +144,10 @@ describe('Segment', () => {
         }
       }
     )
+
     await user.hover(screen.getByTestId('segment'))
     await user.unhover(screen.getByTestId('segment'))
+
     expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
 
@@ -159,8 +169,10 @@ describe('Segment', () => {
           }
         }
       )
+
       await user.hover(screen.getByTestId('segment'))
       await user.keyboard('-')
+
       expect(store.getState().street.segments[activeElement].width).toEqual(
         currentWidth - increment
       )
@@ -183,8 +195,10 @@ describe('Segment', () => {
           }
         }
       )
+
       await user.hover(screen.getByTestId('segment'))
       await user.keyboard('+')
+
       expect(store.getState().street.segments[activeElement].width).toEqual(
         currentWidth + increment
       )
@@ -207,9 +221,12 @@ describe('Segment', () => {
           }
         }
       )
+
       setLastStreet() // ToDo: needs to be refactored
+
       await user.hover(screen.getByTestId('segment'))
       await user.keyboard('{Delete}')
+
       expect(infoBubble.hide).toHaveBeenCalledTimes(1)
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)
@@ -232,9 +249,12 @@ describe('Segment', () => {
           }
         }
       )
+
       setLastStreet() // ToDo: needs to be refactored
+
       await user.hover(screen.getByTestId('segment'))
       await user.keyboard('{Shift>}{Delete}{/Shift}')
+
       expect(infoBubble.hide).toHaveBeenCalledTimes(2) // toDo: should this be 1?
       expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)

@@ -1,11 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import type { MessageFormatElement } from 'react-intl'
 import { DEFAULT_LOCALE } from '../../locales/constants'
 import { getAppTranslations, getSegmentTranslations } from '../../util/api'
 
+type LocaleMessages =
+  | Record<string, string>
+  | Record<string, MessageFormatElement[]>
+
 interface LocaleState {
   locale: string
-  messages: object
-  segmentInfo: object
+  messages: LocaleMessages
+  segmentInfo: LocaleMessages
   isLoading: boolean
   requestedLocale: string | null
 }
@@ -29,11 +34,9 @@ const initialState: LocaleState = {
 type NestedObjectValues = string | string[] | NestedStringObject
 interface NestedStringObject extends Record<string, NestedObjectValues> {}
 
-function flattenObject (
-  obj: NestedObjectValues
-): Record<string, string | string[]> {
-  const toReturn: Record<string, string | string[]> = {}
-  let flatObject: Record<string, string | string[]>
+function flattenObject (obj: NestedObjectValues): LocaleMessages {
+  const toReturn: LocaleMessages = {}
+  let flatObject: LocaleMessages
   Object.keys(obj).forEach((i: string) => {
     if (typeof obj[i] === 'object' && !Array.isArray(obj[i])) {
       flatObject = flattenObject(obj[i])

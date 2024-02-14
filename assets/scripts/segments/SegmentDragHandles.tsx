@@ -1,30 +1,33 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../store/hooks'
 import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
 import './SegmentDragHandles.scss'
 
-SegmentDragHandles.propTypes = {
-  width: PropTypes.number
+interface SegmentDragHandlesProps {
+  width: number
 }
 
-function SegmentDragHandles ({ width }) {
-  const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
+function SegmentDragHandles ({
+  width
+}: SegmentDragHandlesProps): React.ReactElement {
+  const infoBubbleHovered = useSelector(
+    (state) => state.infoBubble.mouseInside
+  )
   const descriptionVisible = useSelector(
     (state) => state.infoBubble.descriptionVisible
   )
 
-  const display = infoBubbleHovered || descriptionVisible ? 'none' : null
+  const display = infoBubbleHovered || descriptionVisible ? 'none' : undefined
 
-  // To prevent drag handles from overlapping each other when the segmen
+  // To prevent drag handles from overlapping each other when the segment
   // widths are very small, we calculate an X-position adjustment when the
   // value of `width` is less than 60px. The X position adjustment follows
   // the linear equation y = 0.5x - 35 (where `x` is `width`).
   // For example:
   //    width = 36 ==> adjustX = -11px
   //    width = 12 ==> adjustX = -29px
-  const adjustX = width < 60 ? `${0.5 * width - 35}px` : null
+  const adjustX = width < 60 ? `${0.5 * width - 35}px` : undefined
 
   return (
     <>
@@ -44,4 +47,4 @@ function SegmentDragHandles ({ width }) {
   )
 }
 
-export default React.memo(SegmentDragHandles)
+export default SegmentDragHandles

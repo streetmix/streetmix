@@ -32,7 +32,7 @@ interface NotificationBarProps {
 // from notification.json in this file, in order to make it easier to test.
 function NotificationBar ({
   notification = {}
-}: NotificationBarProps): React.ReactNode {
+}: NotificationBarProps): React.ReactElement | null {
   const locale = useSelector((state) => state.locale)
   const {
     display = false,

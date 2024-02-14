@@ -6,11 +6,11 @@ import Icon from '../ui/Icon'
 import Tooltip from '../ui/Tooltip'
 import { toggleToolbox } from '../store/slices/ui'
 
-function EnvironmentButton (props) {
+function EnvironmentButton (): React.ReactElement {
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  function handleClickTools () {
+  function handleClickTools (): void {
     dispatch(toggleToolbox())
   }
 
@@ -29,4 +29,4 @@ function EnvironmentButton (props) {
   )
 }
 
-export default React.memo(EnvironmentButton)
+export default EnvironmentButton

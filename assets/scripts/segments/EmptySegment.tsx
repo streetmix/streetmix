@@ -1,22 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { TILE_SIZE } from '../segments/constants'
+import { useSelector } from '../store/hooks'
+import { TILE_SIZE } from './constants'
 import SegmentLabelContainer from './SegmentLabelContainer'
 import './EmptySegment.scss'
 
-/**
- * This is a "presentational" component in the React presentational/container
- * component pattern. Its "container" (parent) component, <EmptySegmentContainer />,
- * determines and passes the `width` and `left` props to this component.
- */
-EmptySegment.propTypes = {
-  width: PropTypes.number,
-  left: PropTypes.number
+interface EmptySegmentProps {
+  width: number
+  left: number
 }
 
-function EmptySegment ({ width = 0, left = 0 }) {
+function EmptySegment ({
+  width,
+  left
+}: EmptySegmentProps): React.ReactElement | null {
   const units = useSelector((state) => state.street.units)
   const locale = useSelector((state) => state.locale.locale)
 

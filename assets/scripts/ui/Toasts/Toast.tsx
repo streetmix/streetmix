@@ -12,7 +12,7 @@ export interface ToastProps {
   children?: React.ReactNode
 }
 
-function Toast (props: ToastProps): React.ReactNode {
+function Toast (props: ToastProps): React.ReactElement {
   const {
     item,
     setRef,

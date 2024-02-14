@@ -2,18 +2,18 @@
 import React from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import PaletteContainer from '../PaletteContainer'
+import { render } from '../../../test/helpers/render'
+import PaletteContainer from './PaletteContainer'
 
-jest.mock('../../segments/view', () => {
-  const actual = jest.requireActual('../../segments/view')
+jest.mock('../segments/view', () => {
+  const actual = jest.requireActual('../segments/view')
   return {
     ...actual,
     drawSegmentContents: jest.fn()
   }
 })
-jest.mock('../../segments/segment-lookup.json', () =>
-  require('../../segments/__mocks__/segment-lookup.json')
+jest.mock('../segments/segment-lookup.json', () =>
+  require('../segments/__mocks__/segment-lookup.json')
 )
 
 describe('PaletteContainer', () => {

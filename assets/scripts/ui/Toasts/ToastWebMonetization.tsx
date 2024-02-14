@@ -8,7 +8,7 @@ import Toast, { type ToastProps } from './Toast'
 import './ToastWebMonetization.scss'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-function ToastWebMonetization (props: ToastProps): React.ReactNode {
+function ToastWebMonetization (props: ToastProps): React.ReactElement {
   const { item, setRef, handleClose } = props
   const signedIn = useSelector((state) => state.user.signedIn)
   const intl = useIntl()

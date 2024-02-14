@@ -23,7 +23,9 @@ interface GalleryStreetItemProps {
   doDelete: (id: string) => void
 }
 
-function GalleryStreetItem (props: GalleryStreetItemProps): React.ReactNode {
+function GalleryStreetItem (
+  props: GalleryStreetItemProps
+): React.ReactElement | null {
   const {
     street,
     showStreetOwner = true,
