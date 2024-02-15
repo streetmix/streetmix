@@ -1,8 +1,8 @@
 /* eslint-env jest */
 import React from 'react'
 import { screen } from '@testing-library/react'
-import KeyboardKey from '../KeyboardKey'
-import { render } from '../../../../test/helpers/render'
+import { render } from '../../../test/helpers/render'
+import KeyboardKey from './KeyboardKey'
 
 describe('KeyboardKey', () => {
   it('renders a <kbd> element with string child', () => {

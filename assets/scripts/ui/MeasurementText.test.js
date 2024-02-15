@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { render } from '../../../../test/helpers/render'
-import MeasurementText from '../MeasurementText'
+import { render } from '../../../test/helpers/render'
+import MeasurementText from './MeasurementText'
 
 describe('MeasurementText', () => {
   it('renders without crashing', () => {

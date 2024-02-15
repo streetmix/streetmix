@@ -2,7 +2,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import Checkbox from '../Checkbox'
+import Checkbox from './Checkbox'
 
 describe('Checkbox', () => {
   it('renders default snapshot', () => {

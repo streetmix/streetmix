@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { render } from '../../../../test/helpers/render'
-import ExternalLink from '../ExternalLink'
+import { render } from '../../../test/helpers/render'
+import ExternalLink from './ExternalLink'
 
 const initialStateForOnline = {
   system: {
