@@ -1,16 +1,16 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSelector, useDispatch } from '../store/hooks'
-import { changeLocale } from '../store/slices/locale'
-import { clearMenus } from '../store/slices/menus'
-import { DEFAULT_LOCALE } from '../locales/constants'
+import { useSelector, useDispatch } from '../../store/hooks'
+import { changeLocale } from '../../store/slices/locale'
+import { clearMenus } from '../../store/slices/menus'
+import { DEFAULT_LOCALE } from '../../locales/constants'
 import {
   getAvailableLocales,
   getActualLocaleFromRequested
-} from '../locales/locale'
-import LoadingSpinner from '../ui/LoadingSpinner'
-import { ICON_CHECK } from '../ui/icons'
+} from '../../locales/locale'
+import LoadingSpinner from '../../ui/LoadingSpinner'
+import { ICON_CHECK } from '../../ui/icons'
 import Menu, { type MenuProps } from './Menu'
 
 function LocaleMenu (props: MenuProps): React.ReactElement {

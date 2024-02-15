@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { EnvelopeClosedIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
-import Icon from '../ui/Icon'
-import ExternalLink from '../ui/ExternalLink'
-import { useDispatch } from '../store/hooks'
-import { showDialog } from '../store/slices/dialogs'
+import Icon from '../../ui/Icon'
+import ExternalLink from '../../ui/ExternalLink'
+import { useDispatch } from '../../store/hooks'
+import { showDialog } from '../../store/slices/dialogs'
 import Menu, { type MenuProps } from './Menu'
 
 function ContactMenu (props: MenuProps): React.ReactElement {

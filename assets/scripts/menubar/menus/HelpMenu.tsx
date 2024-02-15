@@ -6,17 +6,17 @@ import {
   RocketIcon,
   KeyboardIcon
 } from '@radix-ui/react-icons'
-import ExternalLink from '../ui/ExternalLink'
-import Icon from '../ui/Icon'
-import KeyboardKey from '../ui/KeyboardKey'
+import ExternalLink from '../../ui/ExternalLink'
+import Icon from '../../ui/Icon'
+import KeyboardKey from '../../ui/KeyboardKey'
 import {
   ICON_MINUS,
   ICON_PLUS,
   ICON_ARROW_RIGHT,
   ICON_ARROW_LEFT
-} from '../ui/icons'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { showDialog } from '../store/slices/dialogs'
+} from '../../ui/icons'
+import { registerKeypress, deregisterKeypress } from '../../app/keypress'
+import { showDialog } from '../../store/slices/dialogs'
 import Menu, { type MenuProps } from './Menu'
 import './HelpMenu.scss'
 

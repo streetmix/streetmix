@@ -2,18 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/slices/menus'
 import { useSelector, useDispatch } from '../store/hooks'
+import {
+  ContactMenu,
+  HelpMenu,
+  IdentityMenu,
+  LocaleMenu,
+  ShareMenu
+} from './menus'
 import MenuBar from './MenuBar'
-import HelpMenu from './HelpMenu'
-import ContactMenu from './ContactMenu'
-import IdentityMenu from './IdentityMenu'
-import LocaleMenu from './LocaleMenu'
-import ShareMenu from './ShareMenu'
 import './MenusContainer.scss'
 
 function MenusContainer (): React.ReactElement {
   const activeMenu = useSelector((state): string | null => state.menus)
-  const [activeMenuItemNode, setActiveMenuItemNode] =
-    useState<HTMLElement | null>(null)
+  const [activeMenuItemNode, setActiveMenuItemNode] = useState<
+  HTMLElement | undefined
+  >(undefined)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -55,14 +58,11 @@ function MenusContainer (): React.ReactElement {
    * Clicked buttons that have a menu component will report back to this component
    * what was clicked and a reference to that element, which is then passed to
    * individual menus.
-   *
-   * @param {string} menu - name of the menu that was clicked
-   * @param {HTMLElement} node - reference to the menu item button, used to position menu
    */
   function handleMenuDropdownClick (menu: string, node: HTMLElement): void {
     // If the clicked menu is already active, it's toggled off.
     if (activeMenu === menu) {
-      setActiveMenuItemNode(null)
+      setActiveMenuItemNode(undefined)
       dispatch(showMenu(null))
     } else {
       setActiveMenuItemNode(node)
@@ -92,7 +92,7 @@ function MenusContainer (): React.ReactElement {
 
   function hideAllMenus (): void {
     dispatch(clearMenus())
-    setActiveMenuItemNode(null)
+    setActiveMenuItemNode(undefined)
   }
 
   return (

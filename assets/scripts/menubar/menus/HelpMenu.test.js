@@ -2,11 +2,11 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../test/helpers/render'
-import { showDialog } from '../store/slices/dialogs'
+import { render } from '../../../../test/helpers/render'
+import { showDialog } from '../../store/slices/dialogs'
 import HelpMenu from './HelpMenu'
 
-jest.mock('../store/slices/dialogs', () => ({
+jest.mock('../../store/slices/dialogs', () => ({
   // We don't use these actions for anything, but they must return
   // a plain object or the dispatch() throws an error
   showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))

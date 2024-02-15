@@ -6,13 +6,13 @@ import React, {
   memo
 } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { useSelector } from '../store/hooks'
+import { useSelector } from '../../store/hooks'
 import './Menu.scss'
 
 export interface MenuProps {
   className?: string
   isActive?: boolean
-  menuItemNode?: HTMLDivElement
+  menuItemNode?: HTMLElement
   alignOpposite?: boolean
   onShow?: () => void
   onHide?: () => void
@@ -102,8 +102,8 @@ function Menu ({
  * absolute positioning.
  */
 function getMenuPosition (
-  el: HTMLDivElement | null, // menu container element
-  menuItemNode: HTMLDivElement | undefined, // menu content element
+  el: HTMLElement | null, // menu container element
+  menuItemNode?: HTMLElement, // menu content element
   contentDirection: 'ltr' | 'rtl' = 'ltr',
   alignOpposite = false // whether element is right-aligned
 ): MenuPosition | undefined {
@@ -150,8 +150,8 @@ function getMenuPosition (
 }
 
 function updateMenuPosition (
-  el: HTMLDivElement | null, // menu container element
-  menuItemNode: HTMLDivElement | undefined, // menu content element
+  el: HTMLElement | null, // menu container element
+  menuItemNode?: HTMLElement, // menu content element
   contentDirection: 'ltr' | 'rtl' = 'ltr',
   alignOpposite = false // whether element is right-aligned
 ): void {
