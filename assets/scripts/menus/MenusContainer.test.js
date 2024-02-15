@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { render } from '../../../../test/helpers/render'
-import MenusContainer from '../MenusContainer'
+import { render } from '../../../test/helpers/render'
+import MenusContainer from './MenusContainer'
 
 describe('MenusContainer', () => {
   // Menu container should be empty at mount

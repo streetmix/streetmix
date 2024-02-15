@@ -2,8 +2,8 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import MenuBarItem from '../MenuBarItem'
+import { render } from '../../../test/helpers/render'
+import MenuBarItem from './MenuBarItem'
 
 describe('MenuBarItem', () => {
   it('renders', () => {

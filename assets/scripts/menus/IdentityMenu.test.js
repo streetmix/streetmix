@@ -2,15 +2,15 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import IdentityMenu from '../IdentityMenu'
-import { openGallery } from '../../store/actions/gallery'
-import { onSignOutClick } from '../../users/authentication'
+import { render } from '../../../test/helpers/render'
+import { openGallery } from '../store/actions/gallery'
+import { onSignOutClick } from '../users/authentication'
+import IdentityMenu from './IdentityMenu'
 
-jest.mock('../../store/actions/gallery', () => ({
+jest.mock('../store/actions/gallery', () => ({
   openGallery: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
-jest.mock('../../users/authentication', () => ({
+jest.mock('../users/authentication', () => ({
   onSignOutClick: jest.fn()
 }))
 

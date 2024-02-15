@@ -2,15 +2,15 @@
 import React from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import LocaleMenu from '../LocaleMenu'
-import { updateUnits } from '../../users/localization'
-import { clearMenus } from '../../store/slices/menus'
+import { render } from '../../../test/helpers/render'
+import { updateUnits } from '../users/localization'
+import { clearMenus } from '../store/slices/menus'
+import LocaleMenu from './LocaleMenu'
 
-jest.mock('../../users/localization', () => ({
+jest.mock('../users/localization', () => ({
   updateUnits: jest.fn()
 }))
-jest.mock('../../store/slices/menus', () => ({
+jest.mock('../store/slices/menus', () => ({
   clearMenus: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 

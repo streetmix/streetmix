@@ -2,8 +2,8 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import AvatarMenu from '../AvatarMenu'
+import { render } from '../../../test/helpers/render'
+import AvatarMenu from './AvatarMenu'
 
 const user = {
   id: 'foo'

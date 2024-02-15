@@ -3,12 +3,12 @@ import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import copy from 'copy-to-clipboard'
-import { render } from '../../../../test/helpers/render'
-import ShareMenu from '../ShareMenu'
-import { showDialog } from '../../store/slices/dialogs'
+import { render } from '../../../test/helpers/render'
+import { showDialog } from '../store/slices/dialogs'
+import ShareMenu from './ShareMenu'
 
 jest.mock('copy-to-clipboard')
-jest.mock('../../store/slices/dialogs', () => ({
+jest.mock('../store/slices/dialogs', () => ({
   showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 

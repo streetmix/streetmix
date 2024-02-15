@@ -2,11 +2,11 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import MenuBar from '../MenuBar'
-import { showDialog } from '../../store/slices/dialogs'
+import { render } from '../../../test/helpers/render'
+import { showDialog } from '../store/slices/dialogs'
+import MenuBar from './MenuBar'
 
-jest.mock('../../store/slices/dialogs', () => ({
+jest.mock('../store/slices/dialogs', () => ({
   showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 

@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import { render } from '../../../../test/helpers/render'
-import InstanceBadge from '../InstanceBadge'
+import { render } from '../../../test/helpers/render'
+import InstanceBadge from './InstanceBadge'
 
 describe('InstanceBadge', () => {
   it('renders nothing in standard conditions', () => {
