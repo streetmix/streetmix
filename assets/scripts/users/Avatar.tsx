@@ -1,21 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useGetUserQuery } from '../store/services/api'
 import './Avatar.scss'
 
-function Avatar ({ userId }) {
+interface AvatarProps {
+  userId: string
+}
+
+function Avatar ({ userId }: AvatarProps): React.ReactElement {
   const { data } = useGetUserQuery(userId)
 
   // Loading and error states will declare an empty `src` property
   return (
     <span className="avatar">
-      <img src={data?.profileImageUrl || undefined} alt={userId} />
+      <img src={data?.profileImageUrl} alt={userId} />
     </span>
   )
-}
-
-Avatar.propTypes = {
-  userId: PropTypes.string
 }
 
 export default Avatar
