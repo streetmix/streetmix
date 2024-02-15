@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from '../store/hooks'
 import MenuBar from './MenuBar'
 import HelpMenu from './HelpMenu'
 import ContactMenu from './ContactMenu'
-import ContributeMenu from './ContributeMenu'
 import IdentityMenu from './IdentityMenu'
 import LocaleMenu from './LocaleMenu'
 import ShareMenu from './ShareMenu'
@@ -107,10 +106,6 @@ function MenusContainer (): React.ReactElement {
         />
         <ContactMenu
           isActive={activeMenu === 'contact'}
-          menuItemNode={activeMenuItemNode}
-        />
-        <ContributeMenu
-          isActive={activeMenu === 'contribute'}
           menuItemNode={activeMenuItemNode}
         />
         <LocaleMenu
