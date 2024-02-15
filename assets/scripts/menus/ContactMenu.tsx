@@ -5,9 +5,9 @@ import Icon from '../ui/Icon'
 import ExternalLink from '../ui/ExternalLink'
 import { useDispatch } from '../store/hooks'
 import { showDialog } from '../store/slices/dialogs'
-import Menu from './Menu'
+import Menu, { type MenuProps } from './Menu'
 
-function ContactMenu (props: Record<string, unknown>): React.ReactElement {
+function ContactMenu (props: MenuProps): React.ReactElement {
   const dispatch = useDispatch()
 
   return (

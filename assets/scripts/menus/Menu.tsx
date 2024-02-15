@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group'
 import { useSelector } from '../store/hooks'
 import './Menu.scss'
 
-interface MenuProps {
+export interface MenuProps {
   className?: string
   isActive?: boolean
   menuItemNode?: HTMLDivElement

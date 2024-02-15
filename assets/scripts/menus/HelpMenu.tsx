@@ -17,7 +17,7 @@ import {
 } from '../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showDialog } from '../store/slices/dialogs'
-import Menu from './Menu'
+import Menu, { type MenuProps } from './Menu'
 import './HelpMenu.scss'
 
 const shiftKey = (
@@ -26,7 +26,7 @@ const shiftKey = (
   </KeyboardKey>
 )
 
-function HelpMenu (props) {
+function HelpMenu (props: MenuProps): React.ReactElement {
   const dispatch = useDispatch()
 
   useEffect(() => {

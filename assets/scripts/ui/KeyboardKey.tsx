@@ -9,7 +9,7 @@ interface KeyboardKeyWithIconProps {
 }
 
 interface KeyboardKeyWithoutIconProps {
-  icon: undefined
+  icon?: never
   children: React.ReactNode
 }
 

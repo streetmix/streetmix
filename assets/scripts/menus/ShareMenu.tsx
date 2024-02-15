@@ -18,13 +18,13 @@ import { getSharingUrl } from '../util/share_url'
 import { doSignIn } from '../users/authentication'
 import { showDialog } from '../store/slices/dialogs'
 import { startPrinting } from '../store/slices/app'
-import Menu from './Menu'
+import Menu, { type MenuProps } from './Menu'
 import './ShareMenu.scss'
 
 const LS_SHARE_MASTODON = 'share:mastodon-domain'
 const MASTODON_DEFAULT_DOMAIN = 'mastodon.social'
 
-function ShareMenu (props: Record<string, unknown>): React.ReactElement {
+function ShareMenu (props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
   const signedIn = useSelector((state) => state.user.signedIn || false)
   const userId = useSelector((state) => state.user.signInData?.userId ?? '')
