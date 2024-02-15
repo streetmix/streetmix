@@ -1,7 +1,7 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector, useDispatch } from '../store/hooks'
 import { changeLocale } from '../store/slices/locale'
 import { clearMenus } from '../store/slices/menus'
 import { DEFAULT_LOCALE } from '../locales/constants'
@@ -11,18 +11,20 @@ import {
 } from '../locales/locale'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { ICON_CHECK } from '../ui/icons'
-import Menu from './Menu'
+import Menu, { type MenuProps } from './Menu'
 
-function LocaleMenu (props) {
+function LocaleMenu (props: MenuProps): React.ReactElement {
   const locale = useSelector((state) => state.locale.locale || DEFAULT_LOCALE)
   const requestedLocale = useSelector((state) => state.locale.requestedLocale)
   const dispatch = useDispatch()
   const filteredLocales = getAvailableLocales()
   const actuallySelectedLocale = getActualLocaleFromRequested(locale)
 
-  async function selectLocale (newLocale) {
+  async function selectLocale (newLocale: string): Promise<void> {
     if (locale === newLocale) return
 
+    // Don't know how to fix, but this is valid.
+    // eslint-disable-next-line @typescript-eslint/await-thenable
     await dispatch(changeLocale(newLocale))
 
     // Hide the menu after a locale is selected.
@@ -33,7 +35,7 @@ function LocaleMenu (props) {
     dispatch(clearMenus())
   }
 
-  function renderLocaleOptions () {
+  function renderLocaleOptions (): React.ReactElement[] {
     // Render each option
     return filteredLocales.map((locale) => {
       const classNames = ['menu-item']
@@ -48,7 +50,9 @@ function LocaleMenu (props) {
         <li
           className={classNames.join(' ')}
           key={locale.value}
-          onClick={(event) => selectLocale(locale.value)}
+          onClick={() => {
+            void selectLocale(locale.value)
+          }}
           role="option"
           aria-selected={locale.value === actuallySelectedLocale}
         >
@@ -56,7 +60,8 @@ function LocaleMenu (props) {
           {locale.value === actuallySelectedLocale && (
             <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />
           )}
-          {/* &#x200E; prevents trailing parentheses from going in the wrong place in rtl languages */}
+          {/* &#x200E; prevents trailing parentheses from going in the wrong
+              place in rtl languages */}
           <span>{locale.label}&#x200E;</span>
           <span className="menu-item-subtext">
             <FormattedMessage id={locale.key} defaultMessage={locale.name} />
