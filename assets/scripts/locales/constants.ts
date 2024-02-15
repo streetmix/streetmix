@@ -17,16 +17,16 @@
  * but not level 2 for example.
  *
  */
+import type { LocaleLevel } from '@streetmix/types'
 
 // Locale levels stored as constants
-/* eslint-disable no-unused-vars */
-const LOCALES_LEVEL_1 = 1
-const LOCALES_LEVEL_2 = 2
-/* eslint-enable no-unused-vars */
-
-const LOCALES_LEVEL_3 = 3
-const LOCALES_LEVEL_4 = 4
+export const LOCALES_LEVEL_1: LocaleLevel = 1
+export const LOCALES_LEVEL_2: LocaleLevel = 2
+export const LOCALES_LEVEL_3: LocaleLevel = 3
+export const LOCALES_LEVEL_4: LocaleLevel = 4
 
 export const DEFAULT_LOCALE = 'en'
-export const DEFAULT_LOCALE_LEVEL = LOCALES_LEVEL_4
-export const ENABLED_LOCALE_LEVEL = LOCALES_LEVEL_3
+
+// Valid locale levels are enforced via types
+export const DEFAULT_LOCALE_LEVEL: LocaleLevel = LOCALES_LEVEL_4
+export const ENABLED_LOCALE_LEVEL: LocaleLevel = LOCALES_LEVEL_3

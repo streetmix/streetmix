@@ -1,34 +1,38 @@
-/**
- * locale.js
- * handles internationalization (i18n)
- *
- */
-import LOCALES from '@streetmix/i18n'
 import { IntlMessageFormat } from 'intl-messageformat'
-import store, { observeStore } from '../store'
+import type { MessageFormatElement } from 'react-intl'
+import store, { observeStore, type RootState } from '../store'
 import { changeLocale } from '../store/slices/locale'
-import { DEFAULT_LOCALE } from './constants'
+import {
+  DEFAULT_LOCALE,
+  LOCALES_LEVEL_1,
+  LOCALES_LEVEL_2,
+  LOCALES_LEVEL_3,
+  LOCALES_LEVEL_4
+} from './constants'
+import LOCALES from '@streetmix/i18n'
+import type { LocaleDefinition, LocaleLevel } from '@streetmix/types'
 
 /**
  * Initialize i18n / localization
  */
-export async function initLocale () {
+export async function initLocale (): Promise<void> {
   // See if there is a requested locale via the lang param
   const paramLocale = new URLSearchParams(window.location.search).get('lang')
 
   // Default language is set by browser, or is English if undetermined
   const defaultLocale = navigator.language || DEFAULT_LOCALE
 
-  // Current language is the one set by Streetmix or is the browser default, if unset
-  let requestedLocale
+  // Current language is the one set by Streetmix or is the browser default
+  // if unset
+  let requestedLocale: string
 
-  // Try to read locale from param first; second, a stored value from LocalStorage;
-  // if it fails (access denied, etc) then ignore this error and go with the browser's
-  // locale or default
+  // Try to read locale from param first; second, a stored value from
+  // LocalStorage; if it fails (access denied, etc) then ignore this error and
+  // go with the browser's locale or default
   try {
     requestedLocale =
-      paramLocale ||
-      JSON.parse(window.localStorage.getItem('settings')).locale ||
+      paramLocale ??
+      JSON.parse(window.localStorage.getItem('settings') ?? '{}').locale ??
       defaultLocale
   } catch (err) {
     requestedLocale = defaultLocale
@@ -44,26 +48,25 @@ export async function initLocale () {
 
 /**
  * Whenever the language changes, this listener will apply the document's text
- * direction. Required to support right-to-left languages like Arabic, Hebrew, etc.
+ * direction. Required to support rtl languages like Arabic, Hebrew, etc.
  */
-function initRtlChangedListener () {
-  const select = (state) => state.app.contentDirection
-  const onChange = (direction) => {
+function initRtlChangedListener (): void {
+  const select = (state: RootState): string => state.app.contentDirection
+  const onChange = (direction: string): void => {
     document.documentElement.dir = direction
   }
 
-  return observeStore(select, onChange)
+  observeStore(select, onChange)
 }
 
 /**
- * For the same Intl.FormatMessage functionality but outside of React, use this
- *
- * @param {string} key - translation id
- * @param {string} fallback - fallback / reference string
- * @param {object} options - options
- * @returns {string}
+ * For the same Intl.FormatMessage functionality outside of React, use this
  */
-export function formatMessage (key, fallback = '', options = {}) {
+export function formatMessage (
+  key: string, // translation key
+  fallback = '', // fallback or reference string
+  options: { ns?: string } = {}
+): string | string[] | MessageFormatElement[] {
   const locale = store.getState().locale
 
   let message
@@ -73,9 +76,10 @@ export function formatMessage (key, fallback = '', options = {}) {
     message = locale.messages[key]
   }
 
-  if (!message) return fallback
+  if (message === undefined) return fallback
 
-  // If message is an array (e.g. segment descriptions), return as is; don't format
+  // If message is an array (e.g. segment descriptions), return as is;
+  // don't format it
   if (Array.isArray(message)) {
     return message
   }
@@ -85,35 +89,31 @@ export function formatMessage (key, fallback = '', options = {}) {
 }
 
 /**
- * Gets the current locale level. See `./constants.js` for a description
+ * Gets the current locale level. See `./constants.ts` for a description
  * of what each level is.
- *
- * @returns {Number} between 1-4
  */
-function getLocaleLevel () {
+function getLocaleLevel (): LocaleLevel {
   const flags = store.getState().flags
 
   // The lowest level marked "true" takes priority.
-  let level = 4
-  if (flags.LOCALES_LEVEL_3.value) level = 3
-  if (flags.LOCALES_LEVEL_2.value) level = 2
-  if (flags.LOCALES_LEVEL_1.value) level = 1
+  let level = LOCALES_LEVEL_4
+  if (flags.LOCALES_LEVEL_3.value) level = LOCALES_LEVEL_3
+  if (flags.LOCALES_LEVEL_2.value) level = LOCALES_LEVEL_2
+  if (flags.LOCALES_LEVEL_1.value) level = LOCALES_LEVEL_1
 
   return level
 }
 
 /**
- * Given the list of all locales set by Streetmix, returns a filtered and sorted
- * list of locales based on the current level of available locales. See
- * `./constants.js` for a description of what each level is.
- *
- * @returns {Array} of locale data objects
+ * Given the list of all locales set by Streetmix, returns a filtered and
+ * sorted list of locales based on the current level of available locales.
+ * See `./constants.ts` for a description of what each level is.
  */
-export function getAvailableLocales () {
+export function getAvailableLocales (): LocaleDefinition[] {
   const level = getLocaleLevel()
 
   return (
-    LOCALES
+    (LOCALES as LocaleDefinition[])
       // Remove languages that aren't enabled
       .filter((item) => item.level >= level)
       // Sort the list of languages alphabetically
@@ -126,17 +126,15 @@ export function getAvailableLocales () {
 }
 
 /**
- * Given a proposed locale, make sure that it is a locale we support and that
- * the user has access to use it.
+ * Given a user-requested locale, make sure that it is a locale we support and
+ * that the user has access to use it.
  *
  * examples:
  *  - if user requests locale `ja` but is not allowed to use it, return `en`
  *  - if user requests locale `en-AU`, return the superset `en`
  *  - if user requests locale `pt-PT` but only `pt-BR` exists, return `pt-BR`
- *
- * @param {string} proposedLocale - a user/client requested locale to use
  */
-export function getActualLocaleFromRequested (proposedLocale) {
+export function getActualLocaleFromRequested (requested: string): string {
   const locales = getAvailableLocales()
   let locale = DEFAULT_LOCALE
 
@@ -144,7 +142,7 @@ export function getActualLocaleFromRequested (proposedLocale) {
   let exactFound = false
 
   for (let i = 0; i < locales.length; i++) {
-    if (proposedLocale === locales[i].value) {
+    if (requested === locales[i].value) {
       exactFound = true
       locale = locales[i].value
       break
@@ -153,12 +151,12 @@ export function getActualLocaleFromRequested (proposedLocale) {
 
   if (exactFound) return locale
 
-  // If there is not an exact match, is the proposed locale a subset of a primary language?
-  // e.g. en-AU vs en
+  // If there is not an exact match, is the proposed locale a subset of a
+  // primary language? e.g. en-AU vs en
   let supersetFound = false
 
   for (let i = 0; i < locales.length; i++) {
-    if (proposedLocale.indexOf(locales[i].value) === 0) {
+    if (requested.indexOf(locales[i].value) === 0) {
       locale = locales[i].value
       supersetFound = true
       break
@@ -167,10 +165,10 @@ export function getActualLocaleFromRequested (proposedLocale) {
 
   if (supersetFound) return locale
 
-  // If neither exact or subset, is there a "fuzzy" match with another region's locale?
-  // e.g. pt-PT vs pt-BR.
+  // If neither exact or subset, is there a "fuzzy" match with another region's
+  // locale? e.g. pt-PT vs pt-BR.
   let fuzzyMatch = false
-  const primaryTag = proposedLocale.split('-')[0]
+  const primaryTag = requested.split('-')[0]
 
   for (let i = 0; i < locales.length; i++) {
     if (primaryTag === locales[i].value.split('-')[0]) {

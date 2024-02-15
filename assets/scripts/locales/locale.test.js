@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { getActualLocaleFromRequested } from '../locale'
+import { getActualLocaleFromRequested } from './locale'
 
 describe('localization', () => {
   describe('getActualLocaleFromRequested', () => {
