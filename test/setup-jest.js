@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import path from 'path'
 import { setImmediate, clearImmediate } from 'timers'
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import fetch from 'jest-fetch-mock'
 import 'jest-canvas-mock'
 import 'jest-date-mock'
