@@ -210,7 +210,7 @@
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.23.3",
     "@commitlint/cli": "17.6.5",
-    "@commitlint/config-conventional": "18.1.0",
+    "@commitlint/config-conventional": "18.6.2",
     "@faker-js/faker": "8.2.0",
     "@jest/globals": "29.7.0",
     "@parcel/transformer-sass": "2.11.0",
