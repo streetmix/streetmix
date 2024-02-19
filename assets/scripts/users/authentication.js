@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 import * as Sentry from '@sentry/browser'
 
 import USER_ROLES from '../../../app/data/user_roles'
