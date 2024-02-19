@@ -128,7 +128,7 @@
     "@sentry/browser": "7.73.0",
     "@sentry/cli": "2.21.2",
     "@tippyjs/react": "4.2.6",
-    "@transifex/api": "6.0.1",
+    "@transifex/api": "7.1.0",
     "@types/auth0-js": "9.21.5",
     "auth0": "4.3.1",
     "auth0-js": "9.24.1",
