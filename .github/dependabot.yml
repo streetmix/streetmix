@@ -50,6 +50,9 @@ updates:
         - "jest-environment-jsdom"
         - "babel-jest"
         - "@jest/globals"
+    commitlint:
+      patterns:
+        - "@commitlint/*"
 
 - package-ecosystem: github-actions
   directory: "/"
