@@ -1,10 +1,10 @@
-import { defineConfig } from 'cypress'
-import dotenv from 'dotenv'
+const { defineConfig } = require('cypress')
+const dotenv = require('dotenv')
 
 // eslint-disable-next-line import/no-named-as-default-member
 dotenv.config()
 
-export default defineConfig({
+module.exports = defineConfig({
   projectId: '2bmjk3',
   viewportWidth: 1280,
   viewportHeight: 720,
