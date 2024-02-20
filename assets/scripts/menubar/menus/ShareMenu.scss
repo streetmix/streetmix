@@ -1,0 +1,62 @@
+@import "../../../styles/variables";
+
+$share-menu-width: 350px;
+
+.share-menu {
+  min-width: $share-menu-width;
+}
+
+.share-via-link-container {
+  position: relative;
+  width: $share-menu-width;
+  padding: 0.8em 1em 0.8em 2.5em;
+  border-bottom: 1px solid $colour-turquoise-200;
+
+  [dir="rtl"] & {
+    padding: 0.8em 2.5em 0.8em 1em;
+  }
+}
+
+.share-via-link-form {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.5em;
+
+  input {
+    flex-grow: 1;
+  }
+
+  button {
+    padding: 4px 10px;
+  }
+
+  button svg {
+    width: 13px;
+  }
+}
+
+.share-via-link {
+  line-height: 18px;
+  margin-right: 0.5em;
+  outline: none;
+
+  [dir="rtl"] & {
+    margin-right: auto;
+    margin-left: 0.5em;
+  }
+}
+
+.share-sign-in-promo {
+  // Prevent element from setting its own width
+  width: $share-menu-width;
+  text-align: center;
+  background-color: $alert-background;
+  border-bottom: $alert-border;
+  border-bottom-width: 2px;
+  padding: 1em 2.5em;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
