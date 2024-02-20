@@ -7,7 +7,7 @@ import Avatar from '../../users/Avatar'
 import { useSelector, useDispatch } from '../../store/hooks'
 import { openGallery } from '../../store/actions/gallery'
 import { showDialog } from '../../store/slices/dialogs'
-import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
+import streetmixPlusIcon from '../../ui/icons/streetmix-plus.svg'
 import Menu, { type MenuProps } from './Menu'
 import './IdentityMenu.scss'
 
