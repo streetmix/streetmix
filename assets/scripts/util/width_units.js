@@ -5,25 +5,27 @@ import {
 import store from '../store'
 import { formatNumber } from './number_format'
 
-const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
+const IMPERIAL_CONVERSION_RATE = 0.3048
 const METRIC_PRECISION = 3
 const IMPERIAL_PRECISION = 3
 
 const WIDTH_INPUT_CONVERSION = [
-  { text: 'm', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
-  { text: 'м', multiplier: 1 / IMPERIAL_METRIC_MULTIPLIER },
-  { text: 'cm', multiplier: 1 / 100 / IMPERIAL_METRIC_MULTIPLIER },
-  { text: '"', multiplier: 1 / 12 },
-  { text: '″', multiplier: 1 / 12 },
-  { text: 'in', multiplier: 1 / 12 },
-  { text: 'in.', multiplier: 1 / 12 },
-  { text: 'inch', multiplier: 1 / 12 },
-  { text: 'inches', multiplier: 1 / 12 },
-  { text: "'", multiplier: 1 },
-  { text: '′', multiplier: 1 },
-  { text: 'ft', multiplier: 1 },
-  { text: 'ft.', multiplier: 1 },
-  { text: 'feet', multiplier: 1 }
+  { text: 'm', multiplier: 1 },
+  { text: 'м', multiplier: 1 },
+  { text: 'dm', multiplier: 1 / 10 },
+  { text: 'cm', multiplier: 1 / 100 },
+  { text: 'mm', multiplier: 1 / 1000 },
+  { text: '"', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
+  { text: '″', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
+  { text: 'in', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
+  { text: 'in.', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
+  { text: 'inch', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
+  { text: 'inches', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
+  { text: "'", multiplier: 1 / IMPERIAL_CONVERSION_RATE },
+  { text: '′', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
+  { text: 'ft', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
+  { text: 'ft.', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
+  { text: 'feet', multiplier: 1 / IMPERIAL_CONVERSION_RATE }
 ]
 
 const IMPERIAL_VULGAR_FRACTIONS = {
@@ -36,6 +38,11 @@ const IMPERIAL_VULGAR_FRACTIONS = {
   '.875': '⅞'
 }
 
+// https://www.jacklmoore.com/notes/rounding-in-javascript/
+function round (value, decimals) {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+}
+
 /**
  * Processes width input from user
  *
@@ -44,7 +51,7 @@ const IMPERIAL_VULGAR_FRACTIONS = {
  * @returns {Number} width - in default units, regardless of provided units
  */
 export function processWidthInput (widthInput, units) {
-  if (!widthInput || !units) return
+  if (!widthInput || units === undefined) return
 
   // Normalize certain input quirks. Spaces (more common at end or beginning of input)
   // go away, and comma-based decimals turn into period-based decimals
@@ -163,16 +170,17 @@ export function stringifyMeasurementValue (value, units, locale) {
   }
 
   switch (units) {
-    case SETTINGS_UNITS_IMPERIAL:
-      string = formatNumber(value, locale, {
+    case SETTINGS_UNITS_IMPERIAL: {
+      const convertedValue = convertMetricMeasurementToImperial(value)
+      string = formatNumber(convertedValue, locale, {
         style: 'decimal',
         maximumFractionDigits: IMPERIAL_PRECISION
       })
       break
+    }
     case SETTINGS_UNITS_METRIC:
     default: {
-      const convertedValue = convertImperialMeasurementToMetric(value)
-      string = formatNumber(convertedValue, locale, {
+      string = formatNumber(value, locale, {
         style: 'decimal',
         maximumFractionDigits: METRIC_PRECISION
       })
@@ -184,14 +192,28 @@ export function stringifyMeasurementValue (value, units, locale) {
 }
 
 /**
- * Given a measurement value (stored internally in Streetmix as imperial units),
- * return a metric quantity with three decimal points.
+ * Given a measurement value (stored internally in Streetmix as metric units),
+ * return an imperial quantity up to three decimal point precision.
+ *
+ * @param {Number} value, assuming metric units
+ * @returns {Number} value in imperial units
+ */
+function convertMetricMeasurementToImperial (value) {
+  return round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
+}
+
+/**
+ * Given a measurement value, assumed to be in imperial units,
+ * return a metric quantity up to three decimal point precision.
  *
  * @param {Number} value, assuming imperial units
  * @returns {Number} value in metric units
  */
+// Not used here, but keeping for now in case we change how unit
+// conversion works.
+// eslint-disable-next-line no-unused-vars
 function convertImperialMeasurementToMetric (value) {
-  return (value * IMPERIAL_METRIC_MULTIPLIER).toFixed(METRIC_PRECISION)
+  return round(value / IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
 }
 
 /**
@@ -242,15 +264,10 @@ function parseStringForUnits (widthInput, units) {
   let width = Number.parseFloat(widthInput)
 
   if (width) {
-    let multiplier
+    let multiplier = 1
 
-    if (units === SETTINGS_UNITS_METRIC) {
-      // Checks for a unitless input when metric
-      multiplier = 1 / IMPERIAL_METRIC_MULTIPLIER
-    } else {
-      // Default multiplier, is true if units are imperial
-      // TODO: metric units should be default
-      multiplier = 1
+    if (units === SETTINGS_UNITS_IMPERIAL) {
+      multiplier = 1 / IMPERIAL_CONVERSION_RATE
     }
 
     for (const i in WIDTH_INPUT_CONVERSION) {
