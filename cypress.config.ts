@@ -1,5 +1,8 @@
 import { defineConfig } from 'cypress'
-import initPlugins from './cypress/plugins/index.js'
+import dotenv from 'dotenv'
+
+// eslint-disable-next-line import/no-named-as-default-member
+dotenv.config()
 
 export default defineConfig({
   projectId: '2bmjk3',
@@ -7,10 +10,10 @@ export default defineConfig({
   viewportHeight: 720,
   video: false,
   e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
     setupNodeEvents (on, config) {
-      return initPlugins(on, config)
+      config.env.PELIAS_HOST_NAME = process.env.PELIAS_HOST_NAME
+
+      return config
     },
     baseUrl: 'http://localhost:8000'
   }
