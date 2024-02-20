@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 import store from '../store'
 import { addToast } from '../store/slices/toasts'
 import { setCoilPluginSubscriber } from '../store/slices/user'
