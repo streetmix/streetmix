@@ -1,8 +1,8 @@
 // Originally, our images were drawn at 2x for Retina display.
 // As we've moved to vector images, "2x" is meaningless, but the intrinsic
 // height/width dimensions have not changed.
-export const TILESET_POINT_PER_PIXEL = 2.0 * 1.27
-export const TILE_SIZE = 12 // pixels
+export const TILESET_POINT_PER_PIXEL = 2.0 * 1.27 // this is a 1-inch to 1cm conversion
+export const TILE_SIZE = 12 / 0.3048 // pixels, using imperial conversion rate to preserve render scale
 export const TILE_SIZE_ACTUAL = TILE_SIZE * TILESET_POINT_PER_PIXEL // pixels
 
 export const MIN_SEGMENT_WIDTH = 0.25 // meters
@@ -20,7 +20,7 @@ export const SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = 0.5 // feet
 export const SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL = 0.5 // feet
 
 export const SEGMENT_WIDTH_RESOLUTION_METRIC = 0.05 // meters
-export const SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 0.25 // meters
+export const SEGMENT_WIDTH_CLICK_INCREMENT_METRIC = 0.1 // meters
 export const SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC = 0.25 // meters
 
 export const DRAGGING_TYPE_NONE = 0
