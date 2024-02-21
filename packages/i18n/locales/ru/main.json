@@ -5,7 +5,6 @@
       "about": "Всё о Streetmix…",
       "contact": "Контакты",
       "community": "Сообщество",
-      "contribute": "Помочь проекту",
       "sign-in": "Войти",
       "sign-out": "Выйти",
       "new-street": "Новая улица",
@@ -55,10 +54,6 @@
       "discord": "Присоединиться к серверу Discord",
       "slack": "Присоединиться к чату Slack",
       "newsletter": "Подписаться на рассылку"
-    },
-    "contribute": {
-      "donate": "Пожертвовать",
-      "opensource": "Сделать вклад в open source"
     },
     "feedback": {
       "prompt": "Послать нам сообщение:",

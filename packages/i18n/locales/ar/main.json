@@ -5,7 +5,6 @@
       "about": "حول Streetmix…",
       "contact": "تواصل",
       "community": "مجتمع",
-      "contribute": "مساهمة",
       "sign-in": "تسجيل الدخول",
       "sign-out": "تسجيل الخروج",
       "new-street": "شارع جديد",
@@ -55,10 +54,6 @@
       "discord": "",
       "slack": "الانضمام إلى غرفة الدردشة الهادئة",
       "newsletter": ""
-    },
-    "contribute": {
-      "donate": "تبرع",
-      "opensource": "مساهمة في فتح شيفرة المصدر"
     },
     "feedback": {
       "prompt": "أرسل لنا رسالة:",

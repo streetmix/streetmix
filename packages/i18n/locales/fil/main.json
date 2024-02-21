@@ -5,7 +5,6 @@
       "about": "",
       "contact": "",
       "community": "Pamayanan",
-      "contribute": "Tumulong",
       "sign-in": "Mag-sign in",
       "sign-out": "Mag-sign out",
       "new-street": "",
@@ -55,10 +54,6 @@
       "discord": "",
       "slack": "",
       "newsletter": ""
-    },
-    "contribute": {
-      "donate": "",
-      "opensource": ""
     },
     "feedback": {
       "prompt": "Magpadala ng mensahe sa amin:",

@@ -5,7 +5,6 @@
       "about": "Streetmixについて",
       "contact": "コンタクト",
       "community": "コミュニティ",
-      "contribute": "貢献",
       "sign-in": "サインイン",
       "sign-out": "サインアウト",
       "new-street": "新しいストリート",
@@ -55,10 +54,6 @@
       "discord": "",
       "slack": "Slackチャットに参加",
       "newsletter": ""
-    },
-    "contribute": {
-      "donate": "募金",
-      "opensource": "オープンなソースで貢献"
     },
     "feedback": {
       "prompt": "メッセージを送付:",

@@ -5,7 +5,6 @@
       "about": "Tentang Streetmix...",
       "contact": "Kontak",
       "community": "Komunitas",
-      "contribute": "Berkontribusi",
       "sign-in": "Masuk",
       "sign-out": "Keluar",
       "new-street": "Jalan baru",
@@ -55,10 +54,6 @@
       "discord": "Bergabung dengan obrolan Discord",
       "slack": "Bergabung dengan obrolan Slack",
       "newsletter": "Berlangganan buletin kami"
-    },
-    "contribute": {
-      "donate": "Menyumbang",
-      "opensource": "Berkontribusi untuk sumber terbuka"
     },
     "feedback": {
       "prompt": "",

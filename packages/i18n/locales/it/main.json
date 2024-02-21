@@ -5,7 +5,6 @@
       "about": "A proposito di Streetmix...",
       "contact": "Contatti",
       "community": "Comunità",
-      "contribute": "Contribuisci",
       "sign-in": "Entra nel sito",
       "sign-out": "Esci dal sito",
       "new-street": "Crea una nuova strada",
@@ -55,10 +54,6 @@
       "discord": "Unisciti alla chat su Discord",
       "slack": "Unisciti alla chat su Slack",
       "newsletter": "Sottoscrivi la nostra newsletter"
-    },
-    "contribute": {
-      "donate": "Sostieni il progetto",
-      "opensource": "Contribuisci allo sviluppo open source"
     },
     "feedback": {
       "prompt": "Mandaci un messaggio:",

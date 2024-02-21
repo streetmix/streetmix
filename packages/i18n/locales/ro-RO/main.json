@@ -5,7 +5,6 @@
       "about": "Despre Steetmix..",
       "contact": "",
       "community": "Comunitate",
-      "contribute": "Contribuie",
       "sign-in": "",
       "sign-out": "",
       "new-street": "Strada nouă",
@@ -55,10 +54,6 @@
       "discord": "",
       "slack": "",
       "newsletter": ""
-    },
-    "contribute": {
-      "donate": "",
-      "opensource": ""
     },
     "feedback": {
       "prompt": "",

@@ -5,7 +5,6 @@
       "about": "Tietoja Streetmixistä…",
       "contact": "Ota yhteyttä",
       "community": "Yhteisö",
-      "contribute": "Osallistu",
       "sign-in": "Kirjaudu sisään",
       "sign-out": "Kirjaudu ulos",
       "new-street": "Uusi katu",
@@ -55,10 +54,6 @@
       "discord": "Liity Discord-keskusteluun",
       "slack": "Liity Slack-keskusteluun",
       "newsletter": "Tilaa uutiskirje"
-    },
-    "contribute": {
-      "donate": "Lahjoita",
-      "opensource": "Osallistu avoimen lähdekoodin kehittämiseen"
     },
     "feedback": {
       "prompt": "Lähetä meille palautetta:",

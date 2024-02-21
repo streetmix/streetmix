@@ -5,7 +5,6 @@
       "about": "O Streetmixu...",
       "contact": "Kontakt",
       "community": "Komunita",
-      "contribute": "Přispívat",
       "sign-in": "Přihlásit se",
       "sign-out": "Odhlásit se",
       "new-street": "Nová ulice",
@@ -55,10 +54,6 @@
       "discord": "Připojte se k chatu Discord",
       "slack": "Připojte se k chatu na Slacku",
       "newsletter": "Přihlaste se k odběru našeho zpravodaje"
-    },
-    "contribute": {
-      "donate": "Darovat",
-      "opensource": "Přispívejte do open source"
     },
     "feedback": {
       "prompt": "",
