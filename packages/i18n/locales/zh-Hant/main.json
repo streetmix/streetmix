@@ -5,7 +5,6 @@
       "about": "關於Streetmix…",
       "contact": "聯繫我們",
       "community": "社群",
-      "contribute": "貢獻",
       "sign-in": "登錄",
       "sign-out": "登出",
       "new-street": "新的街道",
@@ -55,10 +54,6 @@
       "discord": "加入Discord聊天群",
       "slack": "加入Slack頻道",
       "newsletter": "訂閱電子報"
-    },
-    "contribute": {
-      "donate": "資助我們",
-      "opensource": "貢獻源代碼"
     },
     "feedback": {
       "prompt": "給我們發信息",

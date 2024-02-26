@@ -5,7 +5,6 @@
       "about": "Streetmix Hakkında...",
       "contact": "İletişim",
       "community": "Topluluk",
-      "contribute": "Katkıda bulun",
       "sign-in": "Giriş yap",
       "sign-out": "Oturumu kapat",
       "new-street": "Yeni sokak",
@@ -55,10 +54,6 @@
       "discord": "Discord grubuna katıl",
       "slack": "Slack grubuna katıl",
       "newsletter": "Haber bültenimize kayıt ol"
-    },
-    "contribute": {
-      "donate": "Bağış yap",
-      "opensource": "Açık kaynağa destek ol"
     },
     "feedback": {
       "prompt": "Bize bir mesaj gönder:",

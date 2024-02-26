@@ -5,7 +5,6 @@
       "about": "스트리트믹스 소개",
       "contact": "문의",
       "community": "커뮤니티",
-      "contribute": "기여",
       "sign-in": "로그인",
       "sign-out": "로그아웃",
       "new-street": "새 스트리트",
@@ -55,10 +54,6 @@
       "discord": "Discord 채팅 참여",
       "slack": "Slack 채팅 참여",
       "newsletter": "뉴스레터 구독"
-    },
-    "contribute": {
-      "donate": "기부하기",
-      "opensource": "오픈 소스에 기여하기"
     },
     "feedback": {
       "prompt": "Send us a message:",

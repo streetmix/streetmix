@@ -5,7 +5,6 @@
       "about": "O aplikacji Streetmix",
       "contact": "Kontakt",
       "community": "Społeczność",
-      "contribute": "Kontrybucja",
       "sign-in": "Zaloguj się",
       "sign-out": "Wyloguj się",
       "new-street": "Nowa ulica",
@@ -55,10 +54,6 @@
       "discord": "",
       "slack": "Dołącz do rozmów na Slacku",
       "newsletter": ""
-    },
-    "contribute": {
-      "donate": "Dołóż swój wkład",
-      "opensource": "Współtwórz otwarte oprogramowanie"
     },
     "feedback": {
       "prompt": "Napisz do nas:",

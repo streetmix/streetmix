@@ -5,7 +5,6 @@
       "about": "Om Streetmix...",
       "contact": "Kontakt",
       "community": "Felleskap",
-      "contribute": "Bidra",
       "sign-in": "Logg inn",
       "sign-out": "Logg ut",
       "new-street": "Ny gate",
@@ -55,10 +54,6 @@
       "discord": "Bli med i Discord-samtalen",
       "slack": "Bli med i Slack-samtalen",
       "newsletter": "Abonnér på nyhetsbrevet"
-    },
-    "contribute": {
-      "donate": "Støtt Streetmix",
-      "opensource": "Bidra til åpen kildekode"
     },
     "feedback": {
       "prompt": "Send oss en melding: ",

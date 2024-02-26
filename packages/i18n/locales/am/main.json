@@ -5,7 +5,6 @@
       "about": "ስለ ስትሪትሚክስ",
       "contact": "አድራሻ",
       "community": "የማህበረሰብ ገጽ",
-      "contribute": "አዋጡ",
       "sign-in": "ይግቡ",
       "sign-out": "ይውጡ",
       "new-street": "አዲስ ጎዳና",
@@ -55,10 +54,6 @@
       "discord": "የዲስኮርድ ውይይትን ይቀላቀሉ።",
       "slack": "ስላክ ውይይት ይቀላቀሉ።",
       "newsletter": "በራሪ ጽሑፋችን ላይ ይመዝገቡ ፡፡"
-    },
-    "contribute": {
-      "donate": "ይለግሱ",
-      "opensource": "ለክፍት ምንጩ አስተዋጽኦ ያበርክቱ "
     },
     "feedback": {
       "prompt": "መልእክት ይላኩልን ፡፡",
