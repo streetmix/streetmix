@@ -24,17 +24,17 @@ exports[`StreetMetaWidthMenu renders (imperial units, default width selected) 1`
       Building-to-building width:
     </option>
     <option
-      value="40"
+      value="12.192"
     >
       40′
     </option>
     <option
-      value="60"
+      value="18.288"
     >
       60′
     </option>
     <option
-      value="80"
+      value="24.384"
     >
       80′
     </option>
@@ -87,17 +87,17 @@ exports[`StreetMetaWidthMenu renders (metric units, custom width selected) 1`] =
       Building-to-building width:
     </option>
     <option
-      value="40"
+      value="12"
     >
       12 m
     </option>
     <option
-      value="60"
+      value="18"
     >
       18 m
     </option>
     <option
-      value="80"
+      value="24"
     >
       24 m
     </option>
@@ -105,7 +105,7 @@ exports[`StreetMetaWidthMenu renders (metric units, custom width selected) 1`] =
       disabled=""
     />
     <option
-      value="10"
+      value="3"
     >
       3 m
     </option>
@@ -124,6 +124,7 @@ exports[`StreetMetaWidthMenu renders (metric units, custom width selected) 1`] =
       Switch to imperial units (feet)
     </option>
     <option
+      disabled=""
       id="switch-to-metric-units"
       value="-2"
     >
@@ -157,17 +158,17 @@ exports[`StreetMetaWidthMenu renders (metric units, default width selected) 1`] 
       Building-to-building width:
     </option>
     <option
-      value="40"
+      value="12"
     >
       12 m
     </option>
     <option
-      value="60"
+      value="18"
     >
       18 m
     </option>
     <option
-      value="80"
+      value="24"
     >
       24 m
     </option>
@@ -186,6 +187,7 @@ exports[`StreetMetaWidthMenu renders (metric units, default width selected) 1`] 
       Switch to imperial units (feet)
     </option>
     <option
+      disabled=""
       id="switch-to-metric-units"
       value="-2"
     >

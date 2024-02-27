@@ -11,8 +11,8 @@ describe('StreetMetaWidthMenu', () => {
       <StreetMetaWidthMenu
         street={{
           units: 0,
-          width: 60,
-          occupiedWidth: 10
+          width: 18,
+          occupiedWidth: 3
         }}
         onChange={jest.fn()}
       />
@@ -26,8 +26,8 @@ describe('StreetMetaWidthMenu', () => {
       <StreetMetaWidthMenu
         street={{
           units: 0,
-          width: 10,
-          occupiedWidth: 10
+          width: 3,
+          occupiedWidth: 3
         }}
         onChange={jest.fn()}
       />
@@ -41,8 +41,8 @@ describe('StreetMetaWidthMenu', () => {
       <StreetMetaWidthMenu
         street={{
           units: 1,
-          width: 60,
-          occupiedWidth: 10
+          width: 18.288,
+          occupiedWidth: 3.048
         }}
         onChange={jest.fn()}
       />
@@ -59,17 +59,17 @@ describe('StreetMetaWidthMenu', () => {
       <StreetMetaWidthMenu
         street={{
           units: 0,
-          width: 40,
-          occupiedWidth: 10
+          width: 12,
+          occupiedWidth: 3
         }}
         editable={true}
         onChange={handleChange}
       />
     )
 
-    await user.selectOptions(screen.getByRole('combobox'), '40')
+    await user.selectOptions(screen.getByRole('combobox'), '12')
 
     // Return value is a string from <option value=""> attribute
-    expect(handleChange).toHaveReturnedWith('40')
+    expect(handleChange).toHaveReturnedWith('12')
   })
 })
