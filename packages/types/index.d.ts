@@ -19,7 +19,7 @@ export interface StreetJson {
   width: number
   id: string
   namespacedId: number
-  units: number
+  units: UnitsSetting
   location: StreetLocation | null
   userUpdated: boolean
   skybox: string
@@ -29,6 +29,12 @@ export interface StreetJson {
   rightBuildingVariant: string
   segments: Segment[]
   editCount: number
+}
+
+// Properties added to StreetJson by client
+export interface StreetJsonExtra extends StreetJson {
+  occupiedWidth: number
+  remainingWidth: number
 }
 
 export interface StreetData {

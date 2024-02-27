@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
+import { useSelector } from '../store/hooks'
 import Tooltip from '../ui/Tooltip'
 import {
   SETTINGS_UNITS_IMPERIAL,
@@ -15,6 +15,7 @@ import {
   STREET_WIDTH_SWITCH_TO_METRIC,
   STREET_WIDTH_SWITCH_TO_IMPERIAL
 } from './constants'
+import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidthMenu.scss'
 
 const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(
@@ -22,63 +23,56 @@ const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(
 )
 const DEFAULT_STREET_WIDTHS_METRIC = [12, 18, 24]
 
-// Custom hook to focus an element after it's mounted
-// To use, call this function in a ref prop
-function useFocus () {
-  const el = useRef(null)
-  useEffect(() => {
-    el.current.focus()
-  }, [])
-  return el
+interface StreetMetaWidthMenuProps {
+  street: StreetJsonExtra
+  onChange: (value: string) => void
 }
 
-StreetMetaWidthMenu.propTypes = {
-  street: PropTypes.shape({
-    units: PropTypes.number,
-    width: PropTypes.number,
-    occupiedWidth: PropTypes.number
-  }).isRequired,
-  onChange: PropTypes.func.isRequired
-}
-
-function StreetMetaWidthMenu ({ street, onChange }) {
-  function handleChange (event) {
-    onChange(event.target.value)
-  }
-
-  function renderOption (width, units) {
-    return (
-      <option key={width} value={width}>
-        {prettifyWidth(width, units)}
-      </option>
-    )
-  }
-
-  // Get ready to render
+function StreetMetaWidthMenu ({
+  street,
+  onChange
+}: StreetMetaWidthMenuProps): React.ReactElement {
+  const ref = useRef<HTMLSelectElement>(null)
+  const locale = useSelector((state) => state.locale.locale)
   const { formatMessage } = useIntl()
-  const { units, width, occupiedWidth } = street
 
-  // Create options for default widths. This will also convert the widths
-  // the proper units for the street.
+  const { units, width, occupiedWidth } = street
   const defaultWidths =
     units === SETTINGS_UNITS_IMPERIAL
       ? DEFAULT_STREET_WIDTHS_IMPERIAL
       : DEFAULT_STREET_WIDTHS_METRIC
-  const DefaultWidthOptions = defaultWidths.map((width) =>
-    renderOption(width, units)
+
+  // Focus the <select> element after mounting
+  useEffect(() => {
+    if (ref.current !== null) {
+      ref.current.focus()
+    }
+  }, [])
+
+  function handleChange (event: React.ChangeEvent<HTMLSelectElement>): void {
+    onChange(event.target.value)
+  }
+
+  const Option = ({ width }: { width: number }): React.ReactElement => (
+    <option key={width} value={width}>
+      {prettifyWidth(width, units, locale)}
+    </option>
   )
+
+  const DefaultWidthOptions = (): React.ReactElement[] =>
+    defaultWidths.map((width) => <Option key={width} width={width} />)
 
   // If the street width doesn't match any of the default widths,
   // render another choice representing the current width
-  const CustomWidthOption =
-    defaultWidths.indexOf(Number.parseFloat(width)) === -1
-      ? (
+  const CustomWidthOption = (): React.ReactElement | null =>
+    defaultWidths.includes(width)
+      ? null
+      : (
         <>
           <option disabled={true} />
-          {renderOption(width, units)}
+          <Option width={width} />
         </>
         )
-      : null
 
   return (
     <Tooltip
@@ -89,8 +83,7 @@ function StreetMetaWidthMenu ({ street, onChange }) {
       placement="bottom"
     >
       <select
-        // Focus the <select> element after mounting
-        ref={useFocus()}
+        ref={ref}
         onChange={handleChange}
         value={width}
         className="street-width-select"
@@ -101,7 +94,9 @@ function StreetMetaWidthMenu ({ street, onChange }) {
             defaultMessage: 'Occupied width:'
           })}
         </option>
-        <option disabled={true}>{prettifyWidth(occupiedWidth, units)}</option>
+        <option disabled={true}>
+          {prettifyWidth(occupiedWidth, units, locale)}
+        </option>
         <option disabled={true} />
         <option disabled={true}>
           {formatMessage({
@@ -109,8 +104,8 @@ function StreetMetaWidthMenu ({ street, onChange }) {
             defaultMessage: 'Building-to-building width:'
           })}
         </option>
-        {DefaultWidthOptions}
-        {CustomWidthOption}
+        <DefaultWidthOptions />
+        <CustomWidthOption />
         <option value={STREET_WIDTH_CUSTOM}>
           {formatMessage({
             id: 'width.different',
