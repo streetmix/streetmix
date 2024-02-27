@@ -5,7 +5,7 @@ import {
 import store from '../store'
 import { formatNumber } from './number_format'
 
-const IMPERIAL_CONVERSION_RATE = 0.3048
+const IMPERIAL_CONVERSION_RATE = 3.2808
 const METRIC_PRECISION = 3
 const IMPERIAL_PRECISION = 3
 
@@ -114,10 +114,16 @@ export function prettifyWidth (width, units, locale) {
   }
 
   switch (units) {
-    case SETTINGS_UNITS_IMPERIAL:
-      widthText = getImperialMeasurementWithVulgarFractions(width, locale) // also converts to string
+    case SETTINGS_UNITS_IMPERIAL: {
+      const imperialWidth = convertMetricMeasurementToImperial(width)
+      const roundedWidth = roundToNearestEighth(imperialWidth)
+      widthText = getImperialMeasurementWithVulgarFractions(
+        roundedWidth,
+        locale
+      ) // also converts to string
       widthText += '′'
       break
+    }
     case SETTINGS_UNITS_METRIC:
     default:
       widthText = stringifyMeasurementValue(
@@ -171,8 +177,7 @@ export function stringifyMeasurementValue (value, units, locale) {
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL: {
-      const convertedValue = convertMetricMeasurementToImperial(value)
-      string = formatNumber(convertedValue, locale, {
+      string = formatNumber(value, locale, {
         style: 'decimal',
         maximumFractionDigits: IMPERIAL_PRECISION
       })
@@ -198,13 +203,13 @@ export function stringifyMeasurementValue (value, units, locale) {
  * @param {Number} value, assuming metric units
  * @returns {Number} value in imperial units
  */
-function convertMetricMeasurementToImperial (value) {
+export function convertMetricMeasurementToImperial (value) {
   return round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
 }
 
 /**
- * Given a measurement value, assumed to be in imperial units,
- * return a metric quantity up to three decimal point precision.
+ * Given a measurement, assumed to be in imperial units,
+ * return a metric value up to three decimal point precision.
  *
  * @param {Number} value, assuming imperial units
  * @returns {Number} value in metric units
@@ -212,8 +217,16 @@ function convertMetricMeasurementToImperial (value) {
 // Not used here, but keeping for now in case we change how unit
 // conversion works.
 // eslint-disable-next-line no-unused-vars
-function convertImperialMeasurementToMetric (value) {
+export function convertImperialMeasurementToMetric (value) {
   return round(value / IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
+}
+
+/**
+ * Given a measurement, assumed to be in imperial units,
+ * return a value rounded to the nearest (up or down) eighth.
+ */
+function roundToNearestEighth (value) {
+  return Math.round(value * 8) / 8
 }
 
 /**

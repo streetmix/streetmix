@@ -6,8 +6,10 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
-import { normalizeStreetWidth } from '../streets/width'
-import { prettifyWidth } from '../util/width_units'
+import {
+  prettifyWidth,
+  convertImperialMeasurementToMetric
+} from '../util/width_units'
 import {
   STREET_WIDTH_CUSTOM,
   STREET_WIDTH_SWITCH_TO_METRIC,
@@ -15,7 +17,10 @@ import {
 } from './constants'
 import './StreetMetaWidthMenu.scss'
 
-const DEFAULT_STREET_WIDTHS = [40, 60, 80]
+const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(
+  convertImperialMeasurementToMetric
+)
+const DEFAULT_STREET_WIDTHS_METRIC = [12, 18, 24]
 
 // Custom hook to focus an element after it's mounted
 // To use, call this function in a ref prop
@@ -55,9 +60,10 @@ function StreetMetaWidthMenu ({ street, onChange }) {
 
   // Create options for default widths. This will also convert the widths
   // the proper units for the street.
-  const defaultWidths = DEFAULT_STREET_WIDTHS.map((width) =>
-    normalizeStreetWidth(width, units)
-  )
+  const defaultWidths =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? DEFAULT_STREET_WIDTHS_IMPERIAL
+      : DEFAULT_STREET_WIDTHS_METRIC
   const DefaultWidthOptions = defaultWidths.map((width) =>
     renderOption(width, units)
   )

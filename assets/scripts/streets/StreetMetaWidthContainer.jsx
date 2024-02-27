@@ -47,7 +47,7 @@ function StreetMetaWidthContainer (props) {
     setEditing(false)
 
     const { units, width, occupiedWidth } = street
-    const selection = Number.parseInt(value, 10)
+    const selection = Number.parseFloat(value)
 
     switch (selection) {
       case STREET_WIDTH_SWITCH_TO_METRIC:
