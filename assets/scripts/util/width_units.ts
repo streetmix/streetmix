@@ -4,6 +4,7 @@ import {
 } from '../users/constants'
 import store from '../store'
 import { formatNumber } from './number_format'
+import type { UnitsSetting } from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 3.2808
 const METRIC_PRECISION = 3
@@ -15,12 +16,12 @@ const WIDTH_INPUT_CONVERSION = [
   { text: 'dm', multiplier: 1 / 10 },
   { text: 'cm', multiplier: 1 / 100 },
   { text: 'mm', multiplier: 1 / 1000 },
-  { text: '"', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
-  { text: '″', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
-  { text: 'in', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
-  { text: 'in.', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
-  { text: 'inch', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
-  { text: 'inches', multiplier: (1 / IMPERIAL_CONVERSION_RATE) * 12 },
+  { text: '"', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
+  { text: '″', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
+  { text: 'in', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
+  { text: 'in.', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
+  { text: 'inch', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
+  { text: 'inches', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
   { text: "'", multiplier: 1 / IMPERIAL_CONVERSION_RATE },
   { text: '′', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
   { text: 'ft', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
@@ -28,7 +29,7 @@ const WIDTH_INPUT_CONVERSION = [
   { text: 'feet', multiplier: 1 / IMPERIAL_CONVERSION_RATE }
 ]
 
-const IMPERIAL_VULGAR_FRACTIONS = {
+const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
   '.125': '⅛',
   '.25': '¼',
   '.375': '⅜',
@@ -39,27 +40,29 @@ const IMPERIAL_VULGAR_FRACTIONS = {
 }
 
 // https://www.jacklmoore.com/notes/rounding-in-javascript/
-function round (value, decimals) {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+function round (value: number, decimals: number): number {
+  // Can't use exponentiation operators either, it'll still produce rounding
+  // errors, so we stick with concatenating exponents as a string then
+  // casting to Number to satisfy the type-checker.
+  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
 }
 
 /**
- * Processes width input from user
- *
- * @param {string} widthInput
- * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
- * @returns {Number} width - in default units, regardless of provided units
+ * Processes a string width input from user, returns a number
  */
-export function processWidthInput (widthInput, units) {
-  if (!widthInput || units === undefined) return
-
-  // Normalize certain input quirks. Spaces (more common at end or beginning of input)
-  // go away, and comma-based decimals turn into period-based decimals
+export function processWidthInput (
+  widthInput: string,
+  units: UnitsSetting
+): number {
+  // Normalize certain input quirks. Spaces (more common at end or beginning
+  // of input) go away, and comma-based decimals turn into period-based
+  // decimals
   widthInput = widthInput.replace(/ /g, '')
   widthInput = widthInput.replace(/,/g, '.')
 
+  // Replace vulgar fractions, such as ¼, with its decimal equivalent
   for (const i in IMPERIAL_VULGAR_FRACTIONS) {
-    if (widthInput.indexOf(IMPERIAL_VULGAR_FRACTIONS[i]) !== -1) {
+    if (widthInput.includes(IMPERIAL_VULGAR_FRACTIONS[i])) {
       widthInput = widthInput.replace(
         new RegExp(IMPERIAL_VULGAR_FRACTIONS[i]),
         i
@@ -67,26 +70,27 @@ export function processWidthInput (widthInput, units) {
     }
   }
 
-  let width
+  let width: number
 
-  // The conditional makes sure we only split and parse separately when the input includes ' as any character except the last
+  // The conditional makes sure we only split and parse separately when the
+  // input includes ' as any character except the last
   if (
-    widthInput.indexOf("'") !== -1 &&
+    widthInput.includes("'") &&
     widthInput.length > widthInput.indexOf("'") + 1
   ) {
-    widthInput = widthInput.split("'")
-    widthInput[0] += "'" // Add the ' to the first value so the parser knows to convert in feet, not in unitless, when in metric
-    width = widthInput.reduce(function (prev, cur) {
-      if (cur.indexOf('"') === -1) {
-        // Assuming anything coming after feet is going to be inches
-        cur += '"'
-      }
+    const splitInput = widthInput.split("'")
+    // Add the ' to the first value so the parser knows to convert in feet,
+    // not in unitless, when in metric
+    splitInput[0] += "'"
 
-      return (
-        parseStringForUnits(prev.toString()) +
-        parseStringForUnits(cur.toString(), units)
-      )
-    })
+    // Assuming anything coming after feet is going to be inches
+    if (!splitInput[1].includes('"')) {
+      splitInput[1] += '"'
+    }
+
+    width =
+      parseStringForUnits(splitInput[0], units) +
+      parseStringForUnits(splitInput[1], units)
   } else {
     width = parseStringForUnits(widthInput, units)
   }
@@ -97,18 +101,17 @@ export function processWidthInput (widthInput, units) {
 /**
  * Formats a width to a "pretty" output and converts the value to the user's
  * current units settings (imperial or metric).
- *
- * @param {Number} width to display
- * @param {Number} units - units, either SETTINGS_UNITS_METRIC or
- *            SETTINGS_UNITS_IMPERIAL, to format width as. If undefined,
- *            assume metric.
- * @param {string} locale - string
- * @returns {string}
  */
-export function prettifyWidth (width, units, locale) {
+export function prettifyWidth (
+  width: number,
+  units: UnitsSetting,
+  locale: string
+): string {
   let widthText = ''
 
-  // LEGACY: Not all uses of this function pass in locale
+  // LEGACY: Not all uses of this function pass in locale.
+  // This is _not_ an optional value. After TypeScript conversion,
+  // missing this parameter throws an error.
   if (!locale) {
     locale = store.getState().locale.locale
   }
@@ -158,14 +161,12 @@ export function prettifyWidth (width, units, locale) {
  * Returns a measurement value as a locale-sensitive string without units or formatting,
  * and converts to the desired units, if necessary.
  * Used primarily when converting input box values to a simple number format
- *
- * @param {Number} value - original measurement value
- * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
- *          Defaults to metric.
- * @param {string} locale - locale code
- * @returns {string} string - for display
  */
-export function stringifyMeasurementValue (value, units, locale) {
+export function stringifyMeasurementValue (
+  value: number,
+  units: UnitsSetting,
+  locale: string
+): string {
   let string = ''
 
   if (!value) return '0'
@@ -199,25 +200,16 @@ export function stringifyMeasurementValue (value, units, locale) {
 /**
  * Given a measurement value (stored internally in Streetmix as metric units),
  * return an imperial quantity up to three decimal point precision.
- *
- * @param {Number} value, assuming metric units
- * @returns {Number} value in imperial units
  */
-export function convertMetricMeasurementToImperial (value) {
+export function convertMetricMeasurementToImperial (value: number): number {
   return round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
 }
 
 /**
  * Given a measurement, assumed to be in imperial units,
  * return a metric value up to three decimal point precision.
- *
- * @param {Number} value, assuming imperial units
- * @returns {Number} value in metric units
  */
-// Not used here, but keeping for now in case we change how unit
-// conversion works.
-// eslint-disable-next-line no-unused-vars
-export function convertImperialMeasurementToMetric (value) {
+export function convertImperialMeasurementToMetric (value: number): number {
   return round(value / IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
 }
 
@@ -225,19 +217,18 @@ export function convertImperialMeasurementToMetric (value) {
  * Given a measurement, assumed to be in imperial units,
  * return a value rounded to the nearest (up or down) eighth.
  */
-function roundToNearestEighth (value) {
+function roundToNearestEighth (value: number): number {
   return Math.round(value * 8) / 8
 }
 
 /**
  * Given a measurement value (assuming imperial units), return
  * a string formatted to use vulgar fractions, e.g. .5 => ½
- *
- * @param {Number} value, assuming imperial units
- * @param {string} locale - locale code
- * @returns {string} stringified value formatted with vulgar fractions
  */
-export function getImperialMeasurementWithVulgarFractions (value, locale) {
+export function getImperialMeasurementWithVulgarFractions (
+  value: number,
+  locale: string
+): string {
   // Determine if there is a vulgar fraction to display
   const remainder = value - Math.floor(value)
   const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder.toString().substr(1)]
@@ -264,13 +255,9 @@ export function getImperialMeasurementWithVulgarFractions (value, locale) {
 /**
  * Given a width in any unit (including no unit), parses for units and returns
  * value multiplied by the appropriate multiplier.
- *
- * @param {String} widthInput to convert to number
- * @param {Number} units - either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
- * @returns {Number} formatted width as number
  */
-function parseStringForUnits (widthInput, units) {
-  if (widthInput.indexOf('-') !== -1) {
+function parseStringForUnits (widthInput: string, units: UnitsSetting): number {
+  if (widthInput.includes('-')) {
     widthInput = widthInput.replace(/-/g, '') // Dashes would mean negative in the parseFloat
   }
 
@@ -278,23 +265,21 @@ function parseStringForUnits (widthInput, units) {
 
   if (width) {
     let multiplier = 1
+    let precision = METRIC_PRECISION
 
     if (units === SETTINGS_UNITS_IMPERIAL) {
       multiplier = 1 / IMPERIAL_CONVERSION_RATE
+      precision = IMPERIAL_PRECISION
     }
 
-    for (const i in WIDTH_INPUT_CONVERSION) {
-      if (
-        widthInput.match(
-          new RegExp('[\\d\\.]' + WIDTH_INPUT_CONVERSION[i].text + '$')
-        )
-      ) {
-        multiplier = WIDTH_INPUT_CONVERSION[i].multiplier
+    for (const converter of WIDTH_INPUT_CONVERSION) {
+      if (widthInput.match(new RegExp('[\\d\\.]' + converter.text + '$'))) {
+        multiplier = converter.multiplier
         break
       }
     }
     width *= multiplier
-    return width
+    return round(width, precision)
   } else {
     return 0 // Allows for leading zeros, like 0'7"
   }
