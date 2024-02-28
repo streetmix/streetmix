@@ -46,24 +46,26 @@ exports[`StreetMetaWidthContainer renders selection dropdown on click 1`] = `
         Building-to-building width:
       </option>
       <option
-        value="40"
+        value="12"
       >
         12 m
       </option>
       <option
-        value="60"
+        value="18"
       >
         18 m
       </option>
       <option
-        value="80"
+        value="24"
       >
         24 m
       </option>
       <option
         disabled=""
       />
-      <option>
+      <option
+        value="0"
+      >
         0 m
       </option>
       <option
