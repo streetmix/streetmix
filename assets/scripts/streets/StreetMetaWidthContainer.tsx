@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+import { useSelector, useDispatch } from '../store/hooks'
+import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
 import { updateUnits } from '../users/localization'
 import { processWidthInput, prettifyWidth } from '../util/width_units'
-import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
 import StreetMetaWidthLabel from './StreetMetaWidthLabel'
 import StreetMetaWidthMenu from './StreetMetaWidthMenu'
 import {
@@ -19,31 +19,31 @@ import {
 } from './constants'
 import { normalizeStreetWidth } from './width'
 
-function StreetMetaWidthContainer (props) {
+function StreetMetaWidthContainer (): React.ReactElement {
   const street = useSelector((state) => state.street)
   const editable = useSelector(
     (state) => !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value
   )
+  const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
   const [isEditing, setEditing] = useState(false)
   const intl = useIntl()
 
   /**
-   * When the street width label is clicked, only allow editing if street
-   * width is not read-only
+   * When the street width label is clicked, only allow editing if
+   * street width is not read-only
    */
-  const handleClickLabel = (event) => {
+  const handleClickLabel = (event: React.MouseEvent): void => {
     if (editable) {
       setEditing(true)
     }
   }
 
   /**
-   * Handles changes to the <select> dropdown rendered in <StreetMetaWidthMenu />
-   *
-   * @param {string} - value from selected <option>
+   * Handles changes to the <select> dropdown rendered in
+   * <StreetMetaWidthMenu />
    */
-  const handleChangeMenuSelection = (value) => {
+  const handleChangeMenuSelection = (value: string): void => {
     setEditing(false)
 
     const { units, width, occupiedWidth } = street
@@ -65,16 +65,16 @@ function StreetMetaWidthContainer (props) {
             defaultMessage: 'New street width (from {minWidth} to {maxWidth}):'
           },
           {
-            minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, units),
-            maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, units)
+            minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, units, locale),
+            maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, units, locale)
           }
         )
         const inputWidth = window.prompt(
           promptString,
-          prettifyWidth(promptValue, units)
+          prettifyWidth(promptValue, units, locale)
         )
 
-        if (inputWidth) {
+        if (inputWidth !== null) {
           const newWidth = normalizeStreetWidth(
             processWidthInput(inputWidth, units),
             units

@@ -14,20 +14,20 @@ export interface Segment {
 }
 
 export interface StreetJson {
-  schemaVersion: number
-  showAnalytics: boolean
-  width: number
   id: string
   namespacedId: number
+  schemaVersion: number
   units: UnitsSetting
-  location: StreetLocation | null
-  userUpdated: boolean
-  skybox: string
+  width: number
+  segments: Segment[]
   leftBuildingHeight: number
   rightBuildingHeight: number
   leftBuildingVariant: string
   rightBuildingVariant: string
-  segments: Segment[]
+  skybox: string
+  location: StreetLocation | null
+  showAnalytics: boolean
+  userUpdated: boolean
   editCount: number
 }
 
