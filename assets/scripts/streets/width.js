@@ -6,11 +6,7 @@ import {
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
-import {
-  MIN_CUSTOM_STREET_WIDTH,
-  MAX_CUSTOM_STREET_WIDTH,
-  WIDTH_ROUNDING
-} from './constants'
+import { MIN_CUSTOM_STREET_WIDTH, MAX_CUSTOM_STREET_WIDTH } from './constants'
 
 /**
  * Given an input width value, constrains the value to the
@@ -58,7 +54,7 @@ function calculateRemainingWidth (streetWidth, occupiedWidth) {
   let remainingWidth = streetWidth - occupiedWidth
 
   // Rounding problems :·(
-  if (Math.abs(remainingWidth) < WIDTH_ROUNDING) {
+  if (Math.abs(remainingWidth) < 0.01) {
     remainingWidth = 0
   }
 
