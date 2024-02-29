@@ -7,8 +7,10 @@ import { RESIZE_TYPE_TYPING, resizeSegment } from '../segments/resizing'
 import {
   prettifyWidth,
   stringifyMeasurementValue,
-  processWidthInput
+  processWidthInput,
+  convertMetricMeasurementToImperial
 } from '../util/width_units'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import { incrementSegmentWidth } from '../store/actions/street'
 import UpDownInput from './UpDownInput'
 
@@ -66,7 +68,12 @@ function WidthControl ({ position }) {
    * @returns {string} - a decorated value
    */
   const inputValueFormatter = (value) => {
-    return stringifyMeasurementValue(value, units, locale)
+    if (units === SETTINGS_UNITS_IMPERIAL) {
+      const imperialValue = convertMetricMeasurementToImperial(value)
+      return stringifyMeasurementValue(imperialValue, units, locale)
+    } else {
+      return stringifyMeasurementValue(value, units, locale)
+    }
   }
 
   /**
@@ -77,7 +84,7 @@ function WidthControl ({ position }) {
    * @returns {string} - a decorated value
    */
   const displayValueFormatter = (value) => {
-    return prettifyWidth(value, units)
+    return prettifyWidth(value, units, locale)
   }
 
   return (

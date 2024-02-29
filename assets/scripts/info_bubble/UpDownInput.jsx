@@ -168,14 +168,6 @@ function UpDownInput (props) {
     setIsEditing(true)
   }
 
-  /**
-   * Somehow, the double-click to select all text is broken, so this
-   * manually puts it back
-   */
-  function handleInputDoubleClick (event) {
-    event.target.select()
-  }
-
   function handleInputChange (event) {
     const value = event.target.value
 
@@ -220,18 +212,6 @@ function UpDownInput (props) {
     if (isEditing) return
 
     setIsHovered(true)
-
-    // Automatically select the value on hover so that it's easy to start
-    // typing new values. In React, this only works if the .select() is called
-    // at the end of the execution stack, so we put it inside a setTimeout()
-    // with a timeout of zero. We also must store the reference to the event
-    // target because the React synthetic event will not persist into the
-    // `setTimeout` function.
-    const target = event.target
-    window.setTimeout(() => {
-      target.focus()
-      target.select()
-    }, 0)
   }
 
   /**
@@ -246,8 +226,6 @@ function UpDownInput (props) {
     // the isHovered and isEditing state here.
     setIsHovered(false)
     setIsEditing(false)
-
-    event.target.blur()
 
     if (!allowAutoUpdate) {
       onUpdatedValue(event.target.value)
@@ -299,7 +277,6 @@ function UpDownInput (props) {
         value={displayValue}
         onChange={handleInputChange}
         onClick={handleInputClick}
-        onDoubleClick={handleInputDoubleClick}
         onBlur={handleInputBlur}
         onMouseDown={handleInputMouseDown}
         onMouseOver={handleInputMouseOver}

@@ -142,7 +142,8 @@ export function prettifyWidth (
         case 'ru':
           widthText += ' м'
           break
-        // In Arabic, use the same character that the USDM uses for metric units
+        // In Arabic, use the same character that the USDM uses for
+        // metric units
         case 'ar':
           widthText += ' م'
           break
@@ -158,8 +159,8 @@ export function prettifyWidth (
 }
 
 /**
- * Returns a measurement value as a locale-sensitive string without units or formatting,
- * and converts to the desired units, if necessary.
+ * Returns a measurement value as a locale-sensitive string without units
+ * or formatting, and converts to the desired units, if necessary.
  * Used primarily when converting input box values to a simple number format
  */
 export function stringifyMeasurementValue (
