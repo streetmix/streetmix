@@ -1,8 +1,3 @@
-// https://www.jacklmoore.com/notes/rounding-in-javascript/
-function round (value, decimals) {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
-}
-
 export function asStreetJson (street) {
   const json = {
     id: street.id,
@@ -19,44 +14,6 @@ export function asStreetJson (street) {
   // Deprecated creator id, do not use.
   if (street.creatorId) {
     json.creator = { id: street.creatorId }
-  }
-
-  // TEMPORARY! TEST! LET'S DO METRICATION!
-  // If units = 2 (metric) convert with orig precision
-  // if schemaVersion already 30, that means this was already done
-  if (json.data.street.schemaVersion < 30) {
-    const data = json.data.street
-    if (json.data.street.units === 2) {
-      // Use imprecise (original) conversion rate to metric
-      const conversion = 0.3
-
-      // Convert street width to metric
-      data.width = round(data.width * conversion, 3)
-
-      // Convert segment widths to metric
-      for (let i = 0; i < data.segments.length; i++) {
-        const segment = data.segments[i]
-        segment.width = round(segment.width * conversion, 3)
-      }
-
-      // Set new units value
-      data.units = 0
-    } else {
-      // Use precise conversion to metric
-      const conversion = 0.3048
-
-      // Convert street width to metric
-      data.width = round(data.width * conversion, 3)
-
-      // Convert segment widths to metric
-      for (let i = 0; i < data.segments.length; i++) {
-        const segment = data.segments[i]
-        segment.width = round(segment.width * conversion, 3)
-      }
-    }
-
-    // Mock update to schema version
-    json.data.street.schemaVersion = 30
   }
 
   return json
