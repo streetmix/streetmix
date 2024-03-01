@@ -17,7 +17,7 @@ describe('prettifyHeight()', () => {
       SETTINGS_UNITS_METRIC,
       formatMessage
     )
-    expect(text).toBe('2 floors (7.65 m)')
+    expect(text).toBe('2 floors (7.9 m)')
   })
 
   it('formats a building with floors with height (metric)', () => {
@@ -29,6 +29,6 @@ describe('prettifyHeight()', () => {
       SETTINGS_UNITS_IMPERIAL,
       formatMessage
     )
-    expect(text).toBe('3 floors (35½′)')
+    expect(text).toBe('3 floors (36′)')
   })
 })

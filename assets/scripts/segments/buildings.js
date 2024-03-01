@@ -1,6 +1,6 @@
 import seedrandom from 'seedrandom'
 import { generateRandSeed } from '../util/random'
-import { prettifyWidth } from '../util/width_units'
+import { prettifyWidth, round } from '../util/width_units'
 import { images } from '../app/load_resources'
 import {
   TILE_SIZE,
@@ -8,6 +8,7 @@ import {
   BUILDING_LEFT_POSITION
 } from '../segments/constants'
 import store from '../store'
+import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { drawSegmentImage } from './view'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -74,9 +75,9 @@ export const BUILDINGS = {
     spriteId: 'buildings--residential',
     hasFloors: true,
     variantsCount: 0,
-    floorHeight: 10,
-    roofHeight: 6,
-    mainFloorHeight: 24.5
+    floorHeight: 3.048, // meters (match illustration)
+    roofHeight: 1.832, // meters (match illustration)
+    mainFloorHeight: 7.468 // meters (match illustration)
   },
   narrow: {
     id: 'narrow',
@@ -84,9 +85,9 @@ export const BUILDINGS = {
     spriteId: 'buildings--apartments-narrow',
     hasFloors: true,
     variantsCount: 1,
-    floorHeight: 10,
-    roofHeight: 2,
-    mainFloorHeight: 14,
+    floorHeight: 3.048, // meters (match illustration)
+    roofHeight: 0.61, // meters (match illustration)
+    mainFloorHeight: 4.267, // meters (match illustration)
     overhangWidth: 17
   },
   wide: {
@@ -95,10 +96,10 @@ export const BUILDINGS = {
     spriteId: 'buildings--apartments-wide',
     hasFloors: true,
     variantsCount: 1,
-    floorHeight: 10,
-    roofHeight: 2,
-    mainFloorHeight: 14,
-    overhangWidth: 22
+    floorHeight: 3.048, // meters (match illustration)
+    roofHeight: 0.61, // meters (match illustration)
+    mainFloorHeight: 4.267, // meters (match illustration)
+    overhangWidth: 22 // pixels
   },
   arcade: {
     id: 'arcade',
@@ -106,10 +107,10 @@ export const BUILDINGS = {
     spriteId: 'buildings--arcade',
     hasFloors: true,
     variantsCount: 1,
-    floorHeight: 10,
-    roofHeight: 6,
-    mainFloorHeight: 14,
-    overhangWidth: 15
+    floorHeight: 3.048, // meters (match illustration)
+    roofHeight: 1.832, // meters (match illustration)
+    mainFloorHeight: 4.267, // meters (match illustration)
+    overhangWidth: 15 // pixels
   },
   'compound-wall': {
     id: 'compound-wall',
@@ -132,9 +133,10 @@ function getSpriteId (variant, position) {
 }
 
 /**
- * Calculate building image height. For buildings that do not have multiple floors, this
- * is just the image's intrinsic height value. For buildings with multiple floors, this
- * must be calculated from the number of floors and sprite pixel specifications.
+ * Calculate building image height. For buildings that do not have multiple
+ * floors, this is just the image's intrinsic height value. For buildings with
+ * multiple floors, this must be calculated from the number of floors and
+ * sprite pixel specifications.
  *
  * @param {string} variant
  * @param {string} position - either "left" or "right"
@@ -160,15 +162,15 @@ export function getBuildingImageHeight (variant, position, floors = 1) {
 }
 
 /**
- * Converts the number of floors to an actual height in feet
+ * Converts the number of floors to an actual height in meters
  *
  * @param {string} variant
  * @param {string} position - "left" or "right"
  * @param {Number} floors
- * @returns {Number} height, in feet
+ * @returns {Number} height, in meters
  */
 export function calculateRealHeightNumber (variant, position, floors) {
-  const CURB_HEIGHT = 6
+  const CURB_HEIGHT = 0.15 // meters
   return (
     (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) /
     TILE_SIZE
@@ -176,13 +178,10 @@ export function calculateRealHeightNumber (variant, position, floors) {
 }
 
 /**
- * Given a building, return a string showing number of floors and actual height measurement
- * e.g. when height value is `4` return a string that looks like this:
+ * Given a building, return a string showing number of floors and actual
+ * height measurement e.g. when height value is `4` return a string that
+ * looks like this:
  *    "4 floors (45m)"
- *
- * This is only used in <BuildingHeightControl /> component, but moved here because of
- * it's similar to width functionality, and its use in the component's static method
- * `getDerivedStateFromProps()` means it cannot live on the component instance.
  *
  * @todo Localize return value
  * @param {string} variant - what type of building is it
@@ -208,7 +207,10 @@ export function prettifyHeight (
     }
   )
 
-  const realHeight = calculateRealHeightNumber(variant, position, floors)
+  let realHeight = calculateRealHeightNumber(variant, position, floors)
+  if (units === SETTINGS_UNITS_METRIC) {
+    realHeight = round(realHeight, 1)
+  }
   const prettifiedHeight = prettifyWidth(realHeight, units)
 
   text += ` (${prettifiedHeight})`

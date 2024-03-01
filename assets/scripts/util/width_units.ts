@@ -40,7 +40,7 @@ const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
 }
 
 // https://www.jacklmoore.com/notes/rounding-in-javascript/
-function round (value: number, decimals: number): number {
+export function round (value: number, decimals: number): number {
   // Can't use exponentiation operators either, it'll still produce rounding
   // errors, so we stick with concatenating exponents as a string then
   // casting to Number to satisfy the type-checker.
