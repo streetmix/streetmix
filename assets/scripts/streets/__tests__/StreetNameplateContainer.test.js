@@ -24,7 +24,8 @@ const initialState = {
     }
   },
   street: {
-    name: 'foo'
+    name: 'foo',
+    location: null
   }
 }
 
