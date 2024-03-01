@@ -12,7 +12,7 @@ exports[`SegmentLabelContainer renders React element label 1`] = `
       class="segment-width"
     >
       <span>
-        0.3 m
+        1 m
       </span>
     </div>
     <div
@@ -42,7 +42,7 @@ exports[`SegmentLabelContainer renders correct grid styling in imperial 1`] = `
       class="segment-width"
     >
       <span>
-        1′
+        3¼′
       </span>
     </div>
     <div
@@ -70,7 +70,7 @@ exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
       class="segment-width"
     >
       <span>
-        0.3 m
+        1 m
       </span>
     </div>
     <div
@@ -98,7 +98,7 @@ exports[`SegmentLabelContainer renders editable label 1`] = `
       class="segment-width"
     >
       <span>
-        0.3 m
+        1 m
       </span>
     </div>
     <div
@@ -126,7 +126,7 @@ exports[`SegmentLabelContainer renders string label 1`] = `
       class="segment-width"
     >
       <span>
-        0.3 m
+        1 m
       </span>
     </div>
     <div
