@@ -212,6 +212,18 @@ function UpDownInput (props) {
     if (isEditing) return
 
     setIsHovered(true)
+
+    // Automatically select the value on hover so that it's easy to start
+    // typing new values. In React, this only works if the .select() is called
+    // at the end of the execution stack, so we put it inside a setTimeout()
+    // with a timeout of zero. We also must store the reference to the event
+    // target because the React synthetic event will not persist into the
+    // `setTimeout` function.
+    const target = event.target
+    window.setTimeout(() => {
+      target.focus()
+      target.select()
+    }, 0)
   }
 
   /**
@@ -226,6 +238,8 @@ function UpDownInput (props) {
     // the isHovered and isEditing state here.
     setIsHovered(false)
     setIsEditing(false)
+
+    event.target.blur()
 
     if (!allowAutoUpdate) {
       onUpdatedValue(event.target.value)
