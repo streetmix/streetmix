@@ -19,8 +19,8 @@ jest.mock('../view', () => {
     ...actual,
     getVariantInfoDimensions: jest.fn(() => ({
       left: 0,
-      right: 100,
-      center: 50
+      right: 3,
+      center: 1.5
     }))
   }
 })
@@ -59,7 +59,7 @@ describe('Segment', () => {
     variantString = 'inbound|regular'
     type = 'streetcar'
     variant = SEGMENT_INFO[type].details[variantString]
-    currentWidth = 200
+    currentWidth = 5
     increment = __TEST_RESIZE_INCREMENT
     activeElement = 0
     segment = {

@@ -5,7 +5,7 @@ exports[`Segment renders correctly 1`] = `
   <div
     class="segment hover show-drag-handles"
     data-testid="segment"
-    style="width: 2400px; z-index: 1; transform: translateX(undefinedpx);"
+    style="width: 197px; z-index: 1;"
   >
     <div
       class="segment-label-container"
@@ -17,7 +17,7 @@ exports[`Segment renders correctly 1`] = `
         class="segment-width"
       >
         <span>
-          60 m
+          5 m
         </span>
       </div>
       <div
@@ -55,8 +55,8 @@ exports[`Segment renders correctly 1`] = `
       <canvas
         class="segment-image"
         height="445"
-        style="width: 2400px; height: 445px; left: 0px;"
-        width="2400"
+        style="width: 197px; height: 445px; left: 0px;"
+        width="197"
       />
     </div>
     <div
