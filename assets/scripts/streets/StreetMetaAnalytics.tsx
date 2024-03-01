@@ -1,13 +1,13 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { IoPodiumOutline } from 'react-icons/io5'
+import { useSelector, useDispatch } from '../store/hooks'
 import Tooltip from '../ui/Tooltip'
 import { getStreetCapacity } from '../segments/capacity'
 import { formatNumber } from '../util/number_format'
 import { showDialog } from '../store/slices/dialogs'
 
-function StreetMetaAnalytics (props) {
+function StreetMetaAnalytics (): React.ReactElement | null {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
