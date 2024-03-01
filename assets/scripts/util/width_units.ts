@@ -119,9 +119,8 @@ export function prettifyWidth (
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL: {
       const imperialWidth = convertMetricMeasurementToImperial(width)
-      const roundedWidth = roundToNearestEighth(imperialWidth)
       widthText = getImperialMeasurementWithVulgarFractions(
-        roundedWidth,
+        imperialWidth,
         locale
       ) // also converts to string
       widthText += '′'
@@ -203,7 +202,9 @@ export function stringifyMeasurementValue (
  * return an imperial quantity up to three decimal point precision.
  */
 export function convertMetricMeasurementToImperial (value: number): number {
-  return round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
+  return roundToNearestEighth(
+    round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
+  )
 }
 
 /**
