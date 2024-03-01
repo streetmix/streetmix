@@ -6,7 +6,14 @@ import {
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
-import { MIN_CUSTOM_STREET_WIDTH, MAX_CUSTOM_STREET_WIDTH } from './constants'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
+import { round } from '../util/width_units'
+import {
+  MIN_CUSTOM_STREET_WIDTH,
+  MAX_CUSTOM_STREET_WIDTH,
+  MIN_CUSTOM_STREET_WIDTH_IMPERIAL,
+  MAX_CUSTOM_STREET_WIDTH_IMPERIAL
+} from './constants'
 
 /**
  * Given an input width value, constrains the value to the
@@ -17,15 +24,28 @@ import { MIN_CUSTOM_STREET_WIDTH, MAX_CUSTOM_STREET_WIDTH } from './constants'
  * @returns {Number}
  */
 export function normalizeStreetWidth (width, units) {
-  const resolution = getSegmentWidthResolution(units)
+  const minValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MIN_CUSTOM_STREET_WIDTH_IMPERIAL
+      : MIN_CUSTOM_STREET_WIDTH
+  const maxValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MAX_CUSTOM_STREET_WIDTH_IMPERIAL
+      : MAX_CUSTOM_STREET_WIDTH
 
-  if (width < MIN_CUSTOM_STREET_WIDTH) {
-    width = MIN_CUSTOM_STREET_WIDTH
-  } else if (width > MAX_CUSTOM_STREET_WIDTH) {
-    width = MAX_CUSTOM_STREET_WIDTH
+  // Constrain within bounds
+  if (width < minValue) {
+    width = minValue
+  } else if (width > maxValue) {
+    width = maxValue
   }
 
+  // Constrain to resolution
+  const resolution = getSegmentWidthResolution(units)
   width = Math.round(width / resolution) * resolution
+
+  // Round to decimal precision
+  width = round(width, 3)
 
   return width
 }

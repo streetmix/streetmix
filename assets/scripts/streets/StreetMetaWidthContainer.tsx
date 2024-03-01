@@ -13,6 +13,8 @@ import StreetMetaWidthMenu from './StreetMetaWidthMenu'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
+  MIN_CUSTOM_STREET_WIDTH_IMPERIAL,
+  MAX_CUSTOM_STREET_WIDTH_IMPERIAL,
   STREET_WIDTH_CUSTOM,
   STREET_WIDTH_SWITCH_TO_METRIC,
   STREET_WIDTH_SWITCH_TO_IMPERIAL
@@ -58,6 +60,14 @@ function StreetMetaWidthContainer (): React.ReactElement {
         break
       // Prompt for new street width
       case STREET_WIDTH_CUSTOM: {
+        const minValue =
+          units === SETTINGS_UNITS_IMPERIAL
+            ? MIN_CUSTOM_STREET_WIDTH_IMPERIAL
+            : MIN_CUSTOM_STREET_WIDTH
+        const maxValue =
+          units === SETTINGS_UNITS_IMPERIAL
+            ? MAX_CUSTOM_STREET_WIDTH_IMPERIAL
+            : MAX_CUSTOM_STREET_WIDTH
         const promptValue = normalizeStreetWidth(occupiedWidth, units)
         const promptString = intl.formatMessage(
           {
@@ -65,8 +75,8 @@ function StreetMetaWidthContainer (): React.ReactElement {
             defaultMessage: 'New street width (from {minWidth} to {maxWidth}):'
           },
           {
-            minWidth: prettifyWidth(MIN_CUSTOM_STREET_WIDTH, units, locale),
-            maxWidth: prettifyWidth(MAX_CUSTOM_STREET_WIDTH, units, locale)
+            minWidth: prettifyWidth(minValue, units, locale),
+            maxWidth: prettifyWidth(maxValue, units, locale)
           }
         )
         const inputWidth = window.prompt(
