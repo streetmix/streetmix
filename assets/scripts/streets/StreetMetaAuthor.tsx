@@ -1,38 +1,35 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { IoBrushOutline } from 'react-icons/io5'
+import { useSelector, useDispatch } from '../store/hooks'
 import { openGallery } from '../store/actions/gallery'
 import { useGetUserQuery } from '../store/services/api'
 import Avatar from '../users/Avatar'
 import { isOwnedByCurrentUser } from './owner'
 
-function StreetMetaAuthor (props) {
+function StreetMetaAuthor (): React.ReactElement | null {
   const creatorId = useSelector((state) => state.street.creatorId)
   const signedIn = useSelector((state) => state.user.signedIn)
-  const userId = useSelector((state) => state.user.signInData?.userId || '')
+  const userId = useSelector((state) => state.user.signInData?.userId ?? '')
   const { data: creatorProfile } = useGetUserQuery(creatorId)
   const dispatch = useDispatch()
 
-  function handleClickAuthor (event) {
-    if (event) {
-      event.preventDefault()
-    }
-
+  function handleClickAuthor (event: React.MouseEvent): void {
+    event.preventDefault()
     dispatch(openGallery({ userId: creatorId }))
   }
 
   let user
-  if (creatorId && (!signedIn || creatorId !== userId)) {
+  if (creatorId !== null && (!signedIn || creatorId !== userId)) {
     user = (
       <>
         <Avatar userId={creatorId} />
         <a href={'/' + creatorId} onClick={handleClickAuthor}>
-          {creatorProfile?.displayName || creatorId}
+          {creatorProfile?.displayName ?? creatorId}
         </a>
       </>
     )
-  } else if (!creatorId && (signedIn || !isOwnedByCurrentUser())) {
+  } else if (creatorId === null && (signedIn || !isOwnedByCurrentUser())) {
     user = <FormattedMessage id="users.anonymous" defaultMessage="Anonymous" />
   }
 

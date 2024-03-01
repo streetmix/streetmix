@@ -39,7 +39,7 @@ interface StreetState extends StreetJsonExtra {
   showAnalytics: boolean
   capacitySource?: string
   remainingWidth: number
-  creatorId?: string | null
+  creatorId: string | null
   originalStreetId?: string | null // UUID, if set
   updatedAt?: string // Datetime string
   clientUpdatedAt?: string // Datetime string
@@ -65,6 +65,7 @@ const initialState: StreetState = {
   showAnalytics: false,
   occupiedWidth: 0,
   remainingWidth: 0,
+  creatorId: null,
   userUpdated: false,
   editCount: 0,
   immediateRemoval: true

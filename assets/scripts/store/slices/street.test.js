@@ -46,6 +46,7 @@ describe('street reducer', () => {
     showAnalytics: false,
     occupiedWidth: 0,
     remainingWidth: 0,
+    creatorId: null,
     userUpdated: false,
     immediateRemoval: true,
     editCount: 0
