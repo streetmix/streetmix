@@ -57,6 +57,13 @@ export interface StreetLocation {
   lntlng: LatLngObject
   wofId: string
   label: string
+  hierarchy: {
+    country?: string
+    locality?: string
+    neighbourhood?: string
+    region?: string
+    street?: string
+  }
 }
 
 export interface LatLngObject {

@@ -18,7 +18,9 @@ describe('StreetMetaGeotag', () => {
   it('renders placeholder label and opens dialog if location is editable (it is by default)', async () => {
     const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
-        street: {}
+        street: {
+          location: null
+        }
       }
     })
 
@@ -79,5 +81,23 @@ describe('StreetMetaGeotag', () => {
     expect(showDialog).toBeCalledTimes(0)
   })
 
-  it.todo('displays the correct label for a given location hierarchy')
+  it('displays the correct label for a given location hierarchy', () => {
+    const { queryByText } = render(<StreetMetaGeotag />, {
+      initialState: {
+        street: {
+          location: {
+            hierarchy: {
+              neighbourhood: 'baz',
+              region: 'bar',
+              street: 'qux'
+            }
+          }
+        }
+      }
+    })
+
+    // No locality, but with region and neighbourhood,
+    // expect region to be displayed
+    expect(queryByText('bar')).toBeInTheDocument()
+  })
 })

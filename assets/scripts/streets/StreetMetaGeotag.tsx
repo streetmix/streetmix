@@ -1,11 +1,12 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { IoLocationOutline } from 'react-icons/io5'
+import { useSelector, useDispatch } from '../store/hooks'
 import Tooltip from '../ui/Tooltip'
 import { showDialog } from '../store/slices/dialogs'
+import type { StreetLocation } from '@streetmix/types'
 
-function StreetMetaGeotag (props) {
+function StreetMetaGeotag (): React.ReactElement | null {
   const street = useSelector((state) => state.street)
   const editable = useSelector(
     (state) => !state.app.readOnly && state.flags.GEOTAG.value
@@ -16,14 +17,16 @@ function StreetMetaGeotag (props) {
   // Render nothing if there is no street location, and geolocation is not enabled
   if (!editable && !street.location) return null
 
-  function handleClickGeotag (event) {
+  function handleClickGeotag (event: React.MouseEvent): void {
     event.preventDefault()
 
     dispatch(showDialog('GEOTAG'))
   }
 
-  function getGeotagText () {
-    const { hierarchy } = street.location
+  function getGeotagText (
+    location: StreetLocation
+  ): string | React.ReactElement {
+    const { hierarchy } = location
     const unknownLabel = (
       <FormattedMessage
         id="dialogs.geotag.unknown-location"
@@ -31,32 +34,28 @@ function StreetMetaGeotag (props) {
       />
     )
 
-    let text = hierarchy.locality
-      ? hierarchy.locality
-      : hierarchy.region
-        ? hierarchy.region
-        : hierarchy.neighbourhood
-          ? hierarchy.neighbourhood
-          : null
+    let text =
+      hierarchy.locality ?? hierarchy.region ?? hierarchy.neighbourhood
 
-    if (text && hierarchy.country) {
+    if (text !== undefined && hierarchy.country !== undefined) {
       text = text + ', ' + hierarchy.country
     }
 
-    return text || unknownLabel
+    return text ?? unknownLabel
   }
 
   // Determine what text label to render
-  const geotagText = street.location
-    ? (
-        getGeotagText()
-      )
-    : (
-      <FormattedMessage
-        id="dialogs.geotag.add-location"
-        defaultMessage="Add location"
-      />
-      )
+  const geotagText =
+    street.location !== null
+      ? (
+          getGeotagText(street.location)
+        )
+      : (
+        <FormattedMessage
+          id="dialogs.geotag.add-location"
+          defaultMessage="Add location"
+        />
+        )
 
   const title = intl.formatMessage({
     id: 'tooltip.geotag',
