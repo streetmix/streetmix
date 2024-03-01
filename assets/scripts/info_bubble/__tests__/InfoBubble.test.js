@@ -41,7 +41,7 @@ const initialState = {
         variantString: 'inbound|regular',
         segmentType: 'streetcar',
         id: '1',
-        width: 200
+        width: 3
       }
     ],
     leftBuildingVariant: 'grass',
