@@ -2,10 +2,10 @@
 import React from 'react'
 import { waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import StreetMetaAuthor from '../StreetMetaAuthor'
 import { render } from '../../../../test/helpers/render'
-import { getRemixOnFirstEdit } from '../../streets/remix'
+import { getRemixOnFirstEdit } from '../remix'
 import { openGallery } from '../../store/actions/gallery'
+import StreetMetaAuthor from './StreetMetaAuthor'
 
 // Enable mocking of the return value of `getRemixOnFirstEdit`
 jest.mock('../../streets/remix')

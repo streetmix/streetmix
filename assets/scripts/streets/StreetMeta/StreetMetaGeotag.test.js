@@ -1,9 +1,9 @@
 /* eslint-env jest */
 import React from 'react'
 import { userEvent } from '@testing-library/user-event'
-import StreetMetaGeotag from '../StreetMetaGeotag'
 import { render } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
+import StreetMetaGeotag from './StreetMetaGeotag'
 
 jest.mock('../../store/slices/dialogs', () => ({
   showDialog: jest.fn(() => ({ type: 'MOCK_ACTION' }))

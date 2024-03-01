@@ -2,8 +2,8 @@
 import React from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import StreetNameplateContainer from '../StreetNameplateContainer'
+import { render } from '../../../test/helpers/render'
+import StreetNameplateContainer from './StreetNameplateContainer'
 
 const initialState = {
   ui: {

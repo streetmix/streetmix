@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
-import { useSelector, useDispatch } from '../store/hooks'
-import { updateStreetWidthAction as updateStreetWidth } from '../store/actions/street'
+import { useSelector, useDispatch } from '../../store/hooks'
+import { updateStreetWidthAction as updateStreetWidth } from '../../store/actions/street'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
-} from '../users/constants'
-import { updateUnits } from '../users/localization'
-import { processWidthInput, prettifyWidth } from '../util/width_units'
-import StreetMetaWidthLabel from './StreetMetaWidthLabel'
-import StreetMetaWidthMenu from './StreetMetaWidthMenu'
+} from '../../users/constants'
+import { updateUnits } from '../../users/localization'
+import { processWidthInput, prettifyWidth } from '../../util/width_units'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
@@ -18,8 +16,10 @@ import {
   STREET_WIDTH_CUSTOM,
   STREET_WIDTH_SWITCH_TO_METRIC,
   STREET_WIDTH_SWITCH_TO_IMPERIAL
-} from './constants'
-import { normalizeStreetWidth } from './width'
+} from '../constants'
+import { normalizeStreetWidth } from '../width'
+import StreetMetaWidthLabel from './StreetMetaWidthLabel'
+import StreetMetaWidthMenu from './StreetMetaWidthMenu'
 
 function StreetMetaWidthContainer (): React.ReactElement {
   const street = useSelector((state) => state.street)

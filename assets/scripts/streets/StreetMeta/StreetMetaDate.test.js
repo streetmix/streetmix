@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react'
-import StreetMetaDate from '../StreetMetaDate'
 import { render } from '../../../../test/helpers/render'
+import StreetMetaDate from './StreetMetaDate'
 
 describe('StreetMetaDate', () => {
   it('renders', () => {

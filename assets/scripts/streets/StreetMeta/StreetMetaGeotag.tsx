@@ -1,9 +1,9 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { IoLocationOutline } from 'react-icons/io5'
-import { useSelector, useDispatch } from '../store/hooks'
-import Tooltip from '../ui/Tooltip'
-import { showDialog } from '../store/slices/dialogs'
+import { useSelector, useDispatch } from '../../store/hooks'
+import { showDialog } from '../../store/slices/dialogs'
+import Tooltip from '../../ui/Tooltip'
 import type { StreetLocation } from '@streetmix/types'
 
 function StreetMetaGeotag (): React.ReactElement | null {

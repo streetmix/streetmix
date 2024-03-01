@@ -3,7 +3,7 @@ import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
-import StreetMetaWidthMenu from '../StreetMetaWidthMenu'
+import StreetMetaWidthMenu from './StreetMetaWidthMenu'
 
 describe('StreetMetaWidthMenu', () => {
   it('renders (metric units, default width selected)', () => {

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { normalizeStreetWidth, recalculateWidth } from '../width'
+import { normalizeStreetWidth, recalculateWidth } from './width'
 
 describe('normalizeStreetWidth', () => {
   it('constrains to minimum street width (metric units)', () => {

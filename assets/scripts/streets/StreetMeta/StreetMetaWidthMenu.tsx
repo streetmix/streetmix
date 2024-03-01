@@ -1,20 +1,20 @@
 import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
-import { useSelector } from '../store/hooks'
-import Tooltip from '../ui/Tooltip'
+import { useSelector } from '../../store/hooks'
+import Tooltip from '../../ui/Tooltip'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
-} from '../users/constants'
+} from '../../users/constants'
 import {
   prettifyWidth,
   convertImperialMeasurementToMetric
-} from '../util/width_units'
+} from '../../util/width_units'
 import {
   STREET_WIDTH_CUSTOM,
   STREET_WIDTH_SWITCH_TO_METRIC,
   STREET_WIDTH_SWITCH_TO_IMPERIAL
-} from './constants'
+} from '../constants'
 import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidthMenu.scss'
 

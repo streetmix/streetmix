@@ -1,9 +1,9 @@
 /* eslint-env jest */
 import React from 'react'
 import { userEvent } from '@testing-library/user-event'
-import StreetMetaAnalytics from '../StreetMetaAnalytics'
 import { render } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
+import StreetMetaAnalytics from './StreetMetaAnalytics'
 
 jest.mock('../../store/slices/dialogs', () => ({
   showDialog: jest.fn(() => ({ type: 'MOCK_ACTION' }))

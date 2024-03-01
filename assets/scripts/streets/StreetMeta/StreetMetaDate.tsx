@@ -1,8 +1,8 @@
 import React from 'react'
 import { IoTimeOutline } from 'react-icons/io5'
-import { useSelector } from '../store/hooks'
-import DateTimeRelative from '../app/DateTimeRelative'
-import { isOwnedByCurrentUser } from './owner'
+import { useSelector } from '../../store/hooks'
+import DateTimeRelative from '../../app/DateTimeRelative'
+import { isOwnedByCurrentUser } from '../owner'
 
 // Milliseconds that must have elapsed before recent edits display timestamp
 const TIME_LIMIT = 6000

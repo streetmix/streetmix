@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from '../store/hooks'
+import { useSelector } from '../../store/hooks'
 import StreetMetaWidthContainer from './StreetMetaWidthContainer'
 import StreetMetaAuthor from './StreetMetaAuthor'
 import StreetMetaDate from './StreetMetaDate'

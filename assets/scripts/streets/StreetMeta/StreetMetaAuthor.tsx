@@ -1,11 +1,11 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { IoBrushOutline } from 'react-icons/io5'
-import { useSelector, useDispatch } from '../store/hooks'
-import { openGallery } from '../store/actions/gallery'
-import { useGetUserQuery } from '../store/services/api'
-import Avatar from '../users/Avatar'
-import { isOwnedByCurrentUser } from './owner'
+import { useSelector, useDispatch } from '../../store/hooks'
+import { openGallery } from '../../store/actions/gallery'
+import { useGetUserQuery } from '../../store/services/api'
+import Avatar from '../../users/Avatar'
+import { isOwnedByCurrentUser } from '../owner'
 
 function StreetMetaAuthor (): React.ReactElement | null {
   const creatorId = useSelector((state) => state.street.creatorId)
