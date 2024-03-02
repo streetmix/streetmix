@@ -1,20 +1,20 @@
 export const DEFAULT_SEGMENTS = {
   false: [
     // Right-hand traffic
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+    { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 1.8 },
+    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 0.6 },
     {
       type: 'transit-shelter',
       variant: {
         orientation: 'left',
         'transit-shelter-elevation': 'street-level'
       },
-      width: 9
+      width: 2.7
     },
     {
       type: 'sidewalk-lamp',
       variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' },
-      width: 2
+      width: 0.6
     },
     {
       type: 'bus-lane',
@@ -23,21 +23,21 @@ export const DEFAULT_SEGMENTS = {
         'bus-asphalt': 'shared',
         'bus-type': 'typical'
       },
-      width: 12
+      width: 3.6
     },
     {
       type: 'drive-lane',
       variant: { direction: 'inbound', 'car-type': 'car' },
-      width: 9
+      width: 2.7
     },
-    { type: 'divider', variant: { 'divider-type': 'bush' }, width: 3 },
+    { type: 'divider', variant: { 'divider-type': 'bush' }, width: 0.9 },
     {
       type: 'turn-lane',
       variant: {
         direction: 'outbound',
         'turn-lane-orientation': 'left-straight'
       },
-      width: 10
+      width: 3
     },
     {
       type: 'parking-lane',
@@ -45,9 +45,9 @@ export const DEFAULT_SEGMENTS = {
         'parking-lane-direction': 'outbound',
         'parking-lane-orientation': 'right'
       },
-      width: 7
+      width: 2.1
     },
-    { type: 'divider', variant: { 'divider-type': 'planter-box' }, width: 4 },
+    { type: 'divider', variant: { 'divider-type': 'planter-box' }, width: 1.2 },
     {
       type: 'bike-lane',
       variant: {
@@ -55,24 +55,24 @@ export const DEFAULT_SEGMENTS = {
         'bike-asphalt': 'green',
         elevation: 'road'
       },
-      width: 6
+      width: 1.8
     },
     {
       type: 'sidewalk-lamp',
       variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' },
-      width: 2
+      width: 0.6
     },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 }
+    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 0.6 },
+    { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 1.8 }
   ],
   true: [
     // Left-hand traffic
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 6 },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
+    { type: 'sidewalk', variant: { 'sidewalk-density': 'normal' }, width: 1.8 },
+    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 0.6 },
     {
       type: 'sidewalk-lamp',
       variant: { 'lamp-orientation': 'right', 'lamp-type': 'modern' },
-      width: 2
+      width: 0.6
     },
     {
       type: 'bike-lane',
@@ -81,16 +81,16 @@ export const DEFAULT_SEGMENTS = {
         'bike-asphalt': 'green',
         elevation: 'road'
       },
-      width: 6
+      width: 1.8
     },
-    { type: 'divider', variant: { 'divider-type': 'planter-box' }, width: 4 },
+    { type: 'divider', variant: { 'divider-type': 'planter-box' }, width: 1.2 },
     {
       type: 'parking-lane',
       variant: {
         'parking-lane-direction': 'outbound',
         'parking-lane-orientation': 'left'
       },
-      width: 7
+      width: 2.1
     },
     {
       type: 'turn-lane',
@@ -98,13 +98,13 @@ export const DEFAULT_SEGMENTS = {
         direction: 'outbound',
         'turn-lane-orientation': 'right-straight'
       },
-      width: 10
+      width: 3
     },
-    { type: 'divider', variant: { 'divider-type': 'bush' }, width: 3 },
+    { type: 'divider', variant: { 'divider-type': 'bush' }, width: 0.9 },
     {
       type: 'drive-lane',
       variant: { direction: 'inbound', 'car-type': 'car' },
-      width: 9
+      width: 2.7
     },
     {
       type: 'bus-lane',
@@ -113,12 +113,12 @@ export const DEFAULT_SEGMENTS = {
         'bus-asphalt': 'shared',
         'bus-type': 'typical'
       },
-      width: 12
+      width: 3.6
     },
     {
       type: 'sidewalk-lamp',
       variant: { 'lamp-orientation': 'left', 'lamp-type': 'modern' },
-      width: 2
+      width: 0.6
     },
     {
       type: 'transit-shelter',
@@ -126,9 +126,9 @@ export const DEFAULT_SEGMENTS = {
         orientation: 'right',
         'transit-shelter-elevation': 'street-level'
       },
-      width: 9
+      width: 2.7
     },
-    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 2 },
-    { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 6 }
+    { type: 'sidewalk-tree', variant: { 'tree-type': 'big' }, width: 0.6 },
+    { type: 'sidewalk', variant: { 'sidewalk-density': 'dense' }, width: 1.8 }
   ]
 }
