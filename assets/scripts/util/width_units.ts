@@ -47,6 +47,11 @@ export function round (value: number, decimals: number): number {
   return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
 }
 
+export function roundToPrecision (value: number): number {
+  // Assumes metric
+  return round(value, METRIC_PRECISION)
+}
+
 /**
  * Processes a string width input from user, returns a number
  */

@@ -88,6 +88,7 @@ export const setCapacitySource = (source) => {
     await dispatch(segmentsChanged())
   }
 }
+
 export const incrementSegmentWidth = (
   dataNo,
   add,

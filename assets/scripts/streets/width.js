@@ -7,7 +7,7 @@ import {
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import { round } from '../util/width_units'
+import { round, roundToPrecision } from '../util/width_units'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
@@ -78,7 +78,7 @@ function calculateRemainingWidth (streetWidth, occupiedWidth) {
     remainingWidth = 0
   }
 
-  return remainingWidth
+  return roundToPrecision(remainingWidth)
 }
 
 /**

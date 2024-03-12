@@ -1,5 +1,4 @@
 /* eslint-env jest */
-
 import MockAdapter from 'axios-mock-adapter'
 
 import { createStore } from '../../../../test/helpers/store'
@@ -12,7 +11,6 @@ import { saveStreetToServerIfNecessary } from '../../streets/data_model'
 import apiClient from '../../util/api'
 import { ERRORS } from '../../app/errors'
 
-jest.mock('../../app/load_resources')
 jest.mock('../../streets/data_model', () => {
   const actual = jest.requireActual('../../streets/data_model')
   return {
@@ -25,6 +23,7 @@ describe('street integration test', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   describe('#addSegment', () => {
     it('adds the new segment at the index', () => {
       const initialState = { street: { segments: [1, 2] } }
@@ -37,6 +36,7 @@ describe('street integration test', () => {
       expect(street.segments[1]).toEqual(3)
     })
   })
+
   describe('#clearSegments', () => {
     it('clears all segments', () => {
       const initialState = { street: { segments: [1, 2] } }
@@ -48,72 +48,90 @@ describe('street integration test', () => {
       expect(street.segments.length).toEqual(0)
     })
   })
+
   describe('#incrementSegmentWidth', () => {
     describe('decrease segment width by 1', () => {
-      it('by resolution', async () => {
+      it('by resolution (metric)', async () => {
         const initialState = {
-          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+          street: { segments: [{ width: 10 }, { width: 10 }], units: 0 }
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, false, true, 200))
+        await store.dispatch(incrementSegmentWidth(1, false, true, 10))
 
         const { street } = store.getState()
-        expect(street.segments[1].width).toEqual(199.75)
+        expect(street.segments[1].width).toEqual(9.95)
       })
+
+      it('by resolution (imperial)', async () => {
+        const initialState = {
+          street: { segments: [{ width: 3.048 }, { width: 3.048 }], units: 1 }
+        }
+        const store = createStore(initialState)
+
+        await store.dispatch(incrementSegmentWidth(1, false, true, 3.048))
+
+        const { street } = store.getState()
+        expect(street.segments[1].width).toEqual(2.972)
+      })
+
       it('by clickIncrement', async () => {
         const initialState = {
-          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+          street: { segments: [{ width: 6.05 }, { width: 6.05 }], units: 0 }
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, false, false, 200))
+        await store.dispatch(incrementSegmentWidth(1, false, false, 6.05))
 
         const { street } = store.getState()
-        expect(street.segments[1].width).toEqual(199.5)
+        expect(street.segments[1].width).toEqual(6)
       })
-      it('has a remaining width of 0.25', async () => {
+
+      it('has a remaining width of 0.05', async () => {
         const initialState = {
           street: {
-            width: 400,
-            segments: [{ width: 200 }, { width: 200 }],
-            units: 1
+            width: 24,
+            segments: [{ width: 12 }, { width: 12 }],
+            units: 0
           }
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, false, true, 200))
+        await store.dispatch(incrementSegmentWidth(1, false, true, 12))
 
         const { street } = store.getState()
-        expect(street.segments[1].width).toEqual(199.75)
-        expect(street.occupiedWidth).toEqual(399.75)
-        expect(street.remainingWidth).toEqual(0.25)
+        expect(street.segments[1].width).toEqual(11.95)
+        expect(street.occupiedWidth).toEqual(23.95)
+        expect(street.remainingWidth).toEqual(0.05)
       })
     })
+
     describe('increase segment width by 1', () => {
       it('by resolution', async () => {
         const initialState = {
-          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+          street: { segments: [{ width: 5 }, { width: 5 }], units: 0 }
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, true, true, 200))
+        await store.dispatch(incrementSegmentWidth(1, true, true, 5))
 
         const { street } = store.getState()
-        expect(street.segments[1].width).toEqual(200.25)
+        expect(street.segments[1].width).toEqual(5.05)
       })
+
       it('by clickIncrement', async () => {
         const initialState = {
-          street: { segments: [{ width: 200 }, { width: 200 }], units: 1 }
+          street: { segments: [{ width: 3.658 }, { width: 3.658 }], units: 1 }
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, true, false, 200))
+        await store.dispatch(incrementSegmentWidth(1, true, false, 3.658))
 
         const { street } = store.getState()
-        expect(street.segments[1].width).toEqual(200.5)
+        expect(street.segments[1].width).toEqual(3.734)
       })
     })
+
     // ToDo: Remove this once refactoring of redux action saveStreetToServerIfNecessary is complete
     it('saves to server', async () => {
       const initialState = {
@@ -126,6 +144,7 @@ describe('street integration test', () => {
       expect(saveStreetToServerIfNecessary).toHaveBeenCalledTimes(1)
     })
   })
+
   describe('#getLastStreet', () => {
     let apiMock
     const type = 'streetcar'
@@ -144,12 +163,15 @@ describe('street integration test', () => {
         street
       }
     }
+
     beforeEach(() => {
       apiMock = new MockAdapter(apiClient.client)
     })
+
     afterEach(() => {
       apiMock.restore()
     })
+
     it('updates the street', async () => {
       const store = createStore({ app: { priorLastStreetId: '1' } })
 
@@ -159,6 +181,7 @@ describe('street integration test', () => {
       const { street } = store.getState()
       expect(street.segments.length).toEqual(1)
     })
+
     it('sets lastStreetId', async () => {
       const store = createStore({ app: { priorLastStreetId: '1' } })
 
@@ -168,6 +191,7 @@ describe('street integration test', () => {
       const { settings } = store.getState()
       expect(settings.lastStreetId).toEqual('3')
     })
+
     it('sets lastStreetId', async () => {
       const store = createStore({
         street: { id: '50', namespaceId: '45' },
@@ -181,6 +205,7 @@ describe('street integration test', () => {
       expect(street.id).toEqual('50')
       expect(street.namespaceId).toEqual('45')
     })
+
     describe('response failure', () => {
       it('does not set lastStreetId', async () => {
         const store = createStore({ app: { priorLastStreetId: '1' } })
