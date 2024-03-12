@@ -46,7 +46,7 @@ describe('Variants', () => {
     let segment
 
     beforeEach(() => {
-      segment = { variants: ['direction', 'public-transit-asphalt'] } // coming from info.json
+      segment = { variants: ['direction', 'public-transit-asphalt'] }
       getSegmentInfo.mockImplementation(() => segment)
       getSegmentVariantInfo.mockImplementation(() => ({
         elevation: 0
@@ -101,7 +101,7 @@ describe('Variants', () => {
     let segment
 
     beforeEach(() => {
-      segment = { variants: ['flagged-variant', 'foo'] } // coming from info.json
+      segment = { variants: ['flagged-variant', 'foo'] }
       getSegmentInfo.mockImplementation(() => segment)
     })
 

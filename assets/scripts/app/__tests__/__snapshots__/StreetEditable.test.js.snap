@@ -4,12 +4,12 @@ exports[`StreetEditable segment warnings too large Pressing \`+\` does not incre
 <DocumentFragment>
   <div
     id="street-section-editable"
-    style="width: 4800px;"
+    style="width: 4724.4094488188975px;"
   >
     <div
       class="segment hover show-drag-handles warning"
       data-testid="segment"
-      style="width: 4800px; z-index: 1; transform: translateX(0px);"
+      style="width: 4724px; z-index: 15; transform: translateX(0px);"
     >
       <div
         class="segment-label-container"
@@ -30,7 +30,7 @@ exports[`StreetEditable segment warnings too large Pressing \`+\` does not incre
           <p
             class="segment-name"
           >
-            Segment
+            Streetcar
           </p>
           <p
             class="segment-capacity"
@@ -59,8 +59,8 @@ exports[`StreetEditable segment warnings too large Pressing \`+\` does not incre
         <canvas
           class="segment-image"
           height="445"
-          style="width: 4800px; height: 445px; left: 0px;"
-          width="4800"
+          style="width: 4724px; height: 445px; left: 0px;"
+          width="4724"
         />
       </div>
       <div

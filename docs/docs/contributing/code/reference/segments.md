@@ -96,7 +96,7 @@ Segment components are defined in [`components.json`](https://github.com/streetm
 
 :::note Background
 
-Currently every object type (what we call "segments" internally) is [defined here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/info.json).
+Currently every object type (what we call "segments" internally) is [defined here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/segment-lookup.json).
 
 Its basic structure is very minimal. For every segment we have some properties attached to it (e.g. its display name, minimum / maximum recommended width, if any, and so on), and we also specify which image sprites represent the segment graphically. Each segment may also have variants, which come with its own properties.
 
