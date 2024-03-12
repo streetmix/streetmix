@@ -4,7 +4,7 @@ import {
 } from '../users/constants'
 import store from '../store'
 import { formatNumber } from './number_format'
-import type { UnitsSetting } from '@streetmix/types'
+import type { UnitsSetting, WidthDefinition } from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 3.2808
 const METRIC_PRECISION = 3
@@ -213,6 +213,29 @@ export function convertMetricMeasurementToImperial (value: number): number {
  */
 export function convertImperialMeasurementToMetric (value: number): number {
   return round(value / IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
+}
+
+/**
+ * Given a `width` definition (an object containing both metric and imperial
+ * width values), return a numerical value in metric. If `units` is metric
+ * then return the metric value as is. If `units` is imperial, convert the
+ * imperial value to metric and return it. If `width` is a number, assume
+ * metric and return it directly.
+ */
+export function getWidthInMetric (
+  width: WidthDefinition | number,
+  units: UnitsSetting
+): number {
+  if (typeof width === 'number') {
+    // NOTE: THIS ASSUMES A METRIC SOURCE VALUE!
+    return width
+  }
+
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return convertImperialMeasurementToMetric(width.imperial)
+  } else {
+    return width.metric
+  }
 }
 
 /**

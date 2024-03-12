@@ -13,6 +13,7 @@ import {
   setDraggingType
 } from '../store/slices/ui'
 import { generateRandSeed } from '../util/random'
+import { getWidthInMetric } from '../util/width_units'
 import { SegmentTypes, getSegmentInfo, getSegmentVariantInfo } from './info'
 import {
   RESIZE_TYPE_INITIAL,
@@ -484,6 +485,7 @@ export const paletteSegmentSource = {
     // one dispatch to reduce batch renders.
     store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
+    const { units } = store.getState().street
     const type = props.segment.id
 
     // The preview drag should match artwork in the thumbnail. The variant
@@ -505,7 +507,7 @@ export const paletteSegmentSource = {
       id: generateRandSeed(),
       type,
       variantString,
-      actualWidth: props.segment.defaultWidth,
+      actualWidth: getWidthInMetric(props.segment.defaultWidth, units),
       elevation
     }
   },

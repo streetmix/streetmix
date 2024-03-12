@@ -4,7 +4,10 @@
     "nameKey": "sidewalk",
     "owner": "PEDESTRIAN",
     "zIndex": 30,
-    "defaultWidth": 6,
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
     "rules": {
       "minWidth": 6
     },
@@ -91,7 +94,10 @@
     "nameKey": "sidewalk-tree",
     "owner": "NATURE",
     "zIndex": 22,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "variants": ["tree-type"],
     "details": {
       "big": {
@@ -141,7 +147,10 @@
     "nameKey": "bike-rack",
     "owner": "BIKE",
     "zIndex": 23,
-    "defaultWidth": 5,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
     "defaultVariant": "left|sidewalk",
     "variants": ["orientation", "bike-rack-elevation"],
     "details": {
@@ -272,7 +281,10 @@
     "nameKey": "bench",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "variants": ["bench-orientation"],
     "details": {
       "left": {
@@ -342,7 +354,10 @@
     "nameKey": "outdoor-dining",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
-    "defaultWidth": 8,
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
     "unlockCondition": "SIGN_IN",
     "variants": ["occupants", "elevation"],
     "details": {
@@ -449,7 +464,10 @@
     "nameKey": "wayfinding-sign",
     "owner": "PEDESTRIAN",
     "zIndex": 21,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "description": {
       "key": "wayfinding-sign",
       "image": "wayfinding-02.jpg"
@@ -523,7 +541,10 @@
     "nameKey": "sidewalk-lamp",
     "owner": "PEDESTRIAN",
     "zIndex": 19,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "defaultVariant": "both|traditional",
     "variants": ["lamp-orientation", "lamp-type"],
     "details": {
@@ -732,7 +753,10 @@
     "nameKey": "utility-pole",
     "owner": "NONE",
     "zIndex": 10,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "unlockCondition": "SIGN_IN",
     "variants": ["orientation"],
     "details": {
@@ -783,7 +807,10 @@
     "nameKey": "parklet",
     "owner": "NATURE",
     "zIndex": 15,
-    "defaultWidth": 8,
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
     "description": {
       "key": "parklet",
       "image": "parklets-01.jpg"
@@ -840,7 +867,10 @@
     "nameKey": "street-vendor",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "rules": {
       "minWidth": 4
     },
@@ -1023,7 +1053,10 @@
     "nameKey": "divider",
     "owner": "NATURE",
     "zIndex": 20,
-    "defaultWidth": 2,
+    "defaultWidth": {
+      "metric": 0.5,
+      "imperial": 2
+    },
     "defaultVariant": "flowers",
     "variants": ["divider-type"],
     "details": {
@@ -1304,7 +1337,10 @@
   "crosswalk": {
     "name": "Crosswalk",
     "nameKey": "crosswalk",
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "defaultVariant": "zebra-crossing",
     "defaultElevation": 0,
     "enableElevation": true,
@@ -1351,7 +1387,10 @@
     "name": "Temporary barrier",
     "nameKey": "temporary-barrier",
     "zIndex": 20,
-    "defaultWidth": 2,
+    "defaultWidth": {
+      "metric": 0.5,
+      "imperial": 2
+    },
     "defaultVariant": "traffic-cone",
     "unlockCondition": "SIGN_IN",
     "variants": ["temporary-barrier-type"],
@@ -1452,7 +1491,10 @@
     "owner": "UTILITY",
     "unlockWithFlag": "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED",
     "unlockCondition": "SUBSCRIBE",
-    "defaultWidth": 3.333,
+    "defaultWidth": {
+      "metric": 1,
+      "imperial": 3.25
+    },
     "variants": ["drainage-sides"],
     "details": {
       "slanted": {
@@ -1502,7 +1544,10 @@
     "nameKey": "scooter",
     "owner": "BIKE",
     "zIndex": 16,
-    "defaultWidth": 5,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
     "rules": {
       "minWidth": 4
     },
@@ -1665,7 +1710,10 @@
     "nameKey": "scooter-drop-zone",
     "owner": "FLEX",
     "zIndex": 21,
-    "defaultWidth": 5,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
     "defaultVariant": "right|sidewalk|empty",
     "variants": ["orientation", "scooter-elevation", "scooter-riders"],
     "details": {
@@ -1924,7 +1972,10 @@
     "nameKey": "bike-lane",
     "owner": "BIKE",
     "zIndex": 16,
-    "defaultWidth": 6,
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
     "description": {
       "key": "bike-lane",
       "image": "bike-lane-02.jpg"
@@ -2761,7 +2812,10 @@
     "nameKey": "bikeshare-station",
     "owner": "FLEX",
     "zIndex": 21,
-    "defaultWidth": 7,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
     "rules": {
       "minWidth": 7,
       "maxWidth": 10
@@ -2871,7 +2925,10 @@
     "nameKey": "foodtruck",
     "owner": "FLEX",
     "zIndex": 20,
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "rules": {
       "minWidth": 10
     },
@@ -2924,7 +2981,10 @@
     "nameKey": "flex-zone",
     "owner": "FLEX",
     "zIndex": 15,
-    "defaultWidth": 7,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
     "rules": {
       "minWidth": 7,
       "maxWidth": 10
@@ -3154,7 +3214,10 @@
     "nameKey": "flex-zone-curb",
     "owner": "FLEX",
     "zIndex": 30,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "variants": ["waiting-area", "orientation"],
     "details": {
       "sparse|left": {
@@ -3256,7 +3319,10 @@
     "nameKey": "parking-lane",
     "owner": "CAR",
     "zIndex": 13,
-    "defaultWidth": 7,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
     "rules": {
       "minWidth": 7,
       "maxWidth": 10
@@ -3634,7 +3700,10 @@
     "nameKey": "drive-lane",
     "owner": "CAR",
     "zIndex": 14,
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "rules": {
       "minWidth": 8,
       "maxWidth": 11.9
@@ -3853,7 +3922,10 @@
           "minWidth": 12,
           "maxWidth": 14
         },
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "description": {
           "key": "sharrow",
           "image": "sharrow-01.jpg"
@@ -3895,7 +3967,10 @@
           "minWidth": 12,
           "maxWidth": 14
         },
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "description": {
           "key": "sharrow",
           "image": "sharrow-01.jpg"
@@ -4247,7 +4322,10 @@
     "nameKey": "turn-lane",
     "owner": "CAR",
     "zIndex": 13,
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "rules": {
       "minWidth": 9,
       "maxWidth": 12
@@ -4640,7 +4718,10 @@
           "minWidth": 10,
           "maxWidth": 16
         },
-        "defaultWidth": 12,
+        "defaultWidth": {
+          "metric": 3.6,
+          "imperial": 12
+        },
         "components": {
           "lanes": [
             {
@@ -4670,7 +4751,10 @@
     "nameKey": "bus-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 12,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
     "rules": {
       "minWidth": 10,
       "maxWidth": 13
@@ -4780,7 +4864,10 @@
       "inbound|shared|typical": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
           "minWidth": 12,
           "maxWidth": 14
@@ -4825,7 +4912,10 @@
       "outbound|shared|typical": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
           "minWidth": 12,
           "maxWidth": 14
@@ -4970,7 +5060,10 @@
       "inbound|shared|double-decker": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
           "minWidth": 12,
           "maxWidth": 14
@@ -5015,7 +5108,10 @@
       "outbound|shared|double-decker": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
           "minWidth": 12,
           "maxWidth": 14
@@ -5160,7 +5256,10 @@
       "inbound|shared|av-shuttle": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
           "minWidth": 12,
           "maxWidth": 14
@@ -5205,7 +5304,10 @@
       "outbound|shared|av-shuttle": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
           "minWidth": 12,
           "maxWidth": 14
@@ -5254,7 +5356,10 @@
     "nameKey": "streetcar",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 12,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
     "rules": {
       "minWidth": 10,
       "maxWidth": 14
@@ -5452,7 +5557,10 @@
     "nameKey": "light-rail",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 12,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
     "rules": {
       "minWidth": 10,
       "maxWidth": 14
@@ -5650,7 +5758,10 @@
     "nameKey": "transit-shelter",
     "owner": "TRANSIT",
     "zIndex": 20,
-    "defaultWidth": 9,
+    "defaultWidth": {
+      "metric": 2.7,
+      "imperial": 9
+    },
     "defaultVariant": "right|street-level",
     "rules": {
       "minWidth": 9
@@ -5758,7 +5869,10 @@
     "nameKey": "brt-station",
     "owner": "TRANSIT",
     "zIndex": 20,
-    "defaultWidth": 13.3333,
+    "defaultWidth": {
+      "metric": 4,
+      "imperial": 13.5
+    },
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "center",
     "paletteDefaultWidth": 10,
@@ -5840,7 +5954,10 @@
     "nameKey": "brt-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 11.66666,
+    "defaultWidth": {
+      "metric": 3.5,
+      "imperial": 12
+    },
     "unlockCondition": "SIGN_IN",
     "rules": {
       "minWidth": 11.5,
@@ -5955,7 +6072,10 @@
     "nameKey": "inception-train",
     "owner": "TRANSIT",
     "zIndex": 10,
-    "defaultWidth": 14,
+    "defaultWidth": {
+      "metric": 4.2,
+      "imperial": 14
+    },
     "enableWithFlag": "SEGMENT_INCEPTION_TRAIN",
     "description": {
       "key": "inception-train",
@@ -5991,7 +6111,10 @@
   "magic-carpet": {
     "name": "Magic carpet",
     "nameKey": "magic-carpet",
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "jasmine-aladdin",
     "variants": ["magic-carpet-occupants"],

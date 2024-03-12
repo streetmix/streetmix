@@ -78,7 +78,7 @@ export interface SegmentDefinition {
   nameKey: string
   owner: string
   zIndex: number
-  defaultWidth: number
+  defaultWidth: WidthDefinition | number // number is deprecated
   defaultVariant: string
   defaultElevation?: number
   enableElevation?: boolean
@@ -94,6 +94,11 @@ export interface SegmentDefinition {
   }
   variants: string[]
   details: object
+}
+
+export interface WidthDefinition {
+  metric: number // in meters
+  imperial: number // in feet
 }
 
 export type UnitsSetting =
