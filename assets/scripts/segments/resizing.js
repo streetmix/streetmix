@@ -207,6 +207,7 @@ export function resolutionForResizeType (resizeType, units) {
       return getSegmentDragResizeResolution(units)
     default:
       // Always return this resolution if `resizeType` is undefined or wrong value
+      // TODO: Remove when converted to TypeScript
       return getSegmentWidthResolution(units)
   }
 }
