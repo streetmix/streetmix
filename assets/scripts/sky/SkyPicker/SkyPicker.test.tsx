@@ -6,6 +6,11 @@ import { render } from '../../../../test/helpers/render'
 import * as uiSlice from '../../store/slices/ui'
 import SkyPicker from './SkyPicker'
 
+jest.mock('../skybox-defs.json', () =>
+  require('../__mocks__/skybox-defs.json')
+)
+jest.mock('../constants', () => ({ DEFAULT_SKYBOX: 'default' }))
+
 describe('SkyPicker', () => {
   const initialState = {
     street: {
@@ -36,11 +41,11 @@ describe('SkyPicker', () => {
     // waitFor animation to remove `pointer-events: none` from parent element
     // This test is flaky if we don't wait.
     await waitFor(async () => {
-      await userEvent.click(screen.getByLabelText('Dusk'))
+      await userEvent.click(screen.getByLabelText('Foo'))
     })
 
     // New state
-    expect(screen.getByLabelText('Dusk')).toHaveClass('sky-selected')
+    expect(screen.getByLabelText('Foo')).toHaveClass('sky-selected')
   })
 
   it('closes when close button is clicked', async () => {
@@ -87,17 +92,17 @@ describe('SkyPicker', () => {
 
     // Initial state
     expect(screen.getByLabelText('Day')).toHaveClass('sky-selected')
-    expect(screen.getByLabelText('Dusk')).toHaveClass('sky-disabled')
+    expect(screen.getByLabelText('Foo')).toHaveClass('sky-disabled')
 
     // waitFor animation to remove `pointer-events: none` from parent element
     // This test is flaky if we don't wait.
     await waitFor(async () => {
-      await userEvent.click(screen.getByLabelText('Dusk'))
+      await userEvent.click(screen.getByLabelText('Foo'))
     })
 
     // State should not change!
     expect(screen.getByLabelText('Day')).toHaveClass('sky-selected')
-    expect(screen.getByLabelText('Dusk')).not.toHaveClass('sky-selected')
-    expect(screen.getByLabelText('Dusk')).toHaveClass('sky-disabled')
+    expect(screen.getByLabelText('Foo')).not.toHaveClass('sky-selected')
+    expect(screen.getByLabelText('Foo')).toHaveClass('sky-disabled')
   })
 })
