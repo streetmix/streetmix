@@ -224,18 +224,12 @@ export function convertImperialMeasurementToMetric (value: number): number {
  * Given a `width` definition (an object containing both metric and imperial
  * width values), return a numerical value in metric. If `units` is metric
  * then return the metric value as is. If `units` is imperial, convert the
- * imperial value to metric and return it. If `width` is a number, assume
- * metric and return it directly.
+ * imperial value to metric and return it.
  */
 export function getWidthInMetric (
-  width: WidthDefinition | number,
+  width: WidthDefinition,
   units: UnitsSetting
 ): number {
-  if (typeof width === 'number') {
-    // NOTE: THIS ASSUMES A METRIC SOURCE VALUE!
-    return width
-  }
-
   if (units === SETTINGS_UNITS_IMPERIAL) {
     return convertImperialMeasurementToMetric(width.imperial)
   } else {

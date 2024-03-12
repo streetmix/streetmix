@@ -78,7 +78,7 @@ export interface SegmentDefinition {
   nameKey: string
   owner: string
   zIndex: number
-  defaultWidth: WidthDefinition | number // number is deprecated
+  defaultWidth: WidthDefinition
   defaultVariant: string
   defaultElevation?: number
   enableElevation?: boolean
