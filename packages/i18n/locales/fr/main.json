@@ -69,19 +69,19 @@
   },
   "settings": {
     "heading": "Paramètres",
-    "info-tooltip": "",
+    "info-tooltip": "Description",
     "general": {
-      "label": ""
+      "label": "Général"
     },
     "appearance": {
-      "label": ""
+      "label": "Apparence"
     },
     "language": {
       "label": "Langue"
     },
     "profile": {
-      "label": "",
-      "username": "",
+      "label": "Profil",
+      "username": "Nom d'utilisateur",
       "username-description": "",
       "display-name": "",
       "display-name-description": "",
