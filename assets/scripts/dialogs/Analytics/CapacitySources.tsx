@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from '../../store/hooks'
 import { DEFAULT_CAPACITY_SOURCE } from '../../streets/constants'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { getAllCapacityDataSources } from '../../segments/capacity'
 import { setCapacitySource } from '../../store/actions/street'
 
-function CapacitySources (props) {
+function CapacitySources (): React.ReactElement {
   const source = useSelector(
-    (state) => state.street?.capacitySource || DEFAULT_CAPACITY_SOURCE
+    (state) => state.street?.capacitySource ?? DEFAULT_CAPACITY_SOURCE
   )
   const dispatch = useDispatch()
 
   const [selectedSource, setSelectedSource] = useState(source)
 
-  function handleChangeSource (event) {
+  function handleChangeSource (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
     setSelectedSource(event.target.value)
     dispatch(setCapacitySource(event.target.value))
   }

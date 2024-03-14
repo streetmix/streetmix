@@ -9,44 +9,7 @@ import {
 } from '../../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
-import type {
-  Segment,
-  StreetJsonExtra,
-  StreetLocation,
-  UnitsSetting
-} from '@streetmix/types'
-
-// TODO: many of these values were "optional" but it might be worthwhile to
-// convert most of them to values that cannot be "undefined" to make it easier
-// to work with as more TypeScript is adopted.
-// ALSO: This is a "flattened" data format compared to what's returned from
-// server, and this is confusing, so we should standardize state to reflect
-// server payload, if possible!
-interface StreetState extends StreetJsonExtra {
-  id: string // UUID
-  namespacedId: number
-  schemaVersion: number
-  units: UnitsSetting
-  width: number
-  name: string | null
-  segments: Segment[]
-  leftBuildingHeight: number
-  rightBuildingHeight: number
-  leftBuildingVariant: string
-  rightBuildingVariant: string
-  skybox: string
-  location: StreetLocation | null
-  showAnalytics: boolean
-  capacitySource?: string
-  remainingWidth: number
-  creatorId: string | null
-  originalStreetId?: string | null // UUID, if set
-  updatedAt?: string // Datetime string
-  clientUpdatedAt?: string // Datetime string
-  userUpdated: boolean
-  editCount: number
-  immediateRemoval: boolean
-}
+import type { Segment, StreetState } from '@streetmix/types'
 
 const initialState: StreetState = {
   id: '',

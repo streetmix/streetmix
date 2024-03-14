@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../store/hooks'
 import { getLocaleSegmentName } from '../../segments/view'
 import { images } from '../../app/load_resources'
 import CapacityMessage from './CapacityMessage'
@@ -9,17 +8,22 @@ import './SegmentAnalytics.scss'
 
 const BAR_COLORS = 4
 
-SegmentAnalytics.propTypes = {
-  index: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  max: PropTypes.number.isRequired,
-  capacity: PropTypes.shape({
-    average: PropTypes.number,
-    potential: PropTypes.number
-  }).isRequired
+interface SegmentAnalyticsProps {
+  index: number
+  type: string
+  max: number
+  capacity: {
+    average: number
+    potential: number
+  }
 }
 
-function SegmentAnalytics ({ index, type, max, capacity }) {
+function SegmentAnalytics ({
+  index,
+  type,
+  max,
+  capacity
+}: SegmentAnalyticsProps): React.ReactElement | null {
   const locale = useSelector((state) => state.locale.locale)
 
   const { average, potential } = capacity

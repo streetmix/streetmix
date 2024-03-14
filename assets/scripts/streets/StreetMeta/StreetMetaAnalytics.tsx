@@ -13,7 +13,7 @@ function StreetMetaAnalytics (): React.ReactElement | null {
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const averageCapacity = getStreetCapacity(street).average
+  const averageCapacity = getStreetCapacity(street).average ?? 0
   const title = intl.formatMessage({
     id: 'dialogs.analytics.heading',
     defaultMessage: 'Analytics'

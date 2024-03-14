@@ -1,13 +1,26 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
 
 const BAR_MODIFIER = 0.65
 
-function CapacityBar ({ average, potential, max }) {
+interface CapacityBarProps {
+  average: number
+  potential: number
+  max: number
+}
+
+function CapacityBar ({
+  average,
+  potential,
+  max
+}: CapacityBarProps): React.ReactElement {
   // Like react-spring's pre-defined `config.slow` but with slightly
   // less tension and friction
-  const sharedConfig = { mass: 1, tension: 250, friction: 40 }
+  const sharedConfig = {
+    mass: 1,
+    tension: 250,
+    friction: 40
+  }
   const averageSpringProps = useSpring({
     config: sharedConfig,
     width: `${(average / potential) * 100}%`
@@ -33,12 +46,6 @@ function CapacityBar ({ average, potential, max }) {
       </animated.div>
     </animated.div>
   )
-}
-
-CapacityBar.propTypes = {
-  average: PropTypes.number.isRequired,
-  potential: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired
 }
 
 export default CapacityBar

@@ -5,15 +5,15 @@
  *
  */
 import React, { useState, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector, useDispatch } from '../store/hooks'
+import { setShowAnalytics } from '../store/actions/street'
 import Terms from '../app/Terms'
 import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
 import { ICON_QUESTION_CIRCLE } from '../ui/icons'
-import { setShowAnalytics } from '../store/actions/street'
 import { isOwnedByCurrentUser } from '../streets/owner'
 import { formatNumber } from '../util/number_format'
 import {
@@ -28,15 +28,15 @@ import SegmentAnalytics from './Analytics/SegmentAnalytics'
 import Dialog from './Dialog'
 import './AnalyticsDialog.scss'
 
-function AnalyticsDialog (props) {
+function AnalyticsDialog (): React.ReactElement {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
   const intl = useIntl()
-  const max = useRef(null)
+  const max = useRef(0)
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
-  const toggleVisible = () => {
+  const toggleVisible = (): void => {
     setVisible(!isVisible)
     dispatch(setShowAnalytics(!isVisible))
   }
@@ -65,14 +65,14 @@ function AnalyticsDialog (props) {
   // is optional, in case of future data sources that calculate capacity using
   // lane width as an input variable.
   let laneWidth
-  if (capacityData.typical_lane_width) {
-    if (street.units === SETTINGS_UNITS_IMPERIAL) {
-      laneWidth = `${capacityData.typical_lane_width_ft} ft`
-    } else {
-      laneWidth = `${capacityData.typical_lane_width} m`
-    }
+
+  if (street.units === SETTINGS_UNITS_IMPERIAL) {
+    laneWidth = `${capacityData.typical_lane_width.imperial} ft`
+  } else {
+    laneWidth = `${capacityData.typical_lane_width.metric} m`
   }
-  const widthText = laneWidth && (
+
+  const widthText = (
     <FormattedMessage
       id="dialogs.analytics.typical-lane-width"
       defaultMessage="Capacity values are based on {laneWidth}-wide lanes."
@@ -94,12 +94,12 @@ function AnalyticsDialog (props) {
   // requires us to chnage this.)
   max.current = Math.max(
     max.current,
-    ...rolledUp.map((item) => item.capacity.potential)
+    ...rolledUp.map((item) => item.capacity?.potential ?? 0)
   )
 
-  function exportCSV () {
+  function exportCSV (): void {
     const name =
-      street.name ||
+      street.name ??
       intl.formatMessage({
         id: 'street.default-name',
         defaultMessage: 'Unnamed St'
@@ -141,7 +141,7 @@ function AnalyticsDialog (props) {
                   />
                   :
                 </strong>{' '}
-                {capacityData.source_url
+                {capacityData.source_url !== undefined
                   ? (
                     <ExternalLink href={capacityData.source_url}>
                       {capacityData.source_title}

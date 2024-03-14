@@ -10,7 +10,10 @@
     "source_title": "Source title",
     "source_author": "Source author",
     "source_url": "https://www.example.com/",
-    "typical_lane_width": 3,
+    "typical_lane_width": {
+      "metric": 3,
+      "imperial": 10
+    },
     "segments": {
       "foo": { "average": 200, "potential": 300 },
       "qux": {

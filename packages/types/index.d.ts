@@ -66,6 +66,38 @@ export interface StreetLocation {
   }
 }
 
+// TODO: many of these values were "optional" but it might be worthwhile to
+// convert most of them to values that cannot be "undefined" to make it easier
+// to work with as more TypeScript is adopted.
+// ALSO: This is a "flattened" data format compared to what's returned from
+// server, and this is confusing, so we should standardize state to reflect
+// server payload, if possible!
+export interface StreetState extends StreetJsonExtra {
+  id: string // UUID
+  namespacedId: number
+  schemaVersion: number
+  units: UnitsSetting
+  width: number
+  name: string | null
+  segments: Segment[]
+  leftBuildingHeight: number
+  rightBuildingHeight: number
+  leftBuildingVariant: string
+  rightBuildingVariant: string
+  skybox: string
+  location: StreetLocation | null
+  showAnalytics: boolean
+  capacitySource?: string
+  remainingWidth: number
+  creatorId: string | null
+  originalStreetId?: string | null // UUID, if set
+  updatedAt?: string // Datetime string
+  clientUpdatedAt?: string // Datetime string
+  userUpdated: boolean
+  editCount: number
+  immediateRemoval: boolean
+}
+
 export interface LatLngObject {
   lat: number
   lng: number
@@ -119,4 +151,35 @@ export interface VariantInfoDimensions {
   left: number
   right: number
   center: number
+}
+
+export type CapacitySourceData = Record<
+string,
+CapacitySourceDefinition | CapacityBaseDefinition
+>
+export type CapacityData = Record<string, CapacitySourceDefinition>
+
+export interface CapacityBaseDefinition {
+  id: string
+  __comment?: string
+  segments: CapacitySegments
+}
+
+export interface CapacitySourceDefinition {
+  id: string
+  source_title: string
+  source_author: string
+  source_url?: string // URL
+  typical_lane_width: WidthDefinition
+  segments: CapacitySegments
+}
+
+export type CapacitySegments = Record<string, CapacitySegmentDefinition>
+
+export interface CapacitySegmentDefinition {
+  minimum?: number
+  average?: number
+  potential?: number
+  variants?: CapacitySegments
+  inherits?: string // TODO: if present, excludes minimum/average/potential/variants
 }

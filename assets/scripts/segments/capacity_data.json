@@ -11,8 +11,10 @@
     "source_title": "Passenger capacity of different transport modes",
     "source_author": "Transformative Urban Mobility Initiative (TUMI)",
     "source_url": "https://www.transformative-mobility.org/publications/passenger-capacity-of-different-transport-modes",
-    "typical_lane_width": 3.5,
-    "typical_lane_width_ft": 11.5,
+    "typical_lane_width": {
+      "metric": 3.5,
+      "imperial": 11.5
+    },
     "segments": {
       "sidewalk": { "average": 15000, "potential": 15000 },
       "drive-lane": {
@@ -50,8 +52,10 @@
     "source_title": "Transit Street Design Guide (2016)",
     "source_author": "NACTO",
     "source_url": "https://nacto.org/publication/transit-street-design-guide/introduction/why/designing-move-people/",
-    "typical_lane_width": 3,
-    "typical_lane_width_ft": 10,
+    "typical_lane_width": {
+      "metric": 3,
+      "imperial": 10
+    },
     "segments": {
       "drive-lane": {
         "minimum": 600,
@@ -86,8 +90,10 @@
     "source_title": "People Moving Capacity: Vancouver Urban Transportation Modes (2017)",
     "source_author": "City of Vancouver",
     "source_url": "https://twitter.com/BrentToderian/status/953085021744611328",
-    "typical_lane_width": 3,
-    "typical_lane_width_ft": 10,
+    "typical_lane_width": {
+      "metric": 3,
+      "imperial": 10
+    },
     "segments": {
       "drive-lane": {
         "minimum": 700,

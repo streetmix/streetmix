@@ -1,13 +1,33 @@
 import { parse } from 'json2csv'
+import { omit } from '../util/omit'
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL
 } from './constants'
-import SOURCE_DATA from './capacity.json'
+import SOURCE_DATA from './capacity_data.json'
+import type {
+  CapacityData,
+  CapacitySegmentDefinition,
+  CapacitySegments,
+  CapacitySourceData,
+  CapacitySourceDefinition,
+  Segment,
+  StreetState
+} from '@streetmix/types'
 
 const BASE_DATA_SOURCE = 'common'
 const CAPACITIES = processCapacityData()
+
+interface SegmentCapacities {
+  type: string
+  capacity?: CapacityForDisplay
+}
+
+type CapacityForDisplay = Pick<
+CapacitySegmentDefinition,
+'average' | 'potential'
+>
 
 /**
  * When this module is initialized, process SOURCE_DATA:
@@ -18,27 +38,21 @@ const CAPACITIES = processCapacityData()
  *   removed in the future. Code that works with the entire capacity
  *   source object should handle the "none" case manually.
  */
-function processCapacityData () {
-  const processed = {
-    // Disabled; let's force use of capacity data for now.
-    // none: {
-    //   source_author: '(none)',
-    //   id: 'none'
-    // }
-  }
-  const sourceKeys = Object.keys(SOURCE_DATA)
+function processCapacityData (): CapacityData {
+  const processed: CapacityData = {}
+  const baseData = SOURCE_DATA[BASE_DATA_SOURCE]
+  const sourceData = omit(SOURCE_DATA, [BASE_DATA_SOURCE]) as CapacityData
+
+  const sourceKeys = Object.keys(sourceData)
   for (let i = 0; i < sourceKeys.length; i++) {
     const sourceKey = sourceKeys[i]
-    const data = SOURCE_DATA[sourceKey]
-
-    // Skip the "common" data source from processing
-    if (data.id === BASE_DATA_SOURCE) continue
+    const data = sourceData[sourceKey]
 
     processed[sourceKey] = {
       ...data,
       segments: {
         // Clone "common" segments into our processed definition
-        ...SOURCE_DATA[BASE_DATA_SOURCE].segments,
+        ...baseData.segments,
         // Iterate through source segment data and process each.
         ...processInheritedValues(data.segments)
       }
@@ -57,9 +71,12 @@ function processCapacityData () {
  * @param {Object} definitions - object to process
  * @param {Object} inheritSource - optional source of inherited values
  */
-function processInheritedValues (definitions, inheritSource) {
-  const processed = {}
-  const source = inheritSource || definitions
+function processInheritedValues (
+  definitions: CapacitySegments,
+  inheritSource?: CapacitySegments
+): CapacitySegments {
+  const processed: CapacitySegments = {}
+  const source = inheritSource ?? definitions
   const keys = Object.keys(definitions)
   for (let j = 0; j < keys.length; j++) {
     const key = keys[j]
@@ -69,7 +86,7 @@ function processInheritedValues (definitions, inheritSource) {
     // Processed segments clone original data to prevent
     // other code from modifying the source
     let clone
-    if (segment.inherits) {
+    if (segment.inherits !== undefined) {
       clone = {
         ...source[segment.inherits]
       }
@@ -86,14 +103,17 @@ function processInheritedValues (definitions, inheritSource) {
 
     processed[key] = clone
   }
+
   return processed
 }
 
-export function getAllCapacityDataSources () {
+export function getAllCapacityDataSources (): CapacitySourceData {
   return CAPACITIES
 }
 
-export function getCapacityData (source = DEFAULT_CAPACITY_SOURCE) {
+export function getCapacityData (
+  source = DEFAULT_CAPACITY_SOURCE
+): CapacitySourceDefinition {
   return CAPACITIES[source]
 }
 
@@ -105,16 +125,20 @@ export function getCapacityData (source = DEFAULT_CAPACITY_SOURCE) {
  * segment is located outside of the street, or if the segment is too
  * small. We may, in the future, handle other cases that affect capacity,
  * such as segment width or adjacent segment types.
- *
- * @param {Object} segment - the segment object to retrieve capacity for
- * @param {string} source - data source ID to use
- * @returns {Object} capacity information (or null if not defined)
  */
-export function getSegmentCapacity (segment, source) {
+export function getSegmentCapacity (
+  segment: Segment,
+  source: string = DEFAULT_CAPACITY_SOURCE
+): CapacityForDisplay | undefined {
   let capacity = getCapacityData(source).segments[segment.type]
 
+  // Returns null value if capacity is not defined
+  if (capacity === undefined) {
+    return
+  }
+
   // If definition has variants, use that instead
-  if (capacity?.variants && segment.variant) {
+  if (capacity.variants && segment.variant !== undefined) {
     Object.entries(segment.variant).forEach((entry) => {
       const key = entry.join(':')
       if (capacity.variants?.[key]) {
@@ -126,10 +150,8 @@ export function getSegmentCapacity (segment, source) {
   // If a segment has capacity data, but something makes it zero capacity,
   // return modified values here.
   if (
-    capacity &&
-    segment?.warnings &&
-    (segment.warnings[SEGMENT_WARNING_OUTSIDE] ||
-      segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL])
+    segment.warnings?.[SEGMENT_WARNING_OUTSIDE] === true ||
+    segment.warnings?.[SEGMENT_WARNING_WIDTH_TOO_SMALL] === true
   ) {
     return {
       average: 0,
@@ -137,43 +159,37 @@ export function getSegmentCapacity (segment, source) {
     }
   }
 
-  if (capacity) {
-    return {
-      // Temporary: map minimum values to average
-      average: capacity.average ?? capacity.minimum ?? undefined,
-      // Temporary: map undefined potential values from average
-      potential: capacity.potential ?? capacity.average ?? undefined
-    }
+  return {
+    // Temporary: map minimum values to average
+    average: capacity.average ?? capacity.minimum ?? undefined,
+    // Temporary: map undefined potential values from average
+    potential: capacity.potential ?? capacity.average ?? undefined
   }
-
-  // Returns null value if capacity is not defined
-  return null
 }
 
 /**
  * Given a street, calculate how much capacity the entire street is capable of
- * supporting, by summing up the capacity available on each segment.
- *
- * @param {Object} street - street data
- * @returns {Object} capacity information. Unlike segment capacity, this will
- *  always return an object. Values are set to zero if street has no capacity.
+ * supporting, by summing up the capacity available on each segment. Unlike
+ * segment capacity, this will always return an object. Values are set to zero
+ * if street has no capacity data.
  */
-export function getStreetCapacity (street) {
+export function getStreetCapacity (
+  street: StreetState
+): CapacitySegmentDefinition {
   const { segments, capacitySource } = street
-  const segmentCapacities = segments.map((segment) =>
+  const segmentCapacities = segments.map((segment: Segment) =>
     getSegmentCapacity(segment, capacitySource)
   )
 
-  const sum = (total, num) => {
-    if (!Number.isInteger(num)) return total
+  const sum = (total: number, num: number): number => {
     return total + num
   }
 
   const average = segmentCapacities
-    .map((capacity) => capacity?.average || 0)
+    .map((capacity) => capacity?.average ?? 0)
     .reduce(sum, 0)
   const potential = segmentCapacities
-    .map((capacity) => capacity?.potential || 0)
+    .map((capacity) => capacity?.potential ?? 0)
     .reduce(sum, 0)
 
   return {
@@ -185,22 +201,23 @@ export function getStreetCapacity (street) {
 /**
  * Given a street, calculate the capacity for each type of segment, rolling
  * up identical segment types together.
- *
- * @param {Object} street - the street to get summary capacity from
- * @returns {Array} capacities - sorted array of segment types and capacities
  */
-export function getRolledUpSegmentCapacities (street) {
+export function getRolledUpSegmentCapacities (
+  street: StreetState
+): SegmentCapacities[] {
   const { segments, capacitySource } = street
   const capacities = segments
     // Iterate through each segment to determine its capacity
-    .map((segment) => ({
-      type: segment.type,
-      capacity: getSegmentCapacity(segment, capacitySource)
-    }))
+    .map(
+      (segment: Segment): SegmentCapacities => ({
+        type: segment.type,
+        capacity: getSegmentCapacity(segment, capacitySource)
+      })
+    )
     // Drop all segments without capacity information
-    .filter((segment) => segment.capacity !== null)
+    .filter((segment: SegmentCapacities) => segment.capacity !== undefined)
     // Combine capacity values of segments of the same type
-    .reduce((accumulator, { type, capacity }) => {
+    .reduce((accumulator: CapacitySegments, { type, capacity }) => {
       accumulator[type] = mergeCapacity(accumulator[type], capacity)
       return accumulator
     }, {})
@@ -215,18 +232,21 @@ export function getRolledUpSegmentCapacities (street) {
     .sort(sortByCapacity)
 }
 
-function mergeCapacity (a = {}, b) {
+function mergeCapacity (
+  a: CapacitySegmentDefinition = {},
+  b: CapacitySegmentDefinition = {}
+): CapacitySegmentDefinition {
   return {
-    average: (a.average || 0) + b.average,
-    potential: (a.potential || 0) + b.potential
+    average: (a.average ?? 0) + (b.average ?? 0),
+    potential: (a.potential ?? 0) + (b.potential ?? 0)
   }
 }
 
-function sortByCapacity (a, b) {
-  const a1 = a.capacity.average
-  const b1 = b.capacity.average
-  const a2 = a.capacity.potential
-  const b2 = b.capacity.potential
+function sortByCapacity (a: SegmentCapacities, b: SegmentCapacities): number {
+  const a1 = a.capacity?.average ?? 0
+  const b1 = b.capacity?.average ?? 0
+  const a2 = a.capacity?.potential ?? 0
+  const b2 = b.capacity?.potential ?? 0
 
   if (a1 < b1) return -1
   if (a1 > b1) return 1
@@ -242,13 +262,13 @@ function sortByCapacity (a, b) {
  * @param {Array} data - capacity data from getRolledUpSegmentCapacities()
  * @param {string} streetName - string for file name
  */
-export function saveCsv (data, streetName) {
+export function saveCsv (data: SegmentCapacities[], streetName: string): void {
   const fields = ['type', 'averageCapacity', 'potentialCapacity']
   const opts = { fields }
   const formattedData = data.map((row) => ({
     type: row.type,
-    averageCapacity: row.capacity.average,
-    potentialCapacity: row.capacity.potential
+    averageCapacity: row.capacity?.average ?? 0,
+    potentialCapacity: row.capacity?.potential ?? 0
   }))
 
   try {

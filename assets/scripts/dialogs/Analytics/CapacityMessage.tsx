@@ -1,15 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { formatNumber } from '../../util/number_format'
 
-CapacityMessage.propTypes = {
-  locale: PropTypes.string.isRequired,
-  average: PropTypes.number.isRequired,
-  potential: PropTypes.number.isRequired
+interface CapacityMessageProps {
+  locale: string
+  average: number
+  potential: number
 }
 
-function CapacityMessage ({ locale, average, potential }) {
+function CapacityMessage ({
+  locale,
+  average,
+  potential
+}: CapacityMessageProps): React.ReactElement {
   const isSingleAmount = average === potential
   const defaultMessage = isSingleAmount
     ? '{amount} people/hour'
@@ -17,7 +20,9 @@ function CapacityMessage ({ locale, average, potential }) {
   const id = isSingleAmount
     ? 'dialogs.analytics.segment-summary-single'
     : 'dialogs.analytics.segment-summary'
-  const options = { maximumSignificantDigits: 3 }
+  const options = {
+    maximumSignificantDigits: 3
+  }
 
   return (
     <FormattedMessage
