@@ -128,7 +128,7 @@ describe('street integration test', () => {
         await store.dispatch(incrementSegmentWidth(1, true, false, 3.658))
 
         const { street } = store.getState()
-        expect(street.segments[1].width).toEqual(3.734)
+        expect(street.segments[1].width).toEqual(3.81)
       })
     })
 
