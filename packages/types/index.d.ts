@@ -122,7 +122,8 @@ export interface SegmentDefinition {
     image: string
   }
   rules?: {
-    minWidth?: number
+    minWidth?: WidthDefinition | number // number is deprecated
+    maxWidth?: WidthDefinition | number
   }
   variants: string[]
   details: object

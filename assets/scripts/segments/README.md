@@ -30,8 +30,8 @@ How to fill in the data for a segment:
 | property | type | required? | description |
 | --- | --- | --- | --- |
 | `name` | String | optional | If set, this overrides the display name of the segment. Always use sentence case. |
-| `minWidth` | Number | optional | Minimum width for this variant in feet. If set, Streetmix throw up a warning if a user makes this segment go below this width, but doesn't prevent a user from doing so. |
-| `maxWidth` | Number | optional | Maximum width for this variant in feet. |
+| `minWidth` | Object | optional | Minimum width for this variant in metric and imperial values. If set, Streetmix throw up a warning if a user makes this segment go below this width, but doesn't prevent a user from doing so. |
+| `maxWidth` | Object | optional | Maximum width for this variant in metric and imperial values. |
 | `description` | Object | optional | If present, a "learn more" feature is added to the segment's info box. This is identical to the description object on the parent segment, but it allows the variant to have its own description which will override the parent segment's description. You can also make a variant have a description even if the parent segment does not. Note that for each variant that has the same description you will have to duplicate this description object across multiple variants right now. |
 | `graphics` | Object | required | Defines which sprites are needed to draw the segment |
 
