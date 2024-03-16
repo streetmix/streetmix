@@ -7,7 +7,7 @@ import {
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import { round, roundToPrecision } from '../util/width_units'
+import { getWidthInMetric, round, roundToPrecision } from '../util/width_units'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
@@ -96,6 +96,7 @@ export function recalculateWidth (street) {
   // Determine occupied and remaining width
   const occupiedWidth = calculateOccupiedWidth(street.segments)
   const remainingWidth = calculateRemainingWidth(street.width, occupiedWidth)
+  const units = street.units
 
   // Add warnings to segments, if necessary.
   // The position is the left pixel position of each segment. This is initialized
@@ -126,7 +127,10 @@ export function recalculateWidth (street) {
 
     // Apply a warning if segment width is less than the minimum width
     // defined for this segment type.
-    if (variantInfo.minWidth && segment.width < variantInfo.minWidth) {
+    if (
+      variantInfo.minWidth !== undefined &&
+      segment.width < getWidthInMetric(variantInfo.minWidth, units)
+    ) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
@@ -134,7 +138,10 @@ export function recalculateWidth (street) {
 
     // Apply a warning if segment width is greater than the maximum width
     // defined for this segment type.
-    if (variantInfo.maxWidth && segment.width > variantInfo.maxWidth) {
+    if (
+      variantInfo.maxWidth &&
+      segment.width > getWidthInMetric(variantInfo.maxWidth, units)
+    ) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
