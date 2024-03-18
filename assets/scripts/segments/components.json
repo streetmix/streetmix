@@ -880,7 +880,7 @@
           "slanted": {
             "graphics": {
               "quirks": {
-                "minWidth": 1
+                "minWidth": 0.9
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-slanted",
@@ -890,7 +890,7 @@
           "vertical": {
             "graphics": {
               "quirks": {
-                "minWidth": 0.8
+                "minWidth": 0.5
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-vertical",
