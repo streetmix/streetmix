@@ -7,14 +7,14 @@ import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 
 const DEFAULT_SELECTION_WEIGHT = 50
 const DEFAULT_SCATTER_SPACING_MIN = 0
-const DEFAULT_SCATTER_SPACING_MAX = 3 // in feet
+const DEFAULT_SCATTER_SPACING_MAX = 1 // in meters
 
 /**
  * Given a pool of entities, with defined widths, get the maximum width value
  * This number is used during rendering to adjust sprites for center alignment
  *
  * @param {Array} pool - of objects to draw from
- * @returns {Number} - maximum street width in feet
+ * @returns {Number} - maximum street width in meters
  */
 function getSpriteMaxWidth (pool) {
   return maxBy(pool, (s) => s.width).width
@@ -76,12 +76,12 @@ function pickRandomEntityFromPool (pool, randomGenerator) {
  *       being selected first in a list (reserved for unique or special entities
  *       that should not be the only object displayed if we only have space for
  *       one object.)
- * @param {Number} width - of segment to populate, in feet
+ * @param {Number} width - of segment to populate, in meters
  * @param {Number} randSeed - ensures a consistent sequence of objects across renders
- * @param {Number} minSpacing - minimum spacing between each object, in feet (controls density)
- * @param {Number} maxSpacing - maximt spacing between each object, in feet (controls density)
+ * @param {Number} minSpacing - minimum spacing between each object, in meters (controls density)
+ * @param {Number} maxSpacing - maximt spacing between each object, in meters (controls density)
  * @param {Number} maxSpriteWidth - maximum sprite width in the pool (via `getSpriteMaxWidth()`)
- * @param {Number} spacingAdjustment - additional value to adjust spacing, in feet
+ * @param {Number} spacingAdjustment - additional value to adjust spacing, in meters
  * @param {Number} padding - buffer zone at segment sides to avoid drawing in
  */
 export function getRandomObjects (
@@ -179,15 +179,15 @@ export function getRandomObjects (
  *
  * @param {Array} sprite - id of sprite to draw
  * @param {CanvasRenderingContext2D} ctx
- * @param {Number} width - width of segment to populate, in feet
+ * @param {Number} width - width of segment to populate, in meters
  * @param {Number} offsetLeft
  * @param {Number} groundLevel - height at which to draw people
  * @param {Number} randSeed - ensures a consistent sequence of objects across
  *    renders
- * @param {Number} minSpacing - left spacing between each object, in feet
+ * @param {Number} minSpacing - left spacing between each object, in meters
  *    (controls density)
  * @param {Number} maxSpacing - maximum right spacing between each object, in
- *    feet (controls density)
+ *    meters (controls density)
  * @param {Number} adjustment - further spacing adjustment value
  * @param {Number} padding - buffer zone at segments sides to avoid drawing in
  * @param {Number} multiplier
