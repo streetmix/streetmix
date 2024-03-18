@@ -767,7 +767,7 @@
           "left": {
             "graphics": {
               "quirks": {
-                "minWidth": 6.75
+                "minWidth": 2
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
@@ -787,7 +787,7 @@
           "right": {
             "graphics": {
               "quirks": {
-                "minWidth": 6.75
+                "minWidth": 2
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
@@ -807,7 +807,7 @@
           "center": {
             "graphics": {
               "quirks": {
-                "minWidth": 6.75
+                "minWidth": 2
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
@@ -880,7 +880,7 @@
           "slanted": {
             "graphics": {
               "quirks": {
-                "minWidth": 3.3333
+                "minWidth": 1
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-slanted",
@@ -890,7 +890,7 @@
           "vertical": {
             "graphics": {
               "quirks": {
-                "minWidth": 2.6666
+                "minWidth": 0.8
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-vertical",
