@@ -66,7 +66,6 @@ export function makeCSSGradientDeclaration (
  * be accepted by the CSS `background` property.
  */
 function makeCSSBackgroundImageDeclaration (url: string): string {
-  console.log(images)
   const asset = images.get(url)
   if (asset === undefined) {
     throw new Error('Asset not found: ' + url)
