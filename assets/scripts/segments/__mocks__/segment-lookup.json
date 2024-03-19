@@ -9,7 +9,10 @@
       "imperial": 6
     },
     "rules": {
-      "minWidth": 6
+      "minWidth": {
+        "metric": 1.8,
+        "imperial": 6
+      }
     },
     "enableElevation": true,
     "variants": ["sidewalk-density"],

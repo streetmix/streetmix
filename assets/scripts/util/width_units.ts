@@ -227,22 +227,11 @@ export function convertImperialMeasurementToMetric (value: number): number {
  * imperial value to metric and return it.
  */
 export function getWidthInMetric (
-  width: WidthDefinition | number | undefined,
+  width: WidthDefinition | undefined,
   units: UnitsSetting
 ): number | undefined {
   // If no value is provided, return undefined
   if (width === undefined) return
-
-  // Special handling for deprecated values
-  if (typeof width === 'number') {
-    if (units === SETTINGS_UNITS_IMPERIAL) {
-      // return imperial value converted to metric
-      return convertImperialMeasurementToMetric(width)
-    } else {
-      // return imperial value using imprecise legacy conversion
-      return width * 0.3
-    }
-  }
 
   if (units === SETTINGS_UNITS_IMPERIAL) {
     return convertImperialMeasurementToMetric(width.imperial)
