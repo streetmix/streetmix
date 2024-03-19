@@ -316,7 +316,7 @@ export class Segment extends React.Component {
 
     const average = getSegmentCapacity(segment, capacitySource)?.average ?? null
     const actualWidth = this.calculateSegmentWidths()
-    const elementWidth = Math.round(actualWidth * TILE_SIZE)
+    const elementWidth = actualWidth * TILE_SIZE
     const translate = 'translateX(' + (this.props.segmentPos ?? 0) + 'px)'
 
     const segmentStyle = {

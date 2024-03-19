@@ -5,7 +5,7 @@ exports[`Segment renders correctly 1`] = `
   <div
     class="segment hover show-drag-handles"
     data-testid="segment"
-    style="width: 197px; z-index: 15; transform: translateX(0px);"
+    style="width: 196.8503937007874px; z-index: 15; transform: translateX(0px);"
   >
     <div
       class="segment-label-container"

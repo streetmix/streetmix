@@ -9,7 +9,7 @@ exports[`StreetEditable segment warnings too large Pressing \`+\` does not incre
     <div
       class="segment hover show-drag-handles warning"
       data-testid="segment"
-      style="width: 4724px; z-index: 15; transform: translateX(0px);"
+      style="width: 4724.4094488188975px; z-index: 15; transform: translateX(0px);"
     >
       <div
         class="segment-label-container"
