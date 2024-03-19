@@ -88,29 +88,29 @@ describe('recalculateWidth', () => {
     const street = {
       width: 20,
       segments: [
-        { width: 2, type: 'sidewalk', variantString: 'normal' },
-        { width: 10, type: 'divider', variantString: 'bush' },
-        { width: 18, type: 'parking-lane', variantString: 'inbound|left' }
+        { width: 0.6, type: 'sidewalk', variantString: 'normal' },
+        { width: 3, type: 'divider', variantString: 'bush' },
+        { width: 5.4, type: 'parking-lane', variantString: 'inbound|left' }
       ]
     }
     expect(recalculateWidth(street)).toEqual({
-      occupiedWidth: 30,
-      remainingWidth: 20,
+      occupiedWidth: 9,
+      remainingWidth: 11,
       segments: [
         {
-          width: 2,
+          width: 0.6,
           type: 'sidewalk',
           variantString: 'normal',
           warnings: [undefined, false, true, false, false]
         },
         {
-          width: 10,
+          width: 3,
           type: 'divider',
           variantString: 'bush',
           warnings: [undefined, false, false, false, false]
         },
         {
-          width: 18,
+          width: 5.4,
           type: 'parking-lane',
           variantString: 'inbound|left',
           warnings: [undefined, false, false, true, false]
