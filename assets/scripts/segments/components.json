@@ -771,7 +771,7 @@
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
-                "padding": 1.5
+                "padding": 0.5
               },
               "left": "transit--brt-station-piece-left-edge",
               "right": "transit--brt-station-piece-right-platform",
@@ -791,7 +791,7 @@
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
-                "padding": 1.5
+                "padding": 0.5
               },
               "right": "transit--brt-station-piece-right-edge",
               "left": "transit--brt-station-piece-left-platform",
@@ -811,7 +811,7 @@
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
-                "padding": 1.5
+                "padding": 0.5
               },
               "left": "transit--brt-station-piece-left-platform",
               "right": "transit--brt-station-piece-right-platform",
