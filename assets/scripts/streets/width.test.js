@@ -15,7 +15,7 @@ describe('normalizeStreetWidth', () => {
   })
 
   it('constrains to maximum street width (imperial units)', () => {
-    expect(normalizeStreetWidth(500, 1)).toBe(121.921) // 400 ft => m
+    expect(normalizeStreetWidth(500, 1)).toBe(121.92) // 400 ft => m
   })
 
   it('rounds to nearest resolution (metric units)', () => {
