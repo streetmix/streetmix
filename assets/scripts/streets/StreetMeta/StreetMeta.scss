@@ -27,7 +27,8 @@
     margin-left: 1em;
   }
 
-  span > svg:first-child {
+  span > svg:first-child,
+  button > svg:first-child {
     transform: scale(1); // Override
     margin-right: 0.3em;
     width: 16px;
@@ -52,7 +53,7 @@ body.read-only .street-metadata-author a {
   margin: 0 0.25em; // Hack for not showing space around <time> element
 }
 
-.street-metadata-width > span > svg:first-child {
+.street-metadata-width > button > svg:first-child {
   /* Radix UI optimized width/height */
   width: 15px;
   height: 15px;

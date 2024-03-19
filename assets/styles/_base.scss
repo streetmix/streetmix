@@ -31,6 +31,13 @@ body {
   }
 }
 
+// Reset buttons to have no default appearance
+button {
+  appearance: none;
+  border: 0;
+  background-color: transparent;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -66,12 +73,6 @@ a,
 
 .link-like {
   text-decoration: underline;
-}
-
-button.link-like {
-  appearance: none;
-  border: 0;
-  background-color: transparent;
 }
 
 input[type="text"],

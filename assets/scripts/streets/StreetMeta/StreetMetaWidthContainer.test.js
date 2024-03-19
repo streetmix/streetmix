@@ -3,7 +3,16 @@ import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
+import { updateStreetWidthAction as updateStreetWidth } from '../../store/actions/street'
+import { updateUnits } from '../../users/localization'
 import StreetMetaWidthContainer from './StreetMetaWidthContainer'
+
+jest.mock('../../store/actions/street', () => ({
+  updateStreetWidthAction: jest.fn(() => ({ type: 'MOCK_ACTION' }))
+}))
+jest.mock('../../users/localization', () => ({
+  updateUnits: jest.fn()
+}))
 
 describe('StreetMetaWidthContainer', () => {
   it('renders', () => {
@@ -17,46 +26,50 @@ describe('StreetMetaWidthContainer', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it.skip('updates street label on selection change', async () => {
-    const updateStreetWidth = jest.fn()
-    const changeValue = 10
+  it('updates street label on selection change', async () => {
+    render(<StreetMetaWidthContainer />)
 
-    // TODO: the `updateStreetWidth` function is not passed in because
-    // `render()` does not allow props to override Redux connect
-    // And the change value is called with the `40` not `changeValue`
-    render(
-      <StreetMetaWidthContainer
-        street={{}}
-        updateStreetWidth={updateStreetWidth}
-      />
-    )
-    await userEvent.click(screen.getByTitle('Change width of the street'))
-    userEvent.selectOptions(screen.getByRole('listbox'), changeValue)
+    // Click the "Change street width" button
+    await userEvent.click(screen.getByRole('button'))
 
-    expect(updateStreetWidth).toBeCalledWith(changeValue)
+    // Change value from dropdown
+    await userEvent.selectOptions(screen.getByRole('combobox'), '12')
 
-    // Expect render to be label again
-    expect(screen.getByRole('listbox')).toBe(null)
-    expect(screen.getByTitle('Change width of the street')).not.toBe(null)
+    // The change is made
+    expect(updateStreetWidth).toBeCalledWith(12)
+
+    // Finally, render returns to label again (and not select dropdown)
+    expect(screen.queryByRole('combobox')).toBe(null)
+    expect(screen.getByRole('button')).toBeInTheDocument()
   })
 
-  it.skip('does not render selection dropdown on click when not editable', async () => {
-    // TODO: This should pass, but `editable={false}` is never set
-    // Either update `render()` to allow props to override Redux connect,
-    // or set initial state (even though it tightly couples component specification to Redux store)
-    render(
-      <StreetMetaWidthContainer
-        street={{}}
-        editable={false}
-        updateStreetWidth={jest.fn()}
-      />
-    )
+  it('does not render selection dropdown on click when not editable', async () => {
+    render(<StreetMetaWidthContainer />, {
+      initialState: {
+        app: {
+          readOnly: true
+        }
+      }
+    })
     await userEvent.click(screen.getByText('width', { exact: false }))
 
-    expect(screen.getByRole('listbox')).toBe(null)
+    expect(screen.queryByRole('combobox')).toBe(null)
     expect(screen.getByText('width', { exact: false })).not.toBe(null)
   })
 
-  // TODO: mock updateUnits() and test if it is called
-  it.todo('updates units')
+  it('updates units', async () => {
+    render(<StreetMetaWidthContainer />)
+
+    // Click the "Change street width" button
+    await userEvent.click(screen.getByRole('button'))
+
+    // Change value from dropdown
+    await userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      'Switch to imperial units (feet)'
+    )
+
+    // The change is made
+    expect(updateUnits).toBeCalledWith(1)
+  })
 })

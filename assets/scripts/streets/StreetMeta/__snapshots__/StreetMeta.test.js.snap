@@ -8,7 +8,7 @@ exports[`StreetMeta renders without crashing 1`] = `
     <span
       class="street-metadata-width"
     >
-      <span
+      <button
         class="street-width street-width-editable"
       >
         <svg />
@@ -16,7 +16,7 @@ exports[`StreetMeta renders without crashing 1`] = `
         <svg
           class="menu-carat-down"
         />
-      </span>
+      </button>
     </span>
     <span
       class="street-metadata-map"

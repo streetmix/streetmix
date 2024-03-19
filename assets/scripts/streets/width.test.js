@@ -83,7 +83,6 @@ describe('recalculateWidth', () => {
     })
   })
 
-  // TODO: Update min/max width in metric units
   it('calculates warnings for segments above max width or below min width', () => {
     const street = {
       width: 20,
