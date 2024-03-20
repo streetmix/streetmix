@@ -30,13 +30,24 @@ import street, {
 
 describe('street reducer', () => {
   const initialState = {
+    id: '',
+    namespacedId: 0,
+    schemaVersion: 0,
+    units: 0,
+    width: 0,
+    name: null,
     segments: [],
-    remainingWidth: 0,
-    skybox: 'day',
-    units: 2,
-    userUpdated: false,
     leftBuildingHeight: 0,
     rightBuildingHeight: 0,
+    leftBuildingVariant: '',
+    rightBuildingVariant: '',
+    skybox: 'day',
+    location: null,
+    showAnalytics: false,
+    occupiedWidth: 0,
+    remainingWidth: 0,
+    creatorId: null,
+    userUpdated: false,
     immediateRemoval: true,
     editCount: 0
   }
@@ -56,31 +67,18 @@ describe('street reducer', () => {
         })
       )
     ).toEqual({
+      ...initialState,
       segments: [1, 2, 3],
-      remainingWidth: 0,
       name: 'foo',
-      units: 2,
-      userUpdated: true,
-      leftBuildingHeight: 0,
-      rightBuildingHeight: 0,
-      skybox: 'day',
-      immediateRemoval: true,
-      editCount: 0
+      userUpdated: true
     })
   })
 
   it('should handle addSegment()', () => {
     // Add a segment at index 0 from initial state
     expect(street(initialState, addSegment(0, { type: 'foo' }))).toEqual({
-      segments: [{ type: 'foo' }],
-      remainingWidth: 0,
-      skybox: 'day',
-      units: 2,
-      userUpdated: false,
-      leftBuildingHeight: 0,
-      rightBuildingHeight: 0,
-      immediateRemoval: true,
-      editCount: 0
+      ...initialState,
+      segments: [{ type: 'foo' }]
     })
 
     // Insert a segment at index 0 for an existing street
@@ -170,16 +168,10 @@ describe('street reducer', () => {
 
   it('should handle updateSegments()', () => {
     expect(street(initialState, updateSegments([1, 2, 3], 10, 20))).toEqual({
+      ...initialState,
       segments: [1, 2, 3],
       occupiedWidth: 10,
-      remainingWidth: 20,
-      skybox: 'day',
-      units: 2,
-      userUpdated: false,
-      leftBuildingHeight: 0,
-      rightBuildingHeight: 0,
-      immediateRemoval: true,
-      editCount: 0
+      remainingWidth: 20
     })
   })
 
@@ -369,15 +361,7 @@ describe('street reducer', () => {
         })
       )
     ).toEqual({
-      segments: [],
-      remainingWidth: 0,
-      skybox: 'day',
-      units: 2,
-      userUpdated: false,
-      leftBuildingHeight: 0,
-      rightBuildingHeight: 0,
-      immediateRemoval: true,
-      editCount: 0,
+      ...initialState,
       creatorId: 'foo',
       id: 'bar',
       namespacedId: 'baz'
@@ -820,15 +804,8 @@ describe('street reducer', () => {
 
   it('should handle setSkybox()', () => {
     expect(street(initialState, setSkybox('foo'))).toEqual({
-      segments: [],
-      remainingWidth: 0,
-      skybox: 'foo',
-      units: 2,
-      userUpdated: false,
-      leftBuildingHeight: 0,
-      rightBuildingHeight: 0,
-      immediateRemoval: true,
-      editCount: 0
+      ...initialState,
+      skybox: 'foo'
     })
   })
 })

@@ -1,4 +1,4 @@
-// Initialized a memoized instance of Intl.NumberFormat
+// Initialize a memoized instance of Intl.NumberFormat
 const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)
 
 /**

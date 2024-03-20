@@ -5,6 +5,7 @@ import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
 import { changeSegmentWidth } from '../store/slices/street'
 import { setDraggingType } from '../store/slices/ui'
+import { round } from '../util/width_units'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -28,8 +29,6 @@ export const RESIZE_TYPE_INCREMENT = 1
 export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
-
-const NORMALIZE_PRECISION = 5
 
 export function resizeSegment (dataNo, resizeType, width, units) {
   // @TODO: don't read state for units; this is a temp kludge because the drag resizing
@@ -208,6 +207,7 @@ export function resolutionForResizeType (resizeType, units) {
       return getSegmentDragResizeResolution(units)
     default:
       // Always return this resolution if `resizeType` is undefined or wrong value
+      // TODO: Remove when converted to TypeScript
       return getSegmentWidthResolution(units)
   }
 }
@@ -227,7 +227,8 @@ export function normalizeSegmentWidth (width, resolution) {
     width = MAX_SEGMENT_WIDTH
   }
   width = Math.round(width / resolution) * resolution
-  width = Number.parseFloat(width.toFixed(NORMALIZE_PRECISION))
+  // Round to three digit decimal precision
+  width = round(width, 3)
   return width
 }
 

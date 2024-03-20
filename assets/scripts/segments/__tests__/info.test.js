@@ -1,5 +1,4 @@
 /* eslint-env jest */
-import SEGMENT_INFO from '../info.json'
 import SPRITE_DEFS from '../sprite-defs.json'
 import {
   getSpriteDef,
@@ -66,16 +65,6 @@ describe('segment info', () => {
       const segment = getSegmentInfo('foo')
       expect(segment.unknown).toBe(true)
     })
-
-    it('returns the same segment info as the old segment data model', () => {
-      const segment = getSegmentInfo('sidewalk')
-      expect(segment.unknown).toBeFalsy()
-
-      const { details, rules, ...segmentInfo } = segment
-      const { details: original, ...originalSegmentInfo } =
-        SEGMENT_INFO.sidewalk
-      expect(segmentInfo).toEqual(originalSegmentInfo)
-    })
   })
 
   describe('getSegmentVariantInfo()', () => {
@@ -92,17 +81,6 @@ describe('segment info', () => {
     it('returns placeholder data for an unknown segment type and variant', () => {
       const variant = getSegmentVariantInfo('foo', 'bar')
       expect(variant.unknown).toBe(true)
-    })
-
-    it('returns the same data as the old segment data model', () => {
-      const variant = getSegmentVariantInfo('turn-lane', 'inbound|straight')
-      expect(variant.unknown).toBeFalsy()
-
-      const original = SEGMENT_INFO['turn-lane'].details['inbound|straight']
-      // Sort original array to pass equality check
-      original.graphics.center.sort()
-
-      expect(variant).toEqual(original)
     })
   })
 })

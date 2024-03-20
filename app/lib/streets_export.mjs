@@ -1,19 +1,19 @@
 import appURL from './url.mjs'
 
-const IMPERIAL_METRIC_MULTIPLIER = 30 / 100
-const METRIC_PRECISION = 3
+const IMPERIAL_CONVERSION_RATE = 0.3048
+const IMPERIAL_PRECISION = 3
 
-const round = (number, decimalPlaces) => {
-  const factorOfTen = Math.pow(10, decimalPlaces)
-  return Math.round(number * factorOfTen) / factorOfTen
+// https://www.jacklmoore.com/notes/rounding-in-javascript/
+function round (value, decimals) {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
 }
 
 const camelToSnakeCase = (str) =>
   str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
 
-function convertImperialMeasurementToMetric (value) {
+function convertMetricMeasurementToImperial (value) {
   if (value === undefined) return
-  return round(value * IMPERIAL_METRIC_MULTIPLIER, METRIC_PRECISION)
+  return round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
 }
 
 export function streetsToCSV (json) {
@@ -68,17 +68,17 @@ export function streetsToCSV (json) {
         case 'name':
         case 'creatorId':
         case 'createdAt':
-          return street[header] || ''
+          return street[header] ?? ''
         case 'leftBuildingVariant':
         case 'leftBuildingHeight':
         case 'rightBuildingVariant':
         case 'rightBuildingHeight':
         case 'editCount':
-          return street.data.street[header] || ''
+          return street.data.street[header] ?? ''
         case 'width':
-          return convertImperialMeasurementToMetric(street.data.street.width)
-        case 'widthImperial':
           return street.data.street.width
+        case 'widthImperial':
+          return convertMetricMeasurementToImperial(street.data.street.width)
         case segmentHeaderString:
           return getSegmentData(street.data.street.segments, maxSegmentCount)
         case 'url':
@@ -98,13 +98,13 @@ export function streetsToCSV (json) {
 function getSegmentData (segments = [], maxSegmentCount) {
   const values = []
   for (let i = 0; i < maxSegmentCount; i++) {
-    const segment = segments[i] || {}
+    const segment = segments[i] ?? {}
     values.push(
       [
-        segment.type || '',
-        segment.variantString || '',
-        convertImperialMeasurementToMetric(segment.width) || '',
-        segment.width || '',
+        segment.type ?? '',
+        segment.variantString ?? '',
+        segment.width ?? '',
+        convertMetricMeasurementToImperial(segment.width) ?? '',
         typeof segment.elevation !== 'undefined' ? segment.elevation : ''
       ].join(',')
     )

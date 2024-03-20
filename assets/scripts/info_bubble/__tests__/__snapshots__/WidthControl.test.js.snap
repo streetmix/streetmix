@@ -22,7 +22,7 @@ exports[`WidthControl renders 1`] = `
         class="up-down-input-element"
         title="Change width of the segment"
         type="text"
-        value="60 m"
+        value="3 m"
       />
       <button
         class="btn up-down-input-increment"

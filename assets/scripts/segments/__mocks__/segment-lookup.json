@@ -4,9 +4,15 @@
     "nameKey": "sidewalk",
     "owner": "PEDESTRIAN",
     "zIndex": 30,
-    "defaultWidth": 6,
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
     "rules": {
-      "minWidth": 6
+      "minWidth": {
+        "metric": 1.8,
+        "imperial": 6
+      }
     },
     "enableElevation": true,
     "variants": ["sidewalk-density"],
@@ -90,7 +96,10 @@
     "nameKey": "outdoor-dining",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
-    "defaultWidth": 8,
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
     "enableWithFlag": "SEGMENT_CAFE_SEATING",
     "unlockCondition": "SIGN_IN",
     "variants": ["occupants", "elevation"],
@@ -198,7 +207,10 @@
     "nameKey": "utility-pole",
     "owner": "NONE",
     "zIndex": 10,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "enableWithFlag": "SEGMENT_UTILITIES",
     "variants": ["orientation"],
     "details": {

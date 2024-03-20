@@ -31,7 +31,8 @@ const initialState = {
   },
   street: {
     segments: [{}],
-    remainingWidth: 0
+    remainingWidth: 0,
+    units: 0
   }
 }
 
@@ -57,7 +58,7 @@ describe('ResizeGuides', () => {
 
   it('renders only min guide', () => {
     getSegmentVariantInfo.mockImplementationOnce(() => ({
-      minWidth: 10
+      minWidth: { metric: 3 }
     }))
 
     const { container } = render(<ResizeGuides />, {
@@ -81,7 +82,7 @@ describe('ResizeGuides', () => {
 
   it('renders only max guide', () => {
     getSegmentVariantInfo.mockImplementationOnce(() => ({
-      maxWidth: 12
+      maxWidth: { metric: 4 }
     }))
 
     const { container } = render(<ResizeGuides />, {
@@ -105,8 +106,8 @@ describe('ResizeGuides', () => {
 
   it('renders max and min guides', () => {
     getSegmentVariantInfo.mockImplementationOnce(() => ({
-      minWidth: 10,
-      maxWidth: 12
+      minWidth: { metric: 3 },
+      maxWidth: { metric: 4 }
     }))
 
     const { container } = render(<ResizeGuides />, {
@@ -129,8 +130,10 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max guide when remaining width is large', () => {
-    const maxWidth = 20
-    getSegmentVariantInfo.mockImplementationOnce(() => ({ maxWidth }))
+    const maxWidth = 4
+    getSegmentVariantInfo.mockImplementationOnce(() => ({
+      maxWidth: { metric: maxWidth }
+    }))
 
     const initialState = {
       ui: {
@@ -138,9 +141,10 @@ describe('ResizeGuides', () => {
         activeSegment: 0
       },
       street: {
-        segments: [{}],
+        segments: [{ width: 1 }],
         // `remainingWidth` should be larger than `maxWidth`
-        remainingWidth: 30
+        remainingWidth: 12,
+        units: 0
       }
     }
 
@@ -164,8 +168,10 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max guide when remaining width is small', () => {
-    const maxWidth = 20
-    getSegmentVariantInfo.mockImplementationOnce(() => ({ maxWidth }))
+    const maxWidth = 4
+    getSegmentVariantInfo.mockImplementationOnce(() => ({
+      maxWidth: { metric: maxWidth }
+    }))
 
     // `remainingWidth` should be smaller than `maxWidth`
     // `segment` is given a `width` property so that calculations can be performed
@@ -178,7 +184,8 @@ describe('ResizeGuides', () => {
       },
       street: {
         segments: [{ width: segmentWidth }],
-        remainingWidth
+        remainingWidth,
+        units: 0
       }
     }
 
@@ -194,7 +201,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max guide with only remaining width', () => {
-    const remainingWidth = 19
+    const remainingWidth = 6
     const segmentWidth = 1
     const initialState = {
       ui: {
@@ -203,7 +210,8 @@ describe('ResizeGuides', () => {
       },
       street: {
         segments: [{ width: segmentWidth }],
-        remainingWidth
+        remainingWidth,
+        units: 0
       }
     }
 

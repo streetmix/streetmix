@@ -88,6 +88,7 @@ export const setCapacitySource = (source) => {
     await dispatch(segmentsChanged())
   }
 }
+
 export const incrementSegmentWidth = (
   dataNo,
   add,
@@ -111,8 +112,25 @@ export const incrementSegmentWidth = (
       increment = -increment
     }
 
+    // When width values are imprecise (e.g. after unit conversion), the
+    // increment to nearest precise value, rather than increment first and
+    // then make precise
+    const adjustedWidth = normalizeSegmentWidth(origWidth, resolution)
+
+    let width
+    if (origWidth !== adjustedWidth) {
+      if (add && adjustedWidth > origWidth) {
+        width = adjustedWidth
+      } else if (!add && adjustedWidth < origWidth) {
+        width = adjustedWidth
+      } else {
+        width = normalizeSegmentWidth(origWidth + increment, resolution)
+      }
+    } else {
+      width = normalizeSegmentWidth(origWidth + increment, resolution)
+    }
+
     cancelSegmentResizeTransitions()
-    const width = normalizeSegmentWidth(origWidth + increment, resolution)
     await dispatch(changeSegmentWidth(dataNo, width))
     await dispatch(segmentsChanged())
   }

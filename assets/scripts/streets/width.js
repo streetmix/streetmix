@@ -6,10 +6,13 @@ import {
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
+import { getWidthInMetric, round, roundToPrecision } from '../util/width_units'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
-  WIDTH_ROUNDING
+  MIN_CUSTOM_STREET_WIDTH_IMPERIAL,
+  MAX_CUSTOM_STREET_WIDTH_IMPERIAL
 } from './constants'
 
 /**
@@ -21,15 +24,28 @@ import {
  * @returns {Number}
  */
 export function normalizeStreetWidth (width, units) {
-  const resolution = getSegmentWidthResolution(units)
+  const minValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MIN_CUSTOM_STREET_WIDTH_IMPERIAL
+      : MIN_CUSTOM_STREET_WIDTH
+  const maxValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MAX_CUSTOM_STREET_WIDTH_IMPERIAL
+      : MAX_CUSTOM_STREET_WIDTH
 
-  if (width < MIN_CUSTOM_STREET_WIDTH) {
-    width = MIN_CUSTOM_STREET_WIDTH
-  } else if (width > MAX_CUSTOM_STREET_WIDTH) {
-    width = MAX_CUSTOM_STREET_WIDTH
+  // Constrain within bounds
+  if (width < minValue) {
+    width = minValue
+  } else if (width > maxValue) {
+    width = maxValue
   }
 
+  // Constrain to resolution
+  const resolution = getSegmentWidthResolution(units)
   width = Math.round(width / resolution) * resolution
+
+  // Round to decimal precision
+  width = round(width, 3)
 
   return width
 }
@@ -58,11 +74,11 @@ function calculateRemainingWidth (streetWidth, occupiedWidth) {
   let remainingWidth = streetWidth - occupiedWidth
 
   // Rounding problems :·(
-  if (Math.abs(remainingWidth) < WIDTH_ROUNDING) {
+  if (Math.abs(remainingWidth) < 0.01) {
     remainingWidth = 0
   }
 
-  return remainingWidth
+  return roundToPrecision(remainingWidth)
 }
 
 /**
@@ -80,6 +96,7 @@ export function recalculateWidth (street) {
   // Determine occupied and remaining width
   const occupiedWidth = calculateOccupiedWidth(street.segments)
   const remainingWidth = calculateRemainingWidth(street.width, occupiedWidth)
+  const units = street.units
 
   // Add warnings to segments, if necessary.
   // The position is the left pixel position of each segment. This is initialized
@@ -110,7 +127,10 @@ export function recalculateWidth (street) {
 
     // Apply a warning if segment width is less than the minimum width
     // defined for this segment type.
-    if (variantInfo.minWidth && segment.width < variantInfo.minWidth) {
+    if (
+      variantInfo.minWidth !== undefined &&
+      segment.width < getWidthInMetric(variantInfo.minWidth, units)
+    ) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
@@ -118,7 +138,10 @@ export function recalculateWidth (street) {
 
     // Apply a warning if segment width is greater than the maximum width
     // defined for this segment type.
-    if (variantInfo.maxWidth && segment.width > variantInfo.maxWidth) {
+    if (
+      variantInfo.maxWidth &&
+      segment.width > getWidthInMetric(variantInfo.maxWidth, units)
+    ) {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
     } else {
       warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false

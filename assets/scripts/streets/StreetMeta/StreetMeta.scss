@@ -1,0 +1,78 @@
+@use "sass:color";
+@import "../../../styles/variables";
+
+.street-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 0.75em;
+  color: black;
+  user-select: none;
+  pointer-events: auto;
+  transition: color $skybox-transition;
+  font-size: 0.95rem;
+
+  a {
+    color: inherit;
+  }
+
+  > span {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    margin-bottom: 0.25em;
+  }
+
+  > span:not(:first-child) {
+    margin-left: 1em;
+  }
+
+  span > svg:first-child,
+  button > svg:first-child {
+    transform: scale(1); // Override
+    margin-right: 0.3em;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+body:not(.read-only) .street-metadata-author a:hover {
+  color: color.adjust($ui-colour, $lightness: -40%);
+}
+
+body.read-only .street-metadata-author a {
+  text-decoration: none;
+  cursor: default;
+}
+
+.street-metadata-author .avatar {
+  margin: 0 0.5em; // Hack for not showing space around <Avatar> component
+}
+
+.street-metadata-date time {
+  margin: 0 0.25em; // Hack for not showing space around <time> element
+}
+
+.street-metadata-width > button > svg:first-child {
+  /* Radix UI optimized width/height */
+  width: 15px;
+  height: 15px;
+}
+
+.street-metadata-analytics a,
+.street-metadata-map a {
+  text-decoration: underline;
+}
+
+// Invert the UI text color when there is a dark background
+body.dark-skybox-invert-ui {
+  .street-metadata {
+    color: #fff;
+  }
+
+  .street-metadata-author:not(:empty)::before,
+  .street-metadata-date:not(:empty)::before,
+  .street-metadata-map:not(:empty)::before {
+    color: #b0b0b0;
+  }
+}

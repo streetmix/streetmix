@@ -9,6 +9,7 @@ import {
 import { getVariantString, getVariantArray } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import { getLeftHandTraffic } from '../users/localization'
 import {
   setUpdateTime,
@@ -29,7 +30,10 @@ const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
 const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
 const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
 const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
-const DEFAULT_STREET_WIDTH = 80
+const DEFAULT_STREET_WIDTH = 24 // meters
+
+// TODO: put together with other measurement conversion code?
+const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 
 let _lastStreet
 
@@ -38,7 +42,7 @@ export function setLastStreet () {
 }
 
 // Server is now the source of truth of this value
-const LATEST_SCHEMA_VERSION = 29
+const LATEST_SCHEMA_VERSION = 30
 
 // Do some work to update segment data, although they're not technically
 // part of the schema (yet?) -- carried over after moving bulk of
@@ -154,10 +158,18 @@ function fillDefaultSegments (units) {
     )
 
     segment.id = nanoid()
-    segment.width = normalizeSegmentWidth(
-      segment.width,
-      resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
-    )
+
+    // Convert segment width for imperial using rough conversion rate
+    // e.g. 2.7m => 9ft, and then converted to precise metric units
+    // so that it can be converted back to 9ft
+    if (units === SETTINGS_UNITS_IMPERIAL) {
+      const width = segment.width * ROUGH_CONVERSION_RATE
+      segment.width = normalizeSegmentWidth(
+        width,
+        resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
+      )
+    }
+
     segment.elevation = variantInfo.elevation
     segment.warnings = []
 
@@ -177,7 +189,7 @@ export function prepareDefaultStreet () {
     showAnalytics: true,
     userUpdated: false,
     editCount: 0,
-    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
+    width: DEFAULT_STREET_WIDTH,
     skybox: DEFAULT_SKYBOX,
     leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
     leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
@@ -188,6 +200,10 @@ export function prepareDefaultStreet () {
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
     creatorId: (isSignedIn() && getSignInData().userId) || null
+  }
+
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    defaultStreet.width = DEFAULT_STREET_WIDTH * ROUGH_CONVERSION_RATE
   }
 
   store.dispatch(updateStreetData(defaultStreet))
@@ -218,6 +234,10 @@ export function prepareEmptyStreet () {
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
     creatorId: (isSignedIn() && getSignInData().userId) || null
+  }
+
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    emptyStreet.width = DEFAULT_STREET_WIDTH * ROUGH_CONVERSION_RATE
   }
 
   store.dispatch(updateStreetData(emptyStreet))

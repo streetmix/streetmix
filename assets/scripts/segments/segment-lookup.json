@@ -4,9 +4,15 @@
     "nameKey": "sidewalk",
     "owner": "PEDESTRIAN",
     "zIndex": 30,
-    "defaultWidth": 6,
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
     "rules": {
-      "minWidth": 6
+      "minWidth": {
+        "metric": 1.8,
+        "imperial": 6
+      }
     },
     "defaultElevation": 1,
     "enableElevation": true,
@@ -91,7 +97,10 @@
     "nameKey": "sidewalk-tree",
     "owner": "NATURE",
     "zIndex": 22,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "variants": ["tree-type"],
     "details": {
       "big": {
@@ -141,7 +150,10 @@
     "nameKey": "bike-rack",
     "owner": "BIKE",
     "zIndex": 23,
-    "defaultWidth": 5,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
     "defaultVariant": "left|sidewalk",
     "variants": ["orientation", "bike-rack-elevation"],
     "details": {
@@ -272,7 +284,10 @@
     "nameKey": "bench",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "variants": ["bench-orientation"],
     "details": {
       "left": {
@@ -342,7 +357,10 @@
     "nameKey": "outdoor-dining",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
-    "defaultWidth": 8,
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
     "unlockCondition": "SIGN_IN",
     "variants": ["occupants", "elevation"],
     "details": {
@@ -449,7 +467,10 @@
     "nameKey": "wayfinding-sign",
     "owner": "PEDESTRIAN",
     "zIndex": 21,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "description": {
       "key": "wayfinding-sign",
       "image": "wayfinding-02.jpg"
@@ -523,7 +544,10 @@
     "nameKey": "sidewalk-lamp",
     "owner": "PEDESTRIAN",
     "zIndex": 19,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "defaultVariant": "both|traditional",
     "variants": ["lamp-orientation", "lamp-type"],
     "details": {
@@ -732,7 +756,10 @@
     "nameKey": "utility-pole",
     "owner": "NONE",
     "zIndex": 10,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "unlockCondition": "SIGN_IN",
     "variants": ["orientation"],
     "details": {
@@ -783,13 +810,19 @@
     "nameKey": "parklet",
     "owner": "NATURE",
     "zIndex": 15,
-    "defaultWidth": 8,
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
     "description": {
       "key": "parklet",
       "image": "parklets-01.jpg"
     },
     "rules": {
-      "minWidth": 8
+      "minWidth": {
+        "metric": 2.4,
+        "imperial": 8
+      }
     },
     "variants": ["orientation"],
     "details": {
@@ -840,9 +873,15 @@
     "nameKey": "street-vendor",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "rules": {
-      "minWidth": 4
+      "minWidth": {
+        "metric": 1.2,
+        "imperial": 4
+      }
     },
     "defaultElevation": 1,
     "enableElevation": true,
@@ -852,7 +891,10 @@
     "details": {
       "handcart|concrete": {
         "rules": {
-          "minWidth": 3
+          "minWidth": {
+            "metric": 0.9,
+            "imperial": 3
+          }
         },
         "components": {
           "lanes": [
@@ -935,7 +977,10 @@
       },
       "handcart|asphalt": {
         "rules": {
-          "minWidth": 3
+          "minWidth": {
+            "metric": 0.9,
+            "imperial": 3
+          }
         },
         "components": {
           "lanes": [
@@ -1023,7 +1068,10 @@
     "nameKey": "divider",
     "owner": "NATURE",
     "zIndex": 20,
-    "defaultWidth": 2,
+    "defaultWidth": {
+      "metric": 0.5,
+      "imperial": 2
+    },
     "defaultVariant": "flowers",
     "variants": ["divider-type"],
     "details": {
@@ -1304,7 +1352,10 @@
   "crosswalk": {
     "name": "Crosswalk",
     "nameKey": "crosswalk",
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "defaultVariant": "zebra-crossing",
     "defaultElevation": 0,
     "enableElevation": true,
@@ -1351,7 +1402,10 @@
     "name": "Temporary barrier",
     "nameKey": "temporary-barrier",
     "zIndex": 20,
-    "defaultWidth": 2,
+    "defaultWidth": {
+      "metric": 0.5,
+      "imperial": 2
+    },
     "defaultVariant": "traffic-cone",
     "unlockCondition": "SIGN_IN",
     "variants": ["temporary-barrier-type"],
@@ -1452,7 +1506,10 @@
     "owner": "UTILITY",
     "unlockWithFlag": "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED",
     "unlockCondition": "SUBSCRIBE",
-    "defaultWidth": 3.333,
+    "defaultWidth": {
+      "metric": 1,
+      "imperial": 3.25
+    },
     "variants": ["drainage-sides"],
     "details": {
       "slanted": {
@@ -1502,9 +1559,15 @@
     "nameKey": "scooter",
     "owner": "BIKE",
     "zIndex": 16,
-    "defaultWidth": 5,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
     "rules": {
-      "minWidth": 4
+      "minWidth": {
+        "metric": 1.2,
+        "imperial": 4
+      }
     },
     "variants": ["direction", "bike-asphalt"],
     "details": {
@@ -1665,7 +1728,10 @@
     "nameKey": "scooter-drop-zone",
     "owner": "FLEX",
     "zIndex": 21,
-    "defaultWidth": 5,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
     "defaultVariant": "right|sidewalk|empty",
     "variants": ["orientation", "scooter-elevation", "scooter-riders"],
     "details": {
@@ -1924,13 +1990,19 @@
     "nameKey": "bike-lane",
     "owner": "BIKE",
     "zIndex": 16,
-    "defaultWidth": 6,
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
     "description": {
       "key": "bike-lane",
       "image": "bike-lane-02.jpg"
     },
     "rules": {
-      "minWidth": 5
+      "minWidth": {
+        "metric": 1.5,
+        "imperial": 5
+      }
     },
     "variants": ["bike-direction", "bike-asphalt", "elevation"],
     "details": {
@@ -1988,7 +2060,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -2026,7 +2101,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -2122,7 +2200,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2164,7 +2245,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2264,7 +2348,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2306,7 +2393,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2398,7 +2488,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -2436,7 +2529,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -2532,7 +2628,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2574,7 +2673,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2674,7 +2776,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2716,7 +2821,10 @@
         "name": "Two-way bike lane",
         "nameKey": "twoway-bike-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "description": {
           "key": "colored-bike-lane",
@@ -2761,10 +2869,19 @@
     "nameKey": "bikeshare-station",
     "owner": "FLEX",
     "zIndex": 21,
-    "defaultWidth": 7,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
     "rules": {
-      "minWidth": 7,
-      "maxWidth": 10
+      "minWidth": {
+        "metric": 2.1,
+        "imperial": 7
+      },
+      "maxWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
     },
     "variants": ["orientation", "elevation"],
     "details": {
@@ -2871,9 +2988,15 @@
     "nameKey": "foodtruck",
     "owner": "FLEX",
     "zIndex": 20,
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "rules": {
-      "minWidth": 10
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
     },
     "variants": ["orientation"],
     "details": {
@@ -2924,10 +3047,19 @@
     "nameKey": "flex-zone",
     "owner": "FLEX",
     "zIndex": 15,
-    "defaultWidth": 7,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
     "rules": {
-      "minWidth": 7,
-      "maxWidth": 10
+      "minWidth": {
+        "metric": 2.1,
+        "imperial": 7
+      },
+      "maxWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
     },
     "variants": ["flex-type", "direction", "orientation"],
     "details": {
@@ -3154,7 +3286,10 @@
     "nameKey": "flex-zone-curb",
     "owner": "FLEX",
     "zIndex": 30,
-    "defaultWidth": 4,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
     "variants": ["waiting-area", "orientation"],
     "details": {
       "sparse|left": {
@@ -3256,10 +3391,19 @@
     "nameKey": "parking-lane",
     "owner": "CAR",
     "zIndex": 13,
-    "defaultWidth": 7,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
     "rules": {
-      "minWidth": 7,
-      "maxWidth": 10
+      "minWidth": {
+        "metric": 2.1,
+        "imperial": 7
+      },
+      "maxWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
     },
     "variants": ["parking-lane-direction", "parking-lane-orientation"],
     "details": {
@@ -3371,8 +3515,14 @@
         "name": "Perpendicular parking",
         "nameKey": "perpendicular-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 20
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 6,
+            "imperial": 20
+          }
         },
         "components": {
           "lanes": [
@@ -3397,8 +3547,14 @@
         "name": "Perpendicular parking",
         "nameKey": "perpendicular-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 20
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 6,
+            "imperial": 20
+          }
         },
         "components": {
           "lanes": [
@@ -3423,8 +3579,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3449,8 +3611,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3475,8 +3643,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3501,8 +3675,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3527,8 +3707,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3553,8 +3739,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3579,8 +3771,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3605,8 +3803,14 @@
         "name": "Angled parking",
         "nameKey": "angled-parking",
         "rules": {
-          "minWidth": 14,
-          "maxWidth": 18
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
         },
         "components": {
           "lanes": [
@@ -3634,10 +3838,19 @@
     "nameKey": "drive-lane",
     "owner": "CAR",
     "zIndex": 14,
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "rules": {
-      "minWidth": 8,
-      "maxWidth": 11.9
+      "minWidth": {
+        "metric": 2.4,
+        "imperial": 8
+      },
+      "maxWidth": {
+        "metric": 3.6,
+        "imperial": 12
+      }
     },
     "variants": ["direction", "car-type"],
     "details": {
@@ -3695,7 +3908,10 @@
         "name": "Mixed-traffic drive lane",
         "nameKey": "mixed-drive-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -3731,7 +3947,10 @@
         "name": "Mixed-traffic drive lane",
         "nameKey": "mixed-drive-lane",
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -3850,10 +4069,19 @@
         "name": "Sharrow",
         "nameKey": "sharrow",
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "description": {
           "key": "sharrow",
           "image": "sharrow-01.jpg"
@@ -3892,10 +4120,19 @@
         "name": "Sharrow",
         "nameKey": "sharrow",
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "description": {
           "key": "sharrow",
           "image": "sharrow-01.jpg"
@@ -3932,7 +4169,10 @@
       },
       "inbound|bus": {
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -3960,7 +4200,10 @@
       },
       "outbound|bus": {
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -4247,10 +4490,19 @@
     "nameKey": "turn-lane",
     "owner": "CAR",
     "zIndex": 13,
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "rules": {
-      "minWidth": 9,
-      "maxWidth": 12
+      "minWidth": {
+        "metric": 2.7,
+        "imperial": 9
+      },
+      "maxWidth": {
+        "metric": 3.6,
+        "imperial": 12
+      }
     },
     "variants": ["direction", "turn-lane-orientation"],
     "details": {
@@ -4637,10 +4889,19 @@
         "name": "Center turn lane",
         "nameKey": "turn-lane-center",
         "rules": {
-          "minWidth": 10,
-          "maxWidth": 16
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          },
+          "maxWidth": {
+            "metric": 4.8,
+            "imperial": 16
+          }
         },
-        "defaultWidth": 12,
+        "defaultWidth": {
+          "metric": 3.6,
+          "imperial": 12
+        },
         "components": {
           "lanes": [
             {
@@ -4670,10 +4931,19 @@
     "nameKey": "bus-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 12,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
     "rules": {
-      "minWidth": 10,
-      "maxWidth": 13
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      },
+      "maxWidth": {
+        "metric": 3.9,
+        "imperial": 13
+      }
     },
     "variants": ["direction", "bus-asphalt", "bus-type"],
     "details": {
@@ -4780,10 +5050,19 @@
       "inbound|shared|typical": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
         "components": {
           "lanes": [
@@ -4825,10 +5104,19 @@
       "outbound|shared|typical": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
         "components": {
           "lanes": [
@@ -4970,10 +5258,19 @@
       "inbound|shared|double-decker": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
         "components": {
           "lanes": [
@@ -5015,10 +5312,19 @@
       "outbound|shared|double-decker": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
         "components": {
           "lanes": [
@@ -5160,10 +5466,19 @@
       "inbound|shared|av-shuttle": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
         "components": {
           "lanes": [
@@ -5205,10 +5520,19 @@
       "outbound|shared|av-shuttle": {
         "name": "Shared bus/bike lane",
         "nameKey": "bus-lane-shared",
-        "defaultWidth": 14,
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
         "rules": {
-          "minWidth": 12,
-          "maxWidth": 14
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
         },
         "components": {
           "lanes": [
@@ -5254,10 +5578,19 @@
     "nameKey": "streetcar",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 12,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
     "rules": {
-      "minWidth": 10,
-      "maxWidth": 14
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      },
+      "maxWidth": {
+        "metric": 4.2,
+        "imperial": 14
+      }
     },
     "variants": ["direction", "public-transit-asphalt"],
     "details": {
@@ -5452,10 +5785,19 @@
     "nameKey": "light-rail",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 12,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
     "rules": {
-      "minWidth": 10,
-      "maxWidth": 14
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      },
+      "maxWidth": {
+        "metric": 4.2,
+        "imperial": 14
+      }
     },
     "variants": ["direction", "public-transit-asphalt"],
     "details": {
@@ -5650,10 +5992,16 @@
     "nameKey": "transit-shelter",
     "owner": "TRANSIT",
     "zIndex": 20,
-    "defaultWidth": 9,
+    "defaultWidth": {
+      "metric": 2.7,
+      "imperial": 9
+    },
     "defaultVariant": "right|street-level",
     "rules": {
-      "minWidth": 9
+      "minWidth": {
+        "metric": 2.7,
+        "imperial": 9
+      }
     },
     "variants": ["orientation", "transit-shelter-elevation"],
     "details": {
@@ -5703,7 +6051,10 @@
           "image": "transit-station-elevated.jpg"
         },
         "rules": {
-          "minWidth": 8
+          "minWidth": {
+            "metric": 2.4,
+            "imperial": 8
+          }
         },
         "components": {
           "lanes": [
@@ -5730,7 +6081,10 @@
           "image": "transit-station-elevated.jpg"
         },
         "rules": {
-          "minWidth": 8
+          "minWidth": {
+            "metric": 2.4,
+            "imperial": 8
+          }
         },
         "components": {
           "lanes": [
@@ -5758,18 +6112,27 @@
     "nameKey": "brt-station",
     "owner": "TRANSIT",
     "zIndex": 20,
-    "defaultWidth": 13.3333,
+    "defaultWidth": {
+      "metric": 4,
+      "imperial": 13.5
+    },
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "center",
     "paletteDefaultWidth": 10,
     "rules": {
-      "minWidth": 13.3333
+      "minWidth": {
+        "metric": 4,
+        "imperial": 13.5
+      }
     },
     "variants": ["brt-station-orientation"],
     "details": {
       "left": {
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -5792,7 +6155,10 @@
       },
       "right": {
         "rules": {
-          "minWidth": 10
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
         },
         "components": {
           "lanes": [
@@ -5840,11 +6206,20 @@
     "nameKey": "brt-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
-    "defaultWidth": 11.66666,
+    "defaultWidth": {
+      "metric": 3.5,
+      "imperial": 11.667
+    },
     "unlockCondition": "SIGN_IN",
     "rules": {
-      "minWidth": 11.5,
-      "maxWidth": 13
+      "minWidth": {
+        "metric": 3.4,
+        "imperial": 11.5
+      },
+      "maxWidth": {
+        "metric": 4,
+        "imperial": 13
+      }
     },
     "variants": ["direction", "brt-asphalt"],
     "details": {
@@ -5955,14 +6330,20 @@
     "nameKey": "inception-train",
     "owner": "TRANSIT",
     "zIndex": 10,
-    "defaultWidth": 14,
+    "defaultWidth": {
+      "metric": 4.2,
+      "imperial": 14
+    },
     "enableWithFlag": "SEGMENT_INCEPTION_TRAIN",
     "description": {
       "key": "inception-train",
       "image": "train.jpg"
     },
     "rules": {
-      "minWidth": 14
+      "minWidth": {
+        "metric": 4.2,
+        "imperial": 14
+      }
     },
     "variants": [""],
     "details": {
@@ -5991,7 +6372,10 @@
   "magic-carpet": {
     "name": "Magic carpet",
     "nameKey": "magic-carpet",
-    "defaultWidth": 10,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "jasmine-aladdin",
     "variants": ["magic-carpet-occupants"],

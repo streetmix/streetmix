@@ -308,6 +308,7 @@ export async function get (req, res) {
   }
 
   const streetJson = asStreetJson(street)
+
   res.set('Access-Control-Allow-Origin', '*')
   res.set('Location', '/api/v1/streets/' + street.id)
   res.status(200).json(streetJson)

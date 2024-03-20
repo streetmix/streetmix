@@ -4,9 +4,9 @@ exports[` 1`] = `
 {
   "repeat": "ground--concrete",
   "scatter": {
-    "maxSpacing": 5,
+    "maxSpacing": 1.5,
     "minSpacing": 0,
-    "padding": 2,
+    "padding": 0.5,
     "pool": "people",
   },
 }

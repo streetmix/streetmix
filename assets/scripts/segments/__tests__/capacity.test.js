@@ -7,8 +7,8 @@ import {
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-jest.mock('../../segments/capacity.json', () =>
-  require('../__mocks__/capacity.json')
+jest.mock('../../segments/capacity_data.json', () =>
+  require('../__mocks__/capacity_data.json')
 )
 
 describe('segment capacity', () => {
@@ -83,12 +83,12 @@ describe('segment capacity', () => {
     })
   })
 
-  it('returns null if segment does not have a capacity data point', () => {
+  it('returns undefined if segment does not have a capacity data point', () => {
     const segment = {
       type: 'bar'
     }
 
-    expect(getSegmentCapacity(segment)).toEqual(null)
+    expect(getSegmentCapacity(segment)).toEqual(undefined)
 
     // Don't return zero capacity for segments that don't have defined
     // capacities. This captures a potential bug that can occur if the logic
@@ -98,7 +98,7 @@ describe('segment capacity', () => {
       warnings: [null, true, false, false]
     }
 
-    expect(getSegmentCapacity(segment2)).toEqual(null)
+    expect(getSegmentCapacity(segment2)).toEqual(undefined)
   })
 })
 

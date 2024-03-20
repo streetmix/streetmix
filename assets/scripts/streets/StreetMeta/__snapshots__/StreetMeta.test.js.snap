@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StreetMeta renders without crashing 1`] = `
+<DocumentFragment>
+  <div
+    class="street-metadata"
+  >
+    <span
+      class="street-metadata-width"
+    >
+      <button
+        class="street-width street-width-editable"
+      >
+        <svg />
+        0 m width
+        <svg
+          class="menu-carat-down"
+        />
+      </button>
+    </span>
+    <span
+      class="street-metadata-map"
+    >
+      <svg />
+      <a>
+        Add location
+      </a>
+    </span>
+  </div>
+</DocumentFragment>
+`;

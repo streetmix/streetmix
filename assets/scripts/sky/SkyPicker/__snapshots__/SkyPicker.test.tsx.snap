@@ -38,43 +38,13 @@ exports[`SkyPicker renders for signed-in subscribers 1`] = `
             style="background: rgb(169, 204, 219);"
           />
           <button
-            aria-label="Twilight"
+            aria-label="Foo"
             class="sky-option-item"
           />
           <button
-            aria-label="Dusk"
+            aria-label="Bar"
             class="sky-option-item"
           />
-          <button
-            aria-label="Dawn"
-            class="sky-option-item"
-          />
-          <button
-            aria-label="Night"
-            class="sky-option-item"
-          >
-            <img
-              alt=""
-              draggable="false"
-              style="width: 100%; height: 100%; pointer-events: none; user-select: none;"
-            />
-          </button>
-          <button
-            aria-label="Fog"
-            class="sky-option-item"
-            style="background: rgb(226, 240, 242);"
-          />
-          <button
-            aria-label="Holodeck"
-            class="sky-option-item"
-            style="background: rgb(20, 20, 20);"
-          >
-            <img
-              alt=""
-              draggable="false"
-              style="width: 100%; height: 100%; pointer-events: none; user-select: none;"
-            />
-          </button>
         </div>
       </div>
     </div>

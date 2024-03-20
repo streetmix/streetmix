@@ -636,9 +636,9 @@
             "graphics": {
               "scatter": {
                 "sprites": ["plants--bush"],
-                "minSpacing": -3,
-                "maxSpacing": 3,
-                "padding": 2
+                "minSpacing": -1,
+                "maxSpacing": 1,
+                "padding": 0.5
               }
             }
           },
@@ -649,31 +649,31 @@
                   "plants--flowers-red",
                   {
                     "id": "plants--flowers-orange",
-                    "width": 4,
+                    "width": 1,
                     "disallowFirst": true,
                     "weight": 20
                   },
                   {
                     "id": "plants--flowers-yellow",
-                    "width": 4,
+                    "width": 1,
                     "disallowFirst": true
                   },
                   {
                     "id": "plants--flowers-white",
-                    "width": 4,
+                    "width": 1,
                     "disallowFirst": true,
                     "weight": 20
                   },
                   {
                     "id": "plants--flowers-blue",
-                    "width": 4,
+                    "width": 1,
                     "disallowFirst": true,
                     "weight": 10
                   }
                 ],
-                "minSpacing": -3,
-                "maxSpacing": 3,
-                "padding": 2
+                "minSpacing": -0.5,
+                "maxSpacing": 1,
+                "padding": 0.5
               }
             }
           }
@@ -767,60 +767,60 @@
           "left": {
             "graphics": {
               "quirks": {
-                "minWidth": 6.75
+                "minWidth": 2
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
-                "padding": 1.5
+                "padding": 0.5
               },
               "left": "transit--brt-station-piece-left-edge",
               "right": "transit--brt-station-piece-right-platform",
               "scatter": {
                 "pool": "people",
                 "minSpacing": 0,
-                "maxSpacing": 2.5,
-                "originY": -36,
-                "padding": 7
+                "maxSpacing": 0.75,
+                "originY": -45,
+                "padding": 2
               }
             }
           },
           "right": {
             "graphics": {
               "quirks": {
-                "minWidth": 6.75
+                "minWidth": 2
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
-                "padding": 1.5
+                "padding": 0.5
               },
               "right": "transit--brt-station-piece-right-edge",
               "left": "transit--brt-station-piece-left-platform",
               "scatter": {
                 "pool": "people",
                 "minSpacing": 0,
-                "maxSpacing": 2.5,
-                "originY": -36,
-                "padding": 7
+                "maxSpacing": 0.75,
+                "originY": -45,
+                "padding": 2
               }
             }
           },
           "center": {
             "graphics": {
               "quirks": {
-                "minWidth": 6.75
+                "minWidth": 2
               },
               "repeat": {
                 "id": "transit--brt-station-piece-center",
-                "padding": 1.5
+                "padding": 0.5
               },
               "left": "transit--brt-station-piece-left-platform",
               "right": "transit--brt-station-piece-right-platform",
               "scatter": {
                 "pool": "people",
                 "minSpacing": 0,
-                "maxSpacing": 2.5,
-                "originY": -36,
-                "padding": 7
+                "maxSpacing": 0.75,
+                "originY": -45,
+                "padding": 2
               }
             }
           }
@@ -880,7 +880,7 @@
           "slanted": {
             "graphics": {
               "quirks": {
-                "minWidth": 3.3333
+                "minWidth": 0.9
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-slanted",
@@ -890,7 +890,7 @@
           "vertical": {
             "graphics": {
               "quirks": {
-                "minWidth": 2.6666
+                "minWidth": 0.5
               },
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-vertical",
@@ -913,8 +913,8 @@
               "scatter": {
                 "pool": "people",
                 "minSpacing": 0,
-                "maxSpacing": 5,
-                "padding": 2
+                "maxSpacing": 1.5,
+                "padding": 0.5
               }
             }
           },
@@ -923,8 +923,8 @@
               "scatter": {
                 "pool": "people",
                 "minSpacing": 0,
-                "maxSpacing": 1.5,
-                "padding": 2
+                "maxSpacing": 0.5,
+                "padding": 0.5
               }
             }
           },
@@ -932,9 +932,9 @@
             "graphics": {
               "scatter": {
                 "pool": "people",
-                "minSpacing": 3.5,
-                "maxSpacing": 11.8333,
-                "padding": 2
+                "minSpacing": 1,
+                "maxSpacing": 3.5,
+                "padding": 0.5
               }
             }
           }

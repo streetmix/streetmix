@@ -2,10 +2,11 @@ import React, { useMemo } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useSelector } from '../store/hooks'
 import { getElRelativePos } from '../util/helpers'
+import { getWidthInMetric } from '../util/width_units'
 import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
 import { getSegmentVariantInfo } from './info'
 import { getSegmentEl } from './view'
-import type { Segment } from '@streetmix/types'
+import type { Segment, UnitsSetting } from '@streetmix/types'
 import './ResizeGuides.scss'
 
 function ResizeGuides (): React.ReactElement | null {
@@ -14,6 +15,7 @@ function ResizeGuides (): React.ReactElement | null {
   const segment: Segment | null = useSelector(({ street }) =>
     segmentId !== null ? street.segments[segmentId] : null
   )
+  const units: UnitsSetting = useSelector(({ street }) => street.units)
   const remainingWidth = useSelector(({ street }) => street.remainingWidth)
 
   // Calculate render position when the resize guides become visible.
@@ -21,7 +23,7 @@ function ResizeGuides (): React.ReactElement | null {
   // resize drag action. Its appearance should remain the same throughout the
   // entire drag action.
   const display = useMemo(
-    () => calculateStyles(isVisible, segmentId, segment, remainingWidth),
+    () => calculateStyles(isVisible, segmentId, segment, remainingWidth, units),
     // The `segment` and `remainingWidth` values may change during the resize
     // action, but they should NOT update this calculation.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,7 +68,8 @@ function calculateStyles (
   isVisible: boolean,
   segmentId: number | null,
   segment: Segment | null,
-  remainingWidth: number
+  remainingWidth: number,
+  units: UnitsSetting
 ): {
     style?: React.CSSProperties
     minGuideStyle?: React.CSSProperties
@@ -82,7 +85,8 @@ function calculateStyles (
   )
 
   // If the variant has a minimum width defined, we show minimum-width guides
-  const minWidth: number | undefined = variantInfo.minWidth ?? undefined
+  const minWidth = getWidthInMetric(variantInfo.minWidth, units)
+  const maxWidth = getWidthInMetric(variantInfo.maxWidth, units)
 
   // Maximum-width guides are based on several factors:
   // - If the variant does not have a maximum width defined, then the segment's
@@ -96,11 +100,9 @@ function calculateStyles (
   const actualRemainingWidth = remainingWidth + segment.width
   const shouldUseRemainingWidth =
     actualRemainingWidth > 0 &&
-    ((variantInfo.minWidth === undefined &&
-      actualRemainingWidth >= MIN_SEGMENT_WIDTH) ||
-      actualRemainingWidth >= variantInfo.minWidth) &&
-    (variantInfo.maxWidth === undefined ||
-      actualRemainingWidth <= variantInfo.maxWidth)
+    ((minWidth === undefined && actualRemainingWidth >= MIN_SEGMENT_WIDTH) ||
+      (minWidth !== undefined && actualRemainingWidth >= minWidth)) &&
+    (maxWidth === undefined || actualRemainingWidth <= maxWidth)
 
   // Calculate the centerline of the segment (its left offset plus half its width)
   const el = getSegmentEl(segmentId)
@@ -113,7 +115,7 @@ function calculateStyles (
     minGuideStyle: getStyle(minWidth),
     maxGuideStyle: shouldUseRemainingWidth
       ? getStyle(actualRemainingWidth)
-      : getStyle(variantInfo.maxWidth)
+      : getStyle(maxWidth)
   }
 }
 

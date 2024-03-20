@@ -18,7 +18,7 @@ import {
 import PEOPLE from './people.json'
 
 // Adjust spacing between people to be slightly closer
-const PERSON_SPACING_ADJUSTMENT = -0.5 // in feet
+const PERSON_SPACING_ADJUSTMENT = -0.1 // in meters
 const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
 
 /**
@@ -271,7 +271,7 @@ function getGroundLevelOffset (elevation) {
  * @param {CanvasRenderingContext2D} ctx
  * @param {string} type
  * @param {string} variantString
- * @param {Number} actualWidth - The real-world width of a segment, in feet
+ * @param {Number} actualWidth - The real-world width of a segment, in meters
  * @param {Number} offsetLeft
  * @param {Number} groundBaseline
  * @param {string} randSeed

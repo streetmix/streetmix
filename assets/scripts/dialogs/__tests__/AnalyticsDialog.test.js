@@ -5,8 +5,8 @@ import AnalyticsDialog from '../AnalyticsDialog'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-jest.mock('../../segments/capacity.json', () =>
-  require('../../segments/__mocks__/capacity.json')
+jest.mock('../../segments/capacity_data.json', () =>
+  require('../../segments/__mocks__/capacity_data.json')
 )
 
 const initialState = {

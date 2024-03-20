@@ -5,7 +5,7 @@
 import { nanoid } from 'nanoid'
 import logger from './logger.mjs'
 
-const LATEST_SCHEMA_VERSION = 29
+const LATEST_SCHEMA_VERSION = 30
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -35,6 +35,12 @@ const LATEST_SCHEMA_VERSION = 29
 // 27: bugfix missing elevation properties from previous schema
 // 28: add editCount property if it doesn't exist
 // 29: rename 'environment' to 'skybox'
+// 30: all measurements use metric values
+
+// https://www.jacklmoore.com/notes/rounding-in-javascript/
+function round (value, decimals) {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+}
 
 export function updateToLatestSchemaVersion (street) {
   // Clone original street
@@ -433,6 +439,38 @@ function incrementSchemaVersion (street) {
       // 29: rename 'environment' to 'skybox'
       street.skybox = street.environment
       delete street.environment
+      break
+    case 29:
+      // 30: all measurements use metric values
+      // If units = 2 (metric) convert with orig precision
+      if (street.units === 2) {
+        // Use imprecise (original) conversion rate to metric
+        const conversion = 0.3
+
+        // Convert street width to metric
+        street.width = round(street.width * conversion, 3)
+
+        // Convert segment widths to metric
+        for (let i = 0; i < street.segments.length; i++) {
+          const segment = street.segments[i]
+          segment.width = round(segment.width * conversion, 3)
+        }
+
+        // Set new units value
+        street.units = 0
+      } else {
+        // Use precise conversion to metric
+        const conversion = 0.3048
+
+        // Convert street width to metric
+        street.width = round(street.width * conversion, 3)
+
+        // Convert segment widths to metric
+        for (let i = 0; i < street.segments.length; i++) {
+          const segment = street.segments[i]
+          segment.width = round(segment.width * conversion, 3)
+        }
+      }
       break
     default:
       // no-op

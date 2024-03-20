@@ -3,23 +3,7 @@ import React from 'react'
 import { userEvent } from '@testing-library/user-event'
 import { render, waitFor } from '../../../../test/helpers/render'
 import StreetEditable from '../StreetEditable'
-import {
-  getSpriteDef,
-  getSegmentInfo,
-  getSegmentVariantInfo
-} from '../../segments/info'
-import SEGMENT_INFO from '../../segments/info.json'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
-
-jest.mock('../../app/load_resources')
-jest.mock('../../segments/info')
-jest.mock('../../streets/data_model', () => {
-  const actual = jest.requireActual('../../streets/data_model')
-  return {
-    ...actual,
-    saveStreetToServerIfNecessary: jest.fn()
-  }
-})
 
 describe('StreetEditable', () => {
   beforeEach(() => {
@@ -31,19 +15,6 @@ describe('StreetEditable', () => {
   const type = 'streetcar'
   const variantString = 'inbound|regular'
   const segment = { variantString, id: '1', width: 400, type }
-
-  beforeEach(() => {
-    const variant = SEGMENT_INFO[type].details[variantString]
-    const segmentInfo = { name: 'Segment', nameKey: 'key', zIndex: 1 }
-
-    getSegmentInfo.mockImplementation(() => segmentInfo)
-    getSegmentVariantInfo.mockImplementation(() => variant)
-    getSpriteDef.mockImplementation(() => ({
-      id: 'markings--straight-inbound',
-      width: 4,
-      offsetY: 11.12
-    }))
-  })
 
   it('calls setBuildingsWidth', () => {
     const street = {
@@ -68,7 +39,7 @@ describe('StreetEditable', () => {
       it('Pressing `+` does not increase the width of the segment', async () => {
         const street = {
           segments: [segment],
-          width: 400,
+          width: 120,
           units: SETTINGS_UNITS_METRIC
         }
 
@@ -84,7 +55,7 @@ describe('StreetEditable', () => {
         await userEvent.type(container, '+')
         await waitFor(
           () => {
-            expect(store.getState().street.segments[0].width).toEqual(400)
+            expect(store.getState().street.segments[0].width).toEqual(120)
             expect(store.getState().street.segments[0].warnings).toEqual([
               undefined,
               false,

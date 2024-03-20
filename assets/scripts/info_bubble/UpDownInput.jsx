@@ -168,14 +168,6 @@ function UpDownInput (props) {
     setIsEditing(true)
   }
 
-  /**
-   * Somehow, the double-click to select all text is broken, so this
-   * manually puts it back
-   */
-  function handleInputDoubleClick (event) {
-    event.target.select()
-  }
-
   function handleInputChange (event) {
     const value = event.target.value
 
@@ -299,7 +291,6 @@ function UpDownInput (props) {
         value={displayValue}
         onChange={handleInputChange}
         onClick={handleInputClick}
-        onDoubleClick={handleInputDoubleClick}
         onBlur={handleInputBlur}
         onMouseDown={handleInputMouseDown}
         onMouseOver={handleInputMouseOver}

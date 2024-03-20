@@ -9,48 +9,29 @@ import {
 } from '../../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
-import type { Segment, StreetLocation } from '@streetmix/types'
-
-// TODO: many of these values were "optional" but it might be worthwhile to
-// convert most of them to values that cannot be "undefined" to make it easier
-// to work with as more TypeScript is adopted.
-interface StreetState {
-  id?: string // UUID
-  segments: Segment[]
-  remainingWidth: number
-  skybox: string
-  immediateRemoval: boolean
-  creatorId?: string | null
-  namespacedId?: number
-  schemaVersion?: number
-  showAnalytics?: boolean
-  width?: number
-  units: number // Enum
-  location?: StreetLocation | null
-  userUpdated: boolean
-  leftBuildingHeight: number
-  rightBuildingHeight: number
-  leftBuildingVariant?: string
-  rightBuildingVariant?: string
-  editCount: number
-  originalStreetId?: string | null // UUID, if set
-  updatedAt?: string // Datetime string
-  clientUpdatedAt?: string // Datetime string
-  name?: string | null
-  occupiedWidth?: number
-  capacitySource?: string
-}
+import type { Segment, StreetState } from '@streetmix/types'
 
 const initialState: StreetState = {
-  segments: [],
-  remainingWidth: 0,
-  skybox: DEFAULT_SKYBOX,
+  id: '',
+  namespacedId: 0,
+  schemaVersion: 0,
   units: SETTINGS_UNITS_METRIC,
-  userUpdated: false,
+  width: 0,
+  name: null,
+  segments: [],
   leftBuildingHeight: 0,
   rightBuildingHeight: 0,
-  immediateRemoval: true,
-  editCount: 0
+  leftBuildingVariant: '',
+  rightBuildingVariant: '',
+  skybox: DEFAULT_SKYBOX,
+  location: null,
+  showAnalytics: false,
+  occupiedWidth: 0,
+  remainingWidth: 0,
+  creatorId: null,
+  userUpdated: false,
+  editCount: 0,
+  immediateRemoval: true
 }
 
 const streetSlice = createSlice({
