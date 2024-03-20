@@ -6,7 +6,7 @@ import store from '../store'
 import { formatNumber } from './number_format'
 import type { UnitsSetting, WidthDefinition } from '@streetmix/types'
 
-const IMPERIAL_CONVERSION_RATE = 3.2808
+const IMPERIAL_CONVERSION_RATE = 0.3048
 const METRIC_PRECISION = 3
 const IMPERIAL_PRECISION = 3
 
@@ -16,17 +16,17 @@ const WIDTH_INPUT_CONVERSION = [
   { text: 'dm', multiplier: 1 / 10 },
   { text: 'cm', multiplier: 1 / 100 },
   { text: 'mm', multiplier: 1 / 1000 },
-  { text: '"', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
-  { text: '″', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
-  { text: 'in', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
-  { text: 'in.', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
-  { text: 'inch', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
-  { text: 'inches', multiplier: 1 / IMPERIAL_CONVERSION_RATE / 12 },
-  { text: "'", multiplier: 1 / IMPERIAL_CONVERSION_RATE },
-  { text: '′', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
-  { text: 'ft', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
-  { text: 'ft.', multiplier: 1 / IMPERIAL_CONVERSION_RATE },
-  { text: 'feet', multiplier: 1 / IMPERIAL_CONVERSION_RATE }
+  { text: '"', multiplier: (1 * IMPERIAL_CONVERSION_RATE) / 12 },
+  { text: '″', multiplier: (1 * IMPERIAL_CONVERSION_RATE) / 12 },
+  { text: 'in', multiplier: (1 * IMPERIAL_CONVERSION_RATE) / 12 },
+  { text: 'in.', multiplier: (1 * IMPERIAL_CONVERSION_RATE) / 12 },
+  { text: 'inch', multiplier: (1 * IMPERIAL_CONVERSION_RATE) / 12 },
+  { text: 'inches', multiplier: (1 * IMPERIAL_CONVERSION_RATE) / 12 },
+  { text: "'", multiplier: 1 * IMPERIAL_CONVERSION_RATE },
+  { text: '′', multiplier: 1 * IMPERIAL_CONVERSION_RATE },
+  { text: 'ft', multiplier: 1 * IMPERIAL_CONVERSION_RATE },
+  { text: 'ft.', multiplier: 1 * IMPERIAL_CONVERSION_RATE },
+  { text: 'feet', multiplier: 1 * IMPERIAL_CONVERSION_RATE }
 ]
 
 const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
@@ -208,7 +208,7 @@ export function stringifyMeasurementValue (
  */
 export function convertMetricMeasurementToImperial (value: number): number {
   return roundToNearestEighth(
-    round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
+    round(value / IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
   )
 }
 
@@ -217,7 +217,7 @@ export function convertMetricMeasurementToImperial (value: number): number {
  * return a metric value up to three decimal point precision.
  */
 export function convertImperialMeasurementToMetric (value: number): number {
-  return round(value / IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
+  return round(value * IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
 }
 
 /**
@@ -295,7 +295,7 @@ function parseStringForUnits (widthInput: string, units: UnitsSetting): number {
     let precision = METRIC_PRECISION
 
     if (units === SETTINGS_UNITS_IMPERIAL) {
-      multiplier = 1 / IMPERIAL_CONVERSION_RATE
+      multiplier = 1 * IMPERIAL_CONVERSION_RATE
       precision = IMPERIAL_PRECISION
     }
 
