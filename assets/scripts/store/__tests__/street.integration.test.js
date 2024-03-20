@@ -104,6 +104,18 @@ describe('street integration test', () => {
         expect(street.occupiedWidth).toEqual(23.95)
         expect(street.remainingWidth).toEqual(0.05)
       })
+
+      it('handles decrementing an imprecise value to nearest precise value', async () => {
+        const initialState = {
+          street: { segments: [{ width: 2.123 }], units: 0 }
+        }
+        const store = createStore(initialState)
+
+        await store.dispatch(incrementSegmentWidth(0, false, false, 2.123))
+
+        const { street } = store.getState()
+        expect(street.segments[0].width).toEqual(2.1)
+      })
     })
 
     describe('increase segment width by 1', () => {
@@ -142,6 +154,18 @@ describe('street integration test', () => {
       await store.dispatch(incrementSegmentWidth(1, true, false, 200))
 
       expect(saveStreetToServerIfNecessary).toHaveBeenCalledTimes(1)
+    })
+
+    it('handles incrementing an imprecise value to nearest precise value', async () => {
+      const initialState = {
+        street: { segments: [{ width: 2.147 }], units: 0 }
+      }
+      const store = createStore(initialState)
+
+      await store.dispatch(incrementSegmentWidth(0, true, false, 2.147))
+
+      const { street } = store.getState()
+      expect(street.segments[0].width).toEqual(2.15)
     })
   })
 
