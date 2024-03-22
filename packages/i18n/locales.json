@@ -168,6 +168,13 @@
     "level": 3
   },
   {
+    "label": "Slovak",
+    "name": "Slovak",
+    "value": "sk",
+    "key": "i18n.lang.sk",
+    "level": 1
+  },
+  {
     "label": "Svenska",
     "name": "Swedish",
     "value": "sv",

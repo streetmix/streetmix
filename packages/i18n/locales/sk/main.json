@@ -1,0 +1,528 @@
+{
+  "menu": {
+    "item": {
+      "help": "",
+      "about": "",
+      "contact": "",
+      "community": "",
+      "sign-in": "",
+      "sign-out": "",
+      "new-street": "",
+      "my-streets": "",
+      "settings": "",
+      "share": "",
+      "store": "",
+      "upgrade": "",
+      "streetmix-plus": ""
+    },
+    "help": {
+      "guidebook-link": "",
+      "keyboard-label": "",
+      "remove-instruction": "",
+      "remove-shift-instruction": "",
+      "move-instruction": "",
+      "move-shift-instruction": "",
+      "change-instruction": "",
+      "change-shift-instruction": ""
+    },
+    "share": {
+      "sign-in-twitter-link": "",
+      "sign-in-link": "",
+      "link": "",
+      "copy-to-clipboard": "",
+      "twitter": "",
+      "facebook": "",
+      "mastodon": "",
+      "3dstreet": "",
+      "print": "",
+      "save": "",
+      "save-byline": "",
+      "messages": {
+        "my-street": "",
+        "my-street-unnamed": "",
+        "someone-elses-street": "",
+        "someone-elses-street-unnamed": "",
+        "anonymous-creator-street": "",
+        "anonymous-creator-street-unnamed": ""
+      }
+    },
+    "contact": {
+      "forums": "",
+      "email": "",
+      "github": "",
+      "blog": "",
+      "discord": "",
+      "slack": "",
+      "newsletter": ""
+    },
+    "feedback": {
+      "prompt": "",
+      "message-placeholder": "",
+      "email-placeholder": "",
+      "send": "",
+      "confirm": "",
+      "error": ""
+    },
+    "sign-in": {
+      "twitter": ""
+    }
+  },
+  "settings": {
+    "heading": "",
+    "info-tooltip": "",
+    "general": {
+      "label": ""
+    },
+    "appearance": {
+      "label": ""
+    },
+    "language": {
+      "label": ""
+    },
+    "profile": {
+      "label": "",
+      "username": "",
+      "username-description": "",
+      "display-name": "",
+      "display-name-description": "",
+      "display-name-not-set": "",
+      "display-name-error": "",
+      "display-name-characters-remaining": ""
+    },
+    "misc": {
+      "label": "",
+      "silly-clowns": "",
+      "silly-clowns-description": ""
+    },
+    "theme": {
+      "label": "",
+      "description": "",
+      "light": "",
+      "dark": "",
+      "system": ""
+    },
+    "units": {
+      "label": "",
+      "metric": "",
+      "imperial": ""
+    }
+  },
+  "msg": {
+    "loading": "",
+    "remixing": "",
+    "having-trouble": "",
+    "no-street": "",
+    "trouble-loading": "",
+    "slow-connection-1": "",
+    "slow-connection-2": "",
+    "no-connection": "",
+    "more-info": ""
+  },
+  "error": {
+    "button": {
+      "home": "",
+      "sign-in": "",
+      "reload": "",
+      "return": "",
+      "try-again": "",
+      "view-example": ""
+    },
+    "page-not-found-title": "",
+    "page-not-found-description": "",
+    "street-not-found-title": "",
+    "street-not-found-description": "",
+    "street-not-found-but-user-description": "",
+    "street-deleted-title": "",
+    "street-deleted-description": "",
+    "sign-out-title": "",
+    "reload-sign-out-title": "",
+    "gallery-street-failure-description": "",
+    "reload-sign-in-title": "",
+    "please-reload": "",
+    "survey-finished": "",
+    "street-deleted-elsewhere-title": "",
+    "street-deleted-elsewhere-description": "",
+    "auth-expired": "",
+    "sign-in-again": "",
+    "access-denied-title": "",
+    "access-denied-description": "",
+    "auth-api-problem-title": "",
+    "auth-api-problem-description": "",
+    "please-try-again": "",
+    "please-try-again-contact-us": "",
+    "unsupported-browser-title": "",
+    "unsupported-browser-description": "",
+    "unsupported-browser-internet-explorer": "",
+    "unsupported-browser-contact-us": "",
+    "cannot-create-new-street-on-phone-title": "",
+    "cannot-create-new-street-on-phone-description": "",
+    "generic-error-title": "",
+    "generic-error-description": "",
+    "error-code": "",
+    "need-help-link": ""
+  },
+  "btn": {
+    "reload": "",
+    "undo": "",
+    "redo": "",
+    "try-again": "",
+    "cancel": "",
+    "create": "",
+    "copy": "",
+    "remove": "",
+    "close": "",
+    "dismiss": "",
+    "okay": "",
+    "not-now": "",
+    "save": "",
+    "edit": ""
+  },
+  "dialogs": {
+    "error": {
+      "heading": "",
+      "text": ""
+    },
+    "welcome": {
+      "heading": "",
+      "new": {
+        "intro": "",
+        "instruction": "",
+        "instruct": "",
+        "instruct-pointer-finger": "",
+        "instruct-pointer-mouse": ""
+      },
+      "existing": {
+        "intro": "",
+        "intro-without-creator": "",
+        "instruct": "",
+        "instruct-start-own-street": ""
+      }
+    },
+    "new-street": {
+      "heading": "",
+      "default": "",
+      "empty": "",
+      "last": ""
+    },
+    "about": {
+      "heading": "",
+      "description": "",
+      "team-heading": "",
+      "partners": "",
+      "sponsors": "",
+      "sponsored-by": "",
+      "donate-link": "",
+      "tos-link": "",
+      "privacy-link": "",
+      "acknowledgements": "",
+      "font-designed-by": "",
+      "emoji-by": "",
+      "icons-by": "",
+      "license-label": ""
+    },
+    "analytics": {
+      "export-csv": "",
+      "heading": "",
+      "street-summary": "",
+      "typical-lane-width": "",
+      "segment-summary": "",
+      "segment-summary-single": "",
+      "source": "",
+      "capacity-data-source": "",
+      "toggle-visible": "",
+      "settings-notice": ""
+    },
+    "save": {
+      "heading": "",
+      "option-labels": "",
+      "option-name": "",
+      "option-sky": "",
+      "option-watermark": "",
+      "option-custom-scale": "",
+      "option-custom-scale-description": "",
+      "loading": "",
+      "save-button": "",
+      "license": "",
+      "error-preview": "",
+      "error-unavailable": "",
+      "error-too-large": "",
+      "preview-image-alt": "",
+      "print-size": "",
+      "digital-size": ""
+    },
+    "geotag": {
+      "search": "",
+      "clear-search": "",
+      "zoom-in": "",
+      "zoom-out": "",
+      "add-location": "",
+      "confirm-location": "",
+      "clear-location": "",
+      "unknown-location": "",
+      "geotag-unavailable": ""
+    },
+    "donate": {
+      "heading": "",
+      "lede": "",
+      "text": "",
+      "button": "",
+      "cancel": ""
+    },
+    "sign-in": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "email-description": "",
+      "email-invalid": "",
+      "social-heading": "",
+      "button": {
+        "email": "",
+        "twitter": "",
+        "google": "",
+        "facebook": ""
+      },
+      "tos": "",
+      "tos-link-label": "",
+      "privacy-link-label": "",
+      "loading-message": "",
+      "sent-message-with-email": "",
+      "email-unreceived": "",
+      "resend-email": ""
+    },
+    "whatsnew": {
+      "heading": "",
+      "english-only": ""
+    },
+    "newsletter": {
+      "heading": "",
+      "description": "",
+      "email-label": "",
+      "field-required-error": "",
+      "subscribe": "",
+      "subscribe-pending": "",
+      "ok-message": "",
+      "error-message": ""
+    }
+  },
+  "tools": {
+    "tooltip": "",
+    "skybox": {
+      "tooltip": "",
+      "heading": ""
+    }
+  },
+  "prompt": {
+    "new-street": "",
+    "delete-street": "",
+    "new-width": "",
+    "segment-label": ""
+  },
+  "toast": {
+    "segment-deleted": "",
+    "all-segments-deleted": "",
+    "no-undo": "",
+    "no-redo": "",
+    "no-save": "",
+    "remixing": "",
+    "remixing-sign-in": "",
+    "reloaded": ""
+  },
+  "palette": {
+    "remove": ""
+  },
+  "width": {
+    "label": "",
+    "under": "",
+    "over": "",
+    "occupied": "",
+    "building": "",
+    "different": "",
+    "metric": "",
+    "imperial": ""
+  },
+  "capacity": {
+    "ppl-per-hour": ""
+  },
+  "datetime": {
+    "minutes-ago": "",
+    "seconds-ago": "",
+    "yesterday": "",
+    "today": ""
+  },
+  "key": {
+    "backspace": "",
+    "shift": "",
+    "plus": "",
+    "minus": "",
+    "left-arrow": "",
+    "right-arrow": ""
+  },
+  "tooltip": {
+    "remove-segment": "",
+    "delete-street": "",
+    "segment-width": "",
+    "building-height": "",
+    "street-width": "",
+    "geotag": "",
+    "increase-width": "",
+    "decrease-width": "",
+    "add-floor": "",
+    "remove-floor": "",
+    "scroll-street-left": "",
+    "scroll-street-right": "",
+    "scroll-left": "",
+    "scroll-right": ""
+  },
+  "street": {
+    "default-name": "",
+    "rename": ""
+  },
+  "building": {
+    "floors-count": "{count, plural, one {} few {} many {} other {}}"
+  },
+  "segments": {
+    "warnings": {
+      "does-not-fit": "",
+      "not-wide": "",
+      "too-wide": "",
+      "dangerous": ""
+    },
+    "learn-more": "",
+    "unknown": {
+      "label": ""
+    },
+    "description": {
+      "photo-credit": ""
+    },
+    "resize": {
+      "min": "",
+      "max": ""
+    }
+  },
+  "section": {
+    "empty": ""
+  },
+  "gallery": {
+    "fail": "",
+    "all": "",
+    "twitter-link": "",
+    "delete-street-tooltip": "",
+    "street-count": "{count, plural, one {} few {} many {} other {}}",
+    "no-streets": "",
+    "thumbnail-error": ""
+  },
+  "users": {
+    "anonymous": "",
+    "byline": "",
+    "roles": {
+      "admin": "",
+      "subscriber": ""
+    }
+  },
+  "export": {
+    "watermark": ""
+  },
+  "meta": {
+    "description": "",
+    "page-title": ""
+  },
+  "credits": {
+    "core-team-heading": "",
+    "original-team-heading": "",
+    "past-team-heading": "",
+    "core-contributors": "",
+    "advisors": "",
+    "additional-illustrations": "",
+    "additional-code": "",
+    "additional-contributors": "",
+    "special-thanks": "",
+    "translators": ""
+  },
+  "plus": {
+    "locked": {
+      "label": "",
+      "soon": "",
+      "sub": "",
+      "sub-edit": "",
+      "user": "",
+      "action": ""
+    },
+    "prompt": {
+      "text": "",
+      "action": ""
+    },
+    "web-monetization": {
+      "thanks": "",
+      "not-signed-in": "",
+      "signed-in": "",
+      "learn-more": ""
+    }
+  },
+  "sentiment": {
+    "prompt": {
+      "intro": "",
+      "joyful": "",
+      "choose-one": ""
+    },
+    "answer": {
+      "rating-1": "",
+      "rating-2": "",
+      "rating-3": "",
+      "rating-4": "",
+      "rating-5": ""
+    },
+    "sign-in-prompt": "",
+    "about-link": "",
+    "about-text": "",
+    "thank-you": "",
+    "about-header": "",
+    "about-article": {
+      "paragraph-1": "",
+      "paragraph-2": "",
+      "paragraph-3": ""
+    },
+    "done": {
+      "response": "",
+      "vote-another": "",
+      "really-done": ""
+    },
+    "comment": {
+      "prompt": "",
+      "example": "",
+      "submit": "",
+      "thanks": ""
+    }
+  },
+  "i18n": {
+    "lang": {
+      "am": "",
+      "ar": "",
+      "ca": "",
+      "cs": "",
+      "de": "",
+      "en": "",
+      "en-gb": "",
+      "es": "",
+      "es-419": "",
+      "es-es": "",
+      "es-mx": "",
+      "fi": "",
+      "fr": "",
+      "id": "",
+      "it": "",
+      "ja": "",
+      "ko": "",
+      "nb-no": "",
+      "nl-nl": "",
+      "pl": "",
+      "pt-br": "",
+      "ro-ro": "",
+      "ru": "",
+      "sv": "",
+      "tr": "",
+      "zh": "",
+      "zh-hans": "",
+      "zh-hant": ""
+    }
+  }
+}
