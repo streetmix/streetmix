@@ -5,6 +5,29 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## March 22, 2024
+
+Happy 2024! This week, we've rolled out a very big change behind the scenes: **Streetmix now uses metric units internally.** This is the culmination of a long process that took several years of careful planning and a over a month of focused implementation effort. Previously, Streetmix used U.S. customary units (also known, imprecisely, as "imperial"), and then converted those units to metric for users that needed it. This proved difficult to work with as Streetmix use expanded globally.
+
+This is an internal change, so **you very likely do not need to take any action with your existing streets.** If you're using imperial (U.S. customary) units, your streets will have the same measurements as before.
+
+However, with this update, we have one important change that _can_ affect you: **when converting streets between metric and imperial units, the conversion rate is now precise instead of approximate.** Previously, we used a conversation rate of `1 ft = 1 m × 0.3`. This approximation is used in many real-world scenarios, for instance, the AASHTO "Green Book" would define a 3.0-m lane width as equivalent to 10-ft in U.S. customary units. But, especially for wide streets and large aggregations of street elements, this rounding error compounds: a 400-ft street would be converted to 120 m, when it is closer to 122 m&mdash;a loss of nearly 2 m!
+
+As a result, moving forward, the conversion rate is now the more precise `1 ft = 1 m × 0.3048`. This means that if a street switches its unit of measurement, you will need to manually fine tune your lane and street widths to have round numbers.
+
+Internally, rules such as "minimum width" are now defined separately in each system of measurement, rather than converted from imperial (U.S. customary) units. Because of this, you might find that after switching a street's unit of measurement, a previously-valid street might express new warnings. Fine tuning your measurements after units conversion should resolve these.
+
+We hope this change proceeds smoothly for everyone, and if you have any thoughts or feedback, please let us know in [Discord](https://strt.mx/discord)!
+
+### 🎨 Improvements
+
+- Updates to French translations.
+
+### 🐛 Bug fixes
+
+- Fixed new streets having a broken bike lane variant.
+- Fixed colored asphalt icons not having different colors.
+
 ## November 25, 2023
 
 ### 🎨 Improvements
