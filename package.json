@@ -133,7 +133,7 @@
     "@types/auth0-js": "9.21.5",
     "auth0": "4.3.1",
     "auth0-js": "9.24.1",
-    "autoprefixer": "10.4.16",
+    "autoprefixer": "10.4.19",
     "axios": "1.6.8",
     "axios-retry": "3.8.1",
     "chalk": "5.3.0",
