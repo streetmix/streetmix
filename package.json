@@ -161,7 +161,7 @@
     "jwks-rsa": "3.1.0",
     "jwt-decode": "4.0.0",
     "leaflet": "1.9.4",
-    "nanoid": "5.0.4",
+    "nanoid": "5.0.6",
     "newrelic": "11.7.0",
     "nodemon": "3.0.1",
     "parcel": "2.11.0",
