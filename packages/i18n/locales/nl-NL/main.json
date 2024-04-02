@@ -2,58 +2,58 @@
   "menu": {
     "item": {
       "help": "Help",
-      "about": "",
-      "contact": "",
-      "community": "",
-      "sign-in": "",
-      "sign-out": "",
-      "new-street": "",
-      "my-streets": "",
-      "settings": "",
+      "about": "Over Streetmix…",
+      "contact": "Contact",
+      "community": "Gemeenschap",
+      "sign-in": "Log in",
+      "sign-out": "Log uit",
+      "new-street": "Nieuwe straat",
+      "my-streets": "Mijn straten",
+      "settings": "Instellingen",
       "share": "Deel",
       "store": "Winkel",
-      "upgrade": "",
-      "streetmix-plus": ""
+      "upgrade": "Upgrade",
+      "streetmix-plus": "Krijg Streetmix+"
     },
     "help": {
-      "guidebook-link": "",
-      "keyboard-label": "",
-      "remove-instruction": "",
-      "remove-shift-instruction": "",
-      "move-instruction": "",
-      "move-shift-instruction": "",
-      "change-instruction": "",
-      "change-shift-instruction": ""
+      "guidebook-link": "Handleiding",
+      "keyboard-label": "Sneltoetsen",
+      "remove-instruction": "Verwijder het segment dat je aanwijst",
+      "remove-shift-instruction": "(hou {shiftKey} ingedrukt om alles te verwijderen)",
+      "move-instruction": "Beweeg door de straat",
+      "move-shift-instruction": "(hou {shiftKey} ingedrukt om naar de randen te springen)",
+      "change-instruction": "Verander de breedte van het segment dat je aanwijst",
+      "change-shift-instruction": "(hou {shiftKey} ingedrukt voor meer precisie)"
     },
     "share": {
-      "sign-in-twitter-link": "",
-      "sign-in-link": "",
-      "link": "",
-      "copy-to-clipboard": "",
-      "twitter": "",
-      "facebook": "",
-      "mastodon": "",
-      "3dstreet": "",
-      "print": "",
-      "save": "",
-      "save-byline": "",
+      "sign-in-twitter-link": "Log in",
+      "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
+      "link": "Kopieer en plak deze link om te delen:",
+      "copy-to-clipboard": "Kopieer naar klembord",
+      "twitter": "Deel op Twitter",
+      "facebook": "Deel op Facebook",
+      "mastodon": "Deel op Mastodon",
+      "3dstreet": "Open met 3DStreet",
+      "print": "Druk af…",
+      "save": "Bewaar afbeelding…",
+      "save-byline": "Zodat je het kunt opnemen in een rapport, blog, enz. ",
       "messages": {
         "my-street": "Kijk eens naar mijn straat, {streetName}, op Streetmix!",
-        "my-street-unnamed": "",
-        "someone-elses-street": "",
-        "someone-elses-street-unnamed": "",
-        "anonymous-creator-street": "",
+        "my-street-unnamed": "Kijk eens naar mijn straat op Streetmix!",
+        "someone-elses-street": "Kijk eens naar {streetName} van {streetCreator} op Streetmix!",
+        "someone-elses-street-unnamed": "Kijk eens naar deze straat van {streetCreator} op Streetmix!",
+        "anonymous-creator-street": "Kijk eens naar {streetName} op Streetmix!",
         "anonymous-creator-street-unnamed": "Kijk eens naar deze straat op Streetmix!"
       }
     },
     "contact": {
-      "forums": "",
-      "email": "",
-      "github": "",
-      "blog": "",
-      "discord": "",
-      "slack": "",
-      "newsletter": ""
+      "forums": "Discussieer op de fora",
+      "email": "Stuur een e-mail naar het Streetmix-team",
+      "github": "Bekijk de broncode op GitHub",
+      "blog": "Bezoek de Streetmix-blog",
+      "discord": "Word lid van de Discord-chat",
+      "slack": "Word lid van de Slack-chat",
+      "newsletter": "Meld je aan voor onze nieuwsbrief"
     },
     "feedback": {
       "prompt": "",
@@ -64,325 +64,325 @@
       "error": ""
     },
     "sign-in": {
-      "twitter": ""
+      "twitter": "Log in met Twitter"
     }
   },
   "settings": {
-    "heading": "",
-    "info-tooltip": "",
+    "heading": "Instellingen",
+    "info-tooltip": "Beschrijving",
     "general": {
-      "label": ""
+      "label": "Algemeen"
     },
     "appearance": {
-      "label": ""
+      "label": "Uiterlijk"
     },
     "language": {
       "label": "Taal"
     },
     "profile": {
-      "label": "",
-      "username": "",
-      "username-description": "",
-      "display-name": "",
-      "display-name-description": "",
-      "display-name-not-set": "",
-      "display-name-error": "",
-      "display-name-characters-remaining": ""
+      "label": "Profiel",
+      "username": "Gebruikersnaam",
+      "username-description": "Je gebruikersnaam is een uniek account-ID. ",
+      "display-name": "Weergavenaam",
+      "display-name-description": "Je weergavenaam is hoe je eruitziet voor andere Streetmix-gebruikers.",
+      "display-name-not-set": "Je hebt nog geen weergavenaam toegevoegd.",
+      "display-name-error": "Weergavenaam kan niet worden bewaard",
+      "display-name-characters-remaining": "Resterende tekens: {currentNum} (maximum {maxNum})"
     },
     "misc": {
-      "label": "",
-      "silly-clowns": "",
+      "label": "Allerlei",
+      "silly-clowns": "Dwaze clowns",
       "silly-clowns-description": ""
     },
     "theme": {
-      "label": "",
-      "description": "",
-      "light": "",
-      "dark": "",
-      "system": ""
+      "label": "Thema",
+      "description": "Wijzigt het kleurenschema van de interface. ",
+      "light": "Licht thema",
+      "dark": "Donker thema",
+      "system": "Gebruik systeeminstellingen"
     },
     "units": {
-      "label": "",
-      "metric": "",
-      "imperial": ""
+      "label": "Eenheden",
+      "metric": "Metrische eenheden (meter)",
+      "imperial": "Imperiale eenheden (voet)"
     }
   },
   "msg": {
-    "loading": "",
-    "remixing": "",
+    "loading": "Laden…",
+    "remixing": "Remixen…",
     "having-trouble": "",
     "no-street": "Geen straat geselecteerd.",
-    "trouble-loading": "",
-    "slow-connection-1": "",
-    "slow-connection-2": "",
-    "no-connection": "",
-    "more-info": ""
+    "trouble-loading": "We hebben problemen met het laden van Streetmix.",
+    "slow-connection-1": "Streetmix kan al een tijdje geen verbinding maken met het internet.",
+    "slow-connection-2": "Je kunt deze pagina best herladen en het opnieuw proberen. Let op: mogelijk worden de laatste wijzigingen niet bewaard. Sorry!",
+    "no-connection": "Streetmix ondervindt problemen bij het verbinding maken met het internet. ",
+    "more-info": "Meer info"
   },
   "error": {
     "button": {
-      "home": "",
-      "sign-in": "",
-      "reload": "",
-      "return": "",
-      "try-again": "",
-      "view-example": ""
+      "home": "Ga na de startpagina",
+      "sign-in": "Log opnieuw in",
+      "reload": "Herlaad de pagina",
+      "return": "Ga terug naar Streetmix",
+      "try-again": "Probeer opnieuw",
+      "view-example": "Bekijk een voorbeeldstraat"
     },
     "page-not-found-title": "Pagina niet gevonden.",
-    "page-not-found-description": "",
-    "street-not-found-title": "",
-    "street-not-found-description": "",
-    "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
-    "street-deleted-description": "",
-    "sign-out-title": "",
-    "reload-sign-out-title": "",
-    "gallery-street-failure-description": "",
-    "reload-sign-in-title": "",
-    "please-reload": "",
-    "survey-finished": "",
-    "street-deleted-elsewhere-title": "",
-    "street-deleted-elsewhere-description": "",
-    "auth-expired": "",
-    "sign-in-again": "",
-    "access-denied-title": "",
-    "access-denied-description": "",
-    "auth-api-problem-title": "",
-    "auth-api-problem-description": "",
-    "please-try-again": "",
-    "please-try-again-contact-us": "",
-    "unsupported-browser-title": "",
-    "unsupported-browser-description": "",
-    "unsupported-browser-internet-explorer": "",
-    "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "",
-    "cannot-create-new-street-on-phone-description": "",
-    "generic-error-title": "",
-    "generic-error-description": "",
-    "error-code": "",
-    "need-help-link": ""
+    "page-not-found-description": "Oeps, er is geen pagina met dit adres!",
+    "street-not-found-title": "Straat niet gevonden.",
+    "street-not-found-description": "Oeps, er is geen straat met deze link!",
+    "street-not-found-but-user-description": "Er is geen straat met deze link! Maar je kunt andere straten bekijken die zijn gemaakt door {user}",
+    "street-deleted-title": "Deze straat is verwijderd.",
+    "street-deleted-description": "Er bestaat niet langer een straat met deze link, maar je kunt andere straten bekijken die zijn gemaakt door {user}",
+    "sign-out-title": "Je bent nu uitgelogd.",
+    "reload-sign-out-title": "Je hebt jezelf uitgelogd in een ander venster.",
+    "gallery-street-failure-description": "We ondervinden problemen bij het laden van deze straat.",
+    "reload-sign-in-title": "Je hebt jezelf ingelogd in een ander venster.",
+    "please-reload": "Herlaad deze pagina om terug te keren naar Streetmix.",
+    "survey-finished": "Enquête ingevuld. Proficiat en bedankt!",
+    "street-deleted-elsewhere-title": "Deze straat is ergens anders verwijderd.",
+    "street-deleted-elsewhere-description": "Deze straat is verwijderd in een andere browser.",
+    "auth-expired": "We hebben je automatisch uitgelogd vanwege inactiviteit.",
+    "sign-in-again": "Log alsjeblieft opnieuw in.",
+    "access-denied-title": "Je bent niet ingelogd.",
+    "access-denied-description": "Je hebt het inlog-proces geannuleerd.",
+    "auth-api-problem-title": "Er was een probleem met het inloggen.",
+    "auth-api-problem-description": "Er was een probleem met de authenticatie.",
+    "please-try-again": "Probeer het later opnieuw, of laat ons iets weten vie <email_link>e-mail</email_link> of <tweet_link>Twitter</tweet_link>.",
+    "please-try-again-contact-us": "Probeer het later opnieuw. Als je dan nog steeds hulp nodig hebt, <a>neem contact met ons op</a>.",
+    "unsupported-browser-title": "Streetmix werkt niet in jouw browser.",
+    "unsupported-browser-description": "Het spijt ons. Je kunt best gebruik maken van <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> of Safari.",
+    "unsupported-browser-internet-explorer": "Gebruik je Internet Explorer? <a>Meer info.</a>",
+    "unsupported-browser-contact-us": "Als je meent dat jouw browser ondersteund zou moeten worden, <a>neem dan contact met ons op</a>./",
+    "cannot-create-new-street-on-phone-title": "Streetmix werkt alleen op tablets en dektops.",
+    "cannot-create-new-street-on-phone-description": "Als je een andere link volgt naar een specifieke straat, kun je die op je telefoon bekijken — maar je kunt nog geen nieuwe straten maken. ",
+    "generic-error-title": "Er is iets misgegaan.",
+    "generic-error-description": "Het spijt ons — er is iets misgegaan.",
+    "error-code": "(Error {code}.)",
+    "need-help-link": "Heb je hulp nodig?"
   },
   "btn": {
-    "reload": "",
-    "undo": "",
-    "redo": "",
-    "try-again": "",
-    "cancel": "",
-    "create": "",
-    "copy": "",
-    "remove": "",
-    "close": "",
-    "dismiss": "",
-    "okay": "",
-    "not-now": "",
-    "save": "",
-    "edit": ""
+    "reload": "Herlaad",
+    "undo": "Herstel",
+    "redo": "Opnieuw",
+    "try-again": "Probeer opnieuw",
+    "cancel": "Annuleer",
+    "create": "Maak nieuwe straat",
+    "copy": "Maak een kopie",
+    "remove": "Verwijder",
+    "close": "Sluit",
+    "dismiss": "Negeer",
+    "okay": "Oké!",
+    "not-now": "Niet nu",
+    "save": "Bewaar",
+    "edit": "Wijzig"
   },
   "dialogs": {
     "error": {
-      "heading": "",
-      "text": ""
+      "heading": "Oeps!",
+      "text": "Er is iets onverwachts gebeurd 😢. We hebben de error geregistreerd, maar als je je kunt herinneren wat er precies is gebeurd, <a>vertel het ons dan alsjeblieft</a>. Dit kan ook een tijdelijk probleem zijn, dus probeer het nog een keertje."
     },
     "welcome": {
-      "heading": "",
+      "heading": "Welkom bij Streetmix.",
       "new": {
-        "intro": "",
-        "instruction": "",
-        "instruct": "",
-        "instruct-pointer-finger": "",
-        "instruct-pointer-mouse": ""
+        "intro": "Ontwerp, remix en deel de straten van je wijk. Voeg bomen en fietspaden toe, maak de stoep of de weg breder, en ontdek hoe jouw keuzes invloed kunnen hebben op je gemeenschap.",
+        "instruction": "Start door enkele segmenten te verplaatsen. ",
+        "instruct": "Start door enkele segmenten te verplaatsen met {pointer}.",
+        "instruct-pointer-finger": "je vinger",
+        "instruct-pointer-mouse": "je muis"
       },
       "existing": {
-        "intro": "Dit is {streetName} gemaakt door {creator}",
-        "intro-without-creator": "",
-        "instruct": "",
-        "instruct-start-own-street": ""
+        "intro": "Dit is {streetName} gemaakt door {creator}.",
+        "intro-without-creator": "Dit is {streetName}.",
+        "instruct": "Remix de straat door enkele segmenten te verplaatsen, of {startYourOwnStreet}.",
+        "instruct-start-own-street": "Maak je eigen straat"
       }
     },
     "new-street": {
-      "heading": "",
-      "default": "",
-      "empty": "",
-      "last": ""
+      "heading": "Hier is je nieuwe straat.",
+      "default": "Begin met een voorbeeldstraat.",
+      "empty": "Begin met een lege straat.",
+      "last": "Begin met een kopie van je laatste straat."
     },
     "about": {
-      "heading": "",
-      "description": "",
-      "team-heading": "",
-      "partners": "",
-      "sponsors": "",
-      "sponsored-by": "",
-      "donate-link": "",
-      "tos-link": "",
-      "privacy-link": "",
-      "acknowledgements": "",
-      "font-designed-by": "",
-      "emoji-by": "",
-      "icons-by": "",
-      "license-label": ""
+      "heading": "Over Streetmix.",
+      "description": "Ontwerp, remix en deel je straat. Voeg bomen en fietspaden toe, maak de stoep of de weg breder, en ontdek hoe jouw keuzes invloed kunnen hebben op je gemeenschap.",
+      "team-heading": "Team",
+      "partners": "Partners",
+      "sponsors": "Sponsoren",
+      "sponsored-by": "Streetmix is royaal gesponsord door: ",
+      "donate-link": "Sponsor ons financieel",
+      "tos-link": "Gebruiksvoorwaarden",
+      "privacy-link": "Privacybeleid",
+      "acknowledgements": "Met dank aan",
+      "font-designed-by": "{fontName}-lettertype ontworpen door {fontAuthor}.",
+      "emoji-by": "Emoji’s door {author}.",
+      "icons-by": "Icoontjes door {author}.",
+      "license-label": "(<a>Licentie</a>)"
     },
     "analytics": {
-      "export-csv": "",
+      "export-csv": "Exporteer als csv",
       "heading": "",
-      "street-summary": "",
-      "typical-lane-width": "",
-      "segment-summary": "",
-      "segment-summary-single": "",
-      "source": "",
-      "capacity-data-source": "",
-      "toggle-visible": "",
-      "settings-notice": ""
+      "street-summary": "Je straat kan gemiddeld ongeveer {averageTotal} mensen per uur vervoeren, en potentieel tot {potentialTotal} mensen per uur.",
+      "typical-lane-width": "Capaciteitswaarden zijn gebaseerde op rijbanen die {laneWidth} breed zijn.",
+      "segment-summary": "{average} — {potential} mensen/uur",
+      "segment-summary-single": "{amount} mensen/uur",
+      "source": "Bron",
+      "capacity-data-source": "Bron voor capaciteitsgegevens ",
+      "toggle-visible": "Toon capaciteit in de labels van segmenten",
+      "settings-notice": "Eigenaren van de straat kunnen deze instellingen wijzigen."
     },
     "save": {
-      "heading": "",
-      "option-labels": "",
-      "option-name": "",
-      "option-sky": "",
-      "option-watermark": "",
-      "option-custom-scale": "",
-      "option-custom-scale-description": "",
-      "loading": "",
-      "save-button": "",
-      "license": "",
-      "error-preview": "",
-      "error-unavailable": "",
-      "error-too-large": "",
-      "preview-image-alt": "",
-      "print-size": "",
-      "digital-size": ""
+      "heading": "Bewaar als afbeelding",
+      "option-labels": "Namen en breedtes van segmenten",
+      "option-name": "Straatnaam",
+      "option-sky": "Transparante hemel",
+      "option-watermark": "Watermerk",
+      "option-custom-scale": "Aangepaste schaal",
+      "option-custom-scale-description": "Download afbeelding tot 500 % van de oorspronkelijke grootte.",
+      "loading": "Laden…",
+      "save-button": "Bewaar op je apparaat…",
+      "license": "Deze Streetmix-afbeelding mag overal en voor elk doel opnieuw gebruikt worden, onder de {licenseLink}-licentie. ",
+      "error-preview": "Er was een probleem bij het weergeven van een voorbeeldafbeelding.",
+      "error-unavailable": "Je kunt geen afbeelding bewaren met deze browser.",
+      "error-too-large": "Deze afbeelding is te groot, waardoor we ‘m niet konden maken. Probeer een kleinere afmeting te kiezen.",
+      "preview-image-alt": "Voorbeeld",
+      "print-size": "Afdrukgrootte",
+      "digital-size": "Digitale grootte"
     },
     "geotag": {
-      "search": "",
+      "search": "Zoek naar locatie",
       "clear-search": "",
-      "zoom-in": "",
-      "zoom-out": "",
-      "add-location": "",
-      "confirm-location": "",
-      "clear-location": "",
-      "unknown-location": "",
-      "geotag-unavailable": ""
+      "zoom-in": "Vergroot",
+      "zoom-out": "Verklein",
+      "add-location": "Voeg locatie toe",
+      "confirm-location": "Bevestig locatie",
+      "clear-location": "Verwijder locatie",
+      "unknown-location": "Onbekende locatie",
+      "geotag-unavailable": "Geocoding-diensten zijn niet bereikbaar op dit moment. Je kunt de kaart bekijken, maar geen wijzigingen aanbrengen aan de locatie van de straat."
     },
     "donate": {
       "heading": "Streetmix heeft jouw hulp nodig!",
-      "lede": "",
-      "text": "",
-      "button": "",
-      "cancel": "Nee bedankt"
+      "lede": "Streetmix is een project dat door de gemeenschap wordt ondersteund. In tegenstelling tot andere ‘gratis’ diensten op het internet, tonen wij geen advertenties en we maken geen misbruik van je privacy. In plaats daarvan zijn we afhankelijk van jouw ondersteuning om Streetmix te laten bestaan.",
+      "text": "Overweeg alsjeblieft om ons te ondersteunen met een eenmalige of wederkerige bijdrage. Met jouw donatie betalen we onze servers en cloudinfrastructuur, en we ondersteunen andere vzw’s, belangenorganisaties en studenten die onze straten verbeteren. Overige inkomsten zullen worden geinvesteerd om nieuwe functies te ontwikkelen Onze uitgaven zijn volledig transparant, zodat je precies kunt zien hoe jouw bijdragen worden gebruikt door het Streetmix-team.",
+      "button": "Doneer aan Streetmix",
+      "cancel": "Nee, bedankt"
     },
     "sign-in": {
-      "heading": "",
-      "description": "",
-      "email-label": "",
-      "email-description": "",
-      "email-invalid": "",
+      "heading": "Log in / meld je aan",
+      "description": "Bewaar je eerste ontwerp, of log in om je eerdere ontwerpen te zien.",
+      "email-label": "E-mail",
+      "email-description": "We sturen je een link om je in te loggen. Geen wachtwoord nodig.",
+      "email-invalid": "Oeps! Dat ziet er geen geldig e-mailadres uit. Probeer het opnieuw.",
       "social-heading": "of",
       "button": {
-        "email": "",
-        "twitter": "",
-        "google": "",
-        "facebook": ""
+        "email": "Ga verder met e-mail",
+        "twitter": "Ga verder met Twitter",
+        "google": "Ga verder met Google",
+        "facebook": "Ga verder met Facebook"
       },
-      "tos": "",
-      "tos-link-label": "",
-      "privacy-link-label": "",
-      "loading-message": "",
-      "sent-message-with-email": "",
-      "email-unreceived": "",
-      "resend-email": ""
+      "tos": "Door op een van deze knoppen te tikken, ga je akkoord met de {tosLink} en het {privacyLink}.",
+      "tos-link-label": "gebruiksvoorwaarden",
+      "privacy-link-label": "privacybeleid",
+      "loading-message": "Bezig met inloggen…",
+      "sent-message-with-email": "We hebben een e-mail gestuurd naar {email}. Volg de instructies in de mail om je in te loggen!",
+      "email-unreceived": "Heb je geen e-mail ontvangen? ",
+      "resend-email": "Stuur e-mail opnieuw"
     },
     "whatsnew": {
       "heading": "Wat is er nieuw in Streetmix?",
-      "english-only": ""
+      "english-only": "Deze infromatie is alleen beschikbaar in het Engels."
     },
     "newsletter": {
-      "heading": "",
-      "description": "",
-      "email-label": "",
-      "field-required-error": "",
-      "subscribe": "",
-      "subscribe-pending": "",
-      "ok-message": "",
-      "error-message": ""
+      "heading": "Meld je aan voor onze nieuwsbrief",
+      "description": "We sturen af en toe e-mailupdates via onze nieuwsbrief, slechts enkele keren per jaar. Meld je aan om zeker te zijn dat je niets mist!",
+      "email-label": "Voer je e-mailadres in",
+      "field-required-error": "Dit veld is verplicht",
+      "subscribe": "Abonneer",
+      "subscribe-pending": "Even geduld…",
+      "ok-message": "<strong>Bedankt! Je bent bijna geaboneerd.</strong> We hebben je een e-mail gestiird ter bevestiging. Klik op de knop in de e-mail!",
+      "error-message": "Oh nee! Er is iets mis gegaan met het abonneren. Dit kan een tijdelijk systeemprobleem zijn. Probeer het later opnieuw!"
     }
   },
   "tools": {
     "tooltip": "",
     "skybox": {
-      "tooltip": "",
-      "heading": ""
+      "tooltip": "Omgevingsbewerker",
+      "heading": "Omgeving"
     }
   },
   "prompt": {
     "new-street": "Nieuwe straatnaam:",
-    "delete-street": "",
+    "delete-street": "Weet je zeker dat je {streetName} permanent wil verwijderen? Je kunt dit niet ongedaan maken.",
     "new-width": "Nieuwe straatbreedte (van {minWidth} tot {maxWidth}):",
-    "segment-label": ""
+    "segment-label": "Nieuw segmentlabel:"
   },
   "toast": {
-    "segment-deleted": "",
-    "all-segments-deleted": "",
-    "no-undo": "",
-    "no-redo": "",
-    "no-save": "",
-    "remixing": "",
-    "remixing-sign-in": "",
+    "segment-deleted": "Dit segment is verwijderd.",
+    "all-segments-deleted": "Alle segmenten zijn verwijderd.",
+    "no-undo": "Niets om te herstellen.",
+    "no-redo": "Niets om opnieuw te doen.",
+    "no-save": "Handmatig bewaren niet nodig; Streetmix bewaart je straat automatisch!",
+    "remixing": "Je bewerkt nu een gloednieuwe kopie van de originele straat. De kopie is toegevoegd aan je gallerij.",
+    "remixing-sign-in": "Je bewerkt nu een gloednieuwe kopie van de originele straat. Log in om je eigen gallerij met straten aan te maken.",
     "reloaded": ""
   },
   "palette": {
-    "remove": ""
+    "remove": "Sleep naar hier om te verwijderen"
   },
   "width": {
     "label": "{width} breedte",
-    "under": "",
-    "over": "",
-    "occupied": "",
-    "building": "",
-    "different": "",
-    "metric": "",
-    "imperial": ""
+    "under": "({width} plaats)",
+    "over": "({width} over)",
+    "occupied": "Ingevulde breedte:",
+    "building": "Breedte van gebouw tot gebouw:",
+    "different": "Verschillende breedte…",
+    "metric": "Schakel over op metrische eenheden",
+    "imperial": "Schakel over op imperiale eenheden (voet)"
   },
   "capacity": {
-    "ppl-per-hour": ""
+    "ppl-per-hour": "{capacity} mensen/uur"
   },
   "datetime": {
-    "minutes-ago": "",
+    "minutes-ago": "Een paar minuten geleden",
     "seconds-ago": "Een paar seconden geleden",
     "yesterday": "Gisteren om {time}",
     "today": "Vandaag om{time}"
   },
   "key": {
     "backspace": "",
-    "shift": "",
-    "plus": "",
-    "minus": "",
-    "left-arrow": "",
-    "right-arrow": ""
+    "shift": "Shift",
+    "plus": "Plus",
+    "minus": "Min",
+    "left-arrow": "Pijltje naar links",
+    "right-arrow": "Pijltje naar rechts"
   },
   "tooltip": {
-    "remove-segment": "",
-    "delete-street": "",
-    "segment-width": "",
-    "building-height": "",
-    "street-width": "",
-    "geotag": "",
-    "increase-width": "",
-    "decrease-width": "",
-    "add-floor": "",
-    "remove-floor": "",
-    "scroll-street-left": "",
-    "scroll-street-right": "",
-    "scroll-left": "",
-    "scroll-right": ""
+    "remove-segment": "Verwijder segment",
+    "delete-street": "Verwijder straat",
+    "segment-width": "Wijzig breedte van dit segment",
+    "building-height": "Wijzig aantal verdiepingen",
+    "street-width": "Wijzig straatbreedte",
+    "geotag": "Wijzig locatie",
+    "increase-width": "Maak breder (hou Shift ingedrukt voor meer precisie)",
+    "decrease-width": "Maak smaller (hou Shift ingedrukt voor meer precisie)",
+    "add-floor": "Voeg verdieping toe",
+    "remove-floor": "Haal verdieping weg",
+    "scroll-street-left": "Beweeg straat naar links",
+    "scroll-street-right": "Beweeg straat naar rechts",
+    "scroll-left": "Scroll naar links",
+    "scroll-right": "Scroll naar rechts"
   },
   "street": {
-    "default-name": "",
-    "rename": ""
+    "default-name": "Naamloze Straat",
+    "rename": "Klik om te hernoemen"
   },
   "building": {
-    "floors-count": "{count, plural, one {} other {}}"
+    "floors-count": "{count, plural, one {# verdieping} other {# verdiepingen}}"
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "",
+      "does-not-fit": "Dit segment past niet in de straat.",
       "not-wide": "",
       "too-wide": "",
       "dangerous": ""
@@ -406,7 +406,7 @@
     "fail": "",
     "all": "",
     "twitter-link": "",
-    "delete-street-tooltip": "",
+    "delete-street-tooltip": "Verwijder straat",
     "street-count": "{count, plural, one {} other {}}",
     "no-streets": "",
     "thumbnail-error": ""
@@ -445,7 +445,7 @@
       "sub": "",
       "sub-edit": "",
       "user": "",
-      "action": ""
+      "action": "Krijg Streetmix+"
     },
     "prompt": {
       "text": "",
