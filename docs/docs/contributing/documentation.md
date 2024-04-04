@@ -12,7 +12,7 @@ Not all technical documentation lives here! Documentation of specific functions 
 
 Technical documentation pertaining to cross-cutting concerns or high-level architecture do belong here!
 
-For guidance on writing documentation in source code, see [Code styleguide](./code/styleguide.md#code-comments).
+For guidance on writing documentation in source code, see [Code styleguide](./code/styleguide.md#comments).
 
 ## Local development setup
 
