@@ -64,12 +64,14 @@ function StreetMetaGeotag (): React.ReactElement | null {
 
   if (editable) {
     return (
-      <Tooltip label={title} placement="bottom">
-        <span className="street-metadata-map">
-          <IoLocationOutline />
-          <a onClick={handleClickGeotag}>{geotagText}</a>
-        </span>
-      </Tooltip>
+      <span className="street-metadata-map">
+        <Tooltip label={title} placement="bottom">
+          <button onClick={handleClickGeotag}>
+            <IoLocationOutline />
+            <span className="underline">{geotagText}</span>
+          </button>
+        </Tooltip>
+      </span>
     )
   }
 

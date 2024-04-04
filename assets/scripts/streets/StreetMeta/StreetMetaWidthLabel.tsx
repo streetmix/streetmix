@@ -68,11 +68,13 @@ function StreetMetaWidthLabel ({
   const component = (
     <button className={className} onClick={onClick}>
       <RulerHorizontalIcon />
-      <FormattedMessage
-        id="width.label"
-        defaultMessage="{width} width"
-        values={{ width }}
-      />
+      <span className="underline">
+        <FormattedMessage
+          id="width.label"
+          defaultMessage="{width} width"
+          values={{ width }}
+        />
+      </span>
       {renderStreetWidthRemaining(street, locale)}
       {editable && <ChevronDownIcon className="menu-carat-down" />}
     </button>

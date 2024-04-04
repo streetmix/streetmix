@@ -104,3 +104,9 @@ h5,
 h6 {
   font-family: $header-font-family;
 }
+
+// Some utility classes.
+
+.underline {
+  text-decoration: underline;
+}

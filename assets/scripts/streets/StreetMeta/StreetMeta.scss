@@ -5,16 +5,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 0.75em;
+  padding-top: 0.5em;
   color: black;
   user-select: none;
   pointer-events: auto;
   transition: color $skybox-transition;
-  font-size: 0.95rem;
-
-  a {
-    color: inherit;
-  }
+  font-size: 0.925rem;
 
   > span {
     display: flex;
@@ -24,7 +20,23 @@
   }
 
   > span:not(:first-child) {
-    margin-left: 1em;
+    margin-left: 0.25em;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: 0 0.5em;
+    font-size: 1em; // Force inheriting parent font-size
+    color: inherit; // Force inheriting parent font color
+    cursor: pointer;
+    border-radius: $border-radius-large;
+
+    &:hover {
+      background-color: rgba(255 255 255 / 20%);
+    }
   }
 
   span > svg:first-child,
@@ -34,10 +46,6 @@
     width: 16px;
     height: 16px;
   }
-}
-
-body:not(.read-only) .street-metadata-author a:hover {
-  color: color.adjust($ui-colour, $lightness: -40%);
 }
 
 body.read-only .street-metadata-author a {

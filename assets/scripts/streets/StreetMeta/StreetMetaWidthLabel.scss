@@ -7,14 +7,6 @@
 }
 
 .street-width.street-width-editable {
-  cursor: pointer;
-  text-decoration: underline;
-
-  &:hover,
-  &:hover * {
-    color: color.adjust($ui-colour, $lightness: -40%);
-  }
-
   svg {
     transform: scale(0.85);
   }

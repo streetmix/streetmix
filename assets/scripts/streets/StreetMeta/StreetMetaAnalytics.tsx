@@ -22,18 +22,20 @@ function StreetMetaAnalytics (): React.ReactElement | null {
   // If zero capacity, don't display anything
   if (averageCapacity > 0) {
     return (
-      <Tooltip label={title} placement="bottom">
-        <span className="street-metadata-analytics">
-          <IoPodiumOutline />
-          <a onClick={() => dispatch(showDialog('ANALYTICS'))}>
-            <FormattedMessage
-              id="capacity.ppl-per-hour"
-              defaultMessage="{capacity} people/hr"
-              values={{ capacity: formatNumber(averageCapacity, locale) }}
-            />
-          </a>
-        </span>
-      </Tooltip>
+      <span className="street-metadata-analytics">
+        <Tooltip label={title} placement="bottom">
+          <button onClick={() => dispatch(showDialog('ANALYTICS'))}>
+            <IoPodiumOutline />
+            <span className="underline">
+              <FormattedMessage
+                id="capacity.ppl-per-hour"
+                defaultMessage="{capacity} people/hr"
+                values={{ capacity: formatNumber(averageCapacity, locale) }}
+              />
+            </span>
+          </button>
+        </Tooltip>
+      </span>
     )
   }
 
