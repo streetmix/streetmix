@@ -1,8 +1,8 @@
 {
   "segments": {
-    "sidewalk": "",
-    "pedestrian": "",
-    "sidewalk-tree": "",
+    "sidewalk": "Chodník",
+    "pedestrian": "Chodec",
+    "sidewalk-tree": "Strom na chodníku",
     "bike-rack": "",
     "bench": "",
     "outdoor-dining": "",
@@ -52,11 +52,11 @@
   },
   "descriptions": {
     "wayfinding-sign": {
-      "prompt": "",
+      "prompt": "Zistite viac o orientačných značkách",
       "content": ""
     },
     "parklet": {
-      "prompt": "",
+      "prompt": "Zistite viac o parkletoch",
       "imageCaption": "",
       "content": ""
     },
@@ -82,10 +82,10 @@
   },
   "buildings": {
     "waterfront": {
-      "name": ""
+      "name": "Nábrežie"
     },
     "grass": {
-      "name": ""
+      "name": "Tráva"
     },
     "fence": {
       "name": ""
@@ -110,9 +110,9 @@
     }
   },
   "variant-icons": {
-    "orientation|left": "",
+    "orientation|left": "Vľavo",
     "orientation|right": "",
-    "turn-lane-orientation|left": "",
+    "turn-lane-orientation|left": "Vľavo",
     "turn-lane-orientation|left-straight": "",
     "turn-lane-orientation|straight": "",
     "turn-lane-orientation|right-straight": "",
@@ -120,10 +120,10 @@
     "turn-lane-orientation|both": "",
     "turn-lane-orientation|left-right-straight": "",
     "turn-lane-orientation|shared": "",
-    "bench-orientation|left": "",
+    "bench-orientation|left": "Vľavo",
     "bench-orientation|right": "",
     "bench-orientation|center": "",
-    "parking-lane-orientation|left": "",
+    "parking-lane-orientation|left": "Vľavo",
     "parking-lane-orientation|right": "",
     "parking-lane-direction|inbound": "",
     "parking-lane-direction|outbound": "",
@@ -142,7 +142,7 @@
     "sidewalk-density|sparse": "",
     "sidewalk-density|normal": "",
     "sidewalk-density|dense": "",
-    "lamp-orientation|left": "",
+    "lamp-orientation|left": "Vľavo",
     "lamp-orientation|both": "",
     "lamp-orientation|right": "",
     "lamp-type|traditional": "",
@@ -157,17 +157,17 @@
     "car-type|av": "",
     "car-type|motorcycle": "",
     "car-type|motorcycle-sidecar": "",
-    "car-type|pedestrian": "",
+    "car-type|pedestrian": "Chodec",
     "public-transit-asphalt|regular": "",
     "public-transit-asphalt|colored": "",
-    "public-transit-asphalt|grass": "",
+    "public-transit-asphalt|grass": "Tráva",
     "bus-asphalt|regular": "",
     "bus-asphalt|colored": "",
     "bus-asphalt|shared": "",
     "bus-type|typical": "",
     "bus-type|double-decker": "",
     "bus-type|av-shuttle": "",
-    "brt-station-orientation|left": "",
+    "brt-station-orientation|left": "Vľavo",
     "brt-station-orientation|right": "",
     "brt-station-orientation|center": "",
     "bike-asphalt|regular": "",
@@ -192,8 +192,8 @@
     "bike-rack-elevation|sidewalk-parallel": "",
     "bike-rack-elevation|sidewalk": "",
     "bike-rack-elevation|road": "",
-    "building|waterfront": "",
-    "building|grass": "",
+    "building|waterfront": "Nábrežie",
+    "building|grass": "Tráva",
     "building|fence": "",
     "building|parking-lot": "",
     "building|residential": "",
