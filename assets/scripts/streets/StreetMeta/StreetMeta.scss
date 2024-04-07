@@ -29,8 +29,6 @@
     justify-content: center;
     height: 2rem;
     padding: 0 0.5em;
-    font-size: 1em; // Force inheriting parent font-size
-    color: inherit; // Force inheriting parent font color
     cursor: pointer;
     border-radius: $border-radius-large;
 
