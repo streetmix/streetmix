@@ -6,10 +6,14 @@
   align-items: center;
 }
 
-.street-width.street-width-editable {
-  svg {
-    transform: scale(0.85);
-  }
+.street-width > svg:first-child {
+  /* Radix UI optimized width/height */
+  width: 15px;
+  height: 15px;
+}
+
+.street-width .menu-carat-down {
+  transform: scale(0.85);
 }
 
 .street-width-over {

@@ -2,8 +2,8 @@
 
 exports[`StreetMetaWidthContainer renders 1`] = `
 <DocumentFragment>
-  <span
-    class="street-metadata-width"
+  <div
+    class="street-meta-width"
   >
     <button
       class="street-width street-width-editable"
@@ -18,14 +18,14 @@ exports[`StreetMetaWidthContainer renders 1`] = `
         class="menu-carat-down"
       />
     </button>
-  </span>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`StreetMetaWidthContainer renders selection dropdown on click 1`] = `
 <DocumentFragment>
-  <span
-    class="street-metadata-width"
+  <div
+    class="street-meta-width"
   >
     <select
       aria-describedby="tippy-3"
@@ -94,6 +94,6 @@ exports[`StreetMetaWidthContainer renders selection dropdown on click 1`] = `
         Switch to metric units
       </option>
     </select>
-  </span>
+  </div>
 </DocumentFragment>
 `;

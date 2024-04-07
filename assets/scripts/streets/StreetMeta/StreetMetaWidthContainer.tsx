@@ -107,7 +107,7 @@ function StreetMetaWidthContainer (): React.ReactElement {
   }
 
   return (
-    <span className="street-metadata-width">
+    <div className="street-meta-width">
       {isEditing
         ? (
           <StreetMetaWidthMenu
@@ -122,7 +122,7 @@ function StreetMetaWidthContainer (): React.ReactElement {
             onClick={handleClickLabel}
           />
           )}
-    </span>
+    </div>
   )
 }
 
