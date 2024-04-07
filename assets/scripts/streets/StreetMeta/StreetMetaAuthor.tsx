@@ -6,6 +6,7 @@ import { openGallery } from '../../store/actions/gallery'
 import { useGetUserQuery } from '../../store/services/api'
 import Avatar from '../../users/Avatar'
 import { isOwnedByCurrentUser } from '../owner'
+import StreetMetaItem from './StreetMetaItem'
 
 function StreetMetaAuthor (): React.ReactElement | null {
   const creatorId = useSelector((state) => state.street.creatorId)
@@ -36,14 +37,13 @@ function StreetMetaAuthor (): React.ReactElement | null {
   if (!user) return null
 
   return (
-    <span className="street-metadata-author">
-      <IoBrushOutline />
+    <StreetMetaItem icon={<IoBrushOutline />}>
       <FormattedMessage
         id="users.byline"
         defaultMessage="by {user}"
         values={{ user }}
       />
-    </span>
+    </StreetMetaItem>
   )
 }
 

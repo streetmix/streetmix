@@ -1,3 +1,18 @@
+.street-meta-item {
+  // Links that appear in meta items (currently: only in Author)
+  // should have the same text color as rest of component
+  a {
+    color: inherit;
+
+    // In read-only mode, links are still interactive, but
+    // made to look like other text
+    body.read-only & {
+      text-decoration: none;
+      cursor: default;
+    }
+  }
+}
+
 .street-meta-item-plain {
   // Match button dimensions but not behavior
   display: flex;
@@ -6,6 +21,7 @@
   height: 2rem;
   padding: 0 0.5em;
 
+  // Underlines are hidden
   .underline {
     text-decoration: none;
   }

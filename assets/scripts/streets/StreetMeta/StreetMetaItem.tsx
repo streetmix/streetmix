@@ -41,7 +41,9 @@ function StreetMetaItem ({
     )
   }
 
-  return <div className="street-meta-item-plain">{content}</div>
+  return (
+    <div className="street-meta-item street-meta-item-plain">{content}</div>
+  )
 }
 
 export default StreetMetaItem

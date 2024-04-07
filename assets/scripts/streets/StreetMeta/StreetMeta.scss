@@ -53,10 +53,6 @@ body.read-only .street-metadata-author a {
   cursor: default;
 }
 
-.street-metadata-author .avatar {
-  margin: 0 0.5em; // Hack for not showing space around <Avatar> component
-}
-
 .street-metadata-width > button > svg:first-child {
   /* Radix UI optimized width/height */
   width: 15px;
