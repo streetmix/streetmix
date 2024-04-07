@@ -6,20 +6,26 @@ exports[`StreetMeta renders without crashing 1`] = `
     class="street-meta"
   >
     <div
-      class="street-meta-width"
+      class="street-meta-item street-width street-width-editable"
     >
-      <button
-        class="street-width street-width-editable"
-      >
-        <svg />
-        <span
-          class="underline"
+      <button>
+        <div
+          class="street-meta-icon"
         >
-          0 m width
-        </span>
-        <svg
-          class="menu-carat-down"
-        />
+          <svg />
+        </div>
+        <div
+          class="street-meta-content"
+        >
+          <span
+            class="underline"
+          >
+            0 m width
+          </span>
+          <svg
+            class="menu-carat-down"
+          />
+        </div>
       </button>
     </div>
     <div

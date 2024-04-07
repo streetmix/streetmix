@@ -2,79 +2,117 @@
 
 exports[`StreetMetaWidthLabel renders when editable 1`] = `
 <DocumentFragment>
-  <button
-    class="street-width street-width-editable"
+  <div
+    class="street-meta-item street-width street-width-editable"
   >
-    <svg />
-    <span
-      class="underline"
-    >
-      10 m width
-    </span>
-    <svg
-      class="menu-carat-down"
-    />
-  </button>
+    <button>
+      <div
+        class="street-meta-icon"
+      >
+        <svg />
+      </div>
+      <div
+        class="street-meta-content"
+      >
+        <span
+          class="underline"
+        >
+          10 m width
+        </span>
+        <svg
+          class="menu-carat-down"
+        />
+      </div>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`StreetMetaWidthLabel renders when not editable 1`] = `
 <DocumentFragment>
-  <button
-    class="street-width"
+  <div
+    class="street-meta-item street-meta-item-plain street-width"
   >
-    <svg />
-    <span
-      class="underline"
+    <div
+      class="street-meta-icon"
     >
-      10 m width
-    </span>
-  </button>
+      <svg />
+    </div>
+    <div
+      class="street-meta-content"
+    >
+      <span
+        class="underline"
+      >
+        10 m width
+      </span>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`StreetMetaWidthLabel renders with over available width 1`] = `
 <DocumentFragment>
-  <button
-    class="street-width street-width-editable"
+  <div
+    class="street-meta-item street-width street-width-editable"
   >
-    <svg />
-    <span
-      class="underline"
-    >
-      10 m width
-    </span>
-    <span
-      class="street-width-over"
-    >
-      (1 m over)
-    </span>
-    <svg
-      class="menu-carat-down"
-    />
-  </button>
+    <button>
+      <div
+        class="street-meta-icon"
+      >
+        <svg />
+      </div>
+      <div
+        class="street-meta-content"
+      >
+        <span
+          class="underline"
+        >
+          10 m width
+        </span>
+        <span
+          class="street-width-over"
+        >
+          (1 m over)
+        </span>
+        <svg
+          class="menu-carat-down"
+        />
+      </div>
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`StreetMetaWidthLabel renders with remaining width 1`] = `
 <DocumentFragment>
-  <button
-    class="street-width street-width-editable"
+  <div
+    class="street-meta-item street-width street-width-editable"
   >
-    <svg />
-    <span
-      class="underline"
-    >
-      10 m width
-    </span>
-    <span
-      class="street-width-under"
-    >
-      (1 m room)
-    </span>
-    <svg
-      class="menu-carat-down"
-    />
-  </button>
+    <button>
+      <div
+        class="street-meta-icon"
+      >
+        <svg />
+      </div>
+      <div
+        class="street-meta-content"
+      >
+        <span
+          class="underline"
+        >
+          10 m width
+        </span>
+        <span
+          class="street-width-under"
+        >
+          (1 m room)
+        </span>
+        <svg
+          class="menu-carat-down"
+        />
+      </div>
+    </button>
+  </div>
 </DocumentFragment>
 `;

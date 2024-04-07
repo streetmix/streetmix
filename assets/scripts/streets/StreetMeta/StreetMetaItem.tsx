@@ -3,6 +3,7 @@ import Tooltip from '../../ui/Tooltip'
 import './StreetMetaItem.scss'
 
 interface StreetMetaItemProps {
+  className?: string
   isEditable?: boolean // Might need a better name; isInteractive?
   tooltip?: string
   sublabel?: string
@@ -12,6 +13,7 @@ interface StreetMetaItemProps {
 }
 
 function StreetMetaItem ({
+  className = '',
   isEditable = false,
   tooltip,
   sublabel,
@@ -24,6 +26,14 @@ function StreetMetaItem ({
     onClick(event)
   }
 
+  const classNames = ['street-meta-item']
+  if (!isEditable) {
+    classNames.push('street-meta-item-plain')
+  }
+  if (className) {
+    classNames.push(className)
+  }
+
   const content = (
     <>
       {icon !== undefined && <div className="street-meta-icon">{icon}</div>}
@@ -33,7 +43,7 @@ function StreetMetaItem ({
 
   if (isEditable) {
     return (
-      <div className="street-meta-item">
+      <div className={classNames.join(' ')}>
         <Tooltip label={tooltip} sublabel={sublabel} placement="bottom">
           <button onClick={handleClick}>{content}</button>
         </Tooltip>
@@ -41,9 +51,7 @@ function StreetMetaItem ({
     )
   }
 
-  return (
-    <div className="street-meta-item street-meta-item-plain">{content}</div>
-  )
+  return <div className={classNames.join(' ')}>{content}</div>
 }
 
 export default StreetMetaItem
