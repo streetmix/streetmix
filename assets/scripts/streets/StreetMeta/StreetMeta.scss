@@ -1,7 +1,7 @@
 @use "sass:color";
 @import "../../../styles/variables";
 
-.street-metadata {
+.street-meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -12,14 +12,16 @@
   transition: color $skybox-transition;
   font-size: 0.925rem;
 
-  > span {
+  > span,
+  > div {
     display: flex;
     align-items: center;
     white-space: nowrap;
     margin-bottom: 0.25em;
   }
 
-  > span:not(:first-child) {
+  > span:not(:first-child),
+  > div:not(:first-child) {
     margin-left: 0.25em;
   }
 
@@ -55,30 +57,15 @@ body.read-only .street-metadata-author a {
   margin: 0 0.5em; // Hack for not showing space around <Avatar> component
 }
 
-.street-metadata-date time {
-  margin: 0 0.25em; // Hack for not showing space around <time> element
-}
-
 .street-metadata-width > button > svg:first-child {
   /* Radix UI optimized width/height */
   width: 15px;
   height: 15px;
 }
 
-.street-metadata-analytics a,
-.street-metadata-map a {
-  text-decoration: underline;
-}
-
 // Invert the UI text color when there is a dark background
 body.dark-skybox-invert-ui {
-  .street-metadata {
+  .street-meta {
     color: #fff;
-  }
-
-  .street-metadata-author:not(:empty)::before,
-  .street-metadata-date:not(:empty)::before,
-  .street-metadata-map:not(:empty)::before {
-    color: #b0b0b0;
   }
 }

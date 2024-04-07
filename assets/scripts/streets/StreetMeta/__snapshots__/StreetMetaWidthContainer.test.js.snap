@@ -9,7 +9,11 @@ exports[`StreetMetaWidthContainer renders 1`] = `
       class="street-width street-width-editable"
     >
       <svg />
-      0 m width
+      <span
+        class="underline"
+      >
+        0 m width
+      </span>
       <svg
         class="menu-carat-down"
       />

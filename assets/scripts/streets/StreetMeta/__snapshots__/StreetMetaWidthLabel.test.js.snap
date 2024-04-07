@@ -6,7 +6,11 @@ exports[`StreetMetaWidthLabel renders when editable 1`] = `
     class="street-width street-width-editable"
   >
     <svg />
-    10 m width
+    <span
+      class="underline"
+    >
+      10 m width
+    </span>
     <svg
       class="menu-carat-down"
     />
@@ -20,7 +24,11 @@ exports[`StreetMetaWidthLabel renders when not editable 1`] = `
     class="street-width"
   >
     <svg />
-    10 m width
+    <span
+      class="underline"
+    >
+      10 m width
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -31,7 +39,11 @@ exports[`StreetMetaWidthLabel renders with over available width 1`] = `
     class="street-width street-width-editable"
   >
     <svg />
-    10 m width
+    <span
+      class="underline"
+    >
+      10 m width
+    </span>
     <span
       class="street-width-over"
     >
@@ -50,7 +62,11 @@ exports[`StreetMetaWidthLabel renders with remaining width 1`] = `
     class="street-width street-width-editable"
   >
     <svg />
-    10 m width
+    <span
+      class="underline"
+    >
+      10 m width
+    </span>
     <span
       class="street-width-under"
     >

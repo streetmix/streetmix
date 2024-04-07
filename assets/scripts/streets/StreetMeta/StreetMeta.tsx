@@ -13,7 +13,7 @@ function StreetMeta (): React.ReactElement {
   )
 
   return (
-    <div className="street-metadata">
+    <div className="street-meta">
       <StreetMetaWidthContainer />
       {enableAnalytics && <StreetMetaAnalytics />}
       <StreetMetaGeotag />

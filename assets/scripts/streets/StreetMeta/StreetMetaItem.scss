@@ -1,0 +1,27 @@
+.street-meta-item-plain {
+  // Match button dimensions but not behavior
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  padding: 0 0.5em;
+
+  .underline {
+    text-decoration: none;
+  }
+}
+
+.street-meta-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.3em;
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    // TODO: REMOVE
+    transform: scale(1); // Override
+  }
+}

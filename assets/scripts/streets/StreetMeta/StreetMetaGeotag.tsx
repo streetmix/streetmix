@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { IoLocationOutline } from 'react-icons/io5'
 import { useSelector, useDispatch } from '../../store/hooks'
 import { showDialog } from '../../store/slices/dialogs'
-import Tooltip from '../../ui/Tooltip'
+import StreetMetaItem from './StreetMetaItem'
 import type { StreetLocation } from '@streetmix/types'
 
 function StreetMetaGeotag (): React.ReactElement | null {
@@ -18,8 +18,6 @@ function StreetMetaGeotag (): React.ReactElement | null {
   if (!editable && !street.location) return null
 
   function handleClickGeotag (event: React.MouseEvent): void {
-    event.preventDefault()
-
     dispatch(showDialog('GEOTAG'))
   }
 
@@ -57,25 +55,21 @@ function StreetMetaGeotag (): React.ReactElement | null {
         />
         )
 
-  const title = intl.formatMessage({
+  const tooltip = intl.formatMessage({
     id: 'tooltip.geotag',
     defaultMessage: 'Change location'
   })
 
-  if (editable) {
-    return (
-      <span className="street-metadata-map">
-        <Tooltip label={title} placement="bottom">
-          <button onClick={handleClickGeotag}>
-            <IoLocationOutline />
-            <span className="underline">{geotagText}</span>
-          </button>
-        </Tooltip>
-      </span>
-    )
-  }
-
-  return <span className="street-metadata-map">{geotagText}</span>
+  return (
+    <StreetMetaItem
+      isEditable={editable}
+      tooltip={tooltip}
+      onClick={handleClickGeotag}
+      icon={<IoLocationOutline />}
+    >
+      <span className="underline">{geotagText}</span>
+    </StreetMetaItem>
+  )
 }
 
 export default StreetMetaGeotag
