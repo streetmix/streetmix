@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## April 8, 2024
+
+### 🎨 Improvements
+
+- Improved keyboard navigation to several UI elements.
+
 ## March 22, 2024
 
 Happy 2024! This week, we've rolled out a very big change behind the scenes: **Streetmix now uses metric units internally.** This is the culmination of a long process that took several years of careful planning and a over a month of focused implementation effort. Previously, Streetmix used U.S. customary units (also known, imprecisely, as "imperial"), and then converted those units to metric for users that needed it. This proved difficult to work with as Streetmix use expanded globally.
