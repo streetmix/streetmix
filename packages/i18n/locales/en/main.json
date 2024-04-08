@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Units",
-      "metric": "Metric units (meters)",
-      "imperial": "Imperial units (feet)"
+      "metric": "Metric (meters)",
+      "imperial": "U.S. customary / imperial (feet and inches)"
     }
   },
   "msg": {

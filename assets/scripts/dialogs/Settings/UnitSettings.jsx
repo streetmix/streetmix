@@ -39,14 +39,14 @@ function UnitSettings (props) {
             value: 'metric',
             label: intl.formatMessage({
               id: 'settings.units.metric',
-              defaultMessage: 'Metric units (meters)'
+              defaultMessage: 'Metric (meters)'
             })
           },
           {
             value: 'imperial',
             label: intl.formatMessage({
               id: 'settings.units.imperial',
-              defaultMessage: 'Imperial units (feet)'
+              defaultMessage: 'U.S. customary / imperial (feet and inches)'
             })
           }
         ]}
