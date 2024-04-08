@@ -3,29 +3,51 @@
 exports[`StreetMeta renders without crashing 1`] = `
 <DocumentFragment>
   <div
-    class="street-metadata"
+    class="street-meta"
   >
-    <span
-      class="street-metadata-width"
+    <div
+      class="street-meta-item street-width street-width-editable"
     >
-      <button
-        class="street-width street-width-editable"
-      >
-        <svg />
-        0 m width
-        <svg
-          class="menu-carat-down"
-        />
+      <button>
+        <div
+          class="street-meta-icon"
+        >
+          <svg />
+        </div>
+        <div
+          class="street-meta-content"
+        >
+          <span
+            class="underline"
+          >
+            0 m width
+          </span>
+          <svg
+            class="menu-carat-down"
+          />
+        </div>
       </button>
-    </span>
-    <span
-      class="street-metadata-map"
+    </div>
+    <div
+      class="street-meta-item"
     >
-      <svg />
-      <a>
-        Add location
-      </a>
-    </span>
+      <button>
+        <div
+          class="street-meta-icon"
+        >
+          <svg />
+        </div>
+        <div
+          class="street-meta-content"
+        >
+          <span
+            class="underline"
+          >
+            Add location
+          </span>
+        </div>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

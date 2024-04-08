@@ -6,18 +6,14 @@
   align-items: center;
 }
 
-.street-width.street-width-editable {
-  cursor: pointer;
-  text-decoration: underline;
+.street-width .street-meta-icon svg {
+  /* Radix UI optimized width/height */
+  width: 15px;
+  height: 15px;
+}
 
-  &:hover,
-  &:hover * {
-    color: color.adjust($ui-colour, $lightness: -40%);
-  }
-
-  svg {
-    transform: scale(0.85);
-  }
+.street-width .menu-carat-down {
+  transform: scale(0.85);
 }
 
 .street-width-over {

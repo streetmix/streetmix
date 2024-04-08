@@ -36,7 +36,7 @@ context('User saves a new street', () => {
   // this ideally would be part of its own spec test once we can get that running without a database
   it('Opens the GeotagDialog & confirms or clears location via the popup button', () => {
     cy.get('.welcome-panel > .close').click()
-    cy.get('.street-metadata-map').click()
+    cy.get('.street-meta').contains('Add location').click()
     cy.get('.geotag-dialog').click()
     cy.get('.leaflet-container').click(625, 300)
 

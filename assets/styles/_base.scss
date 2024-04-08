@@ -36,6 +36,9 @@ button {
   appearance: none;
   border: 0;
   background-color: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .app {
@@ -103,4 +106,10 @@ h4,
 h5,
 h6 {
   font-family: $header-font-family;
+}
+
+// Some utility classes.
+
+.underline {
+  text-decoration: underline;
 }

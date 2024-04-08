@@ -3,6 +3,7 @@ import { IoTimeOutline } from 'react-icons/io5'
 import { useSelector } from '../../store/hooks'
 import DateTimeRelative from '../../app/DateTimeRelative'
 import { isOwnedByCurrentUser } from '../owner'
+import StreetMetaItem from './StreetMetaItem'
 
 // Milliseconds that must have elapsed before recent edits display timestamp
 const TIME_LIMIT = 6000
@@ -22,10 +23,9 @@ function StreetMetaDate (): React.ReactElement | null {
   }
 
   return (
-    <span className="street-metadata-date">
-      <IoTimeOutline />
+    <StreetMetaItem icon={<IoTimeOutline />}>
       <DateTimeRelative value={updatedAt} />
-    </span>
+    </StreetMetaItem>
   )
 }
 

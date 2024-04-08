@@ -106,24 +106,22 @@ function StreetMetaWidthContainer (): React.ReactElement {
     }
   }
 
-  return (
-    <span className="street-metadata-width">
-      {isEditing
-        ? (
-          <StreetMetaWidthMenu
-            street={street}
-            onChange={handleChangeMenuSelection}
-          />
-          )
-        : (
-          <StreetMetaWidthLabel
-            street={street}
-            editable={editable}
-            onClick={handleClickLabel}
-          />
-          )}
-    </span>
-  )
+  return isEditing
+    ? (
+      <div className="street-meta-width">
+        <StreetMetaWidthMenu
+          street={street}
+          onChange={handleChangeMenuSelection}
+        />
+      </div>
+      )
+    : (
+      <StreetMetaWidthLabel
+        street={street}
+        editable={editable}
+        onClick={handleClickLabel}
+      />
+      )
 }
 
 export default StreetMetaWidthContainer

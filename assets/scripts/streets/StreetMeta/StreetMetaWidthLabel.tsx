@@ -2,8 +2,8 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { ChevronDownIcon, RulerHorizontalIcon } from '@radix-ui/react-icons'
 import { useSelector } from '../../store/hooks'
-import Tooltip from '../../ui/Tooltip'
 import { prettifyWidth } from '../../util/width_units'
+import StreetMetaItem from './StreetMetaItem'
 import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidthLabel.scss'
 
@@ -23,7 +23,7 @@ function StreetMetaWidthLabel ({
 
   // A title attribute is provided only when street width is editable
   const intl = useIntl()
-  const title = intl.formatMessage({
+  const tooltip = intl.formatMessage({
     id: 'tooltip.street-width',
     defaultMessage: 'Change width of the street'
   })
@@ -65,28 +65,25 @@ function StreetMetaWidthLabel ({
     return null
   }
 
-  const component = (
-    <button className={className} onClick={onClick}>
-      <RulerHorizontalIcon />
-      <FormattedMessage
-        id="width.label"
-        defaultMessage="{width} width"
-        values={{ width }}
-      />
+  return (
+    <StreetMetaItem
+      className={className}
+      isEditable={editable}
+      icon={<RulerHorizontalIcon />}
+      tooltip={tooltip}
+      onClick={onClick}
+    >
+      <span className="underline">
+        <FormattedMessage
+          id="width.label"
+          defaultMessage="{width} width"
+          values={{ width }}
+        />
+      </span>
       {renderStreetWidthRemaining(street, locale)}
       {editable && <ChevronDownIcon className="menu-carat-down" />}
-    </button>
+    </StreetMetaItem>
   )
-
-  if (editable) {
-    return (
-      <Tooltip label={title} placement="bottom">
-        {component}
-      </Tooltip>
-    )
-  }
-
-  return component
 }
 
 export default StreetMetaWidthLabel
