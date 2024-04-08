@@ -15,7 +15,8 @@ function StreetMetaDate (): React.ReactElement | null {
 
   if (updatedAt === undefined) return null
 
-  // In the user has just edited the street, don't display the "seconds ago" timestamp.
+  // In the user has just edited the street, don't display the
+  // "seconds ago" timestamp.
   if (isOwnedByCurrentUser()) {
     const now = new Date().getTime()
     const updated = new Date(updatedAt).getTime()
@@ -24,7 +25,11 @@ function StreetMetaDate (): React.ReactElement | null {
 
   return (
     <StreetMetaItem icon={<IoTimeOutline />}>
-      <DateTimeRelative value={updatedAt} />
+      {/* Wrap in <span> so phrases like "Today at 8:43 PM" preserve the space
+          between text and <time> elements */}
+      <span>
+        <DateTimeRelative value={updatedAt} />
+      </span>
     </StreetMetaItem>
   )
 }
