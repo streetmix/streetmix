@@ -29,6 +29,10 @@ export const handlers = [
     )
   }),
 
+  rest.get('api/v1/translate/:lang/:resource', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({}))
+  }),
+
   // EXTERNAL REQUESTS
   rest.post(
     'https://buttondown.email/api/emails/embed-subscribe/streetmix',

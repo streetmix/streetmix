@@ -15,7 +15,7 @@ require('dotenv').config({
 
 // Set up listeners on API with mock-service-worker
 beforeAll(() => {
-  server.listen({ onUnhandledRequest: 'error' })
+  server.listen()
 })
 afterEach(() => {
   server.resetHandlers()
