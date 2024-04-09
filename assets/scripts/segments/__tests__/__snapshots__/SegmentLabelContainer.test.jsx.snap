@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SegmentLabelContainer renders React element label 1`] = `
+exports[`SegmentLabelContainer > renders React element label 1`] = `
 <DocumentFragment>
   <div
     class="segment-label-container"
@@ -30,7 +30,7 @@ exports[`SegmentLabelContainer renders React element label 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SegmentLabelContainer renders correct grid styling in imperial 1`] = `
+exports[`SegmentLabelContainer > renders correct grid styling in imperial 1`] = `
 <DocumentFragment>
   <div
     class="segment-label-container"
@@ -58,7 +58,7 @@ exports[`SegmentLabelContainer renders correct grid styling in imperial 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
+exports[`SegmentLabelContainer > renders correct grid styling in metric 1`] = `
 <DocumentFragment>
   <div
     class="segment-label-container"
@@ -86,7 +86,7 @@ exports[`SegmentLabelContainer renders correct grid styling in metric 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SegmentLabelContainer renders editable label 1`] = `
+exports[`SegmentLabelContainer > renders editable label 1`] = `
 <DocumentFragment>
   <div
     class="segment-label-container"
@@ -114,7 +114,7 @@ exports[`SegmentLabelContainer renders editable label 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SegmentLabelContainer renders string label 1`] = `
+exports[`SegmentLabelContainer > renders string label 1`] = `
 <DocumentFragment>
   <div
     class="segment-label-container"

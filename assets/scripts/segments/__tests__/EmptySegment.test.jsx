@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import React from 'react'
 import EmptySegment from '../EmptySegment'
 import { TILE_SIZE } from '../constants'

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Segment renders correctly 1`] = `
+exports[`Segment > renders correctly 1`] = `
 <DocumentFragment>
   <div
     class="segment hover show-drag-handles"

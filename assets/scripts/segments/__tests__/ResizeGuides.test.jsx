@@ -1,11 +1,11 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { render } from '../../../../test/helpers/render'
 import ResizeGuides from '../ResizeGuides'
 import { TILE_SIZE } from '../constants'
 import { getSegmentVariantInfo } from '../info'
 
-jest.mock('../view', () => ({
+vi.mock('../view', () => ({
   // Function returns a mock element with properties we need to read
   getSegmentEl: () => ({
     offsetLeft: 50,
@@ -13,15 +13,15 @@ jest.mock('../view', () => ({
   })
 }))
 
-jest.mock('../../util/helpers', () => ({
+vi.mock('../../util/helpers', () => ({
   // Returns mock position information
   getElRelativePos: () => [50, 0]
 }))
 
-jest.mock('../info', () => ({
+vi.mock('../info', () => ({
   // Function returns mock segment variant info of nothing
   // Specific tests can use `mockImplementation` to make it return other info
-  getSegmentVariantInfo: jest.fn(() => ({}))
+  getSegmentVariantInfo: vi.fn(() => ({}))
 }))
 
 const initialState = {

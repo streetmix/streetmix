@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 import { render, screen } from '../../../../test/helpers/render'
 import Segment from '../Segment'
@@ -10,16 +10,16 @@ import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 // Replace all increment resolution with a simple value of 1
 const __TEST_RESIZE_INCREMENT = 1
 
-jest.mock('../resizing', () => {
-  const actual = jest.requireActual('../resizing')
+vi.mock('../resizing', async (importOriginal) => {
+  const actual = await importOriginal()
   return {
     ...actual,
-    // Note: __TEST_RESIZE_INCREMENT cannot be used here because jest wants to
+    // Note: __TEST_RESIZE_INCREMENT cannot be used here because vitest will
     // hoist this function to before it is declared, so just hard-code 1
-    resolutionForResizeType: jest.fn(() => 1)
+    resolutionForResizeType: vi.fn(() => 1)
   }
 })
-jest.mock('../../info_bubble/info_bubble')
+vi.mock('../../info_bubble/info_bubble')
 
 describe('Segment', () => {
   let variantString, type, currentWidth, increment, activeElement, segment
@@ -47,8 +47,8 @@ describe('Segment', () => {
         actualWidth={currentWidth}
         units={SETTINGS_UNITS_METRIC}
         dataNo={activeElement}
-        updateSegmentData={jest.fn()}
-        connectDragPreview={jest.fn()}
+        updateSegmentData={vi.fn()}
+        connectDragPreview={vi.fn()}
       />,
       {
         initialState: {
@@ -69,8 +69,8 @@ describe('Segment', () => {
         segment={segment}
         actualWidth={currentWidth}
         dataNo={activeElement}
-        updateSegmentData={jest.fn()}
-        connectDragPreview={jest.fn()}
+        updateSegmentData={vi.fn()}
+        connectDragPreview={vi.fn()}
       />,
       {
         initialState: {
@@ -93,8 +93,8 @@ describe('Segment', () => {
         segment={segment}
         actualWidth={currentWidth}
         dataNo={activeElement}
-        updateSegmentData={jest.fn()}
-        connectDragPreview={jest.fn()}
+        updateSegmentData={vi.fn()}
+        connectDragPreview={vi.fn()}
       />,
       {
         initialState: {
@@ -118,8 +118,8 @@ describe('Segment', () => {
           segment={segment}
           actualWidth={currentWidth}
           dataNo={activeElement}
-          updateSegmentData={jest.fn()}
-          connectDragPreview={jest.fn()}
+          updateSegmentData={vi.fn()}
+          connectDragPreview={vi.fn()}
         />,
         {
           initialState: {
@@ -144,8 +144,8 @@ describe('Segment', () => {
           segment={segment}
           actualWidth={currentWidth}
           dataNo={activeElement}
-          updateSegmentData={jest.fn()}
-          connectDragPreview={jest.fn()}
+          updateSegmentData={vi.fn()}
+          connectDragPreview={vi.fn()}
         />,
         {
           initialState: {
@@ -170,8 +170,8 @@ describe('Segment', () => {
           segment={segment}
           actualWidth={currentWidth}
           dataNo={activeElement}
-          updateSegmentData={jest.fn()}
-          connectDragPreview={jest.fn()}
+          updateSegmentData={vi.fn()}
+          connectDragPreview={vi.fn()}
         />,
         {
           initialState: {
@@ -198,8 +198,8 @@ describe('Segment', () => {
           segment={segment}
           actualWidth={currentWidth}
           dataNo={activeElement}
-          updateSegmentData={jest.fn()}
-          connectDragPreview={jest.fn()}
+          updateSegmentData={vi.fn()}
+          connectDragPreview={vi.fn()}
         />,
         {
           initialState: {

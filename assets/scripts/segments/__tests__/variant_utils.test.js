@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { getVariantArray, getVariantString } from '../variant_utils'
 
 describe('getVariantArray', () => {

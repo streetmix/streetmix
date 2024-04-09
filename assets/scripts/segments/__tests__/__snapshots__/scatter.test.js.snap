@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`scatter objects in segments picks from a pool of one single string id 1`] = `
+exports[`scatter objects in segments > picks from a pool of one single string id 1`] = `
 [
   {
     "id": "plants--bush",
@@ -25,7 +25,7 @@ exports[`scatter objects in segments picks from a pool of one single string id 1
 ]
 `;
 
-exports[`scatter objects in segments picks people at dense density 1`] = `
+exports[`scatter objects in segments > picks people at dense density 1`] = `
 [
   {
     "id": "The thicc one",
@@ -84,7 +84,7 @@ exports[`scatter objects in segments picks people at dense density 1`] = `
 ]
 `;
 
-exports[`scatter objects in segments picks people at normal density 1`] = `
+exports[`scatter objects in segments > picks people at normal density 1`] = `
 [
   {
     "id": "The thicc one",
@@ -119,7 +119,7 @@ exports[`scatter objects in segments picks people at normal density 1`] = `
 ]
 `;
 
-exports[`scatter objects in segments picks people at sparse density 1`] = `
+exports[`scatter objects in segments > picks people at sparse density 1`] = `
 [
   {
     "id": "The thicc one",
