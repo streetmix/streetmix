@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { beforeAll, afterAll } from 'vitest'
 import { advanceTo, clear } from 'jest-date-mock'
 import { render } from '../../../../test/helpers/render'
 import DateTimeRelative from '../DateTimeRelative'

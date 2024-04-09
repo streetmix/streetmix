@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`StreetEditable segment warnings too large Pressing \`+\` does not increase the width of the segment 1`] = `
+exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not increase the width of the segment 1`] = `
 <DocumentFragment>
   <div
     id="street-section-editable"

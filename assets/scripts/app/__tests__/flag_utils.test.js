@@ -1,11 +1,7 @@
 // Test cases:
 // 1) User flags override default flags
 // 2) Session flags override user flags
-/* eslint-env jest */
-
 import { generateFlagOverrides, applyFlagOverrides } from '../flag_utils'
-
-jest.mock('../../app/errors', () => {})
 
 const initialFlags = {
   FOO_BAR: { source: 'initial', value: true },

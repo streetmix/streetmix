@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`BlockingError renders ACCESS_DENIED 1`] = `
+exports[`BlockingError > renders ACCESS_DENIED 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -43,7 +43,7 @@ exports[`BlockingError renders ACCESS_DENIED 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders AUTH_EXPIRED 1`] = `
+exports[`BlockingError > renders AUTH_EXPIRED 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -82,7 +82,7 @@ exports[`BlockingError renders AUTH_EXPIRED 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
+exports[`BlockingError > renders AUTH_PROBLEM_API_PROBLEM 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -133,7 +133,7 @@ exports[`BlockingError renders AUTH_PROBLEM_API_PROBLEM 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
+exports[`BlockingError > renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -184,7 +184,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_ACCESS_TOKEN 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
+exports[`BlockingError > renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -235,7 +235,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
+exports[`BlockingError > renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -286,7 +286,7 @@ exports[`BlockingError renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
+exports[`BlockingError > renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -318,7 +318,7 @@ exports[`BlockingError renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders FORCE_RELOAD_SIGN_IN 1`] = `
+exports[`BlockingError > renders FORCE_RELOAD_SIGN_IN 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -350,7 +350,7 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_IN 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
+exports[`BlockingError > renders FORCE_RELOAD_SIGN_OUT 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -382,7 +382,7 @@ exports[`BlockingError renders FORCE_RELOAD_SIGN_OUT 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders GALLERY_STREET_FAILURE 1`] = `
+exports[`BlockingError > renders GALLERY_STREET_FAILURE 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -408,7 +408,7 @@ exports[`BlockingError renders GALLERY_STREET_FAILURE 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders GENERIC_ERROR 1`] = `
+exports[`BlockingError > renders GENERIC_ERROR 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -448,7 +448,7 @@ exports[`BlockingError renders GENERIC_ERROR 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
+exports[`BlockingError > renders NEW_STREET_SERVER_FAILURE 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -491,7 +491,7 @@ exports[`BlockingError renders NEW_STREET_SERVER_FAILURE 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders NO_STREET 1`] = `
+exports[`BlockingError > renders NO_STREET 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -511,7 +511,7 @@ exports[`BlockingError renders NO_STREET 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders NOT_FOUND 1`] = `
+exports[`BlockingError > renders NOT_FOUND 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -543,7 +543,7 @@ exports[`BlockingError renders NOT_FOUND 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders SIGN_IN_401 1`] = `
+exports[`BlockingError > renders SIGN_IN_401 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -588,7 +588,7 @@ exports[`BlockingError renders SIGN_IN_401 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
+exports[`BlockingError > renders SIGN_IN_SERVER_FAILURE 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -633,7 +633,7 @@ exports[`BlockingError renders SIGN_IN_SERVER_FAILURE 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders SIGN_OUT 1`] = `
+exports[`BlockingError > renders SIGN_OUT 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -662,7 +662,7 @@ exports[`BlockingError renders SIGN_OUT 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders STREET_404 1`] = `
+exports[`BlockingError > renders STREET_404 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -694,7 +694,7 @@ exports[`BlockingError renders STREET_404 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders STREET_404_BUT_LINK_TO_USER 1`] = `
+exports[`BlockingError > renders STREET_404_BUT_LINK_TO_USER 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -738,7 +738,7 @@ exports[`BlockingError renders STREET_404_BUT_LINK_TO_USER 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders STREET_410_BUT_LINK_TO_USER 1`] = `
+exports[`BlockingError > renders STREET_410_BUT_LINK_TO_USER 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -782,7 +782,7 @@ exports[`BlockingError renders STREET_410_BUT_LINK_TO_USER 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
+exports[`BlockingError > renders STREET_DATA_FAILURE 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -827,7 +827,7 @@ exports[`BlockingError renders STREET_DATA_FAILURE 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders STREET_DELETED_ELSEWHERE 1`] = `
+exports[`BlockingError > renders STREET_DELETED_ELSEWHERE 1`] = `
 <DocumentFragment>
   <div
     id="error"
@@ -859,7 +859,7 @@ exports[`BlockingError renders STREET_DELETED_ELSEWHERE 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError renders UNSUPPORTED_BROWSER 1`] = `
+exports[`BlockingError > renders UNSUPPORTED_BROWSER 1`] = `
 <DocumentFragment>
   <div
     id="error"

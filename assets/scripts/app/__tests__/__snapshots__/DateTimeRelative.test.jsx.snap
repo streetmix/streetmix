@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DateTimeRelative renders snapshot 1`] = `
+exports[`DateTimeRelative > renders snapshot 1`] = `
 <DocumentFragment>
   <time
     datetime="2018-04-23T18:00:00.000Z"

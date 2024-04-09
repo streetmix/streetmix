@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DebugInfo is visible when opened with keyboard shortcut 1`] = `
+exports[`DebugInfo > is visible when opened with keyboard shortcut 1`] = `
 <DocumentFragment>
   <div
     class="debug-container"

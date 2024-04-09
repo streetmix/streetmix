@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { waitFor, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import MockAdapter from 'axios-mock-adapter'
@@ -10,9 +10,8 @@ import { isSignedIn } from '../../users/authentication'
 import apiClient from '../../util/api'
 import { everythingLoaded } from '../../store/slices/app'
 
-jest.mock('../mode')
-jest.mock('../keypress')
-jest.mock('../../users/authentication')
+vi.mock('../mode')
+vi.mock('../../users/authentication')
 
 describe('WelcomePanel', () => {
   let apiMock

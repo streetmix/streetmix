@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { getStreetUrl } from '../page_url'
 
 describe('getStreetUrl', () => {

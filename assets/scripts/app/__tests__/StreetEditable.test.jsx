@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 import { render, waitFor } from '../../../../test/helpers/render'
 import StreetEditable from '../StreetEditable'
@@ -7,10 +7,10 @@ import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 
 describe('StreetEditable', () => {
   beforeEach(() => {
-    jest.resetModules()
+    vi.resetModules()
   })
 
-  const setBuildingWidth = jest.fn()
+  const setBuildingWidth = vi.fn()
   const updatePerspective = () => {}
   const type = 'streetcar'
   const variantString = 'inbound|regular'

@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -8,7 +8,7 @@ import ScrollIndicators from '../ScrollIndicators'
 const baseProps = {
   left: 1,
   right: 3,
-  scrollStreet: jest.fn()
+  scrollStreet: vi.fn()
 }
 
 describe('ScrollIndicators', () => {
@@ -25,7 +25,7 @@ describe('ScrollIndicators', () => {
   })
 
   it('handles scroll left on click', async () => {
-    const scrollStreet = jest.fn()
+    const scrollStreet = vi.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
     await userEvent.click(screen.getByText('‹'))
@@ -34,7 +34,7 @@ describe('ScrollIndicators', () => {
   })
 
   it('handles scroll right on click', async () => {
-    const scrollStreet = jest.fn()
+    const scrollStreet = vi.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
     await userEvent.click(screen.getByText('›››'))
@@ -44,7 +44,7 @@ describe('ScrollIndicators', () => {
 
   // TODO: figure out how to make keypress tests work
   it.skip('handles scroll left on keypress', async () => {
-    const scrollStreet = jest.fn()
+    const scrollStreet = vi.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
     await userEvent.type('{arrowleft}')
