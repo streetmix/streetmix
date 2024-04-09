@@ -49,3 +49,11 @@ global.confirm = vi.fn(() => true)
 // Add HTML methods not implemented in jsdom
 // https://github.com/jsdom/jsdom/issues/1695
 global.HTMLElement.prototype.scrollIntoView = vi.fn()
+
+// Declare all mock modules globally
+vi.mock('@fortawesome/react-fontawesome')
+vi.mock('@primer/octicons-react')
+vi.mock('@radix-ui/react-icons')
+vi.mock('react-icons/io5')
+vi.mock('react-markdown')
+vi.mock('react-transition-group')
