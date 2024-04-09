@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../test/helpers/render'
@@ -28,7 +28,7 @@ describe('StreetName', () => {
   })
 
   it('responds to an onClick handler', async () => {
-    const handleClick = jest.fn()
+    const handleClick = vi.fn()
     render(<StreetName onClick={handleClick} />)
     await userEvent.click(screen.getByText('Unnamed St'))
     expect(handleClick).toBeCalledTimes(1)
