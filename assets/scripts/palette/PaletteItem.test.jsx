@@ -1,10 +1,10 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { render } from '../../../test/helpers/render'
 import { getVariantInfoDimensions } from '../segments/view'
 import PaletteItem from './PaletteItem'
 
-jest.mock('../segments/view')
+vi.mock('../segments/view')
 
 describe('PaletteItem', () => {
   it('renders width correctly depending on the dimension', () => {

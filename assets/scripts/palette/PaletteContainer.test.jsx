@@ -1,20 +1,20 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../test/helpers/render'
 import PaletteContainer from './PaletteContainer'
 
-jest.mock('../segments/view', () => {
-  const actual = jest.requireActual('../segments/view')
+vi.mock('../segments/view', async (importOriginal) => {
+  const mod = importOriginal()
   return {
-    ...actual,
-    drawSegmentContents: jest.fn()
+    ...mod,
+    drawSegmentContents: vi.fn()
   }
 })
-jest.mock('../segments/segment-lookup.json', () =>
-  require('../segments/__mocks__/segment-lookup.json')
-)
+vi.mock('../segments/segment-lookup.json', () => ({
+  default: require('../segments/__mocks__/segment-lookup.json')
+}))
 
 describe('PaletteContainer', () => {
   it('renders', () => {

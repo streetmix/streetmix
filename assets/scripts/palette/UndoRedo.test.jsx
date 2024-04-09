@@ -1,12 +1,12 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../test/helpers/render'
 import UndoRedo from './UndoRedo'
 
 // For the purposes of this test suite, assume user owns the street
-jest.mock('../streets/owner', () => ({
+vi.mock('../streets/owner', () => ({
   isOwnedByCurrentUser: () => true
 }))
 
