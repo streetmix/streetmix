@@ -108,26 +108,26 @@ export function animate (
   })
 }
 
-export function isExternalUrl (url: string): boolean {
-  // Based on is-url-external
-  // @see: https://github.com/mrded/is-url-external
-  const { hostname } = window.location
+// Based on is-url-external
+// @see: https://github.com/mrded/is-url-external
+const getHostFromUrl = (url: string): string => {
+  return new URL(url).hostname.replace('www.', '')
+}
 
-  const urlHostname = (function (url) {
-    if (/^https?:\/\//.test(url)) {
-      // Absolute URL
+const isAbsoluteUrl = (url: string): boolean => {
+  const formattedUrl = url.toLowerCase()
+  return formattedUrl.startsWith('http') || formattedUrl.startsWith('https')
+}
 
-      // The easy way to parse an URL, is to create <a> element.
-      // @see: https://gist.github.com/jlong/2428561
-      const parser = document.createElement('a')
-      parser.href = url
+export const isUrlExternal = (
+  url: string,
+  host: string = window.location.hostname
+): boolean => {
+  if (isAbsoluteUrl(url)) {
+    const providedHost = getHostFromUrl(url)
 
-      return parser.hostname
-    }
-
-    // Relative URL
-    return window.location.hostname
-  })(url)
-
-  return hostname !== urlHostname
+    return providedHost !== host
+  } else {
+    return false
+  }
 }

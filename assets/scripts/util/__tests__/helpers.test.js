@@ -1,5 +1,6 @@
-/* eslint-env jest */
-import { normalizeSlug, isExternalUrl } from '../helpers'
+import { normalizeSlug, isUrlExternal } from '../helpers'
+
+const SELF_HOSTNAME = 'streetmix.net'
 
 describe('normalizeSlug()', () => {
   it('returns nothing if the slug is blank', () => {
@@ -57,33 +58,57 @@ describe('normalizeSlug()', () => {
   })
 })
 
-describe('isExternalUrl()', () => {
+describe('isUrlExternal()', () => {
   it('handles same hostname cases', () => {
-    expect(isExternalUrl('http://streetmix.net')).toBeFalsy()
-    expect(isExternalUrl('http://streetmix.net/with/path/params')).toBeFalsy()
-    expect(isExternalUrl('http://streetmix.net/?with=queryParam')).toBeFalsy()
-    expect(isExternalUrl('http://streetmix.net/#withHash')).toBeFalsy()
+    expect(isUrlExternal('http://streetmix.net', SELF_HOSTNAME)).toBeFalsy()
+    expect(
+      isUrlExternal('http://streetmix.net/with/path/params', SELF_HOSTNAME)
+    ).toBeFalsy()
+    expect(
+      isUrlExternal('http://streetmix.net/?with=queryParam', SELF_HOSTNAME)
+    ).toBeFalsy()
+    expect(
+      isUrlExternal('http://streetmix.net/#withHash', SELF_HOSTNAME)
+    ).toBeFalsy()
 
-    expect(isExternalUrl('https://streetmix.net')).toBeFalsy()
-    expect(isExternalUrl('https://streetmix.net/with/path/params')).toBeFalsy()
-    expect(isExternalUrl('https://streetmix.net/?with=queryParam')).toBeFalsy()
-    expect(isExternalUrl('https://streetmix.net/#withHash')).toBeFalsy()
+    expect(isUrlExternal('https://streetmix.net', SELF_HOSTNAME)).toBeFalsy()
+    expect(
+      isUrlExternal('https://streetmix.net/with/path/params', SELF_HOSTNAME)
+    ).toBeFalsy()
+    expect(
+      isUrlExternal('https://streetmix.net/?with=queryParam', SELF_HOSTNAME)
+    ).toBeFalsy()
+    expect(
+      isUrlExternal('https://streetmix.net/#withHash', SELF_HOSTNAME)
+    ).toBeFalsy()
   })
 
   it('handles different hostname cases', () => {
-    expect(isExternalUrl('http://example.com')).toBeTruthy()
-    expect(isExternalUrl('http://example.com/with/path/params')).toBeTruthy()
-    expect(isExternalUrl('http://example.com/?with=queryParam')).toBeTruthy()
-    expect(isExternalUrl('http://example.com/#withHash')).toBeTruthy()
+    expect(isUrlExternal('http://example.com', SELF_HOSTNAME)).toBeTruthy()
+    expect(
+      isUrlExternal('http://example.com/with/path/params', SELF_HOSTNAME)
+    ).toBeTruthy()
+    expect(
+      isUrlExternal('http://example.com/?with=queryParam', SELF_HOSTNAME)
+    ).toBeTruthy()
+    expect(
+      isUrlExternal('http://example.com/#withHash', SELF_HOSTNAME)
+    ).toBeTruthy()
 
-    expect(isExternalUrl('https://example.com')).toBeTruthy()
-    expect(isExternalUrl('https://example.com/with/path/params')).toBeTruthy()
-    expect(isExternalUrl('https://example.com/?with=queryParam')).toBeTruthy()
-    expect(isExternalUrl('https://example.com/#withHash')).toBeTruthy()
+    expect(isUrlExternal('https://example.com', SELF_HOSTNAME)).toBeTruthy()
+    expect(
+      isUrlExternal('https://example.com/with/path/params', SELF_HOSTNAME)
+    ).toBeTruthy()
+    expect(
+      isUrlExternal('https://example.com/?with=queryParam', SELF_HOSTNAME)
+    ).toBeTruthy()
+    expect(
+      isUrlExternal('https://example.com/#withHash', SELF_HOSTNAME)
+    ).toBeTruthy()
   })
 
   it('handles relative cases', () => {
-    expect(isExternalUrl('/with/path/params')).toBeFalsy()
-    expect(isExternalUrl('#hash')).toBeFalsy()
+    expect(isUrlExternal('/with/path/params', SELF_HOSTNAME)).toBeFalsy()
+    expect(isUrlExternal('#hash', SELF_HOSTNAME)).toBeFalsy()
   })
 })
