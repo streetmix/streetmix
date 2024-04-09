@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -7,11 +7,11 @@ import { openGallery } from '../../store/actions/gallery'
 import { onSignOutClick } from '../../users/authentication'
 import IdentityMenu from './IdentityMenu'
 
-jest.mock('../../store/actions/gallery', () => ({
-  openGallery: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+vi.mock('../../store/actions/gallery', () => ({
+  openGallery: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
-jest.mock('../../users/authentication', () => ({
-  onSignOutClick: jest.fn()
+vi.mock('../../users/authentication', () => ({
+  onSignOutClick: vi.fn()
 }))
 
 describe('IdentityMenu', () => {

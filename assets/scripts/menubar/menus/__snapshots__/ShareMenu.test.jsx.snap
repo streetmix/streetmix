@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ShareMenu does not render external share links in offline mode 1`] = `
+exports[`ShareMenu > does not render external share links in offline mode 1`] = `
 <DocumentFragment>
   <div
     class="menu share-menu"
@@ -28,7 +28,7 @@ exports[`ShareMenu does not render external share links in offline mode 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ShareMenu renders (user not signed in, anonymous user’s street, no street name) 1`] = `
+exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no street name) 1`] = `
 <DocumentFragment>
   <div
     class="menu share-menu"
@@ -56,7 +56,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
           readonly=""
           spellcheck="false"
           type="text"
-          value="https://streetmix.net/"
+          value="http://localhost:3000/"
         />
         <button
           class="btn"
@@ -79,7 +79,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       />
     </a>
     <a
-      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=https%3A%2F%2Fstreetmix.net%2F"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%3A3000%2F"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -92,7 +92,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       />
     </a>
     <a
-      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=https%3A%2F%2Fstreetmix.net%2F&link=https%3A%2F%2Fstreetmix.net%2F&name=Unnamed%20St%20%E2%80%93%20Streetmix&description=Check%20out%20this%20street%20on%20Streetmix!"
+      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=Unnamed%20St%20%E2%80%93%20Streetmix&description=Check%20out%20this%20street%20on%20Streetmix!"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -105,7 +105,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
       />
     </a>
     <a
-      href="https://3dstreet.app/#https://streetmix.net/"
+      href="https://3dstreet.app/#http://localhost:3000/"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -140,7 +140,7 @@ exports[`ShareMenu renders (user not signed in, anonymous user’s street, no st
 </DocumentFragment>
 `;
 
-exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
+exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
 <DocumentFragment>
   <div
     class="menu share-menu"
@@ -160,7 +160,7 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
           readonly=""
           spellcheck="false"
           type="text"
-          value="https://streetmix.net/"
+          value="http://localhost:3000/"
         />
         <button
           class="btn"
@@ -183,7 +183,7 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       />
     </a>
     <a
-      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!&url=https%3A%2F%2Fstreetmix.net%2F"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%3A3000%2F"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -196,7 +196,7 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       />
     </a>
     <a
-      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=https%3A%2F%2Fstreetmix.net%2F&link=https%3A%2F%2Fstreetmix.net%2F&name=bar%20%E2%80%93%20Streetmix&description=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!"
+      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=bar%20%E2%80%93%20Streetmix&description=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -209,7 +209,7 @@ exports[`ShareMenu renders (user signed in, own street, with name) 1`] = `
       />
     </a>
     <a
-      href="https://3dstreet.app/#https://streetmix.net/"
+      href="https://3dstreet.app/#http://localhost:3000/"
       rel="noopener noreferrer"
       target="_blank"
     >

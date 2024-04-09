@@ -1,15 +1,16 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
 import HelpMenu from './HelpMenu'
 
-jest.mock('../../store/slices/dialogs', () => ({
+vi.mock('../../store/slices/dialogs', () => ({
+  default: {},
   // We don't use these actions for anything, but they must return
   // a plain object or the dispatch() throws an error
-  showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('HelpMenu', () => {

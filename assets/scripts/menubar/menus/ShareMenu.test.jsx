@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import copy from 'copy-to-clipboard'
@@ -7,9 +7,10 @@ import { render } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
 import ShareMenu from './ShareMenu'
 
-jest.mock('copy-to-clipboard')
-jest.mock('../../store/slices/dialogs', () => ({
-  showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+vi.mock('copy-to-clipboard')
+vi.mock('../../store/slices/dialogs', () => ({
+  default: {},
+  showDialog: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('ShareMenu', () => {
