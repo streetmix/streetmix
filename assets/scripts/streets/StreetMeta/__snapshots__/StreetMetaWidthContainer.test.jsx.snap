@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`StreetMetaWidthContainer renders 1`] = `
+exports[`StreetMetaWidthContainer > renders 1`] = `
 <DocumentFragment>
   <div
     class="street-meta-item street-width street-width-editable"
@@ -28,7 +28,7 @@ exports[`StreetMetaWidthContainer renders 1`] = `
 </DocumentFragment>
 `;
 
-exports[`StreetMetaWidthContainer renders selection dropdown on click 1`] = `
+exports[`StreetMetaWidthContainer > renders selection dropdown on click 1`] = `
 <DocumentFragment>
   <div
     class="street-meta-width"

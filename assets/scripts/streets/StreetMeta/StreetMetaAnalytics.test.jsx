@@ -1,12 +1,13 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
 import StreetMetaAnalytics from './StreetMetaAnalytics'
 
-jest.mock('../../store/slices/dialogs', () => ({
-  showDialog: jest.fn(() => ({ type: 'MOCK_ACTION' }))
+vi.mock('../../store/slices/dialogs', () => ({
+  default: {},
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('StreetMetaAnalytics', () => {

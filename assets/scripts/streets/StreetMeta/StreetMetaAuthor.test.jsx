@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -8,10 +8,10 @@ import { openGallery } from '../../store/actions/gallery'
 import StreetMetaAuthor from './StreetMetaAuthor'
 
 // Enable mocking of the return value of `getRemixOnFirstEdit`
-jest.mock('../../streets/remix')
+vi.mock('../../streets/remix')
 
-jest.mock('../../store/actions/gallery', () => ({
-  openGallery: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+vi.mock('../../store/actions/gallery', () => ({
+  openGallery: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('StreetMetaAuthor', () => {

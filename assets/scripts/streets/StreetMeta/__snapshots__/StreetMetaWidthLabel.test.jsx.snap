@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`StreetMetaWidthLabel renders when editable 1`] = `
+exports[`StreetMetaWidthLabel > renders when editable 1`] = `
 <DocumentFragment>
   <div
     class="street-meta-item street-width street-width-editable"
@@ -28,7 +28,7 @@ exports[`StreetMetaWidthLabel renders when editable 1`] = `
 </DocumentFragment>
 `;
 
-exports[`StreetMetaWidthLabel renders when not editable 1`] = `
+exports[`StreetMetaWidthLabel > renders when not editable 1`] = `
 <DocumentFragment>
   <div
     class="street-meta-item street-meta-item-plain street-width"
@@ -51,7 +51,7 @@ exports[`StreetMetaWidthLabel renders when not editable 1`] = `
 </DocumentFragment>
 `;
 
-exports[`StreetMetaWidthLabel renders with over available width 1`] = `
+exports[`StreetMetaWidthLabel > renders with over available width 1`] = `
 <DocumentFragment>
   <div
     class="street-meta-item street-width street-width-editable"
@@ -84,7 +84,7 @@ exports[`StreetMetaWidthLabel renders with over available width 1`] = `
 </DocumentFragment>
 `;
 
-exports[`StreetMetaWidthLabel renders with remaining width 1`] = `
+exports[`StreetMetaWidthLabel > renders with remaining width 1`] = `
 <DocumentFragment>
   <div
     class="street-meta-item street-width street-width-editable"

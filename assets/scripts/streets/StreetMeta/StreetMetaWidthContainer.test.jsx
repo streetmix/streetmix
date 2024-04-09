@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -7,11 +7,11 @@ import { updateStreetWidthAction as updateStreetWidth } from '../../store/action
 import { updateUnits } from '../../users/localization'
 import StreetMetaWidthContainer from './StreetMetaWidthContainer'
 
-jest.mock('../../store/actions/street', () => ({
-  updateStreetWidthAction: jest.fn(() => ({ type: 'MOCK_ACTION' }))
+vi.mock('../../store/actions/street', () => ({
+  updateStreetWidthAction: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
-jest.mock('../../users/localization', () => ({
-  updateUnits: jest.fn()
+vi.mock('../../users/localization', () => ({
+  updateUnits: vi.fn()
 }))
 
 describe('StreetMetaWidthContainer', () => {

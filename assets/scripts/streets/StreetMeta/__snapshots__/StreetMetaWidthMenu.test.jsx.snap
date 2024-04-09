@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`StreetMetaWidthMenu renders (imperial units, default width selected) 1`] = `
+exports[`StreetMetaWidthMenu > renders (imperial units, default width selected) 1`] = `
 <DocumentFragment>
   <select
     class="street-width-select"
@@ -63,7 +63,7 @@ exports[`StreetMetaWidthMenu renders (imperial units, default width selected) 1`
 </DocumentFragment>
 `;
 
-exports[`StreetMetaWidthMenu renders (metric units, custom width selected) 1`] = `
+exports[`StreetMetaWidthMenu > renders (metric units, custom width selected) 1`] = `
 <DocumentFragment>
   <select
     class="street-width-select"
@@ -134,7 +134,7 @@ exports[`StreetMetaWidthMenu renders (metric units, custom width selected) 1`] =
 </DocumentFragment>
 `;
 
-exports[`StreetMetaWidthMenu renders (metric units, default width selected) 1`] = `
+exports[`StreetMetaWidthMenu > renders (metric units, default width selected) 1`] = `
 <DocumentFragment>
   <select
     class="street-width-select"
