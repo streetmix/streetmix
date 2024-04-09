@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SkyBox renders 1`] = `
+exports[`SkyBox > renders 1`] = `
 <DocumentFragment>
   <section
     class="street-section-sky"
@@ -29,7 +29,7 @@ exports[`SkyBox renders 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SkyBox renders with objects 1`] = `
+exports[`SkyBox > renders with objects 1`] = `
 <DocumentFragment>
   <section
     class="street-section-sky"

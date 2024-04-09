@@ -1,17 +1,17 @@
-import { expect, jest } from '@jest/globals'
 import React from 'react'
+import { vi } from 'vitest'
 import { render } from '../../../../test/helpers/render'
 import SkyBox from './SkyBox'
 
-jest.mock('../skybox-defs.json', () =>
-  require('../__mocks__/skybox-defs.json')
-)
+vi.mock('../skybox-defs.json', () => ({
+  default: require('../__mocks__/skybox-defs.json')
+}))
 
 // Mock the `images` object.
 // Note: in real life, this is a Map where the .get()
 // method looks up an object value by the `id` key.
 // The `src` property is normally a data-url.
-jest.mock('../../app/load_resources', () => ({
+vi.mock('../../app/load_resources', () => ({
   images: {
     get: (id: string) => ({
       src: 'bar.svg'
