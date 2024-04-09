@@ -1,18 +1,19 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../test/helpers/render'
 import { showDialog } from '../store/slices/dialogs'
 import MenuBar from './MenuBar'
 
-jest.mock('../store/slices/dialogs', () => ({
-  showDialog: jest.fn((id) => ({ type: 'MOCK_ACTION' }))
+vi.mock('../store/slices/dialogs', () => ({
+  default: {},
+  showDialog: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('MenuBar', () => {
   it('renders', () => {
-    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />, {
+    const { asFragment } = render(<MenuBar onMenuDropdownClick={vi.fn()} />, {
       initialState: {
         flags: {
           LOCALES_LEVEL_1: { value: true },
@@ -25,7 +26,7 @@ describe('MenuBar', () => {
   })
 
   it('renders minimal menu in offline mode', () => {
-    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />, {
+    const { asFragment } = render(<MenuBar onMenuDropdownClick={vi.fn()} />, {
       initialState: {
         system: {
           offline: true
@@ -36,7 +37,7 @@ describe('MenuBar', () => {
   })
 
   it('renders logged in user', () => {
-    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />, {
+    const { asFragment } = render(<MenuBar onMenuDropdownClick={vi.fn()} />, {
       initialState: {
         user: {
           signInData: {
@@ -53,7 +54,7 @@ describe('MenuBar', () => {
 
   // Skipping because the dialog is disabled for now
   it.skip('renders upgrade funnel and handles click', async () => {
-    const { asFragment } = render(<MenuBar onMenuDropdownClick={jest.fn()} />)
+    const { asFragment } = render(<MenuBar onMenuDropdownClick={vi.fn()} />)
     expect(asFragment()).toMatchSnapshot()
     await userEvent.click(screen.getByText('Get Streetmix+', { exact: false }))
 
@@ -62,7 +63,7 @@ describe('MenuBar', () => {
   })
 
   it('handles a menu item click', async () => {
-    const handler = jest.fn()
+    const handler = vi.fn()
     render(<MenuBar onMenuDropdownClick={handler} />)
 
     await userEvent.click(screen.getByText('Share'))

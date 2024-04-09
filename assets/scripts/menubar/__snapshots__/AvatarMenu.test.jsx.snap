@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AvatarMenu renders user avatar 1`] = `
+exports[`AvatarMenu > renders user avatar 1`] = `
 <DocumentFragment>
   <button
     class="menu-attached menu-avatar"

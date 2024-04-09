@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../test/helpers/render'
@@ -25,7 +25,7 @@ describe('AvatarMenu', () => {
   })
 
   it('calls click handler', async () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     render(<AvatarMenu user={user} onClick={onClick} />)
     await userEvent.click(screen.getByRole('button'))
     expect(onClick).toHaveBeenCalled()

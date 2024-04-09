@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`MenuBar renders 1`] = `
+exports[`MenuBar > renders 1`] = `
 <DocumentFragment>
   <nav
     class="menu-bar"
@@ -14,7 +14,7 @@ exports[`MenuBar renders 1`] = `
         <img
           alt="Streemix"
           class="menu-bar-logo"
-          src="test-file-stub"
+          src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
         />
         <h1>
           Streetmix
@@ -59,7 +59,7 @@ exports[`MenuBar renders 1`] = `
         <img
           alt="Streetmix+"
           class="menu-avatar-subscriber"
-          src="test-file-stub"
+          src="/ui/icons/streetmix-plus.svg"
         />
         Get Streetmix+‎
       </button>
@@ -119,7 +119,7 @@ exports[`MenuBar renders 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MenuBar renders logged in user 1`] = `
+exports[`MenuBar > renders logged in user 1`] = `
 <DocumentFragment>
   <nav
     class="menu-bar"
@@ -133,7 +133,7 @@ exports[`MenuBar renders logged in user 1`] = `
         <img
           alt="Streemix"
           class="menu-bar-logo"
-          src="test-file-stub"
+          src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
         />
         <h1>
           Streetmix
@@ -178,7 +178,7 @@ exports[`MenuBar renders logged in user 1`] = `
         <img
           alt="Streetmix+"
           class="menu-avatar-subscriber"
-          src="test-file-stub"
+          src="/ui/icons/streetmix-plus.svg"
         />
         Get Streetmix+‎
       </button>
@@ -243,7 +243,7 @@ exports[`MenuBar renders logged in user 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MenuBar renders minimal menu in offline mode 1`] = `
+exports[`MenuBar > renders minimal menu in offline mode 1`] = `
 <DocumentFragment>
   <nav
     class="menu-bar"
@@ -257,7 +257,7 @@ exports[`MenuBar renders minimal menu in offline mode 1`] = `
         <img
           alt="Streemix"
           class="menu-bar-logo"
-          src="test-file-stub"
+          src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
         />
         <h1>
           Streetmix
