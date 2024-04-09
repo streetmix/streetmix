@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 
 import { createStore } from '../../../../test/helpers/store'
@@ -11,17 +11,17 @@ import { saveStreetToServerIfNecessary } from '../../streets/data_model'
 import apiClient from '../../util/api'
 import { ERRORS } from '../../app/errors'
 
-jest.mock('../../streets/data_model', () => {
-  const actual = jest.requireActual('../../streets/data_model')
+vi.mock('../../streets/data_model', async (importOriginal) => {
+  const actual = await importOriginal()
   return {
     ...actual,
-    saveStreetToServerIfNecessary: jest.fn()
+    saveStreetToServerIfNecessary: vi.fn()
   }
 })
 
 describe('street integration test', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   describe('#addSegment', () => {
