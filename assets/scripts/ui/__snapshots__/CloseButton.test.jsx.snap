@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CloseButton renders snapshot 1`] = `
+exports[`CloseButton > renders snapshot 1`] = `
 <DocumentFragment>
   <button
     class="close"
@@ -13,7 +13,7 @@ exports[`CloseButton renders snapshot 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CloseButton renders with custom title, class name, and other attributes 1`] = `
+exports[`CloseButton > renders with custom title, class name, and other attributes 1`] = `
 <DocumentFragment>
   <button
     class="my-class"

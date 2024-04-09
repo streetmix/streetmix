@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`KeyboardKey renders a <kbd> element with element child 1`] = `
+exports[`KeyboardKey > renders a <kbd> element with element child 1`] = `
 <DocumentFragment>
   <kbd
     class="key"
@@ -12,7 +12,7 @@ exports[`KeyboardKey renders a <kbd> element with element child 1`] = `
 </DocumentFragment>
 `;
 
-exports[`KeyboardKey renders a <kbd> element with icon and title 1`] = `
+exports[`KeyboardKey > renders a <kbd> element with icon and title 1`] = `
 <DocumentFragment>
   <kbd
     class="key key-icon"
@@ -25,7 +25,7 @@ exports[`KeyboardKey renders a <kbd> element with icon and title 1`] = `
 </DocumentFragment>
 `;
 
-exports[`KeyboardKey renders a <kbd> element with string child 1`] = `
+exports[`KeyboardKey > renders a <kbd> element with string child 1`] = `
 <DocumentFragment>
   <kbd
     class="key"

@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { render } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import Checkbox from './Checkbox'
@@ -17,7 +17,7 @@ describe('Checkbox', () => {
         disabled={true}
         value="bar"
         id="baz"
-        onChange={jest.fn()}
+        onChange={vi.fn()}
         className="custom-classname"
         style={{ color: 'blue' }}
       >
@@ -29,7 +29,7 @@ describe('Checkbox', () => {
   })
 
   it('handles click on the label text', async () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const { getByText } = render(
       <Checkbox onChange={handleChange}>foo</Checkbox>
     )
