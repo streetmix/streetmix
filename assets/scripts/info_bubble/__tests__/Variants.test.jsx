@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -12,12 +12,12 @@ import {
 } from '../constants'
 
 // Enable mocking of the return value of `getSegmentInfo`
-jest.mock('../../segments/info')
+vi.mock('../../segments/info')
 
 // Provide mock variant icons so that we can test icons with `enabledWithFlag`
-jest.mock('../../segments/variant_icons.json', () =>
-  require('../../segments/__mocks__/variant_icons.json')
-)
+vi.mock('../../segments/variant_icons.json', () => ({
+  default: require('../../segments/__mocks__/variant_icons.json')
+}))
 
 describe('Variants', () => {
   const initialState = {

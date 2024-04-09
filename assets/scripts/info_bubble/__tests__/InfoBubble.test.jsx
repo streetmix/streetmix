@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import InfoBubble from '../InfoBubble'
@@ -8,10 +8,10 @@ import {
   BUILDING_RIGHT_POSITION
 } from '../../segments/constants'
 
-jest.mock('../../segments/view')
-jest.mock('../../segments/buildings', () => {
+vi.mock('../../segments/view')
+vi.mock('../../segments/buildings', () => {
   return {
-    prettifyHeight: jest.fn(() => 10),
+    prettifyHeight: vi.fn(() => 10),
     // TODO: use mock building data
     BUILDINGS: {
       grass: {

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Triangle renders an highlighted triangle 1`] = `
+exports[`Triangle > renders an highlighted triangle 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble-triangle info-bubble-triangle-highlight"
@@ -8,7 +8,7 @@ exports[`Triangle renders an highlighted triangle 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Triangle renders an unhighlighted triangle 1`] = `
+exports[`Triangle > renders an unhighlighted triangle 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble-triangle"
@@ -16,7 +16,7 @@ exports[`Triangle renders an unhighlighted triangle 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Triangle renders an unhighlighted triangle by default 1`] = `
+exports[`Triangle > renders an unhighlighted triangle by default 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble-triangle"

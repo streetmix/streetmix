@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`InfoBubble is visible 1`] = `
+exports[`InfoBubble > is visible 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble info-bubble-type-segment visible"
@@ -159,7 +159,7 @@ exports[`InfoBubble is visible 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InfoBubble renders 1`] = `
+exports[`InfoBubble > renders 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble info-bubble-type-segment"
@@ -318,7 +318,7 @@ exports[`InfoBubble renders 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InfoBubble shows building left info bubble 1`] = `
+exports[`InfoBubble > shows building left info bubble 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble info-bubble-type-building"
@@ -522,7 +522,7 @@ exports[`InfoBubble shows building left info bubble 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InfoBubble shows building right info bubble 1`] = `
+exports[`InfoBubble > shows building right info bubble 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble info-bubble-type-building"
@@ -726,7 +726,7 @@ exports[`InfoBubble shows building right info bubble 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InfoBubble shows description 1`] = `
+exports[`InfoBubble > shows description 1`] = `
 <DocumentFragment>
   <div
     class="info-bubble info-bubble-type-segment show-description"

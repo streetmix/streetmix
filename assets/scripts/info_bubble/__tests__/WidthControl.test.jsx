@@ -1,11 +1,8 @@
-/* eslint-env jest */
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
 import WidthControl from '../WidthControl'
-
-jest.mock('../../app/routing', () => {})
 
 describe('WidthControl', () => {
   let activeElement, segment
