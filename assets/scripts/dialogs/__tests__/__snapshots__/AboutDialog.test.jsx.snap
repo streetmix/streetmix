@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AboutDialog renders snapshot 1`] = `
+exports[`AboutDialog > renders snapshot 1`] = `
 <DocumentFragment>
   <div
     class="dialog-box-container"
@@ -27,7 +27,7 @@ exports[`AboutDialog renders snapshot 1`] = `
           <img
             alt="Streetmix (logo)"
             class="about-dialog-logo"
-            src="test-file-stub"
+            src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
           />
           <h1>
             About Streetmix.
@@ -123,7 +123,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   >
                     <img
                       alt="New Urban Mobility Alliance"
-                      src="test-file-stub"
+                      src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/sponsors/numo.svg"
                     />
                   </a>
                 </li>
@@ -135,7 +135,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   >
                     <img
                       alt="Code for America"
-                      src="test-file-stub"
+                      src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/sponsors/codeforamerica.png"
                     />
                   </a>
                 </li>
@@ -154,7 +154,7 @@ exports[`AboutDialog renders snapshot 1`] = `
                   >
                     <img
                       alt="Mozilla Open Source Support"
-                      src="test-file-stub"
+                      src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/sponsors/mozilla.svg"
                     />
                   </a>
                 </li>

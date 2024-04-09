@@ -1,10 +1,10 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { render } from '../../../../test/helpers/render'
 import SaveAsImageDialog from '../SaveAsImageDialog'
 
 // Mock dependencies that could break tests
-jest.mock('../../streets/image', () => {
+vi.mock('../../streets/image', () => {
   return {
     getStreetImage: () => {}
   }

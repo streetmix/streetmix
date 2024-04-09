@@ -1,13 +1,13 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { render } from '../../../../test/helpers/render'
 import AnalyticsDialog from '../AnalyticsDialog'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-jest.mock('../../segments/capacity_data.json', () =>
-  require('../../segments/__mocks__/capacity_data.json')
-)
+vi.mock('../../segments/capacity_data.json', () => ({
+  default: require('../../segments/__mocks__/capacity_data.json')
+}))
 
 const initialState = {
   locale: {

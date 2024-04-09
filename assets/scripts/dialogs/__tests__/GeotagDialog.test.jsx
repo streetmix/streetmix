@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import clone from 'just-clone'
 import { screen } from '@testing-library/react'
 import { render } from '../../../../test/helpers/render'
@@ -8,8 +8,8 @@ import { isOwnedByCurrentUser } from '../../streets/owner'
 import * as constants from '../../app/config'
 
 // Mock dependencies that could break tests
-jest.mock('../../streets/owner', () => ({
-  isOwnedByCurrentUser: jest.fn()
+vi.mock('../../streets/owner', () => ({
+  isOwnedByCurrentUser: vi.fn()
 }))
 
 // as mocked, the intial state is a street with a previously saved location, and a new marker location
@@ -127,9 +127,8 @@ describe('GeotagDialog', () => {
     })
 
     it('shows geocoding is unavailable if geocoder key is unset', () => {
-      // Set imported config constants to undefined
-      const origApiKey = constants.PELIAS_API_KEY
-      constants.PELIAS_API_KEY = undefined // eslint-disable-line
+      // Set API key to undefined
+      vi.spyOn(constants, 'PELIAS_API_KEY', 'get').mockReturnValue(undefined)
 
       render(<GeotagDialog />, { initialState })
 
@@ -138,14 +137,13 @@ describe('GeotagDialog', () => {
         screen.queryByPlaceholderText(placeholderText)
       ).not.toBeInTheDocument()
 
-      // Restore constants
-      constants.PELIAS_API_KEY = origApiKey // eslint-disable-line
+      // Restore API key value
+      vi.restoreAllMocks()
     })
 
     it('shows geocoding is unavailable if geocoder host name is not set', () => {
-      // Set imported config constants to undefined
-      const origHostHame = constants.PELIAS_HOST_NAME
-      constants.PELIAS_HOST_NAME = undefined // eslint-disable-line
+      // Set API key to undefined
+      vi.spyOn(constants, 'PELIAS_API_KEY', 'get').mockReturnValue(undefined)
 
       render(<GeotagDialog />, { initialState })
 
@@ -154,8 +152,8 @@ describe('GeotagDialog', () => {
         screen.queryByPlaceholderText(placeholderText)
       ).not.toBeInTheDocument()
 
-      // Restore constants
-      constants.PELIAS_HOST_NAME = origHostHame // eslint-disable-line
+      // Restore API key value
+      vi.restoreAllMocks()
     })
 
     it('shows geocoding is unavailable if offline mode is on', () => {

@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../../test/helpers/render'
@@ -7,8 +7,8 @@ import LocationPopup from '../LocationPopup'
 
 // Mock the <Popup /> component of react-leaflet so that it doesn't
 // run its own side-effects; we only want to render as a wrapper
-jest.mock('react-leaflet', () => {
-  return { Popup: jest.fn(({ children }) => children) }
+vi.mock('react-leaflet', () => {
+  return { Popup: vi.fn(({ children }) => children) }
 })
 
 describe('LocationPopup', () => {
@@ -26,8 +26,8 @@ describe('LocationPopup', () => {
   })
 
   it('renders a confirm button if location is editable', async () => {
-    const handleConfirm = jest.fn()
-    const handleClear = jest.fn()
+    const handleConfirm = vi.fn()
+    const handleClear = vi.fn()
 
     render(
       <LocationPopup
@@ -45,8 +45,8 @@ describe('LocationPopup', () => {
   })
 
   it('renders a clear button if location is clearable', async () => {
-    const handleConfirm = jest.fn()
-    const handleClear = jest.fn()
+    const handleConfirm = vi.fn()
+    const handleClear = vi.fn()
 
     render(
       <LocationPopup

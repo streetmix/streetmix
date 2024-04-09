@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SignInDialog renders 1`] = `
+exports[`SignInDialog > renders 1`] = `
 <DocumentFragment>
   <div
     class="dialog-box-container"
@@ -88,7 +88,7 @@ exports[`SignInDialog renders 1`] = `
             <img
               alt=""
               class=""
-              src="test-file-stub"
+              src="/ui/icons/google.svg"
             />
             Continue with Google
           </button>

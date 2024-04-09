@@ -1,11 +1,11 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { render } from '../../../../test/helpers/render'
 import AboutDialog from '../AboutDialog'
 
-jest.mock('../About/credits.json', () =>
-  require('../About/__mocks__/credits.json')
-)
+vi.mock('../About/credits.json', () => ({
+  default: require('../About/__mocks__/credits.json')
+}))
 
 describe('AboutDialog', () => {
   it('renders snapshot', () => {
