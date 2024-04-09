@@ -25,10 +25,12 @@
     "postbuild": "npm run sentry:sourcemaps",
     "dev-client": "parcel watch assets/scripts/main.tsx --dist-dir build --public-url /assets",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.mjs --watch app.mjs index.mjs",
-    "test": "npm run lint && npm run jest:watch",
+    "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
     "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.mjs,.cjs .",
+    "vitest": "vitest",
+    "vitest:ci": "vitest run --coverage",
     "jest": "jest --collectCoverage",
     "jest:watch": "jest --watch",
     "translations:download": "node -r dotenv/config packages/i18n/download_translations.mjs",
@@ -226,6 +228,7 @@
     "@types/webpack-env": "1.18.4",
     "@typescript-eslint/eslint-plugin": "7.4.0",
     "@typescript-eslint/parser": "7.4.0",
+    "@vitest/coverage-v8": "1.4.0",
     "axios-mock-adapter": "1.22.0",
     "babel-jest": "29.7.0",
     "concurrently": "8.2.2",
@@ -260,6 +263,9 @@
     "stylelint-csstree-validator": "3.0.0",
     "stylelint-prettier": "4.0.2",
     "supertest": "6.3.3",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "vitest": "1.4.0",
+    "vitest-canvas-mock": "0.3.3",
+    "vitest-fetch-mock": "0.2.2"
   }
 }
