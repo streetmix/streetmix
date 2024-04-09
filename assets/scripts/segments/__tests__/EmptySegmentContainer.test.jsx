@@ -2,7 +2,7 @@
 import React from 'react'
 import EmptySegmentContainer from '../EmptySegmentContainer'
 import { render } from '../../../../test/helpers/render'
-import { TILE_SIZE } from '../../segments/constants'
+import { TILE_SIZE } from '../constants'
 
 describe('EmptySegment', () => {
   it('renders two <EmptySegment /> components of equal width', () => {
