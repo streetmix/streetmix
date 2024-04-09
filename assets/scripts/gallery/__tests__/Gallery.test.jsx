@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -8,12 +8,12 @@ import Gallery from '../Gallery'
 import { switchGalleryStreet } from '../index'
 import { closeGallery } from '../../store/actions/gallery'
 
-jest.mock('../index')
-jest.mock('../../app/errors')
-jest.mock('../../streets/thumbnail')
-jest.mock('../../streets/xhr')
-jest.mock('../../store/actions/gallery', () => ({
-  closeGallery: jest.fn(() => ({ type: 'MOCK_ACTION' }))
+vi.mock('../index')
+vi.mock('../../app/errors')
+vi.mock('../../streets/thumbnail')
+vi.mock('../../streets/xhr')
+vi.mock('../../store/actions/gallery', () => ({
+  closeGallery: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 const initialState = {

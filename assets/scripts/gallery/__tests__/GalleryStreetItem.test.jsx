@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -7,11 +7,11 @@ import MOCK_STREET from '../../../../test/fixtures/street.json'
 import GalleryStreetItem from '../GalleryStreetItem'
 
 // Mock dependencies
-jest.mock('../../streets/thumbnail', () => ({
-  drawStreetThumbnail: jest.fn()
+vi.mock('../../streets/thumbnail', () => ({
+  drawStreetThumbnail: vi.fn()
 }))
-jest.mock('../../app/page_url', () => ({
-  getStreetUrl: jest.fn()
+vi.mock('../../app/page_url', () => ({
+  getStreetUrl: vi.fn()
 }))
 
 describe('GalleryStreetItem', () => {
@@ -56,7 +56,7 @@ describe('GalleryStreetItem', () => {
   })
 
   it('handles select', async () => {
-    const doSelect = jest.fn()
+    const doSelect = vi.fn()
     render(<GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />)
 
     await userEvent.click(screen.getByText(MOCK_STREET.name))
@@ -64,8 +64,8 @@ describe('GalleryStreetItem', () => {
   })
 
   it('handles delete when confirmed', async () => {
-    const doDelete = jest.fn()
-    window.confirm = jest.fn(() => true)
+    const doDelete = vi.fn()
+    window.confirm = vi.fn(() => true)
 
     render(
       <GalleryStreetItem
@@ -80,8 +80,8 @@ describe('GalleryStreetItem', () => {
   })
 
   it('does not delete when confirmation is cancelled', async () => {
-    const doDelete = jest.fn()
-    window.confirm = jest.fn(() => false)
+    const doDelete = vi.fn()
+    window.confirm = vi.fn(() => false)
 
     render(
       <GalleryStreetItem
