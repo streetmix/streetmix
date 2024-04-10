@@ -14,7 +14,7 @@ exports[`MenuBar > renders 1`] = `
         <img
           alt="Streemix"
           class="menu-bar-logo"
-          src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
+          src="test-file-stub"
         />
         <h1>
           Streetmix
@@ -59,7 +59,7 @@ exports[`MenuBar > renders 1`] = `
         <img
           alt="Streetmix+"
           class="menu-avatar-subscriber"
-          src="/ui/icons/streetmix-plus.svg"
+          src="test-file-stub"
         />
         Get Streetmix+‎
       </button>
@@ -133,7 +133,7 @@ exports[`MenuBar > renders logged in user 1`] = `
         <img
           alt="Streemix"
           class="menu-bar-logo"
-          src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
+          src="test-file-stub"
         />
         <h1>
           Streetmix
@@ -178,7 +178,7 @@ exports[`MenuBar > renders logged in user 1`] = `
         <img
           alt="Streetmix+"
           class="menu-avatar-subscriber"
-          src="/ui/icons/streetmix-plus.svg"
+          src="test-file-stub"
         />
         Get Streetmix+‎
       </button>
@@ -257,7 +257,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
         <img
           alt="Streemix"
           class="menu-bar-logo"
-          src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
+          src="test-file-stub"
         />
         <h1>
           Streetmix

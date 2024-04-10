@@ -27,7 +27,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
           <img
             alt="Streetmix (logo)"
             class="about-dialog-logo"
-            src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/logo_horizontal.svg"
+            src="test-file-stub"
           />
           <h1>
             About Streetmix.
@@ -123,7 +123,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   >
                     <img
                       alt="New Urban Mobility Alliance"
-                      src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/sponsors/numo.svg"
+                      src="test-file-stub"
                     />
                   </a>
                 </li>
@@ -135,7 +135,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   >
                     <img
                       alt="Code for America"
-                      src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/sponsors/codeforamerica.png"
+                      src="test-file-stub"
                     />
                   </a>
                 </li>
@@ -154,7 +154,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   >
                     <img
                       alt="Mozilla Open Source Support"
-                      src="/@fs/Users/lou/Repositories/streetmix/streetmix/assets/images/sponsors/mozilla.svg"
+                      src="test-file-stub"
                     />
                   </a>
                 </li>

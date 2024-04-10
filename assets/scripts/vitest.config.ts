@@ -5,6 +5,12 @@ export default defineConfig({
     name: 'client',
     globals: true,
     environment: 'jsdom',
-    setupFiles: 'vitest.setup.ts'
+    setupFiles: 'vitest.setup.ts',
+    alias: [
+      {
+        find: /^(.*)\.(jpg|jpeg|png|gif|svg)$/,
+        replacement: '/__mocks__/fileMock.js'
+      }
+    ]
   }
 })
