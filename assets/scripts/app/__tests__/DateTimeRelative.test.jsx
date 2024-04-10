@@ -1,21 +1,21 @@
 import React from 'react'
-import { beforeAll, afterAll } from 'vitest'
-import { advanceTo, clear } from 'jest-date-mock'
+import { vi, beforeAll, afterAll } from 'vitest'
 import { render } from '../../../../test/helpers/render'
 import DateTimeRelative from '../DateTimeRelative'
 
-// This will only test `en-US` (default) values. Assume that localized values will
-// be handled accurately by the react-intl implementation.
+// This will only test `en-US` (default) values. Assume that localized values
+// will be handled accurately by the react-intl implementation.
 
 describe('DateTimeRelative', () => {
   beforeAll(() => {
-    // Mock global Date object so that Date.now() returns the value we specify
-    advanceTo(new Date(1524506400000)) // '2018-04-23T18:00:00.000Z'
+    // Mock system time for stable tests
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(1524506400000)) // '2018-04-23T18:00:00.000Z'
   })
 
   afterAll(() => {
-    // Restore the implementation of global Date object
-    clear()
+    // Restore system time
+    vi.useRealTimers()
   })
 
   it('renders snapshot', () => {

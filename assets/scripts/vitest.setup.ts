@@ -4,7 +4,6 @@ import { vi } from 'vitest'
 import '@testing-library/jest-dom'
 // import 'dotenv/config' // TODO: fix this
 import 'vitest-canvas-mock'
-// import 'jest-date-mock' // TODO: do we need this?
 import { server } from '../../test/server/index.js'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

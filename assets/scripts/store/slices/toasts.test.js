@@ -1,5 +1,4 @@
-/* eslint-env jest */
-import { advanceTo, advanceBy, clear } from 'jest-date-mock'
+import { vi } from 'vitest'
 import toasts, { addToast, destroyToast } from './toasts'
 
 describe('toasts reducer', () => {
@@ -8,7 +7,10 @@ describe('toasts reducer', () => {
   })
 
   it('should handle addToast()', () => {
-    advanceTo(0)
+    // Set fake time to 0
+    const date = 0
+    vi.useFakeTimers()
+    vi.setSystemTime(date)
 
     const action1 = toasts(
       [],
@@ -26,7 +28,8 @@ describe('toasts reducer', () => {
 
     expect(action1).toEqual(result1)
 
-    advanceBy(30)
+    // Advance fake time by 30ms
+    vi.setSystemTime(date + 30)
 
     const action2 = toasts(
       [
@@ -61,7 +64,8 @@ describe('toasts reducer', () => {
 
     expect(action2).toEqual(result2)
 
-    advanceBy(30)
+    // Advance fake time by another 30ms (60s since start of 0)
+    vi.setSystemTime(date + 60)
 
     const action3 = toasts(
       [
@@ -108,7 +112,7 @@ describe('toasts reducer', () => {
 
     expect(action3).toEqual(result3)
 
-    clear()
+    vi.useRealTimers()
   })
 
   it('should handle destroyToast()', () => {
