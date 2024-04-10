@@ -11,7 +11,10 @@ export const streetmixApi = createApi({
   reducerPath: 'streetmixApi',
   baseQuery: fetchBaseQuery({
     // Only uses the API endpoints, not the service endpoints for now.
-    baseUrl: '/api/v1/'
+    // Need to construct the API with absolute URL (not relative) for
+    // mock-service-worker. See:
+    // https://github.com/mswjs/msw/issues/1794#issuecomment-1803643227
+    baseUrl: new URL('/api/v1', location.origin).href
   }),
   endpoints: (builder) => ({
     getUser: builder.query<UserProfile, string | null>({
