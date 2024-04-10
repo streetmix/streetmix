@@ -6,9 +6,9 @@ import { render } from '../../../test/helpers/render'
 import PaletteContainer from './PaletteContainer'
 
 vi.mock('../segments/view', async (importOriginal) => {
-  const mod = importOriginal()
+  const actual = importOriginal()
   return {
-    ...mod,
+    ...actual,
     drawSegmentContents: vi.fn()
   }
 })
