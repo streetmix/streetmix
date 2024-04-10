@@ -1,22 +1,21 @@
 import { URLSearchParams } from 'node:url'
-import { rest } from 'msw'
+import { http, HttpResponse, delay } from 'msw'
 import autocompleteResponse from '../fixtures/geocode/autocomplete.json'
 import searchResponse from '../fixtures/geocode/search.json'
 
 export const handlers = [
-  rest.get('api/v1/users/:userId', (req, res, ctx) => {
-    const { userId } = req.params
+  http.get('api/v1/users/:userId', ({ params }) => {
+    const { userId } = params
 
     // If provided with this user id, create a mock server error
     // The actual error code does not matter
     if (userId === 'error_user') {
-      return res(ctx.status(403))
+      return HttpResponse.json(null, { status: 403 })
     }
 
     // In all other cases, return a mock user with the provided user id
-    return res(
-      ctx.status(200),
-      ctx.json({
+    return HttpResponse.json(
+      {
         id: userId,
         displayName: `It's me, ${userId}!`,
         // Test image is from here: https://opengameart.org/content/cute-retro-pixel-penguin-16x16
@@ -25,47 +24,49 @@ export const handlers = [
         flags: {},
         roles: ['USER'],
         data: {}
-      })
+      },
+      { status: 200 }
     )
   }),
 
-  rest.get('api/v1/translate/:lang/:resource', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}))
+  http.get('api/v1/translate/:lang/:resource', () => {
+    return HttpResponse.json({}, { status: 200 })
   }),
 
   // EXTERNAL REQUESTS
-  rest.post(
+  http.post(
     'https://buttondown.email/api/emails/embed-subscribe/streetmix',
-    async (req, res, ctx) => {
+    async ({ request }) => {
       // Read submitted email address and conditionally respond
-      const text = await req.text()
+      const text = await request.text()
       const params = new URLSearchParams(text)
 
       // Mock response with a 500 error
       if (params.get('email') === 'error_500@foo.com') {
-        return res(ctx.status(500))
+        return HttpResponse.json(null, { status: 500 })
       }
 
       // Mock response for miscellaneous failure
       if (params.get('email') === 'error_client@foo.com') {
-        return res(ctx.status(404))
+        return HttpResponse.json(null, { status: 404 })
       }
 
       // Mocks a success response with a "realistic" server delay
       if (params.get('email') === 'test_pending@example.com') {
-        return res(ctx.delay(), ctx.status(200))
+        await delay()
+        return HttpResponse.json(null, { status: 200 })
       }
 
       // Success response
-      return res(ctx.status(200))
+      return HttpResponse.json(null, { status: 200 })
     }
   ),
 
-  rest.get('https://api.geocode.earth/v1/autocomplete', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(autocompleteResponse))
+  http.get('https://api.geocode.earth/v1/autocomplete', () => {
+    return HttpResponse.json(autocompleteResponse, { status: 200 })
   }),
 
-  rest.get('https://api.geocode.earth/v1/search', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(searchResponse))
+  http.get('https://api.geocode.earth/v1/search', () => {
+    return HttpResponse.json(searchResponse, { status: 200 })
   })
 ]
