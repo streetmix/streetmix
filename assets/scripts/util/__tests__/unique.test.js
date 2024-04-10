@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { unique } from '../unique'
 
 describe('unique()', () => {

@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import infoBubble, {
   show,
   hide,

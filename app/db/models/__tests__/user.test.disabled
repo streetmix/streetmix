@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import userFactory from '../../factories/user.js'
 const { User } = require('../index.js')
 

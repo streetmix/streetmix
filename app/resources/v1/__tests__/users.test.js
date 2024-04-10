@@ -1,10 +1,10 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import users from '../users'
 
-jest.mock('../../../db/models')
-jest.mock('../../../lib/logger')
+vi.mock('../../../db/models')
+vi.mock('../../../lib/logger')
 
 // Fake user info to test the API
 const emailUser = {
@@ -24,7 +24,7 @@ const mockAdminUser = {
   sub: 'admin|789'
 }
 
-const jwtMock = jest.fn() // returns a user
+const jwtMock = vi.fn() // returns a user
 const mockUserMiddleware = (req, res, next) => {
   req.auth = jwtMock()
   next()

@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import street, {
   updateStreetData,
   addSegment,

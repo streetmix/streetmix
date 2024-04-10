@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -14,7 +14,7 @@ describe('StreetMetaWidthMenu', () => {
           width: 18,
           occupiedWidth: 3
         }}
-        onChange={jest.fn()}
+        onChange={vi.fn()}
       />
     )
 
@@ -29,7 +29,7 @@ describe('StreetMetaWidthMenu', () => {
           width: 3,
           occupiedWidth: 3
         }}
-        onChange={jest.fn()}
+        onChange={vi.fn()}
       />
     )
 
@@ -44,7 +44,7 @@ describe('StreetMetaWidthMenu', () => {
           width: 18.288,
           occupiedWidth: 3.048
         }}
-        onChange={jest.fn()}
+        onChange={vi.fn()}
       />
     )
 
@@ -52,7 +52,7 @@ describe('StreetMetaWidthMenu', () => {
   })
 
   it('calls onChange handler when selection changed', async () => {
-    const handleChange = jest.fn((value) => value)
+    const handleChange = vi.fn((value) => value)
     const user = userEvent.setup()
 
     render(

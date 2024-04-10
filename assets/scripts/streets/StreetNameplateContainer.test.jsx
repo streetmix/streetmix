@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../test/helpers/render'
@@ -53,7 +53,7 @@ describe('StreetNameplateContainer', () => {
 
   it('handles click and name change', async () => {
     // Mock window.prompt() and have it return a new name
-    const mockPrompt = jest.spyOn(window, 'prompt')
+    const mockPrompt = vi.spyOn(window, 'prompt')
     mockPrompt.mockImplementation(() => 'bar')
 
     // Mount, mimic click interaction and expect street name to have changed
@@ -69,7 +69,7 @@ describe('StreetNameplateContainer', () => {
 
   it('doesn’t change the name if prompt returns empty string', async () => {
     // Mock window.prompt() and have it return a new name
-    const mockPrompt = jest.spyOn(window, 'prompt')
+    const mockPrompt = vi.spyOn(window, 'prompt')
     mockPrompt.mockImplementation(() => '')
 
     // Mount, mimic click interaction and expect street name to have changed

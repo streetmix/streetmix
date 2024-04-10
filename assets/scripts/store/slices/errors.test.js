@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import errors, { showError, hideError } from './errors'
 
 describe('errors reducer', () => {

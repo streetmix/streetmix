@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import React from 'react'
 import { waitFor } from '@testing-library/react'
 import { render } from '../../../test/helpers/render'

@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import votes from '../votes'
@@ -8,8 +8,8 @@ const TEST_USER_AUTH0_ONE = 'foo|123'
 const TEST_STREET_TWO = 'testStreetId2'
 const TEST_VOTE_ONE = 'vote1'
 
-jest.mock('../../../db/models')
-jest.mock('../../../lib/logger')
+vi.mock('../../../db/models')
+vi.mock('../../../lib/logger')
 
 const TEST_COMMENT = 'some nice comment goes here :)'
 const TEST_COMMENT_MAX_LEN =
@@ -27,7 +27,7 @@ const MOCK_VOTE_TWO = {
 const voteByUser = 'vote1'
 const voteByOtherUser = 'vote2'
 
-const jwtMock = jest.fn() // returns a user
+const jwtMock = vi.fn() // returns a user
 const mockUserMiddleware = (req, res, next) => {
   req.auth = jwtMock()
   next()

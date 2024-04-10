@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import locale, { changeLocale } from './locale'
 
 describe('locale reducer', () => {

@@ -1,12 +1,12 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import request from 'supertest'
 import cloudinary from 'cloudinary'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import images from '../street_images'
 
-jest.mock('../../../db/models')
-jest.mock('../../../lib/logger')
-jest.mock('cloudinary')
+vi.mock('../../../db/models')
+vi.mock('../../../lib/logger')
+vi.mock('cloudinary')
 
 const street = {
   status: 'ACTIVE',
@@ -24,7 +24,7 @@ const mockAltUser = {
   sub: 'bar|456'
 }
 
-const jwtMock = jest.fn() // returns a user
+const jwtMock = vi.fn() // returns a user
 const mockUserMiddleware = (req, res, next) => {
   req.auth = jwtMock()
   next()
@@ -39,7 +39,7 @@ describe('POST api/v1/streets/:street_id/images', () => {
     )
   }, 'street_images')
   const details = { image: 'foo', event: 'TEST' }
-  JSON.parse = jest.fn().mockReturnValue(details)
+  JSON.parse = vi.fn().mockReturnValue(details)
 
   cloudinary.v2.uploader.upload.mockResolvedValue('foo')
 

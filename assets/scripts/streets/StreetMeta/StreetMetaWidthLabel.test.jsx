@@ -1,5 +1,5 @@
-/* eslint-env jest */
 import React from 'react'
+import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { render } from '../../../../test/helpers/render'
@@ -18,7 +18,7 @@ describe('StreetMetaWidthLabel', () => {
       <StreetMetaWidthLabel
         street={dummyStreetObject}
         editable={true}
-        onClick={jest.fn()}
+        onClick={vi.fn()}
       />
     )
 
@@ -30,7 +30,7 @@ describe('StreetMetaWidthLabel', () => {
       <StreetMetaWidthLabel
         street={dummyStreetObject}
         editable={false}
-        onClick={jest.fn()}
+        onClick={vi.fn()}
       />
     )
 
@@ -46,7 +46,7 @@ describe('StreetMetaWidthLabel', () => {
           remainingWidth: 1
         }}
         editable={true}
-        onClick={jest.fn()}
+        onClick={vi.fn()}
       />
     )
 
@@ -62,7 +62,7 @@ describe('StreetMetaWidthLabel', () => {
           remainingWidth: -1
         }}
         editable={true}
-        onClick={jest.fn()}
+        onClick={vi.fn()}
       />
     )
 
@@ -70,7 +70,7 @@ describe('StreetMetaWidthLabel', () => {
   })
 
   it('calls onClick handler when clicked', async () => {
-    const handleClick = jest.fn()
+    const handleClick = vi.fn()
     render(
       <StreetMetaWidthLabel
         street={dummyStreetObject}
