@@ -26,7 +26,7 @@ npm cypress:run
 
 ## Unit and integration tests {#unit-tests}
 
-Our primary test framework is the [Jest](https://jestjs.io/) test runner with [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro). (These do not do the same thing and are not interchangeable; these two systems work closely together to provide a full unit and integration test environment.) See the list of resources below, which fully document why and how we use these.
+Our primary test framework is the [Vitest](https://vitest.dev/) test runner with [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro). (These do not do the same thing and are not interchangeable; these two systems work closely together to provide a full unit and integration test environment.) See the list of resources below, which fully document why and how we use these.
 
 Our goal is to be as close as possible to "industry best practice" in order to simplify our understanding and comprehension of tests. _Please do not do anything exotic in these tests._
 

@@ -2,7 +2,6 @@ import path from 'node:path'
 import { setImmediate, clearImmediate } from 'timers'
 import { vi } from 'vitest'
 import '@testing-library/jest-dom'
-// import 'dotenv/config' // TODO: fix this
 import 'vitest-canvas-mock'
 import { server } from '../../test/server/index.js'
 

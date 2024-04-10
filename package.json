@@ -31,59 +31,15 @@
     "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.mjs,.cjs .",
     "vitest": "vitest",
     "vitest:ci": "vitest run --coverage",
-    "jest": "jest --collectCoverage",
-    "jest:watch": "jest --watch",
     "translations:download": "node -r dotenv/config packages/i18n/download_translations.mjs",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "db:create": "npx sequelize-cli db:create",
     "pretest:models": "NODE_ENV=test npm run db:migrate",
-    "test:models": "NODE_ENV=test jest --watchAll --testPathPattern=app/db/models/_tests_",
+    "test:models": "NODE_ENV=test vitest --watchAll --testPathPattern=app/db/models/_tests_",
     "posttest:models": "NODE_ENV=test npm run db:reset",
     "prepare": "husky install",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ./build && sentry-cli sourcemaps upload --org streetmix --project streetmix ./build"
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "testEnvironmentOptions": {
-      "url": "https://streetmix.net/"
-    },
-    "roots": [
-      "app",
-      "assets/scripts",
-      "test"
-    ],
-    "setupFilesAfterEnv": [
-      "./test/setup-jest.js"
-    ],
-    "testPathIgnorePatterns": [
-      "./test/integration",
-      "./app/resources/v1"
-    ],
-    "collectCoverageFrom": [
-      "app.mjs",
-      "app/**/*.{js,mjs,cjs}",
-      "assets/scripts/**/*.{js,jsx,ts,tsx}",
-      "!assets/scripts/vendor/**/*.js"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/test/__mocks__/styleMock.js"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "jsx",
-      "ts",
-      "tsx",
-      "node",
-      "mjs",
-      "cjs"
-    ],
-    "resolver": "<rootDir>/test/resolver.cjs",
-    "transformIgnorePatterns": [
-      "node_modules/(?!react-leaflet)/"
-    ]
   },
   "browserslist": [
     "> 0.5%",
@@ -215,7 +171,6 @@
     "@commitlint/cli": "19.2.1",
     "@commitlint/config-conventional": "19.1.0",
     "@faker-js/faker": "8.4.1",
-    "@jest/globals": "29.7.0",
     "@parcel/transformer-sass": "2.12.0",
     "@testing-library/dom": "9.3.3",
     "@testing-library/jest-dom": "6.4.2",
@@ -230,7 +185,6 @@
     "@typescript-eslint/parser": "7.4.0",
     "@vitest/coverage-v8": "1.4.0",
     "axios-mock-adapter": "1.22.0",
-    "babel-jest": "29.7.0",
     "concurrently": "8.2.2",
     "cypress": "13.6.4",
     "eslint": "8.57.0",
@@ -247,11 +201,7 @@
     "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "husky": "8.0.3",
-    "jest": "29.7.0",
-    "jest-canvas-mock": "2.5.2",
-    "jest-date-mock": "1.0.8",
-    "jest-environment-jsdom": "29.7.0",
-    "jest-fetch-mock": "3.0.3",
+    "jsdom": "24.0.0",
     "lint-staged": "15.2.2",
     "msw": "2.2.13",
     "prettier": "3.1.1",
