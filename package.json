@@ -265,7 +265,6 @@
     "supertest": "6.3.3",
     "typescript": "5.2.2",
     "vitest": "1.4.0",
-    "vitest-canvas-mock": "0.3.3",
-    "vitest-fetch-mock": "0.2.2"
+    "vitest-canvas-mock": "0.3.3"
   }
 }

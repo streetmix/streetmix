@@ -2,7 +2,6 @@ import path from 'node:path'
 import { setImmediate, clearImmediate } from 'timers'
 import { vi } from 'vitest'
 import '@testing-library/jest-dom'
-import createFetchMock from 'vitest-fetch-mock'
 // import 'dotenv/config' // TODO: fix this
 import 'vitest-canvas-mock'
 // import 'jest-date-mock' // TODO: do we need this?
@@ -23,12 +22,6 @@ afterEach(() => {
 afterAll(() => {
   server.close()
 })
-
-// We still need to polyfill the environment with fetch or our
-// components break. But we also don't really need to / want to
-// mock fetch requests, that's what msw is for!
-const fetchMock = createFetchMock(vi)
-fetchMock.dontMock()
 
 // Add mocks for global methods
 global.ResizeObserver = class ResizeObserver {
