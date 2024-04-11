@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import {
   getSegmentLookup,
   getSegmentComponentInfo,
@@ -60,11 +59,13 @@ describe('applySegmentInfoOverridesAndRules()', () => {
 })
 
 describe('getSegmentSprites()', () => {
-  const type = 'sidewalk'
-  const variant = 'normal'
-  const { components } = getSegmentLookup(type, variant)
-  const sprites = getSegmentSprites(components)
+  it('works', () => {
+    const type = 'sidewalk'
+    const variant = 'normal'
+    const { components } = getSegmentLookup(type, variant)
+    const sprites = getSegmentSprites(components)
 
-  expect(sprites).toBeTruthy()
-  expect(sprites).toMatchSnapshot()
+    expect(sprites).toBeTruthy()
+    expect(sprites).toMatchSnapshot()
+  })
 })

@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StreetName > renders a name 1`] = `
+<DocumentFragment>
+  <div
+    class="street-name"
+  >
+    <div
+      class="street-name-text"
+    >
+      foo
+    </div>
+  </div>
+</DocumentFragment>
+`;

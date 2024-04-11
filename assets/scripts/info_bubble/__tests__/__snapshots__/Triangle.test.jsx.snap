@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Triangle > renders an highlighted triangle 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble-triangle info-bubble-triangle-highlight"
+  />
+</DocumentFragment>
+`;
+
+exports[`Triangle > renders an unhighlighted triangle 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble-triangle"
+  />
+</DocumentFragment>
+`;
+
+exports[`Triangle > renders an unhighlighted triangle by default 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble-triangle"
+  />
+</DocumentFragment>
+`;

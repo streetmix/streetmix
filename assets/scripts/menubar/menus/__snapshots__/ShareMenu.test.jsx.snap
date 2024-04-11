@@ -1,0 +1,245 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ShareMenu > does not render external share links in offline mode 1`] = `
+<DocumentFragment>
+  <div
+    class="menu share-menu"
+  >
+    <a>
+      <svg
+        class="menu-item-icon"
+      />
+      Print…
+    </a>
+    <a
+      id="save-as-image"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Save as image…
+      <span
+        class="menu-item-subtext"
+      >
+        For including in a report, blog, etc.
+      </span>
+    </a>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no street name) 1`] = `
+<DocumentFragment>
+  <div
+    class="menu share-menu"
+  >
+    <div
+      class="share-sign-in-promo"
+    >
+      <a>
+        Sign in
+      </a>
+       for nicer links to your streets and your personal street gallery
+    </div>
+    <div
+      class="share-via-link-container"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Copy and paste this link to share:
+      <div
+        class="share-via-link-form"
+      >
+        <input
+          class="share-via-link"
+          readonly=""
+          spellcheck="false"
+          type="text"
+          value="http://localhost:3000/"
+        />
+        <button
+          class="btn"
+          title="Copy to clipboard"
+          type="button"
+        >
+          <svg
+            class="octicon"
+          />
+        </button>
+      </div>
+    </div>
+    <a>
+      <svg
+        class="svg-inline--fa menu-item-icon fa-mastodon"
+      />
+      Share using Mastodon
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%3A3000%2F"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="svg-inline--fa menu-item-icon fa-twitter"
+      />
+      Share using Twitter
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=Unnamed%20St%20%E2%80%93%20Streetmix&description=Check%20out%20this%20street%20on%20Streetmix!"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="svg-inline--fa menu-item-icon fa-square-facebook"
+      />
+      Share using Facebook
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://3dstreet.app/#http://localhost:3000/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Open in 3DStreet
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a>
+      <svg
+        class="menu-item-icon"
+      />
+      Print…
+    </a>
+    <a
+      id="save-as-image"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Save as image…
+      <span
+        class="menu-item-subtext"
+      >
+        For including in a report, blog, etc.
+      </span>
+    </a>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
+<DocumentFragment>
+  <div
+    class="menu share-menu"
+  >
+    <div
+      class="share-via-link-container"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Copy and paste this link to share:
+      <div
+        class="share-via-link-form"
+      >
+        <input
+          class="share-via-link"
+          readonly=""
+          spellcheck="false"
+          type="text"
+          value="http://localhost:3000/"
+        />
+        <button
+          class="btn"
+          title="Copy to clipboard"
+          type="button"
+        >
+          <svg
+            class="octicon"
+          />
+        </button>
+      </div>
+    </div>
+    <a>
+      <svg
+        class="svg-inline--fa menu-item-icon fa-mastodon"
+      />
+      Share using Mastodon
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%3A3000%2F"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="svg-inline--fa menu-item-icon fa-twitter"
+      />
+      Share using Twitter
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=bar%20%E2%80%93%20Streetmix&description=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="svg-inline--fa menu-item-icon fa-square-facebook"
+      />
+      Share using Facebook
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a
+      href="https://3dstreet.app/#http://localhost:3000/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Open in 3DStreet
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <a>
+      <svg
+        class="menu-item-icon"
+      />
+      Print…
+    </a>
+    <a
+      id="save-as-image"
+    >
+      <svg
+        class="menu-item-icon-radix"
+      />
+      Save as image…
+      <span
+        class="menu-item-subtext"
+      >
+        For including in a report, blog, etc.
+      </span>
+    </a>
+  </div>
+</DocumentFragment>
+`;

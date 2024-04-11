@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CloseButton > renders snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="close"
+    title="Dismiss"
+  >
+    <svg
+      class="octicon"
+    />
+  </button>
+</DocumentFragment>
+`;
+
+exports[`CloseButton > renders with custom title, class name, and other attributes 1`] = `
+<DocumentFragment>
+  <button
+    class="my-class"
+    disabled=""
+    hidden=""
+    title="foofoo"
+  >
+    <svg
+      class="octicon"
+    />
+  </button>
+</DocumentFragment>
+`;

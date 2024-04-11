@@ -317,8 +317,7 @@ export default class SignInDialog extends React.Component {
               <p className="sign-in-disclaimer">
                 <FormattedMessage
                   id="dialogs.sign-in.tos"
-                  defaultMessage="By clicking one of these buttons, I agree to the
-                    {tosLink} and {privacyLink}."
+                  defaultMessage="By clicking one of these buttons, I agree to the {tosLink} and {privacyLink}."
                   values={{
                     tosLink: (
                       <a href="/terms-of-service" target="_blank">

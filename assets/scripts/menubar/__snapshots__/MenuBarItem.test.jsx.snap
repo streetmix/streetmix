@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MenuBarItem > renders 1`] = `
+<DocumentFragment>
+  <li>
+    <button
+      class="menu-attached"
+    >
+      foo
+      <svg
+        class="menu-carat-down"
+      />
+    </button>
+  </li>
+</DocumentFragment>
+`;

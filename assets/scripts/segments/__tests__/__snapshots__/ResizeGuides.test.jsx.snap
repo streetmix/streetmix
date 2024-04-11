@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ResizeGuides > renders while segment is resizing 1`] = `
+<DocumentFragment>
+  <div
+    class="resize-guides"
+    style="left: 75px;"
+  />
+</DocumentFragment>
+`;

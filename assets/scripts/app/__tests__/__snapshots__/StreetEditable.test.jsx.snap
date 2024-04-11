@@ -1,0 +1,72 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not increase the width of the segment 1`] = `
+<DocumentFragment>
+  <div
+    id="street-section-editable"
+    style="width: 4724.4094488188975px;"
+  >
+    <div
+      class="segment hover show-drag-handles warning"
+      data-testid="segment"
+      style="width: 4724.4094488188975px; z-index: 15; transform: translateX(0px);"
+    >
+      <div
+        class="segment-label-container"
+      >
+        <div
+          class="segment-grid units-metric"
+        />
+        <div
+          class="segment-width"
+        >
+          <span>
+            120 m
+          </span>
+        </div>
+        <div
+          class="segment-label"
+        >
+          <p
+            class="segment-name"
+          >
+            Streetcar
+          </p>
+          <p
+            class="segment-capacity"
+          >
+            18,000 people/hr
+          </p>
+        </div>
+      </div>
+      <span
+        class="drag-handle drag-handle-left"
+      >
+        <svg
+          class="svg-inline--fa fa-chevron-left"
+        />
+      </span>
+      <span
+        class="drag-handle drag-handle-right"
+      >
+        <svg
+          class="svg-inline--fa fa-chevron-right"
+        />
+      </span>
+      <div
+        class="segment-canvas-container"
+      >
+        <canvas
+          class="segment-image"
+          height="445"
+          style="width: 4724px; height: 445px; left: 0px;"
+          width="4724"
+        />
+      </div>
+      <div
+        class="hover-bk"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

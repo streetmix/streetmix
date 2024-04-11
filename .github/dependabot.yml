@@ -44,12 +44,11 @@ updates:
       patterns:
         - "stylelint"
         - "stylelint-*"
-    jest:
+    vitest:
       patterns:
-        - "jest"
-        - "jest-environment-jsdom"
-        - "babel-jest"
-        - "@jest/globals"
+        - "vitest"
+        - "@vitest/*"
+        - "vitest-canvas-mock"
     commitlint:
       patterns:
         - "@commitlint/*"

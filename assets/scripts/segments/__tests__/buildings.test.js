@@ -1,11 +1,8 @@
-/* eslint-env jest */
 import { prettifyHeight } from '../buildings'
 import {
   SETTINGS_UNITS_METRIC,
   SETTINGS_UNITS_IMPERIAL
 } from '../../users/constants'
-
-jest.mock('../view', () => {})
 
 describe('prettifyHeight()', () => {
   it('formats a building with floors with height (metric)', () => {

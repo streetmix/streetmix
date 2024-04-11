@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import dialogs, { showDialog, clearDialogs } from './dialogs'
 
 describe('dialogs reducer', () => {

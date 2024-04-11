@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import map, { setMapState, resetMapState } from './map'
 
 describe('map reducer', () => {

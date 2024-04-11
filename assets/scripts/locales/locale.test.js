@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { getActualLocaleFromRequested } from './locale'
 
 describe('localization', () => {

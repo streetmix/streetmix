@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PaletteItem > renders width correctly depending on the dimension 1`] = `
+<DocumentFragment>
+  <li
+    class="palette-item"
+  >
+    <div
+      tabindex="0"
+    >
+      <img
+        class="palette-item-image"
+        draggable="false"
+      />
+    </div>
+  </li>
+</DocumentFragment>
+`;

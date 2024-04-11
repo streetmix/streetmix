@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import {
   DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_RESIZE

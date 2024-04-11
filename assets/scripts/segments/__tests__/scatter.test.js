@@ -1,10 +1,12 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import { getRandomObjects } from '../scatter'
 import PEOPLE from '../people.json'
 
 // Provide mock people data to prevent changes in production data from
 // breaking the expected values of this test
-jest.mock('../people.json', () => require('../__mocks__/people.json'))
+vi.mock('../people.json', () => ({
+  default: require('../__mocks__/people.json')
+}))
 
 // The unit test for `getRandomObjects()` is designed so that the expected
 // return values are very precise decimal numbers, on purpose. We want to see

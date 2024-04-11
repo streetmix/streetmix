@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import translate from '../translate'

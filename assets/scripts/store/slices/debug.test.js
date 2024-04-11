@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import debug, { setDebugFlags } from './debug'
 
 describe('debug reducer', () => {

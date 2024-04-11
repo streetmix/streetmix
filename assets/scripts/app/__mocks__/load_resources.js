@@ -1,5 +1,3 @@
-/* eslint-env jest */
-
 export const images = new Map()
 
 const loadImages = (id) => {
@@ -19,4 +17,5 @@ const loadImages = (id) => {
     height
   })
 }
+
 loadImages('markings--straight-inbound')

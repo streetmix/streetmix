@@ -1,9 +1,10 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import request from 'supertest'
 import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
 import streets from '../streets'
-jest.mock('../../../db/models')
-jest.mock('../../../lib/logger')
+
+vi.mock('../../../db/models')
+vi.mock('../../../lib/logger')
 
 const street = {
   status: 'ACTIVE',
@@ -18,7 +19,7 @@ const mockUser = {
   sub: 'foo|123'
 }
 
-const jwtMock = jest.fn() // returns a user
+const jwtMock = vi.fn() // returns a user
 const mockUserMiddleware = (req, res, next) => {
   req.auth = jwtMock()
   next()

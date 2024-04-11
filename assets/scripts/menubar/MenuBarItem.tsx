@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { ChevronDownIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import ExternalLink from '../ui/ExternalLink'
 import Tooltip from '../ui/Tooltip'
-import { isExternalUrl } from '../util/helpers'
+import { isUrlExternal } from '../util/helpers'
 
 interface MenuBarItemProps {
   // Accepts children to render
@@ -30,7 +30,7 @@ export default function MenuBarItem ({
   let component
 
   if (url !== undefined) {
-    if (isExternalUrl(url)) {
+    if (isUrlExternal(url)) {
       component = (
         <li>
           <ExternalLink href={url} {...restProps}>

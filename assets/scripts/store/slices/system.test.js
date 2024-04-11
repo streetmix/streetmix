@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import system, { setSystemFlags } from './system'
 
 describe('system reducer', () => {

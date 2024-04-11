@@ -1,0 +1,143 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SegmentLabelContainer > renders React element label 1`] = `
+<DocumentFragment>
+  <div
+    class="segment-label-container"
+  >
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
+      class="segment-width"
+    >
+      <span>
+        1 m
+      </span>
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        <span>
+          bar
+        </span>
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SegmentLabelContainer > renders correct grid styling in imperial 1`] = `
+<DocumentFragment>
+  <div
+    class="segment-label-container"
+  >
+    <div
+      class="segment-grid units-imperial"
+    />
+    <div
+      class="segment-width"
+    >
+      <span>
+        3¼′
+      </span>
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        foo
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SegmentLabelContainer > renders correct grid styling in metric 1`] = `
+<DocumentFragment>
+  <div
+    class="segment-label-container"
+  >
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
+      class="segment-width"
+    >
+      <span>
+        1 m
+      </span>
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        foo
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SegmentLabelContainer > renders editable label 1`] = `
+<DocumentFragment>
+  <div
+    class="segment-label-container"
+  >
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
+      class="segment-width"
+    >
+      <span>
+        1 m
+      </span>
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        foo
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SegmentLabelContainer > renders string label 1`] = `
+<DocumentFragment>
+  <div
+    class="segment-label-container"
+  >
+    <div
+      class="segment-grid units-metric"
+    />
+    <div
+      class="segment-width"
+    >
+      <span>
+        1 m
+      </span>
+    </div>
+    <div
+      class="segment-label"
+    >
+      <p
+        class="segment-name"
+      >
+        bar
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

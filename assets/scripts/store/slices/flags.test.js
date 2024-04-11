@@ -1,8 +1,8 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import flags, { setFeatureFlag, setFlagOverrides } from './flags'
 
-jest.mock('@streetmix/feature-flags', () => {
-  return {
+vi.mock('@streetmix/feature-flags', () => ({
+  default: {
     FOO_BAR: {
       label: 'foo — bar',
       defaultValue: false
@@ -12,7 +12,7 @@ jest.mock('@streetmix/feature-flags', () => {
       defaultValue: true
     }
   }
-})
+}))
 
 describe('flags reducer', () => {
   it('should handle initial state', () => {

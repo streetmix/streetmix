@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import reducer, {
   resetUndoStack,
   replaceUndoStack,

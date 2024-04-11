@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SkyPicker renders for signed-in subscribers 1`] = `
+exports[`SkyPicker > renders for signed-in subscribers 1`] = `
 <DocumentFragment>
   <div
     class="sky-picker sky-picker-container-outer react-draggable"

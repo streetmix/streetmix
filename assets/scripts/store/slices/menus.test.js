@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import menus, { showMenu, clearMenus } from './menus'
 import { showGallery } from './gallery'
 import { showDialog } from './dialogs'

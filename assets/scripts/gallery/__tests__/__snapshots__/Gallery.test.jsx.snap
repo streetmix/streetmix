@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Gallery renders global gallery view 1`] = `
+exports[`Gallery > renders global gallery view 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="false"
@@ -106,7 +106,7 @@ exports[`Gallery renders global gallery view 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Gallery renders loading 1`] = `
+exports[`Gallery > renders loading 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="false"
@@ -133,7 +133,7 @@ exports[`Gallery renders loading 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Gallery renders main gallery view for another user’s streets 1`] = `
+exports[`Gallery > renders main gallery view for another user’s streets 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="false"
@@ -247,7 +247,7 @@ exports[`Gallery renders main gallery view for another user’s streets 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Gallery renders main gallery view for user’s own streets 1`] = `
+exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="false"

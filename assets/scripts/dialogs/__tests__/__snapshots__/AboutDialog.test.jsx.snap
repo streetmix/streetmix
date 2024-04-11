@@ -1,0 +1,575 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AboutDialog > renders snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="dialog-box-container"
+  >
+    <div
+      class="dialog-box-backdrop"
+    />
+    <div
+      class="dialog-box"
+      role="dialog"
+    >
+      <button
+        class="close"
+        title="Dismiss"
+      >
+        <svg
+          class="octicon"
+        />
+      </button>
+      <div
+        class="about-dialog"
+      >
+        <header>
+          <img
+            alt="Streetmix (logo)"
+            class="about-dialog-logo"
+            src="test-file-stub"
+          />
+          <h1>
+            About Streetmix.
+          </h1>
+        </header>
+        <div
+          class="dialog-content"
+        >
+          <div
+            class="about-dialog-content"
+          >
+            <div
+              class="about-dialog-left"
+            >
+              <p>
+                Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.
+              </p>
+              <ul
+                class="social-links"
+              >
+                <li>
+                  <a
+                    href="https://github.com/streetmix/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="GitHub"
+                  >
+                    <svg
+                      class="svg-inline--fa social-github fa-github"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://strt.mx/discord"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="Discord"
+                  >
+                    <svg
+                      class="svg-inline--fa social-discord fa-discord"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://urbanists.social/@streetmix"
+                    rel="me noopener noreferrer"
+                    target="_blank"
+                    title="Mastodon"
+                  >
+                    <svg
+                      class="svg-inline--fa social-mastodon fa-mastodon"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://twitter.com/streetmix"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="Twitter"
+                  >
+                    <svg
+                      class="svg-inline--fa social-twitter fa-twitter"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/streetmixapp/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="Instagram"
+                  >
+                    <svg
+                      class="svg-inline--fa social-instagram fa-instagram"
+                    />
+                  </a>
+                </li>
+              </ul>
+              <h3>
+                Partners
+              </h3>
+              <ul
+                class="about-dialog-sponsors"
+              >
+                <li>
+                  <a
+                    href="https://numo.global/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt="New Urban Mobility Alliance"
+                      src="test-file-stub"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://codeforamerica.org/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt="Code for America"
+                      src="test-file-stub"
+                    />
+                  </a>
+                </li>
+              </ul>
+              <h3>
+                Sponsors
+              </h3>
+              <ul
+                class="about-dialog-sponsors"
+              >
+                <li>
+                  <a
+                    href="https://www.mozilla.org/en-US/moss/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt="Mozilla Open Source Support"
+                      src="test-file-stub"
+                    />
+                  </a>
+                </li>
+              </ul>
+              <p>
+                <a
+                  href="https://streetmix.net/terms-of-service/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Terms of service
+                </a>
+                <br />
+                <a
+                  href="https://streetmix.net/privacy-policy/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Privacy policy
+                </a>
+              </p>
+            </div>
+            <div
+              class="about-dialog-right"
+            >
+              <h2>
+                Original project team
+              </h2>
+              <div
+                class="credits-team credits-team-past"
+              >
+                <div
+                  class="team-member"
+                >
+                  <div
+                    class="team-member-mugshot"
+                    style="background-image: url(/images/team/dwight.jpg);"
+                  />
+                  <span
+                    class="team-member-name"
+                  >
+                    Dwight Schrute
+                  </span>
+                  <span
+                    class="team-member-title"
+                  >
+                    assistant to the regional manager
+                  </span>
+                </div>
+                <div
+                  class="team-member"
+                >
+                  <div
+                    class="team-member-mugshot"
+                    style="background-image: url(/images/team/michael.jpg);"
+                  />
+                  <span
+                    class="team-member-name"
+                  >
+                    <a
+                      href="https://dunder-mifflin.com"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Michael Scott
+                    </a>
+                  </span>
+                  <span
+                    class="team-member-title"
+                  >
+                    regional manager
+                  </span>
+                </div>
+              </div>
+              <h2>
+                Core contributors
+              </h2>
+              <div
+                class="credits-team credits-team-past"
+              >
+                <div
+                  class="team-member"
+                >
+                  <div
+                    class="team-member-mugshot"
+                    style="background-image: url(/images/team/jim.jpg);"
+                  />
+                  <span
+                    class="team-member-name"
+                  >
+                    <a
+                      href="http://sabre.com"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Jim Halpert
+                    </a>
+                  </span>
+                  <span
+                    class="team-member-title"
+                  >
+                    sales
+                  </span>
+                </div>
+                <div
+                  class="team-member"
+                >
+                  <div
+                    class="team-member-mugshot"
+                    style="background-image: url(/images/team/pam.jpg);"
+                  />
+                  <span
+                    class="team-member-name"
+                  >
+                    Pam Beesly
+                  </span>
+                  <span
+                    class="team-member-title"
+                  >
+                    office administrator
+                  </span>
+                </div>
+              </div>
+              <div
+                class="credits-container"
+              >
+                <div
+                  class="credits-credits-left"
+                >
+                  <h3>
+                    Advisors
+                  </h3>
+                  <ul>
+                    <li>
+                      Jan Levinson
+                    </li>
+                    <li>
+                      Robert California
+                    </li>
+                  </ul>
+                  <h3>
+                    Additional illustrations
+                  </h3>
+                  <ul>
+                    <li>
+                      Kevin Malone
+                    </li>
+                    <li>
+                      Meredith Palmer
+                    </li>
+                    <li>
+                      Stanley Hudson
+                    </li>
+                  </ul>
+                  <h3>
+                    Additional code
+                  </h3>
+                  <ul>
+                    <li>
+                      Angela Martin
+                    </li>
+                    <li>
+                      Oscar Martinez
+                    </li>
+                    <li>
+                      Phyllis Lapin
+                    </li>
+                  </ul>
+                  <h3>
+                    Additional contributors
+                  </h3>
+                  <ul>
+                    <li>
+                      Creed Bratton
+                    </li>
+                    <li>
+                      Kelly Kapoor, 
+                      <i>
+                        customer service
+                      </i>
+                    </li>
+                    <li>
+                      Toby Flenderson, 
+                      <i>
+                        human resources
+                      </i>
+                    </li>
+                  </ul>
+                  <h3>
+                    Special thanks to
+                  </h3>
+                  <ul>
+                    <li>
+                      Andy Bernard, 
+                      <i>
+                        Cornell
+                      </i>
+                    </li>
+                    <li>
+                      Darryl Philbin
+                    </li>
+                    <li>
+                      Kelly Erin Hannon
+                    </li>
+                    <li>
+                      Ryan Howard, 
+                      <i>
+                        WUPHF
+                      </i>
+                    </li>
+                    <li>
+                      <h4>
+                        Dunder Mifflin
+                      </h4>
+                      <ul>
+                        <li>
+                          David Wallace
+                        </li>
+                        <li>
+                          Nellie Bertram
+                        </li>
+                        <li>
+                          Holly Flax
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  class="credits-credits-right"
+                >
+                  <h3>
+                    Translators
+                  </h3>
+                  <ul>
+                    <li>
+                      <h4>
+                        Arabic
+                      </h4>
+                      <ul>
+                        <li>
+                          Charles Miner
+                        </li>
+                        <li>
+                          Karen Filippelli
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <h4>
+                        German
+                      </h4>
+                      <ul>
+                        <li>
+                          Gabe Lewis, 
+                          <i>
+                            Sabre
+                          </i>
+                        </li>
+                        <li>
+                          Jo Bennett, 
+                          <i>
+                            Sabre
+                          </i>
+                        </li>
+                        <li>
+                          Todd Packer
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="credits-container"
+              >
+                <div>
+                  <h3>
+                    Acknowledgements
+                  </h3>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://manropefont.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Manrope
+                      </a>
+                       font designed by 
+                      <a
+                        href="https://gent.media/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Mikhail Shiranda
+                      </a>
+                      . (
+                      <a
+                        href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="SIL Open Font License, Version 1.1"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
+                      <a
+                        href="https://hubertfischer.com/work/type-rubik"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Rubik
+                      </a>
+                       font designed by 
+                      <a
+                        href="https://hubertfischer.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Hubert & Fischer
+                      </a>
+                      . (
+                      <a
+                        href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="SIL Open Font License, Version 1.1"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
+                      <a
+                        href="https://delvefonts.com/fonts/overpass/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Overpass
+                      </a>
+                       font designed by 
+                      <a
+                        href="https://delvefonts.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Delve Fonts
+                      </a>
+                      . (
+                      <a
+                        href="https://github.com/RedHatOfficial/Overpass/blob/master/OFL.txt"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="SIL Open Font License, Version 1.1"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
+                      Emoji by 
+                      <a
+                        href="https://openmoji.org/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        OpenMoji
+                      </a>
+                      . (
+                      <a
+                        href="https://creativecommons.org/licenses/by-sa/4.0/#"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
+                      Icons by 
+                      <a
+                        href="https://fontawesome.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Font Awesome
+                      </a>
+                      . (
+                      <a
+                        href="https://fontawesome.com/license/free"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="dialog-primary-action"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

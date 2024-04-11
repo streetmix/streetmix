@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import user, {
   setSignInData,
   clearSignInData,

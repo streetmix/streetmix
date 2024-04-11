@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { maxBy } from '../maxBy'
 
 describe('maxBy()', () => {

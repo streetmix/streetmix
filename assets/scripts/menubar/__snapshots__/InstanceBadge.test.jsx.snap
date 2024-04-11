@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InstanceBadge > renders a specific label if given 1`] = `
+<DocumentFragment>
+  <div
+    class="instance-badge"
+  >
+    foo
+  </div>
+</DocumentFragment>
+`;

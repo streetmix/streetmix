@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { vi } from 'vitest'
 import {
   getSegmentCapacity,
   getStreetCapacity,
@@ -7,9 +7,9 @@ import {
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-jest.mock('../../segments/capacity_data.json', () =>
-  require('../__mocks__/capacity_data.json')
-)
+vi.mock('../../segments/capacity_data.json', () => ({
+  default: require('../__mocks__/capacity_data.json')
+}))
 
 describe('segment capacity', () => {
   it('returns capacity data for segment', () => {

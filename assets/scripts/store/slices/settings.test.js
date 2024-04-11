@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import settings, { updateSettings, setUserUnits } from './settings'
 import { changeLocale } from './locale'
 

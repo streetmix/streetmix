@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import SPRITE_DEFS from '../sprite-defs.json'
 import {
   getSpriteDef,

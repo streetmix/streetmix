@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PaletteTrashcan > renders when visible 1`] = `
+<DocumentFragment>
+  <div
+    class="palette-trashcan"
+  >
+    Drag here to remove
+  </div>
+</DocumentFragment>
+`;

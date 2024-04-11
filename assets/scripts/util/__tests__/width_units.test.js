@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { processWidthInput, prettifyWidth } from '../width_units'
 import {
   SETTINGS_UNITS_IMPERIAL,

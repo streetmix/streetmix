@@ -1,0 +1,198 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StreetMetaWidthMenu > renders (imperial units, default width selected) 1`] = `
+<DocumentFragment>
+  <select
+    class="street-width-select"
+  >
+    <option
+      disabled=""
+    >
+      Occupied width:
+    </option>
+    <option
+      disabled=""
+    >
+      10′
+    </option>
+    <option
+      disabled=""
+    />
+    <option
+      disabled=""
+    >
+      Building-to-building width:
+    </option>
+    <option
+      value="12.192"
+    >
+      40′
+    </option>
+    <option
+      value="18.288"
+    >
+      60′
+    </option>
+    <option
+      value="24.384"
+    >
+      80′
+    </option>
+    <option
+      value="-1"
+    >
+      Different width…
+    </option>
+    <option
+      disabled=""
+    />
+    <option
+      disabled=""
+      id="switch-to-imperial-units"
+      value="-3"
+    >
+      Switch to imperial units (feet)
+    </option>
+    <option
+      id="switch-to-metric-units"
+      value="-2"
+    >
+      Switch to metric units
+    </option>
+  </select>
+</DocumentFragment>
+`;
+
+exports[`StreetMetaWidthMenu > renders (metric units, custom width selected) 1`] = `
+<DocumentFragment>
+  <select
+    class="street-width-select"
+  >
+    <option
+      disabled=""
+    >
+      Occupied width:
+    </option>
+    <option
+      disabled=""
+    >
+      3 m
+    </option>
+    <option
+      disabled=""
+    />
+    <option
+      disabled=""
+    >
+      Building-to-building width:
+    </option>
+    <option
+      value="12"
+    >
+      12 m
+    </option>
+    <option
+      value="18"
+    >
+      18 m
+    </option>
+    <option
+      value="24"
+    >
+      24 m
+    </option>
+    <option
+      disabled=""
+    />
+    <option
+      value="3"
+    >
+      3 m
+    </option>
+    <option
+      value="-1"
+    >
+      Different width…
+    </option>
+    <option
+      disabled=""
+    />
+    <option
+      id="switch-to-imperial-units"
+      value="-3"
+    >
+      Switch to imperial units (feet)
+    </option>
+    <option
+      disabled=""
+      id="switch-to-metric-units"
+      value="-2"
+    >
+      Switch to metric units
+    </option>
+  </select>
+</DocumentFragment>
+`;
+
+exports[`StreetMetaWidthMenu > renders (metric units, default width selected) 1`] = `
+<DocumentFragment>
+  <select
+    class="street-width-select"
+  >
+    <option
+      disabled=""
+    >
+      Occupied width:
+    </option>
+    <option
+      disabled=""
+    >
+      3 m
+    </option>
+    <option
+      disabled=""
+    />
+    <option
+      disabled=""
+    >
+      Building-to-building width:
+    </option>
+    <option
+      value="12"
+    >
+      12 m
+    </option>
+    <option
+      value="18"
+    >
+      18 m
+    </option>
+    <option
+      value="24"
+    >
+      24 m
+    </option>
+    <option
+      value="-1"
+    >
+      Different width…
+    </option>
+    <option
+      disabled=""
+    />
+    <option
+      id="switch-to-imperial-units"
+      value="-3"
+    >
+      Switch to imperial units (feet)
+    </option>
+    <option
+      disabled=""
+      id="switch-to-metric-units"
+      value="-2"
+    >
+      Switch to metric units
+    </option>
+  </select>
+</DocumentFragment>
+`;

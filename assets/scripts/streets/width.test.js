@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { normalizeStreetWidth, recalculateWidth } from './width'
 
 describe('normalizeStreetWidth', () => {

@@ -1,4 +1,4 @@
-import { expect, jest } from '@jest/globals'
+import { vi } from 'vitest'
 import MOCK_SKY_DEFS from './__mocks__/skybox-defs.json'
 import {
   makeCSSGradientDeclaration,
@@ -7,8 +7,10 @@ import {
   getAllSkyboxDefs
 } from '.'
 
-jest.mock('./skybox-defs.json', () => require('./__mocks__/skybox-defs.json'))
-jest.mock('./constants', () => ({ DEFAULT_SKYBOX: 'default' }))
+vi.mock('./skybox-defs.json', () => ({
+  default: require('./__mocks__/skybox-defs.json')
+}))
+vi.mock('./constants', () => ({ DEFAULT_SKYBOX: 'default' }))
 
 describe('skybox helpers', () => {
   describe('makeCSSGradientDeclaration', () => {
