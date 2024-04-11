@@ -97,4 +97,4 @@ If you have signed up for a Streetmix+ membership but have not been contacted ab
 
 ## Help, questions and feedback
 
-Let us know what you think in our [Discord](https://strt.mx/discord/) or e-mail us at hello@streetmix.net!
+Let us know what you think in our [Discord](https://strt.mx/discord) or e-mail us at hello@streetmix.net!
