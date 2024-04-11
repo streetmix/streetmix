@@ -98,7 +98,7 @@
     "cloudinary": "2.0.3",
     "compression": "1.7.4",
     "cookie-parser": "1.4.6",
-    "cookie-session": "2.0.0",
+    "cookie-session": "2.1.0",
     "copy-to-clipboard": "3.3.3",
     "core-js": "3.35.0",
     "cors": "2.8.5",
