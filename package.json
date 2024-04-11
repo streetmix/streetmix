@@ -28,7 +28,7 @@
     "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
-    "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.mjs,.cjs .",
+    "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.cjs .",
     "vitest": "vitest",
     "vitest:ci": "vitest run --coverage",
     "translations:download": "node -r dotenv/config packages/i18n/download_translations.js",
@@ -53,7 +53,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,cjs,mjs}": [
+    "*.{js,jsx,ts,tsx,cjs}": [
       "prettier --write",
       "eslint --fix"
     ],
