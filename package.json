@@ -204,7 +204,7 @@
     "jsdom": "24.0.0",
     "lint-staged": "15.2.2",
     "msw": "2.2.13",
-    "prettier": "3.1.1",
+    "prettier": "3.2.5",
     "react-dnd-test-backend": "14.0.1",
     "redux-mock-store": "1.5.4",
     "stylelint": "15.11.0",
