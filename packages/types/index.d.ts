@@ -1,7 +1,7 @@
 import type {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
-} from '../../assets/scripts/users/constants'
+} from '../client/src/users/constants'
 
 export interface Segment {
   id: string

@@ -1,6 +1,6 @@
 import request from 'supertest'
 import { setupMockServer } from '../../../test/setup-mock-server'
-import translate from '../translate'
+import * as translate from '../translate'
 
 // TODO: The test can fail if Transifex is unreachable. May need to rewrite
 // api controller to fallback to local translation strings if a connection cannot
