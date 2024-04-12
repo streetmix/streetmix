@@ -21,9 +21,8 @@
     "cypress:run": "cypress run",
     "start": "concurrently --names \"SERVER,CLIENT\" -c \"bgBlueBright.bold,bgMagentaBright.bold\" \"npm:dev-server\" \"npm:dev-client\"",
     "serve": "nodemon -r newrelic index.js",
-    "build": "parcel build packages/client/src/main.tsx --dist-dir build --public-url /assets",
-    "postbuild": "npm run sentry:sourcemaps",
-    "dev-client": "parcel watch packages/client/src/main.tsx --dist-dir build --public-url /assets",
+    "build": "npm run -w @streetmix/client build",
+    "dev-client": "npm run -w @streetmix/client dev",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js",
     "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
@@ -38,8 +37,7 @@
     "pretest:models": "NODE_ENV=test npm run db:migrate",
     "test:models": "NODE_ENV=test vitest --watchAll --testPathPattern=app/db/models/_tests_",
     "posttest:models": "NODE_ENV=test npm run db:reset",
-    "prepare": "husky install",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ./build && sentry-cli sourcemaps upload --org streetmix --project streetmix ./build"
+    "prepare": "husky install"
   },
   "browserslist": [
     "> 0.5%",
@@ -70,8 +68,6 @@
     "packageExports": true
   },
   "dependencies": {
-    "@sentry/browser": "7.109.0",
-    "@sentry/cli": "2.21.2",
     "@transifex/api": "7.1.0",
     "axios": "1.6.8",
     "axios-retry": "4.1.0",

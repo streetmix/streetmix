@@ -8,6 +8,12 @@
     "directory": "packages/client"
   },
   "type": "module",
+  "scripts": {
+    "build": "parcel build src/main.tsx --dist-dir ../../build --public-url /assets",
+    "postbuild": "npm run sentry:sourcemaps",
+    "dev": "parcel watch src/main.tsx --dist-dir ../../build --public-url /assets",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ../../build && sentry-cli sourcemaps upload --org streetmix --project streetmix ../../build"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.5.2",
     "@fortawesome/free-brands-svg-icons": "6.5.2",
@@ -23,6 +29,8 @@
     "@radix-ui/react-slider": "1.1.2",
     "@radix-ui/react-switch": "1.0.3",
     "@reduxjs/toolkit": "2.0.1",
+    "@sentry/browser": "7.109.0",
+    "@sentry/cli": "2.21.2",
     "@tippyjs/react": "4.2.6",
     "@types/auth0-js": "9.21.5",
     "auth0": "4.3.1",
