@@ -37,7 +37,9 @@ function UndoRedo (): React.ReactElement {
       >
         {/* Keep title on button to be queryable by test */}
         <Button
-          onClick={() => dispatch(handleUndo())}
+          onClick={() => {
+            void dispatch(handleUndo())
+          }}
           disabled={!isUndoAvailable()}
           title={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
         >
@@ -50,7 +52,9 @@ function UndoRedo (): React.ReactElement {
       >
         {/* Keep title on button to be queryable by test */}
         <Button
-          onClick={() => dispatch(handleRedo())}
+          onClick={() => {
+            void dispatch(handleRedo())
+          }}
           disabled={!isRedoAvailable()}
           title={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
         >

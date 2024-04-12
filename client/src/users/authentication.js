@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 import * as Sentry from '@sentry/browser'
 
-import USER_ROLES from '../../../../app/data/user_roles.json'
+import USER_ROLES from '../../../app/data/user_roles.json'
 import { app } from '../preinit/app_settings'
 import { showError, ERRORS } from '../app/errors'
 import { MODES, processMode, getMode, setMode } from '../app/mode'

@@ -5,14 +5,14 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/streetmix/streetmix.git",
-    "directory": "packages/client"
+    "directory": "client"
   },
   "type": "module",
   "scripts": {
-    "build": "parcel build src/main.tsx --dist-dir ../../build --public-url /assets",
+    "build": "parcel build src/main.tsx --dist-dir ../build --public-url /assets",
     "postbuild": "npm run sentry:sourcemaps",
-    "dev": "parcel watch src/main.tsx --dist-dir ../../build --public-url /assets",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ../../build && sentry-cli sourcemaps upload --org streetmix --project streetmix ../../build"
+    "dev": "parcel watch src/main.tsx --dist-dir ../build --public-url /assets",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ../build && sentry-cli sourcemaps upload --org streetmix --project streetmix ../build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.5.2",

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { StarIcon, MixerHorizontalIcon, ExitIcon } from '@radix-ui/react-icons'
-import USER_ROLES from '../../../../../app/data/user_roles.json'
+import USER_ROLES from '../../../../app/data/user_roles.json'
 import { onSignOutClick } from '../../users/authentication'
 import Avatar from '../../users/Avatar'
 import { useSelector, useDispatch } from '../../store/hooks'
@@ -21,7 +21,7 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
   const handleClickMyStreets = useCallback(
     (event: React.MouseEvent) => {
       event.preventDefault()
-      dispatch(openGallery({ userId: user.id }))
+      void dispatch(openGallery({ userId: user.id }))
     },
     [user?.id, dispatch]
   )

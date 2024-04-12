@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import userRoles from '../../../../app/data/user_roles.json'
+import userRoles from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import './UpgradeDialog.scss'
 

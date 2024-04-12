@@ -1,4 +1,4 @@
-import USER_ROLES from '../../../../app/data/user_roles.json'
+import USER_ROLES from '../../../app/data/user_roles.json'
 import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
 import { handleSegmentResizeCancel } from '../segments/resizing'
 import { getSignInData, isSignedIn } from '../users/authentication'

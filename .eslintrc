@@ -89,7 +89,6 @@
       // TODO: set up project-specific eslint "flat config" (eslint v9) inside
       // of client package
       "parserOptions": {
-        "tsconfigRootDir": "./packages/client",
         "project": "./tsconfig.json"
       },
       "rules": {

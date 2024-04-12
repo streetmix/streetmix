@@ -89,7 +89,7 @@ function StreetMetaWidthContainer (): React.ReactElement {
             processWidthInput(inputWidth, units),
             units
           )
-          dispatch(updateStreetWidth(newWidth))
+          void dispatch(updateStreetWidth(newWidth))
         }
 
         break
@@ -100,7 +100,7 @@ function StreetMetaWidthContainer (): React.ReactElement {
       // Change width to the desired selection
       default:
         if (selection) {
-          dispatch(updateStreetWidth(selection))
+          void dispatch(updateStreetWidth(selection))
         }
         break
     }

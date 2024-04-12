@@ -9,7 +9,7 @@ import {
   MixerHorizontalIcon,
   PersonIcon
 } from '@radix-ui/react-icons'
-import USER_ROLES from '../../../../app/data/user_roles.json'
+import USER_ROLES from '../../../app/data/user_roles.json'
 import { ENV } from '../app/config'
 import Dialog from './Dialog'
 import FeatureFlagSettings from './Settings/FeatureFlagSettings'

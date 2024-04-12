@@ -13,6 +13,7 @@
   },
   "type": "module",
   "workspaces": [
+    "client",
     "docs",
     "packages/*"
   ],
@@ -26,7 +27,7 @@
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js",
     "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
-    "lint:css": "stylelint \"./packages/client/**/*.scss\"",
+    "lint:css": "stylelint \"./client/**/*.scss\"",
     "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.cjs .",
     "vitest": "vitest",
     "vitest:ci": "vitest run --coverage",

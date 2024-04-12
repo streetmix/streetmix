@@ -1,4 +1,4 @@
-packages/client/src/vendor/
+client/src/vendor/
 test/integration/smoke.spec.js
 build
 docs
