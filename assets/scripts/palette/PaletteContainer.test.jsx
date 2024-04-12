@@ -2,7 +2,7 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../test/helpers/render'
+import { render } from '../test/helpers/render'
 import PaletteContainer from './PaletteContainer'
 
 vi.mock('../segments/view', async (importOriginal) => {

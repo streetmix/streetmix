@@ -4,7 +4,7 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../../users/constants'
-import { render } from '../../../../test/helpers/render'
+import { render } from '../../test/helpers/render'
 
 const testProps = {
   label: 'foo',

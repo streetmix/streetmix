@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { render } from '../../../../test/helpers/render'
+import { render } from '../../test/helpers/render'
 import AnalyticsDialog from '../AnalyticsDialog'
 
 // Provide mock capacity data to prevent changes in production data from

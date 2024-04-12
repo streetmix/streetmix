@@ -2,8 +2,8 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../../test/helpers/render'
-import MOCK_STREET from '../../../../test/fixtures/street.json'
+import { render } from '../../test/helpers/render'
+import MOCK_STREET from '../../test/fixtures/street.json'
 import GalleryStreetItem from '../GalleryStreetItem'
 
 // Mock dependencies

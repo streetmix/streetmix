@@ -1,7 +1,7 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 import cloudinary from 'cloudinary'
-import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
+import { setupMockServer } from '../../../test/setup-mock-server'
 import images from '../street_images'
 
 vi.mock('../../../db/models')

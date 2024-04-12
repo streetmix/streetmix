@@ -1,5 +1,5 @@
 import request from 'supertest'
-import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
+import { setupMockServer } from '../../../test/setup-mock-server'
 import translate from '../translate'
 
 // TODO: The test can fail if Transifex is unreachable. May need to rewrite

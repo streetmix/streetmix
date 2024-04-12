@@ -2,7 +2,7 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../../test/helpers/render'
+import { render } from '../test/helpers/render'
 import AvatarMenu from './AvatarMenu'
 
 const user = {

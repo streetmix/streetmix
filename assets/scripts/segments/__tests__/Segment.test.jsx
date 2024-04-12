@@ -1,7 +1,7 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
-import { render, screen } from '../../../../test/helpers/render'
+import { render, screen } from '../../test/helpers/render'
 import Segment from '../Segment'
 import { infoBubble } from '../../info_bubble/info_bubble'
 import { setLastStreet } from '../../streets/data_model'
