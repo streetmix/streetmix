@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 import request from 'supertest'
-import { setupMockServer } from '../../../../test/helpers/setup-mock-server'
+import { setupMockServer } from '../../../test/setup-mock-server'
 import session from '../user_session'
 
 vi.mock('../../../db/models')

@@ -1,7 +1,7 @@
 import { vi } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 
-import { createStore } from '../../../../test/helpers/store'
+import { createStore } from '../../test/helpers/store'
 import { addSegment, clearSegments } from '../slices/street'
 import { incrementSegmentWidth, getLastStreet } from '../actions/street'
 

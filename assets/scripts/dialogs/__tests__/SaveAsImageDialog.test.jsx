@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { render } from '../../../../test/helpers/render'
+import { render } from '../../test/helpers/render'
 import SaveAsImageDialog from '../SaveAsImageDialog'
 
 // Mock dependencies that could break tests

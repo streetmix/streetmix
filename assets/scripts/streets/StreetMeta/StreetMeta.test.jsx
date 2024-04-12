@@ -1,6 +1,6 @@
 import React from 'react'
 import { waitFor } from '@testing-library/react'
-import { render } from '../../../../test/helpers/render'
+import { render } from '../../test/helpers/render'
 import StreetMeta from './StreetMeta'
 
 describe('StreetMeta', () => {

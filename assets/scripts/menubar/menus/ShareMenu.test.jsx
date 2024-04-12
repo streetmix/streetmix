@@ -3,7 +3,7 @@ import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import copy from 'copy-to-clipboard'
-import { render } from '../../../../test/helpers/render'
+import { render } from '../../test/helpers/render'
 import { showDialog } from '../../store/slices/dialogs'
 import ShareMenu from './ShareMenu'
 

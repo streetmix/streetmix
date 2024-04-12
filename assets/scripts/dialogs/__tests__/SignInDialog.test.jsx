@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '../../../../test/helpers/render'
+import { render } from '../../test/helpers/render'
 import SignInDialog from '../SignInDialog'
 
 describe('SignInDialog', () => {
