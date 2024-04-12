@@ -112,19 +112,6 @@ Currently, there is no automatic deployment to the production server. We've noti
 
 In addition to continuous integration, we use some third-party services to keep an eye on code quality and test coverage. These services should be considered "code smell" detectors, but treat them with a grain of salt. They are not required to pass before merging pull requests.
 
-### CodeClimate
-
-[CodeClimate](https://codeclimate.com/github/streetmix/streetmix) measures **technical debt**, or the long-term maintainability and readability of code. It applies some heuristics to detect and track "code smells," which are opportunities to refactor code or fix potential bugs. A CodeClimate review is triggered automatically on every pull request, but some of the thresholds it uses are quite arbitrary. Here's some of the issues are raised, and how we'd address them, in order of increasing severity (as it applies to Streetmix):
-
-- **Lines of code**. CodeClimate triggers a warning when functions and modules exceed an arbitrary line limit. This means there is a potential opportunity to separate concerns, but we will never enforce this, since we don't want to encourage "code golf" or quick workarounds instead of actually taking the time to separate logic. If something can be refactored into smaller pieces, but can't be prioritized immediately, add a `TODO` comment instead. If something doesn't make sense to shorten, mark the issue as "Wontfix".
-- **Duplicate code.** CodeClimate triggers a warning when it detects code that look the same as other code elsewhere. This can be an opportunity to refactor code, but more often than not, CodeClimate is seeing similar-looking boilerplate code or patterns. In this case, mark the issue as "Invalid".
-- **Cognitive complexity.** CodeClimate triggers a warning when a function contains too many conditional statements, resulting in complex branching or looping code. Not all code can be made simpler, but you may want to consider whether it can be written diffferently. However, use your best judgment here. If you don't agree with CodeClimate's assessment, mark the issue as "Wontfix".
-- **TODOs**. CodeClimate tracks when a `TODO` or a `FIXME` comment is written in the code. Because this is a developer's own judgment call, this takes priority above other issues and should be addressed in the future. Never mark this as "Wontfix" or "Invalid". If it's no longer valid, instead remove the `TODO` or `FIXME` comment from the code.
-
-Issues that should be addressed in the future, but can't or won't be addressed immediately, should be marked with "Confirmed."
-
-In spite of CodeClimate's warnings, reviewers may approve its review even if the issues it raises are not addressed right away.
-
 ### Codecov
 
 [Codecov](https://codecov.io/gh/streetmix/streetmix) measures [code coverage](https://en.wikipedia.org/wiki/Code_coverage), which is the percentage of code that is covered by at least one test suite. This percentage is a commonly used metric that software projects use to show how complete its test suites are. However, the percentage itself is not necessarily a measurement of test _quality_. As a result, while we strive for higher coverage, 100% is not the goal.
