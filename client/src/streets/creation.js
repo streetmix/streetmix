@@ -1,6 +1,7 @@
-import { segmentsChanged } from '../segments/view'
-import store from '../store'
-import { updateSettings } from '../store/slices/settings'
+import store from '~/src/store'
+import { updateSettings } from '~/src/store/slices/settings'
+import { segmentsChanged } from '~/src/segments/view'
+
 import {
   setLastStreet,
   prepareDefaultStreet,

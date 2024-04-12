@@ -42,7 +42,15 @@
   ],
   "rules": {
     "import/no-unresolved": 0,
-    "import/order": 1,
+    "import/order": ["warn", {
+      "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+      "pathGroups": [
+        {
+          "pattern": "~/**",
+          "group": "internal"
+        }
+      ]
+    }],
     "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-boolean-value": ["error", "always"],
     "react/jsx-no-bind": 0,

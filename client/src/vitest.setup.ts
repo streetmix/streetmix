@@ -1,8 +1,9 @@
 import path from 'node:path'
-import { setImmediate, clearImmediate } from 'timers'
-import { vi } from 'vitest'
 import '@testing-library/jest-dom'
+import { setImmediate, clearImmediate } from 'timers'
+import { vi, beforeAll, afterEach, afterAll } from 'vitest'
 import 'vitest-canvas-mock'
+
 import { server } from './test/server/index.js'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

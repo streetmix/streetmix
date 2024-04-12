@@ -1,12 +1,14 @@
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
-import type { StreetData } from '@streetmix/types'
+
 import {
   type SentimentComment,
   type SentimentVote,
   type UserProfile,
   type UserSettingsData
 } from '../types'
+
+import type { StreetData } from '@streetmix/types'
 
 const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'
