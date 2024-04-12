@@ -1,3 +1,4 @@
+export * as download from './download.js'
 export * as geo from './geo.js'
 export * as streetImages from './street_images.js'
 export * as streetRemixes from './street_remixes.js'
