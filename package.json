@@ -24,7 +24,7 @@
     "build": "parcel build assets/scripts/main.tsx --dist-dir build --public-url /assets",
     "postbuild": "npm run sentry:sourcemaps",
     "dev-client": "parcel watch assets/scripts/main.tsx --dist-dir build --public-url /assets",
-    "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js",
+    "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js --watch packages",
     "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./assets/**/*.scss\"",
