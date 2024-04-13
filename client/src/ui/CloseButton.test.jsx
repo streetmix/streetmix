@@ -1,7 +1,8 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
 import CloseButton from './CloseButton'
 
 describe('CloseButton', () => {

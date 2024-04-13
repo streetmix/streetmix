@@ -1,4 +1,11 @@
 import { parse } from 'json2csv'
+import { omit } from '../util/omit'
+import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
+import {
+  SEGMENT_WARNING_OUTSIDE,
+  SEGMENT_WARNING_WIDTH_TOO_SMALL
+} from './constants'
+import SOURCE_DATA from './capacity_data.json'
 import type {
   CapacityData,
   CapacitySegmentDefinition,
@@ -8,13 +15,6 @@ import type {
   Segment,
   StreetState
 } from '@streetmix/types'
-import { omit } from '../util/omit'
-import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
-import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL
-} from './constants'
-import SOURCE_DATA from './capacity_data.json'
 
 const BASE_DATA_SOURCE = 'common'
 const CAPACITIES = processCapacityData()

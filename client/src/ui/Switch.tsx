@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
-import type { SwitchProps } from '@radix-ui/react-switch'
 import * as SwitchPrimitive from '@radix-ui/react-switch'
+import type { SwitchProps } from '@radix-ui/react-switch'
 import './Switch.scss'
 
 // This stores an incrementing number for unique IDs.

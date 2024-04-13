@@ -1,6 +1,5 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
-import type { UserProfile } from '../types'
 import { useSelector, useDispatch } from '../store/hooks'
 import { deleteGalleryStreet } from '../store/slices/gallery'
 import Button from '../ui/Button'
@@ -11,6 +10,7 @@ import { showError, ERRORS } from '../app/errors'
 import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet } from './index'
+import type { UserProfile } from '../types'
 import './GalleryContents.scss'
 
 interface GalleryContentsProps {

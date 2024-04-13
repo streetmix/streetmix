@@ -1,8 +1,8 @@
-import type { Unsubscribe } from '@reduxjs/toolkit'
 import { observeStore, type RootState } from '../store'
 import { images } from '../app/load_resources'
 import { DEFAULT_SKYBOX } from './constants'
 import SKYBOX_DEFS from './skybox-defs.json'
+import type { Unsubscribe } from '@reduxjs/toolkit'
 
 export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
 export type CSSGradientDeclaration = CSSGradientStop[]

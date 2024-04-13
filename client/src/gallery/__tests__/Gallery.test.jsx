@@ -2,11 +2,12 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import MOCK_STREET from '../../test/fixtures/street.json'
+
+import { render } from '~/test/helpers/render'
+import MOCK_STREET from '~/test/fixtures/street.json'
+import { closeGallery } from '~/src/store/actions/gallery'
 import Gallery from '../Gallery'
 import { switchGalleryStreet } from '../index'
-import { closeGallery } from '../../store/actions/gallery'
 
 vi.mock('../index')
 vi.mock('../../app/errors')

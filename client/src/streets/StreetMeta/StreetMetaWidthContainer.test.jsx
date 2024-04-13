@@ -2,9 +2,10 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import { updateStreetWidthAction as updateStreetWidth } from '../../store/actions/street'
-import { updateUnits } from '../../users/localization'
+
+import { render } from '~/test/helpers/render'
+import { updateStreetWidthAction as updateStreetWidth } from '~/src/store/actions/street'
+import { updateUnits } from '~/src/users/localization'
 import StreetMetaWidthContainer from './StreetMetaWidthContainer'
 
 vi.mock('../../store/actions/street', () => ({

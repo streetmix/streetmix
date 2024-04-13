@@ -1,5 +1,6 @@
 import React from 'react'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
 import Warnings from '../Warnings'
 
 describe('Warnings', () => {

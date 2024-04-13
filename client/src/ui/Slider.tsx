@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
-import type { SliderProps } from '@radix-ui/react-slider'
 import * as SliderPrimitive from '@radix-ui/react-slider'
+import type { SliderProps } from '@radix-ui/react-slider'
 import './Slider.scss'
 
 // eslint-disable-next-line react/display-name

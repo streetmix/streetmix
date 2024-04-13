@@ -1,8 +1,9 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import { showDialog } from '../../store/slices/dialogs'
+
+import { render } from '~/test/helpers/render'
+import { showDialog } from '~/src/store/slices/dialogs'
 import StreetMetaGeotag from './StreetMetaGeotag'
 
 vi.mock('../../store/slices/dialogs', () => ({

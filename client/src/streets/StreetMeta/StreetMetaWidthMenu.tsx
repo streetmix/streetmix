@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
-import type { StreetJsonExtra } from '@streetmix/types'
 import { useSelector } from '../../store/hooks'
 import Tooltip from '../../ui/Tooltip'
 import {
@@ -16,6 +15,7 @@ import {
   STREET_WIDTH_SWITCH_TO_METRIC,
   STREET_WIDTH_SWITCH_TO_IMPERIAL
 } from '../constants'
+import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidthMenu.scss'
 
 const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(

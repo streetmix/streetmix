@@ -1,10 +1,10 @@
-import type { UnitsSetting, WidthDefinition } from '@streetmix/types'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
 import store from '../store'
 import { formatNumber } from './number_format'
+import type { UnitsSetting, WidthDefinition } from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const METRIC_PRECISION = 3

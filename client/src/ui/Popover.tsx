@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react'
 import { useIntl } from 'react-intl'
-import type { PopoverContentProps } from '@radix-ui/react-popover'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import { InfoCircledIcon } from '@radix-ui/react-icons'
 import AccessibleIcon from './AccessibleIcon'
+import type { PopoverContentProps } from '@radix-ui/react-popover'
 import './Popover.scss'
 
 interface PopoverProps {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import type { UnitsSetting } from '@streetmix/types'
 import MeasurementText from '../ui/MeasurementText'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { formatNumber } from '../util/number_format'
+import type { UnitsSetting } from '@streetmix/types'
 import './SegmentLabelContainer.scss'
 
 interface SegmentLabelContainerProps {

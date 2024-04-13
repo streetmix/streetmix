@@ -1,12 +1,13 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import InfoBubble from '../InfoBubble'
+
+import { render } from '~/test/helpers/render'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
-} from '../../segments/constants'
+} from '~/src/segments/constants'
+import InfoBubble from '../InfoBubble'
 
 vi.mock('../../segments/view')
 vi.mock('../../segments/buildings', () => {

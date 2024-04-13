@@ -1,8 +1,9 @@
 import React from 'react'
+
+import { render } from '~/test/helpers/render'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 import EmptySegment from '../EmptySegment'
 import { TILE_SIZE } from '../constants'
-import { SETTINGS_UNITS_METRIC } from '../../users/constants'
-import { render } from '../../test/helpers/render'
 
 describe('EmptySegment', () => {
   const initialState = {

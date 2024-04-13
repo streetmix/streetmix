@@ -2,8 +2,9 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../test/helpers/render'
-import { toggleToolbox } from '../store/slices/ui'
+
+import { render } from '~/test/helpers/render'
+import { toggleToolbox } from '~/src/store/slices/ui'
 import EnvironmentButton from './EnvironmentButton'
 
 vi.mock('../store/slices/ui', () => ({

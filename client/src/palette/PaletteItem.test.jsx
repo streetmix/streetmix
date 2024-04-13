@@ -1,7 +1,8 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { render } from '../test/helpers/render'
-import { getVariantInfoDimensions } from '../segments/view'
+
+import { render } from '~/test/helpers/render'
+import { getVariantInfoDimensions } from '~/src/segments/view'
 import PaletteItem from './PaletteItem'
 
 vi.mock('../segments/view')

@@ -10,7 +10,8 @@ export default defineConfig({
       {
         find: /^(.*)\.(jpg|jpeg|png|gif|svg)$/,
         replacement: '/__mocks__/fileMock.js'
-      }
+      },
+      { find: '~', replacement: '/' }
     ]
   }
 })

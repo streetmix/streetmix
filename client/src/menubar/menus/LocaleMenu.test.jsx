@@ -2,9 +2,10 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import { updateUnits } from '../../users/localization'
-import { clearMenus } from '../../store/slices/menus'
+
+import { render } from '~/test/helpers/render'
+import { updateUnits } from '~/src/users/localization'
+import { clearMenus } from '~/src/store/slices/menus'
 import LocaleMenu from './LocaleMenu'
 
 vi.mock('../../users/localization', () => ({

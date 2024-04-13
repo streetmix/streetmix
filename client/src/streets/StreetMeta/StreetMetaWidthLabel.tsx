@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { ChevronDownIcon, RulerHorizontalIcon } from '@radix-ui/react-icons'
-import type { StreetJsonExtra } from '@streetmix/types'
 import { useSelector } from '../../store/hooks'
 import { prettifyWidth } from '../../util/width_units'
 import StreetMetaItem from './StreetMetaItem'
+import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidthLabel.scss'
 
 interface StreetMetaWidthLabelProps {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { IoLocationOutline } from 'react-icons/io5'
-import type { StreetLocation } from '@streetmix/types'
 import { useSelector, useDispatch } from '../../store/hooks'
 import { showDialog } from '../../store/slices/dialogs'
 import StreetMetaItem from './StreetMetaItem'
+import type { StreetLocation } from '@streetmix/types'
 
 function StreetMetaGeotag (): React.ReactElement | null {
   const street = useSelector((state) => state.street)

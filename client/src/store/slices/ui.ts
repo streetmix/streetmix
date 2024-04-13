@@ -1,9 +1,9 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import {
   DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_RESIZE
 } from '../../segments/constants'
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface UiState {
   welcomePanelVisible: boolean

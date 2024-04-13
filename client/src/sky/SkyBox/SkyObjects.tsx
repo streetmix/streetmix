@@ -1,7 +1,7 @@
 import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import type { SkyboxDefinition } from '..'
 import { images } from '../../app/load_resources'
+import type { SkyboxDefinition } from '..'
 import './SkyObjects.scss'
 
 interface SkyObjectsProps {

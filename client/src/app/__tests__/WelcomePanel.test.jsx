@@ -3,15 +3,16 @@ import { vi } from 'vitest'
 import { waitFor, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import MockAdapter from 'axios-mock-adapter'
-import WelcomePanel from '../WelcomePanel'
-import { render } from '../../test/helpers/render'
-import { getMode } from '../mode'
-import { isSignedIn } from '../../users/authentication'
-import apiClient from '../../util/api'
-import { everythingLoaded } from '../../store/slices/app'
 
-vi.mock('../mode')
+import { render } from '~/test/helpers/render'
+import { everythingLoaded } from '~/src/store/slices/app'
+import { isSignedIn } from '~/src/users/authentication'
+import apiClient from '~/src/util/api'
+import WelcomePanel from '../WelcomePanel'
+import { getMode } from '../mode'
+
 vi.mock('../../users/authentication')
+vi.mock('../mode')
 
 describe('WelcomePanel', () => {
   let apiMock

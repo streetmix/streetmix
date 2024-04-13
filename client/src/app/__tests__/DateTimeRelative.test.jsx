@@ -1,6 +1,7 @@
 import React from 'react'
 import { vi, beforeAll, afterAll } from 'vitest'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
 import DateTimeRelative from '../DateTimeRelative'
 
 // This will only test `en-US` (default) values. Assume that localized values

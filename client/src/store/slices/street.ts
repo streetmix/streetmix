@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Segment, StreetState } from '@streetmix/types'
 import { getVariantString } from '../../segments/variant_utils'
 import { DEFAULT_SKYBOX } from '../../sky/constants'
 import {
@@ -10,6 +8,8 @@ import {
 } from '../../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
+import type { Segment, StreetState } from '@streetmix/types'
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: StreetState = {
   id: '',

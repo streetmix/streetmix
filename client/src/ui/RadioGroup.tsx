@@ -1,9 +1,9 @@
 import React, { useRef } from 'react'
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import type {
   RadioGroupProps,
   RadioGroupItemProps
 } from '@radix-ui/react-radio-group'
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import './RadioGroup.scss'
 
 // This stores an incrementing number for unique IDs.

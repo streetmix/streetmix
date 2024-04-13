@@ -1,10 +1,11 @@
 import React from 'react'
-import SegmentLabelContainer from '../SegmentLabelContainer'
+
+import { render } from '~/test/helpers/render'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
-} from '../../users/constants'
-import { render } from '../../test/helpers/render'
+} from '~/src/users/constants'
+import SegmentLabelContainer from '../SegmentLabelContainer'
 
 const testProps = {
   label: 'foo',

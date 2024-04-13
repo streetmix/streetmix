@@ -2,9 +2,10 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
+import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 import Variants from '../Variants'
-import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,

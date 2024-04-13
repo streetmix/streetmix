@@ -1,6 +1,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
-import { render } from '../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
 import PaletteTrashcan from './PaletteTrashcan'
 
 describe('PaletteTrashcan', () => {

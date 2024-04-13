@@ -1,8 +1,8 @@
-import type { PayloadAction, SerializedError } from '@reduxjs/toolkit'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import type { UserProfile } from '../../types'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import { getGeoIp } from '../../util/api'
+import type { UserProfile } from '../../types'
+import type { PayloadAction, SerializedError } from '@reduxjs/toolkit'
 
 interface UserSignInDetails {
   token: string

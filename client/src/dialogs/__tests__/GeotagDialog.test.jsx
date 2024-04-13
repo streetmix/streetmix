@@ -2,10 +2,11 @@ import React from 'react'
 import { vi } from 'vitest'
 import clone from 'just-clone'
 import { screen } from '@testing-library/react'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
+import * as constants from '~/src/app/config'
+import { isOwnedByCurrentUser } from '~/src/streets/owner'
 import GeotagDialog from '../GeotagDialog'
-import { isOwnedByCurrentUser } from '../../streets/owner'
-import * as constants from '../../app/config'
 
 // Mock dependencies that could break tests
 vi.mock('../../streets/owner', () => ({

@@ -1,7 +1,8 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
 import PrintContainer from '../PrintContainer'
 
 vi.mock('../../streets/image', () => ({

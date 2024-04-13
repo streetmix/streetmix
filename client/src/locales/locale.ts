@@ -1,7 +1,5 @@
 import { IntlMessageFormat } from 'intl-messageformat'
-import type { MessageFormatElement } from 'react-intl'
 import LOCALES from '@streetmix/i18n'
-import type { LocaleDefinition, LocaleLevel } from '@streetmix/types'
 import store, { observeStore, type RootState } from '../store'
 import { changeLocale } from '../store/slices/locale'
 import {
@@ -11,6 +9,8 @@ import {
   LOCALES_LEVEL_3,
   LOCALES_LEVEL_4
 } from './constants'
+import type { LocaleDefinition, LocaleLevel } from '@streetmix/types'
+import type { MessageFormatElement } from 'react-intl'
 
 /**
  * Initialize i18n / localization

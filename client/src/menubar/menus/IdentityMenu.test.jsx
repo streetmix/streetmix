@@ -2,9 +2,10 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import { openGallery } from '../../store/actions/gallery'
-import { onSignOutClick } from '../../users/authentication'
+
+import { render } from '~/test/helpers/render'
+import { openGallery } from '~/src/store/actions/gallery'
+import { onSignOutClick } from '~/src/users/authentication'
 import IdentityMenu from './IdentityMenu'
 
 vi.mock('../../store/actions/gallery', () => ({

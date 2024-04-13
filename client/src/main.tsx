@@ -9,21 +9,21 @@ import * as Sentry from '@sentry/browser'
 
 // Stylesheets
 import 'leaflet/dist/leaflet.css'
-import '../styles/styles.scss'
+import '~/styles/styles.scss'
 
 // Polyfills
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import 'handjs' // microsoft's pointer events / touch-action spec
-import './vendor/canvas-toBlob.js'
-import './vendor/Blob.js'
+import '~/src/vendor/canvas-toBlob.js'
+import '~/src/vendor/Blob.js'
 
 // Redux
-import store from './store'
+import store from '~/src/store'
 
 // Main object
-import { initialize } from './app/initialization'
-import App from './app/App'
+import { initialize } from '~/src/app/initialization'
+import App from '~/src/app/App'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { clearLocation } from './street'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { LatLngObject } from '@streetmix/types'
-import { clearLocation } from './street'
 
 interface MapState {
   markerLocation: LatLngObject | null

@@ -1,6 +1,7 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
 import ResizeGuides from '../ResizeGuides'
 import { TILE_SIZE } from '../constants'
 import { getSegmentVariantInfo } from '../info'

@@ -1,6 +1,6 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import FEATURE_FLAGS from '@streetmix/feature-flags'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import type { FeatureFlagDefinition, FeatureFlags } from '../../types'
 
 interface FeatureFlagSetting extends FeatureFlagDefinition {

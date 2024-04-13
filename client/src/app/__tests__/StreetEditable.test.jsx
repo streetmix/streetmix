@@ -1,9 +1,10 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
-import { render, waitFor } from '../../test/helpers/render'
-import StreetEditable from '../StreetEditable'
+
+import { render, waitFor } from '~/test/helpers/render'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
+import StreetEditable from '../StreetEditable'
 
 describe('StreetEditable', () => {
   beforeEach(() => {

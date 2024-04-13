@@ -2,9 +2,10 @@ import React from 'react'
 import { vi } from 'vitest'
 import { waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
+import { openGallery } from '~/src/store/actions/gallery'
 import { getRemixOnFirstEdit } from '../remix'
-import { openGallery } from '../../store/actions/gallery'
 import StreetMetaAuthor from './StreetMetaAuthor'
 
 // Enable mocking of the return value of `getRemixOnFirstEdit`

@@ -2,8 +2,9 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import { showDialog } from '../../store/slices/dialogs'
+
+import { render } from '~/test/helpers/render'
+import { showDialog } from '~/src/store/slices/dialogs'
 import ContactMenu from './ContactMenu'
 
 vi.mock('../../store/slices/dialogs', () => ({

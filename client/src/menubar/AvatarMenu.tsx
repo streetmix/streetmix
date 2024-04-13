@@ -1,8 +1,8 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import type { UserProfile } from '../types'
 import Avatar from '../users/Avatar'
 import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
+import type { UserProfile } from '../types'
 import './AvatarMenu.scss'
 
 interface AvatarMenuProps {

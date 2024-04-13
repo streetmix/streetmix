@@ -1,6 +1,6 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { changeLocale } from './locale'
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface AppState {
   readOnly: boolean

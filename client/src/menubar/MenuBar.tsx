@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 import { IoLanguage } from 'react-icons/io5'
-import type { UserProfile } from '../types'
 import { useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
 import { doSignIn } from '../users/authentication'
@@ -11,6 +10,7 @@ import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import UpgradeButton from './UpgradeButton'
 import AvatarMenu from './AvatarMenu'
+import type { UserProfile } from '../types'
 import './MenuBar.scss'
 
 interface MenuBarProps {

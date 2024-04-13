@@ -2,8 +2,9 @@ import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
-import * as uiSlice from '../../store/slices/ui'
+
+import { render } from '~/test/helpers/render'
+import * as uiSlice from '~/src/store/slices/ui'
 import SkyPicker from './SkyPicker'
 
 vi.mock('../skybox-defs.json', () => ({

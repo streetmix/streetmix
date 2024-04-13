@@ -1,9 +1,9 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import type { ColorModes } from '../../app/constants'
 import { COLOR_MODE_LIGHT } from '../../app/constants'
 import { NEW_STREET_DEFAULT } from '../../streets/constants'
 import { changeLocale } from './locale'
+import type { ColorModes } from '../../app/constants'
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface SettingsState {
   lastStreetId: string | null

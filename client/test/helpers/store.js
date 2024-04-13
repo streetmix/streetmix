@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import reducers from '../../store/reducers'
-import { streetmixApi } from '../../store/services/api'
+import reducers from '../../src/store/reducers'
+import { streetmixApi } from '../../src/store/services/api'
 
 export function createStore (initialState = {}) {
   return configureStore({

@@ -1,11 +1,12 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
-import { render, screen } from '../../test/helpers/render'
+
+import { render, screen } from '~/test/helpers/render'
+import { infoBubble } from '~/src/info_bubble/info_bubble'
+import { setLastStreet } from '~/src/streets/data_model'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 import Segment from '../Segment'
-import { infoBubble } from '../../info_bubble/info_bubble'
-import { setLastStreet } from '../../streets/data_model'
-import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 
 // Replace all increment resolution with a simple value of 1
 const __TEST_RESIZE_INCREMENT = 1

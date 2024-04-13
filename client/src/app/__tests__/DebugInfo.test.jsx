@@ -1,6 +1,7 @@
 import React from 'react'
 import { userEvent } from '@testing-library/user-event'
-import { render } from '../../test/helpers/render'
+
+import { render } from '~/test/helpers/render'
 import DebugInfo from '../DebugInfo'
 
 describe('DebugInfo', () => {
