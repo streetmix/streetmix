@@ -15,8 +15,6 @@ import '~/styles/styles.scss'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import 'handjs' // microsoft's pointer events / touch-action spec
-import '~/src/vendor/canvas-toBlob.js'
-import '~/src/vendor/Blob.js'
 
 // Redux
 import store from '~/src/store'
