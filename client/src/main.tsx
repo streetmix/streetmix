@@ -14,7 +14,6 @@ import '~/styles/styles.scss'
 // Polyfills
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import 'handjs' // microsoft's pointer events / touch-action spec
 
 // Redux
 import store from '~/src/store'
