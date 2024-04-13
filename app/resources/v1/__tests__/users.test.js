@@ -1,7 +1,7 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 import { setupMockServer } from '../../../test/setup-mock-server'
-import users from '../users'
+import * as users from '../users'
 
 vi.mock('../../../db/models')
 vi.mock('../../../lib/logger')

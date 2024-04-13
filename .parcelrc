@@ -1,9 +1,0 @@
-{
-  "extends": "@parcel/config-default",
-  "transformers": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "@parcel/transformer-js",
-      "@parcel/transformer-react-refresh-wrap"
-    ]
-  }
-}

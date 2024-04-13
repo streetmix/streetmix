@@ -42,7 +42,15 @@
   ],
   "rules": {
     "import/no-unresolved": 0,
-    "import/order": 1,
+    "import/order": ["warn", {
+      "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+      "pathGroups": [
+        {
+          "pattern": "~/**",
+          "group": "internal"
+        }
+      ]
+    }],
     "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-boolean-value": ["error", "always"],
     "react/jsx-no-bind": 0,
@@ -86,7 +94,10 @@
           "node": true
         }
       },
+      // TODO: set up project-specific eslint "flat config" (eslint v9) inside
+      // of client package
       "parserOptions": {
+        "tsconfigRootDir": "client",
         "project": "./tsconfig.json"
       },
       "rules": {

@@ -2,7 +2,7 @@ import { vi } from 'vitest'
 import request from 'supertest'
 import cloudinary from 'cloudinary'
 import { setupMockServer } from '../../../test/setup-mock-server'
-import images from '../street_images'
+import * as images from '../street_images'
 
 vi.mock('../../../db/models')
 vi.mock('../../../lib/logger')
@@ -87,7 +87,7 @@ describe('DELETE api/v1/streets/:street_id/images', () => {
     app.delete(
       '/api/v1/streets/:street_id/images',
       mockUserMiddleware,
-      images.delete
+      images.del
     )
   })
 

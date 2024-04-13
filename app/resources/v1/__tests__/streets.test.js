@@ -1,7 +1,7 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 import { setupMockServer } from '../../../test/setup-mock-server'
-import streets from '../streets'
+import * as streets from '../streets'
 
 vi.mock('../../../db/models')
 vi.mock('../../../lib/logger')
@@ -75,7 +75,7 @@ describe('PUT api/v1/streets/:street_id', function () {
 
 describe('DELETE api/v1/streets/:street_id', function () {
   const app = setupMockServer((app) => {
-    app.delete('/api/v1/streets/:street_id', mockUserMiddleware, streets.delete)
+    app.delete('/api/v1/streets/:street_id', mockUserMiddleware, streets.del)
   })
 
   it('should respond with 204 No Content when street data are deleted', function () {

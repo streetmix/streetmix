@@ -1,7 +1,7 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 import { setupMockServer } from '../../../test/setup-mock-server'
-import user from '../users'
+import * as user from '../users'
 
 vi.mock('../../../db/models')
 vi.mock('../../../lib/logger')
@@ -76,7 +76,7 @@ describe('GET api/v1/users/:user_id', function () {
 
 describe('DELETE api/v1/users/:user_id', () => {
   const app = setupMockServer((app) => {
-    app.delete('/api/v1/users/:user_id', mockUserMiddleware, user.delete)
+    app.delete('/api/v1/users/:user_id', mockUserMiddleware, user.del)
   })
 
   it('should respond with 204 when user DELETEs their account', () => {
