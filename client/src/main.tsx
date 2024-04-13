@@ -11,10 +11,6 @@ import * as Sentry from '@sentry/browser'
 import 'leaflet/dist/leaflet.css'
 import '~/styles/styles.scss'
 
-// Polyfills
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
-
 // Redux
 import store from '~/src/store'
 

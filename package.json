@@ -77,7 +77,6 @@
     "compression": "1.7.4",
     "cookie-parser": "1.4.6",
     "cookie-session": "2.1.0",
-    "core-js": "3.35.0",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
     "express": "4.19.2",

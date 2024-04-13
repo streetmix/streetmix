@@ -67,7 +67,6 @@
     "react-redux": "8.1.2",
     "react-spring": "9.7.3",
     "react-transition-group": "4.4.5",
-    "regenerator-runtime": "0.14.1",
     "rehype-external-links": "3.0.0",
     "sass": "1.69.5",
     "seedrandom": "3.0.5",
