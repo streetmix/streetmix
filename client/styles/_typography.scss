@@ -45,42 +45,6 @@ option {
     url("../fonts/overpass/Overpass-ExtraBold.woff") format("woff");
 }
 
-/**
- * Rubik
- */
-@font-face {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 400;
-  src:
-    local("Rubik Regular"),
-    local("Rubik-Regular"),
-    url("../fonts/rubik/Rubik-Regular.woff2") format("woff2"),
-    url("../fonts/rubik/Rubik-Regular.woff") format("woff");
-}
-
-@font-face {
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 600;
-  src:
-    local("Rubik Medium"),
-    local("Rubik-Medium"),
-    url("../fonts/rubik/Rubik-Medium.woff2") format("woff2"),
-    url("../fonts/rubik/Rubik-Medium.woff") format("woff");
-}
-
-@font-face {
-  font-family: Rubik;
-  font-style: italic;
-  font-weight: 400;
-  src:
-    local("Rubik Italic"),
-    local("Rubik-Italic"),
-    url("../fonts/rubik/Rubik-Italic.woff2") format("woff2"),
-    url("../fonts/rubik/Rubik-Italic.woff") format("woff");
-}
-
 /* Locale-specific rules */
 
 html[lang="ko"] {
