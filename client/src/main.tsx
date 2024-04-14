@@ -8,16 +8,14 @@ import { Provider } from 'react-redux'
 import * as Sentry from '@sentry/browser'
 
 // Fonts
-import '@fontsource/manrope/300.css'
-import '@fontsource/manrope/400.css'
-import '@fontsource/manrope/700.css'
-import '@fontsource/rubik/400.css'
-import '@fontsource/rubik/600.css'
+import '@fontsource-variable/manrope'
 import '@fontsource-variable/overpass'
+import '@fontsource-variable/rubik'
+import '@fontsource-variable/rubik/wght-italic.css'
 
 // Stylesheets
 import 'leaflet/dist/leaflet.css'
-import '~/styles/styles.scss'
+import '../styles/styles.scss' // Don't use a ~/ path, that breaks CSS imports
 
 // Redux
 import store from '~/src/store'
