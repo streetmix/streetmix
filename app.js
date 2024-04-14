@@ -78,12 +78,7 @@ const helmetConfig = {
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: [
-      "'self'",
-      "'unsafe-inline'",
-      'fonts.googleapis.com',
-      'checkout.stripe.com'
-    ],
+    styleSrc: ["'self'", "'unsafe-inline'", 'checkout.stripe.com'],
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
@@ -109,7 +104,7 @@ const csp = {
       'res.cloudinary.com',
       '*.stripe.com'
     ],
-    fontSrc: ["'self'", 'fonts.gstatic.com'],
+    fontSrc: ["'self'"],
     connectSrc: [
       "'self'",
       process.env.PELIAS_HOST_NAME,
