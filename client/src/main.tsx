@@ -7,6 +7,11 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import * as Sentry from '@sentry/browser'
 
+// Fonts
+import '@fontsource/manrope/300.css'
+import '@fontsource/manrope/400.css'
+import '@fontsource/manrope/700.css'
+
 // Stylesheets
 import 'leaflet/dist/leaflet.css'
 import '~/styles/styles.scss'
