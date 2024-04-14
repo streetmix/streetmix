@@ -13,6 +13,7 @@ import '@fontsource/manrope/400.css'
 import '@fontsource/manrope/700.css'
 import '@fontsource/rubik/400.css'
 import '@fontsource/rubik/600.css'
+import '@fontsource-variable/overpass'
 
 // Stylesheets
 import 'leaflet/dist/leaflet.css'

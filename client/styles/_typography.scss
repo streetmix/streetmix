@@ -24,27 +24,6 @@ option {
   src: url("../fonts/roadgeek-2005-engschrift.otf");
 }
 
-/**
- * Overpass
- */
-@font-face {
-  font-family: Overpass;
-  font-style: normal;
-  font-weight: 700;
-  src:
-    url("../fonts/overpass/Overpass-Bold.woff2") format("woff2"),
-    url("../fonts/overpass/Overpass-Bold.woff") format("woff");
-}
-
-@font-face {
-  font-family: Overpass;
-  font-style: normal;
-  font-weight: 800;
-  src:
-    url("../fonts/overpass/Overpass-ExtraBold.woff2") format("woff2"),
-    url("../fonts/overpass/Overpass-ExtraBold.woff") format("woff");
-}
-
 /* Locale-specific rules */
 
 html[lang="ko"] {
