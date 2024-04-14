@@ -5,7 +5,7 @@
   width: 550px;
   height: 80vh;
   max-height: 800px;
-  font-family: Inter, Rubik, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 14px;
 }
 
@@ -22,7 +22,7 @@
 
   h2 {
     color: $colour-turquoise-600;
-    font-weight: normal;
+    font-weight: 550;
     font-size: 1.75rem;
   }
 
@@ -35,7 +35,7 @@
   h3 {
     margin-top: 1.5em;
     margin-bottom: 1em;
-    font-weight: normal;
+    font-weight: 550;
     font-size: 1.35rem;
     color: $colour-turquoise-600;
   }
