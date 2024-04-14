@@ -17,15 +17,7 @@ option {
   font-size: 1rem;
 }
 
-// Local font files
-
-@font-face {
-  font-family: Roadgeek;
-  src: url("../fonts/roadgeek-2005-engschrift.otf");
-}
-
 /* Locale-specific rules */
-
 html[lang="ko"] {
   word-break: keep-all;
 }
