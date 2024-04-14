@@ -17,6 +17,11 @@ option {
   font-size: 1rem;
 }
 
+b,
+strong {
+  font-weight: 550;
+}
+
 /* Locale-specific rules */
 html[lang="ko"] {
   word-break: keep-all;

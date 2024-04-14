@@ -93,7 +93,7 @@ $welcome-panel-box-shadow: $medium-box-shadow;
 
   input[type="radio"]:checked + label {
     color: black;
-    font-weight: bold;
+    font-weight: 550;
   }
 
   input[type="radio"]:not(:checked) + label {
