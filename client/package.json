@@ -71,7 +71,7 @@
     "react-spring": "9.7.3",
     "react-transition-group": "4.4.5",
     "rehype-external-links": "3.0.0",
-    "sass": "1.69.5",
+    "sass": "1.75.0",
     "seedrandom": "3.0.5",
     "shifty": "3.0.3",
     "slugify": "1.6.6"
