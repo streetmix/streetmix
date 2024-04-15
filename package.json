@@ -99,7 +99,7 @@
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "5.0.0",
     "uuid": "9.0.0",
-    "winston": "3.11.0"
+    "winston": "3.13.0"
   },
   "devDependencies": {
     "@commitlint/cli": "19.2.2",
