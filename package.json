@@ -101,8 +101,8 @@
     "winston": "3.11.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.2.1",
-    "@commitlint/config-conventional": "19.1.0",
+    "@commitlint/cli": "19.2.2",
+    "@commitlint/config-conventional": "19.2.2",
     "@faker-js/faker": "8.4.1",
     "@vitest/coverage-v8": "1.5.0",
     "axios-mock-adapter": "1.22.0",
