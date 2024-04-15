@@ -22,10 +22,6 @@ $street-name-size: 1.5;
   }
 }
 
-body.windows .street-name-text {
-  line-height: 38px;
-}
-
 .street-name {
   @include street-name-mixin;
 
