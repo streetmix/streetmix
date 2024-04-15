@@ -21,9 +21,13 @@ import logger from './app/lib/logger.js'
 import jwtCheck from './app/authentication.js'
 
 initCloudinary()
-compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon')
-compileSVGSprites('assets/images/illustrations', 'illustrations', 'image')
-compileSVGSprites('packages/illustrations/images/', 'images', 'image')
+
+// Build SVG sprites before starting Express server
+await Promise.all([
+  compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon'),
+  compileSVGSprites('assets/images/illustrations', 'illustrations', 'image'),
+  compileSVGSprites('packages/illustrations/images/', 'images', 'image')
+])
 
 const app = express()
 export default app
