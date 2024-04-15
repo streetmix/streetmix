@@ -24,7 +24,7 @@
   --ifm-color-primary-lightest: var(--colour-emerald-100);
   --ifm-code-font-size: 95%;
 
-  --streetmix-font: "Manrope";
+  --streetmix-font: "Manrope Variable";
 }
 
 .docusaurus-highlight-code-line {
@@ -40,7 +40,7 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
 
 .navbar__title,
 .hero__title {
-  font-family: var(--streetmix-font), sans-serif;
+  font-family: var(--streetmix-font), system-ui, sans-serif;
 }
 
 h1,
@@ -51,7 +51,7 @@ h5,
 h6,
 nav,
 footer {
-  font-family: var(--streetmix-font), sans-serif;
+  font-family: var(--streetmix-font), system-ui, sans-serif;
 }
 
 html[data-theme="light"] .navbar__title {
@@ -67,7 +67,7 @@ footer.footer--dark {
 }
 
 .footer__title {
-  font-family: var(--streetmix-font), sans-serif;
+  font-family: var(--streetmix-font), system-ui, sans-serif;
 }
 
 /* I like breathing room down there */
@@ -253,7 +253,7 @@ html[data-theme="dark"] .stmx-illustration-container {
 }
 
 .stmx-color-swatch-label {
-  font-weight: bold;
+  font-weight: 550;
 }
 
 .stmx-color-skintone-5 {

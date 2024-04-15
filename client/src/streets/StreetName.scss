@@ -39,7 +39,7 @@ body.windows .street-name-text {
 .street-name-text {
   @include street-name-inside-mixin;
 
-  font-family: Overpass, Roadgeek, sans-serif;
+  font-family: "Overpass Variable", sans-serif;
   font-weight: 700;
   text-align: left;
   text-overflow: ellipsis;

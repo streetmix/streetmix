@@ -17,9 +17,6 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en']
   },
-  stylesheets: [
-    'https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap'
-  ],
   themeConfig: {
     image: 'thumbnail.png',
     navbar: {

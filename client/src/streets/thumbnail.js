@@ -25,7 +25,7 @@ const SEGMENT_NAME_FONT = 'Rubik'
 const SEGMENT_NAME_FONT_SIZE = 12
 const SEGMENT_NAME_FONT_WEIGHT = '400'
 
-const STREET_NAME_FONT = 'overpass'
+const STREET_NAME_FONT = 'Overpass Variable'
 const STREET_NAME_FONT_SIZE = 70
 const STREET_NAME_FONT_WEIGHT = '700'
 

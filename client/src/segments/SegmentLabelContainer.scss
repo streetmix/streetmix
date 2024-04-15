@@ -19,7 +19,6 @@
   right: 2px;
   top: 44px;
   color: $segment-text;
-  font-weight: 300;
   pointer-events: none;
   line-height: 1.4;
 }
@@ -33,7 +32,7 @@
 }
 
 .segment.hover .segment-label {
-  font-weight: 700;
+  font-weight: 600;
 
   // Show full label when hovering over segment with
   // a truncated label
@@ -58,7 +57,6 @@
   height: 24px;
   line-height: 20px;
   color: $segment-text;
-  font-weight: 300;
   overflow: hidden;
   pointer-events: none;
 }

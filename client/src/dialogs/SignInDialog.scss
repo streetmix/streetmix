@@ -14,7 +14,7 @@
 
 .sign-in-email-label {
   display: block;
-  font-weight: 700;
+  font-weight: 550;
   font-size: 1.2em;
   margin-bottom: 0.25em;
 }
@@ -59,7 +59,7 @@
   display: flex;
   margin-top: 1em;
   font-size: 1.25em;
-  font-weight: 700;
+  font-weight: 550;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -115,7 +115,7 @@
 }
 
 .sign-in-email {
-  font-weight: 700;
+  font-weight: 550;
 }
 
 .sign-in-resend {
@@ -124,7 +124,7 @@
 
 .sign-in-error-message {
   color: red;
-  font-weight: bold;
+  font-weight: 550;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
 }
