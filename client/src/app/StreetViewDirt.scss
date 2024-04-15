@@ -21,7 +21,7 @@ $dirt-height-minimum: 5px;
   top: -($dirt-height + $dirt-height-minimum);
   background-color: $background-dirt-colour;
   width: 360px;
-  height: $dirt-height;
+  height: $dirt-height + $dirt-height-minimum;
 }
 
 .street-section-dirt-left {
