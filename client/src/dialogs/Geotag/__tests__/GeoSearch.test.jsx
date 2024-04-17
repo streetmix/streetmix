@@ -1,5 +1,5 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -13,6 +13,8 @@ describe('GeoSearch', () => {
   })
 
   it('displays a "clear search" button when there is input', async () => {
+    const user = userEvent.setup()
+
     render(<GeoSearch />)
     const input = screen.getByPlaceholderText('Search for a location')
 
@@ -20,29 +22,37 @@ describe('GeoSearch', () => {
     expect(screen.queryByTitle('Clear search')).not.toBeInTheDocument()
 
     // Simulates input, which should also trigger events
-    await userEvent.type(input, 'f')
+    await act(async () => {
+      await user.type(input, 'f')
+    })
 
     // The close button should appear after one keystroke
     expect(screen.queryByTitle('Clear search')).toBeInTheDocument()
 
     // Deletes input
-    await userEvent.clear(input)
+    await act(async () => {
+      await user.clear(input)
+    })
 
     // The close button should now disappear
     expect(screen.queryByTitle('Clear search')).not.toBeInTheDocument()
   })
 
   it('clears and focuses input when "clear search" button is clicked', async () => {
+    const user = userEvent.setup()
+
     const { getByTitle, queryByTitle, getByPlaceholderText } = render(
       <GeoSearch />
     )
 
     // Simulates input
     const input = getByPlaceholderText('Search for a location')
-    await userEvent.type(input, 'foo')
+    await act(async () => {
+      await user.type(input, 'foo')
 
-    // Simulates click on "clear search"
-    await userEvent.click(getByTitle('Clear search'))
+      // Simulates click on "clear search"
+      await user.click(getByTitle('Clear search'))
+    })
 
     // The close button should be undefined now
     expect(queryByTitle('Clear search')).not.toBeInTheDocument()

@@ -2,7 +2,7 @@ import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
+import { render, act } from '~/test/helpers/render'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
@@ -124,10 +124,14 @@ describe('InfoBubble', () => {
       initialState
     })
 
-    await userEvent.hover(container.firstChild)
+    await act(async () => {
+      await userEvent.hover(container.firstChild)
+    })
     expect(store.getState().infoBubble.mouseInside).toEqual(true)
 
-    await userEvent.unhover(container.firstChild)
+    await act(async () => {
+      await userEvent.unhover(container.firstChild)
+    })
     expect(store.getState().infoBubble.mouseInside).toEqual(false)
   })
 })
