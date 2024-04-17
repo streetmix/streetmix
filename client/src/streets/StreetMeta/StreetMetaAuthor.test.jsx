@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { waitFor } from '@testing-library/react'
+import { act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -38,9 +38,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await waitFor(() => {
-      expect(container.firstChild).toBe(null)
-    })
+    expect(container.firstChild).toBe(null)
   })
 
   it('renders street creator byline if you are signed in and it’s not yours', async () => {
@@ -58,7 +56,9 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await userEvent.click(getByText('foo'))
+    await act(async () => {
+      await userEvent.click(getByText('foo'))
+    })
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
@@ -78,7 +78,9 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await userEvent.click(getByText('foo'))
+    await act(async () => {
+      await userEvent.click(getByText('foo'))
+    })
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
@@ -98,9 +100,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await waitFor(() => {
-      expect(getByText('by Anonymous')).toBeInTheDocument()
-    })
+    expect(getByText('by Anonymous')).toBeInTheDocument()
   })
 
   it('renders anonymous byline if you are not signed in and viewing an anonymous street', async () => {
@@ -120,9 +120,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await waitFor(() => {
-      expect(getByText('by Anonymous')).toBeInTheDocument()
-    })
+    expect(getByText('by Anonymous')).toBeInTheDocument()
   })
 
   it('renders nothing if you are a not-signed in user still editing an anonymous street', async () => {
@@ -142,8 +140,6 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await waitFor(() => {
-      expect(container.firstChild).toBe(null)
-    })
+    expect(container.firstChild).toBe(null)
   })
 })

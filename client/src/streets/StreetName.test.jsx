@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -31,7 +31,10 @@ describe('StreetName', () => {
   it('responds to an onClick handler', async () => {
     const handleClick = vi.fn()
     render(<StreetName onClick={handleClick} />)
-    await userEvent.click(screen.getByText('Unnamed St'))
+
+    await act(async () => {
+      await userEvent.click(screen.getByText('Unnamed St'))
+    })
     expect(handleClick).toBeCalledTimes(1)
   })
 
@@ -40,7 +43,10 @@ describe('StreetName', () => {
   // editable by default.
   it('is not editable by default', async () => {
     render(<StreetName editable={false} />)
-    await userEvent.hover(screen.getByText('Unnamed St'))
+
+    await act(async () => {
+      await userEvent.hover(screen.getByText('Unnamed St'))
+    })
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 })

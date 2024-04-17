@@ -1,7 +1,8 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { render } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
+
 import Checkbox from './Checkbox'
 
 describe('Checkbox', () => {
@@ -33,7 +34,10 @@ describe('Checkbox', () => {
     const { getByText } = render(
       <Checkbox onChange={handleChange}>foo</Checkbox>
     )
-    await userEvent.click(getByText('foo'))
+
+    await act(async () => {
+      await userEvent.click(getByText('foo'))
+    })
     expect(handleChange).toHaveBeenCalledTimes(1)
   })
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -22,7 +22,9 @@ describe('NewsletterDialog', () => {
 
     expect(screen.getByRole('textbox')).toHaveValue('test_pending@example.com')
 
-    await user.click(screen.getByText('Subscribe'))
+    await act(async () => {
+      await user.click(screen.getByText('Subscribe'))
+    })
 
     expect(screen.queryByText('Please wait...')).toBeDisabled()
   })
@@ -32,8 +34,10 @@ describe('NewsletterDialog', () => {
 
     render(<NewsletterDialog />)
 
-    await user.type(screen.getByRole('textbox'), 'test@example.com')
-    await user.click(screen.getByText('Subscribe'))
+    await act(async () => {
+      await user.type(screen.getByRole('textbox'), 'test@example.com')
+      await user.click(screen.getByText('Subscribe'))
+    })
 
     expect(
       screen.queryByText('Thank you!', { exact: false })
@@ -47,8 +51,10 @@ describe('NewsletterDialog', () => {
 
     render(<NewsletterDialog />)
 
-    await user.type(screen.getByRole('textbox'), 'error_500@foo.com')
-    await user.click(screen.getByText('Subscribe'))
+    await act(async () => {
+      await user.type(screen.getByRole('textbox'), 'error_500@foo.com')
+      await user.click(screen.getByText('Subscribe'))
+    })
 
     expect(
       screen.queryByText('Something went wrong', { exact: false })
@@ -62,8 +68,10 @@ describe('NewsletterDialog', () => {
 
     render(<NewsletterDialog />)
 
-    await user.type(screen.getByRole('textbox'), 'error_client@foo.com')
-    await user.click(screen.getByText('Subscribe'))
+    await act(async () => {
+      await user.type(screen.getByRole('textbox'), 'error_client@foo.com')
+      await user.click(screen.getByText('Subscribe'))
+    })
 
     expect(
       screen.queryByText('Something went wrong', { exact: false })

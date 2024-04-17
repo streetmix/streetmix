@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen, waitFor } from '@testing-library/react'
+import { screen, act, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -61,7 +61,11 @@ describe('StreetNameplateContainer', () => {
     render(<StreetNameplateContainer />, {
       initialState
     })
-    await userEvent.click(screen.getByText('foo'))
+
+    await act(async () => {
+      await userEvent.click(screen.getByText('foo'))
+    })
+
     expect(screen.getByText('bar')).toBeInTheDocument()
 
     // Restore mock
@@ -77,7 +81,11 @@ describe('StreetNameplateContainer', () => {
     render(<StreetNameplateContainer />, {
       initialState
     })
-    await userEvent.click(screen.getByText('foo'))
+
+    await act(async () => {
+      await userEvent.click(screen.getByText('foo'))
+    })
+
     expect(screen.getByText('foo')).toBeInTheDocument()
 
     // Restore mock
@@ -85,18 +93,26 @@ describe('StreetNameplateContainer', () => {
   })
 
   it('shows a "Click to edit" message when mouse is hovering over it', async () => {
+    const user = userEvent.setup()
+
     render(<StreetNameplateContainer />, {
       initialState
     })
 
-    await userEvent.hover(screen.getByText('foo'))
+    await act(async () => {
+      await user.hover(screen.getByText('foo'))
+    })
     expect(screen.getByText('Click to rename')).toBeInTheDocument()
 
-    await userEvent.unhover(screen.getByText('foo'))
+    await act(async () => {
+      await user.unhover(screen.getByText('foo'))
+    })
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 
   it('does not show a "Click to edit" message when street name is not editable', async () => {
+    const user = userEvent.setup()
+
     render(<StreetNameplateContainer />, {
       initialState: {
         ...initialState,
@@ -109,10 +125,14 @@ describe('StreetNameplateContainer', () => {
       }
     })
 
-    await userEvent.hover(screen.getByText('foo'))
+    await act(async () => {
+      await user.hover(screen.getByText('foo'))
+    })
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
 
-    await userEvent.unhover(screen.getByText('foo'))
+    await act(async () => {
+      await user.unhover(screen.getByText('foo'))
+    })
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 })

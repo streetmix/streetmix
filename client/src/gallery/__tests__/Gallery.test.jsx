@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen, waitFor } from '@testing-library/react'
+import { screen, act, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -134,7 +134,11 @@ describe('Gallery', () => {
     }
 
     render(<Gallery />, { initialState })
-    await userEvent.click(screen.getByTestId('gallery-shield'))
+
+    await act(async () => {
+      await userEvent.click(screen.getByTestId('gallery-shield'))
+    })
+
     expect(closeGallery).toHaveBeenCalledTimes(1)
   })
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -68,7 +68,10 @@ describe('Variants', () => {
         <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
         { initialState }
       )
-      await userEvent.click(screen.getByTitle('Outbound'))
+
+      await act(async () => {
+        await userEvent.click(screen.getByTitle('Outbound'))
+      })
       expect(store.getState().street.segments[0].variant.direction).toBe(
         'outbound'
       )
@@ -84,7 +87,10 @@ describe('Variants', () => {
         <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
         { initialState }
       )
-      await userEvent.click(screen.getByTitle('Waterfront'))
+
+      await act(async () => {
+        await userEvent.click(screen.getByTitle('Waterfront'))
+      })
       expect(store.getState().street.leftBuildingVariant).toBe('waterfront')
     })
 
@@ -93,7 +99,10 @@ describe('Variants', () => {
         <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
         { initialState }
       )
-      await userEvent.click(screen.getByTitle('Waterfront'))
+
+      await act(async () => {
+        await userEvent.click(screen.getByTitle('Waterfront'))
+      })
       expect(store.getState().street.rightBuildingVariant).toBe('waterfront')
     })
   })

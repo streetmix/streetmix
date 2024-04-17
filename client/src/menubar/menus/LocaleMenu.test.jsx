@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -38,12 +38,16 @@ describe('LocaleMenu', () => {
 
     // Clicking this first should not trigger any selection handler
     const selected = screen.getByText('English')
-    await userEvent.click(selected)
+    await act(async () => {
+      await userEvent.click(selected)
+    })
     expect(selected.parentNode.getAttribute('aria-selected')).toBe('true')
 
     // Change the locale
     const selected2 = screen.getByText('Finnish')
-    await userEvent.click(selected2)
+    await act(async () => {
+      await userEvent.click(selected2)
+    })
 
     expect(selected.parentNode.getAttribute('aria-selected')).toBe('false')
     expect(selected2.parentNode.getAttribute('aria-selected')).toBe('true')
