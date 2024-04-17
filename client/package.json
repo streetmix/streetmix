@@ -93,8 +93,6 @@
     "@types/react-dom": "18.2.25",
     "@types/react-transition-group": "4.4.10",
     "@types/webpack-env": "1.18.4",
-    "@typescript-eslint/eslint-plugin": "7.4.0",
-    "@typescript-eslint/parser": "7.4.0",
     "jsdom": "24.0.0",
     "msw": "2.2.13",
     "react-dnd-test-backend": "14.0.1",

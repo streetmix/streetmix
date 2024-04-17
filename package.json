@@ -105,6 +105,8 @@
     "@commitlint/cli": "19.2.2",
     "@commitlint/config-conventional": "19.2.2",
     "@faker-js/faker": "8.4.1",
+    "@typescript-eslint/eslint-plugin": "7.7.0",
+    "@typescript-eslint/parser": "7.7.0",
     "@vitest/coverage-v8": "1.5.0",
     "axios-mock-adapter": "1.22.0",
     "concurrently": "8.2.2",
