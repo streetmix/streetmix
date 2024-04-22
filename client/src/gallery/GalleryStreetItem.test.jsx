@@ -5,13 +5,13 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
 import MOCK_STREET from '~/test/fixtures/street.json'
-import GalleryStreetItem from '../GalleryStreetItem'
+import GalleryStreetItem from './GalleryStreetItem'
 
 // Mock dependencies
-vi.mock('../../streets/thumbnail', () => ({
+vi.mock('../streets/thumbnail', () => ({
   drawStreetThumbnail: vi.fn()
 }))
-vi.mock('../../app/page_url', () => ({
+vi.mock('../app/page_url', () => ({
   getStreetUrl: vi.fn()
 }))
 

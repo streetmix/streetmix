@@ -6,14 +6,14 @@ import { userEvent } from '@testing-library/user-event'
 import { render } from '~/test/helpers/render'
 import MOCK_STREET from '~/test/fixtures/street.json'
 import { closeGallery } from '~/src/store/actions/gallery'
-import Gallery from '../Gallery'
-import { switchGalleryStreet } from '../index'
+import Gallery from './Gallery'
+import { switchGalleryStreet } from './index'
 
-vi.mock('../index')
-vi.mock('../../app/errors')
-vi.mock('../../streets/thumbnail')
-vi.mock('../../streets/xhr')
-vi.mock('../../store/actions/gallery', () => ({
+vi.mock('./index')
+vi.mock('../app/errors')
+vi.mock('../streets/thumbnail')
+vi.mock('../streets/xhr')
+vi.mock('../store/actions/gallery', () => ({
   closeGallery: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
