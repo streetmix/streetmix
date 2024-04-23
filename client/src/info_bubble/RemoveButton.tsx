@@ -1,5 +1,6 @@
 import React, { type MouseEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+
 import { removeSegment, removeAllSegments } from '../segments/remove'
 import Button from '../ui/Button'
 import Icon from '../ui/Icon'

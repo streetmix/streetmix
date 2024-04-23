@@ -117,16 +117,18 @@ export interface SegmentDefinition {
   enableWithFlag?: string
   unlockWithFlag?: string
   unlockCondition?: string
-  description?: {
-    key: string
-    image: string
-  }
+  description?: SegmentDescription
   rules?: {
     minWidth?: WidthDefinition
     maxWidth?: WidthDefinition
   }
   variants: string[]
   details: object
+}
+
+export interface SegmentDescription {
+  key: string
+  image: string
 }
 
 export interface WidthDefinition {

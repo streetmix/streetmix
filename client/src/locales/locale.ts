@@ -10,7 +10,6 @@ import {
   LOCALES_LEVEL_4
 } from './constants'
 import type { LocaleDefinition, LocaleLevel } from '@streetmix/types'
-import type { MessageFormatElement } from 'react-intl'
 
 /**
  * Initialize i18n / localization
@@ -64,9 +63,9 @@ function initRtlChangedListener (): void {
  */
 export function formatMessage (
   key: string, // translation key
-  fallback = '', // fallback or reference string
+  fallback: string = '', // fallback or reference string
   options: { ns?: string } = {}
-): string | string[] | MessageFormatElement[] {
+): string | string[] {
   const locale = store.getState().locale
 
   let message
@@ -84,7 +83,7 @@ export function formatMessage (
     return message
   }
 
-  const msg = new IntlMessageFormat(message || fallback, locale.locale)
+  const msg = new IntlMessageFormat(message ?? fallback, locale.locale)
   return msg.format(options)
 }
 

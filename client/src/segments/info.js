@@ -80,7 +80,7 @@ export function getAllSegmentInfoArray () {
  * allows means bad data, experimental segments, etc. won't break rendering.
  *
  * @param {string} type
- * @returns {Object}
+ * @returns {SegmentDefinition}
  */
 export function getSegmentInfo (type) {
   return SEGMENT_LOOKUP[type] || SEGMENT_UNKNOWN
@@ -93,7 +93,7 @@ export function getSegmentInfo (type) {
  *
  * @param {string} type
  * @param {string} variant
- * @returns {object} variantInfo - returns an object in the shape of { graphics, ...rules }
+ * @returns {SegmentDefinition} variantInfo - returns an object in the shape of { graphics, ...rules }
  */
 export function getSegmentVariantInfo (type, variant) {
   const segmentLookup = getSegmentLookup(type, variant)

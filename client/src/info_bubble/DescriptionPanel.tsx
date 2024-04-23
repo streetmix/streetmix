@@ -8,6 +8,7 @@ import rehypeExternalLinks from 'rehype-external-links'
 import Transition, {
   type TransitionStatus
 } from 'react-transition-group/Transition'
+
 import { getStreetSectionTop } from '../app/window_resize'
 import Triangle from './Triangle'
 import './DescriptionPanel.scss'
@@ -101,7 +102,7 @@ function DescriptionPanel ({
               {image && (
                 <img
                   src={`/images/info-bubble-examples/${image}`}
-                  alt={caption || ''}
+                  alt={caption ?? ''}
                 />
               )}
               <div className="description-text">

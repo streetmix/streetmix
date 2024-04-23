@@ -597,7 +597,8 @@ export class InfoBubble extends React.Component {
         break
     }
 
-    const segment = this.props.street.segments[this.props.position] || {}
+    // This is an empty object when position refers to a building
+    const segment = this.props.street.segments[position] ?? {}
 
     return (
       <div
@@ -626,15 +627,17 @@ export class InfoBubble extends React.Component {
           {widthOrHeightControl}
         </div>
         <Warnings segment={segment} />
-        <Description
-          type={segment.type}
-          variantString={segment.variantString}
-          updateBubbleDimensions={this.updateBubbleDimensions}
-          onMouseOver={this.handleDescriptionOver}
-          onMouseOut={this.handleDescriptionOut}
-          infoBubbleEl={this.el.current}
-          updateHoverPolygon={this.updateHoverPolygon}
-        />
+        {segment.type && (
+          <Description
+            type={segment.type}
+            variantString={segment.variantString}
+            updateBubbleDimensions={this.updateBubbleDimensions}
+            onMouseOver={this.handleDescriptionOver}
+            onMouseOut={this.handleDescriptionOut}
+            infoBubbleEl={this.el.current}
+            updateHoverPolygon={this.updateHoverPolygon}
+          />
+        )}
       </div>
     )
   }
