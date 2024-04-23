@@ -38,7 +38,7 @@
     "pretest:models": "NODE_ENV=test npm run db:migrate",
     "test:models": "NODE_ENV=test vitest --watchAll --testPathPattern=app/db/models/_tests_",
     "posttest:models": "NODE_ENV=test npm run db:reset",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "browserslist": [
     "> 0.5%",
