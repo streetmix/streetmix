@@ -1,20 +1,32 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import VARIANT_ICONS from '../segments/variant_icons.json'
 import { segmentsChanged } from '../segments/view'
+import { useSelector, useDispatch } from '../store/hooks'
 import { changeSegmentProperties } from '../store/slices/street'
 import Button from '../ui/Button'
 import { ICON_LOCK } from '../ui/icons'
 
-function ElevationControl ({ position, segment, forceEnable = false }) {
+interface ElevationControlProps {
+  position: number
+  segment: {
+    elevation: number
+  }
+  forceEnable: boolean
+}
+
+function ElevationControl ({
+  position,
+  segment,
+  forceEnable = false
+}: ElevationControlProps): React.ReactElement {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  function isVariantCurrentlySelected (set, selection) {
+  function isVariantCurrentlySelected (selection: string): boolean {
     let bool
 
     switch (selection) {
@@ -33,8 +45,8 @@ function ElevationControl ({ position, segment, forceEnable = false }) {
     return bool
   }
 
-  function getButtonOnClickHandler (set, selection) {
-    let elevation
+  function getButtonOnClickHandler (selection: string): () => void {
+    let elevation: number
 
     switch (selection) {
       case 'sidewalk':
@@ -45,16 +57,19 @@ function ElevationControl ({ position, segment, forceEnable = false }) {
         break
     }
 
-    return (event) => {
+    return (): void => {
       dispatch(changeSegmentProperties(position, { elevation }))
       segmentsChanged()
     }
   }
 
-  function renderButton (set, selection) {
+  function renderButton (
+    set: string,
+    selection: string
+  ): React.ReactElement | null {
     const icon = VARIANT_ICONS[set][selection]
 
-    if (!icon) return null
+    if (icon === undefined) return null
 
     let title = intl.formatMessage({
       id: `variant-icons.${set}|${selection}`,
@@ -76,14 +91,14 @@ function ElevationControl ({ position, segment, forceEnable = false }) {
       title += ' — ' + unlockConditionText
     }
 
-    const isSelected = isVariantCurrentlySelected(set, selection)
+    const isSelected = isVariantCurrentlySelected(selection)
 
     return (
       <Button
         title={title}
-        className={isSelected ? 'variant-selected' : null}
+        className={isSelected ? 'variant-selected' : undefined}
         disabled={isSelected || isLocked}
-        onClick={getButtonOnClickHandler(set, selection)}
+        onClick={getButtonOnClickHandler(selection)}
       >
         <svg
           xmlns="http://www.w3.org/1999/svg"
@@ -104,14 +119,6 @@ function ElevationControl ({ position, segment, forceEnable = false }) {
       {renderButton('elevation', 'road')}
     </>
   )
-}
-
-ElevationControl.propTypes = {
-  position: PropTypes.number,
-  segment: PropTypes.shape({
-    elevation: PropTypes.number
-  }),
-  forceEnable: PropTypes.bool
 }
 
 export default ElevationControl
