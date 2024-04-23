@@ -5,11 +5,11 @@ import Button from '../ui/Button'
 import Icon from '../ui/Icon'
 import './RemoveButton.scss'
 
-interface Props {
+interface RemoveButtonProps {
   segment: number
 }
 
-function RemoveButton ({ segment }: Props): React.ReactElement {
+function RemoveButton ({ segment }: RemoveButtonProps): React.ReactElement {
   const intl = useIntl()
 
   const handleClick = (event: MouseEvent): void => {
