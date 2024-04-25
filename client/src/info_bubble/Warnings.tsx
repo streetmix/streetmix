@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+
 import { FormattedMessage } from 'react-intl'
 import {
   SEGMENT_WARNING_OUTSIDE,
@@ -10,13 +10,19 @@ import {
 import alertIcon from '../../images/warning_alert.svg'
 import errorIcon from '../../images/warning_error.svg'
 
-const Warnings = (props) => {
+import type { Segment } from '@streetmix/types'
+
+interface WarningsProps {
+  segment: Segment
+}
+
+const Warnings = (props: WarningsProps): React.ReactElement | null => {
   const { segment } = props
   const messages = []
 
-  if (!segment || !segment.warnings) return null
+  if (segment?.warnings === undefined) return null
 
-  if (segment.warnings[SEGMENT_WARNING_DANGEROUS_EXISTING]) {
+  if (segment.warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] === true) {
     messages.push({
       type: 'alert',
       message: (
@@ -27,7 +33,7 @@ const Warnings = (props) => {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+  if (segment.warnings[SEGMENT_WARNING_OUTSIDE] === true) {
     messages.push({
       type: 'error',
       message: (
@@ -38,7 +44,7 @@ const Warnings = (props) => {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
+  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] === true) {
     messages.push({
       type: 'error',
       message: (
@@ -49,7 +55,7 @@ const Warnings = (props) => {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] === true) {
     messages.push({
       type: 'error',
       message: (
@@ -92,12 +98,6 @@ const Warnings = (props) => {
   }
 
   return null
-}
-
-Warnings.propTypes = {
-  segment: PropTypes.shape({
-    warnings: PropTypes.arrayOf(PropTypes.bool)
-  })
 }
 
 export default Warnings
