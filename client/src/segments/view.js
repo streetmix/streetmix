@@ -666,7 +666,7 @@ function normalizeSegmentLabel (label) {
  * Uses browser prompt to change the segment label
  *
  * @param {Object} segment - object describing the segment to edit
- * @param {Number} position - index of segment to edit
+ * @param {Number | BuildingPosition} position - index of segment to edit
  */
 export function editSegmentLabel (segment, position) {
   const prevLabel =

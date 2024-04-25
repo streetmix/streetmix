@@ -150,6 +150,8 @@ export interface LocaleDefinition {
   level: LocaleLevel
 }
 
+export type BuildingPosition = 'left' | 'right'
+
 export interface VariantInfoDimensions {
   left: number
   right: number

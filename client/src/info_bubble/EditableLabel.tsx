@@ -1,33 +1,28 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { useSelector } from '../store/hooks'
 import { editSegmentLabel } from '../segments/view'
 import { ICON_PENCIL, ICON_LOCK } from '../ui/icons'
 import Tooltip from '../ui/Tooltip'
-import {
-  BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
-} from '../segments/constants'
 import './EditableLabel.scss'
 
-EditableLabel.propTypes = {
+import type { BuildingPosition } from '@streetmix/types'
+
+interface EditableLabelProps {
   // Label can be string, or React element (if translated by ReactIntl)
-  label: PropTypes.node,
-  segment: PropTypes.object,
-  position: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
-  ])
+  label: string | React.ReactElement
+  segment: object
+  position: number | BuildingPosition
 }
 
-function EditableLabel (props) {
+function EditableLabel (props: EditableLabelProps): React.ReactElement {
   const { label, segment, position } = props
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
 
-  const handleClick = (event) => {
+  const handleClick = (): void => {
     editSegmentLabel(segment, position)
   }
 
