@@ -19,12 +19,7 @@ WidthControl.propTypes = {
 }
 
 function WidthControl ({ position }) {
-  const value = useSelector(
-    (state) =>
-      (state.street.segments[position] &&
-        state.street.segments[position].width) ||
-      null
-  )
+  const value = useSelector((state) => state.street.segments[position].width)
   const units = useSelector((state) => state.street.units)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()

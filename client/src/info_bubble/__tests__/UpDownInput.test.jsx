@@ -2,6 +2,7 @@ import React from 'react'
 import { vi } from 'vitest'
 import { render, screen, act, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
+
 import UpDownInput from '../UpDownInput'
 
 // Mock the `debounce` method so that the debounced `onUpdatedValue` callback
@@ -164,9 +165,9 @@ describe('UpDownInput', () => {
     })
 
     // When this is reverted, the `handleUpdate` callback is called
-    // with the original value, which is a number type, rather than
-    // a string type (which would be the value of the input element)
-    expect(handleUpdate).toHaveBeenLastCalledWith(5)
+    // with the original value (which has been cast to string, to match
+    // the type of the value of the input element)
+    expect(handleUpdate).toHaveBeenLastCalledWith('5')
   })
 
   it('renders inputs as disabled', () => {

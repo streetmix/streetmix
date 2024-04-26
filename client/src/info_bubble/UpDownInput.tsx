@@ -1,19 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import debounce from 'just-debounce-it'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import Button from '../ui/Button'
 import { ICON_MINUS, ICON_PLUS } from '../ui/icons'
 import './UpDownInput.scss'
 
 const EDIT_INPUT_DELAY = 200
 
-UpDownInput.propTypes = {
+interface UpDownInputProps {
   // Raw input value must always be a number type which can be
-  // compared with the minValue and maxValue.
-  value: PropTypes.number,
-  minValue: PropTypes.number,
-  maxValue: PropTypes.number,
+  // compared with the minValue and maxValue. Can be null.
+  value: number | null
+  minValue: number
+  maxValue: number
 
   // Formatter functions are used to optionally format raw values
   // for display. These functions should return a number or a string.
@@ -22,36 +22,36 @@ UpDownInput.propTypes = {
   // a user has focused or hovered over the <input> element. If this
   // function is unspecified, the display value remains the raw
   // `value` prop.
-  inputValueFormatter: PropTypes.func,
+  inputValueFormatter: (value: string) => string
 
   // `displayValueFormatter` formats a value that is displayed inside
   // the <input> element when it is not being edited. If this
   // function is unspecified, the display value remains the raw
   // `value` prop.
-  displayValueFormatter: PropTypes.func,
+  displayValueFormatter: (value: string) => string
 
   // Handler functions are specified by the parent component. These
   // handlers should be responsible for validating raw inputs and
   // updating street data.
-  onClickUp: PropTypes.func,
-  onClickDown: PropTypes.func,
-  onUpdatedValue: PropTypes.func,
+  onClickUp: (event: React.MouseEvent) => void
+  onClickDown: (event: React.MouseEvent) => void
+  onUpdatedValue: (value: string) => void
 
   // When `true`, the input box and buttons are disabled
-  disabled: PropTypes.bool,
+  disabled: boolean
 
   // Tooltip text
-  inputTooltip: PropTypes.string,
-  upTooltip: PropTypes.string,
-  downTooltip: PropTypes.string,
+  inputTooltip: string
+  upTooltip: string
+  downTooltip: string
 
   // If enabled, allow auto-update of values during input. This can
   // currently cause buggy and unexpected behavior, so it's disabled
   // by default.
-  allowAutoUpdate: PropTypes.bool
+  allowAutoUpdate: boolean
 }
 
-function UpDownInput (props) {
+function UpDownInput (props: UpDownInputProps): React.ReactElement {
   // Destructure props with default values
   const {
     value,
@@ -69,23 +69,25 @@ function UpDownInput (props) {
     allowAutoUpdate = false
   } = props
 
-  const oldValue = useRef(null)
-  const inputEl = useRef()
+  const oldValue = useRef<string | null>()
+  const inputEl = useRef<HTMLInputElement>(null)
 
   const [isEditing, setIsEditing] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
-  // If the initial `value` prop is `null` or undefined, the displayValue must
-  // be initiated as an empty string, otherwise React throws a warning about
-  // uncontrolled inputs when the value is changed later
+  // If the initial `value` prop is `null`, displayValue must be initiated
+  // as an empty string, otherwise React throws a warning about uncontrolled
+  // inputs when the value is changed later
   // The display value is not necessarily the same as the raw `value`. It is
   // usually the "pretty" formatted value.
-  const [displayValue, setDisplayValue] = useState(value ?? '')
+  const [displayValue, setDisplayValue] = useState<string>(
+    (value ?? '').toString()
+  )
 
   // This is the "dirty" user input value. This should be the input value when
   // it's set, otherwise display the formatted `displayValue`. This can be an
   // empty string, which is always valid user input.
-  const [userInputValue, setUserInputValue] = useState(null)
+  const [userInputValue, setUserInputValue] = useState<string>('')
 
   // If `allowAutoUpdate` is true, input updates call onUpdatedValue handler
   // after a debounced amount of time. This can cause unexpected and buggy
@@ -102,8 +104,8 @@ function UpDownInput (props) {
       return
     }
 
-    // If the `value` prop is `null` or undefined, display nothing
-    if (value === null || typeof value === 'undefined') {
+    // If the `value` prop is `null`, display nothing
+    if (value === null) {
       setDisplayValue('')
       return
     }
@@ -112,12 +114,12 @@ function UpDownInput (props) {
     // display the value without units. The `inputValueFormatter` function is
     // run, which takes into account the user's preferred units.
     if (isEditing || isHovered) {
-      if (userInputValue !== null) {
+      if (userInputValue !== '') {
         // If there is user input, always display that.
         setDisplayValue(userInputValue)
       } else {
         // Otherwise, display the value from props
-        setDisplayValue(inputValueFormatter(value))
+        setDisplayValue(inputValueFormatter((value ?? '').toString()))
       }
       return
     }
@@ -125,7 +127,7 @@ function UpDownInput (props) {
     // In all other cases, display the "prettified" value inside the input,
     // which is the "raw" value formatted using the correct unit conversion
     // and unit label.
-    setDisplayValue(displayValueFormatter(value))
+    setDisplayValue(displayValueFormatter((value ?? '').toString()))
   }, [
     value,
     userInputValue,
@@ -141,34 +143,34 @@ function UpDownInput (props) {
    * save the previous value in case editing is cancelled
    */
   useEffect(() => {
-    if (isEditing === true) {
-      oldValue.current = value
+    if (isEditing) {
+      oldValue.current = (value ?? '').toString()
     } else {
       // reset dirty `userInputValue`
-      setUserInputValue(null)
+      setUserInputValue('')
     }
     // We only want to save the old value once, not every time it changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditing])
 
-  function handleClickIncrement (event) {
+  function handleClickIncrement (event: React.MouseEvent): void {
     setIsEditing(false)
     onClickUp(event)
   }
 
-  function handleClickDecrement (event) {
+  function handleClickDecrement (event: React.MouseEvent): void {
     setIsEditing(false)
     onClickDown(event)
   }
 
-  function handleInputClick (event) {
+  function handleInputClick (event: React.MouseEvent): void {
     // Bail if already in editing mode.
     if (isEditing) return
 
     setIsEditing(true)
   }
 
-  function handleInputChange (event) {
+  function handleInputChange (event: React.ChangeEvent<HTMLInputElement>): void {
     const value = event.target.value
 
     // Update the input element to display user input
@@ -181,7 +183,7 @@ function UpDownInput (props) {
     }
   }
 
-  function handleInputBlur (event) {
+  function handleInputBlur (event: React.FocusEvent<HTMLInputElement>): void {
     setIsHovered(false)
     setIsEditing(false)
 
@@ -197,7 +199,9 @@ function UpDownInput (props) {
    * input value momentarily changes to the unblurred (prettified) value.
    * Not sure what causes this, but this handler fixes that issue.
    */
-  function handleInputMouseDown (event) {
+  function handleInputMouseDown (
+    event: React.MouseEvent<HTMLInputElement>
+  ): void {
     // Bail if already in editing mode.
     if (isEditing) return
 
@@ -207,7 +211,9 @@ function UpDownInput (props) {
   /**
    * On mouse over, UI assumes user is ready to edit.
    */
-  function handleInputMouseOver (event) {
+  function handleInputMouseOver (
+    event: React.MouseEvent<HTMLInputElement>
+  ): void {
     // Bail if already in editing mode.
     if (isEditing) return
 
@@ -219,7 +225,7 @@ function UpDownInput (props) {
     // with a timeout of zero. We also must store the reference to the event
     // target because the React synthetic event will not persist into the
     // `setTimeout` function.
-    const target = event.target
+    const target = event.target as HTMLInputElement
     window.setTimeout(() => {
       target.focus()
       target.select()
@@ -229,7 +235,9 @@ function UpDownInput (props) {
   /**
    * On mouse out, if user is not editing, UI returns to default view.
    */
-  function handleInputMouseOut (event) {
+  function handleInputMouseOut (
+    event: React.MouseEvent<HTMLInputElement>
+  ): void {
     // Bail if already in editing mode.
     if (isEditing) return
 
@@ -239,35 +247,40 @@ function UpDownInput (props) {
     setIsHovered(false)
     setIsEditing(false)
 
-    event.target.blur()
+    const target = event.target as HTMLInputElement
+    target.blur()
 
     if (!allowAutoUpdate) {
-      onUpdatedValue(event.target.value)
+      onUpdatedValue(target.value)
     }
   }
 
-  function handleInputKeyDown (event) {
+  function handleInputKeyDown (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ): void {
     switch (event.key) {
-      case 'Enter':
-        onUpdatedValue(event.target.value)
+      case 'Enter': {
+        const target = event.target as HTMLInputElement
+        onUpdatedValue(target.value)
 
         setIsEditing(false)
 
-        inputEl.current.focus()
-        inputEl.current.select()
+        inputEl.current?.focus()
+        inputEl.current?.select()
 
         break
+      }
       case 'Esc': // IE/Edge specific value
       case 'Escape':
         // Lose focus from input but place focus on body
-        inputEl.current.blur()
+        inputEl.current?.blur()
         document.body.focus()
 
         // Reset editing or hover state
         setIsEditing(false)
         setIsHovered(false)
 
-        onUpdatedValue(oldValue.current)
+        onUpdatedValue(oldValue.current ?? '')
         break
     }
   }
@@ -279,7 +292,9 @@ function UpDownInput (props) {
         title={downTooltip}
         tabIndex={-1}
         onClick={handleClickDecrement}
-        disabled={disabled || (minValue ? value <= minValue : false)}
+        disabled={
+          disabled || (value !== null && minValue ? value <= minValue : false)
+        }
       >
         <FontAwesomeIcon icon={ICON_MINUS} />
       </Button>
