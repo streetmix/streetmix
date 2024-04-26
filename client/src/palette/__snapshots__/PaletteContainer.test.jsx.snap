@@ -66,18 +66,6 @@ exports[`PaletteContainer > renders 1`] = `
                 class="svg-inline--fa fa-lock"
               />
             </li>
-            <li
-              class="palette-item"
-            >
-              <div
-                tabindex="0"
-              >
-                <img
-                  class="palette-item-image"
-                  draggable="false"
-                />
-              </div>
-            </li>
           </ul>
         </div>
         <button
