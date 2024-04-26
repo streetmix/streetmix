@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## April 26, 2024
+
+### 🐛 Bug fixes
+
+- Fixed a bug that caused crosswalks, which are experimental, and one other secret item to be available.
+
 ## April 8, 2024
 
 ### 🎨 Improvements

@@ -28,9 +28,8 @@ function PaletteItems (): React.ReactElement {
   const displayedSegments = segments
     .filter(
       (segment) =>
-        segment.enableWithFlag === false ||
-        segment.enableWidthFlag === undefined ||
-        (segment.enableWithFlag === true &&
+        segment.enableWithFlag === undefined ||
+        (segment.enableWithFlag !== undefined &&
           flags[segment.enableWithFlag]?.value)
     )
     .map((segment) => (
