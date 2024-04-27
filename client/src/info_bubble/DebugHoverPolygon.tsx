@@ -1,18 +1,21 @@
 import React, { useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+
+import { useSelector } from '../store/hooks'
 
 /**
  * Draws a polygon of the "Tognazzini zone" area.
- *
- * @param {HTMLCanvasElement} canvas - canvas element to draw to
- * @param {Array} polygon - array of points for the polygon
  */
-const drawPolygon = (canvas, polygon) => {
-  // Early exit if polygon or canvas isn't set
-  if (!polygon.length || !polygon[0].length) return
-  if (!canvas) return
+const drawPolygon = (
+  canvas: HTMLCanvasElement | null,
+  polygon: Array<[number, number]>
+): void => {
+  // Bail if polygon coordinates are empty or canvas not defined
+  if (polygon.length === 0 || canvas === null) return
 
   const ctx = canvas.getContext('2d')
+
+  // Bail if canvas context is not available
+  if (ctx === null) return
 
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -30,19 +33,17 @@ const drawPolygon = (canvas, polygon) => {
   ctx.stroke()
 }
 
-const DebugHoverPolygon = (props) => {
+function DebugHoverPolygon (): React.ReactElement | null {
   // When the window / viewport resizes, set the width and
   // height of the canvas element.
-  const el = useRef(null)
+  const el = useRef<HTMLCanvasElement>(null)
 
   const enabled = useSelector(
     (state) => state.flags.INFO_BUBBLE_HOVER_POLYGON.value || false
   )
-  const hoverPolygon = useSelector(
-    (state) => state.infoBubble.hoverPolygon || []
-  )
+  const hoverPolygon = useSelector((state) => state.infoBubble.hoverPolygon)
 
-  const handleResize = () => {
+  const handleResize = (): void => {
     if (!el.current) return
 
     el.current.width = window.innerWidth
