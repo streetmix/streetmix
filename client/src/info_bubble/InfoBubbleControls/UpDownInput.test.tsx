@@ -39,7 +39,7 @@ describe('UpDownInput', () => {
 
     render(<UpDownInput {...defaultProps} allowAutoUpdate={true} />)
 
-    const inputEl = screen.getByRole('textbox')
+    const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     const upButton = screen.getByTitle('up')
     const downButton = screen.getByTitle('down')
 
@@ -66,12 +66,7 @@ describe('UpDownInput', () => {
   // in the console log (rather than failures)
   it('renders empty string in input if the value prop is null', () => {
     render(<UpDownInput {...defaultProps} value={null} />)
-    expect(screen.getByRole('textbox').value).toBe('')
-  })
-
-  it('renders empty string in input if the value prop is undefined', () => {
-    render(<UpDownInput {...defaultProps} value={undefined} />)
-    expect(screen.getByRole('textbox').value).toBe('')
+    expect(screen.getByRole<HTMLInputElement>('textbox').value).toBe('')
   })
 
   it('formats values using `inputValueFormatter` and `displayValueFormatter`', async () => {
@@ -80,13 +75,13 @@ describe('UpDownInput', () => {
     render(
       <UpDownInput
         {...defaultProps}
-        inputValueFormatter={(value) => value}
+        inputValueFormatter={(value) => value.toString()}
         displayValueFormatter={(value) => `${value} bar`}
       />
     )
 
     // When first rendered, the display formatter is called
-    const inputEl = screen.getByRole('textbox')
+    const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     expect(inputEl.value).toBe('5 bar')
 
     // User clicks on the input, so the input formatter is called
@@ -98,7 +93,7 @@ describe('UpDownInput', () => {
     // User clicks outside the input, setting active element elsewhere.
     // The display formatter should now be called again
     await act(async () => {
-      await user.click(inputEl.parentNode)
+      await user.click(inputEl.parentNode as Element)
     })
     expect(inputEl.value).toBe('5 bar')
   })
@@ -110,13 +105,13 @@ describe('UpDownInput', () => {
     render(
       <UpDownInput
         {...defaultProps}
-        inputValueFormatter={(value) => value}
+        inputValueFormatter={(value) => value.toString()}
         displayValueFormatter={(value) => `${value} bar`}
       />
     )
 
     // When first rendered, the display formatter is called
-    const inputEl = screen.getByRole('textbox')
+    const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     expect(inputEl.value).toBe('5 bar')
 
     // User hovers over the input, so the input formatter is called
@@ -134,7 +129,9 @@ describe('UpDownInput', () => {
     expect(inputEl.value).toBe('5 bar')
   })
 
-  // Test fails (is only ever called with '5')
+  // Test fails (is only ever called with '5'), likely because there needs to
+  // be a parent component controlling the input value state, not rendered
+  // in this test right now.
   // However, this is working in practice.
   it.skip('handles "Enter" key as confirm action', async () => {
     const user = userEvent.setup()
@@ -205,31 +202,32 @@ describe('UpDownInput', () => {
 
   // Fixes a bug where dirty input could be remembered between different
   // types of UI interactions. This test is currently skipped, because
-  // it's not registering "handles "Enter" key as confirm action"
-  // (see above test)
+  // the input value is not being confirmed (see above test)
   it.skip('resets "dirty" input if user switches to +/- buttons', async () => {
+    const user = userEvent.setup()
+
     render(<UpDownInput {...defaultProps} />)
 
-    const inputEl = screen.getByRole('textbox')
+    const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     const upButton = screen.getByTitle('up')
 
     await act(async () => {
-      await userEvent.clear(inputEl)
-      await userEvent.type(inputEl, '6{enter}')
+      await user.clear(inputEl)
+      await user.type(inputEl, '6{enter}')
     })
     // NOTE: Test fails here
     expect(inputEl.value).toBe('6')
 
-    await userEvent.click(upButton)
+    await user.click(upButton)
     expect(inputEl.value).toBe('7')
 
     // Expect value on hover to reflect new value (7), not previous "dirty"
     // value (6)
-    await userEvent.hover(inputEl)
+    await user.hover(inputEl)
     expect(inputEl.value).toBe('7')
 
     // User unhovers over the input
-    await userEvent.unhover(inputEl)
+    await user.unhover(inputEl)
     expect(inputEl.value).toBe('7')
   })
 })

@@ -40,7 +40,6 @@ const initialState = {
       {
         type: 'streetcar',
         variantString: 'inbound|regular',
-        segmentType: 'streetcar',
         id: '1',
         width: 3
       }

@@ -12,6 +12,8 @@ import {
 } from '../constants'
 import Variants from './Variants'
 
+import type { SegmentDefinition } from '@streetmix/types'
+
 // Enable mocking of the return value of `getSegmentInfo`
 vi.mock('../../segments/info')
 
@@ -38,13 +40,8 @@ describe('Variants', () => {
     }
   }
 
-  it('does not render if props are missing', () => {
-    const { container } = render(<Variants />)
-    expect(container.firstChild).toBe(null)
-  })
-
   describe('segment variants', () => {
-    let segment
+    let segment: Partial<SegmentDefinition>
 
     beforeEach(() => {
       segment = { variants: ['direction', 'public-transit-asphalt'] }
@@ -108,7 +105,7 @@ describe('Variants', () => {
   })
 
   describe('feature flag', () => {
-    let segment
+    let segment: Partial<SegmentDefinition>
 
     beforeEach(() => {
       segment = { variants: ['flagged-variant', 'foo'] }

@@ -34,7 +34,6 @@ describe('Segment', () => {
     segment = {
       type,
       variantString,
-      segmentType: type,
       id: '1',
       width: currentWidth,
       randSeed: 1

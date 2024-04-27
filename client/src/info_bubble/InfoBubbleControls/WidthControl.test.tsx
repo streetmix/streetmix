@@ -5,19 +5,16 @@ import { userEvent } from '@testing-library/user-event'
 import { render } from '~/test/helpers/render'
 import WidthControl from './WidthControl'
 
-describe('WidthControl', () => {
-  let activeElement, segment
+import type { Segment } from '@streetmix/types'
 
-  beforeEach(() => {
-    activeElement = 0
-    segment = {
-      type: 'streetcar',
-      variantString: 'inbound|regular',
-      segmentType: 'streetcar',
-      id: '1',
-      width: 3
-    }
-  })
+describe('WidthControl', () => {
+  const activeElement = 0
+  const segment: Partial<Segment> = {
+    type: 'streetcar',
+    variantString: 'inbound|regular',
+    id: '1',
+    width: 3
+  }
 
   it('renders', () => {
     const { asFragment } = render(<WidthControl position={activeElement} />, {
