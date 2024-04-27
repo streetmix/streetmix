@@ -1,8 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { useSelector, useDispatch } from '../store/hooks'
+import {
+  setBuildingVariant,
+  changeSegmentVariant
+} from '../store/slices/street'
 import { segmentsChanged } from '../segments/view'
 import { getSegmentInfo } from '../segments/info'
 import VARIANT_ICONS from '../segments/variant_icons.json'
@@ -11,10 +15,6 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from '../segments/constants'
-import {
-  setBuildingVariant,
-  changeSegmentVariant
-} from '../store/slices/street'
 import Button from '../ui/Button'
 import { ICON_LOCK } from '../ui/icons'
 import {
@@ -24,15 +24,14 @@ import {
 } from './constants'
 import ElevationControl from './ElevationControl'
 
-Variants.propTypes = {
-  type: PropTypes.number,
-  position: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
-  ])
+import type { BuildingPosition } from '@streetmix/types'
+
+interface VariantsProps {
+  type: number
+  position: number | BuildingPosition
 }
 
-function Variants (props) {
+function Variants (props: VariantsProps): React.ReactElement | null {
   const { type, position } = props
 
   // Get the appropriate variant information
@@ -41,14 +40,16 @@ function Variants (props) {
       return state.street.leftBuildingVariant
     } else if (position === BUILDING_RIGHT_POSITION) {
       return state.street.rightBuildingVariant
-    } else if (Number.isInteger(position) && state.street.segments[position]) {
+    } else if (typeof position === 'number') {
       return state.street.segments[position].variantString
     }
   })
   const segment = useSelector((state) => {
-    if (Number.isInteger(position) && state.street.segments[position]) {
+    if (typeof position === 'number') {
       return state.street.segments[position]
     }
+
+    return null
   })
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
@@ -56,15 +57,13 @@ function Variants (props) {
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  let variantSets = []
+  let variantSets: string[] = []
   let elevationToggle = false
   switch (type) {
     case INFO_BUBBLE_TYPE_SEGMENT: {
-      const segmentInfo = getSegmentInfo(segment.type)
-      if (segmentInfo) {
-        variantSets = segmentInfo.variants
-      }
-      if (segmentInfo?.enableElevation) {
+      const { variants, enableElevation } = getSegmentInfo(segment.type)
+      variantSets = variants
+      if (enableElevation !== undefined) {
         elevationToggle = true
       }
       break
@@ -78,15 +77,17 @@ function Variants (props) {
   }
 
   // Remove any empty entries
-  variantSets = variantSets.filter((x) => x !== (undefined || null || ''))
+  variantSets = variantSets.filter((x) => x !== '')
 
-  function isVariantCurrentlySelected (set, selection) {
-    let bool
+  function isVariantCurrentlySelected (set: string, selection: string): boolean {
+    let bool = false
 
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const obj = getVariantArray(segment.type, variant)
-        bool = selection === obj[set]
+        if (segment) {
+          const obj = getVariantArray(segment.type, variant)
+          bool = selection === obj[set as keyof typeof obj]
+        }
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
@@ -101,23 +102,23 @@ function Variants (props) {
     return bool
   }
 
-  function getButtonOnClickHandler (set, selection) {
+  function getButtonOnClickHandler (set: string, selection: string): () => void {
     let handler
 
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT:
-        handler = (event) => {
+        handler = () => {
           dispatch(changeSegmentVariant(position, set, selection))
           segmentsChanged()
         }
         break
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        handler = (event) => {
+        handler = () => {
           dispatch(setBuildingVariant(BUILDING_LEFT_POSITION, selection))
         }
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        handler = (event) => {
+        handler = () => {
           dispatch(setBuildingVariant(BUILDING_RIGHT_POSITION, selection))
         }
         break
@@ -129,15 +130,18 @@ function Variants (props) {
     return handler
   }
 
-  function renderButton (set, selection) {
+  function renderButton (
+    set: string,
+    selection: string
+  ): React.ReactElement | null {
     const icon = VARIANT_ICONS[set][selection]
 
-    if (!icon) return null
+    if (icon === undefined) return null
 
     // If a variant is disabled by feature flag, skip it
-    if (icon.enableWithFlag) {
+    if (icon.enableWithFlag !== undefined) {
       const flag = flags[icon.enableWithFlag]
-      if (!flag || !flag.value) return null
+      if (!flag?.value) return null
     }
 
     let title = intl.formatMessage({
@@ -151,8 +155,11 @@ function Variants (props) {
     // is locked for a reason (e.g. must sign in, must be a subscriber)
     // If an "unlock flag" is set, enable the thing
     if (
-      icon.unlockCondition &&
-      !(icon.unlockWithFlag && flags[icon.unlockWithFlag]?.value === true)
+      icon.unlockCondition !== undefined &&
+      !(
+        icon.unlockWithFlag !== undefined &&
+        flags[icon.unlockWithFlag]?.defaultValue
+      )
     ) {
       let unlockConditionText
       switch (icon.unlockCondition) {
@@ -182,7 +189,7 @@ function Variants (props) {
           }
           break
       }
-      if (unlockConditionText) {
+      if (unlockConditionText !== undefined) {
         title += ' — ' + unlockConditionText
       }
     }
@@ -193,7 +200,7 @@ function Variants (props) {
       <Button
         key={set + '.' + selection}
         title={title}
-        className={isSelected ? 'variant-selected' : null}
+        className={isSelected ? 'variant-selected' : undefined}
         disabled={isSelected || isLocked}
         onClick={getButtonOnClickHandler(set, selection)}
       >
@@ -201,7 +208,7 @@ function Variants (props) {
           xmlns="http://www.w3.org/1999/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
           className="icon"
-          style={icon.color ? { fill: icon.color } : null}
+          style={icon.color !== undefined ? { fill: icon.color } : undefined}
         >
           {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
           <use xlinkHref={`#icon-${icon.id}`} />
@@ -211,7 +218,7 @@ function Variants (props) {
     )
   }
 
-  function renderVariantsSelection () {
+  function renderVariantsSelection (): Array<React.ReactElement | null> {
     const variantEls = []
 
     switch (type) {
@@ -219,9 +226,7 @@ function Variants (props) {
         let first = true
 
         // Each segment has some allowed variant sets (e.g. "direction")
-        for (const variant in variantSets) {
-          const set = variantSets[variant]
-
+        variantSets.forEach((set, variant, all) => {
           // New row for each variant set
           if (!first) {
             const el = <hr key={set} />
@@ -240,14 +245,17 @@ function Variants (props) {
 
             variantEls.push(el)
           }
-        }
+        })
+        // for (const variant in variantSets) {
 
-        if (elevationToggle === true) {
+        // }
+
+        if (elevationToggle) {
           // Street vendors always have enabled elevation controls
           // regardless of subscriber state
           const forceEnable =
-            segment.type === 'street-vendor' ||
-            flags.ELEVATION_CONTROLS_UNLOCKED.value === true
+            segment?.type === 'street-vendor' ||
+            flags.ELEVATION_CONTROLS_UNLOCKED.value
 
           // React wants a unique key here
           variantEls.push(<hr key="elevation_divider" />)
@@ -279,7 +287,7 @@ function Variants (props) {
   }
 
   // Do not render this component if there are no variants to select
-  if (!variantSets || variantSets.length === 0) return null
+  if (variantSets.length === 0) return null
 
   return <div className="variants">{renderVariantsSelection()}</div>
 }
