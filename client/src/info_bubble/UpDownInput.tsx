@@ -22,13 +22,13 @@ interface UpDownInputProps {
   // a user has focused or hovered over the <input> element. If this
   // function is unspecified, the display value remains the raw
   // `value` prop.
-  inputValueFormatter?: (value: string) => string
+  inputValueFormatter?: (value: number) => string
 
   // `displayValueFormatter` formats a value that is displayed inside
   // the <input> element when it is not being edited. If this
   // function is unspecified, the display value remains the raw
   // `value` prop.
-  displayValueFormatter?: (value: string) => string
+  displayValueFormatter?: (value: number) => string
 
   // Handler functions are specified by the parent component. These
   // handlers should be responsible for validating raw inputs and
@@ -57,8 +57,8 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
     value,
     minValue,
     maxValue,
-    inputValueFormatter = (value) => value,
-    displayValueFormatter = (value) => value,
+    inputValueFormatter = (value) => (value ?? '').toString(),
+    displayValueFormatter = (value) => (value ?? '').toString(),
     onClickUp = () => {},
     onClickDown = () => {},
     onUpdatedValue = () => {},
@@ -119,14 +119,14 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
     // If input is being hovered, display the value without units, using
     // `inputValueFormatter`, which accounts for the user's preferred units.
     if (isHovered) {
-      setDisplayValue(inputValueFormatter((value ?? '').toString()))
+      setDisplayValue((inputValueFormatter(value) ?? '').toString())
       return
     }
 
     // In all other cases, display the "prettified" value inside the input,
     // which is the "raw" value formatted using the correct unit conversion
     // and unit label.
-    setDisplayValue(displayValueFormatter((value ?? '').toString()))
+    setDisplayValue((displayValueFormatter(value) ?? '').toString())
   }, [
     value,
     userInputValue,
@@ -167,7 +167,7 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
     if (isEditing) return
 
     // When we begin editing, set the initial user input value to current
-    setUserInputValue(inputValueFormatter((value ?? '').toString()))
+    setUserInputValue(value === null ? '' : inputValueFormatter(value))
     setIsEditing(true)
   }
 

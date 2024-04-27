@@ -1,7 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+
+import { useSelector, useDispatch } from '../store/hooks'
+import { incrementSegmentWidth } from '../store/actions/street'
 import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '../segments/constants'
 import { RESIZE_TYPE_TYPING, resizeSegment } from '../segments/resizing'
 import {
@@ -11,44 +12,35 @@ import {
   convertMetricMeasurementToImperial
 } from '../util/width_units'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import { incrementSegmentWidth } from '../store/actions/street'
 import UpDownInput from './UpDownInput'
 
-WidthControl.propTypes = {
-  position: PropTypes.number
+interface WidthControlProps {
+  position: number
 }
 
-function WidthControl ({ position }) {
+function WidthControl ({ position }: WidthControlProps): React.ReactElement {
   const value = useSelector((state) => state.street.segments[position].width)
   const units = useSelector((state) => state.street.units)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const handleIncrement = (event) => {
+  const handleIncrement = (event: React.MouseEvent): void => {
     const precise = event.shiftKey
 
-    dispatch(incrementSegmentWidth(position, true, precise, value))
+    void dispatch(incrementSegmentWidth(position, true, precise, value))
   }
 
-  const handleDecrement = (event) => {
+  const handleDecrement = (event: React.MouseEvent): void => {
     const precise = event.shiftKey
 
-    dispatch(incrementSegmentWidth(position, false, precise, value))
+    void dispatch(incrementSegmentWidth(position, false, precise, value))
   }
 
   /**
    * When given a new value from input, process it, then update the model.
-   * Right now the data exists in two places: in Redux, and in the DOM.
-   * Eventually we want to transition to fully Redux but while other parts
-   * of the application still depends on DOM we must update both places at
-   * the same time.
-   *
-   * If the input must be debounced, used the debounced function instead.
-   *
-   * @param {string} value - raw input
    */
-  const updateModel = (value) => {
+  const updateModel = (value: string): void => {
     const processedValue = processWidthInput(value, units)
     if (processedValue) {
       resizeSegment(position, RESIZE_TYPE_TYPING, processedValue, units)
@@ -56,13 +48,10 @@ function WidthControl ({ position }) {
   }
 
   /**
-   * Given a raw numerical value, format it and return a decorated string for when
-   * the input is being edited.
-   *
-   * @param {Number} value - raw value
-   * @returns {string} - a decorated value
+   * Given a raw numerical value, format it and return a decorated string for
+   * when the input is being edited.
    */
-  const inputValueFormatter = (value) => {
+  const inputValueFormatter = (value: number): string => {
     if (units === SETTINGS_UNITS_IMPERIAL) {
       const imperialValue = convertMetricMeasurementToImperial(value)
       return stringifyMeasurementValue(imperialValue, units, locale)
@@ -72,13 +61,10 @@ function WidthControl ({ position }) {
   }
 
   /**
-   * Given a raw numerical value, format it and return a decorated string for display
-   * when the input is not being edited.
-   *
-   * @param {Number} value - raw value
-   * @returns {string} - a decorated value
+   * Given a raw numerical value, format it and return a decorated string for
+   * display when the input is not being edited.
    */
-  const displayValueFormatter = (value) => {
+  const displayValueFormatter = (value: number): string => {
     return prettifyWidth(value, units, locale)
   }
 

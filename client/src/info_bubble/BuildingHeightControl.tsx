@@ -55,14 +55,8 @@ function BuildingHeightControl ({
     }
   }
 
-  const displayValueFormatter = (value: string): string => {
-    return prettifyHeight(
-      variant,
-      position,
-      Number(value),
-      units,
-      intl.formatMessage
-    )
+  const displayValueFormatter = (value: number): string => {
+    return prettifyHeight(variant, position, value, units, intl.formatMessage)
   }
 
   const isFloored = BUILDINGS[variant as keyof typeof BUILDINGS].hasFloors
