@@ -13,7 +13,7 @@ import errorIcon from '~/images/warning_error.svg'
 import type { Segment } from '@streetmix/types'
 
 interface WarningsProps {
-  segment: Segment
+  segment?: Pick<Segment, 'warnings'>
 }
 
 const Warnings = (props: WarningsProps): React.ReactElement | null => {

@@ -78,8 +78,8 @@ describe('Warnings', () => {
     )
   })
 
-  it('renders nothing if segment has no warnings', () => {
-    const segment = {}
+  it('renders nothing if segment is not defined', () => {
+    const segment = undefined
     const { container } = render(<Warnings segment={segment} />)
 
     expect(container).not.toHaveTextContent(

@@ -5,7 +5,7 @@ interface Props {
   highlight: boolean
 }
 
-function Triangle ({ highlight = false }: Props): React.ReactElement {
+function Triangle ({ highlight }: Props): React.ReactElement {
   const triangleClassNames = ['info-bubble-triangle']
 
   if (highlight) {
