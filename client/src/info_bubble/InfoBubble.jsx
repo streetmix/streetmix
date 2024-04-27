@@ -18,13 +18,11 @@ import {
   updateHoverPolygon
 } from '../store/slices/infoBubble'
 import EditableLabel from './EditableLabel'
-import Triangle from './Triangle'
 import RemoveButton from './RemoveButton'
 import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import Warnings from './Warnings'
-import Description from './Description'
 import { infoBubble } from './info_bubble'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
@@ -32,6 +30,7 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import './InfoBubble.scss'
+import InfoBubbleInner from './InfoBubbleInner'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -78,8 +77,7 @@ export class InfoBubble extends React.Component {
     this.streetOuterEl = null
 
     this.state = {
-      type: null,
-      highlightTriangle: false
+      type: null
     }
 
     // Register keyboard shortcuts to hide info bubble
@@ -207,14 +205,6 @@ export class InfoBubble extends React.Component {
     }
 
     this.debouncedUpdateHoverPolygon(mouseX, mouseY)
-  }
-
-  handleDescriptionOver = (event) => {
-    this.setState({ highlightTriangle: true })
-  }
-
-  handleDescriptionOut = (event) => {
-    this.setState({ highlightTriangle: false })
   }
 
   updateHoverPolygon = (mouseX, mouseY) => {
@@ -608,7 +598,6 @@ export class InfoBubble extends React.Component {
         onTouchStart={this.handleTouchStart}
         ref={this.el}
       >
-        <Triangle highlight={this.state.highlightTriangle} />
         <header>
           <EditableLabel
             label={this.getLabel()}
@@ -627,17 +616,12 @@ export class InfoBubble extends React.Component {
           {widthOrHeightControl}
         </div>
         <Warnings segment={segment} />
-        {segment.type && (
-          <Description
-            type={segment.type}
-            variantString={segment.variantString}
-            updateBubbleDimensions={this.updateBubbleDimensions}
-            onMouseOver={this.handleDescriptionOver}
-            onMouseOut={this.handleDescriptionOut}
-            infoBubbleEl={this.el.current}
-            updateHoverPolygon={this.updateHoverPolygon}
-          />
-        )}
+        <InfoBubbleInner
+          segment={segment}
+          updateBubbleDimensions={this.updateBubbleDimensions}
+          infoBubbleEl={this.el.current}
+          updateHoverPolygon={this.updateHoverPolygon}
+        />
       </div>
     )
   }
