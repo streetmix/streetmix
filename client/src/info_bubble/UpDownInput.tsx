@@ -110,17 +110,16 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
       return
     }
 
-    // If input is being edited (or hovered, which displays its "raw" value),
-    // display the value without units. The `inputValueFormatter` function is
-    // run, which takes into account the user's preferred units.
-    if (isEditing || isHovered) {
-      if (userInputValue !== '') {
-        // If there is user input, always display that.
-        setDisplayValue(userInputValue)
-      } else {
-        // Otherwise, display the value from props
-        setDisplayValue(inputValueFormatter((value ?? '').toString()))
-      }
+    // If input is being edited, always display user input value
+    if (isEditing) {
+      setDisplayValue(userInputValue)
+      return
+    }
+
+    // If input is being hovered, display the value without units, using
+    // `inputValueFormatter`, which accounts for the user's preferred units.
+    if (isHovered) {
+      setDisplayValue(inputValueFormatter((value ?? '').toString()))
       return
     }
 
@@ -146,7 +145,7 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
     if (isEditing) {
       oldValue.current = (value ?? '').toString()
     } else {
-      // reset dirty `userInputValue`
+      // Reset dirty `userInputValue`
       setUserInputValue('')
     }
     // We only want to save the old value once, not every time it changes
@@ -167,6 +166,8 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
     // Bail if already in editing mode.
     if (isEditing) return
 
+    // When we begin editing, set the initial user input value to current
+    setUserInputValue(inputValueFormatter((value ?? '').toString()))
     setIsEditing(true)
   }
 
@@ -280,7 +281,11 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
         setIsEditing(false)
         setIsHovered(false)
 
+        // TODO: Fix old value saved in metric, when in imperial mode
         onUpdatedValue(oldValue.current ?? '')
+        break
+      default:
+        setIsEditing(true)
         break
     }
   }
@@ -318,7 +323,9 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
         title={upTooltip}
         tabIndex={-1}
         onClick={handleClickIncrement}
-        disabled={disabled || (maxValue ? value >= maxValue : false)}
+        disabled={
+          disabled || (value !== null && maxValue ? value >= maxValue : false)
+        }
       >
         <FontAwesomeIcon icon={ICON_PLUS} />
       </Button>

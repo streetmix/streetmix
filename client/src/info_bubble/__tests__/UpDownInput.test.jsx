@@ -135,6 +135,7 @@ describe('UpDownInput', () => {
   })
 
   // Test fails (is only ever called with '5')
+  // However, this is working in practice.
   it.skip('handles "Enter" key as confirm action', async () => {
     const user = userEvent.setup()
 
@@ -203,16 +204,22 @@ describe('UpDownInput', () => {
   })
 
   // Fixes a bug where dirty input could be remembered between different
-  // types of UI interactions. This test is currently skipped.
-  // TODO: up/down handlers should affect and re-render component
+  // types of UI interactions. This test is currently skipped, because
+  // it's not registering "handles "Enter" key as confirm action"
+  // (see above test)
   it.skip('resets "dirty" input if user switches to +/- buttons', async () => {
     render(<UpDownInput {...defaultProps} />)
 
     const inputEl = screen.getByRole('textbox')
     const upButton = screen.getByTitle('up')
 
-    await userEvent.clear(inputEl)
-    await userEvent.type(inputEl, '6{enter}')
+    await act(async () => {
+      await userEvent.clear(inputEl)
+      await userEvent.type(inputEl, '6{enter}')
+    })
+    // NOTE: Test fails here
+    expect(inputEl.value).toBe('6')
+
     await userEvent.click(upButton)
     expect(inputEl.value).toBe('7')
 
