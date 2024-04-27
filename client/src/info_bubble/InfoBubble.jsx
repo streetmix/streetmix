@@ -1,15 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { IntlProvider, FormattedMessage } from 'react-intl'
 import debounce from 'just-debounce-it'
+
 import { registerKeypress } from '../app/keypress'
-import { BUILDINGS } from '../segments/buildings'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from '../segments/constants'
-import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { getSegmentEl } from '../segments/view'
 import { loseAnyFocus } from '../util/focus'
 import { getElAbsolutePos } from '../util/helpers'
@@ -17,8 +15,8 @@ import {
   setInfoBubbleMouseInside,
   updateHoverPolygon
 } from '../store/slices/infoBubble'
-import EditableLabel from './EditableLabel'
-import RemoveButton from './RemoveButton'
+import InfoBubbleControls from './InfoBubbleControls'
+import InfoBubbleHeader from './InfoBubbleHeader'
 import InfoBubbleLower from './InfoBubbleLower'
 import { infoBubble } from './info_bubble'
 import {
@@ -27,7 +25,6 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import './InfoBubble.scss'
-import InfoBubbleControls from './InfoBubbleControls'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -54,7 +51,6 @@ export class InfoBubble extends React.Component {
       PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
     ]),
     street: PropTypes.object,
-    locale: PropTypes.object,
 
     // Provided by Redux connect mapDispatchToProps
     setInfoBubbleMouseInside: PropTypes.func,
@@ -467,75 +463,8 @@ export class InfoBubble extends React.Component {
     }
   }
 
-  /**
-   * Retrieve name from segment data. It should also find the equivalent strings from the
-   * translation files if provided.
-   */
-  getLabel = () => {
-    let id
-    let defaultMessage = ''
-
-    // Return label if provided
-    if (this.state.type === INFO_BUBBLE_TYPE_SEGMENT) {
-      const segment = this.props.street.segments[this.props.position]
-      if (segment && segment.label) {
-        return segment.label
-      }
-    }
-
-    // Otherwise need to do a lookup
-    switch (this.state.type) {
-      case INFO_BUBBLE_TYPE_SEGMENT: {
-        const segment = this.props.street.segments[this.props.position]
-        if (segment) {
-          const segmentInfo = getSegmentInfo(segment.type)
-          const variantInfo = getSegmentVariantInfo(
-            segment.type,
-            segment.variantString
-          )
-          const key = variantInfo.nameKey || segmentInfo.nameKey
-
-          id = `segments.${key}`
-          defaultMessage = variantInfo.name || segmentInfo.name
-        }
-        break
-      }
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
-        const key = this.props.street.leftBuildingVariant
-
-        id = `buildings.${key}.name`
-        defaultMessage = BUILDINGS[key].label
-
-        break
-      }
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
-        const key = this.props.street.rightBuildingVariant
-
-        id = `buildings.${key}.name`
-        defaultMessage = BUILDINGS[key].label
-
-        break
-      }
-      default:
-        break
-    }
-
-    return id
-      ? (
-        <IntlProvider
-          locale={this.props.locale.locale}
-          messages={this.props.locale.segmentInfo}
-        >
-          <FormattedMessage id={id} defaultMessage={defaultMessage} />
-        </IntlProvider>
-        )
-      : null
-  }
-
   render () {
     const type = this.state.type
-    const canBeDeleted =
-      type === INFO_BUBBLE_TYPE_SEGMENT && this.props.position !== null
 
     // Set class names
     const classNames = ['info-bubble']
@@ -580,17 +509,13 @@ export class InfoBubble extends React.Component {
         onTouchStart={this.handleTouchStart}
         ref={this.el}
       >
-        <header>
-          <EditableLabel
-            label={this.getLabel()}
-            segment={segment}
-            position={this.props.position}
-          />
-          {canBeDeleted && <RemoveButton segment={this.props.position} />}
-        </header>
-
+        <InfoBubbleHeader
+          type={type}
+          position={position}
+          segment={segment}
+          street={this.props.street}
+        />
         <InfoBubbleControls type={type} position={position} />
-
         <InfoBubbleLower
           segment={segment}
           updateBubbleDimensions={this.updateBubbleDimensions}
@@ -608,8 +533,7 @@ function mapStateToProps (state) {
     descriptionVisible: state.infoBubble.descriptionVisible,
     mouseInside: state.infoBubble.mouseInside,
     position: state.ui.activeSegment,
-    street: state.street,
-    locale: state.locale
+    street: state.street
   }
 }
 

@@ -7,10 +7,10 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from '~/src/segments/constants'
-import InfoBubble from '../InfoBubble'
+import InfoBubble from './InfoBubble'
 
-vi.mock('../../segments/view')
-vi.mock('../../segments/buildings', () => {
+vi.mock('../segments/view')
+vi.mock('../segments/buildings', () => {
   return {
     prettifyHeight: vi.fn(() => 10),
     // TODO: use mock building data

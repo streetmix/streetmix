@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { render } from '~/test/helpers/render'
-import DebugHoverPolygon from '../DebugHoverPolygon'
+import DebugHoverPolygon from './DebugHoverPolygon'
 
 describe('DebugHoverPolygon', () => {
   it('renders if enabled', () => {
