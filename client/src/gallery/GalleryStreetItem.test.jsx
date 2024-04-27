@@ -78,7 +78,9 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    await userEvent.click(screen.getByTitle('Delete street'))
+    await act(async () => {
+      await userEvent.click(screen.getByTitle('Delete street'))
+    })
     expect(doDelete).toBeCalled()
   })
 
