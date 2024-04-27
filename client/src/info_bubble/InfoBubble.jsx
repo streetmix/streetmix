@@ -19,9 +19,6 @@ import {
 } from '../store/slices/infoBubble'
 import EditableLabel from './EditableLabel'
 import RemoveButton from './RemoveButton'
-import Variants from './Variants'
-import WidthControl from './WidthControl'
-import BuildingHeightControl from './BuildingHeightControl'
 import InfoBubbleLower from './InfoBubbleLower'
 import { infoBubble } from './info_bubble'
 import {
@@ -30,6 +27,7 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import './InfoBubble.scss'
+import InfoBubbleControls from './InfoBubbleControls'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -571,21 +569,6 @@ export class InfoBubble extends React.Component {
         break
     }
 
-    // Determine width or height control type
-    let widthOrHeightControl
-    switch (type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
-        widthOrHeightControl = <WidthControl position={position} />
-        break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        widthOrHeightControl = <BuildingHeightControl position={position} />
-        break
-      default:
-        widthOrHeightControl = null
-        break
-    }
-
     // This is an empty object when position refers to a building
     const segment = this.props.street.segments[position] ?? {}
 
@@ -605,15 +588,8 @@ export class InfoBubble extends React.Component {
           />
           {canBeDeleted && <RemoveButton segment={this.props.position} />}
         </header>
-        <div className="info-bubble-controls">
-          <IntlProvider
-            locale={this.props.locale.locale}
-            messages={this.props.locale.segmentInfo}
-          >
-            <Variants type={type} position={position} />
-          </IntlProvider>
-          {widthOrHeightControl}
-        </div>
+
+        <InfoBubbleControls type={type} position={position} />
 
         <InfoBubbleLower
           segment={segment}
