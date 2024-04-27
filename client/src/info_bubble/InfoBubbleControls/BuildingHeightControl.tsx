@@ -1,17 +1,17 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '../store/hooks'
+import { useSelector, useDispatch } from '../../store/hooks'
 import {
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue
-} from '../store/slices/street'
-import { BUILDINGS, prettifyHeight } from '../segments/buildings'
+} from '../../store/slices/street'
+import { BUILDINGS, prettifyHeight } from '../../segments/buildings'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION
-} from '../segments/constants'
+} from '../../segments/constants'
 import UpDownInput from './UpDownInput'
 import './BuildingHeightControl.scss'
 

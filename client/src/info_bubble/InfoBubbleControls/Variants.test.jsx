@@ -5,12 +5,12 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
-import Variants from '../Variants'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../constants'
+import Variants from './Variants'
 
 // Enable mocking of the return value of `getSegmentInfo`
 vi.mock('../../segments/info')

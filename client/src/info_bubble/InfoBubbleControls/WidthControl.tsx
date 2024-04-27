@@ -1,17 +1,17 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { incrementSegmentWidth } from '../store/actions/street'
-import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '../segments/constants'
-import { RESIZE_TYPE_TYPING, resizeSegment } from '../segments/resizing'
+import { useSelector, useDispatch } from '../../store/hooks'
+import { incrementSegmentWidth } from '../../store/actions/street'
+import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '../../segments/constants'
+import { RESIZE_TYPE_TYPING, resizeSegment } from '../../segments/resizing'
 import {
   prettifyWidth,
   stringifyMeasurementValue,
   processWidthInput,
   convertMetricMeasurementToImperial
-} from '../util/width_units'
-import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
+} from '../../util/width_units'
+import { SETTINGS_UNITS_IMPERIAL } from '../../users/constants'
 import UpDownInput from './UpDownInput'
 
 interface WidthControlProps {

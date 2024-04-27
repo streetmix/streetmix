@@ -2,12 +2,12 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import VARIANT_ICONS from '../segments/variant_icons.json'
-import { segmentsChanged } from '../segments/view'
-import { useSelector, useDispatch } from '../store/hooks'
-import { changeSegmentProperties } from '../store/slices/street'
-import Button from '../ui/Button'
-import { ICON_LOCK } from '../ui/icons'
+import VARIANT_ICONS from '../../segments/variant_icons.json'
+import { segmentsChanged } from '../../segments/view'
+import { useSelector, useDispatch } from '../../store/hooks'
+import { changeSegmentProperties } from '../../store/slices/street'
+import Button from '../../ui/Button'
+import { ICON_LOCK } from '../../ui/icons'
 
 interface ElevationControlProps {
   position: number

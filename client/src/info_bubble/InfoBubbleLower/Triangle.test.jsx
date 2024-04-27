@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Triangle from '../InfoBubbleLower/Triangle'
+import Triangle from './Triangle'
 
 describe('Triangle', () => {
   it('renders an unhighlighted triangle by default', () => {

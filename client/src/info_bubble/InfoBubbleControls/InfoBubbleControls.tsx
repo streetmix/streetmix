@@ -6,9 +6,9 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../constants'
-import Variants from '../Variants'
-import WidthControl from '../WidthControl'
-import BuildingHeightControl from '../BuildingHeightControl'
+import Variants from './Variants'
+import WidthControl from './WidthControl'
+import BuildingHeightControl from './BuildingHeightControl'
 
 import type { BuildingPosition } from '@streetmix/types'
 import { useSelector } from '~src/store/hooks'

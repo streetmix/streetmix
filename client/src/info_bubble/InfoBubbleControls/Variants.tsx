@@ -2,26 +2,26 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { useSelector, useDispatch } from '../store/hooks'
+import { useSelector, useDispatch } from '../../store/hooks'
 import {
   setBuildingVariant,
   changeSegmentVariant
-} from '../store/slices/street'
-import { segmentsChanged } from '../segments/view'
-import { getSegmentInfo } from '../segments/info'
-import VARIANT_ICONS from '../segments/variant_icons.json'
-import { getVariantArray } from '../segments/variant_utils'
+} from '../../store/slices/street'
+import { segmentsChanged } from '../../segments/view'
+import { getSegmentInfo } from '../../segments/info'
+import VARIANT_ICONS from '../../segments/variant_icons.json'
+import { getVariantArray } from '../../segments/variant_utils'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
-} from '../segments/constants'
-import Button from '../ui/Button'
-import { ICON_LOCK } from '../ui/icons'
+} from '../../segments/constants'
+import Button from '../../ui/Button'
+import { ICON_LOCK } from '../../ui/icons'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from './constants'
+} from '../constants'
 import ElevationControl from './ElevationControl'
 
 import type { BuildingPosition } from '@streetmix/types'
