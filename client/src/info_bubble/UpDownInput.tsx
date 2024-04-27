@@ -22,33 +22,33 @@ interface UpDownInputProps {
   // a user has focused or hovered over the <input> element. If this
   // function is unspecified, the display value remains the raw
   // `value` prop.
-  inputValueFormatter: (value: string) => string
+  inputValueFormatter?: (value: string) => string
 
   // `displayValueFormatter` formats a value that is displayed inside
   // the <input> element when it is not being edited. If this
   // function is unspecified, the display value remains the raw
   // `value` prop.
-  displayValueFormatter: (value: string) => string
+  displayValueFormatter?: (value: string) => string
 
   // Handler functions are specified by the parent component. These
   // handlers should be responsible for validating raw inputs and
   // updating street data.
-  onClickUp: (event: React.MouseEvent) => void
-  onClickDown: (event: React.MouseEvent) => void
-  onUpdatedValue: (value: string) => void
+  onClickUp?: (event: React.MouseEvent) => void
+  onClickDown?: (event: React.MouseEvent) => void
+  onUpdatedValue?: (value: string) => void
 
   // When `true`, the input box and buttons are disabled
-  disabled: boolean
+  disabled?: boolean
 
   // Tooltip text
-  inputTooltip: string
-  upTooltip: string
-  downTooltip: string
+  inputTooltip?: string
+  upTooltip?: string
+  downTooltip?: string
 
   // If enabled, allow auto-update of values during input. This can
   // currently cause buggy and unexpected behavior, so it's disabled
   // by default.
-  allowAutoUpdate: boolean
+  allowAutoUpdate?: boolean
 }
 
 function UpDownInput (props: UpDownInputProps): React.ReactElement {

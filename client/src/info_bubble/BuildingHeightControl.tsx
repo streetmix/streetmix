@@ -1,85 +1,77 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
-import { BUILDINGS, prettifyHeight } from '../segments/buildings'
-import {
-  MAX_BUILDING_HEIGHT,
-  BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
-} from '../segments/constants'
+
+import { useSelector, useDispatch } from '../store/hooks'
 import {
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue
 } from '../store/slices/street'
+import { BUILDINGS, prettifyHeight } from '../segments/buildings'
+import {
+  MAX_BUILDING_HEIGHT,
+  BUILDING_LEFT_POSITION
+} from '../segments/constants'
 import UpDownInput from './UpDownInput'
 import './BuildingHeightControl.scss'
 
-BuildingHeightControl.propTypes = {
-  position: PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
+import type { BuildingPosition } from '@streetmix/types'
+
+interface BuildingHeightControlProps {
+  position: BuildingPosition
 }
 
-function BuildingHeightControl ({ position }) {
+function BuildingHeightControl ({
+  position
+}: BuildingHeightControlProps): React.ReactElement {
   const units = useSelector((state) => state.street.units)
 
   // Get the appropriate building data based on which side of street it's on
   const variant = useSelector((state) =>
     position === BUILDING_LEFT_POSITION
       ? state.street.leftBuildingVariant
-      : position === BUILDING_RIGHT_POSITION
-        ? state.street.rightBuildingVariant
-        : null
+      : state.street.rightBuildingVariant
   )
   const value = useSelector((state) =>
     position === BUILDING_LEFT_POSITION
       ? state.street.leftBuildingHeight
-      : position === BUILDING_RIGHT_POSITION
-        ? state.street.rightBuildingHeight
-        : null
+      : state.street.rightBuildingHeight
   )
 
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const handleIncrement = () => {
+  const handleIncrement = (): void => {
     dispatch(addBuildingFloor(position))
   }
 
-  const handleDecrement = () => {
+  const handleDecrement = (): void => {
     dispatch(removeBuildingFloor(position))
   }
 
-  /**
-   * When given a new value from input, process it, then update the model.
-   *
-   * If the input must be debounced, used the debounced function instead.
-   *
-   * @param {string} value - raw input
-   */
-  const updateModel = (value) => {
+  const updateModel = (value: string): void => {
     if (value) {
       dispatch(setBuildingFloorValue(position, value))
     }
   }
 
-  /**
-   * Given a raw numerical value, format it and return a decorated string.
-   *
-   * @param {Number} value - raw value
-   * @returns {string} - a decorated value
-   */
-  const displayValueFormatter = (value) => {
-    return prettifyHeight(variant, position, value, units, intl.formatMessage)
+  const displayValueFormatter = (value: string): string => {
+    return prettifyHeight(
+      variant,
+      position,
+      Number(value),
+      units,
+      intl.formatMessage
+    )
   }
 
-  const isNotFloored = !BUILDINGS[variant].hasFloors
+  const isFloored = BUILDINGS[variant as keyof typeof BUILDINGS].hasFloors
 
   return (
     <div className="non-variant building-height">
       <UpDownInput
-        disabled={isNotFloored}
-        value={isNotFloored ? null : value}
+        disabled={!isFloored}
+        value={isFloored ? value : null}
         minValue={1}
         maxValue={MAX_BUILDING_HEIGHT}
         displayValueFormatter={displayValueFormatter}
