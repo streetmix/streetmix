@@ -2,8 +2,8 @@ import React, { useRef, useState, useEffect } from 'react'
 import debounce from 'just-debounce-it'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Button from '../../ui/Button'
-import { ICON_MINUS, ICON_PLUS } from '../../ui/icons'
+import Button from '~/src/ui/Button'
+import { ICON_MINUS, ICON_PLUS } from '~/src/ui/icons'
 import './UpDownInput.scss'
 
 const EDIT_INPUT_DELAY = 200

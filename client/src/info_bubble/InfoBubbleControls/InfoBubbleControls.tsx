@@ -1,6 +1,7 @@
 import React from 'react'
 import { IntlProvider } from 'react-intl'
 
+import { useSelector } from '~/src/store/hooks'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
@@ -11,7 +12,6 @@ import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 
 import type { BuildingPosition } from '@streetmix/types'
-import { useSelector } from '~src/store/hooks'
 
 interface InfoBubbleControlsProps {
   type: number // Info bubble type

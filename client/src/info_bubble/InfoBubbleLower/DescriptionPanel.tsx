@@ -9,7 +9,7 @@ import Transition, {
   type TransitionStatus
 } from 'react-transition-group/Transition'
 
-import { getStreetSectionTop } from '../../app/window_resize'
+import { getStreetSectionTop } from '~/src/app/window_resize'
 import Triangle from './Triangle'
 import './DescriptionPanel.scss'
 
