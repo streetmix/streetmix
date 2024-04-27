@@ -11,6 +11,7 @@ export interface Segment {
   elevation: number
   variant: Record<string, string>
   warnings: Array<boolean | null>
+  label?: string
 }
 
 export interface StreetJson {

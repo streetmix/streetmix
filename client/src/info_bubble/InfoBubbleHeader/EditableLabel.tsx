@@ -8,22 +8,27 @@ import { ICON_PENCIL, ICON_LOCK } from '~/src/ui/icons'
 import Tooltip from '~/src/ui/Tooltip'
 import './EditableLabel.scss'
 
-import type { BuildingPosition } from '@streetmix/types'
+import type { BuildingPosition, Segment } from '@streetmix/types'
 
 interface EditableLabelProps {
   // Label can be string, or React element (if translated by ReactIntl)
   label: string | React.ReactElement
-  segment: object
+  segment?: Segment
   position: number | BuildingPosition
 }
 
-function EditableLabel (props: EditableLabelProps): React.ReactElement {
-  const { label, segment, position } = props
+function EditableLabel ({
+  label,
+  segment,
+  position
+}: EditableLabelProps): React.ReactElement {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
 
   const handleClick = (): void => {
-    editSegmentLabel(segment, position)
+    if (segment !== undefined) {
+      editSegmentLabel(segment, position)
+    }
   }
 
   // If position is a string, it's a building, and buildings are currently not

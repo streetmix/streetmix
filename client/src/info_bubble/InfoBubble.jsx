@@ -50,7 +50,6 @@ export class InfoBubble extends React.Component {
       PropTypes.number,
       PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
     ]),
-    street: PropTypes.object,
 
     // Provided by Redux connect mapDispatchToProps
     setInfoBubbleMouseInside: PropTypes.func,
@@ -498,9 +497,6 @@ export class InfoBubble extends React.Component {
         break
     }
 
-    // This is an empty object when position refers to a building
-    const segment = this.props.street.segments[position] ?? {}
-
     return (
       <div
         className={classNames.join(' ')}
@@ -509,15 +505,10 @@ export class InfoBubble extends React.Component {
         onTouchStart={this.handleTouchStart}
         ref={this.el}
       >
-        <InfoBubbleHeader
-          type={type}
-          position={position}
-          segment={segment}
-          street={this.props.street}
-        />
+        <InfoBubbleHeader type={type} position={position} />
         <InfoBubbleControls type={type} position={position} />
         <InfoBubbleLower
-          segment={segment}
+          position={position}
           updateBubbleDimensions={this.updateBubbleDimensions}
           infoBubbleEl={this.el.current}
           updateHoverPolygon={this.updateHoverPolygon}
@@ -532,8 +523,7 @@ function mapStateToProps (state) {
     visible: state.infoBubble.visible,
     descriptionVisible: state.infoBubble.descriptionVisible,
     mouseInside: state.infoBubble.mouseInside,
-    position: state.ui.activeSegment,
-    street: state.street
+    position: state.ui.activeSegment
   }
 }
 

@@ -13,18 +13,23 @@ import {
 import EditableLabel from './EditableLabel'
 import RemoveButton from './RemoveButton'
 
-import type { BuildingPosition, Segment, StreetState } from '@streetmix/types'
+import type { BuildingPosition, Segment } from '@streetmix/types'
 
 interface InfoBubbleHeaderProps {
   type: number
   position: number | BuildingPosition
-  segment: Segment
-  street: StreetState
 }
 
 function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
-  const { type, position, segment, street } = props
+  const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
+  const street = useSelector((state) => state.street)
+
+  // Segment is undefined when position refers to a building
+  let segment: Segment | undefined
+  if (typeof position === 'number') {
+    segment = street.segments[position]
+  }
 
   /**
    * Retrieve name from segment data. It should also find the equivalent strings from the
@@ -36,7 +41,6 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
 
     // Return label if provided
     if (type === INFO_BUBBLE_TYPE_SEGMENT) {
-      const segment = street.segments[position]
       if (segment?.label !== undefined) {
         return segment.label
       }
@@ -45,7 +49,6 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
     // Otherwise need to do a lookup
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
-        const segment = street.segments[position]
         if (segment !== undefined) {
           const segmentInfo = getSegmentInfo(segment.type)
           const variantInfo = getSegmentVariantInfo(
