@@ -5,9 +5,6 @@ exports[`InfoBubble > is visible 1`] = `
   <div
     class="info-bubble info-bubble-type-segment visible"
   >
-    <div
-      class="info-bubble-triangle"
-    />
     <header>
       <div
         class="info-bubble-label info-bubble-label-editable"
@@ -155,6 +152,9 @@ exports[`InfoBubble > is visible 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="info-bubble-triangle"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -164,9 +164,6 @@ exports[`InfoBubble > renders 1`] = `
   <div
     class="info-bubble info-bubble-type-segment"
   >
-    <div
-      class="info-bubble-triangle"
-    />
     <header>
       <div
         class="info-bubble-label info-bubble-label-editable"
@@ -314,6 +311,9 @@ exports[`InfoBubble > renders 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="info-bubble-triangle"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -323,9 +323,6 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
   <div
     class="info-bubble info-bubble-type-building"
   >
-    <div
-      class="info-bubble-triangle"
-    />
     <header>
       <div
         class="info-bubble-label"
@@ -518,6 +515,9 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="info-bubble-triangle"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -527,9 +527,6 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
   <div
     class="info-bubble info-bubble-type-building"
   >
-    <div
-      class="info-bubble-triangle"
-    />
     <header>
       <div
         class="info-bubble-label"
@@ -722,6 +719,9 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="info-bubble-triangle"
+    />
   </div>
 </DocumentFragment>
 `;
@@ -731,9 +731,6 @@ exports[`InfoBubble > shows description 1`] = `
   <div
     class="info-bubble info-bubble-type-segment show-description"
   >
-    <div
-      class="info-bubble-triangle"
-    />
     <header>
       <div
         class="info-bubble-label info-bubble-label-editable"
@@ -881,6 +878,9 @@ exports[`InfoBubble > shows description 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="info-bubble-triangle"
+    />
   </div>
 </DocumentFragment>
 `;

@@ -22,7 +22,7 @@ import RemoveButton from './RemoveButton'
 import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
-import Warnings from './Warnings'
+import InfoBubbleLower from './InfoBubbleLower'
 import { infoBubble } from './info_bubble'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
@@ -30,7 +30,6 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
 import './InfoBubble.scss'
-import InfoBubbleInner from './InfoBubbleInner'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
@@ -615,8 +614,8 @@ export class InfoBubble extends React.Component {
           </IntlProvider>
           {widthOrHeightControl}
         </div>
-        <Warnings segment={segment} />
-        <InfoBubbleInner
+
+        <InfoBubbleLower
           segment={segment}
           updateBubbleDimensions={this.updateBubbleDimensions}
           infoBubbleEl={this.el.current}
@@ -634,7 +633,6 @@ function mapStateToProps (state) {
     mouseInside: state.infoBubble.mouseInside,
     position: state.ui.activeSegment,
     street: state.street,
-    system: state.system,
     locale: state.locale
   }
 }

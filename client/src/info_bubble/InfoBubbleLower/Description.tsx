@@ -1,10 +1,13 @@
 import React from 'react'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { formatMessage } from '../locales/locale'
-import { showDescription, hideDescription } from '../store/slices/infoBubble'
+import { useSelector, useDispatch } from '../../store/hooks'
+import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
+import { registerKeypress, deregisterKeypress } from '../../app/keypress'
+import { formatMessage } from '../../locales/locale'
+import {
+  showDescription,
+  hideDescription
+} from '../../store/slices/infoBubble'
 import DescriptionPanel from './DescriptionPanel'
 
 import type { SegmentDescription } from '@streetmix/types'

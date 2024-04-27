@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { render } from '~/test/helpers/render'
-import Warnings from '../Warnings'
+import Warnings from '../InfoBubbleLower/Warnings'
 
 describe('Warnings', () => {
   // Note: warnings start indexing at 1!

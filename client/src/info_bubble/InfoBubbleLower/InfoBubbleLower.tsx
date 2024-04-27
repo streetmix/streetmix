@@ -2,17 +2,18 @@ import React, { useState } from 'react'
 
 import Triangle from './Triangle'
 import Description from './Description'
+import Warnings from './Warnings'
 
 import type { Segment } from '@streetmix/types'
 
-interface InfoBubbleInnerProps {
+interface InfoBubbleLowerProps {
   segment: Segment
   updateBubbleDimensions: () => void
   infoBubbleEl: HTMLDivElement
   updateHoverPolygon: () => void
 }
 
-function InfoBubbleInner (props: InfoBubbleInnerProps): React.ReactElement {
+function InfoBubbleLower (props: InfoBubbleLowerProps): React.ReactElement {
   const { segment, updateBubbleDimensions, infoBubbleEl, updateHoverPolygon } =
     props
 
@@ -28,6 +29,7 @@ function InfoBubbleInner (props: InfoBubbleInnerProps): React.ReactElement {
 
   return (
     <>
+      <Warnings segment={segment} />
       <Triangle highlight={isTriangleHighlighted} />
       {segment.type && (
         <Description
@@ -44,4 +46,4 @@ function InfoBubbleInner (props: InfoBubbleInnerProps): React.ReactElement {
   )
 }
 
-export default InfoBubbleInner
+export default InfoBubbleLower
