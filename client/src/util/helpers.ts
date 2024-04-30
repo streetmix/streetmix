@@ -33,7 +33,7 @@ export function getElRelativePos (el: HTMLElement): [number, number] {
  *    from the top of the viewport.
  */
 export function getElAbsolutePos (
-  el: HTMLElement,
+  el: HTMLDivElement,
   includeScroll = false
 ): [number, number] {
   const pos: [number, number] = [0, 0]

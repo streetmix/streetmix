@@ -688,9 +688,10 @@ export function editSegmentLabel (segment, position) {
  * Given the position of a segment or building, retrieve a reference to its
  * DOM element.
  *
- * @param {Number|string} position - either "left" or "right" for building,
+ * @param {Number | BuildingPosition | null} position - either "left" or "right" for building,
  *              or a number for the position of the segment. Should be
  *              the `dataNo` or `position` variables.
+ * @return {HTMLDivElement}
  */
 export function getSegmentEl (position) {
   if (!position && position !== 0) return

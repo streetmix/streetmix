@@ -1,15 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import {
   DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_RESIZE
-} from '../../segments/constants'
+} from '~/src/segments/constants'
+
 import type { PayloadAction } from '@reduxjs/toolkit'
+import type { BuildingPosition } from '@streetmix/types'
 
 interface UiState {
   welcomePanelVisible: boolean
   welcomePanelDismissed: boolean
   toolboxVisible: boolean
-  activeSegment: number | null
+  activeSegment: number | BuildingPosition | null
   draggingState: {
     segmentBeforeEl: number
     segmentAfterEl: number

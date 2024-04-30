@@ -1,9 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useEffect, useRef } from 'react'
 import debounce from 'just-debounce-it'
 
-import { registerKeypress } from '../app/keypress'
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
@@ -26,148 +25,117 @@ import {
 } from './constants'
 import './InfoBubble.scss'
 
+import type { BuildingPosition } from '@streetmix/types'
+
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10
-
 const DESCRIPTION_HOVER_POLYGON_MARGIN = 200
-
 const MIN_TOP_MARGIN_FROM_VIEWPORT = 150
-
 // The menu bar has extended to 30px margin, but we can't change
 // this because a lesser number will currently cause the description
 // panel to potentially be offscreen.
 const MIN_SIDE_MARGIN_FROM_VIEWPORT = 50
-
 const HOVER_POLYGON_DEBOUNCE = 50
 
-export class InfoBubble extends React.Component {
-  static propTypes = {
-    // Provided by Redux connect mapStateToProps
-    visible: PropTypes.bool.isRequired,
-    descriptionVisible: PropTypes.bool,
-    mouseInside: PropTypes.bool,
-    position: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
-    ]),
+function InfoBubble (): React.ReactElement {
+  const visible = useSelector((state) => state.infoBubble.visible)
+  const descriptionVisible = useSelector(
+    (state) => state.infoBubble.descriptionVisible
+  )
+  const mouseInside = useSelector((state) => state.infoBubble.mouseInside)
+  const position = useSelector((state) => state.ui.activeSegment)
+  const dispatch = useDispatch()
 
-    // Provided by Redux connect mapDispatchToProps
-    setInfoBubbleMouseInside: PropTypes.func,
-    updateHoverPolygon: PropTypes.func
-  }
+  const el = useRef<HTMLDivElement>(null)
+  const streetOuterEl = useRef<HTMLDivElement | null>(null)
 
-  static defaultProps = {
-    visible: false
-  }
+  const segmentEl = getSegmentEl(position)
+  const type = getTypeFromPosition(position)
 
-  constructor (props) {
-    super(props)
-
-    // Stores a ref to the element
-    this.el = React.createRef()
-    this.segmentEl = getSegmentEl(props.position)
-    this.streetOuterEl = null
-
-    this.state = {
-      type: null
-    }
-
+  useEffect(() => {
     // Register keyboard shortcuts to hide info bubble
     // Only hide if it's currently visible, and if the
     // description is NOT visible. (If the description
     // is visible, the escape key should hide that first.)
-    registerKeypress(
-      'esc',
-      {
-        condition: () => this.props.visible && !this.props.descriptionVisible
-      },
-      () => {
-        infoBubble.hide()
-        infoBubble.hideSegment(false)
-      }
-    )
-  }
+    registerKeypress('esc', { condition: isInfoBubbleVisible }, handleHide)
 
-  /**
-   * Sets state when the infobubble is pointing at a building
-   *
-   * @param {Object} nextProps
-   * @param {Object} prevState
-   */
-  static getDerivedStateFromProps (nextProps, prevState) {
-    if (nextProps.position === BUILDING_LEFT_POSITION) {
-      return {
-        type: INFO_BUBBLE_TYPE_LEFT_BUILDING
-      }
-    } else if (nextProps.position === BUILDING_RIGHT_POSITION) {
-      return {
-        type: INFO_BUBBLE_TYPE_RIGHT_BUILDING
-      }
-    } else if (Number.isFinite(nextProps.position)) {
-      return {
-        type: INFO_BUBBLE_TYPE_SEGMENT
-      }
-    } else {
-      return {
-        type: null
-      }
+    return () => {
+      deregisterKeypress('esc', handleHide)
     }
-  }
+  }, [])
 
-  componentDidMount () {
+  useEffect(() => {
     // This listener hides the info bubble when the mouse leaves the
     // document area. Do not normalize it to a pointerleave event
     // because it doesn't make sense for other pointer types
-    document.addEventListener('mouseleave', this.hide)
+    document.addEventListener('mouseleave', hide)
 
-    // Cache reference to this element
-    this.streetOuterEl = document.querySelector('#street-section-outer')
-  }
+    return () => {
+      document.removeEventListener('mouseleave', hide)
+    }
+  }, [])
 
-  componentDidUpdate (prevProps, prevState) {
-    this.segmentEl = getSegmentEl(this.props.position)
-    this.setInfoBubblePosition()
-    this.updateBubbleDimensions()
+  useEffect(() => {
+    // Cache reference to this exterior element. This has to be set after
+    // in an effect, since this element will not be available at first render.
+    streetOuterEl.current = document.querySelector('#street-section-outer')
+  }, [])
+
+  useEffect(() => {
+    setInfoBubblePosition()
+    updateBubbleDimensions()
 
     // Add or remove event listener based on whether infobubble was shown or hidden
-    if (prevProps.visible === false && this.props.visible === true) {
-      document.body.addEventListener('mousemove', this.handleBodyMouseMove)
-    } else if (prevProps.visible === true && this.props.visible === false) {
-      document.body.removeEventListener('mousemove', this.handleBodyMouseMove)
+    if (visible) {
+      document.body.addEventListener('mousemove', handleBodyMouseMove)
+    } else {
+      document.body.removeEventListener('mousemove', handleBodyMouseMove)
     }
 
     // This appears to be needed to prevent a flicker during mouseover of the infobubble.
     // However because this affects props, it triggers a secondary render() in React and
     // incurs a small performance hit.
     // TODO: can we optimize this away without introducing the flicker?
-    this.updateHoverPolygon(
-      infoBubble.considerMouseX,
-      infoBubble.considerMouseY
-    )
+    updatePolygon(infoBubble.considerMouseX, infoBubble.considerMouseY)
+    // Trigger on position change even if the variable is not used in the effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [position, visible])
+
+  function isInfoBubbleVisible (): boolean {
+    return visible && !descriptionVisible
   }
 
-  componentWillUnmount () {
-    // Clean up event listener
-    document.removeEventListener('mouseleave', this.hide)
+  function handleHide (): void {
+    infoBubble.hide()
+    infoBubble.hideSegment(false)
   }
 
-  componentDidCatch (error) {
-    console.error(error)
+  function getTypeFromPosition (
+    position: number | BuildingPosition | null
+  ): number | null {
+    if (position === BUILDING_LEFT_POSITION) {
+      return INFO_BUBBLE_TYPE_LEFT_BUILDING
+    } else if (position === BUILDING_RIGHT_POSITION) {
+      return INFO_BUBBLE_TYPE_RIGHT_BUILDING
+    } else if (Number.isFinite(position)) {
+      return INFO_BUBBLE_TYPE_SEGMENT
+    }
+
+    return null
   }
 
-  hide = () => {
+  function hide (): void {
     infoBubble.hide()
   }
 
   // TODO: verify this continues to work with pointer / touch taps
-  handleMouseEnter = (event) => {
-    this.props.setInfoBubbleMouseInside(true)
-
-    this.updateHoverPolygon()
+  function handleMouseEnter (event: React.MouseEvent): void {
+    dispatch(setInfoBubbleMouseInside(true))
+    updatePolygon(event.pageX, event.pageY)
   }
 
-  handleMouseLeave = (event) => {
-    this.props.setInfoBubbleMouseInside(false)
+  function handleMouseLeave (): void {
+    dispatch(setInfoBubbleMouseInside(false))
 
     // Returns focus to body when pointer leaves the info bubble area
     // so that keyboard commands respond to pointer position rather than
@@ -175,56 +143,58 @@ export class InfoBubble extends React.Component {
     loseAnyFocus()
   }
 
-  handleBodyMouseMove = (event) => {
+  function handleBodyMouseMove (event: React.MouseEvent): void {
     const mouseX = event.pageX
     const mouseY = event.pageY
 
-    if (this.props.visible) {
+    if (visible) {
       if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
         infoBubble.show(false)
       }
     }
 
-    this.debouncedUpdateHoverPolygon(mouseX, mouseY)
+    debouncedUpdatePolygon(mouseX, mouseY)
   }
 
-  updateHoverPolygon = (mouseX, mouseY) => {
-    const hoverPolygon = this.createHoverPolygon(mouseX, mouseY)
-    this.props.updateHoverPolygon(hoverPolygon)
+  function updatePolygon (mouseX: number, mouseY: number): void {
+    const hoverPolygon = createHoverPolygon(mouseX, mouseY)
+    dispatch(updateHoverPolygon(hoverPolygon))
   }
 
-  debouncedUpdateHoverPolygon = debounce(
-    this.updateHoverPolygon,
+  const debouncedUpdatePolygon = debounce(
+    updatePolygon,
     HOVER_POLYGON_DEBOUNCE
   )
 
   // TODO: make this a pure(r) function
-  createHoverPolygon = (mouseX, mouseY) => {
+  function createHoverPolygon (
+    mouseX: number,
+    mouseY: number
+  ): Array<[number, number]> | null {
     // `hoverPolygon` is an array of points as [x, y] values. Values should
     // draw a shape counter-clockwise. The final value must match the first
     // value in order to create an enclosed polygon.
-    let hoverPolygon = []
+    let hoverPolygon: Array<[number, number]> = []
 
-    if (!this.props.visible) {
+    if (!visible) {
       return hoverPolygon
     }
 
     // Bail if any reference to an element no longer exists
-    if (!this.el || !this.el.current || !this.segmentEl) return
+    if (el.current === null || segmentEl === undefined) return null
 
-    const bubbleWidth = this.el.current.offsetWidth
-    const bubbleHeight = this.el.current.offsetHeight
-    const bubbleX = Number.parseInt(this.el.current.style.left)
-    const bubbleY = Number.parseInt(this.el.current.style.top)
+    const bubbleWidth = el.current.offsetWidth
+    const bubbleHeight = el.current.offsetHeight
+    const bubbleX = Number.parseInt(el.current.style.left)
+    const bubbleY = Number.parseInt(el.current.style.top)
 
-    if (this.props.mouseInside && !this.props.descriptionVisible) {
-      const pos = getElAbsolutePos(this.segmentEl)
+    if (mouseInside && !descriptionVisible) {
+      const pos = getElAbsolutePos(segmentEl)
 
       // Left X position of segment element
-      const segmentLeftX =
-        pos[0] - document.querySelector('#street-section-outer').scrollLeft
+      const segmentLeftX = pos[0] - (streetOuterEl.current?.scrollLeft ?? 0)
       // Right X position of segment element
-      const segmentRightX = segmentLeftX + this.segmentEl.offsetWidth
+      const segmentRightX = segmentLeftX + segmentEl.offsetWidth
       // Left X position of segment element with margin (edge of the hover polygon)
       const hitboxLeftX = segmentLeftX - INFO_BUBBLE_MARGIN_BUBBLE
       // Right X position of segment element with margin (edge of the hover polygon)
@@ -233,7 +203,7 @@ export class InfoBubble extends React.Component {
       // Top Y position of segment element
       const segmentTopY = pos[1]
       // Bottom Y position of segment element
-      const segmentBottomY = segmentTopY + this.segmentEl.offsetHeight
+      const segmentBottomY = segmentTopY + segmentEl.offsetHeight
       // Bottom Y position of segment element with margin
       const hitboxBottomY = segmentBottomY + INFO_BUBBLE_MARGIN_BUBBLE
 
@@ -285,7 +255,7 @@ export class InfoBubble extends React.Component {
         bottomY2 = bubbleY + bubbleHeight + INFO_BUBBLE_MARGIN_BUBBLE
       }
 
-      if (this.props.descriptionVisible) {
+      if (descriptionVisible) {
         bottomY =
           bubbleY + bubbleHeight + DESCRIPTION_HOVER_POLYGON_MARGIN + 300
         bottomY2 = bottomY
@@ -378,22 +348,17 @@ export class InfoBubble extends React.Component {
   /**
    * TODO: consolidate this with the dim calc in updateBubbleDimensions?
    */
-  setInfoBubblePosition = () => {
-    if (
-      !this.segmentEl ||
-      !this.el ||
-      !this.el.current ||
-      !this.props.visible
-    ) {
+  function setInfoBubblePosition (): void {
+    if (segmentEl === undefined || !el.current || !visible) {
       return
     }
 
     // Determine dimensions and X/Y layout
-    const bubbleWidth = this.el.current.offsetWidth
-    const bubbleHeight = this.el.current.offsetHeight
-    const pos = getElAbsolutePos(this.segmentEl)
+    const bubbleWidth = el.current.offsetWidth
+    const bubbleHeight = el.current.offsetHeight
+    const pos = getElAbsolutePos(segmentEl)
 
-    let bubbleX = pos[0] - this.streetOuterEl.scrollLeft
+    let bubbleX = pos[0] - (streetOuterEl.current?.scrollLeft ?? 0)
     let bubbleY = pos[1]
 
     // TODO const
@@ -402,7 +367,7 @@ export class InfoBubble extends React.Component {
       bubbleY = MIN_TOP_MARGIN_FROM_VIEWPORT
     }
 
-    bubbleX += this.segmentEl.offsetWidth / 2
+    bubbleX += segmentEl.offsetWidth / 2
     bubbleX -= bubbleWidth / 2
 
     if (bubbleX < MIN_SIDE_MARGIN_FROM_VIEWPORT) {
@@ -414,99 +379,64 @@ export class InfoBubble extends React.Component {
       bubbleX = window.innerWidth - bubbleWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
     }
 
-    this.el.current.style.left = bubbleX + 'px'
-    this.el.current.style.top = bubbleY + 'px'
+    el.current.style.left = bubbleX + 'px'
+    el.current.style.top = bubbleY + 'px'
   }
 
-  updateBubbleDimensions = () => {
-    if (!this.el || !this.el.current) return
+  function updateBubbleDimensions (): void {
+    if (el.current === null) return
 
     let bubbleHeight
 
-    const el = this.el.current.querySelector('.description-canvas')
+    const descriptionEl = el.current.querySelector('.description-canvas')
 
-    if (this.props.descriptionVisible && el) {
-      const pos = getElAbsolutePos(el)
-      bubbleHeight = pos[1] + el.offsetHeight - 38
+    if (descriptionVisible && descriptionEl) {
+      const pos = getElAbsolutePos(descriptionEl)
+      bubbleHeight = pos[1] + descriptionEl.offsetHeight - 38
     } else {
-      bubbleHeight = this.el.current.offsetHeight
+      bubbleHeight = el.current.offsetHeight
     }
 
     const height = bubbleHeight + 30
 
-    this.el.current.style.webkitTransformOrigin = '50% ' + height + 'px'
-    this.el.current.style.MozTransformOrigin = '50% ' + height + 'px'
-    this.el.current.style.transformOrigin = '50% ' + height + 'px'
+    el.current.style.webkitTransformOrigin = '50% ' + height + 'px'
+    el.current.style.MozTransformOrigin = '50% ' + height + 'px'
+    el.current.style.transformOrigin = '50% ' + height + 'px'
   }
 
-  render () {
-    const type = this.state.type
+  // Set class names
+  const classNames = ['info-bubble']
 
-    // Set class names
-    const classNames = ['info-bubble']
-
-    classNames.push(
-      type === INFO_BUBBLE_TYPE_SEGMENT
-        ? 'info-bubble-type-segment'
-        : 'info-bubble-type-building'
-    )
-    if (this.props.visible) {
-      classNames.push('visible')
-    }
-    if (this.props.descriptionVisible) {
-      classNames.push('show-description')
-    }
-
-    // Determine position
-    let position
-    switch (type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
-        position = this.props.position
-        break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-        position = BUILDING_LEFT_POSITION
-        break
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        position = BUILDING_RIGHT_POSITION
-        break
-      default:
-        position = null
-        break
-    }
-
-    return (
-      <div
-        className={classNames.join(' ')}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        onTouchStart={this.handleTouchStart}
-        ref={this.el}
-      >
-        <InfoBubbleHeader type={type} position={position} />
-        <InfoBubbleControls type={type} position={position} />
-        <InfoBubbleLower
-          position={position}
-          updateBubbleDimensions={this.updateBubbleDimensions}
-          infoBubbleEl={this.el.current}
-          updateHoverPolygon={this.updateHoverPolygon}
-        />
-      </div>
-    )
+  classNames.push(
+    type === INFO_BUBBLE_TYPE_SEGMENT
+      ? 'info-bubble-type-segment'
+      : 'info-bubble-type-building'
+  )
+  if (visible) {
+    classNames.push('visible')
   }
-}
-
-function mapStateToProps (state) {
-  return {
-    visible: state.infoBubble.visible,
-    descriptionVisible: state.infoBubble.descriptionVisible,
-    mouseInside: state.infoBubble.mouseInside,
-    position: state.ui.activeSegment
+  if (descriptionVisible) {
+    classNames.push('show-description')
   }
+
+  return (
+    <div
+      className={classNames.join(' ')}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      // onTouchStart={handleTouchStart}
+      ref={el}
+    >
+      <InfoBubbleHeader type={type} position={position} />
+      <InfoBubbleControls type={type} position={position} />
+      <InfoBubbleLower
+        position={position}
+        updateBubbleDimensions={updateBubbleDimensions}
+        infoBubbleEl={el.current}
+        updateHoverPolygon={updateHoverPolygon}
+      />
+    </div>
+  )
 }
 
-const mapDispatchToProps = {
-  setInfoBubbleMouseInside,
-  updateHoverPolygon
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(InfoBubble)
+export default InfoBubble
