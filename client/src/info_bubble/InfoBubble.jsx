@@ -124,21 +124,10 @@ export class InfoBubble extends React.Component {
     this.streetOuterEl = document.querySelector('#street-section-outer')
   }
 
-  getSnapshotBeforeUpdate (prevProps, prevState) {
-    const wasBuilding = prevState.type !== INFO_BUBBLE_TYPE_SEGMENT
-
-    if (!this.el || !this.el.current) return null
-
-    if (!wasBuilding && this.props.position === BUILDING_RIGHT_POSITION) {
-      return window.innerWidth - MIN_SIDE_MARGIN_FROM_VIEWPORT
-    }
-    return null
-  }
-
-  componentDidUpdate (prevProps, prevState, snapshot) {
+  componentDidUpdate (prevProps, prevState) {
     this.segmentEl = getSegmentEl(this.props.position)
     this.setInfoBubblePosition()
-    this.updateBubbleDimensions(snapshot)
+    this.updateBubbleDimensions()
 
     // Add or remove event listener based on whether infobubble was shown or hidden
     if (prevProps.visible === false && this.props.visible === true) {
@@ -387,7 +376,7 @@ export class InfoBubble extends React.Component {
   }
 
   /**
-   * TODO: consolidate this with the dim calc in updateBubbleDimensions? do we need snapshot here?
+   * TODO: consolidate this with the dim calc in updateBubbleDimensions?
    */
   setInfoBubblePosition = () => {
     if (
@@ -429,7 +418,7 @@ export class InfoBubble extends React.Component {
     this.el.current.style.top = bubbleY + 'px'
   }
 
-  updateBubbleDimensions = (snapshot) => {
+  updateBubbleDimensions = () => {
     if (!this.el || !this.el.current) return
 
     let bubbleHeight
@@ -448,18 +437,6 @@ export class InfoBubble extends React.Component {
     this.el.current.style.webkitTransformOrigin = '50% ' + height + 'px'
     this.el.current.style.MozTransformOrigin = '50% ' + height + 'px'
     this.el.current.style.transformOrigin = '50% ' + height + 'px'
-
-    // When the infoBubble needed to be shown for the right building, the offsetWidth
-    // used to calculate the left style was from the previous rendering of this component.
-    // This meant that if the last time the infoBubble was shown was for a segment, then the
-    // offsetWidth used to calculate the new left style would be smaller than it should be.
-    // The current solution is to manually recalculate the left style and set the style
-    // when hovering over the right building.
-
-    if (snapshot) {
-      const bubbleX = snapshot - this.el.current.offsetWidth
-      this.el.current.style.left = bubbleX + 'px'
-    }
   }
 
   render () {
