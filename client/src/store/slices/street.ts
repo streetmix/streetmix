@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import { getVariantString } from '../../segments/variant_utils'
 import { DEFAULT_SKYBOX } from '../../sky/constants'
-import {
-  MAX_BUILDING_HEIGHT,
-  BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
-} from '../../segments/constants'
+import { MAX_BUILDING_HEIGHT } from '../../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
-import type { Segment, StreetState } from '@streetmix/types'
+
+import type { BuildingPosition, Segment, StreetState } from '@streetmix/types'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: StreetState = {
@@ -310,38 +308,34 @@ const streetSlice = createSlice({
     },
 
     // TODO: Buildings could be a child slice?
-    addBuildingFloor (state, action) {
+    addBuildingFloor (state, action: PayloadAction<BuildingPosition>) {
       const position = action.payload
 
       switch (position) {
-        case BUILDING_LEFT_POSITION:
+        case 'left':
           state.leftBuildingHeight = Math.min(
             state.leftBuildingHeight + 1,
             MAX_BUILDING_HEIGHT
           )
           break
-        case BUILDING_RIGHT_POSITION:
+        case 'right':
           state.rightBuildingHeight = Math.min(
             state.rightBuildingHeight + 1,
             MAX_BUILDING_HEIGHT
           )
           break
-        default:
-          break
       }
     },
 
-    removeBuildingFloor (state, action) {
+    removeBuildingFloor (state, action: PayloadAction<BuildingPosition>) {
       const position = action.payload
 
       switch (position) {
-        case BUILDING_LEFT_POSITION:
+        case 'left':
           state.leftBuildingHeight = Math.max(state.leftBuildingHeight - 1, 1)
           break
-        case BUILDING_RIGHT_POSITION:
+        case 'right':
           state.rightBuildingHeight = Math.max(state.rightBuildingHeight - 1, 1)
-          break
-        default:
           break
       }
     },
@@ -349,7 +343,7 @@ const streetSlice = createSlice({
     setBuildingFloorValue: {
       reducer (
         state,
-        action: PayloadAction<{ position: string, value: string }>
+        action: PayloadAction<{ position: BuildingPosition, value: string }>
       ) {
         const value = Number.parseInt(action.payload.value, 10)
         if (Number.isNaN(value)) return
@@ -357,23 +351,21 @@ const streetSlice = createSlice({
         const { position } = action.payload
 
         switch (position) {
-          case BUILDING_LEFT_POSITION:
+          case 'left':
             state.leftBuildingHeight = Math.min(
               Math.max(value, 1),
               MAX_BUILDING_HEIGHT
             )
             break
-          case BUILDING_RIGHT_POSITION:
+          case 'right':
             state.rightBuildingHeight = Math.min(
               Math.max(value, 1),
               MAX_BUILDING_HEIGHT
             )
             break
-          default:
-            break
         }
       },
-      prepare (position: string, value: string) {
+      prepare (position: BuildingPosition, value: string) {
         return {
           payload: { position, value }
         }
@@ -383,24 +375,22 @@ const streetSlice = createSlice({
     setBuildingVariant: {
       reducer (
         state,
-        action: PayloadAction<{ position: string, variant: string }>
+        action: PayloadAction<{ position: BuildingPosition, variant: string }>
       ) {
         const { position, variant } = action.payload
 
         if (!variant) return
 
         switch (position) {
-          case BUILDING_LEFT_POSITION:
+          case 'left':
             state.leftBuildingVariant = variant
             break
-          case BUILDING_RIGHT_POSITION:
+          case 'right':
             state.rightBuildingVariant = variant
-            break
-          default:
             break
         }
       },
-      prepare (position: string, variant: string) {
+      prepare (position: BuildingPosition, variant: string) {
         return {
           payload: { position, variant }
         }

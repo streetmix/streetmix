@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+
 import { DEFAULT_LOCALE } from '../../locales/constants'
 import { getAppTranslations, getSegmentTranslations } from '../../util/api'
-import type { MessageFormatElement } from 'react-intl'
 
-type LocaleMessages =
-  | Record<string, string>
-  | Record<string, MessageFormatElement[]>
+type LocaleMessages = Record<string, string>
 
 interface LocaleState {
   locale: string

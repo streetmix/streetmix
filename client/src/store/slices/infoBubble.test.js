@@ -59,11 +59,24 @@ describe('infoBubble reducer', () => {
   })
 
   it('should handle updateHoverPolygon()', () => {
-    expect(infoBubble(initialState, updateHoverPolygon([1, 2, 3]))).toEqual({
+    expect(
+      infoBubble(
+        initialState,
+        updateHoverPolygon([
+          [1, 1],
+          [2, 2],
+          [3, 3]
+        ])
+      )
+    ).toEqual({
       visible: false,
       mouseInside: false,
       descriptionVisible: false,
-      hoverPolygon: [1, 2, 3]
+      hoverPolygon: [
+        [1, 1],
+        [2, 2],
+        [3, 3]
+      ]
     })
   })
 

@@ -6,7 +6,7 @@ interface InfoBubbleState {
   visible: boolean
   mouseInside: boolean
   descriptionVisible: boolean
-  hoverPolygon: number[]
+  hoverPolygon: Array<[number, number]>
 }
 
 const initialState: InfoBubbleState = {
