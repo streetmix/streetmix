@@ -59,13 +59,13 @@ function BuildingHeightControl ({
     return prettifyHeight(variant, position, value, units, intl.formatMessage)
   }
 
-  const isFloored = BUILDINGS[variant as keyof typeof BUILDINGS].hasFloors
+  const hasFloors = BUILDINGS[variant as keyof typeof BUILDINGS].hasFloors
 
   return (
     <div className="non-variant building-height">
       <UpDownInput
-        disabled={!isFloored}
-        value={isFloored ? value : null}
+        disabled={!hasFloors}
+        value={hasFloors ? value : null}
         minValue={1}
         maxValue={MAX_BUILDING_HEIGHT}
         displayValueFormatter={displayValueFormatter}
