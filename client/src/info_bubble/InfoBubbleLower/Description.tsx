@@ -15,17 +15,11 @@ import type { SegmentDescription } from '@streetmix/types'
 function getDescriptionData (
   type: string,
   variantString: string
-): SegmentDescription | null {
+): SegmentDescription | undefined {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
 
-  if (variantInfo?.description !== undefined) {
-    return variantInfo.description
-  } else if (segmentInfo?.description !== undefined) {
-    return segmentInfo.description
-  }
-
-  return null
+  return variantInfo?.description ?? segmentInfo?.description
 }
 
 interface DescriptionProps {
@@ -71,7 +65,7 @@ function Description ({
 
   const description = getDescriptionData(type, variantString)
 
-  if (description === null || infoBubbleEl === null) return null
+  if (description === undefined || infoBubbleEl === null) return null
 
   // If the description content doesn't exist or hasn't been translated, bail.
   const content = formatMessage(
@@ -81,7 +75,9 @@ function Description ({
       ns: 'segment-info'
     }
   )
-  if (content === undefined) return null
+
+  // Undefined content formats as the empty string
+  if (content === '') return null
 
   const defaultPrompt = formatMessage('segments.learn-more', 'Learn more')
   const prompt = formatMessage(

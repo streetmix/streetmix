@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { DEFAULT_LOCALE } from '../../locales/constants'
 import { getAppTranslations, getSegmentTranslations } from '../../util/api'
 
-type LocaleMessages = Record<string, string | string[]>
+type LocaleMessages = Record<string, string>
 
 interface LocaleState {
   locale: string

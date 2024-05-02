@@ -77,12 +77,6 @@ export function formatMessage (
 
   if (message === undefined) return fallback
 
-  // If message is an array (e.g. segment descriptions), return as is;
-  // don't format it
-  if (Array.isArray(message)) {
-    return message
-  }
-
   const msg = new IntlMessageFormat(message ?? fallback, locale.locale)
   return msg.format(options)
 }
