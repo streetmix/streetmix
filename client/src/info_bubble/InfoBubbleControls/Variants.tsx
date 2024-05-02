@@ -246,9 +246,6 @@ function Variants (props: VariantsProps): React.ReactElement | null {
             variantEls.push(el)
           }
         })
-        // for (const variant in variantSets) {
-
-        // }
 
         if (elevationToggle) {
           // Street vendors always have enabled elevation controls
