@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Enheter",
-      "metric": "SI-enheter (meter)",
-      "imperial": "Britiske enheter (fot)"
+      "metric": "",
+      "imperial": ""
     }
   },
   "msg": {

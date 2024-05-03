@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "단위",
-      "metric": "미터법 단위 (미터)",
-      "imperial": "영국식 단위 (피트)"
+      "metric": "",
+      "imperial": ""
     }
   },
   "msg": {

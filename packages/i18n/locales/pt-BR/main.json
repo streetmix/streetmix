@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Unidades",
-      "metric": "Unidade métrica (metros)",
-      "imperial": "Unidade imperial (pés)"
+      "metric": "",
+      "imperial": ""
     }
   },
   "msg": {

@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "單位",
-      "metric": "公制（米）",
-      "imperial": "英制（尺）"
+      "metric": "",
+      "imperial": ""
     }
   },
   "msg": {

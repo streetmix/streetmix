@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Jednostki",
-      "metric": "System metryczny (metry)",
-      "imperial": "System imperialny (stopy)"
+      "metric": "",
+      "imperial": ""
     }
   },
   "msg": {

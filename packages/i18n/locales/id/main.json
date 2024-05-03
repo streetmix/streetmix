@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Satuan",
-      "metric": "Satuan metrik (meter)",
-      "imperial": "Satuan imperial (kaki)"
+      "metric": "",
+      "imperial": ""
     }
   },
   "msg": {

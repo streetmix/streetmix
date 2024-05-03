@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Eenheden",
-      "metric": "Metrische eenheden (meter)",
-      "imperial": "Imperiale eenheden (voet)"
+      "metric": "",
+      "imperial": ""
     }
   },
   "msg": {
