@@ -1,16 +1,14 @@
 import React, { useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link2Icon, CubeIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
+import { CubeIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import { IoPrintOutline } from 'react-icons/io5'
-import copy from 'copy-to-clipboard'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
-import Button from '~/src/ui/Button'
-import Icon from '~/src/ui/Icon'
 import ExternalLink from '~/src/ui/ExternalLink'
 import { doSignIn } from '~/src/users/authentication'
 import { startPrinting } from '~/src/store/slices/app'
 import Menu, { type MenuProps } from '../Menu'
+import CopyShareLink from './CopyShareLink'
 import PostOnFacebook from './PostOnFacebook'
 import PostOnMastodon from './PostOnMastodon'
 import PostOnTwitter from './PostOnTwitter'
@@ -24,15 +22,15 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   const street = useSelector((state) => state.street)
   const flag = useSelector((state) => state.flags.STREETMETER_EXPORT.value)
   const dispatch = useDispatch()
-  const shareViaLinkInputRef = useRef<HTMLInputElement>(null)
+  const copyShareLinkRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
   function handleShow (): void {
     // Auto-focus and select link when share menu is active
     window.setTimeout(() => {
-      if (!shareViaLinkInputRef.current) return
-      shareViaLinkInputRef.current.focus()
-      shareViaLinkInputRef.current.select()
+      if (!copyShareLinkRef.current) return
+      copyShareLinkRef.current.focus()
+      copyShareLinkRef.current.select()
     }, 200)
   }
 
@@ -85,35 +83,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
       {!offline && (
         <>
           {signInPromo}
-          <div className="share-via-link-container">
-            <Link2Icon className="menu-item-icon-radix" />
-            <FormattedMessage
-              id="menu.share.link"
-              defaultMessage="Copy and paste this link to share:"
-            />
-            <div className="share-via-link-form">
-              <input
-                className="share-via-link"
-                type="text"
-                value={shareUrl}
-                spellCheck="false"
-                ref={shareViaLinkInputRef}
-                readOnly={true}
-              />
-              <Button
-                title={intl.formatMessage({
-                  id: 'menu.share.copy-to-clipboard',
-                  defaultMessage: 'Copy to clipboard'
-                })}
-                onClick={(event) => {
-                  event.preventDefault()
-                  copy(shareUrl)
-                }}
-              >
-                <Icon icon="copy" />
-              </Button>
-            </div>
-          </div>
+          <CopyShareLink shareUrl={shareUrl} ref={copyShareLinkRef} />
           <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />
           <PostOnTwitter shareText={shareText} shareUrl={shareUrl} />
           <PostOnFacebook shareText={shareText} shareUrl={shareUrl} />
