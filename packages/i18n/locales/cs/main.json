@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Jednotky",
-      "metric": "",
-      "imperial": ""
+      "metric": "Metrické jednotky (metry)",
+      "imperial": "Imperiální jednotky (stopy)"
     }
   },
   "msg": {

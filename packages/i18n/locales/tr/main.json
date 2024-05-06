@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Birimler",
-      "metric": "",
-      "imperial": ""
+      "metric": "Metrik birimler (metreler)",
+      "imperial": "İngilizce ölçü birimi (fit)"
     }
   },
   "msg": {

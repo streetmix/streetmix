@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "単位",
-      "metric": "",
-      "imperial": ""
+      "metric": "メートル表記",
+      "imperial": "フィート表示"
     }
   },
   "msg": {

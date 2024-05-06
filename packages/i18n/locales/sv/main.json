@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Enheter",
-      "metric": "",
-      "imperial": ""
+      "metric": "Meterenheter (meter)",
+      "imperial": "Imperiala enheter (fot)"
     }
   },
   "msg": {

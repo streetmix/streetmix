@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Einheiten",
-      "metric": "",
-      "imperial": ""
+      "metric": "Metrisches System (Meter)",
+      "imperial": "Angloamerikanisches System (Feet)"
     }
   },
   "msg": {
