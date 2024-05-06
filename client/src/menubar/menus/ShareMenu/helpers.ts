@@ -2,6 +2,11 @@ import type { UserState } from '~/src/types'
 import type { StreetState } from '@streetmix/types'
 import type { IntlShape } from 'react-intl'
 
+export interface SocialShareProps {
+  shareText: string
+  shareUrl: string
+}
+
 /**
  * Returns the current page URL.
  * This may eventually change to a short URL generator - strt.mx

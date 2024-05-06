@@ -19,11 +19,9 @@ import { doSignIn } from '~/src/users/authentication'
 import { showDialog } from '~/src/store/slices/dialogs'
 import { startPrinting } from '~/src/store/slices/app'
 import Menu, { type MenuProps } from '../Menu'
+import PostOnMastodon from './PostOnMastodon'
 import { getSharingUrl, getSharingMessage } from './helpers'
 import './ShareMenu.scss'
-
-const LS_SHARE_MASTODON = 'share:mastodon-domain'
-const MASTODON_DEFAULT_DOMAIN = 'mastodon.social'
 
 function ShareMenu (props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
@@ -64,43 +62,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
     window.setTimeout(function () {
       window.print()
     }, 0)
-  }
-
-  function handleShareToMastodon (event: React.MouseEvent): void {
-    // Get the Mastodon domain. User might have specified one in localstorage,
-    // so use it if specified, otherwise use the "main" Mastodon instance
-    const domain = window.prompt(
-      'Enter your Mastodon instance domain',
-      window.localStorage.getItem(LS_SHARE_MASTODON) ?? MASTODON_DEFAULT_DOMAIN
-    )
-
-    // Remember the value for later, because a person is likely to be
-    // using the same instance for every share
-    try {
-      if (domain !== null) {
-        window.localStorage.setItem(LS_SHARE_MASTODON, domain)
-      } else {
-        window.localStorage.removeItem(LS_SHARE_MASTODON)
-      }
-    } catch (err) {
-      // Catch and continue if there is an error
-      console.error(`Error writing to ${LS_SHARE_MASTODON} on localStorage`)
-    }
-
-    // Bail if we don't have a domain
-    if (domain === null) return
-
-    // Build the URL
-    const url =
-      'https://' +
-      encodeURIComponent(domain) +
-      '/share?text=' +
-      encodeURIComponent(getSharingMessage(street, user, intl)) +
-      '&url=' +
-      encodeURIComponent(shareUrl)
-
-    // Open a window on the share page
-    window.open(url, '_blank')
   }
 
   const shareText = getSharingMessage(street, user, intl)
@@ -183,14 +144,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
               </Button>
             </div>
           </div>
-          <a onClick={handleShareToMastodon}>
-            <Icon icon="mastodon" className="menu-item-icon" />
-            <FormattedMessage
-              id="menu.share.mastodon"
-              defaultMessage="Share using Mastodon"
-            />
-            <ExternalLinkIcon className="menu-item-external-link" />
-          </a>
+          <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />
           <ExternalLink href={twitterLink}>
             <Icon icon="twitter" className="menu-item-icon" />
             <FormattedMessage
