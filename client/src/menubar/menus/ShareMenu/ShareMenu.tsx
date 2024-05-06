@@ -13,13 +13,13 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import ExternalLink from '~/src/ui/ExternalLink'
-import { FACEBOOK_APP_ID } from '~/src/app/config'
-import { getPageTitle } from '~/src/app/page_title'
 import { doSignIn } from '~/src/users/authentication'
 import { showDialog } from '~/src/store/slices/dialogs'
 import { startPrinting } from '~/src/store/slices/app'
 import Menu, { type MenuProps } from '../Menu'
+import PostOnFacebook from './PostOnFacebook'
 import PostOnMastodon from './PostOnMastodon'
+import PostOnTwitter from './PostOnTwitter'
 import { getSharingUrl, getSharingMessage } from './helpers'
 import './ShareMenu.scss'
 
@@ -66,26 +66,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
 
   const shareText = getSharingMessage(street, user, intl)
   const shareUrl = getSharingUrl()
-
-  const twitterLink =
-    'https://twitter.com/intent/tweet' +
-    '?text=' +
-    encodeURIComponent(shareText) +
-    '&url=' +
-    encodeURIComponent(shareUrl)
-
-  const facebookLink =
-    'https://www.facebook.com/dialog/feed' +
-    '?app_id=' +
-    encodeURIComponent(FACEBOOK_APP_ID ?? '') +
-    '&redirect_uri=' +
-    encodeURIComponent(shareUrl) +
-    '&link=' +
-    encodeURIComponent(shareUrl) +
-    '&name=' +
-    encodeURIComponent(getPageTitle(street)) +
-    '&description=' +
-    encodeURIComponent(shareText)
 
   const signInLink = (
     <a onClick={handleClickSignIn}>
@@ -145,22 +125,8 @@ function ShareMenu (props: MenuProps): React.ReactElement {
             </div>
           </div>
           <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />
-          <ExternalLink href={twitterLink}>
-            <Icon icon="twitter" className="menu-item-icon" />
-            <FormattedMessage
-              id="menu.share.twitter"
-              defaultMessage="Share using Twitter"
-            />
-            <ExternalLinkIcon className="menu-item-external-link" />
-          </ExternalLink>
-          <ExternalLink href={facebookLink}>
-            <Icon icon="facebook" className="menu-item-icon" />
-            <FormattedMessage
-              id="menu.share.facebook"
-              defaultMessage="Share using Facebook"
-            />
-            <ExternalLinkIcon className="menu-item-external-link" />
-          </ExternalLink>
+          <PostOnTwitter shareText={shareText} shareUrl={shareUrl} />
+          <PostOnFacebook shareText={shareText} shareUrl={shareUrl} />
           <ExternalLink href={`https://3dstreet.app/#${window.location.href}`}>
             <CubeIcon className="menu-item-icon-radix" />
             <FormattedMessage
