@@ -1,5 +1,5 @@
 import React from 'react'
-import { screen, act } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -22,17 +22,13 @@ describe('GeoSearch', () => {
     expect(screen.queryByTitle('Clear search')).not.toBeInTheDocument()
 
     // Simulates input, which should also trigger events
-    await act(async () => {
-      await user.type(input, 'f')
-    })
+    await user.type(input, 'f')
 
     // The close button should appear after one keystroke
     expect(screen.queryByTitle('Clear search')).toBeInTheDocument()
 
     // Deletes input
-    await act(async () => {
-      await user.clear(input)
-    })
+    await user.clear(input)
 
     // The close button should now disappear
     expect(screen.queryByTitle('Clear search')).not.toBeInTheDocument()
@@ -47,12 +43,10 @@ describe('GeoSearch', () => {
 
     // Simulates input
     const input = getByPlaceholderText('Search for a location')
-    await act(async () => {
-      await user.type(input, 'foo')
+    await user.type(input, 'foo')
 
-      // Simulates click on "clear search"
-      await user.click(getByTitle('Clear search'))
-    })
+    // Simulates click on "clear search"
+    await user.click(getByTitle('Clear search'))
 
     // The close button should be undefined now
     expect(queryByTitle('Clear search')).not.toBeInTheDocument()

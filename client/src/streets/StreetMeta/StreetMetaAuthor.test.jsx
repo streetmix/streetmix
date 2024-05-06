@@ -1,6 +1,5 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -56,9 +55,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await act(async () => {
-      await userEvent.click(getByText('foo'))
-    })
+    await userEvent.click(getByText('foo'))
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })
@@ -78,9 +75,7 @@ describe('StreetMetaAuthor', () => {
       }
     })
 
-    await act(async () => {
-      await userEvent.click(getByText('foo'))
-    })
+    await userEvent.click(getByText('foo'))
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
   })

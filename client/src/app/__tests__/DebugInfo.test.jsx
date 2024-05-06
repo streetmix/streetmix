@@ -1,7 +1,7 @@
 import React from 'react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render, act } from '~/test/helpers/render'
+import { render } from '~/test/helpers/render'
 import DebugInfo from '../DebugInfo'
 
 describe('DebugInfo', () => {
@@ -23,9 +23,7 @@ describe('DebugInfo', () => {
       initialState
     })
 
-    await act(async () => {
-      await userEvent.type(container, '{shift}D')
-    })
+    await userEvent.type(container, '{shift}D')
     expect(asFragment()).toMatchSnapshot()
   })
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen, act } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -37,9 +37,7 @@ describe('IdentityMenu', () => {
   it('shows "My streets" when its link is clicked', async () => {
     render(<IdentityMenu isActive={true} />, { initialState })
 
-    await act(async () => {
-      await userEvent.click(screen.getByText('My streets'))
-    })
+    await userEvent.click(screen.getByText('My streets'))
 
     expect(openGallery).toBeCalledTimes(1)
     expect(openGallery).toBeCalledWith({ userId: 'foo' })
@@ -48,9 +46,7 @@ describe('IdentityMenu', () => {
   it('signs the user out when its link is clicked', async () => {
     render(<IdentityMenu isActive={true} />, { initialState })
 
-    await act(async () => {
-      await userEvent.click(screen.getByText('Sign out'))
-    })
+    await userEvent.click(screen.getByText('Sign out'))
 
     expect(onSignOutClick).toBeCalledTimes(1)
   })

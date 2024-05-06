@@ -2,7 +2,7 @@ import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
-import { render, act } from '~/test/helpers/render'
+import { render } from '~/test/helpers/render'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 import StreetEditable from '../StreetEditable'
 
@@ -52,10 +52,8 @@ describe('StreetEditable', () => {
           { initialState: { street } }
         )
 
-        await act(async () => {
-          await userEvent.hover(getByTestId('segment'))
-          await userEvent.type(container, '+')
-        })
+        await userEvent.hover(getByTestId('segment'))
+        await userEvent.type(container, '+')
 
         expect(store.getState().street.segments[0].width).toEqual(120)
         expect(store.getState().street.segments[0].warnings).toEqual([
