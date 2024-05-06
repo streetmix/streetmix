@@ -53,9 +53,7 @@ describe('UpDownInput', () => {
     await user.click(downButton)
     expect(handleDown).toHaveBeenCalled()
 
-    await act(async () => {
-      await user.type(inputEl, 'abc')
-    })
+    await user.type(inputEl, 'abc')
     expect(handleUpdate).toHaveBeenCalledTimes(3)
   })
 
@@ -92,9 +90,7 @@ describe('UpDownInput', () => {
 
     // User clicks outside the input, setting active element elsewhere.
     // The display formatter should now be called again
-    await act(async () => {
-      await user.click(inputEl.parentNode as Element)
-    })
+    await user.click(inputEl.parentNode as Element)
     expect(inputEl.value).toBe('5 bar')
   })
 
@@ -116,16 +112,12 @@ describe('UpDownInput', () => {
 
     // User hovers over the input, so the input formatter is called
     // Note: the input content is also selected, but we are not testing for that
-    await act(async () => {
-      await user.hover(inputEl)
-    })
+    await user.hover(inputEl)
     expect(inputEl.value).toBe('5')
 
     // User unhovers over the input
     // The display formatter should now be called again
-    await act(async () => {
-      await user.unhover(inputEl)
-    })
+    await user.unhover(inputEl)
     expect(inputEl.value).toBe('5 bar')
   })
 
@@ -140,10 +132,8 @@ describe('UpDownInput', () => {
 
     const inputEl = screen.getByRole('textbox')
 
-    await act(async () => {
-      await user.clear(inputEl)
-      await user.type(inputEl, '3{enter}')
-    })
+    await user.clear(inputEl)
+    await user.type(inputEl, '3{enter}')
 
     await waitFor(() => {
       expect(handleUpdate).toHaveBeenLastCalledWith('3')
@@ -157,10 +147,8 @@ describe('UpDownInput', () => {
 
     const inputEl = screen.getByRole('textbox')
 
-    await act(async () => {
-      await user.clear(inputEl)
-      await user.type(inputEl, '3{Escape}')
-    })
+    await user.clear(inputEl)
+    await user.type(inputEl, '3{Escape}')
 
     // When this is reverted, the `handleUpdate` callback is called
     // with the original value (which has been cast to string, to match
@@ -211,10 +199,8 @@ describe('UpDownInput', () => {
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     const upButton = screen.getByTitle('up')
 
-    await act(async () => {
-      await user.clear(inputEl)
-      await user.type(inputEl, '6{enter}')
-    })
+    await user.clear(inputEl)
+    await user.type(inputEl, '6{enter}')
     // NOTE: Test fails here
     expect(inputEl.value).toBe('6')
 

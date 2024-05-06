@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen, act, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -60,9 +60,7 @@ describe('GalleryStreetItem', () => {
     const doSelect = vi.fn()
     render(<GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />)
 
-    await act(async () => {
-      await userEvent.click(screen.getByText(MOCK_STREET.name))
-    })
+    await userEvent.click(screen.getByText(MOCK_STREET.name))
     expect(doSelect).toBeCalled()
   })
 
@@ -78,9 +76,7 @@ describe('GalleryStreetItem', () => {
       />
     )
 
-    await act(async () => {
-      await userEvent.click(screen.getByTitle('Delete street'))
-    })
+    await userEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).toBeCalled()
   })
 

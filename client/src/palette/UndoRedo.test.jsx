@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen, act } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -25,9 +25,7 @@ describe('UndoRedo', () => {
     })
 
     // Click the undo button
-    await act(async () => {
-      await userEvent.click(screen.getByTitle('Undo'))
-    })
+    await userEvent.click(screen.getByTitle('Undo'))
 
     // Redo should now be available, but undo is not.
     expect(screen.getByTitle('Undo')).toBeDisabled()
@@ -46,9 +44,7 @@ describe('UndoRedo', () => {
 
     // Expect the undo position to increment when redo button is clicked
     // Click the redo button
-    await act(async () => {
-      await userEvent.click(screen.getByTitle('Redo'))
-    })
+    await userEvent.click(screen.getByTitle('Redo'))
 
     // Undo should now be available, but redo is not.
     expect(screen.getByTitle('Undo')).toBeEnabled()

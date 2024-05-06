@@ -1,5 +1,5 @@
 import React from 'react'
-import { screen, act } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -29,9 +29,7 @@ describe('WidthControl', () => {
         initialState: { street: { segments: [segment], units: 0 } }
       })
 
-      await act(async () => {
-        await userEvent.click(screen.getByTitle(/Increase width/i))
-      })
+      await userEvent.click(screen.getByTitle(/Increase width/i))
       expect(store.getState().street.segments[activeElement].width).toEqual(
         3.05
       )
@@ -44,9 +42,7 @@ describe('WidthControl', () => {
         initialState: { street: { segments: [segment], units: 0 } }
       })
 
-      await act(async () => {
-        await userEvent.click(screen.getByTitle(/Decrease width/i))
-      })
+      await userEvent.click(screen.getByTitle(/Decrease width/i))
       expect(store.getState().street.segments[activeElement].width).toEqual(
         2.95
       )

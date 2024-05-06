@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { screen, act } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -24,9 +24,7 @@ describe('StreetMetaWidthContainer', () => {
   it('renders selection dropdown on click', async () => {
     const { asFragment } = render(<StreetMetaWidthContainer />)
 
-    await act(async () => {
-      await userEvent.click(screen.getByText('0 m width'))
-    })
+    await userEvent.click(screen.getByText('0 m width'))
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -37,14 +35,10 @@ describe('StreetMetaWidthContainer', () => {
     render(<StreetMetaWidthContainer />)
 
     // Click the "Change street width" button
-    await act(async () => {
-      await user.click(screen.getByRole('button'))
-    })
+    await user.click(screen.getByRole('button'))
 
     // Wait for element to be replaced, then change value from dropdown
-    await act(async () => {
-      await user.selectOptions(screen.getByRole('combobox'), '12')
-    })
+    await user.selectOptions(screen.getByRole('combobox'), '12')
 
     // The change is made
     expect(updateStreetWidth).toBeCalledWith(12)
@@ -72,17 +66,13 @@ describe('StreetMetaWidthContainer', () => {
     render(<StreetMetaWidthContainer />)
 
     // Click the "Change street width" button
-    await act(async () => {
-      await userEvent.click(screen.getByRole('button'))
-    })
+    await userEvent.click(screen.getByRole('button'))
 
     // Wait for element to be replaced, then change value from dropdown
-    await act(async () => {
-      await userEvent.selectOptions(
-        screen.getByRole('combobox'),
-        'Switch to imperial units (feet)'
-      )
-    })
+    await userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      'Switch to imperial units (feet)'
+    )
 
     // The change is made
     expect(updateUnits).toBeCalledWith(1)
