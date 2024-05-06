@@ -5,7 +5,6 @@ import { IoPrintOutline } from 'react-icons/io5'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import ExternalLink from '~/src/ui/ExternalLink'
-import { doSignIn } from '~/src/users/authentication'
 import { startPrinting } from '~/src/store/slices/app'
 import Menu, { type MenuProps } from '../Menu'
 import CopyShareLink from './CopyShareLink'
@@ -13,6 +12,7 @@ import PostOnFacebook from './PostOnFacebook'
 import PostOnMastodon from './PostOnMastodon'
 import PostOnTwitter from './PostOnTwitter'
 import SaveImage from './SaveImage'
+import SignInPromo from './SignInPromo'
 import { getSharingUrl, getSharingMessage } from './helpers'
 import './ShareMenu.scss'
 
@@ -34,11 +34,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
     }, 200)
   }
 
-  function handleClickSignIn (event: React.MouseEvent): void {
-    event.preventDefault()
-    doSignIn()
-  }
-
   function handleClickPrint (event: React.MouseEvent): void {
     event.preventDefault()
 
@@ -55,34 +50,11 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   const shareText = getSharingMessage(street, user, intl)
   const shareUrl = getSharingUrl()
 
-  const signInLink = (
-    <a onClick={handleClickSignIn}>
-      <FormattedMessage
-        defaultMessage="Sign in"
-        id="menu.share.sign-in-twitter-link"
-      />
-    </a>
-  )
-
-  const signInPromo = !user.signedIn
-    ? (
-      <div className="share-sign-in-promo">
-        <FormattedMessage
-          id="menu.share.sign-in-link"
-          defaultMessage="{signInLink} for nicer links to your streets and your personal street gallery"
-          values={{
-            signInLink
-          }}
-        />
-      </div>
-      )
-    : null
-
   return (
     <Menu onShow={handleShow} className="share-menu" {...props}>
       {!offline && (
         <>
-          {signInPromo}
+          {!user.signedIn && <SignInPromo />}
           <CopyShareLink shareUrl={shareUrl} ref={copyShareLinkRef} />
           <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />
           <PostOnTwitter shareText={shareText} shareUrl={shareUrl} />
