@@ -32,7 +32,7 @@
     "@radix-ui/react-slider": "1.1.2",
     "@radix-ui/react-switch": "1.0.3",
     "@reduxjs/toolkit": "2.2.3",
-    "@sentry/browser": "7.109.0",
+    "@sentry/browser": "7.113.0",
     "@sentry/cli": "2.21.2",
     "@tippyjs/react": "4.2.6",
     "@types/auth0-js": "9.21.5",
