@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import {
   Link2Icon,
@@ -8,17 +8,18 @@ import {
 } from '@radix-ui/react-icons'
 import { IoPrintOutline } from 'react-icons/io5'
 import copy from 'copy-to-clipboard'
-import { useSelector, useDispatch } from '../../store/hooks'
-import Button from '../../ui/Button'
-import Icon from '../../ui/Icon'
-import ExternalLink from '../../ui/ExternalLink'
-import { FACEBOOK_APP_ID } from '../../app/config'
-import { getPageTitle } from '../../app/page_title'
-import { getSharingUrl } from '../../util/share_url'
-import { doSignIn } from '../../users/authentication'
-import { showDialog } from '../../store/slices/dialogs'
-import { startPrinting } from '../../store/slices/app'
-import Menu, { type MenuProps } from './Menu'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import Button from '~/src/ui/Button'
+import Icon from '~/src/ui/Icon'
+import ExternalLink from '~/src/ui/ExternalLink'
+import { FACEBOOK_APP_ID } from '~/src/app/config'
+import { getPageTitle } from '~/src/app/page_title'
+import { getSharingUrl } from '~/src/util/share_url'
+import { doSignIn } from '~/src/users/authentication'
+import { showDialog } from '~/src/store/slices/dialogs'
+import { startPrinting } from '~/src/store/slices/app'
+import Menu, { type MenuProps } from '../Menu'
 import './ShareMenu.scss'
 
 const LS_SHARE_MASTODON = 'share:mastodon-domain'
@@ -31,17 +32,8 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   const street = useSelector((state) => state.street)
   const flag = useSelector((state) => state.flags.STREETMETER_EXPORT.value)
   const dispatch = useDispatch()
-  const [shareUrl, setShareUrl] = useState('')
   const shareViaLinkInputRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
-
-  useEffect(() => {
-    updateLinks()
-  })
-
-  function updateLinks (): void {
-    setShareUrl(getSharingUrl())
-  }
 
   function getSharingMessage (): string {
     let message = ''
@@ -105,9 +97,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   }
 
   function handleShow (): void {
-    // Make sure links are updated when the menu is opened
-    updateLinks()
-
     // Auto-focus and select link when share menu is active
     window.setTimeout(() => {
       if (!shareViaLinkInputRef.current) return
@@ -177,6 +166,8 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   }
 
   const shareText = getSharingMessage()
+  const shareUrl = getSharingUrl()
+
   const twitterLink =
     'https://twitter.com/intent/tweet' +
     '?text=' +

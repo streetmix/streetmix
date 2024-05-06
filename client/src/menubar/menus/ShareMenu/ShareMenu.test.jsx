@@ -9,7 +9,7 @@ import { showDialog } from '~/src/store/slices/dialogs'
 import ShareMenu from './ShareMenu'
 
 vi.mock('copy-to-clipboard')
-vi.mock('../../store/slices/dialogs', () => ({
+vi.mock('../../../store/slices/dialogs', () => ({
   default: {},
   showDialog: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
