@@ -126,7 +126,7 @@
     "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "prettier": "3.2.5",
-    "supertest": "6.3.4",
+    "supertest": "7.0.0",
     "typescript": "5.2.2",
     "vitest": "1.6.0"
   }
