@@ -113,6 +113,10 @@
     "label": "Integrated membership billing",
     "defaultValue": false
   },
+  "STREETMETER_EXPORT": {
+    "label": "Streetmeter export",
+    "defaultValue": false
+  },
   "SILLY_CLOWNS": {
     "label": "Silly clowns",
     "defaultValue": false
