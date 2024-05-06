@@ -1,11 +1,6 @@
 import React, { useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import {
-  Link2Icon,
-  CubeIcon,
-  DownloadIcon,
-  ExternalLinkIcon
-} from '@radix-ui/react-icons'
+import { Link2Icon, CubeIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import { IoPrintOutline } from 'react-icons/io5'
 import copy from 'copy-to-clipboard'
 
@@ -14,12 +9,12 @@ import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import ExternalLink from '~/src/ui/ExternalLink'
 import { doSignIn } from '~/src/users/authentication'
-import { showDialog } from '~/src/store/slices/dialogs'
 import { startPrinting } from '~/src/store/slices/app'
 import Menu, { type MenuProps } from '../Menu'
 import PostOnFacebook from './PostOnFacebook'
 import PostOnMastodon from './PostOnMastodon'
 import PostOnTwitter from './PostOnTwitter'
+import SaveImage from './SaveImage'
 import { getSharingUrl, getSharingMessage } from './helpers'
 import './ShareMenu.scss'
 
@@ -39,11 +34,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
       shareViaLinkInputRef.current.focus()
       shareViaLinkInputRef.current.select()
     }, 200)
-  }
-
-  function handleClickSaveAsImage (event: React.MouseEvent): void {
-    event.preventDefault()
-    dispatch(showDialog('SAVE_AS_IMAGE'))
   }
 
   function handleClickSignIn (event: React.MouseEvent): void {
@@ -162,19 +152,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
         <IoPrintOutline className="menu-item-icon" />
         <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
       </a>
-      <a id="save-as-image" onClick={handleClickSaveAsImage}>
-        <DownloadIcon className="menu-item-icon-radix" />
-        <FormattedMessage
-          id="menu.share.save"
-          defaultMessage="Save as image…"
-        />
-        <span className="menu-item-subtext">
-          <FormattedMessage
-            id="menu.share.save-byline"
-            defaultMessage="For including in a report, blog, etc."
-          />
-        </span>
-      </a>
+      <SaveImage />
     </Menu>
   )
 }
