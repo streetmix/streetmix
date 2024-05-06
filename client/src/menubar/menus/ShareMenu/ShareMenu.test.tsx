@@ -9,7 +9,7 @@ import { showDialog } from '~/src/store/slices/dialogs'
 import ShareMenu from './ShareMenu'
 
 vi.mock('copy-to-clipboard')
-vi.mock('../../store/slices/dialogs', () => ({
+vi.mock('../../../store/slices/dialogs', () => ({
   default: {},
   showDialog: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
 }))
@@ -26,10 +26,14 @@ describe('ShareMenu', () => {
 
     // Check for proper sharing messages
     const message = 'Check out this street on Streetmix!'
-    const twitterLink = screen.getByText('Twitter', { exact: false }).href
-    const facebookLink = screen.getByText('Facebook', { exact: false }).href
-    expect(twitterLink.replace(/%20/g, ' ')).toMatch(message)
-    expect(facebookLink.replace(/%20/g, ' ')).toMatch(message)
+    const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
+      exact: false
+    })
+    const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
+      exact: false
+    })
+    expect(twitterLink.href.replace(/%20/g, ' ')).toMatch(message)
+    expect(facebookLink.href.replace(/%20/g, ' ')).toMatch(message)
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -52,12 +56,16 @@ describe('ShareMenu', () => {
 
     // Check for proper sharing messages
     const message = 'Check out my street, bar, on Streetmix!'
-    const twitterLink = screen.getByText('Twitter', { exact: false }).href
-    const facebookLink = screen.getByText('Facebook', { exact: false }).href
-    expect(twitterLink.replace(/%20/g, ' ').replace(/%2C/g, ',')).toMatch(
+    const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
+      exact: false
+    })
+    const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
+      exact: false
+    })
+    expect(twitterLink.href.replace(/%20/g, ' ').replace(/%2C/g, ',')).toMatch(
       message
     )
-    expect(facebookLink.replace(/%20/g, ' ').replace(/%2C/g, ',')).toMatch(
+    expect(facebookLink.href.replace(/%20/g, ' ').replace(/%2C/g, ',')).toMatch(
       message
     )
 
@@ -82,11 +90,15 @@ describe('ShareMenu', () => {
       })
 
       const message = 'Check out my street on Streetmix!'
-      const twitterLink = screen.getByText('Twitter', { exact: false }).href
-      const facebookLink = screen.getByText('Facebook', { exact: false }).href
+      const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
+        exact: false
+      })
+      const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
+        exact: false
+      })
 
-      expect(twitterLink.replace(/%20/g, ' ')).toMatch(message)
-      expect(facebookLink.replace(/%20/g, ' ')).toMatch(message)
+      expect(twitterLink.href.replace(/%20/g, ' ')).toMatch(message)
+      expect(facebookLink.href.replace(/%20/g, ' ')).toMatch(message)
     })
 
     it('another user’s street, with street name', () => {
@@ -106,15 +118,19 @@ describe('ShareMenu', () => {
       })
 
       const message = 'Check out bar by @qux on Streetmix!'
-      const twitterLink = screen.getByText('Twitter', { exact: false }).href
-      const facebookLink = screen.getByText('Facebook', { exact: false }).href
+      const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
+        exact: false
+      })
+      const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
+        exact: false
+      })
 
-      expect(twitterLink.replace(/%20/g, ' ').replace(/%40/g, '@')).toMatch(
-        message
-      )
-      expect(facebookLink.replace(/%20/g, ' ').replace(/%40/g, '@')).toMatch(
-        message
-      )
+      expect(
+        twitterLink.href.replace(/%20/g, ' ').replace(/%40/g, '@')
+      ).toMatch(message)
+      expect(
+        facebookLink.href.replace(/%20/g, ' ').replace(/%40/g, '@')
+      ).toMatch(message)
     })
 
     it('another user’s street, no street name', () => {
@@ -133,15 +149,19 @@ describe('ShareMenu', () => {
       })
 
       const message = 'Check out this street by @qux on Streetmix!'
-      const twitterLink = screen.getByText('Twitter', { exact: false }).href
-      const facebookLink = screen.getByText('Facebook', { exact: false }).href
+      const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
+        exact: false
+      })
+      const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
+        exact: false
+      })
 
-      expect(twitterLink.replace(/%20/g, ' ').replace(/%40/g, '@')).toMatch(
-        message
-      )
-      expect(facebookLink.replace(/%20/g, ' ').replace(/%40/g, '@')).toMatch(
-        message
-      )
+      expect(
+        twitterLink.href.replace(/%20/g, ' ').replace(/%40/g, '@')
+      ).toMatch(message)
+      expect(
+        facebookLink.href.replace(/%20/g, ' ').replace(/%40/g, '@')
+      ).toMatch(message)
     })
 
     it('anonymous user’s street, with street name', () => {
@@ -160,15 +180,19 @@ describe('ShareMenu', () => {
       })
 
       const message = 'Check out bar on Streetmix!'
-      const twitterLink = screen.getByText('Twitter', { exact: false }).href
-      const facebookLink = screen.getByText('Facebook', { exact: false }).href
+      const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
+        exact: false
+      })
+      const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
+        exact: false
+      })
 
-      expect(twitterLink.replace(/%20/g, ' ').replace(/%40/g, '@')).toMatch(
-        message
-      )
-      expect(facebookLink.replace(/%20/g, ' ').replace(/%40/g, '@')).toMatch(
-        message
-      )
+      expect(
+        twitterLink.href.replace(/%20/g, ' ').replace(/%40/g, '@')
+      ).toMatch(message)
+      expect(
+        facebookLink.href.replace(/%20/g, ' ').replace(/%40/g, '@')
+      ).toMatch(message)
     })
   })
 
