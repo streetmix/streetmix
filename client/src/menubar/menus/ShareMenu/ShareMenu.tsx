@@ -1,16 +1,15 @@
 import React, { useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { CubeIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
-import { IoPrintOutline } from 'react-icons/io5'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useSelector } from '~/src/store/hooks'
 import ExternalLink from '~/src/ui/ExternalLink'
-import { startPrinting } from '~/src/store/slices/app'
 import Menu, { type MenuProps } from '../Menu'
 import CopyShareLink from './CopyShareLink'
 import PostOnFacebook from './PostOnFacebook'
 import PostOnMastodon from './PostOnMastodon'
 import PostOnTwitter from './PostOnTwitter'
+import PrintImage from './PrintImage'
 import SaveImage from './SaveImage'
 import SignInPromo from './SignInPromo'
 import { getSharingUrl, getSharingMessage } from './helpers'
@@ -21,7 +20,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   const user = useSelector((state) => state.user)
   const street = useSelector((state) => state.street)
   const flag = useSelector((state) => state.flags.STREETMETER_EXPORT.value)
-  const dispatch = useDispatch()
   const copyShareLinkRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
@@ -32,19 +30,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
       copyShareLinkRef.current.focus()
       copyShareLinkRef.current.select()
     }, 200)
-  }
-
-  function handleClickPrint (event: React.MouseEvent): void {
-    event.preventDefault()
-
-    // Manually dispatch printing state here. Workaround for Chrome bug where
-    // calling window.print() programatically (even with a timeout) render a
-    // blank image instead
-    dispatch(startPrinting())
-
-    window.setTimeout(function () {
-      window.print()
-    }, 0)
   }
 
   const shareText = getSharingMessage(street, user, intl)
@@ -90,10 +75,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
           )}
         </>
       )}
-      <a onClick={handleClickPrint}>
-        <IoPrintOutline className="menu-item-icon" />
-        <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
-      </a>
+      <PrintImage />
       <SaveImage />
     </Menu>
   )
