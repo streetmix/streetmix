@@ -19,7 +19,7 @@ import { doSignIn } from '~/src/users/authentication'
 import { showDialog } from '~/src/store/slices/dialogs'
 import { startPrinting } from '~/src/store/slices/app'
 import Menu, { type MenuProps } from '../Menu'
-import { getSharingUrl } from './share_url'
+import { getSharingUrl, getSharingMessage } from './helpers'
 import './ShareMenu.scss'
 
 const LS_SHARE_MASTODON = 'share:mastodon-domain'
@@ -27,74 +27,12 @@ const MASTODON_DEFAULT_DOMAIN = 'mastodon.social'
 
 function ShareMenu (props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
-  const signedIn = useSelector((state) => state.user.signedIn || false)
-  const userId = useSelector((state) => state.user.signInData?.userId ?? '')
+  const user = useSelector((state) => state.user)
   const street = useSelector((state) => state.street)
   const flag = useSelector((state) => state.flags.STREETMETER_EXPORT.value)
   const dispatch = useDispatch()
   const shareViaLinkInputRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
-
-  function getSharingMessage (): string {
-    let message = ''
-
-    if (typeof street.creatorId === 'string') {
-      if (signedIn && street.creatorId === userId) {
-        if (typeof street.name === 'string') {
-          message = intl.formatMessage(
-            {
-              id: 'menu.share.messages.my-street',
-              defaultMessage:
-                'Check out my street, {streetName}, on Streetmix!'
-            },
-            { streetName: street.name }
-          )
-        } else {
-          message = intl.formatMessage({
-            id: 'menu.share.messages.my-street-unnamed',
-            defaultMessage: 'Check out my street on Streetmix!'
-          })
-        }
-      } else {
-        if (typeof street.name === 'string') {
-          message = intl.formatMessage(
-            {
-              id: 'menu.share.messages.someone-elses-street',
-              defaultMessage:
-                'Check out {streetName} by {streetCreator} on Streetmix!'
-            },
-            { streetName: street.name, streetCreator: `@${street.creatorId}` }
-          )
-        } else {
-          message = intl.formatMessage(
-            {
-              id: 'menu.share.messages.someone-elses-street-unnamed',
-              defaultMessage:
-                'Check out this street by {streetCreator} on Streetmix!'
-            },
-            { streetCreator: `@${street.creatorId}` }
-          )
-        }
-      }
-    } else {
-      if (typeof street.name === 'string') {
-        message = intl.formatMessage(
-          {
-            id: 'menu.share.messages.anonymous-creator-street',
-            defaultMessage: 'Check out {streetName} on Streetmix!'
-          },
-          { streetName: street.name }
-        )
-      } else {
-        message = intl.formatMessage({
-          id: 'menu.share.messages.anonymous-creator-street-unnamed',
-          defaultMessage: 'Check out this street on Streetmix!'
-        })
-      }
-    }
-
-    return message
-  }
 
   function handleShow (): void {
     // Auto-focus and select link when share menu is active
@@ -157,7 +95,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
       'https://' +
       encodeURIComponent(domain) +
       '/share?text=' +
-      encodeURIComponent(getSharingMessage()) +
+      encodeURIComponent(getSharingMessage(street, user, intl)) +
       '&url=' +
       encodeURIComponent(shareUrl)
 
@@ -165,7 +103,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
     window.open(url, '_blank')
   }
 
-  const shareText = getSharingMessage()
+  const shareText = getSharingMessage(street, user, intl)
   const shareUrl = getSharingUrl()
 
   const twitterLink =
@@ -197,7 +135,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
     </a>
   )
 
-  const signInPromo = !signedIn
+  const signInPromo = !user.signedIn
     ? (
       <div className="share-sign-in-promo">
         <FormattedMessage

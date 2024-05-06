@@ -1,3 +1,4 @@
+import type { SerializedError } from '@reduxjs/toolkit'
 import type { StreetData } from '@streetmix/types'
 
 // TODO: Only use this for client-side types
@@ -28,6 +29,25 @@ export interface UserProfile {
   flags: object // TODO: be more specific
   roles: string[]
   data: UserSettings
+}
+
+export interface UserSignInDetails {
+  token: string
+  refreshToken: string
+  userId: string
+  details: UserProfile
+}
+
+export interface UserState {
+  signInData: UserSignInDetails | null
+  signedIn: boolean
+  isSubscriber: boolean
+  isCoilPluginSubscriber: boolean
+  geolocation: {
+    attempted: boolean
+    data: null
+    error: string | SerializedError | null
+  }
 }
 
 export interface SentimentVote {
