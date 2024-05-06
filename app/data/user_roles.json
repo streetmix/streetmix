@@ -13,7 +13,8 @@
     "value": "ADMIN",
     "flags": {
       "LOCALES_LEVEL_1": true,
-      "COLOR_MODE_TOGGLE": true
+      "COLOR_MODE_TOGGLE": true,
+      "STREETMETER_EXPORT": true
     }
   },
   "BETA_TESTER": {
@@ -41,6 +42,14 @@
       "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true
+    }
+  },
+  "SPACESCAPE": {
+    "key": "spacescape",
+    "text": "Spacescape user",
+    "value": "spacescape",
+    "flags": {
+      "STREETMETER_EXPORT": true
     }
   },
   "TRANSLATOR": {

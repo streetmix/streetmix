@@ -29,6 +29,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   const signedIn = useSelector((state) => state.user.signedIn || false)
   const userId = useSelector((state) => state.user.signInData?.userId ?? '')
   const street = useSelector((state) => state.street)
+  const flag = useSelector((state) => state.flags.STREETMETER_EXPORT.value)
   const dispatch = useDispatch()
   const [shareUrl, setShareUrl] = useState('')
   const shareViaLinkInputRef = useRef<HTMLInputElement>(null)
@@ -285,6 +286,27 @@ function ShareMenu (props: MenuProps): React.ReactElement {
             />
             <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
+          {flag && (
+            <ExternalLink
+              href={`https://streetmeter.net/#${window.location.href}`}
+            >
+              Open in Streetmeter
+              <span
+                style={{
+                  backgroundColor: '#ffd755',
+                  color: '#554100',
+                  borderRadius: '4px',
+                  marginLeft: '.5em',
+                  padding: '.25em .5em',
+                  fontSize: '.85em',
+                  fontWeight: '550'
+                }}
+              >
+                BETA
+              </span>
+              <ExternalLinkIcon className="menu-item-external-link" />
+            </ExternalLink>
+          )}
         </>
       )}
       <a onClick={handleClickPrint}>
