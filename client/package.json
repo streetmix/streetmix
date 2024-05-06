@@ -37,7 +37,7 @@
     "@tippyjs/react": "4.2.6",
     "@types/auth0-js": "9.21.5",
     "auth0": "4.3.1",
-    "auth0-js": "9.25.0",
+    "auth0-js": "9.26.0",
     "autoprefixer": "10.4.19",
     "copy-to-clipboard": "3.3.3",
     "downshift": "9.0.4",
