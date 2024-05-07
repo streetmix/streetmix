@@ -7,7 +7,7 @@ import logo from '../../images/logo_horizontal.svg'
 import numoLogo from '../../images/sponsors/numo.svg'
 import cfalogo from '../../images/sponsors/codeforamerica.png'
 import mozlogo from '../../images/sponsors/mozilla.svg'
-import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
+import Credits from './About/Credits'
 import SocialLinks from './About/SocialLinks'
 import Dialog from './Dialog'
 import './AboutDialog.scss'

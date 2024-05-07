@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import TeamMember from './TeamMember'
 import CREDITS from './credits.json'
 import './Credits.scss'
@@ -12,7 +13,16 @@ import './Credits.scss'
 // test rendering logic without needing to change the snapshot when the credits
 // themselves change.
 
-function alphabetizeNames (a, b) {
+interface TeamMemberData {
+  name: string
+  title: string
+  mugshotFile: string
+  url?: string
+  active: boolean
+  original?: boolean
+}
+
+function alphabetizeNames (a: TeamMemberData, b: TeamMemberData): number {
   // Ignore case
   const nameA = a.name.toLowerCase()
   const nameB = b.name.toLowerCase()
@@ -58,7 +68,7 @@ const UNTRANSLATED_LABELS = {
   zh: 'Chinese'
 }
 
-function Credits (props) {
+function Credits (): React.ReactElement {
   return (
     <>
       <h2>
@@ -86,7 +96,7 @@ function Credits (props) {
 
       <div className="credits-team credits-team-past">
         {CREDITS.team
-          .filter((person) => !person.original)
+          .filter((person) => person.original !== true)
           .sort(alphabetizeNames)
           .map((person) => (
             <TeamMember {...person} key={person.name} />
@@ -100,10 +110,13 @@ function Credits (props) {
               <h3>
                 <FormattedMessage
                   id={`credits.${key}`}
-                  defaultMessage={UNTRANSLATED_LABELS[key]}
+                  defaultMessage={
+                    UNTRANSLATED_LABELS[key as keyof typeof UNTRANSLATED_LABELS]
+                  }
                 />
               </h3>
               <ul>
+                {/* eslint-disable-next-line @typescript-eslint/require-array-sort-compare */}
                 {value.sort().map((name) =>
                   Array.isArray(name)
                     ? (
@@ -145,10 +158,15 @@ function Credits (props) {
                 <h4>
                   <FormattedMessage
                     id={`i18n.lang.${key}`}
-                    defaultMessage={UNTRANSLATED_LABELS[key]}
+                    defaultMessage={
+                      UNTRANSLATED_LABELS[
+                        key as keyof typeof UNTRANSLATED_LABELS
+                      ]
+                    }
                   />
                 </h4>
                 <ul>
+                  {/* eslint-disable-next-line @typescript-eslint/require-array-sort-compare */}
                   {value.sort().map((name) =>
                     Array.isArray(name)
                       ? (
