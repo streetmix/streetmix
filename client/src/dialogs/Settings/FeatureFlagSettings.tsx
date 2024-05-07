@@ -1,13 +1,14 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { setFeatureFlag } from '../../store/slices/flags'
-import Switch from '../../ui/Switch'
 
-function FeatureFlagSettings (props) {
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { setFeatureFlag } from '~/src/store/slices/flags'
+import Switch from '~/src/ui/Switch'
+
+function FeatureFlagSettings (): React.ReactElement {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()
 
-  function renderFlagList () {
+  function renderFlagList (): React.ReactElement[] {
     return Object.entries(flags).map(([key, flag]) => {
       const slugifyKey = key.toLowerCase().replace(/_/g, '-')
       const htmlLabel = `feature-flag__input--${slugifyKey}`
@@ -37,6 +38,7 @@ function FeatureFlagSettings (props) {
       )
     })
   }
+
   return (
     <>
       <h2>Feature flags</h2>
