@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import {
   LightningBoltIcon,
   GlobeIcon,
-  // RulerSquareIcon,
   MixerHorizontalIcon,
   PersonIcon
 } from '@radix-ui/react-icons'
+
+import type { UserProfile } from '~/src/types'
+import { useSelector } from '~/src/store/hooks'
+import { ENV } from '~/src/app/config'
 import USER_ROLES from '../../../app/data/user_roles.json'
-import { ENV } from '../app/config'
 import Dialog from './Dialog'
 import FeatureFlagSettings from './Settings/FeatureFlagSettings'
 import GeneralSettings from './Settings/GeneralSettings'
@@ -19,8 +19,8 @@ import ProfileSettings from './Settings/ProfileSettings'
 import UnitSettings from './Settings/UnitSettings'
 import './SettingsDialog.scss'
 
-SettingsDialog.propTypes = {
-  category: PropTypes.string
+interface SettingsDialogProps {
+  category: string
 }
 
 /**
@@ -28,15 +28,21 @@ SettingsDialog.propTypes = {
  * Users that are not signed in (anonymous) are applied for the browser
  * session. Don't use this for street-level settings.
  */
-function SettingsDialog ({ category = 'profile' }) {
-  const user = useSelector((state) => state.user?.signInData?.details || {})
+function SettingsDialog ({
+  category = 'profile'
+}: SettingsDialogProps): React.ReactElement {
+  const user: Partial<UserProfile> = useSelector(
+    (state) => state.user?.signInData?.details ?? {}
+  )
   const [activeCategory, setActiveCategory] = useState(category)
 
+  // `user` is allowed to initialize as an empty object, and in that case
+  // make `roles` initialize as an empty array.
   const { roles = [] } = user
-  const showFlags =
+  const showFlags: boolean =
     ENV !== 'production' || roles.includes(USER_ROLES.ADMIN.value)
 
-  function handleSelectCategory (category) {
+  function handleSelectCategory (category: string): void {
     setActiveCategory(category)
   }
 
@@ -80,7 +86,9 @@ function SettingsDialog ({ category = 'profile' }) {
               <div className="settings-dialog-left">
                 <ul>
                   <li
-                    onClick={() => handleSelectCategory('profile')}
+                    onClick={() => {
+                      handleSelectCategory('profile')
+                    }}
                     className={
                       activeCategory === 'profile' ? 'settings-menu-active' : ''
                     }
@@ -93,7 +101,9 @@ function SettingsDialog ({ category = 'profile' }) {
                   </li>
 
                   <li
-                    onClick={() => handleSelectCategory('general')}
+                    onClick={() => {
+                      handleSelectCategory('general')
+                    }}
                     className={
                       activeCategory === 'general' ? 'settings-menu-active' : ''
                     }
@@ -117,7 +127,9 @@ function SettingsDialog ({ category = 'profile' }) {
                     />
                   </li> */}
                   <li
-                    onClick={() => handleSelectCategory('language')}
+                    onClick={() => {
+                      handleSelectCategory('language')
+                    }}
                     className={
                       activeCategory === 'language'
                         ? 'settings-menu-active'
@@ -132,7 +144,9 @@ function SettingsDialog ({ category = 'profile' }) {
                   </li>
                   {showFlags && (
                     <li
-                      onClick={() => handleSelectCategory('feature-flags')}
+                      onClick={() => {
+                        handleSelectCategory('feature-flags')
+                      }}
                       className={
                         activeCategory === 'feature-flags'
                           ? 'settings-menu-active'
