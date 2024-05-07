@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSelector } from '../store/hooks'
 
-interface ExternalLinkProps {
+interface ExternalLinkProps
+  extends Partial<React.AnchorHTMLAttributes<HTMLAnchorElement>> {
   children: React.ReactNode
   href: string
   className?: string
