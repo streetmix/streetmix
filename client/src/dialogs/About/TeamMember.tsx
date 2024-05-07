@@ -1,23 +1,25 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import ExternalLink from '../../ui/ExternalLink'
+
+import ExternalLink from '~/src/ui/ExternalLink'
 import './TeamMember.scss'
 
-function TeamMember (props) {
+interface TeamMemberProps {
+  name: string
+  title: string
+  mugshotFile: string
+  url?: string
+}
+
+function TeamMember (props: TeamMemberProps): React.ReactElement {
   const { name, title, mugshotFile, url } = props
-  const style = {}
+  const style: React.CSSProperties = {}
 
   if (mugshotFile) {
     style.backgroundImage = `url('/images/team/${mugshotFile}')`
   }
 
-  const displayName = url
-    ? (
-      <ExternalLink href={url}>{name}</ExternalLink>
-      )
-    : (
-        name
-      )
+  const displayName =
+    url !== undefined ? <ExternalLink href={url}>{name}</ExternalLink> : name
 
   return (
     <div className="team-member">
@@ -26,13 +28,6 @@ function TeamMember (props) {
       <span className="team-member-title">{title}</span>
     </div>
   )
-}
-
-TeamMember.propTypes = {
-  name: PropTypes.string,
-  title: PropTypes.string,
-  mugshotFile: PropTypes.string,
-  url: PropTypes.string
 }
 
 export default TeamMember
