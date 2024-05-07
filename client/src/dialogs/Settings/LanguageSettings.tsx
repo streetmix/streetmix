@@ -1,29 +1,32 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import RadioGroup from '../../ui/RadioGroup'
-// import LoadingSpinner from '../../ui/LoadingSpinner'
-import { changeLocale } from '../../store/slices/locale'
-import { DEFAULT_LOCALE } from '../../locales/constants'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { changeLocale } from '~/src/store/slices/locale'
+import RadioGroup, { type RadioItemProps } from '~/src/ui/RadioGroup'
+import { DEFAULT_LOCALE } from '~/src/locales/constants'
 import {
   getAvailableLocales,
   getActualLocaleFromRequested
-} from '../../locales/locale'
+} from '~/src/locales/locale'
 
-function LanguageSettings (props) {
-  const locale = useSelector((state) => state.locale.locale || DEFAULT_LOCALE)
-  // const requestedLocale = useSelector((state) => state.locale.requestedLocale)
+import type { LocaleDefinition } from '@streetmix/types'
+
+function LanguageSettings (): React.ReactElement {
+  const locale = useSelector((state) => state.locale.locale ?? DEFAULT_LOCALE)
   const dispatch = useDispatch()
   const intl = useIntl()
 
   const availableLocales = getAvailableLocales()
   const actuallySelectedLocale = getActualLocaleFromRequested(locale)
 
-  async function handleValueChange (newLocale) {
-    await dispatch(changeLocale(newLocale))
+  function handleValueChange (newLocale: string): void {
+    void dispatch(changeLocale(newLocale))
   }
 
-  function makeLocaleValues (availableLocales) {
+  function makeLocaleValues (
+    availableLocales: LocaleDefinition[]
+  ): RadioItemProps[] {
     return availableLocales.map((locale) => ({
       value: locale.value,
       label: locale.label,

@@ -17,7 +17,7 @@ interface RadioProps extends RadioGroupProps {
   values: RadioItemProps[]
 }
 
-interface RadioItemProps extends RadioGroupItemProps {
+export interface RadioItemProps extends RadioGroupItemProps {
   label: string
   sublabel?: string
 }

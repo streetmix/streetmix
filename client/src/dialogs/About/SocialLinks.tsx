@@ -1,8 +1,9 @@
 import React from 'react'
-import Icon from '../../ui/Icon'
+
+import Icon from '~/src/ui/Icon'
 import './SocialLinks.scss'
 
-function SocialLinks (props) {
+function SocialLinks (): React.ReactElement {
   return (
     <ul className="social-links">
       <li>

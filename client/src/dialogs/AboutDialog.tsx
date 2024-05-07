@@ -1,23 +1,18 @@
-/**
- * About Streetmix (dialog box)
- *
- * Renders the "About" dialog box.
- *
- */
-import React from 'react'
+import React, { memo } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useSelector } from 'react-redux'
+
+import { useSelector } from '../store/hooks'
 import ExternalLink from '../ui/ExternalLink'
 import logo from '../../images/logo_horizontal.svg'
 import numoLogo from '../../images/sponsors/numo.svg'
 import cfalogo from '../../images/sponsors/codeforamerica.png'
 import mozlogo from '../../images/sponsors/mozilla.svg'
-import Credits from './About/Credits.jsx' // Without extension, test will erroneously import .json instead
+import Credits from './About/Credits'
 import SocialLinks from './About/SocialLinks'
 import Dialog from './Dialog'
 import './AboutDialog.scss'
 
-function AboutDialog (props) {
+function AboutDialog (): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
 
   return (
@@ -285,4 +280,4 @@ function AboutDialog (props) {
   )
 }
 
-export default React.memo(AboutDialog)
+export default memo(AboutDialog)

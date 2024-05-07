@@ -1,22 +1,23 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import RadioGroup from '../../ui/RadioGroup'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { setUserUnits } from '~/src/store/slices/settings'
+import RadioGroup from '~/src/ui/RadioGroup'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
-} from '../../users/constants'
-import { setUserUnits } from '../../store/slices/settings'
+} from '~/src/users/constants'
 
 // This is user-level setting! It does not adjust street units, as
 // it did in the past. The main effect is that you only see this
 // for new streets.
-function UnitSettings (props) {
+function UnitSettings (): React.ReactElement {
   const units = useSelector((state) => state.settings.units)
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  function handleValueChange (value) {
+  function handleValueChange (value: string): void {
     if (value === 'metric') {
       dispatch(setUserUnits(SETTINGS_UNITS_METRIC))
     } else {

@@ -1,16 +1,18 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import Popover from '../../ui/Popover'
-import RadioGroup from '../../ui/RadioGroup'
-import { setUserColorMode } from '../../store/slices/settings'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { setUserColorMode } from '~/src/store/slices/settings'
+import Popover from '~/src/ui/Popover'
+import RadioGroup from '~/src/ui/RadioGroup'
 import {
   COLOR_MODE_DARK,
   COLOR_MODE_LIGHT,
-  COLOR_MODE_AUTO
-} from '../../app/constants'
+  COLOR_MODE_AUTO,
+  type ColorModes
+} from '~/src/app/constants'
 
-function AppearanceSettings (props) {
+function AppearanceSettings (): React.ReactElement {
   return (
     <section>
       <h2>
@@ -25,12 +27,12 @@ function AppearanceSettings (props) {
   )
 }
 
-function ColorModeSettings (props) {
+function ColorModeSettings (): React.ReactElement {
   const colorMode = useSelector((state) => state.settings.colorMode)
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  function handleValueChange (value) {
+  function handleValueChange (value: ColorModes): void {
     dispatch(setUserColorMode(value))
   }
 
