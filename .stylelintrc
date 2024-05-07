@@ -4,13 +4,7 @@
     "stylelint-config-standard-scss",
     "stylelint-prettier/recommended"
   ],
-  "plugins": [
-    "stylelint-csstree-validator"
-  ],
   "rules": {
-    "csstree/validator": {
-      "syntaxExtensions": ["sass"]
-    },
     "no-descending-specificity": null
   }
 }
