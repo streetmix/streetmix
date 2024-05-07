@@ -7,7 +7,7 @@ import type { PopoverContentProps } from '@radix-ui/react-popover'
 import './Popover.scss'
 
 interface PopoverProps {
-  label: string
+  label?: string
   children: React.ReactElement
 }
 
@@ -28,7 +28,7 @@ PopoverContent.displayName = 'PopoverContent'
 function Popover ({ label, children }: PopoverProps): React.ReactElement {
   const intl = useIntl()
   const a11yLabel =
-    label ||
+    label ??
     intl.formatMessage({
       id: 'settings.info-tooltip',
       defaultMessage: 'Description'

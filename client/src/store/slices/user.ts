@@ -70,7 +70,7 @@ const userSlice = createSlice({
 
     updateDisplayName (
       state,
-      action: PayloadAction<UserProfile, UserProfile['displayName']>
+      action: PayloadAction<UserProfile['displayName']>
     ) {
       if (state.signInData?.details) {
         state.signInData.details.displayName = action.payload

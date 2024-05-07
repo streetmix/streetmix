@@ -1,21 +1,22 @@
 import React, { useState, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { updateDisplayName } from '../../store/slices/user'
-import Button from '../../ui/Button'
-import LoadingSpinner from '../../ui/LoadingSpinner'
-import Popover from '../../ui/Popover'
-import { patchUser } from '../../util/api'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { updateDisplayName } from '~/src/store/slices/user'
+import Button from '~/src/ui/Button'
+import LoadingSpinner from '~/src/ui/LoadingSpinner'
+import Popover from '~/src/ui/Popover'
+import { patchUser } from '~/src/util/api'
 import './ProfileSettings.scss'
 
 const DISPLAY_NAME_MAX_CHARS = 30
 const DISPLAY_NAME_MAX_CHARS_WARN = DISPLAY_NAME_MAX_CHARS - 10
 
-function ProfileSettings (props) {
-  const displayNameInputRef = useRef()
+function ProfileSettings (): React.ReactElement | null {
+  const displayNameInputRef = useRef<HTMLInputElement>(null)
   const user = useSelector((state) => state.user.signInData?.details)
   const [displayNameValue, setDisplayNameValue] = useState(
-    user.displayName || user.id
+    user?.displayName ?? user?.id ?? ''
   )
   const [isEditing, setEditing] = useState(false)
   const [isPending, setPending] = useState(false)
@@ -23,7 +24,7 @@ function ProfileSettings (props) {
   const intl = useIntl()
   const dispatch = useDispatch()
 
-  function handleEditDisplayName (event) {
+  function handleEditDisplayName (): void {
     setEditing(true)
 
     // Focuses the input and selects it if has the default username
@@ -31,24 +32,28 @@ function ProfileSettings (props) {
     window.setTimeout(() => {
       if (displayNameInputRef.current) {
         displayNameInputRef.current.focus()
-        if (displayNameValue === user.id) {
+        if (displayNameValue === user?.id) {
           displayNameInputRef.current.select()
         }
       }
     }, 0)
   }
 
-  function handleResetDisplayName (event) {
+  function handleResetDisplayName (): void {
     setEditing(false)
-    setDisplayNameValue(user.displayName || user.id)
+    setDisplayNameValue(user?.displayName ?? user?.id ?? '')
   }
 
-  function handleChangeDisplayName (event) {
+  function handleChangeDisplayName (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
     setDisplayNameValue(event.target.value)
   }
 
-  async function handleSaveDisplayName (event) {
+  async function handleSaveDisplayName (): Promise<void> {
     setPending(true)
+
+    if (user === undefined) return
 
     try {
       // Update display name
@@ -79,9 +84,9 @@ function ProfileSettings (props) {
     }
   }
 
-  function handleSubmit (event) {
+  function handleSubmit (event: React.FormEvent): void {
     event.preventDefault()
-    handleSaveDisplayName(event)
+    void handleSaveDisplayName()
   }
 
   // Not signed-in users shouldn't see this,
@@ -185,7 +190,9 @@ function ProfileSettings (props) {
               </p>
               <div className="profile-settings-button">
                 <Button
-                  onClick={handleSaveDisplayName}
+                  onClick={() => {
+                    void handleSaveDisplayName()
+                  }}
                   primary={true}
                   disabled={isPending}
                 >
