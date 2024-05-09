@@ -156,10 +156,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     // If an "unlock flag" is set, enable the thing
     if (
       icon.unlockCondition !== undefined &&
-      !(
-        icon.unlockWithFlag !== undefined &&
-        flags[icon.unlockWithFlag]?.defaultValue
-      )
+      !(icon.unlockWithFlag !== undefined && flags[icon.unlockWithFlag]?.value)
     ) {
       let unlockConditionText
       switch (icon.unlockCondition) {
