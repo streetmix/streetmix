@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## May 9, 2024
+
+### 🐛 Bug fixes
+
+- Fixed a database issue that can prevent logins from a Google e-mail address, in rare cases.
+
 ## April 26, 2024
 
 ### 🐛 Bug fixes
