@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid'
+import { nanoid, urlAlphabet } from 'nanoid'
 import clone from 'just-clone'
 import { DEFAULT_SEGMENTS } from '../segments/default'
 import {
@@ -157,6 +157,7 @@ function fillDefaultSegments (units) {
       segment.variantString
     )
 
+    console.log('try this', urlAlphabet)
     segment.id = nanoid()
 
     // Convert segment width for imperial using rough conversion rate
