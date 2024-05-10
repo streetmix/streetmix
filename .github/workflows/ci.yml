@@ -87,7 +87,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm start
+          build: npm run build
+          start: npm run serve
           wait-on: 'http://localhost:8000'
           # Run on chrome for recording
           browser: chrome
