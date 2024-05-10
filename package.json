@@ -85,7 +85,7 @@
     "hbs": "4.2.0",
     "helmet": "7.1.0",
     "jwks-rsa": "3.1.0",
-    "nanoid": "5.0.4",
+    "nanoid": "5.0.7",
     "newrelic": "11.7.0",
     "nodemon": "3.0.1",
     "passport": "0.6.0",

@@ -87,10 +87,13 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm start
+          build: npm run build
+          start: npm run serve
           wait-on: 'http://localhost:8000'
           # Run on chrome for recording
           browser: chrome
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # We need this because sourcemaps are getting uploaded after build
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
