@@ -95,7 +95,7 @@
     "sequelize": "6.37.3",
     "sequelize-cli": "6.6.2",
     "sequelize-mock": "0.10.2",
-    "svg-sprite": "2.0.2",
+    "svg-sprite": "2.0.4",
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "5.0.0",
     "uuid": "9.0.1",
