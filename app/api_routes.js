@@ -875,7 +875,9 @@ router.get('/v1/votes', cors(), jwtCheck, v1.votes.get)
 router.post('/v1/votes', cors(), jwtCheck, v1.votes.post)
 router.put('/v1/votes', cors(), jwtCheck, v1.votes.put)
 
-router.get('/v1/download', cors(), v1.download.get)
+// Temporary url for testing street images
+// Eventually merge with v1/streets/:street_id/images
+router.get('/v1/download', cors(), jwtCheck, v1.download.get)
 
 // Catch all for all broken api paths, direct to 404 response.
 router.all('*', (req, res) => {

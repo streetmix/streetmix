@@ -1,4 +1,6 @@
+import axios from 'axios'
 import cloudinary from 'cloudinary'
+
 import models from '../../db/models/index.js'
 import logger from '../../lib/logger.js'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
@@ -281,24 +283,32 @@ export async function get (req, res) {
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     if (error?.error?.http_code === 404) {
-      res
-        .status(404)
-        .json({ status: 404, msg: 'Could not find street thumbnail.' })
+      res.status(404).json({ status: 404, msg: 'Could not find street image.' })
     } else {
       logger.error(error)
-      res
-        .status(500)
-        .json({ status: 500, msg: 'Error finding street thumbnail.' })
+      res.status(500).json({ status: 500, msg: 'Error finding street image.' })
     }
     return
   }
 
+  // TODO: is this a 404 or a 500 if cloudinary API returns nothing
   if (!resource) {
-    res
-      .status(404)
-      .json({ status: 404, msg: 'Could not find street thumbnail.' })
+    res.status(404).json({ status: 404, msg: 'Could not find street image.' })
     return
   }
 
-  res.status(200).json(resource)
+  // Fetch image from cloudinary and send to client
+  try {
+    res.set('Content-Type', 'image/png')
+    axios({
+      method: 'get',
+      url: resource.url,
+      responseType: 'stream'
+    }).then((response) => {
+      response.data.pipe(res)
+    })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).json({ status: 500, msg: 'Could not fetch street image.' })
+  }
 }
