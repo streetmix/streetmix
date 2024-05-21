@@ -1,0 +1,105 @@
+@use "sass:color";
+@import "../../../styles/variables";
+
+.identity-menu {
+  white-space: nowrap;
+}
+
+.identity-section {
+  border-bottom: 1px solid $colour-turquoise-200;
+  padding: 0.8em;
+  min-width: 150px;
+  max-width: 300px;
+}
+
+.identity-avatar-name {
+  display: flex;
+  flex-direction: row;
+}
+
+.identity-avatar-name-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5em;
+
+  [dir="rtl"] & {
+    margin-left: 0.5em;
+    margin-right: 0;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    margin: 0;
+  }
+}
+
+.identity-avatar-name-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+  white-space: normal;
+}
+
+.identity-avatar-display-name {
+  font-weight: 550;
+  color: $colour-turquoise-700;
+}
+
+.identity-roles {
+  margin-top: 0.5em;
+  margin-bottom: -0.5em;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  ul li {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius;
+    padding: 0.3em 0.6em;
+    margin-right: 0.35em;
+    margin-bottom: 0.35em;
+    font-size: 0.9em;
+    font-weight: 550;
+
+    [dir="rtl"] & {
+      margin-left: 0.35em;
+      margin-right: 0;
+    }
+  }
+
+  .role-badge-generic {
+    background-color: $colour-midnight-100;
+    color: $colour-midnight-600;
+  }
+
+  .role-badge-subscriber {
+    background-color: $colour-turquoise-200;
+    color: $colour-turquoise-700;
+
+    img {
+      height: 1em;
+      margin-right: 0.35em;
+
+      [dir="rtl"] & {
+        margin-left: 0.35em;
+        margin-right: auto;
+      }
+    }
+  }
+
+  .role-badge-admin {
+    background-color: $alert-border-colour;
+    color: color.scale($alert-border-colour, $lightness: -75%);
+  }
+}

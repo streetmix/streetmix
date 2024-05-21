@@ -5,6 +5,7 @@ import Head from '@docusaurus/Head'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import HomepageFeatures from '../components/HomepageFeatures'
 import styles from './index.module.css'
+import '@fontsource-variable/manrope'
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
@@ -29,19 +30,7 @@ function HomepageHeader() {
 export default function Home() {
   return (
     <Layout description="A guidebook for the makers and the users of Streetmix.">
-      <Head>
-        {/* Note: most meta tags are handled by theme, and these only exist on this page */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin={true}
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+      <Head />
       <HomepageHeader />
     </Layout>
   )

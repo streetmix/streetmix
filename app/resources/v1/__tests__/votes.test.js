@@ -1,7 +1,7 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 import { setupMockServer } from '../../../test/setup-mock-server'
-import votes from '../votes'
+import * as votes from '../votes'
 
 const TEST_USER_ONE = 'user1'
 const TEST_USER_AUTH0_ONE = 'foo|123'

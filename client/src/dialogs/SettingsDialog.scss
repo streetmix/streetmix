@@ -1,0 +1,82 @@
+@import "../../styles/variables";
+
+.settings-dialog {
+  width: 650px;
+  height: 70vh;
+  min-height: 300px;
+  max-height: 90vh;
+}
+
+.settings-dialog-content {
+  display: flex;
+  position: absolute; /* the only way to make this be the full height of container */
+  height: 100%;
+  width: 100%;
+}
+
+.settings-dialog-left {
+  width: 180px;
+  border-right: 1px solid $colour-turquoise-350;
+  overflow: hidden auto;
+
+  [dir="rtl"] & {
+    border-left: 1px solid $colour-turquoise-350;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    margin-top: 0.5em;
+    list-style-type: none;
+  }
+
+  li {
+    padding: 0.8em 1.2em;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $colour-turquoise-200;
+    }
+  }
+}
+
+.settings-dialog-right {
+  flex: 1;
+  padding: 2em;
+  overflow: hidden auto;
+
+  h2 {
+    color: $colour-turquoise-600;
+    font-weight: normal;
+  }
+
+  h2:first-child {
+    margin-top: 0;
+  }
+
+  section {
+    margin-bottom: 2em;
+  }
+}
+
+.settings-menu-active {
+  background-color: $colour-turquoise-100;
+  color: $colour-turquoise-700;
+  font-weight: 550;
+}
+
+.settings-menu-icon {
+  vertical-align: text-top;
+  margin-right: 0.5em;
+  color: $colour-turquoise-600;
+
+  [dir="rtl"] & {
+    margin-left: 0.5em;
+  }
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}

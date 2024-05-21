@@ -1,0 +1,29 @@
+@use "sass:color";
+@import "../../../styles/variables";
+
+.info-bubble-triangle {
+  position: absolute;
+  bottom: -24px;
+  height: 24px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    bottom: 12px;
+    margin-left: -12px;
+    transform: rotateZ(45deg);
+    background: $info-bubble-background;
+    box-shadow: $light-box-shadow;
+    pointer-events: none;
+  }
+}
+
+.info-bubble-triangle-highlight::before {
+  background: color.mix($ui-colour, white, 50%);
+}

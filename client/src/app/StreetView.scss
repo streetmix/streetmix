@@ -1,0 +1,82 @@
+@import "../../styles/variables";
+
+// TODO: Further refactor / split up of this stylesheet
+
+#street-section-outer {
+  position: absolute;
+  display: block;
+  inset: -$gallery-height 0 -20px; // Bottom inset hides the scrollbar
+  overflow: scroll hidden;
+  touch-action: pan-x;
+
+  /* Prevent overscroll from doing forward/back navigation on some browsers */
+  overscroll-behavior-x: contain;
+
+  [dir="rtl"] & {
+    direction: ltr;
+  }
+}
+
+#street-section-inner {
+  position: absolute;
+  display: block;
+  left: 0;
+  bottom: 130px;
+  height: $canvas-height + 45;
+  user-select: none;
+
+  body.read-only & {
+    bottom: 50px;
+  }
+}
+
+#street-section-editable {
+  position: absolute;
+  height: $canvas-height + 80;
+  text-align: left;
+  touch-action: pan-x;
+}
+
+#street-section-canvas {
+  z-index: $z-01-street-section;
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  margin-left: $building-space;
+  margin-right: $building-space;
+  height: $canvas-height + 40;
+}
+
+.street-section-building {
+  display: block;
+  position: absolute;
+  top: -105px;
+  width: 396px;
+  height: $canvas-height + 70px;
+  touch-action: pan-x;
+
+  .hover-bk {
+    position: absolute;
+    z-index: -1;
+    inset: -1000px 0 45px;
+  }
+
+  &.hover .hover-bk {
+    background: $segment-hover-background;
+  }
+
+  canvas {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+// Slightly shift left building 1px to correct "overbite" over ground
+.street-segment-building-left canvas {
+  left: -1px;
+}
+
+.street-segment-building-right canvas {
+  right: 0;
+}

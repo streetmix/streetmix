@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import glob from 'glob'
+import { glob } from 'glob'
 import Vinyl from 'vinyl'
 import SVGSpriter from 'svg-sprite'
 import chalk from 'chalk'
@@ -14,7 +14,7 @@ import logger from './logger.js'
  * @param {String} filename - destination filename, without .svg extension
  * @param {String} namespace - prefix to be used to namespace ids
  */
-export function compileSVGSprites (source, filename, namespace) {
+export async function compileSVGSprites (source, filename, namespace) {
   // glob pattern to be matched (see `glob` syntax)
   const pattern = path.join(source, '/**/*.svg')
 
@@ -48,14 +48,8 @@ export function compileSVGSprites (source, filename, namespace) {
   // into a single svg sprite file where each svg is converted to a <symbol>
   // Finally, we pass its output back to node `fs` to save it to the
   // build directory.
-  glob(pattern, function (error, files) {
-    if (error) {
-      logger.error(
-        '[svg-sprite] ' +
-          chalk.redBright.bold('✗ ') +
-          chalk.red(`Error reading SVG files: ${error}`)
-      )
-    }
+  try {
+    const files = await glob(pattern)
 
     logger.info(
       '[svg-sprite] ' +
@@ -79,14 +73,8 @@ export function compileSVGSprites (source, filename, namespace) {
       spriter.add(svg)
     })
 
-    spriter.compile(function (error, result, data) {
-      if (error) {
-        logger.error(
-          '[svg-sprite] ' +
-            chalk.redBright.bold('✗ ') +
-            chalk.red(`Error compiling SVG sprites: ${error}`)
-        )
-      }
+    try {
+      const { result } = await spriter.compileAsync()
 
       for (const mode in result) {
         for (const resource in result[mode]) {
@@ -129,6 +117,18 @@ export function compileSVGSprites (source, filename, namespace) {
           )
         }
       }
-    })
-  })
+    } catch (error) {
+      logger.error(
+        '[svg-sprite] ' +
+          chalk.redBright.bold('✗ ') +
+          chalk.red(`Error compiling SVG sprites: ${error}`)
+      )
+    }
+  } catch (error) {
+    logger.error(
+      '[svg-sprite] ' +
+        chalk.redBright.bold('✗ ') +
+        chalk.red(`Error reading SVG files: ${error}`)
+    )
+  }
 }

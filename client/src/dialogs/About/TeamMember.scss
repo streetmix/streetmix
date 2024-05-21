@@ -1,0 +1,52 @@
+.team-member {
+  text-align: center;
+}
+
+.team-member-name {
+  display: block;
+  margin-top: 0.5em;
+  font-size: 1.1em;
+  font-weight: 550;
+  line-height: 1.2;
+
+  .credits-team-past & {
+    font-size: 1em;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.team-member-title {
+  display: block;
+  color: gray;
+  line-height: 1.2;
+  margin-top: 0.25em;
+  font-size: 0.9em;
+
+  /* If this text is translated into German (right now, we don't have strings
+     for this, but it can be automatically translated and text-replaced by a
+     browser, like Chrome) the text can be too long and won't fit in the
+     column width. In this case we can ask the browser to break the long word. */
+  overflow-wrap: anywhere;
+}
+
+.team-member-mugshot {
+  max-width: 100%;
+  border-radius: 6px;
+
+  /* Placeholder image in case a mugshot image is not provided */
+  background-image: url("../../../images/avatar.svg");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+
+  /* Forces the mugshot div height to be a perfect square, no matter its width */
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+}

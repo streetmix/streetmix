@@ -1,0 +1,40 @@
+@import "../../../styles/variables";
+
+.custom-scale {
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+}
+
+.custom-scale-label {
+  display: flex;
+  flex-grow: unset;
+  font-weight: 550;
+  margin-right: 1em;
+  margin-top: 0.25em;
+
+  [dir="rtl"] & {
+    margin-left: 1em;
+    margin-right: 0;
+  }
+}
+
+.custom-scale-popover {
+  margin-top: -0.2em;
+}
+
+.custom-scale-control {
+  flex-grow: 1;
+}
+
+.custom-scale-info {
+  color: $colour-turquoise-600;
+}
+
+.custom-scale-disabled {
+  color: $colour-midnight-300;
+
+  .custom-scale-info {
+    color: $colour-midnight-300;
+  }
+}

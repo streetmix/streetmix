@@ -1,0 +1,94 @@
+@use "sass:color";
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.btn,
+a.btn {
+  @include tap-highlight-color("transparent !important");
+
+  display: inline-block;
+  outline: none;
+  border: 0;
+  border-radius: $border-radius-medium;
+  padding: 0.75em 2em;
+  background-color: $colour-turquoise-225;
+  color: $colour-midnight-700;
+  font-weight: 550;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  // stylelint-disable-next-line selector-class-pattern
+  &:not([disabled]) .svg-inline--fa {
+    color: $colour-midnight-700;
+  }
+
+  &:hover {
+    background-color: $colour-turquoise-250;
+  }
+
+  &:active {
+    background-color: $colour-turquoise-250;
+  }
+
+  &[disabled] {
+    background-color: color.adjust(
+      fade-out($ui-colour, 0.7),
+      $saturation: -100%
+    ) !important;
+    color: #999 !important;
+    cursor: auto;
+
+    // stylelint-disable-next-line selector-class-pattern
+    .svg-inline--fa {
+      color: #999 !important;
+    }
+
+    &:hover {
+      background-color: color.adjust(
+        fade-out($ui-colour, 0.7),
+        $saturation: -100%
+      ) !important;
+    }
+  }
+
+  &.btn-primary {
+    background-color: $colour-emerald-400;
+    color: white;
+
+    &:hover {
+      background-color: color.mix(
+        $colour-emerald-400,
+        $colour-emerald-500,
+        75%
+      );
+    }
+  }
+
+  &.btn-secondary {
+    background-color: $colour-turquoise-500;
+    color: white;
+
+    &:hover {
+      background-color: color.mix(
+        $colour-turquoise-500,
+        $colour-turquoise-600,
+        75%
+      );
+    }
+  }
+
+  &.btn-tertiary {
+    background-color: transparent;
+    color: $colour-turquoise-600;
+
+    &:not(:disabled) {
+      border: 1px solid $colour-turquoise-400;
+    }
+
+    &:hover {
+      background-color: $colour-turquoise-100;
+      color: $colour-turquoise-700;
+    }
+  }
+}

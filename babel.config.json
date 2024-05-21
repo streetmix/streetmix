@@ -1,24 +1,9 @@
 {
   // Note: Parcel config no longer reads from Babel config.
-  // This is still being used for Jest
+  // This is used for eslint parser
   "presets": [
-    // This `target` syntax is required for Jest v24, which no
-    // longer injects regenerator-runtime
-    [
-      "@babel/preset-env",
-      {
-        "targets": { "node": "current" },
-        "useBuiltIns": "usage",
-        "corejs": 3
-      }
-    ],
-    [
-      "@babel/preset-react",
-      {
-        "useBuiltIns": "usage",
-        "corejs": 3
-      }
-    ],
+    "@babel/preset-env",
+    "@babel/preset-react",
     "@babel/preset-typescript"
   ]
 }

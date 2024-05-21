@@ -103,8 +103,8 @@
     },
     "units": {
       "label": "Mittayksikkö",
-      "metric": "Metrit",
-      "imperial": "Jalat"
+      "metric": "Metrinen (metrit)",
+      "imperial": "Yhdysvaltalainen/brittiläinen (jalat ja tuumat)"
     }
   },
   "msg": {

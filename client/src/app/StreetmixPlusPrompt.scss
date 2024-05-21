@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.streetmix-plus-prompt {
+  button {
+    border: 1px solid $colour-turquoise-400;
+    width: 100%;
+    background-color: transparent;
+    color: $colour-turquoise-600;
+  }
+}
+
+.streetmix-plus-locked-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $colour-copper-600;
+  font-weight: 550;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  margin: 0.5em 0;
+
+  .fa-lock {
+    margin: 0.2em 0.5em;
+    font-size: 0.75em;
+  }
+}

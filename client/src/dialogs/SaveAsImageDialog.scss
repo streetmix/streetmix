@@ -1,0 +1,111 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+// Content of Save as Image dialog box
+.save-as-image-dialog {
+  width: 720px;
+
+  .checkbox-item {
+    margin-left: 20px;
+  }
+
+  .checkbox-item:first-of-type {
+    margin-left: 0;
+  }
+
+  [dir="rtl"] & .checkbox-item {
+    margin-left: 0;
+    margin-right: 20px;
+  }
+
+  [dir="rtl"] & .checkbox-item:first-of-type {
+    margin-right: 0;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  // Don't wrap the Creative Commons label
+  footer a {
+    white-space: nowrap;
+  }
+}
+
+.save-as-image-options {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.save-as-image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-height: 300px;
+  border-top: 3px dashed $ui-colour;
+  border-bottom: 3px dashed $ui-colour;
+}
+
+.save-as-image-preview-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255 255 255 / 90%);
+}
+
+.save-as-image-preview-image {
+  /* Removes extra baseline space */
+  line-height: 0;
+
+  /* Adds a grid for transparent backgrounds */
+  background-image: linear-gradient(45deg, #eee 25%, transparent 25%),
+    linear-gradient(-45deg, #eee 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eee 75%),
+    linear-gradient(-45deg, transparent 75%, #eee 75%);
+  background-size: 24px 24px;
+  background-position:
+    0 0,
+    0 12px,
+    12px -12px,
+    -12px 0;
+
+  img {
+    /* Images may have variable dimensions. Use max-width/max-height
+    to preserve aspect ratio */
+    max-width: 100%;
+    max-height: 300px;
+    cursor: move; // IE
+    cursor: grab;
+
+    /* Center image within preview container */
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.save-as-image-preview-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  padding: 3em;
+}
+
+.save-as-image-too-large-error {
+  font-weight: 550;
+  color: $warning-colour;
+}
+
+.save-as-image-download {
+  text-align: center;
+
+  /* Override a reset to this line-height */
+  button {
+    line-height: inherit;
+  }
+}

@@ -1,0 +1,94 @@
+@import "../../styles/variables";
+
+.segment-label-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  right: -1px;
+  border-left: 1px solid $segment-width-rule;
+  border-right: 1px solid $segment-width-rule;
+  top: $canvas-baseline;
+  height: 90px;
+  font-size: 0.9em;
+}
+
+.segment-label {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 44px;
+  color: $segment-text;
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+.segment-label > p {
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.segment.hover .segment-label {
+  font-weight: 600;
+
+  // Show full label when hovering over segment with
+  // a truncated label
+  left: auto;
+  right: auto;
+  overflow: visible;
+  z-index: 1;
+  background-color: $bottom-background;
+  padding: 4px;
+  margin-top: -4px;
+}
+
+.segment.warning .segment-label {
+  color: $segment-warning-text;
+}
+
+.segment-width {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22px;
+  height: 24px;
+  line-height: 20px;
+  color: $segment-text;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Force `rtl` direction when it's applied to the document root element, since
+the width element is inside the street layout which is forced `ltr` */
+:root[dir="rtl"] .segment-width {
+  direction: rtl !important;
+}
+
+.segment-grid {
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: 0;
+  height: $segment-grid-height;
+  pointer-events: none;
+
+  // Creates grid lines
+  background-image: linear-gradient(
+    90deg,
+    $segment-width-rule 1px,
+    transparent 1px
+  );
+  background-repeat: repeat-x;
+
+  // Change background-size width to adjust spacing of grid lines
+  &.units-imperial {
+    background-size: $tile-size 100%;
+  }
+
+  &.units-metric {
+    background-size: calc($tile-size * 100 / 30 / 2) 100%;
+  }
+}

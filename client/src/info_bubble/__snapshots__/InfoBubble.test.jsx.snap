@@ -1,0 +1,886 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InfoBubble > is visible 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble info-bubble-type-segment visible"
+  >
+    <header>
+      <div
+        class="info-bubble-label info-bubble-label-editable"
+      >
+        Streetcar
+        <span
+          class="info-bubble-label-editable-icon"
+        >
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </span>
+      </div>
+      <button
+        class="btn info-bubble-remove"
+        tabindex="-1"
+        title="Remove segment"
+        type="button"
+      >
+        <svg
+          class="octicon remove-icon"
+        />
+        Remove
+      </button>
+    </header>
+    <div
+      class="info-bubble-controls"
+    >
+      <div
+        class="variants"
+      >
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Inbound"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-inbound"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Outbound"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-outbound"
+            />
+          </svg>
+        </button>
+        <hr />
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Asphalt"
+          type="button"
+        >
+          <svg
+            class="icon"
+            style="fill: #292a29;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Red lane"
+          type="button"
+        >
+          <svg
+            class="icon"
+            style="fill: #9b1f22;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Grass"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="non-variant"
+      >
+        <div
+          class="up-down-input"
+        >
+          <button
+            class="btn up-down-input-decrement"
+            tabindex="-1"
+            title="Decrease width (hold Shift for more precision)"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            title="Change width of the segment"
+            type="text"
+            value="3 m"
+          />
+          <button
+            class="btn up-down-input-increment"
+            tabindex="-1"
+            title="Increase width (hold Shift for more precision)"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="info-bubble-triangle"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InfoBubble > renders 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble info-bubble-type-segment"
+  >
+    <header>
+      <div
+        class="info-bubble-label info-bubble-label-editable"
+      >
+        Streetcar
+        <span
+          class="info-bubble-label-editable-icon"
+        >
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </span>
+      </div>
+      <button
+        class="btn info-bubble-remove"
+        tabindex="-1"
+        title="Remove segment"
+        type="button"
+      >
+        <svg
+          class="octicon remove-icon"
+        />
+        Remove
+      </button>
+    </header>
+    <div
+      class="info-bubble-controls"
+    >
+      <div
+        class="variants"
+      >
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Inbound"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-inbound"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Outbound"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-outbound"
+            />
+          </svg>
+        </button>
+        <hr />
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Asphalt"
+          type="button"
+        >
+          <svg
+            class="icon"
+            style="fill: #292a29;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Red lane"
+          type="button"
+        >
+          <svg
+            class="icon"
+            style="fill: #9b1f22;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Grass"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="non-variant"
+      >
+        <div
+          class="up-down-input"
+        >
+          <button
+            class="btn up-down-input-decrement"
+            tabindex="-1"
+            title="Decrease width (hold Shift for more precision)"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            title="Change width of the segment"
+            type="text"
+            value="3 m"
+          />
+          <button
+            class="btn up-down-input-increment"
+            tabindex="-1"
+            title="Increase width (hold Shift for more precision)"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="info-bubble-triangle"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InfoBubble > shows building left info bubble 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble info-bubble-type-building"
+  >
+    <header>
+      <div
+        class="info-bubble-label"
+      >
+        Grass
+      </div>
+    </header>
+    <div
+      class="info-bubble-controls"
+    >
+      <div
+        class="variants"
+      >
+        <button
+          class="btn"
+          title="Waterfront"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-waterfront"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Grass"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Empty lot"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-fence"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Parking lot"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-car"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Home"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-residential"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Narrow building"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-thin"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Wide building"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-wide"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Arcade building"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-arcade"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          disabled=""
+          title="Compound wall — Sign in to use!‎"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-compound-wall"
+            />
+          </svg>
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </button>
+      </div>
+      <div
+        class="non-variant building-height"
+      >
+        <div
+          class="up-down-input"
+        >
+          <button
+            class="btn up-down-input-decrement"
+            disabled=""
+            tabindex="-1"
+            title="Remove floor"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            disabled=""
+            title="Change the number of floors"
+            type="text"
+            value=""
+          />
+          <button
+            class="btn up-down-input-increment"
+            disabled=""
+            tabindex="-1"
+            title="Add floor"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="info-bubble-triangle"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InfoBubble > shows building right info bubble 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble info-bubble-type-building"
+  >
+    <header>
+      <div
+        class="info-bubble-label"
+      >
+        Grass
+      </div>
+    </header>
+    <div
+      class="info-bubble-controls"
+    >
+      <div
+        class="variants"
+      >
+        <button
+          class="btn"
+          title="Waterfront"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-waterfront"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Grass"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Empty lot"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-fence"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Parking lot"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-car"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Home"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-residential"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Narrow building"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-thin"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Wide building"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-wide"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Arcade building"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-building-arcade"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          disabled=""
+          title="Compound wall — Sign in to use!‎"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-compound-wall"
+            />
+          </svg>
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </button>
+      </div>
+      <div
+        class="non-variant building-height"
+      >
+        <div
+          class="up-down-input"
+        >
+          <button
+            class="btn up-down-input-decrement"
+            disabled=""
+            tabindex="-1"
+            title="Remove floor"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            disabled=""
+            title="Change the number of floors"
+            type="text"
+            value=""
+          />
+          <button
+            class="btn up-down-input-increment"
+            disabled=""
+            tabindex="-1"
+            title="Add floor"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="info-bubble-triangle"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InfoBubble > shows description 1`] = `
+<DocumentFragment>
+  <div
+    class="info-bubble info-bubble-type-segment show-description"
+  >
+    <header>
+      <div
+        class="info-bubble-label info-bubble-label-editable"
+      >
+        Streetcar
+        <span
+          class="info-bubble-label-editable-icon"
+        >
+          <svg
+            class="svg-inline--fa fa-lock"
+          />
+        </span>
+      </div>
+      <button
+        class="btn info-bubble-remove"
+        tabindex="-1"
+        title="Remove segment"
+        type="button"
+      >
+        <svg
+          class="octicon remove-icon"
+        />
+        Remove
+      </button>
+    </header>
+    <div
+      class="info-bubble-controls"
+    >
+      <div
+        class="variants"
+      >
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Inbound"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-inbound"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Outbound"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-direction-outbound"
+            />
+          </svg>
+        </button>
+        <hr />
+        <button
+          class="btn variant-selected"
+          disabled=""
+          title="Asphalt"
+          type="button"
+        >
+          <svg
+            class="icon"
+            style="fill: #292a29;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Red lane"
+          type="button"
+        >
+          <svg
+            class="icon"
+            style="fill: #9b1f22;"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-asphalt"
+            />
+          </svg>
+        </button>
+        <button
+          class="btn"
+          title="Grass"
+          type="button"
+        >
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/1999/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <use
+              xlink:href="#icon-grass"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="non-variant"
+      >
+        <div
+          class="up-down-input"
+        >
+          <button
+            class="btn up-down-input-decrement"
+            tabindex="-1"
+            title="Decrease width (hold Shift for more precision)"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-minus"
+            />
+          </button>
+          <input
+            class="up-down-input-element"
+            title="Change width of the segment"
+            type="text"
+            value="3 m"
+          />
+          <button
+            class="btn up-down-input-increment"
+            tabindex="-1"
+            title="Increase width (hold Shift for more precision)"
+            type="button"
+          >
+            <svg
+              class="svg-inline--fa fa-plus"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="info-bubble-triangle"
+    />
+  </div>
+</DocumentFragment>
+`;

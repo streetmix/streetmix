@@ -1,7 +1,7 @@
 import type {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
-} from '../../assets/scripts/users/constants'
+} from '@streetmix/client/src/users/constants'
 
 export interface Segment {
   id: string
@@ -11,6 +11,7 @@ export interface Segment {
   elevation: number
   variant: Record<string, string>
   warnings: Array<boolean | null>
+  label?: string
 }
 
 export interface StreetJson {
@@ -117,16 +118,18 @@ export interface SegmentDefinition {
   enableWithFlag?: string
   unlockWithFlag?: string
   unlockCondition?: string
-  description?: {
-    key: string
-    image: string
-  }
+  description?: SegmentDescription
   rules?: {
     minWidth?: WidthDefinition
     maxWidth?: WidthDefinition
   }
   variants: string[]
   details: object
+}
+
+export interface SegmentDescription {
+  key: string
+  image: string
 }
 
 export interface WidthDefinition {
@@ -147,6 +150,8 @@ export interface LocaleDefinition {
   key: string
   level: LocaleLevel
 }
+
+export type BuildingPosition = 'left' | 'right'
 
 export interface VariantInfoDimensions {
   left: number

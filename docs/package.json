@@ -21,6 +21,7 @@
   "dependencies": {
     "@docusaurus/core": "^3.2.1",
     "@docusaurus/preset-classic": "^3.2.1",
+    "@fontsource-variable/manrope": "^5.0.19",
     "@mdx-js/react": "^3.0.0",
     "@silvenon/remark-smartypants": "^1.0.0",
     "@svgr/webpack": "^8.1.0",
@@ -33,7 +34,7 @@
   },
   "devDependencies": {
     "@argos-ci/cli": "^1.0.2",
-    "@argos-ci/playwright": "^1.2.1",
+    "@argos-ci/playwright": "^3.0.2",
     "@playwright/test": "^1.39.0",
     "cheerio": "^1.0.0-rc.12"
   },

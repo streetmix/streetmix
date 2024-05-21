@@ -1,0 +1,81 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+$street-name-size: 1.5;
+
+@mixin street-name-mixin($size: $street-name-size) {
+  padding: 3px * $size;
+}
+
+@mixin street-name-inside-mixin($size: $street-name-size) {
+  height: 50px * $size;
+  border: 3px * $size solid $street-name-text;
+  padding: 10px * $size 20px * $size;
+  padding-top: 11px * $size;
+  padding-bottom: 5px * $size;
+  font-size: 32px * $size;
+  line-height: 28px * $size;
+  letter-spacing: -0.025em;
+
+  [dir="rtl"] {
+    font-size: 30px * $size;
+  }
+}
+
+.street-name {
+  @include street-name-mixin;
+
+  display: inline-block;
+  background: $street-name-background;
+  color: $street-name-text;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.street-name-text {
+  @include street-name-inside-mixin;
+
+  font-family: "Overpass Variable", sans-serif;
+  font-weight: 700;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.gallery .streets .street-name {
+  @include street-name-mixin($street-name-gallery-size);
+
+  max-width: 95%;
+  position: relative;
+  top: -7px;
+
+  > div,
+  > span {
+    @include street-name-inside-mixin($street-name-gallery-size);
+  }
+}
+
+body.segment-move-dragging .street-nameplate-container .street-name {
+  pointer-events: none;
+}
+
+.street-nameplate-container .street-name {
+  @include tap-highlight-color(transparent);
+
+  position: relative;
+  max-width: 100%;
+  pointer-events: auto;
+}
+
+.street-name-hover-prompt {
+  position: absolute;
+  inset: 0;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  background-color: rgb(255 255 255 / 80%);
+  cursor: pointer;
+  white-space: normal;
+}
