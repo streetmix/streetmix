@@ -1,5 +1,6 @@
 import axios from 'axios'
 import cloudinary from 'cloudinary'
+import { runTestCanvas } from '@streetmix/export-image'
 
 import models from '../../db/models/index.js'
 import logger from '../../lib/logger.js'
@@ -283,7 +284,13 @@ export async function get (req, res) {
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     if (error?.error?.http_code === 404) {
-      res.status(404).json({ status: 404, msg: 'Could not find street image.' })
+      // While canvas backend is in development, let's run and return this
+      // for streets that aren't currently existing on Cloudinary.
+      const image = await runTestCanvas()
+
+      res.set('Content-Type', 'image/png')
+      res.status(200).send(image)
+      // res.status(404).json({ status: 404, msg: 'Could not find street image.' })
     } else {
       logger.error(error)
       res.status(500).json({ status: 500, msg: 'Error finding street image.' })
@@ -293,7 +300,12 @@ export async function get (req, res) {
 
   // TODO: is this a 404 or a 500 if cloudinary API returns nothing
   if (!resource) {
-    res.status(404).json({ status: 404, msg: 'Could not find street image.' })
+    res
+      .status(404)
+      .json({
+        status: 404,
+        msg: 'Did not receive any information from upstream provider.'
+      })
     return
   }
 
