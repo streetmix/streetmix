@@ -1,4 +1,5 @@
-import { parse } from 'json2csv'
+import { Parser } from '@json2csv/plainjs'
+
 import { omit } from '../util/omit'
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
@@ -6,6 +7,7 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL
 } from './constants'
 import SOURCE_DATA from './capacity_data.json'
+
 import type {
   CapacityData,
   CapacitySegmentDefinition,
@@ -272,7 +274,8 @@ export function saveCsv (data: SegmentCapacities[], streetName: string): void {
   }))
 
   try {
-    const csv = parse(formattedData, opts)
+    const parser = new Parser(opts)
+    const csv = parser.parse(formattedData)
     const downloadLink = document.createElement('a')
     const blob = new Blob(['\ufeff', csv])
     const url = URL.createObjectURL(blob)
