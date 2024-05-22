@@ -2,7 +2,8 @@ import { vi } from 'vitest'
 import {
   getSegmentCapacity,
   getStreetCapacity,
-  getRolledUpSegmentCapacities
+  getRolledUpSegmentCapacities,
+  getCsv
 } from '../capacity'
 
 // Provide mock capacity data to prevent changes in production data from
@@ -155,39 +156,39 @@ describe('street capacity', () => {
 })
 
 describe('rolled-up segment capacities', () => {
-  it('returns sorted, rolled-up capacity data for street', () => {
-    const street = {
-      segments: [
-        {
-          type: 'qux'
-        },
-        // Include two segments (both should be added)
-        // and sorted before 'qux'
-        {
-          type: 'foo'
-        },
-        {
-          type: 'foo'
-        },
-        // Result should sort 'baz' before 'foo'
-        {
-          type: 'baz'
-        },
-        {
-          type: 'qux'
-        },
-        // Include a segment without capacity (adds zero)
-        {
-          type: 'bar'
-        },
-        // Include a segment with warnings (adds zero)
-        {
-          type: 'baz',
-          warnings: [null, true, false, false]
-        }
-      ]
-    }
+  const street = {
+    segments: [
+      {
+        type: 'qux'
+      },
+      // Include two segments (both should be added)
+      // and sorted before 'qux'
+      {
+        type: 'foo'
+      },
+      {
+        type: 'foo'
+      },
+      // Result should sort 'baz' before 'foo'
+      {
+        type: 'baz'
+      },
+      {
+        type: 'qux'
+      },
+      // Include a segment without capacity (adds zero)
+      {
+        type: 'bar'
+      },
+      // Include a segment with warnings (adds zero)
+      {
+        type: 'baz',
+        warnings: [null, true, false, false]
+      }
+    ]
+  }
 
+  it('returns sorted, rolled-up capacity data for street', () => {
     expect(getRolledUpSegmentCapacities(street)).toEqual([
       {
         type: 'baz',
@@ -216,5 +217,11 @@ describe('rolled-up segment capacities', () => {
     }
 
     expect(getRolledUpSegmentCapacities(street)).toEqual([])
+  })
+
+  it('exports csv data', () => {
+    const data = getRolledUpSegmentCapacities(street)
+    const csv = getCsv(data)
+    expect(csv).toMatchSnapshot()
   })
 })
