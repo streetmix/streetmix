@@ -258,13 +258,7 @@ function sortByCapacity (a: SegmentCapacities, b: SegmentCapacities): number {
   return 0
 }
 
-/**
- * Converts capacity data into a CSV file for exporting
- *
- * @param {Array} data - capacity data from getRolledUpSegmentCapacities()
- * @param {string} streetName - string for file name
- */
-export function saveCsv (data: SegmentCapacities[], streetName: string): void {
+export function getCsv (data: SegmentCapacities[]): string {
   const fields = ['type', 'averageCapacity', 'potentialCapacity']
   const opts = { fields }
   const formattedData = data.map((row) => ({
@@ -273,9 +267,18 @@ export function saveCsv (data: SegmentCapacities[], streetName: string): void {
     potentialCapacity: row.capacity?.potential ?? 0
   }))
 
+  const parser = new Parser(opts)
+  const csv = parser.parse(formattedData)
+
+  return csv
+}
+
+/**
+ * Converts capacity data into a CSV file for exporting
+ */
+export function saveCsv (data: SegmentCapacities[], streetName: string): void {
   try {
-    const parser = new Parser(opts)
-    const csv = parser.parse(formattedData)
+    const csv = getCsv(data)
     const downloadLink = document.createElement('a')
     const blob = new Blob(['\ufeff', csv])
     const url = URL.createObjectURL(blob)
