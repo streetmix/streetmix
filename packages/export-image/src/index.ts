@@ -2,6 +2,8 @@ import path from 'node:path'
 import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
+import { makeStreetImage } from './image.js'
+
 import type { Street } from '@streetmix/types'
 
 // Set up some legacy Node.js globals for convenience
@@ -34,9 +36,8 @@ Canvas.GlobalFonts.registerFromPath(
 )
 
 export async function runTestCanvas (street: Street): Promise<Buffer> {
-  console.log(street)
-
-  const canvas = Canvas.createCanvas(800, 800)
+  const [width, height] = makeStreetImage(street)
+  const canvas = Canvas.createCanvas(width, height)
   const ctx = canvas.getContext('2d')
 
   // Write "Awesome!"
