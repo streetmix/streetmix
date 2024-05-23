@@ -1,4 +1,5 @@
-import { parse } from 'json2csv'
+import { Parser } from '@json2csv/plainjs'
+
 import { omit } from '../util/omit'
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
@@ -6,6 +7,7 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL
 } from './constants'
 import SOURCE_DATA from './capacity_data.json'
+
 import type {
   CapacityData,
   CapacitySegmentDefinition,
@@ -256,13 +258,7 @@ function sortByCapacity (a: SegmentCapacities, b: SegmentCapacities): number {
   return 0
 }
 
-/**
- * Converts capacity data into a CSV file for exporting
- *
- * @param {Array} data - capacity data from getRolledUpSegmentCapacities()
- * @param {string} streetName - string for file name
- */
-export function saveCsv (data: SegmentCapacities[], streetName: string): void {
+export function getCsv (data: SegmentCapacities[]): string {
   const fields = ['type', 'averageCapacity', 'potentialCapacity']
   const opts = { fields }
   const formattedData = data.map((row) => ({
@@ -271,8 +267,18 @@ export function saveCsv (data: SegmentCapacities[], streetName: string): void {
     potentialCapacity: row.capacity?.potential ?? 0
   }))
 
+  const parser = new Parser(opts)
+  const csv = parser.parse(formattedData)
+
+  return csv
+}
+
+/**
+ * Converts capacity data into a CSV file for exporting
+ */
+export function saveCsv (data: SegmentCapacities[], streetName: string): void {
   try {
-    const csv = parse(formattedData, opts)
+    const csv = getCsv(data)
     const downloadLink = document.createElement('a')
     const blob = new Blob(['\ufeff', csv])
     const url = URL.createObjectURL(blob)
