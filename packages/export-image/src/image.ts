@@ -4,6 +4,8 @@ import path from 'node:path'
 import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
+import { drawWatermark } from './watermark.js'
+
 import type { Street } from '@streetmix/types'
 
 // Set up some legacy Node.js globals for convenience
@@ -35,16 +37,8 @@ Canvas.GlobalFonts.registerFromPath(
   'Overpass'
 )
 
-// Must assemble path with __dirname to read from filesystem
-const WORDMARK_DARK = await Canvas.loadImage(
-  path.join(__dirname, '../assets/wordmark_black.svg')
-)
-const WORDMARK_LIGHT = await Canvas.loadImage(
-  path.join(__dirname, '../assets/wordmark_black.svg')
-)
-
 // This can be adjusted to create much more hi-definition images
-const DEFAULT_IMAGE_SCALE = 1.0 // 2.0
+const DEFAULT_IMAGE_SCALE = 1.0 // previous default is 2.0
 
 const IMAGE_MIN_HEIGHT = 400
 const IMAGE_MIN_HEIGHT_WITH_STREET_NAME = IMAGE_MIN_HEIGHT + 150
@@ -96,7 +90,7 @@ export async function makeStreetImage (
   //   watermark
   // })
   try {
-    drawWatermark(ctx, options.scale)
+    await drawWatermark(ctx, options.scale, false)
   } catch (err) {
     console.error(err)
   }
@@ -112,6 +106,25 @@ export async function makeStreetImage (
   ctx.lineTo(50, 102)
   ctx.lineTo(50 + text.width, 102)
   ctx.stroke()
+
+  // Test rendering an SVG
+  try {
+    // Must assemble path with __dirname to read from filesystem
+    const image = await Canvas.loadImage(
+      path.join(__dirname, '../assets/planter-box.svg')
+    )
+
+    // Set the width and height here to scale properly
+    image.width = image.width * options.scale
+    image.height = image.height * options.scale
+
+    // Draw the image; don't use the dw and dh arguments for scaling, it will
+    // be pixelated. That's why we set the width/height properties earlier.
+    ctx.rotate(0.1)
+    ctx.drawImage(image, 80, 80)
+  } catch (err) {
+    console.error(err)
+  }
 
   return await canvas.encode('png')
 }
@@ -162,95 +175,4 @@ function calculateImageHeight (
   }
 
   return height * options.scale
-}
-
-// -- WATERMARK
-
-const WATERMARK_FONT = 'Rubik'
-const WATERMARK_FONT_SIZE = 24
-const WATERMARK_FONT_WEIGHT = '600'
-const WATERMARK_RIGHT_MARGIN = 15
-const WATERMARK_BOTTOM_MARGIN = 15
-const WATERMARK_DARK_COLOR = '#333333'
-const WATERMARK_LIGHT_COLOR = '#cccccc'
-
-const WORDMARK_MARGIN = 4
-
-/**
- * Draws a "made with Streetmix" watermark on the lower right of the image.
- *
- * @todo Make it work with rtl
- * @modifies {Canvas.SKRSContext2D}
- */
-function drawWatermark (
-  ctx: Canvas.SKRSContext2D,
-  scale: number,
-  invert: boolean = false
-): void {
-  // const text = formatMessage(
-  //   'export.watermark',
-  //   'Made with {streetmixWordmark}',
-  //   {
-  //     // Replace the {placeholder} with itself. Later, this is used to
-  //     // render the logo image in place of the text.
-  //     streetmixWordmark: '{streetmixWordmark}'
-  //   }
-  // )
-  const text = 'Made with {streetmixWordmark}'
-  const wordmarkImage = invert ? WORDMARK_LIGHT : WORDMARK_DARK
-
-  // Set the width and height here to scale properly
-  // Plus divide by 4 because source image is larger
-  wordmarkImage.width = (wordmarkImage.width * scale) / 4
-  wordmarkImage.height = (wordmarkImage.height * scale) / 4
-
-  // Separate string so that we can render a wordmark with an image
-  const strings = text.replace(/{/g, '||{').replace(/}/g, '}||').split('||')
-
-  // Save previous context
-  ctx.save()
-
-  // Set text render options
-  ctx.textAlign = 'right'
-  ctx.textBaseline = 'alphabetic'
-  ctx.font = `normal ${WATERMARK_FONT_WEIGHT} ${
-    WATERMARK_FONT_SIZE * scale
-  }px ${WATERMARK_FONT},sans-serif`
-  ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR
-
-  // Set starting X/Y positions so that watermark is aligned right and bottom of image
-  const startRightX = ctx.canvas.width - WATERMARK_RIGHT_MARGIN * scale
-  const startBottomY = ctx.canvas.height - WATERMARK_BOTTOM_MARGIN * scale
-
-  // Set wordmark width and height based on image scale
-  const logoWidth = wordmarkImage.width
-  const logoHeight = wordmarkImage.height
-
-  // Keep track of where we are on the X-position.
-  let currentRightX = startRightX
-
-  // Render each part of the string.
-  for (let i = strings.length - 1; i >= 0; i--) {
-    const string = strings[i]
-
-    // If we see the wordmark placeholder, render the image.
-    if (string === '{streetmixWordmark}') {
-      const margin = WORDMARK_MARGIN * scale
-      const logoLeftX = currentRightX - logoWidth - margin
-      const logoTopY = startBottomY - logoHeight + scale // Additional adjustment for visual alignment
-
-      ctx.drawImage(wordmarkImage, logoLeftX, logoTopY)
-
-      // Update X position.
-      currentRightX = logoLeftX - margin
-    } else {
-      ctx.fillText(string, currentRightX, startBottomY)
-
-      // Update X position.
-      currentRightX = currentRightX - ctx.measureText(string).width
-    }
-  }
-
-  // Restore previous context
-  ctx.restore()
 }
