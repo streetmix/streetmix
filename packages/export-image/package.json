@@ -9,8 +9,9 @@
   },
   "license": "AGPL-3.0-or-later",
   "type": "module",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
+    "build": "tsc --project tsconfig.json --outDir build",
     "start": "echo Nothing to run!"
   },
   "dependencies": {

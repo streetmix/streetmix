@@ -1,6 +1,8 @@
 import path from 'node:path'
 import url from 'node:url'
-import Canvas, { GlobalFonts } from '@napi-rs/canvas'
+import * as Canvas from '@napi-rs/canvas'
+
+import type { Street } from '@streetmix/types'
 
 // Set up some legacy Node.js globals for convenience
 const __filename = url.fileURLToPath(import.meta.url)
@@ -9,21 +11,21 @@ const __dirname = path.dirname(__filename)
 // Register fonts
 // We will not be using variable fonts here because canvas support doesn't
 // exist yet. See https://github.com/Brooooooklyn/canvas/issues/495
-GlobalFonts.registerFromPath(
+Canvas.GlobalFonts.registerFromPath(
   path.join(
     __dirname,
     '../../../node_modules/@fontsource/rubik/files/rubik-latin-400-normal.woff2'
   ),
   'Rubik'
 )
-GlobalFonts.registerFromPath(
+Canvas.GlobalFonts.registerFromPath(
   path.join(
     __dirname,
     '../../../node_modules/@fontsource/rubik/files/rubik-latin-600-normal.woff2'
   ),
   'Rubik'
 )
-GlobalFonts.registerFromPath(
+Canvas.GlobalFonts.registerFromPath(
   path.join(
     __dirname,
     '../../../node_modules/@fontsource/overpass/files/overpass-latin-700-normal.woff2'
@@ -31,7 +33,9 @@ GlobalFonts.registerFromPath(
   'Overpass'
 )
 
-export async function runTestCanvas () {
+export async function runTestCanvas (street: Street): Promise<Buffer> {
+  console.log(street)
+
   const canvas = Canvas.createCanvas(800, 800)
   const ctx = canvas.getContext('2d')
 
@@ -51,7 +55,7 @@ export async function runTestCanvas () {
   try {
     // Must assemble path with __dirname to read from filesystem
     const wordmark = await Canvas.loadImage(
-      path.join(__dirname, './wordmark_black.svg')
+      path.join(__dirname, '../assets/wordmark_black.svg')
     )
 
     // Set the width and height here to scale properly

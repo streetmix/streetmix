@@ -22,7 +22,7 @@
     "cypress:run": "cypress run",
     "start": "concurrently --names \"SERVER,CLIENT\" -c \"bgBlueBright.bold,bgMagentaBright.bold\" \"npm:dev-server\" \"npm:dev-client\"",
     "serve": "nodemon -r newrelic index.js",
-    "build": "npm run -w @streetmix/client build",
+    "build": "npm run build --workspaces --if-present",
     "dev-client": "npm run -w @streetmix/client dev",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js --watch packages",
     "test": "npm run lint && npm run vitest",
