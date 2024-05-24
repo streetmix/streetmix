@@ -189,3 +189,11 @@ export interface CapacitySegmentDefinition {
   variants?: CapacitySegments
   inherits?: string // TODO: if present, excludes minimum/average/potential/variants
 }
+
+export interface StreetImageOptions {
+  transparentSky: boolean
+  segmentLabels: boolean
+  streetName: boolean
+  watermark: boolean
+  scale: number // formerly `dpi`
+}

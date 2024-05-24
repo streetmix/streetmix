@@ -297,7 +297,8 @@ export async function get (req, res) {
     if (error?.error?.http_code === 404) {
       // While canvas backend is in development, let's run and return this
       // for streets that aren't currently existing on Cloudinary.
-      const image = await runTestCanvas(street.dataValues)
+      // Options are passed via query params
+      const image = await runTestCanvas(street.dataValues, req.query)
 
       res.set('Content-Type', 'image/png')
       res.status(200).send(image)

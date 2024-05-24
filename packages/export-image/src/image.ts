@@ -6,7 +6,7 @@ import * as Canvas from '@napi-rs/canvas'
 
 import { drawWatermark } from './watermark.js'
 
-import type { Street } from '@streetmix/types'
+import type { Street, StreetImageOptions } from '@streetmix/types'
 
 // Set up some legacy Node.js globals for convenience
 const __filename = url.fileURLToPath(import.meta.url)
@@ -37,9 +37,6 @@ Canvas.GlobalFonts.registerFromPath(
   'Overpass'
 )
 
-// This can be adjusted to create much more hi-definition images
-const DEFAULT_IMAGE_SCALE = 1.0 // previous default is 2.0
-
 const IMAGE_MIN_HEIGHT = 400
 const IMAGE_MIN_HEIGHT_WITH_STREET_NAME = IMAGE_MIN_HEIGHT + 150
 const IMAGE_BOTTOM_PADDING = 60
@@ -49,28 +46,10 @@ const IMAGE_NAMES_WIDTHS_PADDING = 65
 const TILE_SIZE = 12 / 0.3048 // pixels, using imperial conversion rate to preserve render scale
 const BUILDING_SPACE = 360
 
-interface StreetImageOptions {
-  transparentSky: boolean
-  segmentNamesAndWidths: boolean
-  streetName: boolean
-  watermark: boolean
-  scale: number // formerly `dpi`
-}
-
 export async function makeStreetImage (
   street: Street,
-  opts: Partial<StreetImageOptions> = {}
+  options: StreetImageOptions
 ): Promise<Buffer> {
-  // Default options
-  const options: StreetImageOptions = {
-    transparentSky: false,
-    segmentNamesAndWidths: true,
-    streetName: true,
-    watermark: true,
-    scale: DEFAULT_IMAGE_SCALE,
-    ...opts
-  }
-
   const width = calculateImageWidth(street, options)
   const height = calculateImageHeight(street, options)
 
@@ -85,12 +64,15 @@ export async function makeStreetImage (
   //   silhouette: false,
   //   bottomAligned: true,
   //   transparentSky,
-  //   segmentNamesAndWidths,
+  //   segmentLabels,
   //   streetName,
   //   watermark
   // })
   try {
-    await drawWatermark(ctx, options.scale, false)
+    if (options.watermark) {
+      // Watermark is inverted (white) if segment labels are shown
+      await drawWatermark(ctx, options.scale, !options.segmentLabels)
+    }
   } catch (err) {
     console.error(err)
   }
@@ -144,7 +126,7 @@ function calculateImageHeight (
   options: StreetImageOptions
 ): number {
   // const streetData = street.data.street
-  const { streetName, segmentNamesAndWidths } = options
+  const { streetName, segmentLabels } = options
 
   // TODO: we can't do a real calc yet because we don't have access to assets
   // const leftHeight = getBuildingImageHeight(
@@ -170,7 +152,7 @@ function calculateImageHeight (
 
   height += IMAGE_BOTTOM_PADDING
 
-  if (segmentNamesAndWidths) {
+  if (segmentLabels) {
     height += IMAGE_NAMES_WIDTHS_PADDING
   }
 
