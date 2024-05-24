@@ -5,9 +5,6 @@ context('User saves a new street', () => {
     cy.intercept('POST', '/api/v1/streets*', {
       fixture: 'street-post-response'
     }).as('streetPost')
-    cy.intercept('POST', '/api/v1/streets/images/*', {
-      fixture: 'street-image-post-response'
-    }).as('streetImagePut')
     cy.intercept('PUT', '/api/v1/streets/*', {
       statusCode: 204
     }).as('streetPut')

@@ -30,10 +30,10 @@ const mockUserMiddleware = (req, res, next) => {
   next()
 }
 
-describe('POST api/v1/streets/:street_id/images', () => {
+describe('POST api/v1/streets/:street_id/image', () => {
   const app = setupMockServer((app) => {
     app.post(
-      '/api/v1/streets/:street_id/images',
+      '/api/v1/streets/:street_id/image',
       mockUserMiddleware,
       images.post
     )
