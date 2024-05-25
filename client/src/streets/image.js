@@ -65,7 +65,6 @@ export function getStreetImage (
     dpi,
     multiplier: 1.0,
     silhouette: false,
-    bottomAligned: true,
     transparentSky,
     segmentNamesAndWidths,
     streetName,
