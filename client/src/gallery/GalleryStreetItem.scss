@@ -13,6 +13,7 @@ $selection-highlight-colour: $colour-copper-500;
   /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
   padding: 5px;
   box-sizing: content-box;
+  text-align: center;
 
   /* reset child box sizing */
   > * {
@@ -30,11 +31,9 @@ $selection-highlight-colour: $colour-copper-500;
 
 .gallery-street-item > a {
   display: block;
-  color: black;
   text-decoration: none;
-  background: fade-out($sky-colour, 0.2);
-  text-align: center;
-  white-space: normal;
+  border: 2px solid color.adjust($ui-colour, $lightness: -10%);
+  background-color: #f0f0f0;
   cursor: pointer;
   position: relative;
   left: 0;
@@ -43,106 +42,73 @@ $selection-highlight-colour: $colour-copper-500;
   height: 100%;
   border-radius: $border-radius-medium;
 
-  canvas {
-    position: absolute;
-    left: 0;
-    bottom: 39px;
-    width: $thumbnail-width;
-    height: $thumbnail-height;
-    transform: scale(1.35); // Crops excess space for most streets
-    opacity: 0.45;
-    filter: grayscale(0.75);
-    transition:
-      opacity 45ms,
-      filter 45ms;
-
-    // TODO: this causes rendering weirdness in Firefox.
-    border-radius: $border-radius-medium;
-  }
-
   &:hover canvas {
     opacity: 1;
     filter: grayscale(0);
+    transform: scale(1.45);
   }
-}
-
-.gallery-with-owner.gallery-street-item > a canvas {
-  bottom: 49px;
 }
 
 .gallery-street-item.gallery-selected > a {
-  background: color.adjust($ui-colour, $lightness: -10%);
-  box-shadow:
-    0 0 0 2px $selection-highlight-colour,
-    inset 0 0 0 2px rgb(255 255 255 / 100%);
-
-  .gallery-street-item-canvas > div {
-    transform: scale(1.05);
-  }
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px $selection-highlight-colour;
 
   canvas {
     opacity: 1;
     filter: grayscale(0);
+    transform: scale(1.45);
   }
+}
+
+.gallery-street-item-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .gallery-street-item-canvas {
-  position: absolute;
-  inset: 2px; // Live within the border area
-  border-radius: 2px;
-  overflow: hidden;
+  position: relative;
+  flex-grow: 1;
 
-  > div {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 45ms ease-in-out;
-    transform-origin: center 80px;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  .gallery-street-item-ground {
+  canvas {
     position: absolute;
-    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 22px;
-    background-color: #f0f0f0;
-
-    .gallery-with-owner & {
-      height: 32px;
-    }
+    bottom: -2px;
+    width: $thumbnail-width;
+    height: $thumbnail-height;
+    border-radius: $border-radius-medium;
+    opacity: 0.5;
+    filter: grayscale(0.25);
+    transform: scale(1.4); // Crops excess space for most streets
+    transform-origin: center bottom;
+    transition:
+      opacity 45ms,
+      filter 45ms,
+      transform 45ms ease-in-out;
   }
 }
 
-.gallery-street-item-creator {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18px;
+.gallery-street-item-label {
+  position: relative;
+  background-color: #f0f0f0;
+  padding: 5px 5px 3px;
   text-align: center;
-  display: block;
   font-size: 0.8em;
   color: black;
+
+  > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .gallery-street-item-date {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 5px;
-  text-align: center;
-  display: block;
-  font-size: 0.8em;
-  color: black;
+  margin: 0 16px; // Leave room for delete button
   font-weight: 300;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  pointer-events: none;
 }
 
 .gallery-street-item-delete {
@@ -186,15 +152,12 @@ $selection-highlight-colour: $colour-copper-500;
 }
 
 .gallery-street-item-error {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: $border-radius-medium;
-  color: $colour-turquoise-600;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1em;
+  height: 100%;
+  color: $colour-turquoise-600;
+
+  // Top/bottom padding accounts for street name
+  padding: 20px 1.5em 2px;
 }
