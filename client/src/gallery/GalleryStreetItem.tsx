@@ -1,5 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
+
 import { useSelector } from '../store/hooks'
 import { useGetUserQuery } from '../store/services/api'
 import { getStreetUrl } from '../app/page_url'
@@ -7,6 +8,7 @@ import DateTimeRelative from '../app/DateTimeRelative'
 import StreetName from '../streets/StreetName'
 import { drawStreetThumbnail } from '../streets/thumbnail'
 import Icon from '../ui/Icon'
+
 import type { Street } from '@streetmix/types'
 import './GalleryStreetItem.scss'
 
@@ -55,7 +57,6 @@ function GalleryStreetItem (
         dpi,
         multiplier: THUMBNAIL_MULTIPLIER,
         silhouette: false,
-        bottomAligned: false,
         transparentSky: false,
         segmentNamesAndWidths: false,
         streetName: false,
@@ -109,52 +110,47 @@ function GalleryStreetItem (
   if (selected) {
     classNames.push('gallery-selected')
   }
-  if (showStreetOwner) {
-    classNames.push('gallery-with-owner')
-  }
 
   return (
     <div className={classNames.join(' ')}>
       <a href={getStreetUrl(street)} onClick={handleSelectStreet}>
-        {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
-        {isError ? (
-          <div className="gallery-street-item-error">
-            <FormattedMessage
-              id="gallery.thumbnail-error"
-              defaultMessage="Thumbnail image is not available."
-            />
-          </div>
-        ) : (
-          /* TODO: document magic number 2 */
+        <div className="gallery-street-item-inner">
           <div className="gallery-street-item-canvas">
-            <div>
+            {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
+            {isError ? (
+              <div className="gallery-street-item-error">
+                <FormattedMessage
+                  id="gallery.thumbnail-error"
+                  defaultMessage="Thumbnail image is not available."
+                />
+              </div>
+            ) : (
               <canvas
+                // TODO: document magic number 2
                 width={THUMBNAIL_WIDTH * dpi * 2}
                 height={THUMBNAIL_HEIGHT * dpi * 2}
                 ref={thumbnailEl}
               />
-              <div className="gallery-street-item-ground" />
+            )}
+          </div>
+          <div className="gallery-street-item-label">
+            {/* Show street creator (owner) or 'Anonymous' */}
+            {showStreetOwner && (
+              <div>
+                {creatorProfile?.displayName ??
+                  street.creatorId ??
+                  intl.formatMessage({
+                    id: 'users.anonymous',
+                    defaultMessage: 'Anonymous'
+                  })}
+              </div>
+            )}
+            <div className="gallery-street-item-date">
+              <DateTimeRelative value={street.updatedAt} />
             </div>
           </div>
-        )}
-
+        </div>
         <StreetName name={street.name} />
-
-        <span className="gallery-street-item-date">
-          <DateTimeRelative value={street.updatedAt} />
-        </span>
-
-        {/* Show street creator (owner) or 'Anonymous' */}
-        {showStreetOwner && (
-          <span className="gallery-street-item-creator">
-            {creatorProfile?.displayName ??
-              street.creatorId ??
-              intl.formatMessage({
-                id: 'users.anonymous',
-                defaultMessage: 'Anonymous'
-              })}
-          </span>
-        )}
       </a>
 
       {/* Only show delete button if allowed, e.g. if user is owner of the street */}

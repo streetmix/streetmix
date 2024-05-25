@@ -39,22 +39,38 @@ exports[`Gallery > renders global gallery view 1`] = `
             class="streets"
           >
             <div
-              class="gallery-street-item gallery-selected gallery-with-owner"
+              class="gallery-street-item gallery-selected"
             >
               <a
                 href="/foo/435/baz"
               >
                 <div
-                  class="gallery-street-item-canvas"
+                  class="gallery-street-item-inner"
                 >
-                  <div>
+                  <div
+                    class="gallery-street-item-canvas"
+                  >
                     <canvas
                       height="220"
                       width="360"
                     />
+                  </div>
+                  <div
+                    class="gallery-street-item-label"
+                  >
+                    <div>
+                      foo
+                    </div>
                     <div
-                      class="gallery-street-item-ground"
-                    />
+                      class="gallery-street-item-date"
+                    >
+                      <time
+                        datetime="2018-04-27T20:47:03.477Z"
+                        title="2018-04-27T20:47:03.477Z"
+                      >
+                        April 27, 2018
+                      </time>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -66,21 +82,6 @@ exports[`Gallery > renders global gallery view 1`] = `
                     Baz
                   </div>
                 </div>
-                <span
-                  class="gallery-street-item-date"
-                >
-                  <time
-                    datetime="2018-04-27T20:47:03.477Z"
-                    title="2018-04-27T20:47:03.477Z"
-                  >
-                    April 27, 2018
-                  </time>
-                </span>
-                <span
-                  class="gallery-street-item-creator"
-                >
-                  foo
-                </span>
               </a>
             </div>
           </div>
@@ -191,16 +192,29 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
                 href="/foo/435/baz"
               >
                 <div
-                  class="gallery-street-item-canvas"
+                  class="gallery-street-item-inner"
                 >
-                  <div>
+                  <div
+                    class="gallery-street-item-canvas"
+                  >
                     <canvas
                       height="220"
                       width="360"
                     />
+                  </div>
+                  <div
+                    class="gallery-street-item-label"
+                  >
                     <div
-                      class="gallery-street-item-ground"
-                    />
+                      class="gallery-street-item-date"
+                    >
+                      <time
+                        datetime="2018-04-27T20:47:03.477Z"
+                        title="2018-04-27T20:47:03.477Z"
+                      >
+                        April 27, 2018
+                      </time>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -212,16 +226,6 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
                     Baz
                   </div>
                 </div>
-                <span
-                  class="gallery-street-item-date"
-                >
-                  <time
-                    datetime="2018-04-27T20:47:03.477Z"
-                    title="2018-04-27T20:47:03.477Z"
-                  >
-                    April 27, 2018
-                  </time>
-                </span>
               </a>
             </div>
           </div>
@@ -325,16 +329,29 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
                 href="/foo/435/baz"
               >
                 <div
-                  class="gallery-street-item-canvas"
+                  class="gallery-street-item-inner"
                 >
-                  <div>
+                  <div
+                    class="gallery-street-item-canvas"
+                  >
                     <canvas
                       height="220"
                       width="360"
                     />
+                  </div>
+                  <div
+                    class="gallery-street-item-label"
+                  >
                     <div
-                      class="gallery-street-item-ground"
-                    />
+                      class="gallery-street-item-date"
+                    >
+                      <time
+                        datetime="2018-04-27T20:47:03.477Z"
+                        title="2018-04-27T20:47:03.477Z"
+                      >
+                        April 27, 2018
+                      </time>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -346,16 +363,6 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
                     Baz
                   </div>
                 </div>
-                <span
-                  class="gallery-street-item-date"
-                >
-                  <time
-                    datetime="2018-04-27T20:47:03.477Z"
-                    title="2018-04-27T20:47:03.477Z"
-                  >
-                    April 27, 2018
-                  </time>
-                </span>
               </a>
               <button
                 class="gallery-street-item-delete"

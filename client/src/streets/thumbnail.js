@@ -707,7 +707,6 @@ function drawWatermark (ctx, dpi, invert = false) {
  * @param {Number} params.dpi - Pixel density of canvas
  * @param {Number} params.multiplier - Scale factor of image
  * @param {Boolean} params.silhouette - If `true`, image is a silhouette
- * @param {Boolean} params.bottomAligned - TODO: Document this
  * @param {Boolean} params.transparentSky - If `true`, sky is transparent
  * @param {Boolean} params.segmentNamesAndWidths - If `true`, include segment names and widths
  * @param {Boolean} params.streetName - If `true`, include street nameplate
@@ -723,7 +722,6 @@ export function drawStreetThumbnail (
     dpi,
     multiplier,
     silhouette,
-    bottomAligned,
     transparentSky,
     segmentNamesAndWidths,
     streetName,
@@ -738,12 +736,8 @@ export function drawStreetThumbnail (
     occupiedWidth += segment.width
   }
 
-  let offsetTop
-  if (bottomAligned) {
-    offsetTop = height - 180 * multiplier
-  } else {
-    offsetTop = (height + 5 * TILE_SIZE * multiplier) / 2
-  }
+  // Align things to bottom edge of image
+  let offsetTop = height - 180 * multiplier
   if (segmentNamesAndWidths) {
     offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier
   }
