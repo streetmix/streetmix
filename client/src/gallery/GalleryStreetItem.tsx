@@ -55,7 +55,6 @@ function GalleryStreetItem (
         dpi,
         multiplier: THUMBNAIL_MULTIPLIER,
         silhouette: false,
-        bottomAligned: false,
         transparentSky: false,
         segmentNamesAndWidths: false,
         streetName: false,

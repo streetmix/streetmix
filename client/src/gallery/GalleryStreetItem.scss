@@ -46,7 +46,7 @@ $selection-highlight-colour: $colour-copper-500;
   canvas {
     position: absolute;
     left: 0;
-    top: -7px; // Positioning to cover gaps below ground
+    bottom: 39px;
     width: $thumbnail-width;
     height: $thumbnail-height;
     transform: scale(1.35); // Crops excess space for most streets
@@ -67,7 +67,7 @@ $selection-highlight-colour: $colour-copper-500;
 }
 
 .gallery-with-owner.gallery-street-item > a canvas {
-  top: -17px;
+  bottom: 49px;
 }
 
 .gallery-street-item.gallery-selected > a {
