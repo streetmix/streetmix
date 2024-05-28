@@ -4,6 +4,7 @@ import path from 'node:path'
 import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
+import { drawNameplate } from './nameplate.js'
 import { drawWatermark } from './watermark.js'
 
 import type { Street, StreetImageOptions } from '@streetmix/types'
@@ -69,6 +70,12 @@ export async function makeStreetImage (
   //   watermark
   // })
   try {
+    // Street nameplate
+    if (options.streetName) {
+      drawNameplate(ctx, street, width, options.scale)
+    }
+
+    // Watermark
     if (options.watermark) {
       // Watermark is inverted (white) if segment labels are shown
       await drawWatermark(ctx, options.scale, !options.segmentLabels)
