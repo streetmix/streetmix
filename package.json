@@ -88,7 +88,7 @@
     "nanoid": "5.0.7",
     "newrelic": "11.7.0",
     "nodemon": "3.1.1",
-    "passport": "0.6.0",
+    "passport": "0.7.0",
     "passport-oauth": "1.0.0",
     "passport-patreon": "1.0.1",
     "pg": "8.11.5",
