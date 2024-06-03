@@ -4,6 +4,8 @@ import path from 'node:path'
 import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
+import { TILE_SIZE } from './constants.js'
+import { drawGround } from './ground.js'
 import { drawNameplate } from './nameplate.js'
 import { drawWatermark } from './watermark.js'
 
@@ -44,7 +46,6 @@ const IMAGE_BOTTOM_PADDING = 60
 const IMAGE_NAMES_WIDTHS_PADDING = 65
 
 // copy paste values witout importing for now
-const TILE_SIZE = 12 / 0.3048 // pixels, using imperial conversion rate to preserve render scale
 const BUILDING_SPACE = 360
 
 export async function makeStreetImage (
@@ -69,7 +70,31 @@ export async function makeStreetImage (
   //   streetName,
   //   watermark
   // })
+
+  // Calculations
+
+  // Determine how wide the street is
+  // let occupiedWidth = 0
+  // for (const segment of street.data.street.segments) {
+  //   occupiedWidth += segment.width
+  // }
+
+  // Align things to bottom edge of image
+  let offsetTop = height - 180 * options.scale
+  if (options.segmentLabels) {
+    offsetTop -= IMAGE_NAMES_WIDTHS_PADDING * options.scale
+  }
+
+  // const offsetLeft = (width - occupiedWidth * TILE_SIZE * options.scale) / 2
+  // const buildingOffsetLeft = (width - street.data.street.width * TILE_SIZE * options.scale) / 2
+
+  const groundLevel = offsetTop + 135 * options.scale
+  const horizonLine = groundLevel + 20 * options.scale
+
   try {
+    // Ground
+    drawGround(ctx, street, width, options.scale, horizonLine, groundLevel)
+
     // Street nameplate
     if (options.streetName) {
       drawNameplate(ctx, street, width, options.scale)
