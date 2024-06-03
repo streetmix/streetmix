@@ -6,6 +6,7 @@ import * as Canvas from '@napi-rs/canvas'
 
 import { TILE_SIZE } from './constants.js'
 import { drawGround } from './ground.js'
+import { drawSegmentLabelBackground, drawSegmentLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawWatermark } from './watermark.js'
 
@@ -52,8 +53,15 @@ export async function makeStreetImage (
   street: Street,
   options: StreetImageOptions
 ): Promise<Buffer> {
-  const width = calculateImageWidth(street, options)
-  const height = calculateImageHeight(street, options)
+  // Easier to work in base width/height numbers first,
+  // then multiply by scale _after_ all +/- calculations are done
+  // Rule of thumb is, base number (e.g. scale = 1) if there are still
+  // manipulations to be done. Apply scale ONLY when drawing to canvas
+  const baseWidth = calculateImageWidth(street, options)
+  const baseHeight = calculateImageHeight(street, options)
+
+  const width = baseWidth * options.scale
+  const height = baseHeight * options.scale
 
   const canvas = Canvas.createCanvas(width, height)
   const ctx = canvas.getContext('2d')
@@ -74,52 +82,52 @@ export async function makeStreetImage (
   // Calculations
 
   // Determine how wide the street is
-  // let occupiedWidth = 0
-  // for (const segment of street.data.street.segments) {
-  //   occupiedWidth += segment.width
-  // }
-
-  // Align things to bottom edge of image
-  let offsetTop = height - 180 * options.scale
-  if (options.segmentLabels) {
-    offsetTop -= IMAGE_NAMES_WIDTHS_PADDING * options.scale
+  let occupiedWidth = 0
+  for (const segment of street.data.street.segments) {
+    occupiedWidth += segment.width
   }
 
-  // const offsetLeft = (width - occupiedWidth * TILE_SIZE * options.scale) / 2
-  // const buildingOffsetLeft = (width - street.data.street.width * TILE_SIZE * options.scale) / 2
+  // Align things to bottom edge of image
+  let offsetTop = baseHeight - 180
+  if (options.segmentLabels) {
+    offsetTop -= IMAGE_NAMES_WIDTHS_PADDING
+  }
 
-  const groundLevel = offsetTop + 135 * options.scale
-  const horizonLine = groundLevel + 20 * options.scale
+  const offsetLeft = (baseWidth - occupiedWidth * TILE_SIZE) / 2
+  // const buildingOffsetLeft = (baseWidth - street.data.street.width * TILE_SIZE) / 2
+
+  const groundLevel = offsetTop + 135
+  const horizonLine = groundLevel + 20
 
   try {
     // Ground
-    drawGround(ctx, street, width, options.scale, horizonLine, groundLevel)
+    drawGround(ctx, street, baseWidth, horizonLine, groundLevel, options.scale)
+
+    // Segment labels
+    if (options.segmentLabels) {
+      drawSegmentLabelBackground(
+        ctx,
+        baseWidth,
+        baseHeight,
+        groundLevel,
+        options.scale
+      )
+      drawSegmentLabels(ctx, street, groundLevel, offsetLeft, options.scale)
+    }
 
     // Street nameplate
     if (options.streetName) {
-      drawNameplate(ctx, street, width, options.scale)
+      drawNameplate(ctx, street, baseWidth, options.scale)
     }
 
     // Watermark
     if (options.watermark) {
       // Watermark is inverted (white) if segment labels are shown
-      await drawWatermark(ctx, options.scale, !options.segmentLabels)
+      await drawWatermark(ctx, !options.segmentLabels, options.scale)
     }
   } catch (err) {
     console.error(err)
   }
-
-  // Write "Awesome!"
-  ctx.font = '400 30px Rubik'
-  ctx.fillText('Awesome!', 50, 100)
-
-  // Draw line under text
-  const text = ctx.measureText('Awesome!')
-  ctx.strokeStyle = 'rgba(0,0,0,0.5)'
-  ctx.beginPath()
-  ctx.lineTo(50, 102)
-  ctx.lineTo(50 + text.width, 102)
-  ctx.stroke()
 
   // Test rendering an SVG
   try {
@@ -145,12 +153,15 @@ export async function makeStreetImage (
 
 function calculateImageWidth (
   street: Street,
+  // Don't need options, but this is keeping function signature the same
+  // as `calculateImageHeight`
   options: StreetImageOptions
 ): number {
   const streetData = street.data.street
-  // TODO: explain what * 2 is
-  const baseWidth = TILE_SIZE * streetData.width + BUILDING_SPACE * 2
-  return baseWidth * options.scale
+  const streetWidth = TILE_SIZE * streetData.width // translate width to pixels
+  const buildingWidth = BUILDING_SPACE * 2 // multiply for 2 buildings
+  const baseWidth = streetWidth + buildingWidth // total width is street + buildings
+  return baseWidth
 }
 
 function calculateImageHeight (
@@ -188,5 +199,5 @@ function calculateImageHeight (
     height += IMAGE_NAMES_WIDTHS_PADDING
   }
 
-  return height * options.scale
+  return height
 }

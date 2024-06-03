@@ -24,8 +24,8 @@ const __dirname = path.dirname(__filename)
  */
 export async function drawWatermark (
   ctx: Canvas.SKRSContext2D,
-  scale: number,
-  invert: boolean = false
+  invert: boolean = false,
+  scale: number
 ): Promise<void> {
   // TODO: locales
   // const text = formatMessage(

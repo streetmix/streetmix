@@ -22,43 +22,44 @@ export function drawNameplate (
   // TODO: locales
   let text = street.name ?? 'Unnamed St' // formatMessage('street.default-name', 'Unnamed St')
 
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
+  // TODO: letter spacing needs to adjust based on scale
   ctx.letterSpacing = '-0.225em' // Different from front-end, very slightly smaller spacing
   ctx.font = `normal ${STREET_NAME_FONT_WEIGHT} ${
     STREET_NAME_FONT_SIZE * scale
   }px ${STREET_NAME_FONT}`
 
   // Handles long names
-  let measurement = ctx.measureText(text)
+  // Measurements need to be devided by `scale` because they are rendered
+  // at scaled font size
+  let measurement = ctx.measureText(text).width / scale
   let needToBeElided = false
-  while (measurement.width > width - 200 * scale) {
+  while (measurement > width - 200) {
     text = text.substring(0, text.length - 1)
-    measurement = ctx.measureText(text)
+    measurement = ctx.measureText(text).width / scale
     needToBeElided = true
   }
   if (needToBeElided) {
     // Append ellipsis, then re-measure the text
     text += '…'
-    measurement = ctx.measureText(text)
+    measurement = ctx.measureText(text).width / scale
   }
 
   // Nameplate background
   ctx.fillStyle = 'white'
-  const x1 = width / 2 - (measurement.width / 2 + 45 * scale)
-  const x2 = width / 2 + (measurement.width / 2 + 45 * scale)
-  const y1 = (75 - 60) * scale
-  const y2 = (75 + 60) * scale
-  ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
+  const x1 = width / 2 - (measurement / 2 + 45)
+  const x2 = width / 2 + (measurement / 2 + 45)
+  const y1 = 75 - 60
+  const y2 = 75 + 60
+  ctx.fillRect(x1 * scale, y1 * scale, (x2 - x1) * scale, (y2 - y1) * scale)
 
   // Nameplate border
   ctx.strokeStyle = 'black'
   ctx.lineWidth = 5 * scale
   ctx.strokeRect(
-    x1 + 5 * scale * 2,
-    y1 + 5 * scale * 2,
-    x2 - x1 - 5 * scale * 4,
-    y2 - y1 - 5 * scale * 4
+    (x1 + 5 * 2) * scale,
+    (y1 + 5 * 2) * scale,
+    (x2 - x1 - 5 * 4) * scale,
+    (y2 - y1 - 5 * 4) * scale
   )
 
   // Street name text
@@ -67,11 +68,13 @@ export function drawNameplate (
   // There is a different baselineCorrection value on the backend
   // compared to front end version
   const baselineCorrection = 8
-  const y = (75 + baselineCorrection) * scale
+  const y = 75 + baselineCorrection
 
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
   ctx.strokeStyle = 'transparent'
   ctx.fillStyle = 'black'
-  ctx.fillText(text, x, y)
+  ctx.fillText(text, x * scale, y * scale)
 
   // Restore previous canvas context
   ctx.restore()

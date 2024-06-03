@@ -14,9 +14,9 @@ export function drawGround (
   ctx: Canvas.SKRSContext2D,
   street: Street,
   width: number,
-  scale: number,
   horizonLine: number,
-  groundLevel: number
+  groundLevel: number,
+  scale: number
 ): void {
   // Save previous canvas context
   ctx.save()
@@ -25,21 +25,21 @@ export function drawGround (
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
 
   // Ground below entire street
-  ctx.fillRect(0, horizonLine, width, 25 * scale)
+  ctx.fillRect(0, horizonLine * scale, width * scale, 25 * scale)
 
   // Ground below building areas
   ctx.fillRect(
     0,
-    groundLevel,
-    width / 2 - (street.data.street.width * TILE_SIZE * scale) / 2,
-    20 * scale
+    groundLevel * scale,
+    (width / 2 - (street.data.street.width * TILE_SIZE) / 2) * scale,
+    horizonLine * scale
   )
 
   ctx.fillRect(
-    width / 2 + (street.data.street.width * TILE_SIZE * scale) / 2,
-    groundLevel,
-    width,
-    20 * scale
+    (width / 2 + (street.data.street.width * TILE_SIZE) / 2) * scale,
+    groundLevel * scale,
+    width * scale,
+    horizonLine * scale
   )
 
   // Restore previous canvas context
