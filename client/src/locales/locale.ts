@@ -1,5 +1,6 @@
 import { IntlMessageFormat } from 'intl-messageformat'
 import LOCALES from '@streetmix/i18n'
+
 import store, { observeStore, type RootState } from '../store'
 import { changeLocale } from '../store/slices/locale'
 import {
@@ -9,6 +10,7 @@ import {
   LOCALES_LEVEL_3,
   LOCALES_LEVEL_4
 } from './constants'
+
 import type { LocaleDefinition, LocaleLevel } from '@streetmix/types'
 
 /**

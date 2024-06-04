@@ -28,7 +28,11 @@ export async function runTestCanvas (
     scale = Math.max(Math.min(inputScale, MAX_IMAGE_SCALE), MIN_IMAGE_SCALE)
   }
 
+  // Locale is English unless otherwise specified
+  const locale = opts.locale ?? 'en'
+
   const options: StreetImageOptions = {
+    locale,
     transparentSky,
     segmentLabels,
     streetName,

@@ -191,6 +191,7 @@ export interface CapacitySegmentDefinition {
 }
 
 export interface StreetImageOptions {
+  locale: string
   transparentSky: boolean
   segmentLabels: boolean
   streetName: boolean

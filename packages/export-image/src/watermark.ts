@@ -2,6 +2,8 @@ import path from 'node:path'
 import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
+import { getWatermarkString } from './locale.js'
+
 const WATERMARK_FONT = 'Rubik'
 const WATERMARK_FONT_SIZE = 24
 const WATERMARK_FONT_WEIGHT = '600'
@@ -24,20 +26,11 @@ const __dirname = path.dirname(__filename)
  */
 export async function drawWatermark (
   ctx: Canvas.SKRSContext2D,
+  locale: string,
   invert: boolean = false,
   scale: number
 ): Promise<void> {
-  // TODO: locales
-  // const text = formatMessage(
-  //   'export.watermark',
-  //   'Made with {streetmixWordmark}',
-  //   {
-  //     // Replace the {placeholder} with itself. Later, this is used to
-  //     // render the wordmark image in place of the text.
-  //     streetmixWordmark: '{streetmixWordmark}'
-  //   }
-  // )
-  const text = 'Made with {streetmixWordmark}'
+  const text = await getWatermarkString(locale, 'Made with {streetmixWordmark}')
 
   // Separate string so that we can render a wordmark with an image
   const strings = text.replace(/{/g, '||{').replace(/}/g, '}||').split('||')

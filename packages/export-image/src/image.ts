@@ -123,7 +123,12 @@ export async function makeStreetImage (
     // Watermark
     if (options.watermark) {
       // Watermark is inverted (white) if segment labels are shown
-      await drawWatermark(ctx, !options.segmentLabels, options.scale)
+      await drawWatermark(
+        ctx,
+        options.locale,
+        !options.segmentLabels,
+        options.scale
+      )
     }
   } catch (err) {
     console.error(err)
