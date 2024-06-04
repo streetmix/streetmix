@@ -127,7 +127,7 @@
     "lint-staged": "15.2.2",
     "prettier": "3.2.5",
     "supertest": "7.0.0",
-    "typescript": "5.2.2",
+    "typescript": "5.4.5",
     "vitest": "1.6.0"
   }
 }
