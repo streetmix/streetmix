@@ -210,7 +210,7 @@ function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
  * @param {Number} width - width of area to draw
  * @param {Number} height - height of area to draw
  * @param {Number} dpi - pixel density of canvas
- * @param {Object} sky - skybox settings
+ * @param {SkyboxDefWithStyles} sky - skybox settings
  * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawClouds (ctx, width, height, dpi, sky) {

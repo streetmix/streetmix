@@ -2,35 +2,14 @@ import { observeStore, type RootState } from '../store'
 import { images } from '../app/load_resources'
 import { DEFAULT_SKYBOX } from './constants'
 import SKYBOX_DEFS from './skybox-defs.json'
+
 import type { Unsubscribe } from '@reduxjs/toolkit'
-
-export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
-export type CSSGradientDeclaration = CSSGradientStop[]
-
-export interface SkyboxDefinition {
-  name: string
-  enabled?: boolean
-  iconImage?: string // Illustration asset ID
-  backgroundColor?: string // CSS color string
-  backgroundImage?: string // Illustration asset ID
-  backgroundGradient?: CSSGradientDeclaration
-  backgroundObjects?: Array<{
-    image: string // Illustration asset ID
-    width: number // in pixels
-    height: number // in pixels
-    top: number // Percentage as decimal
-    left: number // Percentage as decimal
-  }>
-  foregroundGradient?: CSSGradientDeclaration
-  cloudOpacity?: number // Percentage as decimal
-  invertUITextColor?: boolean
-}
-
-export interface SkyboxDefWithStyles extends SkyboxDefinition {
-  id: string
-  style: React.CSSProperties
-  iconStyle: React.CSSProperties
-}
+import type {
+  CSSGradientDeclaration,
+  CSSGradientStop,
+  SkyboxDefWithStyles,
+  SkyboxDefinition
+} from '@streetmix/types'
 
 /**
  * Converts information from skybox-defs.json to create a string value

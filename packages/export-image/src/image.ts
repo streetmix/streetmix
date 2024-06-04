@@ -8,6 +8,7 @@ import { TILE_SIZE } from './constants.js'
 import { drawGround } from './ground.js'
 import { drawSegmentLabelBackground, drawSegmentLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
+import { drawSky } from './sky.js'
 import { drawWatermark } from './watermark.js'
 
 import type { Street, StreetImageOptions } from '@streetmix/types'
@@ -100,6 +101,19 @@ export async function makeStreetImage (
   const horizonLine = groundLevel + 20
 
   try {
+    // Sky
+    if (!options.transparentSky) {
+      await drawSky(
+        ctx,
+        street,
+        baseWidth,
+        baseHeight,
+        horizonLine,
+        groundLevel,
+        options.scale
+      )
+    }
+
     // Ground
     drawGround(ctx, street, baseWidth, horizonLine, groundLevel, options.scale)
 
@@ -136,10 +150,11 @@ export async function makeStreetImage (
 
   // Test rendering an SVG
   try {
-    // Must assemble path with __dirname to read from filesystem
-    const image = await Canvas.loadImage(
-      path.join(__dirname, '../assets/planter-box.svg')
-    )
+    // Resolve path to illustration package
+    const file = import.meta
+      .resolve('@streetmix/illustrations/images/construction/cone.svg')
+      .replace('file://', '')
+    const image = await Canvas.loadImage(file)
 
     // Set the width and height here to scale properly
     image.width = image.width * options.scale
