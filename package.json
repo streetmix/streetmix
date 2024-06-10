@@ -110,7 +110,7 @@
     "@vitest/coverage-v8": "1.6.0",
     "axios-mock-adapter": "1.22.0",
     "concurrently": "8.2.2",
-    "cypress": "13.10.0",
+    "cypress": "13.11.0",
     "eslint": "8.57.0",
     "eslint-config-standard": "17.1.0",
     "eslint-config-standard-jsx": "11.0.0",
