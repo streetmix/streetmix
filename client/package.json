@@ -77,12 +77,12 @@
     "slugify": "1.6.6"
   },
   "devDependencies": {
-    "@babel/core": "7.24.6",
-    "@babel/eslint-parser": "7.24.6",
-    "@babel/plugin-syntax-import-attributes": "7.24.6",
-    "@babel/preset-env": "7.24.6",
-    "@babel/preset-react": "7.24.6",
-    "@babel/preset-typescript": "7.24.6",
+    "@babel/core": "7.24.7",
+    "@babel/eslint-parser": "7.24.7",
+    "@babel/plugin-syntax-import-attributes": "7.24.7",
+    "@babel/preset-env": "7.24.7",
+    "@babel/preset-react": "7.24.7",
+    "@babel/preset-typescript": "7.24.7",
     "@parcel/transformer-sass": "2.12.0",
     "@testing-library/dom": "10.1.0",
     "@testing-library/jest-dom": "6.4.2",
